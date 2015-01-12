@@ -20,19 +20,9 @@
         <img src="/WydatkiPoslow/img/poslanka.svg" class="poslankaBckgrnd"/>
         <img src="/WydatkiPoslow/img/posel.svg" class="poselBckgrnd"/>
 	    <a target="_blank" class="wszystkie btn btn-primary" href="/dane/poslowie_biura_wydatki">Zobacz wszystkie dane w formie listy &raquo;</a>
-		
-		<div class="social">
-		<script language="javascript">
-		// wykopywarka wersja standardowa (72x65)
-		var wykop_url="http://mojepanstwo.pl/wydatki_poslow";// Link do strony
-		var wykop_title=encodeURIComponent('Wydatki posłów');	// Tytuł strony (pobierany z <title>)
-		var wykop_desc=encodeURIComponent('Sprawdź na co posłowie wydają publiczne pieniądze');
-		var widget_bg='7CAD2B';
-		var widget_type='normal';
-		var widget_url='http://www.wykop.pl/dataprovider/diggerwidget/?url='+encodeURIComponent(wykop_url)+'&title='+(wykop_title)+'&desc='+(wykop_desc)+'&bg='+(widget_bg)+'&type='+(widget_type);
-		document.write('<div><iframe src="'+widget_url+'" style="border:none;width:72px;height:65px;overflow:hidden;margin:0;padding:0;" frameborder="0" border="0"></iframe></div>');</script>
-		</div>
-		
+
+        <div class="social"></div>
+
     </div>
 
 	<? /*
@@ -41,45 +31,44 @@
     */ ?>
 </div>
 <div class="scene sejm" data-scene="2">
-    
+
     <div class="building"></div>
-    
-       
-    
+
+
     <div class="stat wyplacane">
         <span data-toggle="tooltip" data-placement="bottom"
               title="Kwota obejmuje wydatki na uposażenia poselskie wraz z pochodnymi, dodatki do uposażeń, odprawy emerytalne oraz wynagrodzenie Prezydium Sejmu">Wynagrodzenie</span>
-        
+
         <p class="srednio">
-        	<small class="l">Średnio na posła w 2013: </small> 
+            <small class="l">Średnio na posła w 2013:</small>
         	<span class="number"><?= number_format((54889000+7305000+985000)/460, 0, '.', ' ') ?> <small>PLN</small></span>
         </p>
-        
+
     </div>
-    
+
     <div class="stat diety">
         <span>Dieta</span>
-        
+
         <p class="srednio">
-        	<small class="l">Średnio na posła w 2013: </small> 
+            <small class="l">Średnio na posła w 2013:</small>
         	<span class="number"><?= number_format((13607000)/460, 0, '.', ' ') ?> <small>PLN</small></span>
         </p>
-        
+
     </div>
-    
+
 </div>
 <div class="scene biuro" data-scene="3">
-        
+
     <?= $this->element('WydatkiPoslow.stat', array(
 	    'id' => 9,
 	    'slug' => 'biura'
 	)) ?>
-	
-	<?= $this->element('WydatkiPoslow.stat', array(
+
+    <?= $this->element('WydatkiPoslow.stat', array(
 	    'id' => 1,
 	    'slug' => 'pracownikow'
 	)) ?>
-        
+
     <? /*
     <div class="stat konserwacje">
         <span data-toggle="tooltip" data-placement="bottom"
@@ -103,17 +92,17 @@
     <div class="marker"></div>
 </div>
 <div class="scene sklep" data-scene="4">
-    
+
     <?= $this->element('WydatkiPoslow.stat', array(
 	    'id' => 10,
 	    'slug' => 'materialy'
 	)) ?>
-	
-	<?= $this->element('WydatkiPoslow.stat', array(
+
+    <?= $this->element('WydatkiPoslow.stat', array(
 	    'id' => 11,
 	    'slug' => 'srodki'
 	)) ?>
-    
+
     <div class="marker"></div>
 </div>
 
@@ -164,27 +153,27 @@
         <p>Spotkanie z posłem</p>
     </div>
     <div class="men"></div>
-    
+
     <?= $this->element('WydatkiPoslow.stat', array(
 	    'id' => 6,
 	    'slug' => 'sala'
 	)) ?>
-    
+
     <div class="marker"></div>
 </div>
 <div class="scene tlumaczenia" data-scene="8">
-    
+
     <?= $this->element('WydatkiPoslow.stat', array(
 	    'id' => 7,
 	    'slug' => 'przejazd'
 	)) ?>
-	
-	<?= $this->element('WydatkiPoslow.stat', array(
+
+    <?= $this->element('WydatkiPoslow.stat', array(
 	    'id' => 3,
 	    'slug' => 'ekspertyzy'
 	)) ?>
-	
-	<?= $this->element('WydatkiPoslow.stat', array(
+
+    <?= $this->element('WydatkiPoslow.stat', array(
 	    'id' => 2,
 	    'slug' => 'zlecenia'
 	)) ?>
@@ -192,19 +181,19 @@
     <div class="marker"></div>
 </div>
 <div class="scene dom" data-scene="9">
-	
-	<?= $this->element('WydatkiPoslow.stat', array(
+
+    <?= $this->element('WydatkiPoslow.stat', array(
 	    'id' => 4,
 	    'slug' => 'telefonPosel'
 	)) ?>
-	
-    
+
+
     <div class="stat prywatny">
         <span data-toggle="tooltip" data-placement="bottom"
               title="Posłom, którzy nie są zameldowani na pobyt stały w Warszawie i nie posiadają innego uprawnienia do zakwaterowania na terenie tego miasta przysługuje refundacja kosztów za najem kwatery prywatnej">Koszty wynajmu kwater prywatnych</span>
-        
+
         <p class="srednio">
-        	<small class="l">Średnio na posła w 2013: </small> 
+            <small class="l">Średnio na posła w 2013:</small>
         	<span class="number"><?= number_format((4239804)/460, 0, '.', ' ') ?> <small>PLN</small></span>
         </p>
 
@@ -212,48 +201,39 @@
 
 </div>
 <div class="scene droga" data-scene="10">
-    
+
     <?= $this->element('WydatkiPoslow.stat', array(
 	    'id' => 8,
 	    'slug' => 'taksowka'
 	)) ?>
-    
+
     <div class="marker"></div>
 </div>
 <div class="scene lotnisko" data-scene="11">
     <div class="building"></div>
-    
+
     <?= $this->element('WydatkiPoslow.stat', array(
 	    'id' => 12,
 	    'slug' => 'loty'
 	)) ?>
-	
+
     <div class="marker"></div>
 </div>
 <div class="scene lot" data-scene="12"></div>
 <div class="scene stats" data-scene="13">
     <div class="screen">
-        
+
         <div class="scrollHint">
 	        <img src="/WydatkiPoslow/img/jeszczeRaz.svg" class="scrollInfo repeat"/>
 	        <img src="/WydatkiPoslow/img/poslanka.svg" class="poslankaBckgrnd"/>
 	        <img src="/WydatkiPoslow/img/posel.svg" class="poselBckgrnd"/>
 		    <a target="_blank" class="wszystkie btn btn-primary" href="/dane/poslowie_biura_wydatki">Zobacz wszystkie dane w formie listy &raquo;</a>
-		    
-		    <div class="social">
-			<script language="javascript">
-			// wykopywarka wersja standardowa (72x65)
-			var wykop_url="http://mojepanstwo.pl/wydatki_poslow";// Link do strony
-			var wykop_title=encodeURIComponent('Wydatki posłów');	// Tytuł strony (pobierany z <title>)
-			var wykop_desc=encodeURIComponent('Sprawdź na co posłowie wydają publiczne pieniądze');
-			var widget_bg='7CAD2B';
-			var widget_type='normal';
-			var widget_url='http://www.wykop.pl/dataprovider/diggerwidget/?url='+encodeURIComponent(wykop_url)+'&title='+(wykop_title)+'&desc='+(wykop_desc)+'&bg='+(widget_bg)+'&type='+(widget_type);
-			document.write('<div><iframe src="'+widget_url+'" style="border:none;width:72px;height:65px;overflow:hidden;margin:0;padding:0;" frameborder="0" border="0"></iframe></div>');</script>
-			</div>
+
+            <div class="social">
+                <div>
 	    </div>
-        
-    </div>
+
+            </div>
 </div>
 </div>
 <div class="near">
