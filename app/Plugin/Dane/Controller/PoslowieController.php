@@ -11,22 +11,22 @@ class PoslowieController extends DataobjectsController
 
     public $menu = array();
     public $breadcrumbsMode = 'app';
-	
-	public $objectOptions = array(
-		'hlFields' => array('sejm_kluby.nazwa'),
-	);
-	
+
+    public $objectOptions = array(
+        'hlFields' => array('sejm_kluby.nazwa'),
+    );
+
     public function view()
     {
 
         // $this->addInitLayers(array('terms'));
         parent::view();
-                
+
         $this->prepareFeed(array(
-	        'perPage' => 20,
+            'perPage' => 20,
         ));
-		
-		/*
+
+        /*
         if (($terms = $this->object->getLayer('terms')) && !empty($terms)) {
 
             $font = array(
@@ -85,7 +85,7 @@ class PoslowieController extends DataobjectsController
             'order' => 'data_status desc',
         ));
         $this->set('poslowie_nieobecni', $this->API->getObjects());
-		*/
+        */
 
         /*
         $menu = array(
@@ -177,15 +177,15 @@ class PoslowieController extends DataobjectsController
         }
 
     }
-    
+
     public function wyjazdy()
     {
 
-		$this->addInitLayers(array('wyjazdy'));
+        $this->addInitLayers(array('wyjazdy'));
         parent::view();
-		
-		$this->set('title_for_layout', "Wyjazdy zagraniczne " . $this->object->getData('dopelniacz'));
-		
+
+        $this->set('title_for_layout', "Wyjazdy zagraniczne " . $this->object->getData('dopelniacz'));
+
     }
 
 
@@ -193,24 +193,24 @@ class PoslowieController extends DataobjectsController
     {
 
         parent::_prepareView();
-		
-		/*		
-		try {
-	        if (
-	            $this->object->getData('krs_osoba_id') &&
-	            ($krs_osoba = $this->API->Dane()->getObject('krs_osoby', $this->object->getData('krs_osoba_id'))) &&
-	            $krs_osoba->loadLayer('organizacje')
-	        ) {
-	
-	            $this->set('krs_osoba', $krs_osoba);
-	
-	        }
+
+        /*
+        try {
+            if (
+                $this->object->getData('krs_osoba_id') &&
+                ($krs_osoba = $this->API->Dane()->getObject('krs_osoby', $this->object->getData('krs_osoba_id'))) &&
+                $krs_osoba->loadLayer('organizacje')
+            ) {
+
+                $this->set('krs_osoba', $krs_osoba);
+
+            }
         } catch(Exception $e) {
-	        
-	        
-	        
+
+
+
         }
-	    */
+        */
 
         $wydatki = $this->object->loadLayer('wydatki');
         $rok = @$this->request->params['pass'][0];
@@ -400,7 +400,7 @@ class PoslowieController extends DataobjectsController
             'noResultsTitle' => 'Brak wyników głosowań',
             'excludeFilters' => array('poslowie_glosy.klub_id'),
             'renderFile' => 'poslowie-glosy',
-			'class' => 'glosowania-glosy',
+            'class' => 'glosowania-glosy',
         ));
     }
 
@@ -487,7 +487,7 @@ class PoslowieController extends DataobjectsController
         $this->set('title_for_layout', 'Uchwały Komisji Etyki wobec ' . $this->object->getData('dopelniacz'));
     }
 
-    
+
     public function beforeRender()
     {
 
@@ -502,7 +502,7 @@ class PoslowieController extends DataobjectsController
                     'id' => '',
                     'href' => $href_base,
                     'label' => 'Aktualności',
-					'icon' => 'glyphicon glyphicon-feed',
+                    'icon' => 'glyphicon glyphicon-feed',
                 ),
             )
         );
@@ -510,7 +510,7 @@ class PoslowieController extends DataobjectsController
         $menu['items'][] = array(
             'id' => 'dane',
             'label' => 'Dane',
-			'icon' => 'glyphicon glyphicon-align-justify',
+            'icon' => 'glyphicon glyphicon-align-justify',
             'dropdown' => array(
                 'items' => array(
                     array(
@@ -554,7 +554,7 @@ class PoslowieController extends DataobjectsController
             'label' => 'Wydatki',
             'icon' => 'glyphicon glyphicon-spendings',
         );
-        
+
         $menu['items'][] = array(
             'id' => 'wyjazdy',
             'href' => $href_base . '/wyjazdy',

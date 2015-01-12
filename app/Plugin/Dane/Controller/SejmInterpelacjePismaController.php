@@ -10,7 +10,7 @@ class SejmInterpelacjePismaController extends DocsObjectsController
     {
 
         parent::_prepareView();
-        $this->redirect( $this->object->getUrl() );
+        $this->redirect($this->object->getUrl());
         die();
 
     }

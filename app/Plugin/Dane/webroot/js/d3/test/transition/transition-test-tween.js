@@ -33,8 +33,8 @@ module.exports = {
                 fails: fails
             });
             return i && function (t) {
-                this.textContent = d3.hsl(230, 0.5, t) + "";
-            };
+                    this.textContent = d3.hsl(230, 0.5, t) + "";
+                };
         }
     },
 

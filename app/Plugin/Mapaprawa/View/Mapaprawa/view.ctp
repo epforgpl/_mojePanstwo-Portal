@@ -9,7 +9,7 @@
 <?php echo $this->Html->script('//cdn.jsdelivr.net/raphael/2.1.0/raphael-min.js', array('block' => 'scriptBlock')); ?>
 <?php echo $this->Html->script('//cdn.jsdelivr.net/jsrender/1.0pre35/jsrender.min.js', array('block' => 'scriptBlock')); ?>
 
-<script>var data = <?php echo json_encode($path); ?></script>
+<script>var data =; <?php echo json_encode($path); ?></script>
 
 <div id="mapaprawa">
     <div class="container">
@@ -41,7 +41,7 @@
                         <div id="lawMap" class="lawMap">
                             <div id="svgLines"></div>
                             <?php $nodeCenter = 150;
-                            $padding = 45;?>
+                            $padding = 45; ?>
 
                             <?php foreach ($path as $p) { ?>
                                 <div class="slide <?php if (isset($p['status'])) {

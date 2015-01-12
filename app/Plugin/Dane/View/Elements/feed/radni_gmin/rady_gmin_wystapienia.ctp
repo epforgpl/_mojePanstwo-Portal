@@ -7,7 +7,7 @@ $thumbSize = 2;
 $size = 3;
 
 if ($object->getThumbnailUrl($thumbSize)) {
-?>
+    ?>
 
     <div class="attachment col-md-<?= $size ?> text-center">
         <?php if ($object->getUrl() != false) { ?>
@@ -32,7 +32,8 @@ if ($object->getThumbnailUrl($thumbSize)) {
 
         <p class="title">
             <?php if ($object->getUrl() != false) { ?>
-            <a href="<?= $object->getUrl() ?>" title="<?= strip_tags(addslashes($object->getData('krakow_posiedzenia_punkty.tytul'))) ?>">
+            <a href="<?= $object->getUrl() ?>"
+               title="<?= strip_tags(addslashes($object->getData('krakow_posiedzenia_punkty.tytul'))) ?>">
                 <?php } ?>
                 <?= $this->Text->truncate($object->getData('krakow_posiedzenia_punkty.tytul'), 200) ?>
                 <?php if ($object->getUrl() != false) { ?>
@@ -42,7 +43,7 @@ if ($object->getThumbnailUrl($thumbSize)) {
             echo '<small>' . $object->getTitleAddon() . '</small>';
         } ?>
         </p>
-        
+
         <?= $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults) ?>
 
         <? if ($object->getDescription()) { ?>
@@ -65,7 +66,8 @@ if ($object->getThumbnailUrl($thumbSize)) {
 
         <p class="title">
             <?php if ($object->getUrl() != false){ ?>
-            <a href="<?= $object->getUrl() ?>" title="<?= strip_tags(addslashes($object->getData('krakow_posiedzenia_punkty.tytul'))) ?>">
+            <a href="<?= $object->getUrl() ?>"
+               title="<?= strip_tags(addslashes($object->getData('krakow_posiedzenia_punkty.tytul'))) ?>">
                 <?php } ?>
                 <?= $this->Text->truncate($object->getData('krakow_posiedzenia_punkty.tytul'), 200) ?>
                 <?php if ($object->getUrl() != false){ ?>
@@ -75,7 +77,7 @@ if ($object->getThumbnailUrl($thumbSize)) {
             echo '<small>' . $object->getTitleAddon() . '</small>';
         } ?>
         </p>
-        
+
         <?= $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults) ?>
 
         <? if ($object->getDescription()) { ?>

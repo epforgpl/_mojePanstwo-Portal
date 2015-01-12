@@ -58,112 +58,118 @@
  * @link https://github.com/zeroasterisk/CakePHP-Expandable-Plugin
  *
  */
-class ExpandableBehavior extends ModelBehavior {
+class ExpandableBehavior extends ModelBehavior
+{
 
-	public $settings = array();
+    public $settings = array();
 
-	private $_fieldsToSave = array();
+    private $_fieldsToSave = array();
 
-	/**
-	 * Setup the model
-	 *
-	 * @param object Model $Model
-	 * @param array $settings
-	 *
-	 * @return boolean
-	 */
-	public function setup( Model $Model, $settings = array() ) {
-		if ( isset( $settings['with'] ) ) {
-			$base     = array( 'schema' => $Model->schema() );
-			$settings = array_merge( $settings, $base );
+    /**
+     * Setup the model
+     *
+     * @param object Model $Model
+     * @param array $settings
+     *
+     * @return boolean
+     */
+    public function setup(Model $Model, $settings = array())
+    {
+        if (isset($settings['with'])) {
+            $base = array('schema' => $Model->schema());
+            $settings = array_merge($settings, $base);
 
-			return $this->settings[ $Model->alias ] = $settings;
-		}
-	}
+            return $this->settings[$Model->alias] = $settings;
+        }
+    }
 
-	public function beforeFind( Model $model, $query ) {
-		return $query;
-	}
+    public function beforeFind(Model $model, $query)
+    {
+        return $query;
+    }
 
 
-	/**
-	 * Standard afterFind() callback
-	 * Inject the expandable data (as fields)
-	 *
-	 * @param object Model $Model
-	 * @param mixed $results
-	 * @param boolean $primary
-	 *
-	 * @return mixed $results
-	 */
-	public function afterFind( Model $Model, $results, $primary ) {
-		$settings = $this->settings[ $Model->alias ];
-		if ( ! empty( $settings['with'] ) ) {
-			$with = $settings['with'];
-			if ( ! Set::matches( '/' . $with, $results ) ) {
-				return;
-			}
-			foreach ( array_keys( $results ) as $i ) {
-				foreach ( array_keys( $results[ $i ][ $with ] ) as $j ) {
-					$key                                    = $results[ $i ][ $with ][ $j ]['key'];
-					$value                                  = $results[ $i ][ $with ][ $j ]['value'];
-					$results[ $i ][ $Model->alias ][ $key ] = $value;
-				}
-			}
-		}
+    /**
+     * Standard afterFind() callback
+     * Inject the expandable data (as fields)
+     *
+     * @param object Model $Model
+     * @param mixed $results
+     * @param boolean $primary
+     *
+     * @return mixed $results
+     */
+    public function afterFind(Model $Model, $results, $primary)
+    {
+        $settings = $this->settings[$Model->alias];
+        if (!empty($settings['with'])) {
+            $with = $settings['with'];
+            if (!Set::matches('/' . $with, $results)) {
+                return;
+            }
+            foreach (array_keys($results) as $i) {
+                foreach (array_keys($results[$i][$with]) as $j) {
+                    $key = $results[$i][$with][$j]['key'];
+                    $value = $results[$i][$with][$j]['value'];
+                    $results[$i][$Model->alias][$key] = $value;
+                }
+            }
+        }
 
-		return $results;
-	}
+        return $results;
+    }
 
-	/**
-	 * Standard beforeSave() callback
-	 * Sets up what data will be saved for expandable
-	 *
-	 * @param object Model $Model
-	 *
-	 * @return boolean
-	 */
-	public function beforeSave( Model $Model ) {
-		$settings            = $this->settings[ $Model->alias ];
-		$this->_fieldsToSave = array_diff_key( $Model->data[ $Model->alias ], $settings['schema'] );
+    /**
+     * Standard beforeSave() callback
+     * Sets up what data will be saved for expandable
+     *
+     * @param object Model $Model
+     *
+     * @return boolean
+     */
+    public function beforeSave(Model $Model)
+    {
+        $settings = $this->settings[$Model->alias];
+        $this->_fieldsToSave = array_diff_key($Model->data[$Model->alias], $settings['schema']);
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * Standard afterSave() callback
-	 * Actually save the expandable data (one record for each fieldsToSave)
-	 *
-	 * @param object Model $Model
-	 * @param boolean $created
-	 *
-	 * @return boolean
-	 */
-	public function afterSave( Model $Model, $created ) {
-		$settings = $this->settings[ $Model->alias ];
-		if ( ! empty( $settings['with'] ) && ! empty( $this->_fieldsToSave ) ) {
-			$with       = $settings['with'];
-			$assoc      = $Model->hasMany[ $with ];
-			$foreignKey = $assoc['foreignKey'];
-			$id         = $Model->id;
-			foreach ( $this->_fieldsToSave as $key => $val ) {
-				$fieldId = $Model->{$with}->field( 'id', array(
-					$with . '.' . $foreignKey => $id,
-					$with . '.key'            => $key
-				) );
-				$data    = array( 'value' => $val );
-				if ( ! empty( $fieldId ) ) {
-					$Model->{$with}->id = $fieldId;
-				} else {
-					$Model->{$with}->create();
-					$data[ $foreignKey ] = $id;
-					$data['key']         = $key;
-				}
-				$saved = $Model->{$with}->save( $data );
-			}
+    /**
+     * Standard afterSave() callback
+     * Actually save the expandable data (one record for each fieldsToSave)
+     *
+     * @param object Model $Model
+     * @param boolean $created
+     *
+     * @return boolean
+     */
+    public function afterSave(Model $Model, $created)
+    {
+        $settings = $this->settings[$Model->alias];
+        if (!empty($settings['with']) && !empty($this->_fieldsToSave)) {
+            $with = $settings['with'];
+            $assoc = $Model->hasMany[$with];
+            $foreignKey = $assoc['foreignKey'];
+            $id = $Model->id;
+            foreach ($this->_fieldsToSave as $key => $val) {
+                $fieldId = $Model->{$with}->field('id', array(
+                    $with . '.' . $foreignKey => $id,
+                    $with . '.key' => $key
+                ));
+                $data = array('value' => $val);
+                if (!empty($fieldId)) {
+                    $Model->{$with}->id = $fieldId;
+                } else {
+                    $Model->{$with}->create();
+                    $data[$foreignKey] = $id;
+                    $data['key'] = $key;
+                }
+                $saved = $Model->{$with}->save($data);
+            }
 
-			return true;
-		}
-	}
+            return true;
+        }
+    }
 
 }

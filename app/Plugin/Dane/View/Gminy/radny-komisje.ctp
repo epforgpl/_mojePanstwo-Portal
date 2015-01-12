@@ -20,18 +20,19 @@ echo $this->Element('Dane.dataobject/subobject', array(
 ));
 
 ?>
-	
-	
+
+
     <div class="col-md-10 col-md-offset-1">
         <div id="komisje" class="object">
 
-			
-			
-            <? if( $komisje = $radny->getLayer('komisje') ) { ?>
 
-                <h1 class="light"><a href="<?= $radny->getUrl() ?>" class="btn-back glyphicon glyphicon-circle-arrow-left"></a> Komisje, w których zasiada radny</h1>
-				
-				<div class="block sklad padding">
+            <? if ($komisje = $radny->getLayer('komisje')) { ?>
+
+                <h1 class="light"><a href="<?= $radny->getUrl() ?>"
+                                     class="btn-back glyphicon glyphicon-circle-arrow-left"></a> Komisje, w których
+                    zasiada radny</h1>
+
+                <div class="block sklad padding">
                     <ul class="list-group list-dataobjects">
 
                         <? foreach ($komisje as $komisja) { ?>
@@ -54,15 +55,15 @@ echo $this->Element('Dane.dataobject/subobject', array(
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
 
                         <? } ?>
 
                     </ul>
                 </div>
-				
-				
+
+
             <? } ?>
 
         </div>

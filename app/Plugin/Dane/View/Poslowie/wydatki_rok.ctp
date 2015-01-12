@@ -5,19 +5,19 @@
 <?php echo $this->Html->css($document->getCSSLocation()); ?>
 
 <?= $this->Element('dataobject/pageBegin', array(
-	'titleTag' => 'p',
+    'titleTag' => 'p',
 )) ?>
-	
-	<? /* <a href="/dane/poslowie/<?= $object->getId() ?>/finanse">Wszystkie wydatki &raquo;</a> */ ?>
-	<div class="object-nav">
-		<h1 class="title">Wydatki biura poselskiego w <?= $rocznik['rok'] ?> roku</h1>
-	</div>
-	
-	<?
-		echo $this->Element('docsBrowser/doc', array(
-		    'document' => $document,
-		    'documentPackage' => $documentPackage,
-		));
-	?>
+
+<? /* <a href="/dane/poslowie/<?= $object->getId() ?>/finanse">Wszystkie wydatki &raquo;</a> */ ?>
+    <div class="object-nav">
+        <h1 class="title">Wydatki biura poselskiego w <?= $rocznik['rok'] ?> roku</h1>
+    </div>
+
+<?
+echo $this->Element('docsBrowser/doc', array(
+    'document' => $document,
+    'documentPackage' => $documentPackage,
+));
+?>
 
 <?= $this->Element('dataobject/pageEnd') ?>

@@ -75,14 +75,14 @@ d3.layout.cluster = function () {
 
 function d3_layout_clusterY(children) {
     return 1 + d3.max(children, function (child) {
-        return child.y;
-    });
+            return child.y;
+        });
 }
 
 function d3_layout_clusterX(children) {
     return children.reduce(function (x, child) {
-        return x + child.x;
-    }, 0) / children.length;
+            return x + child.x;
+        }, 0) / children.length;
 }
 
 function d3_layout_clusterLeft(node) {

@@ -17,14 +17,14 @@
  **/
 
 $panels = array();
-foreach ( $toolbarState as $panelName => $panel ) {
-	if ( ! empty( $panel ) ) {
-		$panels[ $panelName ] = $this->element( $panel['elementName'], array(
-			'content' => $panel['content']
-		), array(
-			'plugin' => Inflector::camelize( $panel['plugin'] )
-		) );
-	}
+foreach ($toolbarState as $panelName => $panel) {
+    if (!empty($panel)) {
+        $panels[$panelName] = $this->element($panel['elementName'], array(
+            'content' => $panel['content']
+        ), array(
+            'plugin' => Inflector::camelize($panel['plugin'])
+        ));
+    }
 }
-echo json_encode( $panels );
-Configure::write( 'debug', 0 );
+echo json_encode($panels);
+Configure::write('debug', 0);

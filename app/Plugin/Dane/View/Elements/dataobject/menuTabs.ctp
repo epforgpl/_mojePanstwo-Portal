@@ -30,13 +30,13 @@
             <li class="<?= implode(' ', $classes) ?>"><a <? if ($dropdown) { ?>class="dropdown-toggle"
                                                          data-toggle="dropdown"
                                                          <? } ?>href="<?= isset($m['href']) ? $m['href'] : '#' ?>">
-	                                                         
-	            <? if( isset($m['icon']) ) {?><span class="<?= $m['icon'] ?>"></span> <? } ?>
-	            
-	            <?= $m['label'] ?><? if (isset($m['count']) && $m['count']) { ?>
-                        
-                        
-                        
+
+                    <? if (isset($m['icon'])) { ?><span class="<?= $m['icon'] ?>"></span> <? } ?>
+
+                    <?= $m['label'] ?><? if (isset($m['count']) && $m['count']) { ?>
+
+
+
                         <span class="badge"><?= $m['count'] ?></span><? } ?><? if ($dropdown) { ?> <span
                         class="caret"></span><? } ?></a><? if ($dropdown) { ?>
                     <ul class="dropdown-menu">

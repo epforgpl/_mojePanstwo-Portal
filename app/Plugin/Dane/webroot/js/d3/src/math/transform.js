@@ -34,14 +34,13 @@ function d3_transform(m) {
     this.translate = [m.e, m.f];
     this.scale = [kx, ky];
     this.skew = ky ? Math.atan2(kz, ky) * d3_degrees : 0;
-};
-
+}
 d3_transform.prototype.toString = function () {
     return "translate(" + this.translate
-    + ")rotate(" + this.rotate
-    + ")skewX(" + this.skew
-    + ")scale(" + this.scale
-    + ")";
+        + ")rotate(" + this.rotate
+        + ")skewX(" + this.skew
+        + ")scale(" + this.scale
+        + ")";
 };
 
 function d3_transformDot(a, b) {

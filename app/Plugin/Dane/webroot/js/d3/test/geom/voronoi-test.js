@@ -273,7 +273,7 @@ suite.addBatch({
                     assert.isTrue(cells.every(function (cell) {
                         return cell.every(function (point) {
                             return point[0] >= 0 && point[0] <= 960
-                            && point[1] >= 0 && point[1] <= 500;
+                                && point[1] >= 0 && point[1] <= 500;
                         });
                     }));
                 }

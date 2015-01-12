@@ -1,13 +1,14 @@
 <div class="objectPageHeaderContainer subobjectContainer">
     <div class="container" style="width: inherit;">
-	    <?
-		    $col_width = '11';
-		    if( isset( $back ) ) {
-			    $col_width = '10';
-	    ?>
-        <div class="col-md-1 btn-back-cont">
-	        <a class="btn-back glyphicon glyphicon-circle-arrow-left" href="<?= $back['href'] ?>" title="<?= addslashes( $back['title'] ) ?>"></a>
-        </div>
+        <?
+        $col_width = '11';
+        if (isset($back)) {
+            $col_width = '10';
+            ?>
+            <div class="col-md-1 btn-back-cont">
+                <a class="btn-back glyphicon glyphicon-circle-arrow-left" href="<?= $back['href'] ?>"
+                   title="<?= addslashes($back['title']) ?>"></a>
+            </div>
         <? } ?>
         <div class="col-md-<?= $col_width ?>">
             <div class="objectPageHeader">

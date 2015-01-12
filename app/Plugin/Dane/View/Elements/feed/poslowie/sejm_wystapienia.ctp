@@ -17,7 +17,7 @@ $hlFields = array('sejm_debaty.tytul');
     }
     ?>
     </p>
-    
+
     <?= $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults) ?>
 
 </div>

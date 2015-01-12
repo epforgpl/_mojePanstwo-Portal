@@ -6,25 +6,25 @@ class InstytucjeController extends DataobjectsController
 {
     public $menu = array();
     public $initLayers = array('instytucja_nadrzedna', 'tree', 'menu', 'info');
-	
-	public function view()
-	{
-				
-		parent::_prepareView();
-		
-		if( $this->object->getData('file')=='1' ) 
-        	$this->prepareFeed();
-		
-	}
-	
-	public function instytucje()
-	{
-				
-		parent::_prepareView();
-		$this->request->params['action'] = 'instytucje';
-		
-	}
-	
+
+    public function view()
+    {
+
+        parent::_prepareView();
+
+        if ($this->object->getData('file') == '1')
+            $this->prepareFeed();
+
+    }
+
+    public function instytucje()
+    {
+
+        parent::_prepareView();
+        $this->request->params['action'] = 'instytucje';
+
+    }
+
     public function prawo()
     {
         parent::_prepareView();
@@ -43,7 +43,7 @@ class InstytucjeController extends DataobjectsController
         $this->set('title_for_layout', "Akty prawne wydane przez " . $this->object->getTitle());
 
     }
-    
+
     public function tweety()
     {
         parent::_prepareView();
@@ -55,7 +55,7 @@ class InstytucjeController extends DataobjectsController
             'back' => $this->object->getUrl(),
             'backTitle' => $this->object->getTitle(),
             'excludeFilters' => array(
-	            'twitter_accounts.id', 'twitter_accounts.typ_id'
+                'twitter_accounts.id', 'twitter_accounts.typ_id'
             ),
         ));
 
@@ -119,19 +119,19 @@ class InstytucjeController extends DataobjectsController
                 'label' => 'Budżet',
             );
         }
-		
-		if ( $this->object->getData('liczba_instytucji') ) {
-			
-			$menu['items'][] = array(
+
+        if ($this->object->getData('liczba_instytucji')) {
+
+            $menu['items'][] = array(
                 'id' => 'instytucje',
                 'href' => $href_base . '/instytucje',
                 'label' => 'Instytucje nadzorowane',
             );
-			
-		}
-		
-		$items = array();
-				
+
+        }
+
+        $items = array();
+
         if (isset($_menu['zamowienia_udzielone']) && !empty($_menu['zamowienia_udzielone'])) {
             $items['items'][] = array(
                 'id' => 'zamowienia',
@@ -147,28 +147,28 @@ class InstytucjeController extends DataobjectsController
                 'label' => 'Akty prawne',
             );
         }
-        
-        if( $this->object->getData('twitter_account_id') ) {
-	        $items['items'][] = array(
+
+        if ($this->object->getData('twitter_account_id')) {
+            $items['items'][] = array(
                 'id' => 'tweety',
                 'href' => $href_base . '/tweety',
                 'label' => 'Tweety',
             );
         }
-        
-        if( !empty($items) ) {
-	        $menu['items'][] = array(
-	            'id' => 'dane',
-	            'label' => 'Dane',
-	            'dropdown' => $items,
-	        );
+
+        if (!empty($items)) {
+            $menu['items'][] = array(
+                'id' => 'dane',
+                'label' => 'Dane',
+                'dropdown' => $items,
+            );
         }
 
-		
+
         $menu['selected'] = ($this->request->params['action'] == 'view') ? '' : $this->request->params['action'];
 
-        $this->set('_menu', $menu);        
-        
+        $this->set('_menu', $menu);
+
 
     }
 

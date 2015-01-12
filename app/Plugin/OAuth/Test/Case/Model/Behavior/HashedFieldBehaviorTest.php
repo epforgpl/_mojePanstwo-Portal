@@ -1,73 +1,79 @@
 <?php
 
-App::uses( 'CakeTestCase', 'TestSuite' );
+App::uses('CakeTestCase', 'TestSuite');
 
-class HashedFieldBehaviorTest extends CakeTestCase {
+class HashedFieldBehaviorTest extends CakeTestCase
+{
 
-	public $fixtures = array(
-		'plugin.o_auth.access_token',
-	);
+    public $fixtures = array(
+        'plugin.o_auth.access_token',
+    );
 
-	protected $_clientId = '1234567890';
+    protected $_clientId = '1234567890';
 
-	protected $_token = '0123456789abcdefghijklmnopqrstuvwxyz';
+    protected $_token = '0123456789abcdefghijklmnopqrstuvwxyz';
 
-	public function setUp() {
-		$this->AccessToken            = ClassRegistry::init( 'OAuth.AccessToken' );
-		$this->AccessToken->recursive = - 1;
-	}
+    public function setUp()
+    {
+        $this->AccessToken = ClassRegistry::init('OAuth.AccessToken');
+        $this->AccessToken->recursive = -1;
+    }
 
-	public function testBeforeSave() {
-		$this->_createToken();
+    public function testBeforeSave()
+    {
+        $this->_createToken();
 
-		$result   = $this->AccessToken->findByClientId( $this->_clientId );
-		$expected = Security::hash( $this->_token, null, true );
-		$this->assertEquals( $expected, $result['AccessToken']['oauth_token'] );
-	}
+        $result = $this->AccessToken->findByClientId($this->_clientId);
+        $expected = Security::hash($this->_token, null, true);
+        $this->assertEquals($expected, $result['AccessToken']['oauth_token']);
+    }
 
-	protected function _createToken() {
-		$this->AccessToken->create( array(
-			'client_id'   => $this->_clientId,
-			'oauth_token' => $this->_token,
-			'user_id'     => 69,
-			'expires'     => time() + 86400,
-		) );
-		$this->AccessToken->save();
-	}
+    protected function _createToken()
+    {
+        $this->AccessToken->create(array(
+            'client_id' => $this->_clientId,
+            'oauth_token' => $this->_token,
+            'user_id' => 69,
+            'expires' => time() + 86400,
+        ));
+        $this->AccessToken->save();
+    }
 
-	public function testBeforeFind() {
-		$this->_createToken();
+    public function testBeforeFind()
+    {
+        $this->_createToken();
 
-		$result = $this->AccessToken->find( 'first', array(
-			'conditions' => array(
-				'oauth_token' => $this->_token,
-			),
-		) );
-		$this->assertEquals( $this->_clientId, $result['AccessToken']['client_id'] );
-		$this->assertNotEquals( $this->_token, $result['AccessToken']['oauth_token'] );
-	}
+        $result = $this->AccessToken->find('first', array(
+            'conditions' => array(
+                'oauth_token' => $this->_token,
+            ),
+        ));
+        $this->assertEquals($this->_clientId, $result['AccessToken']['client_id']);
+        $this->assertNotEquals($this->_token, $result['AccessToken']['oauth_token']);
+    }
 
-	/**
-	 * test saving with missing oauth_token in POSTed data does not corrupt value
-	 */
-	public function testSavingWithMissingToken() {
-		$this->_createToken();
+    /**
+     * test saving with missing oauth_token in POSTed data does not corrupt value
+     */
+    public function testSavingWithMissingToken()
+    {
+        $this->_createToken();
 
-		$baseline = $this->AccessToken->find( 'first' );
-		$this->assertNull( $baseline['AccessToken']['scope'] );
+        $baseline = $this->AccessToken->find('first');
+        $this->assertNull($baseline['AccessToken']['scope']);
 
-		$updated                         = $baseline;
-		$updated['AccessToken']['scope'] = 'all';
-		unset( $updated['AccessToken']['oauth_token'] );
+        $updated = $baseline;
+        $updated['AccessToken']['scope'] = 'all';
+        unset($updated['AccessToken']['oauth_token']);
 
-		$this->assertFalse( array_key_exists( 'oauth_token', $updated ) );
-		$this->AccessToken->save( $updated );
+        $this->assertFalse(array_key_exists('oauth_token', $updated));
+        $this->AccessToken->save($updated);
 
-		$result = $this->AccessToken->findByClientId( $baseline['AccessToken']['client_id'] );
+        $result = $this->AccessToken->findByClientId($baseline['AccessToken']['client_id']);
 
-		$this->assertEquals( 'all', $result['AccessToken']['scope'] );
-		$expected = Security::hash( $this->_token, null, true );
-		$this->assertEquals( $expected, $result['AccessToken']['oauth_token'] );
-	}
+        $this->assertEquals('all', $result['AccessToken']['scope']);
+        $expected = Security::hash($this->_token, null, true);
+        $this->assertEquals($expected, $result['AccessToken']['oauth_token']);
+    }
 
 }

@@ -2,16 +2,16 @@
 
 $hlFields = array();
 
-if( $object->getData('typ_id')=='2' )
-	$hlFields[] = 'autor_str';
+if ($object->getData('typ_id') == '2')
+    $hlFields[] = 'autor_str';
 else
-	$hlFields[] = 'adresaci_str';
+    $hlFields[] = 'adresaci_str';
 
 $thumbSize = 2;
 $size = 2;
 
 if ($object->getThumbnailUrl($thumbSize)) {
-?>
+    ?>
 
     <div class="attachment col-md-<?= $size ?> text-center">
         <?php if ($object->getUrl() != false) { ?>
@@ -46,7 +46,7 @@ if ($object->getThumbnailUrl($thumbSize)) {
             echo '<small>' . $object->getTitleAddon() . '</small>';
         } ?>
         </p>
-        
+
         <?= $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults) ?>
 
         <? if ($object->getDescription()) { ?>
@@ -79,7 +79,7 @@ if ($object->getThumbnailUrl($thumbSize)) {
             echo '<small>' . $object->getTitleAddon() . '</small>';
         } ?>
         </p>
-        
+
         <?= $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults) ?>
 
         <? if ($object->getDescription()) { ?>

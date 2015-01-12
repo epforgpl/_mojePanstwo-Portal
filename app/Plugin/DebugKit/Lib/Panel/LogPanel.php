@@ -15,43 +15,46 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses( 'DebugPanel', 'DebugKit.Lib' );
+App::uses('DebugPanel', 'DebugKit.Lib');
 
 /**
  * Class LogPanel
  *
  */
-class LogPanel extends DebugPanel {
+class LogPanel extends DebugPanel
+{
 
-	/**
-	 * Constructor - sets up the log listener.
-	 *
-	 * @return \LogPanel
-	 */
-	public function __construct() {
-		parent::__construct();
-		$existing = CakeLog::configured();
-		if ( empty( $existing ) ) {
-			CakeLog::config( 'default', array(
-				'engine' => 'FileLog'
-			) );
-		}
-		CakeLog::config( 'debug_kit_log_panel', array(
-			'engine' => 'DebugKit.DebugKitLog',
-			'panel'  => $this
-		) );
-	}
+    /**
+     * Constructor - sets up the log listener.
+     *
+     * @return \LogPanel
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $existing = CakeLog::configured();
+        if (empty($existing)) {
+            CakeLog::config('default', array(
+                'engine' => 'FileLog'
+            ));
+        }
+        CakeLog::config('debug_kit_log_panel', array(
+            'engine' => 'DebugKit.DebugKitLog',
+            'panel' => $this
+        ));
+    }
 
-	/**
-	 * beforeRender Callback
-	 *
-	 * @param Controller $controller
-	 *
-	 * @return array
-	 */
-	public function beforeRender( Controller $controller ) {
-		$logger = $this->logger;
+    /**
+     * beforeRender Callback
+     *
+     * @param Controller $controller
+     *
+     * @return array
+     */
+    public function beforeRender(Controller $controller)
+    {
+        $logger = $this->logger;
 
-		return $logger;
-	}
+        return $logger;
+    }
 }

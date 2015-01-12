@@ -14,8 +14,8 @@
 
 
     <div class="row">
-		
-		
+
+
         <? echo $this->element('Dane.DataobjectsBrowser/filters', array(
             'filters' => $filters,
             'switchers' => $switchers,
@@ -36,7 +36,7 @@
                     'page' => $page,
                     'controlls' => $config['controlls'],
                     'didyoumean' => $didyoumean,
-		            'emptyFilters' => $emptyFilters,
+                    'emptyFilters' => $emptyFilters,
                 )); ?>
             </div>
 

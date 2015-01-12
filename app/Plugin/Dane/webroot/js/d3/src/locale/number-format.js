@@ -139,9 +139,9 @@ function d3_locale_numberFormat(locale) {
             value = before + after;
 
             return (align === "<" ? negative + value + padding
-                : align === ">" ? padding + negative + value
-                : align === "^" ? padding.substring(0, length >>= 1) + negative + value + padding.substring(length)
-                : negative + (zcomma ? value : padding + value)) + fullSuffix;
+                    : align === ">" ? padding + negative + value
+                    : align === "^" ? padding.substring(0, length >>= 1) + negative + value + padding.substring(length)
+                    : negative + (zcomma ? value : padding + value)) + fullSuffix;
         };
     };
 }

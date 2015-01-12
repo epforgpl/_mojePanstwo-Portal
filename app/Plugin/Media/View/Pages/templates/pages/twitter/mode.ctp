@@ -45,7 +45,7 @@
 
                                 <p class="counter"><? /*<a
                                         href="/dane/twitter/?!bez_retweetow=1&in_reply_to_account_id[]=<?= $object['id'] ?>&_date=LAST_<?= $range ?>">*/
-                                    ?><?= number_format($object['count'], 0, '.', ' ') ?><?/*</a>*/
+                                    ?><?= number_format($object['count'], 0, '.', ' ') ?><? /*</a>*/
                                     ?>
                                 </p>
 

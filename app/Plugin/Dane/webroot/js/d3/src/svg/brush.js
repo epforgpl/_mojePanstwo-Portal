@@ -428,7 +428,7 @@ d3.svg.brush = function () {
 
     brush.empty = function () {
         return !!x && xExtent[0] == xExtent[1]
-        || !!y && yExtent[0] == yExtent[1];
+            || !!y && yExtent[0] == yExtent[1];
     };
 
     return d3.rebind(brush, event, "on");

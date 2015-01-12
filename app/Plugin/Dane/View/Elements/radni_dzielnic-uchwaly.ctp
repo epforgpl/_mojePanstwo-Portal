@@ -7,8 +7,8 @@
     <?
 
     // debug( $object );
-	
-	$temp = '<span>{day}</span><p>{month} {year}</p>';
+
+    $temp = '<span>{day}</span><p>{month} {year}</p>';
     $ts = strtotime($object->getDate());
 
     $formatting = array(
@@ -16,30 +16,30 @@
         'year' => date('Y', $ts),
         'month' => __(date('M', $ts), true),
     );
-    
+
     foreach ($formatting as $key => $partial) {
         $temp = preg_replace('/\{' . $key . '\}/', $partial, $temp);
     }
-	
+
     $dictionary = array(
         'z' => array('Za', '1'),
         'p' => array('Przeciw', '2'),
         'w' => array('Wstrzymanie', '3'),
         'n' => array('Nieobecność', '4'),
     );
-		
+
     $glos = $dictionary[$object->getData('glos')];
-	$this->Dataobject->setObject($object);
-	
+    $this->Dataobject->setObject($object);
+
     ?>
 
     <div class="row">
-		
-		<div class="formatDate col-md-1 dimmed">
+
+        <div class="formatDate col-md-1 dimmed">
             <?= $temp ?>
         </div>
-		
-	    <div class="col-md-8">
+
+        <div class="col-md-8">
 
             <p class="title"><a
                     href="/dane/gminy/903,krakow/dzielnice/<?= $object->getData('krakow_dzielnice_uchwaly.dzielnica_id') ?>/uchwaly/<?= $object->getData('krakow_dzielnice_uchwaly.id') ?>"><?= $object->getData('krakow_dzielnice_uchwaly.nazwa') ?></a>

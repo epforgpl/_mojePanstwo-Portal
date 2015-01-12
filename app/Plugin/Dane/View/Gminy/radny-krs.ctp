@@ -20,24 +20,25 @@ echo $this->Element('Dane.dataobject/subobject', array(
 ));
 
 ?>
-	
-	
+
+
     <div class="col-md-10 col-md-offset-1">
         <div id="komisje" class="object">
 
-			
-			
-            <? if( isset($osoba) && $osoba ) { ?>
 
-                <h1 class="light"><a href="<?= $radny->getUrl() ?>" class="btn-back glyphicon glyphicon-circle-arrow-left"></a> Powiązania radnego w <a href="/krs">Krajowym Rejestrze Sądowym</a></h1>
-				
-				<? if (isset($osoba) && $osoba) {
-			        echo $this->Element('Dane.objects/krs_osoby/organizacje', array(
-			            'organizacje' => $osoba->getLayer('organizacje'),
-			        ));
-			    } ?>
-				
-				
+            <? if (isset($osoba) && $osoba) { ?>
+
+                <h1 class="light"><a href="<?= $radny->getUrl() ?>"
+                                     class="btn-back glyphicon glyphicon-circle-arrow-left"></a> Powiązania radnego w <a
+                        href="/krs">Krajowym Rejestrze Sądowym</a></h1>
+
+                <? if (isset($osoba) && $osoba) {
+                    echo $this->Element('Dane.objects/krs_osoby/organizacje', array(
+                        'organizacje' => $osoba->getLayer('organizacje'),
+                    ));
+                } ?>
+
+
             <? } ?>
 
         </div>

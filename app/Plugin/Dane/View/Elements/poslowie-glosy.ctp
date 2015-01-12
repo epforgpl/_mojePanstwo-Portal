@@ -20,21 +20,21 @@
     ?>
 
 
-	<div class="row">
+    <div class="row">
         <? if ($this->Dataobject->getDate()) { ?>
             <div class="formatDate col-md-1 dimmed">
                 <?php echo($this->Dataobject->getDate()); ?>
             </div>
         <? } ?>
         <div class="data col-md-<?= $this->Dataobject->getDate() ? '8' : '8' ?>">
-            
+
             <div class="content">
-        	<p class="title">
-	        	<a href="/dane/sejm_glosowania/<?= $object->getData('glosowanie_id') ?>"><?= $object->getData('sejm_glosowania.tytul') ?></a>
-            </p>
+                <p class="title">
+                    <a href="/dane/sejm_glosowania/<?= $object->getData('glosowanie_id') ?>"><?= $object->getData('sejm_glosowania.tytul') ?></a>
+                </p>
             </div>
-            
-            
+
+
         </div>
         <div class="col-md-3 text-right">
 
@@ -43,8 +43,8 @@
 
         </div>
     </div>
-	
-	
+
+
 
 
 

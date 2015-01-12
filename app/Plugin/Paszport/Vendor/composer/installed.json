@@ -1,412 +1,412 @@
 [
-    {
-        "name": "composer/installers",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/composer/installers.git",
-            "reference": "b3bd071ea114a57212c75aa6a2eef5cfe0cc798f"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/composer/installers/zipball/b3bd071ea114a57212c75aa6a2eef5cfe0cc798f",
-            "reference": "b3bd071ea114a57212c75aa6a2eef5cfe0cc798f",
-            "shasum": ""
-        },
-        "replace": {
-            "shama/baton": "*"
-        },
-        "require-dev": {
-            "composer/composer": "1.0.*@dev",
-            "phpunit/phpunit": "3.7.*"
-        },
-        "time": "2013-08-20 04:37:09",
-        "type": "composer-installer",
-        "extra": {
-            "class": "Composer\\Installers\\Installer",
-            "branch-alias": {
-                "dev-master": "1.0-dev"
-            }
-        },
-        "installation-source": "source",
-        "autoload": {
-            "psr-0": {
-                "Composer\\Installers\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Kyle Robinson Young",
-                "email": "kyle@dontkry.com",
-                "homepage": "http://dontkry.com",
-                "role": "Developer"
-            }
-        ],
-        "description": "A multi-framework Composer library installer",
-        "homepage": "http://composer.github.com/installers/",
-        "keywords": [
-            "TYPO3 CMS",
-            "TYPO3 Flow",
-            "TYPO3 Neos",
-            "agl",
-            "cakephp",
-            "codeigniter",
-            "drupal",
-            "fuelphp",
-            "installer",
-            "joomla",
-            "kohana",
-            "laravel",
-            "li3",
-            "lithium",
-            "mako",
-            "modulework",
-            "phpbb",
-            "ppi",
-            "silverstripe",
-            "symfony",
-            "wordpress",
-            "zend"
-        ]
+  {
+    "name": "composer/installers",
+    "version": "dev-master",
+    "version_normalized": "9999999-dev",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/composer/installers.git",
+      "reference": "b3bd071ea114a57212c75aa6a2eef5cfe0cc798f"
     },
-    {
-        "name": "slywalker/twitter_bootstrap",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/slywalker/TwitterBootstrap.git",
-            "reference": "810f252ad177d5c66b6c12c87be50a0a5d1d1c93"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/slywalker/TwitterBootstrap/zipball/810f252ad177d5c66b6c12c87be50a0a5d1d1c93",
-            "reference": "810f252ad177d5c66b6c12c87be50a0a5d1d1c93",
-            "shasum": ""
-        },
-        "require": {
-            "composer/installers": "*",
-            "php": ">=5.3.0"
-        },
-        "suggest": {
-            "twitter/bootstrap": "Bootstrap for Twitter"
-        },
-        "time": "2013-09-05 03:38:33",
-        "type": "cakephp-plugin",
-        "installation-source": "source",
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Yasuo Harada",
-                "email": "slywalker.net@gmail.com"
-            }
-        ],
-        "description": "CakePHP Bootstrap (for Twitter) Plugin",
-        "homepage": "https://github.com/slywalker/TwitterBootstrap",
-        "keywords": [
-            "bootstrap",
-            "cakephp",
-            "twitter"
-        ]
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/composer/installers/zipball/b3bd071ea114a57212c75aa6a2eef5cfe0cc798f",
+      "reference": "b3bd071ea114a57212c75aa6a2eef5cfe0cc798f",
+      "shasum": ""
     },
-    {
-        "name": "josegonzalez/upload",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/josegonzalez/cakephp-upload.git",
-            "reference": "44adea99fb8733185e38a923220a163883f4abf4"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/josegonzalez/cakephp-upload/zipball/44adea99fb8733185e38a923220a163883f4abf4",
-            "reference": "44adea99fb8733185e38a923220a163883f4abf4",
-            "shasum": ""
-        },
-        "require": {
-            "composer/installers": "*"
-        },
-        "time": "2013-09-20 12:52:53",
-        "type": "cakephp-plugin",
-        "extra": {
-            "installer-name": "Upload"
-        },
-        "installation-source": "source",
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Marc Würth",
-                "email": "ravage@bluewin.ch",
-                "homepage": "https://github.com/ravage84",
-                "role": "Contributor"
-            },
-            {
-                "name": "Jose Diaz-Gonzalez",
-                "email": "email@josediazgonzalez.com",
-                "homepage": "http://josediazgonzalez.com",
-                "role": "Maintainer"
-            },
-            {
-                "name": "Joshua Paling",
-                "homepage": "https://github.com/joshuapaling",
-                "role": "Contributor"
-            },
-            {
-                "name": "sdoney",
-                "homepage": "https://github.com/sdoney",
-                "role": "Contributor"
-            },
-            {
-                "name": "Giuliano B",
-                "homepage": "https://github.com/giulianob",
-                "role": "Contributor"
-            },
-            {
-                "name": "Justin Slamka",
-                "homepage": "https://github.com/slamkajs",
-                "role": "Contributor"
-            },
-            {
-                "name": "Nathan Tyler",
-                "homepage": "https://github.com/tylerdigital",
-                "role": "Contributor"
-            },
-            {
-                "name": "Mirko Chialastri",
-                "homepage": "https://github.com/hiryu85",
-                "role": "Contributor"
-            },
-            {
-                "name": "Benjamin Allison",
-                "homepage": "https://github.com/benjaminallison",
-                "role": "Contributor"
-            },
-            {
-                "name": "Ariel Patschiki",
-                "homepage": "https://github.com/arielpts",
-                "role": "Contributor"
-            },
-            {
-                "name": "lucfranken",
-                "homepage": "https://github.com/lucfranken",
-                "role": "Contributor"
-            },
-            {
-                "name": "cpierce",
-                "homepage": "https://github.com/cpierce",
-                "role": "Contributor"
-            },
-            {
-                "name": "Barry Chapman",
-                "homepage": "https://github.com/barrychapman",
-                "role": "Contributor"
-            },
-            {
-                "name": "Thomas Edvalson",
-                "homepage": "https://github.com/Cruel",
-                "role": "Contributor"
-            },
-            {
-                "name": "Alejandro Ibarra",
-                "homepage": "https://github.com/ajibarra",
-                "role": "Contributor"
-            },
-            {
-                "name": "simkimsia",
-                "homepage": "https://github.com/simkimsia",
-                "role": "Contributor"
-            },
-            {
-                "name": "Callum Macdonald",
-                "homepage": "https://github.com/chmac",
-                "role": "Contributor"
-            },
-            {
-                "name": "David Kullmann",
-                "homepage": "https://github.com/dkullmann",
-                "role": "Contributor"
-            },
-            {
-                "name": "Juan Basso",
-                "homepage": "https://github.com/jrbasso",
-                "role": "Contributor"
-            },
-            {
-                "name": "Cauan Cabral",
-                "homepage": "https://github.com/CauanCabral",
-                "role": "Contributor"
-            },
-            {
-                "name": "Bryan Crowe",
-                "homepage": "https://github.com/bcrowe",
-                "role": "Contributor"
-            },
-            {
-                "name": "Simon Brown",
-                "homepage": "https://github.com/Simes",
-                "role": "Contributor"
-            },
-            {
-                "name": "wilsolutions",
-                "homepage": "https://github.com/wilsolutions",
-                "role": "Contributor"
-            },
-            {
-                "name": "Graham Watson",
-                "homepage": "https://github.com/PhantomWatson",
-                "role": "Contributor"
-            },
-            {
-                "name": "ceallred",
-                "homepage": "https://github.com/ceallred",
-                "role": "Contributor"
-            }
-        ],
-        "description": "CakePHP plugin to handle file uploading sans ridiculous automagic",
-        "homepage": "http://github.com/josegonzalez/cakephp-upload",
-        "keywords": [
-            "Behavior",
-            "cakephp",
-            "files",
-            "upload"
-        ]
+    "replace": {
+      "shama/baton": "*"
     },
-    {
-        "name": "maurymmarques/minify-cakephp",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/maurymmarques/minify-cakephp.git",
-            "reference": "36f3915effdfa021f2322d8ef2e994f4bc731a47"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/maurymmarques/minify-cakephp/zipball/36f3915effdfa021f2322d8ef2e994f4bc731a47",
-            "reference": "36f3915effdfa021f2322d8ef2e994f4bc731a47",
-            "shasum": ""
-        },
-        "require": {
-            "composer/installers": "*"
-        },
-        "time": "2013-09-22 20:23:55",
-        "type": "cakephp-plugin",
-        "extra": {
-            "installer-name": "Minify"
-        },
-        "installation-source": "source",
-        "license": [
-            "MIT"
-        ],
-        "support": {
-            "source": "https://github.com/maurymmarques/minify-cakephp/tree/master",
-            "issues": "https://github.com/maurymmarques/minify-cakephp/issues"
-        }
+    "require-dev": {
+      "composer/composer": "1.0.*@dev",
+      "phpunit/phpunit": "3.7.*"
     },
-    {
-        "name": "cakephp/debug_kit",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/cakephp/debug_kit.git",
-            "reference": "54c1bcbae8973a227c4faf24535c056d77a372b7"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/54c1bcbae8973a227c4faf24535c056d77a372b7",
-            "reference": "54c1bcbae8973a227c4faf24535c056d77a372b7",
-            "shasum": ""
-        },
-        "require": {
-            "composer/installers": "*",
-            "php": ">=5.3.0"
-        },
-        "time": "2013-10-08 00:21:35",
-        "type": "cakephp-plugin",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.2.x-dev"
-            },
-            "installer-name": "DebugKit"
-        },
-        "installation-source": "source",
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Mark Story",
-                "homepage": "http://mark-story.com",
-                "role": "Author"
-            },
-            {
-                "name": "CakePHP Community",
-                "homepage": "https://github.com/cakephp/debug_kit/graphs/contributors"
-            }
-        ],
-        "description": "CakePHP Debug Kit",
-        "homepage": "https://github.com/cakephp/debug_kit",
-        "keywords": [
-            "cakephp",
-            "debug",
-            "kit"
-        ]
+    "time": "2013-08-20 04:37:09",
+    "type": "composer-installer",
+    "extra": {
+      "class": "Composer\\Installers\\Installer",
+      "branch-alias": {
+        "dev-master": "1.0-dev"
+      }
     },
-    {
-        "name": "leafo/lessphp",
-        "version": "v0.3.9",
-        "version_normalized": "0.3.9.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/leafo/lessphp.git",
-            "reference": "a11a6141b5715162b933c405379765d817891c5d"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/leafo/lessphp/zipball/a11a6141b5715162b933c405379765d817891c5d",
-            "reference": "a11a6141b5715162b933c405379765d817891c5d",
-            "shasum": ""
-        },
-        "time": "2013-03-02 16:13:31",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "0.3-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "lessc.inc.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT",
-            "GPL-3.0"
-        ],
-        "authors": [
-            {
-                "name": "Leaf Corcoran",
-                "email": "leafot@gmail.com",
-                "homepage": "http://leafo.net"
-            }
-        ],
-        "description": "lessphp is a compiler for LESS written in PHP.",
-        "homepage": "http://leafo.net/lessphp/"
+    "installation-source": "source",
+    "autoload": {
+      "psr-0": {
+        "Composer\\Installers\\": "src/"
+      }
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "Kyle Robinson Young",
+        "email": "kyle@dontkry.com",
+        "homepage": "http://dontkry.com",
+        "role": "Developer"
+      }
+    ],
+    "description": "A multi-framework Composer library installer",
+    "homepage": "http://composer.github.com/installers/",
+    "keywords": [
+      "TYPO3 CMS",
+      "TYPO3 Flow",
+      "TYPO3 Neos",
+      "agl",
+      "cakephp",
+      "codeigniter",
+      "drupal",
+      "fuelphp",
+      "installer",
+      "joomla",
+      "kohana",
+      "laravel",
+      "li3",
+      "lithium",
+      "mako",
+      "modulework",
+      "phpbb",
+      "ppi",
+      "silverstripe",
+      "symfony",
+      "wordpress",
+      "zend"
+    ]
+  },
+  {
+    "name": "slywalker/twitter_bootstrap",
+    "version": "dev-master",
+    "version_normalized": "9999999-dev",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/slywalker/TwitterBootstrap.git",
+      "reference": "810f252ad177d5c66b6c12c87be50a0a5d1d1c93"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/slywalker/TwitterBootstrap/zipball/810f252ad177d5c66b6c12c87be50a0a5d1d1c93",
+      "reference": "810f252ad177d5c66b6c12c87be50a0a5d1d1c93",
+      "shasum": ""
+    },
+    "require": {
+      "composer/installers": "*",
+      "php": ">=5.3.0"
+    },
+    "suggest": {
+      "twitter/bootstrap": "Bootstrap for Twitter"
+    },
+    "time": "2013-09-05 03:38:33",
+    "type": "cakephp-plugin",
+    "installation-source": "source",
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "Yasuo Harada",
+        "email": "slywalker.net@gmail.com"
+      }
+    ],
+    "description": "CakePHP Bootstrap (for Twitter) Plugin",
+    "homepage": "https://github.com/slywalker/TwitterBootstrap",
+    "keywords": [
+      "bootstrap",
+      "cakephp",
+      "twitter"
+    ]
+  },
+  {
+    "name": "josegonzalez/upload",
+    "version": "dev-master",
+    "version_normalized": "9999999-dev",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/josegonzalez/cakephp-upload.git",
+      "reference": "44adea99fb8733185e38a923220a163883f4abf4"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/josegonzalez/cakephp-upload/zipball/44adea99fb8733185e38a923220a163883f4abf4",
+      "reference": "44adea99fb8733185e38a923220a163883f4abf4",
+      "shasum": ""
+    },
+    "require": {
+      "composer/installers": "*"
+    },
+    "time": "2013-09-20 12:52:53",
+    "type": "cakephp-plugin",
+    "extra": {
+      "installer-name": "Upload"
+    },
+    "installation-source": "source",
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "Marc Würth",
+        "email": "ravage@bluewin.ch",
+        "homepage": "https://github.com/ravage84",
+        "role": "Contributor"
+      },
+      {
+        "name": "Jose Diaz-Gonzalez",
+        "email": "email@josediazgonzalez.com",
+        "homepage": "http://josediazgonzalez.com",
+        "role": "Maintainer"
+      },
+      {
+        "name": "Joshua Paling",
+        "homepage": "https://github.com/joshuapaling",
+        "role": "Contributor"
+      },
+      {
+        "name": "sdoney",
+        "homepage": "https://github.com/sdoney",
+        "role": "Contributor"
+      },
+      {
+        "name": "Giuliano B",
+        "homepage": "https://github.com/giulianob",
+        "role": "Contributor"
+      },
+      {
+        "name": "Justin Slamka",
+        "homepage": "https://github.com/slamkajs",
+        "role": "Contributor"
+      },
+      {
+        "name": "Nathan Tyler",
+        "homepage": "https://github.com/tylerdigital",
+        "role": "Contributor"
+      },
+      {
+        "name": "Mirko Chialastri",
+        "homepage": "https://github.com/hiryu85",
+        "role": "Contributor"
+      },
+      {
+        "name": "Benjamin Allison",
+        "homepage": "https://github.com/benjaminallison",
+        "role": "Contributor"
+      },
+      {
+        "name": "Ariel Patschiki",
+        "homepage": "https://github.com/arielpts",
+        "role": "Contributor"
+      },
+      {
+        "name": "lucfranken",
+        "homepage": "https://github.com/lucfranken",
+        "role": "Contributor"
+      },
+      {
+        "name": "cpierce",
+        "homepage": "https://github.com/cpierce",
+        "role": "Contributor"
+      },
+      {
+        "name": "Barry Chapman",
+        "homepage": "https://github.com/barrychapman",
+        "role": "Contributor"
+      },
+      {
+        "name": "Thomas Edvalson",
+        "homepage": "https://github.com/Cruel",
+        "role": "Contributor"
+      },
+      {
+        "name": "Alejandro Ibarra",
+        "homepage": "https://github.com/ajibarra",
+        "role": "Contributor"
+      },
+      {
+        "name": "simkimsia",
+        "homepage": "https://github.com/simkimsia",
+        "role": "Contributor"
+      },
+      {
+        "name": "Callum Macdonald",
+        "homepage": "https://github.com/chmac",
+        "role": "Contributor"
+      },
+      {
+        "name": "David Kullmann",
+        "homepage": "https://github.com/dkullmann",
+        "role": "Contributor"
+      },
+      {
+        "name": "Juan Basso",
+        "homepage": "https://github.com/jrbasso",
+        "role": "Contributor"
+      },
+      {
+        "name": "Cauan Cabral",
+        "homepage": "https://github.com/CauanCabral",
+        "role": "Contributor"
+      },
+      {
+        "name": "Bryan Crowe",
+        "homepage": "https://github.com/bcrowe",
+        "role": "Contributor"
+      },
+      {
+        "name": "Simon Brown",
+        "homepage": "https://github.com/Simes",
+        "role": "Contributor"
+      },
+      {
+        "name": "wilsolutions",
+        "homepage": "https://github.com/wilsolutions",
+        "role": "Contributor"
+      },
+      {
+        "name": "Graham Watson",
+        "homepage": "https://github.com/PhantomWatson",
+        "role": "Contributor"
+      },
+      {
+        "name": "ceallred",
+        "homepage": "https://github.com/ceallred",
+        "role": "Contributor"
+      }
+    ],
+    "description": "CakePHP plugin to handle file uploading sans ridiculous automagic",
+    "homepage": "http://github.com/josegonzalez/cakephp-upload",
+    "keywords": [
+      "Behavior",
+      "cakephp",
+      "files",
+      "upload"
+    ]
+  },
+  {
+    "name": "maurymmarques/minify-cakephp",
+    "version": "dev-master",
+    "version_normalized": "9999999-dev",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/maurymmarques/minify-cakephp.git",
+      "reference": "36f3915effdfa021f2322d8ef2e994f4bc731a47"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/maurymmarques/minify-cakephp/zipball/36f3915effdfa021f2322d8ef2e994f4bc731a47",
+      "reference": "36f3915effdfa021f2322d8ef2e994f4bc731a47",
+      "shasum": ""
+    },
+    "require": {
+      "composer/installers": "*"
+    },
+    "time": "2013-09-22 20:23:55",
+    "type": "cakephp-plugin",
+    "extra": {
+      "installer-name": "Minify"
+    },
+    "installation-source": "source",
+    "license": [
+      "MIT"
+    ],
+    "support": {
+      "source": "https://github.com/maurymmarques/minify-cakephp/tree/master",
+      "issues": "https://github.com/maurymmarques/minify-cakephp/issues"
     }
+  },
+  {
+    "name": "cakephp/debug_kit",
+    "version": "dev-master",
+    "version_normalized": "9999999-dev",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/cakephp/debug_kit.git",
+      "reference": "54c1bcbae8973a227c4faf24535c056d77a372b7"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/54c1bcbae8973a227c4faf24535c056d77a372b7",
+      "reference": "54c1bcbae8973a227c4faf24535c056d77a372b7",
+      "shasum": ""
+    },
+    "require": {
+      "composer/installers": "*",
+      "php": ">=5.3.0"
+    },
+    "time": "2013-10-08 00:21:35",
+    "type": "cakephp-plugin",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "2.2.x-dev"
+      },
+      "installer-name": "DebugKit"
+    },
+    "installation-source": "source",
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "Mark Story",
+        "homepage": "http://mark-story.com",
+        "role": "Author"
+      },
+      {
+        "name": "CakePHP Community",
+        "homepage": "https://github.com/cakephp/debug_kit/graphs/contributors"
+      }
+    ],
+    "description": "CakePHP Debug Kit",
+    "homepage": "https://github.com/cakephp/debug_kit",
+    "keywords": [
+      "cakephp",
+      "debug",
+      "kit"
+    ]
+  },
+  {
+    "name": "leafo/lessphp",
+    "version": "v0.3.9",
+    "version_normalized": "0.3.9.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/leafo/lessphp.git",
+      "reference": "a11a6141b5715162b933c405379765d817891c5d"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/leafo/lessphp/zipball/a11a6141b5715162b933c405379765d817891c5d",
+      "reference": "a11a6141b5715162b933c405379765d817891c5d",
+      "shasum": ""
+    },
+    "time": "2013-03-02 16:13:31",
+    "type": "library",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "0.3-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "classmap": [
+        "lessc.inc.php"
+      ]
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT",
+      "GPL-3.0"
+    ],
+    "authors": [
+      {
+        "name": "Leaf Corcoran",
+        "email": "leafot@gmail.com",
+        "homepage": "http://leafo.net"
+      }
+    ],
+    "description": "lessphp is a compiler for LESS written in PHP.",
+    "homepage": "http://leafo.net/lessphp/"
+  }
 ]

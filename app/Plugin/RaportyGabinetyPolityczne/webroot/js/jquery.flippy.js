@@ -337,8 +337,6 @@
                 } else {
                     this._After()
                 }
-                ;
-
                 //! End animation
                 return;
             } else {

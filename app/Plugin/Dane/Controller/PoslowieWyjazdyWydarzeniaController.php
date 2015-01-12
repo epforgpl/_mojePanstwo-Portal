@@ -12,14 +12,14 @@ class PoslowieWyjazdyWydarzeniaController extends DataobjectsController
     );
     public $breadcrumbsMode = 'app';
 
-	public $objectOptions = array(
-		'hlFields' => array(),
-	);
-		
+    public $objectOptions = array(
+        'hlFields' => array(),
+    );
+
     public function view()
     {
-		
-		$this->addInitLayers(array('uczestnicy'));
+
+        $this->addInitLayers(array('uczestnicy'));
         parent::_prepareView();
 
     }

@@ -1,6 +1,6 @@
 <?php
 
-App::uses( 'OAuthAppModel', 'OAuth.Model' );
+App::uses('OAuthAppModel', 'OAuth.Model');
 
 /**
  * RefreshToken Model
@@ -8,88 +8,92 @@ App::uses( 'OAuthAppModel', 'OAuth.Model' );
  * @property Client $Client
  * @property User $User
  */
-class RefreshToken extends OAuthAppModel {
+class RefreshToken extends OAuthAppModel
+{
 
-	/**
-	 * Primary key field
-	 *
-	 * @var string
-	 */
-	public $primaryKey = 'refresh_token';
+    /**
+     * Primary key field
+     *
+     * @var string
+     */
+    public $primaryKey = 'refresh_token';
 
-	/**
-	 * Display field
-	 *
-	 * @var string
-	 */
-	public $displayField = 'refresh_token';
+    /**
+     * Display field
+     *
+     * @var string
+     */
+    public $displayField = 'refresh_token';
 
-	/**
-	 * Validation rules
-	 *
-	 * @var array
-	 */
-	public $validate = array(
-		'refresh_token' => array(
-			'notempty' => array(
-				'rule' => array( 'notempty' ),
-			),
-			'isUnique' => array(
-				'rule' => array( 'isUnique' ),
-			)
-		),
-		'client_id'     => array(
-			'notempty' => array(
-				'rule' => array( 'notempty' ),
-			),
-		),
-		'user_id'       => array(
-			'notempty' => array(
-				'rule' => array( 'notempty' ),
-			),
-		),
-		'expires'       => array(
-			'numeric' => array(
-				'rule' => array( 'numeric' ),
-			),
-		),
-	);
+    /**
+     * Validation rules
+     *
+     * @var array
+     */
+    public $validate = array(
+        'refresh_token' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+            ),
+            'isUnique' => array(
+                'rule' => array('isUnique'),
+            )
+        ),
+        'client_id' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+            ),
+        ),
+        'user_id' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+            ),
+        ),
+        'expires' => array(
+            'numeric' => array(
+                'rule' => array('numeric'),
+            ),
+        ),
+    );
 
-	public $actsAs = array(
-		'OAuth.HashedField' => array(
-			'fields' => 'refresh_token',
-		),
-	);
+    public $actsAs = array(
+        'OAuth.HashedField' => array(
+            'fields' => 'refresh_token',
+        ),
+    );
 
-	/**
-	 * belongsTo associations
-	 *
-	 * @var array
-	 */
-	public $belongsTo = array(
-		'Client' => array(
-			'className'  => 'OAuth.Client',
-			'foreignKey' => 'client_id',
-			'conditions' => '',
-			'fields'     => '',
-			'order'      => ''
-		)
-	);
+    /**
+     * belongsTo associations
+     *
+     * @var array
+     */
+    public $belongsTo = array(
+        'Client' => array(
+            'className' => 'OAuth.Client',
+            'foreignKey' => 'client_id',
+            'conditions' => '',
+            'fields' => '',
+            'order' => ''
+        )
+    );
 
-	public function schema() {
-		return array();
-	}
+    public function schema()
+    {
+        return array();
+    }
 
-	public function find( $type, $queryData ) {
-		$api = mpapiComponent::getApi()->OAuth()->RefreshToken();
+    public function find($type, $queryData)
+    {
+        $api = mpapiComponent::getApi()->OAuth()->RefreshToken();
 
-		return $api->find( $type, $queryData );
-	}
+        return $api->find($type, $queryData);
+    }
 
-	public function save( $data ) {
-		$api = mpapiComponent::getApi()->OAuth()->RefreshToken();
+    public function save($data)
+    {
+        $api = mpapiComponent::getApi()->OAuth()->RefreshToken();
 
-		return $api->save( $data );
-	}
+        return $api->save($data);
+    }
 
 }

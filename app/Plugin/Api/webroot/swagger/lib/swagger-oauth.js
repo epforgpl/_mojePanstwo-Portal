@@ -116,7 +116,7 @@ function handleLogin() {
     }
     popupMask.show();
     popupDialog.show();
-    return;
+
 }
 
 
@@ -164,7 +164,7 @@ function initOAuth(opts) {
 function onOAuthComplete(token) {
     if (token) {
         if (token.error) {
-            var checkbox = $('input[type=checkbox],.secured')
+            var checkbox = $('input[type=checkbox],.secured');
             checkbox.each(function (pos) {
                 checkbox[pos].checked = false;
             });
