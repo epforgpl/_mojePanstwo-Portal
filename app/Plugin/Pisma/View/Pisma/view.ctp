@@ -22,9 +22,9 @@
     </div>
     <div class="col-md-2">
         <div class="editor-tooltip">
-            
+
             <? $href_base = '/pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
-            
+
             <ul class="form-buttons">
                 <li class="inner-addon">
                     <i class="glyphicon glyphicon-send"></i>

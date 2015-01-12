@@ -411,32 +411,6 @@
                     a {
                         color: #157AB5;
                     }
-
-                    /*&.active:before {
-                        border-bottom: 15px solid #BBB;
-                        border-left: 15px solid transparent;
-                        border-right: 15px solid transparent;
-                        bottom: -13px;
-                        content: " ";
-                        height: 0;
-                        left: 50%;
-                        margin-left: -10px;
-                        position: absolute;
-                        width: 0;
-                    }
-
-                    &.active:after {
-                        border-bottom: 15px solid #F3F3F3;
-                        border-left: 15px solid transparent;
-                        border-right: 15px solid transparent;
-                        bottom: -15px;
-                        content: " ";
-                        height: 0;
-                        left: 50%;
-                        margin-left: -10px;
-                        position: absolute;
-                        width: 0;
-                    }*/
                 }
 
             }
@@ -445,7 +419,7 @@
     }
 
     h1 {
-        font-family: "Lato", sans-serif;
+        font-family: "Lato", Arial, sans-serif;
         font-size: 26px;
         font-weight: 300;
         margin-bottom: 20px;
@@ -456,7 +430,7 @@
     }
 
     h2 {
-        font-family: "Lato", sans-serif;
+        font-family: "Lato", Arial, sans-serif;
         font-size: 18px;
         font-weight: 400;
         text-align: center;
@@ -539,6 +513,29 @@
 
     .preview #editor-cont {
         margin-top: 20px;
+    }
+
+    .previewRender {
+        .alert {
+            p {
+                padding-bottom: 10px;
+            }
+            ul {
+                list-style-position: inside;
+            }
+        }
+
+        #pismoConfirm {
+            .btn {
+                outline: none;
+
+                &.loading {
+                    background: #428bca url(/img/loader/search-loading.png) no-repeat center center;
+                    text-indent: -9999px;
+                    min-width: 66px;
+                }
+            }
+        }
     }
 
     #editor-cont {

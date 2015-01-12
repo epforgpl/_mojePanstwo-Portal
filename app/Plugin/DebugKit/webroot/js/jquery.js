@@ -425,8 +425,8 @@
                 }, CLASS: function (e) {
                     var t = C[e + " "];
                     return t || (t = RegExp("(^|" + M + ")" + e + "(" + M + "|$)")) && C(e, function (e) {
-                        return t.test("string" == typeof e.className && e.className || typeof e.getAttribute !== j && e.getAttribute("class") || "")
-                    })
+                            return t.test("string" == typeof e.className && e.className || typeof e.getAttribute !== j && e.getAttribute("class") || "")
+                        })
                 }, ATTR: function (e, t, n) {
                     return function (r) {
                         var i = ot.attr(r, e);
@@ -942,10 +942,10 @@
         }, _queueHooks: function (e, t) {
             var n = t + "queueHooks";
             return q.get(e, n) || q.access(e, n, {
-                empty: x.Callbacks("once memory").add(function () {
-                    q.remove(e, [t + "queue", n])
+                    empty: x.Callbacks("once memory").add(function () {
+                        q.remove(e, [t + "queue", n])
+                    })
                 })
-            })
         }
     }), x.fn.extend({
         queue: function (e, t) {

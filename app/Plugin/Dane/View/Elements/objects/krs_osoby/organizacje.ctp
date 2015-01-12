@@ -8,7 +8,7 @@
 
         <ul class="list-group less-borders">
             <?
-            foreach ($organizacje as $organizacja) { 
+            foreach ($organizacje as $organizacja) {
                 $kapitalZakladowy = (float)$organizacja['kapital_zakladowy'];
                 ?>
                 <li class="list-group-item">
@@ -22,13 +22,13 @@
                         <? if ($organizacja['adres_miejscowosc']) { ?>
                             <span class="separator">|</span> <?
                             echo $organizacja['adres_miejscowosc'];
-                        }?>
+                        } ?>
                         <? if ($kapitalZakladowy) { ?>
                             <span class="separator">|</span> kapitał zakładowy: <?
                             //setlocale(LC_MONETARY, 'pl_PL');
                             //echo money_format('%i', $organizacja['kapital_zakladowy']);
                             echo number_format($organizacja['kapital_zakladowy'], 2, ',', ' ') . ' PLN';
-                        }?>
+                        } ?>
 
                         <? if (!empty($organizacja['role']))
                         {

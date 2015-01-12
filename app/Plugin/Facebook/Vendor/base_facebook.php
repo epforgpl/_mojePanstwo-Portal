@@ -1351,10 +1351,10 @@ abstract class BaseFacebook
             'www',
             'dialog/oauth',
             array_merge(array(
-                    'client_id' => $this->getAppId(),
-                    'redirect_uri' => $currentUrl, // possibly overwritten
-                    'state' => $this->state
-                ),
+                'client_id' => $this->getAppId(),
+                'redirect_uri' => $currentUrl, // possibly overwritten
+                'state' => $this->state
+            ),
                 $params));
     }
 

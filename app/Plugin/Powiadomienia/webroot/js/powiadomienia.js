@@ -179,11 +179,11 @@
         });
 
         if (!(parm.group.PowiadomieniaGroup.title != null && parm.group.PowiadomieniaGroup.title != "" && parm.group.PowiadomieniaGroup.title != _mPHeart.translation.LC_POWIADOMIENIA_POWIADOMENIA_MODAL_TITLE_PLACEHOLDER))
-            serializePowiadomieniaSaveAlert('title')
+            serializePowiadomieniaSaveAlert('title');
         else if (!(parm.group.phrases.length != 0 && !(parm.group.phrases.length == 1 && parm.group.phrases[0] == "")))
-            serializePowiadomieniaSaveAlert('phrase')
+            serializePowiadomieniaSaveAlert('phrase');
         else if (!(appStatus))
-            serializePowiadomieniaSaveAlert('apps')
+            serializePowiadomieniaSaveAlert('apps');
 
         return (
         (
@@ -308,7 +308,7 @@
                                         phrase();
                                         powiadomieniaModal.options.modal.modal('toggle');
                                     }
-                                })
+                                });
 
                                 var page = Number(loadMoreContent.data('currentpage')) + 1,
                                     groupId = (loadMoreContent.data('groupid') !== '') ? '&groupid=' + Number(loadMoreContent.data('groupid')) : '',
@@ -387,7 +387,7 @@
                                             phrase();
                                             powiadomieniaModal.options.modal.modal('toggle');
                                         }
-                                    })
+                                    });
 
                                     var page = Number(loadMoreContent.data('currentpage')) + 1,
                                         groupId = (loadMoreContent.data('groupid') !== '') ? '&groupid=' + Number(loadMoreContent.data('groupid')) : '',
@@ -532,7 +532,7 @@
             powiadomieniaModal.init({
                 footer: modalBottom,
                 additionalInfoList: appList
-            })
+            });
 
             modalBottom.find('.btn.save').click(function () {
                 if ($(this).hasClass('disabled')) return;

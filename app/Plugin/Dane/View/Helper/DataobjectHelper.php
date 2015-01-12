@@ -19,7 +19,7 @@ class DataobjectHelper extends AppHelper
 
     public function getDate($field = null, $add_hour = false)
     {
-		
+
         if ($this->object->getDate()) {
 
             $temp = '<span>{day}</span><p>{month} {year}</p>';
@@ -70,7 +70,7 @@ class DataobjectHelper extends AppHelper
         $bg = isset($options['bg']) ? $options['bg'] : false;
         $hlFields = isset($options['hlFields']) ? $options['hlFields'] : false;
         $bigTitle = isset($options['bigTitle']) ? $options['bigTitle'] : false;
-        $hlFieldsPush = isset($options['hlFieldsPush']) ? $options['hlFieldsPush'] : false;        
+        $hlFieldsPush = isset($options['hlFieldsPush']) ? $options['hlFieldsPush'] : false;
         $routes = isset($options['routes']) ? $options['routes'] : array();
         $forceLabel = isset($options['forceLabel']) ? $options['forceLabel'] : false;
         $file = isset($options['file']) ? $options['file'] : false;
@@ -94,8 +94,8 @@ class DataobjectHelper extends AppHelper
                 $theme = 'default';
         }
         */
-		
-		
+
+
         $params = array(
             'item' => $this->object->getObject(),
             'object' => $this->object,
@@ -138,7 +138,7 @@ class DataobjectHelper extends AppHelper
     {
 
         $output = '';
-        $fields = $this->object->getHiglightedFields($fields, $fieldsPush);		
+        $fields = $this->object->getHiglightedFields($fields, $fieldsPush);
 
         $fields_count = count($fields);
         if ($fields_count) {
@@ -474,21 +474,22 @@ class DataobjectHelper extends AppHelper
         return $output;
     }
 
+    public function feed($params)
+    {
+
+        return $this->_View->element('DataobjectsFeed/view', array(
+            'objects' => $params['data'],
+            'preset' => $params['dataset'],
+            'direction' => $params['direction'],
+            'perPage' => $params['perPage'],
+            'pagination' => $params['pagination'],
+        ), array('plugin' => 'Dane'));
+
+    }
+
     private function getRenderPath($object, $theme)
     {
         return App::pluginPath('Dane') . '/View/Elements/' . $theme . '/' . $object->getDataset() . '.ctp';
-    }
-    
-    public function feed( $params ) {
-	   		   	
-	    return $this->_View->element('DataobjectsFeed/view', array(
-		    'objects' => $params['data'],
-		    'preset' => $params['dataset'],
-		    'direction' => $params['direction'],
-		    'perPage' => $params['perPage'],
-		    'pagination' => $params['pagination'],
-	    ), array('plugin' => 'Dane'));
-	    
     }
 
 } 

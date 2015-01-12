@@ -18,8 +18,8 @@ var changeColor = function (color, ratio, darker) {
             /^#?([a-f0-9][a-f0-9])([a-f0-9][a-f0-9])([a-f0-9][a-f0-9])/i,
             function () {
                 return parseInt(arguments[1], 16) + ',' +
-                parseInt(arguments[2], 16) + ',' +
-                parseInt(arguments[3], 16);
+                    parseInt(arguments[2], 16) + ',' +
+                    parseInt(arguments[3], 16);
             }
         ).split(/,/), returnValue;
 

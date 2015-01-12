@@ -17,56 +17,58 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses( 'DebugPanel', 'DebugKit.Lib' );
+App::uses('DebugPanel', 'DebugKit.Lib');
 
 /**
  * Class SqlLogPanel
  *
  */
-class SqlLogPanel extends DebugPanel {
+class SqlLogPanel extends DebugPanel
+{
 
-	/**
-	 * Minimum number of Rows Per Millisecond that must be returned by a query before an explain
-	 * is done.
-	 *
-	 * @var integer
-	 */
-	public $slowRate = 20;
+    /**
+     * Minimum number of Rows Per Millisecond that must be returned by a query before an explain
+     * is done.
+     *
+     * @var integer
+     */
+    public $slowRate = 20;
 
-	/**
-	 * Gets the connection names that should have logs + dumps generated.
-	 *
-	 * @param \Controller|string $controller
-	 *
-	 * @return array
-	 */
-	public function beforeRender( Controller $controller ) {
-		if ( ! class_exists( 'ConnectionManager' ) ) {
-			return array();
-		}
-		$connections = array();
+    /**
+     * Gets the connection names that should have logs + dumps generated.
+     *
+     * @param \Controller|string $controller
+     *
+     * @return array
+     */
+    public function beforeRender(Controller $controller)
+    {
+        if (!class_exists('ConnectionManager')) {
+            return array();
+        }
+        $connections = array();
 
-		$dbConfigs = ConnectionManager::sourceList();
-		foreach ( $dbConfigs as $configName ) {
-			$driver = null;
-			$db     = ConnectionManager::getDataSource( $configName );
-			if (
-				( empty( $db->config['driver'] ) && empty( $db->config['datasource'] ) ) ||
-				! method_exists( $db, 'getLog' )
-			) {
-				continue;
-			}
-			if ( isset( $db->config['datasource'] ) ) {
-				$driver = $db->config['datasource'];
-			}
-			$explain       = false;
-			$isExplainable = ( preg_match( '/(Mysql|Postgres)$/', $driver ) );
-			if ( $isExplainable ) {
-				$explain = true;
-			}
-			$connections[ $configName ] = $explain;
-		}
+        $dbConfigs = ConnectionManager::sourceList();
+        foreach ($dbConfigs as $configName) {
+            $driver = null;
+            $db = ConnectionManager::getDataSource($configName);
+            if (
+                (empty($db->config['driver']) && empty($db->config['datasource'])) ||
+                !method_exists($db, 'getLog')
+            ) {
+                continue;
+            }
+            if (isset($db->config['datasource'])) {
+                $driver = $db->config['datasource'];
+            }
+            $explain = false;
+            $isExplainable = (preg_match('/(Mysql|Postgres)$/', $driver));
+            if ($isExplainable) {
+                $explain = true;
+            }
+            $connections[$configName] = $explain;
+        }
 
-		return array( 'connections' => $connections, 'threshold' => $this->slowRate );
-	}
+        return array('connections' => $connections, 'threshold' => $this->slowRate);
+    }
 }

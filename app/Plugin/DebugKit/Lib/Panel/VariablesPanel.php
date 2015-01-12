@@ -17,22 +17,24 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses( 'DebugPanel', 'DebugKit.Lib' );
+App::uses('DebugPanel', 'DebugKit.Lib');
 
 /**
  * Class VariablesPanel
  *
  */
-class VariablesPanel extends DebugPanel {
+class VariablesPanel extends DebugPanel
+{
 
-	/**
-	 * beforeRender callback
-	 *
-	 * @param Controller $controller
-	 *
-	 * @return array
-	 */
-	public function beforeRender( Controller $controller ) {
-		return array_merge( $controller->viewVars, array( '$request->data' => $controller->request->data ) );
-	}
+    /**
+     * beforeRender callback
+     *
+     * @param Controller $controller
+     *
+     * @return array
+     */
+    public function beforeRender(Controller $controller)
+    {
+        return array_merge($controller->viewVars, array('$request->data' => $controller->request->data));
+    }
 }

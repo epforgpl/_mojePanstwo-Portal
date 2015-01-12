@@ -25,7 +25,7 @@
                 return +a == +c;
             case "[object RegExp]":
                 return a.source ==
-                c.source && a.global == c.global && a.multiline == c.multiline && a.ignoreCase == c.ignoreCase
+                    c.source && a.global == c.global && a.multiline == c.multiline && a.ignoreCase == c.ignoreCase
         }
         if ("object" != typeof a || "object" != typeof c)return !1;
         for (var f = d.length; f--;)if (d[f] == a)return !0;

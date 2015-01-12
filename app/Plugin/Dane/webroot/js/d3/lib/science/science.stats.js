@@ -17,7 +17,7 @@
         nrd: function (x) {
             var h = science.stats.iqr(x) / 1.34;
             return 1.06 * Math.min(Math.sqrt(science.stats.variance(x)), h)
-            * Math.pow(x.length, -1 / 5);
+                * Math.pow(x.length, -1 / 5);
         }
     };
     science.stats.distance = {
@@ -108,8 +108,8 @@
         // A&S formula 7.1.26
         var t = 1 / (1 + p * x);
         return sign * (
-        1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1)
-        * t * Math.exp(-x * x));
+            1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1)
+            * t * Math.exp(-x * x));
     };
     science.stats.phi = function (x) {
         return .5 * (1 + science.stats.erf(x / Math.SQRT2));
@@ -735,4 +735,4 @@
         }
         return s / (n - 1);
     };
-})()
+})();

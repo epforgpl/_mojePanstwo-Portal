@@ -14,8 +14,8 @@ function d3_interpolateRgb(a, b) {
         bb = b.b - ab;
     return function (t) {
         return "#"
-        + d3_rgb_hex(Math.round(ar + br * t))
-        + d3_rgb_hex(Math.round(ag + bg * t))
-        + d3_rgb_hex(Math.round(ab + bb * t));
+            + d3_rgb_hex(Math.round(ar + br * t))
+            + d3_rgb_hex(Math.round(ag + bg * t))
+            + d3_rgb_hex(Math.round(ab + bb * t));
     };
 }

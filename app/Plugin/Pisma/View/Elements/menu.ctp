@@ -1,6 +1,6 @@
 <?
-	if( !isset($selected) )
-		$selected = false;	
+if (!isset($selected))
+    $selected = false;
 ?>
 <div id="shortcuts">
     <ul>

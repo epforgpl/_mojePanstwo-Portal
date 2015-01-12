@@ -22,8 +22,8 @@ echo $this->Element('Dane.dataobject/subobject', array(
         ),
     ),
     'back' => array(
-	    'href' => '/dane/gminy/903,krakow/posiedzenia',
-	    'title' => 'Wszystkie posiedzenia rady miasta',
+        'href' => '/dane/gminy/903,krakow/posiedzenia',
+        'title' => 'Wszystkie posiedzenia rady miasta',
     ),
 ));
 

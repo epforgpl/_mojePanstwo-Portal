@@ -24,6 +24,8 @@ var PISMA = Class.extend({
             this.szablon();
             this.adresaci();
             this.editor();
+
+            this.lastPageButtons();
         }
     },
     stepsMarkers: function () {
@@ -519,7 +521,7 @@ var PISMA = Class.extend({
 
                 if (that.hasClass('copyaddresee')) {
                     if (self.objects.adresaci)
-                        that.html(self.objects.adresaci.title)
+                        that.html(self.objects.adresaci.title);
                     else
                         that.html('<br type="_editor">');
                 }
@@ -562,7 +564,7 @@ var PISMA = Class.extend({
                 $(elCr).html('<br>');
         }
 
-        if (self.objects.editor !== null)
+        if (self.objects !== undefined && self.objects.editor !== null)
             self.objects.editor.text = editor.text();
 
         elEd.focus();
@@ -634,6 +636,95 @@ var PISMA = Class.extend({
             .find('input[name="tresc"]').val(prev.find('#editor').html())
             .end()
             .find('textarea[name="podpis"]').val(self.html.stepper_div.find('.edit .col-md-10 .control.control-signature textarea.podpis').val());
+    },
+
+    lastPageButtons: function () {
+        var self = this,
+            form = $('#finalForm'),
+            buttons = form.find('.editor-tooltip .btn');
+
+        $.each(buttons, function () {
+            if ($(this).attr('name') == 'send' || $(this).attr('name') == 'save') {
+                var button = $(this),
+                    pismoConfirm = $('#pismoConfirm');
+
+                button.attr('type', 'button');
+                button.on('click', function () {
+                    if (self.validateLastForm(this))
+                        pismoConfirm.find('input').val('').end().modal('show');
+                });
+
+                pismoConfirm.find('.saveTemplate').on('click', function (e) {
+                    e.preventDefault();
+
+                    if ($.trim(pismoConfirm.find('#pismoTitle').val()) == '') {
+                        pismoConfirm.find('.form-group').addClass('has-error').removeClass('has-success').find('.errorMsg').removeClass('hide');
+                    } else {
+                        pismoConfirm.find('.form-group').removeClass('has-error').addClass('has-success').find('.errorMsg').addClass('hide');
+                        form.find('input[name="nazwa"]').val(pismoConfirm.find('#pismoTitle').val());
+                        $(this).addClass('loading');
+                        form.submit();
+                    }
+                });
+            }
+        })
+    },
+    validateLastForm: function (button) {
+        var form = $('#finalForm'),
+            errors = [],
+            status = true;
+
+        $.each(form.serializeArray(), function () {
+            if (button.name == 'send') {
+                var value = this.value.replace(/\r?\n|\r|^\s+|\s+$/g, '');
+
+                if (value == '' || value == undefined) {
+                    errors.push(this.name);
+                    status = false;
+                }
+            }
+        });
+
+        if (!status) {
+            if ($('.alert.pismoError').length == 0)
+                $('#finalForm #editor-cont').before($('<div></div>').addClass('alert alert-danger pismoError').attr("role", "alert").hide());
+
+            $('.pismoError').empty().append(
+                $('<p></p>').text('Aby móc wysłać pismo prosze o wprowadzenie brakujących elementów:')
+            ).append(
+                $('<ul></ul>').append(function () {
+                    var ul = $(this);
+
+                    $.each(errors, function (index, value) {
+                        var errorText = '';
+
+                        /*if (value == 'miejscowosc')
+                         errorText = 'miejscowość obok daty utworzenie pisma';
+                         else */
+                        if (value == 'data_pisma')
+                            errorText = 'daty utworzenia pisma';
+                        else if (value == 'nadawca')
+                            errorText = 'dane nadawcy pisma';
+                        else if (value == 'adresat')
+                            errorText = 'dane odbiorcy pisma';
+                        else if (value == 'tytul')
+                            errorText = 'tytuł w składanym piśmie';
+                        else if (value == 'tresc')
+                            errorText = 'treść w składanym piśmie';
+                        else if (value == 'podpis')
+                            errorText = 'podpis składającego pismo';
+
+                        if (errorText !== '')
+                            ul.append(
+                                $('<li></li>').text(errorText)
+                            )
+                    })
+                })
+            );
+            $('.alert.pismoError').slideDown();
+        }
+
+        return status;
     }
 });
 

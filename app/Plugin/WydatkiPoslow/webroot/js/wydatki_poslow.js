@@ -208,9 +208,9 @@ jQuery(function ($) {
         var biuroPosel = new TimelineMax()
             .add(TweenMax.to($near.find('.posel'), 0.5, {left: $medium.find('.scene.biuro').position().left + 470}))
             .add(TweenMax.fromTo($medium.find('.scene.biuro .stat.biura'), 0.25, {opacity: 0}, {opacity: 1}))
-            .add(TweenMax.fromTo($medium.find('.scene.biuro .stat.pracownikow'), 0.25, {opacity: 0}, {opacity: 1}))
-            // .add(TweenMax.fromTo($medium.find('.scene.biuro .stat.konserwacje'), 0.25, {opacity: 0}, {opacity: 1}))
-            // .add(TweenMax.fromTo($medium.find('.scene.biuro .stat.naprawy'), 0.25, {opacity: 0}, {opacity: 1}));
+            .add(TweenMax.fromTo($medium.find('.scene.biuro .stat.pracownikow'), 0.25, {opacity: 0}, {opacity: 1}));
+        // .add(TweenMax.fromTo($medium.find('.scene.biuro .stat.konserwacje'), 0.25, {opacity: 0}, {opacity: 1}))
+        // .add(TweenMax.fromTo($medium.find('.scene.biuro .stat.naprawy'), 0.25, {opacity: 0}, {opacity: 1}));
 
         new ScrollScene({
             duration: $medium.find('.scene.biuro').width() * .7
@@ -241,15 +241,15 @@ jQuery(function ($) {
         /*POSEL WALK - SKLEP, SZPITAL, BANK, SPOTKANIE*/
         var poselWalk = new TimelineMax()
             .add(TweenMax.fromTo($near.find('.posel'), 0.5, {left: $medium.find('.scene.sklep').position().left + $medium.find('.scene.sklep').width() - 480}, {left: $medium.find('.scene.spotkanie').position().left + 20}))
-            
+
             /*
-            .add(TweenMax.fromTo($medium.find('.scene.szpital .stat.korespondencja'), 0.5, {opacity: 0}, {opacity: 1}))
-            .add(TweenMax.to($near.find('.posel'), 0.5, {left: $medium.find('.scene.szpital').position().left + $medium.find('.scene.szpital').width() - 250}))
-            .add(TweenMax.fromTo($medium.find('.scene.szpital .stat.badania'), 0.25, {opacity: 0}, {opacity: 1}))
-            .add(TweenMax.fromTo($medium.find('.scene.szpital .stat.swiadczenia'), 0.25, {opacity: 0}, {opacity: 1}))
-            .add(TweenMax.to($near.find('.posel'), 0.5, {left: $medium.find('.scene.bank').position().left + $medium.find('.scene.bank').width() / 2}))
-            .add(TweenMax.fromTo($medium.find('.scene.bank .stat.rachunki'), 0.5, {opacity: 0}, {opacity: 1}))
-            */
+             .add(TweenMax.fromTo($medium.find('.scene.szpital .stat.korespondencja'), 0.5, {opacity: 0}, {opacity: 1}))
+             .add(TweenMax.to($near.find('.posel'), 0.5, {left: $medium.find('.scene.szpital').position().left + $medium.find('.scene.szpital').width() - 250}))
+             .add(TweenMax.fromTo($medium.find('.scene.szpital .stat.badania'), 0.25, {opacity: 0}, {opacity: 1}))
+             .add(TweenMax.fromTo($medium.find('.scene.szpital .stat.swiadczenia'), 0.25, {opacity: 0}, {opacity: 1}))
+             .add(TweenMax.to($near.find('.posel'), 0.5, {left: $medium.find('.scene.bank').position().left + $medium.find('.scene.bank').width() / 2}))
+             .add(TweenMax.fromTo($medium.find('.scene.bank .stat.rachunki'), 0.5, {opacity: 0}, {opacity: 1}))
+             */
             .add(TweenMax.to($near.find('.posel'), 0.5, {left: $medium.find('.scene.spotkanie').position().left + 490}))
             .add(TweenMax.fromTo($medium.find('.scene.spotkanie .stat.sala'), 0.5, {opacity: 0}, {opacity: 1}))
             .add(TweenMax.to($near.find('.posel'), 0.2, {left: $near.find('.samochod').position().left + 80}))
@@ -463,4 +463,25 @@ jQuery(function ($) {
 
     TweenLite.ticker.addEventListener('tick', tickHandler);
 
+    // wykopywarka wersja standardowa (72x65)
+    var wykop_url = "http://mojepanstwo.pl/wydatki_poslow",
+        wykop_title = encodeURIComponent('Wydatki posłów'),
+        wykop_desc = encodeURIComponent('Sprawdź na co posłowie wydają publiczne pieniądze'),
+        widget_bg = '7CAD2B',
+        widget_type = 'normal';
+    var widget_url = 'http://www.wykop.pl/dataprovider/diggerwidget/?url=' + encodeURIComponent(wykop_url) + '&title=' + (wykop_title) + '&desc=' + (wykop_desc) + '&bg=' + (widget_bg) + '&type=' + (widget_type);
+    $('.social').append(
+        $('<iframe></iframe>').attr({
+            'src': widget_url,
+            'frameborder': "0",
+            'border': "0"
+        }).css({
+            border: 'none',
+            width: '72px',
+            height: '65px',
+            overflow: 'hidden',
+            margin: 0,
+            padding: 0
+        })
+    );
 });

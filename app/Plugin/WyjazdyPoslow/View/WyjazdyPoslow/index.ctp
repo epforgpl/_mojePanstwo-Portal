@@ -24,289 +24,298 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
 
 <div class="container">
 
-<div class="stats text-center">
+    <div class="stats text-center">
 
-    <div class="bigger">
-        <p class="_label">Na podróże posłów w VII Kadencji Sejmu, wydaliśmy:</p>
+        <div class="bigger">
+            <p class="_label">Na podróże posłów w VII Kadencji Sejmu, wydaliśmy:</p>
 
-        <p class="_value"><?= $this->Waluta->slownie($stats['koszta']['calosc']) ?></p>
+            <p class="_value"><?= $this->Waluta->slownie($stats['koszta']['calosc']) ?></p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <p class="_label">Na transport</p>
+
+                <p class="_value"><?= $this->Waluta->slownie($stats['koszta']['transport']) ?></p>
+            </div>
+            <div class="col-md-3">
+                <p class="_label">Na hotele</p>
+
+                <p class="_value"><?= $this->Waluta->slownie($stats['koszta']['hotele']) ?></p>
+            </div>
+            <div class="col-md-3">
+                <p class="_label">Na diety</p>
+
+                <p class="_value"><?= $this->Waluta->slownie($stats['koszta']['diety']) ?></p>
+            </div>
+            <div class="col-md-3">
+                <p class="_label">Pozostałe koszty</p>
+
+                <p class="_value"><?= $this->Waluta->slownie($stats['koszta']['pozostale']) ?></p>
+            </div>
+        </div>
+
     </div>
 
-    <div class="row">
-        <div class="col-md-3">
-            <p class="_label">Na transport</p>
+    <a href="http://blog.epf.org.pl/2014/12/afera-madrycka-czyli-dlaczego-otwarte-dane-sa-wazne/" target="_blank"
+       class="baner">
+        <div class="inner col-xs-12 col-md-8 col-md-offset-2">
+            <div class="text">
+                <p>“Afera madrycka”, czyli dlaczego otwarte dane są ważne!</p>
 
-            <p class="_value"><?= $this->Waluta->slownie($stats['koszta']['transport']) ?></p>
+                <p>Przeczytaj wpis na blogu Fundacji ePaństwo</p>
+            </div>
+            <i class="glyphicon glyphicon-chevron-right"></i>
         </div>
-        <div class="col-md-3">
-            <p class="_label">Na hotele</p>
+    </a>
 
-            <p class="_value"><?= $this->Waluta->slownie($stats['koszta']['hotele']) ?></p>
-        </div>
-        <div class="col-md-3">
-            <p class="_label">Na diety</p>
+    <div class="block-group">
+        <div class="block">
 
-            <p class="_value"><?= $this->Waluta->slownie($stats['koszta']['diety']) ?></p>
-        </div>
-        <div class="col-md-3">
-            <p class="_label">Pozostałe koszty</p>
+            <div class="block-header">
+                <h2 class="label">Najwięcej na podróże wydali</h2>
+            </div>
 
-            <p class="_value"><?= $this->Waluta->slownie($stats['koszta']['pozostale']) ?></p>
-        </div>
-    </div>
+            <div class="content row">
+                <div class="col-md-5">
 
-</div>
+                    <h3>Indywidualnie</h3>
 
-<a href="http://blog.epf.org.pl/2014/12/afera-madrycka-czyli-dlaczego-otwarte-dane-sa-wazne/" target="_blank"
-   class="baner">
-    <div class="inner col-xs-12 col-md-8 col-md-offset-2">
-        <div class="text">
-            <p>“Afera madrycka”, czyli dlaczego otwarte dane są ważne!</p>
-
-            <p>Przeczytaj wpis na blogu Fundacji ePaństwo</p>
-        </div>
-        <i class="glyphicon glyphicon-chevron-right"></i>
-    </div>
-</a>
-
-<div class="block-group">
-<div class="block">
-
-    <div class="block-header">
-        <h2 class="label">Najwięcej na podróże wydali</h2>
-    </div>
-
-    <div class="content row">
-        <div class="col-md-5">
-
-            <h3>Indywidualnie</h3>
-
-            <ul>
-                <? foreach ($stats['calosc']['indywidualne'] as $i) { ?>
-                    <li class="row">
-                        <div class="col-md-2 text-right">
-                            <img class="border"
-                                 src="http://resources.sejmometr.pl/mowcy/a/2/<?= $i['mowca_id'] ?>.jpg"/>
-                        </div>
-                        <div class="col-md-10">
-                            <p class="title"><a href="/dane/poslowie/<?= $i['id'] ?>/wyjazdy"><?= $i['nazwa'] ?></a>
+                    <ul>
+                        <? foreach ($stats['calosc']['indywidualne'] as $i) { ?>
+                            <li class="row">
+                                <div class="col-md-2 text-right">
+                                    <img class="border"
+                                         src="http://resources.sejmometr.pl/mowcy/a/2/<?= $i['mowca_id'] ?>.jpg"/>
+                                </div>
+                                <div class="col-md-10">
+                                    <p class="title"><a
+                                            href="/dane/poslowie/<?= $i['id'] ?>/wyjazdy"><?= $i['nazwa'] ?></a>
                                     <span class="klub">(<a
                                             href="/dane/sejm_kluby/<?= $i['klub_id'] ?>"><?= $i['skrot'] ?></a>)</span>
-                            </p>
+                                    </p>
 
-                            <p class="desc"><?= pl_dopelniacz($i['count'], 'wyjazd', 'wyjazdy', 'wyjazdów') ?> na
-                                kwotę <?= _currency($i['sum']) ?></p>
-                        </div>
-                    </li>
-                <? } ?>
-            </ul>
+                                    <p class="desc"><?= pl_dopelniacz($i['count'], 'wyjazd', 'wyjazdy', 'wyjazdów') ?>
+                                        na
+                                        kwotę <?= _currency($i['sum']) ?></p>
+                                </div>
+                            </li>
+                        <? } ?>
+                    </ul>
 
-            <p class="text-center"><a class="btn btn-sm btn-primary" href="/dane/poslowie?order=wartosc_wyjazdow desc">Zobacz
-                    pełny ranking</a></p>
+                    <p class="text-center"><a class="btn btn-sm btn-primary"
+                                              href="/dane/poslowie?order=wartosc_wyjazdow desc">Zobacz
+                            pełny ranking</a></p>
 
-        </div>
-        <div class="col-md-7">
+                </div>
+                <div class="col-md-7">
 
-            <h3>Średnio na posła, według klubów</h3>
+                    <h3>Średnio na posła, według klubów</h3>
 
-            <?php
-            $klubowoChartData = array();
-            foreach ($stats['calosc']['klubowe'] as $i) {
-                array_push($klubowoChartData, array(
-                    "name" => $i['skrot'],
-                    "fullname" => $i['nazwa'],
-                    "link" => "/dane/sejm_kluby/" . $i['id'],
-                    "image" => ($i['id'] != 8) ? "http://resources.sejmometr.pl/s_kluby/" . $i['id'] . "_s_t.png" : '',
-                    "ilosc" => (int)$i['count'],
-                    "y" => (int)($i['avg']),
-                    "avg" => _currency(round($i['avg'], 2)),
-                    "sum" => _currency($i['sum'])
-                ));
-            };?>
-            <div class="pieChartKlubowo" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"
-                 data-kluby='<?php echo json_encode($klubowoChartData) ?>'></div>
+                    <?php
+                    $klubowoChartData = array();
+                    foreach ($stats['calosc']['klubowe'] as $i) {
+                        array_push($klubowoChartData, array(
+                            "name" => $i['skrot'],
+                            "fullname" => $i['nazwa'],
+                            "link" => "/dane/sejm_kluby/" . $i['id'],
+                            "image" => ($i['id'] != 8) ? "http://resources.sejmometr.pl/s_kluby/" . $i['id'] . "_s_t.png" : '',
+                            "ilosc" => (int)$i['count'],
+                            "y" => (int)($i['avg']),
+                            "avg" => _currency(round($i['avg'], 2)),
+                            "sum" => _currency($i['sum'])
+                        ));
+                    }; ?>
+                    <div class="pieChartKlubowo"
+                         style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"
+                         data-kluby='<?php echo json_encode($klubowoChartData) ?>'></div>
 
-        </div>
-    </div>
-
-</div>
-
-
-<div class="block">
-
-    <div class="block-header">
-        <h2 class="label">Najdroższe wyjazdy</h2>
-    </div>
-
-    <div class="content row">
-
-        <div class="col-md-6">
-
-            <h3>Całościowo</h3>
-
-            <ul>
-                <? foreach ($stats['najdrozsze']['calosc'] as $i) { ?>
-                    <li class="row">
-
-                        <div class="col-md-12">
-                            <p class="title">
-                                <a href="/dane/poslowie_wyjazdy_wydarzenia/<?= $i['id'] ?>"><?= $i['delegacja'] ?></a>
-                            </p>
-
-                            <p class="loc">
-                                <?= $i['lokalizacja'] ?>
-                            </p>
-
-                            <p class="desc"><?= _currency($i['koszt']) ?> <span
-                                    class="separator">|</span> <?= pl_dopelniacz($i['liczba_dni'], 'dzień', 'dni', 'dni') ?>
-                                <span
-                                    class="separator">|</span> <?= pl_dopelniacz($i['liczba_poslow'], 'posel', 'posłów', 'posłów') ?>
-                            </p>
-                        </div>
-                    </li>
-                <? } ?>
-
-            </ul>
-
-            <p class="text-center"><a class="btn btn-sm btn-primary"
-                                      href="/dane/poslowie_wyjazdy_wydarzenia?order=wartosc_koszt desc">Zobacz pełny
-                    ranking</a></p>
+                </div>
+            </div>
 
         </div>
 
-        <div class="col-md-6">
 
-            <h3>Indywidualnie</h3>
+        <div class="block">
 
-            <ul>
-                <? foreach ($stats['najdrozsze']['indywidualnie'] as $i) { ?>
-                    <li class="row">
-                        <div class="col-md-2 text-right">
-                            <img class="border"
-                                 src="http://resources.sejmometr.pl/mowcy/a/2/<?= $i['mowca_id'] ?>.jpg"/>
-                        </div>
-                        <div class="col-md-10">
-                            <p class="title"><a href="/dane/poslowie/<?= $i['id'] ?>/wyjazdy"><?= $i['nazwa'] ?></a>
-                                    <span class="klub">(<a
-                                            href="/dane/sejm_kluby/<?= $i['klub_id'] ?>"><?= $i['skrot'] ?></a>)</span>
-                            </p>
+            <div class="block-header">
+                <h2 class="label">Najdroższe wyjazdy</h2>
+            </div>
 
-                            <div class="desc-loc-cont">
-                                <p class="desc pull-left"><?= _currency($i['koszt']) ?></p>
+            <div class="content row">
 
-                                <p class="loc pull-right"><?= $i['lokalizacja'] ?></p>
-                            </div>
-                        </div>
-                    </li>
-                <? } ?>
-            </ul>
+                <div class="col-md-6">
 
-            <p class="text-center"><a class="btn btn-sm btn-primary"
-                                      href="/dane/poslowie_wyjazdy?order=wartosc_koszt desc">Zobacz pełny ranking</a>
-            </p>
+                    <h3>Całościowo</h3>
 
-        </div>
+                    <ul>
+                        <? foreach ($stats['najdrozsze']['calosc'] as $i) { ?>
+                            <li class="row">
 
-    </div>
+                                <div class="col-md-12">
+                                    <p class="title">
+                                        <a href="/dane/poslowie_wyjazdy_wydarzenia/<?= $i['id'] ?>"><?= $i['delegacja'] ?></a>
+                                    </p>
 
-</div>
+                                    <p class="loc">
+                                        <?= $i['lokalizacja'] ?>
+                                    </p>
 
+                                    <p class="desc"><?= _currency($i['koszt']) ?> <span
+                                            class="separator">|</span> <?= pl_dopelniacz($i['liczba_dni'], 'dzień', 'dni', 'dni') ?>
+                                        <span
+                                            class="separator">|</span> <?= pl_dopelniacz($i['liczba_poslow'], 'posel', 'posłów', 'posłów') ?>
+                                    </p>
+                                </div>
+                            </li>
+                        <? } ?>
 
-<div class="block">
+                    </ul>
 
-    <div class="block-header">
-        <h2 class="label">Wyjazdy posłów, a prace w Sejmie</h2>
-    </div>
+                    <p class="text-center"><a class="btn btn-sm btn-primary"
+                                              href="/dane/poslowie_wyjazdy_wydarzenia?order=wartosc_koszt desc">Zobacz
+                            pełny
+                            ranking</a></p>
 
-    <div class="content">
-
-        <p>Poniżej prezentujemy daty zagranicznych wydarzeń, w których brali udział posłowie pokrywające się z datami
-            głosowań, na których ci sami posłowie byli obecni w Sejmie.</p>
-
-        <p>Zestawienie tych danych nie jest równoznaczne z nieobecnością posłów w delegacjach. Jak poinformowała
-            Kancelaria Sejmu niektórzy z posłów skracali swój pobyt w czasie dłuższych delegacji ze względu na obowiązek
-            wzięcia udziału w głosowaniach w Polsce.</p>
-
-
-    </div>
-
-</div>
-
-
-<div class="col-md-10 col-md-offset-1">
-
-    <ul class="controversy">
-
-        <? foreach ($stats['wydarzenia'] as $w) { ?>
-
-            <li>
-
-
-                <div class="loc">
-                    <p class="w_title pull-left"><a
-                            href="/dane/poslowie_wyjazdy_wydarzenia/<?= $w['data']['id'] ?>"><?= $w['data']['delegacja'] ?></a>
-                    </p>
-
-                    <p class="pull-right"><span
-                            class="licza_dni"><?= pl_dopelniacz($w['data']['liczba_dni'], 'dzień', 'dni', 'dni') ?></span>
-                        <span class="label label-warning"><?= $w['data']['date_start'] ?>
-                            - <?= $w['data']['date_stop'] ?></span></p>
                 </div>
 
-                <p class="desc"><?= $w['data']['lokalizacja'] ?></p>
+                <div class="col-md-6">
 
-                <ul class="poslowie">
+                    <h3>Indywidualnie</h3>
 
-                    <li class="row">
-                        <p class="col-sm-4">Poseł</p>
+                    <ul>
+                        <? foreach ($stats['najdrozsze']['indywidualnie'] as $i) { ?>
+                            <li class="row">
+                                <div class="col-md-2 text-right">
+                                    <img class="border"
+                                         src="http://resources.sejmometr.pl/mowcy/a/2/<?= $i['mowca_id'] ?>.jpg"/>
+                                </div>
+                                <div class="col-md-10">
+                                    <p class="title"><a
+                                            href="/dane/poslowie/<?= $i['id'] ?>/wyjazdy"><?= $i['nazwa'] ?></a>
+                                    <span class="klub">(<a
+                                            href="/dane/sejm_kluby/<?= $i['klub_id'] ?>"><?= $i['skrot'] ?></a>)</span>
+                                    </p>
 
-                        <p class="col-sm-2">Transport</p>
+                                    <div class="desc-loc-cont">
+                                        <p class="desc pull-left"><?= _currency($i['koszt']) ?></p>
 
-                        <p class="col-sm-2">Hotel</p>
+                                        <p class="loc pull-right"><?= $i['lokalizacja'] ?></p>
+                                    </div>
+                                </div>
+                            </li>
+                        <? } ?>
+                    </ul>
 
-                        <p class="col-sm-2">Dieta</p>
+                    <p class="text-center"><a class="btn btn-sm btn-primary"
+                                              href="/dane/poslowie_wyjazdy?order=wartosc_koszt desc">Zobacz pełny
+                            ranking</a>
+                    </p>
 
-                        <p class="col-sm-2 text-right">Aktywności w Sejmie</p>
-                    </li>
+                </div>
 
-                    <? foreach ($w['poslowie'] as $p) { ?>
+            </div>
 
-                        <li class="row">
+        </div>
 
-                            <p class="col-sm-4">
-                                <img class="border"
-                                     src="http://resources.sejmometr.pl/mowcy/a/3/<?= $p['mowca_id'] ?>.jpg"/>
-                                <a class="title"
-                                   href="/dane/poslowie/<?= $p['id'] ?>/wyjazdy"><?= $p['nazwa'] ?></a> <span
-                                    class="klub"><a
-                                        href="/dane/sejm_kluby/<?= $p['klub_id'] ?>"><?= $p['klub_skrot'] ?></a></span>
+
+        <div class="block">
+
+            <div class="block-header">
+                <h2 class="label">Wyjazdy posłów, a prace w Sejmie</h2>
+            </div>
+
+            <div class="content">
+
+                <p>Poniżej prezentujemy daty zagranicznych wydarzeń, w których brali udział posłowie pokrywające się z
+                    datami
+                    głosowań, na których ci sami posłowie byli obecni w Sejmie.</p>
+
+                <p>Zestawienie tych danych nie jest równoznaczne z nieobecnością posłów w delegacjach. Jak poinformowała
+                    Kancelaria Sejmu niektórzy z posłów skracali swój pobyt w czasie dłuższych delegacji ze względu na
+                    obowiązek
+                    wzięcia udziału w głosowaniach w Polsce.</p>
+
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-10 col-md-offset-1">
+
+            <ul class="controversy">
+
+                <? foreach ($stats['wydarzenia'] as $w) { ?>
+
+                    <li>
+
+
+                        <div class="loc">
+                            <p class="w_title pull-left"><a
+                                    href="/dane/poslowie_wyjazdy_wydarzenia/<?= $w['data']['id'] ?>"><?= $w['data']['delegacja'] ?></a>
                             </p>
 
-                            <p class="col-sm-2">
-                                <?= _currency($p['koszt_transport']) ?>
-                            </p>
+                            <p class="pull-right"><span
+                                    class="licza_dni"><?= pl_dopelniacz($w['data']['liczba_dni'], 'dzień', 'dni', 'dni') ?></span>
+                        <span class="label label-warning"><?= $w['data']['date_start'] ?>
+                            - <?= $w['data']['date_stop'] ?></span></p>
+                        </div>
 
-                            <p class="col-sm-2">
-                                <?= _currency($p['koszt_hotel']) ?>
-                            </p>
+                        <p class="desc"><?= $w['data']['lokalizacja'] ?></p>
 
-                            <p class="col-sm-2">
-                                <?= _currency($p['koszt_dieta']) ?>
-                            </p>
+                        <ul class="poslowie">
 
-                            <p class="col-sm-2 text-right">
+                            <li class="row">
+                                <p class="col-sm-4">Poseł</p>
+
+                                <p class="col-sm-2">Transport</p>
+
+                                <p class="col-sm-2">Hotel</p>
+
+                                <p class="col-sm-2">Dieta</p>
+
+                                <p class="col-sm-2 text-right">Aktywności w Sejmie</p>
+                            </li>
+
+                            <? foreach ($w['poslowie'] as $p) { ?>
+
+                                <li class="row">
+
+                                    <p class="col-sm-4">
+                                        <img class="border"
+                                             src="http://resources.sejmometr.pl/mowcy/a/3/<?= $p['mowca_id'] ?>.jpg"/>
+                                        <a class="title"
+                                           href="/dane/poslowie/<?= $p['id'] ?>/wyjazdy"><?= $p['nazwa'] ?></a> <span
+                                            class="klub"><a
+                                                href="/dane/sejm_kluby/<?= $p['klub_id'] ?>"><?= $p['klub_skrot'] ?></a></span>
+                                    </p>
+
+                                    <p class="col-sm-2">
+                                        <?= _currency($p['koszt_transport']) ?>
+                                    </p>
+
+                                    <p class="col-sm-2">
+                                        <?= _currency($p['koszt_hotel']) ?>
+                                    </p>
+
+                                    <p class="col-sm-2">
+                                        <?= _currency($p['koszt_dieta']) ?>
+                                    </p>
+
+                                    <p class="col-sm-2 text-right">
                                 <span
                                     class="label label-danger"><?= implode('</span> <span class="label label-danger">', $p['glosowania_dni']) ?></span>
-                            </p>
+                                    </p>
 
-                        </li>
+                                </li>
 
-                    <? } ?>
-                </ul>
+                            <? } ?>
+                        </ul>
 
-            </li>
+                    </li>
 
-            <? /*
+                    <? /*
 		<li class="row">
 		    <div class="col-md-1 text-right">
 		        <img class="border" src="http://resources.sejmometr.pl/mowcy/a/2/9.jpg"/>
@@ -321,16 +330,16 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
 		            głosował w Sejmie w dniach: <span class="label label-danger">2013-10-11</span></p></div>
 		</li>
 		<? */
-            ?>
+                    ?>
 
-        <? } ?>
-
-
-    </ul>
-
-</div>
+                <? } ?>
 
 
-</div>
+            </ul>
+
+        </div>
+
+
+    </div>
 
 </div>

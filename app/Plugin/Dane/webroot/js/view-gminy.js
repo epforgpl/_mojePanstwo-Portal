@@ -128,8 +128,8 @@ $(document).ready(function () {
 
 
 $(function () {
-	
-    if (typeof(wyniki_wyborow)=='undefined' || !wyniki_wyborow)
+
+    if (typeof(wyniki_wyborow) == 'undefined' || !wyniki_wyborow)
         return false;
 
     var data = [];
@@ -194,8 +194,8 @@ $(function () {
             }
         ],
         legend: {
-	        align: 'right',
-	        verticalAlign: 'top'
+            align: 'right',
+            verticalAlign: 'top'
         }
     });
 });

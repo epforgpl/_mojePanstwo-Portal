@@ -21,7 +21,6 @@ jQuery(document).ready(function () {
             main.find('span').html(_mPHeart.translation.LC_DANE_TOOLBAR_LOADING_ALL);
             main.find('a').hide();
         }
-
     }
 
     /*IF USER HIT BOTTOM OF PAGE LOAD NEW PART OF PAGES*/
@@ -37,7 +36,7 @@ jQuery(document).ready(function () {
             jQuery('html, body').animate({
                 scrollTop: documentCanvas.offset().top + 10
             }, 1000, function () {
-                var canvasP = jQuery('.canvas .p');
+                var canvasP = jQuery('.canvas [data-page-no]');
 
                 docToolbar.find('input[name="document_page"]').val(page);
                 currPage[0] = page;
@@ -126,7 +125,7 @@ jQuery(document).ready(function () {
                     jQuery('.loadMoreDocumentContent').addClass('loading');
                     loadMoreDoc(function () {
                         window.setTimeout(function () {
-                            var canvasCurrentPage = jQuery('.canvas .p')[currPage[0]];
+                            var canvasCurrentPage = jQuery('.canvas [data-page-no]')[currPage[0]];
                             currPage[2] = (jQuery(canvasCurrentPage).length) ? jQuery(canvasCurrentPage).offset().top : 'none';
                         }, 500)
                     });
@@ -175,7 +174,7 @@ jQuery(document).ready(function () {
     jQuery(window).scroll(function () {
         if (pageScroller) {
             var window_top = jQuery(window).scrollTop(),
-                canvasP = jQuery('.canvas .p');
+                canvasP = jQuery('.canvas [data-page-no]');
 
             if (!currPage[2])
                 (jQuery(canvasP[1]).length) ? currPage[2] = jQuery(canvasP[1]).offset().top : currPage[2] = 'none';

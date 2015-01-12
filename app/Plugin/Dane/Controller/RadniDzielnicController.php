@@ -4,7 +4,7 @@ App::uses('DataobjectsController', 'Dane.Controller');
 
 class RadniDzielnicController extends DataobjectsController
 {
-    
+
     /*
     public $menu = array();
 	

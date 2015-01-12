@@ -7706,14 +7706,14 @@
     };
     function d3_layout_clusterY(children) {
         return 1 + d3.max(children, function (child) {
-            return child.y;
-        });
+                return child.y;
+            });
     }
 
     function d3_layout_clusterX(children) {
         return children.reduce(function (x, child) {
-            return x + child.x;
-        }, 0) / children.length;
+                return x + child.x;
+            }, 0) / children.length;
     }
 
     function d3_layout_clusterLeft(node) {
@@ -9184,8 +9184,8 @@
             return b == null ? attrNull : (b += "", function () {
                 var a = this.getAttribute(name), i;
                 return a !== b && (i = interpolate(a, b), function (t) {
-                    this.setAttribute(name, i(t));
-                });
+                        this.setAttribute(name, i(t));
+                    });
             });
         }
 
@@ -9193,8 +9193,8 @@
             return b == null ? attrNullNS : (b += "", function () {
                 var a = this.getAttributeNS(name.space, name.local), i;
                 return a !== b && (i = interpolate(a, b), function (t) {
-                    this.setAttributeNS(name.space, name.local, i(t));
-                });
+                        this.setAttributeNS(name.space, name.local, i(t));
+                    });
             });
         }
 
@@ -9206,15 +9206,15 @@
         function attrTween(d, i) {
             var f = tween.call(this, d, i, this.getAttribute(name));
             return f && function (t) {
-                this.setAttribute(name, f(t));
-            };
+                    this.setAttribute(name, f(t));
+                };
         }
 
         function attrTweenNS(d, i) {
             var f = tween.call(this, d, i, this.getAttributeNS(name.space, name.local));
             return f && function (t) {
-                this.setAttributeNS(name.space, name.local, f(t));
-            };
+                    this.setAttributeNS(name.space, name.local, f(t));
+                };
         }
 
         return this.tween("attr." + nameNS, name.local ? attrTweenNS : attrTween);
@@ -9237,8 +9237,8 @@
             return b == null ? styleNull : (b += "", function () {
                 var a = d3_window.getComputedStyle(this, null).getPropertyValue(name), i;
                 return a !== b && (i = d3_interpolate(a, b), function (t) {
-                    this.style.setProperty(name, i(t), priority);
-                });
+                        this.style.setProperty(name, i(t), priority);
+                    });
             });
         }
 
@@ -9249,8 +9249,8 @@
         function styleTween(d, i) {
             var f = tween.call(this, d, i, d3_window.getComputedStyle(this, null).getPropertyValue(name));
             return f && function (t) {
-                this.style.setProperty(name, f(t), priority);
-            };
+                    this.style.setProperty(name, f(t), priority);
+                };
         }
 
         return this.tween("style." + name, styleTween);

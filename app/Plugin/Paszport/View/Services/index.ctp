@@ -2,7 +2,8 @@
     <tr>
         <th><?php echo __d('paszport', 'LC_PASZPORT_SERVICE'); ?></th>
         <th__d
-        ('paszport',php echo __d('paszport','LC_PASZPORT_CREATED'); ?></th>__d('paszport',
+            (
+        'paszport',php echo __d('paszport','LC_PASZPORT_CREATED'); ?></th>__d('paszport',
         <th><?php echo __d('paszport', 'LC_PASZPORT_LAST_LOGIN'); ?></th>
     </tr>
     <?php foreach ($this->data as $service) {

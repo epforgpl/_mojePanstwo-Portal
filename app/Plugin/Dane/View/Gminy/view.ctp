@@ -16,302 +16,307 @@
 
 
 <div class="gminy row">
-<div class="col-lg-3 objectSide">
+    <div class="col-lg-3 objectSide">
 
-    <div class="objectSideInner">
+        <div class="objectSideInner">
 
-        <ul class="dataHighlights side">
-
-
-            <li class="dataHighlight big">
-                <p class="_label">Liczba ludności</p>
-
-                <div>
-                    <p class="_value"><?= number_format_h($object->getData('liczba_ludnosci')); ?></p>
-                </div>
-            </li>
-
-            <li class="dataHighlight big">
-                <p class="_label">Powierzchnia</p>
-
-                <div>
-                    <p class="_value"><?= number_format($object->getData('powierzchnia'), 0); ?> km<sup>2</sup></p>
-                </div>
-            </li>
+            <ul class="dataHighlights side">
 
 
-            <li class="dataHighlight topborder">
-                <p class="_label">Dochody roczne gminy</p>
+                <li class="dataHighlight big">
+                    <p class="_label">Liczba ludności</p>
 
-                <div>
-                    <p class="_value"><?= number_format_h($object->getData('dochody_roczne')); ?> PLN</p>
-                </div>
-            </li>
+                    <div>
+                        <p class="_value"><?= number_format_h($object->getData('liczba_ludnosci')); ?></p>
+                    </div>
+                </li>
 
-            <li class="dataHighlight">
-                <p class="_label">Wydatki roczne gminy</p>
+                <li class="dataHighlight big">
+                    <p class="_label">Powierzchnia</p>
 
-                <div>
-                    <p class="_value"><?= number_format_h($object->getData('wydatki_roczne')); ?> PLN</p>
-                </div>
-            </li>
-
-            <li class="dataHighlight">
-                <p class="_label">Deficyt roczny gminy</p>
-
-                <div>
-                    <p class="_value"><?= number_format_h($object->getData('zadluzenie_roczne')); ?> PLN</p>
-                </div>
-            </li>
+                    <div>
+                        <p class="_value"><?= number_format($object->getData('powierzchnia'), 0); ?> km<sup>2</sup></p>
+                    </div>
+                </li>
 
 
-        </ul>
+                <li class="dataHighlight topborder">
+                    <p class="_label">Dochody roczne gminy</p>
 
-        <ul class="dataHighlights side hide">
+                    <div>
+                        <p class="_value"><?= number_format_h($object->getData('dochody_roczne')); ?> PLN</p>
+                    </div>
+                </li>
 
-            <li class="dataHighlight">
-                <p class="_label">Kod TERYT</p>
+                <li class="dataHighlight">
+                    <p class="_label">Wydatki roczne gminy</p>
 
-                <div>
-                    <p class="_value"><?= $object->getData('teryt'); ?></p>
-                </div>
-            </li>
+                    <div>
+                        <p class="_value"><?= number_format_h($object->getData('wydatki_roczne')); ?> PLN</p>
+                    </div>
+                </li>
 
-            <li class="dataHighlight">
-                <p class="_label">Kod NTS</p>
+                <li class="dataHighlight">
+                    <p class="_label">Deficyt roczny gminy</p>
 
-                <div>
-                    <p class="_value"><?= $object->getData('nts'); ?></p>
-                </div>
-            </li>
+                    <div>
+                        <p class="_value"><?= number_format_h($object->getData('zadluzenie_roczne')); ?> PLN</p>
+                    </div>
+                </li>
 
-            <li class="dataHighlight topborder">
-                <p class="_label">Biuletyn Informacji Publicznej</p>
 
-                <div>
-                    <p class="_value"><?= $object->getData('bip_www'); ?></p>
-                </div>
-            </li>
+            </ul>
 
-        </ul>
+            <ul class="dataHighlights side hide">
 
-        <p style="display: none;" class="text-center showHideSide">
-            <a class="a-more">Więcej &darr;</a>
-            <a class="a-less hide">Mniej &uarr;</a>
-        </p>
+                <li class="dataHighlight">
+                    <p class="_label">Kod TERYT</p>
 
+                    <div>
+                        <p class="_value"><?= $object->getData('teryt'); ?></p>
+                    </div>
+                </li>
+
+                <li class="dataHighlight">
+                    <p class="_label">Kod NTS</p>
+
+                    <div>
+                        <p class="_value"><?= $object->getData('nts'); ?></p>
+                    </div>
+                </li>
+
+                <li class="dataHighlight topborder">
+                    <p class="_label">Biuletyn Informacji Publicznej</p>
+
+                    <div>
+                        <p class="_value"><?= $object->getData('bip_www'); ?></p>
+                    </div>
+                </li>
+
+            </ul>
+
+            <p style="display: none;" class="text-center showHideSide">
+                <a class="a-more">Więcej &darr;</a>
+                <a class="a-less hide">Mniej &uarr;</a>
+            </p>
+
+        </div>
     </div>
-</div>
 
 
-<div class="col-lg-9 objectMain">
+    <div class="col-lg-9 objectMain">
 
-<?php if ($object->getId() == '903') { ?>
-    <div class="objectSearch">
-        <div class="input-group">
-            <form method="get" action="/dane/gminy/<?= $object->getId() ?>/szukaj">
-                <input type="text" placeholder="Szukaj w Przejrzystym Krakowie..." autocomplete="off"
-                       class="form-control ui-autocomplete-input" name="q">
-                <input type="submit" style="display: none;" name="submit" value="search">
+        <?php if ($object->getId() == '903') { ?>
+            <div class="objectSearch">
+                <div class="input-group">
+                    <form method="get" action="/dane/gminy/<?= $object->getId() ?>/szukaj">
+                        <input type="text" placeholder="Szukaj w Przejrzystym Krakowie..." autocomplete="off"
+                               class="form-control ui-autocomplete-input" name="q">
+                        <input type="submit" style="display: none;" name="submit" value="search">
 		        <span class="input-group-btn">
 		            <button data-icon="" type="submit" class="btn btn-success btn-lg"></button>
 		        </span>
-            </form>
-        </div>
-    </div>
-<? } ?>
-
-<div class="object">
-
-<div class="block-group">
-
-<?php if (($object->getId() == '903') && ($posiedzenie = $object->getLayer('ostatnie_posiedzenie')) && !empty($posiedzenie['data']) && !empty($posiedzenie['terms'])) { ?>
-
-    <div id="prawo" class="block">
-        <div class="block-header">
-            <h2 class="pull-left label">Tematy na <a
-                    href="/dane/gminy/903/posiedzenia/<?= $posiedzenie['data']['id'] ?>">ostatnim posiedzeniu Rady
-                    Miasta</a></h2>
-            <a class="btn btn-default btn-sm pull-right"
-               href="<?= Router::url(array('action' => 'posiedzenia', 'id' => $object->getId())) ?>">
-                Wszystkie posiedzenia</a>
-        </div>
-
-        <div class="content">
-
-            <ul class="objectTagsCloud row">
-                <?
-
-                $font = array(
-                    'min' => 15,
-                    'max' => 100,
-                );
-                $font['diff'] = $font['max'] - $font['min'];
-
-                $terms = $posiedzenie['terms'];
-
-
-                foreach ($terms as &$term) {
-                    $term['size'] = $font['min'] + $font['diff'] * $term['norm_score'];
-                }
-
-
-                shuffle($terms);
-
-                foreach ($terms as $term) {
-                    $href = '/dane/gminy/903/posiedzenia/' . $posiedzenie['data']['id'] . '/punkty?q=' . addslashes($term['key']);
-                    ?>
-                    <li style="font-size: <?= $term['size'] ?>px;"><a href="<?= $href ?>"><?= $term['key'] ?></a></li>
-                <? } ?>
-            </ul>
-
-        </div>
-    </div>
-
-
-<?php } ?>
-
-<?php if ($object->getId() == '903') { ?>
-    <div class="special banner">
-        <a title="Zobacz umowy podpisywane przez Komitet Konkursowy Kraków 2022" href="/dane/krs_podmioty/481129/umowy">
-            <img src="/Dane/img/krakow_special_banner.png" width="885" height="85"/>
-        </a>
-    </div>
-<? } ?>
-
-
-<div class="block">
-
-    <div class="overflow-auto">
-
-        <div class="col-md-4 nopadding">
-
-
-            <div class="block-header">
-                <h2 class="label">Urząd gminy</h2>
+                    </form>
+                </div>
             </div>
+        <? } ?>
 
-            <div class="content padding">
-                <?
-                $adres = $object->getData('adres');
-                $adres = preg_replace('/([0-9]{2})\-([0-9]{3})/i', "<br/>$1-$2", $adres);
-                ?>
+        <div class="object">
 
-                <p><?= $adres ?></p>
+            <div class="block-group">
 
-                <? if ($szef = $object->getLayer('szef')) { ?>
-                    <div id="szef" class="dataHighlights">
-                        <div class="dataHighlight big">
-                            <p class="_label"><?= $szef['stanowisko'] ?>:</p>
+                <?php if (($object->getId() == '903') && ($posiedzenie = $object->getLayer('ostatnie_posiedzenie')) && !empty($posiedzenie['data']) && !empty($posiedzenie['terms'])) { ?>
 
-                            <p class="_value"><?= $szef['nazwa'] ?></p>
+                    <div id="prawo" class="block">
+                        <div class="block-header">
+                            <h2 class="pull-left label">Tematy na <a
+                                    href="/dane/gminy/903/posiedzenia/<?= $posiedzenie['data']['id'] ?>">ostatnim
+                                    posiedzeniu Rady
+                                    Miasta</a></h2>
+                            <a class="btn btn-default btn-sm pull-right"
+                               href="<?= Router::url(array('action' => 'posiedzenia', 'id' => $object->getId())) ?>">
+                                Wszystkie posiedzenia</a>
+                        </div>
+
+                        <div class="content">
+
+                            <ul class="objectTagsCloud row">
+                                <?
+
+                                $font = array(
+                                    'min' => 15,
+                                    'max' => 100,
+                                );
+                                $font['diff'] = $font['max'] - $font['min'];
+
+                                $terms = $posiedzenie['terms'];
+
+
+                                foreach ($terms as &$term) {
+                                    $term['size'] = $font['min'] + $font['diff'] * $term['norm_score'];
+                                }
+
+
+                                shuffle($terms);
+
+                                foreach ($terms as $term) {
+                                    $href = '/dane/gminy/903/posiedzenia/' . $posiedzenie['data']['id'] . '/punkty?q=' . addslashes($term['key']);
+                                    ?>
+                                    <li style="font-size: <?= $term['size'] ?>px;"><a
+                                            href="<?= $href ?>"><?= $term['key'] ?></a></li>
+                                <? } ?>
+                            </ul>
+
                         </div>
                     </div>
+
+
+                <?php } ?>
+
+                <?php if ($object->getId() == '903') { ?>
+                    <div class="special banner">
+                        <a title="Zobacz umowy podpisywane przez Komitet Konkursowy Kraków 2022"
+                           href="/dane/krs_podmioty/481129/umowy">
+                            <img src="/Dane/img/krakow_special_banner.png" width="885" height="85"/>
+                        </a>
+                    </div>
                 <? } ?>
-            </div>
-
-        </div>
-        <div class="col-md-8 nopadding">
-
-            <div class="block-header">
-                <h2 class="pull-left label"><?php echo __d('dane', 'LC_GMINY_WYNIKI_WYBOROW'); ?></h2>
-                <a class="btn btn-default btn-sm pull-right"
-                   href="<?= Router::url(array('action' => 'radni', 'id' => $object->getId())) ?>">Zobacz
-                    wszystkich radnych</a>
-            </div>
-
-            <div class="content overflow-hidden">
-                <script type="text/javascript">
-                    var wyniki_wyborow = <?= json_encode($object->getLayer('rada_komitety')); ?>;
-                </script>
-                <div id="komitety_chart"></div>
-            </div>
-
-        </div>
-    </div>
-</div>
 
 
-<div class="block">
-    <div class="overflow-auto">
+                <div class="block">
 
-        <div class="col-md-6 nopadding">
+                    <div class="overflow-auto">
 
-            <div class="block-header">
-                <h2 title="Największe spółki pod względem kapitału zakładowego" class="pull-left label">Największe
-                    spółki</h2>
-                <a class="btn btn-default btn-sm pull-right"
-                   href="<?= Router::url(array('action' => 'organizacje', 'id' => $object->getId())) ?>">Zobacz
-                    wszystkie</a>
-            </div>
-
-            <div class="content padding">
-
-                <ul class="raw">
-                    <? foreach ($organizacje as $organizacja) { ?>
-                        <li class="list-group-item"><? if ($organizacja->getData('wartosc_kapital_zakladowy')) { ?>
-                                <span
-                                    class="badge"><?= number_format_h($organizacja->getData('wartosc_kapital_zakladowy')) ?></span><? } ?>
-                            <a href="<?= $organizacja->getUrl() ?>"><?= $this->Text->truncate($organizacja->getShortTitle(), 25); ?></a>
-                        </li>
-                    <? } ?>
-                </ul>
-
-            </div>
-
-        </div>
-
-        <div class="col-md-6 nopadding">
-
-            <div class="block-header">
-                <h2 title="Organizacje pozarządowe w gminie" class="pull-left label">Organizacje pozarządowe</h2>
-                <a class="btn btn-default btn-sm pull-right"
-                   href="<?= Router::url(array('action' => 'organizacje', 'id' => $object->getId())) ?>">Zobacz
-                    wszystkie</a>
-            </div>
-
-            <div class="content padding">
-                <?
-                if (!empty($ngos)) {
-                    ?>
-                    <ul class="raw">
-                        <?
-                        $limit = 5;
-                        $i = 0;
-
-                        foreach ($ngos as $ngo) {
-                            $i++;
-                            ?>
-
-                            <li class="list-group-item"><span
-                                    class="badge"><?= number_format_h($ngo['count']) ?></span><a
-                                    href="<?= Router::url(array(
-                                        'action' => 'organizacje',
-                                        'id' => $object->getId(),
-                                        '?' => array('forma_prawna_id' => $ngo['id'])
-                                    )) ?>"
-                                    title="<?= addslashes($ngo['label']) ?>"><?= $this->Text->truncate($ngo['label'], 25); ?></a>
-                            </li>
-                            <?
-                            if ($i == $limit) {
-                                break;
-                            }
-                        }
-                        ?>
-                    </ul>
-                <?
-                }
-                ?>
-            </div>
-
-        </div>
-    </div>
-</div>
+                        <div class="col-md-4 nopadding">
 
 
-<? if ($object->getId() == 903) { ?>
+                            <div class="block-header">
+                                <h2 class="label">Urząd gminy</h2>
+                            </div>
 
-    <? /*
+                            <div class="content padding">
+                                <?
+                                $adres = $object->getData('adres');
+                                $adres = preg_replace('/([0-9]{2})\-([0-9]{3})/i', "<br/>$1-$2", $adres);
+                                ?>
+
+                                <p><?= $adres ?></p>
+
+                                <? if ($szef = $object->getLayer('szef')) { ?>
+                                    <div id="szef" class="dataHighlights">
+                                        <div class="dataHighlight big">
+                                            <p class="_label"><?= $szef['stanowisko'] ?>:</p>
+
+                                            <p class="_value"><?= $szef['nazwa'] ?></p>
+                                        </div>
+                                    </div>
+                                <? } ?>
+                            </div>
+
+                        </div>
+                        <div class="col-md-8 nopadding">
+
+                            <div class="block-header">
+                                <h2 class="pull-left label"><?php echo __d('dane', 'LC_GMINY_WYNIKI_WYBOROW'); ?></h2>
+                                <a class="btn btn-default btn-sm pull-right"
+                                   href="<?= Router::url(array('action' => 'radni', 'id' => $object->getId())) ?>">Zobacz
+                                    wszystkich radnych</a>
+                            </div>
+
+                            <div class="content overflow-hidden">
+                                <script type="text/javascript">
+                                    var wyniki_wyborow = <?= json_encode($object->getLayer('rada_komitety')); ?>;
+                                </script>
+                                <div id="komitety_chart"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="block">
+                    <div class="overflow-auto">
+
+                        <div class="col-md-6 nopadding">
+
+                            <div class="block-header">
+                                <h2 title="Największe spółki pod względem kapitału zakładowego" class="pull-left label">
+                                    Największe
+                                    spółki</h2>
+                                <a class="btn btn-default btn-sm pull-right"
+                                   href="<?= Router::url(array('action' => 'organizacje', 'id' => $object->getId())) ?>">Zobacz
+                                    wszystkie</a>
+                            </div>
+
+                            <div class="content padding">
+
+                                <ul class="raw">
+                                    <? foreach ($organizacje as $organizacja) { ?>
+                                        <li class="list-group-item"><? if ($organizacja->getData('wartosc_kapital_zakladowy')) { ?>
+                                                <span
+                                                    class="badge"><?= number_format_h($organizacja->getData('wartosc_kapital_zakladowy')) ?></span><? } ?>
+                                            <a href="<?= $organizacja->getUrl() ?>"><?= $this->Text->truncate($organizacja->getShortTitle(), 25); ?></a>
+                                        </li>
+                                    <? } ?>
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6 nopadding">
+
+                            <div class="block-header">
+                                <h2 title="Organizacje pozarządowe w gminie" class="pull-left label">Organizacje
+                                    pozarządowe</h2>
+                                <a class="btn btn-default btn-sm pull-right"
+                                   href="<?= Router::url(array('action' => 'organizacje', 'id' => $object->getId())) ?>">Zobacz
+                                    wszystkie</a>
+                            </div>
+
+                            <div class="content padding">
+                                <?
+                                if (!empty($ngos)) {
+                                    ?>
+                                    <ul class="raw">
+                                        <?
+                                        $limit = 5;
+                                        $i = 0;
+
+                                        foreach ($ngos as $ngo) {
+                                            $i++;
+                                            ?>
+
+                                            <li class="list-group-item"><span
+                                                    class="badge"><?= number_format_h($ngo['count']) ?></span><a
+                                                    href="<?= Router::url(array(
+                                                        'action' => 'organizacje',
+                                                        'id' => $object->getId(),
+                                                        '?' => array('forma_prawna_id' => $ngo['id'])
+                                                    )) ?>"
+                                                    title="<?= addslashes($ngo['label']) ?>"><?= $this->Text->truncate($ngo['label'], 25); ?></a>
+                                            </li>
+                                            <?
+                                            if ($i == $limit) {
+                                                break;
+                                            }
+                                        }
+                                        ?>
+                                    </ul>
+                                <?
+                                }
+                                ?>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <? if ($object->getId() == 903) { ?>
+
+                    <? /*
 			    <div id="rada" class="block">
 			        <div class="block-header">
 			            <h2 class="pull-left label">Posiedzenia rady miasta</h2>
@@ -334,30 +339,30 @@
 			        </div>
 			    </div>
 			    */
-    ?>
+                    ?>
 
-    <div id="prawo" class="block">
-        <div class="block-header">
-            <h2 class="pull-left label">Najnowsze uchwały rady miasta</h2>
-            <a class="btn btn-default btn-sm pull-right"
-               href="<?= Router::url(array('action' => 'rada_uchwaly', 'id' => $object->getId())) ?>">Zobacz
-                wszystkie</a>
-        </div>
+                    <div id="prawo" class="block">
+                        <div class="block-header">
+                            <h2 class="pull-left label">Najnowsze uchwały rady miasta</h2>
+                            <a class="btn btn-default btn-sm pull-right"
+                               href="<?= Router::url(array('action' => 'rada_uchwaly', 'id' => $object->getId())) ?>">Zobacz
+                                wszystkie</a>
+                        </div>
 
-        <div class="content">
-            <div class="dataobjectsSliderRow row">
-                <div>
-                    <?php echo $this->dataobjectsSlider->render($prawo_lokalne, array(
-                        'perGroup' => 2,
-                        'rowNumber' => 1,
-                        'descriptionMode' => 'none',
-                    )) ?>
-                </div>
-            </div>
-        </div>
-    </div>
+                        <div class="content">
+                            <div class="dataobjectsSliderRow row">
+                                <div>
+                                    <?php echo $this->dataobjectsSlider->render($prawo_lokalne, array(
+                                        'perGroup' => 2,
+                                        'rowNumber' => 1,
+                                        'descriptionMode' => 'none',
+                                    )) ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-    <? /*
+                    <? /*
 					            <div id="materialy" class="block">
 					                <div class="block-header">
 					                    <h2 class="pull-left label">Materiały na posiedzenia rady miasta</h2>
@@ -379,10 +384,10 @@
 					                </div>
 					            </div>
 					            */
-    ?>
+                    ?>
 
 
-    <? /*
+                    <? /*
 					            <div class="block">
 					            	<div class="row">
 						            	<div class="col-lg-6">
@@ -444,75 +449,75 @@
 					            
 					            </div>
 					            <? */
-    ?>
+                    ?>
 
-<? } ?>
-
-
-
-<? if (!empty($zamowienia_otwarte)) { ?>
-    <div id="zamowienia_publiczne_otwarte" class="block">
-        <div class="block-header">
-            <h2 class="pull-left label">Najnowsze ogłoszenia o zamówieniach publicznych</h2>
-            <a class="btn btn-default btn-sm pull-right"
-               href="<?= Router::url(array('action' => 'zamowienia', 'id' => $object->getId())) ?>">Zobacz
-                wszystkie</a>
-        </div>
-
-        <div class="content">
-            <div class="dataobjectsSliderRow row">
-                <div>
-                    <?php echo $this->dataobjectsSlider->render($zamowienia_otwarte, array(
-                        'perGroup' => 2,
-                        'rowNumber' => 1,
-                        'labelMode' => 'none',
-                    )) ?>
-                </div>
-            </div>
-        </div>
-    </div>
-<? } ?>
-
-<? if (!empty($zamowienia_zamkniete)) { ?>
-    <div id="zamowienia_publiczne_zamkniete" class="block">
-        <div class="block-header">
-            <h2 class="pull-left label">Najnowsze rozstrzygnięcia zamówień publicznych</h2>
-            <a class="btn btn-default btn-sm pull-right"
-               href="<?= Router::url(array('action' => 'zamowienia', 'id' => $object->getId())) ?>">Zobacz
-                wszystkie</a>
-        </div>
-
-        <div class="content">
-            <div class="dataobjectsSliderRow row">
-                <div>
-                    <?php echo $this->dataobjectsSlider->render($zamowienia_zamkniete, array(
-                        'perGroup' => 2,
-                        'rowNumber' => 1,
-                        'labelMode' => 'none',
-                    )) ?>
-                </div>
-            </div>
-        </div>
-    </div>
-<? } ?>
+                <? } ?>
 
 
-<? if ($object->getId() == '903') { ?>
-    <div id="dzielnice" class="block">
-        <div class="block-header">
-            <h2 class="pull-left label">Dzielnice</h2>
-            <a class="btn btn-default btn-sm pull-right"
-               href="<?= Router::url(array('action' => 'dzielnice', 'id' => $object->getId())) ?>">Zobacz
-                listę</a>
-        </div>
 
-        <div class="content nopadding">
-            <div id="dzielnice_map"></div>
-        </div>
-    </div>
-<? } ?>
+                <? if (!empty($zamowienia_otwarte)) { ?>
+                    <div id="zamowienia_publiczne_otwarte" class="block">
+                        <div class="block-header">
+                            <h2 class="pull-left label">Najnowsze ogłoszenia o zamówieniach publicznych</h2>
+                            <a class="btn btn-default btn-sm pull-right"
+                               href="<?= Router::url(array('action' => 'zamowienia', 'id' => $object->getId())) ?>">Zobacz
+                                wszystkie</a>
+                        </div>
 
-<? /*
+                        <div class="content">
+                            <div class="dataobjectsSliderRow row">
+                                <div>
+                                    <?php echo $this->dataobjectsSlider->render($zamowienia_otwarte, array(
+                                        'perGroup' => 2,
+                                        'rowNumber' => 1,
+                                        'labelMode' => 'none',
+                                    )) ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <? } ?>
+
+                <? if (!empty($zamowienia_zamkniete)) { ?>
+                    <div id="zamowienia_publiczne_zamkniete" class="block">
+                        <div class="block-header">
+                            <h2 class="pull-left label">Najnowsze rozstrzygnięcia zamówień publicznych</h2>
+                            <a class="btn btn-default btn-sm pull-right"
+                               href="<?= Router::url(array('action' => 'zamowienia', 'id' => $object->getId())) ?>">Zobacz
+                                wszystkie</a>
+                        </div>
+
+                        <div class="content">
+                            <div class="dataobjectsSliderRow row">
+                                <div>
+                                    <?php echo $this->dataobjectsSlider->render($zamowienia_zamkniete, array(
+                                        'perGroup' => 2,
+                                        'rowNumber' => 1,
+                                        'labelMode' => 'none',
+                                    )) ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <? } ?>
+
+
+                <? if ($object->getId() == '903') { ?>
+                    <div id="dzielnice" class="block">
+                        <div class="block-header">
+                            <h2 class="pull-left label">Dzielnice</h2>
+                            <a class="btn btn-default btn-sm pull-right"
+                               href="<?= Router::url(array('action' => 'dzielnice', 'id' => $object->getId())) ?>">Zobacz
+                                listę</a>
+                        </div>
+
+                        <div class="content nopadding">
+                            <div id="dzielnice_map"></div>
+                        </div>
+                    </div>
+                <? } ?>
+
+                <? /*
 					        <div id="dotacje_unijne" class="block">
 					            <div class="block-header">
 					                <h2 class="pull-left label">Dotacje unijne</h2>
@@ -533,13 +538,13 @@
 					            </div>
 					        </div>
 					        */
-?>
+                ?>
 
 
-</div>
+            </div>
 
-</div>
-</div>
+        </div>
+    </div>
 </div>
 
 <?= $this->Element('dataobject/pageEnd'); ?>

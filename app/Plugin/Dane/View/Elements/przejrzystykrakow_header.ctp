@@ -29,7 +29,7 @@
                     </a>
                 <?php } ?>
                 </<?= $titleTag ?>>
-				
+
                 <p class="header">
                     Program Przejrzysty Kraków, prowadzony przez <a href="/dane/krs_podmioty/325617">Fundację
                         Stańczyka</a>, ma na celu wieloaspektowy monitoring życia publicznego w Krakowie. W ramach

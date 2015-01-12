@@ -13,10 +13,10 @@ foreach ($data as $d) {
 
 
 $chartData = array(
-    array('Za', (int) $object->getData('z')),
-    array('Przeciw', (int) $object->getData('p')),
-    array('Wstrzymali się', (int) $object->getData('w')),
-    array('Nieobecni', (int) $object->getData('n')),    
+    array('Za', (int)$object->getData('z')),
+    array('Przeciw', (int)$object->getData('p')),
+    array('Wstrzymali się', (int)$object->getData('w')),
+    array('Nieobecni', (int)$object->getData('n')),
 );
 $dictionary = array(
     '1' => array('Za', 'z'),
@@ -30,7 +30,7 @@ $dictionary = array(
 <div class="row sejm_glosowanie-voting sgvq" data-stats='<?= (json_encode($chartData)) ?>'>
     <div class="col-md-2">
         <p class="wynikGlosowania <?= $dictionary[$object->getData('wynik_id')][1]; ?> label"><?= $dictionary[$object->getData('wynik_id')][0]; ?></p>
-        
+
         <? /*
         <table class="table table-striped">
             <thead>
@@ -62,47 +62,47 @@ $dictionary = array(
             </tbody>
         </table>
         */ ?>
-        
-        
+
+
     </div>
     <div class="col-md-3">
         <div class="highchart"></div>
     </div>
     <div class="col-md-7">
         <div class="row">
-	        
-	        <?
-		    	
-		    	$labels = array(
-		    		'za' => 'Za', 
-		    		'przeciw' => 'Przeciw',
-		    		'wstrzymane' => 'Wstrzymali się',
-		    		'nieobecne' => 'Nieobecni',
-		    	);
-		    	
-		    	$labels_keys = array_keys($labels);
-		    	
-		    	$count = 0;
-		    	foreach( $labels_keys as $label_key )
-		    		 if( $object->getData('kluby_' . $label_key) )
-		    		 	$count++;
-		    		 	
-		    	$width = $count ? round( 12 / $count ) : 3;
-		    	
-		    	
-		    	foreach( $labels as $key => $value )
-		    		if( $data = $object->getData('kluby_' . $key) )
-		    			echo $this->element('Dane.objects/sejm_glosowania/wynik_klubowy', array(
-			    			'width' => $width,
-			    			'key' => $key,
-			    			'label' => $value,
-			    			'items' => explode("\n", $data),
-			    			'url' => $object->getUrl(),
-		    			));
-		    	
-	        ?>
-	        	        
-	       
+
+            <?
+
+            $labels = array(
+                'za' => 'Za',
+                'przeciw' => 'Przeciw',
+                'wstrzymane' => 'Wstrzymali się',
+                'nieobecne' => 'Nieobecni',
+            );
+
+            $labels_keys = array_keys($labels);
+
+            $count = 0;
+            foreach ($labels_keys as $label_key)
+                if ($object->getData('kluby_' . $label_key))
+                    $count++;
+
+            $width = $count ? round(12 / $count) : 3;
+
+
+            foreach ($labels as $key => $value)
+                if ($data = $object->getData('kluby_' . $key))
+                    echo $this->element('Dane.objects/sejm_glosowania/wynik_klubowy', array(
+                        'width' => $width,
+                        'key' => $key,
+                        'label' => $value,
+                        'items' => explode("\n", $data),
+                        'url' => $object->getUrl(),
+                    ));
+
+            ?>
+
+
         </div>
     </div>
 </div>

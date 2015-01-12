@@ -82,7 +82,7 @@ class DataobjectsBrowserComponent extends Component
         if (isset($settings['excludeFilters'])) {
             $this->excludeFilters = $settings['excludeFilters'];
         }
-        
+
         if (isset($settings['hiddenFilters'])) {
             $this->hiddenFilters = $settings['hiddenFilters'];
         }
@@ -118,11 +118,11 @@ class DataobjectsBrowserComponent extends Component
         if (isset($settings['allowedParams']) && $settings['allowedParams']) {
             $this->allowedParams = $settings['allowedParams'];
         }
-        
+
         if (isset($settings['back']) && $settings['back']) {
             $this->back = $settings['back'];
         }
-        
+
         if (isset($settings['backTitle']) && $settings['backTitle']) {
             $this->backTitle = $settings['backTitle'];
         }
@@ -267,7 +267,7 @@ class DataobjectsBrowserComponent extends Component
                         'direction' => isset($order_parts[1]) ? $order_parts[1] : 'desc',
                     );
                     $order['str'] = $order['field'] . ' ' . $order['direction'];
-                    
+
                     $this->hlFieldsPush = array($order['field']);
 
                     break;
@@ -302,19 +302,19 @@ class DataobjectsBrowserComponent extends Component
 
                 default: {
 
-                $key = str_replace(':', '.', $key);
+                    $key = str_replace(':', '.', $key);
 
-                if (in_array($key, $this->excludeFilters)) {
-                    continue;
-                }
+                    if (in_array($key, $this->excludeFilters)) {
+                        continue;
+                    }
 
-                if (array_key_exists($key, $conditions)
-                    && ($conditions[$key] != $value)
-                ) {
-                    $conditions[$key][] = $value;
-                } else {
-                    $conditions[$key] = $value;
-                }
+                    if (array_key_exists($key, $conditions)
+                        && ($conditions[$key] != $value)
+                    ) {
+                        $conditions[$key][] = $value;
+                    } else {
+                        $conditions[$key] = $value;
+                    }
 
 
                 }
@@ -505,8 +505,7 @@ class DataobjectsBrowserComponent extends Component
 
         if (isset($controller->request->query)) {
             $controller->data = array('Dataset' => $controller->request->query);
-        }
-		
+        }		
 		
 		if( empty($this->excludeFilters) ) {
 			
@@ -561,9 +560,8 @@ class DataobjectsBrowserComponent extends Component
                     'controlls' => $config['controlls'],
                 )
             ));
-			
-			
-			
+
+
             $filters = $view->element('Dane.DataobjectsBrowser/filters', array_merge(compact('conditions', 'filters', 'switchers', 'facets', 'page', 'emptyFilters'), array('dataBrowser' => $this)));
             $pagination = $view->element('Dane.DataobjectsBrowser/pagination', compact('pagination'));
 

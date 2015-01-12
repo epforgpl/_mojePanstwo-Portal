@@ -57,7 +57,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 		    <div class="object">
 								
 				<?= $this->dataobject->feed($feed); ?>
-				
+
 				<? /*
 			    <? if ($radny->getData('aktywny') == '0') { ?>
 			
@@ -163,12 +163,13 @@ echo $this->Element('Dane.dataobject/subobject', array(
 			
 			    
 			    <? */ ?>
-					
-		    </div>
-	    </div><div class="col-md-2">
-		    
-	    </div>
-	    
-    </div>
+
+			</div>
+		</div>
+		<div class="col-md-2">
+
+		</div>
+
+	</div>
 
 <? echo $this->Element('dataobject/pageEnd');

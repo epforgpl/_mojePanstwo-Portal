@@ -1959,7 +1959,7 @@
                 }
             }
 
-            scene.on("change.debug", callUpdate)
+            scene.on("change.debug", callUpdate);
             cParams.container.on("resize scroll", callUpdate);
             if (!cParams.isDocument) {
                 $(window).on("scroll resize", callUpdate);

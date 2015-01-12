@@ -585,7 +585,7 @@ jQuery(document).ready(function () {
                 if (results.length == 0)
                     results = [
                         {label: _mPHeart.translation.LC_MOJA_GMINA_SEARCH_BRAK_WYNIKOW, value: null}
-                    ]
+                    ];
                 cache[term] = results;
                 response(results);
             });
