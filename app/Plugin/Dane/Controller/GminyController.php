@@ -323,7 +323,7 @@ class GminyController extends DataobjectsController
 
 
 			$this->set( 'posiedzenie', $posiedzenie );
-			$this->set( 'title_for_layout', strip_tags( $posiedzenie->getData( 'fullTitle' ) ) );
+			$this->set( 'title_for_layout', strip_tags( $posiedzenie->getTitle() ) );
 
 
 			/*
@@ -352,7 +352,7 @@ class GminyController extends DataobjectsController
 
 					$submenu['selected'] = 'punkty';
 					$render_view = 'posiedzenie-punkty';
-
+										
 					$this->dataobjectsBrowserView( array(
 						'source'         => 'krakow_posiedzenia.punkty:' . $posiedzenie->getId(),
 						'dataset'        => 'krakow_posiedzenia_punkty',
@@ -362,7 +362,8 @@ class GminyController extends DataobjectsController
 						'routes'         => array(
 							'date' => false,
 						),
-						'limit'          => 100,
+						'limit'          => 1000,
+					    'excludeFilters' => array('krakow_glosowania.wynik_id'),
 					) );
 
 					break;
@@ -596,8 +597,6 @@ class GminyController extends DataobjectsController
 			                'title' => 'Wyniki głosowań',
 	                        // 'hlFields' => array('dzielnice.nazwa', 'liczba_glosow'),
 	                        'renderFile' => 'radni_dzielnic-uchwaly',
-	                        'back' 			 => $dzielnica->getUrl(),
-							'backTitle' 	 => 'Dzielnica ' . $dzielnica->getTitle(),
 	                    ));
 												
 					} else {
@@ -613,6 +612,7 @@ class GminyController extends DataobjectsController
 	                        // 'hlFields' => array('dzielnice.nazwa', 'liczba_glosow'),
 	                        'back' 			 => $dzielnica->getUrl(),
 							'backTitle' 	 => 'Dzielnica ' . $dzielnica->getTitle(),
+							'limit' 		 => 1000,
 	                    ));
 	                    
                     }
@@ -675,6 +675,9 @@ class GminyController extends DataobjectsController
 						( $uchwala = $this->API->getObject('krakow_dzielnice_uchwaly', $sub_id) )
 					) {
 						
+						if( $uchwala->getData('dokument_id') )
+							$this->set('document', $this->API->document( $uchwala->getData( 'dokument_id' ) ));
+												
 						$this->set('uchwala', $uchwala);
 						$title_for_layout = $uchwala->getTitle();
 						$subaction = 'uchwala';
@@ -686,9 +689,10 @@ class GminyController extends DataobjectsController
 	                        'excludeFilters' => array(
 			                    'dzielnica_id'
 			                ),
-			                'title' => 'Wyniki głosowania',
+			                'title' => 'Wyniki głosowania nad uchwałą',
 	                        // 'hlFields' => array('dzielnice.nazwa', 'liczba_glosow'),
 	                        'renderFile' => 'krakow_dzielnice_uchwaly-glosy',
+	                        'limit' => 1000,
 	                    ));
 						
 					} else {
@@ -698,9 +702,12 @@ class GminyController extends DataobjectsController
 	                        'dataset' => 'krakow_dzielnice_uchwaly',
 	                        'noResultsTitle' => 'Brak uchwał',
 	                        'excludeFilters' => array(
-			                    'dzielnica_id'
+			                    'dzielnice_id'
 			                ),
 	                        // 'hlFields' => array('dzielnice.nazwa', 'liczba_glosow'),
+	                        'title' 		 => 'Uchwały rady dzielnicy',
+	                        'back' 			 => $dzielnica->getUrl(),
+							'backTitle' 	 => 'Dzielnica ' . $dzielnica->getTitle(),
 	                    ));
 	                    
                     }
@@ -825,6 +832,8 @@ class GminyController extends DataobjectsController
 				'title'          => 'Posiedzenia komisji',
 				'noResultsTitle' => 'Brak danych',
 				// 'hl_fields' => array('krakow_komisje.nazwa'),
+				'back' 			 => $this->object->getUrl() . '/rada',
+				'backTitle' 	 => 'Rada Miasta ' . $this->object->getTitle(),
 			) );
 
 			$this->set( 'title_for_layout', 'Posiedzenia komisji Rady Miasta ' . $this->object->getData( 'nazwa' ) );

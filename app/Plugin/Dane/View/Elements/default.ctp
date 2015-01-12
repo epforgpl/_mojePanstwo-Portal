@@ -17,6 +17,8 @@ if (in_array($object->getDataset(), array(
     $object_content_sizes = array(2, 10);
 }
 
+// debug( $object->getData() ); 
+
 $this->Dataobject->setObject($object);
 ?>
 <div class="objectRender<? if ($alertsStatus) {

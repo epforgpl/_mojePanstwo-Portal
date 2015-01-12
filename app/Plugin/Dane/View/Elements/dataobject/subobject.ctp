@@ -10,6 +10,9 @@
         </div>
         <? } ?>
         <div class="col-md-<?= $col_width ?>">
+	        <p class="header">
+		        <?= $object->getShortLabel(); ?>
+		    </p>
             <div class="objectPageHeader">
                 <?php
                 echo $this->Dataobject->render($object, 'subobject', $objectOptions);

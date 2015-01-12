@@ -108,7 +108,7 @@ class DataobjectsBrowserComponent extends Component
         }
 
         if (isset($settings['limit'])) {
-            $this->limit = max(min($settings['limit'], 100), 0);
+            $this->limit = max(min($settings['limit'], 1000), 0);
         }
 
         if (isset($settings['conditions'])) {
@@ -508,7 +508,20 @@ class DataobjectsBrowserComponent extends Component
         }
 		
 		
-		$emptyFilters = empty($filters) && empty($switchers);
+		if( empty($this->excludeFilters) ) {
+			
+			$emptyFilters = empty($filters) && empty($switchers);
+			
+		} else {
+			
+			$_filters = array();
+			foreach( $filters as $f )
+				if( !in_array($f['filter']['field'], $this->excludeFilters) )
+					$_filters[] = $f;
+									
+			$emptyFilters = empty($_filters) && empty($switchers);
+			
+		}		
 
 
         $page = array(

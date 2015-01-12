@@ -33,10 +33,6 @@ $this->Dataobject->setObject($object);
                 </div>
                 <div class="content col-md-<?= $object_content_sizes[1] ?>">
 
-                    <p class="header">
-                        <?= $object->getShortLabel(); ?>
-                    </p>
-
                     <? if ($object->getShortTitle()) { ?>
                     <<?= $titleTag ?> class="title trimTitle<? if ($bigTitle) { ?> big<? } ?>"
                     title="<?= htmlspecialchars($object->getShortTitle()) ?>"
@@ -80,9 +76,6 @@ $this->Dataobject->setObject($object);
 
             <? } else { ?>
             <div class="content">
-                <p class="header">
-                    <?= $object->getShortLabel(); ?>
-                </p>
 
                 <<?= $titleTag ?> class="title<? if ($bigTitle) { ?> big<? } ?>">
                 <?php if ($object->getUrl() != false){ ?>

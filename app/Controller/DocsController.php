@@ -18,6 +18,11 @@ class DocsController extends AppController
 		$this->set('documentPackage', 1);
         
         $this->set('title_for_layout', $data['filename']);
+        
+        if( in_array($this->request->params['ext'], array('html', 'htm')) ) {
+        	$this->layout = 'doc';
+        	$this->render('view-html');
+        }
 
     }
 

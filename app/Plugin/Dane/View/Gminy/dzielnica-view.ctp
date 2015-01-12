@@ -42,7 +42,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 			            </li>
 			            
 			            <li class="dataHighlight">
-		                    <a href="<?= $object->getUrl() ?>/rada_uchwaly"><span class="icon icon-moon">&#xe614;</span>Uchwały <span class="glyphicon glyphicon-chevron-right"></span></a>
+		                    <a href="<?= $dzielnica->getUrl() ?>/rada_uchwaly"><span class="icon icon-moon">&#xe614;</span>Uchwały <span class="glyphicon glyphicon-chevron-right"></span></a>
 		                </li>
 			            			            			            
 		            </ul>

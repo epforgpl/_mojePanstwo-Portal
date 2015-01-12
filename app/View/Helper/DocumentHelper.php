@@ -9,7 +9,9 @@ class DocumentHelper extends AppHelper
     {
 
         $this->doc = $doc;
-
+		
+		// debug( $this->doc->getId() );
+		
         return $this->_View->element('Document/view', array(
             'document' => $this->doc,
             'documentPackage' => 1,

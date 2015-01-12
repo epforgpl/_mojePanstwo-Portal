@@ -9,6 +9,7 @@ echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
 
+/*
 echo $this->Element('Dane.dataobject/subobject', array(
     'menu' => $_submenu,
     'object' => $dzielnica,
@@ -17,6 +18,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
         'bigTitle' => true,
     )
 ));
+*/
 
 echo $this->Element('Dane.dataobject/subobject', array(
     'menu' => false,
@@ -24,7 +26,11 @@ echo $this->Element('Dane.dataobject/subobject', array(
     'objectOptions' => array(
         'hlFields' => array(),
         'bigTitle' => true,
-    )
+    ),
+    'back' => array(
+	    'href' => $dzielnica->getUrl(),
+		'title' => 'Dzielnica ' . $dzielnica->getTitle(),
+    ),
 ));
 ?>
 
@@ -123,14 +129,6 @@ echo $this->Element('Dane.dataobject/subobject', array(
                 'limit' => 100,
             )); ?>
         </div>
-    </div>
-	
-	<div class="block">
-
-        <div class="block-header">
-            <h2 class="label">Wyniki głosowań</h2>
-        </div>
-        
     </div>
 
 </div>
