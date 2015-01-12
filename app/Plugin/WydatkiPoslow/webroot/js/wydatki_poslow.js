@@ -463,8 +463,6 @@ jQuery(function ($) {
 
     TweenLite.ticker.addEventListener('tick', tickHandler);
 
-
-    //Wykop
     // wykopywarka wersja standardowa (72x65)
     var wykop_url = "http://mojepanstwo.pl/wydatki_poslow",
         wykop_title = encodeURIComponent('Wydatki posłów'),

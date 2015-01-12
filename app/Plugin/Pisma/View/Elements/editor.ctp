@@ -39,31 +39,34 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
                         <ul class="ul-raw"></ul>
                     </div>
                 </div>
-				
-				<? foreach( $templatesGroups as $group ) { ?>
-                <div class="block search ">
-                    <div class="block-header">
-                        <h2 class="label"><?= $group['nazwa'] ?></h2>
+
+                <? foreach ($templatesGroups as $group) { ?>
+                    <div class="block search ">
+                        <div class="block-header">
+                            <h2 class="label"><?= $group['nazwa'] ?></h2>
+                        </div>
+                        <div class="list content">
+                            <ul class="ul-raw">
+                                <?
+                                foreach ($group['templates'] as $template) {
+                                    ?>
+                                    <li data-id="<?= $template['id'] ?>"
+                                        data-title="<?= addslashes($template['nazwa']) ?>" class="row">
+                                        <div class="pull-left col-md-11">
+                                            <p class="title"><a
+                                                    href="/dane/pisma_szablony/<?= $template['id'] ?>"><?= $template['nazwa'] ?></a>
+                                            </p>
+
+                                            <p style="display: none;" class="desc"><?= $template['opis'] ?></p>
+                                        </div>
+                                        <div class="pull-right  col-md-1">
+                                            <button class="btn btn-success btn-xs">Wybierz</button>
+                                        </div>
+                                    </li>
+                                <? } ?>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="list content">
-                        <ul class="ul-raw">
-                            <? 
-                            foreach ($group['templates'] as $template) {
-                                ?>
-                                <li data-id="<?= $template['id'] ?>"
-                                    data-title="<?= addslashes($template['nazwa']) ?>" class="row">
-                                    <div class="pull-left col-md-11">
-                                        <p class="title"><a href="/dane/pisma_szablony/<?= $template['id'] ?>"><?= $template['nazwa'] ?></a></p>
-                                        <p style="display: none;" class="desc"><?= $template['opis'] ?></p>
-                                    </div>
-                                    <div class="pull-right  col-md-1">
-                                        <button class="btn btn-success btn-xs">Wybierz</button>
-                                    </div>
-                                </li>
-                            <? } ?>
-                        </ul>
-                    </div>
-                </div>
                 <? } ?>
 
             </div>
@@ -139,9 +142,11 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
         <div class="container preview">
 
             <div class="col-xs-12 col-md-10 col-md-offset-1">
-				<p class="hint-title">To jest Twoje gotowe pismo! Możesz je teraz wysłać do adresata lub tylko zapisać. <br/>Twoje pismo jest prywatne - tylko Ty masz do niego dostęp. Po zapisaniu, będziesz mógł je zanonimizować i upublicznić.</p>
-			</div>
-			
+                <p class="hint-title">To jest Twoje gotowe pismo! Możesz je teraz wysłać do adresata lub tylko zapisać.
+                    <br/>Twoje pismo jest prywatne - tylko Ty masz do niego dostęp. Po zapisaniu, będziesz mógł je
+                    zanonimizować i upublicznić.</p>
+            </div>
+
             <form id="finalForm" action="/pisma/nowe" method="post">
                 <input name="miejscowosc" type="hidden" maxlength="127"/>
                 <input name="data_pisma" type="hidden" maxlength="10"/>
@@ -153,8 +158,8 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
                 <input name="tresc" type="hidden"/>
                 <textarea class="hide" name="podpis" maxlength="255"/></textarea>
                 <input name="nazwa" type="hidden" value="Nowe pismo"/>
-				
-				<? /*
+
+                <? /*
                 <div class="row">
                     <div class="col-xs-12 col-md-10">
                         <fieldset>
@@ -197,6 +202,34 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
                                     <input type="submit" name="print" value="Wydrukuj" class="btn btn-primary"/>
                                 </li>
                             </ul>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="pismoConfirm" tabindex="-1" role="dialog"
+                         aria-labelledby="pismoConfirmLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Wprowadź nazwę pisma</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="pismoTitle">Podaj nazwę tego pisma:</label>
+                                        <input type="text" class="form-control" id="pismoTitle" placeholder="Nowe pismo"
+                                               maxlength="255">
+
+                                        <p class="help-block errorMsg hide">Prosze wprowadzić nazwę pisma.</p>
+                                    </div>
+                                    <p class="help-block">Adresat Twojego pisma nie zobaczy tego pola. Będzie ono
+                                        widoczne tylko dla Ciebie
+                                        na stronie "Moje Pisma".</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                                    <button type="button" class="btn saveTemplate btn-primary">Zapisz</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
