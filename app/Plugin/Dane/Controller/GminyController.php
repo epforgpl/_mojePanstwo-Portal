@@ -889,6 +889,7 @@ class GminyController extends DataobjectsController
 		
 	}
 	
+	/*
 	public function radni() {
 
 		$this->_prepareView();
@@ -1060,7 +1061,9 @@ class GminyController extends DataobjectsController
 
         }
     }
-
+    */
+	
+	/*
     public function komisje_posiedzenia()
     {
         $this->_prepareView();
@@ -1092,8 +1095,9 @@ class GminyController extends DataobjectsController
 
         }
     }
+    */
 
-
+	/*
     public function radni_powiazania()
     {
 
@@ -1104,7 +1108,9 @@ class GminyController extends DataobjectsController
 
         $this->set('title_for_layout', 'Powiązania radnych gminy  ' . $this->object->getData('nazwa') . ' z organizacjami w Krajowym Rejestrze Sądowym');
     }
-
+    */
+	
+	/*
     public function urzednicy_powiazania()
     {
 
@@ -1115,7 +1121,9 @@ class GminyController extends DataobjectsController
 
         $this->set('title_for_layout', 'Powiązania urzędników gminy  ' . $this->object->getData('nazwa') . ' z organizacjami w Krajowym Rejestrze Sądowym');
     }
+    */
 
+	/*
     public function radni_6()
     {
 
@@ -1144,6 +1152,7 @@ class GminyController extends DataobjectsController
         $this->set('title_for_layout', 'Radni gminy ' . $this->object->getData('nazwa') . ' 6-tej kadencji');
 
     }
+    */
 
     public function radni()
     {
