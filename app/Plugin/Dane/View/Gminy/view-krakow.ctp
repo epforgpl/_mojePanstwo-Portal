@@ -237,8 +237,8 @@
                                 <h3>Posiedzenia rady</h3>
 
                                 <div class="text-center">
-                                    <img style="width: 100%;"
-                                         src="http://img.youtube.com/vi/AR9UYwp7PQA/mqdefault.jpg"/>
+                                    <a href="/dane/gminy/903,krakow/posiedzenia" title="Posiedzenia Rady Miasta Kraków"><img style="width: 100%;"
+                                         src="http://img.youtube.com/vi/AR9UYwp7PQA/mqdefault.jpg"/></a>
                                 </div>
 
                             </div>

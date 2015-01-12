@@ -52,7 +52,7 @@ echo $this->Element('dataobject/pageBegin');
                         <h2 class="label">Prace Rady Miasta</h2>
                     </div>
 
-                    <img src="http://img.youtube.com/vi/AR9UYwp7PQA/mqdefault.jpg" style="width: 100%;">
+                    <a title="Posiedzenia Rady Miasta Kraków" href="<?= $object->getUrl() . '/posiedzenia' ?>"><img src="http://img.youtube.com/vi/AR9UYwp7PQA/mqdefault.jpg" style="width: 100%;"></a>
 
                     <ul class="dataHighlights side">
 
