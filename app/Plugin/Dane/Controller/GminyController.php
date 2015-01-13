@@ -1943,4 +1943,4 @@ class GminyController extends DataobjectsController
         $this->set('_menu', $menu);
 
     }
-} 
+}
