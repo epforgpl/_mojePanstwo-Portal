@@ -231,21 +231,20 @@
                         <img src="/WydatkiPoslow/img/jeszczeRaz.svg" class="scrollInfo repeat"/>
                         <img src="/WydatkiPoslow/img/poslanka.svg" class="poslankaBckgrnd"/>
                         <img src="/WydatkiPoslow/img/posel.svg" class="poselBckgrnd"/>
-                        <a target="_blank" class="wszystkie btn btn-primary" href="/dane/poslowie_biura_wydatki">Zobacz
-                            wszystkie dane w formie listy &raquo;</a>
+                        <a target="_blank" class="wszystkie btn btn-primary" href="/dane/poslowie_biura_wydatki">
+                            Zobacz wszystkie dane w formie listy &raquo;</a>
 
-                        <div class="social">
-                            <div>
-                            </div>
-
-                        </div>
+                        <div class="social"></div>
                     </div>
-                </div>
-                <div class="near">
-                    <div class="posel"></div>
-                    <div class="samochod"></div>
-                    <div class="taxi"></div>
-                    <div class="samolot"></div>
+
                 </div>
             </div>
         </div>
+        <div class="near">
+            <div class="posel"></div>
+            <div class="samochod"></div>
+            <div class="taxi"></div>
+            <div class="samolot"></div>
+        </div>
+    </div>
+</div>
