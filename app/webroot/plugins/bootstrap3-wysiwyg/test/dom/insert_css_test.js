@@ -47,5 +47,5 @@ if (wysihtml5.browser.supported()) {
             stylesheets: "https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/blitzer/jquery-ui.css"
         }).insertInto(document.body);
     });
-  
+
 }

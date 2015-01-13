@@ -66,74 +66,75 @@ if (!@$this->request->query['q'] && ($terms = $posiedzenie->getLayer('terms')) &
 $parts = array();
 
 
+if ($posiedzenie->getData('kadencja_id') == '7') {
 
-if( $posiedzenie->getData('kadencja_id')=='7' ) {
+    ?>
+    <style>
+        #_main .objectsPage .objectsPageContent .htmlexDoc #docsToolbar {
+            display: none;
+        }
+    </style>
+    <?
 
-?>
-<style>
-	#_main .objectsPage .objectsPageContent .htmlexDoc #docsToolbar {display: none;}
-</style>
-<?
+    if ($posiedzenie->getData('zwolanie_dokument_id')) {
+        ?>
+        <h2 class="light">Informacja o zwołaniu posiedzenia</h2>
+        <iframe class="idoc" src="/docs/<?= $posiedzenie->getData('zwolanie_dokument_id') ?>.html"></iframe>
+    <?
+    }
+    if ($posiedzenie->getData('porzadek_dokument_id')) {
+        ?>
+        <h2 class="light">Porządek obrad</h2>
+        <iframe class="idoc" src="/docs/<?= $posiedzenie->getData('porzadek_dokument_id') ?>.html"></iframe>
+    <?
+    }
+    if ($posiedzenie->getData('podsumowanie_dokument_id')) {
+        ?>
+        <h2 class="light">Podsumowanie posiedzenia</h2>
+        <iframe class="idoc" src="/docs/<?= $posiedzenie->getData('podsumowanie_dokument_id') ?>.html"></iframe>
+    <?
+    }
+    if ($posiedzenie->getData('wyniki_dokument_id')) {
+        ?>
+        <h2 class="light">Wyniki głosowań</h2>
+        <iframe class="idoc" src="/docs/<?= $posiedzenie->getData('wyniki_dokument_id') ?>.html"></iframe>
+    <?
+    }
+    if ($posiedzenie->getData('stenogram_dokument_id')) {
+        ?>
+        <h2 class="light">Stenogram</h2>
+        <iframe class="idoc" src="/docs/<?= $posiedzenie->getData('stenogram_dokument_id') ?>.html"></iframe>
+    <?
+    }
+    if ($posiedzenie->getData('protokol_dokument_id')) {
+        ?>
+        <h2 class="light">Protokół</h2>
+        <iframe class="idoc" src="/docs/<?= $posiedzenie->getData('protokol_dokument_id') ?>.html"></iframe>
+    <?
+    }
 
-	if( $posiedzenie->getData('zwolanie_dokument_id') ) {
-?>	
-		<h2 class="light">Informacja o zwołaniu posiedzenia</h2>
-		<iframe class="idoc" src="/docs/<?= $posiedzenie->getData('zwolanie_dokument_id') ?>.html"></iframe>
-<?			
-	}
-	if( $posiedzenie->getData('porzadek_dokument_id') ) {
-?>	
-		<h2 class="light">Porządek obrad</h2>
-		<iframe class="idoc" src="/docs/<?= $posiedzenie->getData('porzadek_dokument_id') ?>.html"></iframe>
-<?
-	}
-	if( $posiedzenie->getData('podsumowanie_dokument_id') ) {
-?>	
-		<h2 class="light">Podsumowanie posiedzenia</h2>
-		<iframe class="idoc" src="/docs/<?= $posiedzenie->getData('podsumowanie_dokument_id') ?>.html"></iframe>
-<?
-	}
-	if( $posiedzenie->getData('wyniki_dokument_id') ) {
-?>	
-		<h2 class="light">Wyniki głosowań</h2>
-		<iframe class="idoc" src="/docs/<?= $posiedzenie->getData('wyniki_dokument_id') ?>.html"></iframe>
-<?
-	}
-	if( $posiedzenie->getData('stenogram_dokument_id') ) {
-?>	
-		<h2 class="light">Stenogram</h2>
-		<iframe class="idoc" src="/docs/<?= $posiedzenie->getData('stenogram_dokument_id') ?>.html"></iframe>
-<?
-	}
-	if( $posiedzenie->getData('protokol_dokument_id') ) {
-?>	
-		<h2 class="light">Protokół</h2>
-		<iframe class="idoc" src="/docs/<?= $posiedzenie->getData('protokol_dokument_id') ?>.html"></iframe>
-<?
-	}
-
-	if( $pagination['total'] ) {
-		echo $this->Element('Dane.DataobjectsBrowser/view', array(
-		    'page' => $page,
-		    'pagination' => $pagination,
-		    'filters' => $filters,
-		    'switchers' => $switchers,
-		    'facets' => $facets,
-		));
-	}
+    if ($pagination['total']) {
+        echo $this->Element('Dane.DataobjectsBrowser/view', array(
+            'page' => $page,
+            'pagination' => $pagination,
+            'filters' => $filters,
+            'switchers' => $switchers,
+            'facets' => $facets,
+        ));
+    }
 
 } else {
-		
-	if( $pagination['total'] ) {
-		echo $this->Element('Dane.DataobjectsBrowser/view', array(
-		    'page' => $page,
-		    'pagination' => $pagination,
-		    'filters' => $filters,
-		    'switchers' => $switchers,
-		    'facets' => $facets,
-		));
-	}
-	
+
+    if ($pagination['total']) {
+        echo $this->Element('Dane.DataobjectsBrowser/view', array(
+            'page' => $page,
+            'pagination' => $pagination,
+            'filters' => $filters,
+            'switchers' => $switchers,
+            'facets' => $facets,
+        ));
+    }
+
 }
 
 echo $this->Element('dataobject/pageEnd');

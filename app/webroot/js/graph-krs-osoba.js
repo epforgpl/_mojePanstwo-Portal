@@ -61,9 +61,9 @@ var d3Data;
                     })[0];
                 links.push({source: s, target: t, label: link.type, id: link.id});
             });
-			
-			console.log('links', links);
-			
+
+            console.log('links', links);
+
             // Sort links by source, then target
             links.sort(function (a, b) {
                 if (a.source.id > b.source.id) {
@@ -577,7 +577,7 @@ var d3Data;
 
                         if (label == 'data_urodzenia') {
                             if (birthdayPrivacy)
-                                return
+                                return;
                             label = _mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_DATA_URODZENIA;
                         } else if (label == 'plec') {
                             label = _mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_PLEC;

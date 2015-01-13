@@ -292,4 +292,4 @@ jQuery(document).ready(function () {
             wskaznikiTable.find('tr:hidden').show();
         });
     }
-})
+});

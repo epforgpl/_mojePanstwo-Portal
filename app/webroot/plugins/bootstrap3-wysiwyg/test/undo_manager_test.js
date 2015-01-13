@@ -67,7 +67,7 @@ if (wysihtml5.browser.supportsCommand(document, "insertHTML")) {
             equal(editor.getValue(false, false), "1");
 
             start();
-    });
+        });
     });
 
 
@@ -89,6 +89,6 @@ if (wysihtml5.browser.supportsCommand(document, "insertHTML")) {
             equal(editor.getValue(false, false), "1");
 
             start();
-    });
+        });
     });
 }

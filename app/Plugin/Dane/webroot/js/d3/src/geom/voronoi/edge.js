@@ -42,8 +42,7 @@ function d3_geom_voronoiHalfEdge(edge, lSite, rSite) {
     this.angle = rSite ? Math.atan2(rSite.y - lSite.y, rSite.x - lSite.x)
         : edge.l === lSite ? Math.atan2(vb.x - va.x, va.y - vb.y)
         : Math.atan2(va.x - vb.x, vb.y - va.y);
-};
-
+}
 d3_geom_voronoiHalfEdge.prototype = {
     start: function () {
         return this.edge.l === this.site ? this.edge.a : this.edge.b;

@@ -46,7 +46,7 @@ if (wysihtml5.browser.supported()) {
                     i: true,
                     u: true
                 }
-        },
+            },
             editor = new wysihtml5.Editor(this.editableArea1, {
                 parserRules: parserRules
             });
@@ -121,9 +121,9 @@ if (wysihtml5.browser.supported()) {
             ok(editor.composer.selection.getSelection().isCollapsed, "Text caret did remain collapsed");
 
             start();
+        });
     });
-    });
-  
+
 // formatblock (alignment, headings, paragraph, pre, blockquote)
     asyncTest("Format block", function () {
         expect(12);
@@ -250,7 +250,7 @@ if (wysihtml5.browser.supported()) {
 
             start();
         });
-        });
+    });
 
     // create table
     asyncTest("Create table", function () {
@@ -279,7 +279,7 @@ if (wysihtml5.browser.supported()) {
                 cols: 2,
                 rows: 2,
                 tableStyle: "width: 100%;"
-        });
+            });
             equal(editableElement.innerHTML.toLowerCase(), expectText, "Text corectly wrapped in one aligning div");
             start();
         });

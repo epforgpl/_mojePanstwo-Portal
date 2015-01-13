@@ -60,24 +60,34 @@ a {
     color: @linkColor;
 }
 
-.inner-addon { 
-    position: relative; 
+.inner-addon {
+    position: relative;
 }
 
 /* style icon */
 .inner-addon .glyphicon {
-  position: absolute;
-  padding: 10px;
-  pointer-events: none;
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
 }
 
 /* align icon */
-.left-addon .glyphicon  { left:  0px;}
-.right-addon .glyphicon { right: 0px;}
+.left-addon .glyphicon {
+    left: 0px;
+}
+
+.right-addon .glyphicon {
+    right: 0px;
+}
 
 /* add padding  */
-.left-addon input  { padding-left:  30px; }
-.right-addon input { padding-right: 30px; }
+.left-addon input {
+    padding-left: 30px;
+}
+
+.right-addon input {
+    padding-right: 30px;
+}
 
 .trimTitleTrigger {
     cursor: pointer;
@@ -246,19 +256,19 @@ body > pre:first-child {
     color: #258ac5;
     position: relative;
     top: 1px;
-    
+
     .glyphicon {
         font-size: 16px;
-	    font-weight: 200;
-	    margin-right: 5px;
-	    position: relative;
-	    top: 2px;
+        font-weight: 200;
+        margin-right: 5px;
+        position: relative;
+        top: 2px;
     }
-    
+
     .badge {
-	    background-color: #009de0;
-	    position: relative;
-	    top: -1px;
+        background-color: #009de0;
+        position: relative;
+        top: -1px;
     }
 }
 
@@ -347,13 +357,13 @@ body > pre:first-child {
 }
 
 .separator-bottom {
-	margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .block {
     padding: 0;
     margin: 10px 5px;
-    background-color: #FFF;    
+    background-color: #FFF;
     border-color: #e9eaed #dfe0e4 #d0d1d5;
     border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -361,7 +371,7 @@ body > pre:first-child {
     -moz-border-radius: 3px;
     border-style: solid;
     border-width: 1px;
-	
+
     &.nobg {
         background-color: inherit;
         border: 1px solid transparent;
@@ -442,11 +452,11 @@ body > pre:first-child {
 
     > .content {
         padding: 20px 30px 30px;
-		
-		&.less-bottom-padding {
-			padding-bottom: 5px;
-		}
-		
+
+        &.less-bottom-padding {
+            padding-bottom: 5px;
+        }
+
     }
 
     .padding {
@@ -667,23 +677,23 @@ body > pre:first-child {
 }
 
 .block {
-	.dataHighlights.side {
-		.dataHighlight {
-	        border-bottom: 1px solid #DDD;
-	        
-	        .btn {
-	            border-color: #FFF;
-	            color: #AAA;
-	            background-color: #FFF;
-	            margin: 2px 2px 2px 7px;
-	        }
-		}
-	}
+    .dataHighlights.side {
+        .dataHighlight {
+            border-bottom: 1px solid #DDD;
+
+            .btn {
+                border-color: #FFF;
+                color: #AAA;
+                background-color: #FFF;
+                margin: 2px 2px 2px 7px;
+            }
+        }
+    }
 }
 
 .dataHighlights.side {
-	
-	margin: 0;
+
+    margin: 0;
     padding: 0 !important;
     min-height: 20px;
 
@@ -692,14 +702,14 @@ body > pre:first-child {
         border-top: 1px solid #CCC;
         padding-top: 10px;
     }
-		
+
     .dataHighlight {
         margin: 10px;
         list-style: none;
         overflow: auto;
-        
+
         &:last-child {
-	        border-bottom: none;
+            border-bottom: none;
         }
 
         p {
@@ -723,7 +733,7 @@ body > pre:first-child {
         }
 
         ._value {
-	        padding: 0 3px;
+            padding: 0 3px;
             font-size: 14px;
             &.sources {
                 font-size: 12px;
@@ -1113,7 +1123,7 @@ header {
     #_main {
         padding-top: @headerHeight;
         padding-bottom: @footerHeight + 20px; /*FOOTER HEIGHT + SECURE PADDING FOR NOT TOUCHING BOTTOM BY CONTENT */
-		
+
         .container.app {
             margin-top: 2em;
 
@@ -1201,73 +1211,69 @@ footer {
 }
 
 .dataBrowser._dataset_patenty .description {
-	padding: 10px 0;
-	.dataHighlights .dataHighlight {
+    padding: 10px 0;
+    .dataHighlights .dataHighlight {
         width: 100%;
     }
-} 
+}
 
 .glyphicon {
-	&.glyphicon-feed {
-		
-		display: inline-block;
-		text-indent: -9999px;
-		width: 16px;
-		height: 16px;
-		background: url(/icon/feed.svg);
-		background-size: 16px 16px;
-		
-	}
-	
-	&.glyphicon-speakers {
-		
+    &.glyphicon-feed {
 
-			
-	}
-	
-	&.glyphicon-votings {
-		
-		
-		
-	}
-	
-	&.glyphicon-travels {
-		
-		display: inline-block;
-		text-indent: -9999px;
-		width: 16px;
-		height: 16px;
-		background: url(/icon/travels.svg);
-		background-size: 16px 16px;
-		
-	}
-	
-	&.glyphicon-spendings {
-		
-		display: inline-block;
-		text-indent: -9999px;
-		width: 16px;
-		height: 16px;
-		background: url(/icon/spendings.svg);
-		background-size: 16px 16px;
-		
-	}
-	
-	&.glyphicon-people {
-		
-		display: inline-block;
-		text-indent: -9999px;
-		width: 16px;
-		height: 16px;
-		background: url(/icon/people.svg);
-		background-size: 16px 16px;
-		
-	}
-	
+        display: inline-block;
+        text-indent: -9999px;
+        width: 16px;
+        height: 16px;
+        background: url(/icon/feed.svg);
+        background-size: 16px 16px;
+
+    }
+
+    &.glyphicon-speakers {
+
+    }
+
+    &.glyphicon-votings {
+
+    }
+
+    &.glyphicon-travels {
+
+        display: inline-block;
+        text-indent: -9999px;
+        width: 16px;
+        height: 16px;
+        background: url(/icon/travels.svg);
+        background-size: 16px 16px;
+
+    }
+
+    &.glyphicon-spendings {
+
+        display: inline-block;
+        text-indent: -9999px;
+        width: 16px;
+        height: 16px;
+        background: url(/icon/spendings.svg);
+        background-size: 16px 16px;
+
+    }
+
+    &.glyphicon-people {
+
+        display: inline-block;
+        text-indent: -9999px;
+        width: 16px;
+        height: 16px;
+        background: url(/icon/people.svg);
+        background-size: 16px 16px;
+
+    }
+
 }
 
 .btn-back {
-	left: 2px;
+    left: 2px;
     position: relative;
     top: 3px;
     color: #009de0;
@@ -1276,7 +1282,7 @@ footer {
 }
 
 .icon.icon-moon {
-	-moz-osx-font-smoothing: grayscale;
+    -moz-osx-font-smoothing: grayscale;
     font-family: "mojePanstwo";
     font-style: normal;
     font-variant: normal;

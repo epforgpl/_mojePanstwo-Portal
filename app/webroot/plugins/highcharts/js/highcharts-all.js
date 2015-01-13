@@ -521,7 +521,7 @@ var HighchartsAdapter = function () {
                 a.extend(a.easing, {
                     easeOutQuad: function (a, b, c, g, h) {
                         return -g * (b /=
-                            h) * (b - 2) + c
+                                h) * (b - 2) + c
                     }
                 });
                 a.each(["cur", "_default", "width", "height", "opacity"], function (b, e) {

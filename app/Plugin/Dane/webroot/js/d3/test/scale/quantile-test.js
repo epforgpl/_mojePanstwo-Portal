@@ -47,7 +47,7 @@ suite.addBatch({
             assert.deepEqual(x.range([, , , , , ,]).quantiles(), [6.5, 8, 9, 13, 15.5]);
         },
         "range values are arbitrary": function (quantile) {
-            var a = new Object(), b = new Object(), c = new Object();
+            var a = {}, b = {}, c = {};
             var x = quantile().domain([3, 6, 7, 8, 8, 10, 13, 15, 16, 20]).range([a, b, c, a]);
             assert.deepEqual([3, 6, 6.9, 7, 7.1].map(x), [a, a, a, a, a]);
             assert.deepEqual([8, 8.9].map(x), [b, b]);

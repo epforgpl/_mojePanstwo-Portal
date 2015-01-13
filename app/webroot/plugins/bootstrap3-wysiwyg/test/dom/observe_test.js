@@ -12,7 +12,7 @@ module("wysihtml5.dom.observe", {
         var iframe;
         while (iframe = document.querySelector("iframe.wysihtml5-sandbox")) {
             iframe.parentNode.removeChild(iframe);
-    }
+        }
     }
 });
 
@@ -72,7 +72,7 @@ asyncTest("Advanced test observing within a sandboxed iframe", function () {
         sandbox.getDocument().body.appendChild(element);
         wysihtml5.dom.observe(element, ["click", "mousedown"], function (event) {
             ok(true, "'" + event.type + "' correctly fired");
-    });
+        });
         happen.click(element);
         happen.mousedown(element);
 

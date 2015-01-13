@@ -34,7 +34,7 @@ suite.addBatch({
                 assert.isTrue(svg === body.node().lastChild);
             },
             "propagates data to new element": function (body) {
-                var data = new Object(), div = body.data([data]).append("div");
+                var data = {}, div = body.data([data]).append("div");
                 assert.strictEqual(div[0][0].__data__, data);
             },
             "returns a new selection": function (body) {
@@ -80,7 +80,7 @@ suite.addBatch({
                 assert.isTrue(div[0][1].lastChild === svg[0][1]);
             },
             "propagates data to new elements": function (div) {
-                var a = new Object(), b = new Object(), span = div.data([a, b]).append("span");
+                var a = {}, b = {}, span = div.data([a, b]).append("span");
                 assert.strictEqual(span[0][0].__data__, a);
                 assert.strictEqual(span[0][1].__data__, b);
             },
@@ -135,7 +135,7 @@ suite.addBatch({
                 assert.domEqual(div[0][1].parentNode, body.node());
             },
             "propagates data to new elements": function (body) {
-                var a = new Object(), b = new Object(), div = body.html("").selectAll("div").data([a, b]).enter().append("div");
+                var a = {}, b = {}, div = body.html("").selectAll("div").data([a, b]).enter().append("div");
                 assert.strictEqual(div[0][0].__data__, a);
                 assert.strictEqual(div[0][1].__data__, b);
             },

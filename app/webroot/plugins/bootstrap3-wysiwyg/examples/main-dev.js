@@ -15,7 +15,7 @@ require.config({
     shim: {
         'bootstrap': {
             deps: ['jquery']
-    },
+        },
         'rangy-selectionsaverestore': {
             deps: ['rangy']
         }

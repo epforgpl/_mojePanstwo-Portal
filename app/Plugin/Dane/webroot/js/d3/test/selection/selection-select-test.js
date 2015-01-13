@@ -28,12 +28,12 @@ suite.addBatch({
                 assert.isTrue(div[0].parentNode === body[0].parentNode);
             },
             "propagates data to the selected elements": function (body) {
-                var data = new Object(), div = body.data([data]).select("div");
+                var data = {}, div = body.data([data]).select("div");
                 assert.strictEqual(div[0][0].__data__, data);
             },
             "does not propagate data if no data was specified": function (body) {
                 delete body.node().__data__;
-                var data = new Object(), div = body.select("div").data([data]);
+                var data = {}, div = body.select("div").data([data]);
                 div = body.select("div");
                 assert.strictEqual(div[0][0].__data__, data);
                 assert.isUndefined(body.node().__data__);
@@ -88,13 +88,13 @@ suite.addBatch({
                 assert.isTrue(span[0].parentNode === div[0].parentNode);
             },
             "propagates data to the selected elements": function (div) {
-                var data = new Object(), span = div.data([data]).select("span");
+                var data = {}, span = div.data([data]).select("span");
                 assert.strictEqual(span[0][0].__data__, data);
             },
             "does not propagate data if no data was specified": function (div) {
                 delete div[0][0].__data__;
                 delete div[0][1].__data__;
-                var a = new Object(), b = new Object(), span = div.select("span").data([a, b]);
+                var a = {}, b = {}, span = div.select("span").data([a, b]);
                 span = div.select("span");
                 assert.strictEqual(span[0][0].__data__, a);
                 assert.strictEqual(span[0][1].__data__, b);

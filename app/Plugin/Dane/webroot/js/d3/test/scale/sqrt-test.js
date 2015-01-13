@@ -28,7 +28,7 @@ suite.addBatch({
                 assert.equal(typeof x.domain()[0], "number");
                 assert.equal(typeof x.domain()[1], "number");
                 assert.inDelta(x(.5), 0.7071068, 1e-6);
-                var x = d3.scale.sqrt().domain([new Number(0), new Number(1)]);
+                var x = d3.scale.sqrt().domain([Number(0), Number(1)]);
                 assert.equal(typeof x.domain()[0], "number");
                 assert.equal(typeof x.domain()[1], "number");
                 assert.inDelta(x(.5), 0.7071068, 1e-6);

@@ -157,8 +157,8 @@ Control.Slider = Class.create({
     },
     translateToPx: function (value) {
         return Math.round(
-            ((this.trackLength - this.handleLength) / (this.range.end - this.range.start)) *
-            (value - this.range.start)) + "px";
+                ((this.trackLength - this.handleLength) / (this.range.end - this.range.start)) *
+                (value - this.range.start)) + "px";
     },
     translateToValue: function (offset) {
         return ((offset / (this.trackLength - this.handleLength) *

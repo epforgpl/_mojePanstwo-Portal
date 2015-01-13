@@ -27,13 +27,13 @@ suite.addBatch({
                 assert.isTrue(div[0].parentNode === body.node());
             },
             "does not propagate data if data was specified": function (body) {
-                var div = body.data([new Object()]).selectAll("div");
+                var div = body.data([{}]).selectAll("div");
                 assert.isUndefined(div[0][0].__data__);
                 assert.isUndefined(div[0][1].__data__);
             },
             "does not propagate data if data was not specified": function (body) {
                 var div = body.selectAll("div").data([1, 2]);
-                div = body.data([new Object()]).selectAll("div");
+                div = body.data([{}]).selectAll("div");
                 assert.equal(div[0][0].__data__, 1);
                 assert.equal(div[0][1].__data__, 2);
             },
@@ -90,12 +90,12 @@ suite.addBatch({
                 var span = div.selectAll("span");
                 delete span[0][0].__data__;
                 delete span[0][1].__data__;
-                span = div.data([new Object(), new Object()]).selectAll("span");
+                span = div.data([{}, {}]).selectAll("span");
                 assert.isUndefined(span[0][0].__data__);
                 assert.isUndefined(span[0][1].__data__);
             },
             "does not propagate data if data was not specified": function (div) {
-                var a = new Object(), b = new Object(), span = div.selectAll("span").data([a, b]);
+                var a = {}, b = {}, span = div.selectAll("span").data([a, b]);
                 delete div[0][0].__data__;
                 delete div[0][1].__data__;
                 span = div.selectAll("span");

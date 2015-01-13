@@ -3,7 +3,7 @@ module("wysihtml5.dom.Sandbox", {
         var iframe;
         while (iframe = document.querySelector("iframe.wysihtml5-sandbox")) {
             iframe.parentNode.removeChild(iframe);
-    }
+        }
     },
 
     getCharset: function (doc) {
@@ -103,7 +103,7 @@ asyncTest("Security test #2", function () {
     expect(2);
 
     var sandbox = new wysihtml5.dom.Sandbox(function () {
-        var html = '<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" onerror="#{script}" onload="try { window.parent._hackedCookie=document.cookie; } catch(e){}; try { window.parent._hackedVariable=1; } catch(e) {}">';
+        var html = '<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" onerror="#{script}" onload="try { window.parent._hackedCookie=document.cookie; } catch(e){} try { window.parent._hackedVariable=1; } catch(e) {}">';
         sandbox.getDocument().body.innerHTML = html;
 
         setTimeout(function () {

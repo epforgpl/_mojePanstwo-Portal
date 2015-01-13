@@ -1498,7 +1498,6 @@ Function.implement({
  ...
  */
 
-;
 (function () {
 
     var parsed,
@@ -1700,8 +1699,7 @@ Function.implement({
         }
 
         return '';
-    };
-
+    }
 // Slick NS
 
     var Slick = (this.Slick || {});
@@ -1726,7 +1724,6 @@ Function.implement({
  ...
  */
 
-;
 (function () {
 
     var local = {},
@@ -1741,7 +1738,7 @@ Function.implement({
 
     local.isXML = function (document) {
         return (!!document.xmlVersion) || (!!document.xml) || (toString.call(document) == '[object XMLDocument]') ||
-        (document.nodeType == 9 && document.documentElement.nodeName != 'HTML');
+            (document.nodeType == 9 && document.documentElement.nodeName != 'HTML');
     };
 
     local.setDocument = function (document) {
@@ -1804,8 +1801,6 @@ Function.implement({
             features.isHTMLDocument = !!document.getElementById(id);
         } catch (e) {
         }
-        ;
-
         if (features.isHTMLDocument) {
 
             testNode.style.display = 'none';
@@ -1821,8 +1816,6 @@ Function.implement({
                 starSelectsClosed = (selected && !!selected.length && selected[0].nodeName.charAt(0) == '/');
             } catch (e) {
             }
-            ;
-
             features.brokenStarGEBTN = starSelectsComments || starSelectsClosed;
 
             // IE returns elements with the name instead of just id for getElementsById for some documents
@@ -1831,8 +1824,6 @@ Function.implement({
                 features.idGetsName = document.getElementById(id) === testNode.firstChild;
             } catch (e) {
             }
-            ;
-
             if (testNode.getElementsByClassName) {
 
                 // Safari 3.2 getElementsByClassName caches results
@@ -1843,16 +1834,12 @@ Function.implement({
                     cachedGetElementsByClassName = (testNode.getElementsByClassName('b').length != 2);
                 } catch (e) {
                 }
-                ;
-
                 // Opera 9.6 getElementsByClassName doesnt detects the class if its not the first one
                 try {
                     testNode.innerHTML = '<a class="a"></a><a class="f b a"></a>';
                     brokenSecondClassNameGEBCN = (testNode.getElementsByClassName('a').length != 2);
                 } catch (e) {
                 }
-                ;
-
                 features.brokenGEBCN = cachedGetElementsByClassName || brokenSecondClassNameGEBCN;
             }
 
@@ -1864,32 +1851,24 @@ Function.implement({
                     features.starSelectsClosedQSA = (selected && !!selected.length && selected[0].nodeName.charAt(0) == '/');
                 } catch (e) {
                 }
-                ;
-
                 // Safari 3.2 querySelectorAll doesnt work with mixedcase on quirksmode
                 try {
                     testNode.innerHTML = '<a class="MiX"></a>';
                     features.brokenMixedCaseQSA = !testNode.querySelectorAll('.MiX').length;
                 } catch (e) {
                 }
-                ;
-
                 // Webkit and Opera dont return selected options on querySelectorAll
                 try {
                     testNode.innerHTML = '<select><option selected="selected">a</option></select>';
                     features.brokenCheckedQSA = (testNode.querySelectorAll(':checked').length == 0);
                 } catch (e) {
                 }
-                ;
-
                 // IE returns incorrect results for attr[*^$]="" selectors on querySelectorAll
                 try {
                     testNode.innerHTML = '<a class=""></a>';
                     features.brokenEmptyAttributeQSA = (testNode.querySelectorAll('[class*=""]').length != 0);
                 } catch (e) {
                 }
-                ;
-
             }
 
             // IE6-7, if a form has an input of id x, form.getAttribute(x) returns a reference to the input
@@ -1898,8 +1877,6 @@ Function.implement({
                 brokenFormAttributeGetter = (testNode.firstChild.getAttribute('action') != 's');
             } catch (e) {
             }
-            ;
-
             // native matchesSelector function
 
             features.nativeMatchesSelector = root.matchesSelector || /*root.msMatchesSelector ||*/ root.mozMatchesSelector || root.webkitMatchesSelector;
@@ -1909,8 +1886,6 @@ Function.implement({
                 features.nativeMatchesSelector = null;
             } catch (e) {
             }
-            ;
-
         }
 
         try {

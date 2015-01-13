@@ -148,18 +148,18 @@ test("merge/unmerge", function () {
     equal(this.getTable().querySelectorAll('td')[0].getAttribute('rowspan'), 3, "Rowspan attribute added correctly");
 
     equal(this.getTable().querySelectorAll('td')[0].innerHTML.replace(/\s\s+/g, ' ').replace(/\s+$/g, ''), "Cell texts merged", "cell texts correctly merged");
-    
+
     var cells_m1 = this.getTable().querySelectorAll('td');
 
     equal(wysihtml5.dom.table.canMerge(cells_m1[0], cells_m1[1]), false, "canMerge returns false correctly for selection containing merged cells");
-    
+
     wysihtml5.dom.table.mergeCellsBetween(cells_m1[cells_m1.length - 6], cells_m1[cells_m1.length - 1]);
     equal(this.getTable().querySelectorAll('td').length, nr_cells - 8, "Bottom right corner (4 cells) correctly merged");
 
     var cells_m2 = this.getTable().querySelectorAll('td');
     equal(cells_m2[cells_m2.length - 3].getAttribute('colspan'), 2, "Colspan attribute added correctly (Bottom right corner)");
     equal(cells_m2[cells_m2.length - 3].getAttribute('rowspan'), 2, "Rowspan attribute added correctly (Bottom right corner)");
-    
+
     var nr_cells_m2 = cells_m2.length;
 
     // should not merge
@@ -168,7 +168,7 @@ test("merge/unmerge", function () {
 
     // unmerge
     var umerge_cell1 = cells_m2[cells_m2.length - 3];
-    
+
     equal(umerge_cell1.getAttribute('colspan'), 2, "Colspan attribute is set before unmerge (Bottom right corner)");
     equal(umerge_cell1.getAttribute('rowspan'), 2, "Rowspan attribute is set before unmerge (Bottom right corner)");
 
@@ -206,7 +206,7 @@ test("removeCells", function () {
 
     equal(this.getTable().querySelectorAll('tr')[0].querySelectorAll('td').length, nr_cols - 1, "Columns untouched");
     equal(this.getTable().querySelectorAll('tr').length, nr_rows - 1, "One row removed successfully");
-    
+
     var cells1 = this.getTable().querySelectorAll('td');
 
     wysihtml5.dom.table.mergeCellsBetween(cells1[0], cells1[4]);
@@ -220,7 +220,7 @@ test("removeCells", function () {
 
     equal(this.getTable().querySelectorAll('tr')[1].querySelectorAll('td').length, nr_cols - 1, "Nr of columns correct");
     equal(this.getTable().querySelectorAll('tr').length, nr_rows - 2, "Nr of rows correct");
-    
+
     wysihtml5.dom.table.removeCells(this.getTable().querySelectorAll('td')[3], "column");
 
     equal(this.getTable().querySelectorAll('tr')[0].querySelectorAll('td').length, nr_cols - 2, "Nr of columns correct afrer merged column removed");

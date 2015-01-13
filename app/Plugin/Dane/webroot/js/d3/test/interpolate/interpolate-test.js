@@ -112,7 +112,7 @@ suite.addBatch({
                 assert.deepEqual(d3.interpolate({foo: 2, bar: 4}, {foo: 12, bar: 24})(.4), {foo: 6, bar: 12});
             },
             "interpolates arrays, even when both a and b are coercible to numbers": function (d3) {
-                var two = new Number(2), twelve = new Number(12);
+                var two = Number(2), twelve = Number(12);
                 two.foo = "2px";
                 twelve.foo = "12px";
                 assert.deepEqual(d3.interpolate(two, twelve)(.4), {foo: "6px"});

@@ -36,7 +36,7 @@ suite.addBatch({
                 assert.typeOf(x.domain()[0], "number");
                 assert.typeOf(x.domain()[1], "number");
                 assert.strictEqual(x(.5), .5);
-                var x = identity().domain([new Number(0), new Number(1)]);
+                var x = identity().domain([Number(0), Number(1)]);
                 assert.typeOf(x.domain()[0], "number");
                 assert.typeOf(x.domain()[1], "number");
                 assert.strictEqual(x(.5), .5);
@@ -52,7 +52,7 @@ suite.addBatch({
                 assert.typeOf(x.range()[0], "number");
                 assert.typeOf(x.range()[1], "number");
                 assert.strictEqual(x(.5), .5);
-                var x = identity().range([new Number(0), new Number(1)]);
+                var x = identity().range([Number(0), Number(1)]);
                 assert.typeOf(x.range()[0], "number");
                 assert.typeOf(x.range()[1], "number");
                 assert.strictEqual(x(.5), .5);

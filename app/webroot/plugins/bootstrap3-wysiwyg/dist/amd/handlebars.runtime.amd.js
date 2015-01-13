@@ -67,7 +67,7 @@ define(
             for (var key in value) {
                 if (Object.prototype.hasOwnProperty.call(value, key)) {
                     obj[key] = value[key];
-        }
+                }
             }
         }
 
@@ -277,7 +277,7 @@ define(
                                     data.key = key;
                                     data.index = i;
                                     data.first = (i === 0);
-                }
+                                }
                                 ret = ret + fn(context[key], {data: data});
                                 i++;
                             }
@@ -346,7 +346,7 @@ define(
                     if (typeof console !== 'undefined' && console[method]) {
                         console[method].call(console, obj);
                     }
-        }
+                }
             }
         };
         __exports__.logger = logger;
@@ -385,7 +385,7 @@ define(
                     // Use the embedded version info since the runtime doesn't know about this revision yet
                     throw new Exception("Template was precompiled with a newer version of Handlebars than the current runtime. " +
                     "Please update your runtime to a newer version (" + compilerInfo[1] + ").");
-        }
+                }
             }
         }
 
@@ -461,7 +461,7 @@ define(
 
                 if (!options.partial) {
                     env.VM.checkRevision(container.compilerInfo);
-        }
+                }
 
                 return result;
             };

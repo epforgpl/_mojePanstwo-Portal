@@ -59,8 +59,7 @@ function d3_geom_voronoi(sites, bbox) {
                 d3_geom_voronoiCells = null;
 
     return diagram;
-};
-
+}
 function d3_geom_voronoiVertexOrder(a, b) {
     return b.y - a.y || b.x - a.x;
 }

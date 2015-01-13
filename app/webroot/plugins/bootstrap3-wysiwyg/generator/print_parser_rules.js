@@ -19,7 +19,7 @@
 
         var pasteRules = page.evaluate(function () {
             return window.wysihtml5ParserPasteRulesets;
-    });
+        });
         var pasteRulesJSON = JSON.stringify(pasteRules, null, ' ');
         fs.write('src/parser_rules/advanced_and_extended_paste.json', pasteRulesJSON, 'w');
         console.log('Wrote ', 'src/parser_rules/advanced_and_extended_paste.json');
@@ -29,7 +29,7 @@
         var parserRules = pageAdvanced.evaluate(function () {
             console.log(window.wysihtml5ParserRules);
             return window.wysihtml5ParserRules;
-    });
+        });
         var parserRulesJSON = JSON.stringify(parserRules, null, ' ');
         fs.write('src/parser_rules/advanced.json', parserRulesJSON, 'w');
         console.log('Wrote ', 'src/parser_rules/advanced.json');
@@ -39,7 +39,7 @@
         var parserRules = pageAdvancedUnwrap.evaluate(function () {
             console.log(window.wysihtml5ParserRules);
             return window.wysihtml5ParserRules;
-    });
+        });
         var parserRulesJSON = JSON.stringify(parserRules, null, ' ');
         fs.write('src/parser_rules/advanced_unwrap.json', parserRulesJSON, 'w');
         console.log('Wrote ', 'src/parser_rules/advanced_unwrap.json');
@@ -49,7 +49,7 @@
         var parserRules = pageSimple.evaluate(function () {
             console.log(window.wysihtml5ParserRules);
             return window.wysihtml5ParserRules;
-    });
+        });
         var parserRulesJSON = JSON.stringify(parserRules, null, ' ');
         fs.write('src/parser_rules/simple.json', parserRulesJSON, 'w');
         console.log('Wrote ', 'src/parser_rules/simple.json');

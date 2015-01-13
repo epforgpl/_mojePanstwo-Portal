@@ -264,9 +264,9 @@
              */
             var generateLI = function (content, index, classes) {
                 return '<li' +
-                (typeof classes !== 'undefined' ? ' class="' + classes + '"' : '') +
-                (typeof index !== 'undefined' | null === index ? ' data-original-index="' + index + '"' : '') +
-                '>' + content + '</li>';
+                    (typeof classes !== 'undefined' ? ' class="' + classes + '"' : '') +
+                    (typeof index !== 'undefined' | null === index ? ' data-original-index="' + index + '"' : '') +
+                    '>' + content + '</li>';
             };
 
             /**
@@ -279,13 +279,13 @@
             var generateA = function (text, classes, inline, optgroup) {
                 var normText = normalizeToBase(htmlEscape(text));
                 return '<a tabindex="0"' +
-                (typeof classes !== 'undefined' ? ' class="' + classes + '"' : '') +
-                (typeof inline !== 'undefined' ? ' style="' + inline + '"' : '') +
-                (typeof optgroup !== 'undefined' ? 'data-optgroup="' + optgroup + '"' : '') +
-                ' data-normalized-text="' + normText + '"' +
-                '>' + text +
-                '<span class="' + that.options.iconBase + ' ' + that.options.tickIcon + ' check-mark"></span>' +
-                '</a>';
+                    (typeof classes !== 'undefined' ? ' class="' + classes + '"' : '') +
+                    (typeof inline !== 'undefined' ? ' style="' + inline + '"' : '') +
+                    (typeof optgroup !== 'undefined' ? 'data-optgroup="' + optgroup + '"' : '') +
+                    ' data-normalized-text="' + normText + '"' +
+                    '>' + text +
+                    '<span class="' + that.options.iconBase + ' ' + that.options.tickIcon + ' check-mark"></span>' +
+                    '</a>';
             };
 
             this.$element.find('option').each(function () {

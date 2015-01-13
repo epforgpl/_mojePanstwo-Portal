@@ -154,7 +154,7 @@ var filtersController = function () {
                     parent.find('.daysMulti').removeClass('hide');
                 }
             }
-        })
+        });
 
         filters.find('.changeable > .label_cont').click(function () {
             var $that = $(this).parent('.filter');

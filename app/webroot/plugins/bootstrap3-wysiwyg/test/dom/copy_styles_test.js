@@ -81,11 +81,11 @@ asyncTest("Test copying styles from one element to another element which is in a
 
         iframeDocument.body.appendChild(iframeElement);
         that.span.style.cssText = "float: left;";
-    
-    wysihtml5.dom
-        .copyStyles(["float"])
-        .from(that.span)
-        .to(iframeElement);
+
+        wysihtml5.dom
+            .copyStyles(["float"])
+            .from(that.span)
+            .to(iframeElement);
 
         equal(iframeElement.style.styleFloat || iframeElement.style.cssFloat, "left", "Element in iframe correctly got css float copied over");
 

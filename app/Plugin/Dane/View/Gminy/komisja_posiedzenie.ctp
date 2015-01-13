@@ -15,8 +15,8 @@ echo $this->Element('Dane.dataobject/subobject', array(
         'bigTitle' => true,
     ),
     'back' => array(
-	    'href' => $object->getUrl() . '/komisje_posiedzenia',
-	    'title' => 'Wszystkie posiedzenia Komisji',
+        'href' => $object->getUrl() . '/komisje_posiedzenia',
+        'title' => 'Wszystkie posiedzenia Komisji',
     ),
 ));
 

@@ -456,7 +456,7 @@ if ($organy_count) {
                     <a class="list-group-item row" href="/dane/krs_podmioty/<?= $firma['id'] ?>">
                         <div class="list-group-item row">
 
-                        <h4 class="list-group-item-heading col-xs-6">
+                            <h4 class="list-group-item-heading col-xs-6">
                                 <?= $firma['nazwa'] ?>
                             </h4>
 

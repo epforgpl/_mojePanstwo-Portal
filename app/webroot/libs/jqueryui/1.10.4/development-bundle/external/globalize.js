@@ -1451,7 +1451,7 @@
 
     Globalize.localize = function (key, cultureSelector) {
         return this.findClosestCulture(cultureSelector).messages[key] ||
-        this.cultures["default"].messages[key];
+            this.cultures["default"].messages[key];
     };
 
     Globalize.parseDate = function (value, formats, culture) {

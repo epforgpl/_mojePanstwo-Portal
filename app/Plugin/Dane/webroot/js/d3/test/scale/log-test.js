@@ -28,7 +28,7 @@ suite.addBatch({
                 assert.equal(typeof x.domain()[0], "number");
                 assert.equal(typeof x.domain()[1], "number");
                 assert.inDelta(x(5), 0.69897, 1e-6);
-                var x = d3.scale.log().domain([new Number(1), new Number(10)]);
+                var x = d3.scale.log().domain([Number(1), Number(10)]);
                 assert.equal(typeof x.domain()[0], "number");
                 assert.equal(typeof x.domain()[1], "number");
                 assert.inDelta(x(5), 0.69897, 1e-6);

@@ -12,19 +12,19 @@ suite.addBatch({
                 return d3.select("body");
             },
             "assigns data as an array": function (body) {
-                var data = new Object();
+                var data = {};
                 body.data([data]);
                 assert.strictEqual(body.node().__data__, data);
             },
             "assigns data as a function": function (body) {
-                var data = new Object();
+                var data = {};
                 body.data(function () {
                     return [data];
                 });
                 assert.strictEqual(body.node().__data__, data);
             },
             "stores data in the DOM": function (body) {
-                var expected = new Object(), actual;
+                var expected = {}, actual;
                 body.node().__data__ = expected;
                 body.each(function (d) {
                     actual = d;
@@ -35,7 +35,7 @@ suite.addBatch({
                 assert.isFalse(body.data([1]) === body);
             },
             "with no arguments, returns an array of data": function (body) {
-                var data = new Object();
+                var data = {};
                 body.data([data]);
                 assert.deepEqual(body.data(), [data]);
                 assert.strictEqual(body.data()[0], data);
@@ -71,13 +71,13 @@ suite.addBatch({
                 return d3.select("body").selectAll("div").data([0, 1]).enter().append("div");
             },
             "assigns data as an array": function (div) {
-                var a = new Object(), b = new Object();
+                var a = {}, b = {};
                 div.data([a, b]);
                 assert.strictEqual(div[0][0].__data__, a);
                 assert.strictEqual(div[0][1].__data__, b);
             },
             "assigns data as a function": function (div) {
-                var a = new Object(), b = new Object();
+                var a = {}, b = {};
                 div.data(function () {
                     return [a, b];
                 });
@@ -85,7 +85,7 @@ suite.addBatch({
                 assert.strictEqual(div[0][1].__data__, b);
             },
             "stores data in the DOM": function (div) {
-                var a = new Object(), b = new Object(), actual = [];
+                var a = {}, b = {}, actual = [];
                 div[0][0].__data__ = a;
                 div[0][1].__data__ = b;
                 div.each(function (d) {
@@ -116,13 +116,13 @@ suite.addBatch({
                 assert.isTrue(errored);
             },
             "with no arguments, returns an array of data": function (div) {
-                var a = new Object(), b = new Object(), actual = [];
+                var a = {}, b = {}, actual = [];
                 div[0][0].__data__ = a;
                 div[0][1].__data__ = b;
                 assert.deepEqual(div.data(), [a, b]);
             },
             "with no arguments, returned array has undefined for null nodes": function (div) {
-                var b = new Object(), actual = [];
+                var b = {}, actual = [];
                 div[0][0] = null;
                 div[0][1].__data__ = b;
                 var data = div.data();
@@ -193,7 +193,7 @@ suite.addBatch({
                     .enter().append("span");
             },
             "assigns data as an array": function (span) {
-                var a = new Object(), b = new Object();
+                var a = {}, b = {};
                 span.data([a, b]);
                 assert.strictEqual(span[0][0].__data__, a);
                 assert.strictEqual(span[0][1].__data__, b);
@@ -201,7 +201,7 @@ suite.addBatch({
                 assert.strictEqual(span[1][1].__data__, b);
             },
             "assigns data as a function": function (span) {
-                var a = new Object(), b = new Object(), c = new Object(), d = new Object();
+                var a = {}, b = {}, c = {}, d = {};
                 span.data(function (z, i) {
                     return i ? [c, d] : [a, b];
                 });

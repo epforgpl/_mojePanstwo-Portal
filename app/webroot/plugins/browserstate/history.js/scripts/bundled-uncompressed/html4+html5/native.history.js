@@ -441,7 +441,7 @@ if (typeof JSON !== 'object') {
             if (cx.test(text)) {
                 text = text.replace(cx, function (a) {
                     return '\\u' +
-                    ('0000' + a.charCodeAt(0).toString(16)).slice(-4);
+                        ('0000' + a.charCodeAt(0).toString(16)).slice(-4);
                 });
             }
 

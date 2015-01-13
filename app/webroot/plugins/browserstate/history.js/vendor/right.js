@@ -290,7 +290,7 @@ var RightJS = (function (window, document, Object, Array, String, Function, Numb
     if (isHash(HTML)) {
         isHash = RightJS.isHash = function (value) {
             return to_s.call(value) === '[object Object]' &&
-            value != null && value.hasOwnProperty != null;
+                value != null && value.hasOwnProperty != null;
         };
     }
 
@@ -1205,8 +1205,8 @@ var RightJS = (function (window, document, Object, Array, String, Function, Numb
          */
         startsWith: function (string, ignorecase) {
             return (ignorecase !== true ? this.indexOf(string) :
-                this.toLowerCase().indexOf(string.toLowerCase())
-            ) === 0;
+                    this.toLowerCase().indexOf(string.toLowerCase())
+                ) === 0;
         },
 
         /**
@@ -1218,9 +1218,9 @@ var RightJS = (function (window, document, Object, Array, String, Function, Numb
          */
         endsWith: function (string, ignorecase) {
             return this.length - (
-                ignorecase !== true ? this.lastIndexOf(string) :
-                    this.toLowerCase().lastIndexOf(string.toLowerCase())
-            ) === string.length;
+                    ignorecase !== true ? this.lastIndexOf(string) :
+                        this.toLowerCase().lastIndexOf(string.toLowerCase())
+                ) === string.length;
         },
 
         /**
@@ -1325,7 +1325,7 @@ var RightJS = (function (window, document, Object, Array, String, Function, Numb
          */
         delay: function () {
             var args = $A(arguments), timeout = args.shift(),
-                timer = new Number(setTimeout(this.bind.apply(this, [this].concat(args)), timeout));
+                timer = Number(setTimeout(this.bind.apply(this, [this].concat(args)), timeout));
 
             timer.cancel = function () {
                 clearTimeout(this);
@@ -1344,7 +1344,7 @@ var RightJS = (function (window, document, Object, Array, String, Function, Numb
          */
         periodical: function () {
             var args = $A(arguments), timeout = args.shift(),
-                timer = new Number(setInterval(this.bind.apply(this, [this].concat(args)), timeout));
+                timer = Number(setInterval(this.bind.apply(this, [this].concat(args)), timeout));
 
             timer.stop = function () {
                 clearInterval(this);
@@ -1525,13 +1525,13 @@ var RightJS = (function (window, document, Object, Array, String, Function, Numb
 
                             } else if (to_s.call(value) === '[object Date]') {
                                 return '"' + value.getUTCFullYear() + '-' +
-                                zerofy(value.getUTCMonth() + 1) + '-' +
-                                zerofy(value.getUTCDate()) + 'T' +
-                                zerofy(value.getUTCHours()) + ':' +
-                                zerofy(value.getUTCMinutes()) + ':' +
-                                zerofy(value.getUTCSeconds()) + '.' +
-                                zerofy(value.getMilliseconds()) + 'Z' +
-                                '"';
+                                    zerofy(value.getUTCMonth() + 1) + '-' +
+                                    zerofy(value.getUTCDate()) + 'T' +
+                                    zerofy(value.getUTCHours()) + ':' +
+                                    zerofy(value.getUTCMinutes()) + ':' +
+                                    zerofy(value.getUTCSeconds()) + '.' +
+                                    zerofy(value.getMilliseconds()) + 'Z' +
+                                    '"';
 
                             } else {
                                 var result = [], key;
@@ -3425,7 +3425,7 @@ var RightJS = (function (window, document, Object, Array, String, Function, Numb
             var pos = this.position(), size = this.size();
 
             return target.x > pos.x && target.x < (pos.x + size.x) &&
-            target.y > pos.y && target.y < (pos.y + size.y);
+                target.y > pos.y && target.y < (pos.y + size.y);
         },
 
         /**
@@ -4518,20 +4518,20 @@ var RightJS = (function (window, document, Object, Array, String, Function, Numb
 
         return (object.$listeners || []).filter(function (hash) {
             return hash.dr && hash.n === event && (
-            rules_are_empty || (function () {
-                for (var css_rule in rules) {
-                    if (hash.dr === css_rule) {
-                        for (i = 0, list = rules[css_rule]; i < list.length; i++) {
-                            if (!list[i].length || list[i][0] === hash.dc) {
-                                return true;
+                rules_are_empty || (function () {
+                    for (var css_rule in rules) {
+                        if (hash.dr === css_rule) {
+                            for (i = 0, list = rules[css_rule]; i < list.length; i++) {
+                                if (!list[i].length || list[i][0] === hash.dc) {
+                                    return true;
+                                }
                             }
                         }
                     }
-                }
 
-                return false;
-            })()
-            );
+                    return false;
+                })()
+                );
         });
     }
 

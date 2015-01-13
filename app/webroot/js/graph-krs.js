@@ -675,7 +675,4 @@ var d3Data;
         )
         ;
     }
-}
-(jQuery)
-)
-;
+}(jQuery));

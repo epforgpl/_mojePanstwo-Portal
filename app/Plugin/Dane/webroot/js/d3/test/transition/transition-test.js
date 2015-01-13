@@ -87,6 +87,6 @@ suite.addBatch({
         "size": require("./transition-test-size"),
         "node": require("./transition-test-node")
     }
-})
+});
 
 suite.export(module);

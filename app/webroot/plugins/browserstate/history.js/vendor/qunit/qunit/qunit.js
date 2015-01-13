@@ -995,7 +995,7 @@
                 encodeURIComponent(params[key]) + "&";
             }
             return window.location.protocol + "//" + window.location.host +
-            window.location.pathname + querystring.slice(0, -1);
+                window.location.pathname + querystring.slice(0, -1);
         },
 
         extend: extend,
@@ -1557,7 +1557,7 @@
 
     function id(name) {
         return !!( typeof document !== "undefined" && document && document.getElementById ) &&
-        document.getElementById(name);
+            document.getElementById(name);
     }
 
     function registerLoggingCallback(key) {
@@ -1639,14 +1639,14 @@
 
                     "regexp": function (b, a) {
                         return QUnit.objectType(b) === "regexp" &&
-                            // the regex itself
-                        a.source === b.source &&
-                            // and its modifers
-                        a.global === b.global &&
-                            // (gmi) ...
-                        a.ignoreCase === b.ignoreCase &&
-                        a.multiline === b.multiline &&
-                        a.sticky === b.sticky;
+                                // the regex itself
+                            a.source === b.source &&
+                                // and its modifers
+                            a.global === b.global &&
+                                // (gmi) ...
+                            a.ignoreCase === b.ignoreCase &&
+                            a.multiline === b.multiline &&
+                            a.sticky === b.sticky;
                     },
 
                     // - skip when the property is a method of an instance (OOP)

@@ -28,8 +28,8 @@ echo $this->Element('Dane.dataobject/subobject', array(
         'bigTitle' => true,
     ),
     'back' => array(
-	    'href' => $dzielnica->getUrl(),
-		'title' => 'Dzielnica ' . $dzielnica->getTitle(),
+        'href' => $dzielnica->getUrl(),
+        'title' => 'Dzielnica ' . $dzielnica->getTitle(),
     ),
 ));
 ?>

@@ -27,7 +27,7 @@ test("Check 'levels' param - nodeName only", function () {
         nestedDiv = this.container.querySelector("div").querySelector("div");
     equal(wysihtml5.dom.getParentElement(listItem, {nodeName: "DIV"}, 2), null);
     equal(wysihtml5.dom.getParentElement(listItem, {nodeName: "DIV"}, 3), nestedDiv);
-  
+
 });
 
 

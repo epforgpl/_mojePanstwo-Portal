@@ -88,7 +88,7 @@ if (wysihtml5.browser.supported()) {
             ok(wysihtml5.dom.hasClass(composerElement, "wysihtml5-editor"), "Editor element has correct class name");
 
             start();
-    });
+        });
     });
 
 
@@ -110,7 +110,7 @@ if (wysihtml5.browser.supported()) {
             ok(wysihtml5.dom.hasClass(composerElement, "death-star"), "iFrame's body has adopted the textarea className");
             ok(!wysihtml5.dom.hasClass(textareaElement, name), "Textarea has not adopted name as className");
             start();
-    });
+        });
     });
 
 
@@ -138,7 +138,7 @@ if (wysihtml5.browser.supported()) {
             that.textareaElement.style.display = "none";
 
             start();
-    });
+        });
     });
 
     asyncTest("Check whether cols and rows attribute is correctly handled", function () {
@@ -170,7 +170,7 @@ if (wysihtml5.browser.supported()) {
         editor.on("load", function () {
             equal(that.getComposerElement().title, that.textareaElement.title, "Editor got attributes copied over from textarea");
             start();
-    });
+        });
     });
 
 
@@ -183,7 +183,7 @@ if (wysihtml5.browser.supported()) {
 
         editor.on("beforeload", function () {
             ok(true, "'beforeload' event correctly fired");
-    });
+        });
 
         editor.on("load", function () {
             var composerElement = that.getComposerElement(),
@@ -288,14 +288,14 @@ if (wysihtml5.browser.supported()) {
                     // Timeout needed since reset() isn't executed synchronously
                     setTimeout(function () {
                         equal(wysihtml5.dom.getTextContent(composerElement), "", "Editor is empty after reset");
-            start();
+                        start();
                     }, 100);
 
                 }, 500);
 
             }, 500);
-      
-    });
+
+        });
     });
 
 
@@ -344,7 +344,7 @@ if (wysihtml5.browser.supported()) {
                 }, 100);
 
             }, 500);
-    });
+        });
     });
 
 
@@ -357,7 +357,7 @@ if (wysihtml5.browser.supported()) {
             parserRules: {tags: {p: {rename_tag: "div"}}},
             bodyClassName: "editor-is-supported",
             composerClassName: "editor"
-    });
+        });
 
         editor.on("load", function () {
             ok(editor.isCompatible(), "isCompatible() returns correct value");
@@ -392,7 +392,7 @@ if (wysihtml5.browser.supported()) {
             ok(!composerElement.getAttribute("disabled"), "After enabling the disabled attribute is unset");
 
             start();
-    });
+        });
     });
 
 
@@ -413,7 +413,7 @@ if (wysihtml5.browser.supported()) {
 
         var editor = new wysihtml5.Editor(this.textareaElement, {
             parserRules: parserRules
-    });
+        });
 
         editor.on("load", function () {
             equal(editor.config.parserRules, parserRules, "Parser rules correctly set on config object");
@@ -421,7 +421,7 @@ if (wysihtml5.browser.supported()) {
             editor.setValue(input, true);
             equal(editor.getValue(false, false).toLowerCase(), output, "HTML got correctly parsed within setValue()");
             start();
-    });
+        });
     });
 
 
@@ -440,7 +440,7 @@ if (wysihtml5.browser.supported()) {
                 equal(config.context, that.getIframeElement().contentWindow.document, "Context passed into parser is equal the document object of the editor's iframe");
                 return html.replace(/\<script\>.*?\<\/script\>/gi, "");
             }
-    });
+        });
 
         editor.on("load", function () {
             input = "<p>foobar</p><script>alert(1);</script>";
@@ -451,7 +451,7 @@ if (wysihtml5.browser.supported()) {
             equal(editor.getValue(false, false).toLowerCase(), output, "HTML got correctly parsed within setValue()");
 
             start();
-    });
+        });
     });
 
 
@@ -478,7 +478,7 @@ if (wysihtml5.browser.supported()) {
                 equal(textareaElement.value.toLowerCase(), html, "Textarea got correct value");
                 start();
             }, 500);
-    });
+        });
     });
 
 
@@ -494,7 +494,7 @@ if (wysihtml5.browser.supported()) {
 
         var editor = new wysihtml5.Editor(this.textareaElement, {
             stylesheets: stylesheetUrls
-    });
+        });
 
         editor.on("load", function () {
             var iframeElement = that.getIframeElement(),
@@ -506,7 +506,7 @@ if (wysihtml5.browser.supported()) {
             equal(linkElements[1].getAttribute("href"), stylesheetUrls[1]);
             equal(linkElements[1].getAttribute("rel"), "stylesheet");
             start();
-    });
+        });
     });
 
 
@@ -522,7 +522,7 @@ if (wysihtml5.browser.supported()) {
 
         var editor = new wysihtml5.Editor(this.textareaElement, {
             supportTouchDevices: false
-    });
+        });
 
         editor.on("load", function () {
             ok(!that.getIframeElement(), "No editor iframe has been inserted");
@@ -531,7 +531,7 @@ if (wysihtml5.browser.supported()) {
             wysihtml5.browser.isTouchDevice = originalIsTouchDevice;
 
             start();
-    });
+        });
     });
 
     asyncTest("Check whether everything works when the textarea is not within a form", function () {

@@ -27,8 +27,8 @@
         anchor = anchor.cloneNode(false);
 
         return anchor.hash.length > 1 &&
-        decodeURIComponent(anchor.href.replace(rhash, "")) ===
-        decodeURIComponent(location.href.replace(rhash, ""));
+            decodeURIComponent(anchor.href.replace(rhash, "")) ===
+            decodeURIComponent(location.href.replace(rhash, ""));
     }
 
     $.widget("ui.tabs", {

@@ -45,7 +45,7 @@ asyncTest("Basic test", function () {
 
         editor.on("focus", function () {
             ok(true, "Generic 'focus' event fired");
-    });
+        });
 
         editor.on("focus:textarea", function () {
             ok(true, "Specific 'focus:textarea' event fired");

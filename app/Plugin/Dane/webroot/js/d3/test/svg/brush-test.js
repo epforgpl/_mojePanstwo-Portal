@@ -91,8 +91,8 @@ suite.addBatch({
                 ]);
             },
             "preserves the set extent exactly": function (brush) {
-                var lo = new Number(0.1),
-                    hi = new Number(0.3),
+                var lo = Number(0.1),
+                    hi = Number(0.3),
                     b = brush().x(_.scale.linear()).extent([lo, hi]),
                     extent = b.extent();
                 assert.strictEqual(extent[0], lo);

@@ -122,7 +122,7 @@
     $.fn.customFileInput = function (option) {
         return this.each(function () {
             var $this = $(this);
-            var data = $this.data('customFileInput')
+            var data = $this.data('customFileInput');
             var options = $.extend({}, $.fn.customFileInput.defaults, $this.data(), typeof option == 'object' && option);
             if (!data) {
                 $this.data('customFileInput', (data = new CustomFileInput(this, options)));

@@ -505,22 +505,22 @@ class DataobjectsBrowserComponent extends Component
 
         if (isset($controller->request->query)) {
             $controller->data = array('Dataset' => $controller->request->query);
-        }		
-		
-		if( empty($this->excludeFilters) ) {
-			
-			$emptyFilters = empty($filters) && empty($switchers);
-			
-		} else {
-			
-			$_filters = array();
-			foreach( $filters as $f )
-				if( !in_array($f['filter']['field'], $this->excludeFilters) )
-					$_filters[] = $f;
-									
-			$emptyFilters = empty($_filters) && empty($switchers);
-			
-		}		
+        }
+
+        if (empty($this->excludeFilters)) {
+
+            $emptyFilters = empty($filters) && empty($switchers);
+
+        } else {
+
+            $_filters = array();
+            foreach ($filters as $f)
+                if (!in_array($f['filter']['field'], $this->excludeFilters))
+                    $_filters[] = $f;
+
+            $emptyFilters = empty($_filters) && empty($switchers);
+
+        }
 
 
         $page = array(

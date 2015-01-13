@@ -53,7 +53,7 @@ if (wysihtml5.browser.supported()) {
             equal(typeof editor.synchronizer, "undefined", "Syncronizer correctly not initiated in contenteditable mode");
 
             start();
-    });
+        });
     });
 
 // EVENTS TESTS 
@@ -65,7 +65,7 @@ if (wysihtml5.browser.supported()) {
 
         editor.on("beforeload", function () {
             ok(true, "'beforeload' event correctly fired");
-    });
+        });
 
         editor.on("load", function () {
             var composerElement = that.editableArea;
@@ -148,7 +148,7 @@ if (wysihtml5.browser.supported()) {
             setTimeout(function () {
                 start();
             }, 100);
-    });
+        });
     });
 
     asyncTest("Check events drop", function () {
@@ -187,7 +187,7 @@ if (wysihtml5.browser.supported()) {
             setTimeout(function () {
                 start();
             }, 100);
-    });
+        });
     });
 
 
@@ -228,7 +228,7 @@ if (wysihtml5.browser.supported()) {
             equal(composerElement.innerHTML.toLowerCase(), html, "HTML hasn't been cleared even though the innerText and textContent properties indicate empty content.");
             ok(!wysihtml5.dom.hasClass(composerElement, "placeholder"), "Editor hasn't got 'placeholder' css class");
             start();
-    });
+        });
     });
 
 // Editor available functions test  
@@ -241,7 +241,7 @@ if (wysihtml5.browser.supported()) {
             parserRules: {tags: {p: {rename_tag: "div"}}},
             bodyClassName: "editor-is-supported",
             composerClassName: "editor"
-    });
+        });
 
         editor.on("load", function () {
             ok(editor.isCompatible(), "isCompatible() returns correct value");
@@ -278,7 +278,7 @@ if (wysihtml5.browser.supported()) {
             start();
         });
     });
-  
+
 // Parser tests  
     asyncTest("Parser (default parser method with parserRules as object)", function () {
         expect(2);
@@ -297,7 +297,7 @@ if (wysihtml5.browser.supported()) {
 
         var editor = new wysihtml5.Editor(this.editableArea, {
             parserRules: parserRules
-    });
+        });
 
         editor.on("load", function () {
             equal(editor.config.parserRules, parserRules, "Parser rules correctly set on config object");
@@ -305,7 +305,7 @@ if (wysihtml5.browser.supported()) {
             editor.setValue(input, true);
             equal(editor.getValue(false, false).toLowerCase(), output, "HTML got correctly parsed within setValue()");
             start();
-    });
+        });
     });
 
     asyncTest("Editable area html should be cleaned up upon initiation", function () {
@@ -355,7 +355,7 @@ if (wysihtml5.browser.supported()) {
                 equal(config.rules, parserRules, "Rules passed into parser are equal to those given to the editor");
                 return html.replace(/\<script\>.*?\<\/script\>/gi, "");
             }
-    });
+        });
 
         editor.on("load", function () {
             var output2 = "<p>foobar</p>";
@@ -388,7 +388,7 @@ if (wysihtml5.browser.supported()) {
                 equal(composerElement.innerHTML.toLowerCase(), html, "Composer still has correct content");
                 start();
             }, 500);
-    });
+        });
     });
 
     /*
@@ -412,5 +412,5 @@ if (wysihtml5.browser.supported()) {
      });
      });
      */
-  
+
 }

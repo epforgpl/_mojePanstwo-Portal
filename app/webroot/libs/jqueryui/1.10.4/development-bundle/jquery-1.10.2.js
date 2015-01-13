@@ -994,8 +994,8 @@
         }
 
         return type === "array" || type !== "function" &&
-        ( length === 0 ||
-        typeof length === "number" && length > 0 && ( length - 1 ) in obj );
+            ( length === 0 ||
+            typeof length === "number" && length > 0 && ( length - 1 ) in obj );
     }
 
 // All jQuery objects should point back to these
@@ -1676,10 +1676,10 @@
                     var adown = a.nodeType === 9 ? a.documentElement : a,
                         bup = b && b.parentNode;
                     return a === bup || !!( bup && bup.nodeType === 1 && (
-                        adown.contains ?
-                            adown.contains(bup) :
-                        a.compareDocumentPosition && a.compareDocumentPosition(bup) & 16
-                    ));
+                            adown.contains ?
+                                adown.contains(bup) :
+                            a.compareDocumentPosition && a.compareDocumentPosition(bup) & 16
+                        ));
                 } :
                 function (a, b) {
                     if (b) {
@@ -2031,10 +2031,10 @@
                     var pattern = classCache[className + " "];
 
                     return pattern ||
-                    (pattern = new RegExp("(^|" + whitespace + ")" + className + "(" + whitespace + "|$)")) &&
-                    classCache(className, function (elem) {
-                        return pattern.test(typeof elem.className === "string" && elem.className || typeof elem.getAttribute !== strundefined && elem.getAttribute("class") || "");
-                    });
+                        (pattern = new RegExp("(^|" + whitespace + ")" + className + "(" + whitespace + "|$)")) &&
+                        classCache(className, function (elem) {
+                            return pattern.test(typeof elem.className === "string" && elem.className || typeof elem.getAttribute !== strundefined && elem.getAttribute("class") || "");
+                        });
                 },
 
                 "ATTR": function (name, operator, check) {
@@ -2336,8 +2336,8 @@
                     // IE6 and 7 will map elem.type to 'text' for new HTML5 types (search, etc)
                     // use getAttribute instead to test this case
                     return elem.nodeName.toLowerCase() === "input" &&
-                    elem.type === "text" &&
-                    ( (attr = elem.getAttribute("type")) == null || attr.toLowerCase() === elem.type );
+                        elem.type === "text" &&
+                        ( (attr = elem.getAttribute("type")) == null || attr.toLowerCase() === elem.type );
                 },
 
                 // Position-in-collection
@@ -2675,9 +2675,9 @@
                 }, implicitRelative, true),
                 matchers = [function (elem, context, xml) {
                     return ( !leadingRelative && ( xml || context !== outermostContext ) ) || (
-                        (checkContext = context).nodeType ?
-                            matchContext(elem, context, xml) :
-                            matchAnyContext(elem, context, xml) );
+                            (checkContext = context).nodeType ?
+                                matchContext(elem, context, xml) :
+                                matchAnyContext(elem, context, xml) );
                 }];
 
             for (; i < len; i++) {
@@ -3967,11 +3967,11 @@
         _queueHooks: function (elem, type) {
             var key = type + "queueHooks";
             return jQuery._data(elem, key) || jQuery._data(elem, key, {
-                empty: jQuery.Callbacks("once memory").add(function () {
-                    jQuery._removeData(elem, type + "queue");
-                    jQuery._removeData(elem, key);
-                })
-            });
+                    empty: jQuery.Callbacks("once memory").add(function () {
+                        jQuery._removeData(elem, type + "queue");
+                        jQuery._removeData(elem, key);
+                    })
+                });
         }
     });
 
@@ -7266,14 +7266,14 @@
 
         // use the active box-sizing model to add/subtract irrelevant styles
         return ( val +
-        augmentWidthOrHeight(
-            elem,
-            name,
-            extra || ( isBorderBox ? "border" : "content" ),
-            valueIsBorderBox,
-            styles
-        )
-        ) + "px";
+            augmentWidthOrHeight(
+                elem,
+                name,
+                extra || ( isBorderBox ? "border" : "content" ),
+                valueIsBorderBox,
+                styles
+            )
+            ) + "px";
     }
 
 // Try to determine the default display value of an element
@@ -7431,7 +7431,7 @@
             // Support: Opera <= 12.12
             // Opera reports offsetWidths and offsetHeights less than zero on some elements
             return elem.offsetWidth <= 0 && elem.offsetHeight <= 0 ||
-            (!jQuery.support.reliableHiddenOffsets && ((elem.style && elem.style.display) || jQuery.css(elem, "display")) === "none");
+                (!jQuery.support.reliableHiddenOffsets && ((elem.style && elem.style.display) || jQuery.css(elem, "display")) === "none");
         };
 
         jQuery.expr.filters.visible = function (elem) {
@@ -7486,8 +7486,8 @@
                     var type = this.type;
                     // Use .is(":disabled") so that fieldset[disabled] works
                     return this.name && !jQuery(this).is(":disabled") &&
-                    rsubmittable.test(this.nodeName) && !rsubmitterTypes.test(type) &&
-                    ( this.checked || !manipulation_rcheckableType.test(type) );
+                        rsubmittable.test(this.nodeName) && !rsubmitterTypes.test(type) &&
+                        ( this.checked || !manipulation_rcheckableType.test(type) );
                 })
                 .map(function (i, elem) {
                     var val = jQuery(this).val();

@@ -80,7 +80,7 @@
                         context: this,
                         error: function (jqXHR, textStatus, errorThrown) {
                             console.log(errorThrown);
-            },
+                        },
                         success: function (parserRules) {
                             this.config.parserRules = parserRules;
                             console.log('parserrules loaded');
@@ -95,7 +95,7 @@
                         context: this,
                         error: function (jqXHR, textStatus, errorThrown) {
                             console.log(errorThrown);
-            },
+                        },
                         success: function (pasteParserRulesets) {
                             this.config.pasteParserRulesets = pasteParserRulesets;
                         }
@@ -179,7 +179,7 @@
                             commandObj.dialog.show();
                         } else {
                             wysihtml5.commands[command].exec(editor.composer, command);
-            }
+                        }
                         event.preventDefault();
                     }
                 });
@@ -288,25 +288,25 @@
                     'a': {
                         'check_attributes': {
                             'href': 'url'
-            },
+                        },
                         'set_attributes': {
                             'target': '_blank',
                             'rel': 'nofollow'
-            }
+                        }
                     },
                     'span': 1,
                     'div': 1,
                     'small': 1,
                     'code': 1,
                     'pre': 1
-        }
+                }
             },
             locale: 'en',
             shortcuts: {
                 '83': 'small',// S
                 '75': 'createLink'// K
             }
-    };
+        };
 
         if (typeof $.fn.wysihtml5.defaultOptionsCache === 'undefined') {
             $.fn.wysihtml5.defaultOptionsCache = $.extend(true, {}, $.fn.wysihtml5.defaultOptions);

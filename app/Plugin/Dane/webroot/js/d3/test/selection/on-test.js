@@ -91,7 +91,7 @@ suite.addBatch({
              },
              */
             "passes the current data and index to the event listener": function (body) {
-                var forms = body.html("").selectAll("form").data(["a", "b"]).enter().append("form"), dd, ii, data = new Object();
+                var forms = body.html("").selectAll("form").data(["a", "b"]).enter().append("form"), dd, ii, data = {};
                 forms.on("submit", function (d, i) {
                     dd = d;
                     ii = i;
@@ -159,7 +159,7 @@ suite.addBatch({
             assert.domEqual(event.target, form[0][0]);
         },
         "restores the original event after notifying listeners": function (d3) {
-            var form = d3.select("body").append("form"), event = d3.event = new Object();
+            var form = d3.select("body").append("form"), event = d3.event = {};
             form.on("submit", function () {
             });
             form.append("input").attr("type", "submit").node().click();

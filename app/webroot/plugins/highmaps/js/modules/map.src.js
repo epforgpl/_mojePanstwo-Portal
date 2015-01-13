@@ -207,10 +207,10 @@
             // support in WebKit.
             var hasAlpha = (to.rgba[3] !== 1 || from.rgba[3] !== 1);
             return (hasAlpha ? 'rgba(' : 'rgb(') +
-            Math.round(to.rgba[0] + (from.rgba[0] - to.rgba[0]) * (1 - pos)) + ',' +
-            Math.round(to.rgba[1] + (from.rgba[1] - to.rgba[1]) * (1 - pos)) + ',' +
-            Math.round(to.rgba[2] + (from.rgba[2] - to.rgba[2]) * (1 - pos)) +
-            (hasAlpha ? (',' + (to.rgba[3] + (from.rgba[3] - to.rgba[3]) * (1 - pos))) : '') + ')';
+                Math.round(to.rgba[0] + (from.rgba[0] - to.rgba[0]) * (1 - pos)) + ',' +
+                Math.round(to.rgba[1] + (from.rgba[1] - to.rgba[1]) * (1 - pos)) + ',' +
+                Math.round(to.rgba[2] + (from.rgba[2] - to.rgba[2]) * (1 - pos)) +
+                (hasAlpha ? (',' + (to.rgba[3] + (from.rgba[3] - to.rgba[3]) * (1 - pos))) : '') + ')';
         },
 
         initDataClasses: function (userOptions) {

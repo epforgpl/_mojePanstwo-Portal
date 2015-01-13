@@ -1500,7 +1500,7 @@
          */
         getColumnMetrics: function () {
             return (this.linkedParent && this.linkedParent.columnMetrics) ||
-            seriesTypes.column.prototype.getColumnMetrics.call(this);
+                seriesTypes.column.prototype.getColumnMetrics.call(this);
         }
     });
 

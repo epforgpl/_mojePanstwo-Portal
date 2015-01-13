@@ -3400,7 +3400,7 @@
         init: function (a, b) {
             var c = this, d, e, f = a.series, g = function (a, b) {
                 return p(a.options.index, a._i) - p(b.options.index,
-                    b._i)
+                        b._i)
             };
             c.chart = a;
             c.options = b = c.setOptions(b);

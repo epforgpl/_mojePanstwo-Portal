@@ -133,18 +133,18 @@
             return !!img && visible(img);
         }
         return ( /input|select|textarea|button|object/.test(nodeName) ?
-            !element.disabled :
-            "a" === nodeName ?
-            element.href || isTabIndexNotNaN :
-                isTabIndexNotNaN) &&
-            // the element and all of its ancestors must be visible
-        visible(element);
+                !element.disabled :
+                "a" === nodeName ?
+                element.href || isTabIndexNotNaN :
+                    isTabIndexNotNaN) &&
+                // the element and all of its ancestors must be visible
+            visible(element);
     }
 
     function visible(element) {
         return $.expr.filters.visible(element) && !$(element).parents().addBack().filter(function () {
-            return $.css(this, "visibility") === "hidden";
-        }).length;
+                return $.css(this, "visibility") === "hidden";
+            }).length;
     }
 
     $.extend($.expr[":"], {
@@ -2664,14 +2664,14 @@
                 return isOverAxis(draggableTop, t, droppable.proportions().height) && isOverAxis(draggableLeft, l, droppable.proportions().width);
             case "touch":
                 return (
-                (y1 >= t && y1 <= b) ||	// Top edge touching
-                (y2 >= t && y2 <= b) ||	// Bottom edge touching
-                (y1 < t && y2 > b)		// Surrounded vertically
-                ) && (
-                (x1 >= l && x1 <= r) ||	// Left edge touching
-                (x2 >= l && x2 <= r) ||	// Right edge touching
-                (x1 < l && x2 > r)		// Surrounded horizontally
-                );
+                    (y1 >= t && y1 <= b) ||	// Top edge touching
+                    (y2 >= t && y2 <= b) ||	// Bottom edge touching
+                    (y1 < t && y2 > b)		// Surrounded vertically
+                    ) && (
+                    (x1 >= l && x1 <= r) ||	// Left edge touching
+                    (x2 >= l && x2 <= r) ||	// Right edge touching
+                    (x1 < l && x2 > r)		// Surrounded horizontally
+                    );
             default:
                 return false;
         }
@@ -2992,7 +2992,7 @@
 
                     //TODO: What's that good for? There's not anything to be executed left
                     if (!$(this.handles[i]).length) {
-                        continue;
+
                     }
                 }
             };
@@ -6525,7 +6525,7 @@
                 noResults: "No search results.",
                 results: function (amount) {
                     return amount + ( amount > 1 ? " results are" : " result is" ) +
-                    " available, use up and down arrow keys to navigate.";
+                        " available, use up and down arrow keys to navigate.";
                 }
             }
         },
@@ -11454,12 +11454,12 @@
 
         _buttonHtml: function () {
             return "" +
-            "<a class='ui-spinner-button ui-spinner-up ui-corner-tr'>" +
-            "<span class='ui-icon " + this.options.icons.up + "'>&#9650;</span>" +
-            "</a>" +
-            "<a class='ui-spinner-button ui-spinner-down ui-corner-br'>" +
-            "<span class='ui-icon " + this.options.icons.down + "'>&#9660;</span>" +
-            "</a>";
+                "<a class='ui-spinner-button ui-spinner-up ui-corner-tr'>" +
+                "<span class='ui-icon " + this.options.icons.up + "'>&#9650;</span>" +
+                "</a>" +
+                "<a class='ui-spinner-button ui-spinner-down ui-corner-br'>" +
+                "<span class='ui-icon " + this.options.icons.down + "'>&#9660;</span>" +
+                "</a>";
         },
 
         _start: function (event) {
@@ -11715,8 +11715,8 @@
         anchor = anchor.cloneNode(false);
 
         return anchor.hash.length > 1 &&
-        decodeURIComponent(anchor.href.replace(rhash, "")) ===
-        decodeURIComponent(location.href.replace(rhash, ""));
+            decodeURIComponent(anchor.href.replace(rhash, "")) ===
+            decodeURIComponent(location.href.replace(rhash, ""));
     }
 
     $.widget("ui.tabs", {
@@ -13347,10 +13347,10 @@
 
                 return "#" + jQuery.map(rgba, function (v) {
 
-                    // default to 0 when nulls exist
-                    v = ( v || 0 ).toString(16);
-                    return v.length === 1 ? "0" + v : v;
-                }).join("");
+                        // default to 0 when nulls exist
+                        v = ( v || 0 ).toString(16);
+                        return v.length === 1 ? "0" + v : v;
+                    }).join("");
             },
             toString: function () {
                 return this._rgba[3] === 0 ? "transparent" : this.toRgbaString();

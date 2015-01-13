@@ -3413,7 +3413,7 @@
                 h = /%$/.test(a);
                 d = b < 2 || b === 2 && h;
                 return (h ? [e, f, g, g][b] * z(a) / 100 :
-                    a) + (d ? c : 0)
+                        a) + (d ? c : 0)
             })
         }
     };
@@ -3498,7 +3498,7 @@
         init: function (a, b) {
             var c = this, d, e, f = a.series, g = function (a, b) {
                 return m(a.options.index, a._i) - m(b.options.index,
-                    b._i)
+                        b._i)
             };
             c.chart = a;
             c.options = b = c.setOptions(b);
@@ -4424,7 +4424,7 @@
             this.getX = function (b, c) {
                 h = U.asin(C((b - a[1]) / (a[2] / 2 + l), 1));
                 return a[0] + (c ? -1 : 1) * Z(h) * (a[2] /
-                2 + l)
+                    2 + l)
             };
             for (o = 0; o < n; o++) {
                 p = k[o];

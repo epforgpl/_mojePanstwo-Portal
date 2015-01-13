@@ -13,7 +13,7 @@ testhelper = {
             qunitFixture = $('<div></div>');
             qunitFixture.attr('id', this.fixtureID);
             $('body').append(qunitFixture);
-    }
+        }
         this.resetFixture();
         return this.getFixture();
     },

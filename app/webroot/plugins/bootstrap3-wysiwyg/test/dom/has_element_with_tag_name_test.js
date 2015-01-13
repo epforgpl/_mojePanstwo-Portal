@@ -3,7 +3,7 @@ module("wysihtml5.dom.hasElementWithTagName", {
         var iframe;
         while (iframe = document.querySelector("iframe.wysihtml5-sandbox")) {
             iframe.parentNode.removeChild(iframe);
-    }
+        }
     }
 });
 

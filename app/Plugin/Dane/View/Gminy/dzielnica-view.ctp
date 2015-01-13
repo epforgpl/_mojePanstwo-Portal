@@ -20,45 +20,50 @@ echo $this->Element('Dane.dataobject/subobject', array(
 ?>
 
     <div class="krsOsoba row">
-	    
-	    <div class="col-lg-3 objectSide">
-	        <div class="objectSideInner rrs">
-	            
-	            
-	            <div class="block">
-	            	
-	            	<div class="block-header">
-		            	<h2 class="label">Rada dzielnicy</h2>
-	            	</div>
-	            	
-		            <ul class="dataHighlights side">
-			            
-			            <li class="dataHighlight">
-			            	<a href="<?= $dzielnica->getUrl() ?>/radni"><span class="icon icon-moon">&#xe617;</span>Radni <span class="glyphicon glyphicon-chevron-right"></a>
-			            </li>
-			            
-			            <li class="dataHighlight">
-			            	<a href="<?= $dzielnica->getUrl() ?>/rada_posiedzenia"><span class="icon icon-moon">&#xe615;</span>Posiedzenia <span class="glyphicon glyphicon-chevron-right"></a>
-			            </li>
-			            
-			            <li class="dataHighlight">
-		                    <a href="<?= $dzielnica->getUrl() ?>/rada_uchwaly"><span class="icon icon-moon">&#xe614;</span>Uchwały <span class="glyphicon glyphicon-chevron-right"></span></a>
-		                </li>
-			            			            			            
-		            </ul>
-		            
-	            </div>
-	            	            
-	
-	        </div>
-	    </div>
-	
-	    <div class="col-lg-7 nopadding">
-		    <div class="object">
-								
-				<?= $this->dataobject->feed($feed); ?>
 
-				<? /*
+        <div class="col-lg-3 objectSide">
+            <div class="objectSideInner rrs">
+
+
+                <div class="block">
+
+                    <div class="block-header">
+                        <h2 class="label">Rada dzielnicy</h2>
+                    </div>
+
+                    <ul class="dataHighlights side">
+
+                        <li class="dataHighlight">
+                            <a href="<?= $dzielnica->getUrl() ?>/radni"><span class="icon icon-moon">&#xe617;</span>Radni
+                                <span class="glyphicon glyphicon-chevron-right"></a>
+                        </li>
+
+                        <li class="dataHighlight">
+                            <a href="<?= $dzielnica->getUrl() ?>/rada_posiedzenia"><span
+                                    class="icon icon-moon">&#xe615;</span>Posiedzenia <span
+                                    class="glyphicon glyphicon-chevron-right"></a>
+                        </li>
+
+                        <li class="dataHighlight">
+                            <a href="<?= $dzielnica->getUrl() ?>/rada_uchwaly"><span
+                                    class="icon icon-moon">&#xe614;</span>Uchwały <span
+                                    class="glyphicon glyphicon-chevron-right"></span></a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="col-lg-7 nopadding">
+            <div class="object">
+
+                <?= $this->dataobject->feed($feed); ?>
+
+                <? /*
 			    <? if ($radny->getData('aktywny') == '0') { ?>
 			
 			        <div id="rezygnacja" class="block">
@@ -164,12 +169,12 @@ echo $this->Element('Dane.dataobject/subobject', array(
 			    
 			    <? */ ?>
 
-			</div>
-		</div>
-		<div class="col-md-2">
+            </div>
+        </div>
+        <div class="col-md-2">
 
-		</div>
+        </div>
 
-	</div>
+    </div>
 
 <? echo $this->Element('dataobject/pageEnd');

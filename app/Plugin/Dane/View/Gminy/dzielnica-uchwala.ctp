@@ -28,24 +28,24 @@ echo $this->Element('Dane.dataobject/subobject', array(
         'bigTitle' => true,
     ),
     'back' => array(
-	    'href' => $dzielnica->getUrl(),
-		'title' => 'Dzielnica ' . $dzielnica->getTitle(),
+        'href' => $dzielnica->getUrl(),
+        'title' => 'Dzielnica ' . $dzielnica->getTitle(),
     ),
 ));
 
-if( $pagination['total'] ) {
-	echo $this->Element('Dane.DataobjectsBrowser/view', array(
-	    'page' => $page,
-	    'pagination' => $pagination,
-	    'filters' => $filters,
-	    'switchers' => $switchers,
-	    'facets' => $facets,
-	    'renderFile' => 'krakow_dzielnice_uchwaly-glosy',
-	));
+if ($pagination['total']) {
+    echo $this->Element('Dane.DataobjectsBrowser/view', array(
+        'page' => $page,
+        'pagination' => $pagination,
+        'filters' => $filters,
+        'switchers' => $switchers,
+        'facets' => $facets,
+        'renderFile' => 'krakow_dzielnice_uchwaly-glosy',
+    ));
 }
 
-if( isset($document) )
-	echo $this->Document->place($document);
+if (isset($document))
+    echo $this->Document->place($document);
 
 
 echo $this->Element('dataobject/pageEnd');

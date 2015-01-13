@@ -21,7 +21,7 @@
 
     <div class="row">
 
-    <div class="col-md-9">
+        <div class="col-md-9">
 
             <p class="title"><a
                     href="/dane/gminy/903,krakow/dzielnice/<?= $object->getData('krakow_dzielnice_uchwaly.dzielnica_id') ?>/radni/<?= $object->getData('radny_id') ?>"><?= $object->getData('radni_dzielnic.imie') ?> <?= $object->getData('radni_dzielnic.nazwisko') ?></a>

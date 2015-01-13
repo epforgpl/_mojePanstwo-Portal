@@ -320,7 +320,7 @@ if (!Array.prototype.indexOf)Array.prototype.indexOf = function (m) {
                     return a.Definitions[d]
                 }, isUrl: function () {
                     return b.value.indexOf("url(") ==
-                    0
+                        0
                 }, getFillStyle: function (b) {
                     var d = this.getDefinition();
                     return d != null && d.createGradient ? d.createGradient(a.ctx, b) : d != null && d.createPattern ? d.createPattern(a.ctx, b) : null
@@ -434,7 +434,7 @@ if (!Array.prototype.indexOf)Array.prototype.indexOf = function (m) {
             };
             this.height = function () {
                 return this.y2 -
-                this.y1
+                    this.y1
             };
             this.addPoint = function (b, a) {
                 if (b != null) {
@@ -1643,7 +1643,7 @@ if (!Array.prototype.indexOf)Array.prototype.indexOf = function (m) {
             this.events = [];
             this.hasEvents = function () {
                 return this.events.length !=
-                0
+                    0
             };
             this.onclick = function (a, d) {
                 this.events.push({

@@ -138,18 +138,18 @@
             return !!img && visible(img);
         }
         return ( /input|select|textarea|button|object/.test(nodeName) ?
-            !element.disabled :
-            "a" === nodeName ?
-            element.href || isTabIndexNotNaN :
-                isTabIndexNotNaN) &&
-            // the element and all of its ancestors must be visible
-        visible(element);
+                !element.disabled :
+                "a" === nodeName ?
+                element.href || isTabIndexNotNaN :
+                    isTabIndexNotNaN) &&
+                // the element and all of its ancestors must be visible
+            visible(element);
     }
 
     function visible(element) {
         return $.expr.filters.visible(element) && !$(element).parents().addBack().filter(function () {
-            return $.css(this, "visibility") === "hidden";
-        }).length;
+                return $.css(this, "visibility") === "hidden";
+            }).length;
     }
 
     $.extend($.expr[":"], {

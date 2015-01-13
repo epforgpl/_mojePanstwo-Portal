@@ -19,7 +19,7 @@ suite.addBatch({
                 assert.equal(count, 1);
             },
             "passes the data and index to the function": function (body) {
-                var data = new Object(), dd, ii;
+                var data = {}, dd, ii;
                 body.data([data]).each(function (d, i) {
                     dd = d;
                     ii = i;
@@ -69,7 +69,7 @@ suite.addBatch({
                 assert.equal(count, 2);
             },
             "passes the data and index to the function": function (div) {
-                var data = [new Object(), new Object()], dd = [], ii = [];
+                var data = [{}, {}], dd = [], ii = [];
                 div.data(data).each(function (d, i) {
                     dd.push(d);
                     ii.push(i);

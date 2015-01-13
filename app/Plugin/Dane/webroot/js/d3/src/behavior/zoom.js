@@ -78,7 +78,7 @@ d3.behavior.zoom = function () {
                 zoomended(event_);
             }
         });
-    }
+    };
 
     zoom.translate = function (_) {
         if (!arguments.length) return [view.x, view.y];

@@ -1047,7 +1047,7 @@ String.prototype.parseURL = function () {
 
 String.prototype.parseHashtag = function () {
     return this.replace(/[#]+[A-Za-z0-9-_]+/g, function (t) {
-        var tag = t.replace("#", "%23")
+        var tag = t.replace("#", "%23");
         return t.link("//twitter.com/search?q=" + tag);
     });
 };
@@ -1157,7 +1157,7 @@ function Timeline(element, data, $, undefined) {
 
     // create a single timeline element
     this._createElement = function (element_data, position) {
-        element_data = $.extend({}, SELF._default_element_data, element_data)
+        element_data = $.extend({}, SELF._default_element_data, element_data);
 
         // element DIV
         var element = $('<div>').addClass('timeline_element ' + element_data.type);
@@ -1609,7 +1609,7 @@ function Timeline(element, data, $, undefined) {
                     width: lightbox_size.width,
                     height: lightbox_size.height
                 });
-            }
+            };
 
             var image = new Image();
             image.onload = _addImage;
@@ -1690,7 +1690,7 @@ function Timeline(element, data, $, undefined) {
         var _updateImage = function () {
             SELF._lightbox.data('magnifier', next_magnifier).addClass('updating');
 
-            SELF._lightbox.children('img').attr('src', image_url)
+            SELF._lightbox.children('img').attr('src', image_url);
 
             var lightbox_size = SELF._getLightboxSize(image.width, image.height);
 
@@ -1702,7 +1702,7 @@ function Timeline(element, data, $, undefined) {
             setTimeout(function () {
                 SELF._lightbox.removeClass('updating');
             }, 500);
-        }
+        };
 
         var image = new Image();
         image.onload = _updateImage;

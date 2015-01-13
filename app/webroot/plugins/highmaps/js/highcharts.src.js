@@ -2984,7 +2984,7 @@
             // used in text outline hack.
             if (!hasMarkup && !textStroke && textStr.indexOf(' ') === -1) {
                 textNode.appendChild(doc.createTextNode(textStr));
-                return;
+
 
                 // Complex strings, add more logic
             } else {
@@ -10823,9 +10823,9 @@
                 y = inverted ? plotX : plotY;
 
             return x >= 0 &&
-            x <= this.plotWidth &&
-            y >= 0 &&
-            y <= this.plotHeight;
+                x <= this.plotWidth &&
+                y >= 0 &&
+                y <= this.plotHeight;
         },
 
         /**
@@ -12176,13 +12176,13 @@
                 isPercent = /%$/.test(length);
                 handleSlicingRoom = i < 2 || (i === 2 && isPercent);
                 return (isPercent ?
-                    // i == 0: centerX, relative to width
-                    // i == 1: centerY, relative to height
-                    // i == 2: size, relative to smallestSize
-                    // i == 4: innerSize, relative to smallestSize
-                [plotWidth, plotHeight, smallestSize, smallestSize][i] *
-                pInt(length) / 100 :
-                    length) + (handleSlicingRoom ? slicingRoom : 0);
+                        // i == 0: centerX, relative to width
+                        // i == 1: centerY, relative to height
+                        // i == 2: size, relative to smallestSize
+                        // i == 4: innerSize, relative to smallestSize
+                    [plotWidth, plotHeight, smallestSize, smallestSize][i] *
+                    pInt(length) / 100 :
+                        length) + (handleSlicingRoom ? slicingRoom : 0);
             });
         }
     };
@@ -14945,7 +14945,7 @@
                         stackPoint;
 
                     if (connectNulls && (!pointMap[x] || pointMap[x].y === null)) { // #1836
-                        return;
+
 
                         // The point exists, push it to the segment
                     } else if (pointMap[x]) {
@@ -15941,8 +15941,8 @@
                 angle = math.asin(mathMin((y - positions[1]) / (positions[2] / 2 + labelDistance), 1));
 
                 return positions[0] +
-                (left ? -1 : 1) *
-                (mathCos(angle) * (positions[2] / 2 + labelDistance));
+                    (left ? -1 : 1) *
+                    (mathCos(angle) * (positions[2] / 2 + labelDistance));
             };
 
             // Calculate the geometry for each point

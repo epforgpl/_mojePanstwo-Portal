@@ -543,7 +543,7 @@
         }
 
         return type === "array" || length === 0 ||
-        typeof length === "number" && length > 0 && ( length - 1 ) in obj;
+            typeof length === "number" && length > 0 && ( length - 1 ) in obj;
     }
 
     var Sizzle =
@@ -1255,10 +1255,10 @@
                         var adown = a.nodeType === 9 ? a.documentElement : a,
                             bup = b && b.parentNode;
                         return a === bup || !!( bup && bup.nodeType === 1 && (
-                            adown.contains ?
-                                adown.contains(bup) :
-                            a.compareDocumentPosition && a.compareDocumentPosition(bup) & 16
-                        ));
+                                adown.contains ?
+                                    adown.contains(bup) :
+                                a.compareDocumentPosition && a.compareDocumentPosition(bup) & 16
+                            ));
                     } :
                     function (a, b) {
                         if (b) {
@@ -1621,10 +1621,10 @@
                         var pattern = classCache[className + " "];
 
                         return pattern ||
-                        (pattern = new RegExp("(^|" + whitespace + ")" + className + "(" + whitespace + "|$)")) &&
-                        classCache(className, function (elem) {
-                            return pattern.test(typeof elem.className === "string" && elem.className || typeof elem.getAttribute !== strundefined && elem.getAttribute("class") || "");
-                        });
+                            (pattern = new RegExp("(^|" + whitespace + ")" + className + "(" + whitespace + "|$)")) &&
+                            classCache(className, function (elem) {
+                                return pattern.test(typeof elem.className === "string" && elem.className || typeof elem.getAttribute !== strundefined && elem.getAttribute("class") || "");
+                            });
                     },
 
                     "ATTR": function (name, operator, check) {
@@ -1923,11 +1923,11 @@
                     "text": function (elem) {
                         var attr;
                         return elem.nodeName.toLowerCase() === "input" &&
-                        elem.type === "text" &&
+                            elem.type === "text" &&
 
-                            // Support: IE<8
-                            // New HTML5 attribute values (e.g., "search") appear with elem.type === "text"
-                        ( (attr = elem.getAttribute("type")) == null || attr.toLowerCase() === "text" );
+                                // Support: IE<8
+                                // New HTML5 attribute values (e.g., "search") appear with elem.type === "text"
+                            ( (attr = elem.getAttribute("type")) == null || attr.toLowerCase() === "text" );
                     },
 
                     // Position-in-collection
@@ -2277,9 +2277,9 @@
                     }, implicitRelative, true),
                     matchers = [function (elem, context, xml) {
                         return ( !leadingRelative && ( xml || context !== outermostContext ) ) || (
-                            (checkContext = context).nodeType ?
-                                matchContext(elem, context, xml) :
-                                matchAnyContext(elem, context, xml) );
+                                (checkContext = context).nodeType ?
+                                    matchContext(elem, context, xml) :
+                                    matchAnyContext(elem, context, xml) );
                     }];
 
                 for (; i < len; i++) {
@@ -3916,10 +3916,10 @@
         _queueHooks: function (elem, type) {
             var key = type + "queueHooks";
             return data_priv.get(elem, key) || data_priv.access(elem, key, {
-                empty: jQuery.Callbacks("once memory").add(function () {
-                    data_priv.remove(elem, [type + "queue", key]);
-                })
-            });
+                    empty: jQuery.Callbacks("once memory").add(function () {
+                        data_priv.remove(elem, [type + "queue", key]);
+                    })
+                });
         }
     });
 
@@ -5812,14 +5812,14 @@
 
         // use the active box-sizing model to add/subtract irrelevant styles
         return ( val +
-        augmentWidthOrHeight(
-            elem,
-            name,
-            extra || ( isBorderBox ? "border" : "content" ),
-            valueIsBorderBox,
-            styles
-        )
-        ) + "px";
+            augmentWidthOrHeight(
+                elem,
+                name,
+                extra || ( isBorderBox ? "border" : "content" ),
+                valueIsBorderBox,
+                styles
+            )
+            ) + "px";
     }
 
     function showHide(elements, show) {
@@ -8483,8 +8483,8 @@
 
                     // Use .is( ":disabled" ) so that fieldset[disabled] works
                     return this.name && !jQuery(this).is(":disabled") &&
-                    rsubmittable.test(this.nodeName) && !rsubmitterTypes.test(type) &&
-                    ( this.checked || !rcheckableType.test(type) );
+                        rsubmittable.test(this.nodeName) && !rsubmitterTypes.test(type) &&
+                        ( this.checked || !rcheckableType.test(type) );
                 })
                 .map(function (i, elem) {
                     var val = jQuery(this).val();

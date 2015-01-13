@@ -48,7 +48,7 @@ if (wysihtml5.browser.supported()) {
                     small: 1
                 }
             }
-    });
+        });
     });
 
 }

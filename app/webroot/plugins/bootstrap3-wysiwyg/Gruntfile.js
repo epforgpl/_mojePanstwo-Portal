@@ -10,7 +10,7 @@ module.exports = function (grunt) {
             console.log(stdout);
             console.err(stderr);
             cb();
-    });
+        });
     });
 
     grunt.registerTask('npmupdate', 'update the development dependencies', function () {
@@ -20,7 +20,7 @@ module.exports = function (grunt) {
             console.log(stdout);
             console.err(stderr);
             cb();
-    });
+        });
     });
 
     grunt.registerMultiTask('phantomjs', 'execute script with phantomjs', function () {
@@ -55,7 +55,7 @@ module.exports = function (grunt) {
                         return filePath.split('/')[2].split('.')[0];
                     },
                     node: false
-        },
+                },
                 files: {
                     'src/generated/templates.js': ['src/templates/*.hbs']
                 }
@@ -182,7 +182,7 @@ module.exports = function (grunt) {
                     /*jshint multistr: true */
                     wrapper: ['define(\'wysihtml5\', [\'rangy\', \'rangy-selectionsaverestore\'], function (rangy) {\n\
                 window.rangy = rangy;\n', '\nreturn wysihtml5;\n});']
-        }
+                }
             },
             templates: {
                 src: ['src/generated/templates.js'],

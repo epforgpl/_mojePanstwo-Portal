@@ -10,7 +10,7 @@
 
 <form class="nopadding" method="get" action="<?= $page['href'] ?>">
 
-<div class="input-group">
+    <div class="input-group">
         <input id="innerSearch" type="text" class="form-control" autocomplete="off" name="q"
                placeholder="<?= __d('dane', __('LC_DANE_SEARCH')) ?>" data-icon-after="&#xe600;"
                value="<?= ((isset($this->params->query['q'])) ? htmlspecialchars($this->params->query['q']) : '') ?>"/>

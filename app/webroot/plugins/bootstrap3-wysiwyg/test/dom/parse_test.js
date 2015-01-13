@@ -721,7 +721,7 @@ if (wysihtml5.browser.supported()) {
                     "valid_image_src": {
                         "attrs": {
                             "src": /^[^data\:]/i
-            }
+                        }
                     }
                 },
                 "tags": {
@@ -788,7 +788,7 @@ if (wysihtml5.browser.supported()) {
                     "visible_content_object": {
                         "methods": {
                             "has_visible_contet": 1
-            }
+                        }
                     },
                 },
                 "tags": {
@@ -804,7 +804,7 @@ if (wysihtml5.browser.supported()) {
                     'img': {
                         "check_attributes": {
                             "src": "any"
-            }
+                        }
                     },
                     'span': {}
                 }
@@ -852,7 +852,7 @@ if (wysihtml5.browser.supported()) {
                         "check_attributes": {
                             "data-*": "numbers"
                         }
-            }
+                    }
                 }
             },
             rules2 = {

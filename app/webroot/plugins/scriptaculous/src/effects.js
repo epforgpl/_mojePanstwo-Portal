@@ -229,7 +229,7 @@ Effect.Queues = {
         if (!Object.isString(queueName)) return queueName;
 
         return this.instances.get(queueName) ||
-        this.instances.set(queueName, new Effect.ScopedQueue());
+            this.instances.set(queueName, new Effect.ScopedQueue());
     }
 };
 Effect.Queue = Effect.Queues.get('global');

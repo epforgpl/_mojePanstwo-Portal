@@ -35,4 +35,4 @@ function d3_scale_threshold(domain, range) {
     };
 
     return scale;
-};
+}

@@ -129,7 +129,7 @@
         req = function (config,		  //(object, optional) hash of configuration properties
                         dependencies, //(array of commonjs.moduleId, optional) list of modules to be loaded before applying callback
                         callback	  //(function, optional) lamda expression to apply to module values implied by dependencies
-            ) {
+        ) {
             return contextRequire(config, dependencies, callback, 0, req);
         },
 
@@ -1544,8 +1544,6 @@
                     finishExec(module);
                     return module;
                 }
-                ;
-
                 var mid = module.mid;
                 if (module.injected === arrived) {
                     signal(error, makeError("multipleDefine", module));
@@ -1710,7 +1708,7 @@
     if (0) {
         var trace = req.trace = function (group,	// the trace group to which this application belongs
                                           args	// the contents of the trace
-            ) {
+        ) {
             ///
             // Tracing interface by group.
             //
@@ -1753,7 +1751,7 @@
     var def = function (mid,		  //(commonjs.moduleId, optional) list of modules to be loaded before running factory
                         dependencies, //(array of commonjs.moduleId, optional)
                         factory		  //(any)
-        ) {
+    ) {
         ///
         // Advises the loader of a module factory. //Implements http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition.
         ///
@@ -6344,7 +6342,7 @@ require({
                     extractApplication = function (text,			  // the text to search
                                                    startSearch,	  // the position in text to start looking for the closing paren
                                                    startApplication  // the position in text where the function application expression starts
-                        ) {
+                    ) {
                         // find end of the call by finding the matching end paren
                         // Warning: as usual, this will fail in the presense of unmatched right parans contained in strings, regexs, or unremoved comments
                         var parenRe = /\(|\)/g,
@@ -6486,11 +6484,11 @@ require({
                         // rewrite the module as a synthetic dojo/loadInit plugin resource + the module expressed as an AMD module that depends on this synthetic resource
                         // don't have to map dojo/init since that will occur when the dependency is resolved
                         return "// xdomain rewrite of " + module.mid + "\n" +
-                        "define('" + id + "',{\n" +
-                        "\tnames:" + dojo.toJson(names) + ",\n" +
-                        "\tdef:function(" + names.join(",") + "){" + extractResult[1] + "}" +
-                        "});\n\n" +
-                        "define(" + dojo.toJson(names.concat(["dojo/loadInit!" + id])) + ", function(" + names.join(",") + "){\n" + extractResult[0] + "});";
+                            "define('" + id + "',{\n" +
+                            "\tnames:" + dojo.toJson(names) + ",\n" +
+                            "\tdef:function(" + names.join(",") + "){" + extractResult[1] + "}" +
+                            "});\n\n" +
+                            "define(" + dojo.toJson(names.concat(["dojo/loadInit!" + id])) + ", function(" + names.join(",") + "){\n" + extractResult[0] + "});";
                     },
 
                     loaderVars = require.initSyncLoader(dojoRequirePlugin, checkDojoRequirePlugin, transformToAmd),
@@ -10439,7 +10437,7 @@ require({
                         // summary:
                         //		True if the node is BUTTON or INPUT.type="button".
                         return node.tagName.toLowerCase() == "button" ||
-                        node.tagName.toLowerCase() == "input" && (node.getAttribute("type") || "").toLowerCase() == "button"; // boolean
+                            node.tagName.toLowerCase() == "input" && (node.getAttribute("type") || "").toLowerCase() == "button"; // boolean
                     }
 
                     function usesBorderBox(/*DomNode*/ node) {
@@ -11571,7 +11569,7 @@ require({
                     }
                     var x = new XMLHttpRequest();
                     return typeof x['addEventListener'] !== 'undefined' &&
-                    (typeof opera === 'undefined' || typeof x['upload'] !== 'undefined');
+                        (typeof opera === 'undefined' || typeof x['upload'] !== 'undefined');
                 });
 
                 has.add('native-formdata', function () {
@@ -12558,7 +12556,7 @@ require({
                         // it: anything
                         //		Item to test.
                         return it !== undefined &&
-                        (it === null || typeof it == "object" || lang.isArray(it) || lang.isFunction(it)); // Boolean
+                            (it === null || typeof it == "object" || lang.isArray(it) || lang.isFunction(it)); // Boolean
                     },
 
                     isArrayLike: function (it) {
@@ -12575,10 +12573,10 @@ require({
                         //		isArrayLike(), but will return false when passed to
                         //		isArray().
                         return it && it !== undefined && // Boolean
-                            // keep out built-in constructors (Number, String, ...) which have length
-                            // properties
-                        !lang.isString(it) && !lang.isFunction(it) && !(it.tagName && it.tagName.toLowerCase() == 'form') &&
-                        (lang.isArray(it) || isFinite(it.length));
+                                // keep out built-in constructors (Number, String, ...) which have length
+                                // properties
+                            !lang.isString(it) && !lang.isFunction(it) && !(it.tagName && it.tagName.toLowerCase() == 'form') &&
+                            (lang.isArray(it) || isFinite(it.length));
                     },
 
                     isAlien: function (it) {
@@ -13055,9 +13053,9 @@ require({
                 exports.checkStatus = function (stat) {
                     stat = stat || 0;
                     return (stat >= 200 && stat < 300) || // allow any 2XX response code
-                    stat === 304 ||                 // or, get it out of the cache
-                    stat === 1223 ||                // or, Internet Explorer mangled the status code
-                    !stat;                         // or, we're Titanium/browser chrome/chrome extension requesting a local file
+                        stat === 304 ||                 // or, get it out of the cache
+                        stat === 1223 ||                // or, Internet Explorer mangled the status code
+                        !stat;                         // or, we're Titanium/browser chrome/chrome extension requesting a local file
                 };
             });
 

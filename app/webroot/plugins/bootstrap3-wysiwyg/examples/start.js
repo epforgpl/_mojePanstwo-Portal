@@ -13,6 +13,6 @@ define([
         $('#btn-settext').on('click', function (e) {
             $('.textarea').html('Some text dynamically set.');
             e.preventDefault();
-    });
+        });
     });
 });

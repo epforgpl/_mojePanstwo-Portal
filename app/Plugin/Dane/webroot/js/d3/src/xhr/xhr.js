@@ -123,8 +123,7 @@ function d3_xhr(url, mimeType, response, callback) {
     d3.rebind(xhr, dispatch, "on");
 
     return callback == null ? xhr : xhr.get(d3_xhr_fixCallback(callback));
-};
-
+}
 function d3_xhr_fixCallback(callback) {
     return callback.length === 1
         ? function (error, request) {

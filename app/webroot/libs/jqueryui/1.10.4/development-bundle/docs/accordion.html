@@ -17,16 +17,16 @@
 <body>
 
 <script>{
-    "title"
+    "title";
 :
     "Accordion Widget",
-            "excerpt"
+            "excerpt";
 :
     "Convert a pair of headers and content panels into an accordion.",
-            "termSlugs"
+            "termSlugs";
 :
     {
-        "category"
+        "category";
     :
         [
             "widgets"
@@ -37,64 +37,65 @@
     <span>Accordion Widget</span><span class="version-details">version added: 1.0</span>
 </h2>
 
-<div class="entry-wrapper">
-<p class="desc"><strong>Description: </strong>Convert a pair of headers and content panels into an accordion.</p>
-<section id="quick-nav">
-    <header><h2>QuickNav<a href="#entry-examples">Examples</a>
-    </h2></header>
-    <div class="quick-nav-section">
-        <h3>Options</h3>
+    <div class="entry-wrapper">
+        <p class="desc"><strong>Description: </strong>Convert a pair of headers and content panels into an accordion.
+        </p>
+        <section id="quick-nav">
+            <header><h2>QuickNav<a href="#entry-examples">Examples</a>
+            </h2></header>
+            <div class="quick-nav-section">
+                <h3>Options</h3>
 
-        <div><a href="#option-active">active</a></div>
-        <div><a href="#option-animate">animate</a></div>
-        <div><a href="#option-collapsible">collapsible</a></div>
-        <div><a href="#option-disabled">disabled</a></div>
-        <div><a href="#option-event">event</a></div>
-        <div><a href="#option-header">header</a></div>
-        <div><a href="#option-heightStyle">heightStyle</a></div>
-        <div><a href="#option-icons">icons</a></div>
-    </div>
-    <div class="quick-nav-section">
-        <h3>Methods</h3>
+                <div><a href="#option-active">active</a></div>
+                <div><a href="#option-animate">animate</a></div>
+                <div><a href="#option-collapsible">collapsible</a></div>
+                <div><a href="#option-disabled">disabled</a></div>
+                <div><a href="#option-event">event</a></div>
+                <div><a href="#option-header">header</a></div>
+                <div><a href="#option-heightStyle">heightStyle</a></div>
+                <div><a href="#option-icons">icons</a></div>
+            </div>
+            <div class="quick-nav-section">
+                <h3>Methods</h3>
 
-        <div><a href="#method-destroy">destroy</a></div>
-        <div><a href="#method-disable">disable</a></div>
-        <div><a href="#method-enable">enable</a></div>
-        <div><a href="#method-option">option</a></div>
-        <div><a href="#method-refresh">refresh</a></div>
-        <div><a href="#method-widget">widget</a></div>
-    </div>
-    <div class="quick-nav-section">
-        <h3>Events</h3>
+                <div><a href="#method-destroy">destroy</a></div>
+                <div><a href="#method-disable">disable</a></div>
+                <div><a href="#method-enable">enable</a></div>
+                <div><a href="#method-option">option</a></div>
+                <div><a href="#method-refresh">refresh</a></div>
+                <div><a href="#method-widget">widget</a></div>
+            </div>
+            <div class="quick-nav-section">
+                <h3>Events</h3>
 
-        <div><a href="#event-activate">activate</a></div>
-        <div><a href="#event-beforeActivate">beforeActivate</a></div>
-        <div><a href="#event-create">create</a></div>
-    </div>
-</section>
-<div class="longdesc" id="entry-longdesc">
-    <p>The markup of your accordion container needs pairs of headers and content panels:</p>
+                <div><a href="#event-activate">activate</a></div>
+                <div><a href="#event-beforeActivate">beforeActivate</a></div>
+                <div><a href="#event-create">create</a></div>
+            </div>
+        </section>
+        <div class="longdesc" id="entry-longdesc">
+            <p>The markup of your accordion container needs pairs of headers and content panels:</p>
 
-    <div class="syntaxhighlighter xml ">
-        <table>
-            <tbody>
-            <tr>
-                <td class="gutter">
+            <div class="syntaxhighlighter xml ">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td class="gutter">
 
-                    <div class="line n1">1</div>
+                            <div class="line n1">1</div>
 
-                    <div class="line n2">2</div>
+                            <div class="line n2">2</div>
 
-                    <div class="line n3">3</div>
+                            <div class="line n3">3</div>
 
-                    <div class="line n4">4</div>
+                            <div class="line n4">4</div>
 
-                    <div class="line n5">5</div>
+                            <div class="line n5">5</div>
 
-                    <div class="line n6">6</div>
+                            <div class="line n6">6</div>
 
-                </td>
-                <td class="code">
+                        </td>
+                        <td class="code">
                     <pre><div class="container">
                         <div class="line"><code><span class="tag">&lt;<span class="title">div</span> <span
                                 class="attribute">id</span>=<span class="value">"accordion"</span>&gt;</span></code>
@@ -115,146 +116,156 @@
                         <div class="line"><code><span class="tag">&lt;/<span class="title">div</span>&gt;</span></code>
                         </div>
                     </div></pre>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
 
-    <p>Accordions support arbitrary markup, but each content panel must always be the next sibling after its associated
-        header. See the <a href="#option-header"><code>header</code></a> option for information on how to use custom
-        markup structures.</p>
+            <p>Accordions support arbitrary markup, but each content panel must always be the next sibling after its
+                associated
+                header. See the <a href="#option-header"><code>header</code></a> option for information on how to use
+                custom
+                markup structures.</p>
 
-    <p>The panels can be activated programmatically by setting the <a href="#option-active"><code>active</code></a>
-        option.</p>
+            <p>The panels can be activated programmatically by setting the <a href="#option-active"><code>active</code></a>
+                option.</p>
 
-    <h3>Keyboard interaction</h3>
+            <h3>Keyboard interaction</h3>
 
-    <p>When focus is on a header, the following key commands are available:</p>
-    <ul>
-        <li>UP/LEFT - Move focus to the previous header. If on first header, moves focus to last header.</li>
-        <li>DOWN/RIGHT - Move focus to the next header. If on last header, moves focus to first header.</li>
-        <li>HOME - Move focus to the first header.</li>
-        <li>END - Move focus to the last header.</li>
-        <li>SPACE/ENTER - Activate panel associated with focused header.</li>
-    </ul>
+            <p>When focus is on a header, the following key commands are available:</p>
+            <ul>
+                <li>UP/LEFT - Move focus to the previous header. If on first header, moves focus to last header.</li>
+                <li>DOWN/RIGHT - Move focus to the next header. If on last header, moves focus to first header.</li>
+                <li>HOME - Move focus to the first header.</li>
+                <li>END - Move focus to the last header.</li>
+                <li>SPACE/ENTER - Activate panel associated with focused header.</li>
+            </ul>
 
-    <p>When focus is in a panel:</p>
-    <ul>
-        <li>CTRL+UP: Move focus to associated header.</li>
-    </ul>
+            <p>When focus is in a panel:</p>
+            <ul>
+                <li>CTRL+UP: Move focus to associated header.</li>
+            </ul>
 
-    <div>
-        <h3 id="theming">Theming</h3>
+            <div>
+                <h3 id="theming">Theming</h3>
 
-        <p>The accordion widget uses the <a href="/theming/css-framework/">jQuery UI CSS framework</a> to style its look
-            and feel. If accordion specific styling is needed, the following CSS class names can be used:</p>
-    </div>
+                <p>The accordion widget uses the <a href="/theming/css-framework/">jQuery UI CSS framework</a> to style
+                    its look
+                    and feel. If accordion specific styling is needed, the following CSS class names can be used:</p>
+            </div>
 
-    <ul>
-        <li>
-            <code>ui-accordion</code>: The outer container of the accordion.
             <ul>
                 <li>
-                    <code>ui-accordion-header</code>: The headers of the accordion. The headers will additionally have a
-                    <code>ui-accordion-icons</code> class if they contain <a href="#option-icons"><code>icons</code></a>.
-                </li>
-                <li>
-                    <code>ui-accordion-content</code>: The content panels of the accordion.
+                    <code>ui-accordion</code>: The outer container of the accordion.
+                    <ul>
+                        <li>
+                            <code>ui-accordion-header</code>: The headers of the accordion. The headers will
+                            additionally have a
+                            <code>ui-accordion-icons</code> class if they contain <a
+                                href="#option-icons"><code>icons</code></a>.
+                        </li>
+                        <li>
+                            <code>ui-accordion-content</code>: The content panels of the accordion.
+                        </li>
+                    </ul>
                 </li>
             </ul>
-        </li>
-    </ul>
 
-    <h3>Dependencies</h3>
-    <ul>
-        <li><a href="/category/ui-core/">UI Core</a></li>
-        <li><a href="/jQuery.widget/">Widget Factory</a></li>
-        <li>
-            <a href="/category/effects-core/">Effects Core</a> (optional; for use with the <a
-                href="#option-animate"><code>animate</code></a> option)
-        </li>
-    </ul>
-</div>
-<h3>Additional Notes:</h3>
+            <h3>Dependencies</h3>
+            <ul>
+                <li><a href="/category/ui-core/">UI Core</a></li>
+                <li><a href="/jQuery.widget/">Widget Factory</a></li>
+                <li>
+                    <a href="/category/effects-core/">Effects Core</a> (optional; for use with the <a
+                        href="#option-animate"><code>animate</code></a> option)
+                </li>
+            </ul>
+        </div>
+        <h3>Additional Notes:</h3>
 
-<div class="longdesc">
-    <ul>
-        <li>
-            This widget requires some functional CSS, otherwise it won't work. If you build a custom theme, use the
-            widget's specific CSS file as a starting point.
-        </li>
-    </ul>
-</div>
-<section id="options">
-<header><h2>Options</h2></header>
-<div id="option-active" class="api-item first-item">
-    <h3>active<span class="option-type"><strong>Type: </strong><a
-            href="http://api.jquery.com/Types/#Boolean">Boolean</a> or <a href="http://api.jquery.com/Types/#Integer">Integer</a></span>
-    </h3>
+        <div class="longdesc">
+            <ul>
+                <li>
+                    This widget requires some functional CSS, otherwise it won't work. If you build a custom theme, use
+                    the
+                    widget's specific CSS file as a starting point.
+                </li>
+            </ul>
+        </div>
+        <section id="options">
+            <header><h2>Options</h2></header>
+            <div id="option-active" class="api-item first-item">
+                <h3>active<span class="option-type"><strong>Type: </strong><a
+                        href="http://api.jquery.com/Types/#Boolean">Boolean</a> or <a
+                        href="http://api.jquery.com/Types/#Integer">Integer</a></span>
+                </h3>
 
-    <div class="default">
-        <strong>Default: </strong><code>0</code>
-    </div>
-    <div>
-        Which panel is currently open.
-    </div>
-    <strong>Multiple types supported:</strong>
-    <ul>
-        <li>
-            <strong>Boolean</strong>: Setting <code>active</code> to <code>false</code> will collapse all panels. This
-            requires the <a href="#option-collapsible"><code>collapsible</code></a> option to be <code>true</code>.
-        </li>
-        <li>
-            <strong>Integer</strong>: The zero-based index of the panel that is active (open). A negative value selects
-            panels going backward from the last panel.
-        </li>
-    </ul>
-    <strong>Code examples:</strong>
+                <div class="default">
+                    <strong>Default: </strong><code>0</code>
+                </div>
+                <div>
+                    Which panel is currently open.
+                </div>
+                <strong>Multiple types supported:</strong>
+                <ul>
+                    <li>
+                        <strong>Boolean</strong>: Setting <code>active</code> to <code>false</code> will collapse all
+                        panels. This
+                        requires the <a href="#option-collapsible"><code>collapsible</code></a> option to be
+                        <code>true</code>.
+                    </li>
+                    <li>
+                        <strong>Integer</strong>: The zero-based index of the panel that is active (open). A negative
+                        value selects
+                        panels going backward from the last panel.
+                    </li>
+                </ul>
+                <strong>Code examples:</strong>
 
-    <p>Initialize the accordion with the <code>active</code> option specified:</p>
+                <p>Initialize the accordion with the <code>active</code> option specified:</p>
 
-    <div class="syntaxhighlighter javascript nogutter">
-        <table>
-            <tbody>
-            <tr>
-                <td class="gutter">
+                <div class="syntaxhighlighter javascript nogutter">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td class="gutter">
 
-                    <div class="line n1">1</div>
+                                <div class="line n1">1</div>
 
-                </td>
-                <td class="code">
+                            </td>
+                            <td class="code">
                     <pre><div class="container">
                         <div class="line"><code>$( <span class="string">".selector"</span> ).accordion({ active: <span
                                 class="number">2</span> });</code></div>
                     </div></pre>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-    <p>Get or set the <code>active</code> option, after initialization:</p>
+                <p>Get or set the <code>active</code> option, after initialization:</p>
 
-    <div class="syntaxhighlighter javascript nogutter">
-        <table>
-            <tbody>
-            <tr>
-                <td class="gutter">
+                <div class="syntaxhighlighter javascript nogutter">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td class="gutter">
 
-                    <div class="line n1">1</div>
+                                <div class="line n1">1</div>
 
-                    <div class="line n2">2</div>
+                                <div class="line n2">2</div>
 
-                    <div class="line n3">3</div>
+                                <div class="line n3">3</div>
 
-                    <div class="line n4">4</div>
+                                <div class="line n4">4</div>
 
-                    <div class="line n5">5</div>
+                                <div class="line n5">5</div>
 
-                </td>
-                <td class="code">
+                            </td>
+                            <td class="code">
                     <pre><div class="container">
                         <div class="line"><code><span class="comment">// getter</span></code></div>
                     </div><div class="container">
@@ -270,88 +281,92 @@
                                 class="string">"option"</span>, <span class="string">"active"</span>, <span
                                 class="number">2</span> );</code></div>
                     </div></pre>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-</div>
-<div id="option-animate" class="api-item">
-    <h3>animate<span class="option-type"><strong>Type: </strong><a
-            href="http://api.jquery.com/Types/#Boolean">Boolean</a> or <a href="http://api.jquery.com/Types/#Number">Number</a> or <a
-            href="http://api.jquery.com/Types/#String">String</a> or <a href="http://api.jquery.com/Types/#Object">Object</a></span>
-    </h3>
+            </div>
+            <div id="option-animate" class="api-item">
+                <h3>animate<span class="option-type"><strong>Type: </strong><a
+                        href="http://api.jquery.com/Types/#Boolean">Boolean</a> or <a
+                        href="http://api.jquery.com/Types/#Number">Number</a> or <a
+                        href="http://api.jquery.com/Types/#String">String</a> or <a
+                        href="http://api.jquery.com/Types/#Object">Object</a></span>
+                </h3>
 
-    <div class="default">
-        <strong>Default: </strong><code>{}</code>
-    </div>
-    <div>If and how to animate changing panels.</div>
-    <strong>Multiple types supported:</strong>
-    <ul>
-        <li>
-            <strong>Boolean</strong>: A value of <code>false</code> will disable animations.
-        </li>
-        <li>
-            <strong>Number</strong>: Duration in milliseconds with default easing.
-        </li>
-        <li>
-            <strong>String</strong>: Name of <a href="/easings/">easing</a> to use with default duration.
-        </li>
-        <li>
-            <strong>Object</strong>: Animation settings with <code>easing</code> and <code>duration</code> properties.
-            <ul>
-                <li>Can also contain a <code>down</code> property with any of the above options.</li>
-                <li>"Down" animations occur when the panel being activated has a lower index than the currently active
-                    panel.
-                </li>
-            </ul>
-        </li>
-    </ul>
-    <strong>Code examples:</strong>
+                <div class="default">
+                    <strong>Default: </strong><code>{}</code>
+                </div>
+                <div>If and how to animate changing panels.</div>
+                <strong>Multiple types supported:</strong>
+                <ul>
+                    <li>
+                        <strong>Boolean</strong>: A value of <code>false</code> will disable animations.
+                    </li>
+                    <li>
+                        <strong>Number</strong>: Duration in milliseconds with default easing.
+                    </li>
+                    <li>
+                        <strong>String</strong>: Name of <a href="/easings/">easing</a> to use with default duration.
+                    </li>
+                    <li>
+                        <strong>Object</strong>: Animation settings with <code>easing</code> and <code>duration</code>
+                        properties.
+                        <ul>
+                            <li>Can also contain a <code>down</code> property with any of the above options.</li>
+                            <li>"Down" animations occur when the panel being activated has a lower index than the
+                                currently active
+                                panel.
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <strong>Code examples:</strong>
 
-    <p>Initialize the accordion with the <code>animate</code> option specified:</p>
+                <p>Initialize the accordion with the <code>animate</code> option specified:</p>
 
-    <div class="syntaxhighlighter javascript nogutter">
-        <table>
-            <tbody>
-            <tr>
-                <td class="gutter">
+                <div class="syntaxhighlighter javascript nogutter">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td class="gutter">
 
-                    <div class="line n1">1</div>
+                                <div class="line n1">1</div>
 
-                </td>
-                <td class="code">
+                            </td>
+                            <td class="code">
                     <pre><div class="container">
                         <div class="line"><code>$( <span class="string">".selector"</span> ).accordion({ animate: <span
                                 class="number">200</span> });</code></div>
                     </div></pre>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-    <p>Get or set the <code>animate</code> option, after initialization:</p>
+                <p>Get or set the <code>animate</code> option, after initialization:</p>
 
-    <div class="syntaxhighlighter javascript nogutter">
-        <table>
-            <tbody>
-            <tr>
-                <td class="gutter">
+                <div class="syntaxhighlighter javascript nogutter">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td class="gutter">
 
-                    <div class="line n1">1</div>
+                                <div class="line n1">1</div>
 
-                    <div class="line n2">2</div>
+                                <div class="line n2">2</div>
 
-                    <div class="line n3">3</div>
+                                <div class="line n3">3</div>
 
-                    <div class="line n4">4</div>
+                                <div class="line n4">4</div>
 
-                    <div class="line n5">5</div>
+                                <div class="line n5">5</div>
 
-                </td>
-                <td class="code">
+                            </td>
+                            <td class="code">
                     <pre><div class="container">
                         <div class="line"><code><span class="comment">// getter</span></code></div>
                     </div><div class="container">
@@ -367,65 +382,66 @@
                                 class="string">"option"</span>, <span class="string">"animate"</span>, <span
                                 class="number">200</span> );</code></div>
                     </div></pre>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-</div>
-<div id="option-collapsible" class="api-item">
-    <h3>collapsible<span class="option-type"><strong>Type: </strong><a href="http://api.jquery.com/Types/#Boolean">Boolean</a></span>
-    </h3>
+            </div>
+            <div id="option-collapsible" class="api-item">
+                <h3>collapsible<span class="option-type"><strong>Type: </strong><a
+                        href="http://api.jquery.com/Types/#Boolean">Boolean</a></span>
+                </h3>
 
-    <div class="default">
-        <strong>Default: </strong><code>false</code>
-    </div>
-    <div>Whether all the sections can be closed at once. Allows collapsing the active section.</div>
-    <strong>Code examples:</strong>
+                <div class="default">
+                    <strong>Default: </strong><code>false</code>
+                </div>
+                <div>Whether all the sections can be closed at once. Allows collapsing the active section.</div>
+                <strong>Code examples:</strong>
 
-    <p>Initialize the accordion with the <code>collapsible</code> option specified:</p>
+                <p>Initialize the accordion with the <code>collapsible</code> option specified:</p>
 
-    <div class="syntaxhighlighter javascript nogutter">
-        <table>
-            <tbody>
-            <tr>
-                <td class="gutter">
+                <div class="syntaxhighlighter javascript nogutter">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td class="gutter">
 
-                    <div class="line n1">1</div>
+                                <div class="line n1">1</div>
 
-                </td>
-                <td class="code">
+                            </td>
+                            <td class="code">
                     <pre><div class="container">
                         <div class="line"><code>$( <span class="string">".selector"</span> ).accordion({ collapsible:
                             <span class="literal">true</span> });</code></div>
                     </div></pre>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-    <p>Get or set the <code>collapsible</code> option, after initialization:</p>
+                <p>Get or set the <code>collapsible</code> option, after initialization:</p>
 
-    <div class="syntaxhighlighter javascript nogutter">
-        <table>
-            <tbody>
-            <tr>
-                <td class="gutter">
+                <div class="syntaxhighlighter javascript nogutter">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td class="gutter">
 
-                    <div class="line n1">1</div>
+                                <div class="line n1">1</div>
 
-                    <div class="line n2">2</div>
+                                <div class="line n2">2</div>
 
-                    <div class="line n3">3</div>
+                                <div class="line n3">3</div>
 
-                    <div class="line n4">4</div>
+                                <div class="line n4">4</div>
 
-                    <div class="line n5">5</div>
+                                <div class="line n5">5</div>
 
-                </td>
-                <td class="code">
+                            </td>
+                            <td class="code">
                     <pre><div class="container">
                         <div class="line"><code><span class="comment">// getter</span></code></div>
                     </div><div class="container">
@@ -441,66 +457,66 @@
                                 class="string">"option"</span>, <span class="string">"collapsible"</span>, <span
                                 class="literal">true</span> );</code></div>
                     </div></pre>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-</div>
-<div id="option-disabled" class="api-item">
-    <h3>disabled<span class="option-type"><strong>Type: </strong><a
-            href="http://api.jquery.com/Types/#Boolean">Boolean</a></span>
-    </h3>
+            </div>
+            <div id="option-disabled" class="api-item">
+                <h3>disabled<span class="option-type"><strong>Type: </strong><a
+                        href="http://api.jquery.com/Types/#Boolean">Boolean</a></span>
+                </h3>
 
-    <div class="default">
-        <strong>Default: </strong><code>false</code>
-    </div>
-    <div>Disables the accordion if set to <code>true</code>.</div>
-    <strong>Code examples:</strong>
+                <div class="default">
+                    <strong>Default: </strong><code>false</code>
+                </div>
+                <div>Disables the accordion if set to <code>true</code>.</div>
+                <strong>Code examples:</strong>
 
-    <p>Initialize the accordion with the <code>disabled</code> option specified:</p>
+                <p>Initialize the accordion with the <code>disabled</code> option specified:</p>
 
-    <div class="syntaxhighlighter javascript nogutter">
-        <table>
-            <tbody>
-            <tr>
-                <td class="gutter">
+                <div class="syntaxhighlighter javascript nogutter">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td class="gutter">
 
-                    <div class="line n1">1</div>
+                                <div class="line n1">1</div>
 
-                </td>
-                <td class="code">
+                            </td>
+                            <td class="code">
                     <pre><div class="container">
                         <div class="line"><code>$( <span class="string">".selector"</span> ).accordion({ disabled: <span
                                 class="literal">true</span> });</code></div>
                     </div></pre>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-    <p>Get or set the <code>disabled</code> option, after initialization:</p>
+                <p>Get or set the <code>disabled</code> option, after initialization:</p>
 
-    <div class="syntaxhighlighter javascript nogutter">
-        <table>
-            <tbody>
-            <tr>
-                <td class="gutter">
+                <div class="syntaxhighlighter javascript nogutter">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td class="gutter">
 
-                    <div class="line n1">1</div>
+                                <div class="line n1">1</div>
 
-                    <div class="line n2">2</div>
+                                <div class="line n2">2</div>
 
-                    <div class="line n3">3</div>
+                                <div class="line n3">3</div>
 
-                    <div class="line n4">4</div>
+                                <div class="line n4">4</div>
 
-                    <div class="line n5">5</div>
+                                <div class="line n5">5</div>
 
-                </td>
-                <td class="code">
+                            </td>
+                            <td class="code">
                     <pre><div class="container">
                         <div class="line"><code><span class="comment">// getter</span></code></div>
                     </div><div class="container">
@@ -516,68 +532,69 @@
                                 class="string">"option"</span>, <span class="string">"disabled"</span>, <span
                                 class="literal">true</span> );</code></div>
                     </div></pre>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-</div>
-<div id="option-event" class="api-item">
-    <h3>event<span class="option-type"><strong>Type: </strong><a
-            href="http://api.jquery.com/Types/#String">String</a></span>
-    </h3>
+            </div>
+            <div id="option-event" class="api-item">
+                <h3>event<span class="option-type"><strong>Type: </strong><a
+                        href="http://api.jquery.com/Types/#String">String</a></span>
+                </h3>
 
-    <div class="default">
-        <strong>Default: </strong><code>"click"</code>
-    </div>
-    <div>The event that accordion headers will react to in order to activate the associated panel. Multiple events can
-        be specified, separated by a space.
-    </div>
-    <strong>Code examples:</strong>
+                <div class="default">
+                    <strong>Default: </strong><code>"click"</code>
+                </div>
+                <div>The event that accordion headers will react to in order to activate the associated panel. Multiple
+                    events can
+                    be specified, separated by a space.
+                </div>
+                <strong>Code examples:</strong>
 
-    <p>Initialize the accordion with the <code>event</code> option specified:</p>
+                <p>Initialize the accordion with the <code>event</code> option specified:</p>
 
-    <div class="syntaxhighlighter javascript nogutter">
-        <table>
-            <tbody>
-            <tr>
-                <td class="gutter">
+                <div class="syntaxhighlighter javascript nogutter">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td class="gutter">
 
-                    <div class="line n1">1</div>
+                                <div class="line n1">1</div>
 
-                </td>
-                <td class="code">
+                            </td>
+                            <td class="code">
                     <pre><div class="container">
                         <div class="line"><code>$( <span class="string">".selector"</span> ).accordion({ event: <span
                                 class="string">"mouseover"</span> });</code></div>
                     </div></pre>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-    <p>Get or set the <code>event</code> option, after initialization:</p>
+                <p>Get or set the <code>event</code> option, after initialization:</p>
 
-    <div class="syntaxhighlighter javascript nogutter">
-        <table>
-            <tbody>
-            <tr>
-                <td class="gutter">
+                <div class="syntaxhighlighter javascript nogutter">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td class="gutter">
 
-                    <div class="line n1">1</div>
+                                <div class="line n1">1</div>
 
-                    <div class="line n2">2</div>
+                                <div class="line n2">2</div>
 
-                    <div class="line n3">3</div>
+                                <div class="line n3">3</div>
 
-                    <div class="line n4">4</div>
+                                <div class="line n4">4</div>
 
-                    <div class="line n5">5</div>
+                                <div class="line n5">5</div>
 
-                </td>
-                <td class="code">
+                            </td>
+                            <td class="code">
                     <pre><div class="container">
                         <div class="line"><code><span class="comment">// getter</span></code></div>
                     </div><div class="container">
@@ -593,69 +610,70 @@
                                 class="string">"option"</span>, <span class="string">"event"</span>, <span
                                 class="string">"mouseover"</span> );</code></div>
                     </div></pre>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-</div>
-<div id="option-header" class="api-item">
-    <h3>header<span class="option-type"><strong>Type: </strong><a
-            href="http://api.jquery.com/Types/#Selector">Selector</a></span>
-    </h3>
+            </div>
+            <div id="option-header" class="api-item">
+                <h3>header<span class="option-type"><strong>Type: </strong><a
+                        href="http://api.jquery.com/Types/#Selector">Selector</a></span>
+                </h3>
 
-    <div class="default">
-        <strong>Default: </strong><code>"&gt; li &gt; :first-child,&gt; :not(li):even"</code>
-    </div>
-    <div>
-        <p>Selector for the header element, applied via <code>.find()</code> on the main accordion element. Content
-            panels must be the sibling immediately after their associated headers.</p>
-    </div>
-    <strong>Code examples:</strong>
+                <div class="default">
+                    <strong>Default: </strong><code>"&gt; li &gt; :first-child,&gt; :not(li):even"</code>
+                </div>
+                <div>
+                    <p>Selector for the header element, applied via <code>.find()</code> on the main accordion element.
+                        Content
+                        panels must be the sibling immediately after their associated headers.</p>
+                </div>
+                <strong>Code examples:</strong>
 
-    <p>Initialize the accordion with the <code>header</code> option specified:</p>
+                <p>Initialize the accordion with the <code>header</code> option specified:</p>
 
-    <div class="syntaxhighlighter javascript nogutter">
-        <table>
-            <tbody>
-            <tr>
-                <td class="gutter">
+                <div class="syntaxhighlighter javascript nogutter">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td class="gutter">
 
-                    <div class="line n1">1</div>
+                                <div class="line n1">1</div>
 
-                </td>
-                <td class="code">
+                            </td>
+                            <td class="code">
                     <pre><div class="container">
                         <div class="line"><code>$( <span class="string">".selector"</span> ).accordion({ header: <span
                                 class="string">"h3"</span> });</code></div>
                     </div></pre>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-    <p>Get or set the <code>header</code> option, after initialization:</p>
+                <p>Get or set the <code>header</code> option, after initialization:</p>
 
-    <div class="syntaxhighlighter javascript nogutter">
-        <table>
-            <tbody>
-            <tr>
-                <td class="gutter">
+                <div class="syntaxhighlighter javascript nogutter">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td class="gutter">
 
-                    <div class="line n1">1</div>
+                                <div class="line n1">1</div>
 
-                    <div class="line n2">2</div>
+                                <div class="line n2">2</div>
 
-                    <div class="line n3">3</div>
+                                <div class="line n3">3</div>
 
-                    <div class="line n4">4</div>
+                                <div class="line n4">4</div>
 
-                    <div class="line n5">5</div>
+                                <div class="line n5">5</div>
 
-                </td>
-                <td class="code">
+                            </td>
+                            <td class="code">
                     <pre><div class="container">
                         <div class="line"><code><span class="comment">// getter</span></code></div>
                     </div><div class="container">
@@ -671,79 +689,79 @@
                                 class="string">"option"</span>, <span class="string">"header"</span>, <span
                                 class="string">"h3"</span> );</code></div>
                     </div></pre>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-</div>
-<div id="option-heightStyle" class="api-item">
-    <h3>heightStyle<span class="option-type"><strong>Type: </strong><a
-            href="http://api.jquery.com/Types/#String">String</a></span>
-    </h3>
+            </div>
+            <div id="option-heightStyle" class="api-item">
+                <h3>heightStyle<span class="option-type"><strong>Type: </strong><a
+                        href="http://api.jquery.com/Types/#String">String</a></span>
+                </h3>
 
-    <div class="default">
-        <strong>Default: </strong><code>"auto"</code>
-    </div>
-    <div>
-        <p>Controls the height of the accordion and each panel. Possible values:</p>
-        <ul>
-            <li>
-                <code>"auto"</code>: All panels will be set to the height of the tallest panel.
-            </li>
-            <li>
-                <code>"fill"</code>: Expand to the available height based on the accordion's parent height.
-            </li>
-            <li>
-                <code>"content"</code>: Each panel will be only as tall as its content.
-            </li>
-        </ul>
-    </div>
-    <strong>Code examples:</strong>
+                <div class="default">
+                    <strong>Default: </strong><code>"auto"</code>
+                </div>
+                <div>
+                    <p>Controls the height of the accordion and each panel. Possible values:</p>
+                    <ul>
+                        <li>
+                            <code>"auto"</code>: All panels will be set to the height of the tallest panel.
+                        </li>
+                        <li>
+                            <code>"fill"</code>: Expand to the available height based on the accordion's parent height.
+                        </li>
+                        <li>
+                            <code>"content"</code>: Each panel will be only as tall as its content.
+                        </li>
+                    </ul>
+                </div>
+                <strong>Code examples:</strong>
 
-    <p>Initialize the accordion with the <code>heightStyle</code> option specified:</p>
+                <p>Initialize the accordion with the <code>heightStyle</code> option specified:</p>
 
-    <div class="syntaxhighlighter javascript nogutter">
-        <table>
-            <tbody>
-            <tr>
-                <td class="gutter">
+                <div class="syntaxhighlighter javascript nogutter">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td class="gutter">
 
-                    <div class="line n1">1</div>
+                                <div class="line n1">1</div>
 
-                </td>
-                <td class="code">
+                            </td>
+                            <td class="code">
                     <pre><div class="container">
                         <div class="line"><code>$( <span class="string">".selector"</span> ).accordion({ heightStyle:
                             <span class="string">"fill"</span> });</code></div>
                     </div></pre>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-    <p>Get or set the <code>heightStyle</code> option, after initialization:</p>
+                <p>Get or set the <code>heightStyle</code> option, after initialization:</p>
 
-    <div class="syntaxhighlighter javascript nogutter">
-        <table>
-            <tbody>
-            <tr>
-                <td class="gutter">
+                <div class="syntaxhighlighter javascript nogutter">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td class="gutter">
 
-                    <div class="line n1">1</div>
+                                <div class="line n1">1</div>
 
-                    <div class="line n2">2</div>
+                                <div class="line n2">2</div>
 
-                    <div class="line n3">3</div>
+                                <div class="line n3">3</div>
 
-                    <div class="line n4">4</div>
+                                <div class="line n4">4</div>
 
-                    <div class="line n5">5</div>
+                                <div class="line n5">5</div>
 
-                </td>
-                <td class="code">
+                            </td>
+                            <td class="code">
                     <pre><div class="container">
                         <div class="line"><code><span class="comment">// getter</span></code></div>
                     </div><div class="container">
@@ -759,76 +777,78 @@
                                 class="string">"option"</span>, <span class="string">"heightStyle"</span>, <span
                                 class="string">"fill"</span> );</code></div>
                     </div></pre>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-</div>
-<div id="option-icons" class="api-item">
-    <h3>icons<span class="option-type"><strong>Type: </strong><a
-            href="http://api.jquery.com/Types/#Object">Object</a></span>
-    </h3>
+            </div>
+            <div id="option-icons" class="api-item">
+                <h3>icons<span class="option-type"><strong>Type: </strong><a
+                        href="http://api.jquery.com/Types/#Object">Object</a></span>
+                </h3>
 
-    <div class="default">
-        <strong>Default: </strong><code>{ "header": "ui-icon-triangle-1-e", "activeHeader": "ui-icon-triangle-1-s"
-        }</code>
-    </div>
-    <div>
-        <p>Icons to use for headers, matching <a href="/theming/icons/">an icon provided by the jQuery UI CSS
-            Framework</a>. Set to <code>false</code> to have no icons displayed.</p>
-        <ul>
-            <li>header (string, default: "ui-icon-triangle-1-e")</li>
-            <li>activeHeader (string, default: "ui-icon-triangle-1-s")</li>
-        </ul>
-    </div>
-    <strong>Code examples:</strong>
+                <div class="default">
+                    <strong>Default: </strong><code>{ "header": "ui-icon-triangle-1-e", "activeHeader":
+                    "ui-icon-triangle-1-s"
+                    }</code>
+                </div>
+                <div>
+                    <p>Icons to use for headers, matching <a href="/theming/icons/">an icon provided by the jQuery UI
+                        CSS
+                        Framework</a>. Set to <code>false</code> to have no icons displayed.</p>
+                    <ul>
+                        <li>header (string, default: "ui-icon-triangle-1-e")</li>
+                        <li>activeHeader (string, default: "ui-icon-triangle-1-s")</li>
+                    </ul>
+                </div>
+                <strong>Code examples:</strong>
 
-    <p>Initialize the accordion with the <code>icons</code> option specified:</p>
+                <p>Initialize the accordion with the <code>icons</code> option specified:</p>
 
-    <div class="syntaxhighlighter javascript nogutter">
-        <table>
-            <tbody>
-            <tr>
-                <td class="gutter">
+                <div class="syntaxhighlighter javascript nogutter">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td class="gutter">
 
-                    <div class="line n1">1</div>
+                                <div class="line n1">1</div>
 
-                </td>
-                <td class="code">
+                            </td>
+                            <td class="code">
                     <pre><div class="container">
                         <div class="line"><code>$( <span class="string">".selector"</span> ).accordion({ icons: { <span
                                 class="string">"header"</span>: <span class="string">"ui-icon-plus"</span>, <span
                                 class="string">"activeHeader"</span>: <span class="string">"ui-icon-minus"</span> } });</code>
                         </div>
                     </div></pre>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-    <p>Get or set the <code>icons</code> option, after initialization:</p>
+                <p>Get or set the <code>icons</code> option, after initialization:</p>
 
-    <div class="syntaxhighlighter javascript nogutter">
-        <table>
-            <tbody>
-            <tr>
-                <td class="gutter">
+                <div class="syntaxhighlighter javascript nogutter">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td class="gutter">
 
-                    <div class="line n1">1</div>
+                                <div class="line n1">1</div>
 
-                    <div class="line n2">2</div>
+                                <div class="line n2">2</div>
 
-                    <div class="line n3">3</div>
+                                <div class="line n3">3</div>
 
-                    <div class="line n4">4</div>
+                                <div class="line n4">4</div>
 
-                    <div class="line n5">5</div>
+                                <div class="line n5">5</div>
 
-                </td>
-                <td class="code">
+                            </td>
+                            <td class="code">
                     <pre><div class="container">
                         <div class="line"><code><span class="comment">// getter</span></code></div>
                     </div><div class="container">
@@ -846,484 +866,495 @@
                                 class="string">"activeHeader"</span>: <span class="string">"ui-icon-minus"</span> }
                             );</code></div>
                     </div></pre>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-</div>
-</section>
-<section id="methods">
-<header><h2>Methods</h2></header>
-<div id="method-destroy">
-    <div class="api-item first-item">
-        <h3>destroy()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a> (<a
-                href="http://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">plugin
-            only</a>)</span>
-        </h3>
+            </div>
+        </section>
+        <section id="methods">
+            <header><h2>Methods</h2></header>
+            <div id="method-destroy">
+                <div class="api-item first-item">
+                    <h3>destroy()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a> (<a
+                            href="http://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">plugin
+                        only</a>)</span>
+                    </h3>
 
-        <div>
-            Removes the accordion functionality completely. This will return the element back to its pre-init state.
-        </div>
-        <ul>
-            <li>
-                <div class="null-signature">This method does not accept any arguments.</div>
-            </li>
-        </ul>
-        <div>
-            <strong>Code examples:</strong>
+                    <div>
+                        Removes the accordion functionality completely. This will return the element back to its
+                        pre-init state.
+                    </div>
+                    <ul>
+                        <li>
+                            <div class="null-signature">This method does not accept any arguments.</div>
+                        </li>
+                    </ul>
+                    <div>
+                        <strong>Code examples:</strong>
 
-            <p>Invoke the destroy method:</p>
+                        <p>Invoke the destroy method:</p>
 
-            <div class="syntaxhighlighter javascript nogutter">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td class="gutter">
+                        <div class="syntaxhighlighter javascript nogutter">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td class="gutter">
 
-                            <div class="line n1">1</div>
+                                        <div class="line n1">1</div>
 
-                        </td>
-                        <td class="code">
+                                    </td>
+                                    <td class="code">
                             <pre><div class="container">
                                 <div class="line"><code>$( <span class="string">".selector"</span> ).accordion( <span
                                         class="string">"destroy"</span> );</code></div>
                             </div></pre>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
             </div>
+            <div id="method-disable">
+                <div class="api-item">
+                    <h3>disable()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a> (<a
+                            href="http://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">plugin
+                        only</a>)</span>
+                    </h3>
 
-        </div>
-    </div>
-</div>
-<div id="method-disable">
-    <div class="api-item">
-        <h3>disable()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a> (<a
-                href="http://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">plugin
-            only</a>)</span>
-        </h3>
+                    <div>
+                        Disables the accordion.
+                    </div>
+                    <ul>
+                        <li>
+                            <div class="null-signature">This method does not accept any arguments.</div>
+                        </li>
+                    </ul>
+                    <div>
+                        <strong>Code examples:</strong>
 
-        <div>
-            Disables the accordion.
-        </div>
-        <ul>
-            <li>
-                <div class="null-signature">This method does not accept any arguments.</div>
-            </li>
-        </ul>
-        <div>
-            <strong>Code examples:</strong>
+                        <p>Invoke the disable method:</p>
 
-            <p>Invoke the disable method:</p>
+                        <div class="syntaxhighlighter javascript nogutter">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td class="gutter">
 
-            <div class="syntaxhighlighter javascript nogutter">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td class="gutter">
+                                        <div class="line n1">1</div>
 
-                            <div class="line n1">1</div>
-
-                        </td>
-                        <td class="code">
+                                    </td>
+                                    <td class="code">
                             <pre><div class="container">
                                 <div class="line"><code>$( <span class="string">".selector"</span> ).accordion( <span
                                         class="string">"disable"</span> );</code></div>
                             </div></pre>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
             </div>
+            <div id="method-enable">
+                <div class="api-item">
+                    <h3>enable()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a> (<a
+                            href="http://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">plugin
+                        only</a>)</span>
+                    </h3>
 
-        </div>
-    </div>
-</div>
-<div id="method-enable">
-    <div class="api-item">
-        <h3>enable()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a> (<a
-                href="http://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">plugin
-            only</a>)</span>
-        </h3>
+                    <div>
+                        Enables the accordion.
+                    </div>
+                    <ul>
+                        <li>
+                            <div class="null-signature">This method does not accept any arguments.</div>
+                        </li>
+                    </ul>
+                    <div>
+                        <strong>Code examples:</strong>
 
-        <div>
-            Enables the accordion.
-        </div>
-        <ul>
-            <li>
-                <div class="null-signature">This method does not accept any arguments.</div>
-            </li>
-        </ul>
-        <div>
-            <strong>Code examples:</strong>
+                        <p>Invoke the enable method:</p>
 
-            <p>Invoke the enable method:</p>
+                        <div class="syntaxhighlighter javascript nogutter">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td class="gutter">
 
-            <div class="syntaxhighlighter javascript nogutter">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td class="gutter">
+                                        <div class="line n1">1</div>
 
-                            <div class="line n1">1</div>
-
-                        </td>
-                        <td class="code">
+                                    </td>
+                                    <td class="code">
                             <pre><div class="container">
                                 <div class="line"><code>$( <span class="string">".selector"</span> ).accordion( <span
                                         class="string">"enable"</span> );</code></div>
                             </div></pre>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-        </div>
-    </div>
-</div>
-<div id="method-option">
-    <div class="api-item">
-        <h3>option( optionName )<span class="returns">Returns: <a href="http://api.jquery.com/Types/#Object">Object</a></span>
-        </h3>
-
-        <div>Gets the value currently associated with the specified <code>optionName</code>.</div>
-        <ul>
-            <li>
-                <div><strong>optionName</strong></div>
-                <div>Type: <a href="http://api.jquery.com/Types/#String">String</a>
+                    </div>
                 </div>
-                <div>The name of the option to get.</div>
-            </li>
-        </ul>
-        <div>
-            <strong>Code examples:</strong>
+            </div>
+            <div id="method-option">
+                <div class="api-item">
+                    <h3>option( optionName )<span class="returns">Returns: <a
+                            href="http://api.jquery.com/Types/#Object">Object</a></span>
+                    </h3>
 
-            <p>Invoke the method:</p>
+                    <div>Gets the value currently associated with the specified <code>optionName</code>.</div>
+                    <ul>
+                        <li>
+                            <div><strong>optionName</strong></div>
+                            <div>Type: <a href="http://api.jquery.com/Types/#String">String</a>
+                            </div>
+                            <div>The name of the option to get.</div>
+                        </li>
+                    </ul>
+                    <div>
+                        <strong>Code examples:</strong>
 
-            <div class="syntaxhighlighter javascript nogutter">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td class="gutter">
+                        <p>Invoke the method:</p>
 
-                            <div class="line n1">1</div>
+                        <div class="syntaxhighlighter javascript nogutter">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td class="gutter">
 
-                        </td>
-                        <td class="code">
+                                        <div class="line n1">1</div>
+
+                                    </td>
+                                    <td class="code">
                             <pre><div class="container">
                                 <div class="line"><code><span class="keyword">var</span> isDisabled = $( <span
                                         class="string">".selector"</span> ).accordion( <span
                                         class="string">"option"</span>, <span class="string">"disabled"</span> );</code>
                                 </div>
                             </div></pre>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-        </div>
-    </div>
-    <div class="api-item">
-        <h3>option()<span class="returns">Returns: <a
-                href="http://api.jquery.com/Types/#PlainObject">PlainObject</a></span>
-        </h3>
+                    </div>
+                </div>
+                <div class="api-item">
+                    <h3>option()<span class="returns">Returns: <a
+                            href="http://api.jquery.com/Types/#PlainObject">PlainObject</a></span>
+                    </h3>
 
-        <div>Gets an object containing key/value pairs representing the current accordion options hash.</div>
-        <ul>
-            <li>
-                <div class="null-signature">This signature does not accept any arguments.</div>
-            </li>
-        </ul>
-        <div>
-            <strong>Code examples:</strong>
+                    <div>Gets an object containing key/value pairs representing the current accordion options hash.
+                    </div>
+                    <ul>
+                        <li>
+                            <div class="null-signature">This signature does not accept any arguments.</div>
+                        </li>
+                    </ul>
+                    <div>
+                        <strong>Code examples:</strong>
 
-            <p>Invoke the method:</p>
+                        <p>Invoke the method:</p>
 
-            <div class="syntaxhighlighter javascript nogutter">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td class="gutter">
+                        <div class="syntaxhighlighter javascript nogutter">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td class="gutter">
 
-                            <div class="line n1">1</div>
+                                        <div class="line n1">1</div>
 
-                        </td>
-                        <td class="code">
+                                    </td>
+                                    <td class="code">
                             <pre><div class="container">
                                 <div class="line"><code><span class="keyword">var</span> options = $( <span
                                         class="string">".selector"</span> ).accordion( <span
                                         class="string">"option"</span> );</code></div>
                             </div></pre>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-        </div>
-    </div>
-    <div class="api-item">
-        <h3>option( optionName, value )<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a> (<a
-                href="http://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">plugin
-            only</a>)</span>
-        </h3>
-
-        <div>Sets the value of the accordion option associated with the specified <code>optionName</code>.</div>
-        <ul>
-            <li>
-                <div><strong>optionName</strong></div>
-                <div>Type: <a href="http://api.jquery.com/Types/#String">String</a>
+                    </div>
                 </div>
-                <div>The name of the option to set.</div>
-            </li>
-            <li>
-                <div><strong>value</strong></div>
-                <div>Type: <a href="http://api.jquery.com/Types/#Object">Object</a>
-                </div>
-                <div>A value to set for the option.</div>
-            </li>
-        </ul>
-        <div>
-            <strong>Code examples:</strong>
+                <div class="api-item">
+                    <h3>option( optionName, value )<span class="returns">Returns: <a
+                            href="http://api.jquery.com/Types/#jQuery">jQuery</a> (<a
+                            href="http://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">plugin
+                        only</a>)</span>
+                    </h3>
 
-            <p>Invoke the method:</p>
+                    <div>Sets the value of the accordion option associated with the specified <code>optionName</code>.
+                    </div>
+                    <ul>
+                        <li>
+                            <div><strong>optionName</strong></div>
+                            <div>Type: <a href="http://api.jquery.com/Types/#String">String</a>
+                            </div>
+                            <div>The name of the option to set.</div>
+                        </li>
+                        <li>
+                            <div><strong>value</strong></div>
+                            <div>Type: <a href="http://api.jquery.com/Types/#Object">Object</a>
+                            </div>
+                            <div>A value to set for the option.</div>
+                        </li>
+                    </ul>
+                    <div>
+                        <strong>Code examples:</strong>
 
-            <div class="syntaxhighlighter javascript nogutter">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td class="gutter">
+                        <p>Invoke the method:</p>
 
-                            <div class="line n1">1</div>
+                        <div class="syntaxhighlighter javascript nogutter">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td class="gutter">
 
-                        </td>
-                        <td class="code">
+                                        <div class="line n1">1</div>
+
+                                    </td>
+                                    <td class="code">
                             <pre><div class="container">
                                 <div class="line"><code>$( <span class="string">".selector"</span> ).accordion( <span
                                         class="string">"option"</span>, <span class="string">"disabled"</span>, <span
                                         class="literal">true</span> );</code></div>
                             </div></pre>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-        </div>
-    </div>
-    <div class="api-item">
-        <h3>option( options )<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a> (<a
-                href="http://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">plugin
-            only</a>)</span>
-        </h3>
-
-        <div>Sets one or more options for the accordion.</div>
-        <ul>
-            <li>
-                <div><strong>options</strong></div>
-                <div>Type: <a href="http://api.jquery.com/Types/#Object">Object</a>
+                    </div>
                 </div>
-                <div>A map of option-value pairs to set.</div>
-            </li>
-        </ul>
-        <div>
-            <strong>Code examples:</strong>
+                <div class="api-item">
+                    <h3>option( options )<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a> (<a
+                            href="http://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">plugin
+                        only</a>)</span>
+                    </h3>
 
-            <p>Invoke the method:</p>
+                    <div>Sets one or more options for the accordion.</div>
+                    <ul>
+                        <li>
+                            <div><strong>options</strong></div>
+                            <div>Type: <a href="http://api.jquery.com/Types/#Object">Object</a>
+                            </div>
+                            <div>A map of option-value pairs to set.</div>
+                        </li>
+                    </ul>
+                    <div>
+                        <strong>Code examples:</strong>
 
-            <div class="syntaxhighlighter javascript nogutter">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td class="gutter">
+                        <p>Invoke the method:</p>
 
-                            <div class="line n1">1</div>
+                        <div class="syntaxhighlighter javascript nogutter">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td class="gutter">
 
-                        </td>
-                        <td class="code">
+                                        <div class="line n1">1</div>
+
+                                    </td>
+                                    <td class="code">
                             <pre><div class="container">
                                 <div class="line"><code>$( <span class="string">".selector"</span> ).accordion( <span
                                         class="string">"option"</span>, { disabled: <span class="literal">true</span> }
                                     );</code></div>
                             </div></pre>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
             </div>
+            <div id="method-refresh">
+                <div class="api-item">
+                    <h3>refresh()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a> (<a
+                            href="http://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">plugin
+                        only</a>)</span>
+                    </h3>
 
-        </div>
-    </div>
-</div>
-<div id="method-refresh">
-    <div class="api-item">
-        <h3>refresh()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a> (<a
-                href="http://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">plugin
-            only</a>)</span>
-        </h3>
+                    <div>Process any headers and panels that were added or removed directly in the DOM and recompute the
+                        height of
+                        the accordion panels. Results depend on the content and the <a
+                                href="#option-heightStyle"><code>heightStyle</code></a> option.
+                    </div>
+                    <ul>
+                        <li>
+                            <div class="null-signature">This method does not accept any arguments.</div>
+                        </li>
+                    </ul>
+                    <div>
+                        <strong>Code examples:</strong>
 
-        <div>Process any headers and panels that were added or removed directly in the DOM and recompute the height of
-            the accordion panels. Results depend on the content and the <a
-                    href="#option-heightStyle"><code>heightStyle</code></a> option.
-        </div>
-        <ul>
-            <li>
-                <div class="null-signature">This method does not accept any arguments.</div>
-            </li>
-        </ul>
-        <div>
-            <strong>Code examples:</strong>
+                        <p>Invoke the refresh method:</p>
 
-            <p>Invoke the refresh method:</p>
+                        <div class="syntaxhighlighter javascript nogutter">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td class="gutter">
 
-            <div class="syntaxhighlighter javascript nogutter">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td class="gutter">
+                                        <div class="line n1">1</div>
 
-                            <div class="line n1">1</div>
-
-                        </td>
-                        <td class="code">
+                                    </td>
+                                    <td class="code">
                             <pre><div class="container">
                                 <div class="line"><code>$( <span class="string">".selector"</span> ).accordion( <span
                                         class="string">"refresh"</span> );</code></div>
                             </div></pre>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
             </div>
+            <div id="method-widget">
+                <div class="api-item">
+                    <h3>widget()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a></span>
+                    </h3>
 
-        </div>
-    </div>
-</div>
-<div id="method-widget">
-    <div class="api-item">
-        <h3>widget()<span class="returns">Returns: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a></span>
-        </h3>
+                    <div>
+                        Returns a <code>jQuery</code> object containing the accordion.
+                    </div>
+                    <ul>
+                        <li>
+                            <div class="null-signature">This method does not accept any arguments.</div>
+                        </li>
+                    </ul>
+                    <div>
+                        <strong>Code examples:</strong>
 
-        <div>
-            Returns a <code>jQuery</code> object containing the accordion.
-        </div>
-        <ul>
-            <li>
-                <div class="null-signature">This method does not accept any arguments.</div>
-            </li>
-        </ul>
-        <div>
-            <strong>Code examples:</strong>
+                        <p>Invoke the widget method:</p>
 
-            <p>Invoke the widget method:</p>
+                        <div class="syntaxhighlighter javascript nogutter">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td class="gutter">
 
-            <div class="syntaxhighlighter javascript nogutter">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td class="gutter">
+                                        <div class="line n1">1</div>
 
-                            <div class="line n1">1</div>
-
-                        </td>
-                        <td class="code">
+                                    </td>
+                                    <td class="code">
                             <pre><div class="container">
                                 <div class="line"><code><span class="keyword">var</span> widget = $( <span
                                         class="string">".selector"</span> ).accordion( <span
                                         class="string">"widget"</span> );</code></div>
                             </div></pre>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
             </div>
+        </section>
+        <section id="events">
+            <header><h2>Events</h2></header>
+            <div id="event-activate" class="api-item first-item">
+                <h3>activate( event, ui )<span class="returns">Type: <code>accordionactivate</code></span>
+                </h3>
 
-        </div>
-    </div>
-</div>
-</section>
-<section id="events">
-<header><h2>Events</h2></header>
-<div id="event-activate" class="api-item first-item">
-    <h3>activate( event, ui )<span class="returns">Type: <code>accordionactivate</code></span>
-    </h3>
+                <div>
+                    <p>Triggered after a panel has been activated (after animation completes). If the accordion was
+                        previously
+                        collapsed, <code>ui.oldHeader</code> and <code>ui.oldPanel</code> will be empty jQuery objects.
+                        If the
+                        accordion is collapsing, <code>ui.newHeader</code> and <code>ui.newPanel</code> will be empty
+                        jQuery
+                        objects.</p>
 
-    <div>
-        <p>Triggered after a panel has been activated (after animation completes). If the accordion was previously
-            collapsed, <code>ui.oldHeader</code> and <code>ui.oldPanel</code> will be empty jQuery objects. If the
-            accordion is collapsing, <code>ui.newHeader</code> and <code>ui.newPanel</code> will be empty jQuery
-            objects.</p>
-
-        <div class="warning">
-            <strong>Note:</strong> Since the <code>activate</code> event is only fired on panel activation, it is not
-            fired for the initial panel when the accordion widget is created. If you need a hook for widget creation use
-            the <a href="#event-create"><code>create</code></a> event.
-        </div>
-    </div>
-    <ul>
-        <li>
-            <div><strong>event</strong></div>
-            <div>Type: <a href="http://api.jquery.com/Types/#Event">Event</a>
-            </div>
-            <div></div>
-        </li>
-        <li>
-            <div><strong>ui</strong></div>
-            <div>Type: <a href="http://api.jquery.com/Types/#Object">Object</a>
-            </div>
-            <div></div>
-            <ul>
-                <li>
-                    <div><strong>newHeader</strong></div>
-                    <div>Type: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
+                    <div class="warning">
+                        <strong>Note:</strong> Since the <code>activate</code> event is only fired on panel activation,
+                        it is not
+                        fired for the initial panel when the accordion widget is created. If you need a hook for widget
+                        creation use
+                        the <a href="#event-create"><code>create</code></a> event.
                     </div>
-                    <div>The header that was just activated.</div>
-                </li>
-                <li>
-                    <div><strong>oldHeader</strong></div>
-                    <div>Type: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
-                    </div>
-                    <div>The header that was just deactivated.</div>
-                </li>
-                <li>
-                    <div><strong>newPanel</strong></div>
-                    <div>Type: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
-                    </div>
-                    <div>The panel that was just activated.</div>
-                </li>
-                <li>
-                    <div><strong>oldPanel</strong></div>
-                    <div>Type: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
-                    </div>
-                    <div>The panel that was just deactivated.</div>
-                </li>
-            </ul>
-        </li>
-    </ul>
-    <div>
-        <strong>Code examples:</strong>
+                </div>
+                <ul>
+                    <li>
+                        <div><strong>event</strong></div>
+                        <div>Type: <a href="http://api.jquery.com/Types/#Event">Event</a>
+                        </div>
+                        <div></div>
+                    </li>
+                    <li>
+                        <div><strong>ui</strong></div>
+                        <div>Type: <a href="http://api.jquery.com/Types/#Object">Object</a>
+                        </div>
+                        <div></div>
+                        <ul>
+                            <li>
+                                <div><strong>newHeader</strong></div>
+                                <div>Type: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
+                                </div>
+                                <div>The header that was just activated.</div>
+                            </li>
+                            <li>
+                                <div><strong>oldHeader</strong></div>
+                                <div>Type: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
+                                </div>
+                                <div>The header that was just deactivated.</div>
+                            </li>
+                            <li>
+                                <div><strong>newPanel</strong></div>
+                                <div>Type: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
+                                </div>
+                                <div>The panel that was just activated.</div>
+                            </li>
+                            <li>
+                                <div><strong>oldPanel</strong></div>
+                                <div>Type: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
+                                </div>
+                                <div>The panel that was just deactivated.</div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div>
+                    <strong>Code examples:</strong>
 
-        <p>Initialize the accordion with the activate callback specified:</p>
+                    <p>Initialize the accordion with the activate callback specified:</p>
 
-        <div class="syntaxhighlighter javascript nogutter">
-            <table>
-                <tbody>
-                <tr>
-                    <td class="gutter">
+                    <div class="syntaxhighlighter javascript nogutter">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td class="gutter">
 
-                        <div class="line n1">1</div>
+                                    <div class="line n1">1</div>
 
-                        <div class="line n2">2</div>
+                                    <div class="line n2">2</div>
 
-                        <div class="line n3">3</div>
+                                    <div class="line n3">3</div>
 
-                    </td>
-                    <td class="code">
+                                </td>
+                                <td class="code">
                         <pre><div class="container">
                             <div class="line"><code>$( <span class="string">".selector"</span> ).accordion({</code>
                             </div>
@@ -1333,105 +1364,108 @@
                         </div><div class="container">
                             <div class="line"><code>});</code></div>
                         </div></pre>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-        <p>Bind an event listener to the accordionactivate event:</p>
+                    <p>Bind an event listener to the accordionactivate event:</p>
 
-        <div class="syntaxhighlighter javascript nogutter">
-            <table>
-                <tbody>
-                <tr>
-                    <td class="gutter">
+                    <div class="syntaxhighlighter javascript nogutter">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td class="gutter">
 
-                        <div class="line n1">1</div>
+                                    <div class="line n1">1</div>
 
-                    </td>
-                    <td class="code">
+                                </td>
+                                <td class="code">
                         <pre><div class="container">
                             <div class="line"><code>$( <span class="string">".selector"</span> ).on( <span
                                     class="string">"accordionactivate"</span>, <span class="keyword">function</span>(
                                 event, ui ) {} );</code></div>
                         </div></pre>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-    </div>
-</div>
-<div id="event-beforeActivate" class="api-item">
-    <h3>beforeActivate( event, ui )<span class="returns">Type: <code>accordionbeforeactivate</code></span>
-    </h3>
-
-    <div>Triggered directly before a panel is activated. Can be canceled to prevent the panel from activating. If the
-        accordion is currently collapsed, <code>ui.oldHeader</code> and <code>ui.oldPanel</code> will be empty jQuery
-        objects. If the accordion is collapsing, <code>ui.newHeader</code> and <code>ui.newPanel</code> will be empty
-        jQuery objects.
-    </div>
-    <ul>
-        <li>
-            <div><strong>event</strong></div>
-            <div>Type: <a href="http://api.jquery.com/Types/#Event">Event</a>
+                </div>
             </div>
-            <div></div>
-        </li>
-        <li>
-            <div><strong>ui</strong></div>
-            <div>Type: <a href="http://api.jquery.com/Types/#Object">Object</a>
-            </div>
-            <div></div>
-            <ul>
-                <li>
-                    <div><strong>newHeader</strong></div>
-                    <div>Type: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
-                    </div>
-                    <div>The header that is about to be activated.</div>
-                </li>
-                <li>
-                    <div><strong>oldHeader</strong></div>
-                    <div>Type: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
-                    </div>
-                    <div>The header that is about to be deactivated.</div>
-                </li>
-                <li>
-                    <div><strong>newPanel</strong></div>
-                    <div>Type: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
-                    </div>
-                    <div>The panel that is about to be activated.</div>
-                </li>
-                <li>
-                    <div><strong>oldPanel</strong></div>
-                    <div>Type: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
-                    </div>
-                    <div>The panel that is about to be deactivated.</div>
-                </li>
-            </ul>
-        </li>
-    </ul>
-    <div>
-        <strong>Code examples:</strong>
+            <div id="event-beforeActivate" class="api-item">
+                <h3>beforeActivate( event, ui )<span class="returns">Type: <code>accordionbeforeactivate</code></span>
+                </h3>
 
-        <p>Initialize the accordion with the beforeActivate callback specified:</p>
+                <div>Triggered directly before a panel is activated. Can be canceled to prevent the panel from
+                    activating. If the
+                    accordion is currently collapsed, <code>ui.oldHeader</code> and <code>ui.oldPanel</code> will be
+                    empty jQuery
+                    objects. If the accordion is collapsing, <code>ui.newHeader</code> and <code>ui.newPanel</code> will
+                    be empty
+                    jQuery objects.
+                </div>
+                <ul>
+                    <li>
+                        <div><strong>event</strong></div>
+                        <div>Type: <a href="http://api.jquery.com/Types/#Event">Event</a>
+                        </div>
+                        <div></div>
+                    </li>
+                    <li>
+                        <div><strong>ui</strong></div>
+                        <div>Type: <a href="http://api.jquery.com/Types/#Object">Object</a>
+                        </div>
+                        <div></div>
+                        <ul>
+                            <li>
+                                <div><strong>newHeader</strong></div>
+                                <div>Type: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
+                                </div>
+                                <div>The header that is about to be activated.</div>
+                            </li>
+                            <li>
+                                <div><strong>oldHeader</strong></div>
+                                <div>Type: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
+                                </div>
+                                <div>The header that is about to be deactivated.</div>
+                            </li>
+                            <li>
+                                <div><strong>newPanel</strong></div>
+                                <div>Type: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
+                                </div>
+                                <div>The panel that is about to be activated.</div>
+                            </li>
+                            <li>
+                                <div><strong>oldPanel</strong></div>
+                                <div>Type: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
+                                </div>
+                                <div>The panel that is about to be deactivated.</div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div>
+                    <strong>Code examples:</strong>
 
-        <div class="syntaxhighlighter javascript nogutter">
-            <table>
-                <tbody>
-                <tr>
-                    <td class="gutter">
+                    <p>Initialize the accordion with the beforeActivate callback specified:</p>
 
-                        <div class="line n1">1</div>
+                    <div class="syntaxhighlighter javascript nogutter">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td class="gutter">
 
-                        <div class="line n2">2</div>
+                                    <div class="line n1">1</div>
 
-                        <div class="line n3">3</div>
+                                    <div class="line n2">2</div>
 
-                    </td>
-                    <td class="code">
+                                    <div class="line n3">3</div>
+
+                                </td>
+                                <td class="code">
                         <pre><div class="container">
                             <div class="line"><code>$( <span class="string">".selector"</span> ).accordion({</code>
                             </div>
@@ -1441,91 +1475,92 @@
                         </div><div class="container">
                             <div class="line"><code>});</code></div>
                         </div></pre>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-        <p>Bind an event listener to the accordionbeforeactivate event:</p>
+                    <p>Bind an event listener to the accordionbeforeactivate event:</p>
 
-        <div class="syntaxhighlighter javascript nogutter">
-            <table>
-                <tbody>
-                <tr>
-                    <td class="gutter">
+                    <div class="syntaxhighlighter javascript nogutter">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td class="gutter">
 
-                        <div class="line n1">1</div>
+                                    <div class="line n1">1</div>
 
-                    </td>
-                    <td class="code">
+                                </td>
+                                <td class="code">
                         <pre><div class="container">
                             <div class="line"><code>$( <span class="string">".selector"</span> ).on( <span
                                     class="string">"accordionbeforeactivate"</span>, <span
                                     class="keyword">function</span>( event, ui ) {} );</code></div>
                         </div></pre>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
-    </div>
-</div>
-<div id="event-create" class="api-item">
-    <h3>create( event, ui )<span class="returns">Type: <code>accordioncreate</code></span>
-    </h3>
-
-    <div>Triggered when the accordion is created. If the accordion is collapsed, <code>ui.header</code> and <code>ui.panel</code>
-        will be empty jQuery objects.
-    </div>
-    <ul>
-        <li>
-            <div><strong>event</strong></div>
-            <div>Type: <a href="http://api.jquery.com/Types/#Event">Event</a>
-            </div>
-            <div></div>
-        </li>
-        <li>
-            <div><strong>ui</strong></div>
-            <div>Type: <a href="http://api.jquery.com/Types/#Object">Object</a>
-            </div>
-            <div></div>
-            <ul>
-                <li>
-                    <div><strong>header</strong></div>
-                    <div>Type: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div>The active header.</div>
-                </li>
-                <li>
-                    <div><strong>panel</strong></div>
-                    <div>Type: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
-                    </div>
-                    <div>The active panel.</div>
-                </li>
-            </ul>
-        </li>
-    </ul>
-    <div>
-        <strong>Code examples:</strong>
 
-        <p>Initialize the accordion with the create callback specified:</p>
+                </div>
+            </div>
+            <div id="event-create" class="api-item">
+                <h3>create( event, ui )<span class="returns">Type: <code>accordioncreate</code></span>
+                </h3>
 
-        <div class="syntaxhighlighter javascript nogutter">
-            <table>
-                <tbody>
-                <tr>
-                    <td class="gutter">
+                <div>Triggered when the accordion is created. If the accordion is collapsed, <code>ui.header</code> and
+                    <code>ui.panel</code>
+                    will be empty jQuery objects.
+                </div>
+                <ul>
+                    <li>
+                        <div><strong>event</strong></div>
+                        <div>Type: <a href="http://api.jquery.com/Types/#Event">Event</a>
+                        </div>
+                        <div></div>
+                    </li>
+                    <li>
+                        <div><strong>ui</strong></div>
+                        <div>Type: <a href="http://api.jquery.com/Types/#Object">Object</a>
+                        </div>
+                        <div></div>
+                        <ul>
+                            <li>
+                                <div><strong>header</strong></div>
+                                <div>Type: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
+                                </div>
+                                <div>The active header.</div>
+                            </li>
+                            <li>
+                                <div><strong>panel</strong></div>
+                                <div>Type: <a href="http://api.jquery.com/Types/#jQuery">jQuery</a>
+                                </div>
+                                <div>The active panel.</div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div>
+                    <strong>Code examples:</strong>
 
-                        <div class="line n1">1</div>
+                    <p>Initialize the accordion with the create callback specified:</p>
 
-                        <div class="line n2">2</div>
+                    <div class="syntaxhighlighter javascript nogutter">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td class="gutter">
 
-                        <div class="line n3">3</div>
+                                    <div class="line n1">1</div>
 
-                    </td>
-                    <td class="code">
+                                    <div class="line n2">2</div>
+
+                                    <div class="line n3">3</div>
+
+                                </td>
+                                <td class="code">
                         <pre><div class="container">
                             <div class="line"><code>$( <span class="string">".selector"</span> ).accordion({</code>
                             </div>
@@ -1535,137 +1570,137 @@
                         </div><div class="container">
                             <div class="line"><code>});</code></div>
                         </div></pre>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-        <p>Bind an event listener to the accordioncreate event:</p>
+                    <p>Bind an event listener to the accordioncreate event:</p>
 
-        <div class="syntaxhighlighter javascript nogutter">
-            <table>
-                <tbody>
-                <tr>
-                    <td class="gutter">
+                    <div class="syntaxhighlighter javascript nogutter">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td class="gutter">
 
-                        <div class="line n1">1</div>
+                                    <div class="line n1">1</div>
 
-                    </td>
-                    <td class="code">
+                                </td>
+                                <td class="code">
                         <pre><div class="container">
                             <div class="line"><code>$( <span class="string">".selector"</span> ).on( <span
                                     class="string">"accordioncreate"</span>, <span class="keyword">function</span>(
                                 event, ui ) {} );</code></div>
                         </div></pre>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-    </div>
-</div>
-</section>
-<section class="entry-examples" id="entry-examples">
-<header><h2>Example:</h2></header>
-<div class="entry-example" id="example-0">
-<h4><span class="desc">A simple jQuery UI Accordion</span></h4>
+                </div>
+            </div>
+        </section>
+        <section class="entry-examples" id="entry-examples">
+            <header><h2>Example:</h2></header>
+            <div class="entry-example" id="example-0">
+                <h4><span class="desc">A simple jQuery UI Accordion</span></h4>
 
-<div class="syntaxhighlighter xml ">
-<table>
-<tbody>
-<tr>
-<td class="gutter">
+                <div class="syntaxhighlighter xml ">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td class="gutter">
 
-    <div class="line n1">1</div>
+                                <div class="line n1">1</div>
 
-    <div class="line n2">2</div>
+                                <div class="line n2">2</div>
 
-    <div class="line n3">3</div>
+                                <div class="line n3">3</div>
 
-    <div class="line n4">4</div>
+                                <div class="line n4">4</div>
 
-    <div class="line n5">5</div>
+                                <div class="line n5">5</div>
 
-    <div class="line n6">6</div>
+                                <div class="line n6">6</div>
 
-    <div class="line n7">7</div>
+                                <div class="line n7">7</div>
 
-    <div class="line n8">8</div>
+                                <div class="line n8">8</div>
 
-    <div class="line n9">9</div>
+                                <div class="line n9">9</div>
 
-    <div class="line n10">10</div>
+                                <div class="line n10">10</div>
 
-    <div class="line n11">11</div>
+                                <div class="line n11">11</div>
 
-    <div class="line n12">12</div>
+                                <div class="line n12">12</div>
 
-    <div class="line n13">13</div>
+                                <div class="line n13">13</div>
 
-    <div class="line n14">14</div>
+                                <div class="line n14">14</div>
 
-    <div class="line n15">15</div>
+                                <div class="line n15">15</div>
 
-    <div class="line n16">16</div>
+                                <div class="line n16">16</div>
 
-    <div class="line n17">17</div>
+                                <div class="line n17">17</div>
 
-    <div class="line n18">18</div>
+                                <div class="line n18">18</div>
 
-    <div class="line n19">19</div>
+                                <div class="line n19">19</div>
 
-    <div class="line n20">20</div>
+                                <div class="line n20">20</div>
 
-    <div class="line n21">21</div>
+                                <div class="line n21">21</div>
 
-    <div class="line n22">22</div>
+                                <div class="line n22">22</div>
 
-    <div class="line n23">23</div>
+                                <div class="line n23">23</div>
 
-    <div class="line n24">24</div>
+                                <div class="line n24">24</div>
 
-    <div class="line n25">25</div>
+                                <div class="line n25">25</div>
 
-    <div class="line n26">26</div>
+                                <div class="line n26">26</div>
 
-    <div class="line n27">27</div>
+                                <div class="line n27">27</div>
 
-    <div class="line n28">28</div>
+                                <div class="line n28">28</div>
 
-    <div class="line n29">29</div>
+                                <div class="line n29">29</div>
 
-    <div class="line n30">30</div>
+                                <div class="line n30">30</div>
 
-    <div class="line n31">31</div>
+                                <div class="line n31">31</div>
 
-    <div class="line n32">32</div>
+                                <div class="line n32">32</div>
 
-    <div class="line n33">33</div>
+                                <div class="line n33">33</div>
 
-    <div class="line n34">34</div>
+                                <div class="line n34">34</div>
 
-    <div class="line n35">35</div>
+                                <div class="line n35">35</div>
 
-    <div class="line n36">36</div>
+                                <div class="line n36">36</div>
 
-    <div class="line n37">37</div>
+                                <div class="line n37">37</div>
 
-    <div class="line n38">38</div>
+                                <div class="line n38">38</div>
 
-    <div class="line n39">39</div>
+                                <div class="line n39">39</div>
 
-    <div class="line n40">40</div>
+                                <div class="line n40">40</div>
 
-    <div class="line n41">41</div>
+                                <div class="line n41">41</div>
 
-    <div class="line n42">42</div>
+                                <div class="line n42">42</div>
 
-    <div class="line n43">43</div>
+                                <div class="line n43">43</div>
 
-</td>
-<td class="code">
+                            </td>
+                            <td class="code">
                         <pre><div class="container">
                             <div class="line"><code><span class="doctype">&lt;!doctype html&gt;</span></code></div>
                         </div><div class="container">
@@ -1801,18 +1836,18 @@
                             <div class="line"><code><span class="tag">&lt;/<span
                                     class="title">html</span>&gt;</span></code></div>
                         </div></pre>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-<h4>Demo:</h4>
+                <h4>Demo:</h4>
 
-<div class="demo code-demo" data-height="350"></div>
-</div>
-</section>
-</div>
+                <div class="demo code-demo" data-height="350"></div>
+            </div>
+        </section>
+    </div>
 </article>
 
 </body>

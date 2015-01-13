@@ -336,7 +336,7 @@ suite.addBatch({
             ]);
         },
         "if no keys are specified, the input array is returned": function (nest) {
-            var array = [new Object()];
+            var array = [{}];
             assert.strictEqual(nest().entries(array), array);
         }
     }
@@ -514,7 +514,7 @@ suite.addBatch({
             });
         },
         "if no keys are specified, the input array is returned": function (nest) {
-            var array = [new Object()];
+            var array = [{}];
             assert.strictEqual(nest().map(array), array);
         },
         "handles keys that are built-in prototype properties": function (nest) {

@@ -24,7 +24,7 @@ suite.addBatch({
             },
             "uniqueness is based on string coercion": function (ordinal) {
                 var x = ordinal().domain(["foo"]).range([42, 43, 44]);
-                assert.equal(x(new String("foo")), 42);
+                assert.equal(x(String("foo")), 42);
                 assert.equal(x({
                     toString: function () {
                         return "foo";
@@ -110,7 +110,7 @@ suite.addBatch({
             assert.equal(x([0]), "a");
             assert.equal(x(1), "b");
             assert.equal(x(2.0), "c");
-            assert.equal(x(new Number(2)), "c");
+            assert.equal(x(Number(2)), "c");
         },
 
         "rangePoints": {

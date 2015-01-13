@@ -915,7 +915,7 @@ var JSHINT = (function () {
 
     function isAlpha(str) {
         return (str >= "a" && str <= "z\uffff") ||
-        (str >= "A" && str <= "Z\uffff");
+            (str >= "A" && str <= "Z\uffff");
     }
 
     function isDigit(str) {
@@ -2452,12 +2452,12 @@ var JSHINT = (function () {
 
     function isPoorRelation(node) {
         return node &&
-        ((node.type === "(number)" && +node.value === 0) ||
-        (node.type === "(string)" && node.value === "") ||
-        (node.type === "null" && !option.eqnull) ||
-        node.type === "true" ||
-        node.type === "false" ||
-        node.type === "undefined");
+            ((node.type === "(number)" && +node.value === 0) ||
+            (node.type === "(string)" && node.value === "") ||
+            (node.type === "null" && !option.eqnull) ||
+            node.type === "true" ||
+            node.type === "false" ||
+            node.type === "undefined");
     }
 
 

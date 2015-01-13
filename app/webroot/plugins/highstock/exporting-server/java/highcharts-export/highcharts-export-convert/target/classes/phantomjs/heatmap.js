@@ -43,7 +43,7 @@
         }, tweenColors: function (b, a, d) {
             var c = a.rgba[3] !== 1 || b.rgba[3] !== 1;
             return (c ? "rgba(" : "rgb(") + Math.round(a.rgba[0] +
-            (b.rgba[0] - a.rgba[0]) * (1 - d)) + "," + Math.round(a.rgba[1] + (b.rgba[1] - a.rgba[1]) * (1 - d)) + "," + Math.round(a.rgba[2] + (b.rgba[2] - a.rgba[2]) * (1 - d)) + (c ? "," + (a.rgba[3] + (b.rgba[3] - a.rgba[3]) * (1 - d)) : "") + ")"
+                (b.rgba[0] - a.rgba[0]) * (1 - d)) + "," + Math.round(a.rgba[1] + (b.rgba[1] - a.rgba[1]) * (1 - d)) + "," + Math.round(a.rgba[2] + (b.rgba[2] - a.rgba[2]) * (1 - d)) + (c ? "," + (a.rgba[3] + (b.rgba[3] - a.rgba[3]) * (1 - d)) : "") + ")"
         }, initDataClasses: function (b) {
             var a = this, d = this.chart, c, e = 0, h = this.options;
             this.dataClasses = c = [];
