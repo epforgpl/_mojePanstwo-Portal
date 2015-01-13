@@ -1,6 +1,7 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('datasets', array('plugin' => 'Dane'))) ?>
-<?php $this->Combinator->add_libs('js', 'list.min') ?>
 <?php $this->Combinator->add_libs('js', 'Dane.datasets') ?>
+
+<?php $this->Html->script(array('list.min'), array('block' => 'scriptBlock')); ?>
 
 <div id="hacker-list">
     <div class="appHeader">
