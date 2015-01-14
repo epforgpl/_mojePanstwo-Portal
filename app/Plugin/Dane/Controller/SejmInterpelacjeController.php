@@ -22,8 +22,7 @@ class SejmInterpelacjeController extends DataobjectsController
             $this->request->params['t_id']
         ) {
 
-            $this->redirect($this->object->getUrl() . '/pismo/' . $this->request->params['t_id']);
-            die();
+            return $this->redirect($this->object->getUrl() . '/pismo/' . $this->request->params['t_id']);
 
         }
 
@@ -47,8 +46,10 @@ class SejmInterpelacjeController extends DataobjectsController
         ) {
 
             $this->set('pismo', $pismo);
-
-            if (empty($pismo->getLayers('teksty')) && $pismo->getData('dokument_id')) {
+			
+			
+			
+            if( !($pismo->getLayers('teksty')) && $pismo->getData('dokument_id') ) {
 
                 $this->set('document', new MP\Document($pismo->getData('dokument_id')));
                 $this->set('documentPackage', 1);

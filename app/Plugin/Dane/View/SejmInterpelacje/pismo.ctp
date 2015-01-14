@@ -12,7 +12,7 @@
         <div class="col-md-10 col-md-offset-1">
 
             <?
-            if (empty($pismo->getLayer('teksty')) && $pismo->getData('dokument_id')) {
+            if ( !($pismo->getLayer('teksty')) && $pismo->getData('dokument_id')) {
 
                 echo $this->Element('docsBrowser/doc', array(
                     'document' => $document,
