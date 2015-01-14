@@ -1,894 +1,742 @@
 .container {
-    width: 100%;
-    max-width: 1600px;
+  width: 100%;
+  max-width: 1600px;
 }
-
 blockquote {
-    background: #f9f9f9;
-    border-left: 10px solid #ccc;
-    margin: 1.5em 10px;
-    padding: 0.5em 10px;
-    quotes: "\201C" "\201D" "\2018" "\2019";
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C" "\201D" "\2018" "\2019";
 }
-
 blockquote:before {
-    color: #ccc;
-    content: open-quote;
-    font-size: 4em;
-    line-height: 0.1em;
-    margin-right: 0.25em;
-    vertical-align: -0.4em;
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
 }
-
 blockquote p {
-    display: inline;
+  display: inline;
 }
-
 ._mojePanstwoCockpitSearchInput {
-    display: block;
+  display: block;
 }
-
 #_main {
-    font-family: "Lato", sans-serif;
+  font-family: "Lato", Arial, sans-serif;
 }
-
 #_main h1,
 #_main h2,
 #_main h3,
 #_main h4 {
-    font-weight: 300;
+  font-weight: 300;
 }
-
 #_main h1 {
-    font-size: 46px;
-    margin-top: 0;
-    color: #FFF;
+  font-size: 46px;
+  margin-top: 0;
+  color: #FFF;
 }
-
 #_main h2 {
-    font-size: 32px;
-    margin-bottom: 20px;
-    margin-top: 0;
+  font-size: 32px;
+  margin-bottom: 20px;
+  margin-top: 0;
 }
-
 #_main h3 {
-    display: inline-block;
-    font-size: 26px;
-    font-weight: 400;
-    margin: 10px 0;
+  display: inline-block;
+  font-size: 26px;
+  font-weight: 400;
+  margin: 10px 0;
 }
-
 #_main h4 {
-    display: inline-block;
-    font-size: 14px;
-    font-weight: 400;
-    margin: 10px 0;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 400;
+  margin: 10px 0;
 }
-
 #_main h4.label a {
-    color: #FFF;
+  color: #FFF;
 }
-
 #_main .plate {
-    font-family: "Lato", sans-serif;
-    font-size: 16px;
-    font-weight: 300;
-    color: #FFF;
-    padding: 0;
-    background-color: #1b669d;
-    background-image: url(../PanstwoInternet/img/plate_left.png), url(../PanstwoInternet/img/plate_right.png);
-    background-position: left center, right center;
-    background-repeat: no-repeat;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  color: #FFF;
+  padding: 0;
+  background-color: #1b669d;
+  background-image: url(/Media/img/plate_left.png), url(/Media/img/plate_right.png);
+  background-position: left center, right center;
+  background-repeat: no-repeat;
 }
-
 #_main .plate .header {
-    text-align: center;
-    margin-bottom: 1em;
+  text-align: center;
+  margin-bottom: 1em;
 }
-
 #_main .plate .header h1 {
-    font-family: "Lato", sans-serif;
-    font-weight: 300;
-    text-transform: uppercase;
-    color: #ffffff;
-    border-top: 2px solid #fff;
-    border-bottom: 2px solid #fff;
-    max-width: 570px;
-    padding: 20px 0;
-    margin: 20px auto;
+  font-family: "Lato", Arial, sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  color: #ffffff;
+  border-top: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  max-width: 570px;
+  padding: 20px 0;
+  margin: 20px auto;
 }
-
 #_main .plate .header .subtitle {
-    font-family: "Lato", sans-serif;
-    font-size: 16px;
-    color: #aaaaaa;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 16px;
+  color: #aaaaaa;
 }
-
 #_main .plate .intro {
-    font-family: "Lato", sans-serif;
-    font-weight: 300;
-    text-align: justify;
-    margin-top: 1em;
-    margin-bottom: 1em;
+  font-family: "Lato", Arial, sans-serif;
+  font-weight: 300;
+  text-align: justify;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
-
 #_main .plate .intro a {
-    color: #ffffff;
-    font-size: 13px;
+  color: #ffffff;
+  font-size: 13px;
 }
-
 #_main #spis_tresci {
-    float: left;
-    width: 100%;
-    min-height: 60px;
+  float: left;
+  width: 100%;
+  min-height: 60px;
 }
-
 #_main #spis_tresci.affix {
-    position: relative;
+  position: relative;
 }
-
 #_main #spis_tresci.affix.searchDisplay > div {
-    top: 100px;
+  top: 100px;
 }
-
 #_main #spis_tresci.affix > div {
-    position: fixed;
-    top: 40px;
-    left: 0;
-    z-index: 100;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    background-color: #1b669d;
+  position: fixed;
+  top: 40px;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: #1b669d;
 }
-
 #_main #spis_tresci.affix > div .navbar-nav {
-    position: relative;
-    left: 15px;
+  position: relative;
+  left: 15px;
 }
-
 #_main .navbar-nav {
-    margin: 0 auto;
-    padding: 0;
-    float: none;
+  margin: 0 auto;
+  padding: 0;
+  float: none;
 }
-
 #_main .navbar-nav > li {
-    text-align: center;
-    position: relative;
-    width: 14.2%;
+  text-align: center;
+  position: relative;
+  width: 14.2%;
 }
-
 #_main .navbar-nav > li.dropdown.open a {
-    background: none;
-    color: #fff;
+  background: none;
+  color: #fff;
 }
-
 #_main .navbar-nav > li.dropdown.open a .caret {
-    border-bottom-color: #FFF;
-    border-top-color: #FFF;
+  border-bottom-color: #FFF;
+  border-top-color: #FFF;
 }
-
 #_main .navbar-nav > li.dropdown.open .dropdown-menu {
-    background-color: #1b669d;
-    border-color: #1b669d;
-    padding: 10px;
+  background-color: #1b669d;
+  border-color: #1b669d;
+  padding: 10px;
 }
-
 #_main .navbar-nav > li.dropdown.open .dropdown-menu > li.active a {
-    color: #41aded;
+  color: #41aded;
 }
-
 #_main .navbar-nav > li.dropdown.open .dropdown-menu > li a {
-    font-family: "Lato", sans-serif;
-    font-size: 13px;
-    font-weight: 300;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 300;
 }
-
 #_main .navbar-nav > li > a {
-    font-family: "Lato", sans-serif;
-    font-size: 13px;
-    padding: 10px 5px;
-    line-height: 1.2em;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 13px;
+  padding: 10px 5px;
+  line-height: 1.2em;
 }
-
 #_main .navbar-nav > li > a .caret {
-    position: absolute;
-    top: 50%;
-    right: 5px;
-    margin-top: -2px;
-    border-bottom-color: #FFF;
-    border-top-color: #FFF;
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  margin-top: -2px;
+  border-bottom-color: #FFF;
+  border-top-color: #FFF;
 }
-
 #_main .navbar-default {
-    border: none;
-    background: none;
-    margin: 0;
+  border: none;
+  background: none;
+  margin: 0;
 }
-
 #_main .navbar-default .active a {
-    color: #FFF;
-    background-color: #41aded;
+  color: #FFF;
+  background-color: #41aded;
 }
-
 #_main .navbar-default .active a .caret {
-    border-bottom-color: #FFF;
-    border-top-color: #FFF;
+  border-bottom-color: #FFF;
+  border-top-color: #FFF;
 }
-
 #_main .navbar-default a {
-    color: #ffffff;
-    padding: 10px 0;
+  color: #ffffff;
+  padding: 10px 0;
 }
-
 #_main .nav > li {
-    padding: 10px 0;
+  padding: 10px 0;
 }
-
 #_main .chapter {
-    padding-bottom: 20px;
+  padding-bottom: 20px;
 }
-
 #_main .chapter h3 {
-    display: block !important;
+  display: block !important;
 }
-
 #_main .chapter .desc {
-    font-family: "Lato", sans-serif;
-    font-size: 16px;
-    margin-bottom: 30px;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 16px;
+  margin-bottom: 30px;
 }
-
 #_main .chapter .main_desc {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
-
 #_main .chapter .bgcontent {
-    background-color: #FFF;
-    font-family: "Lato", sans-serif;
-    font-size: 16px;
+  background-color: #FFF;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 16px;
 }
-
 #_main .chapter .bgcontent p {
-    padding: 6px 0;
-    line-height: 24px;
+  padding: 6px 0;
+  line-height: 24px;
 }
-
 #_main .chapter .bgcontent h3 {
-    margin-top: 36px !important;
-    border-bottom: 1px solid #CCC !important;
-    padding-bottom: 10px !important;
+  margin-top: 36px !important;
+  border-bottom: 1px solid #CCC !important;
+  padding-bottom: 10px !important;
 }
-
 #_main .chapter .table_placeholder {
-    text-align: center;
-    padding: 40px 0 20px 0;
-    margin: 0 20px;
+  text-align: center;
+  padding: 40px 0 20px 0;
+  margin: 0 20px;
 }
-
 #_main .chapter .separator-top {
-    margin-top: 30px !important;
+  margin-top: 30px !important;
 }
-
 #_main .chapter .header-row {
-    background: rgba(0, 0, 0, 0.08);
-    padding-top: 20px;
-    margin-bottom: 20px;
+  background: rgba(0,0,0,0.08);
+  padding-top: 20px;
+  margin-bottom: 20px;
 }
-
 #_main .stats {
-    margin-top: 1em;
-    padding-top: 1em;
-    border-top: 1px solid #AAA;
+  margin-top: 1em;
+  padding-top: 1em;
+  border-top: 1px solid #AAA;
 }
-
 #_main .ranks {
-    text-align: center;
+  text-align: center;
 }
-
 #_main .rank-row-block {
-    margin-top: 40px;
-    max-width: 1600px;
-    margin-left: auto;
-    margin-right: auto;
+  margin-top: 40px;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
 }
-
 #_main .rank-row-block .desc {
-    font-family: "Lato", sans-serif;
-    font-weight: 300;
-    font-size: 16px;
+  font-family: "Lato", Arial, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
 }
-
 #_main .rank-row-block:first-child {
-    margin-top: 0;
+  margin-top: 0;
 }
-
 #_main .rank-row-block .rank-row {
-    background-color: #FFF;
-    margin-top: 20px;
+  background-color: #FFF;
+  margin-top: 20px;
 }
-
 #_main .rank-row-block .rank-row .rank-col {
-    border-right: 1px solid #CCC;
-    width: 20%;
+  border-right: 1px solid #CCC;
+  width: 20%;
 }
-
 #_main .rank-row-block .rank-row .rank-col:last-child {
-    border-right: none;
+  border-right: none;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li {
-    overflow: auto;
-    padding: 10px 0;
-    text-align: left;
-    min-height: 73px;
+  overflow: auto;
+  padding: 10px 0;
+  text-align: left;
+  min-height: 73px;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li.tweet {
-    border-bottom: 1px solid #DDD;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+  border-bottom: 1px solid #DDD;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li.tweet .tweet_header .data .date {
-    font-size: 12px;
-    color: #AAA;
-    font-style: italic;
-    margin-bottom: 0;
+  font-size: 12px;
+  color: #AAA;
+  font-style: italic;
+  margin-bottom: 0;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li.tweet .tweet_header .data .account a {
-    font-weight: bold;
-    font-size: 12px;
+  font-weight: bold;
+  font-size: 12px;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li.tweet:last-child {
-    border-bottom: none;
-    margin-bottom: none;
+  border-bottom: none;
+  margin-bottom: none;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li.account {
-    border-bottom: 1px solid #DDD;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+  border-bottom: 1px solid #DDD;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li.account:last-child {
-    border-bottom: none;
-    margin-bottom: none;
+  border-bottom: none;
+  margin-bottom: none;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li.list-group-item {
-    border: none;
-    padding: 10px 0;
-    margin: 0;
-    border-bottom: 1px solid #EEE;
-    min-height: inherit;
+  border: none;
+  padding: 10px 0;
+  margin: 0;
+  border-bottom: 1px solid #EEE;
+  min-height: inherit;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li.list-group-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li .tweet_stats {
-    text-align: center;
-    color: #AAAAAA;
-    overflow: hidden;
+  text-align: center;
+  color: #AAAAAA;
+  overflow: hidden;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li .tweet_stats p {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter {
-    font-family: "Lato", sans-serif;
-    font-size: 16px;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 16px;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter.small {
-    font-size: 12px;
+  font-size: 12px;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter.plus {
-    color: #5CB85C;
+  color: #5CB85C;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter.minus {
-    color: #D9534F;
+  color: #D9534F;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter a {
-    color: #AAA;
+  color: #AAA;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter a:hover {
-    color: #157AB5;
+  color: #157AB5;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter a span {
-    margin-right: 3px;
-    top: 2px;
+  margin-right: 3px;
+  top: 2px;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li .tweet_stats p._label {
-    font-family: "Lato", sans-serif;
-    font-size: 11px;
-    margin-bottom: 3px;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 11px;
+  margin-bottom: 3px;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li .avatar {
-    float: left;
-    width: 73px;
+  float: left;
+  width: 73px;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li .info {
-    margin-left: 73px;
-    padding: 0 7px;
-    margin-top: -4px;
+  margin-left: 73px;
+  padding: 0 7px;
+  margin-top: -4px;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li .name {
-    font-family: "Lato", sans-serif;
-    font-size: 16px;
-    margin-bottom: 5px;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 16px;
+  margin-bottom: 5px;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li .counter {
-    font-family: "Lato", sans-serif;
-    font-size: 20px;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 20px;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li .counter a {
-    color: #333;
+  color: #333;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li .counter a:hover {
-    color: #157AB5;
+  color: #157AB5;
 }
-
 #_main .rank-row-block .rank-row .rank-col ul li .subcounter {
-    font-family: "Lato", sans-serif;
-    font-size: 14px;
-    font-weight: 300;
-    color: #AAA;
-    margin-top: -10px;
-    margin-left: 5px;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: #AAA;
+  margin-top: -10px;
+  margin-left: 5px;
 }
-
 #_main .rank-row-block .rank-row .rank-col .buttons {
-    padding: 10px 0;
+  padding: 10px 0;
 }
-
 #_main.results {
-    margin-top: 1em;
+  margin-top: 1em;
 }
-
 #_main.results h2 {
-    font-family: "Lato", sans-serif;
-    font-size: 20px;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 20px;
 }
-
 #_main .main_input {
-    margin: 20px 0 10px;
+  margin: 20px 0 10px;
 }
-
 #_main #shortcuts {
-    margin: 1.5em 0;
+  margin: 1.5em 0;
 }
-
 #_main #shortcuts ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
-
 #_main #shortcuts ul li {
-    padding: 10px;
-    font-family: "Lato", sans-serif;
-    font-weight: 300;
-    font-size: 16px;
-    display: inline;
+  padding: 10px;
+  font-family: "Lato", Arial, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  display: inline;
 }
-
 #_main #results {
-    margin: 2em 0;
+  margin: 2em 0;
 }
-
 #_main #results ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
-
 #_main #results ul li {
-    font-family: "Lato", sans-serif;
-    font-size: 18px;
-    font-weight: 300;
-    padding: 8px 15px;
-    text-align: left;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  padding: 8px 15px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
 }
-
 #_main #results ul li:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
-
 #_main #results ul li a {
-    text-decoration: none;
+  text-decoration: none;
 }
-
 #_main #results .button {
-    margin-top: 2em;
+  margin-top: 2em;
 }
-
 #_main #tagsCloud {
-    width: 100%;
-    list-style: none;
-    overflow: hidden;
+  width: 100%;
+  list-style: none;
+  overflow: hidden;
 }
-
 #_main #tagsCloud li {
-    list-style: none;
+  list-style: none;
 }
-
 #_main .twitter-people {
-    width: 520px;
+  width: 520px;
 }
-
 #_main .twitter-people .stats {
-    font-style: italic;
-    height: 45px;
+  font-style: italic;
+  height: 45px;
 }
-
 #_main .twitter-people .stats h2 {
-    color: #000000;
-    font-family: "Lato", sans-serif;
-    font-size: 20px;
-    float: left;
+  color: #000000;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 20px;
+  float: left;
 }
-
 #_main .twitter-people .stats span {
-    color: #0071a6;
-    font-family: "Lato", sans-serif;
-    font-size: 18px;
-    float: right;
+  color: #0071a6;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 18px;
+  float: right;
 }
-
 #_main .twitter-people .twitterContent {
-    position: relative;
-    background-clip: padding-box;
-    line-height: 16px;
-    color: #ffffff;
+  position: relative;
+  background-clip: padding-box;
+  line-height: 16px;
+  color: #ffffff;
 }
-
 #_main .twitter-people .twitterContent .profile-header-inner {
-    background-color: #444444;
-    background-repeat: no-repeat;
-    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1) inset;
-    height: 260px;
-    padding: 0;
-    text-align: center;
+  background-color: #444444;
+  background-repeat: no-repeat;
+  box-shadow: 0 -1px 0 rgba(0,0,0,0.1) inset;
+  height: 260px;
+  padding: 0;
+  text-align: center;
 }
-
 #_main .twitter-people .twitterContent .profile-header-inner-overlay {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.55) 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
-    height: 200px;
-    position: absolute;
-    top: 60px;
-    width: 520px;
+  background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0.55) 100%) repeat scroll 0 0 rgba(0,0,0,0);
+  height: 200px;
+  position: absolute;
+  top: 60px;
+  width: 520px;
 }
-
 #_main .twitter-people .twitterContent .profile-picture {
-    background-color: #FFFFFF;
-    border: 4px solid #FFFFFF;
-    border-radius: 5px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-    display: block;
-    height: 80px;
-    margin: 20px auto 6px;
-    position: relative;
-    width: 80px;
-    z-index: 5;
+  background-color: #FFFFFF;
+  border: 4px solid #FFFFFF;
+  border-radius: 5px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.25);
+  display: block;
+  height: 80px;
+  margin: 20px auto 6px;
+  position: relative;
+  width: 80px;
+  z-index: 5;
 }
-
 #_main .twitter-people .twitterContent .profile-picture .avatar {
-    border-radius: 3px;
-    float: none;
+  border-radius: 3px;
+  float: none;
 }
-
 #_main .twitter-people .twitterContent .profile-picture .size73 {
-    border-radius: 5px;
-    height: 73px;
-    width: 73px;
+  border-radius: 5px;
+  height: 73px;
+  width: 73px;
 }
-
 #_main .twitter-people .twitterContent .profile-card-inner {
-    float: none;
-    margin: auto;
-    position: relative;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
-    width: 85%;
+  float: none;
+  margin: auto;
+  position: relative;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+  width: 85%;
 }
-
 #_main .twitter-people .twitterContent .profile-card-inner a {
-    color: #ffffff;
+  color: #ffffff;
 }
-
 #_main .twitter-people .twitterContent .profile-card-inner .fullname {
-    font-weight: bold;
-    line-height: 1;
-    margin-bottom: 2px;
-    font-size: 24px;
-    white-space: nowrap;
+  font-weight: bold;
+  line-height: 1;
+  margin-bottom: 2px;
+  font-size: 24px;
+  white-space: nowrap;
 }
-
 #_main .twitter-people .twitterContent .profile-card-inner .username {
-    font-size: 18px;
-    font-weight: normal;
-    color: #ffffff;
-    line-height: 24px;
-    margin-bottom: 1px;
+  font-size: 18px;
+  font-weight: normal;
+  color: #ffffff;
+  line-height: 24px;
+  margin-bottom: 1px;
 }
-
 #_main .twitter-people .twitterContent .profile-card-inner .bio-container {
-    -moz-font-feature-settings: inherit;
-    -moz-font-language-override: inherit;
-    font-family: inherit;
-    font-size: 14px;
-    font-size-adjust: inherit;
-    font-stretch: inherit;
-    font-style: inherit;
-    font-variant: inherit;
-    font-weight: inherit;
-    margin-bottom: 4px;
-    line-height: 16px;
+  -moz-font-feature-settings: inherit;
+  -moz-font-language-override: inherit;
+  font-family: inherit;
+  font-size: 14px;
+  font-size-adjust: inherit;
+  font-stretch: inherit;
+  font-style: inherit;
+  font-variant: inherit;
+  font-weight: inherit;
+  margin-bottom: 4px;
+  line-height: 16px;
 }
-
 #_main .twitter-people .twitterContent .profile-card-inner .bio-container p {
-    line-height: 16px;
+  line-height: 16px;
 }
-
 #_main .twitter-people .twitterContent .profile-card-inner .location-and-url {
-    color: #FFFFFF;
-    font-size: 14px;
-    line-height: 18px;
+  color: #FFFFFF;
+  font-size: 14px;
+  line-height: 18px;
 }
-
 #_main .twitter-people .twitterContent .profile-card-inner .location-and-url .divider {
-    color: #FFFFFF;
-    padding: 0 2px;
+  color: #FFFFFF;
+  padding: 0 2px;
 }
-
 #_main .twitter-people .twitterContent .profile-card-inner .location-and-url .url {
-    word-wrap: break-word;
+  word-wrap: break-word;
 }
-
 #_main .twitter-people .twitterContent i,
 #_main .twitter-people .twitterContent .icon {
-    background-image: url("https://abs.twimg.com/a/1388796652/t1/img/twitter_web_sprite_icons.png");
-    background-position: 0 0;
-    background-repeat: no-repeat;
-    display: inline-block;
-    vertical-align: text-top;
+  background-image: url("https://abs.twimg.com/a/1388796652/t1/img/twitter_web_sprite_icons.png");
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  display: inline-block;
+  vertical-align: text-top;
 }
-
 #_main .twitter-people .twitterContent .verified {
-    background-position: -30px -480px;
+  background-position: -30px -480px;
 }
-
 #_main .twitter-people .twitterContent .verified-large-border,
 #_main .twitter-people .twitterContent .translator-large-border {
-    height: 21px;
-    width: 21px;
+  height: 21px;
+  width: 21px;
 }
-
 #_main .twitter-people .twitterContent .verified-large-border {
-    background-position: -120px -480px;
+  background-position: -120px -480px;
 }
-
 #_main .twitter-people .twitterContent .verified-link .verified {
-    margin-top: 3px;
+  margin-top: 3px;
 }
-
 #_main .twitter-people .twitterContent .visuallyhidden {
-    border: 0 none;
-    clip: rect(0px, 0, 0, 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
+  border: 0 none;
+  clip: rect(0px,0,0,0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }
-
 #_main #media #tblMain,
 #_main #prawo #tblMain {
-    font-family: "Lato", sans-serif;
-    font-size: 16px;
-    font-weight: 300;
-    color: #000000;
-    margin: 20px auto;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  color: #000000;
+  margin: 20px auto;
 }
-
 #_main #media #tblMain tr:first-child,
 #_main #prawo #tblMain tr:first-child {
-    color: #ffffff;
-    font-size: 18px;
-    font-weight: 700;
-    background-color: #00aeef;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  background-color: #00aeef;
 }
-
 #_main #media #tblMain tr td,
 #_main #prawo #tblMain tr td {
-    border: 1px solid #939598;
-    padding: 5px 10px;
-    text-align: center;
+  border: 1px solid #939598;
+  padding: 5px 10px;
+  text-align: center;
 }
-
 #_main #media #tblMain tr td:first-child,
 #_main #prawo #tblMain tr td:first-child {
-    text-align: left;
+  text-align: left;
 }
-
 #_main #media #tblMain tr td .glyphicon.glyphicon-ok,
 #_main #prawo #tblMain tr td .glyphicon.glyphicon-ok {
-    color: #40ae49;
+  color: #40ae49;
 }
-
 #_main #media #tblMain tr td .glyphicon.glyphicon-remove,
 #_main #prawo #tblMain tr td .glyphicon.glyphicon-remove {
-    color: #d2232a;
+  color: #d2232a;
 }
-
 #_main #media #tblMain tr td .line,
 #_main #prawo #tblMain tr td .line {
-    display: inline-block;
-    width: 100%;
+  display: inline-block;
+  width: 100%;
 }
-
 #_main #prawo #tblMain tr td {
-    text-align: left;
+  text-align: left;
 }
-
 #_main #prawo #tblMain tr td blackquote {
-    font-style: italic;
-    font-weight: 300;
+  font-style: italic;
+  font-weight: 300;
 }
-
 #_main #kontrowersje .fakeTwitterAccounts {
-    list-style-type: none;
+  list-style-type: none;
 }
-
 #_main #kontrowersje .fakeTwitterAccounts > li {
-    border: 1px solid #d1d2d4;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    padding: 15px;
-    background-color: #ffffff;
-    width: 100%;
-    float: left;
-    margin-bottom: 15px;
-    line-height: 1.2em;
+  border: 1px solid #d1d2d4;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: #ffffff;
+  width: 100%;
+  float: left;
+  margin-bottom: 15px;
+  line-height: 1.2em;
 }
-
 #_main #kontrowersje .fakeTwitterAccounts > li .avatar {
-    border: 1px solid #ffffff;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    float: left;
-    margin-right: 15px;
+  border: 1px solid #ffffff;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  float: left;
+  margin-right: 15px;
 }
-
 #_main #kontrowersje .fakeTwitterAccounts > li .name {
-    width: 40%;
-    float: left;
-    color: #404040;
+  width: 40%;
+  float: left;
+  color: #404040;
 }
-
 #_main #kontrowersje .fakeTwitterAccounts > li .name strong,
 #_main #kontrowersje .fakeTwitterAccounts > li .name a {
-    width: 100%;
-    display: block;
+  width: 100%;
+  display: block;
 }
-
 #_main #kontrowersje .fakeTwitterAccounts > li .name strong {
-    font-family: "Lato", sans-serif;
-    font-size: 18px;
-    font-weight: 700;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
 }
-
 #_main #kontrowersje .fakeTwitterAccounts > li .name a {
-    color: #9d9fa2;
-    font-family: "Lato", sans-serif;
-    font-size: 14px;
+  color: #9d9fa2;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 14px;
 }
-
 #_main #kontrowersje .fakeTwitterAccounts > li .count {
-    float: right;
-    width: 40%;
+  float: right;
+  width: 40%;
 }
-
 #_main #kontrowersje .fakeTwitterAccounts > li .count strong,
 #_main #kontrowersje .fakeTwitterAccounts > li .count span {
-    width: 100%;
-    display: block;
+  width: 100%;
+  display: block;
 }
-
 #_main #kontrowersje .fakeTwitterAccounts > li .count strong {
-    font-family: "Lato", sans-serif;
-    font-size: 16px;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 16px;
 }
-
 #_main #kontrowersje .fakeTwitterAccounts > li .count span {
-    color: #9d9fa2;
-    font-family: "Lato", sans-serif;
-    font-size: 14px;
+  color: #9d9fa2;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 14px;
 }
-
 #_main #kontrowersje .fakeTwitterAccounts > li blackquote {
-    padding-top: 5px;
-    display: block;
-    font-style: italic;
-    width: 80%;
-    float: left;
-    font-family: "Lato", sans-serif;
-    font-size: 16px;
+  padding-top: 5px;
+  display: block;
+  font-style: italic;
+  width: 80%;
+  float: left;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 16px;
 }
-
 #_main #kontrowersje .fakeTwitterAccounts > li blackquote span {
-    color: #0084B4;
+  color: #0084B4;
 }
-
 #_main #kontrowersje .twoColumn {
-    width: 100%;
-    float: left;
+  width: 100%;
+  float: left;
 }
-
 #_main #kontrowersje .twoColumn .columnLeft,
 #_main #kontrowersje .twoColumn .columnRight {
-    width: 49%;
-    display: block;
+  width: 49%;
+  display: block;
 }
-
 #_main #kontrowersje .twoColumn .columnLeft {
-    float: left;
+  float: left;
 }
-
 #_main #kontrowersje .twoColumn .columnRight {
-    float: right;
+  float: right;
 }
-
 #_main #kontrowersje .twoColumn .block {
-    float: left;
-    padding-bottom: 15px;
+  float: left;
+  padding-bottom: 15px;
 }
-
 #_main #kontrowersje .twoColumn .block h4 {
-    font-size: 17px;
-    font-weight: 700;
+  font-size: 17px;
+  font-weight: 700;
 }
-
 #_main #kontrowersje .twoColumn .block img {
-    padding: 20px 20% 20px 0;
-    width: 100%;
-    float: left;
+  padding: 20px 20% 20px 0;
+  width: 100%;
+  float: left;
 }
-
 #_main #ofundacji p {
-    padding-bottom: 20px;
+  padding-bottom: 20px;
 }
-
 #_main #ofundacji img {
-    padding: 10px 0;
+  padding: 10px 0;
 }
