@@ -15,11 +15,14 @@ jQuery(document).ready(function () {
         var main = jQuery('.toolbarActions .docPagesAll'),
             percents = Math.round(((documentData.currentPackage / documentData.packages).toFixed(2)) * 100);
 
+        console.log(documentData, percents);
+
         if (percents !== 100) {
             main.find('span').html(_mPHeart.translation.LC_DANE_TOOLBAR_LOADED_DOC_AT + ' ' + percents + "%");
         } else {
-            main.find('span').html(_mPHeart.translation.LC_DANE_TOOLBAR_LOADING_ALL);
-            main.find('a').hide();
+            //main.find('span').html(_mPHeart.translation.LC_DANE_TOOLBAR_LOADING_ALL);
+            //main.find('a').hide();
+            main.remove();
         }
     }
 
