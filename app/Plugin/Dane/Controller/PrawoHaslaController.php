@@ -11,22 +11,11 @@ class PrawoHaslaController extends DataobjectsController
 
     public function view()
     {
-
-        parent::_prepareView();
-
-
-        $this->dataobjectsBrowserView(array(
-            'source' => 'prawo.haslo:' . $this->object->getId(),
-            'dataset' => 'prawo',
-            'order' => '_weight desc',
-            /*
-            'excludeFilters' => array(
-                'wojewodztwo_id',
-            ),
-            */
-        ));
-
-        // $this->set('title_for_layout', __d('dane', 'LC_DANE_GMINY_W_WOJEWODZTWIE') . ' ' . $this->object->getData('nazwa'));
+		
+		$this->addInitLayers('tags');
+		
+        parent::_prepareView();     
+        $this->prepareFeed();
 
     }
 
@@ -41,7 +30,8 @@ class PrawoHaslaController extends DataobjectsController
                 array(
                     'id' => '',
                     'href' => $href_base,
-                    'label' => 'Akty prawne',
+                    'label' => 'Aktualności',
+                    'icon' => 'glyphicon glyphicon-feed',
                 ),
             )
         );

@@ -29,16 +29,19 @@ class PrawoController extends DataobjectsController
     {
 
         $this->_prepareView();
-
+				
         if ($projekt_id = $this->object->getData('projekt_id')) {
 
             $projekt = $this->API->getObject('prawo_projekty', $projekt_id);
             $this->set('projekt', $projekt);
 
         }
-
+		
+		$this->prepareFeed();
+		
+		/*
         $dokument_id = false;
-
+		
         if ($files = $this->object->getLayer('files')) {
             foreach ($files as $file) {
                 if ($file['slug'] == 'tekst_aktualny') {
@@ -50,7 +53,7 @@ class PrawoController extends DataobjectsController
 
         // debug( $dokument_id ); die();
         $this->set('document', $this->API->document($files[0]['dokument_id']));
-
+		*/
 
         /*
         $datalinerParams = array(
@@ -125,6 +128,29 @@ class PrawoController extends DataobjectsController
             }
         }
 
+        $this->set('document', $this->API->document($dokument_id));
+
+    }
+    
+    public function tresc()
+    {
+
+        $this->_prepareView();
+
+        $dokument_id = false;
+
+        if ($files = $this->object->getLayer('files')) {
+            foreach ($files as $file) {
+                if ($file['slug'] == 'tekst_aktualny') {
+                    $dokument_id = $file['dokument_id'];
+                    break;
+                }
+            }
+        }
+		
+		if( !$dokument_id )
+			$dokument_id = $files[0]['dokument_id'];
+				
         $this->set('document', $this->API->document($dokument_id));
 
     }
@@ -259,7 +285,14 @@ class PrawoController extends DataobjectsController
                 array(
                     'id' => '',
                     'href' => $href_base,
+                    'label' => 'Aktualności',
+                    'icon' => 'glyphicon glyphicon-feed',
+                ),
+                array(
+                    'id' => 'tresc',
+                    'href' => $href_base . '/tresc',
                     'label' => 'Treść',
+                    'icon' => 'glyphicon glyphicon-align-left',
                 ),
             )
         );
@@ -297,16 +330,7 @@ class PrawoController extends DataobjectsController
                 );
 
             }
-
-            if ($this->object->getLayer('tags')) {
-
-                $menu['items'][] = array(
-                    'id' => 'hasla',
-                    'href' => $href_base . '/hasla',
-                    'label' => 'Hasła',
-                );
-
-            }
+            
 
         }
 
