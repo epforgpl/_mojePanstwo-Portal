@@ -8,7 +8,6 @@ if (isset($titleTag)) {
 }
 
 $menu = $this->viewVars['menu'];
-
 $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array('shoutIt');
 ?>
 <?php $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane'))) ?>
@@ -41,7 +40,11 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
     }
     ?>
 
-    <div class="objectPageHeaderBg">
+    <div class="objectPageHeaderBg<?php if (isset($headerObject)) {
+        echo ' extended" style="';
+        if (!empty($headerObject['url'])) echo 'background-image: url(' . $headerObject['url'] . ');';
+        if (!empty($headerObject['height'])) echo 'min-height:' . $headerObject['height'] . ';';
+    } ?>">
         <div
             class="objectPageHeaderContainer topheader <? if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) { ?> krakow<? } ?>">
             <div class="container">
@@ -59,7 +62,7 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
                 <div class="objectPageHeaderContainer col-md-<? if ($krakow) {
                     echo '7';
                 } else {
-                    echo '9';
+                    echo '12';
                 } ?>">
                     <div class="objectPageHeader">
                         <?php
@@ -67,18 +70,18 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
                         ?>
                     </div>
                 </div>
-                <div class="objectButtonsContainer col-md-3">
+                <!--<div class="objectButtonsContainer col-md-3">
                     <div class="row">
                         <ul class="objectButtons">
-                            <? foreach ($buttons as $button) { ?>
-                                <li><?=
+                            <? /* foreach ($buttons as $button) { */ ?>
+                                <li><? /*=
                                     $this->Element('dataobject/buttons/' . $button, array(
                                         'base_url' => '/dane/' . $object->getDataset() . '/' . $object->getId(),
-                                    )); ?></li>
-                            <? } ?>
+                                    )); */ ?></li>
+                            <? /* } */ ?>
                         </ul>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
 

@@ -1,9 +1,4 @@
 .objectsPage {
-
-    .menuTabsCont {
-        border-bottom: 1px solid #ddd;
-    }
-
     .subobject {
         margin: 5px 15px;
         p {
@@ -142,6 +137,40 @@
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover;
+
+        &.extended {
+            @menuHeight: 45px;
+
+            position: relative;
+
+            .objectPageHeaderContainer .container .objectRender .header,
+            li:not(.active) a {
+                color: #ffffff;
+            }
+
+            .objectPageHeaderContainer {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+
+                .objectPageHeader {
+                    margin-top: -@menuHeight;
+                }
+            }
+
+            .menuTabsCont {
+                height: @menuHeight;
+                position: absolute;
+                bottom: -1px;
+                left: 50%;
+                transform: translate(-50%, 0px);
+            }
+        }
+
+        .menuTabsCont {
+            border-bottom: 1px solid #ddd;
+        }
     }
 
     .objectsPageWindow {
