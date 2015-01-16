@@ -10,6 +10,8 @@ class PrawoController extends DataobjectsController
 
     public $uses = array('Dane.Dataliner');
 
+    public $headerObject = array('url' => '', 'height' => '');
+
     public $objectOptions = array(
         // 'hlFields' => array('isap_status_str', 'sygnatura', 'data_wydania', 'data_publikacji', 'data_wejscia_w_zycie'),
         'hlFields' => array(),

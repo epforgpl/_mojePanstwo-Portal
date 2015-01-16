@@ -2,6 +2,7 @@
 
 class DataobjectsController extends DaneAppController
 {
+    public $headerObject = false;
 
     public $helpers = array('Paginator');
     public $components = array('Paginator', 'RequestHandler');
@@ -245,6 +246,7 @@ class DataobjectsController extends DaneAppController
             $this->set('_layers', $this->object->layers);
             $this->set('_serialize', array('_dataset', '_object_id', '_data', '_layers'));
         }
+        $this->set('headerObject', $this->headerObject);
     }
 
     protected function prepareMenu()
