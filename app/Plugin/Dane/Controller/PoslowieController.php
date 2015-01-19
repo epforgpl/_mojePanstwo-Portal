@@ -16,6 +16,8 @@ class PoslowieController extends DataobjectsController
         'hlFields' => array('sejm_kluby.nazwa'),
     );
 
+    public $headerObject = array('url' => '/dane/img/headers/poslowie.jpg', 'height' => '250px');
+
     public function view()
     {
 

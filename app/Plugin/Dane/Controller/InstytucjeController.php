@@ -94,6 +94,14 @@ class InstytucjeController extends DataobjectsController
     public function beforeRender()
     {
 
+        if ($this->object->getId() == 3214) {
+            $this->headerObject = array('url' => '/dane/img/headers/sejmometr.jpg', 'height' => '250px');
+        } else {
+            $this->headerObject = array('url' => '/dane/img/headers/instytucje.jpg', 'height' => '250px');
+        }
+
+        parent::beforeRender();
+
         // debug( $this->object->getLayer('menu') ); die();
 
         $_menu = $this->object->getLayer('menu');

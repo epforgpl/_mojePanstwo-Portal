@@ -1,5 +1,19 @@
-.objectsPage .objectPageHeaderContainer.krakow .container .objectRender .title {
-    font-size: 30px !important;
+
+.objectsPage {
+    .objectPageHeaderBg {
+        background-image: url(/dane/img/headers/krakow.jpg);
+        min-height: 250px;
+
+        .objectPageHeaderContainer.krakow .container .objectRender {
+            .title {
+                font-size: 30px !important;
+                margin-top: 15px;
+            }
+            .attachment img {
+                margin: 0;
+            }
+        }
+    }
 }
 
 .pk-header {
@@ -16,7 +30,8 @@
 }
 
 .pk-radni {
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
     height: 72px;
     margin: 0;
     padding: 0;

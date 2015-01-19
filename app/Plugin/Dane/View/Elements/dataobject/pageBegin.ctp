@@ -34,13 +34,14 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
 
 
     <?
-    $krakow = ($object->getDataset() == 'krs_podmioty') && ($object->getData('gmina_id') == '903');
+    $krakow = ($object->getDataset() == 'krs_podmioty') && ($object->getData('id') == '903');
     if ($krakow) {
         $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow-outside', array('plugin' => 'Dane')));
     }
     ?>
-		
-    <div class="objectPageHeaderBg<?php if (isset($headerObject) && ( !empty($headerObject['url']) || !empty($headerObject['height']) ) ) {
+
+    <div
+        class="objectPageHeaderBg<?php if ((isset($headerObject) && (!empty($headerObject['url']) || !empty($headerObject['height']))) || $object->getData('id') == '903') {
         echo ' extended" style="';
         if (!empty($headerObject['url'])) echo 'background-image: url(' . $headerObject['url'] . ');';
         if (!empty($headerObject['height'])) echo 'min-height:' . $headerObject['height'] . ';';
