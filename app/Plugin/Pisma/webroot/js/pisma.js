@@ -716,7 +716,14 @@ var PISMA = Class.extend({
             .end()
             .find('textarea[name="podpis"]').val(self.html.stepper_div.find('.edit .col-md-10 .control.control-signature textarea.podpis').val());
 
-        preview.submit();
+        if (self.html.stepper_div.find('.preview').length)
+            self.html.stepper_div.find('.preview').html('').append(preview);
+        else
+            self.html.stepper_div.append($('<div></div>').addClass('preview').css({
+                'visibility': 'hidden',
+                'height': '0'
+            }).append(preview));
+        preview.find('form').submit();
     }
     ,
     lastPageButtons: function () {
@@ -728,7 +735,8 @@ var PISMA = Class.extend({
                 pismoConfirm = $('#pismoConfirm');
 
             button.attr('type', 'button');
-            button.on('click', function () {
+            button.on('click', function (e) {
+                e.preventDefault();
                 if (button.attr('name') !== 'delete' && button.attr('name') !== 'print') {
                     if (self.validateLastForm(this)) {
                         pismoConfirm.find('input').val('').end().modal('show');
