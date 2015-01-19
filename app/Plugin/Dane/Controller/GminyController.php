@@ -1353,19 +1353,52 @@ class GminyController extends DataobjectsController
             switch ($subaction) {
                 case 'view': {
 
-
+					$this->prepareFeed(array(
+                        'perPage' => 20,
+                        'dataset' => 'krakow_komisje',
+                        'id' => $komisja->getId(),
+                    ));
+					
                     break;
                 }
                 case 'posiedzenia': {
+					
+					if (
+                        $sub_id &&
+                        ($posiedzenie = $this->API->getObject('krakow_komisje_posiedzenia', $sub_id))
+                    ) {
 
-                    $this->dataobjectsBrowserView(array(
-                        'source' => 'krakow_komisje.posiedzenia:' . $komisja->getId(),
-                        'dataset' => 'krakow_komisje_posiedzenia',
-                        'noResultsTitle' => 'Brak posiedzeń',
-                        'hlFields' => array(),
-                    ));
+                        // debug( $this->API->document($posiedzenie->getData('przedmiot_dokument_id')) ); die();
+
+                        if ($posiedzenie->getData('dokument_id'))
+                            $this->set('dokument', $this->API->document($posiedzenie->getData('dokument_id')));
+
+                        $this->set('documentPackage', 1);
+                        $this->set('posiedzenie', $posiedzenie);
+                        $title_for_layout = $posiedzenie->getTitle();
+                        $subaction = 'posiedzenie';
+
+
+                    } else {
+						
+						$this->dataobjectsBrowserView(array(
+	                        'source' => 'krakow_komisje.posiedzenia:' . $komisja->getId(),
+	                        'dataset' => 'krakow_komisje_posiedzenia',
+	                        'noResultsTitle' => 'Brak posiedzeń',
+	                        'excludeFilters' => array(
+                                'komisja_id'
+                            ),
+                            'title' => 'Posiedzenia komisji',
+                            'back' => $komisja->getUrl(),
+                            'backTitle' => $komisja->getTitle(),
+                            'hlFields' => array(),
+	                    ));
+
+                    }
 
                     break;
+                    
+
                 }
 
             }

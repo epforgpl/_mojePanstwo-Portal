@@ -86,7 +86,7 @@ echo $this->Element('dataobject/pageBegin');
                     <ul class="dataHighlights side">
 
                         <li class="dataHighlight">
-                            <a href="<?= $object->getUrl() . '/komisje' ?>"><span class="icon icon-moon">&#xe613;</span>Lista
+                            <a href="<?= $object->getUrl() . '/komisje?krakow_komisje:kadencja_id[]=7&search=web' ?>"><span class="icon icon-moon">&#xe613;</span>Lista
                                 komisji <span class="glyphicon glyphicon-chevron-right"></span></a>
                         </li>
 
