@@ -30,20 +30,15 @@
         </div>
 
         <div class="control control-addressee">
-            <?php if (empty($pismo['adresat'])) { ?>
-                <span class="empty">Wybierz adresata</span>
-            <?
-            } else {
+            <?php if (!empty($pismo['adresat'])) {
                 echo $pismo['adresat'];
             } ?>
         </div>
 
         <div class="control control-template">
-            <?php if (empty($pismo['tytul'])) { ?>
-                <span class="empty">Wybierz szablon pisma</span>
-            <? } else { ?>
-                <?= $pismo['tytul'] ?>
-            <? } ?>
+            <?php if (!empty($pismo['tytul'])) {
+                echo $pismo['tytul'];
+            } ?>
         </div>
 
     </div>

@@ -2,16 +2,17 @@ var PISMA = Class.extend({
     html: {
         stepper_div: $("#stepper")
     },
+    preview: null,
     methods: {
         stepper: null
     },
     objects: {
-        starter: null,
-        szablon: null,
+        szablony: null,
         adresaci: null,
         editor: null
     },
     cache: {
+        szablony: {},
         adresaci: {}
     },
     init: function () {
@@ -33,8 +34,8 @@ var PISMA = Class.extend({
         this.html.adresaci = this.html.stepper_div.find('.adresaci');
         this.html.editorTop = this.html.stepper_div.find('.editor-controls');
         this.html.editor = this.html.stepper_div.find('#editor');
-        this.html.finalForm = this.html.stepper_div.find('#finalForm');
-        this.objects.starter = this.html.stepper_div.data('pismo');
+        //this.html.finalForm = this.html.stepper_div.find('#finalForm');
+        //this.objects.starter = this.html.stepper_div.data('pismo');
     },
     steps: function () {
         var self = this;
@@ -46,11 +47,10 @@ var PISMA = Class.extend({
             autoFocus: true,
             enableAllSteps: true,
             enableKeyNavigation: false,
-            enablePagination: true,
+            enablePagination: false,
             suppressPaginationOnFocus: false,
             enableCancelButton: false,
             enableFinishButton: false,
-            saveState: true,
             labels: {
                 finish: "Zakończ",
                 next: "Dalej",
@@ -58,24 +58,29 @@ var PISMA = Class.extend({
                 loading: "Ładowanie..."
             },
             onInit: function () {
-                var activeMenu = $('#shortcuts li.active'),
-                    activeMenuPos = Math.floor(activeMenu.offset().left),
-                    activeMenuWidth = activeMenu.outerWidth();
+                self.html.stepper_div.find('fieldset[class="final"] button').click(function (e) {
+                    e.preventDefault();
+                    self.scanEditor();
+                    self.methods.stepper.steps("next");
+                });
+                /*var activeMenu = $('#shortcuts li.active'),
+                 activeMenuPos = Math.floor(activeMenu.offset().left),
+                 activeMenuWidth = activeMenu.outerWidth();
 
-                self.html.stepper_div.find('ul[role="tablist"]').addClass('container');
-                self.html.stepper_div.find('ul.container > li').each(function () {
-                    var that = $(this);
+                 self.html.stepper_div.find('ul[role="tablist"]').addClass('container');
+                 self.html.stepper_div.find('ul.container > li').each(function () {
+                 var that = $(this);
 
-                    that.append(
-                        $('<div></div>').addClass('arrow')
-                    );
+                 that.append(
+                 $('<div></div>').addClass('arrow')
+                 );
 
-                    if (activeMenu) {
-                        var liPos = Math.floor(that.offset().left);
-                        that.find('.arrow').css('left', activeMenuPos - liPos + (activeMenuWidth / 2));
-                    }
+                 if (activeMenu) {
+                 var liPos = Math.floor(that.offset().left);
+                 that.find('.arrow').css('left', activeMenuPos - liPos + (activeMenuWidth / 2));
+                 }
 
-                })
+                 })*/
             },
             onStepChanged: function () {
                 self.checkStep();
@@ -83,94 +88,122 @@ var PISMA = Class.extend({
         });
     },
     checkStep: function () {
-        if (this.methods.stepper.data().state.currentIndex == 2) {
+        if (this.methods.stepper.data().state.currentIndex == 1) {
             this.editorDetail();
-        } else if (this.methods.stepper.data().state.currentIndex == 3) {
-            this.lastPage();
         }
+        /* else if (this.methods.stepper.data().state.currentIndex == 3) {
+         this.lastPage();
+         }*/
     },
     szablon: function () {
         var self = this;
 
-        self.html.szablony.find('#chosen-template .btn-danger').click(function () {
-            self.html.szablony.find('#chosen-template').slideUp(function () {
-                self.szablonReset(self);
-            });
+        self.html.szablony.find('#szablonSelect').on('keyup', function () {
+            var szablon = $(this).val();
+
+            if (szablon.length > 0) {
+                if (szablon in self.cache.adresaci) {
+                    self.szablonyList(self.cache.szablony[szablon]);
+                } else {
+                    $.getJSON("http://api.mojepanstwo.pl/dane/dataset/pisma_szablony/search.json?conditions[q]=" + szablon, function (data) {
+                        self.cache.szablony[szablon] = data;
+                        self.szablonyList(data);
+                    });
+                }
+            } else {
+                self.html.szablony.find('.list').hide();
+            }
+        }).focusin(function () {
+            $(this).val('');
+            self.html.szablony.find('.glyphicon.glyphicon-ok-circle').remove();
+            self.szablonReset(self);
+        }).focusout(function () {
+            setTimeout(function () {
+                self.html.szablony.find('.list').hide();
+            }, 500);
         });
-        self.html.szablony.find('.list .ul-raw li .title a').click(function (e) {
-            var parent = $(this).parents('li');
-            e.preventDefault();
 
-            parent.find('.desc').stop(true, false).slideToggle();
-
-        });
-        self.html.szablony.find('.list .ul-raw li .btn').click(function () {
-            var that = $(this),
-                slice = that.parents('li');
-
-            if (that.hasClass('btn-success')) {
-                self.szablonReset(self);
-
-                that.removeClass('btn-success').addClass('btn-default disabled');
-                self.objects.szablon = {
-                    id: slice.data('id'),
-                    title: slice.data('title')
+        if (self.objects.szablony !== null && self.objects.szablony.szablon_id) {
+            $.getJSON("http://api.mojepanstwo.pl/dane/pisma_szablony/" + self.objects.szablony.szablon_id + ".json", function (d) {
+                self.objects.szablony = {
+                    id: d.object.id,
+                    title: d.object.data['szablon.nazwa']
                 };
-                self.html.editorTop.find('.control-template').text(self.objects.szablon.title);
 
-                self.html.szablony.find('#chosen-template ul').empty().append(
-                    $('<li></li>').addClass('row').append(
-                        $('<div></div>').append(
-                            $('<p></p>').text(self.objects.szablon.title)
+                self.html.szablony.find('#szablonSelect').val(self.objects.szablony.title).after($('<span></span>').addClass('glyphicon glyphicon-ok-circle'));
+
+            });
+        }
+    }
+    ,
+    szablonyList: function (data) {
+        var self = this;
+
+        self.html.szablony.find('.glyphicon.glyphicon-ok-circle').remove();
+        self.html.szablony.find('.szablonyList').empty().append(
+            $('<ul></ul>').addClass('ul-raw')
+        ).show();
+
+        if (data.search.dataobjects.length) {
+            $.each(data.search.dataobjects, function () {
+                var that = this;
+
+                self.html.szablony.find('.szablonyList .ul-raw').append(
+                    $('<li></li>').addClass('row').data({
+                        id: that.id,
+                        title: that.data['szablon.nazwa'],
+                        content: that.data['szablon.content']
+                    }).append(
+                        $('<div></div>').addClass('pull-left col-md-10').append(
+                            $('<p>').append(
+                                $('<a></a>').attr('href', '#').text(that.data['szablon.nazwa'])
+                            )
+                        )
+                    ).append(
+                        $('<div></div>').addClass('pull-right col-md-2').append(
+                            $('<button></button>').addClass('btn btn-success btn-xs pull-right').text('Wybierz').click(function (e) {
+                                var that = $(this),
+                                    slice = that.parents('li');
+
+                                e.preventDefault();
+
+                                if (that.hasClass('btn-success')) {
+                                    self.szablonReset(self);
+
+                                    that.removeClass('btn-success').addClass('btn-default disabled');
+                                    self.objects.szablony = {
+                                        id: slice.data('id'),
+                                        title: slice.data('title'),
+                                        content: slice.data('content')
+                                    };
+
+                                    self.html.szablony.find('#szablonSelect').val(self.objects.szablony.title).after($('<span></span>').addClass('glyphicon glyphicon-ok-circle'));
+                                }
+
+                                self.html.szablony.find('.szablonyList').hide();
+                            })
                         )
                     )
                 );
-
-                if (self.html.szablony.find('#chosen-template').is(':hidden'))
-                    self.html.szablony.find('#chosen-template').slideDown();
-
-                self.editorDetail();
-
-                self.methods.stepper.steps("next");
-            }
-        });
-        if (self.objects.starter.szablon_id) {
-            var choosen = self.html.szablony.find('.list .ul-raw li[data-id="' + self.objects.starter.szablon_id + '"]');
-
-            choosen.find('.btn').removeClass('btn-success').addClass('btn-default disabled');
-            self.objects.szablon = {
-                id: choosen.data('id'),
-                title: choosen.data('title')
-            };
-            self.html.editorTop.find('.control-template').text(self.objects.szablon.title);
-
-            self.html.szablony.find('#chosen-template ul').empty().append(
+            });
+        } else {
+            self.html.szablony.find('.szablonyList .ul-raw').append(
                 $('<li></li>').addClass('row').append(
-                    $('<div></div>').append(
-                        $('<p></p>').text(self.objects.szablon.title)
-                    )
+                    $('<p></p>').addClass('col-md-12').text('Brak wyników dla szukanej frazy')
                 )
-            );
-
-            if (self.html.szablony.find('#chosen-template').is(':hidden'))
-                self.html.szablony.find('#chosen-template').slideDown();
-
-            self.editorDetail();
+            )
         }
-    },
+    }
+    ,
     szablonReset: function (self) {
-        self.html.szablony.find('.list .ul-raw .btn-default').removeClass('btn-default disabled').addClass('btn-success');
-        self.objects.szablon = null;
-    },
+        self.html.szablony.find('.szablonList .ul-raw .btn-default').removeClass('btn-default disabled').addClass('btn-success');
+        self.objects.szablony = null;
+    }
+    ,
     adresaci: function () {
         var self = this;
 
-        self.html.adresaci.find('#chosen-addressee .btn-danger').click(function () {
-            self.html.adresaci.find('#chosen-addressee').slideUp(function () {
-                self.adresaciReset(self);
-            });
-        });
-        self.html.adresaci.find('.search').on('keyup', function () {
+        self.html.adresaci.find('#adresatSelect').on('keyup', function () {
             var adresat = $(this).val();
 
             if (adresat.length > 0) {
@@ -185,40 +218,36 @@ var PISMA = Class.extend({
             } else {
                 self.html.adresaci.find('.list').hide();
             }
+        }).focusin(function () {
+            $(this).val('');
+            self.html.adresaci.find('.glyphicon.glyphicon-ok-circle').remove();
+            self.adresaciReset(self);
+        }).focusout(function () {
+            setTimeout(function () {
+                self.html.adresaci.find('.list').hide();
+            }, 500);
         });
 
-        if (self.objects.starter.adresat_id) {
-            $.getJSON("http://api.mojepanstwo.pl/dane/instytucje/" + self.objects.starter.adresat_id + ".json", function (d) {
+        if (self.objects.adresaci !== null && self.objects.adresaci.id) {
+            $.getJSON("http://api.mojepanstwo.pl/dane/instytucje/" + self.objects.adresaci.id + ".json", function (d) {
                 self.objects.adresaci = {
                     id: d.object.id,
                     title: d.object.data['instytucje.nazwa'],
                     adres: d.object.data['instytucje.adres']
                 };
 
-                self.html.editorTop.find('.control-addressee').empty().append(
-                    $('<p></p>').text(self.objects.adresaci.title)
-                ).append(
-                    $('<p></p>').text(self.objects.adresaci.adres)
-                );
-
-                self.html.adresaci.find('#chosen-addressee ul').empty().append(
-                    $('<li></li>').addClass('row').append(
-                        $('<div></div>').append(
-                            $('<p></p>').text(self.objects.adresaci.title)
-                        )
-                    )
-                );
-
-                if (self.html.adresaci.find('#chosen-addressee').is(':hidden'))
-                    self.html.adresaci.find('#chosen-addressee').slideDown();
+                self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title).after($('<span></span>').addClass('glyphicon glyphicon-ok-circle'));
 
             });
         }
-    },
+    }
+    ,
     adresaciList: function (data) {
         var self = this;
 
-        self.html.adresaci.find('.list').empty().append(
+        self.html.adresaci.find('.glyphicon.glyphicon-ok-circle').remove();
+
+        self.html.adresaci.find('.adresaciList').empty().append(
             $('<ul></ul>').addClass('ul-raw')
         ).show();
 
@@ -226,22 +255,24 @@ var PISMA = Class.extend({
             $.each(data.search.dataobjects, function () {
                 var that = this;
 
-                self.html.adresaci.find('.list .ul-raw').append(
+                self.html.adresaci.find('.adresaciList .ul-raw').append(
                     $('<li></li>').addClass('row').data({
                         id: that.id,
                         title: that.data['instytucje.nazwa'],
                         adres: that.data['instytucje.adres_str']
                     }).append(
-                        $('<div></div>').addClass('pull-left col-md-11').append(
+                        $('<div></div>').addClass('pull-left col-md-10').append(
                             $('<p>').append(
                                 $('<a></a>').attr('href', that._mpurl).text(that.data['instytucje.nazwa'])
                             )
                         )
                     ).append(
-                        $('<div></div>').addClass('pull-right col-md-1').append(
-                            $('<button></button>').addClass('btn btn-success btn-xs').text('Wybierz').click(function () {
+                        $('<div></div>').addClass('pull-right col-md-2').append(
+                            $('<button></button>').addClass('btn btn-success btn-xs pull-right').text('Wybierz').click(function (e) {
                                 var that = $(this),
                                     slice = that.parents('li');
+
+                                e.preventDefault();
 
                                 if (that.hasClass('btn-success')) {
                                     self.adresaciReset(self);
@@ -252,44 +283,30 @@ var PISMA = Class.extend({
                                         title: slice.data('title'),
                                         adres: slice.data('adres')
                                     };
-                                    self.html.editorTop.find('.control-addressee').empty().append(
-                                        $('<p></p>').text(self.objects.adresaci.title)
-                                    ).append(
-                                        $('<p></p>').text(self.objects.adresaci.adres)
-                                    );
 
-                                    self.html.adresaci.find('#chosen-addressee ul').empty().append(
-                                        $('<li></li>').addClass('row').append(
-                                            $('<div></div>').append(
-                                                $('<p></p>').text(self.objects.adresaci.title)
-                                            )
-                                        )
-                                    );
-
-                                    if (self.html.adresaci.find('#chosen-addressee').is(':hidden'))
-                                        self.html.adresaci.find('#chosen-addressee').slideDown();
+                                    self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title).after($('<span></span>').addClass('glyphicon glyphicon-ok-circle'));
                                 }
 
-                                self.scanEditor();
-                                self.methods.stepper.steps("next");
-                                self.html.adresaci.find('.search').val('').end().find('.list').hide();
+                                self.html.adresaci.find('.adresaciList').hide();
                             })
                         )
                     )
                 );
             });
         } else {
-            self.html.adresaci.find('.list .ul-raw').append(
+            self.html.adresaci.find('.adresaciList .ul-raw').append(
                 $('<li></li>').addClass('row').append(
                     $('<p></p>').addClass('col-md-12').text('Brak wyników dla szukanej frazy')
                 )
             )
         }
-    },
+    }
+    ,
     adresaciReset: function (self) {
-        self.html.adresaci.find('.list .ul-raw .btn-default').removeClass('btn-default disabled').addClass('btn-success');
+        self.html.adresaci.find('.adresaciList .ul-raw .btn-default').removeClass('btn-default disabled').addClass('btn-success');
         self.objects.adresaci = null;
-    },
+    }
+    ,
     editor: function () {
         var self = this;
 
@@ -305,7 +322,6 @@ var PISMA = Class.extend({
             self.methods.stepper.steps("previous");
         }).end()
             .find('.control-template').click(function () {
-                self.methods.stepper.steps("previous");
                 self.methods.stepper.steps("previous");
             });
 
@@ -366,15 +382,30 @@ var PISMA = Class.extend({
                 .end()
                 .find('[data-wysihtml5-command="underline"]').html($('<span></span>').addClass('fa fa-underline'))
                 .end()
-                .find('[data-wysihtml5-command="createLink"]').html($('<span></span>').addClass('glyphicon glyphicon-link'));
+                .find('[data-wysihtml5-command="createLink"]').html($('<span></span>').addClass('glyphicon glyphicon-link'))
+                .end()
+                .prepend(
+                $('<li></li>').addClass('stepper-back').append(
+                    $('<a></a>').addClass('btn  btn-info')
+                        .attr({
+                            'href': '#pismoBack',
+                            'title': 'Zmień szablon lub adresata'
+                        }).text('Zmień szablon lub adrestat').click(function (e) {
+                            e.preventDefault();
+                            self.methods.stepper.steps("previous")
+                        }).prepend(
+                        $('<span></span>').addClass('glyphicon glyphicon-backward').attr('aria-hidden', 'true').css('margin-right', '5px')
+                    )
+                ));
         }
-    },
+    }
+    ,
     editorDetail: function () {
         var self = this;
 
-        if (self.objects.szablon != null && (self.objects.editor == null || (self.objects.editor.id != self.objects.szablon.id))) {
+        if (self.objects.szablony != null && (self.objects.editor == null || (self.objects.editor.id != self.objects.szablony.id))) {
             self.html.editor.addClass('loading');
-            $.getJSON("/pisma/szablony/" + self.objects.szablon.id + ".json", function (data) {
+            $.getJSON("/pisma/szablony/" + self.objects.szablony.id + ".json", function (data) {
                 if (self.objects.editor !== null) {
                     if ($(self.objects.editor.text === self.html.editor.text()) || (self.html.editor.text() == '')) {
                         self.html.editor.empty().html(data.tresc);
@@ -390,7 +421,8 @@ var PISMA = Class.extend({
                 self.convertEditor();
             });
         }
-    },
+    }
+    ,
     convertEditor: function () {
         var self = this,
             editor = this.html.editor;
@@ -501,7 +533,10 @@ var PISMA = Class.extend({
             }
 
             if (that.hasClass('mirrorable')) {
-                that.prepend($('<div></div>').addClass('mirror').css({'visibility': 'hidden', 'position': 'absolute'}));
+                that.prepend($('<div></div>').addClass('mirror').css({
+                    'visibility': 'hidden',
+                    'position': 'absolute'
+                }));
                 self.convertEditorInputWidth(that);
             }
 
@@ -510,10 +545,30 @@ var PISMA = Class.extend({
             if (that.attr('title'))
                 that.tooltip();
         });
-    },
+    }
+    ,
     scanEditor: function () {
         var self = this,
+            editorTop = this.html.editorTop,
             editor = this.html.editor;
+
+        if (self.objects.szablony !== null && self.objects.szablony.id) {
+            editorTop.find('.control-template').html(self.objects.szablony.title);
+            editor.html(self.objects.szablony.content)
+        } else {
+            editorTop.find('.control-template').html('');
+            editor.html('');
+        }
+
+        if (self.objects.adresaci !== null && self.objects.adresaci.id) {
+            editorTop.find('.control-addressee').html('').append(
+                $('<p></p>').html(self.objects.adresaci.title)
+            ).append(
+                $('<p></p>').html(self.objects.adresaci.adres)
+            )
+        } else {
+            editorTop.find('.control-addressee').html('');
+        }
 
         if (editor.text().trim() != '') {
             editor.find('.editable').each(function () {
@@ -530,7 +585,8 @@ var PISMA = Class.extend({
             editor.removeClass('loading');
             self.cursorPosition();
         }
-    },
+    }
+    ,
     convertEditorInputWidth: function (that) {
         var mirror = that.find('.mirror'),
             input = that.find('input');
@@ -543,7 +599,8 @@ var PISMA = Class.extend({
             input.attr('value', (input.val() == '') ? '' : input.val());
             input.css('width', (mirror.outerWidth() < input.css('min-width')) ? input.css('min-width') : mirror.outerWidth());
         });
-    },
+    }
+    ,
     cursorPosition: function () {
         var self = $(this),
             elEd = document.getElementById('editor');
@@ -568,13 +625,36 @@ var PISMA = Class.extend({
             self.objects.editor.text = editor.text();
 
         elEd.focus();
-    },
-    lastPage: function () {
+    }
+    ,
+    lastPage: function (action) {
         var self = this,
-            prev = self.html.stepper_div.find('.edit .col-md-10').clone();
+            preview = $('<form></form>').attr({'action': '/pisma/nowe', 'method': 'post'}).append(
+                $('<input />').attr({'name': action, 'type': "submit"})
+            ).append(
+                $('<input />').attr({'name': 'miejscowosc', 'maxlength': "127"})
+            ).append(
+                $('<input />').attr({'name': 'data_pisma', 'maxlength': "10"})
+            ).append(
+                $('<textarea></textarea>').attr({'name': 'nadawca', 'maxlength': "511"})
+            ).append(
+                $('<input />').attr({'name': 'adresat_id'})
+            ).append(
+                $('<input />').attr({'name': 'adresat', 'maxlength': "511"})
+            ).append(
+                $('<input />').attr({'name': 'szablon_id'})
+            ).append(
+                $('<input />').attr({'name': 'tytul', 'maxlength': "511"})
+            ).append(
+                $('<textarea></textarea>').attr({'name': 'tresc', 'maxlength': "255"})
+            ).append(
+                $('<input />').attr({'name': 'nazwa', 'value': "Nowe pismo"})
+            ).append($('<div></div>').addClass('content'));
+
+        self.html.stepper_div.find('#editor-cont').clone().appendTo(preview.find('.content'));
 
         /*CLEAN UP*/
-        prev.find('.wysihtml5-toolbar').remove()
+        preview.find('.wysihtml5-toolbar').remove()
             .end()
             .find('.control span.empty').remove()
             .end()
@@ -584,18 +664,15 @@ var PISMA = Class.extend({
             .end()
             .find('#editor').attr('contenteditable', false);
 
-        self.html.stepper_div.find('.preview .previewRender .col-md-10').remove();
-        self.html.stepper_div.find('.preview .previewRender').prepend(prev);
-
         /*COPY TEXTAREA VALUE*/
-        if (prev.find('.control.control-date input.city').val() == '')
-            prev.find('.control.control-date input.city').val(' ');
+        if (preview.find('.control.control-date input.city').val() == '')
+            preview.find('.control.control-date input.city').val(' ');
 
         self.html.stepper_div.find('.edit .col-md-10').find("textarea:not('.hide')").each(function (idx) {
-            $(self.html.stepper_div.find('.preview .previewRender').find("textarea").eq(idx)).replaceWith('<div class="pre">' + $(this).val().replace(/\n/g, '<br/>') + '</div>');
+            $(preview.find("textarea").eq(idx)).replaceWith('<div class="pre">' + $(this).val().replace(/\n/g, '<br/>') + '</div>');
         });
 
-        self.html.finalForm
+        preview
             .find('br[type="_editor"]').remove()
             .end()
             .find('.mirror').remove()
@@ -619,56 +696,64 @@ var PISMA = Class.extend({
                 }
             })
             .end()
-            .find('input[name="data_pisma"]').val(prev.find('.control.control-date input#datepickerAlt').val())
+            .find('input[name="nazwa"]').val($('#pismoConfirm #pismoTitle').val())
             .end()
-            .find('input[name="miejscowosc"]').val(prev.find('.control.control-date input.city').val())
+            .find('input[name="data_pisma"]').val(preview.find('.control.control-date input#datepickerAlt').val())
+            .end()
+            .find('input[name="miejscowosc"]').val(preview.find('.control.control-date input.city').val())
             .end()
             .find('textarea[name="nadawca"]').val(self.html.stepper_div.find('.edit .col-md-10 .control.control-sender textarea.nadawca').val())
             .end()
             .find('input[name="adresat_id"]').val((self.objects.adresaci) ? self.objects.adresaci.id : '')
             .end()
-            .find('input[name="adresat"]').val(prev.find('.control.control-addressee').html())
+            .find('input[name="adresat"]').val(preview.find('.control.control-addressee').html())
             .end()
             .find('input[name="szablon_id"]').val((self.objects.szablon) ? self.objects.szablon.id : '')
             .end()
-            .find('input[name="tytul"]').val(prev.find('.control.control-template').text())
+            .find('input[name="tytul"]').val(preview.find('.control.control-template').text())
             .end()
-            .find('input[name="tresc"]').val(prev.find('#editor').html())
+            .find('input[name="tresc"]').val(preview.find('#editor').html())
             .end()
             .find('textarea[name="podpis"]').val(self.html.stepper_div.find('.edit .col-md-10 .control.control-signature textarea.podpis').val());
-    },
 
+        preview.submit();
+    }
+    ,
     lastPageButtons: function () {
         var self = this,
-            form = $('#finalForm'),
-            buttons = form.find('.editor-tooltip .btn');
+            buttons = self.html.stepper_div.find('.editor-tooltip .btn');
 
         $.each(buttons, function () {
-            if ($(this).attr('name') == 'send' || $(this).attr('name') == 'save') {
-                var button = $(this),
-                    pismoConfirm = $('#pismoConfirm');
+            var button = $(this),
+                pismoConfirm = $('#pismoConfirm');
 
-                button.attr('type', 'button');
-                button.on('click', function () {
-                    if (self.validateLastForm(this))
+            button.attr('type', 'button');
+            button.on('click', function () {
+                if (button.attr('name') !== 'delete' && button.attr('name') !== 'print') {
+                    if (self.validateLastForm(this)) {
                         pismoConfirm.find('input').val('').end().modal('show');
-                });
-
-                pismoConfirm.find('.saveTemplate').on('click', function (e) {
-                    e.preventDefault();
-
-                    if ($.trim(pismoConfirm.find('#pismoTitle').val()) == '') {
-                        pismoConfirm.find('.form-group').addClass('has-error').removeClass('has-success').find('.errorMsg').removeClass('hide');
-                    } else {
-                        pismoConfirm.find('.form-group').removeClass('has-error').addClass('has-success').find('.errorMsg').addClass('hide');
-                        form.find('input[name="nazwa"]').val(pismoConfirm.find('#pismoTitle').val());
-                        $(this).addClass('loading');
-                        form.submit();
                     }
-                });
-            }
+                } else {
+                    self.lastPage(button.attr('name'));
+                }
+            });
+
+            pismoConfirm.find('.saveTemplate').on('click', function (e) {
+                e.preventDefault();
+
+                if ($.trim(pismoConfirm.find('#pismoTitle').val()) == '') {
+                    pismoConfirm.find('.form-group').addClass('has-error').removeClass('has-success').find('.errorMsg').removeClass('hide');
+                } else {
+                    pismoConfirm.find('.form-group').removeClass('has-error').addClass('has-success').find('.errorMsg').addClass('hide');
+                    if (!$(this).hasClass('.loading')) {
+                        $(this).addClass('loading');
+                        self.lastPage(button.attr('name'));
+                    }
+                }
+            });
         })
-    },
+    }
+    ,
     validateLastForm: function (button) {
         var form = $('#finalForm'),
             errors = [],
