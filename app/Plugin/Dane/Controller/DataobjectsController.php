@@ -29,13 +29,12 @@ class DataobjectsController extends DaneAppController
         'itemtype' => 'http://schema.org/Intangible',
         'titleprop' => 'name',
     );
-
+	
+	public $search_field = 'id';
+	
     public function index()
     {
         $this->dataobjectsBrowserView(array(
-            'showTitle' => true,
-            'title' => 'Dane publiczne',
-            'titleTag' => 'h1',
             'allowedParams' => array('q'),
         ));
 
@@ -99,6 +98,7 @@ class DataobjectsController extends DaneAppController
                 'flag' => (boolean)$this->Session->read('Auth.User.id'),
                 'alerts_queries' => true,
                 'slug' => $slug,
+                'search_field' => $this->search_field,
             ));
 
             // debug( $slug ); debug( $this->object->getSlug() ); die();

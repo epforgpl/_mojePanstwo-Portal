@@ -8,9 +8,9 @@ class PrawoController extends DataobjectsController
     public $initLayers = array('docs', 'counters', 'files', 'tags');
     public $helpers = array('Document');
 
-    public $uses = array('Dane.Dataliner');
+    // public $uses = array('Dane.Dataliner');
 
-    public $headerObject = array('url' => '', 'height' => '');
+    public $headerObject = array('url' => '/dane/img/headers/ustawa.jpg', 'height' => '235px');
 
     public $objectOptions = array(
         // 'hlFields' => array('isap_status_str', 'sygnatura', 'data_wydania', 'data_publikacji', 'data_wejscia_w_zycie'),
@@ -275,7 +275,8 @@ class PrawoController extends DataobjectsController
     public function beforeRender()
     {
 
-
+		parent::beforeRender();
+		
         $counters_dictionary = array();
 
 

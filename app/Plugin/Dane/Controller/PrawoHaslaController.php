@@ -5,6 +5,9 @@ App::uses('DataobjectsController', 'Dane.Controller');
 class PrawoHaslaController extends DataobjectsController
 {
 
+    // public $headerObject = array('url' => '/dane/img/headers/prawne.jpg', 'height' => '235px');
+
+
     public $objectOptions = array(
         'hlFields' => array(),
     );
@@ -21,6 +24,8 @@ class PrawoHaslaController extends DataobjectsController
 
     public function beforeRender()
     {
+
+		parent::beforeRender();
 
         // PREPARE MENU
         $href_base = '/dane/prawo_hasla/' . $this->request->params['id'];

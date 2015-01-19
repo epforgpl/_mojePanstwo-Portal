@@ -274,24 +274,21 @@
         }
     }
     .editor-tooltip {
-        margin-top: 20px;
-        a {
-            display: block;
-            border: 1px solid #ccc;
-            width: 100%;
-        }
-        input {
-            display: block;
-            border: 1px solid #ccc;
-
-            &[type="checkbox"] {
-                display: inline-block;
-            }
-            &.error {
-                background: rgb(251, 227, 228);
-                border: 1px solid #fbc2c4;
-                color: #8a1f11;
-            }
+        ul {
+	        list-style: none;
+	        margin: 0;
+	        padding: 0;
+	        li {
+		        list-style: none;
+		        padding: 5px 0;
+		        margin: 0;
+		        button {
+			        font-size: 12px;
+				    font-weight: 400;
+				    text-transform: uppercase;
+				    width: 160px;
+		        }
+	        }
         }
     }
 }
@@ -385,15 +382,41 @@
     min-height: 45px;
 }
 
+.wizard .steps {
+	display: none !important;
+}
+
+form.letter {
+	
+	margin-top: 50px;
+	
+	fieldset {
+		margin-top: 20px;
+		
+		.form-group {
+			margin-bottom: 30px;
+			
+			
+		}
+	}
+	
+
+}
+
+.editor-container {
+	margin-top: 90px;
+}
+
+
 #_wrapper {
     background-color: #F3F3F3;
 
     .appHeader {
-        background-color: #E3E3E3;
-        border-bottom: 1px solid #BBB;
+        background-color: #009de0;
+        // border-bottom: 1px solid #BBB;
 
         #shortcuts {
-            margin: 1.5em 0;
+            margin: 1em 0;
             position: relative;
 
             ul {
@@ -409,7 +432,7 @@
                     position: relative;
 
                     a {
-                        color: #157AB5;
+                        color: #FFF;
                     }
                 }
 
@@ -495,15 +518,17 @@
     .form-group {
         overflow: auto;
         label {
-            margin-top: 8px;
-            font-weight: 500;
-            text-align: right;
+            margin-top: 6px;
+            font-weight: 400;
         }
         .desc {
             color: #666;
             font-family: lato;
             font-size: 13px;
             margin: 5px 13px;
+        }
+        .help-block {
+	        margin: 10px 15px;
         }
     }
 
@@ -579,7 +604,7 @@
     .hint-title {
         font-size: 16px;
         font-weight: 300;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
         text-align: center;
     }
 

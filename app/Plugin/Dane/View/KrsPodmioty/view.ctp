@@ -203,6 +203,9 @@ if ($www = $object->getData('www')) {
     </div>
 <? } ?>
 
+	
+
+
 <?
 $adres = $object->getData('adres_ulica');
 $adres .= ' ' . $object->getData('adres_numer');
@@ -215,7 +218,7 @@ $adres .= ', Polska';
     ($object->getData('adres_numer')) &&
     ($object->getData('adres_miejscowosc'))
 ) { ?>
-    <div class="block">
+    <div class="block adres">
         <div class="block-header">
             <h2 class="label">Adres</h2>
 
@@ -262,7 +265,10 @@ $adres .= ', Polska';
         </a>
     </div>
 <?php } ?>
-
+	
+	
+	
+	
     <div class="block-group">
 
         <? if ($object->getData('cel_dzialania')) { ?>
@@ -477,6 +483,7 @@ if ($organy_count) {
 
 
 <?
+/*
 if (isset($historia) && $historia) {
 
     $lastDate = false;
@@ -580,8 +587,7 @@ if (isset($historia) && $historia) {
             </div>
         </div>
     </div>
-<? } ?>
-	
+<? } */ ?>
 	
     <div class="powiazania block">
         <div class="block-header"><h2 class="label">Powiązania</h2></div>
@@ -651,6 +657,20 @@ if (isset($historia) && $historia) {
         </div>
     </div>
 <? } ?>
+
+	<? /*
+	<div class="row">
+		<div class="col-md-9">
+		    <div class="object">
+		        <?= $this->dataobject->feed($feed); ?>
+		    </div>
+		</div>
+		<div class="col-md-3">
+			
+		</div>
+	</div>
+	*/ ?>
+	
 
     </div>
     </div>

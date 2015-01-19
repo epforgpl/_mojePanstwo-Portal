@@ -94,7 +94,13 @@ class KrsPodmiotyController extends DataobjectsController
 
 
         $this->set('indicators', $indicators);
-
+		
+		/*
+		$this->prepareFeed(array(
+			// 'perPage' => 3,
+		));
+		*/
+		
         if ($this->object->getData('ostatni_wpis_id')) {
 
 

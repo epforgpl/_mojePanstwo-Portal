@@ -12,7 +12,9 @@ class DatasetsController extends DaneAppController
 
     public function index()
     {
-
+		
+		return $this->redirect('/dane/zbiory');
+        
         $datasets = $this->API->getDatasets();
         $this->set('datasets', $datasets);
 
@@ -22,7 +24,7 @@ class DatasetsController extends DaneAppController
 
     public function view()
     {
-
+				
         $alias = (string)@$this->request->params['alias'];
         $this->dataobjectsBrowserView(array(
             'source' => 'dataset:' . $alias,

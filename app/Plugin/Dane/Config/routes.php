@@ -17,6 +17,7 @@ Router::connect('/dane/kanal/:alias', array(
 ));
 
 Router::connect('/dane/:controller/:id', array('plugin' => 'Dane', 'action' => 'view'), array('id' => '[0-9]+'));
+Router::connect('/dane/:controller/:id,', array('plugin' => 'Dane', 'action' => 'view'), array('id' => '[0-9]+'));
 Router::connect('/dane/:controller/:id,:slug', array('plugin' => 'Dane', 'action' => 'view'), array('id' => '[0-9]+'));
 
 
@@ -69,6 +70,5 @@ Router::connect( '/dane/:controller/:slug/:id', array(
 ), array( 'id' => '[0-9]+' ) );
 */
 
-Router::connect('/dane/:alias', array('plugin' => 'Dane', 'controller' => 'datasets', 'action' => 'view'));
-
+Router::connect('/dane/:alias', array('plugin' => 'Dane', 'controller' => 'zbiory', 'action' => 'view'));
 

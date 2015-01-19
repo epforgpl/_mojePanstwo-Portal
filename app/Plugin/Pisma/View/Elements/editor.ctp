@@ -15,7 +15,58 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
 
 
 <div id="stepper"<? if (!empty($pismo_init)) echo ' data-pismo=' . json_encode($pismo_init); ?>>
-
+	
+	
+	<h2>Wybierz szablon i adresata</h2>
+	<section>
+		
+		<div class="container start">
+			
+			<div class="col-xs-12 col-md-10 col-md-offset-1">
+			
+			<p class="hint-title">Wybierz szablon, aby ułatwić tworzenie pisma. Na podstawie wybranego szablonu,
+                    umieścimy w Twoim piśmie odpowiednie formuły prawne i inne informacje. Jeśli nie chcesz
+                    wybierać szablonu - przejdź dalej.</p>
+			
+			<form class="letter form-horizontal">
+			  <fieldset>
+			    <div class="form-group">
+			      <label for="inputEmail" class="col-lg-2 control-label">Szablon</label>
+			      <div class="col-lg-10">
+			        <div class="input-group">
+					    <input class="form-control input-lg" type="text">
+					    <span class="input-group-btn">
+					      <button class="btn btn-default btn-lg" type="button">Przeglądaj</button>
+					    </span>
+					  </div>
+			        <span class="help-block">Na podstawie wybranego szablonu, umieścimy w Twoim piśmie odpowiednie formuły prawne.</span>
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label for="inputPassword" class="col-lg-2 control-label">Adresat</label>
+			      <div class="col-lg-10">
+			        <input class="form-control input-lg" id="inputPassword" placeholder="Adresat" type="text">
+			        <span class="help-block">Na podstawie wybranego adresata, uzupełnimy dane teleadresowe w Twoim piśmie.</span>
+			      </div>
+			    </div>
+			  </fieldset>
+			  			  
+			  <fieldset class="final">
+			    <div class="form-group">
+			      <div class="col-lg-10 col-lg-offset-1 text-center">
+			        <button type="submit" class="btn btn-lg btn-success">Wpisz treść pisma</button>
+			      </div>
+			    </div>
+			  </fieldset>
+			</form>
+			
+			</div>
+			
+		</div>
+		
+	</section>
+	
+	<? /*
     <h2>Wybierz szablon pisma</h2>
     <section>
 
@@ -24,7 +75,7 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
             <div class="col-xs-12 col-md-10 col-md-offset-1">
 
                 <p class="hint-title">Wybierz szablon, aby ułatwić tworzenie pisma. Na podstawie wybranego szablonu,
-                    umieścimy w Twoim piśmie odpowiednie formułki prawne i inne informacje. Jeśli nie chcesz
+                    umieścimy w Twoim piśmie odpowiednie formuły prawne i inne informacje. Jeśli nie chcesz
                     wybierać szablonu - przejdź dalej.</p>
 
                 <div id="chosen-template" class="block" style="display: none;">
@@ -74,6 +125,7 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
         </div>
 
     </section>
+	
 
     <h2>Wybierz adresata</h2>
     <section>
@@ -110,23 +162,41 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
         </div>
 
     </section>
-
+	*/ ?>
+	
+	
     <h2>Wpisz treść</h2>
     <section>
         <div class="container edit">
-
-            <div class="row">
+			
+			<div class="col-xs-12 col-md-10 col-md-offset-1">
+			<p class="hint-title">Wybierz szablon, aby ułatwić tworzenie pisma. Na podstawie wybranego szablonu,
+                    umieścimy w Twoim piśmie odpowiednie formuły prawne i inne informacje. Jeśli nie chcesz
+                    wybierać szablonu - przejdź dalej.</p>
+                    
+			</div>
+			
+            <div class="editor-container row">
                 <div class="col-xs-12 col-md-10">
                     <? echo $this->Element('Pisma.render'); ?>
                 </div>
-                <div class="col-xs-12 col-md-2">
+                <div class="col-xs-12 col-md-2 nopadding">
                     <div class="editor-tooltip">
 
-                        <div class="hints alert alert-info" style="margin-top: 40px;">
+                        <div class="buttons" style="margin-top: 40px;">
                             <ul>
-                                <li>Skup się</li>
-                                <li>Pisz zwięźle</li>
-                                <li>Nie obrażaj</li>
+                                <li>
+                                	<button class="btn btn-primary">Zapisz i wyślij</button>
+                                </li>
+                                <li>
+                                	<button class="btn btn-primary">Zapisz</button>
+                                </li>
+                                <li>
+                                	<button class="btn btn-success">Drukuj</button>
+                                </li>
+                                <li>
+                                	<button class="btn btn-default">Skasuj</button>
+                                </li>
                             </ul>
                         </div>
 
@@ -136,7 +206,9 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
 
         </div>
     </section>
-
+	
+	<? /*
+	
     <h2>Zapisz i wyślij</h2>
     <section>
         <div class="container preview">
@@ -178,7 +250,7 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
                         </fieldset>
                     </div>
                 </div>
-                */ ?>
+                */ /* ?>
 
                 <div class="row previewRender">
                     <div class="col-xs-12 col-md-10">
@@ -236,4 +308,5 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
             </form>
         </div>
     </section>
+    <? */ ?>
 </div>
