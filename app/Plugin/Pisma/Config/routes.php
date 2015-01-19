@@ -5,7 +5,7 @@ $pisma_prefix = '/pisma';
 Router::connect("$pisma_prefix", array(
     'plugin' => 'Pisma',
     'controller' => 'Pisma',
-    'action' => 'home',
+    'action' => 'editor',
     '[method]' => 'GET'
 ));
 Router::connect("$pisma_prefix/moje", array(
