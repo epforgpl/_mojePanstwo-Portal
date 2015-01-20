@@ -11,7 +11,7 @@ class PagesController extends MediaAppController
     {
 
 
-        $ranges = array('24h', '3d', '7d', '1m', '1y');
+        $ranges = array('24h', '3d', '7d', '1m');
         $range = (isset($this->request->query['range']) && in_array($this->request->query['range'], $ranges)) ?
             $this->request->query['range'] :
             $ranges[0];
