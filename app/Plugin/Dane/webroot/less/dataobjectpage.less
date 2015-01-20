@@ -181,7 +181,7 @@
                 bottom: 0;
                 left: 50%;
                 transform: translate(-50%, 0px);
-                z-index: 1;
+                z-index: 5;
                 border-bottom-width: 0;
 
                 .nav {
@@ -196,21 +196,19 @@
                     }
 
                     li.active a,
-                    .dropdown.open a {
+                    .dropdown.open > a {
                         color: @menuFocus;
                     }
 
                     .dropdown-menu {
                         > li {
                             > a, > a:focus, > a:hover {
-                                color: @menuFocus;
-                            }
-                            > a:focus, > a:hover {
-                                background-color: #e9eaed;
+                                color: #157ab5;
+                                background-color: #ffffff;
                             }
                         }
                         > .active > a, > .active > a:hover, > .active > a:focus {
-                            color: @menuFocus;
+                            color: #157ab5;
                         }
                     }
                 }
