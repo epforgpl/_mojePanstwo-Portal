@@ -34,13 +34,12 @@
 
     .dropdown-menu > li > a {
         padding: 7px 20px;
-        color: #157ab5 !important;
-        font-family: "lucida grande";
-    }
+        color: #157ab5;
 
-    .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
-        background-color: #157ab5;
-        color: #FFF;
+        &:focus, &:hover {
+            background-color: #157ab5;
+            color: #FFF;
+        }
     }
 
     .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
@@ -60,8 +59,8 @@
     .nav-tabs > li {
         margin-top: 4px;
         margin-bottom: -2px
-    }	
-	
+    }
+
     .objectPageHeaderContainer {
 
         &.subobjectContainer {
@@ -106,7 +105,6 @@
 
                 .title {
                     font-size: 24px;
-                    
 
                     small {
                         color: #555;
@@ -120,20 +118,20 @@
             }
         }
     }
-    
+
     .objectPageHeaderBg.extended {
-	    .objectPageHeaderContainer {
-			.container {
-	            .objectRender {
-	                .title {
-		                font-size: 31px;
-	                    font-weight: bold;
-	                    padding-left: 0;
-		            }
-		        }
-		    }
-		} 
-	}   
+        .objectPageHeaderContainer {
+            .container {
+                .objectRender {
+                    .title {
+                        font-size: 31px;
+                        font-weight: bold;
+                        padding-left: 0;
+                    }
+                }
+            }
+        }
+    }
 
     .objectButtons {
         text-align: right;
@@ -155,17 +153,9 @@
 
         &.extended {
             @menuHeight: 45px;
+            @menuFocus: #555555;
 
             position: relative;
-
-            .objectPageHeaderContainer .container .objectRender .header,
-            li:not(.active) a {
-                color: #ffffff;
-
-                &:hover {
-                    color: #555;
-                }
-            }
 
             .objectPageHeaderContainer {
                 position: absolute;
@@ -180,19 +170,51 @@
                         color: #028ccd;
                     }
                 }
+                .container .objectRender .header {
+                    color: #ffffff;
+                }
             }
 
             .menuTabsCont {
                 height: @menuHeight;
                 position: absolute;
-                bottom: -1px;
+                bottom: 0;
                 left: 50%;
                 transform: translate(-50%, 0px);
-            }
-        }
+                z-index: 1;
+                border-bottom-width: 0;
 
-        .menuTabsCont {
-            border-bottom: 1px solid #ddd;
+                .nav {
+                    border-bottom-width: 0 !important;
+
+                    li:not(.active) a {
+                        color: #ffffff;
+
+                        &:hover {
+                            color: @menuFocus;
+                        }
+                    }
+
+                    li.active a,
+                    .dropdown.open a {
+                        color: @menuFocus;
+                    }
+
+                    .dropdown-menu {
+                        > li {
+                            > a, > a:focus, > a:hover {
+                                color: @menuFocus;
+                            }
+                            > a:focus, > a:hover {
+                                background-color: #e9eaed;
+                            }
+                        }
+                        > .active > a, > .active > a:hover, > .active > a:focus {
+                            color: @menuFocus;
+                        }
+                    }
+                }
+            }
         }
     }
 

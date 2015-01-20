@@ -138,10 +138,6 @@ a {
 .loading {
     background: url(/img/loader/loading-small.png) center center no-repeat;
     min-height: 30px;
-    /*-webkit-transition: 0.2s ease-in-out;
-    -moz-transition: 0.2s ease-in-out;
-    -o-transition: 0.2s ease-in-out;
-    transition: 0.2s ease-in-out;*/
 }
 
 .loadingTwirl {
@@ -248,15 +244,18 @@ body > pre:first-child {
     overflow: auto;
 }
 
-.nav > li > a {
-    font-size: 14px;
-    line-height: 18px;
-    font-weight: 600;
-    font-family: "Lato", Arial, sans-serif;
-    color: #258ac5;
-    position: relative;
-    top: 1px;
-
+.nav {
+    > li > a {
+        font-size: 14px;
+        line-height: 18px;
+        position: relative;
+        top: 1px;
+    }
+    li a {
+        font-weight: 600;
+        font-family: "Lato", Arial, sans-serif;
+        color: #258ac5;
+    }
     .glyphicon {
         font-size: 16px;
         font-weight: 200;
@@ -499,7 +498,7 @@ body > pre:first-child {
 
         &.label {
             color: #444;
-            background-color: none;
+            background: none;
             font-weight: 400;
             font-size: 16px;
             margin: 0 0 0 -10px;
