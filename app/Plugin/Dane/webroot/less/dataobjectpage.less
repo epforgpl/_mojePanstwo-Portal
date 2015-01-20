@@ -189,15 +189,21 @@
 
                     li:not(.active) a {
                         color: #ffffff;
+                        border-width: 0;
 
-                        &:hover {
-                            color: @menuFocus;
+                        &:hover, &:focus {
+                            color: #ffffff;
+                            background: none;
                         }
                     }
 
                     li.active a,
-                    .dropdown.open > a {
+                    li.dropdown.open > a {
                         color: @menuFocus;
+                    }
+
+                    li.dropdown.open > a {
+                        background-color: #fff;
                     }
 
                     .dropdown-menu {
