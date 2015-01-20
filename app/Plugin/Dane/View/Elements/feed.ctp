@@ -1,17 +1,14 @@
 <?
 
+$this->Combinator->add_libs('css', $this->Less->css('feed', array('plugin' => 'Dane')));
+
 $file_exists = false;
 if (isset($file)) {
-
     $path = App::path('Plugin');
     $file_exists = file_exists($path[0] . '/Dane/View/Elements/' . $file . '.ctp');
-
 }
 
-
-$shortTitle = (isset($options['forceTitle'])) ?
-    $options['forceTitle'] :
-    $object->getShortTitle();
+$shortTitle = (isset($options['forceTitle'])) ? $options['forceTitle'] : $object->getShortTitle();
 
 if (in_array($object->getDataset(), array(
     'krakow_posiedzenia_punkty',
@@ -25,6 +22,7 @@ if (in_array($object->getDataset(), array(
 
 $this->Dataobject->setObject($object);
 ?>
+
 <div class="objectRender<? if ($alertsStatus) {
     echo " unreaded";
 } else {
@@ -33,25 +31,20 @@ $this->Dataobject->setObject($object);
      oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
 
     <div class="row">
-	    
-	    <? 
-		    /*
-		    debug( $object->getDataset() );
-			debug( $object->getAction() ); 
-			*/
-		?>
-	    
         <div class="col-sm-1 action nopadding text-center">
-            <span class="glyphicon glyphicon-volume-up"></span>
+            <span class="<?php if ($object->getDataset() && $object->getAction()) {
+                echo 'mpIcon icon-dataset-' . $object->getDataset() . ' icon-action-' . $object->getAction();
+            } else {
+                echo 'glyphicon glyphicon-volume-up';
+            } ?>"></span>
         </div>
         <div class="data col-sm-11">
-
             <div class="feed-header">
-
                 <? if ($object->getCreator('url')) { ?>
-                    <div class="thumb_cont"><img alt="<?= addslashes($object->getCreator('name')) ?>"
-                                                 src="<?= $object->getCreator('url') ?>" onerror="imgFixer(this)"
-                                                 class="thumb"></div>
+                    <div class="thumb_cont">
+                        <img alt="<?= addslashes($object->getCreator('name')) ?>"
+                             src="<?= $object->getCreator('url') ?>" onerror="imgFixer(this)" class="thumb"/>
+                    </div>
                 <? } ?>
 
                 <div class="inner">
@@ -63,20 +56,13 @@ $this->Dataobject->setObject($object);
             </div>
 
             <div class="row">
-
-                <?
-                if ($object->getPosition()) {
-                    ?>
+                <? if ($object->getPosition()) { ?>
                     <div class="content col-md-1">
                         <span class="badge badge-position pull-right"><?= $object->getPosition() ?></span>
                     </div>
                 <?
                 }
-                ?>
-
-                <?
                 if ($file_exists) {
-
                     echo $this->element('Dane.' . $file, array(
                         'item' => $item,
                         'object' => $object,
@@ -84,12 +70,8 @@ $this->Dataobject->setObject($object);
                         'hlFieldsPush' => $hlFieldsPush,
                         'defaults' => $defaults,
                     ));
-
                 } else {
-                    ?>
-
-                    <? if ($object->getThumbnailUrl($thumbSize)) {
-
+                    if ($object->getThumbnailUrl($thumbSize)) {
                         $size = $object_content_sizes[0];
                         if ($object->getPosition()) {
                             $size--;
@@ -106,7 +88,6 @@ $this->Dataobject->setObject($object);
                                 <?php if ($object->getUrl() != false) { ?>
                             </a>
                         <?php } ?>
-
                         </div>
                         <div class="content col-md-<?= $object_content_sizes[1] ?>">
 
