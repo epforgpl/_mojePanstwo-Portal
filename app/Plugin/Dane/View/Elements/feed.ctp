@@ -33,6 +33,14 @@ $this->Dataobject->setObject($object);
      oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
 
     <div class="row">
+	    
+	    <? 
+		    /*
+		    debug( $object->getDataset() );
+			debug( $object->getAction() ); 
+			*/
+		?>
+	    
         <div class="col-sm-1 action nopadding text-center">
             <span class="glyphicon glyphicon-volume-up"></span>
         </div>
