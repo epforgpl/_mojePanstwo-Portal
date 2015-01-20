@@ -1939,12 +1939,14 @@ class GminyController extends DataobjectsController
                 ),
             ),
         );
-
+		
+		/*
         $menu['items'][] = array(
             'id' => 'miejscowosci',
             'href' => $href_base . '/miejscowosci',
             'label' => 'Miejscowości',
         );
+        */
 
 
         /*
