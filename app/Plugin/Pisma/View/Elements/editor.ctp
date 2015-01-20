@@ -7,6 +7,7 @@
 <?php $this->Combinator->add_libs('js', 'Pisma.jquery.autosize.min.js') ?>
 <?php $this->Combinator->add_libs('js', 'Pisma.jquery_steps.js') ?>
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.pisma-button.js') ?>
 
 <?php
 if (!empty($pismo['szablon_id'])) $pismo_init['szablon_id'] = $pismo['szablon_id'];
@@ -39,7 +40,8 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
                                            placeholder="Zacznij pisać aby znaleźć szablon pisma..."
                                            type="text" autocomplete="off"/>
                                     <span class="input-group-btn">
-                                      <button class="btn btn-default btn-lg" type="button">Przeglądaj</button>
+                                      <button class="btn btn-default btn-lg pisma-button" type="button">Przeglądaj
+                                      </button>
                                     </span>
                                 </div>
                                 <div class="list szablonyList content" style="display: none">

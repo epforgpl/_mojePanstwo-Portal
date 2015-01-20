@@ -261,35 +261,23 @@ var PISMA = Class.extend({
                         title: that.data['instytucje.nazwa'],
                         adres: that.data['instytucje.adres_str']
                     }).append(
-                        $('<div></div>').addClass('pull-left col-md-10').append(
-                            $('<p>').append(
-                                $('<a></a>').attr('href', that._mpurl).text(that.data['instytucje.nazwa'])
-                            )
-                        )
-                    ).append(
-                        $('<div></div>').addClass('pull-right col-md-2').append(
-                            $('<button></button>').addClass('btn btn-success btn-xs pull-right').text('Wybierz').click(function (e) {
-                                var that = $(this),
-                                    slice = that.parents('li');
+                        $('<a></a>').attr('href', that._mpurl).text(that.data['instytucje.nazwa']).click(function (e) {
+                            var that = $(this),
+                                slice = that.parents('li');
 
-                                e.preventDefault();
+                            e.preventDefault();
+                            self.adresaciReset(self);
 
-                                if (that.hasClass('btn-success')) {
-                                    self.adresaciReset(self);
+                            self.objects.adresaci = {
+                                id: slice.data('id'),
+                                title: slice.data('title'),
+                                adres: slice.data('adres')
+                            };
 
-                                    that.removeClass('btn-success').addClass('btn-default disabled');
-                                    self.objects.adresaci = {
-                                        id: slice.data('id'),
-                                        title: slice.data('title'),
-                                        adres: slice.data('adres')
-                                    };
+                            self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title).after($('<span></span>').addClass('glyphicon glyphicon-ok-circle'));
 
-                                    self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title).after($('<span></span>').addClass('glyphicon glyphicon-ok-circle'));
-                                }
-
-                                self.html.adresaci.find('.adresaciList').hide();
-                            })
-                        )
+                            self.html.adresaci.find('.adresaciList').hide();
+                        })
                     )
                 );
             });
