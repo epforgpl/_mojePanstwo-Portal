@@ -125,13 +125,14 @@ class PismaController extends AppController
         );
 
         if (isset($this->request->data['adresat_id']))
-            $pismo['adresat_id'] = $this->request->query['adresat_id'];
+            $pismo['adresat_id'] = $this->request->data['adresat_id'];
             
         if (isset($this->request->data['szablon_id']))
-            $pismo['szablon_id'] = $this->request->query['szablon_id'];
+            $pismo['szablon_id'] = $this->request->data['szablon_id'];
 			
 		
         $status = $this->API->Pisma()->document_create($pismo);
+        debug($status); die();
         return $this->redirect( $status['url'] . '/edit' );
     }
 
