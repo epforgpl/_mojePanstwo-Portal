@@ -79,6 +79,6 @@ $(document).ready(function() {
     });
 
     $('#selectYear').val('2014');
-    loadTopData(2005); // default
+    loadTopData(2014); // default
 
 });
