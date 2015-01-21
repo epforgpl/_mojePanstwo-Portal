@@ -16,17 +16,19 @@ var PISMA = Class.extend({
         adresaci: {}
     },
     init: function () {
-        this.stepsMarkers();
-
         if (this.html.stepper_div.hasClass('stepper')) {
             this.steps();
+            this.stepsMarkers();
             this.checkStep();
+            this.szablon();
+            this.adresaci();
             this.editor();
             this.lastPageButtons();
+        } else {
+            this.stepsMarkers();
+            this.szablon();
+            this.adresaci();
         }
-
-        this.szablon();
-        this.adresaci();
     },
     stepsMarkers: function () {
         this.html.szablony = this.html.stepper_div.find('.szablony');
@@ -60,24 +62,6 @@ var PISMA = Class.extend({
                     self.scanEditor();
                     self.methods.stepper.steps("next");
                 });
-                /*var activeMenu = $('#shortcuts li.active'),
-                 activeMenuPos = Math.floor(activeMenu.offset().left),
-                 activeMenuWidth = activeMenu.outerWidth();
-
-                 self.html.stepper_div.find('ul[role="tablist"]').addClass('container');
-                 self.html.stepper_div.find('ul.container > li').each(function () {
-                 var that = $(this);
-
-                 that.append(
-                 $('<div></div>').addClass('arrow')
-                 );
-
-                 if (activeMenu) {
-                 var liPos = Math.floor(that.offset().left);
-                 that.find('.arrow').css('left', activeMenuPos - liPos + (activeMenuWidth / 2));
-                 }
-
-                 })*/
             },
             onStepChanged: function () {
                 self.checkStep();
@@ -88,9 +72,6 @@ var PISMA = Class.extend({
         if (this.methods.stepper.data().state.currentIndex == 1) {
             this.editorDetail();
         }
-        /* else if (this.methods.stepper.data().state.currentIndex == 3) {
-         this.lastPage();
-         }*/
     },
     szablon: function () {
         var self = this;
@@ -198,8 +179,6 @@ var PISMA = Class.extend({
     ,
     adresaci: function () {
         var self = this;
-
-        console.log(self.html);
 
         self.html.adresaci.find('#adresatSelect').on('keyup', function () {
             var adresat = $(this).val();
@@ -358,7 +337,7 @@ var PISMA = Class.extend({
         self.html.editorTop.find('.control-date .datepicker').val(prettyDate).datepicker();
 
         if (self.html.editor.length) {
-            self.html.editor.wysihtml5({
+            /*self.html.editor.wysihtml5({
                 toolbar: {
                     "image": false,
                     "emSmall": false
@@ -389,7 +368,7 @@ var PISMA = Class.extend({
                         }).prepend(
                         $('<span></span>').addClass('glyphicon glyphicon-backward').attr('aria-hidden', 'true').css('margin-right', '5px')
                     )
-                ));
+             ));*/
         }
     }
     ,
