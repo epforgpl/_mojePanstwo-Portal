@@ -49,7 +49,7 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
 								</div>
                                 
                                 <div class="templates_browser">
-                                    <a href="#" class="pisma-list-button pisma-list-button-no-jump1">Zobacz wszystkie
+                                    <a href="#" class="pisma-list-button pisma-list-button-no-jump">Zobacz wszystkie
                                         szablony &raquo;</a>
                                 </div>
                                 
