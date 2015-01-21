@@ -132,7 +132,6 @@ class PismaController extends AppController
 			
 		
         $status = $this->API->Pisma()->document_create($pismo);
-        debug($status); die();
         return $this->redirect( $status['url'] . '/edit' );
     }
 
