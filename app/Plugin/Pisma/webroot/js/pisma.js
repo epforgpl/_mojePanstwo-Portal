@@ -216,7 +216,7 @@ var PISMA = Class.extend({
                 };
 
                 self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title).after($('<span></span>').addClass('glyphicon glyphicon-ok-circle'));
-                self.html.adresaci.find('input[name="adresat_id"]').val(self.objects.adresaci.id);
+                self.html.adresaci.find('input[name="adresat_id"]').val('instytucje:' + self.objects.adresaci.id);
                 self.html.szablony.find('.pisma-list-button').attr('data-adresatid', self.objects.adresaci.id);
             });
         }
@@ -257,7 +257,7 @@ var PISMA = Class.extend({
                             };
 
                             self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title).after($('<span></span>').addClass('glyphicon glyphicon-ok-circle'));
-                            self.html.adresaci.find('input[name="adresat_id"]').val(self.objects.adresaci.id);
+                            self.html.adresaci.find('input[name="adresat_id"]').val('instytucje:' + self.objects.adresaci.id);
                             self.html.szablony.find('.pisma-list-button').attr('data-adresatid', self.objects.adresaci.id);
 
                             self.html.adresaci.find('.adresaciList').hide();
@@ -676,7 +676,7 @@ var PISMA = Class.extend({
             .end()
             .find('textarea[name="nadawca"]').val(self.html.stepper_div.find('.edit .col-md-10 .control.control-sender textarea.nadawca').val())
             .end()
-            .find('input[name="adresat_id"]').val((self.objects.adresaci) ? self.objects.adresaci.id : '')
+            .find('input[name="adresat_id"]').val((self.objects.adresaci) ? 'intytucje:' + self.objects.adresaci.id : '')
             .end()
             .find('input[name="adresat"]').val(preview.find('.control.control-addressee').html())
             .end()
