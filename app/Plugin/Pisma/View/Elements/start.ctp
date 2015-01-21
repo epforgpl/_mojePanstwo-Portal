@@ -10,12 +10,24 @@
                     szablonu</label>
             </div>
             <div class="radio">
-                <label><input name="szablon_id" value="35" type="radio">Wniosk o udostępnienie
+                <label><input name="szablon_id" value="35"
+                              type="radio"<?php if (!empty($pismo['szablon_id']) && $pismo['szablon_id'] == 35) {
+                        echo ' checked="checked"';
+                    } ?>>Wniosk o udostępnienie
                     informacji publicznej</label>
             </div>
             <div class="radio">
-                <label><input name="szablon_id" value="40" type="radio">Skarga na bezczynność organu</label>
+                <label><input name="szablon_id" value="40"
+                              type="radio"<?php if (!empty($pismo['szablon_id']) && $pismo['szablon_id'] == 40) {
+                        echo ' checked="checked"';
+                    } ?>>Skarga na bezczynność organu</label>
             </div>
+            <?php if (!empty($pismo['szablon_id']) && $pismo['szablon_id'] != 35 && $pismo['szablon_id'] != 40) { ?>
+                <div class="radio">
+                    <label><input name="szablon_id" value="<?php echo $pismo['szablon_id'] ?>" type="radio"
+                                  checked="checked"><?php echo $pismo['nazwa'] ?></label>
+                </div>
+            <?php }; ?>
 
             <div class="templates_browser">
                 <a href="#" class="pisma-list-button pisma-list-button-no-jump">Zobacz wszystkie
@@ -35,7 +47,9 @@
                    placeholder="Zacznij pisać aby znaleźć adresata..."
                    type="text" autocomplete="off"/>
 
-            <input type="hidden" name="adresat_id"/>
+            <input type="hidden" name="adresat_id"<?php if (!empty($pismo['adresat_id'])) {
+                echo ' value="' . $pismo['adresat_id'] . '"';
+            } ?>>
 
             <div class="list adresaciList content" style="display: none">
                 <ul class="ul-raw"></ul>

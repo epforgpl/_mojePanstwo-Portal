@@ -20,13 +20,11 @@ var PISMA = Class.extend({
             this.steps();
             this.stepsMarkers();
             this.checkStep();
-            this.szablon();
             this.adresaci();
             this.editor();
             this.lastPageButtons();
         } else {
             this.stepsMarkers();
-            this.szablon();
             this.adresaci();
         }
     },
@@ -40,6 +38,8 @@ var PISMA = Class.extend({
         var self = this;
 
         self.methods.stepper = self.html.stepper_div.steps({
+            step: 2,
+            startIndex: 1,
             headerTag: "h2",
             bodyTag: "section",
             transitionEffect: "slideLeft",
@@ -69,114 +69,46 @@ var PISMA = Class.extend({
         });
     },
     checkStep: function () {
-        if (this.methods.stepper.data().state.currentIndex == 1) {
-            this.editorDetail();
-        }
-    },
-    szablon: function () {
         var self = this;
 
-        self.html.szablony.find('#szablonSelect').on('keyup', function () {
-            var szablon = $(this).val();
+        if (self.html.stepper_div.data('pismo') != undefined) {
+            var preinit = self.html.stepper_div.data('pismo');
 
-            if (szablon.length > 0) {
-                if (szablon in self.cache.adresaci) {
-                    self.szablonyList(self.cache.szablony[szablon]);
-                } else {
-                    $.getJSON("http://api.mojepanstwo.pl/dane/dataset/pisma_szablony/search.json?conditions[q]=" + szablon, function (data) {
-                        self.cache.szablony[szablon] = data;
-                        self.szablonyList(data);
-                    });
-                }
-            } else {
-                self.html.szablony.find('.list').hide();
-            }
-        }).focusin(function () {
-            $(this).val('');
-            self.html.szablony.find('.glyphicon.glyphicon-ok-circle').remove();
-            self.szablonReset(self);
-        }).focusout(function () {
-            setTimeout(function () {
-                self.html.szablony.find('.list').hide();
-            }, 500);
+            if (preinit.szablon_id)
+                self.szablonData(preinit.szablon_id);
+            if (preinit.adresat_id)
+                self.adresatData(preinit.adresat_id);
+        }
+        if (self.methods.stepper.data().state.currentIndex == 1) {
+            self.editorDetail();
+        }
+    }
+    ,
+    szablonData: function (szablon_id) {
+        var self = this;
+
+        $.getJSON("http://api.mojepanstwo.pl/pisma/templates/" + szablon_id + ".json", function (d) {
+            self.objects.szablony = {
+                id: d.id,
+                title: d.nazwa,
+                content: d.tresc
+            };
         });
 
-        if (self.objects.szablony !== null && self.objects.szablony.szablon_id) {
-            $.getJSON("http://api.mojepanstwo.pl/dane/pisma_szablony/" + self.objects.szablony.szablon_id + ".json", function (d) {
-                self.objects.szablony = {
-                    id: d.object.id,
-                    title: d.object.data['szablon.nazwa']
-                };
-
-                self.html.szablony.find('#szablonSelect').val(self.objects.szablony.title).after($('<span></span>').addClass('glyphicon glyphicon-ok-circle'));
-            });
-        }
-    }
-    ,
-    szablonyList: function (data) {
+    },
+    adresatData: function (adresat_id) {
         var self = this;
 
-        self.html.szablony.find('.glyphicon.glyphicon-ok-circle').remove();
-        self.html.szablony.find('.szablonyList').empty().append(
-            $('<ul></ul>').addClass('ul-raw')
-        ).show();
+        $.getJSON("http://api.mojepanstwo.pl/dane/dataset/instytucje/search.json?conditions[id]=" + adresat_id, function (d) {
+            self.objects.adresaci = {
+                id: d.search.dataobjects[0].id,
+                title: d.search.dataobjects[0].data['instytucje.nazwa'],
+                adres: d.search.dataobjects[0].data['instytucje.adres_str']
+            };
 
-        if (data.search.dataobjects.length) {
-            $.each(data.search.dataobjects, function () {
-                var that = this;
-
-                self.html.szablony.find('.szablonyList .ul-raw').append(
-                    $('<li></li>').addClass('row').data({
-                        id: that.id,
-                        title: that.data['szablon.nazwa'],
-                        content: that.data['szablon.content']
-                    }).append(
-                        $('<div></div>').addClass('pull-left col-md-10').append(
-                            $('<p>').append(
-                                $('<a></a>').attr('href', '#').text(that.data['szablon.nazwa'])
-                            )
-                        )
-                    ).append(
-                        $('<div></div>').addClass('pull-right col-md-2').append(
-                            $('<button></button>').addClass('btn btn-success btn-xs pull-right').text('Wybierz').click(function (e) {
-                                var that = $(this),
-                                    slice = that.parents('li');
-
-                                e.preventDefault();
-
-                                if (that.hasClass('btn-success')) {
-                                    self.szablonReset(self);
-
-                                    that.removeClass('btn-success').addClass('btn-default disabled');
-                                    self.objects.szablony = {
-                                        id: slice.data('id'),
-                                        title: slice.data('title'),
-                                        content: slice.data('content')
-                                    };
-
-                                    self.html.szablony.find('#szablonSelect').val(self.objects.szablony.title).after($('<span></span>').addClass('glyphicon glyphicon-ok-circle'));
-                                }
-
-                                self.html.szablony.find('.szablonyList').hide();
-                            })
-                        )
-                    )
-                );
-            });
-        } else {
-            self.html.szablony.find('.szablonyList .ul-raw').append(
-                $('<li></li>').addClass('row').append(
-                    $('<p></p>').addClass('col-md-12').text('Brak wyników dla szukanej frazy')
-                )
-            )
-        }
-    }
-    ,
-    szablonReset: function (self) {
-        self.html.szablony.find('.szablonList .ul-raw .btn-default').removeClass('btn-default disabled').addClass('btn-success');
-        self.objects.szablony = null;
-    }
-    ,
+            self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title)
+        });
+    },
     adresaci: function () {
         var self = this;
 
@@ -337,7 +269,7 @@ var PISMA = Class.extend({
         self.html.editorTop.find('.control-date .datepicker').val(prettyDate).datepicker();
 
         if (self.html.editor.length) {
-            /*self.html.editor.wysihtml5({
+            self.html.editor.wysihtml5({
                 toolbar: {
                     "image": false,
                     "emSmall": false
@@ -368,7 +300,7 @@ var PISMA = Class.extend({
                         }).prepend(
                         $('<span></span>').addClass('glyphicon glyphicon-backward').attr('aria-hidden', 'true').css('margin-right', '5px')
                     )
-             ));*/
+                ));
         }
     }
     ,
