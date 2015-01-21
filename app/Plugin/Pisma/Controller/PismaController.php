@@ -23,20 +23,6 @@ class PismaController extends AppController
     }
     */
 
-    public function home()
-    {
-
-        /*
-        $this->set( 'login_redirect_url', $this->Auth->redirectUrl() );
-        // TODO
-
-        $user = $this->Auth->user();
-        if ( ! empty( $user ) ) {
-            $this->set( 'pisma', $this->api->documents_index() );
-        }
-        */
-
-    }
 
     public function my()
     {
@@ -46,9 +32,10 @@ class PismaController extends AppController
 
     }
 
-    public function editor()
+    public function home()
     {
-
+			
+		
         $API = $this->API->Pisma();
 
         $templatesGroups = $API->getTemplatesGrouped();
@@ -71,10 +58,10 @@ class PismaController extends AppController
     }
 
 
-    public function view($id, $slug)
+    public function view($id, $slug='')
     {
 
-        $pismo = $this->API->Pisma()->load($id);
+        $pismo = $this->API->Pisma()->document_read($id);
         $this->set('title_for_layout', $pismo['tytul']);
         $this->set('pismo', $pismo);
 
@@ -131,18 +118,20 @@ class PismaController extends AppController
     public function create()
     {
         // set defaults
-        $doc = array(
+        $pismo = array(
             'from_name' => $this->Auth->user('username'),
             'from_email' => $this->Auth->user('email')
         );
 
-        if (isset($this->request->query['template_id'])) {
-            // TODO fill template
-        }
-
-        $this->set('doc', $doc);
-
-        $this->render('edit');
+        if (isset($this->request->query['adresat_id']))
+            $pismo['adresat_id'] = $this->request->query['adresat_id'];
+            
+        if (isset($this->request->query['szablon_id']))
+            $pismo['szablon_id'] = $this->request->query['szablon_id'];
+			
+				
+        $status = $this->API->Pisma()->document_create($pismo);
+        return $this->redirect( $status['url'] );
     }
 
     public function edit($id)
