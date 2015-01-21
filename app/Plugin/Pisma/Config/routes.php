@@ -14,10 +14,10 @@ Router::connect("$pisma_prefix/moje", array(
     'action' => 'my',
     '[method]' => 'GET'
 ));
-Router::connect("$pisma_prefix/nowe", array(
+Router::connect("$pisma_prefix", array(
     'plugin' => 'Pisma',
     'controller' => 'Pisma',
-    'action' => 'save',
+    'action' => 'create',
     '[method]' => 'POST'
 ));
 Router::connect("$pisma_prefix/nowe", array(

@@ -48,7 +48,8 @@ class PismaController extends AppController
 
     public function editor()
     {
-
+			
+		
         $API = $this->API->Pisma();
 
         $templatesGroups = $API->getTemplatesGrouped();
@@ -131,18 +132,21 @@ class PismaController extends AppController
     public function create()
     {
         // set defaults
-        $doc = array(
+        $pismo = array(
             'from_name' => $this->Auth->user('username'),
             'from_email' => $this->Auth->user('email')
         );
 
-        if (isset($this->request->query['template_id'])) {
-            // TODO fill template
-        }
-
-        $this->set('doc', $doc);
-
-        $this->render('edit');
+        if (isset($this->request->query['adresat_id']))
+            $pismo['adresat_id'] = $this->request->query['adresat_id'];
+            
+        if (isset($this->request->query['szablon_id']))
+            $pismo['szablon_id'] = $this->request->query['szablon_id'];
+			
+				
+        $status = $this->API->Pisma()->document_create($pismo);
+               
+        return $this->redirect( $status['url'] );
     }
 
     public function edit($id)
