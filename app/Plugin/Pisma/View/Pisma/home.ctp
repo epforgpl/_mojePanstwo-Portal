@@ -1,18 +1,15 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
-
 <div class="appHeader">
     <div class="container innerContent">
 
         <div class="col-xs-12">
             <? echo $this->Element('Pisma.menu', array(
-                'selected' => 'home'
+                'selected' => 'nowe'
             )); ?>
         </div>
 
     </div>
 </div>
 
-<div class="container">
-
-
+<div class="_container">
+    <? echo $this->Element('Pisma.editor'); ?>
 </div>

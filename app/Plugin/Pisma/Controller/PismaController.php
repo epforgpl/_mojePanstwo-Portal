@@ -23,20 +23,6 @@ class PismaController extends AppController
     }
     */
 
-    public function home()
-    {
-
-        /*
-        $this->set( 'login_redirect_url', $this->Auth->redirectUrl() );
-        // TODO
-
-        $user = $this->Auth->user();
-        if ( ! empty( $user ) ) {
-            $this->set( 'pisma', $this->api->documents_index() );
-        }
-        */
-
-    }
 
     public function my()
     {
@@ -46,7 +32,7 @@ class PismaController extends AppController
 
     }
 
-    public function editor()
+    public function home()
     {
 			
 		
@@ -72,10 +58,10 @@ class PismaController extends AppController
     }
 
 
-    public function view($id, $slug)
+    public function view($id, $slug='')
     {
 
-        $pismo = $this->API->Pisma()->load($id);
+        $pismo = $this->API->Pisma()->document_read($id);
         $this->set('title_for_layout', $pismo['tytul']);
         $this->set('pismo', $pismo);
 
@@ -145,7 +131,7 @@ class PismaController extends AppController
 			
 				
         $status = $this->API->Pisma()->document_create($pismo);
-               
+        debug( $status ); die();
         return $this->redirect( $status['url'] );
     }
 
