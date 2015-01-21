@@ -138,7 +138,7 @@ class PismaController extends AppController
     public function edit($id)
     {
 
-        $pismo = $this->API->Pisma()->load($id);
+        $pismo = $this->API->Pisma()->document_read($id);
         $this->set('title_for_layout', $pismo['tytul']);
         $this->set('pismo', $pismo);
 

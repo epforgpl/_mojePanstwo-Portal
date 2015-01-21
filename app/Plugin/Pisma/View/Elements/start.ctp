@@ -1,6 +1,5 @@
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma-button.js') ?>
 
-
 <fieldset>
     <div class="form-group szablony">
         <label for="szablonSelect" class="col-lg-2 control-label">Szablon</label>
