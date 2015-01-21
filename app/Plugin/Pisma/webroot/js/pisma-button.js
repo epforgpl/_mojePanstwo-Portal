@@ -61,7 +61,8 @@ $(document).ready(function () {
             e.preventDefault();
 
             if (pismoModal.data('cache') == undefined) {
-                $.get('http://api.mojepanstwo.pl/pisma/templates/grouped.json', function (data) {
+                var adresat_id = (pismoBtn.data('adresatid') != undefined) ? '?adresat_id=' + pismoBtn.data('adresatid') : '';
+                $.get('http://api.mojepanstwo.pl/pisma/templates/grouped.json' + adresat_id, function (data) {
                     pismoModal.data('cache', data);
                     szablonList(data)
                 });
@@ -143,9 +144,10 @@ $(document).ready(function () {
             pismoModal.find('.modal-footer .btn.btn-primary').removeClass('loading').addClass('disabled').text('Zatwierdź');
             pismoModal.find('ul.ul-raw li.active').removeClass('active').css('background', 'none');
         } else {
+            var method = (szablon_id !== undefined && pismoBtn.attr('data-adresatid') !== undefined) ? 'post' : 'get';
             var form = $('<form></form>').attr({
                 'action': '/pisma',
-                'method': 'get'
+                'method': method
             }).css('height', 0).append(
                 $('<input>').attr({
                     'name': 'szablon_id',

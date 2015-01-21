@@ -66,6 +66,8 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
                                        placeholder="Zacznij pisać aby znaleźć adresata..."
                                        type="text" autocomplete="off"/>
 
+                                <input type="hidden" name="adresat_id"/>
+
                                 <div class="list adresaciList content" style="display: none">
                                     <ul class="ul-raw"></ul>
                                 </div>
