@@ -36,22 +36,22 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
 
                             <div class="col-lg-10">
                                 <div class="radio">
-									<label><input name="optionsRadios" id="optionsRadios1" value="option1" checked="" type="radio">Brak szablonu</label>
+                                    <label><input name="szablon_id" value="option1" checked="" type="radio">Brak
+                                        szablonu</label>
 								</div>
 								<div class="radio">
-									<label><input name="optionsRadios" id="optionsRadios2" value="option2" type="radio">Wniosk o udostępnienie informacji publicznej</label>
+                                    <label><input name="szablon_id" value="option2" type="radio">Wniosk o udostępnienie
+                                        informacji publicznej</label>
 								</div>
 								<div class="radio">
-									<label><input name="optionsRadios" id="optionsRadios2" value="option2" type="radio">Skarga na decyzję administracyjną</label>
+                                    <label><input name="szablon_id" value="option2" type="radio">Skarga na decyzję
+                                        administracyjną</label>
 								</div>
                                 
                                 <div class="templates_browser">
-	                                <p><a href="#">Zobacz wszystkie szablony &raquo;</a></p>
-	                                <div class="list szablonyList content" style="display: none">
-		                                <ul class="ul-raw"></ul>
-		                            </div>
+                                    <a href="#" class="pisma-list-button pisma-list-button-no-jump">Zobacz wszystkie
+                                        szablony &raquo;</a>
                                 </div>
-                                
                                 
                             </div>
                         </div>
