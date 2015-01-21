@@ -35,21 +35,29 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
                             <label for="szablonSelect" class="col-lg-2 control-label">Szablon</label>
 
                             <div class="col-lg-10">
-                                <div class="input-group">
-                                    <input class="form-control input-lg" id="szablonSelect"
-                                           placeholder="Zacznij pisać aby znaleźć szablon pisma..."
-                                           type="text" autocomplete="off"/>
-                                    <span class="input-group-btn">
-                                      <button class="btn btn-default btn-lg pisma-button" type="button">Przeglądaj
-                                      </button>
-                                    </span>
+                                <div class="radio">
+									<label><input name="optionsRadios" id="optionsRadios1" value="option1" checked="" type="radio">Brak szablonu</label>
+								</div>
+								<div class="radio">
+									<label><input name="optionsRadios" id="optionsRadios2" value="option2" type="radio">Wniosk o udostępnienie informacji publicznej</label>
+								</div>
+								<div class="radio">
+									<label><input name="optionsRadios" id="optionsRadios2" value="option2" type="radio">Skarga na decyzję administracyjną</label>
+								</div>
+                                
+                                <div class="templates_browser">
+	                                <p><a href="#">Zobacz wszystkie szablony &raquo;</a></p>
+	                                <div class="list szablonyList content" style="display: none">
+		                                <ul class="ul-raw"></ul>
+		                            </div>
                                 </div>
-                                <div class="list szablonyList content" style="display: none">
-                                    <ul class="ul-raw"></ul>
-                                </div>
-                                <span class="help-block">Na podstawie wybranego szablonu, umieścimy w Twoim piśmie odpowiednie formuły prawne.</span>
+                                
+                                
                             </div>
                         </div>
+                    </fieldset>
+                     
+                    <fieldset>
                         <div class="form-group adresaci">
                             <label for="adresatSelect" class="col-lg-2 control-label">Adresat</label>
 
@@ -69,7 +77,7 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
                     <fieldset class="final">
                         <div class="form-group">
                             <div class="col-lg-10 col-lg-offset-1 text-center">
-                                <button type="submit" class="btn btn-lg btn-success">Wpisz treść pisma
+                                <button type="submit" class="btn btn-md btn-primary">Wpisz treść pisma
                                     <span class="glyphicon glyphicon-play"></span>
                                 </button>
                             </div>
@@ -186,13 +194,6 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
     <section>
         <div class="container edit">
 
-            <div class="col-xs-12 col-md-10 col-md-offset-1">
-                <p class="hint-title">Wybierz szablon, aby ułatwić tworzenie pisma. Na podstawie wybranego szablonu,
-                    umieścimy w Twoim piśmie odpowiednie formuły prawne i inne informacje. Jeśli nie chcesz
-                    wybierać szablonu - przejdź dalej.</p>
-
-            </div>
-
             <div class="editor-container row">
                 <div class="col-xs-12 col-md-10">
                     <? echo $this->Element('Pisma.render'); ?>
@@ -210,7 +211,7 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
                             </li>
                             <li class="inner-addon">
                                 <i class="glyphicon glyphicon-print"></i>
-                                <button class="btn btn-success" name="print">Drukuj</button>
+                                <button class="btn btn-default" name="print">Drukuj</button>
                             </li>
                             <li class="inner-addon">
                                 <i class="glyphicon glyphicon-ban-circle"></i>

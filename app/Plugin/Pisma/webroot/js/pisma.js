@@ -374,11 +374,11 @@ var PISMA = Class.extend({
                 .end()
                 .prepend(
                 $('<li></li>').addClass('stepper-back').append(
-                    $('<a></a>').addClass('btn  btn-info')
+                    $('<a></a>').addClass('btn  btn-default')
                         .attr({
                             'href': '#pismoBack',
                             'title': 'Zmień szablon lub adresata'
-                        }).text('Zmień szablon lub adrestat').click(function (e) {
+                        }).text('Zmień szablon lub adrestata').click(function (e) {
                             e.preventDefault();
                             self.methods.stepper.steps("previous")
                         }).prepend(

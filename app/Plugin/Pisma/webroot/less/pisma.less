@@ -41,10 +41,10 @@
 
         li {
             list-style: none;
-            font-size: 16px;
+            font-size: 14px;
             border-bottom: 1px solid #E6E6E6;
-            padding: 10px;
-
+            padding: 10px 20px;
+			
             p {
                 padding: 0;
                 margin: 0;
@@ -395,23 +395,38 @@
     display: none !important;
 }
 
-form.letter {
-
-    margin-top: 50px;
-
-    fieldset {
-        margin-top: 20px;
-
-        .form-group {
-            margin-bottom: 30px;
-
-        }
-    }
-
+#_wrapper {
+	form.letter {
+	
+	    margin-top: 50px;
+			
+	    fieldset {
+	        margin-top: 0;
+			
+			.szablony {
+				label {
+					margin-top: 0;
+				}
+			}
+			
+			&.final {
+				margin-top: 15px;
+			}
+			
+	        .form-group {
+	            margin-bottom: 10px;
+				
+				.templates_browser {
+					padding: 20px;
+				}
+				
+	        }
+	    }
+	}
 }
 
-.editor-container {
-    margin-top: 90px;
+.editor-tooltip {
+	margin-top: 36px;
 }
 
 #_wrapper {
@@ -677,7 +692,7 @@ form.letter {
         }
         .adresaci {
             .glyphicon.glyphicon-ok-circle {
-                color: green;
+                color: #009de0;
                 font-size: 20px;
                 position: absolute;
                 right: 24px;
