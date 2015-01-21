@@ -49,7 +49,7 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
 								</div>
                                 
                                 <div class="templates_browser">
-                                    <a href="#" class="pisma-list-button pisma-list-button-no-jump">Zobacz wszystkie
+                                    <a href="#" class="pisma-list-button pisma-list-button-no-jump1">Zobacz wszystkie
                                         szablony &raquo;</a>
                                 </div>
                                 
@@ -65,6 +65,8 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
                                 <input class="form-control input-lg" id="adresatSelect"
                                        placeholder="Zacznij pisać aby znaleźć adresata..."
                                        type="text" autocomplete="off"/>
+
+                                <input type="hidden" name="adresat_id"/>
 
                                 <div class="list adresaciList content" style="display: none">
                                     <ul class="ul-raw"></ul>

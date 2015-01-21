@@ -131,7 +131,6 @@ var PISMA = Class.extend({
                 };
 
                 self.html.szablony.find('#szablonSelect').val(self.objects.szablony.title).after($('<span></span>').addClass('glyphicon glyphicon-ok-circle'));
-
             });
         }
     }
@@ -221,6 +220,8 @@ var PISMA = Class.extend({
         }).focusin(function () {
             $(this).val('');
             self.html.adresaci.find('.glyphicon.glyphicon-ok-circle').remove();
+            self.html.adresaci.find('input[name="adresat_id"]').val('');
+            self.html.szablony.find('.pisma-list-button').removeAttr('data-adresatid');
             self.adresaciReset(self);
         }).focusout(function () {
             setTimeout(function () {
@@ -237,7 +238,8 @@ var PISMA = Class.extend({
                 };
 
                 self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title).after($('<span></span>').addClass('glyphicon glyphicon-ok-circle'));
-
+                self.html.adresaci.find('input[name="adresat_id"]').val(self.objects.adresaci.id);
+                self.html.szablony.find('.pisma-list-button').attr('data-adresatid', self.objects.adresaci.id);
             });
         }
     }
@@ -246,6 +248,8 @@ var PISMA = Class.extend({
         var self = this;
 
         self.html.adresaci.find('.glyphicon.glyphicon-ok-circle').remove();
+        self.html.adresaci.find('input[name="adresat_id"]').val('');
+        self.html.szablony.find('.pisma-list-button').removeAttr('data-adresatid');
 
         self.html.adresaci.find('.adresaciList').empty().append(
             $('<ul></ul>').addClass('ul-raw')
@@ -275,6 +279,8 @@ var PISMA = Class.extend({
                             };
 
                             self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title).after($('<span></span>').addClass('glyphicon glyphicon-ok-circle'));
+                            self.html.adresaci.find('input[name="adresat_id"]').val(self.objects.adresaci.id);
+                            self.html.szablony.find('.pisma-list-button').attr('data-adresatid', self.objects.adresaci.id);
 
                             self.html.adresaci.find('.adresaciList').hide();
                         })
