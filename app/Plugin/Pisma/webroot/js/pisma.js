@@ -16,26 +16,23 @@ var PISMA = Class.extend({
         adresaci: {}
     },
     init: function () {
-        if (this.html.stepper_div.length) {
+        this.stepsMarkers();
+
+        if (this.html.stepper_div.hasClass('stepper')) {
             this.steps();
-            this.stepsMarkers();
-
             this.checkStep();
-
-            this.szablon();
-            this.adresaci();
             this.editor();
-
             this.lastPageButtons();
         }
+
+        this.szablon();
+        this.adresaci();
     },
     stepsMarkers: function () {
         this.html.szablony = this.html.stepper_div.find('.szablony');
         this.html.adresaci = this.html.stepper_div.find('.adresaci');
         this.html.editorTop = this.html.stepper_div.find('.editor-controls');
         this.html.editor = this.html.stepper_div.find('#editor');
-        //this.html.finalForm = this.html.stepper_div.find('#finalForm');
-        //this.objects.starter = this.html.stepper_div.data('pismo');
     },
     steps: function () {
         var self = this;
@@ -201,6 +198,8 @@ var PISMA = Class.extend({
     ,
     adresaci: function () {
         var self = this;
+
+        console.log(self.html);
 
         self.html.adresaci.find('#adresatSelect').on('keyup', function () {
             var adresat = $(this).val();

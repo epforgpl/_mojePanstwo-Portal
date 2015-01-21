@@ -7,7 +7,6 @@
 <?php $this->Combinator->add_libs('js', 'Pisma.jquery.autosize.min.js') ?>
 <?php $this->Combinator->add_libs('js', 'Pisma.jquery_steps.js') ?>
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
-<?php $this->Combinator->add_libs('js', 'Pisma.pisma-button.js') ?>
 
 <?php
 if (!empty($pismo['szablon_id'])) $pismo_init['szablon_id'] = $pismo['szablon_id'];
@@ -15,7 +14,7 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
 ?>
 
 
-<div id="stepper"<? if (!empty($pismo_init)) echo ' data-pismo=' . json_encode($pismo_init); ?>>
+<div id="stepper" class="stepper"<? if (!empty($pismo_init)) echo ' data-pismo=' . json_encode($pismo_init); ?>>
 
 
     <h2>Wybierz szablon i adresata</h2>
@@ -30,51 +29,8 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
                     wybierać szablonu - przejdź dalej.</p>
 
                 <form class="letter form-horizontal">
-                    <fieldset>
-                        <div class="form-group szablony">
-                            <label for="szablonSelect" class="col-lg-2 control-label">Szablon</label>
 
-                            <div class="col-lg-10">
-                                <div class="radio">
-                                    <label><input name="szablon_id" value="option1" checked="" type="radio">Brak
-                                        szablonu</label>
-								</div>
-								<div class="radio">
-                                    <label><input name="szablon_id" value="option2" type="radio">Wniosk o udostępnienie
-                                        informacji publicznej</label>
-								</div>
-								<div class="radio">
-                                    <label><input name="szablon_id" value="option2" type="radio">Skarga na decyzję
-                                        administracyjną</label>
-								</div>
-                                
-                                <div class="templates_browser">
-                                    <a href="#" class="pisma-list-button pisma-list-button-no-jump">Zobacz wszystkie
-                                        szablony &raquo;</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </fieldset>
-                     
-                    <fieldset>
-                        <div class="form-group adresaci">
-                            <label for="adresatSelect" class="col-lg-2 control-label">Adresat</label>
-
-                            <div class="col-lg-10">
-                                <input class="form-control input-lg" id="adresatSelect"
-                                       placeholder="Zacznij pisać aby znaleźć adresata..."
-                                       type="text" autocomplete="off"/>
-
-                                <input type="hidden" name="adresat_id"/>
-
-                                <div class="list adresaciList content" style="display: none">
-                                    <ul class="ul-raw"></ul>
-                                </div>
-                                <span class="help-block">Na podstawie wybranego adresata, uzupełnimy dane teleadresowe w Twoim piśmie.</span>
-                            </div>
-                        </div>
-                    </fieldset>
+                    <?php echo $this->element('Pisma.start') ?>
 
                     <fieldset class="final">
                         <div class="form-group">

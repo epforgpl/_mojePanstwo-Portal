@@ -11,5 +11,5 @@
 </div>
 
 <div class="_container">
-    <? echo $this->Element('Pisma.editor'); ?>
+    <? echo $this->Element('Pisma.first'); ?>
 </div>
