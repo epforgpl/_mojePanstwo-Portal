@@ -78,6 +78,6 @@ $(document).ready(function() {
         loadTopData(year);
     });
 
-    loadTopData(2014); // default
+    loadTopData(2005); // default
 
 });
