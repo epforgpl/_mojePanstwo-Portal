@@ -117,27 +117,28 @@ class PismaController extends AppController
      */
     public function create()
     {
+
         // set defaults
         $pismo = array(
             'from_name' => $this->Auth->user('username'),
             'from_email' => $this->Auth->user('email')
         );
 
-        if (isset($this->request->query['adresat_id']))
-            $pismo['adresat_id'] = $this->request->query['adresat_id'];
+        if (isset($this->request->data['adresat_id']))
+            $pismo['adresat_id'] = $this->request->data['adresat_id'];
             
-        if (isset($this->request->query['szablon_id']))
-            $pismo['szablon_id'] = $this->request->query['szablon_id'];
+        if (isset($this->request->data['szablon_id']))
+            $pismo['szablon_id'] = $this->request->data['szablon_id'];
 			
-				
+		
         $status = $this->API->Pisma()->document_create($pismo);
-        return $this->redirect( $status['url'] );
+        return $this->redirect( $status['url'] . '/edit' );
     }
 
     public function edit($id)
     {
 
-        $pismo = $this->API->Pisma()->load($id);
+        $pismo = $this->API->Pisma()->document_read($id);
         $this->set('title_for_layout', $pismo['tytul']);
         $this->set('pismo', $pismo);
 
