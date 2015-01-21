@@ -5,7 +5,8 @@
 <? echo $this->Element('dataobject/pageBegin'); ?>
 
     <div class="Panstwo">
-	
+		
+		<? debug( $object->getLayer('stats') ) ?>
 	
 		<div class="row">
 	        <div class="col-lg-12">
