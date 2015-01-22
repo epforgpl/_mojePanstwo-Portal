@@ -272,6 +272,7 @@
             visibility: hidden;
         }
     }
+
     > .content > .body .editor-tooltip,
     .editor-tooltip {
         margin-top: 15px;
@@ -307,6 +308,10 @@
                 }
             }
         }
+    }
+    > .content > .body .edit .editor-tooltip,
+    .edit .editor-tooltip {
+        margin-top: 45px;
     }
 }
 
@@ -539,7 +544,7 @@
             }
 
             input, a {
-                font-family: lato;
+                font-family: "Lato", Arial, sans-serif;
                 font-size: 12px;
                 font-weight: 600;
                 margin: 10px auto;
@@ -550,6 +555,7 @@
 
             .desc {
                 font-size: 13px;
+                width: 170px;
             }
         }
     }
@@ -570,8 +576,12 @@
         }
     }
 
-    .edit #editor-cont {
-        margin-top: 50px;
+    .edit {
+        width: auto;
+
+        #editor-cont {
+            margin-top: 50px;
+        }
     }
 
     .preview #editor-cont {

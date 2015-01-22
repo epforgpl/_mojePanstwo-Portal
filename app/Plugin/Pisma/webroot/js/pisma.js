@@ -638,29 +638,20 @@ var PISMA = Class.extend({
             var button = $(this),
                 pismoConfirm = $('#pismoConfirm');
 
-            button.attr('type', 'button');
             button.on('click', function (e) {
                 e.preventDefault();
-                if (button.attr('name') !== 'delete' && button.attr('name') !== 'print') {
-                    if (self.validateLastForm(this)) {
-                        pismoConfirm.find('input').val('').end().modal('show');
-                    }
-                } else {
-                    self.lastPage(button.attr('name'));
+
+                if (self.validateLastForm(this)) {
+                    pismoConfirm.find('input').val('').end().modal('show');
                 }
             });
 
-            pismoConfirm.find('.saveTemplate').on('click', function (e) {
+            pismoConfirm.find('.sendPismo').on('click', function (e) {
                 e.preventDefault();
 
-                if ($.trim(pismoConfirm.find('#pismoTitle').val()) == '') {
-                    pismoConfirm.find('.form-group').addClass('has-error').removeClass('has-success').find('.errorMsg').removeClass('hide');
-                } else {
-                    pismoConfirm.find('.form-group').removeClass('has-error').addClass('has-success').find('.errorMsg').addClass('hide');
-                    if (!$(this).hasClass('.loading')) {
-                        $(this).addClass('loading');
-                        self.lastPage(button.attr('name'));
-                    }
+                if (!$(this).hasClass('.loading')) {
+                    $(this).addClass('loading');
+                    self.lastPage(button.attr('name'));
                 }
             });
         })

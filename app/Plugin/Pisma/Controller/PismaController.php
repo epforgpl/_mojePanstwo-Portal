@@ -67,6 +67,15 @@ class PismaController extends AppController
 
     }
 
+    public function share($id, $slug = '')
+    {
+
+        $pismo = $this->API->Pisma()->document_read($id);
+        $this->set('title_for_layout', $pismo['nazwa']);
+        $this->set('pismo', $pismo);
+
+    }
+
 
     /**
      * Saves sent data

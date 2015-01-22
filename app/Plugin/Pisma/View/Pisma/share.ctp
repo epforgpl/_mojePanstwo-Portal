@@ -1,5 +1,6 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.pisma-share.js') ?>
 
 <div class="appHeader">
     <div class="container innerContent">
@@ -23,7 +24,7 @@
     </div>
     <div id="stepper">
         <div class="content clearfix">
-            <div class="col-md-10 view">
+            <div class="col-md-10 view share">
 
                 <? echo $this->Element('Pisma.render'); ?>
             </div>
@@ -35,12 +36,6 @@
 
                     <ul class="form-buttons">
                         <li class="inner-addon">
-                            <i class="glyphicon glyphicon-send"></i>
-                            <a href="<?= $href_base . '/send' ?>" target="_self" class="btn btn-primary">Wyślij...</a>
-
-                            <p class="desc">Możesz wysłać pismo do adresata poprzez e-mail.</p>
-                        </li>
-                        <li class="inner-addon">
                             <i class="glyphicon glyphicon-share"></i>
                             <a href="<?= $href_base . '/share' ?>" target="_self"
                                class="btn btn-primary">Udostępnij...</a>
@@ -48,18 +43,7 @@
                             <p class="desc">Twoje pismo jest obecnie prywatne. Możesz je zanonimizować i udostępnić
                                 publicznie.</p>
                         </li>
-                        <li class="inner-addon">
-                            <i class="glyphicon glyphicon-edit"></i>
-                            <a href="<?= $href_base . '/edit' ?>" target="_self" class="btn btn-primary">Edytuj
-                                treść...</a>
-                        </li>
-
-                        <? /*
-                <p class="text-center"><a href="#">Więcej akcji</a></p>
-                */ ?>
-
                     </ul>
-
                 </div>
             </div>
         </div>

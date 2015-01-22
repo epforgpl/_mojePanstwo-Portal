@@ -67,18 +67,10 @@ if (!empty($pismo['adresat_id'])) {
                         <div class="editor-tooltip">
                             <ul class="form-buttons">
                                 <li class="inner-addon">
-                                    <i class="glyphicon glyphicon-send"></i>
-                                    <a href="#send" class="btn btn-primary" name="send">Wyślij</a>
-                                </li>
-                                <li class="inner-addon">
-                                    <i class="glyphicon glyphicon-print invert"></i>
-                                    <a href="#print" class="btn btn-default"
-                                       name="print">Drukuj</a>
-                                </li>
-                                <li class="inner-addon">
-                                    <i class="glyphicon glyphicon-ban-circle invert"></i>
-                                    <a href="#delete" class="btn btn-default"
-                                       name="delete">Skasuj</a>
+                                    <i class="glyphicon glyphicon-save"></i>
+                                    <a href="#send" class="btn btn-primary" name="save">Zapisz</a>
+
+                                    <p class="desc">Po zapisaniu będziesz mógł wysłać bądź udostępnić pismo.</p>
                                 </li>
                             </ul>
                         </div>
@@ -88,34 +80,19 @@ if (!empty($pismo['adresat_id'])) {
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close"><span
-                                                aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="myModalLabel">Wprowadź nazwę
-                                            pisma</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h4>&nbsp;</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="pismoTitle">Podaj nazwę tego pisma:</label>
-                                            <input type="text" class="form-control" id="pismoTitle"
-                                                   placeholder="Nowe pismo"
-                                                   maxlength="255">
-
-                                            <p class="help-block errorMsg hide">Prosze wprowadzić
-                                                nazwę pisma.</p>
-                                        </div>
-                                        <p class="help-block">Adresat Twojego pisma nie zobaczy tego
-                                            pola. Będzie ono
-                                            widoczne tylko dla Ciebie
-                                            na stronie "Moje Pisma".</p>
+                                        (save data)
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default"
                                                 data-dismiss="modal">Zamknij
                                         </button>
-                                        <button type="button" class="btn saveTemplate btn-primary">
-                                            Zapisz
-                                        </button>
+                                        <button type="button" class="btn sendPismo btn-primary">Wyślij</button>
                                     </div>
                                 </div>
                             </div>
