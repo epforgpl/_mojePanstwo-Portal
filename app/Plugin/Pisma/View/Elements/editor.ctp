@@ -9,8 +9,12 @@
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
 
 <?php
-if (!empty($pismo['szablon_id'])) $pismo_init['szablon_id'] = $pismo['szablon_id'];
-if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id'];
+if (!empty($pismo['szablon_id'])) {
+    $pismo_init['szablon_id'] = $pismo['szablon_id'];
+}
+if (!empty($pismo['adresat_id'])) {
+    $pismo_init['adresat_id'] = $pismo['adresat_id'];
+}
 ?>
 
 <div class="container">
@@ -21,14 +25,18 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
             <p>Autor: Daniel Macyszyn</p>
         </div>
     </div>
-    <div id="stepper" class="stepper"<? if (!empty($pismo_init)) echo ' data-pismo=' . json_encode($pismo_init); ?>>
+    <div id="stepper" class="stepper"<? if (!empty($pismo_init)) {
+        echo ' data-pismo=' . json_encode($pismo_init);
+    } ?>>
 
         <h2>Wybierz szablon i adresata</h2>
         <section>
             <div class="container start">
                 <div class="col-xs-12">
-                    <p class="hint-title">Wybierz szablon, aby ułatwić tworzenie pisma. Na podstawie wybranego szablonu,
-                        umieścimy w Twoim piśmie odpowiednie formuły prawne i inne informacje. Jeśli nie chcesz
+                    <p class="hint-title">Wybierz szablon, aby ułatwić tworzenie pisma. Na
+                        podstawie wybranego szablonu,
+                        umieścimy w Twoim piśmie odpowiednie formuły prawne i inne
+                        informacje. Jeśli nie chcesz
                         wybierać szablonu - przejdź dalej.</p>
 
                     <form class="letter form-horizontal">
@@ -36,7 +44,8 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
                         <fieldset class="final">
                             <div class="form-group">
                                 <div class="col-lg-10 col-lg-offset-1 text-center">
-                                    <button type="submit" class="btn btn-md btn-primary">Wpisz treść pisma
+                                    <button type="submit" class="btn btn-md btn-primary">Wpisz
+                                        treść pisma
                                         <span class="glyphicon glyphicon-play"></span>
                                     </button>
                                 </div>
@@ -63,15 +72,18 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
                                 </li>
                                 <li class="inner-addon">
                                     <i class="glyphicon glyphicon-print invert"></i>
-                                    <a href="#print" class="btn btn-default" name="print">Drukuj</a>
+                                    <a href="#print" class="btn btn-default"
+                                       name="print">Drukuj</a>
                                 </li>
                                 <li class="inner-addon">
                                     <i class="glyphicon glyphicon-ban-circle invert"></i>
-                                    <a href="#delete" class="btn btn-default" name="delete">Skasuj</a>
+                                    <a href="#delete" class="btn btn-default"
+                                       name="delete">Skasuj</a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="modal fade" id="pismoConfirm" tabindex="-1" role="dialog"
+                        <div class="modal fade" id="pismoConfirm" tabindex="-1"
+                             role="dialog"
                              aria-labelledby="pismoConfirmLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -79,7 +91,8 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
                                         <button type="button" class="close" data-dismiss="modal"
                                                 aria-label="Close"><span
                                                 aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="myModalLabel">Wprowadź nazwę pisma</h4>
+                                        <h4 class="modal-title" id="myModalLabel">Wprowadź nazwę
+                                            pisma</h4>
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group">
@@ -88,16 +101,21 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
                                                    placeholder="Nowe pismo"
                                                    maxlength="255">
 
-                                            <p class="help-block errorMsg hide">Prosze wprowadzić nazwę pisma.</p>
+                                            <p class="help-block errorMsg hide">Prosze wprowadzić
+                                                nazwę pisma.</p>
                                         </div>
-                                        <p class="help-block">Adresat Twojego pisma nie zobaczy tego pola. Będzie ono
+                                        <p class="help-block">Adresat Twojego pisma nie zobaczy tego
+                                            pola. Będzie ono
                                             widoczne tylko dla Ciebie
                                             na stronie "Moje Pisma".</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij
+                                        <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">Zamknij
                                         </button>
-                                        <button type="button" class="btn saveTemplate btn-primary">Zapisz</button>
+                                        <button type="button" class="btn saveTemplate btn-primary">
+                                            Zapisz
+                                        </button>
                                     </div>
                                 </div>
                             </div>
