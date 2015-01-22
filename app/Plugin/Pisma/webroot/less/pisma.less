@@ -44,7 +44,7 @@
             font-size: 14px;
             border-bottom: 1px solid #E6E6E6;
             padding: 10px 20px;
-			
+
             p {
                 padding: 0;
                 margin: 0;
@@ -219,7 +219,7 @@
             width: 100%;
             min-height: 100%;
             height: auto;
-            padding: 30px 0;
+            padding: 15px 0;
 
             ul {
                 list-style: disc;
@@ -272,8 +272,10 @@
             visibility: hidden;
         }
     }
-
+    > .content > .body .editor-tooltip,
     .editor-tooltip {
+        margin-top: 15px;
+
         ul {
             list-style: none;
             margin: 0;
@@ -285,13 +287,23 @@
                 margin: 0;
 
                 .glyphicon {
-                    top: 14px;
+                    top: 4px;
+
+                    &.invert {
+                        color: #555;
+                    }
                 }
-                button {
+
+                .btn {
                     font-size: 12px;
                     font-weight: 400;
                     text-transform: uppercase;
                     width: 160px;
+                    margin: 0;
+                }
+
+                .desc {
+                    padding-top: 10px;
                 }
             }
         }
@@ -392,37 +404,33 @@
 }
 
 #_wrapper {
-	form.letter {
-	
-	    margin-top: 50px;
-			
-	    fieldset {
-	        margin-top: 0;
-			
-			.szablony {
-				label {
-					margin-top: 0;
-				}
-			}
-			
-			&.final {
-				margin-top: 15px;
-			}
-			
-	        .form-group {
-	            margin-bottom: 10px;
-				
-				.templates_browser {
-					padding: 20px;
-				}
-				
-	        }
-	    }
-	}
-}
+    form.letter {
 
-.editor-tooltip {
-	margin-top: 20px;
+        margin-top: 50px;
+
+        fieldset {
+            margin-top: 0;
+
+            .szablony {
+                label {
+                    margin-top: 0;
+                }
+            }
+
+            &.final {
+                margin-top: 15px;
+            }
+
+            .form-group {
+                margin-bottom: 10px;
+
+                .templates_browser {
+                    padding: 20px;
+                }
+
+            }
+        }
+    }
 }
 
 #_wrapper {
@@ -468,16 +476,16 @@
             font-weight: 400;
         }
     }
-	
-	.letter-meta {
-		padding: 0 5px;
-		font-size: 13px;
-		p {
-			margin: 0;
-			color: #777;
-		}
-	}
-	
+
+    .letter-meta {
+        padding: 0 5px;
+        font-size: 13px;
+        p {
+            margin: 0;
+            color: #777;
+        }
+    }
+
     h2 {
         font-family: "Lato", Arial, sans-serif;
         font-size: 18px;
@@ -541,7 +549,7 @@
             }
 
             .desc {
-	            font-size: 13px;
+                font-size: 13px;
             }
         }
     }
@@ -669,8 +677,13 @@
         }
     }
 
-    .view .empty {
-        visibility: hidden;
+    .view {
+        .empty {
+            visibility: hidden;
+        }
+        .editable {
+            background: none;
+        }
     }
     .start {
         .list {
