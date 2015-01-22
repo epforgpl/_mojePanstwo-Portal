@@ -40,15 +40,15 @@
                         <p class="desc">Możesz wysłać pismo do adresata poprzez e-mail.</p>
                     </li>
                     <li class="inner-addon">
-                        <i class="glyphicon glyphicon-print"></i>
-                        <a href="<?= $href_base . '/print' ?>" target="_self" class="btn btn-primary">Udostępnij...</a>
+                        <i class="glyphicon glyphicon-share"></i>
+                        <a href="<?= $href_base . '/share' ?>" target="_self" class="btn btn-primary">Udostępnij...</a>
 
                         <p class="desc">Twoje pismo jest obecnie prywatne. Możesz je zanonimizować i udostępnić
                             publicznie.</p>
                     </li>
                     <li class="inner-addon">
-                        <i class="glyphicon glyphicon-print"></i>
-                        <a href="<?= $href_base . '/print' ?>" target="_self" class="btn btn-primary">Edytuj
+                        <i class="glyphicon glyphicon-edit"></i>
+                        <a href="<?= $href_base . '/edit' ?>" target="_self" class="btn btn-primary">Edytuj
                             treść...</a>
                     </li>
 
