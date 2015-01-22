@@ -59,19 +59,19 @@ if (!empty($pismo['adresat_id'])) $pismo_init['adresat_id'] = $pismo['adresat_id
                             <ul class="form-buttons">
                                 <li class="inner-addon">
                                     <i class="glyphicon glyphicon-send"></i>
-                                    <button class="btn btn-primary" name="send">Zapisz i wyślij</button>
+                                    <a href="#send" class="btn btn-primary" name="send">Zapisz i wyślij</a>
                                 </li>
                                 <li class="inner-addon">
                                     <i class="glyphicon glyphicon-saved"></i>
-                                    <button class="btn btn-primary" name="save">Zapisz</button>
+                                    <a href="#save" class="btn btn-primary" name="save">Zapisz</a>
                                 </li>
                                 <li class="inner-addon">
-                                    <i class="glyphicon glyphicon-print"></i>
-                                    <button class="btn btn-default" name="print">Drukuj</button>
+                                    <i class="glyphicon glyphicon-print invert"></i>
+                                    <a href="#print" class="btn btn-default" name="print">Drukuj</a>
                                 </li>
                                 <li class="inner-addon">
-                                    <i class="glyphicon glyphicon-ban-circle"></i>
-                                    <button class="btn btn-default" name="delete">Skasuj</button>
+                                    <i class="glyphicon glyphicon-ban-circle invert"></i>
+                                    <a href="#delete" class="btn btn-default" name="delete">Skasuj</a>
                                 </li>
                             </ul>
                         </div>
