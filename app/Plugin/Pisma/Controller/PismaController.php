@@ -61,8 +61,8 @@ class PismaController extends AppController
     public function view($id, $slug='')
     {
 
-        $pismo = $this->API->Pisma()->document_read($id);
-        $this->set('title_for_layout', $pismo['tytul']);
+        $pismo = $this->API->Pisma()->document_read($id);        
+        $this->set('title_for_layout', $pismo['nazwa']);
         $this->set('pismo', $pismo);
 
     }
@@ -117,13 +117,32 @@ class PismaController extends AppController
      */
     public function create()
     {
-
-        // set defaults
-        $pismo = array(
-            'from_name' => $this->Auth->user('username'),
-            'from_email' => $this->Auth->user('email')
-        );
-
+		
+		$pismo = array();
+				
+		if( $user = $this->Auth->user() ) {
+			
+			$pismo = array_merge($pismo, array(
+				'from_user_type' => 'account',
+				'from_user_id' => $user['id'],
+			));
+			
+			/*
+	        $pismo = array(
+	            'from_name' => $this->Auth->user('username'),
+	            'from_email' => $this->Auth->user('email')
+	        );
+	        */
+			
+		} else {
+			
+			$pismo = array_merge($pismo, array(
+				'from_user_type' => 'anonymous',
+				'from_user_id' => session_id(),
+			));
+			
+		}
+		
         if (isset($this->request->data['adresat_id']))
             $pismo['adresat_id'] = $this->request->data['adresat_id'];
             
