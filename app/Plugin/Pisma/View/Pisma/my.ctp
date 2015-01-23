@@ -14,8 +14,8 @@
 <div class="container">
     <div class="col-md-10 col-md-offset-1">
 
-        <p class="login-warning">Nie jesteś zalogowany. Twoje pisma będą przechowywane przez 24 godziny. <a>Zaloguj
-                się</a>, aby trwale przechowywać pisma.</p>
+        <p class="login-warning">Nie jesteś zalogowany. Twoje pisma będą przechowywane przez 24 godziny. <a
+                class="_specialCaseLoginButton" href="/login">Zaloguj się</a>, aby trwale przechowywać pisma.</p>
 
         <div class="letters">
 
