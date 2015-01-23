@@ -297,9 +297,7 @@ var PISMA = Class.extend({
                         }).text('Zmień szablon lub adrestata').click(function (e) {
                             e.preventDefault();
                             self.methods.stepper.steps("previous")
-                        }).prepend(
-                        $('<span></span>').addClass('glyphicon glyphicon-backward').attr('aria-hidden', 'true').css('margin-right', '5px')
-                    )
+                        })
                 ));
         }
     }

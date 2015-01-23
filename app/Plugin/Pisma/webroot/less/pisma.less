@@ -438,15 +438,26 @@
     }
 }
 
+.login-warning {
+	text-align: center;
+	color: #666;
+	margin: 20px 0 20px;
+}
+
 #_wrapper {
     background-color: #F3F3F3;
-
+	
+	.title-main {
+		text-align: center;
+		margin: 50px 0;
+	}
+	
     .appHeader {
         background-color: #009de0;
         // border-bottom: 1px solid #BBB;
 
         #shortcuts {
-            margin: 1em 0;
+            margin: 12px -15px;
             position: relative;
 
             ul {
@@ -460,7 +471,11 @@
                     font-size: 16px;
                     display: inline;
                     position: relative;
-
+					
+					&.active {
+						border-bottom: 4px solid #263339;
+					}
+					
                     a {
                         color: #FFF;
                     }

@@ -26,9 +26,33 @@ class PismaController extends AppController
 
     public function my()
     {
-
-        $search = $this->API->Pisma()->search();
+		
+		$q = false;
+		
+		$params = array(
+			'page' => (
+				isset($this->request->query['page']) && 
+				is_numeric($this->request->query['page'])
+			) ? $this->request->query['page'] : 1,
+		);
+		
+		if(
+			isset( $this->request->query['q'] ) &&
+			$this->request->query['q']
+		) 
+			$q = $params['q'] = $this->request->query['q'];
+		
+		if( $user = $this->Auth->user() ) {
+			
+		} else {
+			
+			$params['anonymous_user_id'] = session_id();
+			
+		}
+		
+        $search = $this->API->Pisma()->search($params);
         $this->set('search', $search);
+        $this->set('q', $q);
 
     }
 

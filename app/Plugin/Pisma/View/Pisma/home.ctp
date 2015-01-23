@@ -15,14 +15,10 @@
 <div class="container">
     <div id="stepper" class="wizard clearfix">
         <div class="content clearfix">
-            <h2 class="title current">Wybierz szablon i adresata</h2>
-            <section class="body current">
                 <div class="container start">
                     <div class="col-xs-12">
-                        <p class="hint-title">Wybierz szablon, aby ułatwić tworzenie pisma. Na podstawie wybranego
-                            szablonu,
-                            umieścimy w Twoim piśmie odpowiednie formuły prawne i inne informacje. Jeśli nie chcesz
-                            wybierać szablonu - przejdź dalej.</p>
+                        
+                        <h1 class="title-main">Twórz i wysyłaj pisma do urzędów i urzędnikow.</h1>
 
                         <form class="letter form-horizontal" action="/pisma" method="post">
 
@@ -40,7 +36,6 @@
                         </form>
                     </div>
                 </div>
-            </section>
         </div>
     </div>
 </div>

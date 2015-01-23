@@ -18,13 +18,11 @@ if (!empty($pismo['adresat_id'])) {
 ?>
 
 <div class="container">
-    <div class="col-md-12">
-        <h1><?= $pismo['nazwa'] ?></h1>
+    
+    <? echo $this->element('Pisma.pismo-header', array(
+		'pismo' => $pismo,
+	)); ?>
 
-        <div class="letter-meta">
-            <p>Autor: Daniel Macyszyn</p>
-        </div>
-    </div>
     <div id="stepper" class="stepper"<? if (!empty($pismo_init)) {
         echo ' data-pismo=' . json_encode($pismo_init);
     } ?>>
