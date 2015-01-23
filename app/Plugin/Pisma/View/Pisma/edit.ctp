@@ -11,11 +11,11 @@
 
         <div class="col-xs-12">
             <? echo $this->Element('Pisma.menu', array(
-                'selected' => 'moje'
+                // 'selected' => 'moje'
             )); ?>
         </div>
 
     </div>
 </div>
 
-<? echo $this->Element('Pisma.editor', array('title' => $pismo['tytul'])); ?>
+<? echo $this->Element('Pisma.editor', array('title' => isset($pismo['tytul']) ? $pismo['tytul'] : '')); ?>

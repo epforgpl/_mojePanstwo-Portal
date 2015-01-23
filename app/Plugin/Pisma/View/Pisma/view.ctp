@@ -6,7 +6,7 @@
 
         <div class="col-xs-12">
             <? echo $this->Element('Pisma.menu', array(
-                'selected' => 'moje'
+                // 'selected' => 'moje'
             )); ?>
         </div>
 
@@ -14,13 +14,11 @@
 </div>
 
 <div class="container">
-    <div class="col-md-12">
-        <h1><?= $pismo['nazwa'] ?></h1>
-
-        <div class="letter-meta">
-            <p>Autor: Daniel Macyszyn</p>
-        </div>
-    </div>
+   
+    <? echo $this->element('Pisma.pismo-header', array(
+		'pismo' => $pismo,
+	)); ?>
+    
     <div id="stepper">
         <div class="content clearfix">
             <div class="col-md-10 view">
