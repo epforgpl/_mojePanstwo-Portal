@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<div class="col-md-12 pismoTitle">
     <h1><?= $pismo['nazwa'] ?></h1>
 	
 	<? if( ($pismo['from_user_type']=='anonymous') || ($pismo['from_user_type']=='account') ) {?>

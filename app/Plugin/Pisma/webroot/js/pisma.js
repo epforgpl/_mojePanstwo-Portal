@@ -598,7 +598,7 @@ var PISMA = Class.extend({
                 }
             })
             .end()
-            .find('input[name="nazwa"]').val($('#pismoConfirm #pismoTitle').val())
+            .find('input[name="nazwa"]').val($('.pismoTitle h1').text())
             .end()
             .find('input[name="data_pisma"]').val(preview.find('.control.control-date input#datepickerAlt').val())
             .end()
