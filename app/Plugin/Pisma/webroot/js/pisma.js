@@ -547,6 +547,8 @@ var PISMA = Class.extend({
             ).append(
                 $('<textarea></textarea>').attr({'name': 'tresc', 'maxlength': "255"})
             ).append(
+                $('<textarea></textarea>').attr({'name': 'podpis', 'maxlength': "511"})
+            ).append(
                 $('<input />').attr({'name': 'nazwa', 'value': "Nowe pismo"})
             ).append($('<div></div>').addClass('content'));
 
@@ -595,25 +597,25 @@ var PISMA = Class.extend({
                 }
             })
             .end()
-            .find('input[name="nazwa"]').val($('.pismoTitle h1').text())
+            .find('input[name="nazwa"]').val($.trim($('.pismoTitle h1').text()))
             .end()
-            .find('input[name="data_pisma"]').val(preview.find('.control.control-date input#datepickerAlt').val())
+            .find('input[name="data_pisma"]').val($.trim(preview.find('.control.control-date input#datepickerAlt').val()))
             .end()
-            .find('input[name="miejscowosc"]').val(preview.find('.control.control-date input.city').val())
+            .find('input[name="miejscowosc"]').val($.trim(preview.find('.control.control-date input.city').val()))
             .end()
-            .find('textarea[name="nadawca"]').val(self.html.stepper_div.find('.edit .col-md-10 .control.control-sender textarea.nadawca').val())
+            .find('textarea[name="nadawca"]').val($.trim(self.html.stepper_div.find('.edit .col-md-10 .control.control-sender textarea.nadawca').val()))
             .end()
             .find('input[name="adresat_id"]').val((self.objects.adresaci) ? 'intytucje:' + self.objects.adresaci.id : '')
             .end()
-            .find('input[name="adresat"]').val(preview.find('.control.control-addressee').html())
+            .find('input[name="adresat"]').val($.trim(preview.find('.control.control-addressee').html()))
             .end()
             .find('input[name="szablon_id"]').val((self.objects.szablony) ? self.objects.szablony.id : '')
             .end()
-            .find('input[name="tytul"]').val(preview.find('.control.control-template').text())
+            .find('input[name="tytul"]').val($.trim(preview.find('.control.control-template').text()))
             .end()
-            .find('input[name="tresc"]').val(preview.find('#editor').html())
+            .find('textarea[name="tresc"]').val($.trim(preview.find('#editor').html()))
             .end()
-            .find('textarea[name="podpis"]').val(self.html.stepper_div.find('.edit .col-md-10 .control.control-signature textarea.podpis').val());
+            .find('textarea[name="podpis"]').val($.trim(self.html.stepper_div.find('.edit .col-md-10 .control.control-signature textarea.podpis').val()));
 
         self.html.stepper_div.find('form.form-save').append(preview);
         self.html.stepper_div.find('form.form-save').submit();
