@@ -87,7 +87,7 @@ var PISMA = Class.extend({
     szablonData: function (szablon_id) {
         var self = this;
 
-        $.getJSON("http://api.mojepanstwo.pl/pisma/templates/" + szablon_id + ".json", function (d) {
+        $.getJSON("http://mojepanstwo.pl:4444/pisma/templates/" + szablon_id + ".json", function (d) {
             self.objects.szablony = {
                 id: d.id,
                 title: d.nazwa,
@@ -99,7 +99,7 @@ var PISMA = Class.extend({
     adresatData: function (adresat_id) {
         var self = this;
 
-        $.getJSON("http://api.mojepanstwo.pl/dane/dataset/instytucje/search.json?conditions[id]=" + adresat_id, function (d) {
+        $.getJSON("http://mojepanstwo.pl:4444/dane/dataset/instytucje/search.json?conditions[id]=" + adresat_id, function (d) {
             self.objects.adresaci = {
                 id: d.search.dataobjects[0].id,
                 title: d.search.dataobjects[0].data['instytucje.nazwa'],
@@ -119,7 +119,7 @@ var PISMA = Class.extend({
                 if (adresat in self.cache.adresaci) {
                     self.adresaciList(self.cache.adresaci[adresat]);
                 } else {
-                    $.getJSON("http://api.mojepanstwo.pl/dane/dataset/instytucje/search.json?conditions[q]=" + adresat, function (data) {
+                    $.getJSON("http://mojepanstwo.pl:4444/dane/dataset/instytucje/search.json?conditions[q]=" + adresat, function (data) {
                         self.cache.adresaci[adresat] = data;
                         self.adresaciList(data);
                     });
@@ -140,7 +140,7 @@ var PISMA = Class.extend({
         });
 
         if (self.objects.adresaci !== null && self.objects.adresaci.id) {
-            $.getJSON("http://api.mojepanstwo.pl/dane/instytucje/" + self.objects.adresaci.id + ".json", function (d) {
+            $.getJSON("http://mojepanstwo.pl:4444/dane/instytucje/" + self.objects.adresaci.id + ".json", function (d) {
                 self.objects.adresaci = {
                     id: d.object.id,
                     title: d.object.data['instytucje.nazwa'],

@@ -107,39 +107,28 @@ class PismaController extends AppController
     public function save()
     {
 
-        if ($this->Auth->loggedIn()) {
-
-            $this->Session->delete('Pisma.unsaved');
-
-            if (isset($this->request->data['send'])) {
+        if (isset($this->request->data['send'])) {
 
 
-                $pismo = $this->API->Pisma()->save($this->request->data);
-                if ($pismo && isset($pismo['id']) && $pismo['id']) {
+            $pismo = $this->API->Pisma()->save($this->request->data);
+            if ($pismo && isset($pismo['id']) && $pismo['id']) {
 
-                    $this->redirect($pismo['url']);
-
-                }
-
-            } elseif (isset($this->request->data['save'])) {
-
-                $pismo = $this->Pismo->save($this->request->data);
-                if ($pismo && isset($pismo['id']) && $pismo['id']) {
-
-                    $this->redirect($pismo['url']);
-
-                }
-
-            } elseif (isset($this->request->data['print'])) {
-
-                $pismo = $this->Pismo->generatePDF($this->request->data);
+                $this->redirect($pismo['url']);
 
             }
 
-        } else {
+        } elseif (isset($this->request->data['save'])) {
 
-            $this->Session->write('Pisma.unsaved', $this->request->data);
-            $this->redirect('/login');
+            $pismo = $this->Pismo->save($this->request->data);
+            if ($pismo && isset($pismo['id']) && $pismo['id']) {
+
+                $this->redirect($pismo['url']);
+
+            }
+
+        } elseif (isset($this->request->data['print'])) {
+
+            $pismo = $this->Pismo->generatePDF($this->request->data);
 
         }
 

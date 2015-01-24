@@ -62,7 +62,7 @@ $(document).ready(function () {
 
             if (pismoModal.data('cache') == undefined) {
                 var adresat_id = (pismoBtn.data('adresatid') != undefined) ? '?adresat_id=' + pismoBtn.data('adresatid') : '';
-                $.get('http://api.mojepanstwo.pl/pisma/templates/grouped.json' + adresat_id, function (data) {
+                $.get('http://mojepanstwo.pl:4444/pisma/templates/grouped.json' + adresat_id, function (data) {
                     pismoModal.data('cache', data);
                     szablonList(data)
                 });
