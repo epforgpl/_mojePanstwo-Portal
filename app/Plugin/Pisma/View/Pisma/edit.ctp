@@ -11,7 +11,7 @@
 
         <div class="col-xs-12">
             <? echo $this->Element('Pisma.menu', array(
-                // 'selected' => 'moje'
+                'selected' => (isset($pismo['saved']) && $pismo['saved']) ? 'moje' : 'nowe',
             )); ?>
         </div>
 

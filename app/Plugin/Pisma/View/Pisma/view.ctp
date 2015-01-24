@@ -17,6 +17,7 @@
    
     <? echo $this->element('Pisma.pismo-header', array(
 		'pismo' => $pismo,
+		'alert' => true,
 	)); ?>
     
     <div id="stepper">
@@ -35,9 +36,9 @@
                         <li class="inner-addon">
                             <i class="glyphicon glyphicon-send"></i>
                             <a href="<?= $href_base . '/send' ?>" target="_self" class="btn btn-primary">Wyślij...</a>
-
                             <p class="desc">Możesz wysłać pismo do adresata poprzez e-mail.</p>
                         </li>
+                        <? /*
                         <li class="inner-addon">
                             <i class="glyphicon glyphicon-share"></i>
                             <a href="<?= $href_base . '/share' ?>" target="_self"
@@ -46,17 +47,25 @@
                             <p class="desc">Twoje pismo jest obecnie prywatne. Możesz je zanonimizować i udostępnić
                                 publicznie.</p>
                         </li>
+                        */ ?>
                         <li class="inner-addon">
                             <i class="glyphicon glyphicon-edit"></i>
-                            <a href="<?= $href_base . '/edit' ?>" target="_self" class="btn btn-primary">Edytuj
-                                treść...</a>
+                            <a href="<?= $href_base . '/edit' ?>" target="_self" class="btn btn-primary">Edytuj treść</a>
                         </li>
-
-                        <? /*
-                <p class="text-center"><a href="#">Więcej akcji</a></p>
-                */ ?>
-
                     </ul>
+                                        
+                    <ul class="form-buttons more-buttons-target" style="display: none;">
+                        <li class="inner-addon left-addon">
+	                        <form onsubmit="return confirm('Czy na pewno chcesz usunąć to pismo?');" method="post" action="/pisma/<?=$pismo['alphaid']?>,<?=$pismo['slug']?>">
+								<i class="glyphicon glyphicon-trash"></i>
+								<input name="delete" type="submit" class="form-control btn btn-danger" value="Skasuj" />
+		                    </form>
+                        </li>
+                    </ul>
+                    
+                    <p class="more-buttons-switcher-cont">
+	                    <a class="more-buttons-switcher" data-mode="more" href="#more"><span class="glyphicon glyphicon-chevron-down"></span> <span class="text">Więcej</span></a>
+	                </p>
 
                 </div>
             </div>

@@ -22,21 +22,22 @@
             <div class="toolbar">
                 <div class="form-group">
                     <form method="GET" action="/pisma/moje">
-                        <input name="q" class="form-control" placeholder="Szukaj w moim pismach..." type="text"
+                        <input name="q" class="form-control input-lg" placeholder="Szukaj w moim pismach..." type="text"
                                value="<?= $q ?>">
                         <input type="submit" value="Szukaj" style="display: none;"/>
                     </form>
                 </div>
+                <? if ($search['pagination']['total']) { ?>
+                <div class="paginationList">
+                    <? echo ($search['pagination']['page'] * $search['pagination']['perPage']) - ($search['pagination']['perPage'] - 1) ?>
+                    <span
+                        class="small">-</span> <?= $search['pagination']['total'] > ($search['pagination']['page'] * $search['pagination']['perPage']) ? ($search['pagination']['page'] * $search['pagination']['perPage']) : $search['pagination']['total'] ?>
+                     <span class="small">z</span> <?= $search['pagination']['total'] ?>
+                </div>
+                <? } ?>
             </div>
 
             <? if ($search['pagination']['total']) { ?>
-                <div class="paginationList">
-                    <span
-                        class="small">( </span><? echo ($search['pagination']['page'] * $search['pagination']['perPage']) - ($search['pagination']['perPage'] - 1) ?>
-                    <span
-                        class="small">-</span> <?= $search['pagination']['total'] > ($search['pagination']['page'] * $search['pagination']['perPage']) ? ($search['pagination']['page'] * $search['pagination']['perPage']) : $search['pagination']['total'] ?>
-                    <span class="small">)</span> <span class="small">z</span> <?= $search['pagination']['total'] ?>
-                </div>
                 <ul class="list-main">
                     <? foreach ($search['items'] as $item) { ?>
                         <li>
@@ -58,9 +59,10 @@
                                 </p>
 
                                 <? if (isset($item['to_name'])) { ?>
-                                <p>
-                                    <small>Do:</small> <?= $item['to_name'] ?>
-                                    <? } ?>
+                                <p class="fields">
+                                    <small>Do:</small> <span class="val"><?= $item['to_name'] ?></span>
+                                </p>
+                                <? } ?>
 
                             </div>
 

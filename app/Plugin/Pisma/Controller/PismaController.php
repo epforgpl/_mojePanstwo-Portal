@@ -80,15 +80,42 @@ class PismaController extends AppController
         $this->set('pismo_init', $pismo);
 
     }
+	
+	private function load($id)
+	{
+		
+		try {
+			
+			if( $this->Auth->user() ) {
+				$pismo = $this->API->Pisma()->document_read($id);
+			} else {
+				$pismo = $this->API->Pisma()->document_read($id, array(
+					'anonymous_user_id' => session_id(),
+				));
+			}			
 
+	        $this->set('title_for_layout', $pismo['nazwa']);
+	        $this->set('pismo', $pismo);
+	        
+	        return $pismo;
+	        
+	    } catch (Exception $e) {
+
+	        $this->set('title_for_layout', 'Pismo nie istnieje');
+		    return $this->render('not_found');
+		    
+		}
+		
+	}
 
     public function view($id, $slug='')
     {
-
-        $pismo = $this->API->Pisma()->document_read($id);        
-        $this->set('title_for_layout', $pismo['nazwa']);
-        $this->set('pismo', $pismo);
-
+		$this->load($id);        
+    }
+    
+    public function edit($id, $slug='')
+    {
+		$this->load($id);        
     }
 
     public function share($id, $slug = '')
@@ -142,72 +169,49 @@ class PismaController extends AppController
 		
 		$pismo = array();
 				
-		if( $user = $this->Auth->user() ) {
-			
-			$pismo = array_merge($pismo, array(
-				'from_user_type' => 'account',
-				'from_user_id' => $user['id'],
-			));
-			
-			/*
-	        $pismo = array(
-	            'from_name' => $this->Auth->user('username'),
-	            'from_email' => $this->Auth->user('email')
-	        );
-	        */
-			
-		} else {
-			
-			$pismo = array_merge($pismo, array(
-				'from_user_type' => 'anonymous',
-				'from_user_id' => session_id(),
-			));
-			
-		}
+		if( !$this->Auth->user() )			
+			$pismo['anonymous_user_id'] = session_id();
 		
         if (isset($this->request->data['adresat_id']))
             $pismo['adresat_id'] = $this->request->data['adresat_id'];
             
         if (isset($this->request->data['szablon_id']))
             $pismo['szablon_id'] = $this->request->data['szablon_id'];
-			
 		
         $status = $this->API->Pisma()->document_create($pismo);
         return $this->redirect( $status['url'] . '/edit' );
     }
-
-    public function edit($id)
-    {
-
-        $pismo = $this->API->Pisma()->document_read($id);
-        $this->set('title_for_layout', $pismo['nazwa']);
-        $this->set('pismo', $pismo);
-
-        /*
-        if ($this->request->is('get')) {
-            $doc = $this->api->document_get($id);
-            $this->set('doc', $doc);
-
-        } else {
-            $data = $this->request->data;
-            $data['id'] = $id;
-
-            if ($doc = $this->saveForm($data)) {
-                $this->set('doc', $doc);
-            }
-        }
-        */
-    }
-
-    public function delete($id)
-    {
-        // TODO czy jesteś pewien, if is('get')
-        $this->api->document_delete($id);
-        $this->Session->setFlash('Skasowano pismo');
-
-        $this->redirect(array('action' => 'home', '[method]' => 'GET'));
-    }
-
+	
+	public function post($id, $slug=false) {
+		
+		$redirect = 'object';
+		
+		debug( $this->request->data ); die();
+		
+		$params = array();
+		if( !$this->Auth->user() )			
+			$params['anonymous_user_id'] = session_id();
+		
+		if( isset($this->request->data['delete']) )
+			$this->API->Pisma()->document_delete($id, $params);
+		
+		if( $redirect=='object' ) {
+			
+			$url = '/pisma/' . $id;
+			if( $slug )
+				$url .= ',' . $slug;
+				
+			return $this->redirect($url);
+			
+		} elseif( $redirect=='my' ) {
+			
+			return $this->redirect('/pisma/moje');
+			
+		}
+				
+	}
+	
+	/*
     private function saveForm($data)
     {
         try {
@@ -230,4 +234,5 @@ class PismaController extends AppController
 
         return $doc;
     }
+    */
 }

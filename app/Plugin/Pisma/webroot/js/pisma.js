@@ -527,13 +527,10 @@ var PISMA = Class.extend({
             self.objects.editor.text = editor.text();
 
         elEd.focus();
-    }
-    ,
-    lastPage: function (action) {
+    },
+    generateFormInsert: function() {
         var self = this,
-            preview = $('<form></form>').attr({'action': '/pisma', 'method': 'post'}).append(
-                $('<input />').attr({'name': action, 'type': "submit"})
-            ).append(
+            preview = $('<form></form>').append(
                 $('<input />').attr({'name': 'miejscowosc', 'maxlength': "127"})
             ).append(
                 $('<input />').attr({'name': 'data_pisma', 'maxlength': "10"})
@@ -617,7 +614,10 @@ var PISMA = Class.extend({
             .find('input[name="tresc"]').val(preview.find('#editor').html())
             .end()
             .find('textarea[name="podpis"]').val(self.html.stepper_div.find('.edit .col-md-10 .control.control-signature textarea.podpis').val());
-
+		
+		return preview;
+		
+		/*
         if (self.html.stepper_div.find('.preview').length)
             self.html.stepper_div.find('.preview').html('').append(preview);
         else
@@ -625,18 +625,33 @@ var PISMA = Class.extend({
                 'visibility': 'hidden',
                 'height': '0'
             }).append(preview));
-
-        preview.submit();
+		*/
+        
     }
     ,
     lastPageButtons: function () {
+        
+        var that = this;
+                
+        this.html.stepper_div.find('.form-save').submit(function(e){
+	        
+	        var form = $(e.target);
+			form.find('input[name=_save]').attr('name', 'save').addClass('disabled');
+			
+			var content = that.generateFormInsert();
+			console.log('content', content);
+	        return false;
+	        
+        });
+        
+        /*
         var self = this,
-            buttons = self.html.stepper_div.find('.editor-tooltip .btn');
+            buttons = self.html.stepper_div.find('.editor-tooltip .btn.action');
 
         $.each(buttons, function () {
             var button = $(this),
                 pismoConfirm = $('#pismoConfirm');
-
+						
             button.on('click', function (e) {
                 e.preventDefault();
 
@@ -652,6 +667,7 @@ var PISMA = Class.extend({
                 }
             });
         })
+        */
     }
     ,
     validateLastForm: function (button) {
@@ -716,5 +732,31 @@ var PISMA = Class.extend({
 var $P;
 
 $(document).ready(function () {
+    
     $P = new PISMA();
+   
+    $('.more-buttons-switcher').click(function(event){
+				
+		event.preventDefault();
+		
+		var switcher = $(event.target).parent('.more-buttons-switcher');
+		var target_element = $('.more-buttons-target');
+		var mode = switcher.data('mode');
+				
+		if( mode=='more' ) {
+		
+			target_element.slideDown();
+			switcher.data('mode', 'less').find('.text').text('Mniej');
+			switcher.find('.glyphicon').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+		
+		} else if ( mode=='less' ) {
+		
+			target_element.slideUp();
+			switcher.data('mode', 'more').find('.text').text('Więcej');
+			switcher.find('.glyphicon').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+		
+		}
+	});
+	
+	
 });

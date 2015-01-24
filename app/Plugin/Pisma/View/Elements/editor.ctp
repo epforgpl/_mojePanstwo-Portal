@@ -21,6 +21,7 @@ if (!empty($pismo['adresat_id'])) {
     
     <? echo $this->element('Pisma.pismo-header', array(
 		'pismo' => $pismo,
+		'alert' => true,
 	)); ?>
 
     <div id="stepper" class="stepper"<? if (!empty($pismo_init)) {
@@ -31,12 +32,6 @@ if (!empty($pismo['adresat_id'])) {
         <section>
             <div class="container start">
                 <div class="col-xs-12">
-                    <p class="hint-title">Wybierz szablon, aby ułatwić tworzenie pisma. Na
-                        podstawie wybranego szablonu,
-                        umieścimy w Twoim piśmie odpowiednie formuły prawne i inne
-                        informacje. Jeśli nie chcesz
-                        wybierać szablonu - przejdź dalej.</p>
-
                     <form class="letter form-horizontal">
                         <?php echo $this->element('Pisma.start') ?>
                         <fieldset class="final">
@@ -63,14 +58,35 @@ if (!empty($pismo['adresat_id'])) {
                     </div>
                     <div class="col-xs-12 col-md-2 nopadding">
                         <div class="editor-tooltip">
+                            
                             <ul class="form-buttons">
-                                <li class="inner-addon">
-                                    <i class="glyphicon glyphicon-save"></i>
-                                    <a href="#save" class="btn btn-primary sendPismo" name="save">Zapisz</a>
-
-                                    <p class="desc">Po zapisaniu będziesz mógł wysłać bądź udostępnić pismo.</p>
+                                <li class="inner-addon left-addon">
+	                                <form onsubmit="return false;" class="form-save" method="post" action="/pisma/<?=$pismo['alphaid']?>,<?=$pismo['slug']?>">
+	                                    <i class="glyphicon glyphicon-save"></i>
+	                                    <input type="submit" class="btn btn-primary action sendPismo" name="_save" value="Zapisz" />
+	                                    <p class="desc">Po zapisaniu będziesz mógł wysłać bądź udostępnić pismo.</p>
+	                                </form>
                                 </li>
+                                <? if( isset($pismo['saved']) && $pismo['saved'] ) {?>
+                                <li class="inner-addon">
+                                    <a href="/pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>" class="btn btn-default" name="cancel">Anuluj edycję</a>
+                                </li>
+                                <? } ?>
                             </ul>
+                            
+                            <ul class="form-buttons more-buttons-target" style="display: none;">
+		                        <li class="inner-addon left-addon">
+			                        <form onsubmit="return confirm('Czy na pewno chcesz usunąć to pismo?');" method="post" action="/pisma/<?=$pismo['alphaid']?>,<?=$pismo['slug']?>">
+										<i class="glyphicon glyphicon-trash"></i>
+										<input name="delete" type="submit" class="form-control btn btn-danger" value="Skasuj" />
+				                    </form>
+		                        </li>
+		                    </ul>
+		                    
+		                    <p class="more-buttons-switcher-cont">
+			                    <a class="more-buttons-switcher" data-mode="more" href="#more"><span class="glyphicon glyphicon-chevron-down"></span> <span class="text">Więcej</span></a>
+			                </p>
+                            
                         </div>
                     </div>
                 </div>
