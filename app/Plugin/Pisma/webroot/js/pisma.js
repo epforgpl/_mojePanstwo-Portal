@@ -528,9 +528,9 @@ var PISMA = Class.extend({
 
         elEd.focus();
     },
-    generateFormInsert: function() {
+    generateFormInsert: function () {
         var self = this,
-            preview = $('<form></form>').append(
+            preview = $('<div></div>').addClass('hide').append(
                 $('<input />').attr({'name': 'miejscowosc', 'maxlength': "127"})
             ).append(
                 $('<input />').attr({'name': 'data_pisma', 'maxlength': "10"})
@@ -607,67 +607,54 @@ var PISMA = Class.extend({
             .end()
             .find('input[name="adresat"]').val(preview.find('.control.control-addressee').html())
             .end()
-            .find('input[name="szablon_id"]').val((self.objects.szablon) ? self.objects.szablon.id : '')
+            .find('input[name="szablon_id"]').val((self.objects.szablony) ? self.objects.szablony.id : '')
             .end()
             .find('input[name="tytul"]').val(preview.find('.control.control-template').text())
             .end()
             .find('input[name="tresc"]').val(preview.find('#editor').html())
             .end()
             .find('textarea[name="podpis"]').val(self.html.stepper_div.find('.edit .col-md-10 .control.control-signature textarea.podpis').val());
-		
-		return preview;
-		
-		/*
-        if (self.html.stepper_div.find('.preview').length)
-            self.html.stepper_div.find('.preview').html('').append(preview);
-        else
-            self.html.stepper_div.append($('<div></div>').addClass('preview').css({
-                'visibility': 'hidden',
-                'height': '0'
-            }).append(preview));
-		*/
-        
+
+        self.html.stepper_div.find('form.form-save').append(preview);
+        self.html.stepper_div.find('form.form-save').submit();
     }
     ,
     lastPageButtons: function () {
-        
-        var that = this;
-                
-        this.html.stepper_div.find('.form-save').submit(function(e){
-	        
-	        var form = $(e.target);
-			form.find('input[name=_save]').attr('name', 'save').addClass('disabled');
-			
-			var content = that.generateFormInsert();
-			console.log('content', content);
-	        return false;
-	        
+        var self = this;
+
+        self.html.stepper_div.find('.form-save .sendPismo').click(function (e) {
+            var form = $(this).parent('form');
+
+            e.preventDefault();
+
+            form.find('input[name=_save]').attr('name', 'save').addClass('disabled');
+            self.generateFormInsert();
         });
-        
+
         /*
-        var self = this,
-            buttons = self.html.stepper_div.find('.editor-tooltip .btn.action');
+         var self = this,
+         buttons = self.html.stepper_div.find('.editor-tooltip .btn.action');
 
-        $.each(buttons, function () {
-            var button = $(this),
-                pismoConfirm = $('#pismoConfirm');
-						
-            button.on('click', function (e) {
-                e.preventDefault();
+         $.each(buttons, function () {
+         var button = $(this),
+         pismoConfirm = $('#pismoConfirm');
 
-                if (self.validateLastForm(this)) {
-                    if (button.attr('name') == "save") {
-                        if (!$(this).hasClass('.disabled')) {
-                            $(this).addClass('disabled');
-                            self.lastPage(button.attr('name'));
-                        }
-                    } else {
-                        pismoConfirm.find('input').val('').end().modal('show');
-                    }
-                }
-            });
-        })
-        */
+         button.on('click', function (e) {
+         e.preventDefault();
+
+         if (self.validateLastForm(this)) {
+         if (button.attr('name') == "save") {
+         if (!$(this).hasClass('.disabled')) {
+         $(this).addClass('disabled');
+         self.lastPage(button.attr('name'));
+         }
+         } else {
+         pismoConfirm.find('input').val('').end().modal('show');
+         }
+         }
+         });
+         })
+         */
     }
     ,
     validateLastForm: function (button) {
@@ -732,31 +719,31 @@ var PISMA = Class.extend({
 var $P;
 
 $(document).ready(function () {
-    
+
     $P = new PISMA();
-   
-    $('.more-buttons-switcher').click(function(event){
-				
-		event.preventDefault();
-		
-		var switcher = $(event.target).parent('.more-buttons-switcher');
-		var target_element = $('.more-buttons-target');
-		var mode = switcher.data('mode');
-				
-		if( mode=='more' ) {
-		
-			target_element.slideDown();
-			switcher.data('mode', 'less').find('.text').text('Mniej');
-			switcher.find('.glyphicon').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
-		
-		} else if ( mode=='less' ) {
-		
-			target_element.slideUp();
-			switcher.data('mode', 'more').find('.text').text('Więcej');
-			switcher.find('.glyphicon').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
-		
-		}
-	});
-	
-	
+
+    $('.more-buttons-switcher').click(function (event) {
+
+        event.preventDefault();
+
+        var switcher = $(event.target).parent('.more-buttons-switcher');
+        var target_element = $('.more-buttons-target');
+        var mode = switcher.data('mode');
+
+        if (mode == 'more') {
+
+            target_element.slideDown();
+            switcher.data('mode', 'less').find('.text').text('Mniej');
+            switcher.find('.glyphicon').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+
+        } else if (mode == 'less') {
+
+            target_element.slideUp();
+            switcher.data('mode', 'more').find('.text').text('Więcej');
+            switcher.find('.glyphicon').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+
+        }
+    });
+
+
 });

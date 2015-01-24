@@ -61,7 +61,7 @@ if (!empty($pismo['adresat_id'])) {
                             
                             <ul class="form-buttons">
                                 <li class="inner-addon left-addon">
-	                                <form onsubmit="return false;" class="form-save" method="post" action="/pisma/<?=$pismo['alphaid']?>,<?=$pismo['slug']?>">
+	                                <form class="form-save" method="post" action="/pisma/<?=$pismo['alphaid']?>,<?=$pismo['slug']?>">
 	                                    <i class="glyphicon glyphicon-save"></i>
 	                                    <input type="submit" class="btn btn-primary action sendPismo" name="_save" value="Zapisz" />
 	                                    <p class="desc">Po zapisaniu będziesz mógł wysłać bądź udostępnić pismo.</p>
