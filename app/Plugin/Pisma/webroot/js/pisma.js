@@ -304,7 +304,6 @@ var PISMA = Class.extend({
                 ));
 
             setTimeout(function () {
-                console.log('a');
                 self.convertEditor();
             }, 2000)
         }
@@ -638,31 +637,6 @@ var PISMA = Class.extend({
             form.find('input[name=_save]').attr('name', 'save').addClass('disabled');
             self.generateFormInsert();
         });
-
-        /*
-         var self = this,
-         buttons = self.html.stepper_div.find('.editor-tooltip .btn.action');
-
-         $.each(buttons, function () {
-         var button = $(this),
-         pismoConfirm = $('#pismoConfirm');
-
-         button.on('click', function (e) {
-         e.preventDefault();
-
-         if (self.validateLastForm(this)) {
-         if (button.attr('name') == "save") {
-         if (!$(this).hasClass('.disabled')) {
-         $(this).addClass('disabled');
-         self.lastPage(button.attr('name'));
-         }
-         } else {
-         pismoConfirm.find('input').val('').end().modal('show');
-         }
-         }
-         });
-         })
-         */
     }
     ,
     validateLastForm: function (button) {
