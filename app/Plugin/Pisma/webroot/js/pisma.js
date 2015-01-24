@@ -305,7 +305,7 @@ var PISMA = Class.extend({
 
             setTimeout(function () {
                 self.convertEditor();
-            }, 2000)
+            }, 500)
         }
     }
     ,
@@ -335,7 +335,7 @@ var PISMA = Class.extend({
     ,
     convertEditor: function () {
         var self = this,
-            editor = this.html.editor;
+            editor = self.html.stepper_div.find('#editor');
 
         editor.find('.editable').each(function () {
             var that = $(this);
