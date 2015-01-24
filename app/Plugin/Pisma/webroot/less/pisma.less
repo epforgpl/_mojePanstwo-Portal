@@ -439,19 +439,19 @@
 }
 
 .login-warning {
-	text-align: center;
-	color: #666;
-	margin: 20px 0 20px;
+    text-align: center;
+    color: #666;
+    margin: 20px 0 20px;
 }
 
 #_wrapper {
     background-color: #F3F3F3;
-	
-	.title-main {
-		text-align: center;
-		margin: 50px 0;
-	}
-	
+
+    .title-main {
+        text-align: center;
+        margin: 50px 0;
+    }
+
     .appHeader {
         background-color: #009de0;
         // border-bottom: 1px solid #BBB;
@@ -471,11 +471,11 @@
                     font-size: 16px;
                     display: inline;
                     position: relative;
-					
-					&.active {
-						border-bottom: 4px solid #263339;
-					}
-					
+
+                    &.active {
+                        border-bottom: 4px solid #263339;
+                    }
+
                     a {
                         color: #FFF;
                     }
@@ -746,6 +746,17 @@
                 right: 24px;
                 top: 15px;
             }
+        }
+    }
+    .paginationListNumber {
+        position: relative;
+        min-height: 35px;
+
+        > div {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     }
 }

@@ -66,34 +66,11 @@ if (!empty($pismo['adresat_id'])) {
                             <ul class="form-buttons">
                                 <li class="inner-addon">
                                     <i class="glyphicon glyphicon-save"></i>
-                                    <a href="#send" class="btn btn-primary" name="save">Zapisz</a>
+                                    <a href="#save" class="btn btn-primary sendPismo" name="save">Zapisz</a>
 
                                     <p class="desc">Po zapisaniu będziesz mógł wysłać bądź udostępnić pismo.</p>
                                 </li>
                             </ul>
-                        </div>
-                        <div class="modal fade" id="pismoConfirm" tabindex="-1"
-                             role="dialog"
-                             aria-labelledby="pismoConfirmLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <h4>&nbsp;</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        (save data)
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default"
-                                                data-dismiss="modal">Zamknij
-                                        </button>
-                                        <button type="button" class="btn sendPismo btn-primary">Wyślij</button>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

@@ -531,7 +531,7 @@ var PISMA = Class.extend({
     ,
     lastPage: function (action) {
         var self = this,
-            preview = $('<form></form>').attr({'action': '/pisma/nowe', 'method': 'post'}).append(
+            preview = $('<form></form>').attr({'action': '/pisma', 'method': 'post'}).append(
                 $('<input />').attr({'name': action, 'type': "submit"})
             ).append(
                 $('<input />').attr({'name': 'miejscowosc', 'maxlength': "127"})
@@ -598,7 +598,7 @@ var PISMA = Class.extend({
                 }
             })
             .end()
-            .find('input[name="nazwa"]').val($('#pismoConfirm #pismoTitle').val())
+            .find('input[name="nazwa"]').val($('.pismoTitle h1').text())
             .end()
             .find('input[name="data_pisma"]').val(preview.find('.control.control-date input#datepickerAlt').val())
             .end()
@@ -625,7 +625,8 @@ var PISMA = Class.extend({
                 'visibility': 'hidden',
                 'height': '0'
             }).append(preview));
-        preview.find('form').submit();
+
+        preview.submit();
     }
     ,
     lastPageButtons: function () {
@@ -640,16 +641,14 @@ var PISMA = Class.extend({
                 e.preventDefault();
 
                 if (self.validateLastForm(this)) {
-                    pismoConfirm.find('input').val('').end().modal('show');
-                }
-            });
-
-            pismoConfirm.find('.sendPismo').on('click', function (e) {
-                e.preventDefault();
-
-                if (!$(this).hasClass('.loading')) {
-                    $(this).addClass('loading');
-                    self.lastPage(button.attr('name'));
+                    if (button.attr('name') == "save") {
+                        if (!$(this).hasClass('.disabled')) {
+                            $(this).addClass('disabled');
+                            self.lastPage(button.attr('name'));
+                        }
+                    } else {
+                        pismoConfirm.find('input').val('').end().modal('show');
+                    }
                 }
             });
         })
