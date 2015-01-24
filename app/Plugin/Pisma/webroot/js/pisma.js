@@ -94,7 +94,6 @@ var PISMA = Class.extend({
                 content: d.tresc
             };
         });
-
     },
     adresatData: function (adresat_id) {
         var self = this;
@@ -276,7 +275,10 @@ var PISMA = Class.extend({
                 },
                 'html': true,
                 'fa': true,
-                'locale': 'pl-PL'
+                'locale': 'pl-PL',
+                parser: function (html) {
+                    return html;
+                }
             });
             self.html.editor.removeClass('loading');
             self.html.stepper_div.find('.wysihtml5-toolbar').find('[data-wysihtml5-command="bold"]').html($('<span></span>').addClass('fa fa-bold'))
@@ -300,6 +302,11 @@ var PISMA = Class.extend({
                             self.methods.stepper.steps("previous")
                         })
                 ));
+
+            setTimeout(function () {
+                console.log('a');
+                self.convertEditor();
+            }, 2000)
         }
     }
     ,
@@ -308,7 +315,7 @@ var PISMA = Class.extend({
 
         if (self.objects.szablony != null && (self.objects.editor == null || (self.objects.editor.id != self.objects.szablony.id))) {
             self.html.editor.addClass('loading');
-            $.getJSON("/pisma/szablony/" + self.objects.szablony.id + ".json", function (data) {
+            $.getJSON("http://mojepanstwo.pl:4444/pisma/templates/" + self.objects.szablony.id + ".json", function (data) {
                 if (self.objects.editor !== null) {
                     if ($(self.objects.editor.text === self.html.editor.text()) || (self.html.editor.text() == '')) {
                         self.html.editor.empty().html(data.tresc);
@@ -316,12 +323,13 @@ var PISMA = Class.extend({
                 } else {
                     self.html.editor.empty().html(data.tresc);
                 }
+                console.log('zuo - editorDetail');
+                self.convertEditor();
                 self.objects.editor = {
                     id: data.id,
                     tytul: data.nazwa
                 };
                 self.html.editorTop.find('.control-template').text(data.nazwa);
-                self.convertEditor();
             });
         }
     }
@@ -528,7 +536,8 @@ var PISMA = Class.extend({
             self.objects.editor.text = editor.text();
 
         elEd.focus();
-    },
+    }
+        ,
     generateFormInsert: function () {
         var self = this,
             preview = $('<div></div>').addClass('hide').append(
@@ -713,7 +722,8 @@ var PISMA = Class.extend({
 
         return status;
     }
-});
+    })
+    ;
 
 var $P;
 
