@@ -271,11 +271,12 @@ var PISMA = Class.extend({
         if (self.html.editor.length) {
             self.html.editor.wysihtml5({
                 toolbar: {
-                    "image": false,
-                    "emSmall": false
+                    'image': false,
+                    'emSmall': false
                 },
-                "fa": true,
-                locale: 'pl-PL'
+                'html': true,
+                'fa': true,
+                'locale': 'pl-PL'
             });
             self.html.editor.removeClass('loading');
             self.html.stepper_div.find('.wysihtml5-toolbar').find('[data-wysihtml5-command="bold"]').html($('<span></span>').addClass('fa fa-bold'))
@@ -554,7 +555,6 @@ var PISMA = Class.extend({
             .find('.control span.empty').remove()
             .end()
             .find('.control .empty').removeClass('empty')
-            .end()
             .end()
             .find('#editor').attr('contenteditable', false);
 
