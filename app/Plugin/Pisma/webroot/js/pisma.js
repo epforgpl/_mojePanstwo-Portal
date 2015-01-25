@@ -634,7 +634,7 @@ var PISMA = Class.extend({
 
             e.preventDefault();
 
-            form.find('input[name=_save]').attr('name', 'save').addClass('disabled');
+            form.find('input[name=_save]').attr('name', 'save'); //.addClass('disabled');
             self.generateFormInsert();
         });
     }

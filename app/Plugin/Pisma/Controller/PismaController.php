@@ -91,9 +91,7 @@ class PismaController extends AppController
 			$this->API->Pisma()->documents_update($id, $doc);
 			
 		}
-		
-		die();
-		
+				
 		if( $redirect=='object' ) {
 			
 			$url = '/pisma/' . $id;
@@ -151,6 +149,7 @@ class PismaController extends AppController
         }
 
         $this->set('pismo_init', $pismo);
+        $this->set('title_for_layout', 'Pisma - Twórz i wysyłaj pisma do urzędów i urzędnikow');
 
     }
 	
@@ -183,7 +182,7 @@ class PismaController extends AppController
         $search = $this->API->Pisma()->documents_search($params);
         $this->set('search', $search);
         $this->set('q', $q);
-
+        $this->set('title_for_layout', 'Moje pisma');
     }	
 	
 	/*
