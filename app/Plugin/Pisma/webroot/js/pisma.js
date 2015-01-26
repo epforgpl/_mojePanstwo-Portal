@@ -78,10 +78,13 @@ var PISMA = Class.extend({
             if (self.html.stepper_div.data('pismo') != undefined) {
                 var preinit = self.html.stepper_div.data('pismo');
 
-                if (preinit.szablon_id)
-                    self.szablonData(preinit.szablon_id);
-                if (preinit.adresat_id)
-                    self.adresatData(preinit.adresat_id);
+                if (preinit) {
+                    if (preinit.szablon_id)
+                        self.szablonData(preinit.szablon_id);
+                    if (preinit.adresat_id)
+                        self.adresatData(preinit.adresat_id);
+                    self.html.stepper_div.data('pismo', null)
+                }
             }
             if (self.methods.stepper.data().state.currentIndex == 1) {
                 self.editorDetail();
@@ -132,6 +135,10 @@ var PISMA = Class.extend({
                     id: d.id,
                     title: d.nazwa,
                     content: d.tresc
+                };
+                self.objects.editor = {
+                    id: d.id,
+                    tytul: d.nazwa
                 };
             });
         },
@@ -415,11 +422,14 @@ var PISMA = Class.extend({
         }
         ,
         editorDetail: function () {
-            var self = this;
+            var self = this,
+                checkSzablon = self.html.szablony.find('.radio input:checked').val();
 
-            if (self.objects.szablony != null && (self.objects.editor == null || (self.objects.editor.id != self.objects.szablony.id))) {
+            if (self.objects.szablony != undefined && (checkSzablon != self.objects.szablony.id)) {
                 self.html.editor.addClass('loading');
-                $.getJSON("http://mojepanstwo.pl:4444/pisma/templates/" + self.objects.szablony.id + ".json", function (data) {
+                self.szablonData(checkSzablon);
+
+                $.getJSON("http://mojepanstwo.pl:4444/pisma/templates/" + checkSzablon + ".json", function (data) {
                     if (self.objects.editor !== null) {
                         if ($(self.objects.editor.text === self.html.editor.text()) || (self.html.editor.text() == '')) {
                             self.html.editor.empty().html(data.tresc);
@@ -427,12 +437,7 @@ var PISMA = Class.extend({
                     } else {
                         self.html.editor.empty().html(data.tresc);
                     }
-                    console.log('zuo - editorDetail');
                     self.convertEditor();
-                    self.objects.editor = {
-                        id: data.id,
-                        tytul: data.nazwa
-                    };
                     self.html.editorTop.find('.control-template').text(data.nazwa);
 
                     self.html.editor.removeClass('loading');

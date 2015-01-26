@@ -37,8 +37,7 @@ if (!empty($pismo['adresat_id'])) {
                         <fieldset class="final">
                             <div class="form-group">
                                 <div class="col-lg-10 col-lg-offset-1 text-center">
-                                    <button type="submit" class="btn btn-md btn-primary">Wpisz
-                                        treść pisma
+                                    <button type="submit" class="btn btn-md btn-default">Wróć do edycji treści pisma
                                         <span class="glyphicon glyphicon-play"></span>
                                     </button>
                                 </div>
