@@ -34,8 +34,7 @@
                     <ul class="form-buttons">
                         <li class="inner-addon">
                             <i class="glyphicon glyphicon-send"></i>
-                            <a href="<?= $href_base . '/send' ?>" target="_self" class="btn btn-primary sendPismo"
-                               data-toggle="modal" data-target="#sendPismoModal">Wyślij...</a>
+                            <a href="<?= $href_base . '/send' ?>" target="_self" class="btn btn-primary sendPismo">Wyślij...</a>
 
                             <p class="desc">Możesz wysłać pismo do adresata poprzez e-mail.</p>
 

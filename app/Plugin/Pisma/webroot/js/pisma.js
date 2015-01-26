@@ -29,6 +29,7 @@ var PISMA = Class.extend({
                 this.stepsMarkers();
                 this.changeTitle();
                 this.adresaci();
+                this.lastPageButtons();
             }
         },
         stepsMarkers: function () {
@@ -652,9 +653,18 @@ var PISMA = Class.extend({
 
             self.html.stepper_div.find('.editor-tooltip .sendPismo').click(function (e) {
                 e.preventDefault();
-
                 $('#sendPismoModal').modal('show');
             });
+
+            if ($('#sendPismoModal').length) {
+                $('#sendPismoModal .btn[type="submit"]').click(function () {
+                    var that = $(this);
+
+                    if (that.hasClass('disabled'))
+                        return false;
+                    $(this).addClass('disabled loading');
+                });
+            }
 
             self.html.stepper_div.find('.form-save .savePismo').click(function (e) {
                 var form = $(this).parent('form');
