@@ -7,6 +7,7 @@
     </style>
 </head>
 <body>
+<? debug($pismo); ?>
 <div id="editor-cont">
     <div class="editor-controls">
         <div class="control control-date">
