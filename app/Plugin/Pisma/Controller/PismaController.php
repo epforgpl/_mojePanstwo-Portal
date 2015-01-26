@@ -64,6 +64,18 @@ class PismaController extends AppController
     {
         $this->load($id); 
     }
+    
+    public function html($id, $slug='')
+    {
+		
+		$pismo = $this->load($id);
+
+		$view = new View($this, false);
+		$html = $view->element('html', array(
+			'pismo' => $pismo,
+		));
+		echo $html; die();
+    }
 	
 	public function post($id, $slug=false) {
 		

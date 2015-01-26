@@ -91,6 +91,25 @@ Router::connect("$pisma_prefix/:id/edit", array(
 
 
 
+// HTML
+
+Router::connect("$pisma_prefix/:id,:slug/html", array(
+    'plugin' => 'Pisma',
+    'controller' => 'Pisma',
+    'action' => 'html',
+    '[method]' => 'GET'
+), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id', 'slug')));
+
+Router::connect("$pisma_prefix/:id/html", array(
+    'plugin' => 'Pisma',
+    'controller' => 'Pisma',
+    'action' => 'html',
+    '[method]' => 'GET'
+), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id')));
+
+
+
+
 
 // SHARE
 
