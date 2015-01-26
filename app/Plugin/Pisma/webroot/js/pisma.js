@@ -151,21 +151,73 @@ var PISMA = Class.extend({
         adresaci: function () {
             var self = this;
 
-            self.html.adresaci.find('#adresatSelect').on('keyup', function () {
-                var adresat = $(this).val();
+            $(window).keydown(function (event) {
+                var charCode = event.which || event.keyCode;
+
+                if (charCode == 13) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+
+            self.html.adresaci.find('#adresatSelect').on('keyup keypress', function (e) {
+                var adresatInput = $(this),
+                    charCode = e.which || e.keyCode,
+                    adresat = adresatInput.val();
 
                 if (adresat.length > 0) {
-                    if (adresat in self.cache.adresaci) {
-                        self.adresaciList(self.cache.adresaci[adresat]);
+                    var adresaciList = self.html.adresaci.find('.adresaciList');
+
+                    if (charCode == "13") { //ENTER
+                        if (adresaciList.find('li.active').length)
+                            self.adresaciListAccept(adresaciList.find('li.active'));
+                        else {
+                            self.html.adresaci.find('.list').hide();
+                            adresatInput.val('');
+                            adresaciList.focusout();
+                        }
+                    } else if (charCode == "27") { //ESCAPE
+                        if (adresaciList.is(':visible'))
+                            self.html.adresaci.find('.list').hide();
+
+                        adresatInput.val('');
+                        adresaciList.focusout();
+                        return false;
+                    } else if (charCode == "38") { //UP
+                        e.preventDefault();
+
+                        if (adresaciList.is(':visible')) {
+                            var previous = self.html.adresaci.find('.adresaciList li.active');
+
+                            if (previous.prev().length) {
+                                previous.prev().addClass('active');
+                                previous.removeClass('active');
+                            }
+                        }
+                    } else if (charCode == "40") { //DOWN
+                        e.preventDefault();
+
+                        if (adresaciList.is(':visible')) {
+                            var next = self.html.adresaci.find('.adresaciList li.active');
+
+                            if (next.next().length) {
+                                next.next().addClass('active');
+                                next.removeClass('active');
+                            }
+                        }
                     } else {
-                        if (self.cache.adresatInterval)
-                            clearTimeout(self.cache.adresatInterval);
-                        self.cache.adresatInterval = setTimeout(function () {
-                            $.getJSON("http://mojepanstwo.pl:4444/dane/dataset/instytucje/search.json?conditions[q]=" + adresat, function (data) {
-                                self.cache.adresaci[adresat] = data;
-                                self.adresaciList(data);
-                            });
-                        }, 200);
+                        if (adresat in self.cache.adresaci) {
+                            self.adresaciList(self.cache.adresaci[adresat]);
+                        } else {
+                            if (self.cache.adresatInterval)
+                                clearTimeout(self.cache.adresatInterval);
+                            self.cache.adresatInterval = setTimeout(function () {
+                                $.getJSON("http://mojepanstwo.pl:4444/dane/dataset/instytucje/search.json?conditions[q]=" + adresat, function (data) {
+                                    self.cache.adresaci[adresat] = data;
+                                    self.adresaciList(data);
+                                });
+                            }, 200);
+                        }
                     }
                 } else {
                     self.html.adresaci.find('.list').hide();
@@ -217,29 +269,18 @@ var PISMA = Class.extend({
                             id: that.id,
                             title: that.data['instytucje.nazwa'],
                             adres: that.data['instytucje.adres_str']
+                        }).mouseover(function () {
+                            self.html.adresaci.find('.adresaciList .ul-raw li.active').removeClass('active');
+                            $(this).addClass('active');
                         }).append(
                             $('<a></a>').attr('href', that._mpurl).text(that.data['instytucje.nazwa']).click(function (e) {
-                                var that = $(this),
-                                    slice = that.parents('li');
-
                                 e.preventDefault();
-                                self.adresaciReset(self);
-
-                                self.objects.adresaci = {
-                                    id: slice.data('id'),
-                                    title: slice.data('title'),
-                                    adres: slice.data('adres')
-                                };
-
-                                self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title).after($('<span></span>').addClass('glyphicon glyphicon-ok-circle'));
-                                self.html.adresaci.find('input[name="adresat_id"]').val('instytucje:' + self.objects.adresaci.id);
-                                self.html.szablony.find('.pisma-list-button').attr('data-adresatid', self.objects.adresaci.id);
-
-                                self.html.adresaci.find('.adresaciList').hide();
+                                self.adresaciListAccept($(this).parent('li'));
                             })
                         )
                     );
                 });
+                self.html.adresaci.find('.adresaciList .ul-raw li:first').addClass('active');
             } else {
                 self.html.adresaci.find('.adresaciList .ul-raw').append(
                     $('<li></li>').addClass('row').append(
@@ -247,6 +288,26 @@ var PISMA = Class.extend({
                     )
                 )
             }
+        }
+        ,
+        adresaciListAccept: function (that) {
+            var self = this;
+
+            self.adresaciReset(self);
+
+            self.objects.adresaci = {
+                id: that.data('id'),
+                title: that.data('title'),
+                adres: that.data('adres')
+            };
+
+            self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title).after($('<span></span>').addClass('glyphicon glyphicon-ok-circle'));
+            self.html.adresaci.find('input[name="adresat_id"]').val('instytucje:' + self.objects.adresaci.id);
+            self.html.szablony.find('.pisma-list-button').attr('data-adresatid', self.objects.adresaci.id);
+
+            self.html.adresaci.find('.adresaciList').hide();
+
+            return false;
         }
         ,
         adresaciReset: function (self) {
