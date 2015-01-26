@@ -5,8 +5,7 @@
     <div class="container innerContent">
 
         <div class="col-xs-12">
-            <? echo $this->Element('Pisma.menu', array(
-                // 'selected' => 'moje'
+            <? echo $this->Element('Pisma.menu', array(// 'selected' => 'moje'
             )); ?>
         </div>
 
@@ -14,12 +13,12 @@
 </div>
 
 <div class="container">
-   
+
     <? echo $this->element('Pisma.pismo-header', array(
-		'pismo' => $pismo,
-		'alert' => true,
-	)); ?>
-    
+        'pismo' => $pismo,
+        'alert' => true,
+    )); ?>
+
     <div id="stepper">
         <div class="content clearfix">
             <div class="col-md-10 view">
@@ -35,8 +34,35 @@
                     <ul class="form-buttons">
                         <li class="inner-addon">
                             <i class="glyphicon glyphicon-send"></i>
-                            <a href="<?= $href_base . '/send' ?>" target="_self" class="btn btn-primary">Wyślij...</a>
+                            <a href="<?= $href_base . '/send' ?>" target="_self" class="btn btn-primary sendPismo"
+                               data-toggle="modal" data-target="#sendPismoModal">Wyślij...</a>
+
                             <p class="desc">Możesz wysłać pismo do adresata poprzez e-mail.</p>
+
+                            <div id="sendPismoModal" class="modal fade" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title">Potwierdzenie wysłania</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>(asd)</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action="/pisma" method="POST">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                    Zamknij
+                                                </button>
+                                                <button type="submit" value="send" class="btn btn-primary">Wyślij
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                         <? /*
                         <li class="inner-addon">
@@ -50,22 +76,25 @@
                         */ ?>
                         <li class="inner-addon">
                             <i class="glyphicon glyphicon-edit"></i>
-                            <a href="<?= $href_base . '/edit' ?>" target="_self" class="btn btn-primary">Edytuj treść</a>
+                            <a href="<?= $href_base . '/edit' ?>" target="_self" class="btn btn-primary">Edytuj
+                                treść</a>
                         </li>
                     </ul>
-                                        
+
                     <ul class="form-buttons more-buttons-target" style="display: none;">
                         <li class="inner-addon left-addon">
-	                        <form onsubmit="return confirm('Czy na pewno chcesz usunąć to pismo?');" method="post" action="/pisma/<?=$pismo['alphaid']?>,<?=$pismo['slug']?>">
-								<i class="glyphicon glyphicon-trash"></i>
-								<input name="delete" type="submit" class="form-control btn btn-danger" value="Skasuj" />
-		                    </form>
+                            <form onsubmit="return confirm('Czy na pewno chcesz usunąć to pismo?');" method="post"
+                                  action="/pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
+                                <i class="glyphicon glyphicon-trash"></i>
+                                <input name="delete" type="submit" class="form-control btn btn-danger" value="Skasuj"/>
+                            </form>
                         </li>
                     </ul>
-                    
+
                     <p class="more-buttons-switcher-cont">
-	                    <a class="more-buttons-switcher" data-mode="more" href="#more"><span class="glyphicon glyphicon-chevron-down"></span> <span class="text">Więcej</span></a>
-	                </p>
+                        <a class="more-buttons-switcher" data-mode="more" href="#more"><span
+                                class="glyphicon glyphicon-chevron-down"></span> <span class="text">Więcej</span></a>
+                    </p>
 
                 </div>
             </div>

@@ -21,11 +21,13 @@ var PISMA = Class.extend({
                 this.steps();
                 this.stepsMarkers();
                 this.checkStep();
+                this.changeTitle();
                 this.adresaci();
                 this.editor();
                 this.lastPageButtons();
             } else {
                 this.stepsMarkers();
+                this.changeTitle();
                 this.adresaci();
             }
         },
@@ -83,6 +85,15 @@ var PISMA = Class.extend({
             if (self.methods.stepper.data().state.currentIndex == 1) {
                 self.editorDetail();
             }
+        }
+        ,
+        changeTitle: function () {
+            var title = $('#pismoTitle h1');
+            title.data('title', title.text());
+
+            title.keydown(function () {
+                console.log('ho')
+            });
         }
         ,
         szablonData: function (szablon_id) {
@@ -639,7 +650,13 @@ var PISMA = Class.extend({
         lastPageButtons: function () {
             var self = this;
 
-            self.html.stepper_div.find('.form-save .sendPismo').click(function (e) {
+            self.html.stepper_div.find('.editor-tooltip .sendPismo').click(function (e) {
+                e.preventDefault();
+
+                $('#sendPismoModal').modal('show');
+            });
+
+            self.html.stepper_div.find('.form-save .savePismo').click(function (e) {
                 var form = $(this).parent('form');
 
                 e.preventDefault();
