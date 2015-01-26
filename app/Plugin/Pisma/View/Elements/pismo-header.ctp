@@ -1,7 +1,8 @@
 <div class="row">
     <div class="col-md-12 pismoTitle">
-
-        <h1 contenteditable="true"><?= $pismo['nazwa'] ?></h1>
+        <h1 contenteditable="true" data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
+            <?= $pismo['nazwa'] ?>
+        </h1>
 
         <? if (isset($alert) && $alert && !AuthComponent::user('id')) { ?>
             <div class="alert alert-dismissable alert-warning">

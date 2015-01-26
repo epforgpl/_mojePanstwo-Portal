@@ -89,12 +89,39 @@ var PISMA = Class.extend({
         }
         ,
         changeTitle: function () {
-            var title = $('#pismoTitle h1');
-            title.data('title', title.text());
+            var pismoTitle = $('.pismoTitle h1'),
+                pismoTitleSave = $('<span></span>').addClass('btn btn-primary btn-xs').css({
+                    'margin-left': '10px',
+                    'display': 'none'
+                }).text('Zapisz');
 
-            title.keydown(function () {
-                console.log('ho')
-            });
+            pismoTitle.data('title', $.trim(pismoTitle.text()));
+            pismoTitle.append(pismoTitleSave.click(function () {
+                var newTitle = $.trim(pismoTitle.text().replace('Zapisz', ''));
+                $.ajax({
+                    url: '/pisma/' + pismoTitle.data('url'),
+                    method: 'PUT',
+                    data: {
+                        name: newTitle
+                    },
+                    before: function () {
+                        pismoTitleSave.addClass('loading disable');
+                        pismoTitle.attr('contenteditable', false);
+                    },
+                    success: function () {
+                        pismoTitleSave.removeClass('loading disable');
+                        pismoTitle.data('title', newTitle).text(newTitle);
+                        pismoTitle.attr('contenteditable', true);
+                    }
+                })
+            }));
+            pismoTitle.keyup(function () {
+                if ($.trim(pismoTitle.text().replace('Zapisz', '')) != pismoTitle.data('title')) {
+                    pismoTitleSave.show();
+                } else {
+                    pismoTitleSave.hide();
+                }
+            })
         }
         ,
         szablonData: function (szablon_id) {
