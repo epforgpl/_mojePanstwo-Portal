@@ -13,7 +13,8 @@ var PISMA = Class.extend({
         },
         cache: {
             szablony: {},
-            adresaci: {}
+            adresaci: {},
+            adresatInterval: null
         },
         init: function () {
             if (this.html.stepper_div.hasClass('stepper')) {
@@ -118,10 +119,14 @@ var PISMA = Class.extend({
                     if (adresat in self.cache.adresaci) {
                         self.adresaciList(self.cache.adresaci[adresat]);
                     } else {
-                        $.getJSON("http://mojepanstwo.pl:4444/dane/dataset/instytucje/search.json?conditions[q]=" + adresat, function (data) {
-                            self.cache.adresaci[adresat] = data;
-                            self.adresaciList(data);
-                        });
+                        if (self.cache.adresatInterval)
+                            clearTimeout(self.cache.adresatInterval);
+                        self.cache.adresatInterval = setTimeout(function () {
+                            $.getJSON("http://mojepanstwo.pl:4444/dane/dataset/instytucje/search.json?conditions[q]=" + adresat, function (data) {
+                                self.cache.adresaci[adresat] = data;
+                                self.adresaciList(data);
+                            });
+                        }, 200);
                     }
                 } else {
                     self.html.adresaci.find('.list').hide();
