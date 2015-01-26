@@ -649,15 +649,16 @@ var PISMA = Class.extend({
         }
         ,
         lastPageButtons: function () {
-            var self = this;
+            var self = this,
+                modal = {};
 
             self.html.stepper_div.find('.editor-tooltip .sendPismo').click(function (e) {
                 e.preventDefault();
                 $('#sendPismoModal').modal('show');
             });
 
-            if ($('#sendPismoModal').length) {
-                $('#sendPismoModal .btn[type="submit"]').click(function () {
+            if ((modal.sendPismo = $('#sendPismoModal')).length) {
+                modal.sendPismo.find('.btn[type="submit"]').click(function () {
                     var that = $(this);
 
                     if (that.hasClass('disabled'))
