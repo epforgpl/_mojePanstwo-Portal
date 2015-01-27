@@ -102,6 +102,10 @@ class PismaController extends AppController
 			
 			$this->API->Pisma()->documents_update($id, $doc);
 			
+		} elseif( isset($this->request->data['send']) ) {
+			
+			$this->API->Pisma()->documents_send($id);
+			
 		}
 				
 		if( $redirect=='object' ) {

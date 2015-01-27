@@ -145,7 +145,7 @@ var PISMA = Class.extend({
         adresatData: function (adresat_id) {
             var self = this;
 
-            $.getJSON("http://mojepanstwo.pl:4444/dane/dataset/instytucje/search.json?conditions[id]=" + adresat_id, function (d) {
+            $.getJSON("http://mojepanstwo.pl:4444/dane/dataset/instytucje/search.json?conditions[id]=" + adresat_id + '&conditions[pisma]=1', function (d) {
                 self.objects.adresaci = {
                     id: d.search.dataobjects[0].id,
                     title: d.search.dataobjects[0].data['instytucje.nazwa'],
@@ -713,7 +713,7 @@ var PISMA = Class.extend({
                     }
                 })
                 .end()
-                .find('input[name="nazwa"]').val($.trim($('.pismoTitle h1').text()))
+                .find('input[name="nazwa"]').val($.trim( $('.pismoTitle h1').text().replace('Zapisz', '') ))
                 .end()
                 .find('input[name="data_pisma"]').val($.trim(preview.find('.control.control-date input#datepickerAlt').val()))
                 .end()

@@ -22,15 +22,13 @@
     <div id="stepper">
         <div class="content clearfix">
             <div class="col-md-10 view">
-
                 <? echo $this->Element('Pisma.render'); ?>
             </div>
             <div class="col-md-2 nopadding">
                 <div class="editor-tooltip">
 
                     <? $href_base = '/pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
-
-
+					
                     <ul class="form-buttons">
                         <li class="inner-addon">
                             <i class="glyphicon glyphicon-send"></i>
@@ -45,13 +43,22 @@
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title">Potwierdzenie wysłania</h4>
+                                            <h4 class="modal-title">Wysyłanie pisma</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <p>(asd)</p>
+                                            <p>Twoje pismo zostanie wysłane z adresu <span class="email">pisma@mojepanstwo.pl</span> na adres:</p>
+                                            
+                                            <p class="email email-big text-center"><?= $pismo['to_email'] ?></p>
+                                            
+                                            <div class="additional-desc">
+	                                            <p>W polu <b>CC</b> wiadomości zostanie podany Twój adres e-mail - otrzymasz więc kopię wysłanego pisma.</p>
+	                                            <p>W polu <b>Reply-to</b> wiadomości również zostanie podany Twój adres email, aby adresat przesłał odpowiedź bezpośrednio na Twój adres.</p>
+                                            </div>
+                                            
+                                            
                                         </div>
                                         <div class="modal-footer">
-                                            <form action="/pisma" method="POST">
+                                            <form action="<?= $href_base ?>" method="POST">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">
                                                     Zamknij
                                                 </button>
