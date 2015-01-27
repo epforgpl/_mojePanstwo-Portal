@@ -185,7 +185,7 @@ var PISMA = Class.extend({
                 }
             });
 
-            self.html.adresaci.find('#adresatSelect').on('keyup keypress', function (e) {
+            self.html.adresaci.find('#adresatSelect').on('keyup', function (e) {
                 var adresatInput = $(this),
                     charCode = e.which || e.keyCode,
                     adresat = adresatInput.val();
@@ -199,14 +199,14 @@ var PISMA = Class.extend({
                         else {
                             self.html.adresaci.find('.list').hide();
                             adresatInput.val('');
-                            adresaciList.focusout();
+                            adresatInput.focusout();
                         }
                     } else if (charCode == self.keycode.escape) {
                         if (adresaciList.is(':visible'))
                             self.html.adresaci.find('.list').hide();
 
                         adresatInput.val('');
-                        adresaciList.focusout();
+                        adresatInput.focusout();
                         return false;
                     } else if (charCode == self.keycode.arrowUp) {
                         e.preventDefault();
