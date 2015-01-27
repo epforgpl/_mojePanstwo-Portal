@@ -21,11 +21,20 @@
         </div>
 
         <div class="control control-sender">
-            <?php if (empty($pismo['nadawca'])) { ?>
-                <textarea class="nadawca empty" placeholder="Wpisz dane nadawcy..." rows="1" maxlength="511"></textarea>
-            <? } else { ?>
-                <div class="pre"><?= str_replace("\n", '<br/>', $pismo['nadawca']) ?></div>
-            <? } ?>
+            <?php if (isset($pismoEditPage) && $pismoEditPage) {
+                if (empty($pismo['nadawca'])) { ?>
+                    <textarea class="nadawca empty" placeholder="Wpisz dane nadawcy..." rows="1"
+                              maxlength="511"></textarea>
+                <? } else { ?>
+                    <textarea class="nadawca" placeholder="Wpisz dane nadawcy..." rows="1"
+                              maxlength="511"><?= $pismo['nadawca'] ?></textarea>
+                <? }
+            } else {
+                if (!empty($pismo['nadawca'])) { ?>
+                    <div class="pre"><?= str_replace("\n", '<br/>', $pismo['nadawca']) ?></div>
+                <? }
+            } ?>
+
             <textarea class="sprawa empty hide" placeholder="Wpisz znak sprawy" rows="1"></textarea>
         </div>
 

@@ -53,7 +53,7 @@ if (!empty($pismo['adresat_id'])) {
             <div class="container edit">
                 <div class="editor-container row">
                     <div class="col-xs-12 col-md-10">
-                        <? echo $this->Element('Pisma.render'); ?>
+                        <? echo $this->Element('Pisma.render', array('pismoEditPage' => true)); ?>
                     </div>
                     <div class="col-xs-12 col-md-2 nopadding">
                         <div class="editor-tooltip">
