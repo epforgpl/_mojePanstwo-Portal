@@ -1,7 +1,77 @@
 <?php
 $this->Combinator->add_libs('css', $this->Less->css('handel_zagraniczny', array('plugin' => 'HandelZagraniczny')));
-$this->Combinator->add_libs('js', '../plugins/highmaps/js/highmaps');
+$this->Combinator->add_libs('css', $this->Less->css('naglosnij', array('plugin' => 'Dane')));
+
+$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
+$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+$this->Combinator->add_libs('js', '../plugins/highcharts/plugin/map');
 $this->Combinator->add_libs('js', 'HandelZagraniczny.handel_zagraniczny.js');
+$this->Combinator->add_libs('js', 'Dane.naglosnij.js');
 ?>
 
-<div id="handelMap"></div>
+<div class="maplabel">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid container">
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <p class="navbar-text">Signed in as Mark Otto</p>
+                <form class="navbar-form navbar-right">
+                    <div class="form-group">
+                        <span class="text-muted">Rok: &nbsp;</span>
+                        <select class="form-control hzYearSelect">
+                            <!--<option>2004</option>-->
+                            <option>2005</option>
+                            <option>2006</option>
+                            <option>2007</option>
+                            <option>2008</option>
+                            <option>2009</option>
+                            <option>2010</option>
+                            <option>2011</option>
+                            <option>2012</option>
+                            <option>2013</option>
+                            <option selected>2014</option>
+                        </select>
+                    </div>
+                </form>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <!--<div class="naglosnijHandler">
+        <?php echo $this->element('Dane.dataobject/buttons/shoutIt'); ?>
+    </div>-->
+</div>
+<div class="mapMain">
+    <ul class="nav nav-pills hzTypeMenu">
+        <li class="active"><a href="#">Import</a></li>
+        <li><a href="#">Eksport</a></li>
+        <li><a href="#">Wymiana</a></li>
+    </ul>
+    <div id="hzMap">
+        <div class="loading"></div>
+    </div>
+</div>
+<div id="hzDetails">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Import</h2>
+                <p class="lead">Państwa od których Polska importowała najwięcej w <span class="hzYearAttr">2014</span> roku</p>
+                <ul class="list-group" id="hzImportCountries"></ul>
+                <p class="lead">Towary których Polska importowała najwięcej w <span class="hzYearAttr">2014</span> roku</p>
+                <ul class="list-group" id="hzImportSymbols"></ul>
+            </div>
+            <div class="col-md-6">
+                <h2>Eksport</h2>
+                <p class="lead">Państwa do których Polska eksportowała najwięcej w <span class="hzYearAttr">2014</span> roku</p>
+                <ul class="list-group" id="hzExportCountries"></ul>
+                <p class="lead">Towary których Polska eksportowała najwięcej w <span class="hzYearAttr">2014</span> roku</p>
+                <ul class="list-group" id="hzExportSymbols"></ul>
+            </div>
+        </div>
+        <div class="well well-sm">Źródło: hinex.stat.gov.pl/hinex/aspx/index.aspx</div>
+    </div>
+</div>
+<!--
+<div class="container">
+
+</div>-->
