@@ -655,12 +655,12 @@ var PISMA = Class.extend({
                 input = that.find('input');
 
             mirror.html((input.val() == '') ? input.attr('placeholder') : input.val());
-            input.css('width', (mirror.outerWidth() < input.css('min-width')) ? input.css('min-width') : mirror.outerWidth());
+            input.css('width', (mirror.outerWidth() < input.css('min-width')) ? input.css('min-width') : mirror.outerWidth() + 8);
 
             input.keydown(function () {
                 mirror.html((input.val() == '') ? input.attr('placeholder') : input.val());
                 input.attr('value', (input.val() == '') ? '' : input.val());
-                input.css('width', (mirror.outerWidth() < input.css('min-width')) ? input.css('min-width') : mirror.outerWidth());
+                input.css('width', (mirror.outerWidth() < input.css('min-width')) ? input.css('min-width') : mirror.outerWidth() + 8);
             });
         }
         ,
