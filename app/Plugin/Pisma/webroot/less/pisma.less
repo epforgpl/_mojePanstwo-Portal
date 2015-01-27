@@ -4,18 +4,18 @@
 
 #sendPismoModal {
 
-	.email {
-		color: #D33;
-		&.email-big {
-			font-size: 18px;
-			margin-bottom: 20px;
-		}
-	}
-	
-	.additional-desc {
-		font-size: 12px;
-		margin-bottom: -20px;
-	}
+    .email {
+        color: #D33;
+        &.email-big {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+    }
+
+    .additional-desc {
+        font-size: 12px;
+        margin-bottom: -20px;
+    }
 
 }
 
@@ -297,27 +297,27 @@
     > .content > .body .editor-tooltip,
     .editor-tooltip {
         margin-top: -5px;
-		
-		form {
-			padding: 0;
-			margin: 0;
-		}
-		
-		.more-buttons-switcher-cont {
-	        margin-top: 10px;
-	        margin-right: 40px;
-	        text-align: center;	
-		}
-		
-		.more-buttons-switcher {
-	        .glyphicon {
-		        position: relative;
-		        top: 3px;
-		        margin-right: 2px;
-		        margin-left: 2px;
-	        }
-	    }
-		
+
+        form {
+            padding: 0;
+            margin: 0;
+        }
+
+        .more-buttons-switcher-cont {
+            margin-top: 10px;
+            margin-right: 40px;
+            text-align: center;
+        }
+
+        .more-buttons-switcher {
+            .glyphicon {
+                position: relative;
+                top: 3px;
+                margin-right: 2px;
+                margin-left: 2px;
+            }
+        }
+
         ul {
             list-style: none;
             margin: 0;
@@ -348,12 +348,12 @@
                 .desc {
                     padding-top: 10px;
                 }
-                
+
                 input {
-	                color: #FFF;
-	                height: 30px;
+                    color: #FFF;
+                    height: 30px;
                 }
-                
+
             }
         }
     }
@@ -531,6 +531,46 @@
 
             }
 
+        }
+    }
+
+    .pismoTitle {
+        .titleBlock {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+
+            h1 {
+                display: block;
+                float: left;
+                max-width: 100%;
+                width: auto;
+                word-wrap: break-word;
+            }
+
+            .pismaBtn {
+                float: left;
+
+                .pismoTitleSaveBtn,
+                .pismoTitleAbortBtn {
+                    height: 22px;
+                    float: left;
+                    position: absolute;
+                    top: 50%;
+                    transform: translate(0px, -50%);
+                    margin-top: 3px;
+                }
+                .pismoTitleSaveBtn {
+                    width: 50px;
+                }
+                .pismoTitleAbortBtn {
+                    margin-left: 55px;
+                }
+            }
+        }
+        .alert {
+            float: left;
+            width: 100%;
         }
     }
 

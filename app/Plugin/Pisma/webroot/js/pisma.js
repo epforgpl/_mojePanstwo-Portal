@@ -16,6 +16,12 @@ var PISMA = Class.extend({
             adresaci: {},
             adresatInterval: null
         },
+        keycode: {
+            enter: 13,
+            escape: 27,
+            arrowUp: 38,
+            arrowDown: 40
+        },
         init: function () {
             if (this.html.stepper_div.hasClass('stepper')) {
                 this.steps();
@@ -92,37 +98,49 @@ var PISMA = Class.extend({
         }
         ,
         changeTitle: function () {
-            var pismoTitle = $('.pismoTitle h1'),
-                pismoTitleSave = $('<span></span>').addClass('btn btn-primary btn-xs').css({
-                    'margin-left': '10px',
-                    'display': 'none'
-                }).text('Zapisz');
-
+            var self = this,
+                pismoTitleBlock = $('.titleBlock'),
+                pismoTitle = pismoTitleBlock.find('h1'),
+                pismoTitleBtnBlock = $('<div></div>').addClass('pismaBtn'),
+                pismoTitleSave = $('<span></span>').addClass('pismoTitleSaveBtn btn btn-primary btn-xs').text('Zapisz').click(function () {
+                    var newTitle = $.trim(pismoTitle.text());
+                    $.ajax({
+                        url: '/pisma/' + pismoTitle.data('url'),
+                        method: 'PUT',
+                        data: {
+                            name: newTitle
+                        },
+                        before: function () {
+                            pismoTitleSave.addClass('loading disable');
+                            pismoTitle.attr('contenteditable', false);
+                        },
+                        success: function () {
+                            pismoTitleSave.removeClass('loading disable');
+                            pismoTitle.data('title', newTitle).text(newTitle);
+                            pismoTitle.attr('contenteditable', true);
+                        },
+                        complete: function () {
+                            pismoTitleBtnBlock.hide();
+                        }
+                    })
+                }),
+                pismoTitleAbort = $('<span></span>').addClass('pismoTitleAbortBtn btn btn-default btn-xs').text('Anuluj').click(function () {
+                    pismoTitle.text(pismoTitle.data('title'));
+                    pismoTitleBtnBlock.hide();
+                });
             pismoTitle.data('title', $.trim(pismoTitle.text()));
-            pismoTitle.append(pismoTitleSave.click(function () {
-                var newTitle = $.trim(pismoTitle.text().replace('Zapisz', ''));
-                $.ajax({
-                    url: '/pisma/' + pismoTitle.data('url'),
-                    method: 'PUT',
-                    data: {
-                        name: newTitle
-                    },
-                    before: function () {
-                        pismoTitleSave.addClass('loading disable');
-                        pismoTitle.attr('contenteditable', false);
-                    },
-                    success: function () {
-                        pismoTitleSave.removeClass('loading disable');
-                        pismoTitle.data('title', newTitle).text(newTitle);
-                        pismoTitle.attr('contenteditable', true);
-                    }
-                })
-            }));
-            pismoTitle.keyup(function () {
-                if ($.trim(pismoTitle.text().replace('Zapisz', '')) != pismoTitle.data('title')) {
-                    pismoTitleSave.show();
+            pismoTitleBlock.append(pismoTitleBtnBlock.append(pismoTitleSave).append(pismoTitleAbort));
+            pismoTitleBtnBlock.hide();
+
+            pismoTitle.keyup(function (e) {
+                if (e.keyCode == self.keycode.escape || e.which == self.keycode.escape) {
+                    pismoTitle.text(pismoTitle.data('title'));
+                    pismoTitleBtnBlock.hide();
+                }
+                if ($.trim(pismoTitle.text()) != pismoTitle.data('title')) {
+                    pismoTitleBtnBlock.show();
                 } else {
-                    pismoTitleSave.hide();
+                    pismoTitleBtnBlock.hide();
                 }
             })
         }
@@ -158,7 +176,7 @@ var PISMA = Class.extend({
         adresaci: function () {
             var self = this;
 
-            $(window).keydown(function (event) {
+            this.html.adresaci.keydown(function (event) {
                 var charCode = event.which || event.keyCode;
 
                 if (charCode == 13) {
@@ -175,7 +193,7 @@ var PISMA = Class.extend({
                 if (adresat.length > 0) {
                     var adresaciList = self.html.adresaci.find('.adresaciList');
 
-                    if (charCode == "13") { //ENTER
+                    if (charCode == self.keycode.enter) {
                         if (adresaciList.find('li.active').length)
                             self.adresaciListAccept(adresaciList.find('li.active'));
                         else {
@@ -183,14 +201,14 @@ var PISMA = Class.extend({
                             adresatInput.val('');
                             adresaciList.focusout();
                         }
-                    } else if (charCode == "27") { //ESCAPE
+                    } else if (charCode == self.keycode.escape) {
                         if (adresaciList.is(':visible'))
                             self.html.adresaci.find('.list').hide();
 
                         adresatInput.val('');
                         adresaciList.focusout();
                         return false;
-                    } else if (charCode == "38") { //UP
+                    } else if (charCode == self.keycode.arrowUp) {
                         e.preventDefault();
 
                         if (adresaciList.is(':visible')) {
@@ -201,7 +219,7 @@ var PISMA = Class.extend({
                                 previous.removeClass('active');
                             }
                         }
-                    } else if (charCode == "40") { //DOWN
+                    } else if (charCode == self.keycode.arrowDown) {
                         e.preventDefault();
 
                         if (adresaciList.is(':visible')) {
@@ -713,7 +731,7 @@ var PISMA = Class.extend({
                     }
                 })
                 .end()
-                .find('input[name="nazwa"]').val($.trim( $('.pismoTitle h1').text().replace('Zapisz', '') ))
+                .find('input[name="nazwa"]').val($.trim($('.titleBlock h1').text()))
                 .end()
                 .find('input[name="data_pisma"]').val($.trim(preview.find('.control.control-date input#datepickerAlt').val()))
                 .end()
