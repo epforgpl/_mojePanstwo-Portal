@@ -62,7 +62,8 @@
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">
                                                     Zamknij
                                                 </button>
-                                                <button type="submit" value="send" class="btn btn-primary">Wyślij
+                                                <button name="submit" value="send" type="submit"
+                                                        class="btn btn-primary">Wyślij
                                                 </button>
                                             </form>
                                         </div>
