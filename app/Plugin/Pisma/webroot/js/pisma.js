@@ -13,19 +13,30 @@ var PISMA = Class.extend({
         },
         cache: {
             szablony: {},
-            adresaci: {}
+            adresaci: {},
+            adresatInterval: null
+        },
+        keycode: {
+            enter: 13,
+            escape: 27,
+            arrowUp: 38,
+            arrowDown: 40
         },
         init: function () {
             if (this.html.stepper_div.hasClass('stepper')) {
                 this.steps();
                 this.stepsMarkers();
                 this.checkStep();
+                this.changeTitle();
+                this.szablony();
                 this.adresaci();
                 this.editor();
                 this.lastPageButtons();
             } else {
                 this.stepsMarkers();
+                this.changeTitle();
                 this.adresaci();
+                this.lastPageButtons();
             }
         },
         stepsMarkers: function () {
@@ -74,14 +85,65 @@ var PISMA = Class.extend({
             if (self.html.stepper_div.data('pismo') != undefined) {
                 var preinit = self.html.stepper_div.data('pismo');
 
-                if (preinit.szablon_id)
-                    self.szablonData(preinit.szablon_id);
-                if (preinit.adresat_id)
-                    self.adresatData(preinit.adresat_id);
+                if (preinit) {
+                    if (preinit.szablon_id)
+                        self.szablonData(preinit.szablon_id);
+                    if (preinit.adresat_id)
+                        self.adresatData(preinit.adresat_id);
+                    self.html.stepper_div.data('pismo', null)
+                }
             }
             if (self.methods.stepper.data().state.currentIndex == 1) {
                 self.editorDetail();
             }
+        }
+        ,
+        changeTitle: function () {
+            var self = this,
+                pismoTitleBlock = $('.titleBlock'),
+                pismoTitle = pismoTitleBlock.find('h1'),
+                pismoTitleBtnBlock = $('<div></div>').addClass('pismaBtn'),
+                pismoTitleSave = $('<span></span>').addClass('pismoTitleSaveBtn btn btn-primary btn-xs').text('Zapisz').click(function () {
+                    var newTitle = $.trim(pismoTitle.text());
+                    $.ajax({
+                        url: '/pisma/' + pismoTitle.data('url'),
+                        method: 'PUT',
+                        data: {
+                            name: newTitle
+                        },
+                        before: function () {
+                            pismoTitleSave.addClass('loading disable');
+                            pismoTitle.attr('contenteditable', false);
+                        },
+                        success: function () {
+                            pismoTitleSave.removeClass('loading disable');
+                            pismoTitle.data('title', newTitle).text(newTitle);
+                            pismoTitle.attr('contenteditable', true);
+                        },
+                        complete: function () {
+                            pismoTitleBtnBlock.hide();
+                        }
+                    })
+                }),
+                pismoTitleAbort = $('<span></span>').addClass('pismoTitleAbortBtn btn btn-default btn-xs').text('Anuluj').click(function () {
+                    pismoTitle.text(pismoTitle.data('title'));
+                    pismoTitleBtnBlock.hide();
+                });
+            pismoTitle.data('title', $.trim(pismoTitle.text()));
+            pismoTitleBlock.append(pismoTitleBtnBlock.append(pismoTitleSave).append(pismoTitleAbort));
+            pismoTitleBtnBlock.hide();
+
+            pismoTitle.keyup(function (e) {
+                if (e.keyCode == self.keycode.escape || e.which == self.keycode.escape) {
+                    pismoTitle.text(pismoTitle.data('title'));
+                    pismoTitleBtnBlock.hide();
+                }
+                if ($.trim(pismoTitle.text()) != pismoTitle.data('title')) {
+                    pismoTitleBtnBlock.show();
+                } else {
+                    pismoTitleBtnBlock.hide();
+                }
+            })
         }
         ,
         szablonData: function (szablon_id) {
@@ -93,12 +155,16 @@ var PISMA = Class.extend({
                     title: d.nazwa,
                     content: d.tresc
                 };
+                self.objects.editor = {
+                    id: d.id,
+                    tytul: d.nazwa
+                };
             });
         },
         adresatData: function (adresat_id) {
             var self = this;
 
-            $.getJSON("http://mojepanstwo.pl:4444/dane/dataset/instytucje/search.json?conditions[id]=" + adresat_id, function (d) {
+            $.getJSON("http://mojepanstwo.pl:4444/dane/dataset/instytucje/search.json?conditions[id]=" + adresat_id + '&conditions[pisma]=1', function (d) {
                 self.objects.adresaci = {
                     id: d.search.dataobjects[0].id,
                     title: d.search.dataobjects[0].data['instytucje.nazwa'],
@@ -108,20 +174,97 @@ var PISMA = Class.extend({
                 self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title)
             });
         },
+        szablony: function () {
+            var self = this,
+                confirmText = 'Zmiana szablonu spowoduje zastąpienie treści pisma nowym szablonem. Czy na pewno chcesz to zrobić?',
+                confirmBtn = 'Zrozumiałem';
+
+            self.html.szablony.find('input[type="radio"]').change(function () {
+                if (self.objects.szablony.confirm != true) {
+                    if (self.objects.szablony && self.objects.szablony != $(this).val())
+                        self.html.szablony.find('> label').popover({
+                            html: true,
+                            content: '<p>' + confirmText + '</p><p style="text-align:center; margin: 0"><button class="btn btn-sm btn-primary">' + confirmBtn + '</button></p>'
+                        }).popover('show');
+                    self.objects.szablony.confirm = true;
+                    self.html.szablony.find('.popover .btn').click(function (e) {
+                        e.preventDefault();
+                        self.html.szablony.find('> label').popover('destroy');
+                    })
+                }
+            })
+        }
+        ,
         adresaci: function () {
             var self = this;
 
-            self.html.adresaci.find('#adresatSelect').on('keyup', function () {
-                var adresat = $(this).val();
+            this.html.adresaci.keydown(function (event) {
+                var charCode = event.which || event.keyCode;
+
+                if (charCode == 13) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+
+            self.html.adresaci.find('#adresatSelect').on('keyup', function (e) {
+                var adresatInput = $(this),
+                    charCode = e.which || e.keyCode,
+                    adresat = adresatInput.val();
 
                 if (adresat.length > 0) {
-                    if (adresat in self.cache.adresaci) {
-                        self.adresaciList(self.cache.adresaci[adresat]);
+                    var adresaciList = self.html.adresaci.find('.adresaciList');
+
+                    if (charCode == self.keycode.enter) {
+                        if (adresaciList.find('li.active').length)
+                            self.adresaciListAccept(adresaciList.find('li.active'));
+                        else {
+                            self.html.adresaci.find('.list').hide();
+                            adresatInput.val('');
+                            adresatInput.focusout();
+                        }
+                    } else if (charCode == self.keycode.escape) {
+                        if (adresaciList.is(':visible'))
+                            self.html.adresaci.find('.list').hide();
+
+                        adresatInput.val('');
+                        adresatInput.focusout();
+                        return false;
+                    } else if (charCode == self.keycode.arrowUp) {
+                        e.preventDefault();
+
+                        if (adresaciList.is(':visible')) {
+                            var previous = self.html.adresaci.find('.adresaciList li.active');
+
+                            if (previous.prev().length) {
+                                previous.prev().addClass('active');
+                                previous.removeClass('active');
+                            }
+                        }
+                    } else if (charCode == self.keycode.arrowDown) {
+                        e.preventDefault();
+
+                        if (adresaciList.is(':visible')) {
+                            var next = self.html.adresaci.find('.adresaciList li.active');
+
+                            if (next.next().length) {
+                                next.next().addClass('active');
+                                next.removeClass('active');
+                            }
+                        }
                     } else {
-                        $.getJSON("http://mojepanstwo.pl:4444/dane/dataset/instytucje/search.json?conditions[q]=" + adresat, function (data) {
-                            self.cache.adresaci[adresat] = data;
-                            self.adresaciList(data);
-                        });
+                        if (adresat in self.cache.adresaci) {
+                            self.adresaciList(self.cache.adresaci[adresat]);
+                        } else {
+                            if (self.cache.adresatInterval)
+                                clearTimeout(self.cache.adresatInterval);
+                            self.cache.adresatInterval = setTimeout(function () {
+                                $.getJSON("http://mojepanstwo.pl:4444/dane/dataset/instytucje/search.json?conditions[q]=" + adresat, function (data) {
+                                    self.cache.adresaci[adresat] = data;
+                                    self.adresaciList(data);
+                                });
+                            }, 200);
+                        }
                     }
                 } else {
                     self.html.adresaci.find('.list').hide();
@@ -173,29 +316,18 @@ var PISMA = Class.extend({
                             id: that.id,
                             title: that.data['instytucje.nazwa'],
                             adres: that.data['instytucje.adres_str']
+                        }).mouseover(function () {
+                            self.html.adresaci.find('.adresaciList .ul-raw li.active').removeClass('active');
+                            $(this).addClass('active');
                         }).append(
                             $('<a></a>').attr('href', that._mpurl).text(that.data['instytucje.nazwa']).click(function (e) {
-                                var that = $(this),
-                                    slice = that.parents('li');
-
                                 e.preventDefault();
-                                self.adresaciReset(self);
-
-                                self.objects.adresaci = {
-                                    id: slice.data('id'),
-                                    title: slice.data('title'),
-                                    adres: slice.data('adres')
-                                };
-
-                                self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title).after($('<span></span>').addClass('glyphicon glyphicon-ok-circle'));
-                                self.html.adresaci.find('input[name="adresat_id"]').val('instytucje:' + self.objects.adresaci.id);
-                                self.html.szablony.find('.pisma-list-button').attr('data-adresatid', self.objects.adresaci.id);
-
-                                self.html.adresaci.find('.adresaciList').hide();
+                                self.adresaciListAccept($(this).parent('li'));
                             })
                         )
                     );
                 });
+                self.html.adresaci.find('.adresaciList .ul-raw li:first').addClass('active');
             } else {
                 self.html.adresaci.find('.adresaciList .ul-raw').append(
                     $('<li></li>').addClass('row').append(
@@ -203,6 +335,26 @@ var PISMA = Class.extend({
                     )
                 )
             }
+        }
+        ,
+        adresaciListAccept: function (that) {
+            var self = this;
+
+            self.adresaciReset(self);
+
+            self.objects.adresaci = {
+                id: that.data('id'),
+                title: that.data('title'),
+                adres: that.data('adres')
+            };
+
+            self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title).after($('<span></span>').addClass('glyphicon glyphicon-ok-circle'));
+            self.html.adresaci.find('input[name="adresat_id"]').val('instytucje:' + self.objects.adresaci.id);
+            self.html.szablony.find('.pisma-list-button').attr('data-adresatid', self.objects.adresaci.id);
+
+            self.html.adresaci.find('.adresaciList').hide();
+
+            return false;
         }
         ,
         adresaciReset: function (self) {
@@ -310,11 +462,14 @@ var PISMA = Class.extend({
         }
         ,
         editorDetail: function () {
-            var self = this;
+            var self = this,
+                checkSzablon = self.html.szablony.find('.radio input:checked').val();
 
-            if (self.objects.szablony != null && (self.objects.editor == null || (self.objects.editor.id != self.objects.szablony.id))) {
+            if (self.objects.szablony != undefined && (checkSzablon != self.objects.szablony.id)) {
                 self.html.editor.addClass('loading');
-                $.getJSON("http://mojepanstwo.pl:4444/pisma/templates/" + self.objects.szablony.id + ".json", function (data) {
+                self.szablonData(checkSzablon);
+
+                $.getJSON("http://mojepanstwo.pl:4444/pisma/templates/" + checkSzablon + ".json", function (data) {
                     if (self.objects.editor !== null) {
                         if ($(self.objects.editor.text === self.html.editor.text()) || (self.html.editor.text() == '')) {
                             self.html.editor.empty().html(data.tresc);
@@ -322,12 +477,7 @@ var PISMA = Class.extend({
                     } else {
                         self.html.editor.empty().html(data.tresc);
                     }
-                    console.log('zuo - editorDetail');
                     self.convertEditor();
-                    self.objects.editor = {
-                        id: data.id,
-                        tytul: data.nazwa
-                    };
                     self.html.editorTop.find('.control-template').text(data.nazwa);
 
                     self.html.editor.removeClass('loading');
@@ -603,7 +753,7 @@ var PISMA = Class.extend({
                     }
                 })
                 .end()
-                .find('input[name="nazwa"]').val($.trim($('.pismoTitle h1').text()))
+                .find('input[name="nazwa"]').val($.trim($('.titleBlock h1').text()))
                 .end()
                 .find('input[name="data_pisma"]').val($.trim(preview.find('.control.control-date input#datepickerAlt').val()))
                 .end()
@@ -632,9 +782,25 @@ var PISMA = Class.extend({
         }
         ,
         lastPageButtons: function () {
-            var self = this;
+            var self = this,
+                modal = {};
 
-            self.html.stepper_div.find('.form-save .sendPismo').click(function (e) {
+            self.html.stepper_div.find('.editor-tooltip .sendPismo').click(function (e) {
+                e.preventDefault();
+                $('#sendPismoModal').modal('show');
+            });
+
+            if ((modal.sendPismo = $('#sendPismoModal')).length) {
+                modal.sendPismo.find('.btn[type="submit"]').click(function () {
+                    var that = $(this);
+
+                    if (that.hasClass('disabled'))
+                        return false;
+                    $(this).addClass('disabled loading');
+                });
+            }
+
+            self.html.stepper_div.find('.form-save .savePismo').click(function (e) {
                 var form = $(this).parent('form');
 
                 e.preventDefault();

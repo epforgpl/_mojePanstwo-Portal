@@ -37,8 +37,7 @@ if (!empty($pismo['adresat_id'])) {
                         <fieldset class="final">
                             <div class="form-group">
                                 <div class="col-lg-10 col-lg-offset-1 text-center">
-                                    <button type="submit" class="btn btn-md btn-primary">Wpisz
-                                        treść pisma
+                                    <button type="submit" class="btn btn-md btn-default">Wróć do edycji treści pisma
                                         <span class="glyphicon glyphicon-play"></span>
                                     </button>
                                 </div>
@@ -54,7 +53,7 @@ if (!empty($pismo['adresat_id'])) {
             <div class="container edit">
                 <div class="editor-container row">
                     <div class="col-xs-12 col-md-10">
-                        <? echo $this->Element('Pisma.render'); ?>
+                        <? echo $this->Element('Pisma.render', array('pismoEditPage' => true)); ?>
                     </div>
                     <div class="col-xs-12 col-md-2 nopadding">
                         <div class="editor-tooltip">
@@ -63,7 +62,8 @@ if (!empty($pismo['adresat_id'])) {
                                 <li class="inner-addon left-addon">
 	                                <form class="form-save" method="post" action="/pisma/<?=$pismo['alphaid']?>,<?=$pismo['slug']?>">
 	                                    <i class="glyphicon glyphicon-save"></i>
-	                                    <input type="submit" class="btn btn-primary action sendPismo" name="_save" value="Zapisz" />
+                                        <input type="submit" class="btn btn-primary action savePismo" name="_save"
+                                               value="Zapisz"/>
 	                                    <input type="hidden" name="save" value="1" />
 	                                    <p class="desc">Po zapisaniu będziesz mógł wysłać bądź udostępnić pismo.</p>
 	                                </form>
