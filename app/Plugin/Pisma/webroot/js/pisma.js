@@ -603,7 +603,9 @@ var PISMA = Class.extend({
                 }
 
                 if (that.attr('title'))
-                    that.tooltip();
+                    that.tooltip({
+                        delay: 0
+                    });
 
                 self.cursorPosition();
             });
