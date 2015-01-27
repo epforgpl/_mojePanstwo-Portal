@@ -26,7 +26,7 @@ if (!empty($pismo['adresat_id'])) {
 
     <div id="stepper" class="stepper"<? if (!empty($pismo_init)) {
         echo ' data-pismo=' . json_encode($pismo_init);
-    } ?>>
+    } ?> data-status-check="<?= $pismo['saved'] ?>">
 
         <h2>Wybierz szablon i adresata</h2>
         <section>

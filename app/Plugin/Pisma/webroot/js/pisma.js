@@ -3,6 +3,7 @@ var PISMA = Class.extend({
             stepper_div: $("#stepper")
         },
         preview: null,
+        confirmExit: false,
         methods: {
             stepper: null
         },
@@ -32,6 +33,7 @@ var PISMA = Class.extend({
                 this.adresaci();
                 this.editor();
                 this.lastPageButtons();
+                this.unsaveWarning();
             } else {
                 this.stepsMarkers();
                 this.changeTitle();
@@ -810,6 +812,29 @@ var PISMA = Class.extend({
                 form.find('input[name=_save]').attr('name', 'save');
                 self.generateFormInsert();
             });
+        }
+        ,
+        unsaveWarning: function () {
+            var self = this,
+                btnActions = self.html.stepper_div.find('.editor-tooltip'),
+                statusCheck = self.html.stepper_div.data('status-check');
+
+            if (statusCheck != undefined) {
+                self.confirmExit = true;
+
+                btnActions.find('.btn.savePismo, a[name="cancel"], input[name="delete"]').click(function () {
+                    self.confirmExit = false;
+                });
+
+                $(window).bind('beforeunload', function () {
+                    if (self.confirmExit) {
+                        if (statusCheck == 0)
+                            return 'Pismo nie zostało jeszcze zapisane. Czy na pewno nie chcesz go zapisać?';
+                        else if (statusCheck == 1)
+                            return 'Czy chcesz opuścić tę stronę bez zapisywania zmian?';
+                    }
+                });
+            }
         }
     })
     ;
