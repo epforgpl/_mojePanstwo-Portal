@@ -28,6 +28,7 @@ var PISMA = Class.extend({
                 this.stepsMarkers();
                 this.checkStep();
                 this.changeTitle();
+                this.szablony();
                 this.adresaci();
                 this.editor();
                 this.lastPageButtons();
@@ -173,6 +174,27 @@ var PISMA = Class.extend({
                 self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title)
             });
         },
+        szablony: function () {
+            var self = this,
+                confirmText = 'Zmiana szablonu spowoduje zastąpienie treści pisma nowym szablonem. Czy na pewno chcesz to zrobić?',
+                confirmBtn = 'Zrozumiałem';
+
+            self.html.szablony.find('input[type="radio"]').change(function () {
+                if (self.objects.szablony.confirm != true) {
+                    if (self.objects.szablony && self.objects.szablony != $(this).val())
+                        self.html.szablony.find('> label').popover({
+                            html: true,
+                            content: '<p>' + confirmText + '</p><p style="text-align:center; margin: 0"><button class="btn btn-sm btn-primary">' + confirmBtn + '</button></p>'
+                        }).popover('show');
+                    self.objects.szablony.confirm = true;
+                    self.html.szablony.find('.popover .btn').click(function (e) {
+                        e.preventDefault();
+                        self.html.szablony.find('> label').popover('destroy');
+                    })
+                }
+            })
+        }
+        ,
         adresaci: function () {
             var self = this;
 
