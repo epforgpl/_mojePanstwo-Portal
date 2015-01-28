@@ -200,7 +200,7 @@ class AppController extends Controller {
 	}
 
 	public function beforeFilter() {
-				
+						
 		if ( defined( 'PORTAL_DOMAIN' ) ) {
 
 			$pieces = parse_url( Router::url( $this->here, true ) );
@@ -348,7 +348,25 @@ class AppController extends Controller {
 		if ( Router::url( null ) != '/null' ) { // hack for bug
 			$this->Session->write( 'Auth.loginRedirect', Router::url( null, true ) );
 		}
+		
 	}
+	
+	
+	public function beforeRender() {
+		
+		if( $this->Session->read('Auth.User.id') && $this->Session->read('Pisma.transfer_anonymous') ) {
+						
+			$API = $this->API->Pisma()->transfer_anonymous(array(
+				'anonymous_user_id' => $this->Session->read('previous_id'),
+			));
+			
+			$this->Session->delete('Pisma.transfer_anonymous');
+			return $this->redirect($this->request->here);
+			
+		}
+			
+	}
+	
 
 	/**
 	 * Zwraca listę dostępnych aplikacji

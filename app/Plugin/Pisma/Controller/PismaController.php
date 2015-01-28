@@ -84,9 +84,7 @@ class PismaController extends AppController
 		$params = array();
 		if( !$this->Auth->user() )			
 			$params['anonymous_user_id'] = session_id();
-		
-		
-		
+				
 		
 		if( isset($this->request->data['delete']) ) {
 			
@@ -138,6 +136,9 @@ class PismaController extends AppController
         if (isset($this->request->data['szablon_id']))
             $pismo['szablon_id'] = $this->request->data['szablon_id'];
 		
+		if( !$this->Session->read('Auth.User.id') )
+			$this->Session->write('Pisma.transfer_anonymous', true);
+		
         $status = $this->API->Pisma()->documents_create($pismo);
         return $this->redirect( $status['url'] . '/edit' );
     
@@ -146,7 +147,6 @@ class PismaController extends AppController
 	public function home()
     {
 			
-		
         $API = $this->API->Pisma();
 
         $templatesGroups = $API->templates_grouped();

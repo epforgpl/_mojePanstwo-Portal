@@ -28,10 +28,15 @@
                 <div class="editor-tooltip">
 
                     <? $href_base = '/pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
-										
+                    							
                     <ul class="form-buttons">
                         <? if($pismo['to_email']) {?>
                         <li class="inner-addon">
+                        	<? if( $pismo['sent'] ) {?>
+                        	
+                        	<p class="desc">To pismo zostałe wysłane do adresata <?= $this->Czas->dataSlownie($pismo['sent_at']) ?>.</p>
+                        	
+                        	<? } else { ?>
                             <i class="glyphicon glyphicon-send"></i>
                             <a href="<?= $href_base . '/send' ?>" target="_self" class="btn btn-primary sendPismo">Wyślij...</a>
 
@@ -77,6 +82,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <? } ?>
                         </li>
                         <? } ?>
                         <? /*
@@ -89,11 +95,13 @@
                                 publicznie.</p>
                         </li>
                         */ ?>
+                        <? if( !$pismo['sent'] ) {?>
                         <li class="inner-addon">
                             <i class="glyphicon glyphicon-edit"></i>
                             <a href="<?= $href_base . '/edit' ?>" target="_self" class="btn btn-primary">Edytuj
                                 treść</a>
                         </li>
+                        <? } ?>
                     </ul>
 
                     <ul class="form-buttons more-buttons-target" style="display: none;">
