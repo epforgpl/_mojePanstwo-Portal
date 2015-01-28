@@ -80,7 +80,7 @@
                 </div>
 
                 <div class="sideContent hidden-xs hidden-sm col-md-4">
-                    <div class="fb-like-box" data-href="http://www.facebook.com/sejmometr"
+                    <div class="fb-like-box" data-href="https://www.facebook.com/mojepanstwo"
                          data-width="90%"
                          data-height="540" data-show-faces="true" data-stream="true" data-border-color="#FFFFFF"
                          data-header="true"></div>
