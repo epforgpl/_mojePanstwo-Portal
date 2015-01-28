@@ -87,6 +87,7 @@ class UsersController extends PaszportAppController
             $user = $this->PassportApi->User()->login($this->data);
 
             if ($user['user']) {
+	            $this->Session->write('previous_id', session_id());
                 $this->Auth->login($user['user']);
                 $this->redirect($this->Auth->redirectUrl());
 

@@ -6,7 +6,7 @@
             </h1>
         </div>
 
-        <? if (isset($alert) && $alert && !AuthComponent::user('id')) { ?>
+        <? if ( !$this->Session->read('Auth.User.id') && isset($alert) && $alert ) { ?>
             <div class="alert alert-dismissable alert-warning">
                 <button type="button" class="close" data-dismiss="alert">×</button>
                 <h4>Uwaga!</h4>
