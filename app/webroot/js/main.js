@@ -1,3 +1,4 @@
+/* global _mPHeart */
 /* HTML5 HISTORY.JS */
 (function (window) {
     // Prepare
@@ -17,8 +18,16 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 });
 
 (function ($) {
-    /* JQUERY FUNCTION RETURNING SIZE/WIDTH/HEIGHT/ETC HIDDEN ELEMENTS */
+    /* CONSTANTS DATA of MP HEARTH*/
+    $.extend(_mPHeart, {
+        constant: {
+            ajax: {
+                api: 'http://mojepanstwo.pl:4444'
+            }
+        }
+    });
 
+    /* JQUERY FUNCTION RETURNING SIZE/WIDTH/HEIGHT/ETC HIDDEN ELEMENTS */
     $.fn.addBack = $.fn.addBack || $.fn.andSelf;
     $.fn.extend({
 
@@ -112,9 +121,7 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
             return $(elem).text().toLowerCase().indexOf(arg.toLowerCase()) >= 0;
         };
     });
-})(jQuery);
 
-(function ($) {
     var carouselList,
         modalPaszportLoginForm,
         selectPickers;
