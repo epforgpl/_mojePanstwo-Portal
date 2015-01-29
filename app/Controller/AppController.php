@@ -166,6 +166,33 @@ class AppController extends Controller {
 			'home'   => '1',
 			'folder_id' => '13'
 		),
+		array(
+			'id' => '17',
+			'slug' => 'pisma',
+			'name' => 'Pisma',
+			'plugin' => 'pisma',
+			'type' => 'app',
+			'home' => '1',
+			'folder_id' => '13'
+		),
+		array(
+			'id' => '18',
+			'slug' => 'gabinety_polityczne',
+			'name' => 'Gabinety Polityczne',
+			'plugin' => 'raporty_gabinety_polityczne',
+			'type' => 'app',
+			'home' => '1',
+			'folder_id' => '13'
+		),
+		array(
+			'id' => '19',
+			'slug' => 'dostep_do_informacji_publicznej',
+			'name' => 'Dostęp do Informacji Publicznej',
+			'plugin' => 'raporty_dostep_do_informacji_publicznej',
+			'type' => 'app',
+			'home' => '1',
+			'folder_id' => '13'
+		),
 	);
 	public $Streams = array(
 		array(
@@ -350,32 +377,16 @@ class AppController extends Controller {
 		}
 		
 	}
-	
-	
-	public function beforeRender() {
-		
-		if( $this->Session->read('Auth.User.id') && $this->Session->read('Pisma.transfer_anonymous') ) {
-						
-			$API = $this->API->Pisma()->transfer_anonymous(array(
-				'anonymous_user_id' => $this->Session->read('previous_id'),
-			));
-			
-			$this->Session->delete('Pisma.transfer_anonymous');
-			return $this->redirect($this->request->here);
-			
-		}
-			
-	}
-	
 
 	/**
 	 * Zwraca listę dostępnych aplikacji
 	 * @return array
 	 */
-	public function getApplications() {
+	public function getApplications()
+	{
 		return $this->Applications;
 	}
-
+	
 	/**
 	 * Zwraca aktualną aplikację
 	 * lub false jeśli nie żadna nie jest aktywna w danej chwili
@@ -393,29 +404,47 @@ class AppController extends Controller {
 		}
 	}
 
+	public function beforeRender()
+	{
+
+		if ($this->Session->read('Auth.User.id') && $this->Session->read('Pisma.transfer_anonymous')) {
+
+			$API = $this->API->Pisma()->transfer_anonymous(array(
+				'anonymous_user_id' => $this->Session->read('previous_id'),
+			));
+
+			$this->Session->delete('Pisma.transfer_anonymous');
+			return $this->redirect($this->request->here);
+
+		}
+
+	}
+
 	public function addStatusbarCrumb( $item ) {
 		$this->statusbarCrumbs[] = $item;
 		$this->set( 'statusbarCrumbs', $this->statusbarCrumbs );
 
 	}
-	
-	public function setMeta($key, $val) {
-		
-		if( !$val )
-			return false; 
-		
-		$this->meta[ $key ] = $val;
-		$this->set('_META', $this->meta);
-		
-		return $val;
-		
-	}
-	
-	public function setMetaDesc($val) {
+
+	public function setMetaDesc($val)
+	{
 		return $this->setMetaDescription($val);
 	}
 	
 	public function setMetaDescription($val) {
 		return $this->setMeta('description', $val);
+	}
+
+	public function setMeta($key, $val)
+	{
+
+		if (!$val)
+			return false;
+
+		$this->meta[$key] = $val;
+		$this->set('_META', $this->meta);
+
+		return $val;
+
 	}
 }

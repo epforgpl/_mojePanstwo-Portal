@@ -9,7 +9,7 @@
                 <div class="col-xs-12 col-md-8">
                     <div class="sector">
                         <a target="_blank" href="http://epf.org.pl">
-                            <img id="epf_logo" src="http://epf.org.pl/img/logo.svg" alt="Logotyp Fundacji ePaństwo"
+                            <img id="epf_logo" src="../img/logo-epanstwo.svgz" alt="Logotyp Fundacji ePaństwo"
                                  width="40%"/>
                         </a>
 
@@ -34,7 +34,8 @@
                         kontrolować i wpływać na działania Twojego państwa. Serwis mojePaństwo jest projektem Open
                         Source, w którym każdy może wziąć udział. Kod źródłowy oraz system zgłaszania błędów i
                         propozycji (issues) dostępny jest w serwisie <a
-                            href="https://github.com/" taget="_blank">GitHub</a> w postaci trzech repozytoriów:</p>
+                            href="https://https://github.com/epforgpl" target="_blank">GitHub</a> w postaci trzech
+                        repozytoriów:</p>
                     <ul>
                         <li><a href="https://github.com/epforgpl/_mojePanstwo-Portal" target="_blank">_mojePanstwo
                                 Portal</a> - jest
@@ -60,11 +61,10 @@
                             przypadku może powstać chroniony <a target="_self"
                                                                 title="Ustawa z dnia 4 lutego 1994 r. o prawie autorskim i prawach pokrewnych."
                                                                 href="/dane/prawo/51613">prawem autorskim</a> utwór.
-                            Starania Fundacji dotyczace
-                            strukturalizacji danych mogą też powodować, że korzystający z portalu _mojePaństwo będą
-                            korzystali z bazy danych, o której mowa w <a target="_self"
-                                                                         title="Ustawa z dnia 27 lipca 2001 r. o ochronie baz danych"
-                                                                         href="/dane/prawo/1777">ustawie
+                            Starania Fundacji dotyczace strukturalizacji danych mogą też powodować, że korzystający z
+                            portalu _mojePaństwo będą korzystali z bazy danych, o której mowa w <a target="_self"
+                                                                                                   title="Ustawa z dnia 27 lipca 2001 r. o ochronie baz danych"
+                                                                                                   href="/dane/prawo/1777">ustawie
                                 o ochronie baz danych</a>.</p>
 
                         <p>Fundacja ePaństwo niniejszym udziela "wolnej licencji" na udostępniane w ramach portalu
