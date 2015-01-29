@@ -515,10 +515,17 @@ class GminyController extends DataobjectsController
             $druk = $this->API->getObject('rady_druki', $this->request->params['pass'][0], array(
                 'layers' => 'neighbours',
             ));
-            $document = $this->API->document($druk->getData('dokument_id'));
+            
+            $this->prepareFeed(array(
+                'perPage' => 20,
+                'dataset' => 'rady_druki',
+                'id' => $druk->getId(),
+            ));
+            
+            // $document = $this->API->document($druk->getData('dokument_id'));
             $this->set('druk', $druk);
-            $this->set('document', $document);
-            $this->set('documentPackage', 1);
+            // $this->set('document', $document);
+            // $this->set('documentPackage', 1);
             $this->set('title_for_layout', $druk->getTitle());
 
             $this->render('druk');
