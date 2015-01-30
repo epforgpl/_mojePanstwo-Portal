@@ -19,7 +19,7 @@
                     <img src="/WydatkiPoslow/img/mysz.svg" class="scrollInfo"/>
                     <img src="/WydatkiPoslow/img/poslanka.svg" class="poslankaBckgrnd"/>
                     <img src="/WydatkiPoslow/img/posel.svg" class="poselBckgrnd"/>
-                    <a target="_blank" class="wszystkie btn btn-primary" href="/dane/poslowie_biura_wydatki">Zobacz
+                    <a class="wszystkie btn btn-primary" href="/dane/poslowie_biura_wydatki">Zobacz
                         wszystkie dane w formie listy &raquo;</a>
 
                     <div class="social"></div>
