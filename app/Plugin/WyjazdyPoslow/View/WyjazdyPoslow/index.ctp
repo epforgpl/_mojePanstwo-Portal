@@ -275,7 +275,7 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
 
                                 <p class="col-sm-2">Dieta</p>
 
-                                <p class="col-sm-2 text-right">Aktywności w Sejmie</p>
+                                <p class="col-sm-2">Aktywności w Sejmie</p>
                             </li>
 
                             <? foreach ($w['poslowie'] as $p) { ?>

@@ -87,11 +87,11 @@
             }
             ?>
         </ul>
+    <? } else { ?>
+        <div class="alert empty small">Brak danych w wybranym przez Ciebie okresie - zwiększ okres analiz.</div>
     <? } ?>
 
-
 <? } elseif ($group['mode'] == 'account') { ?>
-
 
     <? if (isset($type['search']) && is_array($type['search']) && !empty($type['search'])) { ?>
         <ul>
@@ -171,6 +171,8 @@
             }
             ?>
         </ul>
+    <? } else { ?>
+        <div class="alert empty small">Brak danych w wybranym przez Ciebie okresie - zwiększ okres analiz.</div>
     <? } ?>
 
     <?
@@ -197,7 +199,6 @@
 
 <? } elseif ($group['mode'] == 'tag') { ?>
 
-
     <? if (isset($type['objects']) && is_array($type['objects']) && !empty($type['objects'])) { ?>
         <ul>
             <?
@@ -216,7 +217,10 @@
             }
             ?>
         </ul>
+    <? } else { ?>
+        <div class="alert empty small">Brak danych w wybranym przez Ciebie okresie - zwiększ okres analiz.</div>
     <? } ?>
+
 <? } elseif ($group['mode'] == 'url') { ?>
 
     <? if (isset($type['objects']) && is_array($type['objects']) && !empty($type['objects'])) { ?>
@@ -257,10 +261,11 @@
 
         </ul>
 
+    <? } else { ?>
+        <div class="alert empty small">Brak danych w wybranym przez Ciebie okresie - zwiększ okres analiz.</div>
     <? } ?>
 
 <? } elseif ($group['mode'] == 'source') { ?>
-
 
     <? if (isset($type['objects']) && is_array($type['objects']) && !empty($type['objects'])) { ?>
         <ul>
@@ -290,10 +295,11 @@
 
         </ul>
 
+    <? } else { ?>
+        <div class="alert empty small">Brak danych w wybranym przez Ciebie okresie - zwiększ okres analiz.</div>
     <? } ?>
 
 <? } elseif ($group['mode'] == 'tweet') { ?>
-
 
     <? if (isset($type['objects']) && is_array($type['objects']) && !empty($type['objects'])) { ?>
         <ul>
@@ -368,6 +374,8 @@
         <p><a class="btn btn-default btn-sm"
               href="/dane/twitter/?!bez_retweetow=1&twitter_accounts:typ_id[]=<?= $type['id'] ?>&_date=LAST_<?= $range ?>&order=<?= $group['field'] ?>%20desc">Więcej &raquo;</a>
 
+    <? } else { ?>
+        <div class="alert empty small">Brak danych w wybranym przez Ciebie okresie - zwiększ okres analiz.</div>
     <? } ?>
 
     <?

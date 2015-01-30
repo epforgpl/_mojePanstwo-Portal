@@ -282,7 +282,11 @@ var PISMA = Class.extend({
         }).focusout(function () {
             setTimeout(function () {
                 self.html.adresaci.find('.list').hide();
-            }, 500);
+                console.log(self.html.adresaci.find('.glyphicon.glyphicon-ok-circle').length);
+                if (self.html.adresaci.find('.glyphicon.glyphicon-ok-circle').length == 0) {
+                    self.html.adresaci.find('#adresatSelect').val('');
+                }
+            }, 100);
         });
 
         if (self.objects.adresaci !== null && self.objects.adresaci.id) {
