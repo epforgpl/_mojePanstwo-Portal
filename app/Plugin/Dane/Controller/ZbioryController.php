@@ -22,10 +22,15 @@ class ZbioryController extends DataobjectsController
 		
 		parent::_prepareView();		
         
-        $this->dataobjectsBrowserView(array(
+        $params = array(
             'dataset' => $this->object->getData('slug'),
             'limit' => 50
-        ));
+        );
+                
+        if( $this->object->getId() == '185' )
+	        $params['source'] = 'zbiory.katalog:1';
+        
+        $this->dataobjectsBrowserView($params);
 
         $this->set('title_for_layout', $this->object->getData('nazwa'));
 
