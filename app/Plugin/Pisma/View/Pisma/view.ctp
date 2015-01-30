@@ -105,7 +105,7 @@
                             </li>
                         <? } ?>
                         <? if (isset($pismo['saved']) && $pismo['saved']) { ?>
-                        <li class="inner-addon">
+                            <li class="inner-addon hide">
                             <i class="glyphicon glyphicon-share"></i>
                             <a href="<?= $href_base . '/share' ?>" target="_self"
                                class="btn btn-primary">Udostępnij...</a>
