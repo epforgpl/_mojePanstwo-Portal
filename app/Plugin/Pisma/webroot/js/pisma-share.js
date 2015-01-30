@@ -1,55 +1,42 @@
-$(document).ready(function () {
-    $('.share').on('mouseup', function () {
-        var t = false;
+var highlighter;
 
-        if (window.getSelection) {
-            t = window.getSelection();
-        } else if (document.getSelection) {
-            t = document.getSelection();
-        } else if (document.selection) {
-            t = document.selection.createRange().htmlText;
-        }
+window.onload = function () {
+    var shareModal = $('#stepper .view');
 
-        if (t && (t + '').length > 0) {
-            if (t.rangeCount) {
-                var range = t.getRangeAt(0),
-                    container = document.createElement("span");
-                container.setAttribute('class', 'anonim');
-                for (var i = 0, len = t.rangeCount; i < len; ++i) {
-                    container.appendChild(t.getRangeAt(i).cloneContents());
-                }
+    rangy.init();
 
-                range.deleteContents();
-                range.insertNode(container);
-            } else {
-                t.pasteHTML('<span class="anonim">' + t.htmlText + '</span>');
-            }
+    highlighter = rangy.createHighlighter();
 
-            $('.anonim .anonim').contents().unwrap();
+    highlighter.addClassApplier(rangy.createClassApplier("anonim", {
+        ignoreWhiteSpace: true,
+        tagNames: ["span", "a"]
+    }));
 
-            $('.anonim').each(function () {
-                if ($(this).next() && $(this).next().hasClass('anonim')) {
-                    var ch1 = $(this);
-                    var ch2 = $(this).next();
-                    var contents = ch1.parent().contents();
-                    var space = contents.slice(contents.index(ch1) + 1, contents.index(ch2));
-
-                    if (space.text().length == 0) {
-                        ch1.addClass('group');
-                        ch2.addClass('group');
-                        $('.group').wrapAll('<span class="anonim"></span>');
-                        ch1.contents().unwrap();
-                        ch2.contents().unwrap();
-
-                        ch1.find('b b, u u, i i').unwrap();
-                        ch2.find('b b, u u, i i').unwrap();
-                    }
-                }
-            }).unbind('click').click(function () {
-                if ($(this).hasClass('anonim')) $(this).contents().unwrap();
-            });
-
-            t.removeAllRanges();
-        }
+    shareModal.on('mouseup', function () {
+        rangy.getSelection().expand("word");
     });
-});
+
+};
+
+function highlightSelectedText() {
+    highlighter.highlightSelection("anonim");
+    unSelect();
+}
+
+function removeHighlightFromSelectedText() {
+    highlighter.unhighlightSelection();
+    unSelect();
+}
+
+function unSelect() {
+    var t = false;
+
+    if (window.getSelection) {
+        t = window.getSelection();
+    } else if (document.getSelection) {
+        t = document.getSelection();
+    } else if (document.selection) {
+        t = document.selection.createRange().htmlText;
+    }
+    t.removeAllRanges();
+}

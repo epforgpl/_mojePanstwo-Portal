@@ -1,4 +1,8 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.rangy/rangy-core.js') ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.rangy/rangy-classapplier.js') ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.rangy/rangy-textrange.js') ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.rangy/rangy-highlighter.js') ?>
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma-share.js') ?>
 
@@ -39,12 +43,24 @@
                             <p class="desc">Twoje pismo jest obecnie prywatne. Możesz je zanonimizować i udostępnić
                                 publicznie.</p>
                         </li>
-                        <? if (isset($pismo['saved']) && $pismo['saved']) { ?>
-                            <li class="inner-addon">
-                                <a href="/pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>" class="btn btn-default"
-                                   name="cancel">Wróć</a>
-                            </li>
-                        <? } ?>
+                        <li class="inner-addon">
+                            <button class="btn btn-info" type="button" ontouchstart="highlightSelectedText();"
+                                    onclick="highlightSelectedText();">Ukryj tekst
+                            </button>
+                            <p class="desc">Zaznacz tekst aby go ukryć.</p>
+                        </li>
+                        <li class="inner-addon">
+                            <button class="btn btn-info" type="button" ontouchstart="removeHighlightFromSelectedText();"
+                                    onclick="removeHighlightFromSelectedText();">Odkryj tekst
+                            </button>
+                            <p class="desc">Zaznacz ukryty tekst aby od odkryć.</p>
+                        </li>
+
+                        <li class="inner-addon">
+                            <a href="/pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>" class="btn btn-default"
+                               name="cancel">Wróć</a>
+                        </li>
+
                     </ul>
 
                     <ul class="form-buttons more-buttons-target" style="display: none;">
