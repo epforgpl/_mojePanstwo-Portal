@@ -8,7 +8,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
         toFixedFix = function (n, prec) {
             var k = Math.pow(10, prec);
             return '' + (Math.round(n * k) / k)
-                    .toFixed(prec);
+                .toFixed(prec);
         };
     // Fix for IE parseFloat(0.55).toFixed(0) = 0;
     s = (prec ? toFixedFix(n, prec) : '' + Math.round(n))
@@ -25,25 +25,11 @@ function number_format(number, decimals, dec_point, thousands_sep) {
     return s.join(dec);
 }
 
-function number_format_h(n) {
-    // first strip any formatting;
-    n = (0 + n.replace(",", ""));
+$(document).ready(function() {
+    'use strict';
 
-    // is this a number?
-    if (isNaN(n)) return false;
+    var api_url = 'http://mojepanstwo.pl:4444/';
 
-    var $n = Math.abs(n);
-    // now filter it;
-    if ($n > 1000000000000000) return Math.round((n / 1000000000000000) * 10) / 10 + '&nbsp;Bld';
-    else if ($n > 1000000000000) return Math.round((n / 1000000000000) * 10) / 10 + '&nbsp;B';
-    else if ($n > 1000000000) return Math.round((n / 1000000000) * 10) / 10 + '&nbsp;Mld';
-    else if ($n > 1000000) return Math.round((n / 1000000) * 10) / 10 + '&nbsp;M';
-    else if ($n > 1000) return Math.round((n / 1000) * 10) / 10 + '&nbsp;k';
-
-    return number_format(n, 0, '.', ' ');
-}
-
-jQuery(document).ready(function () {
     var sections = jQuery('#sections .section');
     for (var i = 0; i < sections.length; i++) {
         var section = jQuery(sections[i]),
@@ -68,6 +54,9 @@ jQuery(document).ready(function () {
                 spacingTop: 0
             },
 
+            tooltip: {
+                enabled: false
+            },
 
             credits: {
                 enabled: false
@@ -158,85 +147,37 @@ jQuery(document).ready(function () {
             return false;
         },
         select: function (event, ui) {
-            if (ui.item.value !== null) {
-                autocomplete.val(ui.item.name);
-                location.hash = ui.item.value;
+            if(ui.item.value === null)
+                return false;
 
-                $('#_main').css('opacity', '.2').after(
-                    $('<div></div>').addClass('loadingBlock loadingTwirl').append(
-                        $('<div></div>').addClass('spinner').append(
-                            $('<div></div>').addClass('bounce1')
-                        ).append(
-                            $('<div></div>').addClass('bounce2')
-                        ).append(
-                            $('<div></div>').addClass('bounce3')
-                        ).append(
-                            $('<p></p>').text('Ładowanie...')
-                        )
-                    )
-                );
+            $("#teryt_search_input").val(ui.item.name);
 
-                jQuery.getJSON("/finanse/finanse/getBudgetData.json?gmina_id=" + ui.item.value, function (data) {
-                    var $terytInfo = $('#teryt_info');
+            $.getJSON(api_url + 'finanse/finanse/getCommuneData?id=' + ui.item.value, function(data) {
 
-                    $('#_main').css('opacity', '1');
-                    $('.loadingBlock.loadingTwirl').remove();
-                    $('#sections ._teryt').remove();
-                    $terytInfo.find('.title').html('<a href="/dane/gminy/' + ui.item.id + '">' + data['gmina']['nazwa'] + '</a>');
-                    $terytInfo.slideDown();
+                if(!data || data.length === 0) {
+                    $('#section_' + _dzial_id + '_addon').css('display', 'none');
+                    return false;
+                }
 
-                    $terytInfo.affix({
-                        offset: {
-                            top: function () {
-                                return (this.top = $terytInfo.offset().top - $('header').outerHeight(true) - 10)
-                            }, bottom: function () {
-                                return (this.bottom = $('footer').outerHeight(true))
-                            }
-                        }
-                    });
+                for(var i = 0; i < data.length; i++) {
+                    var _dzial_id = parseInt(data[i].dzial_id);
+                    var _sum_wydatki = parseInt(data[i].sum_wydatki);
+                    $('#section_' + _dzial_id + '_addon').css('display', 'block');
+                    $('#section_' + _dzial_id + '_addon .n').html(ui.item.name);
+                    $('#section_' + _dzial_id + '_addon .v').html(number_format(_sum_wydatki, 0, '.', ' '));
+                    // calc left
+                    var _min = parseInt($('#section_' + _dzial_id + ' ul.addons .min').data('int'));
+                    var _max = parseInt($('#section_' + _dzial_id + ' ul.addons .max').data('int'));
+                    var _left = parseInt((_sum_wydatki / (_max - _min)) * 100);
+                    $('#section_' + _dzial_id + '_addon').css('left', _left + '%');
+                }
 
-                    $terytInfo.find('.closeTerytInfo').click(function (e) {
-                        e.preventDefault();
-                        $terytInfo.slideUp();
-                        $('.addons').find('._teryt').fadeOut(function () {
-                            $(this).remove();
-                        });
-                    });
+                $(this).data("id")
 
-                    var sections = data['sections'];
+            });
 
-                    for (var i = 0; i < sections.length; i++) {
-                        var section = sections[i];
-
-                        if (!section['teryt_sum_section_percent'])
-                            continue;
-
-                        var v = String(section['teryt_section_percent']) + '%';
-                        var section_li = jQuery('#sections .section[data-id=' + section['id'] + ']');
-                        var gradient_cont_div = section_li.find('.gradient_cont');
-                        var gradient_addons = gradient_cont_div.find('.addons');
-
-                        gradient_addons.find('._teryt').fadeOut(function () {
-                            $(this).remove();
-                        });
-                        gradient_addons.find('.min .n').text(section['teryt_min_nazwa']);
-                        gradient_addons.find('.min .v').html(number_format_h(section['teryt_min']));
-
-                        gradient_addons.find('.max .n').text(section['teryt_max_nazwa']);
-                        gradient_addons.find('.max .v').html(number_format_h(section['teryt_max']));
-
-                        var li_teryt = jQuery('<li/>', {
-                            html: '<p><a href="/dane/gminy/' + '1' + '">' + data['stats']['teryt_nazwa'] + '</a><br/>' + number_format_h(section['teryt_sum_section']) + '</p>',
-                            class: '_teryt'
-                        }).appendTo(gradient_addons);
-
-
-                        li_teryt.css('opacity', 0).animate({left: v, opacity: 1});
-                    }
-
-                });
-            }
             return false;
         }
     }).autocomplete("widget").addClass("autocompleteFinanseDzialy");
+
 });
