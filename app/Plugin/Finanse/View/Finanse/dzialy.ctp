@@ -66,7 +66,7 @@ $this->Combinator->add_libs('js', 'Finanse.dzialy.js');
     <div class="mpanel" id="sections">
         <ul id="sections">
             <? foreach ($data['sections'] as $section) { ?>
-                <li class="section" data-id="<?= $section['id'] ?>">
+                <li class="section" id="section_<?= $section['id'] ?>" data-id="<?= $section['id'] ?>">
                     <div class="row">
                         <div class="col-md-2 text-right icon">
                             <img src="/finanse/img/sections/<?= $section['id'] ?>.svg"/>
@@ -89,11 +89,15 @@ $this->Combinator->add_libs('js', 'Finanse.dzialy.js');
                                 <div class="gradient_cont">
                                     <span class="gradient"></span>
                                     <ul class="addons">
-                                        <li class="min">
+                                        <li class="min" data-int="<?= $section['min'] ?>">
                                             <span class="n"><?= $section['min_nazwa'] ?></span>
                                             <span class="v"><?= _number($section['min']) ?></span>
                                         </li>
-                                        <li class="max">
+                                        <li class="section_addon" id="section_<?= $section['id'] ?>_addon">
+                                            <span class="n"></span>
+                                            <span class="v"></span>
+                                        </li>
+                                        <li class="max"  data-int="<?= $section['max'] ?>">
                                             <span class="n"><?= $section['max_nazwa'] ?></span>
                                             <span class="v"><?= _number($section['max']) ?></span>
                                         </li>
