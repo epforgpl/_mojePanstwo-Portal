@@ -16,15 +16,20 @@ class FinanseController extends AppController
         $this->set('title_for_layout', 'Finanse publiczne');
     }
 
-
-    public function dzialy()
+    // poprzednia wersja działów
+    public function dzialy2()
     {
-
         $data = $this->API->Finanse()->getBudgetData();
         $this->set('data', $data);
 
-
         // $application = $this->getApplication();
+        $this->set('title_for_layout', 'Wydatki gmin w Polsce');
+    }
+
+    public function dzialy()
+    {
+        $data = $this->API->Finanse()->getBudgetData();
+        $this->set('data', $data);
         $this->set('title_for_layout', 'Wydatki gmin w Polsce');
     }
 
@@ -32,6 +37,15 @@ class FinanseController extends AppController
     {
 
         $data = $this->API->Finanse()->getBudgetData($this->request->query);
+        $this->set('data', $data);
+        $this->set('_serialize', 'data');
+
+    }
+
+    public function getBudgetData2()
+    {
+
+        $data = $this->API->Finanse()->getBudgetData2($this->request->query);
         $this->set('data', $data);
         $this->set('_serialize', 'data');
 

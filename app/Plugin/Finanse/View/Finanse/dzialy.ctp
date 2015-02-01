@@ -4,16 +4,7 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('sections', array('plugin' => 'Finanse'))) ?>
 <?php $this->Combinator->add_libs('js', 'Finanse.dzialy.js') ?>
 
-<? /*
-<?php $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane'))) ?>
-<?php $this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane'))) ?>
-<?php $this->Combinator->add_libs('css', $this->Less->css('zamowienia', array('plugin' => 'ZamowieniaPubliczne'))) ?>
-
-<?php $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock'); ?>
-<?php $this->Combinator->add_libs('js', '../plugins/highstock/locals'); ?>
-<?php $this->Combinator->add_libs('js', 'ZamowieniaPubliczne.zamowieniapubliczne') ?>
-*/
-
+<?
 $this->Combinator->add_libs('js', 'Finanse.dzialy.js');
 ?>
 
@@ -41,7 +32,7 @@ $this->Combinator->add_libs('js', 'Finanse.dzialy.js');
     <div class="col-md-10 col-md-offset-1 text-center">
         <div class="row banner">
 
-            <p>W drugim kwartale 2014 r. polskie gminy wydały łącznie:</p>
+            <p>W I, II i III kwartale 2014 r. polskie gminy wydały łącznie:</p>
 
             <p class="number"><?= $this->Waluta->slownie($data['stats']['sum']) ?></p>
 
@@ -53,7 +44,7 @@ $this->Combinator->add_libs('js', 'Finanse.dzialy.js');
         <div class="row teryt">
 
             <p>Poniżej widzisz wydatki gmin, według kategorii budżetowych. Możesz też sprawdzić wydatki swojej gminy i
-                zobaczyć je w kontekście wydatków innych gmin, o podobnej liczbie mieszkańców.</p>
+                zobaczyć je w kontekście wydatków innych gmin.</p>
 
             <div class="form-group">
                 <div class="col-md-8 col-md-offset-2">
@@ -71,21 +62,6 @@ $this->Combinator->add_libs('js', 'Finanse.dzialy.js');
     </div>
 </div>
 
-<div class="mpanel" id="teryt_info" style="display: none;">
-    <div class="container">
-
-        <div class="pull-left">
-            <p class="title"></p>
-
-            <p class="desc">Jakieś informacje o wybranej gminie. Ta warstwa powinna się przyklejać do górnego brzegu
-                okna roboczego.</p>
-        </div>
-        <div class="pull-right"><a href="#close" class="closeTerytInfo">x</a>
-        </div>
-
-    </div>
-</div>
-
 <div class="container">
     <div class="mpanel" id="sections">
         <ul id="sections">
@@ -99,10 +75,10 @@ $this->Combinator->add_libs('js', 'Finanse.dzialy.js');
                             <div class="row row-header">
                                 <div class="title col-md-12">
                                     <div class="col-md-10">
-                                        <h3 class="name"><?= $section['nazwa'] ?></h3>
+                                        <h3 class="name"><?= $section['tresc'] ?></h3>
                                     </div>
                                     <div class="col-md-2 text-center">
-                                        <p class="value"><?= number_format_h($section['sum_section']) ?></p>
+                                        <p class="value"><?= number_format_h($section['sum_wydatki']) ?></p>
                                     </div>
                                 </div>
                                 <div class="histogram_cont">
