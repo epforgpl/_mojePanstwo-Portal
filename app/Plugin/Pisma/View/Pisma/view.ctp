@@ -5,8 +5,11 @@
     <div class="container innerContent">
 
         <div class="col-xs-12">
-            <? echo $this->Element('Pisma.menu', array(// 'selected' => 'moje'
-            )); ?>
+            <? 
+	            echo $this->Element('Pisma.menu', array(
+	            	'selected' => ($pismo['saved']=='1') ? 'moje' : 'nowe',
+	            ));
+	        ?>
         </div>
 
     </div>

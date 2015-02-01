@@ -67,6 +67,22 @@ Router::connect("$pisma_prefix/:id", array(
 ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id')));
 
 
+// PUT
+Router::connect("$pisma_prefix/:id,:slug", array(
+    'plugin' => 'Pisma',
+    'controller' => 'Pisma',
+    'action' => 'put',
+    '[method]' => 'PUT'
+), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id', 'slug')));
+
+Router::connect("$pisma_prefix/:id", array(
+    'plugin' => 'Pisma',
+    'controller' => 'Pisma',
+    'action' => 'put',
+    '[method]' => 'PUT'
+), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id')));
+
+
 
 
 

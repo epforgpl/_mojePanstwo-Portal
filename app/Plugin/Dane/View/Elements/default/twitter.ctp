@@ -12,6 +12,10 @@
     <?= $object->getData('html') ?>
 </blockquote>
 
+<? if($object->getData('photo_url')) {?>
+	<img style="max-width: 400px; margin-top: 10px; float: left;" src="<?= $object->getData('photo_url') ?>" />
+<? } ?>
+
 <? if ($object->getData('twitter_account_id')) { ?>
     <div class="tweet_stats">
         <div class="row">

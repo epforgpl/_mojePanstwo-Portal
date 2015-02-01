@@ -345,8 +345,8 @@ class PagesController extends MediaAppController
                     for ($_d = 0; $_d < count($_data); $_d++) {
                         $rank['groups'][$g]['types'][$_data[$_d]['type_id']] = array_merge($_data[$_d]['data']['tags'], array(
                             'id' => $_data[$_d]['type_id'],
-                            'nazwa' => $accounts_types_nazwy[$_data[$_d]['type_id']],
-                            'class' => $accounts_types_klasy[$_data[$_d]['type_id']],
+                            'nazwa' => @$accounts_types_nazwy[$_data[$_d]['type_id']],
+                            'class' => @$accounts_types_klasy[$_data[$_d]['type_id']],
                         ));
                     }
 
@@ -358,8 +358,8 @@ class PagesController extends MediaAppController
                     for ($_d = 0; $_d < count($_data); $_d++) {
                         $rank['groups'][$g]['types'][$_data[$_d]['type_id']] = array_merge($_data[$_d]['data']['urls'], array(
                             'id' => $_data[$_d]['type_id'],
-                            'nazwa' => $accounts_types_nazwy[$_data[$_d]['type_id']],
-                            'class' => $accounts_types_klasy[$_data[$_d]['type_id']],
+                            'nazwa' => @$accounts_types_nazwy[$_data[$_d]['type_id']],
+                            'class' => @$accounts_types_klasy[$_data[$_d]['type_id']],
                         ));
                     }
 
@@ -370,8 +370,8 @@ class PagesController extends MediaAppController
                     for ($_d = 0; $_d < count($_data); $_d++) {
                         $rank['groups'][$g]['types'][$_data[$_d]['type_id']] = array_merge($_data[$_d]['data']['source_id'], array(
                             'id' => $_data[$_d]['type_id'],
-                            'nazwa' => $accounts_types_nazwy[$_data[$_d]['type_id']],
-                            'class' => $accounts_types_klasy[$_data[$_d]['type_id']],
+                            'nazwa' => @$accounts_types_nazwy[$_data[$_d]['type_id']],
+                            'class' => @$accounts_types_klasy[$_data[$_d]['type_id']],
                         ));
                     }
 
@@ -385,8 +385,8 @@ class PagesController extends MediaAppController
                     for ($_d = 0; $_d < count($_data); $_d++) {
                         $rank['groups'][$g]['types'][$_data[$_d]['type_id']] = array_merge($_data[$_d]['data'][$group['preset']], array(
                             'id' => $_data[$_d]['type_id'],
-                            'nazwa' => $accounts_types_nazwy[$_data[$_d]['type_id']],
-                            'class' => $accounts_types_klasy[$_data[$_d]['type_id']],
+                            'nazwa' => @$accounts_types_nazwy[$_data[$_d]['type_id']],
+                            'class' => @$accounts_types_klasy[$_data[$_d]['type_id']],
                         ));
                     }
 

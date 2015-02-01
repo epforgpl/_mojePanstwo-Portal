@@ -10,7 +10,10 @@
         foreach ($facet['params']['options'] as $option) {
 
             // debug($option, true, false);
-
+			
+			if( !$option['id'] )
+				continue;
+			
             $fid = 'filter_input_' . $field . $option['id'];
             if (is_array($value)) {
                 $checked = in_array($option['id'], $value);

@@ -5,6 +5,7 @@ class PismaController extends AppController
 
     public $helpers = array('Form');
     public $uses = array('Pisma.Pismo');
+    public $components = array('RequestHandler');
 
     /*
     public function beforeFilter() {
@@ -76,6 +77,26 @@ class PismaController extends AppController
 		));
 		echo $html; die();
     }
+	
+	public function put($id, $slug=false) {
+		
+		$params = array();
+		if( !$this->Auth->user() )			
+			$params['anonymous_user_id'] = session_id();
+		
+		$status = false;
+		
+		if( isset($this->request->data['name']) ) {
+			
+			$params['name'] = $this->request->data['name'];
+			$status = $this->API->Pisma()->documents_partial_update($id, $params);
+			
+		}
+		
+		$this->set('status', $status);
+		$this->set('_serialize', 'status');
+		
+	}
 	
 	public function post($id, $slug=false) {
 		

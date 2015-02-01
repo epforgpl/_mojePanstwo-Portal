@@ -1,13 +1,8 @@
 <div class="row">
     <div class="col-md-12 pismoTitle">
-        <div class="titleBlock">
-            <h1 contenteditable="true" data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
-                <?= $pismo['nazwa'] ?>
-            </h1>
-        </div>
-
-        <? if ( !$this->Session->read('Auth.User.id') && isset($alert) && $alert ) { ?>
-            <div class="alert alert-dismissable alert-warning">
+        
+         <? if ( !$this->Session->read('Auth.User.id') && isset($alert) && $alert ) { ?>
+            <div class="alert alert-dismissable alert-success">
                 <button type="button" class="close" data-dismiss="alert">×</button>
                 <h4>Uwaga!</h4>
 
@@ -16,6 +11,12 @@
                     swoim koncie.</p>
             </div>
         <? } ?>
+        
+        <div class="titleBlock">
+            <h1 contenteditable="true" spellcheck="false" data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
+                <?= $pismo['nazwa'] ?>
+            </h1>
+        </div>
 
         <? if ($pismo['from_user_type'] == 'account') { ?>
             <div class="letter-meta">

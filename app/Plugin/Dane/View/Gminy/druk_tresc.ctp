@@ -15,8 +15,11 @@ echo $this->Element('Dane.dataobject/subobject', array(
         'bigTitle' => true,
     )
 ));
+?>
 
+<h2 class="light"><a class="btn-back glyphicon glyphicon-circle-arrow-left" href="<?= $druk->getUrl() ?>"></a> Treść druku</h2>
 
+<?
 echo $this->Element('docsBrowser/doc', array(
     'document' => $document,
     'documentPackage' => $documentPackage,

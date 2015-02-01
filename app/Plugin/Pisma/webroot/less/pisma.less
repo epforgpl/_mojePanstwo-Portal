@@ -1,3 +1,11 @@
+[contenteditable="true"] {padding: 5px 10px; outline: none; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;}
+[contenteditable="true"].focus {outline: 1px solid #DDD; background-color: #FAFAFA;}
+[contenteditable="true"].focus:hover {outline: 1px solid #DDD; background-color: #FAFAFA;}
+[contenteditable="true"]:hover {outline: 1px dashed #AAA;}
+
+.titleBlock .pismaBtn {display: none;}
+.titleBlock.focus .pismaBtn {display: block;}
+
 #_wrapper {
     background-color: #EAEAEA;
 }
@@ -545,6 +553,8 @@
                 max-width: 100%;
                 width: auto;
                 word-wrap: break-word;
+                
+				
             }
 
             .pismaBtn {
@@ -570,6 +580,7 @@
         .alert {
             float: left;
             width: 100%;
+            margin: 20px 8px 0;
         }
     }
 

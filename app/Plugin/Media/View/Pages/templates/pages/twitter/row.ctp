@@ -10,7 +10,7 @@
         </ul>
     <? } else { ?>
         <? foreach ($group['types'] as $type) { ?>
-            <div class="col-md-2 rank-col">
+            <div class="col-md-3 rank-col">
                 <h4 class="label label-<?= $type['class'] ?>"><a
                         href="/dane/twitter_accounts/?typ_id[]=<?= $type['id'] ?>"><?= $type['nazwa'] ?></a></h4>
                 <? include('mode.ctp'); ?>

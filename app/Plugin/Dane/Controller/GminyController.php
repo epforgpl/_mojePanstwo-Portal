@@ -519,13 +519,30 @@ class GminyController extends DataobjectsController
             $this->set('druk', $druk);
             $this->set('title_for_layout', $druk->getTitle());
             
-            if( isset($this->request->params['pass'][1]) && ($this->request->params['pass'][1]=='tresc') ) {
+            if( 
+            	isset( $this->request->params['pass'][1] ) && 
+            	( $this->request->params['pass'][1]=='dokumenty' ) && 
+            	( $druk_dokument = $this->API->getObject('rady_druki_dokumenty', $this->request->params['pass'][2], array(
+	                // 'layers' => 'neighbours',
+	            )) )
+            ) {
+	            
+	            $document = $this->API->document($druk_dokument->getData('dokument_id'));
+	        	$this->set('document', $document);
+				$this->set('documentPackage', 1);
+				
+				$this->set('druk_dokument', $druk_dokument);
+	            $this->set('title_for_layout', $druk_dokument->getTitle());
+				
+				$this->render('druk_dokument');
+            
+           } elseif( isset($this->request->params['pass'][1]) && ($this->request->params['pass'][1]=='tresc') ) {
             	
             	$document = $this->API->document($druk->getData('dokument_id'));
 	        	$this->set('document', $document);
 				$this->set('documentPackage', 1);
 				
-				$this->render('druk-dokument');
+				$this->render('druk_tresc');
 	            
             } else {
             
@@ -533,6 +550,7 @@ class GminyController extends DataobjectsController
 	                'perPage' => 20,
 	                'dataset' => 'rady_druki',
 	                'id' => $druk->getId(),
+	                'direction' => 'asc',
 	            ));	            
 	
 	            $this->render('druk');
