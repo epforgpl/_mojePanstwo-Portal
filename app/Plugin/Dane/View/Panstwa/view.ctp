@@ -15,7 +15,12 @@ echo $this->Element('dataobject/pageBegin');
 	        </div>
 		</div>
 		<div class="row">
-	        <div class="col-lg-12">
+	        <div class="col-lg-6 col-lg-offset-3">
+                <p style="font-size: 11px; margin-bottom: 20px;" class="chart-desc text-center">Dane za 2014 r. są wstępne i dotyczą pierwszych trzech kwartałów.</p>
+	        </div>
+		</div>
+		<div class="row">
+	        <div class="col-lg-2 col-lg-offset-5">
                 <select id="selectYear" class="form-control"></select>
 	        </div>
 		</div>
