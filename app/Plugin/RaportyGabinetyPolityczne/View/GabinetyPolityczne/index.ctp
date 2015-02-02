@@ -22,11 +22,13 @@ $this->Combinator->add_libs('js', array('RaportyGabinetyPolityczne.jquery.flippy
                     zadaniem jest udzielanie wsparcia ministrowi w wykonywaniu jego obowiązków.
                     <?php if (!empty($ministerstwa_bez_gabinetow)) { ?>
                     Resorty, które nie prowadzą gabinetu politycznego to:
+                </p>
                 <ul>
                     <?php foreach ($ministerstwa_bez_gabinetow as $mbg) { ?>
                         <li><?php echo $mbg ?></li>
                     <?php } ?>
                 </ul>
+                <p>
                 <? } ?>
                 We wszystkich ministerstwach łącznie pracuje <?php echo array_sum($ILOSC_LUDZI_W_MINISTERSTWACH); ?>
                 osób
