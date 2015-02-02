@@ -1,8 +1,11 @@
 /*CUSTOM FONTS*/
 @font-face {
     font-family: 'analiza_informacje_publiczne';
-    src: url('../font/analiza_informacje_publiczne.eot');
-    src: url('../font/analiza_informacje_publiczne.eot?#iefix') format('embedded-opentype'), url('../font/analiza_informacje_publiczne.woff') format('woff'), url('../font/analiza_informacje_publiczne.ttf') format('truetype'), url('../font/analiza_informacje_publiczne.svg#analiza_informacje_publiczne') format('svg');
+    src: url('/raporty_dostep_do_informacji_publicznej/font/analiza_informacje_publiczne.eot?wq610r');
+    src: url('/raporty_dostep_do_informacji_publicznej/font/analiza_informacje_publiczne.eot?#iefixwq610r') format('embedded-opentype'),
+    url('/raporty_dostep_do_informacji_publicznej/font/analiza_informacje_publiczne.woff?wq610r') format('woff'),
+    url('/raporty_dostep_do_informacji_publicznej/font/analiza_informacje_publiczne.ttf?wq610r') format('truetype'),
+    url('/raporty_dostep_do_informacji_publicznej/font/analiza_informacje_publiczne.svg?wq610r#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -57,8 +60,11 @@
     font-variant: normal;
     text-transform: none;
     line-height: 1;
-    -webkit-font-smoothing: antialiased;
     content: @content;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /*FIRST SETUP*/
