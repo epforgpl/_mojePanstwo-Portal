@@ -1,11 +1,11 @@
 div.timeline {
     position: relative;
     overflow: hidden;
-    margin: 0px auto;
+    margin: 0 auto;
     font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
     div.date_separator {
         position: relative;
-        padding: 20px 0px;
+        padding: 20px 0;
         clear: both;
         span {
             display: block;
@@ -43,7 +43,7 @@ div.timeline {
     }
     div.spine {
         position: absolute;
-        top: 0px;
+        top: 0;
         bottom: 100%;
         width: 4px;
         border-radius: 2px;
@@ -64,7 +64,7 @@ div.timeline {
         transform: translateX(0px);
     }
     img.twitter_profile {
-        margin: 0px 10px 10px 0px;
+        margin: 0 10px 10px 0;
         border-radius: 3px;
         width: 48px;
         height: 48px;
@@ -114,7 +114,7 @@ div.timeline {
         img.facebook_picture {
             max-width: 100%;
             width: 100%;
-            margin: 0px;
+            margin: 0;
         }
     }
     div.description_container {
@@ -130,7 +130,7 @@ div.timeline_dual div.date_separator span, div.timeline_center div.date_separato
 
 div.timeline_left div.date_separator span {
     margin-left: auto;
-    margin-right: 0px;
+    margin-right: 0;
 }
 
 div.timeline_left div.spine {
@@ -149,7 +149,7 @@ div.timeline_left div.timeline_element:before {
     position: absolute;
     display: block;
     width: 30px;
-    height: 0px;
+    height: 0;
     border-top: 1px dashed #cccccc;
     right: 4px;
     top: 15px;
@@ -164,7 +164,7 @@ div.timeline_left div.timeline_element:after {
     border-radius: 50%;
     background-color: #bbbbbb;
     border: 3px solid #ffffff;
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -175,7 +175,7 @@ div.timeline_left div.timeline_element:after {
 }
 
 div.timeline_right div.date_separator span {
-    margin-left: 0px;
+    margin-left: 0;
     margin-right: auto;
 }
 
@@ -195,7 +195,7 @@ div.timeline_right div.timeline_element:before {
     position: absolute;
     display: block;
     width: 30px;
-    height: 0px;
+    height: 0;
     border-top: 1px dashed #cccccc;
     left: 4px;
     top: 35px;
@@ -210,7 +210,7 @@ div.timeline_right div.timeline_element:after {
     border-radius: 50%;
     background-color: #bbbbbb;
     border: 3px solid #ffffff;
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -227,7 +227,7 @@ div.timeline_dual div.spine, div.timeline_center div.spine {
 
 div.timeline_element {
     position: relative;
-    margin: 20px 0px;
+    margin: 20px 0;
     opacity: 0;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -245,10 +245,10 @@ div.timeline_element {
     }
     div.img_overlay {
         position: absolute;
-        top: 0px;
-        bottom: 0px;
-        left: 0px;
-        right: 0px;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
         -webkit-transition: background 0.2s linear;
         -moz-transition: background 0.2s linear;
         -ms-transition: background 0.2s linear;
@@ -260,7 +260,7 @@ div.timeline_element {
             left: 50%;
             width: 48px;
             height: 48px;
-            margin: -24px 0px 0px -24px;
+            margin: -24px 0 0 -24px;
             cursor: pointer;
             background: url('../images/search.png') no-repeat 50% 50%;
             opacity: 0;
@@ -303,7 +303,7 @@ div.timeline_dual {
     }
     div.timeline_element_left {
         width: 50%;
-        margin: 10px 0px;
+        margin: 10px 0;
         float: left;
         clear: left;
         -webkit-transform: translateX(20px);
@@ -313,7 +313,7 @@ div.timeline_dual {
     }
     div.timeline_element_right {
         width: 50%;
-        margin: 10px 0px;
+        margin: 10px 0;
         float: right;
         clear: right;
         -webkit-transform: translateX(-20px);
@@ -326,9 +326,9 @@ div.timeline_dual {
         position: absolute;
         display: block;
         width: 30px;
-        height: 0px;
+        height: 0;
         border-top: 1px dashed #cccccc;
-        right: 0px;
+        right: 0;
         top: 15px;
     }
     div.timeline_element_right:before {
@@ -336,9 +336,9 @@ div.timeline_dual {
         position: absolute;
         display: block;
         width: 30px;
-        height: 0px;
+        height: 0;
         border-top: 1px dashed #cccccc;
-        left: 0px;
+        left: 0;
         top: 35px;
     }
     div.timeline_element_left:after {
@@ -350,11 +350,11 @@ div.timeline_dual {
         border-radius: 50%;
         background-color: #bbbbbb;
         border: 3px solid #ffffff;
-        box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
-        right: 0px;
+        right: 0;
         top: 10px;
         margin-right: -5px;
     }
@@ -367,11 +367,11 @@ div.timeline_dual {
         border-radius: 50%;
         background-color: #bbbbbb;
         border: 3px solid #ffffff;
-        box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
-        left: 0px;
+        left: 0;
         top: 30px;
         margin-left: -5px;
     }
@@ -392,11 +392,11 @@ div.timeline_element_box {
     border-radius: 5px;
     color: #37404e;
     text-shadow: none;
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 div.timeline_element_box:hover {
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 div.timeline_left div.timeline_element_box, div.timeline_dual div.timeline_element_left div.timeline_element_box {
@@ -422,7 +422,7 @@ div.timeline_title {
     text-transform: uppercase;
     span.timeline_title_label {
         position: absolute;
-        left: 0px;
+        left: 0;
         right: 100px;
         overflow: hidden;
         white-space: nowrap;
@@ -447,7 +447,7 @@ div.timeline_element.slider img {
     display: block;
     width: 100%;
     height: 100%;
-    border-radius: 0px 0px 5px 5px;
+    border-radius: 0 0 5px 5px;
 }
 
 div.timeline_element.slider div.content {
@@ -490,10 +490,10 @@ div.timeline_element.slider div.content {
 
 div.timeline_element.slider div.img_container {
     position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 div.timeline_element.slider div.content:hover {
@@ -525,7 +525,7 @@ div.timeline_element.gallery div.img_container {
 }
 
 div.timeline_element.gallery div.img_container:last-child {
-    margin-right: 0px;
+    margin-right: 0;
 }
 
 div.timeline_element.slider.notitle img {
@@ -543,7 +543,7 @@ div.timeline_element.iframe div.content iframe {
     width: 100%;
     height: 100%;
     border: none;
-    border-radius: 0px 0px 5px 5px;
+    border-radius: 0 0 5px 5px;
 }
 
 div.timeline_element.iframe.notitle div.content iframe {
@@ -552,7 +552,7 @@ div.timeline_element.iframe.notitle div.content iframe {
 
 div.timeline_element.blog_post div.content {
     font-size: 13px;
-    padding: 0px 10px 10px 10px;
+    padding: 0 10px 10px 10px;
 }
 
 div.timeline_element.blog_post div.img_container {
@@ -571,16 +571,16 @@ div.timeline_element.blog_post div.readmore {
 }
 
 div.timeline_element.blog_post.notitle div.img_container img {
-    border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0 0;
 }
 
 div.timeline_overlay {
     position: fixed;
     z-index: 200;
-    top: 0px;
-    bottom: 0px;
-    right: 0px;
-    left: 0px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
     display: none;
     background: url('../images/opacity.png') repeat;
     background-color: rgba(0, 0, 0, 0.5);
@@ -691,7 +691,7 @@ div.timeline_loadmore {
     background: -ms-linear-gradient(top, #dd4b39, #d14836);
     background: linear-gradient(top, #dd4b39, #d14836);
     text-align: center;
-    padding: 10px 0px;
+    padding: 10px 0;
     border-radius: 4px;
     text-decoration: none;
     color: #ffffff;
@@ -706,13 +706,13 @@ div.timeline_loadmore:hover {
 }
 
 div.timeline_loadmore:active {
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) inset;
 }
 
 div.timeline_loadmore.loading {
     cursor: default;
     color: #aaaaaa;
-    text-shadow: 0px 1px 1px #ffffff;
+    text-shadow: 0 1px 1px #ffffff;
     box-shadow: none;
     background-size: 40px 40px;
     background-color: #dedede;
