@@ -54,6 +54,9 @@ $(document).ready(function() {
             verticalAlign: 'middle',
             borderWidth: 0
         },
+        chart: {
+	        backgroundColor: 'rgba(255, 255, 255, 0)'
+        },
         series: series
     });
 

@@ -14,7 +14,7 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
         <div class="container-fluid container">
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <p class="navbar-text">Signed in as Mark Otto</p>
+                <p class="navbar-text">Statystyki polskiego handlu zagranicznego</p>
                 <form class="navbar-form navbar-right">
                     <div class="form-group">
                         <span class="text-muted">Rok: &nbsp;</span>
@@ -68,7 +68,10 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
                 <ul class="list-group" id="hzExportSymbols"></ul>
             </div>
         </div>
-        <div class="well well-sm">Źródło: hinex.stat.gov.pl/hinex/aspx/index.aspx</div>
+        <div class="src text-center" style="color: #666; font-size: 12px; margin-top: 20px;">
+	        <p>Dane za 2014 r. są wstępne i dotyczą pierwszych trzech kwartałów.</p>
+	        <p>Źródło: <a href="hinex.stat.gov.pl/hinex/aspx/index.aspx" target="_blank">hinex.stat.gov.pl/hinex/aspx/index.aspx</a></p>
+		</div>
     </div>
 </div>
 <!--
