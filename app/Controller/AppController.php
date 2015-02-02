@@ -77,6 +77,15 @@ class AppController extends Controller {
 
 	public $Applications = array(
 		array(
+			'id' => '17',
+			'slug' => 'pisma',
+			'name' => 'Pisma',
+			'plugin' => 'pisma',
+			'type' => 'app',
+			'home' => '1',
+			'folder_id' => '13'
+		),
+		array(
 			'id'     => '16',
 			'slug'   => 'kto_tu_rzadzi',
 			'name'   => 'Kto tu rządzi?',
@@ -149,33 +158,6 @@ class AppController extends Controller {
 			'folder_id' => '13'
 		),
 		array(
-			'id'     => '4',
-			'slug'   => 'moja_gmina',
-			'name'   => 'Moja Gmina',
-			'plugin' => 'moja_gmina',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id'     => '10',
-			'slug'   => 'kody_pocztowe',
-			'name'   => 'Kody Pocztowe',
-			'plugin' => 'kody_pocztowe',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id' => '17',
-			'slug' => 'pisma',
-			'name' => 'Pisma',
-			'plugin' => 'pisma',
-			'type' => 'app',
-			'home' => '1',
-			'folder_id' => '13'
-		),
-		array(
 			'id' => '18',
 			'slug' => 'gabinety_polityczne',
 			'name' => 'Gabinety Polityczne',
@@ -185,12 +167,49 @@ class AppController extends Controller {
 			'folder_id' => '13'
 		),
 		array(
+			'id'     => '4',
+			'slug'   => 'moja_gmina',
+			'name'   => 'Moja Gmina',
+			'plugin' => 'moja_gmina',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
+		),
+		array(
+			'id'     => '20',
+			'slug'   => 'finanse',
+			'name'   => 'Finanse',
+			'plugin' => 'finanse',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
+		),
+		array(
+			'id'     => '21',
+			'slug'   => 'handel_zagraniczny',
+			'name'   => 'Handel zagraniczny',
+			'plugin' => 'HandelZagraniczny',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
+		),
+		
+		array(
 			'id' => '19',
 			'slug' => 'dostep_do_informacji_publicznej',
 			'name' => 'Dostęp do Informacji Publicznej',
 			'plugin' => 'raporty_dostep_do_informacji_publicznej',
 			'type' => 'app',
 			'home' => '1',
+			'folder_id' => '13'
+		),
+		array(
+			'id'     => '10',
+			'slug'   => 'kody_pocztowe',
+			'name'   => 'Kody Pocztowe',
+			'plugin' => 'kody_pocztowe',
+			'type'   => 'app',
+			'home'   => '1',
 			'folder_id' => '13'
 		),
 	);
