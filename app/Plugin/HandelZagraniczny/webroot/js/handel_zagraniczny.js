@@ -353,7 +353,7 @@ $(function() {
                 },
 
                 chart: {
-                    backgroundColor: '#263339',
+                    backgroundColor: '#142026',
                     borderColor: '#333',
                     spacing: [0, 0, 0, 0]
                 },
@@ -385,7 +385,7 @@ $(function() {
                     },
                     data: hz_data,
                     mapData: hz_map_data,
-                    nullColor: '#1e282d',
+                    nullColor: '#142026',
                     joinBy: ['iso-a2', 'code'],
                     dataLabels: {
                         enabled: false
