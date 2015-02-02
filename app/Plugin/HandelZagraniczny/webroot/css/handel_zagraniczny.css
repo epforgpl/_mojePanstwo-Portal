@@ -77,7 +77,6 @@
     border-right: none;
     border-color: #2e4555;
     background: #1e282d;
-    border-bottom: none;
     margin-bottom: 0;
 }
 
@@ -127,7 +126,7 @@
     max-height: 80vh;
     display: block;
     margin-bottom: 0;
-    background: #142026;
+    background: #263339;
 }
 
 .highcharts-tooltip > span {
@@ -158,7 +157,7 @@
 }
 
 #_wrapper #_main #hzDetails {
-    /* border-top: 1px solid #2e4555; */
+    border-top: 1px solid #2e4555;
     padding: 20px 0;
     background: #142026;
 }
@@ -218,7 +217,6 @@ span.firstUpper:first-letter {
     padding-bottom: 10px;
     border-bottom: 1px solid #eee;
 }
-
 .highcharts-tooltip > span p.more {
     margin: 0;
     padding: 0;
@@ -229,49 +227,39 @@ span.firstUpper:first-letter {
     border-top: 1px solid #efefef;
     text-align: right;
 }
-
 .highcharts-tooltip > span table {
     table-layout: fixed;
 }
-
 .highcharts-tooltip > span table tr th {
     padding: 5px;
     font: normal 14px Arial;
     color: #444;
 }
-
 .highcharts-tooltip > span table tr td {
     padding: 5px;
     font: normal 12px Arial;
     color: #666;
 }
-
 .highcharts-tooltip > span table tr td div {
     max-width: 300px;
 }
-
 .highcharts-tooltip > span table tr td span:first-letter {
     text-transform: uppercase;
 }
-
 .highcharts-tooltip > span table tr th:first-child {
     padding-left: 0;
 }
-
 .highcharts-tooltip > span table tr td:first-child {
     padding-left: 0;
 }
-
 .highcharts-tooltip > span table tr:last-child td {
     border-bottom: none;
 }
-
 .highcharts-tooltip > span ol {
     padding: 0;
     margin: 0;
     margin-left: 20px;
 }
-
 .highcharts-tooltip > span ol li {
     max-width: 200px;
 } */
