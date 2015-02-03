@@ -70,7 +70,7 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
         </div>
         <div class="src text-center" style="color: #666; font-size: 12px; margin-top: 20px;">
 	        <p>Dane za 2014 r. są wstępne i dotyczą pierwszych trzech kwartałów.</p>
-	        <p>Źródło: <a href="hinex.stat.gov.pl/hinex/aspx/index.aspx" target="_blank">hinex.stat.gov.pl/hinex/aspx/index.aspx</a></p>
+	        <p>Źródło: <a href="http://hinex.stat.gov.pl/hinex/aspx/index.aspx" target="_blank">hinex.stat.gov.pl/hinex/aspx/index.aspx</a></p>
 		</div>
     </div>
 </div>
