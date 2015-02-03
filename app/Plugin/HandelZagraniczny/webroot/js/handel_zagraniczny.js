@@ -111,18 +111,55 @@ $(function() {
 
     var hz_updateTopSymbolsDetails = function(symbols) {
 
-        console.log(symbols);
         $('#hzImportSymbols').html('');
         for(var i = 0; i < symbols.import.length; i++) {
             var s = symbols.import[i];
-            $('#hzImportSymbols').append('<li class="list-group-item"><span class="badge">' + pl_currency_format(s.wartosc_pln) + ' zł</span><a href="/dane/handel_zagraniczny_towary/' + s.id + '?y=' + hz_year + '">' + s.nazwa.trim() + '</a></li>');
+            $('#hzImportSymbols').append('<li class="list-group-item"><span class="badge">' + pl_currency_format(s.wartosc_pln) + ' zł</span><a href="/dane/handel_zagraniczny_towary/' + s.id + '?y=' + hz_year + '">' + s.nazwa.trim() + '</a> <a class="more" id="' + s.id + '" href="#more"><span class="caret"></span></a></li>');
         }
+
+        $('#hzImportSymbols li.list-group-item a.more').click(function() {
+            $(this).hide();
+            var parent_id = $(this).attr('id');
+            var $li = $(this).parent('li');
+            if($li.find('ul').length > 0) {
+                return false;
+            }
+            var content = '<ul class="list-group symbolChild">';
+            $.getJSON(hz_api + 'getSymbols.json?year=' + hz_year + '&type=import&parent_id=' + parent_id, function(j) {
+                for(var k = 0; k < j.length; k++) {
+                    var s = j[k];
+                    content +=  '<li class="list-group-item"><span class="badge">' + pl_currency_format(s.wartosc_pln) + '</span> <a href="/dane/handel_zagraniczny_towary/' + s.id + '?y=' + hz_year + '">' + s.nazwa.trim() + '</a></li>';
+                }
+                content += '</ul>';
+                $li.append(content);
+            });
+            return false;
+        });
 
         $('#hzExportSymbols').html('');
         for(var i = 0; i < symbols.export.length; i++) {
             var s = symbols.export[i];
-            $('#hzExportSymbols').append('<li class="list-group-item"><span class="badge">' + pl_currency_format(s.wartosc_pln) + ' zł</span><a href="/dane/handel_zagraniczny_towary/' + s.id + '?y=' + hz_year + '">' + s.nazwa.trim() + '</a></li>');
+            $('#hzExportSymbols').append('<li class="list-group-item"><span class="badge">' + pl_currency_format(s.wartosc_pln) + ' zł</span><a href="/dane/handel_zagraniczny_towary/' + s.id + '?y=' + hz_year + '">' + s.nazwa.trim() + '</a> <a class="more" id="' + s.id + '" href="#more"><span class="caret"></span></a></li>');
         }
+
+        $('#hzExportSymbols li.list-group-item a.more').click(function() {
+            $(this).hide();
+            var parent_id = $(this).attr('id');
+            var $li = $(this).parent('li');
+            if($li.find('ul').length > 0) {
+                return false;
+            }
+            var content = '<ul class="list-group symbolChild">';
+            $.getJSON(hz_api + 'getSymbols.json?year=' + hz_year + '&type=export&parent_id=' + parent_id, function(j) {
+                for(var k = 0; k < j.length; k++) {
+                    var s = j[k];
+                    content +=  '<li class="list-group-item"><span class="badge">' + pl_currency_format(s.wartosc_pln) + '</span> <a href="/dane/handel_zagraniczny_towary/' + s.id + '?y=' + hz_year + '">' + s.nazwa.trim() + '</a></li>';
+                }
+                content += '</ul>';
+                $li.append(content);
+            });
+            return false;
+        });
 
     };
 
@@ -502,5 +539,6 @@ $(function() {
         }
         return s.join(dec);
     }
+
 
 });
