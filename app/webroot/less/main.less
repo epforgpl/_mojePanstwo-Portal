@@ -41,7 +41,76 @@
     src: local('Lato Bold Italic'), local('Lato-BoldItalic'), url(/fonts/Lato-BolIta.ttf) format('truetype');
 }
 
-/* VARIABLE */
+@font-face {
+    font-family: 'mojePanstwo';
+    src: url('../fonts/mojePanstwo.eot');
+    src: url('../fonts/mojePanstwo.eot?#iefix') format('embedded-opentype'), url('../fonts/mojePanstwo.ttf') format('truetype'), url('../fonts/mojePanstwo.woff') format('woff'), url('../fonts/mojePanstwo.svg#mojePanstwo') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'mojePanstwoNewLayout';
+    src: url('../fonts/mojePanstwo-new_layout.eot');
+    src: url('../fonts/mojePanstwo-new_layout.eot?#iefix') format('embedded-opentype'), url('../fonts/mojePanstwo-new_layout.ttf') format('truetype'), url('../fonts/mojePanstwo-new_layout.woff') format('woff'), url('../fonts/mojePanstwo-new_layout.svg#mojePanstwo') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ICONS - SETUP */
+[data-icon]:before {
+    font-family: 'mojePanstwo';
+    content: attr(data-icon);
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+[data-icon-after]:after {
+    font-family: 'mojePanstwo';
+    content: attr(data-icon-after);
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+[data-icon-new]:before {
+    font-family: 'mojePanstwoNewLayout';
+    content: attr(data-icon-new);
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+[data-icon-new-after]:after {
+    font-family: 'mojePanstwoNewLayout';
+    content: attr(data-icon-new-after);
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* BASIC VARIABLE */
 @headerHeight: 40px;
 @footerHeight: 40px;
 @linkColor: #157AB5;
@@ -122,19 +191,13 @@ a {
     }
 }
 
-.form-control, textarea.form-control, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
-    border-width: 1px !important;
+.form-control::-moz-placeholder,
+.form-control::-webkit-placeholder,
+.form-control::-placeholder {
+    color: #444444;
 }
 
-.nopadding {
-    padding: 0 !important;
-    margin: 0 !important;
-}
-
-.padding {
-    padding: 15px;
-}
-
+/*LOADING ADDONS*/
 .loading {
     background: url(/img/loader/loading-small.png) center center no-repeat;
     min-height: 30px;
@@ -158,19 +221,6 @@ a {
         text-align: center;
         font-size: 14px;
     }
-}
-
-.pagination-neighbours {
-    float: right;
-    margin-top: 10px;
-    &.pagination > li > a, &.pagination > li > span {
-        background-color: inherit;
-    }
-}
-
-/*SHOWING ERRORS FROM CAKEPHP HIDDEN UNDER HEADER*/
-body > pre:first-child {
-    margin-top: 50px;
 }
 
 .main_description {
@@ -272,7 +322,6 @@ body > pre:first-child {
 }
 
 .app-header {
-
     background-color: #E3E3E3;
     border-bottom: 1px solid #BBB;
     text-align: center;
@@ -775,9 +824,10 @@ body > pre:first-child {
     width: 100%;
 }
 
+/* ALERtS BLOCK */
 .alert a, .alert .alert-link {
-	color: #0078AC !important;
-	text-decoration: none !important;
+    color: #0078AC !important;
+    text-decoration: none !important;
 }
 
 .flash-message {
@@ -877,27 +927,13 @@ body > pre:first-child {
     }
 }
 
-.col-lg-1.half {
-    width: 4.1666666%;
-}
-
+/*CUSTOM GLOBAL SETUPS*/
+/*TEXT TRANSFORM - FIRST LETTER BIG, REST NORMAL*/
 &.normalizeText {
     &:first-letter {
         text-transform: uppercase;
     }
     text-transform: lowercase;
-}
-
-.form-control::-moz-placeholder {
-    color: #AAA;
-}
-
-.form-control::-webkit-placeholder {
-    color: #AAA;
-}
-
-.form-control::-placeholder {
-    color: #AAA;
 }
 
 blockquote p {
@@ -913,42 +949,6 @@ blockquote p {
     overflow: hidden;
 }
 
-/* FONTS */
-@font-face {
-    font-family: 'mojePanstwo';
-    src: url('../fonts/mojePanstwo.eot?v=2');
-    src: url('../fonts/mojePanstwo.eot?v=2#iefix') format('embedded-opentype'), url('../fonts/mojePanstwo.ttf?v=2') format('truetype'), url('../fonts/mojePanstwo.woff?v=2') format('woff'), url('../fonts/mojePanstwo.svg?v=2#mojePanstwo') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-/* ICONS */
-[data-icon]:before {
-    font-family: 'mojePanstwo';
-    content: attr(data-icon);
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-[data-icon-after]:after {
-    font-family: 'mojePanstwo';
-    content: attr(data-icon-after);
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
 /* GLOBAL DECLARATION */
 * {
     margin: 0;
@@ -961,144 +961,10 @@ body {
     height: 100%;
 }
 
+/*TRIM TEXT FROM "JS SHORTER TITLE FUNCTION (enhance.js + main.js)" HAVE [...] AT END THAT SHOULD SUGGEST TO BE CLICKED*/
 .trimTitle {
     cursor: pointer;
     color: @linkColor;
-}
-
-/* GLOBAL HELPER CLASS */
-._fullwidth {
-    width: 100%;
-}
-
-/* ADDITIONAL COCKPITBAR ACTION */
-/* SEARCH BAR FOR PORTAL*/
-._mojePanstwoCockpitSearch {
-    float: left;
-    height: 40px;
-
-    ._mojePanstwoCockpitSearchContent {
-        @backgroundInput: #0078AC;
-
-        display: inline-block;
-        vertical-align: middle;
-
-        ._mojePanstwoCockpitSearchContentButton {
-            position: relative;
-
-            &.active {
-                color: #0078AC !important;
-
-                &:after {
-                    @size: 6px;
-
-                    content: ' ';
-                    width: 0;
-                    height: 0;
-                    border-left: @size solid transparent;
-                    border-right: @size solid transparent;
-                    border-bottom: @size solid @backgroundInput;
-                    position: absolute;
-                    bottom: 0;
-                    left: 50%;
-                    margin-left: -@size;
-                }
-            }
-
-            &._mojePanstwoCockpitIcons-search:before {
-                font-family: 'mojePanstwo';
-                content: "\e600";
-                speak: none;
-                font-style: normal;
-                font-weight: normal;
-                font-variant: normal;
-                text-transform: none;
-                line-height: 1;
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
-            }
-        }
-
-        ._mojePanstwoCockpitSearchInput {
-            padding: 0;
-            background-color: @backgroundInput;
-            height: 52px;
-            left: 0;
-            position: absolute;
-            top: 40px;
-            width: 100%;
-            display: none;
-            border-bottom: 1px solid #263339;
-
-            > .container {
-                padding-left: 0;
-                padding-right: 0;
-            }
-
-            .searchFor {
-                @inputColor: #222222;
-                @inputSize: 40px;
-
-                font-family: "Lato", Arial, sans-serif;
-                border-radius: 5px;
-                -moz-border-radius: 5px;
-                -webkit-border-radius: 5px;
-                margin-top: 5px;
-                margin-bottom: 0;
-                padding: 0;
-                height: 45px;
-                border: 1px solid @backgroundInput;
-                position: relative;
-
-                input {
-                    width: 100%;
-                    height: @inputSize;
-                    float: left;
-                    border: none;
-                    font-size: 18px;
-                    color: #000;
-                    background-color: #FFF;
-                    font-weight: 300;
-
-                    &::-webkit-input-placeholder,
-                    &:-moz-placeholder,
-                    &::-moz-placeholder,
-                    &:-ms-input-placeholder {
-                        color: #444;
-                    }
-
-                    &:focus {
-                        outline: none;
-                    }
-                }
-
-                button {
-                    width: @inputSize * 1.5;
-                    height: @inputSize;
-                    border: none;
-                    font-size: 28px;
-                    text-align: center;
-                    cursor: pointer;
-                    color: @backgroundInput;
-                    padding: 3px;
-                    background-color: #FFFFFF;
-
-                    &:before {
-                        font-family: 'mojePanstwo';
-                        content: "\e600";
-                        speak: none;
-                        font-style: normal;
-                        font-weight: normal;
-                        font-variant: normal;
-                        text-transform: none;
-                        line-height: 1;
-                        -webkit-font-smoothing: antialiased;
-                        -moz-osx-font-smoothing: grayscale;
-                    }
-                }
-            }
-        }
-    }
 }
 
 /* HEADER SETUP */
@@ -1110,110 +976,6 @@ header {
     height: @headerHeight;
 }
 
-/* FIRST STRUCTURE SETUP */
-#_wrapper {
-    min-height: 100%;
-    position: relative;
-    background-color: #EAEBEE;
-
-    &.white {
-        background-color: #FFF;
-    }
-
-    &.grey {
-        background-color: #F3F3F3;
-    }
-
-    #_main {
-        padding-top: @headerHeight;
-        padding-bottom: @footerHeight + 20px; /*FOOTER HEIGHT + SECURE PADDING FOR NOT TOUCHING BOTTOM BY CONTENT */
-
-        .container.app {
-            margin-top: 2em;
-
-            .block:first-child {
-                padding-top: 10px;
-            }
-
-            .block:last-child {
-                padding-bottom: 10px;
-            }
-        }
-    }
-}
-
-/* COOKIE CURVES STRUCTURE SETUP */
-.cookieLaw {
-    @size: 120px;
-    @border: 150px 0 0 0;
-
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    z-index: 0;
-
-    background-color: rgba(200, 200, 200, .7);
-    height: @size;
-    width: @size;
-    -moz-border-radius: @border;
-    -webkit-border-radius: @border;
-    border-radius: @border;
-
-    .container {
-        width: @size;
-        padding: 30px 10px 10px 35px;
-        font-size: 11px;
-
-        p {
-            color: #333;
-            padding-top: 4px;
-            text-align: right;
-        }
-
-        .btn {
-            margin-top: -4px;
-        }
-    }
-}
-
-/* FOOTER SETUP */
-footer {
-    @footerColor: #BBB;
-
-    font-family: "Lato", Arial, sans-serif;
-    font-weight: 300;
-    font-size: 11px;
-    line-height: 16px;
-    color: @footerColor;
-    padding: (@footerHeight/2)-6 0;
-    background-color: #222222;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: @footerHeight;
-
-    a {
-        color: @footerColor;
-
-        &:hover {
-            color: #428bca;
-        }
-    }
-
-    .pull-left {
-        text-align: left;
-    }
-    .pull-right {
-        text-align: right;
-    }
-
-    .separator {
-        padding: 0 10px;
-        text-align: center;
-        color: darken(@footerColor, 15%);
-    }
-}
-
 .dataBrowser._dataset_patenty .description {
     padding: 10px 0;
     .dataHighlights .dataHighlight {
@@ -1223,7 +985,6 @@ footer {
 
 .glyphicon {
     &.glyphicon-feed {
-
         display: inline-block;
         text-indent: -9999px;
         width: 16px;

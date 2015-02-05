@@ -1,5 +1,23 @@
+msgid "LC_COCKPITBAR_USER_SEARCH"
+msgstr "Szukaj"
+
+msgid "LC_COCKPITBAR_USER_APPLICATION"
+msgstr "Aplikacje"
+
+msgid "LC_COCKPITBAR_USER_FAVOURITE"
+msgstr "Ulubione"
+
+msgid "LC_COCKPITBAR_USER_LINK"
+msgstr "Twój profil"
+
+msgid "LC_COCKPITBAR_LOGIN"
+msgstr "Zaloguj się"
+
+msgid "LC_COCKPITBAR_LOGOUT"
+msgstr "Wyloguj się"
+
 msgid "LC_MAINHEADER_TEXT"
-msgstr "<b>_moje</b>Państwo <span>to zestaw aplikacji, dzięki którym możesz kontrolować i wpływać na działania Twojego państwa.</span>"
+msgstr "<b>_moje</b>Państwo <span>to zestaw aplikacji, dzięki którym możesz kontrolować i&nbsp;wpływać na działania Twojego państwa.</span>"
 
 msgid "LC_MAINHEADER_GUIDE"
 msgstr "More&nbsp;&raquo;"
@@ -18,3 +36,63 @@ msgstr "Search"
 
 msgid "LC_SEARCH_DOTS"
 msgstr "Search..."
+
+msgid "LC_CONTACTUS_HEADLINE"
+msgstr "Napisz do nas!"
+
+msgid "LC_CONTACTUS_PHONE"
+msgstr "tel."
+
+msgid "LC_CONTACTUS_PLACEHOLDER_NAME"
+msgstr "Imię i nazwisko"
+
+msgid "LC_CONTACTUS_PLACEHOLDER_EMAIL"
+msgstr "Adres e-mail"
+
+msgid "LC_CONTACTUS_SEND"
+msgstr "Wyślij"
+
+msgid "LC_REPORTBUG_HEADLINE"
+msgstr "Jeśli wystąpił jakiś błąd w naszym serwisie, bądź posiadamy błędne lub nieaktualne dane - poinformuj nas o tym, a My postaramy się naprawić błąd w jak najszybszym czasie."
+
+msgid "LC_REPORTBUG_VIA_GITHUB"
+msgstr "Zgłoś błąd bezpośrednio w serwisie GitHub"
+
+msgid "LC_REPORTBUG_OR"
+msgstr "bądź"
+
+msgid "LC_REPORTBUG_EMAIL_HEADLINE"
+msgstr "Wyślij do nas wiadomość"
+
+msgid "LC_REPORTBUG_EMAIL_LINK"
+msgstr "Link"
+
+msgid "LC_REPORTBUG_EMAIL_LINK_PLACEHOLDER"
+msgstr "Np. http://mojepanstwo.pl/błąd"
+
+msgid "LC_REPORTBUG_EMAIL_DESC"
+msgstr "Opis"
+
+msgid "LC_REPORTBUG_EMAIL_DESC_PLACEHOLDER"
+msgstr "Prosimy o jak najdokładniejszy opis występującego problemu - w ten sposób będzie łatwiej nam go zlokalizować i naprawić"
+
+msgid "LC_REPORTBUG_EMAIL_SUBMIT"
+msgstr "Wyślij zgłoszenie"
+
+msgid "LC_FOOTER_ABOUT_US"
+msgstr "O portalu"
+
+msgid "LC_FOOTER_API"
+msgstr "API"
+
+msgid "LC_FOOTER_REGULATIONS"
+msgstr "Regulamin"
+
+msgid "LC_FOOTER_REPORT_BUG"
+msgstr "Zgłoś błąd"
+
+msgid "LC_FOOTER_CONTACT_US"
+msgstr "Napisz do nas"
+
+msgid "LC_SEARCH_BRAK_WYNIKOW"
+msgstr "Brak wyników"

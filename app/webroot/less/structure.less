@@ -1,0 +1,232 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+#_wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #F3F3F3;
+
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+
+    #_mPCockpit {
+        @cockpitBlueLight: #59a4dd;
+        @cockpitBlue: #014068;
+        @cockpitBlueDark: #023353;
+        @cockpitBlueDarken: #062f49;
+        @appHeight: 60px;
+
+        width: auto;
+        height: 100%;
+        color: #FFFFFF;
+        padding: 0;
+        text-align: center;
+        font-size: 10px;
+        font-weight: bold;
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        a {
+            color: #ffffff;
+        }
+
+        ._mPBasic, ._mPAppList {
+            float: left;
+        }
+
+        ._appBlock {
+            height: @appHeight;
+            cursor: pointer;
+
+            &._appBlockBackground {
+                &._appBlockActive {
+                    background-color: @cockpitBlueDarken;
+                }
+                &:hover {
+                    background-color: @cockpitBlueLight;
+                }
+            }
+        }
+
+        ._mPBasic {
+            width: 100px;
+            height: 100%;
+            background-color: @cockpitBlue;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2;
+
+            ._mPLogo {
+                font-family: "Lato", sans-serif;
+                font-size: 22px;
+                font-weight: 300;
+                line-height: 22px;
+                margin: 20px 10px;
+                text-align: right;
+
+                a, a:hover, a:focus {
+                    color: #009de0;
+
+                    strong {
+                        font-size: 24px;
+                        color: #ffffff;
+                        width: 100%;
+                        display: block;
+                    }
+                }
+            }
+            ._mPApplication ._appBlock {
+                position: relative;
+                display: block;
+
+                ._mPTitle {
+                    left: 50%;
+                    position: absolute;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    text-align: center;
+
+                    ._mPAppIcon {
+                        width: 100%;
+                        display: block;
+                        font-size: 15px;
+                    }
+                    ._mPAppLabel {
+                        margin: 0;
+                        line-height: 1.1em;
+                    }
+                }
+            }
+            ._mPSystem {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+
+                ._mPUser {
+                    height: 90px;
+                    position: relative;
+                    overflow: hidden;
+
+                    > img {
+                        width: 100%;
+                        left: 50%;
+                        position: absolute;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+
+                    a {
+                        @userTextHeight: 12px;
+
+                        position: absolute;
+                        top: 50%;
+                        left: 0;
+                        margin-top: -(@userTextHeight/2);
+                        width: 100%;
+                        height: @userTextHeight;
+                    }
+                }
+
+                ._mPPowerButton {
+                    background-color: #000000;
+
+                    > a {
+                        color: #FFFFFF;
+                        padding-top: 18px;
+                        padding-bottom: 18px;
+                        display: block;
+                    }
+                }
+            }
+        }
+        ._mPAppList {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            width: 100px;
+            height: 100%;
+            background-color: @cockpitBlueDarken;
+            padding-top: 20px;
+
+            ._appBlock {
+                @AppListPadding: 5px;
+
+                display: table;
+                width: 100%;
+                padding: 5px;
+                height: @appHeight + (2*@AppListPadding);
+
+                ._appConstruct {
+                    display: table-cell;
+                    vertical-align: middle;
+                    padding: 5px;
+                    width: 100%;
+
+                    ._mPAppIcon {
+                        @iconSize: 20px;
+
+                        margin: 0 auto;
+                        width: @iconSize;
+                        height: @iconSize;
+                        position: relative;
+
+                        > img {
+                            width: 100%;
+                            height: 100%;
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+
+                            -moz-transform: translate(-50%, -50%);
+                            -webkit-transform: translate(-50%, -50%);
+                            -o-transform: translate(-50%, -50%);
+                            -ms-transform: translate(-50%, -50%);
+                            transform: translate(-50%, -50%);
+                        }
+                    }
+                    ._mPTitle {
+                        margin-top: 6px;
+                        line-height: 10px;
+                    }
+                }
+            }
+        }
+    }
+
+    #_main {
+        width: 100%;
+        height: 100%;
+        padding-left: 100px;
+        overflow-x: hidden;
+
+        #_handler {
+            width: 100%;
+            height: 100%;
+
+            .fullPageHeight {
+                height: 100%;
+                position: relative;
+
+                > div {
+                    max-width: 1600px;
+                    margin: 0 auto;
+                    display: block;
+                }
+
+                &.noRestriction > div {
+                    max-width: 100%;
+                    margin: 0;
+                }
+            }
+        }
+    }
+}
