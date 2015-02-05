@@ -71,7 +71,7 @@
 
                     <p>Media</p>
                 </a>
-                <a class="homePageIcon col-xs-6 col-sm-4 col-md-2" href="/apps" target="_self">
+                <a class="homePageIcon col-xs-6 col-sm-4 col-md-2" href="/aplikacje" target="_self">
                     <i class="_mPAppIcon" data-icon-new="&#xe800;" alt="Wszystkie aplikacje"></i>
 
                     <p>Wszystkie aplikacje</p>

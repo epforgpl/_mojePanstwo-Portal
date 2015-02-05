@@ -19,7 +19,7 @@
 
             </div>
             <div class="_mPApplication">
-                <a class="_mPAppsList _appBlock _appBlockBackground" href="/apps" target="_self">
+                <a class="_mPAppsList _appBlock _appBlockBackground" href="/aplikacje" target="_self">
                     <div class="_mPTitle">
                         <i class="_mPAppIcon" data-icon-new="&#xe800;"></i>
 
