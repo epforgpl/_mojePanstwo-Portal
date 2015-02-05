@@ -190,8 +190,6 @@ echo $this->Html->script('../plugins/bootstrap-switch/bootstrap-switch.js'); ?>
 </script>
 
 <?php
-/*$this->Combinator->add_libs('js', 'statusbar', false);
-$this->Combinator->add_libs('js', 'statusbar-portal', false);*/
 $this->Combinator->add_libs('js', 'enhance', false);
 $this->Combinator->add_libs('js', 'structure', false);
 $this->Combinator->add_libs('js', 'main', false);
