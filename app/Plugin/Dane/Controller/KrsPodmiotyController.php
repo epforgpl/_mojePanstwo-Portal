@@ -27,6 +27,17 @@ class KrsPodmiotyController extends DataobjectsController
         $this->Auth->deny(array('pobierz_odpis', 'odpis'));
     }
 
+	
+	public function aktualnosci() {
+		
+		$this->_prepareView();
+		
+		$this->prepareFeed(array(
+			// 'perPage' => 3,
+		));
+
+	}
+	
     public function view()
     {
 
