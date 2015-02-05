@@ -12,171 +12,169 @@ $this->Combinator->add_libs('js', array('RaportyGabinetyPolityczne.jquery.flippy
 ?>
 <div class="gabinety-polityczne">
     <div class="col-md-12 slider intro">
-        <div class="inner col-lg-6 col-lg-offset-3 col-md-8  col-md-offset-2">
-            <div class="container">
-                <div class="col-md-10 title">
-                    <small>Raport</small>
-                    <h2>Gabinety polityczne</h2>
-                </div>
-                <div class="col-md-12 content">
-                    <p>Obecnie w Polsce działa 17 Ministerstw. W większości z nich powołano gabinety polityczne, których
-                        zadaniem jest udzielanie wsparcia ministrowi w wykonywaniu jego obowiązków.
-                        <?php if (!empty($ministerstwa_bez_gabinetow)) { ?>
-                        Resorty, które nie prowadzą gabinetu politycznego to:
-                    <ul>
-                        <?php foreach ($ministerstwa_bez_gabinetow as $mbg) { ?>
-                            <li><?php echo $mbg ?></li>
-                        <?php } ?>
-                    </ul>
-                    <? } ?>
-                    We wszystkich ministerstwach łącznie pracuje <?php echo array_sum($ILOSC_LUDZI_W_MINISTERSTWACH); ?>
+        <div class="inner col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-xs-12">
+            <div class="col-md-10 title">
+                <small>Raport</small>
+                <h2>Gabinety polityczne</h2>
+            </div>
+            <div class="col-md-12 content">
+                <p>Obecnie w Polsce działa 17 Ministerstw. W większości z nich powołano gabinety polityczne, których
+                    zadaniem jest udzielanie wsparcia ministrowi w wykonywaniu jego obowiązków.
+                    <?php if (!empty($ministerstwa_bez_gabinetow)) { ?>
+                    Resorty, które nie prowadzą gabinetu politycznego to:
+                </p>
+                <ul>
+                    <?php foreach ($ministerstwa_bez_gabinetow as $mbg) { ?>
+                        <li><?php echo $mbg ?></li>
+                    <?php } ?>
+                </ul>
+                <p>
+                <? } ?>
+                We wszystkich ministerstwach łącznie pracuje <?php echo array_sum($ILOSC_LUDZI_W_MINISTERSTWACH); ?>
+                osób
+                zatrudnionych w gabinetach politycznych. Czym
+                zajmują się te osoby?
+                </p>
+                <p>
+                    Zakres zadań i tryb pracy gabinetu politycznego każdy minister ustala indywidualnie. W
+                    zależności od
+                    resortu zadania gabinetu politycznego są sformułowane bardziej generalnie lub szczegółowo.
+                    Głównym
+                    zadaniem członków gabinetów jest zapewnienie politycznej obsługi ministra, sekretarza stanu i
+                    podsekretarzy stanu. Do zakresu działania gabinetów może należeć np. opiniowanie projektów
+                    wystąpień
+                    przygotowywanych dla ministra, doradztwo polityczne czy sporządzanie raportów i analiz, które
+                    odnoszą się do zadań wykonywanych przez ministra.
+                </p>
+
+                <p>
+                    Dane dotyczące pracowników zatrudnionych w gabinetach podlegają ustawowemu udostępnieniu i są
+                    publikowane na stronach internetowych poszczególnych resortów. Kwestie dotyczące wynagrodzeń
                     osób
-                    zatrudnionych w gabinetach politycznych. Czym
-                    zajmują się te osoby?
-                    </p>
-                    <p>
-                        Zakres zadań i tryb pracy gabinetu politycznego każdy minister ustala indywidualnie. W
-                        zależności od
-                        resortu zadania gabinetu politycznego są sformułowane bardziej generalnie lub szczegółowo.
-                        Głównym
-                        zadaniem członków gabinetów jest zapewnienie politycznej obsługi ministra, sekretarza stanu i
-                        podsekretarzy stanu. Do zakresu działania gabinetów może należeć np. opiniowanie projektów
-                        wystąpień
-                        przygotowywanych dla ministra, doradztwo polityczne czy sporządzanie raportów i analiz, które
-                        odnoszą się do zadań wykonywanych przez ministra.
-                    </p>
+                    pracujących w gabinetach regulują przepisy rozporządzenia Rady Ministrów z dnia 28 marca 2000 r.
+                    w
+                    sprawie zasad wynagradzania i innych świadczeń przysługujących pracownikom urzędów państwowych
+                    zatrudnionym w gabinetach politycznych oraz doradcom lub pełniącym funkcje doradców osób
+                    zajmujących
+                    kierownicze stanowiska państwowe. Postanowiliśmy skompletować wszystkie informacje w jednym
+                    miejscu
+                    i przedstawić je tak, by w łatwy sposób sprawdzić kto doradza naszym ministrom.
+                </p>
 
-                    <p>
-                        Dane dotyczące pracowników zatrudnionych w gabinetach podlegają ustawowemu udostępnieniu i są
-                        publikowane na stronach internetowych poszczególnych resortów. Kwestie dotyczące wynagrodzeń
-                        osób
-                        pracujących w gabinetach regulują przepisy rozporządzenia Rady Ministrów z dnia 28 marca 2000 r.
-                        w
-                        sprawie zasad wynagradzania i innych świadczeń przysługujących pracownikom urzędów państwowych
-                        zatrudnionym w gabinetach politycznych oraz doradcom lub pełniącym funkcje doradców osób
-                        zajmujących
-                        kierownicze stanowiska państwowe. Postanowiliśmy skompletować wszystkie informacje w jednym
-                        miejscu
-                        i przedstawić je tak, by w łatwy sposób sprawdzić kto doradza naszym ministrom.
-                    </p>
-
-                    <p>
-                        Poniżej prezentujemy dane na dzień <strong><?php echo $RAPORT_Z_DNIA ?></strong>, informacje
-                        będą
-                        aktualizowane co trzy miesiące.
-                    </p>
-                </div>
+                <p>
+                    Poniżej prezentujemy dane na dzień <strong><?php echo $RAPORT_Z_DNIA ?></strong>, informacje
+                    będą
+                    aktualizowane co trzy miesiące.
+                </p>
             </div>
         </div>
     </div>
     <div class="col-md-12 slider przegladaj">
-        <div class="inner col-lg-6 col-lg-offset-3 col-md-8  col-md-offset-2">
-            <div class="container">
-                <div class="col-md-10 subtitle">
-                    <h3>Przeglądaj gabinety</h3>
+        <div class="inner col-lg-6 col-lg-offset-3 col-md-8  col-md-offset-2 col-xs-12">
+            <div class="col-md-10 subtitle">
+                <h3>Przeglądaj gabinety</h3>
 
-                    <div class="sorting">
-                        <button type="button" class="btn btn-link btn-sm name">Sortuj według nazw
-                            <small>(A - Z)</small>
-                        </button>
-                        <button type="button" class="btn btn-link btn-sm people">Sortuj według ilosci osób
-                            <small>(od najmniejszej)</small>
-                        </button>
-                        <button type="button" class="btn btn-link btn-sm age">Sortuj według średniej wieku
-                            <small>(od najmniejszej)</small>
-                        </button>
-                    </div>
+                <div class="sorting">
+                    <button type="button" class="btn btn-link btn-sm name">Sortuj według nazw
+                        <small>(A - Z)</small>
+                    </button>
+                    <button type="button" class="btn btn-link btn-sm people">Sortuj według ilosci osób
+                        <small>(od najmniejszej)</small>
+                    </button>
+                    <button type="button" class="btn btn-link btn-sm age">Sortuj według średniej wieku
+                        <small>(od najmniejszej)</small>
+                    </button>
                 </div>
+            </div>
 
-                <div class="col-md-12 content ministerstwa">
-                    <?php foreach ($ministerstwa as $id => $m) { ?>
-                        <div class="slide">
-                            <div class="options">
-                                <div class="opt people">
-                                    <small>Ilość osób:</small>
-                                    <strong><?php echo count($m['osoby']) ?></strong></div>
-                                <div class="opt age">
-                                    <small>Średnia wieku:</small>
-                                    <strong><?php $ageArray = array();
-                                        foreach ($m['osoby'] as $o) {
-                                            $birthDate = explode("-", $o['data_urodzenia']);
-                                            $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[2], $birthDate[1], $birthDate[0]))) > date("md") ? ((date("Y") - $birthDate[0]) - 1) : (date("Y") - $birthDate[0]));
-                                            array_push($ageArray, $age);
-                                        }
-                                        echo(round(array_sum($ageArray) / count($ageArray), 1));
-                                        ?></strong>
-                                </div>
+            <div class="col-md-12 content ministerstwa">
+                <?php foreach ($ministerstwa as $id => $m) { ?>
+                    <div class="slide">
+                        <div class="options">
+                            <div class="opt people">
+                                <small>Ilość osób:</small>
+                                <strong><?php echo count($m['osoby']) ?></strong></div>
+                            <div class="opt age">
+                                <small>Średnia wieku:</small>
+                                <strong><?php $ageArray = array();
+                                    foreach ($m['osoby'] as $o) {
+                                        $birthDate = explode("-", $o['data_urodzenia']);
+                                        $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[2], $birthDate[1], $birthDate[0]))) > date("md") ? ((date("Y") - $birthDate[0]) - 1) : (date("Y") - $birthDate[0]));
+                                        array_push($ageArray, $age);
+                                    }
+                                    echo(round(array_sum($ageArray) / count($ageArray), 1));
+                                    ?></strong>
                             </div>
+                        </div>
 
-                            <h3 class="head"><?php echo $m['name']; ?></h3>
+                        <h3 class="head"><?php echo $m['name']; ?></h3>
 
-                            <div class="list">
-                                <?php foreach ($m['osoby'] as $o) { ?>
-                                    <div class="point">
-                                        <div class="flipbox">
-                                            <h4><?php echo $o['imie_pierwsze'] . ' ' . ((!empty($o['imie_drugie'])) ? $o['imie_drugie'] : '') . ' ' . $o['nazwisko']; ?></h4>
+                        <div class="list">
+                            <?php foreach ($m['osoby'] as $o) { ?>
+                                <div class="point">
+                                    <div class="flipbox">
+                                        <h4><?php echo $o['imie_pierwsze'] . ' ' . ((!empty($o['imie_drugie'])) ? $o['imie_drugie'] : '') . ' ' . $o['nazwisko']; ?></h4>
 
-                                            <div class="info">
-                                                <p class="position">
-                                                    <strong><?php echo $o['stanowisko']; ?></strong>
-                                                </p>
+                                        <div class="info">
+                                            <p class="position">
+                                                <strong><?php echo $o['stanowisko']; ?></strong>
+                                            </p>
 
-                                                <p class="birthday">
-                                                    ur. <strong>
-                                                        <?php $birthDate = explode("-", $o['data_urodzenia']);
-                                                        $age = (int)$birthDate[2];
-                                                        $m_en = array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
-                                                        $m_pol = array("Stycznia", "Lutego", "Marca", "Kwietnia", "Maja", "Czerwca", "Lipca", "Sierpnia", "Września", "Października", "Listopada", "Grudnia");
-                                                        $age .= ' ' . str_replace($m_en, $m_pol, date('M', strtotime($o['data_urodzenia']))) . ' ';
-                                                        $age .= $birthDate[0];
-                                                        echo $age; ?>
-                                                    </strong>
-                                                </p>
+                                            <p class="birthday">
+                                                ur. <strong>
+                                                    <?php $birthDate = explode("-", $o['data_urodzenia']);
+                                                    $age = (int)$birthDate[2];
+                                                    $m_en = array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+                                                    $m_pol = array("Stycznia", "Lutego", "Marca", "Kwietnia", "Maja", "Czerwca", "Lipca", "Sierpnia", "Września", "Października", "Listopada", "Grudnia");
+                                                    $age .= ' ' . str_replace($m_en, $m_pol, date('M', strtotime($o['data_urodzenia']))) . ' ';
+                                                    $age .= $birthDate[0];
+                                                    echo $age; ?>
+                                                </strong>
+                                            </p>
 
-                                                <p class="work">
-                                                    <?php echo(($o['etat'] == "1") ? 'Praca na <strong>cały etat</strong>' : (($o['etat'] == "0,5") ? 'Praca na </strong>&frac12; etatu</strong>' : (($o['etat'] == '0,2') ? 'Praca na <strong>&frac15; etatu</strong>' : '<strong>Brak informacji</strong> o wymiarze zatrudnienia'))); ?></p>
+                                            <p class="work">
+                                                <?php echo(($o['etat'] == "1") ? 'Praca na <strong>cały etat</strong>' : (($o['etat'] == "0,5") ? 'Praca na </strong>&frac12; etatu</strong>' : (($o['etat'] == '0,2') ? 'Praca na <strong>&frac15; etatu</strong>' : '<strong>Brak informacji</strong> o wymiarze zatrudnienia'))); ?></p>
 
-                                                <p class="money">
-                                                    Wynagrodzenie: <strong><?php echo $o['wynagrodzenie']; ?> PLN
-                                                        brutto</strong>
-                                                    <?php if ($o['etat'] == '1*') echo ' szacowane przy całym etacie' ?>
-                                                </p>
-                                            </div>
-                                            <?php if ($o['krs_osoby_id'] != NULL) { ?>
-                                                <a href="http://mojepanstwo.pl/dane/krs_osoby/<?php echo $o['krs_osoby_id']; ?>"
-                                                   target="_blank" class="btn krs btn-default pull-left">dane w KRS</a>
-                                            <?php } ?>
-                                            <button class="btn doswiadczenie btn-info pull-right">doświadczenie</button>
-                                            <div class="reverse">
-                                                <div class="reverted">
-                                                    <div class="infoLabel">Informacje o miejscu zatrudnienia, źródłach
-                                                        dochodów,
-                                                        wykonywanej działalności gospodarczej na trzy lata przed dniem
-                                                        zatrudnienia w gabinecie:
-                                                    </div>
-                                                    <div class="infoList">
-                                                        <?php echo((!empty($o['powiazania'])) ? '<p>' . str_replace("\n", '</p><p>', $o['powiazania']) . '</p>' : '<span>Brak danych o poprzednim doświadczeniu</span>'); ?>
-                                                    </div>
-                                                    <button class="btn wroc btn-info pull-right">wróć</button>
+                                            <p class="money">
+                                                Wynagrodzenie: <strong><?php echo $o['wynagrodzenie']; ?> PLN
+                                                    brutto</strong>
+                                                <?php if ($o['etat'] == '1*') echo ' szacowane przy całym etacie' ?>
+                                            </p>
+                                        </div>
+                                        <?php if ($o['krs_osoby_id'] != NULL) { ?>
+                                            <a href="http://mojepanstwo.pl/dane/krs_osoby/<?php echo $o['krs_osoby_id']; ?>"
+                                               target="_blank" class="btn krs btn-default pull-left">dane w KRS</a>
+                                        <?php } ?>
+                                        <button class="btn doswiadczenie btn-info pull-right">doświadczenie</button>
+                                        <div class="reverse">
+                                            <div class="reverted">
+                                                <div class="infoLabel">Informacje o miejscu zatrudnienia, źródłach
+                                                    dochodów,
+                                                    wykonywanej działalności gospodarczej na trzy lata przed dniem
+                                                    zatrudnienia w gabinecie:
                                                 </div>
+                                                <div class="infoList">
+                                                    <?php echo((!empty($o['powiazania'])) ? '<p>' . str_replace("\n", '</p><p>', $o['powiazania']) . '</p>' : '<span>Brak danych o poprzednim doświadczeniu</span>'); ?>
+                                                </div>
+                                                <button class="btn wroc btn-info pull-right">wróć</button>
                                             </div>
                                         </div>
                                     </div>
-                                <?php } ?>
-                            </div>
+                                </div>
+                            <?php } ?>
                         </div>
-                    <?php } ?>
-                </div>
-
+                    </div>
+                <?php } ?>
             </div>
+
         </div>
     </div>
     <div class="col-md-12 slider publikowanie">
-        <div class="inner col-lg-6 col-lg-offset-3 col-md-8  col-md-offset-2">
-            <div class="col-md-10 subtitle">
+        <div class="inner col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-xs-12">
+            <div class="subtitle">
                 <h3>Gabinety polityczne</h3>
             </div>
-            <div class="col-md-10 content">
+            <div class="content">
                 <p>Każdy z ministrów jest ustawowo zobowiązany do publikowania w Biuletynie Informacji Publicznej danych
                     dotyczących pracowników zatrudnionych w jego gabinecie politycznym. Taki obowiązek przewiduje ustawa
                     o

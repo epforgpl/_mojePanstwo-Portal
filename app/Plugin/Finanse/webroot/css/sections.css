@@ -119,7 +119,7 @@ h1 {
 }
 #sections ul li .row-header .name {
   font-size: 24px;
-  margin: 15px 0px;
+  margin: 15px 0;
   font-weight: 300;
 }
 #sections ul li .row-header .value {
@@ -228,25 +228,6 @@ h1 {
   top: -17px;
   width: 16px;
 }
-
-#sections ul li .gradient_cont .addons li.section_addon {
-    display: none;
-}
-
-#sections ul li .gradient_cont .addons li.section_addon .v {
-    font-weight: bold;
-}
-
-#sections ul li .gradient_cont .addons li.section_addon .n {
-    margin-top: -65px;
-    font-weight: bold;
-}
-
-#sections ul li .gradient_cont .addons li.section_addon:before {
-    background-color: blue;
-    border: 1px solid #0000cd;
-}
-
 #sections ul li .gradient_cont .addons li span {
   width: 100%;
   font-size: 14px;

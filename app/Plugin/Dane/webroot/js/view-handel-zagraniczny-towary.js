@@ -14,6 +14,37 @@ $(document).ready(function() {
         seriesExportData.push(parseInt(data[i].eksport_pln));
     }
 
+    // wczytywanie podrzędnych towarów
+    function load_childs() {
+        var childs = [];
+        $.getJSON(apiHost + 'handel_zagraniczny/stats/getSymbols.json?limit=999&year=' + _year + '&parent_id=' + _objectData.id + '&type=import', function (data) {
+            var import_childs = data;
+            $.getJSON(apiHost + 'handel_zagraniczny/stats/getSymbols.json?limit=999&year=' + _year + '&parent_id=' + _objectData.id + '&type=export', function (data) {
+                $('#childsImport').html('');
+                $('#childsExport').html('');
+                var export_childs = data;
+                for (var i = 0; i < import_childs.length; i++) {
+                    var c = import_childs[i];
+                    $('#childsImport').append('<li class="list-group-item"><span class="badge">' + pl_currency_format(c.wartosc_pln) + ' zł</span><a href="/dane/handel_zagraniczny_towary/' + c.id + '?y=' + _year + '">' + c.nazwa + '</a></li>');
+                }
+                for (var i = 0; i < export_childs.length; i++) {
+                    var c = export_childs[i];
+                    $('#childsExport').append('<li class="list-group-item"><span class="badge">' + pl_currency_format(c.wartosc_pln) + ' zł</span><a href="/dane/handel_zagraniczny_towary/' + c.id + '?y=' + _year + '">' + c.nazwa + '</a></li>');
+                }
+
+                if(import_childs.length === 0 && export_childs.length === 0) {
+                    $('#childsMain').remove();
+                    $('#countriesMain').removeClass('col-lg-6');
+                    $('#countriesMain').addClass('col-lg-12');
+                }
+            });
+        });
+    }
+
+    // autoload
+    load_childs();
+
+
     series = [
         {
             name: 'Import',
@@ -61,24 +92,27 @@ $(document).ready(function() {
     });
 
     var loadTopData = function(year) {
-        $.getJSON(apiHost + 'handel_zagraniczny/stats/panstwa.json?symbol_id=' + _objectData.id + '&rocznik=' + year + '&order=import', function( data ) {
+        $.getJSON(apiHost + 'handel_zagraniczny/stats/panstwa.json?symbol_id=' + _objectData.id + '&rocznik=' + year + '&order=import&limit=false', function( data ) {
             $('#topImportList').html('');
             $.each(data, function(key, val) {
-                $('#topImportList').append('<li class="list-group-item"><span class="badge">' + pl_currency_format(val.wartosc_pln) + ' zł</span>' + val.nazwa + '</li>');
+                console.log(val);
+                $('#topImportList').append('<li class="list-group-item"><span class="badge">' + pl_currency_format(val.wartosc_pln) + ' zł</span><img src="/img/flags/' + val.symbol + '.png" onerror="if (this.src != \'/img/flags/_unknown.png\') this.src = \'/img/flags/_unknown.png\';" />&nbsp; <a href="/dane/panstwa/' + val.id + '">' + val.nazwa + '</a></li>');
             });
         });
 
-        $.getJSON(apiHost + 'handel_zagraniczny/stats/panstwa.json?symbol_id=' + _objectData.id + '&rocznik=' + year + '&order=eksport', function( data ) {
+        $.getJSON(apiHost + 'handel_zagraniczny/stats/panstwa.json?symbol_id=' + _objectData.id + '&rocznik=' + year + '&order=eksport&limit=false', function( data ) {
             $('#topExportList').html('');
             $.each(data, function(key, val) {
-                $('#topExportList').append('<li class="list-group-item"><span class="badge">' + pl_currency_format(val.wartosc_pln) + ' zł</span>' + val.nazwa + '</li>');
+                $('#topExportList').append('<li class="list-group-item"><span class="badge">' + pl_currency_format(val.wartosc_pln) + ' zł</span><img src="/img/flags/' + val.symbol + '.png" onerror="if (this.src != \'/img/flags/_unknown.png\') this.src = \'/img/flags/_unknown.png\';" />&nbsp; <a href="/dane/panstwa/' + val.id + '">' + val.nazwa + '</a></li>');
             });
         });
     };
 
     $('#selectYear').change(function() {
         var year = $(this).find("option:selected").text();
+        _year = year;
         loadTopData(year);
+        load_childs();
     });
 
     $('#selectYear').val(_year);
