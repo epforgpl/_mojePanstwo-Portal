@@ -24,6 +24,7 @@
                         <i class="_mPAppIcon" data-icon-new="&#xe800;"></i>
 
                         <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_APPLICATION'); ?></p>
+                        <span class="_mPAppBadge badge">15</span>
                     </div>
                 </a>
             </div>
