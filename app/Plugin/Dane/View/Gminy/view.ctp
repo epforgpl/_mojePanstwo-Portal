@@ -202,7 +202,7 @@
 
                                 <p><?= $adres ?></p>
 
-                                <? if ($szef = $object->getLayer('szef')) { ?>
+                                <? /* if ($szef = $object->getLayer('szef')) { ?>
                                     <div id="szef" class="dataHighlights">
                                         <div class="dataHighlight big">
                                             <p class="_label"><?= $szef['stanowisko'] ?>:</p>
@@ -210,7 +210,7 @@
                                             <p class="_value"><?= $szef['nazwa'] ?></p>
                                         </div>
                                     </div>
-                                <? } ?>
+                                <? } */ ?>
                             </div>
 
                         </div>
