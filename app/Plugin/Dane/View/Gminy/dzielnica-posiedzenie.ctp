@@ -51,9 +51,43 @@ echo $this->Element('Dane.dataobject/subobject', array(
                 $this->Combinator->add_libs('js', 'Dane.view-dzielnica_posiedzenie');
                 ?>
 
-                <div id="ytVideo" class="row">
-                    <div id="player" data-youtube="<?php echo $posiedzenie->getData('yt_video_id'); ?>"></div>
+                <div id="ytVideoCont" class="row">
+                    <div class="<? if ($wystapienia) { ?>col-md-7 text-right<? } else { ?>col-md-9 col-md-offset-3<? } ?>">
+                        <div id="ytVideo" class="row">
+                            <div id="player" data-youtube="<?php echo $posiedzenie->getData('yt_video_id'); ?>"></div>
+                        </div>
+                    </div>
+
+                    <? if ($wystapienia) { ?>
+                        <div class="col-md-5 wystapienia">
+
+                            <div class="block">
+
+                                <div class="block-header">
+                                    <h2 class="label"><?php echo __d('dane', 'LC_RADYGMINDEBATY_WYSTAPIENIA'); ?></h2>
+                                </div>
+
+                                <div class="content nopadding">
+                                    <ul class="nav nav-pills nav-stacked">
+                                        <?php foreach ($wystapienia as $id => $wystapienie) { ?>
+                                            <li>
+                                                <a data-video-position="<?php echo $wystapienie['video_start']; ?>"
+                                                   href="#<?php echo $wystapienie['id']; ?>">
+                                                    <span><?php echo (date('H', $wystapienie['video_start']) - 1) . date(':i:s', $wystapienie['video_start']); ?></span> <?php echo $wystapienie['mowca_str']; ?>
+                                                </a>
+                                            </li>
+                                        <?php } ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    <? } ?>
+
                 </div>
+
+                <!--<div id="ytVideo" class="row">
+                    <div id="player" data-youtube="<?php echo $posiedzenie->getData('yt_video_id'); ?>"></div>
+                </div>-->
 
             <? } ?>
 

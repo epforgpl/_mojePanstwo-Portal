@@ -658,8 +658,17 @@ class GminyController extends DataobjectsController
 
                     if (
                         $sub_id &&
-                        ($posiedzenie = $this->API->getObject('krakow_dzielnice_rady_posiedzenia', $sub_id))
+                        ($posiedzenie = $this->API->getObject('krakow_dzielnice_rady_posiedzenia', $sub_id, array(
+                            'layers' => array(
+                                'punkty'
+                            )
+                        )))
                     ) {
+
+
+                        /* ob_end_clean();
+                        var_dump($posiedzenie->getLayer('punkty'));
+                        die(); */
 
                         // debug( $this->API->document($posiedzenie->getData('przedmiot_dokument_id')) ); die();
 
@@ -669,8 +678,12 @@ class GminyController extends DataobjectsController
                         if ($posiedzenie->getData('przedmiot_dokument_id'))
                             $this->set('przedmiot_dokument', $this->API->document($posiedzenie->getData('przedmiot_dokument_id')));
 
+                        $wystapienia = (array) $posiedzenie->getLayer('punkty');
+                        if(count($wystapienia) === 0) $wystapienia = false;
+
                         $this->set('documentPackage', 1);
                         $this->set('posiedzenie', $posiedzenie);
+                        $this->set('wystapienia', $wystapienia);
                         $title_for_layout = $posiedzenie->getTitle();
                         $subaction = 'posiedzenie';
 

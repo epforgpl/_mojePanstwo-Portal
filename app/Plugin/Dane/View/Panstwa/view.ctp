@@ -5,6 +5,8 @@
 $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
 $this->Combinator->add_libs('js', '../plugins/highcharts/locals');
 $this->Combinator->add_libs('js', 'Dane.view-panstwa');
+$this->Combinator->add_libs('js', '../plugins/jsTree/tree.jquery');
+$this->Combinator->add_libs('css', '../plugins/jsTree/jqtree');
 echo $this->Element('dataobject/pageBegin');
 ?>
 
@@ -26,15 +28,18 @@ echo $this->Element('dataobject/pageBegin');
 		</div>
 		<div class="row">
 	        <div class="col-lg-6">
-		        <h2 class="text-center">Import</h2>
+		        <h2 class="text-center">Import towarów do Polski</h2>
                 <ul class="list-group" id="topImportList"></ul>
 	        </div>
 	        <div class="col-lg-6">
-		        <h2 class="text-center">Eksport</h2>
+		        <h2 class="text-center">Eksport towarów z Polski</h2>
                 <ul class="list-group" id="topExportList"></ul>
 	        </div>
 		</div>
-
+        <div class="row">
+            <h1>Tree</h1>
+            <div id="tree1"></div>
+        </div>
     </div>
 
 <script type="text/javascript">
