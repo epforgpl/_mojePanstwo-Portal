@@ -678,12 +678,12 @@ class GminyController extends DataobjectsController
                         if ($posiedzenie->getData('przedmiot_dokument_id'))
                             $this->set('przedmiot_dokument', $this->API->document($posiedzenie->getData('przedmiot_dokument_id')));
 
-                        $wystapienia = (array) $posiedzenie->getLayer('punkty');
-                        if(count($wystapienia) === 0) $wystapienia = false;
+                        $punkty = (array) $posiedzenie->getLayer('punkty');
+                        if(count($punkty) === 0) $punkty = false;
 
                         $this->set('documentPackage', 1);
                         $this->set('posiedzenie', $posiedzenie);
-                        $this->set('wystapienia', $wystapienia);
+                        $this->set('punkty', $punkty);
                         $title_for_layout = $posiedzenie->getTitle();
                         $subaction = 'posiedzenie';
 

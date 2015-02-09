@@ -49,13 +49,13 @@ if ($posiedzenie->getData('yt_video_id')) {
     ?>
 
     <div id="ytVideoCont" class="row">
-        <div class="<? if ($wystapienia) { ?>col-md-7 text-right<? } else { ?>col-md-9 col-md-offset-3<? } ?>">
+        <div class="<? if ($punkty) { ?>col-md-7 text-right<? } else { ?>col-md-9 col-md-offset-3<? } ?>">
             <div id="ytVideo" class="row">
                 <div id="player" data-youtube="<?php echo $posiedzenie->getData('yt_video_id'); ?>"></div>
             </div>
         </div>
 
-        <? if ($wystapienia) { ?>
+        <? if ($punkty) { ?>
             <div class="col-md-5 wystapienia">
 
                 <div class="block">
@@ -66,11 +66,11 @@ if ($posiedzenie->getData('yt_video_id')) {
 
                     <div class="content nopadding">
                         <ul class="nav nav-pills nav-stacked">
-                            <?php foreach ($wystapienia as $id => $wystapienie) { ?>
+                            <?php foreach ($punkty as $id => $punkt) { ?>
                                 <li>
-                                    <a data-video-position="<?php echo $wystapienie['video_start']; ?>"
-                                       href="#<?php echo $wystapienie['id']; ?>">
-                                        <span><?php echo (date('H', $wystapienie['video_start']) - 1) . date(':i:s', $wystapienie['video_start']); ?></span> <?php echo $wystapienie['mowca_str']; ?>
+                                    <a data-video-position="<?php echo $punkt['video_start']; ?>"
+                                       href="#<?php echo $punkt['id']; ?>">
+                                        <!--<span><?php echo (date('H', $punkt['video_start']) - 1) . date(':i:s', $punkt['video_start']); ?></span>--><?php echo $punkt['mowca_str']; ?>
                                     </a>
                                 </li>
                             <?php } ?>
