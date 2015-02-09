@@ -859,9 +859,10 @@ class GminyController extends DataobjectsController
         if (isset($this->request->params['pass'][0]) && is_numeric($this->request->params['pass'][0])) {
 
             $posiedzenie = $this->API->getObject('krakow_komisje_posiedzenia', $this->request->params['pass'][0], array(
-                'layers' => 'neighbours',
+                'layers' => array('neighbours'),
             ));
             $document = $this->API->document($posiedzenie->getData('dokument_id'));
+
             $this->set('komisja_posiedzenie', $posiedzenie);
             $this->set('document', $document);
             $this->set('documentPackage', 1);
@@ -1412,10 +1413,16 @@ class GminyController extends DataobjectsController
 					
 					if (
                         $sub_id &&
-                        ($posiedzenie = $this->API->getObject('krakow_komisje_posiedzenia', $sub_id))
+                        ($posiedzenie = $this->API->getObject('krakow_komisje_posiedzenia', $sub_id, array(
+                            'layers' => array('punkty')
+                        )))
                     ) {
 
                         // debug( $this->API->document($posiedzenie->getData('przedmiot_dokument_id')) ); die();
+
+                        $punkty = (array) $posiedzenie->getLayer('punkty');
+                        if(count($punkty) === 0) $punkty = false;
+                        $this->set('punkty', $punkty);
 
                         if ($posiedzenie->getData('dokument_id'))
                             $this->set('dokument', $this->API->document($posiedzenie->getData('dokument_id')));

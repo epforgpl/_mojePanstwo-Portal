@@ -61,7 +61,7 @@ if ($posiedzenie->getData('yt_video_id')) {
                 <div class="block">
 
                     <div class="block-header">
-                        <h2 class="label"><?php echo __d('dane', 'LC_RADYGMINDEBATY_WYSTAPIENIA'); ?></h2>
+                        <h2 class="label">Punkty</h2>
                     </div>
 
                     <div class="content nopadding">
