@@ -326,7 +326,7 @@ $(document).ready(function() {
                 apiHost + 'handel_zagraniczny/stats/panstwa.json' +
                 '?symbol_id=' + this.symbol_id +
                 '&rocznik=' + year +
-                '&order=' + type + '' +
+                '&order=' + type +
                 '&limit=false',
                 done_function
             );
