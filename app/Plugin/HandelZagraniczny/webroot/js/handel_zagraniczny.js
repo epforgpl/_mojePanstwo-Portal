@@ -590,7 +590,7 @@ $(function() {
                 default: // countries
                     switch(type) {
                         default: // import
-                            $('#more').append('<h1>Import</h1><h2>Państwa od których Polska importowała najwięcej w ' + hz_year + ' roku</h2><ul class="list-group" id="list"></ul><a class="close" href="#close">&laquo; Powrót</a>');
+                            $('#more').append('<a class="close" href="#close">x</a><h1>Import</h1><h2>Państwa od których Polska importowała najwięcej w ' + hz_year + ' roku</h2><ul class="list-group" id="list"></ul>');
                             if(this.countries_import[hz_year] === undefined) {
                                 this.getCountries(hz_year, 'import', function(data) {
                                     t.countries_import[hz_year] = data;
@@ -605,7 +605,7 @@ $(function() {
                         break;
 
                         case 'export':
-                            $('#more').append('<h1>Eksport</h1><h2>Państwa do których Polska eksportowała najwięcej w ' + hz_year + ' roku</h2><ul class="list-group" id="list"></ul><a class="close" href="#close">&laquo; Powrót</a>');
+                            $('#more').append('<a class="close" href="#close">x</a><h1>Eksport</h1><h2>Państwa do których Polska eksportowała najwięcej w ' + hz_year + ' roku</h2><ul class="list-group" id="list"></ul>');
                             if(this.countries_export[hz_year] === undefined) {
                                 this.getCountries(hz_year, 'export', function(data) {
                                     t.countries_export[hz_year] = data;
@@ -624,7 +624,7 @@ $(function() {
                 case 'symbols':
                     switch(type) {
                         default: // import
-                            $('#more').append('<h1>Import</h1><h2>Towary których Polska eksportowała najwięcej w ' + hz_year + ' roku</h2><ul class="list-group" id="list"></ul><a class="close" href="#close">&laquo; Powrót</a>');
+                            $('#more').append('<a class="close" href="#close">x</a><h1>Import</h1><h2>Towary których Polska eksportowała najwięcej w ' + hz_year + ' roku</h2><ul class="list-group" id="list"></ul>');
                             if(this.symbols_import[hz_year] === undefined) {
                                 this.get(hz_year, 'import', function(data) {
                                     t.symbols_import[hz_year] = data;
@@ -639,7 +639,7 @@ $(function() {
                         break;
 
                         case 'export':
-                            $('#more').append('<h1>Eksport</h1><h2>Towary których Polska eksportowała najwięcej w ' + hz_year + ' roku</h2><ul class="list-group" id="list"></ul><a class="close" href="#close">&laquo; Powrót</a>');
+                            $('#more').append('<a class="close" href="#close">x</a><h1>Eksport</h1><h2>Towary których Polska eksportowała najwięcej w ' + hz_year + ' roku</h2><ul class="list-group" id="list"></ul>');
                             if(this.symbols_export[hz_year] === undefined) {
                                 this.get(hz_year, 'export', function(data) {
                                     t.symbols_export[hz_year] = data;
