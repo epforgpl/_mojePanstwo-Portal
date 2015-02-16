@@ -20,7 +20,27 @@
                         <td><a href="#" class="ago" data-toggle="tooltip"
                                data-original-title="<?php echo $log['Log']['created']; ?>"><?php echo $this->Time->timeAgoInWords($log['Log']['created']); ?></a>
                         </td>
-                        <td><?php echo __d('paszport', $log['Log']['msg']); ?></td>
+                        <td><?php $logsName = explode(";", $log['Log']['msg']);
+                            if (__d('paszport', $logsName[0]) == $logsName[0]) {
+                                echo __d('paszport', substr_replace($logsName[0], "LC_PASZPORT", 0, 2));
+                            } else {
+                                echo __d('paszport', $logsName[0]);
+                            }
+
+                            if (count($logsName) != 1) {
+                                $logsNameDetails = explode(":", $logsName[1]);
+                                $logsNameDetails[0] = preg_replace('/\s+/', '', $logsNameDetails[0]);
+
+                                echo ' ' . __d('paszport', "LC_PASZPORT_DETAIL_" . strtoupper($logsNameDetails[0])) . ': ';
+                                if ($logsNameDetails[0] == 'personal_gender') {
+                                    if ($logsNameDetails[1] == 0)
+                                        echo __d('paszport', 'LC_PASZPORT_DETAIL_PERSONAL_GENDER_WOMEN');
+                                    else
+                                        echo __d('paszport', 'LC_PASZPORT_DETAIL_PERSONAL_GENDER_MEN');
+                                } else {
+                                    echo $logsNameDetails[1];
+                                }
+                            } ?></td>
                         <td><?php echo $log['Log']['ip']; ?></td>
                         <td><?php echo $log['Log']['user_agent']; ?></td>
                     </tr>

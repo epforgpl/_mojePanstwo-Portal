@@ -31,9 +31,18 @@ msgstr "Konto zostało utworzone za pośrednictwem serwisu Facebook"
 msgid "LC_PASZPORT_FACEBOOK_REGISTER_FAILED"
 msgstr "Błąd tworzenia konta za pośrednictwem serwisu Facebook"
 
+msgid "LC_PASZPORT_FACEBOOK_LOGIN_USER_DENIED"
+msgstr "Odrzucono prośbę o udostępnienie danych z serwisu Facebook. Chcesz zalogować się używając e-mail?"
+
+msgid "LC_PASZPORT_FACEBOOK_LOGIN_FAILED"
+msgstr "Błąd logowania za pośrednictwem serwisu Facebook"
+
 #: Controller/UsersController.php:142
 msgid "LC_PASZPORT_PASSWORD_SET"
 msgstr "Hasło zostało zmienione"
+
+msgid "LC_PASZPORT_RESET_PASSWORD_INFO"
+msgstr "Aby zresetować hasło proszę kliknąć na poniższy link. Zignoruj ten mail jeżeli nie zamierzasz zmienić hasła."
 
 #: Controller/UsersController.php:146
 msgid "LC_PASZPORT_FAILED"
@@ -42,9 +51,6 @@ msgstr "Operacja zakończona niepowodzeniem"
 #: Controller/UsersController.php:149
 msgid "LC_PASZPORT_SET_PASSWORD"
 msgstr "Zmiana hasła"
-
-msgid "LC_PASZPORT_RESET_PASSWORD_INFO"
-msgstr "Aby zresetować hasło proszę kliknąć na poniższy link. Zignoruj ten mail jeżeli nie zamierzasz zmienić hasła."
 
 #: Controller/UsersController.php:159;182
 msgid "LC_PASZPORT_ERROR"
@@ -56,7 +62,7 @@ msgstr "Rozłączono z kontem Facebook"
 
 #: Controller/UsersController.php:294
 msgid "LC_PASZPORT_MAIL_RESET_PASS_SUBJECT"
-msgstr "Przypomnienie hasła do Paszportu Mojego Państwa"
+msgstr "Paszport Mojego Państwa - Przypomnienie hasła"
 
 #: Controller/UsersController.php:302
 msgid "LC_PASZPORT_MAIL_RESET_PASS_SENT"
@@ -115,7 +121,7 @@ msgstr "Uwaga! Usunięcie konta jest permanentne i nieodwracalne"
 
 #: Controller/UsersController.php:537
 msgid "LC_PASZPORT_ACCOUNT_DELETED"
-msgstr "Konto Paszportu Mojego Państwa zostało usunięte"
+msgstr "Konto Paszportu zostało usunięte"
 
 #: Controller/UsersController.php:541
 msgid "LC_PASZPORT_PASSWORD_INCORRECT"
@@ -123,7 +129,7 @@ msgstr "Niepoprawne hasło"
 
 #: Controller/UsersController.php:544
 msgid "LC_PASZPORT_ACCOUNT_DELETE_TITLE"
-msgstr "Zatwierdzanie usunięcia Paszportu Mojego Państwa"
+msgstr "Zatwierdzanie usunięcia Paszportu"
 
 
 #: Controller/UsersController.php:599;711
@@ -260,7 +266,7 @@ msgstr "Polityka prywatności"
 #: View/Layouts/gate.ctp:6
 #: View/Layouts/notlogged.ctp:6
 msgid "LC_PASZPORT_PROJECT_NAME"
-msgstr "Paszport Mojego Państwa"
+msgstr "Paszport do _mojegoPaństwa"
 
 #: View/Elements/header.ctp:18
 msgid "LC_PASZPORT_LOGOUT"
@@ -344,7 +350,7 @@ msgstr "Serwis"
 
 #: View/Users/add.ctp:4
 msgid "LC_PASZPORT_CREATE_ACCOUNT_TITLE"
-msgstr "Wyrabianie Paszportu Mojego Państwa"
+msgstr "Wyrabianie Paszportu"
 
 #: View/Users/add.ctp:29
 msgid "LC_PASZPORT_CREATE_EMAIL"
@@ -354,6 +360,9 @@ msgstr "Wprowadź adres e-mail"
 #: View/Users/index.ctp:32
 msgid "LC_PASZPORT_EMAIL_REQUIRED"
 msgstr "Adres e-mail jest wymagany"
+
+msgid "LC_PASZPORT_PASSWORD_REQUIRED"
+msgstr "Hasło jest wymagane"
 
 #: View/Users/add.ctp:30
 msgid "LC_PASZPORT_CREATE_PASSWORD"
@@ -403,11 +412,11 @@ msgstr "Wybierz język strony"
 
 #: View/Users/add.ctp:35
 msgid "LC_PASZPORT_REGISTER_BUTTON"
-msgstr "Wyrób mój paszport"
+msgstr "Zarejestruj"
 
 #: View/Users/avatar.ctp:5
 msgid "LC_PASZPORT_CHANGE_AVATAR_TITLE"
-msgstr "Zmiana avatara dla Paszportu Mojego Państwa"
+msgstr "Zmiana avatara dla Paszportu"
 
 #: View/Users/delete.ctp:8
 msgid "LC_PASZPORT_DELETE_PASSWORD_CONFIRM"
@@ -442,17 +451,17 @@ msgstr "Hasło"
 #: View/Users/gate.ctp:6
 #: View/Users/login.ctp:10
 msgid "LC_PASZPORT_LOGIN"
-msgstr "Zaloguj się"
+msgstr "Zaloguj mnie"
 
 #: View/Users/gate.ctp:8
 #: View/Users/login.ctp:16
 msgid "LC_PASZPORT_REGISTER"
-msgstr "Wyrób swój paszport"
+msgstr "Wyrób paszport"
 
 #: View/Users/gate.ctp:9
 #: View/Users/login.ctp:17
 msgid "LC_PASZPORT_FORGOT_PASSWORD"
-msgstr "Zapomniane hasło"
+msgstr "Nie pamiętasz hasła?"
 
 #: View/Users/index.ctp:7;10
 msgid "LC_PASZPORT_NAME"
@@ -555,7 +564,6 @@ msgstr "Zamień"
 msgid "LC_PASZPORT_PROJECT_MOTTO"
 msgstr "Logowanie"
 
-
 #: View/Users/login.ctp:8
 msgid "LC_PASZPORT_ENTER_EMAIL"
 msgstr "Wprowadź adres e-mail"
@@ -567,16 +575,12 @@ msgstr "Wprowadź poprawne hasło"
 msgid "LC_PASZPORT_HOMEPAGE_OR"
 msgstr "lub"
 
-msgid "LC_PASZPORT_HOMEPAGE_SIGN"
-msgstr "zaloguj się"
-
-#: View/Users/login.ctp:11
-msgid "LC_PASZPORT_LOGIN_FB"
-msgstr "Zaloguj się via Facebook"
+msgid "LC_PASZPORT_HOMEPAGE_REGISTER"
+msgstr "Nie masz jeszcze paszportu? Wyrób go!"
 
 #: View/Users/login.ctp:11
 msgid "LC_PASZPORT_LOGIN_G+"
-msgstr "Zaloguj się via G+"
+msgstr "Zaloguj mnie przez Google+"
 
 #: View/Users/setpassword.ctp:5
 msgid "LC_PASZPORT_SETPASSWORD_AFTER_FB"
@@ -608,12 +612,48 @@ msgstr "Klucz API usunięto pomyślnie"
 msgid "LC_PASZPORT_INSTITUTION"
 msgstr "Instytucja"
 
+msgid "LC_INSTITUTION"
+msgstr "Instytucja"
+
 msgid "LC_PASZPORT_PERSONAL"
+msgstr "Osoba"
+
+msgid "LC_PERSONAL"
 msgstr "Osoba"
 
 #: LOGS
 msgid "LC_PASZPORT_LOG_SAVED"
 msgstr "Zapisano zmiane"
+
+msgid "LC_PASZPORT_DETAIL_USERNAME"
+msgstr "nazwy użytkownika"
+
+msgid "LC_PASZPORT_DETAIL_EMAIL"
+msgstr "adresu email"
+
+msgid "LC_PASZPORT_DETAIL_PASS"
+msgstr "hasła"
+
+msgid "LC_PASZPORT_DETAIL_PERSONAL_GENDER"
+msgstr "płci"
+
+msgid "LC_PASZPORT_DETAIL_PERSONAL_GENDER_WOMEN"
+msgstr "kobieta"
+
+msgid "LC_PASZPORT_DETAIL_PERSONAL_GENDER_MEN"
+msgstr "mężczyzna"
+
+msgid "LC_PASZPORT_DETAIL_PERSONAL_NAME"
+msgstr "imienia"
+
+msgid "LC_PASZPORT_DETAIL_PERSONAL_LASTNAME"
+msgstr "nazwiska"
+
+msgid "LC_PASZPORT_DETAIL_PERSONAL_BDAY"
+msgstr "daty urodzin"
+
+msgid "LC_PASZPORT_DETAIL_LANGUAGE"
+msgstr "języka"
 
 msgid "LC_PASZPORT_LOG_LOGIN"
 msgstr "Zalogowano się do Paszportu"
@@ -652,7 +692,7 @@ msgid "LC_PASZPORT_SERVICE_ADDED"
 msgstr "Zarejestrowano nową usługę"
 
 msgid "LC_PASZPORT_FOOTER_LOGIN"
-msgstr "Zaloguj się"
+msgstr "Zaloguj mnie"
 
 msgid "LC_PASZPORT_FOOTER_REGISTER"
 msgstr "Rejestracja"
@@ -673,7 +713,7 @@ msgid "LC_PASZPORT_CREATE_MOTTO"
 msgstr "Wyrób swój paszport"
 
 msgid "LC_PASZPORT_LOGIN_MOTTO"
-msgstr "Zaloguj się"
+msgstr "Zaloguj się do serwisu"
 
 msgid "LC_PASZPORT_PASSWORD_FORGOT_MOTTO"
 msgstr "Przypomnienie hasła"
@@ -701,3 +741,36 @@ msgstr "Zmień"
 
 msgid "LC_PASZPORT_CLOSE"
 msgstr "Zamknij"
+
+msgid "LC_PASZPORT_MODAL_LOGIN_VIA_FACEBOOK"
+msgstr "Zaloguj się przez swoje konto Facebook"
+
+msgid "LC_PASZPORT_MODAL_LOGIN_VIA_EMAIL"
+msgstr "Zaloguj się przez konto email"
+
+msgid "LC_PASZPORT_MODAL_LOGIN_REGISTER"
+msgstr "Nie masz konta? Wyrób paszport na Twoje konto email"
+
+msgid "LC_PASZPORT_FLASH_MESSAGE_SWITCH_STREAM"
+msgstr "Aktualny stream"
+
+msgid "LC_PASZPORT_HOME_HEADLINE"
+msgstr "Dzięki aplikacji Paszport możesz spersonalizować swoje osobiste konto jak również uzyskać dostęp do rozszerzonych opcji oferowanych przez pozostałe aplikacje."
+
+msgid "LC_PASZPORT_HOME_HEADLINE_SECOND"
+msgstr "Zaloguj się aby korzystać z rozszerzonych możliwości _mojego<strong>Państwa</strong>"
+
+msgid "LC_PASZPORT_HOME_LOGIN"
+msgstr "Zaloguj się"
+
+msgid "LC_PASZPORT_FORGET_EMAIL"
+msgstr "Wprowadź adres email"
+
+msgid "LC_PASZPORT_FORGET_BUTTON"
+msgstr "Odzyskaj hasło"
+
+msgid "LC_PASZPORT_RESERT_BUTTON"
+msgstr "Resetuj hasło"
+
+msgid "LC_PASZPORT_OLD_PASSWORD_INVALID"
+msgstr "Wprowadzono niepoprawne stare hasło"

@@ -40,13 +40,15 @@ $(document).ready(function() {
             name: 'Import (dane wstępne)',
             dashStyle: 'shortdot',
             data: seriesImport2014Data,
-            color: '#7cb5ec'
+            color: '#7cb5ec',
+            showInLegend: false
         },
         {
             name: 'Export (dane wstępne)',
             dashStyle: 'shortdot',
             data: seriesExport2014Data,
-            color: '#434348'
+            color: '#434348',
+            showInLegend: false
         }
     ];
 
@@ -65,7 +67,13 @@ $(document).ready(function() {
                 value: 0,
                 width: 1,
                 color: '#808080'
-            }]
+            }],
+            min: 0,
+            labels: {
+                formatter: function() {
+                    return pl_currency_format(this.value, true);
+                }
+            }
         },
         credits: {
             enabled: false
@@ -110,25 +118,26 @@ $(document).ready(function() {
     $('#selectYear').val(_year);
     // loadTopData(parseInt(_year)); // default
 
-    function pl_currency_format(n) {
+    function pl_currency_format(n, cut) {
         var str = '';
         var mld = 0;
         var mln = 0;
         var tys = 0;
 
         if(n > 1000000000) {
+            if(cut === true) {
+                return (n / 1000000000).toFixed(2) + ' mld';
+            }
             mld = Math.floor(n / 1000000000);
             n -= mld * 1000000000;
         }
 
         if(n > 1000000) {
+            if(cut === true) {
+                return (n / 1000000).toFixed(2) + ' mln';
+            }
             mln = Math.floor(n / 1000000);
             n -= mln * 1000000;
-        }
-
-        if(n > 1000) {
-            tys = Math.floor(n / 1000);
-            n -= tys * 1000;
         }
 
         if(mld > 0)

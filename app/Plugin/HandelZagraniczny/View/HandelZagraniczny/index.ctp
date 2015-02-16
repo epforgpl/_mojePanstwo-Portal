@@ -8,7 +8,8 @@ $this->Combinator->add_libs('js', '../plugins/highcharts/plugin/map');
 $this->Combinator->add_libs('js', 'HandelZagraniczny.handel_zagraniczny.js');
 $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
 ?>
-
+<div id="morebg"></div>
+<div id="more"></div>
 <div class="maplabel">
     <nav class="navbar navbar-inverse">
         <div class="container-fluid container">

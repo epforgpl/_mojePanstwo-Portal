@@ -625,6 +625,36 @@ msgstr "Osoba"
 msgid "LC_PASZPORT_LOG_SAVED"
 msgstr "Zapisano zmiane"
 
+msgid "LC_PASZPORT_DETAIL_USERNAME"
+msgstr "nazwy użytkownika"
+
+msgid "LC_PASZPORT_DETAIL_EMAIL"
+msgstr "adresu email"
+
+msgid "LC_PASZPORT_DETAIL_PASS"
+msgstr "hasła"
+
+msgid "LC_PASZPORT_DETAIL_PERSONAL_GENDER"
+msgstr "płci"
+
+msgid "LC_PASZPORT_DETAIL_PERSONAL_GENDER_WOMEN"
+msgstr "kobieta"
+
+msgid "LC_PASZPORT_DETAIL_PERSONAL_GENDER_MEN"
+msgstr "mężczyzna"
+
+msgid "LC_PASZPORT_DETAIL_PERSONAL_NAME"
+msgstr "imienia"
+
+msgid "LC_PASZPORT_DETAIL_PERSONAL_LASTNAME"
+msgstr "nazwiska"
+
+msgid "LC_PASZPORT_DETAIL_PERSONAL_BDAY"
+msgstr "daty urodzin"
+
+msgid "LC_PASZPORT_DETAIL_LANGUAGE"
+msgstr "języka"
+
 msgid "LC_PASZPORT_LOG_LOGIN"
 msgstr "Zalogowano się do Paszportu"
 
