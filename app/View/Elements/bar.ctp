@@ -24,7 +24,7 @@
                         <i class="_mPAppIcon" data-icon-new="&#xe800;"></i>
 
                         <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_APPLICATION'); ?></p>
-                        <span class="_mPAppBadge badge">15</span>
+                        <? /* <span class="_mPAppBadge badge">Przykład znacznika libczy przy ikonie</span> */ ?>
                     </div>
                 </a>
             </div>
@@ -41,12 +41,13 @@
                 <?php if ($this->Session->read('Auth.User.id')) { ?>
                     <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'logout')); ?>"><?php echo __('LC_COCKPITBAR_LOGOUT'); ?></a>
                 <?php } else { ?>
-                    <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'login')); ?>"><?php echo __('LC_COCKPITBAR_LOGIN'); ?></a>
+                    <a class="_specialCaseLoginButton"
+                       href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'login')); ?>"><?php echo __('LC_COCKPITBAR_LOGIN'); ?></a>
                 <?php } ?>
             </div>
         </div>
     </div>
-    <div class="_mPAppList">
+    <? /*<div class="_mPAppList">
         <?php if (!empty($_APPLICATIONS)) {
             foreach ($_APPLICATIONS as $app) {
                 if ($app['home'] == '1') {
@@ -88,5 +89,5 @@
                 }
             }
         } ?>
-    </div>
+    </div>*/ ?>
 </div>
