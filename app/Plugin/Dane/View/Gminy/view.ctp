@@ -201,16 +201,23 @@
                                 ?>
 
                                 <p><?= $adres ?></p>
-
-                                <? /* if ($szef = $object->getLayer('szef')) { ?>
+																
+                                <? if ($szef = $object->getLayer('szef')) { ?>
                                     <div id="szef" class="dataHighlights">
                                         <div class="dataHighlight big">
                                             <p class="_label"><?= $szef['stanowisko'] ?>:</p>
-
-                                            <p class="_value"><?= $szef['nazwa'] ?></p>
+                                            <p class="_value"><?= $szef['kandydat_nazwa'] ?></p>
                                         </div>
+                                        
+                                        <div class="dataHighlight big poparcie">
+                                            <p class="_label">Poparcie w wyborach:</p>
+                                            <p class="_value"><?= pl_dopelniacz($szef['liczba_glosow'], 'głos', 'głosy', 'głosów') ?> <span class="procent">(<?= $szef['procent_glosow'] ?>%)</span></p>
+                                        </div>
+                                        
+                                        
+                                        
                                     </div>
-                                <? } */ ?>
+                                <? } ?>
                             </div>
 
                         </div>

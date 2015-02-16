@@ -1927,11 +1927,13 @@ class GminyController extends DataobjectsController
 
         } else {
 
+			/*
             $menu['items'][] = array(
                 'id' => 'radni',
                 'href' => $href_base . '/radni',
                 'label' => 'Radni',
             );
+            */
 
         }
 
