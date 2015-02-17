@@ -16,6 +16,7 @@ echo $this->Element('dataobject/pageBegin');
             'switchers' => $switchers,
             'facets' => $facets,
             'renderFile' => $renderFile,
+            'hiddenFilters' => array('sejm_wystapienia.stanowisko_id'),
         ));
         ?>
 

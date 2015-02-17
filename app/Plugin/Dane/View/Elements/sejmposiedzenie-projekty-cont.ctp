@@ -1,4 +1,4 @@
-<div class="projekty mpanel">
+<div class="projekty mpanel margintop">
     <div class="column col-md-4">
 
         <h2 class="label label-success">Przyjęto</h2>

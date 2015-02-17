@@ -9,7 +9,7 @@ echo $this->Element('dataobject/pageBegin');
 ?>
 
 
-    <div id="punkty_cont" class="col-lg-10 col-lg-offset-1 punkty">
+    <div id="punkty_cont" class="col-lg-10 col-lg-offset-1 punkty margintop">
 
         <? if ($punkty) { ?>
             <div class="block">
@@ -28,7 +28,7 @@ echo $this->Element('dataobject/pageBegin');
 
 
                                     <h3>
-                                        <a href="/dane/sejm_posiedzenia/<?= $punkt->getId() ?>"><?= $punkt->getData('tytul') ?></a>
+                                        <a href="/dane/sejm_posiedzenia_punkty/<?= $punkt->getId() ?>"><?= $punkt->getData('tytul') ?></a>
                                     </h3>
 
                                     <p class="stats">
