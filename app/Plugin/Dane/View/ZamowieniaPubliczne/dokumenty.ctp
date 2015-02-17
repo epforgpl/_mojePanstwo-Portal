@@ -259,8 +259,8 @@
             */ ?>
 
             
-            
-            <?= $this->element('objects/zamowienia_publiczne_dokumenty/typy/' . $dokument->getData('typ_id')); ?>			
+            <? // debug( $details['data'] ); ?>
+            <?= $this->element('objects/zamowienia_publiczne_dokumenty/typy/' . $dokument->getData('typ_id')); ?>		
 			
 
         </div>
