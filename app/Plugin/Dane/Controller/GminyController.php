@@ -282,8 +282,18 @@ class GminyController extends DataobjectsController
             $this->set('interpelacja', $interpelacja);
             $this->set('document', $document);
             $this->set('documentPackage', 1);
+            
+            if( $interpelacja->getData('odp1_dokument_id') ) {
+	            $document1 = $this->API->document($interpelacja->getData('odp1_dokument_id'));
+	            $this->set('document1', $document1);
+            }
+            
+            if( $interpelacja->getData('odp2_dokument_id') ) {
+	            $document2 = $this->API->document($interpelacja->getData('odp2_dokument_id'));
+	            $this->set('document2', $document2);
+            }
+            
             $this->set('title_for_layout', 'Interpelacja w sprawie ' . lcfirst($interpelacja->getData('tytul')));
-
             $this->render('interpelacja');
 
         } else {
