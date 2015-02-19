@@ -349,7 +349,7 @@ class KrsPodmiotyController extends DataobjectsController
 
     public function graph()
     {
-        if ($this->request->params['ext'] == 'json') {
+        if (@$this->request->params['ext'] == 'json') {
 
             $this->addInitLayers('graph');
             $this->_prepareView();
@@ -359,7 +359,9 @@ class KrsPodmiotyController extends DataobjectsController
             $this->set('_serialize', 'data');
 
         } else {
-            return false;
+            
+            $this->_prepareView();
+            
         }
     }
 

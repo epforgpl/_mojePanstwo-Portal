@@ -158,6 +158,7 @@
 			</div>
 			<div class="col-lg-3">
 				
+				<? /*
 				<ul class="object-actions-ul">
 					<li>
 						<p class="btn_cont">
@@ -168,6 +169,7 @@
 						</p>
 					</li>
 				</ul>
+				*/ ?>
 				
 			</div>
 			

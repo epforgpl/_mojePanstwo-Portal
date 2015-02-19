@@ -11,6 +11,12 @@
             <?= $object->getLabel(); ?>
         </p>
     <? } ?>
+    
+    <p class="title">
+        <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getData('zamowienia_publiczne_dokumenty.nazwa')) ?>">
+            <?= $this->Text->truncate($object->getData('zamowienia_publiczne_dokumenty.nazwa'), 200) ?>
+        </a>
+	</p>
 		
 	<? if( $przedmiot = $object->getStatic('przedmiot') ) {?>
 		<div class="static">

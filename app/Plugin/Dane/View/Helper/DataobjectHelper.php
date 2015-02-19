@@ -77,6 +77,7 @@ class DataobjectHelper extends AppHelper
         $titleTag = isset($options['titleTag']) ? $options['titleTag'] : 'h1';
         $defaults = isset($options['defaults']) ? $options['defaults'] : array();
         $microdata = isset($options['microdata']) ? $options['microdata'] : array();
+        $disable_link = isset($options['disable_link']) ? (boolean) $options['disable_link'] : false;
 
         $class = isset($options['class']) ? $options['class'] : false;
         $alertsButtons = isset($options['alertsButtons']) ? $options['alertsButtons'] : false;
@@ -115,6 +116,7 @@ class DataobjectHelper extends AppHelper
             'titleTag' => $titleTag,
             'defaults' => $defaults,
             'microdata' => $microdata,
+            'show_link' => !$disable_link,
         );
 
         return $this->_View->element($theme, $params, array('plugin' => 'Dane'));
