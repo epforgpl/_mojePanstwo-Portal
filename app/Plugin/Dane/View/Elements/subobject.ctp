@@ -24,11 +24,11 @@ $this->Dataobject->setObject($object);
                 <? if ($object->getThumbnailUrl($thumbSize)) { ?>
                 <div class="attachment col-md-<?= $object_content_sizes[0] ?> text-center">
 
-                    <?php if ($object->getUrl() != false) { ?><a class="thumb_cont"
+                    <?php if ($show_link && ($object->getUrl() != false)) { ?><a class="thumb_cont"
                                                                  href="<?= $object->getUrl() ?>"><?php } ?>
                         <img class="thumb" onerror="imgFixer(this)" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
                              alt="<?= strip_tags($object->getTitle()) ?>"/>
-                        <?php if ($object->getUrl() != false) { ?></a><?php } ?>
+                        <?php if ($show_link && ($object->getUrl() != false)) { ?></a><?php } ?>
 
                 </div>
                 <div class="content col-md-<?= $object_content_sizes[1] ?>">
@@ -38,13 +38,13 @@ $this->Dataobject->setObject($object);
                     title="<?= htmlspecialchars($object->getShortTitle()) ?>"
                     data-trimlength="200">
 
-                    <?php if (($object->getUrl() != false) && !empty($this->request)) { ?>
+                    <?php if ($show_link && ($object->getUrl() != false) && !empty($this->request)) { ?>
                     <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
                         <?php } ?>
 
                         <?= $object->getShortTitle() ?>
 
-                        <?php if (($object->getUrl() != false) && !empty($this->request)) { ?>
+                        <?php if ($show_link && ($object->getUrl() != false) && !empty($this->request)) { ?>
                     </a>
 
                 <? if ($object->getTitleAddon()) {
@@ -78,12 +78,12 @@ $this->Dataobject->setObject($object);
             <div class="content">
 
                 <<?= $titleTag ?> class="title<? if ($bigTitle) { ?> big<? } ?>">
-                <?php if ($object->getUrl() != false){ ?>
+                <?php if ($show_link && ($object->getUrl() != false)){ ?>
                 <a class="trimTitle" href="<?= $object->getUrl() ?>"
                    title="<?= strip_tags($object->getTitle()) ?>">
                     <?php } ?>
                     <?= $object->getShortTitle() ?>
-                    <?php if ($object->getUrl() != false){ ?>
+                    <?php if ($show_link && ($object->getUrl() != false)){ ?>
                 </a> <? if ($object->getTitleAddon()) {
                 echo '<small>' . $object->getTitleAddon() . '</small>';
             } ?>
