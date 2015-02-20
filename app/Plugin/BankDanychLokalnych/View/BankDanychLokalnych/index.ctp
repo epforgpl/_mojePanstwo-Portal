@@ -5,7 +5,7 @@ $this->Combinator->add_libs('js', 'BankDanychLokalnych.bank_danych_lokalnych.js'
 ?>
 
 <div id="bankDanychLokalny">
-    <div class="container">
+    <div class="row">
         <div class="leftSide col-md-3">
             <ul class="tree">
                 <li>List tree</li>
