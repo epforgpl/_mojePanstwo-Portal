@@ -1317,6 +1317,7 @@ class GminyController extends DataobjectsController
 
                         $this->dataobjectsBrowserView(array(
                             'source' => 'radni_gmin.oswiadczenia_majatkowe:' . $radny->getId(),
+                            'order' => 'rok desc',
                             'dataset' => 'radni_gmin_oswiadczenia_majatkowe',
                             'noResultsTitle' => 'Brak oświadczeń majątkowych',
                             // 'hlFields' => array('dzielnice.nazwa', 'liczba_glosow'),

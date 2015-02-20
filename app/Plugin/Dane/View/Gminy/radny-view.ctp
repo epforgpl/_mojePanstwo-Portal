@@ -106,6 +106,10 @@ echo $this->Element('Dane.dataobject/subobject', array(
                             <a href="<?= $radny->getUrl() ?>/komisje"><span class="icon icon-moon">&#xe613;</span>Przynależność
                                 do komisji <span class="glyphicon glyphicon-chevron-right"></a>
                         </li>
+                        
+                        <li class="dataHighlight">
+                            <a href="<?= $radny->getUrl() ?>/dyzury"><span class="glyphicon glyphicon-list"></span>Dyżury <span class="glyphicon glyphicon-chevron-right"></a>
+                        </li>
 
                     </ul>
 
