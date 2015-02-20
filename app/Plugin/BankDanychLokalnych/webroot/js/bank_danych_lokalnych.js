@@ -1,5 +1,5 @@
 $(function () {
-    $.getJSON('http://api.mojepanstwo.pl/geo/geojson/wojewodztwa', function (geojson) {
+    $.getJSON('http://mojepanstwo.pl:4444/geo/geojson/pl', function (geojson) {
 
         // Prepare the geojson
         var states = Highcharts.geojson(geojson, 'map'),
