@@ -1816,6 +1816,13 @@ class GminyController extends DataobjectsController
 
     }
 
+    public function finanse()
+    {
+        $this->addInitLayers(array(
+            'finanse'
+        ));
+        $this->_prepareView();
+    }
 
     /*
     public function prepareMenu()
