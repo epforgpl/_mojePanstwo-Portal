@@ -124,14 +124,12 @@
         </div>
     <?php } ?>
     <div id="_main">
-        <div id="_handler">
-            <? echo $this->Element('suggester', array(
-                'placeholder' => __("LC_SEARCH_PUBLIC_DATA_PLACEHOLDER"),
-                'action' => '/dane/szukaj',
-            )); ?>
+        <? echo $this->Element('suggester', array(
+            'placeholder' => __("LC_SEARCH_PUBLIC_DATA_PLACEHOLDER"),
+            'action' => '/dane/szukaj',
+        )); ?>
 
-            <?php echo $content_for_layout; ?>
-        </div>
+        <?php echo $content_for_layout; ?>
     </div>
 
     <?php /*echo $this->element('footer'); */ ?>

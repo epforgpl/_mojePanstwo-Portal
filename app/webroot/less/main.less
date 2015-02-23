@@ -111,8 +111,6 @@
 }
 
 /* BASIC VARIABLE */
-@headerHeight: 40px;
-@footerHeight: 40px;
 @linkColor: #157AB5;
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -127,6 +125,13 @@ a, a:hover, a:focus, .btn {
 
 a {
     color: @linkColor;
+}
+
+/* MAIN.JS - CHANGE IMG WITH SVG FILE INTO SVG SHAPE */
+img.svg,
+svg.svg {
+    opacity: 0;
+
 }
 
 .inner-addon {
@@ -965,15 +970,6 @@ body {
 .trimTitle {
     cursor: pointer;
     color: @linkColor;
-}
-
-/* HEADER SETUP */
-header {
-    position: fixed;
-    top: 0;
-    z-index: 9000;
-    width: 100%;
-    height: @headerHeight;
 }
 
 .dataBrowser._dataset_patenty .description {

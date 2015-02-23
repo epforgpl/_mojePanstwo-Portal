@@ -1,11 +1,3 @@
-<?php if (!(isset($_COOKIE['_mPCookieLaw']) && ($_COOKIE['_mPCookieLaw']))) { ?>
-    <div class="cookieLaw">
-        <div class="container">
-            <p>Strona korzysta z plików cookies</p>
-            <button class="btn btn-success btn-xs pull-right">Rozumiem</button>
-        </div>
-    </div>
-<?php } ?>
 <footer>
     <div class="container">
         <div class="col-lg-4 pull-left">

@@ -303,4 +303,31 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 
         that.removeAttr('title').addClass('tooltipIcon').append(iconTip.tooltip());
     });
+
+    /*CHANGE IMG WITH .SVG INTO SVG FILE*/
+    $('img.svg').each(function () {
+        var $img = $(this);
+        var imgID = $img.attr('id');
+        var imgClass = $img.attr('class');
+        var imgURL = $img.attr('src');
+
+        $.get(imgURL, function (data) {
+            var $svg = $(data).find('svg');
+
+            $svg = $svg.removeAttr('xmlns:a id class');
+            $svg.find('path').removeAttr('id style');
+
+            if (typeof imgID !== 'undefined') {
+                $svg = $svg.attr('id', imgID);
+            }
+            if (typeof imgClass !== 'undefined') {
+                $svg = $svg.attr('class', imgClass + ' replaced-svg');
+            }
+
+            $img.replaceWith($svg);
+            $svg.animate({
+                opacity: 1
+            });
+        }, 'xml');
+    });
 })(jQuery);
