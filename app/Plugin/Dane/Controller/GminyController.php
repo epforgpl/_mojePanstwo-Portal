@@ -348,15 +348,70 @@ class GminyController extends DataobjectsController
                 ),
             );
             */
-
-
-            $render_view = 'punkty';
-            $subaction = 'punkty';
-
+			
+			
+            
+			
+			$subaction = isset($this->request->params['pass'][1]) ? $this->request->params['pass'][1] : 'punkty';
+			
             switch ($subaction) {
-
-                case "punkty": {
-
+                
+                case "informacja": {
+	                
+	                $document = $this->API->document($posiedzenie->getData('zwolanie_dokument_id'));
+		            $this->set('document', $document);
+	                $render_view = 'posiedzenie-informacja';
+	                break;
+	                
+                }
+                
+                case "porzadek": {
+	                	                
+	                $document = $this->API->document($posiedzenie->getData('porzadek_dokument_id'));
+					$this->set('document', $document);
+	                $render_view = 'posiedzenie-porzadek';
+	                break;
+	                
+                }
+                
+                case "podsumowanie": {
+	                
+	                $document = $this->API->document($posiedzenie->getData('podsumowanie_dokument_id'));
+		            $this->set('document', $document);
+	                $render_view = 'posiedzenie-podsumowanie';
+	                break;
+	                
+                }
+                
+                case "glosowania": {
+	                
+	                $document = $this->API->document($posiedzenie->getData('wyniki_dokument_id'));
+		            $this->set('document', $document);
+	                $render_view = 'posiedzenie-glosowania';
+	                break;
+	                
+                }
+                
+                case "stenogram": {
+	                
+	                $document = $this->API->document($posiedzenie->getData('stenogram_dokument_id'));
+		            $this->set('document', $document);
+	                $render_view = 'posiedzenie-stenogram';
+	                break;
+	                
+                }
+                
+                case "protokol": {
+	                
+	                $document = $this->API->document($posiedzenie->getData('protokol_dokument_id'));
+		            $this->set('document', $document);
+	                $render_view = 'posiedzenie-protokol';
+	                break;
+	                
+                }
+                
+                default: {
+										
                     $submenu['selected'] = 'punkty';
                     $render_view = 'posiedzenie-punkty';
 
