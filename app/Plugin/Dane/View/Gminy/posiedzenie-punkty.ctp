@@ -33,7 +33,14 @@ echo $this->Element('Dane.dataobject/subobject', array(
     <div class="col-lg-3 objectSide">
         <div class="objectSideInner rrs">
 
-
+			<? if ( 
+				$posiedzenie->getData('zwolanie_dokument_id') || 
+				$posiedzenie->getData('porzadek_dokument_id') || 
+				$posiedzenie->getData('podsumowanie_dokument_id') || 
+				$posiedzenie->getData('wyniki_dokument_id') || 
+				$posiedzenie->getData('stenogram_dokument_id') || 
+				$posiedzenie->getData('protokol_dokument_id') 
+			) { ?>
             <div class="block">
 
                 <ul class="dataHighlights side">
@@ -116,6 +123,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 				</ul>
                 
             </div>
+            <? } ?>
 			
 			<? /*
             <div class="block">
