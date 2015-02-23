@@ -149,7 +149,6 @@
 
     ga('create', 'UA-37679118-4', 'mojepanstwo.pl');
     ga('send', 'pageview');
-
 </script>
 
 <?php
