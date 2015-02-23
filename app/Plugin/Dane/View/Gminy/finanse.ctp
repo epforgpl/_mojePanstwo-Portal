@@ -3,7 +3,32 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('view-gminy-finanse', array('plugin' => 'Dane'))) ?>
 <?php $this->Combinator->add_libs('js', 'Dane.view-gminy-finanse.js') ?>
 
-<? $data = $object->getLayer('finanse'); ?>
+<?
+
+$zakresy = array(
+    array(0, 20000),
+    array(20000, 50000),
+    array(50000, 100000),
+    array(100000, 500000),
+    array(500000, 999999999)
+);
+$zakres = $zakresy[(int) $object->data('zakres')];
+$data = $object->getLayer('finanse');
+
+?>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="pull-left">Wydatki gminy <?= $object->data('nazwa'); ?></h1>
+        </div>
+    </div>
+    <div class="col-md-10 col-md-offset-1 text-center">
+        <div class="row banner">
+            <p>Zestawienie wydatków gminy <?= $object->data('nazwa'); ?> w I, II i III kwartale 2014 r. z innymi gminami o liczbie mieszkańców z zakresu <?php echo $zakres[0]; ?> - <?php echo $zakres[1]; ?></p>
+        </div>
+    </div>
+</div>
 
 <div class="container">
     <div class="mpanel" id="sections">

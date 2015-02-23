@@ -108,12 +108,15 @@ $(document).ready(function() {
 
         });
 
-        // var section = jQuery(sections[i]),
-
-        var _sum_wydatki = parseInt(section.find('ul.addons .section_addon').data('int'));
         var _min = parseInt(section.find('#minmin').data('int'));
+        var _sum_wydatki = parseInt(section.find('ul.addons .section_addon').data('int'));
         var _max =  parseInt(section.find('ul.addons .max').data('int'));
-        var _left = parseInt((_sum_wydatki / (_max - _min)) * 100);
+        // var _left = parseInt((_sum_wydatki / (_max - _min)) * 100);
+        if(_sum_wydatki <= _min)
+            var _left = 0;
+        else
+            var _left = parseInt(((_sum_wydatki - _min) / (_max - _min)) * 100);
+
         section.find('.section_addon').css('left', _left + '%');
     }
 
