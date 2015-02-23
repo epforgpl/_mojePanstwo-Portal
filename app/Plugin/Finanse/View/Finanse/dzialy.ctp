@@ -44,7 +44,7 @@ $this->Combinator->add_libs('js', 'Finanse.dzialy.js');
         <div class="row teryt">
 
             <p>Poniżej widzisz wydatki gmin, według kategorii budżetowych. Możesz też sprawdzić wydatki swojej gminy i
-                zobaczyć je w kontekście wydatków innych gmin.</p>
+                zobaczyć je w kontekście wydatków innych gmin o podobnej liczbie mieszkańców.</p>
 
             <div class="form-group">
                 <div class="col-md-8 col-md-offset-2">
@@ -57,8 +57,14 @@ $this->Combinator->add_libs('js', 'Finanse.dzialy.js');
                     </div>
                 </div>
             </div>
-
         </div>
+    </div>
+</div>
+
+<div class="container">
+    <div id="gmina_alert" role="alert" class="alert alert-info alert-dismissible fade in">
+        <button aria-label="Close" class="close" type="button"><span aria-hidden="true">×</span></button>
+        <p>Zestawienie wydatków gminy Tarłów z innymi gminami o liczbie mieszkańców z przedziału od 0 do 20000</p>
     </div>
 </div>
 
@@ -93,13 +99,57 @@ $this->Combinator->add_libs('js', 'Finanse.dzialy.js');
                                             <span class="n"><?= $section['min_nazwa'] ?></span>
                                             <span class="v"><?= _number($section['min']) ?></span>
                                         </li>
-                                        <li class="section_addon" id="section_<?= $section['id'] ?>_addon">
-                                            <span class="n"></span>
-                                            <span class="v"></span>
-                                        </li>
                                         <li class="max"  data-int="<?= $section['max'] ?>">
                                             <span class="n"><?= $section['max_nazwa'] ?></span>
                                             <span class="v"><?= _number($section['max']) ?></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            <? } ?>
+        </ul>
+    </div>
+
+    <div class="mpanel" id="dsections">
+        <ul>
+            <? foreach ($data['sections'] as $section) { ?>
+                <li class="section" id="dsection_<?= $section['id'] ?>" data-id="<?= $section['id'] ?>">
+                    <div class="row">
+                        <div class="col-md-2 text-right icon">
+                            <img src="/finanse/img/sections/<?= $section['id'] ?>.svg"/>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="row row-header">
+                                <div class="title col-md-12">
+                                    <div class="col-md-10">
+                                        <h3 class="name"><?= $section['tresc'] ?></h3>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <p class="value dsum"></p>
+                                    </div>
+                                </div>
+                                <div class="histogram_cont">
+                                    <div class="histogram" id="dhistogram_<?= $section['id'] ?>"
+                                         data-init="0">
+                                    </div>
+                                </div>
+                                <div class="gradient_cont">
+                                    <span class="gradient"></span>
+                                    <ul class="addons">
+                                        <li class="min" data-int="0">
+                                            <span class="n"></span>
+                                            <span class="v"></span>
+                                        </li>
+                                        <li class="section_addon" data-int="0">
+                                            <span class="n"></span>
+                                            <span class="v"></span>
+                                        </li>
+                                        <li class="max" data-int="0">
+                                            <span class="n"></span>
+                                            <span class="v"></span>
                                         </li>
                                     </ul>
                                 </div>
