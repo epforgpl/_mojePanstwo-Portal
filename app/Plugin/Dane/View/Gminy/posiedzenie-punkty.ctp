@@ -139,6 +139,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
     <div class="col-lg-9 nopadding">
         <div class="object">
 			
+			<? if( isset($objects) && !empty($objects)) {?>
 			<div class="block">
 				<div class="block-header">
 					<h2 class="label">Punkty porządku dziennego</h2>
@@ -157,7 +158,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 							<? foreach( $objects as $object ) { $object = $object['Dataobject']; ?>
 							<tr>
 								<td class="text-center"><span class="punkt-nr"><?= $object->getData('numer') ?></span></td>
-								<td><a href="<?= $object->getUrl() ?>"><?= $object->getData('tytul') ?></a></td>
+								<td><? if($object->getUrl()) {?><a href="<?= $object->getUrl() ?>"><? } ?><?= $object->getData('tytul') ?><? if($object->getUrl()) {?></a><? } ?></td>
 								<td><?= $object->getData('krakow_glosowania.wynik_str') ?></td>
 							</tr>
 							<? } ?>
@@ -166,6 +167,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 					
 				</div>
 			</div>
+			<? } ?>
 
         </div>
     </div>

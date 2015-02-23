@@ -324,6 +324,13 @@ class AppController extends Controller {
 						'komisje',
 						'rada_posiedzenia',
 						'rada_uchwaly',
+						'punkty',
+						'porzadek',
+						'podsumowanie',
+						'stenogram',
+						'informacja',
+						'glosowania',
+						'protokol',
 					) )
 				) {
 
