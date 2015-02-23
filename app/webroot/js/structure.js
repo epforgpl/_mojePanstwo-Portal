@@ -9,7 +9,13 @@
         var option = $(this);
 
         if (option.hasClass('_mPSearch')) {
-            $('.globalSearch').toggle();
+            if ($('._mPSearchOutside').length)
+                $('._mPSearchOutside input').focus();
+            else
+                $('.suggesterBlockModal').modal('toggle');
+            $('.suggesterBlockModal').on('hidden.bs.modal', function (e) {
+                $('.suggesterBlockModal input').val('');
+            })
         } else if (option.hasClass('_mPAppsList')) {
             /*var _mPAppList = $('._mPAppList');
              if (_mPAppList.hasClass('open')) {

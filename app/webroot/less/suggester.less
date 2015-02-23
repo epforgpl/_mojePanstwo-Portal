@@ -1,85 +1,79 @@
-#_main .globalSearch {
-    display: none;
+.suggesterBlockModal {
+    .modal-dialog {
+        width: inherit;
+
+        .modal-content {
+            background: none;
+            border: none;
+            -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=0, Direction=90, Color=#000000)"; /*IE 8*/
+            -moz-box-shadow: 0 0 0 #000000; /*FF 3.5+*/
+            -webkit-box-shadow: 0 0 0 #000000; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+            box-shadow: 0 0 0 #000000; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+            filter: progid:DXImageTransform.Microsoft.Shadow(Strength=0, Direction=90, Color=#000000); /*IE 5.5-7*/
+        }
+    }
+}
+
+.suggesterBlock {
+    @searchHeight: 50px;
+
+    //display: none;
     font-weight: 400;
     font-size: 18px;
+    margin-bottom: 1em;
     color: #000000;
-    background-color: rgba(0, 0, 0, .7);
-    height: 100%;
-    width: 100%;
-    position: fixed;
-    z-index: 1;
 
-    .floatingPart {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        -webkit-transform: translate(0, -50%);
-        -moz-transform: translate(0, -50%);
-        -ms-transform: translate(0, -50%);
-        -o-transform: translate(0, -50%);
-        transform: translate(0, -50%);
+    .input-group {
+        width: 100%;
 
-        .suggesterBlock {
-            @searchHeight: 50px;
+        input {
+            border-radius: 5px 0 0 5px !important;
+        }
 
-            font-weight: 400;
-            font-size: 18px;
-            margin-bottom: 1em;
-            color: #000000;
+        .ui-autocomplete-input.open {
+            border-bottom-left-radius: 0;
+            -webkit-border-bottom-left-radius: 0;
+        }
 
-            .input-group {
-                width: 100%;
+        .form-control,
+        .input-group-btn button {
+            height: @searchHeight;
+            font-size: 16px;
+        }
+        .form-control {
+            color: #333;
+            width: 100%;
+            margin-right: -(@searchHeight);
+            padding-right: (@searchHeight + 5);
+        }
 
-                input {
-                    border-radius: 5px 0 0 5px !important;
-                }
+        .form-control::-webkit-input-placeholder {
+            color: #AAA;
+        }
 
-                .ui-autocomplete-input.open {
-                    border-bottom-left-radius: 0;
-                    -webkit-border-bottom-left-radius: 0;
-                }
+        .form-control:-moz-placeholder {
+            /* Firefox 18- */
+            color: #AAA;
+        }
+        *
+        .form-control::-moz-placeholder {
+            /* Firefox 19+ */
+            color: #AAA;
+        }
 
-                .form-control,
-                .input-group-btn button {
-                    height: @searchHeight;
-                    font-size: 16px;
-                }
-                .form-control {
-                    color: #333;
-                    width: 100%;
-                    margin-right: -(@searchHeight);
-                    padding-right: (@searchHeight + 5);
-                }
+        .form-control:-ms-input-placeholder {
+            color: #AAA;
+        }
 
-                .form-control::-webkit-input-placeholder {
-                    color: #AAA;
-                }
+        .input-group-btn button {
+            color: #014068;
+            width: @searchHeight + 10;
+            height: @searchHeight;
+            display: block;
+            z-index: 2;
 
-                .form-control:-moz-placeholder {
-                    /* Firefox 18- */
-                    color: #AAA;
-                }
-
-                .form-control::-moz-placeholder {
-                    /* Firefox 19+ */
-                    color: #AAA;
-                }
-
-                .form-control:-ms-input-placeholder {
-                    color: #AAA;
-                }
-
-                .input-group-btn button {
-                    color: #014068;
-                    width: @searchHeight + 10;
-                    height: @searchHeight;
-                    display: block;
-                    z-index: 2;
-
-                    &.loading {
-                        background: url(/img/loader/search-loading.png) center center no-repeat #ffffff;
-                    }
-                }
+            &.loading {
+                background: url(/img/loader/search-loading.png) center center no-repeat #ffffff;
             }
         }
     }
