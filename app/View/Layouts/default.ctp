@@ -131,8 +131,6 @@
         'placeholder' => __("LC_SEARCH_PUBLIC_DATA_PLACEHOLDER"),
         'action' => '/dane/szukaj',
     )); ?>
-
-    <?php /*echo $this->element('footer'); */ ?>
 </div>
 
 <?php /* GOOGLE ANALYTIC */ ?>
