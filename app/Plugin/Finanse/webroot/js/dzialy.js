@@ -131,6 +131,7 @@ $(document).ready(function() {
                 gridLineWidth: 0,
                 title: {
                     text: 'Liczba gmin',
+                    offset: 20,
                     style: {
                         color: '#AAA',
                         'font-family': '"Helvetica Neue",Helvetica,Arial,sans-serif',
@@ -221,11 +222,11 @@ $(document).ready(function() {
                     var e = $('#dsection_' + d.id);
                     e.find('p.dsum').html(pl_currency_format(d.sum_wydatki));
                     e.find('ul.addons li.min .n').html(d.min_nazwa);
-                    e.find('ul.addons li.min .v').html(number_format(d.min, 0, '.', ' '));
+                    e.find('ul.addons li.min .v').html(pl_currency_format(d.min));
                     e.find('ul.addons li.max .n').html(d.max_nazwa);
-                    e.find('ul.addons li.max .v').html(number_format(d.max, 0, '.', ' '));
+                    e.find('ul.addons li.max .v').html(pl_currency_format(d.max));
                     e.find('ul.addons li.section_addon .n').html(ui.item.name);
-                    e.find('ul.addons li.section_addon .v').html(number_format(d.commune, 0, '.', ' '));
+                    e.find('ul.addons li.section_addon .v').html(pl_currency_format(d.commune));
 
                     var _min = parseInt(d.min);
                     var _sum_wydatki = parseInt(d.commune);
@@ -276,6 +277,7 @@ $(document).ready(function() {
                         },
 
                         yAxis: {
+                            offset: 20,
                             labels: {
                                 enabled: false
                             },
@@ -286,7 +288,8 @@ $(document).ready(function() {
                                     color: '#AAA',
                                     'font-family': '"Helvetica Neue",Helvetica,Arial,sans-serif',
                                     'font-size': '13px',
-                                    'font-weight': '300'
+                                    'font-weight': '300',
+                                    'margin-left': '-50px'
                                 }
                             }
                         },
