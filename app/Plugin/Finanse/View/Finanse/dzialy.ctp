@@ -44,7 +44,7 @@ $this->Combinator->add_libs('js', 'Finanse.dzialy.js');
         <div class="row teryt">
 
             <p>Poniżej widzisz wydatki gmin, według kategorii budżetowych. Możesz też sprawdzić wydatki swojej gminy i
-                zobaczyć je w kontekście wydatków innych gmin o podobnej liczbe mieszkańców.</p>
+                zobaczyć je w kontekście wydatków innych gmin o podobnej liczbie mieszkańców.</p>
 
             <div class="form-group">
                 <div class="col-md-8 col-md-offset-2">
