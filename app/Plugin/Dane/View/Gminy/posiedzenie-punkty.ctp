@@ -26,7 +26,154 @@ echo $this->Element('Dane.dataobject/subobject', array(
         'title' => 'Wszystkie posiedzenia rady miasta',
     ),
 ));
+?>
 
+<div class="krsPodmiotZmiana row">
+
+    <div class="col-lg-3 objectSide">
+        <div class="objectSideInner rrs">
+
+
+            <div class="block">
+
+                <ul class="dataHighlights side">
+
+					<? /*
+					<li class="dataHighlight">
+                        <p class="_label pull-left">Dział</p>
+                        <p class="_value pull-right"><?= $posiedzenie->getData('numer_dzialu') ?></p>                                
+                    </li>
+                    
+                    <li class="dataHighlight">
+                        <p class="_label pull-left">Rubryka</p>
+                        <p class="_value pull-right"><?= $posiedzenie->getData('numer_rubryki') ?></p>                                
+                    </li>
+                    
+                    <li class="dataHighlight">
+                        <p class="_label pull-left">Rejestr</p>
+                        <p class="_value pull-right"><?= $posiedzenie->getData('rejestr_nr') ?></p>                                
+                    </li>
+					*/ ?>
+					
+					
+					<?
+					if ($posiedzenie->getData('zwolanie_dokument_id')) {
+				        ?>
+				        <li class="dataHighlight">
+	                        <a href="<?= $posiedzenie->getUrl() ?>/informacja"><span
+	                                class="icon icon-moon">&#xe614;</span>Zwołanie posiedzenia <span
+	                                class="glyphicon glyphicon-chevron-right"></a>
+	                    </li>
+				    <?
+				    }
+				    if ($posiedzenie->getData('porzadek_dokument_id')) {
+				        ?>
+				        <li class="dataHighlight">
+	                        <a href="<?= $posiedzenie->getUrl() ?>/porzadek"><span
+	                                class="icon icon-moon">&#xe614;</span>Porządek obrad<span
+	                                class="glyphicon glyphicon-chevron-right"></a>
+	                    </li>
+				    <?
+				    }
+				    if ($posiedzenie->getData('podsumowanie_dokument_id')) {
+				        ?>
+				        <li class="dataHighlight">
+	                        <a href="<?= $posiedzenie->getUrl() ?>/podsumowanie"><span
+	                                class="icon icon-moon">&#xe614;</span>Podsumowanie posiedzenia<span
+	                                class="glyphicon glyphicon-chevron-right"></a>
+	                    </li>
+				    <?
+				    }
+				    if ($posiedzenie->getData('wyniki_dokument_id')) {
+				        ?>
+				        <li class="dataHighlight">
+	                        <a href="<?= $posiedzenie->getUrl() ?>/glosowania"><span
+	                                class="icon icon-moon">&#xe614;</span>Wyniki głosowań<span
+	                                class="glyphicon glyphicon-chevron-right"></a>
+	                    </li>
+				    <?
+				    }
+				    if ($posiedzenie->getData('stenogram_dokument_id')) {
+				        ?>
+				        <li class="dataHighlight">
+	                        <a href="<?= $posiedzenie->getUrl() ?>/stenogram"><span
+	                                class="icon icon-moon">&#xe614;</span>Stenogram<span
+	                                class="glyphicon glyphicon-chevron-right"></a>
+	                    </li>
+				    <?
+				    }
+				    if ($posiedzenie->getData('protokol_dokument_id')) {
+				        ?>
+				        <li class="dataHighlight">
+	                        <a href="<?= $posiedzenie->getUrl() ?>/protokol"><span
+	                                class="icon icon-moon">&#xe614;</span>Protokół<span
+	                                class="glyphicon glyphicon-chevron-right"></a>
+	                    </li>
+				    <?
+				    }
+                    ?>
+				
+				</ul>
+                
+            </div>
+			
+			<? /*
+            <div class="block">
+
+                <ul class="dataHighlights side">
+
+                    <li class="dataHighlight">
+                        <a target="_blank" href="/dane/msig_dzialy/<?= $zmiana->getData('dzial_id') ?>"><span
+                                class="glyphicon glyphicon-link"></span>MSiG<span
+                                class="glyphicon glyphicon-chevron-right"></a>
+                    </li>
+
+                </ul>
+
+            </div>
+			*/ ?>
+
+        </div>
+    </div>
+
+    <div class="col-lg-9 nopadding">
+        <div class="object">
+			
+			<div class="block">
+				<div class="block-header">
+					<h2 class="label">Punkty porządku dziennego</h2>
+				</div>
+				<div class="content">
+										
+					<table class="table table-striped table-hover ">
+						<thead>
+							<tr>
+								<th>Numer</th>
+								<th>Tytuł</th>
+								<th>Wynik rozpatrywania</th>
+							</tr>
+						</thead>
+						<tbody>
+							<? foreach( $objects as $object ) { $object = $object['Dataobject']; ?>
+							<tr>
+								<td class="text-center"><span class="punkt-nr"><?= $object->getData('numer') ?></span></td>
+								<td><a href="<?= $object->getUrl() ?>"><?= $object->getData('tytul') ?></a></td>
+								<td><?= $object->getData('krakow_glosowania.wynik_str') ?></td>
+							</tr>
+							<? } ?>
+						</tbody>
+					</table>
+					
+				</div>
+			</div>
+
+        </div>
+    </div>
+
+</div>
+
+<?
+/*
 if (!@$this->request->query['q'] && ($terms = $posiedzenie->getLayer('terms')) && !empty($terms)) {
     ?>
     <div class="block">
@@ -62,56 +209,11 @@ if (!@$this->request->query['q'] && ($terms = $posiedzenie->getLayer('terms')) &
     </div>
 <?
 }
+*/
 
-$parts = array();
 
 
-if ($posiedzenie->getData('kadencja_id') == '7') {
-
-    ?>
-    <style>
-        #_main .objectsPage .objectsPageContent .htmlexDoc #docsToolbar {
-            display: none;
-        }
-    </style>
-    <?
-
-    if ($posiedzenie->getData('zwolanie_dokument_id')) {
-        ?>
-        <h2 class="light">Informacja o zwołaniu posiedzenia</h2>
-        <iframe class="idoc" src="/docs/<?= $posiedzenie->getData('zwolanie_dokument_id') ?>.html"></iframe>
-    <?
-    }
-    if ($posiedzenie->getData('porzadek_dokument_id')) {
-        ?>
-        <h2 class="light">Porządek obrad</h2>
-        <iframe class="idoc" src="/docs/<?= $posiedzenie->getData('porzadek_dokument_id') ?>.html"></iframe>
-    <?
-    }
-    if ($posiedzenie->getData('podsumowanie_dokument_id')) {
-        ?>
-        <h2 class="light">Podsumowanie posiedzenia</h2>
-        <iframe class="idoc" src="/docs/<?= $posiedzenie->getData('podsumowanie_dokument_id') ?>.html"></iframe>
-    <?
-    }
-    if ($posiedzenie->getData('wyniki_dokument_id')) {
-        ?>
-        <h2 class="light">Wyniki głosowań</h2>
-        <iframe class="idoc" src="/docs/<?= $posiedzenie->getData('wyniki_dokument_id') ?>.html"></iframe>
-    <?
-    }
-    if ($posiedzenie->getData('stenogram_dokument_id')) {
-        ?>
-        <h2 class="light">Stenogram</h2>
-        <iframe class="idoc" src="/docs/<?= $posiedzenie->getData('stenogram_dokument_id') ?>.html"></iframe>
-    <?
-    }
-    if ($posiedzenie->getData('protokol_dokument_id')) {
-        ?>
-        <h2 class="light">Protokół</h2>
-        <iframe class="idoc" src="/docs/<?= $posiedzenie->getData('protokol_dokument_id') ?>.html"></iframe>
-    <?
-    }
+/*
 
     if ($pagination['total']) {
         echo $this->Element('Dane.DataobjectsBrowser/view', array(
@@ -136,5 +238,6 @@ if ($posiedzenie->getData('kadencja_id') == '7') {
     }
 
 }
+*/
 
 echo $this->Element('dataobject/pageEnd');
