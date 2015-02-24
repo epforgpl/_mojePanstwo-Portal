@@ -13,9 +13,14 @@
                    href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'login')); ?>"><?php echo __('LC_COCKPITBAR_LOGIN'); ?></a>
             <?php } ?>
         </div>
-        <?php if ($this->Session->read('Auth.User.photo_small')) { ?>
+        <?php if ($this->Session->read('Auth.User.id')) { ?>
             <div class="_mPUser">
-                <img src="<?php echo $this->Session->read('Auth.User.photo_small'); ?>"/>
+                <img src="<?php if ($this->Session->read('Auth.User.photo_small')) {
+                    echo $this->Session->read('Auth.User.photo_small');
+                } else {
+                    echo '/img/avatars/avatar_default.jpg';
+                } ?>"/>
+
                 <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'index')); ?>"><?php echo __('LC_COCKPITBAR_USER_LINK'); ?></a>
             </div>
         <?php } ?>
