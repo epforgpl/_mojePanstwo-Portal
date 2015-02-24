@@ -1877,6 +1877,7 @@ class GminyController extends DataobjectsController
             'finanse'
         ));
         $this->_prepareView();
+        $this->request->params['action'] = 'finanse';
     }
 
     /*
@@ -2009,6 +2010,14 @@ class GminyController extends DataobjectsController
             */
 
         }
+		
+		/*
+		$menu['items'][] = array(
+            'id' => 'finanse',
+            'label' => 'Finanse',
+            'href' => $href_base . '/finanse',
+        );
+        */
 
         $menu['items'][] = array(
             'id' => 'organizacje',
