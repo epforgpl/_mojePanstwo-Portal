@@ -88,7 +88,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 		                <h2 class="label">Zmiany</h2>
 	                </div>
 	                <div class="content">
-		                <?= $this->element('Dane.objects/krs_podmioty_zmiany/1', array(
+		                <?= $this->element('Dane.objects/krs_podmioty_zmiany/' . $zmiana->getData('typ_id'), array(
 		                	'data' => $details['data'],
 		                )); ?>
 	                </div>

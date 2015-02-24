@@ -4,6 +4,10 @@ if ($object->getId() == '903') {
     $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
 }
 
+$this->Combinator->add_libs('css', $this->Less->css('feed-timeline', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('js', 'Dane.feed-timeline');
+
+
 echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
@@ -16,24 +20,19 @@ echo $this->Element('Dane.dataobject/subobject', array(
     )
 ));
 ?>
-	<div class="poslowie row">
-        <div class="col-md-3 objectSide">
+	<div class="poslowie row feed-content">
+        <div class="col-md-2 objectSide">
 
             <div class="objectSideInner">
 				
                 <div class="block">
 
-                    <div class="block-header">
-                        <h2 class="label">Druk</h2>
-                    </div>
 
                     <ul class="dataHighlights side">
 
                         <li class="dataHighlight">
-                            <a href="<?= $druk->getUrl() . '/tresc' ?>"><span class="icon icon-moon">&#xe610;</span>Przeczytaj treść<span class="glyphicon glyphicon-chevron-right"></span></a>
+                            <a href="<?= $druk->getUrl() . '/tresc' ?>"><span class="icon icon-moon">&#xe610;</span>Treść druku<span class="glyphicon glyphicon-chevron-right"></span></a>
                         </li>
-
-                        
 
                     </ul>
                 </div>
@@ -43,7 +42,9 @@ echo $this->Element('Dane.dataobject/subobject', array(
             </div>
 
         </div>
-        <div class="col-md-7 nopadding">
+        <div class="col-md-1 nopadding feed-timeline">
+        </div>
+        <div class="col-md-7 nopadding feed-content">
             <div class="object">
                 <?= $this->dataobject->feed($feed); ?>
             </div>

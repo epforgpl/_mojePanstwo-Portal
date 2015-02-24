@@ -67,8 +67,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 					if ($posiedzenie->getData('zwolanie_dokument_id')) {
 				        ?>
 				        <li class="dataHighlight">
-	                        <a href="<?= $posiedzenie->getUrl() ?>/informacja"><span
-	                                class="icon icon-moon">&#xe614;</span>Zwołanie posiedzenia <span
+	                        <a href="<?= $posiedzenie->getUrl() ?>/informacja"><span class="icon icon-moon">&#xe610;</span>Zwołanie posiedzenia <span
 	                                class="glyphicon glyphicon-chevron-right"></a>
 	                    </li>
 				    <?
@@ -76,8 +75,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 				    if ($posiedzenie->getData('porzadek_dokument_id')) {
 				        ?>
 				        <li class="dataHighlight">
-	                        <a href="<?= $posiedzenie->getUrl() ?>/porzadek"><span
-	                                class="icon icon-moon">&#xe614;</span>Porządek obrad<span
+	                        <a href="<?= $posiedzenie->getUrl() ?>/porzadek"><span class="icon icon-moon">&#xe610;</span>Porządek obrad<span
 	                                class="glyphicon glyphicon-chevron-right"></a>
 	                    </li>
 				    <?
@@ -85,8 +83,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 				    if ($posiedzenie->getData('podsumowanie_dokument_id')) {
 				        ?>
 				        <li class="dataHighlight">
-	                        <a href="<?= $posiedzenie->getUrl() ?>/podsumowanie"><span
-	                                class="icon icon-moon">&#xe614;</span>Podsumowanie posiedzenia<span
+	                        <a href="<?= $posiedzenie->getUrl() ?>/podsumowanie"><span class="icon icon-moon">&#xe610;</span>Podsumowanie posiedzenia<span
 	                                class="glyphicon glyphicon-chevron-right"></a>
 	                    </li>
 				    <?
@@ -94,8 +91,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 				    if ($posiedzenie->getData('wyniki_dokument_id')) {
 				        ?>
 				        <li class="dataHighlight">
-	                        <a href="<?= $posiedzenie->getUrl() ?>/glosowania"><span
-	                                class="icon icon-moon">&#xe614;</span>Wyniki głosowań<span
+	                        <a href="<?= $posiedzenie->getUrl() ?>/glosowania"><span class="icon icon-moon">&#xe610;</span>Wyniki głosowań<span
 	                                class="glyphicon glyphicon-chevron-right"></a>
 	                    </li>
 				    <?
@@ -103,8 +99,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 				    if ($posiedzenie->getData('stenogram_dokument_id')) {
 				        ?>
 				        <li class="dataHighlight">
-	                        <a href="<?= $posiedzenie->getUrl() ?>/stenogram"><span
-	                                class="icon icon-moon">&#xe614;</span>Stenogram<span
+	                        <a href="<?= $posiedzenie->getUrl() ?>/stenogram"><span class="icon icon-moon">&#xe610;</span>Stenogram<span
 	                                class="glyphicon glyphicon-chevron-right"></a>
 	                    </li>
 				    <?
@@ -112,8 +107,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 				    if ($posiedzenie->getData('protokol_dokument_id')) {
 				        ?>
 				        <li class="dataHighlight">
-	                        <a href="<?= $posiedzenie->getUrl() ?>/protokol"><span
-	                                class="icon icon-moon">&#xe614;</span>Protokół<span
+	                        <a href="<?= $posiedzenie->getUrl() ?>/protokol"><span class="icon icon-moon">&#xe610;</span>Protokół<span
 	                                class="glyphicon glyphicon-chevron-right"></a>
 	                    </li>
 				    <?
