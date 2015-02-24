@@ -16,8 +16,9 @@
 
 .suggesterBlock {
     @searchHeight: 50px;
+    @searchColor: #333333;
+    @searchColorPlaceholder: #AAAAAA;
 
-    //display: none;
     font-weight: 400;
     font-size: 18px;
     margin-bottom: 1em;
@@ -26,55 +27,45 @@
     .input-group {
         width: 100%;
 
-        input {
-            border-radius: 5px 0 0 5px !important;
-        }
-
         .ui-autocomplete-input.open {
             border-bottom-left-radius: 0;
             -webkit-border-bottom-left-radius: 0;
         }
 
         .form-control,
-        .input-group-btn button {
+        .input-group-addon {
             height: @searchHeight;
             font-size: 16px;
         }
+        .input-group-addon {
+            width: @searchHeight;
+            background: #ffffff;
+            color: @searchColorPlaceholder;
+        }
+
         .form-control {
-            color: #333;
+            border-left-color: #ffffff;
+            color: @searchColor;
             width: 100%;
             margin-right: -(@searchHeight);
             padding-right: (@searchHeight + 5);
         }
 
+        .form-control:focus {
+            border-left-color: #66afe9;
+        }
+
         .form-control::-webkit-input-placeholder {
-            color: #AAA;
+            color: @searchColorPlaceholder;
         }
-
-        .form-control:-moz-placeholder {
-            /* Firefox 18- */
-            color: #AAA;
-        }
-        *
         .form-control::-moz-placeholder {
-            /* Firefox 19+ */
-            color: #AAA;
+            color: @searchColorPlaceholder;
         }
-
         .form-control:-ms-input-placeholder {
-            color: #AAA;
+            color: @searchColorPlaceholder;
         }
-
-        .input-group-btn button {
-            color: #014068;
-            width: @searchHeight + 10;
-            height: @searchHeight;
-            display: block;
-            z-index: 2;
-
-            &.loading {
-                background: url(/img/loader/search-loading.png) center center no-repeat #ffffff;
-            }
+        input:-moz-placeholder {
+            color: @searchColorPlaceholder;
         }
     }
 }
@@ -88,9 +79,8 @@
     -webkit-border-top-right-radius: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    border-color: #CCCCCC;
+    border-width: 0;
     padding: 0;
-    border-top-width: 0;
     background-color: #FCFCFC;
     z-index: 9100;
 
@@ -178,6 +168,10 @@
             float: left;
             width: 100%;
             margin: 0;
+
+            &.ui-state-focus, &.ui-state-active {
+                margin: 0;
+            }
 
             &:hover, &:focus, &:active {
                 color: #FFFFFF;

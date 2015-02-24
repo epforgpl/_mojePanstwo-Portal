@@ -11,13 +11,11 @@
                 };
                 if (isset($app)) { ?>?app=<?= $app ?><? } ?>">
                     <div class="input-group main_input">
+                        <span class="input-group-addon" id="global-search" data-icon="&#xe600;"></span>
                         <input name="q" value="" type="text" autocomplete="off" class="datasearch form-control input-lg"
                                placeholder="<?= $placeholder ?>" <?php if (isset($app)) {
                             echo 'data-app="' . $app . '"';
-                        } ?>/>
-                        <span class="input-group-btn">
-                              <button class="btn btn-default btn-lg" type="submit" data-icon="&#xe600;"></button>
-                        </span>
+                        } ?> aria-describedby="global-search"/>
                     </div>
                 </form>
             </div>

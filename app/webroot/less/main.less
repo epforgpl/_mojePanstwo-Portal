@@ -428,7 +428,7 @@ svg.svg {
     &.nobg {
         background-color: inherit;
         border: 1px solid transparent;
-        border-bottom: 1px solid #DDD;
+        border-bottom-color: #dddddd;
 
         .block-header {
             background-color: #F3F3F3;
@@ -436,8 +436,10 @@ svg.svg {
     }
 
     ul.keywords {
-        overflow: auto;
+        //overflow: auto;
+        display: inline-block;
         padding: 10px;
+
         li {
             float: left;
             padding: 4px 3px;

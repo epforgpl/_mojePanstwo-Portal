@@ -22,7 +22,7 @@
                     'right_column_width' => 3,
                 )); ?>
 
-                <div class="document container">
+                <div class="document">
                     <div class="row">
                         <div class="content col-md-9">
                             <div class="canvas">

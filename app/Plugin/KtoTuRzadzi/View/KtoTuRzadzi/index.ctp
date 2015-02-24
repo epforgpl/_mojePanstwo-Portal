@@ -1,5 +1,4 @@
 <?php
-$this->Combinator->add_libs('css', $this->Less->css('new-look'));
 $this->Combinator->add_libs('css', $this->Less->css('administracja', array('plugin' => 'KtoTuRzadzi')));
 $this->Combinator->add_libs('js', 'KtoTuRzadzi.administracja.js');
 ?>

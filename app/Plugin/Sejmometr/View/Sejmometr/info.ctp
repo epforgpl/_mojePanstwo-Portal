@@ -1,4 +1,3 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('new-look')) ?>
 <?php $this->Combinator->add_libs('css', $this->Less->css('inner-story', array('plugin' => 'Sejmometr'))); ?>
 <?php $this->Combinator->add_libs('js', 'Sejmometr.inner-story-libs.js'); ?>
 <?php $this->Combinator->add_libs('js', 'Sejmometr.inner-story.js'); ?>

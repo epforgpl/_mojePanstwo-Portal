@@ -1,4 +1,3 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('new-look')) ?>
 <?php $this->Combinator->add_libs('css', $this->Less->css('wydatki_poslow', array('plugin' => 'WydatkiPoslow'))); ?>
 <?php $this->Combinator->add_libs('js', 'WydatkiPoslow.libs.js'); ?>
 <?php $this->Combinator->add_libs('js', 'WydatkiPoslow.wydatki_poslow.js'); ?>
