@@ -25,6 +25,42 @@ function number_format(number, decimals, dec_point, thousands_sep) {
     return s.join(dec);
 }
 
+function pl_currency_format(n) {
+    var str = '';
+    var mld = 0;
+    var mln = 0;
+    var tys = 0;
+
+    if(n > 1000000000) {
+        mld = Math.round(n / 1000000000, 2);
+        n -= mld * 1000000000;
+        return mld + ' Mld';
+    }
+
+    if(n > 1000000) {
+        mln = Math.round(n / 1000000, 2);
+        n -= mln * 1000000;
+        return mln + ' M';
+    }
+
+    if(n > 1000) {
+        tys = Math.round(n / 1000, 2);
+        n -= tys * 1000;
+        return tys + ' k';
+    }
+
+    if(mld > 0)
+        str += mld + ' Mld ';
+    if(mln  > 0)
+        str += mln + ' M ';
+    if(tys > 0 && mld === 0)
+        str += tys + ' k';
+
+    if(mld === 0 && mln === 0 && tys === 0)
+        str += number_format(n);
+
+    return str.trim();
+};
 $(document).ready(function() {
     'use strict';
 
@@ -79,6 +115,7 @@ $(document).ready(function() {
             },
 
             yAxis: {
+                offset: 20,
                 labels: {
                     enabled: false
                 },

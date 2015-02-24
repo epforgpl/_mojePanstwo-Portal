@@ -46,7 +46,7 @@ $data = $object->getLayer('finanse');
                                         <h3 class="name"><?= $section['tresc'] ?></h3>
                                     </div>
                                     <div class="col-md-2 text-center">
-                                        <p class="value"><?= number_format_h($section['sum_wydatki']) ?></p>
+                                        <p class="value hide"><?= number_format_h($section['sum_wydatki']) ?></p>
                                     </div>
                                 </div>
                                 <div class="histogram_cont">
@@ -59,15 +59,15 @@ $data = $object->getLayer('finanse');
                                     <ul class="addons">
                                         <li class="min" id="minmin" data-int="<?= (int)$section['min'] ?>">
                                             <span class="n"><?= $section['min_nazwa'] ?></span>
-                                            <span class="v"><?= _number($section['min']) ?></span>
+                                            <span class="v"><?= number_format_h($section['min']) ?></span>
                                         </li>
                                         <li class="section_addon" data-int="<?= (int)$section['commune'] ?>" id="section_<?= $section['id'] ?>_addon">
                                             <span class="n"><?= $object->data('nazwa'); ?></span>
-                                            <span class="v"><?= _number($section['commune']) ?></span>
+                                            <span class="v"><?= number_format_h($section['commune']) ?></span>
                                         </li>
                                         <li class="max"  data-int="<?= (int)$section['max'] ?>">
                                             <span class="n"><?= $section['max_nazwa'] ?></span>
-                                            <span class="v"><?= _number($section['max']) ?></span>
+                                            <span class="v"><?= number_format_h($section['max']) ?></span>
                                         </li>
                                     </ul>
                                 </div>

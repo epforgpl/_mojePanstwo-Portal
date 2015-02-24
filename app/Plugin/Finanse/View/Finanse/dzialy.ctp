@@ -97,11 +97,11 @@ $this->Combinator->add_libs('js', 'Finanse.dzialy.js');
                                     <ul class="addons">
                                         <li class="min" data-int="<?= $section['min'] ?>">
                                             <span class="n"><?= $section['min_nazwa'] ?></span>
-                                            <span class="v"><?= _number($section['min']) ?></span>
+                                            <span class="v"><?= number_format_h($section['min']) ?></span>
                                         </li>
                                         <li class="max"  data-int="<?= $section['max'] ?>">
                                             <span class="n"><?= $section['max_nazwa'] ?></span>
-                                            <span class="v"><?= _number($section['max']) ?></span>
+                                            <span class="v"><?= number_format_h($section['max']) ?></span>
                                         </li>
                                     </ul>
                                 </div>
