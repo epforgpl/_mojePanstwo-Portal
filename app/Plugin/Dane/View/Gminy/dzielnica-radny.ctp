@@ -35,13 +35,25 @@ echo $this->Element('Dane.dataobject/subobject', array(
 ?>
 
     <div class="object block-group">
-
+		
+		<? if(
+			$radny->getData('okreg_numer') || 
+			$radny->getData('liczba_glosow') || 
+			$radny->getData('partia_wspierany_przez') || 
+			$radny->getData('okreg_ulice') 
+		) { ?>
+		
         <div class="block">
-
+		
             <div class="block-header">
                 <h2 class="label">Wynik w wyborach</h2>
             </div>
-
+			
+			<? if(
+				$radny->getData('okreg_numer') || 
+				$radny->getData('liczba_glosow') || 
+				$radny->getData('partia_wspierany_przez') 
+			) { ?>
             <div class="content nopadding">
                 <?php echo $this->Dataobject->hlTableForObject($radny, array(
                     'okreg_numer',
@@ -53,7 +65,11 @@ echo $this->Element('Dane.dataobject/subobject', array(
                     'limit' => 100,
                 )); ?>
             </div>
-
+            <? } ?>
+			
+			<? if(
+				$radny->getData('okreg_ulice')
+			) { ?>
             <div class="content nopadding">
                 <?php echo $this->Dataobject->hlTableForObject($radny, array(
                     'okreg_ulice',
@@ -63,9 +79,11 @@ echo $this->Element('Dane.dataobject/subobject', array(
                     'limit' => 100,
                 )); ?>
             </div>
+            <? } ?>
 
 
         </div>
+        <? } ?>
 
         <? if ($radny->getData('dyzur') || $radny->getData('tel') || $radny->getData('email') || $radny->getData('www')) { ?>
             <div class="block">
@@ -90,6 +108,14 @@ echo $this->Element('Dane.dataobject/subobject', array(
         <? } ?>
 
 
+		<? if(
+			$radny->getData('kadencja') || 
+			$radny->getData('funkcja') || 
+			$radny->getData('funkcje_publiczne_kiedys') || 
+			$radny->getData('ngo') || 
+			$radny->getData('social') || 
+			$radny->getData('sukcesy') 
+		) { ?>
         <div class="block">
 
             <div class="block-header">
@@ -111,7 +137,13 @@ echo $this->Element('Dane.dataobject/subobject', array(
                 )); ?>
             </div>
         </div>
-
+        <? } ?>
+		
+		<? if(
+			$radny->getData('wyksztalcenie') || 
+			$radny->getData('zawod') || 
+			$radny->getData('miejsce_pracy') 
+		) { ?>
         <div class="block">
 
             <div class="block-header">
@@ -130,7 +162,9 @@ echo $this->Element('Dane.dataobject/subobject', array(
                 )); ?>
             </div>
         </div>
-
+        <? } ?>
+		
+		<? if( isset($objects) && !empty($objects) ) {?>
         <div class="block">
 
             <div class="block-header">
@@ -138,10 +172,12 @@ echo $this->Element('Dane.dataobject/subobject', array(
             </div>
 
         </div>
+        <? } ?>
 
     </div>
 
 <?
+if( isset($objects) && !empty($objects) )
 echo $this->Element('Dane.DataobjectsBrowser/view', array(
     'page' => $page,
     'pagination' => $pagination,

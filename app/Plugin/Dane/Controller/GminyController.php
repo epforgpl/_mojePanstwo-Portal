@@ -1582,6 +1582,7 @@ class GminyController extends DataobjectsController
             'title' => 'Radni dzielnic',
             'noResultsTitle' => 'Brak radnych dzielnic dla tej gminy',
             'hlFields' => array('dzielnice.nazwa'),
+            'order' => 'radni_dzielnic.nazwisko asc',
         ));
     }
 

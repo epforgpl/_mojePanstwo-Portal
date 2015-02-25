@@ -31,7 +31,8 @@ $data = $object->getLayer('finanse');
 <div class="container">
     <div class="col-md-10 col-md-offset-1 text-center">
         <div class="row banner">
-            <p>Zestawienie wydatków gminy <?= $object->data('nazwa'); ?> w I, II i III kwartale 2014 r. z innymi gminami o liczbie mieszkańców z zakresu <?php echo $zakres[0]; ?> - <?php echo $zakres[1]; ?></p>
+            <? /*<p>Zestawienie wydatków gminy <?= $object->data('nazwa'); ?> w I, II i III kwartale 2014 r. z innymi gminami o liczbie mieszkańców z zakresu <?php echo $zakres[0]; ?> - <?php echo $zakres[1]; ?></p> */ ?>
+            <p>Zestawienie wydatków gminy <?= $object->data('nazwa'); ?> w I, II i III kwartale 2014 r.</p>
         </div>
     </div>
 </div>
