@@ -7,30 +7,74 @@
     padding-bottom: 60px;
 }
 
+.no-padding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
 #_wrapper #_main {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 
-    #bankDanychLokalny {
-        .minHeight();
-        display: block;
-
-        .leftSide {
-            .minHeight();
-
-            .tree {
-                .minHeightPadding();
-                list-style: none;
+  #bankDanychLokalny {
+    .minHeight();
+    display: block;
+    .leftSide {
+      padding: 0;
+      margin: 0;
+      margin-top: 40px;
+      overflow-y: scroll;
+      #categories {
+        ul.jqtree-tree {
+          font-size: 12px;
+          color: #555;
+          .jqtree-element {
+            border-bottom: 1px solid #dedede;
+            margin: 5px;
+            margin-bottom: 0;
+            padding-bottom: 5px;
+          }
+          .jqtree_common {
+            // margin: 3px;
+            //overflow: hidden;
+            .jqtree-title {
+              //float: left;
+              //width: 80%;
+              // border-bottom: 1px solid #ccc;
             }
+            .jqtree-toggler {
+              //float: left;
+              display: inline-block;
+              font-size: 0px;
+              margin-right: 5px;
+              width: 19px;
+              height: 19px;
+              background: url("/img/arrow-up.png") no-repeat;
+              &.jqtree-closed {
+                background: url("/img/arrow-down.png") no-repeat;
+              }
+            }
+          }
         }
-        .rightSide {
-            .minHeight();
-            background-color: #000000;
+      }
+    }
+    .rightSide {
+        .minHeight();
+        background-color: #000000;
 
-            #mapa {
-                .minHeightPadding();
-                min-height: 800px;
+        #indicator {
+          margin-top: 50px;
+          .row {
+            margin: 0;
+            padding: 0;
+            color: #888;
+            .form-group {
+              label {
+                font-weight: normal;
+              }
             }
+          }
         }
     }
+  }
 }
