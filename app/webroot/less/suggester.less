@@ -24,35 +24,43 @@
     margin-bottom: 1em;
     color: #000000;
 
-    .input-group {
+    .main_input {
         width: 100%;
+        position: relative;
 
         .ui-autocomplete-input.open {
             border-bottom-left-radius: 0;
             -webkit-border-bottom-left-radius: 0;
         }
 
-        .form-control,
-        .input-group-addon {
-            height: @searchHeight;
-            font-size: 16px;
-        }
-        .input-group-addon {
+        .glyph-addon {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            -webkit-transform: translate(0, -50%);
+            -o-transform: translate(0, -50%);
+            -moz-transform: translate(0, -50%);
+            transform: translate(0, -50%);
             width: @searchHeight;
-            background: #ffffff;
-            color: @searchColorPlaceholder;
+            pointer-events: none;
+            text-align: center;
+
+            &:before {
+                font-size: 16px;
+                color: @searchColorPlaceholder;
+            }
         }
 
         .form-control {
-            border-left-color: #ffffff;
+            padding-left: @searchHeight;
+            height: @searchHeight;
+            font-size: 16px;
             color: @searchColor;
             width: 100%;
-            margin-right: -(@searchHeight);
-            padding-right: (@searchHeight + 5);
-        }
 
-        .form-control:focus {
-            border-left-color: #66afe9;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
         }
 
         .form-control::-webkit-input-placeholder {
@@ -84,6 +92,7 @@
     padding: 0;
     background-color: #FCFCFC;
     z-index: 9100;
+    margin-left: 20px;
 
     .ui-menu-item {
         border-top: 1px solid #E3E3E3;

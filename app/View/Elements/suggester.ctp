@@ -10,12 +10,12 @@
                     echo '/dane/szukaj';
                 };
                 if (isset($app)) { ?>?app=<?= $app ?><? } ?>">
-                    <div class="input-group main_input">
-                        <span class="input-group-addon" id="global-search" data-icon="&#xe600;"></span>
+                    <div class="main_input">
+                        <i class="glyph-addon" data-icon="&#xe600;"></i>
                         <input name="q" value="" type="text" autocomplete="off" class="datasearch form-control input-lg"
                                placeholder="<?= $placeholder ?>" <?php if (isset($app)) {
                             echo 'data-app="' . $app . '"';
-                        } ?> aria-describedby="global-search"/>
+                        } ?>/>
                     </div>
                 </form>
             </div>

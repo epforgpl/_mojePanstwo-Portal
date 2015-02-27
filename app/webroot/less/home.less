@@ -37,6 +37,24 @@
                 margin-right: 15px;
                 margin-bottom: 20px;
 
+                .main_input {
+                    @color: #ffffff;
+
+                    .glyph-addon {
+                        color: @color;
+                    }
+                    .form-control {
+                        background-color: rgba(0, 0, 0, .6);
+                        border-color: rgba(0, 0, 0, .6);
+                        color: @color;
+
+                        &:focus {
+                            background-color: #ffffff;
+                            color: #333333
+                        }
+                    }
+                }
+
                 .suggesterBlock {
                     margin-bottom: 0;
                     display: block;
@@ -58,8 +76,6 @@
                         background-size: cover;
                         background-position: center center;
                         background-repeat: no-repeat;
-
-                        
 
                         .title {
                             font-size: 50px;
