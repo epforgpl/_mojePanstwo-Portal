@@ -167,7 +167,18 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
                 </div>
             </div>
             <div class="col-md-2">
-
+				
+				<?
+					echo $this->element('Dane.object-actions', array(
+						'buttons' => array(
+							'pisma' => array(
+								'adresat_id' => $object->getDataset() . ':' . $object->getId(),
+							),
+						),
+						'name' => $object->getTitle(),
+					));
+				?>				
+				
             </div>
 
             <? /*
