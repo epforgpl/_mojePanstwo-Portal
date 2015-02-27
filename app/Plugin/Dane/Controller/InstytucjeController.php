@@ -63,6 +63,27 @@ class InstytucjeController extends DataobjectsController
 
     }
 
+    public function urzednicy()
+    {
+        parent::_prepareView();
+        $this->dataobjectsBrowserView(array(
+            // TODO wyswietlac tylko z tego urzedu
+            'conditions' => array(
+                'instytucja_id' => $this->object->getId()
+            ),
+            'dataset' => 'urzednicy',
+            'noResultsTitle' => 'Brak informacji o urzędnikach',
+            'title' => 'Urzędnicy',
+            'back' => $this->object->getUrl(),
+            'backTitle' => $this->object->getTitle(),
+            'excludeFilters' => array(
+            ),
+        ));
+
+        $this->set('title_for_layout', "Urzędnicy pracujący w " . $this->object->getTitle());
+
+    }
+
     public function zamowienia()
     {
         parent::_prepareView();
