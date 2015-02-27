@@ -1,3 +1,4 @@
+<?php $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma'))) ?>
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma-button.js') ?>
 
 <fieldset>
