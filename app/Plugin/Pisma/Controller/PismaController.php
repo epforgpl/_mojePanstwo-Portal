@@ -217,6 +217,7 @@ class PismaController extends AppController
 		}
 		
         $search = $this->API->Pisma()->documents_search($params);
+        // debug($search); die();
         $this->set('search', $search);
         $this->set('q', $q);
         $this->set('title_for_layout', 'Moje pisma');

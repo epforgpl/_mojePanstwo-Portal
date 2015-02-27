@@ -278,7 +278,36 @@ echo $this->Element('Dane.dataobject/subobject', array(
             </div>
         </div>
         <div class="col-md-2">
-
+			
+			
+			<? /*
+			<ul class="object-actions-ul">
+				<? if( isset( $this->request->query['dev'] ) ) { ?>
+				<li>
+					<p class="btn_cont">
+						<button class="btn btn-success">Obserwuj...</button>
+					</p>
+					<p class="desc">
+						Kliknij, aby otrzymywać powiadomienia o pracy radnego.
+					</p>
+				</li>
+				<? } ?>
+				<li>
+					<form action="/pisma" method="post">
+						<input type="hidden" name="adresat_id" value="radni_gmin:<?= $radny->getId() ?>" />
+						<input type="hidden" name="szablon_id" value="69" />
+						<p class="btn_cont">
+							<button class="btn btn-success">Wyślij pismo...</button>
+						</p>
+					</form>
+					<p class="desc">
+						Kliknij, aby wysłać pismo do radnego.
+					</p>
+				</li>
+			</ul>
+			*/ ?>
+			
+			
         </div>
 
     </div>
