@@ -5,25 +5,8 @@
                 <img src="/icon/moje_panstwo_logo.svg" title="moje Państwo"/>
             </a>
         </div>
-        <div class="_mPPowerButton">
-            <?php if ($this->Session->read('Auth.User.id')) { ?>
-                <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'logout')); ?>"><?php echo __('LC_COCKPITBAR_LOGOUT'); ?></a>
-            <?php } else { ?>
-                <a class="_specialCaseLoginButton"
-                   href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'login')); ?>"><?php echo __('LC_COCKPITBAR_LOGIN'); ?></a>
-            <?php } ?>
-        </div>
-        <?php if ($this->Session->read('Auth.User.id')) { ?>
-            <div class="_mPUser">
-                <img src="<?php if ($this->Session->read('Auth.User.photo_small')) {
-                    echo $this->Session->read('Auth.User.photo_small');
-                } else {
-                    echo '/img/avatars/avatar_default.jpg';
-                } ?>"/>
-
-                <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'index')); ?>"><?php echo __('LC_COCKPITBAR_USER_LINK'); ?></a>
-            </div>
-        <?php } ?>
+        
+        
         <div class="_mPApplication">
             <div class="_mPSearch _appBlock _appBlockBackground">
                 <div class="_mPTitle">
@@ -43,16 +26,41 @@
         </div>
         <div class="_mPSystem">
             <div class="_mPRunning">
-
+				
             </div>
+            
+            <div class="_mPApplication">
+	            <?php if ($this->Session->read('Auth.User.id')) { ?>
+	            <div class="_mPUser">
+	                <img src="<?php if ($this->Session->read('Auth.User.photo_small')) {
+	                    echo $this->Session->read('Auth.User.photo_small');
+	                } else {
+	                    echo '/img/avatars/avatar_default.jpg';
+	                } ?>"/>
+	
+	                <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'index')); ?>"><?php echo __('LC_COCKPITBAR_USER_LINK'); ?></a>
+	            </div>
+	        <?php } ?>
+	            <div class="_mPPowerButton">
+		            <?php if ($this->Session->read('Auth.User.id')) { ?>
+		                <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'logout')); ?>"><?php echo __('LC_COCKPITBAR_LOGOUT'); ?></a>
+		            <?php } else { ?>
+		                <a class="_specialCaseLoginButton"
+		                   href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'login')); ?>"><?php echo __('LC_COCKPITBAR_LOGIN'); ?></a>
+		            <?php } ?>
+		        </div>
+            </div>
+            
+            <? /*
             <ul class="_mPFooter">
                 <li><?php echo $this->Html->link(__('LC_FOOTER_ABOUT_US'), '/oportalu', array('target' => '_self')); ?></li>
                 <li><?php echo $this->Html->link(__('LC_FOOTER_API'), '/api', array('target' => '_self')); ?></li>
                 <li><?php echo $this->Html->link(__('LC_FOOTER_REGULATIONS'), '/regulamin', array('target' => '_self')); ?></li>
                 <li><?php echo $this->Html->link(__('LC_FOOTER_REPORT_BUG'), '/zglosblad', array('target' => '_self')); ?></li>
-                <?php /*<li>echo $this->Html->link(__('LC_FOOTER_CONTACT_US'), '/kontakt', array('target' => '_self'));</li>
-            <li class="last"><a href="#" target="_self">Personalizuj</a></li>*/ ?>
+                <?php <li>echo $this->Html->link(__('LC_FOOTER_CONTACT_US'), '/kontakt', array('target' => '_self'));</li>
+            <li class="last"><a href="#" target="_self">Personalizuj</a></li> ?>
             </ul>
+            */ ?>
         </div>
     </div>
     <? /*<div class="_mPAppList">

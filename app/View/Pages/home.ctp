@@ -21,12 +21,11 @@
                 <div class="basicOptions">
                     <div class="col-xs-12 col-sm-6 part">
                         <div class="observeBrick mainBrick">
-                            <div class="title">Obserwuj</div>
+                            <div class="title">Powiadomienia</div>
                             <span class="line"></span>
 
                             <div class="description">
-                                Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non
-                                felis. Maecenas malesuada elit lectus felis, malesuada ultricies. Curabitur et ligula.
+                                Otrzymuj powiadomienia o aktywnościach urzędów, urzędnikow oraz firm, którymi jesteś zainteresowany.
                             </div>
                             <div class="action">
                                 <a href="/obserwuj" target="_self" class="btn btn-primary btn-lg">Zacznij obserwować</a>
@@ -35,12 +34,11 @@
                     </div>
                     <div class="col-xs-12 col-sm-6 part">
                         <div class="shoutBrick mainBrick">
-                            <div class="title">Komunikuj</div>
+                            <div class="title">Pisma</div>
                             <span class="line"></span>
 
                             <div class="description">
-                                Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non
-                                felis. Maecenas malesuada elit lectus felis, malesuada ultricies. Curabitur et ligula.
+                                Wysyłaj wnioski o udostępnienie informacji publicznych oraz inne pisma do urzędów i dziel się nimi w mediach społecznościowych.
                             </div>
                             <div class="action">
                                 <a href="/pisma" target="_self" class="btn btn-primary btn-lg">Napisz pismo</a>
