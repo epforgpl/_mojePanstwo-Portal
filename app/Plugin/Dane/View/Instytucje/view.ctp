@@ -57,13 +57,7 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
                                     </li>
                                 <? } ?>
 
-                                <li class="dataHighlight">
-                                    <a href="<?= $object->getUrl() ?>/urzednicy">
-                                        <span class="icon icon-moon">&#xe611;</span>
-                                        Urzędnicy
-                                        <span class="glyphicon glyphicon-chevron-right"></span>
-                                    </a>
-                                </li>
+                                
 
                                 <? if ($object->getData('liczba_instytucji')) { ?>
                                     <li class="dataHighlight">
@@ -72,12 +66,12 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
                                     </li>
                                 <? } ?>
 
-                                <? if (false) { ?>
-                                    <li class="dataHighlight">
-                                        <a href="<?= $object->getUrl() ?>/urzednicy"><span class="icon icon-moon">&#xe617;</span>Urzędnicy
-                                            <span class="glyphicon glyphicon-chevron-right"></span></a>
-                                    </li>
-                                <? } ?>
+                                <li class="dataHighlight">
+                                    <a href="<?= $object->getUrl() ?>/urzednicy">
+                                        <span class="icon icon-moon">&#xe611;</span>Urzędnicy
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </a>
+                                </li>
 
                             </ul>
 
