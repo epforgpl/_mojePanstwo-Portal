@@ -57,17 +57,25 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
                                     </li>
                                 <? } ?>
 
+                                <li class="dataHighlight">
+                                    <a href="<?= $object->getUrl() ?>/urzednicy">
+                                        <span class="icon icon-moon">&#xe611;</span>
+                                        Urzędnicy
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </a>
+                                </li>
+
                                 <? if ($object->getData('liczba_instytucji')) { ?>
                                     <li class="dataHighlight">
                                         <a href="<?= $object->getUrl() ?>/instytucje"><span class="icon icon-moon">&#xe611;</span>Instytucje
-                                            nadzorowane <span class="glyphicon glyphicon-chevron-right"></a>
+                                            nadzorowane <span class="glyphicon glyphicon-chevron-right"></span></a>
                                     </li>
                                 <? } ?>
 
                                 <? if (false) { ?>
                                     <li class="dataHighlight">
                                         <a href="<?= $object->getUrl() ?>/urzednicy"><span class="icon icon-moon">&#xe617;</span>Urzędnicy
-                                            <span class="glyphicon glyphicon-chevron-right"></a>
+                                            <span class="glyphicon glyphicon-chevron-right"></span></a>
                                     </li>
                                 <? } ?>
 
@@ -85,19 +93,19 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
                             <li class="dataHighlight">
                                 <a href="<?= $object->getUrl() ?>/zamowienia"><span
                                         class="icon icon-moon">&#xe61a;</span>Zamówienia publiczne <span
-                                        class="glyphicon glyphicon-chevron-right"></a>
+                                        class="glyphicon glyphicon-chevron-right"></span></a>
                             </li>
 
                             <li class="dataHighlight">
                                 <a href="<?= $object->getUrl() ?>/prawo"><span class="glyphicon glyphicon-book"></span>Akty
-                                    prawne <span class="glyphicon glyphicon-chevron-right"></a>
+                                    prawne <span class="glyphicon glyphicon-chevron-right"></span></a>
                             </li>
 
                             <? if ($object->getData('twitter_account_id')) { ?>
                                 <li class="dataHighlight">
                                     <a href="<?= $object->getUrl() ?>/tweety"><span
                                             class="icon icon-moon">&#xe61d;</span>Tweety <span
-                                            class="glyphicon glyphicon-chevron-right"></a>
+                                            class="glyphicon glyphicon-chevron-right"></span></a>
                                 </li>
                             <? } ?>
 

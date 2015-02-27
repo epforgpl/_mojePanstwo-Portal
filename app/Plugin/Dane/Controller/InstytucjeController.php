@@ -107,6 +107,7 @@ class InstytucjeController extends DataobjectsController
         $_menu = $this->object->getLayer('menu');
 
         // PREPARE MENU
+        // TODO add slug
         $href_base = '/dane/instytucje/' . $this->request->params['id'];
 
         $menu = array(
@@ -163,6 +164,12 @@ class InstytucjeController extends DataobjectsController
                 'label' => 'Tweety',
             );
         }
+
+        $items['items'][] = array(
+            'id' => 'urzednicy',
+            'href' => $href_base . '/urzednicy',
+            'label' => 'Urzędnicy',
+        );
 
         if (!empty($items)) {
             $menu['items'][] = array(
