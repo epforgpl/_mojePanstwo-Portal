@@ -6,7 +6,7 @@ echo $this->Html->script('Dane.d3/d3', array('block' => 'scriptBlock'));
 $this->Combinator->add_libs('css', $this->Less->css('view-krsosoby', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-krs-graph', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.view-krsosoby');
-$this->Combinator->add_libs('js', 'graph-krs-osoba');
+$this->Combinator->add_libs('js', 'graph-krs');
 
 ?>
     <div class="krsOsoby row">
@@ -74,7 +74,8 @@ $this->Combinator->add_libs('js', 'graph-krs-osoba');
 
                     <div class="powiazania block">
                         <div class="block-header"><h2 class="label">Powiązania</h2></div>
-                        <div id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>"></div>
+                        <div id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>"
+                             data-url="krs_osoby"></div>
                     </div>
 
                 </div>
