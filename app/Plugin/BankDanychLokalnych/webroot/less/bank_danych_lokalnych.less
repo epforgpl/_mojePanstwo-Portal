@@ -15,21 +15,36 @@
 #_wrapper #_main {
   padding: 0;
   margin: 0;
+  background: #142026;
 
   #bankDanychLokalny {
     .minHeight();
     display: block;
+    #loader {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #fff;
+      z-index: 3;
+    }
     .leftSide {
       padding: 0;
       margin: 0;
       margin-top: 40px;
       overflow-y: scroll;
+
       #categories {
         ul.jqtree-tree {
           font-size: 12px;
-          color: #555;
+          color: #eee;
+          .active {
+            font-weight: bold;
+          }
           .jqtree-element {
-            border-bottom: 1px solid #dedede;
+            border-bottom: 1px solid #0d181e;
             margin: 5px;
             margin-bottom: 0;
             padding-bottom: 5px;
@@ -38,6 +53,7 @@
             // margin: 3px;
             //overflow: hidden;
             .jqtree-title {
+              color: #fff !important;
               //float: left;
               //width: 80%;
               // border-bottom: 1px solid #ccc;
@@ -59,22 +75,44 @@
       }
     }
     .rightSide {
-        .minHeight();
-        background-color: #000000;
-
-        #indicator {
-          margin-top: 50px;
-          .row {
-            margin: 0;
-            padding: 0;
-            color: #888;
-            .form-group {
-              label {
-                font-weight: normal;
-              }
+      .minHeight();
+      background-color: #000000;
+      #desc {
+        margin-top: 5px;
+        margin-left: 10px;
+        color: #fff;
+      }
+      #indicator {
+        background: #111;
+        margin-top: 40px;
+        padding-top: 10px;
+        height: 86px;
+        .row {
+          margin: 0;
+          padding: 0;
+          color: #888;
+          .form-group {
+            label {
+              font-weight: normal;
             }
           }
         }
+      }
+      #levels {
+        margin-top: 10px;
+        margin-left: 10px;
+      }
+      #year {
+        position: absolute;
+        right: 10px;
+        top: 136px;
+        width: 100px;
+      }
+      #map {
+        margin: 0 auto;
+        margin-top: 10px;
+        max-width: 70vw;
+      }
     }
   }
 }
