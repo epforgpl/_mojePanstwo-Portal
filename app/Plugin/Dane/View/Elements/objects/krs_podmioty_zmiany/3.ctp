@@ -33,6 +33,7 @@
 <table class="table table-striped table-hover ">
 	<thead>
 		<tr>
+			<th>Dokument</th>
 			<th>Od</th>
 			<th>Do</th>
 			<th>Data złożenia</th>
@@ -47,6 +48,7 @@
 			
 	?>
 		<tr>
+			<td><?= @$zmiana['dokument'] ?></td>			
 			<td><?= @$this->Czas->dataSlownie($zmiana['okres_od']) ?></td>			
 			<td><?= @$this->Czas->dataSlownie($zmiana['okres_do']) ?></td>			
 			<td><?= @$this->Czas->dataSlownie($zmiana['data_zlozenia']) ?></td>			

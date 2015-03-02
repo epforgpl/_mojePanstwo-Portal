@@ -1,6 +1,9 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('view-zamowieniapubliczne', array('plugin' => 'Dane'))); ?>
-<?php $this->Combinator->add_libs('js', 'Dane.view-zamowieniapubliczne'); ?>
-
+<?
+	$this->Combinator->add_libs('css', $this->Less->css('view-zamowieniapubliczne', array('plugin' => 'Dane')));
+	$this->Combinator->add_libs('js', 'Dane.view-zamowieniapubliczne');
+	$this->Combinator->add_libs('css', $this->Less->css('feed-timeline', array('plugin' => 'Dane')));
+	$this->Combinator->add_libs('js', 'Dane.feed-timeline');
+?>
 
 <?= $this->Element('dataobject/pageBegin'); ?>
 
@@ -146,17 +149,19 @@
         </div>
     </div>
 
-    <div class="col-lg-9 objectMain">
+    <div class="col-lg-9 objectMain feed-content">
 		
 		<div class="row">
-			<div class="col-lg-9 nopadding">
+			<div class="col-lg-1 nopadding feed-timeline">
+	        </div>
+	        <div class="col-lg-9 nopadding feed-content">
 				
 				<div class="object">
 		            <?= $this->dataobject->feed($feed); ?>
 		        </div>
         
 			</div>
-			<div class="col-lg-3">
+			<div class="col-lg-2">
 				
 				<? /*
 				<ul class="object-actions-ul">

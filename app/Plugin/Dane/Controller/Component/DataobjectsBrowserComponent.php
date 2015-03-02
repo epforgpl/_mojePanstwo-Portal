@@ -127,7 +127,7 @@ class DataobjectsBrowserComponent extends Component
             $this->backTitle = $settings['backTitle'];
         }
 
-
+				
         $add_source_params = array();
         $source_params = array();
 
@@ -461,6 +461,9 @@ class DataobjectsBrowserComponent extends Component
             'facets' => true,
             'limit' => $this->limit,
         );
+        
+        
+        // debug( $queryData );
 
 
         if (empty($order) && !empty($orders)) {

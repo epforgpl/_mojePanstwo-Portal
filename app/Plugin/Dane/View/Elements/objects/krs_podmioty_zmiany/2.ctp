@@ -1,4 +1,7 @@
 <?
+	
+	$mode = isset( $mode ) ? $mode : 'full';
+	
 	if( isset($data['wykreslono']) && !empty($data['wykreslono']) ) {
 ?>
 <p class="label label-danger">Wykreślono</p>
@@ -10,6 +13,7 @@
 	</thead>
 	<tbody>
 	<? 
+		$i = 0;
 		foreach( $data['wykreslono'] as $zmiana ) { 
 			
 			// $title = $zmiana['osoba']['imie'] . ' ' . $zmiana['osoba']['nazwisko'];
@@ -19,10 +23,21 @@
 		<tr>
 			<td><b><?= $zmiana['kod'] ?></b> <?= $zmiana['nazwa'] ?></td>			
 		</tr>
-	<? } ?>
+	<?
+			$i++;
+			if( ($mode=='short') && ($i>=3) ) {
+				break;
+			}
+		} 
+	?>
 	</tbody>
 </table>    
-<?		
+<?
+		if( ($mode=='short') && ($diff = (count($data['wykreslono'])-$i)) ) {
+?>
+<p class="text-center">oraz <?= pl_dopelniacz($diff, 'inny dział', 'inne działy', 'innych działów') ?></p>
+<?			
+		} 	
 	}
 ?>
 
@@ -38,6 +53,7 @@
 	</thead>
 	<tbody>
 	<? 
+		$i = 0;
 		foreach( $data['wpisano'] as $zmiana ) { 
 			
 			// $title = $zmiana['osoba']['imie'] . ' ' . $zmiana['osoba']['nazwisko'];
@@ -47,9 +63,20 @@
 		<tr>
 			<td><b><?= $zmiana['kod'] ?></b> <?= $zmiana['nazwa'] ?></td>			
 		</tr>
-	<? } ?>
+	<? 
+			$i++;
+			if( ($mode=='short') && ($i>=3) ) {
+				break;
+			}
+		} 
+	?>
 	</tbody>
 </table>    
-<?		
+<?
+		if( ($mode=='short') && ($diff = (count($data['wpisano'])-$i)) ) {
+?>
+<p class="text-center">oraz <?= pl_dopelniacz($diff, 'inny dział', 'inne działy', 'innych działów') ?></p>
+<?			
+		} 	
 	}
 ?>

@@ -12,8 +12,8 @@ class UrzednicyController extends DataobjectsController
         parent::_prepareView();
 
         $this->dataobjectsBrowserView(array(
-            // TODO conditions powiązanie z urzednikiem
             'conditions' => array(
+	            'osoba_id' => $this->object->getId(),
             ),
             'dataset' => 'urzednicy_rejestr_korzysci',
             'title' => 'Oświadczenia majątkowe urzędnika',
