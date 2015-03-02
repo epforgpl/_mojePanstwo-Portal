@@ -592,7 +592,7 @@ if (isset($historia) && $historia) {
     <div class="powiazania block">
         <div class="block-header"><h2 class="label">Powiązania</h2></div>
 
-        <div id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>"></div>
+        <div id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>" data-url="krs_podmioty"></div>
     </div>
 
 

@@ -37,7 +37,7 @@ var d3Data;
             }
         };
 
-        d3.json("/dane/krs_podmioty/" + connectionGraph.data('id') + "/graph.json", function (error, graph) {
+        d3.json("/dane/" + connectionGraph.data('url') + "/" + connectionGraph.data('id') + "/graph.json", function (error, graph) {
                 var nodes = graph.nodes,
                     links = [];
 
@@ -497,10 +497,6 @@ var d3Data;
                         pathSize = ((d.target.label == "podmiot" ? d3Data.size.nodesPodmiot : d3Data.size.nodesOsoba) + d3Data.size.nodesMarkerSize / 2) + d3Data.size.nodesMarkerSpace,
                         pathLength = parseFloat(pathEl.getTotalLength()) || pathSize * 2,
                         pathPoint = pathEl.getPointAtLength(pathLength - pathSize);
-
-                    console.log(path, pathEl, pathSize, pathLength, pathPoint);
-                    console.log(Math.floor(pathPoint.x), Math.floor(pathPoint.y), Math.floor(d.target.x), Math.floor(d.target.y));
-                    console.log("M" + Math.floor(pathPoint.x) + "," + Math.floor(pathPoint.y) + " L" + Math.floor(d.target.x) + "," + Math.floor(d.target.y));
 
                     return "M" + Math.floor(pathPoint.x) + "," + Math.floor(pathPoint.y) + " L" + Math.floor(d.target.x) + "," + Math.floor(d.target.y);
                 }
