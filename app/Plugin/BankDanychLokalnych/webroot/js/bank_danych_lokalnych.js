@@ -110,6 +110,8 @@ $(function () {
                     nullColor: '#000'
                 }]
             });
+
+            $('#map').highcharts().mapZoom(0.5);
         }
     };
 
@@ -230,7 +232,7 @@ $(function () {
 
         spinner.hide();
 
-        $('#categories').tree({
+        var $tree = $('#categories').tree({
             data: categoriesData,
             selectable: false
         });
@@ -239,8 +241,10 @@ $(function () {
             'tree.click',
             function(event) {
                 var node = event.node;
-                if(node.children.length > 0)
+                if(node.children.length > 0) {
+                    $tree.tree('toggle', node);
                     return false;
+                }
 
                 $('#categories li').each(function() {
                     $(this).removeClass('active');
