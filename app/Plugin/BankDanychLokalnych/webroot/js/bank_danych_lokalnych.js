@@ -76,12 +76,20 @@ $(function () {
                 if(v > max) max = v;
             }
 
+            $('#map').css('width', (
+                $(window).width() - $('.leftSide').width() - 20
+            ) + 'px');
+
+            $('#map').css('height', (
+            $(window).height() - $('#indicator').height() - 100
+            ) + 'px');
+
             $('#map').highcharts('Map', {
                 title: {
                     text: ' '
                 },
                 chart: {
-                    backgroundColor: '#000000'
+                    backgroundColor: '#fff'
                 },
                 mapNavigation: {
                     enabled: true,
@@ -111,7 +119,7 @@ $(function () {
                 }]
             });
 
-            $('#map').highcharts().mapZoom(0.5);
+            //$('#map').highcharts().mapZoom(0.5);
         }
     };
 
@@ -217,14 +225,14 @@ $(function () {
                     });
                 }
                 groupsData.push({
-                    label:      categories[i].groups[s].tytul + ' (' + subGroupsData.length + ')',
+                    label:      categories[i].groups[s].tytul + '&nbsp;<span class="small">(' + subGroupsData.length + ')</span>',
                     id:         categories[i].groups[s].id,
                     children:   subGroupsData
                 });
             }
 
             categoriesData.push({
-                label:      (categories[i].w_tytul == '' ? categories[i].tytul : categories[i].w_tytul) + ' (' + groupsData.length + ')',
+                label:      (categories[i].w_tytul == '' ? categories[i].tytul : categories[i].w_tytul) + '&nbsp;<span class="small">(' + groupsData.length + ')</span>',
                 id:         categories[i].id,
                 children:    groupsData
             });
@@ -234,7 +242,8 @@ $(function () {
 
         var $tree = $('#categories').tree({
             data: categoriesData,
-            selectable: false
+            selectable: false,
+            autoEscape: false
         });
 
         $('#categories').bind(
@@ -250,6 +259,7 @@ $(function () {
                     $(this).removeClass('active');
                 });
                 $(node.element).addClass('active');
+                $('#indicator h3').html(node.name);
 
                 if(indicators[node.id] === undefined) {
                     $.getJSON(API + 'dane/bdl_wskazniki/' + node.id + '.json?layers[]=dimennsions', function (data) {

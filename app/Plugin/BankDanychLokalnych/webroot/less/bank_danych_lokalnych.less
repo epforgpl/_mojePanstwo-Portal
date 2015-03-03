@@ -15,52 +15,45 @@
 #_wrapper #_main {
   padding: 0;
   margin: 0;
-  background: #142026;
+  background: #003054;
 
   #bankDanychLokalny {
     .minHeight();
     display: block;
-    #loader {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: #fff;
-      z-index: 3;
-    }
     .leftSide {
-      padding: 0;
+      padding: 5px 10px;
       margin: 0;
       margin-top: 40px;
       overflow-y: scroll;
-
+      background: #003054;
       #categories {
         ul.jqtree-tree {
-          font-size: 12px;
+          font-size: 14px;
+          font-weight: bold;
           color: #eee;
+          .small {
+            font-weight: normal;
+            font-size: 11px;
+          }
           .active {
-            font-weight: bold;
+            background: #018ccd;
           }
           .jqtree-element {
-            border-bottom: 1px solid #0d181e;
-            margin: 5px;
-            margin-bottom: 0;
-            padding-bottom: 5px;
+            padding: 5px 0;
           }
           .jqtree_common {
             // margin: 3px;
             //overflow: hidden;
             .jqtree-title {
               color: #fff !important;
+              margin-left: 0;
               //float: left;
               //width: 80%;
               // border-bottom: 1px solid #ccc;
             }
             .jqtree-toggler {
               //float: left;
-              display: inline-block;
+              display: none;
               font-size: 0px;
               margin-right: 5px;
               width: 19px;
@@ -76,21 +69,31 @@
     }
     .rightSide {
       .minHeight();
-      background-color: #000000;
+      background-color: #fff;
       #desc {
+        display: none;
         margin-top: 5px;
         margin-left: 10px;
-        color: #fff;
+        color: #000;
+        font-weight: bold;
+        font-size: 14px;
       }
       #indicator {
-        background: #111;
+        background: #ebf1f1;
         margin-top: 40px;
-        padding-top: 10px;
-        height: 86px;
+        // height: 86px;
+        h3 {
+          padding: 20px;
+          margin: 0;
+          color: #028bcf;
+          font-weight: normal;
+          font-size: 32px;
+        }
         .row {
           margin: 0;
           padding: 0;
-          color: #888;
+          color: #222325;
+          border: none;
           .form-group {
             label {
               font-weight: normal;
@@ -99,19 +102,13 @@
         }
       }
       #levels {
+        display: none;
         margin-top: 10px;
         margin-left: 10px;
       }
-      #year {
-        position: absolute;
-        right: 10px;
-        top: 136px;
-        width: 100px;
-      }
       #map {
-        margin: 0 auto;
+        margin: 0;
         margin-top: 10px;
-        max-width: 70vw;
       }
     }
   }
