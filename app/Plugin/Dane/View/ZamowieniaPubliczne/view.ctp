@@ -5,7 +5,7 @@ $this->Combinator->add_libs('js', 'Dane.view-zamowieniapubliczne');
 echo $this->Element('dataobject/pageBegin'); ?>
 
 <div class="row">
-    <div class="col-lg-3 objectSide">
+    <div class="col-md-3 objectSide">
         <div class="objectSideInner">
             <ul class="dataHighlights side">
                 <li class="dataHighlight -block">
@@ -141,7 +141,7 @@ echo $this->Element('dataobject/pageBegin'); ?>
         </div>
     </div>
 
-    <div class="col-lg-9 objectMain feed-content">
+    <div class="col-md-9 objectMain feed-content">
         <div class="row">
             <div class="col-lg-10 nopadding feed-content feed-timeline">
 

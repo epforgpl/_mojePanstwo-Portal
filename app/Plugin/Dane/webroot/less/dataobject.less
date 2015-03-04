@@ -117,7 +117,6 @@
             font-family: "Lato", Arial, sans-serif;
             font-weight: 300;
             font-size: 16px;
-            padding-right: 0;
 
             > .header {
 
@@ -416,7 +415,6 @@
 
         .dataObjects {
             font-family: "Lato", Arial, sans-serif;
-            padding-left: 0;
 
             .dataInfo {
                 color: #2F2F2F;
@@ -1372,4 +1370,15 @@
         }
     }
 
+}
+
+@media (min-width: 768px) {
+    .objectsPage .dataBrowser {
+        .dataFilters {
+            padding-right: 0;
+        }
+        .dataObjects {
+            padding-left: 0;
+        }
+    }
 }

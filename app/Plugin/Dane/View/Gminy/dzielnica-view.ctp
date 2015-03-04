@@ -21,7 +21,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
     <div class="krsOsoba row">
 
-        <div class="col-lg-3 objectSide">
+        <div class="col-md-3 objectSide">
             <div class="objectSideInner rrs">
 
 

@@ -35,18 +35,16 @@
 
     <div class="row">
 
-        <div class="formatDate col-md-1 dimmed">
+        <div class="formatDate col-xs-2 col-lg-1 dimmed">
             <?= $temp ?>
         </div>
 
-        <div class="col-md-8">
-
+        <div class="col-xs-6 col-lg-8">
             <p class="title"><a
                     href="/dane/gminy/903,krakow/dzielnice/<?= $object->getData('krakow_dzielnice_uchwaly.dzielnica_id') ?>/uchwaly/<?= $object->getData('krakow_dzielnice_uchwaly.id') ?>"><?= $object->getData('krakow_dzielnice_uchwaly.nazwa') ?></a>
             </p>
-
         </div>
-        <div class="col-md-3 text-right">
+        <div class="col-xs-4 col-lg-3 text-right">
 
             <div class="voted btn btn-default btn-glos-<?= $glos[1] ?>"
                  data-glos="<?= $object->getData('glos') ?>"><?= $glos[0] ?></div>

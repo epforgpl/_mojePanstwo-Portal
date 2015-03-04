@@ -146,7 +146,7 @@
     }
 
     .objectPageHeaderBg {
-        background-color: #f6f7f8;
+        background: #f6f7f8 center top;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -224,20 +224,8 @@
     }
 
     .objectsPageWindow {
-        //padding-bottom: 20px;
-        // overflow: hidden;
-
-        .objectMain {
-            padding-left: 0;
-
-        }
-
         .objectSide {
-
-            padding-right: 0;
-
             .objectSideInner {
-
                 padding: 0 0 0 5px;
 
                 &.rrs {
@@ -682,6 +670,17 @@ h2.light {
                     margin: 0;
                     border-width: 0;
 
+                    ul {
+                        position: relative;
+                        top: 0;
+                        left: 0;
+                        background: none;
+                        -ms-filter: none;
+                        -moz-box-shadow: none;
+                        -webkit-box-shadow: none;
+                        box-shadow: none;
+                    }
+
                     ul,
                     ul li {
                         width: 100%;
@@ -732,5 +731,16 @@ h2.light {
 @media (min-width: 769px) and (max-width: 992px) {
     .objectsPage .objectPageHeaderBg.extended .menuTabsCont li a {
         font-size: 12px;
+    }
+}
+
+@media (min-width: 993px) {
+    .objectsPage .objectsPageWindow {
+        .objectSide {
+            padding-right: 0;
+        }
+        .objectMain {
+            padding-left: 0;
+        }
     }
 }

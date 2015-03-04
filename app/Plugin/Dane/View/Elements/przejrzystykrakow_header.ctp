@@ -1,6 +1,4 @@
-<div class="objectRender col-xs-12 <?php echo $object->getDataset(); ?>"<?php if (isset($item)) {
-    echo "oid=" . $item['data']['id'];
-}; ?>">
+<div class="objectRender col-xs-12 <?php echo $object->getDataset(); ?>" oid="<?php echo $item['data']['id'] ?>">
 <div class="row">
     <div class="data col-xs-12">
         <div class="row">
