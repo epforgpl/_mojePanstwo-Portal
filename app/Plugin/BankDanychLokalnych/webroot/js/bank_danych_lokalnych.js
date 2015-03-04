@@ -67,8 +67,8 @@ $(function () {
 
         draw: function() {
             var d = this.data[this.i];
-            var min = parseFloat(this.seriesData[0].v);
-            var max = parseFloat(this.seriesData[0].v);
+            var min = parseFloat(this.seriesData[0] == undefined ? 0 : this.seriesData[0].v);
+            var max = parseFloat(this.seriesData[0] == undefined ? 0 : this.seriesData[0].v);
             for(var m = 0; m < this.seriesData.length; m++) {
                 var v = parseFloat(this.seriesData[m].v);
                 d[m].value = v;
@@ -81,11 +81,11 @@ $(function () {
             ) + 'px');
 
             $('#map').css('height', (
-            $(window).height() - $('#indicator').height() - 100
+                $(window).height() - $('#indicator').height() - 100
             ) + 'px');
 
             $('#levels').css('margin-top', (
-            $('#map').height() - 34
+                $('#map').height() - 34
             ) + 'px');
 
             $('#map').highcharts('Map', {
