@@ -77,11 +77,15 @@ $(function () {
             }
 
             $('#map').css('width', (
-                $(window).width() - $('.leftSide').width() - 20
+                $(window).width() - $('.leftSide').width() - 40
             ) + 'px');
 
             $('#map').css('height', (
             $(window).height() - $('#indicator').height() - 100
+            ) + 'px');
+
+            $('#levels').css('margin-top', (
+            $('#map').height() - 34
             ) + 'px');
 
             $('#map').highcharts('Map', {
@@ -160,7 +164,7 @@ $(function () {
             // var years = data.years;
             map.setUnit(data.unit);
             map.setSeriesData(data.data);
-            $('#desc').html('').append('Rocznik ' + data.year + ', ' + data.value + ' ' + data.unit);
+            $('#desc').html('').append(data.value + ' ' + data.unit + ' w ' + data.year + ' r.');
             /* $('#year').html('');
             for(var i = 0; i < years.length; i++) {
                 $('#year').append('<option value="' + years[i] + '">' + years[i] + '</option>');

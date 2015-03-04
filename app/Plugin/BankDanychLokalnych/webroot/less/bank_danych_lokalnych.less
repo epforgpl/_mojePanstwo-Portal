@@ -22,12 +22,36 @@
     display: block;
     .leftSide {
       padding: 5px 10px;
+      padding-right: 0;
       margin: 0;
       margin-top: 40px;
       overflow-y: scroll;
       background: #003054;
       #categories {
         ul.jqtree-tree {
+          margin: 0;
+          li {
+            margin: 0;
+            padding-left: 20px;
+            ul {
+              margin: 0;
+              li {
+                margin: 0;
+                padding-left: 20px;
+                ul {
+                  li {
+                    padding-right: 5px;
+                  }
+                }
+              }
+            }
+            &.jqtree-folder {
+              background: url('/img/bdl-arrow-up.gif') left 11px no-repeat;
+              &.jqtree-closed {
+                background-image: url('/img/bdl-arrow-down.gif');
+              }
+            }
+          }
           font-size: 14px;
           font-weight: bold;
           color: #eee;
@@ -37,6 +61,8 @@
           }
           .active {
             background: #018ccd;
+            margin-left: -50px;
+            padding-left: 70px;
           }
           .jqtree-element {
             padding: 5px 0;
@@ -71,12 +97,13 @@
       .minHeight();
       background-color: #fff;
       #desc {
-        display: none;
-        margin-top: 5px;
-        margin-left: 10px;
-        color: #000;
+        position: absolute;
+        z-index: 3;
+        margin-top: 15px;
+        margin-left: 15px;
+        color: #333;
         font-weight: bold;
-        font-size: 14px;
+        font-size: 16px;
       }
       #indicator {
         background: #ebf1f1;
@@ -102,12 +129,19 @@
         }
       }
       #levels {
-        display: none;
+        position: absolute;
+        z-index: 4;
         margin-top: 10px;
-        margin-left: 10px;
+        margin-left: 65px;
+        button {
+          background: #007cc2;
+          color: #fff;
+          font-weight: bold;
+          border-color: #0068a3;
+        }
       }
       #map {
-        margin: 0;
+        margin: 0 auto;
         margin-top: 10px;
       }
     }
