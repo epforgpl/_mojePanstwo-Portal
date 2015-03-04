@@ -1,4 +1,4 @@
-<div class="col-xs-12 col-sm-3 dataFilters update-filters">
+<div class="col-xs-12 col-sm-4 col-md-3 dataFilters update-filters">
 
     <? if (!$emptyFilters && $page['showTitle']) { ?>
     <div class="header">

@@ -1,18 +1,12 @@
 <?
-	$this->Combinator->add_libs('css', $this->Less->css('view-zamowieniapubliczne', array('plugin' => 'Dane')));
-	$this->Combinator->add_libs('js', 'Dane.view-zamowieniapubliczne');
-	$this->Combinator->add_libs('css', $this->Less->css('feed-timeline', array('plugin' => 'Dane')));
-	$this->Combinator->add_libs('js', 'Dane.feed-timeline');
-?>
+$this->Combinator->add_libs('css', $this->Less->css('view-zamowieniapubliczne', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('js', 'Dane.view-zamowieniapubliczne');
 
-<?= $this->Element('dataobject/pageBegin'); ?>
+echo $this->Element('dataobject/pageBegin'); ?>
 
 <div class="row">
-
     <div class="col-lg-3 objectSide">
         <div class="objectSideInner">
-
-
             <ul class="dataHighlights side">
                 <li class="dataHighlight -block">
                     <?
@@ -56,8 +50,8 @@
 
                     <p class="_value"><?= $object->getData('zamowienia_publiczne_rodzaje.nazwa') ?></p>
                 </li>
-				
-				<? /*
+
+                <? /*
                 <? if (($object->getData('kryterium_kod') == 'A') || ($object->getData('kryterium_kod') == 'B')) { ?>
                     <li class="dataHighlight topborder">
                         <p class="_label">Kryteria</p>
@@ -127,7 +121,6 @@
                 </li>
             </ul>
 
-
             <? /*
                 <h2><?php echo __d('dane', __('LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_ZAMAWIAJACY')); ?></h2>
 
@@ -145,25 +138,21 @@
 				*/
             ?>
 
-
         </div>
     </div>
 
     <div class="col-lg-9 objectMain feed-content">
-		
-		<div class="row">
-			<div class="col-lg-1 nopadding feed-timeline">
-	        </div>
-	        <div class="col-lg-9 nopadding feed-content">
-				
-				<div class="object">
-		            <?= $this->dataobject->feed($feed); ?>
-		        </div>
-        
-			</div>
-			<div class="col-lg-2">
-				
-				<? /*
+        <div class="row">
+            <div class="col-lg-10 nopadding feed-content feed-timeline">
+
+                <div class="object">
+                    <?= $this->dataobject->feed($feed); ?>
+                </div>
+
+            </div>
+            <div class="col-lg-2">
+
+                <? /*
 				<ul class="object-actions-ul">
 					<li>
 						<p class="btn_cont">
@@ -175,11 +164,11 @@
 					</li>
 				</ul>
 				*/ ?>
-				
-			</div>
-			
-		</div>
-				
+
+            </div>
+
+        </div>
+
     </div>
 
 </div>

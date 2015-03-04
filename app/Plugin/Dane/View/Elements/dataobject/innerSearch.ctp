@@ -11,10 +11,10 @@
     <? } ?>
 
     <div class="row">
-        <div class="col-xs-12 col-sm-3 dataFilters">
+        <div class="col-xs-12 col-sm-4 col-md-3 dataFilters">
             <?php echo $this->Filter->generateFilters($filters, $facets); ?>
         </div>
-        <div class="col-xs-12 col-sm-9 dataObjects">
+        <div class="col-xs-12 col-sm-8 col-md-9 dataObjects">
             <div class="dataInfo">
                 <div class="col-xs-12 col-sm-4 dataStats">
                     <strong><?= $this->Number->currency($pagination['total'], '', array('places' => 0,)); ?></strong>

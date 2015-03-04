@@ -1,6 +1,8 @@
 <?
+/** @var Object $object */
 $object = $this->viewVars['object'];
 $objectOptions = $this->viewVars['objectOptions'];
+/** @var Object $microdata */
 $objectOptions['microdata'] = $microdata;
 
 if (isset($titleTag)) {
@@ -34,65 +36,56 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
 
 
     <?
-    $krakow = ($object->getDataset() == 'krs_podmioty') && ($object->getData('id') == '903');
-    if ($krakow) {
+    $krsPodmiotyKrakow = ($object->getDataset() == 'krs_podmioty') && ($object->getData('gmina_id') == '903');
+
+    if ($krsPodmiotyKrakow) {
         $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow-outside', array('plugin' => 'Dane')));
     }
     ?>
 
     <div
         class="objectPageHeaderBg<?php if ((isset($headerObject) && (!empty($headerObject['url']) || !empty($headerObject['height']))) || $object->getData('id') == '903') {
-        echo ' extended" style="';
-        if (!empty($headerObject['url'])) echo 'background-image: url(' . $headerObject['url'] . ');';
-        if (!empty($headerObject['height'])) echo 'min-height:' . $headerObject['height'] . ';';
-    } ?>">
+            echo ' extended" style="';
+            if (!empty($headerObject['url'])) echo 'background-image: url(' . $headerObject['url'] . ');';
+            if (!empty($headerObject['height'])) echo 'min-height:' . $headerObject['height'] . ';';
+        } ?>">
         <div
             class="objectPageHeaderContainer topheader <? if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) { ?> krakow<? } ?>">
             <div class="container">
-                <? if ($krakow) { ?>
+                <? if ($krsPodmiotyKrakow) { ?>
                     <div class="krakow col-md-2">
 
                         <a title="Program Przejrzysty Kraków, prowadzony przez Fundację Stańczyka, ma na celu wieloaspektowy monitoring życia publicznego w Krakowie. W ramach programu prowadzony jest obecnie monitoring Rady Miasta i Dzielnic Krakowa."
                            href="http://przejrzystykrakow.pl" class="thumb_cont">
-                            <img alt="Przejrzysty Kraków" src="/dane/img/customObject/krakow/logo_pkrk.jpg"
+                            <img alt="Przejrzysty Kraków" src="/Dane/img/customObject/krakow/logo_pkrk_black.png"
                                  onerror="imgFixer(this)" class="thumb">
                         </a>
 
                     </div>
                 <? } ?>
-                <div class="objectPageHeaderContainer col-md-<? if ($krakow) {
-                    echo '7';
-                } else {
-                    echo '12';
-                } ?>">
+                <div class="<? echo($krsPodmiotyKrakow ? 'col-md-7' : 'col-xs-12'); ?>">
                     <div class="objectPageHeader">
-                        <?php
-                        echo $this->Dataobject->render($object, 'page', $objectOptions);
-                        ?>
+                        <?php echo $this->Dataobject->render($object, 'page', $objectOptions); ?>
                     </div>
                 </div>
-                <!--<div class="objectButtonsContainer col-md-3">
+                <? /*
+                <div class="objectButtonsContainer col-md-3">
                     <div class="row">
                         <ul class="objectButtons">
-                            <? /* foreach ($buttons as $button) { */ ?>
-                                <li><? /*=
+                            <? foreach ($buttons as $button) { ?>
+                                <li><?
                                     $this->Element('dataobject/buttons/' . $button, array(
                                         'base_url' => '/dane/' . $object->getDataset() . '/' . $object->getId(),
-                                    )); */ ?></li>
-                            <? /* } */ ?>
+                                    )); ?></li>
+                            <?  } ?>
                         </ul>
                     </div>
-                </div>-->
+                </div>
+                */ ?>
             </div>
         </div>
 
-
-
-
-
-        <?
-        if (isset($_menu) && !empty($_menu)) {
-            ?>
+        <? if (isset($_menu) && !empty($_menu)) { ?>
             <div class="menuTabsCont">
                 <div class="container">
                     <?
@@ -102,9 +95,7 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
                     ?>
                 </div>
             </div>
-
         <? } ?>
-
     </div>
 
     <div class="objectsPageWindow">
