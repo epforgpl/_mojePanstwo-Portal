@@ -28,7 +28,8 @@
                                 Otrzymuj powiadomienia o aktywnościach urzędów, urzędnikow oraz firm, którymi jesteś zainteresowany.
                             </div>
                             <div class="action">
-                                <a href="/obserwuj" target="_self" class="btn btn-primary btn-lg">Zacznij obserwować</a>
+                                <a href="/powiadomienia" target="_self" class="btn btn-primary btn-lg">Zacznij
+                                    obserwować</a>
                             </div>
                         </div>
                     </div>

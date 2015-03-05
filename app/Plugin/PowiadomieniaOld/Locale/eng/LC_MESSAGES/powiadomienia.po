@@ -1,0 +1,74 @@
+msgid "LC_POWIADOMIENIA_FRAZY_USER"
+msgstr "Twoje słowa kluczowe"
+
+msgid "LC_POWIADOMIENIA_FRAZY_NOKEYWORDS"
+msgstr "Brak słów kluczowych"
+
+msgid "LC_POWIADOMIENIA_FRAZY_DODAJ_FRAZE"
+msgstr "Dodaj słowo kluczowe..."
+
+msgid "LC_POWIADOMIENIA_DANE_NEW"
+msgstr "Nowe powiadomienia"
+
+msgid "LC_POWIADOMIENIA_DANE_READ"
+msgstr "Przeczytane powiadomienia"
+
+msgid "LC_POWIADOMIENIA_DANE_ALLREADED"
+msgstr "Oznacz wszystko jako przeczytane"
+
+msgid "LC_POWIADOMIENIA_DANE_NO_KEYWORDS"
+msgstr "Brak nowych powiadomień dla wybranych słów kluczowych"
+
+msgid "LC_POWIADOMIENIA_JS_NO_PHRASE_ADDED_YET"
+msgstr 'Not yet added any keyword.'
+
+msgid "LC_POWIADOMIENIA_JS_PHRASE_ADDING"
+msgstr "Adding keyword..."
+
+msgid "LC_POWIADOMIENIA_JS_CONFIRM_DELETING"
+msgstr "Are you sure you want to delete this keyword?"
+
+msgid "LC_POWIADOMIENIA_JS_PHRASE_AT_LEASE_2_CHARS"
+msgstr "The keyword must be at least 2 characters."
+
+msgid "LC_POWIADOMIENIA_JS_PHRASE_EXIST"
+msgstr "This keyword already exists."
+
+msgid "LC_POWIADOMIENIA_JS_AJAX_ERROR"
+msgstr "An error occurred while adding keyword. Please try again later."
+
+msgid "LC_POWIADOMIENIA_JS_NO_NEW_ONE_KEYWORD"
+msgstr "No new notifications for the keyword"
+
+msgid "LC_POWIADOMIENIA_JS_NO_NEW_MANY_KEYWORD"
+msgstr "No new notifications for chosen keywords"
+
+msgid "LC_POWIADOMIENIA_JS_NO_NEW_ONE_CHECK_READ"
+msgstr "Check %s for this keyword"
+
+msgid "LC_POWIADOMIENIA_JS_NO_NEW_ONE_CHECK_READ_PLURALIZE"
+msgstr "['read notification', 'read notifications']"
+
+msgid "LC_POWIADOMIENIA_JS_NO_NEW_MANY_CHECK_READ"
+msgstr "See read notification for your keywords"
+
+msgid "LC_POWIADOMIENIA_JS_NO_READ_ONE_KEYWORD"
+msgstr "No read notifications for the keyword"
+
+msgid "LC_POWIADOMIENIA_JS_NO_READ_MANY_KEYWORDS"
+msgstr "No read notifications for chosen keywords"
+
+msgid "LC_POWIADOMIENIA_JS_NO_READ_ONE_CHECK_READ"
+msgstr "Check %s for this keyword"
+
+msgid "LC_POWIADOMIENIA_JS_NO_READ_ONE_CHECK_READ_PLURALIZE"
+msgstr "['new notification', 'new notifications']"
+
+msgid "LC_POWIADOMIENIA_JS_NO_READ_MANY_CHECK_READ"
+msgstr "See new notification for your keywords"
+
+msgid "LC_POWIADOMIENIA_JS_KEYWORDS_LIMIT_REACH"
+msgstr "Limit of 50 keywords reached"
+
+msgid "LC_POWIADOMIENIA_JS_NOTIFY_TRY_SEARCH"
+msgstr "Search the public data for the keyword"
