@@ -1,4 +1,4 @@
-<?php $RAPORT_Z_DNIA = '20.08.2014 r.'; ?>
+<?php $RAPORT_Z_DNIA = '07.01.2015 r.'; ?>
 
 <?php $ILOSC_LUDZI_W_MINISTERSTWACH = array();
 foreach ($ministerstwa as $id => $m) {
