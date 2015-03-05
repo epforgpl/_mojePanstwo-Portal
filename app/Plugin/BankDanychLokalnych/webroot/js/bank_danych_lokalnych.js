@@ -67,14 +67,35 @@ $(function () {
 
         draw: function() {
             var d = this.data[this.i];
-            var min = parseFloat(this.seriesData[0] == undefined ? 0 : this.seriesData[0].v);
-            var max = parseFloat(this.seriesData[0] == undefined ? 0 : this.seriesData[0].v);
-            for(var m = 0; m < this.seriesData.length; m++) {
-                var v = parseFloat(this.seriesData[m].v);
-                d[m].value = v;
-                if(v < min) min = v;
-                if(v > max) max = v;
+            var fields = ['', '', 'wojewodztwo_id', '', 'powiat_id', 'gmina_id'];
+            var field = fields[this.i];
+            var max = 0, min = 100000;
+            for(var i = 0; i < d.length; i++) {
+                var found = false;
+                for(var s = 0; s < this.seriesData.length; s++) {
+                    if(d[i].properties.id == this.seriesData[s][field]) {
+                        d[i].value = parseFloat(this.seriesData[s].v);
+                        found = true;
+                        break;
+                    }
+                }
+
+                if(!found)
+                    d[i].value = 0;
+
+                if(d[i].value > max)
+                    max = d[i].value;
+
+                if(d[i].value < min)
+                    min = d[i].value;
             }
+
+            var type = 'logarithmic';
+            if(min == 0)
+                type = 'linear';
+
+            if(min == 0 && max == 0)
+                max = 1;
 
             $('#map').css('width', (
                 $(window).width() - $('.leftSide').width() - 40
@@ -111,15 +132,15 @@ $(function () {
                     pointFormat: '{point.name}: {point.value} ' + (this.unit !== undefined ? this.unit : '')
                 },
                 colorAxis: {
-                    min: min,
-                    max: max,
                     minColor: '#ffffff',
                     maxColor: '#006df0',
-                    type: (min > 0 && max > 0) ? 'logarithmic' : 'linear'
+                    min: min,
+                    max: max,
+                    type: type
                 },
                 series: [{
                     data: d,
-                    nullColor: '#000'
+                    nullColor: '#ffffff'
                 }]
             });
 
@@ -128,6 +149,7 @@ $(function () {
     };
 
     $('.leftSide').css('max-height', ($(window).height() - 80) + 'px');
+    $('#scrollbar').css('height', ($(window).height() - 100) + 'px');
 
     // Nazwy klas w zależności od ilości wskaźników danego wymiaru
     var classes = [
@@ -136,7 +158,7 @@ $(function () {
         'col-md-6',     // 2
         'col-md-4',     // 3
         'col-md-3',     // 4
-        'col-md-2'      // 5 (przy czym ostatni ma col-md-3)
+        'col-md-2'      // 5 (przy czym ostatnie 2 mają col-md-3)
     ];
 
     var setIndicatorOption = function() {
@@ -175,6 +197,7 @@ $(function () {
     // Zmiana wyświetlanego wskaźnika
     var setIndicator = function(indicator) {
         var c = classes[indicator.layers.dimennsions.length];
+
         $('#indicator .row').html('');
         for(var i = 0; i < indicator.layers.dimennsions.length; i++) {
             var dimension = indicator.layers.dimennsions[i];
@@ -205,6 +228,10 @@ $(function () {
         });
 
         $('#levels button').click(function() {
+            $('#levels button').each(function() {
+                $(this).removeClass('active');
+            });
+            $(this).addClass('active');
             var l = parseInt($(this).data('id'));
             map.i = l;
             setIndicatorOption();
@@ -262,6 +289,7 @@ $(function () {
                 $('#categories li').each(function() {
                     $(this).removeClass('active');
                 });
+
                 $(node.element).addClass('active');
                 $('#indicator h3').html(node.name);
 

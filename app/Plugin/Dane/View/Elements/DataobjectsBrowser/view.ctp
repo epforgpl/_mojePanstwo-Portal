@@ -7,14 +7,16 @@
         echo " " . $class;
     } ?>">
 
-    <? echo $this->element('Dane.DataobjectsBrowser/filters', array(
-        'filters' => $filters,
-        'switchers' => $switchers,
-        'facets' => $facets,
-        'page' => $page,
-        'conditions' => $conditions,
-        'emptyFilters' => $emptyFilters,
-    )); ?>
+    <div class="col-xs-12 col-sm-4 col-md-3 dataFilters update-filters">
+        <? echo $this->element('Dane.DataobjectsBrowser/filters', array(
+            'filters' => $filters,
+            'switchers' => $switchers,
+            'facets' => $facets,
+            'page' => $page,
+            'conditions' => $conditions,
+            'emptyFilters' => $emptyFilters,
+        )); ?>
+    </div>
 
     <div class="col-xs-12 col-sm-8 col-md-9 dataObjects">
         <? $config = $dataBrowser->config; ?>

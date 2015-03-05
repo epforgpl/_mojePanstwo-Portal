@@ -14,17 +14,11 @@
 
 <? echo $this->Element('dataobject/pageBegin'); ?>
 
-
 <div class="gminy">
     <div class="col-md-3 objectSide">
-
         <div class="objectSideInner rrs">
-
             <div class="block">
-
                 <ul class="dataHighlights side">
-
-
                     <li class="dataHighlight big">
                         <p class="_label">Liczba ludności</p>
 
@@ -42,27 +36,19 @@
                         </div>
                     </li>
                 </ul>
-
             </div>
-
             <div class="block">
-
                 <ul class="dataHighlights side">
-
                     <li class="dataHighlight">
-                        <a target="_blank" href="https://www.bip.krakow.pl/"><span
-                                class="glyphicon glyphicon-link"></span>Oficjalny BIP Krakowa<span
-                                class="glyphicon glyphicon-chevron-right"></a>
+                        <a target="_blank" href="https://www.bip.krakow.pl/">
+                            <span class="glyphicon glyphicon-link"></span>Oficjalny BIP Krakowa<span
+                                class="glyphicon glyphicon-chevron-right">
+                        </a>
                     </li>
-
                 </ul>
-
             </div>
-
             <div class="block">
-
                 <ul class="dataHighlights side">
-
                     <li class="dataHighlight">
                         <p class="_label">Dochody roczne gminy</p>
 
@@ -86,12 +72,9 @@
                             <p class="_value"><?= number_format_h(-$object->getData('zadluzenie_roczne')); ?> PLN</p>
                         </div>
                     </li>
-
-
                 </ul>
 
                 <ul class="dataHighlights side hide">
-
                     <li class="dataHighlight">
                         <p class="_label">Kod TERYT</p>
 
@@ -124,34 +107,26 @@
                 </p>
 
             </div>
-
         </div>
     </div>
-
 
     <div class="col-md-9 objectMain">
-
-        <? /*
-    <div class="objectSearch">
-        <div class="input-group">
-            <form method="get" action="/dane/gminy/<?= $object->getId() ?>/szukaj">
-                <input type="text" placeholder="Szukaj w Przejrzystym Krakowie..." autocomplete="off"
-                       class="form-control ui-autocomplete-input" name="q">
-                <input type="submit" style="display: none;" name="submit" value="search">
-		        <span class="input-group-btn">
-		            <button data-icon="" type="submit" class="btn btn-success btn-lg"></button>
-		        </span>
-            </form>
-        </div>
-    </div>
-*/ ?>
+        <? /*<div class="objectSearch">
+            <div class="input-group">
+                <form method="get" action="/dane/gminy/<?= $object->getId() ?>/szukaj">
+                    <input type="text" placeholder="Szukaj w Przejrzystym Krakowie..." autocomplete="off"
+                           class="form-control ui-autocomplete-input" name="q">
+                    <input type="submit" style="display: none;" name="submit" value="search">
+                    <span class="input-group-btn">
+                        <button data-icon="" type="submit" class="btn btn-success btn-lg"></button>
+                    </span>
+                </form>
+            </div>
+        </div>*/ ?>
 
         <div class="object">
-
             <div class="block-group">
-
                 <?php /* if (($object->getId() == '903') && ($posiedzenie = $object->getLayer('ostatnie_posiedzenie')) && !empty($posiedzenie['data']) && !empty($posiedzenie['terms'])) { ?>
-
     <div id="prawo" class="block">
         <div class="block-header">
             <h2 class="pull-left label">Tematy na <a
@@ -163,42 +138,27 @@
         </div>
 
         <div class="content">
-
             <ul class="objectTagsCloud row">
                 <?
-
                 $font = array(
                     'min' => 15,
                     'max' => 100,
                 );
                 $font['diff'] = $font['max'] - $font['min'];
-
                 $terms = $posiedzenie['terms'];
-
-
                 foreach ($terms as &$term) {
                     $term['size'] = $font['min'] + $font['diff'] * $term['norm_score'];
                 }
-
-
                 shuffle($terms);
-
                 foreach ($terms as $term) {
                     $href = '/dane/gminy/903/posiedzenia/' . $posiedzenie['data']['id'] . '/punkty?q=' . addslashes($term['key']);
                     ?>
                     <li style="font-size: <?= $term['size'] ?>px;"><a href="<?= $href ?>"><?= $term['key'] ?></a></li>
                 <? } ?>
             </ul>
-
         </div>
     </div>
-
-
 <?php } */ ?>
-
-
-
-
 
                 <div class="block">
                     <div class="block-header">
@@ -214,48 +174,48 @@
                                         wybieranych w wyborach powszechnych.</p>
                                 </div>
 
-                                <div class="pk-radni">
+                                <div class="pk-radni jScrollPane">
                                     <? if ($radni = $object->getLayer('radni')) { ?>
                                         <ul>
                                             <? foreach ($radni as $radny) { ?>
-                                                <li><a title="<?= $radny['imiona'] . ' ' . $radny['nazwisko'] ?>"
+                                                <li>
+                                                    <a title="<?= $radny['imiona'] . ' ' . $radny['nazwisko'] ?>"
                                                        href="/dane/gminy/903/radni/<?= $radny['id'] ?>"><img
-                                                            src="http://resources.sejmometr.pl/avatars/3/<?= $radny['avatar_id'] ?>.jpg"/></a>
+                                                            src="http://resources.sejmometr.pl/avatars/3/<?= $radny['avatar_id'] ?>.jpg"/>
+                                                    </a>
                                                 </li>
                                             <? } ?>
                                         </ul>
                                     <? } ?>
                                 </div>
-
                             </div>
-
                         </div>
 
                         <div class="row">
                             <div class="col-md-4">
-
                                 <h3>Posiedzenia rady</h3>
 
                                 <div class="text-center">
-                                    <a href="/dane/gminy/903,krakow/posiedzenia" title="Posiedzenia Rady Miasta Kraków"><img
-                                            style="width: 100%;"
-                                            src="http://img.youtube.com/vi/AR9UYwp7PQA/mqdefault.jpg"/></a>
+                                    <a href="/dane/gminy/903,krakow/posiedzenia" title="Posiedzenia Rady Miasta Kraków">
+                                        <img class="img-responsive"
+                                             src="http://img.youtube.com/vi/AR9UYwp7PQA/mqdefault.jpg"/>
+                                    </a>
                                 </div>
-
                             </div>
                             <div class="col-md-8 nopadding">
-
                                 <h3>Najnowsze uchwały rady</h3>
 
                                 <ul class="docs-list">
                                     <? foreach ($prawo_lokalne as $obj) { ?>
                                         <li>
-                                            <a href="<?= $obj->getUrl() ?>"><img
-                                                    src="http://docs.sejmometr.pl/thumb/4/<?= $obj->getData('dokument_id') ?>.png"/></a>
+                                            <a href="<?= $obj->getUrl() ?>">
+                                                <img class="img-responsive"
+                                                     src="http://docs.sejmometr.pl/thumb/4/<?= $obj->getData('dokument_id') ?>.png"/>
+                                            </a>
 
                                             <div class="inner">
-                                                <p class="title"><a
-                                                        href="<?= $obj->getUrl() ?>"><?= $obj->getShortTitle() ?></a>
+                                                <p class="title">
+                                                    <a href="<?= $obj->getUrl() ?>"><?= $obj->getShortTitle() ?></a>
                                                 </p>
 
                                                 <p class="date"><?= $this->Czas->dataSlownie($obj->getDate()) ?></p>
@@ -263,7 +223,6 @@
                                         </li>
                                     <? } ?>
                                 </ul>
-
                             </div>
                         </div>
 
@@ -271,23 +230,17 @@
                             <a class="btn btn-primary btn-sm" href="/dane/gminy/903,Krakow/rada">Dowiedz się więcej o
                                 radzie &raquo;</a>
                         </p>
-
                     </div>
                 </div>
 
-
                 <div class="block">
-
                     <div class="block-header">
                         <h2 class="label">Urząd gminy</h2>
                     </div>
 
                     <div class="content less-bottom-padding">
-
                         <div class="row">
-
                             <div class="col-md-4">
-
                                 <? if ($szef = $object->getLayer('szef')) { ?>
                                     <div id="szef" class="dataHighlights">
                                         <div class="dataHighlight big">
@@ -300,33 +253,30 @@
 
                                 <div class="row">
                                     <div class="col-md-6">
-
-
-                                        <a href="/dane/gminy/903,krakow/urzad"><img style="width: 100%;"
-                                                                                    src="/dane/img/pk-prezydent.jpg"></a>
-
+                                        <a href="/dane/gminy/903,krakow/urzad">
+                                            <img class="img-responsive" src="/dane/img/pk-prezydent.jpg">
+                                        </a>
                                     </div>
                                     <div class="col-md-6">
 
                                     </div>
-
                                 </div>
-
                             </div>
 
                             <div class="col-md-8 nopadding">
-
                                 <h3>Najnowsze zarządzenia Prezydenta</h3>
 
                                 <ul class="docs-list">
                                     <? foreach ($zarzadzenia as $obj) { ?>
                                         <li>
-                                            <a href="<?= $obj->getUrl() ?>"><img
-                                                    src="http://docs.sejmometr.pl/thumb/4/<?= $obj->getData('dokument_id') ?>.png"/></a>
+                                            <a href="<?= $obj->getUrl() ?>">
+                                                <img
+                                                    src="http://docs.sejmometr.pl/thumb/4/<?= $obj->getData('dokument_id') ?>.png"/>
+                                            </a>
 
                                             <div class="inner">
-                                                <p class="title"><a
-                                                        href="<?= $obj->getUrl() ?>"><?= $obj->getShortTitle() ?></a>
+                                                <p class="title">
+                                                    <a href="<?= $obj->getUrl() ?>"><?= $obj->getShortTitle() ?></a>
                                                 </p>
 
                                                 <p class="date"><?= $this->Czas->dataSlownie($obj->getDate()) ?></p>
@@ -334,10 +284,7 @@
                                         </li>
                                     <? } ?>
                                 </ul>
-
-
                             </div>
-
                         </div>
 
                         <p class="text-center">
@@ -373,29 +320,23 @@
                                     <li><a href="<?= $obj->getUrl() ?>"><?= $obj->getTitle() ?></a></li>
                                 <? } ?>
                             </ul>
-
                         </div>
                     </div>
-
                 </div>
-
 
                 <div class="block">
                     <div class="overflow-auto">
-
                         <div class="col-md-6 nopadding">
 
                             <div class="block-header">
                                 <h2 title="Największe spółki pod względem kapitału zakładowego" class="pull-left label">
-                                    Największe
-                                    spółki</h2>
+                                    Największe spółki</h2>
                                 <a class="btn btn-default btn-sm pull-right"
                                    href="<?= Router::url(array('action' => 'organizacje', 'id' => $object->getId())) ?>">Zobacz
                                     wszystkie</a>
                             </div>
 
                             <div class="content padding">
-
                                 <ul class="raw">
                                     <? foreach ($organizacje as $organizacja) { ?>
                                         <li class="list-group-item"><? if ($organizacja->getData('wartosc_kapital_zakladowy')) { ?>
@@ -411,7 +352,6 @@
                         </div>
 
                         <div class="col-md-6 nopadding">
-
                             <div class="block-header">
                                 <h2 title="Organizacje pozarządowe w gminie" class="pull-left label">Organizacje
                                     pozarządowe</h2>
@@ -421,9 +361,7 @@
                             </div>
 
                             <div class="content padding">
-                                <?
-                                if (!empty($ngos)) {
-                                    ?>
+                                <? if (!empty($ngos)) { ?>
                                     <ul class="raw">
                                         <?
                                         $limit = 5;
@@ -433,27 +371,22 @@
                                             $i++;
                                             ?>
 
-                                            <li class="list-group-item"><span
-                                                    class="badge"><?= number_format_h($ngo['count']) ?></span><a
-                                                    href="<?= Router::url(array(
-                                                        'action' => 'organizacje',
-                                                        'id' => $object->getId(),
-                                                        '?' => array('forma_prawna_id' => $ngo['id'])
-                                                    )) ?>"
-                                                    title="<?= addslashes($ngo['label']) ?>"><?= $this->Text->truncate($ngo['label'], 25); ?></a>
+                                            <li class="list-group-item">
+                                                <span class="badge"><?= number_format_h($ngo['count']) ?></span>
+                                                <a href="<?= Router::url(array(
+                                                    'action' => 'organizacje',
+                                                    'id' => $object->getId(),
+                                                    '?' => array('forma_prawna_id' => $ngo['id'])
+                                                )) ?>"
+                                                   title="<?= addslashes($ngo['label']) ?>"><?= $this->Text->truncate($ngo['label'], 25); ?></a>
                                             </li>
-                                            <?
-                                            if ($i == $limit) {
+                                            <? if ($i == $limit) {
                                                 break;
                                             }
-                                        }
-                                        ?>
+                                        } ?>
                                     </ul>
-                                <?
-                                }
-                                ?>
+                                <? } ?>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -627,8 +560,6 @@
                     </div>
                 <? } ?>
 
-
-
                 <? /*
 					        <div id="dotacje_unijne" class="block">
 					            <div class="block-header">
@@ -649,12 +580,8 @@
 					                </div>
 					            </div>
 					        </div>
-					        */
-                ?>
-
-
+					        */ ?>
             </div>
-
         </div>
     </div>
 </div>

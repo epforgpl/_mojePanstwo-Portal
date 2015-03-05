@@ -292,6 +292,13 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
         };
     }
 
+    /*INITIALIZE JSCROLLPANE*/
+    $('.jScrollPane').jScrollPane({
+        horizontalGutter: 5,
+        verticalGutter: 5,
+        'showArrows': false
+    });
+
     /*INITIALIZE BOOTSTRAP TOOLTIP*/
     $('[data-toggle="tooltip"]').each(function () {
         var that = $(this),
