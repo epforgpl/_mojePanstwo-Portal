@@ -53,6 +53,9 @@
     /* GLOBAL CSS FOR LOGIN FORM FOR PASZPORT PLUGIN*/
     $this->Combinator->add_libs('css', $this->Less->css('loginForm', array('plugin' => 'Paszport')), false);
 
+    /*JSCROLLPANE*/
+    echo $this->Html->css('../plugins/jscrollPane/style/jquery.jscrollpane.css');
+
     /*BOOTSTRAP SELECT LOOKS LIKE BOOTSTRAP BUTTONS*/
     echo $this->Html->css('../plugins/bootstrap-select/bootstrap-select.min.css');
 
@@ -161,6 +164,8 @@ echo $this->Html->script('../libs/jqueryui/1.10.4/development-bundle/ui/minified
 echo $this->Html->script('../libs/bootstrap/3.1.1/js/bootstrap.min.js');
 
 /* PACKAGES FROM VENDOR */
+echo $this->Html->script('../plugins/jscrollPane/script/jquery.mousewheel.js');
+echo $this->Html->script('../plugins/jscrollPane/script/jquery.jscrollpane.min.js');
 echo $this->Html->script('../plugins/browserstate/history.js/scripts/bundled/html4+html5/jquery.history.js');
 echo $this->Html->script('../plugins/carhartl/jquery-cookie/jquery.cookie.js');
 echo $this->Html->script('../plugins/bootstrap-select/bootstrap-select.min.js');
