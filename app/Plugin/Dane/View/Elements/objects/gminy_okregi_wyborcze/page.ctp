@@ -3,7 +3,7 @@ $this->Combinator->add_libs('js', 'jquery-tablesorter-min');
 $this->Combinator->add_libs('js', 'Dane.view-gminy-okreg_wyborczy');
 ?>
 <div class="gminy_okregi_wyborcze row">
-    <div class="col-lg-3 objectSide">
+    <div class="col-md-3 objectSide">
         <div class="objectSideInner">
 
 
@@ -48,11 +48,10 @@ $this->Combinator->add_libs('js', 'Dane.view-gminy-okreg_wyborczy');
     </div>
 
 
-    <div class="col-lg-9 objectMain">
+    <div class="col-md-9 objectMain">
         <div class="object">
 
             <div class="block-group">
-
 
                 <div id="wyniki" class="block">
                     <div class="block-header">

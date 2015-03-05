@@ -9,7 +9,7 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
 
         <? if ($object->getData('file') == '1') { ?>
 
-            <div class="col-lg-3 objectSide">
+            <div class="col-md-3 objectSide">
                 <div class="objectSideInner">
 
                     <? if ($object->getData('budzet_plan')) { ?>
@@ -184,7 +184,7 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
             </div>
 
             <? /*
-        <div class="col-lg-9 objectMain">
+        <div class="col-md-9 objectMain">
             <div class="object">
                 <?
                 $adres = $object->getData('adres_str');

@@ -63,8 +63,8 @@ echo $this->Element('Dane.dataobject/subobject', array(
 <? } ?>
 
 
-    <div class="gminy row">
-        <div class="col-lg-3 objectSide">
+    <div class="gminy">
+        <div class="col-md-3 objectSide">
 
             <div class="objectSideInner">
 
@@ -181,7 +181,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
         </div>
 
 
-        <div class="col-lg-9 objectMain">
+        <div class="col-md-9 objectMain">
             <div class="object">
 
 
@@ -198,26 +198,21 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
                                 <div class="objectRender">
                                     <div class="row">
-                                        <div class="formatDate col-md-1 dimmed">
+                                        <div class="formatDate col-xs-2 col-lg-1 dimmed">
                                             <span>18</span>
 
                                             <p>Mar 2014</p></div>
-                                        <div class="data col-md-11">
+                                        <div class="data col-xs-10 col-lg-11">
                                             <div class="row">
-
-
-                                                <div class="attachment col-md-2 text-center">
+                                                <div class="col-xs-4 col-sm-3 attachment col-md-2 text-center">
                                                     <a href="/dane/rady_druki/<?= $debata->getData('rady_druki.id') ?>"
                                                        class="thumb_cont">
                                                         <img
                                                             src="http://docs.sejmometr.pl/thumb/1/<?= $debata->getData('rady_druki.dokument_id') ?>.png"
                                                             onerror="imgFixer(this)" class="thumb pull-right">
                                                     </a>
-
                                                 </div>
-                                                <div class="content col-md-10">
-
-
+                                                <div class="content col-xs-8 col-sm-9 col-md-10">
                                                     <p class="title">
                                                         <a href="/dane/rady_druki/<?= $debata->getData('rady_druki.id') ?>"><?= $debata->getData('rady_druki.tytul') ?></a>
                                                     </p>

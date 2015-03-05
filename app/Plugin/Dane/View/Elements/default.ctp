@@ -30,11 +30,11 @@ $this->Dataobject->setObject($object);
 
     <div class="row">
         <? if ($this->Dataobject->getDate()) { ?>
-            <div class="formatDate col-md-1 dimmed">
+            <div class="formatDate col-xs-2 col-lg-1 dimmed">
                 <?php echo($this->Dataobject->getDate()); ?>
             </div>
         <? } ?>
-        <div class="data col-md-<?= $this->Dataobject->getDate() ? '11' : '12' ?>">
+        <div class="data <?= $this->Dataobject->getDate() ? 'col-xs-10 col-md-11' : 'col-xs-12' ?>">
 
             <? if ($sentence = $object->getSentence()) { ?>
                 <p class="sentence"><?= $sentence ?></p>
@@ -60,7 +60,8 @@ $this->Dataobject->setObject($object);
                     }
 
                     ?>
-                    <div class="attachment col-md-<?= $size ?> text-center">
+                    <div
+                        class="attachment col-xs-<?= $size + 2 ?> col-sm-<?= $size + 1 ?> col-sm-<?= $size ?> text-center">
                         <?php if ($object->getUrl() != false) { ?>
                         <a class="thumb_cont" href="<?= $object->getUrl() ?>">
                             <?php } ?>

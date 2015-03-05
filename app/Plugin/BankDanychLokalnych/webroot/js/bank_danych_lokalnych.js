@@ -67,8 +67,8 @@ $(function () {
 
         draw: function() {
             var d = this.data[this.i];
-            var min = parseFloat(this.seriesData[0].v);
-            var max = parseFloat(this.seriesData[0].v);
+            var min = parseFloat(this.seriesData[0] == undefined ? 0 : this.seriesData[0].v);
+            var max = parseFloat(this.seriesData[0] == undefined ? 0 : this.seriesData[0].v);
             for(var m = 0; m < this.seriesData.length; m++) {
                 var v = parseFloat(this.seriesData[m].v);
                 d[m].value = v;
@@ -76,12 +76,24 @@ $(function () {
                 if(v > max) max = v;
             }
 
+            $('#map').css('width', (
+                $(window).width() - $('.leftSide').width() - 40
+            ) + 'px');
+
+            $('#map').css('height', (
+                $(window).height() - $('#indicator').height() - 100
+            ) + 'px');
+
+            $('#levels').css('margin-top', (
+                $('#map').height() - 34
+            ) + 'px');
+
             $('#map').highcharts('Map', {
                 title: {
                     text: ' '
                 },
                 chart: {
-                    backgroundColor: '#000000'
+                    backgroundColor: '#fff'
                 },
                 mapNavigation: {
                     enabled: true,
@@ -110,6 +122,8 @@ $(function () {
                     nullColor: '#000'
                 }]
             });
+
+            //$('#map').highcharts().mapZoom(0.5);
         }
     };
 
@@ -150,7 +164,7 @@ $(function () {
             // var years = data.years;
             map.setUnit(data.unit);
             map.setSeriesData(data.data);
-            $('#desc').html('').append('Rocznik ' + data.year + ', ' + data.value + ' ' + data.unit);
+            $('#desc').html('').append(data.value + ' ' + data.unit + ' w ' + data.year + ' r.');
             /* $('#year').html('');
             for(var i = 0; i < years.length; i++) {
                 $('#year').append('<option value="' + years[i] + '">' + years[i] + '</option>');
@@ -215,14 +229,14 @@ $(function () {
                     });
                 }
                 groupsData.push({
-                    label:      categories[i].groups[s].tytul + ' (' + subGroupsData.length + ')',
+                    label:      categories[i].groups[s].tytul + '&nbsp;<span class="small">(' + subGroupsData.length + ')</span>',
                     id:         categories[i].groups[s].id,
                     children:   subGroupsData
                 });
             }
 
             categoriesData.push({
-                label:      (categories[i].w_tytul == '' ? categories[i].tytul : categories[i].w_tytul) + ' (' + groupsData.length + ')',
+                label:      (categories[i].w_tytul == '' ? categories[i].tytul : categories[i].w_tytul) + '&nbsp;<span class="small">(' + groupsData.length + ')</span>',
                 id:         categories[i].id,
                 children:    groupsData
             });
@@ -230,22 +244,26 @@ $(function () {
 
         spinner.hide();
 
-        $('#categories').tree({
+        var $tree = $('#categories').tree({
             data: categoriesData,
-            selectable: false
+            selectable: false,
+            autoEscape: false
         });
 
         $('#categories').bind(
             'tree.click',
             function(event) {
                 var node = event.node;
-                if(node.children.length > 0)
+                if(node.children.length > 0) {
+                    $tree.tree('toggle', node);
                     return false;
+                }
 
                 $('#categories li').each(function() {
                     $(this).removeClass('active');
                 });
                 $(node.element).addClass('active');
+                $('#indicator h3').html(node.name);
 
                 if(indicators[node.id] === undefined) {
                     $.getJSON(API + 'dane/bdl_wskazniki/' + node.id + '.json?layers[]=dimennsions', function (data) {

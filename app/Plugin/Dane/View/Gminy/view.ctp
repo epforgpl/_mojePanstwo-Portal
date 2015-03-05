@@ -15,8 +15,8 @@
 <? echo $this->Element('dataobject/pageBegin'); ?>
 
 
-<div class="gminy row">
-    <div class="col-lg-3 objectSide">
+<div class="gminy">
+    <div class="col-md-3 objectSide">
 
         <div class="objectSideInner">
 
@@ -104,7 +104,7 @@
     </div>
 
 
-    <div class="col-lg-9 objectMain">
+    <div class="col-md-9 objectMain">
 
         <?php if ($object->getId() == '903') { ?>
             <div class="objectSearch">

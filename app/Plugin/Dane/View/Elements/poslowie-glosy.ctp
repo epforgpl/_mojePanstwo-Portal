@@ -22,11 +22,11 @@
 
     <div class="row">
         <? if ($this->Dataobject->getDate()) { ?>
-            <div class="formatDate col-md-1 dimmed">
+            <div class="formatDate col-xs-2 col-lg-1 dimmed">
                 <?php echo($this->Dataobject->getDate()); ?>
             </div>
         <? } ?>
-        <div class="data col-md-<?= $this->Dataobject->getDate() ? '8' : '8' ?>">
+        <div class="data <?= $this->Dataobject->getDate() ? 'col-xs-6 col-lg-8' : 'col-xs-8 col-lg-9' ?>">
 
             <div class="content">
                 <p class="title">
@@ -36,7 +36,7 @@
 
 
         </div>
-        <div class="col-md-3 text-right">
+        <div class="col-xs-4 col-lg-3 text-right">
 
             <div class="voted btn btn-default btn-glos-<?= $object->getData('glos_id') ?>"
                  data-glos="<?= $object->getData('glos_id') ?>"><?= $glos[0] ?></div>

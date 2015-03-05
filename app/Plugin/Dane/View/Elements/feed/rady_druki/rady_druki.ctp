@@ -9,7 +9,7 @@ $size = 2;
 if ($object->getThumbnailUrl($thumbSize)) {
     ?>
 
-    <div class="attachment col-md-<?= $size ?> text-center">
+    <div class="attachment col-xs-<?= $size + 2 ?> col-sm-<?= $size + 1 ?> col-md-<?= $size ?> text-center">
         <?php if ($object->getUrl() != false) { ?>
         <a class="thumb_cont" href="<?= $object->getUrl() ?>/tresc">
             <?php } ?>
@@ -21,7 +21,7 @@ if ($object->getThumbnailUrl($thumbSize)) {
     <?php } ?>
 
     </div>
-    <div class="content col-md-<?= 12 - $size ?>">
+    <div class="content col-xs-<?= 12 - $size - 2 ?> col-md-<?= 12 - $size - 1 ?> col-md-<?= 12 - $size ?>">
 
 
         <? if ($object->force_hl_fields || $forceLabel) { ?>

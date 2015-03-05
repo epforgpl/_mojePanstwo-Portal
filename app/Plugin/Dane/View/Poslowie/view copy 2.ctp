@@ -9,7 +9,7 @@ echo $this->Element('dataobject/pageBegin');
 
 
     <div class="poslowie row">
-        <div class="col-lg-3 objectSide">
+        <div class="col-md-3 objectSide">
             <div class="objectSideInner">
                 <ul class="dataHighlights side">
 
@@ -191,7 +191,7 @@ echo $this->Element('dataobject/pageBegin');
         </div>
 
 
-        <div class="col-lg-9 objectMain">
+        <div class="col-md-9 objectMain">
 
             <div class="objectSearch">
                 <div class="input-group">

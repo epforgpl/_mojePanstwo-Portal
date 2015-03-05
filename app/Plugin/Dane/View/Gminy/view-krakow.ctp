@@ -15,8 +15,8 @@
 <? echo $this->Element('dataobject/pageBegin'); ?>
 
 
-<div class="gminy row">
-    <div class="col-lg-3 objectSide">
+<div class="gminy">
+    <div class="col-md-3 objectSide">
 
         <div class="objectSideInner rrs">
 
@@ -129,7 +129,7 @@
     </div>
 
 
-    <div class="col-lg-9 nopadding">
+    <div class="col-md-9 objectMain">
 
         <? /*
     <div class="objectSearch">
@@ -367,8 +367,7 @@
                                 <div id="dzielnice_map"></div>
                             </div>
                         </div>
-                        <div class="col-md-3 nopadding">
-
+                        <div class="col-md-3">
                             <ul class="pk-dzielnice">
                                 <? foreach ($dzielnice as $obj) { ?>
                                     <li><a href="<?= $obj->getUrl() ?>"><?= $obj->getTitle() ?></a></li>
