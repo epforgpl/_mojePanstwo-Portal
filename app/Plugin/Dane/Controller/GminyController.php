@@ -626,7 +626,7 @@ class GminyController extends DataobjectsController
 
             $this->dataobjectsBrowserView(array(
                 'dataset' => 'rady_druki',
-                'title' => 'Materiały na posiedzenia rady miasta',
+                'title' => 'Proces legislacyjny',
                 'noResultsTitle' => 'Brak danych',
                 // 'hlFields' => $hl_fields = array('numer', 'liczba_debat'),
                 'back' => $this->object->getUrl() . '/rada',

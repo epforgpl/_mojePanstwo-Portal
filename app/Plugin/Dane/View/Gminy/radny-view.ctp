@@ -279,7 +279,19 @@ echo $this->Element('Dane.dataobject/subobject', array(
         </div>
         <div class="col-md-2">
 			
-			
+			<?
+				echo $this->element('Dane.object-actions', array(
+					'buttons' => array(
+						'pismo' => array(
+							'adresat_id' => $radny->getDataset() . ':' . $radny->getId(),
+							'szablon_id' => 69, // List do radnego
+							'nazwa' => 'Wyślij list',
+							'opis' => 'Kliknij aby wysłać list do ' . $radny->getTitle(),
+						),
+					),
+					'name' => $radny->getTitle(),
+				));
+			?>
 			<? /*
 			<ul class="object-actions-ul">
 				<? if( isset( $this->request->query['dev'] ) ) { ?>

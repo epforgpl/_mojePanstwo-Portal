@@ -27,6 +27,26 @@ $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugi
                     Kliknij, aby wysłać pismo do <?= $name ?>.
                 </p>
             </li>
+        <? } elseif ($key == 'pismo') { ?>
+            <li>
+                        	
+            	<form action="/pisma" method="post">
+	                <p class="btn_cont">
+		                
+			                <input type="hidden" name="adresat_id" value="<?= $data['adresat_id'] ?>" />
+							<input type="hidden" name="szablon_id" value="<?= $data['szablon_id'] ?>" />
+		                    <button class="btn btn-primary">
+		                        <span class="glyphicon" data-icon="&#xe61d;" aria-hidden="true"></span> <?= $data['nazwa'] ?>
+		                    </button>
+		               
+	                </p>
+                 </form>
+                <? if( isset($data['opis']) ) {?>
+                <p class="desc">
+                    <?= $data['opis'] ?>
+                </p>
+                <? } ?>
+            </li>
         <? }
     } ?>
 </ul>
