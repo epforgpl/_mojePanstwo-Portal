@@ -30,7 +30,7 @@ $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugi
         <? } elseif ($key == 'pismo') { ?>
             <li>
                         	
-            	<form action="/pisma" method="post">
+            	<form action="//<?= PORTAL_DOMAIN ?>/pisma" method="post">
 	                <p class="btn_cont">
 		                
 			                <input type="hidden" name="adresat_id" value="<?= $data['adresat_id'] ?>" />
