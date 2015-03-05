@@ -21,10 +21,10 @@
     .minHeight();
     display: block;
     .leftSide {
-      padding: 5px 10px;
-      padding-right: 0;
+      padding: 0;
       margin: 0;
       margin-top: 40px;
+      padding-left: 10px;
       overflow-y: scroll;
       background: #003054;
       #categories {
@@ -114,7 +114,7 @@
           margin: 0;
           color: #028bcf;
           font-weight: normal;
-          font-size: 32px;
+          font-size: 22px;
         }
         .row {
           margin: 0;
@@ -134,10 +134,12 @@
         margin-top: 10px;
         margin-left: 65px;
         button {
-          background: #007cc2;
-          color: #fff;
-          font-weight: bold;
-          border-color: #0068a3;
+          &.active {
+            background: #007cc2;
+            color: #fff;
+            font-weight: bold;
+            border-color: #0068a3;
+          }
         }
       }
       #map {
