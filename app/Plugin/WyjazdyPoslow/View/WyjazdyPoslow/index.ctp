@@ -9,6 +9,8 @@ $this->Combinator->add_libs('js', 'WyjazdyPoslow.wyjazdy_poslow.js');
 $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
 ?>
 
+<?= $this->Element('appheader', array('title' => 'Wyjazdy posłów')); ?>
+
 <div class="maplabel">
     <p>Kliknij na podświetlone Państwo, aby poznać szczegóły wyjazdów.</p>
 

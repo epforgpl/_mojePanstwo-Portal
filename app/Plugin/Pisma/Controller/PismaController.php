@@ -52,7 +52,6 @@ class PismaController extends AppController
     
     public function edit($id, $slug='')
     {
-        $this->set('appMenuSelected', (isset($pismo['saved']) && $pismo['saved']) ? 'moje' : 'nowe');
 		$this->load($id);        
     }
 

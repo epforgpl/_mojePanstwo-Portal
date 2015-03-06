@@ -7,14 +7,11 @@ echo $this->Html->script('../plugins/scriptaculous/src/scriptaculous', array('bl
 
 $this->Combinator->add_libs('js', 'MojaGmina.moja_gmina.js');
 ?>
+
+<?= $this->Element('appheader', array('title' => 'Moja gmina', 'subtitle' => __d('moja_gmina', "LC_MOJA_GMINA_HEADLINE"))); ?>
+
 <div id="mojaGmina" class="fullPageHeight">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-lg-10 col-lg-offset-1">
-                <h1><?php echo __d('moja_gmina', "LC_MOJA_GMINA_HEADLINE") ?></h1>
-            </div>
-        </div>
-
         <div class="locationBrowser dataContent content col-xs-12">
             <div class="mapsContent col-md-12 col-lg-10 col-lg-offset-1">
                 <div id="PLBrowser"></div>

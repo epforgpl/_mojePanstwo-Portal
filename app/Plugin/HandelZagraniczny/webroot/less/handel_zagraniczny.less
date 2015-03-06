@@ -1,76 +1,76 @@
 .cookieLaw {
-  display: none;
+    display: none;
 }
 
 #morebg {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vw;
-  background: #000;
-  opacity: 0.7;
-  z-index: 3;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vw;
+    background: #000;
+    opacity: 0.7;
+    z-index: 3;
 }
 
 #more {
-  display: none;
-  position: fixed;
-  border-radius: 5px;
-  top: 5vw;
-  left: 20vw;
-  width: 60vw;
-  height: 80vh;
-  margin: 0;
-  background: #142026;
-  z-index: 4;
-  padding: 10px 30px;
-  a.close {
-    position: absolute;
-    margin-left: 54vw;
-    margin-top: 10px;
-    color: #f1f1f1;
-    text-shadow: none;
-    opacity: 1;
-    float: left;
-    font-weight: normal;
-    font-size: 30px;
-  }
-  h1 {
-    color: #f1f1f1;
-  }
-  h2 {
-    color: #c2d1e7;
-    font-size: 18px;
-  }
-  #list {
-    margin-top: 30px;
-    display: block;
-    overflow-x: hidden;
-    overflow-y: auto;
-    max-height: 54vh !important;
-    li {
-      background: #273a48;
-      border-color: #2e4555;
-      color: #fff;
-      img {
-        margin-right: 8px;
-        margin-top: -6px;
-        max-height: 23px;
-      }
-      a {
-        color: #fff;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-      .badge {
-        background: #142026;
+    display: none;
+    position: fixed;
+    border-radius: 5px;
+    top: 5vw;
+    left: 20vw;
+    width: 60vw;
+    height: 80vh;
+    margin: 0;
+    background: #142026;
+    z-index: 4;
+    padding: 10px 30px;
+    a.close {
+        position: absolute;
+        margin-left: 54vw;
+        margin-top: 10px;
+        color: #f1f1f1;
+        text-shadow: none;
+        opacity: 1;
+        float: left;
         font-weight: normal;
-      }
+        font-size: 30px;
     }
-  }
+    h1 {
+        color: #f1f1f1;
+    }
+    h2 {
+        color: #c2d1e7;
+        font-size: 18px;
+    }
+    #list {
+        margin-top: 30px;
+        display: block;
+        overflow-x: hidden;
+        overflow-y: auto;
+        max-height: 54vh !important;
+        li {
+            background: #273a48;
+            border-color: #2e4555;
+            color: #fff;
+            img {
+                margin-right: 8px;
+                margin-top: -6px;
+                max-height: 23px;
+            }
+            a {
+                color: #fff;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+            .badge {
+                background: #142026;
+                font-weight: normal;
+            }
+        }
+    }
 }
 
 #_wrapper {
@@ -136,11 +136,18 @@
         }
         .maplabel {
             background-color: #142026;
-            position: fixed;
-            top: 0;
             padding: 0;
-            z-index: 2;
             width: 100%;
+            position: absolute;
+            top: 0;
+
+            &.stick {
+                position: fixed;
+                top: 0;
+                left: 50px;
+                z-index: 1;
+            }
+
             .navbar.navbar-inverse {
                 border-radius: 0;
                 border-left: none;
@@ -466,7 +473,14 @@
 }
 
 .mapMain {
-    margin-top: 50px;
+    position: relative;
+    padding-top: 50px;
+
+    .anchor {
+        position: absolute;
+        top: 0;
+    }
+
     .hzTypeMenu {
         position: absolute;
         margin-top: 10px;

@@ -1,14 +1,7 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma-moje', array('plugin' => 'Pisma'))) ?>
 
-<div class="appHeader">
-    <div class="container innerContent">
-        <div class="col-xs-12">
-            <? echo $this->Element('Pisma.menu', array(
-            )); ?>
-        </div>
-    </div>
-</div>
+<?= $this->Element('appheader', array('title' => 'Prawo', 'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce')); ?>
 
 <div class="container">
     <div class="col-md-10 col-md-offset-1">

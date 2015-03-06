@@ -1,6 +1,6 @@
 /*global _mPHeart*/
 (function ($) {
-    var searchInput = $('.appHeader .searchInput'),
+    var searchInput = $('.search .searchInput'),
         groupsAndResults = $('#groupsAndResults'),
         lastSearch = null,
         krsTime = null,

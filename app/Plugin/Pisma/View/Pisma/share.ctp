@@ -6,16 +6,7 @@
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma-share.js') ?>
 
-<div class="appHeader">
-    <div class="container innerContent">
-
-        <div class="col-xs-12">
-            <? echo $this->Element('Pisma.menu', array(// 'selected' => 'moje'
-            )); ?>
-        </div>
-
-    </div>
-</div>
+<?= $this->Element('appheader', array('title' => 'Prawo', 'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce', 'appMenu' => $appMenu, 'appMenuSelected' => 'moje')); ?>
 
 <div class="container">
 

@@ -1,15 +1,26 @@
-.container {
+.appHeader .holder h2 {
+    text-shadow: 0 0 1px #000000;
+}
+
+#media {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#media .container {
   width: 100%;
   max-width: 1600px;
 }
-blockquote {
+
+#media blockquote {
   background: #f9f9f9;
   border-left: 10px solid #ccc;
   margin: 1.5em 10px;
   padding: 0.5em 10px;
   quotes: "\201C" "\201D" "\2018" "\2019";
 }
-blockquote:before {
+
+#media blockquote:before {
   color: #ccc;
   content: open-quote;
   font-size: 4em;
@@ -17,47 +28,49 @@ blockquote:before {
   margin-right: 0.25em;
   vertical-align: -0.4em;
 }
-blockquote p {
+
+#media blockquote p {
   display: inline;
 }
-._mojePanstwoCockpitSearchInput {
-  display: block;
-}
-#_main {
-  font-family: "Lato", Arial, sans-serif;
-}
-#_main h1,
-#_main h2,
-#_main h3,
-#_main h4 {
+
+#media h1,
+#media h2,
+#media h3,
+#media h4 {
   font-weight: 300;
 }
-#_main h1 {
+
+#media h1 {
   font-size: 46px;
   margin-top: 0;
   color: #FFF;
 }
-#_main h2 {
+
+#media h2 {
   font-size: 32px;
   margin-bottom: 20px;
   margin-top: 0;
 }
-#_main h3 {
+
+#media h3 {
   display: inline-block;
   font-size: 26px;
   font-weight: 400;
-  margin: 10px 0;
+    margin: 0 0 10px;
 }
-#_main h4 {
+
+#media h4 {
   display: inline-block;
   font-size: 14px;
   font-weight: 400;
   margin: 10px 0;
 }
-#_main h4.label a {
+
+#media h4.label a {
   color: #FFF;
 }
-#_main .plate {
+
+#media .plate {
   font-family: "Lato", Arial, sans-serif;
   font-size: 16px;
   font-weight: 300;
@@ -66,11 +79,13 @@ blockquote p {
   background-color: #1b669d;
   background-image: url(/Media/img/plate_left.png), url(/Media/img/plate_right.png) no-repeat left center, right center;
 }
-#_main .plate .header {
+
+#media .plate .header {
   text-align: center;
   margin-bottom: 1em;
 }
-#_main .plate .header h1 {
+
+#media .plate .header h1 {
   font-family: "Lato", Arial, sans-serif;
   font-weight: 300;
   text-transform: uppercase;
@@ -81,34 +96,41 @@ blockquote p {
   padding: 20px 0;
   margin: 20px auto;
 }
-#_main .plate .header .subtitle {
+
+#media .plate .header .subtitle {
   font-family: "Lato", Arial, sans-serif;
   font-size: 16px;
   color: #aaaaaa;
 }
-#_main .plate .intro {
+
+#media .plate .intro {
   font-family: "Lato", Arial, sans-serif;
   font-weight: 300;
   text-align: justify;
   margin-top: 1em;
   margin-bottom: 1em;
 }
-#_main .plate .intro a {
+
+#media .plate .intro a {
   color: #ffffff;
   font-size: 13px;
 }
-#_main #spis_tresci {
+
+#media #spis_tresci {
   float: left;
   width: 100%;
   min-height: 60px;
 }
-#_main #spis_tresci.affix {
+
+#media #spis_tresci.affix {
   position: relative;
 }
-#_main #spis_tresci.affix.searchDisplay > div {
+
+#media #spis_tresci.affix.searchDisplay > div {
   top: 100px;
 }
-#_main #spis_tresci.affix > div {
+
+#media #spis_tresci.affix > div {
   position: fixed;
   top: 40px;
   left: 0;
@@ -118,48 +140,58 @@ blockquote p {
   margin: 0;
   background-color: #1b669d;
 }
-#_main #spis_tresci.affix > div .navbar-nav {
+
+#media #spis_tresci.affix > div .navbar-nav {
   position: relative;
   left: 15px;
 }
-#_main .navbar-nav {
+
+#media .navbar-nav {
   margin: 0 auto;
   padding: 0;
   float: none;
 }
-#_main .navbar-nav > li {
+
+#media .navbar-nav > li {
   text-align: center;
   position: relative;
   width: 14.2%;
 }
-#_main .navbar-nav > li.dropdown.open a {
+
+#media .navbar-nav > li.dropdown.open a {
   background: none;
   color: #fff;
 }
-#_main .navbar-nav > li.dropdown.open a .caret {
+
+#media .navbar-nav > li.dropdown.open a .caret {
   border-bottom-color: #FFF;
   border-top-color: #FFF;
 }
-#_main .navbar-nav > li.dropdown.open .dropdown-menu {
+
+#media .navbar-nav > li.dropdown.open .dropdown-menu {
   background-color: #1b669d;
   border-color: #1b669d;
   padding: 10px;
 }
-#_main .navbar-nav > li.dropdown.open .dropdown-menu > li.active a {
+
+#media .navbar-nav > li.dropdown.open .dropdown-menu > li.active a {
   color: #41aded;
 }
-#_main .navbar-nav > li.dropdown.open .dropdown-menu > li a {
+
+#media .navbar-nav > li.dropdown.open .dropdown-menu > li a {
   font-family: "Lato", Arial, sans-serif;
   font-size: 13px;
   font-weight: 300;
 }
-#_main .navbar-nav > li > a {
+
+#media .navbar-nav > li > a {
   font-family: "Lato", Arial, sans-serif;
   font-size: 13px;
   padding: 10px 5px;
   line-height: 1.2em;
 }
-#_main .navbar-nav > li > a .caret {
+
+#media .navbar-nav > li > a .caret {
   position: absolute;
   top: 50%;
   right: 5px;
@@ -167,211 +199,261 @@ blockquote p {
   border-bottom-color: #FFF;
   border-top-color: #FFF;
 }
-#_main .navbar-default {
+
+#media .navbar-default {
   border: none;
   background: none;
   margin: 0;
 }
-#_main .navbar-default .active a {
+
+#media .navbar-default .active a {
   color: #FFF;
   background-color: #41aded;
 }
-#_main .navbar-default .active a .caret {
+
+#media .navbar-default .active a .caret {
   border-bottom-color: #FFF;
   border-top-color: #FFF;
 }
-#_main .navbar-default a {
+
+#media .navbar-default a {
   color: #ffffff;
   padding: 10px 0;
 }
-#_main .nav > li {
+
+#media .nav > li {
   padding: 10px 0;
 }
-#_main .chapter {
+
+#media .chapter {
   padding-bottom: 20px;
 }
-#_main .chapter h3 {
+
+#media .chapter h3 {
   display: block !important;
 }
-#_main .chapter .desc {
+
+#media .chapter .desc {
   font-family: "Lato", Arial, sans-serif;
   font-size: 16px;
   margin-bottom: 30px;
 }
-#_main .chapter .main_desc {
+
+#media .chapter .main_desc {
   padding: 0;
   margin: 0;
 }
-#_main .chapter .bgcontent {
+
+#media .chapter .bgcontent {
   background-color: #FFF;
   font-family: "Lato", Arial, sans-serif;
   font-size: 16px;
 }
-#_main .chapter .bgcontent p {
+
+#media .chapter .bgcontent p {
   padding: 6px 0;
   line-height: 24px;
 }
-#_main .chapter .bgcontent h3 {
+
+#media .chapter .bgcontent h3 {
   margin-top: 36px !important;
   border-bottom: 1px solid #CCC !important;
   padding-bottom: 10px !important;
 }
-#_main .chapter .table_placeholder {
+
+#media .chapter .table_placeholder {
   text-align: center;
   padding: 40px 0 20px 0;
   margin: 0 20px;
 }
-#_main .chapter .separator-top {
+
+#media .chapter .separator-top {
   margin-top: 30px !important;
 }
-#_main .chapter .header-row {
+
+#media .chapter .header-row {
   background: rgba(0,0,0,0.08);
   padding-top: 20px;
   margin-bottom: 20px;
 }
-#_main .stats {
+
+#media .stats {
   margin-top: 1em;
   padding-top: 1em;
   border-top: 1px solid #AAA;
 }
-#_main .ranks {
+
+#media .ranks {
   text-align: center;
 }
-#_main .rank-row-block {
+
+#media .rank-row-block {
   margin-top: 40px;
   max-width: 1600px;
   margin-left: auto;
   margin-right: auto;
 }
-#_main .rank-row-block .desc {
+
+#media .rank-row-block .desc {
   font-family: "Lato", Arial, sans-serif;
   font-weight: 300;
   font-size: 16px;
 }
-#_main .rank-row-block:first-child {
+
+#media .rank-row-block:first-child {
   margin-top: 0;
 }
-#_main .rank-row-block .rank-row {
+
+#media .rank-row-block .rank-row {
   background-color: #FFF;
-  margin-top: 20px;
+    margin: 20px 0 0;
 }
-#_main .rank-row-block .rank-row .rank-col {
+
+#media .rank-row-block .rank-row .rank-col {
   border-right: 1px solid #CCC;
 }
-#_main .rank-row-block .rank-row .rank-col:last-child {
+
+#media .rank-row-block .rank-row .rank-col:last-child {
   border-right: none;
 }
-#_main .rank-row-block .rank-row .rank-col ul {
+
+#media .rank-row-block .rank-row .rank-col ul {
   padding: 0;
   margin: 0;
   list-style: none;
 }
-#_main .rank-row-block .rank-row .rank-col ul li {
+
+#media .rank-row-block .rank-row .rank-col ul li {
   overflow: auto;
   padding: 10px 0;
   text-align: left;
   min-height: 73px;
 }
-#_main .rank-row-block .rank-row .rank-col ul li.tweet {
+
+#media .rank-row-block .rank-row .rank-col ul li.tweet {
   border-bottom: 1px solid #DDD;
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
-#_main .rank-row-block .rank-row .rank-col ul li.tweet .tweet_header .data .date {
+
+#media .rank-row-block .rank-row .rank-col ul li.tweet .tweet_header .data .date {
   font-size: 12px;
   color: #AAA;
   font-style: italic;
   margin-bottom: 0;
 }
-#_main .rank-row-block .rank-row .rank-col ul li.tweet .tweet_header .data .account a {
+
+#media .rank-row-block .rank-row .rank-col ul li.tweet .tweet_header .data .account a {
   font-weight: bold;
   font-size: 12px;
 }
-#_main .rank-row-block .rank-row .rank-col ul li.tweet:last-child {
+
+#media .rank-row-block .rank-row .rank-col ul li.tweet:last-child {
   border-bottom: none;
   margin-bottom: none;
 }
-#_main .rank-row-block .rank-row .rank-col ul li.account {
+
+#media .rank-row-block .rank-row .rank-col ul li.account {
   border-bottom: 1px solid #DDD;
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
-#_main .rank-row-block .rank-row .rank-col ul li.account:last-child {
+
+#media .rank-row-block .rank-row .rank-col ul li.account:last-child {
   border-bottom: none;
   margin-bottom: none;
 }
-#_main .rank-row-block .rank-row .rank-col ul li.list-group-item {
+
+#media .rank-row-block .rank-row .rank-col ul li.list-group-item {
   border: none;
   padding: 10px 0;
   margin: 0;
   border-bottom: 1px solid #EEE;
   min-height: inherit;
 }
-#_main .rank-row-block .rank-row .rank-col ul li.list-group-item:last-child {
+
+#media .rank-row-block .rank-row .rank-col ul li.list-group-item:last-child {
   border-bottom: none;
 }
-#_main .rank-row-block .rank-row .rank-col ul li .tweet_stats {
+
+#media .rank-row-block .rank-row .rank-col ul li .tweet_stats {
   text-align: center;
   color: #AAAAAA;
   overflow: hidden;
 }
-#_main .rank-row-block .rank-row .rank-col ul li .tweet_stats p {
+
+#media .rank-row-block .rank-row .rank-col ul li .tweet_stats p {
   margin: 0;
   padding: 0;
 }
-#_main .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter {
+
+#media .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter {
   font-family: "Lato", Arial, sans-serif;
   font-size: 16px;
 }
-#_main .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter.small {
+
+#media .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter.small {
   font-size: 12px;
 }
-#_main .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter.plus {
+
+#media .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter.plus {
   color: #5CB85C;
 }
-#_main .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter.minus {
+
+#media .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter.minus {
   color: #D9534F;
 }
-#_main .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter a {
+
+#media .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter a {
   color: #AAA;
 }
-#_main .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter a:hover {
+
+#media .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter a:hover {
   color: #157AB5;
 }
-#_main .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter a span {
+
+#media .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter a span {
   margin-right: 3px;
   top: 2px;
 }
-#_main .rank-row-block .rank-row .rank-col ul li .tweet_stats p._label {
+
+#media .rank-row-block .rank-row .rank-col ul li .tweet_stats p._label {
   font-family: "Lato", Arial, sans-serif;
   font-size: 11px;
   margin-bottom: 3px;
 }
-#_main .rank-row-block .rank-row .rank-col ul li .avatar {
+
+#media .rank-row-block .rank-row .rank-col ul li .avatar {
   float: left;
   width: 73px;
 }
-#_main .rank-row-block .rank-row .rank-col ul li .info {
+
+#media .rank-row-block .rank-row .rank-col ul li .info {
   margin-left: 73px;
   padding: 0 7px;
   margin-top: -4px;
 }
-#_main .rank-row-block .rank-row .rank-col ul li .name {
+
+#media .rank-row-block .rank-row .rank-col ul li .name {
   font-family: "Lato", Arial, sans-serif;
   font-size: 16px;
   margin-bottom: 5px;
 }
-#_main .rank-row-block .rank-row .rank-col ul li .counter {
+
+#media .rank-row-block .rank-row .rank-col ul li .counter {
   font-family: "Lato", Arial, sans-serif;
   font-size: 20px;
 }
-#_main .rank-row-block .rank-row .rank-col ul li .counter a {
+
+#media .rank-row-block .rank-row .rank-col ul li .counter a {
   color: #333;
 }
-#_main .rank-row-block .rank-row .rank-col ul li .counter a:hover {
+
+#media .rank-row-block .rank-row .rank-col ul li .counter a:hover {
   color: #157AB5;
 }
-#_main .rank-row-block .rank-row .rank-col ul li .subcounter {
+
+#media .rank-row-block .rank-row .rank-col ul li .subcounter {
   font-family: "Lato", Arial, sans-serif;
   font-size: 14px;
   font-weight: 300;
@@ -379,43 +461,53 @@ blockquote p {
   margin-top: -10px;
   margin-left: 5px;
 }
-#_main .rank-row-block .rank-row .rank-col .buttons {
+
+#media .rank-row-block .rank-row .rank-col .buttons {
   padding: 10px 0;
 }
-#_main.results {
+
+#media.results {
   margin-top: 1em;
 }
-#_main.results h2 {
+
+#media.results h2 {
   font-family: "Lato", Arial, sans-serif;
   font-size: 20px;
 }
-#_main .main_input {
+
+#media .main_input {
   margin: 20px 0 10px;
 }
-#_main #shortcuts {
+
+#media #shortcuts {
   margin: 1.5em 0;
 }
-#_main #shortcuts ul {
+
+#media #shortcuts ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-#_main #shortcuts ul li {
+
+#media #shortcuts ul li {
   padding: 10px;
   font-family: "Lato", Arial, sans-serif;
   font-weight: 300;
   font-size: 16px;
   display: inline;
 }
-#_main #results {
+
+#media #results {
   margin: 2em 0;
 }
-#_main #results ul {
+
+#media #results ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-#_main #results ul li {
+
+#media #results ul li {
   font-family: "Lato", Arial, sans-serif;
   font-size: 18px;
   font-weight: 300;
@@ -423,49 +515,60 @@ blockquote p {
   text-align: left;
   border-bottom: 1px solid rgba(255,255,255,0.3);
 }
-#_main #results ul li:last-child {
+
+#media #results ul li:last-child {
   border-bottom: none;
 }
-#_main #results ul li a {
+
+#media #results ul li a {
   text-decoration: none;
 }
-#_main #results .button {
+
+#media #results .button {
   margin-top: 2em;
 }
-#_main #tagsCloud {
+
+#media #tagsCloud {
   width: 100%;
   list-style: none;
   overflow: hidden;
 }
-#_main #tagsCloud li {
+
+#media #tagsCloud li {
   list-style: none;
 }
-#_main .twitter-people {
+
+#media .twitter-people {
   width: 520px;
 }
-#_main .twitter-people .stats {
+
+#media .twitter-people .stats {
   font-style: italic;
   height: 45px;
 }
-#_main .twitter-people .stats h2 {
+
+#media .twitter-people .stats h2 {
   color: #000000;
   font-family: "Lato", Arial, sans-serif;
   font-size: 20px;
   float: left;
 }
-#_main .twitter-people .stats span {
+
+#media .twitter-people .stats span {
   color: #0071a6;
   font-family: "Lato", Arial, sans-serif;
   font-size: 18px;
   float: right;
 }
-#_main .twitter-people .twitterContent {
+
+#media .twitter-people .twitterContent {
   position: relative;
   background-clip: padding-box;
   line-height: 16px;
   color: #ffffff;
 }
-#_main .twitter-people .twitterContent .profile-header-inner {
+
+#media .twitter-people .twitterContent .profile-header-inner {
   background-color: #444444;
   background-repeat: no-repeat;
   box-shadow: 0 -1px 0 rgba(0,0,0,0.1) inset;
@@ -473,14 +576,16 @@ blockquote p {
   padding: 0;
   text-align: center;
 }
-#_main .twitter-people .twitterContent .profile-header-inner-overlay {
+
+#media .twitter-people .twitterContent .profile-header-inner-overlay {
   background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0.55) 100%) repeat scroll 0 0 rgba(0,0,0,0);
   height: 200px;
   position: absolute;
   top: 60px;
   width: 520px;
 }
-#_main .twitter-people .twitterContent .profile-picture {
+
+#media .twitter-people .twitterContent .profile-picture {
   background-color: #FFFFFF;
   border: 4px solid #FFFFFF;
   border-radius: 5px;
@@ -492,40 +597,47 @@ blockquote p {
   width: 80px;
   z-index: 5;
 }
-#_main .twitter-people .twitterContent .profile-picture .avatar {
+
+#media .twitter-people .twitterContent .profile-picture .avatar {
   border-radius: 3px;
   float: none;
 }
-#_main .twitter-people .twitterContent .profile-picture .size73 {
+
+#media .twitter-people .twitterContent .profile-picture .size73 {
   border-radius: 5px;
   height: 73px;
   width: 73px;
 }
-#_main .twitter-people .twitterContent .profile-card-inner {
+
+#media .twitter-people .twitterContent .profile-card-inner {
   float: none;
   margin: auto;
   position: relative;
   text-shadow: 0 1px 1px rgba(0,0,0,0.5);
   width: 85%;
 }
-#_main .twitter-people .twitterContent .profile-card-inner a {
+
+#media .twitter-people .twitterContent .profile-card-inner a {
   color: #ffffff;
 }
-#_main .twitter-people .twitterContent .profile-card-inner .fullname {
+
+#media .twitter-people .twitterContent .profile-card-inner .fullname {
   font-weight: bold;
   line-height: 1;
   margin-bottom: 2px;
   font-size: 24px;
   white-space: nowrap;
 }
-#_main .twitter-people .twitterContent .profile-card-inner .username {
+
+#media .twitter-people .twitterContent .profile-card-inner .username {
   font-size: 18px;
   font-weight: normal;
   color: #ffffff;
   line-height: 24px;
   margin-bottom: 1px;
 }
-#_main .twitter-people .twitterContent .profile-card-inner .bio-container {
+
+#media .twitter-people .twitterContent .profile-card-inner .bio-container {
   -moz-font-feature-settings: inherit;
   -moz-font-language-override: inherit;
   font-family: inherit;
@@ -538,42 +650,52 @@ blockquote p {
   margin-bottom: 4px;
   line-height: 16px;
 }
-#_main .twitter-people .twitterContent .profile-card-inner .bio-container p {
+
+#media .twitter-people .twitterContent .profile-card-inner .bio-container p {
   line-height: 16px;
 }
-#_main .twitter-people .twitterContent .profile-card-inner .location-and-url {
+
+#media .twitter-people .twitterContent .profile-card-inner .location-and-url {
   color: #FFFFFF;
   font-size: 14px;
   line-height: 18px;
 }
-#_main .twitter-people .twitterContent .profile-card-inner .location-and-url .divider {
+
+#media .twitter-people .twitterContent .profile-card-inner .location-and-url .divider {
   color: #FFFFFF;
   padding: 0 2px;
 }
-#_main .twitter-people .twitterContent .profile-card-inner .location-and-url .url {
+
+#media .twitter-people .twitterContent .profile-card-inner .location-and-url .url {
   word-wrap: break-word;
 }
-#_main .twitter-people .twitterContent i,
-#_main .twitter-people .twitterContent .icon {
+
+#media .twitter-people .twitterContent i,
+#media .twitter-people .twitterContent .icon {
   background: url("https://abs.twimg.com/a/1388796652/t1/img/twitter_web_sprite_icons.png") no-repeat 0 0;
   display: inline-block;
   vertical-align: text-top;
 }
-#_main .twitter-people .twitterContent .verified {
+
+#media .twitter-people .twitterContent .verified {
   background-position: -30px -480px;
 }
-#_main .twitter-people .twitterContent .verified-large-border,
-#_main .twitter-people .twitterContent .translator-large-border {
+
+#media .twitter-people .twitterContent .verified-large-border,
+#media .twitter-people .twitterContent .translator-large-border {
   height: 21px;
   width: 21px;
 }
-#_main .twitter-people .twitterContent .verified-large-border {
+
+#media .twitter-people .twitterContent .verified-large-border {
   background-position: -120px -480px;
 }
-#_main .twitter-people .twitterContent .verified-link .verified {
+
+#media .twitter-people .twitterContent .verified-link .verified {
   margin-top: 3px;
 }
-#_main .twitter-people .twitterContent .visuallyhidden {
+
+#media .twitter-people .twitterContent .visuallyhidden {
   border: 0 none;
   clip: rect(0px,0,0,0);
   height: 1px;
@@ -583,55 +705,66 @@ blockquote p {
   position: absolute;
   width: 1px;
 }
-#_main #media #tblMain,
-#_main #prawo #tblMain {
+
+#media #media #tblMain,
+#media #prawo #tblMain {
   font-family: "Lato", Arial, sans-serif;
   font-size: 16px;
   font-weight: 300;
   color: #000000;
   margin: 20px auto;
 }
-#_main #media #tblMain tr:first-child,
-#_main #prawo #tblMain tr:first-child {
+
+#media #media #tblMain tr:first-child,
+#media #prawo #tblMain tr:first-child {
   color: #ffffff;
   font-size: 18px;
   font-weight: 700;
   background-color: #00aeef;
 }
-#_main #media #tblMain tr td,
-#_main #prawo #tblMain tr td {
+
+#media #media #tblMain tr td,
+#media #prawo #tblMain tr td {
   border: 1px solid #939598;
   padding: 5px 10px;
   text-align: center;
 }
-#_main #media #tblMain tr td:first-child,
-#_main #prawo #tblMain tr td:first-child {
+
+#media #media #tblMain tr td:first-child,
+#media #prawo #tblMain tr td:first-child {
   text-align: left;
 }
-#_main #media #tblMain tr td .glyphicon.glyphicon-ok,
-#_main #prawo #tblMain tr td .glyphicon.glyphicon-ok {
+
+#media #media #tblMain tr td .glyphicon.glyphicon-ok,
+#media #prawo #tblMain tr td .glyphicon.glyphicon-ok {
   color: #40ae49;
 }
-#_main #media #tblMain tr td .glyphicon.glyphicon-remove,
-#_main #prawo #tblMain tr td .glyphicon.glyphicon-remove {
+
+#media #media #tblMain tr td .glyphicon.glyphicon-remove,
+#media #prawo #tblMain tr td .glyphicon.glyphicon-remove {
   color: #d2232a;
 }
-#_main #media #tblMain tr td .line,
-#_main #prawo #tblMain tr td .line {
+
+#media #media #tblMain tr td .line,
+#media #prawo #tblMain tr td .line {
   display: inline-block;
   width: 100%;
 }
-#_main #prawo #tblMain tr td {
+
+#media #prawo #tblMain tr td {
   text-align: left;
 }
-#_main #prawo #tblMain tr td blackquote {
+
+#media #prawo #tblMain tr td blackquote {
   font-style: italic;
   font-weight: 300;
 }
-#_main #kontrowersje .fakeTwitterAccounts {
+
+#media #kontrowersje .fakeTwitterAccounts {
   list-style-type: none;
 }
-#_main #kontrowersje .fakeTwitterAccounts > li {
+
+#media #kontrowersje .fakeTwitterAccounts > li {
   border: 1px solid #d1d2d4;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
@@ -643,7 +776,8 @@ blockquote p {
   margin-bottom: 15px;
   line-height: 1.2em;
 }
-#_main #kontrowersje .fakeTwitterAccounts > li .avatar {
+
+#media #kontrowersje .fakeTwitterAccounts > li .avatar {
   border: 1px solid #ffffff;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
@@ -651,45 +785,54 @@ blockquote p {
   float: left;
   margin-right: 15px;
 }
-#_main #kontrowersje .fakeTwitterAccounts > li .name {
+
+#media #kontrowersje .fakeTwitterAccounts > li .name {
   width: 40%;
   float: left;
   color: #404040;
 }
-#_main #kontrowersje .fakeTwitterAccounts > li .name strong,
-#_main #kontrowersje .fakeTwitterAccounts > li .name a {
+
+#media #kontrowersje .fakeTwitterAccounts > li .name strong,
+#media #kontrowersje .fakeTwitterAccounts > li .name a {
   width: 100%;
   display: block;
 }
-#_main #kontrowersje .fakeTwitterAccounts > li .name strong {
+
+#media #kontrowersje .fakeTwitterAccounts > li .name strong {
   font-family: "Lato", Arial, sans-serif;
   font-size: 18px;
   font-weight: 700;
 }
-#_main #kontrowersje .fakeTwitterAccounts > li .name a {
+
+#media #kontrowersje .fakeTwitterAccounts > li .name a {
   color: #9d9fa2;
   font-family: "Lato", Arial, sans-serif;
   font-size: 14px;
 }
-#_main #kontrowersje .fakeTwitterAccounts > li .count {
+
+#media #kontrowersje .fakeTwitterAccounts > li .count {
   float: right;
   width: 40%;
 }
-#_main #kontrowersje .fakeTwitterAccounts > li .count strong,
-#_main #kontrowersje .fakeTwitterAccounts > li .count span {
+
+#media #kontrowersje .fakeTwitterAccounts > li .count strong,
+#media #kontrowersje .fakeTwitterAccounts > li .count span {
   width: 100%;
   display: block;
 }
-#_main #kontrowersje .fakeTwitterAccounts > li .count strong {
+
+#media #kontrowersje .fakeTwitterAccounts > li .count strong {
   font-family: "Lato", Arial, sans-serif;
   font-size: 16px;
 }
-#_main #kontrowersje .fakeTwitterAccounts > li .count span {
+
+#media #kontrowersje .fakeTwitterAccounts > li .count span {
   color: #9d9fa2;
   font-family: "Lato", Arial, sans-serif;
   font-size: 14px;
 }
-#_main #kontrowersje .fakeTwitterAccounts > li blackquote {
+
+#media #kontrowersje .fakeTwitterAccounts > li blackquote {
   padding-top: 5px;
   display: block;
   font-style: italic;
@@ -698,40 +841,50 @@ blockquote p {
   font-family: "Lato", Arial, sans-serif;
   font-size: 16px;
 }
-#_main #kontrowersje .fakeTwitterAccounts > li blackquote span {
+
+#media #kontrowersje .fakeTwitterAccounts > li blackquote span {
   color: #0084B4;
 }
-#_main #kontrowersje .twoColumn {
+
+#media #kontrowersje .twoColumn {
   width: 100%;
   float: left;
 }
-#_main #kontrowersje .twoColumn .columnLeft,
-#_main #kontrowersje .twoColumn .columnRight {
+
+#media #kontrowersje .twoColumn .columnLeft,
+#media #kontrowersje .twoColumn .columnRight {
   width: 49%;
   display: block;
 }
-#_main #kontrowersje .twoColumn .columnLeft {
+
+#media #kontrowersje .twoColumn .columnLeft {
   float: left;
 }
-#_main #kontrowersje .twoColumn .columnRight {
+
+#media #kontrowersje .twoColumn .columnRight {
   float: right;
 }
-#_main #kontrowersje .twoColumn .block {
+
+#media #kontrowersje .twoColumn .block {
   float: left;
   padding-bottom: 15px;
 }
-#_main #kontrowersje .twoColumn .block h4 {
+
+#media #kontrowersje .twoColumn .block h4 {
   font-size: 17px;
   font-weight: 700;
 }
-#_main #kontrowersje .twoColumn .block img {
+
+#media #kontrowersje .twoColumn .block img {
   padding: 20px 20% 20px 0;
   width: 100%;
   float: left;
 }
-#_main #ofundacji p {
+
+#media #ofundacji p {
   padding-bottom: 20px;
 }
-#_main #ofundacji img {
+
+#media #ofundacji img {
   padding: 10px 0;
 }

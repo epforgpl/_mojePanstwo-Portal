@@ -1,5 +1,4 @@
 $(function() {
-
     'use strict';
 
     var hz_map = $('#hzMap'),
@@ -292,8 +291,7 @@ $(function() {
                         }
                     };
                 break;
-            };
-
+            }
             var cd_max_import = max_import(countriesData);
             var cd_max_eksport = max_eksport(countriesData);
 
@@ -429,8 +427,7 @@ $(function() {
         }
 
         return max;
-    };
-
+    }
     function max_import(countries) {
         var max = parseInt(countries[0].import);
         for(var i = 0; i < countries.length; i++) {
@@ -439,8 +436,7 @@ $(function() {
         }
 
         return max;
-    };
-
+    }
     function min_import(countries) {
         var min = parseInt(countries[0].import);
         for(var i = 0; i < countries.length; i++) {
@@ -495,8 +491,7 @@ $(function() {
             str += number_format(n);
 
         return str.trim();
-    };
-
+    }
     function number_format(number, decimals, dec_point, thousands_sep) {
         number = (number + '')
             .replace(/[^0-9+\-Ee.]/g, '');
@@ -744,7 +739,6 @@ $(function() {
         }
     };
 
-
-
+    sticky('#maplabel');
 
 });

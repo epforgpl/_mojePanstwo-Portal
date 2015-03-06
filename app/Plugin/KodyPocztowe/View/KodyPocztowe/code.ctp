@@ -3,6 +3,8 @@ $this->Combinator->add_libs('css', $this->Less->css('kody_pocztowe', array('plug
 $this->Combinator->add_libs('js', 'KodyPocztowe.kody.js');
 ?>
 
+<?= $this->Element('appheader', array('title' => 'Kody pocztowe')); ?>
+
 <div class="container">
     <h1>
         <?php echo $city; ?>

@@ -4,6 +4,7 @@ $this->Combinator->add_libs('css', $this->Less->css('kody_pocztowe_index', array
 $this->Combinator->add_libs('js', 'KodyPocztowe.kody.js');
 ?>
 
+<?= $this->Element('appheader', array('title' => 'Kody pocztowe')); ?>
 
 <div class="container<? if ($details) {
     echo " details";

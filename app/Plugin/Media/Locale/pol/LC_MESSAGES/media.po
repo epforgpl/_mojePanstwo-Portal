@@ -17,7 +17,7 @@ msgid "LC_PANSTWOINTERNET_HEADLINE"
 msgstr "Państwo w Internecie"
 
 msgid "LC_PANSTWOINTERNET_HEADLINE"
-msgstr "Państwo<br>w&nbsp;mediach<br>społecznościowych"
+msgstr "Państwo w&nbsp;mediach społecznościowych"
 
 msgid "LC_PANSTWOINTERNET_SUBTITLE"
 msgstr "Analiza Fundacji ePaństwo"

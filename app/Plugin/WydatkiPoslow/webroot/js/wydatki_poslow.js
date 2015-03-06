@@ -467,26 +467,4 @@ jQuery(function ($) {
     }, 1050);
 
     TweenLite.ticker.addEventListener('tick', tickHandler);
-
-    // wykopywarka wersja standardowa (72x65)
-    var wykop_url = "http://mojepanstwo.pl/wydatki_poslow",
-        wykop_title = encodeURIComponent('Wydatki posłów'),
-        wykop_desc = encodeURIComponent('Sprawdź na co posłowie wydają publiczne pieniądze'),
-        widget_bg = '7CAD2B',
-        widget_type = 'normal';
-    var widget_url = 'http://www.wykop.pl/dataprovider/diggerwidget/?url=' + encodeURIComponent(wykop_url) + '&title=' + (wykop_title) + '&desc=' + (wykop_desc) + '&bg=' + (widget_bg) + '&type=' + (widget_type);
-    $('.social').append(
-        $('<iframe></iframe>').attr({
-            'src': widget_url,
-            'frameborder': "0",
-            'border': "0"
-        }).css({
-            border: 'none',
-            width: '72px',
-            height: '65px',
-            overflow: 'hidden',
-            margin: 0,
-            padding: 0
-        })
-    );
 });

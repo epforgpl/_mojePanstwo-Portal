@@ -7,9 +7,7 @@ class MojaGminaController extends AppController
 
     public function index()
     {
-
-        $application = $this->getApplication();
-        $this->set('title_for_layout', $application['Application']['name']);
+        $this->set('title_for_layout', 'Moja gmina');
 
         if (
             ($q = @$this->request->query['q']) &&

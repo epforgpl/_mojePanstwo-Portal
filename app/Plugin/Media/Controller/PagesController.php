@@ -9,8 +9,6 @@ class PagesController extends MediaAppController
 
     public function home()
     {
-
-
         $ranges = array('24h', '3d', '7d', '1m');
         $range = (isset($this->request->query['range']) && in_array($this->request->query['range'], $ranges)) ?
             $this->request->query['range'] :
@@ -403,7 +401,7 @@ class PagesController extends MediaAppController
         $this->set('range', $range);
         $this->set('ranks', $ranks);
         $this->set('title_for_layout', 'Państwo w Mediach Społecznościowych');
-
+        $this->set('appMenuSelected', '');
     }
 
 } 

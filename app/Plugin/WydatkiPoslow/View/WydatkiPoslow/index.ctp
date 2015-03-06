@@ -21,8 +21,6 @@
                     <a class="wszystkie btn btn-primary" href="/dane/poslowie_biura_wydatki">Zobacz
                         wszystkie dane w formie listy &raquo;</a>
 
-                    <div class="social"></div>
-
                 </div>
 
                 <? /*
@@ -232,8 +230,6 @@
                         <img src="/WydatkiPoslow/img/posel.svg" class="poselBckgrnd"/>
                         <a target="_blank" class="wszystkie btn btn-primary" href="/dane/poslowie_biura_wydatki">
                             Zobacz wszystkie dane w formie listy &raquo;</a>
-
-                        <div class="social"></div>
                     </div>
 
                 </div>

@@ -2,29 +2,25 @@
 <?php $this->Combinator->add_libs('js', 'Krs.krs.js') ?>
 
 <div id="krs">
-    <div class="appHeader">
-        <div class="container innerContent">
-            <h1><?php echo __d('krs', 'LC_KRS_HEADLINE'); ?></h1>
+    <?= $this->Element('appheader', array('title' => 'Krajowy Rejestr Sądowy', 'subtitle' => __d('krs', 'LC_KRS_HEADLINE'))); ?>
 
-            <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-                <form class="searchInput" class="searchKRSForm" action="/krs">
-                    <div class="searchKRS input-group main_input">
-                        <input name="q" value="" autocomplete="off" type="text"
-                               placeholder="<?php echo __d('krs', 'LC_KRS_SEARCH_PLACEHOLDER'); ?>"
-                               class="form-control input-lg">
+    <div class="search container">
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+            <form class="searchInput" class="searchKRSForm" action="/krs">
+                <div class="searchKRS input-group main_input">
+                    <input name="q" value="" autocomplete="off" type="text"
+                           placeholder="<?php echo __d('krs', 'LC_KRS_SEARCH_PLACEHOLDER'); ?>"
+                           class="form-control input-lg">
 		                <span class="input-group-btn">
 		                      <button class="btn btn-success btn-lg" type="submit" data-icon="&#xe600;"></button>
 		                </span>
-                    </div>
-                </form>
-            </div>
-
+                </div>
+            </form>
         </div>
     </div>
 
     <div class="resultsList">
         <div class="container">
-
             <div id="groupsAndResults" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <?php foreach ($groups as $index => $group) { ?>

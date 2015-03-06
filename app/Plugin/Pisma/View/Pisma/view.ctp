@@ -1,22 +1,7 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
 
-<?= $this->Element('appheader', array('title' => 'Prawo', 'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce', 'appMenu' => $appMenu, 'appMenuSelected' => $appMenuSelected)); ?>
-
-
-<div class="appHeader">
-    <div class="container innerContent">
-
-        <div class="col-xs-12">
-            <? 
-	            echo $this->Element('Pisma.menu', array(
-	            	'selected' => ($pismo['saved']=='1') ? 'moje' : 'nowe',
-	            ));
-	        ?>
-        </div>
-
-    </div>
-</div>
+<?= $this->Element('appheader', array('title' => 'Prawo', 'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce', 'appMenu' => $appMenu, 'appMenuSelected' => ($pismo['saved'] == '1') ? 'moje' : 'nowe')); ?>
 
 <div class="container">
 
