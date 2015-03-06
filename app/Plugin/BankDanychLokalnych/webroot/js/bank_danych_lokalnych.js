@@ -1,13 +1,90 @@
 $(function () {
 
-
     var API = 'http://mojepanstwo.pl:4444/',
         geoAPI = API + 'geo/geojson/get?',
         indicators = [],
         map = [],
-        mapLevel = 0;
+        mapLevel = 0,
+        $tree,
+        trueIds = [],
+        spinner;
 
-    var spinner = {
+    var BDLHistory = {
+
+        data: [0, 0, 0],
+
+        init: function() {
+            var state = History.getState();
+            if(state.data[0] != undefined) {
+                this.changeState(state.data);
+            } else {
+                var data = {};
+                location.search.substr(1).split("&").forEach(function(item) {data[item.split("=")[0]] = item.split("=")[1]});
+                if(data['s1'] != undefined && data['s2'] != undefined && data['s3'] != undefined) {
+                    this.changeState([
+                        parseInt(data['s1']),
+                        parseInt(data['s2']),
+                        parseInt(data['s3'])
+                    ]);
+                }
+            }
+        },
+
+        setTreeState: function(s1, s2, s3) {
+            this.data = [s1, s2, s3];
+            this.pushState();
+        },
+
+        pushState: function() {
+            History.pushState(this.data, "", "?s1=" + this.data[0] + "&s2=" + this.data[1] + "&s3=" + this.data[2]);
+        },
+
+        changeState: function(data) {
+            spinner.show();
+            this.data = data;
+            this.updateChanges();
+        },
+
+        updateChanges: function() {
+            $tree.tree(
+                'setState',
+                {
+                    open_nodes: [this.data[0], this.data[1]],
+                    selected_node: []
+                }
+            );
+
+            var node = $tree.tree('getNodeById', this.data[2]);
+            $tree.tree('scrollToNode', node);
+            setTreeNode(node);
+        }
+
+    };
+
+    History.Adapter.bind(window, 'statechange', function() {
+        var State = History.getState();
+        BDLHistory.changeState(State.data);
+    });
+
+    var setTreeNode = function(node) {
+        $('#categories li').each(function() {
+            $(this).removeClass('active');
+        });
+
+        $(node.element).addClass('active');
+        $('#indicator h3').html(node.name);
+
+        if(indicators[node.id] === undefined) {
+            $.getJSON(API + 'dane/bdl_wskazniki/' + trueIds[parseInt(node.id)] + '.json?layers[]=dimennsions', function(data) {
+                indicators[node.id] = data.object;
+                setIndicator(indicators[node.id]);
+            });
+        } else {
+            setIndicator(indicators[node.id]);
+        }
+    };
+
+    spinner = {
         show: function() {
             if($('#bankDanychLokalny').find('.loadingBlock').length == 0) {
                 $('#bankDanychLokalny').append('<div class="loadingBlock loadingTwirl"><div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div><p>Ładowanie...</p></div>');
@@ -245,6 +322,7 @@ $(function () {
 
     $.getJSON(API + 'bdl/getCategories', function(categories) {
         categoriesData = [];
+        var id = 0;
         for(var i = 0; i < categories.length; i++) {
             groupsData = [];
             for(var s = 0; s < categories[i].groups.length; s++) {
@@ -252,30 +330,38 @@ $(function () {
                 for(var m = 0; m < categories[i].groups[s].subgroups.length; m++) {
                     subGroupsData.push({
                         label:      categories[i].groups[s].subgroups[m].tytul,
-                        id:         categories[i].groups[s].subgroups[m].id
+                        id:         id
                     });
+                    trueIds.push(categories[i].groups[s].subgroups[m].id);
+                    id++;
                 }
                 groupsData.push({
                     label:      categories[i].groups[s].tytul + '&nbsp;<span class="small">(' + subGroupsData.length + ')</span>',
-                    id:         categories[i].groups[s].id,
+                    id:         id,
                     children:   subGroupsData
                 });
+                trueIds.push(categories[i].groups[s].id);
+                id++;
             }
 
             categoriesData.push({
                 label:      (categories[i].w_tytul == '' ? categories[i].tytul : categories[i].w_tytul) + '&nbsp;<span class="small">(' + groupsData.length + ')</span>',
-                id:         categories[i].id,
+                id:         id,
                 children:    groupsData
             });
+            trueIds.push(categories[i].id);
+            id++;
         }
 
         spinner.hide();
 
-        var $tree = $('#categories').tree({
+        $tree = $('#categories').tree({
             data: categoriesData,
             selectable: false,
             autoEscape: false
         });
+
+        BDLHistory.init();
 
         $('#categories').bind(
             'tree.click',
@@ -286,21 +372,11 @@ $(function () {
                     return false;
                 }
 
-                $('#categories li').each(function() {
-                    $(this).removeClass('active');
-                });
-
-                $(node.element).addClass('active');
-                $('#indicator h3').html(node.name);
-
-                if(indicators[node.id] === undefined) {
-                    $.getJSON(API + 'dane/bdl_wskazniki/' + node.id + '.json?layers[]=dimennsions', function (data) {
-                        indicators[node.id] = data.object;
-                        setIndicator(indicators[node.id]);
-                    });
-                } else {
-                    setIndicator(indicators[node.id]);
-                }
+                BDLHistory.setTreeState(
+                    parseInt(node.parent.parent.id),
+                    parseInt(node.parent.id),
+                    parseInt(node.id)
+                );
             }
         );
     });
