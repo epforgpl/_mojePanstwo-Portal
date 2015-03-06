@@ -133,6 +133,11 @@ $(function () {
         },
 
         setSeriesData: function(data) {
+            /*
+                Dopiero w tym miejscu powinien zapisywać się stan w historii
+                ponieważ mamy już wybraną kategorię, wskaźniki oraz
+                rodzaj mapy którą chcemy wyświetlić.
+             */
             var t = this;
             t.seriesData = data;
             spinner.show();
@@ -293,6 +298,8 @@ $(function () {
         var ls = [undefined, undefined, 'Województwo', undefined, 'Powiat', 'Gmina'];
         var lt = ['', '', 'wojewodztwa', '', 'powiaty', 'gminy'];
         var l = parseInt(indicator.data['bdl_wskazniki.poziom_id']);
+        if(l == 0)
+            l = 2;
         $('#levels').html('');
         for(var i = 0; i <= l; i++) {
             if(ls[i] === undefined) continue;

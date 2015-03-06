@@ -137,7 +137,8 @@ jQuery(document).ready(function () {
         wskaznikiTable = main.find('.localDataTable tbody'),
         wskazniki = main.find('.wskaznik'),
         wskaznikiStatic = main.find('.wskaznikStatic'),
-        wskaznikiString = '';
+        wskaznikiString = '',
+        api = 'http://mojepanstwo.pl:4444/';
 
     wskazniki.each(function () {
         if (wskaznikiString != '')
@@ -292,4 +293,88 @@ jQuery(document).ready(function () {
             wskaznikiTable.find('tr:hidden').show();
         });
     }
+
+    /* BDL WSKAZNIKI TREE */
+
+    var kid = parseInt(jQuery('input#kid').val());
+    jQuery.getJSON(api + 'bdl/getCategory?id=' + kid, function(category) {
+
+        var gid = parseInt(jQuery('input#gid').val());
+        var wid = parseInt(jQuery('input#wid').val());
+
+        for(var i = 0; i < category.groups.length; i++) {
+            jQuery('.tree ul.insertHere').append('<li id="' + category.groups[i].id + '"><a><span class="glyphicon glyphicon-plus"></span>' + category.groups[i].tytul + '</a><ul></ul></li>');
+            for(var m = 0; m < category.groups[i].subgroups.length; m++) {
+                var c =
+                    wid == category.groups[i].subgroups[m].id ?
+                        'class="active"' : '';
+
+                var ic =
+                    wid == category.groups[i].subgroups[m].id ?
+                    '<span class="glyphicon glyphicon-check tg"></span> &nbsp;' : '';
+
+                jQuery('.tree ul.insertHere li#' + category.groups[i].id + ' ul')
+                    .append('<li id="' + category.groups[i].subgroups[m].id + '">' + ic + '<a ' + c + ' href="/dane/bdl_wskazniki/' + category.groups[i].subgroups[m].id + '">' + category.groups[i].subgroups[m].tytul + '</a></li>');
+            }
+        }
+
+        jQuery('.tree li').each(function() {
+            if(jQuery(this).children('ul').length > 0) {
+                if(!jQuery(this).hasClass('noparent')) {
+                    jQuery(this).addClass('parent');
+                }
+            }
+        });
+
+        jQuery('.tree li.parent > a').click(function() {
+            var o = false;
+            var b = false;
+            jQuery(this).parent().toggleClass('active');
+            jQuery(this).parent().find('li').each(function() {
+                if(jQuery(this).attr('id') == wid) {
+                    b = true;
+                }
+                if(jQuery(this).is(':hidden')) {
+                    jQuery(this).show();
+                    o = true;
+                }
+            });
+
+            if(!o) {
+                if(!b)
+                    jQuery(this).parent().children('ul').slideToggle('fast');
+                else {
+                    jQuery(this).parent().find('li').each(function() {
+                        if(jQuery(this).attr('id') != wid)
+                            jQuery(this).hide();
+                    });
+                }
+            } else {
+                jQuery(this).parent().children('ul').slideDown('fast');
+            }
+
+            jQuery(this).find('span').toggleClass('glyphicon-plus');
+            jQuery(this).find('span').toggleClass('glyphicon-minus');
+        });
+
+        jQuery('.tree li#' + kid).addClass('active');
+        jQuery('.tree li#' + kid).parent('ul').slideToggle('fast');
+
+        jQuery('.tree li#' + gid).addClass('active');
+        //jQuery('.tree li#' + gid + ' a:first-child span').toggleClass('glyphicon-plus');
+        //jQuery('.tree li#' + gid + ' a:first-child span').toggleClass('glyphicon-minus');
+        jQuery('.tree li#' + gid).parent('ul').slideToggle('fast');
+
+        jQuery('.tree li#' + wid).addClass('active');
+        jQuery('.tree li#' + wid).parent('ul').slideToggle('fast');
+        jQuery('.tree li#' + wid).parent('ul').find('li').each(function() {
+            if(jQuery(this).attr('id') != wid)
+                jQuery(this).hide();
+        });
+
+        /*jQuery('.tree li').each(function() {
+            jQuery(this).toggleClass('active');
+            jQuery(this).children('ul').slideToggle('fast');
+        });*/
+    });
 });

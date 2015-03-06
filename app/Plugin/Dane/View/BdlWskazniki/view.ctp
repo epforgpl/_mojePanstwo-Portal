@@ -4,7 +4,7 @@
 <?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals'); ?>
 <?php $this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki'); ?>
 
-<?= $this->Element('dataobject/pageBegin'); ?>
+<?= $this->Element('dataobject/pageBegin', array('renderFile' => 'page-bdl_wskazniki')); ?>
 <?= $this->Element('bdl_select', array('expand_dimension' => $expand_dimension, 'dims' => $dims)); ?>
 
     <div id="bdl-wskazniki">

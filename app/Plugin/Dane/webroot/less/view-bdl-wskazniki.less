@@ -1,3 +1,61 @@
+#_main {
+  .objectPageHeaderBg {
+    .objectPageHeader {
+      .tree {
+        ul {
+          list-style: none outside none;
+          li {
+            span {
+              &.tg {
+                color: #999;
+              }
+            }
+            a {
+              line-height: 32px;
+              font-size: 14px;
+              &.title {
+                color: #666;
+              }
+              &.active {
+                color: #666;
+              }
+              &:hover {
+                cursor: pointer;
+              }
+            }
+            &.parent > a {
+              padding: 0 0 0 5px;
+              span {
+                margin-right: 8px;
+                top: -1px;
+                font-size: 12px;
+              }
+            }
+            ul {
+              border-left: 1px solid #ddd;
+              display: none;
+              margin: 0 0 0 10px;
+              overflow: hidden;
+              padding: 0 0 0 20px;
+              li {
+                position: relative;
+                &:before {
+                  border-bottom: 1px solid #ddd;
+                  content: "";
+                  left: -25px;
+                  position: absolute;
+                  top: 15px;
+                  width: 20px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 #bdl-wskazniki {
 
     .wskaznik {

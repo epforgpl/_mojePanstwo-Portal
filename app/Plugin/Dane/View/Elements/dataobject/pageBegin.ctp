@@ -9,6 +9,9 @@ if (isset($titleTag)) {
     $objectOptions['titleTag'] = $titleTag;
 }
 
+if(!isset($renderFile))
+    $renderFile = 'page';
+
 $menu = $this->viewVars['menu'];
 $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array('shoutIt');
 ?>
@@ -65,7 +68,7 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
                 <? } ?>
                 <div class="<? echo($krsPodmiotyKrakow ? 'col-md-7' : 'col-xs-12'); ?>">
                     <div class="objectPageHeader">
-                        <?php echo $this->Dataobject->render($object, 'page', $objectOptions); ?>
+                        <?php echo $this->Dataobject->render($object, $renderFile, $objectOptions); ?>
                     </div>
                 </div>
                 <? /*
