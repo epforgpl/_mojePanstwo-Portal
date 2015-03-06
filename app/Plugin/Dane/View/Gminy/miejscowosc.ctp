@@ -19,7 +19,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 ?>
 
     <div class="posiedzenie row">
-        <div class="col-lg-3 objectSide">
+        <div class="col-md-3 objectSide">
             <div class="objectSideInner">
                 <ul class="dataHighlights side">
 
@@ -44,7 +44,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
         </div>
 
 
-        <div class="col-lg-9 objectMain">
+        <div class="col-md-9 objectMain">
 
 
             <div class="object">

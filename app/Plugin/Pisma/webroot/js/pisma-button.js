@@ -23,20 +23,17 @@ $(document).ready(function () {
                         $('<h4></h4>').addClass('modal-title').attr('id', 'pismaGenerateModalHandle').text('Wybierz szablon')
                     )
                 ).append(
-                    $('<div></div>').addClass('modal-body').css({'height': '65vh', 'overflow-y': 'auto'}).append(
-                        $('<div></div>').addClass('loadingBlock').css({
-                            'background': 'none',
-                            'color': '#555'
-                        }).append(
+                    $('<div></div>').addClass('modal-body').append(
+                        $('<div></div>').addClass('loadingBlock').append(
                             $('<div></div>').addClass('spinner').append(
-                                $('<div></div>').css('background-color', '#555').addClass('bounce1')
+                                $('<div></div>').addClass('bounce1')
                             ).append(
-                                $('<div></div>').css('background-color', '#555').addClass('bounce2')
+                                $('<div></div>').addClass('bounce2')
                             ).append(
-                                $('<div></div>').css('background-color', '#555').addClass('bounce3')
+                                $('<div></div>').addClass('bounce3')
                             )
                         ).append(
-                            $('<p></p>').css('text-align', 'center').text("Ładowanie...")
+                            $('<p></p>').text("Ładowanie...")
                         )
                     )
                 ).append(
@@ -81,29 +78,18 @@ $(document).ready(function () {
             var listBlock = $('<div></div>').addClass('listBlock').append(
                 $('<h4></h4>').text(value['nazwa'])
             ).append(
-                $('<ul></ul>').addClass('ul-raw').css({
-                    'list-style-type': 'none',
-                    'padding': 0,
-                    'line-height': '1em'
-                })
+                $('<ul></ul>').addClass('ul-raw')
             );
             $.each(value['templates'], function (name, obj) {
                 listBlock.find('ul.ul-raw').append(
-                    $('<li></li>').css({
-                        'padding-top': '10px',
-                        'border-top': '1px solid #ededed',
-                        'padding': '8px 2%'
-                    }).append(
+                    $('<li></li>').append(
                         $('<a></a>').attr({
                             'data-szablonId': obj['id'],
                             'href': '#' + value['nazwa'] + '-' + obj['nazwa']
-                        }).css({
-                            'display': 'block',
-                            'color': '#555'
                         }).append(
-                            $('<span></span>').css({'font-size': '13px', 'font-weight': 'bold'}).text(obj['nazwa'])
+                            $('<span></span>').text(obj['nazwa'])
                         ).append(
-                            $('<p></p>').css('font-size', '12px').text(obj['opis'])
+                            $('<p></p>').text(obj['opis'])
                         )
                     )
                 )
@@ -112,10 +98,10 @@ $(document).ready(function () {
             list.find('ul.ul-raw li a').click(function (e) {
                 e.preventDefault();
                 pismoModal
-                    .find('ul.ul-raw li.active').removeClass('active').css('background', 'none')
+                    .find('ul.ul-raw li.active').removeClass('active')
                     .end()
                     .find('.modal-footer .btn-primary.disabled').removeClass('disabled');
-                $(this).parent('li').addClass('active').css('background', '#ededed');
+                $(this).parent('li').addClass('active');
             })
         });
         pismoModal.find('.modal-body').html(list);
@@ -142,13 +128,14 @@ $(document).ready(function () {
             }
             pismoModal.modal('hide');
             pismoModal.find('.modal-footer .btn.btn-primary').removeClass('loading').addClass('disabled').text('Zatwierdź');
-            pismoModal.find('ul.ul-raw li.active').removeClass('active').css('background', 'none');
+            pismoModal.find('ul.ul-raw li.active').removeClass('active');
         } else {
             var method = (szablon_id !== undefined && pismoBtn.attr('data-adresatid') !== undefined) ? 'post' : 'get';
             var form = $('<form></form>').attr({
                 'action': '/pisma',
-                'method': method
-            }).css('height', 0).append(
+                'method': method,
+                'class': 'pismaGenerateModalForm'
+            }).append(
                 $('<input>').attr({
                     'name': 'szablon_id',
                     'type': 'text',

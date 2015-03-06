@@ -282,8 +282,18 @@ class GminyController extends DataobjectsController
             $this->set('interpelacja', $interpelacja);
             $this->set('document', $document);
             $this->set('documentPackage', 1);
+            
+            if( $interpelacja->getData('odp1_dokument_id') ) {
+	            $document1 = $this->API->document($interpelacja->getData('odp1_dokument_id'));
+	            $this->set('document1', $document1);
+            }
+            
+            if( $interpelacja->getData('odp2_dokument_id') ) {
+	            $document2 = $this->API->document($interpelacja->getData('odp2_dokument_id'));
+	            $this->set('document2', $document2);
+            }
+            
             $this->set('title_for_layout', 'Interpelacja w sprawie ' . lcfirst($interpelacja->getData('tytul')));
-
             $this->render('interpelacja');
 
         } else {
@@ -338,15 +348,70 @@ class GminyController extends DataobjectsController
                 ),
             );
             */
-
-
-            $render_view = 'punkty';
-            $subaction = 'punkty';
-
+			
+			
+            
+			
+			$subaction = isset($this->request->params['pass'][1]) ? $this->request->params['pass'][1] : 'punkty';
+			
             switch ($subaction) {
-
-                case "punkty": {
-
+                
+                case "informacja": {
+	                
+	                $document = $this->API->document($posiedzenie->getData('zwolanie_dokument_id'));
+		            $this->set('document', $document);
+	                $render_view = 'posiedzenie-informacja';
+	                break;
+	                
+                }
+                
+                case "porzadek": {
+	                	                
+	                $document = $this->API->document($posiedzenie->getData('porzadek_dokument_id'));
+					$this->set('document', $document);
+	                $render_view = 'posiedzenie-porzadek';
+	                break;
+	                
+                }
+                
+                case "podsumowanie": {
+	                
+	                $document = $this->API->document($posiedzenie->getData('podsumowanie_dokument_id'));
+		            $this->set('document', $document);
+	                $render_view = 'posiedzenie-podsumowanie';
+	                break;
+	                
+                }
+                
+                case "glosowania": {
+	                
+	                $document = $this->API->document($posiedzenie->getData('wyniki_dokument_id'));
+		            $this->set('document', $document);
+	                $render_view = 'posiedzenie-glosowania';
+	                break;
+	                
+                }
+                
+                case "stenogram": {
+	                
+	                $document = $this->API->document($posiedzenie->getData('stenogram_dokument_id'));
+		            $this->set('document', $document);
+	                $render_view = 'posiedzenie-stenogram';
+	                break;
+	                
+                }
+                
+                case "protokol": {
+	                
+	                $document = $this->API->document($posiedzenie->getData('protokol_dokument_id'));
+		            $this->set('document', $document);
+	                $render_view = 'posiedzenie-protokol';
+	                break;
+	                
+                }
+                
+                default: {
+										
                     $submenu['selected'] = 'punkty';
                     $render_view = 'posiedzenie-punkty';
 
@@ -561,7 +626,7 @@ class GminyController extends DataobjectsController
 
             $this->dataobjectsBrowserView(array(
                 'dataset' => 'rady_druki',
-                'title' => 'Materiały na posiedzenia rady miasta',
+                'title' => 'Proces legislacyjny',
                 'noResultsTitle' => 'Brak danych',
                 // 'hlFields' => $hl_fields = array('numer', 'liczba_debat'),
                 'back' => $this->object->getUrl() . '/rada',
@@ -658,8 +723,17 @@ class GminyController extends DataobjectsController
 
                     if (
                         $sub_id &&
-                        ($posiedzenie = $this->API->getObject('krakow_dzielnice_rady_posiedzenia', $sub_id))
+                        ($posiedzenie = $this->API->getObject('krakow_dzielnice_rady_posiedzenia', $sub_id, array(
+                            'layers' => array(
+                                'punkty'
+                            )
+                        )))
                     ) {
+
+
+                        /* ob_end_clean();
+                        var_dump($posiedzenie->getLayer('punkty'));
+                        die(); */
 
                         // debug( $this->API->document($posiedzenie->getData('przedmiot_dokument_id')) ); die();
 
@@ -669,8 +743,12 @@ class GminyController extends DataobjectsController
                         if ($posiedzenie->getData('przedmiot_dokument_id'))
                             $this->set('przedmiot_dokument', $this->API->document($posiedzenie->getData('przedmiot_dokument_id')));
 
+                        $punkty = (array) $posiedzenie->getLayer('punkty');
+                        if(count($punkty) === 0) $punkty = false;
+
                         $this->set('documentPackage', 1);
                         $this->set('posiedzenie', $posiedzenie);
+                        $this->set('punkty', $punkty);
                         $title_for_layout = $posiedzenie->getTitle();
                         $subaction = 'posiedzenie';
 
@@ -846,9 +924,10 @@ class GminyController extends DataobjectsController
         if (isset($this->request->params['pass'][0]) && is_numeric($this->request->params['pass'][0])) {
 
             $posiedzenie = $this->API->getObject('krakow_komisje_posiedzenia', $this->request->params['pass'][0], array(
-                'layers' => 'neighbours',
+                'layers' => array('neighbours'),
             ));
             $document = $this->API->document($posiedzenie->getData('dokument_id'));
+
             $this->set('komisja_posiedzenie', $posiedzenie);
             $this->set('document', $document);
             $this->set('documentPackage', 1);
@@ -1293,6 +1372,7 @@ class GminyController extends DataobjectsController
 
                         $this->dataobjectsBrowserView(array(
                             'source' => 'radni_gmin.oswiadczenia_majatkowe:' . $radny->getId(),
+                            'order' => 'rok desc',
                             'dataset' => 'radni_gmin_oswiadczenia_majatkowe',
                             'noResultsTitle' => 'Brak oświadczeń majątkowych',
                             // 'hlFields' => array('dzielnice.nazwa', 'liczba_glosow'),
@@ -1399,10 +1479,16 @@ class GminyController extends DataobjectsController
 					
 					if (
                         $sub_id &&
-                        ($posiedzenie = $this->API->getObject('krakow_komisje_posiedzenia', $sub_id))
+                        ($posiedzenie = $this->API->getObject('krakow_komisje_posiedzenia', $sub_id, array(
+                            'layers' => array('punkty')
+                        )))
                     ) {
 
                         // debug( $this->API->document($posiedzenie->getData('przedmiot_dokument_id')) ); die();
+
+                        $punkty = (array) $posiedzenie->getLayer('punkty');
+                        if(count($punkty) === 0) $punkty = false;
+                        $this->set('punkty', $punkty);
 
                         if ($posiedzenie->getData('dokument_id'))
                             $this->set('dokument', $this->API->document($posiedzenie->getData('dokument_id')));
@@ -1496,6 +1582,7 @@ class GminyController extends DataobjectsController
             'title' => 'Radni dzielnic',
             'noResultsTitle' => 'Brak radnych dzielnic dla tej gminy',
             'hlFields' => array('dzielnice.nazwa'),
+            'order' => 'radni_dzielnic.nazwisko asc',
         ));
     }
 
@@ -1785,6 +1872,14 @@ class GminyController extends DataobjectsController
 
     }
 
+    public function finanse()
+    {
+        $this->addInitLayers(array(
+            'finanse'
+        ));
+        $this->_prepareView();
+        $this->request->params['action'] = 'finanse';
+    }
 
     /*
     public function prepareMenu()
@@ -1907,13 +2002,23 @@ class GminyController extends DataobjectsController
 
         } else {
 
+			/*
             $menu['items'][] = array(
                 'id' => 'radni',
                 'href' => $href_base . '/radni',
                 'label' => 'Radni',
             );
+            */
 
         }
+		
+		/*
+		$menu['items'][] = array(
+            'id' => 'finanse',
+            'label' => 'Finanse',
+            'href' => $href_base . '/finanse',
+        );
+        */
 
         $menu['items'][] = array(
             'id' => 'organizacje',

@@ -78,7 +78,8 @@ $this->Dataobject->setObject($object);
                         }
 
                         ?>
-                        <div class="attachment col-md-<?= $size ?> text-center">
+                        <div
+                            class="attachment col-xs-<?= $size + 2 ?> col-sm-<?= $size + 1 ?> col-sm-<?= $size ?> text-center">
                             <?php if ($object->getUrl() != false) { ?>
                             <a class="thumb_cont" href="<?= $object->getUrl() ?>">
                                 <?php } ?>

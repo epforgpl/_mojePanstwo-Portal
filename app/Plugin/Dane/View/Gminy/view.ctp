@@ -15,8 +15,8 @@
 <? echo $this->Element('dataobject/pageBegin'); ?>
 
 
-<div class="gminy row">
-    <div class="col-lg-3 objectSide">
+<div class="gminy">
+    <div class="col-md-3 objectSide">
 
         <div class="objectSideInner">
 
@@ -104,7 +104,7 @@
     </div>
 
 
-    <div class="col-lg-9 objectMain">
+    <div class="col-md-9 objectMain">
 
         <?php if ($object->getId() == '903') { ?>
             <div class="objectSearch">
@@ -201,14 +201,21 @@
                                 ?>
 
                                 <p><?= $adres ?></p>
-
+																
                                 <? if ($szef = $object->getLayer('szef')) { ?>
                                     <div id="szef" class="dataHighlights">
                                         <div class="dataHighlight big">
                                             <p class="_label"><?= $szef['stanowisko'] ?>:</p>
-
-                                            <p class="_value"><?= $szef['nazwa'] ?></p>
+                                            <p class="_value"><?= $szef['kandydat_nazwa'] ?></p>
                                         </div>
+                                        
+                                        <div class="dataHighlight big poparcie">
+                                            <p class="_label">Poparcie w wyborach:</p>
+                                            <p class="_value"><?= pl_dopelniacz($szef['liczba_glosow'], 'głos', 'głosy', 'głosów') ?> <span class="procent">(<?= $szef['procent_glosow'] ?>%)</span></p>
+                                        </div>
+                                        
+                                        
+                                        
                                     </div>
                                 <? } ?>
                             </div>

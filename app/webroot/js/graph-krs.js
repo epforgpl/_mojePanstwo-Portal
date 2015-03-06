@@ -37,7 +37,7 @@ var d3Data;
             }
         };
 
-        d3.json("/dane/krs_podmioty/" + connectionGraph.data('id') + "/graph.json", function (error, graph) {
+        d3.json("/dane/" + connectionGraph.data('url') + "/" + connectionGraph.data('id') + "/graph.json", function (error, graph) {
                 var nodes = graph.nodes,
                     links = [];
 
@@ -155,7 +155,7 @@ var d3Data;
                     .data(d3Data.force.links())
                     .enter().append("svg:path")
                     .attr('id', function (d) {
-                        return 'path-' + d.source.id + '-' + d.target.id + '-' + d.label.replace(/\s/g, "_");
+                        return 'path-' + d.source.id + '-' + d.target.id + '-' + d.label.replace(/[^a-zA-Z0-9]+/g, "");
                     })
                     .attr('class', 'link')
                     .style({"fill": "none", "stroke-width": d3Data.size.linksWidth, 'stroke': d3Data.color.links});
@@ -184,7 +184,7 @@ var d3Data;
                     .append("svg:textPath")
                     .attr('startOffset', '30%')
                     .attr('xlink:href', function (d) {
-                        return '#path-' + d.source.id + '-' + d.target.id + '-' + d.label.replace(/\s/g, "_");
+                        return '#path-' + d.source.id + '-' + d.target.id + '-' + d.label.replace(/[^a-zA-Z0-9]+/g, "");
                     })
                     .attr('class', 'pathTextShadow')
                     .text(function (d) {
@@ -202,7 +202,7 @@ var d3Data;
                     .append("svg:textPath")
                     .attr('startOffset', '30%')
                     .attr('xlink:href', function (d) {
-                        return '#path-' + d.source.id + '-' + d.target.id + '-' + d.label.replace(/\s/g, "_");
+                        return '#path-' + d.source.id + '-' + d.target.id + '-' + d.label.replace(/[^a-zA-Z0-9]+/g, "");
                     })
                     .attr('class', 'pathText')
                     .style("fill", "rgba(0,0,0,1")
@@ -492,7 +492,7 @@ var d3Data;
                 }
 
                 function arrowArc(d) {
-                    var path = d3Data.svg.select('path#path-' + d.source.id + '-' + d.target.id + '-' + d.label.replace(/\s/g, "_")),
+                    var path = d3Data.svg.select('path#path-' + d.source.id + '-' + d.target.id + '-' + d.label.replace(/[^a-zA-Z0-9]+/g, "")),
                         pathEl = path.node(),
                         pathSize = ((d.target.label == "podmiot" ? d3Data.size.nodesPodmiot : d3Data.size.nodesOsoba) + d3Data.size.nodesMarkerSize / 2) + d3Data.size.nodesMarkerSpace,
                         pathLength = parseFloat(pathEl.getTotalLength()) || pathSize * 2,

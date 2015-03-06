@@ -12,19 +12,22 @@ echo $this->Element('dataobject/pageBegin', array(
 ));
 
 echo $this->Element('Dane.dataobject/subobject', array(
-    'menu' => $_submenu,
     'object' => $radny,
     'objectOptions' => array(
-        'hlFields' => array(),
         'bigTitle' => true,
     )
 ));
 
 $dyzury_data = $radny->getLayer('dyzury');
 ?>
-
+	
+	
     <script type="text/javascript" src="http://js.addthisevent.com/atemay.js"></script>
     <div class="col-md-10 col-md-offset-1">
+        
+        <h1 class="light"><a href="<?= $radny->getUrl() ?>"
+                                     class="btn-back glyphicon glyphicon-circle-arrow-left"></a> Dyżury radnego</h1>
+        
         <div id="dyzury" class="object">
 
             <div class="block-group">
@@ -32,9 +35,6 @@ $dyzury_data = $radny->getLayer('dyzury');
                 <? if ($dyzury = $dyzury_data['future']) { ?>
                     <div id="future" class="block">
 
-                        <div class="block-header">
-                            <h2 class="label">Najbliższe dyżury</h2>
-                        </div>
 
                         <div class="content">
                             <ul>

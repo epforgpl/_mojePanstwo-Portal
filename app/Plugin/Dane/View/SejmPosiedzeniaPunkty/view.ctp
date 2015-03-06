@@ -47,6 +47,15 @@
                                                         <p class="title"><a
                                                                 href="/dane/sejm_posiedzenia_punkty/<?= $object->getId() ?>,<?= $object->getSlug() ?>/debaty/<?= $debata->getId() ?>">Część
                                                                 #<?= $debata->getData('punkt_i') ?></a></p>
+                                                        
+                                                        <div class="aoverflow">   
+	                                                        <p class="img-debata"><img src="http://resources.sejmometr.pl/stenogramy/subpunkty/<?= $debata->getId() ?>.jpg" /></p>
+	                                                        <p class="debata-stats">
+		                                                        <? if( $debata->getData('liczba_wystapien') ) {?>Liczba wystąpień: <b><?= $debata->getData('liczba_wystapien') ?></b><? } ?>
+		                                                        <br />
+		                                                        <? if( $debata->getData('liczba_glosowan') ) {?>Liczba głosowań: <b><?= $debata->getData('liczba_glosowan') ?></b><? } ?>
+	                                                        </p>
+                                                        </div>
 
                                                     </div>
 
@@ -73,11 +82,11 @@
                     <div class="block-header">
                         <h2 class="label">Powiązane druki sejmowe:</h2>
                     </div>
-                    <div class="content nopadding">
+                    <div class="content" style="padding: 0 10px !important;">
                         <ul class="block-list">
                             <? foreach ($druki as $druk) { ?>
                                 <li>
-                                    <? echo $this->Dataobject->render($druk, 'default-nothumb'); ?>
+                                    <? echo $this->Dataobject->render($druk, 'default-nodate'); ?>
                                 </li>
                             <? } ?>
                         </ul>

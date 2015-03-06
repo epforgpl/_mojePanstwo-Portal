@@ -80,7 +80,7 @@
             .btn-back-cont {
                 max-width: 40px;
                 .btn-back {
-                    margin-top: 7px;
+                    margin-top: 15px;
                 }
             }
         }
@@ -146,7 +146,7 @@
     }
 
     .objectPageHeaderBg {
-        background-color: #f6f7f8;
+        background: #f6f7f8 center top;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -224,20 +224,8 @@
     }
 
     .objectsPageWindow {
-        //padding-bottom: 20px;
-        // overflow: hidden;
-
-        .objectMain {
-            padding-left: 0;
-
-        }
-
         .objectSide {
-
-            padding-right: 0;
-
             .objectSideInner {
-
                 padding: 0 0 0 5px;
 
                 &.rrs {
@@ -464,6 +452,12 @@
     }
 }
 
+@media (max-width: 768px) {
+    .objectsPage .objectPageHeaderBg.extended .objectPageHeaderContainer {
+        width: 100%;
+    }
+}
+
 .stdUl {
     font-family: "Lato", Arial, sans-serif;
     list-style: none;
@@ -585,4 +579,168 @@ h2.light {
     overflow-y: auto;
     border: none;
     margin: 0 10px;
+}
+
+.pull-top-right {
+    margin-top: -33px;
+    text-align: right;
+}
+
+.object-actions-ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    li {
+        list-style: none;
+        padding: 10px 0;
+        margin: 1px 0;
+
+        .btn_cont > .btn {
+            width: 100%;
+            text-align: left;
+            background-color: #007cc2;
+            padding: 0;
+            font-weight: bold;
+            overflow: hidden;
+
+            > span {
+                width: 42px;
+                padding: 10px 0;
+                text-align: center;
+                margin-right: 8px;
+                background-color: #005e96;
+                position: relative;
+                top: 0;
+                left: 0;
+            }
+        }
+
+        .desc {
+            font-size: 12px;
+            color: #666;
+        }
+    }
+}
+
+.object_feed_element {
+    font-size: 13px;
+    margin: 5px;
+    .label {
+        font-size: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .objectsPage .objectPageHeaderBg.extended .menuTabsCont {
+        left: 0;
+        -moz-transform: none;
+        -o-transform: none;
+        transform: none;
+
+        .nav {
+            li {
+                display: none;
+
+                &.mobileMenu {
+                    display: block;
+
+                    a {
+                        text-align: center;
+
+                        span:before {
+                            font-size: 20px;
+                            color: #555555;
+                        }
+                    }
+                }
+            }
+
+            &.full {
+                -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=180, Color=#999999)";
+                -moz-box-shadow: 0 3px 5px #999999;
+                -webkit-box-shadow: 0 3px 5px #999999;
+                box-shadow: 0 3px 5px #999999;
+                filter: progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=180, Color=#999999);
+
+                li:not(.mobileMenu) {
+                    display: block;
+                    width: 100%;
+                    background-color: #e9eaed;
+                    margin: 0;
+                    border-width: 0;
+
+                    ul {
+                        position: relative;
+                        top: 0;
+                        left: 0;
+                        background: none;
+                        -ms-filter: none;
+                        -moz-box-shadow: none;
+                        -webkit-box-shadow: none;
+                        box-shadow: none;
+                    }
+
+                    ul,
+                    ul li {
+                        width: 100%;
+                    }
+
+                    a {
+                        color: #555555;
+                        background-color: #e9eaed;
+                        border-width: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .objectsPage .dataBrowser {
+        .row {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .dataFilters {
+            padding-top: 20px;
+
+            #filters .filter {
+                > div .input-sm {
+                    margin: 0;
+                }
+                .showMoreFilters {
+                    margin-left: 0;
+                    margin-right: 0;
+                }
+            }
+        }
+        .dataObjects {
+            .dataInfo {
+                padding-left: 25px;
+            }
+            .innerContainer .objectRender {
+                margin: 0;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+        }
+    }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+    .objectsPage .objectPageHeaderBg.extended .menuTabsCont li a {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 993px) {
+    .objectsPage .objectsPageWindow {
+        .objectSide {
+            padding-right: 0;
+        }
+        .objectMain {
+            padding-left: 0;
+        }
+    }
 }

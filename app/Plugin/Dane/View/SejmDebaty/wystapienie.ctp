@@ -8,7 +8,6 @@ echo $this->Element('dataobject/pageBegin');
 
         <div class="container dataBrowser debata-wystapienie">
 
-
             <div class="row">
 
                 <div class="col-xs-12 col-sm-2 dataFilters update-filters">

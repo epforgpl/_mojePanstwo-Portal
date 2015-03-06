@@ -28,14 +28,31 @@ class KrsPodmiotyController extends DataobjectsController
     }
 
 	
+	
 	public function aktualnosci() {
 		
 		$this->_prepareView();
 		
-		$this->prepareFeed(array(
-			// 'perPage' => 3,
-		));
-
+		if( isset($this->request->params['pass'][0]) ) {
+						
+			$zmiana = $this->API->getObject('krs_podmioty_zmiany', $this->request->params['pass'][0], array(
+                'layers' => array('details'),
+            ));
+            
+            $this->request->params['action'] = 'view';
+            
+            $this->set('zmiana', $zmiana);
+            $this->render('aktualnosc');
+            
+			
+		} else {
+			
+			$this->prepareFeed(array(
+				// 'perPage' => 3,
+			));
+			
+		}
+		
 	}
 	
     public function view()
@@ -349,7 +366,7 @@ class KrsPodmiotyController extends DataobjectsController
 
     public function graph()
     {
-        if ($this->request->params['ext'] == 'json') {
+        if (@$this->request->params['ext'] == 'json') {
 
             $this->addInitLayers('graph');
             $this->_prepareView();
@@ -359,7 +376,9 @@ class KrsPodmiotyController extends DataobjectsController
             $this->set('_serialize', 'data');
 
         } else {
-            return false;
+            
+            $this->_prepareView();
+            
         }
     }
 

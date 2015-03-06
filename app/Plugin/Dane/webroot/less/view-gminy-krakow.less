@@ -1,16 +1,21 @@
 
 .objectsPage {
     .objectPageHeaderBg {
-        background-image: url(/dane/img/headers/krakow.jpg);
+        background-image: url(/dane/img/headers/krakow.jpg) !important;
         min-height: 250px;
 
         .objectPageHeaderContainer.krakow .container .objectRender {
+            .attachment img {
+                margin: 0;
+                width: 100%;
+                max-width: 312px;
+            }
             .title {
                 font-size: 30px !important;
                 margin-top: 15px;
             }
-            .attachment img {
-                margin: 0;
+            .header {
+                margin-bottom: 15px;
             }
         }
     }
@@ -33,15 +38,20 @@
     overflow-x: auto;
     overflow-y: hidden;
     height: 72px;
+    width: 100%;
     margin: 0;
     padding: 0;
+
     ul {
+        width: auto;
         height: 72px;
-        width: 1975px;
         margin: 0;
         padding: 0;
+        white-space: nowrap;
+
         li {
-            float: left;
+            display: inline;
+            margin-right: -5px;
             padding: 0;
             border: 1px solid #FFF;
             img {
@@ -127,9 +137,10 @@
 
 .pk-dzielnice {
     height: 400px;
-    margin: 0 16px 0 0 !important;
     overflow: auto;
-    padding: 0 16px 0 0 !important;
+    margin: 0;
+    padding: 0;
+
     li {
         border-bottom: 1px solid #EEE;
         font-size: 13px;

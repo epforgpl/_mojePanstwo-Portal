@@ -64,8 +64,7 @@ echo $this->Element('dataobject/pageBegin');
                         </li>
 
                         <li class="dataHighlight">
-                            <a href="<?= $object->getUrl() . '/druki' ?>"><span class="icon icon-moon">&#xe614;</span>Materiały
-                                na posiedzenia <span class="glyphicon glyphicon-chevron-right"></span></a>
+                            <a href="<?= $object->getUrl() . '/druki' ?>"><span class="icon icon-moon">&#xe614;</span>Proces legislacyjny <span class="glyphicon glyphicon-chevron-right"></span></a>
                         </li>
 
                         <li class="dataHighlight">

@@ -11,14 +11,15 @@
     $mowca_href = $object->getData('ludzie.posel_id') ? '/dane/poslowie/' . $object->getData('ludzie.posel_id') : false;
     $stanowisko_id = $object->getData('stanowisko_id');
     $stanowisko_nazwa = $object->getData('stanowiska.nazwa');
-
+    $thumbnailUrl = 'http://resources.sejmometr.pl/mowcy/a/1/' . $object->getData('ludzie.id') . '.jpg';
+		
     ?>
 
     <div class="row<? if (in_array($stanowisko_id, array(3, 4, 130))) { ?> porzadek<? } else { ?> wystapienie<? } ?>">
 
         <div class="sw_avatar">
             <p><? if ($mowca_href) { ?><a href="<?= $mowca_href ?>"><? } ?><img
-                        src="<?= $object->getThumbnailUrl(1) ?>"/><? if ($mowca_href){ ?></a><? } ?></p>
+                        src="<?= $thumbnailUrl ?>"><? if ($mowca_href){ ?></a><? } ?></p>
         </div>
         <div class="sw_content">
 

@@ -11,7 +11,7 @@ echo $this->Element('dataobject/pageBegin');
 
     <div class="row">
 
-        <div class="col-lg-3 objectSide">
+        <div class="col-md-3 objectSide">
             <div class="objectSideInner">
                 <?=
                 $this->element('Dane.objects/twitter_accounts/side_div', array(
@@ -20,7 +20,7 @@ echo $this->Element('dataobject/pageBegin');
             </div>
         </div>
 
-        <div class="col-lg-9 objectMain">
+        <div class="col-md-9 objectMain">
             <div class="object">
                 <div class="block-group">
                     <?=

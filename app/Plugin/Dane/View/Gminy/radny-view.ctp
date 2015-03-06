@@ -21,7 +21,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
     <div class="krsOsoba row">
 
-        <div class="col-lg-3 objectSide">
+        <div class="col-md-3 objectSide">
             <div class="objectSideInner rrs">
 
                 <? if ($radny->getData('aktywny') == '0') { ?>
@@ -105,6 +105,10 @@ echo $this->Element('Dane.dataobject/subobject', array(
                         <li class="dataHighlight">
                             <a href="<?= $radny->getUrl() ?>/komisje"><span class="icon icon-moon">&#xe613;</span>Przynależność
                                 do komisji <span class="glyphicon glyphicon-chevron-right"></a>
+                        </li>
+                        
+                        <li class="dataHighlight">
+                            <a href="<?= $radny->getUrl() ?>/dyzury"><span class="glyphicon glyphicon-list"></span>Dyżury <span class="glyphicon glyphicon-chevron-right"></a>
                         </li>
 
                     </ul>
@@ -274,7 +278,48 @@ echo $this->Element('Dane.dataobject/subobject', array(
             </div>
         </div>
         <div class="col-md-2">
-
+			
+			<?
+				echo $this->element('Dane.object-actions', array(
+					'buttons' => array(
+						'pismo' => array(
+							'adresat_id' => $radny->getDataset() . ':' . $radny->getId(),
+							'szablon_id' => 69, // List do radnego
+							'nazwa' => 'Wyślij list',
+							'opis' => 'Kliknij aby wysłać list do ' . $radny->getTitle(),
+						),
+					),
+					'name' => $radny->getTitle(),
+				));
+			?>
+			<? /*
+			<ul class="object-actions-ul">
+				<? if( isset( $this->request->query['dev'] ) ) { ?>
+				<li>
+					<p class="btn_cont">
+						<button class="btn btn-success">Obserwuj...</button>
+					</p>
+					<p class="desc">
+						Kliknij, aby otrzymywać powiadomienia o pracy radnego.
+					</p>
+				</li>
+				<? } ?>
+				<li>
+					<form action="/pisma" method="post">
+						<input type="hidden" name="adresat_id" value="radni_gmin:<?= $radny->getId() ?>" />
+						<input type="hidden" name="szablon_id" value="69" />
+						<p class="btn_cont">
+							<button class="btn btn-success">Wyślij pismo...</button>
+						</p>
+					</form>
+					<p class="desc">
+						Kliknij, aby wysłać pismo do radnego.
+					</p>
+				</li>
+			</ul>
+			*/ ?>
+			
+			
         </div>
 
     </div>

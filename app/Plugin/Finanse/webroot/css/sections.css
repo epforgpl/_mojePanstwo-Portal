@@ -1,3 +1,6 @@
+#dsections {
+  display: none;
+}
 .ui-autocomplete .ui-menu-item {
   border-top-width: 0;
 }
@@ -8,6 +11,12 @@
 }
 h1 {
   font-weight: 300;
+}
+#gmina_alert {
+  background: #fff;
+  border-color: #ddd;
+  color: #555;
+  display: none;
 }
 .banner {
   text-align: center;
@@ -88,46 +97,56 @@ h1 {
   text-align: center;
   width: 22px;
 }
-#sections ul {
+#sections ul,
+#dsections ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-#sections ul li {
+#sections ul li,
+#dsections ul li {
   list-style: none;
   border-top: 1px solid #DDD;
   padding: 20px 0;
 }
-#sections ul li .icon img {
+#sections ul li .icon img,
+#dsections ul li .icon img {
   opacity: .3;
   width: 65%;
   margin: 7%;
   -webkit-transition-duration: 1s;
   transition-duration: 1s;
 }
-#sections ul li:hover img {
+#sections ul li:hover img,
+#dsections ul li:hover img {
   opacity: .5;
 }
-#sections ul li:nth-child(even) {
+#sections ul li:nth-child(even),
+#dsections ul li:nth-child(even) {
   background-color: #FAFAFA;
 }
-#sections ul li:nth-child(even) .gradient_cont .addons li p {
+#sections ul li:nth-child(even) .gradient_cont .addons li p,
+#dsections ul li:nth-child(even) .gradient_cont .addons li p {
   background-color: #FAFAFA;
 }
-#sections ul li .row-header {
+#sections ul li .row-header,
+#dsections ul li .row-header {
   font-weight: 300;
 }
-#sections ul li .row-header .name {
+#sections ul li .row-header .name,
+#dsections ul li .row-header .name {
   font-size: 24px;
   margin: 15px 0;
   font-weight: 300;
 }
-#sections ul li .row-header .value {
+#sections ul li .row-header .value,
+#dsections ul li .row-header .value {
   font-size: 24px;
   color: green;
   margin-top: 15px;
 }
-#sections ul li .desc {
+#sections ul li .desc,
+#dsections ul li .desc {
   font-size: 13px;
   color: #999;
   padding: 0 10px;
@@ -135,31 +154,39 @@ h1 {
 }
 #sections ul li .title,
 #sections ul li .histogram_cont,
-#sections ul li .gradient_cont {
+#sections ul li .gradient_cont,
+#dsections ul li .title,
+#dsections ul li .histogram_cont,
+#dsections ul li .gradient_cont {
   float: left;
   width: 100%;
 }
-#sections ul li .histogram_cont {
+#sections ul li .histogram_cont,
+#dsections ul li .histogram_cont {
   padding: 0 43px;
   height: 170px;
 }
-#sections ul li .histogram_cont .histogram {
+#sections ul li .histogram_cont .histogram,
+#dsections ul li .histogram_cont .histogram {
   display: block;
   width: 100%;
   height: 170px;
 }
-#sections ul li .histogram_cont .histogram .highcharts-container {
+#sections ul li .histogram_cont .histogram .highcharts-container,
+#dsections ul li .histogram_cont .histogram .highcharts-container {
   display: block;
   float: left;
   height: 170px;
 }
-#sections ul li .gradient_cont {
-  padding: 0 86px;
+#sections ul li .gradient_cont,
+#dsections ul li .gradient_cont {
+  padding: 0 96px;
   min-height: 45px;
   position: relative;
   top: -45px;
 }
-#sections ul li .gradient_cont .gradient {
+#sections ul li .gradient_cont .gradient,
+#dsections ul li .gradient_cont .gradient {
   background: #2746f7;
   background: -moz-linear-gradient(left,blue 0%,red 100%);
   background: -webkit-gradient(linear,left top,right top,color-stop(0%,#2746f7),color-stop(100%,#cc1c1c));
@@ -177,13 +204,15 @@ h1 {
   -moz-border-radius: 4px;
   -o-border-radius: 4px;
 }
-#sections ul li .gradient_cont .addons {
+#sections ul li .gradient_cont .addons,
+#dsections ul li .gradient_cont .addons {
   margin: 0;
   padding: 0;
   list-style: none;
   position: relative;
 }
-#sections ul li .gradient_cont .addons li {
+#sections ul li .gradient_cont .addons li,
+#dsections ul li .gradient_cont .addons li {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -199,24 +228,29 @@ h1 {
   transition-duration: .5s;
   transition-timing-function: ease-out;
 }
-#sections ul li .gradient_cont .addons li.min {
+#sections ul li .gradient_cont .addons li.min,
+#dsections ul li .gradient_cont .addons li.min {
   left: 0%;
 }
-#sections ul li .gradient_cont .addons li.max {
+#sections ul li .gradient_cont .addons li.max,
+#dsections ul li .gradient_cont .addons li.max {
   left: 100%;
 }
-#sections ul li .gradient_cont .addons li._teryt {
+#sections ul li .gradient_cont .addons li._teryt,
+#dsections ul li .gradient_cont .addons li._teryt {
   font-weight: bold;
   z-index: 1;
   top: 0;
   margin-top: 2px;
 }
-#sections ul li .gradient_cont .addons li._teryt:before {
+#sections ul li .gradient_cont .addons li._teryt:before,
+#dsections ul li .gradient_cont .addons li._teryt:before {
   background-color: #333;
   border: 3px solid #fff;
   top: -15px;
 }
-#sections ul li .gradient_cont .addons li:before {
+#sections ul li .gradient_cont .addons li:before,
+#dsections ul li .gradient_cont .addons li:before {
   background-color: #fff;
   border: 1px solid #666;
   border-radius: 50px;
@@ -228,10 +262,15 @@ h1 {
   top: -17px;
   width: 16px;
 }
-#sections ul li .gradient_cont .addons li span {
+#sections ul li .gradient_cont .addons li span,
+#dsections ul li .gradient_cont .addons li span {
   width: 100%;
   font-size: 14px;
   margin: 0;
   padding: 1px 5px;
   display: block;
+}
+#sections ul li .gradient_cont .addons li.section_addon .n,
+#dsections ul li .gradient_cont .addons li.section_addon .n {
+  margin-top: -65px !important;
 }

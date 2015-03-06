@@ -9,7 +9,7 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
 
         <? if ($object->getData('file') == '1') { ?>
 
-            <div class="col-lg-3 objectSide">
+            <div class="col-md-3 objectSide">
                 <div class="objectSideInner">
 
                     <? if ($object->getData('budzet_plan')) { ?>
@@ -57,19 +57,21 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
                                     </li>
                                 <? } ?>
 
+                                
+
                                 <? if ($object->getData('liczba_instytucji')) { ?>
                                     <li class="dataHighlight">
                                         <a href="<?= $object->getUrl() ?>/instytucje"><span class="icon icon-moon">&#xe611;</span>Instytucje
-                                            nadzorowane <span class="glyphicon glyphicon-chevron-right"></a>
+                                            nadzorowane <span class="glyphicon glyphicon-chevron-right"></span></a>
                                     </li>
                                 <? } ?>
 
-                                <? if (false) { ?>
-                                    <li class="dataHighlight">
-                                        <a href="<?= $object->getUrl() ?>/urzednicy"><span class="icon icon-moon">&#xe617;</span>Urzędnicy
-                                            <span class="glyphicon glyphicon-chevron-right"></a>
-                                    </li>
-                                <? } ?>
+                                <li class="dataHighlight">
+                                    <a href="<?= $object->getUrl() ?>/urzednicy">
+                                        <span class="icon icon-moon">&#xe611;</span>Urzędnicy
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </a>
+                                </li>
 
                             </ul>
 
@@ -85,19 +87,19 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
                             <li class="dataHighlight">
                                 <a href="<?= $object->getUrl() ?>/zamowienia"><span
                                         class="icon icon-moon">&#xe61a;</span>Zamówienia publiczne <span
-                                        class="glyphicon glyphicon-chevron-right"></a>
+                                        class="glyphicon glyphicon-chevron-right"></span></a>
                             </li>
 
                             <li class="dataHighlight">
                                 <a href="<?= $object->getUrl() ?>/prawo"><span class="glyphicon glyphicon-book"></span>Akty
-                                    prawne <span class="glyphicon glyphicon-chevron-right"></a>
+                                    prawne <span class="glyphicon glyphicon-chevron-right"></span></a>
                             </li>
 
                             <? if ($object->getData('twitter_account_id')) { ?>
                                 <li class="dataHighlight">
                                     <a href="<?= $object->getUrl() ?>/tweety"><span
                                             class="icon icon-moon">&#xe61d;</span>Tweety <span
-                                            class="glyphicon glyphicon-chevron-right"></a>
+                                            class="glyphicon glyphicon-chevron-right"></span></a>
                                 </li>
                             <? } ?>
 
@@ -167,11 +169,22 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
                 </div>
             </div>
             <div class="col-md-2">
-
+				
+				<?
+					echo $this->element('Dane.object-actions', array(
+						'buttons' => array(
+							'pisma' => array(
+								'adresat_id' => $object->getDataset() . ':' . $object->getId(),
+							),
+						),
+						'name' => $object->getTitle(),
+					));
+				?>				
+				
             </div>
 
             <? /*
-        <div class="col-lg-9 objectMain">
+        <div class="col-md-9 objectMain">
             <div class="object">
                 <?
                 $adres = $object->getData('adres_str');

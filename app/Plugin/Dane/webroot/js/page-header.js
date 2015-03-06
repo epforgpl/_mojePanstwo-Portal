@@ -5,11 +5,21 @@ jQuery(document).ready(function () {
         headerExtend.css('max-height', headerExtend.css('min-height'));
         headerExtend.css('min-height', Math.floor(parseInt(headerExtend.css('max-height')) - ($(window).scrollTop() * .5)));
 
-        $(window).scroll(function (event) {
+        $(window).scroll(function () {
             var scroll = $(window).scrollTop(),
                 newHeight = Math.floor(parseInt(headerExtend.css('max-height')) - (scroll * .5));
 
             headerExtend.css('min-height', (newHeight > headerExtend.css('max-scroll') ? headerExtend.css('max-scroll') : (newHeight < 0 ? 0 : newHeight + 'px')));
         });
     }
+
+    $('.mobileMenu > a').click(function (e) {
+        var menu = $(this).parents('ul.nav');
+
+        e.preventDefault();
+        if (menu.hasClass('full'))
+            menu.removeClass('full');
+        else
+            menu.addClass('full');
+    })
 });

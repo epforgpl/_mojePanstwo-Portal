@@ -1,0 +1,54 @@
+#pismaGenerateModal {
+    .modal-body {
+        height: 65vh;
+        overflow-y: auto;
+
+        .loadingBlock {
+            background: none;
+            color: #555;
+
+            .spinner {
+                .bounce1, .bounce2, .bounce3 {
+                    background-color: #555;
+                }
+            }
+
+            p {
+                text-align: center;
+            }
+        }
+
+        .listBlock ul.ul-raw {
+            list-style-type: none;
+            padding: 0;
+            line-height: 1em;
+
+            li {
+                border-top: 1px solid #ededed;
+                padding: 8px 2%;
+
+                &.active {
+                    background: #ededed;
+                }
+
+                a {
+                    display: block;
+                    color: #555;
+
+                    > span {
+                        font-size: 13px;
+                        font-weight: bold;
+                    }
+
+                    > p {
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+
+    .pismaGenerateModalForm {
+        height: 0;
+    }
+}
