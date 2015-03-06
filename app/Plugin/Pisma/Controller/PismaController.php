@@ -7,57 +7,52 @@ class PismaController extends AppController
     public $uses = array('Pisma.Pismo');
     public $components = array('RequestHandler');
 
-    /*
-    public function beforeFilter() {
-        parent::beforeFilter();
 
-        $this->Auth->deny();
-        $this->Auth->allow( 'home' );
+    public function beforeRender()
+    {
+        $appMenu = array(
+            array('id' => 'nowe', 'label' => 'Nowe pismo'),
+            array('id' => 'moje', 'label' => 'Moje pisma')
+        );
 
-        $this->API->setOptions( array(
-            'passExceptions' => array(
-                403 => 'ForbiddenException',
-                404 => 'NotFoundException'
-            )
-        ) );
-        $this->api = $this->API->Pisma();
+        $this->set('appMenu', $appMenu);
     }
-    */
+
+    public function view($id, $slug = '')
+    {
+        $this->load($id);
+    }
 	
 	private function load($id)
 	{
-		
+
 		try {
-			
+
 			if( $this->Auth->user() ) {
 				$pismo = $this->API->Pisma()->documents_read($id);
 			} else {
 				$pismo = $this->API->Pisma()->documents_read($id, array(
 					'anonymous_user_id' => session_id(),
 				));
-			}			
+            }
 
 	        $this->set('title_for_layout', $pismo['nazwa']);
 	        $this->set('pismo', $pismo);
-	        
+
 	        return $pismo;
-	        
-	    } catch (Exception $e) {
+
+        } catch (Exception $e) {
 
 	        $this->set('title_for_layout', 'Pismo nie istnieje');
 		    return $this->render('not_found');
-		    
-		}
-		
-	}
-	
-	public function view($id, $slug='')
-    {
-		$this->load($id);        
+
+        }
+
     }
     
     public function edit($id, $slug='')
     {
+        $this->set('appMenuSelected', (isset($pismo['saved']) && $pismo['saved']) ? 'moje' : 'nowe');
 		$this->load($id);        
     }
 
@@ -167,7 +162,6 @@ class PismaController extends AppController
 	
 	public function home()
     {
-			
         $API = $this->API->Pisma();
 
         $templatesGroups = $API->templates_grouped();
@@ -187,7 +181,7 @@ class PismaController extends AppController
 
         $this->set('pismo_init', $pismo);
         $this->set('title_for_layout', 'Pisma - Twórz i wysyłaj pisma do urzędów i urzędnikow');
-
+        $this->set('appMenuSelected', 'nowe');
     }
 	
     public function my()
@@ -221,6 +215,7 @@ class PismaController extends AppController
         $this->set('search', $search);
         $this->set('q', $q);
         $this->set('title_for_layout', 'Moje pisma');
+        $this->set('appMenuSelected', 'moje');
     }	
 	
 	/*

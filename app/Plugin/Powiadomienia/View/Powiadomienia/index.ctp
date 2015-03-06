@@ -1,22 +1,27 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('powiadomienia', array('plugin' => 'Powiadomienia'))); ?>
 <?php $this->Combinator->add_libs('js', 'Powiadomienia.powiadomienia') ?>
 
-<div id="powiadomienia" class="fullPageHeight">
+<div id="powiadomienia" class="fullPageHeight"
+     style="background-image: url('/img/home/backgrounds/home-background-default.jpg')">
     <div class="header">
-        <h1>Powiadomienia</h1>
-    </div>
-    <div class="menu">
-        <ul>
-            <li>
-                <a href="#" target="_self">Moje powiadomienia</a>
-            </li>
-            <li>
-                <a href="#" target="_self">Obserwuję</a>
-            </li>
-            <li class="active">
-                <a href="#" target="_self">Jak to działa?</a>
-            </li>
-        </ul>
+        <div class="holder container">
+            <h1 class="col-xs-12">Powiadomienia</h1>
+        </div>
+        <div class="menu">
+            <div class="container">
+                <ul>
+                    <li>
+                        <a href="#" target="_self">Moje powiadomienia</a>
+                    </li>
+                    <li>
+                        <a href="#" target="_self">Obserwuję</a>
+                    </li>
+                    <li class="active">
+                        <a href="#" target="_self">Jak to działa?</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
     <div class="content">
         <div class="handler container">

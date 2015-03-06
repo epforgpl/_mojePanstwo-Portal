@@ -21,28 +21,32 @@
                 <div class="basicOptions">
                     <div class="col-xs-12 col-sm-6 part">
                         <div class="observeBrick mainBrick">
-                            <div class="title">Powiadomienia</div>
+                            <div class="title">Obserwuj</div>
                             <span class="line"></span>
 
                             <div class="description">
-                                Otrzymuj powiadomienia o aktywnościach urzędów, urzędnikow oraz firm, którymi jesteś zainteresowany.
+                                Otrzymuj powiadomienia o aktywnościach urzędów, urzędnikow oraz firm, którymi jesteś
+                                zainteresowany.
                             </div>
                             <div class="action">
-                                <a href="/powiadomienia" target="_self" class="btn btn-primary btn-lg">Zacznij
+                                <a href="/powiadomienia" target="_self" class="btn btn-primary btn-icon">
+                                    <img class="icon" src="/Powiadomienia/icon/powiadomienia.svg" alt=""/>Zacznij
                                     obserwować</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 part">
                         <div class="shoutBrick mainBrick">
-                            <div class="title">Pisma</div>
+                            <div class="title">Pytaj</div>
                             <span class="line"></span>
 
                             <div class="description">
-                                Wysyłaj wnioski o udostępnienie informacji publicznych oraz inne pisma do urzędów i dziel się nimi w mediach społecznościowych.
+                                Wysyłaj wnioski o udostępnienie informacji publicznych oraz inne pisma do urzędów i
+                                dziel się nimi w mediach społecznościowych.
                             </div>
                             <div class="action">
-                                <a href="/pisma" target="_self" class="btn btn-primary btn-lg">Napisz pismo</a>
+                                <a href="/pisma" target="_self" class="btn btn-primary btn-icon">
+                                    <img class="icon" src="/Pisma/icon/pisma.svg" alt=""/>Napisz pismo</a>
                             </div>
                         </div>
                     </div>

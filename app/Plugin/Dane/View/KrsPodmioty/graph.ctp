@@ -1,9 +1,6 @@
-<style>
-	.objectsPageWindow .container {display: none;}
-	#connectionGraph {min-height: 700px;}
-</style>
-
 <?
+$this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty-graph', array('plugin' => 'Dane')));
+
 if (isset($odpis) && $odpis) {
     $this->Html->meta(array(
         'http-equiv' => "refresh",
@@ -22,16 +19,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 $this->Combinator->add_libs('js', 'graph-krs');
 ?>
 
-</div>
-</div>
-</div>
+    <div id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>" data-url="krs_podmioty"></div>
 
-
-<div id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>" data-url="krs_podmioty"></div>
-
-
-<div class="container">
-<div class="row">
-<div class="objectsPageContent main">
 
 <?= $this->Element('dataobject/pageEnd'); ?>

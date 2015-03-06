@@ -38,7 +38,9 @@
                 margin-bottom: 20px;
 
                 .main_input {
-                    @color: #ffffff;
+                    @color: #dddddd;
+
+                    border-bottom: 2px solid #63afea;
 
                     .glyph-addon {
                         color: @color;
@@ -47,6 +49,12 @@
                         background-color: rgba(0, 0, 0, .6);
                         border-color: rgba(0, 0, 0, .6);
                         color: @color;
+                        -webkit-border-bottom-left-radius: 0;
+                        -webkit-border-bottom-right-radius: 0;
+                        -moz-border-radius-bottomleft: 0;
+                        -moz-border-radius-bottomright: 0;
+                        border-bottom-left-radius: 0;
+                        border-bottom-right-radius: 0;
 
                         &:focus {
                             background-color: #ffffff;
@@ -70,12 +78,10 @@
                     .mainBrick {
                         min-height: 290px;
                         border-bottom: 2px solid #63afea;
-                        padding: 25px;
+                        padding: 25px 25px 80px;
                         color: #ffffff;
-                        background-color: rgba(0, 0, 0, .6);
-                        background-size: cover;
-                        background-position: center center;
-                        background-repeat: no-repeat;
+                        background: rgba(0, 0, 0, .6);
+                        position: relative;
 
                         .title {
                             font-size: 50px;
@@ -86,27 +92,23 @@
                         .line {
                             width: 65px;
                             height: 2px;
-                            border-bottom: 2px solid #63afea;
+                            border-bottom: 1px solid #dddddd;
                             margin: 5px auto 15px;
                             display: block;
                         }
 
                         .description {
                             font-size: 15px;
-                            font-weight: normal;
                             line-height: 1.2em;
                             text-align: center;
                             font-weight: 300;
                         }
 
                         .action {
-                            margin-top: 25px;
-                            text-align: center;
-
-                            a {
-                                font-size: 14px;
-                                font-weight: 700;
-                            }
+                            position: absolute;
+                            bottom: 25px;
+                            left: 50%;
+                            transform: translate(-50%, 0);
                         }
                     }
                 }
@@ -125,7 +127,7 @@
                     padding-bottom: 8px;
                     margin-bottom: 20px;
                     height: 120px;
-                    border-left: 2px solid #ffffff;
+                    text-align: center;
 
                     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color=#333333)";
                     text-shadow: 2px 2px 2px #333333;
@@ -150,6 +152,7 @@
                     }
 
                     > img, > i, svg {
+                        margin: 0 auto;
                         display: block;
                         height: 50px;
                         min-width: 50px;

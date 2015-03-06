@@ -9,10 +9,19 @@ class PrawoController extends AppController
     public $helpers = array('Dane.Dataobject');
     public $uses = array('Dane.Dataliner');
 
+    public function beforeRender()
+    {
+        $appMenu = array(
+            array('id' => '', 'label' => 'Start'),
+            array('id' => 'akty', 'label' => 'Akty prawne'),
+            array('id' => 'tematy', 'label' => 'Tematy')
+        );
+
+        $this->set('appMenu', $appMenu);
+    }
 
     public function start()
     {
-
         $data = $this->API->Prawo()->getData();
 
         $this->set('keywords', $data['keywords']);
@@ -48,7 +57,17 @@ class PrawoController extends AppController
             ),
         ));
         $this->set('projekty', $API->getObjects());
+        $this->set('appMenuSelected', '');
+    }
 
+    public function akty()
+    {
+        $this->set('appMenuSelected', 'akty');
+    }
+
+    public function tematy()
+    {
+        $this->set('appMenuSelected', 'tematy');
     }
 
     public function weszly()

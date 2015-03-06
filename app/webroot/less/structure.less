@@ -5,11 +5,45 @@ body {
     height: 100%;
 }
 
+.btn {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
+    &.btn-primary {
+        background-color: #007ab9;
+        border-width: 0;
+        padding: 6px 12px;
+
+        &.btn-icon {
+            @buttonSize: 32px;
+
+            height: @buttonSize;
+            overflow: hidden;
+
+            .icon {
+                background-color: #00639a;
+                margin: -10px 12px -5px -12px;
+                padding: 8px 10px;
+                height: @buttonSize;
+            }
+        }
+
+        &:hover {
+            background-color: #003f6b;
+
+            &.btn-icon .icon {
+                background-color: #003f6b;
+            }
+        }
+    }
+}
+
 #_wrapper {
     width: 100%;
     min-height: 100%;
     position: relative;
-    background-color: #F3F3F3;
+    background-color: #e9eaed;
 
     font-family: 'Lato', sans-serif;
 
