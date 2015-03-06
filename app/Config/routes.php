@@ -79,6 +79,7 @@ Router::connect( '/regulamin', array( 'controller' => 'pages', 'action' => 'disp
 Router::connect( '/zglosblad', array( 'controller' => 'pages', 'action' => 'display', 'report_bug' ) );
 Router::connect( '/kontakt', array( 'controller' => 'pages', 'action' => 'display', 'contact_us' ) );
 
+Router::connect('/aplikacje', array('controller' => 'pages', 'action' => 'display', 'apps'));
 
 Router::parseExtensions( 'rss', 'xml', 'json', 'html' );
 Router::connect( '/sitemap', array( 'controller' => 'sitemaps', 'action' => 'index' ) );

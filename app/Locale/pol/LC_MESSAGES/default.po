@@ -1,3 +1,15 @@
+msgid "LC_COCKPITBAR_USER_SEARCH"
+msgstr "Szukaj"
+
+msgid "LC_COCKPITBAR_USER_APPLICATION"
+msgstr "Aplikacje"
+
+msgid "LC_COCKPITBAR_USER_FAVOURITE"
+msgstr "Ulubione"
+
+msgid "LC_COCKPITBAR_USER_LINK"
+msgstr "Twój profil"
+
 msgid "LC_COCKPITBAR_LOGIN"
 msgstr "Zaloguj się"
 

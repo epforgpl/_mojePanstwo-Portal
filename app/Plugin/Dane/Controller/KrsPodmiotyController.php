@@ -54,7 +54,26 @@ class KrsPodmiotyController extends DataobjectsController
 		}
 		
 	}
-	
+
+    public function _prepareView()
+    {
+
+        parent::_prepareView();
+
+        if (defined('PK_DOMAIN')) {
+
+            $pieces = parse_url(Router::url($this->here, true));
+            if (($pieces['host'] == PK_DOMAIN) && ($this->object->getData('gmina_id') != '903')) {
+
+                $this->redirect('http://' . PORTAL_DOMAIN . $_SERVER['REQUEST_URI']);
+                die();
+
+            }
+
+        }
+
+    }
+
     public function view()
     {
 
@@ -122,13 +141,13 @@ class KrsPodmiotyController extends DataobjectsController
 
 
         $this->set('indicators', $indicators);
-		
+
 		/*
 		$this->prepareFeed(array(
 			// 'perPage' => 3,
 		));
 		*/
-		
+
         if ($this->object->getData('ostatni_wpis_id')) {
 
 
@@ -315,25 +334,6 @@ class KrsPodmiotyController extends DataobjectsController
 
         $desc_parts[] = ucfirst(implode(', ', $desc_bodies_parts));
         $this->setMetaDesc(implode('. ', $desc_parts) . '.');
-
-    }
-
-    public function _prepareView()
-    {
-
-        parent::_prepareView();
-
-        if (defined('PK_DOMAIN')) {
-
-            $pieces = parse_url(Router::url($this->here, true));
-            if (($pieces['host'] == PK_DOMAIN) && ($this->object->getData('gmina_id') != '903')) {
-
-                $this->redirect('http://' . PORTAL_DOMAIN . $_SERVER['REQUEST_URI']);
-                die();
-
-            }
-
-        }
 
     }
 
@@ -541,6 +541,12 @@ class KrsPodmiotyController extends DataobjectsController
                     'label' => 'Informacje i powiązania',
                 ),
             )
+        );
+
+        $menu['items'][] = array(
+            'id' => 'graph',
+            'href' => $href_base . '/graph',
+            'label' => 'Powiązania'
         );
 
         if ($this->object->getData('liczba_zmian')) {

@@ -1,308 +1,144 @@
-#_mojePanstwoCockpit {
-    .container {
-        width: 100%;
-    }
-}
-
 #powiadomienia {
-    padding: 0;
-    margin: 0;
-    font-family: "Lato", Arial, sans-serif;
+    background: #ecf0f1;
 
-    .content {
-        padding: 15px 0;
-        overflow: hidden;
-    }
+    > .header {
+        @menuSize: 56px;
 
-    .btn-toolbar {
-        padding: 10px 50px;
-    }
+        width: 100%;
+        height: 208px;
+        //background: url(/Powiadomienia/img/header.jpg) left center no-repeat #222224;
+        position: relative;
 
-    .pagination {
-        margin-bottom: 0;
-    }
-}
+        .holder {
+            position: relative;
+            height: 100%;
 
-#frazyModalBox {
-    &.modal.in .modal-dialog {
-        transform: translate(0px, 40px);
-    }
-
-    .visibledNone {
-        visibility: hidden;
-    }
-
-    .modal-dialog {
-        .modal-content {
-            -moz-border-radius: 0;
-            -webkit-border-radius: 0;
-            border-radius: 0;
-            border-width: 0;
-            border-bottom: 10px solid #428BCA;
-
-            .modal-header {
-                @fontSize: 20px;
-
-                h4 {
-                    font-size: @fontSize;
-                    color: #428BCA;
-                }
-                .edit.modal-title textarea {
-                    color: #555555;
-                    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-                    font-size: @fontSize;
-                    font-weight: 400;
-                    margin-left: -6px;
-                    margin-top: -5px;
-                    padding: 3px;
-                    width: 95%;
-                }
-            }
-            .modal-body {
-                padding-top: 10px;
-                padding-bottom: 5px;
-                overflow-x: hidden;
-                position: relative;
-                background-color: #EEE;
-
-                .loading {
-                    background: url(/img/loader/ajax-loader-square-blue.gif) center center no-repeat;
-                    width: 100%;
-                    height: 20px;
-                    display: block;
-                    margin: 15px 0 10px;
-                }
-
-                .datasets, .keywords {
-                    margin: 5px 1%;
-                    width: 98%;
-                    display: inline-block;
-                    position: relative;
-
-                    h5 {
-                        font-weight: bold;
-                        margin-left: -10px;
-                    }
-                }
-
-                .keywords .tagsList, .datasets .datasetsContent {
-                    float: left;
-                    height: auto;
-                    max-height: 200px;
-                    overflow-x: hidden;
-                    overflow-y: auto;
-                    width: 100%;
-                    padding: 5px 15px 0 5px;
-                }
-
-                .datasets {
-                    .datasetsContent {
-                        background-color: #FFF;
-
-                        &:before {
-                            content: '';
-                            width: 100%;
-                            height: 13px;
-                            position: absolute;
-                            left: 0;
-                            top: 35px;
-                            z-index: 1;
-
-                            background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0) 100%);
-                            background: -webkit-gradient(linear, left top, left bottom, color-stop(30%, rgba(255, 255, 255, 1)), color-stop(100%, rgba(255, 255, 255, 0)));
-                            background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0) 100%);
-                            background: -o-linear-gradient(top, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0) 100%);
-                            background: -ms-linear-gradient(top, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0) 100%);
-                            background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0) 100%);
-                            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#00ffffff', GradientType=0);
-                        }
-
-                        &:after {
-                            content: '';
-                            width: 100%;
-                            height: 20px;
-                            position: absolute;
-                            left: 0;
-                            bottom: 0;
-                            z-index: 1;
-
-                            background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 70%);
-                            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(70%, rgba(255, 255, 255, 1)));
-                            background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 70%);
-                            background: -o-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 70%);
-                            background: -ms-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 70%);
-                            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 70%);
-                            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=0);
-                        }
-
-                        .switchCheckbox {
-                            margin: 1% 0;
-                            position: relative;
-
-                            &:first-child {
-                                margin-top: 5px;
-                            }
-
-                            &:last-child {
-                                margin-bottom: 15px;
-                            }
-
-                            label {
-                                cursor: pointer;
-                                font-weight: normal;
-                                color: #157AB5;
-                            }
-
-                            .bootstrap-switch {
-                                margin-right: 10px;
-                            }
-                            .datasetsList {
-                                display: none;
-                                border-top: 1px solid #dedede;
-                                margin-top: 10px;
-                                padding-top: 5px;
-                                padding-left: 40px;
-                                position: relative;
-
-                                .head, .checkbox {
-                                    width: 100%;
-                                    float: left;
-                                }
-
-                                .head {
-                                    margin-top: 10px;
-                                    margin-left: -10px;
-
-                                    .label {
-                                        padding-top: 5px;
-                                        margin-left: -10px;
-                                        font-size: 14px;
-                                        color: #000000;
-                                    }
-
-                                    .datasetOptions {
-                                        .btn {
-                                            margin-right: 10px;
-                                            text-decoration: none;
-                                        }
-                                    }
-                                }
-
-                                .checkbox {
-                                    &.disabled {
-                                        opacity: .7;
-                                    }
-                                }
-                            }
-                            .slide {
-                                @size: 20px;
-
-                                width: @size;
-                                height: @size;
-                                position: absolute;
-                                top: 2px;
-
-                                &.left {
-                                    left: -50px;
-                                    opacity: 0;
-
-                                    &:before {
-                                        content: '\e609';
-                                    }
-                                }
-                                &.right {
-                                    right: 1%;
-
-                                    &:before {
-                                        content: '\e60b';
-                                    }
-                                }
-                                &.up {
-                                    &:before {
-                                        content: '\e60a';
-                                    }
-                                }
-                                &.down {
-                                    &:before {
-                                        content: '\e608';
-                                    }
-                                }
-
-                                &:before {
-                                    font-size: 22px;
-                                    font-family: 'mojePanstwo';
-                                    speak: none;
-                                    font-style: normal;
-                                    font-weight: normal;
-                                    font-variant: normal;
-                                    text-transform: none;
-                                    line-height: 1;
-                                    -webkit-font-smoothing: antialiased;
-                                    -moz-osx-font-smoothing: grayscale;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                hr {
-                    margin-top: 5px;
-                    margin-bottom: 0;
-                }
-            }
-            .modal-footer {
-
-                margin-top: 0;
-
-                .btn {
-                    &.loading {
-                        background-image: url(/img/loader/search-loading.png);
-                        background-position: center center;
-                        background-repeat: no-repeat;
-                        line-height: 5em;
-                        height: 34px;
-
-                        &.delete {
-                            background-color: #D9534F;
-                        }
-                        &.duplicate {
-                            background-color: #5BC0DE;
-                        }
-                        &.save {
-                            background-color: #428BCA;
-                        }
-                    }
-                }
-                .btn-group {
-                    margin-left: 5px;
-
-                    .caret {
-                        margin-left: 5px;
-                    }
-
-                    a.delete {
-                        color: #D9534F;
-                    }
-
-                    .dropdown-menu {
-                        li a {
-                            text-align: center;
-                        }
-                    }
-                }
-            }
-            .modal-alert {
-                padding: 10px 8px;
-                background-color: #D9534F;
-                text-align: center;
-                color: #FFFFFF;
+            h1 {
+                font-size: 28px;
                 font-weight: bold;
+                color: #428bca;
+                margin: -(@menuSize/2) 0 0;;
+                position: absolute;
+                top: 50%;
+                left: 18px;
+                -webkit-transform: translate(0, -50%);
+                -moz-transform: translate(0, -50%);
+                transform: translate(0, -50%);
+            }
+        }
+        .menu {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: @menuSize;
+
+            ul {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+
+                li {
+                    height: @menuSize;
+                    margin: 0 20px;
+                    float: left;
+                    display: block;
+
+                    &.active {
+                        border-bottom: 4px solid #63afea;
+                    }
+
+                    a {
+                        display: block;
+                        color: #ffffff;
+                        font-size: 14px;
+                        font-weight: bold;
+                        margin: 18px 0;
+                    }
+                }
             }
         }
     }
-}
+    > .content {
+        background: #e9eaed;
 
-div.tagsInput {
-    padding: 0 !important;
-    background: inherit !important;
+        .handler {
+            padding: 0;
+
+            .header {
+                margin: 65px 20px 0;
+
+                h2 {
+                    font-size: 28px;
+                    font-weight: bold;
+                    color: #014068;
+                }
+
+                p {
+                    font-size: 16px;
+                    font-weight: normal;
+                    color: #202020;
+                }
+            }
+
+            .list {
+                display: block;
+                float: left;
+                margin: 55px 0;
+                width: 100%;
+
+                .box {
+                    padding: 35px 20px;
+                    background: #ffffff;
+                    border: 1px solid #ffffff;
+                    -webkit-border-radius: 4px;
+                    -moz-border-radius: 4px;
+                    border-radius: 4px;
+
+                    .icon {
+                        height: 50px;
+                        position: relative;
+
+                        .svg {
+                            max-width: 60px;
+                            max-height: 50px;
+                            position: absolute;
+                            top: 50%;
+                            left: 0;
+                            -webkit-transform: translate(0, -50%);
+                            -moz-transform: translate(0, -50%);
+                            -o-transform: translate(0, -50%);
+                            transform: translate(0, -50%);
+
+                            path {
+                                fill: #63afea;
+                            }
+                        }
+                    }
+
+                    .content {
+                        h2 {
+                            margin-top: 28px;
+                            margin-bottom: 22px;
+                            font-size: 22px;
+                            font-weight: bold;
+                            color: #014068;
+                        }
+
+                        p {
+                            font-size: 14px;
+                            font-weight: normal;
+                            color: #202020;
+                            line-height: 1.2em;
+
+                            a {
+                                font-weight: bold;
+                                color: #428bca;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

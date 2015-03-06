@@ -1,5 +1,4 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('api', array('plugin' => 'Api'))) ?>
-<?php $this->Combinator->add_libs('css', $this->Less->css('new-look')) ?>
 
 <div id="api" class="newLayout">
     <div class="jumbotron">

@@ -1,41 +1,17 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('prawo', array('plugin' => 'Prawo'))) ?>
 <?php $this->Combinator->add_libs('js', 'Prawo.prawo.js') ?>
 
-<div class="app-header">
-    <div class="container">
-        <h1>Przeglądaj prawo obowiązujące w Polsce</h1>
-
-        <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-
-            <? echo $this->Element('suggester', array(
-                'app' => 'prawo',
-                'displayDatasetName' => false,
-                'placeholder' => 'Szukaj w prawie...',
-                'action' => '/prawo',
-            )); ?>
-
-            <? echo $this->Element('Prawo.menu', array(
-                'selected' => 'start'
-            )); ?>
-
-        </div>
-    </div>
-</div>
+<?= $this->Element('appheader', array('title' => 'Prawo', 'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce', 'appMenu' => $appMenu, 'appMenuSelected' => $appMenuSelected)); ?>
 
 <div class="container">
-
     <div class="row">
         <div class="col-md-8">
-
             <div class="block-group">
-
-
                 <div class="block acts">
                     <div class="block-header">
                         <h2 class="label">Ustawy, które ostatnio weszły w życie</h2>
                     </div>
-                    <div class="content nopadding">
-
+                    <div class="content">
                         <ul class="acts">
                             <?
                             $last_date = false;
@@ -69,7 +45,6 @@
                             <a href="/dane/prawo/?!weszly=1&typ_id[]=1&search=web&order=data_wejscia_w_zycie desc"
                                class="btn btn-sm btn-default">Wszystkie &raquo;</a>
                         </div>
-
                     </div>
                 </div>
 
@@ -77,8 +52,7 @@
                     <div class="block-header">
                         <h2 class="label">Ustawy, które wejdą w życie w przyszłości</h2>
                     </div>
-                    <div class="content nopadding">
-
+                    <div class="content">
                         <ul class="acts">
                             <?
                             $last_date = false;
@@ -122,8 +96,7 @@
                     <div class="block-header">
                         <h2 class="label">Najnowsze projekty ustaw</h2>
                     </div>
-                    <div class="content nopadding">
-
+                    <div class="content">
                         <ul class="acts">
                             <?
                             $last_date = false;
@@ -166,11 +139,7 @@
 
         </div>
         <div class="col-md-4">
-
-
             <div class="block-group">
-
-
                 <div class="block nobg">
                     <div class="block-header">
                         <h2 class="label">Ważne</h2>

@@ -20,7 +20,7 @@ echo $this->Html->css($document->getCSSLocation());
 		'document' => $document,
 	)); ?>
 
-    <div class="document container">
+    <div class="document">
         <div class="row">
             <div class="content col-md-10">
                 <div class="canvas">

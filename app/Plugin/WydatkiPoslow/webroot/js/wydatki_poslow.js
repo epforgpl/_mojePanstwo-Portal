@@ -8,6 +8,8 @@ jQuery(function ($) {
         $body = $('body'),
         $htmlBody = $('html, body'),
         $header = $body.find('header'),
+        $headerWidth = $('#_mPCockpit ._mPBasic').innerWidth(),
+        $bodyWidth = $body.innerWidth() - $headerWidth,
 
         $story = $('#storyLine'),
         $far = $story.find('.far'),
@@ -15,14 +17,14 @@ jQuery(function ($) {
         $near = $story.find('.near'),
 
         minScreenWidth = 1000,
-        screenWidth = ($body.innerWidth() < minScreenWidth) ? minScreenWidth : $body.innerWidth(),
+        screenWidth = ($bodyWidth < minScreenWidth) ? minScreenWidth : $bodyWidth,
 
         posMap,
         scrollDest = 0,
         duration = 1000,
 
         transformOrigin,
-        center = $window.width() / 2 | 0,
+        center = ($window.width() - $headerWidth) / 2 | 0,
 
         smallJump = '20%',
         keyMap = {
@@ -44,7 +46,7 @@ jQuery(function ($) {
     };
 
     function introAnimation() {
-        var offset = $story.offset().left,
+        var offset = $story.offset().left - $headerWidth,
             sl = $window.scrollLeft(),
             value = sl - 2 * offset,
             sejmLoc = $medium.find('.scene.sejm .building').offset().left,
@@ -55,17 +57,20 @@ jQuery(function ($) {
             poselWalkScale = .3,
             poslankaWalkScale = .15,
             poselPoslankaWalkBond = 106,
+            scrollInfo = base.find('.scrollInfo'),
             poslanka = base.find('.poslankaBckgrnd'),
-            posel = base.find('.poselBckgrnd');
+            posel = base.find('.poselBckgrnd'),
+            poslankaPercent = 1.4,
+            poselPercent = 0.9;
 
         if (value < sejmLoc) {
             poslanka.css({
-                left: (value * 1.4 < sejmLoc) ? value * 1.4 : (poslanka.offset().left > sejmLoc) ? value * 1.4 : poslanka.offset().left,
+                left: (value * poslankaPercent < sejmLoc) ? value * poslankaPercent : (poslanka.offset().left > sejmLoc) ? value * poslankaPercent : poslanka.offset().left,
                 bottom: (Math.floor(poselPoslankaWalkStart + value * poslankaWalkScale) < poselPoslankaWalkBond) ? Math.floor(poselPoslankaWalkStart + value * poslankaWalkScale) : poselPoslankaWalkBond,
                 height: (poselPoslankaSize - value > poselPoslankaSizeLimit) ? (poselPoslankaSize - value) : poselPoslankaSizeLimit
             });
             posel.css({
-                right: (value * .9 < sejmLoc) ? -value * .9 : (poslanka.offset().left > sejmLoc) ? -value * 0.9 : -sejmLoc,
+                right: (value * poselPercent < sejmLoc) ? -value * poselPercent : (posel.offset().left > sejmLoc) ? -value * poselPercent : -sejmLoc,
                 bottom: (Math.floor(poselPoslankaWalkStart + value * poselWalkScale) < poselPoslankaWalkBond) ? Math.floor(poselPoslankaWalkStart + value * poselWalkScale) : poselPoslankaWalkBond,
                 height: (poselPoslankaSize - value > poselPoslankaSizeLimit) ? (poselPoslankaSize - value) : poselPoslankaSizeLimit
             });

@@ -1,24 +1,13 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
-
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
 
-<div class="appHeader">
-    <div class="container innerContent">
-        <div class="col-xs-12">
-            <? echo $this->Element('Pisma.menu', array(
-                'selected' => 'nowe'
-            )); ?>
-        </div>
-    </div>
-</div>
+<?= $this->Element('appheader', array('title' => 'Pisma', 'subtitle' => 'Twórz i wysyłaj pisma do urzędów i urzędnikow.', 'appMenu' => $appMenu, 'appMenuSelected' => $appMenuSelected)); ?>
 
 <div class="container">
     <div id="stepper" class="wizard clearfix">
         <div class="content clearfix">
                 <div class="container start">
                     <div class="col-xs-12">
-                        
-                        <h1 class="title-main">Twórz i wysyłaj pisma do urzędów i urzędnikow.</h1>
 
                         <form class="letter form-horizontal" action="/pisma" method="post">
 

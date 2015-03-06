@@ -154,7 +154,7 @@ function dataSlownie( $data, $options = array() ) {
 		$rok     = (int) $parts[0];
 
 
-		$str = $dzien . ' ' . $___vars['miesiace']['celownik'][ $miesiac ] . ' ' . $rok . ' r.';
+        $str = $dzien . ' ' . $___vars['miesiace']['celownik'][$miesiac] . ' ' . $rok . '&nbsp;r.';
 
 	}
 

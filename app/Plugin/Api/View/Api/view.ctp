@@ -1,5 +1,4 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('api', array('plugin' => 'Api'))) ?>
-<?php $this->Combinator->add_libs('css', $this->Less->css('new-look')) ?>
 
 <?php $this->Html->css(array(
     //'/api/swagger/css/reset',
