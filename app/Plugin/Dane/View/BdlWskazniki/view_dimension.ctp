@@ -1,10 +1,11 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('view-bdl-wskazniki', array('plugin' => 'Dane'))); ?>
-
 <?php $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts'); ?>
+<?php $this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki-map'); ?>
 <?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals'); ?>
+<?php $this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki-highmap'); ?>
 <?php $this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki'); ?>
 
-<?= $this->Element('dataobject/pageBegin'); ?>
+<?= $this->Element('dataobject/pageBegin', array('renderFile' => 'page-bdl_wskazniki')); ?>
 <?= $this->Element('bdl_select', array(
     'expand_dimension' => $expand_dimension,
     'dims' => $dims,
@@ -65,6 +66,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div id="highmap"></div>
+                </div>
             <?
             }
         }
@@ -75,7 +79,7 @@
                 <? foreach ($dimension['levels'] as $level) { ?>
                     <li<? if (isset($level['selected'])) {
                         $menuSelect = $level['id']; ?> class="active" <? } ?>>
-                        <a href="/dane/bdl_wskazniki/<?= $object->getId() . DS . $option['data']['id'] . DS . $level['id'] ?>">
+                        <a href="/dane/bdl_wskazniki/<?= $object->getId() . '/' /*DS zawierało '\' zamiast '/' */ . $option['data']['id'] . '/' . $level['id'] ?>">
                             <?= $level["label"] ?>
                         </a>
                     </li>
@@ -166,5 +170,9 @@
             <? } ?>
         </div>
     </div>
+
+<? if(isset($local_data) && is_array($local_data)): ?>
+    <script type="text/javascript">var local_data = <?= json_encode($local_data); ?>;</script>
+<? endif; ?>
 
 <?= $this->Element('dataobject/pageEnd'); ?>

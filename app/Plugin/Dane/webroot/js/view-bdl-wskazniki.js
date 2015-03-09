@@ -361,8 +361,6 @@ jQuery(document).ready(function () {
         jQuery('.tree li#' + kid).parent('ul').slideToggle('fast');
 
         jQuery('.tree li#' + gid).addClass('active');
-        //jQuery('.tree li#' + gid + ' a:first-child span').toggleClass('glyphicon-plus');
-        //jQuery('.tree li#' + gid + ' a:first-child span').toggleClass('glyphicon-minus');
         jQuery('.tree li#' + gid).parent('ul').slideToggle('fast');
 
         jQuery('.tree li#' + wid).addClass('active');
@@ -371,10 +369,5 @@ jQuery(document).ready(function () {
             if(jQuery(this).attr('id') != wid)
                 jQuery(this).hide();
         });
-
-        /*jQuery('.tree li').each(function() {
-            jQuery(this).toggleClass('active');
-            jQuery(this).children('ul').slideToggle('fast');
-        });*/
     });
 });
