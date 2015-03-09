@@ -173,6 +173,15 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
 				<?
 					echo $this->element('Dane.object-actions', array(
 						'buttons' => array(
+							'obserwuj' => array(
+								'id' => $object->getGlobalId(),
+							),
+							'pismo' => array(
+								'adresat_id' => $object->getDataset() . ':' . $object->getId(),
+								'szablon_id' => 35,
+								'nazwa' => 'Wyślij wniosek o udostępnienie informacji publicznej',
+								'opis' => 'Masz pytania do ' . $object->getTitle() . '? Klijnij aby wysłać odpowiedni wniosek.',
+							),
 							'pisma' => array(
 								'adresat_id' => $object->getDataset() . ':' . $object->getId(),
 							),

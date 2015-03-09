@@ -16,7 +16,18 @@ $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugi
     </li>-->
 
     <? foreach ($buttons as $key => $data) {
-        if ($key == 'pisma') { ?>
+        if ($key == 'obserwuj') { ?>
+        	<li>
+                <p class="btn_cont">
+                    <button class="btn btn-primary obserwuj-button" data-objectid="<?= $data['id'] ?>">
+                        <span class="glyphicon" data-icon="&#xe61d;" aria-hidden="true"></span> Obserwuj
+                    </button>
+                </p>
+                <p class="desc">
+                    Kliknij, aby nowe dane od <?= $name ?> były umieszczane w Twoim personalnym feedzie.
+                </p>
+            </li>
+        <? } elseif ($key == 'pisma') { ?>
             <li>
                 <p class="btn_cont">
                     <button class="btn btn-primary pisma-list-button" data-adresatid="<?= $data['adresat_id'] ?>">

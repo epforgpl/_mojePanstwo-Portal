@@ -599,8 +599,17 @@ h2.light {
 
     li {
         list-style: none;
-        padding: 10px 0;
+        padding: 20px 0 5px;
         margin: 1px 0;
+        border-bottom: 1px solid #CCC;
+        
+        &:first-child {
+	        padding-top: 10px;
+        }
+        
+        &:last-child {
+	        border-bottom: none;
+        }
 
         .btn_cont > .btn {
             width: 100%;
@@ -609,6 +618,7 @@ h2.light {
             padding: 0;
             font-weight: bold;
             overflow: hidden;
+            font-size: 13px;
 
             > span {
                 width: 42px;

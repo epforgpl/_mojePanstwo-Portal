@@ -248,7 +248,24 @@ class DataobjectsController extends DaneAppController
         }
         $this->set('headerObject', $this->headerObject);
     }
-
+    
+    public function beforeFilter()
+    {
+	    parent::beforeFilter();
+	    $this->Auth->deny(array('subscribe'));
+    }
+	
+	public function subscribe($object_id)
+	{
+		
+		$res = $this->Dataobject->subscribe($object_id, $this->Auth->user('id'));
+		$this->set(array(
+            'res' => $res,
+            '_serialize' => 'res',
+        ));
+		
+	}
+	
     protected function prepareMenu()
     {
     }

@@ -6,6 +6,8 @@ Router::connect('/dane', array('plugin' => 'Dane', 'controller' => 'datasets', '
 Router::connect('/dane/szukaj', array('plugin' => 'Dane', 'controller' => 'dataobjects', 'action' => 'index'));
 Router::connect('/dane/suggest', array('plugin' => 'Dane', 'controller' => 'dataobjects', 'action' => 'suggest'));
 
+Router::connect('/dane/dataobjects/:object_id/:action', array('plugin' => 'Dane', 'controller' => 'dataobjects'), array('object_id' => '[0-9]+', 'pass' => array('object_id')));
+
 
 Router::redirect('/dane/ustawy', '/dane/prawo');
 

@@ -1,6 +1,7 @@
 $(document).ready(function () {
     var pismoBtn = $('.pisma-list-button');
-
+	var obserwujBtn = $('.obserwuj-button');
+	
     if (pismoBtn.length) {
         var pismoModal = $('<div></div>').addClass('modal fade').attr({
             'id': 'pismaGenerateModal',
@@ -68,6 +69,64 @@ $(document).ready(function () {
             }
 
             pismoModal.modal('show')
+        });
+    }
+    
+    if (obserwujBtn.length) {
+        var obserwujModal = $('<div></div>').addClass('modal fade').attr({
+            'id': 'obserwujGenerateModal',
+            'tabindex': '-1',
+            'role': 'dialog',
+            'aria-labelledby': 'obserwujGenerateModalHandle',
+            'aria-hidden': 'hidden'
+        }).append(
+            $('<div></div>').addClass('modal-dialog').append(
+                $('<div></div>').addClass('modal-content').append(
+                    $('<div></div>').addClass('modal-header').append(
+                        $('<button></button>').addClass('close').attr({
+                            'type': 'button',
+                            'data-dismiss': 'modal',
+                            'arial-label': 'Close'
+                        }).append(
+                            $('<span></span>').attr('aria-hidden', 'true').html('&times;')
+                        )
+                    ).append(
+                        $('<h4></h4>').addClass('modal-title').attr('id', 'obserwujGenerateModalHandle').text('Obserwowanie')
+                    )
+                ).append(
+                    $('<div></div>').addClass('modal-body').append(
+                        $('<div></div>').addClass('loadingBlock').append(
+                            $('<p></p>').html("Po kliknięciu przycisku <b>\"Obserwuj\"</b>, Twój personalny feed powiadomień będzie zawierał dane pochodzące od Ministerstwo. W każdej chwili będziesz mógł wyłączyć tę funkcję, klikając na tej stronie przycisk <b>\"Przestań obserwować\"</b>")
+                        )
+                    )
+                ).append(
+                    $('<div></div>').addClass('modal-footer').append(
+                        $('<button></button>').addClass('btn btn-default').attr('data-dismiss', 'modal').text('Zamknij')
+                    ).append(
+                        $('<button></button>').addClass('btn btn-primary btn-subscribe').text('Obserwuj').click(function (e) {
+                            var btn = $(this);
+
+                            e.preventDefault();
+                            if (!btn.hasClass('disabled')) {
+	                            
+	                            btn.addClass('disabled');
+
+	                            $.post('/dane/dataobjects/' + btn.attr('data-objectid') + '/subscribe.json', function(data) {
+
+				                    btn.removeClass('disabled');
+
+				                });
+	                            
+                            }
+                        })
+                    )
+                )
+            )
+        );
+
+        obserwujBtn.click(function (e) {
+            e.preventDefault();
+            obserwujModal.modal('show').find('.btn-subscribe').attr('data-objectid', obserwujBtn.attr('data-objectid'));
         });
     }
 
