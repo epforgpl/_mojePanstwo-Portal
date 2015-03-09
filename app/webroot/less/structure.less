@@ -13,27 +13,34 @@ body {
     &.btn-primary {
         background-color: #007ab9;
         border-width: 0;
-        padding: 6px 12px;
+        padding: 8px 12px;
+        word-wrap: break-word;
+        white-space: normal;
+        line-height: 1em;
 
         &.btn-icon {
-            @buttonSize: 32px;
-
-            height: @buttonSize;
             overflow: hidden;
-            padding: 0 12px 0 0;
+            padding-left: 50px;
             text-align: left;
             width: 100%;
+            position: relative;
 
             .icon {
                 background-color: #00639a;
                 left: 0;
-                margin-right: 8px;
                 padding: 8px 10px;
-                position: relative;
+                position: absolute;
                 text-align: center;
                 top: 0;
                 width: 42px;
-                max-height: 100%;
+                height: 100%;
+
+                &:before, &:after {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
             }
         }
 
