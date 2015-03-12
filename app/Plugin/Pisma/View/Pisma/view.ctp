@@ -1,7 +1,7 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
 
-<?= $this->Element('appheader', array('title' => 'Prawo', 'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce', 'appMenu' => $appMenu, 'appMenuSelected' => ($pismo['saved'] == '1') ? 'moje' : 'nowe')); ?>
+<?= $this->Element('appheader', array('title' => 'Prawo', 'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce', 'appMenu' => $appMenu, 'appMenuSelected' => ($pismo['saved'] == '1') ? 'moje' : 'nowe', 'headerUrl' => 'pisma.png')); ?>
 
 <div class="container">
 
@@ -97,10 +97,10 @@
                         <? } ?>
                         <? if (isset($pismo['saved']) && $pismo['saved']) { ?>
                             <li class="inner-addon hide">
-                            <i class="glyphicon glyphicon-share"></i>
-                            <a href="<?= $href_base . '/share' ?>" target="_self"
-                               class="btn btn-primary">Udostępnij...</a>
-                        </li>
+                                <i class="glyphicon glyphicon-share"></i>
+                                <a href="<?= $href_base . '/share' ?>" target="_self"
+                                   class="btn btn-primary">Udostępnij...</a>
+                            </li>
                         <? } ?>
                     </ul>
 

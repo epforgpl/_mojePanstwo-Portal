@@ -1,17 +1,14 @@
 .appHeader .holder h2 {
     text-shadow: 0 0 1px #000000;
 }
-
 #media {
     padding-top: 20px;
     padding-bottom: 20px;
 }
-
 #media .container {
   width: 100%;
   max-width: 1600px;
 }
-
 #media blockquote {
   background: #f9f9f9;
   border-left: 10px solid #ccc;
@@ -19,7 +16,6 @@
   padding: 0.5em 10px;
   quotes: "\201C" "\201D" "\2018" "\2019";
 }
-
 #media blockquote:before {
   color: #ccc;
   content: open-quote;
@@ -28,48 +24,40 @@
   margin-right: 0.25em;
   vertical-align: -0.4em;
 }
-
 #media blockquote p {
   display: inline;
 }
-
 #media h1,
 #media h2,
 #media h3,
 #media h4 {
   font-weight: 300;
 }
-
 #media h1 {
   font-size: 46px;
   margin-top: 0;
   color: #FFF;
 }
-
 #media h2 {
   font-size: 32px;
   margin-bottom: 20px;
   margin-top: 0;
 }
-
 #media h3 {
   display: inline-block;
   font-size: 26px;
   font-weight: 400;
     margin: 0 0 10px;
 }
-
 #media h4 {
   display: inline-block;
   font-size: 14px;
   font-weight: 400;
   margin: 10px 0;
 }
-
 #media h4.label a {
   color: #FFF;
 }
-
 #media .plate {
   font-family: "Lato", Arial, sans-serif;
   font-size: 16px;
@@ -79,12 +67,10 @@
   background-color: #1b669d;
   background-image: url(/Media/img/plate_left.png), url(/Media/img/plate_right.png) no-repeat left center, right center;
 }
-
 #media .plate .header {
   text-align: center;
   margin-bottom: 1em;
 }
-
 #media .plate .header h1 {
   font-family: "Lato", Arial, sans-serif;
   font-weight: 300;
@@ -96,13 +82,11 @@
   padding: 20px 0;
   margin: 20px auto;
 }
-
 #media .plate .header .subtitle {
   font-family: "Lato", Arial, sans-serif;
   font-size: 16px;
   color: #aaaaaa;
 }
-
 #media .plate .intro {
   font-family: "Lato", Arial, sans-serif;
   font-weight: 300;
@@ -110,26 +94,21 @@
   margin-top: 1em;
   margin-bottom: 1em;
 }
-
 #media .plate .intro a {
   color: #ffffff;
   font-size: 13px;
 }
-
 #media #spis_tresci {
   float: left;
   width: 100%;
   min-height: 60px;
 }
-
 #media #spis_tresci.affix {
   position: relative;
 }
-
 #media #spis_tresci.affix.searchDisplay > div {
   top: 100px;
 }
-
 #media #spis_tresci.affix > div {
   position: fixed;
   top: 40px;
@@ -140,57 +119,47 @@
   margin: 0;
   background-color: #1b669d;
 }
-
 #media #spis_tresci.affix > div .navbar-nav {
   position: relative;
   left: 15px;
 }
-
 #media .navbar-nav {
   margin: 0 auto;
   padding: 0;
   float: none;
 }
-
 #media .navbar-nav > li {
   text-align: center;
   position: relative;
   width: 14.2%;
 }
-
 #media .navbar-nav > li.dropdown.open a {
   background: none;
   color: #fff;
 }
-
 #media .navbar-nav > li.dropdown.open a .caret {
   border-bottom-color: #FFF;
   border-top-color: #FFF;
 }
-
 #media .navbar-nav > li.dropdown.open .dropdown-menu {
   background-color: #1b669d;
   border-color: #1b669d;
   padding: 10px;
 }
-
 #media .navbar-nav > li.dropdown.open .dropdown-menu > li.active a {
   color: #41aded;
 }
-
 #media .navbar-nav > li.dropdown.open .dropdown-menu > li a {
   font-family: "Lato", Arial, sans-serif;
   font-size: 13px;
   font-weight: 300;
 }
-
 #media .navbar-nav > li > a {
   font-family: "Lato", Arial, sans-serif;
   font-size: 13px;
   padding: 10px 5px;
   line-height: 1.2em;
 }
-
 #media .navbar-nav > li > a .caret {
   position: absolute;
   top: 50%;
@@ -199,171 +168,139 @@
   border-bottom-color: #FFF;
   border-top-color: #FFF;
 }
-
 #media .navbar-default {
   border: none;
   background: none;
   margin: 0;
 }
-
 #media .navbar-default .active a {
   color: #FFF;
   background-color: #41aded;
 }
-
 #media .navbar-default .active a .caret {
   border-bottom-color: #FFF;
   border-top-color: #FFF;
 }
-
 #media .navbar-default a {
   color: #ffffff;
   padding: 10px 0;
 }
-
 #media .nav > li {
   padding: 10px 0;
 }
-
 #media .chapter {
   padding-bottom: 20px;
 }
-
 #media .chapter h3 {
   display: block !important;
 }
-
 #media .chapter .desc {
   font-family: "Lato", Arial, sans-serif;
   font-size: 16px;
   margin-bottom: 30px;
 }
-
 #media .chapter .main_desc {
   padding: 0;
   margin: 0;
 }
-
 #media .chapter .bgcontent {
   background-color: #FFF;
   font-family: "Lato", Arial, sans-serif;
   font-size: 16px;
 }
-
 #media .chapter .bgcontent p {
   padding: 6px 0;
   line-height: 24px;
 }
-
 #media .chapter .bgcontent h3 {
   margin-top: 36px !important;
   border-bottom: 1px solid #CCC !important;
   padding-bottom: 10px !important;
 }
-
 #media .chapter .table_placeholder {
   text-align: center;
   padding: 40px 0 20px 0;
   margin: 0 20px;
 }
-
 #media .chapter .separator-top {
   margin-top: 30px !important;
 }
-
 #media .chapter .header-row {
   background: rgba(0,0,0,0.08);
   padding-top: 20px;
   margin-bottom: 20px;
 }
-
 #media .stats {
   margin-top: 1em;
   padding-top: 1em;
   border-top: 1px solid #AAA;
 }
-
 #media .ranks {
   text-align: center;
 }
-
 #media .rank-row-block {
   margin-top: 40px;
   max-width: 1600px;
   margin-left: auto;
   margin-right: auto;
 }
-
 #media .rank-row-block .desc {
   font-family: "Lato", Arial, sans-serif;
   font-weight: 300;
   font-size: 16px;
 }
-
 #media .rank-row-block:first-child {
   margin-top: 0;
 }
-
 #media .rank-row-block .rank-row {
   background-color: #FFF;
     margin: 20px 0 0;
 }
-
 #media .rank-row-block .rank-row .rank-col {
   border-right: 1px solid #CCC;
 }
-
 #media .rank-row-block .rank-row .rank-col:last-child {
   border-right: none;
 }
-
 #media .rank-row-block .rank-row .rank-col ul {
   padding: 0;
   margin: 0;
   list-style: none;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li {
   overflow: auto;
   padding: 10px 0;
   text-align: left;
   min-height: 73px;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li.tweet {
   border-bottom: 1px solid #DDD;
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li.tweet .tweet_header .data .date {
   font-size: 12px;
   color: #AAA;
   font-style: italic;
   margin-bottom: 0;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li.tweet .tweet_header .data .account a {
   font-weight: bold;
   font-size: 12px;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li.tweet:last-child {
   border-bottom: none;
   margin-bottom: none;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li.account {
   border-bottom: 1px solid #DDD;
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li.account:last-child {
   border-bottom: none;
   margin-bottom: none;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li.list-group-item {
   border: none;
   padding: 10px 0;
@@ -371,88 +308,70 @@
   border-bottom: 1px solid #EEE;
   min-height: inherit;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li.list-group-item:last-child {
   border-bottom: none;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li .tweet_stats {
   text-align: center;
   color: #AAAAAA;
   overflow: hidden;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li .tweet_stats p {
   margin: 0;
   padding: 0;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter {
   font-family: "Lato", Arial, sans-serif;
   font-size: 16px;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter.small {
   font-size: 12px;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter.plus {
   color: #5CB85C;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter.minus {
   color: #D9534F;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter a {
   color: #AAA;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter a:hover {
   color: #157AB5;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li .tweet_stats p._counter a span {
   margin-right: 3px;
   top: 2px;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li .tweet_stats p._label {
   font-family: "Lato", Arial, sans-serif;
   font-size: 11px;
   margin-bottom: 3px;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li .avatar {
   float: left;
   width: 73px;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li .info {
   margin-left: 73px;
   padding: 0 7px;
   margin-top: -4px;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li .name {
   font-family: "Lato", Arial, sans-serif;
   font-size: 16px;
   margin-bottom: 5px;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li .counter {
   font-family: "Lato", Arial, sans-serif;
   font-size: 20px;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li .counter a {
   color: #333;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li .counter a:hover {
   color: #157AB5;
 }
-
 #media .rank-row-block .rank-row .rank-col ul li .subcounter {
   font-family: "Lato", Arial, sans-serif;
   font-size: 14px;
@@ -461,34 +380,27 @@
   margin-top: -10px;
   margin-left: 5px;
 }
-
 #media .rank-row-block .rank-row .rank-col .buttons {
   padding: 10px 0;
 }
-
 #media.results {
   margin-top: 1em;
 }
-
 #media.results h2 {
   font-family: "Lato", Arial, sans-serif;
   font-size: 20px;
 }
-
 #media .main_input {
   margin: 20px 0 10px;
 }
-
 #media #shortcuts {
   margin: 1.5em 0;
 }
-
 #media #shortcuts ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-
 #media #shortcuts ul li {
   padding: 10px;
   font-family: "Lato", Arial, sans-serif;
@@ -496,17 +408,14 @@
   font-size: 16px;
   display: inline;
 }
-
 #media #results {
   margin: 2em 0;
 }
-
 #media #results ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-
 #media #results ul li {
   font-family: "Lato", Arial, sans-serif;
   font-size: 18px;
@@ -515,59 +424,48 @@
   text-align: left;
   border-bottom: 1px solid rgba(255,255,255,0.3);
 }
-
 #media #results ul li:last-child {
   border-bottom: none;
 }
-
 #media #results ul li a {
   text-decoration: none;
 }
-
 #media #results .button {
   margin-top: 2em;
 }
-
 #media #tagsCloud {
   width: 100%;
   list-style: none;
   overflow: hidden;
 }
-
 #media #tagsCloud li {
   list-style: none;
 }
-
 #media .twitter-people {
   width: 520px;
 }
-
 #media .twitter-people .stats {
   font-style: italic;
   height: 45px;
 }
-
 #media .twitter-people .stats h2 {
   color: #000000;
   font-family: "Lato", Arial, sans-serif;
   font-size: 20px;
   float: left;
 }
-
 #media .twitter-people .stats span {
   color: #0071a6;
   font-family: "Lato", Arial, sans-serif;
   font-size: 18px;
   float: right;
 }
-
 #media .twitter-people .twitterContent {
   position: relative;
   background-clip: padding-box;
   line-height: 16px;
   color: #ffffff;
 }
-
 #media .twitter-people .twitterContent .profile-header-inner {
   background-color: #444444;
   background-repeat: no-repeat;
@@ -576,7 +474,6 @@
   padding: 0;
   text-align: center;
 }
-
 #media .twitter-people .twitterContent .profile-header-inner-overlay {
   background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0.55) 100%) repeat scroll 0 0 rgba(0,0,0,0);
   height: 200px;
@@ -584,7 +481,6 @@
   top: 60px;
   width: 520px;
 }
-
 #media .twitter-people .twitterContent .profile-picture {
   background-color: #FFFFFF;
   border: 4px solid #FFFFFF;
@@ -597,18 +493,15 @@
   width: 80px;
   z-index: 5;
 }
-
 #media .twitter-people .twitterContent .profile-picture .avatar {
   border-radius: 3px;
   float: none;
 }
-
 #media .twitter-people .twitterContent .profile-picture .size73 {
   border-radius: 5px;
   height: 73px;
   width: 73px;
 }
-
 #media .twitter-people .twitterContent .profile-card-inner {
   float: none;
   margin: auto;
@@ -616,11 +509,9 @@
   text-shadow: 0 1px 1px rgba(0,0,0,0.5);
   width: 85%;
 }
-
 #media .twitter-people .twitterContent .profile-card-inner a {
   color: #ffffff;
 }
-
 #media .twitter-people .twitterContent .profile-card-inner .fullname {
   font-weight: bold;
   line-height: 1;
@@ -628,7 +519,6 @@
   font-size: 24px;
   white-space: nowrap;
 }
-
 #media .twitter-people .twitterContent .profile-card-inner .username {
   font-size: 18px;
   font-weight: normal;
@@ -636,7 +526,6 @@
   line-height: 24px;
   margin-bottom: 1px;
 }
-
 #media .twitter-people .twitterContent .profile-card-inner .bio-container {
   -moz-font-feature-settings: inherit;
   -moz-font-language-override: inherit;
@@ -650,51 +539,41 @@
   margin-bottom: 4px;
   line-height: 16px;
 }
-
 #media .twitter-people .twitterContent .profile-card-inner .bio-container p {
   line-height: 16px;
 }
-
 #media .twitter-people .twitterContent .profile-card-inner .location-and-url {
   color: #FFFFFF;
   font-size: 14px;
   line-height: 18px;
 }
-
 #media .twitter-people .twitterContent .profile-card-inner .location-and-url .divider {
   color: #FFFFFF;
   padding: 0 2px;
 }
-
 #media .twitter-people .twitterContent .profile-card-inner .location-and-url .url {
   word-wrap: break-word;
 }
-
 #media .twitter-people .twitterContent i,
 #media .twitter-people .twitterContent .icon {
   background: url("https://abs.twimg.com/a/1388796652/t1/img/twitter_web_sprite_icons.png") no-repeat 0 0;
   display: inline-block;
   vertical-align: text-top;
 }
-
 #media .twitter-people .twitterContent .verified {
   background-position: -30px -480px;
 }
-
 #media .twitter-people .twitterContent .verified-large-border,
 #media .twitter-people .twitterContent .translator-large-border {
   height: 21px;
   width: 21px;
 }
-
 #media .twitter-people .twitterContent .verified-large-border {
   background-position: -120px -480px;
 }
-
 #media .twitter-people .twitterContent .verified-link .verified {
   margin-top: 3px;
 }
-
 #media .twitter-people .twitterContent .visuallyhidden {
   border: 0 none;
   clip: rect(0px,0,0,0);
@@ -705,7 +584,6 @@
   position: absolute;
   width: 1px;
 }
-
 #media #media #tblMain,
 #media #prawo #tblMain {
   font-family: "Lato", Arial, sans-serif;
@@ -714,7 +592,6 @@
   color: #000000;
   margin: 20px auto;
 }
-
 #media #media #tblMain tr:first-child,
 #media #prawo #tblMain tr:first-child {
   color: #ffffff;
@@ -722,48 +599,39 @@
   font-weight: 700;
   background-color: #00aeef;
 }
-
 #media #media #tblMain tr td,
 #media #prawo #tblMain tr td {
   border: 1px solid #939598;
   padding: 5px 10px;
   text-align: center;
 }
-
 #media #media #tblMain tr td:first-child,
 #media #prawo #tblMain tr td:first-child {
   text-align: left;
 }
-
 #media #media #tblMain tr td .glyphicon.glyphicon-ok,
 #media #prawo #tblMain tr td .glyphicon.glyphicon-ok {
   color: #40ae49;
 }
-
 #media #media #tblMain tr td .glyphicon.glyphicon-remove,
 #media #prawo #tblMain tr td .glyphicon.glyphicon-remove {
   color: #d2232a;
 }
-
 #media #media #tblMain tr td .line,
 #media #prawo #tblMain tr td .line {
   display: inline-block;
   width: 100%;
 }
-
 #media #prawo #tblMain tr td {
   text-align: left;
 }
-
 #media #prawo #tblMain tr td blackquote {
   font-style: italic;
   font-weight: 300;
 }
-
 #media #kontrowersje .fakeTwitterAccounts {
   list-style-type: none;
 }
-
 #media #kontrowersje .fakeTwitterAccounts > li {
   border: 1px solid #d1d2d4;
   -moz-border-radius: 10px;
@@ -776,7 +644,6 @@
   margin-bottom: 15px;
   line-height: 1.2em;
 }
-
 #media #kontrowersje .fakeTwitterAccounts > li .avatar {
   border: 1px solid #ffffff;
   -moz-border-radius: 10px;
@@ -785,53 +652,44 @@
   float: left;
   margin-right: 15px;
 }
-
 #media #kontrowersje .fakeTwitterAccounts > li .name {
   width: 40%;
   float: left;
   color: #404040;
 }
-
 #media #kontrowersje .fakeTwitterAccounts > li .name strong,
 #media #kontrowersje .fakeTwitterAccounts > li .name a {
   width: 100%;
   display: block;
 }
-
 #media #kontrowersje .fakeTwitterAccounts > li .name strong {
   font-family: "Lato", Arial, sans-serif;
   font-size: 18px;
   font-weight: 700;
 }
-
 #media #kontrowersje .fakeTwitterAccounts > li .name a {
   color: #9d9fa2;
   font-family: "Lato", Arial, sans-serif;
   font-size: 14px;
 }
-
 #media #kontrowersje .fakeTwitterAccounts > li .count {
   float: right;
   width: 40%;
 }
-
 #media #kontrowersje .fakeTwitterAccounts > li .count strong,
 #media #kontrowersje .fakeTwitterAccounts > li .count span {
   width: 100%;
   display: block;
 }
-
 #media #kontrowersje .fakeTwitterAccounts > li .count strong {
   font-family: "Lato", Arial, sans-serif;
   font-size: 16px;
 }
-
 #media #kontrowersje .fakeTwitterAccounts > li .count span {
   color: #9d9fa2;
   font-family: "Lato", Arial, sans-serif;
   font-size: 14px;
 }
-
 #media #kontrowersje .fakeTwitterAccounts > li blackquote {
   padding-top: 5px;
   display: block;
@@ -841,50 +699,40 @@
   font-family: "Lato", Arial, sans-serif;
   font-size: 16px;
 }
-
 #media #kontrowersje .fakeTwitterAccounts > li blackquote span {
   color: #0084B4;
 }
-
 #media #kontrowersje .twoColumn {
   width: 100%;
   float: left;
 }
-
 #media #kontrowersje .twoColumn .columnLeft,
 #media #kontrowersje .twoColumn .columnRight {
   width: 49%;
   display: block;
 }
-
 #media #kontrowersje .twoColumn .columnLeft {
   float: left;
 }
-
 #media #kontrowersje .twoColumn .columnRight {
   float: right;
 }
-
 #media #kontrowersje .twoColumn .block {
   float: left;
   padding-bottom: 15px;
 }
-
 #media #kontrowersje .twoColumn .block h4 {
   font-size: 17px;
   font-weight: 700;
 }
-
 #media #kontrowersje .twoColumn .block img {
   padding: 20px 20% 20px 0;
   width: 100%;
   float: left;
 }
-
 #media #ofundacji p {
   padding-bottom: 20px;
 }
-
 #media #ofundacji img {
   padding: 10px 0;
 }

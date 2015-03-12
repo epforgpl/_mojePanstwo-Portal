@@ -2,7 +2,7 @@
 <?php $this->Combinator->add_libs('js', 'Krs.krs.js') ?>
 
 <div id="krs">
-    <?= $this->Element('appheader', array('title' => 'Krajowy Rejestr Sądowy', 'subtitle' => __d('krs', 'LC_KRS_HEADLINE'))); ?>
+    <?= $this->Element('appheader', array('title' => 'Krajowy Rejestr Sądowy', 'subtitle' => __d('krs', 'LC_KRS_HEADLINE'), 'headerUrl' => 'krs.png')); ?>
 
     <div class="search container">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2">

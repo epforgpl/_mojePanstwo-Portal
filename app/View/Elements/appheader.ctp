@@ -1,6 +1,7 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('appheader')) ?>
 
-<div class="appHeader">
+<div
+    class="appHeader"<? if (isset($headerUrl)) echo ' style="background-image: url(/' . strtolower($this->request->params['plugin']) . '/img/header_' . $headerUrl . ')"'; ?>>
     <div class="container">
         <div class="holder">
             <? if (isset($title)) { ?>
@@ -10,7 +11,7 @@
             <? if (isset($subtitle)) { ?>
                 <h2><?= $subtitle ?></h2>
             <? } ?>
-        </div>
+    </div>
     </div>
     <? if (isset($appMenu)) { ?>
         <div class="menu">
@@ -25,7 +26,7 @@
                         </li>
                     <? } ?>
                 </ul>
-            </div>
+        </div>
         </div>
     <? } ?>
 </div>

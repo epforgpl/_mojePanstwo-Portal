@@ -6,6 +6,6 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
 
-<?= $this->Element('appheader', array('title' => 'Pisma', 'subtitle' => 'Twórz i wysyłaj pisma do urzędów i urzędnikow.', 'appMenu' => $appMenu, 'appMenuSelected' => (isset($pismo['saved']) && $pismo['saved']) ? 'moje' : 'nowe')); ?>
+<?= $this->Element('appheader', array('title' => 'Pisma', 'subtitle' => 'Twórz i wysyłaj pisma do urzędów i urzędnikow.', 'appMenu' => $appMenu, 'appMenuSelected' => (isset($pismo['saved']) && $pismo['saved']) ? 'moje' : 'nowe', 'headerUrl' => 'pisma.png')); ?>
 
 <? echo $this->Element('Pisma.editor', array('title' => isset($pismo['tytul']) ? $pismo['tytul'] : '')); ?>

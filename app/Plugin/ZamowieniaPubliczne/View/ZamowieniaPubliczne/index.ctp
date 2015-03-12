@@ -7,7 +7,7 @@
 <?php $this->Combinator->add_libs('js', 'ZamowieniaPubliczne.zamowieniapubliczne') ?>
 <?php $this->Combinator->add_libs('js', 'Dane.dataobjectsslider') ?>
 
-<?= $this->Element('appheader', array('title' => 'Zamówienia publiczne')); ?>
+<?= $this->Element('appheader', array('title' => 'Zamówienia publiczne', 'headerUrl' => 'zamowienia-publiczne.png')); ?>
 
 <div class="container" id="zamowienia">
 

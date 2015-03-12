@@ -2,7 +2,7 @@
 <?php $this->Combinator->add_libs('js', 'Powiadomienia.powiadomienia') ?>
 
 <div id="powiadomienia" class="fullPageHeight"
-     style="background-image: url('/img/home/backgrounds/home-background-default.jpg')">
+     style="background-image: url('/Powiadomienia/img/header_powiadomienia.png')">
     <div class="header">
         <div class="holder container">
             <h1 class="col-xs-12">Powiadomienia</h1>
