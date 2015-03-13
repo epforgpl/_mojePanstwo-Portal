@@ -1,7 +1,7 @@
 #powiadomienia {
-    .slice {
-        @height: 605px;
+    @height: 605px;
 
+    .slice {
         width: 100%;
         height: @height;
 
@@ -86,6 +86,36 @@
         }
         &.prawo {
             background-image: url(/Powiadomienia/img/slice/slice_prawo.jpg);
+        }
+    }
+
+    #rotate {
+        &.hold {
+            position: relative;
+
+            .holdBckgrnd {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 100%;
+                height: 100vh;
+                z-index: 0;
+
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+            }
+
+            .slice {
+                background: none;
+                position: relative;
+                z-index: 1;
+            }
+        }
+        .slice {
+            min-height: @height;
+            height: 100vh;
         }
     }
 }
