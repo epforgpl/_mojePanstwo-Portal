@@ -34,6 +34,14 @@ class PowiadomieniaAppController extends AppController
             }
 
         }
+
+        $appMenu = array(
+            array('id' => '', 'label' => 'Moje powiadomieni'),
+            array('id' => 'obserwuje', 'label' => 'Obserwuję'),
+            array('id' => 'jak_to_dziala', 'label' => 'Jak to działa?')
+        );
+
+        $this->set('appMenu', $appMenu);
     }
 
 }

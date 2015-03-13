@@ -47,5 +47,7 @@ class PowiadomieniaController extends PowiadomieniaAppController
 
 
         }
+
+        $this->set('appMenuSelected', 'jak_to_dziala');
     }
 }
