@@ -9,7 +9,7 @@ $this->Combinator->add_libs('js', 'Finanse.dzialy.js');
 ?>
 
 
-<?= $this->Element('appheader', array('title' => 'Wydatki gmin w Polsce')); ?>
+<?= $this->Element('appheader', array('title' => 'Wydatki gmin w Polsce', 'headerUrl' => 'finanse.png')); ?>
 
 <div class="container">
     <div class="col-md-10 col-md-offset-1 text-center">

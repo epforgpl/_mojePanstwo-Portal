@@ -1,144 +1,121 @@
 #powiadomienia {
-    background: #ecf0f1;
+    @height: 605px;
 
-    > .header {
-        @menuSize: 56px;
-
+    .slice {
         width: 100%;
-        height: 208px;
-        //background: url(/Powiadomienia/img/header.jpg) left center no-repeat #222224;
-        position: relative;
+        height: @height;
 
-        .holder {
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+
+        > .container {
+            height: @height;
             position: relative;
-            height: 100%;
-
-            h1 {
-                font-size: 28px;
-                font-weight: bold;
-                color: #428bca;
-                margin: -(@menuSize/2) 0 0;;
-                position: absolute;
-                top: 50%;
-                left: 18px;
-                -webkit-transform: translate(0, -50%);
-                -moz-transform: translate(0, -50%);
-                transform: translate(0, -50%);
-            }
         }
-        .menu {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: @menuSize;
-
-            ul {
-                margin: 0;
-                padding: 0;
-                height: 100%;
-
-                li {
-                    height: @menuSize;
-                    margin: 0 20px;
-                    float: left;
-                    display: block;
-
-                    &.active {
-                        border-bottom: 4px solid #63afea;
-                    }
-
-                    a {
-                        display: block;
-                        color: #ffffff;
-                        font-size: 14px;
-                        font-weight: bold;
-                        margin: 18px 0;
-                    }
-                }
-            }
-        }
-    }
-    > .content {
-        background: #e9eaed;
 
         .handler {
+            position: absolute;
+            top: 50%;
             padding: 0;
 
-            .header {
-                margin: 65px 20px 0;
+            -webkit-transform: translate(0, -50%);
+            -moz-transform: translate(0, -50%);
+            -o-transform: translate(0, -50%);
+            transform: translate(0, -50%);
 
-                h2 {
-                    font-size: 28px;
-                    font-weight: bold;
-                    color: #014068;
+            h1 {
+                font-size: 48px;
+                font-weight: normal;
+                color: #014068;
+                margin-top: 0;
+                margin-bottom: 55px;
+            }
+
+            h2 {
+                font-size: 28px;
+                font-weight: bold;
+                color: #ffffff;
+                margin-top: 0;
+                margin-bottom: 45px;
+            }
+
+            p {
+                font-size: 16px;
+                font-weight: normal;
+                color: #212121;
+                margin-bottom: 25px;
+
+                &:last-child {
+                    padding-bottom: 0;
                 }
+            }
+
+            .btn {
+                margin-top: 15px;
+                padding: 14px 16px;
+            }
+
+            &.mini {
+                border-left: 4px solid #ffffff;
+                padding: 20px 45px 12px;
 
                 p {
-                    font-size: 16px;
-                    font-weight: normal;
-                    color: #202020;
+                    color: #ffffff;
                 }
             }
+        }
 
-            .list {
-                display: block;
-                float: left;
-                margin: 55px 0;
+        &.left .handler {
+            left: 30px;
+        }
+
+        &.right .handler {
+            right: 30px;
+        }
+
+        &.start {
+            background-image: url(/Powiadomienia/img/slice/slice_start.jpg);
+        }
+        &.instytucje {
+            background-image: url(/Powiadomienia/img/slice/slice_instytucje.jpg);
+        }
+        &.firmy {
+            background-image: url(/Powiadomienia/img/slice/slice_firmy.jpg);
+        }
+        &.prawo {
+            background-image: url(/Powiadomienia/img/slice/slice_prawo.jpg);
+        }
+    }
+
+    #rotate {
+        &.hold {
+            position: relative;
+
+            .holdBckgrnd {
+                position: fixed;
+                top: 0;
+                right: 0;
                 width: 100%;
+                height: 100vh;
+                z-index: 0;
 
-                .box {
-                    padding: 35px 20px;
-                    background: #ffffff;
-                    border: 1px solid #ffffff;
-                    -webkit-border-radius: 4px;
-                    -moz-border-radius: 4px;
-                    border-radius: 4px;
-
-                    .icon {
-                        height: 50px;
-                        position: relative;
-
-                        .svg {
-                            max-width: 60px;
-                            max-height: 50px;
-                            position: absolute;
-                            top: 50%;
-                            left: 0;
-                            -webkit-transform: translate(0, -50%);
-                            -moz-transform: translate(0, -50%);
-                            -o-transform: translate(0, -50%);
-                            transform: translate(0, -50%);
-
-                            path {
-                                fill: #63afea;
-                            }
-                        }
-                    }
-
-                    .content {
-                        h2 {
-                            margin-top: 28px;
-                            margin-bottom: 22px;
-                            font-size: 22px;
-                            font-weight: bold;
-                            color: #014068;
-                        }
-
-                        p {
-                            font-size: 14px;
-                            font-weight: normal;
-                            color: #202020;
-                            line-height: 1.2em;
-
-                            a {
-                                font-weight: bold;
-                                color: #428bca;
-                            }
-                        }
-                    }
-                }
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
             }
+
+            .slice {
+                background: none;
+                position: relative;
+                z-index: 1;
+            }
+        }
+        .slice {
+            min-height: @height;
+            height: 100vh;
         }
     }
 }
