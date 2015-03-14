@@ -144,7 +144,7 @@
                     <div class="block-header">
                         <h2 class="label">Ważne</h2>
                     </div>
-                    <div class="content nopadding">
+                    <div class="content">
 
                         <ul class="popular">
                             <? foreach ($popular as $act) { ?>

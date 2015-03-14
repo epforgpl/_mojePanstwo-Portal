@@ -15,14 +15,14 @@
     .holder {
         position: absolute;
         top: 50%;
-        left: 18px;
+        left: 3px;
         -webkit-transform: translate(0, -50%);
         -moz-transform: translate(0, -50%);
         transform: translate(0, -50%);
 
         h1 {
-            margin: 0 10px 20px;
-            font-size: 30px;
+            margin: 0 10px 5px;
+            font-size: 40px;
             font-weight: 300;
             color: #ffffff;
         }
@@ -30,7 +30,7 @@
         h2 {
             margin: 0 10px 20px;
             font-size: 18px;
-            font-weight: 400;
+            font-weight: 300;
             color: #157Ab5;
         }
     }
@@ -42,7 +42,7 @@
         height: @menuSize;
 
         ul {
-            margin: 0;
+            margin: 0 -18px;
             padding: 0;
             height: 100%;
 
@@ -54,6 +54,9 @@
 
                 &.active {
                     border-bottom: 4px solid #63afea;
+                    a {
+	                    color: #63afea;
+                    }
                 }
 
                 a {
