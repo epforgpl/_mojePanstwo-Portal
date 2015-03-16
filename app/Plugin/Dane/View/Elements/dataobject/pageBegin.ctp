@@ -9,7 +9,7 @@ if (isset($titleTag)) {
     $objectOptions['titleTag'] = $titleTag;
 }
 
-if(!isset($renderFile))
+if (!isset($renderFile) || !$renderFile)
     $renderFile = 'page';
 
 $menu = $this->viewVars['menu'];
@@ -20,6 +20,7 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
 <?php $this->Combinator->add_libs('css', $this->Less->css('naglosnij', array('plugin' => 'Dane'))) ?>
 
 <?php $this->Combinator->add_libs('js', array('Dane.page-header', 'Dane.naglosnij', 'Dane.related-tabs')); ?>
+
 <div<? if ($objectOptions['microdata']['itemtype']) { ?> itemscope itemtype="<?= $objectOptions['microdata']['itemtype'] ?>"<? } ?>
     class="objectsPage">
     <?php if (isset($_ALERT_QUERIES)) {
@@ -45,7 +46,6 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
         $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow-outside', array('plugin' => 'Dane')));
     }
     ?>
-
     <div
         class="objectPageHeaderBg<?php if ((isset($headerObject) && (!empty($headerObject['url']) || !empty($headerObject['height']))) || $object->getData('id') == '903') {
             echo ' extended" style="';
@@ -87,7 +87,6 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
                 */ ?>
             </div>
         </div>
-
         <? if (isset($_menu) && !empty($_menu)) { ?>
             <div class="menuTabsCont">
                 <div class="container">
