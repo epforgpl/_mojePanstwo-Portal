@@ -25,19 +25,21 @@
             -o-transform: translate(0, -50%);
             transform: translate(0, -50%);
 
+            h1, h2 {
+                margin-top: 0;
+            }
+
             h1 {
                 font-size: 48px;
                 font-weight: normal;
                 color: #014068;
-                margin-top: 0;
-                margin-bottom: 55px;
+                margin-bottom: 35px;
             }
 
             h2 {
                 font-size: 28px;
                 font-weight: bold;
                 color: #ffffff;
-                margin-top: 0;
                 margin-bottom: 45px;
             }
 
@@ -76,7 +78,39 @@
         }
 
         &.start {
-            background-image: url(/Powiadomienia/img/slice/slice_start.jpg);
+            background: url(/Powiadomienia/img/slice/slice_start_background.jpg) repeat top left;
+            background-size: auto;
+
+            > .container {
+                background: url(/Powiadomienia/img/slice/slice_start_front.png) no-repeat center top;
+                background-size: auto;
+
+                .handler {
+                    padding: 35px 10px 10px;
+                    height: 295px;
+                    text-align: center;
+                    top: 140px;
+                    left: 50%;
+                    -webkit-transform: translate(-50%, 0);
+                    -moz-transform: translate(-50%, 0);
+                    -o-transform: translate(-50%, 0);
+                    transform: translate(-50%, 0);
+
+                    .icon {
+                        font-size: 20px;
+                        font-weight: bold;
+                        color: #ffffff;
+                        padding: 5px 5px 0;
+                        background-color: #63afea;
+
+                        border: 1px solid #63afea;
+                        -webkit-border-radius: 20px;
+                        -moz-border-radius: 20px;
+                        -o-border-radius: 20px;
+                        border-radius: 20px;
+                    }
+                }
+            }
         }
         &.instytucje {
             background-image: url(/Powiadomienia/img/slice/slice_instytucje.jpg);

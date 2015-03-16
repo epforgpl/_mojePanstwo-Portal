@@ -6,7 +6,8 @@ function changeBckgrn($rotate) {
 }
 
 (function ($) {
-    var $rotate = $("#rotate"),
+    var $powiadomienia = $('#powiadomienia'),
+        $rotate = $("#rotate"),
         $rotatePos = $rotate.offset();
 
     $rotate.append(
@@ -38,5 +39,35 @@ function changeBckgrn($rotate) {
                 changeBckgrn($rotate);
             }
         }
-    })
+    });
+
+    $powiadomienia.find('.start a.icon').click(function (e) {
+        e.preventDefault();
+
+        $('html, body').animate({
+            scrollTop: $rotate.offset().top
+        }, 1000);
+
+    });
+
+    $(window).keydown(function (e) {
+        var key = e.which,
+            scrollStatus = false;
+
+        if ($rotate.hasClass('hold') && (key == 38 || key == 40)) {
+            if (key == 38 && $rotate.prev()) {
+                scrollStatus = $rotate.find('.active').prev().offset().top;
+            } else if (key == 40 && $rotate.next()) {
+                scrollStatus = $rotate.find('.active').next().offset().top
+            }
+            if (scrollStatus && !$rotate.hasClass('animate')) {
+                $rotate.addClass('animate');
+                $('html, body').animate({
+                    scrollTop: scrollStatus
+                }, 1000, function () {
+                    $rotate.removeClass('animate');
+                });
+            }
+        }
+    });
 }(jQuery));

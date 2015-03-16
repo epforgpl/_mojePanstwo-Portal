@@ -5,8 +5,7 @@ $this->Combinator->add_libs('js', 'Media.media');
 ?>
 
 <?= $this->Element('appheader', array('title' => __d('media', 'LC_PANSTWOINTERNET_HEADLINE'), 'subtitle' => 'Przeglądaj najpopularniejsze treści na
-                        Twitterze dotyczące spraw publicznych. Monitorujemy aktywność urzędników, urzędów, organizacji
-                        pozarządowych oraz komentatorów.', 'appMenu' => $appMenu, 'appMenuSelected' => $appMenuSelected, 'headerUrl' => 'media.png')); ?>
+                        Twitterze dotyczące spraw publicznych', 'appMenu' => $appMenu, 'appMenuSelected' => $appMenuSelected, 'headerUrl' => 'media.png')); ?>
 
 <div id="media">
     <? // include('templates/pages/media.ctp'); ?>
