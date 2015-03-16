@@ -3,7 +3,22 @@
 
 <?= $this->Element('appheader', array('title' => 'Prawo', 'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce', 'appMenu' => $appMenu, 'appMenuSelected' => $appMenuSelected, 'headerUrl' => 'prawo.png')); ?>
 
+
+
 <div class="container">
+	
+	<? /*
+	<div class="row">
+		<div class="col-md-12">
+			<form action="/prawo/szukaj" class="suggesterBlock" style="margin-bottom: 0; margin-top: 1em;">
+	            <div class="app_input">
+	                <input type="text" placeholder="Szukaj w aktach prawnych i tematch..." class="datasearch form-control input-lg ui-autocomplete-input" autocomplete="off" value="" name="q">
+	            </div>
+	        </form>
+		</div>
+	</div>
+	*/ ?>
+	
     <div class="row">
         <div class="col-md-8">
             <div class="block-group">

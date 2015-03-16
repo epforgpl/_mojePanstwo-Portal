@@ -1,8 +1,13 @@
 <?
-	
+
+App::uses('SolrAppModel', 'Model');
+
+class Dataobject extends SolrAppModel {
+
+/*
 class Dataobject extends AppModel {
 	
-    public $useDbConfig = 'mpAPI';
+    // public $useDbConfig = 'mpAPI';
 	
 	public function subscribe($object_id, $user_id) {
 		
@@ -12,5 +17,6 @@ class Dataobject extends AppModel {
 		));
 				
 	}
+*/
 	
 }

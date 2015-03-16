@@ -63,6 +63,16 @@ class PrawoController extends AppController
     public function akty()
     {
         $this->set('appMenuSelected', 'akty');
+        
+        /*
+        $this->dataBrowser = $this->Components->load('Dane.DataobjectsBrowser', array(
+            'source' => 'dataset:prawo',
+            'showTitle' => true,
+            'titleTag' => 'h1',
+        ));
+        $this->API = $this->API->Dane();
+        */
+        
     }
 
     public function tematy()
