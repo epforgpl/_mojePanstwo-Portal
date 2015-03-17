@@ -13,14 +13,16 @@
     }
 
     .baner {
-        background-color: #142026;
+        @height: 80px;
+
+        background-color: #4eafe1;
         margin: 15px 5px;
         display: block;
-        height: 80px;
+        height: @height;
 
         .inner {
             background: url(/WyjazdyPoslow/img/banerhead.png) 54px center no-repeat;
-            height: 80px;
+            height: @height;
             position: relative;
             color: #ffffff;
 
@@ -32,11 +34,12 @@
                 p {
                     padding-left: 135px;
                     padding-right: 35px;
-                    margin-bottom: 5px;
                     font-size: 18px;
-                    font-weight: 300;
-                    color: #ffffff;
+
+                    margin-bottom: 5px;
                     line-height: 1em;
+                    font-weight: 300;
+                    color: #FFFFFF;
 
                     &:first-of-type {
                         font-weight: 400;
@@ -51,6 +54,11 @@
                 transform: translate(0px, -50%);
             }
         }
+    }
+
+    .containerHandler {
+        background-color: #e9eaed;
+        padding: 20px 0;
     }
 
     .stats {
@@ -69,7 +77,6 @@
 
         ._label {
             font-size: 13px;
-            color: #ffffff;
             margin-bottom: 0;
         }
         ._value {
@@ -106,7 +113,7 @@
         min-height: 500px;
         max-height: 80vh;
         display: block;
-        margin-bottom: 10px;
+        margin-bottom: 30px;
 
         .loading {
             width: 100%;
