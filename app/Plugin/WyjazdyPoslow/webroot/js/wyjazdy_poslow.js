@@ -19,13 +19,7 @@ $(function () {
                 },
 
                 chart: {
-                    backgroundColor: {
-                        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
-                        stops: [
-                            [0, '#263339'],
-                            [1, '#697078']
-                        ]
-                    },
+                    backgroundColor: 'none',
                     borderColor: '#333',
                     spacing: [0, 0, 0, 0]
                 },
