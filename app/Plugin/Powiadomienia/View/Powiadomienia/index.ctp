@@ -1,7 +1,7 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('powiadomienia', array('plugin' => 'Powiadomienia'))); ?>
 <?php $this->Combinator->add_libs('js', 'Powiadomienia.powiadomienia') ?>
 
-<?= $this->Element('appheader', array('title' => 'Powiadomienia', 'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce', 'appMenu' => $appMenu, 'appMenuSelected' => $appMenuSelected, 'headerUrl' => 'powiadomienia.png')); ?>
+<?= $this->Element('appheader', array('title' => 'Powiadomienia', 'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce', 'appMenu' => $appMenu, 'appMenuSelected' => $appMenuSelected, 'headerUrl' => 'powiadomienia.jpg')); ?>
 
 <div id="powiadomienia" class="fullPageHeight">
     <div class="slice left start">
