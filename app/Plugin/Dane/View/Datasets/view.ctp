@@ -14,7 +14,7 @@
                         <?
                         $value = isset( $this->request->query['q'] ) ? addslashes( $this->request->query['q'] ) : '';
                         ?>
-                        <input class="form-control hasclear" placeholder='Szukaj w "<?= addslashes( $object->getTitle() ) ?>"...' type="text" value="<?= $value ?>" name="q">
+                        <input class="form-control hasclear" placeholder='Szukaj w "<?= addslashes( $object->getTitle() ) ?>"...' type="text" value="<?= $value ?>" name="q" required>
                         <a href="/dane/prawo"><span class="clearer glyphicon glyphicon-remove-circle form-control-feedback"></span></a>
                     </div>
                 </div>
