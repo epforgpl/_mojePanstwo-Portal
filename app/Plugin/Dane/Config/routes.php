@@ -2,6 +2,7 @@
 
 //Router::connect('/dane', array('plugin' => 'Dane', 'controller' => 'datasets', 'action' => 'katalog'));
 
+/*
 Router::connect('/dane', array('plugin' => 'Dane', 'controller' => 'datasets', 'action' => 'index'));
 Router::connect('/dane/szukaj', array('plugin' => 'Dane', 'controller' => 'dataobjects', 'action' => 'index'));
 Router::connect('/dane/suggest', array('plugin' => 'Dane', 'controller' => 'dataobjects', 'action' => 'suggest'));
@@ -63,6 +64,7 @@ Router::connect('/dane/sejm_interpelacje/:id,:slug/:t_id', array(
 
 Router::connect('/dane/:controller/:id/:action/*', array('plugin' => 'Dane'), array('id' => '[0-9]+'));
 Router::connect('/dane/:controller/:id,:slug/:action/*', array('plugin' => 'Dane'), array('id' => '[0-9]+'));
+*/
 
 /*
 Router::connect( '/dane/:controller/:slug/:id', array(
@@ -72,5 +74,18 @@ Router::connect( '/dane/:controller/:slug/:id', array(
 ), array( 'id' => '[0-9]+' ) );
 */
 
-Router::connect('/dane/:alias', array('plugin' => 'Dane', 'controller' => 'zbiory', 'action' => 'view'));
+Router::connect('/dane/:alias', array(
+	'plugin' => 'Dane', 
+	'controller' => 'Datasets', 
+	'action' => 'view'
+), array(
+	'pass' => array('alias'),
+));
+
+Router::connect('/dane/:controller/:id', array(
+	'plugin' => 'Dane', 
+	'action' => 'view'
+), array(
+	'pass' => array('controller', 'id'),
+));
 

@@ -36,7 +36,6 @@ App::uses( 'I18n', 'I18n' );
  */
 class AppController extends Controller {
 	public $components = array(
-		'mpapi',
 		'DebugKit.Toolbar',
 		'Session',
 		'Auth' => array(
@@ -220,31 +219,7 @@ class AppController extends Controller {
 			'selected' => true,
 		),
 	);
-	private $stream_id = 1;
-
-	public function getStreamId() {
-		$stream = $this->getStream();
-		if ( $stream && isset( $stream['id'] ) ) {
-			return $stream['id'];
-		}
-
-		return false;
-	}
-
-	public function getStream() {
-		if ( empty( $this->Streams ) ) {
-			return false;
-		}
-
-		for ( $i = 0; $i < count( $this->Streams ); $i ++ ) {
-			if ( $this->Streams[ $i ]['id'] == $this->stream_id ) {
-				return $this->Streams[ $i ];
-			}
-		}
-
-		return $this->Streams[0];
-	}
-
+	
 	public function beforeFilter() {
 						
 		if ( defined( 'PORTAL_DOMAIN' ) ) {

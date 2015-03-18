@@ -7,15 +7,7 @@ $shortTitle = (isset($options['forceTitle'])) ?
     $options['forceTitle'] :
     $object->getShortTitle();
 
-if (in_array($object->getDataset(), array(
-    'krakow_posiedzenia_punkty',
-    'rady_gmin_debaty',
-    'rady_gmin_wystapienia'
-))) {
-    $object_content_sizes = array(3, 9);
-} else {
-    $object_content_sizes = array(2, 10);
-}
+$object_content_sizes = array(2, 10);
 
 // debug( $object->getData() ); 
 
@@ -29,18 +21,14 @@ $this->Dataobject->setObject($object);
      oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
 
     <div class="row">
-        <? if ($this->Dataobject->getDate()) { ?>
-            <div class="formatDate col-xs-2 col-lg-1 dimmed">
-                <?php echo($this->Dataobject->getDate()); ?>
-            </div>
-        <? } ?>
-        <div class="data <?= $this->Dataobject->getDate() ? 'col-xs-10 col-md-11' : 'col-xs-12' ?>">
+
+        <div class="data col-xs-12">
 
             <? if ($sentence = $object->getSentence()) { ?>
                 <p class="sentence"><?= $sentence ?></p>
             <? } ?>
 
-            <div class="row">
+            <div>
 
                 <?
                 if ($object->getPosition()) {
@@ -94,7 +82,7 @@ $this->Dataobject->setObject($object);
                             <?php if ($object->getUrl() != false) { ?>
                             <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
                                 <?php } ?>
-                                <?= $this->Text->truncate($shortTitle, 200) ?>
+                                <?= $this->Text->truncate($shortTitle, 150) ?>
                                 <?php if ($object->getUrl() != false) { ?>
                             </a> <?
                         }
@@ -157,7 +145,6 @@ $this->Dataobject->setObject($object);
                         <?
                         if ($file_exists) {
                             echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(
-                                'item' => $item,
                                 'object' => $object,
                                 'hlFields' => $hlFields,
                                 'hlFieldsPush' => $hlFieldsPush,

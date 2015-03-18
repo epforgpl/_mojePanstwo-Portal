@@ -23,8 +23,8 @@ if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) {
 
 } else {
     ?>
-    <div class="objectRender col-md-12 <?php echo $object->getDataset(); ?>" oid="<?php echo $item['data']['id'] ?>">
-        <div class="row">
+    <div class="objectRender col-md-12 <?php echo $object->getDataset(); ?>" oid="<?php echo $object->getId() ?>">
+        <div class="">
             <? if ($this->Dataobject->getDate()) { ?>
         <div class="formatDate col-md-1">
             <?php echo($this->Dataobject->getDate()); ?>

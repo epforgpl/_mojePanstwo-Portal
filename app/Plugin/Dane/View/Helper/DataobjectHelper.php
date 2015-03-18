@@ -98,7 +98,6 @@ class DataobjectHelper extends AppHelper
 
 
         $params = array(
-            'item' => $this->object->getObject(),
             'object' => $this->object,
             'theme' => $theme,
             'bg' => $bg,

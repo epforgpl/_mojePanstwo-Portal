@@ -1,39 +1,85 @@
 <?php
 App::uses('CakeTime', 'Utility');
+App::uses('DataobjectsController', 'Dane.Controller');
 
-class DatasetsController extends DaneAppController
+class DatasetsController extends DataobjectsController
 {
 
-    public $uses = array('Dane.Dataset');
-
+    public $uses = array('Dane.Dataobject');
+	
     public $components = array(
-        'RequestHandler',
+        // 'RequestHandler',
+        'Paginator'
     );
 
     public function index()
     {
 		
+		/*
 		return $this->redirect('/dane/zbiory');
         
         $datasets = $this->API->getDatasets();
         $this->set('datasets', $datasets);
 
         $this->set('title_for_layout', 'Zbiory danych publicznych');
+        */
 
     }
 
-    public function view()
-    {
-				
-        $alias = (string)@$this->request->params['alias'];
-        $this->dataobjectsBrowserView(array(
-            'source' => 'dataset:' . $alias,
-            'showTitle' => true,
-            'titleTag' => 'h1',
-        ));
-
+    public function view($slug = false) {
+	    	    
+	    if( $slug ) {
+	    	
+	    	$layers = $this->initLayers;
+   
+		    if( $object = $this->Dataobject->find('first', array(
+			    'conditions' => array(
+				    'dataset' => 'zbiory',
+				    'zbiory.slug' => $slug,
+			    ),
+			    'layers' => $layers,
+		    )) ) {
+			    								
+	            $this->set('object', $object);
+	            $this->set('objectOptions', $this->objectOptions);
+	            $this->set('microdata', $this->microdata);	
+	            $this->set('title_for_layout', $object->getTitle());
+	
+	            if ($desc = $object->getDescription())
+	                $this->setMetaDescription($desc);
+	                
+	                
+	            $this->Components->load('Dane.DataBrowser', array(
+		            'conditions' => array(
+			            'dataset' => $object->getData('slug'),
+		            ),
+		            'aggs' => array(
+			            'date' => array(
+				            'date_histogram' => array(
+					            'field' => 'date',
+					            'interval' => '1M',
+					            'format' => 'yyyy-MM-dd',
+				            ),
+			            ),
+			            'typ_id' => array(
+				            'term' => array(
+					            'field' => 'date',
+					            'dataset' => 'prawo_typy',
+				            ),
+			            ),
+		            ),
+	            ));
+			    
+		    }
+		
+	    
+	    } else {
+		    throw new BadRequestException();
+	    }
+	    
     }
-
+	
+	/*
     public function beforeRender()
     {
 
@@ -62,5 +108,6 @@ class DatasetsController extends DaneAppController
         }
 
     }
+    */
 
 }

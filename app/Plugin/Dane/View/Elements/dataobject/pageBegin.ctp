@@ -12,7 +12,7 @@ if (isset($titleTag)) {
 if (!isset($renderFile) || !$renderFile)
     $renderFile = 'page';
 
-$menu = $this->viewVars['menu'];
+$menu = isset($this->viewVars['menu']) ? $this->viewVars['menu'] : false;
 $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array('shoutIt');
 ?>
 <?php $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane'))) ?>

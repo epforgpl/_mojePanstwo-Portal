@@ -9,7 +9,7 @@ class PrawoController extends DataobjectsController
     public $helpers = array('Document');
 
     // public $uses = array('Dane.Dataliner');
-
+	
     public $headerObject = array('url' => '/dane/img/headers/ustawa.jpg', 'height' => '250px');
 
     public $objectOptions = array(
@@ -19,17 +19,35 @@ class PrawoController extends DataobjectsController
             'description' => false,
         ),
     );
+    
+    public $aggs = array(
+	    array(
+		    'id' => 'date',
+		    'label' => 'Data publikacji'
+		    'type' => 'date_histogram',
+		    'params' => array(
+			    'field' => 'date',
+			    'interval' => '1M',
+			    'format' => 'yyyy-MM-dd'
+		    ),
+	    )
+    );
+	
 
+	
+	
     public function hasla()
     {
 
         $this->_prepareView();
 
     }
+	
+	
+    // public function view($package = 1)
+    // {
 
-    public function view($package = 1)
-    {
-
+        /*
         $this->_prepareView();
 				
         if ($projekt_id = $this->object->getData('projekt_id')) {
@@ -40,6 +58,7 @@ class PrawoController extends DataobjectsController
         }
 		
 		$this->prepareFeed();
+		*/
 		
 		/*
         $dokument_id = false;
@@ -112,7 +131,7 @@ class PrawoController extends DataobjectsController
         }
         */
 
-    }
+    // }
 
     public function tekst_aktualny()
     {
@@ -271,7 +290,8 @@ class PrawoController extends DataobjectsController
         return $this->connections_view('odeslania', 'Odesłania');
     }
 
-
+	
+	/*
     public function beforeRender()
     {
 
@@ -343,5 +363,6 @@ class PrawoController extends DataobjectsController
         $this->set('_menu', $menu);
 
     }
+    */
 
 } 

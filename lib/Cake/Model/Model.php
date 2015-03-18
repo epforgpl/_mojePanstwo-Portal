@@ -3628,7 +3628,7 @@ class Model extends Object implements CakeEventListener {
 
 			return $query;
 		}
-
+				
 		if ( empty( $results[0] ) ) {
 			return array();
 		}
