@@ -6,9 +6,12 @@
 	<div class="row">
 		<div class="col-md-8">
 			
-			<form action="/prawo/szukaj" class="searchForm">
+			<form action="" class="searchForm">
 	            <div class="app_input">
-	                <input type="text" placeholder='Szukaj w "<?= addslashes( $object->getTitle() ) ?>"...' class="datasearch form-control input-md ui-autocomplete-input" autocomplete="off" value="" name="q">
+		            <?
+			            $value = isset( $this->request->query['q'] ) ? addslashes( $this->request->query['q'] ) : ''; 
+			        ?>
+	                <input type="text" placeholder='Szukaj w "<?= addslashes( $object->getTitle() ) ?>"...' class="datasearch form-control input-md ui-autocomplete-input" autocomplete="off" value="<?= $value ?>" name="q">
 	            </div>
 	        </form>
 	        
@@ -53,6 +56,11 @@
 			<div class="dataPagination">
 				<ul class="pagination">
 				<?php
+				  $this->Paginator->options(array(
+				  	'plugin' => 'dane',
+				  	'paramType' => 'querystring',
+				  ));
+
 				  echo $this->Paginator->prev('&laquo;', array('tag' => 'li', 'escape' => false), '<a href="#">&laquo;</a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
 				  echo $this->Paginator->numbers(array('separator' => '', 'tag' => 'li', 'currentLink' => true, 'currentClass' => 'active', 'currentTag' => 'a'));
 				  echo $this->Paginator->next('&raquo;', array('tag' => 'li', 'escape' => false), '<a href="#">&raquo;</a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
