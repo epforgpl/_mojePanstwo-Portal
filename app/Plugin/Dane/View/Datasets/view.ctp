@@ -12,6 +12,8 @@
 			            $value = isset( $this->request->query['q'] ) ? addslashes( $this->request->query['q'] ) : ''; 
 			        ?>
 	                <input type="text" placeholder='Szukaj w "<?= addslashes( $object->getTitle() ) ?>"...' class="datasearch form-control input-md ui-autocomplete-input" autocomplete="off" value="<?= $value ?>" name="q">
+	                
+	                <span class="glyphicon glyphicon-remove"></span>
 	            </div>
 	        </form>
 	        
@@ -56,10 +58,10 @@
 			<div class="dataPagination">
 				<ul class="pagination">
 				<?php
-				  $this->Paginator->options(array(
-				  	'plugin' => 'dane',
-				  	'paramType' => 'querystring',
-				  ));
+
+
+                  $this->Paginator->options['url'] = array('alias' => 'prawo');
+                  $this->Paginator->options['paramType'] = 'querystring';
 
 				  echo $this->Paginator->prev('&laquo;', array('tag' => 'li', 'escape' => false), '<a href="#">&laquo;</a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
 				  echo $this->Paginator->numbers(array('separator' => '', 'tag' => 'li', 'currentLink' => true, 'currentClass' => 'active', 'currentTag' => 'a'));
