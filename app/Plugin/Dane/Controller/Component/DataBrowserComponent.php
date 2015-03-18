@@ -13,6 +13,9 @@ class DataBrowserComponent extends Component {
 	
 	public function beforeRender($controller){
 		
+		if( isset( $controller->request->query['q'] ) )
+			$controller->request->query['conditions']['q'] = $controller->request->query['q'];
+			
 		$this->queryData = $controller->request->query;
 		
 		if( !property_exists($controller, 'Dataobject') )

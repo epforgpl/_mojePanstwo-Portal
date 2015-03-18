@@ -63,7 +63,7 @@ class DatasetsController extends DataobjectsController
 			            ),
 			            'typ_id' => array(
 				            'term' => array(
-					            'field' => 'date',
+					            'field' => 'prawo.typ_id',
 					            'dataset' => 'prawo_typy',
 				            ),
 			            ),

@@ -9,7 +9,7 @@
 			<form action="" class="searchForm">
 	            <div class="app_input">
 		            <?
-			            $value = isset( $this->request->query['q'] ) ? addslashes( $this->request->query['q'] ) : ''; 
+			            $value = isset( $this->request->query['q'] ) ? addslashes( $this->request->query['q'] ) : '';			            
 			        ?>
 	                <input type="text" placeholder='Szukaj w "<?= addslashes( $object->getTitle() ) ?>"...' class="datasearch form-control input-md ui-autocomplete-input" autocomplete="off" value="<?= $value ?>" name="q">
 	                
@@ -21,7 +21,7 @@
 		    	( $params = $this->Paginator->params() ) && 
 		    	isset( $params['count'] )
 		    ) {?>
-	        <div class="dataCounter"><p class="pull-left"><?= pl_dopelniacz($params['count'], 'wynik', 'wyniki', 'wyników') ?></p><p class="pull-right">Strona <?= $params['page'] ?> z <?= $params['pageCount'] ?> </p></div>
+	        <div class="dataCounter"><p class="pull-left"><?= pl_dopelniacz($params['count'], 'wynik', 'wyniki', 'wyników') ?></p><? if( $params['pageCount'] > 1 ) {?><p class="pull-right">Strona <?= $params['page'] ?> z <?= $params['pageCount'] ?> </p><? } ?></div>
 	        <? } ?>
 	        
 	        <div class="dataObjects">
