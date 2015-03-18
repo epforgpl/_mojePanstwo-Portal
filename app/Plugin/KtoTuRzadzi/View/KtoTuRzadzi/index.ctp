@@ -3,7 +3,7 @@ $this->Combinator->add_libs('css', $this->Less->css('administracja', array('plug
 $this->Combinator->add_libs('js', 'KtoTuRzadzi.administracja.js');
 ?>
 
-<?= $this->Element('appheader', array('title' => 'Kto Tu Rządzi?', 'subtitle' => 'Urzędy i urzędnicy w Polsce', 'headerUrl' => 'header_kto-tu-rzadzi')); ?>
+<?= $this->Element('appheader', array('title' => 'Kto Tu Rządzi?', 'subtitle' => 'Urzędy i urzędnicy w Polsce', 'headerUrl' => 'kto-tu-rzadzi.png')); ?>
 
 <div id="administracja">
     <div class="container">

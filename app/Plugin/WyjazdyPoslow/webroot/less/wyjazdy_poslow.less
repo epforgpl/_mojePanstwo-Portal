@@ -5,6 +5,12 @@
 #_wrapper #_main {
     margin: 0;
     padding-bottom: 40px;
+    background: url(/WyjazdyPoslow/img/header_wyjazdy-poslow.png) top center no-repeat #01050b;
+
+    .appHeader {
+        background: none;
+        height: 320px;
+    }
 
     .baner {
         @height: 80px;
@@ -32,7 +38,8 @@
 
                     margin-bottom: 5px;
                     line-height: 1em;
-                    font-weight: 200;
+                    font-weight: 300;
+                    color: #FFFFFF;
 
                     &:first-of-type {
                         font-weight: 400;
@@ -49,6 +56,11 @@
         }
     }
 
+    .containerHandler {
+        background-color: #e9eaed;
+        padding: 20px 0;
+    }
+
     .stats {
         margin: 10px 0;
 
@@ -57,8 +69,6 @@
             margin-bottom: 10px;
             padding-bottom: 0;
 
-            ._label {
-            }
             ._value {
                 font-size: 18px;
                 margin-top: 3px;
@@ -81,7 +91,6 @@
     }
 
     .maplabel {
-        background-color: #263339;
         position: relative;
         padding: 10px 0 20px;
 
@@ -104,16 +113,7 @@
         min-height: 500px;
         max-height: 80vh;
         display: block;
-        margin-bottom: 10px;
-
-        background: rgba(38, 51, 57, 1);
-        background: -moz-linear-gradient(top, rgba(38, 51, 57, 1) 0%, rgba(105, 112, 120, 1) 100%);
-        background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(38, 51, 57, 1)), color-stop(100%, rgba(105, 112, 120, 1)));
-        background: -webkit-linear-gradient(top, rgba(38, 51, 57, 1) 0%, rgba(105, 112, 120, 1) 100%);
-        background: -o-linear-gradient(top, rgba(38, 51, 57, 1) 0%, rgba(105, 112, 120, 1) 100%);
-        background: -ms-linear-gradient(top, rgba(38, 51, 57, 1) 0%, rgba(105, 112, 120, 1) 100%);
-        background: linear-gradient(to bottom, rgba(38, 51, 57, 1) 0%, rgba(105, 112, 120, 1) 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#263339', endColorstr='#697078', GradientType=0);
+        margin-bottom: 30px;
 
         .loading {
             width: 100%;
