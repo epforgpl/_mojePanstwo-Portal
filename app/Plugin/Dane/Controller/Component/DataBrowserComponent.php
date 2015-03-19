@@ -7,14 +7,16 @@ class DataBrowserComponent extends Component {
 	private $aggs_visuals_map = array();
 	
 	public function __construct($collection, $settings) {
-		
-		
-		
-		// budujemy $aggs_visuals_map $agg_id => $visual
-		// unset z $settings
-		
+        foreach($settings['aggs'] as $key => $value) {
+            foreach($value as $keyM => $valueM) {
+                if($keyM === 'visual') {
+                    $this->aggs_visuals_map[$key] = $valueM;
+                    unset($settings['aggs'][$key][$keyM]);
+                }
+            }
+        }
+
 		$this->settings = $settings;
-			
 	}
 
     private function getCancelSearchUrl($controller) {
@@ -32,7 +34,7 @@ class DataBrowserComponent extends Component {
         if(isset($query['conditions']['q']))
             unset($query['conditions']['q']);
 
-        if(count(array_count_values($query)) > 0 || count($query['conditions']) > 0)
+        if(count(@array_count_values($query)) > 0 || count($query['conditions']) > 0)
             $query = '?' . http_build_query($query);
         else
             $query = '';
@@ -53,9 +55,11 @@ class DataBrowserComponent extends Component {
 		
 		$controller->Paginator->settings = $this->getSettings();		
 		$hits = $controller->Paginator->paginate('Dataobject');
+
 	    $controller->set('dataBrowser', array(
 		    'hits' => $hits,
 		    'aggs' => $controller->Dataobject->getAggs(),
+            'aggs_visuals_map' => $this->aggs_visuals_map,
 		    'cancel_url' => $this->getCancelSearchUrl($controller),
 	    ));
 		

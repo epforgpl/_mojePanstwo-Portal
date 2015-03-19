@@ -1,0 +1,24 @@
+
+.clearer {
+  display: none;
+  color: #157ab5;
+  font-size: 16px;
+  right: 15px;
+  top: 0;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.hasclear:not(:valid) ~ a .clearer {
+  display: none;
+}
+
+ul.data-browser {
+  margin: 0;
+  padding: 0;
+  li {
+    margin: 0;
+    padding: 0;
+  }
+}
