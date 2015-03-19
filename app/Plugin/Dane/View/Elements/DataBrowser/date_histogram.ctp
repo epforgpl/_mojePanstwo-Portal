@@ -1,0 +1,3 @@
+<?
+
+echo "data_histogram";

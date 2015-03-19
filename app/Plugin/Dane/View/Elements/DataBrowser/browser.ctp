@@ -87,20 +87,18 @@
 			</div>
 	        
 		</div>
-		<? if( !empty($dataBrowser['aggs']) ) {?>
+		<? if( !empty($dataBrowser['aggs']) ) { ?>
 		<div class="col-md-4">
-			
-			<? debug($dataBrowser['aggs']); ?>
-			
-			<ul>
-				<li>
-					<h3><?= $label ?></h3>
-					<? echo $this->element('Dane.DataBrowser/' . $skin, array(
-						'data' => $data
-					)); ?>
-				</li>
-			</ul>
-			
+            <ul class="data-browser">
+            <? foreach($dataBrowser['aggs'] as $agg_id => $agg_data) { ?>
+                <li>
+                    <h3><?= $dataBrowser['aggs_visuals_map'][$agg_id]['label']; ?></h3>
+                    <? echo $this->element('Dane.DataBrowser/' . $dataBrowser['aggs_visuals_map'][$agg_id]['skin'], array(
+                        'data' => $agg_data
+                    )); ?>
+                </li>
+            <? } ?>
+            </ul>
 		</div>
 		<? } ?>
 	</div>

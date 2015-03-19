@@ -69,7 +69,7 @@ class DatasetsController extends DataobjectsController
 					            ),
 				            ),
 				            'visual' => array(
-					            'label' => 'Typy aktów prawnych',
+					            'label' => 'Typy aktÃ³w prawnych',
 					            'skin' => 'pie_chart',
 				            ),
 			            ),
