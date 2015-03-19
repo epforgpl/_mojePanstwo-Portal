@@ -48,8 +48,6 @@ class DataBrowserComponent extends Component {
 			
 		$this->queryData = $controller->request->query;
 
-        $controller->set('cancelSearchUrl', $this->getCancelSearchUrl($controller));
-
 		if( !property_exists($controller, 'Dataobject') )
 			$controller->Dataobject = ClassRegistry::init('Dane.Dataobject');
 		
@@ -58,6 +56,7 @@ class DataBrowserComponent extends Component {
 	    $controller->set('dataBrowser', array(
 		    'hits' => $hits,
 		    'aggs' => $controller->Dataobject->getAggs(),
+		    'cancel_url' => $this->getCancelSearchUrl($controller),
 	    ));
 		
 	}
