@@ -54,6 +54,22 @@ class DatasetsController extends DataobjectsController
 			            'dataset' => $object->getData('slug'),
 		            ),
 		            'aggs' => array(
+			            'typ_id' => array(
+				            'terms' => array(
+					            'field' => 'prawo.typ_id',
+					            'exclude' => array(
+						            'pattern' => '0'
+					            ),
+					            'dataset' => 'prawo_typy',
+				            ),
+				            'aggs' => array(
+					            'typ_nazwa' => array(
+						            'terms' => array(
+							            'field' => 'data.prawo.typ_nazwa',
+						            ),
+					            ),
+				            ),
+			            ),
 			            'date' => array(
 				            'date_histogram' => array(
 					            'field' => 'date',
@@ -61,17 +77,10 @@ class DatasetsController extends DataobjectsController
 					            'format' => 'yyyy-MM-dd',
 				            ),
 			            ),
-			            'typ_id' => array(
-				            'term' => array(
-					            'field' => 'prawo.typ_id',
-					            'dataset' => 'prawo_typy',
-				            ),
-			            ),
 		            ),
 	            ));
 			    
 		    }
-		
 	    
 	    } else {
 		    throw new BadRequestException();

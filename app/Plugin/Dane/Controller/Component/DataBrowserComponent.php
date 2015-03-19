@@ -13,8 +13,9 @@ class DataBrowserComponent extends Component {
 	
 	public function beforeRender($controller){
 		
-		if( isset( $controller->request->query['q'] ) )
+		if( isset( $controller->request->query['q'] ) ) {
 			$controller->request->query['conditions']['q'] = $controller->request->query['q'];
+		}
 			
 		$this->queryData = $controller->request->query;
 		
@@ -22,20 +23,29 @@ class DataBrowserComponent extends Component {
 			$controller->Dataobject = ClassRegistry::init('Dane.Dataobject');
 		
 		$controller->Paginator->settings = $this->getSettings();		
-		$objects = $controller->Paginator->paginate('Dataobject');
+		$hits = $controller->Paginator->paginate('Dataobject');
 	    $controller->set('dataBrowser', array(
-		    'objects' => $objects,
+		    'hits' => $hits,
+		    'aggs' => $controller->Dataobject->getAggs(),
 	    ));
 		
 	}
 	
 	
 	private function getSettings() {
-				
-		return array(
+		
+		$conditions = $this->getSettingsForField('conditions');
+		
+		$output = array(
 			'paramType' => 'querystring',
-			'conditions' => $this->getSettingsForField('conditions'),
+			'conditions' => $conditions,
+			'aggs' => $this->getSettingsForField('aggs'),
 		);
+				
+		if( isset($conditions['q']) )
+			$output['highlight'] = true;
+		
+		return $output;
 		
 	}
 	

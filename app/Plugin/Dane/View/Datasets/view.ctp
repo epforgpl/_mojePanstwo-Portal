@@ -4,41 +4,51 @@
 <div class="container dataBrowser">
 	
 	<div class="row">
-
+		<form action="" class="form-horizontal searchForm col-md-8<? if( empty($dataBrowser['aggs']) ) {?> col-md-offset-1<?}?>">
+	        <div class="form-group has-feedback">
+	            <div class="col-md-12">
+	                <?
+	                $value = isset( $this->request->query['q'] ) ? addslashes( $this->request->query['q'] ) : '';
+	                ?>
+	                <input class="form-control hasclear" placeholder='Szukaj w "<?= addslashes( $object->getTitle() ) ?>"...' type="text" value="<?= $value ?>" name="q">
+	                <a href="/dane/prawo"><span class="clearer glyphicon glyphicon-remove-circle form-control-feedback"></span></a>
+	            </div>
+	        </div>
+	    </form>
+	</div>
+    
+    <? if(
+    	( $params = $this->Paginator->params() ) && 
+    	isset( $params['count'] )
+    ) {?>
+    <div class="row">
+	    <div class="dataCounter col-md-8<? if( empty($dataBrowser['aggs']) ) {?> col-md-offset-1<?}?>"><p class="pull-left"><?= pl_dopelniacz($params['count'], 'wynik', 'wyniki', 'wyników') ?></p><? if( $params['pageCount'] > 1 ) {?><p class="pull-right">Strona <?= $params['page'] ?> z <?= $params['pageCount'] ?> </p><? } ?></div>
+    </div>
+    <? } ?>
+    
+	
+	<div class="row">
+		
+		<? if( empty($dataBrowser['aggs']) ) {?>
+		<div class="col-md-8 col-md-offset-1">
+		<? } else {?>
 		<div class="col-md-8">
+		<? } ?>
 
-
-            <form action="" class="form-horizontal searchForm">
-                <div class="form-group has-feedback">
-                    <div class="col-md-12">
-                        <?
-                        $value = isset( $this->request->query['q'] ) ? addslashes( $this->request->query['q'] ) : '';
-                        ?>
-                        <input class="form-control hasclear" placeholder='Szukaj w "<?= addslashes( $object->getTitle() ) ?>"...' type="text" value="<?= $value ?>" name="q">
-                        <a href="/dane/prawo"><span class="clearer glyphicon glyphicon-remove-circle form-control-feedback"></span></a>
-                    </div>
-                </div>
-            </form>
-	        
-	        <? if(
-		    	( $params = $this->Paginator->params() ) && 
-		    	isset( $params['count'] )
-		    ) {?>
-	        <div class="dataCounter"><p class="pull-left"><?= pl_dopelniacz($params['count'], 'wynik', 'wyniki', 'wyników') ?></p><? if( $params['pageCount'] > 1 ) {?><p class="pull-right">Strona <?= $params['page'] ?> z <?= $params['pageCount'] ?> </p><? } ?></div>
-	        <? } ?>
 	        
 	        <div class="dataObjects">
+		        		        
 				<div class="innerContainer update-objects">
 					
 					<?
-					if (isset($dataBrowser['objects'])) {
-					    if (empty($dataBrowser['objects'])) {
+					if (isset($dataBrowser['hits'])) {
+					    if (empty($dataBrowser['hits'])) {
 					        echo '<p class="noResults">' . __d('dane', 'LC_DANE_BRAK_WYNIKOW') . '</p>';
 					    } else {
 					        ?>
 					        <ul class="list-group list-dataobjects">
 					            <?
-					            foreach ($dataBrowser['objects'] as $object) {
+					            foreach ($dataBrowser['hits'] as $object) {
 					
 					                echo $this->Dataobject->render($object, 'default', array(
 					                    // 'hlFields' => $dataBrowser->hlFields,
@@ -56,6 +66,7 @@
 					?>
 				
 				</div>
+								
 			</div>
 			
 			<div class="dataPagination">
@@ -74,6 +85,13 @@
 			</div>
 	        
 		</div>
+		<? if( !empty($dataBrowser['aggs']) ) {?>
+		<div class="col-md-4">
+			
+			<? debug($dataBrowser['aggs']); ?>
+			
+		</div>
+		<? } ?>
 	</div>
 
 </div>

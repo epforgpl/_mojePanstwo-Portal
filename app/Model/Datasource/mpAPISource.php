@@ -10,6 +10,8 @@ class mpAPISource extends DataSource {
     public $description = '_mojePaństwo REST API';
     public $count = false;
     public $took = false;
+    
+    public $Aggs = array();
 
 /**
  * Our default config options. These options will be customized in our
@@ -193,6 +195,10 @@ class mpAPISource extends DataSource {
         } else {
 	        $this->count = $res['Count'];
 	        $this->took = $res['Took'];
+	        
+	        if( isset($res['Aggs']) )
+	        	$this->Aggs = $res['Aggs'];
+	        
 	        return $res['Dataobject'];
         }
         
@@ -242,7 +248,7 @@ class mpAPISource extends DataSource {
         return true;
     }
 */
-    
+        
     private function getPath($endpoint) {
 	    return $this->config['host'] . '/' . $endpoint;
     }

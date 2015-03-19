@@ -39,6 +39,12 @@ class Dataobject extends AppModel {
 				
 		return $results;
 	}
+	
+	public function getAggs() {
+		
+		return $this->getDataSource()->Aggs;
+		
+	}
 
 	public function paginateCount($model, $conditions = null, $recursive = 0) {
 		
