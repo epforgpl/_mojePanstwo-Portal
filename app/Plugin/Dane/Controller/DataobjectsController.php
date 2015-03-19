@@ -5,6 +5,7 @@ class DataobjectsController extends AppController
     
     public $uses = array('Dane.Dataobject');
     
+    public $object = false;
     public $initLayers = array();    
     public $objectOptions = array(
         'hlFields' => false,
@@ -15,7 +16,18 @@ class DataobjectsController extends AppController
         'titleprop' => 'name',
     );
     
-    public function view($dataset = false, $id = false, $slug = '') {
+    public function loadDocument($document_id, $variable = 'document') {
+	    
+	    debug( $document_id );
+	    $this->set($variable, $document_id);
+	    
+    }
+    
+    public function load() {
+	    
+	    $dataset = isset( $this->request->params['pass'][0] ) ? $this->request->params['pass'][0] : false;
+	    $id = isset( $this->request->params['pass'][1] ) ? $this->request->params['pass'][1] : false;
+	    $slug = isset( $this->request->params['pass'][2] ) ? $this->request->params['pass'][2] : '';
 	    
 	    if(
 		    $dataset && 
@@ -26,7 +38,7 @@ class DataobjectsController extends AppController
 	    	$layers = $this->initLayers;
 	    	$layers[] = 'dataset';
 	    	    
-		    if( $object = $this->Dataobject->find('first', array(
+		    if( $this->object = $this->Dataobject->find('first', array(
 			    'conditions' => array(
 				    'dataset' => $dataset,
 				    'id' => $id,
@@ -34,14 +46,14 @@ class DataobjectsController extends AppController
 			    'layers' => $layers,
 		    )) ) {
 			    
-			    $dataset = $object->getLayer('dataset');
+			    $dataset = $this->object->getLayer('dataset');
 								
-	            $this->set('object', $object);
+	            $this->set('object', $this->object);
 	            $this->set('objectOptions', $this->objectOptions);
 	            $this->set('microdata', $this->microdata);	
-	            $this->set('title_for_layout', $object->getTitle());
+	            $this->set('title_for_layout', $this->object->getTitle());
 	
-	            if ($desc = $object->getDescription())
+	            if ($desc = $this->object->getDescription())
 	                $this->setMetaDescription($desc);
 			    
 		    }
@@ -49,6 +61,12 @@ class DataobjectsController extends AppController
 	    } else {
 		    throw new BadRequestException();
 	    }
+	    
+    }
+    
+    public function view() {
+	    	    
+	    $this->load();
 	    
     }
 

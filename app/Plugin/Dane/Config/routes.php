@@ -82,10 +82,40 @@ Router::connect('/dane/:alias', array(
 	'pass' => array('alias'),
 ));
 
+
+
+
+
 Router::connect('/dane/:controller/:id', array(
 	'plugin' => 'Dane', 
 	'action' => 'view'
 ), array(
+	'id' => '([0-9]+)',
 	'pass' => array('controller', 'id'),
 ));
+
+Router::connect('/dane/:controller/:id,', array(
+	'plugin' => 'Dane', 
+	'action' => 'view'
+), array(
+	'id' => '([0-9]+)',
+	'pass' => array('controller', 'id'),
+));
+
+Router::connect('/dane/:controller/:id,:slug', array(
+	'plugin' => 'Dane', 
+	'action' => 'view'
+), array(
+	'id' => '([0-9]+)',
+	'pass' => array('controller', 'id', 'slug'),
+));
+
+Router::connect('/dane/:controller/:id,:slug/:action', array(
+	'plugin' => 'Dane', 
+), array(
+	'id' => '([0-9]+)',
+	'pass' => array('controller', 'id', 'slug'),
+));
+
+
 

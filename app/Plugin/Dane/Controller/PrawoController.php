@@ -20,20 +20,7 @@ class PrawoController extends DataobjectsController
         ),
     );
     
-    public $aggs = array(
-	    array(
-		    'id' => 'date',
-		    'label' => 'Data publikacji'
-		    'type' => 'date_histogram',
-		    'params' => array(
-			    'field' => 'date',
-			    'interval' => '1M',
-			    'format' => 'yyyy-MM-dd'
-		    ),
-	    )
-    );
-	
-
+    
 	
 	
     public function hasla()
@@ -155,8 +142,8 @@ class PrawoController extends DataobjectsController
     
     public function tresc()
     {
-
-        $this->_prepareView();
+				
+        $this->load();
 
         $dokument_id = false;
 
@@ -171,9 +158,9 @@ class PrawoController extends DataobjectsController
 		
 		if( !$dokument_id )
 			$dokument_id = $files[0]['dokument_id'];
-				
-        $this->set('document', $this->API->document($dokument_id));
-
+		
+		$this->loadDocument($dokument_id, 'document');
+		
     }
 
     public function tekst()
