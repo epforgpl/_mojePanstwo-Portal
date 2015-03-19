@@ -60,7 +60,6 @@ class DatasetsController extends DataobjectsController
 					            'exclude' => array(
 						            'pattern' => '0'
 					            ),
-					            'dataset' => 'prawo_typy',
 				            ),
 				            'aggs' => array(
 					            'typ_nazwa' => array(
@@ -69,12 +68,20 @@ class DatasetsController extends DataobjectsController
 						            ),
 					            ),
 				            ),
+				            'visual' => array(
+					            'label' => 'Typy aktów prawnych',
+					            'skin' => 'pie_chart',
+				            ),
 			            ),
 			            'date' => array(
 				            'date_histogram' => array(
 					            'field' => 'date',
 					            'interval' => '1M',
 					            'format' => 'yyyy-MM-dd',
+				            ),
+				            'visual' => array(
+					            'label' => 'Daty',
+					            'skin' => 'date_histogram',
 				            ),
 			            ),
 		            ),
