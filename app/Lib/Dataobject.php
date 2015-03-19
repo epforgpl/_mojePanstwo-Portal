@@ -54,9 +54,9 @@ class Dataobject
 		
         if (isset($params['score']))
             $this->layers['score'] = $params['score'];
-
-        if (isset($params['hl'])) {
-            $this->hl = $params['hl'];
+				
+        if (isset($params['highlight']) && isset($params['highlight'][0])) {
+            $this->layers['highlight'] = $params['highlight'][0];
         }
         
         $temp = array();

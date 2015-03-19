@@ -103,8 +103,12 @@ $this->Dataobject->setObject($object);
                             echo $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults);
                         }
                         ?>
-
-                        <? if ($object->getDescription()) { ?>
+						
+						<? if( $highlight = $object->getLayer('highlight') ) { ?>
+							<div class="description">
+                                <?= $highlight[0] ?>
+                            </div>
+                        <? } elseif ($object->getDescription()) { ?>
                             <div class="description">
                                 <?= $object->getDescription() ?>
                             </div>
@@ -155,7 +159,11 @@ $this->Dataobject->setObject($object);
                         }
                         ?>
 
-                        <? if ($object->getDescription()) { ?>
+                        <? if( $highlight = $object->getLayer('highlight') ) { ?>
+							<div class="description">
+                                <?= $highlight[0] ?>
+                            </div>
+                        <? } elseif ($object->getDescription()) { ?>
                             <div class="description">
                                 <?= $this->Text->truncate($object->getDescription(), 250) ?>
                             </div>
