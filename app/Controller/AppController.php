@@ -62,6 +62,7 @@ class AppController extends Controller {
 		'Html',
 		'Form',
 		'Paginator',
+        'MPaginator',
 		'Time',
 		'Less.Less',
 //        'Minify.Minify',

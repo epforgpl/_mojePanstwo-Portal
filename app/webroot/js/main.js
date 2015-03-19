@@ -338,13 +338,13 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
         }, 'xml');
     });
 
-    $(".hasclear").keyup(function () {
+    /* $(".hasclear").keyup(function () {
         var t = $(this);
         t.next('a').find('span').toggle(Boolean(t.val()));
     });
 
     if($(".hasclear").val() == '')
-        $(".clearer").hide($(this).prev('input').val());
+        $(".clearer").hide($(this).prev('input').val()); */
 
     /*$(".clearer").click(function () {
         $(this).prev('input').val('').focus();
