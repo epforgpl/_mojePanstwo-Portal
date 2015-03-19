@@ -4,8 +4,14 @@ class DataBrowserComponent extends Component {
 	public $settings = array();
 	public $conditions = array();
 	private $Dataobject = false;
+	private $aggs_visuals_map = array();
 	
 	public function __construct($collection, $settings) {
+		
+		
+		
+		// budujemy $aggs_visuals_map $agg_id => $visual
+		// unset z $settings
 		
 		$this->settings = $settings;
 			
