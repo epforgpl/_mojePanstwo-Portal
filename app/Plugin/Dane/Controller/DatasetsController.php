@@ -73,10 +73,48 @@ class DatasetsController extends DataobjectsController
 					            'skin' => 'pie_chart',
 				            ),
 			            ),
+                        'typ_id_horizontal' => array(
+                            'terms' => array(
+                                'field' => 'prawo.typ_id',
+                                'exclude' => array(
+                                    'pattern' => '0'
+                                ),
+                            ),
+                            'aggs' => array(
+                                'typ_nazwa' => array(
+                                    'terms' => array(
+                                        'field' => 'data.prawo.typ_nazwa',
+                                    ),
+                                ),
+                            ),
+                            'visual' => array(
+                                'label' => 'Typy aktów prawnych',
+                                'skin' => 'columns_horizontal',
+                            ),
+                        ),
+                        'typ_id_vertical' => array(
+                            'terms' => array(
+                                'field' => 'prawo.typ_id',
+                                'exclude' => array(
+                                    'pattern' => '0'
+                                ),
+                            ),
+                            'aggs' => array(
+                                'typ_nazwa' => array(
+                                    'terms' => array(
+                                        'field' => 'data.prawo.typ_nazwa',
+                                    ),
+                                ),
+                            ),
+                            'visual' => array(
+                                'label' => 'Typy aktów prawnych',
+                                'skin' => 'columns_vertical',
+                            ),
+                        ),
 			            'date' => array(
 				            'date_histogram' => array(
 					            'field' => 'date',
-					            'interval' => '1M',
+					            'interval' => 'year',
 					            'format' => 'yyyy-MM-dd',
 				            ),
 				            'visual' => array(
