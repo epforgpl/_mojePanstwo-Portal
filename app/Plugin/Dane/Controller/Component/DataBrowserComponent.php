@@ -25,6 +25,7 @@ class DataBrowserComponent extends Component {
 	            'visual' => array(
 		            'label' => 'Typy aktów prawnych',
 		            'skin' => 'pie_chart',
+                    'field' => 'prawo.typ_id'
 	            ),
 	        ),
 	        'date' => array(
@@ -36,6 +37,7 @@ class DataBrowserComponent extends Component {
 	            'visual' => array(
 		            'label' => 'Liczba aktów prawnych w czasie',
 		            'skin' => 'date_histogram',
+                    'field' => 'date'
 	            ),
 	        ),
 	        'autor_id' => array(
@@ -55,6 +57,7 @@ class DataBrowserComponent extends Component {
 	            'visual' => array(
 		            'label' => 'Autorzy aktów prawnych',
 		            'skin' => 'columns_horizontal',
+                    'field' => 'prawo.autor_id'
 	            ),
 	        ),
 	    )
@@ -108,6 +111,34 @@ class DataBrowserComponent extends Component {
 
         return $controller->here . $query;
     }
+
+    private function prepareRequests($maps, $controller) {
+        $query = $controller->request->query;
+
+        foreach($maps as $i => $map) {
+            // Anulowanie np. wybranego typu
+            $cancelQuery = $query;
+            if(isset($cancelQuery['conditions'][$map['field']]))
+                unset($cancelQuery['conditions'][$map['field']]);
+            if(isset($cancelQuery['page']))
+                unset($cancelQuery['page']);
+            if(isset($cancelQuery['conditions']['q']))
+                unset($cancelQuery['conditions']['q']);
+            $maps[$i]['cancelRequest'] = $controller->here . '?' . http_build_query($cancelQuery);
+
+            // Wybieranie np. danego typu
+            // Nie znamy jeszcze id dlatego na końcu zostawiamy `=` np.
+            // http://.../?..&conditions[type.id]=
+            $chooseQuery = $query;
+            if(isset($cancelQuery['page']))
+                unset($cancelQuery['page']);
+            $maps[$i]['chooseRequest'] =
+                $controller->here . '?' . http_build_query($cancelQuery) .
+                '&conditions[' . $map['field'] . ']=';
+        }
+
+        return $maps;
+    }
 	
 	public function beforeRender($controller){
 		
@@ -132,7 +163,7 @@ class DataBrowserComponent extends Component {
 	    $controller->set('dataBrowser', array(
 		    'hits' => $hits,
 		    'aggs' => $controller->Dataobject->getAggs(),
-            'aggs_visuals_map' => $this->aggs_visuals_map,
+            'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
 		    'cancel_url' => $this->getCancelSearchUrl($controller),
 	    ));
 		
