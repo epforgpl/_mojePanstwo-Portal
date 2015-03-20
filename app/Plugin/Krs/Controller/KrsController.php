@@ -17,7 +17,7 @@ class KrsController extends ApplicationsController
 		),
 		'title' => 'Krajowy Rejestr Sądowy',
 		'subtitle' => 'Dane gospodarcze o firmach i osobach',
-		'headerImg' => 'prawo',
+		'headerImg' => 'krs',
 	);
 	
     public function view()

@@ -115,6 +115,79 @@ class DataBrowserComponent extends Component {
 	            ),
 	        ),
 	        */
+	    ),
+	    'krs_podmioty' => array(
+	        'typ_id' => array(
+	            'terms' => array(
+		            'field' => 'krs_podmioty.forma_prawna_id',
+		            'exclude' => array(
+			            'pattern' => '0'
+		            ),
+	            ),
+	            'aggs' => array(
+		            'label' => array(
+			            'terms' => array(
+				            'field' => 'data.krs_podmioty.forma_prawna_str',
+			            ),
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Formy prawne organizacji',
+		            'skin' => 'pie_chart',
+		            'field' => 'krs_podmioty.forma_prawna_id',
+	            ),
+	        ),
+	        'kapitalizacja' => array(
+		        'range' => array(
+	                'field' => 'krs_podmioty.wartosc_kapital_zakladowy',
+	                'ranges' => array(
+	                    array('to' => 5000),
+	                    array('from' => 5000, 'to' => 50000),
+	                    array('from' => 50000, 'to' => 500000),
+	                    array('from' => 500000, 'to' => 5000000),
+	                    array('from' => 5000000, 'to' => 50000000),
+	                    array('from' => 50000000)
+                    ),
+                ),
+                'visual' => array(
+		            'label' => 'Kapitalizacja spółek',
+		            'skin' => 'krs/kapitalizacja',
+		            'field' => 'krs_podmioty.wartosc_kapital_zakladowy',
+	            ),
+	        ),
+	        'date' => array(
+	            'date_histogram' => array(
+		            'field' => 'date',
+		            'interval' => 'year',
+		            'format' => 'yyyy-MM-dd',
+	            ),
+	            'visual' => array(
+		            'label' => 'Nowe organizacje w czasie',
+		            'skin' => 'date_histogram',
+		            'field' => 'date',
+	            ),
+	        ),
+	        /*
+	        'autor_id' => array(
+	            'terms' => array(
+		            'field' => 'prawo.autor_id',
+		            'exclude' => array(
+			            'pattern' => '0'
+		            ),
+	            ),
+	            'aggs' => array(
+		            'label' => array(
+			            'terms' => array(
+				            'field' => 'data.prawo.autor_nazwa',
+			            ),
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Autorzy aktów prawnych',
+		            'skin' => 'columns_horizontal',
+	            ),
+	        ),
+	        */
 	    )
 	);
 	
