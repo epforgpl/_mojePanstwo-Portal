@@ -7,14 +7,14 @@
 <div class="container dataBrowser">
 	
 	<div class="row">
-		<form action="" class="form-horizontal searchForm col-md-8<? if( empty($dataBrowser['aggs']) ) {?> col-md-offset-1<?}?>">
+		<form action="" data-url="<?= $dataBrowser['cancel_url']; ?>" method="get" class="form-horizontal searchForm col-md-8<? if( empty($dataBrowser['aggs']) ) {?> col-md-offset-1<?}?>">
 	        <div class="form-group has-feedback">
 	            <div class="col-md-12">
 	                <?
-	                $value = isset( $this->request->query['q'] ) ? addslashes( $this->request->query['q'] ) : '';
+	                    $value = isset( $this->request->query['q'] ) ? addslashes( $this->request->query['q'] ) : '';
 	                ?>
 	                <input class="form-control hasclear" placeholder='<? if(isset($dataBrowser['search_label'])) { echo addslashes($dataBrowser['search_label']); } else { echo "Szukaj ..."; } ?>' type="text" value="<?= $value ?>" name="q" required>
-	                <a href="<?= $dataBrowser['cancel_url']; ?>"><span class="clearer glyphicon glyphicon-remove-circle form-control-feedback"></span></a>
+	                <a href="<?= $dataBrowser['cancel_url']; ?>"><span class="clearer form-control-feedback" aria-hidden="true">&times;</span></a>
 	            </div>
 	        </div>
 	    </form>

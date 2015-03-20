@@ -141,7 +141,7 @@ class DataBrowserComponent extends Component {
 		        'range' => array(
 	                'field' => 'krs_podmioty.wartosc_kapital_zakladowy',
 	                'ranges' => array(
-	                    array('to' => 5000),
+	                    array('from' => 1, 'to' => 5000),
 	                    array('from' => 5000, 'to' => 50000),
 	                    array('from' => 50000, 'to' => 500000),
 	                    array('from' => 500000, 'to' => 5000000),

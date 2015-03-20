@@ -9,10 +9,11 @@ $this->Combinator->add_libs('js', '../plugins/highcharts/locals');
     </div>
 <? } else { ?>
     <p class="label-browser">
-        <span class="label label-default">
-            <?= $data['buckets'][0]['label']['buckets'][0]['key']; ?>
-            <span class="badge"><?= $data['buckets'][0]['label']['buckets'][0]['doc_count']; ?></span>
-        </span>
-        <a href="<?= $map['cancelRequest']; ?>" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+        <a href="<?= $map['cancelRequest']; ?>" aria-label="Close">
+            <span class="label label-primary">
+                <span aria-hidden="true">&times;</span>&nbsp;
+                <?= $data['buckets'][0]['label']['buckets'][0]['key']; ?>
+            </span>
+        </a>
     </p>
 <? } ?>

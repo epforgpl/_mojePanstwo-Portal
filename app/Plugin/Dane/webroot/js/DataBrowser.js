@@ -48,11 +48,6 @@ var DataBrowser = Class.extend({
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false,
-                events: {
-                    click: function(e) {
-                        console.log(e);
-                    }
-                },
 	            height: 300
             },
             title: {
@@ -204,10 +199,19 @@ var DataBrowser = Class.extend({
 		
 		var columns_vertical_data = [];
         var columns_vertical_categories = [];
+        var columns_vertical_keys = [];
+        var choose_request = li.attr('data-choose-request');
 
         for(var i = 0; i < data.buckets.length; i++) {
-            columns_vertical_categories[i] = data.buckets[i].label.buckets[0].key;
-            columns_vertical_data[i] = data.buckets[i].label.buckets[0].doc_count;
+            if(data.buckets[i].label === undefined) {
+                columns_vertical_categories[i] = this.prepareNumericLabel(data.buckets[i].key);
+                columns_vertical_data[i] = data.buckets[i].doc_count;
+            } else {
+                columns_vertical_categories[i] = data.buckets[i].label.buckets[0].key;
+                columns_vertical_data[i] = data.buckets[i].label.buckets[0].doc_count;
+            }
+
+            columns_vertical_keys[i] = data.buckets[i].key;
         }
 
         li.find('.chart').highcharts({
@@ -257,7 +261,15 @@ var DataBrowser = Class.extend({
             },
             series: [{
                 name: 'Liczba',
-                data: columns_vertical_data
+                data: columns_vertical_data,
+                point: {
+                    events: {
+                        click: function (e) {
+                            window.location.href = choose_request + '' + columns_vertical_keys[this.index];
+                            return false;
+                        }
+                    }
+                }
             }]
         });
 		
@@ -335,7 +347,53 @@ var DataBrowser = Class.extend({
             }]
         });
 		
-	}
+	},
+
+    prepareNumeric: function(str) {
+        var number = str[0];
+        if(str.indexOf('E') > -1) {
+            var newNumber = number;
+            var eNum = str[str.length - 1];
+            for(var i = 0; i <= eNum; i++) {
+                newNumber += '0';
+            }
+            str = newNumber;
+        }
+
+        var zeroCount = str.split('0').length - 1;
+        var additionalZerosCount = 0;
+        var additionalZeros = '';
+        var unit = '';
+
+        if(zeroCount > 0 && zeroCount < 3) {
+            additionalZerosCount = zeroCount - 1;
+            unit = '';
+        }
+
+        if(zeroCount >= 3 && zeroCount < 6) {
+            additionalZerosCount = zeroCount - 3;
+            unit = 'k';
+        }
+
+        if(zeroCount >= 6) {
+            additionalZerosCount = zeroCount - 6;
+            unit = 'M';
+        }
+
+        for(var i = 0; i < additionalZerosCount; i++)
+            additionalZeros += '0';
+
+        return number + additionalZeros + unit;
+    },
+
+    prepareNumericLabel: function(str) {
+        if(str.indexOf('-') === -1) {
+            return this.prepareNumeric(str);
+        } else {
+            var s = str.split('-');
+            return this.prepareNumeric(s[0]) + '-' + this.prepareNumeric(s[1]);
+        }
+    }
 		
 });
 
@@ -349,5 +407,15 @@ $(document).ready(function() {
 		dataBrowser = new DataBrowser(elements[i]);
 		window.DataBrowsers.push(dataBrowser);
 	}
+
+    $('form.searchForm').submit(function() {
+        var value = $(this).find('input').val();
+        if(value == '')
+            return false;
+        var data_url = $(this).attr('data-url');
+        var c = data_url.indexOf('?') === -1 ? '?' : '&';
+        window.location.href = $(this).attr('data-url') + c + 'q=' + value;
+        return false;
+    });
 
 });
