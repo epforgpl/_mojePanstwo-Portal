@@ -300,7 +300,7 @@ class Dataobject
     public function __call($func, $arg)
     {
 	    
-	    debug('__call'); debug($func);
+	    // debug('__call'); debug($func);
 	    
         $func = str_replace('get', '', $func);
         $func = lcfirst($func);

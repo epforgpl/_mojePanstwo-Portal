@@ -1,11 +1,33 @@
 <?php
 
-class SejmometrController extends SejmometrAppController
+App::uses('ApplicationsController', 'Controller');
+class SejmometrController extends ApplicationsController
 {
 
-    public $helpers = array('Dane.DataobjectsSlider', 'Dane.Dataobject', 'Dane.Filter');
-    public $components = array('RequestHandler');
+    public $settings = array(
+		'menu' => array(
+			array(
+				'id' => '',
+				'label' => 'Start',
+			),
+			array(
+				'id' => 'poslowie',
+				'label' => 'Posłowie',
+			)
+		),
+		'title' => 'Sejmometr',
+		'subtitle' => 'Dane o pracy Sejmu i posłów',
+		'headerImg' => 'sejmometr',
+	);
 
+	
+	public function poslowie()
+    {
+        
+        $this->loadDatasetBrowser('poslowie');
+                
+    }
+	
     public function index()
     {
         $api = $this->API->Sejmometr();
