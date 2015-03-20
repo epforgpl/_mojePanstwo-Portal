@@ -89,16 +89,19 @@
 			</div>
 	        
 		</div>
-		<? if( !empty($dataBrowser['aggs']) ) { ?>
+		<? if(!empty($dataBrowser['aggs'])) { ?>
 		<div class="col-md-4">
             <ul class="dataAggs">
             <? foreach($dataBrowser['aggs'] as $agg_id => $agg_data) { ?>
-                <li class="agg">
-                    <h2><?= $dataBrowser['aggs_visuals_map'][$agg_id]['label']; ?></h2>
-                    <? echo $this->element('Dane.DataBrowser/' . $dataBrowser['aggs_visuals_map'][$agg_id]['skin'], array(
-                        'data' => $agg_data
-                    )); ?>
-                </li>
+                <? if(count($agg_data['buckets']) > 0) { ?>
+                    <li class="agg">
+                        <h2><?= $dataBrowser['aggs_visuals_map'][$agg_id]['label']; ?></h2>
+                        <? echo $this->element('Dane.DataBrowser/' . $dataBrowser['aggs_visuals_map'][$agg_id]['skin'], array(
+                            'data' => $agg_data,
+                            'map' => $dataBrowser['aggs_visuals_map'][$agg_id]
+                        )); ?>
+                    </li>
+                <? } ?>
             <? } ?>
             </ul>
 		</div>

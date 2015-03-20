@@ -31,12 +31,15 @@ var DataBrowser = Class.extend({
 		var data = $.parseJSON(li.attr('data-chart'));
 		
 		var pie_chart_data = [];
+        var pie_chart_keys = [];
+        var choose_request = li.attr('data-choose-request');
         for(var i = 0; i < data.buckets.length; i++) {
             pie_chart_data[i] = [
                 data.buckets[i].label.buckets[0].key,
-                parseFloat(data.buckets[i].doc_count),
-                data.buckets[i].key
+                parseFloat(data.buckets[i].doc_count)
             ];
+
+            pie_chart_keys[i] = data.buckets[i].key;
         }
 
         li.find('.chart').highcharts({
@@ -61,6 +64,12 @@ var DataBrowser = Class.extend({
             credits: {
                 enabled: false
             },
+            legend: {
+                useHTML: true,
+                labelFormatter: function() {
+                    return '<a href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + this.name + '</a>';
+                }
+            },
             plotOptions: {
                 pie: {
                     allowPointSelect: false,
@@ -68,13 +77,28 @@ var DataBrowser = Class.extend({
                     dataLabels: {
                         enabled: false
                     },
-                    showInLegend: true
-                }                                
+                    showInLegend: true,
+                    point: {
+                        events: {
+                            legendItemClick: function () {
+                                return false;
+                            }
+                        }
+                    }
+                }
             },
             series: [{
                 type: 'pie',
                 name: 'Liczba',
-                data: pie_chart_data
+                data: pie_chart_data,
+                point: {
+                    events: {
+                        click: function (e) {
+                            window.location.href = choose_request + '' + pie_chart_keys[this.index];
+                            return false;
+                        }
+                    }
+                }
             }]
         });
 		
@@ -84,13 +108,22 @@ var DataBrowser = Class.extend({
 		
 		li = $(li);
 		var data = $.parseJSON(li.attr('data-chart'));
-		
-		histogram_data = [];
+        var histogram_keys = [];
+        var choose_request = li.attr('data-choose-request');
+		var histogram_data = [];
         var max = 0;
         for(var i = 0; i < data.buckets.length; i++) {
-            histogram_data[i] = parseInt(data.buckets[i].doc_count);
-            if(max < histogram_data[i])
-                max = histogram_data[i];
+            var date = data.buckets[i].key_as_string.split("-");
+
+            histogram_data[i] = [
+                Date.UTC(parseInt(date[0]),  parseInt(date[1]) - 1, parseInt(date[2])),
+                parseInt(data.buckets[i].doc_count)
+            ];
+
+            histogram_keys[i] = data.buckets[i].key_as_string;
+
+            if(max < histogram_data[i][1])
+                max = histogram_data[i][1];
         }
 
         li.find('.chart').highcharts({
@@ -109,8 +142,8 @@ var DataBrowser = Class.extend({
                 text: ''
             },
             xAxis: {
-                type: 'datetime',
-                minRange: 365 * 24 * 3600000 // one year
+                type: 'datetime'
+                //minRange: 365 * 24 * 3600000 // one year
             },
             yAxis: {
                 title: {
@@ -147,9 +180,17 @@ var DataBrowser = Class.extend({
             series: [{
                 type: 'area',
                 name: 'Liczba',
-                pointInterval: 383 * 24 * 3600000,
-                pointStart: Date.UTC(1918, 0, 1),
-                data: histogram_data
+                //pointInterval: 383 * 24 * 3600000,
+                //pointStart: Date.UTC(1918, 0, 1),
+                data: histogram_data,
+                point: {
+                    events: {
+                        click: function (e) {
+                            window.location.href = choose_request + '' + histogram_keys[this.index];
+                            return false;
+                        }
+                    }
+                }
             }]
         });
 		
@@ -226,13 +267,16 @@ var DataBrowser = Class.extend({
 		
 		li = $(li);
 		var data = $.parseJSON(li.attr('data-chart'));
+        var choose_request = li.attr('data-choose-request');
 		
 		var columns_horizontal_data = [];
         var columns_horizontal_categories = [];
+        var columns_horizontal_keys = [];
 
         for(var i = 0; i < data.buckets.length; i++) {
             columns_horizontal_categories[i] = data.buckets[i].label.buckets[0].key;
             columns_horizontal_data[i] = data.buckets[i].label.buckets[0].doc_count;
+            columns_horizontal_keys[i] = data.buckets[i].key;
         }
 
         li.find('.chart').highcharts({
@@ -279,7 +323,15 @@ var DataBrowser = Class.extend({
             },
             series: [{
                 name: 'Liczba',
-                data: columns_horizontal_data
+                data: columns_horizontal_data,
+                point: {
+                    events: {
+                        click: function (e) {
+                            window.location.href = choose_request + '' + columns_horizontal_keys[this.index];
+                            return false;
+                        }
+                    }
+                }
             }]
         });
 		
@@ -291,7 +343,6 @@ var DataBrowser = Class.extend({
 var dataBrowser;
 
 $(document).ready(function() {
-		
 	window.DataBrowsers = [];
 	var elements = $('.dataBrowser');
 	for( var i=0; i<elements.length; i++ ) {
