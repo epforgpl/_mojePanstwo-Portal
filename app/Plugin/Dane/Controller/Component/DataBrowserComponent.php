@@ -57,6 +57,61 @@ class DataBrowserComponent extends Component {
 		            'skin' => 'columns_horizontal',
 	            ),
 	        ),
+	    ),
+	    'prawo_urzedowe' => array(
+	        /*
+	        'typ_id' => array(
+	            'terms' => array(
+		            'field' => 'prawo.typ_id',
+		            'exclude' => array(
+			            'pattern' => '0'
+		            ),
+	            ),
+	            'aggs' => array(
+		            'label' => array(
+			            'terms' => array(
+				            'field' => 'data.prawo.typ_nazwa',
+			            ),
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Typy aktów prawnych',
+		            'skin' => 'pie_chart',
+	            ),
+	        ),
+	        */
+	        'date' => array(
+	            'date_histogram' => array(
+		            'field' => 'date',
+		            'interval' => 'year',
+		            'format' => 'yyyy-MM-dd',
+	            ),
+	            'visual' => array(
+		            'label' => 'Liczba aktów prawnych w czasie',
+		            'skin' => 'date_histogram',
+	            ),
+	        ),
+	        /*
+	        'autor_id' => array(
+	            'terms' => array(
+		            'field' => 'prawo.autor_id',
+		            'exclude' => array(
+			            'pattern' => '0'
+		            ),
+	            ),
+	            'aggs' => array(
+		            'label' => array(
+			            'terms' => array(
+				            'field' => 'data.prawo.autor_nazwa',
+			            ),
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Autorzy aktów prawnych',
+		            'skin' => 'columns_horizontal',
+	            ),
+	        ),
+	        */
 	    )
 	);
 	
@@ -73,13 +128,15 @@ class DataBrowserComponent extends Component {
 			$settings['aggs'] = $this->aggs_presets[ $settings['aggsPreset'] ];
 		
 		
-        foreach($settings['aggs'] as $key => $value) {
-            foreach($value as $keyM => $valueM) {
-                if($keyM === 'visual') {
-                    $this->aggs_visuals_map[$key] = $valueM;
-                    unset($settings['aggs'][$key][$keyM]);
-                }
-            }
+		if( isset($settings['aggs']) ) {
+	        foreach($settings['aggs'] as $key => $value) {
+	            foreach($value as $keyM => $valueM) {
+	                if($keyM === 'visual') {
+	                    $this->aggs_visuals_map[$key] = $valueM;
+	                    unset($settings['aggs'][$key][$keyM]);
+	                }
+	            }
+	        }
         }
 
 		$this->settings = $settings;

@@ -14,6 +14,9 @@ class DatasetsController extends DataobjectsController
     
     private $redirects_map = array(
 	    'prawo' => 'prawo',
+	    'prawo_hasla' => 'prawo/tematy',
+	    'prawo_urzedowe' => 'prawo/urzedowe',
+	    'prawo_wojewodztwa' => 'prawo/lokalne',
     );
 
     public function index()

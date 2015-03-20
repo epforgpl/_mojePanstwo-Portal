@@ -1,6 +1,7 @@
 <?
 
 namespace MP\Lib;
+require_once( 'DocDataObject.php' );
 
 class Prawo_urzedowe extends DocDataObject
 {

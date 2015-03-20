@@ -1,7 +1,6 @@
 <?php
 
 App::uses('DataobjectsController', 'Dane.Controller');
-
 class PrawoController extends DataobjectsController
 {
 

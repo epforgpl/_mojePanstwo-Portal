@@ -1,28 +1,40 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('appheader')) ?>
+<?
+	
+	$this->Combinator->add_libs('css', $this->Less->css('appheader'));
+	
+	$img = false;
+	if( isset($appSettings['headerImg']) )
+		$img = ( $appSettings['headerImg'][0]=='/' ) ? $appSettings['headerImg'] : '/' . strtolower($this->request->params['plugin']) . '/img/header_' . $appSettings['headerImg'] . '.png';		
+?>
 
-<div
-    class="appHeader"<? if (isset($headerUrl)) echo ' style="background-image: url(/' . strtolower($this->request->params['plugin']) . '/img/header_' . $headerUrl . ')"'; ?>>
+<div class="appHeader"<? if( $img ) echo ' style="background-image: url(' . $img . ')"'; ?>>
     <div class="container">
         <div class="holder">
-            <? if (isset($title)) { ?>
-                <h1><?= $title ?></h1>
+            <? if (isset($appSettings['title'])) { ?>
+                <h1><?= $appSettings['title'] ?></h1>
             <? } ?>
 
-            <? if (isset($subtitle)) { ?>
-                <h2><?= $subtitle ?></h2>
+            <? if (isset($appSettings['subtitle'])) { ?>
+                <h2><?= $appSettings['subtitle'] ?></h2>
             <? } ?>
     </div>
     </div>
-    <? if (isset($appMenu)) { ?>
+    <? if (isset($appSettings['menu'])) { ?>
         <div class="menu">
             <div class="container">
                 <ul>
-                    <? foreach ($appMenu as $item) { ?>
-                        <li<? if (isset($appMenuSelected) && ($item['id'] == $appMenuSelected)) {
+                    <?
+                    foreach ($appSettings['menu'] as $item) { 
+		              	
+		              	$href = isset( $item['href'] ) ? 
+		              		'/' . $item['href'] : 
+		              		'/' . strtolower($this->request->params['plugin']) . '/' . $item['id'];
+		            	     
+                    ?>
+                        <li<? if (isset($appSettings['menuSelected']) && ($item['id'] == $appSettings['menuSelected'])) {
                             echo ' class="active"';
                         } ?>>
-                            <a href="/<?= strtolower($this->request->params['plugin']) . '/' . $item['id']; ?>"
-                               target="_self"><?= $item['label']; ?></a>
+                            <a href="<?= $href ?>" target="_self"><?= $item['label']; ?></a>
                         </li>
                     <? } ?>
                 </ul>

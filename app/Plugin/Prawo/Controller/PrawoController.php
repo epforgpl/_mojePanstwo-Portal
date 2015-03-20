@@ -1,52 +1,54 @@
 <?php
 
-class PrawoController extends AppController
+App::uses('ApplicationsController', 'Controller');
+class PrawoController extends ApplicationsController
 {
 
-	private $appMenu = array(
-		array(
-			'id' => '',
-			'label' => 'Akty prawne',
+	public $settings = array(
+		'menu' => array(
+			array(
+				'id' => '',
+				'label' => 'Akty prawne',
+			),
+			array(
+				'id' => 'tematy',
+				'label' => 'Tematy',
+			),
+			array(
+				'id' => 'urzedowe',
+				'label' => 'Prawo urzędowe',
+			),
+			array(
+				'id' => 'lokalne',
+				'label' => 'Prawo lokalne',
+			),
 		),
-		array(
-			'id' => 'tematy',
-			'label' => 'Tematy',
-		),
+		'title' => 'Prawo',
+		'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce',
+		'headerImg' => 'prawo',
 	);
 	
-	private $appMenuSelected = false;
-	
-    public function beforeRender()
-    {
-	    	    
-	    if( $this->appMenuSelected === false )
-	    	$this->appMenuSelected = $this->request->params['action'];
-	    
-        $this->set('appMenu', $this->appMenu);
-        $this->set('appMenuSelected', $this->appMenuSelected);
-        
-    }
-
-
-
-    public function akty()
+    public function view()
     {
         
-        $this->appMenuSelected = '';
-        
-        $this->Components->load('Dane.DataBrowser', array(
-            'conditions' => array(
-	            'dataset' => 'prawo',
-            ),
-            'aggsPreset' => 'prawo',
-        ));
-        
+        $this->setMenuSelected();
+        $this->loadDatasetBrowser('prawo');
+                
     }
 
     public function tematy()
     {
-	    
-	    
+	    $this->loadDatasetBrowser('prawo_hasla');
+    }
+    
+    public function urzedowe()
+    {
+	    $this->loadDatasetBrowser('prawo_urzedowe');
+    }
+    
+    public function lokalne()
+    {
+	    $this->loadDatasetBrowser('prawo_wojewodztwa');
     }
 
 } 
