@@ -1,4 +1,6 @@
 <?
+	$this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane')));
+	$this->Combinator->add_libs('css', $this->Less->css('dataobjectpage', array('plugin' => 'Dane')));
 	$this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
 	$this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 ?>
@@ -11,7 +13,7 @@
 	                <?
 	                $value = isset( $this->request->query['q'] ) ? addslashes( $this->request->query['q'] ) : '';
 	                ?>
-	                <input class="form-control hasclear" placeholder='Szukaj w "<?= addslashes( $object->getTitle() ) ?>"...' type="text" value="<?= $value ?>" name="q" required>
+	                <input class="form-control hasclear" placeholder='<? if(isset($dataBrowser['search_label'])) { echo addslashes($dataBrowser['search_label']); } else { echo "Szukaj ..."; } ?>' type="text" value="<?= $value ?>" name="q" required>
 	                <a href="<?= $dataBrowser['cancel_url']; ?>"><span class="clearer glyphicon glyphicon-remove-circle form-control-feedback"></span></a>
 	            </div>
 	        </div>
@@ -89,10 +91,10 @@
 		</div>
 		<? if( !empty($dataBrowser['aggs']) ) { ?>
 		<div class="col-md-4">
-            <ul class="data-browser">
+            <ul class="dataAggs">
             <? foreach($dataBrowser['aggs'] as $agg_id => $agg_data) { ?>
-                <li>
-                    <h3><?= $dataBrowser['aggs_visuals_map'][$agg_id]['label']; ?></h3>
+                <li class="agg">
+                    <h2><?= $dataBrowser['aggs_visuals_map'][$agg_id]['label']; ?></h2>
                     <? echo $this->element('Dane.DataBrowser/' . $dataBrowser['aggs_visuals_map'][$agg_id]['skin'], array(
                         'data' => $agg_data
                     )); ?>

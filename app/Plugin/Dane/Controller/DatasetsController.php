@@ -11,6 +11,10 @@ class DatasetsController extends DataobjectsController
         // 'RequestHandler',
         'Paginator'
     );
+    
+    private $redirects_map = array(
+	    'prawo' => 'prawo',
+    );
 
     public function index()
     {
@@ -27,108 +31,52 @@ class DatasetsController extends DataobjectsController
     }
 
     public function view($slug = false) {
-	    	    
-	    if( $slug ) {
-	    	
-	    	$layers = $this->initLayers;
-   
-		    if( $object = $this->Dataobject->find('first', array(
-			    'conditions' => array(
-				    'dataset' => 'zbiory',
-				    'zbiory.slug' => $slug,
-			    ),
-			    'layers' => $layers,
-		    )) ) {
-			    								
-	            $this->set('object', $object);
-	            $this->set('objectOptions', $this->objectOptions);
-	            $this->set('microdata', $this->microdata);	
-	            $this->set('title_for_layout', $object->getTitle());
-	
-	            if ($desc = $object->getDescription())
-	                $this->setMetaDescription($desc);
-	                
-	                
-	            $this->Components->load('Dane.DataBrowser', array(
-		            'conditions' => array(
-			            'dataset' => $object->getData('slug'),
-		            ),
-		            'aggs' => array(
-			            'typ_id' => array(
-				            'terms' => array(
-					            'field' => 'prawo.typ_id',
-					            'exclude' => array(
-						            'pattern' => '0'
-					            ),
-				            ),
-				            'aggs' => array(
-					            'typ_nazwa' => array(
-						            'terms' => array(
-							            'field' => 'data.prawo.typ_nazwa',
-						            ),
-					            ),
-				            ),
-				            'visual' => array(
-					            'label' => 'Typy aktów prawnych',
-					            'skin' => 'pie_chart',
-				            ),
+	    
+	    if( array_key_exists($slug, $this->redirects_map) ) {
+		    
+		    $url = '/' . $this->redirects_map[$slug];
+		    
+		    if( !empty( $this->request->query ) )
+		    	$url .= '?' . http_build_query( $this->request->query );
+		    		    
+		    return $this->redirect($url);
+		    
+	    } else {
+	     
+		    if( $slug ) {
+		    	
+		    	$layers = $this->initLayers;
+	   
+			    if( $object = $this->Dataobject->find('first', array(
+				    'conditions' => array(
+					    'dataset' => 'zbiory',
+					    'zbiory.slug' => $slug,
+				    ),
+				    'layers' => $layers,
+			    )) ) {
+				    								
+		            $this->set('object', $object);
+		            $this->set('objectOptions', $this->objectOptions);
+		            $this->set('microdata', $this->microdata);	
+		            $this->set('title_for_layout', $object->getTitle());
+		
+		            if ($desc = $object->getDescription())
+		                $this->setMetaDescription($desc);
+		                
+		                
+		            $this->Components->load('Dane.DataBrowser', array(
+			            'conditions' => array(
+				            'dataset' => $object->getData('slug'),
 			            ),
-                        'typ_id_horizontal' => array(
-                            'terms' => array(
-                                'field' => 'prawo.typ_id',
-                                'exclude' => array(
-                                    'pattern' => '0'
-                                ),
-                            ),
-                            'aggs' => array(
-                                'typ_nazwa' => array(
-                                    'terms' => array(
-                                        'field' => 'data.prawo.typ_nazwa',
-                                    ),
-                                ),
-                            ),
-                            'visual' => array(
-                                'label' => 'Typy aktów prawnych',
-                                'skin' => 'columns_horizontal',
-                            ),
-                        ),
-                        'typ_id_vertical' => array(
-                            'terms' => array(
-                                'field' => 'prawo.typ_id',
-                                'exclude' => array(
-                                    'pattern' => '0'
-                                ),
-                            ),
-                            'aggs' => array(
-                                'typ_nazwa' => array(
-                                    'terms' => array(
-                                        'field' => 'data.prawo.typ_nazwa',
-                                    ),
-                                ),
-                            ),
-                            'visual' => array(
-                                'label' => 'Typy aktów prawnych',
-                                'skin' => 'columns_vertical',
-                            ),
-                        ),
-			            'date' => array(
-				            'date_histogram' => array(
-					            'field' => 'date',
-					            'interval' => 'year',
-					            'format' => 'yyyy-MM-dd',
-				            ),
-				            'visual' => array(
-					            'label' => 'Daty',
-					            'skin' => 'date_histogram',
-				            ),
-			            ),
-		            ),
-	            ));
-			    
+			            'aggsPreset' => $object->getData('slug'),
+		            ));
+				    
+			    }
+		    
+		    } else {
+			    throw new BadRequestException();
 		    }
 	    
-	    } else {
-		    throw new BadRequestException();
 	    }
 	    
     }

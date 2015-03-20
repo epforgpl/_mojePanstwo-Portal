@@ -1,3 +1,3 @@
 <?= $this->Element('dataobject/pageBegin'); ?>
-<?= $this->Element('Dane.DataBrowser/browser', array('dataBrowser' => $dataBrowser)); ?>
+<?= $this->Element('Dane.DataBrowser/browser'); ?>
 <?= $this->Element('dataobject/pageEnd'); ?>

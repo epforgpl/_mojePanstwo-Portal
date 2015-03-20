@@ -6,7 +6,73 @@ class DataBrowserComponent extends Component {
 	private $Dataobject = false;
 	private $aggs_visuals_map = array();
 	
+	private $aggs_presets = array(
+		'prawo' => array(
+	        'typ_id' => array(
+	            'terms' => array(
+		            'field' => 'prawo.typ_id',
+		            'exclude' => array(
+			            'pattern' => '0'
+		            ),
+	            ),
+	            'aggs' => array(
+		            'label' => array(
+			            'terms' => array(
+				            'field' => 'data.prawo.typ_nazwa',
+			            ),
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Typy aktów prawnych',
+		            'skin' => 'pie_chart',
+	            ),
+	        ),
+	        'date' => array(
+	            'date_histogram' => array(
+		            'field' => 'date',
+		            'interval' => 'year',
+		            'format' => 'yyyy-MM-dd',
+	            ),
+	            'visual' => array(
+		            'label' => 'Liczba aktów prawnych w czasie',
+		            'skin' => 'date_histogram',
+	            ),
+	        ),
+	        'autor_id' => array(
+	            'terms' => array(
+		            'field' => 'prawo.autor_id',
+		            'exclude' => array(
+			            'pattern' => '0'
+		            ),
+	            ),
+	            'aggs' => array(
+		            'label' => array(
+			            'terms' => array(
+				            'field' => 'data.prawo.autor_nazwa',
+			            ),
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Autorzy aktów prawnych',
+		            'skin' => 'columns_horizontal',
+	            ),
+	        ),
+	    )
+	);
+	
 	public function __construct($collection, $settings) {
+				
+		if( 
+			(
+				!isset( $settings['aggs'] ) || 
+				( empty($settings['aggs']) ) 
+			) &&  
+			isset( $settings['aggsPreset'] ) && 
+			array_key_exists($settings['aggsPreset'],  $this->aggs_presets) 
+		)
+			$settings['aggs'] = $this->aggs_presets[ $settings['aggsPreset'] ];
+		
+		
         foreach($settings['aggs'] as $key => $value) {
             foreach($value as $keyM => $valueM) {
                 if($keyM === 'visual') {
@@ -17,6 +83,7 @@ class DataBrowserComponent extends Component {
         }
 
 		$this->settings = $settings;
+		
 	}
 
     private function getCancelSearchUrl($controller) {
@@ -43,6 +110,12 @@ class DataBrowserComponent extends Component {
     }
 	
 	public function beforeRender($controller){
+		
+		$controller->helpers[] = 'Dane.Dataobject';
+		
+		if( is_null($controller->Paginator) ) {
+			$controller->Paginator = $controller->Components->load('Paginator');
+		}
 		
 		if( isset( $controller->request->query['q'] ) ) {
 			$controller->request->query['conditions']['q'] = $controller->request->query['q'];
