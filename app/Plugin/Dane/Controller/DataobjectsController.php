@@ -64,6 +64,22 @@ class DataobjectsController extends AppController
 	    
     }
     
+    public function addInitLayers($layers)
+    {
+
+        if (is_array($layers)) {
+            $this->initLayers = array_merge($this->initLayers, $layers);
+        } else {
+            $this->initLayers[] = $layers;
+        }
+
+    }
+    
+    public function _prepareView()
+    {
+		return $this->load();    
+    }
+    
     public function view() {
 	    	    
 	    $this->load();

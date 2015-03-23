@@ -36,6 +36,7 @@ class Dataobject
     public $global_id;
     public $slug;
     public $hl = null;
+    public $classes = array();
     
 
     public function __construct($params = array())
@@ -76,6 +77,12 @@ class Dataobject
 
     }
 
+	public function getClasses() {
+		$output = $this->classes;
+		$output[] = 'objclass';
+		return $output;
+	}
+	
     public function getLayer($layer)
     {
         return array_key_exists($layer, $this->layers) ? $this->layers[$layer] : false;

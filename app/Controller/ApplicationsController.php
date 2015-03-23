@@ -41,16 +41,17 @@ class ApplicationsController extends AppController
     
     }
     
-    public function loadDatasetBrowser($dataset)
+    public function loadDatasetBrowser($dataset, $options = array())
     {
-	    	    
-	    $this->Components->load('Dane.DataBrowser', array(
+	    
+	    $options = array_merge(array(
             'conditions' => array(
 	            'dataset' => $dataset,
             ),
             'aggsPreset' => $dataset,
-        ));
-        
+        ), $options);
+	    	    
+	    $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
         	    
     }

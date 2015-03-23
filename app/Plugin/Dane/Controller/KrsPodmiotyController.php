@@ -147,7 +147,8 @@ class KrsPodmiotyController extends DataobjectsController
 			// 'perPage' => 3,
 		));
 		*/
-
+		
+		/*
         if ($this->object->getData('ostatni_wpis_id')) {
 
 
@@ -170,6 +171,7 @@ class KrsPodmiotyController extends DataobjectsController
             $this->set('historia', $this->API->getObjects());
 
         }
+        */
 
 
         /*
@@ -289,6 +291,15 @@ class KrsPodmiotyController extends DataobjectsController
         $this->set('organy', $organy);
 
 
+		/*
+		$zamowienia = $this->Dataobject->find('all', array(
+			'conditions' => array(
+				'dataset' => 'zamowienia_publiczne',
+				'krs_podmioty.'
+			),
+			'limit' => 9,
+		));
+		
         $zamowienia = $this->API->search(array(
             'limit' => 9,
             'conditions' => array(
@@ -310,6 +321,7 @@ class KrsPodmiotyController extends DataobjectsController
         if ($dotacje)
             $desc_bodies_parts[] = 'otrzymane dotacje';
         $this->set('dotacje', $this->API->getObjects());
+        */
 
         $desc_bodies_parts[] = 'odpis z KRS';
 
@@ -341,7 +353,8 @@ class KrsPodmiotyController extends DataobjectsController
     {
 
         parent::_prepareView();
-
+		
+		/*
         $historia = $this->API->searchDataset('msig_zmiany', array(
             'limit' => 1000,
             'conditions' => array(
@@ -359,6 +372,7 @@ class KrsPodmiotyController extends DataobjectsController
             ),
         ));
         $this->set('historia', $this->API->getObjects());
+        */
 
         $this->set('title_for_layout', 'Histora zmian w ' . $this->object->getData('nazwa'));
 

@@ -99,7 +99,9 @@ class mpAPISource extends DataSource {
  * Implement the R in CRUD. Calls to ``Model::find()`` arrive here.
  */
     public function read(Model $model, $queryData = array(), $recursive = null) {
-	    	            
+	   	
+	   	// debug($queryData); die();
+	   	         
         /**
          * Here we do the actual count as instructed by our calculate()
          * method above. We could either check the remote source or some

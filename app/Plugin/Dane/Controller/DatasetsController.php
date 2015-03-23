@@ -17,6 +17,9 @@ class DatasetsController extends DataobjectsController
 	    'prawo_hasla' => 'prawo/tematy',
 	    'prawo_urzedowe' => 'prawo/urzedowe',
 	    'prawo_wojewodztwa' => 'prawo/lokalne',
+	    
+	    'instytucje' => 'kto_tu_rzadzi',
+	    'urzednicy' => 'kto_tu_rzadzi/urzednicy',
     );
 
     public function index()

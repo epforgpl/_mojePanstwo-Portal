@@ -74,6 +74,16 @@ Router::connect( '/dane/:controller/:slug/:id', array(
 ), array( 'id' => '[0-9]+' ) );
 */
 
+
+
+Router::connect('/dane', array('plugin' => 'Dane', 'controller' => 'Dane', 'action' => 'view'));
+
+Router::connect('/dane/zbiory', array(
+	'plugin' => 'Dane', 
+	'controller' => 'Dane', 
+	'action' => 'zbiory'
+));
+
 Router::connect('/dane/:alias', array(
 	'plugin' => 'Dane', 
 	'controller' => 'Datasets', 
@@ -86,36 +96,48 @@ Router::connect('/dane/:alias', array(
 
 
 
-Router::connect('/dane/:controller/:id', array(
-	'plugin' => 'Dane', 
-	'action' => 'view'
-), array(
-	'id' => '([0-9]+)',
-	'pass' => array('controller', 'id'),
-));
 
-Router::connect('/dane/:controller/:id,', array(
-	'plugin' => 'Dane', 
-	'action' => 'view'
-), array(
-	'id' => '([0-9]+)',
-	'pass' => array('controller', 'id'),
-));
+$map = array(
+	'/:id',
+	'/:id,',
+	array(
+		'pattern' => '/:id,:slug',
+		'pass' => 'slug',
+	),
+);
 
-Router::connect('/dane/:controller/:id,:slug', array(
-	'plugin' => 'Dane', 
-	'action' => 'view'
-), array(
-	'id' => '([0-9]+)',
-	'pass' => array('controller', 'id', 'slug'),
-));
-
-Router::connect('/dane/:controller/:id,:slug/:action', array(
-	'plugin' => 'Dane', 
-), array(
-	'id' => '([0-9]+)',
-	'pass' => array('controller', 'id', 'slug'),
-));
-
-
+foreach( $map as $m ) {
+	
+	if( is_string($m) )
+		$m = array(
+			'pattern' => $m,
+		);
+		
+	$pass =  array('controller', 'id');
+	
+	if( isset($m['pass']) ) {
+		
+		if( is_string($m['pass']) )
+			$pass[] = $m['pass'];
+		elseif( is_array($m['pass']) )
+			$pass = array_merge($pass, $m['pass']);
+		
+	}
+	
+	Router::connect('/dane/:controller' . $m['pattern'] , array(
+		'plugin' => 'Dane', 
+		'action' => 'view'
+	), array(
+		'id' => '([0-9]+)',
+		'pass' => $pass,
+	));
+	
+	Router::connect('/dane/:controller' . $m['pattern'] . '/:action' , array(
+		'plugin' => 'Dane', 
+	), array(
+		'id' => '([0-9]+)',
+		'pass' => $pass,
+	));
+	
+}
 

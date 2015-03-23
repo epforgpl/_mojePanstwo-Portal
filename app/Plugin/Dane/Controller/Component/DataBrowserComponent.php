@@ -3,6 +3,7 @@ class DataBrowserComponent extends Component {
 	
 	public $settings = array();
 	public $conditions = array();
+	public $order = array();
 	private $Dataobject = false;
 	private $aggs_visuals_map = array();
 	
@@ -234,7 +235,13 @@ class DataBrowserComponent extends Component {
         if(isset($query['conditions']['q']))
             unset($query['conditions']['q']);
 
-        if(count(@array_count_values($query)) > 0 || count($query['conditions']) > 0)
+        if(
+        	count(@array_count_values($query)) || 
+        	(
+	        	isset($query['conditions']) && 
+        		count($query['conditions'])
+        	)
+        )
             $query = '?' . http_build_query($query);
         else
             $query = '';
@@ -287,7 +294,9 @@ class DataBrowserComponent extends Component {
 		if( !property_exists($controller, 'Dataobject') )
 			$controller->Dataobject = ClassRegistry::init('Dane.Dataobject');
 		
-		$controller->Paginator->settings = $this->getSettings();		
+		$controller->Paginator->settings = $this->getSettings();
+		// $controller->Paginator->settings['order'] = 'score desc';
+		// debug($controller->Paginator->settings); die();	
 		$hits = $controller->Paginator->paginate('Dataobject');
 
 	    $controller->set('dataBrowser', array(
@@ -308,8 +317,9 @@ class DataBrowserComponent extends Component {
 			'paramType' => 'querystring',
 			'conditions' => $conditions,
 			'aggs' => $this->getSettingsForField('aggs'),
+			'order' => $this->getSettingsForField('order'),
 		);
-				
+						
 		if( isset($conditions['q']) )
 			$output['highlight'] = true;
 		
@@ -321,9 +331,13 @@ class DataBrowserComponent extends Component {
 		
 		$params = isset( $this->queryData[$field] ) ? $this->queryData[$field] : array();
 				
-		if( isset($this->settings[$field]) )
-			$params = array_merge($params, $this->settings[$field]);
-			
+		if( isset($this->settings[$field]) ) {
+			if( is_array($this->settings[$field]) )
+				$params = array_merge($params, $this->settings[$field]);
+			else
+				$params = $this->settings[$field];
+		}
+		
 		return $params;
 		
 	}

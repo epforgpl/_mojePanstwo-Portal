@@ -26,7 +26,12 @@ class KtoTuRzadziController extends ApplicationsController
     {
         
         $this->setMenuSelected();
-        $this->loadDatasetBrowser('instytucje');
+        
+        $options = array();
+        if( !isset($this->request->query['q']) )
+        	$options['order'] = 'weight desc';
+        
+        $this->loadDatasetBrowser('instytucje', $options);
                 
     }
     

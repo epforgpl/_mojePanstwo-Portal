@@ -100,7 +100,7 @@ class PaszportAppController extends AppController
         */
 
         $this->OAuth->allow();
-        $this->PassportApi = $this->API->Paszport();
+        // $this->PassportApi = $this->API->Paszport();
         $this->Session->write('Config.language', Configure::read('Config.language'));
     }
 
