@@ -8,7 +8,7 @@ echo $this->Element('dataobject/pageBegin');
 ?>
 
     <div class="prawo row">
-        <div class="col-md-2 objectSide">
+        <div class="col-md-3 objectSide">
 
             <div class="objectSideInner">
 
@@ -142,12 +142,14 @@ echo $this->Element('dataobject/pageBegin');
             </div>
 
         </div>
-        <div class="col-md-10 nopadding">
+        <div class="col-md-7 nopadding">
             <div class="object">
-                <?= $this->Document->place( $object->getData('dokument_id') ) ?>
+                <?= $this->dataobject->feed($feed); ?>
             </div>
         </div>
+        <div class="col-md-2">
 
+        </div>
     </div>
 
 <?= $this->Element('dataobject/pageEnd'); ?>

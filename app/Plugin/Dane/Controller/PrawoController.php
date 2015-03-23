@@ -20,6 +20,19 @@ class PrawoController extends DataobjectsController
     );
     
     
+    public $menu = array(
+        'items' => array(
+	        array(
+	            'id' => '',
+	            'label' => 'Treść',
+	        ),
+	        array(
+	            'id' => 'feed',
+	            'label' => 'Aktualności dla tego aktu',
+	        ),
+        ),
+    );
+    
 	
 	
     public function hasla()
@@ -118,7 +131,14 @@ class PrawoController extends DataobjectsController
         */
 
     // }
-
+	
+	public function view()
+	{
+		
+		$this->load();
+		
+	}
+	
     public function tekst_aktualny()
     {
 

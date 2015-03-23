@@ -291,5 +291,16 @@ class mpAPISource extends DataSource {
         return $res;
 	    
     }
+    
+    public function loadDocument($id, $package = 1)
+    {
+	    
+	    return $this->request('docs/' . $id . '.' . $this->config['ext'], array(
+	        'data' => array(
+		        'package' => $package,
+	        ),
+        ));
+        	    
+    }
 
 }
