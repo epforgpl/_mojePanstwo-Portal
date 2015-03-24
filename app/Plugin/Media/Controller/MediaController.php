@@ -8,18 +8,12 @@ class MediaController extends ApplicationsController
         'menu' => array(
             array(
                 'id' => 'twitter',
-                'label' => 'Twitter',
-                'dropdown' => array(
-                    array(
-                        'id' => 'twitter',
-                        'label' => 'Wpisy'
-                    ),
-                    array(
-                        'id' => 'twitter_konta',
-                        'label' => 'Konta'
-                    )
-                )
+                'label' => 'Tweety'
             ),
+            array(
+                'id' => 'twitter_konta',
+                'label' => 'Konta'
+            )
         ),
         'title' => 'Media',
         'subtitle' => 'media',
