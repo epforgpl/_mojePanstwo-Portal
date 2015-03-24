@@ -34,7 +34,8 @@
             color: #157Ab5;
         }
     }
-    .menu {
+
+  .menu {
         position: absolute;
         bottom: 0;
         left: 0;
@@ -42,32 +43,77 @@
         height: @menuSize;
 
         ul {
-            margin: 0 -18px;
-            padding: 0;
-            height: 100%;
-
-            li {
-                height: @menuSize;
-                margin: 0 20px;
-                float: left;
-                display: block;
-
-                &.active {
-                    border-bottom: 4px solid #63afea;
-                    a {
-	                    color: #63afea;
-
-                    }
-                }
-
-                a {
-                    display: block;
-                    color: #ffffff;
-                    font-size: 16px;
-                    font-weight: bold;
-                    margin: 18px 0;
-                }
+          border: none;
+          border-radius: none;
+          margin: 0;
+          margin-top: 1px;
+          height: 100%;
+          li {
+            border: none;
+            border-radius: none;
+            margin: 0;
+            a {
+              color: #ffffff;
+              font-size: 16px;
+              font-weight: bold;
+              border: none;
+              border-bottom: 4px solid none;
+              padding: 16px 20px;
+              margin: 0;
+              &:hover {
+                background: none;
+                border: none;
+                border-bottom: 4px solid #63afea;
+                margin: 0;
+              }
+              span.caret {
+                margin-left: 5px;
+              }
+              &:focus {
+                background: none;
+              }
             }
+            &:hover {
+              border: none;
+            }
+            &.open, &:focus {
+              a {
+                background: none;
+                border-bottom: 4px solid #63afea;
+              }
+            }
+            &.active {
+              a {
+                background: none;
+                border: none;
+                border-bottom: 4px solid #63afea;
+                margin: 0;
+                &:hover {
+                  color: #fff;
+                }
+              }
+            }
+            ul {
+              li {
+                a {
+                  display: block;
+                  border: none !important;
+                  background: #fff !important;
+                  color: #157AB5;
+                  padding: 5px 20px;
+                  font-size: 13px;
+                  &:hover {
+                    border: none !important;
+                  }
+                }
+                a {
+                  &:hover {
+                    color: #157AB5 !important;
+                  }
+                }
+              }
+            }
+          }
         }
     }
 
