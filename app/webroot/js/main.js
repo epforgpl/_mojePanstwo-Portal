@@ -165,11 +165,7 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 
     _mPviewport.sizeMarker = checkSizeMarker;
 
-    /*HACK FOR BETA LOGO CHANGE*/
-    if ($.cookie('_mPFirstTime') == null)
-        $.cookie('_mPFirstTime', 1);
-
-    if (($.cookie('_mPViewport') == null) || ($.cookie('_mPViewport') != checkSizeMarker)) {
+    /*if (($.cookie('_mPViewport') == null) || ($.cookie('_mPViewport') != checkSizeMarker)) {
         var rescaleOverlay = $('<div></div>').css({
                 'position': 'fixed',
                 'top': 0,
@@ -212,7 +208,7 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
     } else {
         $.removeCookie('_mPViewportReload');
         $.removeCookie('_mPViewportCookieAvailable');
-    }
+     }*/
 
     /*COOKIE LAW*/
     var cookieLaw,
