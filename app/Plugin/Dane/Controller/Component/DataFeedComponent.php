@@ -36,6 +36,7 @@ class DataFeedComponent extends Component {
 
 	    $controller->set('dataFeed', array(
 		    'hits' => $hits,
+		    'preset' => $this->settings['preset'],
 	    ));
 		
 	}
@@ -50,7 +51,10 @@ class DataFeedComponent extends Component {
 			'conditions' => $conditions,
 			'feed' => $this->settings['feed'],
 		);
-								
+						
+		if( isset($this->settings['context']) )
+			$output['context'] = $this->settings['context'];
+				
 		if( isset($conditions['q']) )
 			$output['highlight'] = true;
 		

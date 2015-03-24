@@ -87,6 +87,19 @@
 <body>
 <div id="_wrapper">
     <header>
+        <div id="_mPCockpitMobile">
+            <div class="_mPLogo">
+                <a href="/" target="_self">
+                    <img src="/icon/moje_panstwo_logo.svg" title="moje Państwo"/>
+                </a>
+            </div>
+            <div class="_mPShowMenu">
+                <button type="button" class="tcon tcon-menu--xcross" aria-label="toggle menu">
+                    <span class="tcon-menu__lines" aria-hidden="true"></span>
+                    <span class="tcon-visuallyhidden">toggle menu</span>
+                </button>
+            </div>
+        </div>
         <?php echo $this->Element('bar', array(
             'mode' => @$statusbarMode,
             'applications' => array(

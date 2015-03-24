@@ -60,6 +60,10 @@ class Dataobject
             $this->layers['highlight'] = $params['highlight'][0];
         }
         
+        if (isset($params['contexts'])) {
+            $this->contexts = $params['contexts'];
+        }
+        
         $temp = array();
         foreach( $this->data as $key => $val ) {
         

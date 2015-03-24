@@ -53,4 +53,31 @@
             //favorite
         }
     });
+    $('#_mPCockpitMobile ._mPShowMenu > button').click(function () {
+        var that = $(this);
+
+        if (that.hasClass('open')) {
+            that.removeClass('tcon-transform open');
+            $('#_mPCockpitMobile').css('z-index', '3');
+            $('#_main').stop(true, false).animate({
+                'margin-left': '0'
+            }, {queue: false});
+            $('#_mPCockpit ._mPBasic').stop(true, false).animate({
+                'margin-left': '-100px'
+            }, {queue: false});
+        } else {
+            that.addClass('tcon-transform open');
+            $('#_main').stop(true, false).animate({
+                'margin-left': '100px'
+            }, {queue: false});
+            $('#_mPCockpit ._mPBasic').stop(true, false).animate({
+                'margin-left': '0'
+            }, {
+                queue: false,
+                complete: function () {
+                    $('#_mPCockpitMobile').css('z-index', '1');
+                }
+            });
+        }
+    })
 })(jQuery);

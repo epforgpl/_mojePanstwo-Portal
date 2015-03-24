@@ -82,6 +82,7 @@ class DataobjectsController extends AppController
 	    
 	    $this->Components->load('Dane.DataFeed', array(
             'feed' => $this->object->getDataset() . '/' . $this->object->getId(),
+            'preset' => $this->object->getDataset(),
         ));
 	    
 	    $this->render('Dane.Dataobjects/feed');
