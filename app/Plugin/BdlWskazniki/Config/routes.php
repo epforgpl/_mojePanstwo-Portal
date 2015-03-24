@@ -1,4 +1,4 @@
 <?
 
-	Router::connect('/krs', array('plugin' => 'Krs', 'controller' => 'Krs', 'action' => 'view'));
-	Router::connect('/krs/:action', array('plugin' => 'Krs', 'controller' => 'Krs'));
+	Router::connect('/bdlwskazniki', array('plugin' => 'BdlWskazniki', 'controller' => 'BdlWskazniki', 'action' => 'view'));
+	Router::connect('/bdlwskazniki/:action', array('plugin' => 'BdlWskazniki', 'controller' => 'BdlWskazniki'));

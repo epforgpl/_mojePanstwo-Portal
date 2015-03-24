@@ -14,6 +14,10 @@ class KrsController extends ApplicationsController
 				'id' => 'osoby',
 				'label' => 'Osoby',
 			),
+            array(
+                'id' => 'msig',
+                'label' => 'Monitor Sądowy i Gospodarczy',
+            ),
 		),
 		'title' => 'Krajowy Rejestr Sądowy',
 		'subtitle' => 'Dane gospodarcze o firmach i osobach',
@@ -33,5 +37,8 @@ class KrsController extends ApplicationsController
 	    $this->loadDatasetBrowser('krs_osoby');
     }
     
-
+    public function msig()
+    {
+        $this->loadDatasetBrowser('msig');
+    }
 } 

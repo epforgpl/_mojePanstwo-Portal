@@ -728,7 +728,7 @@ class UsersController extends PaszportAppController
      */
     public function add()
     {
-        if ($this->request->isPost()) {
+        if($this->request->isPost()) {
             $to_save = $this->data;
             $user = $this->PassportApi->User()->add($to_save);
             if (isset($user['user'])) {
@@ -750,9 +750,24 @@ class UsersController extends PaszportAppController
                 }
             }
         }
-        $languages = $this->PassportApi->findAsList('languages', array('fields' => array('id', 'label')));
-        $groups = $this->PassportApi->findAsList('groups', array('fields' => array('id', 'label')));
-        foreach ($groups['group'] as &$group) {
+
+        //$languages = $this->PassportApi->findAsList('languages', array('fields' => array('id', 'label')));
+        $languages = array(
+            'language' => array(
+                'Polski',
+                'English'
+            )
+        );
+
+        //$groups = $this->PassportApi->findAsList('groups', array('fields' => array('id', 'label')));
+        $groups = array(
+            'group' => array(
+                'LC_PERSONAL',
+                'LC_INSTITUTION'
+            )
+        );
+
+        foreach($groups['group'] as &$group) {
             $group = __d('paszport', $group, true);
         }
 

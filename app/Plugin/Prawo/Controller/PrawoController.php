@@ -22,6 +22,10 @@ class PrawoController extends ApplicationsController
 				'id' => 'lokalne',
 				'label' => 'Prawo lokalne',
 			),
+            array(
+                'id' => 'projekty',
+                'label' => 'Projekty aktów prawnych',
+            ),
 		),
 		'title' => 'Prawo',
 		'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce',
@@ -30,10 +34,8 @@ class PrawoController extends ApplicationsController
 	
     public function view()
     {
-        
         $this->setMenuSelected();
         $this->loadDatasetBrowser('prawo');
-                
     }
 
     public function tematy()
@@ -49,6 +51,11 @@ class PrawoController extends ApplicationsController
     public function lokalne()
     {
 	    $this->loadDatasetBrowser('prawo_wojewodztwa');
+    }
+
+    public function projekty()
+    {
+        $this->loadDatasetBrowser('prawo_projekty');
     }
 
 } 

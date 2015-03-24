@@ -1,7 +1,32 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Marek
- * Date: 2015-03-23
- * Time: 13:19
- */ 
+
+App::uses('ApplicationsController', 'Controller');
+
+class MediaController extends ApplicationsController
+{
+    public $settings = array(
+        'menu' => array(
+            array(
+                'id' => 'twitter',
+                'label' => 'Tweety'
+            ),
+            array(
+                'id' => 'twitter_konta',
+                'label' => 'Konta'
+            )
+        ),
+        'title' => 'Media',
+        'subtitle' => 'media',
+        'headerImg' => 'krs',
+    );
+
+    public function twitter()
+    {
+        $this->loadDatasetBrowser('twitter');
+    }
+
+    public function twitter_konta()
+    {
+        $this->loadDatasetBrowser('twitter_accounts');
+    }
+}

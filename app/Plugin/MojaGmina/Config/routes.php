@@ -1,4 +1,7 @@
 <?php
+
+Router::connect('/moja_gmina/:action', array('plugin' => 'MojaGmina', 'controller' => 'MojaGmina'));
+
 Router::connect(
     '/moja_gmina/search',
     array(

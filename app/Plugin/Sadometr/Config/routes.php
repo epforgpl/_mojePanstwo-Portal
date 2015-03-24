@@ -1,4 +1,4 @@
 <?
 
-	Router::connect('/krs', array('plugin' => 'Krs', 'controller' => 'Krs', 'action' => 'view'));
-	Router::connect('/krs/:action', array('plugin' => 'Krs', 'controller' => 'Krs'));
+	Router::connect('/sadometr', array('plugin' => 'Sadometr', 'controller' => 'Sadometr', 'action' => 'view'));
+	Router::connect('/sadometr/:action', array('plugin' => 'Sadometr', 'controller' => 'Sadometr'));

@@ -117,6 +117,41 @@ class DataBrowserComponent extends Component {
 	        ),
 	        */
 	    ),
+        'zamowienia_publiczne' => array(
+            'wartosc_cena' => array(
+                'sum' => array(
+                    'field' => 'zamowienia_publiczne.wartosc_cena',
+                ),
+                'visual' => array(
+                    'label' => 'Wartość zamówień',
+                    'skin' => 'numeric',
+                    'field' => 'zamowienia_publiczne.wartosc_cena',
+                    'currency' => 'pln'
+                ),
+            )
+        ),
+        'krs_osoby' => array(
+            'typ_id' => array(
+                'terms' => array(
+                    'field' => 'krs_osoby.plec',
+                    'include' => array(
+                        'pattern' => '(K|M)'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'krs_osoby.plec',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Płeć',
+                    'skin' => 'pie_chart',
+                    'field' => 'krs_osoby.plec',
+                )
+            )
+        ),
 	    'krs_podmioty' => array(
 	        'typ_id' => array(
 	            'terms' => array(
