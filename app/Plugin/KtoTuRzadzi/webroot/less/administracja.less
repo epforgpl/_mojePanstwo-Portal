@@ -62,8 +62,11 @@
                             position: relative;
                             top: 50%;
                             text-align: center;
+
                             -webkit-transform: translateY(-50%);
+                            -moz-transform: translateY(-50%);
                             -ms-transform: translateY(-50%);
+                            -o-transform: translateY(-50%);
                             transform: translateY(-50%);
                         }
                     }
@@ -94,10 +97,15 @@
                             font-weight: 300;
                             position: absolute;
                             top: 50%;
-                            transform: translate(0, -50%);
                             width: 100%;
                             text-align: center;
                             padding: 0 15px;
+
+                            -webkit-transform: translate(0, -50%);
+                            -moz-transform: translate(0, -50%);
+                            -ms-transform: translate(0, -50%);
+                            -o-transform: translate(0, -50%);
+                            transform: translate(0, -50%);
                         }
 
                         .desc {
