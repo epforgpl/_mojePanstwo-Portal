@@ -9,8 +9,15 @@
                         id="myModalLabel">Rejestracja</h4>
                 </div>
                 <div class="modal-body">
-                    <?php echo $this->Form->create('Paszport', array('plugin' => 'Paszport', 'action' => 'register')); ?>
-
+                    <?php echo $this->Form->create('User', array(
+                        'id' => 'UserRegisterForm',
+                        'url' => $this->Html->url(array(
+                            'plugin' => 'paszport',
+                            'controller' => 'paszport',
+                            'action' => 'register',
+                            'full_base' => true
+                        ))
+                    )); ?>
                             <div class="slide inputForm col-xs-12">
                                 <div class="control-group">
                                     <label class="control-label" for="AccountType">
