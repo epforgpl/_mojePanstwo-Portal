@@ -16,6 +16,11 @@ class KtoTuRzadziController extends ApplicationsController
 				'href' => 'kto_tu_rzadzi/urzednicy',
 				'label' => 'Urzędnicy',
 			),
+            array(
+                'id' => 'instytucje',
+                'href' => 'kto_tu_rzadzi/instytucje',
+                'label' => 'Instytucje publiczne',
+            ),
 		),
 		'title' => 'Kto tu rządzi?',
 		'subtitle' => 'Urzędy i urzędnicy w Polsce',
@@ -40,6 +45,10 @@ class KtoTuRzadziController extends ApplicationsController
         
         $this->loadDatasetBrowser('urzednicy');
                 
+    }
+
+    public function instytucje() {
+        $this->loadDatasetBrowser('instytucje');
     }
 
 } 

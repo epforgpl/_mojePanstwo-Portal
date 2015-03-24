@@ -1,44 +1,51 @@
 <?php
 
 App::uses('ApplicationsController', 'Controller');
-class KrsController extends ApplicationsController
+class SadometrController extends ApplicationsController
 {
 
 	public $settings = array(
 		'menu' => array(
 			array(
 				'id' => '',
-				'label' => 'Organizacje',
+				'label' => 'Orzeczenia sądów administracyjnych',
 			),
 			array(
-				'id' => 'osoby',
-				'label' => 'Osoby',
+				'id' => 'sedziowie',
+				'label' => 'Sędziowie sądów administracyjnych',
 			),
             array(
-                'id' => 'msig',
-                'label' => 'Monitor Sądowy i Gospodarczy',
+                'id' => 'sn_orzeczenia',
+                'label' => 'Orzeczenia Sądu Najwyższego',
             ),
+            array(
+                'id' => 'sp_orzeczenia',
+                'label' => 'Orzeczenia Sądów Powszechnych',
+            )
 		),
-		'title' => 'Krajowy Rejestr Sądowy',
-		'subtitle' => 'Dane gospodarcze o firmach i osobach',
-		'headerImg' => 'krs',
+		'title' => 'Sądometr',
+		'subtitle' => 'sadometr',
+		'headerImg' => 'sadometr',
 	);
 	
     public function view()
     {
-        
         $this->setMenuSelected();
-        $this->loadDatasetBrowser('krs_podmioty');
-                
+        $this->loadDatasetBrowser('sa_orzeczenia');
     }
 
-    public function osoby()
+    public function sedziowie()
     {
-	    $this->loadDatasetBrowser('krs_osoby');
+        $this->loadDatasetBrowser('sa_sedziowie');
     }
-    
-    public function msig()
+
+    public function sn_orzeczenia()
     {
-        $this->loadDatasetBrowser('msig');
+        $this->loadDatasetBrowser('sn_orzeczenia');
+    }
+
+    public function sp_orzeczenia()
+    {
+        $this->loadDatasetBrowser('sp_orzeczenia');
     }
 } 

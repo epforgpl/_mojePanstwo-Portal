@@ -1,33 +1,24 @@
 <?php
 
 App::uses('ApplicationsController', 'Controller');
-class KolejeController extends ApplicationsController
+class PatentyController extends ApplicationsController
 {
 
 	public $settings = array(
 		'menu' => array(
 			array(
 				'id' => '',
-				'label' => 'Stacje',
-			),
-			array(
-				'id' => 'linie',
-				'label' => 'Linie',
+				'label' => 'Patenty',
 			),
 		),
-		'title' => 'Koleje',
-		'subtitle' => 'Koleje',
-		'headerImg' => 'kolej',
+		'title' => 'Patenty',
+		'subtitle' => 'Patenty',
+		'headerImg' => 'patenty',
 	);
 	
     public function view()
     {
         $this->setMenuSelected();
-        $this->loadDatasetBrowser('kolej_stacje');
-    }
-
-    public function linie()
-    {
-        $this->loadDatasetBrowser('kolej_linie');
+        $this->loadDatasetBrowser('patenty');
     }
 } 

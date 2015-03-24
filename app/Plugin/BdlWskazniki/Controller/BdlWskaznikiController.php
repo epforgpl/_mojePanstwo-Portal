@@ -1,37 +1,43 @@
 <?php
 
 App::uses('ApplicationsController', 'Controller');
-class KrsController extends ApplicationsController
+class BdlWskaznikiController extends ApplicationsController
 {
 
 	public $settings = array(
 		'menu' => array(
 			array(
 				'id' => '',
-				'label' => 'Organizacje',
+				'label' => 'Wskaźniki',
 			),
 			array(
-				'id' => 'osoby',
-				'label' => 'Osoby',
+				'id' => 'kategorie',
+				'label' => 'Kategorie',
 			),
+            array(
+                'id' => 'grupy',
+                'label' => 'Grupy',
+            ),
 		),
-		'title' => 'Krajowy Rejestr Sądowy',
+		'title' => 'Bank danych lokalnych',
 		'subtitle' => 'Dane gospodarcze o firmach i osobach',
 		'headerImg' => 'krs',
 	);
 	
     public function view()
     {
-        
         $this->setMenuSelected();
-        $this->loadDatasetBrowser('krs_podmioty');
-                
+        $this->loadDatasetBrowser('bdl_wskazniki');
     }
 
-    public function osoby()
+    public function kategorie()
     {
-	    $this->loadDatasetBrowser('krs_osoby');
+	    $this->loadDatasetBrowser('bdl_wskazniki_kategorie');
     }
-    
+
+    public function grupy()
+    {
+        $this->loadDatasetBrowser('bdl_wskazniki_grupy');
+    }
 
 } 

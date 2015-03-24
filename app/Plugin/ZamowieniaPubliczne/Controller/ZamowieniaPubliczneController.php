@@ -16,6 +16,11 @@ class ZamowieniaPubliczneController extends ApplicationsController
 				'href' => 'zamowienia_publiczne/wykonawcy',
 				'label' => 'Wykonawcy',
 			),
+            array(
+                'id' => 'dotacje_unijne',
+                'href' => 'zamowienia_publiczne/dotacje_unijne',
+                'label' => 'Dotacje unijne',
+            ),
 		),
 		'title' => 'Zamówienia Publiczne',
 		'subtitle' => 'Znajdź zamówienie dla swojej firmy - Sprawdzaj kto dostaje zamówienia publiczne',
@@ -24,17 +29,18 @@ class ZamowieniaPubliczneController extends ApplicationsController
 	
     public function view()
     {
-        
         $this->setMenuSelected();
         $this->loadDatasetBrowser('zamowienia_publiczne');
-                
     }
     
     public function wykonawcy()
     {
-        
         $this->loadDatasetBrowser('zamowienia_publiczne_wykonawcy');
-                
+    }
+
+    public function dotacje_unijne()
+    {
+        $this->loadDatasetBrowser('dotacje_ue');
     }
 
 } 

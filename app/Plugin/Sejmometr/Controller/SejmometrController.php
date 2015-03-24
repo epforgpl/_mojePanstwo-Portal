@@ -13,20 +13,86 @@ class SejmometrController extends ApplicationsController
 			array(
 				'id' => 'poslowie',
 				'label' => 'Posłowie',
-			)
+			),
+            array(
+                'id' => 'sejm',
+                'label' => 'Sejm',
+            ),
+            array(
+                'id' => '#',
+                'label' => 'Więcej',
+                'dropdown' => array(
+                    array(
+                        'id' => 'sejm_debaty',
+                        'label' => 'Debaty',
+                    ),
+                    array(
+                        'id' => 'sejm_dezyderaty',
+                        'label' => 'Dezyderaty komisji',
+                    ),
+                    array(
+                        'id' => 'sejm_druki',
+                        'label' => 'Druki',
+                    ),
+                    array(
+                        'id' => 'sejm_glosowania',
+                        'label' => 'Głosowania',
+                    ),
+                    array(
+                        'id' => 'sejm_interpelacje',
+                        'label' => 'Interpelacje',
+                    ),
+                    array(
+                        'id' => 'sejm_kluby',
+                        'label' => 'Kluby',
+                    ),
+                    array(
+                        'id' => 'sejm_komisje',
+                        'label' => 'Komisje',
+                    ),
+                    array(
+                        'id' => 'sejm_komunikaty',
+                        'label' => 'Komunikaty Kancelarii Sejmu',
+                    ),
+                    array(
+                        'id' => 'sejm_posiedzenia',
+                        'label' => 'Posiedzenia',
+                    ),
+                    array(
+                        'id' => 'sejm_posiedzenia_punkty',
+                        'label' => 'Punkty porządku dziennego',
+                    ),
+                    array(
+                        'id' => 'sejm_wystapienia',
+                        'label' => 'Wystąpienia posłów',
+                    ),
+                    array(
+                        'id' => 'sejm_komisje_opinie',
+                        'label' => 'Opinie komisji sejmowych',
+                    ),
+                    array(
+                        'id' => 'sejm_komisje_uchwaly',
+                        'label' => 'Uchwały komisji',
+                    ),
+                    array(
+                        'id' => 'poslowie_oswiadczenia_majatkowe',
+                        'label' => 'Oświadczenia majątkowe',
+                    ),
+                    array(
+                        'id' => 'poslowie_rejestr_korzysci',
+                        'label' => 'Rejestr korzyści',
+                    ),
+                    array(
+                        'id' => 'poslowie_wspolpracownicy',
+                        'label' => 'Współpracownicy',
+                    )
+                )
+            ),
 		),
 		'title' => 'Sejmometr',
 		'subtitle' => 'Dane o pracy Sejmu i posłów',
 		'headerImg' => 'sejmometr',
 	);
-
-	
-	public function poslowie()
-    {
-        
-        $this->loadDatasetBrowser('poslowie');
-                
-    }
 	
     public function index()
     {
@@ -419,9 +485,93 @@ class SejmometrController extends ApplicationsController
         $this->set(compact('info'));
     }
 
-    public function posiedzenia()
+    public function poslowie()
     {
+        $this->loadDatasetBrowser('poslowie');
+    }
 
+    public function sejm()
+    {
+        $this->loadDatasetBrowser('sejm');
+    }
 
+    public function sejm_debaty()
+    {
+        $this->loadDatasetBrowser('sejm_debaty');
+    }
+
+    public function sejm_dezyderaty()
+    {
+        $this->loadDatasetBrowser('sejm_dezyderaty');
+    }
+
+    public function sejm_druki()
+    {
+        $this->loadDatasetBrowser('sejm_druki');
+    }
+
+    public function sejm_glosowania()
+    {
+        $this->loadDatasetBrowser('sejm_glosowania');
+    }
+
+    public function sejm_interpelacje()
+    {
+        $this->loadDatasetBrowser('sejm_interpelacje');
+    }
+
+    public function sejm_kluby()
+    {
+        $this->loadDatasetBrowser('sejm_kluby');
+    }
+
+    public function sejm_komisje()
+    {
+        $this->loadDatasetBrowser('sejm_komisje');
+    }
+
+    public function sejm_komunikaty()
+    {
+        $this->loadDatasetBrowser('sejm_komunikaty');
+    }
+
+    public function sejm_posiedzenia()
+    {
+        $this->loadDatasetBrowser('sejm_posiedzenia');
+    }
+
+    public function sejm_posiedzenia_punkty()
+    {
+        $this->loadDatasetBrowser('sejm_posiedzenia_punkty');
+    }
+
+    public function sejm_wystapienia()
+    {
+        $this->loadDatasetBrowser('sejm_wystapienia');
+    }
+
+    public function sejm_komisje_opinie()
+    {
+        $this->loadDatasetBrowser('sejm_komisje_opinie');
+    }
+
+    public function sejm_komisje_uchwaly()
+    {
+        $this->loadDatasetBrowser('sejm_komisje_uchwaly');
+    }
+
+    public function poslowie_oswiadczenia_majatkowe()
+    {
+        $this->loadDatasetBrowser('poslowie_oswiadczenia_majatkowe');
+    }
+
+    public function poslowie_rejestr_korzysci()
+    {
+        $this->loadDatasetBrowser('poslowie_rejestr_korzysci');
+    }
+
+    public function poslowie_wspolpracownicy()
+    {
+        $this->loadDatasetBrowser('poslowie_wspolpracownicy');
     }
 }
