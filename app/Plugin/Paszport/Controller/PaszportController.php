@@ -23,11 +23,50 @@ class PaszportController extends ApplicationsController
 		'headerImg' => 'paszport',
 	);
 
+    public function beforeFilter() {
+        parent::beforeFilter();
+        if($this->Auth->loggedIn()) {
+            $this->settings['menu'] = array(
+                array(
+                    'id' => '',
+                    'label' => 'Profil',
+                    'href' => 'paszport'
+                ),
+                array(
+                    'id' => 'klucze',
+                    'label' => 'Klucze API',
+                    'href' => 'paszport/klucze'
+                ),
+                array(
+                    'id' => 'logi',
+                    'label' => 'Logi',
+                    'href' => 'paszport/logi'
+                )
+            );
+        }
+    }
+
+    public function profile()
+    {
+
+    }
+
+    public function keys()
+    {
+
+    }
+
+    public function logs()
+    {
+
+    }
+
     public function login()
     {
         if($this->request->is('post')) {
             try {
                 $user = $this->Auth->login();
+                $this->redirect($this->Auth->redirectUrl());
             } catch(Exception $e) {
                 $this->Session->setFlash(
                     __($e->getMessage()),
