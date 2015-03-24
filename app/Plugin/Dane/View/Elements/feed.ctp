@@ -64,7 +64,6 @@ $this->Dataobject->setObject($object);
                 }
                 if ($file_exists) {
                     echo $this->element('Dane.' . $file, array(
-                        'item' => $item,
                         'object' => $object,
                         'hlFields' => $hlFields,
                         'hlFieldsPush' => $hlFieldsPush,
