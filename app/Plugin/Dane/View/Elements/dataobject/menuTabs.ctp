@@ -1,6 +1,6 @@
 <? if (isset($menu) && isset($menu['items'])) { ?>
 
-    <ul class="nav nav-tabs row">
+    <ul class="nav nav-tabs">
         <li class="mobileMenu active visible-xs">
             <a href="#mobileMenu">
                 <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
@@ -9,7 +9,10 @@
         <?
         foreach ($menu['items'] as $m) {
             $classes = array();
-            if ($m['id'] == $menu['selected']) {
+            if(
+	        	isset($menu['selected']) && 
+            	( $m['id'] == $menu['selected'] ) 
+            ) {
                 $classes[] = 'active';
             }
 
@@ -30,11 +33,16 @@
                 $dropdown = true;
                 $classes[] = 'dropdown';
             }
+            
+            $href = $menu['base'];
+            if( $m['id'] )
+            	$href .= '/' . $m['id'];
+            
             ?>
             <li class="<?= implode(' ', $classes) ?>">
                 <a <? if ($dropdown) {
                     echo 'class="dropdown-toggle" data-toggle="dropdown"';
-                } ?>href="<?= isset($m['href']) ? $m['href'] : '#' ?>">
+                } ?>href="<?= $href ?>">
                     <? if (isset($m['icon'])) { ?><span class="<?= $m['icon'] ?>"></span> <? } ?>
                     <?= $m['label'] ?><? if (isset($m['count']) && $m['count']) { ?>
                         <span class="badge"><?= $m['count'] ?></span>

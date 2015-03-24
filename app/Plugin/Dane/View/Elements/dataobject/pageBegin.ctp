@@ -55,44 +55,47 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
         <div
             class="objectPageHeaderContainer topheader <? if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) { ?> krakow<? } ?>">
             <div class="container">
-                <? if ($krsPodmiotyKrakow) { ?>
-                    <div class="krakow col-md-2">
-
-                        <a title="Program Przejrzysty Kraków, prowadzony przez Fundację Stańczyka, ma na celu wieloaspektowy monitoring życia publicznego w Krakowie. W ramach programu prowadzony jest obecnie monitoring Rady Miasta i Dzielnic Krakowa."
-                           href="http://przejrzystykrakow.pl" class="thumb_cont">
-                            <img alt="Przejrzysty Kraków" src="/Dane/img/customObject/krakow/logo_pkrk_black.png"
-                                 onerror="imgFixer(this)" class="thumb">
-                        </a>
-
-                    </div>
-                <? } ?>
-                <div class="<? echo($krsPodmiotyKrakow ? 'col-md-7' : 'col-xs-12'); ?>">
-                    <div class="objectPageHeader">
-                        <?php echo $this->Dataobject->render($object, $renderFile, $objectOptions); ?>
-                    </div>
+                <div class="row">
+	                <? if ($krsPodmiotyKrakow) { ?>
+	                    <div class="krakow col-md-2">
+	
+	                        <a title="Program Przejrzysty Kraków, prowadzony przez Fundację Stańczyka, ma na celu wieloaspektowy monitoring życia publicznego w Krakowie. W ramach programu prowadzony jest obecnie monitoring Rady Miasta i Dzielnic Krakowa."
+	                           href="http://przejrzystykrakow.pl" class="thumb_cont">
+	                            <img alt="Przejrzysty Kraków" src="/Dane/img/customObject/krakow/logo_pkrk_black.png"
+	                                 onerror="imgFixer(this)" class="thumb">
+	                        </a>
+	
+	                    </div>
+	                <? } ?>
+	                <div class="<? echo($krsPodmiotyKrakow ? 'col-md-7' : 'col-xs-12'); ?>">
+	                    <div class="objectPageHeader">
+	                        <?php echo $this->Dataobject->render($object, $renderFile, $objectOptions); ?>
+	                    </div>
+	                </div>
+	                <? /*
+	                <div class="objectButtonsContainer col-md-3">
+	                    <div class="row">
+	                        <ul class="objectButtons">
+	                            <? foreach ($buttons as $button) { ?>
+	                                <li><?
+	                                    $this->Element('dataobject/buttons/' . $button, array(
+	                                        'base_url' => '/dane/' . $object->getDataset() . '/' . $object->getId(),
+	                                    )); ?></li>
+	                            <?  } ?>
+	                        </ul>
+	                    </div>
+	                </div>
+	                */ ?>
                 </div>
-                <? /*
-                <div class="objectButtonsContainer col-md-3">
-                    <div class="row">
-                        <ul class="objectButtons">
-                            <? foreach ($buttons as $button) { ?>
-                                <li><?
-                                    $this->Element('dataobject/buttons/' . $button, array(
-                                        'base_url' => '/dane/' . $object->getDataset() . '/' . $object->getId(),
-                                    )); ?></li>
-                            <?  } ?>
-                        </ul>
-                    </div>
-                </div>
-                */ ?>
             </div>
         </div>
-        <? if (isset($_menu) && !empty($_menu)) { ?>
+
+        <? if (isset($object_menu) && !empty($object_menu)) { ?>
             <div class="menuTabsCont">
                 <div class="container">
                     <?
                     echo $this->Element('Dane.dataobject/menuTabs', array(
-                        'menu' => $_menu,
+                        'menu' => $object_menu,
                     ));
                     ?>
                 </div>

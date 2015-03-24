@@ -3,21 +3,20 @@
 class DocumentHelper extends AppHelper
 {
 
-    public $doc = false;
-
-    public function place($doc)
+    public function place($id)
     {
-
-        $this->doc = $doc;
 		
-		// debug( $this->doc->getId() );
+		App::import("Model", "Document");  
+		$Document = new Document();  
 		
-        return $this->_View->element('Document/view', array(
-            'document' => $this->doc,
-            'documentPackage' => 1,
-        ));
-
-
+		if( $doc = $Document->load($id) ) {
+						
+	        return $this->_View->element('Document/view', array(
+	            'document' => $doc,
+	        ));
+        
+        } else return '';
+        
     }
 
 }

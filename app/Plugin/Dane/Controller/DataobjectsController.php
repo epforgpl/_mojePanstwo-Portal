@@ -16,13 +16,8 @@ class DataobjectsController extends AppController
         'titleprop' => 'name',
     );
     
-    public function loadDocument($document_id, $variable = 'document') {
-	    
-	    debug( $document_id );
-	    $this->set($variable, $document_id);
-	    
-    }
-    
+    public $menu = array();
+            
     public function load() {
 	    
 	    $dataset = isset( $this->request->params['pass'][0] ) ? $this->request->params['pass'][0] : false;
@@ -64,8 +59,7 @@ class DataobjectsController extends AppController
 	    
     }
     
-    public function addInitLayers($layers)
-    {
+    public function addInitLayers($layers) {
 
         if (is_array($layers)) {
             $this->initLayers = array_merge($this->initLayers, $layers);
@@ -75,14 +69,34 @@ class DataobjectsController extends AppController
 
     }
     
-    public function _prepareView()
-    {
+    public function _prepareView() {
 		return $this->load();    
     }
     
     public function view() {
-	    	    
 	    $this->load();
+    }
+        
+    public function feed() {
+	    $this->load();
+	    
+	    $this->Components->load('Dane.DataFeed', array(
+            'feed' => $this->object->getDataset() . '/' . $this->object->getId(),
+        ));
+	    
+	    $this->render('Dane.Dataobjects/feed');
+    }
+    
+    public function beforeRender() {
+	    
+	    $selected = $this->request->params['action'];
+	    if( $selected=='view' )
+	    	$selected = '';
+	    
+	    $this->menu['selected'] = $selected;   
+	    $this->menu['base'] = $this->object->getUrl();   
+	    
+	    $this->set('object_menu', $this->menu);	    
 	    
     }
 

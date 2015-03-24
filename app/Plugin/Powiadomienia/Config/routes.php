@@ -1,7 +1,4 @@
-<?php
+<?
 
-Router::connect('/powiadomienia', array(
-    'plugin' => 'powiadomienia',
-    'controller' => 'powiadomienia',
-    'action' => 'index'
-));
+	Router::connect('/powiadomienia', array('plugin' => 'Powiadomienia', 'controller' => 'Powiadomienia', 'action' => 'view'));
+	Router::connect('/powiadomienia/:action', array('plugin' => 'Powiadomienia', 'controller' => 'Powiadomienia'));
