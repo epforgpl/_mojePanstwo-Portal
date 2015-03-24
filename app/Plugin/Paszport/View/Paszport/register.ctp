@@ -1,15 +1,16 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('paszport', array('plugin' => 'Paszport'))) ?>
 <?= $this->Element('appheader'); ?>
 <div class="objectsPage">
-    <div class="createAccount">
+    <div class="createAccount" id="modalPaszportLoginForm">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title"
-                        id="myModalLabel"><?php echo __d('paszport', "LC_PASZPORT_CREATE_MOTTO") ?></h4>
+                        id="myModalLabel">Rejestracja</h4>
                 </div>
                 <div class="modal-body">
                     <?php echo $this->Form->create('Paszport', array('plugin' => 'Paszport', 'action' => 'register')); ?>
+
                             <div class="slide inputForm col-xs-12">
                                 <div class="control-group">
                                     <label class="control-label" for="AccountType">
