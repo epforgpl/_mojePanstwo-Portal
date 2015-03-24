@@ -142,6 +142,16 @@
                 -moz-background-size: cover;
                 -o-background-size: cover;
                 background-size: cover;
+
+                .temp {
+                    width: 100%;
+                    height: 100%;
+
+                    -webkit-background-size: cover;
+                    -moz-background-size: cover;
+                    -o-background-size: cover;
+                    background-size: cover;
+                }
             }
 
             .slice {
@@ -153,6 +163,11 @@
         .slice {
             min-height: @height;
             height: 100vh;
+
+            > .container {
+                min-height: @height;
+                height: 100vh;
+            }
         }
     }
 }
