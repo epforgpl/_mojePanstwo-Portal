@@ -46,7 +46,24 @@ class PaszportController extends ApplicationsController
         if($this->request->isPost()) {
             $user = new User();
             $response = $user->register($this->data);
-            debug($response);
+            if(isset($response['errors']) && is_array($response['errors']) && count($response['errors']) > 0) {
+                foreach($response['errors'] as $field => $error) {
+                    $this->Session->setFlash(
+                        __($error[0]),
+                        'default',
+                        array(),
+                        'auth'
+                    );
+                }
+            } elseif(isset($response['user']) && $response['user']) {
+                /**
+                 * @todo Logowanie użytkownika i dodatkowo po stronie API zapisywanie
+                 */
+                var_export($response['user']);
+                die();
+            } else {
+                throw new BadRequestException();
+            }
         }
 
         $languages = array(
