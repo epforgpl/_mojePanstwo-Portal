@@ -33,9 +33,16 @@ class DaneController extends ApplicationsController
     
     public function zbiory()
     {
-        
-        $this->loadDatasetBrowser('zbiory');
-                
+
+        $this->title = 'Zbiory danych';
+        $this->loadDatasetBrowser('zbiory', array(
+	        'conditions' => array(
+		        'dataset' => 'zbiory',
+		        'zbiory.katalog' => '1',
+	        ),
+	        'order' => '_title asc',
+        ));
+                        
     }
 
 } 

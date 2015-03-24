@@ -12,13 +12,16 @@ class ApplicationsController extends AppController
 		'headerImg' => false,
 	);
 	
+	public $title = false;
+	public $description = false;
+	
 	public function beforeFilter() {
 				
 		$this->settings = array_merge($this->_settings, $this->settings);
 		parent::beforeFilter();
 					
 	}
-	
+		
 	public function beforeRender()
     {
 	    	      
@@ -27,10 +30,14 @@ class ApplicationsController extends AppController
 	    
         $this->set('appSettings', $this->settings);
         
-        if( isset($this->settings['title']) )
+        if( $this->title )
+	        $this->set('title_for_layout', $this->title);
+        elseif( isset($this->settings['title']) )
 	        $this->set('title_for_layout', $this->settings['title']);
         
-        if( isset($this->settings['subtitle']) )
+        if( $this->description )
+	        $this->setMetaDesc($this->description);
+        elseif( isset($this->settings['subtitle']) )
 	        $this->setMetaDesc($this->settings['subtitle']);
     }
     

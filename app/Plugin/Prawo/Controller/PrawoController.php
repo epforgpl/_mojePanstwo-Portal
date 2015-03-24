@@ -35,6 +35,7 @@ class PrawoController extends ApplicationsController
     public function view()
     {
         $this->setMenuSelected();
+        $this->title = 'Akty prawne - Prawo';
         $this->loadDatasetBrowser('prawo');
     }
 

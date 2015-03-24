@@ -8,6 +8,11 @@
 	
 	<div class="row">
 		<form action="" data-url="<?= $dataBrowser['cancel_url']; ?>" method="get" class="form-horizontal searchForm col-md-8<? if( empty($dataBrowser['aggs']) ) {?> col-md-offset-1<?}?>">
+			
+			<? if( isset($title) ) { ?>
+			<h2><?= $title ?></h2>
+			<? } ?>
+			
 	        <div class="form-group has-feedback">
 	            <div class="col-md-12">
 	                <?

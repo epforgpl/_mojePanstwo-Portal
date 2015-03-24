@@ -161,24 +161,12 @@ class PrawoController extends DataobjectsController
     
     public function tresc()
     {
-				
-        $this->load();
-
-        $dokument_id = false;
-
-        if ($files = $this->object->getLayer('files')) {
-            foreach ($files as $file) {
-                if ($file['slug'] == 'tekst_aktualny') {
-                    $dokument_id = $file['dokument_id'];
-                    break;
-                }
-            }
-        }
 		
-		if( !$dokument_id )
-			$dokument_id = $files[0]['dokument_id'];
+		$url = '/dane/' . $this->request->params['controller'] . '/' . $this->request->params['id'];
+		if( isset($this->request->params['slug']) )
+			$url .= ',' . $this->request->params['slug'];
 		
-		$this->loadDocument($dokument_id, 'document');
+		$this->redirect($url);
 		
     }
 

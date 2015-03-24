@@ -1,4 +1,6 @@
 <?
+	// $this->Combinator->add_libs('css', $this->Less->css('feed', array('plugin' => 'Dane')));
+
 	$hits = $dataFeed['hits'];
 	$preset = $dataFeed['preset'];
 ?>
