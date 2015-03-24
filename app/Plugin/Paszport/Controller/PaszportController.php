@@ -1,6 +1,7 @@
 <?php
 
 App::uses('ApplicationsController', 'Controller');
+App::import('Model', 'Paszport.User');
 
 class PaszportController extends ApplicationsController
 {
@@ -22,33 +23,85 @@ class PaszportController extends ApplicationsController
 		'headerImg' => 'paszport',
 	);
 
+    public function beforeFilter() {
+        parent::beforeFilter();
+        if($this->Auth->loggedIn()) {
+            $this->settings['menu'] = array(
+                array(
+                    'id' => '',
+                    'label' => 'Profil',
+                    'href' => 'paszport'
+                ),
+                array(
+                    'id' => 'klucze',
+                    'label' => 'Klucze API',
+                    'href' => 'paszport/klucze'
+                ),
+                array(
+                    'id' => 'logi',
+                    'label' => 'Logi',
+                    'href' => 'paszport/logi'
+                )
+            );
+        }
+    }
+
+    public function profile()
+    {
+
+    }
+
+    public function keys()
+    {
+
+    }
+
+    public function logs()
+    {
+
+    }
+
     public function login()
     {
+        if($this->request->is('post')) {
+            try {
+                $user = $this->Auth->login();
+                $this->redirect($this->Auth->redirectUrl());
+            } catch(Exception $e) {
+                $this->Session->setFlash(
+                    __($e->getMessage()),
+                    'default',
+                    array(),
+                    'auth'
+                );
+            }
+        }
+
         $this->setMenuSelected();
     }
 
     public function register()
     {
         if($this->request->isPost()) {
-            $to_save = $this->data;
-            $user = $this->PassportApi->User()->add($to_save);
-            if (isset($user['user'])) {
-                $this->Session->setFlash(__d('paszport', 'LC_PASZPORT_REGISTRATION_COMPLETE'), 'alert', array('class' => 'alert-success'));
-                if ($this->Session->read('App.gatemode')) {
-                    $this->redirect(array('action' => 'gate'));
+            $user = new User();
+            $response = $user->register($this->data);
+            if(isset($response['errors']) && is_array($response['errors']) && count($response['errors']) > 0) {
+                foreach($response['errors'] as $field => $error) {
+                    $this->Session->setFlash(
+                        __($error[0]),
+                        'default',
+                        array(),
+                        'auth'
+                    );
                 }
-                $this->redirect(array('action' => 'login'));
+            } elseif(isset($response['user']) && $response['user']) {
+                /**
+                 * @todo Logowanie użytkownika i dodatkowo po stronie API zapisywanie
+                 */
+                var_export($response['user']);
+                die();
             } else {
-                $this->Session->setFlash(__d('paszport', 'LC_PASZPORT_REGISTRATION_FAILED'), 'alert', array('class' => 'alert-error'));
-
-                $this->loadModel('Paszport.User');
-                $__p = function ($translation_key) {
-                    return __d('paszport', $translation_key);
-                };
-
-                foreach($user['errors'] as $key => $err_list) {
-                    $this->User->validationErrors[$key] = array_map($__p, $err_list);
-                }
+                throw new BadRequestException();
             }
         }
 

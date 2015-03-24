@@ -11,6 +11,26 @@ class ApplicationsController extends AppController
 		'subtitle' => '',
 		'headerImg' => false,
 	);
+
+    public $components = array(
+        'Session',
+        'Auth' => array(
+            'loginRedirect' => array(
+                'controller' => 'paszport',
+                'plugin' => 'paszport',
+                'action' => 'login'
+            ),
+            'logoutRedirect' => array(
+                'controller' => 'paszport',
+                'plugin' => 'paszport',
+                'action' => 'logout',
+                'home'
+            ),
+            'authenticate' => array(
+                'Paszport'
+            )
+        )
+    );
 	
 	public $title = false;
 	public $description = false;
@@ -18,6 +38,11 @@ class ApplicationsController extends AppController
 	public function beforeFilter() {
 				
 		$this->settings = array_merge($this->_settings, $this->settings);
+
+        $this->Auth->authenticate = array(
+            'Paszport'
+        );
+
 		parent::beforeFilter();
 					
 	}

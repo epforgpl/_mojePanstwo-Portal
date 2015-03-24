@@ -1,3 +1,21 @@
+msgid "LC_PASZPORT_USERNAME_MUST_BE_UNIQUE"
+msgstr "Użytkownik o takiej nazwie już istnieje"
+
+msgid "LC_PASZPORT_ALPHANUMERIC"
+msgstr "Nazwa użytkownika może składać się tylko ze znaków alfanumerycznych"
+
+msgid "LC_PASZPORT_PASSWORD_REQUIRED_AND_LENGTH"
+msgstr "Hasło musi składać się z przynajmniej 6 znaków"
+
+msgid "LC_PASZPORT_PASSWORDS_DONT_MATCH"
+msgstr "Podane hasła różnią się od siebie"
+
+msgid "LC_PASZPORT_EMAIL_MUST_BE_UNIQUE"
+msgstr "Użytkownik o takim adresie e-mail już istnieje"
+
+msgid "LC_PASZPORT_NOT_A_VALID_EMAIL"
+msgstr "Podany adres e-mail jest nieprawidłowy"
+
 msgid "LC_COCKPITBAR_USER_SEARCH"
 msgstr "Szukaj"
 

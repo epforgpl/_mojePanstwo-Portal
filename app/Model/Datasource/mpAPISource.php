@@ -280,8 +280,6 @@ class mpAPISource extends DataSource {
 	   
 	    if( isset($params['user_id']) )
 	    	$request['header']['X_USER_ID'] = $params['user_id'];
-	    
-	    
 	      
 	    switch( $method ) {
 		    case 'GET': { $json = $this->Http->get($path, $data, $request); break; }
@@ -306,13 +304,40 @@ class mpAPISource extends DataSource {
     
     public function loadDocument($id, $package = 1)
     {
-	    
 	    return $this->request('docs/' . $id . '.' . $this->config['ext'], array(
 	        'data' => array(
 		        'package' => $package,
 	        ),
         ));
-        	    
+    }
+
+    public function login($email, $password) {
+        $response = $this->request('paszport/login', array(
+            'data' => array(
+                'email' => $email,
+                'password' => $password
+            ),
+            'method' => 'POST'
+        ));
+
+        $code = $this->Http->response->code;
+
+        if($code == 200) {
+            return $response['User'];
+        } elseif($code == 403) {
+            throw new ForbiddenException("Nieprawidłowe hasło");
+        } elseif($code == 404) {
+            throw new NotFoundException("Użytkownik nie znaleziony");
+        } else {
+            throw new BadRequestException("Wystąpił błąd");
+        }
+    }
+
+    public function register($data) {
+        return $this->request('paszport/register', array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
     }
 
 }

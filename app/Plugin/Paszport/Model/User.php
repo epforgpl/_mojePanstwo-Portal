@@ -8,6 +8,7 @@ class User extends PaszportAppModel
     public $actsAs = array('Containable', 'Expandable.Expandable' => array('with' => 'Paszport.UserExpand'));
     public $name = 'Paszport.User';
     public $useTable = false;
+    public $useDbConfig = 'mpAPI';
 
     public function __construct($id = false, $table = null, $ds = null)
     {
@@ -180,6 +181,16 @@ class User extends PaszportAppModel
             }
         }
 
+    }
+
+    public function login($email, $password)
+    {
+        return $this->getDataSource()->login($email, $password);
+    }
+
+    public function register($data)
+    {
+        return $this->getDataSource()->register($data);
     }
 
     public function schema()
