@@ -37,7 +37,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-6 part">
                         <div class="shoutBrick mainBrick">
-                            <div class="title">Pytaj</div>
+                            <div class="title">Komunikuj</div>
                             <span class="line"></span>
 
                             <div class="description">

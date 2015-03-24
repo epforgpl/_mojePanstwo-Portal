@@ -28,7 +28,7 @@ class PrawoController extends DataobjectsController
 	        ),
 	        array(
 	            'id' => 'feed',
-	            'label' => 'Aktualności dla tego aktu',
+	            'label' => 'Aktualności',
 	        ),
         ),
     );

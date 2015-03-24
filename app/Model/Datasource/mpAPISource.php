@@ -100,7 +100,7 @@ class mpAPISource extends DataSource {
  */
     public function read(Model $model, $queryData = array(), $recursive = null) {
 	   	
-	   	// debug($queryData); die();
+	   	// debug($queryData);
 	   	         
         /**
          * Here we do the actual count as instructed by our calculate()
@@ -117,9 +117,19 @@ class mpAPISource extends DataSource {
         
         $this->count = false;
         $this->took = false;
-        $endpoint_parts = array('dane');
         
-        if( $model->findQueryType == 'first' ) {
+        if( isset($queryData['feed']) )
+        	$endpoint_parts = array('dane/' . $queryData['feed']);
+        else
+	        $endpoint_parts = array('dane');
+        
+        
+        if( isset($queryData['feed']) ) {
+	        
+	        $endpoint_parts[] = 'feed';
+	        unset( $queryData['feed'] );
+	        
+        } elseif( $model->findQueryType == 'first' ) {
 	        
 	        if( 
 	        	isset($queryData['conditions']['dataset']) && 
@@ -164,7 +174,9 @@ class mpAPISource extends DataSource {
         }
                 
         $queryData['apiKey'] = $this->config['apiKey'];
-                
+        
+        // debug( $endpoint_parts );
+        
         $res = $this->request(implode('/', $endpoint_parts) . '.' . $this->config['ext'], array(
 	        'data' => $queryData,
         ));
