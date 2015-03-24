@@ -1,8 +1,19 @@
 function changeBckgrn($rotate) {
-    $rotate.find('.holdBckgrnd').fadeOut(function () {
+    $rotate.find('.holdBckgrnd').append(
+        $('<div></div>').addClass('temp').css({
+            'display': 'none',
+            'background-image': $rotate.find('.active').data('bckgrnd')
+        })
+    );
+    $rotate.find('.holdBckgrnd .temp').fadeIn(function () {
         $rotate.find('.holdBckgrnd').css('background-image', $rotate.find('.active').data('bckgrnd'));
-        $rotate.find('.holdBckgrnd').fadeIn()
-    })
+        $rotate.find('.holdBckgrnd .temp').remove();
+    });
+
+    /*$rotate.find('.holdBckgrnd').fadeOut(function () {
+     $rotate.find('.holdBckgrnd').css('background-image', $rotate.find('.active').data('bckgrnd'));
+     $rotate.find('.holdBckgrnd').fadeIn()
+     })*/
 }
 
 (function ($) {
@@ -50,24 +61,50 @@ function changeBckgrn($rotate) {
 
     });
 
-    $(window).keydown(function (e) {
-        var key = e.which,
-            scrollStatus = false;
+    var scrollStatus = false,
+        lastScroll = 0;
 
-        if ($rotate.hasClass('hold') && (key == 38 || key == 40)) {
-            if (key == 38 && $rotate.prev()) {
+    $(window).keydown(function (e) {
+        var key = e.which;
+
+        if ($rotate.hasClass('hold') && !$rotate.hasClass('animate')) {
+            if (key == 38 && $rotate.find('.active').prev()) {
                 scrollStatus = $rotate.find('.active').prev().offset().top;
-            } else if (key == 40 && $rotate.next()) {
-                scrollStatus = $rotate.find('.active').next().offset().top
+            } else if (key == 40 && $rotate.find('.active').next()) {
+                scrollStatus = $rotate.find('.active').next().offset().top;
             }
-            if (scrollStatus && !$rotate.hasClass('animate')) {
-                $rotate.addClass('animate');
-                $('html, body').animate({
-                    scrollTop: scrollStatus
-                }, 1000, function () {
-                    $rotate.removeClass('animate');
-                });
-            }
+
+            if (scrollStatus)
+                scrollSlice(scrollStatus);
         }
     });
+
+    $(window).scroll(function () {
+        if ($rotate.hasClass('hold') && !$rotate.hasClass('animate')) {
+            var st = $(this).scrollTop();
+
+            if ((st > lastScroll) && $rotate.find('.active').next()) {
+                scrollStatus = $rotate.find('.active').next().offset().top;
+            }
+            else if ((st < lastScroll) && $rotate.find('.active').prev()) {
+                scrollStatus = $rotate.find('.active').prev().offset().top;
+            }
+
+            if (scrollStatus)
+                scrollSlice(scrollStatus);
+        }
+    });
+
+    function scrollSlice(scrollStatus) {
+        if (!$rotate.hasClass('animate') && lastScroll != $(window).scrollTop()) {
+            $rotate.addClass('animate');
+
+            $('html, body').animate({
+                scrollTop: scrollStatus
+            }, 1000, function () {
+                $rotate.removeClass('animate');
+                lastScroll = $(window).scrollTop();
+            });
+        }
+    }
 }(jQuery));
