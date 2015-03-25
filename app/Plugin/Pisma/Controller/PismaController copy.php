@@ -1,30 +1,22 @@
 <?php
-	
-App::uses('ApplicationsController', 'Controller');
-class PismaController extends ApplicationsController
+
+class PismaController extends AppController
 {
-	
-	public $settings = array(
-		'menu' => array(
-			array(
-				'id' => '',
-				'label' => 'Nowe pismo',
-			),
-			array(
-				'id' => 'moje',
-				'label' => 'Moje pisma',
-			),
-		),
-		'title' => 'Pisma',
-		'subtitle' => 'Wysyłaj pisma urzędowe do instytucje publicznych',
-		'headerImg' => 'pisma',
-	);
-	
+
     public $helpers = array('Form');
     public $uses = array('Pisma.Pismo');
     public $components = array('RequestHandler');
 
 
+    public function beforeRender()
+    {
+        $appMenu = array(
+            array('id' => 'nowe', 'label' => 'Nowe pismo'),
+            array('id' => 'moje', 'label' => 'Moje pisma')
+        );
+
+        $this->set('appMenu', $appMenu);
+    }
 
     public function view($id, $slug = '')
     {
@@ -36,8 +28,14 @@ class PismaController extends ApplicationsController
 
 		try {
 
-			$pismo = $this->Pismo->documents_read($id);
-			
+			if( $this->Auth->user() ) {
+				$pismo = $this->API->Pisma()->documents_read($id);
+			} else {
+				$pismo = $this->API->Pisma()->documents_read($id, array(
+					'anonymous_user_id' => session_id(),
+				));
+            }
+
 	        $this->set('title_for_layout', $pismo['nazwa']);
 	        $this->set('pismo', $pismo);
 
@@ -85,7 +83,7 @@ class PismaController extends ApplicationsController
 		if( isset($this->request->data['name']) ) {
 			
 			$params['name'] = $this->request->data['name'];
-			$status = $this->Pismo->documents_partial_update($id, $params);
+			$status = $this->API->Pisma()->documents_partial_update($id, $params);
 			
 		}
 		
@@ -97,14 +95,15 @@ class PismaController extends ApplicationsController
 	public function post($id, $slug=false) {
 		
 		$redirect = 'object';
-		
+				
 		$params = array();
 		if( !$this->Auth->user() )			
 			$params['anonymous_user_id'] = session_id();
-								
+				
+		
 		if( isset($this->request->data['delete']) ) {
 			
-			$this->Pismo->documents_delete($id, $params);
+			$this->API->Pisma()->documents_delete($id, $params);
 			$redirect = 'my';
 			
 		} elseif( isset($this->request->data['save']) ) {
@@ -114,11 +113,11 @@ class PismaController extends ApplicationsController
 			$doc = array_merge($doc, $params);
 			unset( $doc['save'] );
 			
-			$this->Pismo->documents_update($id, $doc);
+			$this->API->Pisma()->documents_update($id, $doc);
 			
 		} elseif( isset($this->request->data['send']) ) {
 			
-			$this->Pismo->documents_send($id);
+			$this->API->Pisma()->documents_send($id);
 			
 		}
 				
@@ -142,48 +141,46 @@ class PismaController extends ApplicationsController
     {
 		
 		$pismo = array();
-						
+				
+		if( !$this->Auth->user() )			
+			$pismo['anonymous_user_id'] = session_id();
+		
         if (isset($this->request->data['adresat_id']))
             $pismo['adresat_id'] = $this->request->data['adresat_id'];
             
         if (isset($this->request->data['szablon_id']))
             $pismo['szablon_id'] = $this->request->data['szablon_id'];
 		
-		if( !$this->Auth->user() )
+		if( !$this->Session->read('Auth.User.id') )
 			$this->Session->write('Pisma.transfer_anonymous', true);
-				
-        $status = $this->Pismo->documents_create($pismo);        
+		
+        $status = $this->API->Pisma()->documents_create($pismo);
         return $this->redirect( $status['url'] . '/edit' );
     
     }
 	
 	public function home()
     {
-	    
-	    $this->setMenuSelected();
-	    
-	    /*
-        $API = $this->Pismo;
+        $API = $this->API->Pisma();
 
         $templatesGroups = $API->templates_grouped();
         $this->set('templatesGroups', $templatesGroups);
-		*/
-		
+
         $query = array_merge($this->request->query, $this->request->params);
-		
+
         $pismo = array(
             'szablon_id' => isset($query['szablon_id']) ? $query['szablon_id'] : false,
             'adresat_id' => isset($query['adresat_id']) ? $query['adresat_id'] : false,
         );
-		
-		/*
+
         if ($session = $this->Session->read('Pisma.unsaved')) {
             $this->set('pismo', $session);
             $this->Session->delete('Pisma.unsaved');
         }
-        */
 
         $this->set('pismo_init', $pismo);
+        $this->set('title_for_layout', 'Pisma - Twórz i wysyłaj pisma do urzędów i urzędnikow');
+        $this->set('appMenuSelected', 'nowe');
     }
 	
     public function my()
@@ -212,7 +209,7 @@ class PismaController extends ApplicationsController
 			
 		}
 		
-        $search = $this->Pismo->documents_search($params);
+        $search = $this->API->Pisma()->documents_search($params);
         // debug($search); die();
         $this->set('search', $search);
         $this->set('q', $q);
@@ -227,7 +224,7 @@ class PismaController extends ApplicationsController
         if (isset($this->request->data['send'])) {
 
 
-            $pismo = $this->Pismo->save($this->request->data);
+            $pismo = $this->API->Pisma()->save($this->request->data);
             if ($pismo && isset($pismo['id']) && $pismo['id']) {
 
                 $this->redirect($pismo['url']);

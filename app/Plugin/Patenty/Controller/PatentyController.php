@@ -12,7 +12,7 @@ class PatentyController extends ApplicationsController
 			),
 		),
 		'title' => 'Patenty',
-		'subtitle' => 'Patenty',
+		// 'subtitle' => 'Patenty',
 		'headerImg' => 'patenty',
 	);
 	

@@ -1,7 +1,7 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
 
-<?= $this->Element('appheader', array('title' => 'Prawo', 'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce', 'appMenu' => $appMenu, 'appMenuSelected' => ($pismo['saved'] == '1') ? 'moje' : 'nowe', 'headerUrl' => 'pisma.png')); ?>
+<?= $this->Element('appheader'); ?>
 
 <div class="container">
 

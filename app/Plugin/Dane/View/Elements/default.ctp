@@ -93,7 +93,7 @@ $this->Dataobject->setObject($object);
                         <?
                         if ($file_exists) {
                             echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(
-                                'item' => $item,
+                                // 'item' => $item,
                                 'object' => $object,
                                 'hlFields' => $hlFields,
                                 'hlFieldsPush' => $hlFieldsPush,

@@ -9,7 +9,7 @@ class KtoTuRzadziController extends ApplicationsController
 			array(
 				'id' => '',
 				'href' => 'kto_tu_rzadzi',
-				'label' => 'Urzędy',
+				'label' => 'Instytucje',
 			),
 			array(
 				'id' => 'urzednicy',
@@ -31,6 +31,7 @@ class KtoTuRzadziController extends ApplicationsController
     {
         
         $this->setMenuSelected();
+        $this->title = 'Instytucje - Kto tu rządzi?';
         
         $options = array();
         if( !isset($this->request->query['q']) )
@@ -43,12 +44,9 @@ class KtoTuRzadziController extends ApplicationsController
     public function urzednicy()
     {
         
+        $this->title = 'Urzędnicy - Kto tu rządzi?';
         $this->loadDatasetBrowser('urzednicy');
                 
-    }
-
-    public function instytucje() {
-        $this->loadDatasetBrowser('instytucje');
     }
 
 } 

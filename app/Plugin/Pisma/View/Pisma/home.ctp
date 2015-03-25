@@ -1,7 +1,7 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
 
-<?= $this->Element('appheader', array('title' => 'Pisma', 'subtitle' => 'Twórz i wysyłaj pisma do urzędów i urzędnikow.', 'appMenu' => $appMenu, 'appMenuSelected' => $appMenuSelected, 'headerUrl' => 'pisma.png')); ?>
+<?= $this->Element('appheader') ?>
 
 <div class="container">
     <div id="stepper" class="wizard clearfix">

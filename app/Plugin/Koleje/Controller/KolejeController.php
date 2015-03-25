@@ -23,11 +23,13 @@ class KolejeController extends ApplicationsController
     public function view()
     {
         $this->setMenuSelected();
+        $this->title = 'Stacje kolejowe w Polsce';
         $this->loadDatasetBrowser('kolej_stacje');
     }
 
     public function linie()
     {
+	    $this->title = 'Linie kolejowe w Polsce';
         $this->loadDatasetBrowser('kolej_linie');
     }
 } 

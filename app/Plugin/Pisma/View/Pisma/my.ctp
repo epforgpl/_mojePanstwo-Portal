@@ -1,7 +1,7 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma-moje', array('plugin' => 'Pisma'))) ?>
 
-<?= $this->Element('appheader', array('title' => 'Moje pisma', 'subtitle' => 'Twórz i wysyłaj pisma do urzędów i urzędnikow.', 'appMenu' => $appMenu, 'appMenuSelected' => $appMenuSelected, 'headerUrl' => 'pisma.png')); ?>
+<?= $this->Element('appheader'); ?>
 
 <div class="container">
     <div class="col-md-10 col-md-offset-1">

@@ -17,16 +17,6 @@ class MojaGminaController extends ApplicationsController
                 'href' => 'moja_gmina/gminy'
             ),
             array(
-                'id' => 'kody_pocztowe',
-                'label' => 'Kody pocztowe',
-                'href' => 'moja_gmina/kody_pocztowe'
-            ),
-            array(
-                'id' => 'miejscowosci',
-                'label' => 'Miejscowości',
-                'href' => 'moja_gmina/miejscowosci'
-            ),
-            array(
                 'id' => 'powiaty',
                 'label' => 'Powiaty',
                 'href' => 'moja_gmina/powiaty'
@@ -37,14 +27,26 @@ class MojaGminaController extends ApplicationsController
                 'href' => 'moja_gmina/wojewodztwa'
             ),
             array(
+                'id' => 'miejscowosci',
+                'label' => 'Miejscowości',
+                'href' => 'moja_gmina/miejscowosci'
+            ),
+            array(
+                'id' => 'kody_pocztowe',
+                'label' => 'Kody pocztowe',
+                'href' => 'moja_gmina/kody_pocztowe'
+            ),
+            /*
+            array(
                 'id' => 'radni',
                 'label' => 'Radni gmin',
                 'href' => 'moja_gmina/radni'
             )
+            */
         ),
         'title' => 'Moja gmina',
-        'subtitle' => 'moja gmina',
-        'headerImg' => 'moja_gmina',
+        // 'subtitle' => 'moja gmina',
+		'headerImg' => '/moja_gmina/img/header_moja-gmina.png',
     );
 
     //public $uses = array();
@@ -92,26 +94,31 @@ class MojaGminaController extends ApplicationsController
 
     public function gminy()
     {
+	    $this->title = 'Gminy w Polsce - Moja Gmina';
         $this->loadDatasetBrowser('gminy');
     }
 
     public function kody_pocztowe()
     {
+	    $this->title = 'Kody pocztowe w Polsce- Moja Gmina';
         $this->loadDatasetBrowser('kody_pocztowe');
     }
 
     public function miejscowosci()
     {
+	    $this->title = 'Miejscowości w Polsce - Moja Gmina';
         $this->loadDatasetBrowser('miejscowosci');
     }
 
     public function powiaty()
     {
+	    $this->title = 'Powiaty w Polsce - Moja Gmina';
         $this->loadDatasetBrowser('powiaty');
     }
 
     public function wojewodztwa()
     {
+	    $this->title = 'Województwa w Polsce - Moja Gmina';
         $this->loadDatasetBrowser('wojewodztwa');
     }
 

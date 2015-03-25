@@ -40,6 +40,7 @@ class ZamowieniaPubliczneController extends ApplicationsController
 
     public function dotacje_unijne()
     {
+	    $this->title = 'Dotacje unijne - Zamówienia publiczne';
         $this->loadDatasetBrowser('dotacje_ue');
     }
 

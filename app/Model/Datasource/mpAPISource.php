@@ -172,9 +172,7 @@ class mpAPISource extends DataSource {
 			$endpoint_parts[] = 'index';
         
         }
-                
-        $queryData['apiKey'] = $this->config['apiKey'];
-        
+                        
         // debug( $endpoint_parts );
         
         $res = $this->request(implode('/', $endpoint_parts) . '.' . $this->config['ext'], array(
@@ -264,7 +262,24 @@ class mpAPISource extends DataSource {
 */
         
     private function getPath($endpoint) {
-	    return $this->config['host'] . '/' . $endpoint;
+	    
+	    $url_parts = parse_url($endpoint);
+		
+		if( isset($url_parts['query']) )
+			parse_str($url_parts['query'], $query);
+		else
+			$query = array();
+		
+		$query['apiKey'] = $this->config['apiKey'];
+		
+		App::uses('CakeSession', 'Model/Datasource');
+		
+		if( $user_id = CakeSession::read('Auth.User.id') )
+			$query['user_id'] = $user_id;
+		elseif( $temp_user_id = CakeSession::id() )
+        	$query['temp_user_id'] = $temp_user_id;
+							    
+	    return $this->config['host'] . '/' . $url_parts['path'] . '?' . http_build_query($query);
     }
         
     private $allowed_methods = array(
@@ -277,9 +292,6 @@ class mpAPISource extends DataSource {
 	    $method = ( isset($params['method']) && in_array($params['method'], $this->allowed_methods) ) ? $params['method'] : 'GET';
 	    $data = isset($params['data']) ? $params['data'] : false;
 	    $request = isset($params['request']) ? $params['request'] : array();
-	   
-	    if( isset($params['user_id']) )
-	    	$request['header']['X_USER_ID'] = $params['user_id'];
 	      
 	    switch( $method ) {
 		    case 'GET': { $json = $this->Http->get($path, $data, $request); break; }
@@ -289,8 +301,12 @@ class mpAPISource extends DataSource {
 	    }
 	    
 	    if( $this->config['verbose'] ) {
-		    debug( $path );
-		    debug(urldecode($this->Http->request['line']));
+		    debug(array(
+		    	'endpoint' => urldecode($this->Http->request['line']),
+		    	'data' => $data,
+		    	'request' => $request,
+		    	'response' => $json,
+		    ));
 	    }
 	    	    
 	    $res = json_decode($json, true);

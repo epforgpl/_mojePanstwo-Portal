@@ -224,7 +224,21 @@ class DataBrowserComponent extends Component {
 	            ),
 	        ),
 	        */
-	    )
+	    ),
+	    'dotacje_ue' => array(
+	        'date' => array(
+	            'date_histogram' => array(
+		            'field' => 'date',
+		            'interval' => 'year',
+		            'format' => 'yyyy-MM-dd',
+	            ),
+	            'visual' => array(
+		            'label' => 'Liczba udzielonych dotacji w czasie',
+		            'skin' => 'date_histogram',
+                    'field' => 'date'
+	            ),
+	        ),
+	    ),
 	);
 	
 	public function __construct($collection, $settings) {
