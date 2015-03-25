@@ -52,7 +52,7 @@ class PagesController extends AppController
     {
 
         $path = func_get_args();
-
+				
         $count = count($path);
         if (!$count) {
             return $this->redirect('/');
@@ -66,7 +66,17 @@ class PagesController extends AppController
         if (!empty($path[1])) {
             $subpage = $path[1];
         }
-        $title_for_layout = '_mojePaństwo';
+        
+        if( $page=='apps' ) {
+	        
+	        $title_for_layout = 'Aplikacje - _mojePaństwo';
+	        
+        } else {
+	
+	        $title_for_layout = '_mojePaństwo';
+	        
+        }
+        
         $this->set(compact('page', 'subpage', 'title_for_layout'));
 
 

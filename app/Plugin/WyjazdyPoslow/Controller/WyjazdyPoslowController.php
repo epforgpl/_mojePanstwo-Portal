@@ -8,10 +8,7 @@ class WyjazdyPoslowController extends AppController
     {
 
         $application = $this->getApplication();
-
-        $api = $this->API->WyjazdyPoslow();
-
-        $stats = $api->getStats();
+        $stats = $this->WyjazdyPoslow->getStats();
         $this->set('stats', $stats);
 
         $this->set('title_for_layout', 'Wyjazdy zagraniczne posłow w VII Kadencji Sejmu');

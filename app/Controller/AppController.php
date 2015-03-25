@@ -78,6 +78,24 @@ class AppController extends Controller {
 	public $Applications = array(
 		array(
 			'id' => '17',
+			'slug' => 'dane',
+			'name' => 'Dane',
+			'plugin' => 'dane',
+			'type' => 'app',
+			'home' => '1',
+			'folder_id' => '13'
+		),
+		array(
+			'id' => '17',
+			'slug' => 'powiadomienia',
+			'name' => 'Powiadomienia',
+			'plugin' => 'powiadomienia',
+			'type' => 'app',
+			'home' => '1',
+			'folder_id' => '13'
+		),
+		array(
+			'id' => '17',
 			'slug' => 'pisma',
 			'name' => 'Pisma',
 			'plugin' => 'pisma',
@@ -95,15 +113,6 @@ class AppController extends Controller {
 			'folder_id' => '13'
 		),
 		array(
-			'id'     => '9',
-			'slug'   => 'prawo',
-			'name'   => 'Prawo',
-			'plugin' => 'prawo',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		array(
 			'id'     => '6',
 			'slug'   => 'krs',
 			'name'   => 'Krajowy Rejestr Sądowy',
@@ -113,10 +122,10 @@ class AppController extends Controller {
 			'folder_id' => '13'
 		),
 		array(
-			'id'     => '5',
-			'slug'   => 'zamowienia_publiczne',
-			'name'   => 'Zamówienia publiczne',
-			'plugin' => 'zamowienia_publiczne',
+			'id'     => '9',
+			'slug'   => 'prawo',
+			'name'   => 'Prawo',
+			'plugin' => 'prawo',
 			'type'   => 'app',
 			'home'   => '1',
 			'folder_id' => '13'
@@ -126,6 +135,15 @@ class AppController extends Controller {
 			'slug'   => 'media',
 			'name'   => 'Media',
 			'plugin' => 'media',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
+		),
+		array(
+			'id'     => '5',
+			'slug'   => 'zamowienia_publiczne',
+			'name'   => 'Zamówienia publiczne',
+			'plugin' => 'zamowienia_publiczne',
 			'type'   => 'app',
 			'home'   => '1',
 			'folder_id' => '13'
@@ -157,6 +175,7 @@ class AppController extends Controller {
 			'home'   => '1',
 			'folder_id' => '13'
 		),
+		/*
 		array(
 			'id' => '18',
 			'slug' => 'gabinety_polityczne',
@@ -166,6 +185,7 @@ class AppController extends Controller {
 			'home' => '1',
 			'folder_id' => '13'
 		),
+		*/
 		array(
 			'id'     => '4',
 			'slug'   => 'moja_gmina',
@@ -175,6 +195,7 @@ class AppController extends Controller {
 			'home'   => '1',
 			'folder_id' => '13'
 		),
+		/*
 		array(
 			'id'     => '20',
 			'slug'   => 'finanse',
@@ -184,6 +205,7 @@ class AppController extends Controller {
 			'home'   => '1',
 			'folder_id' => '13'
 		),
+		*/
 		array(
 			'id'     => '21',
 			'slug'   => 'handel_zagraniczny',
@@ -212,12 +234,14 @@ class AppController extends Controller {
 			'home'   => '1',
 			'folder_id' => '13'
 		),
-	);
-	public $Streams = array(
 		array(
-			'id'       => 1,
-			'name'     => '_mojePaństwo - główne wydanie',
-			'selected' => true,
+			'id'     => '10',
+			'slug'   => 'paszport',
+			'name'   => 'Paszport',
+			'plugin' => 'paszport',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
 		),
 	);
 	
@@ -367,7 +391,9 @@ class AppController extends Controller {
 
 		parent::beforeFilter();
 		$this->Auth->allow();
-
+		
+		// debug($this->getApplications()); die();
+		
 		$this->set( 'statusbarCrumbs', $this->statusbarCrumbs );
 		$this->set( 'statusbarMode', $this->statusbarMode );
 		$this->set( '_APPLICATIONS', $this->getApplications() );
