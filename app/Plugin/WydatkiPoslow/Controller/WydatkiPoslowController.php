@@ -11,14 +11,12 @@ class WydatkiPoslowController extends AppController
         $this->setMeta('description', 'Sprawdź na co posłowie wydają publiczne pieniądze.');
 
         $application = $this->getApplication();
-        $api = $this->API->WydatkiPoslow();
-
-        $stats = $api->getStats();
-
+        $stats = $this->WydatkiPoslow->getStats();
+		
         $biura = array();
         foreach ($stats['biura'] as $d)
             $biura[$d['id']] = $d;
-
+		
         $this->set('biura', $biura);
         $this->set('title_for_layout', 'Wydatki posłów');
 

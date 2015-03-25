@@ -21,7 +21,7 @@ class PowiadomieniaController extends ApplicationsController
 		),
 		'title' => 'Powiadomienia',
 		'subtitle' => 'Obserwuj interesujące Cię dane publiczne',
-		'headerImg' => 'krs',
+		'headerImg' => 'powiadomienia',
 	);
 	
     public function view()

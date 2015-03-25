@@ -4,8 +4,7 @@ $this->Combinator->add_libs('js', 'jquery-tags-cloud-min');
 $this->Combinator->add_libs('js', 'Media.media');
 ?>
 
-<?= $this->Element('appheader', array('title' => __d('media', 'LC_PANSTWOINTERNET_HEADLINE'), 'subtitle' => 'Przeglądaj najpopularniejsze treści na
-                        Twitterze dotyczące spraw publicznych', 'appMenu' => $appMenu, 'appMenuSelected' => $appMenuSelected, 'headerUrl' => 'media.png')); ?>
+<?= $this->Element('appheader'); ?>
 
 <div id="media">
     <? // include('templates/pages/media.ctp'); ?>
