@@ -4,8 +4,10 @@ $(function() {
 
         var form = $(this);
         var field = form.attr('data-field');
+        var type = (field == 'email' ? 'email' : 'text');
+        var action = (field == 'email' ? 'setEmail' : 'setUserName');
 
-        form.find('a').first().click(function() {
+            form.find('a').first().click(function() {
 
             var a = $(this);
                 a.hide();
@@ -14,14 +16,14 @@ $(function() {
 
             form.append(
                 '<div class="input-group">' +
-                    '<input type="text" class="form-control" name="' + field + '" value="' + value + '">' +
+                    '<input type="' + type + '" class="form-control" name="' + field + '" value="' + value + '">' +
                     '<span class="input-group-btn">' +
                         '<button class="btn btn-default" type="button">Zapisz</button>' +
                     '</span>' +
                 '</div>'
             );
 
-            var group = form.find('input-group').first();
+            var group = form.find('.input-group').first();
             var input = form.find('input').first();
                 input.focus();
 
@@ -29,17 +31,32 @@ $(function() {
 
                 var newValue = input.val();
 
+                if(newValue.length < 4) {
+                    group.addClass('has-error');
+                    return false;
+                }
 
+                $.post("/paszport/user/" + action, { value: newValue } , function(data) {
 
-                a.find('b')
-                    .first()
-                    .text(newValue);
+                    if(data == 'true') {
 
-                form.find('.input-group')
-                    .first()
-                    .remove();
+                        a.find('b')
+                            .first()
+                            .text(newValue);
 
-                a.show();
+                        form.find('.input-group')
+                            .first()
+                            .remove();
+
+                        a.show();
+
+                        return false;
+                    } else {
+                        group.addClass('has-error');
+                        return false;
+                    }
+                });
+
             });
 
             return false;
@@ -86,6 +103,31 @@ $(function() {
         });
 
         group.find('button.edit-password-submit').first().click(function() {
+
+            var oldPassword = $('#inputOldPassword').val();
+            var confirmNewPassword = $('#inputConfirmNewPassword').val();
+            var newPassword = $('#inputNewPassword').val();
+
+            if(oldPassword.length < 6 || newPassword.length < 6 || newPassword != confirmNewPassword) {
+                group.find('.form-group').each(function() {
+                    $(this).addClass('has-error');
+                });
+                return false;
+            }
+
+            $.post("/paszport/user/setPassword", { old_password: oldPassword, new_password: newPassword } , function(data) {
+
+                if(data == 'true') {
+                    closeForm();
+                } else {
+                    group.find('.form-group').each(function() {
+                        $(this).addClass('has-error');
+                    });
+                }
+
+                return false;
+
+            });
 
             return false;
         });

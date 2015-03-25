@@ -188,6 +188,37 @@ class User extends PaszportAppModel
         return $this->getDataSource()->login($email, $password);
     }
 
+    public function setUserName($username) {
+        $response = $this->getDataSource()->request('paszport/user/setUserName', array(
+            'data' => array(
+                'value' => $username
+            ),
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    public function setEmail($email) {
+        $response = $this->getDataSource()->request('paszport/user/setEmail', array(
+            'data' => array(
+                'value' => $email
+            ),
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    public function setPassword($data) {
+        $response = $this->getDataSource()->request('paszport/user/setPassword', array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
     public function register($data)
     {
         return $this->getDataSource()->register($data);
