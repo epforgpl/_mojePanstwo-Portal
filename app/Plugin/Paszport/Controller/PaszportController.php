@@ -33,22 +33,19 @@ class PaszportController extends ApplicationsController
                     'href' => 'paszport'
                 ),
                 array(
-                    'id' => 'klucze',
+                    'id' => 'keys',
                     'label' => 'Klucze API',
                     'href' => 'paszport/klucze'
                 ),
                 array(
-                    'id' => 'logi',
+                    'id' => 'logs',
                     'label' => 'Logi',
                     'href' => 'paszport/logi'
                 )
             );
+
+            $this->set('user', $this->Auth->user());
         }
-    }
-
-    public function profile()
-    {
-
     }
 
     public function keys()
@@ -63,21 +60,25 @@ class PaszportController extends ApplicationsController
 
     public function login()
     {
-        if($this->request->is('post')) {
-            try {
-                $user = $this->Auth->login();
-                $this->redirect($this->Auth->redirectUrl());
-            } catch(Exception $e) {
-                $this->Session->setFlash(
-                    __($e->getMessage()),
-                    'default',
-                    array(),
-                    'auth'
-                );
+        $this->setMenuSelected();
+
+        if($this->Auth->loggedIn()) {
+            $this->render('Paszport/profile');
+        } else {
+            if ($this->request->is('post')) {
+                try {
+                    $user = $this->Auth->login();
+                    $this->redirect($this->Auth->redirectUrl());
+                } catch (Exception $e) {
+                    $this->Session->setFlash(
+                        __($e->getMessage()),
+                        'default',
+                        array(),
+                        'auth'
+                    );
+                }
             }
         }
-
-        $this->setMenuSelected();
     }
 
     public function register()
