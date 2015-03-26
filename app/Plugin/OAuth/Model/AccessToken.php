@@ -11,6 +11,9 @@ App::uses('OAuthAppModel', 'OAuth.Model');
 class AccessToken extends OAuthAppModel
 {
 
+    public $useTable = false;
+    public $useDbConfig = 'mpAPI';
+
     /**
      * Primary key field
      *
@@ -84,9 +87,10 @@ class AccessToken extends OAuthAppModel
 
     public function find($type, $queryData)
     {
-        $api = mpapiComponent::getApi()->OAuth()->AccessToken();
+        /*$api = mpapiComponent::getApi()->OAuth()->AccessToken();
 
-        return $api->find($type, $queryData);
+        return $api->find($type, $queryData);*/
+        return $this->getDataSource()->request('oauth/access_tokens/find/' . $type, $queryData);
     }
 
     public function save($data)

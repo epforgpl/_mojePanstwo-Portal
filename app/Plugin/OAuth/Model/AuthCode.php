@@ -11,6 +11,9 @@ App::uses('OAuthAppModel', 'OAuth.Model');
 class AuthCode extends OAuthAppModel
 {
 
+    public $useTable = false;
+    public $useDbConfig = 'mpAPI';
+
     /**
      * Primary key field
      *
@@ -96,18 +99,20 @@ class AuthCode extends OAuthAppModel
 
     public function save($data)
     {
-        $api = mpapiComponent::getApi()->OAuth()->AuthCode();
+        /* $api = mpapiComponent::getApi()->OAuth()->AuthCode();
         $ret = $api->save($data);
+        return $ret; */
 
-        return $ret;
+        return $this->getDataSource()->request('/oauth/auth_codes/save', $data);
     }
 
     public function findByCode($code)
     {
-        $api = mpapiComponent::getApi()->OAuth()->AuthCode();
+        /*$api = mpapiComponent::getApi()->OAuth()->AuthCode();
 
-        return $api->findByCode($code);
+        return $api->findByCode($code);*/
 
+        return $this->getDataSource()->request('/oauth/auth_codes/find/' . $code);
     }
 
 
