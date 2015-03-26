@@ -3,6 +3,8 @@
 App::uses('OAuthAppModel', 'OAuth.Model');
 App::uses('String', 'Utility');
 
+App::uses('mpapiComponent', 'Controller.Component');
+
 /**
  * Client Model
  *

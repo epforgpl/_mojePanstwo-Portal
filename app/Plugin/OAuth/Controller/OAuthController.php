@@ -93,7 +93,9 @@ class OAuthController extends OAuthAppController
         try {
             $OAuthParams = $this->OAuth->getAuthorizeParams();
         } catch (Exception $e) {
-            $e->sendHttpResponse();
+            // W wyjątku nie znajdowało metody sendHttpResponse()
+            $OAuthParams = array();
+            //$e->sendHttpResponse();
         }
 
         try {
