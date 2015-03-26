@@ -2,7 +2,8 @@
 
 App::uses('OAuthAppModel', 'OAuth.Model');
 App::uses('String', 'Utility');
-App::uses('mpapiComponent', 'Controller.Component');
+
+App::import('Controller', 'mpapiComponent', array('file' => 'Component'.DS.'mpapiComponent.php'));
 
 /**
  * Client Model
