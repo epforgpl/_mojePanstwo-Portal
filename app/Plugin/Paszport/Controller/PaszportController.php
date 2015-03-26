@@ -67,7 +67,7 @@ class PaszportController extends ApplicationsController
         } else {
             if ($this->request->is('post')) {
                 try {
-                    $user = $this->Auth->login();
+                    $this->Auth->login();
                     $this->redirect($this->Auth->redirectUrl());
                 } catch (Exception $e) {
                     $this->Session->setFlash(
