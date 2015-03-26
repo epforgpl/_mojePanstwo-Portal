@@ -123,22 +123,22 @@ body {
             @iconLineSize: 2px;
 
             float: left;
-            width: 100px;
+            width: 70px;
             height: 100%;
             position: relative;
 
             .tcon {
                 position: absolute;
-                left: 50%;
+                right: 0;
                 top: 50%;
                 width: @iconSize;
                 height: @iconSize;
 
-                -webkit-transform: translate(-50%, -50%);
-                -moz-transform: translate(-50%, -50%);
-                -ms-transform: translate(-50%, -50%);
-                -o-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
+                -webkit-transform: translate(0, -50%);
+                -moz-transform: translate(0, -50%);
+                -ms-transform: translate(0, -50%);
+                -o-transform: translate(0, -50%);
+                transform: translate(0, -50%);
 
                 appearance: none;
                 border: none;
@@ -210,6 +210,9 @@ body {
                 transform: scale3d(.8, .8, .8);
             }
 
+            .tcon-menu--xcross {
+                width: auto;
+            }
             .tcon-menu--xcross.tcon-transform .tcon-menu__lines {
                 background: transparent;
             }
