@@ -3,7 +3,7 @@
 App::uses('OAuthAppModel', 'OAuth.Model');
 App::uses('String', 'Utility');
 
-App::import('Controller', 'Component/mpapiComponent');
+require_once(ROOT . DS . 'app' . DS . 'Controller' . DS . 'Component' . DS . 'mpapiComponent.php');
 
 /**
  * Client Model
