@@ -4,7 +4,6 @@ App::uses('OAuthAppModel', 'OAuth.Model');
 App::uses('String', 'Utility');
 
 
-
 /**
  * Client Model
  *

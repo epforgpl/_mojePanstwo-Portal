@@ -28,7 +28,7 @@ class mpapiComponent extends Component
 
     }
 
-    public function getAPI($options = array())
+    public static function getAPI($options = array())
     {
         $options = array_merge(array(
             'user_id' => SessionComponent::read('Auth.User.id'),

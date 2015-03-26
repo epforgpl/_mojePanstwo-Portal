@@ -219,6 +219,17 @@ class User extends PaszportAppModel
         return $response;
     }
 
+    public function deletePaszport($password) {
+        $response = $this->getDataSource()->request('paszport/user/deletePaszport', array(
+            'data' => array(
+                'password' => $password
+            ),
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
     public function register($data)
     {
         return $this->getDataSource()->register($data);
