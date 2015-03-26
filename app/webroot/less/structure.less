@@ -86,6 +86,10 @@ body {
         margin: 10px;
         text-align: right;
 
+        img {
+            width: 80px;
+        }
+        
         a, a:hover, a:focus {
             color: #ffffff;
         }
@@ -115,10 +119,11 @@ body {
         }
 
         ._mPShowMenu {
-            @iconSize: 40px;
+            @iconSize: 25px;
+            @iconLineSize: 3px;
 
             float: left;
-            width: 76px;
+            width: 70px;
             height: 100%;
             position: relative;
 
@@ -167,7 +172,7 @@ body {
 
             .tcon-menu__lines {
                 display: inline-block;
-                height: 3px;
+                height: @iconLineSize;
                 width: @iconSize;
                 border-radius: 2.85714px;
                 transition: 0.3s;
@@ -176,7 +181,7 @@ body {
             }
             .tcon-menu__lines::before, .tcon-menu__lines::after {
                 display: inline-block;
-                height: 3px;
+                height: @iconLineSize;
                 width: @iconSize;
                 border-radius: 2.85714px;
                 transition: 0.3s;
@@ -219,6 +224,7 @@ body {
                 transform-origin: 50% 50%;
                 top: 0;
                 width: @iconSize;
+                height: @iconLineSize+2;
             }
             .tcon-menu--xcross.tcon-transform .tcon-menu__lines::before {
                 -webkit-transform: rotate3d(0, 0, 1, 45deg);
