@@ -293,16 +293,17 @@
 
                                         foreach ($ngos as $ngo) {
                                             $i++;
+                                            $label = $ngo['label']['buckets'][0]['key'];
                                             ?>
-
+											
                                             <li class="list-group-item"><span
-                                                    class="badge"><?= number_format_h($ngo['count']) ?></span><a
+                                                    class="badge"><?= number_format_h($ngo['doc_count']) ?></span><a
                                                     href="<?= Router::url(array(
                                                         'action' => 'organizacje',
                                                         'id' => $object->getId(),
-                                                        '?' => array('forma_prawna_id' => $ngo['id'])
+                                                        '?' => array('forma_prawna_id' => $ngo['key'])
                                                     )) ?>"
-                                                    title="<?= addslashes($ngo['label']) ?>"><?= $this->Text->truncate($ngo['label'], 25); ?></a>
+                                                    title="<?= addslashes($label) ?>"><?= $this->Text->truncate($label, 25); ?></a>
                                             </li>
                                             <?
                                             if ($i == $limit) {

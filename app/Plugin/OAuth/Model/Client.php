@@ -3,6 +3,8 @@
 App::uses('OAuthAppModel', 'OAuth.Model');
 App::uses('String', 'Utility');
 
+
+
 /**
  * Client Model
  *
@@ -12,6 +14,8 @@ App::uses('String', 'Utility');
  */
 class Client extends OAuthAppModel
 {
+    
+    public $useDbConfig = 'mpAPI';
 
     /**
      * Primary key field
@@ -176,8 +180,9 @@ class Client extends OAuthAppModel
 
     public function getRedirectURL($client_id)
     {
-        $api = mpapiComponent::getApi()->OAuth()->Client();
-
-        return $api->getRedirectURL($client_id);
+        
+        return $this->getDataSource()->request('/oauth/clients/' . $client_id);
+        
+        
     }
 }

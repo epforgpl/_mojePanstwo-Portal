@@ -52,63 +52,86 @@ class GminyController extends DataobjectsController
         }
 
         $this->addInitLayers($_layers);
-
         parent::view();
 
         $szef = $this->object->getLayer('szef');
+        
+		
 
-        $this->API->searchDataset('zamowienia_publiczne', array(
-            'limit' => 8,
-            'conditions' => array(
-                'gmina_id' => $this->object->getId(),
-                'status_id' => '0',
-            ),
-        ));
-        $this->set('zamowienia_otwarte', $this->API->getObjects());
+        $this->set('zamowienia_otwarte', $this->Dataobject->find('all', array(
+			'conditions' => array(
+				'dataset' => 'zamowienia_publiczne',
+				'zamowienia_publiczne.gmina_id' => $this->object->getId(),
+				'zamowienia_publiczne.status_id' => '0',
+			),
+			'limit' => 8,
+		)));
+		
+		$this->set('zamowienia_zamkniete', $this->Dataobject->find('all', array(
+			'conditions' => array(
+				'dataset' => 'zamowienia_publiczne',
+				'zamowienia_publiczne.gmina_id' => $this->object->getId(),
+				'zamowienia_publiczne.status_id' => '2',
+			),
+			'limit' => 8,
+		)));
+		
+		$this->set('zamowienia_zamkniete', $this->Dataobject->find('all', array(
+			'conditions' => array(
+				'dataset' => 'zamowienia_publiczne',
+				'zamowienia_publiczne.gmina_id' => $this->object->getId(),
+				'zamowienia_publiczne.status_id' => '2',
+			),
+			'limit' => 8,
+		)));
+		
+		
+		
+		$this->set('organizacje', $this->Dataobject->find('all', array(
+			'conditions' => array(
+				'dataset' => 'krs_podmioty',
+				'krs_podmioty.gmina_id' => $this->object->getId(),
+				'krs_podmioty.forma_prawna_typ_id' => '1',
+				'krs_podmioty.wykreslony' => '0',
+			),
+			'order' => 'krs_podmioty.wartosc_kapital_zakladowy desc',
+			'limit' => 5,
+		)));
+		
+		
+		
+		
+		$this->Dataobject->find('all', array(
+			'conditions' => array(
+				'dataset' => 'krs_podmioty',
+				'krs_podmioty.gmina_id' => $this->object->getId(),
+				'krs_podmioty.forma_prawna_typ_id' => '2',
+				'krs_podmioty.wykreslony' => '0',
+			),
+			'order' => 'krs_podmioty.wartosc_kapital_zakladowy desc',
+			'limit' => 0,
+			'aggs' => array(
+				'typ_id' => array(
+		            'terms' => array(
+			            'field' => 'krs_podmioty.forma_prawna_id',
+			            'exclude' => array(
+				            'pattern' => '0'
+			            ),
+		            ),
+		            'aggs' => array(
+			            'label' => array(
+				            'terms' => array(
+					            'field' => 'data.krs_podmioty.forma_prawna_str',
+				            ),
+			            ),
+		            ),
+		        ),
+			),
+		));
+		
 
-        $this->API->searchDataset('zamowienia_publiczne', array(
-            'limit' => 8,
-            'conditions' => array(
-                'gmina_id' => $this->object->getId(),
-                'status_id' => '2',
-            ),
-        ));
-        $this->set('zamowienia_zamkniete', $this->API->getObjects());
-
-
-        $this->API->searchDataset('krs_podmioty', array(
-            'limit' => 5,
-            'conditions' => array(
-                'gmina_id' => $this->object->getId(),
-                'forma_prawna_typ_id' => '1',
-                'wykreslony' => '0',
-            ),
-            'order' => 'wartosc_kapital_zakladowy desc'
-        ));
-        $this->set('organizacje', $this->API->getObjects());
-
-        $this->API->searchDataset('krs_podmioty', array(
-            'limit' => 0,
-            'conditions' => array(
-                'gmina_id' => $this->object->getId(),
-                'forma_prawna_typ_id' => '2',
-                'wykreslony' => '0',
-            ),
-            'facets' => 1,
-        ));
-
-        $data = $this->API->getFacets();
-
-        $ngos = array();
-
-        foreach ($data as $d) {
-            if ($d['field'] == 'krs_podmioty.forma_prawna_id') {
-                $ngos = $d['params']['options'];
-                break;
-            }
-        }
-        unset($data);
-        $this->set('ngos', $ngos);
+        $ngos = $this->Dataobject->getAggs();
+        $this->set('ngos', $ngos['typ_id']['buckets']);
 
 
         if ($this->object->getId() == 903) {
@@ -2111,10 +2134,9 @@ class GminyController extends DataobjectsController
             );
 
         }
-
-        $menu['selected'] = ($this->request->params['action'] == 'view') ? '' : $this->request->params['action'];
-
-        $this->set('_menu', $menu);
+		
+		$this->menu = $menu;
+		parent::beforeRender();
 
     }
 }

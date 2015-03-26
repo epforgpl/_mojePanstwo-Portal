@@ -11,13 +11,12 @@ $element_exists = $element ?
     false;
 
 ?>
-<div class="objectRender col-md-12 <?php echo $object->getDataset() ?>" oid="<?php echo $item['data']['id'] ?>">
+<div class="objectRender col-md-12 <?php echo $object->getDataset() ?>" oid="<?php echo $object->getId() ?>">
     <div class="row">
 
         <?
         if ($element_exists) {
             echo $this->element('Dane.' . $theme . '/' . $element, array(
-                'item' => $item,
                 'object' => $object,
                 'options' => $options,
             ));
