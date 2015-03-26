@@ -34,7 +34,9 @@ class KrsController extends ApplicationsController
 
     public function osoby()
     {
-	    $this->loadDatasetBrowser('krs_osoby');
+	    $this->loadDatasetBrowser('krs_osoby', array(
+		    'order' => 'date desc',
+	    ));
     }
     
     public function msig()

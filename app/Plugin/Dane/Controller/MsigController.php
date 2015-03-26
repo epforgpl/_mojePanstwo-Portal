@@ -40,20 +40,23 @@ class MSiGController extends DataobjectsController
     public function dzialy()
     {
 
-        $this->_prepareView();
+        $this->load();
 
-        if ($id = @$this->request->params['pass'][0]) {
+        if ($id = @$this->request->params['subid']) {
 
-            $dzial = $this->API->getObject('msig_dzialy', $id, array());
-
+            $dzial = $this->Dataobject->find('first', array(
+	            'conditions' => array(
+		            'dataset' => 'msig_dzialy',
+		            'id' => $id,
+	            ),
+            ));
+            
             if ($dzial->getData('msig_id') != $this->object->getId()) {
 
                 $this->redirect('/dane/msig/' . $dzial->getData('msig_id') . '/dzialy/' . $dzial->getId());
                 die();
 
             }
-
-            $this->set('document', $this->API->document($dzial->getData('dokument_id')));
 
             $this->set('dzial', $dzial);
             $this->set('title_for_layout', $dzial->getTitle());
@@ -108,8 +111,8 @@ class MSiGController extends DataobjectsController
 
         }
 
-        $menu['selected'] = ($this->request->params['action'] == 'view') ? '' : $this->request->params['action'];
-        $this->set('_menu', $menu);
+        $this->menu = $menu;
+        parent::beforeRender();
 
     }
 

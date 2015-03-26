@@ -8,6 +8,28 @@ class DataBrowserComponent extends Component {
 	private $aggs_visuals_map = array();
 	
 	private $aggs_presets = array(
+		'miejscowosci' => array(
+	        'typ_id' => array(
+	            'terms' => array(
+		            'field' => 'miejscowosci.typ_id',
+		            'exclude' => array(
+			            'pattern' => '0'
+		            ),
+	            ),
+	            'aggs' => array(
+		            'label' => array(
+			            'terms' => array(
+				            'field' => 'miejscowosci_typy.nazwa',
+			            ),
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Typy miejscowości',
+		            'skin' => 'pie_chart',
+                    'field' => 'miejscowosci.typ_id'
+	            ),
+	        ),
+	    ),
 		'prawo' => array(
 	        'typ_id' => array(
 	            'terms' => array(
@@ -368,7 +390,7 @@ class DataBrowserComponent extends Component {
 			'conditions' => $conditions,
 			'aggs' => $this->getSettingsForField('aggs'),
 			'order' => $this->getSettingsForField('order'),
-			'limit' => 50,
+			'limit' => isset($this->settings['limit']) ? $this->settings['limit'] : 50,
 		);
 						
 		if( isset($conditions['q']) )

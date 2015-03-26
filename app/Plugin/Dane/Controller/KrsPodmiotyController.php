@@ -31,7 +31,7 @@ class KrsPodmiotyController extends DataobjectsController
 	
 	public function aktualnosci() {
 		
-		$this->_prepareView();
+		$this->load();
 		
 		if( isset($this->request->params['pass'][0]) ) {
 						
@@ -47,9 +47,7 @@ class KrsPodmiotyController extends DataobjectsController
 			
 		} else {
 			
-			$this->prepareFeed(array(
-				// 'perPage' => 3,
-			));
+			$this->feed();
 			
 		}
 		
@@ -143,9 +141,7 @@ class KrsPodmiotyController extends DataobjectsController
         $this->set('indicators', $indicators);
 
 		/*
-		$this->prepareFeed(array(
-			// 'perPage' => 3,
-		));
+		$this->feed();
 		*/
 		
 		/*

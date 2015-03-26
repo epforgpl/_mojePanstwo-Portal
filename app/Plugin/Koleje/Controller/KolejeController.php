@@ -7,29 +7,30 @@ class KolejeController extends ApplicationsController
 	public $settings = array(
 		'menu' => array(
 			array(
-				'id' => '',
-				'label' => 'Stacje',
-			),
-			array(
 				'id' => 'linie',
 				'label' => 'Linie',
 			),
+			array(
+				'id' => '',
+				'label' => 'Stacje',
+			),
 		),
 		'title' => 'Koleje',
-		'subtitle' => 'Koleje',
+		// 'subtitle' => 'Koleje',
 		'headerImg' => 'kolej',
 	);
 	
     public function view()
     {
         $this->setMenuSelected();
-        $this->title = 'Stacje kolejowe w Polsce';
-        $this->loadDatasetBrowser('kolej_stacje');
+        $this->title = 'Linie kolejowe w Polsce';
+        $this->loadDatasetBrowser('kolej_linie');
+        
     }
 
     public function linie()
     {
-	    $this->title = 'Linie kolejowe w Polsce';
-        $this->loadDatasetBrowser('kolej_linie');
+        $this->title = 'Stacje kolejowe w Polsce';
+        $this->loadDatasetBrowser('kolej_stacje');
     }
 } 

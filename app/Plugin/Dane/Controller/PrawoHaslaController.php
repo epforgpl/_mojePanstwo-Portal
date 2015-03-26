@@ -16,8 +16,8 @@ class PrawoHaslaController extends DataobjectsController
 		
 		$this->addInitLayers('tags');
 		
-        parent::_prepareView();     
-        $this->prepareFeed();
+        parent::load();     
+        $this->feed();
 
     }
 

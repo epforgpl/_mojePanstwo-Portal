@@ -20,10 +20,11 @@ class DatasetsController extends DataobjectsController
         'prawo_projekty' => 'prawo/projekty',
 	    'instytucje' => 'kto_tu_rzadzi',
 	    'urzednicy' => 'kto_tu_rzadzi/urzednicy',
-        'bdl_wskazniki' => 'statystyka/bdl_wskazniki',
+        'bdl_wskazniki' => 'statystyka',
         'bdl_wskazniki_grupy' => 'statystyka/bdl_grupy',
-        'bdl_wskazniki_kategorie' => 'statystyka',
-        'twitter' => 'media/twitter',
+        'bdl_wskazniki_kategorie' => 'statystyka/bdl_kategorie',
+        'twitter' => 'media/tweets',
+        'twitter_accounts' => 'media/twitter_accounts',
         'krs_podmioty' => 'krs',
         'krs_osoby' => 'krs/osoby',
         'msig' => 'krs/msig',
@@ -78,7 +79,7 @@ class DatasetsController extends DataobjectsController
     }
 
     public function view($slug = false) {
-	    
+	    	    
 	    if( array_key_exists($slug, $this->redirects_map) ) {
 		    
 		    $url = '/' . $this->redirects_map[$slug];
@@ -94,7 +95,7 @@ class DatasetsController extends DataobjectsController
 		    	
 		    	$layers = $this->initLayers;
 	   
-			    if( $object = $this->Dataobject->find('first', array(
+			    if( $this->object = $this->Dataobject->find('first', array(
 				    'conditions' => array(
 					    'dataset' => 'zbiory',
 					    'zbiory.slug' => $slug,
@@ -102,20 +103,20 @@ class DatasetsController extends DataobjectsController
 				    'layers' => $layers,
 			    )) ) {
 				    								
-		            $this->set('object', $object);
+		            $this->set('object', $this->object);
 		            $this->set('objectOptions', $this->objectOptions);
 		            $this->set('microdata', $this->microdata);	
-		            $this->set('title_for_layout', $object->getTitle());
+		            $this->set('title_for_layout', $this->object->getTitle());
 		
-		            if ($desc = $object->getDescription())
+		            if ($desc = $this->object->getDescription())
 		                $this->setMetaDescription($desc);
 		                
 		                
 		            $this->Components->load('Dane.DataBrowser', array(
 			            'conditions' => array(
-				            'dataset' => $object->getData('slug'),
+				            'dataset' => $this->object->getData('slug'),
 			            ),
-			            'aggsPreset' => $object->getData('slug'),
+			            'aggsPreset' => $this->object->getData('slug'),
 		            ));
 				    
 			    }

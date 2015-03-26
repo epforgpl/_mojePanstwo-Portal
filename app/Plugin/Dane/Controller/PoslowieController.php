@@ -22,11 +22,9 @@ class PoslowieController extends DataobjectsController
     {
 
         // $this->addInitLayers(array('terms'));
-        parent::view();
+        parent::load();
 
-        $this->prepareFeed(array(
-            'perPage' => 20,
-        ));
+        $this->feed();
 
         /*
         if (($terms = $this->object->getLayer('terms')) && !empty($terms)) {
@@ -572,9 +570,8 @@ class PoslowieController extends DataobjectsController
             );
         }
 
-        $menu['selected'] = ($this->request->params['action'] == 'view') ? '' : $this->request->params['action'];
-
-        $this->set('_menu', $menu);
+        $this->menu = $menu;
+        parent::beforeRender();
 
     }
 

@@ -68,7 +68,6 @@ if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) {
         <?
         if ($file_exists) {
             echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(
-                'item' => $item,
                 'object' => $object
             ));
         } else {

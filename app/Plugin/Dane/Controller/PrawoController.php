@@ -56,7 +56,6 @@ class PrawoController extends DataobjectsController
 
         }
 		
-		$this->prepareFeed();
 		*/
 		
 		/*

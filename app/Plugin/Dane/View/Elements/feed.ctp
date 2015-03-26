@@ -31,7 +31,7 @@ $this->Dataobject->setObject($object);
      oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
 
     <div class="row">
-        <div class="col-sm-1 action nopadding text-center">
+        <div class="col-sm-1 action text-center">
             <span class="<?php if ($object->getDataset() && $object->getAction()) {
                 echo 'mpIcon icon-dataset-' . $object->getDataset() . ' icon-action-' . $object->getAction();
             } else {

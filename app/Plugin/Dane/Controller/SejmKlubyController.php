@@ -10,15 +10,16 @@ class SejmKlubyController extends DataobjectsController
 
     public function view()
     {
-        parent::_prepareView();
-        $this->dataobjectsBrowserView(array(
-            'source' => 'sejm_kluby.poslowie:' . $this->object->getId(),
-            'dataset' => 'poslowie',
-            'title' => __d('dane', 'LC_POSLOWIE_W_KLUBIE'),
-            'noResultsTitle' => 'Brak posłów w tym klubie',
-            'excludeFilters' => array(
-                'klub_id',
-            ),
+        
+        parent::load();
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+	            'dataset' => 'poslowie',
+	            'poslowie.klub_id' => $this->object->getId(),
+            )
         ));
+        $this->set('DataBrowserTitle', 'Posłowie w tym klubie');
+        $this->render('DataBrowser/browser');        
+   
     }
 } 

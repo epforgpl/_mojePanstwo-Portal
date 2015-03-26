@@ -201,8 +201,7 @@ class GminyController extends DataobjectsController
 
         parent::view();
 
-        $this->prepareFeed(array(
-            'perPage' => 20,
+        $this->feed(array(
             'channel' => 'rada',
         ));
 
@@ -217,8 +216,7 @@ class GminyController extends DataobjectsController
 
         parent::view();
 
-        $this->prepareFeed(array(
-            'perPage' => 20,
+        $this->feed(array(
             'channel' => 'urzad',
         ));
 
@@ -634,8 +632,7 @@ class GminyController extends DataobjectsController
 	            
             } else {
             
-	            $this->prepareFeed(array(
-	                'perPage' => 20,
+	            $this->feed(array(
 	                'dataset' => 'rady_druki',
 	                'id' => $druk->getId(),
 	                'direction' => 'asc',
@@ -685,8 +682,7 @@ class GminyController extends DataobjectsController
 
                 case 'view': {
 
-                    $this->prepareFeed(array(
-                        'perPage' => 20,
+                    $this->feed(array(
                         'dataset' => 'dzielnice',
                         'id' => $dzielnica->getId(),
                     ));
@@ -1054,8 +1050,7 @@ class GminyController extends DataobjectsController
 
                     // $radny->loadLayer( 'details' );
 
-                    $this->prepareFeed(array(
-                        'perPage' => 20,
+                    $this->feed(array(
                         'dataset' => 'radni_gmin',
                         'id' => $radny->getId(),
                     ));
@@ -1319,8 +1314,7 @@ class GminyController extends DataobjectsController
 
                     // $radny->loadLayer( 'details' );
 
-                    $this->prepareFeed(array(
-                        'perPage' => 20,
+                    $this->feed(array(
                         'dataset' => 'radni_gmin',
                         'id' => $radny->getId(),
                     ));
@@ -1490,8 +1484,7 @@ class GminyController extends DataobjectsController
             switch ($subaction) {
                 case 'view': {
 
-					$this->prepareFeed(array(
-                        'perPage' => 20,
+					$this->feed(array(
                         'dataset' => 'krakow_komisje',
                         'id' => $komisja->getId(),
                     ));
@@ -1686,29 +1679,34 @@ class GminyController extends DataobjectsController
     public function miejscowosci()
     {
 
-        $this->_prepareView();
-        $this->request->params['action'] = 'miejscowosci';
-
-        if (isset($this->request->params['pass'][0]) && is_numeric($this->request->params['pass'][0])) {
-
-            $miejscowosc = $this->API->getObject('miejscowosci', $this->request->params['pass'][0], array(// 'layers' => 'neighbours',
-            ));
+        $this->load();
+				
+        if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
+			
+			$miejscowosc = $this->Dataobject->find('first', array(
+				'conditions' => array(
+					'dataset' => 'miejscowosci',
+					'id' => $this->request->params['subid'],
+				),
+			));
+			
             $this->set('miejscowosc', $miejscowosc);
             $this->set('title_for_layout', $miejscowosc->getTitle() . ' w gminie ' . $this->object->getTitle());
             $this->render('miejscowosc');
 
         } else {
-
-            $this->dataobjectsBrowserView(array(
-                'source' => 'gminy.miejscowosci:' . $this->object->getId(),
-                'dataset' => 'miejscowosci',
-                'noResultsTitle' => 'Brak miejscowości',
-                'excludeFilters' => array(
-                    'gmina_id'
-                ),
-                'hlFields' => array(),
+			
+			$this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+		            'dataset' => 'miejscowosci',
+		            'miejscowosci.gmina_id' => $this->object->getId(),
+	            ),
+	            'aggsPreset' => 'miejscowosci',
             ));
+			
             $this->set('title_for_layout', 'Miejscowości w gminie ' . $this->object->getData('nazwa'));
+            $this->set('DataBrowserTitle', 'Miejscowości w gminie ' . $this->object->getData('nazwa'));
+            $this->render('Dane.DataBrowser/browser');
 
         }
 

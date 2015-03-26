@@ -27,7 +27,7 @@ class Sn_orzeczenia extends DocDataObject
     public function getLabel()
     {
 
-        return '<strong>Orzeczenie</strong> Sądu Najwyższego z dnia ' . $this->dataSlownie($this->getDate());
+        return '<strong>Orzeczenie</strong> Sądu Najwyższego';
 
     }
 

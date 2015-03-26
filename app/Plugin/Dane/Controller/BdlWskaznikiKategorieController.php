@@ -15,7 +15,7 @@ class BdlWskaznikiKategorieController extends DataobjectsController
             )
         ));
         $this->set('DataBrowserTitle', 'Grupy wskaźników w tej kategorii');
-        $this->render('DataBrowser/browser');
+        $this->render('Dane.DataBrowser/browser');
     }
 
 } 

@@ -11,7 +11,7 @@ if (in_array($object->getDataset(), array('krakow_posiedzenia'))) {
 
 $this->Dataobject->setObject($object);
 ?>
-<div class="objectRender col-md-12 <?php echo $object->getDataset(); ?>" oid="<?php echo $item['data']['id'] ?>">
+<div class="objectRender col-md-12 <?php echo $object->getDataset(); ?>" oid="<?php echo $object->getId(); ?>">
     <div class="row">
         <? if ($this->Dataobject->getDate()) { ?>
             <div class="formatDate col-md-1">

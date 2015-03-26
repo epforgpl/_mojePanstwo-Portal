@@ -28,9 +28,11 @@
     <? if(
     	( $params = $this->Paginator->params() ) && 
     	isset( $params['count'] )
-    ) {?>
+    ) {
+	    $took = round($dataBrowser['took'], 2);
+    ?>
     <div class="row">
-	    <div class="dataCounter col-md-8<? if( empty($dataBrowser['aggs']) ) {?> col-md-offset-1<?}?>"><p class="pull-left"><?= pl_dopelniacz($params['count'], 'wynik', 'wyniki', 'wyników') ?> (<?= round($dataBrowser['took'], 2) ?> s)</p></div>
+	    <div class="dataCounter col-md-8<? if( empty($dataBrowser['aggs']) ) {?> col-md-offset-1<?}?>"><p class="pull-left"><?= pl_dopelniacz($params['count'], 'wynik', 'wyniki', 'wyników') ?><? if($took){?> (<?= $took ?> s)<?}?></p></div>
     </div>
     <? } ?>
     	

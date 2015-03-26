@@ -26,7 +26,7 @@ class SejmInterpelacjeController extends DataobjectsController
 
         }
 
-        $this->prepareFeed(array(
+        $this->feed(array(
             'direction' => 'asc',
         ));
 

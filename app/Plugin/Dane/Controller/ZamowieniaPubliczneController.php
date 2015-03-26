@@ -85,7 +85,7 @@ class ZamowieniaPubliczneController extends DataobjectsController
         $this->set('details', $details);
         $this->set('text_details', $text_details);
         
-        $this->prepareFeed(array(
+        $this->feed(array(
 	        'direction' => 'asc'
         ));
 

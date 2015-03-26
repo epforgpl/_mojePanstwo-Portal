@@ -13,7 +13,7 @@ class InstytucjeController extends DataobjectsController
         parent::_prepareView();
 
         if ($this->object->getData('file') == '1')
-            $this->prepareFeed();
+            $this->feed();
 
     }
 
@@ -201,9 +201,8 @@ class InstytucjeController extends DataobjectsController
         }
 
 
-        $menu['selected'] = ($this->request->params['action'] == 'view') ? '' : $this->request->params['action'];
-
-        $this->set('_menu', $menu);
+        $this->menu = $menu;
+        parent::beforeRender();
 
 
     }

@@ -139,5 +139,13 @@ foreach( $map as $m ) {
 		'pass' => $pass,
 	));
 	
+	Router::connect('/dane/:controller' . $m['pattern'] . '/:action/:subid' , array(
+		'plugin' => 'Dane', 
+	), array(
+		'id' => '([0-9]+)',
+		'subid' => '([0-9]+)',
+		'pass' => $pass,
+	));
+	
 }
 

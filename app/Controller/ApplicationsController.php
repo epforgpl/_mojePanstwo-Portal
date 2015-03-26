@@ -82,7 +82,7 @@ class ApplicationsController extends AppController
             ),
             'aggsPreset' => $dataset,
         ), $options);
-	    	    
+        	    	    
 	    $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
         	    

@@ -90,6 +90,7 @@ class DaneController extends ApplicationsController
 		        'zbiory.katalog' => '1',
 	        ),
 	        'order' => '_title asc',
+	        'limit' => 99,
         ));
                         
     }

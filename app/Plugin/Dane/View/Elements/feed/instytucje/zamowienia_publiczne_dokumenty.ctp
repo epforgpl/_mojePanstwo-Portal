@@ -18,7 +18,11 @@
         </a>
 	</p>
 		
-	<? if( $przedmiot = $object->getStatic('przedmiot') ) {?>
+	<? if (
+		( $przedmiot = $object->getStatic('przedmiot') ) && 
+		( strip_tags($przedmiot) != strip_tags($object->getTitle()) )
+	) { ?>
+			
 		<div class="static">
 			<?= $przedmiot ?></p>
 		</div>
@@ -40,19 +44,7 @@
 		</div>
 	<? } ?>
 	
-	<? if( $object->getData('typ_id')=='6' ) { ?>
 	
-	<p class="col-lg-12 pull-top-right">
-		<a href="<?= $object->getUrl() ?>">Szczegóły &raquo;</a>
-	</p>
-	
-	<? } else { ?>
-	
-		<p class="col-lg-12">
-			<a href="<?= $object->getUrl() ?>">Szczegóły &raquo;</a>
-		</p>
-	
-	<? } ?>
 	
 	<? /*
     <p class="title">

@@ -28,7 +28,9 @@ class Pismo extends AppModel
     
     }
     
-    public function transfer_anonymous($params) {
+    public function transfer_anonymous($temp_user_id) {
+	    
+	    debug($temp_user_id); die();
 	    
 	    $res = $this->getDataSource()->request('pisma/transfer_anonymous', array(
 	    	'method' => 'GET',
