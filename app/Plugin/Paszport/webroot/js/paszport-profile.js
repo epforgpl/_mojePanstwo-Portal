@@ -135,4 +135,25 @@ $(function() {
         return false;
     });
 
+    $('#submitDeletePaszport').click(function() {
+        var password = $('#inputDeletePassword').val();
+
+        if(password == '') {
+            $('#inputDeletePassword').parent('.form-group').addClass('has-error');
+            return false;
+        }
+
+        $.post("/paszport/user/delete", { password: password } , function(data) {
+
+            if(data == 'true') {
+                $(location).attr('href', '/paszport/users/logout');
+            } else {
+                $('#inputDeletePassword').parent('.form-group').addClass('has-error');
+            }
+
+            return false;
+
+        });
+    });
+
 });
