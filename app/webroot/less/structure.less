@@ -95,7 +95,7 @@ body {
         width: 100%;
         height: 70px;
         background-color: @cockpitBlue;
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         z-index: 3;
@@ -103,12 +103,22 @@ body {
         ._mPLogo {
             float: left;
             width: 80px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+
+            -webkit-transform: translate(-50%, 0);
+            -moz-transform: translate(-50%, 0);
+            -ms-transform: translate(-50%, 0);
+            -o-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
         }
 
         ._mPShowMenu {
             @iconSize: 40px;
 
-            float: right;
+            float: left;
+            width: 76px;
             height: 100%;
             position: relative;
 
@@ -497,6 +507,10 @@ body {
 
         #_mPCockpit ._mPBasic {
             margin-left: -100px;
+
+            ._mPLogo {
+                visibility: hidden;
+            }
         }
         #_main {
             margin-top: 70px;

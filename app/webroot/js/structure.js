@@ -58,7 +58,7 @@
 
         if (that.hasClass('open')) {
             that.removeClass('tcon-transform open');
-            $('#_mPCockpitMobile').css('z-index', '3');
+
             $('#_main').stop(true, false).animate({
                 'margin-left': '0'
             }, {queue: false});
@@ -72,12 +72,7 @@
             }, {queue: false});
             $('#_mPCockpit ._mPBasic').stop(true, false).animate({
                 'margin-left': '0'
-            }, {
-                queue: false,
-                complete: function () {
-                    $('#_mPCockpitMobile').css('z-index', '1');
-                }
-            });
+            }, {queue: false});
         }
     })
 })(jQuery);
