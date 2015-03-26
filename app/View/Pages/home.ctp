@@ -7,7 +7,7 @@
         <div class="startWindow col-xs-12 col-md-10 col-md-offset-1">
             <div class="windowSet">
                 <div class="_mPSearchOutside">
-                    <form class="suggesterBlock" action="/dane/szukaj<? if (isset($app)) { ?>?app=<?= $app ?><? } ?>">
+                    <form class="suggesterBlock" action="/dane">
                         <div class="main_input">
                             <i class="glyph-addon" data-icon="&#xe600;"></i>
                             <input name="q" value="" type="text" autocomplete="off"

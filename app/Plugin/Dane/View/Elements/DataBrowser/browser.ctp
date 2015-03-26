@@ -24,13 +24,13 @@
 	        </div>
 	    </form>
 	</div>
-    
+        
     <? if(
     	( $params = $this->Paginator->params() ) && 
     	isset( $params['count'] )
     ) {?>
     <div class="row">
-	    <div class="dataCounter col-md-8<? if( empty($dataBrowser['aggs']) ) {?> col-md-offset-1<?}?>"><p class="pull-left"><?= pl_dopelniacz($params['count'], 'wynik', 'wyniki', 'wyników') ?></p><? if( $params['pageCount'] > 1 ) {?><p class="pull-right">Strona <?= $params['page'] ?> z <?= $params['pageCount'] ?> </p><? } ?></div>
+	    <div class="dataCounter col-md-8<? if( empty($dataBrowser['aggs']) ) {?> col-md-offset-1<?}?>"><p class="pull-left"><?= pl_dopelniacz($params['count'], 'wynik', 'wyniki', 'wyników') ?> (<?= round($dataBrowser['took'], 2) ?> s)</p></div>
     </div>
     <? } ?>
     	

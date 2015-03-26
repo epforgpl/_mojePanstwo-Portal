@@ -145,7 +145,7 @@
 
     <? echo $this->Element('suggester', array(
         'placeholder' => __("LC_SEARCH_PUBLIC_DATA_PLACEHOLDER"),
-        'action' => '/dane/szukaj',
+        'action' => '/dane',
     )); ?>
 </div>
 

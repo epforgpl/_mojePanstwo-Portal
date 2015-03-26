@@ -350,6 +350,7 @@ class DataBrowserComponent extends Component {
 
 	    $controller->set('dataBrowser', array(
 		    'hits' => $hits,
+		    'took' => $controller->Dataobject->getPerformance(),
 		    'aggs' => $controller->Dataobject->getAggs(),
             'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
 		    'cancel_url' => $this->getCancelSearchUrl($controller),
@@ -367,6 +368,7 @@ class DataBrowserComponent extends Component {
 			'conditions' => $conditions,
 			'aggs' => $this->getSettingsForField('aggs'),
 			'order' => $this->getSettingsForField('order'),
+			'limit' => 50,
 		);
 						
 		if( isset($conditions['q']) )

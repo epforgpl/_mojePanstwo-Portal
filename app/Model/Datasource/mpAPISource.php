@@ -205,8 +205,12 @@ class mpAPISource extends DataSource {
         if( $model->findQueryType == 'first' ) {
 	        return array($res['Dataobject']);
         } else {
-	        $this->count = $res['Count'];
-	        $this->took = $res['Took'];
+	        
+	        if( isset($res['Count']) )
+		        $this->count = $res['Count'];
+		    
+		    if( isset($res['Took']) )
+		        $this->took = $res['Took'];
 	        
 	        if( isset($res['Aggs']) )
 	        	$this->Aggs = $res['Aggs'];

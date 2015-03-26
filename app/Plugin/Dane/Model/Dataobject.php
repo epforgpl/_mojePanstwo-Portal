@@ -44,6 +44,12 @@ class Dataobject extends AppModel {
 		return $this->getDataSource()->Aggs;
 		
 	}
+	
+	public function getPerformance() {
+		
+		return $this->getDataSource()->took / 1000;
+		
+	}
 
 	public function paginateCount($model, $conditions = null, $recursive = 0) {
 		
