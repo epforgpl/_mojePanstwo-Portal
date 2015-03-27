@@ -105,7 +105,7 @@ $this->Dataobject->setObject($object);
                         ?>
 						
 						<? if( $highlight = $object->getLayer('highlight') ) { ?>
-							<div class="description">
+							<div class="description highlight">
                                 <?= $highlight[0] ?>
                             </div>
                         <? } elseif ($object->getDescription()) { ?>

@@ -17,5 +17,18 @@ class BDL extends AppModel
 		
         return @$data['data'];
     }
+    
+    public function getChartDataForDimmesions($dims)
+    {
+	    $data = $this->getDataSource()->request('bdl/chartDataForDimmesions', array(
+		    'method' => 'GET',
+		    'data' => array(
+			    'dims' => $dims,
+		    ),
+	    ));
+		
+        return @$data['data'];
+    }
+    
 
 }

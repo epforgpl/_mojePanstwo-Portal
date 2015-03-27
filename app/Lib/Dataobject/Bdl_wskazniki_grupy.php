@@ -29,5 +29,12 @@ class Bdl_wskazniki_grupy extends DataObject
     {
         return '<strong>Grupa wskaźników</strong> Banku Danych Lokalnych';
     }
+    
+    /*
+    public function getDescription()
+    {
+	    return 'W kategorii: <a href="/dane/bdl_wskazniki_kategorie/' . $this->getData('bdl_wskazniki_grupy.kategoria_id') . '">' . $this->getData('bdl_wskazniki_grupy.kategoria_tytul') . '</a>';
+    }
+    */
 
 }
