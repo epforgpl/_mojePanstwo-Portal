@@ -95,9 +95,10 @@ class AccessToken extends OAuthAppModel
 
     public function save($data)
     {
-        $api = mpapiComponent::getApi()->OAuth()->AccessToken();
+        /*$api = mpapiComponent::getApi()->OAuth()->AccessToken();
 
-        return $api->save($data);
+        return $api->save($data);*/
+        return $this->getDataSource()->request('oauth/access_tokens/save/', $data);
     }
 
 }
