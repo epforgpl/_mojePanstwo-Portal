@@ -141,9 +141,9 @@ class OAuthController extends OAuthAppController
     {
         $this->autoRender = false;
         try {
-            var_export('TOKEN : ' . $this->OAuth->grantAccessToken()); die();
+            $this->OAuth->grantAccessToken();
         } catch (OAuth2ServerException $e) {
-            var_export('Exception : ' . $e->sendHttpResponse()); die();
+            $e->sendHttpResponse();
         }
     }
 

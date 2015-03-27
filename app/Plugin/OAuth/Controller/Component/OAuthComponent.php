@@ -470,8 +470,7 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
             'conditions' => array('oauth_token' => $oauth_token),
             'recursive' => -1,
         ));
-        debug($accessToken);
-        die();
+
         if ($accessToken) {
             return $accessToken['AccessToken'];
         }
