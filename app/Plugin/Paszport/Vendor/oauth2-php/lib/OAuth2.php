@@ -626,6 +626,8 @@ class OAuth2
                 }
 
                 $stored = $this->storage->getAuthCode($input["code"]);
+                var_export('$stored : ' . $stored);
+                die();
 
                 // Check the code exists
                 if ($stored === null || $client[0] != $stored["client_id"]) {
