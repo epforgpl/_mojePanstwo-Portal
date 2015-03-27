@@ -199,7 +199,9 @@ class BdlWskaznikiController extends DataobjectsController
     {
 
         $dims = isset($this->request->query['dims']) ? explode(',', $this->request->query['dims']) : array();
-        $data = $this->API->BDL()->getChartDataForDimmesions($dims);
+        
+        $this->loadModel('Statystyka.BDL');
+        $data = $this->BDL->getChartDataForDimmesions($dims);
 
         $this->set('data', $data);
         $this->set('_serialize', array('data'));

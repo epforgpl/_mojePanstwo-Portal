@@ -41,6 +41,17 @@ class DataobjectsController extends AppController
 			    'layers' => $layers,
 		    )) ) {
 			    
+			    if(
+				    !$slug && 
+				    $this->object->getSlug() && 
+				    ( $this->object->getSlug() != $slug ) && 
+				    $this->object->getUrl()
+			    ) {
+				    
+				    return $this->redirect( $this->object->getUrl() );
+				    
+			    }
+			    			    
 			    $dataset = $this->object->getLayer('dataset');
 								
 	            $this->set('object', $this->object);
@@ -90,14 +101,23 @@ class DataobjectsController extends AppController
     
     public function beforeRender() {
 	    
-	    $selected = $this->request->params['action'];
-	    if( $selected=='view' )
-	    	$selected = '';
+	    if(
+	    	isset( $this->request->params['ext'] ) &&
+	    	( $this->request->params['ext'] == 'json' )
+	    ) {
+		    
+	    } else {
 	    
-	    $this->menu['selected'] = $selected;   
-	    $this->menu['base'] = $this->object->getUrl();   
+		    $selected = $this->request->params['action'];
+		    if( $selected=='view' )
+		    	$selected = '';
+		    
+		    $this->menu['selected'] = $selected;   
+		    $this->menu['base'] = $this->object->getUrl();   
+		    
+		    $this->set('object_menu', $this->menu);	    
 	    
-	    $this->set('object_menu', $this->menu);	    
+	    }
 	    
     }
 
