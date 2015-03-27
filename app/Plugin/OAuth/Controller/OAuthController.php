@@ -140,6 +140,8 @@ class OAuthController extends OAuthAppController
     public function token()
     {
         $this->autoRender = false;
+        var_dump('test');
+        die();
         try {
             $this->OAuth->grantAccessToken();
         } catch (OAuth2ServerException $e) {
