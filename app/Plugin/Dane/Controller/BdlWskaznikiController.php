@@ -16,14 +16,7 @@ class BdlWskaznikiController extends DataobjectsController
     public function view()
     {
 
-        $this->_view();
-
-    }
-
-    private function _view($dimension = array())
-    {
-
-        parent::_prepareView();
+        parent::load();
 
         $expand_dimension = isset($this->request->query['i']) ? (int)$this->request->query['i'] : $this->object->getData('i');
         $dims = $this->object->getLayer('dimennsions');
@@ -127,9 +120,11 @@ class BdlWskaznikiController extends DataobjectsController
 
     }
 
-    public function view_dimension()
+    public function kombinacje()
     {
-
+	
+		$this->loadModel('Statystyka.BDL');
+		
         if (isset($this->request->query['d']) && $this->request->query['d']) {
 
             $dimmensions_array = array();
@@ -139,7 +134,7 @@ class BdlWskaznikiController extends DataobjectsController
                     0;
             }
 
-            $data_for_dimmensions = $this->API->BDL()->getDataForDimmesions(array($dimmensions_array), $this->request->params['id']);
+            $data_for_dimmensions = $this->BDL->getDataForDimmesions(array($dimmensions_array), $this->request->params['id']);
             if ($data_for_dimmensions) {
                 $url = '/dane/bdl_wskazniki/' . $this->request->params['id'] . '/' . $data_for_dimmensions[0]['id'];
                 $this->redirect($url);
@@ -147,10 +142,10 @@ class BdlWskaznikiController extends DataobjectsController
             }
 
         }
-
-        $dimension = $this->API->BDL()->getDataForDimension($this->request->params['dim_id']);
-
-        $this->_view($dimension);
+				
+        $dimension = $this->BDL->getDataForDimension($this->request->params['subid']);
+        
+        $this->load();
 
 
         $level_selected = false;
@@ -186,7 +181,7 @@ class BdlWskaznikiController extends DataobjectsController
 
         if ($selected_level_id) {
 
-            $local_data = $this->API->BDL()->getLocalDataForDimension($dimension['id'], $selected_level_id);
+            $local_data = $this->BDL->getLocalDataForDimension($dimension['id'], $selected_level_id);
             $this->set('local_data', $local_data);
 
         }
@@ -207,4 +202,12 @@ class BdlWskaznikiController extends DataobjectsController
         $this->set('_serialize', array('data'));
 
     }
+    
+    public function legacy_redirect()
+    {
+	    
+	    return $this->redirect('/dane/bdl_wskazniki/' . $this->request->params['id'] . ',' . $this->request->params['slug'] . '/kombinacje/' . $this->request->params['subid']);
+	    
+    }
+    
 } 
