@@ -30,7 +30,7 @@ if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) {
                     <li class="active noparent">
                         <a class="title">Bank danych lokalnych</a>
                         <ul>
-                            <li class="noparent" id="<?= $object->getData('kategoria_id'); ?>">
+                            <li class="noparent" id="k<?= $object->getData('kategoria_id'); ?>">
                                 <a class="title"><?= $object->getData('bdl_wskazniki.kategoria_tytul'); ?></a>
                                 <ul class="insertHere"></ul>
                             </li>
