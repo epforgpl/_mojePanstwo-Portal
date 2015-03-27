@@ -303,7 +303,7 @@ jQuery(document).ready(function () {
         var wid = parseInt(jQuery('input#wid').val());
 
         for(var i = 0; i < category.groups.length; i++) {
-            jQuery('.tree ul.insertHere').append('<li id="' + category.groups[i].id + '"><a><span class="glyphicon glyphicon-plus"></span>' + category.groups[i].tytul + '</a><ul></ul></li>');
+            jQuery('.tree ul.insertHere').append('<li id="g' + category.groups[i].id + '"><a><span class="glyphicon glyphicon-plus"></span>' + category.groups[i].tytul + '</a><ul></ul></li>');
             for(var m = 0; m < category.groups[i].subgroups.length; m++) {
                 var c =
                     wid == category.groups[i].subgroups[m].id ?
@@ -313,8 +313,8 @@ jQuery(document).ready(function () {
                     wid == category.groups[i].subgroups[m].id ?
                     '<span class="glyphicon glyphicon-check tg"></span> &nbsp;' : '';
 
-                jQuery('.tree ul.insertHere li#' + category.groups[i].id + ' ul')
-                    .append('<li id="' + category.groups[i].subgroups[m].id + '">' + ic + '<a ' + c + ' href="/dane/bdl_wskazniki/' + category.groups[i].subgroups[m].id + '">' + category.groups[i].subgroups[m].tytul + '</a></li>');
+                jQuery('.tree ul.insertHere li#g' + category.groups[i].id + ' ul')
+                    .append('<li id="sg' + category.groups[i].subgroups[m].id + '">' + ic + '<a ' + c + ' href="/dane/bdl_wskazniki/' + category.groups[i].subgroups[m].id + '">' + category.groups[i].subgroups[m].tytul + '</a></li>');
             }
         }
 
@@ -331,7 +331,7 @@ jQuery(document).ready(function () {
             var b = false;
             jQuery(this).parent().toggleClass('active');
             jQuery(this).parent().find('li').each(function() {
-                if(jQuery(this).attr('id') == wid) {
+                if(jQuery(this).attr('id') == 'sg' + wid) {
                     b = true;
                 }
                 if(jQuery(this).is(':hidden')) {
@@ -345,7 +345,7 @@ jQuery(document).ready(function () {
                     jQuery(this).parent().children('ul').slideToggle('fast');
                 else {
                     jQuery(this).parent().find('li').each(function() {
-                        if(jQuery(this).attr('id') != wid)
+                        if(jQuery(this).attr('id') != 'sg' + wid)
                             jQuery(this).hide();
                     });
                 }
@@ -357,16 +357,16 @@ jQuery(document).ready(function () {
             jQuery(this).find('span').toggleClass('glyphicon-minus');
         });
 
-        jQuery('.tree li#' + kid).addClass('active');
-        jQuery('.tree li#' + kid).parent('ul').slideToggle('fast');
+        jQuery('.tree li#k' + kid).addClass('active');
+        jQuery('.tree li#k' + kid).parent('ul').slideToggle('fast');
 
-        jQuery('.tree li#' + gid).addClass('active');
-        jQuery('.tree li#' + gid).parent('ul').slideToggle('fast');
+        jQuery('.tree li#g' + gid).addClass('active');
+        jQuery('.tree li#g' + gid).parent('ul').slideToggle('fast');
 
-        jQuery('.tree li#' + wid).addClass('active');
-        jQuery('.tree li#' + wid).parent('ul').slideToggle('fast');
-        jQuery('.tree li#' + wid).parent('ul').find('li').each(function() {
-            if(jQuery(this).attr('id') != wid)
+        jQuery('.tree li#sg' + wid).addClass('active');
+        jQuery('.tree li#sg' + wid).parent('ul').slideToggle('fast');
+        jQuery('.tree li#sg' + wid).parent('ul').find('li').each(function() {
+            if(jQuery(this).attr('id') != 'sg' + wid)
                 jQuery(this).hide();
         });
     });
