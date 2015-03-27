@@ -331,7 +331,7 @@ jQuery(document).ready(function () {
             var b = false;
             jQuery(this).parent().toggleClass('active');
             jQuery(this).parent().find('li').each(function() {
-                if(jQuery(this).attr('id') == wid) {
+                if(jQuery(this).attr('id') == 'sg' + wid) {
                     b = true;
                 }
                 if(jQuery(this).is(':hidden')) {
@@ -345,7 +345,7 @@ jQuery(document).ready(function () {
                     jQuery(this).parent().children('ul').slideToggle('fast');
                 else {
                     jQuery(this).parent().find('li').each(function() {
-                        if(jQuery(this).attr('id') != wid)
+                        if(jQuery(this).attr('id') != 'sg' + wid)
                             jQuery(this).hide();
                     });
                 }
