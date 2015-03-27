@@ -103,10 +103,7 @@ class AuthCode extends OAuthAppModel
         $ret = $api->save($data);
         return $ret; */
 
-        $response = $this->getDataSource()->request('/oauth/auth_codes/save', $data);
-        debug($response);
-        die();
-        return $response;
+        return $this->getDataSource()->request('/oauth/auth_codes/save', $data);
     }
 
     public function findByCode($code)

@@ -664,6 +664,10 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
             'expires' => $expires,
             'scope' => $scope
         );
+
+        debug($data);
+        die();
+
         $this->AuthCode->create();
 
         return $this->AuthCode->save(array('AuthCode' => $data));
