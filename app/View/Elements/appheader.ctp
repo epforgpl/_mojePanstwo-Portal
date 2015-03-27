@@ -27,15 +27,12 @@ if( isset($appSettings['headerImg']) )
                         <? $isActive = (bool) (isset($appSettings['menuSelected']) && ($menuItem['id'] == $appSettings['menuSelected'])); ?>
                         <? $isDropDown = (bool) (isset($menuItem['dropdown'])); ?>
                         <?
-                        $activeLabel = null;
                         if($isDropDown && isset($appSettings['menuSelected'])) {
                             // sprawdzamy czy w submenu jest zaznaczona jakaś opcja, jeżeli
-                            // tak - pobieramy i wyświetlamy jej label jako główny element
-                            // oraz ustawiamy całe drzewo jako active
+                            // tak - ustawiamy całe drzewo jako active
                             foreach($menuItem['dropdown'] as $_menuItem) {
                                 if($_menuItem['id'] == $appSettings['menuSelected']) {
                                     $isActive = true;
-                                    $activeLabel = $_menuItem['label'];
                                     break;
                                 }
                             }
@@ -43,7 +40,7 @@ if( isset($appSettings['headerImg']) )
                         ?>
                         <li class="<?= $isActive ? 'active' : ''; ?> <?= $isActive ? 'dropdown ' : ''; ?>">
                             <a <?= isset($menuItem['dropdown']) ? 'class="dropdown-toggle" data-toggle="dropdown"' : ''; ?> href="<?= isset($menuItem['href']) ? '/'.$menuItem['href'] : '/'.strtolower($this->request->params['plugin']).'/'.$menuItem['id']; ?>">
-                                <?= (!is_null($activeLabel)) ? $activeLabel : $menuItem['label']; ?>
+                                <?= $menuItem['label'] ?>
                                 <? if(isset($menuItem['dropdown'])) { ?>
                                     <span class="caret"></span>
                                 <? } ?>
