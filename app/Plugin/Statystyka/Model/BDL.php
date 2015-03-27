@@ -30,5 +30,27 @@ class BDL extends AppModel
         return @$data['data'];
     }
     
+    public function getDataForDimension($dim_id)
+    {
+	    $data = $this->getDataSource()->request('bdl/dataForDimmesion/' . $dim_id, array(
+		    'method' => 'GET',
+	    ));
+		
+        return @$data['data'];
+    }
+    
+    public function getLocalDataForDimension($dim_id, $level)
+    {
+	    
+	    $data = $this->getDataSource()->request('bdl/localDataForDimension/' . $dim_id, array(
+		    'method' => 'GET',
+		    'data' => array(
+			    'level' => $level,
+		    ),
+	    ));
+		
+        return @$data['data'];
+    
+    }
 
 }

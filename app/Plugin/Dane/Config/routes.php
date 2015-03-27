@@ -136,6 +136,7 @@ foreach( $map as $m ) {
 		'plugin' => 'Dane', 
 	), array(
 		'id' => '([0-9]+)',
+		'action' => '([a-zA-Z\_]+)',
 		'pass' => $pass,
 	));
 	
@@ -143,9 +144,22 @@ foreach( $map as $m ) {
 		'plugin' => 'Dane', 
 	), array(
 		'id' => '([0-9]+)',
+		'action' => '([a-zA-Z\_]+)',
+		'subid' => '([0-9]+)',
+		'pass' => $pass,
+	));
+	
+	
+	// LEGACY
+	
+	Router::connect('/dane/bdl_wskazniki' . $m['pattern'] . '/:subid' , array(
+		'plugin' => 'Dane', 
+		'controller' => 'BdlWskazniki',
+		'action' => 'legacy_redirect'
+	), array(
+		'id' => '([0-9]+)',
 		'subid' => '([0-9]+)',
 		'pass' => $pass,
 	));
 	
 }
-
