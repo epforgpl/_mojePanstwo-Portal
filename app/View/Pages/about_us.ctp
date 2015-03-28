@@ -34,7 +34,7 @@
                         kontrolować i wpływać na działania Twojego państwa. Serwis mojePaństwo jest projektem Open
                         Source, w którym każdy może wziąć udział. Kod źródłowy oraz system zgłaszania błędów i
                         propozycji (issues) dostępny jest w serwisie <a
-                            href="https://https://github.com/epforgpl" target="_blank">GitHub</a> w postaci trzech
+                            href="https://github.com/epforgpl" target="_blank">GitHub</a> w postaci trzech
                         repozytoriów:</p>
                     <ul>
                         <li><a href="https://github.com/epforgpl/_mojePanstwo-Portal" target="_blank">_mojePanstwo
