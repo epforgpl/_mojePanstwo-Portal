@@ -103,7 +103,9 @@ echo $this->Element('dataobject/pageBegin');
         </div>
         <div class="col-md-7 nopadding">
             <div class="object">
-                <?= $this->dataobject->feed($feed); ?>
+                
+                <? echo $this->Element('Dane.DataFeed/feed'); ?>
+                
             </div>
         </div>
         <div class="col-md-2">

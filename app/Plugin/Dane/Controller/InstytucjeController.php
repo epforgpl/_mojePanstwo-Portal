@@ -4,13 +4,13 @@ App::uses('DataobjectsController', 'Dane.Controller');
 
 class InstytucjeController extends DataobjectsController
 {
-    public $menu = array();
-    public $initLayers = array('instytucja_nadrzedna', 'tree', 'menu', 'info');
 
+    public $initLayers = array('instytucja_nadrzedna', 'tree', 'menu', 'info');
+	
     public function view()
     {
 
-        parent::_prepareView();
+        parent::load();
 
         if ($this->object->getData('file') == '1')
             $this->feed();
@@ -20,14 +20,14 @@ class InstytucjeController extends DataobjectsController
     public function instytucje()
     {
 
-        parent::_prepareView();
+        parent::load();
         $this->request->params['action'] = 'instytucje';
 
     }
 
     public function prawo()
     {
-        parent::_prepareView();
+        parent::load();
         $this->dataobjectsBrowserView(array(
             'source' => 'instytucje.prawo:' . $this->object->getId(),
             'dataset' => 'prawo',
@@ -46,7 +46,7 @@ class InstytucjeController extends DataobjectsController
 
     public function tweety()
     {
-        parent::_prepareView();
+        parent::load();
         $this->dataobjectsBrowserView(array(
             'source' => 'instytucje.twitter:' . $this->object->getId(),
             'dataset' => 'twitter',
@@ -65,7 +65,7 @@ class InstytucjeController extends DataobjectsController
 
     public function urzednicy()
     {
-        parent::_prepareView();
+        parent::load();
         $this->dataobjectsBrowserView(array(
             // TODO wyswietlac tylko z tego urzedu
             'conditions' => array(
@@ -86,7 +86,7 @@ class InstytucjeController extends DataobjectsController
 
     public function zamowienia()
     {
-        parent::_prepareView();
+        parent::load();
         $this->dataobjectsBrowserView(array(
             'source' => 'instytucje.zamowienia_udzielone:' . $this->object->getId(),
             'dataset' => 'zamowienia_publiczne',
@@ -106,7 +106,7 @@ class InstytucjeController extends DataobjectsController
 
         $this->addInitLayers(array('budzet'));
 
-        parent::_prepareView();
+        parent::load();
         $this->set('title_for_layout', "Budżet " . $this->object->getTitle());
 
         $this->render('budzet');
@@ -200,10 +200,22 @@ class InstytucjeController extends DataobjectsController
             );
         }
 
-
         $this->menu = $menu;
+        
+        $this->actions = array(
+	        'obserwuj' => array(
+		        'id' => $this->object->getDataset() . ':' . $this->object->getId(),
+		        'nazwa' => $this->object->getTitle(),
+	        ),
+	        'pismo' => array(
+				'adresat_id' => $this->object->getDataset() . ':' . $this->object->getId(),
+				'szablon_id' => 35,
+				'nazwa' => 'Wyślij wniosek o udostępnienie informacji publicznej',
+				'opis' => 'Masz pytania dotyczące działalności tej instytucji? Kliknij, aby wysłać odpowiedni wniosek.',
+			),
+        );
+        
         parent::beforeRender();
-
 
     }
 

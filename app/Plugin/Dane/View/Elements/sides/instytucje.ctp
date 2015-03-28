@@ -5,32 +5,7 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
 ?>
 <div class="objectSideInner">
 
-    <? if ($object->getData('budzet_plan')) { ?>
-        <div class="block">
-
-            <ul class="dataHighlights side">
-
-                <? if ($object->getData('budzet_plan')) { ?>
-                    <li class="dataHighlight big">
-                        <p class="_label" data-toggle="tooltip" data-placement="top"
-                           title="Budżet roczny organizacji, finansowany z budżetu państwa">Budżet
-                            roczny</p>
-
-                        <div>
-                            <p class="_value pull-left"><?= number_format_h($object->getData('budzet_plan') * 1000) ?>
-                                PLN</p>
-
-                            <p class="pull-right nopadding"><a class="btn btn-sm btn-default"
-                                                               href="/dane/instytucje/<?= $object->getId() ?>/budzet">Szczegóły &raquo;</a>
-                            </p>
-                        </div>
-                    </li>
-                <? } ?>
-
-            </ul>
-
-        </div>
-    <? } ?>
+    
 
     <? if (
         ($nadrzedna = $object->getLayer('instytucja_nadrzedna')) ||
@@ -65,6 +40,25 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                 </li>
+                
+                <li class="dataHighlight">
+	                <a href="<?= $object->getUrl() ?>/zamowienia"><span
+	                        class="icon icon-moon">&#xe61a;</span>Zamówienia publiczne <span
+	                        class="glyphicon glyphicon-chevron-right"></span></a>
+	            </li>
+	
+	            <li class="dataHighlight">
+	                <a href="<?= $object->getUrl() ?>/prawo"><span class="glyphicon glyphicon-book"></span>Akty
+	                    prawne <span class="glyphicon glyphicon-chevron-right"></span></a>
+	            </li>
+	
+	            <? if ($object->getData('twitter_account_id')) { ?>
+	                <li class="dataHighlight">
+	                    <a href="<?= $object->getUrl() ?>/tweety"><span
+	                            class="icon icon-moon">&#xe61d;</span>Tweety <span
+	                            class="glyphicon glyphicon-chevron-right"></span></a>
+	                </li>
+	            <? } ?>
 
             </ul>
 
@@ -72,33 +66,32 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
     <? } ?>
 
 
+	<? if ($object->getData('budzet_plan')) { ?>
+        <div class="block">
 
-    <div class="block">
+            <ul class="dataHighlights side">
 
-        <ul class="dataHighlights side">
+                <? if ($object->getData('budzet_plan')) { ?>
+                    <li class="dataHighlight big">
+                        <p class="_label" data-toggle="tooltip" data-placement="top"
+                           title="Budżet roczny organizacji, finansowany z budżetu państwa">Budżet
+                            roczny</p>
 
-            <li class="dataHighlight">
-                <a href="<?= $object->getUrl() ?>/zamowienia"><span
-                        class="icon icon-moon">&#xe61a;</span>Zamówienia publiczne <span
-                        class="glyphicon glyphicon-chevron-right"></span></a>
-            </li>
+                        <div>
+                            <p class="_value pull-left"><?= number_format_h($object->getData('budzet_plan') * 1000) ?>
+                                PLN</p>
 
-            <li class="dataHighlight">
-                <a href="<?= $object->getUrl() ?>/prawo"><span class="glyphicon glyphicon-book"></span>Akty
-                    prawne <span class="glyphicon glyphicon-chevron-right"></span></a>
-            </li>
+                            <p class="pull-right nopadding"><a class="btn btn-sm btn-default"
+                                                               href="/dane/instytucje/<?= $object->getId() ?>/budzet">Szczegóły &raquo;</a>
+                            </p>
+                        </div>
+                    </li>
+                <? } ?>
 
-            <? if ($object->getData('twitter_account_id')) { ?>
-                <li class="dataHighlight">
-                    <a href="<?= $object->getUrl() ?>/tweety"><span
-                            class="icon icon-moon">&#xe61d;</span>Tweety <span
-                            class="glyphicon glyphicon-chevron-right"></span></a>
-                </li>
-            <? } ?>
+            </ul>
 
-        </ul>
-
-    </div>
+        </div>
+    <? } ?>
 
 
     <div class="block">
@@ -150,6 +143,9 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
         </ul>
 
     </div>
+    
+    
+    
 
 
 </div>

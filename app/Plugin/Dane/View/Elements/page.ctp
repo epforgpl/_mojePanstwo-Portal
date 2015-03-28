@@ -14,7 +14,7 @@ $this->Dataobject->setObject($object);
 if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) {
 
     echo $this->element('Dane.przejrzystykrakow_header', array(
-        'item' => $item,
+        'object' => $object,
         'object_content_sizes' => $object_content_sizes,
         'titleTag' => $titleTag,
         'bigTitle' => $bigTitle,

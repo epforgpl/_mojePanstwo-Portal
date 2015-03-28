@@ -37,6 +37,7 @@ class Dataobject
     public $slug;
     public $hl = null;
     public $classes = array();
+    public $subscribtion = false;
     
 
     public function __construct($params = array())
@@ -64,6 +65,10 @@ class Dataobject
             $this->contexts = $params['contexts'];
         }
         
+        if (isset($params['subscribtion'])) {
+            $this->subscribtion = $params['subscribtion'];
+        }
+        
         $temp = array();
         foreach( $this->data as $key => $val ) {
         
@@ -80,7 +85,11 @@ class Dataobject
         $this->routes = array_merge($this->_routes, $this->routes);
 
     }
-
+	
+	public function getSubscribtion() {
+		return (boolean) $this->subscribtion;
+	}
+	
 	public function getClasses() {
 		$output = $this->classes;
 		$output[] = 'objclass';

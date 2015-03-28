@@ -32,6 +32,7 @@ class PaszportController extends ApplicationsController
                     'label' => 'Profil',
                     'href' => 'paszport'
                 ),
+                /*
                 array(
                     'id' => 'keys',
                     'label' => 'Klucze API',
@@ -42,6 +43,7 @@ class PaszportController extends ApplicationsController
                     'label' => 'Logi',
                     'href' => 'paszport/logi'
                 )
+                */
             );
 
             $this->set('user', $this->Auth->user());

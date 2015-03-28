@@ -57,4 +57,20 @@ class Dataobject extends AppModel {
 		
 	}
 	
+	public function subscribe($dataset, $id) {
+		
+		return $this->getDataSource()->request('dane/' . $dataset . '/' . $id . '/subscribe', array(
+			'method' => 'POST',
+		));
+		
+	}
+	
+	public function unsubscribe($dataset, $id) {
+		
+		return $this->getDataSource()->request('dane/' . $dataset . '/' . $id . '/unsubscribe', array(
+			'method' => 'POST',
+		));
+		
+	}
+	
 }

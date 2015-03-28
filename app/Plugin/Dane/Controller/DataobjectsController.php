@@ -17,6 +17,7 @@ class DataobjectsController extends AppController
     );
     
     public $menu = array();
+    public $actions = array();
             
     public function load() {
 	    
@@ -115,9 +116,24 @@ class DataobjectsController extends AppController
 		    $this->menu['selected'] = $selected;   
 		    $this->menu['base'] = $this->object->getUrl();   
 		    
-		    $this->set('object_menu', $this->menu);	    
+		    $this->set('object_menu', $this->menu);
+		    $this->set('object_actions', $this->actions);
 	    
 	    }
+	    
+    }
+    
+    public function subscribe() {
+	    	    
+	    $this->Dataobject->subscribe($this->request->params['controller'], $this->request->params['id']);
+	    $this->redirect($this->referer());
+	    
+    }
+    
+    public function unsubscribe() {
+	    	    
+	    $this->Dataobject->unsubscribe($this->request->params['controller'], $this->request->params['id']);
+	    $this->redirect($this->referer());
 	    
     }
 

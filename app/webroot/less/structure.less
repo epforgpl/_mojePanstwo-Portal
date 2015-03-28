@@ -9,54 +9,88 @@ body {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-
-    &.btn-primary {
-        background-color: #007ab9;
-        border-width: 0;
-        padding: 8px 12px;
+    
+    &.btn-icon {
+        overflow: hidden;
+        padding-left: 50px;
+        text-align: left;
+        width: 100%;
+        position: relative;
+        line-height: 16px;
+		border-width: 0;
+        padding: 8px 12px 8px 50px;
         word-wrap: break-word;
         white-space: normal;
         line-height: 1em;
+		
+		&.obserwuj-button:hover {
+			.btn-text {
+				visibility: hidden;
+			}
+			.btn-text:before {
+				content: "Nie obserwuj";
+				visibility: visible;
+			}
+		}
+		
+		&.btn-primary {
+	        background-color: #007ab9;
+	        
+	        .icon {
+	            background-color: #00639a;
+	        }
+	        
+	        &:hover {
+		        background-color: #00639a;
+		
+		        &.btn-icon .icon {
+		            background-color: #007ab9;
+		        }
+		    }
+	    }
+	    
+	    &.btn-default {
+		    
+		    background-color: #FAFAFA;
+		    
+		    .icon {
+	            background-color: #F1F1F1;
+	        }
+	        
+	        &:hover {
+		        background-color: #F1F1F1;
+		
+		        &.btn-icon .icon {
+		            background-color: #FAFAFA;
+		        }
+		    }
+		    
+		}
+		
+        .icon {
+            background-color: #00639a;
+            left: 0;
+            padding: 8px 10px;
+            position: absolute;
+            text-align: center;
+            top: 0;
+            width: 42px;
+            height: 100%;
 
-        &.btn-icon {
-            overflow: hidden;
-            padding-left: 50px;
-            text-align: left;
-            width: 100%;
-            position: relative;
-
-            .icon {
-                background-color: #00639a;
-                left: 0;
-                padding: 8px 10px;
+            &:before, &:after {
                 position: absolute;
-                text-align: center;
-                top: 0;
-                width: 42px;
-                height: 100%;
+                top: 50%;
+                left: 50%;
 
-                &:before, &:after {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-
-                    -webkit-transform: translate(-50%, -50%);
-                    -moz-transform: translate(-50%, -50%);
-                    -ms-transform: translate(-50%, -50%);
-                    -o-transform: translate(-50%, -50%);
-                    transform: translate(-50%, -50%);
-                }
-            }
-        }
-
-        &:hover {
-            background-color: #003f6b;
-
-            &.btn-icon .icon {
-                background-color: #003f6b;
+                -webkit-transform: translate(-50%, -50%);
+                -moz-transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                -o-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
             }
         }
     }
+
 }
 
 #_wrapper {

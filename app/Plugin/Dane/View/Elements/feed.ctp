@@ -27,7 +27,7 @@ $this->Dataobject->setObject($object);
     echo " unreaded";
 } else {
     echo " readed";
-} ?>"
+} ?><? if( $classes = $object->getClasses() ) { echo " " . implode(' ', $classes); } ?>"
      oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
 
     <div class="row">

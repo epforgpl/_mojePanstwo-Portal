@@ -1,4 +1,10 @@
 <?
+	
+	$objectRenderOptions = array(
+		'forceLabel' => ( isset($dataBrowserObjectRender) && isset($dataBrowserObjectRender['forceLabel']) ) ? (boolean) $dataBrowserObjectRender['forceLabel'] : false,
+	);
+	
+	
 $path = App::path('Plugin');
 $file = $path[0] . '/Dane/View/Elements/' . $theme . '/' . $object->getDataset() . '.ctp';
 $file_exists = file_exists($file);
@@ -72,7 +78,7 @@ $this->Dataobject->setObject($object);
                             </div>
                         <? } ?>
 
-                        <? if ($object->force_hl_fields || $forceLabel) { ?>
+                        <? if ($object->force_hl_fields || $objectRenderOptions['forceLabel']) { ?>
                             <p class="header">
                                 <?= $object->getLabel(); ?>
                             </p>
@@ -105,9 +111,11 @@ $this->Dataobject->setObject($object);
                         ?>
 						
 						<? if( $highlight = $object->getLayer('highlight') ) { ?>
+							<? if( $highlight[0] != '<em>' . $object->getShortTitle() . '</em>' ) {?>
 							<div class="description highlight">
                                 <?= $highlight[0] ?>
                             </div>
+                            <? } ?>
                         <? } elseif ($object->getDescription()) { ?>
                             <div class="description">
                                 <?= $object->getDescription() ?>
@@ -128,7 +136,7 @@ $this->Dataobject->setObject($object);
                             </div>
                         <? } ?>
 
-                        <? if ($object->force_hl_fields || $forceLabel) { ?>
+                        <? if ($object->force_hl_fields || $objectRenderOptions['forceLabel']) { ?>
                             <p class="header">
                                 <?= $object->getLabel(); ?>
                             </p>
@@ -159,10 +167,12 @@ $this->Dataobject->setObject($object);
                         }
                         ?>
 
-                        <? if( $highlight = $object->getLayer('highlight') ) { ?>
+                        <? if( $highlight = $object->getLayer('highlight') ) { ?>						
+							<? if( $highlight[0] != '<em>' . $object->getShortTitle() . '</em>' ) {?>
 							<div class="description">
                                 <?= $highlight[0] ?>
                             </div>
+                            <? } ?>
                         <? } elseif ($object->getDescription()) { ?>
                             <div class="description">
                                 <?= $this->Text->truncate($object->getDescription(), 250) ?>
@@ -174,11 +184,4 @@ $this->Dataobject->setObject($object);
             </div>
         </div>
     </div>
-    <?php if ($object->hasHighlights() && $object->getHlText()) { ?>
-        <div class="row">
-            <div class="text-highlights alert alert-info">
-                <?php echo(closetags($object->getHlText())); ?>
-            </div>
-        </div>
-    <?php } ?>
 </div>

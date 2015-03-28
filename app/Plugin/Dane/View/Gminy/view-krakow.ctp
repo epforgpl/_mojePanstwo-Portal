@@ -215,7 +215,7 @@
 
                                             <div class="inner">
                                                 <p class="title">
-                                                    <a href="<?= $obj->getUrl() ?>"><?= $obj->getShortTitle() ?></a>
+                                                    <a href="<?= $obj->getUrl() ?>"><?= $this->Text->truncate( $obj->getShortTitle(), 150 ) ?></a>
                                                 </p>
 
                                                 <p class="date"><?= $this->Czas->dataSlownie($obj->getDate()) ?></p>
@@ -276,7 +276,7 @@
 
                                             <div class="inner">
                                                 <p class="title">
-                                                    <a href="<?= $obj->getUrl() ?>"><?= $obj->getShortTitle() ?></a>
+                                                    <a href="<?= $obj->getUrl() ?>"><?= $this->Text->truncate( $obj->getShortTitle(), 150 ) ?></a>
                                                 </p>
 
                                                 <p class="date"><?= $this->Czas->dataSlownie($obj->getDate()) ?></p>
@@ -361,7 +361,9 @@
                             </div>
 
                             <div class="content padding">
-                                <? if (!empty($ngos)) { ?>
+                                <?
+                                if (!empty($ngos)) {
+                                    ?>
                                     <ul class="raw">
                                         <?
                                         $limit = 5;
@@ -369,24 +371,30 @@
 
                                         foreach ($ngos as $ngo) {
                                             $i++;
+                                            $label = $ngo['label']['buckets'][0]['key'];
                                             ?>
-
-                                            <li class="list-group-item">
-                                                <span class="badge"><?= number_format_h($ngo['count']) ?></span>
-                                                <a href="<?= Router::url(array(
-                                                    'action' => 'organizacje',
-                                                    'id' => $object->getId(),
-                                                    '?' => array('forma_prawna_id' => $ngo['id'])
-                                                )) ?>"
-                                                   title="<?= addslashes($ngo['label']) ?>"><?= $this->Text->truncate($ngo['label'], 25); ?></a>
+											
+                                            <li class="list-group-item"><span
+                                                    class="badge"><?= number_format_h($ngo['doc_count']) ?></span><a
+                                                    href="<?= Router::url(array(
+                                                        'action' => 'organizacje',
+                                                        'id' => $object->getId(),
+                                                        '?' => array('forma_prawna_id' => $ngo['key'])
+                                                    )) ?>"
+                                                    title="<?= addslashes($label) ?>"><?= $this->Text->truncate($label, 25); ?></a>
                                             </li>
-                                            <? if ($i == $limit) {
+                                            <?
+                                            if ($i == $limit) {
                                                 break;
                                             }
-                                        } ?>
+                                        }
+                                        ?>
                                     </ul>
-                                <? } ?>
+                                <?
+                                }
+                                ?>
                             </div>
+                            
                         </div>
                     </div>
                 </div>

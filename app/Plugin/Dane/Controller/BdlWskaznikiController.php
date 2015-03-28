@@ -122,7 +122,8 @@ class BdlWskaznikiController extends DataobjectsController
 
     public function kombinacje()
     {
-	
+		
+		$this->view();
 		$this->loadModel('Statystyka.BDL');
 		
         if (isset($this->request->query['d']) && $this->request->query['d']) {
@@ -145,8 +146,6 @@ class BdlWskaznikiController extends DataobjectsController
 				
         $dimension = $this->BDL->getDataForDimension($this->request->params['subid']);
         
-        $this->load();
-
 
         $level_selected = false;
         $selected_level_id = false;

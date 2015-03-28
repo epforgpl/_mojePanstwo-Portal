@@ -118,10 +118,15 @@ class mpAPISource extends DataSource {
         $this->count = false;
         $this->took = false;
         
-        if( isset($queryData['feed']) )
+        if( isset($queryData['feed']) ) {
+        	        	
         	$endpoint_parts = array('dane/' . $queryData['feed']);
-        else
+        
+        } else {
+	        
 	        $endpoint_parts = array('dane');
+	        
+	    }
         
         
         if( isset($queryData['feed']) ) {
@@ -287,7 +292,7 @@ class mpAPISource extends DataSource {
     }
         
     private $allowed_methods = array(
-	    'GET', 'POST', 'DELETE', 'PATCH'
+	    'GET', 'POST', 'DELETE', 'PATCH', 'PUT'
     );
     
     public function request($endpoint, $params = array()) {
@@ -302,6 +307,7 @@ class mpAPISource extends DataSource {
 		    case 'POST': { $json = $this->Http->post($path, $data, $request); break; }
 		    case 'DELETE': { $json = $this->Http->delete($path, $data, $request); break; }
 		    case 'PATCH': { $json = $this->Http->patch($path, $data, $request); break; }
+		    case 'PUT': { $json = $this->Http->put($path, $data, $request); break; }
 	    }
 	    
 	    if( $this->config['verbose'] ) {

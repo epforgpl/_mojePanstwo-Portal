@@ -24,11 +24,30 @@ class PowiadomieniaController extends ApplicationsController
 		'headerImg' => 'powiadomienia',
 	);
 	
-    public function view()
-    {
+    public function view() {
         
         $this->setMenuSelected();
                 
-    }    
+    }
+    
+    public function obserwuje() {
+	    
+	    $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+	            'subscribtions' => true,
+            ),
+        ));
+        
+        $this->set('dataBrowserObjectRender', array(
+		    'forceLabel' => true,
+	    ));
+        $this->set('DataBrowserTitle', 'Dane które obserwujesz:');
+    }
+    
+    public function moje() {
+	    
+	    
+	    
+    } 
 
 } 

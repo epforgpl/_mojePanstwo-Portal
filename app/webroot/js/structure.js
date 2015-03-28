@@ -11,8 +11,9 @@
         if (option.hasClass('_mPSearch')) {
             if ($('._mPSearchOutside').length)
                 $('._mPSearchOutside input').focus();
-            else
-                $('.suggesterBlockModal').modal('toggle');
+            else {
+                console.log($('.suggesterBlockModal').modal('toggle').find('input.datasearch'));
+            }
             $('.suggesterBlockModal').on('hidden.bs.modal', function (e) {
                 $('.suggesterBlockModal input').val('');
             })

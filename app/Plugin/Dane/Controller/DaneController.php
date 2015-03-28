@@ -67,6 +67,10 @@ class DaneController extends ApplicationsController
 			    ),
 		    ));
 		    
+		    $this->set('dataBrowserObjectRender', array(
+			    'forceLabel' => true,
+		    ));
+		    
 		    $this->title = $this->request->query['q'] . ' - Dane publiczne';
 		    $this->render('Dane.Elements/DataBrowser/browser-from-app');
 	        
