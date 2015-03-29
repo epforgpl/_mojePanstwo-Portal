@@ -146,7 +146,7 @@ $this->Dataobject->setObject($object);
                             <?php if ($object->getUrl() != false){ ?>
                             <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
                                 <?php } ?>
-                                <?= $shortTitle ?>
+                                <?= $this->Text->truncate($shortTitle, 150) ?>
                                 <?php if ($object->getUrl() != false){ ?>
                             </a> <?
                         }
@@ -155,6 +155,7 @@ $this->Dataobject->setObject($object);
                         } ?>
                         </p>
                         <?
+	                    // debug( $object->getData() );
                         if ($file_exists) {
                             echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(
                                 'object' => $object,

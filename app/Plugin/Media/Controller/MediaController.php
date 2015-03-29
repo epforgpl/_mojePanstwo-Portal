@@ -423,6 +423,9 @@ class MediaController extends ApplicationsController
     
     public function tweets()
     {
+	    if( !isset($this->request->query['conditions']['twitter.konto_obserwowane']) )
+	    	$this->request->query['conditions']['twitter.konto_obserwowane'] = '1';
+	    	
         $this->loadDatasetBrowser('twitter');
     }
 

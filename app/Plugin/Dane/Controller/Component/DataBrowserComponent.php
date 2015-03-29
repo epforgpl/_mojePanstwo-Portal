@@ -8,6 +8,47 @@ class DataBrowserComponent extends Component {
 	private $aggs_visuals_map = array();
 	
 	private $aggs_presets = array(
+		'gminy' => array(
+	        'typ_id' => array(
+	            'terms' => array(
+		            'field' => 'gminy.typ_id',
+		            'exclude' => array(
+			            'pattern' => '0'
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Typy gmin',
+		            'skin' => 'pie_chart',
+	                'field' => 'gminy.typ_id',
+	                'dictionary' => array(
+		                '1' => 'Gmina miejska',
+		                '2' => 'Gmina wiejska',
+		                '3' => 'Gmina miejsko-wiejska',
+		                '4' => 'Miasto stołeczne',
+	                ),
+	            ),
+	        ),
+	    ),
+	    'powiaty' => array(
+	        'typ_id' => array(
+	            'terms' => array(
+		            'field' => 'powiaty.typ_id',
+		            'exclude' => array(
+			            'pattern' => '0'
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Typy powiatów',
+		            'skin' => 'pie_chart',
+	                'field' => 'powiaty.typ_id',
+	                'dictionary' => array(
+		                '1' => 'Powiat',
+		                '2' => 'Miasto na prawach powiatu',
+		                '3' => 'Miasto stołeczne',
+	                ),
+	            ),
+	        ),
+	    ),
 		'miejscowosci' => array(
 	        'typ_id' => array(
 	            'terms' => array(
@@ -29,6 +70,72 @@ class DataBrowserComponent extends Component {
                     'field' => 'miejscowosci.typ_id'
 	            ),
 	        ),
+	    ),
+	    'twitter_accounts' => array(
+	        'typ_id' => array(
+	            'terms' => array(
+		            'field' => 'twitter_accounts.typ_id',
+		            'exclude' => array(
+			            'pattern' => '0'
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Typy kont',
+		            'skin' => 'pie_chart',
+	                'field' => 'twitter_accounts.typ_id',
+	                'dictionary' => array(
+		                '1' => 'Posłowie',
+		                '2' => 'Komentatorzy',
+		                '3' => 'Urzędy',
+		                '4' => 'Rząd',
+		                '5' => 'Rzecznik prasowy',
+		                '6' => 'Media',
+		                '7' => 'Politycy',
+		                '8' => 'Partia polityczna',
+		                '9' => 'NGO',
+	                ),
+	            ),
+	        ),
+	    ),
+	    'twitter' => array(
+	        'typ_id' => array(
+	            'terms' => array(
+		            'field' => 'twitter_accounts.typ_id',
+		            'exclude' => array(
+			            'pattern' => '(0|)'
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Typy kont',
+		            'skin' => 'pie_chart',
+	                'field' => 'twitter_accounts.typ_id',
+	                'dictionary' => array(
+		                '1' => 'Posłowie',
+		                '2' => 'Komentatorzy',
+		                '3' => 'Urzędy',
+		                '4' => 'Rząd',
+		                '5' => 'Rzecznik prasowy',
+		                '6' => 'Media',
+		                '7' => 'Politycy',
+		                '8' => 'Partia polityczna',
+		                '9' => 'NGO',
+	                ),
+	            ),
+	        ),
+	        /*
+	        'date' => array(
+	            'date_histogram' => array(
+		            'field' => 'date',
+		            'interval' => 'year',
+		            'format' => 'yyyy-MM-dd',
+	            ),
+	            'visual' => array(
+		            'label' => 'Liczba tweetów w czasie',
+		            'skin' => 'date_histogram',
+                    'field' => 'date'
+	            ),
+	        ),
+	        */
 	    ),
 		'prawo' => array(
 	        'typ_id' => array(
@@ -150,7 +257,44 @@ class DataBrowserComponent extends Component {
                     'field' => 'zamowienia_publiczne.wartosc_cena',
                     'currency' => 'pln'
                 ),
-            )
+            ),
+            'tryb_id' => array(
+	            'terms' => array(
+		            'field' => 'zamowienia_publiczne.tryb_id',
+		            'exclude' => array(
+			            'pattern' => '0'
+		            ),
+	            ),
+	            'aggs' => array(
+		            'label' => array(
+			            'terms' => array(
+				            'field' => 'data.zamowienia_publiczne_tryby.nazwa',
+			            ),
+		            ),
+		            'wartosc_cena' => array(
+			            'sum' => array(
+		                    'field' => 'zamowienia_publiczne.wartosc_cena',
+		                ),
+	                ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Tryby zamówień',
+		            'skin' => 'zamowienia_publiczne/pie_chart',
+                    'field' => 'zamowienia_publiczne.tryb_id'
+	            ),
+	        ),
+            'date' => array(
+	            'date_histogram' => array(
+		            'field' => 'date',
+		            'interval' => 'year',
+		            'format' => 'yyyy-MM-dd',
+	            ),
+	            'visual' => array(
+		            'label' => 'Liczba zamówień publicznych w czasie',
+		            'skin' => 'date_histogram',
+                    'field' => 'date'
+	            ),
+	        ),
         ),
         'krs_osoby' => array(
             'typ_id' => array(

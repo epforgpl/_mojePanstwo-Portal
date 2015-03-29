@@ -1,11 +1,11 @@
 <?
 $source = $object->getLayer('source');
 ?>
-<p class="account"><a href="#"><?= $item['data']['twitter_accounts.name'] ?></a>
+<p class="account"><a href="#"><?= $object->getData('twitter_accounts.name') ?></a>
     <span>via <?= @$source['name'] ?></span></p>
 
 <h1 class="_">
-    <?php echo $item['data']['html'] ?>
+    <?php echo $object->getData('html') ?>
 </h1>
 
 <? if ($object->getData('twitter_account_id')) { ?>

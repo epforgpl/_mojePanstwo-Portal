@@ -23,7 +23,8 @@ class PowiatyController extends DataobjectsController
             'conditions' => array(
 	            'dataset' => 'gminy',
 	            'gminy.powiat_id' => $this->object->getId(),
-            )
+            ),
+            'aggsPreset' => 'gminy',
         ));
 		
         $this->set('title_for_layout', 'Gminy w powiecie ' . ' ' . $this->object->getData('nazwa'));

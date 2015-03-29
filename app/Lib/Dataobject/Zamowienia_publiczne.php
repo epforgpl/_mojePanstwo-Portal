@@ -41,17 +41,13 @@ class Zamowienia_publiczne extends DataObject
 		
 		$status = $this->getStatus();		
 		if( $this->getData('tryb_id')=='2' ) {
-			
-			return 'Zamówienie z wolnej ręki';
-			
+			$output = 'Zamówienie z wolnej ręki';
 		} else {
-		
-        $output = $this->getData('zamowienia_publiczne_tryby.nazwa');
-        if( $this->getData('status_id')=='2' )
-        	
-        	$output .= ' <span class="label label-danger">Rozstrzygnięto</span>';
-        
+	        $output = $this->getData('zamowienia_publiczne_tryby.nazwa');
         }
+
+		$output .= ' z ' . dataSlownie( $this->getDate() );
+
         return $output;
 
     }
