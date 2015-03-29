@@ -16,7 +16,7 @@
 	      <div class="modal-body">
 	        <p>Aby pobrać dane widoczne na tym ekranie, wyślij żądanie HTTP GET pod adres:</p>
 	        	        	        
-	        <a target="_blank" href="<?= $dataBrowser['api_call'] ?>"><?= htmlspecialchars($dataBrowser['api_call']) ?></a>
+	        <a class="modal-api-call-link" target="_blank" href="<?= $dataBrowser['api_call'] ?>"><?= htmlspecialchars($dataBrowser['api_call']) ?></a>
 	        
 	      </div>
 	      <div class="modal-footer">
