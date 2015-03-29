@@ -10,6 +10,7 @@ class mpAPISource extends DataSource {
     public $description = '_mojePaństwo REST API';
     public $count = false;
     public $took = false;
+    public $public_api_call = false;
     
     public $Aggs = array();
 
@@ -178,9 +179,11 @@ class mpAPISource extends DataSource {
         
         }
                         
-        // debug( $endpoint_parts );
-        
-        $res = $this->request(implode('/', $endpoint_parts) . '.' . $this->config['ext'], array(
+		$base_url = implode('/', $endpoint_parts) . '.' . $this->config['ext'];
+		
+		$this->public_api_call = $this->config['host'] . '/' . $base_url . '?' . http_build_query($queryData);
+		        
+        $res = $this->request($base_url, array(
 	        'data' => $queryData,
         ));
                 
@@ -278,7 +281,7 @@ class mpAPISource extends DataSource {
 			parse_str($url_parts['query'], $query);
 		else
 			$query = array();
-		
+				
 		$query['apiKey'] = $this->config['apiKey'];
 		
 		App::uses('CakeSession', 'Model/Datasource');
@@ -364,6 +367,6 @@ class mpAPISource extends DataSource {
             'data' => $data,
             'method' => 'POST'
         ));
-    }
+    }    
 
 }

@@ -6,6 +6,26 @@
 ?>
 <div class="container dataBrowser">
 	
+	<div class="modal modal-api-call">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	        <h4 class="modal-title"><span class="glyphicon glyphicon-cog"></span> REST API</h4>
+	      </div>
+	      <div class="modal-body">
+	        <p>Aby pobrać dane widoczne na tym ekranie, wyślij żądanie HTTP GET pod adres:</p>
+	        	        	        
+	        <a target="_blank" href="<?= $dataBrowser['api_call'] ?>"><?= htmlspecialchars($dataBrowser['api_call']) ?></a>
+	        
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
 	<div class="row">
 		<form action="" data-url="<?= $dataBrowser['cancel_url']; ?>" method="get" class="form-horizontal searchForm col-md-8<? if( empty($dataBrowser['aggs']) ) {?> col-md-offset-1<?}?>">
 			
@@ -32,7 +52,7 @@
 	    $took = round($dataBrowser['took'], 2);
     ?>
     <div class="row">
-	    <div class="dataCounter col-md-8<? if( empty($dataBrowser['aggs']) ) {?> col-md-offset-1<?}?>"><p class="pull-left"><?= pl_dopelniacz($params['count'], 'wynik', 'wyniki', 'wyników') ?><? if($took){?> (<?= $took ?> s)<?}?></p></div>
+	    <div class="dataCounter col-md-8<? if( empty($dataBrowser['aggs']) ) {?> col-md-offset-1<?}?>"><p class="pull-left"><?= pl_dopelniacz($params['count'], 'wynik', 'wyniki', 'wyników') ?><? if($took){?> (<?= $took ?> s)<?}?></p><p class="pull-right"><a href="#" class="link-discrete link-api-call" data-toggle="modal" data-target=".modal-api-call"><span class="glyphicon glyphicon-cog"></span> API</a></p></div>
     </div>
     <? } ?>
     	

@@ -106,6 +106,7 @@ $this->Dataobject->setObject($object);
                                 'defaults' => $defaults,
                             ));
                         } else {
+                                                        
                             echo $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults);
                         }
                         ?>
@@ -155,6 +156,7 @@ $this->Dataobject->setObject($object);
                         } ?>
                         </p>
                         <?
+	                    	                    
 	                    // debug( $object->getData() );
                         if ($file_exists) {
                             echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(

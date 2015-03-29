@@ -90,6 +90,14 @@ class Dataobject
 		return (boolean) $this->subscribtion;
 	}
 	
+	public function getMetaDescription($preset = false) {
+		return false;
+	}
+	
+	public function getMataDate() {
+		return false;
+	}
+	
 	public function getClasses() {
 		$output = $this->classes;
 		$output[] = 'objclass';

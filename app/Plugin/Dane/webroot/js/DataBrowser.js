@@ -4,7 +4,7 @@ var DataBrowser = Class.extend({
 		
 		this.div = $(div);		
 		this.initAggs();
-				
+						
 	},
 	
 	initAggs: function() {

@@ -519,6 +519,7 @@ class DataBrowserComponent extends Component {
 		    'aggs' => $controller->Dataobject->getAggs(),
             'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
 		    'cancel_url' => $this->getCancelSearchUrl($controller),
+		    'api_call' => $controller->Dataobject->getDataSource()->public_api_call,
 	    ));
 		
 	}

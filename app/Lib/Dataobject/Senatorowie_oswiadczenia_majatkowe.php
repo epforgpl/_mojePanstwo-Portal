@@ -27,5 +27,10 @@ class Senatorowie_oswiadczenia_majatkowe extends DocDataObject
     {
         return false;
     }
-
+	
+	public function getMetaDate()
+	{
+		return $this->getDate();
+	}
+	
 }
