@@ -55,7 +55,7 @@ $this->Dataobject->setObject($object);
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row marginTop-sm">
                 <? if ($object->getPosition()) { ?>
                     <div class="content col-md-1">
                         <span class="badge badge-position pull-right"><?= $object->getPosition() ?></span>

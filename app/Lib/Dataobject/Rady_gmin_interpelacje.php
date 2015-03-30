@@ -61,4 +61,15 @@ class Rady_gmin_interpelacje extends DocDataObject
 		return '/dane/gminy/' . $this->getData('radni_gmin.gmina_id') . '/interpelacje/' . $this->getId();
 	}
 	
+	public function getMetaDescriptionParts($preset = false)
+	{
+					
+		$output = array(
+			dataSlownie( $this->getDate() ),
+		);
+		
+		return $output;
+		
+	}
+	
 }
