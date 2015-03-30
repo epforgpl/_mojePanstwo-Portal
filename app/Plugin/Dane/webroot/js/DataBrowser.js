@@ -352,41 +352,37 @@ var DataBrowser = Class.extend({
 		
 	},
 
+    scienNotationToNum: function(str) {
+        var number = str[0];
+        for(var i = 0; i <= parseInt(str[str.length - 1]); i++)
+            number += '0';
+        return number;
+    },
+
     prepareNumeric: function(str) {
         var number = str[0];
-        if(str.indexOf('E') > -1) {
-            var newNumber = number;
-            var eNum = str[str.length - 1];
-            for(var i = 0; i <= eNum; i++) {
-                newNumber += '0';
-            }
-            str = newNumber;
-        }
-
-        var zeroCount = str.split('0').length - 1;
-        var additionalZerosCount = 0;
-        var additionalZeros = '';
+        if(str.indexOf('E') > -1)
+            str = this.scienNotationToNum(str);
+        var zeros = str.split('0').length - 2;
+        var addZeros = 0;
         var unit = '';
+        var newStr = number;
 
-        if(zeroCount > 0 && zeroCount < 3) {
-            additionalZerosCount = zeroCount - 1;
-            unit = '';
-        }
-
-        if(zeroCount >= 3 && zeroCount < 6) {
-            additionalZerosCount = zeroCount - 3;
+        if(zeros >= 3 && zeros < 6) {
             unit = 'k';
+            addZeros = zeros - 3;
         }
 
-        if(zeroCount >= 6) {
-            additionalZerosCount = zeroCount - 6;
+        if(zeros >= 6 && zeros < 9) {
             unit = 'M';
+            addZeros = zeros - 6;
         }
 
-        for(var i = 0; i < additionalZerosCount; i++)
-            additionalZeros += '0';
+        for(var i = 0; i < addZeros; i++)
+            newStr += '0';
 
-        return number + additionalZeros + unit;
+        newStr += unit;
+        return newStr;
     },
 
     prepareNumericLabel: function(str) {
