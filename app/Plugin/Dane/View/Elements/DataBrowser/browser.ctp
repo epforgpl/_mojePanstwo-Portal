@@ -134,7 +134,10 @@
 	                (
 	                	isset( $agg_data['value'] ) && 
 	                	$agg_data['value']
-	                )
+	                ) ||
+                    (
+                        isset($this->request->query['conditions'][$dataBrowser['aggs_visuals_map'][$agg_id]['field']])
+                    )
 	            ) { ?>
                     <li class="agg">
                         <h2><?= $dataBrowser['aggs_visuals_map'][$agg_id]['label']; ?></h2>

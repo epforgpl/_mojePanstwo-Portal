@@ -14,7 +14,7 @@
         <a href="<?= $map['cancelRequest']; ?>" aria-label="Close">
             <span class="label label-primary">
                 <span aria-hidden="true">&times;</span>&nbsp;
-                <?= $data['buckets'][0]['label']['buckets'][0]['key']; ?>
+                <?= isset($data['buckets'][0]['label']['buckets'][0]['key']) ? $data['buckets'][0]['label']['buckets'][0]['key'] : 'Usuń filtr'; ?>
             </span>
         </a>
     </p>
