@@ -1,0 +1,62 @@
+msgid "LC_KODY_POCZTOWE_ZNAM_ADRES"
+msgstr "na podstawie adresu"
+
+msgid "LC_KODY_POCZTOWE_SZUKAM_KODU"
+msgstr "Szukam kodu pocztowego"
+
+msgid "LC_KODY_POCZTOWE_WPISZ_MIEJSCOWOSC"
+msgstr "Wpisz adres"
+
+msgid "LC_KODY_POCZTOWE_WPISZ_ADRES"
+msgstr "Wpisz adres"
+
+msgid "LC_KODY_POCZTOWE_ZNAM_KOD"
+msgstr "na podstawie kodu pocztowego"
+
+msgid "LC_KODY_POCZTOWE_SZUKAM_ADRESU"
+msgstr "Szukam adresu"
+
+msgid "LC_KODY_POCZTOWE_WPISZ_KOD"
+msgstr "Wpisz kod pocztowy"
+
+msgid "LC_KODY_POCZTOWE_SZUKAJ"
+msgstr "Szukaj"
+
+msgid "LC_KODY_POCZTOWE_NAZWA"
+msgstr "Nazwa"
+
+msgid "LC_KODY_POCZTOWE_QUESTION_CITY"
+msgstr "Czy chodziło Ci o jedną z tych miejscowości?"
+
+msgid "LC_KODY_POCZTOWE_CITY_IN_COMMUNITY"
+msgstr "Miejscowość w gminie"
+
+msgid "LC_KODY_POCZTOWE_GMINA"
+msgstr "gmina"
+
+msgid "LC_KODY_TABLE_ADRES_GMINA"
+msgstr "Gmina"
+
+msgid "LC_KODY_TABLE_ADRES_MIEJSCOWOSC"
+msgstr "Miejscowość"
+
+msgid "LC_KODY_TABLE_ADRES_ULICA"
+msgstr "Ulica"
+
+msgid "LC_KODY_TABLE_ADRES_PLAC"
+msgstr "Plac"
+
+msgid "LC_KODY_TABLE_ADRES_OSIEDLE"
+msgstr "Osiedle"
+
+msgid "LC_KODY_TABLE_ADRES_ALEJA"
+msgstr "Aleja"
+
+msgid "LC_KODY_TABLE_ADRES_SKWER"
+msgstr "Skwer"
+
+msgid "LC_KODY_TABLE_ADRES_WYBRZEZE"
+msgstr "Wybrzeże"
+
+msgid "LC_SEARCH_BRAK_WYNIKOW"
+msgstr "Brak wyników"
