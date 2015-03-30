@@ -35,5 +35,14 @@ class Sejm_druki extends DocDataObject
     }
 
     public $force_hl_fields = true;
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+		return array(
+			dataSlownie($this->getDate()),
+			$this->getData('sejm_druki.autorzy_str'),
+		);
+		
+	}
 
 }

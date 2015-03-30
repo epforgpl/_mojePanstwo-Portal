@@ -8,15 +8,11 @@ class SejmometrController extends ApplicationsController
 		'menu' => array(
 			array(
 				'id' => '',
-				'label' => 'Start',
-			),
-			array(
-				'id' => 'poslowie',
 				'label' => 'Posłowie',
 			),
             array(
-                'id' => 'sejm',
-                'label' => 'Sejm',
+                'id' => 'sejm_posiedzenia',
+                'label' => 'Posiedzenia',
             ),
             array(
                 'id' => '#',
@@ -55,10 +51,6 @@ class SejmometrController extends ApplicationsController
                         'label' => 'Komunikaty Kancelarii Sejmu',
                     ),
                     array(
-                        'id' => 'sejm_posiedzenia',
-                        'label' => 'Posiedzenia',
-                    ),
-                    array(
                         'id' => 'sejm_posiedzenia_punkty',
                         'label' => 'Punkty porządku dziennego',
                     ),
@@ -94,10 +86,11 @@ class SejmometrController extends ApplicationsController
 		'headerImg' => 'sejmometr',
 	);
 	
-    public function index()
+	/*
+    public function view()
     {
-        $api = $this->API->Sejmometr();
-        $stats = $api->getStats();
+
+        $stats = $this->Sejmometr->getStats();
 
         $display_callbacks = array(
             'liczba_wypowiedzi' => function ($object) {
@@ -187,6 +180,7 @@ class SejmometrController extends ApplicationsController
 
         $this->set($data);
     }
+    */
 
     private function klub_img_src($klub_id)
     {
@@ -485,6 +479,11 @@ class SejmometrController extends ApplicationsController
         $this->set(compact('info'));
     }
 
+    public function view()
+    {
+        $this->loadDatasetBrowser('poslowie');
+    }
+    
     public function poslowie()
     {
         $this->loadDatasetBrowser('poslowie');
@@ -507,6 +506,7 @@ class SejmometrController extends ApplicationsController
 
     public function sejm_druki()
     {
+	    $this->title = 'Druki sejmowe - Sejmometr';
         $this->loadDatasetBrowser('sejm_druki');
     }
 

@@ -225,6 +225,7 @@ class AppController extends Controller {
 			'home' => '1',
 			'folder_id' => '13'
 		),
+		/*
 		array(
 			'id'     => '10',
 			'slug'   => 'kody_pocztowe',
@@ -234,6 +235,7 @@ class AppController extends Controller {
 			'home'   => '1',
 			'folder_id' => '13'
 		),
+		*/
 		array(
 			'id'     => '10',
 			'slug'   => 'paszport',

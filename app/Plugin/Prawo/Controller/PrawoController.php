@@ -14,6 +14,7 @@ class PrawoController extends ApplicationsController
 				'id' => 'tematy',
 				'label' => 'Tematy',
 			),
+			/*
 			array(
 				'id' => 'urzedowe',
 				'label' => 'Prawo urzędowe',
@@ -26,6 +27,7 @@ class PrawoController extends ApplicationsController
                 'id' => 'projekty',
                 'label' => 'Projekty aktów prawnych',
             ),
+            */
 		),
 		'title' => 'Prawo',
 		'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce',

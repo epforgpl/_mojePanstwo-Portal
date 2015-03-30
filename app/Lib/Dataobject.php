@@ -90,8 +90,21 @@ class Dataobject
 		return (boolean) $this->subscribtion;
 	}
 	
-	public function getMetaDescription($preset = false) {
+	public function getMetaDescriptionParts($preset = false) {
 		return false;
+	}
+	
+	public function getMetaDescription($preset = false) {
+		
+		$parts = $this->getMetaDescriptionParts($preset);
+		
+		if( empty($parts) )
+			return false;
+		else {
+			$parts = array_filter($parts);
+			return implode(' <span class="sep">-</span> ', $parts);
+		}
+			
 	}
 	
 	public function getMataDate() {

@@ -32,4 +32,5 @@ class Senatorowie extends DocDataObject
     {
         return false;
     }
+    
 } 

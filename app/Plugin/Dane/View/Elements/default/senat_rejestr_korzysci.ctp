@@ -1,1 +1,0 @@
-<p class="line signature"><?= $object->getData('senatorowie.nazwa') ?></p>

@@ -31,5 +31,14 @@ class Senat_druki extends DocDataObject
     }
     
     public $force_hl_fields = true;
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+		
+		return array(
+			dataSlownie($this->getDate())
+		);
+		
+	}
 
 }

@@ -28,9 +28,12 @@ class Senatorowie_oswiadczenia_majatkowe extends DocDataObject
         return false;
     }
 	
-	public function getMetaDate()
+	public function getMetaDescriptionParts($preset = false)
 	{
-		return $this->getDate();
+		return array(
+			$this->getData('senatorowie.nazwa')
+		);
+		
 	}
 	
 }

@@ -22,5 +22,14 @@ class Senat_rejestr_korzysci extends DocDataObject
     {
         return 'Wpis w rejestrze korzyści senatora';
     }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+				
+		return array(
+			$this->getData('senatorowie.nazwa')
+		);
+		
+	}
 
 }

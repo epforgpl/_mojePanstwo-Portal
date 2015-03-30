@@ -96,6 +96,11 @@ $this->Dataobject->setObject($object);
                             echo '<small>' . $object->getTitleAddon() . '</small>';
                         } ?>
                         </p>
+                        
+                        <? if( $metaDesc = $object->getMetaDescription() ) {?>
+                        <p class="meta meta-desc"><?= $metaDesc ?></p>
+                        <? } ?>
+                        
                         <?
                         if ($file_exists) {
                             echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(
@@ -155,6 +160,11 @@ $this->Dataobject->setObject($object);
                             echo '<small>' . $object->getTitleAddon() . '</small>';
                         } ?>
                         </p>
+                        
+                        <? if( $metaDesc = $object->getMetaDescription() ) {?>
+                        <p class="meta meta-desc"><?= $metaDesc ?></p>
+                        <? } ?>
+                        
                         <?
 	                    	                    
 	                    // debug( $object->getData() );

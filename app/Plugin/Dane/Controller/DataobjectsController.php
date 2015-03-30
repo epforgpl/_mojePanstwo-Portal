@@ -21,10 +21,12 @@ class DataobjectsController extends AppController
             
     public function load() {
 	    
-	    $dataset = isset( $this->request->params['pass'][0] ) ? $this->request->params['pass'][0] : false;
-	    $id = isset( $this->request->params['pass'][1] ) ? $this->request->params['pass'][1] : false;
-	    $slug = isset( $this->request->params['pass'][2] ) ? $this->request->params['pass'][2] : '';
+	    $dataset = isset( $this->request->params['controller'] ) ? $this->request->params['controller'] : false;
+	    $id = isset( $this->request->params['id'] ) ? $this->request->params['id'] : false;
+	    $slug = isset( $this->request->params['slug'] ) ? $this->request->params['slug'] : '';
 	    
+	    // debug(array('dataset' => $dataset, 'id' => $id, 'slug' => $slug, )); die();
+	    	    
 	    if(
 		    $dataset && 
 		    $id && 
@@ -48,8 +50,29 @@ class DataobjectsController extends AppController
 				    ( $this->object->getSlug() != $slug ) && 
 				    $this->object->getUrl()
 			    ) {
+				    				    
+				    $url = $this->object->getUrl();
 				    
-				    return $this->redirect( $this->object->getUrl() );
+				    if(
+				    	isset($this->request->params['action']) && 
+				    	( $this->request->params['action'] ) && 
+				    	( $this->request->params['action'] != 'view' )
+				    ) {
+					    
+					    $url .= '/' . $this->request->params['action'];
+					    
+					    if(
+					    	isset($this->request->params['subid']) && 
+					    	( $this->request->params['subid'] ) 
+					    ) {
+						    
+						    $url .= '/' . $this->request->params['subid'];
+						    						    
+					    }
+					    
+				    }
+				    				    
+				    return $this->redirect( $url );
 				    
 			    }
 			    			    

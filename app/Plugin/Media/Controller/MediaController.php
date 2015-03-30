@@ -127,6 +127,7 @@ class MediaController extends ApplicationsController
 		
 		$stats = $this->Media->getTwitterStats($range);
 		
+		
 
         $tags = $stats['from']['*']['tags']['objects'];
 
@@ -330,7 +331,7 @@ class MediaController extends ApplicationsController
 
         );
 
-
+		
         foreach ($ranks as &$rank) {
 
             foreach ($rank['groups'] as $g => $group) {
@@ -340,7 +341,7 @@ class MediaController extends ApplicationsController
                 if ($group['mode'] == 'tweet') {
 
                     $types = $this->Media->getTwitterTweetsGroupByTypes($range, $accounts_types_ids, $group['field']);
-
+						
                     foreach ($types as &$type) {
                         $type = array_merge($type, array(
                             'nazwa' => $accounts_types_nazwy[$type['id']],

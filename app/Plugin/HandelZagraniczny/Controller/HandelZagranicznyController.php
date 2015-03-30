@@ -11,11 +11,6 @@ class HandelZagranicznyController extends AppController
         $this->setMeta('description', 'Sprawdź na co posłowie wydają publiczne pieniądze.');
 
         $application = $this->getApplication();
-        $api = $this->API->HandelZagraniczny();
-
-        /* $stats = $api->getCountriesData(array(
-            'year'  => 2014
-        )); */
 
         $this->set('title_for_layout', 'Handel zagraniczny');
 

@@ -209,7 +209,7 @@
                 ?>
                 <li class="list-group-item">
                     <span class="badge"><?= number_format($object['count'], 0, '.', ' ') ?></span>
-                    <a href="<?= $href ?>">#<?= $object['name'] ?></a>
+                    <a href="#">#<?= $object['name'] ?></a>
                 </li>
                 <? if ($i >= 5) {
                     break;
@@ -371,8 +371,8 @@
 
         </ul>
 
-        <p><a class="btn btn-default btn-sm"
-              href="/dane/twitter/?!bez_retweetow=1&twitter_accounts:typ_id[]=<?= $type['id'] ?>&_date=LAST_<?= $range ?>&order=<?= $group['field'] ?>%20desc">Więcej &raquo;</a>
+        <? /*<p><a class="btn btn-default btn-sm"
+              href="/dane/twitter/?!bez_retweetow=1&twitter_accounts:typ_id[]=<?= $type['id'] ?>&_date=LAST_<?= $range ?>&order=<?= $group['field'] ?>%20desc">Więcej &raquo;</a></p><? */ ?>
 
     <? } else { ?>
         <div class="alert empty small">Brak danych w wybranym przez Ciebie okresie - zwiększ okres analiz.</div>

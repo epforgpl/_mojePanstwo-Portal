@@ -11,11 +11,13 @@ class ZamowieniaPubliczneController extends ApplicationsController
 				'href' => 'zamowienia_publiczne',
 				'label' => 'Zamówienia',
 			),
+			/*
 			array(
 				'id' => 'wykonawcy',
 				'href' => 'zamowienia_publiczne/wykonawcy',
 				'label' => 'Wykonawcy',
 			),
+			*/
             array(
                 'id' => 'dotacje_unijne',
                 'href' => 'zamowienia_publiczne/dotacje_unijne',

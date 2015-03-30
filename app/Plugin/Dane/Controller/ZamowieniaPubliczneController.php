@@ -93,14 +93,19 @@ class ZamowieniaPubliczneController extends DataobjectsController
     
     public function dokumenty() {
 				
-		parent::view();
-		$this->request->params['action'] = 'view';
-		
+		parent::load();
+				
 		if( 
-			isset($this->request->params['pass'][0]) && 
-			( $dokument = $this->API->getObject('zamowienia_publiczne_dokumenty', $this->request->params['pass'][0], array(
-                'layers' => array('details'),
-            )) )
+			isset($this->request->params['subid']) && 
+			( $dokument = $this->Dataobject->find('first', array(
+				'conditions' => array(
+					'dataset' => 'zamowienia_publiczne_dokumenty',
+					'id' => $this->request->params['subid'],
+				),
+				'layers' => array(
+					'details'
+				),
+			)) )
 		) {
 			
 			$_details = $dokument->getLayer('details');

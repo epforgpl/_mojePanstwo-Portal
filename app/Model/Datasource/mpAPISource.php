@@ -19,10 +19,7 @@ class mpAPISource extends DataSource {
  * ``app/Config/database.php`` and will be merged in the ``__construct()``.
  */
     public $config = array(
-        'apiKey' => '',
-        'host' => 'http://mojepanstwo.pl:4445',
         'ext' => 'json',
-        'verbose' => false,
     );
     
 /**

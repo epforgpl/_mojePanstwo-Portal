@@ -404,6 +404,40 @@ class DataBrowserComponent extends Component {
 	            ),
 	        ),
 	    ),
+	    'sejm_druki' => array(
+	        'typ_id' => array(
+	            'terms' => array(
+		            'field' => 'sejm_druki.typ_id',
+		            'exclude' => array(
+			            'pattern' => '0'
+		            ),
+	            ),
+	            'aggs' => array(
+		            'label' => array(
+			            'terms' => array(
+				            'field' => 'data.sejm_druki.druk_typ_nazwa',
+			            ),
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Typy druków',
+		            'skin' => 'pie_chart',
+                    'field' => 'sejm_druki.typ_id'
+	            ),
+	        ),
+	        'date' => array(
+	            'date_histogram' => array(
+		            'field' => 'sejm_druki.data',
+		            'interval' => 'year',
+		            'format' => 'yyyy-MM-dd',
+	            ),
+	            'visual' => array(
+		            'label' => 'Liczba druków w czasie',
+		            'skin' => 'date_histogram',
+                    'field' => 'sejm_druki.data'
+	            ),
+	        ),
+	    ),
 	);
 	
 	public function __construct($collection, $settings) {

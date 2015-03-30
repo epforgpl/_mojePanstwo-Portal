@@ -34,8 +34,11 @@ var DataBrowser = Class.extend({
         var pie_chart_keys = [];
         var choose_request = li.attr('data-choose-request');
         for(var i = 0; i < data.buckets.length; i++) {
+            
+            var label = ( typeof data.buckets[i].label.buckets[0] == 'undefined' ) ? '' : data.buckets[i].label.buckets[0].key;
+            
             pie_chart_data[i] = [
-                data.buckets[i].label.buckets[0].key,
+                label,
                 parseFloat(data.buckets[i].doc_count)
             ];
 
