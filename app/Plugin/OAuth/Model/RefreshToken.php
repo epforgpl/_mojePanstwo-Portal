@@ -11,6 +11,9 @@ App::uses('OAuthAppModel', 'OAuth.Model');
 class RefreshToken extends OAuthAppModel
 {
 
+    public $useTable = false;
+    public $useDbConfig = 'mpAPI';
+
     /**
      * Primary key field
      *
@@ -84,16 +87,18 @@ class RefreshToken extends OAuthAppModel
 
     public function find($type, $queryData)
     {
-        $api = mpapiComponent::getApi()->OAuth()->RefreshToken();
+        /*$api = mpapiComponent::getApi()->OAuth()->RefreshToken();
 
-        return $api->find($type, $queryData);
+        return $api->find($type, $queryData); */
+        return $this->getDataSource()->request('oauth/refresh_tokens/find/' . $type, $queryData);
     }
 
     public function save($data)
     {
-        $api = mpapiComponent::getApi()->OAuth()->RefreshToken();
+        /*$api = mpapiComponent::getApi()->OAuth()->RefreshToken();
 
-        return $api->save($data);
+        return $api->save($data);*/
+        return $this->getDataSource()->request('oauth/refresh_tokens/save/', $data);
     }
 
 }
