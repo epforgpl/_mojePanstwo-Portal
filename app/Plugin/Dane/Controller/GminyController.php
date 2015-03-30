@@ -1042,12 +1042,13 @@ class GminyController extends DataobjectsController
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
 						
             $subaction = (isset($this->request->params['subaction']) && $this->request->params['subaction']) ? $this->request->params['subaction'] : 'view';
-            $sub_id = (isset($this->request->params['subsubid']) && $this->request->params['subsubid']) ? $this->request->params['subsubid'] : false;
+            $subsubid = (isset($this->request->params['subsubid']) && $this->request->params['subsubid']) ? $this->request->params['subsubid'] : false;
 			
 			
 			$radny = $this->Dataobject->find('first', array(
 				'conditions' => array(
 					'dataset' => 'radni_gmin',
+					'id' => $this->request->params['subid'],
 				),
 				'layers' => array('neighbours', 'bip_url'),
 			));
@@ -1185,7 +1186,7 @@ class GminyController extends DataobjectsController
 
 
             $this->set('radny', $radny);
-            $this->set('sub_id', $sub_id);
+            $this->set('subsubid', $subsubid);
             $this->set('title_for_layout', $title_for_layout);
             $this->render('radny-' . $subaction);
 
