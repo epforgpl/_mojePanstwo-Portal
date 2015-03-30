@@ -1065,32 +1065,25 @@ class GminyController extends DataobjectsController
             switch ($subaction) {
                 case 'view': {
 
-                    // $radny->loadLayer( 'details' );
-
-                    $this->feed(array(
-                        'dataset' => 'radni_gmin',
-                        'id' => $radny->getId(),
-                    ));
+                    $this->Components->load('Dane.DataFeed', array(
+			            'feed' => $radny->getDataset() . '/' . $radny->getId(),
+			            'preset' => $radny->getDataset(),
+			            'side' => 'radni_gmin',
+			        ));
 
                     break;
                 }
                 case 'wystapienia': {
-
-                    $this->dataobjectsBrowserView(array(
-                        'source' => 'radni_gmin.wystapienia:' . $radny->getId(),
-                        'dataset' => 'rady_gmin_wystapienia',
-                        'noResultsTitle' => 'Brak wystąpień',
-                        'hlFields' => array(),
-                        'routes' => array(
-                            'shortTitle' => 'krakow_posiedzenia_punkty.tytul',
-                            'title' => 'krakow_posiedzenia_punkty.tytul',
-                        ),
-                        'title' => 'Wystąpienia radnego na posiedzeniach rady miasta',
-                        'back' => $radny->getUrl(),
-                        'backTitle' => 'Profil radnego',
-                    ));
-
-                    $title_for_layout .= ' - Wystąpienia na posiedzeniach rady miasta';
+															
+					$this->Components->load('Dane.DataBrowser', array(
+			            'conditions' => array(
+				            'dataset' => 'rady_gmin_wystapienia',
+				            'rady_gmin_wystapienia.osoba_id' => $radny->getData('osoba_id'),
+			            ),
+			            'aggsPreset' => 'rady_gmin_wystapienia',
+			        ));
+					
+                    $title_for_layout .= ' - Wystąpienia na posiedzeniach Rady Miasta';
 
                     break;
                 }

@@ -43,7 +43,7 @@ class DataobjectsController extends AppController
 			    ),
 			    'layers' => $layers,
 		    )) ) {
-			    
+			    			    
 			    if(
 				    !$slug && 
 				    $this->object->getSlug() && 
@@ -67,11 +67,29 @@ class DataobjectsController extends AppController
 					    ) {
 						    
 						    $url .= '/' . $this->request->params['subid'];
+						    
+						    if(
+						    	isset($this->request->params['subaction']) && 
+						    	( $this->request->params['subaction'] ) 
+						    ) {
+							    
+							    $url .= '/' . $this->request->params['subaction'];
+							    
+							    if(
+							    	isset($this->request->params['subsubid']) && 
+							    	( $this->request->params['subsubid'] ) 
+							    ) {
+								    
+								    $url .= '/' . $this->request->params['subsubid'];
+								    						    
+							    }
+							    						    
+						    }
 						    						    
 					    }
 					    
 				    }
-				    				    
+				    
 				    return $this->redirect( $url );
 				    
 			    }

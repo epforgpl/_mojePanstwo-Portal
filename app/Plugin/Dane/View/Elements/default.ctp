@@ -116,7 +116,10 @@ $this->Dataobject->setObject($object);
                         }
                         ?>
 						
-						<? if( $highlight = $object->getLayer('highlight') ) { ?>
+						<? if( 
+							( $object->hasHighlights() ) && 
+							( $highlight = $object->getLayer('highlight') )
+						) { ?>
 							<? if( $highlight[0] != '<em>' . $object->getShortTitle() . '</em>' ) {?>
 							<div class="description highlight">
                                 <?= $highlight[0] ?>
@@ -180,7 +183,10 @@ $this->Dataobject->setObject($object);
                         }
                         ?>
 
-                        <? if( $highlight = $object->getLayer('highlight') ) { ?>						
+                        <? if( 
+							( $object->hasHighlights() ) && 
+							( $highlight = $object->getLayer('highlight') )
+						) { ?>				
 							<? if( $highlight[0] != '<em>' . $object->getShortTitle() . '</em>' ) {?>
 							<div class="description">
                                 <?= $highlight[0] ?>

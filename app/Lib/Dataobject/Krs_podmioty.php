@@ -45,7 +45,7 @@ class Krs_podmioty extends DataObject
     	'krs', 'adres_miejscowosc', 'data_rejestracji', 'wartosc_kapital_zakladowy'
     );
     
-    public $force_hl_fields = true;
+    public $force_hl_fields = false;
  	
  	public function __construct($params = array())
     {
@@ -67,12 +67,27 @@ class Krs_podmioty extends DataObject
  	
     public function getLabel()
     {
-        return _ucfirst($this->getData('forma_prawna_str'));
+        return 'Organizacja';
     }
     
     public function hasHighlights()
     {
         return false;
     }
-
+	
+	public function getMetaDescriptionParts($preset = false)
+	{
+		
+		$output = array(
+			$this->getData('krs_podmioty.forma_prawna_str'),
+			$this->getData('krs_podmioty.adres_miejscowosc'),
+		);
+		
+		if( $this->getData('krs_podmioty.wartosc_kapital_zakladowy') )
+			$output[] = number_format_h($this->getData('krs_podmioty.wartosc_kapital_zakladowy')) . ' PLN';
+		
+		return $output;
+		
+	}
+	
 }
