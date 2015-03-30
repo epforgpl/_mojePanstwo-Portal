@@ -180,7 +180,7 @@ var DataBrowser = Class.extend({
                 name: 'Liczba',
                 //pointInterval: 383 * 24 * 3600000,
                 //pointStart: Date.UTC(1918, 0, 1),
-                data: histogram_data,
+                data: histogram_data/*,
                 point: {
                     events: {
                         click: function (e) {
@@ -188,7 +188,7 @@ var DataBrowser = Class.extend({
                             return false;
                         }
                     }
-                }
+                }*/
             }]
         });
 		
@@ -264,7 +264,7 @@ var DataBrowser = Class.extend({
             },
             series: [{
                 name: 'Liczba',
-                data: columns_vertical_data,
+                data: columns_vertical_data/*,
                 point: {
                     events: {
                         click: function (e) {
@@ -272,7 +272,7 @@ var DataBrowser = Class.extend({
                             return false;
                         }
                     }
-                }
+                }*/
             }]
         });
 		
