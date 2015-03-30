@@ -117,8 +117,8 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
 
         <div class="col-lg-10 objectMain">
-
-            <?= $this->Document->place($document) ?>
+			
+            <?= $this->Document->place($akt->getData('dokument_id')) ?>
 
         </div>
     </div>

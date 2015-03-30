@@ -29,6 +29,13 @@
 	<div class="row">
 		<form action="" data-url="<?= $dataBrowser['cancel_url']; ?>" method="get" class="form-horizontal searchForm col-md-8<? if( empty($dataBrowser['aggs']) ) {?> col-md-offset-1<?}?>">
 			
+			<? if( 
+				!isset($title) && 
+				isset($DataBrowserTitle)
+			) {
+				$title = $DataBrowserTitle;
+			} ?>
+			
 			<? if( isset($title) ) { ?>
 			<h2><?= $title ?></h2>
 			<? } ?>
