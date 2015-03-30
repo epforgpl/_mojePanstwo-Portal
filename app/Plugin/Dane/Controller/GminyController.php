@@ -1045,12 +1045,21 @@ class GminyController extends DataobjectsController
             $subsubid = (isset($this->request->params['subsubid']) && $this->request->params['subsubid']) ? $this->request->params['subsubid'] : false;
 			
 			
+			$layers = array('neighbours', 'bip_url');
+			
+			if( $subaction == 'komisje' ) {
+				$layers[] = 'komisje';
+			} elseif( $subaction == 'dyzury' ) {
+				$layers[] = 'dyzury';
+			}
+
+			
 			$radny = $this->Dataobject->find('first', array(
 				'conditions' => array(
 					'dataset' => 'radni_gmin',
 					'id' => $this->request->params['subid'],
 				),
-				'layers' => array('neighbours', 'bip_url'),
+				'layers' => $layers,
 			));
 			
 
@@ -1081,7 +1090,10 @@ class GminyController extends DataobjectsController
 				            'rady_gmin_wystapienia.osoba_id' => $radny->getData('osoba_id'),
 			            ),
 			            'aggsPreset' => 'rady_gmin_wystapienia',
+			            'renderFile' => 'radni_gmin/rady_gmin_wystapienia',
 			        ));
+					
+					$this->set('DataBrowserTitle', 'Wystąpienia na posiedzeniach Rady Miasta');
 					
                     $title_for_layout .= ' - Wystąpienia na posiedzeniach Rady Miasta';
 
@@ -1106,17 +1118,15 @@ class GminyController extends DataobjectsController
                 }
                 case 'interpelacje': {
 
-                    $this->dataobjectsBrowserView(array(
-                        'source' => 'radni_gmin.interpelacje:' . $radny->getId(),
-                        'dataset' => 'rady_gmin_interpelacje',
-                        'noResultsTitle' => 'Brak interpelacji',
-                        // 'hlFields' => array('dzielnice.nazwa', 'liczba_glosow'),
-
-                        'title' => 'Interpelacje radnego',
-                        'back' => $radny->getUrl(),
-                        'backTitle' => 'Profil radnego',
-                    ));
-
+                    $this->Components->load('Dane.DataBrowser', array(
+			            'conditions' => array(
+				            'dataset' => 'rady_gmin_interpelacje',
+				            'rady_gmin_interpelacje.radny_id' => $radny->getId(),
+			            ),
+			            'aggsPreset' => 'rady_gmin_interpelacje',
+			        ));
+					
+					$this->set('DataBrowserTitle', 'Interpelacje');			
                     $title_for_layout .= ' - Interpelacje';
 
                     break;
@@ -1150,20 +1160,6 @@ class GminyController extends DataobjectsController
 
                     break;
                 }
-                case 'komisje': {
-
-                    $radny->loadLayer('komisje');
-                    break;
-
-                }
-
-                case 'dyzury': {
-
-                    $radny->loadLayer('dyzury');
-                    break;
-
-                }
-
                 case 'krs': {
 
                     $osoba = $this->API->getObject('krs_osoby', $radny->getData('krs_osoba_id'));

@@ -48,5 +48,16 @@ class Rady_gmin_wystapienia extends DataObject
     {
         return '/dane/gminy/903/punkty/' . $this->getData('punkt_id') . '#' . $this->getId();
     }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+				
+		$output = array(
+			dataSlownie( $this->getData('krakow_posiedzenia.data') ),
+		);
+		
+		return $output;
+		
+	}
 
 }

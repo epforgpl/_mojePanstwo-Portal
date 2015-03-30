@@ -554,6 +554,7 @@ class DataBrowserComponent extends Component {
             'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
 		    'cancel_url' => $this->getCancelSearchUrl($controller),
 		    'api_call' => $controller->Dataobject->getDataSource()->public_api_call,
+		    'renderFile' => isset( $this->settings['renderFile'] ) ? 'DataBrowser/templates/' . $this->settings['renderFile'] : 'default',
 	    ));
 		
 	}

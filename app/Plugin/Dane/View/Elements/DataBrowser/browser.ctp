@@ -85,8 +85,8 @@
 					        <ul class="list-group list-dataobjects">
 					            <?
 					            foreach ($dataBrowser['hits'] as $object) {
-					
-					                echo $this->Dataobject->render($object, 'default', array(
+																		
+					                echo $this->Dataobject->render($object, $dataBrowser['renderFile'], array(
 					                    // 'hlFields' => $dataBrowser->hlFields,
 					                    // 'hlFieldsPush' => $dataBrowser->hlFieldsPush,
 					                    // 'routes' => $dataBrowser->routes,
