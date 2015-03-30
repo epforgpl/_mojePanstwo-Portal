@@ -18,7 +18,7 @@ class Prawo_lokalne extends DocDataObject
 
     public function getLabel()
     {
-        return 'Uchwała <strong>' . $this->getData('jednostka_dopelniacz') . '</strong>, numer <strong>' . $this->getData('akt_numer') . '</strong> z dnia <strong>' . $this->dataSlownie($this->getDate()) . '</strong>';
+        return 'Uchwała <strong>' . $this->getData('jednostka_dopelniacz') . '</strong>, numer <strong>' . $this->getData('akt_numer') . '</strong> z <strong>' . dataSlownie($this->getDate()) . '</strong>';
     }
     
     public function getUrl()

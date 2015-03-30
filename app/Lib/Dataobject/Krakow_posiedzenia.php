@@ -3,7 +3,7 @@
 namespace MP\Lib;
 require_once('DocDataObject.php');
 
-class Krakow_posiedzenia extends DocDataObject
+class Krakow_posiedzenia extends DataObject
 {
 	
 	protected $tiny_label = 'Samorząd';
@@ -59,7 +59,7 @@ class Krakow_posiedzenia extends DocDataObject
     }
     
     public function getShortTitle() {
-	    return $this->dataSlownie( $this->getData('data') );
+	    return dataSlownie( $this->getDate() );
     }
     
     public function getTitle() {

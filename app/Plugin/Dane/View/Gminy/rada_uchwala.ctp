@@ -16,10 +16,6 @@ echo $this->Element('Dane.dataobject/subobject', array(
     )
 ));
 
-
-echo $this->Element('docsBrowser/doc', array(
-    'document' => $document,
-    'documentPackage' => $documentPackage,
-));
+echo $this->Document->place( $uchwala->getData('dokument_id') );
 
 echo $this->Element('dataobject/pageEnd');

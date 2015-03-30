@@ -78,4 +78,18 @@ class Zamowienia_publiczne extends DataObject
     
     public $force_hl_fields = true;
     
+    public function getMetaDescriptionParts($preset = false)
+	{
+		
+		$output = array(
+			$this->getData('zamowienia_publiczne.zamawiajacy_nazwa'),
+		);
+		
+		if( $this->getData('zamowienia_publiczne.wartosc_cena') )
+			$output[] = number_format_h($this->getData('zamowienia_publiczne.wartosc_cena')) . ' PLN';
+		
+		return $output;
+		
+	}
+    
 }

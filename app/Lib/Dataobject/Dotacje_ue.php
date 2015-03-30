@@ -45,4 +45,18 @@ class Dotacje_ue extends DataObject
         return 'Dotacja unijna';
     }
     
+    public function getMetaDescriptionParts($preset = false)
+	{
+		
+		$output = array(
+			$this->getData('dotacje_ue.beneficjent_nazwa'),
+		);
+		
+		if( $this->getData('dotacje_ue.wartosc_dofinansowanie') )
+			$output[] = number_format_h($this->getData('dotacje_ue.wartosc_dofinansowanie')) . ' PLN';
+		
+		return $output;
+		
+	}
+    
 }

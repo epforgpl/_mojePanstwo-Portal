@@ -3,7 +3,7 @@
 namespace MP\Lib;
 require_once('DocDataObject.php');
 
-class Krakow_dzielnice_rady_posiedzenia extends DocDataObject
+class Krakow_dzielnice_rady_posiedzenia extends DataObject
 {
 	
 	protected $tiny_label = 'Samorząd';

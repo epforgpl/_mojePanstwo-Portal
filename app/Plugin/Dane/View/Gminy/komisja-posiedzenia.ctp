@@ -20,12 +20,6 @@ echo $this->Element('Dane.dataobject/subobject', array(
     )
 ));
 
-echo $this->Element('Dane.DataobjectsBrowser/view', array(
-    'page' => $page,
-    'pagination' => $pagination,
-    'filters' => $filters,
-    'switchers' => $switchers,
-    'facets' => $facets,
-));
 
+echo $this->Element('Dane.DataBrowser/browser');
 echo $this->Element('dataobject/pageEnd');

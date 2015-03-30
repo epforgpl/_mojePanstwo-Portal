@@ -83,6 +83,8 @@ class Dataobject
         	$this->data[ $t ] = $this->data[ $this->dataset . '.' . $t ];
         
         $this->routes = array_merge($this->_routes, $this->routes);
+        
+        // debug( $this->getData() );
 
     }
 	

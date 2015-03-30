@@ -38,11 +38,8 @@ echo $this->Element('Dane.dataobject/subobject', array(
 	</div>
 
 <?
-	
-	echo $this->Element('docsBrowser/doc', array(
-	    'document' => $document,
-	    'documentPackage' => 1,
-	));
+		
+	$this->Document->place($posiedzenie->getData('informacja_dokument_id'));
 
 	echo $this->Element('dataobject/pageEnd');
 	
