@@ -13,7 +13,8 @@ App::uses('String', 'Utility');
  */
 class Client extends OAuthAppModel
 {
-    
+
+    public $useTable = false;
     public $useDbConfig = 'mpAPI';
 
     /**
@@ -147,7 +148,7 @@ class Client extends OAuthAppModel
         $this->addClientSecret = $this->newClientSecret();
         $this->data['Client']['client_secret'] = $this->addClientSecret;
 
-        return $this->save($this->data);
+        return $this->getDataSource()->request('oauth/client/save/', $this->data);
     }
 
     /**
