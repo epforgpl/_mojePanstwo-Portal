@@ -12,9 +12,11 @@
             if ($('._mPSearchOutside').length)
                 $('._mPSearchOutside input').focus();
             else {
-                console.log($('.suggesterBlockModal').modal('toggle').find('input.datasearch'));
+                $('.suggesterBlockModal').modal('toggle');
             }
-            $('.suggesterBlockModal').on('hidden.bs.modal', function (e) {
+            $('.suggesterBlockModal').on('shown.bs.modal', function () {
+                $('.suggesterBlockModal input').focus();
+            }).on('hidden.bs.modal', function () {
                 $('.suggesterBlockModal input').val('');
             })
         } else if (option.hasClass('_mPAppsList')) {
