@@ -366,6 +366,7 @@ class PoslowieController extends DataobjectsController
         ));
         
         $this->set('title_for_layout', 'Wystąpienia sejmowe ' . $this->object->getData('dopelniacz'));
+        $this->set('DataBrowserTitle', 'Wystąpienia sejmowe ' . $this->object->getData('dopelniacz'));
         $this->render('Dane.DataBrowser/browser');
 
     }

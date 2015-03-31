@@ -245,6 +245,7 @@ class AppController extends Controller {
 			'home'   => '1',
 			'folder_id' => '13'
 		),
+		/*
         array(
             'id' => '20',
             'slug' => 'przejrzysty_krakow',
@@ -254,6 +255,7 @@ class AppController extends Controller {
             'home' => '1',
             'folder_id' => '13'
         ),
+        */
 	);
 	
 	public function beforeFilter() {
