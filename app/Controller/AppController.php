@@ -245,6 +245,15 @@ class AppController extends Controller {
 			'home'   => '1',
 			'folder_id' => '13'
 		),
+        array(
+            'id' => '20',
+            'slug' => 'przejrzysty_krakow',
+            'name' => 'Przejrzysty Kraków',
+            'plugin' => 'przejrzysty_krakow',
+            'type' => 'app',
+            'home' => '1',
+            'folder_id' => '13'
+        ),
 	);
 	
 	public function beforeFilter() {

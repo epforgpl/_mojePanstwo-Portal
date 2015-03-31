@@ -6,6 +6,13 @@
     <div class="_handler container">
         <div class="startWindow col-xs-12 col-md-10 col-md-offset-1">
             <div class="windowSet">
+                <div class="headerBar">
+                    <div class="col-xs-12">
+                        <img class="img-responsive" src="/Dane/img/customObject/krakow/logo_pkrk.png" alt="PKRK"/>
+
+                        <h1>Przejrzysty Kraków</h1>
+                    </div>
+                </div>
                 <div class="_mPSearchOutside">
                     <form class="suggesterBlock" action="/dane">
                         <div class="main_input">
