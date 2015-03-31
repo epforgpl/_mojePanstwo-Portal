@@ -90,7 +90,13 @@ class RefreshToken extends OAuthAppModel
         /*$api = mpapiComponent::getApi()->OAuth()->RefreshToken();
 
         return $api->find($type, $queryData); */
-        return $this->getDataSource()->request('oauth/refresh_tokens/find/' . $type, $queryData);
+
+        $response = $this->getDataSource()->request('oauth/refresh_tokens/find/' . $type, array(
+            'data' => $queryData,
+            'method' => 'POST'
+        ));
+
+        return $response;
     }
 
     public function save($data)
@@ -98,7 +104,12 @@ class RefreshToken extends OAuthAppModel
         /*$api = mpapiComponent::getApi()->OAuth()->RefreshToken();
 
         return $api->save($data);*/
-        return $this->getDataSource()->request('oauth/refresh_tokens/save/', $data);
+        $response = $this->getDataSource()->request('oauth/refresh_tokens/save/', array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+
+        return $response;
     }
 
 }

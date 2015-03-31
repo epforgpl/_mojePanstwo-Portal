@@ -6,6 +6,13 @@
     <div class="_handler container">
         <div class="startWindow col-xs-12 col-md-10 col-md-offset-1">
             <div class="windowSet">
+                <div class="headerBar">
+                    <div class="col-xs-12">
+                        <img class="img-responsive" src="/Dane/img/customObject/krakow/logo_pkrk.png" alt="PKRK"/>
+
+                        <h1>Przejrzysty Kraków</h1>
+                    </div>
+                </div>
                 <div class="_mPSearchOutside">
                     <form class="suggesterBlock" action="/dane">
                         <div class="main_input">
@@ -53,38 +60,38 @@
                 </div>
                 <div class="popularApps">
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow" target="_self">
-                        <img class="svg" alt="Aktualności" src="/PrzejrzystyKrakow/img/icons/aktualnosci.svg">
+                        <img class="svg" alt="Aktualności" src="/PrzejrzystyKrakow/img/icon/aktualnosci.svg">
 
                         <p>Aktualności</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/rada"
                        target="_self">
-                        <img class="svg" alt="Rada miasta" src="/PrzejrzystyKrakow/img/icons/rada_miasta.svg">
+                        <img class="svg" alt="Rada miasta" src="/PrzejrzystyKrakow/img/icon/rada_miasta.svg">
 
                         <p>Rada miasta</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/urzad"
                        target="_self">
-                        <img class="svg" alt="Urząd Miasta" src="/PrzejrzystyKrakow/img/icons/urzad_miasta.svg">
+                        <img class="svg" alt="Urząd Miasta" src="/PrzejrzystyKrakow/img/icon/urzad_miasta.svg">
 
                         <p>Urząd Miasta</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/organizacje"
                        target="_self">
-                        <img class="svg" alt="Organizacje" src="/PrzejrzystyKrakow/img/icons/organizacje.svg">
+                        <img class="svg" alt="Organizacje" src="/PrzejrzystyKrakow/img/icon/organizacje.svg">
 
                         <p>Organizacje</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/zamowienia"
                        target="_self">
                         <img class="svg" alt="Zamówienia publiczne"
-                             src="/PrzejrzystyKrakow/img/icons/zamowienia_publiczne.svg">
+                             src="/PrzejrzystyKrakow/img/icon/zamowienia_publiczne.svg">
 
                         <p>Zamówienia publiczne</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/wybory"
                        target="_self">
-                        <img class="svg" alt="Wybory" src="/PrzejrzystyKrakow/img/icons/wybory.svg">
+                        <img class="svg" alt="Wybory" src="/PrzejrzystyKrakow/img/icon/wybory.svg">
 
                         <p>Wybory</p>
                     </a>
