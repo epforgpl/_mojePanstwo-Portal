@@ -181,10 +181,7 @@ class Client extends OAuthAppModel
     public function getRedirectURL($client_id)
     {
         $response = file_get_contents('http://mojepanstwo.pl:4445/oauth/clients/'.$client_id);
-        $data = json_decode($response);
-        var_dump($data);
-        //$response = $this->getDataSource()->request('oauth/clients/'.$client_id);
-        die();
+        $data = json_decode($response, true);
         return $response;
     }
 }
