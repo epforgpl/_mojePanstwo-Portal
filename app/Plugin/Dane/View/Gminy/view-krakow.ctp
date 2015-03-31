@@ -534,7 +534,7 @@
                         <div class="content">
                             <div class="dataobjectsSliderRow row">
                                 <div>
-                                    <?php echo $this->dataobjectsSlider->render($zamowienia_otwarte, array(
+                                    <?php echo $this->DataobjectsSlider->render($zamowienia_otwarte, array(
                                         'perGroup' => 2,
                                         'rowNumber' => 1,
                                         'labelMode' => 'none',
@@ -557,7 +557,7 @@
                         <div class="content">
                             <div class="dataobjectsSliderRow row">
                                 <div>
-                                    <?php echo $this->dataobjectsSlider->render($zamowienia_zamkniete, array(
+                                    <?php echo $this->DataobjectsSlider->render($zamowienia_zamkniete, array(
                                         'perGroup' => 2,
                                         'rowNumber' => 1,
                                         'labelMode' => 'none',
