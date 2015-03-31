@@ -106,10 +106,6 @@ class RefreshToken extends OAuthAppModel
             'method' => 'POST'
         ));
 
-        var_dump($data);
-        var_dump($response);
-        die();
-
         return $response;
     }
 
