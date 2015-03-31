@@ -180,9 +180,10 @@ class Client extends OAuthAppModel
 
     public function getRedirectURL($client_id)
     {
-        
-        return $this->getDataSource()->request('/oauth/clients/' . $client_id);
-        
-        
+        var_dump($client_id);
+        $response = $this->getDataSource()->request('oauth/clients/'.$client_id);
+        var_dump($response);
+        die();
+        return $response;
     }
 }

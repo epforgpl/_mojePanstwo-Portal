@@ -70,13 +70,15 @@ class Dataobject
         }
         
         $temp = array();
-        foreach( $this->data as $key => $val ) {
-        
-        	$p = strpos($key, $this->dataset.'.');
-        
-        	if( $p===0 )
-        		$temp[] = substr($key, strlen($this->dataset)+1);
-        		
+        if( !empty($this->data) ) {
+	        foreach( $this->data as $key => $val ) {
+	        
+	        	$p = strpos($key, $this->dataset.'.');
+	        
+	        	if( $p===0 )
+	        		$temp[] = substr($key, strlen($this->dataset)+1);
+	        		
+	        }
         }
         
         foreach( $temp as $t )
