@@ -8,6 +8,10 @@ class KrsOsobyController extends DataobjectsController
     public $helpers = array(
         'Time',
     );
+    
+    public $components = array(
+	    'RequestHandler'
+    );
 
     public $objectOptions = array(
         'hlFields' => array(),
@@ -39,11 +43,12 @@ class KrsOsobyController extends DataobjectsController
     public function graph()
     {
         if ($this->request->params['ext'] == 'json') {
-
+						
             $this->addInitLayers('graph');
-            $this->_prepareView();
+            $this->load();
+                        
             $data = $this->object->getLayer('graph');
-
+            
             $this->set('data', $data);
             $this->set('_serialize', 'data');
 

@@ -56,9 +56,7 @@ class DataobjectsController extends AppController
 			    ) {
 				    				    
 				    $url = $this->object->getUrl();
-				    
-				    debug($this->request); die();
-				    
+				    				    
 				    if(
 				    	isset($this->request->params['action']) && 
 				    	( $this->request->params['action'] ) && 
