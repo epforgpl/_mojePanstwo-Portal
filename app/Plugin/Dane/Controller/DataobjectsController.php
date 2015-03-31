@@ -142,7 +142,6 @@ class DataobjectsController extends AppController
             'preset' => $this->object->getDataset(),
         ));
 	    
-	    $this->render('Dane.Dataobjects/feed');
     }
     
     public function beforeRender() {

@@ -40,6 +40,16 @@ class DataFeedComponent extends Component
             'preset' => $this->settings['preset'],
             'side' => isset($this->settings['side']) ? $this->settings['side'] : $controller->request->params['controller'],
         ));
+                
+        if( 
+	        isset( $controller->request->params['ext'] ) && 
+        	( $controller->request->params['ext']=='html' )
+        ) {
+        	$controller->view = 'Dane.Dataobjects/feed-html';
+        	$controller->layout = false;
+        } else {
+	        $controller->view = 'Dane.Dataobjects/feed';
+	    }
 
     }
 
