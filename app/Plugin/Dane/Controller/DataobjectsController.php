@@ -43,8 +43,12 @@ class DataobjectsController extends AppController
 			    ),
 			    'layers' => $layers,
 		    )) ) {
-			    			    
+			    				    		    
 			    if(
+				    (
+				    	!isset( $this->request->params['ext'] ) || 
+				    	!in_array($this->request->params['ext'], array('json'))
+				    ) && 
 				    !$slug && 
 				    $this->object->getSlug() && 
 				    ( $this->object->getSlug() != $slug ) && 
@@ -52,6 +56,8 @@ class DataobjectsController extends AppController
 			    ) {
 				    				    
 				    $url = $this->object->getUrl();
+				    
+				    debug($this->request); die();
 				    
 				    if(
 				    	isset($this->request->params['action']) && 
