@@ -632,9 +632,6 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
     {
         $authCode = $this->AuthCode->findByCode($code);
 
-        var_dump($authCode);
-        die();
-
         if ($authCode) {
             return $authCode['AuthCode'];
         }
