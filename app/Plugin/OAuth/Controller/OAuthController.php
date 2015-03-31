@@ -93,15 +93,13 @@ class OAuthController extends OAuthAppController
         try {
             $OAuthParams = $this->OAuth->getAuthorizeParams();
         } catch (Exception $e) {
-            die("Exception");
-            //$e->sendHttpResponse();
+            $e->sendHttpResponse();
         }
 
         try {
             $this->OAuth->finishClientAuthorization($accepted, $userId, $OAuthParams);
         } catch (OAuth2RedirectException $e) {
-            die("OAuth2RedirectException");
-            //$e->sendHttpResponse();
+            $e->sendHttpResponse();
         }
     }
 
