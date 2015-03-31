@@ -49,8 +49,7 @@ class Pismo extends AppModel
     	));
     	    	
     	return $res;
-	    
-        return $this->request('documents', $params);
+
     }
     
     public function documents_update($id, $doc) {
@@ -65,7 +64,7 @@ class Pismo extends AppModel
     }
     
     public function documents_partial_update($id, $doc) {
-        return $this->request('documents/' . $id, $doc, 'PUT');
+        return $this->getDataSource()->request('documents/' . $id, $doc, 'PUT');
     }
     
     public function documents_delete($id, $params = array()) {
@@ -79,15 +78,17 @@ class Pismo extends AppModel
     }
     
     public function documents_send($id) {
-        return $this->request('documents/' . $id . '/send', null, 'POST');
+        return $this->getDataSource()->request('pisma/documents/' . $id . '/send', array(
+	        'method' => 'POST',
+        ));
     }
         
     public function templates_grouped() {
-        return $this->request('templates/grouped');
+        return $this->getDataSource()->request('pisma/templates/grouped');
     }
     
     public function templates_read($id) {
-        return $this->request('templates/' . $id);
+        return $this->getDataSource()->request('pisma/templates/' . $id);
     }
 
 }
