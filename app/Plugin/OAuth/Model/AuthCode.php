@@ -103,7 +103,12 @@ class AuthCode extends OAuthAppModel
         $ret = $api->save($data);
         return $ret; */
 
-        return $this->getDataSource()->request('/oauth/auth_codes/save', $data);
+        $response = $this->getDataSource()->request('oauth/auth_codes/save/', array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+
+        return $response;
     }
 
     public function findByCode($code)
@@ -112,7 +117,12 @@ class AuthCode extends OAuthAppModel
 
         return $api->findByCode($code);*/
 
-        return $this->getDataSource()->request('/oauth/auth_codes/find/' . $code);
+        $response = $this->getDataSource()->request('oauth/refresh_tokens/find/' . $code, array(
+            'data' => array(),
+            'method' => 'POST'
+        ));
+
+        return $response;
     }
 
 
