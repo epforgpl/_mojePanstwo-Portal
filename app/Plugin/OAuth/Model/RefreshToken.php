@@ -90,10 +90,17 @@ class RefreshToken extends OAuthAppModel
         /*$api = mpapiComponent::getApi()->OAuth()->RefreshToken();
 
         return $api->find($type, $queryData); */
-        return $this->getDataSource()->request('oauth/refresh_tokens/find/' . $type, array(
+        var_dump($queryData);
+
+        $response = $this->getDataSource()->request('oauth/refresh_tokens/find/' . $type, array(
             'data' => $queryData,
             'method' => 'POST'
         ));
+
+        var_dump($response);
+        die();
+
+        return $response;
     }
 
     public function save($data)
