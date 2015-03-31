@@ -28,9 +28,10 @@ class DocsController extends AppController
 
     public function download()
     {
-
-        $doc = new MP\Document($this->request->params['id']);
-        $this->redirect($doc->getUrl());
+		
+		$this->loadModel('Document');
+        $doc = $this->Document->load($this->request->params['id']);
+        $this->redirect($doc['Document']['url']);
 
     }
 
