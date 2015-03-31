@@ -501,6 +501,9 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
             'scope' => $scope
         );
 
+        var_dump($data);
+        exit(); die();
+
         return $this->AccessToken->save(array('AccessToken' => $data));
     }
 
