@@ -92,6 +92,8 @@ class OAuthController extends OAuthAppController
         $accepted = true; // $this->request->data['accept'] == __('LC_AUTHORIZE');
         try {
             $OAuthParams = $this->OAuth->getAuthorizeParams();
+            var_dump($OAuthParams);
+            die();
         } catch (Exception $e) {
             $e->sendHttpResponse();
         }
