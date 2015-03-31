@@ -354,17 +354,20 @@ class PoslowieController extends DataobjectsController
 
     public function wystapienia()
     {
-        parent::_prepareView();
-        $this->dataobjectsBrowserView(array(
-            'source' => 'poslowie.wystapienia:' . $this->object->getId(),
-            'dataset' => 'sejm_wystapienia',
-            'title' => 'Wystąpienia w Sejmie',
-            'noResultsTitle' => 'Brak wystąpień',
-            'hlFields' => array('sejm_debaty.tytul'),
-            'hiddenFilters' => array('sejm_wystapienia.klub_id'),
+	    
+        parent::load();
+                
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+	            'dataset' => 'sejm_wystapienia',
+	            'ludzie.id' => $this->object->getData('poslowie.mowca_id'),
+            ),
+            'aggsPreset' => 'sejm_wystapienia',
         ));
-
+        
         $this->set('title_for_layout', 'Wystąpienia sejmowe ' . $this->object->getData('dopelniacz'));
+        $this->render('Dane.DataBrowser/browser');
+
     }
 
     public function interpelacje()
