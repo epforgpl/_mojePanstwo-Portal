@@ -148,7 +148,7 @@ class Client extends OAuthAppModel
         $this->addClientSecret = $this->newClientSecret();
         $this->data['Client']['client_secret'] = $this->addClientSecret;
 
-        return $this->getDataSource()->request('oauth/client/save/', $this->data);
+        return $this->getDataSource()->request('oauth/clients/save/', $this->data);
     }
 
     /**
