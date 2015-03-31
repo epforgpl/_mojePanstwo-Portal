@@ -49,4 +49,21 @@ class Sejm_debaty extends DataObject
 	{
 		return $this->getData('tytul_prefix');
 	}
+	
+	public function getMetaDescriptionParts($preset = false)
+	{
+		
+		$output = array(
+			dataSlownie($this->getDate()),
+		);
+		
+		if( $this->getData('sejm_debaty.liczba_wystapien') )
+			$output[] = pl_dopelniacz( $this->getData('sejm_debaty.liczba_wystapien'), 'wystąpienie', 'wystąpienia', 'wystąpień' );
+			
+		if( $this->getData('sejm_debaty.liczba_glosowan') )
+			$output[] = pl_dopelniacz( $this->getData('sejm_debaty.liczba_glosowan'), 'głosowanie', 'głosowania', 'głosowań' );
+		
+		return $output;
+		
+	}
 } 

@@ -4,28 +4,20 @@ echo $this->Combinator->add_libs('css', $this->Less->css('view-sejmposiedzeniapu
 echo $this->Combinator->add_libs('css', $this->Less->css('view-sejmdebaty', array('plugin' => 'Dane')));
 echo $this->Element('dataobject/pageBegin');
 ?>
-    <div class="object">
+    <div class="object debata-wystapienie">
 
-        <div class="container dataBrowser debata-wystapienie">
+        <div class="container dataBrowser">
 
             <div class="row">
 
-                <div class="col-xs-12 col-sm-2 dataFilters update-filters">
-
-                    <div class="header text-right">
-                        <h2><a href="<?= $object->getUrl() ?>">Debata</a></h2>
-                    </div>
-
-                </div>
-
-                <div class="col-xs-12 col-sm-10 dataObjects">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-1 dataObjects">
 
 
                     <div class="innerContainer update-objects" style="min-height: 455px;">
 
                         <ul class="list-group list-dataobjects">
 
-                            <?= $this->Dataobject->render($wystapienie, 'sejm_debaty-wystapienie'); ?>
+                            <?= $this->Dataobject->render($wystapienie, 'DataBrowser/templates/sejm_debaty-wystapienie'); ?>
 
                         </ul>
 

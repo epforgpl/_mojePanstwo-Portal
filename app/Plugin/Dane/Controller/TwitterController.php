@@ -24,18 +24,6 @@ class TwitterController extends DataobjectsController
     {
 
         parent::_prepareView();
-        $this->object->loadLayer('source');
-        $this->object->loadLayer('responses');
-
-
-        /*
-        $this->dataobjectsBrowserView(array(
-            'source' => 'twitter.responsesTo:' . $this->object->getId(),
-            'dataset' => 'twitter',
-            'title' => 'Odpowiedzi',
-            'noResultsTitle' => 'Brak odpowiedzi na tego tweeta',
-        ));
-        */
 
     }
 
