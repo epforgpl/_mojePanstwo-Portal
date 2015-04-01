@@ -192,29 +192,13 @@ class PoslowieController extends DataobjectsController
     public function wydatki()
     {
 
-        parent::_prepareView();
-
-        /*
-        try {
-            if (
-                $this->object->getData('krs_osoba_id') &&
-                ($krs_osoba = $this->API->Dane()->getObject('krs_osoby', $this->object->getData('krs_osoba_id'))) &&
-                $krs_osoba->loadLayer('organizacje')
-            ) {
-
-                $this->set('krs_osoba', $krs_osoba);
-
-            }
-        } catch(Exception $e) {
-
-
-
-        }
-        */
-
-        $wydatki = $this->object->loadLayer('wydatki');
-        $rok = @$this->request->params['pass'][0];
-
+		$this->addInitLayers(array('wydatki'));
+        $this->load();
+		
+		$wydatki = $this->object->getLayer('wydatki');
+        $rok = @$this->request->params['subid'];
+        
+        		
         if ($rok && ($roczniki = $wydatki['roczniki'])) {
 
             $founded = false;
@@ -230,31 +214,17 @@ class PoslowieController extends DataobjectsController
                 $this->redirect('/dane/poslowie/' . $this->object->getId() . '/wydatki');
             }
 
-            $package = 1;
-            $document = $this->API->document($rocznik['dokument_id']);
-
-            if ($this->request->isAjax()) {
-
-                $this->set('html', $document->loadHtml($package));
-                $this->set('_serialize', 'html');
-
-            } else {
-
-                $this->set(array(
-                    'docs' => array(),
-                    'document' => $document,
-                    'documentPackage' => $package,
-                    'rocznik' => $rocznik,
-                    'title_for_layout' => 'Wydatki biura ' . $this->object->getData('dopelniacz') . ' w ' . $rok . ' roku',
-                ));
-                $this->render('wydatki_rok');
-
-            }
+            $this->set(array(
+                'rocznik' => $rocznik,
+                'title_for_layout' => 'Wydatki biura ' . $this->object->getData('dopelniacz') . ' w ' . $rok . ' roku',
+            ));
+            $this->render('wydatki_rok');
 
         } else {
 
             $this->set('title_for_layout', $this->object->getData('nazwa') . ' | Informacje finansowe');
-
+			
+			/*
             $this->API->searchDataset('poslowie_oswiadczenia_majatkowe', array(
                 'limit' => 9,
                 'conditions' => array(
@@ -283,73 +253,67 @@ class PoslowieController extends DataobjectsController
                 'order' => 'data_status desc',
             ));
             $this->set('wspolpracownicy', $this->API->getObjects());
-
+			*/
 
         }
 
     }
 
-    public function dane()
-    {
-
-        parent::_prepareView();
-        $this->dataobjectsBrowserView(array(
-            'source' => 'poslowie.aktywnosci:' . $this->object->getId(),
-            'dataset_dictionary' => array(
-                'sejm_wystapienia' => array(
-                    'href' => 'wystapienia',
-                    'label' => 'Wystąpienia w Sejmie',
-                ),
-            ),
-        ));
-    }
-
     public function oswiadczenia_majatkowe()
     {
-
-        parent::_prepareView();
-        $this->dataobjectsBrowserView(array(
-            'source' => 'poslowie.oswiadczenia_majatkowe:' . $this->object->getId(),
-            'dataset' => 'poslowie_oswiadczenia_majatkowe',
-            'title' => 'Oświadczenia majątkowe',
-            'noResultsTitle' => 'Brak oświadczeń',
-            'hlFields' => array(),
+		
+		$this->load();
+		
+		$this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+	            'dataset' => 'poslowie_oswiadczenia_majatkowe',
+	            'poslowie_oswiadczenia_majatkowe.posel_id' => $this->object->getId(),
+            ),
+            'aggsPreset' => 'oswiadczenia_majatkowe',
         ));
-
+        
         $this->set('title_for_layout', 'Oświadczenia majątkowe ' . $this->object->getData('dopelniacz'));
+        $this->set('DataBrowserTitle', 'Oświadczenia majątkowe ' . $this->object->getData('dopelniacz'));
+        $this->render('Dane.DataBrowser/browser');
 
     }
 
     public function rejestr_korzysci()
     {
-
-        parent::_prepareView();
-        $this->dataobjectsBrowserView(array(
-            'source' => 'poslowie.rejestr_korzysci:' . $this->object->getId(),
-            'dataset' => 'poslowie_rejestr_korzysci',
-            'title' => 'Rejestr korzyści',
-            'noResultsTitle' => 'Brak pozycji w rejestrze',
-            'hlFields' => array(),
+		
+		$this->load();
+		
+		$this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+	            'dataset' => 'poslowie_rejestr_korzysci',
+	            'poslowie_rejestr_korzysci.posel_id' => $this->object->getId(),
+            ),
+            'aggsPreset' => 'oswiadczenia_majatkowe',
         ));
-
+        
         $this->set('title_for_layout', 'Rejestr korzyści ' . $this->object->getData('dopelniacz'));
-
+        $this->set('DataBrowserTitle', 'Rejestr korzyści ' . $this->object->getData('dopelniacz'));
+        $this->render('Dane.DataBrowser/browser');
+        
     }
 
     public function wspolpracownicy()
     {
-
-        parent::_prepareView();
-        $this->dataobjectsBrowserView(array(
-            'source' => 'poslowie.wspolpracownicy:' . $this->object->getId(),
-            'dataset' => 'poslowie_wspolpracownicy',
-            'title' => 'Współpracownicy',
-            'noResultsTitle' => 'Brak współpracowników',
-            'hlFields' => array(),
+		
+		$this->load();
+		
+		$this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+	            'dataset' => 'poslowie_wspolpracownicy',
+	            'poslowie_wspolpracownicy.posel_id' => $this->object->getId(),
+            ),
+            'aggsPreset' => 'poslowie_wspolpracownicy',
         ));
-
+        
         $this->set('title_for_layout', 'Współpracownicy ' . $this->object->getData('dopelniacz'));
-
+        $this->set('DataBrowserTitle', 'Współpracownicy ' . $this->object->getData('dopelniacz'));
+        $this->render('Dane.DataBrowser/browser');
+		
     }
 
     public function wystapienia()
@@ -373,14 +337,19 @@ class PoslowieController extends DataobjectsController
 
     public function interpelacje()
     {
-        parent::_prepareView();
-        $this->dataobjectsBrowserView(array(
-            'source' => 'poslowie.interpelacje:' . $this->object->getId(),
-            'dataset' => 'sejm_interpelacje',
-            'title' => 'Interpelacje',
-            'noResultsTitle' => 'Brak interpelacji',
-            'excludeFilters' => array('sejm_interpelacje.posel_id'),
+        parent::load();
+	    $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+	            'dataset' => 'sejm_interpelacje',
+	            'sejm_interpelacje.posel_id' => $this->object->getId(),
+            ),
+            'aggsPreset' => 'sejm_wystapienia',
         ));
+        
+        $this->set('title_for_layout', 'Interpelacje ' . $this->object->getData('dopelniacz'));
+        $this->set('DataBrowserTitle', 'Interpelacje ' . $this->object->getData('dopelniacz'));
+        $this->render('Dane.DataBrowser/browser');
+	    
     }
 
     public function projekty_ustaw()
@@ -396,16 +365,21 @@ class PoslowieController extends DataobjectsController
 
     public function glosowania()
     {
-        parent::_prepareView();
-        $this->dataobjectsBrowserView(array(
-            'source' => 'poslowie.glosowania:' . $this->object->getId(),
-            'dataset' => 'poslowie_glosy',
-            'title' => 'Wyniki głosowań',
-            'noResultsTitle' => 'Brak wyników głosowań',
-            'excludeFilters' => array('poslowie_glosy.klub_id'),
-            'renderFile' => 'poslowie-glosy',
-            'class' => 'glosowania-glosy',
+	    
+	    $this->load();
+		
+		$this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+	            'dataset' => 'poslowie_glosy',
+	            'poslowie_glosy.posel_id' => $this->object->getId(),
+            ),
+            'aggsPreset' => 'poslowie_glosy',
         ));
+        
+        $this->set('title_for_layout', 'Wyniki głosowań ' . $this->object->getData('dopelniacz'));
+        $this->set('DataBrowserTitle', 'Wyniki głosowań ' . $this->object->getData('dopelniacz'));
+        $this->render('Dane.DataBrowser/browser');
+        
     }
 
     public function prawo_projekty()
