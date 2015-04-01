@@ -2,12 +2,12 @@
     <div class="block-header">
         <h2 class="pull-left label">Ostatnie twitty</h2>
         <a class="btn btn-default btn-sm pull-right"
-           href="/dane/twitter_accounts/<?= $object->getId() ?>/twitts">Zobacz wszystkie</a>
+           href="/dane/twitter_accounts/<?= $object->getId() ?>">Zobacz wszystkie</a>
     </div>
     <div class="content">
         <div class="dataobjectsSliderRow row">
             <div>
-                <?php echo $this->dataobjectsSlider->render($twitts, array(
+                <?php echo $this->DataobjectsSlider->render($twitts, array(
                     'perGroup' => 3,
                     'rowNumber' => 1,
                     'labelMode' => 'none',

@@ -100,7 +100,7 @@ $this->Combinator->add_libs('css', $this->Less->css('view-poslowie', array('plug
                     <? if ($object->getData('liczba_projektow_ustaw')) { ?><p class="pull-right nopadding">
                         <a
                             class="btn btn-sm btn-default"
-                            href="/dane/poslowie/<?= $object->getId() ?>/prawo_projekty?typ_id[]=1">Zobacz &raquo;</a>
+                            href="<?= $object->getUrl() ?>/projekty_ustaw">Zobacz &raquo;</a>
                         </p><? } ?>
                 </div>
             </li>
@@ -113,7 +113,7 @@ $this->Combinator->add_libs('css', $this->Less->css('view-poslowie', array('plug
                     <? if ($object->getData('liczba_projektow_uchwal')) { ?><p class="pull-right nopadding">
                         <a
                             class="btn btn-sm btn-default"
-                            href="/dane/poslowie/<?= $object->getId() ?>/prawo_projekty?typ_id[]=2">Zobacz &raquo;</a>
+                            href="<?= $object->getUrl() ?>/projekty_uchwal">Zobacz &raquo;</a>
                         </p><? } ?>
                 </div>
             </li>
