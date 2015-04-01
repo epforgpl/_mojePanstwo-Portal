@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-10">
-                    <h2><?= __d('media', 'LC_PANSTWOINTERNET_KONTROWERSJE_HEADLINE') ?></h2>
+                    <h2><?= __d('media', 'LC_PANSTWOINTERNET_KONTROWERSJE_HEADLINE') ?> (w 2013r.)</h2>
                 </div>
             </div>
         </div>

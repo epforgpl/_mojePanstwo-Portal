@@ -1,9 +1,9 @@
-<div id="media" class="chapter">
+<div id="urzedyMedia" class="chapter">
     <div class="col-md-12 header-row">
         <div class="container">
             <div class="row">
                 <div class="col-md-10">
-                    <h2><?= __d('media', 'LC_PANSTWOINTERNET_MEDIA_HEADLINE') ?></h2>
+                    <h2><?= __d('media', 'LC_PANSTWOINTERNET_MEDIA_HEADLINE') ?> (w 2013r.)</h2>
                 </div>
             </div>
         </div>
@@ -454,7 +454,7 @@
                         </tr>
                         </tbody>
                     </table>
-
+                    <p>Żródło: Fundacja ePaństwo 2013</p>
                 </div>
             </div>
 
