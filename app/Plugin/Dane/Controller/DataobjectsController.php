@@ -104,9 +104,6 @@ class DataobjectsController extends AppController
 	            $this->set('objectOptions', $this->objectOptions);
 	            $this->set('microdata', $this->microdata);	
 	            $this->set('title_for_layout', $this->object->getTitle());
-	
-	            if ($desc = $this->object->getDescription())
-	                $this->setMetaDescription($desc);
 			    
 		    }
 	    
@@ -145,7 +142,8 @@ class DataobjectsController extends AppController
     }
     
     public function beforeRender() {
-	    
+        parent::beforeRender();
+
 	    if(
 	    	isset( $this->request->params['ext'] ) &&
 	    	( $this->request->params['ext'] == 'json' )
@@ -179,6 +177,13 @@ class DataobjectsController extends AppController
 	    $this->Dataobject->unsubscribe($this->request->params['controller'], $this->request->params['id']);
 	    $this->redirect($this->referer());
 	    
+    }
+
+    public function prepareMetaTags() {
+        parent::prepareMetaTags();
+        if($desc = $this->object->getDescription())
+            $this->setMeta('description', $desc);
+        $this->setMeta('og:title', $this->object->getTitle());
     }
 
 }

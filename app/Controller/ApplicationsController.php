@@ -49,7 +49,8 @@ class ApplicationsController extends AppController
 		
 	public function beforeRender()
     {
-	    	      
+        parent::beforeRender();
+
 	    if( $this->settings['menuSelected'] === false )
 	    	$this->settings['menuSelected'] = $this->request->params['action'];
 	    
@@ -59,11 +60,20 @@ class ApplicationsController extends AppController
 	        $this->set('title_for_layout', $this->title);
         elseif( isset($this->settings['title']) )
 	        $this->set('title_for_layout', $this->settings['title']);
-        
-        if( $this->description )
-	        $this->setMetaDesc($this->description);
-        elseif( isset($this->settings['subtitle']) )
-	        $this->setMetaDesc($this->settings['subtitle']);
+    }
+
+    public function prepareMetaTags() {
+        parent::prepareMetaTags();
+
+        if($this->description)
+            $this->setMeta('description', $this->description);
+        elseif(isset($this->settings['subtitle']))
+            $this->setMeta('description', $this->settings['subtitle']);
+
+        if($this->title)
+            $this->setMeta('og:title', $this->title);
+        elseif(isset($this->settings['title']))
+            $this->setMeta('og:title', $this->settings['title']);
     }
     
     public function setMenuSelected( $selected = '' )
