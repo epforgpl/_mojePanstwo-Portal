@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <? if (isset($_META) && !empty($_META)) {
         foreach ($_META as $key => $val)
-            if (!in_array($key, array('image')))
                 echo $this->Html->meta(array('property' => $key, 'content' => $val));
     } ?>
     <?php echo $this->Html->meta('favicon.ico', '/img/favicon/fav.ico', array('type' => 'icon')); ?>
@@ -25,20 +24,20 @@
     )); ?>
 
     <?php
-    echo $this->Html->meta(array('property' => 'og:url', 'content' => Router::url($this->here, true)));
-    echo $this->Html->meta(array('property' => 'og:type', 'content' => 'website'));
-    echo $this->Html->meta(array('property' => 'og:title', 'content' => strip_tags($title_for_layout)));
-    echo $this->Html->meta(array(
+    //echo $this->Html->meta(array('property' => 'og:url', 'content' => Router::url($this->here, true)));
+    //echo $this->Html->meta(array('property' => 'og:type', 'content' => 'website'));
+    //echo $this->Html->meta(array('property' => 'og:title', 'content' => strip_tags($title_for_layout)));
+    /* echo $this->Html->meta(array(
         'property' => 'og:description',
         'content' => (isset($_META) && array_key_exists('description', $_META)) ? strip_tags($_META['description']) : strip_tags(__('LC_MAINHEADER_TEXT'))
     ));
     echo $this->Html->meta(array(
         'property' => 'og:image',
         'content' => (isset($_META) && array_key_exists('image', $_META)) ? FULL_BASE_URL . $_META['image'] : FULL_BASE_URL . '/img/favicon/facebook-400x400.jpg',
-    ));
-    echo $this->Html->meta(array('property' => 'fb:admins', 'content' => '616010705')); /*Daniel Macyszyn*/
-    echo $this->Html->meta(array('property' => 'fb:admins', 'content' => '100000234760647')); /*Mariusz Konrad Machuta-Rakowski*/
-    echo $this->Html->meta(array('property' => 'fb:app_id', 'content' => FACEBOOK_appId));
+    ));*/
+    //echo $this->Html->meta(array('property' => 'fb:admins', 'content' => '616010705')); /*Daniel Macyszyn*/
+    //echo $this->Html->meta(array('property' => 'fb:admins', 'content' => '100000234760647')); /*Mariusz Konrad Machuta-Rakowski*/
+    //echo $this->Html->meta(array('property' => 'fb:app_id', 'content' => FACEBOOK_appId));
 
     echo $this->Html->css('//fonts.googleapis.com/css?family=Lato:200,300,400,700,900,400italic');
 

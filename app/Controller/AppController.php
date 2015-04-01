@@ -448,23 +448,21 @@ class AppController extends Controller {
 
 	public function beforeRender()
 	{
-				
-		if ($this->Session->read('Auth.User.id') && $this->Session->read('Pisma.transfer_anonymous')) {
+        $this->prepareMetaTags();
+
+		if($this->Session->read('Auth.User.id') && $this->Session->read('Pisma.transfer_anonymous')) {
 			
 			$this->loadModel('Pisma.Pismo');
 			// $this->Pismo->transfer_anonymous($this->Session->read('previous_id'));
 			
 			$this->Session->delete('Pisma.transfer_anonymous');
 			return $this->redirect($this->request->here);
-
 		}
-
 	}
 
 	public function addStatusbarCrumb( $item ) {
 		$this->statusbarCrumbs[] = $item;
 		$this->set( 'statusbarCrumbs', $this->statusbarCrumbs );
-
 	}
 
 	public function setMetaDesc($val)
@@ -476,16 +474,33 @@ class AppController extends Controller {
 		return $this->setMeta('description', $val);
 	}
 
-	public function setMeta($key, $val)
+	public function setMeta($key, $val = null)
 	{
+        if(is_array($key)) {
+            foreach($key as $property => $content)
+                $this->meta[$property] = $content;
+            $this->set('_META', $this->meta);
+            return true;
+        }
 
-		if (!$val)
+		if(!$val)
 			return false;
 
 		$this->meta[$key] = $val;
 		$this->set('_META', $this->meta);
 
 		return $val;
-
 	}
+
+    public function prepareMetaTags() {
+        $this->setMeta(array(
+            'og:url'            => Router::url($this->here, true),
+            'og:type'           => 'website',
+            'og:description'    => strip_tags(__('LC_MAINHEADER_TEXT')),
+            'og:image'          => FULL_BASE_URL . '/img/favicon/facebook-400x400.jpg',
+            'fb:admins'         => '616010705',
+            'fb:app_id'         => FACEBOOK_appId
+        ));
+    }
+
 }
