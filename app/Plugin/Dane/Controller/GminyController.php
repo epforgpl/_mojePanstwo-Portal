@@ -1721,7 +1721,7 @@ class GminyController extends DataobjectsController
     public function prepareMetaTags() {
         parent::prepareMetaTags();
         if($this->object->getId() == '903') {
-            $this->setMeta('og:image', FULL_BASE_URL . 'dane/img/customObject/krakow/logo_pkrk.png');
+            $this->setMeta('og:image', FULL_BASE_URL . 'dane/img/customObject/krakow/logo_pkrk_fb.png');
         }
     }
 }
