@@ -1466,6 +1466,15 @@ class GminyController extends DataobjectsController
 
     }
 
+    public function wpf()
+    {
+        $this->addInitLayers(array(
+            'wpf'
+        ));
+        $this->_prepareView();
+        $this->request->params['action'] = 'finanse';
+    }
+
     public function finanse()
     {
         $this->addInitLayers(array(
