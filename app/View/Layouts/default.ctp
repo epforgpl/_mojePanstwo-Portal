@@ -141,6 +141,8 @@
     <?php } ?>
     <div id="_main">
         <?php echo $content_for_layout; ?>
+
+        <? echo $this->Element('footer'); ?>
     </div>
 
     <? echo $this->Element('suggester', array(
@@ -148,6 +150,7 @@
         'action' => '/dane',
     )); ?>
 </div>
+
 
 <?php /* GOOGLE ANALYTIC */ ?>
 <script>

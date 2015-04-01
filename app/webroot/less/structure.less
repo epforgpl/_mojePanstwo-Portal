@@ -1,7 +1,12 @@
+* {
+    margin: 0;
+}
+
 html,
 body {
     margin: 0;
     padding: 0;
+    min-height: 100%;
     height: 100%;
 }
 
@@ -9,64 +14,62 @@ body {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    
+
     &.btn-icon {
         overflow: hidden;
-        padding-left: 50px;
         text-align: left;
         width: 100%;
         position: relative;
-        line-height: 16px;
-		border-width: 0;
+        border-width: 0;
         padding: 8px 12px 8px 50px;
         word-wrap: break-word;
         white-space: normal;
         line-height: 1em;
-		
-		&.obserwuj-button:hover {
-			.btn-text {
-				visibility: hidden;
-			}
-			.btn-text:before {
-				content: "Nie obserwuj";
-				visibility: visible;
-			}
-		}
-		
-		&.btn-primary {
-	        background-color: #007ab9;
-	        
-	        .icon {
-	            background-color: #00639a;
-	        }
-	        
-	        &:hover {
-		        background-color: #00639a;
-		
-		        &.btn-icon .icon {
-		            background-color: #007ab9;
-		        }
-		    }
-	    }
-	    
-	    &.btn-default {
-		    
-		    background-color: #FAFAFA;
-		    
-		    .icon {
-	            background-color: #F1F1F1;
-	        }
-	        
-	        &:hover {
-		        background-color: #F1F1F1;
-		
-		        &.btn-icon .icon {
-		            background-color: #FAFAFA;
-		        }
-		    }
-		    
-		}
-		
+
+        &.obserwuj-button:hover {
+            .btn-text {
+                visibility: hidden;
+            }
+            .btn-text:before {
+                content: "Nie obserwuj";
+                visibility: visible;
+            }
+        }
+
+        &.btn-primary {
+            background-color: #007ab9;
+
+            .icon {
+                background-color: #00639a;
+            }
+
+            &:hover {
+                background-color: #00639a;
+
+                &.btn-icon .icon {
+                    background-color: #007ab9;
+                }
+            }
+        }
+
+        &.btn-default {
+
+            background-color: #FAFAFA;
+
+            .icon {
+                background-color: #F1F1F1;
+            }
+
+            &:hover {
+                background-color: #F1F1F1;
+
+                &.btn-icon .icon {
+                    background-color: #FAFAFA;
+                }
+            }
+
+        }
+
         .icon {
             background-color: #00639a;
             left: 0;
@@ -123,7 +126,7 @@ body {
         img {
             width: 80px;
         }
-        
+
         a, a:hover, a:focus {
             color: #ffffff;
         }
@@ -228,7 +231,6 @@ body {
                 -ms-transform-origin: 2.85714px center;
                 -o-transform-origin: 2.85714px center;
                 transform-origin: 2.85714px center;
-                width: 100%;
             }
             .tcon-menu__lines::before {
                 top: 7px;
@@ -524,10 +526,36 @@ body {
     }
 
     #_main {
+        @footerHeight: 30px;
+
         width: 100%;
         height: 100%;
         min-height: 100vh;
         padding-left: 100px;
+
+        > div:last-of-type:not(.fullPageHeight) {
+            padding-bottom: @footerHeight;
+        }
+
+        footer {
+            height: @footerHeight;
+            margin-right: 10px;
+
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            z-index: 2;
+
+            a, .separator {
+                color: #aaaaaa;
+            }
+
+            a {
+                font-size: 10px;
+                font-weight: bold;
+                margin: 20px 0;
+            }
+        }
 
         .fullPageHeight {
             min-height: 100vh;
