@@ -1472,7 +1472,7 @@ class GminyController extends DataobjectsController
             'wpf'
         ));
         $this->_prepareView();
-        $this->request->params['action'] = 'finanse';
+        $this->request->params['action'] = 'wtf';
     }
 
     public function finanse()
