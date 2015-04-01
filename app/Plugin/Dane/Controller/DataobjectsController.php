@@ -18,102 +18,9 @@ class DataobjectsController extends AppController
     
     public $menu = array();
     public $actions = array();
-            
-    public function load() {
-	    
-	    $dataset = isset( $this->request->params['controller'] ) ? $this->request->params['controller'] : false;
-	    $id = isset( $this->request->params['id'] ) ? $this->request->params['id'] : false;
-	    $slug = isset( $this->request->params['slug'] ) ? $this->request->params['slug'] : '';
-	    
-	    // debug(array('dataset' => $dataset, 'id' => $id, 'slug' => $slug, )); die();
-	    	    
-	    if(
-		    $dataset && 
-		    $id && 
-		    is_numeric($id) 
-	    ) {
-	    	
-	    	$layers = $this->initLayers;
-	    	$layers[] = 'dataset';
-	    	    
-		    if( $this->object = $this->Dataobject->find('first', array(
-			    'conditions' => array(
-				    'dataset' => $dataset,
-				    'id' => $id,
-			    ),
-			    'layers' => $layers,
-		    )) ) {
-			    				    		    
-			    if(
-				    (
-				    	!isset( $this->request->params['ext'] ) || 
-				    	!in_array($this->request->params['ext'], array('json'))
-				    ) && 
-				    !$slug && 
-				    $this->object->getSlug() && 
-				    ( $this->object->getSlug() != $slug ) && 
-				    $this->object->getUrl()
-			    ) {
-				    				    
-				    $url = $this->object->getUrl();
-				    				    
-				    if(
-				    	isset($this->request->params['action']) && 
-				    	( $this->request->params['action'] ) && 
-				    	( $this->request->params['action'] != 'view' )
-				    ) {
-					    
-					    $url .= '/' . $this->request->params['action'];
-					    
-					    if(
-					    	isset($this->request->params['subid']) && 
-					    	( $this->request->params['subid'] ) 
-					    ) {
-						    
-						    $url .= '/' . $this->request->params['subid'];
-						    
-						    if(
-						    	isset($this->request->params['subaction']) && 
-						    	( $this->request->params['subaction'] ) 
-						    ) {
-							    
-							    $url .= '/' . $this->request->params['subaction'];
-							    
-							    if(
-							    	isset($this->request->params['subsubid']) && 
-							    	( $this->request->params['subsubid'] ) 
-							    ) {
-								    
-								    $url .= '/' . $this->request->params['subsubid'];
-								    						    
-							    }
-							    						    
-						    }
-						    						    
-					    }
-					    
-				    }
-				    
-				    return $this->redirect( $url );
-				    
-			    }
-			    			    
-			    $dataset = $this->object->getLayer('dataset');
-								
-	            $this->set('object', $this->object);
-	            $this->set('objectOptions', $this->objectOptions);
-	            $this->set('microdata', $this->microdata);	
-	            $this->set('title_for_layout', $this->object->getTitle());
-			    
-		    }
-	    
-	    } else {
-		    throw new BadRequestException();
-	    }
-	    
-    }
-    
-    public function addInitLayers($layers) {
+
+    public function addInitLayers($layers)
+    {
 
         if (is_array($layers)) {
             $this->initLayers = array_merge($this->initLayers, $layers);
@@ -124,7 +31,103 @@ class DataobjectsController extends AppController
     }
     
     public function _prepareView() {
-		return $this->load();    
+        return $this->load();
+    }
+
+    public function load()
+    {
+
+        $dataset = isset($this->request->params['controller']) ? $this->request->params['controller'] : false;
+        $id = isset($this->request->params['id']) ? $this->request->params['id'] : false;
+        $slug = isset($this->request->params['slug']) ? $this->request->params['slug'] : '';
+
+        // debug(array('dataset' => $dataset, 'id' => $id, 'slug' => $slug, )); die();
+
+        if (
+            $dataset &&
+            $id &&
+            is_numeric($id)
+        ) {
+
+            $layers = $this->initLayers;
+            $layers[] = 'dataset';
+
+            if ($this->object = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => $dataset,
+                    'id' => $id,
+                ),
+                'layers' => $layers,
+            ))
+            ) {
+
+                if (
+                    (
+                        !isset($this->request->params['ext']) ||
+                        !in_array($this->request->params['ext'], array('json'))
+                    ) &&
+                    !$slug &&
+                    $this->object->getSlug() &&
+                    ($this->object->getSlug() != $slug) &&
+                    $this->object->getUrl()
+                ) {
+
+                    $url = $this->object->getUrl();
+
+                    if (
+                        isset($this->request->params['action']) &&
+                        ($this->request->params['action']) &&
+                        ($this->request->params['action'] != 'view')
+                    ) {
+
+                        $url .= '/' . $this->request->params['action'];
+
+                        if (
+                            isset($this->request->params['subid']) &&
+                            ($this->request->params['subid'])
+                        ) {
+
+                            $url .= '/' . $this->request->params['subid'];
+
+                            if (
+                                isset($this->request->params['subaction']) &&
+                                ($this->request->params['subaction'])
+                            ) {
+
+                                $url .= '/' . $this->request->params['subaction'];
+
+                                if (
+                                    isset($this->request->params['subsubid']) &&
+                                    ($this->request->params['subsubid'])
+                                ) {
+
+                                    $url .= '/' . $this->request->params['subsubid'];
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                    return $this->redirect($url);
+
+                }
+
+                $dataset = $this->object->getLayer('dataset');
+
+                $this->set('object', $this->object);
+                $this->set('objectOptions', $this->objectOptions);
+                $this->set('microdata', $this->microdata);
+                $this->set('title_for_layout', $this->object->getTitle());
+
+            }
+
+        } else {
+            throw new BadRequestException();
+        }
+
     }
     
     public function view() {
@@ -160,7 +163,7 @@ class DataobjectsController extends AppController
 		    
 		    $this->set('object_menu', $this->menu);
 		    $this->set('object_actions', $this->actions);
-	    
+            $this->set('object_addons', $this->addons);
 	    }
 	    
     }
