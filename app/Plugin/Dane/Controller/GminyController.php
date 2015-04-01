@@ -1466,6 +1466,15 @@ class GminyController extends DataobjectsController
 
     }
 
+    public function wpf()
+    {
+        $this->addInitLayers(array(
+            'wpf'
+        ));
+        $this->_prepareView();
+        $this->request->params['action'] = 'wtf';
+    }
+
     public function finanse()
     {
         $this->addInitLayers(array(
@@ -1519,7 +1528,6 @@ class GminyController extends DataobjectsController
 
     public function beforeRender()
     {
-
 
         // PREPARE MENU
         $href_base = $this->object->getUrl();
@@ -1708,6 +1716,12 @@ class GminyController extends DataobjectsController
 		
 		$this->menu = $menu;
 		parent::beforeRender();
+    }
 
+    public function prepareMetaTags() {
+        parent::prepareMetaTags();
+        if($this->object->getId() == '903') {
+            $this->setMeta('og:image', FULL_BASE_URL . 'dane/img/customObject/krakow/logo_pkrk.png');
+        }
     }
 }

@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-10">
-                    <h2>Dodatek: najpopularniejsi politycy na Twitterze - świat</h2>
+                    <h2>Dodatek: najpopularniejsi politycy na Twitterze - świat (w 2013r.)</h2>
                 </div>
             </div>
         </div>
@@ -23,18 +23,18 @@
                         <div class="twitterContent">
 
                             <div
-                                data-background-image="url('https://pbs.twimg.com/profile_banners/813286/1360123769/web')"
+                                data-background-image="url('/media/img/dodatki/barack-obama-header.png')"
                                 class="profile-header-inner flex-module clearfix">
                                 <div class="profile-header-inner-overlay"></div>
 
                                 <a title="Barack Obama" target="_blank"
-                                   data-url="https://pbs.twimg.com/profile_images/378800000607588261/dad9f009a228a78a14f1f4bed0c54f76.png"
-                                   data-resolved-url-large="https://pbs.twimg.com/profile_images/378800000607588261/dad9f009a228a78a14f1f4bed0c54f76.png"
+                                   data-url="/media/img/dodatki/barack-obama-avatar.png"
+                                   data-resolved-url-large="/media/img/dodatki/barack-obama-avatar.png"
                                    class="profile-picture media-thumbnail js-tooltip"
-                                   href="https://pbs.twimg.com/profile_images/378800000607588261/dad9f009a228a78a14f1f4bed0c54f76.png">
+                                   href="/media/img/dodatki/barack-obama-avatar.png">
 
                                     <img class="avatar size73" alt="Barack Obama"
-                                         src="https://pbs.twimg.com/profile_images/378800000607588261/dad9f009a228a78a14f1f4bed0c54f76_bigger.png">
+                                         src="/media/img/dodatki/barack-obama-avatar.png">
                                 </a>
 
                                 <div data-user-id="813286" data-screen-name="BarackObama" class="profile-card-inner">
@@ -89,19 +89,19 @@
                         <div class="twitterContent">
 
                             <div
-                                data-background-image="url('https://pbs.twimg.com/profile_banners/409486555/1360128263/web')"
+                                data-background-image="url('/media/img/dodatki/michelle-obama-header.png')"
                                 class="profile-header-inner flex-module clearfix">
                                 <div class="profile-header-inner-overlay"></div>
 
 
                                 <a title="Michelle Obama" target="_blank"
-                                   data-url="https://pbs.twimg.com/profile_images/3214519149/b327d236270d478c932d55a9cb5bc806.jpeg"
-                                   data-resolved-url-large="https://pbs.twimg.com/profile_images/3214519149/b327d236270d478c932d55a9cb5bc806.jpeg"
+                                   data-url="/media/img/dodatki/michelle-obama-avatar.png"
+                                   data-resolved-url-large="/media/img/dodatki/michelle-obama-avatar.png"
                                    class="profile-picture media-thumbnail js-tooltip"
-                                   href="https://pbs.twimg.com/profile_images/3214519149/b327d236270d478c932d55a9cb5bc806.jpeg">
+                                   href="/media/img/dodatki/michelle-obama-avatar.png">
 
                                     <img class="avatar size73" alt="Michelle Obama"
-                                         src="https://pbs.twimg.com/profile_images/3214519149/b327d236270d478c932d55a9cb5bc806_bigger.jpeg">
+                                         src="/media/img/dodatki/michelle-obama-avatar.png">
                                 </a>
 
 
@@ -160,19 +160,19 @@
                         <div class="twitterContent">
 
                             <div
-                                data-background-image="url('https://abs.twimg.com/a/1388796652/t1/img/grey_header_web.jpg')"
+                                style="background-color: #0084B4"
                                 class="profile-header-inner flex-module clearfix">
                                 <div class="profile-header-inner-overlay"></div>
 
 
                                 <a title="Abdullah Gül" target="_blank"
-                                   data-url="https://pbs.twimg.com/profile_images/1278120590/ag-photo.jpg"
-                                   data-resolved-url-large="https://pbs.twimg.com/profile_images/1278120590/ag-photo.jpg"
+                                   data-url="/media/img/dodatki/abdullah-gul-avatar.jpg"
+                                   data-resolved-url-large="/media/img/dodatki/abdullah-gul-avatar.jpg"
                                    class="profile-picture media-thumbnail js-tooltip"
-                                   href="https://pbs.twimg.com/profile_images/1278120590/ag-photo.jpg">
+                                   href="/media/img/dodatki/abdullah-gul-avatar.jpg">
 
                                     <img class="avatar size73" alt="Abdullah Gül"
-                                         src="https://pbs.twimg.com/profile_images/1278120590/ag-photo_bigger.jpg">
+                                         src="/media/img/dodatki/abdullah-gul-avatar.jpg">
                                 </a>
 
 
@@ -233,16 +233,16 @@
                         <div class="twitterContent">
 
                             <div
-                                data-background-image="url('https://abs.twimg.com/a/1388796652/t1/img/grey_header_web.jpg')"
+                                style="background-color:#DE0000;"
                                 class="profile-header-inner flex-module clearfix">
                                 <div class="profile-header-inner-overlay"></div>
 
 
                                 <a title="Hugo Chávez Frías" target="_blank"
-                                   data-url="https://pbs.twimg.com/profile_images/858098029/presidente-chavez-twitter.jpg"
-                                   data-resolved-url-large="https://pbs.twimg.com/profile_images/858098029/presidente-chavez-twitter.jpg"
+                                   data-url="/media/img/dodatki/hugo-chavez-frias-avatar.jpg"
+                                   data-resolved-url-large="/media/img/dodatki/hugo-chavez-frias-avatar.jpg"
                                    class="profile-picture media-thumbnail js-tooltip"
-                                   href="https://pbs.twimg.com/profile_images/858098029/presidente-chavez-twitter.jpg">
+                                   href="/media/img/dodatki/hugo-chavez-frias-avatar.jpg">
 
                                     <img class="avatar size73" alt="Hugo Chávez Frías"
                                          src="https://pbs.twimg.com/profile_images/858098029/presidente-chavez-twitter_bigger.jpg">
@@ -304,19 +304,19 @@
                         <div class="twitterContent">
 
                             <div
-                                data-background-image="url('https://pbs.twimg.com/profile_banners/47491330/1362150418/web')"
+                                data-background-image="url('/media/img/dodatki/henrique-capriles-r-header.jpg')"
                                 class="profile-header-inner flex-module clearfix">
                                 <div class="profile-header-inner-overlay"></div>
 
 
                                 <a title="Henrique Capriles R." target="_blank"
-                                   data-url="https://pbs.twimg.com/profile_images/378800000850251826/092eed2ea2248426cc5ea8defd758dd9.jpeg"
-                                   data-resolved-url-large="https://pbs.twimg.com/profile_images/378800000850251826/092eed2ea2248426cc5ea8defd758dd9.jpeg"
+                                   data-url="/media/img/dodatki/henrique-capriles-r-avatar.jpeg"
+                                   data-resolved-url-large="/media/img/dodatki/henrique-capriles-r-avatar.jpeg"
                                    class="profile-picture media-thumbnail js-tooltip"
-                                   href="https://pbs.twimg.com/profile_images/378800000850251826/092eed2ea2248426cc5ea8defd758dd9.jpeg">
+                                   href="/media/img/dodatki/henrique-capriles-r-avatar.jpeg">
 
                                     <img class="avatar size73" alt="Henrique Capriles R."
-                                         src="https://pbs.twimg.com/profile_images/378800000850251826/092eed2ea2248426cc5ea8defd758dd9_bigger.jpeg">
+                                         src="/media/img/dodatki/henrique-capriles-r-avatar.jpeg">
                                 </a>
 
 
@@ -376,19 +376,19 @@
                         <div class="twitterContent">
 
                             <div
-                                data-background-image="url('https://abs.twimg.com/a/1388796652/t1/img/grey_header_web.jpg')"
+                                data-background-image="url('/media/img/dodatki/rania-al-abdullah-header.jpeg')"
                                 class="profile-header-inner flex-module clearfix">
                                 <div class="profile-header-inner-overlay"></div>
 
 
                                 <a title="Rania Al Abdullah" target="_blank"
-                                   data-url="https://pbs.twimg.com/profile_images/1891480962/88_1_.jpg"
-                                   data-resolved-url-large="https://pbs.twimg.com/profile_images/1891480962/88_1_.jpg"
+                                   data-url="/media/img/dodatki/rania-al-abdullah-avatar.jpeg"
+                                   data-resolved-url-large="/media/img/dodatki/rania-al-abdullah-avatar.jpeg"
                                    class="profile-picture media-thumbnail js-tooltip"
-                                   href="https://pbs.twimg.com/profile_images/1891480962/88_1_.jpg">
+                                   href="/media/img/dodatki/rania-al-abdullah-avatar.jpeg">
 
                                     <img class="avatar size73" alt="Rania Al Abdullah"
-                                         src="https://pbs.twimg.com/profile_images/1891480962/88_1__bigger.jpg">
+                                         src="/media/img/dodatki/rania-al-abdullah-avatar.jpeg">
                                 </a>
 
 
@@ -444,19 +444,19 @@
                         <div class="twitterContent">
 
                             <div
-                                data-background-image="url('https://pbs.twimg.com/profile_banners/12044602/1374177058/web')"
+                                data-background-image="url('/media/img/dodatki/arnold-header.jpg')"
                                 class="profile-header-inner flex-module clearfix">
                                 <div class="profile-header-inner-overlay"></div>
 
 
                                 <a title="Arnold" target="_blank"
-                                   data-url="https://pbs.twimg.com/profile_images/1349459573/chess.JPG"
-                                   data-resolved-url-large="https://pbs.twimg.com/profile_images/1349459573/chess.JPG"
+                                   data-url="/media/img/dodatki/arnold-avatar.jpeg"
+                                   data-resolved-url-large="/media/img/dodatki/arnold-avatar.jpeg"
                                    class="profile-picture media-thumbnail js-tooltip"
-                                   href="https://pbs.twimg.com/profile_images/1349459573/chess.JPG">
+                                   href="/media/img/dodatki/arnold-avatar.jpeg">
 
                                     <img class="avatar size73" alt="Arnold"
-                                         src="https://pbs.twimg.com/profile_images/1349459573/chess_bigger.JPG">
+                                         src="/media/img/dodatki/arnold-avatar.jpeg">
                                 </a>
 
 
@@ -515,16 +515,16 @@
                         <div class="twitterContent">
 
                             <div
-                                data-background-image="url('https://abs.twimg.com/a/1388796652/t1/img/grey_header_web.jpg')"
+                                data-background-image="url('/media/img/dodatki/al-gore-header.jpg')"
                                 class="profile-header-inner flex-module clearfix">
                                 <div class="profile-header-inner-overlay"></div>
 
 
                                 <a title="Al Gore" target="_blank"
-                                   data-url="https://pbs.twimg.com/profile_images/1361135385/AG_2011_headshot_color.jpg"
-                                   data-resolved-url-large="https://pbs.twimg.com/profile_images/1361135385/AG_2011_headshot_color.jpg"
+                                   data-url="/media/img/dodatki/al-gore-avatar.jpg"
+                                   data-resolved-url-large="/media/img/dodatki/al-gore-avatar.jpg"
                                    class="profile-picture media-thumbnail js-tooltip"
-                                   href="https://pbs.twimg.com/profile_images/1361135385/AG_2011_headshot_color.jpg">
+                                   href="/media/img/dodatki/al-gore-avatar.jpg">
 
                                     <img class="avatar size73" alt="Al Gore"
                                          src="https://pbs.twimg.com/profile_images/1361135385/AG_2011_headshot_color_bigger.jpg">
@@ -583,19 +583,19 @@
                         <div class="twitterContent">
 
                             <div
-                                data-background-image="url('https://pbs.twimg.com/profile_banners/14224719/1350058475/web')"
+                                data-background-image="url('/media/img/dodatki/uk-prime-minister-header.jpg')"
                                 class="profile-header-inner flex-module clearfix">
                                 <div class="profile-header-inner-overlay"></div>
 
 
                                 <a title="UK Prime Minister" target="_blank"
-                                   data-url="https://pbs.twimg.com/profile_images/378800000729938158/560001968548a813cb25a127d3bd25f2.png"
-                                   data-resolved-url-large="https://pbs.twimg.com/profile_images/378800000729938158/560001968548a813cb25a127d3bd25f2.png"
+                                   data-url="/media/img/dodatki/uk-prime-minister-avatar.png"
+                                   data-resolved-url-large="/media/img/dodatki/uk-prime-minister-avatar.png"
                                    class="profile-picture media-thumbnail js-tooltip"
-                                   href="https://pbs.twimg.com/profile_images/378800000729938158/560001968548a813cb25a127d3bd25f2.png">
+                                   href="/media/img/dodatki/uk-prime-minister-avatar.png">
 
                                     <img class="avatar size73" alt="UK Prime Minister"
-                                         src="https://pbs.twimg.com/profile_images/378800000729938158/560001968548a813cb25a127d3bd25f2_bigger.png">
+                                         src="/media/img/dodatki/uk-prime-minister-avatar.png">
                                 </a>
 
 
@@ -662,19 +662,19 @@
                         <div class="twitterContent">
 
                             <div
-                                data-background-image="url('https://pbs.twimg.com/profile_banners/138814032/1355433228/web')"
+                                data-background-image="url('/media/img/dodatki/cristina-kirchner-header.jpg')"
                                 class="profile-header-inner flex-module clearfix">
                                 <div class="profile-header-inner-overlay"></div>
 
 
                                 <a title="Cristina Kirchner" target="_blank"
-                                   data-url="https://pbs.twimg.com/profile_images/1112014698/foto6-3.jpg_1_.jpg"
-                                   data-resolved-url-large="https://pbs.twimg.com/profile_images/1112014698/foto6-3.jpg_1_.jpg"
+                                   data-url="/media/img/dodatki/cristina-kirchner-avatar.jpg"
+                                   data-resolved-url-large="/media/img/dodatki/cristina-kirchner-avatar.jpg"
                                    class="profile-picture media-thumbnail js-tooltip"
-                                   href="https://pbs.twimg.com/profile_images/1112014698/foto6-3.jpg_1_.jpg">
+                                   href="/media/img/dodatki/cristina-kirchner-avatar.jpg">
 
                                     <img class="avatar size73" alt="Cristina Kirchner"
-                                         src="https://pbs.twimg.com/profile_images/1112014698/foto6-3.jpg_1__bigger.jpg">
+                                         src="/media/img/dodatki/cristina-kirchner-avatar.jpg">
                                 </a>
 
 

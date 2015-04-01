@@ -1,7 +1,5 @@
 <div id="twitter" class="chapter">
-
-    <div id="twitter" class="container innerContent">
-
+    <div class="container innerContent">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="desc main_desc">
@@ -21,18 +19,22 @@
         </div>
 
 
-        <div class="ranks block">
-            <? foreach ($ranks as $rank) { ?>
-                <div id="twitter-<?= $rank['name'] ?>" class="rank-row-block">
-                    <h3 class="block-header"><?= $rank['title'] ?></h3>
-                    <? foreach ($rank['groups'] as $group) { ?>
-                        <? if (isset($group['desc'])) { ?>
-                            <p class="desc"><?= $group['desc'] ?></p>
-                        <? } ?>
-                        <? include('twitter/row.ctp'); ?>
+        <div class="row">
+            <div class="col-md-12 separator-top">
+                <div class="ranks block">
+                    <? foreach ($ranks as $rank) { ?>
+                        <div id="twitter-<?= $rank['name'] ?>" class="rank-row-block">
+                            <h3 class="block-header"><?= $rank['title'] ?></h3>
+                            <? foreach ($rank['groups'] as $group) { ?>
+                                <? if (isset($group['desc'])) { ?>
+                                    <p class="desc"><?= $group['desc'] ?></p>
+                                <? } ?>
+                                <? include('twitter/row.ctp'); ?>
+                            <? } ?>
+                        </div>
                     <? } ?>
                 </div>
-            <? } ?>
+            </div>
         </div>
     </div>
 </div>
