@@ -9,9 +9,10 @@ class Rady_druki extends DocDataObject
 	protected $tiny_label = 'Samorząd';
 	
     protected $routes = array(
-        'title' => 'tytul',
-        'shortTitle' => 'tytul',
+        'title' => 'nazwa',
+        'shortTitle' => 'nazwa',
         'date' => 'data',
+        'desc' => false,
     );
 
     public function getLabel()
@@ -24,11 +25,18 @@ class Rady_druki extends DocDataObject
 	    return '/dane/gminy/' . $this->getData('gmina_id') . '/druki/' . $this->getId();
     }
     
+    public function getDescription()
+    {
+	    return false;
+    }
+        
     public function getMetaDescriptionParts($preset = false)
 	{
-		
+				
 		$output = array(
 			dataSlownie($this->getData('rady_druki.data')),
+			$this->getData('rady_druki.tytul'),
+			$this->getData('rady_druki.autor_str'),
 		);
 				
 		return $output;

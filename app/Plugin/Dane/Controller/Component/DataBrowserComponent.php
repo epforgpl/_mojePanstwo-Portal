@@ -138,6 +138,26 @@ class DataBrowserComponent extends Component {
 	        */
 	    ),
 	    'rady_druki' => array(
+		    'autor_id' => array(
+	            'terms' => array(
+		            'field' => 'rady_druki.autor_id',
+		            'exclude' => array(
+			            'pattern' => '0'
+		            ),
+	            ),
+	            'aggs' => array(
+		            'label' => array(
+			            'terms' => array(
+				            'field' => 'data.rady_druki.autor_str',
+			            ),
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Autorzy projektów',
+		            'skin' => 'pie_chart',
+                    'field' => 'rady_druki.autor_id'
+	            ),
+	        ),
 		    'date' => array(
 	            'date_histogram' => array(
 		            'field' => 'date',
@@ -150,6 +170,147 @@ class DataBrowserComponent extends Component {
                     'field' => 'date'
 	            ),
 	        ),
+	    ),
+	    'krakow_posiedzenia' => array(
+		    'date' => array(
+	            'date_histogram' => array(
+		            'field' => 'date',
+		            'interval' => 'year',
+		            'format' => 'yyyy-MM-dd',
+	            ),
+	            'visual' => array(
+		            'label' => 'Liczba posiedzeń w czasie',
+		            'skin' => 'date_histogram',
+                    'field' => 'date'
+	            ),
+	        ),
+	    ),
+	    'prawo_lokalne' => array(
+		    'date' => array(
+	            'date_histogram' => array(
+		            'field' => 'date',
+		            'interval' => 'year',
+		            'format' => 'yyyy-MM-dd',
+	            ),
+	            'visual' => array(
+		            'label' => 'Liczba uchwał w czasie',
+		            'skin' => 'date_histogram',
+                    'field' => 'date'
+	            ),
+	        ),
+	    ),
+	    'krakow_komisje_posiedzenia' => array(
+		    'date' => array(
+	            'date_histogram' => array(
+		            'field' => 'date',
+		            'interval' => 'year',
+		            'format' => 'yyyy-MM-dd',
+	            ),
+	            'visual' => array(
+		            'label' => 'Liczba posiedzeń w czasie',
+		            'skin' => 'date_histogram',
+                    'field' => 'date'
+	            ),
+	        ),
+	    ),
+	    'radni_dzielnic' => array(
+		    'dzielnice' => array(
+	            'terms' => array(
+		            'field' => 'radni_dzielnic.dzielnica_id',
+		            'exclude' => array(
+			            'pattern' => ''
+		            ),
+	            ),
+	            'aggs' => array(
+		            'label' => array(
+			            'terms' => array(
+				            'field' => 'dzielnice.nazwa',
+			            ),
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Dzielnice',
+		            'skin' => 'pie_chart',
+                    'field' => 'radni_dzielnic.dzielnica_id'
+	            ),
+	        ),
+	    ),
+	    'krakow_dzielnice_uchwaly' => array(
+		    'dzielnice' => array(
+	            'terms' => array(
+		            'field' => 'krakow_dzielnice_uchwaly.dzielnica_id',
+		            'exclude' => array(
+			            'pattern' => ''
+		            ),
+	            ),
+	            'aggs' => array(
+		            'label' => array(
+			            'terms' => array(
+				            'field' => 'dzielnice.nazwa',
+			            ),
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Dzielnice',
+		            'skin' => 'pie_chart',
+                    'field' => 'krakow_dzielnice_uchwaly.dzielnica_id'
+	            ),
+	        ),
+	    ),
+	    'krakow_zarzadzenia' => array(
+		    'realizacja' => array(
+	            'terms' => array(
+		            'field' => 'krakow_zarzadzenia.realizacja_str',
+		            'exclude' => array(
+			            'pattern' => ''
+		            ),
+	            ),
+	            'aggs' => array(
+		            'label' => array(
+			            'terms' => array(
+				            'field' => 'krakow_zarzadzenia.realizacja_str',
+			            ),
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Statusy',
+		            'skin' => 'pie_chart',
+                    'field' => 'krakow_zarzadzenia.realizacja_str'
+	            ),
+	        ),
+		    'date' => array(
+	            'date_histogram' => array(
+		            'field' => 'date',
+		            'interval' => 'year',
+		            'format' => 'yyyy-MM-dd',
+	            ),
+	            'visual' => array(
+		            'label' => 'Liczba zarządzeń w czasie',
+		            'skin' => 'date_histogram',
+                    'field' => 'date'
+	            ),
+	        ),
+	        'status' => array(
+	            'terms' => array(
+		            'field' => 'krakow_zarzadzenia.status_str',
+		            'exclude' => array(
+			            'pattern' => ''
+		            ),
+	            ),
+	            'aggs' => array(
+		            'label' => array(
+			            'terms' => array(
+				            'field' => 'krakow_zarzadzenia.status_str',
+			            ),
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Statusy',
+		            'skin' => 'pie_chart',
+                    'field' => 'krakow_zarzadzenia.status_str'
+	            ),
+	        ),
+		    
 	    ),
 		'prawo' => array(
 	        'typ_id' => array(
