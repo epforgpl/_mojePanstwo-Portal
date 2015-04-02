@@ -1483,7 +1483,9 @@ class GminyController extends DataobjectsController
             'wpf'
         ));
         $this->_prepareView();
-        $this->request->params['action'] = 'wtf';
+        $this->request->params['action'] = 'wpf';
+        $this->set('title_for_layout', 'Wieloletnia prognoza finansowa Miasta Krakowa');
+
     }
 
     public function finanse()
@@ -1493,6 +1495,8 @@ class GminyController extends DataobjectsController
         ));
         $this->_prepareView();
         $this->request->params['action'] = 'finanse';
+        $this->set('title_for_layout', 'Wydatki w gminie ' . $this->object->getTitle());
+
     }
 
     /*
@@ -1670,7 +1674,16 @@ class GminyController extends DataobjectsController
             'label' => 'Wskaźniki GUS',
         );
         */
-
+		
+		if ($this->object->getId() == '903') {
+			$menu['items'][] = array(
+	            'id' => 'finanse',
+	            'href' => $href_base . '/finanse',
+	            'label' => 'Finanse',
+	            'icon' => '',
+	        );
+        }
+		
         $menu['items'][] = array(
             'id' => 'zamowienia',
             'href' => $href_base . '/zamowienia',

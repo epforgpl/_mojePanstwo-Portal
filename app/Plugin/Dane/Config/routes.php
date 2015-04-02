@@ -93,6 +93,29 @@ Router::connect('/dane/:alias', array(
 ));
 
 
+if ( $_SERVER['HTTP_HOST'] == PK_DOMAIN ) {
+	
+	Router::connect('/:action', array(
+		'plugin' => 'Dane', 
+		'controller' => 'Gminy', 
+		'id' => '903'
+	), array(
+		'action' => '([a-zA-Z\_]+)',
+		'subid' => '([0-9]+)',
+		'pass' => array('id'),
+	));
+	
+	Router::connect('/:action/:subid', array(
+		'plugin' => 'Dane', 
+		'controller' => 'Gminy', 
+		'id' => '903'
+	), array(
+		'action' => '([a-zA-Z\_]+)',
+		'subid' => '([0-9]+)',
+		'pass' => array('id', 'sub_id'),
+	));
+	
+}
 
 
 
@@ -123,7 +146,7 @@ foreach( $map as $m ) {
 			$pass = array_merge($pass, $m['pass']);
 		
 	}
-	
+
 	Router::connect('/dane/:controller' . $m['pattern'] , array(
 		'plugin' => 'Dane', 
 		'action' => 'view',

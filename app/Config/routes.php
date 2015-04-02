@@ -26,8 +26,13 @@
  * its action called 'display', and we pass a param to select the view file
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
+ 
 if ( $_SERVER['HTTP_HOST'] == PK_DOMAIN ) { // HTTP_X_FORWARDED_HOST
 
+	Router::connect( '/', array( 'plugin' => 'Dane', 'controller' => 'gminy', 'action' => 'view', 'id' => 903 ) );
+
+
+	/*
 	Router::connect( '/dane/krs_podmioty/:id', array(
 		'plugin'     => 'Dane',
 		'controller' => 'krs_podmioty',
@@ -36,11 +41,6 @@ if ( $_SERVER['HTTP_HOST'] == PK_DOMAIN ) { // HTTP_X_FORWARDED_HOST
 	Router::connect( '/dane/krs_podmioty/:id/:action', array( 'plugin' => 'Dane', 'controller' => 'krs_podmioty' ) );
 	Router::connect( '/dane/krs_podmioty/:id/:action/*', array( 'plugin' => 'Dane', 'controller' => 'krs_podmioty' ) );
 
-	Router::connect( '/', array( 'plugin' => 'Dane', 'controller' => 'gminy', 'action' => 'view', 'id' => 903 ) );
-	Router::connect( '/:action', array( 'plugin' => 'Dane', 'controller' => 'gminy', 'id' => 903 ) );
-	Router::connect( '/:action/*', array( 'plugin' => 'Dane', 'controller' => 'gminy', 'id' => 903 ) );
-	
-	
 	Router::connect( '/dane/krs_podmioty/:id,:slug', array(
 		'plugin'     => 'Dane',
 		'controller' => 'krs_podmioty',
@@ -48,10 +48,16 @@ if ( $_SERVER['HTTP_HOST'] == PK_DOMAIN ) { // HTTP_X_FORWARDED_HOST
 	) );
 	Router::connect( '/dane/krs_podmioty/:id,:slug/:action', array( 'plugin' => 'Dane', 'controller' => 'krs_podmioty' ) );
 	Router::connect( '/dane/krs_podmioty/:id,:slug/:action/*', array( 'plugin' => 'Dane', 'controller' => 'krs_podmioty' ) );
-
-	Router::connect( '/', array( 'plugin' => 'Dane', 'controller' => 'gminy', 'action' => 'view', 'id' => 903 ) );
+	
+	
+	
+	
 	Router::connect( '/:action', array( 'plugin' => 'Dane', 'controller' => 'gminy', 'id' => 903 ) );
 	Router::connect( '/:action/*', array( 'plugin' => 'Dane', 'controller' => 'gminy', 'id' => 903 ) );
+	*/
+	
+	
+
 
 } else {
 	Router::connect( '/', array( 'controller' => 'pages', 'action' => 'display', 'home' ) );
