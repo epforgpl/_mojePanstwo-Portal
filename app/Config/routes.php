@@ -30,7 +30,50 @@
 if ( $_SERVER['HTTP_HOST'] == PK_DOMAIN ) { // HTTP_X_FORWARDED_HOST
 
 	Router::connect( '/', array( 'plugin' => 'Dane', 'controller' => 'gminy', 'action' => 'view', 'id' => 903 ) );
-
+	
+	Router::connect('/:action', array(
+		'plugin' => 'Dane', 
+		'controller' => 'gminy', 
+		'id' => '903'
+	), array(
+		'action' => '([a-zA-Z\_]+)',
+		// 'subid' => '([0-9]+)',
+		'pass' => array('id'),
+	));
+	
+	Router::connect('/:action/:subid', array(
+		'plugin' => 'Dane', 
+		'controller' => 'gminy', 
+		'id' => '903'
+	), array(
+		'action' => '([a-zA-Z\_]+)',
+		'subid' => '([0-9]+)',
+		'pass' => array('id', 'sub_id'),
+	));
+	
+	Router::connect('/:action/:subid/:subaction', array(
+		'plugin' => 'Dane', 
+		'controller' => 'gminy', 
+		'id' => '903'
+	), array(
+		'action' => '([a-zA-Z\_]+)',
+		'subaction' => '([a-zA-Z\_]+)',
+		'subid' => '([0-9]+)',
+		'pass' => array('id', 'sub_id', 'subaction'),
+	));
+	
+	Router::connect('/:action/:subid/:subaction/:subsubid', array(
+		'plugin' => 'Dane', 
+		'controller' => 'gminy', 
+		'id' => '903'
+	), array(
+		'action' => '([a-zA-Z\_]+)',
+		'subaction' => '([a-zA-Z\_]+)',
+		'subid' => '([0-9]+)',
+		'subsubid' => '([0-9]+)',
+		'pass' => array('id', 'sub_id', 'subaction', 'subsubid'),
+	));
+	
 
 	/*
 	Router::connect( '/dane/krs_podmioty/:id', array(
