@@ -489,7 +489,37 @@
 
 
 $(function () {
-    var $container = $('.dataFeed-ul');
+    var $container = $('.dataFeed-ul'),
+        $dataActions = $('.dataActions');
+
+    if ($dataActions) {
+        if ($(window).width() > 992) {
+            var $showMoreBlock = $dataActions.find('.showMore').clone();
+            $dataActions.find('.showMore').remove();
+            $showMoreBlock.insertBefore($dataActions.find('.action:nth-child(6)'));
+        }
+
+        var actionHeight = 0;
+        $dataActions.find('.action').map(function () {
+            if (actionHeight < $(this).height()) actionHeight = $(this).height();
+        });
+        $dataActions.find('.action').css('height', actionHeight);
+        $dataActions.find('.showMore').click(function (e) {
+            var that = $(this);
+
+            e.preventDefault();
+
+            if (that.hasClass('open')) {
+                that.removeClass('open').find('p').text('Więcej');
+                $dataActions.find('.restAction').stop(true, true).slideUp(function () {
+                    $dataActions.find('.restAction .action').unwrap();
+                });
+            } else {
+                that.addClass('open').find('p').text('Mniej');
+                $dataActions.find('.action:hidden').wrapAll('<div class="restAction"></div>').end().find('.restAction').stop(true, true).slideDown();
+            }
+        });
+    }
 
     $container.infinitescroll({
             navSelector: '.next',

@@ -39,24 +39,23 @@
         background-color: #FFF;
     }
 
-    .dropdown-menu > li > a {
-        padding: 7px 20px;
-        color: #157ab5;
+    .dropdown-menu > li {
+        &.active > a,
+        > a {
+            padding: 7px 20px;
+            color: #157ab5;
 
-        &:focus, &:hover {
-            background-color: #157ab5;
-            color: #FFF;
+            &:focus, &:hover {
+                padding: 7px 20px;
+                background-color: #157ab5;
+                color: #FFF;
+            }
         }
     }
 
-    .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
-        color: #FFF;
-        background-color: #e9eaed;
-    }
-
     .nav-tabs .dropdown-menu {
-        background-color: #fff;
-        border-color: #ddd;
+        background-color: #ffffff;
+        border-color: #dddddd;
         border-top-width: 0;
         box-shadow: 0 12px 12px rgba(0, 0, 0, 0.176);
         -webkit-box-shadow: 0 12px 12px rgba(0, 0, 0, 0.176);
@@ -99,24 +98,29 @@
             .objectRender {
 
                 .header {
-                    color: #777;
+                    color: #157ab5;
                     font-size: 12px;
+                    font-weight: normal;
                     margin-bottom: 10px;
 
-                    a {
-                        color: #777;
-                        &:hover {
-                            color: #157ab5;
-                        }
+                    a, a:hover, a:active {
+                        color: #157ab5;
                     }
 
                 }
 
                 .title {
-                    font-size: 24px;
+                    font-size: 30px;
+                    color: #ffffff;
+                    margin-left: 0;
+                    margin-right: 0;
+
+                    a, a:hover, a:active {
+                        color: #ffffff;
+                    }
 
                     small {
-                        color: #555;
+                        color: #ffffff;
                         font-size: 14px;
                     }
                 }
@@ -155,15 +159,41 @@
     }
 
     .objectPageHeaderBg {
-        background: #f6f7f8 center top;
+        background: #021c3d center top;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover;
 
+        .menuTabsCont ul.nav-tabs {
+            border-bottom: none;
+
+            > li {
+                margin-bottom: 0;
+
+                &.active {
+                    > a {
+                        background: none;
+                        border: none;
+                        color: #63afea;
+                        padding-bottom: 12px;
+                        border-bottom: 5px solid #63afea;
+                    }
+                }
+
+                > a {
+                    font-size: 16px;
+                    font-weight: normal;
+                    color: #ffffff;
+                    background: none;
+                    border: none;
+                    padding-bottom: 20px;
+                }
+            }
+        }
+
         &.extended {
-            @menuHeight: 45px;
-            @menuFocus: #555555;
+            @menuHeight: 51px;
 
             position: relative;
 
@@ -211,43 +241,9 @@
                 -ms-transform: translate(-50%, 0);
                 -o-transform: translate(-50%, 0);
                 transform: translate(-50%, 0);
-
-                .nav {
-                    border-bottom-width: 0 !important;
-
-                    li:not(.active) a {
-                        color: #ffffff;
-                        border-width: 0;
-
-                        &:hover, &:focus {
-                            color: #ffffff;
-                            background: none;
-                        }
-                    }
-
-                    li.active a,
-                    li.dropdown.open > a {
-                        color: @menuFocus;
-                    }
-
-                    li.dropdown.open > a {
-                        background-color: #fff;
-                    }
-
-                    .dropdown-menu {
-                        > li {
-                            > a, > a:focus, > a:hover {
-                                color: #157ab5;
-                                background-color: #ffffff;
-                            }
-                        }
-                        > .active > a, > .active > a:hover, > .active > a:focus {
-                            color: #157ab5;
-                        }
-                    }
-                }
             }
         }
+
     }
 
     .objectsPageWindow {

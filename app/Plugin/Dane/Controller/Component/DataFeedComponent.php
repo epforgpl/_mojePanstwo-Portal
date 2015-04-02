@@ -40,6 +40,7 @@ class DataFeedComponent extends Component
             'preset' => $this->settings['preset'],
             'side' => isset($this->settings['side']) ? $this->settings['side'] : $controller->request->params['controller'],
             'timeline' => isset($this->settings['timeline']) ? (boolean) $this->settings['timeline'] : false,
+            'api_call' => $controller->Dataobject->getDataSource()->public_api_call,
             'subscribeAction' => '',
         ));
                 
