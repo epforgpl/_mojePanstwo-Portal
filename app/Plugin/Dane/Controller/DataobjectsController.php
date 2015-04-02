@@ -3,7 +3,7 @@
 class DataobjectsController extends AppController
 {
     
-    public $uses = array('Dane.Dataobject');
+    public $uses = array('Dane.Dataobject', 'Dane.Subscription');
     
     public $object = false;
     public $initLayers = array();    
@@ -34,7 +34,7 @@ class DataobjectsController extends AppController
         return $this->load();
     }
 
-    public function load()
+    public function load($params = array())
     {
 
         $dataset = isset($this->request->params['controller']) ? $this->request->params['controller'] : false;
@@ -51,6 +51,9 @@ class DataobjectsController extends AppController
 
             $layers = $this->initLayers;
             $layers[] = 'dataset';
+                        
+            if( isset($params['subscriptions']) && $params['subscriptions'] ) 
+            	$layers[] = 'subscriptions';
 
             if ($this->object = $this->Dataobject->find('first', array(
                 'conditions' => array(
@@ -110,7 +113,12 @@ class DataobjectsController extends AppController
                         }
 
                     }
-
+					
+					if(
+						!empty( $this->request->query )
+					)
+						$url .= '?' . http_build_query($this->request->query);
+					
                     return $this->redirect($url);
 
                 }
@@ -135,7 +143,11 @@ class DataobjectsController extends AppController
     }
         
     public function feed() {
-	    $this->load();
+	    	    
+	    if( $this->object===false )
+		    $this->load(array(
+			    'subscriptions' => true,
+		    ));
 	    
 	    $this->Components->load('Dane.DataFeed', array(
             'feed' => $this->object->getDataset() . '/' . $this->object->getId(),
@@ -168,10 +180,45 @@ class DataobjectsController extends AppController
 	    
     }
     
+            
     public function subscribe() {
-	    	    
-	    $this->Dataobject->subscribe($this->request->params['controller'], $this->request->params['id']);
-	    $this->redirect($this->referer());
+	   	
+	   	$data = array(
+		   	'title' => 'Subskrypcja',
+	   	);
+	   	
+		$dataset = isset($this->request->params['controller']) ? $this->request->params['controller'] : false;
+        $id = isset($this->request->params['id']) ? $this->request->params['id'] : false;
+		
+		if( $dataset && $id ) {
+					
+	        // debug(array('dataset' => $dataset, 'id' => $id, 'slug' => $slug, )); die();
+			
+			$data['query'] = isset($this->request->query['conditions']) ? $this->request->query['conditions'] : array();				
+			$data['dataset'] = $dataset;			
+			$data['object_id'] = $id;
+			
+			if( isset($this->request->query['q']) ) {
+				$data['query']['q'] = $this->request->query['q'];
+				$data['title'] = $data['query']['q'];
+		    }			
+			
+		   	$this->Subscription->create();
+		   		   	
+	        if ($res = $this->Subscription->save($data)) {
+	            $this->Session->setFlash(__('Dodano subskrybcję'));
+	            
+	            return $this->redirect($res['url']);
+	            
+	        } else {
+	        	$this->Session->setFlash(__('Wystąpił błąd'));
+	        }
+	        
+	        return $this->redirect($this->referer());
+        
+        } else {
+	        throw new BadRequestException();
+        }
 	    
     }
     

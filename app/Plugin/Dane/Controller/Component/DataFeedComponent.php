@@ -39,6 +39,7 @@ class DataFeedComponent extends Component
             'hits' => $hits,
             'preset' => $this->settings['preset'],
             'side' => isset($this->settings['side']) ? $this->settings['side'] : $controller->request->params['controller'],
+            'subscribeAction' => '',
         ));
                 
         if( 

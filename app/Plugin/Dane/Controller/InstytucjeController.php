@@ -18,7 +18,9 @@ class InstytucjeController extends DataobjectsController
     public function view()
     {
 
-        parent::load();
+        parent::load(array(
+	        'subscriptions' => true,
+        ));
 
         if ($this->object->getData('file') == '1')
             $this->feed();
