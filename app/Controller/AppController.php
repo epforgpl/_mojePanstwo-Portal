@@ -57,6 +57,8 @@ class AppController extends Controller {
 			)
 		),
 	);
+	
+	public $domainMode = 'MP';
 
 	public $helpers = array(
 		'Html',
@@ -265,7 +267,9 @@ class AppController extends Controller {
 			$pieces = parse_url( Router::url( $this->here, true ) );
 
 			if ( defined( 'PK_DOMAIN' ) && ( $pieces['host'] == PK_DOMAIN ) ) {
-
+				
+				$this->domainMode = 'PK';
+				
 				// only certain actions are allowed in this domain
 				// for other actions we are immediatly redirecting to PORTAL_DOMAIN
 

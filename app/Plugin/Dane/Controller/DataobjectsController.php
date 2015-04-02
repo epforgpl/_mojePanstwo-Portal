@@ -45,6 +45,7 @@ class DataobjectsController extends AppController
 		    )) ) {
 			    				    		    
 			    if(
+				    ( $this->domainMode == 'MP' ) && 
 				    (
 				    	!isset( $this->request->params['ext'] ) || 
 				    	!in_array($this->request->params['ext'], array('json'))
