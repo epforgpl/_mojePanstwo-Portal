@@ -8,7 +8,7 @@ $preset = $dataFeed['preset'];
 ?>
 
 <div class="dataBrowser dataFeed<? if ($dataFeed['timeline']) echo ' feed-timeline'; ?>">
-    <div class="dataActions">
+    <div class="dataActions hide">
         <div class="form-group has-feedback">
             <input type="text" aria-describedby="dataFeedSearch" id="dataFeedSearch" class="form-control">
             <span aria-hidden="true" class="glyphicon glyphicon-search form-control-feedback"></span>
