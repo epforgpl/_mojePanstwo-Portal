@@ -23,5 +23,16 @@ class Rady_druki extends DocDataObject
     {
 	    return '/dane/gminy/' . $this->getData('gmina_id') . '/druki/' . $this->getId();
     }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+		
+		$output = array(
+			dataSlownie($this->getData('rady_druki.data')),
+		);
+				
+		return $output;
+		
+	}
 
 }
