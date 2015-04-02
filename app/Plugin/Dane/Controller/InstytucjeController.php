@@ -4,13 +4,23 @@ App::uses('DataobjectsController', 'Dane.Controller');
 
 class InstytucjeController extends DataobjectsController
 {
+    public $dataFeedFilters = array(
+        array('title' => 'Wszystkie', 'icon' => ''),
+        array('title' => 'Odpowiedzi na interpelacje', 'icon' => ''),
+        array('title' => 'Otrzymane interpelacje', 'icon' => ''),
+        array('title' => 'Zamówienia publiczne', 'icon' => ''),
+        array('title' => 'Zamówienia publiczne', 'icon' => ''),
+        array('title' => 'Opublikowany tweet', 'icon' => ''),
+    );
 
     public $initLayers = array('instytucja_nadrzedna', 'tree', 'menu', 'info');
 	
     public function view()
     {
 
-        parent::load();
+        parent::load(array(
+	        'subscriptions' => true,
+        ));
 
         if ($this->object->getData('file') == '1')
             $this->feed();
@@ -201,7 +211,16 @@ class InstytucjeController extends DataobjectsController
         }
 
         $this->menu = $menu;
-        
+
+        $this->addons = array(
+            'wniosek_udostepnienie' => array(
+                'adresat_id' => $this->object->getDataset() . ':' . $this->object->getId(),
+                'szablon_id' => 35,
+                'nazwa' => 'Wyślij wniosek o udostępnienie informacji publicznej',
+                'opis' => 'Masz pytania dotyczące działalności tej instytucji? Kliknij, aby wysłać odpowiedni wniosek.',
+            )
+        );
+
         $this->actions = array(
 	        'obserwuj' => array(
 		        'id' => $this->object->getDataset() . ':' . $this->object->getId(),

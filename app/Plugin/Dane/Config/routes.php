@@ -126,7 +126,17 @@ foreach( $map as $m ) {
 	
 	Router::connect('/dane/:controller' . $m['pattern'] , array(
 		'plugin' => 'Dane', 
-		'action' => 'view'
+		'action' => 'view',
+		'[method]' => 'GET',
+	), array(
+		'id' => '([0-9]+)',
+		'pass' => $pass,
+	));
+	
+	Router::connect('/dane/:controller' . $m['pattern'] , array(
+		'plugin' => 'Dane', 
+		'action' => 'subscribe',
+		'[method]' => 'POST',
 	), array(
 		'id' => '([0-9]+)',
 		'pass' => $pass,

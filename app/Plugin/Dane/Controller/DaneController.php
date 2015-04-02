@@ -33,6 +33,7 @@ class DaneController extends ApplicationsController
 		    $this->Components->load('Dane.DataBrowser', array(
 			    'conditions' => array(
 				    'q' => $this->request->query['q'],
+				    '_main' => true,
 			    ),
 			    'aggs' => array(
 				    'dataset' => array(
