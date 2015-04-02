@@ -52,7 +52,7 @@ class GminyController extends DataobjectsController
         }
 
         $this->addInitLayers($_layers);
-        parent::view();
+        $this->_prepareView();
 		
 		if( $this->request->params['id'] == '903' )
 			$this->set('title_for_layout', 'Przejrzysty Kraków');
@@ -188,6 +188,7 @@ class GminyController extends DataobjectsController
             'feed' => $this->object->getDataset() . '/' . $this->object->getId(),
             'channel' => 'rada',
             'preset' => $this->object->getDataset(),
+            'side' => 'gminy-rada',
         ));
 
         $this->set('title_for_layout', 'Rada Miasta Krakowa');
@@ -204,6 +205,7 @@ class GminyController extends DataobjectsController
             'feed' => $this->object->getDataset() . '/' . $this->object->getId(),
             'channel' => 'urzad',
             'preset' => $this->object->getDataset(),
+            'side' => 'gminy-urzad',
         ));
 
         $this->set('title_for_layout', 'Urząd Miasta Krakowa');
@@ -674,7 +676,6 @@ class GminyController extends DataobjectsController
 					            'dataset' => 'radni_dzielnic',
 					            'radni_dzielnic.dzielnica_id' => $dzielnica->getId(),
 				            ),
-				            'aggsPreset' => 'radni_dzielnic',
 				            'limit' => 1000,
 				        ));
 				        $this->set('DataBrowserTitle', 'Radni dzielnicy ' . $dzielnica->getShortTitle());
@@ -705,11 +706,7 @@ class GminyController extends DataobjectsController
 
                         // debug( $this->API->document($posiedzenie->getData('przedmiot_dokument_id')) ); die();
 
-                        if ($posiedzenie->getData('protokol_dokument_id'))
-                            $this->set('protokol_dokument', $this->API->document($posiedzenie->getData('protokol_dokument_id')));
-
-                        if ($posiedzenie->getData('przedmiot_dokument_id'))
-                            $this->set('przedmiot_dokument', $this->API->document($posiedzenie->getData('przedmiot_dokument_id')));
+   
 
                         $punkty = (array) $posiedzenie->getLayer('punkty');
                         if(count($punkty) === 0) $punkty = false;
@@ -771,7 +768,6 @@ class GminyController extends DataobjectsController
 					            'dataset' => 'krakow_dzielnice_uchwaly',
 					            'krakow_dzielnice_uchwaly.dzielnica_id' => $dzielnica->getId(),
 				            ),
-				            'aggsPreset' => 'krakow_dzielnice_uchwaly',
 				        ));
 						
                     }
@@ -892,8 +888,12 @@ class GminyController extends DataobjectsController
 	            'conditions' => array(
 		            'dataset' => 'krakow_komisje_posiedzenia',
 	            ),
+	            'aggsPreset' => 'krakow_komisje_posiedzenia',
+	            'renderFile' => 'gminy/krakow_komisje_posiedzenia',
+
 	        ));
 			
+			$this->set('DataBrowserTitle', 'Posiedzenia komisji Rady Miasta Krakowa');
             $this->set('title_for_layout', 'Posiedzenia komisji Rady Miasta ' . $this->object->getData('nazwa'));
 
         }
@@ -995,7 +995,7 @@ class GminyController extends DataobjectsController
 				            'krakow_glosowania_glosy.radny_id' => $radny->getId(),
 			            ),
 			            'aggsPreset' => 'rady_gmin_wystapienia',
-			            'renderFile' => 'radni_gmin/rady_gmin_wystapienia',
+			            'renderFile' => 'radni_gmin/rady_gmin_glosowania',
 			        ));
 
                     $title_for_layout .= ' - Wyniki głosowań';
@@ -1150,8 +1150,9 @@ class GminyController extends DataobjectsController
 						$this->Components->load('Dane.DataBrowser', array(
 				            'conditions' => array(
 					            'dataset' => 'krakow_komisje_posiedzenia',
-					            'komisja_id' => $komisja->getId(),
+					            'krakow_komisje_posiedzenia.komisja_id' => $komisja->getId(),
 				            ),
+				            'aggsPreset' => 'krakow_komisje_posiedzenia',
 				        ));
 						
                     }
@@ -1224,6 +1225,8 @@ class GminyController extends DataobjectsController
             ),
             'aggsPreset' => 'radni_dzielnic',
         ));
+        
+        $this->set('title_for_layout', 'Radni dzielnic w Krakowie');
         
     }
 
@@ -1476,7 +1479,9 @@ class GminyController extends DataobjectsController
             'wpf'
         ));
         $this->_prepareView();
-        $this->request->params['action'] = 'wtf';
+        $this->request->params['action'] = 'wpf';
+        $this->set('title_for_layout', 'Wieloletnia prognoza finansowa Miasta Krakowa');
+
     }
 
     public function finanse()
@@ -1486,6 +1491,8 @@ class GminyController extends DataobjectsController
         ));
         $this->_prepareView();
         $this->request->params['action'] = 'finanse';
+        $this->set('title_for_layout', 'Wydatki w gminie ' . $this->object->getTitle());
+
     }
 
     /*
@@ -1663,7 +1670,16 @@ class GminyController extends DataobjectsController
             'label' => 'Wskaźniki GUS',
         );
         */
-
+		
+		if ($this->object->getId() == '903') {
+			$menu['items'][] = array(
+	            'id' => 'finanse',
+	            'href' => $href_base . '/finanse',
+	            'label' => 'Finanse',
+	            'icon' => '',
+	        );
+        }
+		
         $menu['items'][] = array(
             'id' => 'zamowienia',
             'href' => $href_base . '/zamowienia',

@@ -38,8 +38,8 @@ echo $this->Element('Dane.dataobject/subobject', array(
 	</div>
 
 <?
-		
-	$this->Document->place($posiedzenie->getData('informacja_dokument_id'));
+	
+	echo $this->Document->place($posiedzenie->getData('krakow_posiedzenia.zwolanie_dokument_id'));
 
 	echo $this->Element('dataobject/pageEnd');
 	

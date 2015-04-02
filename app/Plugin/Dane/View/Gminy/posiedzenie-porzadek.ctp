@@ -39,7 +39,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
 <?
 	
-	$this->Document->place($posiedzenie->getData('krakow_posiedzenia.porzadek_dokument_id'));
+	echo $this->Document->place($posiedzenie->getData('krakow_posiedzenia.porzadek_dokument_id'));
 
 	echo $this->Element('dataobject/pageEnd');
 	

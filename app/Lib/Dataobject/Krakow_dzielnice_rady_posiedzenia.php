@@ -51,13 +51,13 @@ class Krakow_dzielnice_rady_posiedzenia extends DataObject
     
     public function getShortTitle() {
 	    
-	    return $this->dataSlownie( $this->data['data'] );
+	    return dataSlownie( $this->data['data'] );
 	    
     }
     
     public function getTitle() {
 	    
-	    return $this->getData('dzielnice.nazwa') . ' | ' . $this->dataSlownie($this->getDate()) . ' | Posiedzenie rady dzielnicy';
+	    return $this->getData('dzielnice.nazwa') . ' | ' . dataSlownie($this->getDate()) . ' | Posiedzenie rady dzielnicy';
 	    
     }
     

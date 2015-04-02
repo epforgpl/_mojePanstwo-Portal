@@ -11,6 +11,9 @@
                         <img class="img-responsive" src="/Dane/img/customObject/krakow/logo_pkrk.png" alt="PKRK"/>
 
                         <h1>Przejrzysty Kraków</h1>
+                        
+                        <p class="subh">Program Przejrzysty Kraków, prowadzony przez Fundację Stańczyka, ma na celu wieloaspektowy monitoring życia publicznego w Krakowie. W ramach programu prowadzony jest obecnie monitoring Rady Miasta i Dzielnic Krakowa. </p>
+                        
                     </div>
                 </div>
                 <div class="_mPSearchOutside">
@@ -19,7 +22,7 @@
                             <i class="glyph-addon" data-icon="&#xe600;"></i>
                             <input name="q" value="" type="text" autocomplete="off"
                                    class="datasearch form-control input-lg"
-                                   placeholder="<?= __("LC_SEARCH_PUBLIC_DATA_PLACEHOLDER") ?>" <?php if (isset($app)) {
+                                   placeholder="<?= __("Szukaj w Przejrzystym Krakowie...") ?>" <?php if (isset($app)) {
                                 echo 'data-app="' . $app . '"';
                             } ?> />
                         </div>
@@ -32,8 +35,7 @@
                             <span class="line"></span>
 
                             <div class="description">
-                                Otrzymuj powiadomienia o aktywnościach urzędów, urzędnikow oraz firm, którymi jesteś
-                                zainteresowany.
+                                Otrzymuj powiadomienia o aktywnościach Rady Miasta, Prezydenta Krakowa i innych danych.
                             </div>
                             <div class="action">
                                 <a href="/powiadomienia" target="_self" class="btn btn-primary btn-icon">
@@ -48,8 +50,7 @@
                             <span class="line"></span>
 
                             <div class="description">
-                                Wysyłaj wnioski o udostępnienie informacji publicznych oraz inne pisma do urzędów i
-                                dziel się nimi w mediach społecznościowych.
+                                Wysyłaj pisma do radnych Krakowa i instytucji miejskich.
                             </div>
                             <div class="action">
                                 <a href="/pisma" target="_self" class="btn btn-primary btn-icon">

@@ -33,13 +33,13 @@ class Krakow_komisje_posiedzenia extends DataObject
     
     public function getShortTitle() {
 	    
-	    return $this->dataSlownie( $this->getData('data') );
+	    return dataSlownie( $this->getData('data') );
 	    
     }
     
     public function getTitle() {
 	    
-	    return 'Posiedzenie ' . $this->dataSlownie( $this->getData('data') );
+	    return 'Posiedzenie ' . dataSlownie( $this->getData('data') );
 	    
     }
 

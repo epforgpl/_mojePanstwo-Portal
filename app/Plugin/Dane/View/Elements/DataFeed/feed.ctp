@@ -65,7 +65,7 @@ $preset = $dataFeed['preset'];
             }
             ?>
         </div>
-        <? if ($this->params['paging']['Dataobject']['nextPage']) { ?>
+        <? if (false && $this->params['paging']['Dataobject']['nextPage']) { ?>
             <span class="next">
                 <a rel="next"
                    href="<?= $this->request->here ?>.html?page=<?php echo $this->Paginator->param('page') + 1 ?>"></a>

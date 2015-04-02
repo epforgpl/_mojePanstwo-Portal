@@ -101,8 +101,9 @@ class PaszportController extends ApplicationsController
                 /**
                  * @todo Logowanie użytkownika i dodatkowo po stronie API zapisywanie
                  */
-                var_export($response['user']);
-                die();
+                 
+                $this->Auth->login($response['user']);
+                 
             } else {
                 throw new BadRequestException();
             }

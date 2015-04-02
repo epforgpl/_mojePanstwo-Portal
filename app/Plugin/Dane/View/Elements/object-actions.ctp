@@ -7,6 +7,7 @@ if( isset($object_actions) ) {
 <ul class="object-actions-ul">
 
     <? foreach ($object_actions as $key => $data) {
+        /*
         if ($key == 'obserwuj') { ?>
         	<li>
         		<? if( $object->getSubscribtion() ) { ?>
@@ -33,7 +34,8 @@ if( isset($object_actions) ) {
         		</form>
         		<? } ?>
             </li>
-        <? } elseif ($key == 'pisma') { ?>
+         
+        <? } else */ if ($key == 'pisma') { ?>
             <li>
                 <p class="btn_cont">
                     <button class="btn btn-primary btn-icon pisma-list-button"

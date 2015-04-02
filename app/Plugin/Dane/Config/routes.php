@@ -95,8 +95,6 @@ Router::connect('/dane/:alias', array(
 
 
 
-
-
 $map = array(
 	'/:id',
 	'/:id,',
@@ -123,7 +121,7 @@ foreach( $map as $m ) {
 			$pass = array_merge($pass, $m['pass']);
 		
 	}
-	
+
 	Router::connect('/dane/:controller' . $m['pattern'] , array(
 		'plugin' => 'Dane', 
 		'action' => 'view',
