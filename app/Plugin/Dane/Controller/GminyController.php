@@ -706,11 +706,7 @@ class GminyController extends DataobjectsController
 
                         // debug( $this->API->document($posiedzenie->getData('przedmiot_dokument_id')) ); die();
 
-                        if ($posiedzenie->getData('protokol_dokument_id'))
-                            $this->set('protokol_dokument', $this->API->document($posiedzenie->getData('protokol_dokument_id')));
-
-                        if ($posiedzenie->getData('przedmiot_dokument_id'))
-                            $this->set('przedmiot_dokument', $this->API->document($posiedzenie->getData('przedmiot_dokument_id')));
+   
 
                         $punkty = (array) $posiedzenie->getLayer('punkty');
                         if(count($punkty) === 0) $punkty = false;
