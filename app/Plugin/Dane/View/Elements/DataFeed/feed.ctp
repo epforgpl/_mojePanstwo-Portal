@@ -4,9 +4,10 @@ $this->Combinator->add_libs('js', 'Dane.datafeed');
 
 $hits = $dataFeed['hits'];
 $preset = $dataFeed['preset'];
+
 ?>
 
-<div class="dataBrowser dataFeed">
+<div class="dataBrowser dataFeed<? if ($dataFeed['timeline']) echo ' feed-timeline'; ?>">
     <div class="dataObjects">
         <div class="innerContainer update-objects">
 
