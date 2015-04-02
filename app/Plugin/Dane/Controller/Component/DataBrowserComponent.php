@@ -137,6 +137,20 @@ class DataBrowserComponent extends Component {
 	        ),
 	        */
 	    ),
+	    'rady_druki' => array(
+		    'date' => array(
+	            'date_histogram' => array(
+		            'field' => 'date',
+		            'interval' => 'year',
+		            'format' => 'yyyy-MM-dd',
+	            ),
+	            'visual' => array(
+		            'label' => 'Liczba druków w czasie',
+		            'skin' => 'date_histogram',
+                    'field' => 'date'
+	            ),
+	        ),
+	    ),
 		'prawo' => array(
 	        'typ_id' => array(
 	            'terms' => array(

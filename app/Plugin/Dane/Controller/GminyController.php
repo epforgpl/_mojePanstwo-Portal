@@ -53,7 +53,10 @@ class GminyController extends DataobjectsController
 
         $this->addInitLayers($_layers);
         parent::view();
-
+		
+		if( $this->request->params['id'] == '903' )
+			$this->set('title_for_layout', 'Przejrzysty Kraków');
+		
         $szef = $this->object->getLayer('szef');
         
 		
@@ -579,6 +582,7 @@ class GminyController extends DataobjectsController
 		            'feed' => $druk->getDataset() . '/' . $druk->getId(),
 		            'preset' => $druk->getDataset(),
 		            'side' => 'rady_druki',
+		            'timeline' => true,
 		        ));
             		
 	            $this->render('druk');
