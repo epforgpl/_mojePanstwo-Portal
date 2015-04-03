@@ -74,7 +74,7 @@
                                 'plugin' => 'paszport',
                                 'controller' => 'users',
                                 'action' => 'fblogin'
-                            ), array('class' => 'btn btn-facebook btn-md', 'escape' => false)); ?>
+                            ), array('class' => 'btn btn-social btn-facebook btn-md', 'escape' => false)); ?>
                         </div>
                     </div>
 
