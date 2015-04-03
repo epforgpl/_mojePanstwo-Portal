@@ -77,11 +77,7 @@
                 </div>
 
                 <div class="slide register col-xs-12">
-                    <?php echo $this->Html->link(__d('paszport', 'LC_PASZPORT_MODAL_LOGIN_REGISTER', true), array(
-                        'plugin' => 'paszport',
-                        'controller' => 'users',
-                        'action' => 'add'
-                    ), array('class' => 'register', 'autocomplete' => 'off', 'target' => '_self')); ?>
+                    <?php echo $this->Html->link(__d('paszport', 'LC_PASZPORT_MODAL_LOGIN_REGISTER', true), '/register', array('class' => 'register', 'autocomplete' => 'off', 'target' => '_self')); ?>
                 </div>
 
                 <?php echo $this->Form->end(); ?>
