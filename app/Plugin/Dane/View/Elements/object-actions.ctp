@@ -50,21 +50,15 @@ if( isset($object_actions) ) {
         <? } elseif ($key == 'pismo') { ?>
             <li>
             	<form action="//<?= PORTAL_DOMAIN ?>/pisma" method="post">
-	                <p class="btn_cont">
-			                <input type="hidden" name="adresat_id" value="<?= $data['adresat_id'] ?>" />
-							<input type="hidden" name="szablon_id" value="<?= $data['szablon_id'] ?>" />
-                        <button class="btn btn-primary btn-icon">
-                            <span class="glyphicon icon" data-icon="&#xe61d;"
-                                  aria-hidden="true"></span> <?= $data['nazwa'] ?>
-		                    </button>
-		               
-	                </p>
+                    <div class="btn_cont">
+                        <input type="hidden" name="adresat_id" value="<?= $data['adresat_id'] ?>"/>
+                        <input type="hidden" name="szablon_id" value="<?= $data['szablon_id'] ?>"/>
+                        <button class="pismoBox">
+                            <strong><?= $data['nazwa'] ?></strong>
+                            <? if (isset($data['opis'])) { ?><p><?= $data['opis'] ?></p><? } ?>
+                        </button>
+                    </div>
                  </form>
-                <? if( isset($data['opis']) ) {?>
-                <p class="desc">
-                    <?= $data['opis'] ?>
-                </p>
-                <? } ?>
             </li>
         <? }
     } ?>

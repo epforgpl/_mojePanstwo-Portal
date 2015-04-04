@@ -182,12 +182,6 @@ class SejmometrController extends ApplicationsController
     }
     */
 
-    private function klub_img_src($klub_id)
-    {
-        // TODO use MP\Dane\Sejm_kluby::getThumbnailSrc
-        return "http://resources.sejmometr.pl/s_kluby/" . $klub_id . "_a_t.png";
-    }
-
     public function detailBlock()
     {
 
@@ -213,6 +207,11 @@ class SejmometrController extends ApplicationsController
         $this->set('html', $html);
         $this->set('_serialize', array('html', 'id'));
 
+    }
+
+    public function poslowie()
+    {
+        $this->loadDatasetBrowser('poslowie');
     }
 
     public function posiedzenia_timeline()
@@ -481,11 +480,7 @@ class SejmometrController extends ApplicationsController
 
     public function view()
     {
-        $this->loadDatasetBrowser('poslowie');
-    }
-    
-    public function poslowie()
-    {
+        $this->setMenuSelected();
         $this->loadDatasetBrowser('poslowie');
     }
 
@@ -506,7 +501,7 @@ class SejmometrController extends ApplicationsController
 
     public function sejm_druki()
     {
-	    $this->title = 'Druki sejmowe - Sejmometr';
+        $this->title = 'Druki sejmowe - Sejmometr';
         $this->loadDatasetBrowser('sejm_druki');
     }
 
@@ -573,5 +568,11 @@ class SejmometrController extends ApplicationsController
     public function poslowie_wspolpracownicy()
     {
         $this->loadDatasetBrowser('poslowie_wspolpracownicy');
+    }
+
+    private function klub_img_src($klub_id)
+    {
+        // TODO use MP\Dane\Sejm_kluby::getThumbnailSrc
+        return "http://resources.sejmometr.pl/s_kluby/" . $klub_id . "_a_t.png";
     }
 }

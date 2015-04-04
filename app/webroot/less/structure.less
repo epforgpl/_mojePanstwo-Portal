@@ -139,7 +139,7 @@ body {
         position: fixed;
         top: 0;
         left: 0;
-        z-index: 3;
+        z-index: 901;
 
         ._mPLogo {
             float: left;
@@ -349,7 +349,7 @@ body {
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 2;
+            z-index: 900;
 
             ._mPPowerButton {
                 background-color: #000000;
@@ -474,7 +474,7 @@ body {
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 1;
+            z-index: 899;
             width: 100px;
             height: 100%;
             background-color: @cockpitBlueDarken;
@@ -544,7 +544,7 @@ body {
             position: absolute;
             bottom: 0;
             right: 0;
-            z-index: 2;
+            z-index: 900;
 
             a, .separator {
                 color: #aaaaaa;
@@ -569,7 +569,7 @@ body {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     #_wrapper {
         overflow-x: hidden;
 
@@ -587,7 +587,26 @@ body {
     }
 }
 
-@media (min-width: 769px) {
+/*ADDITIONAL CUSTOM SIZE*/
+@media (min-width: 768px) and (max-width: 868px) {
+    #_wrapper .container {
+        width: 650px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1092px) {
+    #_wrapper .container {
+        width: 870px;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1300px) {
+    #_wrapper .container {
+        width: 1070px;
+    }
+}
+
+@media (min-width: 768px) {
     #_wrapper #_mPCockpitMobile {
         display: none;
     }
