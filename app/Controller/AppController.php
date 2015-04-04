@@ -261,7 +261,9 @@ class AppController extends Controller {
 	);
 	
 	public function beforeFilter() {
-						
+		
+		// debug( $this->Auth->user() ); die();
+				
 		if ( defined( 'PORTAL_DOMAIN' ) ) {
 
 			$pieces = parse_url( Router::url( $this->here, true ) );

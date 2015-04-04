@@ -23,8 +23,8 @@ class PaszportController extends ApplicationsController
 		'headerImg' => 'paszport',
 	);
 
-    public function beforeFilter() {
-        parent::beforeFilter();
+    public function beforeRender() {        
+        
         if($this->Auth->loggedIn()) {
             $this->settings['menu'] = array(
                 array(
@@ -46,8 +46,9 @@ class PaszportController extends ApplicationsController
                 */
             );
 
-            $this->set('user', $this->Auth->user());
         }
+        
+        parent::beforeRender();
     }
 
     public function keys()
@@ -62,15 +63,20 @@ class PaszportController extends ApplicationsController
 
     public function login()
     {
+	    
         $this->setMenuSelected();
-
+		
         if($this->Auth->loggedIn()) {
+            
+            $this->set('user', $this->Auth->user());
             $this->render('Paszport/profile');
+            
         } else {
+	        
             if ($this->request->is('post')) {
                 try {
                     $this->Auth->login();
-                    $this->redirect($this->Auth->redirectUrl());
+                    $this->redirect($this->referer());
                 } catch (Exception $e) {
                     $this->Session->setFlash(
                         __($e->getMessage()),
@@ -80,15 +86,21 @@ class PaszportController extends ApplicationsController
                     );
                 }
             }
+            
+            $this->title = 'Zaloguj się - Paszport';
+            
         }
     }
 
     public function register()
     {
         if($this->request->isPost()) {
+            
             $user = new User();
             $response = $user->register($this->data);
+            
             if(isset($response['errors']) && is_array($response['errors']) && count($response['errors']) > 0) {
+                
                 foreach($response['errors'] as $field => $error) {
                     $this->Session->setFlash(
                         __($error[0]),
@@ -97,12 +109,11 @@ class PaszportController extends ApplicationsController
                         'auth'
                     );
                 }
+                
             } elseif(isset($response['user']) && $response['user']) {
-                /**
-                 * @todo Logowanie użytkownika i dodatkowo po stronie API zapisywanie
-                 */
-                 
+				                 
                 $this->Auth->login($response['user']);
+                $this->redirect($this->Auth->redirectUrl());
                  
             } else {
                 throw new BadRequestException();
@@ -128,6 +139,7 @@ class PaszportController extends ApplicationsController
 
         $this->set('languages', $languages['language']);
         $this->set('groups', $groups['group']);
+        $this->title = 'Zarejestruj się - Paszport';
     }
 
 } 
