@@ -33,24 +33,6 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
                             nadzorowane <span class="glyphicon glyphicon-chevron-right"></span></a>
                     </li>
                 <? } ?>
-
-                <li class="dataHighlight">
-                    <a href="<?= $object->getUrl() ?>/urzednicy">
-                        <span class="icon icon-moon">&#xe611;</span>Urzędnicy
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                </li>
-                
-                <li class="dataHighlight">
-	                <a href="<?= $object->getUrl() ?>/zamowienia"><span
-	                        class="icon icon-moon">&#xe61a;</span>Zamówienia publiczne <span
-	                        class="glyphicon glyphicon-chevron-right"></span></a>
-	            </li>
-	
-	            <li class="dataHighlight">
-	                <a href="<?= $object->getUrl() ?>/prawo"><span class="glyphicon glyphicon-book"></span>Akty
-	                    prawne <span class="glyphicon glyphicon-chevron-right"></span></a>
-	            </li>
 	
 	            <? if ($object->getData('twitter_account_id')) { ?>
 	                <li class="dataHighlight">

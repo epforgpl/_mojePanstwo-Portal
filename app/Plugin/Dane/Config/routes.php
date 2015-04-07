@@ -78,6 +78,15 @@ Router::connect( '/dane/:controller/:slug/:id', array(
 
 Router::connect('/dane', array('plugin' => 'Dane', 'controller' => 'Dane', 'action' => 'view'));
 
+Router::connect('/dane/subscriptions/:id/:action', array(
+	'plugin' => 'Dane', 
+	'controller' => 'Subscriptions', 
+	'[method]' => 'POST',
+), array(
+	'action' => '(delete)',
+	'pass' => array('id'),
+));
+
 Router::connect('/dane/zbiory', array(
 	'plugin' => 'Dane', 
 	'controller' => 'Dane', 
@@ -91,8 +100,6 @@ Router::connect('/dane/:alias', array(
 ), array(
 	'pass' => array('alias'),
 ));
-
-
 
 
 $map = array(

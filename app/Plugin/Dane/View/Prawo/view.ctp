@@ -3,7 +3,7 @@
     <div class="prawo row">
         <div class="col-md-2 objectSide">
 
-            <? echo $this->Element('Dane.sides/' . $this->request->params['controller']); ?>
+            <? echo $this->Element('Dane.sides/' . $this->request->params['controller'] . '-left'); ?>
 
         </div>
         <div class="col-md-10 nopadding">

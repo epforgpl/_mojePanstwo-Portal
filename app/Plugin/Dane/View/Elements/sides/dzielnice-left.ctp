@@ -14,12 +14,6 @@
             </li>
 
             <li class="dataHighlight">
-                <a href="<?= $dzielnica->getUrl() ?>/rada_posiedzenia"><span
-                        class="icon icon-moon">&#xe615;</span>Posiedzenia <span
-                        class="glyphicon glyphicon-chevron-right"></a>
-            </li>
-
-            <li class="dataHighlight">
                 <a href="<?= $dzielnica->getUrl() ?>/rada_uchwaly"><span
                         class="icon icon-moon">&#xe614;</span>Uchwały <span
                         class="glyphicon glyphicon-chevron-right"></span></a>

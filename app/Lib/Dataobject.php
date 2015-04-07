@@ -268,6 +268,11 @@ class Dataobject
     {
         return false;
     }
+    
+    public function getHeaderThumbnailUrl($size = 'default')
+    {
+        return false;
+    }    
 
     public function hasHighlights()
     {

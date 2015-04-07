@@ -6,7 +6,13 @@
 
     <div class="block">
         <ul class="dataHighlights side">
-
+			
+			<? if ($object->getDescription()) { ?>
+                <li class="dataHighlight">
+                    <p><?= $object->getDescription(); ?></p>
+                </li>
+            <? } ?>
+			
             <? if ($object->getData('autorzy_html')) { ?>
                 <li class="dataHighlight">
                     <p class="_label">Autor projektu</p>

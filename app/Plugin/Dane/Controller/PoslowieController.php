@@ -13,7 +13,7 @@ class PoslowieController extends DataobjectsController
     public $breadcrumbsMode = 'app';
 
     public $objectOptions = array(
-        'hlFields' => array('sejm_kluby.nazwa'),
+        'hlFields' => array(),
     );
 
     public $headerObject = array('url' => '/dane/img/headers/poslowie.jpg', 'height' => '250px');

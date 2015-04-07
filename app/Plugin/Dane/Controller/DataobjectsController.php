@@ -10,6 +10,8 @@ class DataobjectsController extends AppController
     public $objectOptions = array(
         'hlFields' => false,
     );
+    public $loadChannels = false;
+    public $channels = array();
     
     public $microdata = array(
         'itemtype' => 'http://schema.org/Intangible',
@@ -50,7 +52,11 @@ class DataobjectsController extends AppController
         ) {
 
             $layers = $this->initLayers;
-            $layers[] = 'dataset';
+            
+            $layers[] = 'subscriptions';
+            
+            if( $this->loadChannels )
+            	$layers[] = 'channels';
 
             if ($this->object = $this->Dataobject->find('first', array(
                 'conditions' => array(
@@ -60,7 +66,10 @@ class DataobjectsController extends AppController
                 'layers' => $layers,
             ))
             ) {
-
+				
+				if( $this->loadChannels )
+					$this->channels = $this->object->getLayer('channels');
+								
                 if (
                     ($this->domainMode == 'MP') &&
                     (
@@ -140,17 +149,24 @@ class DataobjectsController extends AppController
 	    $this->load();
     }
         
-    public function feed() {
-	    	    
+    public function feed($params = array()) {
+	    
+	    $this->loadChannels = true;
+	    
 	    if( $this->object===false )
 		    $this->load(array(
 			    'subscriptions' => true,
 		    ));
 	    
-	    $this->Components->load('Dane.DataFeed', array(
+	    $_params = array(
             'feed' => $this->object->getDataset() . '/' . $this->object->getId(),
             'preset' => $this->object->getDataset(),
-        ));
+        );
+        
+        if( isset($params['searchTitle']) )
+        	$_params['searchTitle'] = $params['searchTitle'];
+	    
+	    $this->Components->load('Dane.DataFeed', $_params);
 	    
     }
     
@@ -170,10 +186,36 @@ class DataobjectsController extends AppController
 		    
 		    $this->menu['selected'] = $selected;   
 		    $this->menu['base'] = $this->object->getUrl();   
+		    		    		    
+		    	    
+		    if(
+			    $this->loadChannels && 
+			    ( $channels = $this->channels )
+		    ) {
+			    
+			    $channels = array_merge(array(array(
+				    'DatasetChannel' => array(
+					    'icon' => 'all',
+					    'title' => 'Wszystko',
+				    ),
+			    )), $channels);
+			    			    
+			    if( isset($this->request->query['channel']) ) {
+			    				    			    	
+			    	for( $i=1; $i<count($channels); $i++ )
+				    	if(
+					    	isset( $channels[$i]['DatasetChannel']['channel'] ) && 
+					    	( $this->request->query['channel'] == $channels[$i]['DatasetChannel']['channel'] )
+				    	)
+				    		$channels[$i]['active'] = true;
+			    	
+		    	} else $channels[0]['active'] = true;
+			    				    			    
+			    $this->set('object_channels', $channels);
+			    
+		    }
 		    
 		    $this->set('object_menu', $this->menu);
-		    $this->set('object_actions', $this->actions);
-            $this->set('dataFeedFilters', $this->dataFeedFilters);
             $this->set('object_addons', $this->addons);
 	    }
 	    
@@ -182,9 +224,7 @@ class DataobjectsController extends AppController
             
     public function subscribe() {
 	   	
-	   	$data = array(
-		   	'title' => 'Subskrypcja',
-	   	);
+	    $data = array();
 	   	
 		$dataset = isset($this->request->params['controller']) ? $this->request->params['controller'] : false;
         $id = isset($this->request->params['id']) ? $this->request->params['id'] : false;
@@ -195,11 +235,14 @@ class DataobjectsController extends AppController
 			
 			$data['query'] = isset($this->request->query['conditions']) ? $this->request->query['conditions'] : array();				
 			$data['dataset'] = $dataset;			
-			$data['object_id'] = $id;
+			$data['object_id'] = $id;			
 			
-			if( isset($this->request->query['q']) ) {
-				$data['query']['q'] = $this->request->query['q'];
-				$data['title'] = $data['query']['q'];
+			if( isset($this->request->query['q']) && $this->request->query['q'] ) {
+				$data['q'] = $this->request->query['q'];
+		    }
+		    
+		    if( isset($this->request->query['channel']) && $this->request->query['channel'] ) {
+				$data['channel'] = $this->request->query['channel'];
 		    }			
 			
 		   	$this->Subscription->create();
