@@ -101,6 +101,15 @@ var DataBrowser = Class.extend({
         });
 		
 	},
+
+    getFormattedDate: function(date) {
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        month = month > 9 ? month : '0' + month;
+        var day = date.getDate();
+        day = day > 9 ? day : '0' + day;
+        return year + '-' + month + '-' + day;
+    },
 	
 	initAggDateHistogram: function(li) {
 		
@@ -109,6 +118,7 @@ var DataBrowser = Class.extend({
         var histogram_keys = [];
         var choose_request = li.attr('data-choose-request');
 		var histogram_data = [];
+        var _this = this;
         var max = 0;
         for(var i = 0; i < data.buckets.length; i++) {
             var date = data.buckets[i].key_as_string.split("-");
@@ -128,7 +138,24 @@ var DataBrowser = Class.extend({
             chart: {
                 zoomType: 'x',
                 backgroundColor: null,
-                height: 200
+                height: 200,
+                events: {
+                    selection: function(e) {
+                        var range = e.xAxis[0];
+                        var dateMin = new Date(range.min);
+                        var dateMax = new Date(range.max);
+                        var dataArg = [
+                            '[',
+                            _this.getFormattedDate(dateMin),
+                            ' TO ',
+                            _this.getFormattedDate(dateMax),
+                            ']'
+                        ];
+
+                        window.location.href = choose_request + dataArg.join('');
+                        return false;
+                    }
+                }
             },
             title: {
                 text: ''
@@ -180,15 +207,7 @@ var DataBrowser = Class.extend({
                 name: 'Liczba',
                 //pointInterval: 383 * 24 * 3600000,
                 //pointStart: Date.UTC(1918, 0, 1),
-                data: histogram_data/*,
-                point: {
-                    events: {
-                        click: function (e) {
-                            window.location.href = choose_request + '' + histogram_keys[this.index];
-                            return false;
-                        }
-                    }
-                }*/
+                data: histogram_data
             }]
         });
 		
