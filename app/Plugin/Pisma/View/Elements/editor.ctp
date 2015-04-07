@@ -17,11 +17,12 @@ if (!empty($pismo['adresat_id'])) {
 }
 ?>
 
-<div class="container">
+<div class="container editPage">
     
     <? echo $this->element('Pisma.pismo-header', array(
 		'pismo' => $pismo,
 		'alert' => true,
+        'editable' => true
 	)); ?>
 
     <div id="stepper" class="stepper"<? if (!empty($pismo_init)) {

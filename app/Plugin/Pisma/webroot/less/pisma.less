@@ -1,10 +1,32 @@
-[contenteditable="true"] {padding: 5px 10px; outline: none; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;}
-[contenteditable="true"].focus {outline: 1px solid #DDD; background-color: #FAFAFA;}
-[contenteditable="true"].focus:hover {outline: 1px solid #DDD; background-color: #FAFAFA;}
-[contenteditable="true"]:hover {outline: 1px dashed #AAA;}
+[contenteditable="true"] {
+    padding: 5px 10px;
+    outline: none;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+}
 
-.titleBlock .pismaBtn {display: none;}
-.titleBlock.focus .pismaBtn {display: block;}
+[contenteditable="true"].focus {
+    outline: 1px solid #DDD;
+    background-color: #FAFAFA;
+}
+
+[contenteditable="true"].focus:hover {
+    outline: 1px solid #DDD;
+    background-color: #FAFAFA;
+}
+
+[contenteditable="true"]:hover {
+    outline: 1px dashed #AAA;
+}
+
+.titleBlock .pismaBtn {
+    display: none;
+}
+
+.titleBlock.focus .pismaBtn {
+    display: block;
+}
 
 #_wrapper {
     background-color: #EAEAEA;
@@ -558,12 +580,12 @@
                 max-width: 100%;
                 width: auto;
                 word-wrap: break-word;
-                
-				
+
             }
 
             .pismaBtn {
                 float: left;
+                display: block;
 
                 .pismoTitleSaveBtn,
                 .pismoTitleAbortBtn {
@@ -735,11 +757,11 @@
     }
 
     #editor-cont {
-	    
-	    textarea, input, div[contenteditable=true] {
-		    outline: none;
-	    }
-	    
+
+        textarea, input, div[contenteditable=true] {
+            outline: none;
+        }
+
         .wysihtml5-toolbar {
             position: absolute;
             top: -45px;
