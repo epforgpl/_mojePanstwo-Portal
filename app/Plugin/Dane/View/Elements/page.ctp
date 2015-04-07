@@ -64,7 +64,7 @@ if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) {
         } ?>
         </div>
     <? } else { ?>
-        <div class="content">
+        <div class="content mini">
         <p class="header"><?= $object->getLabel(); ?></p>
         <<?= $titleTag ?> class="title<? if ($bigTitle) { ?> big<? } ?>">
         <?php if ($object->getUrl() != false){ ?>
