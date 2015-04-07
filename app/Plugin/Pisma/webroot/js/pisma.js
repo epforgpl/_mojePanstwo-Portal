@@ -104,63 +104,64 @@ var PISMA = Class.extend({
     changeTitle: function () {
         var self = this,
             pismoTitleBlock = $('.titleBlock'),
-            pismoTitle = pismoTitleBlock.find('h1'),
-            pismoTitleBtnBlock = $('<div></div>').addClass('pismaBtn'),
-            pismoTitleSave = $('<span></span>').addClass('pismoTitleSaveBtn btn btn-primary btn-xs').text('Zapisz').click(function () {
-                var newTitle = $.trim(pismoTitle.text());
-                $.ajax({
-                    url: '/pisma/' + pismoTitle.data('url') + '.json',
-                    method: 'PUT',
-                    data: {
-                        name: newTitle
-                    },
-                    before: function () {
-                        pismoTitleSave.addClass('disable');
-                        pismoTitle.attr('contenteditable', false);
-                        pismoTitle.blur();
-                    },
-                    success: function () {
-                        pismoTitleSave.removeClass('disable');
-                        pismoTitle.attr('contenteditable', true);
-                        pismoTitle.data('title', newTitle).text(newTitle);
-                    },
-                    complete: function () {
-                        pismoTitle.blur();
-                    }
-                })
-            }),
-            pismoTitleAbort = $('<span></span>').addClass('pismoTitleAbortBtn btn btn-default btn-xs').text('Anuluj').click(function () {
-                pismoTitle.text(pismoTitle.data('title'));
-                pismoTitle.blur();
-                // pismoTitleBtnBlock.hide();
-            });
+            pismoTitle = pismoTitleBlock.find('h1');
 
         pismoTitle.data('title', $.trim(pismoTitle.text()));
-        pismoTitleBlock.append(pismoTitleBtnBlock.append(pismoTitleSave).append(pismoTitleAbort));
-        // pismoTitleBtnBlock.hide();
 
-        
-        pismoTitle.focus(function (e) {
-	        pismoTitleBlock.addClass('focus');
-	        pismoTitle.attr('spellcheck', 'true').addClass('focus');
-	    });
-	    
-	    pismoTitle.blur(function (e) {		    		    
-	        pismoTitleBlock.removeClass('focus');
-	        pismoTitle.attr('spellcheck', 'false').removeClass('focus');
-	    });
-        
-        pismoTitle.keydown(function (e) {
-            if (e.keyCode == self.keycode.escape || e.which == self.keycode.escape) {
-                pismoTitle.text(pismoTitle.data('title'));
-                pismoTitle.blur();
-            } else if(e.keyCode == self.keycode.enter || e.which == self.keycode.enter) {
-	            e.preventDefault();
-	            pismoTitleSave.click();
-            }
-        })
-    }
-    ,
+        if ($('.editPage').length) {
+            var pismoTitleBtnBlock = $('<div></div>').addClass('pismaBtn'),
+                pismoTitleSave = $('<span></span>').addClass('pismoTitleSaveBtn btn btn-primary btn-xs').text('Zapisz').click(function () {
+                    var newTitle = $.trim(pismoTitle.text());
+                    $.ajax({
+                        url: '/pisma/' + pismoTitle.data('url') + '.json',
+                        method: 'PUT',
+                        data: {
+                            name: newTitle
+                        },
+                        before: function () {
+                            pismoTitleSave.addClass('disable');
+                            pismoTitle.attr('contenteditable', false);
+                            pismoTitle.blur();
+                        },
+                        success: function () {
+                            pismoTitleSave.removeClass('disable');
+                            pismoTitle.attr('contenteditable', true);
+                            pismoTitle.data('title', newTitle).text(newTitle);
+                        },
+                        complete: function () {
+                            pismoTitle.blur();
+                        }
+                    })
+                }),
+                pismoTitleAbort = $('<span></span>').addClass('pismoTitleAbortBtn btn btn-default btn-xs').text('Anuluj').click(function () {
+                    pismoTitle.text(pismoTitle.data('title'));
+                    pismoTitle.blur();
+                });
+
+            pismoTitleBlock.append(pismoTitleBtnBlock.append(pismoTitleSave).append(pismoTitleAbort));
+
+            pismoTitle.focus(function () {
+                pismoTitleBlock.addClass('focus');
+                pismoTitle.attr('spellcheck', 'true').addClass('focus');
+            });
+
+            pismoTitle.blur(function (e) {
+                pismoTitleBlock.removeClass('focus');
+                pismoTitle.attr('spellcheck', 'false').removeClass('focus');
+            });
+
+            pismoTitle.keydown(function (e) {
+                if (e.keyCode == self.keycode.escape || e.which == self.keycode.escape) {
+                    pismoTitle.text(pismoTitle.data('title'));
+                    pismoTitle.blur();
+                } else if (e.keyCode == self.keycode.enter || e.which == self.keycode.enter) {
+                    e.preventDefault();
+                    pismoTitleSave.click();
+                }
+            })
+        }
+    },
+
     szablonData: function (szablon_id) {
         var self = this;
 

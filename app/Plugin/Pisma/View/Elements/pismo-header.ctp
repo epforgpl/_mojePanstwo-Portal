@@ -13,7 +13,8 @@
         <? } ?>
         
         <div class="titleBlock">
-            <h1 contenteditable="true" spellcheck="false" data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
+            <h1<? if (isset($editable)) echo(' contenteditable="true"') ?> spellcheck="false"
+                                                                           data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
                 <?= $pismo['nazwa'] ?>
             </h1>
         </div>
