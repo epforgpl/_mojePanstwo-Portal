@@ -24,6 +24,12 @@ class MediaController extends ApplicationsController
         'headerImg' => 'media',
     );
 
+
+    public function prepareMetaTags() {
+        parent::prepareMetaTags();
+        $this->setMeta('og:image', FULL_BASE_URL . '/media/img/social/media.jpg');
+    }
+
     public function view()
     {
         $this->setMenuSelected();

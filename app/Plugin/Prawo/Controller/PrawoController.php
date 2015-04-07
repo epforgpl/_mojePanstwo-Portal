@@ -33,7 +33,12 @@ class PrawoController extends ApplicationsController
 		'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce',
 		'headerImg' => 'prawo',
 	);
-	
+
+    public function prepareMetaTags() {
+        parent::prepareMetaTags();
+        $this->setMeta('og:image', FULL_BASE_URL . '/prawo/img/social/prawo.jpg');
+    }
+
     public function view()
     {
         $this->setMenuSelected();

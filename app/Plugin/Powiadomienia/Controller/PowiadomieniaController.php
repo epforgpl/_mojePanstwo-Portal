@@ -23,6 +23,11 @@ class PowiadomieniaController extends ApplicationsController
 		'subtitle' => 'Obserwuj interesujące Cię dane publiczne',
 		'headerImg' => 'powiadomienia',
 	);
+
+    public function prepareMetaTags() {
+        parent::prepareMetaTags();
+        $this->setMeta('og:image', FULL_BASE_URL . '/powiadomienia/img/social/powiadomienia.jpg');
+    }
 	
     public function view() {
         

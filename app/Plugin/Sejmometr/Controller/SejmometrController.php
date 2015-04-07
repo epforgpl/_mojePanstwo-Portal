@@ -85,6 +85,11 @@ class SejmometrController extends ApplicationsController
 		'subtitle' => 'Dane o pracy Sejmu i posłów',
 		'headerImg' => 'sejmometr',
 	);
+
+    public function prepareMetaTags() {
+        parent::prepareMetaTags();
+        $this->setMeta('og:image', FULL_BASE_URL . '/sejmometr/img/social/sejmometr.jpg');
+    }
 	
 	/*
     public function view()

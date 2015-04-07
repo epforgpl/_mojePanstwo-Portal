@@ -52,6 +52,12 @@ class MojaGminaController extends ApplicationsController
     //public $uses = array();
     //public $components = array('RequestHandler');
 
+
+    public function prepareMetaTags() {
+        parent::prepareMetaTags();
+        $this->setMeta('og:image', FULL_BASE_URL . '/moja_gmina/img/social/mojagmina.jpg');
+    }
+
     public function index()
     {
         $this->setMenuSelected();

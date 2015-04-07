@@ -23,6 +23,11 @@ class KrsController extends ApplicationsController
 		'subtitle' => 'Dane gospodarcze o firmach i osobach',
 		'headerImg' => 'krs',
 	);
+
+    public function prepareMetaTags() {
+        parent::prepareMetaTags();
+        $this->setMeta('og:image', FULL_BASE_URL . '/krs/img/social/krs.jpg');
+    }
 	
     public function view()
     {

@@ -28,6 +28,11 @@ class ZamowieniaPubliczneController extends ApplicationsController
 		'subtitle' => 'Znajdź zamówienie dla swojej firmy - Sprawdzaj kto dostaje zamówienia publiczne',
 		'headerImg' => '/zamowienia_publiczne/img/header_zamowienia-publiczne.png',
 	);
+
+    public function prepareMetaTags() {
+        parent::prepareMetaTags();
+        $this->setMeta('og:image', FULL_BASE_URL . '/zamowienia_publiczne/img/social/zamowienia.jpg');
+    }
 	
     public function view()
     {
