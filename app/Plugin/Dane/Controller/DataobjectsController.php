@@ -158,15 +158,15 @@ class DataobjectsController extends AppController
 			    'subscriptions' => true,
 		    ));
 	    
-	    $_params = array(
+	    $params = array_merge(array(
             'feed' => $this->object->getDataset() . '/' . $this->object->getId(),
             'preset' => $this->object->getDataset(),
-        );
+        ), $params);
         
         if( isset($params['searchTitle']) )
         	$_params['searchTitle'] = $params['searchTitle'];
 	    
-	    $this->Components->load('Dane.DataFeed', $_params);
+	    $this->Components->load('Dane.DataFeed', $params);
 	    
     }
     

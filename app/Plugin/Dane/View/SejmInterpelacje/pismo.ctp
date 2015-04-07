@@ -14,10 +14,7 @@
             <?
             if ( !($pismo->getLayer('teksty')) && $pismo->getData('dokument_id')) {
 
-                echo $this->Element('docsBrowser/doc', array(
-                    'document' => $document,
-                    'documentPackage' => $documentPackage,
-                ));
+                echo $this->Document->place($pismo->getData('dokument_id'));
 
             } else {
                 ?>
@@ -27,7 +24,7 @@
                         <div class="block-header">
                             <h2 class="label"><?= $pismo->getData('nazwa') ?></h2>
                         </div>
-                        <div class="content">
+                        <div class="content" style="margin: 25px;">
                             <?= $tekst['html'] ?>
                         </div>
                     </div>

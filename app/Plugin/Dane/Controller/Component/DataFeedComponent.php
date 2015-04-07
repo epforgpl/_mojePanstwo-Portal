@@ -6,20 +6,21 @@ class DataFeedComponent extends Component
     public $settings = array();
     public $conditions = array();
     public $order = array();
+    public $direction = 'desc';
     private $Dataobject = false;
     private $controller = false;
 
     public function __construct($collection, $settings)
     {
         $this->settings = $settings;
-    }
+            }
 
     public function beforeRender($controller)
     {
 	    
 	    $this->controller = $controller;
         $this->controller->helpers[] = 'Dane.Dataobject';
-
+		
         if (is_null($this->controller->Paginator)) {
             $this->controller->Paginator = $this->controller->Components->load('Paginator');
         }
@@ -27,6 +28,9 @@ class DataFeedComponent extends Component
         if (isset($this->controller->request->query['q'])) {
             $this->controller->request->query['conditions']['q'] = $this->controller->request->query['q'];
         }
+        
+        if( isset($this->settings['direction']) )
+        	$this->direction = $this->settings['direction'];
 
         $this->queryData = $this->controller->request->query;
 
@@ -34,7 +38,7 @@ class DataFeedComponent extends Component
             $this->controller->Dataobject = ClassRegistry::init('Dane.Dataobject');
 
         $this->controller->Paginator->settings = $this->getSettings();
-        //$this->controller->Paginator->settings['order'] = 'score desc';
+        $this->controller->Paginator->settings['order'] = 'date ' . $this->direction;
         // debug($this->controller->Paginator->settings); die();
         
 				        
@@ -69,7 +73,7 @@ class DataFeedComponent extends Component
 		    'took' => $controller->Dataobject->getPerformance(),
             'preset' => $this->settings['preset'],
             'side' => isset($this->settings['side']) ? $this->settings['side'] : $this->controller->request->params['controller'],
-            'searchTitle' => isset($this->settings['searchTitle']) ? $this->settings['searchTitle'] : false,
+            'searchTitle' => isset($this->settings['searchTitle']) ? strip_tags($this->settings['searchTitle']) : false,
             'timeline' => isset($this->settings['timeline']) ? (boolean) $this->settings['timeline'] : false,
             'api_call' => $this->controller->Dataobject->getDataSource()->public_api_call,
             'subscribeAction' => '',
