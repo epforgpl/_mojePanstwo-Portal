@@ -24,11 +24,7 @@ if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) {
 } else {
     ?>
     <div class="objectRender col-md-12 <?php echo $object->getDataset(); ?>" oid="<?php echo $object->getId() ?>">
-        <? if ($this->Dataobject->getDate()) { ?>
-        <div class="formatDate col-md-1">
-            <?php echo($this->Dataobject->getDate()); ?>
-        </div>
-    <? } ?>
+
         <div class="data col-md-<?= $this->Dataobject->getDate() ? '11' : '12' ?>">
             <div class="row">
                 <? if ($object->getHeaderThumbnailUrl($thumbSize)) { ?>
@@ -68,7 +64,7 @@ if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) {
         } ?>
         </div>
     <? } else { ?>
-        <div class="content">
+        <div class="content mini">
         <p class="header"><?= $object->getLabel(); ?></p>
         <<?= $titleTag ?> class="title<? if ($bigTitle) { ?> big<? } ?>">
         <?php if ($object->getUrl() != false){ ?>

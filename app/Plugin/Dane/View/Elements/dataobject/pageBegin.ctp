@@ -68,7 +68,8 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
 	                    </div>
 	                <? } ?>
 	                <div class="<? echo($krsPodmiotyKrakow ? 'col-md-7' : 'col-xs-12'); ?>">
-	                    <div class="objectPageHeader">
+                        <div
+                            class="objectPageHeader<? if (isset($object_menu['items']) && !empty($object_menu['items'])) { ?> with-menu <? } ?>">
 	                        <?php echo $this->Dataobject->render($object, $renderFile, $objectOptions); ?>
 	                    </div>
 	                </div>

@@ -1,17 +1,16 @@
-<div class="col-md-10">
-    <?
-    if ($object->getData('typ_id') == '2') {
-        ?>
-        <p style="color: green; margin: 5px;"><?= $object->getData('autor_str') ?></p>
-    <?
-    } else {
-        ?>
-        <p style="margin: 5px;"><?= $object->getData('html') ?></p>
-    <?
-    }
+<?
+if ($object->getData('typ_id') == '2') {
     ?>
-</div>
-<div class="col-md-2">
-    <a class="btn btn-sm btn-primary" href="<?= $object->getUrl() ?>">Przeczytaj &raquo;</a>
-</div>
+    <p style="color: green; margin: 5px;"><?= $object->getData('autor_str') ?></p>
+<?
+}
+if( $object->getData('html') ) {
+?>
+    <p style="margin: 5px;"><?= $object->getData('html') ?></p>
+<?
+}
+?>
+<p style="margin-left: 5px;">
+    <a href="<?= $object->getUrl() ?>">Przeczytaj &raquo;</a>
+</p>
 

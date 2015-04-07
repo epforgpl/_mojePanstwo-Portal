@@ -10,12 +10,12 @@
                     // echo '<p class="noResults">' . __d('dane', 'LC_DANE_BRAK_WYNIKOW') . '</p>';
                 } else {
                     ?>
-                    <ul class="dataFeed-ul list-group list-dataobjects">
+                    <div class="dataFeed-ul list-group list-dataobjects">
                         <?= $this->element('Dane.DataobjectsFeed/loop', array(
                             'objects' => $objects,
                             'preset' => $preset,
                         )) ?>
-                    </ul>
+                    </div>
 
                     <? if ($pagination['total'] > $perPage) { ?>
 

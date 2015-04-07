@@ -171,6 +171,20 @@ class DataBrowserComponent extends Component {
 	            ),
 	        ),
 	    ),
+	    'sejm_interpelacje' => array(
+		    'date' => array(
+	            'date_histogram' => array(
+		            'field' => 'date',
+		            'interval' => 'year',
+		            'format' => 'yyyy-MM-dd',
+	            ),
+	            'visual' => array(
+		            'label' => 'Liczba interpelacji w czasie',
+		            'skin' => 'date_histogram',
+                    'field' => 'date'
+	            ),
+	        ),
+	    ),
 	    'krakow_posiedzenia' => array(
 		    'date' => array(
 	            'date_histogram' => array(

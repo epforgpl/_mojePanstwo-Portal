@@ -8,26 +8,21 @@ class SejmInterpelacjeController extends DataobjectsController
     public $menu = array();
     public $breadcrumbsMode = 'app';
 
+	public $loadChannels = true;
+	
     public $objectOptions = array(
         'hlFields' => array(),
     );
 
-    public function view($package = 1)
+    public function view()
     {
-
-        parent::view();
-
-        if (
-            isset($this->request->params['t_id']) &&
-            $this->request->params['t_id']
-        ) {
-
-            return $this->redirect($this->object->getUrl() . '/pismo/' . $this->request->params['t_id']);
-
-        }
-
-        $this->feed(array(
-            'direction' => 'asc',
+		
+		$this->load();
+		
+        return $this->feed(array(
+	        'direction' => 'asc',
+	        'timeline' => true,
+	        'searchTitle' => $this->object->getLabel(),
         ));
 
     }
@@ -35,26 +30,20 @@ class SejmInterpelacjeController extends DataobjectsController
     public function pismo()
     {
 
-        parent::view();
-        $pismo_id = @$this->request->params['pass'][0];
+        parent::view();        
 
         if (
-            $pismo_id &&
-            ($pismo = $this->API->getObject('sejm_interpelacje_pisma', $pismo_id, array(
-                'layers' => 'teksty',
-            )))
+            ( $pismo_id = @$this->request->params['subid'] ) && 
+            ( $pismo = $this->Dataobject->find('first', array(
+	            'conditions' => array(
+		            'dataset' => 'sejm_interpelacje_pisma',
+		            'id' => $pismo_id,
+	            ),
+	            'layers' => array('teksty'),
+            )) )
         ) {
 
             $this->set('pismo', $pismo);
-			
-			
-			
-            if( !($pismo->getLayers('teksty')) && $pismo->getData('dokument_id') ) {
-
-                $this->set('document', new MP\Document($pismo->getData('dokument_id')));
-                $this->set('documentPackage', 1);
-
-            }
 
         } else {
 
