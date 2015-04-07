@@ -23,6 +23,11 @@ class KtoTuRzadziController extends ApplicationsController
         'headerImg' => '/kto_tu_rzadzi/img/header_kto-tu-rzadzi.png',
     );
 
+    public function prepareMetaTags() {
+        parent::prepareMetaTags();
+        $this->setMeta('og:image', FULL_BASE_URL . '/kto_tu_rzadzi/img/social/ktoturzadzi.jpg');
+    }
+
     public function view()
     {
         $this->setMenuSelected();

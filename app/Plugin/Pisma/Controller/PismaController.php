@@ -24,7 +24,10 @@ class PismaController extends ApplicationsController
     public $uses = array('Pisma.Pismo');
     public $components = array('RequestHandler');
 
-
+    public function prepareMetaTags() {
+        parent::prepareMetaTags();
+        $this->setMeta('og:image', FULL_BASE_URL . '/pisma/img/social/pisma.jpg');
+    }
 
     public function view($id, $slug = '')
     {

@@ -4,6 +4,12 @@ App::uses('Sanitize', 'Utility');
 
 class WyjazdyPoslowController extends AppController
 {
+
+    public function prepareMetaTags() {
+        parent::prepareMetaTags();
+        $this->setMeta('og:image', FULL_BASE_URL . '/wyjazdy_poslow/img/social/wyjazdy.jpg');
+    }
+
     public function index()
     {
 

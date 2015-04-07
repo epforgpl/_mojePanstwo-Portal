@@ -504,7 +504,7 @@ class AppController extends Controller {
             'og:url'            => Router::url($this->here, true),
             'og:type'           => 'website',
             'og:description'    => strip_tags(__('LC_MAINHEADER_TEXT')),
-            'og:image'          => FULL_BASE_URL . '/img/favicon/facebook-400x400.jpg',
+            'og:image'          => FULL_BASE_URL . '/img/social/share_main.jpg',
             'fb:admins'         => '616010705',
             'fb:app_id'         => FACEBOOK_appId
         ));

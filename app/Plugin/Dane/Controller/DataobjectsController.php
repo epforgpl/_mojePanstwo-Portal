@@ -232,7 +232,10 @@ class DataobjectsController extends AppController
         parent::prepareMetaTags();
         if($desc = $this->object->getDescription())
             $this->setMeta('description', $desc);
-        $this->setMeta('og:title', $this->object->getTitle());
+        $this->setMeta(array(
+            'og:title' => $this->object->getTitle(),
+            'og:image' => FULL_BASE_URL . '/dane/img/social/dane.jpg'
+        ));
     }
 
 }
