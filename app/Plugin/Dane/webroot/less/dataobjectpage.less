@@ -132,22 +132,22 @@
         }
     }
 
-	.subobjectContainer {
-		.container {
-			.title {
-				margin-left: 5px !important;
-				margin-top: -5px;
+    .subobjectContainer {
+        .container {
+            .title {
+                margin-left: 5px !important;
+                margin-top: -5px;
 
-				a, a:hover, a:active {
+                a, a:hover, a:active {
                     color: #028ccd !important;
-				}
+                }
 
                 small {
-					color: #444 !important;
-				}
-			}
-		}
-	}
+                    color: #444 !important;
+                }
+            }
+        }
+    }
 
     .objectPageHeaderBg.extended {
         .objectPageHeaderContainer {
@@ -176,15 +176,17 @@
     }
 
     .objectPageHeaderBg {
+        @menuHeight: 51px;
+
         position: relative;
-        background: rgba(1,15,31,1);
-		background: -moz-linear-gradient(45deg, rgba(1,15,31,1) 0%, rgba(2,28,61,1) 100%);
-		background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(1,15,31,1)), color-stop(100%, rgba(2,28,61,1)));
-		background: -webkit-linear-gradient(45deg, rgba(1,15,31,1) 0%, rgba(2,28,61,1) 100%);
-		background: -o-linear-gradient(45deg, rgba(1,15,31,1) 0%, rgba(2,28,61,1) 100%);
-		background: -ms-linear-gradient(45deg, rgba(1,15,31,1) 0%, rgba(2,28,61,1) 100%);
-		background: linear-gradient(45deg, rgba(1,15,31,1) 0%, rgba(2,28,61,1) 100%);
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#010f1f', endColorstr='#021c3d', GradientType=1 );
+        background: rgba(1, 15, 31, 1);
+        background: -moz-linear-gradient(45deg, rgba(1, 15, 31, 1) 0%, rgba(2, 28, 61, 1) 100%);
+        background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(1, 15, 31, 1)), color-stop(100%, rgba(2, 28, 61, 1)));
+        background: -webkit-linear-gradient(45deg, rgba(1, 15, 31, 1) 0%, rgba(2, 28, 61, 1) 100%);
+        background: -o-linear-gradient(45deg, rgba(1, 15, 31, 1) 0%, rgba(2, 28, 61, 1) 100%);
+        background: -ms-linear-gradient(45deg, rgba(1, 15, 31, 1) 0%, rgba(2, 28, 61, 1) 100%);
+        background: linear-gradient(45deg, rgba(1, 15, 31, 1) 0%, rgba(2, 28, 61, 1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#010f1f', endColorstr='#021c3d', GradientType=1);
 
         min-height: 130px;
 
@@ -220,7 +222,11 @@
             }
         }
 
-        .objectPageHeaderContainer .objectPageHeader {
+        &:not(.extended) .objectPageHeaderContainer .objectPageHeader {
+            &.with-menu .mini {
+                margin-bottom: 17px;
+                margin-top: -10px;
+            }
             .content {
                 -webkit-transform: translate(0, 50%);
                 -moz-transform: translate(0, 50%);
@@ -231,8 +237,6 @@
         }
 
         &.extended {
-            @menuHeight: 51px;
-
             .objectPageHeaderContainer {
                 position: absolute;
                 top: 50%;
@@ -730,17 +734,17 @@ h2.light {
             button.glyphicon {
                 background: none;
                 border: none;
-	            color: #BBB;
-	            margin-top: 4px;
-	            visibility: hidden;
+                color: #BBB;
+                margin-top: 4px;
+                visibility: hidden;
 
                 &:hover {
-		            color: #D33;
-	            }
+                    color: #D33;
+                }
             }
 
             &:hover button.glyphicon {
-	            visibility: visible;
+                visibility: visible;
             }
         }
     }
