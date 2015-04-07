@@ -50,5 +50,19 @@ class Sejm_interpelacje extends DocDataObject
 	    );
 	    	    
     }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+							
+		$output = array(
+			dataSlownie( $this->getDate() ),
+		);
+		
+		if( $this->getData('sejm_interpelacje.adresaci_str') )
+			$output[] = 'Do: ' . $this->getData('sejm_interpelacje.adresaci_str');
+							
+		return $output;
+		
+	}
 
 }
