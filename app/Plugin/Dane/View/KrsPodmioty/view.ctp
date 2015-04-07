@@ -8,200 +8,31 @@ if (isset($odpis) && $odpis) {
 
 echo $this->Element('dataobject/pageBegin');
 
-echo $this->Html->script('Dane.d3/d3', array('block' => 'scriptBlock'));
+// echo $this->Html->script('Dane.d3/d3', array('block' => 'scriptBlock'));
 
-$this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane')));
-$this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty', array('plugin' => 'Dane')));
-$this->Combinator->add_libs('css', $this->Less->css('view-krs-graph', array('plugin' => 'Dane')));
-$this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
-$this->Combinator->add_libs('js', 'graph-krs');
+// $this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane')));
+
+// $this->Combinator->add_libs('css', $this->Less->css('view-krs-graph', array('plugin' => 'Dane')));
+// $this->Combinator->add_libs('js', 'graph-krs');
 
 ?>
 
     <div class="krsPodmioty row">
-    <div class="col-md-3 objectSide">
-        <div class="objectSideInner rs">
-            
-            <div class="block">
-            
-	            <ul class="dataHighlights side">
-	
-	
-	                <? if ($object->getData('wykreslony')) { ?>
-    <li class="dataHighlight">
-        <span class="label label-danger">Podmiot wykreślony z KRS</span>
-    </li>
-<? } ?>
 
-<? if ($object->getData('krs')) { ?>
-    <li class="dataHighlight big">
-        <p class="_label">Numer KRS</p>
-
-        <p class="_value"><?= $object->getData('krs'); ?></p>
-    </li>
-<? } ?>
-
-<? if ($object->getData('nip')) { ?>
-    <li class="dataHighlight big">
-        <p class="_label">Numer NIP</p>
-
-        <p itemprop="taxID" class="_value"><?= $object->getData('nip'); ?></p>
-    </li>
-<? } ?>
-
-<? if ($object->getData('regon')) { ?>
-    <li class="dataHighlight big">
-        <p class="_label">Numer REGON</p>
-
-        <p class="_value"><?= $object->getData('regon'); ?></p>
-    </li>
-<? } ?>
+	    <div class="col-md-3 objectSide">        
+	    </div>
 
 
-<? if ($object->getData('wartosc_kapital_zakladowy')) { ?>
-    <li class="dataHighlight">
-        <p class="_label">Kapitał zakładowy</p>
-
-        <p class="_value"><?= number_format_h($object->getData('wartosc_kapital_zakladowy')); ?> PLN</p>
-    </li>
-<? } ?>
-
-<? if ($object->getData('wartosc_czesc_kapitalu_wplaconego')) { ?>
-    <li class="dataHighlight">
-        <p class="_label">Część kapitału wpłaconego</p>
-
-        <p class="_value"><?= number_format_h($object->getData('wartosc_czesc_kapitalu_wplaconego')); ?> PLN</p>
-    </li>
-<? } ?>
-
-<? if ($object->getData('wartosc_kapital_docelowy')) { ?>
-    <li class="dataHighlight">
-        <p class="_label">Kapitał docelowy</p>
-
-        <p class="_value"><?= number_format_h($object->getData('wartosc_kapital_docelowy')); ?> PLN</p>
-    </li>
-<? } ?>
-
-<? if ($object->getData('wartosc_nominalna_podwyzszenia_kapitalu')) { ?>
-    <li class="dataHighlight">
-        <p class="_label">Wartość nominalna podwyższenia kapitału</p>
-
-        <p class="_value"><?= number_format_h($object->getData('wartosc_nominalna_podwyzszenia_kapitalu')); ?> PLN</p>
-    </li>
-<? } ?>
+	    <div class="col-md-9 objectMain">
+		    <div class="object">
 
 
-<? if ($object->getData('data_rejestracji')) { ?>
-    <li class="dataHighlight inl">
-        <p class="_label">Data rejestracji</p>
-
-        <p class="_value"><?= $this->Czas->dataSlownie($object->getData('data_rejestracji'), array(
-                'itemprop' => 'foundingDate',
-            )); ?></p>
-    </li>
-<? } ?>
-
-<? /* if ($object->getData('data_dokonania_wpisu')) { ?>
-	                    <li class="dataHighlight inl">
-	                        <p class="_label">Data ostatniego wpisu</p>
-	
-	                        <p class="_value"><?= $this->Czas->dataSlownie($object->getData('data_dokonania_wpisu')); ?></p>
-	                    </li>
-	                <? } */ ?>
-
-
-<?
-if ($www = $object->getData('www')) {
-    $url = (stripos($www, 'http') === false) ? 'http://' . $www : $www;
-    ?>
-    <li class="dataHighlight inl">
-        <p class="_label">Strona WWW</p>
-
-        <p class="_value"><a target="_blank" title="<?= addslashes($object->getTitle()) ?>"
-                             href="<?= $url ?>"><?= $www; ?></a></p>
-    </li>
-<? } ?>
-
-<? if ($email = $object->getData('email')) { ?>
-    <li class="dataHighlight inl">
-        <p class="_label">Adres e-mail</p>
-
-        <p itemprop="email" class="_value"><a target="_blank" href="mailto:<?= $email ?>"><?= $email; ?></a></p>
-    </li>
-<? } ?>
-	            </ul>
-	            
-	            <ul class="dataHighlights side hide">
-	                <? if ($object->getData('forma_prawna_str')) { ?>
-    <li class="dataHighlight inl">
-        <p class="_label">Forma prawna</p>
-
-        <p class="_value"><?= $object->getData('forma_prawna_str'); ?></p>
-    </li>
-<? } ?>
-
-<? if ($object->getData('oznaczenie_sadu')) { ?>
-    <li class="dataHighlight">
-        <p class="_label">Oznaczenie sądu</p>
-
-        <p class="_value"><?= $object->getData('oznaczenie_sadu'); ?></p>
-    </li>
-<? } ?>
-
-<? if ($object->getData('sygnatura_akt')) { ?>
-    <li class="dataHighlight">
-        <p class="_label">Sygnatura akt</p>
-
-        <p class="_value"><?= $object->getData('sygnatura_akt'); ?></p>
-    </li>
-<? } ?>
-
-<? if ($object->getData('wczesniejsza_rejestracja_str')) { ?>
-    <li class="dataHighlight inl">
-        <p class="_label">Wcześniejsza rejestracja</p>
-
-        <p class="_value"><?= $object->getData('wczesniejsza_rejestracja_str'); ?></p>
-    </li>
-<? } ?>
-	
-	            </ul>
-	
-	            <p class="text-center showHideSide">
-	                <a class="a-more">Więcej &darr;</a>
-	                <a class="a-less hide">Mniej &uarr;</a>
-	            </p>
-            
-            </div>
-
-            
-
-
-            <? if (!$object->getData('wykreslony')) { ?>
-    <div class="banner block">
-        <?php echo $this->Html->image('Dane.banners/krspodmioty_banner.png', array(
-            'width' => '69',
-            'alt' => 'Aktualny odpis z KRS za darmo',
-            'class' => 'pull-right'
-        )); ?>
-        <p>Pobierz aktualny odpis z KRS <strong>za darmo</strong></p>
-        <a href="/dane/krs_podmioty/<?= $object->getId() ?>/odpis" class="btn btn-primary">Kliknij aby
-            pobrać</a>
-    </div>
-<? } ?>
-        </div>
-    </div>
-
-
-    <div class="col-md-9 objectMain">
-    <div class="object">
-
-
-    <? if ($object->getData('wykreslony')) { ?>
-    <div class="alert alert-dismissable alert-danger">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
-    </div>
-<? } ?>
+		    <? if ($object->getData('wykreslony')) { ?>
+			    <div class="alert alert-dismissable alert-danger">
+			        <button type="button" class="close" data-dismiss="alert">×</button>
+			        Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
+			    </div>
+			<? } ?>
 
 	
 

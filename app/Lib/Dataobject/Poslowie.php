@@ -63,6 +63,11 @@ class Poslowie extends DataObject
     {
         return 'http://resources.sejmometr.pl/mowcy/a/' . $size . '/' . $this->getData('ludzie.id') . '.jpg';
     }
+    
+    public function getHeaderThumbnailUrl($size = '0')
+    {
+        return 'http://resources.sejmometr.pl/mowcy/a/' . $size . '/' . $this->getData('ludzie.id') . '.jpg';
+    }
 
 
 }

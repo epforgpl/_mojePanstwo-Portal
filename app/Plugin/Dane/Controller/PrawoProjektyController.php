@@ -9,7 +9,9 @@ class PrawoProjektyController extends DataobjectsController
     public $objectOptions = array(
         'hlFields' => array(),
     );
-
+    
+    public $loadChannels = true;
+    
     public function view()
     {
 
@@ -24,7 +26,9 @@ class PrawoProjektyController extends DataobjectsController
             ));
         }
         
-        $this->feed();
+        $this->feed(array(
+	        'searchTitle' => '"' . $this->object->getTitle() . '"',
+        ));
 
     }
 

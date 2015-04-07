@@ -9,12 +9,6 @@
 
         <ul class="dataHighlights side">
 			
-			<li class="dataHighlight">
-                <a href="<?= $komisja->getUrl() ?>/posiedzenia"><span
-                        class="icon icon-moon">&#xe615;</span>Posiedzenia <span
-                        class="glyphicon glyphicon-chevron-right"></a>
-            </li>
-			
 			<? if( $komisja->getData('kadencja_id')=='6' ) {?>
             <li class="dataHighlight">
                 <a href="<?= $komisja->getUrl() ?>/radni"><span class="icon icon-moon">&#xe617;</span>Skład

@@ -5,7 +5,7 @@ App::uses('DataobjectsController', 'Dane.Controller');
 class InstytucjeController extends DataobjectsController
 {
     public $dataFeedFilters = array(
-        array('title' => 'Wszystkie', 'icon' => 'all', 'link' => '#'),
+        array('title' => 'Wszystko', 'icon' => 'all', 'link' => ''),
         array('title' => 'Odpowiedzi na interpelacje', 'icon' => 'interpelacje_odpowiedzi', 'link' => '#'),
         array('title' => 'Otrzymane interpelacje', 'icon' => 'interpelacje_otrzymane', 'link' => '#'),
         array('title' => 'Zamówienia publiczne', 'icon' => 'zamowienia_otrzymane', 'link' => '#'),
@@ -13,6 +13,7 @@ class InstytucjeController extends DataobjectsController
         array('title' => 'Opublikowany tweet', 'icon' => 'twitter_opublikowane', 'link' => '#'),
     );
 
+	public $loadChannels = true;
     public $initLayers = array('instytucja_nadrzedna', 'tree', 'menu', 'info');
 
     public function view()

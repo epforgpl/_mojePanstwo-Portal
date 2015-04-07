@@ -8,6 +8,9 @@
         </li>
         <?
         foreach ($menu['items'] as $m) {
+            
+            unset( $m['icon'] );
+            
             $classes = array();
             if(
 	        	isset($menu['selected']) && 

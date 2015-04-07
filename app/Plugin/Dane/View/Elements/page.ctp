@@ -32,13 +32,13 @@ if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) {
     <? } ?>
             <div class="data col-md-<?= $this->Dataobject->getDate() ? '11' : '12' ?>">
                 <div class="row">
-                    <? if ($object->getThumbnailUrl($thumbSize)) { ?>
+                    <? if ($object->getHeaderThumbnailUrl($thumbSize)) { ?>
         <div class="attachment col-md-<?= $object_content_sizes[0] ?> text-center">
             <?php if ($object->getUrl() != false) { ?>
             <a class="thumb_cont" href="<?= $object->getUrl() ?>">
                 <?php } ?>
                 <img itemprop="image" class="thumb" onerror="imgFixer(this)"
-                     src="<?= $object->getThumbnailUrl($thumbSize) ?>"
+                     src="<?= $object->getHeaderThumbnailUrl($thumbSize) ?>"
                      alt="<?= strip_tags($object->getTitle()) ?>"/>
                 <?php if ($object->getUrl() != false) { ?>
             </a>
@@ -70,15 +70,6 @@ if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) {
             echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(
                 'object' => $object
             ));
-        } else {
-            echo $this->Dataobject->highlights($hlFields);
-            if ($object->getDescription()) {
-                ?>
-                <div itemprop="description" class="description">
-                    <?= $object->getDescription() ?>
-                </div>
-            <?
-            }
         }
         ?>
         </div>
@@ -107,15 +98,6 @@ if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) {
                 'item' => $item,
                 'object' => $object
             ));
-        } else {
-            echo $this->Dataobject->highlights($hlFields);
-            if ($object->getDescription()) {
-                ?>
-                <div class="description">
-                    <?= $object->getDescription() ?>
-                </div>
-            <?
-            }
         }
         ?>
 

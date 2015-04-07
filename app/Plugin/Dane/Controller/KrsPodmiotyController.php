@@ -71,8 +71,13 @@ class KrsPodmiotyController extends DataobjectsController
         }
 
     }
-
-    public function view()
+	
+	public function view()
+	{
+		return $this->feed();
+	}
+	
+    public function _view()
     {
 
         $this->addInitLayers(array(
@@ -548,7 +553,7 @@ class KrsPodmiotyController extends DataobjectsController
                 array(
                     'id' => '',
                     'href' => $href_base,
-                    'label' => 'Informacje i powiązania',
+                    'label' => 'Aktualności',
                 ),
             )
         );
@@ -559,16 +564,6 @@ class KrsPodmiotyController extends DataobjectsController
             'label' => 'Powiązania'
         );
 
-        if ($this->object->getData('liczba_zmian')) {
-
-            $menu['items'][] = array(
-                'id' => 'historia',
-                'href' => $href_base . '/historia',
-                'label' => 'Historia',
-                'count' => $this->object->getData('liczba_zmian'),
-            );
-
-        }
 
         if ($this->request->params['id'] == 481129) { // KOMITET KONKURSOWY KRAKÓW 2022
 
@@ -592,7 +587,7 @@ class KrsPodmiotyController extends DataobjectsController
                 'id' => 'oddzialy',
                 'href' => $href_base . '/oddzialy',
                 'label' => 'Oddziały',
-                'count' => $counters['liczba_oddzialow'],
+                // 'count' => $counters['liczba_oddzialow'],
             );
         }
 
@@ -607,14 +602,6 @@ class KrsPodmiotyController extends DataobjectsController
         }
         */
 
-        if ($counters['liczba_emisji_akcji']) {
-            $menu['items'][] = array(
-                'id' => 'emisje_akcji',
-                'href' => $href_base . '/emisje_akcji',
-                'label' => 'Emisje akcji',
-                'count' => $counters['liczba_emisji_akcji'],
-            );
-        }
 
         if ($this->request->params['action'] == 'kultura') {
             $menu['items'][] = array(
@@ -624,9 +611,9 @@ class KrsPodmiotyController extends DataobjectsController
             );
         }
 
-        $menu['selected'] = ($this->request->params['action'] == 'view') ? '' : $this->request->params['action'];
-        $this->set('_menu', $menu);
-
+        $this->menu = $menu;
+		parent::beforeRender();
+		
     }
 
 }

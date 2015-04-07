@@ -1,32 +1,58 @@
+<?
+		
+	$path = APP.'Plugin'.DS.'Dane'.DS.'View'.DS.'Elements'.DS.'sides'.DS.$dataFeed['side'].'-left.ctp';
+	$side_left = file_exists($path);
+	
+	$path = APP.'Plugin'.DS.'Dane'.DS.'View'.DS.'Elements'.DS.'sides'.DS.$dataFeed['side'].'-right.ctp';
+	$side_right = file_exists($path);
+
+?>
 <div class="row row-feed">
+	<? if( $side_left ) {?>    
     <div class="col-xs-12 col-sm-3 objectSide col-feed-side col-feed-side-left">
-        <? echo $this->Element('Dane.sides/' . $dataFeed['side']); ?>
+        <? echo $this->Element('Dane.sides/' . $dataFeed['side'] . '-left'); ?>
     </div>
-    <div class="col-xs-12 col-sm-7 col-feed-main">
+    <? } ?>
+    <div class="col-xs-12 col-sm-7 col-feed-main<? if(!$side_left) {?> col-sm-offset-1<?}?>">
         <div class="object">
             <? echo $this->Element('Dane.DataFeed/feed'); ?>
         </div>
     </div>
     <div class="col-xs-12 col-sm-2 col-feed-side col-feed-side-right">
-        <? echo $this->Element('Dane.object-actions'); ?>
-
+        
+        <?
+	        if( $side_right ) 
+	        	echo $this->Element('Dane.sides/' . $dataFeed['side'] . '-right');
+	        
+	        // else
+	        	// echo $this->Element('Dane.object-actions');
+	    ?>
+        
+        <? /*	
         <div class="subscription">
             <? if (isset($object) && ($subs = $object->getLayer('subscriptions'))) { ?>
-                <h2>Subskrypcje</h2>
+                <h2><span class="glyphicon glyphicon-star"></span> Obserwowane dane</h2>
                 <ul>
                     <? foreach ($subs as $sub) { ?>
-                        <li class="<? if (
+                        <li class="overflow-auto<? if (
                             isset($this->request->query['subscription']) &&
                             ($this->request->query['subscription'] == $sub['id'])
                         ) {
-                            echo "active ";
+                            echo " active";
                         } ?>">
-                            <a href="<?= $sub['url'] ?>"><?= $sub['title'] ?></a>
+                            <a class="pull-left" href="<?= $sub['url'] ?>"><?= $sub['title'] ?></a>
+                            <div class="pull-right">
+                            	<form action="/dane/subscriptions/<?= $sub['id'] ?>/delete.json" method="post">
+	                            	<button class="glyphicon glyphicon-remove" title="Usuń tę subskrypcję"></button>
+                            	</form>
+                            </div>
                         </li>
                     <? } ?>
                 </ul>
 
             <? } ?>
         </div>
+        */ ?>
+        
     </div>
 </div>

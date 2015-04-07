@@ -4,7 +4,7 @@ App::uses('DataobjectsController', 'Dane.Controller');
 
 class PrawoHaslaController extends DataobjectsController
 {
-
+	
     public $headerObject = array('url' => '/dane/img/headers/prawne.jpg', 'height' => '250px');
 
     public $objectOptions = array(
@@ -14,9 +14,7 @@ class PrawoHaslaController extends DataobjectsController
     public function view()
     {
 		
-		$this->addInitLayers('tags');
-		
-        parent::load();     
+		$this->addInitLayers('tags');		
         $this->feed();
 
     }

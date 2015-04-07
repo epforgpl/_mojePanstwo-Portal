@@ -6,7 +6,9 @@ class GminyController extends DataobjectsController
 {
 
     public $breadcrumbsMode = 'app';
-
+	
+	public $loadChannels = true;
+	
     /*
      array(
             'label' => 'LC_DANE_START',
@@ -45,9 +47,9 @@ class GminyController extends DataobjectsController
     public function view()
     {
 
-        $_layers = array('szef');
+        $_layers = array('szef', 'channels');
         if ($this->request->params['id'] == '903') {
-            $_layers[] = 'ostatnie_posiedzenie';
+            // $_layers[] = 'ostatnie_posiedzenie';
             $_layers[] = 'radni';
         }
 
@@ -60,33 +62,7 @@ class GminyController extends DataobjectsController
         $szef = $this->object->getLayer('szef');
         
 		
-
-        $this->set('zamowienia_otwarte', $this->Dataobject->find('all', array(
-			'conditions' => array(
-				'dataset' => 'zamowienia_publiczne',
-				'zamowienia_publiczne.gmina_id' => $this->object->getId(),
-				'zamowienia_publiczne.status_id' => '0',
-			),
-			'limit' => 8,
-		)));
 		
-		$this->set('zamowienia_zamkniete', $this->Dataobject->find('all', array(
-			'conditions' => array(
-				'dataset' => 'zamowienia_publiczne',
-				'zamowienia_publiczne.gmina_id' => $this->object->getId(),
-				'zamowienia_publiczne.status_id' => '2',
-			),
-			'limit' => 8,
-		)));
-		
-		$this->set('zamowienia_zamkniete', $this->Dataobject->find('all', array(
-			'conditions' => array(
-				'dataset' => 'zamowienia_publiczne',
-				'zamowienia_publiczne.gmina_id' => $this->object->getId(),
-				'zamowienia_publiczne.status_id' => '2',
-			),
-			'limit' => 8,
-		)));
 		
 		
 		
@@ -136,24 +112,22 @@ class GminyController extends DataobjectsController
         $ngos = $this->Dataobject->getAggs();
         $this->set('ngos', $ngos['typ_id']['buckets']);
 
-
+		
+		
+		
+		$this->Components->load('Dane.DataFeed', array(
+            'feed' => $this->object->getDataset() . '/' . $this->object->getId(),
+            'preset' => $this->object->getDataset(),
+            // 'side' => 'gminy-rada',
+            'searchTitle' => $this->object->getTitle(),
+        ));
+		
+		
+		
+		
+		
+		
         if ($this->object->getId() == 903) {
-			
-			
-			$this->set('prawo_lokalne', $this->Dataobject->find('all', array(
-				'conditions' => array(
-					'dataset' => 'prawo_lokalne',
-					'prawo_lokalne.gmina_id' => $this->object->getId(),
-				),
-				'limit' => 3,
-			)));
-			
-			$this->set('zarzadzenia', $this->Dataobject->find('all', array(
-				'conditions' => array(
-					'dataset' => 'krakow_zarzadzenia',
-				),
-				'limit' => 3,
-			)));
 			
 			$this->set('dzielnice', $this->Dataobject->find('all', array(
 				'conditions' => array(
@@ -161,13 +135,15 @@ class GminyController extends DataobjectsController
 				),
 				'limit' => 100,
 			)));
-			
 
             $this->render('view-krakow');
 
         }
 
-
+		
+		
+		
+		
         /*
         $wskazniki = $this->object->loadLayer('wskazniki');
         $rada_komitety = $this->object->loadLayer('rada_komitety');
@@ -624,8 +600,12 @@ class GminyController extends DataobjectsController
 					'dataset' => 'dzielnice',
 					'id' => $this->request->params['subid'],
 				),
+				'layers' => array('channels'),
 			));
 			
+			$this->loadChannels = true;
+			$this->channels = $dzielnica->getLayer('channels');
+ 			
             $title_for_layout = $dzielnica->getTitle();
 
             switch ($subaction) {
@@ -636,6 +616,7 @@ class GminyController extends DataobjectsController
 			            'feed' => $dzielnica->getDataset() . '/' . $dzielnica->getId(),
 			            'preset' => $dzielnica->getDataset(),
 			            'side' => 'dzielnice',
+			            'searchTitle' => $dzielnica->getTitle(),
 			        ));
 
                     break;
@@ -769,6 +750,9 @@ class GminyController extends DataobjectsController
 					            'krakow_dzielnice_uchwaly.dzielnica_id' => $dzielnica->getId(),
 				            ),
 				        ));
+				        
+				        $this->set('DataBrowserTitle', 'Uchwały rady dzielnicy ' . $dzielnica->getTitle());
+				        $this->set('titleForLayout', 'Uchwały rady dzielnicy ' . $dzielnica->getTitle());
 						
                     }
 
@@ -1104,7 +1088,7 @@ class GminyController extends DataobjectsController
 					'dataset' => 'krakow_komisje',
 					'id' => $this->request->params['subid'],
 				),
-				'layers' => array('sklad'),
+				'layers' => array('channels', 'sklad'),
 			));
 			
 
@@ -1117,7 +1101,11 @@ class GminyController extends DataobjectsController
 			            'feed' => $komisja->getDataset() . '/' . $komisja->getId(),
 			            'preset' => $komisja->getDataset(),
 			            'side' => 'krakow_komisje',
+			            'searchTitle' => $komisja->getTitle(),
 			        ));
+			        
+			        $this->loadChannels = true;
+					$this->channels = $komisja->getLayer('channels');
 					
                     break;
                 }
@@ -1680,13 +1668,8 @@ class GminyController extends DataobjectsController
 	        );
         }
 		
-        $menu['items'][] = array(
-            'id' => 'zamowienia',
-            'href' => $href_base . '/zamowienia',
-            'label' => 'Zamówienia publiczne',
-            'icon' => '',
-        );
 
+		/*
         $menu['items'][] = array(
             'id' => 'wybory',
             'label' => 'Wybory',
@@ -1700,6 +1683,7 @@ class GminyController extends DataobjectsController
                 ),
             ),
         );
+        */
 		
 		/*
         $menu['items'][] = array(
