@@ -529,7 +529,7 @@ class GminyController extends DataobjectsController
 		            'dataset' => 'rady_druki',
 		            'id' => $this->request->params['subid'],
 	            ),
-	            'layers' => 'neighbours'
+	            'layers' => array('channels', 'neighbours')
             ));
             
             $this->set('druk', $druk);
@@ -562,6 +562,9 @@ class GminyController extends DataobjectsController
 		            'side' => 'rady_druki',
 		            'timeline' => true,
 		        ));
+		        
+		        $this->loadChannels = true;
+				$this->channels = $druk->getLayer('channels');
             		
 	            $this->render('druk');
             
@@ -918,7 +921,7 @@ class GminyController extends DataobjectsController
             $subsubid = (isset($this->request->params['subsubid']) && $this->request->params['subsubid']) ? $this->request->params['subsubid'] : false;
 			
 			
-			$layers = array('neighbours', 'bip_url');
+			$layers = array('channels', 'neighbours', 'bip_url');
 			
 			if( $subaction == 'komisje' ) {
 				$layers[] = 'komisje';
@@ -952,6 +955,9 @@ class GminyController extends DataobjectsController
 			            'preset' => $radny->getDataset(),
 			            'side' => 'radni_gmin',
 			        ));
+			        
+			        $this->loadChannels = true;
+					$this->channels = $radny->getLayer('channels');
 
                     break;
                 }

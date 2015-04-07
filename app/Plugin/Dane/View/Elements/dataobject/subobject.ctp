@@ -21,6 +21,7 @@
                 ?>
             </div>
         </div>
+        <? /* ?>
         <div class="col-md-1 pull-right">
 
             <? if ($neighbours = $object->getLayer('neighbours')) { ?>
@@ -34,6 +35,7 @@
                 </ul>
             <? } ?>
         </div>
+        <? */ ?>
     </div>
 </div>
 
