@@ -41,7 +41,7 @@ $preset = $dataFeed['preset'];
                 <span aria-hidden="true" class="glyphicon glyphicon-search form-control-feedback"></span>
             </div>
         </form>
-
+				
         <?php if (isset($object_channels)) { ?>
             <div class="actionBar">
                 <? foreach ($object_channels as $channel) {
@@ -126,7 +126,7 @@ $preset = $dataFeed['preset'];
             }
             ?>
         </div>
-        <? if (false && $this->params['paging']['Dataobject']['nextPage']) { ?>
+        <? if ($this->params['paging']['Dataobject']['nextPage']) { ?>
             <span class="next">
                 <a rel="next"
                    href="<?= $this->request->here ?>.html?page=<?php echo $this->Paginator->param('page') + 1 ?>"></a>

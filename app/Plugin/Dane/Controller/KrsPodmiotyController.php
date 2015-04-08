@@ -79,7 +79,6 @@ class KrsPodmiotyController extends DataobjectsController
 
         $this->addInitLayers(array(
 	        'channels',
-            /*
             'reprezentacja',
             'wspolnicy',
             'jedynyAkcjonariusz',
@@ -87,7 +86,6 @@ class KrsPodmiotyController extends DataobjectsController
             'nadzor',
             'komitetZalozycielski',
             'dzialalnosci',
-            */
             'udzialy',
             'firmy',
         ));
@@ -272,7 +270,7 @@ class KrsPodmiotyController extends DataobjectsController
         $desc_parts[] = ucfirst(implode(', ', $desc_bodies_parts));
         $this->setMetaDesc(implode('. ', $desc_parts) . '.');
         
-        return $this->feed();
+        // return $this->feed();
 
     }
 

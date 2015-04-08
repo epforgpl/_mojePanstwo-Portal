@@ -201,7 +201,8 @@ class InstytucjeController extends DataobjectsController
             'href' => $href_base . '/urzednicy',
             'label' => 'Urzędnicy',
         );
-
+		
+		/*
         if (!empty($items)) {
             $menu['items'][] = array(
                 'id' => 'dane',
@@ -209,6 +210,7 @@ class InstytucjeController extends DataobjectsController
                 'dropdown' => $items,
             );
         }
+        */
 
         $this->menu = $menu;
 

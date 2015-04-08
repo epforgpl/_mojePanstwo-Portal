@@ -45,15 +45,18 @@ class DataFeedComponent extends Component
         $hits = $this->controller->Paginator->paginate('Dataobject');
 
         $aggs = $this->controller->Dataobject->getAggs();
-
+		
+		
         $channels_data = array();
         if (
-        isset($aggs['all_data']['feed_data']['feed']['channel']['buckets'])
+	        isset($aggs['all_data']['feed_data']['feed']['channel']['buckets'])
         )
             foreach ($aggs['all_data']['feed_data']['feed']['channel']['buckets'] as $d)
                 $channels_data[$d['key']] = $d['doc_count'];
 
         $channels = array();
+        
+        
         foreach ($this->controller->channels as $ch) {
 
             if (

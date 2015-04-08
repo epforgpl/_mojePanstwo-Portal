@@ -8,14 +8,16 @@ class ZamowieniaPubliczneController extends DataobjectsController
     public $objectOptions = array(
         'hlFields' => array('status_id', 'rodzaj_id'),
     );
-
+	
+	public $loadChannels = true;
+	
     // public $initLayers = array('details', 'sources', 'czesci');
-    public $initLayers = array('details', 'sources');
+    public $initLayers = array('channels', 'details', 'sources');
 
     public function view()
     {
 
-        parent::view();
+        $this->load();
         
         $_details = $this->object->getLayer('details');
         $details = array();
@@ -86,7 +88,9 @@ class ZamowieniaPubliczneController extends DataobjectsController
         $this->set('text_details', $text_details);
         
         $this->feed(array(
-	        'direction' => 'asc'
+	        'direction' => 'asc',
+	        'timeline' => true,
+	        'searchTitle' => 'tym zamówieniu',
         ));
 
     }
@@ -204,7 +208,8 @@ class ZamowieniaPubliczneController extends DataobjectsController
 
         $menu['selected'] = ($this->request->params['action'] == 'view') ? '' : $this->request->params['action'];
 
-        $this->set('_menu', $menu);
+        parent::beforeRender();
+        
 
     }
 } 
