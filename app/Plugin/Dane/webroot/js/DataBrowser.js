@@ -104,10 +104,10 @@ var DataBrowser = Class.extend({
 
     getFormattedDate: function(date) {
         var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        month = month > 9 ? month : '0' + month;
-        var day = date.getDate();
-        day = day > 9 ? day : '0' + day;
+        var month = (date.getMonth() + 1).toString();
+        month = month.length == 2 ? month : '0' + month;
+        var day = date.getDate().toString();
+        day = day.length == 2 ? day : '0' + day;
         return year + '-' + month + '-' + day;
     },
 	
@@ -283,15 +283,25 @@ var DataBrowser = Class.extend({
             },
             series: [{
                 name: 'Liczba',
-                data: columns_vertical_data/*,
+                data: columns_vertical_data,
                 point: {
                     events: {
                         click: function (e) {
-                            window.location.href = choose_request + '' + columns_vertical_keys[this.index];
+                            var index = e.point.index;
+                            var bucket = data.buckets[index];
+
+                            var dataArg = ['[', bucket.from];
+                            if(bucket.to) {
+                                dataArg.push(' TO ');
+                                dataArg.push(bucket.to);
+                            }
+                            dataArg.push(']');
+
+                            window.location.href = choose_request + dataArg.join('');
                             return false;
                         }
                     }
-                }*/
+                }
             }]
         });
 		
