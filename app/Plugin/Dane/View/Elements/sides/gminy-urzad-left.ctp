@@ -17,22 +17,6 @@ if ($object->getId() == '903') {
                 <div class="block">
 
                     <div class="block-header">
-                        <h2 class="label">Prezydent</h2>
-                    </div>
-
-                    <ul class="dataHighlights side">
-
-                        <li class="dataHighlight">
-                            <a href="/dane/gminy/903,krakow/zarzadzenia"><span class="icon icon-moon">&#xe614;</span>Zarządzenia
-                                Prezydenta <span class="glyphicon glyphicon-chevron-right"></a>
-                        </li>
-
-                    </ul>
-                </div>
-
-                <div class="block">
-
-                    <div class="block-header">
                         <h2 class="label">Urząd</h2>
                     </div>
 

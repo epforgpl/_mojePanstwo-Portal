@@ -1,7 +1,22 @@
+<?
+
+	$this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
+	$this->Combinator->add_libs('js', 'jquery-tags-cloud-min');
+	$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
+	$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+	$this->Combinator->add_libs('js', 'Dane.view-gminy');
+	
+	if ($object->getId() == '903') {
+	    $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
+	    $this->Combinator->add_libs('js', 'Dane.view-gminy-krakow');
+	}
+
+?>
 <div class="objectSideInner">
 	
-	<div class="block">
 	<? if( $szef = $object->getLayer('szef') ) { ?>
+	<div class="block">
+	
 		<ul class="dataHighlights side">
 
 			<li class="dataHighlight big">
@@ -37,8 +52,8 @@
 	        </li>
 	        
 		</ul>
-	<? } ?>
 	</div>
+	<? } ?>
 	
 	
 	<div class="block">		

@@ -41,7 +41,7 @@ $preset = $dataFeed['preset'];
                 <span aria-hidden="true" class="glyphicon glyphicon-search form-control-feedback"></span>
             </div>
         </form>
-
+				
         <?php if (isset($object_channels)) { ?>
             <div class="actionBar">
                 <? foreach ($object_channels as $channel) {

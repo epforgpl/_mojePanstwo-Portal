@@ -48,10 +48,13 @@ class GminyController extends DataobjectsController
     {
 
         $_layers = array('szef', 'channels');
+        
+        /*
         if ($this->request->params['id'] == '903') {
             // $_layers[] = 'ostatnie_posiedzenie';
             $_layers[] = 'radni';
         }
+        */
 
         $this->addInitLayers($_layers);
         $this->_prepareView();
@@ -65,7 +68,7 @@ class GminyController extends DataobjectsController
 		
 		
 		
-		
+		/*
 		$this->set('organizacje', $this->Dataobject->find('all', array(
 			'conditions' => array(
 				'dataset' => 'krs_podmioty',
@@ -111,15 +114,14 @@ class GminyController extends DataobjectsController
 
         $ngos = $this->Dataobject->getAggs();
         $this->set('ngos', $ngos['typ_id']['buckets']);
-
+		*/
 		
-		
-		
+				
 		$this->Components->load('Dane.DataFeed', array(
             'feed' => $this->object->getDataset() . '/' . $this->object->getId(),
             'preset' => $this->object->getDataset(),
             // 'side' => 'gminy-rada',
-            'searchTitle' => $this->object->getTitle(),
+            'searchTitle' => ( $this->object->getId()==903 ) ? 'Przejrzystym Krakowie' : $this->object->getTitle(),
         ));
 		
 		
@@ -136,7 +138,7 @@ class GminyController extends DataobjectsController
 				'limit' => 100,
 			)));
 
-            $this->render('view-krakow');
+            // $this->render('view-krakow');
 
         }
 
@@ -159,13 +161,24 @@ class GminyController extends DataobjectsController
         $_layers = array('rada_komitety');
         $this->addInitLayers($_layers);
         $this->_prepareView();
-			    
+		
+		$rada = $this->Dataobject->find('first', array(
+			'conditions' => array(
+				'dataset' => 'rady_gmin',
+				'id' => $this->object->getId(),
+			),
+			'layers' => array('channels'),
+		));
+		
 	    $this->Components->load('Dane.DataFeed', array(
-            'feed' => $this->object->getDataset() . '/' . $this->object->getId(),
+            'feed' => 'rady_gmin' . '/' . $this->object->getId(),
             'channel' => 'rada',
             'preset' => $this->object->getDataset(),
             'side' => 'gminy-rada',
+            'searchTitle' => 'Radzie Miasta',
         ));
+        
+		$this->channels = $rada->getLayer('channels');
 
         $this->set('title_for_layout', 'Rada Miasta Krakowa');
     }
@@ -176,14 +189,27 @@ class GminyController extends DataobjectsController
         // $_layers = array('rada_komitety');
         // $this->addInitLayers($_layers);
         $this->_prepareView();
-			    
+		
+		
+		
+		$urzad = $this->Dataobject->find('first', array(
+			'conditions' => array(
+				'dataset' => 'urzedy_gmin',
+				'id' => $this->object->getId(),
+			),
+			'layers' => array('channels'),
+		));
+		
 	    $this->Components->load('Dane.DataFeed', array(
-            'feed' => $this->object->getDataset() . '/' . $this->object->getId(),
-            'channel' => 'urzad',
+            'feed' => 'urzedy_gmin' . '/' . $this->object->getId(),
             'preset' => $this->object->getDataset(),
             'side' => 'gminy-urzad',
+            'searchTitle' => 'Urzędzie Miasta',
         ));
-
+        
+		$this->channels = $urzad->getLayer('channels');
+		
+		    
         $this->set('title_for_layout', 'Urząd Miasta Krakowa');
 
     }
@@ -1542,7 +1568,7 @@ class GminyController extends DataobjectsController
                 array(
                     'id' => '',
                     'href' => $href_base,
-                    'label' => 'Gmina',
+                    'label' => 'Aktualności',
                 ),
             )
         );

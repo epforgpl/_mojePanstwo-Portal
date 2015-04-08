@@ -391,7 +391,8 @@ class PoslowieController extends DataobjectsController
                 ),
             )
         );
-
+		
+		/*
         $menu['items'][] = array(
             'id' => 'dane',
             'label' => 'Dane',
@@ -432,6 +433,7 @@ class PoslowieController extends DataobjectsController
                 ),
             ),
         );
+        */
 
         $menu['items'][] = array(
             'id' => 'wydatki',

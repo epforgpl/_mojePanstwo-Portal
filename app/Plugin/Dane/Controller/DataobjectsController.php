@@ -213,7 +213,7 @@ class DataobjectsController extends AppController
 				    		$channels[$i]['active'] = true;
 			    	
 		    	} else $channels[0]['active'] = true;
-			    				    			    
+			    			    
 			    $this->set('object_channels', $channels);
 			    
 		    }
