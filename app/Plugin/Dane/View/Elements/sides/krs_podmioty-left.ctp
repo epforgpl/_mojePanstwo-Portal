@@ -2,7 +2,7 @@
 	$this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty', array('plugin' => 'Dane')));
 	$this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 ?>
-<div class="objectSideInner rs">
+<div class="objectSideInner">
     
     <div class="block">
     
@@ -15,27 +15,49 @@
 			    </li>
 			<? } ?>
 			
-			<? if ($object->getData('krs')) { ?>
-			    <li class="dataHighlight big">
-			        <p class="_label">Numer KRS</p>
+			<? if (
+			    ($object->getData('adres_ulica')) &&
+			    ($object->getData('adres_numer')) &&
+			    ($object->getData('adres_miejscowosc'))
+			) { 
+				
+				$adres = $object->getData('adres_ulica');
+				$adres .= ' ' . $object->getData('adres_numer');
+				$adres .= ', ' . $object->getData('adres_miejscowosc');
+				$adres .= ', Polska';				
+			?>
 			
-			        <p class="_value"><?= $object->getData('krs'); ?></p>
+				<li class="dataHighlight">
+			        <p class="_label">Adres</p>
+			
+			        <p class="_value"><?= $adres ?></p>
+			    </li>
+			
+			
+			<? } ?>
+			
+			
+			<? if ($object->getData('krs')) { ?>
+			    <li class="dataHighlight">
+			        <p class="_label pull-left">Numer KRS</p>
+			
+			        <p class="_value pull-right"><?= $object->getData('krs'); ?></p>
 			    </li>
 			<? } ?>
 			
 			<? if ($object->getData('nip')) { ?>
-			    <li class="dataHighlight big">
-			        <p class="_label">Numer NIP</p>
+			    <li class="dataHighlight">
+			        <p class="_label pull-left">Numer NIP</p>
 			
-			        <p itemprop="taxID" class="_value"><?= $object->getData('nip'); ?></p>
+			        <p itemprop="taxID" class="_value pull-right"><?= $object->getData('nip'); ?></p>
 			    </li>
 			<? } ?>
 			
 			<? if ($object->getData('regon')) { ?>
-			    <li class="dataHighlight big">
-			        <p class="_label">Numer REGON</p>
+			    <li class="dataHighlight">
+			        <p class="_label pull-left">Numer REGON</p>
 			
-			        <p class="_value"><?= $object->getData('regon'); ?></p>
+			        <p class="_value pull-right"><?= $object->getData('regon'); ?></p>
 			    </li>
 			<? } ?>
 			
@@ -48,33 +70,10 @@
 			    </li>
 			<? } ?>
 			
-			<? if ($object->getData('wartosc_czesc_kapitalu_wplaconego')) { ?>
-			    <li class="dataHighlight">
-			        <p class="_label">Część kapitału wpłaconego</p>
-			
-			        <p class="_value"><?= number_format_h($object->getData('wartosc_czesc_kapitalu_wplaconego')); ?> PLN</p>
-			    </li>
-			<? } ?>
-			
-			<? if ($object->getData('wartosc_kapital_docelowy')) { ?>
-			    <li class="dataHighlight">
-			        <p class="_label">Kapitał docelowy</p>
-			
-			        <p class="_value"><?= number_format_h($object->getData('wartosc_kapital_docelowy')); ?> PLN</p>
-			    </li>
-			<? } ?>
-			
-			<? if ($object->getData('wartosc_nominalna_podwyzszenia_kapitalu')) { ?>
-			    <li class="dataHighlight">
-			        <p class="_label">Wartość nominalna podwyższenia kapitału</p>
-			
-			        <p class="_value"><?= number_format_h($object->getData('wartosc_nominalna_podwyzszenia_kapitalu')); ?> PLN</p>
-			    </li>
-			<? } ?>
-			
+						
 			
 			<? if ($object->getData('data_rejestracji')) { ?>
-			    <li class="dataHighlight inl">
+			    <li class="dataHighlight">
 			        <p class="_label">Data rejestracji</p>
 			
 			        <p class="_value"><?= $this->Czas->dataSlownie($object->getData('data_rejestracji'), array(
@@ -113,6 +112,8 @@
 			<? } ?>
         </ul>
         
+        
+        <? /*
         <ul class="dataHighlights side hide">
             <? if ($object->getData('forma_prawna_str')) { ?>
 			    <li class="dataHighlight inl">
@@ -152,13 +153,15 @@
             <a class="a-more">Więcej &darr;</a>
             <a class="a-less hide">Mniej &uarr;</a>
         </p>
+        
+        */ ?>
     
     </div>
-
     
+        
 
 
-    <? if (!$object->getData('wykreslony')) { ?>
+    <? /* if (!$object->getData('wykreslony')) { ?>
 	    <div class="banner block">
 	        <?php echo $this->Html->image('Dane.banners/krspodmioty_banner.png', array(
 	            'width' => '69',
@@ -169,6 +172,6 @@
 	        <a href="/dane/krs_podmioty/<?= $object->getId() ?>/odpis" class="btn btn-primary">Kliknij aby
 	            pobrać</a>
 	    </div>
-	<? } ?>
+	<? } */ ?>
 	
 </div>

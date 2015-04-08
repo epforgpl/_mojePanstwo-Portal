@@ -13,7 +13,8 @@ class KrsPodmiotyController extends DataobjectsController
         'hlFields' => array(),
         'bigTitle' => true,
     );
-
+	
+	public $loadChannels = true;
     public $initLayers = array('counters');
 
     public $microdata = array(
@@ -72,15 +73,13 @@ class KrsPodmiotyController extends DataobjectsController
 
     }
 	
-	public function view()
-	{
-		return $this->feed();
-	}
 	
-    public function _view()
+    public function view()
     {
 
         $this->addInitLayers(array(
+	        'channels',
+            /*
             'reprezentacja',
             'wspolnicy',
             'jedynyAkcjonariusz',
@@ -88,6 +87,7 @@ class KrsPodmiotyController extends DataobjectsController
             'nadzor',
             'komitetZalozycielski',
             'dzialalnosci',
+            */
             'udzialy',
             'firmy',
         ));
@@ -112,85 +112,6 @@ class KrsPodmiotyController extends DataobjectsController
 
         $this->Session->delete('KRS.odpis');
 
-
-        $indicators = array(
-            array(
-                'label' => 'Numer KRS',
-                'value' => $this->object->getData('krs'),
-            ),
-        );
-
-        if ($this->object->getData('nip')) {
-            $indicators[] = array(
-                'label' => 'Numer NIP',
-                'value' => $this->object->getData('nip'),
-            );
-        }
-
-
-        $indicators[] = array(
-            'label' => 'Data rejestracji',
-            'value' => $this->object->getData('data_rejestracji'),
-            'format' => 'date',
-        );
-
-        if ($this->object->getData('wartosc_kapital_zakladowy')) {
-            $indicators[] = array(
-                'label' => 'Kapitał zakładowy',
-                'value' => $this->object->getData('wartosc_kapital_zakladowy'),
-                'format' => 'pln',
-            );
-        }
-
-
-        $this->set('indicators', $indicators);
-
-		/*
-		$this->feed();
-		*/
-		
-		/*
-        if ($this->object->getData('ostatni_wpis_id')) {
-
-
-            $historia = $this->API->searchDataset('msig_zmiany', array(
-                'limit' => 100,
-                'conditions' => array(
-                    'wpis_id' => $this->object->getData('ostatni_wpis_id'),
-                ),
-                'order' => array(
-                    '_date desc',
-                    'wpis_id asc',
-                    'nr_dz asc',
-                    'nr_rub asc',
-                    'nr_sub asc',
-                    'nr_prub_sub asc',
-                    '_ord desc',
-                ),
-            ));
-
-            $this->set('historia', $this->API->getObjects());
-
-        }
-        */
-
-
-        /*
-        $obszary = new MP\Obszary();
-        $this->set('obszar', $obszary->getMiejscowosc(array(
-            'conditions' => array(
-                'Miejscowosc.id' => $this->object->getData('miejscowosc_id')
-            ),
-            'fields' => array(
-                'Miejscowosc.nazwa',
-                'Miejscowosc.id',
-                'Powiat.nazwa',
-                'Gmina.nazwa',
-                'Gmina.id',
-                'Wojewodztwo.nazwa'
-            ),
-        )));
-        */
 
         $organy = array();
         $menu = array();
@@ -325,7 +246,9 @@ class KrsPodmiotyController extends DataobjectsController
         */
 
         $desc_bodies_parts[] = 'odpis z KRS';
-
+		
+		
+		/*
         $dzialalnosc = $this->object->getLayer('dzialalnosci');
         if ($dzialalnosc) {
             $dzialalnosci = array(
@@ -344,9 +267,12 @@ class KrsPodmiotyController extends DataobjectsController
 
 
         $this->set('_menu', $menu);
+        */
 
         $desc_parts[] = ucfirst(implode(', ', $desc_bodies_parts));
         $this->setMetaDesc(implode('. ', $desc_parts) . '.');
+        
+        return $this->feed();
 
     }
 
@@ -378,7 +304,17 @@ class KrsPodmiotyController extends DataobjectsController
         $this->set('title_for_layout', 'Histora zmian w ' . $this->object->getData('nazwa'));
 
     }
-
+	
+	public function powiazania()
+	{
+		
+		$this->addInitLayers(array('powiazania'));
+		$this->_prepareView();
+		
+		debug( $this->object->getLayer('powiazania') ); die();
+		
+	}
+	
     public function graph()
     {
         if (@$this->request->params['ext'] == 'json') {

@@ -188,8 +188,6 @@
         background: linear-gradient(45deg, rgba(1, 15, 31, 1) 0%, rgba(2, 28, 61, 1) 100%);
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#010f1f', endColorstr='#021c3d', GradientType=1);
 
-        min-height: 130px;
-
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -224,15 +222,12 @@
 
         &:not(.extended) .objectPageHeaderContainer .objectPageHeader {
             &.with-menu .mini {
-                margin-bottom: 17px;
-                margin-top: -10px;
+                margin-bottom: 0;
+                margin-top: 25px;
             }
-            .content {
-                -webkit-transform: translate(0, 50%);
-                -moz-transform: translate(0, 50%);
-                -ms-transform: translate(0, 50%);
-                -o-transform: translate(0, 50%);
-                transform: translate(0, 50%);
+            .mini {
+                margin-bottom: 15px;
+                margin-top: 30px;
             }
         }
 

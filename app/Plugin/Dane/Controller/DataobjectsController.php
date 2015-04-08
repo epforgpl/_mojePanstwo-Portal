@@ -151,8 +151,11 @@ class DataobjectsController extends AppController
         
     public function feed($params = array()) {
 	    
-	    $this->loadChannels = true;
+	    if( !is_array($params) )
+	    	$params = array();
 	    
+	    $this->loadChannels = true;
+	    	    
 	    if( $this->object===false )
 		    $this->load(array(
 			    'subscriptions' => true,
@@ -162,7 +165,7 @@ class DataobjectsController extends AppController
             'feed' => $this->object->getDataset() . '/' . $this->object->getId(),
             'preset' => $this->object->getDataset(),
         ), $params);
-        
+                
         if( isset($params['searchTitle']) )
         	$_params['searchTitle'] = $params['searchTitle'];
 	    
