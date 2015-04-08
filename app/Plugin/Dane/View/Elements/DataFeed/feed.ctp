@@ -129,7 +129,13 @@ $preset = $dataFeed['preset'];
         <? if ($this->params['paging']['Dataobject']['nextPage']) { ?>
             <span class="next">
                 <a rel="next"
-                   href="<?= $this->request->here ?>.html?page=<?php echo $this->Paginator->param('page') + 1 ?>"></a>
+                   href="<? $url = $this->request->here . '.html?page=' . ($this->Paginator->param('page') + 1);
+                   $query = $this->request->query;
+                   if (isset($query) && !empty($query)) {
+                       if (isset($query['conditions']) && isset($query['conditions']['q'])) unset($query['conditions']['q']);
+                       $url .= '&' . http_build_query($query);
+                   }
+                   echo $url; ?>"></a>
             </span>
         <? } ?>
     </div>
