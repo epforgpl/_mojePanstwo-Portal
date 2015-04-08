@@ -1,10 +1,10 @@
 @font-face {
-    font-family: 'mpIcon-prawo';
-    src: url('/Dane/fonts/mpIcon-prawo.eot?-48e6tl');
-    src: url('/Dane/fonts/mpIcon-prawo.eot?#iefix-48e6tl') format('embedded-opentype'),
-    url('/Dane/fonts/mpIcon-prawo.woff?-48e6tl') format('woff'),
-    url('/Dane/fonts/mpIcon-prawo.ttf?-48e6tl') format('truetype'),
-    url('/Dane/fonts/mpIcon-prawo.svg?-48e6tl#icomoon') format('svg');
+    font-family: 'mpIcon';
+    src: url('/Dane/fonts/mpIcon.eot?su24cr');
+    src: url('/Dane/fonts/mpIcon.eot?#iefixsu24cr') format('embedded-opentype'),
+    url('/Dane/fonts/mpIcon.woff?su24cr') format('woff'),
+    url('/Dane/fonts/mpIcon.ttf?su24cr') format('truetype'),
+    url('/Dane/fonts/mpIcon.svg?su24cr#mpIcon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -28,17 +28,56 @@
     }
 
     &.icon-dataset-prawo {
+        &:before {
+            font-family: "mpIcon";
+            font-size: 1em;
+        }
         &.icon-action-9:before {
-            content: "\e909";
-            font-family: "mpIcon-prawo";
+            content: "\e600";
         }
         &.icon-action-10:before {
-            content: "\e910";
-            font-family: "mpIcon-prawo";
+            content: "\e601";
         }
         &.icon-action-12:before {
-            content: "\e912";
-            font-family: "mpIcon-prawo";
+            content: "\e602";
+        }
+        &.icon-action-100:before {
+            content: "\e603";
+        }
+    }
+    &.icon-dataset-poslowie {
+        &:before {
+            font-family: "mpIcon";
+            font-size: 1em;
+        }
+        &.icon-action-1:before {
+            content: "\e604";
+            font-size: .6em;
+        }
+        &.icon-action-2:before {
+            content: "\e605";
+        }
+        &.icon-action-3:before {
+            content: "\e606";
+        }
+        &.icon-action-4:before {
+            content: "\e607";
+        }
+        &.icon-action-5:before {
+            content: "\e608";
+        }
+        &.icon-action-6:before {
+            content: "\e609";
+        }
+        &.icon-action-7:before {
+            content: "\e60a";
+        }
+        &.icon-action-8:before {
+            content: "\e60b";
+        }
+        &.icon-action-9:before {
+            content: "\e60c";
+            font-size: .8em;
         }
     }
 }

@@ -33,7 +33,7 @@ $this->Dataobject->setObject($object);
     <div class="row">
         <div class="col-xs-1 action text-center">
             <span class="<?php if ($object->getDataset() && $object->getAction()) {
-                echo 'mpIcon icon-dataset-' . $object->getDataset() . ' icon-action-' . $object->getAction();
+                echo 'mpIcon icon-dataset-' . $object->getCreator('dataset') . ' icon-action-' . $object->getAction();
             } else {
                 echo 'glyphicon glyphicon-volume-up';
             } ?>"></span>
