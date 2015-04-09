@@ -1,6 +1,6 @@
 <?php
 App::uses('HttpSocket', 'Network/Http');
-
+App::import('Model', 'Paszport.User');
 /**
  * Class UsersController
  *
@@ -144,7 +144,11 @@ class UsersController extends PaszportAppController
 
             // Fatal Error (1): Call to a member function find() on a non-object in [/home/www/portal-v2/_mojePanstwo-Portal/app/Plugin/Paszport/Controller/UsersController.php, line 145]
             // Trzeba wszystkie wywołania $this->PaszportApi zmienić na odwołania do nowego API przez model User
-            $user = $this->User->findFacebookUser($user_data['id'], $user_data['email']);
+            $_user = new User();
+            $user = $_user->findFacebookUser($user_data['id'], $user_data['email']);
+            var_dump($user);
+            die();
+
             if (!isset($user['user']) || empty($user['user'])) {
                 $user = false;
             } else {
@@ -197,7 +201,7 @@ class UsersController extends PaszportAppController
                         )
                     );
 
-                    $resp_user = $this->PassportApi->User()->add($to_save);
+                    $resp_user = $_user->register($to_save);
                     if (array_key_exists('user', $resp_user) && !empty($resp_user['user'])) {
                         $this->Session->setFlash(__d('paszport', 'LC_PASZPORT_FACEBOOK_REGISTER', true), null, array('class' => 'alert-success'));
 
@@ -208,7 +212,7 @@ class UsersController extends PaszportAppController
                             $session = $this->Session->read('API.session');
                             $this->externalgate($service, $session);
                         }
-                        $this->redirect(array('action' => 'setpassword'));
+                        $this->redirect(array('action' => 'login'));
 
                     } else {
                         $this->Session->setFlash(__d('paszport', 'LC_PASZPORT_FACEBOOK_REGISTER_FAILED', true), null, array('class' => 'alert-error'));
@@ -461,13 +465,14 @@ class UsersController extends PaszportAppController
      */
     public function __fbLanguage($rfc_lang)
     {
-        $lang = $this->PassportApi->find('languages', array('conditions' => array('rfc_code' => $rfc_lang)));
+        /*$lang = $this->PassportApi->find('languages', array('conditions' => array('rfc_code' => $rfc_lang)));
         $lang = $lang['lang'];
         if ($lang) {
             return $lang['Language']['id'];
         } else {
             return 2; # english
-        }
+        }*/
+        return 2;
     }
 
     /**
