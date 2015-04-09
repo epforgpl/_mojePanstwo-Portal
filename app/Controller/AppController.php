@@ -455,11 +455,11 @@ class AppController extends Controller {
 
 	public function beforeRender()
 	{
-
+				
 		if($this->Session->read('Auth.User.id') && $this->Session->read('Pisma.transfer_anonymous')) {
 			
-			$this->loadModel('Pisma.Pismo');
-			// $this->Pismo->transfer_anonymous($this->Session->read('previous_id'));
+			$this->loadModel('Pisma.Pismo');			
+			$this->Pismo->transfer_anonymous($this->Session->read('previous_id'));
 			
 			$this->Session->delete('Pisma.transfer_anonymous');
 			return $this->redirect($this->request->here);

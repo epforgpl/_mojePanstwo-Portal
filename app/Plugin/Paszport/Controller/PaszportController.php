@@ -75,8 +75,12 @@ class PaszportController extends ApplicationsController
 	        
             if ($this->request->is('post')) {
                 try {
+	                
+	                $previous_session_id = session_id();	                
                     $this->Auth->login();
+	                $this->Session->write('previous_id', $previous_session_id);
                     $this->redirect($this->referer());
+                    
                 } catch (Exception $e) {
                     $this->Session->setFlash(
                         __($e->getMessage()),
