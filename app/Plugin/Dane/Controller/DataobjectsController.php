@@ -189,8 +189,7 @@ class DataobjectsController extends AppController
 		    
 		    $this->menu['selected'] = $selected;   
 		    $this->menu['base'] = $this->object->getUrl();   
-		    		    		    
-		    	    
+		    		    	    
 		    if(
 			    $this->loadChannels && 
 			    ( $channels = $this->channels )
@@ -199,7 +198,7 @@ class DataobjectsController extends AppController
 			    $channels = array_merge(array(array(
 				    'DatasetChannel' => array(
 					    'icon' => 'all',
-					    'title' => 'Wszystko',
+					    'title' => 'Wszystkie dane',
 				    ),
 			    )), $channels);
 			    			    
@@ -220,6 +219,8 @@ class DataobjectsController extends AppController
 		    
 		    $this->set('object_menu', $this->menu);
             $this->set('object_addons', $this->addons);
+	
+	        $this->prepareMetaTags();
 	    }
 	    
     }

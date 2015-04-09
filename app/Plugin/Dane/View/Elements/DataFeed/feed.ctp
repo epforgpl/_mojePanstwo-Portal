@@ -53,21 +53,20 @@ $preset = $dataFeed['preset'];
                     if (isset($channel['DatasetChannel']['channel']))
                         $query['channel'] = $channel['DatasetChannel']['channel'];
 
-                    if (!isset($channel['DatasetChannel']['icon']))
-                        $channel['DatasetChannel']['icon'] = 'all';
-
                     $href = $this->request->here;
                     if (!empty($query))
                         $href .= '?' . http_build_query($query);
 
                     $channel['active'] = isset($channel['active']) ? (boolean)$channel['active'] : false;
-
+																				
                     ?>
                     <div class="action col-md-2<? if ($channel['active']) { ?> active<? } ?>">
-                        <a class="icon<?= ' ' . $channel['DatasetChannel']['icon'] ?>"
-                           href="<?= $href ?>"><span></span>
-
-                            <p><?= $channel['DatasetChannel']['title'] ?></p></a>
+	                    <? if( isset($channel['DatasetChannel']['channel']) ) {?>
+	                        <a class="icon" href="<?= $href ?>"><span class="mpIcon icon-dataset-<?= $dataFeed['preset'] ?> icon-action-<?= $channel['DatasetChannel']['channel'] ?>"></span>
+	                    <? } else { ?>
+	                        <a class="icon all" href="<?= $href ?>"><span></span>
+						<? } ?>
+                        <p><?= $channel['DatasetChannel']['title'] ?></p></a>
                     </div>
                 <? } ?>
                 <div class="action showMore col-md-2">
@@ -99,12 +98,11 @@ $preset = $dataFeed['preset'];
                         te dane
                     </button>
                 </form>
-
+                */ ?>
                 <a class="actionIcons icon api" target="_blank" href="#" data-toggle="modal"
                    data-target=".modal-api-call"><span
                         class="glyphicon glyphicon-cog"></span>API
                 </a>
-                */ ?>
             </div>
         </div>
     </div>

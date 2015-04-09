@@ -1,12 +1,10 @@
 <?
 
 $hlFields = array();
-/*
 if ($object->getData('typ_id') == '2')
     $hlFields[] = 'autor_str';
 else
     $hlFields[] = 'poslowie_str';
-*/
 $thumbSize = 2;
 $size = 2;
 

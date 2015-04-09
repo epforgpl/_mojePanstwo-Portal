@@ -45,13 +45,12 @@ class DataFeedComponent extends Component
         $hits = $this->controller->Paginator->paginate('Dataobject');
 
         $aggs = $this->controller->Dataobject->getAggs();
-		
-		
+				
         $channels_data = array();
         if (
-	        isset($aggs['all_data']['feed_data']['feed']['channel']['buckets'])
+	        isset($aggs['_channels']['feed_data']['feed']['channel']['buckets'])
         )
-            foreach ($aggs['all_data']['feed_data']['feed']['channel']['buckets'] as $d)
+            foreach ($aggs['_channels']['feed_data']['feed']['channel']['buckets'] as $d)
                 $channels_data[$d['key']] = $d['doc_count'];
 
         $channels = array();
@@ -124,46 +123,8 @@ class DataFeedComponent extends Component
             (list($dataset, $object_id) = $parts)
         ) {
 
-            $output['aggs'] = array(
-                'all_data' => array(
-                    'global' => '_empty',
-                    'aggs' => array(
-                        'feed_data' => array(
-                            'nested' => array(
-                                'path' => 'feeds_channels',
-                            ),
-                            'aggs' => array(
-                                'feed' => array(
-                                    'filter' => array(
-                                        'and' => array(
-                                            'filters' => array(
-                                                array(
-                                                    'term' => array(
-                                                        'feeds_channels.dataset' => $dataset,
-                                                    ),
-                                                ),
-                                                array(
-                                                    'term' => array(
-                                                        'feeds_channels.object_id' => $object_id,
-                                                    ),
-                                                )
-                                            ),
-                                        ),
-                                    ),
-                                    'aggs' => array(
-                                        'channel' => array(
-                                            'terms' => array(
-                                                'field' => 'feeds_channels.channel',
-                                                'size' => 100,
-                                            ),
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            );
+            $output['aggs']['_channels'] = true;
+                
 
             // debug( $output['aggs'] ); die();
 

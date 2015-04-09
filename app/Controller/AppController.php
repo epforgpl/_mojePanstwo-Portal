@@ -455,7 +455,6 @@ class AppController extends Controller {
 
 	public function beforeRender()
 	{
-        $this->prepareMetaTags();
 
 		if($this->Session->read('Auth.User.id') && $this->Session->read('Pisma.transfer_anonymous')) {
 			
