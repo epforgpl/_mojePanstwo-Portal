@@ -132,7 +132,7 @@ class UsersController extends PaszportAppController
                 $this->redirect($this->Connect->FB->getLoginUrl(array('scope' => 'email,user_birthday')));
             }
 
-            $conds = array(
+            /* $conds = array(
                 'conditions' => array(
                     'OR' => array(
                         array('User.facebook_id' => $user_data['id']),
@@ -140,9 +140,11 @@ class UsersController extends PaszportAppController
                     ),
                 ),
                 'contain' => array('Language', 'Group', 'UserExpand'),
-            );
+            ); */
 
-            $user = $this->PassportApi->find('users', $conds);
+            // Fatal Error (1): Call to a member function find() on a non-object in [/home/www/portal-v2/_mojePanstwo-Portal/app/Plugin/Paszport/Controller/UsersController.php, line 145]
+            // Trzeba wszystkie wywołania $this->PaszportApi zmienić na odwołania do nowego API przez model User
+            $user = $this->User->findFacebookUser($user_data['id'], $user_data['email']);
             if (!isset($user['user']) || empty($user['user'])) {
                 $user = false;
             } else {
