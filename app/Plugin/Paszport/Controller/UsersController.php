@@ -462,13 +462,14 @@ class UsersController extends PaszportAppController
      */
     public function __fbLanguage($rfc_lang)
     {
-        $lang = $this->PassportApi->find('languages', array('conditions' => array('rfc_code' => $rfc_lang)));
+        /*$lang = $this->PassportApi->find('languages', array('conditions' => array('rfc_code' => $rfc_lang)));
         $lang = $lang['lang'];
         if ($lang) {
             return $lang['Language']['id'];
         } else {
             return 2; # english
-        }
+        }*/
+        return 2;
     }
 
     /**
