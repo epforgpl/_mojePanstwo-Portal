@@ -130,7 +130,7 @@
 	            </div>
 	        </li>
 	
-	        <li class="dataHighlight topborder">
+	        <li class="dataHighlight">
 	            <p class="_label">Biuletyn Informacji Publicznej</p>
 	
 	            <div>
