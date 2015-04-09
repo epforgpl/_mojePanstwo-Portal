@@ -150,9 +150,9 @@ class UsersController extends PaszportAppController
                 $user = false;
             }
             if ($user && $user['user']['facebook_id']) { # if user is already FB connected to us, just log him in
-                var_dump(1);
+                var_export($user);
+                var_export($this->Auth->login($user['user']));
                 die();
-                $this->Auth->login($user['user']);
                 $this->_log(array(
                     'msg' => 'LC_PASZPORT_LOG_LOGIN_FB',
                     'ip' => $this->request->clientIp(),
