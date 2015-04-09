@@ -63,9 +63,9 @@ class PaszportController extends ApplicationsController
 
     public function facebookLogin()
     {
-        $user = $this->Connect->FB->getUser();
+        $userId = $this->Connect->FB->getUser();
 
-        if(!$user)
+        if(!$userId)
         {
             if(isset($this->request->query['error_reason']))
             {
@@ -76,22 +76,18 @@ class PaszportController extends ApplicationsController
                     $error = 'LC_PASZPORT_FACEBOOK_LOGIN_FAILED';
                 }
 
-                $this->Session->setFlash(
-                    __d('paszport', $error, true), null,
-                    array('class' => 'alert-error')
-                );
-
+                $this->Session->setFlash(__d('paszport', $error, true), null, array('class' => 'alert-error'));
                 $this->redirect(array('action' => 'login'));
             }
 
-            $redirect = $this->Connect->FB->getLoginUrl(
-                array('scope' => 'email,user_birthday')
-            );
-
-            $this->redirect($redirect);
-
+            $this->redirect($this->Connect->FB->getLoginUrl(array('scope' => 'email,user_birthday')));
         } else {
-            var_dump($user);
+
+            $userData = $this->Connect->FB->api('/me/?fields=id,first_name,last_name,email,gender,picture.type(square).width(200),birthday,locale');
+            if(!$userData)
+                $this->redirect($this->Connect->FB->getLoginUrl(array('scope' => 'email,user_birthday')));
+
+            var_dump($userData);
             die();
         }
     }
