@@ -1,14 +1,13 @@
-<?
-$source = $object->getLayer('source');
-?>
-<p class="account"><a href="#"><?= $object->getData('twitter_accounts.name') ?></a>
-    <span>via <?= @$source['name'] ?></span></p>
-
 <h1 class="_">
-    <?php echo $object->getData('html') ?>
+	<p class="_thumb_cont">
+		<img src="<?= $object->getData('twitter_accounts.profile_image_url') ?>" />
+	</p>
+	<p class="_title">
+	    <?php echo $object->getData('html') ?>
+	</p>
 </h1>
 
-<? if ($object->getData('twitter_account_id')) { ?>
+<? /* if ($object->getData('twitter_account_id')) { ?>
     <div class="tweet_stats" style="border-top: 1px solid #CCC; margin: 10px 0 0; text-align: left;">
         <div class="row">
             <div class="col-lg-2">
@@ -26,7 +25,7 @@ $source = $object->getLayer('source');
                             class="glyphicon glyphicon-transfer"></span> <?= $object->getData('liczba_odpowiedzi') ?>
                     </a></p>
 
-                <? /*<p class="_label"><?= __d('media', 'LC_PANSTWOINTERNET_ODPOWIEDZI') ?></p> */ ?>
+                <? <p class="_label"><?= __d('media', 'LC_PANSTWOINTERNET_ODPOWIEDZI') ?></p>  ?>
 
             </div>
             <div class="col-lg-2">
@@ -38,7 +37,7 @@ $source = $object->getLayer('source');
             </div>
         </div>
     </div>
-<? } ?>
+<? } */ ?>
 
 
 </div>

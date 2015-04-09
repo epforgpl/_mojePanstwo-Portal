@@ -90,7 +90,8 @@ class Twitter extends DataObject
 
         return $output;
         */
-        return 'Tweet';
+                
+        return 'Tweet od <a href="/dane/twitter_accounts/' . $this->getData('twitter_accounts.id') . '">' . $this->getData('twitter_accounts.name') . '</a>';
     }
 	
 	public function getData($field = '*')

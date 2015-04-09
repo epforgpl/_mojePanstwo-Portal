@@ -8,7 +8,7 @@
 	
 	if ($object->getId() == '903') {
 	    $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
-	    $this->Combinator->add_libs('js', 'Dane.view-gminy-krakow');
+	    // $this->Combinator->add_libs('js', 'Dane.view-gminy-krakow');
 	}
 
 ?>
@@ -130,7 +130,7 @@
 	            </div>
 	        </li>
 	
-	        <li class="dataHighlight topborder">
+	        <li class="dataHighlight">
 	            <p class="_label">Biuletyn Informacji Publicznej</p>
 	
 	            <div>
