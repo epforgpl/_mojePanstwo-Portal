@@ -830,15 +830,8 @@ class GminyController extends DataobjectsController
 
         } else {
 			
-			$this->Components->load('Dane.DataBrowser', array(
-	            'conditions' => array(
-		            'dataset' => 'dzielnice',
-		            // 'gmina_id' => $this->object->getId(),
-	            ),
-	            'aggsPreset' => 'dzielnice',
-	        ));  			
-
             $this->set('title_for_layout', 'Dzielnice miasta ' . $this->object->getData('nazwa'));
+            $this->render('dzielnice');
 
         }
 

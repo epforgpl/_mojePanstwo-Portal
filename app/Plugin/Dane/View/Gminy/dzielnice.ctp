@@ -5,5 +5,7 @@ if ($object->getId() == '903') {
 }
 
 echo $this->Element('dataobject/pageBegin');
-echo $this->Element('Dane.DataBrowser/browser');
+
+debug( $object->getLayer('dzielnice') );
+	
 echo $this->Element('dataobject/pageEnd');
