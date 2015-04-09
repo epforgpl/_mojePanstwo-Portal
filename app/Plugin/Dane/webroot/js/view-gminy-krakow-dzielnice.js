@@ -27,8 +27,22 @@ function initialize() {
     });
 
     google.maps.event.addListener(kmlLayer, 'click', function (kmlEvent) {
-        var text = kmlEvent.featureData;
+        console.log(kmlEvent);
     });
+
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
+
+
+$(document).ready(function () {
+    var header = $('.objectPageHeaderBg').outerHeight(true),
+        holder = $('.holder'),
+        dzielniceMap = $('#dzielnice_map'),
+        fundatorzy = $('#fundatorzy').outerHeight(true);
+
+    var size = $(window).outerHeight() - header - fundatorzy;
+
+    holder.css('height', size);
+    dzielniceMap.css('height', size);
+});
