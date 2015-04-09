@@ -155,6 +155,7 @@ class UsersController extends PaszportAppController
                 var_dump($this->Auth->loggedIn());
                 var_dump($this->Auth->redirectUrl());
                 var_dump($this->Auth->User());
+                die();
 
                 $this->_log(array(
                     'msg' => 'LC_PASZPORT_LOG_LOGIN_FB',
