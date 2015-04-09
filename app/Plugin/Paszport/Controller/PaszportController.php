@@ -65,13 +65,34 @@ class PaszportController extends ApplicationsController
     {
         $user = $this->Connect->FB->getUser();
 
-        if(!$user) {
+        if(!$user)
+        {
+            if(isset($this->request->query['error_reason']))
+            {
+                $reason = $this->request->query['error_reason'];
+                if($reason == 'user_denied') {
+                    $error = 'LC_PASZPORT_FACEBOOK_LOGIN_USER_DENIED';
+                } else {
+                    $error = 'LC_PASZPORT_FACEBOOK_LOGIN_FAILED';
+                }
+
+                $this->Session->setFlash(
+                    __d('paszport', $error, true), null,
+                    array('class' => 'alert-error')
+                );
+
+                $this->redirect(array('action' => 'login'));
+            }
 
             $redirect = $this->Connect->FB->getLoginUrl(
                 array('scope' => 'email,user_birthday')
             );
 
             $this->redirect($redirect);
+
+        } else {
+            var_dump($user);
+            die();
         }
     }
 
