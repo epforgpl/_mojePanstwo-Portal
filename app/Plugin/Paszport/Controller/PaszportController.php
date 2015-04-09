@@ -61,6 +61,48 @@ class PaszportController extends ApplicationsController
 
     }
 
+    public function facebookLogin()
+    {
+        $userId = $this->Connect->FB->getUser();
+        if(!$userId) {
+            if(isset($this->request->query['error_reason'])) {
+                $reason = $this->request->query['error_reason'];
+                if($reason == 'user_denied') {
+                    $error = 'LC_PASZPORT_FACEBOOK_LOGIN_USER_DENIED';
+                } else {
+                    $error = 'LC_PASZPORT_FACEBOOK_LOGIN_FAILED';
+                }
+
+                $this->Session->setFlash(__d('paszport', $error, true), null, array('class' => 'alert-error'));
+                $this->redirect(array('action' => 'login'));
+            }
+            $this->redirect($this->Connect->FB->getLoginUrl(array('scope' => 'email,user_birthday')));
+        } else {
+            $userData = $this->Connect->FB->api('/me/?fields=id,first_name,last_name,email,gender,picture.type(square).width(200),birthday,locale');
+            if(!$userData)
+                $this->redirect($this->Connect->FB->getLoginUrl(array('scope' => 'email,user_birthday')));
+
+            $user = new User();
+            $response = $user->registerFromFacebook($userData);
+
+            if(isset($response['errors']) && is_array($response['errors']) && count($response['errors']) > 0) {
+                foreach($response['errors'] as $field => $error) {
+                    $this->Session->setFlash(
+                        __($error[0]),
+                        'default',
+                        array(),
+                        'auth'
+                    );
+                }
+            } elseif(isset($response['user']) && $response['user']) {
+                $this->Auth->login($response['user']);
+                $this->redirect($this->Auth->redirectUrl());
+            } else {
+                throw new BadRequestException();
+            }
+        }
+    }
+
     public function login()
     {
 	    

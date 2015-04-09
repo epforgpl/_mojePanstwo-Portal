@@ -199,6 +199,15 @@ class User extends PaszportAppModel
         return $response;
     }
 
+    public function registerFromFacebook($userData) {
+        $response = $this->getDataSource()->request('paszport/user/registerFromFacebook', array(
+            'data' => $userData,
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
     public function findFacebookUser($facebook_id, $email) {
         $response = $this->getDataSource()->request('paszport/user/findFacebook', array(
             'data' => array(
