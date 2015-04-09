@@ -198,7 +198,7 @@ class UsersController extends PaszportAppController
                         )
                     );
 
-                    $resp_user = $this->PassportApi->User()->add($to_save);
+                    $resp_user = $_user->register($to_save);
                     if (array_key_exists('user', $resp_user) && !empty($resp_user['user'])) {
                         $this->Session->setFlash(__d('paszport', 'LC_PASZPORT_FACEBOOK_REGISTER', true), null, array('class' => 'alert-success'));
 
