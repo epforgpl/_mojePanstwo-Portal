@@ -146,12 +146,12 @@ class UsersController extends PaszportAppController
             // Trzeba wszystkie wywołania $this->PaszportApi zmienić na odwołania do nowego API przez model User
             $_user = new User();
             $user = $_user->findFacebookUser($user_data['id'], $user_data['email']);
-            var_dump($user);
-            die();
             if (!isset($user['user']) || empty($user['user'])) {
                 $user = false;
             }
             if ($user && $user['user']['facebook_id']) { # if user is already FB connected to us, just log him in
+                var_dump(1);
+                die();
                 $this->Auth->login($user['user']);
                 $this->_log(array(
                     'msg' => 'LC_PASZPORT_LOG_LOGIN_FB',
