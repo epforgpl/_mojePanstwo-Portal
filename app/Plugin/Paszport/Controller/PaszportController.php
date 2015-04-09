@@ -64,11 +64,8 @@ class PaszportController extends ApplicationsController
     public function facebookLogin()
     {
         $userId = $this->Connect->FB->getUser();
-
-        if(!$userId)
-        {
-            if(isset($this->request->query['error_reason']))
-            {
+        if(!$userId) {
+            if(isset($this->request->query['error_reason'])) {
                 $reason = $this->request->query['error_reason'];
                 if($reason == 'user_denied') {
                     $error = 'LC_PASZPORT_FACEBOOK_LOGIN_USER_DENIED';
@@ -79,15 +76,15 @@ class PaszportController extends ApplicationsController
                 $this->Session->setFlash(__d('paszport', $error, true), null, array('class' => 'alert-error'));
                 $this->redirect(array('action' => 'login'));
             }
-
             $this->redirect($this->Connect->FB->getLoginUrl(array('scope' => 'email,user_birthday')));
         } else {
-
             $userData = $this->Connect->FB->api('/me/?fields=id,first_name,last_name,email,gender,picture.type(square).width(200),birthday,locale');
             if(!$userData)
                 $this->redirect($this->Connect->FB->getLoginUrl(array('scope' => 'email,user_birthday')));
 
-            var_dump($userData);
+            $user = new User();
+            $response = $user->registerFromFacebook($userData);
+            var_dump($response);
             die();
         }
     }
