@@ -146,6 +146,9 @@ class UsersController extends PaszportAppController
             // Trzeba wszystkie wywołania $this->PaszportApi zmienić na odwołania do nowego API przez model User
             $_user = new User();
             $user = $_user->findFacebookUser($user_data['id'], $user_data['email']);
+            var_dump($user);
+            die();
+
             if (!isset($user['user']) || empty($user['user'])) {
                 $user = false;
             } else {
@@ -209,7 +212,7 @@ class UsersController extends PaszportAppController
                             $session = $this->Session->read('API.session');
                             $this->externalgate($service, $session);
                         }
-                        $this->redirect(array('action' => 'setpassword'));
+                        $this->redirect(array('action' => 'login'));
 
                     } else {
                         $this->Session->setFlash(__d('paszport', 'LC_PASZPORT_FACEBOOK_REGISTER_FAILED', true), null, array('class' => 'alert-error'));
