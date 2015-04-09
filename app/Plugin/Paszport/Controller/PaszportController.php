@@ -84,8 +84,22 @@ class PaszportController extends ApplicationsController
 
             $user = new User();
             $response = $user->registerFromFacebook($userData);
-            var_dump($response);
-            die();
+
+            if(isset($response['errors']) && is_array($response['errors']) && count($response['errors']) > 0) {
+                foreach($response['errors'] as $field => $error) {
+                    $this->Session->setFlash(
+                        __($error[0]),
+                        'default',
+                        array(),
+                        'auth'
+                    );
+                }
+            } elseif(isset($response['user']) && $response['user']) {
+                $this->Auth->login($response['user']);
+                $this->redirect($this->Auth->redirectUrl());
+            } else {
+                throw new BadRequestException();
+            }
         }
     }
 
