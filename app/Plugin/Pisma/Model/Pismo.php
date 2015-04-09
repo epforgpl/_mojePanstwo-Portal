@@ -23,14 +23,20 @@ class Pismo extends AppModel
 	    	'method' => 'GET',
 	    	'data' => $params,
     	));
-    	    	
-    	return $res;	    
-    
+    	
+    	$code = (int) $this->getDataSource()->Http->response->code;
+    	if( $code>=400 ) {
+	    	
+	    	throw new NotFoundException();
+	    	
+    	} else { 	    	
+	    	return $res;	    
+		}
     }
     
     public function transfer_anonymous($temp_user_id) {
 	    
-	    debug($temp_user_id); die();
+	    // debug($temp_user_id); die();
 	    
 	    $res = $this->getDataSource()->request('pisma/transfer_anonymous', array(
 	    	'method' => 'GET',

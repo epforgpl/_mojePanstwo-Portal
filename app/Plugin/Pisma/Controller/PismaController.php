@@ -40,7 +40,7 @@ class PismaController extends ApplicationsController
 		try {
 
 			$pismo = $this->Pismo->documents_read($id);
-			
+						
 	        $this->set('title_for_layout', $pismo['nazwa']);
 	        $this->set('pismo', $pismo);
 
@@ -48,7 +48,7 @@ class PismaController extends ApplicationsController
 
         } catch (Exception $e) {
 
-	        $this->set('title_for_layout', 'Pismo nie istnieje');
+	        $this->set('title_for_layout', 'Pismo nie istnieje lub nie masz do niego dostępu');
 		    return $this->render('not_found');
 
         }
