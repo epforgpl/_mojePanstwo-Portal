@@ -120,8 +120,20 @@ var DataBrowser = Class.extend({
 		var histogram_data = [];
         var _this = this;
         var max = 0;
+
+        var dateRange = {
+            min: 9000000000000,
+            max: 0
+        };
+
         for(var i = 0; i < data.buckets.length; i++) {
             var date = data.buckets[i].key_as_string.split("-");
+
+            var utc = Date.UTC(parseInt(date[0]),  parseInt(date[1]) - 1, parseInt(date[2]));
+            if(utc < dateRange.min)
+                dateRange.min = utc;
+            if(utc > dateRange.max)
+                dateRange.max = utc;
 
             histogram_data[i] = [
                 Date.UTC(parseInt(date[0]),  parseInt(date[1]) - 1, parseInt(date[2])),
@@ -229,8 +241,45 @@ var DataBrowser = Class.extend({
                 data: histogram_data
             }]
         });
-		
-		
+
+
+        $.fn.datepicker.defaults.format = "yyyy-mm-dd";
+
+        li.find('a.select-date-range').first().click(function() {
+
+            var _modal = $('#selectDateRangeModal');
+            var _datepicker = $('#datepicker');
+            var _start = _datepicker.find('input[name=start]').first();
+            var _end = _datepicker.find('input[name=end]').first();
+            var _submit = $('#selectDateSubmit');
+            var _startDate = _this.getFormattedDate(new Date(dateRange.min));
+            var _endDate = _this.getFormattedDate(new Date(dateRange.max));
+
+            _start.val(_startDate);
+            _end.val(_endDate);
+
+            _datepicker.datepicker({
+                language: 'pl',
+                orientation: 'auto top',
+                format: "yyyy-mm-dd",
+                autoclose: true
+            });
+
+            _submit.click(function() {
+                var dataArg = [
+                    '[',
+                    _start.val(),
+                    ' TO ',
+                    _end.val(),
+                    ']'
+                ];
+
+                window.location.href = choose_request + dataArg.join('');
+                return false;
+            });
+
+        });
+
 	},
 	
 	initAggColumnsVertical: function(li) {
