@@ -1,8 +1,8 @@
 .appHeader .holder h2 {
-    text-shadow: 0 0 1px #000000;
+  text-shadow: 0 0 1px #000000;
 }
 #media {
-    padding-top: 20px;
+  padding-top: 20px;
 }
 #media .container {
   width: 100%;
@@ -46,7 +46,7 @@
   display: inline-block;
   font-size: 26px;
   font-weight: 400;
-    margin: 0 0 10px;
+  margin: 0 0 10px;
 }
 #media h4 {
   display: inline-block;
@@ -186,10 +186,9 @@
   padding-top: 20px;
   margin-bottom: 20px;
 }
-
 #media #twitter > .innerContent > .row > [class*="col-"] {
-    padding-left: 0;
-    padding-right: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 #media .stats {
   margin-top: 1em;
@@ -198,9 +197,9 @@
 }
 #media .ranks {
   text-align: center;
-    margin-left: 0;
-    margin-right: 0;
-    margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
 }
 #media .rank-row-block {
   margin-top: 40px;
@@ -218,7 +217,7 @@
 }
 #media .rank-row-block .rank-row {
   background-color: #FFF;
-    margin: 20px 0 0;
+  margin: 20px 0 0;
 }
 #media .rank-row-block .rank-row .rank-col ul {
   padding: 0;
@@ -425,7 +424,7 @@
   color: #ffffff;
 }
 #media .twitter-people .twitterContent .profile-header-inner {
-    background: #444444 no-repeat;
+  background: #444444 no-repeat;
   box-shadow: 0 -1px 0 rgba(0,0,0,0.1) inset;
   height: 260px;
   padding: 0;
@@ -541,7 +540,6 @@
   position: absolute;
   width: 1px;
 }
-
 #media #urzedyMedia #tblMain,
 #media #prawo #tblMain {
   font-family: "Lato", Arial, sans-serif;
@@ -550,7 +548,6 @@
   color: #000000;
   margin: 20px auto;
 }
-
 #media #urzedyMedia #tblMain tr:first-child,
 #media #prawo #tblMain tr:first-child {
   color: #ffffff;
@@ -558,29 +555,24 @@
   font-weight: 700;
   background-color: #00aeef;
 }
-
 #media #urzedyMedia #tblMain tr td,
 #media #prawo #tblMain tr td {
   border: 1px solid #939598;
   padding: 5px 10px;
   text-align: center;
 }
-
 #media #urzedyMedia #tblMain tr td:first-child,
 #media #prawo #tblMain tr td:first-child {
   text-align: left;
 }
-
 #media #urzedyMedia #tblMain tr td .glyphicon.glyphicon-ok,
 #media #prawo #tblMain tr td .glyphicon.glyphicon-ok {
   color: #40ae49;
 }
-
 #media #urzedyMedia #tblMain tr td .glyphicon.glyphicon-remove,
 #media #prawo #tblMain tr td .glyphicon.glyphicon-remove {
   color: #d2232a;
 }
-
 #media #urzedyMedia #tblMain tr td .line,
 #media #prawo #tblMain tr td .line {
   display: inline-block;
@@ -700,17 +692,14 @@
 #media #ofundacji img {
   padding: 10px 0;
 }
-
 @media (min-width: 992px) {
-    #media .rank-row-block .rank-row .rank-col {
-        border-right: 1px solid #CCC;
-    }
-
-    #media .rank-row-block .rank-row .rank-col:nth-child(4n) {
-        border-right: none;
-    }
-
-    #media .rank-row-block .rank-row .rank-col:last-child {
-        border-right: none;
-    }
+  #media .rank-row-block .rank-row .rank-col {
+    border-right: 1px solid #CCC;
+  }
+  #media .rank-row-block .rank-row .rank-col:nth-child(4n) {
+    border-right: none;
+  }
+  #media .rank-row-block .rank-row .rank-col:last-child {
+    border-right: none;
+  }
 }

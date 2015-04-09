@@ -1,4 +1,6 @@
 <?
+$this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('js', 'Dane.DataBrowser.js');	
 $this->Combinator->add_libs('css', $this->Less->css('datafeed', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.datafeed');
 
@@ -7,7 +9,7 @@ $preset = $dataFeed['preset'];
 
 ?>
 
-<div class="dataBrowser dataFeed<? if ($dataFeed['timeline']) echo ' feed-timeline'; ?>">
+<div class="<? if ($dataFeed['timeline']) echo 'feed-timeline'; ?>">
     <div class="modal modal-api-call">
         <div class="modal-dialog">
             <div class="modal-content">

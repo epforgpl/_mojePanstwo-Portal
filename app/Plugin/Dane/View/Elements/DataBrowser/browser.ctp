@@ -124,42 +124,7 @@
 		</div>
 		<? if(!empty($dataBrowser['aggs'])) { ?>
 		<div class="col-md-4">
-            <ul class="dataAggs">
-            <? foreach($dataBrowser['aggs'] as $agg_id => $agg_data) { ?>
-                <? if ( 
-	                (
-		                isset( $agg_data['buckets'] ) && 
-		                count( $agg_data['buckets'] ) 
-	                ) || 
-	                (
-	                	isset( $agg_data['value'] ) && 
-	                	$agg_data['value']
-	                ) ||
-                    (
-                        isset($this->request->query['conditions'][$dataBrowser['aggs_visuals_map'][$agg_id]['field']])
-                    )
-	            ) { ?>
-                    <li class="agg">
-                        <h2><?= $dataBrowser['aggs_visuals_map'][$agg_id]['label']; ?></h2>
-                        <?
-						
-						if(
-							isset($dataBrowser['aggs_visuals_map'][$agg_id]['dictionary']) && 
-							isset($agg_data['buckets']) && 
-							( $dictionary = $dataBrowser['aggs_visuals_map'][$agg_id]['dictionary'] )
-						) 
-							foreach( $agg_data['buckets'] as &$b )
-								$b['label']['buckets'][0]['key'] = array_key_exists($b['key'], $dictionary) ? $dictionary[ $b['key'] ] : '';
-						
-                        echo $this->element('Dane.DataBrowser/' . $dataBrowser['aggs_visuals_map'][$agg_id]['skin'], array(
-                            'data' => $agg_data,
-                            'map' => $dataBrowser['aggs_visuals_map'][$agg_id]
-                        ));
-                        ?>
-                    </li>
-                <? } ?>
-            <? } ?>
-            </ul>
+            <? echo $this->Element('Dane.DataBrowser/aggs', array('data' => $dataBrowser)); ?>
 		</div>
 		<? } ?>
 	</div>

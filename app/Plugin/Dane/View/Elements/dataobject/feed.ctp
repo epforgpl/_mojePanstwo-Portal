@@ -7,7 +7,7 @@
 	$side_right = file_exists($path);
 
 ?>
-<div class="row row-feed">
+<div class="row row-feed dataBrowser dataFeed">
 	<? if( $side_left ) {?>    
     <div class="col-xs-12 col-sm-3 objectSide col-feed-side col-feed-side-left">
         <? echo $this->Element('Dane.sides/' . $dataFeed['side'] . '-left'); ?>
@@ -20,6 +20,9 @@
     </div>
     <div class="col-xs-12 col-sm-2 col-feed-side col-feed-side-right">
         
+        
+        <? echo $this->Element('Dane.DataBrowser/aggs', array('data' => $dataFeed)); ?>
+        
         <?
 	        if( $side_right ) 
 	        	echo $this->Element('Dane.sides/' . $dataFeed['side'] . '-right');
@@ -27,6 +30,7 @@
 	        // else
 	        	// echo $this->Element('Dane.object-actions');
 	    ?>
+        
         
         <? /*	
         <div class="subscription">

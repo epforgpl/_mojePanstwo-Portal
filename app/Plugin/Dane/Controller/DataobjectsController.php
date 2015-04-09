@@ -189,34 +189,7 @@ class DataobjectsController extends AppController
 		    
 		    $this->menu['selected'] = $selected;   
 		    $this->menu['base'] = $this->object->getUrl();   
-		    		    	    
-		    if(
-			    $this->loadChannels && 
-			    ( $channels = $this->channels )
-		    ) {
-			    
-			    $channels = array_merge(array(array(
-				    'DatasetChannel' => array(
-					    'icon' => 'all',
-					    'title' => 'Wszystkie dane',
-				    ),
-			    )), $channels);
-			    			    
-			    if( isset($this->request->query['channel']) ) {
-			    				    			    	
-			    	for( $i=1; $i<count($channels); $i++ )
-				    	if(
-					    	isset( $channels[$i]['DatasetChannel']['channel'] ) && 
-					    	( $this->request->query['channel'] == $channels[$i]['DatasetChannel']['channel'] )
-				    	)
-				    		$channels[$i]['active'] = true;
-			    	
-		    	} else $channels[0]['active'] = true;
-			    			    
-			    $this->set('object_channels', $channels);
-			    
-		    }
-		    
+		    		    	    		    
 		    $this->set('object_menu', $this->menu);
             $this->set('object_addons', $this->addons);
 	
