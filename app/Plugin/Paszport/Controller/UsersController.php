@@ -1,6 +1,6 @@
 <?php
 App::uses('HttpSocket', 'Network/Http');
-
+App::import('Model', 'Paszport.User');
 /**
  * Class UsersController
  *
@@ -144,7 +144,8 @@ class UsersController extends PaszportAppController
 
             // Fatal Error (1): Call to a member function find() on a non-object in [/home/www/portal-v2/_mojePanstwo-Portal/app/Plugin/Paszport/Controller/UsersController.php, line 145]
             // Trzeba wszystkie wywołania $this->PaszportApi zmienić na odwołania do nowego API przez model User
-            $user = $this->User->findFacebookUser($user_data['id'], $user_data['email']);
+            $_user = new User();
+            $user = $_user->findFacebookUser($user_data['id'], $user_data['email']);
             if (!isset($user['user']) || empty($user['user'])) {
                 $user = false;
             } else {
