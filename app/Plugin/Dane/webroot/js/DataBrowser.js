@@ -207,6 +207,25 @@ var DataBrowser = Class.extend({
                 name: 'Liczba',
                 //pointInterval: 383 * 24 * 3600000,
                 //pointStart: Date.UTC(1918, 0, 1),
+                point: {
+                    events: {
+                        click: function(e) {
+                            var time = e.point.category;
+                            var dateMin = new Date(time);
+                            var dateMax = new Date(time + 31536000000);
+                            var dataArg = [
+                                '[',
+                                _this.getFormattedDate(dateMin),
+                                ' TO ',
+                                _this.getFormattedDate(dateMax),
+                                ']'
+                            ];
+
+                            window.location.href = choose_request + dataArg.join('');
+                            return false;
+                        }
+                    }
+                },
                 data: histogram_data
             }]
         });
