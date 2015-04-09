@@ -32,6 +32,7 @@ class PismaController extends ApplicationsController
     public function view($id, $slug = '')
     {
         $this->load($id);
+        $this->setMenuSelected('moje');
     }
 	
 	private function load($id)
@@ -57,7 +58,15 @@ class PismaController extends ApplicationsController
     
     public function edit($id, $slug='')
     {
-		$this->load($id);        
+	    
+		$pismo = $this->load($id);
+		
+		if( $pismo['saved'] ) {
+			$this->setMenuSelected('moje');
+		} else {
+			$this->setMenuSelected();
+		}
+				      
     }
 
     public function share($id, $slug = '')
@@ -220,7 +229,7 @@ class PismaController extends ApplicationsController
         $this->set('search', $search);
         $this->set('q', $q);
         $this->set('title_for_layout', 'Moje pisma');
-        $this->set('appMenuSelected', 'moje');
+        $this->setMenuSelected('moje');
     }	
 	
 	/*
