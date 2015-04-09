@@ -104,9 +104,10 @@ if ( ! function_exists( 'array_column' ) ) {
 
 function dataSlownie( $data, $options = array() ) {
 	$_data = $data;
-
-	if ( strpos( $data, '/' ) ) {
-		$parts = explode( '/', $data );
+	$_parts = explode(' ', $data);
+	
+	if ( strpos( $_parts[0], '/' ) ) {
+		$parts = explode( '/', $_parts[0] );
 		$data  = $parts[2] . '-' . $parts[1] . '-' . $parts[0];
 	}
 
@@ -157,7 +158,10 @@ function dataSlownie( $data, $options = array() ) {
         $str = $dzien . ' ' . $___vars['miesiace']['celownik'][$miesiac] . ' ' . $rok . '&nbsp;r.';
 
 	}
-
+	
+	if( isset($_parts[1]) )
+		$str .= ' ' . $_parts[1];
+	
 	/*
 	$time_str = @substr($_data, 11, 5);
 	if( $time_str )

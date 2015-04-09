@@ -7,6 +7,12 @@ $this->Combinator->add_libs('js', 'Dane.datafeed');
 $hits = $dataFeed['hits'];
 $preset = $dataFeed['preset'];
 
+$show = true;
+if( isset($dataFeed['aggs']) && isset($dataFeed['aggs']['_channels']) && !$dataFeed['aggs']['_channels']['feed_data']['feed']['doc_count'] )
+	$show = false;
+
+
+if( $show ) {
 ?>
 
 <div class="<? if ($dataFeed['timeline']) echo 'feed-timeline'; ?>">
@@ -140,3 +146,4 @@ $preset = $dataFeed['preset'];
         <? } ?>
     </div>
 </div>
+<? } ?>

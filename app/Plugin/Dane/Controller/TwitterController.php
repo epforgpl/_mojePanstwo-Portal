@@ -23,7 +23,8 @@ class TwitterController extends DataobjectsController
     public function view()
     {
 
-        parent::_prepareView();
+        $this->feed();
+        $this->render('view');
 
     }
 
