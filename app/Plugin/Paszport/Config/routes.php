@@ -18,7 +18,8 @@ Router::redirect('/logowanie', array('plugin' => 'paszport', 'controller' => 'pa
 Router::connect('/logout', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'logout'));
 Router::connect('/register', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'register'));
 
-Router::connect('/fblogin', array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'fblogin'));
+Router::connect('/fblogin', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'facebookLogin'));
+Router::connect('/paszport/users/fblogin', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'facebookLogin'));
 Router::connect('/authorize', array('plugin' => 'paszport', 'controller' => 'passports', 'action' => 'authorize'));
 Router::connect('/forgot', array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'forgot'));
 

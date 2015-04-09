@@ -61,6 +61,20 @@ class PaszportController extends ApplicationsController
 
     }
 
+    public function facebookLogin()
+    {
+        $user = $this->Connect->FB->getUser();
+
+        if(!$user) {
+
+            $redirect = $this->Connect->FB->getLoginUrl(
+                array('scope' => 'email,user_birthday')
+            );
+
+            $this->redirect($redirect);
+        }
+    }
+
     public function login()
     {
 	    
