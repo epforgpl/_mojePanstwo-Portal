@@ -1618,9 +1618,12 @@ class GminyController extends DataobjectsController
                 $menu['items'][] = array(
                     'id' => 'dzielnice',
                     'label' => 'Dzielnice',
+                    'href' => $href_base . '/dzielnice',
+                    /*
                     'dropdown' => array(
                         'items' => $dzielnice_items,
                     ),
+                    */
                 );
 
             }
