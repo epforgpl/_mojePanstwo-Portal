@@ -1,7 +1,7 @@
 <?
+$this->Combinator->add_libs('css', '../plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min');
 $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
 $this->Combinator->add_libs('js', '../plugins/highcharts/locals');
-$this->Combinator->add_libs('css', '../plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min');
 $this->Combinator->add_libs('js', '../plugins/bootstrap-datepicker/js/bootstrap-datepicker.min');
 $this->Combinator->add_libs('js', '../plugins/bootstrap-datepicker/js/loc.min');
 ?>

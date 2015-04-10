@@ -242,8 +242,8 @@ var DataBrowser = Class.extend({
             }]
         });
 
-
-        $.fn.datepicker.defaults.format = "yyyy-mm-dd";
+        var datepicker = $.fn.datepicker.noConflict();
+        $.fn.bootstrapDP = datepicker;
 
         li.find('a.select-date-range').first().click(function() {
 
@@ -258,7 +258,7 @@ var DataBrowser = Class.extend({
             _start.val(_startDate);
             _end.val(_endDate);
 
-            _datepicker.datepicker({
+            _datepicker.bootstrapDP({
                 language: 'pl',
                 orientation: 'auto top',
                 format: "yyyy-mm-dd",
