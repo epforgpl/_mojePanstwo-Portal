@@ -11,7 +11,7 @@ echo $this->Element('dataobject/pageBegin'); ?>
     <div class="holder">
         <ul class="dzielniceList">
             <? foreach ($object->getLayer('dzielnice') as $d) {
-                echo '<li><a href="#" title="' . $d["nazwa"] . '" data-dzielnica="' . $d["id"] . '" onclick="return false;">' . $d["nazwa"] . '</a></li>';
+                echo '<li><a href="/dane/gminy/903,krakow/dzielnice/' . $d['id'] . '" title="' . $d["nazwa"] . '" data-dzielnica="' . $d["id"] . '" onclick="return false;">' . $d["numer"] . ' - ' . $d["nazwa"] . '</a></li>';
             } ?>
         </ul>
     </div>
