@@ -32,12 +32,19 @@ $this->Combinator->add_libs('js', '../plugins/bootstrap-datepicker/js/loc.min');
         </div>
         <div class="chart"></div>
     </div>
-<? } else { ?>
+<? } else { 
+	
+	$label = $this->request->query['conditions'][$map['field']];
+	
+	if( preg_match('^\[(.*?) TO (.*?)\]^i', $label, $match) )
+		$label = dataSlownie( $match[1] ) . ' - ' . dataSlownie( $match[2] );
+		
+	
+?>
     <p class="label-browser">
         <a href="<?= $map['cancelRequest']; ?>" aria-label="Close">
             <span class="label label-primary">
-                <span aria-hidden="true">&times;</span>&nbsp;
-                <?= $data['buckets'][0]['label']['buckets'][0]['key']; ?>
+                <span aria-hidden="true">&times;</span>&nbsp;<?= $label ?>
             </span>
         </a>
     </p>

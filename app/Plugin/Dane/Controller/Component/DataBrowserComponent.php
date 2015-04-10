@@ -481,7 +481,7 @@ class DataBrowserComponent extends Component {
 	            'visual' => array(
 		            'label' => 'Liczba zamówień publicznych w czasie',
 		            'skin' => 'date_histogram',
-                    'field' => 'date'
+                    'field' => '_date'
 	            ),
 	        ),
         ),
