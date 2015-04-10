@@ -342,7 +342,26 @@ class KrsPodmiotyController extends DataobjectsController
 
     public function zamowienia()
     {
-
+		
+		$this->_prepareView();
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+	            'dataset' => 'zamowienia_publiczne_dokumenty',
+	            // 'gminy_okregi_wyborcze.gmina_id' => $this->object->getId(),
+	            'feeds_channels' => array(
+		            'dataset' => 'krs_podmioty',
+		            'object_id' => $this->object->getId(),
+		            'channel' => 200,
+	            ),
+            ),
+            'renderFile' => 'krs_podmioty-zamowienia_publiczne_dokumenty',
+            // 'aggsPreset' => 'zamowienia_publiczne',
+        ));
+		
+        $this->set('title_for_layout', 'Zamówienia publiczne dla ' . $this->object->getData('nazwa'));
+        $this->set('DataBrowserTitle', 'Zamówienia publiczne dla ' . $this->object->getData('nazwa'));
+		
+		/*
         $this->_prepareView();
         $this->dataobjectsBrowserView(array(
             'source' => 'krs_podmioty.zamowienia:' . $this->object->getId(),
@@ -351,7 +370,8 @@ class KrsPodmiotyController extends DataobjectsController
             'noResultsTitle' => 'Brak zamówień publicznych',
         ));
         $this->set('title_for_layout', 'Zamówienia publiczne udzielone ' . $this->object->getTitle());
-
+		*/
+		
     }
 
     public function dotacje()
