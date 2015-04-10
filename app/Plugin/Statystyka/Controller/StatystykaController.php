@@ -43,7 +43,16 @@ class StatystykaController extends ApplicationsController
         $this->setMenuSelected();
         $this->loadDatasetBrowser('bdl_wskazniki');
     }
-
+	
+	public function bdl()
+	{
+		
+		$this->loadModel('Statystyka.BDL');
+		$tree = $this->BDL->getTree();
+		$this->set('tree', $tree);
+		
+	}
+	
     public function bdl_kategorie()
     {
 	    $this->loadDatasetBrowser('bdl_wskazniki_kategorie');

@@ -52,5 +52,16 @@ class BDL extends AppModel
         return @$data['data'];
     
     }
+    
+    public function getTree()
+    {
+	    
+	    $data = $this->getDataSource()->request('bdl/tree', array(
+		    'method' => 'GET',
+	    ));
+	    		
+        return $data;
+    
+    }
 
 }
