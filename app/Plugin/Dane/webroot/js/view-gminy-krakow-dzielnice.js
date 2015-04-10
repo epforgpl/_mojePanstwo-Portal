@@ -25,9 +25,8 @@ function initialize() {
     google.maps.event.addListenerOnce(map, 'idle', function () {
         map.setZoom(11);
     });
-
     google.maps.event.addListener(kmlLayer, 'click', function (kmlEvent) {
-        console.log(kmlEvent);
+        $('.dzielniceList a[data-dzielnica="' + kmlEvent.featureData['name'] + '"]')[0].click();
     });
 
 }
