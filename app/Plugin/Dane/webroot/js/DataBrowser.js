@@ -242,9 +242,6 @@ var DataBrowser = Class.extend({
             }]
         });
 
-
-        $.fn.datepicker.defaults.format = "yyyy-mm-dd";
-
         li.find('a.select-date-range').first().click(function() {
 
             var _modal = $('#selectDateRangeModal');
