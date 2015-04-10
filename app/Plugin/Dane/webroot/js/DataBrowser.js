@@ -242,6 +242,9 @@ var DataBrowser = Class.extend({
             }]
         });
 
+        var datepicker = $.fn.datepicker.noConflict();
+        $.fn.bootstrapDP = datepicker;
+
         li.find('a.select-date-range').first().click(function() {
 
             var _modal = $('#selectDateRangeModal');
@@ -255,7 +258,7 @@ var DataBrowser = Class.extend({
             _start.val(_startDate);
             _end.val(_endDate);
 
-            _datepicker.datepicker({
+            _datepicker.bootstrapDP({
                 language: 'pl',
                 orientation: 'auto top',
                 format: "yyyy-mm-dd",
