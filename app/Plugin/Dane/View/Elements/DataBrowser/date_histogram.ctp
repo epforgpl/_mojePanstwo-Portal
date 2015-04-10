@@ -7,9 +7,6 @@ $this->Html->script(array(
     '../plugins/bootstrap-datepicker/js/bootstrap-datepicker.min',
     '../plugins/bootstrap-datepicker/js/loc.min'
 ), array('inline' => 'false', 'block' => 'scriptBlock'));
-
-//$this->Combinator->add_libs('js', '../plugins/bootstrap-datepicker/js/bootstrap-datepicker.min');
-//$this->Combinator->add_libs('js', '../plugins/bootstrap-datepicker/js/loc.min');
 ?>
 
 <? if(!isset($this->request->query['conditions'][$map['field']])) { ?>
