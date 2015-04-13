@@ -32,7 +32,8 @@
                         echo " active";
                     } ?>">
                         <a class="pull-left" href="<?= $sub['url'] ?>"><?= $sub['title'] ?></a>
-                        <div class="pull-right">
+
+                        <div class="cancel-subscription pull-right">
                         	<form action="/dane/subscriptions/<?= $sub['id'] ?>/delete.json" method="post">
                             	<button class="glyphicon glyphicon-remove" title="Usuń tę subskrypcję"></button>
                         	</form>

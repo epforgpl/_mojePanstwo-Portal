@@ -1,18 +1,4 @@
 .dataFeed {
-    
-    .col-feed-side-right {
-		padding-top: 175px;
-		
-		.subscription {
-			margin-bottom: 80px;
-		}
-	}
-	.dataAggs {
-		li.agg {
-			margin: 40px 10px !important;
-		}
-	}
-    
     .dataActions {
         margin: 10px 10px 0;
 
@@ -178,5 +164,23 @@
             -o-transform: translate(-50%, 0);
             transform: translate(-50%, 0);
         }
+    }
+
+    .col-feed-side-right {
+        .subscription {
+            margin-bottom: 80px;
+        }
+
+        .dataAggs {
+            li.agg {
+                margin: 40px 10px !important;
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .dataFeed .col-feed-side-right {
+        margin-top: 188px;
     }
 }
