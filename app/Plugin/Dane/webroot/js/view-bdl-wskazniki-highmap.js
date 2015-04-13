@@ -53,6 +53,7 @@ $(document).ready(function() {
             },
             mapNavigation: {
                 enabled: true,
+                enableMouseWheelZoom: false,
                 buttonOptions: {
                     verticalAlign: 'bottom'
                 }
