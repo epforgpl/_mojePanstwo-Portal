@@ -19,12 +19,12 @@
         </div>
     </div>
     <div class="col-xs-12 col-sm-2 col-feed-side col-feed-side-right">
-        
-        <? if (isset($object) && ($subs = $object->getLayer('subscriptions'))) { ?>
+                
+        <? if (isset($object_subscriptions) && $object_subscriptions) { ?>
         <div class="subscription">
             <h2><span class="glyphicon glyphicon-star"></span> Obserwowane dane</h2>
             <ul>
-                <? foreach ($subs as $sub) { ?>
+                <? foreach ($object_subscriptions as $sub) { ?>
                     <li class="overflow-auto<? if (
                         isset($this->request->query['subscription']) &&
                         ($this->request->query['subscription'] == $sub['id'])

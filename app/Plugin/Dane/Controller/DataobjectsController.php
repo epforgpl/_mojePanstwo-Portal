@@ -131,8 +131,9 @@ class DataobjectsController extends AppController
                 }
 
                 $dataset = $this->object->getLayer('dataset');
-
+								
                 $this->set('object', $this->object);
+                $this->set('object_subscriptions', $this->object->getLayer('subscriptions'));
                 $this->set('objectOptions', $this->objectOptions);
                 $this->set('microdata', $this->microdata);
                 $this->set('title_for_layout', $this->object->getTitle());

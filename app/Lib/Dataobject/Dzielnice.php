@@ -40,4 +40,9 @@ class Dzielnice extends DataObject
 	    return 'Dzielnica';
     }
     
+    public function getLabel()
+    {
+	    return 'Dzielnica Miasta ' . $this->getData('gminy.nazwa');
+    }
+    
 }

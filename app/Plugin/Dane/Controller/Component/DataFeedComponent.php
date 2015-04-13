@@ -814,6 +814,9 @@ class DataFeedComponent extends Component
 			}
 						
 			$this->controller->set('object_channels', $channels);
+						
+			if( isset($this->settings['object_subscriptions']) )
+				$this->controller->set('object_subscriptions', $this->settings['object_subscriptions']);				
 	        
 	        if (
 	            isset($this->controller->request->params['ext']) &&

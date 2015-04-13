@@ -167,15 +167,16 @@ class GminyController extends DataobjectsController
 				'dataset' => 'rady_gmin',
 				'id' => $this->object->getId(),
 			),
-			'layers' => array('channels'),
+			'layers' => array('channels', 'subscriptions'),
 		));
-		
+				
 	    $this->Components->load('Dane.DataFeed', array(
             'feed' => 'rady_gmin' . '/' . $this->object->getId(),
             'channel' => 'rada',
             'preset' => $this->object->getDataset(),
             'side' => 'gminy-rada',
             'searchTitle' => 'Radzie Miasta',
+            'object_subscriptions' => $rada->getLayer('subscriptions'),
         ));
         
 		$this->channels = $rada->getLayer('channels');
@@ -197,7 +198,7 @@ class GminyController extends DataobjectsController
 				'dataset' => 'urzedy_gmin',
 				'id' => $this->object->getId(),
 			),
-			'layers' => array('channels'),
+			'layers' => array('channels', 'subscriptions'),
 		));
 		
 	    $this->Components->load('Dane.DataFeed', array(
@@ -205,6 +206,7 @@ class GminyController extends DataobjectsController
             'preset' => $this->object->getDataset(),
             'side' => 'gminy-urzad',
             'searchTitle' => 'Urzędzie Miasta',
+            'object_subscriptions' => $urzad->getLayer('subscriptions'),
         ));
         
 		$this->channels = $urzad->getLayer('channels');
@@ -555,7 +557,7 @@ class GminyController extends DataobjectsController
 		            'dataset' => 'rady_druki',
 		            'id' => $this->request->params['subid'],
 	            ),
-	            'layers' => array('channels', 'neighbours')
+	            'layers' => array('channels', 'neighbours', 'subscriptions')
             ));
             
             $this->set('druk', $druk);
@@ -587,6 +589,7 @@ class GminyController extends DataobjectsController
 		            'preset' => $druk->getDataset(),
 		            'side' => 'rady_druki',
 		            'timeline' => true,
+		            'object_subscriptions' => $druk->getLayer('subscriptions'),
 		        ));
 		        
 		        $this->loadChannels = true;
@@ -629,7 +632,7 @@ class GminyController extends DataobjectsController
 					'dataset' => 'dzielnice',
 					'id' => $this->request->params['subid'],
 				),
-				'layers' => array('channels'),
+				'layers' => array('channels', 'subscriptions'),
 			));
 			
 			$this->loadChannels = true;
@@ -646,6 +649,7 @@ class GminyController extends DataobjectsController
 			            'preset' => $dzielnica->getDataset(),
 			            'side' => 'dzielnice',
 			            'searchTitle' => $dzielnica->getTitle(),
+			            'object_subscriptions' => $dzielnica->getLayer('subscriptions'),
 			        ));
 
                     break;
@@ -940,7 +944,7 @@ class GminyController extends DataobjectsController
             $subsubid = (isset($this->request->params['subsubid']) && $this->request->params['subsubid']) ? $this->request->params['subsubid'] : false;
 			
 			
-			$layers = array('channels', 'neighbours', 'bip_url');
+			$layers = array('channels', 'subscriptions', 'neighbours', 'bip_url');
 			
 			if( $subaction == 'komisje' ) {
 				$layers[] = 'komisje';
@@ -973,6 +977,7 @@ class GminyController extends DataobjectsController
 			            'feed' => $radny->getDataset() . '/' . $radny->getId(),
 			            'preset' => $radny->getDataset(),
 			            'side' => 'radni_gmin',
+			            'object_subscriptions' => $radny->getLayer('subscriptions'),
 			        ));
 			        
 			        $this->loadChannels = true;
@@ -1113,7 +1118,7 @@ class GminyController extends DataobjectsController
 					'dataset' => 'krakow_komisje',
 					'id' => $this->request->params['subid'],
 				),
-				'layers' => array('channels', 'sklad'),
+				'layers' => array('channels', 'sklad', 'subscriptions'),
 			));
 			
 
@@ -1127,6 +1132,7 @@ class GminyController extends DataobjectsController
 			            'preset' => $komisja->getDataset(),
 			            'side' => 'krakow_komisje',
 			            'searchTitle' => $komisja->getTitle(),
+			            'object_subscriptions' => $komisja->getLayer('subscriptions'),
 			        ));
 			        
 			        $this->loadChannels = true;
