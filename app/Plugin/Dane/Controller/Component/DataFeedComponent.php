@@ -702,14 +702,7 @@ class DataFeedComponent extends Component
 			
 			
 			if( $channels = $this->controller->channels ) {
-			    
-			    $channels = array_merge(array(array(
-				    'DatasetChannel' => array(
-					    'icon' => 'all',
-					    'title' => 'Wszystkie dane',
-				    ),
-			    )), $channels);
-			    			    
+			    			    			    
 			    if( isset($this->controller->request->query['channel']) ) {
 			    				    			    	
 			    	for( $i=1; $i<count($channels); $i++ )
@@ -745,12 +738,9 @@ class DataFeedComponent extends Component
 				    	}
 			    	
 		    	} else $channels[0]['active'] = true;
-			    		       
-			    $this->controller->set('object_channels', $channels);
-			    		    
+			    		       			    		    
 		    }
-			
-			
+						
 	        $this->controller->Paginator->settings = $this->getSettings();
 	        $this->controller->Paginator->settings['order'] = 'date ' . $this->direction;
 	        
@@ -762,7 +752,7 @@ class DataFeedComponent extends Component
 	        $hits = $this->controller->Paginator->paginate('Dataobject');
 	
 	        $aggs = $this->controller->Dataobject->getAggs();
-					
+						
 	        $channels_data = array();
 	        if (
 		        isset($aggs['_channels']['feed_data']['feed']['channel']['buckets'])
@@ -784,9 +774,7 @@ class DataFeedComponent extends Component
 	                ));
 	
 	        }
-	
-	        $this->controller->channels = $channels;
-					
+								
 	        $this->controller->set('dataFeed', array(
 	            'hits' => $hits,
 	            'took' => $controller->Dataobject->getPerformance(),
@@ -799,7 +787,17 @@ class DataFeedComponent extends Component
 	            'aggs' => $controller->Dataobject->getAggs(),
 	            'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
 	        ));
-	
+			
+			if( !empty($channels) )
+				$channels = array_merge(array(array(
+				    'DatasetChannel' => array(
+					    'icon' => 'all',
+					    'title' => 'Wszystkie dane',
+				    ),
+			    )), $channels);
+						
+			$this->controller->set('object_channels', $channels);
+	        
 	        if (
 	            isset($this->controller->request->params['ext']) &&
 	            ($this->controller->request->params['ext'] == 'html')
