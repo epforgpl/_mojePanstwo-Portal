@@ -34,15 +34,21 @@ function initialize() {
         zoom: 11,
         center: {lat: 50.0467656, lng: 20.0048731},
         draggable: true,
-        disableDefaultUI: true,
         scrollwheel: false,
         navigationControl: true,
+        panControl: false,
+        zoomControl: true,
+        zoomControlOptions: {
+            style: google.maps.ZoomControlStyle.SMALL
+        },
         mapTypeControl: false,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
         scaleControl: false,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        streetViewControl: false,
+        overviewMapControl: false
     };
-    map = new google.maps.Map(document.getElementById('dzielnice_map'), mapOptions);
 
+    map = new google.maps.Map(document.getElementById('dzielnice_map'), mapOptions);
     map.data.loadGeoJson('/Dane/files/krakow_dzielnice.geojson');
     map.data.setStyle(featureStyle);
 
@@ -64,17 +70,17 @@ function initialize() {
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
-
 $(document).ready(function () {
-    var header = $('.objectPageHeaderBg').outerHeight(true),
-        holder = $('.holder'),
-        dzielniceMap = $('#dzielnice_map'),
-        fundatorzy = $('#fundatorzy').outerHeight(true);
+    if ($(window).outerWidth() > 728) {
+        var header = $('.objectPageHeaderBg').outerHeight(true),
+            holder = $('.holder'),
+            dzielniceMap = $('#dzielnice_map'),
+            fundatorzy = $('#fundatorzy').outerHeight(true);
+        var size = $(window).outerHeight() - header - fundatorzy;
 
-    var size = $(window).outerHeight() - header - fundatorzy;
-
-    holder.css('height', size);
-    dzielniceMap.css('height', size);
+        holder.css('height', size);
+        dzielniceMap.css('height', size);
+    }
 
     $('.dzielniceList a').mouseover(function () {
         mapHoverIn($(this).data('dzielnica'));

@@ -6,13 +6,8 @@
         margin-top: 0;
 
         .holder {
-            position: relative;
-            min-height: 500px;
-
             ul.dzielniceList {
-                position: absolute;
-                right: 0;
-                top: 20px;
+                position: relative;
                 z-index: 10;
 
                 padding: 6px 12px;
@@ -30,7 +25,7 @@
             }
         }
         #dzielnice_map {
-            position: absolute;
+            position: relative;
             top: 0;
             left: 0;
             width: 100%;
@@ -38,6 +33,24 @@
         }
         #fundatorzy {
             margin-bottom: 0;
+        }
+    }
+}
+
+@media (min-width: 728px) {
+    #_main .objectsPage .objectsPageWindow .objectsPageContent {
+        .holder {
+            position: relative;
+            min-height: 500px;
+
+            ul.dzielniceList {
+                position: absolute;
+                right: 0;
+                top: 20px;
+            }
+        }
+        #dzielnice_map {
+            position: absolute;
         }
     }
 }
