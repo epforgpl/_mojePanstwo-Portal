@@ -198,55 +198,14 @@ class DataobjectsController extends AppController
 	    
     }
     
-            
-    public function subscribe() {
-	   	
-	    $data = array();
-	   	
-		$dataset = isset($this->request->params['controller']) ? $this->request->params['controller'] : false;
-        $id = isset($this->request->params['id']) ? $this->request->params['id'] : false;
-		
-		if( $dataset && $id ) {
-					
-	        // debug(array('dataset' => $dataset, 'id' => $id, 'slug' => $slug, )); die();
-			
-			$data['query'] = isset($this->request->query['conditions']) ? $this->request->query['conditions'] : array();				
-			$data['dataset'] = $dataset;			
-			$data['object_id'] = $id;			
-			
-			if( isset($this->request->query['q']) && $this->request->query['q'] ) {
-				$data['q'] = $this->request->query['q'];
-		    }
-		    
-		    if( isset($this->request->query['channel']) && $this->request->query['channel'] ) {
-				$data['channel'] = $this->request->query['channel'];
-		    }			
-			
-		   	$this->Subscription->create();
-		   		   	
-	        if ($res = $this->Subscription->save($data)) {
-	            // $this->Session->setFlash(__('Dodano subskrybcję'));
-	            
-	            return $this->redirect($res['url']);
-	            
-	        } else {
-	        	// $this->Session->setFlash(__('Wystąpił błąd'));
-	        }
-	        
-	        return $this->redirect($this->referer());
-        
-        } else {
-	        throw new BadRequestException();
-        }
-	    
-    }
-    
+    /*
     public function unsubscribe() {
 	    	    
 	    $this->Dataobject->unsubscribe($this->request->params['controller'], $this->request->params['id']);
 	    $this->redirect($this->referer());
 	    
     }
+    */
 
     public function prepareMetaTags() {
         parent::prepareMetaTags();

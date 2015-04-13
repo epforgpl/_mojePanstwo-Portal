@@ -635,140 +635,181 @@ class DataFeedComponent extends Component
 	
     public function __construct($collection, $settings)
     {
-        $this->settings = $settings;
-            }
+        $this->settings = $settings;        
+    }
 
     public function beforeRender($controller)
     {
 
         $this->controller = $controller;
-        $this->controller->helpers[] = 'Dane.Dataobject';
-		
-        if (is_null($this->controller->Paginator)) {
-            $this->controller->Paginator = $this->controller->Components->load('Paginator');
-        }
-
-        if (isset($this->controller->request->query['q'])) {
-            $this->controller->request->query['conditions']['q'] = $this->controller->request->query['q'];
-        }
         
-        if( isset($this->settings['direction']) )
-        	$this->direction = $this->settings['direction'];
-
-        $this->queryData = $this->controller->request->query;
-
-        if (!property_exists($this->controller, 'Dataobject'))
-            $this->controller->Dataobject = ClassRegistry::init('Dane.Dataobject');
-		
-		
-		
-		if( $channels = $this->controller->channels ) {
-		    
-		    $channels = array_merge(array(array(
-			    'DatasetChannel' => array(
-				    'icon' => 'all',
-				    'title' => 'Wszystkie dane',
-			    ),
-		    )), $channels);
-		    			    
-		    if( isset($this->controller->request->query['channel']) ) {
-		    				    			    	
-		    	for( $i=1; $i<count($channels); $i++ )
-			    	if(
-				    	isset( $channels[$i]['DatasetChannel']['channel'] ) && 
-				    	( $this->controller->request->query['channel'] == $channels[$i]['DatasetChannel']['channel'] )
-			    	) {
-				    					    	
-				    	// PREPARE AGGS DATA
-				    	
-				    	if( 
-							$channels[$i]['DatasetChannel']['subject_dataset'] && 
-							array_key_exists($channels[$i]['DatasetChannel']['subject_dataset'],  $this->aggs_presets) 
-						)
-							$this->settings['aggs'] = $this->aggs_presets[ $channels[$i]['DatasetChannel']['subject_dataset'] ];
-						
-												
-						if( isset($this->settings['aggs']) ) {
-					        foreach($this->settings['aggs'] as $key => $value) {
-					            foreach($value as $keyM => $valueM) {
-					                if($keyM === 'visual') {
-					                    $this->aggs_visuals_map[$key] = $valueM;
-					                    unset($this->settings['aggs'][$key][$keyM]);
-					                }
-					            }
-					        }
-				        }
-				    	
-				    	
-				    	$this->aggsPreset = $channels[$i]['DatasetChannel']['subject_dataset'];
-			    		$channels[$i]['active'] = true;
-			    	
-			    	}
-		    	
-	    	} else $channels[0]['active'] = true;
-		    		       
-		    $this->controller->set('object_channels', $channels);
-		    		    
-	    }
-		
-		
-        $this->controller->Paginator->settings = $this->getSettings();
-        $this->controller->Paginator->settings['order'] = 'date ' . $this->direction;
-        
-        
-        // debug( $this->controller->channels );
-        // debug($this->controller->Paginator->settings); die();
-		// debug( $this->aggsPreset );
-
-        $hits = $this->controller->Paginator->paginate('Dataobject');
-
-        $aggs = $this->controller->Dataobject->getAggs();
-				
-        $channels_data = array();
-        if (
-	        isset($aggs['_channels']['feed_data']['feed']['channel']['buckets'])
-        )
-            foreach ($aggs['_channels']['feed_data']['feed']['channel']['buckets'] as $d)
-                $channels_data[$d['key']] = $d['doc_count'];
-
-        $channels = array();
-        
-        
-        foreach ($this->controller->channels as $ch) {
-
-            if (
-                array_key_exists($ch['DatasetChannel']['channel'], $channels_data) &&
-                ($doc_count = $channels_data[$ch['DatasetChannel']['channel']])
-            )
-                $channels[] = array_merge($ch, array(
-                    'doc_count' => $doc_count,
-                ));
-
-        }
-
-        $this->controller->channels = $channels;
-				
-        $this->controller->set('dataFeed', array(
-            'hits' => $hits,
-            'took' => $controller->Dataobject->getPerformance(),
-            'preset' => $this->settings['preset'],
-            'side' => isset($this->settings['side']) ? $this->settings['side'] : $this->controller->request->params['controller'],
-            'searchTitle' => isset($this->settings['searchTitle']) ? strip_tags($this->settings['searchTitle']) : false,
-            'timeline' => isset($this->settings['timeline']) ? (boolean) $this->settings['timeline'] : false,
-            'api_call' => $this->controller->Dataobject->getDataSource()->public_api_call,
-            'subscribeAction' => '',
-            'aggs' => $controller->Dataobject->getAggs(),
-            'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
-        ));
-
-        if (
-            isset($this->controller->request->params['ext']) &&
-            ($this->controller->request->params['ext'] == 'html')
+        if(
+        	$controller->request->is('post') && 
+        	( $parts = explode('/', $this->settings['feed']) ) && 
+        	( count($parts)>=2 ) && 
+        	( $dataset = $parts[0] ) && 
+        	( $object_id = $parts[1] ) 
         ) {
-            $this->controller->view = 'Dane.Dataobjects/feed-html';
-            $this->controller->layout = false;
+	        
+	        
+	        $data = array(
+		        'dataset' => $dataset,
+		        'object_id' => $object_id,
+	        );
+					
+			if( isset($this->controller->request->query['q']) && $this->controller->request->query['q'] )
+				$data['q'] = $this->controller->request->query['q'];
+		    
+		    if( isset($this->controller->request->query['channel']) && $this->controller->request->query['channel'] )
+				$data['channel'] = $this->controller->request->query['channel'];
+				
+			if( isset($this->controller->request->query['conditions']) && $this->controller->request->query['conditions'] )
+				$data['conditions'] = $this->controller->request->query['conditions'];
+						
+			$this->controller->loadModel('Dane.Subscription');
+		   	$this->controller->Subscription->create();
+		   		   	
+	        if ($res = $this->controller->Subscription->save($data)) {
+	            
+	            // $this->Session->setFlash(__('Dodano subskrybcję'));
+	            return $this->controller->redirect($res['url']);
+	            
+	        }
+	        
+	        return $this->controller->redirect($this->controller->referer());
+	        
+	        
         } else {
-            $this->controller->view = 'Dane.Dataobjects/feed';
+        	        
+	        $this->controller->helpers[] = 'Dane.Dataobject';
+			
+	        if (is_null($this->controller->Paginator)) {
+	            $this->controller->Paginator = $this->controller->Components->load('Paginator');
+	        }
+	
+	        if (isset($this->controller->request->query['q'])) {
+	            $this->controller->request->query['conditions']['q'] = $this->controller->request->query['q'];
+	        }
+	        
+	        if( isset($this->settings['direction']) )
+	        	$this->direction = $this->settings['direction'];
+	
+	        $this->queryData = $this->controller->request->query;
+	
+	        if (!property_exists($this->controller, 'Dataobject'))
+	            $this->controller->Dataobject = ClassRegistry::init('Dane.Dataobject');
+			
+			
+			
+			if( $channels = $this->controller->channels ) {
+			    
+			    $channels = array_merge(array(array(
+				    'DatasetChannel' => array(
+					    'icon' => 'all',
+					    'title' => 'Wszystkie dane',
+				    ),
+			    )), $channels);
+			    			    
+			    if( isset($this->controller->request->query['channel']) ) {
+			    				    			    	
+			    	for( $i=1; $i<count($channels); $i++ )
+				    	if(
+					    	isset( $channels[$i]['DatasetChannel']['channel'] ) && 
+					    	( $this->controller->request->query['channel'] == $channels[$i]['DatasetChannel']['channel'] )
+				    	) {
+					    					    	
+					    	// PREPARE AGGS DATA
+					    	
+					    	if( 
+								$channels[$i]['DatasetChannel']['subject_dataset'] && 
+								array_key_exists($channels[$i]['DatasetChannel']['subject_dataset'],  $this->aggs_presets) 
+							)
+								$this->settings['aggs'] = $this->aggs_presets[ $channels[$i]['DatasetChannel']['subject_dataset'] ];
+							
+													
+							if( isset($this->settings['aggs']) ) {
+						        foreach($this->settings['aggs'] as $key => $value) {
+						            foreach($value as $keyM => $valueM) {
+						                if($keyM === 'visual') {
+						                    $this->aggs_visuals_map[$key] = $valueM;
+						                    unset($this->settings['aggs'][$key][$keyM]);
+						                }
+						            }
+						        }
+					        }
+					    	
+					    	
+					    	$this->aggsPreset = $channels[$i]['DatasetChannel']['subject_dataset'];
+				    		$channels[$i]['active'] = true;
+				    	
+				    	}
+			    	
+		    	} else $channels[0]['active'] = true;
+			    		       
+			    $this->controller->set('object_channels', $channels);
+			    		    
+		    }
+			
+			
+	        $this->controller->Paginator->settings = $this->getSettings();
+	        $this->controller->Paginator->settings['order'] = 'date ' . $this->direction;
+	        
+	        
+	        // debug( $this->controller->channels );
+	        // debug($this->controller->Paginator->settings); die();
+			// debug( $this->aggsPreset );
+	
+	        $hits = $this->controller->Paginator->paginate('Dataobject');
+	
+	        $aggs = $this->controller->Dataobject->getAggs();
+					
+	        $channels_data = array();
+	        if (
+		        isset($aggs['_channels']['feed_data']['feed']['channel']['buckets'])
+	        )
+	            foreach ($aggs['_channels']['feed_data']['feed']['channel']['buckets'] as $d)
+	                $channels_data[$d['key']] = $d['doc_count'];
+	
+	        $channels = array();
+	        
+	        
+	        foreach ($this->controller->channels as $ch) {
+	
+	            if (
+	                array_key_exists($ch['DatasetChannel']['channel'], $channels_data) &&
+	                ($doc_count = $channels_data[$ch['DatasetChannel']['channel']])
+	            )
+	                $channels[] = array_merge($ch, array(
+	                    'doc_count' => $doc_count,
+	                ));
+	
+	        }
+	
+	        $this->controller->channels = $channels;
+					
+	        $this->controller->set('dataFeed', array(
+	            'hits' => $hits,
+	            'took' => $controller->Dataobject->getPerformance(),
+	            'preset' => $this->settings['preset'],
+	            'side' => isset($this->settings['side']) ? $this->settings['side'] : $this->controller->request->params['controller'],
+	            'searchTitle' => isset($this->settings['searchTitle']) ? strip_tags($this->settings['searchTitle']) : false,
+	            'timeline' => isset($this->settings['timeline']) ? (boolean) $this->settings['timeline'] : false,
+	            'api_call' => $this->controller->Dataobject->getDataSource()->public_api_call,
+	            'subscribeAction' => '',
+	            'aggs' => $controller->Dataobject->getAggs(),
+	            'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
+	        ));
+	
+	        if (
+	            isset($this->controller->request->params['ext']) &&
+	            ($this->controller->request->params['ext'] == 'html')
+	        ) {
+	            $this->controller->view = 'Dane.Dataobjects/feed-html';
+	            $this->controller->layout = false;
+	        } else {
+	            $this->controller->view = 'Dane.Dataobjects/feed';
+	        }
+        
         }
 
     }

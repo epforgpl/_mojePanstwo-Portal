@@ -20,6 +20,30 @@
     </div>
     <div class="col-xs-12 col-sm-2 col-feed-side col-feed-side-right">
         
+        <? /*
+        <? if (isset($object) && ($subs = $object->getLayer('subscriptions'))) { ?>
+        <div class="subscription">
+            <h2><span class="glyphicon glyphicon-star"></span> Obserwowane dane</h2>
+            <ul>
+                <? foreach ($subs as $sub) { ?>
+                    <li class="overflow-auto<? if (
+                        isset($this->request->query['subscription']) &&
+                        ($this->request->query['subscription'] == $sub['id'])
+                    ) {
+                        echo " active";
+                    } ?>">
+                        <a class="pull-left" href="<?= $sub['url'] ?>"><?= $sub['title'] ?></a>
+                        <div class="pull-right">
+                        	<form action="/dane/subscriptions/<?= $sub['id'] ?>/delete.json" method="post">
+                            	<button class="glyphicon glyphicon-remove" title="Usuń tę subskrypcję"></button>
+                        	</form>
+                        </div>
+                    </li>
+                <? } ?>
+            </ul>
+        </div>
+        <? } ?>
+        */ ?>
         
         <? echo $this->Element('Dane.DataBrowser/aggs', array('data' => $dataFeed)); ?>
         
@@ -29,34 +53,7 @@
 	        
 	        // else
 	        	// echo $this->Element('Dane.object-actions');
-	    ?>
-        
-        
-        <? /*	
-        <div class="subscription">
-            <? if (isset($object) && ($subs = $object->getLayer('subscriptions'))) { ?>
-                <h2><span class="glyphicon glyphicon-star"></span> Obserwowane dane</h2>
-                <ul>
-                    <? foreach ($subs as $sub) { ?>
-                        <li class="overflow-auto<? if (
-                            isset($this->request->query['subscription']) &&
-                            ($this->request->query['subscription'] == $sub['id'])
-                        ) {
-                            echo " active";
-                        } ?>">
-                            <a class="pull-left" href="<?= $sub['url'] ?>"><?= $sub['title'] ?></a>
-                            <div class="pull-right">
-                            	<form action="/dane/subscriptions/<?= $sub['id'] ?>/delete.json" method="post">
-	                            	<button class="glyphicon glyphicon-remove" title="Usuń tę subskrypcję"></button>
-                            	</form>
-                            </div>
-                        </li>
-                    <? } ?>
-                </ul>
-
-            <? } ?>
-        </div>
-        */ ?>
+	    ?>            
         
     </div>
 </div>
