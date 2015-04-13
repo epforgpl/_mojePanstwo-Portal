@@ -100,13 +100,11 @@ if( $show ) {
                 <? } ?>
             </div>
             <div class="pull-right">
-                <? /*
                 <form class="actionIcons" action="<?= $dataFeed['subscribeAction'] ?>" method="post">
                     <button class="icon observe" type="submit"><span class="glyphicon glyphicon-star"></span> Obserwuj
                         te dane
                     </button>
                 </form>
-                */ ?>
                 <a class="actionIcons icon api" target="_blank" href="#" data-toggle="modal"
                    data-target=".modal-api-call"><span
                         class="glyphicon glyphicon-cog"></span>API

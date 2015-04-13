@@ -768,10 +768,19 @@ class DataFeedComponent extends Component
 	            if (
 	                array_key_exists($ch['DatasetChannel']['channel'], $channels_data) &&
 	                ($doc_count = $channels_data[$ch['DatasetChannel']['channel']])
-	            )
+	            ) {
+	                	                
+	                if( 
+	                	isset($this->controller->request->query['channel']) && 
+	                	( $this->controller->request->query['channel'] == $ch['DatasetChannel']['channel'] )
+	                )
+	                	$ch['active'] = true;
+	                
 	                $channels[] = array_merge($ch, array(
 	                    'doc_count' => $doc_count,
 	                ));
+	                
+	            }
 	
 	        }
 								
@@ -788,13 +797,21 @@ class DataFeedComponent extends Component
 	            'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
 	        ));
 			
-			if( !empty($channels) )
+			if( !empty($channels) ) {
 				$channels = array_merge(array(array(
 				    'DatasetChannel' => array(
 					    'icon' => 'all',
 					    'title' => 'Wszystkie dane',
 				    ),
 			    )), $channels);
+			    
+			    if(
+			    	!isset($this->controller->request->query['channel']) || 
+			    	!$this->controller->request->query['channel']
+			    )
+			    	$channels[0]['active'] = true;
+			    
+			}
 						
 			$this->controller->set('object_channels', $channels);
 	        

@@ -20,7 +20,6 @@
     </div>
     <div class="col-xs-12 col-sm-2 col-feed-side col-feed-side-right">
         
-        <? /*
         <? if (isset($object) && ($subs = $object->getLayer('subscriptions'))) { ?>
         <div class="subscription">
             <h2><span class="glyphicon glyphicon-star"></span> Obserwowane dane</h2>
@@ -43,7 +42,6 @@
             </ul>
         </div>
         <? } ?>
-        */ ?>
         
         <? echo $this->Element('Dane.DataBrowser/aggs', array('data' => $dataFeed)); ?>
         
