@@ -1,11 +1,13 @@
 var map,
     featureStyle = {
         fillColor: '#0000aa',
+        fillOpacity: 0.05,
         strokeWeight: 2,
         strokeColor: '#0000aa'
     },
     featureHoverStyle = {
-        fillColor: '#000000',
+        fillColor: '#0000aa',
+        fillOpacity: 0.3,
         strokeWeight: 2,
         strokeColor: '#0000aa'
     };
