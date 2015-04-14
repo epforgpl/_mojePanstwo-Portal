@@ -49,6 +49,8 @@
         rootData.push(root)
     });
 
+    console.log(rootData);
+
     tree.jstree({
         'core': {
             'data': rootData
