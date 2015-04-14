@@ -111,7 +111,6 @@ class BdlWskaznikiController extends DataobjectsController
             $i++;
         }
 
-
         $this->set('dims', $dims);
         $this->set('expand_dimension', $expand_dimension);
         $this->set('expanded_dimension', $expanded_dimension);
@@ -122,7 +121,7 @@ class BdlWskaznikiController extends DataobjectsController
 
     public function kombinacje()
     {
-		
+
 		$this->view();
 		$this->loadModel('Statystyka.BDL');
 		
@@ -150,7 +149,11 @@ class BdlWskaznikiController extends DataobjectsController
         $level_selected = false;
         $selected_level_id = false;
 
+
         if (!empty($dimension['levels'])) {
+
+            if(isset($this->request->params['subaction']))
+                $this->request->params['level'] = $this->request->params['subaction'];
 
             if (isset($this->request->params['level']) && in_array($this->request->params['level'], array(
                     'gminy',
@@ -181,6 +184,7 @@ class BdlWskaznikiController extends DataobjectsController
         if ($selected_level_id) {
 
             $local_data = $this->BDL->getLocalDataForDimension($dimension['id'], $selected_level_id);
+
             $this->set('local_data', $local_data);
 
         }
