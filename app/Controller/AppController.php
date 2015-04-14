@@ -296,7 +296,7 @@ class AppController extends Controller {
 					die();
 				}
 				
-
+								
 				if (
 					( $this->request->params['controller'] == 'gminy' ) &&
 					in_array( $this->request->params['action'], array(
@@ -361,6 +361,10 @@ class AppController extends Controller {
 
 				} elseif (
 				( $this->request->params['controller'] == 'radni_dzielnic' )
+				) {
+					
+				} elseif (
+				( $this->request->params['controller'] == 'Subscriptions' )
 				) {
 				
 				} else {
