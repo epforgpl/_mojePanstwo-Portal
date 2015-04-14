@@ -8,6 +8,8 @@
     <? } ?>
 </p>
 
+<p class="meta meta-date"><?= $object->getData('twitter.czas_utworzenia') ?></p>
+
 <blockquote class="_">
     <?= $object->getData('html') ?>
 </blockquote>

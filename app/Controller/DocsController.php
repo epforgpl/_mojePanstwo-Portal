@@ -7,19 +7,19 @@ class DocsController extends AppController
 
     public function view()
     {
-
-        $doc = new MP\Document($this->request->params['id']);
-        $data = $doc->getData();
-        $this->set('doc', $data);
+		
+		App::import("Model", "Document");  
+		$Document = new Document();  
+		
+		$doc = $Document->load($this->request->params['id']);
+				
+		$this->set('doc', $doc);
         $this->set('_serialize', 'doc');
+      
         
-        $document = $this->API->document($this->request->params['id']);
-		$this->set('document', $document);
-		$this->set('documentPackage', 1);
+        $this->set('title_for_layout', $doc['Document']['filename']);
         
-        $this->set('title_for_layout', $data['filename']);
-        
-        if( in_array($this->request->params['ext'], array('html', 'htm')) ) {
+        if( isset($this->request->params['ext']) && in_array($this->request->params['ext'], array('html', 'htm')) ) {
         	$this->layout = 'doc';
         	$this->render('view-html');
         }
@@ -28,9 +28,10 @@ class DocsController extends AppController
 
     public function download()
     {
-
-        $doc = new MP\Document($this->request->params['id']);
-        $this->redirect($doc->getUrl());
+		
+		$this->loadModel('Document');
+        $doc = $this->Document->load($this->request->params['id']);
+        $this->redirect($doc['Document']['url']);
 
     }
 

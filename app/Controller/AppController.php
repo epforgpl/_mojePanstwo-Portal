@@ -36,7 +36,6 @@ App::uses( 'I18n', 'I18n' );
  */
 class AppController extends Controller {
 	public $components = array(
-		'mpapi',
 		'DebugKit.Toolbar',
 		'Session',
 		'Auth' => array(
@@ -58,11 +57,14 @@ class AppController extends Controller {
 			)
 		),
 	);
+	
+	public $domainMode = 'MP';
 
 	public $helpers = array(
 		'Html',
 		'Form',
 		'Paginator',
+        'MPaginator',
 		'Time',
 		'Less.Less',
 //        'Minify.Minify',
@@ -76,6 +78,24 @@ class AppController extends Controller {
 	public $meta = array();
 
 	public $Applications = array(
+		array(
+			'id' => '17',
+			'slug' => 'dane',
+			'name' => 'Dane',
+			'plugin' => 'dane',
+			'type' => 'app',
+			'home' => '1',
+			'folder_id' => '13'
+		),
+		array(
+			'id' => '17',
+			'slug' => 'powiadomienia',
+			'name' => 'Powiadomienia',
+			'plugin' => 'powiadomienia',
+			'type' => 'app',
+			'home' => '1',
+			'folder_id' => '13'
+		),
 		array(
 			'id' => '17',
 			'slug' => 'pisma',
@@ -95,15 +115,6 @@ class AppController extends Controller {
 			'folder_id' => '13'
 		),
 		array(
-			'id'     => '9',
-			'slug'   => 'prawo',
-			'name'   => 'Prawo',
-			'plugin' => 'prawo',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		array(
 			'id'     => '6',
 			'slug'   => 'krs',
 			'name'   => 'Krajowy Rejestr Sądowy',
@@ -113,10 +124,10 @@ class AppController extends Controller {
 			'folder_id' => '13'
 		),
 		array(
-			'id'     => '5',
-			'slug'   => 'zamowienia_publiczne',
-			'name'   => 'Zamówienia publiczne',
-			'plugin' => 'zamowienia_publiczne',
+			'id'     => '9',
+			'slug'   => 'prawo',
+			'name'   => 'Prawo',
+			'plugin' => 'prawo',
 			'type'   => 'app',
 			'home'   => '1',
 			'folder_id' => '13'
@@ -126,6 +137,15 @@ class AppController extends Controller {
 			'slug'   => 'media',
 			'name'   => 'Media',
 			'plugin' => 'media',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
+		),
+		array(
+			'id'     => '5',
+			'slug'   => 'zamowienia_publiczne',
+			'name'   => 'Zamówienia publiczne',
+			'plugin' => 'zamowienia_publiczne',
 			'type'   => 'app',
 			'home'   => '1',
 			'folder_id' => '13'
@@ -157,6 +177,7 @@ class AppController extends Controller {
 			'home'   => '1',
 			'folder_id' => '13'
 		),
+		/*
 		array(
 			'id' => '18',
 			'slug' => 'gabinety_polityczne',
@@ -166,6 +187,7 @@ class AppController extends Controller {
 			'home' => '1',
 			'folder_id' => '13'
 		),
+		*/
 		array(
 			'id'     => '4',
 			'slug'   => 'moja_gmina',
@@ -175,6 +197,7 @@ class AppController extends Controller {
 			'home'   => '1',
 			'folder_id' => '13'
 		),
+		/*
 		array(
 			'id'     => '20',
 			'slug'   => 'finanse',
@@ -184,6 +207,7 @@ class AppController extends Controller {
 			'home'   => '1',
 			'folder_id' => '13'
 		),
+		*/
 		array(
 			'id'     => '21',
 			'slug'   => 'handel_zagraniczny',
@@ -203,6 +227,7 @@ class AppController extends Controller {
 			'home' => '1',
 			'folder_id' => '13'
 		),
+		/*
 		array(
 			'id'     => '10',
 			'slug'   => 'kody_pocztowe',
@@ -212,47 +237,41 @@ class AppController extends Controller {
 			'home'   => '1',
 			'folder_id' => '13'
 		),
-	);
-	public $Streams = array(
+		*/
 		array(
-			'id'       => 1,
-			'name'     => '_mojePaństwo - główne wydanie',
-			'selected' => true,
+			'id'     => '10',
+			'slug'   => 'paszport',
+			'name'   => 'Paszport',
+			'plugin' => 'paszport',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
 		),
+		/*
+        array(
+            'id' => '20',
+            'slug' => 'przejrzysty_krakow',
+            'name' => 'Przejrzysty Kraków',
+            'plugin' => 'przejrzysty_krakow',
+            'type' => 'app',
+            'home' => '1',
+            'folder_id' => '13'
+        ),
+        */
 	);
-	private $stream_id = 1;
-
-	public function getStreamId() {
-		$stream = $this->getStream();
-		if ( $stream && isset( $stream['id'] ) ) {
-			return $stream['id'];
-		}
-
-		return false;
-	}
-
-	public function getStream() {
-		if ( empty( $this->Streams ) ) {
-			return false;
-		}
-
-		for ( $i = 0; $i < count( $this->Streams ); $i ++ ) {
-			if ( $this->Streams[ $i ]['id'] == $this->stream_id ) {
-				return $this->Streams[ $i ];
-			}
-		}
-
-		return $this->Streams[0];
-	}
-
+	
 	public function beforeFilter() {
-						
+		
+		// debug( $this->Auth->user() ); die();
+				
 		if ( defined( 'PORTAL_DOMAIN' ) ) {
 
 			$pieces = parse_url( Router::url( $this->here, true ) );
 
 			if ( defined( 'PK_DOMAIN' ) && ( $pieces['host'] == PK_DOMAIN ) ) {
-
+				
+				$this->domainMode = 'PK';
+				
 				// only certain actions are allowed in this domain
 				// for other actions we are immediatly redirecting to PORTAL_DOMAIN
 
@@ -331,7 +350,8 @@ class AppController extends Controller {
 						'informacja',
 						'glosowania',
 						'protokol',
-						'finanse'
+						'finanse',
+						'wpf'
 					) )
 				) {
 
@@ -391,7 +411,9 @@ class AppController extends Controller {
 
 		parent::beforeFilter();
 		$this->Auth->allow();
-
+		
+		// debug($this->getApplications()); die();
+		
 		$this->set( 'statusbarCrumbs', $this->statusbarCrumbs );
 		$this->set( 'statusbarMode', $this->statusbarMode );
 		$this->set( '_APPLICATIONS', $this->getApplications() );
@@ -433,24 +455,20 @@ class AppController extends Controller {
 
 	public function beforeRender()
 	{
-
-		if ($this->Session->read('Auth.User.id') && $this->Session->read('Pisma.transfer_anonymous')) {
-
-			$API = $this->API->Pisma()->transfer_anonymous(array(
-				'anonymous_user_id' => $this->Session->read('previous_id'),
-			));
-
+				
+		if($this->Session->read('Auth.User.id') && $this->Session->read('Pisma.transfer_anonymous')) {
+			
+			$this->loadModel('Pisma.Pismo');			
+			$this->Pismo->transfer_anonymous($this->Session->read('previous_id'));
+			
 			$this->Session->delete('Pisma.transfer_anonymous');
 			return $this->redirect($this->request->here);
-
 		}
-
 	}
 
 	public function addStatusbarCrumb( $item ) {
 		$this->statusbarCrumbs[] = $item;
 		$this->set( 'statusbarCrumbs', $this->statusbarCrumbs );
-
 	}
 
 	public function setMetaDesc($val)
@@ -462,16 +480,33 @@ class AppController extends Controller {
 		return $this->setMeta('description', $val);
 	}
 
-	public function setMeta($key, $val)
+	public function setMeta($key, $val = null)
 	{
+        if(is_array($key)) {
+            foreach($key as $property => $content)
+                $this->meta[$property] = $content;
+            $this->set('_META', $this->meta);
+            return true;
+        }
 
-		if (!$val)
+		if(!$val)
 			return false;
 
 		$this->meta[$key] = $val;
 		$this->set('_META', $this->meta);
 
 		return $val;
-
 	}
+
+    public function prepareMetaTags() {
+        $this->setMeta(array(
+            'og:url'            => Router::url($this->here, true),
+            'og:type'           => 'website',
+            'og:description'    => strip_tags(__('LC_MAINHEADER_TEXT')),
+            'og:image'          => FULL_BASE_URL . '/img/social/share_main.jpg',
+            'fb:admins'         => '616010705',
+            'fb:app_id'         => FACEBOOK_appId
+        ));
+    }
+
 }

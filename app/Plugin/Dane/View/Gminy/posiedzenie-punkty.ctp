@@ -140,8 +140,8 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
     <div class="col-lg-9 nopadding">
         <div class="object">
-			
-			<? if( isset($objects) && !empty($objects)) {?>
+						
+			<? if( isset($dataBrowser['hits']) && !empty($dataBrowser['hits'])) {?>
 			<div class="block">
 				<div class="block-header">
 					<h2 class="label">Punkty porządku dziennego</h2>
@@ -157,7 +157,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 							</tr>
 						</thead>
 						<tbody>
-							<? foreach( $objects as $object ) { $object = $object['Dataobject']; ?>
+							<? foreach( $dataBrowser['hits'] as $object ) { ?>
 							<tr>
 								<td class="text-center"><span class="punkt-nr"><?= $object->getData('numer') ?></span></td>
 								<td><? if($object->getUrl()) {?><a href="<?= $object->getUrl() ?>"><? } ?><?= $object->getData('tytul') ?><? if($object->getUrl()) {?></a><? } ?></td>

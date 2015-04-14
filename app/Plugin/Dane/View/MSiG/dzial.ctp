@@ -5,9 +5,9 @@ echo $this->Element('dataobject/pageBegin', array(
 ));
 ?>
 
-    <h1><?= $dzial->getShortTitle() ?></h1>
+    <h2><?= $dzial->getShortTitle() ?></h2>
 
-<?= $this->Document->place($document) ?>
+<?= $this->Document->place($dzial->getData('dokument_id')) ?>
 
 
 <?= $this->Element('dataobject/pageEnd'); ?>

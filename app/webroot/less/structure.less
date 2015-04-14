@@ -1,7 +1,12 @@
+* {
+    margin: 0;
+}
+
 html,
 body {
     margin: 0;
     padding: 0;
+    min-height: 100%;
     height: 100%;
 }
 
@@ -10,51 +15,95 @@ body {
     -moz-border-radius: 3px;
     border-radius: 3px;
 
-    &.btn-primary {
-        background-color: #007ab9;
+    &.btn-icon {
+        overflow: hidden;
+        text-align: left;
+        width: 100%;
+        position: relative;
         border-width: 0;
-        padding: 8px 12px;
+        padding: 8px 12px 8px 50px;
         word-wrap: break-word;
         white-space: normal;
         line-height: 1em;
 
-        &.btn-icon {
-            overflow: hidden;
-            padding-left: 50px;
-            text-align: left;
-            width: 100%;
-            position: relative;
+        &.obserwuj-button:hover {
+            .btn-text {
+                visibility: hidden;
+            }
+            .btn-text:before {
+                content: "Nie obserwuj";
+                visibility: visible;
+            }
+        }
+
+        &.btn-primary {
+            background-color: #007ab9;
 
             .icon {
                 background-color: #00639a;
-                left: 0;
-                padding: 8px 10px;
-                position: absolute;
-                text-align: center;
-                top: 0;
-                width: 42px;
-                height: 100%;
+            }
 
-                &:before, &:after {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
+            &:hover {
+                background-color: #00639a;
+
+                &.btn-icon .icon {
+                    background-color: #007ab9;
                 }
             }
         }
 
-        &:hover {
-            background-color: #003f6b;
+        &.btn-default {
 
-            &.btn-icon .icon {
-                background-color: #003f6b;
+            background-color: #FAFAFA;
+
+            .icon {
+                background-color: #F1F1F1;
+            }
+
+            &:hover {
+                background-color: #F1F1F1;
+
+                &.btn-icon .icon {
+                    background-color: #FAFAFA;
+                }
+            }
+
+        }
+
+        .icon {
+            background-color: #00639a;
+            left: 0;
+            padding: 8px 10px;
+            position: absolute;
+            text-align: center;
+            top: 0;
+            width: 42px;
+            height: 100%;
+
+            &:before, &:after {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+
+                -webkit-transform: translate(-50%, -50%);
+                -moz-transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                -o-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
             }
         }
     }
+
 }
 
 #_wrapper {
+    @cockpitMobileToggle: #ffffff;
+    @cockpitBlueLight: #59a4dd;
+    @cockpitBlue: #014068;
+    @cockpitBlueDark: #023353;
+    @cockpitBlueDarken: #062f49;
+    @appHeight: 60px;
+
     width: 100%;
     min-height: 100%;
     position: relative;
@@ -66,13 +115,190 @@ body {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 
-    #_mPCockpit {
-        @cockpitBlueLight: #59a4dd;
-        @cockpitBlue: #014068;
-        @cockpitBlueDark: #023353;
-        @cockpitBlueDarken: #062f49;
-        @appHeight: 60px;
+    ._mPLogo {
+        font-family: "Lato", sans-serif;
+        font-size: 22px;
+        font-weight: 300;
+        line-height: 22px;
+        margin: 10px;
+        text-align: right;
 
+        img {
+            width: 80px;
+        }
+
+        a, a:hover, a:focus {
+            color: #ffffff;
+        }
+    }
+
+    #_mPCockpitMobile {
+        width: 100%;
+        height: 70px;
+        background-color: @cockpitBlue;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 901;
+
+        ._mPLogo {
+            float: left;
+            width: 80px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+
+            -webkit-transform: translate(-50%, 0);
+            -moz-transform: translate(-50%, 0);
+            -ms-transform: translate(-50%, 0);
+            -o-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
+        }
+
+        ._mPShowMenu {
+            @iconSize: 25px;
+            @iconLineSize: 2px;
+
+            float: left;
+            width: 70px;
+            height: 100%;
+            position: relative;
+
+            .tcon {
+                position: absolute;
+                right: 0;
+                top: 50%;
+                width: @iconSize;
+                height: @iconSize;
+
+                -webkit-transform: translate(0, -50%);
+                -moz-transform: translate(0, -50%);
+                -ms-transform: translate(0, -50%);
+                -o-transform: translate(0, -50%);
+                transform: translate(0, -50%);
+
+                appearance: none;
+                border: none;
+                cursor: pointer;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-justify-content: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+                -webkit-align-items: center;
+                -ms-flex-align: center;
+                align-items: center;
+                transition: 0.3s;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                background: transparent;
+                outline: none;
+            }
+            .tcon > * {
+                display: block;
+            }
+            .tcon:hover, .tcon:focus {
+                outline: none;
+            }
+            .tcon::-moz-focus-inner {
+                border: 0;
+            }
+
+            .tcon-menu__lines {
+                display: inline-block;
+                height: @iconLineSize;
+                width: @iconSize;
+                border-radius: 2.85714px;
+                transition: 0.3s;
+                background: @cockpitMobileToggle;
+                position: relative;
+            }
+            .tcon-menu__lines::before, .tcon-menu__lines::after {
+                display: inline-block;
+                height: @iconLineSize;
+                width: @iconSize;
+                border-radius: 2.85714px;
+                transition: 0.3s;
+                background: @cockpitMobileToggle;
+                content: '';
+                position: absolute;
+                left: 0;
+                -webkit-transform-origin: 2.85714px center;
+                -moz-transform-origin: 2.85714px center;
+                -ms-transform-origin: 2.85714px center;
+                -o-transform-origin: 2.85714px center;
+                transform-origin: 2.85714px center;
+            }
+            .tcon-menu__lines::before {
+                top: 7px;
+            }
+            .tcon-menu__lines::after {
+                top: -7px;
+            }
+            .tcon-transform .tcon-menu__lines {
+                -webkit-transform: scale3d(.8, .8, .8);
+                -moz-transform: scale3d(.8, .8, .8);
+                -ms-transform: scale3d(.8, .8, .8);
+                -o-transform: scale3d(.8, .8, .8);
+                transform: scale3d(.8, .8, .8);
+            }
+
+            .tcon-menu--xcross {
+                width: auto;
+            }
+            .tcon-menu--xcross.tcon-transform .tcon-menu__lines {
+                background: transparent;
+            }
+            .tcon-menu--xcross.tcon-transform .tcon-menu__lines::before, .tcon-menu--xcross.tcon-transform .tcon-menu__lines::after {
+                -webkit-transform-origin: 50% 50%;
+                -moz-transform-origin: 50% 50%;
+                -ms-transform-origin: 50% 50%;
+                -o-transform-origin: 50% 50%;
+                transform-origin: 50% 50%;
+                top: 0;
+                width: @iconSize;
+                height: @iconLineSize+1;
+            }
+            .tcon-menu--xcross.tcon-transform .tcon-menu__lines::before {
+                -webkit-transform: rotate3d(0, 0, 1, 45deg);
+                -moz-transform: rotate3d(0, 0, 1, 45deg);
+                -ms-transform: rotate3d(0, 0, 1, 45deg);
+                -o-transform: rotate3d(0, 0, 1, 45deg);
+                transform: rotate3d(0, 0, 1, 45deg);
+            }
+            .tcon-menu--xcross.tcon-transform .tcon-menu__lines::after {
+                -webkit-transform: rotate3d(0, 0, 1, -45deg);
+                -moz-transform: rotate3d(0, 0, 1, -45deg);
+                -ms-transform: rotate3d(0, 0, 1, -45deg);
+                -o-transform: rotate3d(0, 0, 1, -45deg);
+                transform: rotate3d(0, 0, 1, -45deg);
+            }
+
+            .tcon-visuallyhidden {
+                border: 0;
+                clip: rect(0 0 0 0);
+                height: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+            .tcon-visuallyhidden:active, .tcon-visuallyhidden:focus {
+                clip: auto;
+                height: auto;
+                margin: 0;
+                overflow: visible;
+                position: static;
+                width: auto;
+            }
+        }
+    }
+
+    #_mPCockpit {
         width: auto;
         height: 100%;
         color: #FFFFFF;
@@ -123,20 +349,8 @@ body {
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 2;
+            z-index: 900;
 
-            ._mPLogo {
-                font-family: "Lato", sans-serif;
-                font-size: 22px;
-                font-weight: 300;
-                line-height: 22px;
-                margin: 10px;
-                text-align: right;
-
-                a, a:hover, a:focus {
-                    color: #ffffff;
-                }
-            }
             ._mPPowerButton {
                 background-color: #000000;
 
@@ -157,6 +371,11 @@ body {
                     left: 50%;
                     position: absolute;
                     top: 50%;
+
+                    -webkit-transform: translate(-50%, -50%);
+                    -moz-transform: translate(-50%, -50%);
+                    -ms-transform: translate(-50%, -50%);
+                    -o-transform: translate(-50%, -50%);
                     transform: translate(-50%, -50%);
                 }
 
@@ -179,8 +398,13 @@ body {
                     left: 50%;
                     position: absolute;
                     top: 50%;
-                    transform: translate(-50%, -50%);
                     text-align: center;
+
+                    -webkit-transform: translate(-50%, -50%);
+                    -moz-transform: translate(-50%, -50%);
+                    -ms-transform: translate(-50%, -50%);
+                    -o-transform: translate(-50%, -50%);
+                    transform: translate(-50%, -50%);
 
                     ._mPAppIcon {
                         width: 100%;
@@ -199,7 +423,12 @@ body {
                         top: 0;
                         background-color: #63afea;
                         color: #ffffff;
-                        transform: translate(0px, -50%);
+
+                        -webkit-transform: translate(0, -50%);
+                        -moz-transform: translate(0, -50%);
+                        -ms-transform: translate(0, -50%);
+                        -o-transform: translate(0, -50%);
+                        transform: translate(0, -50%);
                     }
                 }
             }
@@ -245,7 +474,7 @@ body {
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 1;
+            z-index: 899;
             width: 100px;
             height: 100%;
             background-color: @cockpitBlueDarken;
@@ -280,10 +509,10 @@ body {
                             top: 50%;
                             left: 50%;
 
-                            -moz-transform: translate(-50%, -50%);
                             -webkit-transform: translate(-50%, -50%);
-                            -o-transform: translate(-50%, -50%);
+                            -moz-transform: translate(-50%, -50%);
                             -ms-transform: translate(-50%, -50%);
+                            -o-transform: translate(-50%, -50%);
                             transform: translate(-50%, -50%);
                         }
                     }
@@ -297,10 +526,36 @@ body {
     }
 
     #_main {
+        @footerHeight: 30px;
+
         width: 100%;
         height: 100%;
         min-height: 100vh;
         padding-left: 100px;
+
+        > div:last-of-type:not(.fullPageHeight) {
+            padding-bottom: @footerHeight;
+        }
+
+        footer {
+            height: @footerHeight;
+            margin-right: 10px;
+
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            z-index: 900;
+
+            a, .separator {
+                color: #aaaaaa;
+            }
+
+            a {
+                font-size: 10px;
+                font-weight: bold;
+                margin: 20px 0;
+            }
+        }
 
         .fullPageHeight {
             min-height: 100vh;
@@ -311,5 +566,48 @@ body {
                 min-height: 100vh;
             }
         }
+    }
+}
+
+@media (max-width: 767px) {
+    #_wrapper {
+        overflow-x: hidden;
+
+        #_mPCockpit ._mPBasic {
+            margin-left: -100px;
+
+            ._mPLogo {
+                visibility: hidden;
+            }
+        }
+        #_main {
+            margin-top: 70px;
+            padding-left: 0;
+        }
+    }
+}
+
+/*ADDITIONAL CUSTOM SIZE*/
+@media (min-width: 768px) and (max-width: 868px) {
+    #_wrapper .container {
+        width: 650px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1092px) {
+    #_wrapper .container {
+        width: 870px;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1300px) {
+    #_wrapper .container {
+        width: 1070px;
+    }
+}
+
+@media (min-width: 768px) {
+    #_wrapper #_mPCockpitMobile {
+        display: none;
     }
 }

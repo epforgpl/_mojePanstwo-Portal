@@ -1,4 +1,10 @@
 <?
+	
+	$objectRenderOptions = array(
+		'forceLabel' => ( isset($dataBrowserObjectRender) && isset($dataBrowserObjectRender['forceLabel']) ) ? (boolean) $dataBrowserObjectRender['forceLabel'] : false,
+	);
+	
+	
 $path = App::path('Plugin');
 $file = $path[0] . '/Dane/View/Elements/' . $theme . '/' . $object->getDataset() . '.ctp';
 $file_exists = file_exists($file);
@@ -7,15 +13,7 @@ $shortTitle = (isset($options['forceTitle'])) ?
     $options['forceTitle'] :
     $object->getShortTitle();
 
-if (in_array($object->getDataset(), array(
-    'krakow_posiedzenia_punkty',
-    'rady_gmin_debaty',
-    'rady_gmin_wystapienia'
-))) {
-    $object_content_sizes = array(3, 9);
-} else {
-    $object_content_sizes = array(2, 10);
-}
+$object_content_sizes = array(2, 10);
 
 // debug( $object->getData() ); 
 
@@ -25,22 +23,18 @@ $this->Dataobject->setObject($object);
     echo " unreaded";
 } else {
     echo " readed";
-} ?>"
+} ?><? if( $classes = $object->getClasses() ) { echo " " . implode(' ', $classes); } ?>"
      oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
 
     <div class="row">
-        <? if ($this->Dataobject->getDate()) { ?>
-            <div class="formatDate col-xs-2 col-lg-1 dimmed">
-                <?php echo($this->Dataobject->getDate()); ?>
-            </div>
-        <? } ?>
-        <div class="data <?= $this->Dataobject->getDate() ? 'col-xs-10 col-md-11' : 'col-xs-12' ?>">
+
+        <div class="data col-xs-12">
 
             <? if ($sentence = $object->getSentence()) { ?>
                 <p class="sentence"><?= $sentence ?></p>
             <? } ?>
 
-            <div class="row">
+            <div>
 
                 <?
                 if ($object->getPosition()) {
@@ -84,7 +78,7 @@ $this->Dataobject->setObject($object);
                             </div>
                         <? } ?>
 
-                        <? if ($object->force_hl_fields || $forceLabel) { ?>
+                        <? if ($object->force_hl_fields || $objectRenderOptions['forceLabel']) { ?>
                             <p class="header">
                                 <?= $object->getLabel(); ?>
                             </p>
@@ -94,7 +88,7 @@ $this->Dataobject->setObject($object);
                             <?php if ($object->getUrl() != false) { ?>
                             <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
                                 <?php } ?>
-                                <?= $this->Text->truncate($shortTitle, 200) ?>
+                                <?= $this->Text->truncate($shortTitle, 150) ?>
                                 <?php if ($object->getUrl() != false) { ?>
                             </a> <?
                         }
@@ -102,21 +96,36 @@ $this->Dataobject->setObject($object);
                             echo '<small>' . $object->getTitleAddon() . '</small>';
                         } ?>
                         </p>
+                        
+                        <? if( $metaDesc = $object->getMetaDescription() ) {?>
+                        <p class="meta meta-desc"><?= $metaDesc ?></p>
+                        <? } ?>
+                        
                         <?
                         if ($file_exists) {
                             echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(
-                                'item' => $item,
+                                // 'item' => $item,
                                 'object' => $object,
                                 'hlFields' => $hlFields,
                                 'hlFieldsPush' => $hlFieldsPush,
                                 'defaults' => $defaults,
                             ));
                         } else {
+                                                        
                             echo $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults);
                         }
                         ?>
-
-                        <? if ($object->getDescription()) { ?>
+						
+						<? if( 
+							( $object->hasHighlights() ) && 
+							( $highlight = $object->getLayer('highlight') )
+						) { ?>
+							<? if( $highlight[0] != '<em>' . $object->getShortTitle() . '</em>' ) {?>
+							<div class="description highlight">
+                                <?= $highlight[0] ?>
+                            </div>
+                            <? } ?>
+                        <? } elseif ($object->getDescription()) { ?>
                             <div class="description">
                                 <?= $object->getDescription() ?>
                             </div>
@@ -136,7 +145,7 @@ $this->Dataobject->setObject($object);
                             </div>
                         <? } ?>
 
-                        <? if ($object->force_hl_fields || $forceLabel) { ?>
+                        <? if ($object->force_hl_fields || $objectRenderOptions['forceLabel']) { ?>
                             <p class="header">
                                 <?= $object->getLabel(); ?>
                             </p>
@@ -146,7 +155,7 @@ $this->Dataobject->setObject($object);
                             <?php if ($object->getUrl() != false){ ?>
                             <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
                                 <?php } ?>
-                                <?= $shortTitle ?>
+                                <?= $this->Text->truncate($shortTitle, 150) ?>
                                 <?php if ($object->getUrl() != false){ ?>
                             </a> <?
                         }
@@ -154,10 +163,16 @@ $this->Dataobject->setObject($object);
                             echo '<small>' . $object->getTitleAddon() . '</small>';
                         } ?>
                         </p>
+                        
+                        <? if( $metaDesc = $object->getMetaDescription() ) {?>
+                        <p class="meta meta-desc"><?= $metaDesc ?></p>
+                        <? } ?>
+                        
                         <?
+	                    	                    
+	                    // debug( $object->getData() );
                         if ($file_exists) {
                             echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(
-                                'item' => $item,
                                 'object' => $object,
                                 'hlFields' => $hlFields,
                                 'hlFieldsPush' => $hlFieldsPush,
@@ -168,7 +183,16 @@ $this->Dataobject->setObject($object);
                         }
                         ?>
 
-                        <? if ($object->getDescription()) { ?>
+                        <? if( 
+							( $object->hasHighlights() ) && 
+							( $highlight = $object->getLayer('highlight') )
+						) { ?>				
+							<? if( $highlight[0] != '<em>' . $object->getShortTitle() . '</em>' ) {?>
+							<div class="description">
+                                <?= $highlight[0] ?>
+                            </div>
+                            <? } ?>
+                        <? } elseif ($object->getDescription()) { ?>
                             <div class="description">
                                 <?= $this->Text->truncate($object->getDescription(), 250) ?>
                             </div>
@@ -179,11 +203,4 @@ $this->Dataobject->setObject($object);
             </div>
         </div>
     </div>
-    <?php if ($object->hasHighlights() && $object->getHlText()) { ?>
-        <div class="row">
-            <div class="text-highlights alert alert-info">
-                <?php echo(closetags($object->getHlText())); ?>
-            </div>
-        </div>
-    <?php } ?>
 </div>

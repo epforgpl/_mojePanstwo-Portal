@@ -1,0 +1,23 @@
+msgid "LC_KRS_HEADER"
+msgstr "Krajowy Rejestr Sądowy"
+
+msgid "LC_KRS_HEADLINE"
+msgstr "Przeglądaj powiązania między <strong>organizacjami</strong> i <strong>osobami</strong> w Polsce"
+
+msgid "LC_KRS_SEARCH_PLACEHOLDER"
+msgstr "Szukaj organizacji lub osoby"
+
+msgid "LC_KRS_POSLOWIE_HEADLINE"
+msgstr "Posłowie w KRS"
+
+msgid "LC_KRS_POSLOWIE_BLOCK_LINK"
+msgstr "Zobacz szczegóły"
+
+msgid "LC_KRS_SEARCH_TITLE"
+msgstr "Wyniki"
+
+msgid "LC_KRS_SEARCH_LINK"
+msgstr "Zobacz więcej"
+
+msgid "LC_KRS_BRAK_WYNIKOW"
+msgstr "Brak wyników dla frazy"

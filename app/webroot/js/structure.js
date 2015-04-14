@@ -11,9 +11,12 @@
         if (option.hasClass('_mPSearch')) {
             if ($('._mPSearchOutside').length)
                 $('._mPSearchOutside input').focus();
-            else
+            else {
                 $('.suggesterBlockModal').modal('toggle');
-            $('.suggesterBlockModal').on('hidden.bs.modal', function (e) {
+            }
+            $('.suggesterBlockModal').on('shown.bs.modal', function () {
+                $('.suggesterBlockModal input').focus();
+            }).on('hidden.bs.modal', function () {
                 $('.suggesterBlockModal input').val('');
             })
         } else if (option.hasClass('_mPAppsList')) {
@@ -53,4 +56,26 @@
             //favorite
         }
     });
+    $('#_mPCockpitMobile ._mPShowMenu > button').click(function () {
+        var that = $(this);
+
+        if (that.hasClass('open')) {
+            that.removeClass('tcon-transform open');
+
+            $('#_main').stop(true, false).animate({
+                'margin-left': '0'
+            }, {queue: false});
+            $('#_mPCockpit ._mPBasic').stop(true, false).animate({
+                'margin-left': '-100px'
+            }, {queue: false});
+        } else {
+            that.addClass('tcon-transform open');
+            $('#_main').stop(true, false).animate({
+                'margin-left': '100px'
+            }, {queue: false});
+            $('#_mPCockpit ._mPBasic').stop(true, false).animate({
+                'margin-left': '0'
+            }, {queue: false});
+        }
+    })
 })(jQuery);

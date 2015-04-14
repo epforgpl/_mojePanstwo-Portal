@@ -13,7 +13,8 @@ class KrsPodmiotyController extends DataobjectsController
         'hlFields' => array(),
         'bigTitle' => true,
     );
-
+	
+	public $loadChannels = true;
     public $initLayers = array('counters');
 
     public $microdata = array(
@@ -31,7 +32,7 @@ class KrsPodmiotyController extends DataobjectsController
 	
 	public function aktualnosci() {
 		
-		$this->_prepareView();
+		$this->load();
 		
 		if( isset($this->request->params['pass'][0]) ) {
 						
@@ -47,9 +48,7 @@ class KrsPodmiotyController extends DataobjectsController
 			
 		} else {
 			
-			$this->prepareFeed(array(
-				// 'perPage' => 3,
-			));
+			$this->feed();
 			
 		}
 		
@@ -73,11 +72,13 @@ class KrsPodmiotyController extends DataobjectsController
         }
 
     }
-
+	
+	
     public function view()
     {
 
         $this->addInitLayers(array(
+	        'channels',
             'reprezentacja',
             'wspolnicy',
             'jedynyAkcjonariusz',
@@ -109,85 +110,6 @@ class KrsPodmiotyController extends DataobjectsController
 
         $this->Session->delete('KRS.odpis');
 
-
-        $indicators = array(
-            array(
-                'label' => 'Numer KRS',
-                'value' => $this->object->getData('krs'),
-            ),
-        );
-
-        if ($this->object->getData('nip')) {
-            $indicators[] = array(
-                'label' => 'Numer NIP',
-                'value' => $this->object->getData('nip'),
-            );
-        }
-
-
-        $indicators[] = array(
-            'label' => 'Data rejestracji',
-            'value' => $this->object->getData('data_rejestracji'),
-            'format' => 'date',
-        );
-
-        if ($this->object->getData('wartosc_kapital_zakladowy')) {
-            $indicators[] = array(
-                'label' => 'Kapitał zakładowy',
-                'value' => $this->object->getData('wartosc_kapital_zakladowy'),
-                'format' => 'pln',
-            );
-        }
-
-
-        $this->set('indicators', $indicators);
-
-		/*
-		$this->prepareFeed(array(
-			// 'perPage' => 3,
-		));
-		*/
-
-        if ($this->object->getData('ostatni_wpis_id')) {
-
-
-            $historia = $this->API->searchDataset('msig_zmiany', array(
-                'limit' => 100,
-                'conditions' => array(
-                    'wpis_id' => $this->object->getData('ostatni_wpis_id'),
-                ),
-                'order' => array(
-                    '_date desc',
-                    'wpis_id asc',
-                    'nr_dz asc',
-                    'nr_rub asc',
-                    'nr_sub asc',
-                    'nr_prub_sub asc',
-                    '_ord desc',
-                ),
-            ));
-
-            $this->set('historia', $this->API->getObjects());
-
-        }
-
-
-        /*
-        $obszary = new MP\Obszary();
-        $this->set('obszar', $obszary->getMiejscowosc(array(
-            'conditions' => array(
-                'Miejscowosc.id' => $this->object->getData('miejscowosc_id')
-            ),
-            'fields' => array(
-                'Miejscowosc.nazwa',
-                'Miejscowosc.id',
-                'Powiat.nazwa',
-                'Gmina.nazwa',
-                'Gmina.id',
-                'Wojewodztwo.nazwa'
-            ),
-        )));
-        */
 
         $organy = array();
         $menu = array();
@@ -289,6 +211,15 @@ class KrsPodmiotyController extends DataobjectsController
         $this->set('organy', $organy);
 
 
+		/*
+		$zamowienia = $this->Dataobject->find('all', array(
+			'conditions' => array(
+				'dataset' => 'zamowienia_publiczne',
+				'krs_podmioty.'
+			),
+			'limit' => 9,
+		));
+		
         $zamowienia = $this->API->search(array(
             'limit' => 9,
             'conditions' => array(
@@ -310,9 +241,12 @@ class KrsPodmiotyController extends DataobjectsController
         if ($dotacje)
             $desc_bodies_parts[] = 'otrzymane dotacje';
         $this->set('dotacje', $this->API->getObjects());
+        */
 
         $desc_bodies_parts[] = 'odpis z KRS';
-
+		
+		
+		/*
         $dzialalnosc = $this->object->getLayer('dzialalnosci');
         if ($dzialalnosc) {
             $dzialalnosci = array(
@@ -331,9 +265,12 @@ class KrsPodmiotyController extends DataobjectsController
 
 
         $this->set('_menu', $menu);
+        */
 
         $desc_parts[] = ucfirst(implode(', ', $desc_bodies_parts));
         $this->setMetaDesc(implode('. ', $desc_parts) . '.');
+        
+        // return $this->feed();
 
     }
 
@@ -341,7 +278,8 @@ class KrsPodmiotyController extends DataobjectsController
     {
 
         parent::_prepareView();
-
+		
+		/*
         $historia = $this->API->searchDataset('msig_zmiany', array(
             'limit' => 1000,
             'conditions' => array(
@@ -359,11 +297,22 @@ class KrsPodmiotyController extends DataobjectsController
             ),
         ));
         $this->set('historia', $this->API->getObjects());
+        */
 
         $this->set('title_for_layout', 'Histora zmian w ' . $this->object->getData('nazwa'));
 
     }
-
+	
+	public function powiazania()
+	{
+		
+		$this->addInitLayers(array('powiazania'));
+		$this->_prepareView();
+		
+		debug( $this->object->getLayer('powiazania') ); die();
+		
+	}
+	
     public function graph()
     {
         if (@$this->request->params['ext'] == 'json') {
@@ -393,7 +342,26 @@ class KrsPodmiotyController extends DataobjectsController
 
     public function zamowienia()
     {
-
+		
+		$this->_prepareView();
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+	            'dataset' => 'zamowienia_publiczne_dokumenty',
+	            // 'gminy_okregi_wyborcze.gmina_id' => $this->object->getId(),
+	            'feeds_channels' => array(
+		            'dataset' => 'krs_podmioty',
+		            'object_id' => $this->object->getId(),
+		            'channel' => 200,
+	            ),
+            ),
+            'renderFile' => 'krs_podmioty-zamowienia_publiczne_dokumenty',
+            // 'aggsPreset' => 'zamowienia_publiczne',
+        ));
+		
+        $this->set('title_for_layout', 'Zamówienia publiczne dla ' . $this->object->getData('nazwa'));
+        $this->set('DataBrowserTitle', 'Zamówienia publiczne dla ' . $this->object->getData('nazwa'));
+		
+		/*
         $this->_prepareView();
         $this->dataobjectsBrowserView(array(
             'source' => 'krs_podmioty.zamowienia:' . $this->object->getId(),
@@ -402,7 +370,8 @@ class KrsPodmiotyController extends DataobjectsController
             'noResultsTitle' => 'Brak zamówień publicznych',
         ));
         $this->set('title_for_layout', 'Zamówienia publiczne udzielone ' . $this->object->getTitle());
-
+		*/
+		
     }
 
     public function dotacje()
@@ -538,7 +507,7 @@ class KrsPodmiotyController extends DataobjectsController
                 array(
                     'id' => '',
                     'href' => $href_base,
-                    'label' => 'Informacje i powiązania',
+                    'label' => 'Aktualności',
                 ),
             )
         );
@@ -549,16 +518,6 @@ class KrsPodmiotyController extends DataobjectsController
             'label' => 'Powiązania'
         );
 
-        if ($this->object->getData('liczba_zmian')) {
-
-            $menu['items'][] = array(
-                'id' => 'historia',
-                'href' => $href_base . '/historia',
-                'label' => 'Historia',
-                'count' => $this->object->getData('liczba_zmian'),
-            );
-
-        }
 
         if ($this->request->params['id'] == 481129) { // KOMITET KONKURSOWY KRAKÓW 2022
 
@@ -582,7 +541,7 @@ class KrsPodmiotyController extends DataobjectsController
                 'id' => 'oddzialy',
                 'href' => $href_base . '/oddzialy',
                 'label' => 'Oddziały',
-                'count' => $counters['liczba_oddzialow'],
+                // 'count' => $counters['liczba_oddzialow'],
             );
         }
 
@@ -597,14 +556,6 @@ class KrsPodmiotyController extends DataobjectsController
         }
         */
 
-        if ($counters['liczba_emisji_akcji']) {
-            $menu['items'][] = array(
-                'id' => 'emisje_akcji',
-                'href' => $href_base . '/emisje_akcji',
-                'label' => 'Emisje akcji',
-                'count' => $counters['liczba_emisji_akcji'],
-            );
-        }
 
         if ($this->request->params['action'] == 'kultura') {
             $menu['items'][] = array(
@@ -614,9 +565,9 @@ class KrsPodmiotyController extends DataobjectsController
             );
         }
 
-        $menu['selected'] = ($this->request->params['action'] == 'view') ? '' : $this->request->params['action'];
-        $this->set('_menu', $menu);
-
+        $this->menu = $menu;
+		parent::beforeRender();
+		
     }
 
 }

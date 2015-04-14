@@ -20,25 +20,16 @@ echo $this->Element('Dane.dataobject/subobject', array(
 <h2 class="light">Interpelacja</h2>
 <?
 
-echo $this->Element('docsBrowser/doc', array(
-    'document' => $document,
-    'documentPackage' => $documentPackage,
-));
+echo $this->Document->place( $interpelacja->getData('dokument_id') );
 
-if( isset($document1) ) {
+if( $interpelacja->getData('odp1_dokument_id') ) {
 	echo "<h2 class=\"light\">Odpowiedź</h2>";
-	echo $this->Element('docsBrowser/doc', array(
-	    'document' => $document1,
-	    'documentPackage' => $documentPackage,
-	));
+	echo $this->Document->place( $interpelacja->getData('odp1_dokument_id') );
 }
 
-if( isset($document2) ) {
+if( $interpelacja->getData('odp2_dokument_id') ) {
 	echo "<h2 class=\"light\">Odpowiedź</h2>";
-	echo $this->Element('docsBrowser/doc', array(
-	    'document' => $document2,
-	    'documentPackage' => $documentPackage,
-	));
+	echo $this->Document->place( $interpelacja->getData('odp2_dokument_id') );
 }
 
 echo $this->Element('dataobject/pageEnd');

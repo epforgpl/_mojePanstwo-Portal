@@ -23,24 +23,14 @@ if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) {
 
 } else {
     ?>
-    <div class="objectRender col-md-12 <?php echo $object->getDataset(); ?>" oid="<?php echo $item['data']['id'] ?>">
-        <div class="row">
-            <div class="tree">
-                <ul>
-                    <li class="active noparent">
-                        <a class="title">Bank danych lokalnych</a>
-                        <ul>
-                            <li class="noparent" id="<?= $object->getData('kategoria_id'); ?>">
-                                <a class="title"><?= $object->getData('bdl_wskazniki.kategoria_tytul'); ?></a>
-                                <ul class="insertHere"></ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+    <div class="objectRender col-md-12">
+        <div class="data col-md-11">
+            <div class="row">
+                <div class="content mini">
+                    <h1 class="title">Bank danych lokalnych</h1>
+                    <p class="header"><?= $object->getData('bdl_wskazniki.kategoria_tytul'); ?></p>
+                </div>
             </div>
-            <input type="hidden" id="kid" value="<?= $object->getData('kategoria_id'); ?>"/>
-            <input type="hidden" id="wid" value="<?= $object->getData('bdl_wskazniki.id'); ?>"/>
-            <input type="hidden" id="gid" value="<?= $object->getData('grupa_id'); ?>"/>
-    </div>
+        </div>
     </div>
 <? } ?>

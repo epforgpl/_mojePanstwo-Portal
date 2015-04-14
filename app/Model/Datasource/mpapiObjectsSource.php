@@ -15,7 +15,7 @@ class mpapiObjectsSource extends DataSource {
 	}
 
 	public function read( Model $model, $queryData = array(), $recursive = null ) {
-
+		
 		$conditions = $queryData['conditions'];
 		$this->API  = $this->API->Dane();
 

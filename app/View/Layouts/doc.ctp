@@ -1,57 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title><?= htmlspecialchars(strip_tags($title_for_layout)) ?></title>
+
+    <title><?= htmlspecialchars(strip_tags(str_replace('&nbsp;', ' ', $title_for_layout))) ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <? if( isset($_META) && !empty($_META) ) {
-		foreach( $_META as $key => $val ) 
-			if( !in_array($key, array('image') ) )
-			    echo $this->Html->meta(array('property' => $key, 'content' => $val));
+    <? if (isset($_META) && !empty($_META)) {
+        foreach ($_META as $key => $val)
+            echo $this->Html->meta(array('property' => $key, 'content' => $val));
     } ?>
-    <?php echo $this->Html->meta('favicon.ico', '/img/favicon/fav.ico', array('type' => 'icon')); ?>
-    <?php echo $this->Html->meta('favicon.ico', '/img/favicon/apple-touch-icon.ico', array(
-        'type' => 'icon',
-        'rel' => 'apple-touch-icon'
-    )); ?>
-    <?php echo $this->Html->meta('favicon.ico', '/img/favicon/apple-touch-icon-72x72.ico', array(
-        'type' => 'icon',
-        'rel' => 'apple-touch-icon',
-        'sizes' => '72x72'
-    )); ?>
-    <?php echo $this->Html->meta('favicon.ico', '/img/favicon/apple-touch-icon-114x114.ico', array(
-        'type' => 'icon',
-        'rel' => 'apple-touch-icon',
-        'sizes' => '114x114'
-    )); ?>
+    <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/img/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/img/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/img/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
 
     <?php
-    echo $this->Html->meta(array('property' => 'og:url', 'content' => Router::url($this->here, true)));
-    echo $this->Html->meta(array('property' => 'og:type', 'content' => 'website'));
-    echo $this->Html->meta(array('property' => 'og:title', 'content' => strip_tags($title_for_layout)));
-    echo $this->Html->meta(array(
+    //echo $this->Html->meta(array('property' => 'og:url', 'content' => Router::url($this->here, true)));
+    //echo $this->Html->meta(array('property' => 'og:type', 'content' => 'website'));
+    //echo $this->Html->meta(array('property' => 'og:title', 'content' => strip_tags($title_for_layout)));
+    /* echo $this->Html->meta(array(
         'property' => 'og:description',
         'content' => (isset($_META) && array_key_exists('description', $_META)) ? strip_tags($_META['description']) : strip_tags(__('LC_MAINHEADER_TEXT'))
     ));
     echo $this->Html->meta(array(
         'property' => 'og:image',
         'content' => (isset($_META) && array_key_exists('image', $_META)) ? FULL_BASE_URL . $_META['image'] : FULL_BASE_URL . '/img/favicon/facebook-400x400.jpg',
-    ));
-    echo $this->Html->meta(array('property' => 'fb:admins', 'content' => '100000234760647'));
-    echo $this->Html->meta(array('property' => 'fb:admins', 'content' => '100000078295509'));
-    echo $this->Html->meta(array('property' => 'fb:admins', 'content' => '616010705'));
-    echo $this->Html->meta(array('property' => 'fb:app_id', 'content' => FACEBOOK_appId));
+    ));*/
+    //echo $this->Html->meta(array('property' => 'fb:admins', 'content' => '616010705')); /*Daniel Macyszyn*/
+    //echo $this->Html->meta(array('property' => 'fb:admins', 'content' => '100000234760647')); /*Mariusz Konrad Machuta-Rakowski*/
+    //echo $this->Html->meta(array('property' => 'fb:app_id', 'content' => FACEBOOK_appId));
 
     echo $this->Html->css('//fonts.googleapis.com/css?family=Lato:200,300,400,700,900,400italic');
 
     echo $this->Html->css('../libs/jqueryui/1.11.0/cupertino/jquery-ui.min.css');
 
     $this->Combinator->add_libs('css', $this->Less->css('jquery/jquery-ui-customize'), false);
-    $this->Combinator->add_libs('css', $this->Less->css('statusbar'), false);
+    $this->Combinator->add_libs('css', $this->Less->css('structure'), false);
     $this->Combinator->add_libs('css', $this->Less->css('main'), false);
-    $this->Combinator->add_libs('css', $this->Less->css('flatly'), false);
+    $this->Combinator->add_libs('css', $this->Less->css('suggester'));
 
     /* GLOBAL CSS FOR LOGIN FORM FOR PASZPORT PLUGIN*/
     $this->Combinator->add_libs('css', $this->Less->css('loginForm', array('plugin' => 'Paszport')), false);
+
+    /*JSCROLLPANE*/
+    echo $this->Html->css('../plugins/jscrollPane/style/jquery.jscrollpane.css');
 
     /*BOOTSTRAP SELECT LOOKS LIKE BOOTSTRAP BUTTONS*/
     echo $this->Html->css('../plugins/bootstrap-select/bootstrap-select.min.css');
@@ -107,7 +111,6 @@
 
     ga('create', 'UA-37679118-4', 'mojepanstwo.pl');
     ga('send', 'pageview');
-
 </script>
 
 <?php
@@ -118,10 +121,12 @@ echo $this->Html->script('../libs/jqueryui/1.10.4/development-bundle/ui/minified
 echo $this->Html->script('../libs/bootstrap/3.1.1/js/bootstrap.min.js');
 
 /* PACKAGES FROM VENDOR */
+echo $this->Html->script('../plugins/jscrollPane/script/jquery.mousewheel.js');
+echo $this->Html->script('../plugins/jscrollPane/script/jquery.jscrollpane.min.js');
 echo $this->Html->script('../plugins/browserstate/history.js/scripts/bundled/html4+html5/jquery.history.js');
 echo $this->Html->script('../plugins/carhartl/jquery-cookie/jquery.cookie.js');
 echo $this->Html->script('../plugins/bootstrap-select/bootstrap-select.min.js');
-echo $this->Html->script('../plugins/bootstrap-switch/bootstrap-switch.js');?>
+echo $this->Html->script('../plugins/bootstrap-switch/bootstrap-switch.js'); ?>
 
 <?php /*PHP DATA FOR JS */ ?>
 <script type="text/javascript">
@@ -146,9 +151,10 @@ echo $this->Html->script('../plugins/bootstrap-switch/bootstrap-switch.js');?>
 </script>
 
 <?php
-$this->Combinator->add_libs('js', 'statusbar', false);
-$this->Combinator->add_libs('js', 'statusbar-portal', false);
+$this->Combinator->add_libs('js', 'enhance', false);
+$this->Combinator->add_libs('js', 'structure', false);
 $this->Combinator->add_libs('js', 'main', false);
+$this->Combinator->add_libs('js', 'suggester.js');
 
 /* BLOCK FOR SPECIAL SCRIPTS LIKE PROTOTYPE THAT CANNOT BE MERGE TO ONE FILE*/
 echo $this->fetch('scriptBlock');

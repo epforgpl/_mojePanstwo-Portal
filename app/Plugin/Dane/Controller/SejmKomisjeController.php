@@ -9,11 +9,16 @@ class SejmKomisjeController extends DataobjectsController
 
     public function view()
     {
-        parent::_prepareView();
-        $this->dataobjectsBrowserView(array(
-            'source' => 'sejm_komisje.poslowie:' . $this->object->getId(),
-            'dataset' => 'poslowie',
-            'noResultsTitle' => 'Brak posłów w tej komisji',
+        
+        parent::load();
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+	            'dataset' => 'poslowie',
+	            'poslowie.komisja_id' => $this->object->getId(),
+            )
         ));
+        $this->set('DataBrowserTitle', 'Posłowie w tej komisji');
+        $this->render('DataBrowser/browser'); 
+    
     }
 } 

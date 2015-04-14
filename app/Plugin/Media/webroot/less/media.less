@@ -4,7 +4,6 @@
 
 #media {
     padding-top: 20px;
-    padding-bottom: 20px;
 
     .container {
         width: 100%;
@@ -64,52 +63,6 @@
         &.label {
             a {
                 color: #FFF;
-            }
-        }
-    }
-
-    .plate {
-        font-family: "Lato", Arial, sans-serif;
-        font-size: 16px;
-        font-weight: 300;
-        color: #FFF;
-        padding: 0;
-        background-color: #1b669d;
-        background-image: url(/Media/img/plate_left.png), url(/Media/img/plate_right.png) no-repeat left center, right center;
-
-        .header {
-            text-align: center;
-            margin-bottom: 1em;
-
-            h1 {
-                font-family: "Lato", Arial, sans-serif;
-                font-weight: 300;
-                text-transform: uppercase;
-                color: #ffffff;
-                border-top: 2px solid #fff;
-                border-bottom: 2px solid #fff;
-                max-width: 570px;
-                padding: 20px 0;
-                margin: 20px auto;
-            }
-
-            .subtitle {
-                font-family: "Lato", Arial, sans-serif;
-                font-size: 16px;
-                color: #aaaaaa;
-            }
-        }
-
-        .intro {
-            font-family: "Lato", Arial, sans-serif;
-            font-weight: 300;
-            text-align: justify;
-            margin-top: 1em;
-            margin-bottom: 1em;
-
-            a {
-                color: #ffffff;
-                font-size: 13px;
             }
         }
     }
@@ -227,8 +180,6 @@
     }
 
     .chapter {
-        padding-bottom: 20px;
-
         h3 {
             display: block !important;
         }
@@ -281,6 +232,11 @@
         }
     }
 
+    #twitter > .innerContent > .row > [class*="col-"] {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
     .stats {
         margin-top: 1em;
         padding-top: 1em;
@@ -289,6 +245,9 @@
 
     .ranks {
         text-align: center;
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 0;
     }
 
     .rank-row-block {
@@ -312,12 +271,6 @@
             margin: 20px 0 0;
 
             .rank-col {
-                border-right: 1px solid #CCC;
-
-                &:last-child {
-                    border-right: none;
-                }
-
                 ul {
                     padding: 0;
                     margin: 0;
@@ -579,8 +532,7 @@
             color: #ffffff;
 
             .profile-header-inner {
-                background-color: #444444;
-                background-repeat: no-repeat;
+                background: #444444 no-repeat;
                 box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1) inset;
                 height: 260px;
                 padding: 0;
@@ -703,7 +655,7 @@
         }
     }
 
-    #media #tblMain,
+    #urzedyMedia #tblMain,
     #prawo #tblMain {
         font-family: "Lato", Arial, sans-serif;
         font-size: 16px;
@@ -871,6 +823,20 @@
         }
         img {
             padding: 10px 0;
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    #media .rank-row-block .rank-row .rank-col {
+        border-right: 1px solid #CCC;
+
+        &:nth-child(4n) {
+            border-right: none;
+        }
+
+        &:last-child {
+            border-right: none;
         }
     }
 }

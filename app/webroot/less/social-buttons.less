@@ -1,26 +1,44 @@
-//
-// Bootstrap Social Buttons v1.0.0
-// --------------------------------------------------
+/*
+ * Social Buttons for Bootstrap
+ *
+ * Copyright 2013-2014 Panayiotis Lipiridis
+ * Licensed under the MIT License
+ *
+ * https://github.com/lipis/bootstrap-social
+ */
 
-// The mixin
-// --------------------------------------------------
-.button-variant(@color, @background, @border) {
-    color: @color;
+.button-variant(@background) {
+    color: #ffffff;
     background-color: @background;
-    border-color: @border;
-
-    &:hover,
+    border-color: rgba(0, 0, 0, .2);
     &:focus,
-    &:active,
-    &.active,
-    .open .dropdown-toggle & {
-        color: @color;
-        background-color: darken(@background, 8%);
-        border-color: darken(@border, 12%);
+    &.focus {
+        color: #ffffff;
+        background-color: darken(@background, 10%);
+        border-color: darken(rgba(0, 0, 0, .2), 25%);
+    }
+    &:hover {
+        color: #ffffff;
+        background-color: darken(@background, 10%);
+        border-color: darken(rgba(0, 0, 0, .2), 12%);
     }
     &:active,
     &.active,
-    .open .dropdown-toggle & {
+    .open > .dropdown-toggle& {
+        color: #ffffff;
+        background-color: darken(@background, 10%);
+        border-color: darken(rgba(0, 0, 0, .2), 12%);
+        &:hover,
+        &:focus,
+        &.focus {
+            color: #ffffff;
+            background-color: darken(@background, 17%);
+            border-color: darken(rgba(0, 0, 0, .2), 25%);
+        }
+    }
+    &:active,
+    &.active,
+    .open > .dropdown-toggle& {
         background-image: none;
     }
     &.disabled,
@@ -29,233 +47,192 @@
         &,
         &:hover,
         &:focus,
+        &.focus,
         &:active,
         &.active {
             background-color: @background;
-            border-color: @border;
+            border-color: rgba(0, 0, 0, .2);
         }
     }
-
     .badge {
         color: @background;
-        background-color: @color;
+        background-color: #ffffff;
     }
+}
 
-    .fa {
-        @space: 8px;
+@line-height-base: 1.428571429;
+@padding-base-vertical: 6px;
+@padding-base-horizontal: 12px;
+@padding-large-horizontal: 16px;
+@padding-large-vertical: 10px;
+@padding-small-horizontal: 10px;
+@padding-small-vertical: 5px;
+@font-size-base: 14px;
 
-        margin-right: @space;
-        padding-right: @space;
+@font-size-large: ceil((@font-size-base * 1.25));
+@font-size-small: ceil((@font-size-base * 0.85));
+@line-height-computed: floor((@font-size-base * @line-height-base));
 
-        &:after {
-            content: '|';
-            position: relative;
-            top: 0;
-            right: -@space;
+@bs-height-base: (@line-height-computed + @padding-base-vertical * 2);
+@bs-height-lg: (floor(@font-size-large * @line-height-base) + @padding-large-vertical * 2);
+@bs-height-sm: (floor(@font-size-small * 1.5) + @padding-small-vertical * 2);
+@bs-height-xs: (floor(@font-size-small * 1.2) + @padding-small-vertical + 1);
+
+.btn-social {
+    position: relative;
+    padding-left: (@bs-height-base + @padding-base-horizontal);
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    > :first-child {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: @bs-height-base;
+        line-height: (@bs-height-base + 2);
+        font-size: 1.6em;
+        text-align: center;
+        border-right: 1px solid rgba(0, 0, 0, 0.2);
+    }
+    &.btn-lg {
+        padding-left: (@bs-height-lg + @padding-large-horizontal);
+        :first-child {
+            line-height: @bs-height-lg;
+            width: @bs-height-lg;
+            font-size: 1.8em;
+        }
+    }
+    &.btn-sm {
+        padding-left: (@bs-height-sm + @padding-small-horizontal);
+        :first-child {
+            line-height: @bs-height-sm;
+            width: @bs-height-sm;
+            font-size: 1.4em;
+        }
+    }
+    &.btn-xs {
+        padding-left: (@bs-height-xs + @padding-small-horizontal);
+        :first-child {
+            line-height: @bs-height-xs;
+            width: @bs-height-xs;
+            font-size: 1.2em;
         }
     }
 }
 
-// The colours
-// --------------------------------------------------
-
-// Standard colours
-@btnText: #fff;
-@btnTextAlt: #000;
-
-// Twitter colours from https://twitter.com/
-@btnTwitterBackground: #2daddc;
-@btnTwitterBackgroundHighlight: #0271bf;
-
-// Github colours from http://ghbtns.com/
-@btnGithubBackground: #fafafa;
-@btnGithubBackgroundHighlight: #ccc;
-
-// Pinterest colours from http://pinterest.com/
-@btnPinterestBackground: #d62229;
-@btnPinterestBackgroundHighlight: #ab171e;
-
-// Linkedin colours from http://www.linkedin.com/
-@btnLinkedinBackground: #73b8db;
-@btnLinkedinBackgroundHighlight: #4393BB;
-
-// Google Plus colours from https://accounts.google.com/ServiceLogin?service=oz&continue=https://plus.google.com/?gpsrc%3Dgplp0%26partnerid%3Dgplp0&hl=en-GB
-@btnGooglePlusBackground: #dd4b39;
-@btnGooglePlusBackgroundHighlight: #c53727;
-
-// Instagram colours from http://instagram.com
-@btnInstagramBackground: #6f97b6;
-@btnInstagramBackgroundHighlight: #3f729b;
-
-// Instagram colours from http://instagram.com
-@btnDropboxBackground: #37a3eb;
-@btnDropboxBackgroundHighlight: #2181cf;
-
-// Bitbucket colours from https://bitbucket.org/dashboard/overview
-@btnBitbucketBackground: #2D5F9C;
-@btnBitbucketBackgroundHighlight: #205081;
-
-// Dribbble colours from https://dribbble.com/session/new
-@btnDribbbleBackground: #ea4c89;
-@btnDribbbleBackgroundHighlight: #CB396F;
-
-// Flickr colours from http://www.flickr.com/about
-@btnFlickrBackground: #F051A5;
-@btnFlickrBackgroundHighlight: #ff0084;
-
-// Foursquare colours from https://playfoursquare.s3.amazonaws.com/press/foursquare-brandbook.pdf
-@btnFoursquareBackground: #0cbadf;
-@btnFoursquareBackgroundHighlight: #0072b1;
-
-// Renren colours from http://a.xnimg.cn/n/apps/login/v6/cssimg/bg.png
-@btnRenrenBackground: #397CB6;
-@btnRenrenBackgroundHighlight: #33669A;
-
-// Skype colours from http://issuu.com/bondo/docs/skype_brand_book_-_look
-@btnSkypeBackground: #70C3E2;
-@btnSkypeBackgroundHighlight: #00AFF0;
-
-// Stack Exchange colours from http://cdn.sstatic.net/stackexchange/img/sprites.png?v=8
-@btnStackExchangeBackground: #5184C1;
-@btnStackExchangeBackgroundHighlight: #185397;
-
-// Trello colours from http://cdn.sstatic.net/stackexchange/img/sprites.png?v=8
-@btnTrelloBackground: #569cc4;
-@btnTrelloBackgroundHighlight: #27709b;
-
-// Tumblr colours from http://assets.tumblr.com/images/background.png?a33896dcf50d40a936025aeb074d8707
-@btnTumblrBackground: #3A5976;
-@btnTumblrBackgroundHighlight: #2A4763;
-
-// VK colours from http://vk.com/images/hat.gif
-@btnVkBackground: #5A7FA6;
-@btnVkBackgroundHighlight: #426187;
-
-// Weibo colours from http://img.t.sinajs.cn/t5/style/images/register/form_login.png?id=1370232467958
-@btnWeiboBackground: #F85959;
-@btnWeiboBackgroundHighlight: #E64141;
-
-// XING colours from https://www.xing.com/img/s/sprite_zero_r9.png
-@btnXingBackground: #1F6768;
-@btnXingBackgroundHighlight: #074C4D;
-
-// Youtube colours from http://www.youtube.com/yt/brand/color.html
-@btnYoutubeBackground: #CD332D;
-@btnYoutubeBackgroundHighlight: #6E0610;
-
-// The social buttons
-// --------------------------------------------------
-.btn-facebook {
-    background: linear-gradient(#4C69BA, #3B55A0) repeat scroll 0 0 rgba(0, 0, 0, 0);
-    border-color: #4C69BA;
-    border-radius: 2px;
-    color: #FFFFFF;
-    font-family: "Helvetica neue";
-    text-shadow: 0 -1px 0 #354C8C;
-
-    &:hover,
-    &:focus,
-    &:active,
-    &.active,
-    .open .dropdown-toggle & {
-        background: linear-gradient(#5B7BD5, #4864B1) repeat scroll 0 0 rgba(0, 0, 0, 0);
-        border-color: #5874C3 #4961A8 #41599F;
-        box-shadow: 0 1px 0 #607FD6 inset;
-        cursor: pointer;
-        color: #FFFFFF;
+.btn-social-icon {
+    .btn-social;
+    height: (@bs-height-base + 2);
+    width: (@bs-height-base + 2);
+    padding: 0;
+    :first-child {
+        border: none;
+        text-align: center;
+        width: 100% !important;
     }
-
-    .fa {
-        @space: 8px;
-
-        margin-right: @space;
-        padding-right: @space;
-
-        &:after {
-            content: '|';
-            position: relative;
-            top: 0;
-            right: -@space;
-        }
+    &.btn-lg {
+        height: @bs-height-lg;
+        width: @bs-height-lg;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    &.btn-sm {
+        height: (@bs-height-sm + 2);
+        width: (@bs-height-sm + 2);
+        padding-left: 0;
+        padding-right: 0;
+    }
+    &.btn-xs {
+        height: (@bs-height-xs + 2);
+        width: (@bs-height-xs + 2);
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 
-.btn-twitter {
-    .button-variant(@btnText, @btnTwitterBackground, @btnTwitterBackgroundHighlight);
+.btn-social(@color-bg) {
+    background-color: @color-bg;
+    .button-variant(@color-bg);
 }
 
-.btn-github {
-    .button-variant(@btnTextAlt, @btnGithubBackground, @btnGithubBackgroundHighlight);
-}
-
-.btn-pinterest {
-    .button-variant(@btnText, @btnPinterestBackground, @btnPinterestBackgroundHighlight);
-}
-
-.btn-linkedin {
-    .button-variant(@btnText, @btnLinkedinBackground, @btnLinkedinBackgroundHighlight);
-}
-
-.btn-google-plus {
-    .button-variant(@btnText, @btnGooglePlusBackground, @btnGooglePlusBackgroundHighlight);
-}
-
-.btn-instagram {
-    .button-variant(@btnText, @btnInstagramBackground, @btnInstagramBackgroundHighlight);
-}
-
-.btn-dropbox {
-    .button-variant(@btnText, @btnDropboxBackground, @btnDropboxBackgroundHighlight);
+.btn-adn {
+    .btn-social(#d87a68);
 }
 
 .btn-bitbucket {
-    .button-variant(@btnText, @btnBitbucketBackground, @btnBitbucketBackgroundHighlight);
+    .btn-social(#205081);
 }
 
-.btn-dribbble {
-    .button-variant(@btnText, @btnDribbbleBackground, @btnDribbbleBackgroundHighlight);
+.btn-dropbox {
+    .btn-social(#1087dd);
+}
+
+.btn-facebook {
+    .btn-social(#3b5998);
 }
 
 .btn-flickr {
-    .button-variant(@btnText, @btnFlickrBackground, @btnFlickrBackgroundHighlight);
+    .btn-social(#ff0084);
 }
 
 .btn-foursquare {
-    .button-variant(@btnText, @btnFoursquareBackground, @btnFoursquareBackgroundHighlight);
+    .btn-social(#f94877);
 }
 
-.btn-renren {
-    .button-variant(@btnText, @btnRenrenBackground, @btnRenrenBackgroundHighlight);
+.btn-github {
+    .btn-social(#444444);
 }
 
-.btn-skype {
-    .button-variant(@btnText, @btnSkypeBackground, @btnSkypeBackgroundHighlight);
+.btn-google-plus {
+    .btn-social(#dd4b39);
 }
 
-.btn-stackexchange {
-    .button-variant(@btnText, @btnStackExchangeBackground, @btnStackExchangeBackgroundHighlight);
+.btn-instagram {
+    .btn-social(#3f729b);
 }
 
-.btn-trello {
-    .button-variant(@btnText, @btnTrelloBackground, @btnTrelloBackgroundHighlight);
+.btn-linkedin {
+    .btn-social(#007bb6);
+}
+
+.btn-microsoft {
+    .btn-social(#2672ec);
+}
+
+.btn-openid {
+    .btn-social(#f7931e);
+}
+
+.btn-pinterest {
+    .btn-social(#cb2027);
+}
+
+.btn-reddit {
+    .btn-social(#eff7ff, #000);
+}
+
+.btn-soundcloud {
+    .btn-social(#ff5500);
 }
 
 .btn-tumblr {
-    .button-variant(@btnText, @btnTumblrBackground, @btnTumblrBackgroundHighlight);
+    .btn-social(#2c4762);
+}
+
+.btn-twitter {
+    .btn-social(#55acee);
+}
+
+.btn-vimeo {
+    .btn-social(#1ab7ea);
 }
 
 .btn-vk {
-    .button-variant(@btnText, @btnVkBackground, @btnVkBackgroundHighlight);
+    .btn-social(#587ea3);
 }
 
-.btn-weibo {
-    .button-variant(@btnText, @btnWeiboBackground, @btnWeiboBackgroundHighlight);
-}
-
-.btn-xing {
-    .button-variant(@btnText, @btnXingBackground, @btnXingBackgroundHighlight);
-}
-
-.btn-youtube {
-    .button-variant(@btnText, @btnYoutubeBackground, @btnYoutubeBackgroundHighlight);
+.btn-yahoo {
+    .btn-social(#720e9e);
 }

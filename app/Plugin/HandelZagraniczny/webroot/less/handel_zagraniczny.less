@@ -2,140 +2,17 @@
     display: none;
 }
 
-#morebg {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vw;
-    background: #000;
-    opacity: 0.7;
-    z-index: 3;
-}
-
-#more {
-    display: none;
-    position: fixed;
-    border-radius: 5px;
-    top: 5vw;
-    left: 20vw;
-    width: 60vw;
-    height: 80vh;
-    margin: 0;
-    background: #142026;
-    z-index: 4;
-    padding: 10px 30px;
-    a.close {
-        position: absolute;
-        margin-left: 54vw;
-        margin-top: 10px;
-        color: #f1f1f1;
-        text-shadow: none;
-        opacity: 1;
-        float: left;
-        font-weight: normal;
-        font-size: 30px;
-    }
-    h1 {
-        color: #f1f1f1;
-    }
-    h2 {
-        color: #c2d1e7;
-        font-size: 18px;
-    }
-    #list {
-        margin-top: 30px;
-        display: block;
-        overflow-x: hidden;
-        overflow-y: auto;
-        max-height: 54vh !important;
-        li {
-            background: #273a48;
-            border-color: #2e4555;
-            color: #fff;
-            img {
-                margin-right: 8px;
-                margin-top: -6px;
-                max-height: 23px;
-            }
-            a {
-                color: #fff;
-            }
-            a:hover {
-                text-decoration: underline;
-            }
-            .badge {
-                background: #142026;
-                font-weight: normal;
-            }
-        }
-    }
-}
-
 #_wrapper {
     #_main {
         margin: 0;
-        .baner {
-            background-color: #142026;
-            margin: 15px 5px;
-            display: block;
-            height: 80px;
-            .inner {
-                background: url(/WyjazdyPoslow/img/banerhead.png) 54px center no-repeat;
-                height: 80px;
-                position: relative;
-                color: #ffffff;
-                .text {
-                    position: relative;
-                    top: 50%;
-                    transform: translate(0, -50%);
-                    p {
-                        padding-left: 135px;
-                        padding-right: 35px;
-                        font-size: 18px;
-                        margin-bottom: 5px;
-                        line-height: 1em;
-                        font-weight: 200;
-                    }
-                    p:first-of-type {
-                        font-weight: 400;
-                    }
-                }
-                i {
-                    position: absolute;
-                    right: 30px;
-                    top: 50%;
-                    transform: translate(0px, -50%);
-                }
-            }
+        background: url(/HandelZagraniczny/img/header_handel-zagraniczny.png) center top no-repeat #01050b;
+
+        .appHeader {
+            background: none;
+            height: 320px;
         }
-        .stats {
-            margin: 10px 0;
-            .bigger {
-                border-bottom: 1px solid #ddd;
-                margin-bottom: 10px;
-                padding-bottom: 0;
-                ._value {
-                    font-size: 18px;
-                    margin-top: 3px;
-                }
-            }
-            ._label {
-                font-size: 13px;
-                margin-bottom: 0;
-            }
-            ._value {
-                font-size: 14px;
-                color: green;
-                font-weight: 400;
-                strong {
-                    font-weight: 500;
-                }
-            }
-        }
+
         .maplabel {
-            background-color: #142026;
             padding: 0;
             width: 100%;
             position: absolute;
@@ -150,28 +27,24 @@
 
             .navbar.navbar-inverse {
                 border-radius: 0;
-                border-left: none;
-                border-right: none;
-                border-color: #2e4555;
-                background: #142026;
-                border-bottom: none;
+                border: none;
+                background: rgba(0, 0, 0, .5);
                 margin-bottom: 0;
-                ul.nav {
-                    li.active {
-                        a {
-                            background: #142026;
-                        }
-                    }
+
+                ul.nav li.active a {
+                    background: #142026;
                 }
             }
             .collapse.navbar-collapse {
                 padding-left: 0;
                 padding-right: 0;
+
                 .navbar-text {
                     padding-left: 0;
                     margin-left: 0;
                 }
             }
+
             & > p {
                 color: #ddd;
                 font-family: "Lato", Arial, sans-serif;
@@ -179,12 +52,14 @@
                 text-align: center;
                 padding-right: 100px;
             }
+
             & > .naglosnijHandler {
                 position: absolute;
                 right: 2%;
                 top: 6px;
             }
         }
+
         #hzMap {
             padding: 20px 0;
             position: relative;
@@ -192,13 +67,14 @@
             max-height: 80vh;
             display: block;
             margin-bottom: 0;
-            background: #142026;
+
             .loading {
                 width: 100%;
                 min-height: 500px;
                 max-height: 80vh;
                 background: url(/img/loader/search-loading.png) no-repeat center center;
             }
+
             .detailInfoBackground {
                 position: fixed;
                 top: 0;
@@ -206,15 +82,14 @@
                 width: 100%;
                 height: 100%;
                 z-index: 2;
-                background-color: rgba(0, 0, 0, 0.75);
             }
+
             .detailInfo {
                 width: 90vw;
                 max-width: 960px;
                 position: fixed;
                 top: 50%;
                 left: 50%;
-                transform: translate(-50%, -46%);
                 z-index: 9000;
                 border: 1px solid #7cb5ec;
                 -moz-border-radius: 2px;
@@ -224,6 +99,13 @@
                 font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
                 font-size: 12px;
                 color: #333333;
+
+                -webkit-transform: translate(-50%, -46%);
+                -moz-transform: translate(-50%, -46%);
+                -ms-transform: translate(-50%, -46%);
+                -o-transform: translate(-50%, -46%);
+                transform: translate(-50%, -46%);
+
                 .detailInfoClose {
                     position: absolute;
                     top: -12px;
@@ -242,12 +124,14 @@
                     text-align: center;
                     font-size: 14px;
                 }
+
                 .detail-header {
                     background-color: #157ab5;
                     color: #FFF;
                     margin-top: -8px;
                     margin-bottom: 8px;
                 }
+
                 .content {
                     height: auto;
                     max-height: 85vh;
@@ -289,7 +173,7 @@
         #hzDetails {
             border-top: none;
             padding: 20px 0;
-            background: #142026;
+
             .well.well-sm {
                 background: #0e171b;
                 padding-left: 13px;
@@ -302,6 +186,7 @@
             p.lead {
                 color: #c2d1e7;
                 font-size: 18px;
+                font-weight: 300;
             }
             ul.list-group {
                 li {
@@ -379,6 +264,11 @@
                 img {
                     float: left;
                     width: 30px;
+
+                    -webkit-transform: translate(0px, -25%);
+                    -moz-transform: translate(0px, -25%);
+                    -ms-transform: translate(0px, -25%);
+                    -o-transform: translate(0px, -25%);
                     transform: translate(0px, -25%);
                 }
                 span {
@@ -487,6 +377,11 @@
         margin-left: 10px;
         z-index: 1;
         height: 38px;
+
+        li:not(.active) a:hover {
+            background: none;
+            color: #ffffff;
+        }
     }
     .nav-pills > li {
         float: none;
@@ -540,8 +435,4 @@ ul li.list-group-item ul {
     margin-top: 10px;
     font-size: 12px;
     margin-bottom: 5px;
-}
-
-ul li.list-group-item ul li.list-group-item {
-    background: #1e2d37 !important;
 }

@@ -7,9 +7,8 @@ class MsigDzialyController extends DocsObjectsController
     public function view()
     {
 
-        parent::_prepareView();
-        $this->redirect('/dane/msig/' . $this->object->getData('msig.id') . '/dzialy/' . $this->object->getId());
-        die();
+        parent::load();
+        return $this->redirect('/dane/msig/' . $this->object->getData('msig.id') . '/dzialy/' . $this->object->getId());
 
     }
 }

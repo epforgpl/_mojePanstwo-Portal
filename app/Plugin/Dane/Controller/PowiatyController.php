@@ -7,48 +7,30 @@ class PowiatyController extends DataobjectsController
 
     public function view()
     {
-
-        parent::_prepareView();
+		
+		$this->addInitLayers(array('gmina'));
+        parent::load();
 
         if (($this->object->getData('typ_id') == '2') || ($this->object->getData('typ_id') == '3')) {
-            if ($gmina_id = $this->object->loadLayer('gmina')) {
+            if ($gmina_id = $this->object->getLayer('gmina')) {
 
                 $this->redirect('/dane/gminy/' . $gmina_id);
 
             }
         }
-
-        $this->dataobjectsBrowserView(array(
-            'source' => 'powiaty.gminy:' . $this->object->getId(),
-            'dataset' => 'gminy',
-            'excludeFilters' => array(
-                'wojewodztwo_id',
-                'powiat_id'
+		
+		$this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+	            'dataset' => 'gminy',
+	            'gminy.powiat_id' => $this->object->getId(),
             ),
+            'aggsPreset' => 'gminy',
         ));
-
+		
         $this->set('title_for_layout', 'Gminy w powiecie ' . ' ' . $this->object->getData('nazwa'));
+        $this->set('DataBrowserTitle', 'Gminy w tym powiecie');
+        $this->render('DataBrowser/browser');
 
-    }
-
-    public function beforeRender()
-    {
-
-        // PREPARE MENU
-        $href_base = '/dane/powiaty/' . $this->request->params['id'];
-
-        $menu = array(
-            'items' => array(
-                array(
-                    'id' => '',
-                    'href' => $href_base,
-                    'label' => 'Gminy',
-                ),
-            )
-        );
-
-        $menu['selected'] = ($this->request->params['action'] == 'view') ? '' : $this->request->params['action'];
-        $this->set('_menu', $menu);
 
     }
 

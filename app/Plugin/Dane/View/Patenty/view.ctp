@@ -67,7 +67,7 @@ echo $this->Element('dataobject/pageBegin');
 
         <div class="col-md-10 objectMain">
 
-            <?= $this->Document->place($document) ?>
+            <?= $this->Document->place($object->getData('dokument_id')) ?>
 
         </div>
     </div>

@@ -9,13 +9,13 @@ class UrzednicyRejestrKorzysciController extends DataobjectsController
 
     public function view()
     {
-        parent::_prepareView();
+        parent::load();
 
         $dokument_id = $this->object->getData('urzednicy_rejestr_korzysci.dokument_id');
         $html = $this->object->getLayer('html');
 
         if ($dokument_id) {
-            $this->set('content_document', $this->API->document($dokument_id));
+            $this->set('dokument_id', $dokument_id);
 
         }
 

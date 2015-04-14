@@ -589,6 +589,7 @@ if (isset($historia) && $historia) {
     </div>
 <? } */ ?>
 	
+	
     <div class="powiazania block">
         <div class="block-header"><h2 class="label">Powiązania</h2></div>
 

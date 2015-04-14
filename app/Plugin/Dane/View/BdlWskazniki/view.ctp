@@ -18,12 +18,12 @@
 
                         <div class="wskaznik" data-dim_id="<?= $option['data']['id'] ?>">
                             <h2>
-                                <a href="<?= $this->here ?>/<?= $option['data']['id'] ?>"><?= trim($option['value']) ?></a>
+                                <a href="<?= $this->here ?>/kombinacje/<?= $option['data']['id'] ?>"><?= trim($option['value']) ?></a>
                             </h2>
 
                             <div class="stats">
                                 <div class="map">
-                                    <a href="<?= $this->here ?>/<?= $option['data']['id'] ?>">
+                                    <a href="<?= $this->here ?>/kombinacje/<?= $option['data']['id'] ?>">
                                         <img width="216" height="200"
                                              src="http://resources.sds.tiktalik.com/BDL_wymiary_kombinacje/<?= $option['data']['id'] ?>.png"
                                              class="imageInside"/>

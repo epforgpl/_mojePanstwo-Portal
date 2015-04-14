@@ -4,30 +4,41 @@ App::uses('DataobjectsController', 'Dane.Controller');
 
 class InstytucjeController extends DataobjectsController
 {
-    public $menu = array();
+    public $dataFeedFilters = array(
+        array('title' => 'Wszystko', 'icon' => 'all', 'link' => ''),
+        array('title' => 'Odpowiedzi na interpelacje', 'icon' => 'interpelacje_odpowiedzi', 'link' => '#'),
+        array('title' => 'Otrzymane interpelacje', 'icon' => 'interpelacje_otrzymane', 'link' => '#'),
+        array('title' => 'Zamówienia publiczne', 'icon' => 'zamowienia_otrzymane', 'link' => '#'),
+        array('title' => 'Zamówienia publiczne', 'icon' => 'zamowienia_otrzymane', 'link' => '#'),
+        array('title' => 'Opublikowany tweet', 'icon' => 'twitter_opublikowane', 'link' => '#'),
+    );
+
+	public $loadChannels = true;
     public $initLayers = array('instytucja_nadrzedna', 'tree', 'menu', 'info');
 
     public function view()
     {
 
-        parent::_prepareView();
+        parent::load(array(
+            'subscriptions' => true,
+        ));
 
         if ($this->object->getData('file') == '1')
-            $this->prepareFeed();
+            $this->feed();
 
     }
 
     public function instytucje()
     {
 
-        parent::_prepareView();
+        parent::load();
         $this->request->params['action'] = 'instytucje';
 
     }
 
     public function prawo()
     {
-        parent::_prepareView();
+        parent::load();
         $this->dataobjectsBrowserView(array(
             'source' => 'instytucje.prawo:' . $this->object->getId(),
             'dataset' => 'prawo',
@@ -46,7 +57,7 @@ class InstytucjeController extends DataobjectsController
 
     public function tweety()
     {
-        parent::_prepareView();
+        parent::load();
         $this->dataobjectsBrowserView(array(
             'source' => 'instytucje.twitter:' . $this->object->getId(),
             'dataset' => 'twitter',
@@ -65,7 +76,7 @@ class InstytucjeController extends DataobjectsController
 
     public function urzednicy()
     {
-        parent::_prepareView();
+        parent::load();
         $this->dataobjectsBrowserView(array(
             // TODO wyswietlac tylko z tego urzedu
             'conditions' => array(
@@ -76,8 +87,7 @@ class InstytucjeController extends DataobjectsController
             'title' => 'Urzędnicy',
             'back' => $this->object->getUrl(),
             'backTitle' => $this->object->getTitle(),
-            'excludeFilters' => array(
-            ),
+            'excludeFilters' => array(),
         ));
 
         $this->set('title_for_layout', "Urzędnicy pracujący w " . $this->object->getTitle());
@@ -86,7 +96,7 @@ class InstytucjeController extends DataobjectsController
 
     public function zamowienia()
     {
-        parent::_prepareView();
+        parent::load();
         $this->dataobjectsBrowserView(array(
             'source' => 'instytucje.zamowienia_udzielone:' . $this->object->getId(),
             'dataset' => 'zamowienia_publiczne',
@@ -106,7 +116,7 @@ class InstytucjeController extends DataobjectsController
 
         $this->addInitLayers(array('budzet'));
 
-        parent::_prepareView();
+        parent::load();
         $this->set('title_for_layout', "Budżet " . $this->object->getTitle());
 
         $this->render('budzet');
@@ -191,7 +201,8 @@ class InstytucjeController extends DataobjectsController
             'href' => $href_base . '/urzednicy',
             'label' => 'Urzędnicy',
         );
-
+		
+		/*
         if (!empty($items)) {
             $menu['items'][] = array(
                 'id' => 'dane',
@@ -199,13 +210,33 @@ class InstytucjeController extends DataobjectsController
                 'dropdown' => $items,
             );
         }
+        */
 
+        $this->menu = $menu;
 
-        $menu['selected'] = ($this->request->params['action'] == 'view') ? '' : $this->request->params['action'];
+        $this->addons = array(
+            'wniosek_udostepnienie' => array(
+                'adresat_id' => $this->object->getDataset() . ':' . $this->object->getId(),
+                'szablon_id' => 35,
+                'nazwa' => 'Wyślij wniosek o udostępnienie informacji publicznej',
+                'opis' => 'Masz pytania dotyczące działalności tej instytucji? Kliknij, aby wysłać odpowiedni wniosek.',
+            )
+        );
 
-        $this->set('_menu', $menu);
+        $this->actions = array(
+            'obserwuj' => array(
+                'id' => $this->object->getDataset() . ':' . $this->object->getId(),
+                'nazwa' => $this->object->getTitle(),
+            ),
+            'pismo' => array(
+                'adresat_id' => $this->object->getDataset() . ':' . $this->object->getId(),
+                'szablon_id' => 35,
+                'nazwa' => 'Wyślij wniosek o udostępnienie informacji publicznej',
+                'opis' => 'Masz pytania dotyczące działalności tej instytucji? Kliknij, aby wysłać odpowiedni wniosek.',
+            ),
+        );
 
-
+        parent::beforeRender();
     }
 
 } 

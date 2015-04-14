@@ -23,14 +23,12 @@ function initialize() {
     var kmlLayer = new google.maps.KmlLayer(kmlUrl, kmlOptions);
 
     google.maps.event.addListenerOnce(map, 'idle', function () {
-        console.log('onload', map);
         map.setZoom(11);
     });
 
     google.maps.event.addListener(kmlLayer, 'click', function (kmlEvent) {
         var text = kmlEvent.featureData;
     });
-
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);

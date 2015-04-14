@@ -27,18 +27,18 @@ $this->Dataobject->setObject($object);
     echo " unreaded";
 } else {
     echo " readed";
-} ?>"
+} ?><? if( $classes = $object->getClasses() ) { echo " " . implode(' ', $classes); } ?>"
      oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
 
     <div class="row">
-        <div class="col-sm-1 action nopadding text-center">
+        <div class="col-xs-1 action text-center">
             <span class="<?php if ($object->getDataset() && $object->getAction()) {
-                echo 'mpIcon icon-dataset-' . $object->getDataset() . ' icon-action-' . $object->getAction();
+                echo 'mpIcon icon-dataset-' . $object->getCreator('dataset') . ' icon-action-' . $object->getAction();
             } else {
                 echo 'glyphicon glyphicon-volume-up';
             } ?>"></span>
         </div>
-        <div class="data col-sm-11">
+        <div class="data col-xs-11">
             <div class="feed-header">
                 <? if ($object->getCreator('url')) { ?>
                     <div class="thumb_cont">
@@ -55,7 +55,7 @@ $this->Dataobject->setObject($object);
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row marginTop-sm">
                 <? if ($object->getPosition()) { ?>
                     <div class="content col-md-1">
                         <span class="badge badge-position pull-right"><?= $object->getPosition() ?></span>
@@ -64,7 +64,6 @@ $this->Dataobject->setObject($object);
                 }
                 if ($file_exists) {
                     echo $this->element('Dane.' . $file, array(
-                        'item' => $item,
                         'object' => $object,
                         'hlFields' => $hlFields,
                         'hlFieldsPush' => $hlFieldsPush,

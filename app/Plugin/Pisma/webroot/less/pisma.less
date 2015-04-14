@@ -1,10 +1,32 @@
-[contenteditable="true"] {padding: 5px 10px; outline: none; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;}
-[contenteditable="true"].focus {outline: 1px solid #DDD; background-color: #FAFAFA;}
-[contenteditable="true"].focus:hover {outline: 1px solid #DDD; background-color: #FAFAFA;}
-[contenteditable="true"]:hover {outline: 1px dashed #AAA;}
+[contenteditable="true"] {
+    padding: 5px 10px;
+    outline: none;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+}
 
-.titleBlock .pismaBtn {display: none;}
-.titleBlock.focus .pismaBtn {display: block;}
+[contenteditable="true"].focus {
+    outline: 1px solid #DDD;
+    background-color: #FAFAFA;
+}
+
+[contenteditable="true"].focus:hover {
+    outline: 1px solid #DDD;
+    background-color: #FAFAFA;
+}
+
+[contenteditable="true"]:hover {
+    outline: 1px dashed #AAA;
+}
+
+.titleBlock .pismaBtn {
+    display: none;
+}
+
+.titleBlock.focus .pismaBtn {
+    display: block;
+}
 
 #_wrapper {
     background-color: #EAEAEA;
@@ -157,6 +179,11 @@
                 position: absolute;
                 top: 0;
                 left: 50%;
+
+                -webkit-transform: translate(-50%, 0);
+                -moz-transform: translate(-50%, 0);
+                -ms-transform: translate(-50%, 0);
+                -o-transform: translate(-50%, 0);
                 transform: translate(-50%, 0);
 
                 &:before, &:after {
@@ -553,12 +580,12 @@
                 max-width: 100%;
                 width: auto;
                 word-wrap: break-word;
-                
-				
+
             }
 
             .pismaBtn {
                 float: left;
+                display: block;
 
                 .pismoTitleSaveBtn,
                 .pismoTitleAbortBtn {
@@ -566,8 +593,13 @@
                     float: left;
                     position: absolute;
                     top: 50%;
-                    transform: translate(0px, -50%);
                     margin-top: 3px;
+
+                    -webkit-transform: translate(0, -50%);
+                    -moz-transform: translate(0, -50%);
+                    -ms-transform: translate(0, -50%);
+                    -o-transform: translate(0, -50%);
+                    transform: translate(0, -50%);
                 }
                 .pismoTitleSaveBtn {
                     width: 50px;
@@ -725,11 +757,11 @@
     }
 
     #editor-cont {
-	    
-	    textarea, input, div[contenteditable=true] {
-		    outline: none;
-	    }
-	    
+
+        textarea, input, div[contenteditable=true] {
+            outline: none;
+        }
+
         .wysihtml5-toolbar {
             position: absolute;
             top: -45px;
@@ -865,6 +897,11 @@
             position: absolute;
             top: 50%;
             left: 50%;
+
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
         }
     }

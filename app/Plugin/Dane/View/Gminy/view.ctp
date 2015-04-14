@@ -293,16 +293,17 @@
 
                                         foreach ($ngos as $ngo) {
                                             $i++;
+                                            $label = $ngo['label']['buckets'][0]['key'];
                                             ?>
-
+											
                                             <li class="list-group-item"><span
-                                                    class="badge"><?= number_format_h($ngo['count']) ?></span><a
+                                                    class="badge"><?= number_format_h($ngo['doc_count']) ?></span><a
                                                     href="<?= Router::url(array(
                                                         'action' => 'organizacje',
                                                         'id' => $object->getId(),
-                                                        '?' => array('forma_prawna_id' => $ngo['id'])
+                                                        '?' => array('forma_prawna_id' => $ngo['key'])
                                                     )) ?>"
-                                                    title="<?= addslashes($ngo['label']) ?>"><?= $this->Text->truncate($ngo['label'], 25); ?></a>
+                                                    title="<?= addslashes($label) ?>"><?= $this->Text->truncate($label, 25); ?></a>
                                             </li>
                                             <?
                                             if ($i == $limit) {
@@ -359,7 +360,7 @@
                         <div class="content">
                             <div class="dataobjectsSliderRow row">
                                 <div>
-                                    <?php echo $this->dataobjectsSlider->render($prawo_lokalne, array(
+                                    <?php echo $this->DataobjectsSlider->render($prawo_lokalne, array(
                                         'perGroup' => 2,
                                         'rowNumber' => 1,
                                         'descriptionMode' => 'none',
@@ -474,7 +475,7 @@
                         <div class="content">
                             <div class="dataobjectsSliderRow row">
                                 <div>
-                                    <?php echo $this->dataobjectsSlider->render($zamowienia_otwarte, array(
+                                    <?php echo $this->DataobjectsSlider->render($zamowienia_otwarte, array(
                                         'perGroup' => 2,
                                         'rowNumber' => 1,
                                         'labelMode' => 'none',
@@ -497,7 +498,7 @@
                         <div class="content">
                             <div class="dataobjectsSliderRow row">
                                 <div>
-                                    <?php echo $this->dataobjectsSlider->render($zamowienia_zamkniete, array(
+                                    <?php echo $this->DataobjectsSlider->render($zamowienia_zamkniete, array(
                                         'perGroup' => 2,
                                         'rowNumber' => 1,
                                         'labelMode' => 'none',

@@ -72,6 +72,7 @@ $(document).ready(function () {
         });
     }
     
+    /*
     if (obserwujBtn.length) {
         var obserwujModal = $('<div></div>').addClass('modal fade').attr({
             'id': 'obserwujGenerateModal',
@@ -129,6 +130,7 @@ $(document).ready(function () {
             obserwujModal.modal('show').find('.btn-subscribe').attr('data-objectid', obserwujBtn.attr('data-objectid'));
         });
     }
+    */
 
     function szablonList(data) {
         var list = $('<div></div>').addClass('list');

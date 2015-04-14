@@ -1,7 +1,7 @@
 (function ($) {
     var suggesterBlock;
 
-    if ((suggesterBlock = $('.suggesterBlock')).length) {
+    if ((suggesterBlock = $('.suggesterBlock')).length && false) {
         $.each(suggesterBlock, function (index, block) {
             var suggesterInput = $(block).find('input.form-control'),
                 suggesterBtn = $(block).find('.input-group-btn .btn'),

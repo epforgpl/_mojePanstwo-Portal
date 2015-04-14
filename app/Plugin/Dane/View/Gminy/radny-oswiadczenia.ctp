@@ -19,27 +19,18 @@ echo $this->Element('Dane.dataobject/subobject', array(
     )
 ));
 
-if ($sub_id && $oswiadczenie && $oswiadczenie->getData('dokument_id')) {
+if ($subsubid && $oswiadczenie && $oswiadczenie->getData('dokument_id')) {
     ?>
     <p class="subsubtitle">
         <a href="/dane/gminy/<?= $object->getId() ?>/radni/<?= $radny->getId() ?>/oswiadczenia"><span
                 class="glyphicon glyphicon-align-justify"></span> Wszystkie oświadczenia</a>
     </p>
     <?
-    echo $this->Element('docsBrowser/doc', array(
-        'document' => $document,
-        'documentPackage' => $documentPackage,
-    ));
+    echo $this->Document->place($oswiadczenie->getData('dokument_id'));
 
 } else {
 
-    echo $this->Element('Dane.DataobjectsBrowser/view', array(
-        'page' => $page,
-        'pagination' => $pagination,
-        'filters' => $filters,
-        'switchers' => $switchers,
-        'facets' => $facets,
-    ));
+    echo $this->Element('Dane.DataBrowser/browser');
 
 }
 

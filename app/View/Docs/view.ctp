@@ -5,7 +5,7 @@
 
 <div class="container">
 	
-	<h1><?= $doc['filename'] ?></h1>
+	<h1><?= $doc['Document']['filename'] ?></h1>
 	
 	<div class="row objectsPage">
 		
@@ -14,23 +14,27 @@
 			<ul class="fields">
 				<li>
 					<p class="_label">Extension</p>
-					<p class="_value"><?= $doc['fileextension'] ?></p>
+					<p class="_value"><?= $doc['Document']['fileextension'] ?></p>
 				</li>
 				<li>
 					<p class="_label">Size</p>
-					<p class="_value"><?= human_filesize( $doc['filesize'] ) ?></p>
+					<p class="_value"><?= human_filesize( $doc['Document']['filesize'] ) ?></p>
 				</li>
 				<li>
 					<p class="_label">Pages</p>
-					<p class="_value"><?= $doc['pages_count'] ?></p>
+					<p class="_value"><?= $doc['Document']['pages_count'] ?></p>
 				</li>
 				<li>
 					<p class="_label">Packages</p>
-					<p class="_value"><?= $doc['packages_count'] ?></p>
+					<p class="_value"><?= $doc['Document']['packages_count'] ?></p>
 				</li>
 				<li>
 					<p class="_label">CSS</p>
-					<p class="_value"><a href="http://mojepanstwo/htmlex/<?= $doc['id'] ?>/<?= $doc['id'] ?>.css" target="_blank">LINK</a></p>
+					<p class="_value"><a href="http://mojepanstwo/htmlex/<?= $doc['Document']['id'] ?>/<?= $doc['Document']['id'] ?>.css" target="_blank">LINK</a></p>
+				</li>
+				<li>
+					<p class="_label">Source</p>
+					<p class="_value"><a href="<?= $doc['Document']['url'] ?>" target="_blank">LINK</a></p>
 				</li>
 				
 				
@@ -40,10 +44,7 @@
 		</div>
 		<div class="col-md-10 objectsPageContent">
 			
-			<? echo $this->Element('Dane.docsBrowser/doc', array(
-			    'document' => $document,
-			    'documentPackage' => $documentPackage,
-			)); ?>
+			<?= $this->Document->place($doc) ?>
 			
 		</div>
 		

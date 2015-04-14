@@ -4,7 +4,7 @@
     @searchHeight: 45px;
 
     font-weight: 400;
-    font-size: 18px;
+    font-size: 17px;
     margin: 10px 2px 0;
     color: #000000;
 
@@ -89,7 +89,11 @@
 .objectsPage {
     .dataBrowser {
         font-family: "Lato", Arial, sans-serif;
-        margin-top: 0;
+        margin-top: 25px;
+
+        &.dataFeed {
+            margin-top: 0;
+        }
 
         &._dataset_zbiory .objectRender .title {
             font-size: 22px;
@@ -424,6 +428,18 @@
                 padding: 5px 0;
                 line-height: 1.1em;
 
+                .dataDetailsToggle {
+
+                    border: none;
+                    background-color: inherit !important;
+                    font-weight: 400;
+
+                    .text {
+                        font-size: 13px;
+                        color: #999;
+                    }
+                }
+
                 #innerSearch {
                     font-weight: 400;
                     background-color: #f6f7f8;
@@ -588,17 +604,19 @@
                 }
 
                 .objectRender {
-                    padding: 7px 30px;
-                    margin: 0 30px;
+                    padding: 10px 15px;
+                    margin: 0;
 
                     &.bg {
                         background-color: #FEFEFE;
                     }
 
                     .action {
+                        padding: 0;
+
                         span {
                             color: #bacbce;
-                            font-size: 40px;
+                            font-size: 25px;
                             margin-top: 5px;
                         }
                     }
@@ -609,12 +627,14 @@
         }
     }
 
-    .feed-timeline .dataFeed .dataObjects .innerContainer .objectRender {
-        margin: 0 0 0 15px;
-        padding: 0 0 0 5px;
+    .dataFeed .feed-timeline .dataObjects .innerContainer .objectRender {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-top: 0;
+        padding-left: 5px;
+        padding-bottom: 0;
         border-width: 0;
         border-left: 3px solid #4490bd;
-        width: 100%;
         display: block;
         float: left;
         position: relative;
@@ -622,6 +642,23 @@
         -webkit-border-radius: 0;
         -moz-border-radius: 0;
         border-radius: 0;
+        width: 100%;
+
+        &:first-child {
+            margin-top: 10px;
+
+            > div {
+                margin-top: 0;
+            }
+        }
+
+        &:last-child {
+            margin-bottom: 10px;
+
+            > div {
+                margin-bottom: 0;
+            }
+        }
 
         &:before {
             content: ' ';
@@ -644,9 +681,10 @@
             -webkit-border-radius: 3px;
             background-color: #FFFFFF;
             float: left;
-            width: 100%;
             display: block;
             margin: 10px;
+            padding: 5px 5px 10px;
+            min-width: 98%;
         }
     }
 
@@ -660,12 +698,13 @@
                 border-color: #e9eaed #dfe0e4 #d0d1d5;
                 background-color: #FFF;
                 margin: 10px;
+                padding: 5px 15px;
                 border-radius: 3px;
                 -moz-border-radius: 3px;
                 -webkit-border-radius: 3px;
 
                 .content {
-                    padding: 5px 10px;
+                    padding: 0 12px;
 
                     .header {
                         display: none;
@@ -677,15 +716,27 @@
                     color: #555;
                     font-size: 13px;
                     line-height: 18px;
-                    margin: 0 8px 20px;
+                    margin: 20px 8px;
 
                     ul {
                         margin: 0 21px -10px;
                     }
                 }
 
+                .attachment {
+                    padding-left: 0;
+                    padding-right: 0;
+
+                    .thumb_cont {
+                        max-width: inherit;
+                        width: 100%;
+                        margin-left: inherit;
+                        margin-right: inherit;
+                    }
+                }
+
                 .attachment img {
-                    max-width: 130px;
+                    max-width: 155px;
                 }
 
                 .feed-header {
@@ -849,7 +900,7 @@
             }
 
             .dataFilters {
-                padding-top: 62px;
+                padding-top: 71px;
 
                 > .header {
 
@@ -870,6 +921,22 @@
         padding-top: 7px;
         padding-bottom: 5px;
         border-bottom: 1px solid #ededed;
+
+        &.docdataobject .attachment .thumb_cont {
+            position: relative;
+
+            &:before {
+                content: ' ';
+                display: block;
+                width: 100%;
+                height: 2px;
+
+                position: absolute;
+                top: 98px;
+                left: 0;
+                border-bottom: 2px solid #DDD;
+            }
+        }
 
         .subtitle {
             font-size: 16px;
@@ -915,10 +982,11 @@
         }
 
         .header {
-            margin-bottom: 0;
-            margin-top: 5px;
-            font-size: 14px;
-            color: #777;
+            margin-bottom: 10px;
+            margin-top: -2px;
+            font-size: 12px;
+            color: #666;
+            font-weight: 400;
 
             b, strong {
                 font-weight: 400;
@@ -926,10 +994,10 @@
         }
 
         .title {
-            font-size: 18px;
+            font-size: 17px;
             line-height: 1.2em;
-            padding: 0 5px;
-            margin: 5px 0 5px;
+            padding: 0;
+            margin: -5px 7px 5px;
 
             small {
                 font-size: 12px;
@@ -939,7 +1007,7 @@
 
         .sentence {
             color: #444;
-            margin: 9px 0 1px -5px;
+            margin: 10px 0 0;
             padding: 0;
 
             a {
@@ -975,6 +1043,7 @@
         }
 
         .attachment {
+            margin-bottom: 10px;
 
             a, img {
                 display: block
@@ -984,7 +1053,6 @@
                 width: 100%;
                 max-width: 100px;
                 margin-top: 10px;
-                margin-bottom: 10px;
 
                 &.noBorder {
                     border: 0;
@@ -992,13 +1060,11 @@
             }
 
             .thumb_cont {
-                overflow: hidden;
                 max-height: 100px;
-                margin-bottom: 10px;
-
-                .thumb {
-
-                }
+                max-width: 100px;
+                margin-left: auto;
+                margin-right: 0;
+                overflow: hidden;
             }
         }
 
@@ -1075,7 +1141,7 @@
                 .value {
 
                     font-weight: 300;
-                    font-size: 18px;
+                    font-size: 17px;
                     padding: 0;
                     margin: 0;
                     color: #666;
@@ -1099,7 +1165,7 @@
         .content {
             line-height: 1.2em;
             padding: 5px;
-            margin: 0;
+            margin-top: 7px;
 
             .header-a {
                 a {
@@ -1178,10 +1244,17 @@
 
             .description {
                 margin: 10px;
+                color: #545454;
+                line-height: 1.4;
+                word-wrap: break-word;
+                font-size: 12px;
 
+                em {
+                    font-weight: 600;
+                    font-style: normal;
+                }
                 .light {
                     color: #999;
-                    font-size: 13px;
                 }
                 strong {
                     font-weight: 400;
@@ -1379,6 +1452,47 @@
         }
         .dataObjects {
             padding-left: 0;
+
+            .innerContainer .objectRender {
+                .attachment {
+                    padding-left: 15px;
+                }
+                .action {
+                    padding: 0 10px;
+
+                    span {
+                        font-size: 30px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .objectsPage .dataBrowser .dataObjects .innerContainer .objectRender {
+        .attachment {
+            padding-right: 15px;
+        }
+        .action {
+            padding: 0 15px;
+
+            span {
+                font-size: 40px;
+            }
+        }
+    }
+
+    .row-feed {
+        .col-feed-side {
+            width: 20.8%;
+
+            &.col-feed-side-right {
+                padding-left: 0;
+            }
+        }
+        .col-feed-main {
+            padding: 0 5px;
         }
     }
 }

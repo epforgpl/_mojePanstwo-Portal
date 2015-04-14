@@ -1,7 +1,6 @@
 <?php
 
 App::uses('DataobjectsController', 'Dane.Controller');
-
 class PrawoController extends DataobjectsController
 {
 
@@ -9,7 +8,7 @@ class PrawoController extends DataobjectsController
     public $helpers = array('Document');
 
     // public $uses = array('Dane.Dataliner');
-
+	
     public $headerObject = array('url' => '/dane/img/headers/ustawa.jpg', 'height' => '250px');
 
     public $objectOptions = array(
@@ -19,17 +18,35 @@ class PrawoController extends DataobjectsController
             'description' => false,
         ),
     );
-
+    
+    
+    public $menu = array(
+        'items' => array(
+	        array(
+	            'id' => '',
+	            'label' => 'Treść',
+	        ),
+	        array(
+	            'id' => 'feed',
+	            'label' => 'Aktualności',
+	        ),
+        ),
+    );
+    
+	
+	
     public function hasla()
     {
 
         $this->_prepareView();
 
     }
+	
+	
+    // public function view($package = 1)
+    // {
 
-    public function view($package = 1)
-    {
-
+        /*
         $this->_prepareView();
 				
         if ($projekt_id = $this->object->getData('projekt_id')) {
@@ -39,7 +56,7 @@ class PrawoController extends DataobjectsController
 
         }
 		
-		$this->prepareFeed();
+		*/
 		
 		/*
         $dokument_id = false;
@@ -112,8 +129,15 @@ class PrawoController extends DataobjectsController
         }
         */
 
-    }
-
+    // }
+	
+	public function view()
+	{
+		
+		$this->load();
+		
+	}
+	
     public function tekst_aktualny()
     {
 
@@ -136,25 +160,13 @@ class PrawoController extends DataobjectsController
     
     public function tresc()
     {
-
-        $this->_prepareView();
-
-        $dokument_id = false;
-
-        if ($files = $this->object->getLayer('files')) {
-            foreach ($files as $file) {
-                if ($file['slug'] == 'tekst_aktualny') {
-                    $dokument_id = $file['dokument_id'];
-                    break;
-                }
-            }
-        }
 		
-		if( !$dokument_id )
-			$dokument_id = $files[0]['dokument_id'];
-				
-        $this->set('document', $this->API->document($dokument_id));
-
+		$url = '/dane/' . $this->request->params['controller'] . '/' . $this->request->params['id'];
+		if( isset($this->request->params['slug']) )
+			$url .= ',' . $this->request->params['slug'];
+		
+		$this->redirect($url);
+		
     }
 
     public function tekst()
@@ -271,7 +283,8 @@ class PrawoController extends DataobjectsController
         return $this->connections_view('odeslania', 'Odesłania');
     }
 
-
+	
+	/*
     public function beforeRender()
     {
 
@@ -343,5 +356,6 @@ class PrawoController extends DataobjectsController
         $this->set('_menu', $menu);
 
     }
+    */
 
 } 

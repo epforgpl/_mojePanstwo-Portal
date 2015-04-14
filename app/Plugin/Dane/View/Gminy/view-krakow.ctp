@@ -215,7 +215,7 @@
 
                                             <div class="inner">
                                                 <p class="title">
-                                                    <a href="<?= $obj->getUrl() ?>"><?= $obj->getShortTitle() ?></a>
+                                                    <a href="<?= $obj->getUrl() ?>"><?= $this->Text->truncate( $obj->getShortTitle(), 150 ) ?></a>
                                                 </p>
 
                                                 <p class="date"><?= $this->Czas->dataSlownie($obj->getDate()) ?></p>
@@ -276,7 +276,7 @@
 
                                             <div class="inner">
                                                 <p class="title">
-                                                    <a href="<?= $obj->getUrl() ?>"><?= $obj->getShortTitle() ?></a>
+                                                    <a href="<?= $obj->getUrl() ?>"><?= $this->Text->truncate( $obj->getShortTitle(), 150 ) ?></a>
                                                 </p>
 
                                                 <p class="date"><?= $this->Czas->dataSlownie($obj->getDate()) ?></p>
@@ -361,7 +361,9 @@
                             </div>
 
                             <div class="content padding">
-                                <? if (!empty($ngos)) { ?>
+                                <?
+                                if (!empty($ngos)) {
+                                    ?>
                                     <ul class="raw">
                                         <?
                                         $limit = 5;
@@ -369,24 +371,30 @@
 
                                         foreach ($ngos as $ngo) {
                                             $i++;
+                                            $label = $ngo['label']['buckets'][0]['key'];
                                             ?>
 
-                                            <li class="list-group-item">
-                                                <span class="badge"><?= number_format_h($ngo['count']) ?></span>
-                                                <a href="<?= Router::url(array(
-                                                    'action' => 'organizacje',
-                                                    'id' => $object->getId(),
-                                                    '?' => array('forma_prawna_id' => $ngo['id'])
-                                                )) ?>"
-                                                   title="<?= addslashes($ngo['label']) ?>"><?= $this->Text->truncate($ngo['label'], 25); ?></a>
+                                            <li class="list-group-item"><span
+                                                    class="badge"><?= number_format_h($ngo['doc_count']) ?></span><a
+                                                    href="<?= Router::url(array(
+                                                        'action' => 'organizacje',
+                                                        'id' => $object->getId(),
+                                                        '?' => array('forma_prawna_id' => $ngo['key'])
+                                                    )) ?>"
+                                                    title="<?= addslashes($label) ?>"><?= $this->Text->truncate($label, 25); ?></a>
                                             </li>
-                                            <? if ($i == $limit) {
+                                            <?
+                                            if ($i == $limit) {
                                                 break;
                                             }
-                                        } ?>
+                                        }
+                                        ?>
                                     </ul>
-                                <? } ?>
+                                <?
+                                }
+                                ?>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -401,7 +409,7 @@
 			               href="<?= Router::url(array('action' => 'posiedzenia', 'id' => $object->getId())) ?>">Zobacz
 			                wszystkie</a>
 			        </div>
-			
+
 			        <div class="content">
 			            <div class="dataobjectsSliderRow row">
 			                <div>
@@ -448,7 +456,7 @@
 					                    <a class="btn btn-default btn-sm pull-right" href="<?= Router::url(array('action' => 'druki', 'id' => $object->getId())) ?>">Zobacz
 					                        wszystkie</a>
 					                </div>
-					
+
 					                <div class="content">
 					                    <div class="dataobjectsSliderRow row">
 					                        <div>
@@ -470,13 +478,13 @@
 					            <div class="block">
 					            	<div class="row">
 						            	<div class="col-lg-6">
-						            		
+
 						            		<div id="rada">
 									            <div class="block-header">
 									                <h2 class="label pull-left"><?php echo __d('dane', 'LC_GMINY_WYNIKI_WYBOROW'); ?></h2>
 									                <a class="btn btn-default btn-sm pull-right" href="<?= Router::url(array('action' => 'radni', 'id' => $object->getId())) ?>">Zobacz wszystkich radnych</a>
 									            </div>
-									
+
 									            <div class="content wynikiWyborow">
 									                <?php foreach ($object->getLayer('rada_komitety') as $rada) { ?>
 									                    <div class="wynik">
@@ -484,7 +492,7 @@
 									                            <?php echo $rada['pkw_komitety']['nazwa']; ?>
 									                        </a>
 									                        <small><?php echo pl_dopelniacz($rada[0]['count'], 'radny', 'radnych', 'radnych'); ?></small>
-									
+
 									                        <div class="progress">
 									                            <div class="progress-bar progress-bar-default" role="progressbar" aria-valuenow="73.3"
 									                                 aria-valuemin="0" aria-valuemax="100"
@@ -494,19 +502,19 @@
 									                    </div>
 									                <?php } ?>
 									            </div>
-									
-								                
-							
+
+
+
 									        </div>
-						            		
+
 						            	</div><div class="col-lg-6">
-						            		
-						            		
-						            		
+
+
+
 						            	</div>
 					            	</div>
-					            
-					            
+
+
 					            </div>
 					            <? */
                     ?>
@@ -526,7 +534,7 @@
                         <div class="content">
                             <div class="dataobjectsSliderRow row">
                                 <div>
-                                    <?php echo $this->dataobjectsSlider->render($zamowienia_otwarte, array(
+                                    <?php echo $this->DataobjectsSlider->render($zamowienia_otwarte, array(
                                         'perGroup' => 2,
                                         'rowNumber' => 1,
                                         'labelMode' => 'none',
@@ -549,7 +557,7 @@
                         <div class="content">
                             <div class="dataobjectsSliderRow row">
                                 <div>
-                                    <?php echo $this->dataobjectsSlider->render($zamowienia_zamkniete, array(
+                                    <?php echo $this->DataobjectsSlider->render($zamowienia_zamkniete, array(
                                         'perGroup' => 2,
                                         'rowNumber' => 1,
                                         'labelMode' => 'none',
@@ -567,7 +575,7 @@
 					                <a class="btn btn-default btn-sm pull-right" href="<?= Router::url(array('action' => 'dotacje_ue', 'id' => $object->getId())) ?>">Zobacz
 					                    wszystkie</a>
 					            </div>
-					
+
 					            <div class="content">
 					                <div class="dataobjectsSliderRow row">
 					                    <div>

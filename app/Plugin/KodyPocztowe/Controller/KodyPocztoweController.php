@@ -1,12 +1,19 @@
 <?php
 
 App::uses('Sanitize', 'Utility');
+App::uses('ApplicationsController', 'Controller');
 
-class KodyPocztoweController extends KodyPocztoweAppController
+class KodyPocztoweController extends ApplicationsController
 {
     public $uses = array('KodyPocztowe.KodPocztowy', 'Dane.Dataobject');
     public $components = array('Session', 'Paginator', 'RequestHandler');
-
+	
+	public $settings = array(
+		'title' => 'Kody pocztowe',
+		// 'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce',
+		// 'headerImg' => 'prawo',
+	);
+	
     public function index()
     {
 
@@ -20,6 +27,16 @@ class KodyPocztoweController extends KodyPocztoweAppController
         $this->set('kod', $kod);
 
         if ($kod) {
+	        
+	        $code = $this->Dataobject->find('first', array(
+		        'conditions' => array(
+			        'dataset' => 'kody_pocztowe',
+			        'kody_pocztowe.kod' => $kod,
+		        ),
+	        ));
+	        
+	        debug($code); die();
+	        
             $code = $this->API->searchCode($kod);
 
             if ($code && $code['object_id']) {
@@ -82,22 +99,21 @@ class KodyPocztoweController extends KodyPocztoweAppController
     public function adres()
     {
 
-        $api = $this->API->Dane();
-
         if (isset($this->request->params['ext']) && ($this->request->params['ext'] == 'json')) {
 
             $search = array();
 
             $q = @$this->request->query['q'];
             if ($q) {
-                $api->searchDataset('kody_pocztowe_ulice', array(
-                    'conditions' => array(
-                        'q' => $q,
-                    ),
-                    'mode' => 'title_prefix',
-                    'limit' => 10,
-                ));
-                $objects = $api->getObjects();
+	            
+
+	            $objects = $this->Dataobject->find('all', array(
+		            'conditions' => array(
+			            'dataset' => 'kody_pocztowe_ulice',
+			            'q' => $q,
+		            ),
+	            ));
+	                            
 
                 foreach ($objects as $obj) {
 

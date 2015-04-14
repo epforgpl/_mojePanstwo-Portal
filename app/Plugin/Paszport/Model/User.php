@@ -8,6 +8,7 @@ class User extends PaszportAppModel
     public $actsAs = array('Containable', 'Expandable.Expandable' => array('with' => 'Paszport.UserExpand'));
     public $name = 'Paszport.User';
     public $useTable = false;
+    public $useDbConfig = 'mpAPI';
 
     public function __construct($id = false, $table = null, $ds = null)
     {
@@ -180,6 +181,79 @@ class User extends PaszportAppModel
             }
         }
 
+    }
+
+    public function login($email, $password)
+    {
+        return $this->getDataSource()->login($email, $password);
+    }
+
+    public function setUserName($username) {
+        $response = $this->getDataSource()->request('paszport/user/setUserName', array(
+            'data' => array(
+                'value' => $username
+            ),
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    public function registerFromFacebook($userData) {
+        $response = $this->getDataSource()->request('paszport/user/registerFromFacebook', array(
+            'data' => $userData,
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    public function findFacebookUser($facebook_id, $email) {
+        $response = $this->getDataSource()->request('paszport/user/findFacebook', array(
+            'data' => array(
+                'facebook_id'   => $facebook_id,
+                'email'         => $email
+            ),
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    public function setEmail($email) {
+        $response = $this->getDataSource()->request('paszport/user/setEmail', array(
+            'data' => array(
+                'value' => $email
+            ),
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    public function setPassword($data) {
+        $response = $this->getDataSource()->request('paszport/user/setPassword', array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    public function deletePaszport($password) {
+        $response = $this->getDataSource()->request('paszport/user/deletePaszport', array(
+            'data' => array(
+                'password' => $password
+            ),
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    public function register($data)
+    {
+        return $this->getDataSource()->register($data);
     }
 
     public function schema()

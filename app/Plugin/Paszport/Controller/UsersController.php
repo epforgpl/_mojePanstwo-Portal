@@ -1,6 +1,6 @@
 <?php
 App::uses('HttpSocket', 'Network/Http');
-
+App::import('Model', 'Paszport.User');
 /**
  * Class UsersController
  *
@@ -132,7 +132,7 @@ class UsersController extends PaszportAppController
                 $this->redirect($this->Connect->FB->getLoginUrl(array('scope' => 'email,user_birthday')));
             }
 
-            $conds = array(
+            /* $conds = array(
                 'conditions' => array(
                     'OR' => array(
                         array('User.facebook_id' => $user_data['id']),
@@ -140,16 +140,18 @@ class UsersController extends PaszportAppController
                     ),
                 ),
                 'contain' => array('Language', 'Group', 'UserExpand'),
-            );
+            ); */
 
-            $user = $this->PassportApi->find('users', $conds);
+            // Fatal Error (1): Call to a member function find() on a non-object in [/home/www/portal-v2/_mojePanstwo-Portal/app/Plugin/Paszport/Controller/UsersController.php, line 145]
+            // Trzeba wszystkie wywołania $this->PaszportApi zmienić na odwołania do nowego API przez model User
+            $_user = new User();
+            $user = $_user->findFacebookUser($user_data['id'], $user_data['email']);
             if (!isset($user['user']) || empty($user['user'])) {
                 $user = false;
-            } else {
-                $user = $user['user'];
             }
-            if ($user && $user['User']['facebook_id']) { # if user is already FB connected to us, just log him in
-                $this->Auth->login($user['User']);
+            if ($user && $user['user']['facebook_id']) { # if user is already FB connected to us, just log him in
+                $this->Auth->login($user['user']); // true
+
                 $this->_log(array(
                     'msg' => 'LC_PASZPORT_LOG_LOGIN_FB',
                     'ip' => $this->request->clientIp(),
@@ -195,7 +197,7 @@ class UsersController extends PaszportAppController
                         )
                     );
 
-                    $resp_user = $this->PassportApi->User()->add($to_save);
+                    $resp_user = $_user->register($to_save);
                     if (array_key_exists('user', $resp_user) && !empty($resp_user['user'])) {
                         $this->Session->setFlash(__d('paszport', 'LC_PASZPORT_FACEBOOK_REGISTER', true), null, array('class' => 'alert-success'));
 
@@ -206,7 +208,7 @@ class UsersController extends PaszportAppController
                             $session = $this->Session->read('API.session');
                             $this->externalgate($service, $session);
                         }
-                        $this->redirect(array('action' => 'setpassword'));
+                        $this->redirect(array('action' => 'login'));
 
                     } else {
                         $this->Session->setFlash(__d('paszport', 'LC_PASZPORT_FACEBOOK_REGISTER_FAILED', true), null, array('class' => 'alert-error'));
@@ -459,13 +461,14 @@ class UsersController extends PaszportAppController
      */
     public function __fbLanguage($rfc_lang)
     {
-        $lang = $this->PassportApi->find('languages', array('conditions' => array('rfc_code' => $rfc_lang)));
+        /*$lang = $this->PassportApi->find('languages', array('conditions' => array('rfc_code' => $rfc_lang)));
         $lang = $lang['lang'];
         if ($lang) {
             return $lang['Language']['id'];
         } else {
             return 2; # english
-        }
+        }*/
+        return 2;
     }
 
     /**
@@ -728,7 +731,7 @@ class UsersController extends PaszportAppController
      */
     public function add()
     {
-        if ($this->request->isPost()) {
+        if($this->request->isPost()) {
             $to_save = $this->data;
             $user = $this->PassportApi->User()->add($to_save);
             if (isset($user['user'])) {
@@ -750,9 +753,24 @@ class UsersController extends PaszportAppController
                 }
             }
         }
-        $languages = $this->PassportApi->findAsList('languages', array('fields' => array('id', 'label')));
-        $groups = $this->PassportApi->findAsList('groups', array('fields' => array('id', 'label')));
-        foreach ($groups['group'] as &$group) {
+
+        //$languages = $this->PassportApi->findAsList('languages', array('fields' => array('id', 'label')));
+        $languages = array(
+            'language' => array(
+                'Polski',
+                'English'
+            )
+        );
+
+        //$groups = $this->PassportApi->findAsList('groups', array('fields' => array('id', 'label')));
+        $groups = array(
+            'group' => array(
+                'LC_PERSONAL',
+                'LC_INSTITUTION'
+            )
+        );
+
+        foreach($groups['group'] as &$group) {
             $group = __d('paszport', $group, true);
         }
 

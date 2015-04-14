@@ -91,18 +91,18 @@ if ($posiedzenie->getData('yt_video_id')) {
     <div class="row">
         <div class="col-md-10 col-md-offset-1 objectMain">
             <?
-            if (isset($protokol_dokument)) {
+            if ($posiedzenie->getData('protokol_dokument_id')) {
                 ?>
                 <h2 class="light">Protokół z obrad</h2>
-                <?= $this->Document->place($protokol_dokument) ?>
+                <?= $this->Document->place($posiedzenie->getData('protokol_dokument_id')) ?>
             <? } ?>
 
 
             <?
-            if (isset($przedmiot_dokument)) {
+            if ($posiedzenie->getData('przedmiot_dokument_id')) {
                 ?>
                 <h2 class="light">Przedmiot obrad</h2>
-                <?= $this->Document->place($przedmiot_dokument) ?>
+                <?= $this->Document->place($posiedzenie->getData('przedmiot_dokument_id')) ?>
             <? } ?>
 
 

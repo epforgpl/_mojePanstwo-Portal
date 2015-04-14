@@ -1,54 +1,54 @@
 <?php
 
-class ZamowieniaPubliczneController extends AppController
+App::uses('ApplicationsController', 'Controller');
+class ZamowieniaPubliczneController extends ApplicationsController
 {
+	
+    public $settings = array(
+		'menu' => array(
+			array(
+				'id' => '',
+				'href' => 'zamowienia_publiczne',
+				'label' => 'Zamówienia',
+			),
+			/*
+			array(
+				'id' => 'wykonawcy',
+				'href' => 'zamowienia_publiczne/wykonawcy',
+				'label' => 'Wykonawcy',
+			),
+			*/
+            array(
+                'id' => 'dotacje_unijne',
+                'href' => 'zamowienia_publiczne/dotacje_unijne',
+                'label' => 'Dotacje unijne',
+            ),
+		),
+		'title' => 'Zamówienia Publiczne',
+		'subtitle' => 'Znajdź zamówienie dla swojej firmy - Sprawdzaj kto dostaje zamówienia publiczne',
+		'headerImg' => '/zamowienia_publiczne/img/header_zamowienia-publiczne.png',
+	);
 
-    public $helpers = array(
-        'Dane.Dataobject',
-        'Dane.DataobjectsSlider',
-        'Waluta',
-    );
-
-    public function index()
+    public function prepareMetaTags() {
+        parent::prepareMetaTags();
+        $this->setMeta('og:image', FULL_BASE_URL . '/zamowienia_publiczne/img/social/zamowienia.jpg');
+    }
+	
+    public function view()
     {
+        $this->setMenuSelected();
+        $this->loadDatasetBrowser('zamowienia_publiczne');
+    }
+    
+    public function wykonawcy()
+    {
+        $this->loadDatasetBrowser('zamowienia_publiczne_wykonawcy');
+    }
 
-        $stats = $this->API->ZamowieniaPubliczne()->getStats();
-        $this->set('stats', $stats);
-
-
-        /*
-        $api = $this->API->Dane();
-
-
-        $api->searchDataset('zamowienia_publiczne', array(
-            'limit' => 20,
-            'conditions' => array(
-                'rodzaj_id' => 2,
-            ),
-        ));
-        $this->set('uslugi', $api->getObjects());
-
-
-        $api->searchDataset('zamowienia_publiczne', array(
-            'limit' => 20,
-            'conditions' => array(
-                'rodzaj_id' => 3,
-            ),
-        ));
-        $this->set('dostawy', $api->getObjects());
-
-
-        $api->searchDataset('zamowienia_publiczne', array(
-            'limit' => 20,
-            'conditions' => array(
-                'rodzaj_id' => 1,
-            ),
-        ));
-        $this->set('roboty', $api->getObjects());
-        */
-
-        $application = $this->getApplication();
-        $this->set('title_for_layout', $this->Application['name']);
+    public function dotacje_unijne()
+    {
+	    $this->title = 'Dotacje unijne - Zamówienia publiczne';
+        $this->loadDatasetBrowser('dotacje_ue');
     }
 
 } 

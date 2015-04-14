@@ -488,11 +488,11 @@ class DataobjectsBrowserComponent extends Component
         if (!empty($order)) {
             $queryData['order'] = $order['str'];
         }
-
+		
 
         $this->Paginator->settings = $queryData;
         $objects = $this->Paginator->paginate('Dataobject');
-
+		
 
         $pagination = $controller->Dataobject->pagination;
         $pagination['page'] = (int)@$controller->request->query['page'];

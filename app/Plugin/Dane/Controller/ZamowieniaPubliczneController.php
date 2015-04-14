@@ -8,14 +8,16 @@ class ZamowieniaPubliczneController extends DataobjectsController
     public $objectOptions = array(
         'hlFields' => array('status_id', 'rodzaj_id'),
     );
-
+	
+	public $loadChannels = true;
+	
     // public $initLayers = array('details', 'sources', 'czesci');
-    public $initLayers = array('details', 'sources');
+    public $initLayers = array('channels', 'details', 'sources');
 
     public function view()
     {
 
-        parent::view();
+        $this->load();
         
         $_details = $this->object->getLayer('details');
         $details = array();
@@ -85,22 +87,29 @@ class ZamowieniaPubliczneController extends DataobjectsController
         $this->set('details', $details);
         $this->set('text_details', $text_details);
         
-        $this->prepareFeed(array(
-	        'direction' => 'asc'
+        $this->feed(array(
+	        'direction' => 'asc',
+	        'timeline' => true,
+	        'searchTitle' => 'tym zamówieniu',
         ));
 
     }
     
     public function dokumenty() {
 				
-		parent::view();
-		$this->request->params['action'] = 'view';
-		
+		parent::load();
+				
 		if( 
-			isset($this->request->params['pass'][0]) && 
-			( $dokument = $this->API->getObject('zamowienia_publiczne_dokumenty', $this->request->params['pass'][0], array(
-                'layers' => array('details'),
-            )) )
+			isset($this->request->params['subid']) && 
+			( $dokument = $this->Dataobject->find('first', array(
+				'conditions' => array(
+					'dataset' => 'zamowienia_publiczne_dokumenty',
+					'id' => $this->request->params['subid'],
+				),
+				'layers' => array(
+					'details'
+				),
+			)) )
 		) {
 			
 			$_details = $dokument->getLayer('details');
@@ -199,7 +208,8 @@ class ZamowieniaPubliczneController extends DataobjectsController
 
         $menu['selected'] = ($this->request->params['action'] == 'view') ? '' : $this->request->params['action'];
 
-        $this->set('_menu', $menu);
+        parent::beforeRender();
+        
 
     }
 } 

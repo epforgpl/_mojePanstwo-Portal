@@ -1,12 +1,24 @@
 function changeBckgrn($rotate) {
-    $rotate.find('.holdBckgrnd').fadeOut(function () {
+    $rotate.find('.holdBckgrnd').append(
+        $('<div></div>').addClass('temp').css({
+            'display': 'none',
+            'background-image': $rotate.find('.active').data('bckgrnd')
+        })
+    );
+    $rotate.find('.holdBckgrnd .temp').fadeIn(function () {
         $rotate.find('.holdBckgrnd').css('background-image', $rotate.find('.active').data('bckgrnd'));
-        $rotate.find('.holdBckgrnd').fadeIn()
-    })
+        $rotate.find('.holdBckgrnd .temp').remove();
+    });
+
+    /*$rotate.find('.holdBckgrnd').fadeOut(function () {
+     $rotate.find('.holdBckgrnd').css('background-image', $rotate.find('.active').data('bckgrnd'));
+     $rotate.find('.holdBckgrnd').fadeIn()
+     })*/
 }
 
 (function ($) {
-    var $rotate = $("#rotate"),
+    var $powiadomienia = $('#powiadomienia'),
+        $rotate = $("#rotate"),
         $rotatePos = $rotate.offset();
 
     $rotate.append(
@@ -38,5 +50,61 @@ function changeBckgrn($rotate) {
                 changeBckgrn($rotate);
             }
         }
-    })
+    });
+
+    $powiadomienia.find('.start a.icon').click(function (e) {
+        e.preventDefault();
+
+        $('html, body').animate({
+            scrollTop: $rotate.offset().top
+        }, 1000);
+
+    });
+
+    var scrollStatus = false,
+        lastScroll = 0;
+
+    $(window).keydown(function (e) {
+        var key = e.which;
+
+        if ($rotate.hasClass('hold') && !$rotate.hasClass('animate')) {
+            if (key == 38 && $rotate.find('.active').prev()) {
+                scrollStatus = $rotate.find('.active').prev().offset().top;
+            } else if (key == 40 && $rotate.find('.active').next()) {
+                scrollStatus = $rotate.find('.active').next().offset().top;
+            }
+
+            if (scrollStatus)
+                scrollSlice(scrollStatus);
+        }
+    });
+
+    $(window).scroll(function () {
+        if ($rotate.hasClass('hold') && !$rotate.hasClass('animate')) {
+            var st = $(this).scrollTop();
+
+            if ((st > lastScroll) && $rotate.find('.active').next()) {
+                scrollStatus = $rotate.find('.active').next().offset().top;
+            }
+            else if ((st < lastScroll) && $rotate.find('.active').prev()) {
+                scrollStatus = $rotate.find('.active').prev().offset().top;
+            }
+
+            if (scrollStatus)
+                scrollSlice(scrollStatus);
+        }
+    });
+
+    function scrollSlice(scrollStatus) {
+        if (!$rotate.hasClass('animate') && lastScroll != $(window).scrollTop()) {
+            $rotate.addClass('animate');
+
+            $('html, body').animate({
+                scrollTop: scrollStatus
+            }, 1000, function () {
+                $rotate.removeClass('animate');
+                lastScroll = $(window).scrollTop();
+            });
+        }
+    }
 }(jQuery));

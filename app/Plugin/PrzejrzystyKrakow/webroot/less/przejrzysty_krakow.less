@@ -1,0 +1,60 @@
+.przejrzystyKrakow {
+    background-image: url(/PrzejrzystyKrakow/img/background.png);
+
+    .headerBar {
+        width: 100%;
+        height: auto;
+        display: inline-block;
+        position: relative;
+        margin-bottom: 10px;
+
+        > div {
+            width: 100%;
+            height: auto;
+            float: left;
+            padding: 0;
+        }
+
+        img, h1 {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        img {
+            height: 100px;
+        }
+        h1 {
+            position: relative;
+            font-size: 36px;
+            font-weight: normal;
+            color: #ffffff;
+            text-align: center;
+            margin: 30px 5px 0;
+            top: 50%;
+            -webkit-transform: translate(0, -50%);
+            -moz-transform: translate(0, -50%);
+            -ms-transform: translate(0, -50%);
+            -o-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+            display: none;
+        }
+        
+        .subh {
+	        margin-top: 10px;
+	        color: #FFF;
+        }
+    }
+}
+
+@media (max-width: 750px) {
+    .przejrzystyKrakow .headerBar {
+        margin-bottom: 0;
+
+        img {
+            margin-top: 25px;
+        }
+        h1 {
+            margin-top: 45px;
+        }
+    }
+}

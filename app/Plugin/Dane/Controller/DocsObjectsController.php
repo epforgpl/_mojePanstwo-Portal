@@ -12,7 +12,7 @@ abstract class DocsObjectsController extends DataobjectsController
 
     public function view($package = 1)
     {
-        parent::view();
+        parent::load();
 
         $docs = $this->object->loadLayer('docs');
         $selected_doc_id = $this->object->getData('dokument_id');
@@ -27,19 +27,9 @@ abstract class DocsObjectsController extends DataobjectsController
                 }
             }
         }
-
-        $document = $this->API->document($selected_doc_id);
-        if ($this->request->isAjax()) {
-            $this->set('html', $document->loadHtml($package));
-            $this->set('_serialize', 'html');
-        } else {
-            $this->set(array(
-                'docs' => $docs,
-                'document' => $document,
-                'documentPackage' => $package,
-            ));
-
-        }
+		
+		$this->set('selected_doc_id', $selected_doc_id);
+        
     }
 
     public function beforeRender()

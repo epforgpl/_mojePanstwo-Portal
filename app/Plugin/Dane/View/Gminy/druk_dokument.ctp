@@ -20,9 +20,6 @@ echo $this->Element('Dane.dataobject/subobject', array(
 <h2 class="light"><a class="btn-back glyphicon glyphicon-circle-arrow-left" href="<?= $druk->getUrl() ?>"></a> <?= $druk_dokument->getTitle() ?></h2>
 
 <?
-echo $this->Element('docsBrowser/doc', array(
-    'document' => $document,
-    'documentPackage' => $documentPackage,
-));
 
+echo $this->Document->place($druk_dokument->getData('dokument_id'));
 echo $this->Element('dataobject/pageEnd');

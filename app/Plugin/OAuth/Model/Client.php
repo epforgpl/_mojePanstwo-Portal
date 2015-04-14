@@ -3,6 +3,7 @@
 App::uses('OAuthAppModel', 'OAuth.Model');
 App::uses('String', 'Utility');
 
+
 /**
  * Client Model
  *
@@ -12,6 +13,9 @@ App::uses('String', 'Utility');
  */
 class Client extends OAuthAppModel
 {
+
+    public $useTable = false;
+    public $useDbConfig = 'mpAPI';
 
     /**
      * Primary key field
@@ -144,7 +148,7 @@ class Client extends OAuthAppModel
         $this->addClientSecret = $this->newClientSecret();
         $this->data['Client']['client_secret'] = $this->addClientSecret;
 
-        return $this->save($this->data);
+        return $this->getDataSource()->request('oauth/clients/save/', $this->data);
     }
 
     /**
@@ -176,8 +180,8 @@ class Client extends OAuthAppModel
 
     public function getRedirectURL($client_id)
     {
-        $api = mpapiComponent::getApi()->OAuth()->Client();
-
-        return $api->getRedirectURL($client_id);
+        $response = file_get_contents('http://mojepanstwo.pl:4445/oauth/clients/'.$client_id);
+        $data = json_decode($response, true);
+        return $data;
     }
 }

@@ -2,7 +2,6 @@
 
 class DataobjectsSliderHelper extends AppHelper
 {
-
     public function __construct(View $view, $settings = array())
     {
         $this->view = $view;

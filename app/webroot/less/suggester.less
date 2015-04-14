@@ -5,11 +5,12 @@
         .modal-content {
             background: none;
             border: none;
-            -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=0, Direction=90, Color=#000000)"; /*IE 8*/
-            -moz-box-shadow: 0 0 0 #000000; /*FF 3.5+*/
-            -webkit-box-shadow: 0 0 0 #000000; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-            box-shadow: 0 0 0 #000000; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
-            filter: progid:DXImageTransform.Microsoft.Shadow(Strength=0, Direction=90, Color=#000000); /*IE 5.5-7*/
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            -ms-filter: none;
+            box-shadow: none;
+            filter: none;
+
         }
     }
 }
@@ -37,13 +38,15 @@
             position: absolute;
             top: 50%;
             left: 0;
-            -webkit-transform: translate(0, -50%);
-            -o-transform: translate(0, -50%);
-            -moz-transform: translate(0, -50%);
-            transform: translate(0, -50%);
             width: @searchHeight;
             pointer-events: none;
             text-align: center;
+
+            -webkit-transform: translate(0, -50%);
+            -moz-transform: translate(0, -50%);
+            -ms-transform: translate(0, -50%);
+            -o-transform: translate(0, -50%);
+            transform: translate(0, -50%);
 
             &:before {
                 font-size: 16px;

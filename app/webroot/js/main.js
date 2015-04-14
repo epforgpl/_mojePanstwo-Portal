@@ -165,11 +165,7 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 
     _mPviewport.sizeMarker = checkSizeMarker;
 
-    /*HACK FOR BETA LOGO CHANGE*/
-    if ($.cookie('_mPFirstTime') == null)
-        $.cookie('_mPFirstTime', 1);
-
-    if (($.cookie('_mPViewport') == null) || ($.cookie('_mPViewport') != checkSizeMarker)) {
+    /*if (($.cookie('_mPViewport') == null) || ($.cookie('_mPViewport') != checkSizeMarker)) {
         var rescaleOverlay = $('<div></div>').css({
                 'position': 'fixed',
                 'top': 0,
@@ -212,7 +208,7 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
     } else {
         $.removeCookie('_mPViewportReload');
         $.removeCookie('_mPViewportCookieAvailable');
-    }
+     }*/
 
     /*COOKIE LAW*/
     var cookieLaw,
@@ -337,4 +333,17 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
             });
         }, 'xml');
     });
+
+    /* $(".hasclear").keyup(function () {
+        var t = $(this);
+        t.next('a').find('span').toggle(Boolean(t.val()));
+    });
+
+    if($(".hasclear").val() == '')
+        $(".clearer").hide($(this).prev('input').val()); */
+
+    /*$(".clearer").click(function () {
+        $(this).prev('input').val('').focus();
+        $(this).hide();
+    });*/
 })(jQuery);

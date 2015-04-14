@@ -9,17 +9,16 @@ class UrzednicyController extends DataobjectsController
 
     public function view()
     {
-        parent::_prepareView();
-
-        $this->dataobjectsBrowserView(array(
+	    
+	    parent::load();
+        $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'osoba_id' => $this->object->getId(),
-            ),
-            'dataset' => 'urzednicy_rejestr_korzysci',
-            'title' => 'Oświadczenia majątkowe urzędnika',
-            'noResultsTitle' => 'Brak oświadczeń',
-            'excludeFilters' => array(
+	            'dataset' => 'urzednicy_rejestr_korzysci',
+	            'urzednicy_rejestr_korzysci.osoba_id' => $this->object->getId(),
             ),
         ));
+        $this->set('DataBrowserTitle', 'Rejestr korzyści majątkowych urzędnika');
+        $this->render('Dane.DataBrowser/browser');
+	    
     }
 } 

@@ -8,32 +8,48 @@ class WojewodztwaController extends DataobjectsController
     public function view()
     {
 
-        parent::_prepareView();
-        $this->dataobjectsBrowserView(array(
-            'source' => 'wojewodztwa.gminy:' . $this->object->getId(),
-            'dataset' => 'gminy',
-            'excludeFilters' => array(
-                'wojewodztwo_id',
+        parent::load();
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+	            'dataset' => 'gminy',
+	            'gminy.wojewodztwo_id' => $this->object->getId(),
             ),
+            'aggsPreset' => 'gminy',
         ));
-
         $this->set('title_for_layout', __d('dane', 'LC_DANE_GMINY_W_WOJEWODZTWIE') . ' ' . $this->object->getData('nazwa'));
+        $this->render('Dane.DataBrowser/browser');
 
     }
 
     public function powiaty()
     {
 
-        parent::_prepareView();
-        $this->dataobjectsBrowserView(array(
-            'source' => 'wojewodztwa.powiaty:' . $this->object->getId(),
-            'dataset' => 'powiaty',
-            'excludeFilters' => array(
-                'wojewodztwo_id',
+        parent::load();
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+	            'dataset' => 'powiaty',
+	            'powiaty.wojewodztwo_id' => $this->object->getId(),
             ),
+            'aggsPreset' => 'powiaty',
         ));
+        $this->set('title_for_layout',  'Powiaty w województwie ' . $this->object->getData('nazwa'));
+        $this->render('Dane.DataBrowser/browser');
 
-        $this->set('title_for_layout', 'Powiaty w województwie ' . $this->object->getData('nazwa'));
+    }
+    
+    public function miejscowosci()
+    {
+
+        parent::load();        
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+	            'dataset' => 'miejscowosci',
+	            'miejscowosci.wojewodztwo_id' => $this->object->getId(),
+            ),
+            'aggsPreset' => 'miejscowosci',
+        ));
+        $this->set('title_for_layout',  'Powiaty w województwie ' . $this->object->getData('nazwa'));
+        $this->render('Dane.DataBrowser/browser');
 
     }
 
@@ -55,11 +71,17 @@ class WojewodztwaController extends DataobjectsController
                     'href' => $href_base . '/powiaty',
                     'label' => 'Powiaty',
                 ),
+                array(
+                    'id' => 'miejscowosci',
+                    'href' => $href_base . '/miejscowosci',
+                    'label' => 'Miejscowości',
+                ),
             )
         );
 
         $menu['selected'] = ($this->request->params['action'] == 'view') ? '' : $this->request->params['action'];
-        $this->set('_menu', $menu);
+        $this->menu = $menu;
+        parent::beforeRender();
 
     }
 } 

@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title><?= htmlspecialchars(strip_tags($title_for_layout)) ?></title>
+		
+    <title><?= htmlspecialchars(strip_tags(str_replace('&nbsp;', ' ', $title_for_layout))) ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <? if (isset($_META) && !empty($_META)) {
         foreach ($_META as $key => $val)
-            if (!in_array($key, array('image')))
                 echo $this->Html->meta(array('property' => $key, 'content' => $val));
     } ?>
-    <?php echo $this->Html->meta('favicon.ico', '/img/favicon/fav.ico', array('type' => 'icon')); ?>
-    <?php echo $this->Html->meta('favicon.ico', '/img/favicon/apple-touch-icon.ico', array(
-        'type' => 'icon',
-        'rel' => 'apple-touch-icon'
-    )); ?>
-    <?php echo $this->Html->meta('favicon.ico', '/img/favicon/apple-touch-icon-72x72.ico', array(
-        'type' => 'icon',
-        'rel' => 'apple-touch-icon',
-        'sizes' => '72x72'
-    )); ?>
-    <?php echo $this->Html->meta('favicon.ico', '/img/favicon/apple-touch-icon-114x114.ico', array(
-        'type' => 'icon',
-        'rel' => 'apple-touch-icon',
-        'sizes' => '114x114'
-    )); ?>
+    <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/img/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/img/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/img/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
 
     <?php
-    echo $this->Html->meta(array('property' => 'og:url', 'content' => Router::url($this->here, true)));
-    echo $this->Html->meta(array('property' => 'og:type', 'content' => 'website'));
-    echo $this->Html->meta(array('property' => 'og:title', 'content' => strip_tags($title_for_layout)));
-    echo $this->Html->meta(array(
+    //echo $this->Html->meta(array('property' => 'og:url', 'content' => Router::url($this->here, true)));
+    //echo $this->Html->meta(array('property' => 'og:type', 'content' => 'website'));
+    //echo $this->Html->meta(array('property' => 'og:title', 'content' => strip_tags($title_for_layout)));
+    /* echo $this->Html->meta(array(
         'property' => 'og:description',
         'content' => (isset($_META) && array_key_exists('description', $_META)) ? strip_tags($_META['description']) : strip_tags(__('LC_MAINHEADER_TEXT'))
     ));
     echo $this->Html->meta(array(
         'property' => 'og:image',
         'content' => (isset($_META) && array_key_exists('image', $_META)) ? FULL_BASE_URL . $_META['image'] : FULL_BASE_URL . '/img/favicon/facebook-400x400.jpg',
-    ));
-    echo $this->Html->meta(array('property' => 'fb:admins', 'content' => '616010705')); /*Daniel Macyszyn*/
-    echo $this->Html->meta(array('property' => 'fb:admins', 'content' => '100000234760647')); /*Mariusz Konrad Machuta-Rakowski*/
-    echo $this->Html->meta(array('property' => 'fb:app_id', 'content' => FACEBOOK_appId));
+    ));*/
+    //echo $this->Html->meta(array('property' => 'fb:admins', 'content' => '616010705')); /*Daniel Macyszyn*/
+    //echo $this->Html->meta(array('property' => 'fb:admins', 'content' => '100000234760647')); /*Mariusz Konrad Machuta-Rakowski*/
+    //echo $this->Html->meta(array('property' => 'fb:app_id', 'content' => FACEBOOK_appId));
 
     echo $this->Html->css('//fonts.googleapis.com/css?family=Lato:200,300,400,700,900,400italic');
 
@@ -87,6 +89,19 @@
 <body>
 <div id="_wrapper">
     <header>
+        <div id="_mPCockpitMobile">
+            <div class="_mPShowMenu">
+                <button type="button" class="tcon tcon-menu--xcross" aria-label="toggle menu">
+                    <span class="tcon-menu__lines" aria-hidden="true"></span>
+                    <span class="tcon-visuallyhidden">toggle menu</span>
+                </button>
+            </div>
+            <div class="_mPLogo">
+                <a href="/" target="_self">
+                    <img src="/icon/moje_panstwo_logo.svg" title="moje Państwo"/>
+                </a>
+            </div>
+        </div>
         <?php echo $this->Element('bar', array(
             'mode' => @$statusbarMode,
             'applications' => array(
@@ -128,13 +143,16 @@
     <?php } ?>
     <div id="_main">
         <?php echo $content_for_layout; ?>
+
+        <? echo $this->Element('footer'); ?>
     </div>
 
     <? echo $this->Element('suggester', array(
         'placeholder' => __("LC_SEARCH_PUBLIC_DATA_PLACEHOLDER"),
-        'action' => '/dane/szukaj',
+        'action' => '/dane',
     )); ?>
 </div>
+
 
 <?php /* GOOGLE ANALYTIC */ ?>
 <script>

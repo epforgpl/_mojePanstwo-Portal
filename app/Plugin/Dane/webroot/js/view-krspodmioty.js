@@ -135,7 +135,7 @@ jQuery(document).ready(function () {
             $objectSideInner = $('.objectSideInner');
 
         if (banner.length > 0) {
-            banner.find('.bg img').css('width', banner.width() + 'px');
+            banner.find('.bg img').css({'width': banner.outerWidth() + 'px', 'height': banner.outerHeight() + 'px'});
 
             /*ASYNCHRONIZE ACTION FOR GOOGLE MAP*/
             window.onload = loadScript();

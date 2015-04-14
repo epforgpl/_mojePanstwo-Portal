@@ -470,6 +470,7 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
             'conditions' => array('oauth_token' => $oauth_token),
             'recursive' => -1,
         ));
+
         if ($accessToken) {
             return $accessToken['AccessToken'];
         }
@@ -499,7 +500,6 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
             'expires' => $expires,
             'scope' => $scope
         );
-        $this->AccessToken->create();
 
         return $this->AccessToken->save(array('AccessToken' => $data));
     }
@@ -663,8 +663,9 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
             'expires' => $expires,
             'scope' => $scope
         );
+
         $this->AuthCode->create();
 
-        return $this->AuthCode->save(array('AuthCode' => $data));
+        return $this->AuthCode->save($data);
     }
 }

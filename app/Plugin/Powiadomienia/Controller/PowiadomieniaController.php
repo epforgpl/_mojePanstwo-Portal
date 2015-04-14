@@ -1,53 +1,59 @@
 <?php
 
-class PowiadomieniaController extends PowiadomieniaAppController
+App::uses('ApplicationsController', 'Controller');
+class PowiadomieniaController extends ApplicationsController
 {
-    public $components = array(
-        'RequestHandler',
-        'Paginator'
-    );
 
-    public function index()
-    {
-        $group_id = isset($this->request->query['group_id']) ? $this->request->query['group_id'] : false;
-        if (!$group_id) {
-            $group_id = isset($this->request->query['groupid']) ? $this->request->query['groupid'] : false;
-        }
+	public $settings = array(
+		'menu' => array(
+			array(
+				'id' => '',
+				'label' => 'Jak to działa?',
+			),
+			array(
+				'id' => 'moje',
+				'label' => 'Moje powiadomienia',
+			),
+			array(
+				'id' => 'obserwuje',
+				'label' => 'Obserwuję',
+			),
+		),
+		'title' => 'Powiadomienia',
+		'subtitle' => 'Obserwuj interesujące Cię dane publiczne',
+		'headerImg' => 'powiadomienia',
+	);
 
-        $queryData = array(
-            'conditions' => array(
-                'group_id' => $group_id,
-                'mode' => isset($this->request->query['mode']) ? $this->request->query['mode'] : false,
-            ),
-            'limit' => 20,
-            'paramType' => 'querystring',
-            'page' => isset($this->request->query['page']) ? $this->request->query['page'] : 1,
-        );
-
-        $this->API->_search($queryData);
-        $objects = $this->API->getObjects();
-        $groups = $this->API->getGroups();
-
-        $this->set('objects', $objects);
-        $this->set('groups', $groups);
-
-
-        if (@$this->request->params['ext'] == 'json') {
-
-            $html = '';
-            if (!empty($objects)) {
-                $view = new View($this, false);
-                $html = $view->element('objects', array(
-                    'objects' => $objects,
-                ));
-            }
-
-            $this->set('html', $html);
-            $this->set('_serialize', 'html');
-
-
-        }
-
-        $this->set('appMenuSelected', 'jak_to_dziala');
+    public function prepareMetaTags() {
+        parent::prepareMetaTags();
+        $this->setMeta('og:image', FULL_BASE_URL . '/powiadomienia/img/social/powiadomienia.jpg');
     }
-}
+	
+    public function view() {
+        
+        $this->setMenuSelected();
+                
+    }
+    
+    public function obserwuje() {
+	    
+	    $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+	            'subscribtions' => true,
+            ),
+            'renderFile' => 'subscriptions',
+        ));
+        
+        $this->set('dataBrowserObjectRender', array(
+		    'forceLabel' => true,
+	    ));
+        $this->set('DataBrowserTitle', 'Dane które obserwujesz:');
+    }
+    
+    public function moje() {
+	    
+	    
+	    
+    } 
+
+} 
