@@ -455,15 +455,32 @@ class AppController extends Controller {
 
 	public function beforeRender()
 	{
-				
+		
+		$redirect = false;
+		
 		if($this->Session->read('Auth.User.id') && $this->Session->read('Pisma.transfer_anonymous')) {
 			
 			$this->loadModel('Pisma.Pismo');			
 			$this->Pismo->transfer_anonymous($this->Session->read('previous_id'));
-			
 			$this->Session->delete('Pisma.transfer_anonymous');
-			return $this->redirect($this->request->here);
+			
+			$redirect = true;
+			
 		}
+		
+		if($this->Session->read('Auth.User.id') && $this->Session->read('Powiadomienia.transfer_anonymous')) {
+						
+			$this->loadModel('Dane.Subscription');			
+			$this->Subscription->transfer_anonymous($this->Session->read('previous_id'));
+			$this->Session->delete('Powiadomienia.transfer_anonymous');
+			
+			$redirect = true;
+			
+		}
+		
+		if( $redirect )
+			return $this->redirect($this->request->here);
+		
 	}
 
 	public function addStatusbarCrumb( $item ) {
