@@ -127,7 +127,7 @@
                                                         <? foreach ($dimension['levels'] as $level) { ?>
                                                             <? if(!isset($level['selected'])) { $isset = true; ?>
                                                                 <li>
-                                                                    <a href="/dane/bdl_wskazniki/<?= $object->getId() . '/' . $option['data']['id'] . '/' . $level['id'] ?>">
+                                                                    <a href="/dane/bdl_wskazniki/<?= $object->getId() . ','.$this->request->params['slug'].'/kombinacje/' . $option['data']['id'] . '/' . $level['id'] ?>">
                                                                         <?= $level["label"] ?>
                                                                     </a>
                                                                 </li>
