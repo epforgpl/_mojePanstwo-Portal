@@ -41,7 +41,16 @@
                     </li>
                 <? } ?>
             </ul>
+	        <? if( !$this->Session->read('Auth.User.id') ) { ?>
+			<div class="alert alert-dismissable alert-success">
+				<button type="button" class="close" data-dismiss="alert">×</button>
+				<h4>Uwaga!</h4>
+				<p>Nie jesteś zalogowany. Twoje subskrypcje będą przetwarzane i przechowywane na tym urządzeniu przez 24 godziny. <a class="_specialCaseLoginButton" href="/login">Zaloguj się</a>, aby trwale zapisać subskrypcje na swoim koncie.</p>
+			</div>
+			<? } ?>
         </div>
+        
+        
         <? } ?>
         
         <? echo $this->Element('Dane.DataBrowser/aggs', array('data' => $dataFeed)); ?>

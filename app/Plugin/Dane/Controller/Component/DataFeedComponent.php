@@ -671,6 +671,7 @@ class DataFeedComponent extends Component
 		   		   	
 	        if ($res = $this->controller->Subscription->save($data)) {
 	            
+	            $this->controller->Session->write('Powiadomienia.transfer_anonymous', true);
 	            // $this->Session->setFlash(__('Dodano subskrybcję'));
 	            return $this->controller->redirect($res['url']);
 	            

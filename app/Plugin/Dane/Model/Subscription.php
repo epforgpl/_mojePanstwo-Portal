@@ -33,4 +33,16 @@ class Subscription extends AppModel {
 				
 	}
 	
+	public function load($id) {
+		
+		if(
+			!empty($id) 
+		) {
+			
+			return $this->getDataSource()->request('dane/subscriptions/' . $id);
+									
+		}
+				
+	}
+	
 }

@@ -38,6 +38,7 @@ class Dataobject
     public $hl = null;
     public $classes = array();
     public $subscribtion = false;
+    public $inner_hits = array();
     
 
     public function __construct($params = array())
@@ -67,6 +68,10 @@ class Dataobject
         
         if (isset($params['subscribtion'])) {
             $this->subscribtion = $params['subscribtion'];
+        }
+        
+        if (isset($params['inner_hits'])) {
+            $this->inner_hits = $params['inner_hits'];
         }
         
         $temp = array();

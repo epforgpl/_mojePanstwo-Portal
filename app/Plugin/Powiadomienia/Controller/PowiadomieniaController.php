@@ -41,6 +41,7 @@ class PowiadomieniaController extends ApplicationsController
             'conditions' => array(
 	            'subscribtions' => true,
             ),
+            'renderFile' => 'subscriptions',
         ));
         
         $this->set('dataBrowserObjectRender', array(

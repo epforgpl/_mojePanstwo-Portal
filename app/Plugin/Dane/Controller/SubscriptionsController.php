@@ -4,7 +4,21 @@
 	
 		public $uses = array('Dane.Subscription');
 	    public $components = array('RequestHandler');
+		
+		public function view($id) {
+			
+			if( 
+				( $data = $this->Subscription->load($id) ) && 
+				isset( $data['Subscription'] )
+			) {
 				
+				$url = $data['Subscription']['Subscription']['url'];
+				$this->redirect($url);
+				
+			}
+			
+		}
+		
 	    public function delete($id) {
 	    		    	
 	        if ($this->Subscription->delete($id)) {

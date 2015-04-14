@@ -644,11 +644,13 @@ class DataBrowserComponent extends Component {
 		
 		if( isset($settings['aggs']) ) {
 	        foreach($settings['aggs'] as $key => $value) {
-	            foreach($value as $keyM => $valueM) {
-	                if($keyM === 'visual') {
-	                    $this->aggs_visuals_map[$key] = $valueM;
-	                    unset($settings['aggs'][$key][$keyM]);
-	                }
+		        if( is_array($value) ) {
+		            foreach($value as $keyM => $valueM) {
+		                if($keyM === 'visual') {
+		                    $this->aggs_visuals_map[$key] = $valueM;
+		                    unset($settings['aggs'][$key][$keyM]);
+		                }
+		            }
 	            }
 	        }
         }
