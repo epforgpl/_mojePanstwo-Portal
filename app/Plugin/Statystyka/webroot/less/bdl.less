@@ -1,0 +1,99 @@
+@font-face {
+    font-family: 'bdl';
+    src: url('/Statystyka/fonts/bdl.eot?9ev9nw');
+    src: url('/Statystyka/fonts/bdl.eot?#iefix9ev9nw') format('embedded-opentype'),
+    url('/Statystyka/fonts/bdl.woff?9ev9nw') format('woff'),
+    url('/Statystyka/fonts/bdl.ttf?9ev9nw') format('truetype'),
+    url('/Statystyka/fonts/bdl.svg?9ev9nw#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#_main > .container {
+    background: #ffffff;
+
+    #tree {
+        display: inline-block;
+        float: left;
+        width: 100%;
+        margin-top: 20px;
+
+        ul {
+            list-style: none;
+            padding-left: 30px;
+            display: inline-block;
+            float: left;
+            width: 100%;
+
+            .jstree-anchor {
+                display: inline-block;
+                font-size: 14px;
+                font-weight: bold;
+                color: #157ab5;
+                white-space: nowrap;
+                padding: 0 4px 0 1px;
+                margin: 0;
+                vertical-align: top;
+
+                &:focus {
+                    outline: 0;
+                }
+
+                &, &:link, &:visited, &:hover, &:active {
+                    text-decoration: none;
+                }
+            }
+
+            .jstree-node {
+                margin-top: 10px;
+                margin-bottom: 10px;
+                white-space: nowrap;
+
+                > .jstree-ocl {
+                    font-family: 'bdl';
+                    speak: none;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-variant: normal;
+                    text-transform: none;
+                    line-height: 1;
+
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+
+                    margin-right: 6px;
+                    cursor: pointer;
+
+                    font-size: 14px;
+                    color: #157ab5;
+                    display: inline-block;
+                    text-decoration: none;
+                }
+
+                &.jstree-open {
+                    > .jstree-ocl:before {
+                        content: "\e600";
+                    }
+                    > .jstree-children {
+                        display: block;
+                        height: auto !important;
+                    }
+                }
+                &.jstree-closed {
+                    > .jstree-ocl:before {
+                        content: "\e601";
+                    }
+                    > .jstree-children {
+                        display: none;
+                    }
+                }
+
+                .jstree-leaf .jstree-anchor {
+                    font-size: 16px;
+                    font-weight: normal;
+                    color: #000000;
+                }
+            }
+        }
+    }
+}

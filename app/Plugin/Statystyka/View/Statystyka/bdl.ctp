@@ -1,9 +1,8 @@
 <?
-$this->Combinator->add_libs('css', '//cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/themes/default/style.min.css');
-$this->Combinator->add_libs('js', '//cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/jstree.min.js');
+$this->Combinator->add_libs('css', $this->Less->css('bdl', array('plugin' => 'Statystyka')));
 
-$this->Combinator->add_libs('css', $this->Less->css('bdl-tree', array('plugin' => 'Dane')));
-$this->Combinator->add_libs('js', 'Dane.bdl-tree');
+$this->Combinator->add_libs('js', 'Statystyka.jstree.min');
+$this->Combinator->add_libs('js', 'Statystyka.bdl');
 ?>
 
 <?= $this->Element('appheader'); ?>
