@@ -40,7 +40,7 @@ $(document).ready(function() {
                 min = geo[i].value;
         }
 
-        var type = min == 0 ? 'linear' : 'logarithmic';
+        var type = 'linear';
         if(min == 0 && max == 0)
             max = 1;
 
