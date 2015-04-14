@@ -4,13 +4,14 @@ echo $this->Element('dataobject/pageBegin');
 ?>
 
 <?
-if (isset($dokument_id)) {
-    echo $this->Document->place($dokument_id);
-
-} else { //html
+if (isset($content_html)) {
     echo "<div id='rejestr-korzysci-html'>";
     echo $content_html;
     echo "</div>";
+}
+
+if (isset($dokument_id)) {
+    echo $this->Document->place($dokument_id);
 }
 ?>
 
