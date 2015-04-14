@@ -149,7 +149,11 @@ class BdlWskaznikiController extends DataobjectsController
         $level_selected = false;
         $selected_level_id = false;
 
+
         if (!empty($dimension['levels'])) {
+
+            if(isset($this->request->params['subaction']))
+                $this->request->params['level'] = $this->request->params['subaction'];
 
             if (isset($this->request->params['level']) && in_array($this->request->params['level'], array(
                     'gminy',
