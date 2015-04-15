@@ -569,29 +569,26 @@ $(function () {
 
             modal.modal('show');
 
-            $.get("/htmlex/" + documentId + "/" + documentId + ".css", function (css) {
+            $.get("/docs/" + documentId + ".json", function (packages) {
                 var d = frames[0].document;
+
                 d.open();
                 d.write(
                     '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional //EN" "http://www.w3.org/TR/html4/loose.dtd">' +
                     '<html><head>' +
                     '<link href="/css/htmlexDocMain_v2.css" type="text/css" rel="stylesheet">' +
-                    '<style type="text/css">' +
-                    css +
-                    '<\/style><\/head><body><\/body><\/html>'
+                    '<link href="http://mojepanstwo.pl/htmlex/' + documentId + '/' + documentId + '.css" type="text/css" rel="stylesheet">' +
+                    '<\/head><body><\/body><\/html>'
                 );
                 d.close();
 
-                $.get("/docs/" + documentId + ".json", function (packages) {
-
-                    d.body.innerHTML = '<div class="htmlexDoc" data-document-id="' + packages["Document"]["id"] + '" data-pages="' + packages["Document"]["pages_count"] + '" data-current-package="1" data-packages="' + packages["Document"]["packages_count"] + '">' +
-                    '<div class="document">' +
-                    '<div class="canvas">' +
-                    packages['Package'] +
-                    '</div>' +
-                    '</div>' +
-                    '</div>';
-                });
+                d.body.innerHTML = '<div class="htmlexDoc" data-document-id="' + packages["Document"]["id"] + '" data-pages="' + packages["Document"]["pages_count"] + '" data-current-package="1" data-packages="' + packages["Document"]["packages_count"] + '">' +
+                '<div class="document">' +
+                '<div class="canvas">' +
+                packages['Package'] +
+                '</div>' +
+                '</div>' +
+                '</div>';
             });
         });
     }
