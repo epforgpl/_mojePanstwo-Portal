@@ -4,7 +4,7 @@
 		
     <title><?= htmlspecialchars(strip_tags(str_replace('&nbsp;', ' ', $title_for_layout))) ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <? if (isset($_META) && !empty($_META)) {
+    <?php if (isset($_META) && !empty($_META)) {
         foreach ($_META as $key => $val)
                 echo $this->Html->meta(array('property' => $key, 'content' => $val));
     } ?>
@@ -88,44 +88,17 @@
 </head>
 <body>
 <div id="_wrapper">
-    <? echo $this->Element('header'); ?>
-
-    <?php if ($this->Session->read('Message.flash.message')) { ?>
-        <div class="flash-message">
-            <div class="alert <?php echo (isset($class)) ? $class : 'alert-info'; ?>">
-                <div class="container">
-                    <?php if (isset($close)): ?>
-                        <a class="close" data-dismiss="alert" href="#">×</a>
-                    <?php endif; ?>
-                    <?php echo $this->Session->flash(); ?>
-                </div>
-            </div>
-        </div>
-    <?php } ?>
-    <?php if ($this->Session->read('Message.auth.message')) { ?>
-        <div class="flash-message">
-            <div class="alert <?php echo (isset($class)) ? $class : 'alert-info'; ?>">
-                <div class="container">
-                    <?php if (isset($close)): ?>
-                        <a class="close" data-dismiss="alert" href="#">×</a>
-                    <?php endif; ?>
-                    <?php echo $this->Session->flash('auth'); ?>
-                </div>
-            </div>
-        </div>
-    <?php } ?>
+    <?php echo $this->Element('header'); ?>
+    <?php echo $this->Element('flash'); ?>
     <div id="_main">
         <?php echo $content_for_layout; ?>
-
-        <? echo $this->Element('footer'); ?>
+        <?php echo $this->Element('footer'); ?>
     </div>
-
-    <? echo $this->Element('suggester', array(
+    <?php echo $this->Element('suggester', array(
         'placeholder' => __("LC_SEARCH_PUBLIC_DATA_PLACEHOLDER"),
         'action' => '/dane',
     )); ?>
 </div>
-
 
 <?php /* GOOGLE ANALYTIC */ ?>
 <script>
