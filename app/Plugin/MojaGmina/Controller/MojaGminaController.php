@@ -49,8 +49,8 @@ class MojaGminaController extends ApplicationsController
 		'headerImg' => '/moja_gmina/img/header_moja-gmina.png',
     );
 
-    //public $uses = array();
-    //public $components = array('RequestHandler');
+
+    public $components = array('RequestHandler');
 
 
     public function prepareMetaTags() {
@@ -78,21 +78,24 @@ class MojaGminaController extends ApplicationsController
     {
 
         $output = array();
-
-        if (
-            ($q = @$this->request->query['q']) &&
-            ($gminy = $this->MojaGmina->search($q, 10)) &&
-            (!empty($gminy))
-        ) {
-            foreach ($gminy as $gmina) {
-                $output[] = array(
-                    'id' => $gmina->getId(),
-                    'nazwa' => $gmina->getData('nazwa'),
-                    'typ' => $gmina->getData('typ_nazwa'),
-                );
-            }
+		$this->loadModel('Dane.Dataobject');
+		
+		$gminy = $this->Dataobject->find('all', array(
+			'conditions' => array(
+				'dataset' => 'gminy',
+				'q' => @$this->request->query['q'],
+			),
+			'limit' => 10,
+		));
+				
+        foreach ($gminy as $gmina) {
+            $output[] = array(
+                'id' => $gmina->getId(),
+                'nazwa' => $gmina->getData('nazwa'),
+                'typ' => $gmina->getData('typ_nazwa'),
+            );
         }
-
+        
         $this->set('output', $output);
         $this->set('_serialize', 'output');
 

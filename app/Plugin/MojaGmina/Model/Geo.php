@@ -45,7 +45,7 @@ class Geo extends AppModel
             return false;
         }
         
-        $res = $this->getDataSource()->request("geo/resolve", array(
+        $res = $this->getDataSource()->request("geo/geo/resolve", array(
 	    	'method' => 'GET',
 	    	'data' => array(
 		    	'lat' => $lat,
