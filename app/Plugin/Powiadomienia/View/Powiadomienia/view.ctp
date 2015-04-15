@@ -46,7 +46,7 @@
 
             <h2>Nie obserwujesz jeszcze żadnych danych</h2>
 
-            <h3>Dowiedz się jak skonfigurować subskrypcje i otrzymywać powiadomienia o interesujących Cię danych publicznych.</h3>
+            <h3>Dowiedz się jak skonfigurować subskrypcje i otrzymywać powiadomienia o interesujących Cię danych.</h3>
             <a target="_self" href="/powiadomienia/jak_to_dziala" class="btn btn-info">Jak to działa?</a>
         </div>
     </div>
