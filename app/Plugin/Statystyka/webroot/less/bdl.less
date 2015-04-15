@@ -25,20 +25,20 @@
         ul {
             list-style: none;
             margin-top: 5px;
-            padding-left: 30px;
+            padding-left: 2.7%;
             display: inline-block;
             float: left;
             width: 100%;
 
             .jstree-anchor {
                 display: inline-block;
+                padding: 0 0 0 20px;
+                margin: 0;
+                vertical-align: top;
                 font-size: @fontSize;
                 font-weight: bold;
                 color: @nodeColor;
-                white-space: nowrap;
-                padding: 0 4px 0 1px;
-                margin: 0;
-                vertical-align: top;
+                line-height: 1em;
 
                 &:focus {
                     outline: 0;
@@ -54,8 +54,8 @@
                 float: left;
                 margin-bottom: 10px;
                 margin-top: 10px;
-                white-space: nowrap;
                 width: 100%;
+                position: relative;
 
                 &:last-child {
                     margin-bottom: 0;
@@ -69,17 +69,25 @@
                     font-variant: normal;
                     text-transform: none;
                     line-height: 1;
-
                     -webkit-font-smoothing: antialiased;
                     -moz-osx-font-smoothing: grayscale;
 
+                    position: absolute;
+                    top: 6px;
+                    left: 0;
+                    -webkit-transform: translate(0, -50%);
+                    -moz-transform: translate(0, -50%);
+                    -ms-transform: translate(0, -50%);
+                    -o-transform: translate(0, -50%);
+                    transform: translate(0, -50%);
+
                     margin-right: 6px;
                     cursor: pointer;
+                    display: inline-block;
+                    text-decoration: none;
 
                     font-size: 14px;
                     color: @nodeColor;
-                    display: inline-block;
-                    text-decoration: none;
                 }
 
                 &.jstree-open {
