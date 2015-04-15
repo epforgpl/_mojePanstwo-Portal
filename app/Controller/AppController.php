@@ -363,6 +363,8 @@ class AppController extends Controller {
 				( $this->request->params['controller'] == 'radni_dzielnic' )
 				) {
 				
+				} elseif (stripos( $_SERVER['REQUEST_URI'], '/cross-domain-login' ) === 0 ) {
+
 				} else {
 				
 					$url = $_SERVER['REQUEST_URI'];
@@ -424,7 +426,12 @@ class AppController extends Controller {
 		if ( Router::url( null ) != '/null' ) { // hack for bug
 			$this->Session->write( 'Auth.loginRedirect', Router::url( null, true ) );
 		}
-		
+
+		// cross domain login
+		if ($this->Session->check('crossdomain_login_token')) {
+			$this->set('crossdomain_login_token', $this->Session->read('crossdomain_login_token'));
+			$this->Session->delete('crossdomain_login_token');
+		}
 	}
 
 	/**
