@@ -564,31 +564,43 @@ $(function () {
         );
         $('#_main').append(modal);
 
-        $documentFastCheck.click(function () {
-            var documentId = $(this).data('documentid');
+        $.each($documentFastCheck, function () {
+            $(this).parents('.attachment').click(function (e) {
+                e.preventDefault();
 
-            modal.modal('show');
+                var documentId = $(this).find('.documentFastCheck').data('documentid');
 
-            $.get("/docs/" + documentId + ".json", function (packages) {
-                var d = frames[0].document;
+                modal.modal('show');
 
-                d.open();
-                d.write(
-                    '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional //EN" "http://www.w3.org/TR/html4/loose.dtd">' +
-                    '<html><head>' +
-                    '<link href="/css/htmlexDocMain_v2.css" type="text/css" rel="stylesheet">' +
-                    '<link href="http://mojepanstwo.pl/htmlex/' + documentId + '/' + documentId + '.css" type="text/css" rel="stylesheet">' +
-                    '<\/head><body><\/body><\/html>'
-                );
-                d.close();
+                $.get("/docs/" + documentId + ".json", function (packages) {
+                    var d = frames[0].document,
+                        loadMoreDocumentContent = '<div class="loadMoreDocumentContent ' + ((packages["Document"]["packages_count"] > 1) ? "show" : "hide") + '"></div>';
 
-                d.body.innerHTML = '<div class="htmlexDoc" data-document-id="' + packages["Document"]["id"] + '" data-pages="' + packages["Document"]["pages_count"] + '" data-current-package="1" data-packages="' + packages["Document"]["packages_count"] + '">' +
-                '<div class="document">' +
-                '<div class="canvas">' +
-                packages['Package'] +
-                '</div>' +
-                '</div>' +
-                '</div>';
+                    d.open();
+                    d.write(
+                        '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional //EN" "http://www.w3.org/TR/html4/loose.dtd">' +
+                        '<html><head>' +
+                        '<link href="/css/htmlexDocMain_v2.css" type="text/css" rel="stylesheet">' +
+                        '<link href="http://mojepanstwo.pl/htmlex/' + documentId + '/' + documentId + '.css" type="text/css" rel="stylesheet">' +
+                        '<style>' +
+                        '.show{display: block !important;}.hide{display: none !important;}.loading {background: url("http:\/\/mojepanstwo.pl\/img\/loader\/loading-small.png") no-repeat center center; min-height: 30px; }.document{margin-bottom:50px;}' +
+                        '<\/style>' +
+                        '<\/head><body>' +
+                        '<script src="http:\/\/mojepanstwo.pl\/libs\/jquery\/2.1.1\/jquery.min.js" type="text\/javascript"><\/script>' +
+                        '<script src="http:\/\/mojepanstwo.pl\/js\/toolbar.js" type="text\/javascript"><\/script>' +
+                        '<\/body><\/html>'
+                    );
+                    d.close();
+
+                    d.body.innerHTML = '<div class="htmlexDoc" data-document-id="' + packages["Document"]["id"] + '" data-pages="' + packages["Document"]["pages_count"] + '" data-current-package="1" data-packages="' + packages["Document"]["packages_count"] + '">' +
+                    '<div class="document">' +
+                    '<div class="canvas">' +
+                    packages['Package'] +
+                    '</div>' +
+                    loadMoreDocumentContent +
+                    '</div>' +
+                    '</div>';
+                });
             });
         });
     }
