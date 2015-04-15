@@ -9,7 +9,7 @@ class GeoController extends AppController
 
     public function wojewodztwa()
     {
-        $wojewodztwa = $this->API->Geo()->wojewodztwa();
+        $wojewodztwa = $this->Geo->wojewodztwa();
         $this->set(array(
             'wojewodztwa' => $wojewodztwa,
             '_serialize' => array('wojewodztwa'),
@@ -18,7 +18,7 @@ class GeoController extends AppController
 
     public function powiaty($wojewodztwo_id)
     {
-        $powiaty = $this->API->Geo()->powiaty($wojewodztwo_id);
+        $powiaty = $this->Geo->powiaty($wojewodztwo_id);
         $this->set(array(
             'powiaty' => $powiaty,
             '_serialize' => array('powiaty'),
@@ -27,7 +27,7 @@ class GeoController extends AppController
 
     public function gminy($powiad_id)
     {
-        $gminy = $this->API->Geo()->gminy($powiad_id);
+        $gminy = $this->Geo->gminy($powiad_id);
         $this->set(array(
             'gminy' => $gminy,
             '_serialize' => array('gminy'),
@@ -36,7 +36,7 @@ class GeoController extends AppController
 
     public function resolve($lat, $lng)
     {
-        $resolve = $this->API->Geo()->resolve($lat, $lng);
+        $resolve = $this->Geo->resolve($lat, $lng);
         $this->set(array(
             'resolve' => $resolve,
             '_serialize' => array('resolve'),
