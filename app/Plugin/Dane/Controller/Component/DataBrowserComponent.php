@@ -380,6 +380,48 @@ class DataBrowserComponent extends Component {
 	            ),
 	        ),
 	    ),
+	    'poslowie' => array(
+	        'klub_id' => array(
+	            'terms' => array(
+		            'field' => 'poslowie.klub_id',
+		            'exclude' => array(
+			            'pattern' => '0'
+		            ),
+	            ),
+	            'aggs' => array(
+		            'label' => array(
+			            'terms' => array(
+				            'field' => 'data.sejm_kluby.nazwa',
+			            ),
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Kluby parlamentarne',
+		            'skin' => 'pie_chart',
+                    'field' => 'poslowie.klub_id'
+	            ),
+	        ),
+	        'zawod' => array(
+	            'terms' => array(
+		            'field' => 'poslowie.zawod',
+		            'exclude' => array(
+			            'pattern' => ''
+		            ),
+	            ),
+	            'aggs' => array(
+		            'label' => array(
+			            'terms' => array(
+				            'field' => 'poslowie.zawod',
+			            ),
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Zawody posłów',
+		            'skin' => 'columns_horizontal',
+                    'field' => 'poslowie.zawod'
+	            ),
+	        ),
+	    ),
 	    'prawo_urzedowe' => array(
 	        /*
 	        'typ_id' => array(
