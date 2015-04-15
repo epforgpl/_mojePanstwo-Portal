@@ -16,9 +16,9 @@ jQuery(document).ready(function () {
             percents = Math.round(((documentData.currentPackage / documentData.packages).toFixed(2)) * 100);
 
         if (percents !== 100) {
-            main.find('span').html(_mPHeart.translation.LC_DANE_TOOLBAR_LOADED_DOC_AT + ' ' + percents + "%");
+            main.find('span').html('Załadowano dokument w ' + percents + "%");
         } else {
-            //main.find('span').html(_mPHeart.translation.LC_DANE_TOOLBAR_LOADING_ALL);
+            //main.find('span').html('Załaduj cały dokument');
             //main.find('a').hide();
             main.remove();
         }
@@ -196,6 +196,7 @@ jQuery(document).ready(function () {
         }
     });
 
-    if (docToolbar.length > 0)
+    if (docToolbar.length > 0 && typeof sticky == 'function') {
         sticky('#docsToolbar');
+    }
 });
