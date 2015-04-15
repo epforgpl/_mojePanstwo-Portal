@@ -13,6 +13,10 @@
     background: #ffffff;
 
     #tree {
+        @fontSize: 14px;
+        @nodeColor: #157ab5;
+        @leafColor: #000000;
+
         display: inline-block;
         float: left;
         width: 100%;
@@ -20,6 +24,7 @@
 
         ul {
             list-style: none;
+            margin-top: 5px;
             padding-left: 30px;
             display: inline-block;
             float: left;
@@ -27,9 +32,9 @@
 
             .jstree-anchor {
                 display: inline-block;
-                font-size: 14px;
+                font-size: @fontSize;
                 font-weight: bold;
-                color: #157ab5;
+                color: @nodeColor;
                 white-space: nowrap;
                 padding: 0 4px 0 1px;
                 margin: 0;
@@ -45,9 +50,16 @@
             }
 
             .jstree-node {
-                margin-top: 10px;
+                display: inline-block;
+                float: left;
                 margin-bottom: 10px;
+                margin-top: 10px;
                 white-space: nowrap;
+                width: 100%;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
 
                 > .jstree-ocl {
                     font-family: 'bdl';
@@ -65,7 +77,7 @@
                     cursor: pointer;
 
                     font-size: 14px;
-                    color: #157ab5;
+                    color: @nodeColor;
                     display: inline-block;
                     text-decoration: none;
                 }
@@ -76,7 +88,6 @@
                     }
                     > .jstree-children {
                         display: block;
-                        height: auto !important;
                     }
                 }
                 &.jstree-closed {
@@ -88,10 +99,16 @@
                     }
                 }
 
-                .jstree-leaf .jstree-anchor {
-                    font-size: 16px;
-                    font-weight: normal;
-                    color: #000000;
+                .jstree-leaf {
+                    > .jstree-ocl {
+                        color: @leafColor;
+                    }
+
+                    .jstree-anchor {
+                        font-size: @fontSize;
+                        font-weight: normal;
+                        color: @leafColor;
+                    }
                 }
             }
         }
