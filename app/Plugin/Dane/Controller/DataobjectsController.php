@@ -188,9 +188,9 @@ class DataobjectsController extends AppController
 		    if( $selected=='view' )
 		    	$selected = '';
 		    
-		    $this->menu['selected'] = $selected;   
-		    $this->menu['base'] = $this->object->getUrl();   
-		    		    	    		    
+		    $this->menu['selected'] = $selected;
+            $this->menu['base'] = $this->object->getUrl();
+            $this->set('object_actions', $this->actions);
 		    $this->set('object_menu', $this->menu);
             $this->set('object_addons', $this->addons);
 	

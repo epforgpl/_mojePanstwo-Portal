@@ -534,4 +534,65 @@ $(function () {
             }
         }
     );
+
+    var $documentFastCheck = $('.documentFastCheck');
+    if ($documentFastCheck) {
+        var modal = $('<div></div>').addClass('modal fade').attr({
+            'id': 'documentFastCheckModal',
+            'tabindex': "-1",
+            'role': 'dialog',
+            'aria-labelledby': 'documentFastCheckModalLabel',
+            'aria-hidden': 'true'
+        }).append(
+            $('<div></div>').addClass('modal-dialog').append(
+                $('<div></div>').addClass('modal-content').append(
+                    $('<div></div>').addClass('modal-header').append(
+                        $('<button></button>').addClass('close').attr({
+                            'type': 'button',
+                            'data-dismiss': 'modal',
+                            'aria-label': 'Close'
+                        }).append(
+                            $('<span></span>').attr('aria-hidden', 'true').html("&times;")
+                        )
+                    )
+                ).append(
+                    $('<div></div>').addClass('modal-body').append(
+                        $('<iframe></iframe>').addClass('loading').attr('name', 'preview')
+                    )
+                )
+            )
+        );
+        $('#_main').append(modal);
+
+        $documentFastCheck.click(function () {
+            var documentId = $(this).data('documentid');
+
+            modal.modal('show');
+
+            $.get("/htmlex/" + documentId + "/" + documentId + ".css", function (css) {
+                var d = frames[0].document;
+                d.open();
+                d.write(
+                    '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional //EN" "http://www.w3.org/TR/html4/loose.dtd">' +
+                    '<html><head>' +
+                    '<link href="/css/htmlexDocMain_v2.css" type="text/css" rel="stylesheet">' +
+                    '<style type="text/css">' +
+                    css +
+                    '<\/style><\/head><body><\/body><\/html>'
+                );
+                d.close();
+
+                $.get("/docs/" + documentId + ".json", function (packages) {
+
+                    d.body.innerHTML = '<div class="htmlexDoc" data-document-id="' + packages["Document"]["id"] + '" data-pages="' + packages["Document"]["pages_count"] + '" data-current-package="1" data-packages="' + packages["Document"]["packages_count"] + '">' +
+                    '<div class="document">' +
+                    '<div class="canvas">' +
+                    packages['Package'] +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+                });
+            });
+        });
+    }
 });
