@@ -10,7 +10,7 @@ $this->Combinator->add_libs('js', 'MojaGmina.moja_gmina.js');
 
 <?= $this->Element('appheader', array('title' => 'Moja gmina', 'subtitle' => __d('moja_gmina', "LC_MOJA_GMINA_HEADLINE"), 'headerUrl' => 'moja-gmina.png')); ?>
 
-<div id="mojaGmina" class="fullPageHeight">
+<div id="mojaGmina">
     <div class="container">
         <div class="locationBrowser dataContent content col-xs-12">
             <div class="mapsContent col-md-12 col-lg-10 col-lg-offset-1">
