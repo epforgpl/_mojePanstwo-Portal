@@ -359,10 +359,9 @@ var DataBrowser = Class.extend({
                             var bucket = data.buckets[index];
 
                             var dataArg = ['[', bucket.from];
-                            if(bucket.to) {
-                                dataArg.push(' TO ');
+                            dataArg.push(' TO ');
+                            if(bucket.to)
                                 dataArg.push(bucket.to);
-                            }
                             dataArg.push(']');
 
                             window.location.href = choose_request + dataArg.join('');
