@@ -34,7 +34,7 @@ if ($object->getThumbnailUrl($thumbSize)) {
             <?php if ($object->getUrl() != false) { ?>
             <a href="<?= $object->getUrl() ?>/tresc" title="<?= strip_tags($object->getTitle()) ?>">
                 <?php } ?>
-                Przeczytaj treść
+                Druk nr <?= $object->getData('numer') ?>
                 <?php if ($object->getUrl() != false) { ?>
             </a> <?
         }
