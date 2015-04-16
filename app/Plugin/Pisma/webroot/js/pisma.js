@@ -456,6 +456,7 @@ var PISMA = Class.extend({
                     return html;
                 }
             });
+            
             self.html.stepper_div.find('.wysihtml5-toolbar').find('[data-wysihtml5-command="bold"]').html($('<span></span>').addClass('fa fa-bold'))
                 .end()
                 .find('[data-wysihtml5-command="italic"]').html($('<span></span>').addClass('fa fa-italic'))
@@ -465,6 +466,7 @@ var PISMA = Class.extend({
                 .find('[data-wysihtml5-command="underline"]').html($('<span></span>').addClass('fa fa-underline'))
                 .end()
                 .find('[data-wysihtml5-command="createLink"]').html($('<span></span>').addClass('glyphicon glyphicon-link'))
+/*
                 .end()
                 .prepend(
                 $('<li></li>').addClass('stepper-back').append(
@@ -476,7 +478,13 @@ var PISMA = Class.extend({
                             e.preventDefault();
                             self.methods.stepper.steps("previous")
                         })
-                ));
+                ))
+*/;
+                
+            var wysightml5toolbar = self.html.stepper_div.find('.wysihtml5-toolbar').clone(true);
+            self.html.stepper_div.find('.wysihtml5-toolbar').remove();
+            $('.editPage .wysightml5Block').html(wysightml5toolbar.show());
+            
         }
     }
     ,
@@ -829,6 +837,9 @@ var PISMA = Class.extend({
             self.confirmExit = true;
 
             btnActions.find('.btn.savePismo, a[name="cancel"], input[name="delete"]').click(function () {
+                self.confirmExit = false;
+            });
+            $('.form-save .savePismo').click(function () {
                 self.confirmExit = false;
             });
 

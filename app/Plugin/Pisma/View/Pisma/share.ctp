@@ -6,7 +6,7 @@
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma-share.js') ?>
 
-<?= $this->Element('appheader', array('title' => 'Prawo', 'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce', 'appMenu' => $appMenu, 'appMenuSelected' => 'moje', 'headerUrl' => 'pisma.png')); ?>
+<?= $this->Element('appheader'); ?>
 
 <div class="container">
 
@@ -27,14 +27,6 @@
 
                         <ul class="form-buttons">
                             <li class="inner-addon">
-                                <i class="glyphicon glyphicon-share"></i>
-                                <a href="<?= $href_base . '/share' ?>" target="_self"
-                                   class="btn btn-primary">Udostępnij...</a>
-
-                                <p class="desc">Twoje pismo jest obecnie prywatne. Możesz je zanonimizować i udostępnić
-                                    publicznie.</p>
-                            </li>
-                            <li class="inner-addon">
                                 <button class="btn btn-info" type="button" ontouchstart="highlightSelectedText();"
                                         onclick="highlightSelectedText();">Ukryj tekst
                                 </button>
@@ -46,11 +38,6 @@
                                         onclick="removeHighlightFromSelectedText();">Odkryj tekst
                                 </button>
                                 <p class="desc">Zaznacz ukryty tekst aby od odkryć.</p>
-                            </li>
-
-                            <li class="inner-addon">
-                                <a href="/pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>" class="btn btn-default"
-                                   name="cancel">Wróć</a>
                             </li>
 
                         </ul>

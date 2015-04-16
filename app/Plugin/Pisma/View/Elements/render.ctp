@@ -1,6 +1,6 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma_render', array('plugin' => 'Pisma'))) ?>
 
-<div id="editor-cont">
+<div id="editor-cont" class="row">
 
     <div class="editor-controls">
         <div class="control control-date">

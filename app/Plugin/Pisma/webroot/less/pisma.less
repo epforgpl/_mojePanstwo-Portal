@@ -260,7 +260,7 @@
     }
     > .content {
         display: block;
-        margin: 0.5em;
+        margin: 0.5em 0;
         min-height: 100%;
         position: relative;
         width: auto;
@@ -332,7 +332,11 @@
     > .content > .body .editor-tooltip,
     .editor-tooltip {
         margin-top: -5px;
-
+		
+		.alert {
+			margin-top: 30px;
+		}
+		
         form {
             padding: 0;
             margin: 0;
@@ -394,8 +398,72 @@
     }
     > .content > .body .edit .editor-tooltip,
     .edit .editor-tooltip {
-        margin-top: 45px;
+        margin-top: 0;
     }
+}
+
+#_wrapper .form-save{
+	.alert {
+            float: left;
+            width: 100%;
+            padding-bottom:0;
+        }
+        .wysihtml5-toolbar {
+            .btn {
+                font-size: 12px;
+            }
+
+            .glyphicon-quote:before {
+                font-size: 38px;
+                top: -2px;
+                left: -2px;
+            }
+
+            ul, ul li {
+                list-style: none;
+            }
+
+            .btn-group > .btn {
+                &[data-wysihtml5-command="underline"] {
+                    border-bottom-right-radius: 4px;
+                    border-top-right-radius: 4px;
+                }
+                &[data-wysihtml5-command="small"],
+                &[data-wysihtml5-command="insertOrderedList"] {
+                    display: none;
+                }
+            }
+        }
+	.form-buttons{
+	list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+	    list-style: none;
+        padding: 5px 0;
+        margin: 0;
+
+        .glyphicon {
+            top: 4px;
+
+            &.invert {
+                color: #555;
+            }
+        }
+
+        .btn {
+            font-size: 12px;
+            font-weight: 400;
+            text-transform: uppercase;
+            width: 160px;
+            margin: 0;
+            word-spacing: 0.3em;
+            border: none;
+        }
+
+    }
+}
 }
 
 .tabcontrol {
@@ -580,12 +648,14 @@
                 max-width: 100%;
                 width: auto;
                 word-wrap: break-word;
+                margin: 30px 0 10px;
+                padding: 0;
 
             }
 
             .pismaBtn {
                 float: left;
-                display: block;
+                margin-left: 10px;
 
                 .pismoTitleSaveBtn,
                 .pismoTitleAbortBtn {
@@ -609,38 +679,18 @@
                 }
             }
         }
-        .alert {
-            float: left;
-            width: 100%;
-            margin: 20px 8px 0;
-        }
-    }
-
-    h1 {
-        font-family: "Lato", Arial, sans-serif;
-        font-size: 26px;
-        font-weight: 300;
-        margin: 20px 10px 20px;
-
-        strong {
-            font-weight: 400;
-        }
     }
 
     .letter-meta {
         padding: 0 5px;
         font-size: 13px;
+        margin: 0 0 7px -7px;
+        overflow: auto;
+        padding: 0 10px;
         p {
             margin: 0;
-            color: #777;
+            color: #666;
         }
-    }
-
-    h2 {
-        font-family: "Lato", Arial, sans-serif;
-        font-size: 18px;
-        font-weight: 400;
-        text-align: center;
     }
 
     .innerContent {
@@ -687,7 +737,21 @@
                 color: #FFF;
                 top: -2px;
             }
-
+			
+			.clean {
+				font-family: inherit;
+                font-size: inherit;
+                font-weight: inherit;
+                margin: inherit;
+                text-transform: inherit;
+                width: inherit;
+                border: inherit;
+                margin: 0;
+                padding: 0;
+                text-align: left;
+                color: #157ab5;
+			}
+			
             input, a {
                 font-family: "Lato", Arial, sans-serif;
                 font-size: 12px;
@@ -723,10 +787,6 @@
 
     .edit {
         width: auto;
-
-        #editor-cont {
-            margin-top: 50px;
-        }
     }
 
     .preview #editor-cont {
@@ -760,37 +820,6 @@
 
         textarea, input, div[contenteditable=true] {
             outline: none;
-        }
-
-        .wysihtml5-toolbar {
-            position: absolute;
-            top: -45px;
-            margin-left: -50px;
-
-            .btn {
-                font-size: 12px;
-            }
-
-            .glyphicon-quote:before {
-                font-size: 38px;
-                top: -2px;
-                left: -2px;
-            }
-
-            ul, ul li {
-                list-style: none;
-            }
-
-            .btn-group > .btn {
-                &[data-wysihtml5-command="underline"] {
-                    border-bottom-right-radius: 4px;
-                    border-top-right-radius: 4px;
-                }
-                &[data-wysihtml5-command="small"],
-                &[data-wysihtml5-command="insertOrderedList"] {
-                    display: none;
-                }
-            }
         }
         .anonim {
             color: #000000;

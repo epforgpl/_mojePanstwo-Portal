@@ -31,8 +31,10 @@ class PismaController extends ApplicationsController
 
     public function view($id, $slug = '')
     {
-        $this->load($id);
-        $this->setMenuSelected('moje');
+        $pismo = $this->load($id);
+        
+        if( $pismo['is_owner'] )
+	        $this->setMenuSelected('moje');
     }
 	
 	private function load($id)
@@ -40,17 +42,34 @@ class PismaController extends ApplicationsController
 
 		try {
 
-			$pismo = $this->Pismo->documents_read($id);
-						
-	        $this->set('title_for_layout', $pismo['nazwa']);
+			$pismo = $this->Pismo->documents_read($id);			
+			$is_owner = false;
+			
+			if(
+				(
+					( $this->Auth->user() ) && 
+					( $pismo['from_user_type'] == 'account' ) && 
+					( $this->Auth->user('id') == $pismo['from_user_id'] )
+				) || (
+					( !$this->Auth->user() ) && 
+					( $pismo['from_user_type'] == 'anonymous' ) && 
+					( session_id() == $pismo['from_user_id'] )
+				)
+			)
+				$is_owner = true;
+			
+			$pismo['is_owner'] = $is_owner;
+			
+			$this->title = $pismo['name'];
 	        $this->set('pismo', $pismo);
-
+			
 	        return $pismo;
 
         } catch (Exception $e) {
-
+						
 	        $this->set('title_for_layout', 'Pismo nie istnieje lub nie masz do niego dostępu');
-		    return $this->render('not_found');
+		    $this->render('not_found');
+		    return false;
 
         }
 
@@ -59,12 +78,22 @@ class PismaController extends ApplicationsController
     public function edit($id, $slug='')
     {
 	    
-		$pismo = $this->load($id);
+		if( $pismo = $this->load($id) ) {
+						
+			if( !$pismo['is_owner'] )
+				return $this->redirect( $this->referer() );
+					
+			if( $pismo['saved'] ) {
+				$this->setMenuSelected('moje');
+			} else {
+				$this->setMenuSelected();
+			}
 		
-		if( $pismo['saved'] ) {
-			$this->setMenuSelected('moje');
 		} else {
-			$this->setMenuSelected();
+			
+			$this->set('title_for_layout', 'Pismo nie istnieje lub nie masz do niego dostępu');
+		    $this->render('not_found');
+			
 		}
 				      
     }
@@ -131,6 +160,10 @@ class PismaController extends ApplicationsController
 		} elseif( isset($this->request->data['send']) ) {
 			
 			$this->Pismo->documents_send($id);
+			
+		} elseif( isset($this->request->data['access']) ) {
+			
+			$this->Pismo->documents_change_access($id, $this->request->data['access']);
 			
 		}
 				
