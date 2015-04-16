@@ -350,7 +350,7 @@
 
                                 <p class="_counter"><a title="Liczba odpowiedzi"
                                                        href="/dane/twitter/<?= $object->getId() ?>"><span
-                                            class="glyphicon glyphicon-transfer"></span> <?= $object->getData('liczba_odpowiedzi') ?>
+                                            class="glyphicon glyphicon-transfer"></span> <?= $object->getData('liczba_zaangazowan') ?>
                                     </a></p>
 
                                 <? /*<p class="_label"><?= __d('media', 'LC_PANSTWOINTERNET_ODPOWIEDZI') ?></p> */ ?>

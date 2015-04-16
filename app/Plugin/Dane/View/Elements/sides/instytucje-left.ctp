@@ -36,7 +36,7 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
 	
 	            <? if ($object->getData('twitter_account_id')) { ?>
 	                <li class="dataHighlight">
-	                    <a href="<?= $object->getUrl() ?>/tweety"><span
+	                    <a href="/dane/twitter_accounts/<?= $object->getData('twitter_account_id') ?>"><span
 	                            class="icon icon-moon">&#xe61d;</span>Tweety <span
 	                            class="glyphicon glyphicon-chevron-right"></span></a>
 	                </li>

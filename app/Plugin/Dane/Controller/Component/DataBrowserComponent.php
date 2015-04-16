@@ -171,6 +171,36 @@ class DataBrowserComponent extends Component {
 	            ),
 	        ),
 	    ),
+	    /*
+	    'prawo_wojewodztwa' => array(
+		    'date' => array(
+	            'date_histogram' => array(
+		            'field' => 'date',
+		            'interval' => 'year',
+		            'format' => 'yyyy-MM-dd',
+	            ),
+	            'visual' => array(
+		            'label' => 'Liczba aktów prawnych w czasie',
+		            'skin' => 'date_histogram',
+                    'field' => 'date'
+	            ),
+	        ),
+	    ),
+	    */
+	    'prawo_urzedowe' => array(
+		    'date' => array(
+	            'date_histogram' => array(
+		            'field' => 'date',
+		            'interval' => 'year',
+		            'format' => 'yyyy-MM-dd',
+	            ),
+	            'visual' => array(
+		            'label' => 'Liczba aktów prawnych w czasie',
+		            'skin' => 'date_histogram',
+                    'field' => 'date'
+	            ),
+	        ),
+	    ),
 	    'sejm_interpelacje' => array(
 		    'date' => array(
 	            'date_histogram' => array(
@@ -421,61 +451,6 @@ class DataBrowserComponent extends Component {
                     'field' => 'poslowie.zawod'
 	            ),
 	        ),
-	    ),
-	    'prawo_urzedowe' => array(
-	        /*
-	        'typ_id' => array(
-	            'terms' => array(
-		            'field' => 'prawo.typ_id',
-		            'exclude' => array(
-			            'pattern' => '0'
-		            ),
-	            ),
-	            'aggs' => array(
-		            'label' => array(
-			            'terms' => array(
-				            'field' => 'data.prawo.typ_nazwa',
-			            ),
-		            ),
-	            ),
-	            'visual' => array(
-		            'label' => 'Typy aktów prawnych',
-		            'skin' => 'pie_chart',
-	            ),
-	        ),
-	        */
-	        'date' => array(
-	            'date_histogram' => array(
-		            'field' => 'date',
-		            'interval' => 'year',
-		            'format' => 'yyyy-MM-dd',
-	            ),
-	            'visual' => array(
-		            'label' => 'Liczba aktów prawnych w czasie',
-		            'skin' => 'date_histogram',
-	            ),
-	        ),
-	        /*
-	        'autor_id' => array(
-	            'terms' => array(
-		            'field' => 'prawo.autor_id',
-		            'exclude' => array(
-			            'pattern' => '0'
-		            ),
-	            ),
-	            'aggs' => array(
-		            'label' => array(
-			            'terms' => array(
-				            'field' => 'data.prawo.autor_nazwa',
-			            ),
-		            ),
-	            ),
-	            'visual' => array(
-		            'label' => 'Autorzy aktów prawnych',
-		            'skin' => 'columns_horizontal',
-	            ),
-	        ),
-	        */
 	    ),
         'zamowienia_publiczne' => array(
             'wartosc_cena' => array(

@@ -14,7 +14,6 @@ class PrawoController extends ApplicationsController
 				'id' => 'tematy',
 				'label' => 'Tematy',
 			),
-			/*
 			array(
 				'id' => 'urzedowe',
 				'label' => 'Prawo urzędowe',
@@ -23,6 +22,7 @@ class PrawoController extends ApplicationsController
 				'id' => 'lokalne',
 				'label' => 'Prawo lokalne',
 			),
+			/*
             array(
                 'id' => 'projekty',
                 'label' => 'Projekty aktów prawnych',
@@ -42,22 +42,25 @@ class PrawoController extends ApplicationsController
     public function view()
     {
         $this->setMenuSelected();
-        $this->title = 'Akty prawne - Prawo';
+        $this->title = 'Akty prawne | Prawo';
         $this->loadDatasetBrowser('prawo');
     }
 
     public function tematy()
     {
+	    $this->title = 'Tematy w prawie | Prawo';
 	    $this->loadDatasetBrowser('prawo_hasla');
     }
     
     public function urzedowe()
     {
+	    $this->title = 'Prawo urzędowe | Prawo';
 	    $this->loadDatasetBrowser('prawo_urzedowe');
     }
     
     public function lokalne()
     {
+	    $this->title = 'Prawo lokalne | Prawo';
 	    $this->loadDatasetBrowser('prawo_wojewodztwa');
     }
 

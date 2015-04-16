@@ -191,8 +191,8 @@ class MediaController extends ApplicationsController
                 'groups' => array(
                     array(
                         'mode' => 'tweet',
-                        'field' => 'liczba_odpowiedzi',
-                        'order' => 'liczba_odpowiedzi desc',
+                        'field' => 'liczba_zaangazowan',
+                        'order' => 'liczba_zaangazowan desc',
                         'link' => array(
                             'dataset' => 'twitter',
                         ),
