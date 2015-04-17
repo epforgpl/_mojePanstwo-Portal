@@ -297,7 +297,7 @@ var PISMA = Class.extend({
                 if (self.html.adresaci.find('.glyphicon.glyphicon-ok-circle').length == 0) {
                     self.html.adresaci.find('#adresatSelect').val('');
                 }
-            }, 100);
+            }, 300);
         });
 
         if (self.objects.adresaci !== null && self.objects.adresaci.id) {
