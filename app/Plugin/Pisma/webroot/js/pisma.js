@@ -294,7 +294,6 @@ var PISMA = Class.extend({
         }).focusout(function () {
             setTimeout(function () {
                 self.html.adresaci.find('.list').hide();
-                console.log(self.html.adresaci.find('.glyphicon.glyphicon-ok-circle').length);
                 if (self.html.adresaci.find('.glyphicon.glyphicon-ok-circle').length == 0) {
                     self.html.adresaci.find('#adresatSelect').val('');
                 }
@@ -456,7 +455,7 @@ var PISMA = Class.extend({
                     return html;
                 }
             });
-            
+
             self.html.stepper_div.find('.wysihtml5-toolbar').find('[data-wysihtml5-command="bold"]').html($('<span></span>').addClass('fa fa-bold'))
                 .end()
                 .find('[data-wysihtml5-command="italic"]').html($('<span></span>').addClass('fa fa-italic'))
@@ -466,25 +465,25 @@ var PISMA = Class.extend({
                 .find('[data-wysihtml5-command="underline"]').html($('<span></span>').addClass('fa fa-underline'))
                 .end()
                 .find('[data-wysihtml5-command="createLink"]').html($('<span></span>').addClass('glyphicon glyphicon-link'))
-/*
-                .end()
-                .prepend(
-                $('<li></li>').addClass('stepper-back').append(
-                    $('<a></a>').addClass('btn  btn-default')
-                        .attr({
-                            'href': '#pismoBack',
-                            'title': 'Zmień szablon lub adresata'
-                        }).text('Zmień szablon lub adrestata').click(function (e) {
-                            e.preventDefault();
-                            self.methods.stepper.steps("previous")
-                        })
-                ))
-*/;
-                
+                /*
+                 .end()
+                 .prepend(
+                 $('<li></li>').addClass('stepper-back').append(
+                 $('<a></a>').addClass('btn  btn-default')
+                 .attr({
+                 'href': '#pismoBack',
+                 'title': 'Zmień szablon lub adresata'
+                 }).text('Zmień szablon lub adrestata').click(function (e) {
+                 e.preventDefault();
+                 self.methods.stepper.steps("previous")
+                 })
+                 ))
+                 */;
+
             var wysightml5toolbar = self.html.stepper_div.find('.wysihtml5-toolbar').clone(true);
             self.html.stepper_div.find('.wysihtml5-toolbar').remove();
             $('.editPage .wysightml5Block').html(wysightml5toolbar.show());
-            
+
         }
     }
     ,
@@ -875,5 +874,13 @@ $(document).ready(function () {
             switcher.attr('href', '#more').data('mode', 'more').find('.text').text('Więcej');
             switcher.find('.glyphicon').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
         }
+    });
+
+    var client = new ZeroClipboard(document.getElementById("clipboardCopy"));
+
+    client.on("ready", function (readyEvent) {
+        client.on("aftercopy", function (event) {
+            alert("Skopiowano do schowka: " + event.data["text/plain"]);
+        });
     });
 });
