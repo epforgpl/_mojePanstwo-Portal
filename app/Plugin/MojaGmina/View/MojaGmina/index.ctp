@@ -5,7 +5,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
 echo $this->Html->script('../plugins/scriptaculous/lib/prototype', array('block' => 'scriptBlock'));
 echo $this->Html->script('../plugins/scriptaculous/src/scriptaculous', array('block' => 'scriptBlock'));
 
-$this->Combinator->add_libs('js', 'MojaGmina.moja_gmina.js');
+echo $this->Html->script('/MojaGmina/js/moja_gmina', array('block' => 'scriptBlock'));
 ?>
 
 <?= $this->Element('appheader', array('title' => 'Moja gmina', 'subtitle' => __d('moja_gmina', "LC_MOJA_GMINA_HEADLINE"), 'headerUrl' => 'moja-gmina.png')); ?>
