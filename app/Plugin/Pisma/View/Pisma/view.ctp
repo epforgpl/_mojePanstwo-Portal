@@ -1,6 +1,7 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
 <?php $this->Combinator->add_libs('js', 'Pisma.zeroclipboard.js') ?>
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.pisma-social-share.js') ?>
 
 <?= $this->Element('appheader'); ?>
 
@@ -54,9 +55,35 @@
                                         <div class="form-group clipboard">
                                             <label for="clipboardCopy">Link do dokumentu</label>
                                             <input readonly id="clipboardCopy" class="form-control"
-                                                   data-clipboard-text="<?= $this->here ?>"
-                                                   title="Skopiuj link do schowka" placeholder="<?= $this->here ?>"/>
+                                                   data-clipboard-text="<?php echo Router::url($this->here, true); ?>"
+                                                   title="Skopiuj link do schowka"
+                                                   placeholder="<?php echo Router::url($this->here, true); ?>"/>
                                         </div>
+                                    </li>
+                                    <li class="shareIt">
+                                        <span><strong>Udostępnij</strong></span>
+
+                                        <div id="fb-root"></div>
+                                        <a class="btn btn-social-icon btn-facebook"
+                                           href="http://www.facebook.com/sharer.php?u=<?php echo Router::url($this->here, true); ?>"
+                                           target="_blank">
+                                            <i class="fa fa-facebook"></i>
+                                        </a>
+                                        <a class="btn btn-social-icon btn-twitter" href="https://twitter.com/share"
+                                           target="_blank"
+                                           data-url="<?php echo Router::url($this->here, true); ?>"
+                                           data-lang="<?php if (Configure::read('Config.language') == 'pol') {
+                                               echo('pl');
+                                           } else {
+                                               echo('en');
+                                           } ?>">
+                                            <i class="fa fa-twitter"></i>
+                                        </a>
+                                        <a class="btn btn-social-icon btn-wykop"
+                                           href="http://www.wykop.pl/dodaj/link/?url=<?php echo Router::url($this->here, true); ?>&title=<?= $pismo['nazwa'] ?>"
+                                           target="_blank">
+                                            <img class="fa" src="/Pisma/img/wykop_logo.png" alt="wykop.pl"/>
+                                        </a>
                                     </li>
                                 <? } ?>
 

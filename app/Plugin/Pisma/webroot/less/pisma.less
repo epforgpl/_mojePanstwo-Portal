@@ -363,6 +363,8 @@
             padding: 0;
 
             li {
+                width: 100%;
+                float: left;
                 list-style: none;
                 padding: 5px 0;
                 margin: 0;
@@ -405,6 +407,33 @@
                         margin-top: 0;
                         padding-left: 5px;
                         padding-right: 5px;
+                    }
+                }
+                &.shareIt {
+                    width: 100%;
+                    float: left;
+                    margin-bottom: 20px;
+
+                    span {
+                        width: 100%;
+                        float: left;
+                        display: block;
+                        margin-bottom: 3px;
+                    }
+
+                    > a.btn {
+                        width: 40px;
+                        float: left;
+                        margin-right: 5px;
+
+                        &.btn-wykop {
+                            border: none;
+                            background: none;
+                        }
+
+                        img {
+                            max-height: 100%;
+                        }
                     }
                 }
             }
