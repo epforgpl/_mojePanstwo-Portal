@@ -11,7 +11,7 @@ if (!isset($right_column_width)) {
     <div class="toolbarSticker">
         <div class="container">
             <div class="row">
-                <div class="toolbarActions col-md-<?= $left_column_width ?>">
+                <div class="toolbarActions col-md-<?= $left_column_width ?> col-md-offset-1">
                     <div class="docPages form-group">
                         <span
                             class="control-label"><?php echo __d('dane', 'LC_DANE_TOOLBAR_STRONA'); ?></span>
