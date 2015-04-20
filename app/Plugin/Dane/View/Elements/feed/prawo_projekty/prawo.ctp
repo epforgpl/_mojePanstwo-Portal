@@ -37,7 +37,7 @@ if ($object->getThumbnailUrl($thumbSize)) {
             <?php if ($object->getUrl() != false) { ?>
             <a href="<?= $object->getUrl() ?>/tresc" title="<?= strip_tags($object->getTitle()) ?>">
                 <?php } ?>
-                Druk nr <?= $object->getData('numer') ?>
+                <?= $object->getData('sygnatura') ?>
                 <?php if ($object->getUrl() != false) { ?>
             </a> <?
         }
@@ -47,7 +47,8 @@ if ($object->getThumbnailUrl($thumbSize)) {
         </p>
         
         
-        <? // debug( $object->getData() ); ?>
+        <?= $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults) ?>
+
 
 
     </div>

@@ -66,7 +66,9 @@ class PrawoController extends ApplicationsController
 
     public function projekty()
     {
-        $this->loadDatasetBrowser('prawo_projekty');
+        $this->loadDatasetBrowser('prawo_projekty', array(
+	        'renderFile' => 'prawo_projekty',
+        ));
     }
 
 } 

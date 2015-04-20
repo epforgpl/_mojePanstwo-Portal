@@ -1021,6 +1021,15 @@
                 margin-left: 10px;
             }
         }
+        
+        .status {
+	        color: green;
+	        margin: 10px;
+        }
+        
+        .__autorzy_html_ul {
+	        margin: 10px;
+        }
 
         .sentence {
             color: #444;
@@ -1058,7 +1067,18 @@
             padding: 2px 8px;
             margin: 10px 0 15px;
         }
-
+		
+		&.prawo_projekty {
+			.attachment {
+				.thumb_cont {
+					max-height: inherit;
+					&::before {
+						border-bottom: none;
+					}
+				}
+			}
+		}
+		
         .attachment {
             margin-bottom: 10px;
 
