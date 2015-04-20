@@ -211,7 +211,7 @@ class DataBrowserComponent extends Component {
 	            ),
 	            'visual' => array(
 		            'label' => 'Statusy projektów',
-		            'skin' => 'pie_chart',
+		            'skin' => 'columns_vertical',
 	                'field' => 'prawo_projekty.faza_id',
 	                'dictionary' => array(
 		                '2' => 'W trakcie prac',
@@ -229,7 +229,7 @@ class DataBrowserComponent extends Component {
 	            ),
 	            'visual' => array(
 		            'label' => 'Typy projektów',
-		            'skin' => 'columns_horizontal',
+		            'skin' => 'pie_chart',
 	                'field' => 'prawo_projekty.typ_id',
 	                'dictionary' => array(
 		                '1' => 'Projekty ustaw',
