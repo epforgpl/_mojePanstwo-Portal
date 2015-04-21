@@ -41,5 +41,20 @@ class Sejm_posiedzenia extends DataObject
     {
         return false;
     }
+    
+    public function getDescription()
+    {
+	    $parts = array(
+		    dataSlownie( $this->getData('data_start') ),
+	    );
+	    
+	    if(
+		    $this->getData('data_stop') && 
+		    ( $this->getData('data_stop') != $this->getData('data_start') )
+	    )
+	    	$parts[] = dataSlownie( $this->getData('data_stop') );
+	    
+	    return implode(' - ', $parts);
+    }
 
 }

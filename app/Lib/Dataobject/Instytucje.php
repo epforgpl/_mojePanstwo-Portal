@@ -29,4 +29,16 @@ class Instytucje extends DataObject
 
     }
     
+    public function getMetaDescriptionParts($preset = false)
+	{
+				
+		$output = array();
+		
+		if( $this->getData('instytucje.budzet_plan') )
+			$output[] = 'Budżet roczny: ' . number_format_h(1000 * $this->getData('instytucje.budzet_plan')) . ' PLN';
+		
+		return $output;
+		
+	}
+    
 }

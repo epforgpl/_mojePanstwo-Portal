@@ -1,3 +1,7 @@
+String.prototype.capitalizeFirstLetter = function () {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+};
+
 (function ($) {
     var tree = $('#tree'),
         json = tree.data('structure'),
@@ -5,7 +9,7 @@
 
     $.each(json, function (key, data) {
         var root = {
-                "text": key
+                "text": key.toLowerCase().capitalizeFirstLetter()
             },
             rootChildren = [];
 
@@ -14,7 +18,7 @@
                 'data ': {
                     id: itemKey
                 },
-                'text': itemData['dane']['tytul'],
+                'text': itemData['dane']['tytul'].toLowerCase().capitalizeFirstLetter(),
                 'children': true
             }, itemChildren = [];
 
@@ -23,7 +27,7 @@
                     'data': {
                         'id': grupyKey
                     },
-                    'text': grupyData['dane']['tytul'],
+                    'text': grupyData['dane']['tytul'].toLowerCase().capitalizeFirstLetter(),
                     'children': true
                 }, grupyChildren = [];
 
@@ -32,7 +36,7 @@
                         data: {
                             'id': podgrupyKey
                         },
-                        'text': podgrupyData['dane']['tytul']
+                        'text': podgrupyData['dane']['tytul'].toLowerCase().capitalizeFirstLetter()
                     };
                     grupyChildren.push(podgrupy);
                 });

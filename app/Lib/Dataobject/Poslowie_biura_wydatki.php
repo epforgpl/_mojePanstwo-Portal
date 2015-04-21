@@ -41,5 +41,21 @@ class Poslowie_biura_wydatki extends DataObject
     public $hl_fields = array(
 		'poslowie_biura_wydatki.wartosc_koszt', 'poslowie_biura_wydatki.wartosc_koszt_posel', 'poslowie_biura_wydatki.wartosc_koszt_posel_max', 'poslowie.nazwa_klub'
 	);
+	
+	public function getUrl() {
+		return false;
+	}
+	
+	public function getMetaDescriptionParts($preset = false)
+	{
+		
+		$output = array();
+		
+		if( $this->getData('poslowie_biura_wydatki.wartosc_koszt') )
+			$output[] = 'Suma wydatków: ' . number_format_h( $this->getData('poslowie_biura_wydatki.wartosc_koszt') ) . ' PLN';
+		
+		return $output;
+		
+	}
 
 }

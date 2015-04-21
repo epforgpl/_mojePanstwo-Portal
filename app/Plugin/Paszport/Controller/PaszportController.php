@@ -17,6 +17,11 @@ class PaszportController extends ApplicationsController
 				'label' => 'Zarejestruj',
                 'href' => 'register'
 			),
+            array(
+                'id' => 'forgot',
+                'label' => 'Nowe hasło',
+                'href' => 'forgot'
+            ),
 		),
 		'title' => 'Paszport',
 		'subtitle' => '',
@@ -32,18 +37,6 @@ class PaszportController extends ApplicationsController
                     'label' => 'Profil',
                     'href' => 'paszport'
                 ),
-                /*
-                array(
-                    'id' => 'keys',
-                    'label' => 'Klucze API',
-                    'href' => 'paszport/klucze'
-                ),
-                array(
-                    'id' => 'logs',
-                    'label' => 'Logi',
-                    'href' => 'paszport/logi'
-                )
-                */
             );
 
         }
@@ -59,6 +52,80 @@ class PaszportController extends ApplicationsController
     public function logs()
     {
 
+    }
+
+    public function forgot()
+    {
+        if($this->request->isPost()) {
+            if(isset($this->request->data['User']['password'])) {
+
+                $user = new User();
+                $response = $user->forgotNewPassword($this->data);
+
+                if (isset($response['errors']) && is_array($response['errors']) && count($response['errors']) > 0) {
+
+                    foreach ($response['errors'] as $field => $error) {
+                        $this->Session->setFlash(
+                            __d('paszport', $error, true),
+                            'default',
+                            array(),
+                            'auth'
+                        );
+                    }
+
+                } elseif (isset($response['success']) && $response['success']) {
+                    $this->set('tokenSuccess', true);
+                    $this->set('newPasswordSuccess', true);
+                } else {
+                    throw new BadRequestException();
+                }
+
+            } else {
+                $user = new User();
+                $response = $user->forgot($this->data);
+
+                if (isset($response['errors']) && is_array($response['errors']) && count($response['errors']) > 0) {
+
+                    foreach ($response['errors'] as $field => $error) {
+                        $this->Session->setFlash(
+                            __d('paszport', $error, true),
+                            'default',
+                            array(),
+                            'auth'
+                        );
+                    }
+
+                } elseif (isset($response['success']) && $response['success']) {
+                    $this->set('success', true);
+                } else {
+                    throw new BadRequestException();
+                }
+            }
+        }
+        else
+        {
+            if(isset($this->request->query['token'])) {
+                $user = new User();
+                $response = $user->forgotToken(array(
+                    'token' => $this->request->query['token']
+                ));
+                if(isset($response['errors']) && is_array($response['errors']) && count($response['errors']) > 0) {
+                    foreach($response['errors'] as $field => $error) {
+                        $this->Session->setFlash(
+                            __d('paszport', $error, true),
+                            'default',
+                            array(),
+                            'auth'
+                        );
+                    }
+                } elseif(isset($response['success']) && $response['success']) {
+                    $this->set('token', $this->request->query['token']);
+                    $this->set('tokenSuccess', true);
+                } else {
+                    throw new BadRequestException();
+                }
+            }
+        }
     }
 
     public function facebookLogin()

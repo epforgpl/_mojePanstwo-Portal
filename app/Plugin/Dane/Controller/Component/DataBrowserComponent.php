@@ -171,6 +171,92 @@ class DataBrowserComponent extends Component {
 	            ),
 	        ),
 	    ),
+	    /*
+	    'prawo_wojewodztwa' => array(
+		    'date' => array(
+	            'date_histogram' => array(
+		            'field' => 'date',
+		            'interval' => 'year',
+		            'format' => 'yyyy-MM-dd',
+	            ),
+	            'visual' => array(
+		            'label' => 'Liczba aktów prawnych w czasie',
+		            'skin' => 'date_histogram',
+                    'field' => 'date'
+	            ),
+	        ),
+	    ),
+	    */
+	    'prawo_urzedowe' => array(
+		    'date' => array(
+	            'date_histogram' => array(
+		            'field' => 'date',
+		            'interval' => 'year',
+		            'format' => 'yyyy-MM-dd',
+	            ),
+	            'visual' => array(
+		            'label' => 'Liczba aktów prawnych w czasie',
+		            'skin' => 'date_histogram',
+                    'field' => 'date'
+	            ),
+	        ),
+	    ),
+	    'prawo_projekty' => array(
+		    'faza_id' => array(
+	            'terms' => array(
+		            'field' => 'prawo_projekty.faza_id',
+		            'exclude' => array(
+			            'pattern' => '0'
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Statusy projektów',
+		            'skin' => 'columns_vertical',
+	                'field' => 'prawo_projekty.faza_id',
+	                'dictionary' => array(
+		                '2' => 'W trakcie prac',
+		                '3' => 'Przyjęte',
+		                '4' => 'Odrzucone',
+	                ),
+	            ),
+	        ),
+		    'typ_id' => array(
+	            'terms' => array(
+		            'field' => 'prawo_projekty.typ_id',
+		            'exclude' => array(
+			            'pattern' => '(0|8)'
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Typy projektów',
+		            'skin' => 'pie_chart',
+	                'field' => 'prawo_projekty.typ_id',
+	                'dictionary' => array(
+		                '1' => 'Projekty ustaw',
+		                '2' => 'Projekty uchwał',
+		                '3' => 'Wota zaufania',
+		                '5' => 'Powołania odwołania',
+		                '6' => 'Umowy międzynarodowe',
+		                '11' => 'Sprawozdania kontrolne',
+		                '12' => 'Inne projekty',
+		                '100' => 'Zmiany w składach komisji sejmowych',
+		                '103' => 'Wniosko o referenda',
+	                ),
+	            ),
+	        ),
+		    'date' => array(
+	            'date_histogram' => array(
+		            'field' => 'date',
+		            'interval' => 'year',
+		            'format' => 'yyyy-MM-dd',
+	            ),
+	            'visual' => array(
+		            'label' => 'Liczba projektów w czasie',
+		            'skin' => 'date_histogram',
+                    'field' => 'date'
+	            ),
+	        ),
+	    ),
 	    'sejm_interpelacje' => array(
 		    'date' => array(
 	            'date_histogram' => array(
@@ -380,11 +466,10 @@ class DataBrowserComponent extends Component {
 	            ),
 	        ),
 	    ),
-	    'prawo_urzedowe' => array(
-	        /*
-	        'typ_id' => array(
+	    'poslowie' => array(
+	        'klub_id' => array(
 	            'terms' => array(
-		            'field' => 'prawo.typ_id',
+		            'field' => 'poslowie.klub_id',
 		            'exclude' => array(
 			            'pattern' => '0'
 		            ),
@@ -392,48 +477,36 @@ class DataBrowserComponent extends Component {
 	            'aggs' => array(
 		            'label' => array(
 			            'terms' => array(
-				            'field' => 'data.prawo.typ_nazwa',
+				            'field' => 'data.sejm_kluby.nazwa',
 			            ),
 		            ),
 	            ),
 	            'visual' => array(
-		            'label' => 'Typy aktów prawnych',
+		            'label' => 'Kluby parlamentarne',
 		            'skin' => 'pie_chart',
+                    'field' => 'poslowie.klub_id'
 	            ),
 	        ),
-	        */
-	        'date' => array(
-	            'date_histogram' => array(
-		            'field' => 'date',
-		            'interval' => 'year',
-		            'format' => 'yyyy-MM-dd',
-	            ),
-	            'visual' => array(
-		            'label' => 'Liczba aktów prawnych w czasie',
-		            'skin' => 'date_histogram',
-	            ),
-	        ),
-	        /*
-	        'autor_id' => array(
+	        'zawod' => array(
 	            'terms' => array(
-		            'field' => 'prawo.autor_id',
+		            'field' => 'poslowie.zawod',
 		            'exclude' => array(
-			            'pattern' => '0'
+			            'pattern' => ''
 		            ),
 	            ),
 	            'aggs' => array(
 		            'label' => array(
 			            'terms' => array(
-				            'field' => 'data.prawo.autor_nazwa',
+				            'field' => 'poslowie.zawod',
 			            ),
 		            ),
 	            ),
 	            'visual' => array(
-		            'label' => 'Autorzy aktów prawnych',
+		            'label' => 'Zawody posłów',
 		            'skin' => 'columns_horizontal',
+                    'field' => 'poslowie.zawod'
 	            ),
 	        ),
-	        */
 	    ),
         'zamowienia_publiczne' => array(
             'wartosc_cena' => array(

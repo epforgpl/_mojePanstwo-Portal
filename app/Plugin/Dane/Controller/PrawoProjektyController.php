@@ -28,8 +28,30 @@ class PrawoProjektyController extends DataobjectsController
         
         $this->feed(array(
 	        'searchTitle' => '"' . $this->object->getTitle() . '"',
+	        'timeline' => true,
+	        'direction' => 'asc',
         ));
 
+    }
+    
+    public function zamrazarka()
+    {
+		
+		if( $this->request->params['subid'] ) {
+			
+	        parent::load();
+	        
+	        $zamrazarka = $this->Dataobject->find('first', array(
+		        'conditions' => array(
+			        'dataset' => 'sejm_zamrazarka',
+			        'id' => $this->request->params['subid'],
+		        ),
+	        ));
+	        
+	        $this->set('zamrazarka', $zamrazarka);
+			
+		} else $this->redirect( $this->referer() );
+		        
     }
 
 } 
