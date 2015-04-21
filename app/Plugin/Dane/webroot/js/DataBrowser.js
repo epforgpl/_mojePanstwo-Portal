@@ -298,7 +298,7 @@ var DataBrowser = Class.extend({
                 columns_vertical_data[i] = data.buckets[i].doc_count;
             } else {
                 columns_vertical_categories[i] = data.buckets[i].label.buckets[0].key;
-                columns_vertical_data[i] = data.buckets[i].label.buckets[0].doc_count;
+                columns_vertical_data[i] = data.buckets[i].label.buckets[0].doc_count || data.buckets[i].doc_count;
             }
 
             columns_vertical_keys[i] = data.buckets[i].key;
@@ -383,8 +383,6 @@ var DataBrowser = Class.extend({
 		var columns_horizontal_data = [];
         var columns_horizontal_categories = [];
         var columns_horizontal_keys = [];
-
-        console.log(data);
 
         for(var i = 0; i < data.buckets.length; i++) {
             columns_horizontal_categories[i] = data.buckets[i].label.buckets[0].key;
