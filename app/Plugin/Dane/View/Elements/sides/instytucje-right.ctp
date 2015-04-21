@@ -126,8 +126,7 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
     <div class="block">
         
         <p class="text-center">
-	        <a class="actionIcons icon api" target="_blank" href="#" data-toggle="modal"
-               data-target=".modal-api-call"><span
+	        <a class="actionIcons icon api" target="_blank" href="http://api-v2.mojepanstwo.pl/dane/<?= $object->dataset ?>/<?= $object->id ?>"><span
                     class="glyphicon glyphicon-cog"></span>API
             </a>
         </p>

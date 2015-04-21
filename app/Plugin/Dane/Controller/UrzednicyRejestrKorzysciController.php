@@ -17,10 +17,13 @@ class UrzednicyRejestrKorzysciController extends DataobjectsController
         if ($dokument_id) {
             $this->set('dokument_id', $dokument_id);
 
-        } else if ($html) {
-            $this->set('content_html', $html);
+        }
 
-        } else {
+        if ($html) {
+            $this->set('content_html', $html);
+        }
+
+        if (!$html and !$dokument_id) {
             throw new Exception("Either pdf or html should be set for " . $this->request->url);
         }
     }

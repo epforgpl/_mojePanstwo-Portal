@@ -4,12 +4,6 @@ namespace MP\Lib;
 
 class Dataobject
 {
-
-    protected $constants = array(
-        'url_protocol' => URL_PROTOCOL,
-        'url_host' => URL_HOST,
-    );
-	
 	protected $schema = array();
     protected $_routes = array(
         'date' => 'data',
@@ -228,13 +222,6 @@ class Dataobject
 
     public function getUrl($options = array())
     {
-    	/*
-        $output = $this->constants['url_protocol'] .
-            $this->constants['url_host'];
-
-        if (defined('URL_PORT'))
-            $output .= ':' . URL_PORT;
-		*/
         $output = '/dane/' .
             $this->getDataset() . '/' .
             $this->getId();
