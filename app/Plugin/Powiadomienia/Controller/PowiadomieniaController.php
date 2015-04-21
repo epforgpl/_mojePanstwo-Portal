@@ -8,15 +8,15 @@ class PowiadomieniaController extends ApplicationsController
 		'menu' => array(
 			array(
 				'id' => '',
-				'label' => 'Jak to działa?',
+				'label' => 'Obserwuję',
 			),
 			array(
 				'id' => 'moje',
 				'label' => 'Moje powiadomienia',
 			),
 			array(
-				'id' => 'obserwuje',
-				'label' => 'Obserwuję',
+				'id' => 'jak_to_dziala',
+				'label' => 'Jak to działa?',
 			),
 		),
 		'title' => 'Powiadomienia',
@@ -28,14 +28,10 @@ class PowiadomieniaController extends ApplicationsController
         parent::prepareMetaTags();
         $this->setMeta('og:image', FULL_BASE_URL . '/powiadomienia/img/social/powiadomienia.jpg');
     }
-	
+	    
     public function view() {
-        
-        $this->setMenuSelected();
-                
-    }
-    
-    public function obserwuje() {
+	    
+	    $this->setMenuSelected();
 	    
 	    $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
@@ -48,12 +44,15 @@ class PowiadomieniaController extends ApplicationsController
 		    'forceLabel' => true,
 	    ));
         $this->set('DataBrowserTitle', 'Dane które obserwujesz:');
+        $this->title = 'Obserwuję - Powiadomienia';
     }
     
     public function moje() {
-	    
-	    
-	    
-    } 
+	    $this->title = 'Moje Powiadomienia';
+    }
+    
+    public function jak_to_dziala() {
+        $this->title = 'Jak to działa? - Powiadomienia';
+    }
 
 } 

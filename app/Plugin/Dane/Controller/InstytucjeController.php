@@ -223,18 +223,18 @@ class InstytucjeController extends DataobjectsController
             )
         );
 
-        $this->actions = array(
-            'obserwuj' => array(
-                'id' => $this->object->getDataset() . ':' . $this->object->getId(),
-                'nazwa' => $this->object->getTitle(),
-            ),
-            'pismo' => array(
-                'adresat_id' => $this->object->getDataset() . ':' . $this->object->getId(),
-                'szablon_id' => 35,
-                'nazwa' => 'Wyślij wniosek o udostępnienie informacji publicznej',
-                'opis' => 'Masz pytania dotyczące działalności tej instytucji? Kliknij, aby wysłać odpowiedni wniosek.',
-            ),
-        );
+		if( $this->object->getData('email') ) {
+		
+	        $this->actions = array(
+	            'pismo' => array(
+	                'adresat_id' => $this->object->getDataset() . ':' . $this->object->getId(),
+	                'szablon_id' => 35,
+	                'nazwa' => 'Wyślij wniosek o udostępnienie informacji publicznej',
+	                'opis' => 'Masz pytania dotyczące działalności tej instytucji? Kliknij, aby wysłać odpowiedni wniosek.',
+	            ),
+	        );
+        
+        }
 
         parent::beforeRender();
     }

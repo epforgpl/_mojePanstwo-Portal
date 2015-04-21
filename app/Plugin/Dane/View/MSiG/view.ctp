@@ -3,6 +3,6 @@ $this->Combinator->add_libs('css', $this->Less->css('view-msig', array('plugin' 
 echo $this->Element('dataobject/pageBegin');
 ?>
 
-<?= $this->Document->place($document) ?>
+<?= $this->Document->place($object->getData('dokument_id')) ?>
 
 <?= $this->Element('dataobject/pageEnd'); ?>

@@ -31,16 +31,23 @@ class Prawo_projekty extends DocDataObject
 
     public function getLabel()
     {
+	    $output = '';
+	    
         switch( $this->getData('typ_id') ) {
-	        case '1': return 'Projekt ustawy';
-	        case '2': return 'Projekt uchwały';
-	        case '5': return 'Powołanie / odwołanie';
-	        case '6': return 'Umowa międzynarodowa';
-	        case '11': return 'Sprawozdanie kontrolne';
-	        case '12': return 'Projekt';
-	        case '100': return 'Zmiana w składach komisji';
-	        case '103': return 'Wniosek o referendum';
+	        case '1': { $output = 'Projekt ustawy'; break; }
+	        case '2': { $output = 'Projekt uchwały'; break; }
+	        case '5': { $output = 'Powołanie / odwołanie'; break; }
+	        case '6': { $output = 'Umowa międzynarodowa'; break; }
+	        case '11': { $output = 'Sprawozdanie kontrolne'; break; }
+	        case '12': { $output = 'Projekt'; break; }
+	        case '100': { $output = 'Zmiana w składach komisji'; break; }
+	        case '103': { $output = 'Wniosek o referendum'; break; }
         }
+        
+        $output .= ' z dnia ' . dataSlownie( $this->getDate() ); 
+        
+        return $output;
+       
     }
     
     public $force_hl_fields = true;

@@ -5,7 +5,9 @@
 	
 	$path = APP.'Plugin'.DS.'Dane'.DS.'View'.DS.'Elements'.DS.'sides'.DS.$dataFeed['side'].'-right.ctp';
 	$side_right = file_exists($path);
-
+	
+	$mainPage = !isset($this->request->query['channel']) || !$this->request->query['channel'];
+	
 ?>
 <div class="row row-feed dataBrowser dataFeed">
 	<? if( $side_left ) {?>    
@@ -18,8 +20,10 @@
             <? echo $this->Element('Dane.DataFeed/feed'); ?>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-2 col-feed-side col-feed-side-right">
-                
+    <div class="col-xs-12 col-sm-2 col-feed-side col-feed-side-right<? if( !$mainPage ) echo " topmargin"; ?>">
+        
+        <? if( $mainPage ) echo $this->Element('Dane.object-actions'); ?>
+             
         <? if (isset($object_subscriptions) && $object_subscriptions) { ?>
         <div class="subscription">
             <h2><span class="glyphicon glyphicon-star"></span> Obserwowane dane</h2>
@@ -58,9 +62,6 @@
         <?
 	        if( $side_right ) 
 	        	echo $this->Element('Dane.sides/' . $dataFeed['side'] . '-right');
-	        
-	        // else
-	        	// echo $this->Element('Dane.object-actions');
 	    ?>            
         
     </div>

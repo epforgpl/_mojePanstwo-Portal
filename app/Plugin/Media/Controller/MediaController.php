@@ -17,7 +17,11 @@ class MediaController extends ApplicationsController
             array(
                 'id' => 'twitter_accounts',
                 'label' => 'Obserwowane konta'
-            )
+            ),
+            array(
+                'id' => 'media_2013',
+                'label' => 'Media w 2013r.'
+            ),
         ),
         'title' => 'Media',
         'subtitle' => 'Polityka w mediach społecznościowych',
@@ -191,8 +195,8 @@ class MediaController extends ApplicationsController
                 'groups' => array(
                     array(
                         'mode' => 'tweet',
-                        'field' => 'liczba_odpowiedzi',
-                        'order' => 'liczba_odpowiedzi desc',
+                        'field' => 'liczba_zaangazowan',
+                        'order' => 'liczba_zaangazowan desc',
                         'link' => array(
                             'dataset' => 'twitter',
                         ),
@@ -441,5 +445,11 @@ class MediaController extends ApplicationsController
     {
 	    $this->title = "Konta Twitter - Media";
         $this->loadDatasetBrowser('twitter_accounts');
+    }
+
+    public function media_2013()
+    {
+        $this->title = "Media polityczne w 2013 roku";
+        //$this->loadDatasetBrowser('twitter_accounts');
     }
 }

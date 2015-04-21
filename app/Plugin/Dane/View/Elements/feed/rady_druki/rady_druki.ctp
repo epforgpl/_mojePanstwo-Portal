@@ -11,6 +11,9 @@ if ($object->getThumbnailUrl($thumbSize)) {
 
     <div class="attachment col-xs-<?= $size + 1 ?> col-md-<?= $size ?> text-center">
         <?php if ($object->getUrl() != false) { ?>
+        <span class="glyphicon glyphicon-search documentFastCheck" aria-hidden="true"
+              data-documentid="<?= $object->getData('dokument_id'); ?>" data-toogle="modal"
+              data-target="#documentFastCheckModal"></span>
         <a class="thumb_cont" href="<?= $object->getUrl() ?>/tresc">
             <?php } ?>
             <img class="thumb pull-right" onerror="imgFixer(this)"

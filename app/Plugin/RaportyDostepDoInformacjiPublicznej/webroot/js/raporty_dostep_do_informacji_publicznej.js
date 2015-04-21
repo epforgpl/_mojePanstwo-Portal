@@ -920,7 +920,6 @@ InfoGraph.prototype = {
                         aChoice.addClass('disabled').removeClass('active');
                         that.removeClass('disabled').addClass('active');
                     }
-
                 })
             }
 
@@ -985,6 +984,8 @@ InfoGraph.prototype = {
 
         if (typeof _ADMIN != 'undefined' && _ADMIN)
             console.log('createPath: added user choice - ' + node + ' to ' + this.userDump);
+
+        $("html, body").stop(true, false).animate({scrollTop: $(document).height()}, 1000);
     },
     recreatePath: function (idNumber, e) {
         var self = this,
@@ -1020,6 +1021,7 @@ InfoGraph.prototype = {
                 });
             }
         });
+        $("html, body").stop(true, false).animate({scrollTop: $(document).height()}, 1000);
     },
 
     animatePath: function (canvas, colorNumber, pathString, exit) {

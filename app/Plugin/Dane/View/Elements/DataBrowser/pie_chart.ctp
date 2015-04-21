@@ -6,7 +6,6 @@
 <? if(!isset($this->request->query['conditions'][$map['field']])) { ?>
     <div class="agg agg-PieChart" data-choose-request="<?= $map['chooseRequest']; ?>" data-chart="<?= htmlentities(json_encode($data)) ?>">
         <div class="chart">
-	        Spinner
         </div>
     </div>
 <? } else { ?>

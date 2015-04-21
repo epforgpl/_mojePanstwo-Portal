@@ -45,4 +45,17 @@ class Subscription extends AppModel {
 				
 	}
 	
+	public function transfer_anonymous($anonymous_user_id) {
+	    	    
+	    $res = $this->getDataSource()->request('dane/subscriptions/transfer_anonymous', array(
+	    	'method' => 'GET',
+	    	'data' => array(
+		    	'anonymous_user_id' => $anonymous_user_id,
+	    	),
+    	));
+    	    	
+    	return $res;
+    	
+    }
+	
 }

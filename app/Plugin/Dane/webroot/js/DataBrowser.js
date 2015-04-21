@@ -298,7 +298,7 @@ var DataBrowser = Class.extend({
                 columns_vertical_data[i] = data.buckets[i].doc_count;
             } else {
                 columns_vertical_categories[i] = data.buckets[i].label.buckets[0].key;
-                columns_vertical_data[i] = data.buckets[i].label.buckets[0].doc_count;
+                columns_vertical_data[i] = data.buckets[i].label.buckets[0].doc_count || data.buckets[i].doc_count;
             }
 
             columns_vertical_keys[i] = data.buckets[i].key;
@@ -359,10 +359,9 @@ var DataBrowser = Class.extend({
                             var bucket = data.buckets[index];
 
                             var dataArg = ['[', bucket.from];
-                            if(bucket.to) {
-                                dataArg.push(' TO ');
+                            dataArg.push(' TO ');
+                            if(bucket.to)
                                 dataArg.push(bucket.to);
-                            }
                             dataArg.push(']');
 
                             window.location.href = choose_request + dataArg.join('');
@@ -387,7 +386,7 @@ var DataBrowser = Class.extend({
 
         for(var i = 0; i < data.buckets.length; i++) {
             columns_horizontal_categories[i] = data.buckets[i].label.buckets[0].key;
-            columns_horizontal_data[i] = data.buckets[i].label.buckets[0].doc_count;
+            columns_horizontal_data[i] = data.buckets[i].label.buckets[0].doc_count || data.buckets[i].doc_count;
             columns_horizontal_keys[i] = data.buckets[i].key;
         }
 

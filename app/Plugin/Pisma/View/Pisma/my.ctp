@@ -50,12 +50,14 @@
                             <div class="cont">
 
                                 <p class="title">
-                                    <a href="/pisma/<?= $item['alphaid'] ?>,<?= $item['slug'] ?>"><?= $item['name'] ?></a>
+                                    <a href="/pisma/<?= $item['alphaid'] ?>,<?= $item['slug'] ?>"><?= ( isset($item['name']) && $item['name'] ) ? $item['name'] : 'Pismo' ?></a>
                                 </p>
-
+								
+								<? if( isset($item['sent']) && $item['sent'] ) {?>
                                 <p class="meta">
-                                    Modyfikacja: <?= date('Y-m-d H:i:s', strtotime($item['modified_at'])) ?>
+                                    Wysłano: <?= date('Y-m-d H:i:s', strtotime($item['sent_at'])) ?>
                                 </p>
+                                <? } ?>
 
                                 <? if (isset($item['to_name'])) { ?>
                                 <p class="fields">

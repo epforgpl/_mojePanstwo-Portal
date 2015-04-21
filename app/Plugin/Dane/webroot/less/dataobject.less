@@ -726,6 +726,23 @@
                 .attachment {
                     padding-left: 0;
                     padding-right: 0;
+                    position: relative;
+
+                    .documentFastCheck {
+                        position: absolute;
+                        top: 0;
+                        right: 3px;
+                        z-index: 1;
+                        padding: 5px;
+                        cursor: pointer;
+                        background: #ffffff;
+                        border: 1px solid #dddddd;
+                        -webkit-border-radius: 50px;
+                        -moz-border-radius: 50px;
+                        -ms-border-radius: 50px;
+                        -o-border-radius: 50px;
+                        border-radius: 50px;
+                    }
 
                     .thumb_cont {
                         max-width: inherit;
@@ -1004,6 +1021,15 @@
                 margin-left: 10px;
             }
         }
+        
+        .status {
+	        color: green;
+	        margin: 10px;
+        }
+        
+        .__autorzy_html_ul {
+	        margin: 10px;
+        }
 
         .sentence {
             color: #444;
@@ -1041,7 +1067,18 @@
             padding: 2px 8px;
             margin: 10px 0 15px;
         }
-
+		
+		&.prawo_projekty {
+			.attachment {
+				.thumb_cont {
+					max-height: inherit;
+					&::before {
+						border-bottom: none;
+					}
+				}
+			}
+		}
+		
         .attachment {
             margin-bottom: 10px;
 
@@ -1442,7 +1479,43 @@
             }
         }
     }
+}
 
+#documentFastCheckModal {
+    .modal-dialog {
+        width: 950px;
+        height: 90vh;
+
+        .modal-content {
+            height: 100%;
+
+            background-color: #efefef;
+
+            .modal-header {
+                background-color: #ffffff;
+
+                .close {
+                    margin-top: -10px;
+                }
+            }
+
+            .modal-body {
+                padding: 0;
+                height: 96%;
+                overflow: hidden;
+
+                iframe {
+                    border: none;
+                    display: block;
+                    margin: 0;
+                    padding: 0;
+                    width: 100%;
+                    height: 100%;
+                    overflow-x: hidden;
+                }
+            }
+        }
+    }
 }
 
 @media (min-width: 768px) {

@@ -22,7 +22,6 @@ class MSiGController extends DataobjectsController
         if ($this->object->getLayer('toc')) {
             $this->render('toc');
         } else {
-            $this->set('document', $this->API->document($this->object->getData('dokument_id')));
             $this->render('view');
         }
     }
@@ -32,7 +31,6 @@ class MSiGController extends DataobjectsController
 
         $this->_prepareView();
 
-        $this->set('document', $this->API->document($this->object->getData('dokument_id')));
         $this->render('view');
 
     }

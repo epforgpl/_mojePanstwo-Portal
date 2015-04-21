@@ -24,5 +24,9 @@ class Prawo_urzedowe extends DocDataObject
     );
     
     public $force_hl_fields = true;
-
+	
+	public function getLabel() {
+		return $this->getData('prawo_urzedowe.forma_str') . ' z dnia ' . dataSlownie( $this->getDate() );
+	}
+	
 }

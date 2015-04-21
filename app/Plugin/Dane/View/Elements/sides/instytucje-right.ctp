@@ -34,9 +34,9 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
                     </li>
                 <? } ?>
 	
-	            <? if ($object->getData('twitter_account_id')) { ?>
+	            <? if (false && $object->getData('twitter_account_id')) { ?>
 	                <li class="dataHighlight">
-	                    <a href="<?= $object->getUrl() ?>/tweety"><span
+	                    <a href="/dane/twitter_accounts/<?= $object->getData('twitter_account_id') ?>"><span
 	                            class="icon icon-moon">&#xe61d;</span>Tweety <span
 	                            class="glyphicon glyphicon-chevron-right"></span></a>
 	                </li>
@@ -79,10 +79,8 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
     <div class="block">
 
         <ul class="dataHighlights side">
-
-
-            <?
-            if ($www = $object->getData('www')) {
+            
+            <? if ($www = $object->getData('www')) {
                 $url = (stripos($www, 'http') === false) ? 'http://' . $www : $www;
                 ?>
                 <li class="dataHighlight">
@@ -92,10 +90,7 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
                                          href="<?= $url ?>"><?= $www; ?></a></p>
                 </li>
             <? } ?>
-        </ul>
-
-
-        <ul class="dataHighlights side" style="display: none;">
+            
             <? if ($email = $object->getData('email')) { ?>
                 <li class="dataHighlight">
                     <p class="_label">Adres e-mail</p>
@@ -121,8 +116,20 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
                 </li>
             <? } ?>
 
-
         </ul>
+        
+    </div>
+    
+    
+    
+    
+    <div class="block">
+        
+        <p class="text-center">
+	        <a class="actionIcons icon api" target="_blank" href="http://api-v2.mojepanstwo.pl/dane/<?= $object->dataset ?>/<?= $object->id ?>"><span
+                    class="glyphicon glyphicon-cog"></span>API
+            </a>
+        </p>
 
     </div>
     

@@ -255,6 +255,53 @@ class User extends PaszportAppModel
         return $response;
     }
 
+    /**
+     * Walidacja adresu e-mail
+     * Wysyłanie wiadomości z linkiem do zmiany hasła
+     *
+     * @param $data
+     * @return mixed
+     */
+    public function forgot($data) {
+        $response = $this->getDataSource()->request('paszport/user/forgot', array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    /**
+     * Walidacja tokenu zmiany hasła
+     *
+     * @param $data
+     * @return mixed
+     */
+    public function forgotToken($data) {
+        $response = $this->getDataSource()->request('paszport/user/forgotToken', array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    /**
+     * Wysyłanie nowego hasła
+     * Zmiana hasła użytkownika
+     *
+     * @param $data
+     * @return mixed
+     */
+    public function forgotNewPassword($data) {
+        $response = $this->getDataSource()->request('paszport/user/forgotNewPassword', array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
     public function register($data)
     {
         return $this->getDataSource()->register($data);

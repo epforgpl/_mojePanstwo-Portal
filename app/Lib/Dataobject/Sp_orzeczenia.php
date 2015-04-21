@@ -24,8 +24,8 @@ class Sp_orzeczenia extends DataObject
 	
     public function getLabel()
     {
-
-        return '<strong>Orzeczenie</strong> ' . $this->getData('dopelniacz') . ' z dnia ' . $this->dataSlownie($this->getDate());
+				
+        return '<strong>Orzeczenie</strong> ' . $this->getData('dopelniacz') . ' z dnia ' . dataSlownie($this->getDate());
 
     }
 
@@ -35,4 +35,7 @@ class Sp_orzeczenia extends DataObject
         return $this->getShortTitle() . ' - orzeczenie ' . $this->getData('dopelniacz') . ' z dnia ' . $this->dataSlownie($this->getDate());
 
     }
+        
+    public $force_hl_fields = true;
+    
 }

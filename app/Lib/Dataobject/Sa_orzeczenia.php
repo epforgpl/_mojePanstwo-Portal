@@ -19,11 +19,16 @@ class Sa_orzeczenia extends DataObject
         'title' => 'sygnatura',
         'shortTitle' => 'sygnatura',
         'date' => 'data_orzeczenia',
-        'label' => 'tytul_skrocony',
     );
 	
 	protected $hl_fields = array(
     	'skarzony_organ_str', 'wynik_str'
     );
+    
+    public function getLabel() {
+	    return 'Orzeczenie z dnia ' . dataSlownie( $this->getDate() );
+    }
+    
+    public $force_hl_fields = true;
 
 }

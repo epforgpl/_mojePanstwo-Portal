@@ -68,6 +68,23 @@ class Poslowie extends DataObject
     {
         return 'http://resources.sejmometr.pl/mowcy/a/' . $size . '/' . $this->getData('ludzie.id') . '.jpg';
     }
-
+	
+	public function getMetaDescriptionParts($preset = false)
+	{
+		
+		$output = array();
+		
+		if( $this->getData('poslowie.data_urodzenia') )
+			$output[] = pl_wiek($this->getData('poslowie.data_urodzenia')) . ' l.';
+			
+		if( $this->getData('sejm_kluby.skrot') )
+			$output[] = $this->getData('sejm_kluby.nazwa');
+			
+		if( $this->getData('poslowie.zawod') )
+			$output[] = $this->getData('poslowie.zawod');
+		
+		return $output;
+		
+	}
 
 }

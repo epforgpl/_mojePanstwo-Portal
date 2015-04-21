@@ -133,12 +133,20 @@
                 a {
                     color: #7d7d7d;
                     text-decoration: none;
+                    &:hover {
+	                    color: #157ab5 !important;
+                    }
                 }
                 button {
                     background: none;
                     border: none;
                     padding: 0;
                     margin: 0;
+                    color: #7d7d7d;
+                    
+                    &:hover {
+	                    color: #157ab5;
+                    }
                 }
 
                 .glyphicon {
@@ -167,8 +175,29 @@
     }
 
     .col-feed-side-right {
+        
+        .objectSideInner {
+	        .block {
+		        margin-left: 0;
+		        margin-right: 0;
+		        background-color: inherit;
+		        border: none;
+		        border-radius: 0;
+	        }
+	        
+	        .dataHighlights {
+		        .dataHighlight {
+			        border-bottom-color: #CCC;
+			        .icon {
+				        margin-right: 5px;
+			        }
+		        }
+	        }
+        }
+        
         .subscription {
             margin-bottom: 80px;
+            margin-top: 20px;
             
             .alert {
 	            margin-top: 30px;
@@ -184,7 +213,7 @@
 }
 
 @media (min-width: 768px) {
-    .dataFeed .col-feed-side-right {
+    .dataFeed .col-feed-side-right.topmargin {
         margin-top: 188px;
     }
 }

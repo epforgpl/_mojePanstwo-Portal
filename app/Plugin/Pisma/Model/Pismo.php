@@ -70,8 +70,21 @@ class Pismo extends AppModel
     }
     
     public function documents_partial_update($id, $doc) {
-        return $this->getDataSource()->request('documents/' . $id, $doc, 'PUT');
+        return $this->getDataSource()->request('pisma/documents/' . $id, array(
+	        'method' => 'PUT',
+	        'data' => $doc,
+        ));
     }
+    
+    public function documents_change_access($id, $access) {
+	    return $this->getDataSource()->request('pisma/documents/' . $id, array(
+	        'method' => 'PUT',
+	        'data' => array(
+		        'access' => $access,
+	        ),
+        ));
+	}
+    
     
     public function documents_delete($id, $params = array()) {
         
