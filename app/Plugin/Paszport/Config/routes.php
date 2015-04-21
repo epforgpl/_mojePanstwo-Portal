@@ -24,6 +24,7 @@ Router::connect('/authorize', array('plugin' => 'paszport', 'controller' => 'pas
 Router::connect('/forgot', array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'forgot'));
 
 Router::connect('/cross-domain-login', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'cross_domain_login'));
+Router::connect('/cross-domain-logout', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'cross_domain_logout'));
 
 Router::redirect('/paszport/users/failed', array(
     'plugin' => 'paszport',

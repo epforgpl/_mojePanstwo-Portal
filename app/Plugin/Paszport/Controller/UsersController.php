@@ -710,6 +710,8 @@ class UsersController extends PaszportAppController
 
         $this->set('title_for_layout', __d('paszport', 'LC_PASZPORT_LOGOUT', true));
         $this->Auth->logout();
+
+        $this->Session->write('crossdomain_logout', true);
         $this->redirect($this->referer());
     }
 

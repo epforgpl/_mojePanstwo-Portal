@@ -229,4 +229,13 @@ class PaszportController extends ApplicationsController
         $this->layout = 'ajax';
         $this->render(false);
     }
+
+    public function cross_domain_logout() {
+        // logout this user
+        $this->Auth->logout();
+
+        // no view
+        $this->layout = 'ajax';
+        $this->render(false);
+    }
 } 
