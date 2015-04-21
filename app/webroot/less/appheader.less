@@ -1,5 +1,5 @@
 .appHeader {
-    @menuSize: 56px;
+    @menuSize: 57px;
 
     width: 100%;
     height: 208px;
@@ -27,14 +27,14 @@
             margin: 0 10px 5px;
             font-size: 40px;
             font-weight: 300;
-            color: #ffffff;
+            color: #8abcda;
         }
 
         h2 {
-            margin: 0 10px 20px;
+            margin: 0 12px 20px;
             font-size: 18px;
             font-weight: 300;
-            color: #157Ab5;
+            color: #AAA;
         }
     }
 
@@ -44,6 +44,17 @@
         left: 0;
         width: 100%;
         height: @menuSize;
+        
+        background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.75) 100%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.75))); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.75) 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.75) 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.75) 100%); /* IE10+ */
+		background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.75) 100%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#bf000000',GradientType=0 ); /* IE6-9 */
+
+
+
 
         ul {
           border: none;
@@ -58,10 +69,10 @@
             a {
               color: #ffffff;
               font-size: 16px;
-              font-weight: bold;
+              font-weight: 400;
               border: none;
               border-bottom: 4px solid none;
-              padding: 16px 20px;
+              padding: 20px 20px 15px;
               margin: 0;
               &:hover {
                 background: none;
@@ -88,12 +99,9 @@
               a {
                 background: none;
                 border: none;
-                color: #157AB5;
+                color: #8ABCDA;
                 border-bottom: 4px solid #63afea;
                 margin: 0;
-                &:hover {
-                  color: #157AB5;
-                }
               }
             }
             ul {
