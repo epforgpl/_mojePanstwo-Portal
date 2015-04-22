@@ -4,7 +4,7 @@ App::uses('DataobjectsController', 'Dane.Controller');
 class PrawoController extends DataobjectsController
 {
 
-    public $initLayers = array('docs', 'counters', 'files', 'tags');
+    public $initLayers = array('docs', 'counters', 'files');
     public $helpers = array('Document');
 
     // public $uses = array('Dane.Dataliner');

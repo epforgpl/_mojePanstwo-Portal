@@ -64,7 +64,7 @@
 
     .nav-tabs > li {
         margin-top: 4px;
-        margin-bottom: -2px
+        margin-bottom: -1px
     }
 
     .objectPageHeaderContainer {
@@ -199,7 +199,7 @@
             border-bottom: none;
 
             > li {
-                margin-bottom: -3px;
+                margin-bottom: -1px;
 
                 &.active {
                     > a {
@@ -289,7 +289,20 @@
                 padding: 0 0 0 5px;
 
                 .block {
-                    background-color: #FAFAFA;
+                    background-color: inherit;
+                    border: none;
+                    margin-top: 30px !important;
+			        margin-bottom: 30px !important;
+			        
+			        &:first-child {
+				        margin-top: 0 !important;
+			        }
+			        
+                    .dataHighlights {
+	                    .dataHighlight {
+		                    border-bottom: 1px solid #CCC;
+	                    }
+                    }
                 }
 
                 &.rrs {
@@ -645,9 +658,12 @@ h2.light {
     text-align: right;
 }
 
+.object-actions-fix-margins {
+	margin-top: -20px;
+}
 .object-actions-ul {
     padding: 0;
-    margin: 0;
+    margin: 0 5px 0 10px;
     list-style: none;
 
     li {
@@ -685,7 +701,7 @@ h2.light {
             -ms-border-radius: 6px;
             -o-border-radius: 6px;
             border-radius: 6px;
-            margin: 0 1px 40px;
+            margin: 0 1px;
 
             strong {
                 font-size: 18px;

@@ -60,12 +60,10 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
                             roczny</p>
 
                         <div>
-                            <p class="_value pull-left"><?= number_format_h($object->getData('budzet_plan') * 1000) ?>
-                                PLN</p>
+                            <p class="_value"><a class=""
+                                                               href="/dane/instytucje/<?= $object->getId() ?>/budzet"><?= number_format_h($object->getData('budzet_plan') * 1000) ?>
+                                PLN</a></p>
 
-                            <p class="pull-right nopadding"><a class="btn btn-sm btn-default"
-                                                               href="/dane/instytucje/<?= $object->getId() ?>/budzet">Szczegóły &raquo;</a>
-                            </p>
                         </div>
                     </li>
                 <? } ?>
@@ -74,7 +72,10 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
 
         </div>
     <? } ?>
-
+	
+	<div class="object-actions-fix-margins">
+		<? echo $this->Element('Dane.object-actions'); ?>
+	</div>
 
     <div class="block">
 
@@ -125,7 +126,7 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
     
     <div class="block">
         
-        <p class="text-center">
+        <p class="api-link">
 	        <a class="actionIcons icon api" target="_blank" href="http://api-v2.mojepanstwo.pl/dane/<?= $object->dataset ?>/<?= $object->id ?>"><span
                     class="glyphicon glyphicon-cog"></span>API
             </a>

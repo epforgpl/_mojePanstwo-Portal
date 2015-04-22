@@ -20,10 +20,8 @@
             <? echo $this->Element('Dane.DataFeed/feed'); ?>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-2 col-feed-side col-feed-side-right<? if( !$mainPage ) echo " topmargin"; ?>">
-        
-        <? if( $mainPage ) echo $this->Element('Dane.object-actions'); ?>
-             
+    <div class="col-xs-12 col-sm-2 col-feed-side col-feed-side-right topmargin">
+                     
         <? if (isset($object_subscriptions) && $object_subscriptions) { ?>
         <div class="subscription">
             <h2><span class="glyphicon glyphicon-star"></span> Obserwowane dane</h2>

@@ -24,7 +24,9 @@ class InstytucjeController extends DataobjectsController
         ));
 
         if ($this->object->getData('file') == '1')
-            $this->feed();
+            $this->feed(array(
+	            'searchTitle' => $this->object->getTitle(),
+            ));
 
     }
 

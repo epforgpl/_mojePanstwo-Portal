@@ -174,15 +174,22 @@
         }
     }
 
-    .col-feed-side-right {
+    .col-feed-side {
         
         .objectSideInner {
 	        .block {
 		        margin-left: 0;
 		        margin-right: 0;
-		        background-color: inherit;
+		        background-color: inherit !important;
 		        border: none;
 		        border-radius: 0;
+		        background-color: inherit;
+		        margin-top: 30px !important;
+		        margin-bottom: 30px !important;
+		        
+		        &:first-child {
+			        margin-top: 0 !important;
+		        }
 	        }
 	        
 	        .dataHighlights {
@@ -198,6 +205,8 @@
         .subscription {
             margin-bottom: 80px;
             margin-top: 20px;
+            margin-left: 5px;
+            margin-right: 5px;
             
             .alert {
 	            margin-top: 30px;
@@ -209,11 +218,26 @@
                 margin: 40px 10px !important;
             }
         }
+        
+        .api-link {
+	        font-size: 12px;
+	        margin: 15px;
+	        
+	        a {
+		        color: #7d7d7d;
+		        &:hover {
+			        color: #157ab5;
+		        }
+		        .glyphicon {
+			        margin-right: 3px;
+		        }
+	        }
+        }
     }
 }
 
 @media (min-width: 768px) {
     .dataFeed .col-feed-side-right.topmargin {
-        margin-top: 188px;
+        margin-top: 160px;
     }
 }

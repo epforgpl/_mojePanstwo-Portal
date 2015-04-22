@@ -81,24 +81,7 @@
 		
         </ul>
     </div>
-    
-    <? if ($object->getLayer('tags')) { ?>
-    <div class="block">
-        <div class="block-header">
-            <h2 class="label">Tematy</h2>
-        </div>
-        <ul class="dataHighlights side">
-        <? foreach( $object->getLayer('tags') as $tag ) {?>	
-        	
-        	<li class="dataHighlight"><a title="<?= addslashes($tag['q']) ?>" href="/dane/prawo_hasla/<?= $tag['id'] ?>"><?= $this->Text->truncate($tag['q'], 35) ?></a></li>
-        	
-        <? } ?>	
-        </ul>
-    </div>
-    <? } ?>
-                    
-    
-    
+
     
     
 	

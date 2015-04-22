@@ -76,10 +76,10 @@
 
                 <? foreach ($search['items'] as $item) { ?>
                     <div class="row item-list" data-id="<?= $item['id']; ?>">
-                        <div class="col-md-1 text-center haveCheckbox">
+                        <div class="col-sm-1 text-center haveCheckbox">
                             <input type="checkbox" class="itemCheckbox"/>
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-sm-9">
                             <div class="thumb">
                                 <a href="/pisma/<?= $item['alphaid'] ?>,<?= $item['slug'] ?>">
                                     <img src="http://pisma.sds.tiktalik.com/thumbs/<?= $item['hash'] ?>.png"/>
@@ -105,7 +105,7 @@
 
                             </div>
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-sm-2">
                             <span class="date">
                                 <?= dataSlownie($item['date']); ?>
                             </span>
