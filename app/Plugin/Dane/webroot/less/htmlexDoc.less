@@ -16,9 +16,14 @@
         .toolbarSticker {
             height: 50px;
             background-color: #e9eaed;
+            width: 900px;
+            margin: 0 auto;
 
             .toolbarActions {
                 padding-top: 10px;
+                width: 100%;
+                display: inline-block;
+                float: left;
 
                 div {
                     border-right: 1px solid #969696;
@@ -125,8 +130,10 @@
                 }
 
                 .toolbarActions {
+                    display: block;
+                    float: none;
                     margin: 0 auto;
-                    width: 100%;
+                    width: 100%
                 }
             }
         }
@@ -281,5 +288,20 @@
                 }
             }
         }
+    }
+}
+
+@media (min-width: 728px) {
+    #_main .objectsPage .objectsPageContent .htmlexDoc #docsToolbar.stick .toolbarSticker .toolbarActions {
+        display: block;
+        height: 50px;
+        padding: 10px 0 0;
+        width: 900px;
+
+        -webkit-transform: translate(100px, 0px);
+        -moz-transform: translate(100px, 0px);
+        -ms-transform: translate(100px, 0px);
+        -o-transform: translate(100px, 0px);
+        transform: translate(100px, 0px);
     }
 }
