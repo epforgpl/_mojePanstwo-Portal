@@ -14,23 +14,7 @@ class ApplicationsController extends AppController
 
     public $components = array(
         'Session',
-        'Facebook.Connect',
-        'Auth' => array(
-            'loginRedirect' => array(
-                'controller' => 'paszport',
-                'plugin' => 'paszport',
-                'action' => 'login'
-            ),
-            'logoutRedirect' => array(
-                'controller' => 'paszport',
-                'plugin' => 'paszport',
-                'action' => 'logout',
-                'home'
-            ),
-            'authenticate' => array(
-                'Paszport'
-            )
-        )
+        'Facebook.Connect'
     );
 	
 	public $title = false;

@@ -172,10 +172,8 @@ class PaszportController extends ApplicationsController
         $this->setMenuSelected();
 		
         if($this->Auth->loggedIn()) {
-            
-            $this->set('user', $this->Auth->user());
-            $this->render('Paszport/profile');
-            
+            $this->redirect($this->Auth->redirectUrl());
+
         } else {
 	        
             if ($this->request->is('post')) {
@@ -192,7 +190,8 @@ class PaszportController extends ApplicationsController
 
                     $this->Session->write('crossdomain_login_token', $crossdomain_login_token);
 
-                    $this->redirect($this->referer());
+                    // redirect where it's best depending on the context
+                    $this->redirect($this->Auth->redirectUrl());
                     
                 } catch (Exception $e) {
                     $this->Session->setFlash(

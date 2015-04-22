@@ -1339,20 +1339,27 @@ class GminyController extends DataobjectsController
 
     public function ngo()
     {
-        
-        $this->_prepareView();
-        $this->Components->load('Dane.DataBrowser', array(
-            'conditions' => array(
-	            'dataset' => 'krs_podmioty',
-	            'krs_podmioty.gmina_id' => $this->object->getId(),
-    			'krs_podmioty.forma_prawna_typ_id' => '2',
-            ),
-            'aggsPreset' => 'krs_podmioty',
-        ));
-		
-        $this->set('title_for_layout', 'Organizacje pozarządowe w gminie ' . $this->object->getData('nazwa'));
-        $this->set('DataBrowserTitle', 'Organizacje pozarządowe w gminie ' . $this->object->getData('nazwa'));
-        
+        if(isset($this->request->query['export'])) {
+            $this->addInitLayers(array('ngo_export'));
+            $this->_prepareView();
+            ob_end_clean();
+            header('Content-Type: application/json');
+            echo $this->object->getLayer('ngo_export');
+            exit;
+        } else {
+            $this->_prepareView();
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'dataset' => 'krs_podmioty',
+                    'krs_podmioty.gmina_id' => $this->object->getId(),
+                    'krs_podmioty.forma_prawna_typ_id' => '2',
+                ),
+                'aggsPreset' => 'krs_podmioty',
+            ));
+
+            $this->set('title_for_layout', 'Organizacje pozarządowe w gminie ' . $this->object->getData('nazwa'));
+            $this->set('DataBrowserTitle', 'Organizacje pozarządowe w gminie ' . $this->object->getData('nazwa'));
+        }
     }
 
     public function spzoz()
