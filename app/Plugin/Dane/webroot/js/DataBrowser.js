@@ -66,7 +66,6 @@ var DataBrowser = Class.extend({
                 useHTML: true,
                 labelFormatter: function() {
                     var name = this.name;
-                    console.log(name, name.length);
                     if(name.length > 15)
                         name = name.substring(0, 15) + '...';
                     return '<a href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + name + '</a>';
