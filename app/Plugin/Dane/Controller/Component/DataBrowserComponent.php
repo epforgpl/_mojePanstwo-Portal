@@ -507,6 +507,30 @@ class DataBrowserComponent extends Component {
                     'field' => 'poslowie.zawod'
 	            ),
 	        ),
+	        'plec' => array(
+                'terms' => array(
+                    'field' => 'poslowie.plec',
+                    'include' => array(
+                        'pattern' => '(K|M)'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'poslowie.plec',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+		            'label' => 'Płeć',
+		            'skin' => 'pie_chart',
+	                'field' => 'poslowie.plec',
+	                'dictionary' => array(
+		                'K' => 'Kobiety',
+		                'M' => 'Mężczyźni',
+	                ),
+	            ),
+            ),
 	    ),
         'zamowienia_publiczne' => array(
             'wartosc_cena' => array(

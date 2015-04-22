@@ -29,6 +29,13 @@ class DaneController extends ApplicationsController
 	        isset( $this->request->query['q'] ) && 
 	        $this->request->query['q']
         ) {
+
+            if(isset($this->request->query['conditions']['dataset'])) {
+                $query = $this->request->query;
+                $dataset = $query['conditions']['dataset'];
+                unset($query['conditions']['dataset']);
+                $this->redirect('/dane/' . $dataset . '?' . http_build_query($query));
+            }
 		    	    
 		    $this->Components->load('Dane.DataBrowser', array(
 			    'conditions' => array(

@@ -18,11 +18,6 @@ class PaszportController extends ApplicationsController
 				'label' => 'Zarejestruj',
                 'href' => 'register'
 			),
-            array(
-                'id' => 'forgot',
-                'label' => 'Nowe hasło',
-                'href' => 'forgot'
-            ),
 		),
 		'title' => 'Paszport',
 		'subtitle' => '',

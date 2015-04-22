@@ -86,4 +86,66 @@
 		}
 	}
 
+  .actionbar {
+    margin-bottom: 10px;
+    min-height: 40px;
+
+    .margin-top-10 {
+      margin-top: 10px;
+    }
+
+    .optionsChecked {
+      display: none;
+    }
+
+  }
+
+  .item-list {
+    background: #fff;
+    border: 1px solid #eee;
+    border-bottom-width: 0;
+    padding: 10px 0;
+
+    .thumb {
+      float: left;
+      width: 85px;
+
+      img {
+        max-width: 75px;
+        margin-top: 5px;
+        border: 1px solid #DFDFDF;
+      }
+    }
+
+    .cont {
+      margin-left: 95px;
+
+      .title {
+        font-size: 22px;
+        font-weight: 300;
+        margin-bottom: 3px;
+      }
+
+      .meta {
+        font-size: 12px;
+        color: #999;
+        font-style: italic;
+      }
+
+      .fields {
+        .val {
+          color: green;
+        }
+      }
+    }
+
+    &:first-child {
+      border-bottom-width: 1px;
+    }
+    &.selected {
+      background-color: #FFFEF2;
+      border-left-color: #63AFEA;
+    }
+  }
+
 }
