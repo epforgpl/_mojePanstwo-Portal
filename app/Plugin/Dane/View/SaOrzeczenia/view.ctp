@@ -50,6 +50,13 @@
                     </div>
                 <? } ?>
 
+                <div class="well well-sm">
+                    Źródło:
+                    <a href="http://orzeczenia.nsa.gov.pl/">
+                        orzeczenia.nsa.gov.pl
+                    </a>
+                </div>
+
             </div>
         </div>
 
