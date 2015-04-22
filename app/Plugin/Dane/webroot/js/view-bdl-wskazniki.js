@@ -244,6 +244,9 @@ jQuery(document).ready(function () {
                             title: {
                                 text: ''
                             },
+                            chart: {
+                                height: 150
+                            },
                             credits: {
                                 enabled: false
                             },
