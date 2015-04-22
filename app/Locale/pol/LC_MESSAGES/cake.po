@@ -61,7 +61,7 @@ msgstr ""
 
 #: Controller/Component/AuthComponent.php:377
 msgid "You are not authorized to access that location."
-msgstr "Brak uprawnień do wybranej lokalizacji"
+msgstr "Zaloguj się, aby skorzystać z tej funkcjonalności."
 
 #: Error/ExceptionRenderer.php:212
 msgid "Not Found"

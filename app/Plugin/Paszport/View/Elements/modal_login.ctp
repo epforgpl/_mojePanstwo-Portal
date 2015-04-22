@@ -12,7 +12,7 @@
                     'id' => 'UserLoginForm',
                     'url' => $this->Html->url(array(
                         'plugin' => 'paszport',
-                        'controller' => 'users',
+                        'controller' => 'paszport',
                         'action' => 'login',
                         'full_base' => true
                     ))

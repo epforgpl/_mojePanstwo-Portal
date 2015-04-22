@@ -1,13 +1,13 @@
 <?php
 
-Router::connect('/paszport', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'login'));
-Router::connect('/paszport/users/login', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'login'));
-Router::connect('/paszport/users', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'login'));
 Router::connect('/login', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'login'));
-Router::redirect('/zaloguj', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'login'));
-Router::redirect('/logowanie', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'login'));
+//Router::connect('/paszport', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'login'));
+//Router::connect('/paszport/users/login', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'login'));
+//Router::connect('/paszport/users', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'login'));
+//Router::redirect('/zaloguj', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'login'));
+//Router::redirect('/logowanie', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'login'));
 
-Router::connect('/logout', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'logout'));
+Router::connect('/logout', array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'logout'));
 Router::connect('/register', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'register'));
 
 Router::connect('/paszport/klucze', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'keys'));
