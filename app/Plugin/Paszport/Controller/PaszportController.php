@@ -2,6 +2,7 @@
 
 App::uses('ApplicationsController', 'Controller');
 App::import('Model', 'Paszport.User');
+App::uses('Security', 'Utility');
 
 class PaszportController extends ApplicationsController
 {
@@ -179,10 +180,18 @@ class PaszportController extends ApplicationsController
 	        
             if ($this->request->is('post')) {
                 try {
-	                
 	                $previous_session_id = session_id();	                
                     $this->Auth->login();
 	                $this->Session->write('previous_id', $previous_session_id);
+
+                    $user_id = $this->Auth->user('id');
+                    $crossdomain_login_token_plain = rand( 0, PHP_INT_MAX ) . ' ' . $user_id . ' ' .
+                        Configure::read('Security.salt');
+                    $crossdomain_login_token = urlencode(base64_encode(Security::rijndael($crossdomain_login_token_plain,
+                        Configure::read('Security.salt'), 'encrypt')));
+
+                    $this->Session->write('crossdomain_login_token', $crossdomain_login_token);
+
                     $this->redirect($this->referer());
                     
                 } catch (Exception $e) {
@@ -250,4 +259,45 @@ class PaszportController extends ApplicationsController
         $this->title = 'Zarejestruj się - Paszport';
     }
 
+    public function cross_domain_login() {
+        $tokeno = $this->request->query['token'];
+        $token = base64_decode($tokeno);
+        $token = Security::rijndael($token, Configure::read('Security.salt'), 'decrypt');
+        $token = explode(' ', $token);
+        if (count($token) != 3 or $token[2] != Configure::read('Security.salt')) {
+            throw new BadRequestException();
+        }
+
+        $uid = $token[1];
+
+        if($this->Auth->loggedIn()) {
+            // logout if different user
+            if ($this->Auth->user('id') != $uid) {
+                $this->Auth->logout();
+            }
+        }
+
+        $userCl = new User();
+        $user = $userCl->read($uid);
+
+        if (empty($user)) {
+            throw new Exception("Was expecting user data");
+        }
+
+        // login this user
+        $this->Auth->login($user);
+
+        // no view
+        $this->layout = 'ajax';
+        $this->render(false);
+    }
+
+    public function cross_domain_logout() {
+        // logout this user
+        $this->Auth->logout();
+
+        // no view
+        $this->layout = 'ajax';
+        $this->render(false);
+    }
 } 

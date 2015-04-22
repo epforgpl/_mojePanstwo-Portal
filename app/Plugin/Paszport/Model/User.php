@@ -188,6 +188,10 @@ class User extends PaszportAppModel
         return $this->getDataSource()->login($email, $password);
     }
 
+    public function read($uid) {
+        return $this->getDataSource()->request('paszport/users/read', array('data' => array('user_id' => $uid)));
+    }
+
     public function setUserName($username) {
         $response = $this->getDataSource()->request('paszport/user/setUserName', array(
             'data' => array(

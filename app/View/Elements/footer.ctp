@@ -1,5 +1,7 @@
 <footer>
-    <?php echo $this->fetch('footerBeginBlock'); ?>
+    <?= $this->fetch('footerBeginBlock'); ?>
+
+    <?= $this->Element('cross_domain_login'); ?>
 
     <?php echo $this->Html->link(__('LC_FOOTER_ABOUT_US'), '/oportalu', array('target' => '_self')); ?>
     <?php /*
@@ -17,5 +19,5 @@
     <span class="separator">|</span>
     <?php echo $this->Html->link(__('LC_FOOTER_EPF'), 'http://epf.org.pl', array('target' => '_blank')); ?>
 
-    <?php echo $this->fetch('footerEndBlock'); ?>
+    <?= $this->fetch('footerEndBlock'); ?>
 </footer>

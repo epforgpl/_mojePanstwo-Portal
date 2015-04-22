@@ -367,6 +367,9 @@ class AppController extends Controller {
 				( $this->request->params['controller'] == 'Subscriptions' )
 				) {
 				
+				} elseif (stripos( $_SERVER['REQUEST_URI'], '/cross-domain-' ) === 0
+					or stripos( $_SERVER['REQUEST_URI'], '/paszport/users/log' ) === 0) {
+
 				} else {
 				
 					$url = $_SERVER['REQUEST_URI'];
@@ -428,7 +431,17 @@ class AppController extends Controller {
 		if ( Router::url( null ) != '/null' ) { // hack for bug
 			$this->Session->write( 'Auth.loginRedirect', Router::url( null, true ) );
 		}
-		
+
+		// cross domain login
+		$this->set('current_host', $_SERVER['HTTP_HOST']);
+		if ($this->Session->check('crossdomain_login_token')) {
+			$this->set('crossdomain_login_token', $this->Session->read('crossdomain_login_token'));
+			$this->Session->delete('crossdomain_login_token');
+		}
+		if ($this->Session->check('crossdomain_logout')) {
+			$this->set('crossdomain_logout', $this->Session->read('crossdomain_logout'));
+			$this->Session->delete('crossdomain_logout');
+		}
 	}
 
 	/**
