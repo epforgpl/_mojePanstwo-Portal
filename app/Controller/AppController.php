@@ -40,10 +40,11 @@ class AppController extends Controller {
 		'Session',
 		'Auth' => array(
 			'loginAction'  => array(
-				'controller' => 'users',
+				'controller' => 'paszport',
 				'action'     => 'login',
 				'plugin'     => 'paszport'
 			),
+			'loginRedirect' => '/', # After plain login redirect to main page
 			'authenticate' => array(
 				'Form' => array(
 					'fields'         => array( 'username' => 'email', 'password' => 'password' ),
@@ -55,6 +56,9 @@ class AppController extends Controller {
 //                    'contain' => array('Language', 'Group', 'UserExpand'),
 				)
 			)
+//			,'authenticate' => array(
+//				'Paszport'
+//			)
 		),
 	);
 	
@@ -426,11 +430,10 @@ class AppController extends Controller {
 		$this->set( '_APPLICATIONS', $this->getApplications() );
 		$this->set( '_APPLICATION', $this->getApplication() );
 
-
-		// remember path for redirect if necessary
-		if ( Router::url( null ) != '/null' ) { // hack for bug
-			$this->Session->write( 'Auth.loginRedirect', Router::url( null, true ) );
-		}
+//		// remember path for redirect if necessary
+//		if ( Router::url( null ) != '/null' ) { // hack for bug
+//			$this->Session->write( 'Auth.loginRedirect', Router::url( null, true ) );
+//		}
 
 		// cross domain login
 		$this->set('current_host', $_SERVER['HTTP_HOST']);

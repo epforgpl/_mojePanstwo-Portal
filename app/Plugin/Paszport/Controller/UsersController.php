@@ -19,18 +19,19 @@ class UsersController extends PaszportAppController
      */
     public function beforeFilter()
     {
-        // save login redirect because it will be overwritten by AppController::beforeFilter
-        if ($this->Session->read("Auth.loginRedirect") != Router::url(array('action' => 'login'), true)
-            && $this->Session->read("Auth.loginRedirect") != Router::url(array('action' => 'fblogin'), true)
-            && $this->Session->read("Auth.loginRedirect") != (Router::url('/', true) . 'oauth/login')
-        ) {
-            $this->Auth->loginRedirect = $this->Session->read("Auth.loginRedirect");
-        }
+//        // save login redirect because it will be overwritten by AppController::beforeFilter
+//        if ($this->Session->read("Auth.loginRedirect") != Router::url(array('action' => 'login'), true)
+//            && $this->Session->read("Auth.loginRedirect") != Router::url(array('action' => 'fblogin'), true)
+//            && $this->Session->read("Auth.loginRedirect") != (Router::url('/', true) . 'oauth/login')
+//        ) {
+//            $this->Auth->loginRedirect = $this->Session->read("Auth.loginRedirect");
+//        }
 
         parent::beforeFilter();
 
         $this->Auth->allow(array(
             'login',
+            'logout',
             'add',
             'gate',
             'ping',
@@ -74,31 +75,31 @@ class UsersController extends PaszportAppController
         $this->set('title_for_layout', __d('paszport', 'LC_PASZPORT_ACCOUNT_INFO', true));
     }
 
-    /**
-     * Login method
-     */
-    public function login()
-    {
-        if ($this->Auth->loggedIn()) {
-            $this->redirect('/');
-        }
-
-        if ($this->request->is('post')) {
-            $user = $this->PassportApi->User()->login($this->data);
-
-            if ($user['user']) {
-	            $this->Session->write('previous_id', session_id());
-                $this->Auth->login($user['user']);
-                $this->redirect($this->Auth->redirectUrl());
-
-            } else {
-                $this->Session->setFlash(__d('paszport', 'LC_PASZPORT_LOGIN_FAILED'), 'alert', array('class' => 'alert-error'), 'auth');
-                $this->redirect(array('action' => 'login'));
-            }
-        }
-        $this->set('title_for_layout', __d('paszport', 'LC_PASZPORT_LOGIN', true));
-
-    }
+//    /**
+//     * Login method
+//     */
+//    public function login()
+//    {
+//        if ($this->Auth->loggedIn()) {
+//            $this->redirect('/');
+//        }
+//
+//        if ($this->request->is('post')) {
+//            $user = $this->PassportApi->User()->login($this->data);
+//
+//            if ($user['user']) {
+//	            $this->Session->write('previous_id', session_id());
+//                $this->Auth->login($user['user']);
+//                $this->redirect($this->Auth->redirectUrl());
+//
+//            } else {
+//                $this->Session->setFlash(__d('paszport', 'LC_PASZPORT_LOGIN_FAILED'), 'alert', array('class' => 'alert-error'), 'auth');
+//                $this->redirect(array('action' => 'login'));
+//            }
+//        }
+//        $this->set('title_for_layout', __d('paszport', 'LC_PASZPORT_LOGIN', true));
+//
+//    }
 
     /**
      * Performs a FB login
