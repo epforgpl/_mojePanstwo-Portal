@@ -258,7 +258,15 @@ class PismaController extends ApplicationsController
 		}
 		
         $search = $this->Pismo->documents_search($params);
-        // debug($search); die();
+
+        if(isset($this->request->query['debug'])) {
+            echo "<pre>";
+            var_export($search);
+            echo "</pre>";
+            die();
+        }
+
+        $this->set('query', $this->request->query);
         $this->set('search', $search);
         $this->set('q', $q);
         $this->set('title_for_layout', 'Moje pisma');
