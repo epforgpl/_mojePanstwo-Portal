@@ -26,6 +26,7 @@ $(document).ready(function() {
             for(var k = 0; k < local_data.length; k++) {
                 if(geo[i].properties.id == local_data[k].local_id) {
                     geo[i].value = parseFloat(local_data[k].lv);
+                    geo[i].id = 'o' + geo[i].properties.id;
                     found = true;
                     break;
                 }
@@ -67,7 +68,8 @@ $(document).ready(function() {
                 enabled: false
             },
             tooltip: {
-                pointFormat: '{point.name}: {point.value} ' + (this.unit !== undefined ? this.unit : '')
+                pointFormat: '{point.name}: {point.value} ' + (this.unit !== undefined ? this.unit : unitStr),
+                headerFormat: ''
             },
             colorAxis: {
                 minColor: '#ffffff',
@@ -76,9 +78,60 @@ $(document).ready(function() {
                 max: max,
                 type: type
             },
+            plotOptions: {
+                series: {
+                    //allowPointSelect: true,
+                    point: {
+                        events: {
+                            mouseOver: function() {
+                                this.graphic.toFront();
+                            },
+                            mouseOut: function() {
+
+                            },
+                            select: function() {
+                                this.graphic.toFront();
+                            },
+                            click: function() {
+                                var index = this.index + 1;
+                                $('tr.wskaznikStatic').each(function() {
+                                    var _this = $(this);
+                                    var _index = $(this).attr('data-local_id');
+                                    if(_index == index) {
+                                        $('html, body').animate({
+                                            scrollTop: _this.offset().top
+                                        }, 1000);
+                                        if(!_this.hasClass('clicked'))
+                                            _this.click();
+                                        return true;
+                                    }
+
+                                    _this
+                                        .removeClass('clicked')
+                                        .find('.wskaznikChart')
+                                        .hide();
+                                });
+                            }
+                        }
+                    },
+                    states: {
+                        select: {
+                            borderColor: '#014068',
+                            borderWidth: 1
+                        },
+                        hover: {
+                            borderColor: '#014068',
+                            borderWidth: 1,
+                            brightness: false,
+                            color: false
+                        }
+                    }
+                }
+            },
             series: [{
                 data: geo,
-                nullColor: '#ffffff'
+                nullColor: '#ffffff',
+                borderWidth: 1
             }]
         });
 
@@ -107,6 +160,22 @@ $(document).ready(function() {
             });
 
         }
+
+        $('tr.wskaznikStatic')
+            .on("mouseenter", function() {
+                var id = parseInt($(this).attr('data-local_id'));
+                highmap
+                    .highcharts()
+                    .get('o' + id)
+                    .select();
+            })
+            .on( "mouseleave", function() {
+                var id = parseInt($(this).attr('data-local_id'));
+                highmap
+                    .highcharts()
+                    .get('o' + id)
+                    .select(false);
+            });
 
     });
 });
