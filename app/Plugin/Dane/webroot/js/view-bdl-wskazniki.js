@@ -162,7 +162,6 @@ jQuery(document).ready(function () {
             jQuery.each(data, function () {
                 var chart = this,
                     wskaznik = jQuery('.wskaznik[data-dim_id="' + chart.id + '"]').find('.chart'),
-                    wskaznikBackground = (wskaznik.data('chart-background') != undefined) ? wskaznik.data('chart-background') : '#FFFFFF',
                     label = [],
                     value = [];
 
@@ -176,7 +175,7 @@ jQuery(document).ready(function () {
                         text: ''
                     },
                     chart: {
-                        backgroundColor: wskaznikBackground
+                        backgroundColor: null
                     },
                     credits: {
                         enabled: false
@@ -214,10 +213,16 @@ jQuery(document).ready(function () {
                 wskaznikData = wskaznik.data(),
                 wskaznikChart = wskaznik.find('.wskaznikChart');
 
+            if(wskaznik.hasClass('clicked')) {
+                wskaznikChart.hide();
+                wskaznik.removeClass('clicked');
+                return false;
+            }
+
             wskaznikChart.css({'width': wskaznikwidth});
 
             jQuery.ajax({
-                url: "/dane/bdl_wskazniki/chart_data_for_dimmensions.json?dims=" + wskaznikData.dim_id + '&localtype=' + wskaznikData.local_type + '&localid=' + wskaznikData.local_id,
+                url: '/dane/bdl_wskazniki/local_chart_data_for_dimmensions.json?dims=' + wskaznikData.dim_id + '&localtype=' + wskaznikData.local_type + '&localid=' + wskaznikData.local_id,
                 type: "POST",
                 dataType: "json",
                 beforeSend: function () {
@@ -230,52 +235,49 @@ jQuery(document).ready(function () {
                 complete: function (res) {
                     var data = res.responseJSON.data;
 
-                    jQuery.each(data, function () {
-                        var chart = this,
-                            label = [],
-                            value = [];
+                    var chart = data,
+                        label = [],
+                        value = [];
 
-                        jQuery.each(chart.data, function () {
-                            label.push(this.y);
-                            value.push(Number(this.v));
-                        });
+                    jQuery.each(chart, function () {
+                        label.push(this.y);
+                        value.push(Number(this.v));
+                    });
 
-                        wskaznikChart.highcharts({
-                            title: {
-                                text: ''
-                            },
-                            chart: {
-                                height: 150
-                            },
-                            credits: {
-                                enabled: false
-                            },
-                            xAxis: {
-                                categories: label
-                            },
-                            yAxis: {
-                                title: ''
-                            },
-                            tooltip: {
-                                valueSuffix: ''
-                            },
-                            legend: {
-                                enabled: false,
-                                align: 'left'
-                            },
-                            series: [
-                                {
-                                    name: "Wartość",
-                                    data: value
-                                }
-                            ]
-                        });
-                    })
+                    wskaznikChart.highcharts({
+                        title: {
+                            text: ''
+                        },
+                        chart: {
+                            height: 150
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        xAxis: {
+                            categories: label
+                        },
+                        yAxis: {
+                            title: ''
+                        },
+                        tooltip: {
+                            valueSuffix: ''
+                        },
+                        legend: {
+                            enabled: false,
+                            align: 'left'
+                        },
+                        series: [
+                            {
+                                name: unitStr,
+                                data: value
+                            }
+                        ]
+                    });
                 }
             });
 
             wskaznik.addClass('clicked');
-            wskaznik.unbind('click');
         });
 
         jQuery('.localDataSearch input').keyup(function () {
