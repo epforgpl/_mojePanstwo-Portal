@@ -593,6 +593,15 @@ msgstr "Wprowadź nowe hasło dla konta"
 msgid "LC_PASZPORT_CHANGEPASSWORD_INFO"
 msgstr "Wprowadź nowe hasło dla odzyskanego Paszportu"
 
+msgid "LC_PASZPORT_CHANGEPASSWORD_BUTTON"
+msgstr "Zmień hasło"
+
+msgid "LC_PASZPORT_CHANGEPASSWORD_EMAIL_SENDED"
+msgstr "Na podany przez Ciebie adres e-mail została wysłana wiadomość z instrukcjami"
+
+msgid "LC_PASZPORT_CHANGEPASSWORD_SAVED"
+msgstr "Twoje hasło zostało zmienione. Teraz możesz się zalogować używając nowego hasła."
+
 msgid "LC_PASZPORT_ADD_KEY"
 msgstr "Stwórz nowy klucz"
 
@@ -745,11 +754,20 @@ msgstr "Zamknij"
 msgid "LC_PASZPORT_MODAL_LOGIN_VIA_FACEBOOK"
 msgstr "Zaloguj się przez swoje konto Facebook"
 
+msgid "LC_PASZPORT_MODAL_REGISTER_VIA_FACEBOOK"
+msgstr "Zarejestruj się przez swoje konto Facebook"
+
 msgid "LC_PASZPORT_MODAL_LOGIN_VIA_EMAIL"
 msgstr "Zaloguj się przez konto email"
 
+msgid "LC_PASZPORT_MODAL_REGISTER_VIA_EMAIL"
+msgstr "Zarejestruj się przez konto email"
+
 msgid "LC_PASZPORT_MODAL_LOGIN_REGISTER"
 msgstr "Nie masz konta? Wyrób paszport na Twoje konto email"
+
+msgid "LC_PASZPORT_MODAL_LOGIN_LOGIN"
+msgstr "Masz konto? Zaloguj się"
 
 msgid "LC_PASZPORT_FLASH_MESSAGE_SWITCH_STREAM"
 msgstr "Aktualny stream"

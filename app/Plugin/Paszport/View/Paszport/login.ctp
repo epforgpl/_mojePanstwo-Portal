@@ -1,11 +1,11 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('paszport', array('plugin' => 'Paszport'))) ?>
 
-<div class="objectsPage">
+<div class="objectsPage fullPageHeight"
+     style="background-image: url('/img/home/backgrounds/home-background-default.jpg')">
     <div id="modalPaszportLoginForm" class="paszportModal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
                     <h4 class="modal-title"
                         id="myModalLabel"><?php echo __d('paszport', 'LC_PASZPORT_PROJECT_MOTTO'); ?></h4>
                 </div>

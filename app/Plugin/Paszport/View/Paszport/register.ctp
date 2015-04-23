@@ -1,11 +1,13 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('paszport', array('plugin' => 'Paszport'))) ?>
-<div class="objectsPage">
+
+<div class="objectsPage fullPageHeight"
+     style="background-image: url('/img/home/backgrounds/home-background-default.jpg')">
     <div class="createAccount" id="modalPaszportLoginForm">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title"
-                        id="myModalLabel">Rejestracja</h4>
+                        id="myModalLabel"><?php echo __d('paszport', 'LC_PASZPORT_FOOTER_REGISTER'); ?></h4>
                 </div>
                 <div class="modal-body">
                     <?php echo $this->Form->create('User', array(
@@ -17,25 +19,30 @@
                             'full_base' => true
                         ))
                     )); ?>
-                            <div class="slide inputForm col-xs-12">
-                                <div class="control-group">
-                                    <label class="control-label" for="AccountType">
-                                        <?php echo __d('paszport', "LC_PASZPORT_ACCOUNT_TYPE"); ?>
-                                    </label>
 
-                                    <div class="controls" id="AccountType">
-                                        <div class="btn-group">
-                                            <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
-                                                <?php echo $groups[key($groups)]; ?>
-                                                <span class="caret"></span>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <?php foreach ($groups as $k => $g) { ?>
-                                                    <li data-group="<?php echo $k ?>"><a href="#"><?php echo $g ?></a></li>
-                                                <?php } ?>
-                                            </ul>
-                                        </div>
-                                    </div>
+                    <div class="slide or col-xs-12">
+                        <?php echo __d('paszport', 'LC_PASZPORT_MODAL_REGISTER_VIA_EMAIL') ?>
+                    </div>
+
+                    <div class="slide inputForm col-xs-12 hide">
+                        <div class="control-group">
+                            <label class="control-label" for="AccountType">
+                                <?php echo __d('paszport', "LC_PASZPORT_ACCOUNT_TYPE"); ?>
+                            </label>
+
+                            <div class="controls" id="AccountType">
+                                <div class="btn-group">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
+                                        <?php echo $groups[key($groups)]; ?>
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <?php foreach ($groups as $k => $g) { ?>
+                                            <li data-group="<?php echo $k ?>"><a href="#"><?php echo $g ?></a></li>
+                                        <?php } ?>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -103,7 +110,7 @@
                         )); ?>
                     </div>
 
-                    <div class="slide inputForm col-xs-12">
+                    <div class="slide inputForm col-xs-12 hide">
                         <?php echo $this->Form->input('User.language_id', array(
                             'class' => 'selectpicker',
                             'label' => __d('paszport', "LC_PASZPORT_CREATE_LANGUAGE", true)
@@ -112,6 +119,24 @@
 
                     <div class="slide inputForm sendForm col-xs-12">
                         <?php echo $this->Form->submit(__d('paszport', 'LC_PASZPORT_REGISTER_BUTTON'), array('class' => 'btn btn-primary sendForm')); ?>
+                    </div>
+
+                    <div class="slide or col-xs-12">
+                        <?php echo __d('paszport', 'LC_PASZPORT_MODAL_REGISTER_VIA_FACEBOOK') ?>
+                    </div>
+
+                    <div class="slide logInVia col-xs-12">
+                        <div class="content text-center">
+                            <?php echo $this->Html->link('<i class="fa fa-facebook"></i>' . __d('paszport', 'LC_PASZPORT_LOGIN'), array(
+                                'plugin' => 'paszport',
+                                'controller' => 'users',
+                                'action' => 'fblogin'
+                            ), array('class' => 'btn btn-social btn-facebook btn-md', 'escape' => false)); ?>
+                        </div>
+                    </div>
+
+                    <div class="slide register col-xs-12">
+                        <?php echo $this->Html->link(__d('paszport', 'LC_PASZPORT_MODAL_LOGIN_LOGIN', true), '/login', array('class' => 'register', 'autocomplete' => 'off', 'target' => '_self')); ?>
                     </div>
 
                     <?php echo $this->Form->end(); ?>
