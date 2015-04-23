@@ -2,7 +2,6 @@
 <div class="object">
     <div class="document col-md-10 col-md-offset-1">
         <div class="block-group">
-
             <?php foreach ($object->getLayer('bloki') as $blok) { ?>
 
                 <div class="block">
@@ -15,6 +14,13 @@
                         <?php echo $blok['orzeczenia_bloki']['wartosc']; ?>
                     </div>
 
+                </div>
+
+                <div class="well well-sm">
+                    Źródło:
+                    <a href="http://orzeczenia.ms.gov.pl/">
+                        orzeczenia.ms.gov.pl
+                    </a>
                 </div>
             <?php } ?>
         </div>

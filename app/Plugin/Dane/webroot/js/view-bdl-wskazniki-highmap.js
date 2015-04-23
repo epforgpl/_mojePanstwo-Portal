@@ -44,7 +44,9 @@ $(document).ready(function() {
         if(min == 0 && max == 0)
             max = 1;
 
-        $('#highmap').highcharts('Map', {
+        var highmap = $('#highmap');
+
+        highmap.highcharts('Map', {
             title: {
                 text: ' '
             },
@@ -79,5 +81,32 @@ $(document).ready(function() {
                 nullColor: '#ffffff'
             }]
         });
+
+        // sticky map
+        if($(window).width() > 1000) {
+
+            var mapOffset = highmap.offset();
+            var t = mapOffset.top;
+            var f = false;
+
+            $(window).scroll(function() {
+
+                var top = $(window).scrollTop();
+
+                if(!f && top > t) {
+                    highmap.css('top', '50px');
+                    highmap.css('position', 'fixed');
+                    f = true;
+                }
+
+                if(f && top <= t) {
+                    highmap.css('position', 'relative');
+                    f = false;
+                }
+
+            });
+
+        }
+
     });
 });

@@ -65,8 +65,12 @@ var DataBrowser = Class.extend({
             legend: {
                 useHTML: true,
                 labelFormatter: function() {
-                    return '<a href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + this.name + '</a>';
-                }
+                    var name = this.name;
+                    if(name.length > 15)
+                        name = name.substring(0, 15) + '...';
+                    return '<a href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + name + '</a>';
+                },
+                itemWidth: 150
             },
             plotOptions: {
                 pie: {

@@ -5,7 +5,7 @@
 
 <?= $this->Element('appheader'); ?>
 
-<div class="container" id="myPismaBrowser">
+<div class="container" id="myPismaBrowser" data-query='<?= json_encode($query); ?>'>
     <div class="col-md-10 col-md-offset-1">
 	
 		<? if( !$this->Session->read('Auth.User.id') ) { ?>
@@ -70,6 +70,7 @@
                                     <li><a href="#">Action</a></li>
                                 </ul>
                             </div>
+                            <div class="btn-group text-left selectAccessButton" data-json='<?= json_encode($search['aggs']['access']); ?>'></div>
                         </div>
                     </div>
                 </div>
@@ -105,7 +106,7 @@
 
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-2 text-right">
                             <span class="date">
                                 <?= dataSlownie($item['date']); ?>
                             </span>
