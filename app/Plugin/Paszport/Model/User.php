@@ -311,4 +311,17 @@ class User extends PaszportAppModel
     {
         return array();
     }
+
+    public function find($type, $conditions) {
+        $response = $this->getDataSource()->request('paszport/user/find', array(
+            'data' => array(
+                'type'       => $type,
+                'conditions' => $conditions
+            ),
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
 }
