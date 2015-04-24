@@ -55,14 +55,20 @@ class UsersController extends PaszportAppController
     {
         $id = $this->Auth->user('id');
         $this->layout = 'Paszport.default';
-        $user = $this->PassportApi->find('users', array('conditions' => array('User.id' => $this->Auth->user('id'))));
-        $user = $user['user'];
-        $languages = $this->PassportApi->findAsList('languages', array(
+
+        $user = new User();
+        $user = $user->find('first', array('conditions' => array('User.id' => $this->Auth->user('id'))));
+        //$user = $this->PassportApi->find('users', array('conditions' => array('User.id' => $this->Auth->user('id'))));
+        //$user = $user['User'];
+        /* $languages = $this->PassportApi->findAsList('languages', array(
             'fields' => array(
                 'Language.id',
                 'Language.label'
             )
-        ));
+        )); */
+        $languages = array(
+            'language' => array()
+        );
         $languages = $languages['language'];
         if (!$user['User']['password_set'] && !is_null($user['User']['source'])) {
             $this->Session->setFlash('<a href="' . Router::url(array(

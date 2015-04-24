@@ -32,7 +32,7 @@
             <div class="_mPApplication">
                 <?php if ($this->Session->read('Auth.User.id')) { ?>
                     <div class="_mPUser">
-                        <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'index')); ?>">
+                        <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'profile')); ?>">
                             <img src="<?php if ($this->Session->read('Auth.User.photo_small')) {
                                 echo $this->Session->read('Auth.User.photo_small');
                             } else {
