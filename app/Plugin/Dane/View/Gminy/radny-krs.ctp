@@ -1,7 +1,11 @@
 <?
-echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
-echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy-dyzury', array('plugin' => 'Dane')));
-echo $this->Combinator->add_libs('js', 'Dane.view-gminy-dyzury');
+echo $this->Html->script('Dane.d3/d3', array('block' => 'scriptBlock'));
+
+$this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('view-gminy-dyzury', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('view-krs-graph', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('js', 'Dane.view-gminy-dyzury');
+$this->Combinator->add_libs('js', 'graph-krs');
 
 if ($object->getId() == '903') {
     $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
@@ -38,6 +42,11 @@ echo $this->Element('Dane.dataobject/subobject', array(
                     ));
                 } ?>
 
+                <div class="powiazania block">
+                    <div class="block-header"><h2 class="label">Powiązania</h2></div>
+                    <div id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>"
+                         data-url="krs_osoby"></div>
+                </div>
 
             <? } ?>
 
