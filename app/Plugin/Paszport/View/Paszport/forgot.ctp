@@ -7,7 +7,7 @@
             <div class="modal-content">
                 <? if (isset($tokenSuccess) && $tokenSuccess) { ?>
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel"><?= _('LC_PASZPORT_CHANGE_PASSWORD') ?></h4>
+                        <h4 class="modal-title" id="myModalLabel"><?= __d('paszport', 'LC_PASZPORT_CHANGE_PASSWORD') ?></h4>
                     </div>
                     <div class="modal-body">
 	                    
