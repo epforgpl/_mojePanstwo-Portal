@@ -580,7 +580,7 @@ $(function () {
                     '<link href="\/css\/htmlexDocMain_v2.css" type="text\/css" rel="stylesheet">' +
                     '<link href="http:\/\/mojepanstwo.pl\/htmlex\/' + documentId + '\/' + documentId + '.css" type="text\/css" rel="stylesheet">' +
                     '<style>' +
-                    'html,body{margin:0}#docsToolbar{position:fixed !important;width:100%;z-index:10;top:0;left:0;background-color:#e9eaed;}.toolbarActions{width:100%;float: left;min-height: 1px;position: relative;}.document{margin-top:50px}.docDownload{margin-top:-3px;}.show{display: block !important;}.hide{display: none !important;}.loading {background: url("http:\/\/mojepanstwo.pl\/img\/loader\/loading-small.png") no-repeat center center; min-height: 30px; }.document{margin-bottom:50px;}' +
+                    'html,body{margin:0}#docsToolbar{position:fixed !important;width:100%;height:40px!important;z-index:10;top:0;left:0;background-color:#e9eaed;}.toolbarSticker{height:40px!important;}.toolbarActions{padding-top:0!important;float: left;min-height: 1px;position: relative;}.document{margin-top:50px}.docDownload{margin-top:-3px;}.show{display: block !important;}.hide{display: none !important;}.loading {background: url("http:\/\/mojepanstwo.pl\/img\/loader\/loading-small.png") no-repeat center center; min-height: 30px; }.document{margin-bottom:50px;}' +
                     '<\/style>' +
                     '<\/head><body>' +
                     '<script src="\/libs\/jquery\/2.1.1\/jquery.min.js" type="text\/javascript"><\/script>' +

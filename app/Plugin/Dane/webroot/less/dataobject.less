@@ -1021,14 +1021,14 @@
                 margin-left: 10px;
             }
         }
-        
+
         .status {
-	        color: green;
-	        margin: 10px;
+            color: green;
+            margin: 10px;
         }
-        
+
         .__autorzy_html_ul {
-	        margin: 10px;
+            margin: 10px;
         }
 
         .sentence {
@@ -1067,18 +1067,18 @@
             padding: 2px 8px;
             margin: 10px 0 15px;
         }
-		
-		&.prawo_projekty {
-			.attachment {
-				.thumb_cont {
-					max-height: inherit;
-					&::before {
-						border-bottom: none;
-					}
-				}
-			}
-		}
-		
+
+        &.prawo_projekty {
+            .attachment {
+                .thumb_cont {
+                    max-height: inherit;
+                    &::before {
+                        border-bottom: none;
+                    }
+                }
+            }
+        }
+
         .attachment {
             margin-bottom: 10px;
 
@@ -1492,10 +1492,18 @@
             background-color: #efefef;
 
             .modal-header {
-                background-color: #ffffff;
+                position: relative;
+                min-height: 30px;
+                height: 30px;
+                padding: 0;
+                background-color: #E9EAED;
+                border-bottom: none;
 
                 .close {
-                    margin-top: -10px;
+                    position: absolute;
+                    top: 5px;
+                    right: 15px;
+                    z-index: 20;
                 }
             }
 
