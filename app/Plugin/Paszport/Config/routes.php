@@ -9,6 +9,8 @@ Router::connect('/login', array('plugin' => 'paszport', 'controller' => 'paszpor
 
 Router::connect('/logout', array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'logout'));
 Router::connect('/register', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'register'));
+Router::connect('/forgot', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'forgot'));
+
 
 Router::connect('/paszport/klucze', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'keys'));
 Router::connect('/paszport/logi', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'logs'));
@@ -21,7 +23,6 @@ Router::connect('/paszport/user/delete', array('plugin' => 'paszport', 'controll
 Router::connect('/fblogin', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'facebookLogin'));
 Router::connect('/paszport/users/fblogin', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'facebookLogin'));
 Router::connect('/authorize', array('plugin' => 'paszport', 'controller' => 'passports', 'action' => 'authorize'));
-Router::connect('/forgot', array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'forgot'));
 
 Router::connect('/cross-domain-login', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'cross_domain_login'));
 Router::connect('/cross-domain-logout', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'cross_domain_logout'));
