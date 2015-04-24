@@ -10,26 +10,28 @@
                         <h4 class="modal-title" id="myModalLabel"><?= _('LC_PASZPORT_CHANGE_PASSWORD') ?></h4>
                     </div>
                     <div class="modal-body">
-                        <?php echo $this->Form->create('User', array('plugin' => 'Paszport', 'controller' => 'Paszport', 'action' => 'forgot')); ?>
-                        <? if (isset($newPasswordSuccess) && $newPasswordSuccess) { ?>
-                            <p class="text-success"><?= _('LC_PASZPORT_CHANGEPASSWORD_SAVED') ?></p>
-                        <? } else { ?>
-                            <input type="hidden" name="token" value="<?= $token ?>"/>
-                        <? } ?>
-                        <div class="slide inputForm col-xs-12">
-                            <?php echo $this->Form->input('User.password', array(
-                                'class' => 'input-xlarge form-control',
-                                'type' => 'password',
-                                'label' => 'Nowe hasło',
-                                'autocomplete' => 'off',
-                                'required' => 'required',
-                                'after' => '<span class="help-block"></span>'
-                            )); ?>
-                        </div>
-                        <div class="slide inputForm sendForm col-xs-12">
-                            <?php echo $this->Form->submit(_('LC_PASZPORT_CHANGEPASSWORD_BUTTON'), array('class' => 'btn btn-primary sendForm')); ?>
-                        </div>
-                        <?php echo $this->Form->end(); ?>
+	                    
+	                    <form action="/forgot" id="UserForgotForm" method="post" accept-charset="utf-8">
+	                    
+	                        <? if (isset($newPasswordSuccess) && $newPasswordSuccess) { ?>
+	                            <p class="text-success"><?= __d('paszport', 'LC_PASZPORT_CHANGEPASSWORD_SAVED') ?></p>
+	                        <? } else { ?>
+	                            <input type="hidden" name="token" value="<?= $token ?>"/>
+	                        <? } ?>
+	                        <div class="slide inputForm col-xs-12">
+	                            <?php echo $this->Form->input('User.password', array(
+	                                'class' => 'input-xlarge form-control',
+	                                'type' => 'password',
+	                                'label' => 'Nowe hasło',
+	                                'autocomplete' => 'off',
+	                                'required' => 'required',
+	                                'after' => '<span class="help-block"></span>'
+	                            )); ?>
+	                        </div>
+	                        <div class="slide inputForm sendForm col-xs-12">
+	                            <?php echo $this->Form->submit(__d('paszport', 'LC_PASZPORT_CHANGEPASSWORD_BUTTON'), array('class' => 'btn btn-primary sendForm')); ?>
+	                        </div>
+                        </form>
                     </div>
                 <? } else { ?>
                     <div class="modal-header">
