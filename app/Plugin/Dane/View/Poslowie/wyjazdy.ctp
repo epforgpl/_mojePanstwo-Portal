@@ -11,29 +11,33 @@ echo $this->Element('dataobject/pageBegin');
                 na kwotę <?= _currency($object->getData('wartosc_wyjazdow')) ?></p>
         <? } ?>
 
-        <table class="table table-striped table-hover " style="font-size: 13px;">
-            <thead>
-            <tr>
-                <th>Miejsce</th>
-                <th>Wydarzenie</th>
-                <th>Koszt</th>
-                <th style="min-width: 7em;">Od</th>
-                <th style="min-width: 7em;">Do</th>
-            </tr>
-            </thead>
-            <tbody>
-            <? foreach ($object->getLayer('wyjazdy') as $ev) { ?>
+        <? if ($object->getLayer('wyjazdy')) { ?>
+            <table class="table table-striped table-hover " style="font-size: 13px;">
+                <thead>
                 <tr>
-                    <td><?= $ev['kraj'] ?>, <?= $ev['miasto'] ?></td>
-                    <td><a href="/dane/poslowie_wyjazdy_wydarzenia/<?= $ev['id'] ?>"><?= $ev['delegacja'] ?></a></td>
-                    <td style="text-align: right;"><?= _currency($ev['koszt_suma']) ?></td>
-                    <td><?= $this->Czas->dataSlownie($ev['od']) ?></td>
-                    <td><?= $this->Czas->dataSlownie($ev['do']) ?></td>
+                    <th>Miejsce</th>
+                    <th>Wydarzenie</th>
+                    <th>Koszt</th>
+                    <th style="min-width: 7em;">Od</th>
+                    <th style="min-width: 7em;">Do</th>
                 </tr>
-            <? } ?>
-            </tbody>
-        </table>
-
+                </thead>
+                <tbody>
+                <? foreach ($object->getLayer('wyjazdy') as $ev) { ?>
+                    <tr>
+                        <td><?= $ev['kraj'] ?>, <?= $ev['miasto'] ?></td>
+                        <td><a href="/dane/poslowie_wyjazdy_wydarzenia/<?= $ev['id'] ?>"><?= $ev['delegacja'] ?></a>
+                        </td>
+                        <td style="text-align: right;"><?= _currency($ev['koszt_suma']) ?></td>
+                        <td><?= $this->Czas->dataSlownie($ev['od']) ?></td>
+                        <td><?= $this->Czas->dataSlownie($ev['do']) ?></td>
+                    </tr>
+                <? } ?>
+                </tbody>
+            </table>
+        <? } else { ?>
+            <p>Brak udokumentowanych wyjazdów zagranicznych.</p>
+        <? } ?>
     </div>
 
 <?
