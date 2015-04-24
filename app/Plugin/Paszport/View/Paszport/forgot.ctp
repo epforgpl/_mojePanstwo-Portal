@@ -11,27 +11,27 @@
                     </div>
                     <div class="modal-body">
 	                    
-	                    <form action="/forgot" id="UserForgotForm" method="post" accept-charset="utf-8">
-	                    
-	                        <? if (isset($newPasswordSuccess) && $newPasswordSuccess) { ?>
-	                            <p class="text-success"><?= __d('paszport', 'LC_PASZPORT_CHANGEPASSWORD_SAVED') ?></p>
-	                        <? } else { ?>
+                        <? if (isset($newPasswordSuccess) && $newPasswordSuccess) { ?>
+                            <p class="text-success"><?= __d('paszport', 'LC_PASZPORT_CHANGEPASSWORD_SAVED') ?></p>
+                        <? } else { ?>
+		                    <form action="/forgot" id="UserForgotForm" method="post" accept-charset="utf-8">
 	                            <input type="hidden" name="token" value="<?= $token ?>"/>
-	                        <? } ?>
-	                        <div class="slide inputForm col-xs-12">
-	                            <?php echo $this->Form->input('User.password', array(
-	                                'class' => 'input-xlarge form-control',
-	                                'type' => 'password',
-	                                'label' => 'Nowe hasło',
-	                                'autocomplete' => 'off',
-	                                'required' => 'required',
-	                                'after' => '<span class="help-block"></span>'
-	                            )); ?>
-	                        </div>
-	                        <div class="slide inputForm sendForm col-xs-12">
-	                            <?php echo $this->Form->submit(__d('paszport', 'LC_PASZPORT_CHANGEPASSWORD_BUTTON'), array('class' => 'btn btn-primary sendForm')); ?>
-	                        </div>
-                        </form>
+		                        <div class="slide inputForm col-xs-12">
+		                            <?php echo $this->Form->input('User.password', array(
+		                                'class' => 'input-xlarge form-control',
+		                                'type' => 'password',
+		                                'label' => 'Nowe hasło',
+		                                'autocomplete' => 'off',
+		                                'required' => 'required',
+		                                'after' => '<span class="help-block"></span>'
+		                            )); ?>
+		                        </div>
+		                        <div class="slide inputForm sendForm col-xs-12">
+		                            <?php echo $this->Form->submit(__d('paszport', 'LC_PASZPORT_CHANGEPASSWORD_BUTTON'), array('class' => 'btn btn-primary sendForm')); ?>
+		                        </div>
+	                        </form>
+                        <? } ?>
+	                        
                     </div>
                 <? } else { ?>
                     <div class="modal-header">
