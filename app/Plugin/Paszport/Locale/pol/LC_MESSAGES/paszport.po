@@ -588,7 +588,7 @@ msgstr "Konto zostało utworzone poprzez serwis Facebook. Dla bezpieczeństwa zo
 
 #: View/Users/setpassword.ctp:8
 msgid "LC_PASZPORT_CHANGE_PASSWORD"
-msgstr "Wprowadź nowe hasło dla konta"
+msgstr "Zmiana hasła dla konta"
 
 msgid "LC_PASZPORT_CHANGEPASSWORD_INFO"
 msgstr "Wprowadź nowe hasło dla odzyskanego Paszportu"
