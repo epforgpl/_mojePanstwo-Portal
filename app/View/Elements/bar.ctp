@@ -37,8 +37,8 @@
 	                } else {
 	                    echo '/img/avatars/avatar_default.jpg';
 	                } ?>"/>
-	
-	                <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'index')); ?>"><?php echo __('LC_COCKPITBAR_USER_LINK'); ?></a>
+					
+	                <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'index')); ?>"><?= $this->Session->read('Auth.User.username'); ?></a>
 	            </div>
 	        <?php } ?>
 	            <div class="_mPPowerButton">
