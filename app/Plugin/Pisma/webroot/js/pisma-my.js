@@ -29,7 +29,7 @@
             };
 
             var h = [
-                '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">',
+                '<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">',
                 'Dostęp',
                 ' <span class="caret"></span>',
                 '</button>'

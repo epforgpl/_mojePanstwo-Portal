@@ -60,17 +60,10 @@ class MojaGminaController extends ApplicationsController
 
     public function index()
     {
+
         $this->setMenuSelected();
         $this->set('title_for_layout', 'Moja gmina');
 
-        if (
-            ($q = @$this->request->query['q']) &&
-            ($gminy = $this->MojaGmina->search($q, 1)) &&
-            (!empty($gminy)) &&
-            ($gmina = $gminy[0])
-        ) {
-            $this->redirect('/dane/gminy/' . $gmina->getId());
-        }
 
     }
 

@@ -99,9 +99,6 @@ class AuthCode extends OAuthAppModel
 
     public function save($data)
     {
-        /* $api = mpapiComponent::getApi()->OAuth()->AuthCode();
-        $ret = $api->save($data);
-        return $ret; */
 
         $response = $this->getDataSource()->request('oauth/auth_codes/save/', array(
             'data' => $data,
@@ -113,13 +110,10 @@ class AuthCode extends OAuthAppModel
 
     public function findByCode($code)
     {
-        /*$api = mpapiComponent::getApi()->OAuth()->AuthCode();
-
-        return $api->findByCode($code);*/
-
-        $response = $this->getDataSource()->request('oauth/refresh_tokens/find/' . $code, array(
+        
+        $response = $this->getDataSource()->request('oauth/auth_codes/find/' . $code, array(
             'data' => array(),
-            'method' => 'POST'
+            'method' => 'GET'
         ));
 
         return $response;

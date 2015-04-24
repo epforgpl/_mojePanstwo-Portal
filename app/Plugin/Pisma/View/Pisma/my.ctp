@@ -5,8 +5,26 @@
 
 <?= $this->Element('appheader'); ?>
 
+<div class="search-container">
+    <? if ($search['pagination']['total']) { ?>
+    <div class="container">
+	    <div class="row">
+		    <div class="col-sm-10 col-sm-offset-1">
+			    <div class="form-group">
+			        <form method="GET" action="/pisma/moje">
+			            <input name="q" class="form-control input-md" placeholder="Szukaj w moim pismach..." type="text"
+			                   value="<?= $q ?>">
+			            <input type="submit" value="Szukaj" style="display: none;"/>
+			        </form>
+			    </div>
+		    </div>
+	    </div>
+    </div>
+    <? } ?>
+</div>
+
 <div class="container" id="myPismaBrowser" data-query='<?= json_encode($query); ?>'>
-    <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-10 col-sm-offset-1">
 	
 		<? if( !$this->Session->read('Auth.User.id') ) { ?>
 		<div class="alert alert-dismissable alert-success">
@@ -16,25 +34,11 @@
 		</div>
 		<? } ?>
 		
-        <p class="login-warning"></p>
-
         <div class="letters">
-
-            <div class="toolbar">
-                <? if ($search['pagination']['total']) { ?>
-                <div class="form-group">
-                    <form method="GET" action="/pisma/moje">
-                        <input name="q" class="form-control input-lg" placeholder="Szukaj w moim pismach..." type="text"
-                               value="<?= $q ?>">
-                        <input type="submit" value="Szukaj" style="display: none;"/>
-                    </form>
-                </div>
-                <? } ?>
-            </div>
 
             <? if ($search['pagination']['total']) { ?>
 
-                <div class="row actionbar">
+                <div class="row actionbar" style="display: none;">
                     <div class="col-md-1 text-center">
                         <input type="checkbox" class="checkAll margin-top-10"/>
                     </div>
@@ -55,7 +59,7 @@
                         </div>
                         <div class="optionsUnChecked">
                             <div class="btn-group text-left">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     Szablon <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
@@ -63,7 +67,7 @@
                                 </ul>
                             </div>
                             <div class="btn-group text-left">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     Adresat <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
@@ -77,7 +81,7 @@
 
                 <? foreach ($search['items'] as $item) { ?>
                     <div class="row item-list" data-id="<?= $item['id']; ?>">
-                        <div class="col-sm-1 text-center haveCheckbox">
+                        <div class="col-sm-1 text-center haveCheckbox" style="display: none;">
                             <input type="checkbox" class="itemCheckbox"/>
                         </div>
                         <div class="col-sm-9">

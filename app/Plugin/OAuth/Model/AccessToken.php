@@ -87,12 +87,10 @@ class AccessToken extends OAuthAppModel
 
     public function find($type, $queryData)
     {
-        /*$api = mpapiComponent::getApi()->OAuth()->AccessToken();
 
-        return $api->find($type, $queryData);*/
         $response = $this->getDataSource()->request('oauth/access_tokens/find/' . $type, array(
             'data' => $queryData,
-            'method' => 'POST'
+            'method' => 'GET'
         ));
 
         return $response;
@@ -100,9 +98,7 @@ class AccessToken extends OAuthAppModel
 
     public function save($data)
     {
-        /*$api = mpapiComponent::getApi()->OAuth()->AccessToken();
 
-        return $api->save($data);*/
         $response = $this->getDataSource()->request('oauth/access_tokens/save/', array(
             'data' => $data,
             'method' => 'POST'

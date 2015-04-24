@@ -192,6 +192,18 @@ class BdlWskaznikiController extends DataobjectsController
         $this->set('dimension', $dimension);
     }
 
+    public function local_chart_data_for_dimmensions()
+    {
+        $dims = isset($this->request->query['dims']) ? $this->request->query['dims'] : 0;
+        $localtype = isset($this->request->query['localtype']) ? $this->request->query['localtype'] : 0;
+        $localid = isset($this->request->query['localid']) ? $this->request->query['localid'] : 0;
+
+        $this->loadModel('Statystyka.BDL');
+        $data = $this->BDL->getLocalChartDataForDimmesions($dims, $localtype, $localid);
+
+        $this->set('data', $data);
+        $this->set('_serialize', array('data'));
+    }
 
     public function chart_data_for_dimmensions()
     {
@@ -203,7 +215,6 @@ class BdlWskaznikiController extends DataobjectsController
 
         $this->set('data', $data);
         $this->set('_serialize', array('data'));
-
     }
     
     public function legacy_redirect()

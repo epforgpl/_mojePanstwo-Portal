@@ -52,6 +52,20 @@ class BDL extends AppModel
         return @$data['data'];
     
     }
+
+    public function getLocalChartDataForDimmesions($dimid, $localtype, $localid)
+    {
+        $data = $this->getDataSource()->request('bdl/getLocalDataForDimension/', array(
+            'method' => 'GET',
+            'data' => array(
+                'dimid'     => $dimid,
+                'localtype' => $localtype,
+                'localid'   => $localid
+            ),
+        ));
+
+        return @$data['data'];
+    }
     
     public function getTree()
     {

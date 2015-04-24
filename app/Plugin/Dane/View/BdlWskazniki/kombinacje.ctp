@@ -24,6 +24,7 @@
             }
 
             if($option) {
+
                 ?>
 
                 <div class="wskaznik bdl-single" data-dim_id="<?= $option['data']['id'] ?>">
@@ -58,7 +59,7 @@
                                     <?php } ?>
                                 </p>
                             </div>
-                            <div class="chart" data-chart-background="#EEEEEE">
+                            <div class="chart">
                                 <div class="progress progress-striped active">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="45"
                                          aria-valuemin="0" aria-valuemax="100" style="width: 15%"></div>
@@ -169,7 +170,7 @@
                                         </thead>
                                         <tbody>
                                         <? foreach ($local_data as $local) { ?>
-                                            <tr class="wskaznikStatic" data-dim_id="<?= $option['data']['id'] ?>" data-local_type="2"
+                                            <tr class="wskaznikStatic" data-dim_id="<?= $option['data']['id'] ?>" data-local_type="<?= $menuSelect ?>"
                                                 data-local_id="<?= $local["local_id"] ?>">
                                                 <td>
                                                     <div class="holder">
@@ -186,7 +187,10 @@
                                                 </td>
                                                 <td>
                                 <span class="sortOption"
-                                      data-ay-sort-weight="<?= $local['lv'] ?>"><?= number_format($local['lv'], 2, ',', ' ') ?></span>
+                                      data-ay-sort-weight="<?= $local['lv'] ?>">
+                                    <?= number_format($local['lv'], 2, ',', ' ') ?>
+                                    <?= $option['data']['jednostka'] ?>
+                                </span>
                                 <span class="sortOption"
                                       data-ay-sort-weight="<?= $local['ly'] ?>"><?= __d('dane', 'LC_BDL_WSKAZNIKI_LASTYEAR', array($local['ly'])) ?></span>
                                                 </td>
@@ -215,7 +219,7 @@
     </div>
 
 <? if(isset($local_data) && is_array($local_data)): ?>
-    <script type="text/javascript">var local_data = <?= json_encode($local_data); ?>;</script>
+    <script type="text/javascript">var local_data = <?= json_encode($local_data); ?>; var unitStr = '<?= $option['data']['jednostka'] ?>';</script>
 <? endif; ?>
 
 <?= $this->Element('dataobject/pageEnd'); ?>
