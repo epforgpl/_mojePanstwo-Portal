@@ -433,7 +433,7 @@ msgstr "Przypomnienie hasła"
 
 #: View/Users/forgot.ctp:5
 msgid "LC_PASZPORT_FORGOT_PASSWORD_EVANGELION"
-msgstr "Na podany przez Ciebie adres e-mail, wysłaliśmy wiadomość z linkiem do odzyskiwania hasła."
+msgstr "Wprowadź adres email, którym zarejestrowano konto, a my odeślemy ci na niego instrukcję z dalszymi krokami odzyskiwania hasła."
 
 msgid "LC_PASZPORT_USERNAME"
 msgstr "Nazwa użytkownika"

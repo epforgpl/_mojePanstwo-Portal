@@ -53,7 +53,7 @@
                     <div class="slide loginOptions col-xs-12">
                         <?php echo $this->Html->link(__d('paszport', 'LC_PASZPORT_FORGOT_PASSWORD', true), array(
                             'plugin' => 'paszport',
-                            'controller' => 'users',
+                            'controller' => 'paszport',
                             'action' => 'forgot'
                         )); ?>
                     </div>
