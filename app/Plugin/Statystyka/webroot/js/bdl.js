@@ -8,17 +8,16 @@ String.prototype.capitalizeFirstLetter = function () {
         rootData = [];
 
     $.each(json, function (key, data) {
-        var root = {
-                "text": key.toLowerCase().capitalizeFirstLetter()
-            },
-            rootChildren = [];
-
         $.each(data, function (itemKey, itemData) {
             var item = {
                 'data ': {
                     id: itemKey
                 },
                 'text': itemData['dane']['tytul'].toLowerCase().capitalizeFirstLetter(),
+                'id': 'kategoria_id=' + itemKey,
+                'a_attr': {
+                    'href': '#kategoria_id=' + itemKey
+                },
                 'children': true
             }, itemChildren = [];
 
@@ -28,6 +27,10 @@ String.prototype.capitalizeFirstLetter = function () {
                         'id': grupyKey
                     },
                     'text': grupyData['dane']['tytul'].toLowerCase().capitalizeFirstLetter(),
+                    'id': 'grupa_id=' + grupyKey,
+                    'a_attr': {
+                        'href': '#grupa_id=' + grupyKey
+                    },
                     'children': true
                 }, grupyChildren = [];
 
@@ -36,7 +39,11 @@ String.prototype.capitalizeFirstLetter = function () {
                         data: {
                             'id': podgrupyKey
                         },
-                        'text': podgrupyData['dane']['tytul'].toLowerCase().capitalizeFirstLetter()
+                        'text': podgrupyData['dane']['tytul'].toLowerCase().capitalizeFirstLetter(),
+                        'a_attr': {
+                            'href': '/dane/bdl_wskazniki/' + podgrupyKey,
+                            'target': '_self'
+                        }
                     };
                     grupyChildren.push(podgrupy);
                 });
@@ -46,16 +53,27 @@ String.prototype.capitalizeFirstLetter = function () {
             });
 
             item.children = itemChildren;
-            rootChildren.push(item);
+            rootData.push(item);
         });
-
-        root.children = rootChildren;
-        rootData.push(root)
     });
 
     tree.jstree({
         'core': {
             'data': rootData
+        }
+    }).bind("select_node.jstree", function (e, data) {
+        if (data.node.a_attr.href.charAt(0) == '#') {
+            if (typeof (History.pushState) != "undefined") {
+                var obj = {Page: data.node.text, Url: data.node.a_attr.href};
+                History.pushState(obj, obj.Page, obj.Url);
+            }
+        } else {
+            document.location.href = data.node.a_attr.href;
+        }
+    }).bind("loaded.jstree", function () {
+        if (window.location.href.slice(window.location.href.indexOf('#') + 1)) {
+            var link = '[id="' + window.location.href.slice(window.location.href.indexOf('#') + 1) + '_anchor"]';
+            tree.jstree("open_node", $(link));
         }
     });
 }(jQuery));
