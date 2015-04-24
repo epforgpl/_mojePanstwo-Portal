@@ -3,7 +3,6 @@ echo $this->Element('dataobject/pageBegin');
 
 echo $this->Html->script('Dane.d3/d3', array('block' => 'scriptBlock'));
 
-$this->Combinator->add_libs('css', $this->Less->css('view-krsosoby', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-krs-graph', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.view-krsosoby');
 $this->Combinator->add_libs('js', 'graph-krs');
