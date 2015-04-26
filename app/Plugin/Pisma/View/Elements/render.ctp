@@ -23,10 +23,10 @@
         <div class="control control-sender">
             <?php if (isset($pismoEditPage) && $pismoEditPage) {
                 if (empty($pismo['nadawca'])) { ?>
-                    <textarea class="nadawca empty" placeholder="Wpisz dane nadawcy..." rows="1"
+                    <textarea class="nadawca empty" placeholder="Wpisz dane nadawcy (opcjonalnie)" rows="1"
                               maxlength="511"></textarea>
                 <? } else { ?>
-                    <textarea class="nadawca" placeholder="Wpisz dane nadawcy..." rows="1"
+                    <textarea class="nadawca" placeholder="Wpisz dane nadawcy (opcjonalnie)" rows="1"
                               maxlength="511"><?= $pismo['nadawca'] ?></textarea>
                 <? }
             } else {
@@ -61,7 +61,7 @@
     <div class="editor-controls">
         <div class="control control-signature">
             <?php if (empty($pismo['podpis'])) { ?>
-                <textarea class="podpis empty" placeholder="Podpisz się" rows="1" maxlength="255"></textarea>
+                <textarea class="podpis empty" placeholder="Podpisz się (opcjonalnie)" rows="1" maxlength="255"></textarea>
             <? } else { ?>
                 <div class="pre"><?= str_replace("\n", '<br/>', $pismo['podpis']) ?></div>
             <? } ?>

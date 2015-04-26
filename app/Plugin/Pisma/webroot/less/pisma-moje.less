@@ -97,11 +97,14 @@
 	}
 
   .actionbar {
-    margin-bottom: 10px;
     min-height: 40px;
 
     .margin-top-10 {
       margin-top: 10px;
+    }
+    
+    .margin-top-7 {
+      margin-top: 7px;
     }
 
     .optionsChecked {
@@ -111,7 +114,30 @@
     .btn {
 	    background-color: inherit;
     }
+    
+    .dropdown-menu {
+	    min-width: 270px !important;
+    }
+    
+    .glyphicon {
+	    font-size: 12px;
+	    margin-right: 3px;
+    }
 
+  }
+  
+  .remove-filters {
+	  padding: 0;
+	  margin: 0 18px 5px;
+	  
+	  .glyphicon {
+		  margin-right: 3px;
+		  font-size: 13px;
+	  }
+  }
+  
+  .items {
+	  margin-top: 10px;
   }
 
   .item-list {
@@ -151,6 +177,9 @@
       .fields {
 	    font-size: 13px;
 	    margin: 10px 0;
+	    small {
+		    margin-right: 3px;
+	    }
         .val {
           color: green;
         }

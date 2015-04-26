@@ -4,6 +4,13 @@ App::uses('ApplicationsController', 'Controller');
 class PismaController extends ApplicationsController
 {
 	
+	private $aggs_dict = array(
+		'access' => array(
+			'private' => 'Prywatne',
+			'public' => 'Publiczne',
+		),
+	);
+	
 	public $settings = array(
 		'menu' => array(
 			array(
@@ -257,20 +264,85 @@ class PismaController extends ApplicationsController
 			
 		}
 		
+		
+		$filters_selected = array();
+		$allowed_vars = array('template', 'to', 'sent', 'access');
+		
+		foreach( $allowed_vars as $var ) {
+			if( isset($this->request->query[$var]) && $this->request->query[$var] ) {
+				$filters_selected[ $var ] = true;
+				$params['conditions'][$var] = $this->request->query[$var];
+			}
+		}
+		
         $search = $this->Pismo->documents_search($params);
-
-        if(isset($this->request->query['debug'])) {
-            echo "<pre>";
-            var_export($search);
-            echo "</pre>";
-            die();
-        }
-
+		$performance = $search['performance'];
+		$pagination = $search['pagination'];
+		$items = $search['items'];
+		$_aggs = $search['aggs']['all'];
+		
+		// debug($_aggs); die();
+		
+		$aggs = array();
+				
+		foreach( $_aggs['access']['filtered']['buckets'] as $bucket ) {
+			$aggs['access']['buckets'][] = array(
+				'key' => $bucket['key'],
+				'label' => $this->aggs_dict['access'][ $bucket['key'] ],
+				'count' => $bucket['doc_count'],
+			);
+		}
+				
+		foreach( $_aggs['to_dataset']['filtered']['buckets'] as $dataset_bucket ) {			
+			foreach( $dataset_bucket['to_id']['buckets'] as $id_bucket ) {								
+				$aggs['to']['buckets'][] = array(
+					'key' => $dataset_bucket['key'] . ':' . $id_bucket['key'],
+					'label' => $id_bucket['to_name']['buckets'][0]['key'],
+					'count' => $id_bucket['doc_count'],
+				);
+			}
+		}
+		
+		foreach( $_aggs['template_id']['filtered']['buckets'] as $bucket ) {			
+			$aggs['template']['buckets'][] = array(
+				'key' => $bucket['key'],
+				'label' => $bucket['template_label']['buckets'][0]['key'],
+				'count' => $bucket['doc_count'],
+			);
+		}
+		
+		foreach( $_aggs['sent']['filtered']['buckets'] as $bucket ) {
+			
+			if( $bucket['key']=='F' ) {
+				$aggs['sent']['buckets'][] = array(
+					'key' => '0',
+					'label' => 'Niewysłane',
+					'count' => $bucket['doc_count'],
+				);
+			} elseif( $bucket['key']=='T' ) {
+				$aggs['sent']['buckets'][] = array(
+					'key' => '1',
+					'label' => 'Wysłane',
+					'count' => $bucket['doc_count'],
+				);
+			}
+						
+			
+		}
+		
+		// debug( $aggs ); die();
+		
         $this->set('query', $this->request->query);
-        $this->set('search', $search);
+        $this->set('performance', $performance);
+        $this->set('pagination', $pagination);
+        $this->set('items', $items);
+        $this->set('aggs', $aggs);
         $this->set('q', $q);
         $this->set('title_for_layout', 'Moje pisma');
+        $this->set('filters_selected', $filters_selected);
         $this->setMenuSelected('moje');
+        
+        $this->title = 'Moje Pisma';
     }	
 	
 	/*

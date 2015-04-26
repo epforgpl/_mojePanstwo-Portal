@@ -14,88 +14,6 @@
             return this;
         },
 
-        createSelectAccessButton: function() {
-
-            var t = this;
-            var m = t.main;
-
-            var accessButton = m.find('.selectAccessButton');
-            var accessButtonData = JSON.parse(accessButton.attr('data-json'));
-
-            var labels = {
-                private: 'Prywatny',
-                public: 'Publiczny',
-                reset: 'Wszystkie'
-            };
-
-            var h = [
-                '<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">',
-                'Dostęp',
-                ' <span class="caret"></span>',
-                '</button>'
-            ];
-
-            accessButtonData.buckets.push({
-                key: 'reset',
-                doc_count: false
-            });
-
-            if(!this.query.hasOwnProperty('access'))
-                this.query['access'] = 'reset';
-
-            if(accessButtonData.buckets.length > 0) {
-                h.push('<ul class="dropdown-menu" role="menu">');
-
-                for(var i in accessButtonData.buckets) {
-                    if(!accessButtonData.buckets.hasOwnProperty(i))
-                        continue;
-
-                    var bucket = accessButtonData.buckets[i];
-                    if(labels.hasOwnProperty(bucket.key))
-                        bucket.label = labels[bucket.key];
-                    else
-                        bucket.label = bucket.key;
-
-                    var active = false;
-                    if(this.query.hasOwnProperty('access') && this.query['access'] == bucket.key)
-                        active = true;
-
-                    h.push('<li' + (active ? ' class="active"' : '') +'>');
-                    h.push('<a href="#" class="setQueryParams" data-key="access" data-value="' + bucket.key + '">');
-
-                    if(bucket.doc_count)
-                        h.push('<span class="badge pull-right' + (active ? ' active' : '') + '">' + bucket.doc_count + '</span>');
-
-                    h.push(bucket.label);
-                    h.push('</a>');
-                    h.push('</li>');
-                }
-
-                h.push('</ul>');
-            }
-
-            accessButton.html(
-                h.join('')
-            );
-
-        },
-
-        createActionBarButtons: function() {
-            var t = this;
-            var m = this.main;
-
-            t.createSelectAccessButton();
-
-            m.find('a.setQueryParams').each(function() {
-                $(this).click(function() {
-                    var key = $(this).attr('data-key');
-                    var value = $(this).attr('data-value');
-                    t.setQueryParams(key, value);
-                    return false;
-                });
-            });
-        },
-
         encodeQueryData: function(data) {
             return Object.keys(data).map(function(key) {
                 return [key, data[key]].map(encodeURIComponent).join("=");
@@ -197,7 +115,9 @@
             var deleteButton = m.find('.deleteButton');
 
             deleteButton.click(function() {
-                alert('Usuwanie');
+                
+                
+                
             });
 
             m.find('input.checkAll')
@@ -221,8 +141,6 @@
                     var checked = $(this).is(':checked');
                     t.changeCheckbox(id, checked);
                 });
-
-            t.createActionBarButtons();
 
             return this;
         }
