@@ -15,7 +15,7 @@
     #tree {
         @fontSize: 14px;
         @nodeColor: #157ab5;
-        @leafColor: #000000;
+        @leafColor: #157ab5;
 
         display: inline-block;
         float: left;
@@ -56,9 +56,14 @@
                 margin-top: 10px;
                 width: 100%;
                 position: relative;
+                cursor: pointer;
 
                 &:last-child {
                     margin-bottom: 0;
+                }
+
+                &:hover > a {
+                    color: darken(@nodeColor, 20%);
                 }
 
                 > .jstree-ocl {
@@ -108,6 +113,10 @@
                 }
 
                 .jstree-leaf {
+                    &:hover > a {
+                        color: darken(@leafColor, 20%);
+                    }
+
                     > .jstree-ocl {
                         color: @leafColor;
                     }

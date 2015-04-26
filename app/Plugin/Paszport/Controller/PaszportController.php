@@ -40,6 +40,16 @@ class PaszportController extends ApplicationsController
         parent::beforeRender();
     }
 
+    public function profile()
+    {
+        if($this->Auth->loggedIn()) {
+            $user = $this->Auth->User();
+            $this->set('user', $user);
+        } else {
+            $this->redirect(array('action' => 'login'));
+        }
+    }
+
     public function keys()
     {
 
@@ -172,8 +182,9 @@ class PaszportController extends ApplicationsController
         $this->setMenuSelected();
 		
         if($this->Auth->loggedIn()) {
-            $this->redirect($this->Auth->redirectUrl());
-
+            $this->redirect(array(
+                'action' => 'profile'
+            ));
         } else {
 	        
             if ($this->request->is('post')) {

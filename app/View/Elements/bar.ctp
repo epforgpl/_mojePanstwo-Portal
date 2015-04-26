@@ -5,8 +5,8 @@
                 <img src="/icon/moje_panstwo_logo.svg" title="moje Państwo"/>
             </a>
         </div>
-        
-        
+
+
         <div class="_mPApplication">
             <div class="_mPSearch _appBlock _appBlockBackground">
                 <div class="_mPTitle">
@@ -26,31 +26,32 @@
         </div>
         <div class="_mPSystem">
             <div class="_mPRunning">
-				
+
             </div>
-            
+
             <div class="_mPApplication">
-	            <?php if ($this->Session->read('Auth.User.id')) { ?>
-	            <div class="_mPUser">
-	                <img src="<?php if ($this->Session->read('Auth.User.photo_small')) {
-	                    echo $this->Session->read('Auth.User.photo_small');
-	                } else {
-	                    echo '/img/avatars/avatar_default.jpg';
-	                } ?>"/>
-					
-	                <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'index')); ?>"><?= $this->Session->read('Auth.User.username'); ?></a>
-	            </div>
-	        <?php } ?>
-	            <div class="_mPPowerButton">
-		            <?php if ($this->Session->read('Auth.User.id')) { ?>
-		                <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'logout')); ?>"><?php echo __('LC_COCKPITBAR_LOGOUT'); ?></a>
-		            <?php } else { ?>
-		                <a class="_specialCaseLoginButton"
-		                   href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'login')); ?>"><?php echo __('LC_COCKPITBAR_LOGIN'); ?></a>
-		            <?php } ?>
-		        </div>
+                <?php if ($this->Session->read('Auth.User.id')) { ?>
+                    <div class="_mPUser">
+                        <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'profile')); ?>">
+                            <img src="<?php if ($this->Session->read('Auth.User.photo_small')) {
+                                echo $this->Session->read('Auth.User.photo_small');
+                            } else {
+                                echo '/img/avatars/avatar_default.jpg';
+                            } ?>"/>
+                            <span><?= $this->Session->read('Auth.User.username'); ?></span>
+                        </a>
+                    </div>
+                <?php } ?>
+                <div class="_mPPowerButton">
+                    <?php if ($this->Session->read('Auth.User.id')) { ?>
+                        <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'logout')); ?>"><?php echo __('LC_COCKPITBAR_LOGOUT'); ?></a>
+                    <?php } else { ?>
+                        <a class="_specialCaseLoginButton"
+                           href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'login')); ?>"><?php echo __('LC_COCKPITBAR_LOGIN'); ?></a>
+                    <?php } ?>
+                </div>
             </div>
-            
+
             <? /*
             <ul class="_mPFooter">
                 <li><?php echo $this->Html->link(__('LC_FOOTER_ABOUT_US'), '/oportalu', array('target' => '_self')); ?></li>

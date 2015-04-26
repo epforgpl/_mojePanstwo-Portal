@@ -366,30 +366,36 @@ body {
                 position: relative;
                 overflow: hidden;
 
-                > img {
-                    width: 100%;
-                    left: 50%;
-                    position: absolute;
-                    top: 50%;
-
-                    -webkit-transform: translate(-50%, -50%);
-                    -moz-transform: translate(-50%, -50%);
-                    -ms-transform: translate(-50%, -50%);
-                    -o-transform: translate(-50%, -50%);
-                    transform: translate(-50%, -50%);
-                }
-
                 a {
-                    @userTextHeight: 12px;
-
-                    position: absolute;
-                    top: 50%;
-                    left: 0;
-                    margin-top: -(@userTextHeight/2);
+                    display: block;
+                    height: 100%;
                     width: 100%;
-                    height: @userTextHeight;
-                    padding: 0 10px;
-                    word-wrap: break-word;
+                    
+                    > img {
+                        width: 100%;
+                        left: 50%;
+                        position: absolute;
+                        top: 50%;
+
+                        -webkit-transform: translate(-50%, -50%);
+                        -moz-transform: translate(-50%, -50%);
+                        -ms-transform: translate(-50%, -50%);
+                        -o-transform: translate(-50%, -50%);
+                        transform: translate(-50%, -50%);
+                    }
+
+                    span {
+                        @userTextHeight: 12px;
+
+                        position: absolute;
+                        top: 50%;
+                        left: 0;
+                        margin-top: -(@userTextHeight/2);
+                        width: 100%;
+                        height: @userTextHeight;
+                        padding: 0 10px;
+                        word-wrap: break-word;
+                    }
                 }
             }
             ._mPApplication ._appBlock {
