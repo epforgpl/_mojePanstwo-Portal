@@ -1,8 +1,11 @@
-
 .objectsPage {
     .objectPageHeaderBg.extended {
         background-image: url(/dane/img/headers/krakow.jpg) !important;
         min-height: 250px;
+
+        .menuTabsCont ul.nav-tabs > li > a {
+            font-size: 16px;
+        }
 
         .objectPageHeaderContainer.krakow .container .objectRender {
             .attachment img {
@@ -213,4 +216,28 @@
     top: -30px;
     margin-top: 0;
     margin-bottom: -30px;
+}
+
+@media (min-width: 768px) {
+    .objectsPage .objectPageHeaderBg.extended .menuTabsCont ul.nav-tabs > li > a {
+        font-size: 12px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+@media (min-width: 992px) {
+    .objectsPage .objectPageHeaderBg.extended .menuTabsCont ul.nav-tabs > li > a {
+        font-size: 14px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .objectsPage .objectPageHeaderBg.extended .menuTabsCont ul.nav-tabs > li > a {
+        font-size: 16px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 }
