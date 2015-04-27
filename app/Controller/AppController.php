@@ -362,6 +362,14 @@ class AppController extends Controller {
 				} elseif (
 				( $this->request->params['controller'] == 'krs_podmioty' )
 				) {
+					
+				} elseif (
+				( $this->request->params['controller'] == 'powiadomienia' )
+				) {
+					
+				} elseif (
+				( $this->request->params['controller'] == 'pisma' )
+				) {
 
 				} elseif (
 				( $this->request->params['controller'] == 'radni_dzielnic' )
@@ -429,6 +437,7 @@ class AppController extends Controller {
 		$this->set( 'statusbarMode', $this->statusbarMode );
 		$this->set( '_APPLICATIONS', $this->getApplications() );
 		$this->set( '_APPLICATION', $this->getApplication() );
+		$this->set('domainMode', $this->domainMode);
 
 //		// remember path for redirect if necessary
 //		if ( Router::url( null ) != '/null' ) { // hack for bug
