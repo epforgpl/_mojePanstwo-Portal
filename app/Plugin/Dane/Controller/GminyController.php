@@ -1702,7 +1702,7 @@ class GminyController extends DataobjectsController
                 'icon' => '',
             );
 
-            $menu['items'][] = array(
+            /*$menu['items'][] = array(
                 'id' => 'powiadomienia',
                 'label' => 'Powiadomienia',
                 'class' => 'always-visible pull-right',
@@ -1744,7 +1744,7 @@ class GminyController extends DataobjectsController
                         )
                     )
                 )
-            );
+            );*/
         }
 
 
