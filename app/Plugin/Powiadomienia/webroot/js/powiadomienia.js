@@ -1,4 +1,5 @@
 function changeBckgrn($rotate) {
+    console.log('changeBckgrn', $rotate);
     $rotate.find('.holdBckgrnd').append(
         $('<div></div>').addClass('temp').css({
             'display': 'none',
@@ -9,11 +10,6 @@ function changeBckgrn($rotate) {
         $rotate.find('.holdBckgrnd').css('background-image', $rotate.find('.active').data('bckgrnd'));
         $rotate.find('.holdBckgrnd .temp').remove();
     });
-
-    /*$rotate.find('.holdBckgrnd').fadeOut(function () {
-     $rotate.find('.holdBckgrnd').css('background-image', $rotate.find('.active').data('bckgrnd'));
-     $rotate.find('.holdBckgrnd').fadeIn()
-     })*/
 }
 
 (function ($) {
