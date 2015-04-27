@@ -590,6 +590,7 @@ class GminyController extends DataobjectsController
 		            'side' => 'rady_druki',
 		            'timeline' => true,
 		            'object_subscriptions' => $druk->getLayer('subscriptions'),
+		            'direction' => 'asc',
 		        ));
 		        
 		        $this->loadChannels = true;
