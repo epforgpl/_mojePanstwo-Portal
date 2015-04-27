@@ -113,6 +113,5 @@ var googleMapKodyPocztowe = {
 };
 
 jQuery(document).ready(function () {
-    console.log(jQuery('#mapa').css('width'));
     googleMapKodyPocztowe.init();
 });
