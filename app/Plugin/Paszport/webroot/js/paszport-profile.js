@@ -18,7 +18,8 @@ $(function() {
                 '<div class="input-group">' +
                     '<input type="' + type + '" class="form-control" name="' + field + '" value="' + value + '">' +
                     '<span class="input-group-btn">' +
-                        '<button class="btn btn-default" type="button">Zapisz</button>' +
+                        '<button class="btn btn-default saveDataField" type="button">Zapisz</button>' +
+                        '<button class="btn btn-default cancelDataField" type="button">Anuluj</button>' +
                     '</span>' +
                 '</div>'
             );
@@ -27,7 +28,15 @@ $(function() {
             var input = form.find('input').first();
                 input.focus();
 
-            form.find('button').first().click(function() {
+            form.find('button.cancelDataField').first().click(function() {
+                form.find('.input-group')
+                    .first()
+                    .remove();
+
+                a.show();
+            });
+
+            form.find('button.saveDataField').first().click(function() {
 
                 var newValue = input.val();
 
