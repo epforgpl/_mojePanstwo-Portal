@@ -876,11 +876,14 @@ $(document).ready(function () {
         }
     });
 
-    var client = new ZeroClipboard(document.getElementById("clipboardCopy"));
+    if (typeof(ZeroClipboard) !== 'undefined') {
 
-    client.on("ready", function (readyEvent) {
-        client.on("aftercopy", function (event) {
-            alert("Skopiowano do schowka: " + event.data["text/plain"]);
+        var client = new ZeroClipboard(document.getElementById("clipboardCopy"));
+
+        client.on("ready", function (readyEvent) {
+            client.on("aftercopy", function (event) {
+                alert("Skopiowano do schowka: " + event.data["text/plain"]);
+            });
         });
-    });
+    }
 });

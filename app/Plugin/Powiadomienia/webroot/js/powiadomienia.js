@@ -1,19 +1,19 @@
-function changeBckgrn($rotate) {
-    $rotate.find('.holdBckgrnd').append(
-        $('<div></div>').addClass('temp').css({
-            'display': 'none',
-            'background-image': $rotate.find('.active').data('bckgrnd')
-        })
-    );
-    $rotate.find('.holdBckgrnd .temp').fadeIn(function () {
-        $rotate.find('.holdBckgrnd').css('background-image', $rotate.find('.active').data('bckgrnd'));
-        $rotate.find('.holdBckgrnd .temp').remove();
-    });
+var lastScroll = 0;
 
-    /*$rotate.find('.holdBckgrnd').fadeOut(function () {
-     $rotate.find('.holdBckgrnd').css('background-image', $rotate.find('.active').data('bckgrnd'));
-     $rotate.find('.holdBckgrnd').fadeIn()
-     })*/
+function changeBckgrn($rotate) {
+    if (!$rotate.hasClass('animate')) {
+        $rotate.find('.holdBckgrnd').append(
+            $('<div></div>').addClass('temp').css({
+                'display': 'none',
+                'background-image': $rotate.find('.active').data('bckgrnd')
+            })
+        );
+        $rotate.find('.holdBckgrnd .temp').fadeIn(function () {
+            $rotate.find('.holdBckgrnd').css('background-image', $rotate.find('.active').data('bckgrnd'));
+            $rotate.find('.holdBckgrnd .temp').remove();
+            lastScroll = $(window).scrollTop();
+        });
+    }
 }
 
 (function ($) {
