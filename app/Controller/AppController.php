@@ -20,10 +20,10 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-App::uses( 'Controller', 'Controller' );
-App::uses( 'HttpSocket', 'Network/Http' );
-APP::import( 'Vendor', 'functions' );
-App::uses( 'I18n', 'I18n' );
+App::uses('Controller', 'Controller');
+App::uses('HttpSocket', 'Network/Http');
+APP::import('Vendor', 'functions');
+App::uses('I18n', 'I18n');
 
 /**
  * Application Controller
@@ -34,224 +34,225 @@ App::uses( 'I18n', 'I18n' );
  * @package        app.Controller
  * @link        http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
-class AppController extends Controller {
-	public $components = array(
-		'DebugKit.Toolbar',
-		'Session',
-		'Auth' => array(
-			'loginAction'  => array(
-				'controller' => 'paszport',
-				'action'     => 'login',
-				'plugin'     => 'paszport'
-			),
-			'loginRedirect' => '/', # After plain login redirect to main page
-			'authenticate' => array(
-				'Form' => array(
-					'fields'         => array( 'username' => 'email', 'password' => 'password' ),
-					'passwordHasher' => array(
-						'className' => 'Simple',
-						'hashType'  => 'sha256'
-					),
-					'userModel'      => 'Paszport.User',
+class AppController extends Controller
+{
+    public $components = array(
+        'DebugKit.Toolbar',
+        'Session',
+        'Auth' => array(
+            'loginAction' => array(
+                'controller' => 'paszport',
+                'action' => 'login',
+                'plugin' => 'paszport'
+            ),
+            'loginRedirect' => '/', # After plain login redirect to main page
+            'authenticate' => array(
+                'Form' => array(
+                    'fields' => array('username' => 'email', 'password' => 'password'),
+                    'passwordHasher' => array(
+                        'className' => 'Simple',
+                        'hashType' => 'sha256'
+                    ),
+                    'userModel' => 'Paszport.User',
 //                    'contain' => array('Language', 'Group', 'UserExpand'),
-				)
-			)
+                )
+            )
 //			,'authenticate' => array(
 //				'Paszport'
 //			)
-		),
-	);
-	
-	public $domainMode = 'MP';
+        ),
+    );
 
-	public $helpers = array(
-		'Html',
-		'Form',
-		'Paginator',
+    public $domainMode = 'MP';
+
+    public $helpers = array(
+        'Html',
+        'Form',
+        'Paginator',
         'MPaginator',
-		'Time',
-		'Less.Less',
+        'Time',
+        'Less.Less',
 //        'Minify.Minify',
-		'Application',
-		'Combinator.Combinator',
-	);
+        'Application',
+        'Combinator.Combinator',
+    );
 
-	public $statusbarCrumbs = array();
-	public $statusbarMode = false;
-	public $User = false;
-	public $meta = array();
+    public $statusbarCrumbs = array();
+    public $statusbarMode = false;
+    public $User = false;
+    public $meta = array();
 
-	public $Applications = array(
-		array(
-			'id' => '17',
-			'slug' => 'dane',
-			'name' => 'Dane',
-			'plugin' => 'dane',
-			'type' => 'app',
-			'home' => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id' => '17',
-			'slug' => 'powiadomienia',
-			'name' => 'Powiadomienia',
-			'plugin' => 'powiadomienia',
-			'type' => 'app',
-			'home' => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id' => '17',
-			'slug' => 'pisma',
-			'name' => 'Pisma',
-			'plugin' => 'pisma',
-			'type' => 'app',
-			'home' => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id'     => '16',
-			'slug'   => 'kto_tu_rzadzi',
-			'name'   => 'Kto tu rządzi?',
-			'plugin' => 'KtoTuRzadzi',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id'     => '6',
-			'slug'   => 'krs',
-			'name'   => 'Krajowy Rejestr Sądowy',
-			'plugin' => 'krs',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id'     => '9',
-			'slug'   => 'prawo',
-			'name'   => 'Prawo',
-			'plugin' => 'prawo',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id'     => '12',
-			'slug'   => 'media',
-			'name'   => 'Media',
-			'plugin' => 'media',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id'     => '5',
-			'slug'   => 'zamowienia_publiczne',
-			'name'   => 'Zamówienia publiczne',
-			'plugin' => 'zamowienia_publiczne',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id'     => '3',
-			'slug'   => 'sejmometr',
-			'name'   => 'Sejmometr',
-			'plugin' => 'sejmometr',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id'     => '18',
-			'slug'   => 'wyjazdy_poslow',
-			'name'   => 'Wyjazdy posłów',
-			'plugin' => 'WyjazdyPoslow',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id'     => '19',
-			'slug'   => 'wydatki_poslow',
-			'name'   => 'Wydatki Posłów',
-			'plugin' => 'WydatkiPoslow',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		/*
-		array(
-			'id' => '18',
-			'slug' => 'gabinety_polityczne',
-			'name' => 'Gabinety Polityczne',
-			'plugin' => 'raporty_gabinety_polityczne',
-			'type' => 'app',
-			'home' => '1',
-			'folder_id' => '13'
-		),
-		*/
-		array(
-			'id'     => '4',
-			'slug'   => 'moja_gmina',
-			'name'   => 'Moja Gmina',
-			'plugin' => 'moja_gmina',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		/*
-		array(
-			'id'     => '20',
-			'slug'   => 'finanse',
-			'name'   => 'Finanse',
-			'plugin' => 'finanse',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		*/
-		array(
-			'id'     => '21',
-			'slug'   => 'handel_zagraniczny',
-			'name'   => 'Handel zagraniczny',
-			'plugin' => 'HandelZagraniczny',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		
-		array(
-			'id' => '19',
-			'slug' => 'dostep_do_informacji_publicznej',
-			'name' => 'Dostęp do Informacji Publicznej',
-			'plugin' => 'raporty_dostep_do_informacji_publicznej',
-			'type' => 'app',
-			'home' => '1',
-			'folder_id' => '13'
-		),
-		/*
-		array(
-			'id'     => '10',
-			'slug'   => 'kody_pocztowe',
-			'name'   => 'Kody Pocztowe',
-			'plugin' => 'kody_pocztowe',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		*/
-		array(
-			'id'     => '10',
-			'slug'   => 'paszport',
-			'name'   => 'Paszport',
-			'plugin' => 'paszport',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		/*
+    public $Applications = array(
+        array(
+            'id' => '17',
+            'slug' => 'dane',
+            'name' => 'Dane',
+            'plugin' => 'dane',
+            'type' => 'app',
+            'home' => '1',
+            'folder_id' => '13'
+        ),
+        array(
+            'id' => '17',
+            'slug' => 'powiadomienia',
+            'name' => 'Powiadomienia',
+            'plugin' => 'powiadomienia',
+            'type' => 'app',
+            'home' => '1',
+            'folder_id' => '13'
+        ),
+        array(
+            'id' => '17',
+            'slug' => 'pisma',
+            'name' => 'Pisma',
+            'plugin' => 'pisma',
+            'type' => 'app',
+            'home' => '1',
+            'folder_id' => '13'
+        ),
+        array(
+            'id' => '16',
+            'slug' => 'kto_tu_rzadzi',
+            'name' => 'Kto tu rządzi?',
+            'plugin' => 'KtoTuRzadzi',
+            'type' => 'app',
+            'home' => '1',
+            'folder_id' => '13'
+        ),
+        array(
+            'id' => '6',
+            'slug' => 'krs',
+            'name' => 'Krajowy Rejestr Sądowy',
+            'plugin' => 'krs',
+            'type' => 'app',
+            'home' => '1',
+            'folder_id' => '13'
+        ),
+        array(
+            'id' => '9',
+            'slug' => 'prawo',
+            'name' => 'Prawo',
+            'plugin' => 'prawo',
+            'type' => 'app',
+            'home' => '1',
+            'folder_id' => '13'
+        ),
+        array(
+            'id' => '12',
+            'slug' => 'media',
+            'name' => 'Media',
+            'plugin' => 'media',
+            'type' => 'app',
+            'home' => '1',
+            'folder_id' => '13'
+        ),
+        array(
+            'id' => '5',
+            'slug' => 'zamowienia_publiczne',
+            'name' => 'Zamówienia publiczne',
+            'plugin' => 'zamowienia_publiczne',
+            'type' => 'app',
+            'home' => '1',
+            'folder_id' => '13'
+        ),
+        array(
+            'id' => '3',
+            'slug' => 'sejmometr',
+            'name' => 'Sejmometr',
+            'plugin' => 'sejmometr',
+            'type' => 'app',
+            'home' => '1',
+            'folder_id' => '13'
+        ),
+        array(
+            'id' => '18',
+            'slug' => 'wyjazdy_poslow',
+            'name' => 'Wyjazdy posłów',
+            'plugin' => 'WyjazdyPoslow',
+            'type' => 'app',
+            'home' => '1',
+            'folder_id' => '13'
+        ),
+        array(
+            'id' => '19',
+            'slug' => 'wydatki_poslow',
+            'name' => 'Wydatki Posłów',
+            'plugin' => 'WydatkiPoslow',
+            'type' => 'app',
+            'home' => '1',
+            'folder_id' => '13'
+        ),
+        /*
+        array(
+            'id' => '18',
+            'slug' => 'gabinety_polityczne',
+            'name' => 'Gabinety Polityczne',
+            'plugin' => 'raporty_gabinety_polityczne',
+            'type' => 'app',
+            'home' => '1',
+            'folder_id' => '13'
+        ),
+        */
+        array(
+            'id' => '4',
+            'slug' => 'moja_gmina',
+            'name' => 'Moja Gmina',
+            'plugin' => 'moja_gmina',
+            'type' => 'app',
+            'home' => '1',
+            'folder_id' => '13'
+        ),
+        /*
+        array(
+            'id'     => '20',
+            'slug'   => 'finanse',
+            'name'   => 'Finanse',
+            'plugin' => 'finanse',
+            'type'   => 'app',
+            'home'   => '1',
+            'folder_id' => '13'
+        ),
+        */
+        array(
+            'id' => '21',
+            'slug' => 'handel_zagraniczny',
+            'name' => 'Handel zagraniczny',
+            'plugin' => 'HandelZagraniczny',
+            'type' => 'app',
+            'home' => '1',
+            'folder_id' => '13'
+        ),
+
+        array(
+            'id' => '19',
+            'slug' => 'dostep_do_informacji_publicznej',
+            'name' => 'Dostęp do Informacji Publicznej',
+            'plugin' => 'raporty_dostep_do_informacji_publicznej',
+            'type' => 'app',
+            'home' => '1',
+            'folder_id' => '13'
+        ),
+        /*
+        array(
+            'id'     => '10',
+            'slug'   => 'kody_pocztowe',
+            'name'   => 'Kody Pocztowe',
+            'plugin' => 'kody_pocztowe',
+            'type'   => 'app',
+            'home'   => '1',
+            'folder_id' => '13'
+        ),
+        */
+        array(
+            'id' => '10',
+            'slug' => 'paszport',
+            'name' => 'Paszport',
+            'plugin' => 'paszport',
+            'type' => 'app',
+            'home' => '1',
+            'folder_id' => '13'
+        ),
+        /*
         array(
             'id' => '20',
             'slug' => 'przejrzysty_krakow',
@@ -262,287 +263,415 @@ class AppController extends Controller {
             'folder_id' => '13'
         ),
         */
-	);
-	
-	public function beforeFilter() {
-		
-		// debug( $this->Auth->user() ); die();
-				
-		if ( defined( 'PORTAL_DOMAIN' ) ) {
-
-			$pieces = parse_url( Router::url( $this->here, true ) );
-
-			if ( defined( 'PK_DOMAIN' ) && ( $pieces['host'] == PK_DOMAIN ) ) {
-				
-				$this->domainMode = 'PK';
-				
-				// only certain actions are allowed in this domain
-				// for other actions we are immediatly redirecting to PORTAL_DOMAIN
-
-				if ( stripos( $_SERVER['REQUEST_URI'], '/dane/gminy/903' ) === 0 ) {
-
-					$url = substr( $_SERVER['REQUEST_URI'], 15 );
-					if( $url[0]==',' ) {
-						
-						$p = strpos($url, '/');						
-						$url = ( $p===false ) ? '' : substr($url, $p);
-						
-					}
-					
-					$this->redirect( 'http://' . PK_DOMAIN . $url );
-					die();
-
-				}
-				
-				if( preg_match('/^(.*?)\,([a-z0-9\-]+)$/', $this->here, $match) ) {
-					
-					$this->redirect( 'http://' . PK_DOMAIN . $match[1] );
-					die();
-				}
-				
-								
-				if (
-					( $this->request->params['controller'] == 'gminy' ) &&
-					in_array( $this->request->params['action'], array(
-						'view',
-						'okregi_wyborcze',
-						'interpelacje',
-						'posiedzenia',
-						'debaty',
-						'punkty',
-						'szukaj',
-						'rada_uchwaly',
-						'druki',
-						'radni_powiazania',
-						'urzednicy_powiazania',
-						'radni',
-						'radni_6',
-						'radni6',
-						'uchwaly',
-						'radni_dzielnic',
-						'darczyncy',
-						'wskazniki',
-						'zamowienia',
-						'organizacje',
-						'biznes',
-						'ngo',
-						'spzoz',
-						'dotacje_ue',
-						'rady_gmin_wystapienia',
-						'map',
-						'zamowienia_publiczne',
-						'prawo_lokalne',
-						'urzednicy',
-						'oswiadczenia',
-						'jednostki',
-						'komisje',
-						'komisje_posiedzenia',
-						'sklad',
-						'dzielnice',
-						'zarzadzenia',
-						'zarzadzenie',
-						'urzad',
-						'rada',
-						'krs',
-						'komisje',
-						'rada_posiedzenia',
-						'rada_uchwaly',
-						'punkty',
-						'porzadek',
-						'podsumowanie',
-						'stenogram',
-						'informacja',
-						'glosowania',
-						'protokol',
-						'finanse',
-						'wpf'
-					) )
-				) {
-
-				} elseif (
-				( $this->request->params['controller'] == 'krs_podmioty' )
-				) {
-
-				} elseif (
-				( $this->request->params['controller'] == 'radni_dzielnic' )
-				) {
-					
-				} elseif (
-				( $this->request->params['controller'] == 'Subscriptions' )
-				) {
-				
-				} elseif (stripos( $_SERVER['REQUEST_URI'], '/cross-domain-' ) === 0
-					or stripos( $_SERVER['REQUEST_URI'], '/paszport/users/log' ) === 0) {
-
-				} else {
-				
-					$url = $_SERVER['REQUEST_URI'];
-					if( $url[0]==',' ) {
-						
-						$p = strpos($url, '/');						
-						$url = ( $p===false ) ? '' : substr($url, $p);
-						
-					}
-					
-					$this->redirect( 'http://' . PORTAL_DOMAIN . $url );
-					die();
-
-				}
+    );
 
 
-			} elseif ( $pieces['host'] != PORTAL_DOMAIN ) {
+    public $pkMenu = array();
 
-				$protocol = ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443 ) ? "https://" : "http://";
-				$this->redirect( $protocol . PORTAL_DOMAIN . $this->here, 301 );
-				die();
+    public function beforeFilter()
+    {
 
-			}
+        // debug( $this->Auth->user() ); die();
+        $href_base = '/dane/gminy/903';
 
-		}
+        if (defined('PORTAL_DOMAIN')) {
 
-		$this->response->header( 'Access-Control-Allow-Origin', $this->request->header( 'Origin' ) );
-		$this->response->header( 'Access-Control-Allow-Credentials', true );
+            $pieces = parse_url(Router::url($this->here, true));
 
-		# assigning translations for javascript use
-		if ( $this->params->plugin ) {
-			$path = ROOT . DS . APP_DIR . DS . 'Plugin' . DS . Inflector::camelize( $this->params->plugin ) . DS . 'Locale' . DS . Configure::read( 'Config.language' ) . DS . 'LC_MESSAGES' . DS . Inflector::underscore( $this->params->plugin ) . '.po';
-		} else {
-			$path = ROOT . DS . APP_DIR . DS . 'Locale' . DS . Configure::read( 'Config.language' ) . DS . 'LC_MESSAGES' . DS . 'default.po';
-		}
-		if ( file_exists( $path ) ) {
-			$translations = I18n::loadPo( $path );
-			foreach ( $translations as &$item ) {
-				$item = stripslashes( $item );
-				$item = preg_replace( '/"/', '&quot;', $item );
-			}
-		} else {
-			$translations = array();
-		}
-		$this->set( 'translation', $translations );
+            if (defined('PK_DOMAIN') && ($pieces['host'] == PK_DOMAIN)) {
 
-		parent::beforeFilter();
-		$this->Auth->allow();
-		
-		// debug($this->getApplications()); die();
-		
-		$this->set( 'statusbarCrumbs', $this->statusbarCrumbs );
-		$this->set( 'statusbarMode', $this->statusbarMode );
-		$this->set( '_APPLICATIONS', $this->getApplications() );
-		$this->set( '_APPLICATION', $this->getApplication() );
+                $this->domainMode = 'PK';
+
+                // PREPARE MENU
+                $href_base = '';
+
+                // only certain actions are allowed in this domain
+                // for other actions we are immediatly redirecting to PORTAL_DOMAIN
+
+                if (stripos($_SERVER['REQUEST_URI'], '/dane/gminy/903') === 0) {
+
+                    $url = substr($_SERVER['REQUEST_URI'], 15);
+                    if ($url[0] == ',') {
+
+                        $p = strpos($url, '/');
+                        $url = ($p === false) ? '' : substr($url, $p);
+
+                    }
+
+                    $this->redirect('http://' . PK_DOMAIN . $url);
+                    die();
+
+                }
+
+                if (preg_match('/^(.*?)\,([a-z0-9\-]+)$/', $this->here, $match)) {
+
+                    $this->redirect('http://' . PK_DOMAIN . $match[1]);
+                    die();
+                }
+
+
+                if (
+                    ($this->request->params['controller'] == 'gminy') &&
+                    in_array($this->request->params['action'], array(
+                        'view',
+                        'okregi_wyborcze',
+                        'interpelacje',
+                        'posiedzenia',
+                        'debaty',
+                        'punkty',
+                        'szukaj',
+                        'rada_uchwaly',
+                        'druki',
+                        'radni_powiazania',
+                        'urzednicy_powiazania',
+                        'radni',
+                        'radni_6',
+                        'radni6',
+                        'uchwaly',
+                        'radni_dzielnic',
+                        'darczyncy',
+                        'wskazniki',
+                        'zamowienia',
+                        'organizacje',
+                        'biznes',
+                        'ngo',
+                        'spzoz',
+                        'dotacje_ue',
+                        'rady_gmin_wystapienia',
+                        'map',
+                        'zamowienia_publiczne',
+                        'prawo_lokalne',
+                        'urzednicy',
+                        'oswiadczenia',
+                        'jednostki',
+                        'komisje',
+                        'komisje_posiedzenia',
+                        'sklad',
+                        'dzielnice',
+                        'zarzadzenia',
+                        'zarzadzenie',
+                        'urzad',
+                        'rada',
+                        'krs',
+                        'komisje',
+                        'rada_posiedzenia',
+                        'rada_uchwaly',
+                        'punkty',
+                        'porzadek',
+                        'podsumowanie',
+                        'stenogram',
+                        'informacja',
+                        'glosowania',
+                        'protokol',
+                        'finanse',
+                        'wpf'
+                    ))
+                ) {
+
+                } elseif (
+                ($this->request->params['controller'] == 'krs_podmioty')
+                ) {
+
+                } elseif (
+                ($this->request->params['controller'] == 'Powiadomienia')
+                ) {
+
+                } elseif (
+                ($this->request->params['controller'] == 'Pisma')
+                ) {
+
+                } elseif (
+                ($this->request->params['controller'] == 'radni_dzielnic')
+                ) {
+
+                } elseif (
+                ($this->request->params['controller'] == 'Subscriptions')
+                ) {
+
+                } elseif (stripos($_SERVER['REQUEST_URI'], '/cross-domain-') === 0
+                    or stripos($_SERVER['REQUEST_URI'], '/paszport/users/log') === 0
+                ) {
+
+                } else {
+
+                    $url = $_SERVER['REQUEST_URI'];
+                    if ($url[0] == ',') {
+
+                        $p = strpos($url, '/');
+                        $url = ($p === false) ? '' : substr($url, $p);
+
+                    }
+
+                    $this->redirect('http://' . PORTAL_DOMAIN . $url);
+                    die();
+
+                }
+
+
+            } elseif ($pieces['host'] != PORTAL_DOMAIN) {
+                $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+                $this->redirect($protocol . PORTAL_DOMAIN . $this->here, 301);
+                die();
+
+            }
+
+            $pkMenu = array(
+                'base' => $href_base,
+                'selected' => false,
+                'items' => array(
+                    array(
+                        'id' => '',
+                        'href' => $href_base,
+                        'label' => 'Aktualności',
+                    ),
+                )
+            );
+            $pkMenu['items'][] = array(
+                'id' => 'rada',
+                'label' => 'Rada Miasta',
+                'href' => $href_base . '/rada',
+            );
+
+            $pkMenu['items'][] = array(
+                'id' => 'urzad',
+                'label' => 'Urząd Miasta',
+                'href' => $href_base . '/urzad',
+            );
+            $pkMenu['items'][] = array(
+                'id' => 'dzielnice',
+                'label' => 'Dzielnice',
+                'href' => $href_base . '/dzielnice',
+            );
+            $pkMenu['items'][] = array(
+                'id' => 'organizacje',
+                'label' => 'Organizacje',
+                'dropdown' => array(
+                    'items' => array(
+                        array(
+                            'id' => 'organizacje',
+                            'label' => 'Wszystkie organizacje',
+                            'href' => $href_base . '/organizacje',
+                        ),
+                        array(
+                            'topborder' => true,
+                            'id' => 'biznes',
+                            'label' => 'Biznes',
+                            'href' => $href_base . '/biznes',
+                        ),
+                        array(
+                            'id' => 'ngo',
+                            'label' => 'Organizacje pozarządowe',
+                            'href' => $href_base . '/ngo',
+                        ),
+                        array(
+                            'id' => 'spzoz',
+                            'label' => 'Publiczne zakłady opieki zdrowotnej',
+                            'href' => $href_base . '/spzoz',
+                        ),
+                    ),
+                ),
+            );
+            $pkMenu['items'][] = array(
+                'id' => 'finanse',
+                'href' => $href_base . '/finanse',
+                'label' => 'Finanse',
+                'icon' => '',
+            );
+            $pkMenu['items'][] = array(
+                'id' => 'powiadomienia',
+                'label' => 'Powiadomienia',
+                'class' => 'always-visible pull-right',
+                'dropdown' => array(
+                    'items' => array(
+                        array(
+                            'id' => 'obserwuje_powiadomienia',
+                            'label' => 'Obserwuję',
+                            'href' => $href_base . '/powiadomienia',
+                        ),
+                        array(
+                            'id' => 'moje_powiadomienia',
+                            'label' => 'Moje powiadomienia',
+                            'href' => $href_base . '/powiadomienia/moje',
+                        ),
+                        array(
+                            'id' => 'jak_to_dziala',
+                            'label' => 'Jak to działa?',
+                            'href' => $href_base . '/powiadomienia/jak_to_dziala',
+                        )
+                    )
+                )
+            );
+            $pkMenu['items'][] = array(
+                'id' => 'pisma',
+                'label' => 'Pisma',
+                'class' => 'always-visible pull-right',
+                'dropdown' => array(
+                    'items' => array(
+                        array(
+                            'id' => 'nowe_pismo',
+                            'label' => 'Nowe pismo',
+                            'href' => $href_base . '/pisma/nowe',
+                        ),
+                        array(
+                            'id' => 'moje_pisma',
+                            'label' => 'Moje pisma',
+                            'href' => $href_base . '/pisma/moje',
+                        )
+                    )
+                )
+            );
+
+            $this->set('pkMenu', $pkMenu);
+        }
+
+        $this->response->header('Access-Control-Allow-Origin', $this->request->header('Origin'));
+        $this->response->header('Access-Control-Allow-Credentials', true);
+
+        # assigning translations for javascript use
+        if ($this->params->plugin) {
+            $path = ROOT . DS . APP_DIR . DS . 'Plugin' . DS . Inflector::camelize($this->params->plugin) . DS . 'Locale' . DS . Configure::read('Config.language') . DS . 'LC_MESSAGES' . DS . Inflector::underscore($this->params->plugin) . '.po';
+        } else {
+            $path = ROOT . DS . APP_DIR . DS . 'Locale' . DS . Configure::read('Config.language') . DS . 'LC_MESSAGES' . DS . 'default.po';
+        }
+        if (file_exists($path)) {
+            $translations = I18n::loadPo($path);
+            foreach ($translations as &$item) {
+                $item = stripslashes($item);
+                $item = preg_replace('/"/', '&quot;', $item);
+            }
+        } else {
+            $translations = array();
+        }
+        $this->set('translation', $translations);
+
+        parent::beforeFilter();
+        $this->Auth->allow();
+
+        // debug($this->getApplications()); die();
+
+        $this->set('statusbarCrumbs', $this->statusbarCrumbs);
+        $this->set('statusbarMode', $this->statusbarMode);
+        $this->set('_APPLICATIONS', $this->getApplications());
+        $this->set('_APPLICATION', $this->getApplication());
+        $this->set('domainMode', $this->domainMode);
 
 //		// remember path for redirect if necessary
 //		if ( Router::url( null ) != '/null' ) { // hack for bug
 //			$this->Session->write( 'Auth.loginRedirect', Router::url( null, true ) );
 //		}
 
-		// cross domain login
-		$this->set('current_host', $_SERVER['HTTP_HOST']);
-		if ($this->Session->check('crossdomain_login_token')) {
-			$this->set('crossdomain_login_token', $this->Session->read('crossdomain_login_token'));
-			$this->Session->delete('crossdomain_login_token');
-		}
-		if ($this->Session->check('crossdomain_logout')) {
-			$this->set('crossdomain_logout', $this->Session->read('crossdomain_logout'));
-			$this->Session->delete('crossdomain_logout');
-		}
-	}
+        // cross domain login
+        $this->set('current_host', $_SERVER['HTTP_HOST']);
+        if ($this->Session->check('crossdomain_login_token')) {
+            $this->set('crossdomain_login_token', $this->Session->read('crossdomain_login_token'));
+            $this->Session->delete('crossdomain_login_token');
+        }
+        if ($this->Session->check('crossdomain_logout')) {
+            $this->set('crossdomain_logout', $this->Session->read('crossdomain_logout'));
+            $this->Session->delete('crossdomain_logout');
+        }
+    }
 
-	/**
-	 * Zwraca listę dostępnych aplikacji
-	 * @return array
-	 */
-	public function getApplications()
-	{
-		return $this->Applications;
-	}
-	
-	/**
-	 * Zwraca aktualną aplikację
-	 * lub false jeśli nie żadna nie jest aktywna w danej chwili
-	 * @return array|bool
-	 */
-	public function getApplication() {
-		if ( $this->params->plugin ) {
-			foreach ( $this->getApplications() as $app ) {
-				if ( $app['slug'] == strtolower( $this->params->plugin ) || $app['slug'] == Inflector::underscore( $this->params->plugin ) ) {
-					return $app;
-				}
-			}
-		} else {
-			return false;
-		}
-	}
+    /**
+     * Zwraca listę dostępnych aplikacji
+     * @return array
+     */
+    public function getApplications()
+    {
+        return $this->Applications;
+    }
 
-	public function beforeRender()
-	{
-		
-		$redirect = false;
-		
-		if($this->Session->read('Auth.User.id') && $this->Session->read('Pisma.transfer_anonymous')) {
-			
-			$this->loadModel('Pisma.Pismo');			
-			$this->Pismo->transfer_anonymous($this->Session->read('previous_id'));
-			$this->Session->delete('Pisma.transfer_anonymous');
-			
-			$redirect = true;
-			
-		}
-		
-		if($this->Session->read('Auth.User.id') && $this->Session->read('Powiadomienia.transfer_anonymous')) {
-						
-			$this->loadModel('Dane.Subscription');			
-			$this->Subscription->transfer_anonymous($this->Session->read('previous_id'));
-			$this->Session->delete('Powiadomienia.transfer_anonymous');
-			
-			$redirect = true;
-			
-		}
-		
-		if( $redirect )
-			return $this->redirect($this->request->here);
-		
-	}
+    /**
+     * Zwraca aktualną aplikację
+     * lub false jeśli nie żadna nie jest aktywna w danej chwili
+     * @return array|bool
+     */
+    public function getApplication()
+    {
+        if ($this->params->plugin) {
+            foreach ($this->getApplications() as $app) {
+                if ($app['slug'] == strtolower($this->params->plugin) || $app['slug'] == Inflector::underscore($this->params->plugin)) {
+                    return $app;
+                }
+            }
+        } else {
+            return false;
+        }
+    }
 
-	public function addStatusbarCrumb( $item ) {
-		$this->statusbarCrumbs[] = $item;
-		$this->set( 'statusbarCrumbs', $this->statusbarCrumbs );
-	}
+    public function beforeRender()
+    {
 
-	public function setMetaDesc($val)
-	{
-		return $this->setMetaDescription($val);
-	}
-	
-	public function setMetaDescription($val) {
-		return $this->setMeta('description', $val);
-	}
+        $redirect = false;
 
-	public function setMeta($key, $val = null)
-	{
-        if(is_array($key)) {
-            foreach($key as $property => $content)
+        if ($this->Session->read('Auth.User.id') && $this->Session->read('Pisma.transfer_anonymous')) {
+
+            $this->loadModel('Pisma.Pismo');
+            $this->Pismo->transfer_anonymous($this->Session->read('previous_id'));
+            $this->Session->delete('Pisma.transfer_anonymous');
+
+            $redirect = true;
+
+        }
+
+        if ($this->Session->read('Auth.User.id') && $this->Session->read('Powiadomienia.transfer_anonymous')) {
+
+            $this->loadModel('Dane.Subscription');
+            $this->Subscription->transfer_anonymous($this->Session->read('previous_id'));
+            $this->Session->delete('Powiadomienia.transfer_anonymous');
+
+            $redirect = true;
+
+        }
+
+        if ($redirect)
+            return $this->redirect($this->request->here);
+
+    }
+
+    public function addStatusbarCrumb($item)
+    {
+        $this->statusbarCrumbs[] = $item;
+        $this->set('statusbarCrumbs', $this->statusbarCrumbs);
+    }
+
+    public function setMetaDesc($val)
+    {
+        return $this->setMetaDescription($val);
+    }
+
+    public function setMetaDescription($val)
+    {
+        return $this->setMeta('description', $val);
+    }
+
+    public function setMeta($key, $val = null)
+    {
+        if (is_array($key)) {
+            foreach ($key as $property => $content)
                 $this->meta[$property] = $content;
             $this->set('_META', $this->meta);
             return true;
         }
 
-		if(!$val)
-			return false;
+        if (!$val)
+            return false;
 
-		$this->meta[$key] = $val;
-		$this->set('_META', $this->meta);
+        $this->meta[$key] = $val;
+        $this->set('_META', $this->meta);
 
-		return $val;
-	}
+        return $val;
+    }
 
-    public function prepareMetaTags() {
+    public function prepareMetaTags()
+    {
         $this->setMeta(array(
-            'og:url'            => Router::url($this->here, true),
-            'og:type'           => 'website',
-            'og:description'    => strip_tags(__('LC_MAINHEADER_TEXT')),
-            'og:image'          => FULL_BASE_URL . '/img/social/share_main.jpg',
-            'fb:admins'         => '616010705',
-            'fb:app_id'         => FACEBOOK_appId
+            'og:url' => Router::url($this->here, true),
+            'og:type' => 'website',
+            'og:description' => strip_tags(__('LC_MAINHEADER_TEXT')),
+            'og:image' => FULL_BASE_URL . '/img/social/share_main.jpg',
+            'fb:admins' => '616010705',
+            'fb:app_id' => FACEBOOK_appId
         ));
     }
 

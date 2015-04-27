@@ -7,11 +7,11 @@ class PowiadomieniaController extends ApplicationsController
 	public $settings = array(
 		'menu' => array(
 			array(
-				'id' => '',
+                'id' => 'obserwuje_powiadomienia',
 				'label' => 'Obserwuję',
 			),
 			array(
-				'id' => 'moje',
+                'id' => 'moje_powiadomienia',
 				'label' => 'Moje powiadomienia',
 			),
 			array(
@@ -45,14 +45,16 @@ class PowiadomieniaController extends ApplicationsController
 	    ));
         $this->set('DataBrowserTitle', 'Dane które obserwujesz:');
         $this->title = 'Obserwuję - Powiadomienia';
+        $this->setMenuSelected('obserwuje_powiadomienia');
     }
     
     public function moje() {
 	    $this->title = 'Moje Powiadomienia';
+        $this->setMenuSelected('moje_powiadomienia');
     }
     
     public function jak_to_dziala() {
         $this->title = 'Jak to działa? - Powiadomienia';
+        $this->setMenuSelected('jak_to_dziala');
     }
-
 } 

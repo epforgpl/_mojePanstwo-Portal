@@ -4,21 +4,14 @@ App::uses('ApplicationsController', 'Controller');
 class PismaController extends ApplicationsController
 {
 	
-	private $aggs_dict = array(
-		'access' => array(
-			'private' => 'Prywatne',
-			'public' => 'Publiczne',
-		),
-	);
-	
 	public $settings = array(
 		'menu' => array(
 			array(
-				'id' => '',
+                'id' => 'nowe_pismo',
 				'label' => 'Nowe pismo',
 			),
 			array(
-				'id' => 'moje',
+                'id' => 'moje_pisma',
 				'label' => 'Moje pisma',
 			),
 		),
@@ -26,10 +19,15 @@ class PismaController extends ApplicationsController
 		'subtitle' => 'Wysyłaj pisma urzędowe do instytucje publicznych',
 		'headerImg' => 'pisma',
 	);
-	
     public $helpers = array('Form');
     public $uses = array('Pisma.Pismo');
     public $components = array('RequestHandler');
+    private $aggs_dict = array(
+        'access' => array(
+            'private' => 'Prywatne',
+            'public' => 'Publiczne',
+        ),
+    );
 
     public function prepareMetaTags() {
         parent::prepareMetaTags();
@@ -41,7 +39,7 @@ class PismaController extends ApplicationsController
         $pismo = $this->load($id);
         
         if( $pismo['is_owner'] )
-	        $this->setMenuSelected('moje');
+            $this->setMenuSelected('moje_pisma');
     }
 	
 	private function load($id)
@@ -91,9 +89,9 @@ class PismaController extends ApplicationsController
 				return $this->redirect( $this->referer() );
 					
 			if( $pismo['saved'] ) {
-				$this->setMenuSelected('moje');
+                $this->setMenuSelected('moje_pisma');
 			} else {
-				$this->setMenuSelected();
+                $this->setMenuSelected('nowe_pismo');
 			}
 		
 		} else {
@@ -211,8 +209,8 @@ class PismaController extends ApplicationsController
 	
 	public function home()
     {
-	    
-	    $this->setMenuSelected();
+
+        $this->setMenuSelected('nowe_pismo');
 	    
 	    /*
         $API = $this->Pismo;
@@ -340,7 +338,7 @@ class PismaController extends ApplicationsController
         $this->set('q', $q);
         $this->set('title_for_layout', 'Moje pisma');
         $this->set('filters_selected', $filters_selected);
-        $this->setMenuSelected('moje');
+        $this->setMenuSelected('moje_pisma');
         
         $this->title = 'Moje Pisma';
     }	

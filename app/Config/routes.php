@@ -30,7 +30,11 @@
 if ( $_SERVER['HTTP_HOST'] == PK_DOMAIN ) { // HTTP_X_FORWARDED_HOST
 
 	Router::connect( '/', array( 'plugin' => 'Dane', 'controller' => 'gminy', 'action' => 'view', 'id' => 903 ) );
-	
+
+    $paths = App::paths();
+    include($paths['Plugin'][0] . '\Pisma\Config\routes.php');
+    include($paths['Plugin'][0] . '\Powiadomienia\Config\routes.php');
+
 	Router::connect('/:action', array(
 		'plugin' => 'Dane', 
 		'controller' => 'gminy', 
