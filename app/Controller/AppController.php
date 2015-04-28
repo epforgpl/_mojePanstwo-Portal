@@ -283,7 +283,7 @@ class AppController extends Controller
                 $this->domainMode = 'PK';
 
                 // PREPARE MENU
-                $href_base = '';
+                $href_base = '//' . PK_DOMAIN;
 
                 // only certain actions are allowed in this domain
                 // for other actions we are immediatly redirecting to PORTAL_DOMAIN
@@ -421,8 +421,8 @@ class AppController extends Controller
                 'items' => array(
                     array(
                         'id' => '',
-                        'href' => $href_base,
                         'label' => 'Aktualności',
+                        'href' => $href_base,
                     ),
                 )
             );

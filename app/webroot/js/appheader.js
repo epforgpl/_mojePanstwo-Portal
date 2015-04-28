@@ -1,5 +1,6 @@
 jQuery(document).ready(function () {
-    var headerExtend = $('.objectPageHeaderBg.extended');
+    var headerExtend = $('.appappHeader.extended'),
+        $mobileMenu;
 
     if (headerExtend.length) {
         headerExtend.css('max-height', headerExtend.css('min-height'));
@@ -13,13 +14,15 @@ jQuery(document).ready(function () {
         });
     }
 
-    $('.mobileMenu > a').click(function (e) {
-        var menu = $(this).parents('ul.nav');
+    if (($mobileMenu = $('.mobileMenu > a')).length) {
+        $mobileMenu.click(function (e) {
+            var menu = $(this).parents('ul.nav');
 
-        e.preventDefault();
-        if (menu.hasClass('full'))
-            menu.removeClass('full');
-        else
-            menu.addClass('full');
-    })
+            e.preventDefault();
+            if (menu.hasClass('full'))
+                menu.removeClass('full');
+            else
+                menu.addClass('full');
+        })
+    }
 });
