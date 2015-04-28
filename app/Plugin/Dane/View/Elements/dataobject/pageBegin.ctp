@@ -46,34 +46,39 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
         $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow-outside', array('plugin' => 'Dane')));
     }
     ?>
-    <div
-        class="objectPageHeaderBg<?php if ((isset($headerObject) && (!empty($headerObject['url']) || !empty($headerObject['height']))) || $object->getData('id') == '903') {
-            echo ' extended" style="';
-            if (!empty($headerObject['url'])) echo 'background-image: url(' . $headerObject['url'] . ');';
-            if (!empty($headerObject['height'])) echo 'min-height:' . $headerObject['height'] . ';';
-        } ?>">
+
+    <? if ($object->getData('id') == '903') {
+        echo $this->Element('appHeader');
+    } else { ?>
         <div
-            class="objectPageHeaderContainer topheader <? if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) { ?> krakow<? } ?>">
-            <div class="container">
-                <div class="row">
-	                <? if ($krsPodmiotyKrakow) { ?>
-	                    <div class="krakow col-md-2">
-	
-	                        <a title="Program Przejrzysty Kraków, prowadzony przez Fundację Stańczyka, ma na celu wieloaspektowy monitoring życia publicznego w Krakowie. W ramach programu prowadzony jest obecnie monitoring Rady Miasta i Dzielnic Krakowa."
-	                           href="http://przejrzystykrakow.pl" class="thumb_cont">
-	                            <img alt="Przejrzysty Kraków" src="/Dane/img/customObject/krakow/logo_pkrk_black.png"
-	                                 onerror="imgFixer(this)" class="thumb">
-	                        </a>
-	
-	                    </div>
-	                <? } ?>
-	                <div class="<? echo($krsPodmiotyKrakow ? 'col-md-7' : 'col-xs-12'); ?>">
-                        <div
-                            class="objectPageHeader<? if (isset($object_menu['items']) && !empty($object_menu['items'])) { ?> with-menu <? } ?>">
-	                        <?php echo $this->Dataobject->render($object, $renderFile, $objectOptions); ?>
-	                    </div>
-	                </div>
-	                <? /*
+            class="objectPageHeaderBg<?php if ((isset($headerObject) && (!empty($headerObject['url']) || !empty($headerObject['height']) || $krsPodmiotyKrakow))) {
+                echo ' extended" style="';
+                if (!empty($headerObject['url'])) echo 'background-image: url(' . $headerObject['url'] . ');';
+                if (!empty($headerObject['height'])) echo 'min-height:' . $headerObject['height'] . ';';
+            } ?>">
+            <div
+                class="objectPageHeaderContainer topheader <? if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) { ?> krakow<? } ?>">
+                <div class="container">
+                    <div class="row">
+                        <? if ($krsPodmiotyKrakow) { ?>
+                            <div class="krakow col-md-2">
+
+                                <a title="Program Przejrzysty Kraków, prowadzony przez Fundację Stańczyka, ma na celu wieloaspektowy monitoring życia publicznego w Krakowie. W ramach programu prowadzony jest obecnie monitoring Rady Miasta i Dzielnic Krakowa."
+                                   href="http://przejrzystykrakow.pl" class="thumb_cont">
+                                    <img alt="Przejrzysty Kraków"
+                                         src="/Dane/img/customObject/krakow/logo_pkrk_black.png"
+                                         onerror="imgFixer(this)" class="thumb">
+                                </a>
+
+                            </div>
+                        <? } ?>
+                        <div class="<? echo($krsPodmiotyKrakow ? 'col-md-7' : 'col-xs-12'); ?>">
+                            <div
+                                class="objectPageHeader<? if (isset($object_menu['items']) && !empty($object_menu['items'])) { ?> with-menu <? } ?>">
+                                <?php echo $this->Dataobject->render($object, $renderFile, $objectOptions); ?>
+                            </div>
+                        </div>
+                        <? /*
 	                <div class="objectButtonsContainer col-md-3">
 	                    <div class="row">
 	                        <ul class="objectButtons">
@@ -87,22 +92,23 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
 	                    </div>
 	                </div>
 	                */ ?>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <? if (isset($object_menu) && !empty($object_menu)) { ?>
-            <div class="menuTabsCont">
-                <div class="container">
-                    <?
-                    echo $this->Element('Dane.dataobject/menuTabs', array(
-                        'menu' => $object_menu,
-                    ));
-                    ?>
+            <? if (isset($object_menu) && !empty($object_menu)) { ?>
+                <div class="menuTabsCont">
+                    <div class="container">
+                        <?
+                        echo $this->Element('Dane.dataobject/menuTabs', array(
+                            'menu' => $object_menu,
+                        ));
+                        ?>
+                    </div>
                 </div>
-            </div>
-        <? } ?>
-    </div>
+            <? } ?>
+        </div>
+    <? } ?>
 
     <div class="objectsPageWindow">
         <div class="container">

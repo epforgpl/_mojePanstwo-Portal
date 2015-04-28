@@ -9,10 +9,12 @@ class PismaController extends ApplicationsController
 			array(
                 'id' => 'nowe_pismo',
 				'label' => 'Nowe pismo',
+                'href' => 'pisma'
 			),
 			array(
                 'id' => 'moje_pisma',
 				'label' => 'Moje pisma',
+                'href' => 'pisma/moje'
 			),
 		),
 		'title' => 'Pisma',

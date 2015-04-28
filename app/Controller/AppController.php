@@ -271,9 +271,7 @@ class AppController extends Controller
     public function beforeFilter()
     {
 
-        // debug( $this->Auth->user() ); die();
-        $href_base = '/dane/gminy/903';
-
+        $href_base = '';
         if (defined('PORTAL_DOMAIN')) {
 
             $pieces = parse_url(Router::url($this->here, true));

@@ -9,7 +9,7 @@ if (isset($settings['menuSelected']) && !empty($settings['menuSelected']))
     $appSettings['menuSelected'] = $settings['menuSelected'];
 ?>
 
-<?php if ($domainMode == 'PK') { ?>
+<?php if (($domainMode == 'PK') || (isset($object) && ($object->getId() == '903'))) { ?>
     <div class="appHeader extended pk">
         <div class="container">
             <div class="holder">
@@ -49,7 +49,7 @@ if (isset($settings['menuSelected']) && !empty($settings['menuSelected']))
                             $classes[] = 'active';
                         }
 
-                        if (isset($m['dropdown']) && !empty($m['dropdown']['items'])) {
+                        if (isset($appSettings['menuSelected']) && isset($m['dropdown']) && !empty($m['dropdown']['items'])) {
                             foreach ($m['dropdown']['items'] as &$item) {
                                 if ($item['id'] == $appSettings['menuSelected']) {
                                     $classes[] = 'active';

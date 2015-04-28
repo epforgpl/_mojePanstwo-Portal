@@ -3,20 +3,22 @@
 App::uses('ApplicationsController', 'Controller');
 class PowiadomieniaController extends ApplicationsController
 {
-
-	public $settings = array(
+    public $settings = array(
 		'menu' => array(
 			array(
                 'id' => 'obserwuje_powiadomienia',
 				'label' => 'Obserwuję',
+                'href' => 'powiadomienia'
 			),
 			array(
                 'id' => 'moje_powiadomienia',
 				'label' => 'Moje powiadomienia',
+                'href' => 'powiadomienia/moje'
 			),
 			array(
 				'id' => 'jak_to_dziala',
 				'label' => 'Jak to działa?',
+                'href' => 'powiadomienia/jak_to_dziala'
 			),
 		),
 		'title' => 'Powiadomienia',
@@ -30,16 +32,13 @@ class PowiadomieniaController extends ApplicationsController
     }
 	    
     public function view() {
-	    
-	    $this->setMenuSelected();
-	    
 	    $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
 	            'subscribtions' => true,
             ),
             'renderFile' => 'subscriptions',
         ));
-        
+
         $this->set('dataBrowserObjectRender', array(
 		    'forceLabel' => true,
 	    ));
