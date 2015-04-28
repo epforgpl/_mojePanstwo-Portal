@@ -482,7 +482,7 @@ class GminyController extends DataobjectsController
 
             $uchwala = $this->Dataobject->find('first', array(
                 'conditions' => array(
-                    'dataset' => 'prawo_lokalne',
+                    'dataset' => 'krakow_rada_uchwaly',
                     'id' => $this->request->params['subid']
                 ),
                 'layers' => array('neighbours')
@@ -497,9 +497,9 @@ class GminyController extends DataobjectsController
             $this->_prepareView();
             $this->Components->load('Dane.DataBrowser', array(
                 'conditions' => array(
-                    'dataset' => 'prawo_lokalne',
+                    'dataset' => 'krakow_rada_uchwaly',
                 ),
-                'aggsPreset' => 'prawo_lokalne',
+                'aggsPreset' => 'krakow_rada_uchwaly',
             ));
 
             $this->set('title_for_layout', 'Uchwały podjęte przez radę gminy ' . $this->object->getData('nazwa'));

@@ -285,7 +285,24 @@ class DataBrowserComponent extends Component {
 	            ),
 	        ),
 	    ),
-	    'prawo_lokalne' => array(
+	    'krakow_rada_uchwaly' => array(
+		    'typ_id' => array(
+	            'terms' => array(
+		            'field' => 'krakow_rada_uchwaly.typ_id',
+		            'exclude' => array(
+			            'pattern' => '0'
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Typy uchwał',
+		            'skin' => 'pie_chart',
+	                'field' => 'krakow_rada_uchwaly.typ_id',
+	                'dictionary' => array(
+		                '1' => 'Uchwały',
+		                '2' => 'Rezolucje',
+	                ),
+	            ),
+	        ),
 		    'date' => array(
 	            'date_histogram' => array(
 		            'field' => 'date',
