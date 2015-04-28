@@ -485,7 +485,7 @@ class GminyController extends DataobjectsController
                     'dataset' => 'krakow_rada_uchwaly',
                     'id' => $this->request->params['subid']
                 ),
-                'layers' => array('neighbours')
+                'layers' => array('neighbours', 'druki')
             ));
 
             $this->set('uchwala', $uchwala);

@@ -16,6 +16,21 @@ echo $this->Element('Dane.dataobject/subobject', array(
     )
 ));
 
-echo $this->Document->place( $uchwala->getData('dokument_id') );
+?>
+<div class="prawo row">
+    <div class="col-md-2 objectSide">
 
+        <? echo $this->Element('Dane.sides/krakow_rada_uchwaly-left', array(
+        	'object' => $uchwala,
+        )); ?>
+
+    </div>
+    <div class="col-md-10 nopadding">
+        <div class="object">
+            <?= $this->Document->place( $uchwala->getData('dokument_id') ) ?>
+        </div>
+    </div>
+
+</div>
+<?
 echo $this->Element('dataobject/pageEnd');
