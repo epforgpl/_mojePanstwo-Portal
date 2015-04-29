@@ -1,5 +1,4 @@
 <? if (isset($menu) && isset($menu['items'])) { ?>
-
     <ul class="nav nav-tabs">
         <li class="mobileMenu active visible-xs">
             <a href="#mobileMenu">
@@ -8,14 +7,14 @@
         </li>
         <?
         foreach ($menu['items'] as $m) {
-            
-            unset( $m['icon'] );
-            
+            unset($m['icon']);
             $classes = array();
-            if(
-	        	isset($menu['selected']) && 
-            	( $m['id'] == $menu['selected'] ) 
-            ) {
+
+            if (isset($m['class']) && !empty($m['class'])) {
+                $classes = explode(' ', $m['class']);
+            }
+
+            if (isset($menu['selected']) && ($m['id'] == $menu['selected'])) {
                 $classes[] = 'active';
             }
 
@@ -36,11 +35,11 @@
                 $dropdown = true;
                 $classes[] = 'dropdown';
             }
-            
+
             $href = $menu['base'];
-            if( $m['id'] )
-            	$href .= '/' . $m['id'];
-            
+            if ($m['id'])
+                $href .= '/' . $m['id'];
+
             ?>
             <li class="<?= implode(' ', $classes) ?>">
                 <a <? if ($dropdown) {
@@ -74,5 +73,7 @@
                 <? } ?>
             </li>
         <? } ?>
+        <? foreach ($menu['items'] as $m) {
+        } ?>
     </ul>
 <? } ?>

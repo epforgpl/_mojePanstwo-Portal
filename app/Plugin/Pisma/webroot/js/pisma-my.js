@@ -51,7 +51,24 @@
                 .prop('checked', this.checked.length ? true : false);
 
             this.updateActionBar();
+            this.updateDeleteForm();
             return this;
+        },
+
+        updateDeleteForm: function() {
+            var form = this.main.find('.optionsChecked form');
+            var inputs = form.find('.inputs');
+            var _html = [];
+            for(var c in this.checked) {
+                if(this.checked.hasOwnProperty(c)) {
+                    var id = this.checked[c];
+                    _html.push('<input type="hidden" name="id[]" value="' + id + '"/>');
+                }
+            }
+
+            inputs.html(
+                _html.join('')
+            );
         },
 
         updateActionBar: function() {
