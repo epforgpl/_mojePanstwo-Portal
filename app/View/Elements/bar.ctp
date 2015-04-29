@@ -47,7 +47,7 @@
                         <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'logout')); ?>"><?php echo __('LC_COCKPITBAR_LOGOUT'); ?></a>
                     <?php } else { ?>
                         <a class="_specialCaseLoginButton"
-                           href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'login')); ?>"><?php echo __('LC_COCKPITBAR_LOGIN'); ?></a>
+                           href="<?php echo $this->Html->url(array('controller' => 'login')); ?>"><?php echo __('LC_COCKPITBAR_LOGIN'); ?></a>
                     <?php } ?>
                 </div>
             </div>
