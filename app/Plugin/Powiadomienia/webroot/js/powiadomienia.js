@@ -1,19 +1,17 @@
 var lastScroll = 0;
 
 function changeBckgrn($rotate) {
-    if (!$rotate.hasClass('animate')) {
-        $rotate.find('.holdBckgrnd').append(
-            $('<div></div>').addClass('temp').css({
-                'display': 'none',
-                'background-image': $rotate.find('.active').data('bckgrnd')
-            })
-        );
-        $rotate.find('.holdBckgrnd .temp').fadeIn(function () {
-            $rotate.find('.holdBckgrnd').css('background-image', $rotate.find('.active').data('bckgrnd'));
-            $rotate.find('.holdBckgrnd .temp').remove();
-            lastScroll = $(window).scrollTop();
-        });
-    }
+    $rotate.find('.holdBckgrnd').append(
+        $('<div></div>').addClass('temp').css({
+            'display': 'none',
+            'background-image': $rotate.find('.active').data('bckgrnd')
+        })
+    );
+    $rotate.find('.holdBckgrnd .temp').fadeIn(function () {
+        $rotate.find('.holdBckgrnd').css('background-image', $rotate.find('.active').data('bckgrnd'));
+        $rotate.find('.holdBckgrnd .temp').remove();
+        lastScroll = $(window).scrollTop();
+    });
 }
 
 (function ($) {
@@ -61,8 +59,7 @@ function changeBckgrn($rotate) {
 
     });
 
-    var scrollStatus = false,
-        lastScroll = 0;
+    var scrollStatus = false;
 
     $(window).keydown(function (e) {
         var key = e.which;

@@ -1,5 +1,5 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('powiadomienia', array('plugin' => 'Powiadomienia'))); ?>
-<?php $this->Combinator->add_libs('css', $this->Less->css('krakow-powiadomienia', array('plugin' => 'Dane'))); ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('pk-powiadomienia', array('plugin' => 'Powiadomienia'))); ?>
 <?php $this->Combinator->add_libs('js', 'Powiadomienia.powiadomienia') ?>
 
 <?= $this->Element('appheader'); ?>

@@ -55,5 +55,8 @@ class PowiadomieniaController extends ApplicationsController
     public function jak_to_dziala() {
         $this->title = 'Jak to działa? - Powiadomienia';
         $this->setMenuSelected('jak_to_dziala');
+
+        if ($this->domainMode == "PK")
+            $this->render('Powiadomienia/pk-jak_to_dziala');
     }
 } 
