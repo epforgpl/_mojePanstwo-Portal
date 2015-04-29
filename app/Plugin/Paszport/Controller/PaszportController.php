@@ -186,7 +186,12 @@ class PaszportController extends ApplicationsController
                 'action' => 'profile'
             ));
         } else {
-	        
+            $ref = $this->request->referer();
+            if ($ref != Router::url(null, true)) {
+                // if referer is not login itself, save it for succesfull redirect
+                $this->Auth->redirectUrl($ref);
+            }
+
             if ($this->request->is('post')) {
                 try {
 	                $previous_session_id = session_id();	                
@@ -195,7 +200,7 @@ class PaszportController extends ApplicationsController
 
                     $user_id = $this->Auth->user('id');
                     $crossdomain_login_token_plain = rand( 0, PHP_INT_MAX ) . ' ' . $user_id . ' ' .
-                        Configure::read('Security.salt');
+                        CROSSDOMAIN_salt;
                     $crossdomain_login_token = urlencode(base64_encode(Security::rijndael($crossdomain_login_token_plain,
                         Configure::read('Security.salt'), 'encrypt')));
 
@@ -213,7 +218,7 @@ class PaszportController extends ApplicationsController
                     );
                 }
             }
-            
+
             $this->title = 'Zaloguj się - Paszport';
             
         }
@@ -274,7 +279,7 @@ class PaszportController extends ApplicationsController
         $token = base64_decode($tokeno);
         $token = Security::rijndael($token, Configure::read('Security.salt'), 'decrypt');
         $token = explode(' ', $token);
-        if (count($token) != 3 or $token[2] != Configure::read('Security.salt')) {
+        if (count($token) != 3 or $token[2] != CROSSDOMAIN_salt) {
             throw new BadRequestException();
         }
 
