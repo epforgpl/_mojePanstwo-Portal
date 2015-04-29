@@ -380,7 +380,8 @@ class AppController extends Controller {
 				) {
 				
 				} elseif (stripos( $_SERVER['REQUEST_URI'], '/cross-domain-' ) === 0
-					or stripos( $_SERVER['REQUEST_URI'], '/paszport/users/log' ) === 0) {
+				 or stripos( $_SERVER['REQUEST_URI'], '/login' ) === 0
+				 or stripos( $_SERVER['REQUEST_URI'], '/logout' ) === 0) {
 
 				} else {
 				

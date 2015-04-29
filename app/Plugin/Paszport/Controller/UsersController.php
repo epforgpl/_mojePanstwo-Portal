@@ -81,32 +81,6 @@ class UsersController extends PaszportAppController
         $this->set('title_for_layout', __d('paszport', 'LC_PASZPORT_ACCOUNT_INFO', true));
     }
 
-//    /**
-//     * Login method
-//     */
-//    public function login()
-//    {
-//        if ($this->Auth->loggedIn()) {
-//            $this->redirect('/');
-//        }
-//
-//        if ($this->request->is('post')) {
-//            $user = $this->PassportApi->User()->login($this->data);
-//
-//            if ($user['user']) {
-//	            $this->Session->write('previous_id', session_id());
-//                $this->Auth->login($user['user']);
-//                $this->redirect($this->Auth->redirectUrl());
-//
-//            } else {
-//                $this->Session->setFlash(__d('paszport', 'LC_PASZPORT_LOGIN_FAILED'), 'alert', array('class' => 'alert-error'), 'auth');
-//                $this->redirect(array('action' => 'login'));
-//            }
-//        }
-//        $this->set('title_for_layout', __d('paszport', 'LC_PASZPORT_LOGIN', true));
-//
-//    }
-
     /**
      * Performs a FB login
      */
