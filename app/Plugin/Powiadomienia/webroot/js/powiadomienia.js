@@ -1,21 +1,35 @@
-function changeBckgrn($rotate) {
-    console.log('changeBckgrn', $rotate);
-    $rotate.find('.holdBckgrnd').append(
-        $('<div></div>').addClass('temp').css({
-            'display': 'none',
-            'background-image': $rotate.find('.active').data('bckgrnd')
-        })
-    );
-    $rotate.find('.holdBckgrnd .temp').fadeIn(function () {
-        $rotate.find('.holdBckgrnd').css('background-image', $rotate.find('.active').data('bckgrnd'));
-        $rotate.find('.holdBckgrnd .temp').remove();
-    });
-}
+/*global jQuery */
 
 (function ($) {
+    "use strict";
     var $powiadomienia = $('#powiadomienia'),
         $rotate = $("#rotate"),
         $rotatePos = $rotate.offset();
+
+    function changeBackground() {
+        $rotate.find('.holdBckgrnd').append(
+            $('<div></div>').addClass('temp').css({
+                'display': 'none',
+                'background-image': $rotate.find('.active').data('bckgrnd')
+            })
+        );
+        $rotate.find('.holdBckgrnd .temp').fadeIn(function () {
+            $rotate.find('.holdBckgrnd').css('background-image', $rotate.find('.active').data('bckgrnd'));
+            $rotate.find('.holdBckgrnd .temp').remove();
+        });
+    }
+
+    function scrollSlice(scrollStatus) {
+        if (!$rotate.hasClass('animate')) {
+            $rotate.addClass('animate');
+
+            $('html, body').animate({
+                scrollTop: scrollStatus
+            }, 1000, function () {
+                $rotate.removeClass('animate');
+            });
+        }
+    }
 
     $rotate.append(
         $('<div></div>').addClass('holdBckgrnd').css('width', $rotate.outerWidth())
@@ -23,6 +37,15 @@ function changeBckgrn($rotate) {
 
     $rotate.find('.slice').each(function () {
         $(this).data('bckgrnd', $(this).css('background-image'));
+    });
+
+    $powiadomienia.find('.start a.icon').click(function (e) {
+        e.preventDefault();
+
+        $('html, body').animate({
+            scrollTop: $rotate.offset().top
+        }, 1000);
+
     });
 
     $(window).scroll(function () {
@@ -35,72 +58,51 @@ function changeBckgrn($rotate) {
         }
 
         if ($(this).scrollTop() > $rotatePos.top && $rotate.hasClass('hold')) {
-            if ($rotate.find('.active').length == 0)
+            if ($rotate.find('.active').length === 0) {
                 $rotate.find('.slice:first-child').addClass('active');
-
+            }
             if ($rotate.find('.active').prev().hasClass('slice') && ($(this).scrollTop() + ($(this).height() / 2)) < $rotate.find('.active').prev().offset().top + $rotate.find('.active').prev().outerHeight() - 10) {
                 $rotate.find('.active').removeClass('active').prev().addClass('active');
-                changeBckgrn($rotate);
+                changeBackground();
             } else if ($rotate.find('.active').next().hasClass('slice') && ($(this).scrollTop() + ($(this).height() / 2)) > $rotate.find('.active').next().offset().top) {
                 $rotate.find('.active').removeClass('active').next().addClass('active');
-                changeBckgrn($rotate);
+                changeBackground();
             }
         }
     });
-
-    $powiadomienia.find('.start a.icon').click(function (e) {
-        e.preventDefault();
-
-        $('html, body').animate({
-            scrollTop: $rotate.offset().top
-        }, 1000);
-
-    });
-
-    var scrollStatus = false,
-        lastScroll = 0;
 
     $(window).keydown(function (e) {
-        var key = e.which;
+        var key = e.which,
+            scrollStatus = false;
 
         if ($rotate.hasClass('hold') && !$rotate.hasClass('animate')) {
-            if (key == 38 && $rotate.find('.active').prev()) {
+            if (key === 38 && $rotate.find('.active').prev()) {
                 scrollStatus = $rotate.find('.active').prev().offset().top;
-            } else if (key == 40 && $rotate.find('.active').next()) {
+            } else if (key === 40 && $rotate.find('.active').next()) {
                 scrollStatus = $rotate.find('.active').next().offset().top;
             }
 
-            if (scrollStatus)
+            if (scrollStatus) {
                 scrollSlice(scrollStatus);
+            }
         }
     });
 
-    $(window).scroll(function () {
+    $(window).mousewheel(function () {
         if ($rotate.hasClass('hold') && !$rotate.hasClass('animate')) {
-            var st = $(this).scrollTop();
+            var activePos = $rotate.find('.active').offset().top,
+                screenPos = $(this).scrollTop(),
+                scrollStatus = false;
 
-            if ((st > lastScroll) && $rotate.find('.active').next()) {
+            if ((activePos > screenPos) && $rotate.find('.active').prev()) {
+                scrollStatus = $rotate.find('.active').prev().offset().top;
+            } else if ((activePos < screenPos) && $rotate.find('.active').next()) {
                 scrollStatus = $rotate.find('.active').next().offset().top;
             }
-            else if ((st < lastScroll) && $rotate.find('.active').prev()) {
-                scrollStatus = $rotate.find('.active').prev().offset().top;
-            }
 
-            if (scrollStatus)
+            if (scrollStatus) {
                 scrollSlice(scrollStatus);
+            }
         }
     });
-
-    function scrollSlice(scrollStatus) {
-        if (!$rotate.hasClass('animate') && lastScroll != $(window).scrollTop()) {
-            $rotate.addClass('animate');
-
-            $('html, body').animate({
-                scrollTop: scrollStatus
-            }, 1000, function () {
-                $rotate.removeClass('animate');
-                lastScroll = $(window).scrollTop();
-            });
-        }
-    }
 }(jQuery));
