@@ -30,6 +30,8 @@
 if ( $_SERVER['HTTP_HOST'] == PK_DOMAIN ) { // HTTP_X_FORWARDED_HOST
 
 	Router::connect( '/', array( 'plugin' => 'Dane', 'controller' => 'gminy', 'action' => 'view', 'id' => 903 ) );
+	Router::connect('/login', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'login'));
+	Router::connect('/logout', array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'logout'));
 	
 	Router::connect('/:action', array(
 		'plugin' => 'Dane', 

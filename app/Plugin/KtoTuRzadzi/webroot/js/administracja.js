@@ -1,4 +1,4 @@
-/*global _mPHeart*/
+/*global mPHeart*/
 
 $(document).ready(function () {
     var lastChoose,
@@ -91,7 +91,7 @@ $(document).ready(function () {
 
                 /*
                  leftCol.find('.left').append(
-                 $('<a></a>').addClass('btn btn-primary').attr({href: that.attr('href'), target: '_self'}).text(_mPHeart.translation.LC_ADMINISTRACJA_INFO_WIECEJ)
+                 $('<a></a>').addClass('btn btn-primary').attr({href: that.attr('href'), target: '_self'}).text(mPHeart.translation.LC_ADMINISTRACJA_INFO_WIECEJ)
                  );
                  */
 

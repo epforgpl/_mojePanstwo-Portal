@@ -2,11 +2,6 @@
 
 Router::connect('/login', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'login'));
 Router::connect('/paszport', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'profile'));
-//Router::connect('/paszport/users/login', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'login'));
-//Router::connect('/paszport/users', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'login'));
-//Router::redirect('/zaloguj', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'login'));
-//Router::redirect('/logowanie', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'login'));
-
 Router::connect('/logout', array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'logout'));
 Router::connect('/register', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'register'));
 Router::connect('/forgot', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'forgot'));

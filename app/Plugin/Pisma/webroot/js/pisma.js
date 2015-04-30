@@ -1,4 +1,4 @@
-/* global _mPHeart */
+/* global mPHeart */
 var PISMA = Class.extend({
     preview: null,
     confirmExit: false,
@@ -162,7 +162,7 @@ var PISMA = Class.extend({
     szablonData: function (szablon_id) {
         var self = this;
 
-        $.getJSON(_mPHeart.constant.ajax.api + "/pisma/templates/" + szablon_id + ".json", function (d) {
+        $.getJSON(mPHeart.constant.ajax.api + "/pisma/templates/" + szablon_id + ".json", function (d) {
             self.objects.szablony = {
                 id: d.id,
                 title: d.nazwa,
@@ -198,7 +198,7 @@ var PISMA = Class.extend({
     adresatData: function (adresat_id) {
         var self = this;
 
-        $.getJSON(_mPHeart.constant.ajax.api + "/dane/dataset/instytucje/search.json?conditions[id]=" + adresat_id + '&conditions[pisma]=1', function (d) {
+        $.getJSON(mPHeart.constant.ajax.api + "/dane/dataset/instytucje/search.json?conditions[id]=" + adresat_id + '&conditions[pisma]=1', function (d) {
             self.objects.adresaci = {
                 id: d.search.dataobjects[0].id,
                 title: d.search.dataobjects[0].data['instytucje.nazwa'],
@@ -272,7 +272,7 @@ var PISMA = Class.extend({
                         if (self.cache.adresatInterval)
                             clearTimeout(self.cache.adresatInterval);
                         self.cache.adresatInterval = setTimeout(function () {
-                            $.getJSON(_mPHeart.constant.ajax.api + "/dane/dataset/instytucje/search.json?conditions[q]=" + adresat, function (data) {
+                            $.getJSON(mPHeart.constant.ajax.api + "/dane/dataset/instytucje/search.json?conditions[q]=" + adresat, function (data) {
                                 self.cache.adresaci[adresat] = data;
                                 self.adresaciList(data);
                             });
@@ -298,7 +298,7 @@ var PISMA = Class.extend({
         });
 
         if (self.objects.adresaci !== null && self.objects.adresaci.id) {
-            $.getJSON(_mPHeart.constant.ajax.api + "/dane/instytucje/" + self.objects.adresaci.id + ".json", function (d) {
+            $.getJSON(mPHeart.constant.ajax.api + "/dane/instytucje/" + self.objects.adresaci.id + ".json", function (d) {
                 self.objects.adresaci = {
                     id: d.object.id,
                     title: d.object.data['instytucje.nazwa'],
@@ -492,7 +492,7 @@ var PISMA = Class.extend({
             self.html.editor.addClass('loading');
             self.szablonData(checkSzablon);
 
-            $.getJSON(_mPHeart.constant.ajax.api + "/pisma/templates/" + checkSzablon + ".json", function (data) {
+            $.getJSON(mPHeart.constant.ajax.api + "/pisma/templates/" + checkSzablon + ".json", function (data) {
                 if (self.objects.editor !== null) {
                     if ($(self.objects.editor.text === self.html.editor.text()) || (self.html.editor.text() == '')) {
                         self.html.editor.empty().html(data.tresc);

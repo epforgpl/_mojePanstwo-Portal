@@ -113,7 +113,7 @@
                         $('<a></a>').addClass('btn btn-success').attr({
                             'href': '/dane/szukaj?q=' + item.q,
                             'target': '_self'
-                        }).html('<span class="glyphicon glyphicon-search"> </span> ' + _mPHeart.suggester.fullSearch)
+                        }).html('<span class="glyphicon glyphicon-search"> </span> ' + mPHeart.suggester.fullSearch)
                     ).appendTo(ul);
                 }
             }

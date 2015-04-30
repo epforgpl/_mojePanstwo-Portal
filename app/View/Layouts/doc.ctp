@@ -130,7 +130,7 @@ echo $this->Html->script('../plugins/bootstrap-switch/bootstrap-switch.js'); ?>
 
 <?php /*PHP DATA FOR JS */ ?>
 <script type="text/javascript">
-    var _mPHeart = {
+    var mPHeart = {
         translation: jQuery.parseJSON('<?php echo json_encode($translation); ?>'),
         social: {
             facebook: {

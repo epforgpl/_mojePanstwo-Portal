@@ -16,10 +16,10 @@
 
                 </div>
 
-                <div class="well well-sm">
+                <div class="well well-sm text-center">
                     Źródło:
-                    <a href="http://orzeczenia.ms.gov.pl/">
-                        orzeczenia.ms.gov.pl
+                    <a href="http://orzeczenia.ms.gov.pl/details/<?= $object->getData('sp_orzeczenia.str_ident'); ?>">
+                        orzeczenia.ms.gov.pl/details/<?= $object->getData('sp_orzeczenia.str_ident'); ?>
                     </a>
                 </div>
             <?php } ?>

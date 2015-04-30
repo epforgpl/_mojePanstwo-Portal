@@ -45,7 +45,7 @@ var filtersController = function () {
                 var showMoreButton = jQuery('<span></span>')
                     .addClass('showMoreFilters btn btn-default btn-sm')
                     .attr({'data-toggle': 'modal', 'data-target': '#filtersHiddenModal'})
-                    .text(_mPHeart.translation.LC_DANE_SHOW_ALL_OPTIONS);
+                    .text(mPHeart.translation.LC_DANE_SHOW_ALL_OPTIONS);
 
                 filter.after(showMoreButton);
             }
@@ -84,7 +84,7 @@ var filtersController = function () {
                             }).append(
                                 jQuery('<input />').addClass('form-control').attr({
                                     'type': 'text',
-                                    'placeholder': _mPHeart.translation.LC_DANE_SEARCH,
+                                    'placeholder': mPHeart.translation.LC_DANE_SEARCH,
                                     'autocomplete': 'off'
                                 })
                             )
@@ -93,7 +93,7 @@ var filtersController = function () {
                                 'width': '20%',
                                 'min-width': '60px',
                                 'float': 'right'
-                            }).text(_mPHeart.translation.LC_DANE_FILTER)
+                            }).text(mPHeart.translation.LC_DANE_FILTER)
                         )
                     )
                 )
