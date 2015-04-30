@@ -63,7 +63,8 @@ class AppController extends Controller {
 	);
 	
 	public $domainMode = 'MP';
-
+	public $appSelected = false;
+	
 	public $helpers = array(
 		'Html',
 		'Form',
@@ -439,6 +440,7 @@ class AppController extends Controller {
 		$this->set( '_APPLICATIONS', $this->getApplications() );
 		$this->set( '_APPLICATION', $this->getApplication() );
 		$this->set('domainMode', $this->domainMode);
+		$this->set('appSelected', $this->appSelected);
 
 //		// remember path for redirect if necessary
 //		if ( Router::url( null ) != '/null' ) { // hack for bug

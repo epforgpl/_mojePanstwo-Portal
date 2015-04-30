@@ -5,18 +5,8 @@ class DaneController extends ApplicationsController
 {
 	
     public $settings = array(
-		'menu' => array(
-			array(
-				'id' => '',
-				'label' => 'Wyszukiwarka',
-			),
-			array(
-				'id' => 'zbiory',
-				'label' => 'Zbiory danych',
-			),
-		),
 		'title' => 'Dane',
-		'subtitle' => 'Największa baza danych publicznych w Polsce',
+		'subtitle' => 'Przeszukuj największą bazę danych publicznych w Polsce',
 		'headerImg' => 'dane',
 	);
 	

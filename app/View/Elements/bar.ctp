@@ -16,23 +16,23 @@
                     <? /* <span class="_mPAppBadge badge">Przykład znacznika libczy przy ikonie</span> */ ?>
                 </div>
             </div>
-            <div class="_mPAppsList _appBlock _appBlockBackground">
+            <a class="_mPAppsList _appBlock _appBlockBackground<? if($appSelected=='moje-dane') echo " _appBlockActive";?>" href="/moje-dane" target="_self">
                 <div class="_mPTitle">
-                    <i class="_mPAppIcon" data-icon-new="&#xe805;"></i>
+                    <i class="_mPAppIcon" data-icon-new="&#xe801;"></i>
 
                     <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_MY_DATA'); ?></p>
                 </div>
-            </div>
-            <div class="_mPAppsList _appBlock _appBlockBackground">
+            </a>
+            <a class="_mPAppsList _appBlock _appBlockBackground<? if($appSelected=='moje-pisma') echo " _appBlockActive";?>" href="/moje-pisma" target="_self">
                 <div class="_mPTitle">
                     <i class="_mPAppIcon" data-icon-new="&#xe804;"></i>
 
                     <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_MY_DOCS'); ?></p>
                 </div>
-            </div>
-            <a class="_mPAppsList _appBlock _appBlockBackground" href="/aplikacje" target="_self">
+            </a>
+            <a class="_mPAppsList _appBlock _appBlockBackground<? if($appSelected=='dane') echo " _appBlockActive";?>" href="/dane" target="_self">
                 <div class="_mPTitle">
-                    <i class="_mPAppIcon" data-icon-new="&#xe801;"></i>
+                    <i class="_mPAppIcon" data-icon-new="&#xe805;"></i>
 
                     <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_PUBLIC_DATA'); ?></p>
                 </div>

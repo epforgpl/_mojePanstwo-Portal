@@ -7,13 +7,13 @@
             $query = $this->request->query;
             unset( $query[$var] );
         ?>
-        <li><a href="/pisma/moje?<?= http_build_query($query) ?>"><?= $allLabel ?></a></li>
+        <li><a href="/moje-pisma?<?= http_build_query($query) ?>"><?= $allLabel ?></a></li>
         <li class="divider"></li>
         <? foreach( $data['buckets'] as $a ) {
             $query = $this->request->query;
             $query[$var] = $a['key'];
         ?>
-        <li><a class="overflow-auto" href="/pisma/moje?<?= http_build_query($query) ?>"><span class="pull-left"><?= $this->Text->truncate($a['label'], 30) ?></span><span class="badge pull-right"><?= $a['count'] ?></span></a></li>
+        <li><a class="overflow-auto" href="/moje-pisma?<?= http_build_query($query) ?>"><span class="pull-left"><?= $this->Text->truncate($a['label'], 30) ?></span><span class="badge pull-right"><?= $a['count'] ?></span></a></li>
         <? } ?>
     </ul>
 </div>

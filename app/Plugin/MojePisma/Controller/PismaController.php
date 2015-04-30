@@ -15,22 +15,23 @@ class PismaController extends ApplicationsController
 		'menu' => array(
 			array(
 				'id' => '',
-				'label' => 'Nowe pismo',
+				'label' => 'Pisma',
 			),
 			array(
-				'id' => 'moje',
-				'label' => 'Moje pisma',
+				'id' => 'nowe',
+				'label' => 'Nowe pismo',
 			),
 		),
-		'title' => 'Pisma',
+		'title' => 'Moje Pisma',
 		'subtitle' => 'Wysyłaj pisma urzędowe do instytucje publicznych',
-		'headerImg' => 'pisma',
+        'headerImg' => '/MojePisma/img/header_pisma.png',
 	);
 	
     public $helpers = array('Form');
-    public $uses = array('Pisma.Pismo');
+    public $uses = array('MojePisma.Pismo');
     public $components = array('RequestHandler');
-
+	public $appSelected = 'moje-pisma';
+	
     public function prepareMetaTags() {
         parent::prepareMetaTags();
         $this->setMeta('og:image', FULL_BASE_URL . '/pisma/img/social/pisma.jpg');
@@ -212,7 +213,7 @@ class PismaController extends ApplicationsController
 	public function home()
     {
 	    
-	    $this->setMenuSelected();
+	    $this->setMenuSelected('nowe');
 	    
 	    /*
         $API = $this->Pismo;
@@ -241,6 +242,7 @@ class PismaController extends ApplicationsController
     public function my()
     {
 		
+	    $this->setMenuSelected();
 		$q = false;
 		
 		$params = array(

@@ -848,6 +848,7 @@ class DataBrowserComponent extends Component {
 			$controller->Dataobject = ClassRegistry::init('Dane.Dataobject');
 		
 		$controller->Paginator->settings = $this->getSettings();
+				
 		// $controller->Paginator->settings['order'] = 'score desc';
 		// debug($controller->Paginator->settings); die();	
 		$hits = $controller->Paginator->paginate('Dataobject');

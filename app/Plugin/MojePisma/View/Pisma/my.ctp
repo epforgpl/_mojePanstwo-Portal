@@ -1,7 +1,7 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
-<?php $this->Combinator->add_libs('css', $this->Less->css('pisma-moje', array('plugin' => 'Pisma'))) ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'MojePisma'))) ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('pisma-moje', array('plugin' => 'MojePisma'))) ?>
 
-<?php $this->Combinator->add_libs('js', 'Pisma.pisma-my.js') ?>
+<?php $this->Combinator->add_libs('js', 'MojePisma.pisma-my.js') ?>
 
 <?= $this->Element('appheader'); ?>
 
@@ -11,7 +11,7 @@
 	    <div class="row">
 		    <div class="col-sm-10 col-sm-offset-1">
 			    <div class="form-group">
-			        <form method="GET" action="/pisma/moje">
+			        <form method="GET" action="/moje-pisma">
 			            <input name="q" class="form-control input-md" placeholder="Szukaj w moim pismach..." type="text"
 			                   value="<?= $q ?>">
 			            <input type="submit" value="Szukaj" style="display: none;"/>
@@ -53,7 +53,7 @@
                     </div>
                     <div class="col-md-7 text-right">
                         <div class="optionsChecked">
-	                        <form action="/pisma/moje/delete">
+	                        <form action="/moje-pisma/moje/delete">
 		                        <div class="inputs">
 		                        </div>
 	                            <button class="btn btn-default deleteButton" type="submit">
@@ -63,7 +63,7 @@
                         </div>
                         <div class="optionsUnChecked">
                             
-                            <? if( isset($aggs['template']) ) echo  $this->element('Pisma.aggs', array(
+                            <? if( isset($aggs['template']) ) echo  $this->element('MojePisma.aggs', array(
                             	'data' => $aggs['template'],
                             	'label' => 'Szablon',
                             	'allLabel' => 'Wszystkie szablony',
@@ -71,7 +71,7 @@
                             	'selected' => isset( $filters_selected['template'] ),
                             )); ?>
                             
-                            <? if( isset($aggs['to']) ) echo $this->element('Pisma.aggs', array(
+                            <? if( isset($aggs['to']) ) echo $this->element('MojePisma.aggs', array(
                             	'data' => $aggs['to'],
                             	'label' => 'Adresat',
                             	'allLabel' => 'Wszyscy adresaci',
@@ -79,7 +79,7 @@
                             	'selected' => isset( $filters_selected['to'] ),
                             )); ?>
                             
-                            <? if( isset($aggs['sent']) ) echo  $this->element('Pisma.aggs', array(
+                            <? if( isset($aggs['sent']) ) echo  $this->element('MojePisma.aggs', array(
                             	'data' => $aggs['sent'],
                             	'label' => 'Status',
                             	'allLabel' => 'Wszystkie statusy',
@@ -87,7 +87,7 @@
                             	'selected' => isset( $filters_selected['sent'] ),
                             )); ?>
                             
-                            <? if( isset($aggs['access']) ) echo  $this->element('Pisma.aggs', array(
+                            <? if( isset($aggs['access']) ) echo  $this->element('MojePisma.aggs', array(
                             	'data' => $aggs['access'],
                             	'label' => 'Dostęp',
                             	'allLabel' => 'Wszystko',
@@ -102,7 +102,7 @@
 				<? if( !empty($filters_selected) ) { ?>
 				<div class="row">
 					<div class="col-md-12">
-						<p class="remove-filters"><a href="/pisma/moje"><span class="glyphicon glyphicon-remove"></span> Usuń wszystkie filtry</a></p>
+						<p class="remove-filters"><a href="/moje-pisma/moje"><span class="glyphicon glyphicon-remove"></span> Usuń wszystkie filtry</a></p>
 					</div>
 				</div>
 				<? } ?>
@@ -115,14 +115,14 @@
                         </div>
                         <div class="col-sm-9">
                             <div class="thumb">
-                                <a href="/pisma/<?= $item['alphaid'] ?>,<?= $item['slug'] ?>">
+                                <a href="/moje-pisma/<?= $item['alphaid'] ?>,<?= $item['slug'] ?>">
                                     <img src="http://pisma.sds.tiktalik.com/thumbs/<?= $item['hash'] ?>.png"/>
                                 </a>
                             </div>
                             <div class="cont">
 
                                 <p class="title">
-                                    <a href="/pisma/<?= $item['alphaid'] ?>,<?= $item['slug'] ?>"><?= ( isset($item['name']) && $item['name'] ) ? $item['name'] : 'Pismo' ?></a>
+                                    <a href="/moje-pisma/<?= $item['alphaid'] ?>,<?= $item['slug'] ?>"><?= ( isset($item['name']) && $item['name'] ) ? $item['name'] : 'Pismo' ?></a>
                                 </p>
 
                                 <? if( isset($item['sent']) && $item['sent'] ) {?>
@@ -152,7 +152,7 @@
                     <div class="paginationListNumber">
                         <div class="btn-group" role="group">
                             <?php for ($x = 0; $x < $pagination['total'] / $pagination['perPage']; $x++) { ?>
-                                <a href="/pisma/moje?page=<?php echo $x + 1; ?>" type="button"
+                                <a href="/moje-pisma/moje?page=<?php echo $x + 1; ?>" type="button"
                                    class="btn btn-default<?php if (($x + 1) == $pagination['page']) echo ' active' ?>"><?php echo $x + 1; ?></a>
                             <?php } ?>
                         </div>
