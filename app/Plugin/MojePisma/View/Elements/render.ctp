@@ -1,4 +1,4 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('pisma_render', array('plugin' => 'Pisma'))) ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('pisma_render', array('plugin' => 'MojePisma'))) ?>
 
 <div id="editor-cont" class="row">
 

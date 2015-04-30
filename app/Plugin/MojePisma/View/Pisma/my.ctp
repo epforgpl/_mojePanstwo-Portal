@@ -166,7 +166,14 @@
                 <?
                 } else {
                     ?>
-                    <p class="letters-msg">Nie stworzyłeś jeszcze żadnych pism</p>
+				<div class="informationBlock missing col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+			        <div class="col-xs-12 information">
+			
+			            <h2>Nie stworzyłeś jeszcze żadnych pism</h2>
+						<br/><br/>
+			            <a target="_self" href="/moje-pisma/nowe" class="btn btn-info">Stwórz pismo</a>
+			        </div>
+			    </div>
                 <?
                 }
             } ?>

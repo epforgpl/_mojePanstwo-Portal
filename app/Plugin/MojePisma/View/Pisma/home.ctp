@@ -1,5 +1,5 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
-<?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'MojePisma'))) ?>
+<?php $this->Combinator->add_libs('js', 'MojePisma.pisma.js') ?>
 
 <?= $this->Element('appheader') ?>
 
@@ -10,9 +10,9 @@
                 <div class="container start">
                     <div class="col-xs-12">
 
-                        <form class="letter form-horizontal" action="/pisma" method="post">
+                        <form class="letter form-horizontal" action="/moje-pisma" method="post">
 
-                            <?php echo $this->element('Pisma.start') ?>
+                            <?php echo $this->element('MojePisma.start') ?>
 
                             <fieldset class="final">
                                 <div class="form-group">

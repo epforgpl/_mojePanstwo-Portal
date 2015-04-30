@@ -35,7 +35,22 @@
 				
 					<h2>Powiadomienia:</h2>
 					
-					<?= $this->element('Dane.DataFeed/feed'); ?>
+					<?
+						if( $this->params['paging']['Dataobject']['pageCount'] ) { 
+							echo $this->element('Dane.DataFeed/feed');
+						} else { 
+					?>
+					
+					<div class="informationBlock missing col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+				        <div class="col-xs-12 information">
+				
+				            <h2>Nie masz nowych powiadomień</h2>
+				
+				            <h3>Dane, które obserwujesz nie wygenerowały jeszcze powiadomień.</h3>
+				        </div>
+				    </div>
+					
+					<? } ?>
 				
 				</div>
 			
