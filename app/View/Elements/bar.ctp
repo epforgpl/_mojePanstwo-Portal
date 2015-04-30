@@ -13,28 +13,28 @@
                     <i class="_mPAppIcon" data-icon-new="&#xe802;"></i>
 
                     <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_SEARCH'); ?></p>
+                    <? /* <span class="_mPAppBadge badge">Przykład znacznika libczy przy ikonie</span> */ ?>
                 </div>
             </div>
-            <div class="_mPSearch _appBlock _appBlockBackground">
+            <div class="_mPAppsList _appBlock _appBlockBackground">
                 <div class="_mPTitle">
-                    <i class="_mPAppIcon" data-icon-new="&#xe802;"></i>
+                    <i class="_mPAppIcon" data-icon-new="&#xe805;"></i>
 
-                    <p class="_mPAppLabel"><?php echo __('Moje Dane'); ?></p>
+                    <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_MY_DATA'); ?></p>
                 </div>
             </div>
-            <div class="_mPSearch _appBlock _appBlockBackground">
+            <div class="_mPAppsList _appBlock _appBlockBackground">
                 <div class="_mPTitle">
-                    <i class="_mPAppIcon" data-icon-new="&#xe802;"></i>
+                    <i class="_mPAppIcon" data-icon-new="&#xe804;"></i>
 
-                    <p class="_mPAppLabel"><?php echo __('Moje Pisma'); ?></p>
+                    <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_MY_DOCS'); ?></p>
                 </div>
             </div>
             <a class="_mPAppsList _appBlock _appBlockBackground" href="/aplikacje" target="_self">
                 <div class="_mPTitle">
-                    <i class="_mPAppIcon" data-icon-new="&#xe800;"></i>
+                    <i class="_mPAppIcon" data-icon-new="&#xe801;"></i>
 
-                    <p class="_mPAppLabel"><?php echo __('Dane publiczne'); ?></p>
-                    <? /* <span class="_mPAppBadge badge">Przykład znacznika libczy przy ikonie</span> */ ?>
+                    <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_PUBLIC_DATA'); ?></p>
                 </div>
             </a>
         </div>
