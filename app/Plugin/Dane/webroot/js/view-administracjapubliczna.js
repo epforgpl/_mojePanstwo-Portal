@@ -68,7 +68,7 @@ function initialize() {
 
     function showPanoData(panoData, status) {
         if (status != google.maps.StreetViewStatus.OK) {
-            $('#streetView').html(_mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_NO_STREETVIEW_PICTURE_AVAILABLE).attr('style', 'text-align:center;font-weight:bold,position: relative; top: 50%; margin-top: -10px').show();
+            $('#streetView').html(mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_NO_STREETVIEW_PICTURE_AVAILABLE).attr('style', 'text-align:center;font-weight:bold,position: relative; top: 50%; margin-top: -10px').show();
             return;
         }
 
@@ -118,10 +118,14 @@ function initialize() {
 
 //ASYNC INIT GOOGLE MAP JS//
 function loadScript() {
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=' + _mPHeart.language.twoDig + '&' + 'callback=initialize';
-    document.body.appendChild(script);
+    if (google.maps) {
+        initialize();
+    } else {
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=' + mPHeart.language.twoDig + '&' + 'callback=initialize';
+        document.body.appendChild(script);
+    }
 }
 
 jQuery(document).ready(function () {

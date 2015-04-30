@@ -1,4 +1,4 @@
-/*global _mPHeart*/
+/*global mPHeart*/
 
 jQuery(document).ready(function () {
     if (jQuery("#timeline-embed").length > 0) {
@@ -10,7 +10,7 @@ jQuery(document).ready(function () {
             embed_id: 'timeline-embed',
             css: '/plugins/TimelineJS/build/css/timeline-2rows.css',
             js: '/plugins/TimelineJS/build/js/timeline-2rows.js',
-            lang: _mPHeart.language.twoDig
+            lang: mPHeart.language.twoDig
         });
 
         $(window).on('DATAREADY', function () {

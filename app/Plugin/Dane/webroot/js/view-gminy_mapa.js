@@ -136,7 +136,7 @@ GenerateMap.prototype = {
                 'top': 0,
                 'right': 0
             }, 500, function () {
-                button.text(_mPHeart.translation.LC_GMINY_MAPA_FULL_SCREEN);
+                button.text(mPHeart.translation.LC_GMINY_MAPA_FULL_SCREEN);
                 $buttons.css({
                     'position': 'relative',
                     'z-index': 0,
@@ -149,7 +149,7 @@ GenerateMap.prototype = {
         } else {
             $mapFrame.data('height', $mapFrame.css('height'));
             $mapFrame.css('overflow', 'visible');
-            button.text(_mPHeart.translation.LC_GMINY_MAPA_MINIMALIZE);
+            button.text(mPHeart.translation.LC_GMINY_MAPA_MINIMALIZE);
             $mapFrame.css({
                 'overflow': 'visible',
                 'z-index': 100,

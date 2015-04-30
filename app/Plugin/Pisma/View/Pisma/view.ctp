@@ -1,7 +1,8 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
-<?php $this->Combinator->add_libs('js', 'Pisma.zeroclipboard.js') ?>
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma-social-share.js') ?>
+
+<?php echo $this->Html->script('/Pisma/js/zeroclipboard', array('block' => 'scriptBlock')); ?>
 
 <?= $this->Element('appheader'); ?>
 

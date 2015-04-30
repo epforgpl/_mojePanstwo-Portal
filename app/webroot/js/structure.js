@@ -1,4 +1,4 @@
-/*global _mPHeart*/
+/*global mPHeart*/
 (function ($) {
     var _mPCockpit = $('#_mPCockpit'),
         _mPApplication = _mPCockpit.find('._mPApplication'),

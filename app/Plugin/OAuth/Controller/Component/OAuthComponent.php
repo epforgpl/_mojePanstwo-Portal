@@ -446,6 +446,7 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
      */
     public function getClientDetails($client_id)
     {
+	    
         $client = $this->Client->getRedirectURL($client_id);
 
         if (isset($client['Client'])) {

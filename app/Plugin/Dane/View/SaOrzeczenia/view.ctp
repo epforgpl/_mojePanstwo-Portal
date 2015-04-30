@@ -50,10 +50,10 @@
                     </div>
                 <? } ?>
 
-                <div class="well well-sm">
+                <div class="well well-sm text-center">
                     Źródło:
-                    <a href="http://orzeczenia.nsa.gov.pl/">
-                        orzeczenia.nsa.gov.pl
+                    <a href="http://orzeczenia.nsa.gov.pl/doc/<?= $object->getData('sa_orzeczenia.nsa_id'); ?>">
+                        orzeczenia.nsa.gov.pl/doc/<?= $object->getData('sa_orzeczenia.nsa_id'); ?>
                     </a>
                 </div>
 

@@ -22,7 +22,7 @@
                 });
                 if (results.length == 0)
                     results = [
-                        {label: _mPHeart.translation.LC_SEARCH_BRAK_WYNIKOW, value: null}
+                        {label: mPHeart.translation.LC_SEARCH_BRAK_WYNIKOW, value: null}
                     ];
                 cache[term] = results;
                 response(results);

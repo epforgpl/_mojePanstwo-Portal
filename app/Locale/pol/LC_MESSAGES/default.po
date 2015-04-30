@@ -19,6 +19,15 @@ msgstr "Podany adres e-mail jest nieprawidłowy"
 msgid "LC_COCKPITBAR_USER_SEARCH"
 msgstr "Szukaj"
 
+msgid "LC_COCKPITBAR_USER_MY_DATA"
+msgstr "Moje Dane"
+
+msgid "LC_COCKPITBAR_USER_MY_DOCS"
+msgstr "Moje Pisma"
+
+msgid "LC_COCKPITBAR_USER_PUBLIC_DATA"
+msgstr "Dane publiczne"
+
 msgid "LC_COCKPITBAR_USER_APPLICATION"
 msgstr "Aplikacje"
 

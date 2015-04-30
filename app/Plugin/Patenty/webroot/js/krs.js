@@ -1,4 +1,4 @@
-/*global _mPHeart*/
+/*global mPHeart*/
 (function ($) {
     var searchInput = $('.search .searchInput'),
         groupsAndResults = $('#groupsAndResults'),
@@ -20,7 +20,7 @@
                     itemResults = $('<div></div>');
 
                 itemResults.addClass('item results').append(
-                    jQuery('<div></div>').addClass('carousel-title').text(_mPHeart.translation.LC_KRS_SEARCH_TITLE)
+                    jQuery('<div></div>').addClass('carousel-title').text(mPHeart.translation.LC_KRS_SEARCH_TITLE)
                 ).append(
                     jQuery('<ul></ul>')
                 ).append(
@@ -28,7 +28,7 @@
                         jQuery('<a></a>').addClass('btn btn-info').attr({
                             'href': '/dane/kanal/krs?q=' + input,
                             'target': '_self'
-                        }).text(_mPHeart.translation.LC_KRS_SEARCH_LINK)
+                        }).text(mPHeart.translation.LC_KRS_SEARCH_LINK)
                     )
                 );
 
@@ -98,7 +98,7 @@
 
         if (data == 0) {
             resultUl.append(
-                jQuery('<span></span>').addClass('center').html(_mPHeart.translation.LC_KRS_BRAK_WYNIKOW + ': <strong>' + word + '</strong>')
+                jQuery('<span></span>').addClass('center').html(mPHeart.translation.LC_KRS_BRAK_WYNIKOW + ': <strong>' + word + '</strong>')
             );
             groupsAndResults.find('.results .seeMore').hide();
         } else {

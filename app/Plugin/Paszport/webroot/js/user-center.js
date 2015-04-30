@@ -74,7 +74,7 @@
                             var errors = data.alerts.error;
 
                             for (var i = 0; i < errors.length; i++) {
-                                globalAlert('alert-danger', eval('_mPHeart.translation.' + errors[i]));
+                                globalAlert('alert-danger', eval('mPHeart.translation.' + errors[i]));
                             }
                         }
                     },
@@ -93,9 +93,9 @@
 
     $('#UserPhoto, #ErrorReportScreenshot').customFileInput({
         button_position: 'left',
-        feedback_text: _mPHeart.translation.LC_PASZPORT_FILE_INPUT_NO_FILE,
-        button_text: _mPHeart.translation.LC_PASZPORT_FILE_INPUT_BROWSE,
-        button_change_text: _mPHeart.translation.LC_PASZPORT_FILE_INPUT_CHANGE
+        feedback_text: mPHeart.translation.LC_PASZPORT_FILE_INPUT_NO_FILE,
+        button_text: mPHeart.translation.LC_PASZPORT_FILE_INPUT_BROWSE,
+        button_change_text: mPHeart.translation.LC_PASZPORT_FILE_INPUT_CHANGE
     });
 
 }($));

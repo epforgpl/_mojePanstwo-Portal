@@ -179,7 +179,7 @@ var intervalMain;
                                 'blockId': self.data('document'),
                                 'currentPage': page,
                                 'limitPerPage': 6,
-                                'lang': _mPHeart.language.threeDig
+                                'lang': mPHeart.language.threeDig
                             };
 
                             loadNodeDocument(params);
@@ -243,7 +243,7 @@ var intervalMain;
 
                                     docViewer.find('.headline').append(mapaPrawa.find('.container > .headline').clone(true));
                                     docViewer.find('.descline').append(mapaPrawa.find('.container > .descline').clone(true));
-                                    docViewer.find('.documentTitle .intro').text(_mPHeart.translation.LC_MAPAPRAWA_DOKUMENT)
+                                    docViewer.find('.documentTitle .intro').text(mPHeart.translation.LC_MAPAPRAWA_DOKUMENT)
                                         .end()
                                         .find('.documentTitle .content').text(jQuery(that).text());
 
@@ -320,7 +320,7 @@ var intervalMain;
             slideId = self.data('slide'),
             params = {
                 s: slideId,
-                lang: _mPHeart.language.threeDig
+                lang: mPHeart.language.threeDig
             },
             docContent = jQuery('<div></div>'),
             additionalInfo = jQuery('.additionalInfo.doc-' + slideId),
@@ -397,7 +397,7 @@ var intervalMain;
 
                                 var documentList = jQuery('<div></div>').addClass('documentList').addClass('documentation');
                                 documentList.append(
-                                    jQuery('<h3></h3>').text(_mPHeart.translation.LC_MAPAPRAWA_DOKUMENTACJA)
+                                    jQuery('<h3></h3>').text(mPHeart.translation.LC_MAPAPRAWA_DOKUMENTACJA)
                                 ).append(function () {
                                         jQuery(data.list).each(function () {
                                             var docListTitles = this.tytul.replace(/.{48}\S*\s+/g, "$&@").split(/\s+@/),

@@ -24,7 +24,7 @@ $mainPage = !isset($this->request->query['channel']) || !$this->request->query['
 
         <? if (isset($object_subscriptions) && $object_subscriptions) { ?>
             <div class="subscription">
-                <h2><span class="glyphicon glyphicon-star"></span> Obserwowane dane</h2>
+                <h2><span class="glyphicon glyphicon-star"></span> Obserwujesz</h2>
                 <ul>
                     <? foreach ($object_subscriptions as $sub) { ?>
                         <li<? if (isset($this->request->query['subscription']) && ($this->request->query['subscription'] == $sub['id'])) {
@@ -55,7 +55,7 @@ $mainPage = !isset($this->request->query['channel']) || !$this->request->query['
 
         <? } ?>
 
-        <? echo $this->Element('Dane.DataBrowser/aggs', array('data' => $dataFeed)); ?>
+        <? // echo $this->Element('Dane.DataBrowser/aggs', array('data' => $dataFeed)); ?>
 
         <?
         if ($side_right)

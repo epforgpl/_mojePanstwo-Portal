@@ -40,6 +40,7 @@
 			<h2><?= $title ?></h2>
 			<? } ?>
 			
+			<? if( !isset($searcher) || $searcher ) { ?>
 	        <div class="form-group has-feedback">
 	            <div class="col-md-12">
 	                <?
@@ -49,6 +50,8 @@
 	                <a href="<?= $dataBrowser['cancel_url']; ?>"><span class="clearer form-control-feedback" aria-hidden="true">&times;</span></a>
 	            </div>
 	        </div>
+	        <? } ?>
+	        
 	    </form>
 	</div>
         

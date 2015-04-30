@@ -1,4 +1,4 @@
-/*global _mPHeart*/
+/*global mPHeart*/
 
 function resizeControl() {
     var size = jQuery(this),

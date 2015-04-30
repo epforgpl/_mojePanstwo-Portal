@@ -7,12 +7,12 @@ $(document).ready(function () {
             },
 
             title: {
-                text: _mPHeart.translation.LC_ZAMOWIENIA_PUBLICZNE_LICZBA_ZAMOWIEN
+                text: mPHeart.translation.LC_ZAMOWIENIA_PUBLICZNE_LICZBA_ZAMOWIEN
             },
 
             series: [
                 {
-                    name: _mPHeart.translation.LC_ZAMOWIENIA_PUBLICZNE_LICZBA_ZAMOWIEN,
+                    name: mPHeart.translation.LC_ZAMOWIENIA_PUBLICZNE_LICZBA_ZAMOWIEN,
                     data: chartData
                 }
             ],

@@ -20,7 +20,7 @@ var DataObjectesAjax = {
         jQuery('#DatasetViewForm input[type="hidden"], .dataSortings input[type="hidden"]').remove();
     },
     setLanguage: function () {
-        switch (_mPHeart.language.threeDig) {
+        switch (mPHeart.language.threeDig) {
             case "pol":
                 /*CHANGE DATEPICKER i18n LANGUAGE*/
                 jQuery.datepicker.setDefaults(jQuery.datepicker.regional['pl']);
@@ -302,10 +302,10 @@ var DataObjectesAjax = {
         if (((filtersInputQ.length > 0) && (filtersInputQ.val() != '')) && (sortingList.find('a[value="score desc"]').length == 0)) {
             sortingList.prepend(jQuery('<li></li>').addClass('special result').append(jQuery('<a></a>').attr({
                 'href': '#',
-                'title': _mPHeart.translation.LC_DANE_SORTOWANIE_TRAFNOSC,
+                'title': mPHeart.translation.LC_DANE_SORTOWANIE_TRAFNOSC,
                 'value': 'score desc'
-            }).text(_mPHeart.translation.LC_DANE_SORTOWANIE_TRAFNOSC)));
-            sortingName.text(_mPHeart.translation.LC_DANE_SORTOWANIE_TRAFNOSC);
+            }).text(mPHeart.translation.LC_DANE_SORTOWANIE_TRAFNOSC)));
+            sortingName.text(mPHeart.translation.LC_DANE_SORTOWANIE_TRAFNOSC);
         }
 
         /*... AND WHEN "LOOKING PHRASE" NOT EXIST - WE REMOVE IT*/
@@ -514,7 +514,7 @@ var DataObjectesAjax = {
                         opacity: 0
                     }, delay, function () {
                         if (data.objects == null) {
-                            objects.find('.update-objects').html('<p class="noResults">' + _mPHeart.translation.LC_DANE_BRAK_WYNIKOW + '</p>');
+                            objects.find('.update-objects').html('<p class="noResults">' + mPHeart.translation.LC_DANE_BRAK_WYNIKOW + '</p>');
                         } else {
                             objects.find('.update-objects').html(data.objects);
                         }
