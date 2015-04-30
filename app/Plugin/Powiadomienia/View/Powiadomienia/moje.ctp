@@ -1,12 +1,3 @@
-<style>
-	.dataBrowser .dataCounter {
-		display: none;
-	}
-	#_main .alerts-login {
-		margin: 20px 0 0;
-	}
-</style>
-
 <?= $this->Element('appheader'); ?>
 
 <? if( !$this->Session->read('Auth.User.id') ) { ?>
