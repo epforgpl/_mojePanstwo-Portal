@@ -1,6 +1,6 @@
 /*LANGUAGE PACK FOR HIGHCHARTS.JS*/
 if (typeof(Highcharts) !== "undefined") {
-    if (_mPHeart.language.threeDig == 'pol') {
+    if (mPHeart.language.threeDig == 'pol') {
         Highcharts.setOptions({
             lang: {
                 loading: "Ładowanie...",

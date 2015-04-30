@@ -6,7 +6,7 @@ jQuery(document).ready(function () {
             var shoutItDialog = shoutItBox.find('.shoutItContent').dialog({
                 dialogClass: 'shoutItDialog',
                 width: 550,
-                title: _mPHeart.translation.LC_DANE_NAGLOSNIJ,
+                title: mPHeart.translation.LC_DANE_NAGLOSNIJ,
                 close: function () {
                     shoutItDialog.parent('.shoutItDialog').remove();
                 }

@@ -569,7 +569,7 @@ var d3Data;
                     var linkEl = $('<a></a>').attr({
                         'href': '#',
                         'target': '_self'
-                    }).text(_mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_LINK);
+                    }).text(mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_LINK);
 
                     $.each(node.data, function (label, value) {
                         if (label == 'mp_id') {
@@ -587,30 +587,30 @@ var d3Data;
                             if (label == 'data_urodzenia') {
                                 if (birthdayPrivacy)
                                     return;
-                                label = _mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_DATA_URODZENIA;
+                                label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_DATA_URODZENIA;
                             } else if (label == 'plec') {
-                                label = _mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_PLEC;
+                                label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_PLEC;
                                 if (value == 'K')
-                                    value = _mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_KOBIETA;
+                                    value = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_KOBIETA;
                                 else if (value == 'M')
-                                    value = _mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_MEZCZYZNA;
+                                    value = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_MEZCZYZNA;
                             }
                             else if (label == 'nazwisko')
-                                label = _mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_NAZWISKO;
+                                label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_NAZWISKO;
                             else if (label == 'imiona')
-                                label = _mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_IMIONA;
+                                label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_IMIONA;
                             else if (label == 'krs')
-                                label = _mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_KRS;
+                                label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_KRS;
                             else if (label == 'kapital_zakladowy')
-                                label = _mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_KAPITAL_ZAKLADOWY;
+                                label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_KAPITAL_ZAKLADOWY;
                             else if (label == 'miejscowosc')
-                                label = _mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_MIEJSCOWOSC;
+                                label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_MIEJSCOWOSC;
                             else if (label == 'data_rejestracji')
-                                label = _mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_REJESTRACJI;
+                                label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_REJESTRACJI;
                             else if (label == 'forma')
-                                label = _mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_FORMA_PRAWNA;
+                                label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_FORMA_PRAWNA;
                             else if (label == 'nazwa')
-                                label = _mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_NAZWA;
+                                label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_NAZWA;
                             else
                                 return;
                             tr.append($('<td></td>').text(label));

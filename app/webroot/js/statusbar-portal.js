@@ -19,8 +19,8 @@
                                         'type': 'text',
                                         'name': 'q',
                                         'autocomplete': 'off',
-                                        'placeholder': _mPHeart.suggester.placeholder,
-                                        'value': $("<div/>").html(_mPHeart.suggester.phrase).text()
+                                        'placeholder': mPHeart.suggester.placeholder,
+                                        'value': $("<div/>").html(mPHeart.suggester.phrase).text()
                                     }).addClass('form-control input-lg')
                                 ).append(
                                     $('<span></span>').addClass('input-group-btn').append(
