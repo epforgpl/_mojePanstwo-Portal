@@ -15,11 +15,13 @@ class PismaController extends ApplicationsController
 		'menu' => array(
 			array(
 				'id' => '',
-				'label' => 'Pisma',
+				'label' => 'Moje pisma',
+				'href' => 'moje-pisma',
 			),
 			array(
 				'id' => 'nowe',
 				'label' => 'Nowe pismo',
+				'href' => 'moje-pisma/nowe',
 			),
 		),
 		'title' => 'Moje Pisma',
@@ -42,7 +44,7 @@ class PismaController extends ApplicationsController
         $pismo = $this->load($id);
         
         if( $pismo['is_owner'] )
-	        $this->setMenuSelected('moje');
+	        $this->setMenuSelected();
     }
 	
 	private function load($id)
@@ -92,9 +94,9 @@ class PismaController extends ApplicationsController
 				return $this->redirect( $this->referer() );
 					
 			if( $pismo['saved'] ) {
-				$this->setMenuSelected('moje');
-			} else {
 				$this->setMenuSelected();
+			} else {
+				$this->setMenuSelected('nowe');
 			}
 		
 		} else {
@@ -342,7 +344,6 @@ class PismaController extends ApplicationsController
         $this->set('q', $q);
         $this->set('title_for_layout', 'Moje pisma');
         $this->set('filters_selected', $filters_selected);
-        $this->setMenuSelected('moje');
         
         $this->title = 'Moje Pisma';
     }	

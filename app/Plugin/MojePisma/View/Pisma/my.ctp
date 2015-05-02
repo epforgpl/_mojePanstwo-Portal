@@ -12,7 +12,7 @@
 		    <div class="col-sm-10 col-sm-offset-1">
 			    <div class="form-group">
 			        <form method="GET" action="/moje-pisma">
-			            <input name="q" class="form-control input-md" placeholder="Szukaj w moim pismach..." type="text"
+			            <input name="q" class="form-control input-md" placeholder="Szukaj w moich pismach..." type="text"
 			                   value="<?= $q ?>">
 			            <input type="submit" value="Szukaj" style="display: none;"/>
 			        </form>
