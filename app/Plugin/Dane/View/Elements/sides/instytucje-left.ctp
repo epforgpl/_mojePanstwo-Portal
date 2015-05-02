@@ -92,13 +92,13 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
 	</div>
 	*/ ?>
 
+            <? /*
     <div class="block">
 
         <ul class="dataHighlights side">
             
             
             
-            <? /*
             <? if ($email = $object->getData('email')) { ?>
                 <li class="dataHighlight">
                     <p class="_label">Adres e-mail</p>
@@ -123,11 +123,11 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
                     <p class="_value"><?= $object->getData('fax'); ?></p>
                 </li>
             <? } ?>
-            */ ?>
 
         </ul>
         
     </div>
+            */ ?>
     
     
     

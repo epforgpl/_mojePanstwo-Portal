@@ -20,7 +20,8 @@ class DataobjectsController extends AppController
     
     public $menu = array();
     public $actions = array();
-
+	public $appSelected = 'dane';
+	
     public function addInitLayers($layers)
     {
 
