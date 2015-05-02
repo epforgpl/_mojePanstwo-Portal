@@ -30,8 +30,8 @@
                             </div>
                             <div class="action">
                                 <a href="/powiadomienia" target="_self" class="btn btn-primary btn-icon">
-                                    <img class="icon" src="/Powiadomienia/icon/powiadomienia.svg" alt=""/>Zacznij
-                                    obserwować</a>
+                                    <img class="icon" src="/MojeDane/icon/powiadomienia.svg" alt=""/><? if ($this->Session->read('Auth.User.id')) {?>Moje
+                                    Dane<? } else { ?>Zacznij obserwować<? } ?></a>
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,8 @@
                             </div>
                             <div class="action">
                                 <a href="/pisma" target="_self" class="btn btn-primary btn-icon">
-                                    <img class="icon" src="/Pisma/icon/pisma.svg" alt=""/>Napisz pismo</a>
+                                    <img class="icon" src="/MojePisma/icon/pisma.svg" alt=""/><? if ($this->Session->read('Auth.User.id')) {?>Moje
+                                    Pisma<? } else { ?>Napisz pismo<? } ?></a>
                             </div>
                         </div>
                     </div>
