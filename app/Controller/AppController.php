@@ -374,11 +374,11 @@ class AppController extends Controller
                 ) {
 
                 } elseif (
-                ($this->request->params['controller'] == 'powiadomienia')
+                ($this->request->params['controller'] == 'Powiadomienia')
                 ) {
 
                 } elseif (
-                ($this->request->params['controller'] == 'pisma')
+                ($this->request->params['controller'] == 'Pisma')
                 ) {
 
                 } elseif (

@@ -7,7 +7,7 @@ class PowiadomieniaController extends ApplicationsController
 	public $settings = array(
 		'menu' => array(
 			array(
-				'id' => '',
+                'id' => 'obserwuje_powiadomienia',
 				'label' => 'Dane',
 				'href' => 'moje-dane'
 			),
@@ -70,14 +70,21 @@ class PowiadomieniaController extends ApplicationsController
  		$this->set('dataFeed', $dataFeed);
  		$this->set('subs', $subs);
         $this->title = 'Moje Dane';
+        $this->setMenuSelected('obserwuje_powiadomienia');
     }
     
     public function moje() {
 	    $this->title = 'Moje Powiadomienia';
+        $this->setMenuSelected('moje_powiadomienia');
+
     }
     
     public function jak_to_dziala() {
         $this->title = 'Jak to działa? - Powiadomienia';
+        $this->setMenuSelected('jak_to_dziala');
+
+        if ($this->domainMode == "PK")
+            $this->render('Powiadomienia/pk-jak_to_dziala');
     }
 
 } 
