@@ -208,7 +208,7 @@ var PISMA = Class.extend({
         "use strict";
         var self = this;
 
-        $.getJSON(mPHeart.constant.ajax.api + "/dane/dataset/instytucje/search.json?conditions[id]=" + adresat_id + '&conditions[pisma]=1', function (d) {
+        $.getJSON(mPHeart.constant.ajax.api + "/dane/index.json?conditions[dataset]=instytucje&conditions[id]=" + adresat_id, function (d) {
             self.objects.adresaci = {
                 id: d.search.dataobjects[0].id,
                 title: d.search.dataobjects[0].data['instytucje.nazwa'],
@@ -290,7 +290,7 @@ var PISMA = Class.extend({
                                 clearTimeout(self.cache.adresatInterval);
                             }
                             self.cache.adresatInterval = setTimeout(function () {
-                                $.getJSON(mPHeart.constant.ajax.api + "/dane/dataset/instytucje/search.json?conditions[q]=" + adresat, function (data) {
+                                $.getJSON(mPHeart.constant.ajax.api + "/dane/index.json?conditions[dataset]=instytucje&conditions[q]=" + adresat, function (data) {
                                     self.cache.adresaci[adresat] = data;
                                     self.adresaciList(data);
                                 });
