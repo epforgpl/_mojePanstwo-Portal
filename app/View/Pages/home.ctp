@@ -29,9 +29,15 @@
                                 zainteresowany.
                             </div>
                             <div class="action">
-                                <a href="/powiadomienia" target="_self" class="btn btn-primary btn-icon">
-                                    <img class="icon" src="/MojeDane/icon/powiadomienia.svg" alt=""/><? if ($this->Session->read('Auth.User.id')) {?>Moje
-                                    Dane<? } else { ?>Zacznij obserwować<? } ?></a>
+                                <? if ($this->Session->read('Auth.User.id')) {?>
+                                <a href="/moje-dane" target="_self" class="btn btn-primary btn-icon">
+                                    <img class="icon" src="/MojeDane/icon/powiadomienia.svg" alt=""/>Moje Dane
+                                </a>
+                                <? } else { ?>
+                                <a href="/moje-dane/jak_to_dziala" target="_self" class="btn btn-primary btn-icon">
+                                    <img class="icon" src="/MojeDane/icon/powiadomienia.svg" alt=""/>Zacznij obserwować
+                                </a>
+                                <? } ?>
                             </div>
                         </div>
                     </div>
@@ -45,9 +51,17 @@
                                 dziel się nimi w mediach społecznościowych.
                             </div>
                             <div class="action">
-                                <a href="/pisma" target="_self" class="btn btn-primary btn-icon">
-                                    <img class="icon" src="/MojePisma/icon/pisma.svg" alt=""/><? if ($this->Session->read('Auth.User.id')) {?>Moje
-                                    Pisma<? } else { ?>Napisz pismo<? } ?></a>
+                                
+                                <? if ($this->Session->read('Auth.User.id')) {?>
+                                <a href="/moje-pisma" target="_self" class="btn btn-primary btn-icon">
+                                    <img class="icon" src="/MojeDane/icon/powiadomienia.svg" alt=""/>Moje Pisma
+                                </a>
+                                <? } else { ?>
+                                <a href="/moje-pisma/nowe" target="_self" class="btn btn-primary btn-icon">
+                                    <img class="icon" src="/MojeDane/icon/powiadomienia.svg" alt=""/>Napisz Pismo
+                                </a>
+                                <? } ?>
+                                
                             </div>
                         </div>
                     </div>
