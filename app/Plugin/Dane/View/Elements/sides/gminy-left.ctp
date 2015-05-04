@@ -14,7 +14,7 @@
 ?>
 <div class="objectSideInner">
 	
-	<? if( $szef = $object->getLayer('szef') ) { ?>
+	<? if( false && ($szef = $object->getLayer('szef')) ) { ?>
 	<div class="block">
 	
 		<ul class="dataHighlights side">

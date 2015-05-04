@@ -36,7 +36,7 @@ $this->Combinator->add_libs('js', 'Dane.view-kodypocztowe');
                                             <li class="miejscowosc_li<?php if ($miejscowosc === end($gmina['miejscowosci'])) {
                                                 echo ' last';
                                             } ?>">
-                                                <h3><a href="#"><?php echo $miejscowosc['nazwa']; ?></a> <span
+                                                <h3><?php echo $miejscowosc['nazwa']; ?> <span
                                                         class="badge badge-position"><?= $miejscowosc['typ'] ?></span>
                                                 </h3>
                                                 <? if (isset($miejscowosc['miejsca']) && !empty($miejscowosc['miejsca'])) { ?>
@@ -54,11 +54,10 @@ $this->Combinator->add_libs('js', 'Dane.view-kodypocztowe');
                                                             } ?>">
 
                                                                 <? if ($miejsce['adres']) { ?>
-                                                                    <h4><a href="#"><?= $miejsce['adres'] ?></a></h4>
+                                                                    <h4><?= $miejsce['adres'] ?></h4>
                                                                 <? } else { ?>
                                                                     <p class="all_addresses">Wszystkie adresy</p>
                                                                 <? } ?>
-
                                                             </li>
                                                         <?php } ?>
                                                     </ul>

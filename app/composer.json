@@ -1,45 +1,39 @@
 {
-    "name": "epforgpl/mojepanstwo",
-    "description": "_mojePaństwo Portal",
-    "version": "0.1.0-beta",
-    "type": "project",
-    "keywords": [
-        "_mojePanstwo",
-        "_eP",
-        "moje panstwo",
-        "ep",
-        "ePF",
-        "portal"
-    ],
-    "homepage": "http://mojepanstwo.pl",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Daniel Macyszyn",
-            "email": "daniel.macyszyn@epf.org.pl",
-            "homepage": "http://epf.org.pl",
-            "role": "Founder & Web Developer"
-        },
-        {
-            "name": "Mariusz Machuta-Rakowski",
-            "email": "mariusz.machuta-rakowski@epf.org.pl",
-            "role": "Senior Front-end Web Developer"
-        },
-        {
-            "name": "Adam Ciężkowski",
-            "email": "adam.ciezkowski@epf.org.pl",
-            "role": "Senior Back-end Web Developer"
-        }
-    ],
-    "support": {
-        "issues": "https://github.com/epforgpl/_mojePanstwo-Portal/issues"
+  "name": "epforgpl/_mojePanstwo",
+  "description": "_mojePaństwo to następca serwisu sejmometr.pl. Jest zestawem aplikacji, dzięki którym możesz kontrolować i wpływać na działania Twojego państwa. Serwis mojePaństwo jest projektem Open Source, w którym każdy może wziąć udział.",
+  "type": "Project",
+  "keywords": [
+    "_mojePanstwo",
+    "moje panstwo"
+  ],
+  "homepage": "http://mojepanstwo.pl",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Daniel Macyszyn",
+      "email": "daniel.macyszyn@epf.org.pl",
+      "homepage": "http://epf.org.pl",
+      "role": "Founder & Web Developer"
     },
-    "config": {
-        "vendor-dir": "Vendor"
+    {
+      "name": "Mariusz Machuta-Rakowski",
+      "email": "mariusz.machuta@gmail.com",
+      "role": "Senior Front-end Web Developer"
     },
-    "require": {
-        "slywalker/boost_cake": "*",
-        "leafo/lessphp": "0.3.*@dev"
-    },
-    "minimum-stability": "dev"
+    {
+      "name": "Adam Ciężkowski",
+      "role": "Senior Back-end Web Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/epforgpl/_mojePanstwo-Portal/issues"
+  },
+  "config": {
+    "vendor-dir": "Vendor"
+  },
+  "require": {
+    "slywalker/boost_cake": "*",
+    "leafo/lessphp": "0.3.*@dev"
+  },
+  "minimum-stability": "dev"
 }

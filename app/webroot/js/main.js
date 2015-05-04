@@ -1,4 +1,4 @@
-/* global _mPHeart */
+/* global mPHeart */
 /* HTML5 HISTORY.JS */
 (function (window) {
     // Prepare
@@ -18,15 +18,6 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 });
 
 (function ($) {
-    /* CONSTANTS DATA of MP HEARTH*/
-    $.extend(_mPHeart, {
-        constant: {
-            ajax: {
-                api: 'http://mojepanstwo.pl:4444'
-            }
-        }
-    });
-
     /* JQUERY FUNCTION RETURNING SIZE/WIDTH/HEIGHT/ETC HIDDEN ELEMENTS */
     $.fn.addBack = $.fn.addBack || $.fn.andSelf;
     $.fn.extend({
@@ -267,7 +258,7 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 
         js.id = "facebook-jssdk";
 
-        if (_mPHeart.language.twoDig == 'pl')
+        if (mPHeart.language.twoDig == 'pl')
             js.src = "//connect.facebook.net/pl_PL/all.js";
         else {
             js.src = "//connect.facebook.net/en_US/all.js";
@@ -277,7 +268,7 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 
         window.fbAsyncInit = function () {
             FB.init({
-                "appId": _mPHeart.social.facebook.id,
+                "appId": mPHeart.social.facebook.id,
                 "status": true,
                 "cookie": true,
                 "oauth": true,

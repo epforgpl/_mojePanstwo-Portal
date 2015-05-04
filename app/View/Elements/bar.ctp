@@ -13,14 +13,28 @@
                     <i class="_mPAppIcon" data-icon-new="&#xe802;"></i>
 
                     <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_SEARCH'); ?></p>
+                    <? /* <span class="_mPAppBadge badge">Przykład znacznika libczy przy ikonie</span> */ ?>
                 </div>
             </div>
-            <a class="_mPAppsList _appBlock _appBlockBackground" href="/aplikacje" target="_self">
+            <a class="_mPAppsList _appBlock _appBlockBackground<? if($appSelected=='moje-dane') echo " _appBlockActive";?>" href="/moje-dane" target="_self">
                 <div class="_mPTitle">
-                    <i class="_mPAppIcon" data-icon-new="&#xe800;"></i>
+                    <i class="_mPAppIcon" data-icon-new="&#xe801;"></i>
 
-                    <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_APPLICATION'); ?></p>
-                    <? /* <span class="_mPAppBadge badge">Przykład znacznika libczy przy ikonie</span> */ ?>
+                    <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_MY_DATA'); ?></p>
+                </div>
+            </a>
+            <a class="_mPAppsList _appBlock _appBlockBackground<? if($appSelected=='moje-pisma') echo " _appBlockActive";?>" href="/moje-pisma" target="_self">
+                <div class="_mPTitle">
+                    <i class="_mPAppIcon" data-icon-new="&#xe804;"></i>
+
+                    <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_MY_DOCS'); ?></p>
+                </div>
+            </a>
+            <a class="_mPAppsList _appBlock _appBlockBackground<? if($appSelected=='dane') echo " _appBlockActive";?>" href="/dane" target="_self">
+                <div class="_mPTitle">
+                    <i class="_mPAppIcon" data-icon-new="&#xe805;"></i>
+
+                    <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_PUBLIC_DATA'); ?></p>
                 </div>
             </a>
         </div>
@@ -44,10 +58,10 @@
                 <?php } ?>
                 <div class="_mPPowerButton">
                     <?php if ($this->Session->read('Auth.User.id')) { ?>
-                        <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'logout')); ?>"><?php echo __('LC_COCKPITBAR_LOGOUT'); ?></a>
+                        <a href="<?php echo $this->Html->url('/logout'); ?>"><?php echo __('LC_COCKPITBAR_LOGOUT'); ?></a>
                     <?php } else { ?>
                         <a class="_specialCaseLoginButton"
-                           href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'login')); ?>"><?php echo __('LC_COCKPITBAR_LOGIN'); ?></a>
+                           href="<?php echo $this->Html->url('/login'); ?>"><?php echo __('LC_COCKPITBAR_LOGIN'); ?></a>
                     <?php } ?>
                 </div>
             </div>

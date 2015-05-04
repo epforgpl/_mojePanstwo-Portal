@@ -162,57 +162,11 @@ class InstytucjeController extends DataobjectsController
             );
         }
 
-        if ($this->object->getData('liczba_instytucji')) {
-
-            $menu['items'][] = array(
-                'id' => 'instytucje',
-                'href' => $href_base . '/instytucje',
-                'label' => 'Instytucje nadzorowane',
-            );
-
-        }
+       
 
         $items = array();
 
-        if (isset($_menu['zamowienia_udzielone']) && !empty($_menu['zamowienia_udzielone'])) {
-            $items['items'][] = array(
-                'id' => 'zamowienia',
-                'href' => $href_base . '/zamowienia',
-                'label' => 'Zamówienia publiczne',
-            );
-        }
-
-        if (isset($_menu['prawo']) && $_menu['prawo']) {
-            $items['items'][] = array(
-                'id' => 'prawo',
-                'href' => $href_base . '/prawo',
-                'label' => 'Akty prawne',
-            );
-        }
-
-        if ($this->object->getData('twitter_account_id')) {
-            $items['items'][] = array(
-                'id' => 'tweety',
-                'href' => $href_base . '/tweety',
-                'label' => 'Tweety',
-            );
-        }
-
-        $items['items'][] = array(
-            'id' => 'urzednicy',
-            'href' => $href_base . '/urzednicy',
-            'label' => 'Urzędnicy',
-        );
-		
-		/*
-        if (!empty($items)) {
-            $menu['items'][] = array(
-                'id' => 'dane',
-                'label' => 'Dane',
-                'dropdown' => $items,
-            );
-        }
-        */
+        
 
         $this->menu = $menu;
 

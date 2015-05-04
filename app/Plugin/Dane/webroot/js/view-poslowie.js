@@ -56,7 +56,7 @@ jQuery(document).ready(function () {
             embed_id: 'timeline-embed',
             css: '/plugins/TimelineJS/build/css/timeline.css',
             js: '/plugins/TimelineJS/build/js/timeline-min.js',
-            lang: _mPHeart.language.twoDig
+            lang: mPHeart.language.twoDig
         });
     }
 });

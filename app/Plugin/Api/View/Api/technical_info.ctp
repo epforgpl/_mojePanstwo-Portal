@@ -55,16 +55,10 @@
                         "podbicia wersji"
                         całego ekosystemu aplikacji.</p>
 
-                    <p>Wersjonujemy API dwoma zmiennymi poczynając od 1 w formacie <code>duza_wersja.mala_wersja</code>.
-                        Zwiększenie małej wersji odpowiada wprowadzeniu nowych funkcjonalności, które nie psują
-                        kompatybilności
-                        wstecznej.
-                        Może to być dodanie nowych pól, metod, serwowanie nowych formatów danych.
-                        Zmiana dużej wersji API może wiązać się z usunięciem pewnych pól/metod,
+                    <p>API wersjonujemy liczbami całkowitymi poczynając od 1. Zmiana wersji API wiąże się z utraceniem
+                        kompatybilności wstecznej. Może to wiązać się z usunięciem pewnych pól/metod,
                         zmianą znaczenia istniejących lub zmianą istotnych mechanizmów API (sortowania, filtrowania,
-                        paginacji,
-                        autentykacji).
-                        Nowe duże wersje API są niekompatybilne wstecznie.</p>
+                        paginacji, autentykacji).</p>
 
                     <ul>
                         <li>Bazowym adresem dla wszystkich API jest <code>http://api.mojepanstwo.pl</code></li>
@@ -80,7 +74,7 @@
                             <br/>
                             <strong>Zastosowanie: </strong>Dla użytkowników potrzebujących więcej stabilności. Starsze
                             wersje API będą
-                            wyłączane po dłuższym czasie.
+                            wyłączane po okresie przejściowym, nie krótszym niż 6 miesięcy.
                         </li>
                     </ul>
 

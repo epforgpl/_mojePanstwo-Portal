@@ -5,7 +5,8 @@ $this->Combinator->add_libs('css', $this->Less->css('datafeed', array('plugin' =
 $this->Combinator->add_libs('js', 'Dane.datafeed');
 
 $hits = $dataFeed['hits'];
-$preset = $dataFeed['preset'];
+$preset = isset( $dataFeed['preset'] ) ? $dataFeed['preset'] : false;
+$timeline = isset( $dataFeed['timeline'] ) ? $dataFeed['timeline'] : false;
 
 $show = true;
 if( isset($dataFeed['aggs']) && isset($dataFeed['aggs']['_channels']) && !$dataFeed['aggs']['_channels']['feed_data']['feed']['doc_count'] )
@@ -15,7 +16,7 @@ if( isset($dataFeed['aggs']) && isset($dataFeed['aggs']['_channels']) && !$dataF
 if( $show ) {
 ?>
 
-<div class="<? if ($dataFeed['timeline']) echo 'feed-timeline'; ?>">
+<div class="<? if ($timeline) echo 'feed-timeline'; ?>">
     <div class="modal modal-api-call">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -100,6 +101,7 @@ if( $show ) {
                 <? } ?>
             </div>
             <div class="pull-right">
+	            <? if( isset( $dataFeed['subscribeAction'] ) ) {?>
                 <form class="actionIcons" action="<?= $dataFeed['subscribeAction'] ?>" method="post">
                     <button class="icon observe" type="submit"><span class="glyphicon glyphicon-star"></span> Obserwuj
                         te dane
@@ -109,6 +111,7 @@ if( $show ) {
                    data-target=".modal-api-call"><span
                         class="glyphicon glyphicon-cog"></span>API
                 </a>
+                <? } ?>
             </div>
         </div>
     </div>

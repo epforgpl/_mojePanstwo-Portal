@@ -1,5 +1,4 @@
-<?php
-
+<?
 
 class ApiController extends AppController
 {
@@ -7,7 +6,7 @@ class ApiController extends AppController
 
     public $components = array();
 
-    public $uses = array();
+    public $uses = array('Api.Api');
 
     public function beforeFilter()
     {
@@ -16,14 +15,14 @@ class ApiController extends AppController
 
     public function index()
     {
-        $apis = $this->API->request('/');
+        $apis = $this->Api->getAllApis();
 
         $this->set(compact('apis'));
     }
 
     public function view($slug)
     {
-        $apis = $this->API->request('/');
+        $apis = $this->Api->getAllApis();
         $api = null;
         foreach ($apis as $_api) {
             if ($_api['slug'] == $slug) {
@@ -41,7 +40,5 @@ class ApiController extends AppController
 
     public function technical_info()
     {
-        // TODO doc layers
-        // TODO osobno doc dla rozwijających API
     }
 }

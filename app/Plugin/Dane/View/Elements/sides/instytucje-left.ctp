@@ -8,8 +8,10 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
     
 
     <? if (
+	    false && (
         ($nadrzedna = $object->getLayer('instytucja_nadrzedna')) ||
         $object->getData('liczba_instytucji')
+        )
     ) { ?>
         <div class="block">
 
@@ -54,7 +56,7 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
             <ul class="dataHighlights side">
 
                 <? if ($object->getData('budzet_plan')) { ?>
-                    <li class="dataHighlight big">
+                    <li class="dataHighlight">
                         <p class="_label" data-toggle="tooltip" data-placement="top"
                            title="Budżet roczny organizacji, finansowany z budżetu państwa">Budżet
                             roczny</p>
@@ -67,30 +69,35 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
                         </div>
                     </li>
                 <? } ?>
+                
+                <? if ($www = $object->getData('www')) {
+	                $url = (stripos($www, 'http') === false) ? 'http://' . $www : $www;
+	                ?>
+	                <li class="dataHighlight">
+	                    <p class="_label">Adres WWW</p>
+	
+	                    <p class="_value"><a target="_blank" title="<?= addslashes($object->getTitle()) ?>"
+	                                         href="<?= $url ?>"><?= $www; ?></a></p>
+	                </li>
+	            <? } ?>
 
             </ul>
 
         </div>
     <? } ?>
 	
+	<? /*
 	<div class="object-actions-fix-margins">
 		<? echo $this->Element('Dane.object-actions'); ?>
 	</div>
+	*/ ?>
 
+            <? /*
     <div class="block">
 
         <ul class="dataHighlights side">
             
-            <? if ($www = $object->getData('www')) {
-                $url = (stripos($www, 'http') === false) ? 'http://' . $www : $www;
-                ?>
-                <li class="dataHighlight">
-                    <p class="_label">Adres WWW</p>
-
-                    <p class="_value"><a target="_blank" title="<?= addslashes($object->getTitle()) ?>"
-                                         href="<?= $url ?>"><?= $www; ?></a></p>
-                </li>
-            <? } ?>
+            
             
             <? if ($email = $object->getData('email')) { ?>
                 <li class="dataHighlight">
@@ -120,6 +127,7 @@ $this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
         </ul>
         
     </div>
+            */ ?>
     
     
     

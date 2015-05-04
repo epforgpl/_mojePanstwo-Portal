@@ -1,5 +1,6 @@
 jQuery(document).ready(function () {
-    var headerExtend = $('.appappHeader.extended'),
+    "use strict";
+    var headerExtend = $('.appHeader.extended'),
         $mobileMenu;
 
     if (headerExtend.length) {

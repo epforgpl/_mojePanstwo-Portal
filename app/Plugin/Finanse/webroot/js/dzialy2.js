@@ -148,7 +148,7 @@ jQuery(document).ready(function () {
                 $('.teryt .btn-primary').removeClass('loading');
                 if (results.length == 0)
                     results = [
-                        {label: _mPHeart.translation.LC_FINANSE_SEARCH_BRAK_WYNIKOW, value: null}
+                        {label: mPHeart.translation.LC_FINANSE_SEARCH_BRAK_WYNIKOW, value: null}
                     ];
                 cache[term] = results;
                 response(results);
