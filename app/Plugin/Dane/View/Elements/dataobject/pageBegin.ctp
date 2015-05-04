@@ -19,7 +19,7 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
 <?php $this->Combinator->add_libs('css', $this->Less->css('dataobjectpage', array('plugin' => 'Dane'))) ?>
 <?php $this->Combinator->add_libs('css', $this->Less->css('naglosnij', array('plugin' => 'Dane'))) ?>
 
-<?php $this->Combinator->add_libs('js', array('Dane.page-header', 'Dane.naglosnij', 'Dane.related-tabs')); ?>
+<?php $this->Combinator->add_libs('js', array('Dane.naglosnij', 'Dane.related-tabs')); ?>
 
 <div<? if ($objectOptions['microdata']['itemtype']) { ?> itemscope itemtype="<?= $objectOptions['microdata']['itemtype'] ?>"<? } ?>
     class="objectsPage">

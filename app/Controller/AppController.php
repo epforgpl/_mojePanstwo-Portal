@@ -487,18 +487,13 @@ class AppController extends Controller
                     'items' => array(
                         array(
                             'id' => 'obserwuje_powiadomienia',
-                            'label' => 'Obserwuję',
-                            'href' => $href_base . '/powiadomienia',
-                        ),
-                        array(
-                            'id' => 'moje_powiadomienia',
-                            'label' => 'Moje powiadomienia',
-                            'href' => $href_base . '/powiadomienia/moje',
+                            'label' => 'Dane',
+                            'href' => $href_base . '/moje-dane',
                         ),
                         array(
                             'id' => 'jak_to_dziala',
                             'label' => 'Jak to działa?',
-                            'href' => $href_base . '/powiadomienia/jak_to_dziala',
+                            'href' => $href_base . '/moje-dane/jak_to_dziala',
                         )
                     )
                 )
@@ -512,12 +507,12 @@ class AppController extends Controller
                         array(
                             'id' => 'nowe_pismo',
                             'label' => 'Nowe pismo',
-                            'href' => $href_base . '/pisma/nowe',
+                            'href' => $href_base . '/moje-pisma/nowe',
                         ),
                         array(
                             'id' => 'moje_pisma',
                             'label' => 'Moje pisma',
-                            'href' => $href_base . '/pisma/moje',
+                            'href' => $href_base . '/moje-pisma',
                         )
                     )
                 )
