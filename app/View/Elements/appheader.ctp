@@ -2,6 +2,8 @@
 
 $this->Combinator->add_libs('css', $this->Less->css('appheader'));
 
+
+/*
 $img = false;
 if( isset($appSettings['headerImg']) )
     $img = ( $appSettings['headerImg'][0]=='/' ) ? $appSettings['headerImg'] : '/' . strtolower($this->request->params['plugin']) . '/img/header_' . $appSettings['headerImg'] . '.png';
@@ -63,3 +65,4 @@ if( isset($appSettings['headerImg']) )
         </div>
     <? } ?>
 </div>
+*/
