@@ -83,6 +83,7 @@ class AppController extends Controller {
 	public $meta = array();
 
 	public $Applications = array(
+		/*
 		array(
 			'id' => '17',
 			'slug' => 'dane',
@@ -110,15 +111,7 @@ class AppController extends Controller {
 			'home' => '1',
 			'folder_id' => '13'
 		),
-		array(
-			'id'     => '16',
-			'slug'   => 'kto_tu_rzadzi',
-			'name'   => 'Kto tu rządzi?',
-			'plugin' => 'KtoTuRzadzi',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
+		*/
 		array(
 			'id'     => '6',
 			'slug'   => 'krs',
@@ -128,6 +121,16 @@ class AppController extends Controller {
 			'home'   => '1',
 			'folder_id' => '13'
 		),
+		array(
+			'id'     => '16',
+			'slug'   => 'kto_tu_rzadzi',
+			'name'   => 'Kto tu rządzi?',
+			'plugin' => 'KtoTuRzadzi',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
+		),
+		
 		array(
 			'id'     => '9',
 			'slug'   => 'prawo',
