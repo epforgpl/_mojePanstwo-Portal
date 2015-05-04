@@ -1,6 +1,6 @@
 <?php
 
-$pisma_prefixes = array('/moje-pisma', 'pisma');
+$pisma_prefixes = array('/moje-pisma', '/pisma');
 foreach( $pisma_prefixes as $pisma_prefix ) {
 	
 	

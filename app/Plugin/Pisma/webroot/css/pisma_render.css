@@ -1,0 +1,410 @@
+.editor-container {
+  margin-top: -25px;
+}
+#editor-cont {
+  background-color: #FFFFFF;
+  border: 1px solid #E3E3E3;
+  padding: 30px 50px 80px;
+  position: relative;
+  margin-top: 0;
+  margin-bottom: 20px;
+  float: left;
+  width: 100%;
+}
+#editor-cont .editor-controls {
+  float: left;
+  width: 100%;
+}
+#editor-cont .editor-controls .control {
+  float: left;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#editor-cont .editor-controls .control span,
+#editor-cont .editor-controls .control textarea,
+#editor-cont .editor-controls .control input {
+  padding: 10px 15px;
+}
+#editor-cont .editor-controls .control span.pre {
+  width: 100%;
+  height: auto;
+}
+#editor-cont .editor-controls .control input,
+#editor-cont .editor-controls .control textarea {
+  border: none;
+  resize: none;
+}
+#editor-cont .editor-controls .control input[disabled="disabled"],
+#editor-cont .editor-controls .control textarea[disabled="disabled"] {
+  background-color: #ffffff;
+}
+#editor-cont .editor-controls .control p {
+  margin-bottom: 0;
+  padding: 0 5px;
+}
+#editor-cont .editor-controls .control.control-date {
+  width: 50%;
+  float: right;
+}
+#editor-cont .editor-controls .control.control-date input {
+  float: right;
+  text-align: right;
+}
+#editor-cont .editor-controls .control.control-date input.datepicker {
+  cursor: pointer;
+}
+#editor-cont .editor-controls .control.control-sender {
+  text-align: left;
+  width: 50%;
+  margin-left: -10px;
+}
+#editor-cont .editor-controls .control.control-sender textarea {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+#editor-cont .editor-controls .control.control-addressee {
+  text-align: left;
+  margin-left: 65%;
+  width: 35%;
+  font-weight: bold;
+}
+#editor-cont .editor-controls .control.control-template {
+  float: left;
+  text-align: center;
+  width: 100%;
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 60px;
+}
+#editor-cont .editor-controls .control.control-signature {
+  text-align: left;
+  margin-left: 65%;
+  width: 35%;
+  margin-right: -10px;
+}
+#editor-cont .editor-controls .control.control-signature textarea {
+  width: 100%;
+}
+#editor-cont .editor-controls .control .empty {
+  color: #157ab5;
+  cursor: pointer;
+  font-weight: normal;
+}
+#editor-cont .editor-controls .control textarea.empty {
+  background-color: #fcfcaa;
+  color: inherit;
+  cursor: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  text-transform: inherit;
+  text-decoration: none;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+#editor-cont .editor-controls .control ::-moz-placeholder {
+  color: #444;
+  opacity: 1;
+}
+#editor-cont .editor-controls .control ::-webkit-placeholder {
+  color: #444;
+  opacity: 1;
+}
+#editor-cont .editor-controls .control ::-placeholder {
+  color: #444;
+  opacity: 1;
+}
+.wysihtml5-toolbar .dropdown-menu [data-wysihtml5-command-value="h1"],
+.wysihtml5-toolbar .dropdown-menu [data-wysihtml5-command-value="h2"],
+.wysihtml5-toolbar .dropdown-menu [data-wysihtml5-command-value="h3"],
+.wysihtml5-toolbar .dropdown-menu [data-wysihtml5-command-value="h4"],
+.wysihtml5-toolbar .dropdown-menu [data-wysihtml5-command-value="h5"],
+.wysihtml5-toolbar .dropdown-menu [data-wysihtml5-command-value="h6"],
+.wysihtml5-toolbar .dropdown-menu h1,
+.wysihtml5-toolbar .dropdown-menu h2,
+.wysihtml5-toolbar .dropdown-menu h3,
+.wysihtml5-toolbar .dropdown-menu h4,
+.wysihtml5-toolbar .dropdown-menu h5,
+.wysihtml5-toolbar .dropdown-menu h6,
+.wysihtml5-toolbar .dropdown-menu .h1,
+.wysihtml5-toolbar .dropdown-menu .h2,
+.wysihtml5-toolbar .dropdown-menu .h3,
+.wysihtml5-toolbar .dropdown-menu .h4,
+.wysihtml5-toolbar .dropdown-menu .h5,
+.wysihtml5-toolbar .dropdown-menu .h6,
+#editor [data-wysihtml5-command-value="h1"],
+#editor [data-wysihtml5-command-value="h2"],
+#editor [data-wysihtml5-command-value="h3"],
+#editor [data-wysihtml5-command-value="h4"],
+#editor [data-wysihtml5-command-value="h5"],
+#editor [data-wysihtml5-command-value="h6"],
+#editor h1,
+#editor h2,
+#editor h3,
+#editor h4,
+#editor h5,
+#editor h6,
+#editor .h1,
+#editor .h2,
+#editor .h3,
+#editor .h4,
+#editor .h5,
+#editor .h6 {
+  color: inherit;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.1;
+}
+.wysihtml5-toolbar .dropdown-menu h1 small,
+.wysihtml5-toolbar .dropdown-menu h2 small,
+.wysihtml5-toolbar .dropdown-menu h3 small,
+.wysihtml5-toolbar .dropdown-menu h4 small,
+.wysihtml5-toolbar .dropdown-menu h5 small,
+.wysihtml5-toolbar .dropdown-menu h6 small,
+.wysihtml5-toolbar .dropdown-menu .h1 small,
+.wysihtml5-toolbar .dropdown-menu .h2 small,
+.wysihtml5-toolbar .dropdown-menu .h3 small,
+.wysihtml5-toolbar .dropdown-menu .h4 small,
+.wysihtml5-toolbar .dropdown-menu .h5 small,
+.wysihtml5-toolbar .dropdown-menu .h6 small,
+.wysihtml5-toolbar .dropdown-menu h1 .small,
+.wysihtml5-toolbar .dropdown-menu h2 .small,
+.wysihtml5-toolbar .dropdown-menu h3 .small,
+.wysihtml5-toolbar .dropdown-menu h4 .small,
+.wysihtml5-toolbar .dropdown-menu h5 .small,
+.wysihtml5-toolbar .dropdown-menu h6 .small,
+.wysihtml5-toolbar .dropdown-menu .h1 .small,
+.wysihtml5-toolbar .dropdown-menu .h2 .small,
+.wysihtml5-toolbar .dropdown-menu .h3 .small,
+.wysihtml5-toolbar .dropdown-menu .h4 .small,
+.wysihtml5-toolbar .dropdown-menu .h5 .small,
+.wysihtml5-toolbar .dropdown-menu .h6 .small,
+#editor h1 small,
+#editor h2 small,
+#editor h3 small,
+#editor h4 small,
+#editor h5 small,
+#editor h6 small,
+#editor .h1 small,
+#editor .h2 small,
+#editor .h3 small,
+#editor .h4 small,
+#editor .h5 small,
+#editor .h6 small,
+#editor h1 .small,
+#editor h2 .small,
+#editor h3 .small,
+#editor h4 .small,
+#editor h5 .small,
+#editor h6 .small,
+#editor .h1 .small,
+#editor .h2 .small,
+#editor .h3 .small,
+#editor .h4 .small,
+#editor .h5 .small,
+#editor .h6 .small {
+  color: #999;
+  font-weight: 400;
+  line-height: 1;
+}
+.wysihtml5-toolbar .dropdown-menu h1,
+.wysihtml5-toolbar .dropdown-menu .h1,
+.wysihtml5-toolbar .dropdown-menu h2,
+.wysihtml5-toolbar .dropdown-menu .h2,
+.wysihtml5-toolbar .dropdown-menu h3,
+.wysihtml5-toolbar .dropdown-menu .h3,
+#editor h1,
+#editor .h1,
+#editor h2,
+#editor .h2,
+#editor h3,
+#editor .h3 {
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+.wysihtml5-toolbar .dropdown-menu h2,
+.wysihtml5-toolbar .dropdown-menu .h2,
+#editor h2,
+#editor .h2 {
+  text-align: left;
+}
+.wysihtml5-toolbar .dropdown-menu h1 small,
+.wysihtml5-toolbar .dropdown-menu .h1 small,
+.wysihtml5-toolbar .dropdown-menu h2 small,
+.wysihtml5-toolbar .dropdown-menu .h2 small,
+.wysihtml5-toolbar .dropdown-menu h3 small,
+.wysihtml5-toolbar .dropdown-menu .h3 small,
+.wysihtml5-toolbar .dropdown-menu h1 .small,
+.wysihtml5-toolbar .dropdown-menu .h1 .small,
+.wysihtml5-toolbar .dropdown-menu h2 .small,
+.wysihtml5-toolbar .dropdown-menu .h2 .small,
+.wysihtml5-toolbar .dropdown-menu h3 .small,
+.wysihtml5-toolbar .dropdown-menu .h3 .small,
+#editor h1 small,
+#editor .h1 small,
+#editor h2 small,
+#editor .h2 small,
+#editor h3 small,
+#editor .h3 small,
+#editor h1 .small,
+#editor .h1 .small,
+#editor h2 .small,
+#editor .h2 .small,
+#editor h3 .small,
+#editor .h3 .small {
+  font-size: 65%;
+}
+.wysihtml5-toolbar .dropdown-menu h4,
+.wysihtml5-toolbar .dropdown-menu .h4,
+.wysihtml5-toolbar .dropdown-menu h5,
+.wysihtml5-toolbar .dropdown-menu .h5,
+.wysihtml5-toolbar .dropdown-menu h6,
+.wysihtml5-toolbar .dropdown-menu .h6,
+#editor h4,
+#editor .h4,
+#editor h5,
+#editor .h5,
+#editor h6,
+#editor .h6 {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.wysihtml5-toolbar .dropdown-menu h4 small,
+.wysihtml5-toolbar .dropdown-menu .h4 small,
+.wysihtml5-toolbar .dropdown-menu h5 small,
+.wysihtml5-toolbar .dropdown-menu .h5 small,
+.wysihtml5-toolbar .dropdown-menu h6 small,
+.wysihtml5-toolbar .dropdown-menu .h6 small,
+.wysihtml5-toolbar .dropdown-menu h4 .small,
+.wysihtml5-toolbar .dropdown-menu .h4 .small,
+.wysihtml5-toolbar .dropdown-menu h5 .small,
+.wysihtml5-toolbar .dropdown-menu .h5 .small,
+.wysihtml5-toolbar .dropdown-menu h6 .small,
+.wysihtml5-toolbar .dropdown-menu .h6 .small,
+#editor h4 small,
+#editor .h4 small,
+#editor h5 small,
+#editor .h5 small,
+#editor h6 small,
+#editor .h6 small,
+#editor h4 .small,
+#editor .h4 .small,
+#editor h5 .small,
+#editor .h5 .small,
+#editor h6 .small,
+#editor .h6 .small {
+  font-size: 75%;
+}
+.wysihtml5-toolbar .dropdown-menu [data-wysihtml5-command-value="h1"],
+.wysihtml5-toolbar .dropdown-menu h1,
+.wysihtml5-toolbar .dropdown-menu .h1,
+#editor [data-wysihtml5-command-value="h1"],
+#editor h1,
+#editor .h1 {
+  font-size: 36px;
+  font-weight: bold;
+}
+.wysihtml5-toolbar .dropdown-menu [data-wysihtml5-command-value="h2"],
+.wysihtml5-toolbar .dropdown-menu h2,
+.wysihtml5-toolbar .dropdown-menu .h2,
+#editor [data-wysihtml5-command-value="h2"],
+#editor h2,
+#editor .h2 {
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.wysihtml5-toolbar .dropdown-menu [data-wysihtml5-command-value="h3"],
+.wysihtml5-toolbar .dropdown-menu h3,
+.wysihtml5-toolbar .dropdown-menu .h3,
+#editor [data-wysihtml5-command-value="h3"],
+#editor h3,
+#editor .h3 {
+  font-size: 24px;
+}
+.wysihtml5-toolbar .dropdown-menu [data-wysihtml5-command-value="h4"],
+.wysihtml5-toolbar .dropdown-menu h4,
+.wysihtml5-toolbar .dropdown-menu .h4,
+#editor [data-wysihtml5-command-value="h4"],
+#editor h4,
+#editor .h4 {
+  font-size: 18px;
+}
+.wysihtml5-toolbar .dropdown-menu [data-wysihtml5-command-value="h5"],
+.wysihtml5-toolbar .dropdown-menu h5,
+.wysihtml5-toolbar .dropdown-menu .h5,
+#editor [data-wysihtml5-command-value="h5"],
+#editor h5,
+#editor .h5 {
+  font-size: 14px;
+}
+.wysihtml5-toolbar .dropdown-menu [data-wysihtml5-command-value="h6"],
+.wysihtml5-toolbar .dropdown-menu h6,
+.wysihtml5-toolbar .dropdown-menu .h6,
+#editor [data-wysihtml5-command-value="h6"],
+#editor h6,
+#editor .h6 {
+  font-size: 12px;
+}
+.wysihtml5-toolbar .dropdown-menu p,
+#editor p {
+  margin: 0 0 5px;
+}
+#editor {
+  width: 100%;
+  height: 100%;
+  line-height: 1.5em;
+  min-height: 300px;
+  padding: 10px;
+  outline: none;
+  float: left;
+}
+#editor ul,
+#editor ol {
+  margin-bottom: 10px;
+  margin-top: 0;
+  list-style: disc outside;
+}
+#editor blockquote {
+  font-size: 14px;
+}
+#editor p {
+  line-height: 1.5em;
+  margin: 0 0 15px;
+}
+#editor .editable {
+  margin-bottom: -4px;
+  min-height: 20px;
+  background-color: #fcfcaa;
+  min-width: 50px;
+  margin-left: 4px;
+  margin-right: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  display: inline-block;
+}
+#editor .editable input {
+  min-width: 110px;
+  background: none;
+  border: none;
+  text-align: center;
+}
+#editor .editable.daterange {
+  background: none;
+}
+#editor .editable.daterange label {
+  font-weight: normal;
+  margin-bottom: 0;
+}
+#editor .editable.daterange input {
+  background-color: #fcfcaa;
+}
+#editor .slownie ._slownie {
+  color: #999;
+}
