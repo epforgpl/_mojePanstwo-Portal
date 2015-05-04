@@ -1,14 +1,14 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
-<?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
-<?php $this->Combinator->add_libs('js', 'Pisma.pisma-social-share.js') ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'MojePisma'))) ?>
+<?php $this->Combinator->add_libs('js', 'MojePisma.pisma.js') ?>
+<?php $this->Combinator->add_libs('js', 'MojePisma.pisma-social-share.js') ?>
 
-<?php echo $this->Html->script('/Pisma/js/zeroclipboard', array('block' => 'scriptBlock')); ?>
+<?php echo $this->Html->script('/MojePisma/js/zeroclipboard', array('block' => 'scriptBlock')); ?>
 
 <?= $this->Element('appheader'); ?>
 
 <div class="container">
 
-    <? echo $this->element('Pisma.pismo-header', array(
+    <? echo $this->element('MojePisma.pismo-header', array(
         'pismo' => $pismo,
         'alert' => true,
     )); ?>
@@ -16,12 +16,12 @@
         <div id="stepper">
             <div class="content clearfix">
                 <div class="col-md-10 view norightpadding">
-                    <? echo $this->Element('Pisma.render'); ?>
+                    <? echo $this->Element('MojePisma.render'); ?>
                 </div>
                 <div class="col-md-2 nopadding">
                     <div class="editor-tooltip">
 
-                        <? $href_base = '/pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
+                        <? $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
 
                         <? if ($pismo['is_owner']) { ?>
 
@@ -83,7 +83,7 @@
                                         <a class="btn btn-social-icon btn-wykop"
                                            href="http://www.wykop.pl/dodaj/link/?url=<?php echo Router::url($this->here, true); ?>&title=<?= $pismo['nazwa'] ?>"
                                            target="_blank">
-                                            <img class="fa" src="/Pisma/img/wykop_logo.png" alt="wykop.pl"/>
+                                            <img class="fa" src="/MojePisma/img/wykop_logo.png" alt="wykop.pl"/>
                                         </a>
                                     </li>
                                 <? } ?>
@@ -118,29 +118,27 @@
                                                             <? if ($this->Session->read('Auth.User.id')) { ?>
 
                                                                 <p>Twoje pismo zostanie wysłane z adresu <span
-                                                                        class="email">pisma@mojepanstwo.pl</span>
-                                                                    na adres:</p>
+                                                                        class="email">pisma@mojepanstwo.pl</span> na
+                                                                    adres:</p>
 
                                                                 <p class="email email-big text-center"><?= $pismo['to_email'] ?></p>
 
                                                                 <div class="additional-desc">
                                                                     <p>W polu <b>CC</b> wiadomości zostanie podany Twój
-                                                                        adres
-                                                                        e-mail - otrzymasz więc kopię wysłanego pisma.
+                                                                        adres e-mail - otrzymasz więc kopię wysłanego
+                                                                        pisma.
                                                                     </p>
 
                                                                     <p>W polu <b>Reply-to</b> wiadomości również
-                                                                        zostanie
-                                                                        podany
-                                                                        Twój adres email, aby adresat przesłał odpowiedź
-                                                                        bezpośrednio na Twój adres.</p>
+                                                                        zostanie podany Twój adres email, aby adresat
+                                                                        przesłał odpowiedź bezpośrednio na Twój adres.
+                                                                    </p>
                                                                 </div>
 
                                                             <? } else { ?>
 
                                                                 <p class="text-center">Aby wysyłać pisma musisz się
                                                                     zalogować.</p>
-
                                                             <? } ?>
 
                                                         </div>
@@ -174,7 +172,7 @@
                                 <li class="inner-addon left-addon">
                                     <form onsubmit="return confirm('Czy na pewno chcesz usunąć to pismo?');"
                                           method="post"
-                                          action="/pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
+                                          action="/moje-pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
                                         <i class="glyphicon glyphicon-trash"></i>
                                         <input name="delete" type="submit" class="form-control btn btn-danger"
                                                value="Skasuj"/>
