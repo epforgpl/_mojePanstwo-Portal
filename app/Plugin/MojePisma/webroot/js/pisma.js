@@ -210,9 +210,9 @@ var PISMA = Class.extend({
 
         $.getJSON(mPHeart.constant.ajax.api + "/dane/index.json?conditions[dataset]=instytucje&conditions[id]=" + adresat_id, function (d) {
             self.objects.adresaci = {
-                id: d.search.dataobjects[0].id,
-                title: d.search.dataobjects[0].data['instytucje.nazwa'],
-                adres: d.search.dataobjects[0].data['instytucje.adres_str']
+                id: d.Dataobject[0].id,
+                title: d.Dataobject[0].data['instytucje.nazwa'],
+                adres: d.Dataobject[0].data['instytucje.adres_str']
             };
 
             self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title);
@@ -342,8 +342,8 @@ var PISMA = Class.extend({
             $('<ul></ul>').addClass('ul-raw')
         ).show();
 
-        if (data.search.dataobjects.length) {
-            $.each(data.search.dataobjects, function () {
+        if (data.Dataobject.length) {
+            $.each(data.Dataobject, function () {
                 var that = this;
 
                 self.html.adresaci.find('.adresaciList .ul-raw').append(
@@ -502,7 +502,7 @@ var PISMA = Class.extend({
         var self = this,
             checkSzablon = self.html.szablony.find('.radio input:checked').val();
 
-        if (self.objects.szablony !== undefined && (checkSzablon !== self.objects.szablony.id)) {
+        if (self.objects.szablony !== null && (checkSzablon !== self.objects.szablony.id)) {
             self.html.editor.addClass('loading');
             self.szablonData(checkSzablon);
 
