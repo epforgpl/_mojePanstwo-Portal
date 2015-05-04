@@ -7,16 +7,19 @@
         $rotatePos = $rotate.offset();
 
     function changeBackground() {
-        $rotate.find('.holdBckgrnd').append(
-            $('<div></div>').addClass('temp').css({
-                'display': 'none',
-                'background-image': $rotate.find('.active').data('bckgrnd')
-            })
-        );
-        $rotate.find('.holdBckgrnd .temp').fadeIn(function () {
-            $rotate.find('.holdBckgrnd').css('background-image', $rotate.find('.active').data('bckgrnd'));
-            $rotate.find('.holdBckgrnd .temp').remove();
-        });
+        if (!$rotate.hasClass('changing')) {
+            $rotate.addClass('changing');
+            $rotate.find('.holdBckgrnd').append(
+                $('<div></div>').addClass('temp').css({
+                    'display': 'none',
+                    'background-image': $rotate.find('.active').data('bckgrnd')
+                })
+            );
+            $rotate.find('.holdBckgrnd .temp').fadeIn(function () {
+                $rotate.find('.holdBckgrnd').css('background-image', $rotate.find('.active').data('bckgrnd'));
+                $rotate.find('.holdBckgrnd .temp').remove();
+            });
+        }
     }
 
     function scrollSlice(scrollStatus) {
@@ -26,7 +29,7 @@
             $('html, body').animate({
                 scrollTop: scrollStatus
             }, 1000, function () {
-                $rotate.removeClass('animate');
+                $rotate.removeClass('animate changing');
             });
         }
     }
@@ -55,16 +58,17 @@
         } else if ($(this).scrollTop() <= $rotatePos.top && $rotate.hasClass('hold')) {
             $rotate.removeClass('hold');
             $rotate.find('.active').removeClass('active');
+            $rotate.find('.slice:first-child').addClass('active');
         }
 
-        if ($(this).scrollTop() > $rotatePos.top && $rotate.hasClass('hold')) {
+        if ($(this).scrollTop() > $rotatePos.top && $rotate.hasClass('hold') && !$rotate.hasClass('changing')) {
             if ($rotate.find('.active').length === 0) {
                 $rotate.find('.slice:first-child').addClass('active');
             }
-            if ($rotate.find('.active').prev().hasClass('slice') && ($(this).scrollTop() + ($(this).height() / 2)) < $rotate.find('.active').prev().offset().top + $rotate.find('.active').prev().outerHeight() - 10) {
+            if ($rotate.find('.active').prev().hasClass('slice') && ($(this).scrollTop()) < $rotate.find('.active').prev().offset().top + ($rotate.find('.active').prev().outerHeight() * 0.8)) {
                 $rotate.find('.active').removeClass('active').prev().addClass('active');
                 changeBackground();
-            } else if ($rotate.find('.active').next().hasClass('slice') && ($(this).scrollTop() + ($(this).height() / 2)) > $rotate.find('.active').next().offset().top) {
+            } else if ($rotate.find('.active').next().hasClass('slice') && ($(this).scrollTop() + ($(this).height() * 0.8)) > $rotate.find('.active').next().offset().top) {
                 $rotate.find('.active').removeClass('active').next().addClass('active');
                 changeBackground();
             }
