@@ -145,49 +145,56 @@ class PismaController extends ApplicationsController
 		
 	}
 	
-	public function post($id, $slug=false) {
+	
+	public function post($id = false, $slug=false) {
 		
-		$redirect = 'object';
+		if( $id ) {
 		
-		$params = array();
-		if( !$this->Auth->user() )			
-			$params['anonymous_user_id'] = session_id();
-								
-		if( isset($this->request->data['delete']) ) {
-			
-			$this->Pismo->documents_delete($id, $params);
-			$redirect = 'my';
-			
-		} elseif( isset($this->request->data['save']) ) {
-			
-			$doc = $this->request->data;
-			
-			$doc = array_merge($doc, $params);
-			unset( $doc['save'] );
-			
-			$this->Pismo->documents_update($id, $doc);
-			
-		} elseif( isset($this->request->data['send']) ) {
-			
-			$this->Pismo->documents_send($id);
-			
-		} elseif( isset($this->request->data['access']) ) {
-			
-			$this->Pismo->documents_change_access($id, $this->request->data['access']);
-			
-		}
+			$redirect = 'object';
 				
-		if( $redirect=='object' ) {
-			
-			$url = '/pisma/' . $id;
-			if( $slug )
-				$url .= ',' . $slug;
+			if( isset($this->request->data['delete']) ) {
 				
-			return $this->redirect($url);
+				$this->Pismo->documents_delete($id);
+				$redirect = 'my';
+				
+			} elseif( isset($this->request->data['save']) ) {
+				
+				$doc = $this->request->data;			
+				unset( $doc['save'] );
+				
+				$this->Pismo->documents_update($id, $doc);
+				
+			} elseif( isset($this->request->data['send']) ) {
+				
+				$this->Pismo->documents_send($id);
+				
+			} elseif( isset($this->request->data['access']) ) {
+				
+				$this->Pismo->documents_change_access($id, $this->request->data['access']);
+				
+			}
+					
+			if( $redirect=='object' ) {
+				
+				$url = '/moje-pisma/' . $id;
+				if( $slug )
+					$url .= ',' . $slug;
+					
+				return $this->redirect($url);
+				
+			} elseif( $redirect=='my' ) {
+				
+				return $this->redirect('/moje-pisma');
+				
+			}
+		
+		} elseif(
+			isset( $this->request->data['action'] ) &&
+			( $this->request->data['action'] == 'delete' )
+		) {
 			
-		} elseif( $redirect=='my' ) {
-			
-			return $this->redirect('/pisma/moje');
+			$this->Pismo->documents_delete($this->request->data['id']);
+			return $this->redirect('/moje-pisma');
 			
 		}
 				
@@ -273,7 +280,7 @@ class PismaController extends ApplicationsController
 		$allowed_vars = array('template', 'to', 'sent', 'access');
 		
 		foreach( $allowed_vars as $var ) {
-			if( isset($this->request->query[$var]) && $this->request->query[$var] ) {
+			if( isset($this->request->query[$var]) ) {
 				$filters_selected[ $var ] = true;
 				$params['conditions'][$var] = $this->request->query[$var];
 			}

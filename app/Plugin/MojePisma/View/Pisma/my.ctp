@@ -53,7 +53,8 @@
                     </div>
                     <div class="col-md-7 text-right">
                         <div class="optionsChecked">
-	                        <form action="/moje-pisma/moje/delete">
+	                        <form action="/moje-pisma/moje" method="post">
+		                        <input name="action" value="delete" type="hidden" />
 		                        <div class="inputs">
 		                        </div>
 	                            <button class="btn btn-default deleteButton" type="submit">
@@ -109,7 +110,7 @@
 				
 				<div class="items">
                 <? foreach ($items as $item) { ?>
-                    <div class="row item-list" data-id="<?= $item['id']; ?>">
+                    <div class="row item-list" data-id="<?= $item['alphaid']; ?>">
                         <div class="col-sm-1 text-center haveCheckbox">
                             <input type="checkbox" class="itemCheckbox"/>
                         </div>

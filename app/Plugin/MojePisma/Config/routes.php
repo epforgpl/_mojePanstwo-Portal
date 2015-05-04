@@ -22,6 +22,12 @@ foreach( $pisma_prefixes as $pisma_prefix ) {
 	    'action' => 'my',
 	    '[method]' => 'GET'
 	));
+	Router::connect("$pisma_prefix/moje", array(
+	    'plugin' => 'MojePisma',
+	    'controller' => 'Pisma',
+	    'action' => 'post',
+	    '[method]' => 'POST'
+	));
 	Router::connect("$pisma_prefix", array(
 	    'plugin' => 'MojePisma',
 	    'controller' => 'Pisma',
