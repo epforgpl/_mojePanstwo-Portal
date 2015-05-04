@@ -62,7 +62,7 @@ function initialize() {
 //ASYNC INIT GOOGLE MAP JS//
 function loadScript() {
     "use strict";
-    if (google.maps) {
+    if ((typeof google !== "undefined") && google.maps) {
         initialize();
     } else {
         var script = document.createElement('script');
