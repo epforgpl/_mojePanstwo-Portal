@@ -65,10 +65,10 @@
             if ($rotate.find('.active').length === 0) {
                 $rotate.find('.slice:first-child').addClass('active');
             }
-            if ($rotate.find('.active').prev().hasClass('slice') && ($(this).scrollTop()) < $rotate.find('.active').prev().offset().top + ($rotate.find('.active').prev().outerHeight() * 0.8)) {
+            if ($rotate.find('.active').prev().hasClass('slice') && ($(this).scrollTop()) < $rotate.find('.active').prev().offset().top + ($rotate.find('.active').prev().outerHeight() * 0.9)) {
                 $rotate.find('.active').removeClass('active').prev().addClass('active');
                 changeBackground();
-            } else if ($rotate.find('.active').next().hasClass('slice') && ($(this).scrollTop() + ($(this).height() * 0.8)) > $rotate.find('.active').next().offset().top) {
+            } else if ($rotate.find('.active').next().hasClass('slice') && ($(this).scrollTop() + ($(this).height() * 0.9)) > $rotate.find('.active').next().offset().top) {
                 $rotate.find('.active').removeClass('active').next().addClass('active');
                 changeBackground();
             }
@@ -76,13 +76,13 @@
     });
 
     $(window).keydown(function (e) {
-        var key = e.which,
+        var key = e.keyCode || e.which,
             scrollStatus = false;
 
         if ($rotate.hasClass('hold') && !$rotate.hasClass('animate')) {
-            if (key === 38 && $rotate.find('.active').prev()) {
+            if ((key === 38 || key === 33 || key === 36) && $rotate.find('.active').prev()) {
                 scrollStatus = $rotate.find('.active').prev().offset().top;
-            } else if (key === 40 && $rotate.find('.active').next()) {
+            } else if ((key === 40 || key === 34 || key === 35) && $rotate.find('.active').next()) {
                 scrollStatus = $rotate.find('.active').next().offset().top;
             }
 
