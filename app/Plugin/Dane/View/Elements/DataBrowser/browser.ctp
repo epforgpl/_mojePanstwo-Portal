@@ -27,7 +27,11 @@
 	</div>
 	
 	<div class="row">
+		<? if( $dataBrowser['multiSearch'] || $dataBrowser['chapters'] ) {?>
+		<form action="" data-url="<?= $dataBrowser['cancel_url']; ?>" method="get" class="form-horizontal searchForm col-md-8">
+		<? } else { ?>
 		<form action="" data-url="<?= $dataBrowser['cancel_url']; ?>" method="get" class="form-horizontal searchForm col-md-8<? if( empty($dataBrowser['aggs']) ) {?> col-md-offset-1<?}?>">
+		<? } ?>
 			
 			<? if( 
 				!isset($title) && 
@@ -46,13 +50,14 @@
 	                <?
 	                    $value = isset( $this->request->query['q'] ) ? addslashes( $this->request->query['q'] ) : '';
 	                ?>
-	                <input class="form-control hasclear" placeholder='<? if(isset($dataBrowser['search_label'])) { echo addslashes($dataBrowser['search_label']); } else { echo "Szukaj ..."; } ?>' type="text" value="<?= $value ?>" name="q" required>
-	                <a href="<?= $dataBrowser['cancel_url']; ?>"><span class="clearer form-control-feedback" aria-hidden="true">&times;</span></a>
+	                <input class="form-control hasclear input-lg" placeholder='<? if(isset($dataBrowser['searchTitle']) && ($dataBrowser['searchTitle'])) { echo addslashes($dataBrowser['searchTitle']); } else { echo "Szukaj..."; } ?>' type="text" value="<?= $value ?>" name="q" required>
+	                <? if(isset($dataBrowser['cancel_url'])) {?><a href="<?= $dataBrowser['cancel_url']; ?>"><span class="clearer form-control-feedback" aria-hidden="true">&times;</span></a><? } ?>
 	            </div>
 	        </div>
 	        <? } ?>
 	        
 	    </form>
+	    
 	</div>
         
     <? if(
@@ -62,74 +67,86 @@
 	    $took = round($dataBrowser['took'], 2);
     ?>
     <div class="row">
-	    <div class="dataCounter col-md-8<? if( empty($dataBrowser['aggs']) ) {?> col-md-offset-1<?}?>"><p class="pull-left"><?= pl_dopelniacz($params['count'], 'wynik', 'wyniki', 'wyników') ?><? if($took){?> (<?= $took ?> s)<?}?></p><p class="pull-right"><a href="#" class="link-discrete link-api-call" data-toggle="modal" data-target=".modal-api-call"><span class="glyphicon glyphicon-cog"></span> API</a></p></div>
+	    <div class="dataCounter col-md-8<? if( !$dataBrowser['multiSearch'] && empty($dataBrowser['aggs']) ) {?> col-md-offset-1<?}?>"><p class="pull-left"><?= pl_dopelniacz($params['count'], 'wynik', 'wyniki', 'wyników') ?><? if($took){?> (<?= $took ?> s)<?}?></p><p class="pull-right"><a href="#" class="link-discrete link-api-call" data-toggle="modal" data-target=".modal-api-call"><span class="glyphicon glyphicon-cog"></span> API</a></p></div>
     </div>
     <? } ?>
     	
 	<div class="row">
 		
-		<? if( empty($dataBrowser['aggs']) ) {?>
-		<div class="col-md-8 col-md-offset-1">
-		<? } else {?>
-		<div class="col-md-8">
-		<? } ?>
-
-	        
-	        <div class="dataObjects">
-		        		        
-				<div class="innerContainer update-objects">
-					
-					<?
-					if (isset($dataBrowser['hits'])) {
-					    if (empty($dataBrowser['hits'])) {
-					        echo '<p class="noResults">' . __d('dane', 'LC_DANE_BRAK_WYNIKOW') . '</p>';
-					    } else {
-					        ?>
-					        <ul class="list-group list-dataobjects">
-					            <?
-					            foreach ($dataBrowser['hits'] as $object) {
-																		
-					                echo $this->Dataobject->render($object, $dataBrowser['renderFile'], array(
-					                    // 'hlFields' => $dataBrowser->hlFields,
-					                    // 'hlFieldsPush' => $dataBrowser->hlFieldsPush,
-					                    // 'routes' => $dataBrowser->routes,
-					                    // 'forceLabel' => in_array($page['mode'], array('*', 'datachannel')),
-					                    // 'defaults' => $defaults,
-					                ));
-					            }
-					            ?>
-					        </ul>
-					    <?
-					    }
-					}
-					?>
-				
-				</div>
-								
-			</div>
+		<? if( $dataBrowser['viewElement'] ) {?>
+						
+			<?= $this->element('Dane.DataBrowser/init/' . $dataBrowser['viewElement']); ?>
 			
-			<div class="dataPagination">
-				<ul class="pagination">
-				<?php
-
-                  //$this->MPaginator->options['url'] = array('alias' => 'prawo');
-                  //$this->MPaginator->options['paramType'] = 'querystring';
-
-                  //echo $this->MPaginator->first('&larr;', array('tag' => 'li', 'escape' => false), '<a href="#">&larr;</a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
-				  echo $this->MPaginator->prev('&laquo;', array('tag' => 'li', 'escape' => false), '<a href="#">&laquo;</a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
-				  echo $this->MPaginator->numbers(array('separator' => '', 'tag' => 'li', 'currentLink' => true, 'currentClass' => 'active', 'currentTag' => 'a'));
-				  echo $this->MPaginator->next('&raquo;', array('tag' => 'li', 'escape' => false), '<a href="#">&raquo;</a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
-				  //echo $this->MPaginator->last('&rarr;', array('tag' => 'li', 'escape' => false), '<a href="#">&rarr;</a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
-				?>
-				</ul>
+		
+		<? } else { ?>
+		
+			<? if( !$dataBrowser['multiSearch'] && empty($dataBrowser['aggs']) ) {?>
+			<div class="col-md-8 col-md-offset-1">
+			<? } else {?>
+			<div class="col-md-8">
+			<? } ?>
+	
+		        
+		        <div class="dataObjects">
+			        		        
+					<div class="innerContainer update-objects">
+						
+						<?
+						if (isset($dataBrowser['hits'])) {
+						    if (empty($dataBrowser['hits'])) {
+						        echo '<p class="noResults">' . __d('dane', 'LC_DANE_BRAK_WYNIKOW') . '</p>';
+						    } else {
+						        ?>
+						        <ul class="list-group list-dataobjects">
+						            <?
+						            foreach ($dataBrowser['hits'] as $object) {
+																			
+						                echo $this->Dataobject->render($object, $dataBrowser['renderFile'], array(
+						                    // 'hlFields' => $dataBrowser->hlFields,
+						                    // 'hlFieldsPush' => $dataBrowser->hlFieldsPush,
+						                    // 'routes' => $dataBrowser->routes,
+						                    // 'forceLabel' => in_array($page['mode'], array('*', 'datachannel')),
+						                    // 'defaults' => $defaults,
+						                ));
+						            }
+						            ?>
+						        </ul>
+						    <?
+						    }
+						}
+						?>
+					
+					</div>
+									
+				</div>
+				
+				<div class="dataPagination">
+					<ul class="pagination">
+					<?php
+	
+	                  //$this->MPaginator->options['url'] = array('alias' => 'prawo');
+	                  //$this->MPaginator->options['paramType'] = 'querystring';
+	
+	                  //echo $this->MPaginator->first('&larr;', array('tag' => 'li', 'escape' => false), '<a href="#">&larr;</a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
+	                  
+	                  
+					  // echo $this->MPaginator->prev('&laquo;', array('tag' => 'li', 'escape' => false), '<a href="#">&laquo;</a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
+					  echo $this->MPaginator->numbers(array('separator' => '', 'tag' => 'li', 'currentLink' => true, 'currentClass' => 'active', 'currentTag' => 'a'));
+					  // echo $this->MPaginator->next('&raquo;', array('tag' => 'li', 'escape' => false), '<a href="#">&raquo;</a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
+					  //echo $this->MPaginator->last('&rarr;', array('tag' => 'li', 'escape' => false), '<a href="#">&rarr;</a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
+					?>
+					</ul>
+				</div>
+		        
 			</div>
-	        
-		</div>
-		<? if(!empty($dataBrowser['aggs'])) { ?>
-		<div class="col-md-4">
-            <? echo $this->Element('Dane.DataBrowser/aggs', array('data' => $dataBrowser)); ?>
-		</div>
-		<? } ?>
+			<? if(!empty($dataBrowser['aggs'])) { ?>
+			<div class="col-md-4">
+	            <? echo $this->Element('Dane.DataBrowser/aggs', array('data' => $dataBrowser)); ?>
+			</div>
+			<? } ?>
+		
+		<? } ?> 
+		
 	</div>
 
 </div>

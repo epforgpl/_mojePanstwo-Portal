@@ -2,25 +2,44 @@
 
 $this->Combinator->add_libs('css', $this->Less->css('appheader'));
 
-
-/*
-$img = false;
-if( isset($appSettings['headerImg']) )
-    $img = ( $appSettings['headerImg'][0]=='/' ) ? $appSettings['headerImg'] : '/' . strtolower($this->request->params['plugin']) . '/img/header_' . $appSettings['headerImg'] . '.png';
 ?>
 
-<div class="appHeader"<? if( $img ) echo ' style="background-image: url(' . $img . ')"'; ?>>
+<div class="appHeader">
     <div class="container">
         <div class="holder">
-            <? if (isset($appSettings['title'])) { ?>
-                <h1><?= $appSettings['title'] ?></h1>
-            <? } ?>
-
-            <? if (isset($appSettings['subtitle'])) { ?>
-                <h2><?= $appSettings['subtitle'] ?></h2>
-            <? } ?>
+            
+            <? /*
+            <ul class="breadcrumb">
+			  <li><a href="/aplikacje"><i class="_mPAppIcon" data-icon-new="&#xe800;"></i> Aplikacje</a></li>
+			</ul>
+			*/ ?>
+            
+            <div class="row">
+	            <div class="col-md-8">
+            
+		            <? if (isset($appSettings['title'])) { ?>
+		                <h1><a href="/krs"><img class="svg" alt="Krajowy Rejestr Sądowy" src="/krs/icon/krs-gray.svg"> <?= $appSettings['title'] ?></a></h1>
+		            <? } ?>
+            
+	            </div>
+	            
+	            <? if( $dataBrowser['chapters'] ) {?>
+				    <div class="col-md-4">
+					    <div class="goto text-right">
+						    <select class="selectpicker" data-style="btn-default" title="Przejdź do...">
+								<? foreach($dataBrowser['chapters']['chapters'] as $chapter_id => $chapter) { ?>
+									<option <? if( (isset($dataBrowser['chapters']['selected'])) && ($chapter_id == $dataBrowser['chapters']['selected']) ) {?>selected="selected" <? } ?>href="<?= $chapter['href'] ?>"><?= $chapter['label'] ?></option>
+								<? } ?>
+							</select>
+					    </div>
+				    </div>
+				<? } ?>
+	            
+            </div>
+            
         </div>
     </div>
+    <? /*
     <? if(isset($appSettings['menu'])) { ?>
         <div class="menu">
             <div class="container">
@@ -63,6 +82,5 @@ if( isset($appSettings['headerImg']) )
                 </ul>
             </div>
         </div>
-    <? } ?>
+    <? } ?> <? */ ?>
 </div>
-*/

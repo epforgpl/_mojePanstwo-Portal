@@ -4,7 +4,7 @@
 ?>
 
 <? if(!isset($this->request->query['conditions'][$map['field']])) { ?>
-    <div class="agg agg-PieChart" data-choose-request="<?= $map['chooseRequest']; ?>" data-chart="<?= htmlentities(json_encode($data)) ?>">
+    <div class="agg agg-PieChart" data-chart-options="false" data-choose-request="<?= $map['chooseRequest']; ?>" data-chart="<?= htmlentities(json_encode($data)) ?>">
         <div class="chart">
         </div>
     </div>

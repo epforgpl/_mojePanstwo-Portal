@@ -2,12 +2,38 @@
     <div class="_mPBasic">
         <div class="_mPLogo">
             <a href="/" target="_self">
-                <img src="/icon/moje_panstwo_logo.svg" title="moje Państwo"/>
+                <img src="/icon/mp-logo.svg" title="moje Państwo"/>
             </a>
         </div>
 
 
         <div class="_mPApplication">
+            
+            <?php if ($this->Session->read('Auth.User.id')) { ?>
+                
+                <a class="_mPAppsList _appBlock _appBlockBackground _mPAccount<? if($appSelected=='paszport') echo " _appBlockActive";?>" href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'profile')); ?>" target="_self">
+	                <div class="_mPTitle">
+	                    <i class="_mPAppIcon glyphicon glyphicon-user"></i>
+	
+	                    <p class="_mPAppLabel"><span><?= $this->Text->truncate($this->Session->read('Auth.User.username'), 13); ?></span></p>
+	                </div>
+	            </a>
+                
+                <? /*
+                <div class="_mPUser">
+                    <a href="">
+                        <img src="<?php if ($this->Session->read('Auth.User.photo_small')) {
+                            echo $this->Session->read('Auth.User.photo_small');
+                        } else {
+                            echo '/img/avatars/avatar_default.jpg';
+                        } ?>"/>
+                        <span></span>
+                    </a>
+                </div>
+                */ ?>
+                
+            <?php } ?>
+            
             <div class="_mPSearch _appBlock _appBlockBackground">
                 <div class="_mPTitle">
                     <i class="_mPAppIcon" data-icon-new="&#xe802;"></i>
@@ -16,6 +42,13 @@
                     <? /* <span class="_mPAppBadge badge">Przykład znacznika libczy przy ikonie</span> */ ?>
                 </div>
             </div>
+            <a class="_mPAppsList _appBlock _appBlockBackground<? if($appSelected=='dane') echo " _appBlockActive";?>" href="/dane" target="_self">
+                <div class="_mPTitle">
+                    <i class="_mPAppIcon" data-icon-new="&#xe800;"></i>
+
+                    <p class="_mPAppLabel">Dane publiczne</p>
+                </div>
+            </a>
             <a class="_mPAppsList _appBlock _appBlockBackground<? if($appSelected=='moje-dane') echo " _appBlockActive";?>" href="/moje-dane" target="_self">
                 <div class="_mPTitle">
                     <i class="_mPAppIcon" data-icon-new="&#xe801;"></i>
@@ -30,13 +63,7 @@
                     <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_MY_DOCS'); ?></p>
                 </div>
             </a>
-            <a class="_mPAppsList _appBlock _appBlockBackground<? if($appSelected=='dane') echo " _appBlockActive";?>" href="/dane" target="_self">
-                <div class="_mPTitle">
-                    <i class="_mPAppIcon" data-icon-new="&#xe805;"></i>
-
-                    <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_PUBLIC_DATA'); ?></p>
-                </div>
-            </a>
+            
         </div>
         <div class="_mPSystem">
             <div class="_mPRunning">
@@ -44,18 +71,7 @@
             </div>
 
             <div class="_mPApplication">
-                <?php if ($this->Session->read('Auth.User.id')) { ?>
-                    <div class="_mPUser">
-                        <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'profile')); ?>">
-                            <img src="<?php if ($this->Session->read('Auth.User.photo_small')) {
-                                echo $this->Session->read('Auth.User.photo_small');
-                            } else {
-                                echo '/img/avatars/avatar_default.jpg';
-                            } ?>"/>
-                            <span><?= $this->Session->read('Auth.User.username'); ?></span>
-                        </a>
-                    </div>
-                <?php } ?>
+                
                 <div class="_mPPowerButton">
                     <?php if ($this->Session->read('Auth.User.id')) { ?>
                         <a href="<?php echo $this->Html->url('/logout'); ?>"><?php echo __('LC_COCKPITBAR_LOGOUT'); ?></a>

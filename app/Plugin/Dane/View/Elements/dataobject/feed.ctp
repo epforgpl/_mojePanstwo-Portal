@@ -15,7 +15,7 @@ $mainPage = !isset($this->request->query['channel']) || !$this->request->query['
             <? echo $this->Element('Dane.sides/' . $dataFeed['side'] . '-left'); ?>
         </div>
     <? } ?>
-    <div class="col-xs-12 col-sm-7 col-feed-main<? if (!$side_left) { ?> col-sm-offset-1<? } ?>">
+    <div class="col-xs-12 col-sm-7 col-feed-main">
         <div class="object">
             <? echo $this->Element('Dane.DataFeed/feed'); ?>
         </div>

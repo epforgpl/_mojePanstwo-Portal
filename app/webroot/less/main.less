@@ -586,6 +586,10 @@ svg.svg {
             background-color: #157ab5;
         }
     }
+    
+    &.noborder {
+        border: none;
+    }
 
     ul.keywords {
         //overflow: auto;
@@ -1217,25 +1221,18 @@ blockquote p {
     margin-left: 110px;
 }
 
-.searchForm {
-    margin-top: -5px;
-    margin-bottom: 10px;
-
-    input {
-        box-shadow: none;
-        border: none;
-    }
-}
 
 
 
 
 #_wrapper {
-	background-color: #FAFAFA;
+	background-color: #FFF;
 }
 
 #_wrapper #_main {
 	padding-left: 85px;
+	position: relative;
+	z-index: 1000;
 }
 
 #_wrapper #_mPCockpit ._mPBasic {
@@ -1248,7 +1245,7 @@ blockquote p {
 }
 
 #_wrapper ._mPLogo img {
-	width: 65px;
+	width: 75px;
 }
 
 #_wrapper #_mPCockpit ._appBlock {
@@ -1290,6 +1287,7 @@ blockquote p {
 
 .menuTabsCont {
 	margin-top: -15px;
+	border-bottom: 4px solid #DDD;
 }
 
 .objectsPage .objectPageHeaderBg .menuTabsCont ul.nav-tabs > li.active > a {
@@ -1326,7 +1324,7 @@ blockquote p {
 }
 
 .objectsPage .objectPageHeaderBg .menuTabsCont ul.nav-tabs > li > a {
-	margin-bottom: -4px;
+	margin-bottom: -5px;
 }
 
 .objectsPage .objectPageHeaderBg .menuTabsCont ul.nav-tabs > li.active > a {
@@ -1347,4 +1345,16 @@ blockquote p {
 
 .objectsPage .objectPageHeaderBg:not(.extended) .objectPageHeaderContainer .objectPageHeader.with-menu .mini {
 	margin-top: 10px !important;
+}
+
+.breadcrumb {
+	background-color: inherit;
+	margin-bottom: inherit;
+	padding: 8px 2px;
+	font-size: 12px;
+	margin: 4px 0 -4px;
+
+	i {
+		margin-right: 3px;
+	}
 }

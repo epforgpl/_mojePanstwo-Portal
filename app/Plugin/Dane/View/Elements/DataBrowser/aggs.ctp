@@ -4,11 +4,11 @@
 	
 	if( $agg_id=='_channels' )
 		continue;    
-	    
+		
 	if ( 
         (
             isset( $agg_data['buckets'] ) && 
-            count( $agg_data['buckets'] ) 
+            ( count( $agg_data['buckets'] ) > 1 ) 
         ) || 
         (
         	isset( $agg_data['value'] ) && 
@@ -17,7 +17,20 @@
         (
             isset($this->request->query['conditions'][$data['aggs_visuals_map'][$agg_id]['field']])
         )
-    ) { ?>
+    ) { 
+	    
+	    $empty = true;
+	    foreach( $agg_data['buckets'] as $b ) {
+	    	if( $b['doc_count'] ) {
+		    	$empty = false;
+		    	break;
+	    	}
+	    }
+	    	    
+	    if( $empty )
+	    	break;
+	    
+    ?>
         <li class="agg">
             <h2><?= $data['aggs_visuals_map'][$agg_id]['label']; ?></h2>
             <?

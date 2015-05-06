@@ -120,7 +120,7 @@ body {
         font-size: 22px;
         font-weight: 300;
         line-height: 22px;
-        margin: 10px;
+        margin: 17px 7px;
         text-align: right;
 
         img {
@@ -321,7 +321,7 @@ body {
         ._appBlock {
             height: @appHeight;
             cursor: pointer;
-
+						
             &._appBlockBackground {
                 &._appBlockActive {
                     background-color: @cockpitBlueDarken;
@@ -333,6 +333,7 @@ body {
 
                         ._mPAppIcon {
                             color: #63afea;
+                            
                         }
                     }
                 }
@@ -402,7 +403,29 @@ body {
             ._mPApplication ._appBlock {
                 position: relative;
                 display: block;
-
+				
+				&._mPAccount {
+					._mPTitle {
+						._mPAppIcon {
+							color: #004562;
+						}
+						._mPAppLabel {
+							color: #004562;
+						}
+					}
+				}
+				
+				&._mPAccount:hover {
+					._mPTitle {
+						._mPAppIcon {
+							color: #FFF;
+						}
+						._mPAppLabel {
+							color: #FFF;
+						}
+					}
+				}
+				
                 ._mPTitle {
                     left: 50%;
                     position: absolute;
@@ -419,10 +442,18 @@ body {
                         width: 100%;
                         display: block;
                         font-size: 20px;
+                        
+                        &.glyphicon {
+							margin-bottom: 5px;
+						}
                     }
                     ._mPAppLabel {
                         margin: 0;
                         line-height: 1.1em;
+                        
+                        span {
+	                        word-wrap: break-word;
+                        }
                     }
                     ._mPAppBadge {
                         font-size: 10px;
@@ -496,7 +527,7 @@ body {
                 width: 100%;
                 padding: 5px;
                 height: @appHeight + (2*@AppListPadding);
-
+				
                 ._appConstruct {
                     display: table-cell;
                     vertical-align: middle;

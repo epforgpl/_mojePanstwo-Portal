@@ -3,7 +3,7 @@
 $this->Combinator->add_libs('css', $this->Less->css('htmlexDocMain_v2'));
 $this->Combinator->add_libs('css', $this->Less->css('htmlexDoc', array('plugin' => 'Dane')));
 
-echo $this->Html->css('http://' . URL_HOST . '/htmlex/' . $document['Document']['id'] . '/' . $document['Document']['id'] . '.css');
+echo $this->Html->css('https://' . URL_HOST . '/htmlex/' . $document['Document']['id'] . '/' . $document['Document']['id'] . '.css');
 ?>
 
 <div class="htmlexDoc" data-packages="<?php echo $document['Document']['packages_count']; ?>"

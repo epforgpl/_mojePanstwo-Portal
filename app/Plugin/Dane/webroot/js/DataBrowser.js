@@ -2,8 +2,15 @@ var DataBrowser = Class.extend({
 		
 	init: function(div) {
 		
-		this.div = $(div);		
+		this.div = $(div);	
+		$('.goto .selectpicker').selectpicker('val', null).on('change', function(){
+			var href = $(this).find("option:selected").attr('href');
+		    window.location = href;
+		});	
+		
 		this.initAggs();
+		
+		
 						
 	},
 	
@@ -27,12 +34,15 @@ var DataBrowser = Class.extend({
 	
 	initAggPieChart: function(li) {
 		
+		
 		li = $(li);
 		var data = $.parseJSON(li.attr('data-chart'));
 		
 		var pie_chart_data = [];
         var pie_chart_keys = [];
         var choose_request = li.attr('data-choose-request');
+        var chart_options = $.parseJSON(li.attr('data-chart-options'));
+        		
         for(var i = 0; i < data.buckets.length; i++) {
             
             var label = ( typeof data.buckets[i].label.buckets[0] == 'undefined' ) ? '' : data.buckets[i].label.buckets[0].key;
@@ -44,8 +54,8 @@ var DataBrowser = Class.extend({
 
             pie_chart_keys[i] = data.buckets[i].key;
         }
-
-        li.find('.chart').highcharts({
+		
+		var options = {
             chart: {
                 backgroundColor: null,
                 plotBackgroundColor: null,
@@ -61,16 +71,6 @@ var DataBrowser = Class.extend({
             },
             credits: {
                 enabled: false
-            },
-            legend: {
-                useHTML: true,
-                labelFormatter: function() {
-                    var name = this.name;
-                    if(name.length > 15)
-                        name = name.substring(0, 15) + '...';
-                    return '<a href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + name + '</a>';
-                },
-                itemWidth: 150
             },
             plotOptions: {
                 pie: {
@@ -102,7 +102,43 @@ var DataBrowser = Class.extend({
                     }
                 }
             }]
-        });
+        };
+		
+		if( chart_options['mode']=='init' ) {
+		
+			options.legend = {
+	            useHTML: true,
+	            labelFormatter: function() {
+	                var name = this.name;
+	                // if(name.length > 15)
+	                    // name = name.substring(0, 15) + '...';
+	                return '<a href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + name + '</a>';
+	            },
+	            align: 'right',
+			    layout: 'vertical',
+			    verticalAlign: 'top',
+			    x: 0,
+			    y: 20,
+	            itemMarginBottom: 5
+	            // itemWidth: 150
+	        };
+        
+        } else {
+	        
+	        options.legend = {
+	            useHTML: true,
+	            labelFormatter: function() {
+	                var name = this.name;
+	                if(name.length > 12)
+	                    name = name.substring(0, 12) + '...';
+	                return '<a href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + name + '</a>';
+	            },
+	            itemWidth: 150
+	        };
+	        
+        }
+		
+        li.find('.chart').highcharts(options);
 		
 	},
 
@@ -311,7 +347,8 @@ var DataBrowser = Class.extend({
         li.find('.chart').highcharts({
             chart: {
                 type: 'column',
-                backgroundColor: null
+                backgroundColor: null,
+                height: 300,
             },
             title: {
                 text: ''

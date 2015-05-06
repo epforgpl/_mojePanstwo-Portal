@@ -98,7 +98,7 @@ class mpAPISource extends DataSource {
  */
     public function read(Model $model, $queryData = array(), $recursive = null) {
 	   	
-	   	// debug($queryData);
+	   	// debug($queryData); die();
 	   	         
         /**
          * Here we do the actual count as instructed by our calculate()
@@ -125,8 +125,7 @@ class mpAPISource extends DataSource {
 	        $endpoint_parts = array('dane');
 	        
 	    }
-        
-        
+                
         if( isset($queryData['feed']) ) {
 	        
 	        $endpoint_parts[] = 'feed';
@@ -166,12 +165,21 @@ class mpAPISource extends DataSource {
 			// $endpoint_parts[] = 'view';
 	        	        
         } else {
-        
+        	
         	if( isset($queryData['conditions']['dataset']) ) {
-	        	$endpoint_parts[] = $queryData['conditions']['dataset'];
-	        	unset( $queryData['conditions']['dataset'] );
+        	
+	        	if( is_array($queryData['conditions']['dataset']) ) {
+		        	
+		        	
+	        	} else {        			        	
+			        	
+		        	$endpoint_parts[] = $queryData['conditions']['dataset'];
+		        	unset( $queryData['conditions']['dataset'] );
+		        
+		        }
+	        
 	        }
-	        		     
+	        
 			$endpoint_parts[] = 'index';
         
         }
@@ -179,7 +187,7 @@ class mpAPISource extends DataSource {
 		$base_url = implode('/', $endpoint_parts) . '.' . $this->config['ext'];
 		
 		$this->public_api_call = $this->config['host'] . '/' . $base_url . '?' . http_build_query($queryData);
-		        
+				
         $res = $this->request($base_url, array(
 	        'data' => $queryData,
         ));

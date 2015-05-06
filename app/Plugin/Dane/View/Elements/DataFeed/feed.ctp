@@ -1,3 +1,8 @@
+<style>
+	#_wrapper {
+		background: #FAFAFA;
+	}
+</style>
 <?
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');	
@@ -38,18 +43,7 @@ if( $show ) {
         </div>
     </div>
     <div class="dataActions">
-        <form action="" method="GET">
-            <div class="form-group has-feedback searchBar">
-                <? if (isset($this->request->query['channel'])) { ?>
-                    <input type="hidden" name="channel" value="<?= $this->request->query['channel'] ?>"/>
-                <? } ?>
-                <input
-                    placeholder="Szukaj<? if ($dataFeed['searchTitle']) echo ' w ' . htmlspecialchars($dataFeed['searchTitle']); ?>..."
-                    type="text" aria-describedby="dataFeedSearch" id="dataFeedSearch" class="form-control"
-                    name="q"<? if (isset($this->request->query['q'])) { ?> value="<?= $this->request->query['q'] ?>"<? } ?>>
-                <span aria-hidden="true" class="glyphicon glyphicon-search form-control-feedback"></span>
-            </div>
-        </form>
+        
 				
         <?php if (isset($object_channels)) { ?>
             <div class="actionBar">
@@ -86,6 +80,20 @@ if( $show ) {
                 </div>
             </div>
         <? } ?>
+        
+        <form action="" method="GET">
+            <div class="form-group has-feedback searchBar">
+                <? if (isset($this->request->query['channel'])) { ?>
+                    <input type="hidden" name="channel" value="<?= $this->request->query['channel'] ?>"/>
+                <? } ?>
+                <input
+                    placeholder="Szukaj<? if ($dataFeed['searchTitle']) echo ' w ' . htmlspecialchars($dataFeed['searchTitle']); ?>..."
+                    type="text" aria-describedby="dataFeedSearch" id="dataFeedSearch" class="form-control"
+                    name="q"<? if (isset($this->request->query['q'])) { ?> value="<?= $this->request->query['q'] ?>"<? } ?>>
+                <span aria-hidden="true" class="glyphicon glyphicon-search form-control-feedback"></span>
+            </div>
+        </form>
+        
         <div class="optionsBar">
             <div class="pull-left">
                 <?

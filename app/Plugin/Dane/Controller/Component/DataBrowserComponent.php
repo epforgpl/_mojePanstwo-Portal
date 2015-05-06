@@ -6,6 +6,9 @@ class DataBrowserComponent extends Component {
 	public $order = array();
 	private $Dataobject = false;
 	private $aggs_visuals_map = array();
+	private $multiSearch = false;
+	private $chapters = array();
+	private $searchTitle = false;
 	
 	private $aggs_presets = array(
 		'gminy' => array(
@@ -771,6 +774,15 @@ class DataBrowserComponent extends Component {
 
 		$this->settings = $settings;
 		
+		if( isset($settings['multiSearch']) )
+			$this->multiSearch = $settings['multiSearch'];
+			
+		if( isset($settings['chapters']) )
+			$this->chapters = $settings['chapters'];
+			
+		if( isset($settings['searchTitle']) )
+			$this->searchTitle = $settings['searchTitle'];
+		
 	}
 
     private function getCancelSearchUrl($controller) {
@@ -843,25 +855,66 @@ class DataBrowserComponent extends Component {
 		}
 			
 		$this->queryData = $controller->request->query;
-
-		if( !property_exists($controller, 'Dataobject') )
-			$controller->Dataobject = ClassRegistry::init('Dane.Dataobject');
 		
-		$controller->Paginator->settings = $this->getSettings();
-				
-		// $controller->Paginator->settings['order'] = 'score desc';
-		// debug($controller->Paginator->settings); die();	
-		$hits = $controller->Paginator->paginate('Dataobject');
-
-	    $controller->set('dataBrowser', array(
-		    'hits' => $hits,
-		    'took' => $controller->Dataobject->getPerformance(),
-		    'aggs' => $controller->Dataobject->getAggs(),
-            'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
-		    'cancel_url' => $this->getCancelSearchUrl($controller),
-		    'api_call' => $controller->Dataobject->getDataSource()->public_api_call,
-		    'renderFile' => isset( $this->settings['renderFile'] ) ? 'DataBrowser/templates/' . $this->settings['renderFile'] : 'default',
-	    ));
+		if( !property_exists($controller, 'Dataobject') )
+				$controller->Dataobject = ClassRegistry::init('Dane.Dataobject');
+	
+		// debug($this->getSettings()); die();
+		
+		if(
+			( !$this->multiSearch ) ||
+			(
+				$this->multiSearch && 
+				isset( $this->queryData['conditions'] ) && 
+				!empty( $this->queryData['conditions'] )
+			)
+		) {		
+			
+			$controller->Paginator->settings = $this->getSettings();
+					
+			// $controller->Paginator->settings['order'] = 'score desc';
+			// debug($controller->Paginator->settings); die();	
+			$hits = $controller->Paginator->paginate('Dataobject');
+	
+		    $controller->set('dataBrowser', array(
+			    'hits' => $hits,
+			    'took' => $controller->Dataobject->getPerformance(),
+			    'aggs' => $controller->Dataobject->getAggs(),
+	            'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
+			    'cancel_url' => $this->getCancelSearchUrl($controller),
+			    'api_call' => $controller->Dataobject->getDataSource()->public_api_call,
+			    'renderFile' => isset( $this->settings['renderFile'] ) ? 'DataBrowser/templates/' . $this->settings['renderFile'] : 'default',
+			    'viewElement' => false,
+			    'multiSearch' => $this->multiSearch,
+			    'chapters' => $this->chapters,
+			    'searchTitle' => $this->searchTitle,
+		    ));
+		    
+	    
+	    } else {
+		    
+		    if( $this->multiSearch ) {
+		    			    		    	
+			    $controller->Dataobject->find('all', array(
+				    'limit' => 0,
+				    'aggs' => $this->multiSearch['init']['aggs'],
+				    'conditions' => array(
+					    'dataset' => array_column($this->chapters['chapters'], 'dataset'),
+				    ),
+			    ));
+			    $controller->set('dataBrowser', array(
+				    'aggs' => $controller->Dataobject->getAggs(),
+				    'viewElement' => 'krs',
+				    'multiSearch' => $this->multiSearch,
+				    'cancel_url' => false,
+				    'chapters' => $this->chapters,
+				    'searchTitle' => $this->searchTitle,
+				));
+		    
+		    }
+		    
+	    }
+	    
 		
 	}
 	
@@ -877,7 +930,13 @@ class DataBrowserComponent extends Component {
 			'order' => $this->getSettingsForField('order'),
 			'limit' => isset($this->settings['limit']) ? $this->settings['limit'] : 50,
 		);
-						
+		
+		if( $this->multiSearch ) {
+			
+			$output['conditions']['dataset'] = array_column($this->multiSearch['chapters'], 'dataset');
+			
+		}
+					
 		if( isset($conditions['q']) )
 			$output['highlight'] = true;
 		
