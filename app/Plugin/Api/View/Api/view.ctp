@@ -16,11 +16,10 @@ $this->Html->css(array(
 $this->Html->script(array(
     '/api/swagger/lib/jquery.slideto.min',
     '/api/swagger/lib/jquery.wiggle.min',
-    '/api/swagger/lib/jquery.ba-bbq',
     '/api/swagger/lib/handlebars-2.0.0',
     '/api/swagger/lib/underscore-min',
     '/api/swagger/lib/backbone-min',
-    '/api/swagger/lib/marked.js',
+    '/api/swagger/lib/marked',
     // enabling this will enable oauth2 implicit scope support
     // '/api/swagger/lib/swagger-oauth',
     '/api/swagger/swagger-ui.min',
@@ -28,7 +27,7 @@ $this->Html->script(array(
 
 ), array('inline' => 'false', 'block' => 'scriptBlock'));
 
-$this->Html->scriptBlock('window.swaggerUi = new SwaggerUi({url: "' . $api["swagger_url"] . '",dom_id: "swagger-ui-container",docExpansion: "list"});window.swaggerUi.load();',
+$this->Html->scriptBlock('window.swaggerUi = new SwaggerUi({url: "' . $api["swagger_url"] . '", uiRoot: "'. $uiRoot .'",docExpansion: "list"});window.swaggerUi.load();',
     array('inline' => 'false', 'block' => 'scriptBlock'));
 ?>
 
@@ -67,7 +66,7 @@ $this->Html->scriptBlock('window.swaggerUi = new SwaggerUi({url: "' . $api["swag
 
         <div class="swagger-section row">
             <div id="message-bar" class="swagger-ui-wrap col-md-12">&nbsp;</div>
-            <div id="swagger-ui-container" class="swagger-ui-wrap col-md-12"></div>
+            <div id="swagger_ui" class="swagger-ui-wrap col-md-12"></div>
         </div>
 
         <p>Interaktywna dokumentacja zbudowana przy użyciu

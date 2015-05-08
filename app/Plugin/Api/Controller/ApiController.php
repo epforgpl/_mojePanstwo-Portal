@@ -35,7 +35,9 @@ class ApiController extends AppController
             throw new NotFoundException();
         }
 
-        $this->set(compact('api'));
+        $uiRoot = Router::url(array('plugin' => 'api', 'controller' => 'api', 'action' => 'view', 'slug' => $slug), false);
+
+        $this->set(compact('api', 'uiRoot'));
     }
 
     public function technical_info()

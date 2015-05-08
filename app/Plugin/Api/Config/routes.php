@@ -6,7 +6,7 @@ Router::connect('/api/technical_info', array(
     'controller' => 'api',
     'action' => 'technical_info'
 ));
-Router::connect('/api/:slug', array(
+Router::connect('/api/:slug/*', array(
     'plugin' => 'api',
     'controller' => 'api',
     'action' => 'view'
