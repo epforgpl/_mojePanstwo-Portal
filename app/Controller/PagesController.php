@@ -66,16 +66,8 @@ class PagesController extends AppController
         if (!empty($path[1])) {
             $subpage = $path[1];
         }
-        
-        if( $page=='apps' ) {
-	        
-	        $title_for_layout = 'Aplikacje - _mojePaństwo';
-	        
-        } else {
-	
-	        $title_for_layout = '_mojePaństwo';
-	        
-        }
+
+        $title_for_layout = '_mojePaństwo';
         
         $this->set(compact('page', 'subpage', 'title_for_layout'));
 
