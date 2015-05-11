@@ -32,10 +32,10 @@
                 </div>
             </div>
         </div>
-        <div class="slice right firmy">
+        <div class="slice right gminy">
             <div class="container">
                 <div class="handler mini col-xs-12 col-sm-10 col-md-6 col-lg-4">
-                    <h2>Firmy i&nbsp;organizacje</h2>
+                    <h2>Gminy</h2>
 
                     <p>Otrzymuj informacje o zmianach w skłądach zarządów, rad nadzorczych, ogłoszeniach wymaganych
                         przez prawo gospodarcze, zamówieniach publicznych i&nbsp;dotacjach otrzymywanych przez spółki i&nbsp;organizacje
@@ -53,7 +53,8 @@
 
                     <p>Otrzymuj informacje o nowelizacjach, aktach wykonawczych i&nbsp;innych wydawanych do ustaw.
                         Znajdź ustawę, którą chcesz obserować w aplikacji <b>Prawo</b>.</p>
-                    <a href="/prawo" target="_self" class="btn btn-primary" alt="Przejdź do aplikacji">Przejdź do
+                    <a href="/prawo" target="_self" class="btn btn-primary" alt="Przejdź do aplikacji"
+                       data-tutorial='{}'>Przejdź do
                         aplikacji</a>
                 </div>
             </div>

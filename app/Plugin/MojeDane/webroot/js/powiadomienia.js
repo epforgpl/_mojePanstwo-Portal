@@ -4,7 +4,8 @@
     "use strict";
     var $powiadomienia = $('#powiadomienia'),
         $rotate = $("#rotate"),
-        $rotatePos = $rotate.offset();
+        $rotatePos = $rotate.offset(),
+        offest = 0.9;
 
     function changeBackground() {
         if (!$rotate.hasClass('changing')) {
@@ -31,6 +32,12 @@
             }, 1000, function () {
                 $rotate.removeClass('animate changing');
             });
+
+            setTimeout(function () {
+                if ($rotate.hasClass('animate') || $rotate.hasClass('changing')) {
+                    $rotate.removeClass('animate changing');
+                }
+            }, 1200);
         }
     }
 
@@ -65,10 +72,10 @@
             if ($rotate.find('.active').length === 0) {
                 $rotate.find('.slice:first-child').addClass('active');
             }
-            if ($rotate.find('.active').prev().hasClass('slice') && ($(this).scrollTop()) < $rotate.find('.active').prev().offset().top + ($rotate.find('.active').prev().outerHeight() * 0.9)) {
+            if ($rotate.find('.active').prev().hasClass('slice') && ($(this).scrollTop()) < $rotate.find('.active').prev().offset().top + ($rotate.find('.active').prev().outerHeight() * offest)) {
                 $rotate.find('.active').removeClass('active').prev().addClass('active');
                 changeBackground();
-            } else if ($rotate.find('.active').next().hasClass('slice') && ($(this).scrollTop() + ($(this).height() * 0.9)) > $rotate.find('.active').next().offset().top) {
+            } else if ($rotate.find('.active').next().hasClass('slice') && ($(this).scrollTop() + ($(this).height() * offest)) > $rotate.find('.active').next().offset().top) {
                 $rotate.find('.active').removeClass('active').next().addClass('active');
                 changeBackground();
             }
