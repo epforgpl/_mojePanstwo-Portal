@@ -49,8 +49,9 @@
         .clearer {
             color: #999;
 		    font-size: 24px;
-		    right: 18px;
+		    right: 40px;
 		    top: 5px;
+		    z-index: 2;
             
             &:hover {
 	            color: #157ab5;
@@ -100,14 +101,19 @@
             margin: 40px 0;
             padding: 0;
             list-style: none;
-
+			
+			&.special {
+				padding: 10px;
+				background-color: #F6F6F6;
+				border-radius: 7px;
+			}
+					
             h2 {
                 font-weight: bold;
                 font-size: 16px;
                 color: #555;
                 margin: 0;
-                padding: 0;
-                text-align: center;
+                padding: 0 5px;
             }
 
             .agg-DateHistogram, .agg-ColumnsHorizontal, .agg-HorizontalVertical, .agg-ColumnsVertical {
@@ -117,6 +123,23 @@
                     margin-top: -44px;
                   }
                 }
+            }
+            
+            .agg-List {
+	            padding: 10px 0;
+	            
+	            &.apps {
+		            ul {
+			            li {
+				            img, svg {
+					            width: 30px;
+					            height: 30px;
+					            margin-right: 5px;
+					            margin-top: -3px;
+				            }
+			            }
+		            }
+	            }            
             }
 
             .number {
@@ -166,6 +189,7 @@
 	
 	.databrowser-panel {
 		margin: 20px 0;
+		padding: 10px;
 		
 		&:first-child {
 			margin-top: 0px;
@@ -173,6 +197,18 @@
 		
 		&:last-child {
 			margin-bottom: 0px;
+		}
+	}
+	
+	.dataobjects {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		
+		li {
+			list-style: none;
+			padding: 0;
+			margin: 0;
 		}
 	}
 }

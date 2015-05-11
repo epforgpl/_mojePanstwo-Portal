@@ -485,94 +485,173 @@ class SejmometrController extends ApplicationsController
 
     public function view()
     {
-        $this->setMenuSelected();
-        $this->loadDatasetBrowser('poslowie');
-    }
-
-    public function sejm()
-    {
-        $this->loadDatasetBrowser('sejm');
-    }
-
-    public function sejm_debaty()
-    {
-        $this->loadDatasetBrowser('sejm_debaty');
-    }
-
-    public function sejm_dezyderaty()
-    {
-        $this->loadDatasetBrowser('sejm_dezyderaty');
-    }
-
-    public function sejm_druki()
-    {
-        $this->title = 'Druki sejmowe - Sejmometr';
-        $this->loadDatasetBrowser('sejm_druki');
-    }
-
-    public function sejm_glosowania()
-    {
-        $this->loadDatasetBrowser('sejm_glosowania');
-    }
-
-    public function sejm_interpelacje()
-    {
-        $this->loadDatasetBrowser('sejm_interpelacje');
-    }
-
-    public function sejm_kluby()
-    {
-        $this->loadDatasetBrowser('sejm_kluby');
-    }
-
-    public function sejm_komisje()
-    {
-        $this->loadDatasetBrowser('sejm_komisje');
-    }
-
-    public function sejm_komunikaty()
-    {
-        $this->loadDatasetBrowser('sejm_komunikaty');
-    }
-
-    public function sejm_posiedzenia()
-    {
-        $this->loadDatasetBrowser('sejm_posiedzenia');
-    }
-
-    public function sejm_posiedzenia_punkty()
-    {
-        $this->loadDatasetBrowser('sejm_posiedzenia_punkty');
-    }
-
-    public function sejm_wystapienia()
-    {
-        $this->loadDatasetBrowser('sejm_wystapienia');
-    }
-
-    public function sejm_komisje_opinie()
-    {
-        $this->loadDatasetBrowser('sejm_komisje_opinie');
-    }
-
-    public function sejm_komisje_uchwaly()
-    {
-        $this->loadDatasetBrowser('sejm_komisje_uchwaly');
-    }
-
-    public function poslowie_oswiadczenia_majatkowe()
-    {
-        $this->loadDatasetBrowser('poslowie_oswiadczenia_majatkowe');
-    }
-
-    public function poslowie_rejestr_korzysci()
-    {
-        $this->loadDatasetBrowser('poslowie_rejestr_korzysci');
-    }
-
-    public function poslowie_wspolpracownicy()
-    {
-        $this->loadDatasetBrowser('poslowie_wspolpracownicy');
+        $datasets = $this->getDatasets('sejmometr');
+	    
+        $options  = array(
+            'searchTitle' => 'Szukaj w danych sejmowych...',
+            'conditions' => array(
+	            'dataset' => array_keys($datasets),
+            ),
+            'cover' => array(
+	            'view' => array(
+		            'plugin' => 'Sejmometr',
+		            'element' => 'cover',
+	            ),
+	            'aggs' => array(
+		            'druki' => array(
+			            'filter' => array(
+				            'term' => array(
+								'dataset' => 'sejm_druki',
+							),
+			            ),
+			            'aggs' => array(
+				            'top' => array(
+						        'top_hits' => array(
+							        'size' => 3,
+							        'fielddata_fields' => array('dataset', 'id'),
+							        'sort' => array(
+								        'date' => array(
+									        'order' => 'desc',
+								        ),
+							        ),
+						        ),
+					        ),
+			            ),
+		            ),
+		            'interpelacje' => array(
+			            'filter' => array(
+				            'term' => array(
+								'dataset' => 'sejm_interpelacje',
+							),
+			            ),
+			            'aggs' => array(
+				            'top' => array(
+						        'top_hits' => array(
+							        'size' => 3,
+							        'fielddata_fields' => array('dataset', 'id'),
+							        'sort' => array(
+								        'date' => array(
+									        'order' => 'desc',
+								        ),
+							        ),
+						        ),
+					        ),
+			            ),
+		            ),
+		            'komunikaty' => array(
+			            'filter' => array(
+				            'term' => array(
+								'dataset' => 'sejm_komunikaty',
+							),
+			            ),
+			            'aggs' => array(
+				            'top' => array(
+						        'top_hits' => array(
+							        'size' => 3,
+							        'fielddata_fields' => array('dataset', 'id'),
+							        'sort' => array(
+								        'date' => array(
+									        'order' => 'desc',
+								        ),
+							        ),
+						        ),
+					        ),
+			            ),
+		            ),
+		            'posiedzenia' => array(
+			            'filter' => array(
+				            'term' => array(
+								'dataset' => 'sejm_posiedzenia',
+							),
+			            ),
+			            'aggs' => array(
+				            'top' => array(
+						        'top_hits' => array(
+							        'size' => 1,
+							        'fielddata_fields' => array('dataset', 'id'),
+							        'sort' => array(
+								        'date' => array(
+									        'order' => 'desc',
+								        ),
+							        ),
+						        ),
+					        ),
+			            ),
+		            ),
+					'poslowie' => array(
+						'filter' => array(
+							'term' => array(
+								'dataset' => 'poslowie',
+							),
+						),
+						'aggs' => array(
+							'klub_id' => array(
+					            'terms' => array(
+						            'field' => 'poslowie.klub_id',
+						            'exclude' => array(
+							            'pattern' => '0'
+						            ),
+					            ),
+					            'aggs' => array(
+						            'label' => array(
+							            'terms' => array(
+								            'field' => 'data.sejm_kluby.nazwa',
+							            ),
+						            ),
+					            ),
+					        ),
+					        'zawod' => array(
+					            'terms' => array(
+						            'field' => 'poslowie.zawod',
+						            'exclude' => array(
+							            'pattern' => ''
+						            ),
+					            ),
+					            'aggs' => array(
+						            'label' => array(
+							            'terms' => array(
+								            'field' => 'poslowie.zawod',
+							            ),
+						            ),
+					            ),
+					        ),
+					        'plec' => array(
+				                'terms' => array(
+				                    'field' => 'poslowie.plec',
+				                    'include' => array(
+				                        'pattern' => '(K|M)'
+				                    ),
+				                ),
+				                'aggs' => array(
+				                    'label' => array(
+				                        'terms' => array(
+				                            'field' => 'poslowie.plec',
+				                        ),
+				                    ),
+				                ),
+				            ),
+						),
+					),
+	            ),
+            ),
+            'aggs' => array(
+		        'dataset' => array(
+		            'terms' => array(
+			            'field' => 'dataset',
+		            ),
+		            'visual' => array(
+			            'label' => 'Zbiory danych',
+			            'skin' => 'datasets',
+			            'class' => 'special',
+		                'field' => 'dataset',
+		                'dictionary' => $datasets,
+		            ),
+		        ),
+            ),
+        );
+        
+	    $this->Components->load('Dane.DataBrowser', $options);
+        $this->render('Dane.Elements/DataBrowser/browser-from-app');
     }
 
     private function klub_img_src($klub_id)

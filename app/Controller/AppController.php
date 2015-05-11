@@ -64,6 +64,7 @@ class AppController extends Controller {
 	
 	public $domainMode = 'MP';
 	public $appSelected = false;
+	public $breadcrumbs = array();
 	
 	public $helpers = array(
 		'Html',
@@ -82,188 +83,6 @@ class AppController extends Controller {
 	public $User = false;
 	public $meta = array();
 
-	public $Applications = array(
-		array(
-			'id' => '17',
-			'slug' => 'dane',
-			'name' => 'Dane',
-			'plugin' => 'dane',
-			'type' => 'app',
-			'home' => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id' => '17',
-			'slug' => 'powiadomienia',
-			'name' => 'Powiadomienia',
-			'plugin' => 'powiadomienia',
-			'type' => 'app',
-			'home' => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id' => '17',
-			'slug' => 'pisma',
-			'name' => 'Pisma',
-			'plugin' => 'pisma',
-			'type' => 'app',
-			'home' => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id'     => '16',
-			'slug'   => 'kto_tu_rzadzi',
-			'name'   => 'Kto tu rządzi?',
-			'plugin' => 'KtoTuRzadzi',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id'     => '6',
-			'slug'   => 'krs',
-			'name'   => 'Krajowy Rejestr Sądowy',
-			'plugin' => 'krs',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id'     => '9',
-			'slug'   => 'prawo',
-			'name'   => 'Prawo',
-			'plugin' => 'prawo',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id'     => '12',
-			'slug'   => 'media',
-			'name'   => 'Media',
-			'plugin' => 'media',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id'     => '5',
-			'slug'   => 'zamowienia_publiczne',
-			'name'   => 'Zamówienia publiczne',
-			'plugin' => 'zamowienia_publiczne',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id'     => '3',
-			'slug'   => 'sejmometr',
-			'name'   => 'Sejmometr',
-			'plugin' => 'sejmometr',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id'     => '18',
-			'slug'   => 'wyjazdy_poslow',
-			'name'   => 'Wyjazdy posłów',
-			'plugin' => 'WyjazdyPoslow',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		array(
-			'id'     => '19',
-			'slug'   => 'wydatki_poslow',
-			'name'   => 'Wydatki Posłów',
-			'plugin' => 'WydatkiPoslow',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		/*
-		array(
-			'id' => '18',
-			'slug' => 'gabinety_polityczne',
-			'name' => 'Gabinety Polityczne',
-			'plugin' => 'raporty_gabinety_polityczne',
-			'type' => 'app',
-			'home' => '1',
-			'folder_id' => '13'
-		),
-		*/
-		array(
-			'id'     => '4',
-			'slug'   => 'moja_gmina',
-			'name'   => 'Moja Gmina',
-			'plugin' => 'moja_gmina',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		/*
-		array(
-			'id'     => '20',
-			'slug'   => 'finanse',
-			'name'   => 'Finanse',
-			'plugin' => 'finanse',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		*/
-		array(
-			'id'     => '21',
-			'slug'   => 'handel_zagraniczny',
-			'name'   => 'Handel zagraniczny',
-			'plugin' => 'HandelZagraniczny',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		
-		array(
-			'id' => '19',
-			'slug' => 'dostep_do_informacji_publicznej',
-			'name' => 'Dostęp do Informacji Publicznej',
-			'plugin' => 'raporty_dostep_do_informacji_publicznej',
-			'type' => 'app',
-			'home' => '1',
-			'folder_id' => '13'
-		),
-		/*
-		array(
-			'id'     => '10',
-			'slug'   => 'kody_pocztowe',
-			'name'   => 'Kody Pocztowe',
-			'plugin' => 'kody_pocztowe',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		*/
-		array(
-			'id'     => '10',
-			'slug'   => 'paszport',
-			'name'   => 'Paszport',
-			'plugin' => 'paszport',
-			'type'   => 'app',
-			'home'   => '1',
-			'folder_id' => '13'
-		),
-		/*
-        array(
-            'id' => '20',
-            'slug' => 'przejrzysty_krakow',
-            'name' => 'Przejrzysty Kraków',
-            'plugin' => 'przejrzysty_krakow',
-            'type' => 'app',
-            'home' => '1',
-            'folder_id' => '13'
-        ),
-        */
-	);
 	
 	public function beforeFilter() {
 		
@@ -459,34 +278,26 @@ class AppController extends Controller {
 		}
 	}
 
-	/**
-	 * Zwraca listę dostępnych aplikacji
-	 * @return array
-	 */
-	public function getApplications()
+	public function getApplications($options = array())
 	{
-		return $this->Applications;
+		return $this->applications;
 	}
 	
-	/**
-	 * Zwraca aktualną aplikację
-	 * lub false jeśli nie żadna nie jest aktywna w danej chwili
-	 * @return array|bool
-	 */
-	public function getApplication() {
-		if ( $this->params->plugin ) {
-			foreach ( $this->getApplications() as $app ) {
-				if ( $app['slug'] == strtolower( $this->params->plugin ) || $app['slug'] == Inflector::underscore( $this->params->plugin ) ) {
-					return $app;
-				}
-			}
-		} else {
-			return false;
-		}
+	public function getApplication( $id = false ) {
+		
+		if( $id && array_key_exists($id, $this->applications) ) {
+			
+			return $this->applications[$id];
+			
+		} else return false;
+		
 	}
 
 	public function beforeRender()
 	{
+	    
+	    $this->set('_breadcrumbs', $this->breadcrumbs);
+	    $this->set('_applications', $this->applications);
 		
 		$redirect = false;
 		
@@ -556,6 +367,214 @@ class AppController extends Controller {
             'fb:admins'         => '616010705',
             'fb:app_id'         => FACEBOOK_appId
         ));
+    }
+    
+    public function addBreadcrumb($params) {
+	    
+	    $this->breadcrumbs[] = $params;
+	    
+    }
+    
+    public function addAppBreadcrumb($app) {
+	    
+	    if( $app == 'krs' ) {
+		    
+		    $this->addBreadcrumb(array(
+				'label' => 'Krajowy Rejestr Sądowy',
+				'icon' => '<img class="svg" alt="Krajowy Rejestr Sądowy" src="/krs/icon/krs-gray.svg">',
+				'href' => '/krs',
+			));
+		    
+	    }
+	    
+    }
+    
+    private $datasets = array(
+	    'krs' => array(
+		    'krs_podmioty' => 'Organizacje',
+		    'krs_osoby' => 'Osoby',
+	    ),
+	    'prawo' => array(
+		    'prawo' => 'Prawo powszechne',
+            'prawo_lokalne' => 'Prawo lokalne',
+            'prawo_urzedowe' => 'Prawo urzędowe',
+            'prawo_hasla' => 'Tematy w prawie',
+	    ),
+	    'orzecznictwo' => array(
+		    'sa_orzeczenia' => 'Orzeczenia sądów administracyjnych',
+            'sp_orzeczenia' => 'Orzeczenia sądów powszechnych',
+            'sn_orzeczenia' => 'Orzeczenia Sądu Najwyższego',
+	    ),
+	    'zamowienia_publiczne' => array(
+		    'zamowienia_publiczne' => 'Zamówienia publiczne',
+	    ),
+	    'moja_gmina' => array(
+		    'gminy' => 'Gminy',
+		    'powiaty' => 'Powiaty',
+		    'wojewodztwa' => 'Województwa',
+		    'miejscowosci' => 'Miejscowosci',
+	    ),
+	    'media' => array(
+		    'twitter' => 'Tweety',
+		    'twitter_accounts' => 'Konta na Twitterze',
+	    ),
+	    'sejmometr' => array(
+		    'poslowie' => 'Posłowie',
+		    'sejm_dezyderaty' => 'Dezyderaty komisji',
+		    'sejm_druki' => 'Druki sejmowe',
+		    'sejm_glosowania' => 'Głosowania',
+		    'sejm_interpelacje' => 'Interpelacje',
+		    'sejm_kluby' => 'Kluby sejmowe',
+		    'sejm_komisje' => 'Komisje sejmowe',
+		    'sejm_komunikaty' => 'Komunikaty Kancelarii Sejmu',
+		    'sejm_posiedzenia' => 'Posiedzenia Sejmu',
+		    'sejm_posiedzenia_punkty' => 'Punkty porządku dziennego',
+		    'sejm_wystapienia' => 'Wystąpienia podczas posiedzeń Sejmu',
+		    'sejm_komisje_opinie' => 'Opinie komisji sejmowych',
+		    'sejm_komisje_uchwaly' => 'Uchwały komisji sejmowych',
+		    'poslowie_oswiadczenia_majatkowe' => 'Oświadczenia majątkowe posłów',
+		    'poslowie_rejestr_korzysci' => 'Rejestr korzyści posłów',
+		    'poslowie_wspolpracownicy' => 'Współpracownicy posłów',
+	    ),
+    );
+
+
+
+    
+    
+    
+    
+    private $applications = array(
+	    'krs' => array(
+		    'name' => 'Krajowy Rejestr Sądowy',
+		    'href' => '/krs',
+		    'src' => '/krs/icon/krs-gray.svg',
+		    'tag' => 1,
+	    ),
+	    'prawo' => array(
+		    'name' => 'Prawo',
+		    'href' => '/prawo',
+		    'src' => '/prawo/icon/prawo.svg',
+		    'tag' => 1,
+	    ),
+	    'orzecznictwo' => array(
+		    'name' => 'Prawo',
+		    'href' => '/prawo',
+		    'src' => '/prawo/icon/prawo.svg',
+		    'tag' => 1,
+	    ),
+	    'bdl' => array(
+		    'name' => 'Bank Danych Lokalnych',
+		    'href' => '/bdl',
+		    'src' => '/prawo/icon/prawo.svg',
+		    'tag' => 1,
+	    ),
+	    'kto_tu_rzadzi' => array(
+		    'name' => 'Kto tu rządzi?',
+		    'href' => '/kto_tu_rzadzi',
+		    'src' => '/KtoTuRzadzi/icon/kto_tu_rzadzi.svg',
+		    'tag' => 1,
+	    ),
+	    'moja_gmina' => array(
+		    'name' => 'Moja Gmina',
+		    'href' => '/moja_gmina',
+		    'src' => '/moja_gmina/icon/moja_gmina.svg',
+		    'tag' => 1,
+	    ),
+	    'zamowienia_publiczne' => array(
+		    'name' => 'Zamówienia publiczne',
+		    'href' => '/zamowienia_publiczne',
+		    'src' => '/zamowienia_publiczne/icon/zamowienia_publiczne.svg',
+		    'tag' => 1,
+	    ),
+	    'media' => array(
+		    'name' => 'Media',
+		    'href' => '/media',
+		    'src' => '/media/icon/media.svg',
+		    'tag' => 1,
+	    ),
+	    'sejmometr' => array(
+		    'name' => 'Sejmometr',
+		    'href' => '/sejmometr',
+		    'src' => '/sejmometr/icon/sejmometr.svg',
+		    'tag' => 1,
+	    ),
+	    'mapa_prawa' => array(
+		    'name' => 'Mapa prawa',
+		    'href' => '/sejmometr',
+		    'src' => '/sejmometr/icon/sejmometr.svg',
+		    'tag' => 1,
+	    ),
+	    /*
+	    'patenty' => array(
+		    'name' => 'Patenty',
+		    'href' => '/patenty',
+		    'src' => '/sejmometr/icon/sejmometr.svg',
+		    'tag' => 1,
+	    ),
+	    */
+	    'handel_zagraniczny' => array(
+		    'name' => 'Handel zagraniczny',
+		    'href' => '/handel_zagraniczny',
+		    'src' => '/HandelZagraniczny/icon/handel_zagraniczny.svg',
+		    'tag' => 1,
+	    ),
+	    /*
+	    'koleje' => array(
+		    'name' => 'Koleje',
+		    'href' => '/koleje',
+		    'src' => '/HandelZagraniczny/icon/handel_zagraniczny.svg',
+		    'tag' => 1,
+	    ),
+	    */
+	    'kody_pocztowe' => array(
+		    'name' => 'Kody pocztowe',
+		    'href' => '/kody_pocztowe',
+		    'src' => '/HandelZagraniczny/icon/handel_zagraniczny.svg',
+		    'tag' => 1,
+	    ),
+	    'dostep_do_informacji_publicznej' => array(
+		    'name' => 'Dostęp do Informacji Publicznej',
+		    'href' => '/dostep_do_informacji_publicznej',
+		    'src' => '/raporty_dostep_do_informacji_publicznej/icon/dostep_do_informacji_publicznej.svg',
+		    'tag' => 2,
+	    ),
+	    'wydatki_poslow' => array(
+		    'name' => 'Wydatki Posłów',
+		    'href' => '/wydatki_poslow',
+		    'src' => '/WydatkiPoslow/icon/wydatki_poslow.svg',
+		    'tag' => 2,
+	    ),
+	    'wyjazdy_poslow' => array(
+		    'name' => 'Wyjazdy Posłów',
+		    'href' => '/wyjazdy_poslow',
+		    'src' => '/WyjazdyPoslow/icon/wyjazdy_poslow.svg',
+		    'tag' => 2,
+	    ),
+	    'finanse_gmin' => array(
+		    'name' => 'Finanse gmin',
+		    'href' => '/wyjazdy_poslow',
+		    'src' => '/WyjazdyPoslow/icon/wyjazdy_poslow.svg',
+		    'tag' => 2,
+	    ),
+    );
+
+        
+      
+    
+    
+    
+    public function getDatasets($app = false) {
+	    
+	    if( $app ) {
+		    
+		    if( array_key_exists($app, $this->datasets) )
+		    	return $this->datasets[ $app ];
+		    else
+		    	return false;
+		    
+	    } else return $this->datasets;
+	    
     }
 
 }

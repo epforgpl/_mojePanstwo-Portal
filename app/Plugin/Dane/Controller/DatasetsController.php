@@ -13,6 +13,7 @@ class DatasetsController extends DataobjectsController
     );
     
     private $redirects_map = array(
+	    /*
 	    'prawo' => 'prawo',
 	    'prawo_hasla' => 'prawo/tematy',
 	    'prawo_urzedowe' => 'prawo/urzedowe',
@@ -62,6 +63,7 @@ class DatasetsController extends DataobjectsController
         'poslowie_oswiadczenia_majatkowe' => 'sejmometr/poslowie_oswiadczenia_majatkowe',
         'poslowie_rejestr_korzysci' => 'sejmometr/poslowie_rejestr_korzysci',
         'poslowie_wspolpracownicy' => 'sejmometr/poslowie_wspolpracownicy',
+        */
     );
 
     public function index()
@@ -107,7 +109,9 @@ class DatasetsController extends DataobjectsController
 		            $this->set('objectOptions', $this->objectOptions);
 		            $this->set('microdata', $this->microdata);	
 		            $this->set('title_for_layout', $this->object->getTitle());
-		
+										
+					$this->addAppBreadcrumb('krs');
+					
 		            if ($desc = $this->object->getDescription())
 		                $this->setMetaDescription($desc);
 		                

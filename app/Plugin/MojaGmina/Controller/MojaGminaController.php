@@ -60,9 +60,38 @@ class MojaGminaController extends ApplicationsController
 
     public function index()
     {
-
-        $this->setMenuSelected();
-        $this->set('title_for_layout', 'Moja gmina');
+		
+		$datasets = $this->getDatasets('moja_gmina');
+			    
+        $options  = array(
+            'searchTitle' => 'Szukaj w gminach, powiatach, województwach i miejscowościach...',
+            'conditions' => array(
+	            'dataset' => array_keys($datasets),
+            ),
+            'cover' => array(
+	            'view' => array(
+		            'plugin' => 'MojaGmina',
+		            'element' => 'cover',
+	            ),
+            ),
+            'aggs' => array(
+		        'dataset' => array(
+		            'terms' => array(
+			            'field' => 'dataset',
+		            ),
+		            'visual' => array(
+			            'label' => 'Zbiory danych',
+			            'skin' => 'datasets',
+			            'class' => 'special',
+		                'field' => 'dataset',
+		                'dictionary' => $datasets,
+		            ),
+		        ),
+            ),
+        );
+        
+	    $this->Components->load('Dane.DataBrowser', $options);
+        $this->render('Dane.Elements/DataBrowser/browser-from-app');
 
 
     }

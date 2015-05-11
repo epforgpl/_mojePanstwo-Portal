@@ -260,6 +260,11 @@ class Dataobject
     {
         return false;
     }
+	
+	public function getIcon()
+    {
+        return false;
+    }
     
     public function getHeaderThumbnailUrl($size = 'default')
     {

@@ -2,7 +2,32 @@ var DataBrowser = Class.extend({
 		
 	init: function(div) {
 		
-		this.div = $(div);	
+		this.div = $(div);
+				
+		this.div.find('.dataBrowserSearchInput[data-autocompletion=true]').autocomplete({
+			source: function(request, response) {
+				
+				if( this.element.attr('data-autocompletion-dataset') )
+					var dataset = this.element.attr('data-autocompletion-dataset').split(',');
+				else
+					var dataset = false;
+				
+				$.get('/dane/suggest.json', {
+					q: request['term'],
+					dataset: dataset
+				}).done(function(data){
+										
+					var options = [];
+					for( var i=0; i<data.options.length; i++ )
+						options.push( data.options[i]['text'] );
+						
+					response(options);
+					
+				});
+				
+			}
+	    });
+		
 		$('.goto .selectpicker').selectpicker('val', null).on('change', function(){
 			var href = $(this).find("option:selected").attr('href');
 		    window.location = href;
@@ -281,44 +306,50 @@ var DataBrowser = Class.extend({
                 data: histogram_data
             }]
         });
-
-        var datepicker = $.fn.datepicker.noConflict();
-        $.fn.bootstrapDP = datepicker;
-
-        li.find('a.select-date-range').first().click(function() {
-
-            var _modal = $('#selectDateRangeModal');
-            var _datepicker = $('#datepicker');
-            var _start = _datepicker.find('input[name=start]').first();
-            var _end = _datepicker.find('input[name=end]').first();
-            var _submit = $('#selectDateSubmit');
-            var _startDate = _this.getFormattedDate(new Date(dateRange.min));
-            var _endDate = _this.getFormattedDate(new Date(dateRange.max));
-
-            _start.val(_startDate);
-            _end.val(_endDate);
-
-            _datepicker.bootstrapDP({
-                language: 'pl',
-                orientation: 'auto top',
-                format: "yyyy-mm-dd",
-                autoclose: true
-            });
-
-            _submit.click(function() {
-                var dataArg = [
-                    '[',
-                    _start.val(),
-                    ' TO ',
-                    _end.val(),
-                    ']'
-                ];
-
-                window.location.href = choose_request + dataArg.join('');
-                return false;
-            });
-
-        });
+		
+		try {
+				
+	        var datepicker = $.fn.datepicker.noConflict();
+	        $.fn.bootstrapDP = datepicker;
+	
+	        li.find('a.select-date-range').first().click(function() {
+	
+	            var _modal = $('#selectDateRangeModal');
+	            var _datepicker = $('#datepicker');
+	            var _start = _datepicker.find('input[name=start]').first();
+	            var _end = _datepicker.find('input[name=end]').first();
+	            var _submit = $('#selectDateSubmit');
+	            var _startDate = _this.getFormattedDate(new Date(dateRange.min));
+	            var _endDate = _this.getFormattedDate(new Date(dateRange.max));
+	
+	            _start.val(_startDate);
+	            _end.val(_endDate);
+	
+	            _datepicker.bootstrapDP({
+	                language: 'pl',
+	                orientation: 'auto top',
+	                format: "yyyy-mm-dd",
+	                autoclose: true
+	            });
+	
+	            _submit.click(function() {
+	                var dataArg = [
+	                    '[',
+	                    _start.val(),
+	                    ' TO ',
+	                    _end.val(),
+	                    ']'
+	                ];
+	
+	                window.location.href = choose_request + dataArg.join('');
+	                return false;
+	            });
+	
+	        });
+        
+        }
+        catch(err) {
+		}
 
 	},
 	

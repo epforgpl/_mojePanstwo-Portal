@@ -6,9 +6,11 @@ class DataBrowserComponent extends Component {
 	public $order = array();
 	private $Dataobject = false;
 	private $aggs_visuals_map = array();
-	private $multiSearch = false;
+	private $cover = false;
 	private $chapters = array();
 	private $searchTitle = false;
+	private $autocompletion = false;
+	private $aggsMode = false;
 	
 	private $aggs_presets = array(
 		'gminy' => array(
@@ -774,14 +776,20 @@ class DataBrowserComponent extends Component {
 
 		$this->settings = $settings;
 		
-		if( isset($settings['multiSearch']) )
-			$this->multiSearch = $settings['multiSearch'];
+		if( isset($settings['cover']) )
+			$this->cover = $settings['cover'];
 			
 		if( isset($settings['chapters']) )
 			$this->chapters = $settings['chapters'];
 			
 		if( isset($settings['searchTitle']) )
 			$this->searchTitle = $settings['searchTitle'];
+			
+		if( isset($settings['autocompletion']) )
+			$this->autocompletion = $settings['autocompletion'];
+			
+		if( isset($settings['aggs-mode']) )
+			$this->aggsMode = $settings['aggs-mode'];
 		
 	}
 
@@ -820,8 +828,10 @@ class DataBrowserComponent extends Component {
         foreach($maps as $i => $map) {
             // Anulowanie np. wybranego typu
             $cancelQuery = $query;
-            if(isset($cancelQuery['conditions'][$map['field']]))
+            
+            if( isset($map['field']) && isset($cancelQuery['conditions'][$map['field']]) )
                 unset($cancelQuery['conditions'][$map['field']]);
+            
             if(isset($cancelQuery['page']))
                 unset($cancelQuery['page']);
             if(isset($cancelQuery['conditions']['q']))
@@ -832,11 +842,15 @@ class DataBrowserComponent extends Component {
             // Nie znamy jeszcze id dlatego na końcu zostawiamy `=` np.
             // http://.../?..&conditions[type.id]=
             $chooseQuery = $query;
+            
             if(isset($cancelQuery['page']))
                 unset($cancelQuery['page']);
-            $maps[$i]['chooseRequest'] =
-                $controller->here . '?' . http_build_query($cancelQuery) .
-                '&conditions[' . $map['field'] . ']=';
+            
+            $r = $controller->here . '?' . http_build_query($cancelQuery);
+            if( isset($map['field']) )
+            	$r .= '&conditions[' . $map['field'] . ']=';
+            
+            $maps[$i]['chooseRequest'] = $r;
         }
 
         return $maps;
@@ -862,9 +876,9 @@ class DataBrowserComponent extends Component {
 		// debug($this->getSettings()); die();
 		
 		if(
-			( !$this->multiSearch ) ||
+			( !$this->cover ) ||
 			(
-				$this->multiSearch && 
+				$this->cover && 
 				isset( $this->queryData['conditions'] ) && 
 				!empty( $this->queryData['conditions'] )
 			)
@@ -875,40 +889,115 @@ class DataBrowserComponent extends Component {
 			// $controller->Paginator->settings['order'] = 'score desc';
 			// debug($controller->Paginator->settings); die();	
 			$hits = $controller->Paginator->paginate('Dataobject');
-	
-		    $controller->set('dataBrowser', array(
+			
+			$dataBrowser = array(
 			    'hits' => $hits,
 			    'took' => $controller->Dataobject->getPerformance(),
-			    'aggs' => $controller->Dataobject->getAggs(),
-	            'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
 			    'cancel_url' => $this->getCancelSearchUrl($controller),
 			    'api_call' => $controller->Dataobject->getDataSource()->public_api_call,
 			    'renderFile' => isset( $this->settings['renderFile'] ) ? 'DataBrowser/templates/' . $this->settings['renderFile'] : 'default',
-			    'viewElement' => false,
-			    'multiSearch' => $this->multiSearch,
+			    'cover' => $this->cover,
 			    'chapters' => $this->chapters,
 			    'searchTitle' => $this->searchTitle,
-		    ));
+			    'autocompletion' => $this->autocompletion,
+			    'mode' => 'data',
+		    );
+			
 		    
-	    
+		    if( $this->aggsMode == 'apps' ) {
+			    
+			    $_aggs = $controller->Dataobject->getAggs();
+			    $aggs = array();
+			    
+			    foreach( $_aggs as $app_id => $app_data ) {
+				    if( $count = $app_data['doc_count'] ) {
+					    
+					    $app_id = substr($app_id, 4);
+					    
+					    $aggs[] = array(
+						    'key' => $app_id,
+						    'doc_count' => $count,
+						    'app' => $controller->getApplication( $app_id ),
+					    );
+				    
+				    }
+			    }
+			    
+			    $dataBrowser['aggs'] = array(
+				    'apps' => array(
+					    'buckets' => $aggs,
+				    ),
+			    );
+			    
+		    } else {
+			    
+			    $dataBrowser['aggs'] = $controller->Dataobject->getAggs();
+			    $dataBrowser['aggs_visuals_map'] = $this->prepareRequests($this->aggs_visuals_map, $controller);
+			    			    
+			    if(
+				    isset( $controller->Paginator->settings['conditions'] ) && 
+				    isset( $controller->Paginator->settings['conditions']['dataset'] ) && 
+				    is_array( $controller->Paginator->settings['conditions']['dataset'] ) && 
+				    ( count( $controller->Paginator->settings['conditions']['dataset'] )>1 ) && 
+				    isset( $dataBrowser['aggs']['dataset'] ) && 
+				    isset( $dataBrowser['aggs']['dataset']['buckets'] ) && 
+				    ( count($dataBrowser['aggs']['dataset']['buckets'])===1 ) && 
+				    ( $dataBrowser['aggs']['dataset']['buckets'][0]['doc_count'] )
+			    ) {
+				    
+				    $params = array();
+				    $conditions = $controller->Paginator->settings['conditions'];
+				    if( isset($conditions['dataset']) )
+				    	unset( $conditions['dataset'] );
+				    
+				    if( isset($conditions['q']) ) {
+					    $params['q'] = $conditions['q'];
+					    unset( $conditions['q'] );
+				    }
+				    
+				    $params['conditions'] = $conditions;
+				    
+				    $url = '/dane/' . $dataBrowser['aggs']['dataset']['buckets'][0]['key'];
+				    $url .= '?' . http_build_query($params);
+				    
+				    return $controller->redirect( $url );
+				    
+			    }
+			    			    
+		    }
+		    
+		    $controller->set('dataBrowser', $dataBrowser);
+		    
+		    
+		    if( isset($controller->request->query['conditions']['q']) && $controller->request->query['conditions']['q'] ) {
+		    	$controller->title = $controller->request->query['conditions']['q'];
+		    }
+		    
+		    
 	    } else {
 		    
-		    if( $this->multiSearch ) {
-		    			    		    	
-			    $controller->Dataobject->find('all', array(
+		    if( $this->cover ) {
+		    			  
+		    	$settings = $this->getSettings();
+		    	$params = array(
 				    'limit' => 0,
-				    'aggs' => $this->multiSearch['init']['aggs'],
-				    'conditions' => array(
-					    'dataset' => array_column($this->chapters['chapters'], 'dataset'),
-				    ),
-			    ));
+				    'conditions' => $settings['conditions'],
+			    );
+			    
+			    if( isset( $this->cover['aggs'] ) )
+			    	$params['aggs'] = $this->cover['aggs'];
+		    	
+			    $controller->Dataobject->find('all', $params);
+			    
+			    	    
 			    $controller->set('dataBrowser', array(
 				    'aggs' => $controller->Dataobject->getAggs(),
-				    'viewElement' => 'krs',
-				    'multiSearch' => $this->multiSearch,
+				    'cover' => $this->cover,
 				    'cancel_url' => false,
 				    'chapters' => $this->chapters,
 				    'searchTitle' => $this->searchTitle,
+				    'autocompletion' => $this->autocompletion,
+				    'mode' => 'cover',
 				));
 		    
 		    }
@@ -930,12 +1019,6 @@ class DataBrowserComponent extends Component {
 			'order' => $this->getSettingsForField('order'),
 			'limit' => isset($this->settings['limit']) ? $this->settings['limit'] : 50,
 		);
-		
-		if( $this->multiSearch ) {
-			
-			$output['conditions']['dataset'] = array_column($this->multiSearch['chapters'], 'dataset');
-			
-		}
 					
 		if( isset($conditions['q']) )
 			$output['highlight'] = true;

@@ -56,6 +56,17 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
             class="objectPageHeaderContainer topheader <? if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) { ?> krakow<? } ?>">
             <div class="container">
                 <div class="row">
+	                
+	                <? if( $_breadcrumbs ) {?>
+                	<div class="col-md-12">
+	                	<ol class="breadcrumb">
+							<? foreach( $_breadcrumbs as $b ) { ?>
+								<li><a href="<?= $b['href'] ?>"><? if( isset($b['icon']) && $b['icon'] ) echo $b['icon'] . ' ';?><?= $b['label'] ?></a></li>
+							<? } ?>
+						</ol>
+                	</div>
+	                <?}?>
+	                	                
 	                <? if ($krsPodmiotyKrakow) { ?>
 	                    <div class="krakow col-md-2">
 	

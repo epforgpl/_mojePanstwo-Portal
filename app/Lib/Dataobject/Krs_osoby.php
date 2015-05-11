@@ -15,6 +15,11 @@ class Krs_osoby extends DataObject
 		'powiazania',
 	);
 	
+	public function getIcon()
+	{
+		return '<i class="object-icon glyphicon glyphicon-user"></i>';
+	}
+	
     public function getTitle()
     {
         return $this->getData('imiona') . ' ' . $this->getData('nazwisko');
@@ -56,4 +61,20 @@ class Krs_osoby extends DataObject
     {
         return false;
     }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+		
+		if( $this->getData('krs_osoby.plec')=='K' )
+			$str = 'Związana';
+		else
+			$str = 'Związany';
+		
+		$output = array(
+			$str . ' z ' . implode( ' <span class="sep">-</span> ', $this->getData('powiazania') ),
+		);
+		
+		return $output;
+		
+	}
 }

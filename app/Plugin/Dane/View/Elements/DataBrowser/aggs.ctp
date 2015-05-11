@@ -3,7 +3,22 @@
     <? 
 	
 	if( $agg_id=='_channels' )
-		continue;    
+		continue;
+		
+	if( $agg_id=='apps' ) {
+?>		
+		<li class="agg">
+            <h2>Aplikacje</h2>
+            <?			
+            echo $this->element('Dane.DataBrowser/apps', array(
+                'data' => $agg_data,
+            ));
+            ?>
+        </li>
+<?		
+		continue;
+		
+	} 
 		
 	if ( 
         (
@@ -31,7 +46,7 @@
 	    	break;
 	    
     ?>
-        <li class="agg">
+        <li class="agg<? if( isset($data['aggs_visuals_map'][$agg_id]['class']) ) echo " " . $data['aggs_visuals_map'][$agg_id]['class']; ?>">
             <h2><?= $data['aggs_visuals_map'][$agg_id]['label']; ?></h2>
             <?
 			

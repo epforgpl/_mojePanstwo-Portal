@@ -33,9 +33,178 @@ class MediaController extends ApplicationsController
         parent::prepareMetaTags();
         $this->setMeta('og:image', FULL_BASE_URL . '/media/img/social/media.jpg');
     }
-
-    public function view()
+	
+	public function view() {
+		
+		$datasets = $this->getDatasets('media');
+	    
+        $options  = array(
+            'searchTitle' => 'Szukaj w tweetach i kontach twitter...',
+            'conditions' => array(
+	            'dataset' => array_keys($datasets),
+            ),
+            'cover' => array(
+	            'view' => array(
+		            'plugin' => 'Media',
+		            'element' => 'cover',
+	            ),
+	            'aggs' => array(
+					'prawo_obowiazujace' => array(
+						'filter' => array(
+							'bool' => array(
+								'must' => array(
+									array(
+										'term' => array(
+											'dataset' => 'prawo',
+										),
+									),
+									array(
+										'term' => array(
+											'data.prawo.status_id' => '1',
+										),
+									),
+								),
+							),
+						),
+						'aggs' => array(
+							'typ_id' => array(
+					            'terms' => array(
+						            'field' => 'prawo.typ_id',
+						            'exclude' => array(
+							            'pattern' => '0'
+						            ),
+					            ),
+					            'aggs' => array(
+						            'label' => array(
+							            'terms' => array(
+								            'field' => 'data.prawo.typ_nazwa',
+							            ),
+						            ),
+					            ),
+					        ),
+					        'autor_id' => array(
+					            'terms' => array(
+						            'field' => 'prawo.autor_id',
+						            'exclude' => array(
+							            'pattern' => '0'
+						            ),
+					            ),
+					            'aggs' => array(
+						            'label' => array(
+							            'terms' => array(
+								            'field' => 'data.prawo.autor_nazwa',
+							            ),
+						            ),
+					            ),
+					        ),
+						),
+					),
+					'prawo' => array(
+						'filter' => array(
+							'bool' => array(
+								'must' => array(
+									array(
+										'term' => array(
+											'dataset' => 'prawo',
+										),
+									),
+								),
+							),
+						),
+						'aggs' => array(
+					        'date' => array(
+					            'date_histogram' => array(
+						            'field' => 'date',
+						            'interval' => 'year',
+						            'format' => 'yyyy-MM-dd',
+					            ),
+					        ),
+					        'wejda' => array(
+						        'filter' => array(
+							        'bool' => array(
+								        'must' => array(
+									        array(
+										        'range' => array(
+											        'data.prawo.data_wejscia_w_zycie' => array(
+												        'gte' => 'now',
+											        ),
+										        ),
+									        ),
+								        ),
+							        ),
+						        ),
+						        'aggs' => array(
+							        'top' => array(
+								        'top_hits' => array(
+									        'size' => 5,
+									        'fielddata_fields' => array('dataset', 'id'),
+									        'sort' => array(
+										        'data.prawo.data_wejscia_w_zycie' => array(
+											        'order' => 'asc',
+										        ),
+									        ),
+								        ),
+							        ),
+						        ),
+					        ),
+					        'weszly' => array(
+						        'filter' => array(
+							        'bool' => array(
+								        'must' => array(
+									        array(
+										        'range' => array(
+											        'data.prawo.data_wejscia_w_zycie' => array(
+												        'lt' => 'now',
+											        ),
+										        ),
+									        ),
+								        ),
+							        ),
+						        ),
+						        'aggs' => array(
+							        'top' => array(
+								        'top_hits' => array(
+									        'size' => 5,
+									        'fielddata_fields' => array('dataset', 'id'),
+									        'sort' => array(
+										        'data.prawo.data_wejscia_w_zycie' => array(
+											        'order' => 'desc',
+										        ),
+									        ),
+								        ),
+							        ),
+						        ),
+					        ),
+						),
+					),
+	            ),
+            ),
+            'aggs' => array(
+		        'dataset' => array(
+		            'terms' => array(
+			            'field' => 'dataset',
+		            ),
+		            'visual' => array(
+			            'label' => 'Zbiory danych',
+			            'skin' => 'datasets',
+			            'class' => 'special',
+		                'field' => 'dataset',
+		                'dictionary' => $datasets,
+		            ),
+		        ),
+            ),
+        );
+        
+	    $this->Components->load('Dane.DataBrowser', $options);
+        $this->render('Dane.Elements/DataBrowser/browser-from-app');
+		
+	}
+	
+    public function _view()
     {
+	    
+	    
+	    
         $this->setMenuSelected();
         
         $ranges = array('24h', '3d', '7d', '1m');

@@ -78,6 +78,13 @@ Router::connect( '/dane/:controller/:slug/:id', array(
 
 Router::connect('/dane', array('plugin' => 'Dane', 'controller' => 'Dane', 'action' => 'view'));
 
+Router::connect('/dane/suggest', array(
+	'plugin' => 'Dane', 
+	'controller' => 'Dataobjects', 
+	'action' => 'suggest',
+	'[method]' => 'GET',
+));
+
 Router::connect('/dane/subscriptions/:id', array(
 	'plugin' => 'Dane', 
 	'controller' => 'Subscriptions', 

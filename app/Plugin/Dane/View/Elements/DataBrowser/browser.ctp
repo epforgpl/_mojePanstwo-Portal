@@ -27,10 +27,10 @@
 	</div>
 	
 	<div class="row">
-		<? if( $dataBrowser['multiSearch'] || $dataBrowser['chapters'] ) {?>
+		<? if( $dataBrowser['mode']=='cover' ) {?>
 		<form action="" data-url="<?= $dataBrowser['cancel_url']; ?>" method="get" class="form-horizontal searchForm col-md-8">
 		<? } else { ?>
-		<form action="" data-url="<?= $dataBrowser['cancel_url']; ?>" method="get" class="form-horizontal searchForm col-md-8<? if( empty($dataBrowser['aggs']) ) {?> col-md-offset-1<?}?>">
+		<form action="" data-url="<?= $dataBrowser['cancel_url']; ?>" method="get" class="form-horizontal searchForm col-md-8">
 		<? } ?>
 			
 			<? if( 
@@ -50,8 +50,17 @@
 	                <?
 	                    $value = isset( $this->request->query['q'] ) ? addslashes( $this->request->query['q'] ) : '';
 	                ?>
-	                <input class="form-control hasclear input-lg" placeholder='<? if(isset($dataBrowser['searchTitle']) && ($dataBrowser['searchTitle'])) { echo addslashes($dataBrowser['searchTitle']); } else { echo "Szukaj..."; } ?>' type="text" value="<?= $value ?>" name="q" required>
-	                <? if(isset($dataBrowser['cancel_url'])) {?><a href="<?= $dataBrowser['cancel_url']; ?>"><span class="clearer form-control-feedback" aria-hidden="true">&times;</span></a><? } ?>
+	                
+					<div class="input-group">
+						<input <? if($dataBrowser['autocompletion']) {?>data-autocompletion="true" data-autocompletion-dataset="<?= $dataBrowser['autocompletion']['dataset'] ?>" <? } ?>class="form-control hasclear input-lg dataBrowserSearchInput" placeholder='<? if(isset($dataBrowser['searchTitle']) && ($dataBrowser['searchTitle'])) { echo addslashes($dataBrowser['searchTitle']); } else { echo "Szukaj..."; } ?>' type="text" value="<?= $value ?>" name="q" required>
+		                <? if(isset($dataBrowser['cancel_url'])) {?><a href="<?= $dataBrowser['cancel_url']; ?>"><span class="clearer form-control-feedback" aria-hidden="true">&times;</span></a><? } ?>
+						<span class="input-group-btn">
+							<button class="btn btn-primary input-lg" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+						</span>
+					</div>
+
+	                
+	                
 	            </div>
 	        </div>
 	        <? } ?>
@@ -73,18 +82,14 @@
     	
 	<div class="row">
 		
-		<? if( $dataBrowser['viewElement'] ) {?>
+		<? if( $dataBrowser['mode']=='cover' ) {?>
 						
-			<?= $this->element('Dane.DataBrowser/init/' . $dataBrowser['viewElement']); ?>
+			<?= $this->element($dataBrowser['cover']['view']['plugin'] . '.' . $dataBrowser['cover']['view']['element']); ?>
 			
 		
 		<? } else { ?>
 		
-			<? if( !$dataBrowser['multiSearch'] && empty($dataBrowser['aggs']) ) {?>
-			<div class="col-md-8 col-md-offset-1">
-			<? } else {?>
 			<div class="col-md-8">
-			<? } ?>
 	
 		        
 		        <div class="dataObjects">

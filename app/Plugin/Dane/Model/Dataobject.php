@@ -57,6 +57,17 @@ class Dataobject extends AppModel {
 		
 	}
 	
+	public function suggest($q, $params = array()) {
+		
+		return $this->getDataSource()->request('dane/suggest', array(
+			'method' => 'GET',
+			'data' => array(
+				'q' => $q,
+			),
+		));
+		
+	}
+	
 	public function subscribe($dataset, $id) {
 		
 		return $this->getDataSource()->request('dane/' . $dataset . '/' . $id . '/subscribe', array(

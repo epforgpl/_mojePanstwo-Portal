@@ -5,7 +5,7 @@
 <div class="objectSideInner">
 	
 	<div class="row">
-		<div class="col-xs-10 col-xs-offset-2">
+		<div class="col-md-12">
 	
 		    <div class="block nobg noborder text-center">
 		        <ul class="dataHighlights row">
@@ -20,13 +20,13 @@
 		                </li>
 		            <? } ?>
 		            
-		            <? /* if ($object->getData('sygnatura')) { ?>
+		            <? if ($object->getData('sygnatura')) { ?>
 		                <li class="dataHighlight col-sm-2">
 		                    <p class="_label">Sygnatura</p>
 		
 		                    <p class="_value"><?= $object->getData('sygnatura'); ?></p>
 		                </li>
-		            <? } */ ?>
+		            <? } ?>
 		
 		
 		            <? if ($object->getData('data_wydania') && ($object->getData('data_wydania') != '0000-00-00')) { ?>

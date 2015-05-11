@@ -4,6 +4,7 @@ class DataobjectsController extends AppController
 {
     
     public $uses = array('Dane.Dataobject', 'Dane.Subscription');
+    public $components = array('RequestHandler');
     
     public $object = false;
     public $initLayers = array();    
@@ -36,7 +37,25 @@ class DataobjectsController extends AppController
     public function _prepareView() {
         return $this->load();
     }
-
+	
+	public function suggest()
+	{
+		
+		$hits = array();
+		
+		if(
+			isset( $this->request->query['q'] ) && 
+			( $q = trim($this->request->query['q']) )
+		) {
+			
+			$hits = $this->Dataobject->suggest($q);
+			
+		}
+		
+		$this->set('hits', $hits);
+		$this->set('_serialize', 'hits');
+	}
+	
     public function load()
     {
 

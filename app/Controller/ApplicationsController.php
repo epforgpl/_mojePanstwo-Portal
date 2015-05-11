@@ -45,6 +45,7 @@ class ApplicationsController extends AppController
 	        $this->set('title_for_layout', $this->title);
         elseif( isset($this->settings['title']) )
 	        $this->set('title_for_layout', $this->settings['title']);
+	        
     }
 
     public function prepareMetaTags() {

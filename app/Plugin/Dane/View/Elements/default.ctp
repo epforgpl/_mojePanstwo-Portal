@@ -144,7 +144,11 @@ $this->Dataobject->setObject($object);
                                        value="<?php echo __d('powiadomienia', 'LC_POWIADOMIENIA_OPTIONS_ALERT_BUTTON_UNREAD'); ?>"/>
                             </div>
                         <? } ?>
-
+						
+						<? if($object->getIcon()) { echo $object->getIcon(); } ?>
+						
+						<div class="<? if($object->getIcon()) {?>object-icon-side <?}?>">
+						
                         <? if ($object->force_hl_fields || $objectRenderOptions['forceLabel']) { ?>
                             <p class="header">
                                 <?= $object->getLabel(); ?>
@@ -197,6 +201,8 @@ $this->Dataobject->setObject($object);
                                 <?= $this->Text->truncate($object->getDescription(), 250) ?>
                             </div>
                         <? } ?>
+                        
+						</div>
 
                     </div>
                 <? } ?>

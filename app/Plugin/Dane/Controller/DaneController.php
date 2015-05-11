@@ -13,72 +13,32 @@ class DaneController extends ApplicationsController
     public function view()
     {
         
-        $this->setMenuSelected();
-        
-        if(
-	        isset( $this->request->query['q'] ) && 
-	        $this->request->query['q']
-        ) {
-
-            if(isset($this->request->query['conditions']['dataset'])) {
-                $query = $this->request->query;
-                $dataset = $query['conditions']['dataset'];
-                unset($query['conditions']['dataset']);
-                $this->redirect('/dane/' . $dataset . '?' . http_build_query($query));
-            }
-		    	    
-		    $this->Components->load('Dane.DataBrowser', array(
-			    'conditions' => array(
-				    'q' => $this->request->query['q'],
-				    '_main' => true,
-			    ),
-			    'aggs' => array(
-				    'dataset' => array(
-			            'terms' => array(
-				            'field' => 'dataset',
-			            ),
-			            'aggs' => array(
-				            'label' => array(
-					            'terms' => array(
-						            'field' => 'dataset',
-					            ),
-				            ),
-			            ),
-			            'visual' => array(
-				            'label' => 'Zbiory danych',
-				            'skin' => 'pie_chart',
-		                    'field' => 'dataset'
-			            ),
+        $apps = $this->getDatasets();
+        $aggs = array();
+        foreach( $apps as $app_id => $datasets ) {
+	        $aggs[ 'app_' . $app_id ] = array(
+		        'filter' => array(
+			        'terms' => array(
+				        'dataset' => array_keys( $datasets ),
 			        ),
-				    'date' => array(
-			            'date_histogram' => array(
-				            'field' => 'date',
-				            'interval' => 'year',
-				            'format' => 'yyyy-MM-dd',
-			            ),
-			            'visual' => array(
-				            'label' => 'Dane w czasie',
-				            'skin' => 'date_histogram',
-		                    'field' => 'date'
-			            ),
-			        ),
-			    ),
-		    ));
-		    
-		    $this->set('dataBrowserObjectRender', array(
-			    'forceLabel' => true,
-		    ));
-		    
-		    $this->title = $this->request->query['q'] . ' - Dane publiczne';
-		    $this->render('Dane.Elements/DataBrowser/browser-from-app');
-	        
-        } else {
-	        
-	        $this->title = 'Dane publiczne';
-	        
+		        ),
+	        );
         }
         
-        // $this->loadDatasetBrowser('instytucje', $options);
+        $options  = array(
+            'searchTitle' => 'Szukaj w danych publicznych...',
+            'cover' => array(
+	            'view' => array(
+		            'plugin' => 'Dane',
+		            'element' => 'cover',
+	            ),
+            ),
+            'aggs' => $aggs,
+            'aggs-mode' => 'apps',
+        );
+        
+	    $this->Components->load('Dane.DataBrowser', $options);
+        $this->render('Dane.Elements/DataBrowser/browser-from-app');
                 
     }
     

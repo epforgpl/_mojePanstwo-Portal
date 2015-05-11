@@ -36,8 +36,38 @@ class ZamowieniaPubliczneController extends ApplicationsController
 	
     public function view()
     {
-        $this->setMenuSelected();
-        $this->loadDatasetBrowser('zamowienia_publiczne');
+	    
+        $datasets = $this->getDatasets('zamowienia_publiczne');
+        
+        $options  = array(
+            'searchTitle' => 'Szukaj w zamówieniach publicznych...',
+            'conditions' => array(
+	            'dataset' => array_keys( $datasets )
+            ),
+            'cover' => array(
+	            'view' => array(
+		            'plugin' => 'ZamowieniaPubliczne',
+		            'element' => 'cover',
+	            ),
+            ),
+            'aggs' => array(
+		        'dataset' => array(
+		            'terms' => array(
+			            'field' => 'dataset',
+		            ),
+		            'visual' => array(
+			            'label' => 'Zbiory danych',
+			            'skin' => 'datasets',
+			            'class' => 'special',
+		                'field' => 'dataset',
+		                'dictionary' => $datasets,
+		            ),
+		        ),
+            ),
+        );
+                
+	    $this->Components->load('Dane.DataBrowser', $options);
+        $this->render('Dane.Elements/DataBrowser/browser-from-app');
     }
     
     public function wykonawcy()

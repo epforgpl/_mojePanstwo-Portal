@@ -9,9 +9,9 @@ $this->Combinator->add_libs('css', $this->Less->css('appheader'));
         <div class="holder">
             
             <? /*
-            <ul class="breadcrumb">
+            <ol class="breadcrumb">
 			  <li><a href="/aplikacje"><i class="_mPAppIcon" data-icon-new="&#xe800;"></i> Aplikacje</a></li>
-			</ul>
+			</ol>
 			*/ ?>
             
             <div class="row">
@@ -23,7 +23,7 @@ $this->Combinator->add_libs('css', $this->Less->css('appheader'));
             
 	            </div>
 	            
-	            <? if( $dataBrowser['chapters'] ) {?>
+	            <? if( isset($dataBrowser['chapters']) && !empty($dataBrowser['chapters']) ) {?>
 				    <div class="col-md-4">
 					    <div class="goto text-right">
 						    <select class="selectpicker" data-style="btn-default" title="Przejdź do...">

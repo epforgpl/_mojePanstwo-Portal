@@ -45,6 +45,11 @@ class Krs_podmioty extends DataObject
     	'krs', 'adres_miejscowosc', 'data_rejestracji', 'wartosc_kapital_zakladowy'
     );
     
+    public function getIcon()
+	{
+		return '<i class="object-icon glyphicon glyphicon-home"></i>';
+	}
+    
     public $force_hl_fields = false;
  	
  	public function __construct($params = array())
