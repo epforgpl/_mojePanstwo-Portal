@@ -68,7 +68,6 @@
     }
 
     .objectPageHeaderContainer {
-
         &.subobjectContainer {
             margin-top: -5px;
             margin-left: 5px;
@@ -96,8 +95,8 @@
             padding: 5px 0;
 
             .objectRender {
-
                 .header {
+                    display: none; /*TODO: @danielmacyszyn ?*/
                     color: #8abcda;
                     font-size: 12px;
                     font-weight: normal;
@@ -110,14 +109,14 @@
                 }
 
                 .title {
-                    font-size: 22px !important;
-                    font-weight: 300;
+                    font-size: 22px !important; /*TODO: check @danielmacyszyn important status*/
+                    font-weight: 400;
                     color: #ffffff;
                     margin-left: 0;
                     margin-right: 0;
 
                     a, a:hover, a:active {
-                        color: #ffffff;
+                        color: #555555;
                     }
 
                     small {
@@ -135,34 +134,26 @@
     .subobjectContainer {
         .container {
             .title {
-                margin-left: 5px !important;
+                margin-left: 5px !important; /*TODO:check if it REALLY need*/
                 margin-top: -5px;
-                color: #444 !important;
+                color: #444 !important; /*TODO:check if it REALLY need*/
 
                 a, a:hover, a:active {
-                    color: #028ccd !important;
+                    color: #028ccd !important; /*TODO:check if it REALLY need*/
                 }
 
                 small {
-                    color: #444 !important;
+                    color: #444 !important; /*TODO:check if it REALLY need*/
                 }
             }
         }
     }
 
-    .objectPageHeaderBg.extended {
-        .objectPageHeaderContainer {
-            .container {
-                .objectRender {
-                    .title {
-                        font-size: 22px;
-                        font-weight: bold;
-                        line-height: 1em;
-                        padding-left: 0;
-                    }
-                }
-            }
-        }
+    .objectPageHeaderBg.extended .objectPageHeaderContainer .container .objectRender .title {
+        font-size: 22px;
+        font-weight: bold;
+        line-height: 1em;
+        padding-left: 0;
     }
 
     .objectButtons {
@@ -180,14 +171,9 @@
         @menuHeight: 51px;
 
         position: relative;
-        background: rgba(1, 15, 31, 1);
-        background: -moz-linear-gradient(45deg, rgba(1, 15, 31, 1) 0%, rgba(2, 28, 61, 1) 100%);
-        background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(1, 15, 31, 1)), color-stop(100%, rgba(2, 28, 61, 1)));
-        background: -webkit-linear-gradient(45deg, rgba(1, 15, 31, 1) 0%, rgba(2, 28, 61, 1) 100%);
-        background: -o-linear-gradient(45deg, rgba(1, 15, 31, 1) 0%, rgba(2, 28, 61, 1) 100%);
-        background: -ms-linear-gradient(45deg, rgba(1, 15, 31, 1) 0%, rgba(2, 28, 61, 1) 100%);
-        background: linear-gradient(45deg, rgba(1, 15, 31, 1) 0%, rgba(2, 28, 61, 1) 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#010f1f', endColorstr='#021c3d', GradientType=1);
+        background: #e9eaed;
+        border-bottom: 1px solid #DDD;
+        z-index: 901;
 
         -webkit-background-size: cover;
         -moz-background-size: cover;
@@ -204,25 +190,18 @@
                     > a {
                         background: none;
                         border: none;
-                        color: #8abcda;
                         padding-bottom: 10px;
-                        border-bottom: 5px solid #63afea !important;
-
                     }
                 }
 
-                a {
+                > a {
                     font-size: 14px;
                     font-weight: bold;
-                    
-                }
-
-                > a {
-
-                    color: #ffffff;
+                    color: #555555;
                     background: none;
                     border: none;
                     padding-bottom: 20px;
+                    margin-bottom: -5px;
                 }
             }
         }
@@ -230,7 +209,7 @@
         &:not(.extended) .objectPageHeaderContainer .objectPageHeader {
             &.with-menu .mini {
                 margin-bottom: 0;
-                margin-top: 25px;
+                margin-top: 10px;
             }
             .mini {
                 margin-bottom: 5px;
@@ -276,7 +255,8 @@
                 bottom: 0;
                 left: 50%;
                 z-index: 5;
-                border-bottom-width: 0;
+                margin-top: -15px;
+                border-bottom: 4px solid #DDDDDD;
 
                 -webkit-transform: translate(-50%, 0);
                 -moz-transform: translate(-50%, 0);
@@ -296,11 +276,11 @@
                 .block {
                     background-color: inherit;
                     border: none;
-                    margin-top: 30px !important;
-                    margin-bottom: 30px !important;
+                    margin-top: 30px !important; /*TODO:check if it REALLY need*/
+                    margin-bottom: 30px !important; /*TODO:check if it REALLY need*/
 
                     &:first-child {
-                        margin-top: 0 !important;
+                        margin-top: 0 !important; /*TODO:check if it REALLY need*/
                     }
 
                     .dataHighlights {
@@ -577,7 +557,7 @@
 
 .dataobjectsSlider {
     .carousel .carousel-inner {
-        margin: 0 !important;
+        margin: 0 !important; /*TODO:check if it REALLY need*/
     }
     .carousel .item .object {
         padding-top: 0;
@@ -644,13 +624,13 @@
 h1.light {
     font-size: 22px;
     font-weight: 300;
-    margin: 20px 10px 35px !important;
+    margin: 20px 10px 35px !important; /*TODO:check if it REALLY need*/
 }
 
 h2.light {
     font-size: 20px;
     font-weight: 300;
-    margin: 20px 10px !important;
+    margin: 20px 10px !important; /*TODO:check if it REALLY need*/
 }
 
 .idoc {

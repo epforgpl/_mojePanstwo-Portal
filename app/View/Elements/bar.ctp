@@ -1,4 +1,4 @@
-<div id="_mPCockpit" class="col-md-2">
+<div id="_mPCockpit">
     <div class="_mPBasic">
         <div class="_mPLogo">
             <a href="/" target="_self">

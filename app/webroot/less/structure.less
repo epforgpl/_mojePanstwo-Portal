@@ -98,16 +98,17 @@ body {
 
 #_wrapper {
     @cockpitMobileToggle: #ffffff;
-    @cockpitBlueLight: #59a4dd;
-    @cockpitBlue: #014068;
-    @cockpitBlueDark: #023353;
-    @cockpitBlueDarken: #062f49;
+    @cockpitColorLight: #59a4dd;
+    @cockpitColor: #e9eaed;
+    @cockpitColorDark: #023353;
+    @cockpitColorDarken: #062f49;
+    @cockpitBarWidth: 86px;
     @appHeight: 70px;
 
     width: 100%;
     min-height: 100%;
     position: relative;
-    background-color: #e9eaed;
+    background-color: #ffffff;
 
     font-family: 'Lato', sans-serif;
 
@@ -124,7 +125,7 @@ body {
         text-align: right;
 
         img {
-            width: 80px;
+            width: 75px;
         }
 
         a, a:hover, a:focus {
@@ -135,7 +136,7 @@ body {
     #_mPCockpitMobile {
         width: 100%;
         height: 70px;
-        background-color: @cockpitBlue;
+        background-color: @cockpitColor;
         position: fixed;
         top: 0;
         left: 0;
@@ -299,19 +300,19 @@ body {
     }
 
     #_mPCockpit {
-        width: auto;
+        width: 100%;
         height: 100%;
-        color: #FFFFFF;
+        color: #555555;
         padding: 0;
         text-align: center;
-        font-size: 10px;
+        font-size: 12px;
         font-weight: bold;
         position: fixed;
         top: 0;
         left: 0;
 
         a {
-            color: #ffffff;
+            color: #555555;
         }
 
         ._mPBasic, ._mPAppList {
@@ -324,40 +325,39 @@ body {
 						
             &._appBlockBackground {
                 &._appBlockActive {
-                    background-color: @cockpitBlueDarken;
-                    border-left: 5px solid #63afea;
+                    @activeColor: #438fca;
+
+                    border-left: 5px solid @activeColor;
 
                     ._mPTitle {
                         margin-left: -3px;
-                        color: #63afea;
+                        color: @activeColor;
 
                         ._mPAppIcon {
-                            color: #63afea;
+                            color: @activeColor;
                             
                         }
                     }
                 }
                 &:not(._appBlockActive):hover {
-                    background-color: @cockpitBlueLight;
+                    background-color: @cockpitColorLight;
                     color: #FFF;
                 }
             }
         }
 
         ._mPBasic {
-            width: 100px;
+            width: @cockpitBarWidth;
             height: 100%;
-            background-color: @cockpitBlue;
+            background-color: @cockpitColor;
             position: fixed;
             top: 0;
             left: 0;
             z-index: 900;
+            border-right: 1px solid #DDD;
 
             ._mPPowerButton {
-                background-color: #000000;
-
                 > a {
-                    color: #FFFFFF;
                     padding-top: 18px;
                     padding-bottom: 18px;
                     display: block;
@@ -517,7 +517,7 @@ body {
             z-index: 899;
             width: 100px;
             height: 100%;
-            background-color: @cockpitBlueDarken;
+            background-color: @cockpitColorDarken;
             padding-top: 20px;
 
             ._appBlock {
@@ -571,7 +571,8 @@ body {
         width: 100%;
         height: 100%;
         min-height: 100vh;
-        padding-left: 100px;
+        padding-left: 85px;
+        position: relative;
 
         > div:last-of-type:not(.fullPageHeight) {
             padding-bottom: @footerHeight;
