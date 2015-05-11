@@ -64,7 +64,7 @@ class AppController extends Controller {
 	
 	public $domainMode = 'MP';
 	public $appSelected = false;
-	public $breadcrumbs = array();
+    public $breadcrumbs = array();
 	
 	public $helpers = array(
 		'Html',
@@ -268,11 +268,12 @@ class AppController extends Controller {
         ),
         */
 	);
+
+    public $pkMenu = array();
 	
 	public function beforeFilter() {
-		
-		// debug( $this->Auth->user() ); die();
-				
+
+        $href_base = '';
 		if ( defined( 'PORTAL_DOMAIN' ) ) {
 
 			$pieces = parse_url( Router::url( $this->here, true ) );
@@ -280,6 +281,9 @@ class AppController extends Controller {
 			if ( defined( 'PK_DOMAIN' ) && ( $pieces['host'] == PK_DOMAIN ) ) {
 				
 				$this->domainMode = 'PK';
+
+                // PREPARE MENU
+                $href_base = '//' . PK_DOMAIN;
 				
 				// only certain actions are allowed in this domain
 				// for other actions we are immediatly redirecting to PORTAL_DOMAIN
@@ -412,6 +416,109 @@ class AppController extends Controller {
 
 			}
 
+            $pkMenu = array(
+                'base' => $href_base,
+                'selected' => false,
+                'items' => array(
+                    array(
+                        'id' => '',
+                        'label' => 'Aktualności',
+                        'href' => $href_base,
+                    ),
+                )
+            );
+            $pkMenu['items'][] = array(
+                'id' => 'rada',
+                'label' => 'Rada Miasta',
+                'href' => $href_base . '/rada',
+            );
+
+            $pkMenu['items'][] = array(
+                'id' => 'urzad',
+                'label' => 'Urząd Miasta',
+                'href' => $href_base . '/urzad',
+            );
+            $pkMenu['items'][] = array(
+                'id' => 'dzielnice',
+                'label' => 'Dzielnice',
+                'href' => $href_base . '/dzielnice',
+            );
+            $pkMenu['items'][] = array(
+                'id' => 'organizacje',
+                'label' => 'Organizacje',
+                'dropdown' => array(
+                    'items' => array(
+                        array(
+                            'id' => 'organizacje',
+                            'label' => 'Wszystkie organizacje',
+                            'href' => $href_base . '/organizacje',
+                        ),
+                        array(
+                            'topborder' => true,
+                            'id' => 'biznes',
+                            'label' => 'Biznes',
+                            'href' => $href_base . '/biznes',
+                        ),
+                        array(
+                            'id' => 'ngo',
+                            'label' => 'Organizacje pozarządowe',
+                            'href' => $href_base . '/ngo',
+                        ),
+                        array(
+                            'id' => 'spzoz',
+                            'label' => 'Publiczne zakłady opieki zdrowotnej',
+                            'href' => $href_base . '/spzoz',
+                        ),
+                    ),
+                ),
+            );
+            $pkMenu['items'][] = array(
+                'id' => 'finanse',
+                'href' => $href_base . '/finanse',
+                'label' => 'Finanse',
+                'icon' => '',
+            );
+            $pkMenu['items'][] = array(
+                'id' => 'powiadomienia',
+                'label' => 'Powiadomienia',
+                'class' => 'always-visible pull-right',
+                'dropdown' => array(
+                    'items' => array(
+                        array(
+                            'id' => 'obserwuje_powiadomienia',
+                            'label' => 'Dane',
+                            'href' => $href_base . '/moje-dane',
+                        ),
+                        array(
+                            'id' => 'jak_to_dziala',
+                            'label' => 'Jak to działa?',
+                            'href' => $href_base . '/moje-dane/jak_to_dziala',
+                        )
+                    )
+                )
+            );
+            $pkMenu['items'][] = array(
+                'id' => 'pisma',
+                'label' => 'Pisma',
+                'class' => 'always-visible pull-right',
+                'dropdown' => array(
+                    'items' => array(
+                        array(
+                            'id' => 'nowe_pismo',
+                            'label' => 'Nowe pismo',
+                            'href' => $href_base . '/moje-pisma/nowe',
+                        ),
+                        array(
+                            'id' => 'moje_pisma',
+                            'label' => 'Moje pisma',
+                            'href' => $href_base . '/moje-pisma',
+                        )
+                    )
+                )
+            );
+
+            $this->set('pkMenu', $pkMenu);
+
 		}
 
 		$this->response->header( 'Access-Control-Allow-Origin', $this->request->header( 'Origin' ) );
@@ -463,52 +570,59 @@ class AppController extends Controller {
 		}
 	}
 
-	public function getApplications($options = array())
-	{
-		return $this->applications;
-	}
+	/**
+	 * Zwraca listę dostępnych aplikacji
+	 * @return array
+	 */
+    public function getApplications($options = array())
+    {
+        return $this->applications;
+    }
 	
-	public function getApplication( $id = false ) {
-		
-		if( $id && array_key_exists($id, $this->applications) ) {
-			
-			return $this->applications[$id];
-			
-		} else return false;
-		
-	}
+	/**
+	 * Zwraca aktualną aplikację
+	 * lub false jeśli nie żadna nie jest aktywna w danej chwili
+	 * @return array|bool
+	 */
+    public function getApplication( $id = false ) {
+
+        if( $id && array_key_exists($id, $this->applications) ) {
+
+            return $this->applications[$id];
+
+        } else return false;
+
+    }
 
 	public function beforeRender()
 	{
-	    
-	    $this->set('_breadcrumbs', $this->breadcrumbs);
-	    $this->set('_applications', $this->applications);
-		
-		$redirect = false;
-		
-		if($this->Session->read('Auth.User.id') && $this->Session->read('Pisma.transfer_anonymous')) {
-			
-			$this->loadModel('Pisma.Pismo');			
-			$this->Pismo->transfer_anonymous($this->Session->read('previous_id'));
-			$this->Session->delete('Pisma.transfer_anonymous');
-			
-			$redirect = true;
-			
-		}
-		
-		if($this->Session->read('Auth.User.id') && $this->Session->read('Powiadomienia.transfer_anonymous')) {
-						
-			$this->loadModel('Dane.Subscription');			
-			$this->Subscription->transfer_anonymous($this->Session->read('previous_id'));
-			$this->Session->delete('Powiadomienia.transfer_anonymous');
-			
-			$redirect = true;
-			
-		}
-		
-		if( $redirect )
-			return $this->redirect($this->request->here);
-		
+        $this->set('_breadcrumbs', $this->breadcrumbs);
+        $this->set('_applications', $this->applications);
+
+        $redirect = false;
+
+        if($this->Session->read('Auth.User.id') && $this->Session->read('Pisma.transfer_anonymous')) {
+
+            $this->loadModel('Pisma.Pismo');
+            $this->Pismo->transfer_anonymous($this->Session->read('previous_id'));
+            $this->Session->delete('Pisma.transfer_anonymous');
+
+            $redirect = true;
+
+        }
+
+        if($this->Session->read('Auth.User.id') && $this->Session->read('Powiadomienia.transfer_anonymous')) {
+
+            $this->loadModel('Dane.Subscription');
+            $this->Subscription->transfer_anonymous($this->Session->read('previous_id'));
+            $this->Session->delete('Powiadomienia.transfer_anonymous');
+
+            $redirect = true;
+
+        }
+
+        if( $redirect )
+            return $this->redirect($this->request->here);
 	}
 
 	public function addStatusbarCrumb( $item ) {
@@ -525,8 +639,8 @@ class AppController extends Controller {
 		return $this->setMeta('description', $val);
 	}
 
-	public function setMeta($key, $val = null)
-	{
+    public function setMeta($key, $val = null)
+    {
         if(is_array($key)) {
             foreach($key as $property => $content)
                 $this->meta[$property] = $content;
@@ -534,14 +648,14 @@ class AppController extends Controller {
             return true;
         }
 
-		if(!$val)
-			return false;
+        if(!$val)
+            return false;
 
-		$this->meta[$key] = $val;
-		$this->set('_META', $this->meta);
+        $this->meta[$key] = $val;
+        $this->set('_META', $this->meta);
 
-		return $val;
-	}
+        return $val;
+    }
 
     public function prepareMetaTags() {
         $this->setMeta(array(
@@ -555,13 +669,11 @@ class AppController extends Controller {
     }
     
     public function addBreadcrumb($params) {
-	    
 	    $this->breadcrumbs[] = $params;
 	    
     }
     
     public function addAppBreadcrumb($app) {
-	    
 	    if( $app == 'krs' ) {
 		    
 		    $this->addBreadcrumb(array(
@@ -569,9 +681,7 @@ class AppController extends Controller {
 				'icon' => '<img class="svg" alt="Krajowy Rejestr Sądowy" src="/krs/icon/krs-gray.svg">',
 				'href' => '/krs',
 			));
-		    
 	    }
-	    
     }
     
     private $datasets = array(
@@ -622,12 +732,6 @@ class AppController extends Controller {
 		    'poslowie_wspolpracownicy' => 'Współpracownicy posłów',
 	    ),
     );
-
-
-
-    
-    
-    
     
     private $applications = array(
 	    'krs' => array(
@@ -744,11 +848,6 @@ class AppController extends Controller {
 	    ),
     );
 
-        
-      
-    
-    
-    
     public function getDatasets($app = false) {
 	    
 	    if( $app ) {
@@ -761,5 +860,4 @@ class AppController extends Controller {
 	    } else return $this->datasets;
 	    
     }
-
 }

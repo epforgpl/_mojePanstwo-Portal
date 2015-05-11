@@ -1,11 +1,10 @@
 /*global $,jQuery*/
-
-jQuery(document).ready(function () {
+jQuery(document).load(function () {
     "use strict";
-    var headerExtend = $('.objectPageHeaderBg.extended'),
-        mobileMenu = $('.mobileMenu');
+    var headerExtend = $('.appHeader.extended'),
+        $mobileMenu = $('.mobileMenu > a');
 
-    if (headerExtend && headerExtend.length) {
+    if (headerExtend.length) {
         headerExtend.css('max-height', headerExtend.css('min-height'));
         headerExtend.css('min-height', Math.floor(parseInt(headerExtend.css('max-height'), 10) - ($(window).scrollTop() * 0.5)));
 
@@ -17,8 +16,8 @@ jQuery(document).ready(function () {
         });
     }
 
-    if (mobileMenu && mobileMenu.length) {
-        mobileMenu.find(' > a').click(function (e) {
+    if ($mobileMenu.length) {
+        $mobileMenu.click(function (e) {
             var menu = $(this).parents('ul.nav');
 
             e.preventDefault();

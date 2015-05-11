@@ -46,12 +46,10 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
         $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow-outside', array('plugin' => 'Dane')));
     }
     ?>
-    <div
-        class="objectPageHeaderBg<?php if ((isset($headerObject) && (!empty($headerObject['url']) || !empty($headerObject['height']))) || $object->getData('id') == '903') {
-            echo ' extended" style="';
-            if (!empty($headerObject['url'])) echo 'background-image: url(' . $headerObject['url'] . ');';
-            if (!empty($headerObject['height'])) echo 'min-height:' . $headerObject['height'] . ';';
-        } ?>">
+
+    <? if ($object->getData('id') == '903') {
+        echo $this->Element('appHeader');
+    } else { ?>
         <div
             class="objectPageHeaderContainer topheader <? if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) { ?> krakow<? } ?>">
             <div class="container">

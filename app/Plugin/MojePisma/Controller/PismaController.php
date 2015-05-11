@@ -3,36 +3,34 @@
 App::uses('ApplicationsController', 'Controller');
 class PismaController extends ApplicationsController
 {
-	
-	private $aggs_dict = array(
-		'access' => array(
-			'private' => 'Prywatne',
-			'public' => 'Publiczne',
+
+    public $settings = array(
+        'menu' => array(
+            array(
+                'id' => 'moje_pisma',
+                'label' => 'Moje pisma',
+                'href' => 'moje-pisma',
+            ),
+            array(
+                'id' => 'nowe_pismo',
+                'label' => 'Nowe pismo',
+                'href' => 'moje-pisma/nowe',
+            ),
 		),
-	);
-	
-	public $settings = array(
-		'menu' => array(
-			array(
-				'id' => '',
-				'label' => 'Moje pisma',
-				'href' => 'moje-pisma',
-			),
-			array(
-				'id' => 'nowe',
-				'label' => 'Nowe pismo',
-				'href' => 'moje-pisma/nowe',
-			),
-		),
-		'title' => 'Moje Pisma',
-		'subtitle' => 'Wysyłaj pisma urzędowe do instytucje publicznych',
+        'title' => 'Moje Pisma',
+        'subtitle' => 'Wysyłaj pisma urzędowe do instytucje publicznych',
         'headerImg' => '/MojePisma/img/header_pisma.png',
 	);
-	
     public $helpers = array('Form');
     public $uses = array('MojePisma.Pismo');
     public $components = array('RequestHandler');
 	public $appSelected = 'moje-pisma';
+    private $aggs_dict = array(
+        'access' => array(
+            'private' => 'Prywatne',
+            'public' => 'Publiczne',
+        ),
+    );
 	
     public function prepareMetaTags() {
         parent::prepareMetaTags();
@@ -44,7 +42,7 @@ class PismaController extends ApplicationsController
         $pismo = $this->load($id);
         
         if( $pismo['is_owner'] )
-	        $this->setMenuSelected();
+            $this->setMenuSelected('moje_pisma');
     }
 	
 	private function load($id)
@@ -94,9 +92,9 @@ class PismaController extends ApplicationsController
 				return $this->redirect( $this->referer() );
 					
 			if( $pismo['saved'] ) {
-				$this->setMenuSelected();
+                $this->setMenuSelected('moje_pisma');
 			} else {
-				$this->setMenuSelected('nowe');
+                $this->setMenuSelected('nowe_pismo');
 			}
 		
 		} else {
@@ -221,8 +219,8 @@ class PismaController extends ApplicationsController
 	
 	public function home()
     {
-	    
-	    $this->setMenuSelected('nowe');
+
+        $this->setMenuSelected('nowe_pismo');
 	    
 	    /*
         $API = $this->Pismo;
@@ -250,8 +248,8 @@ class PismaController extends ApplicationsController
 	
     public function my()
     {
-		
-	    $this->setMenuSelected();
+
+        $this->setMenuSelected('moje_pisma');
 		$q = false;
 		
 		$params = array(
