@@ -87,8 +87,11 @@ class Pismo extends AppModel
     
     
     public function documents_delete($id, $params = array()) {
-        
-        $res = $this->getDataSource()->request('pisma/documents/' . $id, array(
+                
+        $res = $this->getDataSource()->request('pisma/documents', array(
+	    	'data' => array(
+		    	'id' => $id,
+	    	),
 	    	'method' => 'DELETE',
     	));
     	       	

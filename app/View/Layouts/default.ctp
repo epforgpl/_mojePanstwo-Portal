@@ -136,22 +136,28 @@ echo $this->Html->script('../plugins/bootstrap-switch/bootstrap-switch.js'); ?>
 <?php /*PHP DATA FOR JS */ ?>
 <script type="text/javascript">
     var mPHeart = {
-        translation: jQuery.parseJSON('<?php echo json_encode($translation); ?>'),
-        social: {
-            facebook: {
-                id: "<?php echo @FACEBOOK_appId; ?>",
-                key: "<?php echo @FACEBOOK_apiKey; ?>"
+        constant: {
+            ajax: {
+                api: '//api-v2.mojepanstwo.pl'
             }
         },
         language: {
             twoDig: "<?php switch (Configure::read('Config.language')) { case 'pol': echo "pl"; break; case 'eng': echo "en"; break; }  ?>",
             threeDig: "<?php echo Configure::read('Config.language'); ?>"
         },
+        social: {
+            facebook: {
+                id: "<?php echo @FACEBOOK_appId; ?>",
+                key: "<?php echo @FACEBOOK_apiKey; ?>"
+            }
+        },
         suggester: {
             phrase: '<?php echo @htmlspecialchars($q) ?>',
             placeholder: 'Szukaj w danych publicznych...',
             fullSearch: 'Pełne szukanie'
-        }
+        },
+        translation: jQuery.parseJSON('<?php echo json_encode($translation); ?>')
+
     }
 </script>
 

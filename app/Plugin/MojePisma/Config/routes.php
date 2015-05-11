@@ -1,6 +1,6 @@
 <?php
 
-$pisma_prefixes = array('/moje-pisma', 'pisma');
+$pisma_prefixes = array('/moje-pisma', '/pisma');
 foreach( $pisma_prefixes as $pisma_prefix ) {
 	
 	
@@ -21,6 +21,12 @@ foreach( $pisma_prefixes as $pisma_prefix ) {
 	    'controller' => 'Pisma',
 	    'action' => 'my',
 	    '[method]' => 'GET'
+	));
+	Router::connect("$pisma_prefix/moje", array(
+	    'plugin' => 'MojePisma',
+	    'controller' => 'Pisma',
+	    'action' => 'post',
+	    '[method]' => 'POST'
 	));
 	Router::connect("$pisma_prefix", array(
 	    'plugin' => 'MojePisma',

@@ -40,7 +40,7 @@ $(function() {
 
                 var newValue = input.val();
 
-                if(newValue.length < 4) {
+                if(newValue.length < 3) {
                     group.addClass('has-error');
                     return false;
                 }

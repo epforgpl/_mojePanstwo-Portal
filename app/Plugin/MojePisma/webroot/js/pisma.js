@@ -1,4 +1,4 @@
-/* global mPHeart */
+/*global $,jQuery,Class,mPHeart,ZeroClipboard,alert*/
 var PISMA = Class.extend({
     preview: null,
     confirmExit: false,
@@ -25,6 +25,7 @@ var PISMA = Class.extend({
         arrowDown: 40
     },
     init: function () {
+        "use strict";
         if (this.html.stepper_div.hasClass('stepper')) {
             this.steps();
             this.stepsMarkers();
@@ -43,6 +44,7 @@ var PISMA = Class.extend({
         }
     },
     steps: function () {
+        "use strict";
         var self = this;
 
         self.methods.stepper = self.html.stepper_div.steps({
@@ -77,31 +79,36 @@ var PISMA = Class.extend({
         });
     },
     stepsMarkers: function () {
+        "use strict";
         this.html.szablony = this.html.stepper_div.find('.szablony');
         this.html.adresaci = this.html.stepper_div.find('.adresaci');
         this.html.editorTop = this.html.stepper_div.find('.editor-controls');
         this.html.editor = this.html.stepper_div.find('#editor');
     },
     checkStep: function () {
-        var self = this;
+        "use strict";
+        var self = this,
+            preinit;
 
-        if (self.html.stepper_div.data('pismo') != undefined) {
-            var preinit = self.html.stepper_div.data('pismo');
+        if (self.html.stepper_div.data('pismo') !== undefined) {
+            preinit = self.html.stepper_div.data('pismo');
 
             if (preinit) {
-                if (preinit.szablon_id)
+                if (preinit.szablon_id) {
                     self.szablonData(preinit.szablon_id);
-                if (preinit.adresat_id)
+                }
+                if (preinit.adresat_id) {
                     self.adresatData(preinit.adresat_id);
+                }
                 self.html.stepper_div.removeData('pismo');
             }
         }
-        if (self.methods.stepper.data().state.currentIndex == 1) {
+        if (self.methods.stepper.data().state.currentIndex === 1) {
             self.editorDetail();
         }
-    }
-    ,
+    },
     changeTitle: function () {
+        "use strict";
         var self = this,
             pismoTitleBlock = $('.titleBlock '),
             pismoTitle = pismoTitleBlock.find('h1'),
@@ -139,7 +146,7 @@ var PISMA = Class.extend({
                     pismoTitle.show();
                     pismoTitleEdit.hide();
                 }
-            })
+            });
         });
 
         pismoTitleEdit.find('.btn.cancel').click(function () {
@@ -150,16 +157,17 @@ var PISMA = Class.extend({
         });
 
         pismoTitleEdit.find('input').keydown(function (e) {
-            if (e.keyCode == self.keycode.escape || e.which == self.keycode.escape) {
+            if (e.keyCode === self.keycode.escape || e.which === self.keycode.escape) {
                 pismoTitle.text(pismoTitle.data('title'));
-            } else if (e.keyCode == self.keycode.enter || e.which == self.keycode.enter) {
+            } else if (e.keyCode === self.keycode.enter || e.which === self.keycode.enter) {
                 e.preventDefault();
                 pismoTitleEdit.find('.btn.save').click();
             }
-        })
+        });
     },
 
     szablonData: function (szablon_id) {
+        "use strict";
         var self = this;
 
         $.getJSON(mPHeart.constant.ajax.api + "/pisma/templates/" + szablon_id + ".json", function (d) {
@@ -175,46 +183,49 @@ var PISMA = Class.extend({
         });
     },
     szablony: function () {
+        "use strict";
         var self = this,
             confirmText = 'Zmiana szablonu spowoduje zastąpienie treści pisma nowym szablonem. Czy na pewno chcesz to zrobić?',
             confirmBtn = 'Zrozumiałem';
 
         self.html.szablony.find('input[type="radio"]').change(function () {
-            if (self.objects.szablony.confirm != true) {
-                if (self.objects.szablony && self.objects.szablony != $(this).val())
+            if (self.objects.szablony.confirm !== true) {
+                if (self.objects.szablony && self.objects.szablony !== $(this).val()) {
                     self.html.szablony.find('> label').popover({
                         html: true,
                         content: '<p>' + confirmText + '</p><p style="text-align:center; margin: 0"><button class="btn btn-sm btn-primary">' + confirmBtn + '</button></p>'
                     }).popover('show');
+                }
                 self.objects.szablony.confirm = true;
                 self.html.szablony.find('.popover .btn').click(function (e) {
                     e.preventDefault();
                     self.html.szablony.find('> label').popover('destroy');
-                })
+                });
             }
-        })
-    }
-    ,
+        });
+    },
     adresatData: function (adresat_id) {
+        "use strict";
         var self = this;
 
-        $.getJSON(mPHeart.constant.ajax.api + "/dane/dataset/instytucje/search.json?conditions[id]=" + adresat_id + '&conditions[pisma]=1', function (d) {
+        $.getJSON(mPHeart.constant.ajax.api + "/dane/index.json?conditions[dataset]=instytucje&conditions[id]=" + adresat_id, function (d) {
             self.objects.adresaci = {
-                id: d.search.dataobjects[0].id,
-                title: d.search.dataobjects[0].data['instytucje.nazwa'],
-                adres: d.search.dataobjects[0].data['instytucje.adres_str']
+                id: d.Dataobject[0].id,
+                title: d.Dataobject[0].data['instytucje.nazwa'],
+                adres: d.Dataobject[0].data['instytucje.adres_str']
             };
 
-            self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title)
+            self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title);
         });
     },
     adresaci: function () {
+        "use strict";
         var self = this;
 
         this.html.adresaci.keydown(function (event) {
             var charCode = event.which || event.keyCode;
 
-            if (charCode == 13) {
+            if (charCode === 13) {
                 event.preventDefault();
                 return false;
             }
@@ -223,60 +234,68 @@ var PISMA = Class.extend({
         self.html.adresaci.find('#adresatSelect').on('keyup', function (e) {
             var adresatInput = $(this),
                 charCode = e.which || e.keyCode,
-                adresat = adresatInput.val();
+                adresat = adresatInput.val(),
+                adresaciList,
+                previous,
+                next;
 
             if (adresat.length > 0) {
-                var adresaciList = self.html.adresaci.find('.adresaciList');
+                adresaciList = self.html.adresaci.find('.adresaciList');
 
-                if (charCode == self.keycode.enter) {
-                    if (adresaciList.find('li.active').length)
+                if (charCode === self.keycode.enter) {
+                    if (adresaciList.find('li.active').length) {
                         self.adresaciListAccept(adresaciList.find('li.active'));
-                    else {
+                    } else {
                         self.html.adresaci.find('.list').hide();
                         adresatInput.val('');
                         adresatInput.blur();
                     }
-                } else if (charCode == self.keycode.escape) {
-                    if (adresaciList.is(':visible'))
+                } else if (charCode === self.keycode.escape) {
+                    e.preventDefault();
+                    if (adresaciList.is(':visible')) {
                         self.html.adresaci.find('.list').hide();
+                    }
 
                     adresatInput.val('');
                     adresatInput.blur();
-                    return false;
-                } else if (charCode == self.keycode.arrowUp) {
-                    e.preventDefault();
 
-                    if (adresaciList.is(':visible')) {
-                        var previous = self.html.adresaci.find('.adresaciList li.active');
-
-                        if (previous.prev().length) {
-                            previous.prev().addClass('active');
-                            previous.removeClass('active');
-                        }
-                    }
-                } else if (charCode == self.keycode.arrowDown) {
-                    e.preventDefault();
-
-                    if (adresaciList.is(':visible')) {
-                        var next = self.html.adresaci.find('.adresaciList li.active');
-
-                        if (next.next().length) {
-                            next.next().addClass('active');
-                            next.removeClass('active');
-                        }
-                    }
                 } else {
-                    if (adresat in self.cache.adresaci) {
-                        self.adresaciList(self.cache.adresaci[adresat]);
+                    if (charCode === self.keycode.arrowUp) {
+                        e.preventDefault();
+
+                        if (adresaciList.is(':visible')) {
+                            previous = self.html.adresaci.find('.adresaciList li.active');
+
+                            if (previous.prev().length) {
+                                previous.prev().addClass('active');
+                                previous.removeClass('active');
+                            }
+                        }
+                    } else if (charCode === self.keycode.arrowDown) {
+                        e.preventDefault();
+
+                        if (adresaciList.is(':visible')) {
+                            next = self.html.adresaci.find('.adresaciList li.active');
+
+                            if (next.next().length) {
+                                next.next().addClass('active');
+                                next.removeClass('active');
+                            }
+                        }
                     } else {
-                        if (self.cache.adresatInterval)
-                            clearTimeout(self.cache.adresatInterval);
-                        self.cache.adresatInterval = setTimeout(function () {
-                            $.getJSON(mPHeart.constant.ajax.api + "/dane/dataset/instytucje/search.json?conditions[q]=" + adresat, function (data) {
-                                self.cache.adresaci[adresat] = data;
-                                self.adresaciList(data);
-                            });
-                        }, 200);
+                        if (self.cache.adresaci.hasOwnProperty(adresat)) {
+                            self.adresaciList(self.cache.adresaci[adresat]);
+                        } else {
+                            if (self.cache.adresatInterval) {
+                                clearTimeout(self.cache.adresatInterval);
+                            }
+                            self.cache.adresatInterval = setTimeout(function () {
+                                $.getJSON(mPHeart.constant.ajax.api + "/dane/index.json?conditions[dataset]=instytucje&conditions[q]=" + adresat, function (data) {
+                                    self.cache.adresaci[adresat] = data;
+                                    self.adresaciList(data);
+                                });
+                            }, 200);
+                        }
                     }
                 }
             } else {
@@ -291,7 +310,7 @@ var PISMA = Class.extend({
         }).focusout(function () {
             setTimeout(function () {
                 self.html.adresaci.find('.list').hide();
-                if (self.html.adresaci.find('.glyphicon.glyphicon-ok-circle').length == 0) {
+                if (self.html.adresaci.find('.glyphicon.glyphicon-ok-circle').length === 0) {
                     self.html.adresaci.find('#adresatSelect').val('');
                 }
             }, 300);
@@ -310,9 +329,9 @@ var PISMA = Class.extend({
                 self.html.szablony.find('.pisma-list-button').attr('data-adresatid', self.objects.adresaci.id);
             });
         }
-    }
-    ,
+    },
     adresaciList: function (data) {
+        "use strict";
         var self = this;
 
         self.html.adresaci.find('.glyphicon.glyphicon-ok-circle').remove();
@@ -323,8 +342,8 @@ var PISMA = Class.extend({
             $('<ul></ul>').addClass('ul-raw')
         ).show();
 
-        if (data.search.dataobjects.length) {
-            $.each(data.search.dataobjects, function () {
+        if (data.Dataobject.length) {
+            $.each(data.Dataobject, function () {
                 var that = this;
 
                 self.html.adresaci.find('.adresaciList .ul-raw').append(
@@ -349,11 +368,11 @@ var PISMA = Class.extend({
                 $('<li></li>').addClass('row').append(
                     $('<p></p>').addClass('col-md-12').text('Brak wyników dla szukanej frazy')
                 )
-            )
+            );
         }
-    }
-    ,
+    },
     adresaciListAccept: function (that) {
+        "use strict";
         var self = this;
 
         self.adresaciReset(self);
@@ -371,22 +390,31 @@ var PISMA = Class.extend({
         self.html.adresaci.find('.adresaciList').hide();
 
         return false;
-    }
-    ,
+    },
     adresaciReset: function (self) {
+        "use strict";
         self.html.adresaci.find('.adresaciList .ul-raw .btn-default').removeClass('btn-default disabled').addClass('btn-success');
         self.objects.adresaci = null;
-    }
-    ,
+    },
     editor: function () {
-        var self = this;
+        "use strict";
+        var wysightml5toolbar,
+            prettyDate,
+            myDate,
+            uDatepicker,
+            months,
+            self = this;
 
         $('textarea').autosize({
             append: false
         }).keyup(function () {
             var that = $(this);
 
-            (that.val() == "") ? that.addClass('empty') : that.removeClass('empty');
+            if (that.val() === "") {
+                that.addClass('empty');
+            } else {
+                that.removeClass('empty');
+            }
         });
 
         self.html.editorTop.find('.control-addressee').click(function () {
@@ -396,17 +424,17 @@ var PISMA = Class.extend({
                 self.methods.stepper.steps("previous");
             });
 
-        var months = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'];
-        var uDatepicker = $.datepicker._updateDatepicker;
+        months = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'];
+        uDatepicker = $.datepicker._updateDatepicker;
         $.datepicker._updateDatepicker = function () {
-            var ret = uDatepicker.apply(this, arguments);
-            var $sel = this.dpDiv.find('select');
+            var ret = uDatepicker.apply(this, arguments),
+                $sel = this.dpDiv.find('select');
             $sel.find('option').each(function (i) {
                 $(this).text(months[i]);
             });
             return ret;
         };
-        $.datepicker.regional['pl'] = {
+        $.datepicker.regional.pl = {
             closeText: 'Zamknij',
             prevText: '&#x3c;Poprzedni',
             nextText: 'Następny&#x3e;',
@@ -427,10 +455,10 @@ var PISMA = Class.extend({
             showMonthAfterYear: false,
             yearSuffix: ''
         };
-        $.datepicker.setDefaults($.datepicker.regional['pl']);
+        $.datepicker.setDefaults($.datepicker.regional.pl);
 
-        var myDate = new Date();
-        var prettyDate = myDate.getDate() + ' ' + $.datepicker.regional['pl'].monthNames[myDate.getMonth()] + ' ' + myDate.getFullYear();
+        myDate = new Date();
+        prettyDate = myDate.getDate() + ' ' + $.datepicker.regional.pl.monthNames[myDate.getMonth()] + ' ' + myDate.getFullYear();
 
         self.html.editorTop.find('.control-date .datepicker').val(prettyDate).datepicker();
 
@@ -461,40 +489,26 @@ var PISMA = Class.extend({
                 .end()
                 .find('[data-wysihtml5-command="underline"]').html($('<span></span>').addClass('fa fa-underline'))
                 .end()
-                .find('[data-wysihtml5-command="createLink"]').html($('<span></span>').addClass('glyphicon glyphicon-link'))
-                /*
-                 .end()
-                 .prepend(
-                 $('<li></li>').addClass('stepper-back').append(
-                 $('<a></a>').addClass('btn  btn-default')
-                 .attr({
-                 'href': '#pismoBack',
-                 'title': 'Zmień szablon lub adresata'
-                 }).text('Zmień szablon lub adrestata').click(function (e) {
-                 e.preventDefault();
-                 self.methods.stepper.steps("previous")
-                 })
-                 ))
-                 */;
+                .find('[data-wysihtml5-command="createLink"]').html($('<span></span>').addClass('glyphicon glyphicon-link'));
 
-            var wysightml5toolbar = self.html.stepper_div.find('.wysihtml5-toolbar').clone(true);
+            wysightml5toolbar = self.html.stepper_div.find('.wysihtml5-toolbar').clone(true);
             self.html.stepper_div.find('.wysihtml5-toolbar').remove();
             $('.editPage .wysightml5Block').html(wysightml5toolbar.show());
 
         }
-    }
-    ,
+    },
     editorDetail: function () {
+        "use strict";
         var self = this,
             checkSzablon = self.html.szablony.find('.radio input:checked').val();
 
-        if (self.objects.szablony != undefined && (checkSzablon != self.objects.szablony.id)) {
+        if (self.objects.szablony !== null && (checkSzablon !== self.objects.szablony.id)) {
             self.html.editor.addClass('loading');
             self.szablonData(checkSzablon);
 
             $.getJSON(mPHeart.constant.ajax.api + "/pisma/templates/" + checkSzablon + ".json", function (data) {
                 if (self.objects.editor !== null) {
-                    if ($(self.objects.editor.text === self.html.editor.text()) || (self.html.editor.text() == '')) {
+                    if ($(self.objects.editor.text === self.html.editor.text()) || (self.html.editor.text() === '')) {
                         self.html.editor.empty().html(data.tresc);
                     }
                 } else {
@@ -506,11 +520,15 @@ var PISMA = Class.extend({
                 self.html.editor.removeClass('loading');
             });
         }
-    }
-    ,
+    },
     convertEditor: function () {
+        "use strict";
         var self = this,
-            editor = self.html.editor;
+            editor = self.html.editor,
+            rand = '',
+            randLength = 32,
+            randChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+            i;
 
         editor.find('.editable').each(function () {
             var that = $(this);
@@ -539,79 +557,85 @@ var PISMA = Class.extend({
                             }
                         })
                 );
-            } else if (that.hasClass('email')) {
-                that.addClass('mirrorable').append(
-                    $('<input>').addClass('emailEnter').attr({
-                        type: "email",
-                        placeholder: "(podaj adres email)"
-                    })
-                )
-            } else if (that.hasClass('currencypln')) {
-                var rand = '',
-                    randLength = 32,
-                    randChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-                for (var i = randLength; i > 0; --i) rand += randChars[Math.round(Math.random() * (randChars.length - 1))];
-
-                that.addClass('mirrorable').attr('data-unique', rand).append(
-                    $('<input>').addClass('kwota').attr('title', that.attr('title'))
-                ).after(
-                    $('<span></span>').addClass('slownie').attr('data-unique', rand)
-                );
-                that.removeAttr('title');
-                that.find('input.kwota').keyup(function () {
-                    var liczba = parseFloat($(this).val()),
-                        jednosci = ["", " jeden", " dwa", " trzy", " cztery", " pięć", " sześć", " siedem", " osiem", " dziewięć"],
-                        nascie = ["", " jedenaście", " dwanaście", " trzynaście", " czternaście", " piętnaście", " szesnaście", " siedemnaście", " osiemnaście", " dziewietnaście"],
-                        dziesiatki = ["", " dziesięć", " dwadzieścia", " trzydzieści", " czterdzieści", " pięćdziesiąt", " sześćdziesiąt", " siedemdziesiąt", " osiemdziesiąt", " dziewięćdziesiąt"],
-                        setki = ["", " sto", " dwieście", " trzysta", " czterysta", " pięćset", " sześćset", " siedemset", " osiemset", " dziewięćset"],
-                        grupy = [
-                            ["", "", ""],
-                            [" tysiąc", " tysiące", " tysięcy"],
-                            [" milion", " miliony", " milionów"],
-                            [" miliard", " miliardy", " miliardów"],
-                            [" bilion", " biliony", " bilionów"],
-                            [" biliard", " biliardy", " biliardów"],
-                            [" trylion", " tryliony", " tryliardów"]],
-                        wynik = '',
-                        znak = '';
-
-                    if (liczba == 0)
-                        wynik = "zero";
-                    if (liczba < 0) {
-                        znak = "minus";
+            } else {
+                if (that.hasClass('email')) {
+                    that.addClass('mirrorable').append(
+                        $('<input>').addClass('emailEnter').attr({
+                            type: "email",
+                            placeholder: "(podaj adres email)"
+                        })
+                    );
+                } else if (that.hasClass('currencypln')) {
+                    for (i = randLength; i > 0; --i) {
+                        rand += randChars[Math.round(Math.random() * (randChars.length - 1))];
                     }
 
-                    var g = 0;
-                    while (liczba > 0) {
-                        var s = Math.floor((liczba % 1000) / 100);
-                        var n = 0;
-                        var d = Math.floor((liczba % 100) / 10);
-                        var j = Math.floor(liczba % 10);
-                        if (d == 1 && j > 0) {
-                            n = j;
-                            d = 0;
-                            j = 0;
+                    that.addClass('mirrorable').attr('data-unique', rand).append(
+                        $('<input>').addClass('kwota').attr('title', that.attr('title'))
+                    ).after(
+                        $('<span></span>').addClass('slownie').attr('data-unique', rand)
+                    );
+                    that.removeAttr('title');
+                    that.find('input.kwota').keyup(function () {
+                        var k, j, d, n, s, g,
+                            liczba = parseFloat($(this).val()),
+                            jednosci = ["", " jeden", " dwa", " trzy", " cztery", " pięć", " sześć", " siedem", " osiem", " dziewięć"],
+                            nascie = ["", " jedenaście", " dwanaście", " trzynaście", " czternaście", " piętnaście", " szesnaście", " siedemnaście", " osiemnaście", " dziewietnaście"],
+                            dziesiatki = ["", " dziesięć", " dwadzieścia", " trzydzieści", " czterdzieści", " pięćdziesiąt", " sześćdziesiąt", " siedemdziesiąt", " osiemdziesiąt", " dziewięćdziesiąt"],
+                            setki = ["", " sto", " dwieście", " trzysta", " czterysta", " pięćset", " sześćset", " siedemset", " osiemset", " dziewięćset"],
+                            grupy = [
+                                ["", "", ""],
+                                [" tysiąc", " tysiące", " tysięcy"],
+                                [" milion", " miliony", " milionów"],
+                                [" miliard", " miliardy", " miliardów"],
+                                [" bilion", " biliony", " bilionów"],
+                                [" biliard", " biliardy", " biliardów"],
+                                [" trylion", " tryliony", " tryliardów"]],
+                            wynik = '',
+                            znak = '';
+
+                        if (liczba === 0) {
+                            wynik = "zero";
+                        }
+                        if (liczba < 0) {
+                            znak = "minus";
                         }
 
-                        var k = 2;
-                        if (j == 1 && s + d + n == 0)
-                            k = 0;
-                        if (j == 2 || j == 3 || j == 4)
-                            k = 1;
-                        if (s + d + n + j > 0)
-                            wynik = setki[s] + dziesiatki[d] + nascie[n] + jednosci[j] + grupy[g][k] + wynik;
+                        g = 0;
+                        while (liczba > 0) {
+                            liczba = Math.floor(liczba / 1000);
+                            s = Math.floor((liczba % 1000) / 100);
+                            n = 0;
+                            d = Math.floor((liczba % 100) / 10);
+                            j = Math.floor(liczba % 10);
+                            if (d === 1 && j > 0) {
+                                n = j;
+                                d = 0;
+                                j = 0;
+                            }
 
-                        g++;
-                        liczba = Math.floor(liczba / 1000);
+                            k = 2;
+                            if (j === 1 && s + d + n === 0) {
+                                k = 0;
+                            }
+                            if (j === 2 || j === 3 || j === 4) {
+                                k = 1;
+                            }
+                            if (s + d + n + j > 0) {
+                                wynik = setki[s] + dziesiatki[d] + nascie[n] + jednosci[j] + grupy[g][k] + wynik;
+                            }
+
+                            g++;
+                        }
+
+                        self.html.editor.find('.slownie[data-unique="' + $(this).parent().data('unique') + '"]')
+                            .html('&nbsp;PLN <span class="_slownie">(słownie: ' + znak + wynik + ' polskich złotych)</span>');
+                    });
+                } else {
+                    if (that.attr('class').split(" ").length === 1) {
+                        that.html('<br type="_editor">');
                     }
-
-                    self.html.editor.find('.slownie[data-unique="' + $(this).parent().data('unique') + '"]')
-                        .html('&nbsp;PLN <span class="_slownie">(słownie: ' + znak + wynik + ' polskich złotych)</span>');
-                });
-            } else {
-                if (that.attr('class').split(" ").length == 1)
-                    that.html('<br type="_editor">');
+                }
             }
 
             if (that.hasClass('mirrorable')) {
@@ -622,23 +646,24 @@ var PISMA = Class.extend({
                 self.convertEditorInputWidth(that);
             }
 
-            if (that.attr('title'))
+            if (that.attr('title')) {
                 that.tooltip({
                     delay: 0
                 });
+            }
 
             self.cursorPosition();
         });
-    }
-    ,
+    },
     scanEditor: function () {
+        "use strict";
         var self = this,
             editorTop = this.html.editorTop,
             editor = this.html.editor;
 
         if (self.objects.szablony !== null && self.objects.szablony.id) {
             editorTop.find('.control-template').html(self.objects.szablony.title);
-            editor.html(self.objects.szablony.content)
+            editor.html(self.objects.szablony.content);
         } else {
             editorTop.find('.control-template').html('');
             editor.html('');
@@ -649,49 +674,53 @@ var PISMA = Class.extend({
                 $('<p></p>').html(self.objects.adresaci.title)
             ).append(
                 $('<p></p>').html(self.objects.adresaci.adres)
-            )
+            );
         } else {
             editorTop.find('.control-addressee').html('');
         }
 
-        if (editor.text().trim() != '') {
+        if (editor.text().trim() !== '') {
             editor.find('.editable').each(function () {
                 var that = $(this);
 
                 if (that.hasClass('copyaddresee')) {
-                    if (self.objects.adresaci)
+                    if (self.objects.adresaci) {
                         that.html(self.objects.adresaci.title);
-                    else
+                    } else {
                         that.html('<br type="_editor">');
+                    }
                 }
             });
             self.cursorPosition();
         }
-    }
-    ,
+    },
     convertEditorInputWidth: function (that) {
+        "use strict";
         var mirror = that.find('.mirror'),
             input = that.find('input'),
             safePadding = 8;
 
-        mirror.html((input.val() == '') ? input.attr('placeholder') : input.val());
+        mirror.html((input.val() === '') ? input.attr('placeholder') : input.val());
         input.css('width', (mirror.outerWidth() < input.css('min-width')) ? input.css('min-width') : mirror.outerWidth() + safePadding);
 
         input.keydown(function () {
-            mirror.html((input.val() == '') ? input.attr('placeholder') : input.val());
-            input.attr('value', (input.val() == '') ? '' : input.val());
+            mirror.html((input.val() === '') ? input.attr('placeholder') : input.val());
+            input.attr('value', (input.val() === '') ? '' : input.val());
             input.css('width', (mirror.outerWidth() < input.css('min-width')) ? input.css('min-width') : mirror.outerWidth() + safePadding);
         });
-    }
-    ,
+    },
     cursorPosition: function () {
+        "use strict";
         var self = $(this),
-            elEd = document.getElementById('editor');
+            elEd = document.getElementById('editor'),
+            sel,
+            elCr,
+            range;
 
         if (window.getSelection && elEd.getElementsByClassName('cursorhere').length) {
-            var sel = window.getSelection(),
-                elCr = elEd.getElementsByClassName('cursorhere')[0].parentNode,
-                range = document.createRange();
+            sel = window.getSelection();
+            elCr = elEd.getElementsByClassName('cursorhere')[0].parentNode;
+            range = document.createRange();
 
             range.setStart(elCr, 1);
             range.collapse(true);
@@ -700,21 +729,20 @@ var PISMA = Class.extend({
 
             $(elCr).find('span.cursorhere').remove();
 
-            if ($(elCr).html() == '')
+            if ($(elCr).html() === '') {
                 $(elCr).html('<br>');
+            }
         }
 
-        if (self.objects !== undefined && self.objects.editor !== null)
+        if (self.objects !== undefined && self.objects.editor !== null) {
             self.objects.editor.text = editor.text();
-
+        }
         elEd.focus();
-    }
-    ,
+    },
     generateFormInsert: function () {
+        "use strict";
         var self = this,
             preview = $('<div></div>').addClass('hide').append(
-                /*$('<input />').attr({'name': 'miejscowosc', 'maxlength': "127"})
-                 ).append(*/
                 $('<input />').attr({'name': 'data_pisma', 'maxlength': "10"})
             ).append(
                 $('<input />').attr({'name': 'adresat_id'})
@@ -738,8 +766,9 @@ var PISMA = Class.extend({
             .end()
             .find('#editor').attr('contenteditable', false);
 
-        if (preview.find('.control.control-date input.city').val() == '')
+        if (preview.find('.control.control-date input.city').val() === '') {
             preview.find('.control.control-date input.city').val(' ');
+        }
 
         self.html.stepper_div.find('.edit .col-md-10').find("textarea:not('.hide')").each(function (idx) {
             $(preview.find("textarea").eq(idx)).replaceWith('<div class="pre">' + $(this).val().replace(/\n/g, '<br/>') + '</div>');
@@ -755,21 +784,24 @@ var PISMA = Class.extend({
             .find('.mirror').remove()
             .end()
             .find('.editable').each(function () {
-                var that = $(this);
+                var that = $(this),
+                    slownie;
 
                 if (that.hasClass('date')) {
                     that.replaceWith(that.find('input.datepicker').val());
                 } else if (that.hasClass('daterange')) {
-                    that.replaceWith(that.find('label[for="from"]').html() + that.find('input[name="from"]').val() + that.find('label[for="to"]').html() + that.find('input[name="to"]').val())
-                } else if (that.hasClass('email')) {
-                    that.replaceWith(that.find('input[type="email"]').val());
-                } else if (that.hasClass('currencypln')) {
-                    var slownie = self.html.editor.find('.slownie[data-unique="' + that.data('unique') + '"]');
-
-                    that.replaceWith(that.find('input.kwota').val());
-                    slownie.replaceWith(slownie.html());
+                    that.replaceWith(that.find('label[for="from"]').html() + that.find('input[name="from"]').val() + that.find('label[for="to"]').html() + that.find('input[name="to"]').val());
                 } else {
-                    that.replaceWith(that.html())
+                    if (that.hasClass('email')) {
+                        that.replaceWith(that.find('input[type="email"]').val());
+                    } else if (that.hasClass('currencypln')) {
+                        slownie = self.html.editor.find('.slownie[data-unique="' + that.data('unique') + '"]');
+
+                        that.replaceWith(that.find('input.kwota').val());
+                        slownie.replaceWith(slownie.html());
+                    } else {
+                        that.replaceWith(that.html());
+                    }
                 }
             })
             .end()
@@ -797,21 +829,24 @@ var PISMA = Class.extend({
 
         self.html.stepper_div.find('form.form-save').append(preview);
         self.html.stepper_div.find('form.form-save').submit();
-    }
-    ,
+    },
     lastPageButtons: function () {
+        "use strict";
         var self = this,
-            modal = {};
+            modal = {
+                sendPismo: $('#sendPismoModal')
+            };
 
         self.html.stepper_div.find('.editor-tooltip .sendPismo').click(function (e) {
             e.preventDefault();
             $('#sendPismoModal').modal('show');
         });
 
-        if ((modal.sendPismo = $('#sendPismoModal')).length) {
+        if (modal.sendPismo.length) {
             modal.sendPismo.find('.btn[type="submit"]').click(function () {
-                if ($(this).hasClass('disabled'))
+                if ($(this).hasClass('disabled')) {
                     return false;
+                }
                 $(this).addClass('disabled loading');
             });
         }
@@ -822,14 +857,14 @@ var PISMA = Class.extend({
             $(this).parent('form').find('input[name="_save"]').attr('name', 'save');
             self.generateFormInsert();
         });
-    }
-    ,
+    },
     unsaveWarning: function () {
+        "use strict";
         var self = this,
             btnActions = self.html.stepper_div.find('.editor-tooltip'),
             statusCheck = self.html.stepper_div.data('status-check');
 
-        if (statusCheck != undefined) {
+        if (statusCheck !== undefined) {
             self.confirmExit = true;
 
             btnActions.find('.btn.savePismo, a[name="cancel"], input[name="delete"]').click(function () {
@@ -841,10 +876,11 @@ var PISMA = Class.extend({
 
             $(window).bind('beforeunload', function () {
                 if (self.confirmExit) {
-                    if (statusCheck == 0)
+                    if (statusCheck === 0) {
                         return 'Pismo nie zostało jeszcze zapisane. Czy na pewno nie chcesz go zapisać?';
-                    else if (statusCheck == 1)
+                    } else if (statusCheck === 1) {
                         return 'Czy chcesz opuścić tę stronę bez zapisywania zmian?';
+                    }
                 }
             });
         }
@@ -853,6 +889,7 @@ var PISMA = Class.extend({
 
 var $P;
 $(document).ready(function () {
+    "use strict";
     $P = new PISMA();
 
     $P.html.stepper_div.find('.more-buttons-switcher').click(function (event) {
@@ -862,22 +899,26 @@ $(document).ready(function () {
             target_element = $P.html.stepper_div.find('.more-buttons-target'),
             mode = switcher.data('mode');
 
-        if (mode == 'more') {
+        if (mode === 'more') {
             switcher.attr('href', '#less').data('mode', 'less').find('.text').text('Mniej');
             switcher.find('.glyphicon').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
             target_element.slideDown();
-        } else if (mode == 'less') {
+        } else if (mode === 'less') {
             target_element.slideUp();
             switcher.attr('href', '#more').data('mode', 'more').find('.text').text('Więcej');
             switcher.find('.glyphicon').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
         }
     });
 
-    var client = new ZeroClipboard(document.getElementById("clipboardCopy"));
+    if ($('#clipboardCopy').length) {
+        var client = new ZeroClipboard(document.getElementById("clipboardCopy"));
 
-    client.on("ready", function (readyEvent) {
-        client.on("aftercopy", function (event) {
-            alert("Skopiowano do schowka: " + event.data["text/plain"]);
+        client.on("ready", function (readyEvent) {
+            if (readyEvent) {
+                client.on("aftercopy", function (event) {
+                    alert("Skopiowano do schowka: " + event.data["text/plain"]);
+                });
+            }
         });
-    });
+    }
 });

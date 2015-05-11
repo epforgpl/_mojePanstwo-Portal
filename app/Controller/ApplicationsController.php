@@ -19,6 +19,7 @@ class ApplicationsController extends AppController
 	
 	public $title = false;
 	public $description = false;
+	public $appSelected = 'dane';
 	
 	public function beforeFilter() {
 				

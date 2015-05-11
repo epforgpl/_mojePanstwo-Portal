@@ -83,6 +83,191 @@ class AppController extends Controller {
 	public $User = false;
 	public $meta = array();
 
+	public $Applications = array(
+		/*
+		array(
+			'id' => '17',
+			'slug' => 'dane',
+			'name' => 'Dane',
+			'plugin' => 'dane',
+			'type' => 'app',
+			'home' => '1',
+			'folder_id' => '13'
+		),
+		array(
+			'id' => '17',
+			'slug' => 'powiadomienia',
+			'name' => 'Powiadomienia',
+			'plugin' => 'powiadomienia',
+			'type' => 'app',
+			'home' => '1',
+			'folder_id' => '13'
+		),
+		array(
+			'id' => '17',
+			'slug' => 'pisma',
+			'name' => 'Pisma',
+			'plugin' => 'pisma',
+			'type' => 'app',
+			'home' => '1',
+			'folder_id' => '13'
+		),
+		*/
+		array(
+			'id'     => '6',
+			'slug'   => 'krs',
+			'name'   => 'Krajowy Rejestr Sądowy',
+			'plugin' => 'krs',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
+		),
+		array(
+			'id'     => '16',
+			'slug'   => 'kto_tu_rzadzi',
+			'name'   => 'Kto tu rządzi?',
+			'plugin' => 'KtoTuRzadzi',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
+		),
+		
+		array(
+			'id'     => '9',
+			'slug'   => 'prawo',
+			'name'   => 'Prawo',
+			'plugin' => 'prawo',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
+		),
+		array(
+			'id'     => '12',
+			'slug'   => 'media',
+			'name'   => 'Media',
+			'plugin' => 'media',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
+		),
+		array(
+			'id'     => '5',
+			'slug'   => 'zamowienia_publiczne',
+			'name'   => 'Zamówienia publiczne',
+			'plugin' => 'zamowienia_publiczne',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
+		),
+		array(
+			'id'     => '3',
+			'slug'   => 'sejmometr',
+			'name'   => 'Sejmometr',
+			'plugin' => 'sejmometr',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
+		),
+		array(
+			'id'     => '18',
+			'slug'   => 'wyjazdy_poslow',
+			'name'   => 'Wyjazdy posłów',
+			'plugin' => 'WyjazdyPoslow',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
+		),
+		array(
+			'id'     => '19',
+			'slug'   => 'wydatki_poslow',
+			'name'   => 'Wydatki Posłów',
+			'plugin' => 'WydatkiPoslow',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
+		),
+		/*
+		array(
+			'id' => '18',
+			'slug' => 'gabinety_polityczne',
+			'name' => 'Gabinety Polityczne',
+			'plugin' => 'raporty_gabinety_polityczne',
+			'type' => 'app',
+			'home' => '1',
+			'folder_id' => '13'
+		),
+		*/
+		array(
+			'id'     => '4',
+			'slug'   => 'moja_gmina',
+			'name'   => 'Moja Gmina',
+			'plugin' => 'moja_gmina',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
+		),
+		/*
+		array(
+			'id'     => '20',
+			'slug'   => 'finanse',
+			'name'   => 'Finanse',
+			'plugin' => 'finanse',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
+		),
+		*/
+		array(
+			'id'     => '21',
+			'slug'   => 'handel_zagraniczny',
+			'name'   => 'Handel zagraniczny',
+			'plugin' => 'HandelZagraniczny',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
+		),
+		
+		array(
+			'id' => '19',
+			'slug' => 'dostep_do_informacji_publicznej',
+			'name' => 'Dostęp do Informacji Publicznej',
+			'plugin' => 'raporty_dostep_do_informacji_publicznej',
+			'type' => 'app',
+			'home' => '1',
+			'folder_id' => '13'
+		),
+		/*
+		array(
+			'id'     => '10',
+			'slug'   => 'kody_pocztowe',
+			'name'   => 'Kody Pocztowe',
+			'plugin' => 'kody_pocztowe',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
+		),
+		*/
+		array(
+			'id'     => '10',
+			'slug'   => 'paszport',
+			'name'   => 'Paszport',
+			'plugin' => 'paszport',
+			'type'   => 'app',
+			'home'   => '1',
+			'folder_id' => '13'
+		),
+		/*
+        array(
+            'id' => '20',
+            'slug' => 'przejrzysty_krakow',
+            'name' => 'Przejrzysty Kraków',
+            'plugin' => 'przejrzysty_krakow',
+            'type' => 'app',
+            'home' => '1',
+            'folder_id' => '13'
+        ),
+        */
+	);
 	
 	public function beforeFilter() {
 		

@@ -1,42 +1,41 @@
 /*global $,jQuery,mPHeart,google*/
-
 var map;
 
 function initMap() {
     "use strict";
     var mapOptions = {
-            zoom: 11,
-            draggable: true,
-            disableDefaultUI: true,
-            scrollwheel: false,
-            navigationControl: true,
-            mapTypeControl: false,
-            scaleControl: false,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        },
-        kmlOptions,
-        kmlUrl,
-        kmlLayer,
-        text;
+        zoom: 11,
+        draggable: true,
+        disableDefaultUI: true,
+        scrollwheel: false,
+        navigationControl: true,
+        mapTypeControl: false,
+        scaleControl: false,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    //,kmlOptions,
+    //kmlUrl,
+    //kmlLayer,
+    //text;
 
     map = new google.maps.Map(document.getElementById('dzielnice_map'), mapOptions);
 
-    kmlUrl = 'http://mojepanstwo.pl/files/dzielnice_administracyjne.kml';
-    kmlOptions = {
-        suppressInfoWindows: true,
-        preserveViewport: false,
-        map: map
-    };
+    /*kmlUrl = 'http://mojepanstwo.pl/files/dzielnice_administracyjne.kml';
+     kmlOptions = {
+     suppressInfoWindows: true,
+     preserveViewport: false,
+     map: map
+     };*/
 
-    kmlLayer = new google.maps.KmlLayer(kmlUrl, kmlOptions);
+    //kmlLayer = new google.maps.KmlLayer(kmlUrl, kmlOptions);
 
     google.maps.event.addListenerOnce(map, 'idle', function () {
         map.setZoom(11);
     });
 
-    google.maps.event.addListener(kmlLayer, 'click', function (kmlEvent) {
-        text = kmlEvent.featureData;
-    });
+    /*google.maps.event.addListener(kmlLayer, 'click', function (kmlEvent) {
+     text = kmlEvent.featureData;
+     });*/
 }
 
 function initialize() {
@@ -46,7 +45,7 @@ function initialize() {
 
 function loadScript() {
     "use strict";
-    if (google.maps) {
+    if ((typeof google !== "undefined") && google.maps) {
         initialize();
     } else {
         var script = document.createElement("script");

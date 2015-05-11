@@ -1,9 +1,13 @@
-/*global googleMapAdres: true, connectionGraphObject*/
+/*global $,jQuery,mPHeart,google,googleMapAdres,connectionGraphObject,sticky*/
 var googleMap, panorama, addLatLng;
 
 function initialize() {
+    "use strict";
     //SETTING DEFAULT CENTER TO GOOGLE MAP AT POLAND//
-    var polandLatlng = new google.maps.LatLng(51.919438, 19.145136),
+    var infowindow,
+        element,
+        contentStringHeightTemp,
+        polandLatlng = new google.maps.LatLng(51.919438, 19.145136),
         mapOptions = {
             zoom: 15,
             center: polandLatlng
@@ -18,7 +22,7 @@ function initialize() {
     contentString.style.width = "360px";
 
     /*GETTING HEIGHT OF CONTENT*/
-    var contentStringHeightTemp = contentString.cloneNode(true);
+    contentStringHeightTemp = contentString.cloneNode(true);
     contentStringHeightTemp.style.visibility = "hidden";
     document.body.appendChild(contentStringHeightTemp);
 
@@ -26,15 +30,70 @@ function initialize() {
     contentString.style.height = contentStringHeightTemp.clientHeight;
 
     /*REMOVING CLONED NODE*/
-    var element = document.getElementById("googleMapsContent");
+    element = document.getElementById("googleMapsContent");
     element.parentNode.removeChild(element);
 
-    var infowindow = new google.maps.InfoWindow({
+    infowindow = new google.maps.InfoWindow({
         content: contentString
     });
 
+    function wrapAngle(angle) {
+        if (angle >= 360) {
+            angle -= 360;
+        } else if (angle < 0) {
+            angle += 360;
+        }
+        return angle;
+    }
+
+    function computeAngle(endLatLng, startLatLng) {
+        var DEGREE_PER_RADIAN = 57.2957795,
+            RADIAN_PER_DEGREE = 0.017453,
+            dlat = endLatLng.lat() - startLatLng.lat(),
+            dlng = endLatLng.lng() - startLatLng.lng(),
+            yaw;
+        // We multiply dlng with cos(endLat), since the two points are very closeby,
+        // so we assume their cos values are approximately equal.
+        yaw = Math.atan2(dlng * Math.cos(endLatLng.lat() * RADIAN_PER_DEGREE), dlat) * DEGREE_PER_RADIAN;
+        return wrapAngle(yaw);
+    }
+
+    function showPanoData(panoData, status) {
+        if (status !== google.maps.StreetViewStatus.OK) {
+            $('#streetView').html(mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_NO_STREETVIEW_PICTURE_AVAILABLE).attr('style', 'text-align:center;font-weight:bold,position: relative; top: 50%; margin-top: -10px').show();
+            return;
+        }
+
+        var angle = computeAngle(addLatLng, panoData.location.latLng),
+            panoOptions = {
+                position: addLatLng,
+                addressControl: false,
+                linksControl: false,
+                panControl: false,
+                zoomControlOptions: {
+                    style: google.maps.ZoomControlStyle.SMALL
+                },
+                pov: {
+                    heading: angle,
+                    pitch: 10,
+                    zoom: 1
+                },
+                enableCloseButton: false,
+                visible: true
+            };
+
+        panorama.setOptions(panoOptions);
+    }
+
+    function createStreetview(lat, lng) {
+        panorama = new google.maps.StreetViewPanorama(document.getElementById("streetView"));
+        addLatLng = new google.maps.LatLng(lat, lng);
+        var service = new google.maps.StreetViewService();
+        service.getPanoramaByLocation(addLatLng, 50, showPanoData);
+    }
+
     geocoder.geocode({'address': googleMapAdres}, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
+        if (status === google.maps.GeocoderStatus.OK) {
             var gps = results[0].geometry.location,
                 marker = new google.maps.Marker({
                     map: googleMap,
@@ -58,67 +117,12 @@ function initialize() {
             });
         }
     });
-
-    function createStreetview(lat, lng) {
-        panorama = new google.maps.StreetViewPanorama(document.getElementById("streetView"));
-        addLatLng = new google.maps.LatLng(lat, lng);
-        var service = new google.maps.StreetViewService();
-        service.getPanoramaByLocation(addLatLng, 50, showPanoData);
-    }
-
-    function showPanoData(panoData, status) {
-        if (status != google.maps.StreetViewStatus.OK) {
-            $('#streetView').html(mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_NO_STREETVIEW_PICTURE_AVAILABLE).attr('style', 'text-align:center;font-weight:bold,position: relative; top: 50%; margin-top: -10px').show();
-            return;
-        }
-
-        var angle = computeAngle(addLatLng, panoData.location.latLng);
-
-        var panoOptions = {
-            position: addLatLng,
-            addressControl: false,
-            linksControl: false,
-            panControl: false,
-            zoomControlOptions: {
-                style: google.maps.ZoomControlStyle.SMALL
-            },
-            pov: {
-                heading: angle,
-                pitch: 10,
-                zoom: 1
-            },
-            enableCloseButton: false,
-            visible: true
-        };
-
-        panorama.setOptions(panoOptions);
-    }
-
-    function computeAngle(endLatLng, startLatLng) {
-        var DEGREE_PER_RADIAN = 57.2957795;
-        var RADIAN_PER_DEGREE = 0.017453;
-
-        var dlat = endLatLng.lat() - startLatLng.lat();
-        var dlng = endLatLng.lng() - startLatLng.lng();
-        // We multiply dlng with cos(endLat), since the two points are very closeby,
-        // so we assume their cos values are approximately equal.
-        var yaw = Math.atan2(dlng * Math.cos(endLatLng.lat() * RADIAN_PER_DEGREE), dlat) * DEGREE_PER_RADIAN;
-        return wrapAngle(yaw);
-    }
-
-    function wrapAngle(angle) {
-        if (angle >= 360) {
-            angle -= 360;
-        } else if (angle < 0) {
-            angle += 360;
-        }
-        return angle;
-    }
 }
 
 //ASYNC INIT GOOGLE MAP JS//
 function loadScript() {
-    if (google.maps) {
+    "use strict";
+    if ((typeof google !== "undefined") && google.maps) {
         initialize();
     } else {
         var script = document.createElement('script');
@@ -129,10 +133,9 @@ function loadScript() {
 }
 
 jQuery(document).ready(function () {
+    "use strict";
     var banner = jQuery('.profile_baner'),
-        mapsOptions = $('.mapsOptions '),
-        connectionGraph = jQuery('#connectionGraph'),
-        dataHighlightsOptions = jQuery('.dataHighlightsOptions');
+        mapsOptions = $('.mapsOptions ');
 
     if (banner.length > 0) {
         banner.find('.bg img').css('width', banner.width() + 'px');

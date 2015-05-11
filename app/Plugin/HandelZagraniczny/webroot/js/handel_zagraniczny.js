@@ -2,8 +2,8 @@ $(function() {
     'use strict';
 
     var hz_map = $('#hzMap'),
-        apiHost = 'http://mojepanstwo.pl:4444/',
-        hz_api = 'http://mojepanstwo.pl:4444/handel_zagraniczny/stats/',
+        apiHost = 'https://api-v2.mojepanstwo.pl/',
+        hz_api = 'https://api-v2.mojepanstwo.pl/handel_zagraniczny/stats/',
         hz_type = 'import',
         hz_countries_data = [],
         hz_top_symbols_data = [],
