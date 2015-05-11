@@ -73,7 +73,5 @@
                 <? } ?>
             </li>
         <? } ?>
-        <? foreach ($menu['items'] as $m) {
-        } ?>
     </ul>
 <? } ?>

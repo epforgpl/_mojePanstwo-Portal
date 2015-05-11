@@ -19,7 +19,7 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
 <?php $this->Combinator->add_libs('css', $this->Less->css('dataobjectpage', array('plugin' => 'Dane'))) ?>
 <?php $this->Combinator->add_libs('css', $this->Less->css('naglosnij', array('plugin' => 'Dane'))) ?>
 
-<?php $this->Combinator->add_libs('js', array('Dane.page-header', 'Dane.naglosnij', 'Dane.related-tabs')); ?>
+<?php $this->Combinator->add_libs('js', array('Dane.naglosnij', 'Dane.related-tabs')); ?>
 
 <div<? if ($objectOptions['microdata']['itemtype']) { ?> itemscope itemtype="<?= $objectOptions['microdata']['itemtype'] ?>"<? } ?>
     class="objectsPage">
@@ -38,51 +38,38 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
         ));
     } ?>
 
-
-    <?
-    $krsPodmiotyKrakow = ($object->getDataset() == 'krs_podmioty') && ($object->getData('gmina_id') == '903');
-
-    if ($krsPodmiotyKrakow) {
-        $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow-outside', array('plugin' => 'Dane')));
-    }
-    ?>
-
-    <? if ($object->getData('id') == '903') {
-        echo $this->Element('appHeader');
+    <?php if ($domainMode == "PK" || (isset($object) && (($object->getDataset() == 'gminy') && ($object->getId() == '903')))) {
+        echo $this->Element('appheader');
     } else { ?>
         <div
-            class="objectPageHeaderContainer topheader <? if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) { ?> krakow<? } ?>">
-            <div class="container">
-                <div class="row">
-	                
-	                <? if( $_breadcrumbs ) {?>
-                	<div class="col-md-12">
-	                	<ol class="breadcrumb">
-							<? foreach( $_breadcrumbs as $b ) { ?>
-								<li><a href="<?= $b['href'] ?>"><? if( isset($b['icon']) && $b['icon'] ) echo $b['icon'] . ' ';?><?= $b['label'] ?></a></li>
-							<? } ?>
-						</ol>
-                	</div>
-	                <?}?>
-	                	                
-	                <? if ($krsPodmiotyKrakow) { ?>
-	                    <div class="krakow col-md-2">
-	
-	                        <a title="Program Przejrzysty Kraków, prowadzony przez Fundację Stańczyka, ma na celu wieloaspektowy monitoring życia publicznego w Krakowie. W ramach programu prowadzony jest obecnie monitoring Rady Miasta i Dzielnic Krakowa."
-	                           href="http://przejrzystykrakow.pl" class="thumb_cont">
-	                            <img alt="Przejrzysty Kraków" src="/Dane/img/customObject/krakow/logo_pkrk_black.png"
-	                                 onerror="imgFixer(this)" class="thumb">
-	                        </a>
-	
-	                    </div>
-	                <? } ?>
-	                <div class="<? echo($krsPodmiotyKrakow ? 'col-md-7' : 'col-xs-12'); ?>">
-                        <div
-                            class="objectPageHeader<? if (isset($object_menu['items']) && !empty($object_menu['items'])) { ?> with-menu <? } ?>">
-	                        <?php echo $this->Dataobject->render($object, $renderFile, $objectOptions); ?>
-	                    </div>
-	                </div>
-	                <? /*
+            class="objectPageHeaderBg<?php if ((isset($headerObject) && (!empty($headerObject['url']) || !empty($headerObject['height'])))) {
+                echo ' extended" style="';
+                if (!empty($headerObject['url'])) echo 'background-image: url(' . $headerObject['url'] . ');';
+                if (!empty($headerObject['height'])) echo 'min-height:' . $headerObject['height'] . ';';
+            } ?>">
+            <div
+                class="objectPageHeaderContainer topheader">
+                <div class="container">
+                    <div class="row">
+                        <? if ($_breadcrumbs) { ?>
+                            <div class="col-md-12">
+                                <ol class="breadcrumb">
+                                    <? foreach ($_breadcrumbs as $b) { ?>
+                                        <li>
+                                            <a href="<?= $b['href'] ?>"><? if (isset($b['icon']) && $b['icon']) echo $b['icon'] . ' '; ?><?= $b['label'] ?></a>
+                                        </li>
+                                    <? } ?>
+                                </ol>
+                            </div>
+                        <? } ?>
+
+                        <div class="col-xs-12">
+                            <div
+                                class="objectPageHeader<? if (isset($object_menu['items']) && !empty($object_menu['items'])) { ?> with-menu <? } ?>">
+                                <?php echo $this->Dataobject->render($object, $renderFile, $objectOptions); ?>
+                            </div>
+                        </div>
+                        <? /*
 	                <div class="objectButtonsContainer col-md-3">
 	                    <div class="row">
 	                        <ul class="objectButtons">
@@ -96,23 +83,23 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
 	                    </div>
 	                </div>
 	                */ ?>
+                    </div>
                 </div>
             </div>
+
+            <? if (isset($object_menu) && !empty($object_menu)) { ?>
+                <div class="menuTabsCont">
+                    <div class="container">
+                        <?
+                        echo $this->Element('Dane.dataobject/menuTabs', array(
+                            'menu' => $object_menu,
+                        ));
+                        ?>
+                    </div>
+                </div>
+            <? } ?>
         </div>
-
-        <? if (isset($object_menu) && !empty($object_menu)) { ?>
-            <div class="menuTabsCont">
-                <div class="container">
-                    <?
-                    echo $this->Element('Dane.dataobject/menuTabs', array(
-                        'menu' => $object_menu,
-                    ));
-                    ?>
-                </div>
-            </div>
-        <? } ?>
-    </div>
-
+    <?php } ?>
     <div class="objectsPageWindow">
         <div class="container">
             <div class="row">

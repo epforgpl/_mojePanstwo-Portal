@@ -1,6 +1,4 @@
 .appHeader {
-    @menuSize: 59px;
-
     width: 100%;
     background: #e9eaed;
     position: relative;
@@ -8,7 +6,7 @@
     z-index: 901;
 
     &.pk {
-        @menuHeight: 51px;
+        @menuHeight: 34px;
 
         height: 250px;
         background-image: url(/dane/img/headers/krakow.jpg);
@@ -19,6 +17,16 @@
 
         .holder {
             margin-top: -(@menuHeight/2);
+            display: block;
+            float: left;
+            position: relative;
+            top: 50%;
+            width: 100%;
+            -webkit-transform: translate(0px, -50%);
+            -moz-transform: translate(0px, -50%);
+            -ms-transform: translate(0px, -50%);
+            -o-transform: translate(0px, -50%);
+            transform: translate(0px, -50%);
 
             .attachment a {
                 display: block;
@@ -35,7 +43,7 @@
                 padding: 0 5px;
 
                 h1 {
-                    margin: 15px 0 2px 0;
+                    margin: 26px 0 2px 0;
 
                     a {
                         font-size: 30px;
@@ -62,7 +70,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: @menuSize;
+            height: @menuHeight;
 
             background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 100%); /* FF3.6+ */
             background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0.75))); /* Chrome,Safari4+ */
@@ -73,6 +81,8 @@
             filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#bf000000', GradientType=0); /* IE6-9 */
 
             ul {
+                @fontSize: 11px;
+
                 border: none;
                 border-radius: 0;
                 margin: 1px 0 0;
@@ -86,10 +96,8 @@
                     a {
                         background: none;
                         color: #ffffff;
-                        font-size: 16px;
-                        font-weight: 400;
                         border: none;
-                        padding: 20px 20px 15px;
+                        font-size: @fontSize;
                         margin: 0;
 
                         span.caret {
@@ -124,6 +132,7 @@
 
                         li {
                             a {
+                                font-size: @fontSize;
                                 background: #ffffff;
                                 color: #157AB5;
                                 padding: 10px 20px;
@@ -151,29 +160,29 @@
         position: relative;
         height: 100%;
     }
-	
-	.goto {
-		margin: 16px 0 0;
-		.dropdown-menu.inner.selectpicker {
-			text-align: left;
-		}
-	}
-	
+
+    .goto {
+        margin: 16px 0 0;
+        .dropdown-menu.inner.selectpicker {
+            text-align: left;
+        }
+    }
+
     .holder {
         h1 {
             font-size: 30px;
             font-weight: 300;
             margin: 15px 0 15px;
-            
+
             img, svg {
-	            height: 30px;
-			    margin: 0 -4px 0 -8px;
-			    position: relative;
-			    top: 5px;
+                height: 30px;
+                margin: 0 -4px 0 -8px;
+                position: relative;
+                top: 5px;
             }
-            
+
             a {
-	            color: #555;
+                color: #555;
             }
         }
 
@@ -188,20 +197,18 @@
     .menu {
         ul {
             border: none;
-            border-radius: none;
             margin: 0;
-            margin-top: 1px;
             height: 100%;
+
             li {
                 border: none;
-                border-radius: none;
                 margin: 0;
+
                 a {
                     color: #AAA;
                     font-weight: 600;
                     font-size: 11px;
                     border: none;
-                    border-bottom: 4px solid none;
                     padding: 7px 15px 7px;
                     text-transform: uppercase;
                     letter-spacing: .035em;
@@ -225,7 +232,7 @@
                 &.open, &:focus {
                     a {
                         background: none;
-                        border-bottom: 4px solid #63afea;
+                        border-bottom: 4px solid lighten(#63afea, 15%);
                     }
                 }
                 &.active {
@@ -237,30 +244,28 @@
                         margin: 0 0 -3px;
                     }
                 }
-                ul {
-                    li {
-                        a {
-                            display: block;
-                            border: none !important;/*TODO:check if it REALLY needed*/
-                            background: #fff !important;/*TODO:check if it REALLY needed*/
-                            color: #157AB5;
-                            padding: 5px 20px;
-                            font-size: 13px;
-                            &:hover {
-                                border: none !important;/*TODO:check if it REALLY needed*/
-                            }
+                ul.dropdown-menu {
+                    a {
+                        display: block;
+                        border: none !important; /*TODO:check if it REALLY needed*/
+                        background: #fff !important; /*TODO:check if it REALLY needed*/
+                        color: #157AB5;
+                        padding: 5px 20px;
+                        font-size: 13px;
+                        &:hover {
+                            border: none !important; /*TODO:check if it REALLY needed*/
                         }
+                    }
 
-                        a {
-                            &:hover {
-                                color: #157AB5 !important;/*TODO:check if it REALLY needed*/
-                            }
+                    a {
+                        &:hover {
+                            color: #157AB5 !important; /*TODO:check if it REALLY needed*/
                         }
-                        &.active {
-                            a {
-                                color: #333 !important;/*TODO:check if it REALLY needed*/
-                                font-weight: bold;
-                            }
+                    }
+                    &.active {
+                        a {
+                            color: #333 !important; /*TODO:check if it REALLY needed*/
+                            font-weight: bold;
                         }
                     }
                 }
@@ -271,102 +276,5 @@
 }
 
 .objectsPage .dataBrowser {
-	margin-top: 25px !important;/*TODO:check if it REALLY needed*/
-}
-
-@media (max-width: 767px) {
-    .appHeader .menu {
-        background: none;
-
-        li:not(.mobileMenu):not(.always-visible) {
-            display: none;
-        }
-
-        .mobileMenu {
-            display: block;
-
-            a {
-                text-align: center;
-                border-bottom: none !important;/*TODO:check if it REALLY needed*/
-
-                span:before {
-                    font-size: 20px;
-                    color: #ffffff;
-                }
-            }
-        }
-
-        .full {
-            position: relative;
-            z-index: 10;
-
-            li:not(.mobileMenu) {
-                @bgcolor: #e9eaed;
-
-                display: block;
-                width: 100%;
-                background-color: @bgcolor;
-                margin: 0;
-                border-left: 1px solid darken(@bgcolor, 10%);
-                border-right: 1px solid darken(@bgcolor, 10%);
-
-                &:last-child {
-                    border-bottom: 2px solid darken(@bgcolor, 10%);
-                }
-
-                a {
-                    color: #555555;
-                    background-color: @bgcolor;
-                    border-width: 0;
-                }
-
-                ul {
-                    position: relative;
-                    top: 0;
-                    left: 0;
-                    background: none;
-                    -ms-filter: none;
-                    -moz-box-shadow: none;
-                    -webkit-box-shadow: none;
-                    box-shadow: none;
-                }
-
-                ul,
-                ul li {
-                    width: 100%;
-                    border: none !important; /*TODO:check if it REALLY needed*/
-
-                    a {
-                        font-size: 14px;
-                        padding-left: 20px;
-                        padding-right: 20px;
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media (min-width: 768px) {
-    .appHeader .menu ul li a {
-        padding-left: 5px;
-        padding-right: 5px;
-        font-size: 12px;
-    }
-}
-
-@media (min-width: 992px) {
-    .appHeader .menu ul li a {
-        padding-left: 10px;
-        padding-right: 10px;
-        font-size: 14px;
-    }
-}
-
-@media (min-width: 1200px) {
-    .appHeader .menu ul li a {
-        padding-left: 15px;
-        padding-right: 15px;
-        font-size: 16px;
-    }
+    margin-top: 25px !important; /*TODO:check if it REALLY needed*/
 }
