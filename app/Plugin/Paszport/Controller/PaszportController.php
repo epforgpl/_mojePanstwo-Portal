@@ -187,8 +187,10 @@ class PaszportController extends ApplicationsController
             ));
         } else {
             $ref = $this->request->referer();
-            if ($ref != Router::url(null, true) and $ref != "/") {
-                // if referer is not login itself, save it for succesfull redirect
+            $ref_host = parse_url($ref, PHP_URL_HOST);
+            $external_host = $ref_host != PORTAL_DOMAIN and $ref_host != PK_DOMAIN;
+            if ($ref != Router::url(null, true) and $ref != "/" and !$external_host) {
+                // if referer is local, but not login itself or /, save it for succesfull redirect
                 $this->Auth->redirectUrl($ref);
             }
 
