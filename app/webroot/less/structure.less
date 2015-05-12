@@ -99,10 +99,10 @@ body {
 #_wrapper {
     @cockpitMobileToggle: #ffffff;
     @cockpitColorLight: #59a4dd;
-    @cockpitColor: #e9eaed;
+    @cockpitColor: #226799;
     @cockpitColorDark: #023353;
     @cockpitColorDarken: #062f49;
-    @cockpitBarWidth: 86px;
+    @cockpitBarWidth: 85px;
     @appHeight: 70px;
 
     width: 100%;
@@ -302,17 +302,17 @@ body {
     #_mPCockpit {
         width: 100%;
         height: 100%;
-        color: #555555;
+        color: #ffffff;
         padding: 0;
         text-align: center;
         font-size: 12px;
-        font-weight: bold;
+        font-weight: normal;
         position: fixed;
         top: 0;
         left: 0;
 
         a {
-            color: #555555;
+            color: #ffffff;
         }
 
         ._mPBasic, ._mPAppList {
@@ -331,17 +331,17 @@ body {
 
                     ._mPTitle {
                         margin-left: -3px;
-                        color: @activeColor;
+                        color: #ffffff;
 
                         ._mPAppIcon {
-                            color: @activeColor;
+                            color: #ffffff;
                             
                         }
                     }
                 }
                 &:not(._appBlockActive):hover {
                     background-color: @cockpitColorLight;
-                    color: #FFF;
+                    color: #ffffff;
                 }
             }
         }
@@ -354,7 +354,6 @@ body {
             top: 0;
             left: 0;
             z-index: 900;
-            border-right: 1px solid #DDD;
 
             ._mPPowerButton {
                 > a {
