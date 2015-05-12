@@ -12,10 +12,7 @@
 	            
 	            <? foreach($_applications as $a) { if( $a['tag']==1 ) { ?>    
                 <a class="homePageIcon col-xs-6 col-sm-4 col-md-3" href="<?= $a['href'] ?>">
-			        <img class="svg"
-			             src="<?= $a['src'] ?>"
-			             alt="<?= $a['name'] ?>"/>
-			
+                    <i class="icon" data-icon-applications="<?= $a['icon'] ?>"></i>
 			        <p><?= $a['name'] ?></p>
 			    </a>
 			    <? } } ?>
@@ -30,9 +27,7 @@
 	            
 	            <? foreach($_applications as $a) { if( $a['tag']==2 ) { ?>    
                 <a class="homePageIcon col-xs-6 col-sm-4 col-md-3" href="<?= $a['href'] ?>">
-			        <img class="svg"
-			             src="<?= $a['src'] ?>"
-			             alt="<?= $a['name'] ?>"/>
+                    <i class="icon" data-icon-applications="<?= $a['icon'] ?>"></i>
 			
 			        <p><?= $a['name'] ?></p>
 			    </a>

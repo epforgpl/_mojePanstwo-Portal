@@ -1,3 +1,27 @@
+/* GLOBAL ICONS - MAIN */
+@font-face {
+    font-family: 'main';
+    src: url(/fonts/main/main.eot?5lqmy5);
+    src: url(/fonts/main/main.eot?#iefix5lqmy5) format('embedded-opentype'),
+    url(/fonts/main/main.woff?5lqmy5) format('woff'),
+    url(/fonts/main/main.ttf?5lqmy5) format('truetype'),
+    url(/fonts/main/main.svg?5lqmy5#main) format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* GLOBAL ICONS - APPLICATIONS */
+@font-face {
+    font-family: 'applications';
+    src: url(/fonts/applications/applications.eot?5lqmy5);
+    src: url(/fonts/applications/applications.eot?#iefix5lqmy5) format('embedded-opentype'),
+    url(/fonts/applications/applications.woff?5lqmy5) format('woff'),
+    url(/fonts/applications/applications.ttf?5lqmy5) format('truetype'),
+    url(/fonts/applications/applications.svg?5lqmy5#applications) format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* GOOGLE FONT - LATO */
 @font-face {
     font-family: 'Lato';
@@ -55,27 +79,9 @@
     src: local('Lato Bold Italic'), local('Lato-BoldItalic'), url(/fonts/Lato/AcvTq8Q0lyKKNxRlL28Rn1tXRa8TVwTICgirnJhmVJw.woff2) format('woff2'), url(/fonts/Lato/AcvTq8Q0lyKKNxRlL28Rnz8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
 }
 
-/* ICOMOON - ICONS ORIGIN LAYOUT*/
-@font-face {
-    font-family: 'mojePanstwo';
-    src: url('../fonts/mojePanstwo.eot');
-    src: url('../fonts/mojePanstwo.eot?#iefix') format('embedded-opentype'), url('../fonts/mojePanstwo.ttf') format('truetype'), url('../fonts/mojePanstwo.woff') format('woff'), url('../fonts/mojePanstwo.svg#mojePanstwo') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-/* ICOMOON - ICONS NEW LAYOUT */
-@font-face {
-    font-family: 'mojePanstwoNewLayout';
-    src: url('../fonts/mojePanstwo-new_layout.eot?-mgekbi');
-    src: url('../fonts/mojePanstwo-new_layout.eot?#iefix-mgekbi') format('embedded-opentype'), url('../fonts/mojePanstwo-new_layout.ttf?-mgekbi') format('truetype'), url('../fonts/mojePanstwo-new_layout.woff?-mgekbi') format('woff'), url('../fonts/mojePanstwo-new_layout.svg?-mgekbi#mojePanstwo') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
 /* ICONS - SETUP */
 [data-icon]:before {
-    font-family: 'mojePanstwo';
+    font-family: 'main';
     content: attr(data-icon);
     speak: none;
     font-style: normal;
@@ -88,7 +94,7 @@
 }
 
 [data-icon-after]:after {
-    font-family: 'mojePanstwo';
+    font-family: 'main';
     content: attr(data-icon-after);
     speak: none;
     font-style: normal;
@@ -100,9 +106,9 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-[data-icon-new]:before {
-    font-family: 'mojePanstwoNewLayout';
-    content: attr(data-icon-new);
+[data-icon-applications]:before {
+    font-family: 'applications';
+    content: attr(data-icon-applications);
     speak: none;
     font-style: normal;
     font-weight: normal;
@@ -113,9 +119,9 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-[data-icon-new-after]:after {
-    font-family: 'mojePanstwoNewLayout';
-    content: attr(data-icon-new-after);
+[data-icon-applications-after]:after {
+    font-family: 'applications';
+    content: attr(data-icon-applications-after);
     speak: none;
     font-style: normal;
     font-weight: normal;
@@ -604,7 +610,7 @@ svg.svg {
             background-color: #157ab5;
         }
     }
-    
+
     &.noborder {
         border: none;
     }

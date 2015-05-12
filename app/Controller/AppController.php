@@ -83,193 +83,6 @@ class AppController extends Controller
     public $statusbarMode = false;
     public $User = false;
     public $meta = array();
-
-    public $Applications = array(
-        /*
-        array(
-            'id' => '17',
-            'slug' => 'dane',
-            'name' => 'Dane',
-            'plugin' => 'dane',
-            'type' => 'app',
-            'home' => '1',
-            'folder_id' => '13'
-        ),
-        array(
-            'id' => '17',
-            'slug' => 'powiadomienia',
-            'name' => 'Powiadomienia',
-            'plugin' => 'powiadomienia',
-            'type' => 'app',
-            'home' => '1',
-            'folder_id' => '13'
-        ),
-        array(
-            'id' => '17',
-            'slug' => 'pisma',
-            'name' => 'Pisma',
-            'plugin' => 'pisma',
-            'type' => 'app',
-            'home' => '1',
-            'folder_id' => '13'
-        ),
-        */
-        array(
-            'id' => '6',
-            'slug' => 'krs',
-            'name' => 'Krajowy Rejestr Sądowy',
-            'plugin' => 'krs',
-            'type' => 'app',
-            'home' => '1',
-            'folder_id' => '13'
-        ),
-        array(
-            'id' => '16',
-            'slug' => 'kto_tu_rzadzi',
-            'name' => 'Kto tu rządzi?',
-            'plugin' => 'KtoTuRzadzi',
-            'type' => 'app',
-            'home' => '1',
-            'folder_id' => '13'
-        ),
-
-        array(
-            'id' => '9',
-            'slug' => 'prawo',
-            'name' => 'Prawo',
-            'plugin' => 'prawo',
-            'type' => 'app',
-            'home' => '1',
-            'folder_id' => '13'
-        ),
-        array(
-            'id' => '12',
-            'slug' => 'media',
-            'name' => 'Media',
-            'plugin' => 'media',
-            'type' => 'app',
-            'home' => '1',
-            'folder_id' => '13'
-        ),
-        array(
-            'id' => '5',
-            'slug' => 'zamowienia_publiczne',
-            'name' => 'Zamówienia publiczne',
-            'plugin' => 'zamowienia_publiczne',
-            'type' => 'app',
-            'home' => '1',
-            'folder_id' => '13'
-        ),
-        array(
-            'id' => '3',
-            'slug' => 'sejmometr',
-            'name' => 'Sejmometr',
-            'plugin' => 'sejmometr',
-            'type' => 'app',
-            'home' => '1',
-            'folder_id' => '13'
-        ),
-        array(
-            'id' => '18',
-            'slug' => 'wyjazdy_poslow',
-            'name' => 'Wyjazdy posłów',
-            'plugin' => 'WyjazdyPoslow',
-            'type' => 'app',
-            'home' => '1',
-            'folder_id' => '13'
-        ),
-        array(
-            'id' => '19',
-            'slug' => 'wydatki_poslow',
-            'name' => 'Wydatki Posłów',
-            'plugin' => 'WydatkiPoslow',
-            'type' => 'app',
-            'home' => '1',
-            'folder_id' => '13'
-        ),
-        /*
-        array(
-            'id' => '18',
-            'slug' => 'gabinety_polityczne',
-            'name' => 'Gabinety Polityczne',
-            'plugin' => 'raporty_gabinety_polityczne',
-            'type' => 'app',
-            'home' => '1',
-            'folder_id' => '13'
-        ),
-        */
-        array(
-            'id' => '4',
-            'slug' => 'moja_gmina',
-            'name' => 'Moja Gmina',
-            'plugin' => 'moja_gmina',
-            'type' => 'app',
-            'home' => '1',
-            'folder_id' => '13'
-        ),
-        /*
-        array(
-            'id'     => '20',
-            'slug'   => 'finanse',
-            'name'   => 'Finanse',
-            'plugin' => 'finanse',
-            'type'   => 'app',
-            'home'   => '1',
-            'folder_id' => '13'
-        ),
-        */
-        array(
-            'id' => '21',
-            'slug' => 'handel_zagraniczny',
-            'name' => 'Handel zagraniczny',
-            'plugin' => 'HandelZagraniczny',
-            'type' => 'app',
-            'home' => '1',
-            'folder_id' => '13'
-        ),
-
-        array(
-            'id' => '19',
-            'slug' => 'dostep_do_informacji_publicznej',
-            'name' => 'Dostęp do Informacji Publicznej',
-            'plugin' => 'raporty_dostep_do_informacji_publicznej',
-            'type' => 'app',
-            'home' => '1',
-            'folder_id' => '13'
-        ),
-        /*
-        array(
-            'id'     => '10',
-            'slug'   => 'kody_pocztowe',
-            'name'   => 'Kody Pocztowe',
-            'plugin' => 'kody_pocztowe',
-            'type'   => 'app',
-            'home'   => '1',
-            'folder_id' => '13'
-        ),
-        */
-        array(
-            'id' => '10',
-            'slug' => 'paszport',
-            'name' => 'Paszport',
-            'plugin' => 'paszport',
-            'type' => 'app',
-            'home' => '1',
-            'folder_id' => '13'
-        ),
-        /*
-        array(
-            'id' => '20',
-            'slug' => 'przejrzysty_krakow',
-            'name' => 'Przejrzysty Kraków',
-            'plugin' => 'przejrzysty_krakow',
-            'type' => 'app',
-            'home' => '1',
-            'folder_id' => '13'
-        ),
-        */
-    );
-
     public $pkMenu = array();
     private $datasets = array(
         'krs' => array(
@@ -323,62 +136,57 @@ class AppController extends Controller
         'krs' => array(
             'name' => 'Krajowy Rejestr Sądowy',
             'href' => '/krs',
-            'src' => '/krs/icon/krs-gray.svg',
             'tag' => 1,
-        ),
-        'prawo' => array(
-            'name' => 'Prawo',
-            'href' => '/prawo',
-            'src' => '/prawo/icon/prawo.svg',
-            'tag' => 1,
+            'icon' => '&#xe605;',
         ),
         'orzecznictwo' => array(
             'name' => 'Prawo',
             'href' => '/prawo',
-            'src' => '/prawo/icon/prawo.svg',
             'tag' => 1,
+            'icon' => '&#xe60d;',
         ),
         'bdl' => array(
             'name' => 'Bank Danych Lokalnych',
             'href' => '/bdl',
-            'src' => '/prawo/icon/prawo.svg',
             'tag' => 1,
+            'icon' => '',
         ),
         'kto_tu_rzadzi' => array(
             'name' => 'Kto tu rządzi?',
             'href' => '/kto_tu_rzadzi',
             'src' => '/KtoTuRzadzi/icon/kto_tu_rzadzi.svg',
             'tag' => 1,
+            'icon' => '&#xe609;',
         ),
         'moja_gmina' => array(
             'name' => 'Moja Gmina',
             'href' => '/moja_gmina',
-            'src' => '/moja_gmina/icon/moja_gmina.svg',
             'tag' => 1,
+            'icon' => '&#xe605;',
         ),
         'zamowienia_publiczne' => array(
             'name' => 'Zamówienia publiczne',
             'href' => '/zamowienia_publiczne',
-            'src' => '/zamowienia_publiczne/icon/zamowienia_publiczne.svg',
             'tag' => 1,
+            'icon' => '&#xe613;',
         ),
         'media' => array(
             'name' => 'Media',
             'href' => '/media',
-            'src' => '/media/icon/media.svg',
             'tag' => 1,
+            'icon' => '&#xe608;',
         ),
         'sejmometr' => array(
             'name' => 'Sejmometr',
             'href' => '/sejmometr',
-            'src' => '/sejmometr/icon/sejmometr.svg',
             'tag' => 1,
+            'icon' => '&#xe610;',
         ),
         'mapa_prawa' => array(
             'name' => 'Mapa prawa',
-            'href' => '/sejmometr',
-            'src' => '/sejmometr/icon/sejmometr.svg',
+            'href' => '/mapa_prawa',
             'tag' => 1,
+            'icon' => '&#xe607;',
         ),
         /*
         'patenty' => array(
@@ -391,8 +199,8 @@ class AppController extends Controller
         'handel_zagraniczny' => array(
             'name' => 'Handel zagraniczny',
             'href' => '/handel_zagraniczny',
-            'src' => '/HandelZagraniczny/icon/handel_zagraniczny.svg',
             'tag' => 1,
+            'icon' => '&#xe603;',
         ),
         /*
         'koleje' => array(
@@ -405,32 +213,32 @@ class AppController extends Controller
         'kody_pocztowe' => array(
             'name' => 'Kody pocztowe',
             'href' => '/kody_pocztowe',
-            'src' => '/HandelZagraniczny/icon/handel_zagraniczny.svg',
             'tag' => 1,
+            'icon' => '&#xe604;',
         ),
         'dostep_do_informacji_publicznej' => array(
             'name' => 'Dostęp do Informacji Publicznej',
             'href' => '/dostep_do_informacji_publicznej',
-            'src' => '/raporty_dostep_do_informacji_publicznej/icon/dostep_do_informacji_publicznej.svg',
             'tag' => 2,
+            'icon' => '&#xe60e;',
         ),
         'wydatki_poslow' => array(
             'name' => 'Wydatki Posłów',
             'href' => '/wydatki_poslow',
-            'src' => '/WydatkiPoslow/icon/wydatki_poslow.svg',
             'tag' => 2,
+            'icon' => '&#xe611;',
         ),
         'wyjazdy_poslow' => array(
             'name' => 'Wyjazdy Posłów',
             'href' => '/wyjazdy_poslow',
-            'src' => '/WyjazdyPoslow/icon/wyjazdy_poslow.svg',
             'tag' => 2,
+            'icon' => '&#xe612;',
         ),
         'finanse_gmin' => array(
             'name' => 'Finanse gmin',
-            'href' => '/wyjazdy_poslow',
-            'src' => '/WyjazdyPoslow/icon/wyjazdy_poslow.svg',
+            'href' => '/finanse',
             'tag' => 2,
+            'icon' => '&#xe602;',
         ),
     );
 
