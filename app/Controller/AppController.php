@@ -293,18 +293,22 @@ class AppController extends Controller {
 						
 					}
 					
-					$this->redirect( 'http://' . PK_DOMAIN . $url );
+					$this->redirect( 'https://' . PK_DOMAIN . $url );
 					die();
 
 				}
 				
-				if( preg_match('/^(.*?)\,([a-z0-9\-]+)$/', $this->here, $match) ) {
+				if( 
+					preg_match('/^(.*?)\,([a-z0-9\-]+)$/', $this->here, $match) 
+				) {
 					
-					$this->redirect( 'http://' . PK_DOMAIN . $match[1] );
+					$this->redirect( 'https://' . PK_DOMAIN . $match[1] );
 					die();
 				}
 				
-								
+				
+				
+							
 				if (
 					( $this->request->params['controller'] == 'gminy' ) &&
 					in_array( $this->request->params['action'], array(
@@ -374,6 +378,10 @@ class AppController extends Controller {
 				} elseif (
 				( $this->request->params['controller'] == 'pisma' )
 				) {
+					
+				} elseif (
+				( $this->request->params['controller'] == 'Docs' )
+				) {
 
 				} elseif (
 				( $this->request->params['controller'] == 'radni_dzielnic' )
@@ -397,7 +405,7 @@ class AppController extends Controller {
 						
 					}
 					
-					$this->redirect( 'http://' . PORTAL_DOMAIN . $url );
+					$this->redirect( 'https://' . PORTAL_DOMAIN . $url );
 					die();
 
 				}
