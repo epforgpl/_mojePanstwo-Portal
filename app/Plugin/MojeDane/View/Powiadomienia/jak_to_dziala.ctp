@@ -37,11 +37,9 @@
                 <div class="handler mini col-xs-12 col-sm-10 col-md-6 col-lg-4">
                     <h2>Gminy</h2>
 
-                    <p>Otrzymuj informacje o zmianach w skłądach zarządów, rad nadzorczych, ogłoszeniach wymaganych
-                        przez prawo gospodarcze, zamówieniach publicznych i&nbsp;dotacjach otrzymywanych przez spółki i&nbsp;organizacje
-                        zarejestrowane w Krajowym Rejestrze Sądowym. Znajdź firmę, którą chcesz obserwować w aplikacji
-                        <b>Krajowy Rejestr Sądowy</b>.</p>
-                    <a href="/krs" target="_self" class="btn btn-primary" alt="Przejdź do aplikacji">Przejdź do
+                    <p>Otrzymuj informacje o najnowszych aktach prawnych i zamówieniach publicznych dotyczących Twojej gminy.
+                        <b>Moja Gmina</b>.</p>
+                    <a href="/moja_gmina" target="_self" class="btn btn-primary" alt="Przejdź do aplikacji">Przejdź do
                         aplikacji</a>
                 </div>
             </div>
