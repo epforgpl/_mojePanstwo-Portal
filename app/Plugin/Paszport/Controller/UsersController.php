@@ -109,7 +109,6 @@ class UsersController extends PaszportAppController
             }
         } else { # we do have access to user details
             $user_data = $this->Connect->FB->api('/me/?fields=id,first_name,last_name,email,gender,picture.type(square).width(200),birthday,locale');
-            ob_end_clean();var_dump($user_data);die();
             if ($user_data == null) {
                 $this->redirect($this->Connect->FB->getLoginUrl(array('scope' => 'email,user_birthday')));
             }
