@@ -7,7 +7,8 @@ class DataobjectsController extends AppController
     public $components = array('RequestHandler');
     
     public $object = false;
-    public $initLayers = array();    
+    public $initLayers = array();   
+    public $initAggs = array(); 
     public $objectOptions = array(
         'hlFields' => false,
     );
@@ -32,6 +33,11 @@ class DataobjectsController extends AppController
             $this->initLayers[] = $layers;
         }
 
+    }
+    
+    public function addInitAggs( $aggs = false )
+    {
+	    $this->initAggs = $aggs;
     }
 
     public function _prepareView() {
@@ -84,8 +90,11 @@ class DataobjectsController extends AppController
                     'id' => $id,
                 ),
                 'layers' => $layers,
+                'aggs' => $this->initAggs,
             ))
             ) {
+				
+				$this->set('object_aggs', $this->Dataobject->getAggs());
 				
 				if( $this->loadChannels )
 					$this->channels = $this->object->getLayer('channels');
@@ -194,9 +203,28 @@ class DataobjectsController extends AppController
 	    
     }
     
+    
     public function beforeRender() {
-        parent::beforeRender();
+		
+		if( $this->request->params['controller'] == 'Datasets' ) {
+			
+		} else {
+		
+			if( $breadcrumbs_data = $this->getDataset( $this->object->getDataset() ) ) {
+								
+				$this->addAppBreadcrumb( $breadcrumbs_data['app_id'] );
+		        
+		        $this->addBreadcrumb(array(
+			        'href' => '/dane/' . $breadcrumbs_data['dataset_id'],
+			        'label' => $breadcrumbs_data['dataset_name'],
+		        ));
+				
+			}
+		
+		}		
 
+        parent::beforeRender();
+		
 	    if(
 	    	isset( $this->request->params['ext'] ) &&
 	    	( $this->request->params['ext'] == 'json' )
@@ -207,7 +235,7 @@ class DataobjectsController extends AppController
 		    $selected = $this->request->params['action'];
 		    if( $selected=='view' )
 		    	$selected = '';
-		    
+		    		    
 		    $this->menu['selected'] = $selected;
             $this->menu['base'] = $this->object->getUrl();
             $this->set('object_actions', $this->actions);

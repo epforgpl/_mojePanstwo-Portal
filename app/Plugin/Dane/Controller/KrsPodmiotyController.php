@@ -25,13 +25,7 @@ class KrsPodmiotyController extends DataobjectsController
     public function beforeFilter()
     {
         parent::beforeFilter();
-        
-        $this->addAppBreadcrumb('krs');
-        $this->addBreadcrumb(array(
-	        'href' => '/dane/krs_podmioty',
-	        'label' => 'Organizacje',
-        ));
-        
+                
         $this->Auth->deny(array('pobierz_odpis', 'odpis'));
     }
 
@@ -514,11 +508,12 @@ class KrsPodmiotyController extends DataobjectsController
                 array(
                     'id' => '',
                     'href' => $href_base,
-                    'label' => 'Aktualności',
+                    'label' => 'Podstawowe dane',
                 ),
             )
         );
 
+		
         $menu['items'][] = array(
             'id' => 'graph',
             'href' => $href_base . '/graph',

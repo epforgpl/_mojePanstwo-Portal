@@ -562,9 +562,31 @@ class AppController extends Controller
         } else return false;
 
     }
+    
+    public function getDataset( $id = false )
+    {
+	    
+	    if( $id ) {
+		    foreach( $this->datasets as $app_id => $datasets ) {
+			    foreach( $datasets as $dataset_id => $dataset_name ) {
+				    if( $dataset_id == $id ) {
+				    	return array(
+					    	'app_id' => $app_id,
+					    	'dataset_id' => $dataset_id,
+					    	'dataset_name' => $dataset_name,
+				    	);
+				    }
+			    }
+		    }
+	    }
+	    
+	    return false;
+	    
+    }
 
     public function beforeRender()
     {
+	    	    
         $this->set('_breadcrumbs', $this->breadcrumbs);
         $this->set('_applications', $this->applications);
 
@@ -640,14 +662,14 @@ class AppController extends Controller
         ));
     }
 
-    public function addAppBreadcrumb($app)
+    public function addAppBreadcrumb($app_id = false)
     {
-        if ($app == 'krs') {
-
+        if ($app = $this->getApplication($app_id)) {
+						
             $this->addBreadcrumb(array(
-                'label' => 'Krajowy Rejestr Sądowy',
+                'label' => $app['name'],
                 'icon' => '<img class="svg" alt="Krajowy Rejestr Sądowy" src="/krs/icon/krs-gray.svg">',
-                'href' => '/krs',
+                'href' => $app['href'],
             ));
         }
     }

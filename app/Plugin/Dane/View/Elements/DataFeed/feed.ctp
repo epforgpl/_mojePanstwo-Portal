@@ -1,8 +1,3 @@
-<style>
-	#_wrapper {
-		background: #FAFAFA;
-	}
-</style>
 <?
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');	
@@ -12,6 +7,7 @@ $this->Combinator->add_libs('js', 'Dane.datafeed');
 $hits = $dataFeed['hits'];
 $preset = isset( $dataFeed['preset'] ) ? $dataFeed['preset'] : false;
 $timeline = isset( $dataFeed['timeline'] ) ? $dataFeed['timeline'] : false;
+$timeline = true;
 
 $show = true;
 if( isset($dataFeed['aggs']) && isset($dataFeed['aggs']['_channels']) && !$dataFeed['aggs']['_channels']['feed_data']['feed']['doc_count'] )
@@ -44,7 +40,21 @@ if( $show ) {
     </div>
     <div class="dataActions">
         
-				
+        
+        
+        <form action="" method="GET">
+            <div class="form-group has-feedback searchBar">
+                <? if (isset($this->request->query['channel'])) { ?>
+                    <input type="hidden" name="channel" value="<?= $this->request->query['channel'] ?>"/>
+                <? } ?>
+                <input
+                    placeholder="Szukaj<? if ($dataFeed['searchTitle']) echo ' w ' . htmlspecialchars($dataFeed['searchTitle']); ?>..."
+                    type="text" aria-describedby="dataFeedSearch" id="dataFeedSearch" class="form-control"
+                    name="q"<? if (isset($this->request->query['q'])) { ?> value="<?= $this->request->query['q'] ?>"<? } ?>>
+                <span aria-hidden="true" class="glyphicon glyphicon-search form-control-feedback"></span>
+            </div>
+        </form>
+        
         <?php if (isset($object_channels)) { ?>
             <div class="actionBar">
                 <? foreach ($object_channels as $channel) {
@@ -81,18 +91,6 @@ if( $show ) {
             </div>
         <? } ?>
         
-        <form action="" method="GET">
-            <div class="form-group has-feedback searchBar">
-                <? if (isset($this->request->query['channel'])) { ?>
-                    <input type="hidden" name="channel" value="<?= $this->request->query['channel'] ?>"/>
-                <? } ?>
-                <input
-                    placeholder="Szukaj<? if ($dataFeed['searchTitle']) echo ' w ' . htmlspecialchars($dataFeed['searchTitle']); ?>..."
-                    type="text" aria-describedby="dataFeedSearch" id="dataFeedSearch" class="form-control"
-                    name="q"<? if (isset($this->request->query['q'])) { ?> value="<?= $this->request->query['q'] ?>"<? } ?>>
-                <span aria-hidden="true" class="glyphicon glyphicon-search form-control-feedback"></span>
-            </div>
-        </form>
         
         <div class="optionsBar">
             <div class="pull-left">

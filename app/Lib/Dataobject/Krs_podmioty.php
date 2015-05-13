@@ -84,12 +84,12 @@ class Krs_podmioty extends DataObject
 	{
 		
 		$output = array(
-			$this->getData('krs_podmioty.forma_prawna_str'),
-			$this->getData('krs_podmioty.adres_miejscowosc'),
+			$this->getData('forma_prawna_str'),
+			$this->getData('adres_miejscowosc'),
 		);
 		
-		if( $this->getData('krs_podmioty.wartosc_kapital_zakladowy') )
-			$output[] = number_format_h($this->getData('krs_podmioty.wartosc_kapital_zakladowy')) . ' PLN';
+		if( $this->getData('wartosc_kapital_zakladowy') )
+			$output[] = number_format_h($this->getData('wartosc_kapital_zakladowy')) . ' PLN';
 		
 		return $output;
 		

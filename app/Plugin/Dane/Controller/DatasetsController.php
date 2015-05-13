@@ -110,7 +110,7 @@ class DatasetsController extends DataobjectsController
 		            $this->set('microdata', $this->microdata);	
 		            $this->set('title_for_layout', $this->object->getTitle());
 										
-					$this->addAppBreadcrumb('krs');
+					// $this->addAppBreadcrumb('krs');
 					
 		            if ($desc = $this->object->getDescription())
 		                $this->setMetaDescription($desc);

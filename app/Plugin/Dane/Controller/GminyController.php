@@ -57,6 +57,44 @@ class GminyController extends DataobjectsController
         */
 
         $this->addInitLayers($_layers);
+        $this->addInitAggs(array(
+	        'all' => array(
+		        'global' => '_empty',
+		        'aggs' => array(
+			        'gminy' => array(
+				        'filter' => array(
+					        'bool' => array(
+						        'must' => array(
+							        array(
+								        'term' => array(
+									        'dataset' => 'prawo_wojewodztwa',
+								        ),
+							        ),
+							        array(
+								        'term' => array(
+									        'data.prawo_wojewodztwa.gmina_id' => $this->request->params['id'],
+								        ),
+							        ),
+						        ),
+					        ),					        
+				        ),
+				        'aggs' => array(
+					        'top' => array(
+						        'top_hits' => array(
+							        'size' => 3,
+							        'fielddata_fields' => array('dataset', 'id'),
+							        'sort' => array(
+								        'date' => array(
+									        'order' => 'desc',
+								        ),
+							        ),
+						        ),
+					        ),
+				        ),
+			        ),
+		        ),
+	        ),
+        ));
         $this->_prepareView();
 
         if ($this->request->params['id'] == '903')
@@ -113,7 +151,7 @@ class GminyController extends DataobjectsController
         $this->set('ngos', $ngos['typ_id']['buckets']);
         */
 
-
+		/*
         $this->Components->load('Dane.DataFeed', array(
             'feed' => $this->object->getDataset() . '/' . $this->object->getId(),
             'preset' => $this->object->getDataset(),
@@ -134,6 +172,7 @@ class GminyController extends DataobjectsController
             // $this->render('view-krakow');
 
         }
+        */
 
 
         /*
@@ -1571,9 +1610,15 @@ class GminyController extends DataobjectsController
                 array(
                     'id' => '',
                     'href' => $href_base,
-                    'label' => 'Aktualności',
+                    'label' => 'Podstawowe dane',
                 ),
             )
+        );
+        
+        $menu['items'][] = array(
+            'id' => 'feed',
+            'label' => 'Aktualności',
+            'href' => $href_base . '/feed',
         );
 
         if ($this->object->getId() == '903') {
@@ -1655,36 +1700,14 @@ class GminyController extends DataobjectsController
             'href' => $href_base . '/finanse',
         );
         */
-
+		
+		/*
         $menu['items'][] = array(
             'id' => 'organizacje',
-            'label' => 'Organizacje',
-            'dropdown' => array(
-                'items' => array(
-                    array(
-                        'id' => 'organizacje',
-                        'label' => 'Wszystkie organizacje',
-                        'href' => $href_base . '/organizacje',
-                    ),
-                    array(
-                        'topborder' => true,
-                        'id' => 'biznes',
-                        'label' => 'Biznes',
-                        'href' => $href_base . '/biznes',
-                    ),
-                    array(
-                        'id' => 'ngo',
-                        'label' => 'Organizacje pozarządowe',
-                        'href' => $href_base . '/ngo',
-                    ),
-                    array(
-                        'id' => 'spzoz',
-                        'label' => 'Publiczne zakłady opieki zdrowotnej',
-                        'href' => $href_base . '/spzoz',
-                    ),
-                ),
-            ),
+            'label' => 'Organizacje w gminie',
+	        'href' => $href_base . '/organizacje',
         );
+        */
 
         /*
         $menu['items'][] = array(

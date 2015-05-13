@@ -4,66 +4,45 @@
 ?>
 <div class="objectSideInner">
     
-    <div class="block">
+    <div class="block block nobg noborder fix">
     
-        <ul class="dataHighlights side">
+        <ul class="dataHighlights row">
 
 
             <? if ($object->getData('wykreslony')) { ?>
-			    <li class="dataHighlight">
+			    <li class="dataHighlight col-sm-2">
 			        <span class="label label-danger">Podmiot wykreślony z KRS</span>
 			    </li>
 			<? } ?>
-			
-			<? if (
-			    ($object->getData('adres_ulica')) &&
-			    ($object->getData('adres_numer')) &&
-			    ($object->getData('adres_miejscowosc'))
-			) { 
-				
-				$adres = $object->getData('adres_ulica');
-				$adres .= ' ' . $object->getData('adres_numer');
-				$adres .= ', ' . $object->getData('adres_miejscowosc');
-				$adres .= ', Polska';				
-			?>
-			
-				<li class="dataHighlight">
-			        <p class="_label">Adres</p>
-			
-			        <p class="_value"><?= $adres ?></p>
-			    </li>
-			
-			
-			<? } ?>
-			
+						
 			
 			<? if ($object->getData('krs')) { ?>
-			    <li class="dataHighlight">
-			        <p class="_label pull-left">Numer KRS</p>
+			    <li class="dataHighlight col-sm-2">
+			        <p class="_label">Numer KRS</p>
 			
-			        <p class="_value pull-right"><?= $object->getData('krs'); ?></p>
+			        <p class="_value"><?= $object->getData('krs'); ?></p>
 			    </li>
 			<? } ?>
 			
 			<? if ($object->getData('nip')) { ?>
-			    <li class="dataHighlight">
-			        <p class="_label pull-left">Numer NIP</p>
+			    <li class="dataHighlight col-sm-2">
+			        <p class="_label">Numer NIP</p>
 			
-			        <p itemprop="taxID" class="_value pull-right"><?= $object->getData('nip'); ?></p>
+			        <p itemprop="taxID" class="_value"><?= $object->getData('nip'); ?></p>
 			    </li>
 			<? } ?>
 			
 			<? if ($object->getData('regon')) { ?>
-			    <li class="dataHighlight">
-			        <p class="_label pull-left">Numer REGON</p>
+			    <li class="dataHighlight col-sm-2">
+			        <p class="_label">Numer REGON</p>
 			
-			        <p class="_value pull-right"><?= $object->getData('regon'); ?></p>
+			        <p class="_value"><?= $object->getData('regon'); ?></p>
 			    </li>
 			<? } ?>
 			
 			
 			<? if ($object->getData('wartosc_kapital_zakladowy')) { ?>
-			    <li class="dataHighlight">
+			    <li class="dataHighlight col-sm-2">
 			        <p class="_label">Kapitał zakładowy</p>
 			
 			        <p class="_value"><?= number_format_h($object->getData('wartosc_kapital_zakladowy')); ?> PLN</p>
@@ -73,7 +52,7 @@
 						
 			
 			<? if ($object->getData('data_rejestracji')) { ?>
-			    <li class="dataHighlight">
+			    <li class="dataHighlight col-sm-2">
 			        <p class="_label">Data rejestracji</p>
 			
 			        <p class="_value"><?= $this->Czas->dataSlownie($object->getData('data_rejestracji'), array(
@@ -95,7 +74,7 @@
 			if ($www = $object->getData('www')) {
 			    $url = (stripos($www, 'http') === false) ? 'http://' . $www : $www;
 			    ?>
-			    <li class="dataHighlight inl">
+			    <li class="dataHighlight col-sm-2">
 			        <p class="_label">Strona WWW</p>
 			
 			        <p class="_value"><a target="_blank" title="<?= addslashes($object->getTitle()) ?>"
@@ -104,7 +83,7 @@
 			<? } ?>
 			
 			<? if ($email = $object->getData('email')) { ?>
-			    <li class="dataHighlight inl">
+			    <li class="dataHighlight col-sm-2">
 			        <p class="_label">Adres e-mail</p>
 			
 			        <p itemprop="email" class="_value"><a target="_blank" href="mailto:<?= $email ?>"><?= $email; ?></a></p>

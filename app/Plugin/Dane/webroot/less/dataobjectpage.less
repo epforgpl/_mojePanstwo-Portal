@@ -119,7 +119,8 @@
                     color: #ffffff;
                     margin-left: 0;
                     margin-right: 0;
-
+					margin-bottom: 10px;
+					
                     a, a:hover, a:active {
                         color: #555555;
                     }
@@ -160,6 +161,13 @@
         line-height: 1em;
         padding-left: 0;
     }
+    
+    .objectPageHeaderBg.Datasets {
+	    border-bottom: 3px solid #DDD;
+	    .objectPageHeaderContainer .container .objectRender .title {
+		    margin-bottom: 0;
+	    }
+    }
 
     .objectButtons {
         text-align: right;
@@ -173,41 +181,50 @@
     }
 
     .objectPageHeaderBg {
-        @menuHeight: 51px;
-
         position: relative;
-        background: #e9eaed;
-        border-bottom: 1px solid #DDD;
+        background: #F6F6F6;
         z-index: 901;
 
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover;
-
-        .menuTabsCont ul.nav-tabs {
-            border-bottom: none;
-
-            > li {
-                margin-bottom: -3px;
-
-                &.active {
-                    > a {
-                        background: none;
-                        border: none;
-                        padding-bottom: 10px;
-                    }
-                }
-
-                > a {
-                    font-size: 14px;
-                    font-weight: bold;
-                    color: #555555;
-                    background: none;
-                    border: none;
-                    padding-bottom: 20px;
-                    margin-bottom: -5px;
-                }
+		
+		.block {
+			margin: 0px 12px;
+		}
+		
+        .menuTabsCont {
+	        
+	        background-color: #e6e7eA;
+	        
+	        ul.nav-tabs {
+		        
+	            border-bottom: none;
+	
+	            > li {
+		            	
+	                &.active {
+	                    > a {
+	                        background: none;
+	                        border: none;
+	                        border-bottom: 3px solid #438fca;
+	                        color: #226799;
+	                    }
+	                }
+	
+	                > a {
+	                    font-size: 14px;
+	                    font-weight: bold;
+	                    color: #555555;
+	                    background: none;
+	                    border: none;
+	                    border-bottom: 3px solid #E6E6E6;
+	                    margin-bottom: 3px;
+	                    padding: 9px 17px;
+	                }
+	            }
+            
             }
         }
 
@@ -613,6 +630,7 @@
     }
 }
 
+
 #_wrapper #_main .objectsPage .menuTabsCont {
     .nav-tabs {
         border-top-left-radius: 7px;
@@ -622,7 +640,7 @@
 
         position: relative;
         top: 1px;
-        margin: 0 -7px;
+        margin: 0 -17px;
     }
 }
 
@@ -884,6 +902,12 @@ h2.light {
             }
         }
     }
+}
+
+.object-menu {
+	.nav-pills {
+		margin-top: 15px;
+	}
 }
 
 @media (min-width: 769px) and (max-width: 992px) {

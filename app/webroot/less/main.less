@@ -605,10 +605,13 @@ svg.svg {
         background-color: inherit;
         border: 1px solid transparent;
         border-bottom-color: #dddddd;
-
-        .block-header {
-            background-color: #157ab5;
-        }
+    }
+    
+    &.fix {
+	    margin: 0;
+	    .dataHighlights {
+		    padding: 0 5px !important;
+	    }
     }
 
     &.noborder {
@@ -660,8 +663,6 @@ svg.svg {
         display: inline-block;
         width: 100%;
         min-height: 35px;
-        background-color: #e9eaed;
-        border-bottom: 1px solid #e9eaed;
         padding: 10px 15px;
 
         border-top-right-radius: 6px;
@@ -859,8 +860,8 @@ svg.svg {
             color: #555;
 
             &.pull-left {
-                margin-top: 4px;
-                margin-bottom: -4px;
+                margin-top: 3px;
+                margin-right: 10px;
             }
         }
 

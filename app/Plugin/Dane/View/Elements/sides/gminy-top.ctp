@@ -15,19 +15,19 @@
 <div class="objectSideInner">
 	
 	<? if( false && ($szef = $object->getLayer('szef')) ) { ?>
-	<div class="block">
+	<div class="block nobg noborder fix">
 	
-		<ul class="dataHighlights side">
+		<ul class="dataHighlights row">
 
-			<li class="dataHighlight big">
-	            <p class="_label"><?= $szef['stanowisko'] ?></p>
+			<li class="dataHighlight col-sm-3">
+	            <p class="_label o"><?= $szef['stanowisko'] ?></p>
 	
 	            <div class="">
 	                <p class="_value"><?= $szef['kandydat_nazwa'] ?></p>
 	            </div>
 	        </li>
 						
-	        <li class="dataHighlight">
+	        <li class="dataHighlight col-sm-3">
 	            <p class="_label">Komitet</p>
 	
 	            <div class="">
@@ -35,7 +35,7 @@
 	            </div>
 	        </li>
 	        
-	        <li class="dataHighlight">
+	        <li class="dataHighlight col-sm-3">
 	            <p class="_label pull-left">Liczba głosów</p>
 	
 	            <div class="">
@@ -43,7 +43,7 @@
 	            </div>
 	        </li>
 	        
-	        <li class="dataHighlight">
+	        <li class="dataHighlight col-sm-3">
 	            <p class="_label pull-left">Poparcie</p>
 	
 	            <div class="">
@@ -55,59 +55,70 @@
 	</div>
 	<? } ?>
 	
-	
-	<div class="block">		
+	<div class="block nobg noborder">		
 		
-	    <ul class="dataHighlights side">
+	    <ul class="dataHighlights row">
 	
+			
+			<li class="dataHighlight col-sm-2">
+	            <p class="_label pull-left">Typ gminy</p>
 	
-	        <li class="dataHighlight">
+	            <div class="">
+	                <p class="_value"><?= number_format_h($object->getData('liczba_ludnosci')); ?></p>
+	            </div>
+	        </li>
+			
+	        <li class="dataHighlight col-sm-2">
 	            <p class="_label pull-left">Liczba ludności</p>
 	
 	            <div class="">
-	                <p class="_value pull-right"><?= number_format_h($object->getData('liczba_ludnosci')); ?></p>
+	                <p class="_value"><?= number_format_h($object->getData('liczba_ludnosci')); ?></p>
 	            </div>
 	        </li>
 	
-	        <li class="dataHighlight">
+	        <li class="dataHighlight col-sm-2">
 	            <p class="_label pull-left">Powierzchnia</p>
 	
 	            <div>
-	                <p class="_value pull-right"><?= number_format($object->getData('powierzchnia'), 0); ?> km<sup>2</sup></p>
+	                <p class="_value"><?= number_format($object->getData('powierzchnia'), 0); ?> km<sup>2</sup></p>
 	            </div>
 	        </li>
 	        
-	    </ul>
-	</div>
-	
-	
-	<div class="block">
-	
-		<ul class="dataHighlights side">
-	
-	        <li class="dataHighlight">
-	            <p class="_label">Dochody roczne gminy</p>
+	        <? /*
+	        <li class="dataHighlight col-sm-2">
+	            <p class="_label pull-left">Dochody roczne gminy</p>
 	
 	            <div>
 	                <p class="_value"><?= number_format_h($object->getData('dochody_roczne')); ?> PLN</p>
 	            </div>
 	        </li>
 	
-	        <li class="dataHighlight">
-	            <p class="_label">Wydatki roczne gminy</p>
+	        <li class="dataHighlight col-sm-2">
+	            <p class="_label pull-left">Wydatki roczne gminy</p>
 	
 	            <div>
 	                <p class="_value"><?= number_format_h($object->getData('wydatki_roczne')); ?> PLN</p>
 	            </div>
 	        </li>
 	
-	        <li class="dataHighlight">
-	            <p class="_label">Deficyt roczny gminy</p>
+	        <li class="dataHighlight col-sm-2">
+	            <p class="_label pull-left">Deficyt roczny gminy</p>
 	
 	            <div>
 	                <p class="_value"><?= number_format_h($object->getData('zadluzenie_roczne')); ?> PLN</p>
 	            </div>
 	        </li>
+	        */ ?>
+	        
+	    </ul>
+	</div>
+	<? /*
+	
+	<div class="block">
+	
+		<ul class="dataHighlights side">
+	
+	        
 	
 	
 	    </ul>
@@ -146,5 +157,7 @@
         <a class="a-more">Więcej &darr;</a>
         <a class="a-less hide">Mniej &uarr;</a>
     </p>
+    
+    */ ?>
 
 </div>

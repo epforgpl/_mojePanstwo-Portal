@@ -68,10 +68,16 @@ class KrsOsobyController extends DataobjectsController
                 array(
                     'id' => '',
                     'href' => $href_base,
-                    'label' => 'Informacje i powiązania',
+                    'label' => 'Dane',
                 ),
             )
         );
+        
+        $menu['items'][] = array(
+                'id'    => 'powiazania',
+                'href'  => $href_base . '/powiazania',
+                'label' => 'Powiązania',
+            );
 
         /*
         if( $this->object->getData('liczba_zmian') ) {
@@ -88,6 +94,9 @@ class KrsOsobyController extends DataobjectsController
 
         $menu['selected'] = ($this->request->params['action'] == 'view') ? '' : $this->request->params['action'];
         $this->set('_menu', $menu);
+        
+        $this->menu = $menu;
+		parent::beforeRender();
 
     }
 

@@ -7,11 +7,18 @@
 	<div class="row">
 		<div class="col-md-12">
 	
-		    <div class="block nobg noborder text-center">
+		    <div class="block nobg noborder fix">
 		        <ul class="dataHighlights row">
 					
 					
-					
+					<? if ($object->getData('sygnatura')) { ?>
+		                <li class="dataHighlight col-sm-3">
+		                    <p class="_label">Sygnatura</p>
+		
+		                    <p class="_value"><?= $object->getData('sygnatura'); ?></p>
+		                </li>
+		            <? } ?>
+		            
 		            <? if ($object->getData('isap_status_str')) { ?>
 		                <li class="dataHighlight col-sm-2">
 		                    <p class="_label">Status</p>
@@ -19,16 +26,7 @@
 		                    <p class="_value"><?= $object->getData('isap_status_str'); ?></p>
 		                </li>
 		            <? } ?>
-		            
-		            <? if ($object->getData('sygnatura')) { ?>
-		                <li class="dataHighlight col-sm-2">
-		                    <p class="_label">Sygnatura</p>
-		
-		                    <p class="_value"><?= $object->getData('sygnatura'); ?></p>
-		                </li>
-		            <? } ?>
-		
-		
+		           		
 		            <? if ($object->getData('data_wydania') && ($object->getData('data_wydania') != '0000-00-00')) { ?>
 		                <li class="dataHighlight col-sm-2">
 		                    <p class="_label">Data wydania</p>
@@ -53,7 +51,7 @@
 		                </li>
 		            <? } ?>
 		
-		            <li class="dataHighlight col-sm-2">
+		            <li class="dataHighlight col-sm-1">
 		                <p class="_label">Źródło</p>
 		
 		                <p class="_value sources">
@@ -73,7 +71,6 @@
 		                       target="_blank">ISAP</a>
 		                </p>
 		            </li>
-		
 		
 		        </ul>
 		    </div>

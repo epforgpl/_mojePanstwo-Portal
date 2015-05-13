@@ -1,3 +1,24 @@
+<? /*
+
+<ul class="nav nav-pills nav-stacked">
+  <li class="active"><a href="#">Treść</a></li>
+  <li><a href="#">Akty powiązane</a></li>
+  <li class="disabled"><a href="#">Disabled</a></li>
+  <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+      Tematy <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <li><a href="#">Action</a></li>
+      <li><a href="#">Another action</a></li>
+      <li><a href="#">Something else here</a></li>
+      <li class="divider"></li>
+      <li><a href="#">Separated link</a></li>
+    </ul>
+  </li>
+</ul>
+*/ ?>
+
 <? if (isset($menu) && isset($menu['items'])) { ?>
     <ul class="nav nav-tabs">
         <li class="mobileMenu active visible-xs">

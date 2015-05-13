@@ -132,7 +132,7 @@ class mpAPISource extends DataSource {
 	        unset( $queryData['feed'] );
 	        
         } elseif( $model->findQueryType == 'first' ) {
-	        
+	        	        
 	        if( 
 	        	isset($queryData['conditions']['dataset']) && 
 	        	( $queryData['conditions']['dataset'] == 'zbiory' ) && 
@@ -183,7 +183,7 @@ class mpAPISource extends DataSource {
 			$endpoint_parts[] = 'index';
         
         }
-                        
+                                
 		$base_url = implode('/', $endpoint_parts) . '.' . $this->config['ext'];
 		
 		$this->public_api_call = $this->config['host'] . '/' . $base_url . '?' . http_build_query($queryData);
@@ -214,20 +214,19 @@ class mpAPISource extends DataSource {
         }
         
         // debug( $res );
-            
+         
+        if( isset($res['Count']) )
+	        $this->count = $res['Count'];
+	    
+	    if( isset($res['Took']) )
+	        $this->took = $res['Took'];
+        
+        if( isset($res['Aggs']) )
+        	$this->Aggs = $res['Aggs']; 
+           
         if( $model->findQueryType == 'first' ) {
 	        return array($res['Dataobject']);
-        } else {
-	        
-	        if( isset($res['Count']) )
-		        $this->count = $res['Count'];
-		    
-		    if( isset($res['Took']) )
-		        $this->took = $res['Took'];
-	        
-	        if( isset($res['Aggs']) )
-	        	$this->Aggs = $res['Aggs'];
-	        
+        } else {	        
 	        return $res['Dataobject'];
         }
         

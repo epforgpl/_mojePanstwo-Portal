@@ -112,7 +112,7 @@ $this->Dataobject->setObject($object);
                             ));
                         } else {
                                                         
-                            echo $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults);
+                            // echo $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults);
                         }
                         ?>
 						
@@ -183,7 +183,7 @@ $this->Dataobject->setObject($object);
                                 'defaults' => $defaults,
                             ));
                         } else {
-                            echo $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults);
+                            // echo $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults);
                         }
                         ?>
 

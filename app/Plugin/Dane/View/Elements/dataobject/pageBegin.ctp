@@ -1,3 +1,15 @@
+<? 
+	if($this->request->params['controller']!='Datasets') {
+?>
+<style>
+	#_wrapper {
+		background-color: #F6F6F6;
+	}
+	.objectsPage .objectPageHeaderBg {
+		background-color: #FFF;
+	}
+</style>
+<? } ?>
 <?
 /** @var Object $object */
 $object = $this->viewVars['object'];
@@ -42,10 +54,17 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
         echo $this->Element('appheader');
     } else { ?>
         <div
-            class="objectPageHeaderBg<?php if ((isset($headerObject) && (!empty($headerObject['url']) || !empty($headerObject['height'])))) {
-                echo ' extended" style="';
+            class="objectPageHeaderBg <? 
+	            echo ' ' . $this->request->params['controller'];
+                ?>
+                
+                <?php if ((isset($headerObject) && (!empty($headerObject['url']) || !empty($headerObject['height'])))) {
+                echo ' extended';
+                                
+                echo '" style="';
                 if (!empty($headerObject['url'])) echo 'background-image: url(' . $headerObject['url'] . ');';
                 if (!empty($headerObject['height'])) echo 'min-height:' . $headerObject['height'] . ';';
+                
             } ?>">
             <div
                 class="objectPageHeaderContainer topheader">
@@ -84,20 +103,23 @@ $buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array(
 	                </div>
 	                */ ?>
                     </div>
+					
+
                 </div>
             </div>
-
-            <? if (isset($object_menu) && !empty($object_menu)) { ?>
-                <div class="menuTabsCont">
-                    <div class="container">
-                        <?
-                        echo $this->Element('Dane.dataobject/menuTabs', array(
-                            'menu' => $object_menu,
-                        ));
-                        ?>
-                    </div>
-                </div>
-            <? } ?>
+						
+			<? if (isset($object_menu) && !empty($object_menu)) { ?>
+	            <div class="menuTabsCont">
+	                <div class="container">
+	                    <?
+	                    echo $this->Element('Dane.dataobject/menuTabs', array(
+	                        'menu' => $object_menu,
+	                    ));
+	                    ?>
+	                </div>
+	            </div>
+	        <? } ?>
+            
         </div>
     <?php } ?>
     <div class="objectsPageWindow">

@@ -15,11 +15,12 @@ $mainPage = !isset($this->request->query['channel']) || !$this->request->query['
             <? echo $this->Element('Dane.sides/' . $dataFeed['side'] . '-left'); ?>
         </div>
     <? } ?>
-    <div class="col-xs-12 col-sm-7 col-feed-main">
+    <div class="col-xs-12 col-sm-8 col-feed-main">
         <div class="object">
             <? echo $this->Element('Dane.DataFeed/feed'); ?>
         </div>
     </div>
+    <? /*
     <div class="col-xs-12 col-sm-2 col-feed-side col-feed-side-right topmargin">
 
         <? if (isset($object_subscriptions) && $object_subscriptions) { ?>
@@ -63,4 +64,5 @@ $mainPage = !isset($this->request->query['channel']) || !$this->request->query['
         ?>
 
     </div>
+    */ ?>
 </div>

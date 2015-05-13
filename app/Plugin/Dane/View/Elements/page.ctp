@@ -41,14 +41,14 @@ if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) {
         </div>
     <div class="content col-md-<?= $object_content_sizes[1] ?>">
         <p class="header"><?= $object->getLabel(); ?></p>
-        <? if ($object->getShortTitle()) { ?>
+        <? if ($object->getTitle()) { ?>
             <<?= $titleTag ?> class="title trimTitle<? if ($bigTitle) { ?> big<? } ?>"
-                                title="<?= htmlspecialchars($object->getShortTitle()) ?>"
+                                title="<?= htmlspecialchars($object->getTitle()) ?>"
                                 data-trimlength="200">
                                 <?php if (($object->getUrl() != false) && !empty($this->request)) { ?>
                 <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
             <?php } ?>
-                                <span<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= $object->getShortTitle() ?></span>
+                                <span<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= $object->getTitle() ?></span>
                                 <?php if (($object->getUrl() != false) && !empty($this->request)) { ?>
                 </a> <? if ($object->getTitleAddon()) {
                     echo '<small>' . $object->getTitleAddon() . '</small>';
@@ -71,7 +71,7 @@ if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) {
         <a class="trimTitle" href="<?= $object->getUrl() ?>"
            title="<?= strip_tags($object->getTitle()) ?>">
     <?php } ?>
-                            <span<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= $object->getShortTitle() ?></span>
+                            <span<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= $object->getTitle() ?></span>
         <?php if ($object->getUrl() != false){ ?>
         </a> <? if ($object->getTitleAddon()) {
         echo '<small>' . $object->getTitleAddon() . '</small>';
