@@ -13,6 +13,79 @@ class BdlWskaznikiController extends DataobjectsController
 
     public $initLayers = array('dimennsions');
 
+    public function kombinacje()
+    {
+
+        $this->view();
+        $this->loadModel('Bdl.BDL');
+
+        if (isset($this->request->query['d']) && $this->request->query['d']) {
+
+            $dimmensions_array = array();
+            for ($d = 0; $d < 5; $d++) {
+                $dimmensions_array[] = isset($this->request->query['d' . $d]) ?
+                    (int)$this->request->query['d' . $d] :
+                    0;
+            }
+
+            $data_for_dimmensions = $this->BDL->getDataForDimmesions(array($dimmensions_array), $this->request->params['id']);
+            if ($data_for_dimmensions) {
+                $url = '/dane/bdl_wskazniki/' . $this->request->params['id'] . '/' . $data_for_dimmensions[0]['id'];
+                $this->redirect($url);
+                die();
+            }
+
+        }
+
+        $dimension = $this->BDL->getDataForDimension($this->request->params['subid']);
+
+
+        $level_selected = false;
+        $selected_level_id = false;
+
+
+        if (!empty($dimension['levels'])) {
+
+            if (isset($this->request->params['subaction']))
+                $this->request->params['level'] = $this->request->params['subaction'];
+
+            if (isset($this->request->params['level']) && in_array($this->request->params['level'], array(
+                    'gminy',
+                    'powiaty',
+                    'wojewodztwa'
+                ))
+            ) {
+
+                foreach ($dimension['levels'] as &$level) {
+                    if ($level['id'] == $this->request->params['level']) {
+
+                        $selected_level_id = $level['id'];
+                        $level['selected'] = true;
+                        $level_selected = true;
+
+                    }
+                }
+
+            }
+
+            if (!$level_selected) {
+                $dimension['levels'][0]['selected'] = true;
+                $selected_level_id = $dimension['levels'][0]['id'];
+            }
+
+        }
+
+        if ($selected_level_id) {
+
+            $local_data = $this->BDL->getLocalDataForDimension($dimension['id'], $selected_level_id);
+
+            $this->set('local_data', $local_data);
+
+        }
+
+        $this->set('dimension', $dimension);
+    }
+
     public function view()
     {
 
@@ -85,11 +158,11 @@ class BdlWskaznikiController extends DataobjectsController
                 if (isset($dimension['dim_str'])) {
                     $expanded_dimension['options'] = array_filter($expanded_dimension['options']);
                 }
-				
-				
+
+
                 if (empty($dimension)) {
-					
-					$this->loadModel('Statystyka.BDL');
+
+                    $this->loadModel('Bdl.BDL');
                     $data_for_dimmensions = $this->BDL->getDataForDimmesions($params_dimmensions, $this->object->getId());
                     if (!empty($data_for_dimmensions)) {
                         foreach ($data_for_dimmensions as $data) {
@@ -119,86 +192,13 @@ class BdlWskaznikiController extends DataobjectsController
 
     }
 
-    public function kombinacje()
-    {
-
-		$this->view();
-		$this->loadModel('Statystyka.BDL');
-		
-        if (isset($this->request->query['d']) && $this->request->query['d']) {
-
-            $dimmensions_array = array();
-            for ($d = 0; $d < 5; $d++) {
-                $dimmensions_array[] = isset($this->request->query['d' . $d]) ?
-                    (int)$this->request->query['d' . $d] :
-                    0;
-            }
-
-            $data_for_dimmensions = $this->BDL->getDataForDimmesions(array($dimmensions_array), $this->request->params['id']);
-            if ($data_for_dimmensions) {
-                $url = '/dane/bdl_wskazniki/' . $this->request->params['id'] . '/' . $data_for_dimmensions[0]['id'];
-                $this->redirect($url);
-                die();
-            }
-
-        }
-				
-        $dimension = $this->BDL->getDataForDimension($this->request->params['subid']);
-        
-
-        $level_selected = false;
-        $selected_level_id = false;
-
-
-        if (!empty($dimension['levels'])) {
-
-            if(isset($this->request->params['subaction']))
-                $this->request->params['level'] = $this->request->params['subaction'];
-
-            if (isset($this->request->params['level']) && in_array($this->request->params['level'], array(
-                    'gminy',
-                    'powiaty',
-                    'wojewodztwa'
-                ))
-            ) {
-
-                foreach ($dimension['levels'] as &$level) {
-                    if ($level['id'] == $this->request->params['level']) {
-
-                        $selected_level_id = $level['id'];
-                        $level['selected'] = true;
-                        $level_selected = true;
-
-                    }
-                }
-
-            }
-
-            if (!$level_selected) {
-                $dimension['levels'][0]['selected'] = true;
-                $selected_level_id = $dimension['levels'][0]['id'];
-            }
-
-        }
-
-        if ($selected_level_id) {
-
-            $local_data = $this->BDL->getLocalDataForDimension($dimension['id'], $selected_level_id);
-
-            $this->set('local_data', $local_data);
-
-        }
-
-        $this->set('dimension', $dimension);
-    }
-
     public function local_chart_data_for_dimmensions()
     {
         $dims = isset($this->request->query['dims']) ? $this->request->query['dims'] : 0;
         $localtype = isset($this->request->query['localtype']) ? $this->request->query['localtype'] : 0;
         $localid = isset($this->request->query['localid']) ? $this->request->query['localid'] : 0;
 
-        $this->loadModel('Statystyka.BDL');
+        $this->loadModel('Bdl.BDL');
         $data = $this->BDL->getLocalChartDataForDimmesions($dims, $localtype, $localid);
 
         $this->set('data', $data);
@@ -209,8 +209,8 @@ class BdlWskaznikiController extends DataobjectsController
     {
 
         $dims = isset($this->request->query['dims']) ? explode(',', $this->request->query['dims']) : array();
-        
-        $this->loadModel('Statystyka.BDL');
+
+        $this->loadModel('Bdl.BDL');
         $data = $this->BDL->getChartDataForDimmesions($dims);
 
         $this->set('data', $data);
