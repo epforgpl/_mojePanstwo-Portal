@@ -28,7 +28,7 @@ String.prototype.capitalizeFirstLetter = function () {
                 'data': {'id': grupyKey},
                 'text': grupyData.dane.tytul.toLowerCase().capitalizeFirstLetter(),
                 'id': 'grupa_id=' + grupyKey,
-                'a_attr': {'href': '#grupa_id=' + grupyKey},
+                'a_attr': {'href': '#kategoria_id=' + itemKey + '&grupa_id=' + grupyKey},
                 'children': true
             }, grupyChildren = [];
 
@@ -58,21 +58,31 @@ String.prototype.capitalizeFirstLetter = function () {
         "json_data": {
             "progressive_render": true
         },
-        "plugins": ["json_data", "ui", "themes"]
+        "plugins": ["themes", "json_data", "ui"]
     }).bind("select_node.jstree", function (e, data) {
         if (data.node.a_attr.href.charAt(0) === '#') {
+            e.preventDefault();
             if (History.pushState !== undefined) {
                 var obj = {Page: data.node.text, Url: data.node.a_attr.href};
                 History.pushState(obj, obj.Page, obj.Url);
             }
+            tree.jstree("open_node", data.node.id);
         } else {
             document.location.href = data.node.a_attr.href;
         }
-    }).bind("loaded.jstree", function (e, data) {
+    }).bind("loaded.jstree", function () {
         if (window.location.href.slice(window.location.href.indexOf('#') + 1)) {
-            var link = '[id="' + window.location.href.slice(window.location.href.indexOf('#') + 1) + '_anchor"]';
-            tree.jstree("open_node", $(link));
-            data.instance.redraw(true);
+            var link = window.location.href.slice(window.location.href.indexOf('#') + 1);
+            if (link.slice(link.indexOf('&') + 1)) {
+                link = link.split('&');
+            }
+            $.each(link, function () {
+                tree.jstree("open_node", this);
+            });
+
+            $("html, body").animate({
+                scrollTop: $('[id="' + link[link.length - 1] + '_anchor"]').offset().top
+            }, 1000);
         }
     });
 }(jQuery));

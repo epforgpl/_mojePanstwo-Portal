@@ -2,23 +2,43 @@
     <div class="_mPBasic">
         <div class="_mPLogo">
             <a href="/" target="_self">
-                <img src="/icon/mp-logo.svg" title="moje Państwo"/>
+                <img src="/icon/moje_panstwo_logo.svg" title="moje Państwo"/>
             </a>
         </div>
 
 
         <div class="_mPApplication">
-            
+            <div class="_mPPowerButton">
+                <?php if ($this->Session->read('Auth.User.id')) { ?>
+                    <img class="avatar"
+                         src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xaf1/v/t1.0-1/c0.0.160.160/p160x160/200389_203882612962896_3612896_n.jpg?oh=49af22e4cc2df7e0142baba17a2d681f&oe=55CC8588&__gda__=1440275973_10426031c15c5f885ed74b3a6901483c"
+                         alt=""/>
+                    <div class="optionsBtn" data-toggle="collapse"
+                         data-target="#mPUserOptions" aria-expanded="false" aria-controls="mPUserOptions">
+                        <span class="glyphicon" aria-hidden="true">&#x25BC;</span>
+                    </div>
+                    <ul id="mPUserOptions" class="optionsList collapse">
+                        <li>
+                            <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'profile')); ?>"
+                               target="_self">Podstawowe informacje</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo $this->Html->url('/logout'); ?>"
+                               target="_self"><?php echo __('LC_COCKPITBAR_LOGOUT'); ?></a>
+                        </li>
+                    </ul>
+                <?php } else { ?>
+                    <a class="_specialCaseLoginButton"
+                       href="<?php echo $this->Html->url('/login'); ?>">
+                        <i class="_mPAppIcon glyphicon glyphicon-user"></i>
+
+                        <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_LOGIN'); ?></p>
+                    </a>
+                <?php } ?>
+            </div>
             <?php if ($this->Session->read('Auth.User.id')) { ?>
-                
-                <a class="_mPAppsList _appBlock _appBlockBackground _mPAccount<? if($appSelected=='paszport') echo " _appBlockActive";?>" href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'profile')); ?>" target="_self">
-	                <div class="_mPTitle">
-	                    <i class="_mPAppIcon glyphicon glyphicon-user"></i>
-	
-	                    <p class="_mPAppLabel"><span><?= $this->Text->truncate($this->Session->read('Auth.User.username'), 13); ?></span></p>
-	                </div>
-	            </a>
-                
+
+
                 <? /*
                 <div class="_mPUser">
                     <a href="">
@@ -31,9 +51,9 @@
                     </a>
                 </div>
                 */ ?>
-                
+
             <?php } ?>
-            
+
             <div class="_mPSearch _appBlock _appBlockBackground">
                 <div class="_mPTitle">
                     <i class="_mPAppIcon" data-icon="&#xe600;"></i>
@@ -42,56 +62,35 @@
                     <? /* <span class="_mPAppBadge badge">Przykład znacznika libczy przy ikonie</span> */ ?>
                 </div>
             </div>
-            <a class="_mPAppsList _appBlock _appBlockBackground<? if($appSelected=='dane') echo " _appBlockActive";?>" href="/dane" target="_self">
+            <a class="_mPAppsList _appBlock _appBlockBackground<? if ($appSelected == 'dane') echo " _appBlockActive"; ?>"
+               href="/dane" target="_self">
                 <div class="_mPTitle">
                     <i class="_mPAppIcon" data-icon="&#xe61e;"></i>
 
                     <p class="_mPAppLabel">Dane publiczne</p>
                 </div>
             </a>
-            <a class="_mPAppsList _appBlock _appBlockBackground<? if($appSelected=='moje-dane') echo " _appBlockActive";?>" href="/moje-dane" target="_self">
+            <a class="_mPAppsList _appBlock _appBlockBackground<? if ($appSelected == 'moje-dane') echo " _appBlockActive"; ?>"
+               href="/moje-dane" target="_self">
                 <div class="_mPTitle">
                     <i class="_mPAppIcon" data-icon-applications="&#xe60a;"></i>
 
                     <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_MY_DATA'); ?></p>
                 </div>
             </a>
-            <a class="_mPAppsList _appBlock _appBlockBackground<? if($appSelected=='moje-pisma') echo " _appBlockActive";?>" href="/moje-pisma" target="_self">
+            <a class="_mPAppsList _appBlock _appBlockBackground<? if ($appSelected == 'moje-pisma') echo " _appBlockActive"; ?>"
+               href="/moje-pisma" target="_self">
                 <div class="_mPTitle">
                     <i class="_mPAppIcon" data-icon-applications="&#xe60b;"></i>
 
                     <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_MY_DOCS'); ?></p>
                 </div>
             </a>
-            
+
         </div>
         <div class="_mPSystem">
             <div class="_mPRunning">
-
             </div>
-
-            <div class="_mPApplication">
-                
-                <div class="_mPPowerButton">
-                    <?php if ($this->Session->read('Auth.User.id')) { ?>
-                        <a href="<?php echo $this->Html->url('/logout'); ?>"><?php echo __('LC_COCKPITBAR_LOGOUT'); ?></a>
-                    <?php } else { ?>
-                        <a class="_specialCaseLoginButton"
-                           href="<?php echo $this->Html->url('/login'); ?>"><?php echo __('LC_COCKPITBAR_LOGIN'); ?></a>
-                    <?php } ?>
-                </div>
-            </div>
-
-            <? /*
-            <ul class="_mPFooter">
-                <li><?php echo $this->Html->link(__('LC_FOOTER_ABOUT_US'), '/oportalu', array('target' => '_self')); ?></li>
-                <li><?php echo $this->Html->link(__('LC_FOOTER_API'), '/api', array('target' => '_self')); ?></li>
-                <li><?php echo $this->Html->link(__('LC_FOOTER_REGULATIONS'), '/regulamin', array('target' => '_self')); ?></li>
-                <li><?php echo $this->Html->link(__('LC_FOOTER_REPORT_BUG'), '/zglosblad', array('target' => '_self')); ?></li>
-                <?php <li>echo $this->Html->link(__('LC_FOOTER_CONTACT_US'), '/kontakt', array('target' => '_self'));</li>
-            <li class="last"><a href="#" target="_self">Personalizuj</a></li> ?>
-            </ul>
-            */ ?>
         </div>
     </div>
     <? /*<div class="_mPAppList">

@@ -1,11 +1,12 @@
 <?php
 
 App::uses('ApplicationsController', 'Controller');
-class StatystykaController extends ApplicationsController
+
+class BdlController extends ApplicationsController
 {
 
     public $uses = array(
-        'Statystyka.Finanse'
+        'Bdl.Finanse'
     );
 
 	public $settings = array(
@@ -33,9 +34,9 @@ class StatystykaController extends ApplicationsController
                 'label' => 'Finanse gmin'
             )
 		),
-		'title' => 'Statystyka',
+        'title' => 'Bdl',
 		'subtitle' => 'Dane statystyczne o Polsce',
-		'headerImg' => 'statystyka',
+        'headerImg' => 'bdl',
 	);
 	
     public function view()
@@ -46,8 +47,8 @@ class StatystykaController extends ApplicationsController
 	
 	public function bdl()
 	{
-		
-		$this->loadModel('Statystyka.BDL');
+
+        $this->loadModel('Bdl.BDL');
 		$tree = $this->BDL->getTree();
 		$this->set('tree', $tree);
 		

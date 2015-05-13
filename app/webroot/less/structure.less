@@ -322,7 +322,7 @@ body {
         ._appBlock {
             height: @appHeight;
             cursor: pointer;
-						
+
             &._appBlockBackground {
                 &._appBlockActive {
                     @activeColor: #438fca;
@@ -335,7 +335,7 @@ body {
 
                         ._mPAppIcon {
                             color: #ffffff;
-                            
+
                         }
                     }
                 }
@@ -356,75 +356,96 @@ body {
             z-index: 900;
 
             ._mPPowerButton {
-                > a {
-                    padding-top: 18px;
-                    padding-bottom: 18px;
-                    display: block;
-                }
-            }
-            ._mPUser {
-                height: 90px;
                 position: relative;
-                overflow: hidden;
 
-                a {
+                > a {
                     display: block;
-                    height: 100%;
                     width: 100%;
-                    
-                    > img {
-                        width: 100%;
-                        left: 50%;
-                        position: absolute;
-                        top: 50%;
+                    height: 100%;
 
-                        -webkit-transform: translate(-50%, -50%);
-                        -moz-transform: translate(-50%, -50%);
-                        -ms-transform: translate(-50%, -50%);
-                        -o-transform: translate(-50%, -50%);
-                        transform: translate(-50%, -50%);
+                    > i {
+                        font-size: 24px;
+                        overflow: hidden;
+                        padding: 4px 2px 0;
+                        border: 1px solid #ffffff;
+                        -webkit-border-radius: 50px;
+                        -moz-border-radius: 50px;
+                        -ms-border-radius: 50px;
+                        -o-border-radius: 50px;
+                        border-radius: 50px;
                     }
+                }
+                > .avatar {
+                    max-height: 85px;
+                }
+                > .optionsBtn {
+                    width: 15px;
+                    height: 15px;
+                    display: block;
+                    position: absolute;
+                    right: 0;
+                    top: 70px;
+                    background-color: @cockpitColor;
+                    cursor: pointer;
 
-                    span {
-                        @userTextHeight: 12px;
+                    > span {
+                        font-size: 10px;
+                        color: #ffffff;
+                        display: inline-block;
+                    }
+                }
+                > .optionsList {
+                    margin: 0;
+                    padding: 0;
+                    list-style-type: none;
 
-                        position: absolute;
-                        top: 50%;
-                        left: 0;
-                        margin-top: -(@userTextHeight/2);
-                        width: 100%;
-                        height: @userTextHeight;
-                        padding: 0 10px;
-                        word-wrap: break-word;
+                    li {
+                        padding: 0;
+
+                        &:first-child {
+                            padding-top: 10px;
+                        }
+
+                        &:last-child {
+                            padding-bottom: 10px;
+                        }
+
+                        a {
+                            display: block;
+                            line-height: 1em;
+                            padding: 8px 10px;
+                            text-align: left;
+                            width: 100%;
+                        }
                     }
                 }
             }
             ._mPApplication ._appBlock {
                 position: relative;
                 display: block;
-				
-				&._mPAccount {
-					._mPTitle {
-						._mPAppIcon {
-							color: #004562;
-						}
-						._mPAppLabel {
-							color: #004562;
-						}
-					}
-				}
-				
-				&._mPAccount:hover {
-					._mPTitle {
-						._mPAppIcon {
-							color: #FFF;
-						}
-						._mPAppLabel {
-							color: #FFF;
-						}
-					}
-				}
-				
+
+                &._mPAccount {
+                    ._mPTitle {
+                        ._mPAppIcon {
+                            color: #004562;
+                        }
+                        ._mPAppLabel {
+                            color: #004562;
+                        }
+                    }
+                }
+
+                &._mPAccount:hover {
+                    ._mPTitle {
+                        ._mPAppIcon {
+                            color: #FFF;
+                        }
+                        ._mPAppLabel {
+                            color: #FFF;
+                        }
+                    }
+                }
+
                 ._mPTitle {
                     left: 50%;
                     position: absolute;
@@ -441,17 +462,17 @@ body {
                         width: 100%;
                         display: block;
                         font-size: 20px;
-                        
+
                         &.glyphicon {
-							margin-bottom: 5px;
-						}
+                            margin-bottom: 5px;
+                        }
                     }
                     ._mPAppLabel {
                         margin: 0;
                         line-height: 1.1em;
-                        
+
                         span {
-	                        word-wrap: break-word;
+                            word-wrap: break-word;
                         }
                     }
                     ._mPAppBadge {
@@ -526,7 +547,7 @@ body {
                 width: 100%;
                 padding: 5px;
                 height: @appHeight + (2*@AppListPadding);
-				
+
                 ._appConstruct {
                     display: table-cell;
                     vertical-align: middle;
@@ -626,11 +647,11 @@ body {
         }
 
         .flash-message {
-          margin-top: 70px;
+            margin-top: 70px;
         }
 
         #modalPaszportLoginForm .modal-dialog {
-          margin-top: 28px;
+            margin-top: 28px;
         }
     }
 }
