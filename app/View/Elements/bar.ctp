@@ -10,24 +10,34 @@
         <div class="_mPApplication">
             <div class="_mPPowerButton">
                 <?php if ($this->Session->read('Auth.User.id')) { ?>
-                    <a href="<?php echo $this->Html->url('/logout'); ?>"><?php echo __('LC_COCKPITBAR_LOGOUT'); ?></a>
+                    <img class="avatar"
+                         src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xaf1/v/t1.0-1/c0.0.160.160/p160x160/200389_203882612962896_3612896_n.jpg?oh=49af22e4cc2df7e0142baba17a2d681f&oe=55CC8588&__gda__=1440275973_10426031c15c5f885ed74b3a6901483c"
+                         alt=""/>
+                    <div class="optionsBtn" data-toggle="collapse"
+                         data-target="#mPUserOptions" aria-expanded="false" aria-controls="mPUserOptions">
+                        <span class="glyphicon" aria-hidden="true">&#x25BC;</span>
+                    </div>
+                    <ul id="mPUserOptions" class="optionsList collapse">
+                        <li>
+                            <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'profile')); ?>"
+                               target="_self">Podstawowe informacje</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo $this->Html->url('/logout'); ?>"
+                               target="_self"><?php echo __('LC_COCKPITBAR_LOGOUT'); ?></a>
+                        </li>
+                    </ul>
                 <?php } else { ?>
                     <a class="_specialCaseLoginButton"
-                       href="<?php echo $this->Html->url('/login'); ?>"><?php echo __('LC_COCKPITBAR_LOGIN'); ?></a>
+                       href="<?php echo $this->Html->url('/login'); ?>">
+                        <i class="_mPAppIcon glyphicon glyphicon-user"></i>
+
+                        <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_LOGIN'); ?></p>
+                    </a>
                 <?php } ?>
             </div>
             <?php if ($this->Session->read('Auth.User.id')) { ?>
-                <a class="_mPAppsList _appBlock _appBlockBackground _mPAccount<? if ($appSelected == 'paszport') echo " _appBlockActive"; ?>"
-                   href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'profile')); ?>"
-                   target="_self">
-                    <div class="_mPTitle">
-                        <i class="_mPAppIcon glyphicon glyphicon-user"></i>
 
-                        <p class="_mPAppLabel">
-                            <span><?= $this->Text->truncate($this->Session->read('Auth.User.username'), 13); ?></span>
-                        </p>
-                    </div>
-                </a>
 
                 <? /*
                 <div class="_mPUser">
