@@ -79,6 +79,10 @@ String.prototype.capitalizeFirstLetter = function () {
             $.each(link, function () {
                 tree.jstree("open_node", this);
             });
+
+            $("html, body").animate({
+                scrollTop: $('[id="' + link[link.length - 1] + '_anchor"]').offset().top
+            }, 1000);
         }
     });
 }(jQuery));
