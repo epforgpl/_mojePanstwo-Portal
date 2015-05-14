@@ -356,7 +356,10 @@ body {
             z-index: 900;
 
             ._mPPowerButton {
+                @powerSize: 86px;
+
                 position: relative;
+                overflow: hidden;
 
                 > a {
                     display: block;
@@ -376,21 +379,36 @@ body {
                     }
                 }
                 > .avatar {
-                    max-height: 85px;
+                    max-height: @powerSize;
+                    position: absolute;
+                    top: 0;
+                    left: 50%;
+                    -webkit-transform: translate(-50%, 0);
+                    -moz-transform: translate(-50%, 0);
+                    -ms-transform: translate(-50%, 0);
+                    -o-transform: translate(-50%, 0);
+                    transform: translate(-50%, 0);
                 }
                 > .optionsBtn {
-                    width: 15px;
-                    height: 15px;
                     display: block;
-                    position: absolute;
-                    right: 0;
-                    top: 70px;
-                    background-color: @cockpitColor;
                     cursor: pointer;
+                    width: 100%;
+                    height: @powerSize;
+                    position: relative;
 
                     > span {
+                        @btnSize: 15px;
+
+                        position: absolute;
+                        right: 0;
+                        top: @powerSize - @btnSize;
+                        width: @btnSize;
+                        height: @btnSize;
+                        padding: 3px 0;
+                        background-color: @cockpitColor;
                         font-size: 10px;
                         color: #ffffff;
+                        text-align: center;
                         display: inline-block;
                     }
                 }
@@ -398,6 +416,8 @@ body {
                     margin: 0;
                     padding: 0;
                     list-style-type: none;
+                    background-color: @cockpitColor;
+                    position: relative;
 
                     li {
                         padding: 0;

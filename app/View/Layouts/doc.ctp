@@ -54,9 +54,6 @@
     /* GLOBAL CSS FOR LOGIN FORM FOR PASZPORT PLUGIN*/
     $this->Combinator->add_libs('css', $this->Less->css('loginForm', array('plugin' => 'Paszport')), false);
 
-    /*JSCROLLPANE*/
-    echo $this->Html->css('../plugins/jscrollPane/style/jquery.jscrollpane.css');
-
     /*BOOTSTRAP SELECT LOOKS LIKE BOOTSTRAP BUTTONS*/
     echo $this->Html->css('../plugins/bootstrap-select/bootstrap-select.min.css');
 
