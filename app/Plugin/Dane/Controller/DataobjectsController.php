@@ -212,9 +212,9 @@ class DataobjectsController extends AppController
         );
 
 		if( $this->request->params['controller'] == 'Datasets' ) {
-			
+
 		} else {
-		
+
 			if( !$is_json && $breadcrumbs_data = $this->getDataset( $this->object->getDataset() ) ) {
 								
 				$this->addAppBreadcrumb( $breadcrumbs_data['app_id'] );
