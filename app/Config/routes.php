@@ -105,7 +105,7 @@ if ( $_SERVER['HTTP_HOST'] == PK_DOMAIN ) { // HTTP_X_FORWARDED_HOST
 
 
 } else {
-	Router::connect( '/', array( 'plugin' => 'Dane', 'controller' => 'Dane', 'action' => 'view' ) );
+	Router::connect( '/', array( 'controller' => 'pages', 'action' => 'display', 'home' ) );
 }
 
 /**
