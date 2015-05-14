@@ -139,7 +139,7 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe605;',
         ),
-        'orzecznictwo' => array(
+        'prawo' => array(
             'name' => 'Prawo',
             'href' => '/prawo',
             'tag' => 1,

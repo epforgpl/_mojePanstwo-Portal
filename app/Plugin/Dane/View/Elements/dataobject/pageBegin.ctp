@@ -1,15 +1,3 @@
-<? 
-	if($this->request->params['controller']!='Datasets') {
-?>
-<style>
-	#_wrapper {
-		background-color: #F6F6F6;
-	}
-	.objectsPage .objectPageHeaderBg {
-		background-color: #FFF;
-	}
-</style>
-<? } ?>
 <?
 /** @var Object $object */
 $object = $this->viewVars['object'];

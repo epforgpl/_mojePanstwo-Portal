@@ -93,18 +93,22 @@
     }
 
     .dataAggs {
-        margin: -40px 0;
+        margin: -20px 0;
         padding: 0;
         list-style: none;
-
-        .agg {
-            margin: 0;
+		
+		.buttons {
+            margin: 10px 0;
+            text-align: center
+        }
+		
+        li.agg {
+            margin: 40px 0;
             padding: 0;
             list-style: none;
 			
 			&.special {
 				padding: 10px;
-				background-color: #F6F6F6;
 				border-radius: 7px;
 			}
 					
@@ -116,10 +120,7 @@
                 padding: 0 5px;
             }
             
-            .buttons {
-	            margin: 0 0 20px;
-	            text-align: center;
-            }
+            
 
             .agg-DateHistogram, .agg-ColumnsHorizontal, .agg-HorizontalVertical, .agg-ColumnsVertical {
                 margin-top: 20px;
