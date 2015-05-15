@@ -4,6 +4,9 @@ App::uses('Sanitize', 'Utility');
 
 class HandelZagranicznyController extends AppController
 {
+    public $settings = array(
+        'id' => 'handel_zagraniczny'
+    );
 
     public function prepareMetaTags() {
         parent::prepareMetaTags();

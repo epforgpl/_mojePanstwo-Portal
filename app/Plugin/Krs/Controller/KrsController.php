@@ -3,8 +3,8 @@
 App::uses('ApplicationsController', 'Controller');
 class KrsController extends ApplicationsController
 {
-
 	public $settings = array(
+        'id' => 'krs',
 		'menu' => array(
 			/*
 			array(
@@ -31,50 +31,11 @@ class KrsController extends ApplicationsController
         $this->setMeta('og:image', FULL_BASE_URL . '/krs/img/social/krs.jpg');
     }
 	
-	private function getOptions() {
-		
-		
-        
-        return $options;
-		
-	}
-	
-	
-	private function getChapters( $selected = false )
-	{
-		
-		$chapters = array(
-			'chapters' => array(
-	            'organizacje' => array(
-		            'dataset' => 'krs_podmioty',
-		            'label' => 'Organizacje',
-		            'href' => '/krs/organizacje',
-	            ),
-	            'osoby' => array(
-		            'dataset' => 'krs_osoby',
-		            'label' => 'Osoby',
-		            'href' => '/krs/osoby',
-	            ),
-	            'msig' => array(
-		            'dataset' => 'krs_osoby',
-		            'label' => 'Osoby',
-		            'href' => '/krs/osoby',
-	            ),
-            ),
-		);
-		
-		if( $selected )
-			$chapters['selected'] = $selected;
-				
-		return $chapters;
-		
-	}
-		
 	public function view()
     {
-        
+
         $datasets = $this->getDatasets('krs');
-               
+
         $options  = array(
             'searchTitle' => 'Szukaj organizacji i osób...',
             'conditions' => array(
@@ -151,22 +112,22 @@ class KrsController extends ApplicationsController
 		        ),
             ),
         );
-        
+
 	    $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
-                
+
     }
-    
+
     public function organizacje()
     {
-                                
+
         $this->loadDatasetBrowser('krs_podmioty', array(
 	        // 'chapters' => $this->getChapters('organizacje'),
             'searchTitle' => 'Szukaj w organizacjach...'
         ));
-                        
+
     }
-	
+
     public function osoby()
     {
 	    $this->loadDatasetBrowser('krs_osoby', array(
@@ -177,5 +138,43 @@ class KrsController extends ApplicationsController
     public function msig()
     {
         $this->loadDatasetBrowser('msig');
+    }
+
+    private function getOptions()
+    {
+
+
+        return $options;
+
+    }
+
+    private function getChapters($selected = false)
+    {
+
+        $chapters = array(
+            'chapters' => array(
+                'organizacje' => array(
+                    'dataset' => 'krs_podmioty',
+                    'label' => 'Organizacje',
+                    'href' => '/krs/organizacje',
+                ),
+                'osoby' => array(
+                    'dataset' => 'krs_osoby',
+                    'label' => 'Osoby',
+                    'href' => '/krs/osoby',
+                ),
+                'msig' => array(
+                    'dataset' => 'krs_osoby',
+                    'label' => 'Osoby',
+                    'href' => '/krs/osoby',
+                ),
+            ),
+        );
+
+        if ($selected)
+            $chapters['selected'] = $selected;
+
+        return $chapters;
+
     }
 } 

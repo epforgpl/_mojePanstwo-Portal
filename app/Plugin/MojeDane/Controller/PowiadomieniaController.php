@@ -5,6 +5,7 @@ class PowiadomieniaController extends ApplicationsController
 {
 
 	public $settings = array(
+        'id' => 'moje_dane',
 		'menu' => array(
 			array(
                 'id' => 'obserwuje_powiadomienia',

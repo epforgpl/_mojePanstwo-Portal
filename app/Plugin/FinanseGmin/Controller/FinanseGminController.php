@@ -10,6 +10,7 @@ class FinanseGminController extends ApplicationsController
     );
 
 	public $settings = array(
+        'id' => 'finanse_gmin',
 		'menu' => array(
             array(
                 'id' => 'finanse_gmin',

@@ -5,6 +5,7 @@ App::uses('ApplicationsController', 'Controller');
 class MojaGminaController extends ApplicationsController
 {
     public $settings = array(
+        'id' => 'moja_gmina',
         'menu' => array(
             array(
                 'id' => '',

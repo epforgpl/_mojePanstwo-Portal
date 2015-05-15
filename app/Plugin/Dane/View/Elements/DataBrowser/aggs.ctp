@@ -11,7 +11,7 @@
             <? continue;
         }
 
-        if (isset($agg_data['buckets']) && (count($agg_data['buckets']) > 1)) {
+        if (isset($agg_data['buckets']) && (count($agg_data['buckets']) > 1) && isset($data['aggs_visuals_map'][$agg_id])) {
             $empty = true;
 
             foreach ($agg_data['buckets'] as $b) {

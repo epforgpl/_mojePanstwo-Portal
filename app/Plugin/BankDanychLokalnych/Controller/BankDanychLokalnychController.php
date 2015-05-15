@@ -4,6 +4,9 @@ App::uses('Sanitize', 'Utility');
 
 class BankDanychLokalnychController extends AppController
 {
+    public $settings = array(
+        'id' => 'bdl'
+    );
     public function index()
     {
         $application = $this->getApplication();

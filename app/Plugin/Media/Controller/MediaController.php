@@ -5,6 +5,7 @@ App::uses('ApplicationsController', 'Controller');
 class MediaController extends ApplicationsController
 {
     public $settings = array(
+        'id' => 'media',
         'menu' => array(
             array(
                 'id' => '',

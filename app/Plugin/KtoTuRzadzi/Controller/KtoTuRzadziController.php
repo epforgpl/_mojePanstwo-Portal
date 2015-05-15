@@ -6,6 +6,7 @@ class KtoTuRzadziController extends ApplicationsController
 {
 
     public $settings = array(
+        'id' => 'kto_tu_rzadzi',
         'menu' => array(
             array(
                 'id' => '',

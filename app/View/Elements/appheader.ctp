@@ -194,10 +194,11 @@ $this->Combinator->add_libs('js', array('appheader'));
 
                 <div class="row">
                     <div class="col-md-8">
-                        <? if (isset($appSettings['title'])) { ?>
+                        <? if (isset($_app['name'])) { ?>
                             <h1>
-                                <a href="/krs"><img class="svg" alt="Krajowy Rejestr Sądowy"
-                                                    src="/krs/icon/krs-gray.svg"> <?= $appSettings['title'] ?></a>
+                                <a href="<?= $_app['href'] ?>"><i class="glyphicon"
+                                                                  data-icon-applications="<?= $_app['icon'] ?>"></i><?= $_app['name'] ?>
+                                </a>
                             </h1>
                         <? } ?>
                     </div>

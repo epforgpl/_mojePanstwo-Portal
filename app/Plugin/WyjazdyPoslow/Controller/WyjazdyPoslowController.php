@@ -4,6 +4,9 @@ App::uses('Sanitize', 'Utility');
 
 class WyjazdyPoslowController extends AppController
 {
+    public $settings = array(
+        'id' => 'wyjazdy_poslow',
+    );
 
     public function prepareMetaTags() {
         parent::prepareMetaTags();

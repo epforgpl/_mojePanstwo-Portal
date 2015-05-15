@@ -9,6 +9,7 @@ class KodyPocztoweController extends ApplicationsController
     public $components = array('Session', 'Paginator', 'RequestHandler');
 	
 	public $settings = array(
+        'id' => 'kody_pocztowe',
 		'title' => 'Kody pocztowe',
 		// 'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce',
 		// 'headerImg' => 'prawo',

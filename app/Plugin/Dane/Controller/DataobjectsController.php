@@ -2,28 +2,28 @@
 
 class DataobjectsController extends AppController
 {
-    
+
     public $uses = array('Dane.Dataobject', 'Dane.Subscription');
     public $components = array('RequestHandler');
-    
+
     public $object = false;
-    public $initLayers = array();   
-    public $initAggs = array(); 
+    public $initLayers = array();
+    public $initAggs = array();
     public $objectOptions = array(
         'hlFields' => false,
     );
     public $loadChannels = false;
     public $channels = array();
-    
+
     public $microdata = array(
         'itemtype' => 'http://schema.org/Intangible',
         'titleprop' => 'name',
     );
-    
+
     public $menu = array();
     public $actions = array();
-	public $appSelected = 'dane';
-	
+    public $appSelected = 'dane';
+
     public function addInitLayers($layers)
     {
 
@@ -34,34 +34,17 @@ class DataobjectsController extends AppController
         }
 
     }
-    
-    public function addInitAggs( $aggs = false )
+
+    public function addInitAggs($aggs = false)
     {
-	    $this->initAggs = $aggs;
+        $this->initAggs = $aggs;
     }
 
-    public function _prepareView() {
+    public function _prepareView()
+    {
         return $this->load();
     }
-	
-	public function suggest()
-	{
-		
-		$hits = array();
-		
-		if(
-			isset( $this->request->query['q'] ) && 
-			( $q = trim($this->request->query['q']) )
-		) {
-			
-			$hits = $this->Dataobject->suggest($q);
-			
-		}
-		
-		$this->set('hits', $hits);
-		$this->set('_serialize', 'hits');
-	}
-	
+
     public function load()
     {
 
@@ -78,11 +61,11 @@ class DataobjectsController extends AppController
         ) {
 
             $layers = $this->initLayers;
-            
+
             $layers[] = 'subscriptions';
-            
-            if( $this->loadChannels )
-            	$layers[] = 'channels';
+
+            if ($this->loadChannels)
+                $layers[] = 'channels';
 
             if ($this->object = $this->Dataobject->find('first', array(
                 'conditions' => array(
@@ -93,12 +76,12 @@ class DataobjectsController extends AppController
                 'aggs' => $this->initAggs,
             ))
             ) {
-				
-				$this->set('object_aggs', $this->Dataobject->getAggs());
-				
-				if( $this->loadChannels )
-					$this->channels = $this->object->getLayer('channels');
-								
+
+                $this->set('object_aggs', $this->Dataobject->getAggs());
+
+                if ($this->loadChannels)
+                    $this->channels = $this->object->getLayer('channels');
+
                 if (
                     ($this->domainMode == 'MP') &&
                     (
@@ -160,7 +143,7 @@ class DataobjectsController extends AppController
                 }
 
                 $dataset = $this->object->getLayer('dataset');
-								
+
                 $this->set('object', $this->object);
                 $this->set('object_subscriptions', $this->object->getLayer('subscriptions'));
                 $this->set('objectOptions', $this->objectOptions);
@@ -174,81 +157,100 @@ class DataobjectsController extends AppController
         }
 
     }
-    
-    public function view() {
-	    $this->load();
+
+    public function suggest()
+    {
+
+        $hits = array();
+
+        if (
+            isset($this->request->query['q']) &&
+            ($q = trim($this->request->query['q']))
+        ) {
+
+            $hits = $this->Dataobject->suggest($q);
+
+        }
+
+        $this->set('hits', $hits);
+        $this->set('_serialize', 'hits');
     }
-        
-    public function feed($params = array()) {
-	    
-	    if( !is_array($params) )
-	    	$params = array();
-	    
-	    $this->loadChannels = true;
-	    	    
-	    if( $this->object===false )
-		    $this->load(array(
-			    'subscriptions' => true,
-		    ));
-	    
-	    $params = array_merge(array(
+
+    public function view()
+    {
+        $this->load();
+    }
+
+    public function feed($params = array())
+    {
+
+        if (!is_array($params))
+            $params = array();
+
+        $this->loadChannels = true;
+
+        if ($this->object === false)
+            $this->load(array(
+                'subscriptions' => true,
+            ));
+
+        $params = array_merge(array(
             'feed' => $this->object->getDataset() . '/' . $this->object->getId(),
             'preset' => $this->object->getDataset(),
         ), $params);
-                
-        if( isset($params['searchTitle']) )
-        	$_params['searchTitle'] = $params['searchTitle'];
-	    
-	    $this->Components->load('Dane.DataFeed', $params);
-	    
+
+        if (isset($params['searchTitle']))
+            $_params['searchTitle'] = $params['searchTitle'];
+
+        $this->Components->load('Dane.DataFeed', $params);
+
     }
-    
-    
-    public function beforeRender() {
+
+
+    public function beforeRender()
+    {
 
         $is_json = boolval(
             isset($this->request->params['ext']) &&
             $this->request->params['ext'] == 'json'
         );
 
-		if( $this->request->params['controller'] == 'Datasets' ) {
+        if (($this->request->params['controller'] == 'Datasets') && ($breadcrumbs_data = $this->getDataset($this->object->getData('slug')))) {
+            $this->addAppBreadcrumb($breadcrumbs_data['app_id']);
+        } else {
+            if (!$is_json && ($breadcrumbs_data = $this->getDataset($this->object->getDataset()))) {
+                $this->addAppBreadcrumb($breadcrumbs_data['app_id']);
 
-		} else {
+                $this->addBreadcrumb(array(
+                    'href' => '/dane/' . $breadcrumbs_data['dataset_id'],
+                    'label' => $breadcrumbs_data['dataset_name'],
+                ));
 
-			if( !$is_json && $breadcrumbs_data = $this->getDataset( $this->object->getDataset() ) ) {
-								
-				$this->addAppBreadcrumb( $breadcrumbs_data['app_id'] );
-		        
-		        $this->addBreadcrumb(array(
-			        'href' => '/dane/' . $breadcrumbs_data['dataset_id'],
-			        'label' => $breadcrumbs_data['dataset_name'],
-		        ));
-				
-			}
-		
-		}		
+            }
+
+        }
 
         parent::beforeRender();
-		
-	    if( $is_json ) {
-		    
-	    } else {
-	    
-		    $selected = $this->request->params['action'];
-		    if( $selected=='view' )
-		    	$selected = '';
-		    		    
-		    $this->menu['selected'] = $selected;
+
+        if ($is_json) {
+
+        } else {
+
+            $selected = $this->request->params['action'];
+            if ($selected == 'view')
+                $selected = '';
+
+            $this->menu['selected'] = $selected;
             $this->menu['base'] = $this->object->getUrl();
             $this->set('object_actions', $this->actions);
-		    $this->set('object_menu', $this->menu);
+            $this->set('object_menu', $this->menu);
             $this->set('object_addons', $this->addons);
-	
-	        $this->prepareMetaTags();
-	    }
-	    
+
+            $this->prepareMetaTags();
+        }
+
     }
-    
+
     /*
     public function unsubscribe() {
 	    	    
@@ -258,9 +260,10 @@ class DataobjectsController extends AppController
     }
     */
 
-    public function prepareMetaTags() {
+    public function prepareMetaTags()
+    {
         parent::prepareMetaTags();
-        if($desc = $this->object->getDescription())
+        if ($desc = $this->object->getDescription())
             $this->setMeta('description', $desc);
         $this->setMeta(array(
             'og:title' => $this->object->getTitle(),

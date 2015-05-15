@@ -36,8 +36,8 @@ class Zamowienia_publiczne extends DataObject
 
     public function getLabel()
     {
-
         $status = $this->getStatus();
+
 		if( $this->getData('tryb_id')=='2' ) {
 			$output = 'Zamówienie z wolnej ręki';
 		} else {
@@ -47,50 +47,48 @@ class Zamowienia_publiczne extends DataObject
 		$output .= ' z ' . dataSlownie( $this->getDate() );
 
         return $output;
-
     }
-    
+
     public function getStatus(){
-	    
 	    $nazwa = '';
-	    
-	    if( $this->getData('status_id')=='0' )
+
+        if( $this->getData('status_id')=='0' )
 	    	return array(
 	    		'nazwa' => 'Zamówienie otwarte',
 	    		'class' => 'success',
 	    	);
 
-		elseif( $this->getData('status_id')=='2' )	
+        elseif ($this->getData('status_id') == '2')
 	    	return array(
 	    		'nazwa' => 'Zamówienie rozstrzygnięte',
 	    		'class' => 'danger'
 	    	);
-	    	
-	    
-	    return array(
+
+
+        return array(
 	    	'nazwa' => '',
 	    	'class' => '',
 	    );
-	    
+
     }
 
     public function getIcon()
     {
         return '<i class="object-icon glyphicon" data-icon-datasets="&#xe625;"></i>';
     }
-    
+
     public function getMetaDescriptionParts($preset = false)
 	{
-		
-		$output = array(
+
+        $output = array(
 			$this->getData('zamowienia_publiczne.zamawiajacy_nazwa'),
 		);
-		
-		if( $this->getData('zamowienia_publiczne.wartosc_cena') )
+
+        if( $this->getData('zamowienia_publiczne.wartosc_cena') )
 			$output[] = number_format_h($this->getData('zamowienia_publiczne.wartosc_cena')) . ' PLN';
-		
-		return $output;
-		
-	}
-    
+
+        return $output;
+
+    }
+
 }

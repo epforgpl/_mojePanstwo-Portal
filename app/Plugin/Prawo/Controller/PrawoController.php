@@ -5,6 +5,7 @@ class PrawoController extends ApplicationsController
 {
 
 	public $settings = array(
+        'id' => 'prawo',
 		'menu' => array(
 			array(
 				'id' => '',
