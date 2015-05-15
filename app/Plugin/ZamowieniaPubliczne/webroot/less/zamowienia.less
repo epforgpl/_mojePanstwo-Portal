@@ -1,138 +1,58 @@
-#_wrapper {
-
-    .main-alert {
-        margin: 20px 0 0;
-    }
-
-    .banner {
-        text-align: center;
-        padding: 20px 0;
-
-        p {
-            font-size: 20px;
-            font-weight: 300;
-            margin-bottom: 0;
-
-            &.number {
-                margin: 20px 0;
-            }
-        }
-
-        b {
-            font-weight: 400;
-        }
-    }
-
-    .number {
-        font-size: 30px;
-        font-weight: 300;
-        margin: 5px 0;
-        color: #2E8F3E;
-
-        &.small {
-
-            font-size: 16px;
-            margin: 15px 0;
-
-            span {
-                margin: 0 3px;
-            }
-            strong {
-                font-size: 24px;
-                font-weight: 400;
-            }
-        }
-
-        span {
-            margin: 0 5px;
-            font-weight: 400;
-        }
-
-        strong {
-            font-weight: 400;
-            font-size: 40px;
-        }
-    }
-
-    #highchartContainer {
-        height: 300px;
-        width: 100%;
-    }
-
-    .zam-block {
-
-        background-color: #FFF;
-        margin-top: 15px;
-        margin-bottom: 15px;
-
-        &:first-child {
-            margin-top: 0;
-        }
-
-        .column {
-
-            border-right: 1px solid #DDD;
-            margin: 0;
-            padding-left: 0;
-            padding-right: 0;
-
-            &:last-child {
-                border-right: none;
-            }
-
-            .na {
-
-                margin-top: 15px;
-
-                .label {
-
-                    font-size: 14px;
-
-                }
-            }
-
-            .soon {
-                color: #CCC;
-                font-size: 20px;
-                font-style: italic;
-                font-weight: 300;
-                margin: 50px 0;
-                text-align: center;
-            }
-
-            ul {
-
-                list-style: none;
-                margin: 0;
-                padding: 0;
-
-                li {
-
-                    list-style: none;
-                    padding: 10px;
-                    margin: 10px;
-                    border-bottom: 1px solid #EEE;
-
-                    &:last-child {
-                        border-bottom: none;
-                    }
-
-                    .title {
-                        font-size: 17px;
-                    }
-
-                    .desc {
-                        font-size: 13px;
-                        padding: 0 10px;
-                        color: #999;
-                    }
-
-                }
-
-            }
-
-        }
-
-    }
-
+.dataAggs {
+	.wykonawcy {
+		
+		list-style: none;
+		padding-left: 0;
+		margin: 20px 10px;
+		
+		> li {
+			list-style: none;
+			margin: 10px 0;
+			padding: 15px 0;
+			border-bottom: 1px solid #DDD;
+			
+			h2 {
+				font-weight: normal;
+			    overflow: auto;
+			    font-size: 18px;
+			    margin-bottom: 5px;
+			    
+			    .cena {
+				    color: green;
+			    }
+			    
+			}
+			
+			.stats {
+				color: #666;
+				font-style: italic;
+				strong {
+					font-weight: normal;
+				}
+		    }
+			
+			.dataobjects {
+				padding: 0 15px;
+				
+				.objectRender .title {
+					
+					font-size: 16px;
+					
+					a {
+						color: #545454;
+						&:hover {
+							color: #2a6496;
+						}
+					}
+					
+					
+				}
+				
+				.meta.meta-desc {
+					color: green;
+				}
+			}
+		}
+		
+	}
 }

@@ -83,9 +83,9 @@ class DataobjectHelper extends AppHelper
 			if( file_exists($file) ) {
 				require_once( $file );
 				$class = 'MP\\Lib\\' . $class;
-				$object = new $class( $object );
+				$object = new $class( $object, $options );
 			} else {
-				$object = new MP\Lib\Dataobject( $object );
+				$object = new MP\Lib\Dataobject( $object, $options );
 			}
 			
 		}

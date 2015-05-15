@@ -90,7 +90,7 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
         ?>
         <div class="row">
             <div
-                class="dataCounter col-md-8<? if (!$dataBrowser['multiSearch'] && empty($dataBrowser['aggs'])) { ?> col-md-offset-1<? } ?>">
+                class="dataCounter col-md-8">
                 <p class="pull-left"><?= pl_dopelniacz($params['count'], 'wynik', 'wyniki', 'wyników') ?><? if ($took) { ?> (<?= $took ?> s)<? } ?></p>
 
                 <p class="pull-right"><a href="#" class="link-discrete link-api-call" data-toggle="modal"

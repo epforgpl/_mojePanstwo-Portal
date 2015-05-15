@@ -664,39 +664,6 @@ class DataBrowserComponent extends Component {
 		            'field' => 'krs_podmioty.wartosc_kapital_zakladowy',
 	            ),
 	        ),
-	        'date' => array(
-	            'date_histogram' => array(
-		            'field' => 'date',
-		            'interval' => 'year',
-		            'format' => 'yyyy-MM-dd',
-	            ),
-	            'visual' => array(
-		            'label' => 'Nowe organizacje w czasie',
-		            'skin' => 'date_histogram',
-		            'field' => 'date',
-	            ),
-	        ),
-	        /*
-	        'autor_id' => array(
-	            'terms' => array(
-		            'field' => 'prawo.autor_id',
-		            'exclude' => array(
-			            'pattern' => '0'
-		            ),
-	            ),
-	            'aggs' => array(
-		            'label' => array(
-			            'terms' => array(
-				            'field' => 'data.prawo.autor_nazwa',
-			            ),
-		            ),
-	            ),
-	            'visual' => array(
-		            'label' => 'Autorzy aktów prawnych',
-		            'skin' => 'columns_horizontal',
-	            ),
-	        ),
-	        */
 	    ),
 	    'dotacje_ue' => array(
 	        'date' => array(

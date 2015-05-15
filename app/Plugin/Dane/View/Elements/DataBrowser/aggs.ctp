@@ -8,7 +8,7 @@
 	if( $agg_id=='apps' ) {
 ?>		
 		<li class="agg">
-            <h2>Aplikacje</h2>
+            <h2>Szukaj w</h2>
             <?			
             echo $this->element('Dane.DataBrowser/apps', array(
                 'data' => $agg_data,

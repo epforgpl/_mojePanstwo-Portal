@@ -186,6 +186,10 @@ class mpAPISource extends DataSource {
                                 
 		$base_url = implode('/', $endpoint_parts) . '.' . $this->config['ext'];
 		
+		$public_query = $queryData;
+		if( isset($public_query['aggs']) )
+			unset( $public_query['aggs'] );
+
 		$this->public_api_call = $this->config['host'] . '/' . $base_url . '?' . http_build_query($queryData);
 				
         $res = $this->request($base_url, array(

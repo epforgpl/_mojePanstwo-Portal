@@ -33,11 +33,13 @@ class Dataobject
     public $classes = array();
     public $subscribtion = false;
     public $inner_hits = array();
+    public $options = array();
     
 
-    public function __construct($params = array())
+    public function __construct($params = array(), $options = array())
     {
 				
+		$this->options = $options;
         $this->data = $params['data'];
         $this->layers = isset( $params['layers'] ) ? $params['layers'] : array();
         $this->dataset = $params['dataset'];
@@ -262,9 +264,9 @@ class Dataobject
     }
 	
 	public function getIcon()
-    {
-        return false;
-    }
+	{
+		return '<i class="object-icon glyphicon glyphicon-file"></i>';
+	}
     
     public function getHeaderThumbnailUrl($size = 'default')
     {
