@@ -5,9 +5,9 @@ require_once('DocDataObject.php');
 
 class Poslowie_oswiadczenia_majatkowe extends DocDataObject
 {
-	
-	protected $tiny_label = 'Oświadczenie majątkowe';
-	
+
+    protected $tiny_label = 'Oświadczenie majątkowe';
+
     protected $routes = array(
         'date' => 'data',
         'shortTitle' => 'label',
@@ -25,6 +25,11 @@ class Poslowie_oswiadczenia_majatkowe extends DocDataObject
 
         return 'Oświadczenie majątkowe posła';
 
+    }
+
+    public function getIcon()
+    {
+        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe617;"></i>';
     }
 
 }

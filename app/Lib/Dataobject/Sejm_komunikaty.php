@@ -19,6 +19,11 @@ class Sejm_komunikaty extends DocDataObject
         return 'Komunikat Kancelarii Sejmu';
     }
 
+    public function getIcon()
+    {
+        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe616;"></i>';
+    }
+
     public function getThumbnailUrl($size = false)
     {
         return ($this->getData('img') == '1') ?

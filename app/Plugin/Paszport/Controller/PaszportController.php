@@ -7,6 +7,7 @@ App::uses('Security', 'Utility');
 class PaszportController extends ApplicationsController
 {
 	public $settings = array(
+        'id' => 'paszport',
 		'menu' => array(
 			array(
 				'id' => '',

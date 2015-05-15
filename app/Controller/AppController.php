@@ -239,9 +239,21 @@ class AppController extends Controller
         ),
         'finanse_gmin' => array(
             'name' => 'Finanse gmin',
-            'href' => '/finanse',
+            'href' => '/finanse_gmin',
             'tag' => 2,
             'icon' => '&#xe602;',
+        ),
+        'moje_dane' => array(
+            'name' => 'Moje dane',
+            'href' => '/moje-dane',
+            'tag' => 3,
+            'icon' => '&#xe60a;',
+        ),
+        'moje_pisma' => array(
+            'name' => 'Moje pisma',
+            'href' => '/moje-pisma',
+            'tag' => 3,
+            'icon' => '&#xe60b;',
         ),
     );
 
@@ -565,31 +577,31 @@ class AppController extends Controller
         } else return false;
 
     }
-    
-    public function getDataset( $id = false )
+
+    public function getDataset($id = false)
     {
-	    
-	    if( $id ) {
-		    foreach( $this->datasets as $app_id => $datasets ) {
-			    foreach( $datasets as $dataset_id => $dataset_name ) {
-				    if( $dataset_id == $id ) {
-				    	return array(
-					    	'app_id' => $app_id,
-					    	'dataset_id' => $dataset_id,
-					    	'dataset_name' => $dataset_name,
-				    	);
-				    }
-			    }
-		    }
-	    }
-	    
-	    return false;
-	    
+
+        if ($id) {
+            foreach ($this->datasets as $app_id => $datasets) {
+                foreach ($datasets as $dataset_id => $dataset_name) {
+                    if ($dataset_id == $id) {
+                        return array(
+                            'app_id' => $app_id,
+                            'dataset_id' => $dataset_id,
+                            'dataset_name' => $dataset_name,
+                        );
+                    }
+                }
+            }
+        }
+
+        return false;
+
     }
 
     public function beforeRender()
     {
-	    	    
+
         $this->set('_breadcrumbs', $this->breadcrumbs);
         $this->set('_applications', $this->applications);
 
@@ -668,10 +680,10 @@ class AppController extends Controller
     public function addAppBreadcrumb($app_id = false)
     {
         if ($app = $this->getApplication($app_id)) {
-						
+
             $this->addBreadcrumb(array(
                 'label' => $app['name'],
-                'icon' => '<img class="svg" alt="Krajowy Rejestr Sądowy" src="/krs/icon/krs-gray.svg">',
+                'icon' => '<i class="glyphicon" data-icon-applications="' . $app['icon'] . '"></i>',
                 'href' => $app['href'],
             ));
         }

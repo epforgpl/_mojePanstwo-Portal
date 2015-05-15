@@ -4,6 +4,10 @@ App::uses('Sanitize', 'Utility');
 
 class WydatkiPoslowController extends AppController
 {
+    public $settings = array(
+        'id' => 'wydatki_poslow',
+    );
+
     public function index()
     {
 

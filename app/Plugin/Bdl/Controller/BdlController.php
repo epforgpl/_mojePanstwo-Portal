@@ -5,10 +5,6 @@ App::uses('ApplicationsController', 'Controller');
 class BdlController extends ApplicationsController
 {
 
-    public $uses = array(
-        'Bdl.Finanse'
-    );
-
 	public $settings = array(
 		'menu' => array(
 			array(
@@ -28,11 +24,7 @@ class BdlController extends ApplicationsController
 						'label' => 'Wskaźniki',
 					),
 				),
-			),
-            array(
-                'id' => 'finanse_gmin',
-                'label' => 'Finanse gmin'
-            )
+			)
 		),
         'title' => 'Bdl',
 		'subtitle' => 'Dane statystyczne o Polsce',
@@ -47,11 +39,9 @@ class BdlController extends ApplicationsController
 	
 	public function bdl()
 	{
-
         $this->loadModel('Bdl.BDL');
 		$tree = $this->BDL->getTree();
 		$this->set('tree', $tree);
-		
 	}
 	
     public function bdl_kategorie()
@@ -62,12 +52,6 @@ class BdlController extends ApplicationsController
     public function bdl_grupy()
     {
         $this->loadDatasetBrowser('bdl_wskazniki_grupy');
-    }
-
-    public function finanse_gmin()
-    {
-        $data = $this->Finanse->getBudgetData();
-        $this->set('data', $data);
     }
 
 } 

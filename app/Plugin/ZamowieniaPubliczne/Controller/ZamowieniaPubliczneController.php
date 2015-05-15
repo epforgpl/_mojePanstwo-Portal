@@ -5,6 +5,7 @@ class ZamowieniaPubliczneController extends ApplicationsController
 {
 	
     public $settings = array(
+        'id' => 'zamowienia_publiczne',
 		'menu' => array(
 			array(
 				'id' => '',

@@ -5,6 +5,7 @@ class SejmometrController extends ApplicationsController
 {
 
     public $settings = array(
+        'id' => 'sejmometr',
 		'menu' => array(
 			array(
 				'id' => '',

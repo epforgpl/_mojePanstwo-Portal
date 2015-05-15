@@ -1,4 +1,4 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('view-sporzeczenia', array('plugin' => 'Dane'))); ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('view-sptezy', array('plugin' => 'Dane'))); ?>
 
 <?= $this->Element('dataobject/pageBegin'); ?>
 

@@ -5,9 +5,9 @@ require_once( 'DocDataObject.php' );
 
 class Prawo extends DocDataObject
 {
-	
+
+    public $force_hl_fields = true;
 	protected $tiny_label = 'Prawo';
-	
 	protected $schema = array(
 		array('id', 'ID'),
 		array('sygnatura', 'Sygnatura'),
@@ -16,25 +16,25 @@ class Prawo extends DocDataObject
 		array('data_wejscia_w_zycie', 'Data wejścia w życie'),
 		array('isap_status_str', 'Status'),
 	);
-	
     protected $routes = array(
         'title' => 'tytul',
         'shortTitle' => 'tytul_skrocony',
         'date' => 'data_publikacji',
         'label' => 'label'
     );
-    
     protected $hl_fields = array(
     	'isap_status_str', 'sygnatura', 'data_publikacji', 'data_wejscia_w_zycie'
     );
-    
+
     public function getLabel() {
-	    
-	    // return $this->getData('status_id');
+
+        // return $this->getData('status_id');
 	    return $this->getData('label');
-	    
     }
-    
-    public $force_hl_fields = true;
+
+    public function getIcon()
+    {
+        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe637;"></i>';
+    }
 
 }

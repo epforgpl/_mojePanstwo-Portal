@@ -2,94 +2,100 @@
 
 class ApplicationsController extends AppController
 {
-	
-	public $settings = array();
-	public $_settings = array(
-		'menu' => array(),
-		'menuSelected' => false,
-		'title' => '',
-		'subtitle' => '',
-		'headerImg' => false,
-	);
+
+    public $settings = array();
+    public $_settings = array(
+        'menu' => array(),
+        'menuSelected' => false,
+        'title' => '',
+        'subtitle' => '',
+        'headerImg' => false,
+    );
 
     public $components = array(
         'Session',
         'Facebook.Connect'
     );
-	
-	public $title = false;
-	public $description = false;
-	public $appSelected = 'dane';
-	
-	public function beforeFilter() {
-				
-		$this->settings = array_merge($this->_settings, $this->settings);
+
+    public $title = false;
+    public $description = false;
+    public $appSelected = 'dane';
+
+    public function beforeFilter()
+    {
+
+        $this->settings = array_merge($this->_settings, $this->settings);
 
         $this->Auth->authenticate = array(
             'Paszport'
         );
 
-		parent::beforeFilter();
-					
-	}
-		
-	public function beforeRender()
+        parent::beforeFilter();
+
+    }
+
+    public function beforeRender()
     {
         parent::beforeRender();
 
-	    if( $this->settings['menuSelected'] === false )
-	    	$this->settings['menuSelected'] = $this->request->params['action'];
-	    
+        if ($app = $this->getApplication($this->settings['id'])) {
+            $this->set('_app', $app);
+        };
+
+        if ($this->settings['menuSelected'] === false)
+            $this->settings['menuSelected'] = $this->request->params['action'];
+
         $this->set('appSettings', $this->settings);
-        
-        if( $this->title )
-	        $this->set('title_for_layout', $this->title);
-        elseif( isset($this->settings['title']) )
-	        $this->set('title_for_layout', $this->settings['title']);
-	        
+
+        if ($this->title)
+            $this->set('title_for_layout', $this->title);
+        elseif (isset($this->settings['title']))
+            $this->set('title_for_layout', $this->settings['title']);
+
     }
 
-    public function prepareMetaTags() {
+    public function prepareMetaTags()
+    {
         parent::prepareMetaTags();
 
-        if($this->description)
+        if ($this->description)
             $this->setMeta('description', $this->description);
-        elseif(isset($this->settings['subtitle']))
+        elseif (isset($this->settings['subtitle']))
             $this->setMeta('description', $this->settings['subtitle']);
 
-        if($this->title)
+        if ($this->title)
             $this->setMeta('og:title', $this->title);
-        elseif(isset($this->settings['title']))
+        elseif (isset($this->settings['title']))
             $this->setMeta('og:title', $this->settings['title']);
     }
-    
-    public function setMenuSelected( $selected = '' )
+
+    public function setMenuSelected($selected = '')
     {
-	    
-	    $this->settings['menuSelected'] = $selected;
-    
+
+        $this->settings['menuSelected'] = $selected;
+
     }
-    
+
     public function loadDatasetBrowser($dataset, $options = array())
     {
-	    
-	    $options = array_merge(array(
+
+        $options = array_merge(array(
             'conditions' => array(
-	            'dataset' => $dataset,
+                'dataset' => $dataset,
             ),
             'aggsPreset' => $dataset,
         ), $options);
-                	    	    
-	    $this->Components->load('Dane.DataBrowser', $options);
+
+        $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
-        	    
+
     }
-    
+
     public function index()
     {
-	    
+
         $this->set('apps', $this->Application->find('all'));
-    
+
     }
-	
+
 }

@@ -4,9 +4,9 @@ namespace MP\Lib;
 
 class Sa_orzeczenia extends DataObject
 {
-	
+
+    public $force_hl_fields = true;
 	protected $tiny_label = 'Orzeczenie sądu';
-	
 	protected $schema = array(
 		array('skarzony_organ_str', 'Skarżony organ'),
 		array('wynik_str', 'Wynik'),
@@ -14,21 +14,22 @@ class Sa_orzeczenia extends DataObject
 			'dopelniacz' => array('dzień', 'dni', 'dni'),
 		)),
 	);
-	
     protected $routes = array(
         'title' => 'sygnatura',
         'shortTitle' => 'sygnatura',
         'date' => 'data_orzeczenia',
     );
-	
 	protected $hl_fields = array(
     	'skarzony_organ_str', 'wynik_str'
     );
-    
+
     public function getLabel() {
 	    return 'Orzeczenie z dnia ' . dataSlownie( $this->getDate() );
     }
-    
-    public $force_hl_fields = true;
+
+    public function getIcon()
+    {
+        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe632;"></i>';
+    }
 
 }

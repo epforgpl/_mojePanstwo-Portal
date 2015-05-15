@@ -5,23 +5,28 @@ require_once('DocDataObject.php');
 
 class Poslowie_wspolpracownicy extends DocDataObject
 {
-	
-	protected $tiny_label = 'Osoba';
-	
-	protected $schema = array(
-		array('poslowie.nazwa', 'Zatrudniający', 'string', array(
-			'link' => array(
-				'dataset' => 'poslowie',
-				'object_id' => '$poslowie.id',
-			),
-		)),
-	);
-	
-	protected $hl_fields = array('poslowie.nazwa');
-	
+
+    protected $tiny_label = 'Osoba';
+
+    protected $schema = array(
+        array('poslowie.nazwa', 'Zatrudniający', 'string', array(
+            'link' => array(
+                'dataset' => 'poslowie',
+                'object_id' => '$poslowie.id',
+            ),
+        )),
+    );
+
+    protected $hl_fields = array('poslowie.nazwa');
+
     public function getLabel()
     {
         return 'Współpracownik posła';
+    }
+
+    public function getIcon()
+    {
+        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe613;"></i>';
     }
 
     public function getTitle()

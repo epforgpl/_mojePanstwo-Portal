@@ -5,6 +5,7 @@ class PismaController extends ApplicationsController
 {
 
     public $settings = array(
+        'id' => 'moje_pisma',
         'menu' => array(
             array(
                 'id' => 'moje_pisma',
