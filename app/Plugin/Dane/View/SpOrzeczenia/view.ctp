@@ -13,8 +13,7 @@
                     <div class="panel-body">
                         <?php echo $blok['orzeczenia_bloki']['wartosc']; ?>
                     </div>
-                    <div class="panel-footer">Źródło: <a
-                            href="http://orzeczenia.ms.gov.pl/details/<?= $object->getData('sp_orzeczenia.str_ident'); ?>">
+                    <div class="panel-footer">Źródło: <a href="http://orzeczenia.ms.gov.pl/details/<?= $object->getData('sp_orzeczenia.str_ident'); ?>">
                             orzeczenia.ms.gov.pl/details/<?= $object->getData('sp_orzeczenia.str_ident'); ?>
                         </a>
                     </div>

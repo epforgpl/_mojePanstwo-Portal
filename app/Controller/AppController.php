@@ -239,7 +239,7 @@ class AppController extends Controller
         ),
         'finanse_gmin' => array(
             'name' => 'Finanse gmin',
-            'href' => '/finanse',
+            'href' => '/finanse_gmin',
             'tag' => 2,
             'icon' => '&#xe602;',
         ),
