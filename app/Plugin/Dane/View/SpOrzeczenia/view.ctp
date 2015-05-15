@@ -2,6 +2,7 @@
 <div class="object">
     <div class="document col-md-10 col-md-offset-1">
         <div class="block-group">
+
             <?php foreach ($object->getLayer('bloki') as $blok) { ?>
 
                 <div class="block">
@@ -15,14 +16,14 @@
                     </div>
 
                 </div>
-
-                <div class="well well-sm text-center">
-                    Źródło:
-                    <a href="http://orzeczenia.ms.gov.pl/details/<?= $object->getData('sp_orzeczenia.str_ident'); ?>">
-                        orzeczenia.ms.gov.pl/details/<?= $object->getData('sp_orzeczenia.str_ident'); ?>
-                    </a>
-                </div>
             <?php } ?>
+
+            <div class="well well-sm text-center">
+                Źródło:
+                <a href="http://orzeczenia.ms.gov.pl/details/<?= $object->getData('sp_orzeczenia.str_ident'); ?>">
+                    orzeczenia.ms.gov.pl/details/<?= $object->getData('sp_orzeczenia.str_ident'); ?>
+                </a>
+            </div>
         </div>
     </div>
 <?= $this->Element('dataobject/pageEnd'); ?>
