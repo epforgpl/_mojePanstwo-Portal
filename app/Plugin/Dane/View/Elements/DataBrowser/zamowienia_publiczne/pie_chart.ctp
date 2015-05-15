@@ -1,12 +1,12 @@
 <?
     $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
     $this->Combinator->add_libs('js', '../plugins/highcharts/locals');
-    
-    foreach( $data['buckets'] as &$d ) {
+
+foreach( $data['buckets'] as &$d ) {
     	$d['doc_count'] = $d['wartosc_cena']['value'];
     	$d['str'] = number_format_h( $d['wartosc_cena']['value'] );
     }
-    
+
 ?>
 
 <? if(!isset($this->request->query['conditions'][$map['field']])) { ?>

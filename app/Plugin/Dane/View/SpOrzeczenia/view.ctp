@@ -2,7 +2,7 @@
 
 <?= $this->Element('dataobject/pageBegin'); ?>
     <div class="object">
-        <div class="document col-md-10 col-md-offset-1">
+        <div class="document col-xs-12 col-md-8">
             <?php foreach ($object->getLayer('bloki') as $blok) { ?>
                 <div class="panel panel-default">
                     <?php if (isset($blok['orzeczenia_bloki']['tytul']) && $blok['orzeczenia_bloki']['tytul']) { ?>
