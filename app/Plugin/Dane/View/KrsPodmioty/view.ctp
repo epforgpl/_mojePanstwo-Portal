@@ -56,7 +56,7 @@ $this->Combinator->add_libs('js', 'graph-krs');
     </div>
 <? } ?>
 
-				        <? echo @$this->Element('Dane.sides/' . $this->request->params['controller'] . '-top'); ?>
+<? echo @$this->Element('Dane.sides/' . $this->request->params['controller'] . '-top'); ?>
 
 
 
@@ -451,7 +451,7 @@ if (isset($historia) && $historia) {
     </div>
 
 
-    <? if ($zamowienia) { ?>
+    <? if (isset($zamowienia) && $zamowienia) { ?>
     <div id="zamowienia" class="block">
         <div class="block-header">
             <h2 class="label pull-left">Realizowane zamówienia publiczne</h2>
@@ -474,7 +474,7 @@ if (isset($historia) && $historia) {
     </div>
 <? } ?>
 
-<? if ($dotacje) { ?>
+<? if (isset($dotacje) && $dotacje) { ?>
     <div id="zamowienia" class="block">
         <div class="block-header">
             <h2 class="label pull-left">Udzielone dotacje</h2>
@@ -498,7 +498,7 @@ if (isset($historia) && $historia) {
 <? } ?>
 
 
-<? if ($dzialalnosci) { ?>
+<? if (isset($dzialalnosci) && $dzialalnosci) { ?>
     <div class="dzialalnosci block">
         <div class="block-header"><h2 id="<?= $dzialalnosci['idTag'] ?>"
                                       class="label"><?= $dzialalnosci['title'] ?></h2></div>
@@ -513,7 +513,7 @@ if (isset($historia) && $historia) {
     </div>
 <? } ?>
 
-	<? /*
+<? /*
 	<div class="row">
 		<div class="col-md-9">
 		    <div class="object">

@@ -7,18 +7,18 @@ class Urzednicy_rejestr_korzysci extends DataObject
 {
 	
 	protected $tiny_label = 'Rejestr korzyści';
-	
+
+    public function getTitle()
+    {
+        return $this->getShortTitle();
+    }
+
 	public function getShortTitle() {
 
         if ($this->getData('typ') == 'u') {
             return $this->getData('za_osobe');
         }
         return $this->getData('za_osobe') . ' (współmałżonek)';
-	}
-
-	public function getTitle()
-	{
-		return $this->getShortTitle();
 	}
 
     public function getDate() {
@@ -28,6 +28,11 @@ class Urzednicy_rejestr_korzysci extends DataObject
     public function getLabel()
     {
         return 'Wpis w rejestrze korzyści';
+    }
+
+    public function getIcon()
+    {
+        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe628;"></i>';
     }
     
     public function hasHighlights()

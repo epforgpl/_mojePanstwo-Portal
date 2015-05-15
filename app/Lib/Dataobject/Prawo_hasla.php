@@ -14,16 +14,20 @@ class Prawo_hasla extends DataObject
 	protected $hl_fields = array(
 		// 'liczba_aktow',
 	);
+     protected $routes = array(
+        'title' => 'q',
+        'shortTitle' => 'q',
+    );
 
     public function getLabel()
     {
         return 'Hasło w aktach prawnych';
     }
-    
-     protected $routes = array(
-        'title' => 'q',
-        'shortTitle' => 'q',
-    );
+
+    public function getIcon()
+    {
+        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe636;"></i>';
+    }
     
     public function hasHighlights()
     {

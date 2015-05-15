@@ -27,4 +27,9 @@ class Poslowie_rejestr_korzysci extends DocDataObject
 
     }
 
+    public function getIcon()
+    {
+        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe61a;"></i>';
+    }
+
 }

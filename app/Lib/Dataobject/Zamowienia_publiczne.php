@@ -4,11 +4,11 @@ namespace MP\Lib;
 
 class Zamowienia_publiczne extends DataObject
 {
-	
+
+    public $force_hl_fields = true;
 	protected $tiny_label = 'Zamówienie publiczne';
-	
 	protected $schema = array(
-	
+
 		array('zamowienia_publiczne_tryby.nazwa', false),
 		array('zamawiajacy_nazwa', 'Zamawiający'),
 		array('zamawiajacy_miejscowosc', 'Miejscowość'),
@@ -23,23 +23,21 @@ class Zamowienia_publiczne extends DataObject
 		array('tryb_id', 'Tryb', 'text'),
 		array('rodzaj_id', 'Rodzaj', 'text'),
 		*/
-		
+
 	);
-	
     protected $routes = array(
         'title' => 'nazwa',
         'shortTitle' => 'nazwa',
         'date' => 'data_publikacji',
     );
-	
 	protected $hl_fields = array(
     	'zamawiajacy_nazwa', 'zamawiajacy_miejscowosc',
     );
-	
+
     public function getLabel()
     {
-		
-		$status = $this->getStatus();		
+
+        $status = $this->getStatus();
 		if( $this->getData('tryb_id')=='2' ) {
 			$output = 'Zamówienie z wolnej ręki';
 		} else {
@@ -75,8 +73,11 @@ class Zamowienia_publiczne extends DataObject
 	    );
 	    
     }
-    
-    public $force_hl_fields = true;
+
+    public function getIcon()
+    {
+        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe625;"></i>';
+    }
     
     public function getMetaDescriptionParts($preset = false)
 	{

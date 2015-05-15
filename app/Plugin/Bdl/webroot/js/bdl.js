@@ -71,11 +71,13 @@ String.prototype.capitalizeFirstLetter = function () {
             document.location.href = data.node.a_attr.href;
         }
     }).bind("loaded.jstree", function () {
-        if (window.location.href.slice(window.location.href.indexOf('#') + 1)) {
+        if (window.location.href.indexOf('#') > 0) {
             var link = window.location.href.slice(window.location.href.indexOf('#') + 1);
+
             if (link.slice(link.indexOf('&') + 1)) {
                 link = link.split('&');
             }
+
             $.each(link, function () {
                 tree.jstree("open_node", this);
             });

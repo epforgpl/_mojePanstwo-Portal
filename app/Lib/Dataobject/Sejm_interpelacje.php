@@ -7,7 +7,20 @@ class Sejm_interpelacje extends DocDataObject
 {
 	
 	protected $tiny_label = 'Interpelacja';
-	
+	protected $schema = array(
+		array('poslowie_str', 'Od'),
+		array('adresaci_str', 'Do'),
+		array('data_wplywu', 'Data wpływu', 'date')
+	);
+    protected $routes = array(
+        'title' => 'tytul',
+        'shortTitle' => 'tytul_skrocony',
+        'date' => 'data_wplywu',
+    );
+	protected $hl_fields = array(
+		'poslowie_str', 'adresaci_str'
+	);
+
     public function __construct($params = array())
     {
         parent::__construct($params);
@@ -17,25 +30,14 @@ class Sejm_interpelacje extends DocDataObject
 
     }
 	
-	protected $schema = array(
-		array('poslowie_str', 'Od'),
-		array('adresaci_str', 'Do'),
-		array('data_wplywu', 'Data wpływu', 'date')
-	);
-	
-    protected $routes = array(
-        'title' => 'tytul',
-        'shortTitle' => 'tytul_skrocony',
-        'date' => 'data_wplywu',
-    );
-	
-	protected $hl_fields = array(
-		'poslowie_str', 'adresaci_str'
-	);
-	
     public function getLabel()
     {
         return '<strong>Interpelacja</strong> nr ' . $this->getData('numer');
+    }
+
+    public function getIcon()
+    {
+        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe637;"></i>';
     }
     
     public function getHighlightsFields()
