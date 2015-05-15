@@ -32,17 +32,12 @@ if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) {
                     <p class="text-muted"><?= $object->getData('bdl_wskazniki.tytul'); ?></p>-->
                     <ul class="tree">
                         <li>
-                            <h1 class="title">Bank danych lokalnych</h1>
+                            <?= $object->getData('bdl_wskazniki.kategoria_tytul'); ?>
                             <ul>
                                 <li class="e">
-                                    <?= $object->getData('bdl_wskazniki.kategoria_tytul'); ?>
+                                    <?= $object->getData('bdl_wskazniki.grupa_tytul'); ?>
                                     <ul>
-                                        <li class="e">
-                                            <?= $object->getData('bdl_wskazniki.grupa_tytul'); ?>
-                                            <ul>
-                                                <li class="e"><?= $object->getData('bdl_wskazniki.tytul'); ?></li>
-                                            </ul>
-                                        </li>
+                                        <li class="e big"><?= $object->getData('bdl_wskazniki.tytul'); ?></li>
                                     </ul>
                                 </li>
                             </ul>

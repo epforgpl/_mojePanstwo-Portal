@@ -89,6 +89,9 @@ class AppController extends Controller
             'krs_podmioty' => 'Organizacje',
             'krs_osoby' => 'Osoby',
         ),
+        'bdl' => array(
+            'bdl_wskazniki' => 'Wskaźniki'
+        ),
         'prawo' => array(
             'prawo' => 'Prawo powszechne',
             'prawo_lokalne' => 'Prawo lokalne',

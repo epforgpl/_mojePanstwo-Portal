@@ -205,12 +205,17 @@ class DataobjectsController extends AppController
     
     
     public function beforeRender() {
-		
+
+        $is_json = boolval(
+            isset($this->request->params['ext']) &&
+            $this->request->params['ext'] == 'json'
+        );
+
 		if( $this->request->params['controller'] == 'Datasets' ) {
-			
+
 		} else {
-		
-			if( $breadcrumbs_data = $this->getDataset( $this->object->getDataset() ) ) {
+
+			if( !$is_json && $breadcrumbs_data = $this->getDataset( $this->object->getDataset() ) ) {
 								
 				$this->addAppBreadcrumb( $breadcrumbs_data['app_id'] );
 		        
@@ -225,10 +230,7 @@ class DataobjectsController extends AppController
 
         parent::beforeRender();
 		
-	    if(
-	    	isset( $this->request->params['ext'] ) &&
-	    	( $this->request->params['ext'] == 'json' )
-	    ) {
+	    if( $is_json ) {
 		    
 	    } else {
 	    

@@ -46,13 +46,14 @@ $(document).ready(function() {
             max = 1;
 
         var highmap = $('#highmap');
+            highmap.css('height', '85vh');
 
         highmap.highcharts('Map', {
             title: {
                 text: ' '
             },
             chart: {
-                backgroundColor: '#e9eaed'
+                backgroundColor: null
             },
             mapNavigation: {
                 enabled: true,
@@ -131,7 +132,8 @@ $(document).ready(function() {
             series: [{
                 data: geo,
                 nullColor: '#ffffff',
-                borderWidth: 1
+                borderWidth: 1,
+                borderColor: '#FAFAFA'
             }]
         });
 
@@ -147,7 +149,7 @@ $(document).ready(function() {
                 var top = $(window).scrollTop();
 
                 if(!f && top > t) {
-                    highmap.css('top', '50px');
+                    highmap.css('top', '10px');
                     highmap.css('position', 'fixed');
                     f = true;
                 }

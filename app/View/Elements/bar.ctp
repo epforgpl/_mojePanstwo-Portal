@@ -6,13 +6,14 @@
             </a>
         </div>
 
-
         <div class="_mPApplication">
             <div class="_mPPowerButton">
                 <?php if ($this->Session->read('Auth.User.id')) { ?>
-                    <img class="avatar"
-                         src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xaf1/v/t1.0-1/c0.0.160.160/p160x160/200389_203882612962896_3612896_n.jpg?oh=49af22e4cc2df7e0142baba17a2d681f&oe=55CC8588&__gda__=1440275973_10426031c15c5f885ed74b3a6901483c"
-                         alt=""/>
+                    <img class="avatar" src="<?php if ($this->Session->read('Auth.User.photo_small')) {
+                        echo $this->Session->read('Auth.User.photo_small');
+                    } else {
+                        echo '/img/avatars/avatar_default.jpg';
+                    } ?>" alt=""/>
                     <div class="optionsBtn" data-toggle="collapse"
                          data-target="#mPUserOptions" aria-expanded="false" aria-controls="mPUserOptions">
                         <span class="glyphicon" aria-hidden="true">&#x25BC;</span>

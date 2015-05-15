@@ -1,7 +1,12 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('paszport', array('plugin' => 'Paszport'))) ?>
 
-<div class="objectsPage fullPageHeight"
-     style="background-image: url('/img/home/backgrounds/home-background-default.jpg')">
+<div class="objectsPage fullPageHeight mpBackgroundSet"
+     style="background-image: url(<?php if (isset($_COOKIE["mojePanstwo"])) {
+         $mojePanstwo = json_decode($_COOKIE["mojePanstwo"]);
+         echo $mojePanstwo->background->set;
+     } else {
+         echo '/img/home/backgrounds/home-background-default.jpg';
+     } ?>)">
     <div class="createAccount" id="modalPaszportLoginForm">
         <div class="modal-dialog">
             <div class="modal-content">
