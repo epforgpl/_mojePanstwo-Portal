@@ -56,8 +56,6 @@ $this->Combinator->add_libs('js', 'graph-krs');
     </div>
 <? } ?>
 
-<? echo @$this->Element('Dane.sides/' . $this->request->params['controller'] . '-top'); ?>
-
 
 
 <?

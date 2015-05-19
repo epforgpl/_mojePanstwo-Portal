@@ -38,7 +38,7 @@
 						    	
 						    	<p class="stats"><?= pl_dopelniacz($doc['dokumenty']['doc_count'], 'zamówienie', 'zamówienia', 'zamówień') ?></p>
 						    	
-						    	<ul class="dataobjects">
+						    	<ul class="dataobjects smaller">
 							    <?
 								    foreach( $doc['dokumenty']['top']['hits']['hits'] as $hit ) {
 									    

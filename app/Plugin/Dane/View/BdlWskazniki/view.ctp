@@ -8,7 +8,7 @@
 <?= $this->Element('bdl_select', array('expand_dimension' => $expand_dimension, 'dims' => $dims)); ?>
 
     <div id="bdl-wskazniki">
-        <div class="object mpanel">
+        <div class="object">
 
             <?
             if (!empty($expanded_dimension)) {

@@ -24,15 +24,19 @@ class Krakow_posiedzenia extends DataObject
     	'gminy.rada_nazwa', 'numer', 'liczba_debat',
     );
     */
-	
-	public function __construct($params = array())
-    {
 
-        parent::__construct($params);
-
-        $this->data['desc'] = '<span class="light">Kadencja <strong>' . $this->getData('kadencja_id') . '</strong> <span class="separator">|</span> Sesja <strong>' . $this->getData('krakow_sesje.str_numer') . '</strong> <span class="separator">|</span> Posiedzenie <strong>#' . $this->getData('numer') . '</strong><span>';
-
-    }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+		
+		$output = array(
+			'Kadencja ' . $this->getData('kadencja_id'),
+			'Sesja ' . $this->getData('krakow_sesje.str_numer'),
+		);
+				
+		return $output;
+		
+	}
 	
     public function getLabel()
     {

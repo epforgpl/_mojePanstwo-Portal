@@ -625,7 +625,7 @@
 
         }
     }
-
+	
     .dataFeed .feed-timeline .dataObjects .innerContainer .objectRender {
         margin-top: 0;
         margin-bottom: 0;
@@ -684,6 +684,17 @@
             margin: 10px;
             padding: 5px 5px 10px;
             min-width: 98%;
+        }
+        
+    }
+    
+    .dataFeed .feed-timeline.feed-min .dataObjects .innerContainer .objectRender > div {
+	    border-style: none;
+        background-color: inherit;
+        margin-left: 0;
+        padding-left: 0;
+        .title {
+	        margin-left: 0;
         }
     }
 
@@ -769,7 +780,7 @@
                         margin-left: 4px;
 
                         .date {
-                            color: #818793;
+                            color: #777;
                             font-size: 11px;
                             margin-top: 3px;
                         }
@@ -1027,7 +1038,7 @@
         }
         
         .object-icon {
-	        color: #c9cacd;
+	        color: #999;
 		    display: block;
 		    float: left;
 		    font-size: 37px;

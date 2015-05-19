@@ -15,18 +15,273 @@ class InstytucjeController extends DataobjectsController
 
 	public $loadChannels = true;
     public $initLayers = array('instytucja_nadrzedna', 'tree', 'menu', 'info');
+	
+	public function view()
+    {
+		
+		$_layers = array('szef', 'channels', 'subscriptions');
+        $this->addInitLayers($_layers);
+                
+        $this->_prepareView();
+		
+		$global_aggs = array(
+			'prawo' => array(
+		        'filter' => array(
+			        'bool' => array(
+				        'must' => array(
+					        array(
+						        'term' => array(
+							        'dataset' => 'prawo',
+						        ),
+					        ),
+					        array(
+					        	'nested' => array(
+						        	'path' => 'feeds_channels',	
+						        	'filter' => array(
+							        	'bool' => array(
+								        	'must' => array(
+									        	array(
+											        'term' => array(
+												        'feeds_channels.dataset' => 'instytucje',
+											        ),
+										        ),
+										        array(
+											        'term' => array(
+												        'feeds_channels.object_id' => $this->request->params['id'],
+											        ),
+										        ),
+								        	),
+							        	),
+						        	),
+					        	),
+					        ),					        
+				        ),
+			        ),					        
+		        ),
+		        'aggs' => array(
+			        'top' => array(
+				        'top_hits' => array(
+					        'size' => 3,
+					        'fielddata_fields' => array('dataset', 'id'),
+					        'sort' => array(
+						        'date' => array(
+							        'order' => 'desc',
+						        ),
+					        ),
+				        ),
+			        ),
+		        ),
+	        ),
+	        'zamowienia' => array(
+		        'filter' => array(
+			        'bool' => array(
+				        'must' => array(
+					        array(
+						        'term' => array(
+							        'dataset' => 'zamowienia_publiczne',
+						        ),
+					        ),
+					        array(
+					        	'nested' => array(
+						        	'path' => 'feeds_channels',	
+						        	'filter' => array(
+							        	'bool' => array(
+								        	'must' => array(
+									        	array(
+											        'term' => array(
+												        'feeds_channels.dataset' => 'instytucje',
+											        ),
+										        ),
+										        array(
+											        'term' => array(
+												        'feeds_channels.object_id' => $this->request->params['id'],
+											        ),
+										        ),
+								        	),
+							        	),
+						        	),
+					        	),
+					        ),					        
+				        ),
+			        ),
+		        ),
+		        'aggs' => array(
+			        'top' => array(
+				        'top_hits' => array(
+					        'size' => 3,
+					        'fielddata_fields' => array('dataset', 'id'),
+					        'sort' => array(
+						        'date' => 'desc',
+					        ),
+				        ),
+			        ),
+		        ),
+	        ),
+	        'dokumenty' => array(
+		        'filter' => array(
+			        'bool' => array(
+				        'must' => array(
+					        array(
+						        'term' => array(
+							        'dataset' => 'zamowienia_publiczne_dokumenty',
+						        ),
+					        ),
+					        array(
+						        'term' => array(
+							        'data.zamowienia_publiczne_dokumenty.typ_id' => '3',
+						        ),
+					        ),
+					        array(
+						        'range' => array(
+							        'date' => array(
+								        'gt' => 'now-1y'
+							        ),
+						        ),
+					        ),
+					        array(
+					        	'nested' => array(
+						        	'path' => 'feeds_channels',	
+						        	'filter' => array(
+							        	'bool' => array(
+								        	'must' => array(
+									        	array(
+											        'term' => array(
+												        'feeds_channels.dataset' => 'instytucje',
+											        ),
+										        ),
+										        array(
+											        'term' => array(
+												        'feeds_channels.object_id' => $this->request->params['id'],
+											        ),
+										        ),
+								        	),
+							        	),
+						        	),
+					        	),
+					        ),					        
+				        ),
+			        ),					        
+		        ),
+		        'aggs' => array(
+			        'wykonawcy' => array(
+						'nested' => array(
+							'path' => 'zamowienia_publiczne-wykonawcy',
+						),
+						'aggs' => array(
+							'id' => array(								        
+						        'terms' => array(
+							        'field' => 'zamowienia_publiczne-wykonawcy.id',
+							        'order' => array(
+								        'cena' => 'desc',
+							        ),
+							        'size' => 3,
+						        ),
+						        'aggs' => array(
+							        'nazwa' => array(
+								        'terms' => array(
+									        'field' => 'zamowienia_publiczne-wykonawcy.nazwa',
+								        ),
+							        ),
+							        'miejscowosc' => array(
+								        'terms' => array(
+									        'field' => 'zamowienia_publiczne-wykonawcy.miejscowosc',
+								        ),
+							        ),
+							        'cena' => array(
+								        'sum' => array(
+									        'field' => 'zamowienia_publiczne-wykonawcy.cena',
+								        ),
+							        ),
+							        'dokumenty' => array(
+								        'reverse_nested' => '_empty',
+								        'aggs' => array(
+									        'top' => array(
+										        'top_hits' => array(
+											        'size' => 3,
+											        'fielddata_fields' => array('dataset', 'id'),
+											        'sort' => array(
+												        'zamowienia_publiczne-wykonawcy.cena' => 'desc',
+											        ),
+										        ),
+									        ),
+								        ),
+							        ),
+						        ),
+					        ),
+				        ),
+			        ),
+		        ),
+	        ),
+		);
+		
+		
+		$options  = array(
+            'searchTitle' => 'Szukaj w ' . $this->object->getTitle() . '...',
+            'conditions' => array(
+	            '_object' => 'gminy.' . $this->object->getId(),
+            ),
+            'cover' => array(
+	            'view' => array(
+		            'plugin' => 'Dane',
+		            'element' => 'instytucje/cover',
+	            ),
+	            'aggs' => array(
+		            'all' => array(
+				        'global' => '_empty',
+				        'aggs' => $global_aggs,
+			        ),
+		        ),
+            ),
+            'aggs' => array(
+		        'dataset' => array(
+		            'terms' => array(
+			            'field' => 'dataset',
+		            ),
+		            'visual' => array(
+			            'label' => 'Zbiory danych',
+			            'skin' => 'datasets',
+			            'class' => 'special',
+		                'field' => 'dataset',
+		                'dictionary' => array(
+			                'prawo_wojewodztwa' => array('prawo', 'Prawo lokalne'),
+			                'zamowienia_publiczne' => array('zamowienia_publiczne', 'Zamówienia publiczne'),
+		                ),
+		            ),
+		        ),
+            ),
+        );
+                
+	    $this->Components->load('Dane.DataBrowser', $options);
+        
+    }
 
-    public function view()
+    public function _prepareView()
     {
 
-        parent::load(array(
-            'subscriptions' => true,
-        ));
+        if ($this->params->id == 903) {
 
-        if ($this->object->getData('file') == '1')
-            $this->feed(array(
-	            'searchTitle' => $this->object->getTitle(),
-            ));
+            $this->addInitLayers(array('dzielnice'));
+            $this->_layout['header']['element'] = 'pk';
+
+        }
+
+        if (
+            defined('PORTAL_DOMAIN') &&
+            defined('PK_DOMAIN') &&
+            ($pieces = parse_url(Router::url($this->here, true))) &&
+            ($pieces['host'] == PK_DOMAIN)
+        ) {
+
+            if ($this->params->id != 903) {
+
+                $this->redirect('http://' . PORTAL_DOMAIN . $_SERVER['REQUEST_URI']);
+                die();
+
+            }
+
+        }
+
+        return parent::_prepareView();
 
     }
 
@@ -132,43 +387,7 @@ class InstytucjeController extends DataobjectsController
         } else {
             $this->headerObject = array('url' => '/dane/img/headers/instytucje.jpg', 'height' => '250px');
         }
-
-        parent::beforeRender();
-
-        // debug( $this->object->getLayer('menu') ); die();
-
-        $_menu = $this->object->getLayer('menu');
-
-        // PREPARE MENU
-        // TODO add slug
-        $href_base = '/dane/instytucje/' . $this->request->params['id'];
-
-        $menu = array(
-            'items' => array(
-                array(
-                    'id' => '',
-                    'href' => $href_base,
-                    'label' => 'Aktualności',
-                    'icon' => 'glyphicon glyphicon-feed',
-                ),
-            )
-        );
-
-        if (isset($_menu['budzet_czesci']) && !empty($_menu['budzet_czesci'])) {
-            $menu['items'][] = array(
-                'id' => 'budzet',
-                'href' => $href_base . '/budzet',
-                'label' => 'Budżet',
-            );
-        }
-
-       
-
-        $items = array();
-
         
-
-        $this->menu = $menu;
 
         $this->addons = array(
             'wniosek_udostepnienie' => array(

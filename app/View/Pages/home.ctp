@@ -42,7 +42,8 @@
                             <? }
                         } ?>
                     </div>
-
+					
+					<? /*
                     <div class="basicOptions">
                         <div class="col-xs-12 col-sm-6 part">
                             <div class="observeBrick mainBrick">
@@ -94,7 +95,8 @@
                             </div>
                         </div>
                     </div>
-
+					*/ ?>
+					
                     <div class="appsList">
                         <h2>Raporty</h2>
                         <? foreach ($_applications as $a) {

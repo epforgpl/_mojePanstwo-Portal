@@ -66,6 +66,8 @@ class AppController extends Controller
     public $domainMode = 'MP';
     public $appSelected = false;
     public $breadcrumbs = array();
+    public $menu = array();
+    public $menu_selected = '_default';
 
     public $helpers = array(
         'Html',
@@ -84,6 +86,19 @@ class AppController extends Controller
     public $User = false;
     public $meta = array();
     public $pkMenu = array();
+    
+    public $_layout = array(
+	    'header' => array(
+		    'element' => 'default',
+	    ),
+	    'body' => array(
+		    'class' => 'default',
+	    ),
+	    'footer' => array(
+		    'element' => 'default',
+	    ),
+    );
+    
     private $datasets = array(
         'krs' => array(
             'krs_podmioty' => 'Organizacje',
@@ -134,6 +149,9 @@ class AppController extends Controller
             'poslowie_rejestr_korzysci' => 'Rejestr korzyści posłów',
             'poslowie_wspolpracownicy' => 'Współpracownicy posłów',
         ),
+        'kto_tu_rzadzi' => array(
+	        'instytucje' => 'Instytucje',
+        ),
     );
     private $applications = array(
         'krs' => array(
@@ -148,11 +166,29 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe60d;',
         ),
+        'orzecznictwo'  => array(
+            'name' => 'Orzecznictwo',
+            'href' => '/orzecznictwo',
+            'tag' => 1,
+            'icon' => '&#xe60d;',
+        ),
         'bdl' => array(
             'name' => 'Bank Danych Lokalnych',
             'href' => '/bdl',
             'tag' => 1,
             'icon' => '',
+        ),
+        'media' => array(
+            'name' => 'Media',
+            'href' => '/media',
+            'tag' => 1,
+            'icon' => '&#xe608;',
+        ),
+        'zamowienia_publiczne' => array(
+            'name' => 'Zamówienia publiczne',
+            'href' => '/zamowienia_publiczne',
+            'tag' => 1,
+            'icon' => '&#xe613;',
         ),
         'kto_tu_rzadzi' => array(
             'name' => 'Kto tu rządzi?',
@@ -166,31 +202,21 @@ class AppController extends Controller
             'href' => '/moja_gmina',
             'tag' => 1,
             'icon' => '&#xe605;',
-        ),
-        'zamowienia_publiczne' => array(
-            'name' => 'Zamówienia publiczne',
-            'href' => '/zamowienia_publiczne',
-            'tag' => 1,
-            'icon' => '&#xe613;',
-        ),
-        'media' => array(
-            'name' => 'Media',
-            'href' => '/media',
-            'tag' => 1,
-            'icon' => '&#xe608;',
-        ),
+        ),        
         'sejmometr' => array(
             'name' => 'Sejmometr',
             'href' => '/sejmometr',
             'tag' => 1,
             'icon' => '&#xe610;',
         ),
+        /*
         'mapa_prawa' => array(
             'name' => 'Mapa prawa',
             'href' => '/mapa_prawa',
             'tag' => 1,
             'icon' => '&#xe607;',
         ),
+        */
         /*
         'patenty' => array(
             'name' => 'Patenty',
@@ -406,7 +432,6 @@ class AppController extends Controller
                 'selected' => false,
                 'items' => array(
                     array(
-                        'id' => '',
                         'label' => 'Aktualności',
                         'href' => $href_base,
                     ),
@@ -601,9 +626,18 @@ class AppController extends Controller
 
     public function beforeRender()
     {
-
+							
+        $this->set('_layout', $this->_layout);
         $this->set('_breadcrumbs', $this->breadcrumbs);
         $this->set('_applications', $this->applications);
+                
+        $menu = $this->getMenu();
+                
+        if( $this->menu_selected=='_default' )
+	        $this->menu_selected = $this->request->params['action'];
+        
+        $menu['selected'] = $this->menu_selected;
+        $this->set('_menu', $menu);
 
         $redirect = false;
 
@@ -706,5 +740,9 @@ class AppController extends Controller
 
         } else return $this->datasets;
 
+    }
+    
+    public function getMenu() {
+	    return $this->menu;
     }
 }

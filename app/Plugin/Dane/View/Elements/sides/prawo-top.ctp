@@ -20,7 +20,7 @@
 		            <? } ?>
 		            
 		            <? if ($object->getData('isap_status_str')) { ?>
-		                <li class="dataHighlight col-sm-2">
+		                <li class="dataHighlight col-sm-3">
 		                    <p class="_label">Status</p>
 		
 		                    <p class="_value"><?= $object->getData('isap_status_str'); ?></p>
@@ -28,20 +28,20 @@
 		            <? } ?>
 		           		
 		            <? if ($object->getData('data_wydania') && ($object->getData('data_wydania') != '0000-00-00')) { ?>
-		                <li class="dataHighlight col-sm-2">
+		                <li class="dataHighlight col-sm-3">
 		                    <p class="_label">Data wydania</p>
 		
 		                    <p class="_value"><?= $this->Czas->dataSlownie($object->getData('data_wydania')); ?></p>
 		                </li>
 		            <? } ?>
-		
-		            <? if ($object->getData('data_publikacji') && ($object->getData('data_publikacji') != '0000-00-00')) { ?>
-		                <li class="dataHighlight col-sm-2">
+					
+		            <? /* if ($object->getData('data_publikacji') && ($object->getData('data_publikacji') != '0000-00-00')) { ?>
+		                <li class="dataHighlight col-sm-3">
 		                    <p class="_label">Data publikacji</p>
 		
 		                    <p class="_value"><?= $this->Czas->dataSlownie($object->getData('data_publikacji')); ?></p>
 		                </li>
-		            <? } ?>
+		            <? } */ ?>
 		
 		            <? if ($object->getData('data_wejscia_w_zycie') && ($object->getData('data_wejscia_w_zycie') != '0000-00-00')) { ?>
 		                <li class="dataHighlight col-sm-2">
@@ -50,7 +50,8 @@
 		                    <p class="_value"><?= $this->Czas->dataSlownie($object->getData('data_wejscia_w_zycie')); ?></p>
 		                </li>
 		            <? } ?>
-		
+					
+					<? /*
 		            <li class="dataHighlight col-sm-1">
 		                <p class="_label">Źródło</p>
 		
@@ -71,7 +72,8 @@
 		                       target="_blank">ISAP</a>
 		                </p>
 		            </li>
-		
+					*/ ?>
+					
 		        </ul>
 		    </div>
     

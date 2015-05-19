@@ -502,7 +502,7 @@ class DataobjectHelper extends AppHelper
 
     public function feed($params)
     {
-
+	    
         return $this->_View->element('DataobjectsFeed/view', array(
             'objects' => $params['data'],
             'preset' => $params['dataset'],

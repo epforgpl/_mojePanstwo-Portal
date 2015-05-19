@@ -2,6 +2,9 @@
     .objectPageHeaderBg {
         .objectPageHeader {
             ul.tree {
+	            
+	            margin: -8px 0 7px -4px;
+	            
                 li {
                     color: #555555;
                     margin: 0;
@@ -33,7 +36,7 @@
                         }
 
                         &.big {
-                          font-size: 24px;
+                          font-size: 22px;
                         }
                     }
                 }
@@ -56,8 +59,12 @@
         font-family: "Lato", Arial, sans-serif;
         font-size: 13px;
         font-weight: 400;
-        padding: 20px 100px;
+        padding: 20px;
         overflow: auto;
+        
+        &:last-child {
+	        border-bottom: none;
+        }
 
         h2 {
             border: none;
@@ -66,6 +73,7 @@
             margin: 0;
             padding: 0;
             text-transform: lowercase;
+            font-weight: normal;
 
             *:first-letter {
                 text-transform: uppercase;

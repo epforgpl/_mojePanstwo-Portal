@@ -84,5 +84,16 @@ class Radni_gmin extends DataObject
 	    else 
 	        return 'http://resources.sejmometr.pl/avatars/g/m.png';
     }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+				
+		$output = array(
+			$this->getData('komitet'),
+		);
+				
+		return $output;
+		
+	}
 
 }

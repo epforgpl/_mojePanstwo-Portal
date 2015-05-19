@@ -202,12 +202,6 @@ h3, .h3 {
     color: #56c139;
 }
 
-.text {
-    font-size: 16px;
-    font-weight: normal;
-    color: #212121;
-}
-
 .date {
     font-size: 12px;
     font-weight: normal;
@@ -395,7 +389,11 @@ svg.svg {
     margin: 2px 0 -4px;
 
     i {
-        margin-right: 3px;
+	    font-size: 20px;
+	    margin-right: 3px;
+	    margin-top: -6px;
+	    position: relative;
+	    top: 4px;
     }
 
     img, svg {
@@ -609,14 +607,18 @@ svg.svg {
     padding: 0;
     margin: 10px 5px;
     background-color: #FFF;
-    border-color: #e9eaed #dfe0e4 #d0d1d5;
+    border-color: #d9dadd #cfd0d4 #c0c1c5;
     border-radius: 6px;
     -webkit-border-radius: 6px;
     -o-border-radius: 6px;
     -moz-border-radius: 6px;
     border-style: solid;
     border-width: 1px;
-
+	
+	.content {
+	    padding: 15px;
+	}
+	
     &.nobg {
         background-color: inherit;
         border: 1px solid transparent;
@@ -680,6 +682,7 @@ svg.svg {
         width: 100%;
         min-height: 35px;
         padding: 10px 15px;
+        background-color: #F3F3F3;
 
         border-top-right-radius: 6px;
         border-top-left-radius: 6px;
@@ -687,7 +690,12 @@ svg.svg {
         -webkit-border-top-left-radius: 6px;
         -o-border-top-right-radius: 6px;
         -o-border-top-left-radius: 6px;
-
+		
+		.sublabel {
+			color: #999;
+			margin: 0;
+		}
+		
         .btn {
             position: absolute;
             right: 15px;
@@ -712,8 +720,6 @@ svg.svg {
     }
 
     .textBlock {
-        padding: 20px 30px 30px;
-
         br {
             margin-bottom: 15px;
         }
@@ -1254,10 +1260,12 @@ blockquote p {
     text-transform: none;
 }
 
-.block-group .block .content {
-    padding: 20px 15px;
-}
+
 
 .cake-debug-output, .cake-error {
     margin-left: 110px;
+}
+
+.table.table-min > thead > tr > th, .table.table-min > tbody > tr > th, .table.table-min > tfoot > tr > th, .table.table-min > thead > tr > td, .table.table-min > tbody > tr > td, .table.table-min > tfoot > tr > td {
+	font-size: 12px;
 }

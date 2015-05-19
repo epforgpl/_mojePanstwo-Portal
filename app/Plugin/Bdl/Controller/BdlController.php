@@ -6,6 +6,7 @@ class BdlController extends ApplicationsController
 {
 
 	public $settings = array(
+		'id' => 'bdl',
 		'menu' => array(
 			array(
 				'id' => '#',

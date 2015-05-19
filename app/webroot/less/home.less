@@ -129,7 +129,19 @@
                         margin-bottom: 20px;
                         height: 120px;
                         text-align: center;
+						
 
+					
+					    background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 62%, rgba(0,0,0,0) 100%); /* ff3.6+ */
+					    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(0,0,0,0.3)), color-stop(62%, rgba(0,0,0,0)), color-stop(100%, rgba(0,0,0,0))); /* safari4+,chrome */
+					    background:-webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 62%, rgba(0,0,0,0) 100%); /* safari5.1+,chrome10+ */
+					    background: -o-radial-gradient(center, ellipse cover, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 62%, rgba(0,0,0,0) 100%); /* opera 11.10+ */
+					    background: -ms-radial-gradient(center, ellipse cover, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 62%, rgba(0,0,0,0) 100%); /* ie10+ */
+					    background:radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 62%, rgba(0,0,0,0) 100%); /* w3c */
+					    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=1 ); /* ie6-9 */
+
+
+						
                         -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color=#333333)";
                         text-shadow: 2px 2px 2px #333333;
                         filter: progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color=#333333);

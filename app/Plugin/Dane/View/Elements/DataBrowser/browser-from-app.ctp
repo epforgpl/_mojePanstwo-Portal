@@ -1,4 +1,5 @@
 <?= $this->Element('appheader'); ?>
+<div class="container">
 <div class="objectsPage">
 	<?
 		$options = array();
@@ -7,4 +8,5 @@
 			
 		echo $this->Element('Dane.DataBrowser/browser', $options);
 	?>
+</div>
 </div>

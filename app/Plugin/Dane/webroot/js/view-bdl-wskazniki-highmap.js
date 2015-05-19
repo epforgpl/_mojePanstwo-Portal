@@ -133,7 +133,7 @@ $(document).ready(function() {
                 data: geo,
                 nullColor: '#ffffff',
                 borderWidth: 1,
-                borderColor: '#FAFAFA'
+                borderColor: '#777'
             }]
         });
 

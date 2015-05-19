@@ -12,7 +12,8 @@ class BdlWskaznikiController extends DataobjectsController
     );
 
     public $initLayers = array('dimennsions');
-
+	public $addDatasetBreadcrumb = false;
+	
     public function kombinacje()
     {
 

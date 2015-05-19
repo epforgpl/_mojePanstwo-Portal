@@ -20,9 +20,9 @@ class DataobjectsController extends AppController
         'titleprop' => 'name',
     );
 
-    public $menu = array();
     public $actions = array();
     public $appSelected = 'dane';
+    public $addDatasetBreadcrumb = true;
 
     public function addInitLayers($layers)
     {
@@ -214,40 +214,42 @@ class DataobjectsController extends AppController
             isset($this->request->params['ext']) &&
             $this->request->params['ext'] == 'json'
         );
-
-        if (($this->request->params['controller'] == 'Datasets') && ($breadcrumbs_data = $this->getDataset($this->object->getData('slug')))) {
-            $this->addAppBreadcrumb($breadcrumbs_data['app_id']);
-        } else {
-            if (!$is_json && ($breadcrumbs_data = $this->getDataset($this->object->getDataset()))) {
-                $this->addAppBreadcrumb($breadcrumbs_data['app_id']);
-
-                $this->addBreadcrumb(array(
-                    'href' => '/dane/' . $breadcrumbs_data['dataset_id'],
-                    'label' => $breadcrumbs_data['dataset_name'],
-                ));
-
-            }
-
-        }
-
-        parent::beforeRender();
-
-        if ($is_json) {
-
-        } else {
-
-            $selected = $this->request->params['action'];
+		
+		if( !$is_json ) {
+			
+			if( 
+				( $this->request->params['controller'] == 'Datasets' ) && 
+				( $breadcrumbs_data = $this->getDataset($this->object->getData('slug'))) 
+			) {
+	            
+	            $this->addAppBreadcrumb($breadcrumbs_data['app_id']);
+	        
+	        } elseif( $breadcrumbs_data = $this->getDataset($this->object->getDataset()) ) {
+		        
+		        $this->addAppBreadcrumb($breadcrumbs_data['app_id']);
+				
+				if( $this->addDatasetBreadcrumb )
+	                $this->addBreadcrumb(array(
+	                    'href' => '/dane/' . $breadcrumbs_data['dataset_id'],
+	                    'label' => $breadcrumbs_data['dataset_name'],
+	                ));
+		        
+	        }
+	        
+	        $selected = $this->request->params['action'];
             if ($selected == 'view')
                 $selected = '';
 
             $this->menu['selected'] = $selected;
             $this->menu['base'] = $this->object->getUrl();
             $this->set('object_actions', $this->actions);
-            $this->set('object_menu', $this->menu);
             $this->set('object_addons', $this->addons);
 
             $this->prepareMetaTags();
-        }
+			
+		}
+
+        parent::beforeRender();
 
     }
 

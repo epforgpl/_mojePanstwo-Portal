@@ -3,19 +3,27 @@
 		
 		list-style: none;
 		padding-left: 0;
-		margin: 20px 10px;
+		margin: 20px;
 		
 		> li {
 			list-style: none;
 			margin: 10px 0;
-			padding: 15px 0;
+			padding: 0;
 			border-bottom: 1px solid #DDD;
+			
+			&:last-child {
+				border-bottom: none;
+			}
 			
 			h2 {
 				font-weight: normal;
 			    overflow: auto;
 			    font-size: 18px;
 			    margin-bottom: 5px;
+			    
+			    &.smaller {
+				    font-size: 16px;
+			    }
 			    
 			    .cena {
 				    color: green;
@@ -34,9 +42,13 @@
 			.dataobjects {
 				padding: 0 15px;
 				
+				&.smaller {
+					.objectRender .title {
+						font-size: 14px;
+					}
+				}
+				
 				.objectRender .title {
-					
-					font-size: 16px;
 					
 					a {
 						color: #545454;

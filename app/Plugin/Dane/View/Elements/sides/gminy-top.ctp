@@ -58,13 +58,12 @@
 	<div class="block nobg noborder">		
 		
 	    <ul class="dataHighlights row">
-	
-			
+				
 			<li class="dataHighlight col-sm-2">
 	            <p class="_label pull-left">Typ gminy</p>
 	
 	            <div class="">
-	                <p class="_value"><?= number_format_h($object->getData('liczba_ludnosci')); ?></p>
+	                <p class="_value"><?= $object->getData('typ_nazwa'); ?></p>
 	            </div>
 	        </li>
 			

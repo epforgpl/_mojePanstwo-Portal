@@ -796,6 +796,7 @@ class DataFeedComponent extends Component
 	            'subscribeAction' => '',
 	            'aggs' => $controller->Dataobject->getAggs(),
 	            'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
+	            'mode' => isset($this->settings['mode']) ? $this->settings['mode'] : 'full',
 	        ));
 			
 			if( !empty($channels) ) {
@@ -826,7 +827,10 @@ class DataFeedComponent extends Component
 	            $this->controller->view = 'Dane.Dataobjects/feed-html';
 	            $this->controller->layout = false;
 	        } else {
-	            $this->controller->view = 'Dane.Dataobjects/feed';
+		        
+		    	if( !isset($this->settings['mode']) || ($this->settings['mode']!='min') ) 
+		            $this->controller->view = 'Dane.Dataobjects/feed';
+				
 	        }
         
         }

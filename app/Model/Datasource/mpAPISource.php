@@ -98,6 +98,8 @@ class mpAPISource extends DataSource {
  */
     public function read(Model $model, $queryData = array(), $recursive = null) {
 	   	
+	   $method = 'GET';	
+	   
 	   	// debug($queryData); die();
 	   	         
         /**
@@ -166,6 +168,8 @@ class mpAPISource extends DataSource {
 	        	        
         } else {
         	
+        	$method = 'POST';
+        	
         	if( isset($queryData['conditions']['dataset']) ) {
         	
 	        	if( is_array($queryData['conditions']['dataset']) ) {
@@ -189,11 +193,12 @@ class mpAPISource extends DataSource {
 		$public_query = $queryData;
 		if( isset($public_query['aggs']) )
 			unset( $public_query['aggs'] );
-
+		
 		$this->public_api_call = $this->config['host'] . '/' . $base_url . '?' . http_build_query($queryData);
 				
         $res = $this->request($base_url, array(
 	        'data' => $queryData,
+	        'method' => $method,
         ));
                         
         $code = (int) $this->Http->response->code;
