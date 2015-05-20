@@ -13,7 +13,22 @@ $this->Dataobject->setObject($object);
 ?>
 <div class="objectRender col-md-12 <?php echo $object->getDataset(); ?>" oid="<?php echo $object->getId(); ?>">
     <div class="row">
-        <div class="data col-md-12">
+	    
+	    <? if($object->getThumbnailUrl()) { ?>
+	    <div style="width: 12%;" class="col-md-1">
+		    <div class="attachment text-center">
+	            <?php if ($object->getUrl() != false) { ?><a class="thumb_cont" href="<?= $object->getUrl() ?>"><?php } ?>
+	                
+	                <img class="thumb pull-right" onerror="imgFixer(this)"
+	                     src="<?= $object->getThumbnailUrl($thumbSize) ?>"
+	                     alt="<?= strip_tags($object->getTitle()) ?>"/>
+	                     
+	            <?php if ($object->getUrl() != false) { ?></a><? } ?>
+		    </div>
+	    </div>
+	    <? } ?>
+	    
+        <div class="data col-md-<? if($object->getThumbnailUrl()) {?>10<? } else { ?>12<? } ?>">
             <div class="row">
 
 

@@ -72,6 +72,37 @@ class InstytucjeController extends DataobjectsController
 			        ),
 		        ),
 	        ),
+	        'prawo_urzedowe' => array(
+		        'filter' => array(
+			        'bool' => array(
+				        'must' => array(
+					        array(
+						        'term' => array(
+							        'dataset' => 'prawo_urzedowe',
+						        ),
+					        ),
+					        array(
+					        	'term' => array(
+							        'data.prawo_urzedowe.instytucja_id' => $this->request->params['id'],
+						        ),
+					        ),					        
+				        ),
+			        ),					        
+		        ),
+		        'aggs' => array(
+			        'top' => array(
+				        'top_hits' => array(
+					        'size' => 3,
+					        'fielddata_fields' => array('dataset', 'id'),
+					        'sort' => array(
+						        'date' => array(
+							        'order' => 'desc',
+						        ),
+					        ),
+				        ),
+			        ),
+		        ),
+	        ),
 	        'zamowienia' => array(
 		        'filter' => array(
 			        'bool' => array(
@@ -254,37 +285,44 @@ class InstytucjeController extends DataobjectsController
 	    $this->Components->load('Dane.DataBrowser', $options);
         
     }
-
-    public function _prepareView()
-    {
-
-        if ($this->params->id == 903) {
-
-            $this->addInitLayers(array('dzielnice'));
-            $this->_layout['header']['element'] = 'pk';
-
-        }
-
-        if (
-            defined('PORTAL_DOMAIN') &&
-            defined('PK_DOMAIN') &&
-            ($pieces = parse_url(Router::url($this->here, true))) &&
-            ($pieces['host'] == PK_DOMAIN)
-        ) {
-
-            if ($this->params->id != 903) {
-
-                $this->redirect('http://' . PORTAL_DOMAIN . $_SERVER['REQUEST_URI']);
-                die();
-
-            }
-
-        }
-
-        return parent::_prepareView();
-
-    }
-
+	
+	public function getMenu() 
+	{
+		
+		$object = $this->object;
+				
+		$menu = array(
+			'items' => array(),
+		);
+		
+		$menu['items'][] = array(
+			'label' => 'Dane',
+		);
+		
+		$menu['items'][] = array(
+			'label' => 'Akty prawne',
+			'id' => 'prawo',
+		);
+		
+		$menu['items'][] = array(
+			'label' => 'Dziennik urzędowy',
+			'id' => 'dziennik',
+		);
+		
+		$menu['items'][] = array(
+			'label' => 'Zamówienia publiczne',
+			'id' => 'zamowienia',
+		);
+		
+		$menu['items'][] = array(
+			'label' => 'Urzędnicy',
+			'id' => 'urzednicy',
+		);
+		
+		return $menu;
+		
+	}
+	
     public function instytucje()
     {
 
@@ -295,20 +333,34 @@ class InstytucjeController extends DataobjectsController
 
     public function prawo()
     {
-        parent::load();
-        $this->dataobjectsBrowserView(array(
-            'source' => 'instytucje.prawo:' . $this->object->getId(),
-            'dataset' => 'prawo',
-            'noResultsTitle' => 'Brak aktów prawnych',
-            'excludeFilters' => array(
-                'autor_id',
+	    
+	    parent::load();
+	    $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+                'dataset' => 'prawo',
+                '_feed' => array(
+	                'dataset' => 'instytucje',
+	                'object_id' => $this->object->getId(),
+                ),
             ),
-            'title' => 'Akty prawne',
-            'back' => $this->object->getUrl(),
-            'backTitle' => $this->object->getTitle(),
         ));
-
+       
         $this->set('title_for_layout', "Akty prawne wydane przez " . $this->object->getTitle());
+
+    }
+    
+    public function dziennik()
+    {
+	    
+	    parent::load();
+	    $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+                'dataset' => 'prawo_urzedowe',
+                'prawo_urzedowe.instytucja_id' => $this->object->getId(),
+            ),
+        ));
+       
+        $this->set('title_for_layout', "Dziennik urzędowy " . $this->object->getTitle());
 
     }
 
@@ -331,41 +383,35 @@ class InstytucjeController extends DataobjectsController
 
     }
 
-    public function urzednicy()
-    {
-        parent::load();
-        $this->dataobjectsBrowserView(array(
-            // TODO wyswietlac tylko z tego urzedu
-            'conditions' => array(
-                'instytucja_id' => $this->object->getId()
-            ),
-            'dataset' => 'urzednicy',
-            'noResultsTitle' => 'Brak informacji o urzędnikach',
-            'title' => 'Urzędnicy',
-            'back' => $this->object->getUrl(),
-            'backTitle' => $this->object->getTitle(),
-            'excludeFilters' => array(),
-        ));
-
-        $this->set('title_for_layout', "Urzędnicy pracujący w " . $this->object->getTitle());
-
-    }
-
     public function zamowienia()
     {
-        parent::load();
-        $this->dataobjectsBrowserView(array(
-            'source' => 'instytucje.zamowienia_udzielone:' . $this->object->getId(),
-            'dataset' => 'zamowienia_publiczne',
-            'noResultsTitle' => 'Brak zamówień',
-            'title' => 'Zamówienia publiczne',
-            'back' => $this->object->getUrl(),
-            'backTitle' => $this->object->getTitle(),
-            'hiddenFilters' => array('zamowienia_publiczne.zamawiajacy_id', 'zamowienia_publiczne.data_publikacji'),
-            'excludeFilters' => array('zamowienia_publiczne.gmina_id'),
+	    
+	    parent::load();
+	    $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+                'dataset' => 'zamowienia_publiczne',
+                '_feed' => array(
+	                'dataset' => 'instytucje',
+	                'object_id' => $this->object->getId(),
+                ),
+            ),
         ));
 
         $this->set('title_for_layout', "Zamówienia publiczne udzielone przez " . $this->object->getTitle());
+    }
+    
+    public function urzednicy()
+    {
+	    
+	    parent::load();
+	    $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+                'dataset' => 'urzednicy',
+                'urzednicy.instytucja_id' => $this->object->getId(),
+            ),
+        ));
+
+        $this->set('title_for_layout', "Urzędnicy pracujący dla " . $this->object->getTitle());
     }
 
     public function budzet()

@@ -34,5 +34,16 @@ class Urzednicy extends DataObject
     {
         return false;
     }
-
+	
+	public function getMetaDescriptionParts($preset = false)
+	{
+		
+		$output = array(
+			$this->getData('stanowisko'),
+		);
+				
+		return $output;
+		
+	}
+	
 }

@@ -989,7 +989,7 @@ class DataBrowserComponent extends Component {
 					
 		if( isset($conditions['q']) )
 			$output['highlight'] = true;
-		
+				
 		return $output;
 		
 	}

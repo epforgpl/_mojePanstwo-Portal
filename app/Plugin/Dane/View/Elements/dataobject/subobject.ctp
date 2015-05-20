@@ -1,9 +1,9 @@
 <div class="objectPageHeaderContainer subobjectContainer">
     <div class="container" style="width: inherit;">
         <?
-        $col_width = '11';
+        $col_width = '9';
         if (isset($back)) {
-            $col_width = '10';
+            $col_width = '9';
             ?>
             <div class="col-md-1 btn-back-cont">
                 <a class="btn-back glyphicon glyphicon-circle-arrow-left" href="<?= $back['href'] ?>"
@@ -39,12 +39,16 @@
     </div>
 </div>
 
-<?
-/*
-if (isset($menu) && !empty($menu)) {
-    echo $this->Element('Dane.dataobject/menuTabs', array(
-        'menu' => $menu,
-    ));
-}
-*/
-?>
+<? if (isset($_submenu) && !empty($_submenu)) { ?>
+    <div class="menuTabsCont">
+        <div class="container">
+            <?
+            if( !isset($_submenu['base']) )
+                $_submenu['base'] = $object->getUrl();
+            echo $this->Element('Dane.dataobject/menuTabs', array(
+                'menu' => $_submenu,
+            ));
+            ?>
+        </div>
+    </div>
+<? } ?>

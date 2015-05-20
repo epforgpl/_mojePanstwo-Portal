@@ -8,15 +8,13 @@
 	$options = array(
 		'mode' => 'init',
 	);
-	
-	debug( $dataBrowser['aggs'] );
-	
+		
 ?>
 <div class="col-md-8">
 		
 	<div class="databrowser-panels">
 		
-		
+		<? if( @$dataBrowser['aggs']['all']['prawo']['top']['hits']['hits'] ) {?>
 		<div class="databrowser-panel">
 			<h2>Najnowsze akty prawne:</h2>			
 			
@@ -46,9 +44,43 @@
 						
 			</div>
 		</div>
+		<? } ?>
 		
 		
+		<? if( @$dataBrowser['aggs']['all']['prawo_urzedowe']['top']['hits']['hits'] ) {?>
+		<div class="databrowser-panel">
+			<h2>Najnowsze pozycje w dzienniku urzędowym:</h2>			
+			
+			<div class="aggs-init">
+									
+				<div class="dataAggs">
+					<div class="agg agg-Dataobjects">
+					    <? if( $dataBrowser['aggs']['all']['prawo_urzedowe']['top']['hits']['hits'] ) {?>
+					    <ul class="dataobjects">
+						    <? foreach( $dataBrowser['aggs']['all']['prawo_urzedowe']['top']['hits']['hits'] as $doc ) {?>
+						    <li>
+							<?
+								echo $this->Dataobject->render($doc, 'default');
+							?>
+						    </li>
+						    <? } ?>
+					    </ul>
+					    <div class="buttons">
+							<a href="#" class="btn btn-primary btn-sm">Zobacz więcej</a>
+						</div>
+					    <? } ?>
+					    
+					</div>
+				</div>
+				
+				
+						
+			</div>
+		</div>
+		<? } ?>
 		
+		
+		<? if(@$dataBrowser['aggs']['all']['zamowienia']['top']['hits']['hits']) {?>
 		<div class="databrowser-panel">
 			<h2>Najnowsze zamówienia publiczne:</h2>			
 			
@@ -78,8 +110,10 @@
 						
 			</div>
 		</div>
-			
-			
+		<? } ?>
+		
+		
+		<? if(@$dataBrowser['aggs']['all']['dokumenty']['wykonawcy']['id']['buckets']) {?>
 		<div class="databrowser-panel">
 			<h2>Najwięcej zamówień publicznych otrzymali:</h2>
 			
@@ -148,6 +182,7 @@
 						
 			</div>
 		</div>
+		<? } ?>
 		
 	</div>
 

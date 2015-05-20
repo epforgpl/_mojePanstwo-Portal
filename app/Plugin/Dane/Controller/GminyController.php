@@ -1359,11 +1359,27 @@ class GminyController extends DataobjectsController
         $this->request->params['action'] = 'rada';
 
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
-
+		
             $subaction = (isset($this->request->params['subaction']) && $this->request->params['subaction']) ? $this->request->params['subaction'] : 'view';
             $subsubid = (isset($this->request->params['subsubid']) && $this->request->params['subsubid']) ? $this->request->params['subsubid'] : false;
 
-
+			
+			$submenu = array(
+				'items' => array(
+					array(
+						'label' => 'Dane',
+					),
+					array(
+						'label' => 'Interpelacje',
+						'id' => 'interpelacje',
+					),
+					array(
+						'label' => 'Obietnice wyborcze',
+						'id' => 'obietnice',
+					),
+				),
+			);
+			
             $layers = array('channels', 'subscriptions', 'neighbours', 'bip_url');
 
             if ($subaction == 'komisje') {
@@ -1393,15 +1409,126 @@ class GminyController extends DataobjectsController
             switch ($subaction) {
                 case 'view': {
 
-                    $this->Components->load('Dane.DataFeed', array(
-                        'feed' => $radny->getDataset() . '/' . $radny->getId(),
-                        'preset' => $radny->getDataset(),
-                        'side' => 'radni_gmin',
-                        'object_subscriptions' => $radny->getLayer('subscriptions'),
-                    ));
-
-                    $this->loadChannels = true;
+                    $global_aggs = array(
+						'interpelacje' => array(
+					        'filter' => array(
+						        'bool' => array(
+							        'must' => array(
+								        array(
+									        'term' => array(
+										        'dataset' => 'rady_gmin_interpelacje',
+									        ),
+								        ),
+								        array(
+									        'term' => array(
+										        'data.rady_gmin_interpelacje.radny_id' => $radny->getId(),
+									        ),
+								        ),
+							        ),
+						        ),					        
+					        ),
+					        'aggs' => array(
+						        'top' => array(
+							        'top_hits' => array(
+								        'size' => 3,
+								        'fielddata_fields' => array('dataset', 'id'),
+								        'sort' => array(
+									        'date' => array(
+										        'order' => 'desc',
+									        ),
+								        ),
+							        ),
+						        ),
+					        ),
+				        ),
+				        'komisje' => array(
+					        'filter' => array(
+						        'bool' => array(
+							        'must' => array(
+								        array(
+									        'term' => array(
+										        'dataset' => 'radni_gmin',
+									        ),
+								        ),
+								        array(
+									        'term' => array(
+										        'id' => $radny->getId(),
+									        ),
+								        ),
+							        ),
+						        ),					        
+					        ),
+					        'aggs' => array(
+						        'komisje' => array(
+									'nested' => array(
+										'path' => 'radni_gmin-komisje',
+									),
+									'aggs' => array(
+										'top' => array(								        
+									        'top_hits' => array(
+										        'size' => 100,
+										        'fielddata_fields' => array('komisja_id', 'komisja_nazwa', 'stanowisko_id', 'stanowisko_nazwa'),
+										        'sort' => array(
+											         'radni_gmin-komisje.stanowisko_id' => 'desc',
+										        ),
+									        ),
+								        ),
+							        ),
+						        ),
+					        ),
+				        ),
+					);
+										
+					$options  = array(
+			            'searchTitle' => 'Szukaj w ' . $radny->getTitle() . '...',
+			            'conditions' => array(
+				            '_object' => 'radni_gmin.' . $radny->getId(),
+			            ),
+			            'cover' => array(
+				            'view' => array(
+					            'plugin' => 'Dane',
+					            'element' => 'radni_gmin/cover',
+				            ),
+				            'aggs' => array(
+					            'all' => array(
+							        'global' => '_empty',
+							        'aggs' => $global_aggs,
+						        ),
+					        ),
+			            ),
+			            'aggs' => array(
+					        'dataset' => array(
+					            'terms' => array(
+						            'field' => 'dataset',
+					            ),
+					            'visual' => array(
+						            'label' => 'Zbiory danych',
+						            'skin' => 'datasets',
+						            'class' => 'special',
+					                'field' => 'dataset',
+					                'dictionary' => array(
+						                'prawo_wojewodztwa' => array('prawo', 'Prawo lokalne'),
+						                'zamowienia_publiczne' => array('zamowienia_publiczne', 'Zamówienia publiczne'),
+					                ),
+					            ),
+					        ),
+			            ),
+			        );
+			         
+			        if( $radny->getData('krs_osoba_id') ) {
+				        $this->set('osoba', $this->Dataobject->find('first', array(
+	                        'conditions' => array(
+	                            'dataset' => 'krs_osoby',
+	                            'id' => $radny->getData('krs_osoba_id'),
+	                        ),
+	                        'layers' => array('organizacje'),
+	                    )));
+                    }
+			              
+				    $this->Components->load('Dane.DataBrowser', $options);                    
                     $this->channels = $radny->getLayer('channels');
+                    
+                    $submenu['selected'] = 'view';
 
                     break;
                 }
@@ -1445,7 +1572,8 @@ class GminyController extends DataobjectsController
                         ),
                         'aggsPreset' => 'rady_gmin_interpelacje',
                     ));
-
+					
+					$submenu['selected'] = 'interpelacje';
                     $this->set('DataBrowserTitle', 'Interpelacje');
                     $title_for_layout .= ' - Interpelacje';
 
@@ -1480,18 +1608,10 @@ class GminyController extends DataobjectsController
 
                     break;
                 }
-                case 'krs': {
-
-                    $this->set('osoba', $this->Dataobject->find('first', array(
-                        'conditions' => array(
-                            'dataset' => 'krs_osoby',
-                            'id' => $radny->getData('krs_osoba_id'),
-                        ),
-                        'layers' => array('organizacje'),
-                    )));
-
-                    break;
-
+                case 'obietnice': {
+	                
+					$submenu['selected'] = 'obietnice';
+	                
                 }
 
 
@@ -1499,6 +1619,7 @@ class GminyController extends DataobjectsController
 
 
             $this->set('radny', $radny);
+            $this->set('_submenu', $submenu);
             $this->set('subsubid', $subsubid);
             $this->set('title_for_layout', $title_for_layout);
             $this->render('radny-' . $subaction);
