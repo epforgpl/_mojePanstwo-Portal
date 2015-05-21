@@ -20,7 +20,7 @@
 			<div class="row">
 				<div class="col-md-6">
 			
-					<h2>Najnowsze posiedzenie Rady Miasta:</h2>			
+					<h2>Najnowsze posiedzenie Rady Miasta</h2>			
 					
 					<div class="aggs-init">
 											
@@ -49,7 +49,7 @@
 				</div>
 				<div class="col-md-6">
 					
-					<h2>Najnowsze posiedzenie komisji Rady Miasta:</h2>			
+					<h2>Najnowsze posiedzenie komisji Rady Miasta</h2>			
 					
 					<div class="aggs-init">
 											
@@ -83,7 +83,7 @@
 		
 		
 		<div class="databrowser-panel">
-			<h2>Najnowsze uchwały Rady:</h2>			
+			<h2>Najnowsze uchwały Rady</h2>			
 			
 			<div class="aggs-init">
 									
@@ -113,7 +113,7 @@
 		</div>
 		
 		<div class="databrowser-panel">
-			<h2>Najnowsze interpelacje radnych:</h2>			
+			<h2>Najnowsze interpelacje radnych</h2>			
 			
 			<div class="aggs-init">
 									
@@ -143,7 +143,7 @@
 		</div>
 		
 		<div class="databrowser-panel">
-			<h2>Najnowsze projekty legislacyjne pod obrady rady:</h2>			
+			<h2>Najnowsze projekty legislacyjne pod obrady rady</h2>			
 			
 			<div class="aggs-init">
 									
@@ -174,7 +174,7 @@
 		<? } else { ?>
 		
 		<div class="databrowser-panel">
-			<h2>Najnowsze prawo lokalne:</h2>			
+			<h2>Najnowsze prawo lokalne</h2>			
 			
 			<div class="aggs-init">
 									
@@ -206,7 +206,7 @@
 		<? } ?>
 		
 		<div class="databrowser-panel">
-			<h2>Najnowsze zamówienia publiczne:</h2>			
+			<h2>Najnowsze zamówienia publiczne</h2>			
 			
 			<div class="aggs-init">
 									
@@ -237,7 +237,7 @@
 			
 			
 		<div class="databrowser-panel">
-			<h2>Najwięcej zamówień publicznych otrzymali:</h2>
+			<h2>Najwięcej zamówień publicznych otrzymali</h2>
 			
 			<div class="aggs-init">
 				
@@ -306,7 +306,7 @@
 		</div>
 		
 		<div class="databrowser-panel">
-			<h2>Formy prawne organizacji</h2>
+			<h2>Typy zarejestrowanych organizacji<? if( $object->getId()==903 ) {?> w Krakowie<? } ?></h2>
 			<div class="aggs-init">
 								
 				<div class="dataAggs">
@@ -349,4 +349,13 @@
 		
 	</div>
 
-</div>
+</div><? if( $object->getId()==903 ) { ?><div class="col-md-4">
+		
+	<div class="databrowser-panels">
+				
+		<div class="databrowser-panel">
+			<h2>Aktualności <a href="http://www.stanczyk.org.pl/" target="_blank">Fundacji Stańczyka</a></h2>	
+		</div>
+	</div>
+					
+<? } ?>
