@@ -39,14 +39,14 @@
     </div>
 </div>
 
-<? if (isset($_submenu) && !empty($_submenu)) { ?>
+<? if (isset($menu) && !empty($menu)) { ?>
     <div class="menuTabsCont">
         <div class="container">
             <?
-            if( !isset($_submenu['base']) )
-                $_submenu['base'] = $object->getUrl();
+            if( !isset($menu['base']) )
+                $menu['base'] = $object->getUrl();
             echo $this->Element('Dane.dataobject/menuTabs', array(
-                'menu' => $_submenu,
+                'menu' => $menu,
             ));
             ?>
         </div>

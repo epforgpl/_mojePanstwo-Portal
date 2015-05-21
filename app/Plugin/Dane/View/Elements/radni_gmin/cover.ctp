@@ -101,7 +101,7 @@
 			
 			
 		
-		<? if ($organizacje = $osoba->getLayer('organizacje')) { ?>
+		<? if (isset($osoba) && ($organizacje = $osoba->getLayer('organizacje'))) { ?>
 		<div class="databrowser-panel">
 			<h2>Powiązania w KRS:</h2>			
 			

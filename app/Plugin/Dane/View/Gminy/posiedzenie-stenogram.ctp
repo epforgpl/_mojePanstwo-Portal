@@ -10,9 +10,27 @@ if ($object->getId() == '903') {
 echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
+?>
+
+<h1 class="subheader">Rada Miasta Kraków</h1>
+	
+<? if (isset($_submenu) && !empty($_submenu)) { ?>
+    <div class="menuTabsCont">
+        <div class="container">
+            <?
+            if( !isset($_submenu['base']) )
+                $_submenu['base'] = $object->getUrl();
+            echo $this->Element('Dane.dataobject/menuTabs', array(
+                'menu' => $_submenu,
+            ));
+            ?>
+        </div>
+    </div>
+<? } 
+
 
 echo $this->Element('Dane.dataobject/subobject', array(
-    'menu' => isset($_submenu) ? $_submenu : false,
+    'menu' => isset($__submenu) ? $__submenu : false,
     'object' => $posiedzenie,
     'objectOptions' => array(
         'hlFields' => array(),
@@ -21,23 +39,9 @@ echo $this->Element('Dane.dataobject/subobject', array(
             'shortTitle' => 'pageTitle'
         ),
     ),
-    'back' => array(
-        'href' => '/dane/gminy/903,krakow/posiedzenia',
-        'title' => 'Wszystkie posiedzenia rady miasta',
-    ),
 ));
-?>
 
-	<div class="row">
-		<div class="col-md-9">
-			<h1 class="light text-center">
-				<a href="<?= $posiedzenie->getUrl() ?>" class="btn-back glyphicon glyphicon-circle-arrow-left"></a> 
-				Stenogram
-			</h1>
-		</div>
-	</div>
 
-<?
 	
 	echo $this->Document->place($posiedzenie->getData('krakow_posiedzenia.stenogram_dokument_id'));
 

@@ -50,10 +50,12 @@ class Krakow_posiedzenia_punkty extends DocDataObject
 	    	return false;
     }
 	
+	/*
 	public function getShortLabel()
     {
         return '<a href="/dane/gminy/903,krakow/posiedzenia/' . $this->getData('krakow_posiedzenia.id') . '">Sesja ' . $this->getData('krakow_sesje.str_numer') . ', ' . 'Posiedzenie #' . $this->getData('krakow_posiedzenia.numer') . '</a> <span class="separator">|</span> Punkt #' . $this->getData('numer');
     }
+	*/
 	
     public function getLabel()
     {

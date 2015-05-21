@@ -9,27 +9,22 @@ echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
 
-/*
+
 echo $this->Element('Dane.dataobject/subobject', array(
-    'menu' => $_submenu,
+    'menu' => isset($_submenu) ? $_submenu : false,
     'object' => $dzielnica,
     'objectOptions' => array(
         'hlFields' => array(),
         'bigTitle' => true,
-    )
+    ),
 ));
-*/
 
 echo $this->Element('Dane.dataobject/subobject', array(
     'menu' => false,
     'object' => $posiedzenie,
     'objectOptions' => array(
-        'hlFields' => array(),
         'bigTitle' => true,
-    ),
-    'back' => array(
-        'href' => $dzielnica->getUrl(),
-        'title' => $dzielnica->getTitle(),
+        'hlFields' => array(),
     ),
 ));
 

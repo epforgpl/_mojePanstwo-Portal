@@ -456,31 +456,7 @@ class AppController extends Controller
             $pkMenu['items'][] = array(
                 'id' => 'organizacje',
                 'label' => 'Organizacje',
-                'dropdown' => array(
-                    'items' => array(
-                        array(
-                            'id' => 'organizacje',
-                            'label' => 'Wszystkie organizacje',
-                            'href' => $href_base . '/organizacje',
-                        ),
-                        array(
-                            'topborder' => true,
-                            'id' => 'biznes',
-                            'label' => 'Biznes',
-                            'href' => $href_base . '/biznes',
-                        ),
-                        array(
-                            'id' => 'ngo',
-                            'label' => 'Organizacje pozarządowe',
-                            'href' => $href_base . '/ngo',
-                        ),
-                        array(
-                            'id' => 'spzoz',
-                            'label' => 'Publiczne zakłady opieki zdrowotnej',
-                            'href' => $href_base . '/spzoz',
-                        ),
-                    ),
-                ),
+                'href' => $href_base . '/organizacje',                
             );
             $pkMenu['items'][] = array(
                 'id' => 'finanse',

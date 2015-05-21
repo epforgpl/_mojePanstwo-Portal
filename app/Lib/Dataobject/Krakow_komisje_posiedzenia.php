@@ -56,10 +56,17 @@ class Krakow_komisje_posiedzenia extends DataObject
 	        return '/dane/pk/posiedzenie.jpg';
     }
     
-    public function getShortLabel() {
-	    
-	    return 'Posiedzenie Komisji Rady Miasta';
-	    
-    }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+				
+		$output = array(
+			$this->getData('krakow_komisje.nazwa'),
+		);
+		
+		
+		return $output;
+		
+	}
 	
 }

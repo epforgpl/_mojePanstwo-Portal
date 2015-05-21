@@ -22,8 +22,15 @@ class Krakow_komisje extends DataObject
 	    return '/dane/gminy/903/komisje/' . $this->getId();
     }
     
+    public function getShortLabel()
+    {
+        return 'Komisja Rady Miasta Kraków';
+    }
+    
+    /*
     public function getTitleAddon() {
 	    return 'Kadencja ' . $this->getData('kadencja_id');
     }
+    */
 
 }

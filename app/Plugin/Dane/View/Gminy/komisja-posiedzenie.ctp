@@ -9,27 +9,20 @@ echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
 
-/*
 echo $this->Element('Dane.dataobject/subobject', array(
-    'menu' => $_submenu,
-    'object' => $dzielnica,
+    'menu' => isset($_submenu) ? $_submenu : false,
+    'object' => $komisja,
     'objectOptions' => array(
-        'hlFields' => array(),
         'bigTitle' => true,
-    )
+    ),
 ));
-*/
 
 echo $this->Element('Dane.dataobject/subobject', array(
     'menu' => false,
     'object' => $posiedzenie,
     'objectOptions' => array(
-        'hlFields' => array('krakow_komisje.nazwa'),
         'bigTitle' => true,
-    ),
-    'back' => array(
-        'href' => $komisja->getUrl(),
-        'title' => $komisja->getTitle(),
+        'hlFields' => array(),
     ),
 ));
 

@@ -9,14 +9,9 @@ echo $this->Element('dataobject/pageBegin', array(
 ));
 
 echo $this->Element('Dane.dataobject/subobject', array(
-    'menu' => isset($_submenu) ? $_submenu : false,
     'object' => $komisja_posiedzenie,
     'objectOptions' => array(
         'bigTitle' => true,
-    ),
-    'back' => array(
-        'href' => $object->getUrl() . '/komisje_posiedzenia',
-        'title' => 'Wszystkie posiedzenia Komisji',
     ),
 ));
 

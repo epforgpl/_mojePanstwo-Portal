@@ -28,14 +28,8 @@ $data = $object->getLayer('finanse');
 
 ?>
 
-<div class="container">
-    <div class="col-md-10 col-md-offset-1 text-center">
-        <div class="row banner">
-            <? /*<p>Zestawienie wydatków gminy <?= $object->data('nazwa'); ?> w I, II i III kwartale 2014 r. z innymi gminami o liczbie mieszkańców z zakresu <?php echo $zakres[0]; ?> - <?php echo $zakres[1]; ?></p> */ ?>
-            <p>Zestawienie wydatków gminy <?= $object->data('nazwa'); ?> w I, II i III kwartale 2014 r.</p>
-        </div>
-    </div>
-</div>
+<h1 class="subheader">Wydatki gminy Kraków w I, II i III kwartale 2014 r.</h1>
+
 
 <div class="container">
     <div class="mpanel" id="sections">
@@ -44,7 +38,7 @@ $data = $object->getLayer('finanse');
                 <li class="section" id="section_<?= $section['id'] ?>" data-sum="<?=(int)$section['sum_wydatki']?>" data-id="<?= $section['id'] ?>">
                     <div class="row">
                         <div class="col-md-2 text-right icon">
-                            <img src="/finanse/img/sections/<?= $section['id'] ?>.svg"/>
+                            <img src="/finanse_gmin/img/sections/<?= $section['id'] ?>.svg"/>
                         </div>
                         <div class="col-md-10">
                             <div class="row row-header">

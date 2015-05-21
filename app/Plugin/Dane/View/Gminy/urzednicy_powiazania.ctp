@@ -9,20 +9,31 @@ if ($object->getId() == '903') {
 echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
+?>
+
+<h1 class="subheader">Urząd Miasta Kraków</h1>
+	
+<? if (isset($_submenu) && !empty($_submenu)) { ?>
+    <div class="menuTabsCont">
+        <div class="container">
+            <?
+            if( !isset($_submenu['base']) )
+                $_submenu['base'] = $object->getUrl();
+            echo $this->Element('Dane.dataobject/menuTabs', array(
+                'menu' => $_submenu,
+            ));
+            ?>
+        </div>
+    </div>
+<? } 
 
 $powiazania = $object->getLayer('urzednicy_powiazania');
 ?>
 
-    <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-8">
         <div id="powiazania" class="object">
 
             <? if ($powiazania) { ?>
-
-                <h1>Powiązania urzędników gminy <?= $object->getData('nazwa') ?> z organizacjami w <a href="/krs">Krajowym
-                        Rejestrze Sądowym</a></h1>
-
-                <p class="desc">Zobacz także <a href="/dane/gminy/903,krakow/radni_powiazania">powiązania
-                        radnych &raquo;</a></p>
 
                 <div class="block-group">
 

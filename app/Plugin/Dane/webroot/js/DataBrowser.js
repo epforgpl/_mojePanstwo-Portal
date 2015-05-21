@@ -58,15 +58,19 @@ var DataBrowser = Class.extend({
 	},
 	
 	initAggPieChart: function(li) {
-		
-		
+				
 		li = $(li);
 		var data = $.parseJSON(li.attr('data-chart'));
-		
 		var pie_chart_data = [];
         var pie_chart_keys = [];
         var choose_request = li.attr('data-choose-request');
-        var chart_options = $.parseJSON(li.attr('data-chart-options'));
+        var chart_options;
+        
+        try {
+	        chart_options = $.parseJSON(li.attr('data-chart-options'));
+        } catch(err) {
+	        chart_options = false;
+        }
         		
         for(var i = 0; i < data.buckets.length; i++) {
             
@@ -129,6 +133,7 @@ var DataBrowser = Class.extend({
             }]
         };
 		
+		
 		if( chart_options['mode']=='init' ) {
 		
 			options.legend = {
@@ -164,7 +169,7 @@ var DataBrowser = Class.extend({
         }
 		
         li.find('.chart').highcharts(options);
-		
+				
 	},
 
     getFormattedDate: function(date) {
@@ -177,7 +182,7 @@ var DataBrowser = Class.extend({
     },
 	
 	initAggDateHistogram: function(li) {
-		
+				
 		li = $(li);
 		var data = $.parseJSON(li.attr('data-chart'));
         var histogram_keys = [];

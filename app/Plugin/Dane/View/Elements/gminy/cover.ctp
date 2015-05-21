@@ -37,7 +37,7 @@
 								    <? } ?>
 							    </ul>
 							    <div class="buttons">
-									<a href="#" class="btn btn-primary btn-sm">Więcej posiedzeń</a>
+									<a href="<?= $object->getUrl() ?>/posiedzenia" class="btn btn-primary btn-sm">Więcej posiedzeń</a>
 								</div>
 							    <? } ?>
 							    
@@ -55,18 +55,18 @@
 											
 						<div class="dataAggs">
 							<div class="agg agg-Dataobjects">
-							    <? if( $dataBrowser['aggs']['all']['rada_posiedzenia']['top']['hits']['hits'] ) {?>
+							    <? if( $dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits'] ) {?>
 							    <ul class="dataobjects">
-								    <? foreach( $dataBrowser['aggs']['all']['rada_posiedzenia']['top']['hits']['hits'] as $doc ) {?>
+								    <? foreach( $dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits'] as $doc ) {?>
 								    <li>
 									<?
-										echo $this->Dataobject->render($doc, 'krakow_posiedzenia');
+										echo $this->Dataobject->render($doc, 'krakow_rada_posiedzenia');
 									?>
 								    </li>
 								    <? } ?>
 							    </ul>
 							    <div class="buttons">
-									<a href="#" class="btn btn-primary btn-sm">Więcej posiedzeń</a>
+									<a href="<?= $object->getUrl() ?>/komisje_posiedzenia" class="btn btn-primary btn-sm">Więcej posiedzeń</a>
 								</div>
 							    <? } ?>
 							    
@@ -78,6 +78,68 @@
 				</div>
 			</div>
 			
+		</div>
+		
+		
+		
+		<div class="databrowser-panel">
+			<h2>Najnowsze uchwały Rady:</h2>			
+			
+			<div class="aggs-init">
+									
+				<div class="dataAggs">
+					<div class="agg agg-Dataobjects">
+					    <? if( $dataBrowser['aggs']['all']['krakow_rada_uchwaly']['top']['hits']['hits'] ) {?>
+					    <ul class="dataobjects">
+						    <? foreach( $dataBrowser['aggs']['all']['krakow_rada_uchwaly']['top']['hits']['hits'] as $doc ) {?>
+						    <li>
+							<?
+								echo $this->Dataobject->render($doc, 'default');
+							?>
+						    </li>
+						    <? } ?>
+					    </ul>
+					    <div class="buttons">
+							<a href="<?= $object->getUrl() ?>/rada_uchwaly" class="btn btn-primary btn-sm">Zobacz więcej</a>
+						</div>
+					    <? } ?>
+					    
+					</div>
+				</div>
+				
+				
+						
+			</div>
+		</div>
+		
+		<div class="databrowser-panel">
+			<h2>Najnowsze interpelacje radnych:</h2>			
+			
+			<div class="aggs-init">
+									
+				<div class="dataAggs">
+					<div class="agg agg-Dataobjects">
+					    <? if( $dataBrowser['aggs']['all']['interpelacje']['top']['hits']['hits'] ) {?>
+					    <ul class="dataobjects">
+						    <? foreach( $dataBrowser['aggs']['all']['interpelacje']['top']['hits']['hits'] as $doc ) {?>
+						    <li>
+							<?
+								echo $this->Dataobject->render($doc, 'default');
+							?>
+						    </li>
+						    <? } ?>
+					    </ul>
+					    <div class="buttons">
+							<a href="<?= $object->getUrl() ?>/interpelacje" class="btn btn-primary btn-sm">Zobacz więcej</a>
+						</div>
+					    <? } ?>
+					    
+					</div>
+				</div>
+				
+				
+						
+			</div>
 		</div>
 		
 		<div class="databrowser-panel">
@@ -98,38 +160,7 @@
 						    <? } ?>
 					    </ul>
 					    <div class="buttons">
-							<a href="#" class="btn btn-primary btn-sm">Zobacz więcej</a>
-						</div>
-					    <? } ?>
-					    
-					</div>
-				</div>
-				
-				
-						
-			</div>
-		</div>
-		
-		
-		<div class="databrowser-panel">
-			<h2>Najnowsze interpelacje radnych:</h2>			
-			
-			<div class="aggs-init">
-									
-				<div class="dataAggs">
-					<div class="agg agg-Dataobjects">
-					    <? if( $dataBrowser['aggs']['all']['interpelacje']['top']['hits']['hits'] ) {?>
-					    <ul class="dataobjects">
-						    <? foreach( $dataBrowser['aggs']['all']['interpelacje']['top']['hits']['hits'] as $doc ) {?>
-						    <li>
-							<?
-								echo $this->Dataobject->render($doc, 'default');
-							?>
-						    </li>
-						    <? } ?>
-					    </ul>
-					    <div class="buttons">
-							<a href="#" class="btn btn-primary btn-sm">Zobacz więcej</a>
+							<a href="<?= $object->getUrl() ?>/druki" class="btn btn-primary btn-sm">Zobacz więcej</a>
 						</div>
 					    <? } ?>
 					    

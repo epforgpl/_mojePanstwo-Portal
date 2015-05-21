@@ -63,7 +63,7 @@ class Krakow_dzielnice_rady_posiedzenia extends DataObject
     
     public function getShortLabel() {
 	    
-	    return 'Posiedzenie rady dzielnicy ' . $this->getData('dzielnice.nazwa');
+	    return 'Posiedzenie rady dzielnicy';
 	    
     }
 
