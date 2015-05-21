@@ -469,6 +469,7 @@ class AppController extends Controller
                 'label' => 'Finanse',
                 'icon' => '',
             );
+            /*
             $pkMenu['items'][] = array(
                 'id' => 'powiadomienia',
                 'label' => 'Powiadomienia',
@@ -507,6 +508,7 @@ class AppController extends Controller
                     )
                 )
             );
+            */
             $this->set('pkMenu', $pkMenu);
         }
 
