@@ -454,6 +454,11 @@ class AppController extends Controller
                 'href' => $href_base . '/dzielnice',
             );
             $pkMenu['items'][] = array(
+                'id' => 'zamowienia',
+                'label' => 'Zamówienia publiczne',
+                'href' => $href_base . '/zamowienia',                
+            );
+            $pkMenu['items'][] = array(
                 'id' => 'organizacje',
                 'label' => 'Organizacje',
                 'href' => $href_base . '/organizacje',                
