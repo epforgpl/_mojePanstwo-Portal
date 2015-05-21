@@ -15,9 +15,7 @@ $this->Combinator->add_libs('js', array('appheader'));
                         <a href="http://przejrzystykrakow.pl">Przejrzysty Kraków</a>
                     </h1>
 
-                    <p class="header">Program Przejrzysty Kraków, prowadzony przez <a href="/dane/krs_podmioty/325617">Fundację
-                            Stańczyka</a>, ma na celu wieloaspektowy monitoring życia publicznego w Krakowie. W ramach
-                        programu prowadzony jest obecnie monitoring Rady Miasta i Dzielnic Krakowa.</p>
+                    <p class="header">Monitorujemy pracę instytucji publicznych w Krakowie.</p>
                 </div>
             </div>
         </div>
