@@ -180,7 +180,10 @@ class Client extends OAuthAppModel
 
     public function getRedirectURL($client_id)
     {
-        $response = file_get_contents('http://api-v2.mojepanstwo.pl/oauth/clients/'.$client_id);
+        $ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, 'https://api-v2.mojepanstwo.pl/oauth/clients/' . $client_id);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		$response = curl_exec($ch);
         $data = json_decode($response, true);
         return $data;
     }
