@@ -984,7 +984,7 @@ class DataBrowserComponent extends Component {
 			'conditions' => $conditions,
 			'aggs' => $this->getSettingsForField('aggs'),
 			'order' => $this->getSettingsForField('order'),
-			'limit' => isset($this->settings['limit']) ? $this->settings['limit'] : 50,
+			'limit' => isset($this->settings['limit']) ? $this->settings['limit'] : 30,
 		);
 					
 		if( isset($conditions['q']) )
