@@ -2,7 +2,7 @@
 
 <div id="reportBug" class="container">
     <div class="col-xs-12 col-md-8">
-        <div class="block block-border">
+        <div class="block">
             <header>Zgłoś błąd</header>
             <section>
                 <p><?= __('LC_REPORTBUG_HEADLINE') ?></p>

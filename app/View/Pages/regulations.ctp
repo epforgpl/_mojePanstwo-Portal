@@ -1,8 +1,8 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('regulations')) ?>
 
-<div id="regulations" class="block block-border container">
-    <section>
-        <div class="col-xs-12 col-md-8">
+<div id="regulations" class="container">
+    <div class="block col-xs-12 col-md-8">
+        <section>
             <h2>REGULAMIN ŚWIADCZENIA USŁUG DROGĄ ELEKTRONICZNĄ</h2>
             <ol>
                 <li>
@@ -327,6 +327,6 @@
                     </ul>
                 </li>
             </ol>
-        </div>
-    </section>
+        </section>
+    </div>
 </div>
