@@ -8,8 +8,6 @@ echo $this->Html->script('../plugins/scriptaculous/src/scriptaculous', array('bl
 echo $this->Html->script('/MojaGmina/js/moja_gmina', array('block' => 'scriptBlock'));
 ?>
 
-<?= $this->Element('appheader', array('title' => 'Moja gmina', 'subtitle' => __d('moja_gmina', "LC_MOJA_GMINA_HEADLINE"), 'headerUrl' => 'moja-gmina.png')); ?>
-
 <div id="mojaGmina">
     <div class="container">
         <div class="locationBrowser dataContent content col-xs-12">

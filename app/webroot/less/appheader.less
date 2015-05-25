@@ -1,9 +1,116 @@
 .appHeader {
     width: 100%;
-    background: #FFF;
-    position: relative;
-    border-bottom: 4px solid #DDD;
-    z-index: 901;
+    background: #062943;
+    min-height: 66px;
+
+    .holder {
+        h1 {
+            font-size: 30px;
+            font-weight: 300;
+            margin: 16px 0;
+
+            img, svg {
+                height: 30px;
+                margin: 0 -4px 0 -8px;
+                position: relative;
+                top: 5px;
+            }
+
+            a {
+                color: #fff;
+
+                > i {
+                    font-size: 0.8em;
+                    margin-right: 8px;
+                }
+            }
+        }
+
+        h2 {
+            margin: 0 12px 20px;
+            font-size: 18px;
+            font-weight: 300;
+            color: #fff;
+        }
+    }
+
+    .menu {
+        ul {
+            border: none;
+            margin: 0;
+            height: 100%;
+
+            li {
+                border: none;
+                margin: 0;
+
+                a {
+                    color: #AAA;
+                    font-weight: 600;
+                    font-size: 13px;
+                    border: none;
+                    padding: 7px 15px 7px;
+                    letter-spacing: .035em;
+                    cursor: pointer;
+
+                    &:hover {
+                        background: none;
+                        border: none;
+                        margin: 0;
+                    }
+                    span.caret {
+                        margin-left: 5px;
+                    }
+                    &:focus {
+                        background: none;
+                    }
+                }
+                &:hover {
+                    border: none;
+                }
+                &.open, &:focus {
+                    a {
+                        background: none;
+                        border-bottom: 4px solid lighten(#63afea, 15%);
+                    }
+                }
+                &.active {
+                    a {
+                        background: none;
+                        border: none;
+                        color: #157ab5;
+                        border-bottom: 4px solid #63afea;
+                        margin: 0 0 -3px;
+                    }
+                }
+                ul.dropdown-menu {
+                    a {
+                        display: block;
+                        border: none;
+                        background: #fff;
+                        color: #157AB5;
+                        padding: 5px 20px;
+                        font-size: 13px;
+                        &:hover {
+                            border: none;
+                        }
+                    }
+
+                    a {
+                        &:hover {
+                            color: #157AB5;
+                        }
+                    }
+                    &.active {
+                        a {
+                            color: #333;
+                            font-weight: bold;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     &.pk {
         @menuHeight: 34px;
@@ -150,127 +257,6 @@
                                 color: #ffffff;
                                 border: none;
                             }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    > .container {
-        position: relative;
-        height: 100%;
-    }
-
-    .goto {
-        margin: 16px 0 0;
-        .dropdown-menu.inner.selectpicker {
-            text-align: left;
-        }
-    }
-
-    .holder {
-        h1 {
-            font-size: 30px;
-            font-weight: 300;
-            margin: 15px 0 15px;
-
-            img, svg {
-                height: 30px;
-                margin: 0 -4px 0 -8px;
-                position: relative;
-                top: 5px;
-            }
-
-            a {
-                color: #555;
-
-                > i {
-                    font-size: 0.8em;
-                    margin-right: 8px;
-                }
-            }
-        }
-
-        h2 {
-            margin: 0 12px 20px;
-            font-size: 18px;
-            font-weight: 300;
-            color: #AAA;
-        }
-    }
-
-    .menu {
-        ul {
-            border: none;
-            margin: 0;
-            height: 100%;
-
-            li {
-                border: none;
-                margin: 0;
-
-                a {
-                    color: #AAA;
-                    font-weight: 600;
-                    font-size: 13px;
-                    border: none;
-                    padding: 7px 15px 7px;
-                    letter-spacing: .035em;
-                    cursor: pointer;
-
-                    &:hover {
-                        background: none;
-                        border: none;
-                        margin: 0;
-                    }
-                    span.caret {
-                        margin-left: 5px;
-                    }
-                    &:focus {
-                        background: none;
-                    }
-                }
-                &:hover {
-                    border: none;
-                }
-                &.open, &:focus {
-                    a {
-                        background: none;
-                        border-bottom: 4px solid lighten(#63afea, 15%);
-                    }
-                }
-                &.active {
-                    a {
-                        background: none;
-                        border: none;
-                        color: #157ab5;
-                        border-bottom: 4px solid #63afea;
-                        margin: 0 0 -3px;
-                    }
-                }
-                ul.dropdown-menu {
-                    a {
-                        display: block;
-                        border: none !important; /*TODO:check if it REALLY needed*/
-                        background: #fff !important; /*TODO:check if it REALLY needed*/
-                        color: #157AB5;
-                        padding: 5px 20px;
-                        font-size: 13px;
-                        &:hover {
-                            border: none !important; /*TODO:check if it REALLY needed*/
-                        }
-                    }
-
-                    a {
-                        &:hover {
-                            color: #157AB5 !important; /*TODO:check if it REALLY needed*/
-                        }
-                    }
-                    &.active {
-                        a {
-                            color: #333 !important; /*TODO:check if it REALLY needed*/
-                            font-weight: bold;
                         }
                     }
                 }

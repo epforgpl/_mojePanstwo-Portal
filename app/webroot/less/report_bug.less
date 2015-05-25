@@ -1,52 +1,23 @@
-#reportBug .content {
+#reportBug {
     @marginSpace: 4em;
 
     margin-top: @marginSpace;
     margin-bottom: @marginSpace;
-    text-align: center;
-    font-family: "Lato", Arial, sans-serif;
 
-    h2 {
-        font-family: "Lato", Arial, sans-serif;
+    header {
         font-size: 22px;
+    }
+
+    p {
+        font-size: 18px;
         font-weight: 400;
         text-align: justify;
         margin-top: 0;
-        margin-bottom: 3em;
     }
 
-    > .separator {
-        font-size: 16px;
-        font-weight: 700;
-        color: #000000;
-        margin-top: 3em;
-        margin-bottom: 4em;
-        display: inline-block;
-        border-bottom: 2px solid #CCCCCC;
-        height: 12px;
-
-        > span {
-            background-color: #EEEEEE;
-            padding: 0 15px;
-        }
-    }
-
-    .panel {
-        float: left;
-        width: 100%;
-
-        .panel-body {
-            margin-right: 5em;
-
-            label {
-                margin-bottom: 10px;
-            }
-        }
-    }
-}
-
-@media (max-width: 768px) {
-    #reportBug .content .panel .panel-body {
-        margin-right: 0;
+    .btn {
+        display: block;
+        width: 450px;
+        margin: 40px auto 30px;
     }
 }

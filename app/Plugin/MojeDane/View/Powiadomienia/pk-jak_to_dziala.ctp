@@ -2,7 +2,7 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('pk-powiadomienia', array('plugin' => 'MojeDane'))); ?>
 <?php $this->Combinator->add_libs('js', 'MojeDane.powiadomienia') ?>
 
-<?= $this->Element('appheader'); ?>
+
 
 <div id="powiadomienia" class="fullPageHeight">
     <div class="slice left start">

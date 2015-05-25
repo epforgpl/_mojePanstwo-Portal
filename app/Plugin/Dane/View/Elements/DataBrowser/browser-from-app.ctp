@@ -1,4 +1,4 @@
-<?= $this->Element('appheader'); ?>
+
 <div class="container">
 <div class="objectsPage">
 	<?

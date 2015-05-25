@@ -50,9 +50,8 @@ class PagesController extends AppController
      */
     public function display()
     {
-
         $path = func_get_args();
-				
+
         $count = count($path);
         if (!$count) {
             return $this->redirect('/');
@@ -67,29 +66,24 @@ class PagesController extends AppController
             $subpage = $path[1];
         }
 
-        $title_for_layout = '_mojePaństwo';
-        
-        $this->set(compact('page', 'subpage', 'title_for_layout'));
-
-
-        /*
-        if ($page == 'home') {
-
-            $this->statusbarMode = 'home';
-
-            $folders = array();
-            for ($i = 0; $i < count($this->Applications); $i++) {
-                $folder_info = $this->Applications[$i]['Folder'];
-
-                $folders[$this->Applications[$i]['Application']['folder_id']]['folder'] = $folder_info;
-                $folders[$this->Applications[$i]['Application']['folder_id']]['apps'][] = $this->Applications[$i]['Application'];
-
-            }
-
-            $this->set('folders', $folders);
-
+        if ($page == 'home' || $page == 'about_us' || $page == 'regulations' || $page == 'report_bug') {
+            $this->_layout['header'] = false;
+            $this->_layout['body']['block'] = 'border';
+            $this->_layout['footer']['element'] = 'minimal';
         }
-        */
+
+        if ($page == 'home') {
+            if (isset($_COOKIE["mojePanstwo"])) {
+                $mojePanstwo = json_decode($_COOKIE["mojePanstwo"]);
+                $this->_layout['body']['wallpaper'] = $mojePanstwo->background->set;
+            } else {
+                $this->_layout['body']['wallpaper'] = '/img/home/backgrounds/home-background-default.jpg';
+            }
+        }
+
+        $title_for_layout = '_mojePaństwo';
+
+        $this->set(compact('page', 'subpage', 'title_for_layout'));
 
         try {
             $this->render(implode('/', $path));

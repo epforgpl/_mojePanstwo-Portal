@@ -8,7 +8,7 @@
 	$this->Combinator->add_libs('css', $this->Less->css('powiadomienia-subs', array('plugin' => 'MojeDane')));
 ?>
 
-<?= $this->Element('appheader'); ?>
+
 
 <? if( !$this->Session->read('Auth.User.id') ) { ?>
 <div class="container">

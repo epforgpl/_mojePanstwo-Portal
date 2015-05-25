@@ -86,19 +86,34 @@ class AppController extends Controller
     public $User = false;
     public $meta = array();
     public $pkMenu = array();
-    
+
+    /**
+     * Obiekt określający układ oraz styl dla poszczegółnych stron
+     *  header => array(
+     *      element => ‘app’ , 'dataset', 'dataobject', 'pk', false
+     *  ),
+     *  body => array(
+     *      theme => ‘default’, 'simple',
+     *      wallpaper => false, (link to image)
+     *  ),
+     *  footer => array(
+     *      element => ‘default’, 'minimal;
+     *  )
+     */
     public $_layout = array(
-	    'header' => array(
-		    'element' => 'default',
-	    ),
-	    'body' => array(
-		    'class' => 'default',
-	    ),
-	    'footer' => array(
-		    'element' => 'default',
-	    ),
+        'header' => array(
+            'element' => 'default',
+        ),
+        'body' => array(
+            'theme' => 'default',
+            'wallpaper' => false,
+            'block' => 'default',
+        ),
+        'footer' => array(
+            'element' => 'default',
+        ),
     );
-    
+
     private $datasets = array(
         'krs' => array(
             'krs_podmioty' => 'Organizacje',
@@ -150,7 +165,7 @@ class AppController extends Controller
             'poslowie_wspolpracownicy' => 'Współpracownicy posłów',
         ),
         'kto_tu_rzadzi' => array(
-	        'instytucje' => 'Instytucje',
+            'instytucje' => 'Instytucje',
         ),
     );
     private $applications = array(
@@ -166,7 +181,7 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe60d;',
         ),
-        'orzecznictwo'  => array(
+        'orzecznictwo' => array(
             'name' => 'Orzecznictwo',
             'href' => '/orzecznictwo',
             'tag' => 1,
@@ -202,7 +217,7 @@ class AppController extends Controller
             'href' => '/moja_gmina',
             'tag' => 1,
             'icon' => '&#xe605;',
-        ),        
+        ),
         'sejmometr' => array(
             'name' => 'Sejmometr',
             'href' => '/sejmometr',
@@ -456,12 +471,12 @@ class AppController extends Controller
             $pkMenu['items'][] = array(
                 'id' => 'zamowienia',
                 'label' => 'Zamówienia publiczne',
-                'href' => $href_base . '/zamowienia',                
+                'href' => $href_base . '/zamowienia',
             );
             $pkMenu['items'][] = array(
                 'id' => 'organizacje',
                 'label' => 'Organizacje',
-                'href' => $href_base . '/organizacje',                
+                'href' => $href_base . '/organizacje',
             );
             $pkMenu['items'][] = array(
                 'id' => 'finanse',
@@ -609,17 +624,17 @@ class AppController extends Controller
 
     public function beforeRender()
     {
-							
-        $this->set('_layout', $this->_layout);
+        $layout = $this->getLayout();
+        $menu = $this->getMenu();
+
+        if ($this->menu_selected == '_default')
+            $this->menu_selected = $this->request->params['action'];
+
+        $menu['selected'] = $this->menu_selected;
+
+        $this->set('_layout', $layout);
         $this->set('_breadcrumbs', $this->breadcrumbs);
         $this->set('_applications', $this->applications);
-                
-        $menu = $this->getMenu();
-                
-        if( $this->menu_selected=='_default' )
-	        $this->menu_selected = $this->request->params['action'];
-        
-        $menu['selected'] = $this->menu_selected;
         $this->set('_menu', $menu);
 
         $redirect = false;
@@ -646,6 +661,24 @@ class AppController extends Controller
 
         if ($redirect)
             return $this->redirect($this->request->here);
+    }
+
+    /**
+     * Zwraca informację o układzie layoutu strony
+     * @return array
+     */
+    public function getLayout()
+    {
+        return $this->_layout;
+    }
+
+    /**
+     * Zwraca listę elementów w menu
+     * @return array
+     */
+    public function getMenu()
+    {
+        return $this->menu;
     }
 
     public function addStatusbarCrumb($item)
@@ -723,9 +756,5 @@ class AppController extends Controller
 
         } else return $this->datasets;
 
-    }
-    
-    public function getMenu() {
-	    return $this->menu;
     }
 }

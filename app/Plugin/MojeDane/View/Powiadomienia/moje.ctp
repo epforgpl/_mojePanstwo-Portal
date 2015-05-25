@@ -1,4 +1,4 @@
-<?= $this->Element('appheader'); ?>
+
 
 <? if( !$this->Session->read('Auth.User.id') ) { ?>
 <div class="container">

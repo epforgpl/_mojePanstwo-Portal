@@ -6,6 +6,4 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'MojePisma'))) ?>
 <?php $this->Combinator->add_libs('js', 'MojePisma.pisma.js') ?>
 
-<?= $this->Element('appheader') ?>
-
 <? echo $this->Element('MojePisma.editor', array('title' => isset($pismo['tytul']) ? $pismo['tytul'] : '')); ?>

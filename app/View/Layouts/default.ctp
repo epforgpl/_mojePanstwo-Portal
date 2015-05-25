@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-		
+
     <title><?= htmlspecialchars(strip_tags(str_replace('&nbsp;', ' ', $title_for_layout))) ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php if (isset($_META) && !empty($_META)) {
         foreach ($_META as $key => $val)
-                echo $this->Html->meta(array('property' => $key, 'content' => $val));
+            echo $this->Html->meta(array('property' => $key, 'content' => $val));
     } ?>
     <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-icon-60x60.png">
@@ -44,12 +44,14 @@
 
     echo $this->Html->css('//fonts.googleapis.com/css?family=Lato:200,300,400,700,900,400italic');
 
-    echo $this->Html->css('../libs/jqueryui/1.11.0/cupertino/jquery-ui.min.css');
+    echo $this->Html->css('../libs/jqueryui/themes/cupertino/jquery-ui.theme.min.css');
 
     $this->Combinator->add_libs('css', $this->Less->css('jquery/jquery-ui-customize'), false);
     $this->Combinator->add_libs('css', $this->Less->css('structure'), false);
     $this->Combinator->add_libs('css', $this->Less->css('main'), false);
+    $this->Combinator->add_libs('css', $this->Less->css('themes'), false);
     $this->Combinator->add_libs('css', $this->Less->css('suggester'));
+    $this->Combinator->add_libs('css', $this->Less->css('appheader'));
 
     /* GLOBAL CSS FOR LOGIN FORM FOR PASZPORT PLUGIN*/
     $this->Combinator->add_libs('css', $this->Less->css('loginForm', array('plugin' => 'Paszport')), false);
@@ -61,11 +63,11 @@
     echo $this->Html->css('../plugins/bootstrap-switch/bootstrap-switch.css');
 
     /* SOCIAL BUTTONS */
-    echo $this->Html->css('../libs/font-awesome/4.1.0/css/font-awesome.min.css');
+    echo $this->Html->css('../libs/font-awesome/4.3.0/css/font-awesome.min.css');
     $this->Combinator->add_libs('css', $this->Less->css('social-buttons'), false);
 
     /* HAD TO BE EXCLUDED CAUSE ERRORS AT BOOTSTRAP */
-    echo $this->Html->css('../libs/bootstrap/3.1.1/css/bootstrap.min.css');
+    echo $this->Html->css('../libs/bootstrap/3.3.4/css/bootstrap.min.css');
     echo $this->Combinator->scripts('css');
 
     /* BLOCK FOR SPECIAL STYLES THAT CANNOT BE MERGE TO ONE FILE*/
@@ -83,18 +85,18 @@
     <?php echo $this->Html->script('ie/respond.js'); ?>
     <![endif]-->
 </head>
-<body>
+<body class="theme-<?php echo $_layout['body']['theme'] ?>">
 <div id="_wrapper">
-    <?php echo $this->Element('header'); ?>
     <?php echo $this->Element('flash'); ?>
+    <?php echo $this->Element('cockpit'); ?>
     <div id="_main">
+        <?php if (isset($_layout['header']) && !empty($_layout['header']))
+            echo $this->Element('headers/' . $_layout['header']['element']); ?>
+
         <?php echo $content_for_layout; ?>
-        <?php echo $this->Element('footer'); ?>
+
+        <?php echo $this->Element('footers/' . $_layout['footer']['element']); ?>
     </div>
-    <?php echo $this->Element('suggester', array(
-        'placeholder' => __("LC_SEARCH_PUBLIC_DATA_PLACEHOLDER"),
-        'action' => '/dane',
-    )); ?>
 </div>
 
 <?php /* GOOGLE ANALYTIC */ ?>
@@ -116,11 +118,11 @@
 </script>
 
 <?php
-echo $this->Html->script('../libs/jquery/2.1.1/jquery.min.js');
-echo $this->Html->script('../libs/jqueryui/1.10.4/js/jquery-ui.min.js');
-echo $this->Html->script('../libs/jqueryui/1.10.4/development-bundle/ui/minified/i18n/jquery-ui-i18n.min.js');
+echo $this->Html->script('../libs/jquery/2.1.4/jquery-2.1.4.min.js');
+echo $this->Html->script('../libs/jqueryui/1.11.4/jquery-ui.min.js');
+echo $this->Html->script('../libs/jqueryui/i18n/jquery-ui-i18n.min.js');
 
-echo $this->Html->script('../libs/bootstrap/3.1.1/js/bootstrap.min.js');
+echo $this->Html->script('../libs/bootstrap/3.3.4/js/bootstrap.min.js');
 
 /* PACKAGES FROM VENDOR */
 echo $this->Html->script('../plugins/browserstate/history.js/scripts/bundled/html4+html5/jquery.history.js');
@@ -160,7 +162,8 @@ echo $this->Html->script('../plugins/bootstrap-switch/bootstrap-switch.js'); ?>
 $this->Combinator->add_libs('js', 'enhance', false);
 $this->Combinator->add_libs('js', 'structure', false);
 $this->Combinator->add_libs('js', 'main', false);
-$this->Combinator->add_libs('js', 'suggester.js');
+$this->Combinator->add_libs('js', 'suggester');
+$this->Combinator->add_libs('js', 'appheader');
 
 /* BLOCK FOR SPECIAL SCRIPTS LIKE PROTOTYPE THAT CANNOT BE MERGE TO ONE FILE*/
 echo $this->fetch('scriptBlock');

@@ -6,7 +6,7 @@
 <?php $this->Combinator->add_libs('js', 'MojePisma.pisma.js') ?>
 <?php $this->Combinator->add_libs('js', 'MojePisma.pisma-share.js') ?>
 
-<?= $this->Element('appheader'); ?>
+
 
 <div class="container">
 

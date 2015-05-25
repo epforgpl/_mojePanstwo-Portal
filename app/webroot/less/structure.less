@@ -98,17 +98,15 @@ body {
 
 #_wrapper {
     @cockpitMobileToggle: #ffffff;
-    @cockpitColorLight: #59a4dd;
+    @cockpitColorLight: #438fca;
     @cockpitColor: #226799;
-    @cockpitColorDark: #023353;
-    @cockpitColorDarken: #062f49;
+    @cockpitColorDark: #053f69;
     @cockpitBarWidth: 85px;
     @appHeight: 70px;
 
     width: 100%;
     min-height: 100%;
     position: relative;
-    background-color: #FAFAFA;
 
     font-family: 'Lato', sans-serif;
 
@@ -121,8 +119,8 @@ body {
         font-size: 22px;
         font-weight: 300;
         line-height: 22px;
-        margin: 17px 7px 40px;
         text-align: right;
+        height: 66px;
 
         img {
             width: 71px;
@@ -130,12 +128,16 @@ body {
 
         a, a:hover, a:focus {
             color: #ffffff;
+            width: 100%;
+            height: 100%;
+            display: block;
+            padding: 16px 7px;
         }
     }
 
     #_mPCockpitMobile {
         width: 100%;
-        height: 70px;
+        height: 66px;
         background-color: @cockpitColor;
         position: fixed;
         top: 0;
@@ -143,8 +145,6 @@ body {
         z-index: 901;
 
         ._mPLogo {
-            float: left;
-            width: 80px;
             position: absolute;
             top: 0;
             left: 50%;
@@ -161,22 +161,22 @@ body {
             @iconLineSize: 2px;
 
             float: left;
-            width: 70px;
+            width: @cockpitBarWidth;
             height: 100%;
             position: relative;
 
             .tcon {
                 position: absolute;
-                right: 0;
+                left: 50%;
                 top: 50%;
                 width: @iconSize;
                 height: @iconSize;
 
-                -webkit-transform: translate(0, -50%);
-                -moz-transform: translate(0, -50%);
-                -ms-transform: translate(0, -50%);
-                -o-transform: translate(0, -50%);
-                transform: translate(0, -50%);
+                -webkit-transform: translate(-50%, -50%);
+                -moz-transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                -o-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
 
                 appearance: none;
                 border: none;
@@ -360,6 +360,7 @@ body {
 
                 position: relative;
                 overflow: hidden;
+                background-color: @cockpitColorDark;
 
                 > a {
                     display: block;
@@ -367,7 +368,7 @@ body {
                     height: 100%;
 
                     > i {
-                        font-size: 24px;
+                        font-size: 35px;
                         overflow: hidden;
                         padding: 4px 2px 0;
                         border: 1px solid #ffffff;
@@ -376,6 +377,7 @@ body {
                         -ms-border-radius: 50px;
                         -o-border-radius: 50px;
                         border-radius: 50px;
+                        margin-top: 13px;
                     }
                 }
                 > .avatar {
@@ -405,7 +407,7 @@ body {
                         width: @btnSize;
                         height: @btnSize;
                         padding: 3px 0;
-                        background-color: @cockpitColor;
+                        background-color: #1976d2;
                         font-size: 10px;
                         color: #ffffff;
                         text-align: center;
@@ -557,7 +559,7 @@ body {
             z-index: 899;
             width: 100px;
             height: 100%;
-            background-color: @cockpitColorDarken;
+            background-color: @cockpitColorDark;
             padding-top: 20px;
 
             ._appBlock {
@@ -613,28 +615,88 @@ body {
         min-height: 100vh;
         padding-left: 85px;
         position: relative;
+        display: inline-block;
+        margin-bottom: -4px;
 
         > div:last-of-type:not(.fullPageHeight) {
             padding-bottom: @footerHeight;
         }
 
         footer {
-            height: @footerHeight;
-            margin-right: 10px;
+            .standard {
+                padding-top: 28px;
+                padding-bottom: 28px;
+                background-color: #062943;
 
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            z-index: 900;
+                .left {
+                    ul {
+                        list-style: none;
+                        padding: 0;
 
-            a, .separator {
-                color: #aaaaaa;
+                        > li {
+                            @linkColor: #ffffff;
+
+                            color: @linkColor;
+                            font-size: 14px;
+                            font-weight: bold;
+                            float: left;
+
+                            a {
+                                color: @linkColor;
+                                display: block;
+                                padding: 5px 0;
+                                width: 100%;
+                                line-height: 1.1em;
+                            }
+
+                            > ul {
+                                padding-top: 25px;
+
+                                li {
+                                    font-size: 12px;
+                                    font-weight: normal;
+                                    float: none;
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+                .right {
+                    a, .separator {
+                        color: #ffffff;
+                        float: right;
+                    }
+                    a {
+                        float: right;
+                        font-size: 12px;
+                        font-weight: normal;
+                        padding: 5px 0;
+
+                        > img {
+                            height: 30px;
+                        }
+                    }
+                }
             }
+            .minimal {
+                height: @footerHeight;
+                margin-right: 10px;
 
-            a {
-                font-size: 10px;
-                font-weight: bold;
-                margin: 20px 0;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                z-index: 900;
+
+                a, .separator {
+                    color: #aaaaaa;
+                }
+
+                a {
+                    font-size: 10px;
+                    font-weight: bold;
+                    margin: 20px 0;
+                }
             }
         }
 
@@ -655,24 +717,35 @@ body {
         overflow-x: hidden;
 
         #_mPCockpit ._mPBasic {
-            margin-left: -100px;
+            margin-left: -85px;
 
             ._mPLogo {
                 visibility: hidden;
             }
         }
         #_main {
-            margin-top: 70px;
+            margin-top: 66px;
             padding-left: 0;
         }
 
         .flash-message {
-            margin-top: 70px;
+            margin-top: 66px;
         }
 
         #modalPaszportLoginForm .modal-dialog {
             margin-top: 28px;
         }
+    }
+}
+
+@media (min-width: 992px) {
+    #_wrapper #_main footer .standard .left ul > li {
+        width: 20%;
+    }
+
+    #_wrapper #_main footer .standard .right a > img {
+        margin-left: 20px;
+        margin-top: -5px;
     }
 }
 

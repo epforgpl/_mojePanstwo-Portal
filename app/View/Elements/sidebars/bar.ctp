@@ -21,7 +21,7 @@
                     <ul id="mPUserOptions" class="optionsList collapse">
                         <li>
                             <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'profile')); ?>"
-                               target="_self">Podstawowe informacje</a>
+                               target="_self"><?php echo __('LC_COCKPITBAR_USER_BASIC_INFO'); ?></a>
                         </li>
                         <li>
                             <a href="<?php echo $this->Html->url('/logout'); ?>"
@@ -37,24 +37,6 @@
                     </a>
                 <?php } ?>
             </div>
-            <?php if ($this->Session->read('Auth.User.id')) { ?>
-
-
-                <? /*
-                <div class="_mPUser">
-                    <a href="">
-                        <img src="<?php if ($this->Session->read('Auth.User.photo_small')) {
-                            echo $this->Session->read('Auth.User.photo_small');
-                        } else {
-                            echo '/img/avatars/avatar_default.jpg';
-                        } ?>"/>
-                        <span></span>
-                    </a>
-                </div>
-                */ ?>
-
-            <?php } ?>
-
             <div class="_mPSearch _appBlock _appBlockBackground">
                 <div class="_mPTitle">
                     <i class="_mPAppIcon" data-icon="&#xe600;"></i>
@@ -68,7 +50,7 @@
                 <div class="_mPTitle">
                     <i class="_mPAppIcon" data-icon="&#xe61e;"></i>
 
-                    <p class="_mPAppLabel">Dane publiczne</p>
+                    <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_PUBLIC_DATA'); ?></p>
                 </div>
             </a>
             <a class="_mPAppsList _appBlock _appBlockBackground<? if ($appSelected == 'moje-dane') echo " _appBlockActive"; ?>"
@@ -94,47 +76,4 @@
             </div>
         </div>
     </div>
-    <? /*<div class="_mPAppList">
-        <?php if (!empty($_APPLICATIONS)) {
-            foreach ($_APPLICATIONS as $app) {
-                if ($app['home'] == '1') {
-                    if ($app['type'] == 'app') {
-                        ?>
-                        <div class="_appBlock _appBlockBackground">
-                            <a class="_appConstruct" href="/<?= $app['slug'] ?>">
-                                <div class="_mPAppIcon">
-                                    <img
-                                        src="/<?= $app['plugin'] ?>/icon/<?= $app['slug'] ?>.svg"
-                                        alt="<?= $app['name'] ?>"/>
-                                </div>
-                                <div class="_mPTitle"><?= $app['name'] ?></div>
-                            </a>
-                        </div>
-                    <?php } else if ($app['Application']['type'] == 'folder') { ?>
-                        <div class="_appConstruct _appFolder" data-folder-slug="/<?= $app['slug'] ?>">
-                            <div class="_mpAppFolderIcon">
-                                <img src="/icon/folder.svg"
-                                     alt="<?= $app['name'] ?>"/>
-                            </div>
-                            <div class="_mPTitle"><?= $app['name'] ?></div>
-                            <div class="_appList">
-                                <?php foreach ($app['Content'] as $key => $appList) { ?>
-                                    <div class="_appBlock _appBlockBackground">
-                                        <a href="/<?= $appList['slug'] ?>">
-                                            <div class="_mPAppIcon">
-                                                <img src="/<?= $appList['plugin'] ?>/icon/<?= $appList['slug'] ?>.svg"
-                                                     alt="<?= $appList['name'] ?>"/>
-                                            </div>
-                                            <div class="_mPTitle"><?= $appList['name'] ?></div>
-                                        </a>
-                                    </div>
-                                <?php } ?>
-                            </div>
-                        </div>
-                    <?php
-                    }
-                }
-            }
-        } ?>
-    </div>*/ ?>
 </div>

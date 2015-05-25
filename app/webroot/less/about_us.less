@@ -1,40 +1,26 @@
-#aboutUs .content {
-    @marginSpace: 2em;
+#aboutUs {
+    @marginSpace: 4em;
 
     margin-top: @marginSpace;
     margin-bottom: @marginSpace;
-    padding: 2em;
-    background-color: #ffffff;
-    font-family: "Lato", Arial, sans-serif;
-    display: inline-block;
 
-    > .block {
-        width: 100%;
-        float: left;
-        padding: 0;
+    h2 {
+        color: #2F2F2F;
+        font-size: 16px;
+        font-weight: 600;
+        margin: 40px 0 15px;
 
-        h2 {
-            color: #2F2F2F;
-            font-size: 16px;
-            font-weight: 600;
-            margin: 40px 0 15px;
-
-            &:first-child {
-                margin-top: 20px;
-            }
+        &:first-child {
+            margin-top: 20px;
         }
-        p {
-            padding: 5px 0;
-        }
+    }
+    p {
+        padding: 5px 0;
     }
 
     .mainContent {
         #epf_logo {
             margin: 10px 0;
-        }
-        .sideContent {
-            min-height: 620px;
-            padding: 95px 0 0;
         }
     }
 
@@ -67,6 +53,15 @@
                     }
                 }
             }
+        }
+    }
+
+    .sideContent {
+        min-height: 620px;
+        padding: 95px 0 0;
+
+        .fb-like-box {
+            background-color: #ffffff;
         }
     }
 }

@@ -1,6 +1,3 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('paszport', array('plugin' => 'Paszport'))) ?>
-<? $this->Combinator->add_libs('js', 'Paszport.paszport-profile.js'); ?>
-<?= $this->Element('appheader'); ?>
 <div class="objectsPage">
     <div class="container">
         <div class="row editProfile">

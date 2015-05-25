@@ -2,8 +2,6 @@
 <?php $this->Combinator->add_libs('js', 'Krs.krs.js') ?>
 
 <div id="krs">
-    <?= $this->Element('appheader', array('title' => 'Krajowy Rejestr Sądowy', 'subtitle' => __d('krs', 'LC_KRS_HEADLINE'), 'headerUrl' => 'krs.png')); ?>
-
     <div class="container">
 	    
 	    <div style="margin-top: 30px;">

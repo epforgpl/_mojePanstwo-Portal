@@ -1,13 +1,10 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('home')) ?>
-<?php $this->Combinator->add_libs('js', 'home') ?>
+<?php
+$this->Combinator->add_libs('css', $this->Less->css('home'));
+$this->Combinator->add_libs('js', 'home');
+?>
 
 <div id="home" class="fullPageHeight mpBackgroundSet"
-     style="background-image: url(<?php if (isset($_COOKIE["mojePanstwo"])) {
-         $mojePanstwo = json_decode($_COOKIE["mojePanstwo"]);
-         echo $mojePanstwo->background->set;
-     } else {
-         echo '/img/home/backgrounds/home-background-default.jpg';
-     } ?>)">
+     style="background-image: url(<?php echo $_layout['body']['wallpaper']; ?>)">
     <div class="_handler">
         <div class="container">
             <div class="startWindow col-xs-12 col-md-10 col-md-offset-1">
@@ -42,8 +39,8 @@
                             <? }
                         } ?>
                     </div>
-					
-					<? /*
+
+                    <? /*
                     <div class="basicOptions">
                         <div class="col-xs-12 col-sm-6 part">
                             <div class="observeBrick mainBrick">
@@ -96,7 +93,7 @@
                         </div>
                     </div>
 					*/ ?>
-					
+
                     <div class="appsList">
                         <h2>Raporty</h2>
                         <? foreach ($_applications as $a) {

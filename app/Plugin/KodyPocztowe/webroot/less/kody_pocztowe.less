@@ -39,127 +39,139 @@
 #_wrapper {
     background-color: #FFFFFF;
 
-    #kodyPocztowe {
-        font-family: "Lato", Arial, sans-serif;
-        padding-top: 8em;
+    #_main {
+        position: relative;
 
-        &.details {
-            margin-top: 0;
+        footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
         }
 
-        .kodyPocztoweBlock {
-            font-size: 14px;
-            font-weight: 400;
-            color: #333333;
-            padding: 1em 20px;
+        #kodyPocztowe {
+            font-family: "Lato", Arial, sans-serif;
+            padding-top: 8em;
+            padding-bottom: 360px;
 
-            &:last-child {
-                border-left: 1px solid #CCCCCC;
+            &.details {
+                margin-top: 0;
             }
 
-            .row {
-                width: 90%;
-                margin: 0 auto;
+            .kodyPocztoweBlock {
+                font-size: 14px;
+                font-weight: 400;
+                color: #333333;
+                padding: 1em 20px;
 
-                p:first-child {
-                    font-size: 20px;
-                    font-weight: 400;
-                    margin-bottom: 0;
+                &:last-child {
+                    border-left: 1px solid #CCCCCC;
                 }
 
-                p.subtitle {
-                    color: #666;
-                }
+                .row {
+                    width: 90%;
+                    margin: 0 auto;
 
-                input {
-                    /*Firefox*/
-                    -moz-border-top-left-radius: 5px;
-                    -moz-border-top-right-radius: 0;
-                    -moz-border-bottom-right-radius: 0;
-                    -moz-border-bottom-left-radius: 5px;
-                    /*Safari, Chrome*/
-                    -webkit-border-top-left-radius: 5px;
-                    -webkit-border-top-right-radius: 0;
-                    -webkit-border-bottom-right-radius: 0;
-                    -webkit-border-bottom-left-radius: 5px;
-                    border-top-left-radius: 5px;
-                    border-top-right-radius: 0;
-                    border-bottom-right-radius: 0;
-                    border-bottom-left-radius: 5px;
-                }
+                    p:first-child {
+                        font-size: 20px;
+                        font-weight: 400;
+                        margin-bottom: 0;
+                    }
 
-                .btn {
-                    width: 45px;
-                    height: 45px;
+                    p.subtitle {
+                        color: #666;
+                    }
 
-                    &.loading {
-                        background: url(/img/loader/search-loading.png) center center no-repeat #5CB85C;
+                    input {
+                        /*Firefox*/
+                        -moz-border-top-left-radius: 5px;
+                        -moz-border-top-right-radius: 0;
+                        -moz-border-bottom-right-radius: 0;
+                        -moz-border-bottom-left-radius: 5px;
+                        /*Safari, Chrome*/
+                        -webkit-border-top-left-radius: 5px;
+                        -webkit-border-top-right-radius: 0;
+                        -webkit-border-bottom-right-radius: 0;
+                        -webkit-border-bottom-left-radius: 5px;
+                        border-top-left-radius: 5px;
+                        border-top-right-radius: 0;
+                        border-bottom-right-radius: 0;
+                        border-bottom-left-radius: 5px;
+                    }
 
-                        &:before {
-                            content: ' ';
+                    .btn {
+                        width: 45px;
+                        height: 45px;
+
+                        &.loading {
+                            background: url(/img/loader/search-loading.png) center center no-repeat #5CB85C;
+
+                            &:before {
+                                content: ' ';
+                            }
                         }
                     }
                 }
             }
         }
-    }
 
-    #display {
-        &:before, &:after {
-            content: " ";
-            display: table;
-        }
+        #display {
+            &:before, &:after {
+                content: " ";
+                display: table;
+            }
 
-        &:after {
-            clear: both;
-        }
-    }
-
-    .adresList {
-        margin-top: 30px;
-
-        small, a, p {
-            width: 100%;
-            display: block;
-            font-family: "Lato", Arial, sans-serif;
-            font-weight: 400;
-        }
-
-        small {
-            font-size: 13px;
-            color: #777;
-        }
-        p, a {
-            font-size: 22px;
-            line-height: 1em;
-            font-weight: 300;
-        }
-    }
-
-    .kodyList {
-        margin-top: 40px;
-
-        > span, tr {
-            font-family: "Lato", Arial, sans-serif;
-            font-size: 20px;
-            font-weight: 300;
-
-            small {
-                padding-right: 10px;
+            &:after {
+                clear: both;
             }
         }
 
-        > span.center {
-            width: 100%;
-            text-align: center;
-            font-size: 26px;
-            float: left;
+        .adresList {
+            margin-top: 30px;
+
+            small, a, p {
+                width: 100%;
+                display: block;
+                font-family: "Lato", Arial, sans-serif;
+                font-weight: 400;
+            }
+
+            small {
+                font-size: 13px;
+                color: #777;
+            }
+            p, a {
+                font-size: 22px;
+                line-height: 1em;
+                font-weight: 300;
+            }
         }
 
-        .theonlyone {
-            a {
-                font-size: 60px;
+        .kodyList {
+            margin-top: 40px;
+
+            > span, tr {
+                font-family: "Lato", Arial, sans-serif;
+                font-size: 20px;
                 font-weight: 300;
+
+                small {
+                    padding-right: 10px;
+                }
+            }
+
+            > span.center {
+                width: 100%;
+                text-align: center;
+                font-size: 26px;
+                float: left;
+            }
+
+            .theonlyone {
+                a {
+                    font-size: 60px;
+                    font-weight: 300;
+                }
             }
         }
     }

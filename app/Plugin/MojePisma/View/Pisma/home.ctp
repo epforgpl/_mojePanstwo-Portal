@@ -1,8 +1,6 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'MojePisma'))) ?>
 <?php $this->Combinator->add_libs('js', 'MojePisma.pisma.js') ?>
 
-<?= $this->Element('appheader') ?>
-
 <div class="container">
     <div class="row">
         <div id="stepper" class="wizard clearfix">

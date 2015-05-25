@@ -3,7 +3,7 @@
 
 <?php $this->Combinator->add_libs('js', 'MojePisma.pisma-my.js') ?>
 
-<?= $this->Element('appheader'); ?>
+
 
 <div class="search-container">
     <? if ($pagination['total']) { ?>

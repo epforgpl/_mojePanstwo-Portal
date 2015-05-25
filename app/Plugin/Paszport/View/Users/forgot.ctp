@@ -4,12 +4,7 @@
 <?php echo $this->Session->flash('auth', array('element' => 'alert')); ?>
 
 <div class="objectsPage fullPageHeight mpBackgroundSet"
-     style="background-image: url(<?php if (isset($_COOKIE["mojePanstwo"])) {
-         $mojePanstwo = json_decode($_COOKIE["mojePanstwo"]);
-         echo $mojePanstwo->background->set;
-     } else {
-         echo '/img/home/backgrounds/home-background-default.jpg';
-     } ?>)">
+     style="background-image: url(<?php echo $_layout['body']['wallpaper']; ?>)">
     <div class="forgotPassword" id="modalPaszportLoginForm">
         <div class="modal-dialog">
             <div class="modal-content">

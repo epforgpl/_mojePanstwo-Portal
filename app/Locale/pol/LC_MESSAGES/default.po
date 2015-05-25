@@ -25,6 +25,9 @@ msgstr "Moje Dane"
 msgid "LC_COCKPITBAR_USER_MY_DOCS"
 msgstr "Moje Pisma"
 
+msgid "LC_COCKPITBAR_USER_BASIC_INFO"
+msgstr "Podstawowe informacje"
+
 msgid "LC_COCKPITBAR_USER_PUBLIC_DATA"
 msgstr "Dane publiczne"
 

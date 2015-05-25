@@ -4,7 +4,7 @@
 
 <?php echo $this->Html->script('/MojePisma/js/zeroclipboard', array('block' => 'scriptBlock')); ?>
 
-<?= $this->Element('appheader'); ?>
+
 
 <div class="container">
 

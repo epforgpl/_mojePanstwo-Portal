@@ -137,7 +137,6 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
                 "xfbml": true
             });
             FB.Canvas.setSize();
-            FBApiInit = true;
         };
     }
 

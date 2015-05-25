@@ -5,7 +5,7 @@ $this->Combinator->add_libs('js', 'Bdl.jstree.min');
 $this->Combinator->add_libs('js', 'Bdl.bdl');
 ?>
 
-<?= $this->Element('appheader'); ?>
+
 
 <div class="container">
     <div id="tree" data-structure='<?= json_encode($tree) ?>'></div>

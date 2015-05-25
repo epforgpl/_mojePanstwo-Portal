@@ -35,8 +35,8 @@ class KodyPocztoweController extends ApplicationsController
 			        'kody_pocztowe.kod' => $kod,
 		        ),
 	        ));
-	        
-	        debug($code); die();
+
+            debug($code); die();
 	        
             $code = $this->API->searchCode($kod);
 
