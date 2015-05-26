@@ -106,8 +106,7 @@ class AppController extends Controller
         ),
         'body' => array(
             'theme' => 'default',
-            'wallpaper' => false,
-            'block' => 'default',
+            'wallpaper_url' => false,
         ),
         'footer' => array(
             'element' => 'default',
@@ -664,12 +663,15 @@ class AppController extends Controller
     }
 
     /**
-     * Zwraca informację o układzie layoutu strony
+     * Ustawia informację o układzie layoutu strony
      * @return array
      */
-    public function getLayout()
+    public function setLayout( $layout = array() )
     {
-        return $this->_layout;
+	    if( !empty($layout) && is_array($layout) )
+	    	$this->_layout = array_merge($this->_layout, $layout);
+
+    	return $this->_layout;        
     }
 
     /**
