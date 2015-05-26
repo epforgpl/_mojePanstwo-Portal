@@ -9,8 +9,6 @@ $this->Combinator->add_libs('js', 'HandelZagraniczny.handel_zagraniczny.js');
 $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
 ?>
 
-<?= $this->Element('appheader', array('title' => 'Handel zagraniczny')); ?>
-
 <div id="morebg"></div>
 <div id="more"></div>
 <div class="mapMain">

@@ -85,17 +85,28 @@
     <?php echo $this->Html->script('ie/respond.js'); ?>
     <![endif]-->
 </head>
-<body class="theme-<?php echo $_layout['body']['theme'] ?>">
+<body
+    class="theme-<?php echo $_layout['body']['theme'] ?>"<?php if ($_layout['body']['theme'] == 'wallpaper') { ?> style="background-image: url(<?php if (isset($_COOKIE["mojePanstwo"])) {
+    $mojePanstwo = json_decode($_COOKIE["mojePanstwo"]);
+    if (isset($mojePanstwo->background->url) && !empty($mojePanstwo->background->url))
+        echo $mojePanstwo->background->url;
+    else
+        echo '/img/home/backgrounds/home-background-default.jpg';
+} else {
+    echo '/img/home/backgrounds/home-background-default.jpg';
+} ?>)" <?php } ?>>
+
 <div id="_wrapper">
     <?php echo $this->Element('flash'); ?>
     <?php echo $this->Element('cockpit'); ?>
     <div id="_main">
         <?php if (isset($_layout['header']) && !empty($_layout['header']))
             echo $this->Element('headers/' . $_layout['header']['element']); ?>
-
+        <!--menu-->
         <?php echo $content_for_layout; ?>
 
-        <?php echo $this->Element('footers/' . $_layout['footer']['element']); ?>
+        <?php if (isset($_layout['footer']) && !empty($_layout['footer']))
+            echo $this->Element('footers/' . $_layout['footer']['element']); ?>
     </div>
 </div>
 

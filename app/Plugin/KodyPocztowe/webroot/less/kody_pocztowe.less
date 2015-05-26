@@ -1,177 +1,141 @@
-.header {
-    background-color: #EEEEEE;
-}
-
 .ui-autocomplete {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-color: #CCCCCC;
-    margin-top: -2px;
+    border-top-width: 0;
+    margin-top: -5px;
+    padding: 0;
 }
 
-.ui-menu .ui-menu-item a {
-    font-family: "Lato", Arial, sans-serif;
+.ui-menu .ui-menu-item {
     font-size: 14px;
     font-weight: 400;
     color: #000;
-    border-radius: 0;
-    -webkit-border-radius: 0;
-    border: none;
+    padding: 6px 16px;
 
     &:hover {
         color: #FFFFFF;
         background-color: #0078ac;
-        border: none;
     }
 }
 
-.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
-    background-image: none;
-    background-color: #0078ac;
-    color: #FFFFFF;
-}
+#_wrapper #_main {
+    #kodyPocztowe {
+        padding-top: 10em;
+        padding-bottom: 10em;
 
-.ui-menu .ui-menu-item a.ui-state-focus, .ui-menu .ui-menu-item a.ui-state-active {
-    margin: 0;
-    color: #FFFFFF;
-}
-
-#_wrapper {
-    background-color: #FFFFFF;
-
-    #_main {
-        position: relative;
-
-        footer {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+        &.details {
+            margin-top: 0;
         }
 
-        #kodyPocztowe {
-            font-family: "Lato", Arial, sans-serif;
-            padding-top: 8em;
-            padding-bottom: 360px;
+        .kodyPocztoweBlock {
+            font-size: 14px;
+            font-weight: 400;
+            color: #333333;
+            padding: 1em 20px;
 
-            &.details {
-                margin-top: 0;
+            &:last-child {
+                border-left: 1px solid #CCCCCC;
             }
 
-            .kodyPocztoweBlock {
-                font-size: 14px;
-                font-weight: 400;
-                color: #333333;
-                padding: 1em 20px;
+            .row {
+                width: 90%;
+                margin: 0 auto;
 
-                &:last-child {
-                    border-left: 1px solid #CCCCCC;
+                p:first-child {
+                    font-size: 20px;
+                    font-weight: 400;
+                    margin-bottom: 0;
                 }
 
-                .row {
-                    width: 90%;
-                    margin: 0 auto;
+                p.subtitle {
+                    color: #666;
+                }
 
-                    p:first-child {
-                        font-size: 20px;
-                        font-weight: 400;
-                        margin-bottom: 0;
-                    }
+                input {
+                    /*Firefox*/
+                    -moz-border-top-left-radius: 5px;
+                    -moz-border-top-right-radius: 0;
+                    -moz-border-bottom-right-radius: 0;
+                    -moz-border-bottom-left-radius: 5px;
+                    /*Safari, Chrome*/
+                    -webkit-border-radius: 5px 0 0 5px;
+                    -moz-border-radius: 5px 0 0 5px;
+                    -ms-border-radius: 5px 0 0 5px;
+                    -o-border-radius: 5px 0 0 5px;
+                    border-radius: 5px 0 0 5px;
+                }
 
-                    p.subtitle {
-                        color: #666;
-                    }
+                .btn {
+                    width: 45px;
+                    height: 45px;
 
-                    input {
-                        /*Firefox*/
-                        -moz-border-top-left-radius: 5px;
-                        -moz-border-top-right-radius: 0;
-                        -moz-border-bottom-right-radius: 0;
-                        -moz-border-bottom-left-radius: 5px;
-                        /*Safari, Chrome*/
-                        -webkit-border-top-left-radius: 5px;
-                        -webkit-border-top-right-radius: 0;
-                        -webkit-border-bottom-right-radius: 0;
-                        -webkit-border-bottom-left-radius: 5px;
-                        border-top-left-radius: 5px;
-                        border-top-right-radius: 0;
-                        border-bottom-right-radius: 0;
-                        border-bottom-left-radius: 5px;
-                    }
+                    &.loading {
+                        background: url(/img/loader/search-loading.png) center center no-repeat #5CB85C;
 
-                    .btn {
-                        width: 45px;
-                        height: 45px;
-
-                        &.loading {
-                            background: url(/img/loader/search-loading.png) center center no-repeat #5CB85C;
-
-                            &:before {
-                                content: ' ';
-                            }
+                        &:before {
+                            content: ' ';
                         }
                     }
                 }
             }
         }
+    }
 
-        #display {
-            &:before, &:after {
-                content: " ";
-                display: table;
-            }
-
-            &:after {
-                clear: both;
-            }
+    #display {
+        &:before, &:after {
+            content: " ";
+            display: table;
         }
 
-        .adresList {
-            margin-top: 30px;
+        &:after {
+            clear: both;
+        }
+    }
 
-            small, a, p {
-                width: 100%;
-                display: block;
-                font-family: "Lato", Arial, sans-serif;
-                font-weight: 400;
-            }
+    .adresList {
+        margin-top: 30px;
+
+        small, a, p {
+            width: 100%;
+            display: block;
+            font-weight: 400;
+        }
+
+        small {
+            font-size: 13px;
+            color: #777;
+        }
+        p, a {
+            font-size: 22px;
+            line-height: 1em;
+            font-weight: 300;
+        }
+    }
+
+    .kodyList {
+        margin-top: 40px;
+
+        > span, tr {
+            font-size: 20px;
+            font-weight: 300;
 
             small {
-                font-size: 13px;
-                color: #777;
-            }
-            p, a {
-                font-size: 22px;
-                line-height: 1em;
-                font-weight: 300;
+                padding-right: 10px;
             }
         }
 
-        .kodyList {
-            margin-top: 40px;
+        > span.center {
+            width: 100%;
+            text-align: center;
+            font-size: 26px;
+            float: left;
+        }
 
-            > span, tr {
-                font-family: "Lato", Arial, sans-serif;
-                font-size: 20px;
+        .theonlyone {
+            a {
+                font-size: 60px;
                 font-weight: 300;
-
-                small {
-                    padding-right: 10px;
-                }
-            }
-
-            > span.center {
-                width: 100%;
-                text-align: center;
-                font-size: 26px;
-                float: left;
-            }
-
-            .theonlyone {
-                a {
-                    font-size: 60px;
-                    font-weight: 300;
-                }
             }
         }
     }

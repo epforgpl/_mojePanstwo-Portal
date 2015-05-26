@@ -1,7 +1,6 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('paszport', array('plugin' => 'Paszport'))) ?>
 
-<div class="objectsPage fullPageHeight mpBackgroundSet"
-     style="background-image: url(<?php echo $_layout['body']['wallpaper']; ?>)">
+<div class="objectsPage fullPageHeight">
     <div class="createAccount" id="modalPaszportLoginForm">
         <div class="modal-dialog">
             <div class="modal-content">

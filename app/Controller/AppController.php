@@ -93,8 +93,7 @@ class AppController extends Controller
      *      element => ‘app’ , 'dataset', 'dataobject', 'pk', false
      *  ),
      *  body => array(
-     *      theme => ‘default’, 'simple',
-     *      wallpaper => false, (link to image)
+     *      theme => ‘default’, 'simple', 'wallpaper'
      *  ),
      *  footer => array(
      *      element => ‘default’, 'minimal;
@@ -106,7 +105,6 @@ class AppController extends Controller
         ),
         'body' => array(
             'theme' => 'default',
-            'wallpaper_url' => false,
         ),
         'footer' => array(
             'element' => 'default',
@@ -623,7 +621,7 @@ class AppController extends Controller
 
     public function beforeRender()
     {
-        $layout = $this->getLayout();
+        $layout = $this->setLayout();
         $menu = $this->getMenu();
 
         if ($this->menu_selected == '_default')
@@ -664,14 +662,15 @@ class AppController extends Controller
 
     /**
      * Ustawia informację o układzie layoutu strony
+     * @param array $layout
      * @return array
      */
-    public function setLayout( $layout = array() )
+    public function setLayout($layout = array())
     {
-	    if( !empty($layout) && is_array($layout) )
-	    	$this->_layout = array_merge($this->_layout, $layout);
+        if (!empty($layout) && is_array($layout))
+            $this->_layout = array_merge($this->_layout, $layout);
 
-    	return $this->_layout;        
+        return $this->_layout;
     }
 
     /**

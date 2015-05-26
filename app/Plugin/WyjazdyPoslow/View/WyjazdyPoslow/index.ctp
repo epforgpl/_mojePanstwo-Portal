@@ -71,13 +71,11 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
         </a>
 
         <div class="block-group">
-            <div class="block">
+            <div class="block col-xs-12">
 
-                <div class="block-header">
-                    <h2 class="label">Najwięcej na podróże wydali</h2>
-                </div>
+                <header>Najwięcej na podróże wydali</header>
 
-                <div class="content row">
+                <section class="content row">
                     <div class="col-md-5">
 
                         <h3>Indywidualnie</h3>
@@ -132,21 +130,15 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
                              data-kluby='<?php echo json_encode($klubowoChartData) ?>'></div>
 
                     </div>
-                </div>
-
+                </section>
             </div>
 
+            <div class="block col-xs-12">
 
-            <div class="block">
+                <header>Najdroższe wyjazdy</header>
 
-                <div class="block-header">
-                    <h2 class="label">Najdroższe wyjazdy</h2>
-                </div>
-
-                <div class="content row">
-
+                <section class="content row">
                     <div class="col-md-6">
-
                         <h3>Całościowo</h3>
 
                         <ul>
@@ -173,15 +165,14 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
 
                         </ul>
 
-                        <p class="text-center"><a class="btn btn-sm btn-primary"
-                                                  href="/dane/poslowie_wyjazdy_wydarzenia?order=wartosc_koszt desc">Zobacz
-                                pełny
-                                ranking</a></p>
-
+                        <p class="text-center">
+                            <a class="btn btn-sm btn-primary"
+                               href="/dane/poslowie_wyjazdy_wydarzenia?order=wartosc_koszt desc">Zobacz pełny
+                                ranking</a>
+                        </p>
                     </div>
 
                     <div class="col-md-6">
-
                         <h3>Indywidualnie</h3>
 
                         <ul>
@@ -208,26 +199,18 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
                             <? } ?>
                         </ul>
 
-                        <p class="text-center"><a class="btn btn-sm btn-primary"
-                                                  href="/dane/poslowie_wyjazdy?order=wartosc_koszt desc">Zobacz pełny
-                                ranking</a>
+                        <p class="text-center">
+                            <a class="btn btn-sm btn-primary" href="/dane/poslowie_wyjazdy?order=wartosc_koszt desc">Zobacz
+                                pełny ranking</a>
                         </p>
-
                     </div>
-
-                </div>
-
+                </section>
             </div>
 
+            <div class="block col-xs-12">
+                <header>Wyjazdy posłów, a prace w Sejmie</header>
 
-            <div class="block">
-
-                <div class="block-header">
-                    <h2 class="label">Wyjazdy posłów, a prace w Sejmie</h2>
-                </div>
-
-                <div class="content">
-
+                <section class="content">
                     <p>Poniżej prezentujemy daty zagranicznych wydarzeń, w których brali udział posłowie pokrywające się
                         z
                         datami
@@ -239,37 +222,29 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
                         na
                         obowiązek
                         wzięcia udziału w głosowaniach w Polsce.</p>
-
-
-                </div>
-
+                </section>
             </div>
 
-
-            <div class="col-md-10 col-md-offset-1">
-
-                <ul class="controversy">
-
+            <div class="col-xs-12">
+                <ul class="controversy row">
                     <? foreach ($stats['wydarzenia'] as $w) { ?>
-
                         <li>
-
-
                             <div class="loc">
-                                <p class="w_title pull-left"><a
-                                        href="/dane/poslowie_wyjazdy_wydarzenia/<?= $w['data']['id'] ?>"><?= $w['data']['delegacja'] ?></a>
+                                <p class="w_title pull-left">
+                                    <a href="/dane/poslowie_wyjazdy_wydarzenia/<?= $w['data']['id'] ?>"><?= $w['data']['delegacja'] ?></a>
                                 </p>
 
-                                <p class="pull-right"><span
+                                <p class="pull-right">
+                                    <span
                                         class="licza_dni"><?= pl_dopelniacz($w['data']['liczba_dni'], 'dzień', 'dni', 'dni') ?></span>
-                        <span class="label label-warning"><?= $w['data']['date_start'] ?>
-                            - <?= $w['data']['date_stop'] ?></span></p>
+                                    <span class="label label-warning"><?= $w['data']['date_start'] ?>
+                                        - <?= $w['data']['date_stop'] ?></span>
+                                </p>
                             </div>
 
                             <p class="desc"><?= $w['data']['lokalizacja'] ?></p>
 
                             <ul class="poslowie">
-
                                 <li class="row">
                                     <p class="col-sm-4">Poseł</p>
 
@@ -283,16 +258,15 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
                                 </li>
 
                                 <? foreach ($w['poslowie'] as $p) { ?>
-
                                     <li class="row">
-
                                         <p class="col-sm-4">
                                             <img class="border"
                                                  src="http://resources.sejmometr.pl/mowcy/a/3/<?= $p['mowca_id'] ?>.jpg"/>
                                             <a class="title"
-                                               href="/dane/poslowie/<?= $p['id'] ?>/wyjazdy"><?= $p['nazwa'] ?></a> <span
-                                                class="klub"><a
-                                                    href="/dane/sejm_kluby/<?= $p['klub_id'] ?>"><?= $p['klub_skrot'] ?></a></span>
+                                               href="/dane/poslowie/<?= $p['id'] ?>/wyjazdy"><?= $p['nazwa'] ?>
+                                            </a> <span class="klub"><a
+                                                    href="/dane/sejm_kluby/<?= $p['klub_id'] ?>"><?= $p['klub_skrot'] ?></a>
+                                            </span>
                                         </p>
 
                                         <p class="col-sm-2">
@@ -308,43 +282,16 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
                                         </p>
 
                                         <p class="col-sm-2 text-right">
-                                <span
-                                    class="label label-danger"><?= implode('</span> <span class="label label-danger">', $p['glosowania_dni']) ?></span>
+                                            <span
+                                                class="label label-danger"><?= implode('</span> <span class="label label-danger">', $p['glosowania_dni']) ?></span>
                                         </p>
-
                                     </li>
-
                                 <? } ?>
                             </ul>
-
                         </li>
-
-                        <? /*
-		<li class="row">
-		    <div class="col-md-1 text-right">
-		        <img class="border" src="http://resources.sejmometr.pl/mowcy/a/2/9.jpg"/>
-		    </div>
-		    <div class="col-md-11">
-		        <p class="title"><a href="/dane/poslowie/12">Paweł Arndt</a> <span class="klub">(<a
-		                    href="/dane/sejm_kluby/1">PO</a>)</span></p>
-		
-		        <p class="event">CHORWAC JA Dubrownik. ZP NATO Doroczna sesja</p>
-		
-		        <p class="dates">Wydarzenie w dniach: <span class="label label-warning">2013-10-10 - 2013-10-15</span>. Poseł
-		            głosował w Sejmie w dniach: <span class="label label-danger">2013-10-11</span></p></div>
-		</li>
-		<? */
-                        ?>
-
                     <? } ?>
-
-
                 </ul>
-
             </div>
-
-
         </div>
-
     </div>
 </div>

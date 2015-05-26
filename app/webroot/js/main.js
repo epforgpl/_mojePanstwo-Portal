@@ -141,26 +141,28 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
     }
 
     /*COOKIE MANAGER*/
-    if (mPCookie) {
-        mPCookie = JSON.parse(mPCookie);
-    } else {
-        mPCookie = {
-            background: {
-                set: '/img/home/backgrounds/home-background-default.jpg',
-                time: jsHour
-            }
-        };
-    }
+    if ($('body').hasClass('theme-wallpaper')) {
+        if (mPCookie) {
+            mPCookie = JSON.parse(mPCookie);
+        } else {
+            mPCookie = {
+                background: {
+                    url: '/img/home/backgrounds/home-background-default.jpg',
+                    time: jsHour
+                }
+            };
+        }
 
-    /*COOKIE MANAGER - BACKGROUND CHANGER*/
-    if (mPCookie.background.time !== jsHour) {
-        mPCookie.background.set = '/img/home/backgrounds/home-background-default2.jpg';
-        /*JSON get new background*/
-        mPCookie.background.time = jsHour;
-    }
+        /*COOKIE MANAGER - BACKGROUND CHANGER*/
+        if (mPCookie.background.time !== jsHour) {
+            /*JSON get new background*/
+            mPCookie.background.url = '/img/home/backgrounds/home-background-default2.jpg';
+            mPCookie.background.time = jsHour;
+        }
 
-    /*COOKIE MANAGER - RESAVE ALL*/
-    $.cookie('mojePanstwo', JSON.stringify(mPCookie));
+        /*COOKIE MANAGER - RESAVE ALL*/
+        $.cookie('mojePanstwo', JSON.stringify(mPCookie));
+    }
 
     /*GLOBAL MODAL FOR LOGIN VIA PASZPORT PLUGIN*/
     if (modalPaszportLoginForm.length > 0) {

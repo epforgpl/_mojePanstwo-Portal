@@ -3,8 +3,7 @@ $this->Combinator->add_libs('css', $this->Less->css('home'));
 $this->Combinator->add_libs('js', 'home');
 ?>
 
-<div id="home" class="fullPageHeight mpBackgroundSet"
-     style="background-image: url(<?php echo $_layout['body']['wallpaper']; ?>)">
+<div id="home" class="fullPageHeight">
     <div class="_handler">
         <div class="container">
             <div class="startWindow col-xs-12 col-md-10 col-md-offset-1">

@@ -70,9 +70,9 @@ $adres .= ', Polska';
     ($object->getData('adres_numer')) &&
     ($object->getData('adres_miejscowosc'))
 ) { ?>
-    <div class="block adres">
-        <div class="block-header">
-            <h2 class="label">Adres</h2>
+    <div class="block col-xs-12 adres">
+        <header>
+            <div class="sm">Adres</div>
 
             <div class="mapsOptions pull-right">
                 <button
@@ -80,9 +80,9 @@ $adres .= ', Polska';
                 <button
                     class="streetView btn btn-sm btn-default"><?= __d('dane', 'LC_DANE_VIEW_KRSPODMIOTY_OTWORZ_MAPE_STREET') ?></button>
             </div>
-        </div>
+        </header>
 
-        <div class="profile_baner" data-adres="<?= urlencode($adres) ?>">
+        <section class="profile_baner nopadding" data-adres="<?= urlencode($adres) ?>">
             <div class="bg">
                 <img
                     src="http://maps.googleapis.com/maps/api/staticmap?center=<?= urlencode($adres) ?>&markers=<?= urlencode($adres) ?>&zoom=15&sensor=false&size=640x155&scale=2&feature:road"/>
@@ -105,7 +105,7 @@ $adres .= ', Polska';
                 <div id="googleMap"></div>
                 <div id="streetView"></div>
             </div>
-        </div>
+        </section>
     </div>
 <?php } ?>
 
@@ -117,40 +117,38 @@ $adres .= ', Polska';
         </a>
     </div>
 <?php } ?>
-	
-	
-	
-	
-    <div class="block-group">
 
         <? if ($object->getData('cel_dzialania')) { ?>
-    <div class="dzialanie block">
+    <div class="dzialanie block col-xs-12">
 
-        <div class="block-header"><h2 class="label">Cel działania</h2></div>
+        <header>
+            <div class="sm">Cel działania</div>
+        </header>
 
-        <div class="content normalizeText textBlock">
+        <section class="content normalizeText textBlock">
             <?= $object->getData('cel_dzialania') ?>
-        </div>
+        </section>
     </div>
 <? } ?>
 
 <? if ($object->getData('sposob_reprezentacji')) { ?>
-    <div class="reprezentacja block">
-        <div class="block-header"><h2 class="label">Sposób reprezentacji</h2></div>
+    <div class="reprezentacja block col-xs-12">
+        <header>
+            <div class="sm">Sposób reprezentacji</div>
+        </header>
 
-        <div class="content normalizeText textBlock">
+        <section class="content normalizeText textBlock">
             <?= $object->getData('sposob_reprezentacji') ?>
-        </div>
+        </section>
     </div>
 <? } ?>
 
-        <div class="organy block">
-            <div>
+    <div class="organy block-group">
+
                 <?
-
 $organy_count = count($organy);
-if ($organy_count) {
 
+if ($organy_count) {
     if ($organy_count == 1) {
         $column_width = 12;
     } elseif ($organy_count == 2) {
@@ -160,97 +158,87 @@ if ($organy_count) {
     } else {
         $column_width = 6;
     }
-
     ?>
     <? foreach ($organy as $organ) { ?>
-        <div class="col-lg-<?= $column_width ?> nopadding">
-            <div class="small nobottomborder">
-                <div class="block-header"><h2 class="label" id="<?= $organ['idTag'] ?>"
-                                              class="normalizeText"><?= $organ['title'] ?></h2></div>
-                <? /* if (isset($organ['label']) && $organ['label']) { ?>
-                                    <p class="label label-primary"><?= $organ['label'] ?></p>
-                                <? } */
+                        <div class="block col-lg-<?= $column_width ?>">
+
+                                <header>
+                                    <div class="sm" id="<?= $organ['idTag'] ?>" class="normalizeText"><?= $organ['title'] ?></div>
+                                </header>
+                                <? if ($organ['content']) { ?>
+                                    <section class="list-group less-borders">
+
+                                        <? foreach ($organ['content'] as $osoba) { ?>
+        <? if (@$osoba['osoba_id']) { ?>
+            <a class="list-group-item" href="/dane/krs_osoby/<?= $osoba['osoba_id'] ?>" itemprop="member"
+            itemscope itemtype="http://schema.org/OrganizationRole">
+        <? } elseif (@$osoba['krs_id']) { ?>
+            <a class="list-group-item" href="/dane/krs_podmioty/<?= $osoba['krs_id'] ?>" itemprop="member"
+            itemscope itemtype="http://schema.org/OrganizationRole">
+        <? } else { ?>
+            <div class="list-group-item" itemprop="member" itemscope
+            itemtype="http://schema.org/OrganizationRole">
+        <? } ?>
+
+        <h4 class="list-group-item-heading" itemprop="member" itemscope
+            itemtype="http://schema.org/OrganizationPerson">
+            <span itemprop="name"><?= $osoba['nazwa'] ?></span>
+            <? if (
+                ($osoba['privacy_level'] != '1') &&
+                $osoba['data_urodzenia'] &&
+                $osoba['data_urodzenia'] != '0000-00-00'
+            ) {
                 ?>
-
-                <? if ($organ['content']) { ?>
-                <div class="list-group less-borders">
-
-                    <? foreach ($organ['content'] as $osoba) { ?>
-
-
-                    <? if (@$osoba['osoba_id']) { ?>
-                    <a class="list-group-item" href="/dane/krs_osoby/<?= $osoba['osoba_id'] ?>" itemprop="member"
-                       itemscope itemtype="http://schema.org/OrganizationRole">
-                        <? } elseif (@$osoba['krs_id']) { ?>
-                        <a class="list-group-item" href="/dane/krs_podmioty/<?= $osoba['krs_id'] ?>" itemprop="member"
-                           itemscope itemtype="http://schema.org/OrganizationRole">
-                            <? } else { ?>
-                            <div class="list-group-item" itemprop="member" itemscope
-                                 itemtype="http://schema.org/OrganizationRole">
-                                <? } ?>
-
-                                <h4 class="list-group-item-heading" itemprop="member" itemscope
-                                    itemtype="http://schema.org/OrganizationPerson">
-                                    <span itemprop="name"><?= $osoba['nazwa'] ?></span>
-                                    <? if (
-                                        ($osoba['privacy_level'] != '1') &&
-                                        $osoba['data_urodzenia'] &&
-                                        $osoba['data_urodzenia'] != '0000-00-00'
-                                    ) {
-                                        ?>
-                                        <span itemprop="birthDate"
-                                              datetime="<?= substr($osoba['data_urodzenia'], 0, 4) ?>"
-                                              class="wiek"><?= substr($osoba['data_urodzenia'], 0, 4) ?>'</span>
-                                    <? } ?>
-                                </h4>
-
-                                <?
-                                if (isset($osoba['funkcja']) && $osoba['funkcja']) {
-
-                                    if ($organ['idTag'] == 'reprezentacja') {
-
-                                        $useLabel = true;
-                                        $class = 'warning';
-                                        foreach (array('prezes', 'prezydent', 'przewodnicząc') as $phr) {
-                                            if (stripos($osoba['funkcja'], ltrim($phr)) === 0) {
-                                                $class = 'danger';
-                                                break;
-                                            }
-                                        }
-
-                                    } else {
-                                        $useLabel = false;
-                                    }
-                                    ?>
-                                    <p itemprop="namedPosition"
-                                       class="list-group-item-text <? if ($useLabel) { ?> label label-<?= $class ?><? } ?>"><?= $osoba['funkcja'] ?></p>
-                                <? } ?>
-
-                                <? if (@$osoba['osoba_id'] || @$osoba['krs_id']) { ?>
-                        </a>
-                        <? } else { ?>
-                </div>
+                <span itemprop="birthDate"
+                      datetime="<?= substr($osoba['data_urodzenia'], 0, 4) ?>"
+                      class="wiek"><?= substr($osoba['data_urodzenia'], 0, 4) ?>'</span>
             <? } ?>
-            <? } ?>
+        </h4>
 
+        <?
+        if (isset($osoba['funkcja']) && $osoba['funkcja']) {
+
+            if ($organ['idTag'] == 'reprezentacja') {
+
+                $useLabel = true;
+                $class = 'warning';
+                foreach (array('prezes', 'prezydent', 'przewodnicząc') as $phr) {
+                    if (stripos($osoba['funkcja'], ltrim($phr)) === 0) {
+                        $class = 'danger';
+                        break;
+                    }
+                }
+
+            } else {
+                $useLabel = false;
+            }
+            ?>
+            <p itemprop="namedPosition"
+               class="list-group-item-text <? if ($useLabel) { ?> label label-<?= $class ?><? } ?>"><?= $osoba['funkcja'] ?></p>
+        <? } ?>
+
+        <? if (@$osoba['osoba_id'] || @$osoba['krs_id']) { ?>
+            </a>
+        <? } else { ?>
             </div>
-            <? } ?>
-        </div>
-        </div>
+        <? } ?>
     <? } ?>
+                                    </section>
+                                <? } ?>
+                        </div>
+                    <? } ?>
 <? } ?>
-        </div>
-    </div>
 
+    </div>
 
     <? if ($wspolnicy = $object->getLayer('wspolnicy')) { ?>
 
-    <div class="wspolnicy block">
-        <div class="block-header">
-            <h2 class="label">Udziałowcy:</h2>
-        </div>
+    <div class="wspolnicy block col-xs-12">
+        <header>
+            <div class="sm">Udziałowcy:</div>
+        </header>
 
-        <div id="wspolnicy_graph">
+        <section id="wspolnicy_graph">
             <div class="list-group less-borders wspolnicy">
                 <? foreach ($wspolnicy as $osoba) { ?>
 
@@ -296,7 +284,7 @@ if ($organy_count) {
             </span>
 
             <? } ?>
-        </div>
+        </section>
     </div>
     </div>
 
@@ -304,10 +292,12 @@ if ($organy_count) {
 
 <? if ($firmy = $object->getLayer('firmy')) { ?>
 
-    <div class="wspolnicy block">
-        <div class="block-header"><h2 class="label">Ta firma posiada udziały w:</h2></div>
+    <div class="wspolnicy block col-xs-12">
+        <header>
+            <div class="sm">Ta firma posiada udziały w:</div>
+        </header>
 
-        <div id="wspolnicy_graph">
+        <section id="wspolnicy_graph">
             <div class="list-group less-borders wspolnicy">
                 <? foreach ($firmy as $firma) { ?>
 
@@ -328,7 +318,7 @@ if ($organy_count) {
 
                 <? } ?>
             </div>
-        </div>
+        </section>
     </div>
 
 <? } ?>
@@ -347,9 +337,9 @@ if (isset($historia) && $historia) {
         <div id="historia" class="block historia">
 
             <div class="block-header">
-                <h2 class="label">Ostatnie wpisy do KRS <span
+                <div class="sm">Ostatnie wpisy do KRS <span
                         class="subtitle"><?= $this->Czas->dataSlownie($object->getData('data_ostatni_wpis')) ?></span>
-                </h2>
+                </div>
             </div>
 
 
@@ -442,20 +432,20 @@ if (isset($historia) && $historia) {
 <? } */ ?>
 	
 	
-    <div class="powiazania block">
-        <div class="block-header"><h2 class="label">Powiązania</h2></div>
+    <div class="powiazania block col-xs-12">
+        <header><div class="sm">Powiązania</div></header>
 
-        <div id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>" data-url="krs_podmioty"></div>
+        <section id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>" data-url="krs_podmioty"></section>
     </div>
 
 
     <? if (isset($zamowienia) && $zamowienia) { ?>
-    <div id="zamowienia" class="block">
-        <div class="block-header">
-            <h2 class="label pull-left">Realizowane zamówienia publiczne</h2>
+    <div id="zamowienia" class="block col-xs-12">
+        <header>
+            <div class="sm pull-left">Realizowane zamówienia publiczne</div>
             <a class="btn btn-default btn-sm pull-right"
                href="<?= $object->getUrl() ?>/zamowienia">Zobacz wszystkie</a>
-        </div>
+        </header>
 
         <div class="content">
             <div class="dataobjectsSliderRow row">
@@ -473,14 +463,14 @@ if (isset($historia) && $historia) {
 <? } ?>
 
 <? if (isset($dotacje) && $dotacje) { ?>
-    <div id="zamowienia" class="block">
-        <div class="block-header">
-            <h2 class="label pull-left">Udzielone dotacje</h2>
+    <div id="zamowienia" class="block col-xs-12">
+        <header>
+            <div class="sm pull-left">Udzielone dotacje</div>
             <a class="btn btn-default btn-sm pull-right"
                href="<?= $object->getUrl() ?>/dotacje">Zobacz wszystkie</a>
-        </div>
+        </header>
 
-        <div class="content">
+        <section class="content">
             <div class="dataobjectsSliderRow row">
                 <div>
                     <?php echo $this->dataobjectsSlider->render($dotacje, array(
@@ -491,23 +481,24 @@ if (isset($historia) && $historia) {
                     )) ?>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 <? } ?>
 
 
 <? if (isset($dzialalnosci) && $dzialalnosci) { ?>
-    <div class="dzialalnosci block">
-        <div class="block-header"><h2 id="<?= $dzialalnosci['idTag'] ?>"
-                                      class="label"><?= $dzialalnosci['title'] ?></h2></div>
+    <div class="dzialalnosci block col-xs-12">
+        <header>
+            <div id="<?= $dzialalnosci['idTag'] ?>" class="sm"><?= $dzialalnosci['title'] ?></div>
+        </header>
 
-        <div class="content normalizeText">
+        <section class="content normalizeText">
             <div class="list-group less-borders">
                 <? foreach ($dzialalnosci['content'] as $d) { ?>
                     <li class="list-group-item"><?= $d['str'] ?></li>
                 <? } ?>
             </div>
-        </div>
+        </section>
     </div>
 <? } ?>
 
@@ -525,7 +516,6 @@ if (isset($historia) && $historia) {
 	*/ ?>
 	
 
-    </div>
     </div>
     </div>
 

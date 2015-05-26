@@ -67,18 +67,15 @@ class PagesController extends AppController
         }
 
         if ($page == 'home' || $page == 'about_us' || $page == 'regulations' || $page == 'report_bug') {
-            $this->_layout['header'] = false;
-            $this->_layout['body']['block'] = 'border';
-            $this->_layout['footer']['element'] = 'minimal';
-        }
-
-        if ($page == 'home') {
-            if (isset($_COOKIE["mojePanstwo"])) {
-                $mojePanstwo = json_decode($_COOKIE["mojePanstwo"]);
-                $this->_layout['body']['wallpaper'] = $mojePanstwo->background->set;
-            } else {
-                $this->_layout['body']['wallpaper'] = '/img/home/backgrounds/home-background-default.jpg';
-            }
+            $this->setLayout(array(
+                'header' => false,
+                'body' => array(
+                    'theme' => 'wallpaper'
+                ),
+                'footer' => array(
+                    'element' => 'minimal'
+                )
+            ));
         }
 
         $title_for_layout = '_mojePaństwo';

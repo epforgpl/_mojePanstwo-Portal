@@ -3,8 +3,7 @@
 <?php echo $this->Session->flash('flash', array('element' => 'alert')); ?>
 <?php echo $this->Session->flash('auth', array('element' => 'alert')); ?>
 
-<div class="objectsPage fullPageHeight mpBackgroundSet"
-     style="background-image: url(<?php echo $_layout['body']['wallpaper']; ?>)">
+<div class="objectsPage fullPageHeight">
     <div class="forgotPassword" id="modalPaszportLoginForm">
         <div class="modal-dialog">
             <div class="modal-content">

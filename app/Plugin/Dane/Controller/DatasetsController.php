@@ -57,9 +57,10 @@ class DatasetsController extends DataobjectsController
 		    'header' => array(
 			    'element' => 'dataset',
 		    ),
+            'body' => array(
+                'theme' => 'simply'
+            )
 	    ));
-	    
-	    debug($this->_layout); die();
 	    
 	    parent::beforeRender();
 	    

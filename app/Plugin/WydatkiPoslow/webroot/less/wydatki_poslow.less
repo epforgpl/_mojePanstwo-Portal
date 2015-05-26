@@ -4,15 +4,11 @@
     filter: progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=90, Color=#333); /*IE 5.5-7*/
 }
 
-.cookieLaw {
-    display: none;
-}
-
-footer {
-    display: none;
-}
-
 #_wrapper #_main {
+    height: auto;
+    min-height: inherit;
+    margin-bottom: 0;
+
     #storyLine {
         display: block;
         min-width: 100%;
@@ -170,6 +166,10 @@ footer {
                     white-space: nowrap;
                     margin-right: -4px;
                     position: relative;
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
 
                     .marker {
                         //background-color: red;
