@@ -6,7 +6,16 @@ class DatasetsController extends DataobjectsController
 {
 
     public $uses = array('Dane.Dataobject');
-		
+
+    public $_layout = array(
+        'header' => array(
+            'element' => 'dataset',
+        ),
+        'body' => array(
+            'theme' => 'simply'
+        )
+    );
+
     public $components = array(
         'Paginator'
     );
@@ -48,21 +57,6 @@ class DatasetsController extends DataobjectsController
 	    } else {
 		    throw new BadRequestException();
 	    }
-	    
-    }
-    
-    public function beforeRender() {
-	    
-	    $this->setLayout(array(
-		    'header' => array(
-			    'element' => 'dataset',
-		    ),
-            'body' => array(
-                'theme' => 'simply'
-            )
-	    ));
-	    
-	    parent::beforeRender();
 	    
     }
 

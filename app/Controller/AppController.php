@@ -101,7 +101,7 @@ class AppController extends Controller
      */
     public $_layout = array(
         'header' => array(
-            'element' => 'default',
+            'element' => 'app',
         ),
         'body' => array(
             'theme' => 'default',

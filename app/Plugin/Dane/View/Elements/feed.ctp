@@ -27,7 +27,9 @@ $this->Dataobject->setObject($object);
     echo " unreaded";
 } else {
     echo " readed";
-} ?><? if( $classes = $object->getClasses() ) { echo " " . implode(' ', $classes); } ?>"
+} ?><? if ($classes = $object->getClasses()) {
+    echo " " . implode(' ', $classes);
+} ?>"
      oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
 
     <div class="row">
@@ -42,8 +44,10 @@ $this->Dataobject->setObject($object);
             <div class="feed-header">
                 <? if ($object->getCreator('url')) { ?>
                     <div class="thumb_cont">
-                        <img alt="<?= addslashes($object->getCreator('name')) ?>"
-                             src="<?= $object->getCreator('url') ?>" onerror="imgFixer(this)" class="thumb"/>
+                        <object data="/error/brak.gif" type="image/png">
+                            <img alt="<?= addslashes($object->getCreator('name')) ?>"
+                                 src="<?= $object->getCreator('url') ?>" class="thumb"/>
+                        </object>
                     </div>
                 <? } ?>
 
@@ -82,9 +86,10 @@ $this->Dataobject->setObject($object);
                             <?php if ($object->getUrl() != false) { ?>
                             <a class="thumb_cont" href="<?= $object->getUrl() ?>">
                                 <?php } ?>
-                                <img class="thumb pull-right" onerror="imgFixer(this)"
-                                     src="<?= $object->getThumbnailUrl($thumbSize) ?>"
+                                <object data="/error/brak.gif" type="image/png">
+                                    <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
                                      alt="<?= strip_tags($object->getTitle()) ?>"/>
+                                </object>
                                 <?php if ($object->getUrl() != false) { ?>
                             </a>
                         <?php } ?>

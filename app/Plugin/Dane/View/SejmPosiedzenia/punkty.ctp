@@ -32,8 +32,12 @@ echo $this->Element('dataobject/pageBegin');
                                     </h3>
 
                                     <p class="stats">
-                                        <? if ($punkt->getData('liczba_wystapien')) { ?><img
-                                            src="http://resources.sejmometr.pl/stenogramy/punkty/<?= $punkt->getId() ?>.jpg" /><? } ?>
+                                        <? if ($punkt->getData('liczba_wystapien')) { ?>
+                                            <object data="/error/brak.gif" type="image/png">
+                                                <img
+                                                    src="http://resources.sejmometr.pl/stenogramy/punkty/<?= $punkt->getId() ?>.jpg"/>
+                                            </object>
+                                        <? } ?>
                                         <?= $punkt->getData('stats_str') ?>
                                     </p>
 

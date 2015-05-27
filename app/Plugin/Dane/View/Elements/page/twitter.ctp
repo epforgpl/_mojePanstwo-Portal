@@ -1,10 +1,12 @@
 <h1 class="_">
-	<p class="_thumb_cont">
-		<img src="<?= $object->getData('twitter_accounts.profile_image_url') ?>" />
-	</p>
-	<p class="_title">
-	    <?php echo $object->getData('html') ?>
-	</p>
+    <p class="_thumb_cont">
+        <object data="/error/avatar.gif" type="image/png">
+            <img src="<?= $object->getData('twitter_accounts.profile_image_url') ?>"/>
+            <object
+    </p>
+    <p class="_title">
+        <?php echo $object->getData('html') ?>
+    </p>
 </h1>
 
 <? /* if ($object->getData('twitter_account_id')) { ?>

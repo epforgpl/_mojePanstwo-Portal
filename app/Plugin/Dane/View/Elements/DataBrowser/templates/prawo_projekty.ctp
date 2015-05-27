@@ -1,10 +1,10 @@
 <?
-	
-	$objectRenderOptions = array(
-		'forceLabel' => ( isset($dataBrowserObjectRender) && isset($dataBrowserObjectRender['forceLabel']) ) ? (boolean) $dataBrowserObjectRender['forceLabel'] : false,
-	);
-	
-	
+
+$objectRenderOptions = array(
+    'forceLabel' => (isset($dataBrowserObjectRender) && isset($dataBrowserObjectRender['forceLabel'])) ? (boolean)$dataBrowserObjectRender['forceLabel'] : false,
+);
+
+
 $path = App::path('Plugin');
 $file = $path[0] . '/Dane/View/Elements/' . $theme . '/' . $object->getDataset() . '.ctp';
 $file_exists = file_exists($file);
@@ -23,7 +23,9 @@ $this->Dataobject->setObject($object);
     echo " unreaded";
 } else {
     echo " readed";
-} ?><? if( $classes = $object->getClasses() ) { echo " " . implode(' ', $classes); } ?>"
+} ?><? if ($classes = $object->getClasses()) {
+    echo " " . implode(' ', $classes);
+} ?>"
      oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
 
     <div class="row">
@@ -46,84 +48,85 @@ $this->Dataobject->setObject($object);
                 }
                 ?>
 
-                <? 
+                <?
 
-                    $size = $object_content_sizes[0];
-                    if ($object->getPosition()) {
-                        $size--;
-                    }
+                $size = $object_content_sizes[0];
+                if ($object->getPosition()) {
+                    $size--;
+                }
 
-                    ?>
-                    <div
-                        class="attachment col-xs-<?= $size + 2 ?> col-sm-<?= $size + 1 ?> col-sm-<?= $size ?> text-center">
-                        <?php if ($object->getUrl() != false) { ?>
-                        <a class="thumb_cont" href="<?= $object->getUrl() ?>">
-                            <?php } ?>
-                            <img class="thumb pull-right" onerror="imgFixer(this)"
-                                 src="<?= $object->getThumbnailUrl($thumbSize) ?>"
+                ?>
+                <div
+                    class="attachment col-xs-<?= $size + 2 ?> col-sm-<?= $size + 1 ?> col-sm-<?= $size ?> text-center">
+                    <?php if ($object->getUrl() != false) { ?>
+                    <a class="thumb_cont" href="<?= $object->getUrl() ?>">
+                        <?php } ?>
+                        <object data="/error/brak.gif" type="image/png">
+                            <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
                                  alt="<?= strip_tags($object->getTitle()) ?>"/>
-                            <?php if ($object->getUrl() != false) { ?>
-                        </a>
-                    <?php } ?>
+                        </object>
+                        <?php if ($object->getUrl() != false) { ?>
+                    </a>
+                <?php } ?>
 
-                    </div>
-                    <div class="content col-md-<?= $object_content_sizes[1] ?>">
+                </div>
+                <div class="content col-md-<?= $object_content_sizes[1] ?>">
 
-                        <? if ($alertsButtons) { ?>
-                            <div class="alertsButtons pull-right">
-                                <input class="btn btn-xs read" type="button"
-                                       value="<?php echo __d('powiadomienia', 'LC_POWIADOMIENIA_OPTIONS_ALERT_BUTTON_READ'); ?>"/>
-                                <input class="btn btn-xs unread" type="button"
-                                       value="<?php echo __d('powiadomienia', 'LC_POWIADOMIENIA_OPTIONS_ALERT_BUTTON_UNREAD'); ?>"/>
-                            </div>
-                        <? } ?>
+                    <? if ($alertsButtons) { ?>
+                        <div class="alertsButtons pull-right">
+                            <input class="btn btn-xs read" type="button"
+                                   value="<?php echo __d('powiadomienia', 'LC_POWIADOMIENIA_OPTIONS_ALERT_BUTTON_READ'); ?>"/>
+                            <input class="btn btn-xs unread" type="button"
+                                   value="<?php echo __d('powiadomienia', 'LC_POWIADOMIENIA_OPTIONS_ALERT_BUTTON_UNREAD'); ?>"/>
+                        </div>
+                    <? } ?>
 
-                        <? if ($object->force_hl_fields || $objectRenderOptions['forceLabel']) { ?>
-                            <p class="header">
-                                <?= $object->getLabel(); ?>
-                            </p>
-                        <? } ?>
-
-                        <p class="title">
-                            <?php if ($object->getUrl() != false) { ?>
-                            <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
-                                <?php } ?>
-                                <?= $this->Text->truncate($shortTitle, 150) ?>
-                                <?php if ($object->getUrl() != false) { ?>
-                            </a> <?
-                        }
-                        if ($object->getTitleAddon()) {
-                            echo '<small>' . $object->getTitleAddon() . '</small>';
-                        } ?>
+                    <? if ($object->force_hl_fields || $objectRenderOptions['forceLabel']) { ?>
+                        <p class="header">
+                            <?= $object->getLabel(); ?>
                         </p>
-                        
-                        <? if( $metaDesc = $object->getMetaDescription() ) {?>
+                    <? } ?>
+
+                    <p class="title">
+                        <?php if ($object->getUrl() != false) { ?>
+                        <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
+                            <?php } ?>
+                            <?= $this->Text->truncate($shortTitle, 150) ?>
+                            <?php if ($object->getUrl() != false) { ?>
+                        </a> <?
+                    }
+                    if ($object->getTitleAddon()) {
+                        echo '<small>' . $object->getTitleAddon() . '</small>';
+                    } ?>
+                    </p>
+
+                    <? if ($metaDesc = $object->getMetaDescription()) { ?>
                         <p class="meta meta-desc"><?= $metaDesc ?></p>
-                        <? } ?>
-                        
-                        <?= $object->getData('autorzy_html') ?>
-                        
-                        <? if( $object->getData('status_str') ) {?>
-	                        <p class="status"><?= $object->getData('status_str') ?></p>
-                        <? } ?>
-												
-						<? if( 
-							( $object->hasHighlights() ) && 
-							( $highlight = $object->getLayer('highlight') )
-						) { ?>
-							<? if( $highlight[0] != '<em>' . $object->getShortTitle() . '</em>' ) {?>
-							<div class="description highlight">
+                    <? } ?>
+
+                    <?= $object->getData('autorzy_html') ?>
+
+                    <? if ($object->getData('status_str')) { ?>
+                        <p class="status"><?= $object->getData('status_str') ?></p>
+                    <? } ?>
+
+                    <? if (
+                        ($object->hasHighlights()) &&
+                        ($highlight = $object->getLayer('highlight'))
+                    ) { ?>
+                        <? if ($highlight[0] != '<em>' . $object->getShortTitle() . '</em>') { ?>
+                            <div class="description highlight">
                                 <?= $highlight[0] ?>
                             </div>
-                            <? } ?>
-                        <? } elseif ($object->getDescription()) { ?>
-                            <div class="description">
-                                <?= $object->getDescription() ?>
-                            </div>
                         <? } ?>
+                    <? } elseif ($object->getDescription()) { ?>
+                        <div class="description">
+                            <?= $object->getDescription() ?>
+                        </div>
+                    <? } ?>
 
-                    </div>
-                
+                </div>
+
             </div>
         </div>
     </div>

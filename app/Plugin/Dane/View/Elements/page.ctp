@@ -30,9 +30,11 @@ if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) {
         <?php if ($object->getUrl() != false) { ?>
         <a class="thumb_cont" href="<?= $object->getUrl() ?>">
             <?php } ?>
-            <img itemprop="image" class="thumb" onerror="imgFixer(this)"
-                 src="<?= $object->getHeaderThumbnailUrl($thumbSize) ?>"
-                 alt="<?= strip_tags($object->getTitle()) ?>"/>
+            <object data="/error/brak.gif" type="image/png">
+                <img itemprop="image" class="thumb"
+                     src="<?= $object->getHeaderThumbnailUrl($thumbSize) ?>"
+                     alt="<?= strip_tags($object->getTitle()) ?>"/>
+            </object>
             <?php if ($object->getUrl() != false) { ?>
         </a>
     <?php } ?>
@@ -45,7 +47,7 @@ if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) {
                                         data-trimlength="200">
                                         <?php if (($object->getUrl() != false) && !empty($this->request)) { ?>
             <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
-                <?php } ?>
+        <?php } ?>
                                         <span<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= $object->getTitle() ?></span>
                                         <?php if (($object->getUrl() != false) && !empty($this->request)) { ?>
             </a> <? if ($object->getTitleAddon()) {

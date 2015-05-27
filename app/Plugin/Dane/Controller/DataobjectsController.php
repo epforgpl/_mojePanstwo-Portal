@@ -24,6 +24,15 @@ class DataobjectsController extends AppController
     public $appSelected = 'dane';
     public $addDatasetBreadcrumb = true;
 
+    public $_layout = array(
+        'header' => array(
+            'element' => 'dataobject',
+        ),
+        'body' => array(
+            'theme' => 'default'
+        )
+    );
+
     public function addInitLayers($layers)
     {
 
@@ -211,29 +220,29 @@ class DataobjectsController extends AppController
     {
 
         $is_json = (isset($this->request->params['ext']) && $this->request->params['ext'] == 'json');
-		
-		if( !$is_json ) {
-			
-			if( 
-				( $this->request->params['controller'] == 'Datasets' ) && 
-				( $breadcrumbs_data = $this->getDataset($this->object->getData('slug'))) 
-			) {
-	            
-	            $this->addAppBreadcrumb($breadcrumbs_data['app_id']);
-	        
-	        } elseif( $breadcrumbs_data = $this->getDataset($this->object->getDataset()) ) {
-		        
-		        $this->addAppBreadcrumb($breadcrumbs_data['app_id']);
-				
-				if( $this->addDatasetBreadcrumb )
-	                $this->addBreadcrumb(array(
-	                    'href' => '/dane/' . $breadcrumbs_data['dataset_id'],
-	                    'label' => $breadcrumbs_data['dataset_name'],
-	                ));
-		        
-	        }
-	        
-	        $selected = $this->request->params['action'];
+
+        if (!$is_json) {
+
+            if (
+                ($this->request->params['controller'] == 'Datasets') &&
+                ($breadcrumbs_data = $this->getDataset($this->object->getData('slug')))
+            ) {
+
+                $this->addAppBreadcrumb($breadcrumbs_data['app_id']);
+
+            } elseif ($breadcrumbs_data = $this->getDataset($this->object->getDataset())) {
+
+                $this->addAppBreadcrumb($breadcrumbs_data['app_id']);
+
+                if ($this->addDatasetBreadcrumb)
+                    $this->addBreadcrumb(array(
+                        'href' => '/dane/' . $breadcrumbs_data['dataset_id'],
+                        'label' => $breadcrumbs_data['dataset_name'],
+                    ));
+
+            }
+
+            $selected = $this->request->params['action'];
             if ($selected == 'view')
                 $selected = '';
 
@@ -243,8 +252,8 @@ class DataobjectsController extends AppController
             $this->set('object_addons', $this->addons);
 
             $this->prepareMetaTags();
-			
-		}
+
+        }
 
         parent::beforeRender();
 

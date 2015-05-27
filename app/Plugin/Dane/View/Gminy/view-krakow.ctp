@@ -180,8 +180,10 @@
                                             <? foreach ($radni as $radny) { ?>
                                                 <li>
                                                     <a title="<?= $radny['imiona'] . ' ' . $radny['nazwisko'] ?>"
-                                                       href="/dane/gminy/903/radni/<?= $radny['id'] ?>"><img
-                                                            src="http://resources.sejmometr.pl/avatars/3/<?= $radny['avatar_id'] ?>.jpg"/>
+                                                       href="/dane/gminy/903/radni/<?= $radny['id'] ?>">
+                                                        <object data="/error/avatar.gif" type="image/png"><img
+                                                                src="http://resources.sejmometr.pl/avatars/3/<?= $radny['avatar_id'] ?>.jpg"/>
+                                                        </object>
                                                     </a>
                                                 </li>
                                             <? } ?>
@@ -209,13 +211,15 @@
                                     <? foreach ($prawo_lokalne as $obj) { ?>
                                         <li>
                                             <a href="<?= $obj->getUrl() ?>">
-                                                <img class="img-responsive"
-                                                     src="http://docs.sejmometr.pl/thumb/4/<?= $obj->getData('dokument_id') ?>.png"/>
+                                                <object data="/error/dokument.gif" type="image/png">
+                                                    <img class="img-responsive"
+                                                         src="http://docs.sejmometr.pl/thumb/4/<?= $obj->getData('dokument_id') ?>.png"/>
+                                                </object>
                                             </a>
 
                                             <div class="inner">
                                                 <p class="title">
-                                                    <a href="<?= $obj->getUrl() ?>"><?= $this->Text->truncate( $obj->getShortTitle(), 150 ) ?></a>
+                                                    <a href="<?= $obj->getUrl() ?>"><?= $this->Text->truncate($obj->getShortTitle(), 150) ?></a>
                                                 </p>
 
                                                 <p class="date"><?= $this->Czas->dataSlownie($obj->getDate()) ?></p>
@@ -254,7 +258,9 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <a href="/dane/gminy/903,krakow/urzad">
-                                            <img class="img-responsive" src="/dane/img/pk-prezydent.jpg">
+                                            <object data="/error/brak.gif" type="image/png">
+                                                <img class="img-responsive" src="/dane/img/pk-prezydent.jpg">
+                                            </object>
                                         </a>
                                     </div>
                                     <div class="col-md-6">
@@ -270,13 +276,15 @@
                                     <? foreach ($zarzadzenia as $obj) { ?>
                                         <li>
                                             <a href="<?= $obj->getUrl() ?>">
-                                                <img
-                                                    src="http://docs.sejmometr.pl/thumb/4/<?= $obj->getData('dokument_id') ?>.png"/>
+                                                <object data="/error/dokument.gif" type="image/png">
+                                                    <img
+                                                        src="http://docs.sejmometr.pl/thumb/4/<?= $obj->getData('dokument_id') ?>.png"/>
+                                                </object>
                                             </a>
 
                                             <div class="inner">
                                                 <p class="title">
-                                                    <a href="<?= $obj->getUrl() ?>"><?= $this->Text->truncate( $obj->getShortTitle(), 150 ) ?></a>
+                                                    <a href="<?= $obj->getUrl() ?>"><?= $this->Text->truncate($obj->getShortTitle(), 150) ?></a>
                                                 </p>
 
                                                 <p class="date"><?= $this->Czas->dataSlownie($obj->getDate()) ?></p>

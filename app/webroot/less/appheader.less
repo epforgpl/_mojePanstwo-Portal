@@ -2,11 +2,51 @@
     width: 100%;
     min-height: 66px;
 
+    &.app {
+        background: #062943;
+
+        .holder {
+            h1 {
+                margin-top: 16px;
+                font-weight: normal;
+            }
+            h1, h1 a,
+            h2, h2 a {
+                color: #FAFAFA;
+            }
+        }
+    }
+    &.dataset {
+        background: #FAFAFA;
+
+        .holder {
+            h1, h1 a,
+            h2, h2 a {
+                color: #062943;
+            }
+        }
+    }
+    &.dataobject {
+        background: #FFFFFF;
+
+        .holder {
+            h1, h1 a,
+            h2, h2 a {
+                color: #062943;
+            }
+        }
+    }
+
+    /*GENERAL CODE*/
+    .breadcrumb a {
+        font-size: 12px;
+    }
+
     .holder {
         h1 {
             font-size: 30px;
             font-weight: 300;
-            margin: 16px 0;
+            margin: 0 0 16px;
 
             img, svg {
                 height: 30px;
@@ -16,236 +56,175 @@
             }
 
             a > i {
-                font-size: 0.8em;
+                font-size: 0.9em;
                 margin-right: 8px;
             }
         }
 
         h2 {
-            margin: 0 12px 20px;
             font-size: 18px;
             font-weight: 300;
+            margin: 5px 0 20px;
         }
     }
+}
 
-    .menu {
-        ul {
+.menu li {
+    a {
+        color: #AAA;
+    }
+
+    &.active a {
+        color: #157ab5;
+    }
+    ul.dropdown-menu {
+        a {
+            color: #157AB5;
+
+            &:hover {
+                color: #157AB5;
+            }
+        }
+
+        &.active a, &.active a:hover {
+            color: #333333;
+        }
+    }
+}
+
+.appMenu {
+    min-height: 4px;
+    background: #FAFAFA;
+
+    ul.nav-tabs {
+        border: none;
+        margin: 0;
+        height: 100%;
+
+        > li {
             border: none;
             margin: 0;
-            height: 100%;
 
-            li {
+            > a {
+                color: #AAA;
+                font-weight: 600;
+                font-size: 13px;
                 border: none;
-                margin: 0;
+                padding: 7px 15px 7px;
+                letter-spacing: .035em;
+                cursor: pointer;
 
-                a {
-                    font-weight: 600;
-                    font-size: 13px;
+                &:hover {
+                    background: none;
                     border: none;
-                    padding: 7px 15px 7px;
-                    letter-spacing: .035em;
-                    cursor: pointer;
+                    margin: 0;
+                }
+                span.caret {
+                    margin-left: 5px;
+                }
+                &:focus {
+                    background: none;
+                }
+            }
+            &:hover {
+                border: none;
+            }
+            &.open, &:focus {
+                a {
+                    background: none;
+                    border-bottom: 4px solid lighten(#63afea, 15%);
+                }
+            }
+            &.active {
+                a {
+                    color: #157ab5;
+                    background: none;
+                    border: none;
+                    border-bottom: 4px solid #63afea;
+                    margin: 0 0 -3px;
+                }
+            }
+            ul.dropdown-menu {
+                a {
+                    display: block;
+                    border: none;
+                    background: #fff;
+                    padding: 5px 20px;
+                    font-size: 13px;
 
                     &:hover {
-                        background: none;
                         border: none;
-                        margin: 0;
-                    }
-                    span.caret {
-                        margin-left: 5px;
-                    }
-                    &:focus {
-                        background: none;
-                    }
-                }
-                &:hover {
-                    border: none;
-                }
-                &.open, &:focus {
-                    a {
-                        background: none;
-                        border-bottom: 4px solid lighten(#63afea, 15%);
                     }
                 }
                 &.active {
                     a {
-                        background: none;
-                        border: none;
-                        border-bottom: 4px solid #63afea;
-                        margin: 0 0 -3px;
-                    }
-                }
-                ul.dropdown-menu {
-                    a {
-                        display: block;
-                        border: none;
-                        background: #fff;
-                        padding: 5px 20px;
-                        font-size: 13px;
-
-                        &:hover {
-                            border: none;
-                        }
-                    }
-                    &.active {
-                        a {
-                            font-weight: bold;
-                        }
+                        font-weight: bold;
                     }
                 }
             }
         }
     }
+}
 
-    /*&.pk {
-        @menuHeight: 34px;
+.dataHighlights {
+    padding: 0;
 
-        height: 200px;
-        background-image: url(/dane/img/headers/krakow.jpg);
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
+    .dataHighlight {
+        padding: 5px;
+        display: block;
 
-        .holder {
-            margin-top: -(@menuHeight/2);
+        &.-block {
             display: block;
-            float: left;
-            position: relative;
-            top: 50%;
-            width: 100%;
-            -webkit-transform: translate(0px, -50%);
-            -moz-transform: translate(0px, -50%);
-            -ms-transform: translate(0px, -50%);
-            -o-transform: translate(0px, -50%);
-            transform: translate(0px, -50%);
+        }
 
-            .attachment a {
-                display: block;
+        ._label {
+            font-size: 10px;
+            margin: 1px 0 3px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #555;
 
-                img {
-                    margin: 0;
-                    width: 100%;
-                    max-width: 250px;
-                }
-            }
-
-            .content {
-                line-height: 1.2em;
-                padding: 0 5px;
-
-                h1 {
-                    margin: 26px 0 2px 0;
-
-                    a {
-                        font-size: 40px;
-                        font-weight: 300;
-                        line-height: 1em;
-                        color: #028ccd;
-                    }
-                }
-
-                .header {
-                    font-size: 14px;
-                    font-weight: normal;
-                    color: #DDD;
-                    margin-bottom: 15px;
-                    margin-top: 9px;
-
-                    a {
-                        color: #028ccd;
-                    }
-                }
+            &.pull-left {
+                margin-top: 3px;
+                margin-right: 10px;
             }
         }
-        .menu {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: @menuHeight;
 
-            background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 100%); *//* FF3.6+ *//*
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0.75))); *//* Chrome,Safari4+ *//*
-            background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 100%); *//* Chrome10+,Safari5.1+ *//*
-            background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 100%); *//* Opera 11.10+ *//*
-            background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 100%); *//* IE10+ *//*
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 100%); *//* W3C *//*
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#bf000000', GradientType=0); *//* IE6-9 *//*
+        ._value {
+            font-size: 10px;
+            margin: 0;
+            color: #2E8F3E;
 
-            ul {
-                @fontSize: 13px;
+            img {
+                float: left;
+                margin-right: 5px;
+            }
 
-                border: none;
-                border-radius: 0;
-                margin: 1px 0 0;
-                height: 100%;
+            .add {
+                display: none;
+            }
 
+            &.tags {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                overflow: hidden;
                 li {
-                    border: none;
-                    border-radius: 0;
-                    margin: 0;
-
-                    a {
-                        background: none;
-                        color: #EEE;
-                        border: none;
-                        font-size: @fontSize;
-                        margin: 0;
-
-                        span.caret {
-                            margin-left: 5px;
-                        }
-                    }
-
-                    > a:hover, > a:focus {
-                        background: none;
-                    }
-
-                    &.active {
-                        > a {
-                            background: none;
-                            border: none;
-                            color: #8ABCDA;
-                            border-bottom: 4px solid #63afea;
-                            cursor: pointer;
-                        }
-                        .dropdown-menu {
-                            margin-top: 1px;
-                        }
-                    }
-
-                    *//* SUBMENU *//*
-                    ul.dropdown-menu {
-                        background-color: #ffffff;
-                        border-color: #dddddd;
-                        border-top-width: 0;
-                        padding: 0;
-                        margin-top: 5px;
-
-                        li {
-                            a {
-                                font-size: @fontSize;
-                                background: #ffffff;
-                                color: #157AB5;
-                                padding: 10px 20px;
-                            }
-
-                            &:hover a,
-                            &:focus a {
-                                background: lighten(#157AB5, 20%);
-                                color: #ffffff;
-                            }
-
-                            &.active a {
-                                background-color: #157AB5;
-                                color: #ffffff;
-                                border: none;
-                            }
-                        }
-                    }
+                    list-style: none;
+                    margin: 10px 0;
                 }
             }
+
         }
-    }*/
+
+        .__autorzy_html_ul {
+            font-size: 12px;
+            margin: 0;
+        }
+
+        .label {
+            font-size: 85%;
+        }
+
+    }
 }

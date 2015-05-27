@@ -7,35 +7,39 @@
 
 <div class="search-container">
     <? if ($pagination['total']) { ?>
-    <div class="container">
-	    <div class="row">
-		    <div class="col-sm-10 col-sm-offset-1">
-			    <div class="form-group">
-			        <form method="GET" action="/moje-pisma">
-			            <input name="q" class="form-control input-md" placeholder="Szukaj w moich pismach..." type="text"
-			                   value="<?= $q ?>">
-			            <input type="submit" value="Szukaj" style="display: none;"/>
-			        </form>
-			    </div>
-		    </div>
-	    </div>
-    </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="form-group">
+                        <form method="GET" action="/moje-pisma">
+                            <input name="q" class="form-control input-md" placeholder="Szukaj w moich pismach..."
+                                   type="text"
+                                   value="<?= $q ?>">
+                            <input type="submit" value="Szukaj" style="display: none;"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     <? } ?>
 </div>
 
 <div class="container" id="myPismaBrowser" data-query='<?= json_encode($query); ?>'>
     <div class="col-md-10 col-sm-offset-1">
-	
-		<? if( !$this->Session->read('Auth.User.id') ) { ?>
-		<div class="alert alert-dismissable alert-success">
-			<button type="button" class="close" data-dismiss="alert">×</button>
-			<h4>Uwaga!</h4>
-			<p>Nie jesteś zalogowany. Twoje pisma będą przechowywane na tym urządzeniu przez 24 godziny. <a class="_specialCaseLoginButton" href="/login">Zaloguj się</a>, aby trwale przechowywać pisma na swoim koncie.</p>
-		</div>
-		<? } ?>
-		
+
+        <? if (!$this->Session->read('Auth.User.id')) { ?>
+            <div class="alert alert-dismissable alert-success">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <h4>Uwaga!</h4>
+
+                <p>Nie jesteś zalogowany. Twoje pisma będą przechowywane na tym urządzeniu przez 24 godziny. <a
+                        class="_specialCaseLoginButton" href="/login">Zaloguj się</a>, aby trwale przechowywać pisma na
+                    swoim koncie.</p>
+            </div>
+        <? } ?>
+
         <div class="letters">
-						
+
             <? if ($pagination['total']) { ?>
 
                 <div class="row actionbar">
@@ -53,102 +57,107 @@
                     </div>
                     <div class="col-md-7 text-right">
                         <div class="optionsChecked">
-	                        <form action="/moje-pisma/moje" method="post">
-		                        <input name="action" value="delete" type="hidden" />
-		                        <div class="inputs">
-		                        </div>
-	                            <button class="btn btn-default deleteButton" type="submit">
-	                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-	                            </button>
-	                        </form>
+                            <form action="/moje-pisma/moje" method="post">
+                                <input name="action" value="delete" type="hidden"/>
+
+                                <div class="inputs">
+                                </div>
+                                <button class="btn btn-default deleteButton" type="submit">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </form>
                         </div>
                         <div class="optionsUnChecked">
-                            
-                            <? if( isset($aggs['template']) ) echo  $this->element('MojePisma.aggs', array(
-                            	'data' => $aggs['template'],
-                            	'label' => 'Szablon',
-                            	'allLabel' => 'Wszystkie szablony',
-                            	'var' => 'template',
-                            	'selected' => isset( $filters_selected['template'] ),
+
+                            <? if (isset($aggs['template'])) echo $this->element('MojePisma.aggs', array(
+                                'data' => $aggs['template'],
+                                'label' => 'Szablon',
+                                'allLabel' => 'Wszystkie szablony',
+                                'var' => 'template',
+                                'selected' => isset($filters_selected['template']),
                             )); ?>
-                            
-                            <? if( isset($aggs['to']) ) echo $this->element('MojePisma.aggs', array(
-                            	'data' => $aggs['to'],
-                            	'label' => 'Adresat',
-                            	'allLabel' => 'Wszyscy adresaci',
-                            	'var' => 'to',
-                            	'selected' => isset( $filters_selected['to'] ),
+
+                            <? if (isset($aggs['to'])) echo $this->element('MojePisma.aggs', array(
+                                'data' => $aggs['to'],
+                                'label' => 'Adresat',
+                                'allLabel' => 'Wszyscy adresaci',
+                                'var' => 'to',
+                                'selected' => isset($filters_selected['to']),
                             )); ?>
-                            
-                            <? if( isset($aggs['sent']) ) echo  $this->element('MojePisma.aggs', array(
-                            	'data' => $aggs['sent'],
-                            	'label' => 'Status',
-                            	'allLabel' => 'Wszystkie statusy',
-                            	'var' => 'sent',
-                            	'selected' => isset( $filters_selected['sent'] ),
+
+                            <? if (isset($aggs['sent'])) echo $this->element('MojePisma.aggs', array(
+                                'data' => $aggs['sent'],
+                                'label' => 'Status',
+                                'allLabel' => 'Wszystkie statusy',
+                                'var' => 'sent',
+                                'selected' => isset($filters_selected['sent']),
                             )); ?>
-                            
-                            <? if( isset($aggs['access']) ) echo  $this->element('MojePisma.aggs', array(
-                            	'data' => $aggs['access'],
-                            	'label' => 'Dostęp',
-                            	'allLabel' => 'Wszystko',
-                            	'var' => 'access',
-                            	'selected' => isset( $filters_selected['access'] ),
+
+                            <? if (isset($aggs['access'])) echo $this->element('MojePisma.aggs', array(
+                                'data' => $aggs['access'],
+                                'label' => 'Dostęp',
+                                'allLabel' => 'Wszystko',
+                                'var' => 'access',
+                                'selected' => isset($filters_selected['access']),
                             )); ?>
 
                         </div>
                     </div>
                 </div>
-				
-				<? if( !empty($filters_selected) ) { ?>
-				<div class="row">
-					<div class="col-md-12">
-						<p class="remove-filters"><a href="/moje-pisma/moje"><span class="glyphicon glyphicon-remove"></span> Usuń wszystkie filtry</a></p>
-					</div>
-				</div>
-				<? } ?>
-				
-				<div class="items">
-                <? foreach ($items as $item) { ?>
-                    <div class="row item-list" data-id="<?= $item['alphaid']; ?>">
-                        <div class="col-sm-1 text-center haveCheckbox">
-                            <input type="checkbox" class="itemCheckbox"/>
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="thumb">
-                                <a href="/moje-pisma/<?= $item['alphaid'] ?>,<?= $item['slug'] ?>">
-                                    <img src="http://pisma.sds.tiktalik.com/thumbs/<?= $item['hash'] ?>.png"/>
-                                </a>
-                            </div>
-                            <div class="cont">
 
-                                <p class="title">
-                                    <a href="/moje-pisma/<?= $item['alphaid'] ?>,<?= $item['slug'] ?>"><?= ( isset($item['name']) && $item['name'] ) ? $item['name'] : 'Pismo' ?></a>
-                                </p>
-
-                                <? if( isset($item['sent']) && $item['sent'] ) {?>
-                                    <p class="meta">
-                                        Wysłano: <?= date('Y-m-d H:i:s', strtotime($item['sent_at'])) ?>
-                                    </p>
-                                <? } ?>
-
-                                <? if (isset($item['to_name'])) { ?>
-                                    <p class="fields">
-                                        <small>Do:</small> <span class="val"><?= $item['to_name'] ?></span>
-                                    </p>
-                                <? } ?>
-
-                            </div>
-                        </div>
-                        <div class="col-sm-2 text-right">
-                            <span class="date">
-                                <?= dataSlownie($item['date']); ?>
-                            </span>
+                <? if (!empty($filters_selected)) { ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="remove-filters"><a href="/moje-pisma/moje"><span
+                                        class="glyphicon glyphicon-remove"></span> Usuń wszystkie filtry</a></p>
                         </div>
                     </div>
                 <? } ?>
-				</div>
-				
+
+                <div class="items">
+                    <? foreach ($items as $item) { ?>
+                        <div class="row item-list" data-id="<?= $item['alphaid']; ?>">
+                            <div class="col-sm-1 text-center haveCheckbox">
+                                <input type="checkbox" class="itemCheckbox"/>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="thumb">
+                                    <a href="/moje-pisma/<?= $item['alphaid'] ?>,<?= $item['slug'] ?>">
+                                        <object data="/error/dokument.gif" type="image/png">
+                                            <img src="http://pisma.sds.tiktalik.com/thumbs/<?= $item['hash'] ?>.png"/>
+                                        </object>
+                                    </a>
+                                </div>
+                                <div class="cont">
+
+                                    <p class="title">
+                                        <a href="/moje-pisma/<?= $item['alphaid'] ?>,<?= $item['slug'] ?>"><?= (isset($item['name']) && $item['name']) ? $item['name'] : 'Pismo' ?></a>
+                                    </p>
+
+                                    <? if (isset($item['sent']) && $item['sent']) { ?>
+                                        <p class="meta">
+                                            Wysłano: <?= date('Y-m-d H:i:s', strtotime($item['sent_at'])) ?>
+                                        </p>
+                                    <? } ?>
+
+                                    <? if (isset($item['to_name'])) { ?>
+                                        <p class="fields">
+                                            <small>Do:</small>
+                                            <span class="val"><?= $item['to_name'] ?></span>
+                                        </p>
+                                    <? } ?>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-2 text-right">
+                            <span class="date">
+                                <?= dataSlownie($item['date']); ?>
+                            </span>
+                            </div>
+                        </div>
+                    <? } ?>
+                </div>
+
                 <?php if (1 < $pagination['total'] / $pagination['perPage']) { ?>
                     <div class="paginationListNumber">
                         <div class="btn-group" role="group">
@@ -167,14 +176,14 @@
                 <?
                 } else {
                     ?>
-				<div class="informationBlock missing col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-			        <div class="col-xs-12 information">
-			
-			            <h2>Nie stworzyłeś jeszcze żadnych pism</h2>
-						<br/><br/>
-			            <a target="_self" href="/moje-pisma/nowe" class="btn btn-info">Stwórz pismo</a>
-			        </div>
-			    </div>
+                    <div class="informationBlock missing col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+                        <div class="col-xs-12 information">
+
+                            <h2>Nie stworzyłeś jeszcze żadnych pism</h2>
+                            <br/><br/>
+                            <a target="_self" href="/moje-pisma/nowe" class="btn btn-info">Stwórz pismo</a>
+                        </div>
+                    </div>
                 <?
                 }
             } ?>

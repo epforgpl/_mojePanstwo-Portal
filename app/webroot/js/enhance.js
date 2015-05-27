@@ -32,7 +32,7 @@ function imgFixer(img) {
         imgBlankSrc = "http://placehold.it/" + size + imgBlankSetting + "&text=avatar";
     } else {/*IMG LINK TO OTHERS - SO WE GENERATE SQUARE TOO*/
         /*LINK WITH ERROR TEXT*/
-        imgBlankSrc = "http://placehold.it/" + size + imgBlankSetting + "&text=error";
+        imgBlankSrc = "http://placehold.it/" + size + imgBlankSetting + "&text=lost";
     }
 
     /*REMOVE ONERROR FUNCTION - CAUSE WE USE IT ALREADY*/

@@ -19,8 +19,11 @@
                 <small>PLN</small></span>
         </p>
 
-        <p class="nposel"><img
-                src="http://resources.sejmometr.pl/mowcy/a/3/<?= $biura[$id]['data']['ludzie_poslowie.mowca_id'] ?>.jpg"/>
+        <p class="nposel">
+            <object data="/error/avatar.gif" type="image/png">
+                <img
+                    src="http://resources.sejmometr.pl/mowcy/a/3/<?= $biura[$id]['data']['ludzie_poslowie.mowca_id'] ?>.jpg"/>
+            </object>
             <span><?= $biura[$id]['data']['poslowie.nazwa'] ?> (<?= $biura[$id]['data']['sejm_kluby.skrot'] ?>)</span>
         </p>
 

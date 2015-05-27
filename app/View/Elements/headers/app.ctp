@@ -1,4 +1,4 @@
-<div class="appHeader">
+<div class="appHeader app">
     <div class="container">
         <div class="holder row">
             <div class="col-md-8">

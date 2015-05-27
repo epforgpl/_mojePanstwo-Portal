@@ -1,23 +1,44 @@
-<?php
+<?
+/** @var Object $object */
 $object = $this->viewVars['object'];
 $objectOptions = $this->viewVars['objectOptions'];
 /** @var Object $microdata */
 $objectOptions['microdata'] = $microdata;
 
-if (isset($titleTag)) {
-    $objectOptions['titleTag'] = $titleTag;
-}
-
 if (!isset($renderFile) || !$renderFile)
     $renderFile = 'page';
+?>
 
-$menu = isset($this->viewVars['menu']) ? $this->viewVars['menu'] : false;
-$buttons = isset($objectOptions['buttons']) ? $objectOptions['buttons'] : array('shoutIt');
+<div class="appHeader dataobject">
+    <div class="container">
+        <div class="holder row">
+            <div class="col-md-8">
+                <ul class="breadcrumb">
+                    <?php foreach ($_breadcrumbs as $bread) { ?>
+                        <li><a href="<?= $bread['href'] ?>" target="_self"><?= $bread['label'] ?></a></li>
+                    <? } ?>
+                </ul>
+                <div class="title">
+                    <h2>
+                        <?php if ($object->getUrl() != false){ ?>
+                        <a class="trimTitle" href="<?= $object->getUrl() ?>"
+                           title="<?= strip_tags($object->getTitle()) ?>">
+                            <?php } ?>
 
-echo $this->element('headers/' . $_layout['header']['element'], array(
-    'object' => $object,
-    'objectOptions' => $objectOptions,
-    'menu' => $menu,
-    'buttons' => $buttons,
-    'renderFile' => $renderFile,
-)) ?>
+                            <span<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= $object->geticon() . '&nbsp;' . $object->getTitle() ?></span>
+
+                            <?php if ($object->getUrl() != false){ ?>
+                        </a>
+                    <? if ($object->getTitleAddon()) {
+                        echo '<small>' . $object->getTitleAddon() . '</small>';
+                    } ?>
+                    <?php } ?>
+                    </h2>
+                </div>
+                <div class="status">
+                    <?= $this->element('status_bar/' . $object->getDataset(), array('plugin' => 'Dane')) ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

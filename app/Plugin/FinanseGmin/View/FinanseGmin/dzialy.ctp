@@ -56,6 +56,7 @@ $this->Combinator->add_libs('js', 'Finanse.dzialy.js');
                 <li class="section" id="section_<?= $section['id'] ?>" data-id="<?= $section['id'] ?>">
                     <div class="row">
                         <div class="col-md-2 text-right icon">
+
                             <img src="/finanse/img/sections/<?= $section['id'] ?>.svg"/>
                         </div>
                         <div class="col-md-10">
@@ -80,7 +81,7 @@ $this->Combinator->add_libs('js', 'Finanse.dzialy.js');
                                             <span class="n"><?= $section['min_nazwa'] ?></span>
                                             <span class="v"><?= number_format_h($section['min']) ?></span>
                                         </li>
-                                        <li class="max"  data-int="<?= $section['max'] ?>">
+                                        <li class="max" data-int="<?= $section['max'] ?>">
                                             <span class="n"><?= $section['max_nazwa'] ?></span>
                                             <span class="v"><?= number_format_h($section['max']) ?></span>
                                         </li>
@@ -100,7 +101,9 @@ $this->Combinator->add_libs('js', 'Finanse.dzialy.js');
                 <li class="section" id="dsection_<?= $section['id'] ?>" data-id="<?= $section['id'] ?>">
                     <div class="row">
                         <div class="col-md-2 text-right icon">
-                            <img src="/finanse/img/sections/<?= $section['id'] ?>.svg"/>
+                            <object data="/error/brak.gif" type="image/png">
+                                <img src="/finanse/img/sections/<?= $section['id'] ?>.svg"/>
+                            </object>
                         </div>
                         <div class="col-md-10">
                             <div class="row row-header">

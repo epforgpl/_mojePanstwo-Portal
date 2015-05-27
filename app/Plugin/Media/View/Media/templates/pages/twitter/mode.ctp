@@ -19,7 +19,10 @@
                     <? { ?>
 
                         <div class="avatar"><a href="/dane/twitter_accounts/<?= $object['id'] ?>">
-                                <img src="<?= $object['profile_image_url'] ?>"/></a></div>
+                                <object data="/error/avatar.gif" type="image/png">
+                                    <img src="<?= $object['profile_image_url'] ?>"/>
+                                </object>
+                            </a></div>
                         <div class="info">
                             <p class="name">
                                 <? /*<a href="/dane/twitter_accounts/<?= $object['id'] ?>">*/ ?><?= $object['name'] ?><? /*</a>*/ ?>
@@ -105,7 +108,9 @@
 
                 <li class="account">
                     <div class="avatar"><a href="/dane/twitter_accounts/<?= $object['id'] ?>">
-                            <img src="<?= $object['profile_image_url'] ?>"/></a></div>
+                            <object data="/error/avatar.gif" type="image/png">
+                                <img src="<?= $object['profile_image_url'] ?>"/></object>
+                        </a></div>
                     <div class="info">
                         <p class="name">
                             <a href="/dane/twitter_accounts/<?= $object['id'] ?>"><?= $object['name'] ?></a>
@@ -315,7 +320,9 @@
                     <div class="tweet_header">
                         <div class="avatar">
                             <p>
+                                <object data="/error/avatar.gif" type="image/png">
                                 <img src="<?= $object->getData('twitter_accounts.profile_image_url') ?>"/>
+                                </object>
                             </p>
                         </div>
                         <div class="data">

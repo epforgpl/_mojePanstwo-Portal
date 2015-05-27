@@ -23,7 +23,9 @@ if (in_array($object->getDataset(), array(
 $this->Dataobject->setObject($object);
 ?>
 
-<div class="objectRender<? if( $classes = $object->getClasses() ) { echo " " . implode(' ', $classes); } ?>"
+<div class="objectRender<? if ($classes = $object->getClasses()) {
+    echo " " . implode(' ', $classes);
+} ?>"
      oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
 
     <div class="row">
@@ -31,14 +33,16 @@ $this->Dataobject->setObject($object);
             <div class="feed-header">
                 <? if ($object->getCreator('url')) { ?>
                     <div class="thumb_cont">
-                        <img alt="<?= addslashes($object->getCreator('name')) ?>"
-                             src="<?= $object->getCreator('url') ?>" onerror="imgFixer(this)" class="thumb"/>
+                        <object data="/error/brak.gif" type="image/png">
+                            <img alt="<?= addslashes($object->getCreator('name')) ?>"
+                                 src="<?= $object->getCreator('url') ?>" class="thumb"/>
+                        </object>
                     </div>
                 <? } ?>
 
                 <div class="inner">
                     <? if ($sentence = $object->getSentence()) { ?>
-                        
+
                         <p class="date"><?= $this->Czas->dataSlownie($object->getDate()) ?></p>
                         <p class="title">
                             <?php if ($object->getUrl() != false) { ?>
@@ -52,13 +56,13 @@ $this->Dataobject->setObject($object);
                             echo '<small>' . $object->getTitleAddon() . '</small>';
                         } ?>
                         </p>
-                        
+
                     <? } ?>
                 </div>
             </div>
-			
-			<?
-			if ($file_exists) {
+
+            <?
+            if ($file_exists) {
                 echo $this->element('Dane.' . $file, array(
                     'object' => $object,
                     'hlFields' => $hlFields,
@@ -67,7 +71,7 @@ $this->Dataobject->setObject($object);
                 ));
             }
             ?>
-            
+
         </div>
     </div>
     <?php if ($object->hasHighlights() && $object->getHlText()) { ?>
