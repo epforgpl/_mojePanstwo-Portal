@@ -94,7 +94,7 @@
 
 .appMenu {
     min-height: 4px;
-    background: #FAFAFA;
+    background: darken(#FAFAFA, 5%);
 
     ul.nav-tabs {
         border: none;
@@ -106,9 +106,9 @@
             margin: 0;
 
             > a {
-                color: #AAA;
-                font-weight: 600;
+                color: #000;
                 font-size: 13px;
+                font-weight: normal;
                 border: none;
                 padding: 7px 15px 7px;
                 letter-spacing: .035em;
@@ -116,33 +116,25 @@
 
                 &:hover {
                     background: none;
-                    border: none;
-                    margin: 0;
+                    padding-bottom: 3px;
+                    border-bottom: 4px solid lighten(#63afea, 15%);
                 }
                 span.caret {
                     margin-left: 5px;
-                }
-                &:focus {
-                    background: none;
-                }
-            }
-            &:hover {
-                border: none;
-            }
-            &.open, &:focus {
-                a {
-                    background: none;
-                    border-bottom: 4px solid lighten(#63afea, 15%);
                 }
             }
             &.active {
                 a {
                     color: #157ab5;
                     background: none;
-                    border: none;
+                    padding-bottom: 3px;
                     border-bottom: 4px solid #63afea;
-                    margin: 0 0 -3px;
                 }
+            }
+
+            &.open a {
+                background: none;
+                border-bottom: 4px solid lighten(#63afea, 15%);
             }
             ul.dropdown-menu {
                 a {
