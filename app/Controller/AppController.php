@@ -392,7 +392,8 @@ class AppController extends Controller
                         'glosowania',
                         'protokol',
                         'finanse',
-                        'wpf'
+                        'wpf',
+                        'powiazania',
                     ))
                 ) {
 

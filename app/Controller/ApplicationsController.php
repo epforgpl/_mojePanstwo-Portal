@@ -38,7 +38,10 @@ class ApplicationsController extends AppController
     public function beforeRender()
     {		
 				
-        if ($app = $this->getApplication($this->settings['id'])) {
+        if(
+	        isset($this->settings['id']) && 
+        	( $app = $this->getApplication($this->settings['id']) ) 
+        ) {
             $this->set('_app', $app);
         };
 

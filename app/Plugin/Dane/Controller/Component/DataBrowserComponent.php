@@ -427,7 +427,7 @@ class DataBrowserComponent extends Component {
 		            ),
 	            ),
 	            'visual' => array(
-		            'label' => 'Statusy',
+		            'label' => 'Statusy obowiązywania',
 		            'skin' => 'pie_chart',
                     'field' => 'krakow_zarzadzenia.status_str'
 	            ),
