@@ -147,7 +147,9 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
         } else {
             mPCookie = {
                 background: {
-                    url: '/img/home/backgrounds/home-background-default.jpg',
+                    url: '/img/home/backgrounds/home-background-default0.jpg',
+                    current: 0,
+                    limit: 5,
                     time: jsHour
                 }
             };
@@ -155,8 +157,14 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 
         /*COOKIE MANAGER - BACKGROUND CHANGER*/
         if (mPCookie.background.time !== jsHour) {
-            /*JSON get new background*/
-            mPCookie.background.url = '/img/home/backgrounds/home-background-default2.jpg';
+            console.log(mPCookie.background.current + 1 < mPCookie.background.limit);
+            if (mPCookie.background.current + 1 < mPCookie.background.limit) {
+                mPCookie.background.current = mPCookie.background.current + 1;
+                mPCookie.background.url = '/img/home/backgrounds/home-background-default' + mPCookie.background.current + '.jpg';
+            } else {
+                mPCookie.background.current = 0;
+                mPCookie.background.url = '/img/home/backgrounds/home-background-default0.jpg';
+            }
             mPCookie.background.time = jsHour;
         }
 
