@@ -100,7 +100,7 @@
     <?php echo $this->Element('flash'); ?>
     <?php echo $this->Element('cockpit'); ?>
     <div id="_main">
-	    	    
+	    	        
         <?php if (isset($_layout['header']) && !empty($_layout['header'])) {
             echo $this->Element('headers/' . $_layout['header']['element']);
             echo $this->Element('menu');

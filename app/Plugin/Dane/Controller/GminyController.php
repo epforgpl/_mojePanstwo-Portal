@@ -564,13 +564,12 @@ class GminyController extends DataobjectsController
     public function _prepareView()
     {
 
-        if ($this->params->id == 903) {
-
+        if ($this->params->id == 903)
             $this->addInitLayers(array('dzielnice'));
-            $this->_layout['header']['element'] = 'pk';
-
-        }
-
+        
+		if( $this->domainMode == 'PK' )
+			$this->_layout['header']['element'] = 'pk';
+			
         if (
             defined('PORTAL_DOMAIN') &&
             defined('PK_DOMAIN') &&
@@ -580,7 +579,7 @@ class GminyController extends DataobjectsController
 
             if ($this->params->id != 903) {
 
-                $this->redirect('http://' . PORTAL_DOMAIN . $_SERVER['REQUEST_URI']);
+                $this->redirect($this->protocol . PORTAL_DOMAIN . $_SERVER['REQUEST_URI']);
                 die();
 
             }
@@ -2459,93 +2458,59 @@ class GminyController extends DataobjectsController
 			'items' => array(),
 		);
 		
-		$menu['items'][] = array(
-			'label' => 'Dane',
-		);
+		if( $this->domainMode == 'PK' )
+			$menu['base'] = '';
 		
 		$menu['items'][] = array(
-			'label' => 'Prawo lokalne',
-			'id' => 'prawo',
+			'label' => 'Aktualności',
 		);
 		
-		$menu['items'][] = array(
-			'label' => 'Zamówienia publiczne',
-			'id' => 'zamowienia',
-		);
-		
-		$menu['items'][] = array(
-			'label' => 'Organizacje',
-			'id' => 'organizacje',
-		);
 		
 		if ($object->getId() == '903') {
-            
+
             $menu['items'][] = array(
                 'id' => 'rada',
                 'label' => 'Rada Miasta',
-                'href' =>  'rada',
             );
-
             $menu['items'][] = array(
                 'id' => 'urzad',
                 'label' => 'Urząd Miasta',
-                'href' => 'urzad',
             );
-
-            $dzielnice_items = array();
-            if ($dzielnice = $object->getLayer('dzielnice')) {
-
-                $dzielnice_items[] = array(
-                    'id' => 'dzielnice',
-                    'label' => 'Lista dzielnic',
-                    'href' =>  'dzielnice'
-                );
-
-                $dzielnice_items[] = array(
-                    'id' => 'radni_dzielnic',
-                    'label' => 'Radni dzielnic',
-                    'href' =>  'radni_dzielnic'
-                );
-
-                $dzielnice_items[] = array(
-                    'id' => 'dzielnice_uchwaly',
-                    'label' => 'Uchwały rad dzielnic',
-                    'href' =>  'dzielnice_uchwaly'
-                );
-
-                /*
-                foreach( $dzielnice as $dzielnica )
-                    $dzielnice_items[] = array(
-                        'id' => $dzielnica['id'],
-                        'label' => $dzielnica['nazwa'],
-                        'href' => $href_base . '/dzielnice/' . $dzielnica['id'],
-                    );
-
-                $dzielnice_items[3]['topborder'] = true;
-                */
-
-
-                $menu['items'][] = array(
-                    'id' => 'dzielnice',
-                    'label' => 'Dzielnice',
-                    'href' =>  'dzielnice',
-                    /*
-                    'dropdown' => array(
-                        'items' => $dzielnice_items,
-                    ),
-                    */
-                );
-
-            }
-            
+            $menu['items'][] = array(
+                'id' => 'dzielnice',
+                'label' => 'Dzielnice',
+            );
+            $menu['items'][] = array(
+                'id' => 'zamowienia',
+                'label' => 'Zamówienia publiczne',
+            );
+            $menu['items'][] = array(
+                'id' => 'organizacje',
+                'label' => 'Organizacje',
+            );
             $menu['items'][] = array(
                 'id' => 'finanse',
-                'href' =>  'finanse',
                 'label' => 'Finanse',
-                'icon' => '',
             );
-
-        }
+		
+		} else {
+		
+			$menu['items'][] = array(
+				'label' => 'Prawo lokalne',
+				'id' => 'prawo',
+			);
+			
+			$menu['items'][] = array(
+				'label' => 'Zamówienia publiczne',
+				'id' => 'zamowienia',
+			);
+			
+			$menu['items'][] = array(
+				'label' => 'Organizacje',
+				'id' => 'organizacje',
+			);
+			
+		}
         
         return $menu;
 		

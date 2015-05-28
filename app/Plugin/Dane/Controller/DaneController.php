@@ -15,7 +15,7 @@ class DaneController extends ApplicationsController
     
     public function view()
     {
-        
+                
         $apps = $this->getDatasets();
         $aggs = array();
         foreach( $apps as $app_id => $datasets ) {

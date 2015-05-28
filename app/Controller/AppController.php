@@ -62,7 +62,8 @@ class AppController extends Controller
 //			)
         ),
     );
-
+	
+	public $protocol = 'https://';
     public $domainMode = 'MP';
     public $appSelected = false;
     public $breadcrumbs = array();
@@ -85,7 +86,6 @@ class AppController extends Controller
     public $statusbarMode = false;
     public $User = false;
     public $meta = array();
-    public $pkMenu = array();
 
     /**
      * Obiekt określający układ oraz styl dla poszczegółnych stron
@@ -303,17 +303,16 @@ class AppController extends Controller
 
     public function beforeFilter()
     {
-        $href_base = '/dane/gminy/903,krakow';
+	    
+	    $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";    
 
         if (defined('PORTAL_DOMAIN')) {
             $pieces = parse_url(Router::url($this->here, true));
-
+			
             if (defined('PK_DOMAIN') && ($pieces['host'] == PK_DOMAIN)) {
+                
                 $this->domainMode = 'PK';
-
-                // PREPARE MENU
-                $href_base = '//' . PK_DOMAIN;
-
+								
                 // only certain actions are allowed in this domain
                 // for other actions we are immediatly redirecting to PORTAL_DOMAIN
 
@@ -327,14 +326,14 @@ class AppController extends Controller
 
                     }
 
-                    $this->redirect('http://' . PK_DOMAIN . $url);
+                    $this->redirect($this->protocol . PK_DOMAIN . $url);
                     die();
 
                 }
 
                 if (preg_match('/^(.*?)\,([a-z0-9\-]+)$/', $this->here, $match)) {
 
-                    $this->redirect('http://' . PK_DOMAIN . $match[1]);
+                    $this->redirect($this->protocol . PK_DOMAIN . $match[1]);
                     die();
                 }
 
@@ -432,102 +431,18 @@ class AppController extends Controller
 
                     }
 
-                    $this->redirect('http://' . PORTAL_DOMAIN . $url);
+                    $this->redirect($this->protocol . PORTAL_DOMAIN . $url);
                     die();
 
                 }
 
 
             } elseif ($pieces['host'] != PORTAL_DOMAIN) {
-                $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-                $this->redirect($protocol . PORTAL_DOMAIN . $this->here, 301);
+                $this->redirect($this->protocol . PORTAL_DOMAIN . $this->here, 301);
                 die();
 
             }
-
-            $pkMenu = array(
-                'base' => $href_base,
-                'selected' => false,
-                'items' => array(
-                    array(
-                        'label' => 'Aktualności',
-                        'href' => $href_base,
-                    ),
-                )
-            );
-            $pkMenu['items'][] = array(
-                'id' => 'rada',
-                'label' => 'Rada Miasta',
-                'href' => $href_base . '/rada',
-            );
-
-            $pkMenu['items'][] = array(
-                'id' => 'urzad',
-                'label' => 'Urząd Miasta',
-                'href' => $href_base . '/urzad',
-            );
-            $pkMenu['items'][] = array(
-                'id' => 'dzielnice',
-                'label' => 'Dzielnice',
-                'href' => $href_base . '/dzielnice',
-            );
-            $pkMenu['items'][] = array(
-                'id' => 'zamowienia',
-                'label' => 'Zamówienia publiczne',
-                'href' => $href_base . '/zamowienia',
-            );
-            $pkMenu['items'][] = array(
-                'id' => 'organizacje',
-                'label' => 'Organizacje',
-                'href' => $href_base . '/organizacje',
-            );
-            $pkMenu['items'][] = array(
-                'id' => 'finanse',
-                'href' => $href_base . '/finanse',
-                'label' => 'Finanse',
-                'icon' => '',
-            );
-            /*
-            $pkMenu['items'][] = array(
-                'id' => 'powiadomienia',
-                'label' => 'Powiadomienia',
-                'class' => 'always-visible pull-right',
-                'dropdown' => array(
-                    'items' => array(
-                        array(
-                            'id' => 'obserwuje_powiadomienia',
-                            'label' => 'Dane',
-                            'href' => $href_base . '/moje-dane',
-                        ),
-                        array(
-                            'id' => 'jak_to_dziala',
-                            'label' => 'Jak to działa?',
-                            'href' => $href_base . '/moje-dane/jak_to_dziala',
-                        )
-                    )
-                )
-            );
-            $pkMenu['items'][] = array(
-                'id' => 'pisma',
-                'label' => 'Pisma',
-                'class' => 'always-visible pull-right',
-                'dropdown' => array(
-                    'items' => array(
-                        array(
-                            'id' => 'nowe_pismo',
-                            'label' => 'Nowe pismo',
-                            'href' => $href_base . '/moje-pisma/nowe',
-                        ),
-                        array(
-                            'id' => 'moje_pisma',
-                            'label' => 'Moje pisma',
-                            'href' => $href_base . '/moje-pisma',
-                        )
-                    )
-                )
-            );
-            */
-            $this->set('pkMenu', $pkMenu);
+            
         }
 
         $this->response->header('Access-Control-Allow-Origin', $this->request->header('Origin'));
