@@ -10,7 +10,7 @@
                 <?
                 foreach ($_menu['items'] as $m) {
 
-                    if (!isset($m['id']))
+                    if (!isset($m['id']) || !$m['id'])
                         $m['id'] = 'view';
 
                     $classes = array();
