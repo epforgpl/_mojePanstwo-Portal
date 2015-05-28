@@ -48,6 +48,11 @@
             font-weight: 300;
             margin: 0 0 15px;
 
+            a {
+                font-size: 30px;
+                font-weight: 300;
+            }
+
             img, svg {
                 height: 30px;
                 margin: 0 -4px 0 -8px;
@@ -61,11 +66,15 @@
             }
         }
 
-        h2 {
+        h2, h2 a {
             font-size: 18px;
             font-weight: 400;
             margin: 5px 0 15px;
         }
+    }
+
+    .observeButton {
+        margin-top: 32px;
     }
 }
 
@@ -107,6 +116,7 @@
                     padding-bottom: 9px;
                     border-bottom: 4px solid #438fca;
                     cursor: pointer;
+
                     &:hover {
                         border-left: none;
                         border-right: none;
@@ -155,11 +165,10 @@
                 float: left;
                 margin-top: @marginLabel;
                 margin-right: 6px;
-                line-height: 0.75em;
+                margin-bottom: @marginLabel;
             }
             ._value {
                 font-size: 16px;
-                line-height: 0.8em;
             }
         }
     }
@@ -171,14 +180,16 @@
 
         ._label {
             font-size: 10px;
-            margin: 1px 0 3px;
+            line-height: 0.75em;
+            margin: 2px 0 8px;
             font-weight: 600;
             text-transform: uppercase;
             color: #181818;
         }
 
         ._value {
-            font-size: 10px;
+            font-size: 12px;
+            line-height: 0.8em;
             margin: 0;
             color: #24ad3b;
 

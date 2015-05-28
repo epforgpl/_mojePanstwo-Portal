@@ -39,9 +39,11 @@ if (!isset($renderFile) || !$renderFile)
                     <?= $this->element('status_bar/' . $object->getDataset(), array('plugin' => 'Dane')) ?>
                 </div>
             </div>
-            <div class="col-md-4">
-                <button class="btn btn-primary pull-right">Obserwuj...</button>
-            </div>
+            <?php if (isset($_observeOptions)) { ?>
+                <div class="col-md-4">
+                    <button class="observeButton pull-right btn btn-warning">Obserwuj...</button>
+                </div>
+            <?php } ?>
         </div>
     </div>
 </div>

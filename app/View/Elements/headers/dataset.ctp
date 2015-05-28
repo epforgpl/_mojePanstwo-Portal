@@ -9,6 +9,11 @@
                 </ul>
                 <div class="title"><h1><?= $object->getTitle(); ?></h1></div>
             </div>
+            <?php if (isset($_observeOptions)) { ?>
+                <div class="col-md-4">
+                    <button class="observeButton pull-right btn btn-warning">Obserwuj...</button>
+                </div>
+            <?php } ?>
         </div>
     </div>
 </div>
