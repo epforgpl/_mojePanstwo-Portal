@@ -12,7 +12,7 @@ if (!isset($renderFile) || !$renderFile)
 <div class="appHeader dataobject">
     <div class="container">
         <div class="holder row">
-            <div class="col-md-8">
+            <div class="col-md-11">
                 <ul class="breadcrumb">
                     <?php foreach ($_breadcrumbs as $bread) { ?>
                         <li><a href="<?= $bread['href'] ?>" target="_self"><?= $bread['label'] ?></a></li>
@@ -40,8 +40,9 @@ if (!isset($renderFile) || !$renderFile)
                 </div>
             </div>
             <?php if (isset($_observeOptions)) { ?>
-                <div class="col-md-4">
-                    <button class="observeButton pull-right btn btn-warning">Obserwuj...</button>
+                <div class="col-md-1">
+                    <button class="observeButton pull-right btn btn-warning"><i data-icon-applications="&#xe60a;"></i>Obserwuj...
+                    </button>
                 </div>
             <?php } ?>
         </div>

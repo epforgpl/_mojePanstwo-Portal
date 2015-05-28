@@ -69,12 +69,20 @@
         h2, h2 a {
             font-size: 18px;
             font-weight: 400;
-            margin: 5px 0 15px;
+            margin: 10px 0 15px;
+
+            i {
+                margin-right: 4px;
+            }
         }
     }
 
     .observeButton {
         margin-top: 32px;
+
+        > i {
+            margin-right: 5px;
+        }
     }
 }
 
@@ -163,7 +171,7 @@
 
             ._label {
                 float: left;
-                margin-top: @marginLabel;
+                margin-top: 2*@marginLabel;
                 margin-right: 6px;
                 margin-bottom: @marginLabel;
             }
@@ -189,7 +197,7 @@
 
         ._value {
             font-size: 12px;
-            line-height: 0.8em;
+            line-height: 0.85em;
             margin: 0;
             color: #24ad3b;
 

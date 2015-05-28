@@ -1,7 +1,7 @@
 <div class="appHeader app">
     <div class="container">
         <div class="holder row">
-            <div class="col-md-8">
+            <div class="col-md-11">
                 <? if (isset($_app['name'])) { ?>
                     <h1>
                         <a href="<?= $_app['href'] ?>"><i class="glyphicon"
@@ -12,7 +12,7 @@
             </div>
 
             <? if (isset($dataBrowser['chapters']) && !empty($dataBrowser['chapters'])) { ?>
-                <div class="col-md-4">
+                <div class="col-md-1">
                     <div class="goto text-right">
                         <select class="selectpicker" data-style="btn-default" title="Przejdź do...">
                             <? foreach ($dataBrowser['chapters']['chapters'] as $chapter_id => $chapter) { ?>
