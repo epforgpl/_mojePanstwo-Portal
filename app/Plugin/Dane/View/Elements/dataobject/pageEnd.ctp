@@ -7,4 +7,3 @@ if (isset($object) && (($object->getDataset() == 'gminy') && ($object->getId() =
 </div>
 </div>
 </div>
-</div>

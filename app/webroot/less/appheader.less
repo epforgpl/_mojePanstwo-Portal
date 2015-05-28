@@ -46,7 +46,7 @@
         h1 {
             font-size: 30px;
             font-weight: 300;
-            margin: 0 0 16px;
+            margin: 0 0 15px;
 
             img, svg {
                 height: 30px;
@@ -63,38 +63,15 @@
 
         h2 {
             font-size: 18px;
-            font-weight: 300;
-            margin: 5px 0 20px;
-        }
-    }
-}
-
-.menu li {
-    a {
-        color: #AAA;
-    }
-
-    &.active a {
-        color: #157ab5;
-    }
-    ul.dropdown-menu {
-        a {
-            color: #157AB5;
-
-            &:hover {
-                color: #157AB5;
-            }
-        }
-
-        &.active a, &.active a:hover {
-            color: #333333;
+            font-weight: 400;
+            margin: 5px 0 15px;
         }
     }
 }
 
 .appMenu {
     min-height: 4px;
-    background: darken(#FAFAFA, 5%);
+    background: #e6e7eb;
 
     ul.nav-tabs {
         border: none;
@@ -110,14 +87,15 @@
                 font-size: 14px;
                 font-weight: 600;
                 border: none;
-                padding: 13px 15px 13px;
+                padding: 13px 2px;
                 letter-spacing: .035em;
                 cursor: pointer;
                 outline: none;
-                margin: 0 5px;
+                margin: 0 12px 0 2px;
 
                 &:hover {
                     color: #157ab5;
+                    background: none;
                 }
                 span.caret {
                     margin-left: 5px;
@@ -125,16 +103,15 @@
             }
             &.active {
                 a {
-                    color: #157ab5;
                     background: none;
-                    padding-bottom: 10px;
-                    border-bottom: 3px solid #438fca;
+                    padding-bottom: 9px;
+                    border-bottom: 4px solid #438fca;
                     cursor: pointer;
                     &:hover {
-	                    border-left: none;
-	                    border-right: none;
-	                    border-top: none;
-	                }
+                        border-left: none;
+                        border-right: none;
+                        border-top: none;
+                    }
                 }
             }
 
@@ -166,32 +143,44 @@
 
 .dataHighlights {
     padding: 0;
+    margin: 0;
+
+    &.oneline {
+        .dataHighlight {
+            @marginLabel: 2px;
+
+            margin-top: -@marginLabel;
+
+            ._label {
+                float: left;
+                margin-top: @marginLabel;
+                margin-right: 6px;
+                line-height: 0.75em;
+            }
+            ._value {
+                font-size: 16px;
+                line-height: 0.8em;
+            }
+        }
+    }
 
     .dataHighlight {
         padding: 5px;
         display: block;
-
-        &.-block {
-            display: block;
-        }
+        margin-bottom: 10px;
 
         ._label {
             font-size: 10px;
             margin: 1px 0 3px;
             font-weight: 600;
             text-transform: uppercase;
-            color: #555;
-
-            &.pull-left {
-                margin-top: 3px;
-                margin-right: 10px;
-            }
+            color: #181818;
         }
 
         ._value {
             font-size: 10px;
             margin: 0;
-            color: #2E8F3E;
+            color: #24ad3b;
 
             img {
                 float: left;

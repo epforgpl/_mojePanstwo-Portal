@@ -1,4 +1,4 @@
-<ul class="dataHighlights col-xs-12">
+<ul class="dataHighlights oneline col-xs-12">
     <? if ($object->getData('wykreslony')) { ?>
         <li class="dataHighlight col-sm-3">
             <span class="label label-danger">Podmiot wykreślony z KRS</span>

@@ -10,9 +10,9 @@ $objectOptions['microdata'] = $microdata;
 
 <?php $this->Combinator->add_libs('js', array('Dane.naglosnij', 'Dane.related-tabs')); ?>
 
-<div<? if ($objectOptions['microdata']['itemtype']) { ?> itemscope itemtype="<?= $objectOptions['microdata']['itemtype'] ?>"<? } ?> class="objectsPage">
+<div<? if ($objectOptions['microdata']['itemtype']) { ?> itemscope itemtype="<?= $objectOptions['microdata']['itemtype'] ?>"<? } ?>
+    class="objectsPage">
 
-<div class="objectsPageWindow">
+    <div class="objectsPageWindow">
         <div class="container">
-            <div class="row">
-                <div class="objectsPageContent main">
+            <div class="objectsPageContent main">
