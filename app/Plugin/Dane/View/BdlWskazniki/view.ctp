@@ -22,7 +22,7 @@
                             </h2>
 
                             <div class="stats">
-                                <div class="map">
+                                <div class="map call-md-2">
                                     <a href="<?= $this->here ?>/kombinacje/<?= $option['data']['id'] ?>">
                                         <object data="/error/brak.gif" type="image/png">
                                             <img width="216" height="200"
@@ -31,7 +31,7 @@
                                         </object>
                                     </a>
                                 </div>
-                                <div class="charts">
+                                <div class="charts col-md-9">
                                     <div class="head">
                                         <p class="vp">
                                             <span
