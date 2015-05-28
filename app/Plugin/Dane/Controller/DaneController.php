@@ -98,7 +98,10 @@ class DaneController extends ApplicationsController
 			'label' => 'Zbiory danych',
 		);
 		
-		if( $dataset = $this->getDataset($this->request->params['id']) ) {
+		if( 
+			isset($this->request->params['id']) && 
+			( $dataset = $this->getDataset($this->request->params['id']) )
+		) {
 			$menu['items'][] = array(
 				'id' => $dataset['dataset_id'],
 				'label' => $dataset['dataset_name'],
