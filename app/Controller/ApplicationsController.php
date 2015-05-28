@@ -5,8 +5,6 @@ class ApplicationsController extends AppController
 
     public $settings = array();
     public $_settings = array(
-        'menu' => array(),
-        'menuSelected' => false,
         'title' => '',
         'subtitle' => '',
         'headerImg' => false,
@@ -20,6 +18,9 @@ class ApplicationsController extends AppController
     public $title = false;
     public $description = false;
     public $appSelected = 'dane';
+    
+    public $appDatasets = array();
+    public $mainMenuLabel = 'Przeglądaj';
 
     public function beforeFilter()
     {
@@ -35,15 +36,14 @@ class ApplicationsController extends AppController
     }
 
     public function beforeRender()
-    {
-        parent::beforeRender();
-
+    {		
+				
         if ($app = $this->getApplication($this->settings['id'])) {
             $this->set('_app', $app);
         };
 
-        if ($this->settings['menuSelected'] === false)
-            $this->settings['menuSelected'] = $this->request->params['action'];
+        if ($this->menu_selected === false)
+            $this->menu_selected = $this->request->params['action'];
 
         $this->set('appSettings', $this->settings);
 
@@ -51,6 +51,8 @@ class ApplicationsController extends AppController
             $this->set('title_for_layout', $this->title);
         elseif (isset($this->settings['title']))
             $this->set('title_for_layout', $this->settings['title']);
+            
+       parent::beforeRender();
 
     }
 
@@ -95,6 +97,52 @@ class ApplicationsController extends AppController
     {
 
         $this->set('apps', $this->Application->find('all'));
+
+    }
+    
+    public function action()
+    {
+	    
+	    if( 
+	    	isset($this->request->params['id']) && 
+	    	array_key_exists($this->request->params['id'], $this->appDatasets) && 
+	    	( $data = $this->appDatasets[$this->request->params['id']] )
+	    ) {
+		    
+			$fields = array('searchTitle', 'order');
+			$params = array();
+			
+			foreach( $fields as $field )
+				if( isset($data[ $field ]) )
+					$params[ $field ] = $data[ $field ];
+			
+			$this->menu_selected = $this->request->params['id'];
+	        $this->loadDatasetBrowser($data['dataset'], $params);
+		    
+	    }
+	    	    
+    }
+    
+    public function getMenu()
+    {
+				
+		$menu = array(
+			'items' => array(),
+			'base' => '/' . $this->settings['id'],
+		);
+		
+		$menu['items'][] = array(
+			'label' => $this->mainMenuLabel,
+		);
+		
+		if( !empty($this->appDatasets) ) 
+			foreach( $this->appDatasets as $dataset => $params )
+				$menu['items'][] = array(
+					'id' => $dataset,
+					'label' => $params['label'],
+				);
+				
+		return $menu;
 
     }
 

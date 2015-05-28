@@ -624,60 +624,26 @@ body {
 
         footer {
             .standard {
-                padding-top: 28px;
-                padding-bottom: 28px;
-                background-color: #062943;
+                padding-top: 20px;
+                padding-bottom: 15px;
+                background-color: #053f69;
 
-                .left {
-                    ul {
-                        list-style: none;
-                        padding: 0;
+                .separator {
+                    color: #BBB;
+                }
+                
+                a {
+                    color: #DDD;
+                    font-size: 12px;
+                    font-weight: normal;
+                    padding: 5px 0;
 
-                        > li {
-                            @linkColor: #ffffff;
-
-                            color: @linkColor;
-                            font-size: 14px;
-                            font-weight: bold;
-                            float: left;
-
-                            a {
-                                color: @linkColor;
-                                display: block;
-                                padding: 5px 0;
-                                width: 100%;
-                                line-height: 1.1em;
-                            }
-
-                            > ul {
-                                padding-top: 25px;
-
-                                li {
-                                    font-size: 12px;
-                                    font-weight: normal;
-                                    float: none;
-                                    width: 100%;
-                                }
-                            }
-                        }
+                    > img {
+                        height: 30px;
+                        margin-right: 15px;
                     }
                 }
-                .right {
-                    a, .separator {
-                        color: #ffffff;
-                        float: right;
-                    }
-                    a {
-                        float: right;
-                        font-size: 12px;
-                        font-weight: normal;
-                        padding: 5px 0;
 
-                        > img {
-                            height: 30px;
-                        }
-                    }
-                }
             }
             .minimal {
                 height: @footerHeight;

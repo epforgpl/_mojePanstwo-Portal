@@ -1,36 +1,31 @@
 <?php
 
 App::uses('ApplicationsController', 'Controller');
-class PrawoController extends ApplicationsController
+class OrzecznictwoController extends ApplicationsController
 {
 
 	public $settings = array(
-        'id' => 'prawo',
-		'title' => 'Prawo',
-		'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce',
-		'headerImg' => 'prawo',
+        'id' => 'orzecznictwo',
+		'title' => 'Orzecznictwo',
+		'subtitle' => 'Orzeczenia sądów w Polsce w Polsce',
+		'headerImg' => 'orzecznictwo',
 	);
 	
 	public $appDatasets = array(
-		'powszechne' => array(
-			'dataset' => 'prawo',
-			'label' => 'Prawo powszechne',
-			'searchTitle' => 'Szukaj w prawie powszechnym...',
+		'sp' => array(
+			'dataset' => 'sp_orzeczenia',
+			'label' => 'Sądy powszechne',
+			'searchTitle' => 'Szukaj w orzeczeniach sądów powszechnych...',
 		),
-		'lokalne' => array(
-			'dataset' => 'prawo_wojewodztwa',
-			'label' => 'Prawo lokalne',
-			'searchTitle' => 'Szukaj w prawie lokalnym...',
+		'sa' => array(
+			'dataset' => 'sa_orzeczenia',
+			'label' => 'Sądy administracyjne',
+			'searchTitle' => 'Szukaj w orzeczeniach sądów administracyjnych...',
 		),
-		'urzedowe' => array(
-			'dataset' => 'prawo_urzedowe',
-			'label' => 'Prawo urzędowe',
-			'searchTitle' => 'Szukaj w prawie urzędowym...',
-		),
-		'tematy' => array(
-			'dataset' => 'prawo_hasla',
-			'label' => 'Tematy',
-			'searchTitle' => 'Szukaj w tematach...',
+		'sn' => array(
+			'dataset' => 'sn_orzeczenia',
+			'label' => 'Sąd Najwyższy',
+			'searchTitle' => 'Szukaj w orzeczeniach Sądu Najwyższego...',
 		),
 	);
 

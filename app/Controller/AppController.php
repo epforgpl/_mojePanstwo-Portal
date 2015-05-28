@@ -166,6 +166,12 @@ class AppController extends Controller
         ),
     );
     private $applications = array(
+        'dane' => array(
+            'name' => 'Dane publiczne',
+            'href' => '/dane',
+            'tag' => 0,
+            'icon' => '&#xe605;',
+        ),
         'krs' => array(
             'name' => 'Krajowy Rejestr Sądowy',
             'href' => '/krs',
@@ -623,11 +629,15 @@ class AppController extends Controller
     {
         $layout = $this->setLayout();
         $menu = $this->getMenu();
-
-        if ($this->menu_selected == '_default')
-            $this->menu_selected = $this->request->params['action'];
-
-        $menu['selected'] = $this->menu_selected;
+		
+		if( !empty($menu) ) {
+				
+	        if ($this->menu_selected == '_default')
+	            $this->menu_selected = $this->request->params['action'];
+	
+	        $menu['selected'] = $this->menu_selected;
+        
+        }
 
         $this->set('_layout', $layout);
         $this->set('_breadcrumbs', $this->breadcrumbs);

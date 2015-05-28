@@ -623,6 +623,10 @@ class DataBrowserComponent extends Component {
                     'label' => 'Płeć',
                     'skin' => 'pie_chart',
                     'field' => 'krs_osoby.plec',
+                    'dictionary' => array(
+	                    'K' => 'Kobiety',
+	                    'M' => 'Mężczyźni',
+                    ),
                 )
             )
         ),

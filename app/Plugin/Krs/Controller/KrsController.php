@@ -3,28 +3,33 @@
 App::uses('ApplicationsController', 'Controller');
 class KrsController extends ApplicationsController
 {
+	
 	public $settings = array(
         'id' => 'krs',
-		'menu' => array(
-			/*
-			array(
-				'id' => '',
-				'label' => 'Organizacje',
-			),
-			array(
-				'id' => 'osoby',
-				'label' => 'Osoby',
-			),
-            array(
-                'id' => 'msig',
-                'label' => 'Monitor Sądowy i Gospodarczy',
-            ),
-            */
-		),
 		'title' => 'Krajowy Rejestr Sądowy',
 		'subtitle' => 'Dane gospodarcze o firmach i osobach',
 		'headerImg' => 'krs',
 	);
+	
+	public $appDatasets = array(
+		'organizacje' => array(
+			'dataset' => 'krs_podmioty',
+			'label' => 'Organizacje',
+			'searchTitle' => 'Szukaj organizacji...',
+		),
+		'osoby' => array(
+			'dataset' => 'krs_osoby',
+			'label' => 'Osoby',
+			'searchTitle' => 'Szukaj osób...',
+		),
+		'msig' => array(
+			'dataset' => 'msig_wydania',
+			'label' => 'Monitor Sądowy i Gospodarczy',
+			'searchTitle' => 'Szukaj w Monitorze Sądowym i Gospodarczym',
+		),
+	);
+	
+	public $mainMenuLabel = 'Przeglądaj';
 
     public function prepareMetaTags() {
         parent::prepareMetaTags();
@@ -118,63 +123,4 @@ class KrsController extends ApplicationsController
 
     }
 
-    public function organizacje()
-    {
-
-        $this->loadDatasetBrowser('krs_podmioty', array(
-	        // 'chapters' => $this->getChapters('organizacje'),
-            'searchTitle' => 'Szukaj w organizacjach...'
-        ));
-
-    }
-
-    public function osoby()
-    {
-	    $this->loadDatasetBrowser('krs_osoby', array(
-		    'order' => 'date desc',
-	    ));
-    }
-    
-    public function msig()
-    {
-        $this->loadDatasetBrowser('msig');
-    }
-
-    private function getOptions()
-    {
-
-
-        return $options;
-
-    }
-
-    private function getChapters($selected = false)
-    {
-
-        $chapters = array(
-            'chapters' => array(
-                'organizacje' => array(
-                    'dataset' => 'krs_podmioty',
-                    'label' => 'Organizacje',
-                    'href' => '/krs/organizacje',
-                ),
-                'osoby' => array(
-                    'dataset' => 'krs_osoby',
-                    'label' => 'Osoby',
-                    'href' => '/krs/osoby',
-                ),
-                'msig' => array(
-                    'dataset' => 'krs_osoby',
-                    'label' => 'Osoby',
-                    'href' => '/krs/osoby',
-                ),
-            ),
-        );
-
-        if ($selected)
-            $chapters['selected'] = $selected;
-
-        return $chapters;
-
-    }
 } 

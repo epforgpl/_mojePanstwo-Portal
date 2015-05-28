@@ -350,10 +350,24 @@ svg.svg {
     }
 }
 
-.form-control::-moz-placeholder,
-.form-control::-webkit-placeholder,
-.form-control::-placeholder {
-    color: #444444;
+.form-control {
+	border-color: #BBB;
+}
+
+.form-control::-webkit-input-placeholder {
+   color: #666;
+}
+
+.form-control:-moz-placeholder { /* Firefox 18- */
+   color: #666;
+}
+
+.form-control::-moz-placeholder {  /* Firefox 19+ */
+   color: #666;
+}
+
+.form-control:-ms-input-placeholder {  
+   color: #666;
 }
 
 /*LOADING ADDONS*/

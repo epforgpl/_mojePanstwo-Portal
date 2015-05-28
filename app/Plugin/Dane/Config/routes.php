@@ -109,12 +109,12 @@ Router::connect('/dane/zbiory', array(
 	'action' => 'zbiory'
 ));
 
-Router::connect('/dane/:alias', array(
+Router::connect('/dane/:id', array(
 	'plugin' => 'Dane', 
-	'controller' => 'Datasets', 
-	'action' => 'view'
+	'controller' => 'Dane', 
+	'action' => 'action'
 ), array(
-	'pass' => array('alias'),
+	'pass' => array('id'),
 ));
 
 

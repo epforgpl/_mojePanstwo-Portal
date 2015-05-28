@@ -114,6 +114,7 @@ CakePlugin::loadAll(
 		'MojePisma'         => array( 'routes' => true, 'bootstrap' => false ),
 		'MojaGmina'     => array( 'routes' => true, 'bootstrap' => false ),
 		'MojeDane' => array( 'routes' => true, 'bootstrap' => false ),
+		'Orzecznictwo' => array( 'routes' => true, 'bootstrap' => false ),
 		'Media'         => array( 'routes' => true, 'bootstrap' => false ),
 		'OAuth'         => array( 'bootstrap' => false, 'routes' => true ),
 		'Combinator'    => array( 'bootstrap' => false, 'routes' => false ),

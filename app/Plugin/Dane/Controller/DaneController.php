@@ -10,7 +10,9 @@ class DaneController extends ApplicationsController
 		'subtitle' => 'Przeszukuj największą bazę danych publicznych w Polsce',
 		'headerImg' => 'dane',
 	);
-	
+    
+    public $mainMenuLabel = 'Szukaj';
+    
     public function view()
     {
         
@@ -56,6 +58,56 @@ class DaneController extends ApplicationsController
 	        'limit' => 99,
         ));
                         
+    }
+    
+    public function action()
+    {
+	 		 	   
+	    if( 
+	    	isset($this->request->params['id']) 
+	    ) {
+		    
+			$fields = array('searchTitle', 'order');
+			$params = array();
+			
+			foreach( $fields as $field )
+				if( isset($data[ $field ]) )
+					$params[ $field ] = $data[ $field ];
+			
+			$this->menu_selected = $this->request->params['id'];
+	        $this->loadDatasetBrowser($this->request->params['id'], $params);
+		    
+	    }
+	    	    
+    }
+    
+    public function getMenu()
+    {
+				
+		$menu = array(
+			'items' => array(),
+			'base' => '/' . $this->settings['id'],
+		);
+		
+		$menu['items'][] = array(
+			'label' => $this->mainMenuLabel,
+		);
+		
+		$menu['items'][] = array(
+			'id' => 'zbiory',
+			'label' => 'Zbiory danych',
+		);
+		
+		if( $dataset = $this->getDataset($this->request->params['id']) ) {
+			$menu['items'][] = array(
+				'id' => $dataset['dataset_id'],
+				'label' => $dataset['dataset_name'],
+			);
+			$this->menu_selected = $dataset['dataset_id'];
+		}
+				
+		return $menu;
+
     }
 
 } 

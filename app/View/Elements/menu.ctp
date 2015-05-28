@@ -18,7 +18,7 @@
                     if (isset($m['class']) && !empty($m['class'])) {
                         $classes = explode(' ', $m['class']);
                     }
-
+										
                     if (isset($_menu['selected']) && ($m['id'] == $_menu['selected'])) {
                         $classes[] = 'active';
                     }
@@ -40,15 +40,17 @@
                         $dropdown = true;
                         $classes[] = 'dropdown';
                     }
-
+					
+					$href = '';
+										
                     if (isset($_menu['base']))
                         $href = $_menu['base'];
-                    else
+                    elseif( isset($object) )
                         $href = $object->getDataset();
-
-                    if ($m['id'])
+					                    
+                    if ($m['id'] && ($m['id'] != 'view'))
                         $href .= '/' . $m['id'];
-
+                        
                     ?>
                     <li class="<?= implode(' ', $classes) ?>">
                         <a <? if ($dropdown) {
