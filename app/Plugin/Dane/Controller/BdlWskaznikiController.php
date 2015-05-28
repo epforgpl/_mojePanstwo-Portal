@@ -12,8 +12,8 @@ class BdlWskaznikiController extends DataobjectsController
     );
 
     public $initLayers = array('dimennsions');
-	public $addDatasetBreadcrumb = false;
-	
+    public $addDatasetBreadcrumb = false;
+
     public function kombinacje()
     {
 
@@ -185,6 +185,9 @@ class BdlWskaznikiController extends DataobjectsController
             $i++;
         }
 
+
+        $this->set('treeList', true);
+
         $this->set('dims', $dims);
         $this->set('expand_dimension', $expand_dimension);
         $this->set('expanded_dimension', $expanded_dimension);
@@ -217,12 +220,12 @@ class BdlWskaznikiController extends DataobjectsController
         $this->set('data', $data);
         $this->set('_serialize', array('data'));
     }
-    
+
     public function legacy_redirect()
     {
-	    
-	    return $this->redirect('/dane/bdl_wskazniki/' . $this->request->params['id'] . ',' . $this->request->params['slug'] . '/kombinacje/' . $this->request->params['subid']);
-	    
+
+        return $this->redirect('/dane/bdl_wskazniki/' . $this->request->params['id'] . ',' . $this->request->params['slug'] . '/kombinacje/' . $this->request->params['subid']);
+
     }
-    
+
 } 

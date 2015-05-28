@@ -9,7 +9,7 @@
                 </ul>
                 <div class="title"><h1><?= $object->getTitle(); ?></h1></div>
             </div>
-            <?php if (isset($_observeOptions)) { ?>
+            <?php if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
                 <div class="col-md-1">
                     <button class="observeButton pull-right btn btn-warning"><i data-icon-applications="&#xe60a;"></i>Obserwuj...
                     </button>
