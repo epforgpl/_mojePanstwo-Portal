@@ -218,7 +218,6 @@ class DataobjectsController extends AppController
 
     public function beforeRender()
     {
-
         $is_json = (isset($this->request->params['ext']) && $this->request->params['ext'] == 'json');
 
         if (!$is_json) {

@@ -69,6 +69,7 @@ class AppController extends Controller
     public $breadcrumbs = array();
     public $menu = array();
     public $menu_selected = '_default';
+    public $observeOptions = false;
 
     public $helpers = array(
         'Html',
@@ -559,6 +560,7 @@ class AppController extends Controller
         $this->set('_breadcrumbs', $this->breadcrumbs);
         $this->set('_applications', $this->applications);
         $this->set('_menu', $menu);
+        $this->set('_observeOptions', $this->observeOptions);
 
         $redirect = false;
 

@@ -1,6 +1,35 @@
 {
-  "IcoMoonType": "selection",
+  "IcoMoonType": "applications",
   "icons": [
+    {
+      "icon": {
+        "paths": [
+          "M1010.822 290.743c-119.779 0-209.612 83.18-224.584 189.65h-169.685v81.517h94.824v61.553c-23.29 16.635-54.898 24.953-88.168 24.953-76.524 0-129.76-58.226-129.76-136.414v-1.664c0-73.198 54.898-133.087 123.105-133.087 49.908 0 78.188 16.635 111.46 43.252l59.888-71.534c-44.918-38.262-91.498-58.226-169.685-58.226-109.796 0-192.975 71.534-216.265 166.358v-159.704h-93.16v264.509l-201.295-264.509h-86.506v429.205h93.16v-272.827l207.949 272.827h79.853v-154.714c23.291 96.488 104.805 163.031 217.929 163.031 78.188 0 139.742-29.946 182.994-68.207v-61.553c34.935 76.524 109.797 128.097 207.95 128.097 133.087 0 227.912-99.815 227.912-221.257v-1.664c0-121.441-94.824-219.593-227.912-219.593zM1138.918 513.664c0 73.198-53.234 133.087-128.097 133.087-76.524 0-129.759-61.553-129.759-134.751v-1.664c0-73.198 53.235-133.088 128.097-133.088 76.524 0 129.759 61.553 129.759 136.414v0z"
+        ],
+        "attrs": [
+          {}
+        ],
+        "isMulticolor": false,
+        "width": 1250,
+        "grid": 16,
+        "tags": [
+          "ngo"
+        ]
+      },
+      "attrs": [
+        {}
+      ],
+      "properties": {
+        "order": 21,
+        "id": 21,
+        "prevSize": 32,
+        "code": 58900,
+        "name": "ngo"
+      },
+      "setIdx": 0,
+      "setId": 1,
+      "iconIdx": 0
+    },
     {
       "icon": {
         "paths": [
@@ -27,8 +56,8 @@
         "name": "api"
       },
       "setIdx": 0,
-      "setId": 0,
-      "iconIdx": 0
+      "setId": 1,
+      "iconIdx": 1
     },
     {
       "icon": {
@@ -56,8 +85,8 @@
         "name": "dane"
       },
       "setIdx": 0,
-      "setId": 0,
-      "iconIdx": 1
+      "setId": 1,
+      "iconIdx": 2
     },
     {
       "icon": {
@@ -91,8 +120,8 @@
         "name": "finanse"
       },
       "setIdx": 0,
-      "setId": 0,
-      "iconIdx": 2
+      "setId": 1,
+      "iconIdx": 3
     },
     {
       "icon": {
@@ -120,8 +149,8 @@
         "name": "handel_zagraniczny"
       },
       "setIdx": 0,
-      "setId": 0,
-      "iconIdx": 3
+      "setId": 1,
+      "iconIdx": 4
     },
     {
       "icon": {
@@ -149,8 +178,8 @@
         "name": "kody_pocztowe"
       },
       "setIdx": 0,
-      "setId": 0,
-      "iconIdx": 4
+      "setId": 1,
+      "iconIdx": 5
     },
     {
       "icon": {
@@ -178,8 +207,8 @@
         "name": "krs"
       },
       "setIdx": 0,
-      "setId": 0,
-      "iconIdx": 5
+      "setId": 1,
+      "iconIdx": 6
     },
     {
       "icon": {
@@ -207,8 +236,8 @@
         "name": "kto_tu_rzadzi"
       },
       "setIdx": 0,
-      "setId": 0,
-      "iconIdx": 6
+      "setId": 1,
+      "iconIdx": 7
     },
     {
       "icon": {
@@ -236,8 +265,8 @@
         "name": "mapa_prawa"
       },
       "setIdx": 0,
-      "setId": 0,
-      "iconIdx": 7
+      "setId": 1,
+      "iconIdx": 8
     },
     {
       "icon": {
@@ -265,8 +294,8 @@
         "name": "media"
       },
       "setIdx": 0,
-      "setId": 0,
-      "iconIdx": 8
+      "setId": 1,
+      "iconIdx": 9
     },
     {
       "icon": {
@@ -294,8 +323,8 @@
         "name": "moja_gmina"
       },
       "setIdx": 0,
-      "setId": 0,
-      "iconIdx": 9
+      "setId": 1,
+      "iconIdx": 10
     },
     {
       "icon": {
@@ -323,8 +352,8 @@
         "name": "moje_dane"
       },
       "setIdx": 0,
-      "setId": 0,
-      "iconIdx": 10
+      "setId": 1,
+      "iconIdx": 11
     },
     {
       "icon": {
@@ -367,8 +396,8 @@
         "name": "moje_pisma"
       },
       "setIdx": 0,
-      "setId": 0,
-      "iconIdx": 11
+      "setId": 1,
+      "iconIdx": 12
     },
     {
       "icon": {
@@ -396,8 +425,8 @@
         "name": "paszport"
       },
       "setIdx": 0,
-      "setId": 0,
-      "iconIdx": 12
+      "setId": 1,
+      "iconIdx": 13
     },
     {
       "icon": {
@@ -425,8 +454,8 @@
         "name": "prawo"
       },
       "setIdx": 0,
-      "setId": 0,
-      "iconIdx": 13
+      "setId": 1,
+      "iconIdx": 14
     },
     {
       "icon": {
@@ -457,8 +486,8 @@
         "name": "raporty_dostep_do_informacji_publicznej"
       },
       "setIdx": 0,
-      "setId": 0,
-      "iconIdx": 14
+      "setId": 1,
+      "iconIdx": 15
     },
     {
       "icon": {
@@ -486,8 +515,8 @@
         "name": "raporty_gabinety_polityczne"
       },
       "setIdx": 0,
-      "setId": 0,
-      "iconIdx": 15
+      "setId": 1,
+      "iconIdx": 16
     },
     {
       "icon": {
@@ -515,8 +544,8 @@
         "name": "sejmometr"
       },
       "setIdx": 0,
-      "setId": 0,
-      "iconIdx": 16
+      "setId": 1,
+      "iconIdx": 17
     },
     {
       "icon": {
@@ -553,8 +582,8 @@
         "name": "wydatki_poslow"
       },
       "setIdx": 0,
-      "setId": 0,
-      "iconIdx": 17
+      "setId": 1,
+      "iconIdx": 18
     },
     {
       "icon": {
@@ -581,8 +610,8 @@
         "name": "wyjazdy_poslow"
       },
       "setIdx": 0,
-      "setId": 0,
-      "iconIdx": 18
+      "setId": 1,
+      "iconIdx": 19
     },
     {
       "icon": {
@@ -610,8 +639,8 @@
         "name": "zamowienia_publiczne"
       },
       "setIdx": 0,
-      "setId": 0,
-      "iconIdx": 19
+      "setId": 1,
+      "iconIdx": 20
     }
   ],
   "height": 1024,

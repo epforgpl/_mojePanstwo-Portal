@@ -38,8 +38,73 @@
     }
 
     /*GENERAL CODE*/
-    .breadcrumb a {
-        font-size: 12px;
+    .breadcrumb {
+        a {
+            font-size: 12px;
+        }
+
+        &.tree {
+            @fontSize: 12px;
+
+            margin-bottom: 4px;
+
+            li {
+                color: #181818;
+                margin: 0;
+                padding: 0 20px;
+                position: relative;
+                font-size: 24px;
+
+                ul {
+                    list-style: none;
+                    padding: 0;
+                }
+
+                h1, h1 a {
+                    font-size: @fontSize;
+                    margin-bottom: 0;
+                }
+
+                &.e {
+                    margin: 10px 0 0 0;
+                    font-size: @fontSize;
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        left: 5px;
+                        border-top: 1px solid #7099B3;
+                        top: 8px;
+                        width: 10px;
+                        height: 0;
+                    }
+
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        left: 5px;
+                        top: -2px;
+                        border-left: 1px solid #7099B3;
+                        width: 0;
+                        height: 10px;
+                    }
+
+                    ul ul {
+                        li.e {
+                            margin-top: 8px;
+                            font-size: @fontSize+2;
+
+                            &:before {
+                                top: 10px;
+                            }
+                            &:after {
+                                top: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     .holder {
@@ -47,6 +112,11 @@
             font-size: 30px;
             font-weight: 300;
             margin: 0 0 15px;
+
+            a {
+                font-size: 30px;
+                font-weight: 300;
+            }
 
             img, svg {
                 height: 30px;
@@ -61,10 +131,22 @@
             }
         }
 
-        h2 {
+        h2, h2 a {
             font-size: 18px;
             font-weight: 400;
-            margin: 5px 0 15px;
+            margin: 10px 0 15px;
+
+            i {
+                margin-right: 4px;
+            }
+        }
+    }
+
+    .observeButton {
+        margin-top: 38px;
+
+        > i {
+            margin-right: 5px;
         }
     }
 }
@@ -151,13 +233,12 @@
 
             ._label {
                 float: left;
-                margin-top: @marginLabel;
+                margin-top: 2*@marginLabel;
                 margin-right: 6px;
-                line-height: 0.75em;
+                margin-bottom: @marginLabel;
             }
             ._value {
                 font-size: 16px;
-                line-height: 0.8em;
             }
         }
     }
@@ -169,14 +250,16 @@
 
         ._label {
             font-size: 10px;
-            margin: 1px 0 3px;
+            line-height: 0.75em;
+            margin: 2px 0 8px;
             font-weight: 600;
             text-transform: uppercase;
             color: #181818;
         }
 
         ._value {
-            font-size: 10px;
+            font-size: 12px;
+            line-height: 0.85em;
             margin: 0;
             color: #24ad3b;
 

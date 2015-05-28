@@ -49,7 +49,7 @@ $this->Combinator->add_libs('js', 'graph-krs');
                         <section class="profile_baner nopadding" data-adres="<?= urlencode($adres) ?>">
                             <div class="bg">
                                 <img
-                                    src="http://maps.googleapis.com/maps/api/staticmap?center=<?= urlencode($adres) ?>&markers=<?= urlencode($adres) ?>&zoom=15&sensor=false&size=640x155&scale=2&feature:road"/>
+                                    src="http://maps.googleapis.com/maps/api/staticmap?center=<?= urlencode($adres) ?>&markers=<?= urlencode($adres) ?>&zoom=15&sensor=false&size=736x212&scale=2&feature:road"/>
 
                                 <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"
                                      class="content">

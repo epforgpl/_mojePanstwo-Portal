@@ -1,6 +1,7 @@
 <?php
 
 App::uses('DataobjectsController', 'Dane.Controller');
+
 class PrawoController extends DataobjectsController
 {
 
@@ -8,7 +9,7 @@ class PrawoController extends DataobjectsController
     public $helpers = array('Document');
 
     // public $uses = array('Dane.Dataliner');
-	
+
     public $headerObject = array('url' => '/dane/img/headers/ustawa.jpg', 'height' => '250px');
 
     public $objectOptions = array(
@@ -18,126 +19,132 @@ class PrawoController extends DataobjectsController
             'description' => false,
         ),
     );
-    
-    
+
+
     public $menu = array(
         'items' => array(
-	        array(
-	            'id' => '',
-	            'label' => 'Treść',
-	        ),
-	        array(
-	            'id' => 'feed',
-	            'label' => 'Akty powiązane',
-	        ),
+            array(
+                'id' => '',
+                'label' => 'Treść',
+            ),
+            array(
+                'id' => 'feed',
+                'label' => 'Akty powiązane',
+            ),
         ),
     );
-    
-	
-	
+
+    public function beforeRender()
+    {
+        $this->observeOptions = true;
+
+        parent::beforeRender();
+    }
+
+
     public function hasla()
     {
 
         $this->_prepareView();
 
     }
-	
-	
+
+
     // public function view($package = 1)
     // {
 
-        /*
-        $this->_prepareView();
-				
-        if ($projekt_id = $this->object->getData('projekt_id')) {
+    /*
+    $this->_prepareView();
 
-            $projekt = $this->API->getObject('prawo_projekty', $projekt_id);
-            $this->set('projekt', $projekt);
+    if ($projekt_id = $this->object->getData('projekt_id')) {
 
-        }
-		
-		*/
-		
-		/*
-        $dokument_id = false;
-		
-        if ($files = $this->object->getLayer('files')) {
-            foreach ($files as $file) {
-                if ($file['slug'] == 'tekst_aktualny') {
-                    $dokument_id = $file['dokument_id'];
-                    break;
-                }
+        $projekt = $this->API->getObject('prawo_projekty', $projekt_id);
+        $this->set('projekt', $projekt);
+
+    }
+
+    */
+
+    /*
+    $dokument_id = false;
+
+    if ($files = $this->object->getLayer('files')) {
+        foreach ($files as $file) {
+            if ($file['slug'] == 'tekst_aktualny') {
+                $dokument_id = $file['dokument_id'];
+                break;
             }
         }
+    }
 
-        // debug( $dokument_id ); die();
-        $this->set('document', $this->API->document($files[0]['dokument_id']));
-		*/
+    // debug( $dokument_id ); die();
+    $this->set('document', $this->API->document($files[0]['dokument_id']));
+    */
 
-        /*
-        $datalinerParams = array(
-            'requestData' => array(
-                'conditions' => array(
-                    '_source' => 'prawo.historia:' . $this->object->getId(),
-                ),
+    /*
+    $datalinerParams = array(
+        'requestData' => array(
+            'conditions' => array(
+                '_source' => 'prawo.historia:' . $this->object->getId(),
             ),
-        );
+        ),
+    );
 
-        $data = $this->Dataliner->index( array(
-            'conditions' => $datalinerParams['requestData']['conditions'],
-        ) );
+    $data = $this->Dataliner->index( array(
+        'conditions' => $datalinerParams['requestData']['conditions'],
+    ) );
 
-        $datalinerParams['initData'] = $data;
-        */
+    $datalinerParams['initData'] = $data;
+    */
 
-        /*
-        'type' => 'blog_post',
-                                        'date' => $object->getDate(),
-                                        'title' => 'Opublikowanie pierwotnej wersji aktu',
-                                        'content' => '<div class="row"><div class="col-md-2"><img style="max-width: 56px;" src="' . $object->getThumbnailUrl(3) . '" /></div><div class="col-md-10"><a href="/dane/prawo/' . $object->getId() . '">' . $object->getTitle() . '</a></div></div>'
-        */
+    /*
+    'type' => 'blog_post',
+                                    'date' => $object->getDate(),
+                                    'title' => 'Opublikowanie pierwotnej wersji aktu',
+                                    'content' => '<div class="row"><div class="col-md-2"><img style="max-width: 56px;" src="' . $object->getThumbnailUrl(3) . '" /></div><div class="col-md-10"><a href="/dane/prawo/' . $object->getId() . '">' . $object->getTitle() . '</a></div></div>'
+    */
 
-        // $this->set( 'datalinerParams', $datalinerParams );
-
-
-        // $this->set('document', $this->API->document( $this->object->getData('dokument_id') ));
+    // $this->set( 'datalinerParams', $datalinerParams );
 
 
-        /*
-        $docs = $this->object->getLayer('docs');
-        $selected_doc_id = $this->object->getData('dokument_id');
+    // $this->set('document', $this->API->document( $this->object->getData('dokument_id') ));
 
-        if (@$this->request->query['f'])
-            foreach ($docs as $category)
-                foreach ($category['files'] as $file)
-                    if ($file['files']['dokument_id'] == $this->request->query['f']) {
-                        $selected_doc_id = $file['files']['dokument_id'];
-                        break;
-                    }
 
-        $document = $this->API->document($selected_doc_id);
-        if ($this->request->isAjax()) {
-            $this->set('html', $document->loadHtml($package));
-            $this->set('_serialize', 'html');
-        } else {
-            $this->set(array(
-                'docs' => $docs,
-                'document' => $document,
-                'documentPackage' => $package,
-            ));
+    /*
+    $docs = $this->object->getLayer('docs');
+    $selected_doc_id = $this->object->getData('dokument_id');
 
-        }
-        */
+    if (@$this->request->query['f'])
+        foreach ($docs as $category)
+            foreach ($category['files'] as $file)
+                if ($file['files']['dokument_id'] == $this->request->query['f']) {
+                    $selected_doc_id = $file['files']['dokument_id'];
+                    break;
+                }
+
+    $document = $this->API->document($selected_doc_id);
+    if ($this->request->isAjax()) {
+        $this->set('html', $document->loadHtml($package));
+        $this->set('_serialize', 'html');
+    } else {
+        $this->set(array(
+            'docs' => $docs,
+            'document' => $document,
+            'documentPackage' => $package,
+        ));
+
+    }
+    */
 
     // }
-	
-	public function view()
-	{
-		
-		$this->load();
-		
-	}
-	
+
+    public function view()
+    {
+
+        $this->load();
+
+    }
+
     public function tekst_aktualny()
     {
 
@@ -157,16 +164,16 @@ class PrawoController extends DataobjectsController
         $this->set('document', $this->API->document($dokument_id));
 
     }
-    
+
     public function tresc()
     {
-		
-		$url = '/dane/' . $this->request->params['controller'] . '/' . $this->request->params['id'];
-		if( isset($this->request->params['slug']) )
-			$url .= ',' . $this->request->params['slug'];
-		
-		$this->redirect($url);
-		
+
+        $url = '/dane/' . $this->request->params['controller'] . '/' . $this->request->params['id'];
+        if (isset($this->request->params['slug']))
+            $url .= ',' . $this->request->params['slug'];
+
+        $this->redirect($url);
+
     }
 
     public function tekst()
@@ -283,13 +290,13 @@ class PrawoController extends DataobjectsController
         return $this->connections_view('odeslania', 'Odesłania');
     }
 
-	
-	/*
+
+    /*
     public function beforeRender()
     {
 
-		parent::beforeRender();
-		
+        parent::beforeRender();
+
         $counters_dictionary = array();
 
 
