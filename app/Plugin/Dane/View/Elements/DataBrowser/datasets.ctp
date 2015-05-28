@@ -5,6 +5,7 @@
 		    <? foreach($data['buckets'] as $b) {?>
 			<li>
 				<?
+										
 					if( is_array($b['label']['buckets'][0]['key']) ) {
 						
 						$href = $b['label']['buckets'][0]['key'][0];
@@ -17,7 +18,7 @@
 					} else {
 						
 						$href = '/dane/' . $b['key'];
-						$label = $b['label']['buckets'][0]['key'][1];
+						$label = $b['label']['buckets'][0]['key'];
 						
 					}
 					
