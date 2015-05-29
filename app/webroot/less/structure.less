@@ -598,11 +598,8 @@ body {
     }
 
     #_main {
-        @footerHeight: 30px;
-
         width: 100%;
         height: 100%;
-        min-height: 100vh;
         padding-left: 85px;
         position: relative;
         display: inline-block;
@@ -612,61 +609,62 @@ body {
             min-height: 400px;
         }
 
-        > div:last-of-type:not(.fullPageHeight) {
-            padding-bottom: @footerHeight;
-        }
-
-        footer {
-            .standard {
-                padding-top: 20px;
-                padding-bottom: 15px;
-                background-color: #053f69;
-
-                .separator {
-                    color: #BBB;
-                }
-
-                a {
-                    color: #DDD;
-                    font-size: 12px;
-                    font-weight: normal;
-                    padding: 5px 0;
-
-                    > img {
-                        height: 30px;
-                        margin-right: 15px;
-                    }
-                }
-
-            }
-            .minimal {
-                height: @footerHeight;
-                margin-right: 10px;
-
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                z-index: 900;
-
-                a, .separator {
-                    color: #aaaaaa;
-                }
-
-                a {
-                    font-size: 10px;
-                    font-weight: bold;
-                    margin: 20px 0;
-                }
-            }
-        }
-
         .fullPageHeight {
             min-height: 100vh;
             position: relative;
+            margin-bottom: -4px;
 
             ._handler {
                 max-width: 100%;
                 min-height: 100vh;
+            }
+        }
+    }
+    footer.footer {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        width: 100%;
+
+        .standard {
+            padding-top: 20px;
+            padding-bottom: 15px;
+            background-color: #053f69;
+
+            .separator {
+                color: #BBB;
+            }
+
+            a {
+                color: #DDD;
+                font-size: 12px;
+                font-weight: normal;
+                padding: 5px 0;
+
+                > img {
+                    height: 30px;
+                    margin-right: 15px;
+                }
+            }
+
+        }
+        .minimal {
+            height: @footerHeight;
+            margin-right: 10px;
+
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            z-index: 900;
+
+            a, .separator {
+                color: #aaaaaa;
+            }
+
+            a {
+                font-size: 10px;
+                font-weight: bold;
+                margin: 20px 0;
             }
         }
     }

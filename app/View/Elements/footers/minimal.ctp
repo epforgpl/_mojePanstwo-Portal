@@ -1,4 +1,4 @@
-<footer>
+<footer class="footer">
     <section class="minimal">
         <?php echo $this->Html->link(__('LC_FOOTER_ABOUT_US'), '/oportalu', array('target' => '_self')); ?>
         <span class="separator">|</span>

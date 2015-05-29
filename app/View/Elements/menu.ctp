@@ -35,14 +35,9 @@
                         $dropdown = true;
                         $classes[] = 'dropdown';
                     }
-					
-					$href = '';
-										
-                    if (isset($_menu['base']))
-                        $href = $_menu['base'];
-                    elseif( isset($object) )
-                        $href = $object->getDataset();
-					                    
+
+                    $href = $_menu['base'];
+
                     if ($m['id'] && ($m['id'] != 'view'))
                         $href .= '/' . $m['id'];
                         

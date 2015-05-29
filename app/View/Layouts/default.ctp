@@ -108,9 +108,10 @@
 
         <?php echo $content_for_layout; ?>
 
-        <?php if (isset($_layout['footer']) && !empty($_layout['footer']))
-            echo $this->Element('footers/' . $_layout['footer']['element']); ?>
+
     </div>
+    <?php if (isset($_layout['footer']) && !empty($_layout['footer']))
+        echo $this->Element('footers/' . $_layout['footer']['element']); ?>
 </div>
 
 <?php /* GOOGLE ANALYTIC */ ?>

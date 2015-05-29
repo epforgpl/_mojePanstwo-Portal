@@ -1,7 +1,7 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
 ?>
-<div class="block">
+<div class="block col-xs-12">
 
     <header>Powiązane organizacje:</header>
 
