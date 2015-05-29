@@ -41,6 +41,8 @@ abstract class DocsObjectsController extends DataobjectsController
 
             }
         }
+        
+        parent::beforeRender();
     }
 
 } 

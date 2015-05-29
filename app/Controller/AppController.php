@@ -552,9 +552,10 @@ class AppController extends Controller
 
     public function beforeRender()
     {
+                
         $layout = $this->setLayout();
         $menu = $this->getMenu();
-		
+				
 		if( !empty($menu) ) {
 				
 	        if ($this->menu_selected == '_default')
@@ -563,7 +564,7 @@ class AppController extends Controller
 	        $menu['selected'] = $this->menu_selected;
         
         }
-
+        
         $this->set('_layout', $layout);
         $this->set('_breadcrumbs', $this->breadcrumbs);
         $this->set('_applications', $this->applications);

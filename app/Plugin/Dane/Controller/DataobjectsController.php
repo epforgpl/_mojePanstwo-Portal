@@ -253,7 +253,7 @@ class DataobjectsController extends AppController
             $this->prepareMetaTags();
 
         }
-
+				
         parent::beforeRender();
 
     }
