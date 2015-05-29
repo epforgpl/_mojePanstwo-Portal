@@ -122,7 +122,7 @@ class AppController extends Controller
         ),
         'prawo' => array(
             'prawo' => 'Prawo powszechne',
-            'prawo_lokalne' => 'Prawo lokalne',
+            'prawo_wojewodztwa' => 'Prawo lokalne',
             'prawo_urzedowe' => 'Prawo urzędowe',
             'prawo_hasla' => 'Tematy w prawie',
         ),

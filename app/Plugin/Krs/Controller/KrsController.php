@@ -23,7 +23,7 @@ class KrsController extends ApplicationsController
 			'searchTitle' => 'Szukaj osób...',
 		),
 		'msig' => array(
-			'dataset' => 'msig_wydania',
+			'dataset' => 'msig',
 			'label' => 'Monitor Sądowy i Gospodarczy',
 			'searchTitle' => 'Szukaj w Monitorze Sądowym i Gospodarczym',
 		),

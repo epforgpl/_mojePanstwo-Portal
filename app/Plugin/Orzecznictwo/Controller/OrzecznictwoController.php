@@ -37,7 +37,7 @@ class OrzecznictwoController extends ApplicationsController
     public function view()
     {
 	    
-	    $datasets = $this->getDatasets('prawo');
+	    $datasets = $this->getDatasets('orzecznictwo');
 	    $_datasets = array_keys($datasets);
 	    
         $options  = array(
