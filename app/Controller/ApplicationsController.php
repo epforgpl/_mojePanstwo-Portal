@@ -14,7 +14,19 @@ class ApplicationsController extends AppController
         'Session',
         'Facebook.Connect'
     );
-
+	
+	public $_layout = array(
+        'header' => array(
+            'element' => 'app',
+        ),
+        'body' => array(
+            'theme' => 'simply',
+        ),
+        'footer' => array(
+            'element' => 'default',
+        ),
+    );
+	
     public $title = false;
     public $description = false;
     public $appSelected = 'dane';
