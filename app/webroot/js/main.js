@@ -105,12 +105,12 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
     });
 
     var jsDate = new Date(),
-        jsHour = jsDate.getHours(),
         modalPaszportLoginForm = $('#modalPaszportLoginForm'),
         selectPickers = $('.selectpicker'),
         fbScript = document.createElement("script"),
         scriptsPos = document.getElementsByTagName("script")[0],
-        mPCookie = $.cookie('mojePanstwo');
+        jsHour,
+        mPCookie;
 
     /*FACEBOOK API - ONLY WHEN DIV ID:FB-ROOT EXIST*/
     if ($('#fb-root').length > 0 && $('#facebook-jssdk').length === 0) {
@@ -142,22 +142,22 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 
     /*COOKIE MANAGER*/
     if ($('body').hasClass('theme-wallpaper')) {
-        if (mPCookie) {
-            mPCookie = JSON.parse(mPCookie);
-        } else {
-            mPCookie = {
-                background: {
-                    url: '/img/home/backgrounds/home-background-default0.jpg',
-                    current: 0,
-                    limit: 5,
-                    time: jsHour
-                }
-            };
+        jsHour = jsDate.getHours();
+        mPCookie = {
+            background: {
+                url: '/img/home/backgrounds/home-background-default0.jpg',
+                current: 0,
+                limit: 5,
+                time: jsHour
+            }
+        };
+
+        if ($.cookie('mojePanstwo')) {
+            mPCookie = $.extend(true, mPCookie, JSON.parse($.cookie('mojePanstwo')));
         }
 
         /*COOKIE MANAGER - BACKGROUND CHANGER*/
         if (mPCookie.background.time !== jsHour) {
-            console.log(mPCookie.background.current + 1 < mPCookie.background.limit);
             if (mPCookie.background.current + 1 < mPCookie.background.limit) {
                 mPCookie.background.current = mPCookie.background.current + 1;
                 mPCookie.background.url = '/img/home/backgrounds/home-background-default' + mPCookie.background.current + '.jpg';

@@ -91,21 +91,21 @@
     if (isset($mojePanstwo->background->url) && !empty($mojePanstwo->background->url))
         echo $mojePanstwo->background->url;
     else
-        echo '/img/home/backgrounds/home-background-default.jpg';
+        echo '/img/home/backgrounds/home-background-default0.jpg';
 } else {
-    echo '/img/home/backgrounds/home-background-default.jpg';
+    echo '/img/home/backgrounds/home-background-default0.jpg';
 } ?>)" <?php } ?>>
 
 <div id="_wrapper">
     <?php echo $this->Element('flash'); ?>
     <?php echo $this->Element('cockpit'); ?>
     <div id="_main">
-	    	        
+
         <?php if (isset($_layout['header']) && !empty($_layout['header'])) {
             echo $this->Element('headers/' . $_layout['header']['element']);
             echo $this->Element('menu');
         } ?>
-				
+
         <?php echo $content_for_layout; ?>
 
         <?php if (isset($_layout['footer']) && !empty($_layout['footer']))
