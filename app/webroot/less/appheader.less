@@ -40,7 +40,7 @@
     /*GENERAL CODE*/
     .breadcrumb {
         a {
-            font-size: 12px;
+            font-size: 13px;
         }
 
         &.tree {
@@ -143,8 +143,9 @@
     }
 
     .observeButton {
-        margin-top: 40px;
+        margin: 0 auto 15px;
         width: 135px;
+        display: block;
     }
 }
 
@@ -220,28 +221,21 @@
 
 .dataHighlights {
     padding: 0;
-    margin: 0;
+    margin: 0 0 5px;
 
     &.oneline {
         .dataHighlight {
-            @marginLabel: 2px;
-
-            margin-top: -@marginLabel;
+            margin-bottom: 0;
 
             ._label {
                 float: left;
-                margin-top: 2*@marginLabel;
                 margin-right: 6px;
-                margin-bottom: @marginLabel;
-            }
-            ._value {
-                font-size: 16px;
             }
         }
     }
 
     .dataHighlight {
-        padding: 5px;
+        padding: 5px 0;
         display: block;
         margin-bottom: 10px;
 
@@ -291,5 +285,12 @@
             font-size: 85%;
         }
 
+    }
+}
+
+@media (min-width: 992px) {
+    .appHeader .observeButton {
+        margin-top: 40px;
+        float: right;
     }
 }

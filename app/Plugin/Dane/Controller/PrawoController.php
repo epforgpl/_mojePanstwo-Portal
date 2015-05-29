@@ -10,6 +10,8 @@ class PrawoController extends DataobjectsController
 
     // public $uses = array('Dane.Dataliner');
 
+    public $observeOptions = true;
+
     public $headerObject = array('url' => '/dane/img/headers/ustawa.jpg', 'height' => '250px');
 
     public $objectOptions = array(
@@ -33,14 +35,6 @@ class PrawoController extends DataobjectsController
             ),
         ),
     );
-
-    public function beforeRender()
-    {
-        $this->observeOptions = true;
-
-        parent::beforeRender();
-    }
-
 
     public function hasla()
     {

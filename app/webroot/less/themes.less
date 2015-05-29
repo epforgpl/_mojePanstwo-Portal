@@ -18,10 +18,11 @@
 .block {
     padding: 0;
     display: inline-block;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     border-radius: 4px;
 
-    > header, > section {
+    > header, > section, > footer {
         width: 100%;
         display: block;
         float: left;
@@ -48,11 +49,13 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 0;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
     .block {
         border-width: 0;
         float: left;
+        margin-top: 0;
         margin-bottom: 0;
     }
 }
@@ -70,6 +73,11 @@
     }
     > section {
         padding: 15px 10px;
+    }
+
+    > footer {
+        padding: 0 8px 15px;
+        color: #3d3d3d;
     }
 }
 
@@ -100,5 +108,10 @@
     }
     > section {
         padding: 15px;
+    }
+
+    > footer {
+        padding: 0 15px 15px;
+        color: #333333;
     }
 }

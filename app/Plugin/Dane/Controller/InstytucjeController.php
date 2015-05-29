@@ -13,6 +13,8 @@ class InstytucjeController extends DataobjectsController
         array('title' => 'Opublikowany tweet', 'icon' => 'twitter_opublikowane', 'link' => '#'),
     );
 
+    public $observeOptions = true;
+
     public $loadChannels = true;
     public $initLayers = array('instytucja_nadrzedna', 'tree', 'menu', 'info');
 
@@ -427,7 +429,6 @@ class InstytucjeController extends DataobjectsController
 
     public function beforeRender()
     {
-        $this->observeOptions = true;
 
         if ($this->object->getId() == 3214) {
             $this->headerObject = array('url' => '/dane/img/headers/sejmometr.jpg', 'height' => '250px');
