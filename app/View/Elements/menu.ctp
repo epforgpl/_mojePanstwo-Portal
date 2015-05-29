@@ -2,11 +2,6 @@
     <div class="container">
         <? if (isset($_menu) && isset($_menu['items'])) { ?>
             <ul class="nav nav-tabs">
-                <li class="mobileMenu active visible-xs">
-                    <a href="#mobileMenu">
-                        <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                    </a>
-                </li>
                 <?
                 foreach ($_menu['items'] as $m) {
 

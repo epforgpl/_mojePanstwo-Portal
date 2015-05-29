@@ -1,9 +1,8 @@
 .objectsPage .dataFeed .objectSideInner .dataHighlights {
-	display: block;
+    display: block;
 }
 
-.dataBrowser, .dataFeed {
-
+.dataBrowser, .dataFeed, .dataobjects {
     h2 {
         font-weight: 600;
         font-size: 16px;
@@ -43,16 +42,15 @@
     }
 
     .searchForm {
-
         .clearer {
             color: #999;
-		    font-size: 24px;
-		    right: 40px;
-		    top: 5px;
-		    z-index: 2;
-            
+            font-size: 24px;
+            right: 40px;
+            top: 5px;
+            z-index: 2;
+
             &:hover {
-	            color: #157ab5;
+                color: #157ab5;
             }
 
             &:hover {
@@ -91,25 +89,25 @@
     }
 
     .dataAggs {
-        margin: -20px 0;
+        margin: 0;
         padding: 0;
         list-style: none;
-		
-		.buttons {
+
+        .buttons {
             text-align: center;
             margin-bottom: 15px;
         }
-		
+
         li.agg {
             margin: 40px 0;
             padding: 0;
             list-style: none;
-			
-			&.special {
-				padding: 10px;
-				border-radius: 7px;
-			}
-					
+
+            &.special {
+                padding: 10px;
+                border-radius: 7px;
+            }
+
             h2 {
                 font-weight: bold;
                 font-size: 16px;
@@ -117,33 +115,31 @@
                 margin: 0;
                 padding: 0 5px;
             }
-            
-            
 
             .agg-DateHistogram, .agg-ColumnsHorizontal, .agg-HorizontalVertical, .agg-ColumnsVertical {
                 margin-top: 20px;
                 .btn {
-                  &.select-date-range {
-                    margin-top: -44px;
-                  }
+                    &.select-date-range {
+                        margin-top: -44px;
+                    }
                 }
             }
-            
+
             .agg-List {
-	            padding: 10px 0;
-	            
-	            &.apps {
-		            ul {
-			            li {
-				            img, svg {
-					            width: 30px;
-					            height: 30px;
-					            margin-right: 5px;
-					            margin-top: -3px;
-				            }
-			            }
-		            }
-	            }            
+                padding: 10px 0;
+
+                &.apps {
+                    ul {
+                        li {
+                            img, svg {
+                                width: 30px;
+                                height: 30px;
+                                margin-right: 5px;
+                                margin-top: -3px;
+                            }
+                        }
+                    }
+                }
             }
 
             .number {
@@ -161,63 +157,41 @@
             word-wrap: break-word;
         }
     }
-    
-    .aggs-init {
-	    .dataAggs {
-		    margin: 0;
-	    }
-    }
-    
-    .chapters {
-	    background-color: #EEE;
-    }
-    
-    .goto {
-		.bootstrap-select {
-			.btn-lg, .btn-group-lg > .btn {
-				font-size: 13px;
-				line-height: 24px;
-				color: #999;
-				box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-				border: 1px solid #ccc;
-				border-radius: 6px;
-			}
-		}
-		.bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
-			width: 100%;
-		}
-	}
-}
 
-.databrowser-panels {
-	
-	.databrowser-panel {
-		margin: 20px 0;
-		padding: 10px;
-		
-		&:first-child {
-			margin-top: 0px;
-		}
-		
-		&:last-child {
-			margin-bottom: 0px;
-		}
-	}
-	
-	.dataobjects {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		
-		li {
-			list-style: none;
-			padding: 0;
-			margin: 0;
-			
-			.list-group-item {
-				background-color: inherit;
-			}
-			
-		}
-	}
+    .chapters {
+        background-color: #EEE;
+    }
+
+    .goto {
+        .bootstrap-select {
+            .btn-lg, .btn-group-lg > .btn {
+                font-size: 13px;
+                line-height: 24px;
+                color: #999;
+                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+            }
+        }
+        .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+            width: 100%;
+        }
+    }
+
+    .list-group {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li, .list-group-item {
+            list-style: none;
+            padding: 0 0 10px 0;
+            margin: -15px 0 0;
+            background: none;
+
+            .sublabel {
+                margin-left: 5px;
+            }
+        }
+    }
 }

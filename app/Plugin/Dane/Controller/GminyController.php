@@ -5,6 +5,8 @@ App::uses('DataobjectsController', 'Dane.Controller');
 class GminyController extends DataobjectsController
 {
 
+    public $observeOptions = true;
+
     public $breadcrumbsMode = 'app';
     public $submenus = array(
         'rada' => array(
@@ -149,13 +151,6 @@ class GminyController extends DataobjectsController
     public $objectOptions = array(
         'bigTitle' => true,
     );
-
-    public function beforeRender()
-    {
-        $this->observeOptions = true;
-
-        parent::beforeRender();
-    }
 
     public function view()
     {
@@ -567,20 +562,49 @@ class GminyController extends DataobjectsController
         $this->Components->load('Dane.DataBrowser', $options);
 
     }
-    
+
+    public function _prepareView()
+    {
+
+        if ($this->params->id == 903)
+            $this->addInitLayers(array('dzielnice'));
+
+        if ($this->domainMode == 'PK')
+            $this->_layout['header']['element'] = 'pk';
+
+        if (
+            defined('PORTAL_DOMAIN') &&
+            defined('PK_DOMAIN') &&
+            ($pieces = parse_url(Router::url($this->here, true))) &&
+            ($pieces['host'] == PK_DOMAIN)
+        ) {
+
+            if ($this->params->id != 903) {
+
+                $this->redirect($this->protocol . PORTAL_DOMAIN . $_SERVER['REQUEST_URI']);
+                die();
+
+            }
+
+        }
+
+        return parent::_prepareView();
+
+    }
+
     public function powiazania()
     {
-		
+
 		$_layers = array('szef', 'channels');
         $this->addInitLayers($_layers);
-        
+
         $this->_prepareView();
 
         if ($this->request->params['id'] == '903')
             $this->set('title_for_layout', 'Przejrzysty Kraków');
-		
-		
-		$global_aggs = array(
+
+
+        $global_aggs = array(
 	        'zamowienia' => array(
 		        'filter' => array(
 			        'bool' => array(
@@ -637,7 +661,7 @@ class GminyController extends DataobjectsController
 						        ),
 					        ),
 				        ),
-			        ),					        
+                    ),
 		        ),
 		        'aggs' => array(
 			        'wykonawcy' => array(
@@ -645,7 +669,7 @@ class GminyController extends DataobjectsController
 							'path' => 'zamowienia_publiczne-wykonawcy',
 						),
 						'aggs' => array(
-							'id' => array(								        
+                            'id' => array(
 						        'terms' => array(
 							        'field' => 'zamowienia_publiczne-wykonawcy.id',
 							        'order' => array(
@@ -749,10 +773,10 @@ class GminyController extends DataobjectsController
 				),
 			),
 		);
-		
+
 		if( $this->object->getId()==903 ) {
-			
-			$global_aggs['rada_posiedzenia'] = array(
+
+            $global_aggs['rada_posiedzenia'] = array(
 		        'filter' => array(
 			        'bool' => array(
 				        'must' => array(
@@ -776,8 +800,8 @@ class GminyController extends DataobjectsController
 			        ),
 		        ),
 	        );
-	        
-	        $global_aggs['rada_komisje_posiedzenia'] = array(
+
+            $global_aggs['rada_komisje_posiedzenia'] = array(
 		        'filter' => array(
 			        'bool' => array(
 				        'must' => array(
@@ -801,8 +825,8 @@ class GminyController extends DataobjectsController
 			        ),
 		        ),
 	        );
-	        
-	        $global_aggs['rada_projekty'] = array(
+
+            $global_aggs['rada_projekty'] = array(
 		        'filter' => array(
 			        'bool' => array(
 				        'must' => array(
@@ -826,8 +850,8 @@ class GminyController extends DataobjectsController
 			        ),
 		        ),
 	        );
-	        
-	        $global_aggs['interpelacje'] = array(
+
+            $global_aggs['interpelacje'] = array(
 		        'filter' => array(
 			        'bool' => array(
 				        'must' => array(
@@ -851,8 +875,8 @@ class GminyController extends DataobjectsController
 			        ),
 		        ),
 	        );
-	        
-	        $global_aggs['zarzadzenia'] = array(
+
+            $global_aggs['zarzadzenia'] = array(
 		        'filter' => array(
 			        'bool' => array(
 				        'must' => array(
@@ -876,8 +900,8 @@ class GminyController extends DataobjectsController
 			        ),
 		        ),
 	        );
-	        
-	        $global_aggs['krakow_rada_uchwaly'] = array(
+
+            $global_aggs['krakow_rada_uchwaly'] = array(
 		        'filter' => array(
 			        'bool' => array(
 				        'must' => array(
@@ -901,11 +925,11 @@ class GminyController extends DataobjectsController
 			        ),
 		        ),
 	        );
-	        
-			
-		} else {
-			
-			$global_aggs['prawo'] = array(
+
+
+        } else {
+
+            $global_aggs['prawo'] = array(
 		        'filter' => array(
 			        'bool' => array(
 				        'must' => array(
@@ -920,7 +944,7 @@ class GminyController extends DataobjectsController
 						        ),
 					        ),
 				        ),
-			        ),					        
+                    ),
 		        ),
 		        'aggs' => array(
 			        'top' => array(
@@ -936,10 +960,10 @@ class GminyController extends DataobjectsController
 			        ),
 		        ),
 	        );
-			
-		}
-		
-		$options  = array(
+
+        }
+
+        $options  = array(
             'searchTitle' => 'Szukaj w gminie ' . $this->object->getTitle() . '...',
             'conditions' => array(
 	            '_object' => 'gminy.' . $this->object->getId(),
@@ -974,37 +998,8 @@ class GminyController extends DataobjectsController
 		        ),
             ),
         );
-                
-	    $this->Components->load('Dane.DataBrowser', $options);
-        
-    }
 
-    public function _prepareView()
-    {
-
-        if ($this->params->id == 903)
-            $this->addInitLayers(array('dzielnice'));
-
-        if ($this->domainMode == 'PK')
-            $this->_layout['header']['element'] = 'pk';
-
-        if (
-            defined('PORTAL_DOMAIN') &&
-            defined('PK_DOMAIN') &&
-            ($pieces = parse_url(Router::url($this->here, true))) &&
-            ($pieces['host'] == PK_DOMAIN)
-        ) {
-
-            if ($this->params->id != 903) {
-
-                $this->redirect($this->protocol . PORTAL_DOMAIN . $_SERVER['REQUEST_URI']);
-                die();
-
-            }
-
-        }
-
-        return parent::_prepareView();
+        $this->Components->load('Dane.DataBrowser', $options);
 
     }
 

@@ -127,8 +127,7 @@ $this->Combinator->add_libs('js', 'graph-krs');
                     foreach ($organy as $organ) { ?>
                         <div class="block col-lg-<?= $column_width ?>">
                             <header>
-                                <div class="sm" id="<?= $organ['idTag'] ?>"
-                                     class="normalizeText"><?= $organ['title'] ?></div>
+                                <div class="sm normalizeText" id="<?= $organ['idTag'] ?>"><?= $organ['title'] ?></div>
                             </header>
                             <? if ($organ['content']) { ?>
                             <section class="list-group less-borders">

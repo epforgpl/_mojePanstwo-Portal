@@ -1,5 +1,5 @@
 <ul class="dataHighlights col-xs-12">
-    <li class="dataHighlight col-xs-3">
+    <li class="dataHighlight col-sm-6 col-sm-3">
         <? if ($object->getData('status_id') == '0') {
             ?>
             <span class="_label label label-success">Zamówienie otwarte</span>
@@ -12,7 +12,7 @@
         <? } ?>
     </li>
 
-    <li class="dataHighlight col-xs-3">
+    <li class="dataHighlight col-sm-6 col-sm-3">
         <p class="_label">Zamawiający</p>
 
         <p class="_value"><a
@@ -20,14 +20,14 @@
         </p>
     </li>
 
-    <li class="dataHighlight col-xs-3">
+    <li class="dataHighlight col-sm-6 col-sm-3">
         <p class="_label">Tryb</p>
 
         <p class="_value"><?= $object->getData('zamowienia_publiczne_tryby.nazwa') ?></p>
     </li>
 
     <? if ($object_aggs['all']['dokumenty']['wykonawcy']['top']['buckets']) { ?>
-        <li class="dataHighlight col-xs-3">
+        <li class="dataHighlight col-sm-6 col-sm-3">
             <p class="_label">Wykonawcy</p>
 
             <? foreach ($object_aggs['all']['dokumenty']['wykonawcy']['top']['buckets'] as $b) { ?>

@@ -20,7 +20,7 @@
 <? if ($object->getData('budzet_plan')) { ?>
     <ul class="dataHighlights col-xs-12">
         <? if ($object->getData('budzet_plan')) { ?>
-            <li class="dataHighlight col-xs-3">
+            <li class="dataHighlight col-sm-6 col-sm-3">
                 <p class="_label" data-toggle="tooltip" data-placement="top"
                    title="Budżet roczny organizacji, finansowany z budżetu państwa">Budżet roczny</p>
 
@@ -34,7 +34,7 @@
         <? if ($www = $object->getData('www')) {
             $url = (stripos($www, 'http') === false) ? 'http://' . $www : $www;
             ?>
-            <li class="dataHighlight col-xs-3">
+            <li class="dataHighlight col-sm-6 col-sm-3">
                 <p class="_label">Adres WWW</p>
 
                 <p class="_value">

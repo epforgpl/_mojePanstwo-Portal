@@ -12,7 +12,7 @@ if (!isset($renderFile) || !$renderFile)
 <div class="appHeader dataobject">
     <div class="container">
         <div class="holder row">
-            <div class="col-md-11">
+            <div class="col-md-10">
                 <? if (isset($treeList)) { ?>
                     <ul class="breadcrumb tree">
                         <li>
@@ -61,17 +61,19 @@ if (!isset($renderFile) || !$renderFile)
                     <?php } ?>
                     </h2>
                 </div>
-                <div class="status">
-                    <?= @$this->element('status_bar/' . $object->getDataset(), array('plugin' => 'Dane')) ?>
-                </div>
             </div>
             <?php if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
-                <div class="col-md-1">
-                    <div class="observeButton pull-right btn btn-icon btn-warning">
+                <div class="col-md-2">
+                    <div class="observeButton btn btn-icon btn-primary">
                         <i class="icon" data-icon-applications="&#xe60a;"></i>Obserwuj...
                     </div>
                 </div>
             <?php } ?>
+            <div class="col-xs-12">
+                <div class="status">
+                    <?= @$this->element('status_bar/' . $object->getDataset(), array('plugin' => 'Dane')) ?>
+                </div>
+            </div>
         </div>
     </div>
 </div>
