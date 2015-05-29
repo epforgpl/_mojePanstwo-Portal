@@ -24,7 +24,6 @@ class ApplicationsController extends AppController
 
     public function beforeFilter()
     {
-        $this->setLayout(array('body' => array('theme' => 'simply')));
         $this->settings = array_merge($this->_settings, $this->settings);
 
         $this->Auth->authenticate = array(

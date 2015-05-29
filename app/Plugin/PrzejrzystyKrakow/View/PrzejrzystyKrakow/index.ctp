@@ -60,39 +60,41 @@
                         </div>
                     </div>
                 </div>
+                
+                <? /* Wszystkie poyzcje z menu, poza zamowieniami publicznymi i KRS */ ?>
                 <div class="popularApps">
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow" target="_self">
-                        <img class="svg" alt="Aktualności" src="/PrzejrzystyKrakow/img/icon/aktualnosci.svg">
+                        <img alt="Aktualności" src="/PrzejrzystyKrakow/img/icon/aktualnosci.svg">
 
                         <p>Aktualności</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/rada"
                        target="_self">
-                        <img class="svg" alt="Rada miasta" src="/PrzejrzystyKrakow/img/icon/rada_miasta.svg">
+                        <img alt="Rada miasta" src="/PrzejrzystyKrakow/img/icon/rada_miasta.svg">
 
                         <p>Rada miasta</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/druki"
                        target="_self">
-                        <img class="svg" alt="Rada miasta" src="/PrzejrzystyKrakow/img/icon/proces.svg">
+                        <img alt="Rada miasta" src="/PrzejrzystyKrakow/img/icon/proces.svg">
 
                         <p>Proces legislacyjny</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/radni"
                        target="_self">
-                        <img class="svg" alt="Rada miasta" src="/PrzejrzystyKrakow/img/icon/radni_miasta.svg">
+                        <img alt="Rada miasta" src="/PrzejrzystyKrakow/img/icon/radni_miasta.svg">
 
                         <p>Radni miasta</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/urzad"
                        target="_self">
-                        <img class="svg" alt="Urząd Miasta" src="/PrzejrzystyKrakow/img/icon/urzad_miasta.svg">
+                        <img alt="Urząd Miasta" src="/PrzejrzystyKrakow/img/icon/urzad_miasta.svg">
 
                         <p>Urząd Miasta</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/dzielnice"
                        target="_self">
-                        <img class="svg" alt="Organizacje" src="/PrzejrzystyKrakow/img/icon/dzielnice.svg">
+                        <img alt="Organizacje" src="/PrzejrzystyKrakow/img/icon/dzielnice.svg">
 
                         <p>Dzielnice</p>
                     </a>

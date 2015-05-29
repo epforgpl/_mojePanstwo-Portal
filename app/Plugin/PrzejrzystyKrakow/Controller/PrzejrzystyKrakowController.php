@@ -7,7 +7,7 @@ class PrzejrzystyKrakowController extends ApplicationsController
 	public $_layout = array(
         'header' => false,
         'body' => array(
-            'theme' => 'default',
+            'theme' => 'wallpaper',
         ),
         'footer' => false,
     );
