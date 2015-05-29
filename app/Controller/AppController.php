@@ -131,6 +131,8 @@ class AppController extends Controller
             'sp_orzeczenia' => 'Orzeczenia sądów powszechnych',
             'sn_orzeczenia' => 'Orzeczenia Sądu Najwyższego',
         ),
+        'ngo' => array(
+        ),
         'zamowienia_publiczne' => array(
             'zamowienia_publiczne' => 'Zamówienia publiczne',
         ),
@@ -188,6 +190,12 @@ class AppController extends Controller
         'orzecznictwo' => array(
             'name' => 'Orzecznictwo',
             'href' => '/orzecznictwo',
+            'tag' => 1,
+            'icon' => '&#xe60d;',
+        ),
+        'ngo' => array(
+            'name' => 'NGO',
+            'href' => '/ngo',
             'tag' => 1,
             'icon' => '&#xe60d;',
         ),

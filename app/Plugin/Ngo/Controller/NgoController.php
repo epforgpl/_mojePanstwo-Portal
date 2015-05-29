@@ -1,14 +1,14 @@
 <?php
 
 App::uses('ApplicationsController', 'Controller');
-class OrzecznictwoController extends ApplicationsController
+class NgoController extends ApplicationsController
 {
 
 	public $settings = array(
-        'id' => 'orzecznictwo',
-		'title' => 'Orzecznictwo',
-		'subtitle' => 'Orzeczenia sądów w Polsce w Polsce',
-		'headerImg' => 'orzecznictwo',
+        'id' => 'ngo',
+		'title' => 'NGO',
+		'subtitle' => 'Organizacje pozarządowe w Polsce',
+		'headerImg' => 'ngo',
 	);
 	
 	public $appDatasets = array(
@@ -41,7 +41,7 @@ class OrzecznictwoController extends ApplicationsController
 	    $_datasets = array_keys($datasets);
 	    
         $options  = array(
-            'searchTitle' => 'Szukaj w orzecznictwie...',
+            'searchTitle' => 'Szukaj organizacji pozarządowej...',
             'autocompletion' => array(
 	            'dataset' => implode(',', $_datasets),
             ),
@@ -50,7 +50,7 @@ class OrzecznictwoController extends ApplicationsController
             ),
             'cover' => array(
 	            'view' => array(
-		            'plugin' => 'Orzecznictwo',
+		            'plugin' => 'Ngo',
 		            'element' => 'cover',
 	            ),
 	            'aggs' => array(
