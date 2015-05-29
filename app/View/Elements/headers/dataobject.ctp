@@ -67,8 +67,9 @@ if (!isset($renderFile) || !$renderFile)
             </div>
             <?php if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
                 <div class="col-md-1">
-                    <button class="observeButton pull-right btn btn-warning"><i data-icon-applications="&#xe60a;"></i>Obserwuj...
-                    </button>
+                    <div class="observeButton pull-right btn btn-icon btn-warning">
+                        <i class="icon" data-icon-applications="&#xe60a;"></i>Obserwuj...
+                    </div>
                 </div>
             <?php } ?>
         </div>

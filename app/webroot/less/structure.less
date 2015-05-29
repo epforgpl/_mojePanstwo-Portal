@@ -36,61 +36,51 @@ body {
             }
         }
 
-        &.btn-primary {
-            background-color: #007ab9;
+        .btnIconMode(@color:#FAFAFA) {
+            background-color: @color;
 
             .icon {
-                background-color: #00639a;
+                background-color: darken(@color, 4%);
+                left: 0;
+                padding: 8px 10px;
+                position: absolute;
+                text-align: center;
+                top: 0;
+                width: 42px;
+                height: 100%;
+
+                &:before, &:after {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+
+                    -webkit-transform: translate(-50%, -50%);
+                    -moz-transform: translate(-50%, -50%);
+                    -ms-transform: translate(-50%, -50%);
+                    -o-transform: translate(-50%, -50%);
+                    transform: translate(-50%, -50%);
+                }
             }
 
             &:hover {
-                background-color: #00639a;
+                background-color: darken(@color, 4%);
 
                 &.btn-icon .icon {
-                    background-color: #007ab9;
+                    background-color: @color;
                 }
             }
+        }
+
+        &.btn-primary {
+            .btnIconMode(#007ab9);
         }
 
         &.btn-default {
-
-            background-color: #FAFAFA;
-
-            .icon {
-                background-color: #F1F1F1;
-            }
-
-            &:hover {
-                background-color: #F1F1F1;
-
-                &.btn-icon .icon {
-                    background-color: #FAFAFA;
-                }
-            }
-
+            .btnIconMode();
         }
 
-        .icon {
-            background-color: #00639a;
-            left: 0;
-            padding: 8px 10px;
-            position: absolute;
-            text-align: center;
-            top: 0;
-            width: 42px;
-            height: 100%;
-
-            &:before, &:after {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-
-                -webkit-transform: translate(-50%, -50%);
-                -moz-transform: translate(-50%, -50%);
-                -ms-transform: translate(-50%, -50%);
-                -o-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
-            }
+        &.btn-warning {
+            .btnIconMode(#f0ad4e);
         }
     }
 
@@ -617,11 +607,11 @@ body {
         position: relative;
         display: inline-block;
         margin-bottom: -4px;
-		
-		.objectsPage {
-			min-height: 400px;
-		}
-		
+
+        .objectsPage {
+            min-height: 400px;
+        }
+
         > div:last-of-type:not(.fullPageHeight) {
             padding-bottom: @footerHeight;
         }
@@ -635,7 +625,7 @@ body {
                 .separator {
                     color: #BBB;
                 }
-                
+
                 a {
                     color: #DDD;
                     font-size: 12px;
