@@ -15,7 +15,7 @@ $options = array(
 
     <div class="block-group">
 
-        <div class="block col-md-6">
+        <div class="block block-simple col-md-6">
 
             <header>Najnowsze posiedzenie Rady Miasta</header>
 
@@ -47,7 +47,7 @@ $options = array(
                 </footer>
             <? } ?>
         </div>
-        <div class="block col-md-6">
+        <div class="block block-simple col-md-6">
 
             <header>Najnowsze posiedzenie komisji Rady Miasta</header>
 
@@ -80,7 +80,7 @@ $options = array(
         </div>
     </div>
 
-    <div class="block col-xs-12">
+    <div class="block block-simple col-xs-12">
         <header>Najnowsze uchwały Rady</header>
 
         <section class="aggs-init">
@@ -111,7 +111,7 @@ $options = array(
         <? } ?>
     </div>
 
-    <div class="block col-xs-12">
+    <div class="block block-simple col-xs-12">
         <header>Najnowsze interpelacje radnych</header>
 
         <section class="aggs-init">
@@ -142,7 +142,7 @@ $options = array(
         <? } ?>
     </div>
 
-    <div class="block col-xs-12">
+    <div class="block block-simple col-xs-12">
         <header>Najnowsze projekty legislacyjne pod obrady rady</header>
 
         <section class="aggs-init">
@@ -173,7 +173,7 @@ $options = array(
     </div>
 <? } else { ?>
 
-    <div class="block col-xs-12">
+    <div class="block block-simple col-xs-12">
         <header>Najnowsze prawo lokalne</header>
 
         <section class="aggs-init">
@@ -205,7 +205,7 @@ $options = array(
 
 <? } ?>
 
-    <div class="block col-xs-12">
+    <div class="block block-simple col-xs-12">
         <header>Najnowsze zamówienia publiczne</header>
 
         <section class="aggs-init">
@@ -235,7 +235,7 @@ $options = array(
         <? } ?>
     </div>
 
-    <div class="block col-xs-12">
+    <div class="block block-simple col-xs-12">
         <header>Najwięcej zamówień publicznych otrzymali</header>
 
         <section class="aggs-init">
@@ -304,7 +304,7 @@ $options = array(
         </footer>
     </div>
 
-    <div class="block col-xs-12">
+    <div class="block block-simple col-xs-12">
         <header>Typy zarejestrowanych organizacji<? if ($object->getId() == 903) { ?> w Krakowie<? } ?></header>
 
         <section class="aggs-init">
@@ -319,7 +319,7 @@ $options = array(
         </section>
     </div>
 
-    <div class="block col-xs-12">
+    <div class="block block-simple col-xs-12">
         <header>Kapitalizacja spółek handlowych</header>
 
         <section class="aggs-init">
@@ -333,7 +333,7 @@ $options = array(
         </section>
     </div>
 
-    <div class="block col-xs-12">
+    <div class="block block-simple col-xs-12">
         <header>Rejestracje nowych organizacji w czasie</header>
 
         <section class="aggs-init">
