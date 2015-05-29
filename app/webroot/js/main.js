@@ -112,6 +112,8 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
         jsHour,
         mPCookie;
 
+    $('#_main').css('margin-bottom', $('footer.footer').outerHeight());
+
     /*FACEBOOK API - ONLY WHEN DIV ID:FB-ROOT EXIST*/
     if ($('#fb-root').length > 0 && $('#facebook-jssdk').length === 0) {
         if (document.getElementById("facebook-jssdk")) {

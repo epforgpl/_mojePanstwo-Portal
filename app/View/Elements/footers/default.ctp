@@ -1,4 +1,4 @@
-<footer>
+<footer class="footer">
     <section class="standard">
         <div class="container">
             <div class="col-xs-12">

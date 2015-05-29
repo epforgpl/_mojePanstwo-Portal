@@ -109,11 +109,12 @@ function stickyGo(dom, direction) {
 
     var anchor = jQuery('.anchor'),
         exist = false,
-        stickGoAnchor = jQuery('.anchor[data-id=' + dom + ']'),
+
         window_top = jQuery(window).scrollTop(),
         header_fixed = jQuery('header').outerHeight(true),
         window_height = jQuery(window).height(),
-        div_top = stickGoAnchor.offset().top;
+        stickGoAnchor,
+        div_top;
 
     jQuery.each(anchor, function () {
         if (jQuery(this).attr('data-id') === dom) {
@@ -124,6 +125,9 @@ function stickyGo(dom, direction) {
     if (exist === false) {
         jQuery('<div class="anchor" data-id=' + dom + '></div>').insertBefore(dom);
     }
+
+    stickGoAnchor = jQuery('.anchor[data-id=' + dom + ']');
+    div_top = stickGoAnchor.offset().top;
 
     if (window_top + header_fixed > div_top && direction === 'down') {
         jQuery(dom).addClass('stick');

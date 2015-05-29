@@ -12,7 +12,7 @@ $this->Combinator->add_libs('js', 'graph-krs');
 
         <div class="col-md-9 objectMain">
             <div class="object">
-                <div class="block-group">
+                <div class="block-group col-xs-12">
 
                     <? if ($organizacje = $object->getLayer('organizacje')) {
 
