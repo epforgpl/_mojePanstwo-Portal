@@ -103,6 +103,7 @@ class DataobjectHelper extends AppHelper
         $defaults = isset($options['defaults']) ? $options['defaults'] : array();
         $microdata = isset($options['microdata']) ? $options['microdata'] : array();
         $disable_link = isset($options['disable_link']) ? (boolean) $options['disable_link'] : false;
+        $selected = isset($options['selected']) ? (boolean) $options['selected'] : false;
 
         $class = isset($options['class']) ? $options['class'] : false;
         $alertsButtons = isset($options['alertsButtons']) ? $options['alertsButtons'] : false;
@@ -141,6 +142,7 @@ class DataobjectHelper extends AppHelper
             'defaults' => $defaults,
             'microdata' => $microdata,
             'show_link' => !$disable_link,
+            'selected' => $selected,
         );
 
         return $this->_View->element($theme, $params, array('plugin' => 'Dane'));

@@ -86,14 +86,6 @@ class ZamowieniaPubliczneController extends DataobjectsController
     {
 		
         $this->load();        
-        
-        $feed = $this->feed(array(
-	        'direction' => 'asc',
-	        'timeline' => true,
-	        'searchTitle' => 'tym zamówieniu',
-	        'mode' => 'min',
-        ));
-                
         $this->loadDoc( $this->request->params['id'] );
 		
     }
@@ -175,6 +167,11 @@ class ZamowieniaPubliczneController extends DataobjectsController
 	
 	        }
 			
+			$feed = $this->feed(array(
+		        'direction' => 'asc',
+		        'timeline' => true,
+		        'mode' => 'min',
+	        ));
 			
 	        $this->set('dokument', $dokument);
 	        $this->set('details', $details);

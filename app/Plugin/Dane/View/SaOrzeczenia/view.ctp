@@ -1,6 +1,7 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('view-saorzeczenia', array('plugin' => 'Dane'))); ?>
 
 <?= $this->Element('dataobject/pageBegin'); ?>
+
     <div class="col-xs-12 col-md-8 objectMain">
         <div class="object">
             <? if ($parts = $object->getLayer('html')) { ?>

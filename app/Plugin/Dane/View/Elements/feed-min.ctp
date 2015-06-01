@@ -71,6 +71,10 @@ $this->Dataobject->setObject($object);
                 ));
             }
             ?>
+            
+            <? if($selected) {?>
+            <p class="label label-warning navigator">Tu jesteś</p>
+            <? } ?>
 
         </div>
     </div>

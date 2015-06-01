@@ -55,6 +55,13 @@ if( $show ) {
 							echo $this->Dataobject->render($object, 'feed-min', array(
 							    'forceLabel' => false,
 							    'file' => 'feed/' . $preset . '/' . $object->getDataset(),
+							    'selected' => (
+								    isset($selected) && 
+								    isset($selected['dataset']) &&
+								    isset($selected['id']) && 
+								    ( $object->getDataset() == $selected['dataset'] ) && 
+								    ( $object->getId() == $selected['id'] ) 
+							    )
 							));
 
                         } ?>
