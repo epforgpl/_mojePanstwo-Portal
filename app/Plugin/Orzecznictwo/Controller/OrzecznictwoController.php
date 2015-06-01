@@ -43,36 +43,16 @@ class OrzecznictwoController extends ApplicationsController
 							),
 						),
 						'aggs' => array(
-					        'hasla' => array(
-						        'nested' => array(
-							        'path' => 'sa_orzeczenia-hasla',
+					        'skarzone_organy' => array(
+						        'terms' => array(
+							        'field' => 'data.sa_orzeczenia.skarzony_organ_id',
 						        ),
 						        'aggs' => array(
-							        'id' => array(
+							        'label' => array(
 								        'terms' => array(
-									        'field' => 'sa_orzeczenia-hasla.id',
-									        'size' => 20,
+									        'field' => 'data.sa_orzeczenia.skarzony_organ_str',
 								        ),
-								        'aggs' => array(
-									        'label' => array(
-										        'terms' => array(
-											        'field' => 'sa_orzeczenia-hasla.nazwa',
-										        ),
-									        ),
-									        /*
-									        'dlugosc_rozpatrywania' => array(
-										        'reverse_nested' => '_empty',
-										        'aggs' => array(
-											        'dlugosc' => array(
-												        'avg' => array(
-													        'field' => 'data.sa_orzeczenia.dlugosc_rozpatrywania',
-												        ),
-											        ),
-										        ),
-									        ),
-									        */
-								        ),
-								    ),
+							        ),
 						        ),
 					        ),
 					        'wyniki' => array(

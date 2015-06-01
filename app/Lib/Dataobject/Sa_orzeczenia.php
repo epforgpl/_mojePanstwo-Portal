@@ -24,12 +24,28 @@ class Sa_orzeczenia extends DataObject
     );
 
     public function getLabel() {
-	    return 'Orzeczenie z dnia ' . dataSlownie( $this->getDate() );
+	    return 'Orzeczenie ' . $this->getData('sad_dopelniacz');
     }
 
     public function getIcon()
     {
         return '<i class="object-icon glyphicon" data-icon-datasets="&#xe632;"></i>';
     }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+						
+		$output = array(
+			dataSlownie($this->getDate()),
+		);
+		
+		if( $this->getData('skarzony_organ_str') )
+			$output[] = 'Skarżony organ: ' . $this->getData('skarzony_organ_str');
+			
+		$output[] = $this->getData('wynik_str');
+		
+		return $output;
+		
+	}
 
 }
