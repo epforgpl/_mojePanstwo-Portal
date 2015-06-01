@@ -117,7 +117,14 @@
     }
 
     .maps {
+        @stickMargin: 35px;
+
         padding: 0;
+
+        > .anchor {
+            margin-top: -@stickMargin;
+            margin-bottom: @stickMargin;
+        }
 
         #mapa {
             display: block;
@@ -127,7 +134,7 @@
 
         #map_cont.stick {
             position: fixed;
-            top: 35px;
+            top: @stickMargin;
         }
     }
 }

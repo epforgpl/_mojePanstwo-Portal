@@ -1,67 +1,73 @@
 .dataAggs {
-	.wykonawcy {
-		> li {
-			list-style: none;
+    .wykonawcy {
+        > li {
+            list-style: none;
             margin: 0 0 10px;
-			padding: 0;
-			border-bottom: 1px solid #DDD;
-			
-			&:last-child {
-				border-bottom: none;
-			}
+            padding: 0;
+            border-bottom: 1px solid #DDD;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            > .nazwa {
+                padding-right: 5px;
+            }
+            > .cena {
+                color: #282;
+            }
 
             header {
-				font-weight: normal;
-			    overflow: auto;
+                font-weight: normal;
+                overflow: auto;
                 font-size: 16px;
-			    margin-bottom: 5px;
-			    
-			    &.smaller {
-				    font-size: 16px;
-			    }
-			    
-			    .cena {
-				    color: green;
-			    }
-			    
-			}
-			
-			.stats {
-				color: #666;
+                margin-bottom: 5px;
+
+                &.smaller {
+                    font-size: 16px;
+                }
+
+                .cena {
+                    color: green;
+                }
+
+            }
+
+            .stats {
+                color: #666;
                 font-size: 14px;
                 font-style: italic;
 
-				strong {
-					font-weight: normal;
-				}
-		    }
-			
-			.dataobjects {
-				padding: 0 15px;
-				
-				&.smaller {
-					.objectRender .title {
-						font-size: 14px;
-					}
-				}
-				
-				.objectRender .title {
-					
-					a {
-						color: #545454;
-						&:hover {
-							color: #2a6496;
-						}
-					}
-					
-					
-				}
-				
-				.meta.meta-desc {
-					color: green;
-				}
-			}
-		}
-		
-	}
+                strong {
+                    font-weight: normal;
+                }
+            }
+
+            .dataobjects {
+                padding: 0 15px;
+
+                &.smaller {
+                    .objectRender .title {
+                        font-size: 14px;
+                    }
+                }
+
+                .objectRender .title {
+
+                    a {
+                        color: #545454;
+                        &:hover {
+                            color: #2a6496;
+                        }
+                    }
+
+                }
+
+                .meta.meta-desc {
+                    color: green;
+                }
+            }
+        }
+
+    }
 }

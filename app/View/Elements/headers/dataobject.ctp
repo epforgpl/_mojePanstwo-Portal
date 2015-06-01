@@ -14,22 +14,26 @@ if (!isset($renderFile) || !$renderFile)
         <div class="holder row">
             <div class="col-md-10">
                 <? if (isset($treeList)) { ?>
+                    <ul class="breadcrumb">
+                        <?php foreach ($_breadcrumbs as $bread) { ?>
+                            <li><a href="<?= $bread['href'] ?>" target="_self"><?= $bread['label'] ?></a></li>
+                        <? } ?>
+                    </ul>
                     <ul class="breadcrumb tree">
                         <li>
-                            <h1 class="title">
-                                <?php foreach ($_breadcrumbs as $bread) { ?>
-                                    <a href="<?= $bread['href'] ?>" target="_self"><?= $bread['label'] ?></a>
-                                <? } ?>
-                            </h1>
+                            <a href="/bdl/#kategoria_id=<?php echo $object->getData('bdl_wskazniki.kategoria_id') ?>">
+                                <?= $object->getData('bdl_wskazniki.kategoria_tytul'); ?>
+                            </a>
                             <ul>
                                 <li class="e">
-                                    <?= $object->getData('bdl_wskazniki.kategoria_tytul'); ?>
+                                    <a href="/bdl/#kategoria_id=<?php echo $object->getData('bdl_wskazniki.kategoria_id') ?>&grupa_id=<?= $object->getData('bdl_wskazniki.grupa_id'); ?>">
+                                        <?= $object->getData('bdl_wskazniki.grupa_tytul'); ?>
+                                    </a>
                                     <ul>
-                                        <li class="e">
-                                            <?= $object->getData('bdl_wskazniki.grupa_tytul'); ?>
-                                            <ul>
-                                                <li class="e"><?= $object->getData('bdl_wskazniki.tytul'); ?></li>
-                                            </ul>
+                                        <li class="e h2">
+                                            <a href="<?php echo $object->getUrl() ?>">
+                                                <?= $object->getData('bdl_wskazniki.tytul'); ?>
+                                            </a>
                                         </li>
                                     </ul>
                                 </li>
