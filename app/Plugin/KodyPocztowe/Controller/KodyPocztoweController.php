@@ -15,6 +15,11 @@ class KodyPocztoweController extends ApplicationsController
 		// 'headerImg' => 'prawo',
 	);
 	
+	public function getMenu()
+	{
+		return false;
+	}
+	
     public function index()
     {
 
@@ -29,24 +34,16 @@ class KodyPocztoweController extends ApplicationsController
 
         if ($kod) {
 	        
-	        $code = $this->Dataobject->find('first', array(
+	        $code = $this->Dataobject->find('all', array(
 		        'conditions' => array(
 			        'dataset' => 'kody_pocztowe',
 			        'kody_pocztowe.kod' => $kod,
 		        ),
 	        ));
 
-            debug($code); die();
 	        
-            $code = $this->API->searchCode($kod);
-
-            if ($code && $code['object_id']) {
-                $this->redirect(array(
-                    'plugin' => 'Dane',
-                    'controller' => 'kody_pocztowe',
-                    'action' => 'view',
-                    'id' => $code['object_id']
-                ));
+            if ($code && $code[0]) {
+                return $this->redirect('/dane/kody_pocztowe/' . $code[0]->getId());
             } else {
                 $this->Session->setFlash('Podany kod pocztowy nie zostały odnaleziony');
             }

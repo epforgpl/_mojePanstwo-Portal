@@ -276,6 +276,7 @@ class AppController extends Controller
         'kto_tu_rzadzi' => array(
             'instytucje' => array(
             	'label' => 'Instytucje',
+				'menu_id' => 'instytucje',
             ),
         ),
     );

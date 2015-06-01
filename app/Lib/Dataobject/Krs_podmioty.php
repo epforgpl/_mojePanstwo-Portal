@@ -91,4 +91,13 @@ class Krs_podmioty extends DataObject
 		
 	}
 	
+	public function getDescription() {
+		
+		if( $this->getData('cel_dzialania') )
+			return substr($this->getData('cel_dzialania'), 0, 100) . '...';
+		else
+			return false;
+		
+	}
+	
 }

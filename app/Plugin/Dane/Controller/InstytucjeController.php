@@ -295,6 +295,7 @@ class InstytucjeController extends DataobjectsController
 
         $menu = array(
             'items' => array(),
+            'base' => $this->object->getUrl(),
         );
 
         $menu['items'][] = array(

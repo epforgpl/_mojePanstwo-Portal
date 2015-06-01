@@ -463,21 +463,6 @@ class MediaController extends ApplicationsController
         $this->set('range', $range);
         $this->set('ranks', $ranks);
     }
-    
-    public function tweets()
-    {
-	    if( !isset($this->request->query['conditions']['twitter.konto_obserwowane']) )
-	    	$this->request->query['conditions']['twitter.konto_obserwowane'] = '1';
-	    
-	    $this->title = "Tweety - Media";
-        $this->loadDatasetBrowser('twitter');
-    }
-
-    public function twitter_accounts()
-    {
-	    $this->title = "Konta Twitter - Media";
-        $this->loadDatasetBrowser('twitter_accounts');
-    }
 
     public function media_2013()
     {

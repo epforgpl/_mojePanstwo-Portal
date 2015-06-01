@@ -99,9 +99,7 @@ class mpAPISource extends DataSource {
     public function read(Model $model, $queryData = array(), $recursive = null) {
 	   	
 	   $method = 'GET';	
-	   
-	   	// debug($queryData); die();
-	   	         
+	   	   	         
         /**
          * Here we do the actual count as instructed by our calculate()
          * method above. We could either check the remote source or some

@@ -58,7 +58,7 @@ var DataBrowser = Class.extend({
 	},
 	
 	initAggPieChart: function(li) {
-				
+						
 		li = $(li);
 		var data = $.parseJSON(li.attr('data-chart'));
 		var pie_chart_data = [];
@@ -71,9 +71,7 @@ var DataBrowser = Class.extend({
         } catch(err) {
 	        chart_options = false;
         }
-        	
-        console.log('data', data);
-        	
+        	        	
         for(var i = 0; i < data.buckets.length; i++) {
             
             var label = ( typeof data.buckets[i].label.buckets[0] == 'undefined' ) ? '' : data.buckets[i].label.buckets[0].key;
