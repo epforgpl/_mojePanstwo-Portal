@@ -210,51 +210,67 @@ class AppController extends Controller
         'sejmometr' => array(
             'poslowie' => array(
             	'label' => 'Posłowie',
+				'menu_id' => 'poslowie',
             ),
             'sejm_dezyderaty' => array(
             	'label' => 'Dezyderaty komisji',
+				'menu_id' => 'dezyderaty',
             ),
             'sejm_druki' => array(
             	'label' => 'Druki sejmowe',
+				'menu_id' => 'druki',
             ),
             'sejm_glosowania' => array(
             	'label' => 'Głosowania',
+				'menu_id' => 'glosowania',
             ),
             'sejm_interpelacje' => array(
             	'label' => 'Interpelacje',
+				'menu_id' => 'interpelacje',
             ),
             'sejm_kluby' => array(
             	'label' => 'Kluby sejmowe',
+				'menu_id' => 'kluby',
             ),
             'sejm_komisje' => array(
             	'label' => 'Komisje sejmowe',
+				'menu_id' => 'komisje',
             ),
             'sejm_komunikaty' => array(
             	'label' => 'Komunikaty Kancelarii Sejmu',
+				'menu_id' => 'komunikaty',
             ),
             'sejm_posiedzenia' => array(
             	'label' => 'Posiedzenia Sejmu',
+				'menu_id' => 'posiedzenia',
             ),
             'sejm_posiedzenia_punkty' => array(
             	'label' => 'Punkty porządku dziennego',
+				'menu_id' => 'punkty',
             ),
             'sejm_wystapienia' => array(
             	'label' => 'Wystąpienia podczas posiedzeń Sejmu',
+				'menu_id' => 'wystapienia',
             ),
             'sejm_komisje_opinie' => array(
             	'label' => 'Opinie komisji sejmowych',
+				'menu_id' => 'komisje_opinie',
             ),
             'sejm_komisje_uchwaly' => array(
             	'label' => 'Uchwały komisji sejmowych',
+				'menu_id' => 'komisje_uchwaly',
             ),
             'poslowie_oswiadczenia_majatkowe' => array(
             	'label' => 'Oświadczenia majątkowe posłów',
+				'menu_id' => 'poslowie_oswiadczenia',
             ),
             'poslowie_rejestr_korzysci' => array(
             	'label' => 'Rejestr korzyści posłów',
+				'menu_id' => 'poslowie_korzysci',
             ),
             'poslowie_wspolpracownicy' => array(
             	'label' => 'Współpracownicy posłów',
+				'menu_id' => 'poslowie_wspolpracownicy',
             ),
         ),
         'kto_tu_rzadzi' => array(
