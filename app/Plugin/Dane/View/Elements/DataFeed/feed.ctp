@@ -38,6 +38,8 @@ if( $show ) {
             </div>
         </div>
     </div>
+    
+    <? /*
     <div class="dataActions">
         
         
@@ -121,6 +123,7 @@ if( $show ) {
             </div>
         </div>
     </div>
+    */ ?>
     <div class="dataObjects">
         <div class="innerContainer update-objects">
             <?

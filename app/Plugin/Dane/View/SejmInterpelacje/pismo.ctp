@@ -9,7 +9,13 @@
 )) ?>
 
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+	    <div class="col-md-3 dataFeed">
+		    
+		    <div class="object">
+                <? echo $this->Element('Dane.DataFeed/feed-min'); ?>
+	        </div>
+		    
+	    </div><div class="col-md-9">
 
             <?
             if ( !($pismo->getLayer('teksty')) && $pismo->getData('dokument_id')) {

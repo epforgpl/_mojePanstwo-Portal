@@ -30,7 +30,7 @@ class SejmInterpelacjeController extends DataobjectsController
     public function pismo()
     {
 
-        parent::view();        
+        $this->load();        
 
         if (
             ( $pismo_id = @$this->request->params['subid'] ) && 
@@ -42,6 +42,13 @@ class SejmInterpelacjeController extends DataobjectsController
 	            'layers' => array('teksty'),
             )) )
         ) {
+			
+			$params = array(
+	            'feed' => $this->object->getDataset() . '/' . $this->object->getId(),
+	            'preset' => $this->object->getDataset(),
+	            'mode' => 'min',
+	        );
+            $this->Components->load('Dane.DataFeed', $params);   
 
             $this->set('pismo', $pismo);
 
