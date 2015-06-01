@@ -118,40 +118,35 @@ class SejmPosiedzeniaController extends DataobjectsController
         */
     );
 
-
-    public function beforeRender()
+	
+    public function getMenu()
     {
 
         // PREPARE MENU
-        $href_base = '/dane/sejm_posiedzenia/' . $this->request->params['id'] . '/';
 
         $menu = array(
             'items' => array(
                 array(
                     'id' => '',
-                    'href' => $href_base,
                     'label' => 'Rozpatrywane projekty',
                 ),
                 array(
                     'id' => 'punkty',
-                    'href' => $href_base . 'punkty',
                     'label' => 'Punkty porządku dziennego',
                 ),
                 array(
                     'id' => 'wystapienia',
-                    'href' => $href_base . 'wystapienia',
                     'label' => 'Wystąpienia',
                 ),
                 array(
                     'id' => 'glosowania',
-                    'href' => $href_base . 'glosowania',
                     'label' => 'Głosowania',
                 ),
             ),
-            'selected' => ($this->request->params['action'] == 'view') ? '' : $this->request->params['action'],
+            'base' => $this->object->getUrl(),
         );
 
-        $this->set('_menu', $menu);
+        return $menu;
 
     }
 
@@ -166,46 +161,46 @@ class SejmPosiedzeniaController extends DataobjectsController
 
     public function punkty()
     {
-
-        parent::view();
-
-        $this->API->searchDataset('sejm_posiedzenia_punkty', array(
-            'limit' => 100,
+		
+		parent::load();
+        $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-                'posiedzenie_id' => $this->object->getId(),
+                'dataset' => 'sejm_posiedzenia_punkty',
+                'sejm_posiedzenia_punkty.posiedzenie_id' => $this->object->getId(),
             ),
-            'order' => 'numer asc',
         ));
-        $this->set('punkty', $this->API->getObjects());
+
+        $this->set('title_for_layout', "Punkty porządku dziennego | " . $this->object->getTitle());
 
     }
-
-    public function wystapienia()
+	
+	public function wystapienia()
     {
-
-        parent::view();
-        $this->dataobjectsBrowserView(array(
-            'source' => 'sejm_posiedzenia.wystapienia:' . $this->object->getId(),
-            'dataset' => 'sejm_wystapienia',
-            'title' => 'Wystąpienia',
-            'noResultsTitle' => 'Brak wystąpień',
-            'order' => 'kolejnosc asc',
+		
+		parent::load();
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+                'dataset' => 'sejm_wystapienia',
+                'sejm_wystapienia.posiedzenie_id' => $this->object->getId(),
+            ),
         ));
+
+        $this->set('title_for_layout', "Wystąpienia | " . $this->object->getTitle());
 
     }
-
-    public function glosowania()
+	
+	public function glosowania()
     {
-
-        parent::view();
-        $this->dataobjectsBrowserView(array(
-            'source' => 'sejm_posiedzenia.glosowania:' . $this->object->getId(),
-            'dataset' => 'sejm_glosowania',
-            'title' => 'Głosowania',
-            'noResultsTitle' => 'Brak głosowań',
-            'order' => 'numer asc',
-            'hlFields' => array('numer', 'wynik_id'),
+		
+		parent::load();
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+                'dataset' => 'sejm_glosowania',
+                'sejm_glosowania.posiedzenie_id' => $this->object->getId(),
+            ),
         ));
+
+        $this->set('title_for_layout', "Głosowania | " . $this->object->getTitle());
 
     }
 

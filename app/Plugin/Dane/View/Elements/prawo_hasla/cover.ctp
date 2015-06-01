@@ -35,8 +35,8 @@ $options = array(
         </section>
         <footer>
             <div class="buttons text-center">
-                <a href="<?= $object->getUrl() ?>/posiedzenia" class="btn btn-primary btn-sm">Więcej
-                    posiedzeń</a>
+                <a href="<?= $object->getUrl() ?>/akty?conditions[prawo.typ_id]=1" class="btn btn-primary btn-sm">Więcej
+                    ustaw</a>
             </div>
         </footer>
     </div>
@@ -66,8 +66,8 @@ $options = array(
         </section>
         <footer>
             <div class="buttons text-center">
-                <a href="<?= $object->getUrl() ?>/posiedzenia" class="btn btn-primary btn-sm">Więcej
-                    posiedzeń</a>
+                <a href="<?= $object->getUrl() ?>/akty?conditions[prawo.typ_id]=3" class="btn btn-primary btn-sm">Więcej
+                    rozporządzeń</a>
             </div>
         </footer>
     </div>
@@ -97,8 +97,7 @@ $options = array(
         </section>
         <footer>
             <div class="buttons text-center">
-                <a href="<?= $object->getUrl() ?>/posiedzenia" class="btn btn-primary btn-sm">Więcej
-                    posiedzeń</a>
+                <a href="<?= $object->getUrl() ?>/akty" class="btn btn-primary btn-sm">Wszystkie akty prawne</a>
             </div>
         </footer>
     </div>

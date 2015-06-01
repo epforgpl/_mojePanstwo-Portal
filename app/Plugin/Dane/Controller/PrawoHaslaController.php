@@ -117,5 +117,20 @@ class PrawoHaslaController extends DataobjectsController
         return $menu;
 	    
     }
+    
+    public function akty()
+    {
+		
+		parent::load();
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+                'dataset' => 'prawo',
+                'prawo.haslo_id' => $this->object->getId(),
+            ),
+        ));
+
+        $this->set('title_for_layout', "Akty prawne dla tematu " . $this->object->getTitle());
+
+    }
 
 } 

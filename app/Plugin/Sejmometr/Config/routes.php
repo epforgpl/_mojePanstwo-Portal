@@ -1,4 +1,4 @@
 <?
 
 Router::connect('/sejmometr', array('plugin' => 'Sejmometr', 'controller' => 'Sejmometr', 'action' => 'view'));
-Router::connect('/sejmometr/:action', array('plugin' => 'Sejmometr', 'controller' => 'Sejmometr'));
+Router::connect('/sejmometr/:id', array('plugin' => 'Sejmometr', 'controller' => 'Sejmometr', 'action' => 'action',));
