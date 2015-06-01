@@ -40,7 +40,7 @@
 
                     if ($m['id'] && ($m['id'] != 'view'))
                         $href .= '/' . $m['id'];
-                        
+                                        
                     ?>
                     <li class="<?= implode(' ', $classes) ?>">
                         <a <? if ($dropdown) {

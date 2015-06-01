@@ -34,25 +34,51 @@ class BdlController extends ApplicationsController
 	
     public function view()
     {
-        $this->setMenuSelected();
-        $this->loadDatasetBrowser('bdl_wskazniki');
-    }
-	
-	public function bdl()
-	{
-        $this->loadModel('Bdl.BDL');
-		$tree = $this->BDL->getTree();
-		$this->set('tree', $tree);
-	}
-	
-    public function bdl_kategorie()
-    {
-	    $this->loadDatasetBrowser('bdl_wskazniki_kategorie');
-    }
+        $datasets = $this->getDatasets('bdl');
+        
+        $options  = array(
+            'searchTitle' => 'Szukaj w Banku Danych Lokalnych...',
+            'conditions' => array(
+	            'dataset' => array_keys( $datasets )
+            ),
+            'cover' => array(
+	            'view' => array(
+		            'plugin' => 'Bdl',
+		            'element' => 'cover',
+	            ),
+	            'aggs' => array(),
+            ),
+            'aggs' => array(
+		        'dataset' => array(
+		            'terms' => array(
+			            'field' => 'dataset',
+		            ),
+		            'visual' => array(
+			            'label' => 'Zbiory danych',
+			            'skin' => 'datasets',
+			            'class' => 'special',
+		                'field' => 'dataset',
+		                'dictionary' => $datasets,
+		            ),
+		        ),
+            ),
+        );
 
-    public function bdl_grupy()
-    {
-        $this->loadDatasetBrowser('bdl_wskazniki_grupy');
+		if( !isset($this->request->query['q']) || empty($this->request->query['q']) ) {
+	        
+	        $tree = Cache::read('BDL.tree', 'long');
+	        if (!$tree) {
+	            $this->loadModel('Bdl.BDL');
+				$tree = $this->BDL->getTree();
+	            Cache::write('BDL.tree', $tree, 'long');
+	        }	        
+			$this->set('tree', $tree);
+			
+        }
+		
+	    $this->Components->load('Dane.DataBrowser', $options);
+        $this->render('Dane.Elements/DataBrowser/browser-from-app');        
+        
     }
 
 } 

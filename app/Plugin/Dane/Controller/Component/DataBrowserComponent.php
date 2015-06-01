@@ -957,6 +957,12 @@ class DataBrowserComponent extends Component {
 			    
 			    if( isset( $this->cover['aggs'] ) )
 			    	$params['aggs'] = $this->cover['aggs'];
+			    	
+			    if( isset( $this->cover['conditions'] ) ) {
+				    
+				    $params['conditions'] = array_merge($params['conditions'], $this->cover['conditions']);
+				    
+			    }
 		    	
 			    $controller->Dataobject->find('all', $params);
 			    

@@ -19,7 +19,7 @@ $this->Combinator->add_libs('js', 'graph-krs');
 ?>
 
     <div class="krsPodmioty">
-        <div class="col-md-8 objectMain">
+        <div class="col-md-9 objectMain">
             <div class="object">
                 <? if ($object->getData('wykreslony')) { ?>
                     <div class="alert alert-dismissable alert-danger">

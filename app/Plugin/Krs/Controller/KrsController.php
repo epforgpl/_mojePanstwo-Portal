@@ -11,24 +11,6 @@ class KrsController extends ApplicationsController
 		'headerImg' => 'krs',
 	);
 	
-	public $appDatasets = array(
-		'organizacje' => array(
-			'dataset' => 'krs_podmioty',
-			'label' => 'Organizacje',
-			'searchTitle' => 'Szukaj organizacji...',
-		),
-		'osoby' => array(
-			'dataset' => 'krs_osoby',
-			'label' => 'Osoby',
-			'searchTitle' => 'Szukaj osób...',
-		),
-		'msig' => array(
-			'dataset' => 'msig',
-			'label' => 'Monitor Sądowy i Gospodarczy',
-			'searchTitle' => 'Szukaj w Monitorze Sądowym i Gospodarczym',
-		),
-	);
-	
 	public $mainMenuLabel = 'Przeglądaj';
 
     public function prepareMetaTags() {
@@ -43,6 +25,9 @@ class KrsController extends ApplicationsController
 
         $options  = array(
             'searchTitle' => 'Szukaj organizacji i osób...',
+            'autocompletion' => array(
+	            'dataset' => 'krs_podmioty,krs_osoby',
+            ),
             'conditions' => array(
 	            'dataset' => array_keys( $datasets )
             ),

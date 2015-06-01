@@ -11,29 +11,6 @@ class PrawoController extends ApplicationsController
 		'headerImg' => 'prawo',
 	);
 	
-	public $appDatasets = array(
-		'powszechne' => array(
-			'dataset' => 'prawo',
-			'label' => 'Prawo powszechne',
-			'searchTitle' => 'Szukaj w prawie powszechnym...',
-		),
-		'lokalne' => array(
-			'dataset' => 'prawo_wojewodztwa',
-			'label' => 'Prawo lokalne',
-			'searchTitle' => 'Szukaj w prawie lokalnym...',
-		),
-		'urzedowe' => array(
-			'dataset' => 'prawo_urzedowe',
-			'label' => 'Prawo urzędowe',
-			'searchTitle' => 'Szukaj w prawie urzędowym...',
-		),
-		'tematy' => array(
-			'dataset' => 'prawo_hasla',
-			'label' => 'Tematy',
-			'searchTitle' => 'Szukaj w tematach...',
-		),
-	);
-
     public function prepareMetaTags() {
         parent::prepareMetaTags();
         $this->setMeta('og:image', FULL_BASE_URL . '/prawo/img/social/prawo.jpg');
@@ -48,7 +25,7 @@ class PrawoController extends ApplicationsController
         $options  = array(
             'searchTitle' => 'Szukaj w prawie...',
             'autocompletion' => array(
-	            'dataset' => implode(',', $_datasets),
+	            'dataset' => 'prawo,prawo_hasla',
             ),
             'conditions' => array(
 	            'dataset' => $_datasets,

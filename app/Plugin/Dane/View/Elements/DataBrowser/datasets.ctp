@@ -2,14 +2,14 @@
         
     <? if($data['buckets']) {?>
 	    <ul class="nav nav-pills nav-stacked">
-		    <? foreach($data['buckets'] as $b) {?>
+		    <? foreach($data['buckets'] as $b) { ?>
 			<li>
 				<?
-										
-					if( is_array($b['label']['buckets'][0]['key']) ) {
+													
+					if( is_array($b['label']['buckets'][0]['key']['label']) ) {
 						
-						$href = $b['label']['buckets'][0]['key'][0];
-						$label = $b['label']['buckets'][0]['key'][1];
+						$href = $b['label']['buckets'][0]['key']['label'][0];
+						$label = $b['label']['buckets'][0]['key']['label'][1];
 						
 						if( isset($object) ) {
 							$href = $object->getUrl() . '/' . $href;
@@ -18,7 +18,7 @@
 					} else {
 						
 						$href = '/dane/' . $b['key'];
-						$label = $b['label']['buckets'][0]['key'];
+						$label = $b['label']['buckets'][0]['key']['label'];
 						
 					}
 					

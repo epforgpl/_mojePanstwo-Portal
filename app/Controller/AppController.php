@@ -111,61 +111,156 @@ class AppController extends Controller
             'element' => 'default',
         ),
     );
-
-    private $datasets = array(
+	
+    public $datasets = array(
         'krs' => array(
-            'krs_podmioty' => 'Organizacje',
-            'krs_osoby' => 'Osoby',
+            'krs_podmioty' => array(
+            	'label' => 'Organizacje',
+				'searchTitle' => 'Szukaj organizacji...',
+				'menu_id' => 'organizacje',
+            ),
+            'krs_osoby' => array(
+            	'label' => 'Osoby',
+				'searchTitle' => 'Szukaj osób...',
+				'menu_id' => 'osoby',
+            ),
+            'msig' => array(
+            	'label' => 'Monitor Sądowy i Gospodarczy',
+				'searchTitle' => 'Szukaj w Monitorze Sądowym i Gospodarczym',
+				'menu_id' => 'msig',
+            ),
         ),
         'bdl' => array(
-            'bdl_wskazniki' => 'Wskaźniki'
+            'bdl_wskazniki' => array(
+            	'label' => 'Wskaźniki'
+            ),
         ),
         'prawo' => array(
-            'prawo' => 'Prawo powszechne',
-            'prawo_wojewodztwa' => 'Prawo lokalne',
-            'prawo_urzedowe' => 'Prawo urzędowe',
-            'prawo_hasla' => 'Tematy w prawie',
-        ),
+            'prawo' => array(
+            	'label' => 'Prawo powszechne',
+				'searchTitle' => 'Szukaj w prawie powszechnym...',
+				'menu_id' => 'powszechne',
+            ),
+            'prawo_wojewodztwa' => array(
+            	'label' => 'Prawo lokalne',
+				'searchTitle' => 'Szukaj w prawie lokalnym...',
+				'menu_id' => 'lokalne',
+            ),
+            'prawo_urzedowe' => array(
+            	'label' => 'Prawo urzędowe',
+				'searchTitle' => 'Szukaj w prawie urzędowym...',
+				'menu_id' => 'urzedowe',
+            ),
+            'prawo_hasla' => array(
+            	'label' => 'Tematy w prawie',
+				'searchTitle' => 'Szukaj w tematach...',
+				'menu_id' => 'tematy',
+            ),
+        ),  
         'orzecznictwo' => array(
-            'sa_orzeczenia' => 'Orzeczenia sądów administracyjnych',
-            'sp_orzeczenia' => 'Orzeczenia sądów powszechnych',
-            'sn_orzeczenia' => 'Orzeczenia Sądu Najwyższego',
+            'sa_orzeczenia' => array(
+            	'label' => 'Orzeczenia sądów administracyjnych',
+				'searchTitle' => 'Szukaj w orzeczeniach sądów administracyjnych...',
+				'menu_id' => 'sa',
+            ),
+            'sp_orzeczenia' => array(
+            	'label' => 'Orzeczenia sądów powszechnych',
+				'searchTitle' => 'Szukaj w orzeczeniach sądów powszechnych...',
+				'menu_id' => 'sp',
+           ),
+            'sn_orzeczenia' => array(
+            	'label' => 'Orzeczenia Sądu Najwyższego',
+				'searchTitle' => 'Szukaj w orzeczeniach Sądu Najwyższego...',
+				'menu_id' => 'sn',
+            ),
         ),
         'ngo' => array(
         ),
         'zamowienia_publiczne' => array(
-            'zamowienia_publiczne' => 'Zamówienia publiczne',
+            'zamowienia_publiczne' => array(
+            	'label' => 'Zamówienia publiczne',
+            ),
         ),
         'moja_gmina' => array(
-            'gminy' => 'Gminy',
-            'powiaty' => 'Powiaty',
-            'wojewodztwa' => 'Województwa',
-            'miejscowosci' => 'Miejscowosci',
+            'gminy' => array(
+            	'label' => 'Gminy',
+            ),
+            'powiaty' => array(
+            	'label' => 'Powiaty',
+            ),
+            'wojewodztwa' => array(
+            	'label' => 'Województwa',
+            ),
+            'miejscowosci' => array(
+            	'label' => 'Miejscowosci',
+            ),
         ),
         'media' => array(
-            'twitter' => 'Tweety',
-            'twitter_accounts' => 'Konta na Twitterze',
+            'twitter' => array(
+            	'label' => 'Tweety',
+				'searchTitle' => 'Szukaj w tweetach...',
+				'menu_id' => 'tweety',
+            ),
+            'twitter_accounts' => array(
+            	'label' => 'Konta na Twitterze',
+				'searchTitle' => 'Szukaj w kontach Twitter...',
+				'menu_id' => 'twitter_konta',
+            ),
         ),
         'sejmometr' => array(
-            'poslowie' => 'Posłowie',
-            'sejm_dezyderaty' => 'Dezyderaty komisji',
-            'sejm_druki' => 'Druki sejmowe',
-            'sejm_glosowania' => 'Głosowania',
-            'sejm_interpelacje' => 'Interpelacje',
-            'sejm_kluby' => 'Kluby sejmowe',
-            'sejm_komisje' => 'Komisje sejmowe',
-            'sejm_komunikaty' => 'Komunikaty Kancelarii Sejmu',
-            'sejm_posiedzenia' => 'Posiedzenia Sejmu',
-            'sejm_posiedzenia_punkty' => 'Punkty porządku dziennego',
-            'sejm_wystapienia' => 'Wystąpienia podczas posiedzeń Sejmu',
-            'sejm_komisje_opinie' => 'Opinie komisji sejmowych',
-            'sejm_komisje_uchwaly' => 'Uchwały komisji sejmowych',
-            'poslowie_oswiadczenia_majatkowe' => 'Oświadczenia majątkowe posłów',
-            'poslowie_rejestr_korzysci' => 'Rejestr korzyści posłów',
-            'poslowie_wspolpracownicy' => 'Współpracownicy posłów',
+            'poslowie' => array(
+            	'label' => 'Posłowie',
+            ),
+            'sejm_dezyderaty' => array(
+            	'label' => 'Dezyderaty komisji',
+            ),
+            'sejm_druki' => array(
+            	'label' => 'Druki sejmowe',
+            ),
+            'sejm_glosowania' => array(
+            	'label' => 'Głosowania',
+            ),
+            'sejm_interpelacje' => array(
+            	'label' => 'Interpelacje',
+            ),
+            'sejm_kluby' => array(
+            	'label' => 'Kluby sejmowe',
+            ),
+            'sejm_komisje' => array(
+            	'label' => 'Komisje sejmowe',
+            ),
+            'sejm_komunikaty' => array(
+            	'label' => 'Komunikaty Kancelarii Sejmu',
+            ),
+            'sejm_posiedzenia' => array(
+            	'label' => 'Posiedzenia Sejmu',
+            ),
+            'sejm_posiedzenia_punkty' => array(
+            	'label' => 'Punkty porządku dziennego',
+            ),
+            'sejm_wystapienia' => array(
+            	'label' => 'Wystąpienia podczas posiedzeń Sejmu',
+            ),
+            'sejm_komisje_opinie' => array(
+            	'label' => 'Opinie komisji sejmowych',
+            ),
+            'sejm_komisje_uchwaly' => array(
+            	'label' => 'Uchwały komisji sejmowych',
+            ),
+            'poslowie_oswiadczenia_majatkowe' => array(
+            	'label' => 'Oświadczenia majątkowe posłów',
+            ),
+            'poslowie_rejestr_korzysci' => array(
+            	'label' => 'Rejestr korzyści posłów',
+            ),
+            'poslowie_wspolpracownicy' => array(
+            	'label' => 'Współpracownicy posłów',
+            ),
         ),
         'kto_tu_rzadzi' => array(
-            'instytucje' => 'Instytucje',
+            'instytucje' => array(
+            	'label' => 'Instytucje',
+            ),
         ),
     );
     private $applications = array(
@@ -528,10 +623,24 @@ class AppController extends Controller
         } else return false;
 
     }
+    
+    public function getDatasetByAlias($app_id = false, $alias = false)
+    {
+	    if( $app_id && $alias && array_key_exists($app_id, $this->datasets) ) {
+            foreach ($this->datasets[$app_id] as $dataset_id => $dataset_name) {
+                if (@$dataset_name['menu_id'] == $alias) {
+                    return array(
+                        'app_id' => $app_id,
+                        'dataset_id' => $dataset_id,
+                        'dataset_name' => $dataset_name,
+                    );
+                }
+            }
+	    }
+    }
 
     public function getDataset($id = false)
     {
-
         if ($id) {
             foreach ($this->datasets as $app_id => $datasets) {
                 foreach ($datasets as $dataset_id => $dataset_name) {
@@ -545,9 +654,7 @@ class AppController extends Controller
                 }
             }
         }
-
         return false;
-
     }
 
     public function beforeRender()

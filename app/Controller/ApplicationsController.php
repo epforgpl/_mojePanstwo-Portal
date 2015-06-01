@@ -116,22 +116,21 @@ class ApplicationsController extends AppController
     
     public function action()
     {
-	    
+	    	        
 	    if( 
-	    	isset($this->request->params['id']) && 
-	    	array_key_exists($this->request->params['id'], $this->appDatasets) && 
-	    	( $data = $this->appDatasets[$this->request->params['id']] )
+	    	isset($this->request->params['id']) && 	    	
+	    	( $data = $this->getDatasetByAlias(@$this->settings['id'], $this->request->params['id']) )
 	    ) {
-		    
+		    		    
 			$fields = array('searchTitle', 'order');
 			$params = array();
 			
 			foreach( $fields as $field )
-				if( isset($data[ $field ]) )
-					$params[ $field ] = $data[ $field ];
+				if( isset($data['dataset_name'][ $field ]) )
+					$params[ $field ] = $data['dataset_name'][ $field ];
 			
 			$this->menu_selected = $this->request->params['id'];
-	        $this->loadDatasetBrowser($data['dataset'], $params);
+	        $this->loadDatasetBrowser($data['dataset_id'], $params);
 		    
 	    }
 	    	    
@@ -149,12 +148,17 @@ class ApplicationsController extends AppController
 			'label' => $this->mainMenuLabel,
 		);
 		
-		if( !empty($this->appDatasets) ) 
-			foreach( $this->appDatasets as $dataset => $params )
+		if( array_key_exists($this->settings['id'], $this->datasets) ) {
+			foreach($this->datasets[ $this->settings['id'] ] as $dataset => $params) {
+				
+				if( @$params['menu_id'] )
 				$menu['items'][] = array(
-					'id' => $dataset,
+					'id' => $params['menu_id'],
 					'label' => $params['label'],
 				);
+				
+			}
+		}				
 				
 		return $menu;
 

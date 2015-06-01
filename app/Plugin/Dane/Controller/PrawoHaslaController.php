@@ -14,32 +14,108 @@ class PrawoHaslaController extends DataobjectsController
     public function view()
     {
 		
-		$this->addInitLayers('tags');		
-        $this->feed();
+        $this->_prepareView();
 
-    }
-
-    public function beforeRender()
-    {
-
-		parent::beforeRender();
-
-        // PREPARE MENU
-        $href_base = '/dane/prawo_hasla/' . $this->request->params['id'];
-
-        $menu = array(
-            'items' => array(
-                array(
-                    'id' => '',
-                    'href' => $href_base,
-                    'label' => 'Aktualności',
-                    'icon' => 'glyphicon glyphicon-feed',
+        $options = array(
+            'searchTitle' => 'Szukaj w temacie...',
+            'conditions' => array(
+	            // 'dataset' => 'prawo',
+                '_feed' => array(
+	                'dataset' => 'prawo_hasla',
+	                'object_id' => $this->object->getId(),
                 ),
-            )
+            ),
+            'cover' => array(
+                'view' => array(
+                    'plugin' => 'Dane',
+                    'element' => 'prawo_hasla/cover',
+                ),
+                'conditions' => array(
+	                'q' => $this->object->getTitle(),
+                ),
+                'aggs' => array(
+                    'ustawy' => array(
+	                    'filter' => array(
+		                    'term' => array(
+			                    'data.prawo.typ_id' => '1',
+		                    ),
+	                    ),
+	                    'aggs' => array(
+		                    'top' => array(
+			                    'top_hits' => array(
+				                    'size' => 3,
+				                    'fielddata_fields' => array('dataset', 'id'),
+				                    '_source' => 'data.*',
+			                    ),
+		                    ),
+	                    ),
+                    ),
+                    'rozporzadzenia' => array(
+	                    'filter' => array(
+		                    'term' => array(
+			                    'data.prawo.typ_id' => '3',
+		                    ),
+	                    ),
+	                    'aggs' => array(
+		                    'top' => array(
+			                    'top_hits' => array(
+				                    'size' => 3,
+				                    'fielddata_fields' => array('dataset', 'id'),
+				                    '_source' => 'data.*',
+			                    ),
+		                    ),
+	                    ),
+                    ),
+                    'inne' => array(
+	                    'filter' => array(
+		                    'bool' => array(
+			                    'must_not' => array(
+				                    array(
+					                    'term' => array('data.prawo.typ_id' => '1'),
+				                    ),
+				                    array(
+					                    'term' => array('data.prawo.typ_id' => '3'),
+				                    ),
+			                    ),
+		                    ),
+	                    ),
+	                    'aggs' => array(
+		                    'top' => array(
+			                    'top_hits' => array(
+				                    'size' => 3,
+				                    'fielddata_fields' => array('dataset', 'id'),
+				                    '_source' => 'data.*',
+			                    ),
+		                    ),
+	                    ),
+                    ),
+                ),
+            ),
         );
 
-        $menu['selected'] = ($this->request->params['action'] == 'view') ? '' : $this->request->params['action'];
-        $this->set('_menu', $menu);
+        $this->Components->load('Dane.DataBrowser', $options);
 
     }
+    
+    public function getMenu()
+    {
+	    
+	    $menu = array(
+            'items' => array(),
+            'base' => $this->object->getUrl(),
+        );
+
+        $menu['items'][] = array(
+            'label' => 'Temat',
+        );
+
+		$menu['items'][] = array(
+            'id' => 'akty',
+            'label' => 'Powiązane akty prawne',
+        );
+                
+        return $menu;
+	    
+    }
+
 } 

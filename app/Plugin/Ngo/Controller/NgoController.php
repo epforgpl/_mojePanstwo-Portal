@@ -9,25 +9,7 @@ class NgoController extends ApplicationsController
 		'title' => 'NGO',
 		'subtitle' => 'Organizacje pozarządowe w Polsce',
 		'headerImg' => 'ngo',
-	);
-	
-	public $appDatasets = array(
-		'sp' => array(
-			'dataset' => 'sp_orzeczenia',
-			'label' => 'Sądy powszechne',
-			'searchTitle' => 'Szukaj w orzeczeniach sądów powszechnych...',
-		),
-		'sa' => array(
-			'dataset' => 'sa_orzeczenia',
-			'label' => 'Sądy administracyjne',
-			'searchTitle' => 'Szukaj w orzeczeniach sądów administracyjnych...',
-		),
-		'sn' => array(
-			'dataset' => 'sn_orzeczenia',
-			'label' => 'Sąd Najwyższy',
-			'searchTitle' => 'Szukaj w orzeczeniach Sądu Najwyższego...',
-		),
-	);
+	);	
 
     public function prepareMetaTags() {
         parent::prepareMetaTags();
@@ -36,17 +18,15 @@ class NgoController extends ApplicationsController
 
     public function view()
     {
-	    
-	    $datasets = $this->getDatasets('prawo');
-	    $_datasets = array_keys($datasets);
-	    
+	    	    
         $options  = array(
             'searchTitle' => 'Szukaj organizacji pozarządowej...',
             'autocompletion' => array(
-	            'dataset' => implode(',', $_datasets),
+	            'dataset' => 'ngo',
             ),
             'conditions' => array(
-	            'dataset' => $_datasets,
+	            'dataset' => 'krs_podmioty',
+	            'krs_podmioty.forma_prawna_typ_id' => '2',
             ),
             'cover' => array(
 	            'view' => array(
@@ -54,6 +34,58 @@ class NgoController extends ApplicationsController
 		            'element' => 'cover',
 	            ),
 	            'aggs' => array(
+					'fundacje' => array(
+						'filter' => array(
+							'bool' => array(
+								'must' => array(
+									array(
+										'term' => array(
+											'data.krs_podmioty.forma_prawna_id' => '1',
+										),
+									),
+								),
+							),
+						),
+						'aggs' => array(
+							'top' => array(
+								'top_hits' => array(
+									'size' => 5,
+							        'fielddata_fields' => array('dataset', 'id'),
+									'sort' => array(
+										'date' => array(
+											'order' => 'desc',
+										),
+									),
+								),
+							),
+						),
+					),
+					'stowarzyszenia' => array(
+						'filter' => array(
+							'bool' => array(
+								'must' => array(
+									array(
+										'term' => array(
+											'data.krs_podmioty.forma_prawna_id' => '15',
+										),
+									),
+								),
+							),
+						),
+						'aggs' => array(
+							'top' => array(
+								'top_hits' => array(
+									'size' => 5,
+							        'fielddata_fields' => array('dataset', 'id'),
+									'sort' => array(
+										'date' => array(
+											'order' => 'desc',
+										),
+									),
+								),
+							),
+						),
+					),
 	            ),
             ),
             'aggs' => array(
@@ -66,7 +98,9 @@ class NgoController extends ApplicationsController
 			            'skin' => 'datasets',
 			            'class' => 'special',
 		                'field' => 'dataset',
-		                'dictionary' => $datasets,
+		                'dictionary' => array(
+			                'krs_podmioty' => 'Organizacje',
+		                ),
 		            ),
 		        ),
             ),

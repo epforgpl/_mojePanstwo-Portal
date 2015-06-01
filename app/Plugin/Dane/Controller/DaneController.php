@@ -67,6 +67,16 @@ class DaneController extends ApplicationsController
 	    	isset($this->request->params['id']) 
 	    ) {
 		    
+		    if(
+		    	( $dataset_info = $this->getDataset($this->request->params['id']) ) && 
+		    	@$dataset_info['dataset_name']['menu_id']
+		    ) {
+			    
+			    $url = '/' . $dataset_info['app_id'] . '/' . $dataset_info['dataset_name']['menu_id'] . '?' . http_build_query( $this->request->query );
+			    return $this->redirect($url);
+			    
+		    }
+		    
 			$fields = array('searchTitle', 'order');
 			$params = array();
 			
@@ -104,7 +114,7 @@ class DaneController extends ApplicationsController
 		) {
 			$menu['items'][] = array(
 				'id' => $dataset['dataset_id'],
-				'label' => $dataset['dataset_name'],
+				'label' => $dataset['dataset_name']['label'],
 			);
 			$this->menu_selected = $dataset['dataset_id'];
 		}

@@ -59,10 +59,14 @@ class Dataobject extends AppModel {
 	
 	public function suggest($q, $params = array()) {
 		
+		if( !isset($params['dataset']) )
+			$params['dataset'] = false;
+		
 		return $this->getDataSource()->request('dane/suggest', array(
 			'method' => 'GET',
 			'data' => array(
 				'q' => $q,
+				'dataset' => $params['dataset']
 			),
 		));
 		

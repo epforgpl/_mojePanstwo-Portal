@@ -6,198 +6,60 @@ class MediaController extends ApplicationsController
 {
     public $settings = array(
         'id' => 'media',
-        'menu' => array(
-            array(
-                'id' => '',
-                'label' => 'Start'
-            ),
-            array(
-                'id' => 'tweets',
-                'label' => 'Tweety'
-            ),
-            array(
-                'id' => 'twitter_accounts',
-                'label' => 'Obserwowane konta'
-            ),
-            array(
-                'id' => 'media_2013',
-                'label' => 'Media w 2013r.'
-            ),
-        ),
         'title' => 'Media',
         'subtitle' => 'Polityka w mediach społecznościowych',
         'headerImg' => 'media',
     );
 
-
     public function prepareMetaTags() {
         parent::prepareMetaTags();
         $this->setMeta('og:image', FULL_BASE_URL . '/media/img/social/media.jpg');
     }
+    	
+	public $mainMenuLabel = 'Analiza';
 	
 	public function view() {
 		
-		$datasets = $this->getDatasets('media');
-	    
-        $options  = array(
-            'searchTitle' => 'Szukaj w tweetach i kontach twitter...',
-            'conditions' => array(
-	            'dataset' => array_keys($datasets),
-            ),
-            'cover' => array(
-	            'view' => array(
-		            'plugin' => 'Media',
-		            'element' => 'cover',
+		if( isset($this->request->query['q']) && $this->request->query['q'] ) {
+		
+			$datasets = $this->getDatasets('media');
+		    
+	        $options  = array(
+	            'searchTitle' => 'Szukaj w tweetach i kontach twitter...',
+	            'conditions' => array(
+		            'dataset' => array_keys($datasets),
+	            ),
+	            'cover' => array(
+		            'view' => array(
+			            'plugin' => 'Media',
+			            'element' => 'cover',
+		            ),
+		            'aggs' => array(),
 	            ),
 	            'aggs' => array(
-					'prawo_obowiazujace' => array(
-						'filter' => array(
-							'bool' => array(
-								'must' => array(
-									array(
-										'term' => array(
-											'dataset' => 'prawo',
-										),
-									),
-									array(
-										'term' => array(
-											'data.prawo.status_id' => '1',
-										),
-									),
-								),
-							),
-						),
-						'aggs' => array(
-							'typ_id' => array(
-					            'terms' => array(
-						            'field' => 'prawo.typ_id',
-						            'exclude' => array(
-							            'pattern' => '0'
-						            ),
-					            ),
-					            'aggs' => array(
-						            'label' => array(
-							            'terms' => array(
-								            'field' => 'data.prawo.typ_nazwa',
-							            ),
-						            ),
-					            ),
-					        ),
-					        'autor_id' => array(
-					            'terms' => array(
-						            'field' => 'prawo.autor_id',
-						            'exclude' => array(
-							            'pattern' => '0'
-						            ),
-					            ),
-					            'aggs' => array(
-						            'label' => array(
-							            'terms' => array(
-								            'field' => 'data.prawo.autor_nazwa',
-							            ),
-						            ),
-					            ),
-					        ),
-						),
-					),
-					'prawo' => array(
-						'filter' => array(
-							'bool' => array(
-								'must' => array(
-									array(
-										'term' => array(
-											'dataset' => 'prawo',
-										),
-									),
-								),
-							),
-						),
-						'aggs' => array(
-					        'date' => array(
-					            'date_histogram' => array(
-						            'field' => 'date',
-						            'interval' => 'year',
-						            'format' => 'yyyy-MM-dd',
-					            ),
-					        ),
-					        'wejda' => array(
-						        'filter' => array(
-							        'bool' => array(
-								        'must' => array(
-									        array(
-										        'range' => array(
-											        'data.prawo.data_wejscia_w_zycie' => array(
-												        'gte' => 'now',
-											        ),
-										        ),
-									        ),
-								        ),
-							        ),
-						        ),
-						        'aggs' => array(
-							        'top' => array(
-								        'top_hits' => array(
-									        'size' => 5,
-									        'fielddata_fields' => array('dataset', 'id'),
-									        'sort' => array(
-										        'data.prawo.data_wejscia_w_zycie' => array(
-											        'order' => 'asc',
-										        ),
-									        ),
-								        ),
-							        ),
-						        ),
-					        ),
-					        'weszly' => array(
-						        'filter' => array(
-							        'bool' => array(
-								        'must' => array(
-									        array(
-										        'range' => array(
-											        'data.prawo.data_wejscia_w_zycie' => array(
-												        'lt' => 'now',
-											        ),
-										        ),
-									        ),
-								        ),
-							        ),
-						        ),
-						        'aggs' => array(
-							        'top' => array(
-								        'top_hits' => array(
-									        'size' => 5,
-									        'fielddata_fields' => array('dataset', 'id'),
-									        'sort' => array(
-										        'data.prawo.data_wejscia_w_zycie' => array(
-											        'order' => 'desc',
-										        ),
-									        ),
-								        ),
-							        ),
-						        ),
-					        ),
-						),
-					),
+			        'dataset' => array(
+			            'terms' => array(
+				            'field' => 'dataset',
+			            ),
+			            'visual' => array(
+				            'label' => 'Zbiory danych',
+				            'skin' => 'datasets',
+				            'class' => 'special',
+			                'field' => 'dataset',
+			                'dictionary' => $datasets,
+			            ),
+			        ),
 	            ),
-            ),
-            'aggs' => array(
-		        'dataset' => array(
-		            'terms' => array(
-			            'field' => 'dataset',
-		            ),
-		            'visual' => array(
-			            'label' => 'Zbiory danych',
-			            'skin' => 'datasets',
-			            'class' => 'special',
-		                'field' => 'dataset',
-		                'dictionary' => $datasets,
-		            ),
-		        ),
-            ),
-        );
+	        );
+	        
+		    $this->Components->load('Dane.DataBrowser', $options);
+	        $this->render('Dane.Elements/DataBrowser/browser-from-app');
         
-	    $this->Components->load('Dane.DataBrowser', $options);
-        $this->render('Dane.Elements/DataBrowser/browser-from-app');
+        } else {
+	        
+	        return $this->_view();
+	        
+        }
 		
 	}
 	

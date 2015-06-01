@@ -176,8 +176,18 @@ class DataobjectsController extends AppController
             isset($this->request->query['q']) &&
             ($q = trim($this->request->query['q']))
         ) {
-
-            $hits = $this->Dataobject->suggest($q);
+			
+			$params = array(
+				'dataset' => false,
+			);
+			
+			if(
+				isset($this->request->query['dataset']) &&
+	            ($dataset = $this->request->query['dataset'])
+			)
+				$params['dataset'] = $dataset;
+				
+            $hits = $this->Dataobject->suggest($q, $params);
 
         }
 
@@ -237,7 +247,7 @@ class DataobjectsController extends AppController
                 if ($this->addDatasetBreadcrumb)
                     $this->addBreadcrumb(array(
                         'href' => '/dane/' . $breadcrumbs_data['dataset_id'],
-                        'label' => $breadcrumbs_data['dataset_name'],
+                        'label' => $breadcrumbs_data['dataset_name']['label'],
                     ));
 
             }

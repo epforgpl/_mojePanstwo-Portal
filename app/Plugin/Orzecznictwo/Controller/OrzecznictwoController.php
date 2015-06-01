@@ -11,24 +11,6 @@ class OrzecznictwoController extends ApplicationsController
 		'headerImg' => 'orzecznictwo',
 	);
 	
-	public $appDatasets = array(
-		'sp' => array(
-			'dataset' => 'sp_orzeczenia',
-			'label' => 'Sądy powszechne',
-			'searchTitle' => 'Szukaj w orzeczeniach sądów powszechnych...',
-		),
-		'sa' => array(
-			'dataset' => 'sa_orzeczenia',
-			'label' => 'Sądy administracyjne',
-			'searchTitle' => 'Szukaj w orzeczeniach sądów administracyjnych...',
-		),
-		'sn' => array(
-			'dataset' => 'sn_orzeczenia',
-			'label' => 'Sąd Najwyższy',
-			'searchTitle' => 'Szukaj w orzeczeniach Sądu Najwyższego...',
-		),
-	);
-
     public function prepareMetaTags() {
         parent::prepareMetaTags();
         $this->setMeta('og:image', FULL_BASE_URL . '/prawo/img/social/prawo.jpg');
@@ -54,6 +36,66 @@ class OrzecznictwoController extends ApplicationsController
 		            'element' => 'cover',
 	            ),
 	            'aggs' => array(
+					'sa_orzeczenia' => array(
+						'filter' => array(
+							'term' => array(
+								'dataset' => 'sa_orzeczenia',
+							),
+						),
+						'aggs' => array(
+					        'hasla' => array(
+						        'nested' => array(
+							        'path' => 'sa_orzeczenia-hasla',
+						        ),
+						        'aggs' => array(
+							        'id' => array(
+								        'terms' => array(
+									        'field' => 'sa_orzeczenia-hasla.id',
+									        'size' => 20,
+								        ),
+								        'aggs' => array(
+									        'label' => array(
+										        'terms' => array(
+											        'field' => 'sa_orzeczenia-hasla.nazwa',
+										        ),
+									        ),
+									        /*
+									        'dlugosc_rozpatrywania' => array(
+										        'reverse_nested' => '_empty',
+										        'aggs' => array(
+											        'dlugosc' => array(
+												        'avg' => array(
+													        'field' => 'data.sa_orzeczenia.dlugosc_rozpatrywania',
+												        ),
+											        ),
+										        ),
+									        ),
+									        */
+								        ),
+								    ),
+						        ),
+					        ),
+					        'wyniki' => array(
+						        'nested' => array(
+							        'path' => 'sa_orzeczenia-wyniki',
+						        ),
+						        'aggs' => array(
+							        'id' => array(
+								        'terms' => array(
+									        'field' => 'sa_orzeczenia-wyniki.id',
+								        ),
+								        'aggs' => array(
+									        'label' => array(
+										        'terms' => array(
+											        'field' => 'sa_orzeczenia-wyniki.nazwa',
+										        ),
+									        ),
+								        ),
+								    ),
+						        ),
+					        ),
+						),
+					),
 	            ),
             ),
             'aggs' => array(
