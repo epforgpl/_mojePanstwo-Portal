@@ -55,29 +55,34 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
                             ?>
 
                             <div class="input-group">
-                                <input <? if ($dataBrowser['autocompletion']) { ?>data-autocompletion="true"
-                                       data-autocompletion-dataset="<?= $dataBrowser['autocompletion']['dataset'] ?>"
-                                       <? } ?>class="form-control hasclear input-lg dataBrowserSearchInput"
-                                       placeholder='<? if (isset($dataBrowser['searchTitle']) && ($dataBrowser['searchTitle'])) {
-                                           echo addslashes($dataBrowser['searchTitle']);
-                                       } else {
-                                           echo "Szukaj...";
-                                       } ?>' type="text" value="<?= $value ?>" name="q" required>
-                                <? if (isset($dataBrowser['cancel_url'])) { ?><a
-                                    href="<?= $dataBrowser['cancel_url']; ?>"><span
-                                            class="clearer form-control-feedback" aria-hidden="true">&times;</span>
-                                    </a><? } ?>
-                                <span class="input-group-btn">
-							<button class="btn btn-primary input-lg" type="submit"><span
-                                    class="glyphicon glyphicon-search"></span></button>
-						</span>
+                                <input <? if ($dataBrowser['autocompletion']) { ?>
+                                    data-autocompletion="true"
+                                    data-autocompletion-dataset="<?= $dataBrowser['autocompletion']['dataset'] ?>"
+                                <? } ?>
+                                    class="form-control hasclear input-lg dataBrowserSearchInput"
+                                    placeholder='<? if (isset($dataBrowser['searchTitle']) && ($dataBrowser['searchTitle'])) {
+                                        echo addslashes($dataBrowser['searchTitle']);
+                                    } else {
+                                        echo "Szukaj...";
+                                    } ?>'
+                                    type="text"
+                                    value="<?= $value ?>"
+                                    name="q"
+                                    required/>
+                                <? if (isset($dataBrowser['cancel_url']) && !empty($value)) { ?>
+                                    <a class="clearer" href="<?= $dataBrowser['cancel_url']; ?>">
+                                        <span class="form-control-feedback" aria-hidden="true">&times;</span>
+                                    </a>
+                                <? } ?>
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary input-lg" type="submit">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </div>
                             </div>
-
-
                         </div>
                     </div>
                 <? } ?>
-
             </form>
 
     </div>

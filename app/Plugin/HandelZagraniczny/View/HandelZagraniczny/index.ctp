@@ -23,17 +23,19 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
                         <div class="form-group">
                             <span class="text-muted">Rok: &nbsp;</span>
                             <select class="form-control hzYearSelect">
-                                <!--<option>2004</option>-->
-                                <option>2005</option>
-                                <option>2006</option>
-                                <option>2007</option>
-                                <option>2008</option>
-                                <option>2009</option>
-                                <option>2010</option>
-                                <option>2011</option>
-                                <option>2012</option>
-                                <option>2013</option>
-                                <option selected>2014</option>
+                                <?php
+                                $startYear = 2005;
+                                $endYear = date("Y");
+
+                                for ($x = $startYear; $x <= $endYear; $x++) {
+                                    $option = '<option value="' . $x . '"';
+
+                                    if ($x == $endYear)
+                                        $option .= ' selected';
+
+                                    echo $option . '>' . $x . "</option>";
+                                }
+                                ?>
                             </select>
                         </div>
                     </form>

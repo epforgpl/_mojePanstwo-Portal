@@ -1,5 +1,5 @@
 <ul class="dataHighlights col-xs-12">
-    <li class="dataHighlight col-sm-6 col-sm-3">
+    <li class="dataHighlight">
         <? if ($object->getData('status_id') == '0') {
             ?>
             <span class="_label label label-success">Zamówienie otwarte</span>
