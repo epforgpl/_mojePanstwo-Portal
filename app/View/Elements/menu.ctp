@@ -37,7 +37,7 @@
                     }
 
                     $href = $_menu['base'];
-
+					
                     if ($m['id'] && ($m['id'] != 'view'))
                         $href .= '/' . $m['id'];
                                         

@@ -2865,11 +2865,12 @@ class GminyController extends DataobjectsController
         );
 
         if ($this->domainMode == 'PK')
-            $menu['base'] = '';
+            $menu['base'] = '/';
         else
         	$menu['base'] = $this->object->getUrl();
 
         $menu['items'][] = array(
+	        'id' => '',
             'label' => 'Aktualności',
         );
 

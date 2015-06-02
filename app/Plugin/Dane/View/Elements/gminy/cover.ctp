@@ -9,13 +9,13 @@ $options = array(
     'mode' => 'init',
 );
 ?>
-    <div class="col-md-8">
 
-<? if ($object->getId() == 903) { ?>
+<? if( $object->getId() == 903 ) {?>
 
-    <div class="block-group">
+<div class="col-md-12">
+	<div class="block-group">
 
-        <div class="block block-simple col-md-6">
+        <div class="block block-default col-md-4">
 
             <header>Najnowsze posiedzenie Rady Miasta</header>
 
@@ -47,7 +47,38 @@ $options = array(
                 </footer>
             <? } ?>
         </div>
-        <div class="block block-simple col-md-6">
+        <div class="block block-default col-md-4">
+
+            <header>Najnowsze posiedzenie komisji Rady Miasta</header>
+
+            <section class="aggs-init">
+                <div class="dataAggs">
+                    <div class="agg agg-Dataobjects">
+                        <? if ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits']) { ?>
+                            <ul class="dataobjects">
+                                <? foreach ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits'] as $doc) { ?>
+                                    <li>
+                                        <?
+                                        echo $this->Dataobject->render($doc, 'krakow_rada_posiedzenia');
+                                        ?>
+                                    </li>
+                                <? } ?>
+                            </ul>
+                        <? } ?>
+
+                    </div>
+                </div>
+            </section>
+            <? if ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits']) { ?>
+                <footer>
+                    <div class="buttons text-center">
+                        <a href="<?= $object->getUrl() ?>/komisje_posiedzenia"
+                           class="btn btn-primary btn-sm">Więcej posiedzeń</a>
+                    </div>
+                </footer>
+            <? } ?>
+        </div>
+        <div class="block block-default col-md-4">
 
             <header>Najnowsze posiedzenie komisji Rady Miasta</header>
 
@@ -79,7 +110,43 @@ $options = array(
             <? } ?>
         </div>
     </div>
+</div>
+<? } ?>
 
+    <div class="col-md-8">
+
+<? if ($object->getId() == 903) { ?>
+	
+	<div class="block block-simple col-xs-12">
+        <header>Najnowsze projekty legislacyjne pod obrady rady</header>
+
+        <section class="aggs-init">
+            <div class="dataAggs">
+                <div class="agg agg-Dataobjects">
+                    <? if ($dataBrowser['aggs']['all']['rada_projekty']['top']['hits']['hits']) { ?>
+                        <ul class="dataobjects">
+                            <? foreach ($dataBrowser['aggs']['all']['rada_projekty']['top']['hits']['hits'] as $doc) { ?>
+                                <li>
+                                    <?
+                                    echo $this->Dataobject->render($doc, 'default');
+                                    ?>
+                                </li>
+                            <? } ?>
+                        </ul>
+                    <? } ?>
+
+                </div>
+            </div>
+        </section>
+        <? if ($dataBrowser['aggs']['all']['rada_projekty']['top']['hits']['hits']) { ?>
+            <footer>
+                <div class="buttons text-center">
+                    <a href="<?= $object->getUrl() ?>/druki" class="btn btn-primary btn-sm">Zobacz więcej</a>
+                </div>
+            </footer>
+        <? } ?>
+    </div>
+	
     <div class="block block-simple col-xs-12">
         <header>Najnowsze uchwały Rady</header>
 
@@ -142,35 +209,7 @@ $options = array(
         <? } ?>
     </div>
 
-    <div class="block block-simple col-xs-12">
-        <header>Najnowsze projekty legislacyjne pod obrady rady</header>
-
-        <section class="aggs-init">
-            <div class="dataAggs">
-                <div class="agg agg-Dataobjects">
-                    <? if ($dataBrowser['aggs']['all']['rada_projekty']['top']['hits']['hits']) { ?>
-                        <ul class="dataobjects">
-                            <? foreach ($dataBrowser['aggs']['all']['rada_projekty']['top']['hits']['hits'] as $doc) { ?>
-                                <li>
-                                    <?
-                                    echo $this->Dataobject->render($doc, 'default');
-                                    ?>
-                                </li>
-                            <? } ?>
-                        </ul>
-                    <? } ?>
-
-                </div>
-            </div>
-        </section>
-        <? if ($dataBrowser['aggs']['all']['rada_projekty']['top']['hits']['hits']) { ?>
-            <footer>
-                <div class="buttons text-center">
-                    <a href="<?= $object->getUrl() ?>/druki" class="btn btn-primary btn-sm">Zobacz więcej</a>
-                </div>
-            </footer>
-        <? } ?>
-    </div>
+    
 <? } else { ?>
 
     <div class="block block-simple col-xs-12">
@@ -348,13 +387,4 @@ $options = array(
     </div>
 
 
-    </div><? if ($object->getId() == 903) { ?>
-    <div class="col-md-4">
-
-        <div class="databrowser-panels">
-            <div class="databrowser-panel">
-                <h2>Aktualności <a href="http://www.stanczyk.org.pl/" target="_blank">Fundacji Stańczyka</a></h2>
-            </div>
-        </div>
-					
-<? } ?>
+</div>

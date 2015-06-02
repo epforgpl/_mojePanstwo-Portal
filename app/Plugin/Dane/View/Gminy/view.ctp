@@ -20,7 +20,7 @@
 		$options = array();
 		if( isset($title) )
 			$options['title'] = $title;
-    $options['blockStyle'] = 'block-simply';
+    $options['blockStyle'] = 'block-default';
 			
 		echo $this->Element('Dane.DataBrowser/browser', $options);
 	?>
