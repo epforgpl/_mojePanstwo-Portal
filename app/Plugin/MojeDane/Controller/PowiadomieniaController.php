@@ -23,6 +23,18 @@ class PowiadomieniaController extends ApplicationsController
         'headerImg' => '/MojeDane/img/header_dane.png',
 	);
 	
+	public $_layout = array(
+        'header' => array(
+            'element' => 'app',
+        ),
+        'body' => array(
+            'theme' => 'default',
+        ),
+        'footer' => array(
+            'element' => 'default',
+        ),
+    );
+	
 	public $components = array('Paginator');
 	public $uses = array('Dane.Dataobject');
 	public $helpers = array('Dane.Dataobject');
@@ -86,6 +98,19 @@ class PowiadomieniaController extends ApplicationsController
 
         if ($this->domainMode == "PK")
             $this->render('Powiadomienia/pk-jak_to_dziala');
+    }
+    
+    public function getMenu() {
+	    
+	    $menu = array(
+		    'items' => array(
+			    array(
+				    'label' => 'Powiadomienia',
+			    ),
+		    ),
+		    'base' => 'moje-dane',
+	    );
+	    
     }
 
 } 

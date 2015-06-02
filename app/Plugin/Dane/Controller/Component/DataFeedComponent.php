@@ -763,26 +763,27 @@ class DataFeedComponent extends Component
 	
 	        $channels = array();
 	        
-	        
-	        foreach ($this->controller->channels as $ch) {
-	
-	            if (
-	                array_key_exists($ch['DatasetChannel']['channel'], $channels_data) &&
-	                ($doc_count = $channels_data[$ch['DatasetChannel']['channel']])
-	            ) {
-	                	                
-	                if( 
-	                	isset($this->controller->request->query['channel']) && 
-	                	( $this->controller->request->query['channel'] == $ch['DatasetChannel']['channel'] )
-	                )
-	                	$ch['active'] = true;
-	                
-	                $channels[] = array_merge($ch, array(
-	                    'doc_count' => $doc_count,
-	                ));
-	                
-	            }
-	
+	        if( !empty($this->controller->channels) ) {
+		        foreach ($this->controller->channels as $ch) {
+		
+		            if (
+		                array_key_exists($ch['DatasetChannel']['channel'], $channels_data) &&
+		                ($doc_count = $channels_data[$ch['DatasetChannel']['channel']])
+		            ) {
+		                	                
+		                if( 
+		                	isset($this->controller->request->query['channel']) && 
+		                	( $this->controller->request->query['channel'] == $ch['DatasetChannel']['channel'] )
+		                )
+		                	$ch['active'] = true;
+		                
+		                $channels[] = array_merge($ch, array(
+		                    'doc_count' => $doc_count,
+		                ));
+		                
+		            }
+		
+		        }
 	        }
 						
 			$dataFeed = array(

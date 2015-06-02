@@ -109,5 +109,9 @@ class NgoController extends ApplicationsController
 	    $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
     }
+    
+    public function getMenu() {
+	    return false;
+    }
 
 } 
