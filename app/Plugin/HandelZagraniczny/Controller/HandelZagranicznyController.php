@@ -8,7 +8,8 @@ class HandelZagranicznyController extends AppController
         'id' => 'handel_zagraniczny'
     );
 
-    public function prepareMetaTags() {
+    public function prepareMetaTags()
+    {
         parent::prepareMetaTags();
         $this->setMeta('og:image', FULL_BASE_URL . '/handel_zagraniczny/img/social/handel.jpg');
     }

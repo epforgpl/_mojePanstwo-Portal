@@ -21,15 +21,14 @@ $this->Combinator->add_libs('js', 'graph-krs');
                         ));
 
                     } ?>
-					
-					<? /*
-                    <div class="powiazania block">
-                        <div class="block-header"><h2 class="label">Powiązania</h2></div>
-                        <div id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>"
-                             data-url="krs_osoby"></div>
-                    </div>
-                    */ ?>
+                </div>
+                <div class="powiazania block col-xs-12">
+                    <header>
+                        <div class="sm">Powiązania</div>
+                    </header>
 
+                    <section id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>"
+                             data-url="krs_osoby"></section>
                 </div>
             </div>
         </div>

@@ -6,52 +6,61 @@
     <? } ?>
 
 
-    <? if ($object->getData('krs')) { ?>
+    <?
+    $krs = $object->getData('krs');
+    if (isset($krs) && !empty($krs)) { ?>
         <li class="dataHighlight col-sm-6 col-sm-3">
             <p class="_label">Numer KRS</p>
 
-            <p class="_value"><?= $object->getData('krs'); ?></p>
+            <p class="_value"><?= $krs ?></p>
         </li>
     <? } ?>
 
-    <? if ($object->getData('nip')) { ?>
+    <?
+    $nip = $object->getData('nip');
+    if (isset($nip) && !empty($nip)) { ?>
         <li class="dataHighlight col-sm-6 col-sm-3">
             <p class="_label">Numer NIP</p>
 
-            <p itemprop="taxID" class="_value"><?= $object->getData('nip'); ?></p>
+            <p itemprop="taxID" class="_value"><?= $nip ?></p>
         </li>
     <? } ?>
 
-    <? if ($object->getData('regon')) { ?>
+    <?
+    $regon = $object->getData('regon');
+    if (isset($regon) && !empty($regon)) { ?>
         <li class="dataHighlight col-sm-6 col-sm-3">
             <p class="_label">Numer REGON</p>
 
-            <p class="_value"><?= $object->getData('regon'); ?></p>
+            <p class="_value"><?= $regon ?></p>
         </li>
     <? } ?>
 
-
-    <? if ($object->getData('wartosc_kapital_zakladowy')) { ?>
+    <?
+    $wartosc_kapital_zakladowy = $object->getData('wartosc_kapital_zakladowy');
+    if (isset($wartosc_kapital_zakladowy) && !empty($wartosc_kapital_zakladowy)) { ?>
         <li class="dataHighlight col-sm-6 col-sm-3">
             <p class="_label">Kapitał zakładowy</p>
 
-            <p class="_value"><?= number_format_h($object->getData('wartosc_kapital_zakladowy')); ?> PLN</p>
+            <p class="_value"><?= number_format_h($wartosc_kapital_zakladowy); ?> PLN</p>
         </li>
     <? } ?>
 
-
-
-    <? if ($object->getData('data_rejestracji')) { ?>
+    <?
+    $data_rejestracji = $object->getData('data_rejestracji');
+    if (isset($data_rejestracji) && !empty($data_rejestracji)) { ?>
         <li class="dataHighlight col-sm-6 col-sm-3">
             <p class="_label">Data rejestracji</p>
 
-            <p class="_value"><?= $this->Czas->dataSlownie($object->getData('data_rejestracji'), array(
+            <p class="_value"><?= $this->Czas->dataSlownie($data_rejestracji, array(
                     'itemprop' => 'foundingDate',
                 )); ?></p>
         </li>
     <? } ?>
 
-    <? if ($www = $object->getData('www')) {
+    <?
+    $www = $www = $object->getData('www');
+    if (isset($www) && !empty($www)) {
         $url = (stripos($www, 'http') === false) ? 'http://' . $www : $www;
         ?>
         <li class="dataHighlight col-sm-6 col-sm-3">
@@ -62,7 +71,9 @@
         </li>
     <? } ?>
 
-    <? if ($email = $object->getData('email')) { ?>
+    <?
+    $email = $object->getData('email');
+    if (isset($email) && !empty($email)) { ?>
         <li class="dataHighlight col-sm-6 col-sm-3">
             <p class="_label">Adres e-mail</p>
 

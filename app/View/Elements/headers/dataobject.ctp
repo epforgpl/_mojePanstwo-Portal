@@ -30,9 +30,9 @@ if (!isset($renderFile) || !$renderFile)
                                         <?= $object->getData('bdl_wskazniki.grupa_tytul'); ?>
                                     </a>
                                     <ul>
-                                        <li class="e h2">
+                                        <li class="e h1">
                                             <a href="<?php echo $object->getUrl() ?>">
-                                                <?= $object->getData('bdl_wskazniki.tytul'); ?>
+                                                <h1><?= $object->getData('bdl_wskazniki.tytul'); ?></h1>
                                             </a>
                                         </li>
                                     </ul>
@@ -49,7 +49,7 @@ if (!isset($renderFile) || !$renderFile)
                 <? } ?>
 
                 <div class="title<? if (isset($treeList)) echo ' hide'; ?>">
-                    <h2>
+                    <h1 class="smaller">
                         <?php if ($object->getUrl() != false){ ?>
                         <a class="trimTitle" href="<?= $object->getUrl() ?>"
                            title="<?= strip_tags($object->getTitle()) ?>">
@@ -63,7 +63,7 @@ if (!isset($renderFile) || !$renderFile)
                         echo '<small>' . $object->getTitleAddon() . '</small>';
                     } ?>
                     <?php } ?>
-                    </h2>
+                    </h1>
                 </div>
             </div>
             <?php if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
