@@ -130,6 +130,7 @@ class ApplicationsController extends AppController
 					$params[ $field ] = $data['dataset_name'][ $field ];
 			
 			$this->menu_selected = $this->request->params['id'];
+			$this->title = $data['dataset_name']['label'];
 	        $this->loadDatasetBrowser($data['dataset_id'], $params);
 		    
 	    }

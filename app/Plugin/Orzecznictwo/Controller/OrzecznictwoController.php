@@ -15,6 +15,8 @@ class OrzecznictwoController extends ApplicationsController
         parent::prepareMetaTags();
         $this->setMeta('og:image', FULL_BASE_URL . '/prawo/img/social/prawo.jpg');
     }
+    
+    public $mainMenuLabel = 'Przeglądaj';
 
     public function view()
     {

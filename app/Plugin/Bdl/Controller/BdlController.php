@@ -31,7 +31,9 @@ class BdlController extends ApplicationsController
 		'subtitle' => 'Dane statystyczne o Polsce',
         'headerImg' => 'bdl',
 	);
-	
+
+    public $mainMenuLabel = 'Przeglądaj';
+
     public function view()
     {
         $datasets = $this->getDatasets('bdl');
@@ -77,7 +79,9 @@ class BdlController extends ApplicationsController
         }
 		
 	    $this->Components->load('Dane.DataBrowser', $options);
-        $this->render('Dane.Elements/DataBrowser/browser-from-app');        
+	    $this->title = 'Bank Danych Lokalnych';
+        $this->render('Dane.Elements/DataBrowser/browser-from-app'); 
+               
         
     }
 

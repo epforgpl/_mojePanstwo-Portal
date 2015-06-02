@@ -27,8 +27,8 @@ class PowiatyController extends DataobjectsController
             'aggsPreset' => 'gminy',
         ));
 		
-        $this->set('title_for_layout', 'Gminy w powiecie ' . ' ' . $this->object->getData('nazwa'));
-        $this->set('DataBrowserTitle', 'Gminy w tym powiecie');
+        $this->set('title_for_layout', 'Gminy w powiacie ' . ' ' . $this->object->getData('nazwa'));
+        $this->set('DataBrowserTitle', 'Gminy w tym powiacie');
         $this->render('DataBrowser/browser');
 
 
