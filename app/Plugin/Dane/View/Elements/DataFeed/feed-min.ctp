@@ -50,9 +50,12 @@ if( $show ) {
                         <?
                         foreach ($hits as $object) {
                             
-                            $theme = 'feed/' . $preset . '/' . $object->getDataset();
+                            if( isset($theme) )
+	                            $_theme = 'feed-min/' . $theme;
+	                        else
+	                        	$_theme = 'feed-min';
 
-							echo $this->Dataobject->render($object, 'feed-min', array(
+							echo $this->Dataobject->render($object, $_theme, array(
 							    'forceLabel' => false,
 							    'file' => 'feed/' . $preset . '/' . $object->getDataset(),
 							    'selected' => (

@@ -784,8 +784,8 @@ class DataFeedComponent extends Component
 	            }
 	
 	        }
-								
-	        $this->controller->set('dataFeed', array(
+						
+			$dataFeed = array(
 	            'hits' => $hits,
 	            'took' => $controller->Dataobject->getPerformance(),
 	            'preset' => $this->settings['preset'],
@@ -797,7 +797,9 @@ class DataFeedComponent extends Component
 	            'aggs' => $controller->Dataobject->getAggs(),
 	            'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
 	            'mode' => isset($this->settings['mode']) ? $this->settings['mode'] : 'full',
-	        ));
+	        );		
+	        $this->controller->set('dataFeed', $dataFeed);
+	        $this->controller->feed = $dataFeed;
 			
 			if( !empty($channels) ) {
 				$channels = array_merge(array(array(

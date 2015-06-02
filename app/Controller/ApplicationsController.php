@@ -32,7 +32,7 @@ class ApplicationsController extends AppController
     public $appSelected = 'dane';
     
     public $appDatasets = array();
-    public $mainMenuLabel = 'Przeglądaj';
+    public $mainMenuLabel = false;
 
     public function beforeFilter()
     {

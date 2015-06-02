@@ -192,29 +192,4 @@ class ZamowieniaPubliczneController extends DataobjectsController
         
 	}
     
-    public function beforeRender()
-    {
-
-        // debug( $this->object->getData() ); die();
-
-        // PREPARE MENU
-        $href_base = '/dane/zamowienia_publiczne/' . $this->request->params['id'] . ',' . $this->object->getSlug();
-
-        $menu = array(
-            'items' => array(
-                array(
-                    'id' => '',
-                    'href' => $href_base,
-                    'label' => 'Aktualności',
-                    'icon' => 'glyphicon glyphicon-feed',
-                ),
-            )
-        );
-
-        $menu['selected'] = ($this->request->params['action'] == 'view') ? '' : $this->request->params['action'];
-
-        parent::beforeRender();
-        
-
-    }
 } 

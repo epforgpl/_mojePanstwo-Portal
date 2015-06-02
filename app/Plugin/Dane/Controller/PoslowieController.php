@@ -373,23 +373,19 @@ class PoslowieController extends DataobjectsController
     }
 
 
-    public function beforeRender()
+    public function getMenu()
     {
 
-        // debug( $this->object->getData() ); die();
-
-        // PREPARE MENU
-        $href_base = '/dane/poslowie/' . $this->request->params['id'] . ',' . $this->object->getSlug();
 
         $menu = array(
             'items' => array(
                 array(
                     'id' => '',
-                    'href' => $href_base,
                     'label' => 'Aktualności',
-                    'icon' => 'glyphicon glyphicon-feed',
+                    // 'icon' => 'glyphicon glyphicon-feed',
                 ),
-            )
+            ),
+            'base' => $this->object->getUrl(),
         );
 		
 		/*
@@ -437,28 +433,26 @@ class PoslowieController extends DataobjectsController
 
         $menu['items'][] = array(
             'id' => 'wydatki',
-            'href' => $href_base . '/wydatki',
             'label' => 'Wydatki',
-            'icon' => 'glyphicon glyphicon-spendings',
+            // 'icon' => 'glyphicon glyphicon-spendings',
         );
 
         $menu['items'][] = array(
             'id' => 'wyjazdy',
-            'href' => $href_base . '/wyjazdy',
             'label' => 'Wyjazdy zagraniczne',
-            'icon' => 'glyphicon glyphicon-travels',
+            // 'icon' => 'glyphicon glyphicon-travels',
         );
-
+		
+		/*
         if ($this->object->getData('twitter_account_id')) {
             $menu['items'][] = array(
                 'id' => 'twitter',
-                'href' => $href_base . '/twitter',
                 'label' => 'Twitter',
             );
         }
+        */
 
-        $this->menu = $menu;
-        parent::beforeRender();
+        return $menu;
 
     }
 
