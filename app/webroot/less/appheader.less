@@ -11,8 +11,7 @@
                 font-weight: 300;
                 line-height: 1.27em;
             }
-            h1, h1 a,
-            h2, h2 a {
+            h1, h1 a {
                 color: #FAFAFA;
             }
         }
@@ -21,8 +20,7 @@
         background: #FAFAFA;
 
         .holder {
-            h1, h1 a,
-            h2, h2 a {
+            h1, h1 a {
                 color: #053f69;
             }
         }
@@ -31,8 +29,7 @@
         background: #FFFFFF;
 
         .holder {
-            h1, h1 a,
-            h2, h2 a {
+            h1, h1 a {
                 color: #053f69;
             }
         }
@@ -77,10 +74,18 @@
                     font-size: @fontSize;
                     padding: 0 20px;
 
-                    &.h2 a {
+                    &.h1 a {
                         font-size: 20px;
                         font-weight: 400;
                         color: @fontColor;
+
+                        h1 {
+                            margin: 0;
+                            padding: 0;
+                            font-size: 20px;
+                            font-weight: 400;
+                            color: @fontColor
+                        }
 
                         &:hover {
                             color: #157ab5;
@@ -153,7 +158,7 @@
             }
         }
 
-        h2, h2 a {
+        h1.smaller, h1.smaller a {
             font-size: 20px;
             font-weight: 400;
             margin: 10px 0 15px;
@@ -284,7 +289,7 @@
         ._label {
             font-size: 10px;
             line-height: 0.75em;
-            margin: 2px 0 8px;
+            margin: 4px 0 6px;
             font-weight: 600;
             text-transform: uppercase;
             color: #666;

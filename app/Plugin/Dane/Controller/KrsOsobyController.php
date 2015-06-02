@@ -8,9 +8,9 @@ class KrsOsobyController extends DataobjectsController
     public $helpers = array(
         'Time',
     );
-    
+
     public $components = array(
-	    'RequestHandler'
+        'RequestHandler'
     );
 
     public $objectOptions = array(
@@ -40,20 +40,39 @@ class KrsOsobyController extends DataobjectsController
 
     }
 
+    /*
+        public function graph()
+        {
+            if ($this->request->params['ext'] == 'json') {
+
+                $this->addInitLayers('graph');
+                $this->load();
+
+                $data = $this->object->getLayer('graph');
+
+                $this->set('data', $data);
+                $this->set('_serialize', 'data');
+
+            } else {
+                return false;
+            }
+        }*/
+
     public function graph()
     {
-        if ($this->request->params['ext'] == 'json') {
-						
+        if (@$this->request->params['ext'] == 'json') {
+
             $this->addInitLayers('graph');
-            $this->load();
-                        
+            $this->_prepareView();
             $data = $this->object->getLayer('graph');
-            
+
             $this->set('data', $data);
             $this->set('_serialize', 'data');
 
         } else {
-            return false;
+
+            $this->_prepareView();
+
         }
     }
 
@@ -72,12 +91,12 @@ class KrsOsobyController extends DataobjectsController
                 ),
             )
         );
-        
+
         $menu['items'][] = array(
-                'id'    => 'powiazania',
-                'href'  => $href_base . '/powiazania',
-                'label' => 'Powiązania',
-            );
+            'id' => 'graph',
+            'href' => $href_base . '/graph',
+            'label' => 'Powiązania'
+        );
 
         /*
         if( $this->object->getData('liczba_zmian') ) {
@@ -94,9 +113,9 @@ class KrsOsobyController extends DataobjectsController
 
         $menu['selected'] = ($this->request->params['action'] == 'view') ? '' : $this->request->params['action'];
         $this->set('_menu', $menu);
-        
+
         $this->menu = $menu;
-		parent::beforeRender();
+        parent::beforeRender();
 
     }
 

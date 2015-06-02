@@ -9,10 +9,22 @@
         <div class="_mPApplication">
             <div class="_mPPowerButton">
                 <?php if ($this->Session->read('Auth.User.id')) { ?>
-                    <img class="avatar" src="<?php if ($this->Session->read('Auth.User.photo_small')) {
-                        echo $this->Session->read('Auth.User.photo_small');
+                    <?php if ($this->Session->read('Auth.User.username')) {
+                        $name = $this->Session->read('Auth.User.username');
                     } else {
-                        echo '/img/avatars/avatar_default.jpg';
+                        $name = $this->Session->read('Auth.User.personal_name') . ' ' . $this->Session->read('Auth.User.personal_lastname');
+                    }
+                    ?>
+                    <div class="name" title="<?php echo $name; ?>"><?php
+                        echo $this->Text->truncate($name, 22, array(
+                                'ellipsis' => '...',
+                                'exact' => false
+                            )
+                        ); ?></div>
+                    <img class="avatar<?php if ($this->Session->read('Auth.User.photo_small')) {
+                        echo '" src="' . $this->Session->read('Auth.User.photo_small');
+                    } else {
+                        echo ' default" src="/img/avatars/avatar_default.svg';
                     } ?>" alt=""/>
                     <div class="optionsBtn" data-toggle="collapse"
                          data-target="#mPUserOptions" aria-expanded="false" aria-controls="mPUserOptions">

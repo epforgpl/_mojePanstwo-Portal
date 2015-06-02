@@ -370,6 +370,16 @@ body {
                         margin-top: 13px;
                     }
                 }
+                > .name {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    text-align: center;
+                    padding: 5px 5px 0;
+                    font-weight: bold;
+                    line-height: 1em;
+                }
                 > .avatar {
                     max-height: @powerSize;
                     position: absolute;
@@ -380,6 +390,13 @@ body {
                     -ms-transform: translate(-50%, 0);
                     -o-transform: translate(-50%, 0);
                     transform: translate(-50%, 0);
+
+                    &.default {
+                        @height: 55px;
+
+                        height: @height;
+                        margin-top: @powerSize - @height;
+                    }
                 }
                 > .optionsBtn {
                     display: block;
