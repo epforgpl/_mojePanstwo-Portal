@@ -70,11 +70,7 @@ class DataobjectsController extends AppController
         ) {
 
             $layers = $this->initLayers;
-
             $layers[] = 'subscriptions';
-
-            if ($this->loadChannels)
-                $layers[] = 'channels';
 
             if ($this->object = $this->Dataobject->find('first', array(
                 'conditions' => array(
@@ -87,9 +83,6 @@ class DataobjectsController extends AppController
             ) {
 
                 $this->set('object_aggs', $this->Dataobject->getAggs());
-
-                if ($this->loadChannels)
-                    $this->channels = $this->object->getLayer('channels');
 
                 if (
                     ($this->domainMode == 'MP') &&
