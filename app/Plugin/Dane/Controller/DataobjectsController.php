@@ -70,7 +70,9 @@ class DataobjectsController extends AppController
         ) {
 
             $layers = $this->initLayers;
-            $layers[] = 'subscriptions';
+            
+            if( $this->observeOptions )
+            	$layers[] = 'channels';
 
             if ($this->object = $this->Dataobject->find('first', array(
                 'conditions' => array(

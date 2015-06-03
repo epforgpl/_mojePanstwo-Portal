@@ -371,6 +371,13 @@ class GminyController extends DataobjectsController
                                 ),
                             ),
                         ),
+                        'must_not' => array(
+	                        array(
+		                        'term' => array(
+			                        'data.krakow_komisje_posiedzenia.yt_video_id' => '',
+		                        ),
+	                        ),
+                        ),
                     ),
                 ),
                 'aggs' => array(
@@ -385,7 +392,39 @@ class GminyController extends DataobjectsController
                     ),
                 ),
             );
-
+            
+            $global_aggs['dzielnice_posiedzenia'] = array(
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'krakow_dzielnice_rady_posiedzenia',
+                                ),
+                            ),
+                        ),
+                        'must_not' => array(
+	                        array(
+		                        'term' => array(
+			                        'data.krakow_dzielnice_rady_posiedzenia.yt_video_id' => '',
+		                        ),
+	                        ),
+                        ),
+                    ),
+                ),
+                'aggs' => array(
+                    'top' => array(
+                        'top_hits' => array(
+                            'size' => 3,
+                            'fielddata_fields' => array('dataset', 'id'),
+                            'sort' => array(
+                                'date' => 'desc',
+                            ),
+                        ),
+                    ),
+                ),
+            );
+            
             $global_aggs['rada_projekty'] = array(
                 'filter' => array(
                     'bool' => array(

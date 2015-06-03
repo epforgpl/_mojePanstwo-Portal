@@ -16,13 +16,10 @@ class InstytucjeController extends DataobjectsController
     public $observeOptions = true;
 
     public $loadChannels = true;
-    public $initLayers = array('instytucja_nadrzedna', 'tree', 'menu', 'info');
+    public $initLayers = array();
 
     public function view()
     {
-
-        $_layers = array('szef', 'channels', 'subscriptions');
-        $this->addInitLayers($_layers);
 
         $this->_prepareView();
 

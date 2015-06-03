@@ -38,8 +38,12 @@
 
                     $href = $_menu['base'];
 					
-                    if ($m['id'] && ($m['id'] != 'view'))
-                        $href .= '/' . $m['id'];
+					
+                    if ($m['id'] && ($m['id'] != 'view')) {
+                        if( $href[0]!='/' )
+                        	$href .= '/';
+                        $href .= $m['id'];
+                    }
 
                     if (isset($m['label']) && (!empty($m['label']))) {
                         ?>

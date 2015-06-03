@@ -94,6 +94,13 @@ Router::connect('/dane/subscriptions/:id', array(
 	'pass' => array('id'),
 ));
 
+Router::connect('/dane/subscriptions', array(
+	'plugin' => 'Dane', 
+	'controller' => 'Subscriptions', 
+	'action' => 'add',
+	'[method]' => 'POST',
+));
+
 Router::connect('/dane/subscriptions/:id/:action', array(
 	'plugin' => 'Dane', 
 	'controller' => 'Subscriptions', 

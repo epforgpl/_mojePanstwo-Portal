@@ -49,7 +49,7 @@ $options = array(
         </div>
         <div class="block block-default col-md-4">
 
-            <header>Najnowsze posiedzenie komisji Rady Miasta</header>
+            <header>Najnowsze nagrania posiedzeń komisji Rady Miasta</header>
 
             <section class="aggs-init">
                 <div class="dataAggs">
@@ -80,17 +80,17 @@ $options = array(
         </div>
         <div class="block block-default col-md-4">
 
-            <header>Najnowsze posiedzenie komisji Rady Miasta</header>
+            <header>Najnowsze nagrania posiedzeń rad dzielnic</header>
 
             <section class="aggs-init">
                 <div class="dataAggs">
                     <div class="agg agg-Dataobjects">
-                        <? if ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits']) { ?>
+                        <? if ($dataBrowser['aggs']['all']['dzielnice_posiedzenia']['top']['hits']['hits']) { ?>
                             <ul class="dataobjects">
-                                <? foreach ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits'] as $doc) { ?>
+                                <? foreach ($dataBrowser['aggs']['all']['dzielnice_posiedzenia']['top']['hits']['hits'] as $doc) { ?>
                                     <li>
                                         <?
-                                        echo $this->Dataobject->render($doc, 'krakow_rada_posiedzenia');
+                                        echo $this->Dataobject->render($doc, 'dzielnice_posiedzenia');
                                         ?>
                                     </li>
                                 <? } ?>

@@ -6,82 +6,6 @@ class SejmometrController extends ApplicationsController
 
     public $settings = array(
         'id' => 'sejmometr',
-		'menu' => array(
-			array(
-				'id' => '',
-				'label' => 'Posłowie',
-			),
-            array(
-                'id' => 'sejm_posiedzenia',
-                'label' => 'Posiedzenia',
-            ),
-            array(
-                'id' => '#',
-                'label' => 'Więcej',
-                'dropdown' => array(
-                    array(
-                        'id' => 'sejm_debaty',
-                        'label' => 'Debaty',
-                    ),
-                    array(
-                        'id' => 'sejm_dezyderaty',
-                        'label' => 'Dezyderaty komisji',
-                    ),
-                    array(
-                        'id' => 'sejm_druki',
-                        'label' => 'Druki',
-                    ),
-                    array(
-                        'id' => 'sejm_glosowania',
-                        'label' => 'Głosowania',
-                    ),
-                    array(
-                        'id' => 'sejm_interpelacje',
-                        'label' => 'Interpelacje',
-                    ),
-                    array(
-                        'id' => 'sejm_kluby',
-                        'label' => 'Kluby',
-                    ),
-                    array(
-                        'id' => 'sejm_komisje',
-                        'label' => 'Komisje',
-                    ),
-                    array(
-                        'id' => 'sejm_komunikaty',
-                        'label' => 'Komunikaty Kancelarii Sejmu',
-                    ),
-                    array(
-                        'id' => 'sejm_posiedzenia_punkty',
-                        'label' => 'Punkty porządku dziennego',
-                    ),
-                    array(
-                        'id' => 'sejm_wystapienia',
-                        'label' => 'Wystąpienia posłów',
-                    ),
-                    array(
-                        'id' => 'sejm_komisje_opinie',
-                        'label' => 'Opinie komisji sejmowych',
-                    ),
-                    array(
-                        'id' => 'sejm_komisje_uchwaly',
-                        'label' => 'Uchwały komisji',
-                    ),
-                    array(
-                        'id' => 'poslowie_oswiadczenia_majatkowe',
-                        'label' => 'Oświadczenia majątkowe',
-                    ),
-                    array(
-                        'id' => 'poslowie_rejestr_korzysci',
-                        'label' => 'Rejestr korzyści',
-                    ),
-                    array(
-                        'id' => 'poslowie_wspolpracownicy',
-                        'label' => 'Współpracownicy',
-                    )
-                )
-            ),
-		),
 		'title' => 'Sejmometr',
 		'subtitle' => 'Dane o pracy Sejmu i posłów',
 		'headerImg' => 'sejmometr',
@@ -92,101 +16,7 @@ class SejmometrController extends ApplicationsController
         $this->setMeta('og:image', FULL_BASE_URL . '/sejmometr/img/social/sejmometr.jpg');
     }
 	
-	/*
-    public function view()
-    {
-
-        $stats = $this->Sejmometr->getStats();
-
-        $display_callbacks = array(
-            'liczba_wypowiedzi' => function ($object) {
-                return pl_dopelniacz($object->getData('liczba_wypowiedzi'), 'wystąpienie', 'wystąpienia', 'wystąpień');
-            },
-            'frekwencja' => function ($object) {
-                return '<strong>' . $object->getData('frekwencja') . '%</strong>';
-            },
-            'zbuntowanie' => function ($object) {
-                return '<strong>' . $object->getData('zbuntowanie') . '%</strong>';
-            },
-            'liczba_interpelacji' => function ($object) {
-                return pl_dopelniacz($object->getData('liczba_interpelacji'), 'interpelacja', 'interpelacje', 'interpelacji');
-            },
-            'uchwaly_komisji_etyki' => function ($object) {
-                return pl_dopelniacz($object->getData('liczba_uchwal_komisji_etyki'), 'uchwała', 'uchwały', 'uchwał');
-            },
-            'przeloty' => function ($object) {
-                return pl_dopelniacz($object->getData('liczba_przelotow'), 'przelot', 'przeloty', 'przelotów');
-            },
-            'przejazdy' => function ($object) {
-                return pl_dopelniacz($object->getData('liczba_przejazdow'), 'przejazd', 'przejazdy', 'przejazdów');
-            },
-            'kwatery_prywatne' => function ($object) {
-                return '<strong>' . $object->getData('wartosc_refundacja_kwater_pln') . '</strong>';
-            },
-            'uposazenia' => function ($object) {
-                return '<strong>' . $object->getData('wartosc_uposazenia_pln') . '</strong>';
-            },
-        );
-
-        // ranking poslow
-        $dane = $this->API->Dane();
-        foreach ($stats['poslowie'] as $section_name => $sekcja) {
-            $data[$section_name] = array(
-                'items' => array(),
-                'order' => $sekcja['order']
-            );
-
-            foreach ($sekcja['dataobjects'] as $object_plain) {
-                $object = $dane->interpretateObject($object_plain);
-
-                $data[$section_name]['items'][] = array(
-                    'imie' => $object->getData('imie_pierwsze'),
-                    'nazwisko' => $object->getData('nazwisko'),
-                    'url' => $object->getUrl(),
-                    'klub_id' => $object->getData('klub_id'),
-                    'klub_img_src' => $this->klub_img_src($object->getData('klub_id')),
-                    'posel_img_src' => $object->getThumbnailUrl(),
-                    'klub' => $object->getData('sejm_kluby.nazwa'),
-                    'display' => $display_callbacks[$section_name]($object),
-                );
-            }
-        }
-
-        // rankingi agregowane
-        $data['zawody'] = $stats['zawody'];
-
-        $pp_totals = $stats['poslanki_poslowie']['*'];
-        $data['poslanki_poslowie'] = array(
-            array(
-                'title' => 'Sejm RP',
-                'img_src' => $this->klub_img_src('sejm'),
-                'setup' => array(
-                    array('Kobiety', round($pp_totals['stats']['K'] * 100 / $pp_totals['total'])),
-                    array('Mężczyźni', round($pp_totals['stats']['M'] * 100 / $pp_totals['total']))
-                )
-            )
-        );
-        foreach ($stats['poslanki_poslowie']['kluby'] as $klub) {
-
-            $k = isset($klub['stats']['K']) ? round($klub['stats']['K'] * 100 / $klub['total']) : 0;
-            $m = isset($klub['stats']['M']) ? round($klub['stats']['M'] * 100 / $klub['total']) : 0;
-
-            $data['poslanki_poslowie'][] = array(
-                'title' => $klub['nazwa'],
-                'img_src' => $this->klub_img_src($klub['klub_id']),
-                'setup' => array(
-                    array('Kobiety', $k),
-                    array('Mężczyźni', $m),
-                )
-            );
-        }
-
-        $poslowie_url = Router::url(array('plugin' => 'dane', 'controller' => 'poslowie'));
-        $this->set('poslowie_url', $poslowie_url);
-
-        $this->set($data);
-    }
-    */
+	
 
     public function detailBlock()
     {
@@ -484,8 +314,20 @@ class SejmometrController extends ApplicationsController
         $this->set(compact('info'));
     }
 
+	public function view()
+	{
+		
+		$this->menu_selected = 'poslowie';
+        $this->loadDatasetBrowser('poslowie');
+		
+	}
+	
+	/*
     public function view()
     {
+	    
+	    
+	    
         $datasets = $this->getDatasets('sejmometr');
 	    
         $options  = array(
@@ -654,6 +496,7 @@ class SejmometrController extends ApplicationsController
 	    $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
     }
+    */
 
     private function klub_img_src($klub_id)
     {

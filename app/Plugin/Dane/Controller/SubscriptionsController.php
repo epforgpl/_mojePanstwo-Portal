@@ -19,6 +19,13 @@
 			
 		}
 		
+		public function add() {
+			
+			$this->Subscription->save( $this->request->data );
+			$this->redirect( $this->referer() );
+			
+		}
+		
 	    public function delete($id) {
 	    		    	
 	        if ($this->Subscription->delete($id)) {
@@ -33,6 +40,7 @@
 	            'message' => $message,
 	            '_serialize' => array('message')
 	        ));
+	        
 	    }
 	    
 	}

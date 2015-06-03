@@ -50,8 +50,8 @@ class Krakow_komisje_posiedzenia extends DataObject
 	
 	public function getThumbnailUrl($size = '3')
     {
-    	if( $this->getData('preview_yt_id') )
-	        return 'http://img.youtube.com/vi/' . $this->getData('preview_yt_id') . '/mqdefault.jpg';
+    	if( $this->getData('yt_video_id') )
+	        return 'http://img.youtube.com/vi/' . $this->getData('yt_video_id') . '/mqdefault.jpg';
 	    else
 	        return '/dane/pk/posiedzenie.jpg';
     }

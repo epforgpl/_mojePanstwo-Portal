@@ -66,5 +66,17 @@ class Krakow_dzielnice_rady_posiedzenia extends DataObject
 	    return 'Posiedzenie rady dzielnicy';
 	    
     }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+				
+		$output = array(
+			$this->getData('dzielnice.nazwa'),
+		);
+		
+		
+		return $output;
+		
+	}
 
 }
