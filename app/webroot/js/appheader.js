@@ -5,7 +5,7 @@
 
     if (window.screen.width > 768) {
         var appMenu = $('.appMenu'),
-            appMenuLi = appMenu.find('ul li'),
+            appMenuLi = appMenu.find('ul.nav > li'),
             appMenuLiTop;
 
         if (appMenuLi.length > 0) {

@@ -66,13 +66,9 @@ if (!isset($renderFile) || !$renderFile)
                     </h1>
                 </div>
             </div>
-            <?php if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
-                <div class="col-md-2">
-                    <div class="observeButton btn btn-icon btn-primary">
-                        <i class="icon" data-icon-applications="&#xe60a;"></i>Obserwuj...
-                    </div>
-                </div>
-            <?php } ?>
+            <?php if (isset($_observeOptions) && !empty($_observeOptions)) {
+                echo $this->element('modals/observe_dataobject');
+            } ?>
             <div class="col-xs-12">
                 <div class="status">
                     <?= @$this->element('status_bar/' . $object->getDataset(), array('plugin' => 'Dane')) ?>

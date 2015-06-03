@@ -50,11 +50,15 @@
     $this->Combinator->add_libs('css', $this->Less->css('structure'), false);
     $this->Combinator->add_libs('css', $this->Less->css('main'), false);
     $this->Combinator->add_libs('css', $this->Less->css('themes'), false);
+    $this->Combinator->add_libs('css', $this->Less->css('bootstrap-checkboxes'));
     $this->Combinator->add_libs('css', $this->Less->css('suggester'));
     $this->Combinator->add_libs('css', $this->Less->css('appheader'));
 
     /* GLOBAL CSS FOR LOGIN FORM FOR PASZPORT PLUGIN*/
     $this->Combinator->add_libs('css', $this->Less->css('loginForm', array('plugin' => 'Paszport')), false);
+
+    /* CSS FOR OBSERVE BUTTON MODAL FOR DANE PLUGIN*/
+    $this->Combinator->add_libs('css', $this->Less->css('modal-dataobject-observe', array('plugin' => 'Dane')));
 
     /*BOOTSTRAP SELECT LOOKS LIKE BOOTSTRAP BUTTONS*/
     echo $this->Html->css('../plugins/bootstrap-select/bootstrap-select.min.css');

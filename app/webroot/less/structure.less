@@ -26,16 +26,6 @@ body {
         white-space: normal;
         line-height: 1em;
 
-        &.obserwuj-button:hover {
-            .btn-text {
-                visibility: hidden;
-            }
-            .btn-text:before {
-                content: "Nie obserwuj";
-                visibility: visible;
-            }
-        }
-
         .btnIconMode(@color:#FAFAFA) {
             background-color: @color;
 
@@ -77,6 +67,10 @@ body {
 
         &.btn-default {
             .btnIconMode();
+        }
+
+        &.btn-success {
+            .btnIconMode(#5cb85c);
         }
 
         &.btn-warning {
@@ -290,7 +284,7 @@ body {
     }
 
     #_mPCockpit {
-        width: 100%;
+        width: @cockpitBarWidth;
         height: 100%;
         color: #ffffff;
         padding: 0;
@@ -300,6 +294,7 @@ body {
         position: fixed;
         top: 0;
         left: 0;
+        z-index: 900;
 
         a {
             color: #ffffff;
@@ -343,7 +338,6 @@ body {
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 900;
 
             ._mPPowerButton {
                 @powerSize: 86px;

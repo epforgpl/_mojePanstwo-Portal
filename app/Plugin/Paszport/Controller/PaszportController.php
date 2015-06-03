@@ -7,19 +7,7 @@ App::uses('Security', 'Utility');
 class PaszportController extends ApplicationsController
 {
     public $settings = array(
-        'id' => 'paszport',
-        'menu' => array(
-            array(
-                'id' => '',
-                'label' => 'Zaloguj',
-                'href' => 'paszport'
-            ),
-            array(
-                'id' => 'register',
-                'label' => 'Zarejestruj',
-                'href' => 'register'
-            ),
-        ),
+        'id' => 'paszport'
     );
 
     public function beforeRender()

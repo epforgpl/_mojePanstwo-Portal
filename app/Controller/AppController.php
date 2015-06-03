@@ -285,7 +285,7 @@ class AppController extends Controller
             'name' => 'Bank Danych Lokalnych',
             'href' => '/bdl',
             'tag' => 1,
-            'icon' => '',
+            'icon' => '&#xe615;',
         ),
         'dane' => array(
             'name' => 'Dane publiczne',
@@ -374,7 +374,7 @@ class AppController extends Controller
             'name' => 'NGO',
             'href' => '/ngo',
             'tag' => 1,
-            'icon' => '&#xe60d;',
+            'icon' => '&#xe614;',
         ),
         'orzecznictwo' => array(
             'name' => 'Orzecznictwo',
@@ -394,7 +394,7 @@ class AppController extends Controller
             'name' => 'Paszport',
             'href' => '/paszport',
             'tag' => 3,
-            'icon' => '&#xe620;',
+            'icon' => '&#xe60c;',
         ),
         'prawo' => array(
             'name' => 'Prawo',
