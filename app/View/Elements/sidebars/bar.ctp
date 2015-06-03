@@ -16,7 +16,7 @@
                     }
                     ?>
                     <div class="name" title="<?php echo $name; ?>"><?php
-                        echo $this->Text->truncate($name, 22, array(
+                        echo $this->Text->truncate($name, 16, array(
                                 'ellipsis' => '...',
                                 'exact' => false
                             )
