@@ -2,7 +2,8 @@
 $this->Combinator->add_libs('js', 'Dane.modal-dataobject-observe');
 
 $subscription = $object->getLayer('subscription');
-$userSubscription = $object->getLayer('subscription')['SubscriptionChannel'];
+$userSubscription = @$object->getLayer('subscription')['SubscriptionChannel'];
+$userSubscriptionList = array_column($userSubscription, 'channel');
 $channels = $object->getLayer('channels');
 $dataset = $object->getDataset();
 $object_id = $object->getId();
@@ -29,54 +30,73 @@ $object_id = $object->getId();
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Obserwuj dane o "<?= $object->getTitle() ?>"</h4>
+                    <h4 class="modal-title" id="myModalLabel">Obserwuj</h4>
                 </div>
                 <form action="/dane/subscriptions" method="post">
                     <div class="modal-body">
+                        <p class="header">Otrzymuj powiadomienia o nowych danych związanych z
+                            "<?= $object->getTitle(); ?>"</p>
+
                         <div class="alert alert-danger" role="alert">
                             <p>Prosze zaznaczyć przynajmniej jeden kanał do obserwowania</p>
                         </div>
                         <input type="hidden" name="dataset" value="<?= $dataset ?>"/>
                         <input type="hidden" name="object_id" value="<?= $object_id ?>"/>
 
-                        <div class="checkbox">
-                            <input type="checkbox" id="checkbox_all" name="channel[]" value="" checked>
-                            <label for="checkbox_all">Wszystkie dane
-                                <small>*</small>
-                            </label>
-                        </div>
-                        <? if (isset($channels) && !empty($channels)) {
-                            if (isset($userSubscription)) {
-                                debug($userSubscription);
-                            } else {
-                                foreach ($channels as $ch) {
-                                    ?>
-                                    <div class="checkbox">
-                                        <input type="checkbox"
-                                               id="checkbox_<?= $ch['DatasetChannel']['subject_dataset'] . '_' . $ch['DatasetChannel']['channel'] ?>"
-                                               name="channel[]" value="<?= $ch['DatasetChannel']['channel'] ?>"
-                                               checked
-                                               disabled>
-                                        <label
-                                            for="checkbox_<?= $ch['DatasetChannel']['subject_dataset'] . '_' . $ch['DatasetChannel']['channel'] ?>"><?= $ch['DatasetChannel']['title'] ?></label>
+                        <div class="options">
+                            <? if (isset($channels) && !empty($channels)) {
+                                if (isset($userSubscription)) { ?>
+                                    <div class="checkbox first">
+                                        <input type="checkbox" id="checkbox_all" name="channel[]"
+                                               value=""<? if (empty($userSubscription)) echo ' checked'; ?>>
+                                        <label for="checkbox_all">Wszystkie dane</label>
                                     </div>
-                                <?
+                                    <? foreach ($channels as $ch) {
+                                        ?>
+                                        <div class="checkbox">
+                                            <input type="checkbox"
+                                                   id="checkbox_<?= $ch['DatasetChannel']['subject_dataset'] . '_' . $ch['DatasetChannel']['channel'] ?>"
+                                                   name="channel[]" value="<?= $ch['DatasetChannel']['channel'] ?>"
+                                                <? if (empty($userSubscription) || in_array($ch['DatasetChannel']['channel'], $userSubscriptionList)) echo ' checked'; ?>
+                                                <? if (empty($userSubscription)) echo ' disabled'; ?>>
+                                            <label
+                                                for="checkbox_<?= $ch['DatasetChannel']['subject_dataset'] . '_' . $ch['DatasetChannel']['channel'] ?>"><?= $ch['DatasetChannel']['title'] ?></label>
+                                        </div>
+                                    <?
+                                    }
+                                } else { ?>
+                                    <div class="checkbox first">
+                                        <input type="checkbox" id="checkbox_all" name="channel[]" value="" checked>
+                                        <label for="checkbox_all">Wszystkie dane
+                                            <small>*</small>
+                                        </label>
+                                    </div>
+
+                                    <? foreach ($channels as $ch) {
+                                        ?>
+                                        <div class="checkbox">
+                                            <input type="checkbox"
+                                                   id="checkbox_<?= $ch['DatasetChannel']['subject_dataset'] . '_' . $ch['DatasetChannel']['channel'] ?>"
+                                                   name="channel[]" value="<?= $ch['DatasetChannel']['channel'] ?>"
+                                                   checked
+                                                   disabled>
+                                            <label
+                                                for="checkbox_<?= $ch['DatasetChannel']['subject_dataset'] . '_' . $ch['DatasetChannel']['channel'] ?>"><?= $ch['DatasetChannel']['title'] ?></label>
+                                        </div>
+                                    <?
+                                    }
                                 }
-                            }
-                        } ?>
-                        <p class="info">
-                            <small>* Zaznaczenie opcji "wszystkich danych" włączy obserwowanie aktualnych oraz
-                                przyszłościowych kanałów powiązanych z danym elementem.
-                            </small>
-                        </p>
+                            } ?>
+                        </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer<?php if (!$this->Session->read('Auth.User.id')) {
+                        echo ' backgroundBlue';
+                    } ?>">
                         <?php if ($this->Session->read('Auth.User.id')) { ?>
-                            <a href="#" class="submit">Zapisz</a>
+                            <a href="#" class="btn btn-primary submit">Zapisz</a>
                         <?php } else { ?>
                             <a href="/login" class="_specialCaseLoginButton" data-dismiss="modal">Zaloguj się, aby
-                                korzystać z funkcji
-                                obserwowania
+                                korzystać z funkcji obserwowania
                             </a>
                         <?php } ?>
                     </div>

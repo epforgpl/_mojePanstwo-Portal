@@ -13,9 +13,8 @@
             padding-bottom: 0;
 
             .modal-title {
-                font-size: 24px;
+                font-size: 40px;
                 font-weight: 300;
-                line-height: 1em;
                 text-align: center;
             }
 
@@ -27,23 +26,49 @@
             }
         }
         .modal-body {
-            margin-top: 20px;
+            margin-top: 0;
             margin-bottom: 20px;
             padding: 5px 30px;
+
+            .header {
+                font-size: 16px;
+                margin-bottom: 30px;
+                margin-top: 0;
+                text-align: center;
+            }
 
             .alert {
                 display: none;
                 padding-bottom: 8px;
                 padding-top: 8px;
             }
+
+            .options {
+                margin-bottom: 10px;
+
+                .checkbox {
+                    @padding: 40px;
+
+                    padding-left: @padding;
+                    padding-right: @padding;
+
+                    &.first {
+                        margin-bottom: 20px;
+                    }
+                }
+            }
+
             .info {
                 color: #ccc;
             }
         }
         .modal-footer {
-            background-color: #428BCA;
             padding: 15px 10px;
             text-align: center;
+
+            &.backgroundBlue {
+                background-color: #428BCA;
+            }
 
             a {
                 font-size: 15px;
