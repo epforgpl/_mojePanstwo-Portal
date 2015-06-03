@@ -1,7 +1,10 @@
+/*global $, jQuery, ui*/
 (function ($) {
-    var suggesterBlock;
+    "use strict";
 
-    if ((suggesterBlock = $('.suggesterBlock')).length && false) {
+    var suggesterBlock = $('.suggesterBlock');
+
+    if (suggesterBlock.length && false) {
         $.each(suggesterBlock, function (index, block) {
             var suggesterInput = $(block).find('input.form-control'),
                 suggesterBtn = $(block).find('.input-group-btn .btn'),
@@ -17,20 +20,21 @@
                     var term = request.term;
 
                     suggesterBtn = this.element.parents('form').find('.input-group-btn .btn');
-
                     if (term in suggesterCache) {
                         response(suggesterCache[term]);
                     } else {
                         suggesterBtn.addClass('loading');
-                        var parm = "q=" + request.term;
-                        if (suggesterData.app)
-                            parm += "&app=" + suggesterData.app;
-                        $.getJSON("/dane/suggest.json?" + parm, function (data) {
+                        console.log(request, request.term);
+                        var parameters = "q=" + request.term;
+                        if (suggesterData.app) {
+                            parameters += "&app=" + suggesterData.app;
+                        }
+                        $.getJSON("/dane/suggest.json?" + parameters, function (data) {
                             var results = $.map(data.hits, function (item) {
                                 var shortTitleLimit = 200,
                                     shortTitle = '';
 
-                                if (item.dataset == 'twitter') {
+                                if (item.dataset === 'twitter') {
                                     shortTitle = item.title.replace(/(<([^>]+)>)/ig, "");
                                 } else {
                                     if (item.title.length > shortTitleLimit) {
@@ -53,7 +57,7 @@
 
                             suggesterCache[term] = results;
 
-                            if (results.length == 0) {
+                            if (results.length === 0) {
                                 $('.ui-autocomplete').hide();
                                 suggesterInput.removeClass('open');
                                 suggesterBtn.removeClass('loading');
@@ -82,33 +86,30 @@
                     suggesterInput.removeClass('open');
                 },
                 focus: function (event, ui) {
-                    if (ui.item)
+                    if (ui.item) {
                         suggesterInput.val(ui.item.title);
+                    }
                     return false;
                 },
                 select: function (event, ui) {
-                    if (ui.item)
+                    if (ui.item) {
                         suggesterInput.val(ui.item.title);
-
+                    }
                     window.location.href = ui.item.link;
                     return false;
                 }
-            }).autocomplete("widget").addClass("autocompleteSuggester");
+            }).autocomplete('widget').addClass("autocompleteSuggester");
 
             suggesterInput.data("ui-autocomplete")._renderItem = function (ul, item) {
-                if (item.type == 'item') {
-                    return $('<li></li>').addClass("row")
-                        .append(
-                        $('<a></a>').attr({'href': '/dane/' + item.link, 'target': '_self'})
-                            .append(
+                if (item.type === 'item') {
+                    return $('<li></li>').addClass("row").append(
+                        $('<a></a>').attr({'href': '/dane/' + item.link, 'target': '_self'}).append(
                             $('<p></p>').addClass('col-xs-3 col-md-2').addClass('_label').html('<span class="label label-default label-sm">' + item.label + '</span>')
-                        )
-                            .append(
+                        ).append(
                             $('<p></p>').addClass('col-md-9 col-md-10').addClass('_title').text(item.shortTitle)
                         )
-                    )
-                        .appendTo(ul)
-                } else if (item.type == 'button') {
+                    ).appendTo(ul);
+                } else if (item.type === 'button') {
                     return $('<li></li>').addClass("row button").append(
                         $('<a></a>').addClass('btn btn-success').attr({
                             'href': '/dane/szukaj?q=' + item.q,
@@ -116,7 +117,7 @@
                         }).html('<span class="glyphicon glyphicon-search"> </span> ' + mPHeart.suggester.fullSearch)
                     ).appendTo(ul);
                 }
-            }
+            };
         });
     }
 }(jQuery));
