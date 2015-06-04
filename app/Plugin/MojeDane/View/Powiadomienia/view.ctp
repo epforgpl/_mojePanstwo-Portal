@@ -69,11 +69,14 @@
 			            <li>
 			            	
 			            	<p class="title"><a href="<?= $sub->getUrl() ?>"><?= $sub->getTitle() ?></a></p>
+			            	
+			            	<? /*
 			            	<ul class="subscriptions_list">
 							<? foreach($sub->inner_hits as $hit) {?>
 								<li><a href="/dane/subscriptions/<?= $hit['id'] ?>"><span class="glyphicon glyphicon-star"></span> <?= $hit['title'] ?></a></li>
 							<? } ?>
 						    </ul>
+						    */ ?>
 			            	
 			            </li>    
 			            <? } ?>

@@ -13,7 +13,7 @@
                     if (isset($m['class']) && !empty($m['class'])) {
                         $classes = explode(' ', $m['class']);
                     }
-
+										
                     if (isset($_menu['selected']) && ($m['id'] == $_menu['selected'])) {
                         $classes[] = 'active';
                     }
@@ -41,8 +41,8 @@
 					
                     if ($m['id'] && ($m['id'] != 'view')) {
                         if( $href[0]!='/' )
-                        	$href .= '/';
-                        $href .= $m['id'];
+                        	$href = '/' . $href;
+                        $href .= '/' . $m['id'];
                     }
 
                     if (isset($m['label']) && (!empty($m['label']))) {

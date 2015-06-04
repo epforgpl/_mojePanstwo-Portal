@@ -3,7 +3,7 @@ $this->Combinator->add_libs('js', 'Dane.modal-dataobject-observe');
 
 $subscription = $object->getLayer('subscription');
 $userSubscription = @$object->getLayer('subscription')['SubscriptionChannel'];
-$userSubscriptionList = array_column($userSubscription, 'channel');
+$userSubscriptionList = empty($userSubscription) ? array() : array_column($userSubscription, 'channel');
 $channels = $object->getLayer('channels');
 $dataset = $object->getDataset();
 $object_id = $object->getId();

@@ -4,20 +4,21 @@ App::uses('ApplicationsController', 'Controller');
 class PismaController extends ApplicationsController
 {
 
+	public $_layout = array(
+        'header' => array(
+            'element' => 'app',
+        ),
+        'body' => array(
+            'theme' => 'default',
+        ),
+        'footer' => array(
+            'element' => 'default',
+        ),
+    );
+	
+	
     public $settings = array(
         'id' => 'moje_pisma',
-        'menu' => array(
-            array(
-                'id' => 'moje_pisma',
-                'label' => 'Moje pisma',
-                'href' => 'moje-pisma',
-            ),
-            array(
-                'id' => 'nowe_pismo',
-                'label' => 'Nowe pismo',
-                'href' => 'moje-pisma/nowe',
-            ),
-		),
         'title' => 'Moje Pisma',
         'subtitle' => 'Wysyłaj pisma urzędowe do instytucje publicznych',
         'headerImg' => '/MojePisma/img/header_pisma.png',
@@ -41,9 +42,9 @@ class PismaController extends ApplicationsController
     public function view($id, $slug = '')
     {
         $pismo = $this->load($id);
-        
+                
         if( $pismo['is_owner'] )
-            $this->setMenuSelected('moje_pisma');
+            $this->menu_selected = 'view';
     }
 	
 	private function load($id)
@@ -93,9 +94,9 @@ class PismaController extends ApplicationsController
 				return $this->redirect( $this->referer() );
 					
 			if( $pismo['saved'] ) {
-                $this->setMenuSelected('moje_pisma');
+                $this->menu_selected = 'view';
 			} else {
-                $this->setMenuSelected('nowe_pismo');
+                $this->menu_selected = 'nowe';
 			}
 		
 		} else {
@@ -221,7 +222,7 @@ class PismaController extends ApplicationsController
 	public function home()
     {
 
-        $this->setMenuSelected('nowe_pismo');
+        $this->menu_selected = 'nowe';
 	    
 	    /*
         $API = $this->Pismo;
@@ -250,7 +251,7 @@ class PismaController extends ApplicationsController
     public function my()
     {
 
-        $this->setMenuSelected('moje_pisma');
+        $this->menu_selected = 'view';
 		$q = false;
 		
 		$params = array(
@@ -352,7 +353,26 @@ class PismaController extends ApplicationsController
         $this->set('filters_selected', $filters_selected);
         
         $this->title = 'Moje Pisma';
-    }	
+    }
+    
+    public function getMenu() {
+	    
+	    $menu = array(
+		    'items' => array(
+	            array(
+	                'label' => 'Moje pisma',
+	            ),
+	            array(
+	                'id' => 'nowe',
+	                'label' => 'Nowe pismo',
+	            ),
+			),
+			'base' => '/moje-pisma/',
+		);
+		
+		return $menu;
+	    
+    }
 	
 	/*
     public function save()
