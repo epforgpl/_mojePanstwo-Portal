@@ -15,7 +15,7 @@
                     urna. Vestibulum commodo volutpat a, convallis ac, laoreet enim.
                 </p>
 
-                <form class="form-horizontal" type="POST">
+                <form class="form-horizontal" method="post">
                     <div class="form-group">
                         <label for="inputOrganization">Organizacja</label>
                         <input required="required" autocomplete="off" type="text" class="form-control"
@@ -28,7 +28,7 @@
 
 
                         <input required="required" autocomplete="off" type="text" class="form-control" id="inputName"
-                               name="name">
+                               name="firstname">
 
                     </div>
                     <div class="form-group">
@@ -36,7 +36,7 @@
 
 
                         <input required="required" autocomplete="off" type="text" class="form-control" id="inputSurname"
-                               name="surname">
+                               name="lastname">
 
                     </div>
                     <div class="form-group">

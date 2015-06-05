@@ -15,10 +15,23 @@ class NgoController extends ApplicationsController
         parent::prepareMetaTags();
         $this->setMeta('og:image', FULL_BASE_URL . '/prawo/img/social/prawo.jpg');
     }
-
+	
+	public function addDeclaration() {
+		
+		$status = $this->Ngo->addDeclaration( $this->request->data );
+		if( $status ) {
+			$this->Session->setFlash('Twoje zgłoszenie zostało zapisane. Skontaktujemy się z Tobą w najbliższym czasie.');
+		} else {
+			$this->Session->setFlash('Wystąpił problem z wysyłaniem zgłoszenia');
+		}
+		
+		return $this->redirect('/ngo');
+		
+	}
+	
     public function view()
     {
-	    	    
+	   	
         $options  = array(
             'searchTitle' => 'Szukaj organizacji pozarządowej...',
             'autocompletion' => array(
