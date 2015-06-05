@@ -281,17 +281,48 @@ class AppController extends Controller
         ),
     );
     private $applications = array(
+        'krs' => array(
+            'name' => 'Krajowy Rejestr Sądowy',
+            'href' => '/krs',
+            'tag' => 1,
+            'icon' => '&#xe605;',
+        ),
+        'ngo' => array(
+            'name' => 'NGO',
+            'href' => '/ngo',
+            'tag' => 1,
+            'icon' => '&#xe614;',
+        ),
+        'prawo' => array(
+            'name' => 'Prawo',
+            'href' => '/prawo',
+            'tag' => 1,
+            'icon' => '&#xe60d;',
+        ),
         'bdl' => array(
             'name' => 'Bank Danych Lokalnych',
             'href' => '/bdl',
             'tag' => 1,
             'icon' => '&#xe615;',
         ),
-        'dane' => array(
-            'name' => 'Dane publiczne',
-            'href' => '/dane',
-            'tag' => 0,
+        'kto_tu_rzadzi' => array(
+            'name' => 'Kto tu rządzi?',
+            'href' => '/kto_tu_rzadzi',
+            'src' => '/KtoTuRzadzi/icon/kto_tu_rzadzi.svg',
+            'tag' => 1,
+            'icon' => '&#xe609;',
+        ),
+        'moja_gmina' => array(
+            'name' => 'Moja Gmina',
+            'href' => '/moja_gmina',
+            'tag' => 1,
             'icon' => '&#xe605;',
+        ),
+        'media' => array(
+            'name' => 'Media',
+            'href' => '/media',
+            'tag' => 1,
+            'icon' => '&#xe608;',
         ),
         'dostep_do_informacji_publicznej' => array(
             'name' => 'Dostęp do Informacji Publicznej',
@@ -305,18 +336,20 @@ class AppController extends Controller
             'tag' => 2,
             'icon' => '&#xe602;',
         ),
+        'zamowienia_publiczne' => array(
+            'name' => 'Zamówienia publiczne',
+            'href' => '/zamowienia_publiczne',
+            'tag' => 1,
+            'icon' => '&#xe613;',
+        ),
         'handel_zagraniczny' => array(
             'name' => 'Handel zagraniczny',
             'href' => '/handel_zagraniczny',
             'tag' => 1,
             'icon' => '&#xe603;',
         ),
-        'kody_pocztowe' => array(
-            'name' => 'Kody pocztowe',
-            'href' => '/kody_pocztowe',
-            'tag' => 1,
-            'icon' => '&#xe604;',
-        ),
+        
+        
         /*
         'koleje' => array(
             'name' => 'Koleje',
@@ -325,19 +358,13 @@ class AppController extends Controller
             'tag' => 1,
         ),
         */
-        'krs' => array(
-            'name' => 'Krajowy Rejestr Sądowy',
-            'href' => '/krs',
-            'tag' => 1,
+        'dane' => array(
+            'name' => 'Dane publiczne',
+            'href' => '/dane',
+            'tag' => 0,
             'icon' => '&#xe605;',
         ),
-        'kto_tu_rzadzi' => array(
-            'name' => 'Kto tu rządzi?',
-            'href' => '/kto_tu_rzadzi',
-            'src' => '/KtoTuRzadzi/icon/kto_tu_rzadzi.svg',
-            'tag' => 1,
-            'icon' => '&#xe609;',
-        ),
+        
         /*
         'mapa_prawa' => array(
             'name' => 'Mapa prawa',
@@ -346,18 +373,8 @@ class AppController extends Controller
             'icon' => '&#xe607;',
         ),
         */
-        'media' => array(
-            'name' => 'Media',
-            'href' => '/media',
-            'tag' => 1,
-            'icon' => '&#xe608;',
-        ),
-        'moja_gmina' => array(
-            'name' => 'Moja Gmina',
-            'href' => '/moja_gmina',
-            'tag' => 1,
-            'icon' => '&#xe605;',
-        ),
+        
+        
         'moje_dane' => array(
             'name' => 'Moje dane',
             'href' => '/moje-dane',
@@ -370,17 +387,23 @@ class AppController extends Controller
             'tag' => 3,
             'icon' => '&#xe60b;',
         ),
-        'ngo' => array(
-            'name' => 'NGO',
-            'href' => '/ngo',
-            'tag' => 1,
-            'icon' => '&#xe614;',
-        ),
         'orzecznictwo' => array(
             'name' => 'Orzecznictwo',
             'href' => '/orzecznictwo',
             'tag' => 1,
             'icon' => '&#xe60d;',
+        ),
+        'sejmometr' => array(
+            'name' => 'Sejmometr',
+            'href' => '/sejmometr',
+            'tag' => 1,
+            'icon' => '&#xe610;',
+        ),
+        'kody_pocztowe' => array(
+            'name' => 'Kody pocztowe',
+            'href' => '/kody_pocztowe',
+            'tag' => 1,
+            'icon' => '&#xe604;',
         ),
         /*
         'patenty' => array(
@@ -396,18 +419,8 @@ class AppController extends Controller
             'tag' => 3,
             'icon' => '&#xe60c;',
         ),
-        'prawo' => array(
-            'name' => 'Prawo',
-            'href' => '/prawo',
-            'tag' => 1,
-            'icon' => '&#xe60d;',
-        ),
-        'sejmometr' => array(
-            'name' => 'Sejmometr',
-            'href' => '/sejmometr',
-            'tag' => 1,
-            'icon' => '&#xe610;',
-        ),
+        
+        
         'wydatki_poslow' => array(
             'name' => 'Wydatki Posłów',
             'href' => '/wydatki_poslow',
@@ -420,12 +433,7 @@ class AppController extends Controller
             'tag' => 2,
             'icon' => '&#xe612;',
         ),
-        'zamowienia_publiczne' => array(
-            'name' => 'Zamówienia publiczne',
-            'href' => '/zamowienia_publiczne',
-            'tag' => 1,
-            'icon' => '&#xe613;',
-        ),
+        
     );
 
     public function beforeFilter()
