@@ -132,7 +132,7 @@ echo $this->Element('dataobject/pageBegin'); ?>
                 <? }
             } ?>
 
-            <footer>
+            <footer class="text-center">
                 <a href="http://bzp1.portal.uzp.gov.pl/index.php?ogloszenie=show&pozycja=<?= $details['data']['numer'] ?>&rok=<?= $details['data']['data'] ?>">Źródło</a>
             </footer>
         </div>

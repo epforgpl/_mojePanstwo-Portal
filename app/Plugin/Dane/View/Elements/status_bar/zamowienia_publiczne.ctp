@@ -5,7 +5,7 @@
             <p class="_label">Zamawiający</p>
 
             <p class="_value"><a
-                    href="/dane/zamowienia_publiczne_zamawiajacy/<?= $object->getData('zamawiajacy_id'); ?>"><?= $zamawiajacy_id; ?></a>
+                    href="/dane/zamowienia_publiczne_zamawiajacy/<?= $object->getData('zamawiajacy_id'); ?>"><?= $object->getData('zamawiajacy_nazwa'); ?></a>
             </p>
         </li>
     <? } ?>
