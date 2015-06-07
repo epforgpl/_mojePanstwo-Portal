@@ -154,7 +154,7 @@ echo $this->Html->script('../plugins/bootstrap-switch/bootstrap-switch.js'); ?>
     var mPHeart = {
         constant: {
             ajax: {
-                api: '//api-v2.mojepanstwo.pl'
+                api: 'https://api-v2.mojepanstwo.pl'
             }
         },
         language: {

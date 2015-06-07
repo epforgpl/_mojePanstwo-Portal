@@ -8,12 +8,14 @@
                 <h4 class="modal-title" id="myModalLabel">Zostań oficjalnym partnerem mojegoPaństwa</h4>
             </div>
             <div class="modal-body">
+                <? /*
                 <p>
                     Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse
                     a pellentesque dui, non felis. Maecenas malesuada elit lectus felis,
                     malesuada ultricies. Curabitur et ligula. Ut molestie a, ultricies porta
                     urna. Vestibulum commodo volutpat a, convallis ac, laoreet enim.
                 </p>
+                */ ?>
 
                 <form class="form-horizontal" method="post">
                     <div class="form-group">

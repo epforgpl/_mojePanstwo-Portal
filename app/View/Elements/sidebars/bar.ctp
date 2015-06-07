@@ -16,9 +16,9 @@
                     }
                     ?>
                     <div class="name" title="<?php echo $name; ?>"><?php
-                        echo $this->Text->truncate($name, 16, array(
+                        echo $this->Text->truncate($name, 12, array(
                                 'ellipsis' => '...',
-                                'exact' => false
+                                'exact' => true
                             )
                         ); ?></div>
                     <img class="avatar<?php if ($this->Session->read('Auth.User.photo_small')) {

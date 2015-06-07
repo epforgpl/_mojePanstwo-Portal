@@ -35,34 +35,6 @@ class KtoTuRzadziController extends ApplicationsController
 		            'plugin' => 'KtoTuRzadzi',
 		            'element' => 'cover',
 	            ),
-	            'aggs' => array(
-					'instytucje' => array(
-						'filter' => array(
-							'bool' => array(
-								'must' => array(
-									array(
-										'term' => array(
-											'dataset' => 'instytucje',
-										),
-									),
-									array(
-										'term' => array(
-											'data.instytucje.avatar' => '1',
-										),
-									),
-								),
-							),
-						),
-						'aggs' => array(
-							'top' => array(
-								'top_hits' => array(
-									'size' => 10,
-							        'fielddata_fields' => array('dataset', 'id'),
-								),
-							),
-						),
-					),
-	            ),
             ),
             'aggs' => array(
 		        'dataset' => array(
@@ -79,6 +51,13 @@ class KtoTuRzadziController extends ApplicationsController
 		        ),
             ),
         );
+        
+        if( !isset($this->request->query['q']) ) {
+	        
+	        $data = $this->KtoTuRzadzi->getData();
+	        $this->set('data', $data);
+	        
+        }
 
 	    $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
