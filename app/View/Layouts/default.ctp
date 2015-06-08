@@ -170,7 +170,7 @@ echo $this->Html->script('../plugins/bootstrap-switch/bootstrap-switch.js'); ?>
         suggester: {
             phrase: '<?php echo @htmlspecialchars($q) ?>',
             placeholder: 'Szukaj w danych publicznych...',
-            fullSearch: 'Pełne szukanie'
+            fullSearch: 'Pełne wyszukiwanie'
         },
         translation: jQuery.parseJSON('<?php echo json_encode($translation); ?>')
 
