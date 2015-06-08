@@ -47,7 +47,8 @@
                                     shortTitle: shortTitle,
                                     value: item.payload.object_id,
                                     link: item.payload.dataset + '/' + item.payload.object_id + ((item.payload.slug) ? ',' + item.payload.slug : ''),
-                                    dataset: item.payload.dataset
+                                    dataset: item.payload.dataset,
+                                    image: (item.payload.image_url) ? item.payload.image_url : false
                                 };
                             });
 
@@ -87,19 +88,25 @@
                 select: function (ui) {
                     if (ui.item) {
                         suggesterInput.val(ui.item.title);
+                        window.location.href = ui.item.link;
                     }
-                    window.location.href = ui.item.link;
                     return false;
                 }
             }).autocomplete('widget').addClass("autocompleteSuggester");
 
             suggesterInput.data("ui-autocomplete")._renderItem = function (ul, item) {
                 if (item.type === 'item') {
+                    var image;
+
+                    if (item.image.length > 0) {
+                        image = $('<img />').addClass('doc').attr('src', item.image);
+                    } else {
+                        image = $('<i></i>').addClass('icon icon-applications-' + item.dataset);
+                    }
+
                     return $('<li></li>').addClass("row").append(
                         $('<a></a>').attr({'href': '/dane/' + item.link, 'target': '_self'}).append(
-                            $('<div></div>').addClass('col-xs-2 col-md-1 _label').append(
-                                $('<i></i>').addClass('icon icon-applications-' + item.dataset)
-                            )
+                            $('<div></div>').addClass('col-xs-2 col-md-1 _label').append(image)
                         ).append(
                             $('<div></div>').addClass('col-md-10 col-md-11 _title').append(
                                 $('<span></span>').text(item.shortTitle)
