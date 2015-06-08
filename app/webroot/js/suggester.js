@@ -20,14 +20,12 @@
                     if (term in suggesterCache) {
                         response(suggesterCache[term]);
                     } else {
-                        suggesterBtn.addClass('loading');
-
                         $.get('/dane/suggest.json', {
                             'q': term,
                             'dataset[]': (suggesterInput.data('dataset')) ? suggesterInput.attr('data-dataset').split(',') : '*'
                         }).done(function (data) {
                             var results = $.map(data.options, function (item) {
-                                var shortTitleLimit = 200,
+                                var shortTitleLimit = 150,
                                     shortTitle = '';
 
                                 if (item.payload.dataset === 'twitter') {
@@ -57,7 +55,6 @@
                             if (results.length === 0) {
                                 $('.ui-autocomplete').hide();
                                 suggesterInput.removeClass('open');
-                                suggesterBtn.removeClass('loading');
                             } else {
                                 results.push({
                                     type: 'button',
@@ -77,7 +74,6 @@
                         'left': parseInt($ui.css('left'), 10) + 1 + 'px'
                     });
                     suggesterInput.addClass('open');
-                    suggesterBtn.removeClass('loading');
                 },
                 close: function () {
                     suggesterInput.removeClass('open');
@@ -101,7 +97,7 @@
                     if (item.image.length > 0) {
                         image = $('<img />').addClass('doc').attr('src', item.image);
                     } else {
-                        image = $('<i></i>').addClass('icon icon-applications-' + item.dataset);
+                        image = $('<i></i>').addClass('icon icon-datasets-' + item.dataset);
                     }
 
                     return $('<li></li>').addClass("row").append(

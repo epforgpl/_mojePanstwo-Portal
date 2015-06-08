@@ -176,7 +176,6 @@
     src: local('Roboto Black Italic'), local('Roboto-BlackItalic'), url(/fonts/Roboto/bmC0pGMXrhphrZJmniIZpag5eI2G47JWe0-AuFtD150.woff2) format('woff2'), url(/fonts/Roboto/bmC0pGMXrhphrZJmniIZpdIh4imgI8P11RFo6YPCPC0.woff) format('woff');
 }
 
-
 /* ICONS - SETUP */
 [data-icon]:before,
 [data-icon-applications]:before,
@@ -235,98 +234,90 @@
 }
 
 /* APPLICATION ICON CLASS*/
-[class^="icon-applications-"], [class*=" icon-applications-"] {
+[class^="icon-datasets-"], [class*=" icon-datasets-"] {
     font-family: 'datasets';
 }
 
-.icon-applications-bdl:before {
-    content: "\e615";
-}
-
-.icon-applications-ngo:before {
-    content: "\e614";
-}
-
-.icon-applications-api:before {
-    content: "\e600";
-}
-
-.icon-applications-dane:before {
+.icon-datasets-dostep_do_informacji_publicznej:before {
     content: "\e601";
 }
 
-.icon-applications-finanse:before {
+.icon-datasets-finanse_gmin:before {
+    content: "\e600";
+}
+
+.icon-datasets-wyjazdy_poslow:before {
     content: "\e602";
 }
 
-.icon-applications-handel_zagraniczny:before {
+.icon-datasets-wydatki_poslow:before {
     content: "\e603";
 }
 
-.icon-applications-kody_pocztowe:before {
-    content: "\e604";
-}
-
-.icon-applications-krs:before,
-.icon-applications-krs_podmioty:before,
-.icon-applications-krs_osoby:before {
-    content: "\e605";
-}
-
-.icon-applications-kto_tu_rzadzi:before {
+.icon-datasets-kody_pocztowe:before {
     content: "\e606";
 }
 
-.icon-applications-mapa_prawa:before {
-    content: "\e607";
-}
-
-.icon-applications-media:before {
-    content: "\e608";
-}
-
-.icon-applications-moja_gmina:before {
+.icon-datasets-handel_zagraniczny:before {
     content: "\e609";
 }
 
-.icon-applications-moje_dane:before {
-    content: "\e60a";
-}
-
-.icon-applications-moje_pisma:before {
+.icon-datasets-mapa_prawa:before {
     content: "\e60b";
 }
 
-.icon-applications-paszport:before {
-    content: "\e60c";
+.icon-datasets-sejmometr:before {
+    content: "\e61b";
 }
 
-.icon-applications-prawo:before {
-    content: "\e60d";
+.icon-datasets-media:before {
+    content: "\e61e";
 }
 
-.icon-applications-raporty_dostep_do_informacji_publicznej:before {
-    content: "\e60e";
+.icon-datasets-zamowienia_publiczne:before {
+    content: "\e625";
 }
 
-.icon-applications-raporty_gabinety_polityczne:before {
-    content: "\e60f";
+.icon-datasets-moja_gmina:before {
+    content: "\e626";
 }
 
-.icon-applications-sejmometr:before {
-    content: "\e610";
+.icon-datasets-kto_tu_rzadzi:before {
+    content: "\e629";
 }
 
-.icon-applications-wydatki_poslow:before {
-    content: "\e611";
+.icon-datasets-bank_danych_lokalnych:before {
+    content: "\e630";
 }
 
-.icon-applications-wyjazdy_poslow:before {
-    content: "\e612";
+.icon-datasets-orzecznictwo:before {
+    content: "\e635";
 }
 
-.icon-applications-zamowienia_publiczne:before {
-    content: "\e613";
+.icon-datasets-orzeczenia_sa:before {
+    content: "\e632";
+}
+
+.icon-datasets-orzeczenia_sn:before {
+    content: "\e634";
+}
+
+.icon-datasets-orzeczenia_sp:before {
+    content: "\e633";
+}
+
+.icon-datasets-prawo:before {
+    content: "\e638";
+}
+
+.icon-datasets-prawo_hasla:before {
+    content: "\e636";
+}
+
+.icon-datasets-krs:before,
+.icon-datasets-krs_podmioty:before,
+.icon-datasets-krs_osoby:before {
+    content: "\e63c";
 }
 
 /* CAKE ERROR LOGS */
@@ -532,23 +523,25 @@ svg.svg {
 }
 
 .form-control {
-	border-color: #BBB;
+    border-color: #BBB;
 }
 
 .form-control::-webkit-input-placeholder {
-   color: #666;
+    color: #666;
 }
 
-.form-control:-moz-placeholder { /* Firefox 18- */
-   color: #666;
+.form-control:-moz-placeholder {
+    /* Firefox 18- */
+    color: #666;
 }
 
-.form-control::-moz-placeholder {  /* Firefox 19+ */
-   color: #666;
+.form-control::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #666;
 }
 
-.form-control:-ms-input-placeholder {  
-   color: #666;
+.form-control:-ms-input-placeholder {
+    color: #666;
 }
 
 /*LOADING ADDONS*/
@@ -584,11 +577,11 @@ svg.svg {
     margin: 2px 0 -4px;
 
     i {
-	    font-size: 20px;
-	    margin-right: 3px;
-	    margin-top: -6px;
-	    position: relative;
-	    top: 4px;
+        font-size: 20px;
+        margin-right: 3px;
+        margin-top: -6px;
+        position: relative;
+        top: 4px;
     }
 
     img, svg {
@@ -685,32 +678,32 @@ svg.svg {
 }
 
 .appHeader {
-	.nav {
-	    > li > a {
-	        font-size: 14px;
-	        line-height: 18px;
-	        position: relative;
-	        top: 1px;
-	    }
-	    li a {
-	        font-weight: 600;
-	        font-family: "Lato", Arial, sans-serif;
-	        color: #258ac5;
-	    }
-	    .glyphicon {
-	        font-size: 16px;
-	        font-weight: 200;
-	        margin-right: 5px;
-	        position: relative;
-	        top: 2px;
-	    }
-	
-	    .badge {
-	        background-color: #009de0;
-	        position: relative;
-	        top: -1px;
-	    }
-	}
+    .nav {
+        > li > a {
+            font-size: 14px;
+            line-height: 18px;
+            position: relative;
+            top: 1px;
+        }
+        li a {
+            font-weight: 600;
+            font-family: "Lato", Arial, sans-serif;
+            color: #258ac5;
+        }
+        .glyphicon {
+            font-size: 16px;
+            font-weight: 200;
+            margin-right: 5px;
+            position: relative;
+            top: 2px;
+        }
+
+        .badge {
+            background-color: #009de0;
+            position: relative;
+            top: -1px;
+        }
+    }
 }
 
 .app-header {
@@ -1084,31 +1077,26 @@ blockquote p {
     text-transform: none;
 }
 
-
-
 .cake-debug-output, .cake-error {
     margin-left: 110px;
 }
 
 .table.table-min > thead > tr > th, .table.table-min > tbody > tr > th, .table.table-min > tfoot > tr > th, .table.table-min > thead > tr > td, .table.table-min > tbody > tr > td, .table.table-min > tfoot > tr > td {
-	font-size: 12px;
+    font-size: 12px;
 }
-
 
 /* AUTOCOMPLETER */
 
 .ui-menu .ui-menu-item {
-	padding: 7px;
-	color: #333;
-	
-	&.ui-state-focus {
-		background: #EEE;
-		border: none;
-		font-weight: normal;
-	}
+    padding: 7px;
+    color: #333;
+
+    &.ui-state-focus {
+        background: #EEE;
+        border: none;
+        font-weight: normal;
+    }
 }
-
-
 
 /*
 .block {
