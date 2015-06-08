@@ -4,7 +4,7 @@ var DataBrowser = Class.extend({
 
         this.div = $(div);
 
-        this.div.find('.dataBrowserSearchInput[data-autocompletion=true]').autocomplete({
+        /*this.div.find('.dataBrowserSearchInput[data-autocompletion=true]').autocomplete({
             source: function (request, response) {
 
                 if (this.element.attr('data-autocompletion-dataset'))
@@ -26,7 +26,7 @@ var DataBrowser = Class.extend({
                 });
 
             }
-        });
+         });*/
 
         $('.goto .selectpicker').selectpicker('val', null).on('change', function () {
             var href = $(this).find("option:selected").attr('href');

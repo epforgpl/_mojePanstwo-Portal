@@ -103,18 +103,14 @@
     .ui-menu-item {
         border-top: 1px solid #E3E3E3;
         display: block;
+        width: 100%;
 
         &.button {
-            p {
-                text-align: center;
-
-                a.btn {
-                    color: #FFFFFF;
-                }
-            }
+            color: #FFFFFF;
+            background-color: #59a4dd;
 
             a {
-                background-color: #59a4dd;
+                background: none;
                 color: #FFFFFF;
                 font-size: 13px;
                 padding: 8px 0;
@@ -129,45 +125,13 @@
             }
 
             .ui-state-hover, .ui-state-focus {
-                background-color: #59a4dd !important;
-                color: #FFFFFF;
-                padding: 8px 0;
+                background-color: #ffffff;
+                color: #000000;
 
-                > span {
-                    color: #FFFFFF;
+                > a {
+                    color: #000000;
                 }
 
-            }
-
-            .ui-menu .ui-menu-item a.ui-state-focus, .ui-menu .ui-menu-item a.ui-state-active {
-                color: #FFFFFF;
-                background-color: #59a4dd;
-
-                &.a, &.span {
-                    color: #FFFFFF;
-                }
-            }
-        }
-
-        &:last-child {
-            background-color: #428bca;
-
-            a, p, p._title {
-                color: #FFFFFF;
-            }
-
-            .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
-                background-color: #428bca;
-                color: #FFFFFF;
-
-                span {
-                    color: #FFFFFF;
-                }
-            }
-
-            .ui-menu .ui-menu-item a.ui-state-focus, .ui-menu .ui-menu-item a.ui-state-active {
-                color: #FFFFFF;
-                background-color: #428bca;
             }
         }
 
@@ -180,7 +144,7 @@
             -webkit-border-radius: 0;
             border: none;
             padding: 12px;
-            display: block;
+            display: inline;
             float: left;
             width: 100%;
             margin: 0;
@@ -189,45 +153,46 @@
                 margin: 0;
             }
 
-            &:hover, &:focus, &:active {
-                color: #FFFFFF;
-                background-color: #EEEEEE;
-                border: none;
+            > div {
                 margin: 0;
-                padding: 12px;
-            }
-
-            p {
-                margin: 0;
+                @blockSize: 24px;
 
                 &._label {
                     text-align: right;
                     padding-right: 0;
+                    background-color: inherit;
 
-                    .label {
-                        background-color: inherit;
+                    .icon {
                         color: #666;
                         font-weight: 400;
-                        font-size: 11px;
-                        text-transform: uppercase;
+                        font-size: @blockSize;
+                        font-style: normal;
                     }
                 }
 
                 &._title {
-                    color: #428bca;
-                    font-weight: bold;
-                    font-size: 13px;
-                    margin-top: 2px;
-                    margin-bottom: -2px;
+                    position: relative;
+                    min-height: @blockSize + 12;
+
+                    > span {
+                        color: #428bca;
+                        font-weight: bold;
+                        font-size: 13px;
+                        line-height: 1.2em;
+
+                        position: absolute;
+                        top: 50%;
+                        transform: translate(0, -50%);
+                    }
                 }
             }
         }
     }
+
     .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
         background: #EEEEEE none;
         color: #333333;
         margin: 0;
-        padding: 12px;
         border: none;
 
         span {
@@ -241,4 +206,5 @@
         padding: 12px;
         background-color: #EEEEEE;
     }
+
 }

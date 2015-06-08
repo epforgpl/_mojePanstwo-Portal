@@ -70,9 +70,9 @@ class DataobjectsController extends AppController
         ) {
 
             $layers = $this->initLayers;
-            
-            if( $this->observeOptions )
-            	$layers[] = 'channels';
+
+            if ($this->observeOptions)
+                $layers[] = 'channels';
 
             if ($this->object = $this->Dataobject->find('first', array(
                 'conditions' => array(
@@ -164,26 +164,17 @@ class DataobjectsController extends AppController
 
     public function suggest()
     {
-
         $hits = array();
 
-        if (
-            isset($this->request->query['q']) &&
-            ($q = trim($this->request->query['q']))
-        ) {
-			
-			$params = array(
-				'dataset' => false,
-			);
-			
-			if(
-				isset($this->request->query['dataset']) &&
-	            ($dataset = $this->request->query['dataset'])
-			)
-				$params['dataset'] = $dataset;
-				
-            $hits = $this->Dataobject->suggest($q, $params);
+        if (isset($this->request->query['q']) && ($q = trim($this->request->query['q']))) {
+            $params = array(
+                'dataset' => false,
+            );
 
+            if (isset($this->request->query['dataset']) && ($dataset = $this->request->query['dataset']))
+                $params['dataset'] = $dataset;
+
+            $hits = $this->Dataobject->suggest($q, $params);
         }
 
         $this->set('hits', $hits);
@@ -223,7 +214,7 @@ class DataobjectsController extends AppController
 
     public function beforeRender()
     {
-         
+
         $is_json = (isset($this->request->params['ext']) && $this->request->params['ext'] == 'json');
 
         if (!$is_json) {
@@ -236,7 +227,7 @@ class DataobjectsController extends AppController
                 $this->addAppBreadcrumb($breadcrumbs_data['app_id']);
 
             } elseif ($breadcrumbs_data = $this->getDataset($this->object->getDataset())) {
-								
+
                 $this->addAppBreadcrumb($breadcrumbs_data['app_id']);
 
                 if ($this->addDatasetBreadcrumb)
@@ -259,7 +250,7 @@ class DataobjectsController extends AppController
             $this->prepareMetaTags();
 
         }
-				
+
         parent::beforeRender();
 
     }
