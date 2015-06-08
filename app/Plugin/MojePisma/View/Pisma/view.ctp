@@ -83,7 +83,7 @@
                                         <a class="btn btn-social-icon btn-wykop"
                                            href="http://www.wykop.pl/dodaj/link/?url=<?php echo Router::url($this->here, true); ?>&title=<?= $pismo['nazwa'] ?>"
                                            target="_blank">
-                                            <object data="/error/brak.gif" type="image/png">
+                                            <object data="/img/error/brak.gif" type="image/png">
                                                 <img class="fa" src="/MojePisma/img/wykop_logo.png" alt="wykop.pl"/>
                                             </object>
                                         </a>

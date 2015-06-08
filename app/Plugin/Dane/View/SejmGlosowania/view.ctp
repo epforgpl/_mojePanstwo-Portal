@@ -81,7 +81,7 @@ $dictionary = array(
                         <tr>
                             <td class="club" data-club-id="<?= $row['klub_id'] ?>">
                                 <? if ($row['klub_id'] != '7') { ?>
-                                    <object data="/error/brak.gif" type="image/png">
+                                    <object data="/img/error/brak.gif" type="image/png">
                                         <img src="http://resources.sejmometr.pl/s_kluby/<?= $row['klub_id'] ?>_a.png"
                                              alt="<?= $row['klub_nazwa'] ?>"/>
                                     </object>
@@ -117,7 +117,7 @@ $dictionary = array(
                         <div class="slide col-xs-6 col-md-4">
                             <div class="person">
                                 <div class="avatar">
-                                    <object data="/error/avatar.gif" type="image/png">
+                                    <object data="/img/error/avatar.gif" type="image/png">
                                         <img
                                             src="http://resources.sejmometr.pl/mowcy/a/0/<?= $person['mowcy']['mowca_id'] ?>.jpg"
                                             alt="<?= $person['poslowie']['nazwa'] ?>"/>
@@ -129,7 +129,7 @@ $dictionary = array(
                                     <a class="clubName" href="<?= $person['kluby']['id'] ?>" target="_self"
                                        title="<?= $person['kluby']['nazwa'] ?>"
                                        data-club-id="<?= $person['kluby']['id'] ?>">
-                                        <object data="/error/brak.gif" type="image/png">
+                                        <object data="/img/error/brak.gif" type="image/png">
                                             <img
                                                 src="http://resources.sejmometr.pl/s_kluby/<?= $person['kluby']['id'] ?>_a.png"
                                                 alt="<?= $person['kluby']['nazwa'] ?>"/>

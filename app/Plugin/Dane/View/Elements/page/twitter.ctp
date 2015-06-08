@@ -1,6 +1,6 @@
 <h1 class="_">
     <p class="_thumb_cont">
-        <object data="/error/avatar.gif" type="image/png">
+        <object data="/img/error/avatar.gif" type="image/png">
             <img src="<?= $object->getData('twitter_accounts.profile_image_url') ?>"/>
             <object
     </p>

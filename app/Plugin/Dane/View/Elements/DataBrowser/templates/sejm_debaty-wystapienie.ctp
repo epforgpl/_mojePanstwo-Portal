@@ -19,7 +19,7 @@
 
         <div class="sw_avatar">
             <p><? if ($mowca_href) { ?><a href="<?= $mowca_href ?>"><? } ?>
-                    <object data="/error/avatar.gif" type="image/png"><img
+                    <object data="/img/error/avatar.gif" type="image/png"><img
                             src="<?= $thumbnailUrl ?>"/></object><? if ($mowca_href){ ?></a><? } ?></p>
         </div>
         <div class="sw_content">

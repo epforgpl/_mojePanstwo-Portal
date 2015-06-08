@@ -17,7 +17,7 @@ $file_exists = file_exists($file);
                 <? if ($object->getThumbnailUrl()) { ?>
                     <div class="attachment col-md-2">
                         <a href="<?= $object->getUrl() ?>">
-                            <object data="/error/brak.gif" type="image/png">
+                            <object data="/img/error/brak.gif" type="image/png">
                                 <img src="<?= $object->getThumbnailUrl() ?>"
                                      alt="<?= strip_tags($object->getTitle()) ?>"/>
                             </object>

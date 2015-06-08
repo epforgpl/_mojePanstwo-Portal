@@ -7,7 +7,7 @@
                     <?php if ($object->getUrl() != false) { ?>
                     <a class="thumb_cont" href="http://przejrzystykrakow.pl">
                         <?php } ?>
-                        <object data="/error/brak.gif" type="image/png">
+                        <object data="/img/error/brak.gif" type="image/png">
                             <img class="thumb" src="/dane/img/customObject/krakow/logo_pkrk.png"
                                  alt="<?= strip_tags($object->getTitle()) ?>"/>
                         </object>

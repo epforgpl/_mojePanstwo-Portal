@@ -101,7 +101,7 @@ $this->Combinator->add_libs('js', 'Finanse.dzialy.js');
                 <li class="section" id="dsection_<?= $section['id'] ?>" data-id="<?= $section['id'] ?>">
                     <div class="row">
                         <div class="col-md-2 text-right icon">
-                            <object data="/error/brak.gif" type="image/png">
+                            <object data="/img/error/brak.gif" type="image/png">
                                 <img src="/finanse/img/sections/<?= $section['id'] ?>.svg"/>
                             </object>
                         </div>

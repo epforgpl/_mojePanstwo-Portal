@@ -40,7 +40,7 @@ $data = $object->getLayer('finanse');
                             data-sum="<?= (int)$section['sum_wydatki'] ?>" data-id="<?= $section['id'] ?>">
                             <div class="row">
                                 <div class="col-md-2 text-right icon">
-                                    <object data="/error/brak.gif" type="image/png">
+                                    <object data="/img/error/brak.gif" type="image/png">
                                         <img src="/finanse_gmin/img/sections/<?= $section['id'] ?>.svg"/>
                                     </object>
                                 </div>

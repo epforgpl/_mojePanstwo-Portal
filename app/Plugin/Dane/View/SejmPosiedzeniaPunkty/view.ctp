@@ -50,7 +50,7 @@
 
                                                         <div class="aoverflow">
                                                             <p class="img-debata">
-                                                                <object data="/error/brak.gif" type="image/png">
+                                                                <object data="/img/error/brak.gif" type="image/png">
                                                                     <img
                                                                         src="http://resources.sejmometr.pl/stenogramy/subpunkty/<?= $debata->getId() ?>.jpg"/>
                                                                 </object>

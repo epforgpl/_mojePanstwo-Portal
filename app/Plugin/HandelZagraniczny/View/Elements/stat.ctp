@@ -20,7 +20,7 @@
         </p>
 
         <p class="nposel">
-            <object data="/error/avatar.gif" type="image/png">
+            <object data="/img/error/avatar.gif" type="image/png">
                 <img
                     src="http://resources.sejmometr.pl/mowcy/a/3/<?= $biura[$id]['data']['ludzie_poslowie.mowca_id'] ?>.jpg"/>
             </object>

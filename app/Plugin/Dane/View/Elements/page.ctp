@@ -30,7 +30,7 @@ if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) {
         <?php if ($object->getUrl() != false) { ?>
         <a class="thumb_cont" href="<?= $object->getUrl() ?>">
             <?php } ?>
-            <object data="/error/brak.gif" type="image/png">
+            <object data="/img/error/brak.gif" type="image/png">
                 <img itemprop="image" class="thumb"
                      src="<?= $object->getHeaderThumbnailUrl($thumbSize) ?>"
                      alt="<?= strip_tags($object->getTitle()) ?>"/>

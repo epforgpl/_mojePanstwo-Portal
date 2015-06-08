@@ -84,7 +84,7 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
                             <? foreach ($stats['calosc']['indywidualne'] as $i) { ?>
                                 <li class="row">
                                     <div class="col-md-2 text-right">
-                                        <object data="/error/avatar.gif" type="image/png">
+                                        <object data="/img/error/avatar.gif" type="image/png">
                                             <img class="border"
                                                  src="http://resources.sejmometr.pl/mowcy/a/2/<?= $i['mowca_id'] ?>.jpg"/>
                                         </object>
@@ -181,7 +181,7 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
                             <? foreach ($stats['najdrozsze']['indywidualnie'] as $i) { ?>
                                 <li class="row">
                                     <div class="col-md-2 text-right">
-                                        <object data="/error/avatar.gif" type="image/png">
+                                        <object data="/img/error/avatar.gif" type="image/png">
                                             <img class="border"
                                                  src="http://resources.sejmometr.pl/mowcy/a/2/<?= $i['mowca_id'] ?>.jpg"/>
                                         </object>
@@ -264,7 +264,7 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
                                 <? foreach ($w['poslowie'] as $p) { ?>
                                     <li class="row">
                                         <p class="col-sm-4">
-                                            <object data="/error/avatar.gif" type="image/png">
+                                            <object data="/img/error/avatar.gif" type="image/png">
                                                 <img class="border"
                                                      src="http://resources.sejmometr.pl/mowcy/a/3/<?= $p['mowca_id'] ?>.jpg"/>
                                             </object>

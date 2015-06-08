@@ -15,7 +15,7 @@
 </blockquote>
 
 <? if ($object->getData('photo_url')) { ?>
-    <object data="/error/avatar.gif" type="image/png">
+    <object data="/img/error/avatar.gif" type="image/png">
         <img style="max-width: 400px; margin-top: 10px; float: left;" src="<?= $object->getData('photo_url') ?>"/>
     </object>
 <? } ?>

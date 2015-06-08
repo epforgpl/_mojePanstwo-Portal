@@ -44,7 +44,7 @@ $this->Dataobject->setObject($object);
                     <?php if ($object->getUrl() != false) { ?>
                     <a class="thumb_cont" href="<?= $object->getUrl() ?>">
                         <?php } ?>
-                        <object data="/error/brak.gif" type="image/png">
+                        <object data="/img/error/brak.gif" type="image/png">
                             <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
                                  alt="<?= strip_tags($object->getTitle()) ?>"/>
                         </object>

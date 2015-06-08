@@ -1,6 +1,6 @@
 <div class="attachment col-md-3">
     <a href="<?= $object->getUrl() ?>">
-        <object data="/error/brak.gif" type="image/png">
+        <object data="/img/error/brak.gif" type="image/png">
             <img src="<?= $object->getThumbnailUrl('1') ?>" alt="<?= strip_tags($object->getTitle()) ?>"/>
         </object>
     </a>

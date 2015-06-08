@@ -23,7 +23,7 @@ $this->Combinator->add_libs('js', 'KtoTuRzadzi.administracja.js');
                                     }'>
 
                                 <div class="logo">
-                                    <object data="/error/brak.gif" type="image/png">
+                                    <object data="/img/error/brak.gif" type="image/png">
                                         <img src="/KtoTuRzadzi/img/instytucje/<?= $item['id'] ?>.png"
                                              title="<?= $item['nazwa'] ?>"/>
                                     </object>

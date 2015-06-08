@@ -21,7 +21,7 @@ $object_content_sizes = array(6, 6);
 
                 <div class="attachment col-md-<?= $object_content_sizes[0] ?> text-center">
                     <a href="<?= $object->getUrl() ?>">
-                        <object data="/error/brak.gif" type="image/png">
+                        <object data="/img/error/brak.gif" type="image/png">
                             <img src="<?= $object->getThumbnailUrl() ?>" alt="<?= strip_tags($object->getTitle()) ?>"/>
                         </object>
                     </a>

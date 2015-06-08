@@ -10,7 +10,7 @@
                 <li>
                     <div class="avatar">
                         <a href="/dane/twitter_accounts/<?= $object->getId() ?>">
-                            <object data="/error/avatar.gif" type="image/png">
+                            <object data="/img/error/avatar.gif" type="image/png">
                                 <img src="<?= $object->getThumbnailUrl() ?>"/>
                             </object>
                         </a>
@@ -166,7 +166,7 @@
                     <div class="tweet_header">
                         <div class="avatar">
                             <p>
-                                <object data="/error/avatar.gif" type="image/png">
+                                <object data="/img/error/avatar.gif" type="image/png">
                                     <img src="<?= $object->getData('twitter_accounts.profile_image_url') ?>"/>
                                 </object>
                             </p>

@@ -181,7 +181,7 @@
                                                 <li>
                                                     <a title="<?= $radny['imiona'] . ' ' . $radny['nazwisko'] ?>"
                                                        href="/dane/gminy/903/radni/<?= $radny['id'] ?>">
-                                                        <object data="/error/avatar.gif" type="image/png"><img
+                                                        <object data="/img/error/avatar.gif" type="image/png"><img
                                                                 src="http://resources.sejmometr.pl/avatars/3/<?= $radny['avatar_id'] ?>.jpg"/>
                                                         </object>
                                                     </a>
@@ -211,7 +211,7 @@
                                     <? foreach ($prawo_lokalne as $obj) { ?>
                                         <li>
                                             <a href="<?= $obj->getUrl() ?>">
-                                                <object data="/error/dokument.gif" type="image/png">
+                                                <object data="/img/error/dokument.gif" type="image/png">
                                                     <img class="img-responsive"
                                                          src="http://docs.sejmometr.pl/thumb/4/<?= $obj->getData('dokument_id') ?>.png"/>
                                                 </object>
@@ -258,7 +258,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <a href="/dane/gminy/903,krakow/urzad">
-                                            <object data="/error/brak.gif" type="image/png">
+                                            <object data="/img/error/brak.gif" type="image/png">
                                                 <img class="img-responsive" src="/dane/img/pk-prezydent.jpg">
                                             </object>
                                         </a>
@@ -276,7 +276,7 @@
                                     <? foreach ($zarzadzenia as $obj) { ?>
                                         <li>
                                             <a href="<?= $obj->getUrl() ?>">
-                                                <object data="/error/dokument.gif" type="image/png">
+                                                <object data="/img/error/dokument.gif" type="image/png">
                                                     <img
                                                         src="http://docs.sejmometr.pl/thumb/4/<?= $obj->getData('dokument_id') ?>.png"/>
                                                 </object>

@@ -61,8 +61,8 @@
                         paginacji, autentykacji).</p>
 
                     <ul>
-                        <li>Bazowym adresem dla wszystkich API jest <code>http://api.mojepanstwo.pl</code></li>
-                        <li>Pojedyczne API dostępne jest pod adresem <code>http://api.mojepanstwo.pl/%api_slug%/</code>,
+                        <li>Bazowym adresem dla wszystkich API jest <code>https://api.mojepanstwo.pl</code></li>
+                        <li>Pojedyczne API dostępne jest pod adresem <code>https://api.mojepanstwo.pl/%api_slug%/</code>,
                             który
                             przekierowuje do najbardziej aktualnej wersji API
                             <br/>
@@ -70,7 +70,7 @@
                             zmianami. Trzeba
                             jednak w porę zareagować na informację o podbiciu wersji API.
                         </li>
-                        <li>Każda wersja każdego API udostępniana jest pod niezmiennym adresem <code>http://api.mojepanstwo.pl/%api_slug%_v%duza_wersja$/</code>
+                        <li>Każda wersja każdego API udostępniana jest pod niezmiennym adresem <code>https://api.mojepanstwo.pl/%api_slug%_v%duza_wersja$/</code>
                             <br/>
                             <strong>Zastosowanie: </strong>Dla użytkowników potrzebujących więcej stabilności. Starsze
                             wersje API będą
@@ -134,11 +134,12 @@
                         jak i generowania klientów w wielu językach.</p>
 
                     <p>Swagger-spec dostępny jest pod adresem <a
-                            href="http://api.mojepanstwo.pl/swagger/api-docs"><code>http://api.mojepanstwo.pl/swagger/api-docs</code></a>.
+                            href="https://api.mojepanstwo.pl/swagger/api-docs"><code>https://api.mojepanstwo.pl/swagger/api-docs</code></a>.
                         Nie chcąc uzależniać się od rozwijającego standardu oferujemy także własne proste API Discovery.
                         Wystarczy
                         wejść na
-                        <a href="http://api.mojepanstwo.pl/"><code>http://api.mojepanstwo.pl/</code></a> i skorzystać z
+                        <a href="https://api.mojepanstwo.pl/"><code>https://api.mojepanstwo.pl/</code></a> i skorzystać
+                        z
                         wrodzonej
                         intuicji.</p>
                 </div>
@@ -150,17 +151,17 @@
                         sortowania, itp.</p>
 
                     <p>Dla każdego adresu oferującego wyszukiwania (np. <a
-                            href="http://api.mojepanstwo.pl/kodyPocztowe"><code>http://api.mojepanstwo.pl/kodyPocztowe</code></a>)
+                            href="https://api.mojepanstwo.pl/kodyPocztowe"><code>https://api.mojepanstwo.pl/kodyPocztowe</code></a>)
                         istnieje kilka adresów opisujących taki zbiór danych i sposoby wyszukiwania:</p>
                     <ul>
-                        <li><em><a href="http://api.mojepanstwo.pl/kodyPocztowe/sortings">sortings</a></em> -
+                        <li><em><a href="https://api.mojepanstwo.pl/kodyPocztowe/sortings">sortings</a></em> -
                             Sortowania, jakich
                             można użyć podczas wyszukiwania
                         </li>
-                        <li><em><a href="http://api.mojepanstwo.pl/kodyPocztowe/filters">filters</a></em> - Dostępne
+                        <li><em><a href="https://api.mojepanstwo.pl/kodyPocztowe/filters">filters</a></em> - Dostępne
                             filtry
                         </li>
-                        <li><em><a href="http://api.mojepanstwo.pl/kodyPocztowe/switchers">switchers</a></em> -
+                        <li><em><a href="https://api.mojepanstwo.pl/kodyPocztowe/switchers">switchers</a></em> -
                             Zagregowana filtry w
                             postaci flag 0/1
                         </li>
@@ -207,7 +208,7 @@
                         <em>_id</em>).
                         Taki URL zapewnia także łatwą (potencjalnie automatyczną) nawigację między zasobami.</p>
 
-                    <p>Przykładowo: <code>{"_id": "http://api.mojepanstwo.pl/dane/poslowie/1.json"}</code></p>
+                    <p>Przykładowo: <code>{"_id": "https://api.mojepanstwo.pl/dane/poslowie/1.json"}</code></p>
 
                     <p>Aby ułatwić linkowanie do naszego serwisu udostępniamy także dla obiektów link, pod którym
                         wysŧępuje on w
@@ -230,7 +231,7 @@
                     <p>
                         Listę dostępnych warstw jest wyświetlana w ramach obiektu:</p>
                         <pre>
-                GET: http://api.mojepanstwo.pl/kodyPocztowe/00-511
+                GET: https://api.mojepanstwo.pl/kodyPocztowe/00-511
 
                 {
                     "id": "864053",
@@ -265,10 +266,10 @@
                 }
                         </pre>
 
-                    <p>Warstwy ładuje sie poprzez podanie w zapytaniu nazw warstw jako tablicy: <code>http://api.mojepanstwo.pl/kodyPocztowe/00-511?layers[]=obszary&layers[]=gminy</code>
+                    <p>Warstwy ładuje sie poprzez podanie w zapytaniu nazw warstw jako tablicy: <code>https://api.mojepanstwo.pl/kodyPocztowe/00-511?layers[]=obszary&layers[]=gminy</code>
                     </p>
 
-                    <p>Istnieje także skrót pozwalający załadować wszystkie warstwy na raz: <code>http://api.mojepanstwo.pl/kodyPocztowe/00-511?layers=*</code>
+                    <p>Istnieje także skrót pozwalający załadować wszystkie warstwy na raz: <code>https://api.mojepanstwo.pl/kodyPocztowe/00-511?layers=*</code>
                     </p>
                 </div>
 
