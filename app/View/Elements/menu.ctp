@@ -40,10 +40,11 @@
 					
 					
                     if ($m['id'] && ($m['id'] != 'view')) {
-                        if( $href[0]!='/' )
-                        	$href = '/' . $href;
                         $href .= '/' . $m['id'];
                     }
+                    
+                    
+                    
 
                     if (isset($m['label']) && (!empty($m['label']))) {
                         ?>
