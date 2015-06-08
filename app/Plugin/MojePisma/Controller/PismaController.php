@@ -367,7 +367,7 @@ class PismaController extends ApplicationsController
 	                'label' => 'Nowe pismo',
 	            ),
 			),
-			'base' => '/moje-pisma/',
+			'base' => '/moje-pisma',
 		);
 		
 		return $menu;

@@ -345,6 +345,13 @@ class GminyController extends DataobjectsController
                                     'dataset' => 'krakow_posiedzenia',
                                 ),
                             ),
+                            array(
+                                'range' => array(
+                                    'date' => array(
+	                                    'lte' => 'now',
+                                    ),
+                                ),
+                            ),
                         ),
                     ),
                 ),
@@ -1302,9 +1309,12 @@ class GminyController extends DataobjectsController
 
             $this->set('posiedzenie', $posiedzenie);
             $this->set('title_for_layout', strip_tags($posiedzenie->getTitle()));
-
-            $subaction = isset($this->request->params['subaction']) ? $this->request->params['subaction'] : 'punkty';
-
+			
+            $subaction = false;
+			
+			debug($posiedzenie->getData()); die();
+			
+			/*
             $__submenu = array(
                 'items' => array(
                     array(
@@ -1313,6 +1323,7 @@ class GminyController extends DataobjectsController
                     ),
                 ),
             );
+            */
 
 
             if ($posiedzenie->getData('zwolanie_dokument_id')) {
@@ -2904,7 +2915,7 @@ class GminyController extends DataobjectsController
         );
 
         if ($this->domainMode == 'PK')
-            $menu['base'] = '/';
+            $menu['base'] = '';
         else
         	$menu['base'] = $this->object->getUrl();
 
