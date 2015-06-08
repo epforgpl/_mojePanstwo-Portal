@@ -275,19 +275,19 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
                                             </span>
                                         </p>
 
-                                        <p class="col-sm-2">
+                                        <p class="col-sm-3 col-md-2">
                                             <?= _currency($p['koszt_transport']) ?>
                                         </p>
 
-                                        <p class="col-sm-2">
+                                        <p class="col-sm-3 col-md-2">
                                             <?= _currency($p['koszt_hotel']) ?>
                                         </p>
 
-                                        <p class="col-sm-2">
+                                        <p class="col-sm-3 col-md-2">
                                             <?= _currency($p['koszt_dieta']) ?>
                                         </p>
 
-                                        <p class="col-sm-2 text-right">
+                                        <p class="col-sm-3 col-md-2 text-right">
                                             <span
                                                 class="label label-danger"><?= implode('</span> <span class="label label-danger">', $p['glosowania_dni']) ?></span>
                                         </p>

@@ -83,11 +83,11 @@ $(function () {
                                 $.getJSON('https://api.mojepanstwo.pl/wyjazdyposlow/countryDetails/' + e.point.code.toLowerCase(), function (detail) {
                                     $detailInfo.find('.content').removeClass('loading').append(
                                         $('<div></div>').addClass('row').addClass('detail-header').append(
-                                            $('<div></div>').addClass('ilosc col-xs-4').html("Państwo:&nbsp;<b>" + e.point.kraj + "</b>")
+                                            $('<div></div>').addClass('ilosc col-xs-12 col-sm-6 col-md-4').html("Państwo:&nbsp;<b>" + e.point.kraj + "</b>")
                                         ).append(
-                                            $('<div></div>').addClass('ilosc col-xs-4').html("Ilość&nbsp;wyjazdów:&nbsp;<b>" + e.point.ilosc_wyjazdow + "</b>")
+                                            $('<div></div>').addClass('ilosc col-xs-12 col-sm-6 col-md-4').html("Ilość&nbsp;wyjazdów:&nbsp;<b>" + e.point.ilosc_wyjazdow + "</b>")
                                         ).append(
-                                            $('<div></div>').addClass('koszt col-xs-4').html("Łączna&nbsp;kwota:&nbsp;<b>" + e.point.laczna_kwota + "</b>")
+                                            $('<div></div>').addClass('koszt col-xs-12 col-sm-6 col-md-4').html("Łączna&nbsp;kwota:&nbsp;<b>" + e.point.laczna_kwota + "</b>")
                                         )
                                     );
 
