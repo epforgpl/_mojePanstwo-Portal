@@ -13,12 +13,13 @@
 
             suggesterInput.autocomplete({
                 minLength: 2,
-                delay: 200,
+                delay: 300,
                 source: function (request, response) {
                     var term = request.term;
                     if (term in suggesterCache) {
                         response(suggesterCache[term]);
                     } else {
+                        suggesterInput.addClass('loader');
                         $.get('/dane/suggest.json', {
                             'q': term,
                             'dataset[]': (suggesterInput.data('dataset')) ? suggesterInput.attr('data-dataset').split(',') : '*'
@@ -55,7 +56,7 @@
 
                             if (results.length === 0) {
                                 $('.ui-autocomplete').hide();
-                                suggesterInput.removeClass('open');
+                                suggesterInput.removeClass('open loader');
                             } else {
                                 results.push({
                                     type: 'button',
@@ -75,6 +76,7 @@
                         'left': parseInt($ui.css('left'), 10) + 1 + 'px'
                     });
                     suggesterInput.addClass('open');
+                    suggesterInput.removeClass('loader');
                 },
                 close: function () {
                     suggesterInput.removeClass('open');
