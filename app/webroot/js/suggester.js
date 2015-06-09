@@ -6,17 +6,16 @@
 
     if (suggesterBlock.length) {
         $.each(suggesterBlock, function (index, block) {
-            var suggesterInput = $(block).find('input.form-control'),
-                suggesterBtn = $(block).find('.input-group-btn .btn'),
-                suggesterCache = {};
+            var suggesterCache = {},
+                suggesterInput = $(block).find('input.form-control'),
+                suggesterForm = suggesterInput.parents('form'),
+                params;
 
             suggesterInput.autocomplete({
                 minLength: 2,
                 delay: 200,
                 source: function (request, response) {
                     var term = request.term;
-
-                    suggesterBtn = this.element.parents('form').find('.input-group-btn .btn');
                     if (term in suggesterCache) {
                         response(suggesterCache[term]);
                     } else {
@@ -28,26 +27,28 @@
                                 var shortTitleLimit = 150,
                                     shortTitle = '';
 
-                                if (item.payload.dataset === 'twitter') {
-                                    shortTitle = item.text.replace(/(<([^>]+)>)/ig, "");
-                                } else {
-                                    if (item.text.length > shortTitleLimit) {
-                                        shortTitle = item.text.substr(0, shortTitleLimit);
-                                        shortTitle = shortTitle.substr(0, Math.min(shortTitle.length, shortTitle.lastIndexOf(" "))) + '...';
+                                if (item.payload !== undefined) {
+                                    if (item.payload.dataset === 'twitter') {
+                                        shortTitle = item.text.replace(/(<([^>]+)>)/ig, "");
                                     } else {
-                                        shortTitle = item.text;
+                                        if (item.text.length > shortTitleLimit) {
+                                            shortTitle = item.text.substr(0, shortTitleLimit);
+                                            shortTitle = shortTitle.substr(0, Math.min(shortTitle.length, shortTitle.lastIndexOf(" "))) + '...';
+                                        } else {
+                                            shortTitle = item.text;
+                                        }
                                     }
-                                }
 
-                                return {
-                                    type: 'item',
-                                    title: item.text,
-                                    shortTitle: shortTitle,
-                                    value: item.payload.object_id,
-                                    link: item.payload.dataset + '/' + item.payload.object_id + ((item.payload.slug) ? ',' + item.payload.slug : ''),
-                                    dataset: item.payload.dataset,
-                                    image: (item.payload.image_url) ? item.payload.image_url : false
-                                };
+                                    return {
+                                        type: 'item',
+                                        title: item.text,
+                                        shortTitle: shortTitle,
+                                        value: item.payload.object_id,
+                                        link: item.payload.dataset + '/' + item.payload.object_id + ((item.payload.slug) ? ',' + item.payload.slug : ''),
+                                        dataset: item.payload.dataset,
+                                        image: (item.payload.image_url !== undefined) ? item.payload.image_url : false
+                                    };
+                                }
                             });
 
                             suggesterCache[term] = results;
@@ -91,7 +92,22 @@
             }).autocomplete('widget').addClass("autocompleteSuggester");
 
             suggesterInput.data("ui-autocomplete")._renderItem = function (ul, item) {
-                if (item.type === 'item') {
+                if (item.type !== 'item') {
+                    if (item.type === 'button') {
+                        params = '?q=' + item.q;
+
+                        suggesterForm.find('input[name="dataset[]"]').each(function () {
+                            params += '&dataset[]=' + $(this).val();
+                        });
+
+                        return $('<li></li>').addClass("row button").append(
+                            $('<a></a>').addClass('btn btn-success').attr({
+                                'href': ((suggesterForm.attr('action').length > 0) ? suggesterForm.attr('action') : ((suggesterInput.attr('data-url').length > 0) ? suggesterInput.attr('data-url') : '')) + params,
+                                'target': '_self'
+                            }).html('<span class="glyphicon glyphicon-search"> </span> ' + mPHeart.suggester.fullSearch)
+                        ).appendTo(ul);
+                    }
+                } else {
                     var image;
 
                     if (item.image.length > 0) {
@@ -108,20 +124,6 @@
                                 $('<span></span>').text(item.shortTitle)
                             )
                         )
-                    ).appendTo(ul);
-                } else if (item.type === 'button') {
-                    var suggesterForm = suggesterInput.parents('form'),
-                        params = '?q=' + item.q;
-
-                    suggesterForm.find('input[name="dataset[]"]').each(function () {
-                        params += '&dataset[]=' + $(this).val();
-                    });
-
-                    return $('<li></li>').addClass("row button").append(
-                        $('<a></a>').addClass('btn btn-success').attr({
-                            'href': ((suggesterForm.attr('action').length > 0) ? suggesterForm.attr('action') : ((suggesterInput.attr('data-url').length > 0) ? suggesterInput.attr('data-url') : '')) + params,
-                            'target': '_self'
-                        }).html('<span class="glyphicon glyphicon-search"> </span> ' + mPHeart.suggester.fullSearch)
                     ).appendTo(ul);
                 }
             };
