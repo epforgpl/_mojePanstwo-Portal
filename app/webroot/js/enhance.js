@@ -18,20 +18,21 @@ function imgFixer(img) {
     var style = window.getComputedStyle(img, null),
         maxWidth = style.getPropertyValue('max-width'),
         size = (img.offsetWidth === 0) ? ((maxWidth === "") ? 100 : parseInt(maxWidth, 10)) : img.offsetWidth,
-        imgBlankSrc = img.src;
+        imgBlankSrc = img.src,
+        defaultImg = 'https://placeholdit.imgix.net/~text?txtsize=20&bg=ffffff&txttrack=0';
 
     /*IMG LINK TO DOCUMENT - SO WE GENERATE RECTANGLE*/
     if (imgBlankSrc.toLowerCase().indexOf("docs.sejmometr") >= 0) {
         /*WE TRY SIMILAR NEW IMAGE TO DOCUMENTS*/
         img.style.border = "2px solid #ddd";
         /*LINK WITH DOCUMENT TEXT*/
-        imgBlankSrc = "https://placeholdit.imgix.net/~text?txtsize=20&bg=ffffff&txt=brak+dokumentu&w=" + size + "&h=" + Math.ceil(Number(size * 1.32)) + "&txttrack=0";
+        imgBlankSrc = defaultImg + "&w=" + size + "&h=" + Math.ceil(Number(size * 1.32)) + "&txt=brak+dokumentu";
     } else if (imgBlankSrc.toLowerCase().indexOf("resources.sejmometr") >= 0) {/*IMG LINK TO AVATAR - SO WE GENERATE SQUARE*/
         /*LINK WITH AVATAR TEXT*/
-        imgBlankSrc = "https://placeholdit.imgix.net/~text?txtsize=20&bg=ffffff&txt=brak+zdjęcia&w=" + size + "&txttrack=0";
+        imgBlankSrc = defaultImg + "&w=" + size + "&txt=brak+zdjęcia";
     } else {/*IMG LINK TO OTHERS - SO WE GENERATE SQUARE TOO*/
         /*LINK WITH ERROR TEXT*/
-        imgBlankSrc = "https://placeholdit.imgix.net/~text?txtsize=20&bg=ffffff&txt=brak+miniatury&w=" + size + "&txttrack=0";
+        imgBlankSrc = defaultImg + "&w=" + size + "&txt=brak+miniatury";
     }
 
     /*REMOVE ONERROR FUNCTION - CAUSE WE USE IT ALREADY*/
