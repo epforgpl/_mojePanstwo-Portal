@@ -18,21 +18,20 @@ function imgFixer(img) {
     var style = window.getComputedStyle(img, null),
         maxWidth = style.getPropertyValue('max-width'),
         size = (img.offsetWidth === 0) ? ((maxWidth === "") ? 100 : parseInt(maxWidth, 10)) : img.offsetWidth,
-        imgBlankSrc = img.src,
-        imgBlankSetting = "/fff/ddd";
+        imgBlankSrc = img.src;
 
     /*IMG LINK TO DOCUMENT - SO WE GENERATE RECTANGLE*/
     if (imgBlankSrc.toLowerCase().indexOf("docs.sejmometr") >= 0) {
         /*WE TRY SIMILAR NEW IMAGE TO DOCUMENTS*/
         img.style.border = "2px solid #ddd";
         /*LINK WITH DOCUMENT TEXT*/
-        imgBlankSrc = "http://placehold.it/" + size + "x" + Math.ceil(Number(size * 1.32)) + imgBlankSetting + "&text=document";
+        imgBlankSrc = "https://placeholdit.imgix.net/~text?txtsize=20&bg=ffffff&txt=brak+dokumentu&w=" + size + "&h=" + Math.ceil(Number(size * 1.32)) + "&txttrack=0";
     } else if (imgBlankSrc.toLowerCase().indexOf("resources.sejmometr") >= 0) {/*IMG LINK TO AVATAR - SO WE GENERATE SQUARE*/
         /*LINK WITH AVATAR TEXT*/
-        imgBlankSrc = "http://placehold.it/" + size + imgBlankSetting + "&text=avatar";
+        imgBlankSrc = "https://placeholdit.imgix.net/~text?txtsize=20&bg=ffffff&txt=brak+zdjęcia&w=" + size + "&txttrack=0";
     } else {/*IMG LINK TO OTHERS - SO WE GENERATE SQUARE TOO*/
         /*LINK WITH ERROR TEXT*/
-        imgBlankSrc = "http://placehold.it/" + size + imgBlankSetting + "&text=lost";
+        imgBlankSrc = "https://placeholdit.imgix.net/~text?txtsize=20&bg=ffffff&txt=brak+miniatury&w=" + size + "&txttrack=0";
     }
 
     /*REMOVE ONERROR FUNCTION - CAUSE WE USE IT ALREADY*/
