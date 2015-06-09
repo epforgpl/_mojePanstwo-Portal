@@ -44,10 +44,8 @@ $this->Dataobject->setObject($object);
             <div class="feed-header">
                 <? if ($object->getCreator('url')) { ?>
                     <div class="thumb_cont">
-                        <object data="/img/error/brak.gif" type="image/png">
-                            <img alt="<?= addslashes($object->getCreator('name')) ?>"
-                                 src="<?= $object->getCreator('url') ?>" class="thumb"/>
-                        </object>
+                        <img alt="<?= addslashes($object->getCreator('name')) ?>"
+                             src="<?= $object->getCreator('url') ?>" class="thumb" onerror="imgFixer(this)"/>
                     </div>
                 <? } ?>
 
@@ -86,10 +84,8 @@ $this->Dataobject->setObject($object);
                             <?php if ($object->getUrl() != false) { ?>
                             <a class="thumb_cont" href="<?= $object->getUrl() ?>">
                                 <?php } ?>
-                                <object data="/img/error/brak.gif" type="image/png">
-                                    <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
-                                     alt="<?= strip_tags($object->getTitle()) ?>"/>
-                                </object>
+                                <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
+                                     alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
                                 <?php if ($object->getUrl() != false) { ?>
                             </a>
                         <?php } ?>

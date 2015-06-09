@@ -84,10 +84,8 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
                             <? foreach ($stats['calosc']['indywidualne'] as $i) { ?>
                                 <li class="row">
                                     <div class="col-md-2 text-right">
-                                        <object data="/img/error/avatar.gif" type="image/png">
-                                            <img class="border"
-                                                 src="http://resources.sejmometr.pl/mowcy/a/2/<?= $i['mowca_id'] ?>.jpg"/>
-                                        </object>
+                                        <img class="border" onerror="imgFixer(this)"
+                                             src="http://resources.sejmometr.pl/mowcy/a/2/<?= $i['mowca_id'] ?>.jpg"/>
                                     </div>
                                     <div class="col-md-10">
                                         <p class="title"><a
@@ -181,10 +179,8 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
                             <? foreach ($stats['najdrozsze']['indywidualnie'] as $i) { ?>
                                 <li class="row">
                                     <div class="col-md-2 text-right">
-                                        <object data="/img/error/avatar.gif" type="image/png">
-                                            <img class="border"
-                                                 src="http://resources.sejmometr.pl/mowcy/a/2/<?= $i['mowca_id'] ?>.jpg"/>
-                                        </object>
+                                        <img class="border" onerror="imgFixer(this)"
+                                             src="http://resources.sejmometr.pl/mowcy/a/2/<?= $i['mowca_id'] ?>.jpg"/>
                                     </div>
                                     <div class="col-md-10">
                                         <p class="title"><a
@@ -264,10 +260,8 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
                                 <? foreach ($w['poslowie'] as $p) { ?>
                                     <li class="row">
                                         <p class="col-sm-4">
-                                            <object data="/img/error/avatar.gif" type="image/png">
-                                                <img class="border"
-                                                     src="http://resources.sejmometr.pl/mowcy/a/3/<?= $p['mowca_id'] ?>.jpg"/>
-                                            </object>
+                                            <img class="border" onerror="imgFixer(this)"
+                                                 src="http://resources.sejmometr.pl/mowcy/a/3/<?= $p['mowca_id'] ?>.jpg"/>
                                             <a class="title"
                                                href="/dane/poslowie/<?= $p['id'] ?>/wyjazdy"><?= $p['nazwa'] ?>
                                             </a> <span class="klub"><a

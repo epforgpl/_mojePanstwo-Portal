@@ -18,9 +18,8 @@ $object_content_sizes = array(6, 6);
 
                 <div class="attachment col-md-<?= $object_content_sizes[0] ?> text-center">
                     <a href="<?= $object->getUrl() ?>">
-                        <object data="/img/error/brak.gif" type="image/png">
-                            <img src="<?= $object->getThumbnailUrl() ?>" alt="<?= strip_tags($object->getTitle()) ?>"/>
-                        </object>
+                        <img src="<?= $object->getThumbnailUrl() ?>" alt="<?= strip_tags($object->getTitle()) ?>"
+                             onerror="imgFixer(this)"/>
                     </a>
                 </div>
                 <div class="content col-md-<?= $object_content_sizes[1] ?>">

@@ -145,9 +145,9 @@
                             <? foreach ($object->getLayer('uczestnicy') as $u) { ?>
                                 <tr>
                                     <td><a href="/dane/poslowie/<?= $u['poslowie.id'] ?>">
-                                            <object data="/img/error/avatar.gif" type="image/png"><img
-                                                    src="http://resources.sejmometr.pl/mowcy/a/3/<?= $u['ludzie.id'] ?>.jpg"
-                                                    class="border"/></object>
+                                            <img onerror="imgFixer(this)"
+                                                 src="http://resources.sejmometr.pl/mowcy/a/3/<?= $u['ludzie.id'] ?>.jpg"
+                                                 class="border"/>
                                         </a></td>
                                     <td>
                                         <a href="/dane/poslowie/<?= $u['poslowie.id'] ?>"><?= $u['poslowie.nazwa'] ?></a>

@@ -39,18 +39,13 @@ $powiazania = $object->getLayer('radni_powiazania');
                             <div class="content row padding">
 
                                 <div class="col-md-2">
-
-                                    <? if ($p['radny']['avatar'] == '1') { ?>
-                                        <object data="/img/error/avatar.gif" type="image/png">
-                                            <img
-                                                src="http://resources.sejmometr.pl/avatars/5/<?= $p['radny']['avatar_id'] ?>.jpg"/>
-                                        </object>
-                                    <? } elseif ($p['radny']['plec'] == 'K') { ?>
-                                        <img src="http://resources.sejmometr.pl/avatars/g/w.png"/>
-                                    <? } else { ?>
-                                        <img src="http://resources.sejmometr.pl/avatars/g/m.png"/>
-                                    <? } ?>
-
+                                    <img src="<? if ($p['radny']['avatar'] == '1') {
+                                        echo 'http://resources.sejmometr.pl/avatars/5/' . $p['radny']['avatar_id'] . '.jpg';
+                                    } elseif ($p['radny']['plec'] == 'K') {
+                                        echo 'http://resources.sejmometr.pl/avatars/g/w.png';
+                                    } else {
+                                        echo 'http://resources.sejmometr.pl/avatars/g/m.png';
+                                    } ?>" onerror="imgFixer(this)"/>
                                 </div>
                                 <div class="col-md-10">
 

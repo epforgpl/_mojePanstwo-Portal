@@ -29,10 +29,8 @@
 
         <p class="nposel">
             <? if (isset($biura[$id]['data']['ludzie_poslowie.mowca_id'])) { ?>
-                <object data="/img/error/avatar.gif" type="image/png">
-                    <img
+                <img onerror="imgFixer(this)"
                         src="http://resources.sejmometr.pl/mowcy/a/3/<?= $biura[$id]['data']['ludzie_poslowie.mowca_id'] ?>.jpg"/>
-                </object>
             <? } ?>
             <? if (isset($biura[$id]['data']['poslowie.nazwa'])) { ?>
                 <span><?= $biura[$id]['data']['poslowie.nazwa'] ?>

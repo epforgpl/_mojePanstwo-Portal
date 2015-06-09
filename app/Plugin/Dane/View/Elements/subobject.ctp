@@ -17,13 +17,14 @@ $this->Dataobject->setObject($object);
         <? if ($object->getThumbnailUrl()) { ?>
             <div style="width: 12%;" class="col-md-1">
                 <div class="attachment text-center">
-                    <?php if ($object->getUrl() != false) { ?><a class="thumb_cont"
-                                                                 href="<?= $object->getUrl() ?>"><?php } ?>
-                        <object data="/img/error/brak.gif" type="image/png">
-                            <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
-                                 alt="<?= strip_tags($object->getTitle()) ?>"/>
-                        </object>
-                        <?php if ($object->getUrl() != false) { ?></a><? } ?>
+                    <?php if ($object->getUrl() != false) { ?>
+                    <a class="thumb_cont" href="<?= $object->getUrl() ?>">
+                        <?php } ?>
+                        <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
+                             alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
+                        <?php if ($object->getUrl() != false) { ?>
+                    </a>
+                <? } ?>
                 </div>
             </div>
         <? } ?>

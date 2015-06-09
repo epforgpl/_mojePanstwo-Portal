@@ -81,10 +81,8 @@ $dictionary = array(
                         <tr>
                             <td class="club" data-club-id="<?= $row['klub_id'] ?>">
                                 <? if ($row['klub_id'] != '7') { ?>
-                                    <object data="/img/error/brak.gif" type="image/png">
-                                        <img src="http://resources.sejmometr.pl/s_kluby/<?= $row['klub_id'] ?>_a.png"
-                                             alt="<?= $row['klub_nazwa'] ?>"/>
-                                    </object>
+                                    <img src="http://resources.sejmometr.pl/s_kluby/<?= $row['klub_id'] ?>_a.png"
+                                         alt="<?= $row['klub_nazwa'] ?>" onerror="imgFixer(this)"/>
                                 <? } ?>
                                 <strong><?= $row['klub_nazwa'] ?></strong>
                             </td>
@@ -117,11 +115,9 @@ $dictionary = array(
                         <div class="slide col-xs-6 col-md-4">
                             <div class="person">
                                 <div class="avatar">
-                                    <object data="/img/error/avatar.gif" type="image/png">
-                                        <img
-                                            src="http://resources.sejmometr.pl/mowcy/a/0/<?= $person['mowcy']['mowca_id'] ?>.jpg"
-                                            alt="<?= $person['poslowie']['nazwa'] ?>"/>
-                                    </object>
+                                    <img onerror="imgFixer(this)"
+                                         src="http://resources.sejmometr.pl/mowcy/a/0/<?= $person['mowcy']['mowca_id'] ?>.jpg"
+                                         alt="<?= $person['poslowie']['nazwa'] ?>"/>
                                 </div>
                                 <div class="info">
                                     <a class="poselName" href="<?= $person['poslowie']['id'] ?>"
@@ -129,11 +125,9 @@ $dictionary = array(
                                     <a class="clubName" href="<?= $person['kluby']['id'] ?>" target="_self"
                                        title="<?= $person['kluby']['nazwa'] ?>"
                                        data-club-id="<?= $person['kluby']['id'] ?>">
-                                        <object data="/img/error/brak.gif" type="image/png">
-                                            <img
-                                                src="http://resources.sejmometr.pl/s_kluby/<?= $person['kluby']['id'] ?>_a.png"
-                                                alt="<?= $person['kluby']['nazwa'] ?>"/>
-                                        </object>
+                                        <img onerror="imgFixer(this)"
+                                             src="http://resources.sejmometr.pl/s_kluby/<?= $person['kluby']['id'] ?>_a.png"
+                                             alt="<?= $person['kluby']['nazwa'] ?>"/>
                                     </a>
                                 </div>
                             </div>

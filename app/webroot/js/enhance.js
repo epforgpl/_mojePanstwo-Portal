@@ -1,4 +1,4 @@
-/*global $, jQuery, window, mPHeart, countDataObjectsSliderRowDetect*/
+/*global $, jQuery, window, mPHeart*/
 /* HTML5 HISTORY.JS */
 (function (window) {
     "use strict";
@@ -41,10 +41,6 @@ function imgFixer(img) {
     img.setAttribute('src', null);
     /*AND INSTERT NEW SRC*/
     img.src = imgBlankSrc;
-
-    if (typeof countDataObjectsSliderRowDetect != 'undefined' && countDataObjectsSliderRowDetect === true) {
-        window.setTimeout(countDataObjectsSliderRow, 0);
-    }
 
     return true;
 }
