@@ -10,7 +10,17 @@
 	);
 ?>
 <div class="col-md-8">
-		
+    <? if (isset($_submenu) && !empty($_submenu)) { ?>
+        <div class="menuTabsCont col-md-12">
+            <?
+            if (!isset($_submenu['base']))
+                $_submenu['base'] = $object->getUrl();
+            echo $this->Element('Dane.dataobject/menuTabs', array(
+                'menu' => $_submenu,
+            ));
+            ?>
+        </div>
+    <? } ?>
 	<div class="databrowser-panels">
 		
 		<? if( $object->getId()==903 ) { ?>

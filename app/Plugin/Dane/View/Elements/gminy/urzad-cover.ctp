@@ -10,7 +10,6 @@
 	);
 ?>
 <div class="col-md-8">
-		
 	<div class="databrowser-panels">
 		
 		<? if( $object->getId()==903 ) { ?>

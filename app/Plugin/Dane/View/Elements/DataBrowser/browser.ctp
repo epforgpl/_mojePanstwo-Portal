@@ -27,46 +27,6 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
         </div>
     </div>
 
-
-    <div class="suggesterBlock row searchForm col-md-8">
-        <? if (!isset($title) && isset($DataBrowserTitle)) {
-            $title = $DataBrowserTitle;
-        }
-        if (isset($title)) {
-            echo '<h2>' . $title . '</h2>';
-        }
-
-        if (!isset($searcher) || $searcher) { ?>
-            <?
-            $value = isset($this->request->query['q']) ? addslashes($this->request->query['q']) : '';
-            $dataset = ($dataBrowser['autocompletion']) ? $dataBrowser['autocompletion']['dataset'] : false;
-            $placeholder = (isset($dataBrowser['searchTitle']) && ($dataBrowser['searchTitle'])) ? addslashes($dataBrowser['searchTitle']) : 'Szukaj...';
-            $url = ($dataBrowser['cancel_url']) ? $dataBrowser['cancel_url'] : '';
-            ?>
-
-            <?= $this->Element('searcher', array('q' => $value, 'dataset' => $dataset, 'placeholder' => $placeholder, 'url' => $url)) ?>
-
-        <? } ?>
-    </div>
-
-
-    <? if (
-        ($params = $this->Paginator->params()) &&
-        isset($params['count'])
-    ) {
-        $took = round($dataBrowser['took'], 2);
-        ?>
-        <div class="row">
-            <div
-                class="dataCounter col-md-8">
-                <p class="pull-left"><?= pl_dopelniacz($params['count'], 'wynik', 'wyniki', 'wyników') ?><? if ($took) { ?> (<?= $took ?> s)<? } ?></p>
-
-                <p class="pull-right"><a href="#" class="link-discrete link-api-call" data-toggle="modal"
-                                         data-target=".modal-api-call"><span class="glyphicon glyphicon-cog"></span> API</a>
-                </p></div>
-        </div>
-    <? } ?>
-
     <div class="row">
 
         <? if ($dataBrowser['mode'] == 'cover') { ?>

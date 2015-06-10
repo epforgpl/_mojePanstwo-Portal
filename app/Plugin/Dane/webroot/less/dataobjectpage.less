@@ -7,32 +7,47 @@
     }
 
     .dataBrowser {
-
         .dataHighlights {
             display: none;
         }
     }
 
-    .nav-tabs > li.active > a {
-        background-color: #e9eaed;
-        cursor: pointer;
-        margin-left: 2px;
+    .menuTabsCont {
+        margin-bottom: 15px;
+
+        .nav-tabs > li > a {
+            font-size: 13px;
+        }
     }
 
-    .nav-tabs > li.active:first-child > a {
-        background-color: #e9eaed;
-        cursor: pointer;
-        margin-left: 5px;
-    }
+    .nav-tabs {
+        border-bottom-color: #157ab5;
 
-    .nav-tabs > li.active > a:hover {
-        background-color: #e9eaed;
-        cursor: pointer;
-    }
+        > li {
+            > a {
+                border: none;
 
-    .nav-tabs > li.active > a:focus {
-        background-color: #e9eaed;
-        cursor: pointer;
+                &:hover,
+                &:focus {
+                    background: none;
+                }
+            }
+
+            &.active > a,
+            &.active > a:hover,
+            &.active > a:focus {
+                border: none;
+                color: #ffffff;
+                background-color: #157ab5;
+                cursor: pointer;
+            }
+
+            &.active:first-child > a {
+                background-color: #e9eaed;
+                cursor: pointer;
+                margin-left: 5px;
+            }
+        }
     }
 
     .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
@@ -75,7 +90,6 @@
     .objectPageHeaderContainer {
         &.subobjectContainer {
 
-
             .container .objectRender .header {
                 margin-bottom: 5px;
             }
@@ -117,9 +131,9 @@
                     color: #555555;
                     margin-left: 0;
                     margin-right: 0;
-					margin-bottom: 10px;
-					padding-left: 4px;
-					
+                    margin-bottom: 10px;
+                    padding-left: 4px;
+
                     a, a:hover, a:active {
                         color: #555555;
                     }
@@ -169,8 +183,6 @@
         line-height: 1em;
         padding-left: 0;
     }
-    
-    
 
     .objectButtons {
         text-align: right;
@@ -192,42 +204,42 @@
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover;
-		
-		.block {
+
+        .block {
             margin: 0 12px;
-		}
-		
+        }
+
         .menuTabsCont {
-	        background-color: #e6e7eA;
+            background-color: #e6e7eA;
             min-height: 4px;
-	        
-	        ul.nav-tabs {
-		        
-	            border-bottom: none;
-	
-	            > li {
-		            	
-	                &.active {
-	                    > a {
-	                        background: none;
-	                        border: none;
-	                        border-bottom: 3px solid #438fca;
-	                        color: #226799;
-	                    }
-	                }
-	
-	                > a {
-	                    font-size: 14px;
-	                    font-weight: bold;
-	                    color: #555555;
-	                    background: none;
-	                    border: none;
-	                    border-bottom: 3px solid #E6E6E6;
-	                    margin-bottom: 3px;
-	                    padding: 9px 17px;
-	                }
-	            }
-            
+
+            ul.nav-tabs {
+
+                border-bottom: none;
+
+                > li {
+
+                    &.active {
+                        > a {
+                            background: none;
+                            border: none;
+                            border-bottom: 3px solid #438fca;
+                            color: #226799;
+                        }
+                    }
+
+                    > a {
+                        font-size: 14px;
+                        font-weight: bold;
+                        color: #555555;
+                        background: none;
+                        border: none;
+                        border-bottom: 3px solid #E6E6E6;
+                        margin-bottom: 3px;
+                        padding: 9px 17px;
+                    }
+                }
+
             }
         }
 
@@ -417,7 +429,7 @@
             h1 {
                 margin-top: 0;
                 &.subheader {
-	                margin: 15px 3px;
+                    margin: 15px 3px;
                 }
             }
 
@@ -632,7 +644,6 @@
         border-left: 1px solid #ddd;
     }
 }
-
 
 #_wrapper #_main .objectsPage .menuTabsCont {
     .nav-tabs {
@@ -908,9 +919,9 @@ h2.light {
 }
 
 .object-menu {
-	.nav-pills {
-		margin-top: 15px;
-	}
+    .nav-pills {
+        margin-top: 15px;
+    }
 }
 
 @media (min-width: 769px) and (max-width: 992px) {

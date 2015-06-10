@@ -7,10 +7,9 @@ if ($object->getId() == '903') {
 echo $this->Element('dataobject/pageBegin');
 ?>
 <h1 class="subheader">Rada Miasta Kraków</h1>
-	
+
 <? if (isset($_submenu) && !empty($_submenu)) { ?>
-    <div class="menuTabsCont">
-        <div class="container">
+    <div class="menuTabsCont col-md-8">
             <?
             if( !isset($_submenu['base']) )
                 $_submenu['base'] = $object->getUrl();
@@ -20,7 +19,7 @@ echo $this->Element('dataobject/pageBegin');
             ?>
         </div>
     </div>
-<? } 
-		
+<? }
+
 echo $this->Element('Dane.DataBrowser/browser');
 echo $this->Element('dataobject/pageEnd');

@@ -91,10 +91,17 @@
         font-family: "Lato", Arial, sans-serif;
         margin-top: 25px;
 
-		&.object {
-			margin-top: 0;
-		}
-		
+        .form-horizontal.suggesterBlock {
+            padding-left: 0;
+            padding-right: 0;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        &.object {
+            margin-top: 0;
+        }
+
         &.dataFeed {
             margin-top: 0;
         }
@@ -608,7 +615,7 @@
 
                 .objectRender {
                     padding: 10px;
-                    margin: 7px 0;      
+                    margin: 7px 0;
 
                     .action {
                         padding: 0;
@@ -625,7 +632,7 @@
 
         }
     }
-	
+
     .dataFeed .feed-timeline .dataObjects .innerContainer .objectRender {
         margin-top: 0;
         margin-bottom: 0;
@@ -644,9 +651,9 @@
         width: 100%;
         margin: 0;
         padding-right: 0;
-        
+
         .navigator {
-	        margin-left: 3px;
+            margin-left: 3px;
         }
 
         &:first-child {
@@ -687,16 +694,16 @@
             padding: 5px;
             min-width: 98%;
         }
-        
+
     }
-    
+
     .dataFeed .feed-timeline.feed-min .dataObjects .innerContainer .objectRender > div {
-	    border-style: none;
+        border-style: none;
         background-color: inherit;
         margin-left: 0;
         padding-left: 0;
         .title {
-	        margin-left: 0;
+            margin-left: 0;
         }
     }
 
@@ -909,11 +916,11 @@
         }
 
     }
-	
-	.subobjectPage {
-		padding: 0 20px;
-	}
-	
+
+    .subobjectPage {
+        padding: 0 20px;
+    }
+
     .objectsPageContent {
 
         .dataBrowser {
@@ -947,13 +954,54 @@
         }
 
     }
-	
-	.objectRender-addons {
-		margin: -20px 0 25px 52px;
-		font-size: 13px;
-		color: green;
-	}
-	
+
+    .objectRender-addons {
+        margin: -20px 0 25px 52px;
+        font-size: 13px;
+        color: green;
+    }
+
+    .sidebar {
+        .block > section {
+            padding-bottom: 5px;
+        }
+
+        .objectRender {
+            padding: 0;
+
+            .attachment {
+                margin-bottom: 0;
+
+                .thumb_cont {
+                    width: 100%;
+                    height: auto;
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+
+                img {
+                    margin-top: 0;
+                    max-width: 100%;
+                }
+            }
+
+            .content {
+                padding-top: 0;
+
+                .title,
+                .meta {
+                    margin-right: 0;
+                    margin-left: 0;
+                    line-height: 1.1em;
+                }
+
+                .title {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+
     .objectRender {
         font-size: 14px;
         padding-bottom: 15px;
@@ -1040,24 +1088,24 @@
                 margin-left: 10px;
             }
         }
-        
+
         .description {
-	        margin-bottom: 20px;
+            margin-bottom: 20px;
         }
-        
+
         .object-icon {
-	        color: #999;
-		    display: block;
-		    float: left;
-		    font-size: 37px;
-		    height: 45px;
-		    width: 45px;
+            color: #999;
+            display: block;
+            float: left;
+            font-size: 37px;
+            height: 45px;
+            width: 45px;
             position: relative;
             top: -6px;
         }
-        
+
         .object-icon-side {
-	        margin-left: 45px;
+            margin-left: 45px;
         }
 
         .status {

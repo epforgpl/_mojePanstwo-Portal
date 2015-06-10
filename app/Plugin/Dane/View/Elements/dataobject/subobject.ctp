@@ -38,17 +38,3 @@
         <? */ ?>
     </div>
 </div>
-
-<? if (isset($menu) && !empty($menu)) { ?>
-    <div class="menuTabsCont">
-        <div class="container">
-            <?
-            if( !isset($menu['base']) )
-                $menu['base'] = $object->getUrl();
-            echo $this->Element('Dane.dataobject/menuTabs', array(
-                'menu' => $menu,
-            ));
-            ?>
-        </div>
-    </div>
-<? } ?>

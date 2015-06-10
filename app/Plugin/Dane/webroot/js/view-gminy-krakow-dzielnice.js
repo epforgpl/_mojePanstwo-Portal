@@ -73,12 +73,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
 $(document).ready(function () {
     if ($(window).outerWidth() > 728) {
         var header = $('.objectPageHeaderBg').outerHeight(true),
-            holder = $('.holder'),
             dzielniceMap = $('#dzielnice_map'),
             fundatorzy = $('#fundatorzy').outerHeight(true);
         var size = $(window).outerHeight() - header - fundatorzy;
 
-        holder.css('height', size);
         dzielniceMap.css('height', size);
     }
 

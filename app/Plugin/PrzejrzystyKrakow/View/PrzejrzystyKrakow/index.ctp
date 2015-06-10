@@ -12,9 +12,8 @@
 
                         <h1>Przejrzysty Kraków</h1>
 
-                        <p class="subh">Program Przejrzysty Kraków, prowadzony przez Fundację Stańczyka, ma na celu
-                            wieloaspektowy monitoring życia publicznego w Krakowie. W ramach programu prowadzony jest
-                            obecnie monitoring Rady Miasta i Dzielnic Krakowa. </p>
+                        <p class="subh text-center">Portal oparty o dane publiczne o Krakowie. Prowadzony przez Fundację
+                            Stańczyka.</p>
                     </div>
                 </div>
                 <div class="_mPSearchOutside">
@@ -40,8 +39,10 @@
                             </div>
                             <div class="action">
                                 <a href="/powiadomienia" target="_self" class="btn btn-primary btn-icon">
-                                    <img class="icon" src="/Powiadomienia/icon/powiadomienia.svg" alt=""/>Zacznij
-                                    obserwować</a>
+                                    <span class="glyphicon icon" data-icon-applications="&#xe60a;"
+                                          aria-hidden="true"></span> <span
+                                        class="btn-text">Zacznij obserwować</span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -55,16 +56,20 @@
                             </div>
                             <div class="action">
                                 <a href="/pisma" target="_self" class="btn btn-primary btn-icon">
-                                    <img class="icon" src="/Pisma/icon/pisma.svg" alt=""/>Napisz pismo</a>
+                                    <span class="glyphicon icon" data-icon-applications="&#xe60b;"
+                                          aria-hidden="true"></span> <span
+                                        class="btn-text">Napisz pismo</span>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <? /* Wszystkie poyzcje z menu, poza zamowieniami publicznymi i KRS */ ?>
-                <div class="popularApps">
+                <div class="appsList">
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow" target="_self">
                         <img alt="Aktualności" src="/PrzejrzystyKrakow/img/icon/aktualnosci.svg">
+                        <i class="icon" data-icon-pk=""></i>
 
                         <p>Aktualności</p>
                     </a>
@@ -73,18 +78,6 @@
                         <img alt="Rada miasta" src="/PrzejrzystyKrakow/img/icon/rada_miasta.svg">
 
                         <p>Rada miasta</p>
-                    </a>
-                    <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/druki"
-                       target="_self">
-                        <img alt="Rada miasta" src="/PrzejrzystyKrakow/img/icon/proces.svg">
-
-                        <p>Proces legislacyjny</p>
-                    </a>
-                    <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/radni"
-                       target="_self">
-                        <img alt="Rada miasta" src="/PrzejrzystyKrakow/img/icon/radni_miasta.svg">
-
-                        <p>Radni miasta</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/urzad"
                        target="_self">
@@ -97,6 +90,24 @@
                         <img alt="Organizacje" src="/PrzejrzystyKrakow/img/icon/dzielnice.svg">
 
                         <p>Dzielnice</p>
+                    </a>
+                    <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/druki"
+                       target="_self">
+                        <img alt="Rada miasta" src="/PrzejrzystyKrakow/img/icon/proces.svg">
+
+                        <p>KRS</p>
+                    </a>
+                    <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/radni"
+                       target="_self">
+                        <img alt="Rada miasta" src="/PrzejrzystyKrakow/img/icon/radni_miasta.svg">
+
+                        <p>Finanse</p>
+                    </a>
+                    <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/radni"
+                       target="_self">
+                        <img alt="Rada miasta" src="/PrzejrzystyKrakow/img/icon/radni_miasta.svg">
+
+                        <p>Powiązania</p>
                     </a>
                 </div>
             </div>
