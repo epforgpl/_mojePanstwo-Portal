@@ -208,11 +208,9 @@ echo $this->Element('Dane.dataobject/subobject', array(
                                                 <div class="col-xs-4 col-sm-3 attachment col-md-2 text-center">
                                                     <a href="/dane/rady_druki/<?= $debata->getData('rady_druki.id') ?>"
                                                        class="thumb_cont">
-                                                        <object data="/img/error/dokument.gif" type="image/png">
-                                                            <img
-                                                                src="http://docs.sejmometr.pl/thumb/1/<?= $debata->getData('rady_druki.dokument_id') ?>.png"
-                                                                class="thumb pull-right"/>
-                                                        </object>
+                                                        <img onerror="imgFixer(this)"
+                                                             src="http://docs.sejmometr.pl/thumb/1/<?= $debata->getData('rady_druki.dokument_id') ?>.png"
+                                                             class="thumb pull-right"/>
                                                     </a>
                                                 </div>
                                                 <div class="content col-xs-8 col-sm-9 col-md-10">
@@ -264,11 +262,9 @@ echo $this->Element('Dane.dataobject/subobject', array(
                                         <li class="row">
                                             <div class="col-md-2">
                                                 <a href="/dane/radni_gmin/<?= $wynik['radny_id'] ?>" class="thumb_cont">
-                                                    <object data="/img/error/avatar.gif" type="image/png">
-                                                        <img
+                                                    <img onerror="imgFixer(this)"
                                                             src="<? if ($wynik['avatar_id']) { ?>http://resources.sejmometr.pl/avatars/5/<?= $wynik['avatar_id'] ?>.jpg<? } else { ?>http://resources.sejmometr.pl/avatars/g/m.png<? } ?>"
                                                             class="thumb pull-right">
-                                                    </object>
                                                 </a>
                                             </div>
                                             <div class="col-md-7">

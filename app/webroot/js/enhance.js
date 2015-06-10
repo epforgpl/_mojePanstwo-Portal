@@ -1,4 +1,4 @@
-/*global $, jQuery, window, mPHeart, countDataObjectsSliderRowDetect*/
+/*global $, jQuery, window, mPHeart*/
 /* HTML5 HISTORY.JS */
 (function (window) {
     "use strict";
@@ -19,20 +19,20 @@ function imgFixer(img) {
         maxWidth = style.getPropertyValue('max-width'),
         size = (img.offsetWidth === 0) ? ((maxWidth === "") ? 100 : parseInt(maxWidth, 10)) : img.offsetWidth,
         imgBlankSrc = img.src,
-        imgBlankSetting = "/fff/ddd";
+        defaultImg = 'https://placeholdit.imgix.net/~text?txtsize=20&bg=ffffff&txttrack=0';
 
     /*IMG LINK TO DOCUMENT - SO WE GENERATE RECTANGLE*/
     if (imgBlankSrc.toLowerCase().indexOf("docs.sejmometr") >= 0) {
         /*WE TRY SIMILAR NEW IMAGE TO DOCUMENTS*/
         img.style.border = "2px solid #ddd";
         /*LINK WITH DOCUMENT TEXT*/
-        imgBlankSrc = "http://placehold.it/" + size + "x" + Math.ceil(Number(size * 1.32)) + imgBlankSetting + "&text=document";
+        imgBlankSrc = defaultImg + "&w=" + size + "&h=" + Math.ceil(Number(size * 1.32)) + "&txt=brak+dokumentu";
     } else if (imgBlankSrc.toLowerCase().indexOf("resources.sejmometr") >= 0) {/*IMG LINK TO AVATAR - SO WE GENERATE SQUARE*/
         /*LINK WITH AVATAR TEXT*/
-        imgBlankSrc = "http://placehold.it/" + size + imgBlankSetting + "&text=avatar";
+        imgBlankSrc = defaultImg + "&w=" + size + "&txt=brak+zdjęcia";
     } else {/*IMG LINK TO OTHERS - SO WE GENERATE SQUARE TOO*/
         /*LINK WITH ERROR TEXT*/
-        imgBlankSrc = "http://placehold.it/" + size + imgBlankSetting + "&text=lost";
+        imgBlankSrc = defaultImg + "&w=" + size + "&txt=brak+miniatury";
     }
 
     /*REMOVE ONERROR FUNCTION - CAUSE WE USE IT ALREADY*/
@@ -41,10 +41,6 @@ function imgFixer(img) {
     img.setAttribute('src', null);
     /*AND INSTERT NEW SRC*/
     img.src = imgBlankSrc;
-
-    if (typeof countDataObjectsSliderRowDetect != 'undefined' && countDataObjectsSliderRowDetect === true) {
-        window.setTimeout(countDataObjectsSliderRow, 0);
-    }
 
     return true;
 }

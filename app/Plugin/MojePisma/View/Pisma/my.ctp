@@ -123,9 +123,8 @@
                             <div class="col-sm-9">
                                 <div class="thumb">
                                     <a href="/moje-pisma/<?= $item['alphaid'] ?>,<?= $item['slug'] ?>">
-                                        <object data="/img/error/dokument.gif" type="image/png">
-                                            <img src="http://pisma.sds.tiktalik.com/thumbs/<?= $item['hash'] ?>.png"/>
-                                        </object>
+                                        <img src="http://pisma.sds.tiktalik.com/thumbs/<?= $item['hash'] ?>.png"
+                                             onerror="imgFixer(this)"/>
                                     </a>
                                 </div>
                                 <div class="cont">

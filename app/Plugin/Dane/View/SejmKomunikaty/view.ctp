@@ -4,11 +4,9 @@
     <div class="object">
         <div class="document col-md-10 col-md-offset-1">
             <? if ($object->getData('img') == '1') { ?>
-                <object data="/img/error/dokument.gif" type="image/png">
-                    <img class="imgInside"
-                         src="http://resources.sejmometr.pl/sejm_komunikaty/img/<?= $object->getId() ?>-0.jpg"
-                         align="right"/>
-                </object>
+                <img class="imgInside" onerror="imgFixer(this)"
+                     src="http://resources.sejmometr.pl/sejm_komunikaty/img/<?= $object->getId() ?>-0.jpg"
+                     align="right"/>
             <? } ?>
             <?php echo $content; ?>
         </div>

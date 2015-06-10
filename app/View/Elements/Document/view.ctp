@@ -7,24 +7,23 @@ echo $this->Html->css('https://mojepanstwo.pl/htmlex/' . $document['Document']['
 ?>
 
 <div class="htmlexDoc" data-packages="<?php echo $document['Document']['packages_count']; ?>"
-     data-current-package="1"
+     data-current-package="<?php echo(isset($document['Package']) ? '1' : '0') ?>"
      data-pages="<?php echo $document['Document']['pages_count']; ?>"
      data-document-id="<?php echo $document['Document']['id'] ?>">
-	 
-	
+
     <? echo $this->Element('toolbar', array(
-		'document' => $document['Document'],
-	)); ?>
+        'document' => $document['Document'],
+    )); ?>
 
     <div class="document">
-	    <div class="canvas">
-	        <?php echo $document['Package'] ?>
-	    </div>
-	    <div class="loadMoreDocumentContent <?php if ($document['Document']['packages_count'] > 1) {
-	        echo 'show';
-	    } else {
-	        echo 'hide';
-	    } ?>">
-	    </div>
+        <div class="canvas">
+            <?php echo(isset($document['Package']) ? $document['Package'] : false) ?>
+        </div>
+        <div class="loadMoreDocumentContent <?php if ($document['Document']['packages_count'] > 1) {
+            echo 'show';
+        } else {
+            echo 'hide';
+        } ?>">
+        </div>
     </div>
 </div>

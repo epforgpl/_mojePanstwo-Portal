@@ -19,9 +19,7 @@
                     <? { ?>
 
                         <div class="avatar"><a href="/dane/twitter_accounts/<?= $object['id'] ?>">
-                                <object data="/img/error/avatar.gif" type="image/png">
-                                    <img src="<?= $object['profile_image_url'] ?>"/>
-                                </object>
+                                <img src="<?= $object['profile_image_url'] ?>" onerror="imgFixer(this)"/>
                             </a></div>
                         <div class="info">
                             <p class="name">
@@ -108,8 +106,7 @@
 
                 <li class="account">
                     <div class="avatar"><a href="/dane/twitter_accounts/<?= $object['id'] ?>">
-                            <object data="/img/error/avatar.gif" type="image/png">
-                                <img src="<?= $object['profile_image_url'] ?>"/></object>
+                            <img src="<?= $object['profile_image_url'] ?>" onerror="imgFixer(this)"/>
                         </a></div>
                     <div class="info">
                         <p class="name">
@@ -320,9 +317,8 @@
                     <div class="tweet_header">
                         <div class="avatar">
                             <p>
-                                <object data="/img/error/avatar.gif" type="image/png">
-                                <img src="<?= $object->getData('twitter_accounts.profile_image_url') ?>"/>
-                                </object>
+                                <img src="<?= $object->getData('twitter_accounts.profile_image_url') ?>"
+                                     onerror="imgFixer(this)"/>
                             </p>
                         </div>
                         <div class="data">

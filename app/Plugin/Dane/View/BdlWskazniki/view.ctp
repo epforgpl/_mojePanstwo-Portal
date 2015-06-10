@@ -24,11 +24,9 @@
                             <div class="stats">
                                 <div class="map call-md-2">
                                     <a href="<?= $this->here ?>/kombinacje/<?= $option['data']['id'] ?>">
-                                        <object data="/img/error/brak.gif" type="image/png">
-                                            <img width="216" height="200"
-                                                 src="http://resources.sds.tiktalik.com/BDL_wymiary_kombinacje/<?= $option['data']['id'] ?>.png"
-                                                 class="imageInside"/>
-                                        </object>
+                                        <img width="216" height="200"
+                                             src="http://resources.sds.tiktalik.com/BDL_wymiary_kombinacje/<?= $option['data']['id'] ?>.png"
+                                             class="imageInside" onerror="imgFixer(this)"/>
                                     </a>
                                 </div>
                                 <div class="charts col-md-9">

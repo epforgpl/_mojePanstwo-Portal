@@ -110,7 +110,11 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
         fbScript = document.createElement("script"),
         scriptsPos = document.getElementsByTagName("script")[0],
         jsHour,
-        mPCookie;
+        mPCookie = {};
+
+    if ($.cookie('mojePanstwo') !== undefined) {
+        mPCookie = $.extend(true, mPCookie, JSON.parse($.cookie('mojePanstwo')));
+    }
 
     $('#_main').css('margin-bottom', $('footer.footer').outerHeight());
 
@@ -142,20 +146,29 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
         };
     }
 
-    /*COOKIE MANAGER*/
+    /*----- COOKIE MANAGER -----*/
+    /*COOKIE LAW CONTROLER*/
+    if (mPCookie === undefined || mPCookie.law === undefined) {
+        $('.cookieLaw .btn').click(function () {
+            mPCookie.law = true;
+            $(this).parents('.cookieLaw').fadeOut();
+
+            /*COOKIE MANAGER - RESAVE ALL*/
+            $.cookie('mojePanstwo', JSON.stringify(mPCookie));
+        });
+    }
+
+    /*COOKIE BACKGROUND CONTROL*/
     if ($('body').hasClass('theme-wallpaper')) {
         jsHour = jsDate.getHours();
-        mPCookie = {
-            background: {
+
+        if (mPCookie === undefined || mPCookie.background === undefined) {
+            mPCookie.background = {
                 url: '/img/home/backgrounds/home-background-default0.jpg',
                 current: 0,
                 limit: 5,
                 time: jsHour
-            }
-        };
-
-        if ($.cookie('mojePanstwo')) {
-            mPCookie = $.extend(true, mPCookie, JSON.parse($.cookie('mojePanstwo')));
+            };
         }
 
         /*COOKIE MANAGER - BACKGROUND CHANGER*/
@@ -208,4 +221,5 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
     if ($('.trimTitle').length > 0) {
         trimTitle();
     }
-})(jQuery);
+})
+(jQuery);

@@ -56,10 +56,9 @@ $dictionary = array(
                 <tr>
                     <td>
                         <div class="col-md-3 text-center">
-                            <object data="/img/error/brak.gif" type="image/png">
                                 <img class="kluby"
-                                     src="http://resources.sejmometr.pl/s_kluby/<?php echo $wynik['klub_id']; ?>_a_t.png"/>
-                            </object>
+                                     src="http://resources.sejmometr.pl/s_kluby/<?php echo $wynik['klub_id']; ?>_a_t.png"
+                                     onerror="imgFixer(this)"/>
                         </div>
                         <div class="col-md-9">
                             <a href="<?php echo $this->Html->url(array(
