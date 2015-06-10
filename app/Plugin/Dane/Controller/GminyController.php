@@ -2998,4 +2998,16 @@ class GminyController extends DataobjectsController
             $this->setMeta('og:image', FULL_BASE_URL . '/dane/img/social/przejrzystykrakow.jpg');
         }
     }
+    
+    public function beforeRender()
+    {
+	    
+	    if( $this->domainMode == 'PK' ) {
+		    $this->_layout['footer']['element'] = 'pk';
+	    }
+	    
+	    parent::beforeRender();
+	    
+    }
+    
 }

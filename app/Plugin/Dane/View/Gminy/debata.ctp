@@ -11,7 +11,6 @@ echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
 
-
 echo $this->Element('Dane.dataobject/subobject', array(
     'menu' => isset($_submenu) ? $_submenu : false,
     'object' => $debata,
@@ -19,10 +18,12 @@ echo $this->Element('Dane.dataobject/subobject', array(
         'hlFields' => array('rady_gmin_posiedzenia.numer', 'numer_punktu'),
         'bigTitle' => true,
     ),
+    /*
     'back' => array(
         'href' => '/dane/gminy/903,krakow/posiedzenia/' . $debata->getData('krakow_posiedzenia.id'),
         'title' => 'Wszystkie punkty podczas posiedzenia nr ' . $debata->getData('krakow_posiedzenia.numer') . ', sesja ' . $debata->getData('krakow_sesje.str_numer'),
     ),
+    */
 ));
 ?>
 
