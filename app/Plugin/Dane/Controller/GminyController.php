@@ -358,7 +358,7 @@ class GminyController extends DataobjectsController
                 'aggs' => array(
                     'top' => array(
                         'top_hits' => array(
-                            'size' => 3,
+                            'size' => 1,
                             'fielddata_fields' => array('dataset', 'id'),
                             'sort' => array(
                                 'date' => 'desc',
@@ -390,7 +390,7 @@ class GminyController extends DataobjectsController
                 'aggs' => array(
                     'top' => array(
                         'top_hits' => array(
-                            'size' => 3,
+                            'size' => 1,
                             'fielddata_fields' => array('dataset', 'id'),
                             'sort' => array(
                                 'date' => 'desc',
@@ -422,7 +422,7 @@ class GminyController extends DataobjectsController
                 'aggs' => array(
                     'top' => array(
                         'top_hits' => array(
-                            'size' => 3,
+                            'size' => 1,
                             'fielddata_fields' => array('dataset', 'id'),
                             'sort' => array(
                                 'date' => 'desc',
