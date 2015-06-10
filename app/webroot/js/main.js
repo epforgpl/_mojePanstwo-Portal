@@ -110,7 +110,11 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
         fbScript = document.createElement("script"),
         scriptsPos = document.getElementsByTagName("script")[0],
         jsHour,
+        mPCookie = {};
+
+    if ($.cookie('mojePanstwo') !== undefined) {
         mPCookie = $.extend(true, mPCookie, JSON.parse($.cookie('mojePanstwo')));
+    }
 
     $('#_main').css('margin-bottom', $('footer.footer').outerHeight());
 
@@ -142,7 +146,7 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
         };
     }
 
-    /*COOKIE MANAGER*/
+    /*----- COOKIE MANAGER -----*/
     /*COOKIE LAW CONTROLER*/
     if (mPCookie === undefined || mPCookie.law === undefined) {
         $('.cookieLaw .btn').click(function () {

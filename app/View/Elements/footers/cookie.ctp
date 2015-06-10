@@ -1,5 +1,5 @@
 <?php
-$cookie = json_decode($_COOKIE['mojePanstwo']);
+$cookie = @json_decode($_COOKIE['mojePanstwo']);
 if (!isset($cookie->law)) {
     ?>
     <div class="cookieLaw col-xs-12 col-sm-8 col-md-4">
