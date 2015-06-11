@@ -38,7 +38,7 @@
                                 Otrzymuj powiadomienia o aktywnościach Rady Miasta, Prezydenta Krakowa i innych danych.
                             </div>
                             <div class="action">
-                                <a href="/powiadomienia" target="_self" class="btn btn-primary btn-icon">
+                                <a href="/powiadomienia/jak_to_dziala" target="_self" class="btn btn-primary btn-icon">
                                     <span class="glyphicon icon" data-icon-applications="&#xe60a;"
                                           aria-hidden="true"></span> <span
                                         class="btn-text">Zacznij obserwować</span>
@@ -68,44 +68,43 @@
                 <? /* Wszystkie poyzcje z menu, poza zamowieniami publicznymi i KRS */ ?>
                 <div class="appsList">
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow" target="_self">
-                        <img alt="Aktualności" src="/PrzejrzystyKrakow/img/icon/aktualnosci.svg">
-                        <i class="icon" data-icon-pk=""></i>
+                        <i class="icon" data-icon-pk="&#xe600;"></i>
 
                         <p>Aktualności</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/rada"
                        target="_self">
-                        <img alt="Rada miasta" src="/PrzejrzystyKrakow/img/icon/rada_miasta.svg">
+                        <i class="icon" data-icon-pk="&#xe602;"></i>
 
                         <p>Rada miasta</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/urzad"
                        target="_self">
-                        <img alt="Urząd Miasta" src="/PrzejrzystyKrakow/img/icon/urzad_miasta.svg">
+                        <i class="icon" data-icon-pk="&#xe603;"></i>
 
                         <p>Urząd Miasta</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/dzielnice"
                        target="_self">
-                        <img alt="Organizacje" src="/PrzejrzystyKrakow/img/icon/dzielnice.svg">
+                        <i class="icon" data-icon-pk="&#xe601;"></i>
 
                         <p>Dzielnice</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/druki"
                        target="_self">
-                        <img alt="Rada miasta" src="/PrzejrzystyKrakow/img/icon/proces.svg">
+                        <i class="icon" data-icon-pk="krs"></i>
 
                         <p>KRS</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/radni"
                        target="_self">
-                        <img alt="Rada miasta" src="/PrzejrzystyKrakow/img/icon/radni_miasta.svg">
+                        <i class="icon" data-icon-pk="finanse"></i>
 
                         <p>Finanse</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/radni"
                        target="_self">
-                        <img alt="Rada miasta" src="/PrzejrzystyKrakow/img/icon/radni_miasta.svg">
+                        <i class="icon" data-icon-pk="powiazania"></i>
 
                         <p>Powiązania</p>
                     </a>

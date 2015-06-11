@@ -9,22 +9,29 @@ echo $this->Element('dataobject/pageBegin', array(
 ));
 ?>
 
-<div class="subobjectPage">
+    <div class="subobjectPage nopadding">
 
-<?
-echo $this->Element('Dane.dataobject/subobject', array(
-    'menu' => isset($_submenu) ? $_submenu : false,
-    'object' => $radny,
-    'objectOptions' => array(
-        'hlFields' => array('komitet', 'liczba_glosow'),
-        'bigTitle' => true,
-    )
+        <?
+        echo $this->Element('Dane.dataobject/subobject', array(
+            'menu' => isset($_submenu) ? $_submenu : false,
+            'object' => $radny,
+            'objectOptions' => array(
+                'hlFields' => array('komitet', 'liczba_glosow'),
+                'bigTitle' => true,
+            )
+        )); ?>
+        <div class="col-xs-12">
+            <?
+            $options = array();
+            if (isset($title))
+                $options['title'] = $title;
+            echo $this->Element('Dane.DataBrowser/browser', $options);
+            ?>
+        </div>
+    </div>
+
+<?php
+echo $this->Element('dataobject/pageEnd', array(
+    'titleTag' => 'p',
 ));
-
-$options = array();
-if( isset($title) )
-	$options['title'] = $title;
-echo $this->Element('Dane.DataBrowser/browser', $options);
 ?>
-
-</div>

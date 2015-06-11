@@ -1,9 +1,99 @@
+/*global $,jQuery*/
+
 $(document).ready(function () {
-    var pismoBtn = $('.pisma-list-button');
-	var obserwujBtn = $('.obserwuj-button');
-	
+    "use strict";
+
+    var pismoBtn = $('.pisma-list-button'),
+        obserwujBtn = $('.obserwuj-button'),
+        pismoModal,
+        obserwujModal,
+        method,
+        form;
+
+    function szablonList(data) {
+        var list = $('<div></div>').addClass('list');
+
+        $.each(data, function (key, value) {
+            var listBlock = $('<div></div>').addClass('listBlock').append(
+                $('<h4></h4>').text(value.nazwa)
+            ).append(
+                $('<ul></ul>').addClass('ul-raw')
+            );
+            $.each(value.templates, function (name, obj) {
+                listBlock.find('ul.ul-raw').append(
+                    $('<li></li>').append(
+                        $('<a></a>').attr({
+                            'data-szablonId': obj.id,
+                            'href': '#' + value.nazwa + '-' + obj.nazwa
+                        }).append(
+                            $('<span></span>').text(obj.nazwa)
+                        ).append(
+                            $('<p></p>').text(obj.opis)
+                        )
+                    )
+                );
+            });
+            list.append(listBlock);
+            list.find('ul.ul-raw li a').click(function (e) {
+                e.preventDefault();
+                pismoModal
+                    .find('ul.ul-raw li.active').removeClass('active')
+                    .end()
+                    .find('.modal-footer .btn-primary.disabled').removeClass('disabled');
+                $(this).parent('li').addClass('active');
+            });
+        });
+        pismoModal.find('.modal-body').html(list);
+    }
+
+    function szablonChosen(szablon_name, szablon_id) {
+        if (pismoBtn.hasClass('pisma-list-button-no-jump')) {
+            if (szablon_name !== undefined && szablon_id !== undefined) {
+                var radios = $('.szablony .radio');
+                radios.find('input').prop('checked', false);
+                if (radios.find('input[name="szablon_id"][value="' + szablon_id + '"]').length > 0) {
+                    radios.find('input[name="szablon_id"][value="' + szablon_id + '"]').prop('checked', 'checked');
+                } else {
+                    radios.last().after($('<div></div>').addClass('radio').append(
+                        $('<label></label>').text(szablon_name).prepend(
+                            $('<input>').attr({
+                                'type': 'radio',
+                                'value': szablon_id,
+                                'name': 'szablon_id'
+                            }).prop('checked', 'checked')
+                        )
+                    ));
+                }
+            }
+            pismoModal.modal('hide');
+            pismoModal.find('.modal-footer .btn.btn-primary').removeClass('loading').addClass('disabled').text('Zatwierdź');
+            pismoModal.find('ul.ul-raw li.active').removeClass('active');
+        } else {
+            method = (szablon_id !== undefined && pismoBtn.attr('data-adresatid') !== undefined) ? 'post' : 'get';
+            form = $('<form></form>').attr({
+                'action': '/pisma',
+                'method': method,
+                'class': 'pismaGenerateModalForm'
+            }).append(
+                $('<input>').attr({
+                    'name': 'szablon_id',
+                    'type': 'text',
+                    'value': szablon_id
+                })
+            ).append(
+                $('<input>').attr({
+                    'name': 'adresat_id',
+                    'type': 'text',
+                    'value': pismoBtn.data('adresatid')
+                })
+            );
+            pismoModal.append(form);
+            form.submit();
+        }
+    }
+
     if (pismoBtn.length) {
-        var pismoModal = $('<div></div>').addClass('modal fade').attr({
+        pismoModal = $('<div></div>').addClass('modal fade').attr({
             'id': 'pismaGenerateModal',
             'tabindex': '-1',
             'role': 'dialog',
@@ -45,8 +135,9 @@ $(document).ready(function () {
                             var btn = $(this);
 
                             e.preventDefault();
-                            if (btn.hasClass('disabled'))
+                            if (btn.hasClass('disabled')) {
                                 return false;
+                            }
                             $(this).css('width', $(this).outerWidth()).addClass('loading disabled').text('');
                             szablonChosen(pismoModal.find('ul.ul-raw li.active a >span').text(), pismoModal.find('ul.ul-raw li.active a').attr('data-szablonid'));
                         })
@@ -58,23 +149,23 @@ $(document).ready(function () {
         pismoBtn.click(function (e) {
             e.preventDefault();
 
-            if (pismoModal.data('cache') == undefined) {
-                var adresat_id = (pismoBtn.data('adresatid') != undefined) ? '?adresat_id=' + pismoBtn.data('adresatid') : '';
+            if (pismoModal.data('cache') === undefined) {
+                var adresat_id = (pismoBtn.data('adresatid') !== undefined) ? '?adresat_id=' + pismoBtn.data('adresatid') : '';
                 $.get('http://mojepanstwo.pl:4444/pisma/templates/grouped.json' + adresat_id, function (data) {
                     pismoModal.data('cache', data);
-                    szablonList(data)
+                    szablonList(data);
                 });
             } else {
                 szablonList(pismoModal.data('cache'));
             }
 
-            pismoModal.modal('show')
+            pismoModal.modal('show');
         });
     }
-    
-    /*
+
+
     if (obserwujBtn.length) {
-        var obserwujModal = $('<div></div>').addClass('modal fade').attr({
+        obserwujModal = $('<div></div>').addClass('modal fade').attr({
             'id': 'obserwujGenerateModal',
             'tabindex': '-1',
             'role': 'dialog',
@@ -109,15 +200,11 @@ $(document).ready(function () {
 
                             e.preventDefault();
                             if (!btn.hasClass('disabled')) {
-	                            
-	                            btn.addClass('disabled');
+                                btn.addClass('disabled');
+                                $.post('/dane/dataobjects/' + btn.attr('data-objectid') + '/subscribe.json', function () {
+                                    btn.removeClass('disabled');
+                                });
 
-	                            $.post('/dane/dataobjects/' + btn.attr('data-objectid') + '/subscribe.json', function(data) {
-
-				                    btn.removeClass('disabled');
-
-				                });
-	                            
                             }
                         })
                     )
@@ -129,88 +216,5 @@ $(document).ready(function () {
             e.preventDefault();
             obserwujModal.modal('show').find('.btn-subscribe').attr('data-objectid', obserwujBtn.attr('data-objectid'));
         });
-    }
-    */
-
-    function szablonList(data) {
-        var list = $('<div></div>').addClass('list');
-
-        $.each(data, function (key, value) {
-            var listBlock = $('<div></div>').addClass('listBlock').append(
-                $('<h4></h4>').text(value['nazwa'])
-            ).append(
-                $('<ul></ul>').addClass('ul-raw')
-            );
-            $.each(value['templates'], function (name, obj) {
-                listBlock.find('ul.ul-raw').append(
-                    $('<li></li>').append(
-                        $('<a></a>').attr({
-                            'data-szablonId': obj['id'],
-                            'href': '#' + value['nazwa'] + '-' + obj['nazwa']
-                        }).append(
-                            $('<span></span>').text(obj['nazwa'])
-                        ).append(
-                            $('<p></p>').text(obj['opis'])
-                        )
-                    )
-                )
-            });
-            list.append(listBlock);
-            list.find('ul.ul-raw li a').click(function (e) {
-                e.preventDefault();
-                pismoModal
-                    .find('ul.ul-raw li.active').removeClass('active')
-                    .end()
-                    .find('.modal-footer .btn-primary.disabled').removeClass('disabled');
-                $(this).parent('li').addClass('active');
-            })
-        });
-        pismoModal.find('.modal-body').html(list);
-    }
-
-    function szablonChosen(szablon_name, szablon_id) {
-        if (pismoBtn.hasClass('pisma-list-button-no-jump')) {
-            if (szablon_name !== undefined && szablon_id != undefined) {
-                var radios = $('.szablony .radio');
-                radios.find('input').prop('checked', false);
-                if (radios.find('input[name="szablon_id"][value="' + szablon_id + '"]').length > 0) {
-                    radios.find('input[name="szablon_id"][value="' + szablon_id + '"]').prop('checked', 'checked')
-                } else {
-                    radios.last().after($('<div></div>').addClass('radio').append(
-                        $('<label></label>').text(szablon_name).prepend(
-                            $('<input>').attr({
-                                'type': 'radio',
-                                'value': szablon_id,
-                                'name': 'szablon_id'
-                            }).prop('checked', 'checked')
-                        )
-                    ));
-                }
-            }
-            pismoModal.modal('hide');
-            pismoModal.find('.modal-footer .btn.btn-primary').removeClass('loading').addClass('disabled').text('Zatwierdź');
-            pismoModal.find('ul.ul-raw li.active').removeClass('active');
-        } else {
-            var method = (szablon_id !== undefined && pismoBtn.attr('data-adresatid') !== undefined) ? 'post' : 'get';
-            var form = $('<form></form>').attr({
-                'action': '/pisma',
-                'method': method,
-                'class': 'pismaGenerateModalForm'
-            }).append(
-                $('<input>').attr({
-                    'name': 'szablon_id',
-                    'type': 'text',
-                    'value': szablon_id
-                })
-            ).append(
-                $('<input>').attr({
-                    'name': 'adresat_id',
-                    'type': 'text',
-                    'value': pismoBtn.data('adresatid')
-                })
-            );
-            pismoModal.append(form);
-            form.submit();
-        }
     }
 });
