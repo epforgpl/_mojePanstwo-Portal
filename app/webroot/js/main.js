@@ -125,12 +125,7 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
         }
 
         fbScript.id = "facebook-jssdk";
-
-        if (mPHeart.language.twoDig === 'pl') {
-            fbScript.src = "//connect.facebook.net/pl_PL/all.js";
-        } else {
-            fbScript.src = "//connect.facebook.net/en_US/all.js";
-        }
+        fbScript.src = "//connect.facebook.net/" + (mPHeart.language.twoDig === 'pl') ? 'pl_PL' : 'en_US' + '/all.js';
 
         scriptsPos.parentNode.insertBefore(fbScript, scriptsPos);
 
@@ -147,14 +142,17 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
     }
 
     /*----- COOKIE MANAGER -----*/
+    function cookieSave(mPCookie) {
+        $.cookie('mojePanstwo', JSON.stringify(mPCookie), {expires: 365});
+    }
+
     /*COOKIE LAW CONTROLER*/
     if (mPCookie === undefined || mPCookie.law === undefined) {
         $('.cookieLaw .btn').click(function () {
             mPCookie.law = true;
             $(this).parents('.cookieLaw').fadeOut();
 
-            /*COOKIE MANAGER - RESAVE ALL*/
-            $.cookie('mojePanstwo', JSON.stringify(mPCookie));
+            cookieSave(mPCookie);
         });
     }
 
@@ -183,8 +181,7 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
             mPCookie.background.time = jsHour;
         }
 
-        /*COOKIE MANAGER - RESAVE ALL*/
-        $.cookie('mojePanstwo', JSON.stringify(mPCookie));
+        cookieSave(mPCookie);
     }
 
     /*GLOBAL MODAL FOR LOGIN VIA PASZPORT PLUGIN*/

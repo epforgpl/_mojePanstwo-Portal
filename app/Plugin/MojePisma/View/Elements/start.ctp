@@ -29,13 +29,10 @@
                                   checked="checked"><?php echo $pismo['nazwa'] ?></label>
                 </div>
             <?php }; ?>
-			
-			<? /*
+
             <div class="templates_browser">
-                <a href="#" class="pisma-list-button pisma-list-button-no-jump">Zobacz wszystkie
-                    szablony &raquo;</a>
+                <a href="#" class="pisma-list-button pisma-list-button-no-jump">Zobacz wszystkie szablony &raquo;</a>
             </div>
-            */ ?>
 
         </div>
     </div>
