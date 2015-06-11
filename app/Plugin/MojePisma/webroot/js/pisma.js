@@ -819,6 +819,12 @@ var PISMA = Class.extend({
             .end()
             .find('input[name="tytul"]').val($.trim(preview.find('.control.control-template').text()));
 
+        if ($('.form-group.widocznosc').length > 0) {
+            preview.append(
+                $('<radio></radio>').attr({name: 'access'}).val($('.form-group.widocznosc input[name="access"]:checked').val())
+            );
+        }
+
         preview.append(
             $('<textarea></textarea>').attr({name: 'tresc'}).val($.trim(preview.find('#editor').html()))
         ).append(

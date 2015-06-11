@@ -55,13 +55,14 @@ $(document).ready(function () {
                     radios.find('input[name="szablon_id"][value="' + szablon_id + '"]').prop('checked', 'checked');
                 } else {
                     radios.last().after($('<div></div>').addClass('radio').append(
-                        $('<label></label>').text(szablon_name).prepend(
-                            $('<input>').attr({
-                                'type': 'radio',
-                                'value': szablon_id,
-                                'name': 'szablon_id'
-                            }).prop('checked', 'checked')
-                        )
+                        $('<input>').attr({
+                            'id': 'wniosek_' + szablon_id,
+                            'type': 'radio',
+                            'value': szablon_id,
+                            'name': 'szablon_id'
+                        }).prop('checked', 'checked')
+                    ).append(
+                        $('<label></label>').attr('for', 'wniosek_' + szablon_id).text(szablon_name)
                     ));
                 }
             }
@@ -132,10 +133,8 @@ $(document).ready(function () {
                         $('<button></button>').addClass('btn btn-default').attr('data-dismiss', 'modal').text('Zamknij')
                     ).append(
                         $('<button></button>').addClass('btn btn-primary disabled').text('Zatwierdź').click(function (e) {
-                            var btn = $(this);
-
                             e.preventDefault();
-                            if (btn.hasClass('disabled')) {
+                            if ($(this).hasClass('disabled')) {
                                 return false;
                             }
                             $(this).css('width', $(this).outerWidth()).addClass('loading disabled').text('');
@@ -199,12 +198,12 @@ $(document).ready(function () {
                             var btn = $(this);
 
                             e.preventDefault();
+
                             if (!btn.hasClass('disabled')) {
                                 btn.addClass('disabled');
                                 $.post('/dane/dataobjects/' + btn.attr('data-objectid') + '/subscribe.json', function () {
                                     btn.removeClass('disabled');
                                 });
-
                             }
                         })
                     )
