@@ -115,7 +115,7 @@ class mpAPISource extends DataSource {
         
         $this->count = false;
         $this->took = false;
-        
+                
         if( isset($queryData['feed']) ) {
         	        	
         	$endpoint_parts = array('dane/' . $queryData['feed']);
@@ -219,9 +219,7 @@ class mpAPISource extends DataSource {
 	        	throw new CakeException();
 	        	
         }
-        
-        // debug( $res );
-         
+                 
         if( isset($res['Count']) )
 	        $this->count = $res['Count'];
 	    
@@ -338,6 +336,7 @@ class mpAPISource extends DataSource {
             $error = json_last_error();
             throw new CakeException($error);
         }
+                
         return $res;
 	    
     }

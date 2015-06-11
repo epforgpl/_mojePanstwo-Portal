@@ -1312,9 +1312,8 @@ class GminyController extends DataobjectsController
 			
             $subaction = false;
 			
-			debug($posiedzenie->getData()); die();
+			// debug($posiedzenie->getData()); die();
 			
-			/*
             $__submenu = array(
                 'items' => array(
                     array(
@@ -1323,7 +1322,6 @@ class GminyController extends DataobjectsController
                     ),
                 ),
             );
-            */
 
 
             if ($posiedzenie->getData('zwolanie_dokument_id')) {
@@ -1482,14 +1480,78 @@ class GminyController extends DataobjectsController
                     'dataset' => 'krakow_posiedzenia_punkty',
                     'id' => $this->request->params['subid'],
                 ),
-                'layers' => array('neighbours', 'wystapienia', 'wyniki_glosowania'),
+                'layers' => array('neighbours', 'wystapienia'),
+                'aggs' => array(
+	                'all' => array(
+		                'global' => '_empty',
+		                'aggs' => array(
+			                'druk' => array(
+				                'filter' => array(
+					                'bool' => array(
+						                'must' => array(
+							                array(
+								                'term' => array(
+									                'dataset' => 'rady_druki',
+								                ),
+							                ),
+							                array(
+								                'term' => array(
+									                'data.rady_druki.punkt_id' => $this->request->params['subid'],
+								                ),
+							                ),
+						                ),
+					                ),
+				                ),
+				                'aggs' => array(
+					                'top' => array(
+						                'top_hits' => array(
+	                                        'fielddata_fields' => array('dataset', 'id'),
+							                'size' => 1
+						                ),
+					                ),
+				                ),
+			                ),
+			                'glosowania' => array(
+				                'filter' => array(
+					                'bool' => array(
+						                'must' => array(
+							                array(
+								                'term' => array(
+									                'dataset' => 'krakow_glosowania',
+								                ),
+							                ),
+							                array(
+								                'term' => array(
+									                'data.krakow_glosowania.punkt_id' => $this->request->params['subid'],
+								                ),
+							                ),
+						                ),
+					                ),
+				                ),
+				                'aggs' => array(
+					                'top' => array(
+						                'top_hits' => array(
+	                                        'fielddata_fields' => array('dataset', 'id'),
+							                'size' => 100
+						                ),
+					                ),
+				                ),
+			                ),
+		                ),
+	                ),
+                ),
             ));
-
+            
             $this->set('debata', $debata);
+            $this->set('aggs', $this->Dataobject->getAggs());
 
             $wystapienia = $debata->getLayer('wystapienia');
             $this->set('wystapienia', $wystapienia);
-
+			
+			$this->set('_submenu', array_merge($this->submenus['rada'], array(
+	            'selected' => 'posiedzenia',
+	        )));
+			
             $this->set('title_for_layout', $debata->getTitle());
 
             $this->render('debata');
@@ -1507,6 +1569,7 @@ class GminyController extends DataobjectsController
             $this->set('title_for_layout', 'Punkty porządku dziennego na posiedzeniach rady gminy ' . $this->object->getData('nazwa'));
 
         }
+        
     }
 
     public function rada_uchwaly()

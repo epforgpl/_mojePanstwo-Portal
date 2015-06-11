@@ -38,47 +38,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
         ),
     ),
 ));
-?>
 
-<div class="krsPodmiotZmiana row">
+echo $this->Element('Dane.DataBrowser/browser');
 
-
-    <div class="col-lg-9 nopadding">
-        <div class="object">
-						
-			<? if( isset($dataBrowser['hits']) && !empty($dataBrowser['hits'])) {?>
-			<div class="block">
-				<div class="block-header">
-					<h2 class="label">Punkty porządku dziennego</h2>
-				</div>
-				<div class="content">
-										
-					<table class="table table-striped table-hover ">
-						<thead>
-							<tr>
-								<th>Numer</th>
-								<th>Tytuł</th>
-								<th>Wynik rozpatrywania</th>
-							</tr>
-						</thead>
-						<tbody>
-							<? foreach( $dataBrowser['hits'] as $object ) { ?>
-							<tr>
-								<td class="text-center"><span class="punkt-nr"><?= $object->getData('numer') ?></span></td>
-								<td><? if($object->getUrl()) {?><a href="<?= $object->getUrl() ?>"><? } ?><?= $object->getData('tytul') ?><? if($object->getUrl()) {?></a><? } ?></td>
-								<td><?= $object->getData('krakow_glosowania.wynik_str') ?></td>
-							</tr>
-							<? } ?>
-						</tbody>
-					</table>
-					
-				</div>
-			</div>
-			<? } ?>
-
-        </div>
-    </div>
-
-</div>
-<?
 echo $this->Element('dataobject/pageEnd');
