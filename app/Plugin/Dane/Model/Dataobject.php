@@ -19,9 +19,9 @@ class Dataobject extends AppModel {
 	*/
 	
 	public function afterFind($results = array(), $primary = false) {
-									
+										
 		for( $i=0; $i<count($results); $i++ ) {
-												
+																	
 			$class = ucfirst( $results[$i]['dataset'] );
 			$file = APPLIBS . 'Dataobject/' . $class . '.php';
 						
