@@ -10,27 +10,6 @@ $options = array(
 );
 ?>
 
-<div class="suggesterBlock searchForm col-xs-12">
-    <? if (!isset($title) && isset($DataBrowserTitle)) {
-        $title = $DataBrowserTitle;
-    }
-    if (isset($title)) {
-        echo '<h2>' . $title . '</h2>';
-    }
-
-    if (!isset($searcher) || $searcher) { ?>
-        <?
-        $value = isset($this->request->query['q']) ? addslashes($this->request->query['q']) : '';
-        $dataset = ($dataBrowser['autocompletion']) ? $dataBrowser['autocompletion']['dataset'] : false;
-        $placeholder = (isset($dataBrowser['searchTitle']) && ($dataBrowser['searchTitle'])) ? addslashes($dataBrowser['searchTitle']) : 'Szukaj...';
-        $url = ($dataBrowser['cancel_url']) ? $dataBrowser['cancel_url'] : '';
-        ?>
-
-        <?= $this->Element('searcher', array('q' => $value, 'dataset' => $dataset, 'placeholder' => $placeholder, 'url' => $url)) ?>
-
-    <? } ?>
-</div>
-
 <div class="col-md-8">
     <? if (isset($_submenu) && !empty($_submenu)) { ?>
         <div class="menuTabsCont col-xs-8">

@@ -14,7 +14,7 @@ var map,
 
 function mapHoverIn(dzielnicaName) {
     map.data.setStyle(function (feature) {
-        var featureName = feature['k']['Name'];
+        var featureName = feature['A']['Name'];
 
         if (featureName == dzielnicaName) {
             return featureHoverStyle;
@@ -56,11 +56,11 @@ function initialize() {
         map.setZoom(11);
     });
     google.maps.event.addListener(map.data, 'click', function (event) {
-        $('.dzielniceList a[data-dzielnica="' + event.feature['k']['Name'] + '"]')[0].click();
+        $('.dzielniceList a[data-dzielnica="' + event.feature['A']['Name'] + '"]')[0].click();
     });
     google.maps.event.addListener(map.data, 'mouseover', function (event) {
-        $('.dzielniceList a[data-dzielnica="' + event.feature['k']['Name'] + '"]').addClass('hover');
-        mapHoverIn(event.feature['k']['Name']);
+        $('.dzielniceList a[data-dzielnica="' + event.feature['A']['Name'] + '"]').addClass('hover');
+        mapHoverIn(event.feature['A']['Name']);
     });
     google.maps.event.addListener(map.data, 'mouseout', function () {
         $('.dzielniceList a.hover').removeClass('hover');
@@ -74,9 +74,11 @@ $(document).ready(function () {
     if ($(window).outerWidth() > 728) {
         var header = $('.objectPageHeaderBg').outerHeight(true),
             dzielniceMap = $('#dzielnice_map'),
+            holder = dzielniceMap.parent().find('.holder'),
             fundatorzy = $('#fundatorzy').outerHeight(true);
         var size = $(window).outerHeight() - header - fundatorzy;
 
+        holder.css('min-height', size);
         dzielniceMap.css('height', size);
     }
 

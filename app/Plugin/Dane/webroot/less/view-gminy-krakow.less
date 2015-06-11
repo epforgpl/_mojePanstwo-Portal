@@ -83,8 +83,17 @@
     overflow: hidden;
 }
 
-.objectsPage .objectPageHeaderContainer.krakow .objectRender .attachment img {
-    max-width: inherit;
+.objectsPage {
+    &.krakow .suggesterBlock {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .objectPageHeaderContainer.krakow .objectRender .attachment img {
+        max-width: inherit;
+    }
 }
 
 #fundatorzy {

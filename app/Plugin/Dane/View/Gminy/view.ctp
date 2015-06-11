@@ -14,15 +14,15 @@
 
 <? echo $this->Element('dataobject/pageBegin'); ?>
 
-<div class="objectsPage">
-	<?
-		$options = array();
-		if( isset($title) )
-			$options['title'] = $title;
+<div class="objectsPage<? if ($object->getId() == 903) { ?> krakow <? } ?>">
+    <?
+    $options = array();
+    if (isset($title))
+        $options['title'] = $title;
     $options['blockStyle'] = 'block-default';
-			
-		echo $this->Element('Dane.DataBrowser/browser', $options);
-	?>
+
+    echo $this->Element('Dane.DataBrowser/browser', $options);
+    ?>
 </div>
 
 <?= $this->Element('dataobject/pageEnd'); ?>

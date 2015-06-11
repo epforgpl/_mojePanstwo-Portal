@@ -3,10 +3,13 @@
 $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty', array('plugin' => 'Dane')));
 
 echo $this->Element('dataobject/pageBegin');
-echo $this->Element('Dane.dataobject/menuTabs', array(
-    'menu' => $_menu,
-));
-
+?>
+    <div class="menuTabsCont col-xs-8">
+        <? echo $this->Element('Dane.dataobject/menuTabs', array(
+            'menu' => $_menu,
+        )); ?>
+    </div>
+<?
 if ($emisje = $object->getLayer('emisje_akcji')) {
     ?>
     <div class="mpanel">
