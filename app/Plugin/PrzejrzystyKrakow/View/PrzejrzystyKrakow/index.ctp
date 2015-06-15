@@ -22,6 +22,7 @@
                             <i class="glyph-addon" data-icon="&#xe600;"></i>
                             <input name="q" value="" type="text" autocomplete="off"
                                    class="datasearch form-control input-lg"
+                                   data-autocompletion="true"
                                    placeholder="<?= __("Szukaj w Przejrzystym Krakowie...") ?>" <?php if (isset($app)) {
                                 echo 'data-app="' . $app . '"';
                             } ?> />
@@ -90,21 +91,21 @@
 
                         <p>Dzielnice</p>
                     </a>
-                    <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/druki"
+                    <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/organizacje"
                        target="_self">
-                        <i class="icon" data-icon-pk="krs"></i>
+                        <i class="icon" data-icon-pk="&#xe605;"></i>
 
                         <p>KRS</p>
                     </a>
-                    <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/radni"
+                    <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/finanse"
                        target="_self">
-                        <i class="icon" data-icon-pk="finanse"></i>
+                        <i class="icon" data-icon-pk="&#xe604;"></i>
 
                         <p>Finanse</p>
                     </a>
-                    <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/radni"
+                    <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/powiazania"
                        target="_self">
-                        <i class="icon" data-icon-pk="powiazania"></i>
+                        <i class="icon" data-icon-pk="&#xe606;"></i>
 
                         <p>Powiązania</p>
                     </a>

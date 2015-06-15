@@ -13,9 +13,8 @@
                     <div class="main_input">
                         <i class="glyph-addon" data-icon="&#xe600;"></i>
                         <input name="q" value="" type="text" autocomplete="off" class="datasearch form-control input-lg"
-                               placeholder="<?= $placeholder ?>" <?php if (isset($app)) {
-                            echo 'data-app="' . $app . '"';
-                        } ?>/>
+                               placeholder="<?= $placeholder ?>" <?php if (isset($app)) echo 'data-app="' . $app . '"'; ?>
+                               data-autocompletion="true"/>
                     </div>
                 </form>
             </div>

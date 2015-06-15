@@ -94,7 +94,7 @@ $(function () {
                                     $.each(detail, function () {
                                         var that = this;
 
-                                        console.log(that);
+                                        //console.log(that);
 
                                         $detailInfo.find('.content').append(
                                             $('<div></div>').addClass('slice').append(

@@ -110,6 +110,7 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
         fbScript = document.createElement("script"),
         scriptsPos = document.getElementsByTagName("script")[0],
         jsHour,
+        cookieBackgroundLimit = 4,
         mPCookie = {};
 
     if ($.cookie('mojePanstwo') !== undefined) {
@@ -125,7 +126,7 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
         }
 
         fbScript.id = "facebook-jssdk";
-        fbScript.src = "//connect.facebook.net/" + (mPHeart.language.twoDig === 'pl') ? 'pl_PL' : 'en_US' + '/all.js';
+        fbScript.src = "//connect.facebook.net/" + ((mPHeart.language.twoDig === 'pl') ? 'pl_PL' : 'en_US') + '/all.js';
 
         scriptsPos.parentNode.insertBefore(fbScript, scriptsPos);
 
@@ -164,7 +165,7 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
             mPCookie.background = {
                 url: '/img/home/backgrounds/home-background-default0.jpg',
                 current: 0,
-                limit: 5,
+                limit: cookieBackgroundLimit,
                 time: jsHour
             };
         }
@@ -173,12 +174,21 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
         if (mPCookie.background.time !== jsHour) {
             if (mPCookie.background.current + 1 < mPCookie.background.limit) {
                 mPCookie.background.current = mPCookie.background.current + 1;
-                mPCookie.background.url = '/img/home/backgrounds/home-background-default' + mPCookie.background.current + '.jpg';
+                /*CHECK IF NEW BACKGROUND EXIST - IF NOT SET DEFAULT*/
+                var http = new XMLHttpRequest();
+                http.open('HEAD', '/img/home/backgrounds/home-background-default' + mPCookie.background.current + '.jpg', false);
+                http.send();
+                if (http.status === 404) {
+                    mPCookie.background.url = '/img/home/backgrounds/home-background-default0.jpg';
+                } else {
+                    mPCookie.background.url = '/img/home/backgrounds/home-background-default' + mPCookie.background.current + '.jpg';
+                }
             } else {
                 mPCookie.background.current = 0;
                 mPCookie.background.url = '/img/home/backgrounds/home-background-default0.jpg';
             }
             mPCookie.background.time = jsHour;
+            mPCookie.background.limit = cookieBackgroundLimit;
         }
 
         cookieSave(mPCookie);

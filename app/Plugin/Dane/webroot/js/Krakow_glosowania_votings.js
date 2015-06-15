@@ -10,8 +10,8 @@ $(function () {
 			['Wstrzymania od głosu', Number(div.attr('data-wstrzymanie'))],
 			['Nieobecni', Number(div.attr('data-nieobecni'))]
 		];
-		
-		console.log('data', data);
+
+        //console.log('data', data);
 		
 	    div.highcharts({
 	        chart: {

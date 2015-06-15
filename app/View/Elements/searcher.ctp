@@ -14,9 +14,10 @@
                        type="text"
                        name="q"
                        value="<?= $q ?>"
-                       required
                        data-dataset="<?= isset($dataset) ? $dataset : '*'; ?>"
                        data-url="<?= $url ?>"
+                       data-autocompletion="true"
+                       required
                     />
                 <? if (isset($url) && !empty($q)) { ?>
                     <a class="clearer" href="<?= $url ?>">
