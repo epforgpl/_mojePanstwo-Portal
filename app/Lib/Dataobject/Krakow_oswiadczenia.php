@@ -27,7 +27,23 @@ class Krakow_oswiadczenia extends DocDataObject
     
     public function getUrl()
     {
-	    return '/dane/gminy/903/oswiadczenia/' . $this->getId();
+	    return '/dane/gminy/903,krakow/oswiadczenia/' . $this->getId();
     }
+    
+    public function getBreadcrumbs()
+	{
+							
+		return array(
+			array(
+				'id' => '/dane/gminy/903,krakow/urzednicy',
+				'label' => 'Urzędnicy Urzędu Miasta',
+			),
+			array(
+				'id' => '/dane/gminy/903,krakow/urzednicy/' . $this->getData('krakow_urzednicy.id'),
+				'label' => $this->getData('krakow_urzednicy.nazwa'),
+			),
+		);
+				
+	}
 
 }

@@ -2897,49 +2897,101 @@ class GminyController extends DataobjectsController
 
     public function urzednicy()
     {
-
+		
+		$this->_prepareView();
         $this->request->params['action'] = 'zarzadzenia';
-        $this->_prepareView();
+		
+		if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
+			
+            $urzednik = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'krakow_urzednicy',
+                    'id' => $this->request->params['subid'],
+                ),
+            ));
+            
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'dataset' => 'krakow_oswiadczenia',
+                    'krakow_oswiadczenia.urzednik_id' => $this->request->params['subid'],
+                ),
+                'order' => array(
+	                'krakow_oswiadczenia.id' => 'desc',
+                ),
+            ));
+			
+			$this->set('DataBrowserTitle', 'Oświadczenia majątkowe:');
+            $this->set('urzednik', $urzednik);
+            $this->set('title_for_layout', $urzednik->getTitle());
+            $this->render('urzednik');
 
-        $this->Components->load('Dane.DataBrowser', array(
-            'conditions' => array(
-                'dataset' => 'krakow_urzednicy',
-            ),
-            'aggsPreset' => 'krakow_urzednicy',
-        ));
+        } else {
 
-        $this->set('title_for_layout', 'Urzędnicy urzędu miasta ' . $this->object->getData('nazwa'));
-        $this->set('_submenu', array_merge($this->submenus['urzad'], array(
-            'selected' => 'urzednicy',
-        )));
+            $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'krakow_urzednicy',
+	            ),
+	            'aggsPreset' => 'krakow_urzednicy',
+	        ));
+	
+	        $this->set('title_for_layout', 'Urzędnicy Urzędu Miasta');
+	        $this->set('_submenu', array_merge($this->submenus['urzad'], array(
+	            'selected' => 'urzednicy',
+	        )));
+
+        }
 
     }
 
     public function jednostki()
     {
-
-        $this->_prepareView();
+		
+		$this->_prepareView();
         $this->request->params['action'] = 'zarzadzenia';
+        
+        if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
 
-        $this->Components->load('Dane.DataBrowser', array(
-            'conditions' => array(
-                'dataset' => 'krakow_jednostki',
-            ),
-            'aggsPreset' => 'krakow_jednostki',
-        ));
+            $jednostka = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'krakow_jednostki',
+                    'id' => $this->request->params['subid'],
+                ),
+            ));
+            
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'dataset' => 'krakow_urzednicy',
+                    'krakow_urzednicy.jednostka_id' => $this->request->params['subid'],
+                ),
+            ));
+			
+			$this->set('DataBrowserTitle', 'Urzędnicy zatrudnieniu w tej jednostce:');
+            $this->set('jednostka', $jednostka);
+            $this->set('title_for_layout', $jednostka->getTitle());
+            $this->render('jednostka');
 
-        $this->set('title_for_layout', 'Jednostki administracyjne urzędu miasta ' . $this->object->getData('nazwa'));
+        } else {
 
-        $this->set('_submenu', array_merge($this->submenus['urzad'], array(
-            'selected' => 'jednostki',
-        )));
+            $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'krakow_jednostki',
+	            ),
+	            'aggsPreset' => 'krakow_jednostki',
+	        ));
+	
+	        $this->set('title_for_layout', 'Jednostki administracyjne urzędu miasta ' . $this->object->getData('nazwa'));
+			$this->set('_submenu', array_merge($this->submenus['urzad'], array(
+                'selected' => 'jednostki',
+            )));
+            
+        }        
 
     }
 
     public function oswiadczenia()
     {
 
-        $this->request->params['action'] = 'urzad';
+        $this->request->params['action'] = 'zarzadzenia';
         $this->_prepareView();
 
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
