@@ -126,7 +126,7 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
         }
 
         fbScript.id = "facebook-jssdk";
-        fbScript.src = "//connect.facebook.net/" + (mPHeart.language.twoDig === 'pl') ? 'pl_PL' : 'en_US' + '/all.js';
+        fbScript.src = "//connect.facebook.net/" + ((mPHeart.language.twoDig === 'pl') ? 'pl_PL' : 'en_US') + '/all.js';
 
         scriptsPos.parentNode.insertBefore(fbScript, scriptsPos);
 

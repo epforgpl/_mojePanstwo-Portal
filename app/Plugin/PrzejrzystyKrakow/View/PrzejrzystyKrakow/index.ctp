@@ -22,6 +22,7 @@
                             <i class="glyph-addon" data-icon="&#xe600;"></i>
                             <input name="q" value="" type="text" autocomplete="off"
                                    class="datasearch form-control input-lg"
+                                   data-autocompletion="true"
                                    placeholder="<?= __("Szukaj w Przejrzystym Krakowie...") ?>" <?php if (isset($app)) {
                                 echo 'data-app="' . $app . '"';
                             } ?> />
