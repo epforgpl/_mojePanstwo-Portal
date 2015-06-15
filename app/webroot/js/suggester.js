@@ -2,14 +2,14 @@
 (function ($) {
     "use strict";
 
-    //var suggesterBlock = $('.suggesterBlock');
-    var suggesterBlock = $('input[data-autocompletion]');
+    var suggesterBlock = $('.suggesterBlock');
+    //var suggesterBlock = $('input[data-autocompletion]');
 
     if (suggesterBlock.length) {
         $.each(suggesterBlock, function (index, block) {
             var suggesterCache = {},
-            //suggesterInput = $(block).find('input.form-control'),
-                suggesterInput = $(block),
+                suggesterInput = $(block).find('input.form-control'),
+            //suggesterInput = $(block),
                 suggesterForm = suggesterInput.parents('form'),
                 params;
 
@@ -112,7 +112,8 @@
                         ).appendTo(ul);
                     }
                 } else {
-                    var image;
+                    var title = $('<span></span>').text(item.shortTitle),
+                        image;
 
                     if (item.image.length > 0) {
                         image = $('<img />').addClass('doc').attr('src', item.image);
@@ -120,13 +121,18 @@
                         image = $('<i></i>').addClass('icon icon-datasets-' + item.dataset);
                     }
 
+
+                    if (item.detail) {
+                        title.append($('<small></small>').text(item.detail));
+                    } else {
+                        title.addClass('vertical-center');
+                    }
+
                     return $('<li></li>').addClass("row").append(
                         $('<a></a>').attr({'href': '/dane/' + item.link, 'target': '_self'}).append(
                             $('<div></div>').addClass('col-xs-2 col-md-1 _label').append(image)
                         ).append(
-                            $('<div></div>').addClass('col-md-10 col-md-11 _title').append(
-                                $('<span></span>').text(item.shortTitle)
-                            )
+                            $('<div></div>').addClass('col-md-10 col-md-11 _title').append(title)
                         )
                     ).appendTo(ul);
                 }

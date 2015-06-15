@@ -1,3 +1,9 @@
+@suggesterRadius: 6px;
+
+@searchHeight: 50px;
+@searchColor: #333333;
+@searchColorPlaceholder: #AAAAAA;
+
 .suggesterBlockModal {
     .modal-dialog {
         width: inherit;
@@ -16,10 +22,6 @@
 }
 
 .suggesterBlock {
-    @searchHeight: 50px;
-    @searchColor: #333333;
-    @searchColorPlaceholder: #AAAAAA;
-
     font-weight: 400;
     font-size: 18px;
     color: #000000;
@@ -61,11 +63,11 @@
             color: @searchColor;
             width: 100%;
 
-            -moz-border-radius: 4px;
-            -webkit-border-radius: 4px;
-            border-radius: 4px;
-            -webkit-transition: all .4s;;
-            -o-transition: all .4s;;
+            -moz-border-radius: @suggesterRadius;
+            -webkit-border-radius: @suggesterRadius;
+            border-radius: @suggesterRadius;
+            -webkit-transition: all .4s;
+            -o-transition: all .4s;
             transition: all .4s;
         }
 
@@ -110,8 +112,6 @@
 }
 
 .autocompleteSuggester {
-    @acFocusBackground: #FF6347;
-
     -moz-border-top-left-radius: 0;
     -moz-border-top-right-radius: 0;
     -webkit-border-top-left-radius: 0;
@@ -121,7 +121,7 @@
     overflow: hidden;
     border-width: 0;
     padding: 0;
-    background-color: #FCFCFC;
+    background-color: #F3f3f3;
     z-index: 9100;
     margin-left: 20px;
 
@@ -129,6 +129,11 @@
         border-top: 1px solid #E3E3E3;
         display: block;
         width: 100%;
+
+        &:last-child {
+            border-bottom-left-radius: @suggesterRadius;
+            border-bottom-right-radius: @suggesterRadius;
+        }
 
         &.button {
             color: #FFFFFF;
@@ -174,7 +179,7 @@
             border-radius: 0;
             -webkit-border-radius: 0;
             border: none;
-            padding: 12px;
+            padding: 6px;
             display: inline;
             float: left;
             width: 100%;
@@ -185,7 +190,9 @@
                 @blockSize: 24px;
 
                 &._label {
+                    width: 30px;
                     text-align: right;
+                    padding-left: 0;
                     padding-right: 0;
                     background-color: inherit;
 
@@ -211,9 +218,17 @@
                         font-size: 13px;
                         line-height: 1.2em;
 
-                        position: absolute;
-                        top: 50%;
-                        transform: translate(0, -50%);
+                        &.vertical-center {
+                            position: absolute;
+                            top: 50%;
+                            transform: translate(0, -50%);
+                        }
+
+                        > small {
+                            margin-top: 5px;
+                            display: block;
+                            width: 100%;
+                        }
                     }
                 }
             }
