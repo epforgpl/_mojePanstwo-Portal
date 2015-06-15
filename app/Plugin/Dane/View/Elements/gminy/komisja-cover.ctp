@@ -14,7 +14,35 @@
 		
 		<? if( $object->getId()==903 ) { ?>
 		
-		
+		<div class="databrowser-panel">
+			<h2>Najnowsze posiedzenia komisji:</h2>			
+			
+			<div class="aggs-init">
+									
+				<div class="dataAggs">
+					<div class="agg agg-Dataobjects">
+					    <? if( $dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits'] ) {?>
+					    <ul class="dataobjects">
+						    <? foreach( $dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits'] as $doc ) {?>
+						    <li>
+							<?
+								echo $this->Dataobject->render($doc, 'default');
+							?>
+						    </li>
+						    <? } ?>
+					    </ul>
+					    <div class="buttons">
+							<a href="<?= $komisja->getUrl() ?>/posiedzenia" class="btn btn-primary btn-sm">Zobacz więcej</a>
+						</div>
+					    <? } ?>
+					    
+					</div>
+				</div>
+				
+				
+						
+			</div>
+		</div>
 		
 		<div class="databrowser-panel">
 			<h2>Skład komisji:</h2>			
@@ -40,36 +68,6 @@
 						    </li>
 						    <? } ?>
 					    </ul>
-					    <? } ?>
-					    
-					</div>
-				</div>
-				
-				
-						
-			</div>
-		</div>
-		
-		<div class="databrowser-panel">
-			<h2>Najnowsze posiedzenia komisji:</h2>			
-			
-			<div class="aggs-init">
-									
-				<div class="dataAggs">
-					<div class="agg agg-Dataobjects">
-					    <? if( $dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits'] ) {?>
-					    <ul class="dataobjects">
-						    <? foreach( $dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits'] as $doc ) {?>
-						    <li>
-							<?
-								echo $this->Dataobject->render($doc, 'default');
-							?>
-						    </li>
-						    <? } ?>
-					    </ul>
-					    <div class="buttons">
-							<a href="<?= $komisja->getUrl() ?>/posiedzenia" class="btn btn-primary btn-sm">Zobacz więcej</a>
-						</div>
 					    <? } ?>
 					    
 					</div>

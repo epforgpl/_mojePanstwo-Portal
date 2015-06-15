@@ -10,25 +10,9 @@ if ($object->getId() == '903') {
 echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
-?>
-
-<h1 class="subheader">Rada Miasta Kraków</h1>
-	
-<? if (isset($_submenu) && !empty($_submenu)) { ?>
-    <div class="menuTabsCont col-md-8">
-            <?
-            if( !isset($_submenu['base']) )
-                $_submenu['base'] = $object->getUrl();
-            echo $this->Element('Dane.dataobject/menuTabs', array(
-                'menu' => $_submenu,
-            ));
-            ?>
-    </div>
-<? } 
-
 
 echo $this->Element('Dane.dataobject/subobject', array(
-    'menu' => isset($__submenu) ? $__submenu : false,
+    'menu' => isset($_submenu) ? $_submenu : false,
     'object' => $posiedzenie,
     'objectOptions' => array(
         'hlFields' => array(),
@@ -36,9 +20,14 @@ echo $this->Element('Dane.dataobject/subobject', array(
         'routes' => array(
             'shortTitle' => 'pageTitle'
         ),
+	    'thumbWidth' => 2,
     ),
 ));
 
-echo $this->Element('Dane.DataBrowser/browser');
+echo $this->Element('Dane.DataBrowser/browser', array(
+	'searcher' => false,
+	'class' => 'panel',
+	'displayAggs' => false,
+));
 
 echo $this->Element('dataobject/pageEnd');

@@ -69,5 +69,17 @@ class Krakow_posiedzenia extends DataObject
     public function getTitle() {
 	    return $this->getShortTitle() . ' - Posiedzenie Rady Miasta Kraków';
     }
+    
+    public function getBreadcrumbs()
+	{
+				
+		return array(
+			array(
+				'id' => '/dane/gminy/903,krakow/posiedzenia',
+				'label' => 'Posiedzenia Rady Miasta',
+			),
+		);
+				
+	}
 
 }

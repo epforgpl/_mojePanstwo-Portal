@@ -20,26 +20,14 @@ echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
 ?>
-
-<h1 class="subheader">Rada Miasta Kraków</h1>
 	
-<? if (isset($_submenu) && !empty($_submenu)) { ?>
-    <div class="menuTabsCont col-md-8">
-            <?
-            if( !isset($_submenu['base']) )
-                $_submenu['base'] = $object->getUrl();
-            echo $this->Element('Dane.dataobject/menuTabs', array(
-                'menu' => $_submenu,
-            ));
-            ?>
-    </div>
-<? } 
-	
+<?
 echo $this->Element('Dane.dataobject/subobject', array(
     'object' => $debata,
     'objectOptions' => array(
         'hlFields' => array('rady_gmin_posiedzenia.numer', 'numer_punktu'),
         'bigTitle' => true,
+        'truncate' => 1024,
     ),
     /*
     'back' => array(
@@ -87,35 +75,11 @@ echo $this->Element('Dane.dataobject/subobject', array(
 <? } ?>
 
 <div class="dataBrowser">
-	<? if (@$aggs['all']['druk']['top']['hits']['hits']['0']) { ?>
-	<div class="row">
-		<div class="col-md-8">
-			<div class="block block-simple col-xs-12">
-			    <header>Rozpatrywany druk</header>
-					
-			    <section class="aggs-init">
-			        <div class="dataAggs">
-			            <div class="agg agg-Dataobjects">
-			                    <ul class="dataobjects">
-			                        <li>
-			                            <?
-			                            echo $this->Dataobject->render($aggs['all']['druk']['top']['hits']['hits']['0'], 'default');
-			                            ?>
-			                        </li>
-			                    </ul>
-			
-			            </div>
-			        </div>
-			    </section>
-			</div>
-		</div>
-	</div>
-	<? } ?>
 	
 	<? if (@$aggs['all']['glosowania']['top']['hits']['hits']) { ?>
 	<div class="row">
 		<div class="col-md-8">
-			<div class="block block-simple col-xs-12">
+			<div class="block block-default col-xs-12">
 			    <header>Głosowania</header>
 					
 			    <section class="aggs-init">
@@ -129,6 +93,31 @@ echo $this->Element('Dane.dataobject/subobject', array(
 			                            ?>
 			                        </li>
 			                        <? } ?>
+			                    </ul>
+			
+			            </div>
+			        </div>
+			    </section>
+			</div>
+		</div>
+	</div>
+	<? } ?>
+	
+	<? if (@$aggs['all']['druk']['top']['hits']['hits']['0']) { ?>
+	<div class="row">
+		<div class="col-md-8">
+			<div class="block block-default col-xs-12">
+			    <header>Rozpatrywany druk</header>
+					
+			    <section class="aggs-init">
+			        <div class="dataAggs">
+			            <div class="agg agg-Dataobjects">
+			                    <ul class="dataobjects">
+			                        <li>
+			                            <?
+			                            echo $this->Dataobject->render($aggs['all']['druk']['top']['hits']['hits']['0'], 'default');
+			                            ?>
+			                        </li>
 			                    </ul>
 			
 			            </div>

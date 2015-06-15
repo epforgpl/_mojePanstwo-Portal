@@ -90,5 +90,24 @@ class Krakow_posiedzenia_punkty extends DocDataObject
 		return $output;
 		
 	}
+	
+	public function getBreadcrumbs()
+	{
+				
+		return array(
+			array(
+				'id' => '/dane/gminy/903,krakow/posiedzenia',
+				'label' => 'Posiedzenia Rady Miasta',
+			),
+			array(
+				'id' => '/dane/gminy/903,krakow/posiedzenia/' . $this->getData('krakow_posiedzenia.id'),
+				'label' => dataSlownie($this->getData('krakow_posiedzenia.data')),
+			),
+			array(
+				'label' => 'Punkt #' . $this->getData('numer'),
+			),
+		);
+				
+	}
 
 }

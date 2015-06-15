@@ -13,24 +13,13 @@ echo $this->Element('dataobject/pageBegin');
         if (isset($title)) {
             echo '<h2>' . $title . '</h2>';
         }
-
-        if (!isset($searcher) || $searcher) { ?>
-            <?
-            $value = isset($this->request->query['q']) ? addslashes($this->request->query['q']) : '';
-            $dataset = ($dataBrowser['autocompletion']) ? $dataBrowser['autocompletion']['dataset'] : false;
-            $placeholder = (isset($dataBrowser['searchTitle']) && ($dataBrowser['searchTitle'])) ? addslashes($dataBrowser['searchTitle']) : 'Szukaj...';
-            $url = ($dataBrowser['cancel_url']) ? $dataBrowser['cancel_url'] : '';
-            ?>
-
-            <?= $this->Element('searcher', array('q' => $value, 'dataset' => $dataset, 'placeholder' => $placeholder, 'url' => $url)) ?>
-
-        <? } ?>
+		?>
     </div>
 
     <h1 class="subheader">Rada Miasta Kraków</h1>
 
 <? if (isset($_submenu) && !empty($_submenu)) { ?>
-    <div class="menuTabsCont col-md-8">
+    <div class="menuTabsCont">
         <?
         if (!isset($_submenu['base']))
             $_submenu['base'] = $object->getUrl();
@@ -41,5 +30,7 @@ echo $this->Element('dataobject/pageBegin');
     </div>
 <? }
 
-echo $this->Element('Dane.DataBrowser/browser');
+echo $this->Element('Dane.DataBrowser/browser', array(
+	'searcher' => false,
+));
 echo $this->Element('dataobject/pageEnd');

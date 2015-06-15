@@ -58,12 +58,7 @@ $this->Dataobject->setObject($object);
             </div>
 
             <div class="row marginTop-sm">
-                <? if ($object->getPosition()) { ?>
-                    <div class="content col-md-1">
-                        <span class="badge badge-position pull-right"><?= $object->getPosition() ?></span>
-                    </div>
-                <?
-                }
+                <? 
                 if ($file_exists) {
                     echo $this->element('Dane.' . $file, array(
                         'object' => $object,

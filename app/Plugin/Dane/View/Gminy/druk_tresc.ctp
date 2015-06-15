@@ -13,14 +13,18 @@ echo $this->Element('Dane.dataobject/subobject', array(
     'object' => $druk,
     'objectOptions' => array(
         'bigTitle' => true,
-    )
+        'truncate' => 1024,
+    ),
+    'addBreadcrumbs' => array(
+        array(
+	        'label' => 'Treść druku',
+        ),
+    ),
 ));
 ?>
 
-<h2 class="light"><a class="btn-back glyphicon glyphicon-circle-arrow-left" href="<?= $druk->getUrl() ?>"></a> Treść druku</h2>
+<h2 class="light">Treść druku</h2>
 
 <?
-
 echo $this->Document->place($druk->getData('dokument_id'));
-
 echo $this->Element('dataobject/pageEnd');

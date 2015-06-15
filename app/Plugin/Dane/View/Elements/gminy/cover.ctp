@@ -387,7 +387,7 @@ $options = array(
             <? if ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits']) { ?>
                 <footer>
                     <div class="buttons pull-right">
-                        <a href="<?= $object->getUrl() ?>/komisje_posiedzenia"
+                        <a href="<?= $object->getUrl() ?>/dzielnice"
                            class="btn btn-primary btn-sm">Więcej posiedzeń</a>
                     </div>
                 </footer>

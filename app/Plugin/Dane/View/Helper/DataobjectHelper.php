@@ -104,10 +104,12 @@ class DataobjectHelper extends AppHelper
         $microdata = isset($options['microdata']) ? $options['microdata'] : array();
         $disable_link = isset($options['disable_link']) ? (boolean) $options['disable_link'] : false;
         $selected = isset($options['selected']) ? (boolean) $options['selected'] : false;
+        $thumbWidth = isset($options['thumbWidth']) ? $options['thumbWidth'] : 1;
 
         $class = isset($options['class']) ? $options['class'] : false;
         $alertsButtons = isset($options['alertsButtons']) ? $options['alertsButtons'] : false;
         $alertsStatus = isset($options['alertsStatus']) ? $options['alertsStatus'] : false;
+        $truncate = isset($options['truncate']) ? $options['truncate'] : 150;
 
         $this->setObject($object);
         if (!empty($routes)) {
@@ -143,6 +145,8 @@ class DataobjectHelper extends AppHelper
             'microdata' => $microdata,
             'show_link' => !$disable_link,
             'selected' => $selected,
+            'thumbWidth' => $thumbWidth,
+            'truncate' => $truncate,
         );
 
         return $this->_View->element($theme, $params, array('plugin' => 'Dane'));

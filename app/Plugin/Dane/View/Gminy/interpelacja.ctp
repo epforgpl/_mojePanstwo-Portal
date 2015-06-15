@@ -8,8 +8,9 @@ if ($object->getId() == '903') {
 echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
+?>
 
-echo $this->Element('Dane.dataobject/subobject', array(
+<? echo $this->Element('Dane.dataobject/subobject', array(
     'menu' => isset($_submenu) ? $_submenu : false,
     'object' => $interpelacja,
     'objectOptions' => array(
@@ -17,6 +18,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
     )
 ));
 ?>
+
 <h2 class="light">Interpelacja</h2>
 <?
 

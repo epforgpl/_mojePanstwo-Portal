@@ -8,7 +8,7 @@
 		'mode' => 'init',
 	);
 ?>
-<div class="col-md-8">
+<div class="col-md-12">
 	<div class="databrowser-panels">
 
 		<? if( $object->getId()==903 ) { ?>
@@ -21,9 +21,9 @@
                     <div class="dataAggs">
 					<div class="agg agg-Dataobjects">
 					    <? if( $dataBrowser['aggs']['all']['radni']['top']['hits']['hits'] ) {?>
-					    <ul class="dataobjects row">
+					    <ul class="dataobjects row radni_cover">
 						    <? foreach( $dataBrowser['aggs']['all']['radni']['top']['hits']['hits'] as $doc ) {?>
-						    <li class="col-md-6">
+						    <li class="col-md-4">
 							<?
 								echo $this->Dataobject->render($doc, 'krakow_radni');
 							?>

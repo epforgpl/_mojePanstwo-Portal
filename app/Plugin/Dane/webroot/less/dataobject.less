@@ -90,7 +90,21 @@
     .dataBrowser {
         font-family: "Lato", Arial, sans-serif;
         margin-top: 25px;
-
+		
+		&.panel {
+			background-color: #FFF;
+			margin-top: -15px;
+			margin-left: 3px;
+			margin-right: 3px;
+			
+			.dataObjects .innerContainer .objectRender {
+				border-bottom: 1px solid #DDD;
+				&:last-child {
+					border-bottom: none;
+				}
+			}
+		}
+		
         .form-horizontal.suggesterBlock {
             padding-left: 0;
             padding-right: 0;
@@ -611,6 +625,7 @@
                     font-size: 1.5em;
                     text-align: center;
                     margin: 3em 0;
+                    color: #BBB;
                 }
 
                 .objectRender {
@@ -771,10 +786,6 @@
                     }
                 }
 
-                .attachment img {
-                    max-width: 155px;
-                }
-
                 .feed-header {
                     overflow: auto;
 
@@ -846,6 +857,7 @@
 
     .header {
         padding-left: 0;
+        margin-top: 15px;
 
         .tools {
             padding-right: 0;
@@ -919,6 +931,15 @@
 
     .subobjectPage {
         padding: 0 20px;
+        
+        .icon-cont {
+	        width: 55px;
+	        padding-top: 17px;
+        }
+        
+        .dataHighlights {
+	        margin-left: 8px;
+        }
     }
 
     .objectsPageContent {
@@ -975,7 +996,6 @@
                 .thumb_cont {
                     width: 100%;
                     height: auto;
-                    max-width: 100%;
                     max-height: 100%;
                 }
 
@@ -1174,7 +1194,6 @@
 
             img {
                 width: 100%;
-                max-width: 100px;
                 margin-top: 10px;
 
                 &.noBorder {
@@ -1184,7 +1203,6 @@
 
             .thumb_cont {
                 max-height: 100px;
-                max-width: 100px;
                 margin-left: auto;
                 margin-right: 0;
                 overflow: hidden;
@@ -1205,12 +1223,6 @@
 
                 text-align: center;
 
-            }
-        }
-
-        &.rady_posiedzenia, &.rady_gmin_debaty, &.rady_gmin_wystapienia {
-            .attachment img {
-                max-width: 150px;
             }
         }
 
@@ -1307,7 +1319,6 @@
             .video img {
                 display: block;
                 width: 100%;
-                max-width: 100px;
             }
 
             blockquote._ {

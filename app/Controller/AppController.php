@@ -695,7 +695,7 @@ class AppController extends Controller
         $menu = $this->getMenu();
 				
 		if( !empty($menu) ) {
-				
+						
 	        if ($this->menu_selected == '_default')
 	            $this->menu_selected = $this->request->params['action'];
 	

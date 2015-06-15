@@ -13,6 +13,7 @@ echo $this->Element('dataobject/pageBegin', array(
 ));
 
 echo $this->Element('Dane.dataobject/subobject', array(
+    'menu' => isset($_submenu) ? $_submenu : false,
     'object' => $radny,
     'objectOptions' => array(
         'hlFields' => array('komitet', 'liczba_glosow'),

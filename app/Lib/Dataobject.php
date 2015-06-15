@@ -360,4 +360,9 @@ class Dataobject
         return $this->$func;
     }
     
+    public function getBreadcrumbs()
+    {
+	    return array();
+    }
+    
 }

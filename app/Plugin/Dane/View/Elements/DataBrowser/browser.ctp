@@ -3,8 +3,9 @@ $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin'
 $this->Combinator->add_libs('css', $this->Less->css('dataobjectpage', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
+$displayAggs = isset($displayAggs) ? (boolean) $displayAggs : true;
 ?>
-<div class="dataBrowser">
+<div class="dataBrowser<? if(isset($class)) echo " " . $class; ?>">
 
     <div class="modal modal-api-call">
         <div class="modal-dialog">
@@ -27,7 +28,7 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
         </div>
     </div>
 
-    <div class="suggesterBlock row searchForm col-md-8">
+    <div class="suggesterBlock searchForm">
         <? if (!isset($title) && isset($DataBrowserTitle)) {
             $title = $DataBrowserTitle;
         }
@@ -57,7 +58,7 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
         <? } else { ?>
 
-            <div class="col-md-8">
+            <div class="col-md-<?= $displayAggs ? 8 : 12 ?>">
 
 
                 <div class="dataObjects">
@@ -112,7 +113,7 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
                 </div>
 
             </div>
-            <? if (!empty($dataBrowser['aggs'])) { ?>
+            <? if ($displayAggs && !empty($dataBrowser['aggs'])) { ?>
                 <div class="col-md-4">
                     <? echo $this->Element('Dane.DataBrowser/aggs', array('data' => $dataBrowser)); ?>
                 </div>

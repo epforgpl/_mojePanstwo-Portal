@@ -357,6 +357,28 @@ class DataBrowserComponent extends Component {
 	            ),
 	        ),
 	    ),
+	    'rady_gmin_interpelacje' => array(
+		    'radni' => array(
+	            'terms' => array(
+		            'field' => 'radni_gmin.id',
+		            'exclude' => array(
+			            'pattern' => ''
+		            ),
+	            ),
+	            'aggs' => array(
+		            'label' => array(
+			            'terms' => array(
+				            'field' => 'radni_gmin.nazwa',
+			            ),
+		            ),
+	            ),
+	            'visual' => array(
+		            'label' => 'Autorzy interpelacji',
+		            'skin' => 'columns_horizontal',
+                    'field' => 'radni_gmin.id'
+	            ),
+	        ),
+	    ),
 	    'krakow_dzielnice_uchwaly' => array(
 		    'dzielnice' => array(
 	            'terms' => array(
