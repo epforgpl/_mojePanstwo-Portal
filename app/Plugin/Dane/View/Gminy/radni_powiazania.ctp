@@ -12,93 +12,102 @@ echo $this->Element('dataobject/pageBegin', array(
 
 $powiazania = $object->getLayer('radni_powiazania');
 ?>
+<div class="objectsPage">
 
-    <div class="col-md-10 col-md-offset-1">
-        <div id="powiazania" class="object">
+    <h1 class="subheader">Rada Miasta Kraków</h1>
+	
+	<? if (isset($_submenu) && !empty($_submenu)) { ?>
+	    <div class="menuTabsCont">
+	        <?
+	        if (!isset($_submenu['base']))
+	            $_submenu['base'] = $object->getUrl();
+	        echo $this->Element('Dane.dataobject/menuTabs', array(
+	            'menu' => $_submenu,
+	        ));
+	        ?>
+	    </div>
+	<? } ?>
+	
+    <div id="powiazania" class="object">
+    <? if ($powiazania) { ?>
 
-            <? if ($powiazania) { ?>
+        <div class="block-group">
 
-                <h1><a href="<?= $object->getUrl() ?>/rada" class="btn-back glyphicon glyphicon-circle-arrow-left"></a>
-                    Powiązania radnych gminy <?= $object->getData('nazwa') ?> z organizacjami w <a href="/krs">Krajowym
-                        Rejestrze Sądowym</a></h1>
+            <? foreach ($powiazania as $p) { ?>
 
-                <div class="block-group">
+                <div class="block">
 
-                    <? foreach ($powiazania as $p) { ?>
+                    <div class="block-header">
+                        <h2 class="label pull-left"><a
+                                href="/dane/gminy/<?= $object->getId() ?>/radni/<?= $p['radny']['id'] ?>"><?= $p['radny']['nazwa'] ?></a>
+                        </h2>
 
-                        <div class="block">
+                        <p class="desc pull-right"><?= $p['radny']['komitet'] ?></p>
+                    </div>
 
-                            <div class="block-header">
-                                <h2 class="label pull-left"><a
-                                        href="/dane/gminy/<?= $object->getId() ?>/radni/<?= $p['radny']['id'] ?>"><?= $p['radny']['nazwa'] ?></a>
-                                </h2>
+                    <div class="content row padding">
 
-                                <p class="desc pull-right"><?= $p['radny']['komitet'] ?></p>
-                            </div>
+                        <div class="col-md-2">
+                            <img src="<? if ($p['radny']['avatar'] == '1') {
+                                echo 'http://resources.sejmometr.pl/avatars/5/' . $p['radny']['avatar_id'] . '.jpg';
+                            } elseif ($p['radny']['plec'] == 'K') {
+                                echo 'http://resources.sejmometr.pl/avatars/g/w.png';
+                            } else {
+                                echo 'http://resources.sejmometr.pl/avatars/g/m.png';
+                            } ?>" onerror="imgFixer(this)"/>
+                        </div>
+                        <div class="col-md-10">
 
-                            <div class="content row padding">
+                            <ul>
+                                <?
+                                foreach ($p['organizacje'] as $o) {
 
-                                <div class="col-md-2">
-                                    <img src="<? if ($p['radny']['avatar'] == '1') {
-                                        echo 'http://resources.sejmometr.pl/avatars/5/' . $p['radny']['avatar_id'] . '.jpg';
-                                    } elseif ($p['radny']['plec'] == 'K') {
-                                        echo 'http://resources.sejmometr.pl/avatars/g/w.png';
-                                    } else {
-                                        echo 'http://resources.sejmometr.pl/avatars/g/m.png';
-                                    } ?>" onerror="imgFixer(this)"/>
-                                </div>
-                                <div class="col-md-10">
+                                    $badges = array();
 
-                                    <ul>
-                                        <?
-                                        foreach ($p['organizacje'] as $o) {
+                                    if ($o['relacja']['reprezentat'] == '1') {
+                                        $badges[] = $o['relacja']['reprezentat_funkcja'] ? $o['relacja']['reprezentat_funkcja'] : 'Członek organu reprezentacji';
+                                    }
 
-                                            $badges = array();
+                                    if ($o['relacja']['wspolnik'] == '1') {
+                                        $badges[] = 'Wspólnik';
+                                    }
 
-                                            if ($o['relacja']['reprezentat'] == '1') {
-                                                $badges[] = $o['relacja']['reprezentat_funkcja'] ? $o['relacja']['reprezentat_funkcja'] : 'Członek organu reprezentacji';
-                                            }
+                                    if ($o['relacja']['akcjonariusz'] == '1') {
+                                        $badges[] = 'Akcjonariusz';
+                                    }
 
-                                            if ($o['relacja']['wspolnik'] == '1') {
-                                                $badges[] = 'Wspólnik';
-                                            }
+                                    if ($o['relacja']['prokurent'] == '1') {
+                                        $badges[] = 'Prokurent';
+                                    }
 
-                                            if ($o['relacja']['akcjonariusz'] == '1') {
-                                                $badges[] = 'Akcjonariusz';
-                                            }
+                                    if ($o['relacja']['nadzorca'] == '1') {
+                                        $badges[] = 'Członek organu nadzoru';
+                                    }
 
-                                            if ($o['relacja']['prokurent'] == '1') {
-                                                $badges[] = 'Prokurent';
-                                            }
-
-                                            if ($o['relacja']['nadzorca'] == '1') {
-                                                $badges[] = 'Członek organu nadzoru';
-                                            }
-
-                                            if ($o['relacja']['zalozyciel'] == '1') {
-                                                $badges[] = 'Członek komitetu założycielskiego';
-                                            }
-                                            ?>
-                                            <li>
-                                                <a href="/dane/krs_podmioty/<?= $o['id'] ?>"><?= stripslashes($o['nazwa']) ?></a>
-                                                <span
-                                                    class="badge"><?= implode('</span> <span class="badge">', $badges) ?></span>
-                                            </li>
-                                        <? } ?>
-                                    </ul>
-
-                                </div>
-
-                            </div>
+                                    if ($o['relacja']['zalozyciel'] == '1') {
+                                        $badges[] = 'Członek komitetu założycielskiego';
+                                    }
+                                    ?>
+                                    <li>
+                                        <a href="/dane/krs_podmioty/<?= $o['id'] ?>"><?= stripslashes($o['nazwa']) ?></a>
+                                        <span
+                                            class="badge"><?= implode('</span> <span class="badge">', $badges) ?></span>
+                                    </li>
+                                <? } ?>
+                            </ul>
 
                         </div>
 
-                    <? } ?>
-                </div>
-            <? } ?>
+                    </div>
 
+                </div>
+
+            <? } ?>
         </div>
-    </div>
+    <? } ?>
+
+</div>
+</div>
 
 <?
 echo $this->Element('dataobject/pageEnd');

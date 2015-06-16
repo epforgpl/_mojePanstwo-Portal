@@ -39,6 +39,10 @@ class GminyController extends DataobjectsController
                     'id' => 'komisje_posiedzenia',
                     'label' => 'Posiedzenia komisji',
                 ),
+                array(
+                    'id' => 'radni_powiazania',
+                    'label' => 'Powiązania radnych',
+                ),
             ),
         ),
         'urzad' => array(
@@ -61,12 +65,10 @@ class GminyController extends DataobjectsController
                     'id' => 'urzednicy',
                     'label' => 'Urzędnicy',
                 ),
-                /*
                 array(
                     'id' => 'urzednicy_powiazania',
-                    'label' => 'Powiązania urzędników w KRS',
+                    'label' => 'Powiązania urzędników',
                 ),
-                */
             ),
         ),
         'organizacje' => array(
@@ -2151,6 +2153,10 @@ class GminyController extends DataobjectsController
         $this->request->params['action'] = 'rada';
 
         $this->set('title_for_layout', 'Powiązania radnych gminy  ' . $this->object->getData('nazwa') . ' z organizacjami w Krajowym Rejestrze Sądowym');
+        
+        $this->set('_submenu', array_merge($this->submenus['rada'], array(
+            'selected' => 'radni_powiazania',
+        )));
     }
 
     public function urzednicy_powiazania()
@@ -2162,6 +2168,7 @@ class GminyController extends DataobjectsController
         $this->request->params['action'] = 'urzednicy_powiazania';
 
         $this->set('title_for_layout', 'Powiązania urzędników gminy  ' . $this->object->getData('nazwa') . ' z organizacjami w Krajowym Rejestrze Sądowym');
+        
         $this->set('_submenu', array_merge($this->submenus['urzad'], array(
             'selected' => 'urzednicy_powiazania',
         )));
