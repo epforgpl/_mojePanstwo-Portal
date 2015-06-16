@@ -155,14 +155,14 @@ class ApplicationsController extends AppController
 		
 		if( array_key_exists($this->settings['id'], $this->datasets) ) {
 			foreach($this->datasets[ $this->settings['id'] ] as $dataset => $params) {
-				
+								
 				if( @$params['menu_id'] )
 				$menu['items'][] = array(
 					'id' => $params['menu_id'],
 					'label' => $params['label'],
 					'icon' => array(
 						'src' => 'datasets',
-						'id' => $params['menu_id'],
+						'id' => $dataset,
 					),
 				);
 				
