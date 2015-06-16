@@ -101,7 +101,13 @@ class SejmometrController extends ApplicationsController
         $this->setMeta('og:image', FULL_BASE_URL . '/sejmometr/img/social/sejmometr.jpg');
     }
 
-
+	public function okregi()
+	{
+		
+		
+		
+	}
+	
     public function szukaj()
     {
 
