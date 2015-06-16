@@ -64,6 +64,7 @@ class AppController extends Controller
     );
 	
 	public $protocol = 'https://';
+	public $port = false;
     public $domainMode = 'MP';
     public $appSelected = false;
     public $breadcrumbs = array();
@@ -439,8 +440,9 @@ class AppController extends Controller
     public function beforeFilter()
     {
 	    
-	    $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";    
-
+	    $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+	    $this->port = ($_SERVER['SERVER_PORT'] == 80) ? false : ':' . $_SERVER['SERVER_PORT'];
+	    	    				
         if (defined('PORTAL_DOMAIN')) {
             $pieces = parse_url(Router::url($this->here, true));
 			
@@ -461,18 +463,17 @@ class AppController extends Controller
 
                     }
 
-                    $this->redirect($this->protocol . PK_DOMAIN . $url);
+                    $this->redirect($this->protocol . PK_DOMAIN . $this->port . $url);
                     die();
 
                 }
 
                 if (preg_match('/^(.*?)\,([a-z0-9\-]+)$/', $this->here, $match)) {
 
-                    $this->redirect($this->protocol . PK_DOMAIN . $match[1]);
+                    $this->redirect($this->protocol . PK_DOMAIN . $this->port . $match[1]);
                     die();
                 }
-
-
+				
                 if (
                     ($this->request->params['controller'] == 'gminy') &&
                     in_array($this->request->params['action'], array(
@@ -567,14 +568,15 @@ class AppController extends Controller
 
                     }
 
-                    $this->redirect($this->protocol . PORTAL_DOMAIN . $url);
+                    $this->redirect($this->protocol . PORTAL_DOMAIN . $this->port . $url);
                     die();
 
                 }
 
 
             } elseif ($pieces['host'] != PORTAL_DOMAIN) {
-                $this->redirect($this->protocol . PORTAL_DOMAIN . $this->here, 301);
+                                
+                $this->redirect($this->protocol . PORTAL_DOMAIN . $this->port . $this->here, 301);
                 die();
 
             }

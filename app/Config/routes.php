@@ -27,7 +27,7 @@
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
 
-$host = explode(',', $_SERVER['HTTP_HOST']);
+$host = explode(':', $_SERVER['HTTP_HOST']);
 $host = array_shift($host);
 
 if ( $host == PK_DOMAIN ) { // HTTP_X_FORWARDED_HOST
@@ -131,6 +131,7 @@ Router::connect( '/docs/:doc_id-:package_id', array(
 Router::connect( '/oportalu', array( 'controller' => 'pages', 'action' => 'display', 'about_us' ) );
 Router::connect( '/regulamin', array( 'controller' => 'pages', 'action' => 'display', 'regulations' ) );
 Router::connect( '/zglosblad', array( 'controller' => 'pages', 'action' => 'display', 'report_bug' ) );
+Router::connect( '/kontakt', array( 'controller' => 'pages', 'action' => 'display', 'contact_us' ) );
 
 Router::parseExtensions( 'rss', 'xml', 'json', 'html' );
 Router::connect( '/sitemap', array( 'controller' => 'sitemaps', 'action' => 'index' ) );
