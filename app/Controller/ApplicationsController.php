@@ -137,7 +137,7 @@ class ApplicationsController extends AppController
 	    	    
     }
     
-    public function getMenu()
+    public function  
     {
 				
 		$menu = array(
@@ -147,6 +147,7 @@ class ApplicationsController extends AppController
 		
 		$menu['items'][] = array(
 			'label' => $this->mainMenuLabel,
+			'icon' => 'home',
 		);
 		
 		if( array_key_exists($this->settings['id'], $this->datasets) ) {
