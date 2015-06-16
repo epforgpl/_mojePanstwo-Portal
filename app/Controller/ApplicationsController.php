@@ -136,8 +136,8 @@ class ApplicationsController extends AppController
 	    }
 	    	    
     }
-    
-    public function  
+
+    public function getMenu()
     {
 				
 		$menu = array(
