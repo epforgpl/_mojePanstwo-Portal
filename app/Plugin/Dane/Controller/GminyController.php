@@ -637,7 +637,7 @@ class GminyController extends DataobjectsController
 
             if ($this->params->id != 903) {
 
-                $this->redirect($this->protocol . PORTAL_DOMAIN . $_SERVER['REQUEST_URI']);
+                $this->redirect($this->protocol . PORTAL_DOMAIN . $this->port . $_SERVER['REQUEST_URI']);
                 die();
 
             }
@@ -3133,12 +3133,8 @@ class GminyController extends DataobjectsController
 
         $menu = array(
             'items' => array(),
+            'base' => $this->object->getUrl(),
         );
-
-        if ($this->domainMode == 'PK')
-            $menu['base'] = '';
-        else
-        	$menu['base'] = $this->object->getUrl();
 
         $menu['items'][] = array(
 	        'id' => '',
