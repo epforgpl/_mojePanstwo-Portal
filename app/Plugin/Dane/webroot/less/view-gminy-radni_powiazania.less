@@ -1,49 +1,61 @@
 #powiazania {
-	
-	margin: 30px -20px;
-	
-    .desc {
-        color: #666;
-        font-size: 12px;
-        margin: -20px 20px 30px;
-        text-align: center;
-    }
     .block {
-		
-		margin: 20px 5px;
-		
-        img {
-            width: 100%;
-            margin-bottom: 10px;
+        display: table;
+
+        .header, .content {
+            padding: 15px;
+            display: table-cell;
+            vertical-align: top;
+            float: none;
         }
-        ul {
-            li {
-                a {
-                    font-size: 15px;
-                    color: #333;
-                    &:hover {
-                        color: #157ab5;
-                    }
-                }
-                padding: 5px;
+        .header {
+            margin: 0;
+            left: 0;
+            background-color: #f8f9fa;
+            border-right: 1px solid #dcdcdd;
+
+            > img {
+                max-width: 124px;
+                max-height: 188px;
+                margin-bottom: 18px;
+            }
+
+            .name {
+                font-size: 24px;
+                font-weight: normal;
+                line-height: 1em;
+
+                margin-bottom: 8px;
+            }
+            .club {
+                font-size: 12px;
+                line-height: 1em;
+                color: #373737;
             }
         }
+        .content {
+            ul {
+                padding: 0;
+                list-style: none;
 
-        h2.label {
-            font-weight: 400;
+                li {
+                    margin-bottom: 20px;
+
+                    a {
+                        font-size: 16px;
+                        color: #373737;
+                        display: block;
+                        width: 100%;
+                    }
+                    .badge {
+                        padding: 4px 6px;
+                        background-color: #aaaaaa;
+                        color: #ffffff;
+                        margin-top: 8px;
+                        display: inline-block;
+                    }
+                }
+            }
         }
-    }
-    .block-header {
-        .desc {
-            font-size: 12px;
-            margin: 3px 5px;
-        }
-    }
-    .badge {
-        font-size: 10px;
-        position: relative;
-        top: -1px;
-        background-color: #AAA;
-        text-transform: uppercase;
     }
 }

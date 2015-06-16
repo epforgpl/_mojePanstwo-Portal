@@ -9,7 +9,7 @@
     <div class="searcher form-group has-feedback">
         <div class="col-md-12">
             <div class="input-group">
-                <input class="form-control hasclear input-lg"
+                <input class="form-control hasclear input-lg<? if (isset($url) && !empty($q)) { echo ' clearer-on'; }?>"
                        placeholder="<?= isset($placeholder) ? $placeholder : 'Szukaj...'; ?>"
                        type="text"
                        name="q"

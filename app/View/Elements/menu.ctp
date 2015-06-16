@@ -5,6 +5,8 @@
                 <?
                 foreach ($_menu['items'] as $m) {
 
+                    //'icon' => 'home'
+
                     if (!isset($m['id']) || !$m['id'])
                         $m['id'] = 'view';
 
