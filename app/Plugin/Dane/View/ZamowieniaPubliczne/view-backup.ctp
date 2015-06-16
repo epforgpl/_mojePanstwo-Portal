@@ -1,5 +1,5 @@
 <div class="row-blocks">
-    <div class="block-group">
+    <div class="block-group col-xs-12">
 
 		<? /*
         <? if ($object->getData('tryb_id') == 6) { ?>

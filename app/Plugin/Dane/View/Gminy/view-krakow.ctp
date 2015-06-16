@@ -125,7 +125,7 @@
         </div>*/ ?>
 
         <div class="object">
-            <div class="block-group">
+            <div class="block-group col-xs-12">
                 <?php /* if (($object->getId() == '903') && ($posiedzenie = $object->getLayer('ostatnie_posiedzenie')) && !empty($posiedzenie['data']) && !empty($posiedzenie['terms'])) { ?>
     <div id="prawo" class="block">
         <div class="block-header">

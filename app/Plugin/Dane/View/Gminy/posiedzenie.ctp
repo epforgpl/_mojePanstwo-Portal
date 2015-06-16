@@ -58,7 +58,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
             <div class="object mpanel">
 
-                <div class="block-group">
+                <div class="block-group col-xs-12">
 
 
                     <? if ($projekty_za) { ?>

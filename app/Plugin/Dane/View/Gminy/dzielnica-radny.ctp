@@ -34,7 +34,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 ));
 ?>
 
-    <div class="object block-group">
+    <div class="object block-group col-xs-12">
 		
 		<? if(
 			$radny->getData('okreg_numer') || 

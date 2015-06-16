@@ -12,42 +12,27 @@ echo $this->Element('dataobject/pageBegin', array(
 
 $powiazania = $object->getLayer('radni_powiazania');
 ?>
-<div class="objectsPage">
+    <div class="objectsPage">
 
-    <h1 class="subheader">Rada Miasta Kraków</h1>
-	
-	<? if (isset($_submenu) && !empty($_submenu)) { ?>
-	    <div class="menuTabsCont">
-	        <?
-	        if (!isset($_submenu['base']))
-	            $_submenu['base'] = $object->getUrl();
-	        echo $this->Element('Dane.dataobject/menuTabs', array(
-	            'menu' => $_submenu,
-	        ));
-	        ?>
-	    </div>
-	<? } ?>
-	
-    <div id="powiazania" class="object">
-    <? if ($powiazania) { ?>
+        <h1 class="subheader">Rada Miasta Kraków</h1>
 
-        <div class="block-group">
+        <? if (isset($_submenu) && !empty($_submenu)) { ?>
+            <div class="menuTabsCont">
+                <?
+                if (!isset($_submenu['base']))
+                    $_submenu['base'] = $object->getUrl();
+                echo $this->Element('Dane.dataobject/menuTabs', array(
+                    'menu' => $_submenu,
+                ));
+                ?>
+            </div>
+        <? } ?>
 
-            <? foreach ($powiazania as $p) { ?>
-
-                <div class="block">
-
-                    <div class="block-header">
-                        <h2 class="label pull-left"><a
-                                href="/dane/gminy/<?= $object->getId() ?>/radni/<?= $p['radny']['id'] ?>"><?= $p['radny']['nazwa'] ?></a>
-                        </h2>
-
-                        <p class="desc pull-right"><?= $p['radny']['komitet'] ?></p>
-                    </div>
-
-                    <div class="content row padding">
-
-                        <div class="col-md-2">
+        <div id="powiazania" class="object">
+            <? if ($powiazania) { ?>
+                <? foreach ($powiazania as $p) { ?>
+                    <div class="block col-xs-12">
+                        <div class="header col-md-3">
                             <img src="<? if ($p['radny']['avatar'] == '1') {
                                 echo 'http://resources.sejmometr.pl/avatars/5/' . $p['radny']['avatar_id'] . '.jpg';
                             } elseif ($p['radny']['plec'] == 'K') {
@@ -55,9 +40,15 @@ $powiazania = $object->getLayer('radni_powiazania');
                             } else {
                                 echo 'http://resources.sejmometr.pl/avatars/g/m.png';
                             } ?>" onerror="imgFixer(this)"/>
-                        </div>
-                        <div class="col-md-10">
 
+                            <h2 class="name">
+                                <a href="/dane/gminy/<?= $object->getId() ?>/radni/<?= $p['radny']['id'] ?>"><?= $p['radny']['nazwa'] ?></a>
+                            </h2>
+
+                            <p class="club"><?= $p['radny']['komitet'] ?></p>
+                        </div>
+
+                        <div class="content col-md-9">
                             <ul>
                                 <?
                                 foreach ($p['organizacje'] as $o) {
@@ -95,19 +86,12 @@ $powiazania = $object->getLayer('radni_powiazania');
                                     </li>
                                 <? } ?>
                             </ul>
-
                         </div>
-
                     </div>
-
-                </div>
-
+                <? } ?>
             <? } ?>
         </div>
-    <? } ?>
-
-</div>
-</div>
+    </div>
 
 <?
 echo $this->Element('dataobject/pageEnd');

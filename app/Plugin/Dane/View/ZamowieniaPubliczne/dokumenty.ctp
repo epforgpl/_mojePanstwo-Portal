@@ -11,8 +11,8 @@ echo $this->Element('dataobject/pageBegin'); ?>
             
             <div class="col-xs-12 col-sm-8">
 		        <div class="object">
-		            
-		            <div class="block-group">
+
+                    <div class="block-group col-xs-12">
 		
 					<? /*
 		            <? if ($object->getData('tryb_id') == 6) { ?>

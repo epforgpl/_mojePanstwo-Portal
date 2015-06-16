@@ -109,7 +109,7 @@ $this->Combinator->add_libs('js', 'graph-krs');
 	            </div>
 	        <? } ?>
 	
-	        <div class="organy block-group">
+	        <div class="organy block-group col-xs-12 col-xs-12">
 	
 	            <?
 	            if ($organy_count = count($organy)) {

@@ -30,7 +30,7 @@ $dyzury_data = $radny->getLayer('dyzury');
         
         <div id="dyzury" class="object">
 
-            <div class="block-group">
+            <div class="block-group col-xs-12">
 
                 <? if ($dyzury = $dyzury_data['future']) { ?>
                     <div id="future" class="block">

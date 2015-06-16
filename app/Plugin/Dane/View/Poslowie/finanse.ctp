@@ -41,7 +41,7 @@ echo $this->Element('dataobject/pageBegin');
         <div class="col-md-9 objectMain">
             <div class="object">
 
-                <div class="block-group">
+                <div class="block-group col-xs-12">
 
 
                     <?

@@ -85,10 +85,15 @@
         }
     }
     .form-control {
-        background: #ffffff no-repeat 98.5% center;
+        background: #ffffff no-repeat 98% center;
 
         &.loader {
-            background-image: url(/img/loader/ajax-loader-square-blue.gif);
+            background-image: url(/img/loader/loading-small.png);
+            background-size: 20px;
+
+            &.clearer-on {
+                background-position: 95% center;
+            }
         }
     }
     .dataCounter {
@@ -139,6 +144,7 @@
             color: #FFFFFF;
             background-color: #59a4dd;
 
+            &.ui-state-hover, &.ui-state-focus a,
             a {
                 background: none;
                 color: #FFFFFF;
@@ -151,19 +157,8 @@
                     margin-right: 5px;
                     position: relative;
                     top: 3px;
+                    color: #FFFFFF;
                 }
-            }
-
-            &.ui-state-hover, &.ui-state-focus {
-                border-top: 1px solid #eeeeee;
-                background-color: #eeeeee;
-                color: #000000;
-
-                > a {
-                    color: #000000;
-                    background: none;
-                }
-
             }
         }
 

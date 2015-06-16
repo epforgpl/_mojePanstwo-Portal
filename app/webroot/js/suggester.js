@@ -3,13 +3,11 @@
     "use strict";
 
     var suggesterBlock = $('.suggesterBlock');
-    //var suggesterBlock = $('input[data-autocompletion]');
 
     if (suggesterBlock.length) {
         $.each(suggesterBlock, function (index, block) {
             var suggesterCache = {},
                 suggesterInput = $(block).find('input.form-control'),
-            //suggesterInput = $(block),
                 suggesterForm = suggesterInput.parents('form'),
                 params;
 
@@ -47,7 +45,7 @@
                                         title: item.text,
                                         shortTitle: shortTitle,
                                         value: item.payload.object_id,
-                                        link: item.payload.dataset + '/' + item.payload.object_id + ((item.payload.slug) ? ',' + item.payload.slug : ''),
+                                        link: '/dane/' + item.payload.dataset + '/' + item.payload.object_id + ((item.payload.slug) ? ',' + item.payload.slug : ''),
                                         dataset: item.payload.dataset,
                                         image: (item.payload.image_url !== undefined) ? item.payload.image_url : false
                                     };
@@ -86,7 +84,7 @@
                 focus: function () {
                     return false;
                 },
-                select: function (ui) {
+                select: function (evt, ui) {
                     if (ui.item) {
                         suggesterInput.val(ui.item.title);
                         window.location.href = ui.item.link;
@@ -129,7 +127,7 @@
                     }
 
                     return $('<li></li>').addClass("row").append(
-                        $('<a></a>').attr({'href': '/dane/' + item.link, 'target': '_self'}).append(
+                        $('<a></a>').attr({'href': item.link, 'target': '_self'}).append(
                             $('<div></div>').addClass('col-xs-2 col-md-1 _label').append(image)
                         ).append(
                             $('<div></div>').addClass('col-md-10 col-md-11 _title').append(title)
