@@ -7,8 +7,8 @@ class PowiatyController extends DataobjectsController
 
     public function view()
     {
-		
-		$this->addInitLayers(array('gmina'));
+
+        $this->addInitLayers(array('gmina'));
         parent::load();
 
         if (($this->object->getData('typ_id') == '2') || ($this->object->getData('typ_id') == '3')) {
@@ -18,15 +18,15 @@ class PowiatyController extends DataobjectsController
 
             }
         }
-		
-		$this->Components->load('Dane.DataBrowser', array(
+
+        $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'gminy',
-	            'gminy.powiat_id' => $this->object->getId(),
+                'dataset' => 'gminy',
+                'gminy.powiat_id' => $this->object->getId(),
             ),
             'aggsPreset' => 'gminy',
         ));
-		
+
         $this->set('title_for_layout', 'Gminy w powiacie ' . ' ' . $this->object->getData('nazwa'));
         $this->set('DataBrowserTitle', 'Gminy w tym powiacie');
         $this->render('DataBrowser/browser');

@@ -76,7 +76,7 @@ $this->Dataobject->setObject($object);
                         ?>
                         </p>
 
-						
+
                         <? if ($metaDesc = $object->getMetaDescription()) { ?>
                             <p class="meta meta-desc"><?= $metaDesc ?></p>
                         <? } ?>
@@ -95,7 +95,7 @@ $this->Dataobject->setObject($object);
                             // echo $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults);
                         }
                         ?>
-																		
+
                         <? if (
                             ($object->hasHighlights()) &&
                             ($highlight = $object->getLayer('highlight'))
@@ -110,8 +110,12 @@ $this->Dataobject->setObject($object);
                                 <?= $this->Text->truncate($object->getDescription(), 250) ?>
                             </div>
                         <? } ?>
-                        
-						<div class="krakow_glosowania_voting_chart" data-za="<?= (int) $object->getData('liczba_glosow_za') ?>" data-przeciw="<?= (int) $object->getData('liczba_glosow_przeciw') ?>" data-nieobecni="<?= (int) $object->getData('liczba_glosow_nieobecni') ?>" data-wstrzymanie="<?= (int) $object->getData('liczba_glosow_wstrzymanie') ?>"></div>
+
+                        <div class="krakow_glosowania_voting_chart"
+                             data-za="<?= (int)$object->getData('liczba_glosow_za') ?>"
+                             data-przeciw="<?= (int)$object->getData('liczba_glosow_przeciw') ?>"
+                             data-nieobecni="<?= (int)$object->getData('liczba_glosow_nieobecni') ?>"
+                             data-wstrzymanie="<?= (int)$object->getData('liczba_glosow_wstrzymanie') ?>"></div>
 
 
                     </div>

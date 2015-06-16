@@ -58,8 +58,8 @@ $this->Dataobject->setObject($object);
                         <?php if ($object->getUrl() != false) { ?>
                         <a class="thumb_cont" href="<?= $object->getUrl() ?>">
                             <?php } ?>
-                                <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
-                                     alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
+                            <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
+                                 alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
                             <?php if ($object->getUrl() != false) { ?>
                         </a>
                     <?php } ?>

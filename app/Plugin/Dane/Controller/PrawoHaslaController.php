@@ -4,7 +4,7 @@ App::uses('DataobjectsController', 'Dane.Controller');
 
 class PrawoHaslaController extends DataobjectsController
 {
-	
+
     public $headerObject = array('url' => '/dane/img/headers/prawne.jpg', 'height' => '250px');
 
     public $objectOptions = array(
@@ -13,16 +13,16 @@ class PrawoHaslaController extends DataobjectsController
 
     public function view()
     {
-		
+
         $this->_prepareView();
 
         $options = array(
             'searchTitle' => 'Szukaj w temacie...',
             'conditions' => array(
-	            // 'dataset' => 'prawo',
+                // 'dataset' => 'prawo',
                 '_feed' => array(
-	                'dataset' => 'prawo_hasla',
-	                'object_id' => $this->object->getId(),
+                    'dataset' => 'prawo_hasla',
+                    'object_id' => $this->object->getId(),
                 ),
             ),
             'cover' => array(
@@ -31,63 +31,63 @@ class PrawoHaslaController extends DataobjectsController
                     'element' => 'prawo_hasla/cover',
                 ),
                 'conditions' => array(
-	                'q' => $this->object->getTitle(),
+                    'q' => $this->object->getTitle(),
                 ),
                 'aggs' => array(
                     'ustawy' => array(
-	                    'filter' => array(
-		                    'term' => array(
-			                    'data.prawo.typ_id' => '1',
-		                    ),
-	                    ),
-	                    'aggs' => array(
-		                    'top' => array(
-			                    'top_hits' => array(
-				                    'size' => 3,
-				                    'fielddata_fields' => array('dataset', 'id'),
-				                    '_source' => 'data.*',
-			                    ),
-		                    ),
-	                    ),
+                        'filter' => array(
+                            'term' => array(
+                                'data.prawo.typ_id' => '1',
+                            ),
+                        ),
+                        'aggs' => array(
+                            'top' => array(
+                                'top_hits' => array(
+                                    'size' => 3,
+                                    'fielddata_fields' => array('dataset', 'id'),
+                                    '_source' => 'data.*',
+                                ),
+                            ),
+                        ),
                     ),
                     'rozporzadzenia' => array(
-	                    'filter' => array(
-		                    'term' => array(
-			                    'data.prawo.typ_id' => '3',
-		                    ),
-	                    ),
-	                    'aggs' => array(
-		                    'top' => array(
-			                    'top_hits' => array(
-				                    'size' => 3,
-				                    'fielddata_fields' => array('dataset', 'id'),
-				                    '_source' => 'data.*',
-			                    ),
-		                    ),
-	                    ),
+                        'filter' => array(
+                            'term' => array(
+                                'data.prawo.typ_id' => '3',
+                            ),
+                        ),
+                        'aggs' => array(
+                            'top' => array(
+                                'top_hits' => array(
+                                    'size' => 3,
+                                    'fielddata_fields' => array('dataset', 'id'),
+                                    '_source' => 'data.*',
+                                ),
+                            ),
+                        ),
                     ),
                     'inne' => array(
-	                    'filter' => array(
-		                    'bool' => array(
-			                    'must_not' => array(
-				                    array(
-					                    'term' => array('data.prawo.typ_id' => '1'),
-				                    ),
-				                    array(
-					                    'term' => array('data.prawo.typ_id' => '3'),
-				                    ),
-			                    ),
-		                    ),
-	                    ),
-	                    'aggs' => array(
-		                    'top' => array(
-			                    'top_hits' => array(
-				                    'size' => 3,
-				                    'fielddata_fields' => array('dataset', 'id'),
-				                    '_source' => 'data.*',
-			                    ),
-		                    ),
-	                    ),
+                        'filter' => array(
+                            'bool' => array(
+                                'must_not' => array(
+                                    array(
+                                        'term' => array('data.prawo.typ_id' => '1'),
+                                    ),
+                                    array(
+                                        'term' => array('data.prawo.typ_id' => '3'),
+                                    ),
+                                ),
+                            ),
+                        ),
+                        'aggs' => array(
+                            'top' => array(
+                                'top_hits' => array(
+                                    'size' => 3,
+                                    'fielddata_fields' => array('dataset', 'id'),
+                                    '_source' => 'data.*',
+                                ),
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -96,11 +96,11 @@ class PrawoHaslaController extends DataobjectsController
         $this->Components->load('Dane.DataBrowser', $options);
 
     }
-    
+
     public function getMenu()
     {
-	    
-	    $menu = array(
+
+        $menu = array(
             'items' => array(),
             'base' => $this->object->getUrl(),
         );
@@ -109,19 +109,19 @@ class PrawoHaslaController extends DataobjectsController
             'label' => 'Temat',
         );
 
-		$menu['items'][] = array(
+        $menu['items'][] = array(
             'id' => 'akty',
             'label' => 'Powiązane akty prawne',
         );
-                
+
         return $menu;
-	    
+
     }
-    
+
     public function akty()
     {
-		
-		parent::load();
+
+        parent::load();
         $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
                 'dataset' => 'prawo',

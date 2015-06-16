@@ -64,7 +64,7 @@ if ($posiedzenie->getData('yt_video_id') && $punkty) {
     </div>
 <?
 }
-    ?>
+?>
 
     <div class="row">
         <div class="col-md-10 col-md-offset-1 objectMain">
@@ -88,9 +88,6 @@ if ($posiedzenie->getData('yt_video_id') && $punkty) {
                 <h2 class="light">Protokół z obrad</h2>
                 <?= $this->Document->place($dokument) ?>
             <? } ?>
-
-
-            
 
 
         </div>

@@ -13,139 +13,139 @@
 }
 
 #_wrapper #_main {
-  padding: 0;
-  margin: 0;
-  background: #003054;
+    padding: 0;
+    margin: 0;
+    background: #003054;
 
-  #bankDanychLokalny {
-    .minHeight();
-    display: block;
-    .leftSide {
-      padding: 0;
-      margin: 0;
-      margin-top: 40px;
-      padding-left: 10px;
-      overflow-y: scroll;
-      background: #003054;
-      #categories {
-        ul.jqtree-tree {
-          margin: 0;
-          li {
+    #bankDanychLokalny {
+        .minHeight();
+        display: block;
+        .leftSide {
+            padding: 0;
             margin: 0;
-            padding-left: 20px;
-            ul {
-              margin: 0;
-              li {
-                margin: 0;
-                padding-left: 20px;
-                ul {
-                  li {
-                    padding-right: 5px;
-                  }
+            margin-top: 40px;
+            padding-left: 10px;
+            overflow-y: scroll;
+            background: #003054;
+            #categories {
+                ul.jqtree-tree {
+                    margin: 0;
+                    li {
+                        margin: 0;
+                        padding-left: 20px;
+                        ul {
+                            margin: 0;
+                            li {
+                                margin: 0;
+                                padding-left: 20px;
+                                ul {
+                                    li {
+                                        padding-right: 5px;
+                                    }
+                                }
+                            }
+                        }
+                        &.jqtree-folder {
+                            background: url('/img/bdl-arrow-up.gif') left 11px no-repeat;
+                            &.jqtree-closed {
+                                background-image: url('/img/bdl-arrow-down.gif');
+                            }
+                        }
+                    }
+                    font-size: 14px;
+                    font-weight: bold;
+                    color: #eee;
+                    .small {
+                        font-weight: normal;
+                        font-size: 11px;
+                    }
+                    .active {
+                        background: #018ccd;
+                        margin-left: -50px;
+                        padding-left: 70px;
+                    }
+                    .jqtree-element {
+                        padding: 5px 0;
+                    }
+                    .jqtree_common {
+                        // margin: 3px;
+                        //overflow: hidden;
+                        .jqtree-title {
+                            color: #fff !important; /*TODO:check if it REALLY need*/
+                            margin-left: 0;
+                            //float: left;
+                            //width: 80%;
+                            // border-bottom: 1px solid #ccc;
+                        }
+                        .jqtree-toggler {
+                            //float: left;
+                            display: none;
+                            font-size: 0px;
+                            margin-right: 5px;
+                            width: 19px;
+                            height: 19px;
+                            background: url("/img/arrow-up.png") no-repeat;
+                            &.jqtree-closed {
+                                background: url("/img/arrow-down.png") no-repeat;
+                            }
+                        }
+                    }
                 }
-              }
             }
-            &.jqtree-folder {
-              background: url('/img/bdl-arrow-up.gif') left 11px no-repeat;
-              &.jqtree-closed {
-                background-image: url('/img/bdl-arrow-down.gif');
-              }
-            }
-          }
-          font-size: 14px;
-          font-weight: bold;
-          color: #eee;
-          .small {
-            font-weight: normal;
-            font-size: 11px;
-          }
-          .active {
-            background: #018ccd;
-            margin-left: -50px;
-            padding-left: 70px;
-          }
-          .jqtree-element {
-            padding: 5px 0;
-          }
-          .jqtree_common {
-            // margin: 3px;
-            //overflow: hidden;
-            .jqtree-title {
-                color: #fff !important; /*TODO:check if it REALLY need*/
-              margin-left: 0;
-              //float: left;
-              //width: 80%;
-              // border-bottom: 1px solid #ccc;
-            }
-            .jqtree-toggler {
-              //float: left;
-              display: none;
-              font-size: 0px;
-              margin-right: 5px;
-              width: 19px;
-              height: 19px;
-              background: url("/img/arrow-up.png") no-repeat;
-              &.jqtree-closed {
-                background: url("/img/arrow-down.png") no-repeat;
-              }
-            }
-          }
         }
-      }
+        .rightSide {
+            .minHeight();
+            background-color: #fff;
+            #desc {
+                position: absolute;
+                z-index: 3;
+                margin-top: 15px;
+                margin-left: 15px;
+                color: #333;
+                font-weight: bold;
+                font-size: 16px;
+            }
+            #indicator {
+                background: #ebf1f1;
+                margin-top: 40px;
+                // height: 86px;
+                h3 {
+                    padding: 20px;
+                    margin: 0;
+                    color: #028bcf;
+                    font-weight: normal;
+                    font-size: 22px;
+                }
+                .row {
+                    margin: 0;
+                    padding: 0;
+                    color: #222325;
+                    border: none;
+                    .form-group {
+                        label {
+                            font-weight: normal;
+                        }
+                    }
+                }
+            }
+            #levels {
+                position: absolute;
+                z-index: 4;
+                margin-top: 10px;
+                margin-left: 65px;
+                button {
+                    &.active {
+                        background: #007cc2;
+                        color: #fff;
+                        font-weight: bold;
+                        border-color: #0068a3;
+                    }
+                }
+            }
+            #map {
+                margin: 0 auto;
+                margin-top: 10px;
+            }
+        }
     }
-    .rightSide {
-      .minHeight();
-      background-color: #fff;
-      #desc {
-        position: absolute;
-        z-index: 3;
-        margin-top: 15px;
-        margin-left: 15px;
-        color: #333;
-        font-weight: bold;
-        font-size: 16px;
-      }
-      #indicator {
-        background: #ebf1f1;
-        margin-top: 40px;
-        // height: 86px;
-        h3 {
-          padding: 20px;
-          margin: 0;
-          color: #028bcf;
-          font-weight: normal;
-          font-size: 22px;
-        }
-        .row {
-          margin: 0;
-          padding: 0;
-          color: #222325;
-          border: none;
-          .form-group {
-            label {
-              font-weight: normal;
-            }
-          }
-        }
-      }
-      #levels {
-        position: absolute;
-        z-index: 4;
-        margin-top: 10px;
-        margin-left: 65px;
-        button {
-          &.active {
-            background: #007cc2;
-            color: #fff;
-            font-weight: bold;
-            border-color: #0068a3;
-          }
-        }
-      }
-      #map {
-        margin: 0 auto;
-        margin-top: 10px;
-      }
-    }
-  }
 }

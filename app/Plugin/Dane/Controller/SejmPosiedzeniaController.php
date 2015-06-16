@@ -118,7 +118,7 @@ class SejmPosiedzeniaController extends DataobjectsController
         */
     );
 
-	
+
     public function getMenu()
     {
 
@@ -161,8 +161,8 @@ class SejmPosiedzeniaController extends DataobjectsController
 
     public function punkty()
     {
-		
-		parent::load();
+
+        parent::load();
         $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
                 'dataset' => 'sejm_posiedzenia_punkty',
@@ -173,11 +173,11 @@ class SejmPosiedzeniaController extends DataobjectsController
         $this->set('title_for_layout', "Punkty porządku dziennego | " . $this->object->getTitle());
 
     }
-	
-	public function wystapienia()
+
+    public function wystapienia()
     {
-		
-		parent::load();
+
+        parent::load();
         $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
                 'dataset' => 'sejm_wystapienia',
@@ -188,11 +188,11 @@ class SejmPosiedzeniaController extends DataobjectsController
         $this->set('title_for_layout', "Wystąpienia | " . $this->object->getTitle());
 
     }
-	
-	public function glosowania()
+
+    public function glosowania()
     {
-		
-		parent::load();
+
+        parent::load();
         $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
                 'dataset' => 'sejm_glosowania',

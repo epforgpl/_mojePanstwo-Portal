@@ -49,8 +49,7 @@ class SejmPosiedzeniaPunktyController extends DataobjectsController
                         'limit' => 100,
                         'hiddenFilters' => array('sejm_wystapienia.klub_id', 'sejm_wystapienia.stanowisko_id'),
                     ));
-                    
-                    
+
 
                     // $this->set( 'title_for_layout', $miejscowosc->getTitle() . ' w gminie ' . $this->object->getTitle() );
                     $this->render('debata');

@@ -1,29 +1,30 @@
 <?php
 
 App::uses('ApplicationsController', 'Controller');
+
 class PowiadomieniaController extends ApplicationsController
 {
 
-	public $settings = array(
+    public $settings = array(
         'id' => 'moje_dane',
-		'menu' => array(
-			array(
+        'menu' => array(
+            array(
                 'id' => 'obserwuje_powiadomienia',
-				'label' => 'Dane',
-				'href' => 'moje-dane'
-			),
-			array(
-				'id' => 'jak_to_dziala',
-				'label' => 'Jak to działa?',
-				'href' => 'moje-dane/jak_to_dziala'
-			),
-		),
-		'title' => 'Moje Dane',
-		'subtitle' => 'Obserwuj interesujące Cię dane publiczne',
+                'label' => 'Dane',
+                'href' => 'moje-dane'
+            ),
+            array(
+                'id' => 'jak_to_dziala',
+                'label' => 'Jak to działa?',
+                'href' => 'moje-dane/jak_to_dziala'
+            ),
+        ),
+        'title' => 'Moje Dane',
+        'subtitle' => 'Obserwuj interesujące Cię dane publiczne',
         'headerImg' => '/MojeDane/img/header_dane.png',
-	);
-	
-	public $_layout = array(
+    );
+
+    public $_layout = array(
         'header' => array(
             'element' => 'app',
         ),
@@ -34,83 +35,87 @@ class PowiadomieniaController extends ApplicationsController
             'element' => 'default',
         ),
     );
-	
-	public $components = array('Paginator');
-	public $uses = array('Dane.Dataobject');
-	public $helpers = array('Dane.Dataobject');
-	
-	public $appSelected = 'moje-dane';
-	
-    public function prepareMetaTags() {
+
+    public $components = array('Paginator');
+    public $uses = array('Dane.Dataobject');
+    public $helpers = array('Dane.Dataobject');
+
+    public $appSelected = 'moje-dane';
+
+    public function prepareMetaTags()
+    {
         parent::prepareMetaTags();
         $this->setMeta('og:image', FULL_BASE_URL . '/powiadomienia/img/social/powiadomienia.jpg');
     }
-	    
-    public function view() {
-	    
-	    $this->setMenuSelected();
-	            
-        $subs = $this->Dataobject->find('all', array(
-	        'conditions' => array(
-		        'subscribtions' => true,
-	        ),
-	        'limit' => 50,
-        ));
-              
 
-		
-		$this->Paginator->settings = array(
-			'paramType' => 'querystring',
-			'conditions' => array(),
-			'feed' => 'user',
-			'order' => 'date desc',
-		);
-		
-		if( isset($this->request->query['q']) )
-			$this->Paginator->settings['conditions'] = array(
-				'q' => $this->request->query['q'],
-			);
-		
- 		$hits = $this->Paginator->paginate('Dataobject');
- 		
- 		$dataFeed = array(
+    public function view()
+    {
+
+        $this->setMenuSelected();
+
+        $subs = $this->Dataobject->find('all', array(
+            'conditions' => array(
+                'subscribtions' => true,
+            ),
+            'limit' => 50,
+        ));
+
+
+        $this->Paginator->settings = array(
+            'paramType' => 'querystring',
+            'conditions' => array(),
+            'feed' => 'user',
+            'order' => 'date desc',
+        );
+
+        if (isset($this->request->query['q']))
+            $this->Paginator->settings['conditions'] = array(
+                'q' => $this->request->query['q'],
+            );
+
+        $hits = $this->Paginator->paginate('Dataobject');
+
+        $dataFeed = array(
             'hits' => $hits,
             'took' => $this->Dataobject->getPerformance(),
             // 'preset' => $this->settings['preset'],
             'searchTitle' => 'moich powiadomieniach',
         );
-        
- 		$this->set('dataFeed', $dataFeed);
- 		$this->set('subs', $subs);
+
+        $this->set('dataFeed', $dataFeed);
+        $this->set('subs', $subs);
         $this->title = 'Moje Dane';
         $this->setMenuSelected('obserwuje_powiadomienia');
     }
-    
-    public function moje() {
-	    $this->title = 'Moje Powiadomienia';
+
+    public function moje()
+    {
+        $this->title = 'Moje Powiadomienia';
         $this->setMenuSelected('moje_powiadomienia');
 
     }
-    
-    public function jak_to_dziala() {
+
+    public function jak_to_dziala()
+    {
         $this->title = 'Jak to działa? - Powiadomienia';
         $this->setMenuSelected('jak_to_dziala');
 
         if ($this->domainMode == "PK")
             $this->render('Powiadomienia/pk-jak_to_dziala');
     }
-    
-    public function getMenu() {
-	    
-	    $menu = array(
-		    'items' => array(
-			    array(
-				    'label' => 'Powiadomienia',
-			    ),
-		    ),
-		    'base' => 'moje-dane',
-	    );
-	    
+
+    public function getMenu()
+    {
+
+        $menu = array(
+            'items' => array(
+                array(
+                    'label' => 'Powiadomienia',
+                ),
+            ),
+            'base' => 'moje-dane',
+        );
+
     }
 
 } 

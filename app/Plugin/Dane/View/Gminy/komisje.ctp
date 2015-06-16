@@ -13,7 +13,7 @@ echo $this->Element('dataobject/pageBegin');
         if (isset($title)) {
             echo '<h2>' . $title . '</h2>';
         }
-		?>
+        ?>
     </div>
 
     <h1 class="subheader">Rada Miasta Kraków</h1>
@@ -31,6 +31,6 @@ echo $this->Element('dataobject/pageBegin');
 <? }
 
 echo $this->Element('Dane.DataBrowser/browser', array(
-	'searcher' => false,
+    'searcher' => false,
 ));
 echo $this->Element('dataobject/pageEnd');

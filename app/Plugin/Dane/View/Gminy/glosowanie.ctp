@@ -20,7 +20,7 @@ echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
 ?>
-	
+
 <?
 echo $this->Element('Dane.dataobject/subobject', array(
     'object' => $glosowanie,
@@ -31,73 +31,78 @@ echo $this->Element('Dane.dataobject/subobject', array(
 ));
 ?>
 
-<div class="dataBrowser">
-		
-	<? if (@$aggs['all']['glosy']['top']['hits']['hits']) { ?>
-	<div class="row">
-		<div class="col-md-8">
-			
-			<div class="block block-default col-xs-12">
-			    <header>Wyniki zbiorcze</header>
-				<section>
-					<div class="krakow_glosowania_voting_chart" data-za="<?= (int) $glosowanie->getData('liczba_glosow_za') ?>" data-przeciw="<?= (int) $glosowanie->getData('liczba_glosow_przeciw') ?>" data-nieobecni="<?= (int) $glosowanie->getData('liczba_glosow_nieobecni') ?>" data-wstrzymanie="<?= (int) $glosowanie->getData('liczba_glosow_wstrzymanie') ?>"></div>
-				</section>
-			</div>
-			
-			<div class="block block-default col-xs-12">
-			    <header>Wyniki indywidualne</header>
-					
-			    <section class="aggs-init">
-			        <div class="dataAggs">
-			            <div class="agg agg-Dataobjects">
-			                    
-			                    <ul class="wyniki_glosowania">
-                                    <? foreach ($aggs['all']['glosy']['top']['hits']['hits'] as $hit) { 
-	                                    $wynik = $hit['fields']['source'][0]['data'];
-                                    ?>
-																				
-                                        <li class="row">
-                                            <div class="col-md-2">
-                                                <a href="/dane/radni_gmin/<?= $wynik['krakow_glosowania_glosy.radny_id'] ?>" class="thumb_cont">
-                                                    <img
-                                                        src="<? if ($wynik['radni_gmin.avatar_id']) { ?>http://resources.sejmometr.pl/avatars/5/<?= $wynik['radni_gmin.avatar_id'] ?>.jpg<? } else { ?>http://resources.sejmometr.pl/avatars/g/m.png<? } ?>"
-                                                        class="thumb pull-right">
-                                                </a>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <p class="title"><a
-                                                        href="/dane/radni_gmin/<?= $wynik['krakow_glosowania_glosy.radny_id'] ?>"><?= $wynik['radni_gmin.nazwa'] ?></a>
-                                                </p>
+    <div class="dataBrowser">
 
-                                                <p class="desc"><?= $wynik['radni_gmin.komitet'] ?></p>
-                                            </div>
+        <? if (@$aggs['all']['glosy']['top']['hits']['hits']) { ?>
+            <div class="row">
+                <div class="col-md-8">
 
-                                            <?
-                                            $_classes = array(
-                                                '1' => 'success',
-                                                '2' => 'danger',
-                                                '3' => 'primary',
-                                                '4' => 'default'
-                                            );
+                    <div class="block block-default col-xs-12">
+                        <header>Wyniki zbiorcze</header>
+                        <section>
+                            <div class="krakow_glosowania_voting_chart"
+                                 data-za="<?= (int)$glosowanie->getData('liczba_glosow_za') ?>"
+                                 data-przeciw="<?= (int)$glosowanie->getData('liczba_glosow_przeciw') ?>"
+                                 data-nieobecni="<?= (int)$glosowanie->getData('liczba_glosow_nieobecni') ?>"
+                                 data-wstrzymanie="<?= (int)$glosowanie->getData('liczba_glosow_wstrzymanie') ?>"></div>
+                        </section>
+                    </div>
+
+                    <div class="block block-default col-xs-12">
+                        <header>Wyniki indywidualne</header>
+
+                        <section class="aggs-init">
+                            <div class="dataAggs">
+                                <div class="agg agg-Dataobjects">
+
+                                    <ul class="wyniki_glosowania">
+                                        <? foreach ($aggs['all']['glosy']['top']['hits']['hits'] as $hit) {
+                                            $wynik = $hit['fields']['source'][0]['data'];
                                             ?>
 
-                                            <div class="col-md-3">
-                                                <p class="label label-<?= $_classes[$wynik['krakow_glosowania_glosy.glos_id']] ?>"><?= $wynik['krakow_glosowania_glosy.glos_str'] ?></p>
-                                            </div>
-                                        </li>
+                                            <li class="row">
+                                                <div class="col-md-2">
+                                                    <a href="/dane/radni_gmin/<?= $wynik['krakow_glosowania_glosy.radny_id'] ?>"
+                                                       class="thumb_cont">
+                                                        <img
+                                                            src="<? if ($wynik['radni_gmin.avatar_id']) { ?>http://resources.sejmometr.pl/avatars/5/<?= $wynik['radni_gmin.avatar_id'] ?>.jpg<? } else { ?>http://resources.sejmometr.pl/avatars/g/m.png<? } ?>"
+                                                            class="thumb pull-right">
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <p class="title"><a
+                                                            href="/dane/radni_gmin/<?= $wynik['krakow_glosowania_glosy.radny_id'] ?>"><?= $wynik['radni_gmin.nazwa'] ?></a>
+                                                    </p>
 
-                                    <? } ?>
-                                </ul>
-			
-			            </div>
-			        </div>
-			    </section>
-			</div>
-		</div>
-	</div>
-	<? } ?>
-	
-</div>
+                                                    <p class="desc"><?= $wynik['radni_gmin.komitet'] ?></p>
+                                                </div>
+
+                                                <?
+                                                $_classes = array(
+                                                    '1' => 'success',
+                                                    '2' => 'danger',
+                                                    '3' => 'primary',
+                                                    '4' => 'default'
+                                                );
+                                                ?>
+
+                                                <div class="col-md-3">
+                                                    <p class="label label-<?= $_classes[$wynik['krakow_glosowania_glosy.glos_id']] ?>"><?= $wynik['krakow_glosowania_glosy.glos_str'] ?></p>
+                                                </div>
+                                            </li>
+
+                                        <? } ?>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        <? } ?>
+
+    </div>
 
 
 <?

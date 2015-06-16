@@ -43,12 +43,12 @@ class MSiGController extends DataobjectsController
         if ($id = @$this->request->params['subid']) {
 
             $dzial = $this->Dataobject->find('first', array(
-	            'conditions' => array(
-		            'dataset' => 'msig_dzialy',
-		            'id' => $id,
-	            ),
+                'conditions' => array(
+                    'dataset' => 'msig_dzialy',
+                    'id' => $id,
+                ),
             ));
-            
+
             if ($dzial->getData('msig_id') != $this->object->getId()) {
 
                 $this->redirect('/dane/msig/' . $dzial->getData('msig_id') . '/dzialy/' . $dzial->getId());

@@ -18,8 +18,8 @@ if ($object->getThumbnailUrl($thumbSize)) {
     <?php } ?>
         <a class="thumb_cont" href="<?= $object->getUrl() ?>/tresc">
             <?php } ?>
-                <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
-                     alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
+            <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
+                 alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
             <?php if ($object->getUrl() != false) { ?>
         </a>
     <?php } ?>
@@ -54,8 +54,8 @@ if ($object->getThumbnailUrl($thumbSize)) {
 
 <? } else { ?>
     <div class="content<? if ($object->getPosition()) { ?> col-md-11<? } ?>">
-		
-        <? if ($object->force_hl_fields || $forceLabel) { ?>
+
+    <? if ($object->force_hl_fields || $forceLabel) { ?>
             <p class="header">
                 <?= $object->getLabel(); ?>
             </p>

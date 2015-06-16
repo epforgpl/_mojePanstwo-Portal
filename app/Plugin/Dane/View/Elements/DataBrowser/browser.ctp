@@ -3,9 +3,9 @@ $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin'
 $this->Combinator->add_libs('css', $this->Less->css('dataobjectpage', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
-$displayAggs = isset($displayAggs) ? (boolean) $displayAggs : true;
+$displayAggs = isset($displayAggs) ? (boolean)$displayAggs : true;
 ?>
-<div class="dataBrowser<? if(isset($class)) echo " " . $class; ?>">
+<div class="dataBrowser<? if (isset($class)) echo " " . $class; ?>">
 
     <div class="modal modal-api-call">
         <div class="modal-dialog">

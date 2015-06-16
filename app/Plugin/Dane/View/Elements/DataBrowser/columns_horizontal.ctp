@@ -3,8 +3,9 @@ $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
 $this->Combinator->add_libs('js', '../plugins/highcharts/locals');
 ?>
 
-<? if(!isset($this->request->query['conditions'][$map['field']])) { ?>
-    <div class="agg agg-ColumnsHorizontal" data-choose-request="<?= $map['chooseRequest']; ?>" data-chart="<?= htmlentities(json_encode($data)) ?>">
+<? if (!isset($this->request->query['conditions'][$map['field']])) { ?>
+    <div class="agg agg-ColumnsHorizontal" data-choose-request="<?= $map['chooseRequest']; ?>"
+         data-chart="<?= htmlentities(json_encode($data)) ?>">
         <div class="chart"></div>
     </div>
 <? } else { ?>

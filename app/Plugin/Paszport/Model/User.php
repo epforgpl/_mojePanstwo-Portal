@@ -119,6 +119,19 @@ class User extends PaszportAppModel
         }
     }
 
+    public function find($type, $conditions)
+    {
+        $response = $this->getDataSource()->request('paszport/user/find', array(
+            'data' => array(
+                'type' => $type,
+                'conditions' => $conditions
+            ),
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
     /**
      * Additional validation for password confirmation
      *
@@ -188,11 +201,13 @@ class User extends PaszportAppModel
         return $this->getDataSource()->login($email, $password);
     }
 
-    public function read($uid) {
+    public function read($uid)
+    {
         return $this->getDataSource()->request('paszport/users/read', array('data' => array('user_id' => $uid)));
     }
 
-    public function setUserName($username) {
+    public function setUserName($username)
+    {
         $response = $this->getDataSource()->request('paszport/user/setUserName', array(
             'data' => array(
                 'value' => $username
@@ -203,7 +218,8 @@ class User extends PaszportAppModel
         return $response;
     }
 
-    public function registerFromFacebook($userData) {
+    public function registerFromFacebook($userData)
+    {
         $response = $this->getDataSource()->request('paszport/user/registerFromFacebook', array(
             'data' => $userData,
             'method' => 'POST'
@@ -212,11 +228,12 @@ class User extends PaszportAppModel
         return $response;
     }
 
-    public function findFacebookUser($facebook_id, $email) {
+    public function findFacebookUser($facebook_id, $email)
+    {
         $response = $this->getDataSource()->request('paszport/user/findFacebook', array(
             'data' => array(
-                'facebook_id'   => $facebook_id,
-                'email'         => $email
+                'facebook_id' => $facebook_id,
+                'email' => $email
             ),
             'method' => 'POST'
         ));
@@ -224,7 +241,8 @@ class User extends PaszportAppModel
         return $response;
     }
 
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $response = $this->getDataSource()->request('paszport/user/setEmail', array(
             'data' => array(
                 'value' => $email
@@ -235,7 +253,8 @@ class User extends PaszportAppModel
         return $response;
     }
 
-    public function setPassword($data) {
+    public function setPassword($data)
+    {
         $response = $this->getDataSource()->request('paszport/user/setPassword', array(
             'data' => $data,
             'method' => 'POST'
@@ -244,7 +263,8 @@ class User extends PaszportAppModel
         return $response;
     }
 
-    public function deletePaszport($password) {
+    public function deletePaszport($password)
+    {
         $response = $this->getDataSource()->request('paszport/user/deletePaszport', array(
             'data' => array(
                 'password' => $password
@@ -262,7 +282,8 @@ class User extends PaszportAppModel
      * @param $data
      * @return mixed
      */
-    public function forgot($data) {
+    public function forgot($data)
+    {
         $response = $this->getDataSource()->request('paszport/user/forgot', array(
             'data' => $data,
             'method' => 'POST'
@@ -277,7 +298,8 @@ class User extends PaszportAppModel
      * @param $data
      * @return mixed
      */
-    public function forgotToken($data) {
+    public function forgotToken($data)
+    {
         $response = $this->getDataSource()->request('paszport/user/forgotToken', array(
             'data' => $data,
             'method' => 'POST'
@@ -293,7 +315,8 @@ class User extends PaszportAppModel
      * @param $data
      * @return mixed
      */
-    public function forgotNewPassword($data) {
+    public function forgotNewPassword($data)
+    {
         $response = $this->getDataSource()->request('paszport/user/forgotNewPassword', array(
             'data' => $data,
             'method' => 'POST'
@@ -310,18 +333,6 @@ class User extends PaszportAppModel
     public function schema()
     {
         return array();
-    }
-
-    public function find($type, $conditions) {
-        $response = $this->getDataSource()->request('paszport/user/find', array(
-            'data' => array(
-                'type'       => $type,
-                'conditions' => $conditions
-            ),
-            'method' => 'POST'
-        ));
-
-        return $response;
     }
 
 }

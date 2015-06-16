@@ -30,7 +30,7 @@ if ($posiedzenie->getData('yt_video_id')) {
                 <div id="player" data-youtube="<?php echo $posiedzenie->getData('yt_video_id'); ?>"></div>
             </div>
         </div>
-				
+
         <? if ($punkty && @$punkty[0]) { ?>
             <div class="col-md-5 wystapienia">
 
@@ -39,7 +39,7 @@ if ($posiedzenie->getData('yt_video_id')) {
                     <div class="block-header">
                         <h2 class="label">Punkty</h2>
                     </div>
-					
+
                     <div class="content nopadding">
                         <ul class="nav nav-pills nav-stacked">
                             <?php foreach ($punkty as $id => $punkt) { ?>

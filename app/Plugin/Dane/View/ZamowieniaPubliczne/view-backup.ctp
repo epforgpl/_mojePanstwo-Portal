@@ -1,7 +1,7 @@
 <div class="row-blocks">
     <div class="block-group col-xs-12">
 
-		<? /*
+        <? /*
         <? if ($object->getData('tryb_id') == 6) { ?>
             <div class="block">
                 <div class="block-header">
@@ -234,10 +234,10 @@
 
         <? if (
             (
-            	($details['oferty_data_stop']) &&
+                ($details['oferty_data_stop']) &&
                 ($details['oferty_data_stop'] != '0000-00-00')
             ) ||
-            @$details['oferty_miejsce'] 
+            @$details['oferty_miejsce']
         ) {
             ?>
 
@@ -280,7 +280,7 @@
             </div>
         <? } ?>
 
-        <? if ( $details['przedmiot'] ) { ?>
+        <? if ($details['przedmiot']) { ?>
             <div class="block">
                 <div class="block-header">
                     <h2 class="label">Przedmiot zamówienia</h2>

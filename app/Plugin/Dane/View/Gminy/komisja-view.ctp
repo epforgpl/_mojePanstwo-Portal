@@ -10,22 +10,22 @@ echo $this->Element('dataobject/pageBegin', array(
 ?>
 
 
-    <?
-    echo $this->Element('Dane.dataobject/subobject', array(
-        'menu' => isset($_submenu) ? $_submenu : false,
-        'object' => $komisja,
-        'objectOptions' => array(
-            'bigTitle' => true,
-        )
-    ));
+<?
+echo $this->Element('Dane.dataobject/subobject', array(
+    'menu' => isset($_submenu) ? $_submenu : false,
+    'object' => $komisja,
+    'objectOptions' => array(
+        'bigTitle' => true,
+    )
+));
 
-    $options = array(
-	    'searcher' => false,
-    );
-    if (isset($title))
-        $options['title'] = $title;
-    echo $this->Element('Dane.DataBrowser/browser', $options);
-    ?>
+$options = array(
+    'searcher' => false,
+);
+if (isset($title))
+    $options['title'] = $title;
+echo $this->Element('Dane.DataBrowser/browser', $options);
+?>
 
 
 <?php

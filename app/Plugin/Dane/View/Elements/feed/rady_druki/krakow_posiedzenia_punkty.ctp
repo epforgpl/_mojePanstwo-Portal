@@ -23,8 +23,8 @@ if ($object->getThumbnailUrl($thumbSize)) {
     <?php } ?>
         <a class="thumb_cont" href="<?= $object->getUrl() ?>/tresc">
             <?php } ?>
-                <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
-                     alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
+            <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
+                 alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
             <?php if ($object->getUrl() != false) { ?>
         </a>
     <?php } ?>
@@ -59,25 +59,28 @@ if ($object->getThumbnailUrl($thumbSize)) {
 
 <? } else { ?>
     <div class="content">
-		
+
         <? if ($object->force_hl_fields || $forceLabel) { ?>
             <p class="header">
                 <?= $object->getLabel(); ?>
             </p>
         <? } ?>
-		
-		<? if(
-			( $static = $object->getStatic() ) && 
-			isset( $static['glosowanie'] ) &&
-			( $glosowanie = $static['glosowanie'] )
-		) {?>
-			<div class="krakow_glosowania_voting_chart" data-za="<?= (int) $glosowanie['liczba_glosow_za'] ?>" data-przeciw="<?= (int) $glosowanie['liczba_glosow_przeciw'] ?>" data-nieobecni="<?= (int) $glosowanie['liczba_nieobecni'] ?>" data-wstrzymanie="<?= (int) $glosowanie['liczba_glosow_wstrzymanie'] ?>"></div>
-		<?} ?>
-		
+
+        <? if (
+            ($static = $object->getStatic()) &&
+            isset($static['glosowanie']) &&
+            ($glosowanie = $static['glosowanie'])
+        ) { ?>
+            <div class="krakow_glosowania_voting_chart" data-za="<?= (int)$glosowanie['liczba_glosow_za'] ?>"
+                 data-przeciw="<?= (int)$glosowanie['liczba_glosow_przeciw'] ?>"
+                 data-nieobecni="<?= (int)$glosowanie['liczba_nieobecni'] ?>"
+                 data-wstrzymanie="<?= (int)$glosowanie['liczba_glosow_wstrzymanie'] ?>"></div>
+        <? } ?>
+
         <p class="title">
             <a class="btn btn-primary btn-xs" href="<?= $object->getUrl() ?>">Zobacz szczegóły</a>
         </p>
-				
+
         <?= $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults) ?>
 
 

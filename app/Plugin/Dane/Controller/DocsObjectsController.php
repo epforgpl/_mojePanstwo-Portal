@@ -27,9 +27,9 @@ abstract class DocsObjectsController extends DataobjectsController
                 }
             }
         }
-		
-		$this->set('selected_doc_id', $selected_doc_id);
-        
+
+        $this->set('selected_doc_id', $selected_doc_id);
+
     }
 
     public function beforeRender()
@@ -41,7 +41,7 @@ abstract class DocsObjectsController extends DataobjectsController
 
             }
         }
-        
+
         parent::beforeRender();
     }
 

@@ -15,12 +15,12 @@ echo $this->Element('Dane.dataobject/subobject', array(
     )
 ));
 ?>
-<div class="row">
-    <div class="col-md-12">
-        <div class="object">
-            <?= $this->Document->place( $oswiadczenie->getData('dokument_id') ) ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="object">
+                <?= $this->Document->place($oswiadczenie->getData('dokument_id')) ?>
+            </div>
         </div>
-    </div>    
-</div>
+    </div>
 <?
 echo $this->Element('dataobject/pageEnd');

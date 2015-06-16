@@ -30,34 +30,37 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
                     <ul class="dataHighlights side">
 
-						
-						<li class="dataHighlight">
+
+                        <li class="dataHighlight">
                             <p class="_label pull-left">Dział</p>
-                            <p class="_value pull-right"><?= $zmiana->getData('numer_dzialu') ?></p>                                
+
+                            <p class="_value pull-right"><?= $zmiana->getData('numer_dzialu') ?></p>
                         </li>
-                        
+
                         <li class="dataHighlight">
                             <p class="_label pull-left">Rubryka</p>
-                            <p class="_value pull-right"><?= $zmiana->getData('numer_rubryki') ?></p>                                
+
+                            <p class="_value pull-right"><?= $zmiana->getData('numer_rubryki') ?></p>
                         </li>
-                        
+
                         <li class="dataHighlight">
                             <p class="_label pull-left">Rejestr</p>
-                            <p class="_value pull-right"><?= $zmiana->getData('rejestr_nr') ?></p>                                
+
+                            <p class="_value pull-right"><?= $zmiana->getData('rejestr_nr') ?></p>
                         </li>
-						
-						<? /*
+
+                        <? /*
 	                    <li class="dataHighlight">
 	                        <a href="/interpelacje"><span
 	                                class="icon icon-moon">&#xe614;</span>Interpelacje <span
 	                                class="glyphicon glyphicon-chevron-right"></a>
 	                    </li>
 	                    */ ?>
-					
-					</ul>
-                    
+
+                    </ul>
+
                 </div>
-				
+
 
                 <div class="block">
 
@@ -79,34 +82,34 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
         <div class="col-lg-9 nopadding">
             <div class="object">
-				
-				<? if( $details = $zmiana->getLayer('details') ) {?>		
-                
-                <? if( $details['data'] ) {?>
-                <div class="block">
-	                <div class="block-header">
-		                <h2 class="label">Zmiany</h2>
-	                </div>
-	                <div class="content">
-		                <?= $this->element('Dane.objects/krs_podmioty_zmiany/' . $zmiana->getData('typ_id'), array(
-		                	'data' => $details['data'],
-		                )); ?>
-	                </div>
-	            
-                </div>
-                <? } ?> 
-                
-                <? if( $details['tresc'] ) {?>
-                <div class="block">
-	                <div class="block-header">
-		                <h2 class="label">Oryginalna treść</h2>
-	                </div>
-	                <div class="content">
-		                <?= $details['tresc'] ?>
-	                </div>
-	            
-                </div>
-                <? } ?> 
+
+                <? if ($details = $zmiana->getLayer('details')) { ?>
+
+                    <? if ($details['data']) { ?>
+                        <div class="block">
+                            <div class="block-header">
+                                <h2 class="label">Zmiany</h2>
+                            </div>
+                            <div class="content">
+                                <?= $this->element('Dane.objects/krs_podmioty_zmiany/' . $zmiana->getData('typ_id'), array(
+                                    'data' => $details['data'],
+                                )); ?>
+                            </div>
+
+                        </div>
+                    <? } ?>
+
+                    <? if ($details['tresc']) { ?>
+                        <div class="block">
+                            <div class="block-header">
+                                <h2 class="label">Oryginalna treść</h2>
+                            </div>
+                            <div class="content">
+                                <?= $details['tresc'] ?>
+                            </div>
+
+                        </div>
+                    <? } ?>
                 <? } ?>
 
             </div>

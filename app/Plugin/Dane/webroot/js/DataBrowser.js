@@ -5,27 +5,27 @@ var DataBrowser = Class.extend({
         this.div = $(div);
 
         /*this.div.find('.dataBrowserSearchInput[data-autocompletion=true]').autocomplete({
-            source: function (request, response) {
+         source: function (request, response) {
 
-                if (this.element.attr('data-autocompletion-dataset'))
-                    var dataset = this.element.attr('data-autocompletion-dataset').split(',');
-                else
-                    var dataset = false;
+         if (this.element.attr('data-autocompletion-dataset'))
+         var dataset = this.element.attr('data-autocompletion-dataset').split(',');
+         else
+         var dataset = false;
 
-                $.get('/dane/suggest.json', {
-                    q: request['term'],
-                    dataset: dataset
-                }).done(function (data) {
+         $.get('/dane/suggest.json', {
+         q: request['term'],
+         dataset: dataset
+         }).done(function (data) {
 
-                    var options = [];
-                    for (var i = 0; i < data.options.length; i++)
-                        options.push(data.options[i]['text']);
+         var options = [];
+         for (var i = 0; i < data.options.length; i++)
+         options.push(data.options[i]['text']);
 
-                    response(options);
+         response(options);
 
-                });
+         });
 
-            }
+         }
          });*/
 
         $('.goto .selectpicker').selectpicker('val', null).on('change', function () {

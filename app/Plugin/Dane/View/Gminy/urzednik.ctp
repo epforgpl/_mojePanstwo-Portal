@@ -17,6 +17,6 @@ echo $this->Element('Dane.dataobject/subobject', array(
 ));
 
 echo $this->Element('Dane.DataBrowser/browser', array(
-	'searcher' => false,
+    'searcher' => false,
 ));
 echo $this->Element('dataobject/pageEnd');

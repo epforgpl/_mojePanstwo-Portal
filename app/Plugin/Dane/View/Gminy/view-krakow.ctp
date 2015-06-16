@@ -273,7 +273,7 @@
                                         <li>
                                             <a href="<?= $obj->getUrl() ?>">
                                                 <img onerror="imgFixer(this)"
-                                                        src="http://docs.sejmometr.pl/thumb/4/<?= $obj->getData('dokument_id') ?>.png"/>
+                                                     src="http://docs.sejmometr.pl/thumb/4/<?= $obj->getData('dokument_id') ?>.png"/>
                                             </a>
 
                                             <div class="inner">

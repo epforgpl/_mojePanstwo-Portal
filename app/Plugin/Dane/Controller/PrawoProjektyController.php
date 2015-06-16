@@ -9,9 +9,9 @@ class PrawoProjektyController extends DataobjectsController
     public $objectOptions = array(
         'hlFields' => array(),
     );
-    
+
     public $loadChannels = true;
-    
+
     public function view()
     {
 
@@ -25,33 +25,33 @@ class PrawoProjektyController extends DataobjectsController
                 'id' => $this->object->getData('nadrzedny_projekt_id')
             ));
         }
-        
+
         $this->feed(array(
-	        'searchTitle' => '"' . $this->object->getTitle() . '"',
-	        'timeline' => true,
-	        'direction' => 'asc',
+            'searchTitle' => '"' . $this->object->getTitle() . '"',
+            'timeline' => true,
+            'direction' => 'asc',
         ));
 
     }
-    
+
     public function zamrazarka()
     {
-		
-		if( $this->request->params['subid'] ) {
-			
-	        parent::load();
-	        
-	        $zamrazarka = $this->Dataobject->find('first', array(
-		        'conditions' => array(
-			        'dataset' => 'sejm_zamrazarka',
-			        'id' => $this->request->params['subid'],
-		        ),
-	        ));
-	        
-	        $this->set('zamrazarka', $zamrazarka);
-			
-		} else $this->redirect( $this->referer() );
-		        
+
+        if ($this->request->params['subid']) {
+
+            parent::load();
+
+            $zamrazarka = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'sejm_zamrazarka',
+                    'id' => $this->request->params['subid'],
+                ),
+            ));
+
+            $this->set('zamrazarka', $zamrazarka);
+
+        } else $this->redirect($this->referer());
+
     }
 
 } 

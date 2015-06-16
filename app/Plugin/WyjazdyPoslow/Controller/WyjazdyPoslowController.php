@@ -8,7 +8,8 @@ class WyjazdyPoslowController extends AppController
         'id' => 'wyjazdy_poslow',
     );
 
-    public function prepareMetaTags() {
+    public function prepareMetaTags()
+    {
         parent::prepareMetaTags();
         $this->setMeta('og:image', FULL_BASE_URL . '/wyjazdy_poslow/img/social/wyjazdy.jpg');
     }

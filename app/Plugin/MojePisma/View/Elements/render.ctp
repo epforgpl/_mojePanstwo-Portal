@@ -61,7 +61,8 @@
     <div class="editor-controls">
         <div class="control control-signature">
             <?php if (empty($pismo['podpis'])) { ?>
-                <textarea class="podpis empty" placeholder="Podpisz się (opcjonalnie)" rows="1" maxlength="255"></textarea>
+                <textarea class="podpis empty" placeholder="Podpisz się (opcjonalnie)" rows="1"
+                          maxlength="255"></textarea>
             <? } else { ?>
                 <div class="pre"><?= str_replace("\n", '<br/>', $pismo['podpis']) ?></div>
             <? } ?>

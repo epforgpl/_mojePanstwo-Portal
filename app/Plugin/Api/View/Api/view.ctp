@@ -3,9 +3,9 @@
 <?php
 
 $this->Html->css(array(
-        '/api/swagger/css/typography',
-        '/api/swagger/css/reset',
-        '/api/swagger/css/screen',
+    '/api/swagger/css/typography',
+    '/api/swagger/css/reset',
+    '/api/swagger/css/screen',
 ), array('inline' => 'false', 'block' => 'cssBlock', 'media' => 'screen'));
 
 $this->Html->css(array(
@@ -27,7 +27,7 @@ $this->Html->script(array(
 
 ), array('inline' => 'false', 'block' => 'scriptBlock'));
 
-$this->Html->scriptBlock('window.swaggerUi = new SwaggerUi({url: "' . $api["swagger_url"] . '", uiRoot: "'. $uiRoot .'",docExpansion: "list"});window.swaggerUi.load();',
+$this->Html->scriptBlock('window.swaggerUi = new SwaggerUi({url: "' . $api["swagger_url"] . '", uiRoot: "' . $uiRoot . '",docExpansion: "list"});window.swaggerUi.load();',
     array('inline' => 'false', 'block' => 'scriptBlock'));
 ?>
 

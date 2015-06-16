@@ -20,14 +20,14 @@ echo $this->Element('Dane.dataobject/subobject', array(
         'routes' => array(
             'shortTitle' => 'pageTitle'
         ),
-	    'thumbWidth' => 2,
+        'thumbWidth' => 2,
     ),
 ));
 
 echo $this->Element('Dane.DataBrowser/browser', array(
-	'searcher' => false,
-	'class' => 'panel',
-	'displayAggs' => false,
+    'searcher' => false,
+    'class' => 'panel',
+    'displayAggs' => false,
 ));
 
 echo $this->Element('dataobject/pageEnd');

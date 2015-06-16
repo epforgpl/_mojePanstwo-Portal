@@ -8,10 +8,11 @@ $this->Dataobject->setObject($object);
 
 <div class="objectRender col-md-12 <?php echo $object->getDataset(); ?>" oid="<?php echo $object->getId(); ?>">
     <div class="row">
-		
-		<? $width = 12; ?>
-		
-        <? if ($object->getThumbnailUrl()) { $width = $width - $thumbWidth; ?>
+
+        <? $width = 12; ?>
+
+        <? if ($object->getThumbnailUrl()) {
+            $width = $width - $thumbWidth; ?>
             <div class="col-sm-<?= $thumbWidth ?>">
                 <div class="attachment text-center">
                     <?php if ($object->getUrl() != false) { ?>
@@ -24,12 +25,13 @@ $this->Dataobject->setObject($object);
                 <? } ?>
                 </div>
             </div>
-        <? } elseif($object->getIcon()) { $width = 11; ?>
-        	
-        	<div class="col-sm-1 icon-cont">
-	        	<?= $object->getIcon() ?>
-        	</div>
-        
+        <? } elseif ($object->getIcon()) {
+            $width = 11; ?>
+
+            <div class="col-sm-1 icon-cont">
+                <?= $object->getIcon() ?>
+            </div>
+
         <? } ?>
 
         <div class="data col-sm-<?= $width ?>">
@@ -57,11 +59,11 @@ $this->Dataobject->setObject($object);
                         'object' => $object
                     ));
                 } else {
-                    
+
                     if ($metaDesc = $object->getMetaDescription()) { ?>
                         <p class="meta meta-desc"><?= $metaDesc ?></p>
                     <? }
-                    
+
                     if ($object->getDescription()) {
                         ?>
                         <div class="description">

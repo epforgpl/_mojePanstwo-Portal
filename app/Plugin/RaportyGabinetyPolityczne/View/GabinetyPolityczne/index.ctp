@@ -29,12 +29,13 @@ $this->Combinator->add_libs('js', array('RaportyGabinetyPolityczne.jquery.flippy
                     <?php } ?>
                 </ul>
                 <p>
-                <? } ?>
-                We wszystkich ministerstwach łącznie pracuje <?php echo array_sum($ILOSC_LUDZI_W_MINISTERSTWACH); ?>
-                osób
-                zatrudnionych w gabinetach politycznych. Czym
-                zajmują się te osoby?
+                    <? } ?>
+                    We wszystkich ministerstwach łącznie pracuje <?php echo array_sum($ILOSC_LUDZI_W_MINISTERSTWACH); ?>
+                    osób
+                    zatrudnionych w gabinetach politycznych. Czym
+                    zajmują się te osoby?
                 </p>
+
                 <p>
                     Zakres zadań i tryb pracy gabinetu politycznego każdy minister ustala indywidualnie. W
                     zależności od

@@ -20,7 +20,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
         'routes' => array(
             'shortTitle' => 'pageTitle'
         ),
-	    'thumbWidth' => 2,
+        'thumbWidth' => 2,
     ),
 ));
 

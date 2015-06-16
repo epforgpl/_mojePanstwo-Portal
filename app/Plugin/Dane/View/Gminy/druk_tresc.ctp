@@ -17,13 +17,13 @@ echo $this->Element('Dane.dataobject/subobject', array(
     ),
     'addBreadcrumbs' => array(
         array(
-	        'label' => 'Treść druku',
+            'label' => 'Treść druku',
         ),
     ),
 ));
 ?>
 
-<h2 class="light">Treść druku</h2>
+    <h2 class="light">Treść druku</h2>
 
 <?
 echo $this->Document->place($druk->getData('dokument_id'));

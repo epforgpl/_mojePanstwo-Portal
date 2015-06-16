@@ -213,7 +213,7 @@ jQuery(document).ready(function () {
                 wskaznikData = wskaznik.data(),
                 wskaznikChart = wskaznik.find('.wskaznikChart');
 
-            if(wskaznik.hasClass('clicked')) {
+            if (wskaznik.hasClass('clicked')) {
                 wskaznikChart.hide();
                 wskaznik.removeClass('clicked');
                 return false;

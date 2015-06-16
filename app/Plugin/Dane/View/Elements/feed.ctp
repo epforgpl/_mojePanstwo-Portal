@@ -58,7 +58,7 @@ $this->Dataobject->setObject($object);
             </div>
 
             <div class="row marginTop-sm">
-                <? 
+                <?
                 if ($file_exists) {
                     echo $this->element('Dane.' . $file, array(
                         'object' => $object,

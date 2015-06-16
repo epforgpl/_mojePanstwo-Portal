@@ -7,10 +7,10 @@
         </li>
         <?
         foreach ($menu['items'] as $m) {
-            
-            if( !isset($m['id']) )
-            	$m['id'] = 'view';
-            
+
+            if (!isset($m['id']))
+                $m['id'] = 'view';
+
             $classes = array();
 
             if (isset($m['class']) && !empty($m['class'])) {

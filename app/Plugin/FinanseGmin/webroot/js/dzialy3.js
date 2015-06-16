@@ -8,7 +8,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
         toFixedFix = function (n, prec) {
             var k = Math.pow(10, prec);
             return '' + (Math.round(n * k) / k)
-                .toFixed(prec);
+                    .toFixed(prec);
         };
     // Fix for IE parseFloat(0.55).toFixed(0) = 0;
     s = (prec ? toFixedFix(n, prec) : '' + Math.round(n))
@@ -25,7 +25,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
     return s.join(dec);
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     'use strict';
 
     var api_url = 'http://mojepanstwo.pl:4444/';
@@ -147,19 +147,19 @@ $(document).ready(function() {
             return false;
         },
         select: function (event, ui) {
-            if(ui.item.value === null)
+            if (ui.item.value === null)
                 return false;
 
             $("#teryt_search_input").val(ui.item.name);
 
-            $.getJSON(api_url + 'finanse/finanse/getCommuneData?id=' + ui.item.value, function(data) {
+            $.getJSON(api_url + 'finanse/finanse/getCommuneData?id=' + ui.item.value, function (data) {
 
-                if(!data || data.length === 0) {
+                if (!data || data.length === 0) {
                     $('#section_' + _dzial_id + '_addon').css('display', 'none');
                     return false;
                 }
 
-                for(var i = 0; i < data.length; i++) {
+                for (var i = 0; i < data.length; i++) {
                     var _dzial_id = parseInt(data[i].dzial_id);
                     var _sum_wydatki = parseInt(data[i].sum_wydatki);
                     $('#section_' + _dzial_id + '_addon').css('display', 'block');

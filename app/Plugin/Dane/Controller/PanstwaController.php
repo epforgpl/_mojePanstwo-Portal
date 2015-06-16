@@ -10,7 +10,7 @@ class PanstwaController extends DataobjectsController
     {
         parent::_prepareView();
     }
-    
+
     public function beforeRender()
     {
 

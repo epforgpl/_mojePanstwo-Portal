@@ -7,29 +7,29 @@ class ZbioryController extends DataobjectsController
 
     public function view()
     {
-		
-		if( isset($this->request->params['alias']) ) {
-					
-			$this->params->id = $this->params->alias;
-			$this->search_field = 'zbiory.slug';
-		
-		} else {
-			
-			parent::_prepareView();
-			return $this->redirect('/dane/' . $this->object->getData('slug'));
-			
-		}
-		
-		parent::_prepareView();		
-        
+
+        if (isset($this->request->params['alias'])) {
+
+            $this->params->id = $this->params->alias;
+            $this->search_field = 'zbiory.slug';
+
+        } else {
+
+            parent::_prepareView();
+            return $this->redirect('/dane/' . $this->object->getData('slug'));
+
+        }
+
+        parent::_prepareView();
+
         $params = array(
             'dataset' => $this->object->getData('slug'),
             'limit' => 50
         );
-                
-        if( $this->object->getId() == '185' )
-	        $params['source'] = 'zbiory.katalog:1';
-        
+
+        if ($this->object->getId() == '185')
+            $params['source'] = 'zbiory.katalog:1';
+
         $this->dataobjectsBrowserView($params);
 
         $this->set('title_for_layout', $this->object->getData('nazwa'));

@@ -1,34 +1,34 @@
-$(function() {
+$(function () {
 
-    $('.form-user-edit').each(function() {
+    $('.form-user-edit').each(function () {
 
         var form = $(this);
         var field = form.attr('data-field');
         var type = (field == 'email' ? 'email' : 'text');
         var action = (field == 'email' ? 'setEmail' : 'setUserName');
 
-            form.find('a').first().click(function() {
+        form.find('a').first().click(function () {
 
             var a = $(this);
-                a.hide();
+            a.hide();
 
             var value = a.text().trim();
 
             form.append(
                 '<div class="input-group">' +
-                    '<input type="' + type + '" class="form-control" name="' + field + '" value="' + value + '">' +
-                    '<span class="input-group-btn">' +
-                        '<button class="btn btn-default saveDataField" type="button">Zapisz</button>' +
-                        '<button class="btn btn-default cancelDataField" type="button">Anuluj</button>' +
-                    '</span>' +
+                '<input type="' + type + '" class="form-control" name="' + field + '" value="' + value + '">' +
+                '<span class="input-group-btn">' +
+                '<button class="btn btn-default saveDataField" type="button">Zapisz</button>' +
+                '<button class="btn btn-default cancelDataField" type="button">Anuluj</button>' +
+                '</span>' +
                 '</div>'
             );
 
             var group = form.find('.input-group').first();
             var input = form.find('input').first();
-                input.focus();
+            input.focus();
 
-            form.find('button.cancelDataField').first().click(function() {
+            form.find('button.cancelDataField').first().click(function () {
                 form.find('.input-group')
                     .first()
                     .remove();
@@ -36,18 +36,18 @@ $(function() {
                 a.show();
             });
 
-            form.find('button.saveDataField').first().click(function() {
+            form.find('button.saveDataField').first().click(function () {
 
                 var newValue = input.val();
 
-                if(newValue.length < 3) {
+                if (newValue.length < 3) {
                     group.addClass('has-error');
                     return false;
                 }
 
-                $.post("/paszport/user/" + action, { value: newValue } , function(data) {
+                $.post("/paszport/user/" + action, {value: newValue}, function (data) {
 
-                    if(data == 'true') {
+                    if (data == 'true') {
 
                         a.find('b')
                             .first()
@@ -73,63 +73,66 @@ $(function() {
 
     });
 
-    $('#form-user-edit-password a').click(function() {
+    $('#form-user-edit-password a').click(function () {
 
         var form = $('#form-user-edit-password');
         var a = form.find('a').first();
-            a.hide();
+        a.hide();
 
-        var closeForm = function() {
+        var closeForm = function () {
             a.show();
             form.find('.edit-password-form-groups').first().remove();
         };
 
         form.append(
             '<div class="edit-password-form-groups">' +
-                '<div class="form-group">' +
-                    '<label for="inputOldPassword">Aktualne hasło</label>' +
-                    '<input id="inputOldPassword" value="" type="password" class="form-control" name="oldPassword">' +
-                '</div>' +
-                '<div class="form-group">' +
-                    '<label for="inputNewPassword">Nowe hasło</label>' +
-                    '<input id="inputNewPassword" value="" type="password" class="form-control" name="newPassword">' +
-                '</div>' +
-                '<div class="form-group">' +
-                    '<label for="inputConfirmNewPassword">Potwierdź nowe hasło</label>' +
-                    '<input id="inputConfirmNewPassword" value="" type="password" class="form-control" name="confirmNewPassword">' +
-                '</div>' +
-                '<button type="submit" class="btn btn-link edit-password-cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Anuluj</button> ' +
-                '<button type="submit" class="btn btn-link edit-password-submit"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Zapisz</button>' +
+            '<div class="form-group">' +
+            '<label for="inputOldPassword">Aktualne hasło</label>' +
+            '<input id="inputOldPassword" value="" type="password" class="form-control" name="oldPassword">' +
+            '</div>' +
+            '<div class="form-group">' +
+            '<label for="inputNewPassword">Nowe hasło</label>' +
+            '<input id="inputNewPassword" value="" type="password" class="form-control" name="newPassword">' +
+            '</div>' +
+            '<div class="form-group">' +
+            '<label for="inputConfirmNewPassword">Potwierdź nowe hasło</label>' +
+            '<input id="inputConfirmNewPassword" value="" type="password" class="form-control" name="confirmNewPassword">' +
+            '</div>' +
+            '<button type="submit" class="btn btn-link edit-password-cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Anuluj</button> ' +
+            '<button type="submit" class="btn btn-link edit-password-submit"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Zapisz</button>' +
             '</div>'
         );
 
         var group = form.find('.edit-password-form-groups').first();
-            group.find('.form-group input').first().focus();
+        group.find('.form-group input').first().focus();
 
-        group.find('button.edit-password-cancel').first().click(function() {
+        group.find('button.edit-password-cancel').first().click(function () {
             closeForm();
             return false;
         });
 
-        group.find('button.edit-password-submit').first().click(function() {
+        group.find('button.edit-password-submit').first().click(function () {
 
             var oldPassword = $('#inputOldPassword').val();
             var confirmNewPassword = $('#inputConfirmNewPassword').val();
             var newPassword = $('#inputNewPassword').val();
 
-            if(oldPassword.length < 6 || newPassword.length < 6 || newPassword != confirmNewPassword) {
-                group.find('.form-group').each(function() {
+            if (oldPassword.length < 6 || newPassword.length < 6 || newPassword != confirmNewPassword) {
+                group.find('.form-group').each(function () {
                     $(this).addClass('has-error');
                 });
                 return false;
             }
 
-            $.post("/paszport/user/setPassword", { old_password: oldPassword, new_password: newPassword } , function(data) {
+            $.post("/paszport/user/setPassword", {
+                old_password: oldPassword,
+                new_password: newPassword
+            }, function (data) {
 
-                if(data == 'true') {
+                if (data == 'true') {
                     closeForm();
                 } else {
-                    group.find('.form-group').each(function() {
+                    group.find('.form-group').each(function () {
                         $(this).addClass('has-error');
                     });
                 }
@@ -144,17 +147,17 @@ $(function() {
         return false;
     });
 
-    $('#submitDeletePaszport').click(function() {
+    $('#submitDeletePaszport').click(function () {
         var password = $('#inputDeletePassword').val();
 
-        if(password == '') {
+        if (password == '') {
             $('#inputDeletePassword').parent('.form-group').addClass('has-error');
             return false;
         }
 
-        $.post("/paszport/user/delete", { password: password } , function(data) {
+        $.post("/paszport/user/delete", {password: password}, function (data) {
 
-            if(data == 'true') {
+            if (data == 'true') {
                 $(location).attr('href', '/paszport/users/logout');
             } else {
                 $('#inputDeletePassword').parent('.form-group').addClass('has-error');

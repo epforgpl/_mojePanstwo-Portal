@@ -2,7 +2,7 @@
     <div class="col-md-1">
         <div class="row">
             <img onerror="imgFixer(this)"
-                    src="http://resources.sejmometr.pl/mowcy/a/2/<?php echo $object->getData('ludzie_poslowie.mowca_id') ?>.jpg"/>
+                 src="http://resources.sejmometr.pl/mowcy/a/2/<?php echo $object->getData('ludzie_poslowie.mowca_id') ?>.jpg"/>
         </div>
     </div>
     <div class="col-md-11">

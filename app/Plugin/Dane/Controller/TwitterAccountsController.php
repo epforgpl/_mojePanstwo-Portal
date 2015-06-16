@@ -20,9 +20,9 @@ class TwitterAccountsController extends DataobjectsController
     public function view()
     {
 
-		$this->addInitLayers(array('powiazania'));
+        $this->addInitLayers(array('powiazania'));
         parent::load();
-        
+
         $powiazania = $this->object->loadLayer('powiazania');
 
         if (
@@ -33,11 +33,11 @@ class TwitterAccountsController extends DataobjectsController
             return $this->redirect('/dane/poslowie/' . $powiazania['posel_id'] . '/twitter');
 
         }
-        
+
         $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'twitter',
-	            'twitter.twitter_account_id' => $this->object->getId(),
+                'dataset' => 'twitter',
+                'twitter.twitter_account_id' => $this->object->getId(),
             ),
         ));
         // $this->set('DataBrowserTitle', 'Grupy wskaźników w tej kategorii');

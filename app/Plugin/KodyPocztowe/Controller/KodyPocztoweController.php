@@ -7,19 +7,19 @@ class KodyPocztoweController extends ApplicationsController
 {
     public $uses = array('KodyPocztowe.KodPocztowy', 'Dane.Dataobject');
     public $components = array('Session', 'Paginator', 'RequestHandler');
-	
-	public $settings = array(
+
+    public $settings = array(
         'id' => 'kody_pocztowe',
-		'title' => 'Kody pocztowe',
-		// 'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce',
-		// 'headerImg' => 'prawo',
-	);
-	
-	public function getMenu()
-	{
-		return false;
-	}
-	
+        'title' => 'Kody pocztowe',
+        // 'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce',
+        // 'headerImg' => 'prawo',
+    );
+
+    public function getMenu()
+    {
+        return false;
+    }
+
     public function index()
     {
 
@@ -33,15 +33,15 @@ class KodyPocztoweController extends ApplicationsController
         $this->set('kod', $kod);
 
         if ($kod) {
-	        
-	        $code = $this->Dataobject->find('all', array(
-		        'conditions' => array(
-			        'dataset' => 'kody_pocztowe',
-			        'kody_pocztowe.kod' => $kod,
-		        ),
-	        ));
 
-	        
+            $code = $this->Dataobject->find('all', array(
+                'conditions' => array(
+                    'dataset' => 'kody_pocztowe',
+                    'kody_pocztowe.kod' => $kod,
+                ),
+            ));
+
+
             if ($code && $code[0]) {
                 return $this->redirect('/dane/kody_pocztowe/' . $code[0]->getId());
             } else {
@@ -103,15 +103,15 @@ class KodyPocztoweController extends ApplicationsController
 
             $q = @$this->request->query['q'];
             if ($q) {
-	            
 
-	            $objects = $this->Dataobject->find('all', array(
-		            'conditions' => array(
-			            'dataset' => 'kody_pocztowe_ulice',
-			            'q' => $q,
-		            ),
-	            ));
-	                            
+
+                $objects = $this->Dataobject->find('all', array(
+                    'conditions' => array(
+                        'dataset' => 'kody_pocztowe_ulice',
+                        'q' => $q,
+                    ),
+                ));
+
 
                 foreach ($objects as $obj) {
 

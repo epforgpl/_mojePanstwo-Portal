@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
     'use strict';
 
     var hz_map = $('#hzMap'),
@@ -12,12 +12,12 @@ $(function() {
         hz_year_last,
         hz_map_data;
 
-    $.getJSON('/HandelZagraniczny/files/world.geo.json', function(j) {
+    $.getJSON('/HandelZagraniczny/files/world.geo.json', function (j) {
         hz_map_data = Highcharts.geojson(j, 'map');
         hz_createHighChart();
     });
 
-    $('.hzTypeMenu li a').click(function() {
+    $('.hzTypeMenu li a').click(function () {
         $('.hzTypeMenu li.active').toggleClass('active');
         $(this).parent('li').toggleClass('active');
         hz_type = $(this).text().toLowerCase();
@@ -25,15 +25,15 @@ $(function() {
         return false;
     });
 
-    $('select.hzYearSelect').change(function() {
+    $('select.hzYearSelect').change(function () {
         hz_year = parseInt($(this).find(':selected').text());
         hz_createHighChart();
         return false;
     });
 
-    var hz_getCountriesData = function(year, doneFunction) {
-        if(hz_countries_data[year] === undefined) {
-            $.getJSON(hz_api + 'getCountriesData.json?year=' + year, function(d) {
+    var hz_getCountriesData = function (year, doneFunction) {
+        if (hz_countries_data[year] === undefined) {
+            $.getJSON(hz_api + 'getCountriesData.json?year=' + year, function (d) {
                 hz_countries_data[year] = d;
                 doneFunction(d);
             });
@@ -42,9 +42,9 @@ $(function() {
         }
     };
 
-    var hz_getTopSymbolsData = function(year, doneFunction) {
-        if(hz_top_symbols_data[year] === undefined) {
-            $.getJSON(hz_api + 'getTopSymbolsData.json?year=' + year, function(d) {
+    var hz_getTopSymbolsData = function (year, doneFunction) {
+        if (hz_top_symbols_data[year] === undefined) {
+            $.getJSON(hz_api + 'getTopSymbolsData.json?year=' + year, function (d) {
                 hz_top_symbols_data[year] = d;
                 doneFunction(d);
             });
@@ -53,109 +53,109 @@ $(function() {
         }
     };
 
-    var hz_updateCountriesDetails = function(countries) {
+    var hz_updateCountriesDetails = function (countries) {
         var limit = 5;
-        $('span.hzYearAttr').each(function() {
+        $('span.hzYearAttr').each(function () {
             $(this).html(hz_year);
         });
 
         var c_import_max_i = [];
         var is = false;
-        for(var l = 0; l < limit; l++) {
+        for (var l = 0; l < limit; l++) {
             var max_i = 0;
-            for(var i = 0; i < countries.length; i++) {
+            for (var i = 0; i < countries.length; i++) {
                 is = false;
-                for(var c = 0; c < c_import_max_i.length; c++) {
-                    if(i === c_import_max_i[c]) {
+                for (var c = 0; c < c_import_max_i.length; c++) {
+                    if (i === c_import_max_i[c]) {
                         is = true;
                         break;
                     }
                 }
-                if(!is && parseInt(countries[max_i].import) < parseInt(countries[i].import))
+                if (!is && parseInt(countries[max_i].import) < parseInt(countries[i].import))
                     max_i = i;
             }
             c_import_max_i.push(max_i);
         }
 
         $('#hzImportCountries').html('');
-        for(var i = 0; i < c_import_max_i.length; i++) {
+        for (var i = 0; i < c_import_max_i.length; i++) {
             var c = countries[c_import_max_i[i]];
             $('#hzImportCountries').append('<li class="list-group-item"><span class="badge">' + pl_currency_format(c.import) + ' zł</span><img src="/img/flags/' + c.code + '.png"/> <a href="/dane/panstwa/' + c.id + '?y=' + hz_year + '">' + c.kraj + '</a></li>');
         }
 
         $('#hzImportCountries').append('<li class="list-group-item text-center"><a class="more" href="#more">więcej</a></li>');
 
-        $('#hzImportCountries a.more').click(function() {
+        $('#hzImportCountries a.more').click(function () {
             more.open('countries', 'import');
         });
 
         var c_eksport_max_i = [];
         var is = false;
-        for(var l = 0; l < limit; l++) {
+        for (var l = 0; l < limit; l++) {
             var max_i = 0;
-            for(var i = 0; i < countries.length; i++) {
+            for (var i = 0; i < countries.length; i++) {
                 is = false;
-                for(var c = 0; c < c_eksport_max_i.length; c++) {
-                    if(i === c_eksport_max_i[c]) {
+                for (var c = 0; c < c_eksport_max_i.length; c++) {
+                    if (i === c_eksport_max_i[c]) {
                         is = true;
                         break;
                     }
                 }
-                if(!is && parseInt(countries[max_i].eksport) < parseInt(countries[i].eksport))
+                if (!is && parseInt(countries[max_i].eksport) < parseInt(countries[i].eksport))
                     max_i = i;
             }
             c_eksport_max_i.push(max_i);
         }
 
         $('#hzExportCountries').html('');
-        for(var i = 0; i < c_eksport_max_i.length; i++) {
+        for (var i = 0; i < c_eksport_max_i.length; i++) {
             var c = countries[c_eksport_max_i[i]];
             $('#hzExportCountries').append('<li class="list-group-item"><span class="badge">' + pl_currency_format(c.eksport) + ' zł</span><img src="/img/flags/' + c.code + '.png"/> <a href="/dane/panstwa/' + c.id + '?y=' + hz_year + '">' + c.kraj + '</a></li>');
         }
 
         $('#hzExportCountries').append('<li class="list-group-item text-center"><a class="more" href="#more">więcej</a></li>');
 
-        $('#hzExportCountries a.more').click(function() {
+        $('#hzExportCountries a.more').click(function () {
             more.open('countries', 'export');
         });
     };
 
-    var hz_updateTopSymbolsDetails = function(symbols) {
+    var hz_updateTopSymbolsDetails = function (symbols) {
 
         $('#hzImportSymbols').html('');
-        for(var i = 0; i < symbols.import.length; i++) {
+        for (var i = 0; i < symbols.import.length; i++) {
             var s = symbols.import[i];
             $('#hzImportSymbols').append('<li class="list-group-item"><span class="badge">' + pl_currency_format(s.wartosc_pln) + ' zł</span><a href="/dane/handel_zagraniczny_towary/' + s.id + '?y=' + hz_year + '">' + s.nazwa.trim() + '</a></li>');
         }
 
         $('#hzImportSymbols').append('<li class="list-group-item text-center"><a class="more" href="#more">więcej</a></li>');
 
-        $('#hzImportSymbols a.more').click(function() {
+        $('#hzImportSymbols a.more').click(function () {
             more.open('symbols', 'import');
         });
 
         $('#hzExportSymbols').html('');
-        for(var i = 0; i < symbols.export.length; i++) {
+        for (var i = 0; i < symbols.export.length; i++) {
             var s = symbols.export[i];
             $('#hzExportSymbols').append('<li class="list-group-item"><span class="badge">' + pl_currency_format(s.wartosc_pln) + ' zł</span><a href="/dane/handel_zagraniczny_towary/' + s.id + '?y=' + hz_year + '">' + s.nazwa.trim() + '</a></li>');
         }
 
         $('#hzExportSymbols').append('<li class="list-group-item text-center"><a class="more" href="#more">więcej</a></li>');
 
-        $('#hzExportSymbols a.more').click(function() {
+        $('#hzExportSymbols a.more').click(function () {
             more.open('symbols', 'export');
         });
     };
 
-    var hz_createHighChart = function() {
-        if((hz_type_last === hz_type && hz_year_last === hz_year) || !hz_map_data)
+    var hz_createHighChart = function () {
+        if ((hz_type_last === hz_type && hz_year_last === hz_year) || !hz_map_data)
             return false;
 
-        hz_getTopSymbolsData(hz_year, function(symbolsData) {
+        hz_getTopSymbolsData(hz_year, function (symbolsData) {
             hz_updateTopSymbolsDetails(symbolsData);
         });
 
-        hz_getCountriesData(hz_year, function(countriesData) {
+        hz_getCountriesData(hz_year, function (countriesData) {
 
             hz_updateCountriesDetails(countriesData);
 
@@ -165,7 +165,7 @@ $(function() {
             var hz_tooltip_format = '';
             var hz_tooltip = {};
 
-            switch(hz_type) {
+            switch (hz_type) {
                 case 'bilans':
                     hz_colorAxis = false;
                     hz_tooltip = {
@@ -176,12 +176,12 @@ $(function() {
                         padding: 0,
                         headerFormat: '',
                         pointFormat: '<h3>{point.nazwa}</h3><table><tr><th><b>Import:</b> {point.import} zł</th><th><b>Eksport:</b> {point.eksport} zł</th></tr>{point.symbole.wartosc_pln}</table>',
-                        formatter: function() {
+                        formatter: function () {
                             var h = '';
                             h += '<img class="hzFlagIcon" src="/img/flags/' + this.point.code + '.png" alt="' + this.point.nazwa + '"/>';
                             h += '<h3>' + this.point.nazwa + '</h3>';
                             h += '<table><tr><th>Import: <b>' + this.point.import + ' zł</b></th><th>Eksport: <b>' + this.point.eksport + ' zł</b></th></tr>';
-                            for(var i = 0; i < this.point.symbole.import.length; i++) {
+                            for (var i = 0; i < this.point.symbole.import.length; i++) {
                                 var import_nazwa = short(this.point.symbole.import[i].nazwa, 30).capitalize();
                                 var eksport_nazwa = short(this.point.symbole.eksport[i].nazwa, 30).capitalize();
                                 h += '<tr>';
@@ -196,11 +196,11 @@ $(function() {
                     };
 
                     /*
-                    hz_tooltip = {
-                        headerFormat: '',
-                        pointFormat: '<b>{point.nazwa}</b><br/><b>Bilans:</b> {point.bilans} zł<br/><b>Import:</b> {point.import} zł<br/><b>Eksport:</b> {point.eksport} zł'
-                    }; */
-                break;
+                     hz_tooltip = {
+                     headerFormat: '',
+                     pointFormat: '<b>{point.nazwa}</b><br/><b>Bilans:</b> {point.bilans} zł<br/><b>Import:</b> {point.import} zł<br/><b>Eksport:</b> {point.eksport} zł'
+                     }; */
+                    break;
 
                 case 'import':
                     hz_colorAxis = {
@@ -215,7 +215,7 @@ $(function() {
                         useHTML: true,
                         headerFormat: '',
                         pointFormat: '',
-                        formatter: function() {
+                        formatter: function () {
                             var h = '';
                             h += '<div>';
                             h += '<img class="hzFlagIcon" src="/img/flags/' + this.point.code + '.png" alt="' + this.point.nazwa + '"/>';
@@ -230,7 +230,7 @@ $(function() {
                             return h;
                         }
                     };
-                break;
+                    break;
 
                 case 'eksport':
                     hz_colorAxis = {
@@ -245,7 +245,7 @@ $(function() {
                         useHTML: true,
                         headerFormat: '',
                         pointFormat: '',
-                        formatter: function() {
+                        formatter: function () {
                             var h = '';
                             h += '<div>';
                             h += '<img class="hzFlagIcon" src="/img/flags/' + this.point.code + '.png" alt="' + this.point.nazwa + '"/>';
@@ -260,7 +260,7 @@ $(function() {
                             return h;
                         }
                     };
-                break;
+                    break;
 
                 case 'wymiana':
                     hz_colorAxis = {
@@ -275,7 +275,7 @@ $(function() {
                         useHTML: true,
                         headerFormat: '',
                         pointFormat: '',
-                        formatter: function() {
+                        formatter: function () {
                             var h = '';
                             h += '<div>';
                             h += '<img class="hzFlagIcon" src="/img/flags/' + this.point.code + '.png" alt="' + this.point.nazwa + '"/>';
@@ -290,7 +290,7 @@ $(function() {
                             return h;
                         }
                     };
-                break;
+                    break;
             }
             var cd_max_import = max_import(countriesData);
             var cd_max_eksport = max_eksport(countriesData);
@@ -299,7 +299,7 @@ $(function() {
                 var cd_import = parseInt(this.import);
                 var cd_eksport = parseInt(this.eksport);
 
-                switch(hz_type) {
+                switch (hz_type) {
                     case 'bilans':
                         var cd_char = (cd_eksport >= cd_import) ? '+' : '-';
                         if (cd_import > 0 && cd_eksport > 0) {
@@ -314,7 +314,7 @@ $(function() {
                                 color: (cd_eksport >= cd_import) ? '#1FAD32' : '#AD1F1F'
                             });
                         }
-                    break;
+                        break;
 
                     case 'import':
                         var cd_char = (cd_eksport >= cd_import) ? '+' : '-';
@@ -330,7 +330,7 @@ $(function() {
                                 nazwa: this.kraj
                             });
                         }
-                    break;
+                        break;
 
                     case 'eksport':
                         var cd_char = (cd_eksport >= cd_import) ? '+' : '-';
@@ -346,7 +346,7 @@ $(function() {
                                 nazwa: this.kraj
                             });
                         }
-                    break;
+                        break;
 
                     case 'wymiana':
                         var cd_char = (cd_eksport >= cd_import) ? '+' : '-';
@@ -421,38 +421,40 @@ $(function() {
 
     function max_eksport(countries) {
         var max = parseInt(countries[0].eksport);
-        for(var i = 0; i < countries.length; i++) {
-            if(parseInt(countries[i].eksport) > max)
+        for (var i = 0; i < countries.length; i++) {
+            if (parseInt(countries[i].eksport) > max)
                 max = parseInt(countries[i].eksport);
         }
 
         return max;
     }
+
     function max_import(countries) {
         var max = parseInt(countries[0].import);
-        for(var i = 0; i < countries.length; i++) {
-            if(parseInt(countries[i].import) > max)
+        for (var i = 0; i < countries.length; i++) {
+            if (parseInt(countries[i].import) > max)
                 max = parseInt(countries[i].import);
         }
 
         return max;
     }
+
     function min_import(countries) {
         var min = parseInt(countries[0].import);
-        for(var i = 0; i < countries.length; i++) {
-            if(parseInt(countries[i].import) < min)
+        for (var i = 0; i < countries.length; i++) {
+            if (parseInt(countries[i].import) < min)
                 min = parseInt(countries[i].import);
         }
 
         return min;
     }
 
-    String.prototype.capitalize = function() {
+    String.prototype.capitalize = function () {
         return this.charAt(0).toUpperCase() + this.slice(1);
     };
 
     function short(s, len) {
-        if(s.length > len) {
+        if (s.length > len) {
             return s.substr(0, len) + '..';
         } else {
             return s;
@@ -465,33 +467,34 @@ $(function() {
         var mln = 0;
         var tys = 0;
 
-        if(n > 1000000000) {
+        if (n > 1000000000) {
             mld = Math.floor(n / 1000000000);
             n -= mld * 1000000000;
         }
 
-        if(n > 1000000) {
+        if (n > 1000000) {
             mln = Math.floor(n / 1000000);
             n -= mln * 1000000;
         }
 
-        if(n > 1000) {
+        if (n > 1000) {
             tys = Math.floor(n / 1000);
             n -= tys * 1000;
         }
 
-        if(mld > 0)
+        if (mld > 0)
             str += mld + ' mld ';
-        if(mln  > 0)
+        if (mln > 0)
             str += mln + ' mln ';
-        if(tys > 0 && mld === 0)
+        if (tys > 0 && mld === 0)
             str += tys + ' tys';
 
-        if(mld === 0 && mln === 0 && tys === 0)
+        if (mld === 0 && mln === 0 && tys === 0)
             str += number_format(n);
 
         return str.trim();
     }
+
     function number_format(number, decimals, dec_point, thousands_sep) {
         number = (number + '')
             .replace(/[^0-9+\-Ee.]/g, '');
@@ -503,7 +506,7 @@ $(function() {
             toFixedFix = function (n, prec) {
                 var k = Math.pow(10, prec);
                 return '' + (Math.round(n * k) / k)
-                    .toFixed(prec);
+                        .toFixed(prec);
             };
         // Fix for IE parseFloat(0.55).toFixed(0) = 0;
         s = (prec ? toFixedFix(n, prec) : '' + Math.round(n))
@@ -527,140 +530,140 @@ $(function() {
         symbols_import: [],
         symbols_export: [],
 
-        update: function(element_type, type) {
-            switch(element_type) {
+        update: function (element_type, type) {
+            switch (element_type) {
                 default: // countries
-                    switch(type) {
+                    switch (type) {
                         default: // import
                             $('#more #list').html('');
-                            for(var i = 0; i < this.countries_import[hz_year].length; i++) {
+                            for (var i = 0; i < this.countries_import[hz_year].length; i++) {
                                 var c = this.countries_import[hz_year][i];
                                 $('#more #list').append(
                                     '<li class="list-group-item"><span class="badge">' + pl_currency_format(c.import) + ' zł</span><img src="/img/flags/' + c.code + '.png" onerror="if (this.src != \'/img/flags/_unknown.png\') this.src = \'/img/flags/_unknown.png\';"/> <a href="/dane/panstwa/' + c.id + '?y=' + hz_year + '">' + c.kraj + '</a></li>'
                                 );
                             }
-                        break;
+                            break;
 
                         case 'export':
                             $('#more #list').html('');
-                            for(var i = 0; i < this.countries_export[hz_year].length; i++) {
+                            for (var i = 0; i < this.countries_export[hz_year].length; i++) {
                                 var c = this.countries_export[hz_year][i];
                                 $('#more #list').append(
                                     '<li class="list-group-item"><span class="badge">' + pl_currency_format(c.eksport) + ' zł</span><img src="/img/flags/' + c.code + '.png" onerror="if (this.src != \'/img/flags/_unknown.png\') this.src = \'/img/flags/_unknown.png\';"/> <a href="/dane/panstwa/' + c.id + '?y=' + hz_year + '">' + c.kraj + '</a></li>'
                                 );
                             }
-                        break;
+                            break;
                     }
-                break;
+                    break;
                 case 'symbols':
-                    switch(type) {
+                    switch (type) {
                         default: // import
                             $('#more #list').html('');
-                            for(var i = 0; i < this.symbols_import[hz_year].length; i++) {
+                            for (var i = 0; i < this.symbols_import[hz_year].length; i++) {
                                 var c = this.symbols_import[hz_year][i];
                                 $('#more #list').append(
                                     '<li class="list-group-item"><span class="badge">' + pl_currency_format(c.wartosc_pln) + ' zł</span><a href="/dane/handel_zagraniczny_towary/' + c.id + '?y=' + hz_year + '">' + c.nazwa + '</a></li>'
                                 );
                             }
-                        break;
+                            break;
 
                         case 'export':
                             $('#more #list').html('');
-                            for(var i = 0; i < this.symbols_export[hz_year].length; i++) {
+                            for (var i = 0; i < this.symbols_export[hz_year].length; i++) {
                                 var c = this.symbols_export[hz_year][i];
                                 $('#more #list').append(
                                     '<li class="list-group-item"><span class="badge">' + pl_currency_format(c.wartosc_pln) + ' zł</span><a href="/dane/handel_zagraniczny_towary/' + c.id + '?y=' + hz_year + '">' + c.nazwa + '</a></li>'
                                 );
                             }
-                        break;
+                            break;
                     }
-                break;
+                    break;
             }
         },
 
-        open: function(element_type, type) {
+        open: function (element_type, type) {
             var t = this;
             $('#more').html('');
-            switch(element_type) {
+            switch (element_type) {
                 default: // countries
-                    switch(type) {
+                    switch (type) {
                         default: // import
                             $('#more').append('<a class="close" href="#close">x</a><h1>Import</h1><h2>Państwa od których Polska importowała najwięcej w ' + hz_year + ' roku</h2><ul class="list-group" id="list"></ul>');
-                            if(this.countries_import[hz_year] === undefined) {
-                                this.getCountries(hz_year, 'import', function(data) {
+                            if (this.countries_import[hz_year] === undefined) {
+                                this.getCountries(hz_year, 'import', function (data) {
                                     t.countries_import[hz_year] = data;
                                     t.update('countries', 'import');
                                 });
                             } else {
                                 t.update('countries', 'import');
                             }
-                            $('#more a.close').click(function() {
+                            $('#more a.close').click(function () {
                                 t.close();
                             });
-                        break;
+                            break;
 
                         case 'export':
                             $('#more').append('<a class="close" href="#close">x</a><h1>Eksport</h1><h2>Państwa do których Polska eksportowała najwięcej w ' + hz_year + ' roku</h2><ul class="list-group" id="list"></ul>');
-                            if(this.countries_export[hz_year] === undefined) {
-                                this.getCountries(hz_year, 'export', function(data) {
+                            if (this.countries_export[hz_year] === undefined) {
+                                this.getCountries(hz_year, 'export', function (data) {
                                     t.countries_export[hz_year] = data;
                                     t.update('countries', 'export');
                                 });
                             } else {
                                 t.update('countries', 'export');
                             }
-                            $('#more a.close').click(function() {
+                            $('#more a.close').click(function () {
                                 t.close();
                             });
-                        break;
+                            break;
                     }
-                break;
+                    break;
 
                 case 'symbols':
-                    switch(type) {
+                    switch (type) {
                         default: // import
                             $('#more').append('<a class="close" href="#close">x</a><h1>Import</h1><h2>Towary których Polska eksportowała najwięcej w ' + hz_year + ' roku</h2><ul class="list-group" id="list"></ul>');
-                            if(this.symbols_import[hz_year] === undefined) {
-                                this.get(hz_year, 'import', function(data) {
+                            if (this.symbols_import[hz_year] === undefined) {
+                                this.get(hz_year, 'import', function (data) {
                                     t.symbols_import[hz_year] = data;
                                     t.update('symbols', 'import');
                                 });
                             } else {
                                 t.update('symbols', 'import');
                             }
-                            $('#more a.close').click(function() {
+                            $('#more a.close').click(function () {
                                 t.close();
                             });
-                        break;
+                            break;
 
                         case 'export':
                             $('#more').append('<a class="close" href="#close">x</a><h1>Eksport</h1><h2>Towary których Polska eksportowała najwięcej w ' + hz_year + ' roku</h2><ul class="list-group" id="list"></ul>');
-                            if(this.symbols_export[hz_year] === undefined) {
-                                this.get(hz_year, 'export', function(data) {
+                            if (this.symbols_export[hz_year] === undefined) {
+                                this.get(hz_year, 'export', function (data) {
                                     t.symbols_export[hz_year] = data;
                                     t.update('symbols', 'export');
                                 });
                             } else {
                                 t.update('symbols', 'export');
                             }
-                            $('#more a.close').click(function() {
+                            $('#more a.close').click(function () {
                                 t.close();
                             });
-                        break;
+                            break;
                     }
-                break;
+                    break;
             }
 
             $('#morebg').show();
             $('#more').show();
         },
 
-        close: function() {
+        close: function () {
             $('#morebg').hide();
             $('#more').hide();
         },
 
-        get: function(year, type, done_function) {
+        get: function (year, type, done_function) {
             $.getJSON(
                 apiHost + 'handel_zagraniczny/stats/getSymbols.json' +
                 '?parent_id=0' +
@@ -671,70 +674,70 @@ $(function() {
             );
         },
 
-        getCountries: function(year, type, done_function) {
+        getCountries: function (year, type, done_function) {
 
-            switch(type) {
+            switch (type) {
                 default:// import
                     var _countries = [];
-                    hz_getCountriesData(hz_year, function(countries) {
+                    hz_getCountriesData(hz_year, function (countries) {
                         var c_import_max_i = [];
                         var is = false;
-                        for(var l = 0; l < countries.length; l++) {
+                        for (var l = 0; l < countries.length; l++) {
                             var max_i = 0;
-                            for(var i = 0; i < countries.length; i++) {
+                            for (var i = 0; i < countries.length; i++) {
                                 is = false;
-                                for(var c = 0; c < c_import_max_i.length; c++) {
-                                    if(i === c_import_max_i[c]) {
+                                for (var c = 0; c < c_import_max_i.length; c++) {
+                                    if (i === c_import_max_i[c]) {
                                         is = true;
                                         break;
                                     }
                                 }
-                                if(!is && parseInt(countries[max_i].import) < parseInt(countries[i].import))
+                                if (!is && parseInt(countries[max_i].import) < parseInt(countries[i].import))
                                     max_i = i;
                             }
                             c_import_max_i.push(max_i);
                         }
 
-                        for(var i = 0; i < c_import_max_i.length; i++) {
-                            if(c_import_max_i[i] == 0) continue;
+                        for (var i = 0; i < c_import_max_i.length; i++) {
+                            if (c_import_max_i[i] == 0) continue;
                             var c = countries[c_import_max_i[i]];
                             _countries.push(c);
                         }
 
                         done_function(_countries);
                     });
-                break;
+                    break;
 
                 case 'export':
                     var _countries = [];
-                    hz_getCountriesData(hz_year, function(countries) {
+                    hz_getCountriesData(hz_year, function (countries) {
                         var c_eksport_max_i = [];
                         var is = false;
-                        for(var l = 0; l < countries.length; l++) {
+                        for (var l = 0; l < countries.length; l++) {
                             var max_i = 0;
-                            for(var i = 0; i < countries.length; i++) {
+                            for (var i = 0; i < countries.length; i++) {
                                 is = false;
-                                for(var c = 0; c < c_eksport_max_i.length; c++) {
-                                    if(i === c_eksport_max_i[c]) {
+                                for (var c = 0; c < c_eksport_max_i.length; c++) {
+                                    if (i === c_eksport_max_i[c]) {
                                         is = true;
                                         break;
                                     }
                                 }
-                                if(!is && parseInt(countries[max_i].eksport) < parseInt(countries[i].eksport))
+                                if (!is && parseInt(countries[max_i].eksport) < parseInt(countries[i].eksport))
                                     max_i = i;
                             }
                             c_eksport_max_i.push(max_i);
                         }
 
-                        for(var i = 0; i < c_eksport_max_i.length; i++) {
-                            if(c_eksport_max_i[i] == 0) continue;
+                        for (var i = 0; i < c_eksport_max_i.length; i++) {
+                            if (c_eksport_max_i[i] == 0) continue;
                             var c = countries[c_eksport_max_i[i]];
                             _countries.push(c);
                         }
 
                         done_function(_countries);
                     });
-                break;
+                    break;
             }
         }
     };
