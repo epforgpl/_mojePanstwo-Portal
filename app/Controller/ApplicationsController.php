@@ -136,7 +136,7 @@ class ApplicationsController extends AppController
 	    }
 	    	    
     }
-
+    
     public function getMenu()
     {
 				
