@@ -147,7 +147,10 @@ class ApplicationsController extends AppController
 		
 		$menu['items'][] = array(
 			'label' => $this->mainMenuLabel,
-			'icon' => 'home',
+			'icon' => array(
+				'src' => 'glyphicon',
+				'id' => 'home',
+			),
 		);
 		
 		if( array_key_exists($this->settings['id'], $this->datasets) ) {
