@@ -25,7 +25,6 @@ class PanstwaController extends DataobjectsController
                     'id' => '',
                     'href' => $href_base,
                     'label' => 'Handel zagraniczny',
-                    // 'icon' => 'glyphicon glyphicon-feed',
                 ),
             )
         );
