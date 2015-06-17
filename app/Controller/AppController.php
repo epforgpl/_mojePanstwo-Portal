@@ -360,10 +360,10 @@ class AppController extends Controller
         ),
         */
         'dane' => array(
-            'name' => 'Dane publiczne',
+            'name' => 'Szukaj w danych publicznych',
             'href' => '/dane',
             'tag' => 0,
-            'icon' => '&#xe605;',
+            'icon' => '&#xe600;',
         ),
         
         /*
@@ -606,14 +606,11 @@ class AppController extends Controller
         parent::beforeFilter();
         $this->Auth->allow();
 
-        // debug($this->getApplications()); die();
-
         $this->set('statusbarCrumbs', $this->statusbarCrumbs);
         $this->set('statusbarMode', $this->statusbarMode);
         $this->set('_APPLICATIONS', $this->getApplications());
         $this->set('_APPLICATION', $this->getApplication());
         $this->set('domainMode', $this->domainMode);
-        $this->set('appSelected', $this->appSelected);
 
 //		// remember path for redirect if necessary
 //		if ( Router::url( null ) != '/null' ) { // hack for bug
@@ -710,7 +707,8 @@ class AppController extends Controller
         $this->set('_applications', $this->applications);
         $this->set('_menu', $menu);
         $this->set('_observeOptions', $this->observeOptions);
-
+        $this->set('appSelected', $this->appSelected);
+        
         $redirect = false;
 
         if ($this->Session->read('Auth.User.id') && $this->Session->read('Pisma.transfer_anonymous')) {
