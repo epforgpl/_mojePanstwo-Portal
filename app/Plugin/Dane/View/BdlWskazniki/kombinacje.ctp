@@ -68,7 +68,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row bdl-details">
                     <div class="col-md-7">
                         <div id="highmap"></div>
                     </div>
@@ -118,27 +118,24 @@
                                                 <li role="presentation" class="dropdown bdl-levels-menu pull-right">
                                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"
                                                        role="button" aria-expanded="false">
-                                                        <? foreach ($dimension['levels'] as $level) { ?>
-                                                            <? if (isset($level['selected'])) { ?>
-                                                                <?= $level["label"] ?> <span class="caret"></span>
-                                                            <? } ?>
-                                                        <? } ?>
+                                                        Obszar <span class="caret"></span>
                                                     </a>
                                                     <ul class="dropdown-menu" role="menu">
-                                                        <? $isset = false; ?>
                                                         <? foreach ($dimension['levels'] as $level) { ?>
-                                                            <? if (!isset($level['selected'])) {
-                                                                $isset = true; ?>
+                                                            <? if (!isset($level['selected'])) { ?>
                                                                 <li>
                                                                     <a href="/dane/bdl_wskazniki/<?= $object->getId() . ',' . $this->request->params['slug'] . '/kombinacje/' . $option['data']['id'] . '/' . $level['id'] ?>">
                                                                         <?= $level["label"] ?>
                                                                     </a>
                                                                 </li>
+                                                            <? } else { ?>
+                                                                <li class="disable">
+                                                                    <a>
+                                                                        <span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                                        &nbsp;<?= $level["label"] ?>
+                                                                    </a>
+                                                                </li>
                                                             <? } ?>
-                                                        <? } ?>
-
-                                                        <? if (!$isset) { ?>
-                                                            <li class="disable"><a>Brak</a></li>
                                                         <? } ?>
                                                     </ul>
                                                 </li>
