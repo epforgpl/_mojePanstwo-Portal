@@ -71,7 +71,7 @@ if (($object->getData('adres_ulica')) && ($object->getData('adres_numer')) && ($
                 <div id="streetView"></div>
             </div>
         </section>
-                </div>
+    </div>
 <? }
 
 if ($object->getId() == '481129') { ?>
@@ -105,7 +105,7 @@ if ($object->getData('sposob_reprezentacji')) { ?>
             <?= $object->getData('sposob_reprezentacji') ?>
         </section>
     </div>
-            <? } ?>
+<? } ?>
 
 	        <div class="organy block-group col-xs-12 col-xs-12">
                 <? if ($organy_count = count($organy)) {
@@ -117,7 +117,7 @@ if ($object->getData('sposob_reprezentacji')) { ?>
         $column_width = 4;
     } else {
         $column_width = 6;
-                    }
+    }
 
     foreach ($organy as $organ) { ?>
                         <div class="block col-lg-<?= $column_width ?>">
@@ -250,8 +250,8 @@ if ($object->getData('sposob_reprezentacji')) { ?>
                             <? } ?>
                         </div>
                     </a>
-                            <? } ?>
-                        </div>
+                <? } ?>
+            </div>
         </section>
     </div>
 <? } ?>
@@ -278,7 +278,14 @@ if ($object->getData('sposob_reprezentacji')) { ?>
     <header>
         <div class="sm">Powiązania</div>
     </header>
+</div>
+
+</div></div>
+
+<div class="powiazania block block-simple col-xs-12">
     <section id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>" data-url="krs_podmioty"></section>
 </div>
+
+<div><div>
 
 <?= $this->Element('dataobject/pageEnd'); ?>

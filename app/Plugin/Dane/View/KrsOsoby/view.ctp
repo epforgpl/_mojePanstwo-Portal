@@ -13,10 +13,10 @@ $this->Combinator->add_libs('js', 'graph-krs');
         <div class="object">
             <div class="block-group col-xs-12 col-xs-12">
                 <? if ($organizacje = $object->getLayer('organizacje')) {
-                    echo $this->Element('Dane.objects/krs_osoby/organizacje', array(
-                        'organizacje' => $organizacje,
-                    ));
-                } ?>
+    echo $this->Element('Dane.objects/krs_osoby/organizacje', array(
+        'organizacje' => $organizacje,
+    ));
+} ?>
             </div>
         </div>
     </div>
@@ -25,9 +25,15 @@ $this->Combinator->add_libs('js', 'graph-krs');
         <header>
             <div class="sm">Powiązania</div>
         </header>
+    </div>
 
+</div></div>
+
+    <div class="powiazania block block-simple col-md-12">
         <section id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>"
                  data-url="krs_osoby"></section>
     </div>
+
+<div><div>
 
 <?= $this->Element('dataobject/pageEnd'); ?>
