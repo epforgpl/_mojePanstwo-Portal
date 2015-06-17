@@ -103,8 +103,7 @@ class SejmometrController extends ApplicationsController
 
     public function okregi()
     {
-
-
+        $this->set('okregi', $this->Sejmometr->okregi());
     }
 
     public function szukaj()
