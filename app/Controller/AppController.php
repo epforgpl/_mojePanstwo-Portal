@@ -185,15 +185,19 @@ class AppController extends Controller
         'moja_gmina' => array(
             'gminy' => array(
             	'label' => 'Gminy',
+            	'menu_id' => 'gminy',
             ),
             'powiaty' => array(
             	'label' => 'Powiaty',
+            	'menu_id' => 'powiaty',
             ),
             'wojewodztwa' => array(
             	'label' => 'Województwa',
+            	'menu_id' => 'wojewodztwa',
             ),
             'miejscowosci' => array(
             	'label' => 'Miejscowosci',
+            	'menu_id' => 'miejscowosci',
             ),
         ),
         'media' => array(
@@ -363,7 +367,7 @@ class AppController extends Controller
             'name' => 'Szukaj w danych publicznych',
             'href' => '/dane',
             'tag' => 0,
-            'icon' => '&#xe600;',
+            'icon' => '&#xe616;',
         ),
         
         /*

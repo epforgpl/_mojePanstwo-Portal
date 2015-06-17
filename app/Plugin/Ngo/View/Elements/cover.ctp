@@ -21,6 +21,11 @@
                 </div>
             </div>
         </section>
+        <footer>
+            <div class="buttons text-center">
+                <a href="/ngo/fundacje" class="btn btn-primary btn-sm">Zobacz więcej</a>
+            </div>
+        </footer>
     </div>
 
     <div class="block col-xs-12">
@@ -42,6 +47,11 @@
                 </div>
             </div>
         </section>
+        <footer>
+            <div class="buttons text-center">
+                <a href="/ngo/stowarzyszenia" class="btn btn-primary btn-sm">Zobacz więcej</a>
+            </div>
+        </footer>
     </div>
 
 </div>

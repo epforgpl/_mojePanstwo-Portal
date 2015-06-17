@@ -55,6 +55,22 @@ class DataBrowserComponent extends Component
                     ),
                 ),
             ),
+            'wojewodztwo_id' => array(
+                'terms' => array(
+                    'field' => 'powiaty.wojewodztwo_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Województwo',
+                    'skin' => 'geo_pl',
+                    'params' => array(
+	                    'unit' => 'wojewodztwa',
+                    ),
+                    'field' => 'powiaty.wojewodztwo_id',
+                ),
+            ),
         ),
         'miejscowosci' => array(
             'typ_id' => array(
