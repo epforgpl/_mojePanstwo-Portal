@@ -1,6 +1,5 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('about_us')) ?>
 
-<div id="fb-root"></div>
 <div id="aboutUs" class="container">
     <div class="col-xs-12 col-md-10 col-md-offset-1">
         <div class="block">
@@ -133,6 +132,7 @@
                 </div>
                 <div class="col-xs-12 col-md-4">
                     <div class="sideContent loading hidden-xs hidden-sm">
+                        <div id="fb-root"></div>
                         <div class="fb-like-box" data-href="https://www.facebook.com/mojepanstwo"
                              data-height="430" data-show-faces="true" data-stream="true"
                              data-border-color="#FFFFFF" data-header="true"></div>
