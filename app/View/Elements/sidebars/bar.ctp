@@ -58,11 +58,11 @@
                 </div>
             </div>
             <a class="_mPAppsList _appBlock _appBlockBackground<? if ($appSelected == 'dane') echo " _appBlockActive"; ?>"
-               href="/dane" target="_self">
+               href="/" target="_self">
                 <div class="_mPTitle">
                     <i class="_mPAppIcon" data-icon="&#xe61e;"></i>
 
-                    <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_PUBLIC_DATA'); ?></p>
+                    <p class="_mPAppLabel">Aplikacje</p>
                 </div>
             </a>
             <a class="_mPAppsList _appBlock _appBlockBackground<? if ($appSelected == 'moje-dane') echo " _appBlockActive"; ?>"
@@ -70,7 +70,7 @@
                 <div class="_mPTitle">
                     <i class="_mPAppIcon" data-icon-applications="&#xe60a;"></i>
 
-                    <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_MY_DATA'); ?></p>
+                    <p class="_mPAppLabel">Powiadomienia</p>
                 </div>
             </a>
             <a class="_mPAppsList _appBlock _appBlockBackground<? if ($appSelected == 'moje-pisma') echo " _appBlockActive"; ?>"
@@ -78,7 +78,7 @@
                 <div class="_mPTitle">
                     <i class="_mPAppIcon" data-icon-applications="&#xe60b;"></i>
 
-                    <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_USER_MY_DOCS'); ?></p>
+                    <p class="_mPAppLabel">Pisma</p>
                 </div>
             </a>
 

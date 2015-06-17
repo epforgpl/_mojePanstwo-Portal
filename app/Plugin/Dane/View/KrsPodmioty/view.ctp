@@ -36,7 +36,7 @@ $adres .= ', ' . $object->getData('adres_miejscowosc');
 $adres .= ', Polska';
 
 if (($object->getData('adres_ulica')) && ($object->getData('adres_numer')) && ($object->getData('adres_miejscowosc'))) { ?>
-    <div class="block col-xs-12 adres">
+    <div class="block block-simple col-xs-12 adres">
         <header>
             <div class="sm">Adres</div>
             <div class="mapsOptions pull-right">
@@ -297,31 +297,7 @@ if ($organy_count = count($organy)) {
     </div>
 <? } ?>
 	
-	        <div class="powiazania block col-xs-12">
-	            <header>
-	                <div class="sm">Powiązania</div>
-	            </header>
-	
-	            <section id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>" data-url="krs_podmioty"></section>
-	        </div>
-	
-	
-			<? if (isset($dzialalnosci) && $dzialalnosci) { ?>
-    <div class="dzialalnosci block col-xs-12">
-        <header>
-            <div id="<?= $dzialalnosci['idTag'] ?>" class="sm"><?= $dzialalnosci['title'] ?></div>
-        </header>
-
-        <section class="content normalizeText">
-            <div class="list-group less-borders">
-                <? foreach ($dzialalnosci['content'] as $d) { ?>
-                    <li class="list-group-item"><?= $d['str'] ?></li>
-                <? } ?>
-            </div>
-        </section>
-    </div>
-<? } ?>
-	            
+	             
 	    </div>
 	</div>
 	
@@ -339,6 +315,16 @@ if ($organy_count = count($organy)) {
     </div>
 <? } ?>
 	</div>
+</div>
+
+<div class="col-md-12">
+	<div class="powiazania block block-simple col-xs-12">
+	            <header>
+	                <div class="sm">Powiązania</div>
+	            </header>
+	
+	            <section id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>" data-url="krs_podmioty"></section>
+	        </div>
 </div>
 
 <?= $this->Element('dataobject/pageEnd'); ?>

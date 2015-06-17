@@ -84,5 +84,9 @@ class BdlController extends ApplicationsController
 
 
     }
+    
+    public function getMenu() {
+	    return array();
+    }
 
 } 

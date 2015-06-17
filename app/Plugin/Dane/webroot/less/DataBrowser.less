@@ -67,6 +67,21 @@ a.link-api-call {
         margin: 0;
         padding: 0;
         list-style: none;
+        
+        &.bg {
+	        background-color: #e6e7eb;
+	        border-radius: 7px;
+	        -webkit-border-radius: 7px;
+	        -moz-border-radius: 7px;
+	        
+	        li.agg {
+		        border-bottom: 1px solid #BBB;
+		        
+		        &:last-child {
+			        border-bottom: none;
+		        }
+	        }
+        }
 
         .buttons {
             text-align: center;
@@ -81,8 +96,8 @@ a.link-api-call {
         }
 
         li.agg {
-            margin: 40px 0;
-            padding: 0;
+            margin: 10px 0;
+            padding: 10px;
             list-style: none;
             display: inline-block;
             width: 100%;
