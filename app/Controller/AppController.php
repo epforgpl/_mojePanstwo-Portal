@@ -396,7 +396,7 @@ class AppController extends Controller
             'name' => 'Orzecznictwo',
             'href' => '/orzecznictwo',
             'tag' => 1,
-            'icon' => '&#xe60d;',
+            'icon' => '&#xe617;',
         ),
         'sejmometr' => array(
             'name' => 'Sejmometr',

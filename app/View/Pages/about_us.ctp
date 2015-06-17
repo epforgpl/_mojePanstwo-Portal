@@ -3,6 +3,7 @@
 <div id="aboutUs" class="container">
     <div class="col-xs-12 col-md-10 col-md-offset-1">
         <div class="block">
+            <header>O portalu</header>
             <section>
                 <div class="col-xs-12 col-md-8">
                     <div class="mainContent">

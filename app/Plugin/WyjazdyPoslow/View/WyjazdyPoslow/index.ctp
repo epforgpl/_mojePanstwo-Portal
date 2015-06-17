@@ -70,7 +70,6 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
             </div>
         </a>
 
-        <div class="block-group col-xs-12">
             <div class="block col-xs-12">
 
                 <header>Najwięcej na podróże wydali</header>
@@ -292,6 +291,5 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
                     <? } ?>
                 </ul>
             </div>
-        </div>
     </div>
 </div>

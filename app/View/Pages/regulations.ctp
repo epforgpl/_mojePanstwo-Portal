@@ -3,8 +3,8 @@
 <div id="regulations" class="container">
     <div class="col-xs-12 col-md-10 col-md-offset-1">
         <div class="block">
+            <header>Regulamin świadczenia usług drogą elektroniczną</header>
             <section>
-                <h2>REGULAMIN ŚWIADCZENIA USŁUG DROGĄ ELEKTRONICZNĄ</h2>
                 <ol>
                     <li>
                         <h3>POSTANOWIENIA OGÓLNE.</h3>
