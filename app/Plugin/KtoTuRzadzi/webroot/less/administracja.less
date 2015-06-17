@@ -141,13 +141,15 @@
 
       &.active .arrow {
         @size: 10px;
+        @borderSize: 1px;
 
         position: absolute;
         top: 0;
         left: 0;
-        border: 1px solid #DDD;
+        background: #ffffff;
+        border: @borderSize solid #dddddd;
 
-        &:after {
+        &:after, &:before {
           bottom: 100%;
           left: 50%;
           border: solid transparent;
@@ -158,9 +160,16 @@
           pointer-events: none;
         }
         &:after {
-          border: @size rgba(0, 0, 0, 0);
-          border-bottom-color: #FFF;
-          margin-left: -((@size/2)+@size);
+          border-color: rgba(255, 255, 255, 0);
+          border-bottom-color: #ffffff;
+          border-width: @size;
+          margin-left: -@size;
+        }
+        &:before {
+          border-color: rgba(221, 221, 221, 0);
+          border-bottom-color: #dddddd;
+          border-width: @size+@borderSize;
+          margin-left: -(@size+@borderSize);
         }
       }
 
@@ -170,6 +179,12 @@
         height: 100%;
         background-color: #FFF;
         color: #333;
+        border: 1px solid #DDDDDD;
+        -webkit-border-radius: 7px;
+        -moz-border-radius: 7px;
+        -ms-border-radius: 7px;
+        -o-border-radius: 7px;
+        border-radius: 7px;
 
         .container {
           padding: 30px 10px;
