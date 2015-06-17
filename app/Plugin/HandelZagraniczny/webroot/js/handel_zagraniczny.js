@@ -405,7 +405,7 @@ $(function () {
                     },
                     data: hz_data,
                     mapData: hz_map_data,
-                    nullColor: '#142026',
+                    nullColor: '#ffffff',
                     joinBy: ['iso-a2', 'code'],
                     dataLabels: {
                         enabled: false
