@@ -1,369 +1,371 @@
 .appHeader {
-    width: 100%;
-    min-height: 66px;
+  width: 100%;
+  min-height: 66px;
 
-    &.app {
-        background-position: bottom right;
-        background-repeat: no-repeat;
-        background-color: #201622;
+  &.app {
+    height: 66px;
 
-        .holder {
-            h1 {
-                margin-top: 16px;
-                margin-left: -5px;
-                font-weight: 300;
-                line-height: 35px;
-            }
-            h1, h1 a {
-                color: #FAFAFA;
-            }
-        }
-    }
-    &.dataset {
-        background: #FAFAFA;
-
-        .holder {
-            h1, h1 a {
-                color: #053f69;
-            }
-        }
-    }
-    &.dataobject {
-        background: #FFFFFF;
-
-        .holder {
-            h1, h1 a {
-                color: #053f69;
-            }
-        }
-    }
-
-    /*GENERAL CODE*/
-    .breadcrumb {
-        a {
-            font-size: 13px;
-        }
-
-        &.tree {
-            @fontSize: 12px;
-            @fontColor: #666;
-
-            padding: 0 0 20px;
-            margin: -8px 0 0 8px;
-
-            li {
-                color: @fontColor;
-                margin: 0;
-                padding: 0;
-                position: relative;
-                font-size: 24px;
-
-                ul {
-                    list-style: none;
-                    padding: 0;
-                }
-
-                h1, h1 a {
-                    font-size: @fontSize;
-                    margin-bottom: 0;
-                }
-
-                a {
-                    font-size: @fontSize;
-                    font-weight: 600;
-                }
-
-                &.e {
-                    margin: 5px 0 0 0;
-                    font-size: @fontSize;
-                    padding: 0 20px;
-
-                    &.h1 a {
-                        font-size: 20px;
-                        font-weight: 400;
-                        color: @fontColor;
-
-                        h1 {
-                            margin: 0;
-                            padding: 0;
-                            font-size: 20px;
-                            font-weight: 400;
-                            color: @fontColor
-                        }
-
-                        &:hover {
-                            color: #157ab5;
-                        }
-                    }
-
-                    a {
-                        font-size: @fontSize;
-                    }
-
-                    &:before {
-                        content: '';
-                        position: absolute;
-                        left: 5px;
-                        border-top: 1px solid #7099B3;
-                        top: 8px;
-                        width: 10px;
-                        height: 0;
-                    }
-
-                    &:after {
-                        content: '';
-                        position: absolute;
-                        left: 5px;
-                        top: -2px;
-                        border-left: 1px solid #7099B3;
-                        width: 0;
-                        height: 10px;
-                    }
-
-                    ul {
-                        li.e {
-                            margin-top: 8px;
-                            font-size: @fontSize+2;
-
-                            &:before {
-                                top: 10px;
-                            }
-                            &:after {
-                                top: 0;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    background-color: #201622;
 
     .holder {
-        padding-left: 10px;
-        padding-right: 10px;
-        padding-bottom: 10px;
-        //padding-left: 4px;
-        //padding-right: 4px;
+      h1 {
+        margin-top: 16px;
+        margin-left: -5px;
+        font-weight: 300;
+        line-height: 35px;
+      }
+      h1, h1 a {
+        color: #FAFAFA;
+      }
+    }
+  }
+  &.dataset {
+    background: #FAFAFA;
 
-        h1 {
-            font-size: 30px;
-            font-weight: 300;
-            margin: 0 0 15px;
+    .holder {
+      h1, h1 a {
+        color: #053f69;
+      }
+    }
+  }
+  &.dataobject {
+    background: #FFFFFF;
 
-            a {
-                font-size: 30px;
-                font-weight: 300;
-            }
+    .holder {
+      h1, h1 a {
+        color: #053f69;
+      }
+    }
+  }
 
-            img, svg {
-                height: 30px;
-                margin: 0 -4px 0 -8px;
-                position: relative;
-                top: 5px;
-            }
+  /*GENERAL CODE*/
+  .breadcrumb {
+    a {
+      font-size: 13px;
+    }
 
-            a > i {
-                font-size: 0.9em;
-                margin-right: 15px;
-            }
+    &.tree {
+      @fontSize: 12px;
+      @fontColor: #666;
+
+      padding: 0 0 20px;
+      margin: -8px 0 0 8px;
+
+      li {
+        color: @fontColor;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        font-size: 24px;
+
+        ul {
+          list-style: none;
+          padding: 0;
         }
 
-        h1.smaller, h1.smaller a {
+        h1, h1 a {
+          font-size: @fontSize;
+          margin-bottom: 0;
+        }
+
+        a {
+          font-size: @fontSize;
+          font-weight: 600;
+        }
+
+        &.e {
+          margin: 5px 0 0 0;
+          font-size: @fontSize;
+          padding: 0 20px;
+
+          &.h1 a {
             font-size: 20px;
             font-weight: 400;
-            margin: 10px 0 15px;
+            color: @fontColor;
 
-            i {
-                margin-right: 4px;
+            h1 {
+              margin: 0;
+              padding: 0;
+              font-size: 20px;
+              font-weight: 400;
+              color: @fontColor
             }
+
+            &:hover {
+              color: #157ab5;
+            }
+          }
+
+          a {
+            font-size: @fontSize;
+          }
+
+          &:before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            border-top: 1px solid #7099B3;
+            top: 8px;
+            width: 10px;
+            height: 0;
+          }
+
+          &:after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: -2px;
+            border-left: 1px solid #7099B3;
+            width: 0;
+            height: 10px;
+          }
+
+          ul {
+            li.e {
+              margin-top: 8px;
+              font-size: @fontSize+2;
+
+              &:before {
+                top: 10px;
+              }
+              &:after {
+                top: 0;
+              }
+            }
+          }
         }
+      }
+    }
+  }
+
+  .holder {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    //padding-left: 4px;
+    //padding-right: 4px;
+
+    h1 {
+      font-size: 30px;
+      font-weight: 300;
+      margin: 0 0 15px;
+
+      a {
+        font-size: 30px;
+        font-weight: 300;
+      }
+
+      img, svg {
+        height: 30px;
+        margin: 0 -4px 0 -8px;
+        position: relative;
+        top: 5px;
+      }
+
+      a > i {
+        font-size: 0.9em;
+        margin-right: 15px;
+      }
     }
 
-    .observeButton {
-        margin: 0 auto 15px;
-        width: auto;
-        display: block;
+    h1.smaller, h1.smaller a {
+      font-size: 20px;
+      font-weight: 400;
+      margin: 10px 0 15px;
+
+      i {
+        margin-right: 4px;
+      }
     }
+  }
+
+  .observeButton {
+    margin: 0 auto 15px;
+    width: auto;
+    display: block;
+  }
 }
 
 .appMenu {
-    min-height: 4px;
-    background: #e6e7eb;
+  min-height: 4px;
+  background: #e6e7eb;
 
-    ul.nav-tabs {
+  ul.nav-tabs {
+    border: none;
+    margin: 0;
+    height: 100%;
+
+    li {
+      @borderSize: 3px;
+
+      width: 100%;
+      border: none;
+      margin: 0;
+
+      > a {
+        color: #333;
+        font-size: 14px;
+        font-weight: 500;
         border: none;
-        margin: 0;
-        height: 100%;
+        padding: 10px 8px;
+        letter-spacing: .035em;
+        cursor: pointer;
+        outline: none;
+        margin: 0 12px @borderSize 2px;
 
-        li {
-            @borderSize: 3px;
-
-            width: 100%;
-            border: none;
-            margin: 0;
-
-            > a {
-                color: #333;
-                font-size: 14px;
-                font-weight: 500;
-                border: none;
-                padding: 10px 8px;
-                letter-spacing: .035em;
-                cursor: pointer;
-                outline: none;
-                margin: 0 12px @borderSize 2px;
-
-                &:focus {
-                    background: none;
-                }
-
-                &:hover {
-                    color: #157ab5;
-                    background: none;
-                }
-                span.caret {
-                    margin-left: 5px;
-                }
-                span {
-	                position: relative;
-	                top: 1px;
-	                margin-right: 1px;
-                }
-            }
-            &.active {
-                a {
-                    background: none;
-                    padding-bottom: 10px;
-                    border-bottom: @borderSize solid #438fca;
-                    margin-bottom: 0;
-                    cursor: pointer;
-                    border-left: none;
-                    border-right: none;
-                    border-top: none;
-                    color: #157AB5;
-                }
-            }
-            &.show_hide a {
-                font-size: 24px;
-                line-height: 1em;
-                padding: 8px 8px 0;
-
-                &:before {
-                    font-family: 'main';
-                    content: "\e623";
-                }
-            }
-            &.hideMenu.first {
-                clear: left;
-            }
-            &.open a {
-                background: none;
-            }
-            ul.dropdown-menu {
-                a {
-                    display: block;
-                    border: none;
-                    background: #fff;
-                    padding: 5px 20px;
-                    font-size: 13px;
-
-                    &:hover {
-                        border: none;
-                    }
-                }
-                &.active {
-                    a {
-                        font-weight: bold;
-                    }
-                }
-            }
+        &:focus {
+          background: none;
         }
+
+        &:hover {
+          color: #157ab5;
+          background: none;
+        }
+        span.caret {
+          margin-left: 5px;
+        }
+        span {
+          position: relative;
+          top: 1px;
+          margin-right: 1px;
+        }
+      }
+      &.active {
+        a {
+          background: none;
+          padding-bottom: 10px;
+          border-bottom: @borderSize solid #438fca;
+          margin-bottom: 0;
+          cursor: pointer;
+          border-left: none;
+          border-right: none;
+          border-top: none;
+          color: #157AB5;
+        }
+      }
+      &.show_hide a {
+        font-size: 24px;
+        line-height: 1em;
+        padding: 8px 8px 0;
+
+        &:before {
+          font-family: 'main';
+          content: "\e623";
+        }
+      }
+      &.hideMenu.first {
+        clear: left;
+      }
+      &.open a {
+        background: none;
+      }
+      ul.dropdown-menu {
+        a {
+          display: block;
+          border: none;
+          background: #fff;
+          padding: 5px 20px;
+          font-size: 13px;
+
+          &:hover {
+            border: none;
+          }
+        }
+        &.active {
+          a {
+            font-weight: bold;
+          }
+        }
+      }
     }
+  }
 }
 
 .dataHighlights {
-    padding: 0;
-    margin: 0 0 5px;
+  padding: 0;
+  margin: 0 0 5px;
 
-    &.oneline {
-        .dataHighlight {
-            margin-bottom: 0;
-
-            ._label {
-                float: left;
-                margin-right: 6px;
-            }
-        }
-    }
-
+  &.oneline {
     .dataHighlight {
-        padding: 5px 0;
-        display: block;
-        margin-bottom: 10px;
+      margin-bottom: 0;
 
-        ._label {
-            font-size: 10px;
-            line-height: 0.75em;
-            margin: 4px 0 6px;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: #666;
+      ._label {
+        float: left;
+        margin-right: 6px;
+      }
+    }
+  }
 
-            &.label {
-                color: #fff;
-                margin-right: 5px;
-            }
+  .dataHighlight {
+    padding: 5px 0;
+    display: block;
+    margin-bottom: 10px;
+
+    ._label {
+      font-size: 10px;
+      line-height: 0.75em;
+      margin: 4px 0 6px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #666;
+
+      &.label {
+        color: #fff;
+        margin-right: 5px;
+      }
+    }
+
+    ._value {
+      font-size: 13px;
+      line-height: 1.5em;
+      margin: -3px 0 0;
+      color: #24ad3b;
+
+      img {
+        float: left;
+        margin-right: 5px;
+      }
+
+      .add {
+        display: none;
+      }
+
+      &.tags {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        li {
+          list-style: none;
+          margin: 10px 0;
         }
-
-        ._value {
-            font-size: 13px;
-            line-height: 1.5em;
-            margin: -3px 0 0;
-            color: #24ad3b;
-
-            img {
-                float: left;
-                margin-right: 5px;
-            }
-
-            .add {
-                display: none;
-            }
-
-            &.tags {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-                overflow: hidden;
-                li {
-                    list-style: none;
-                    margin: 10px 0;
-                }
-            }
-
-        }
-
-        .__autorzy_html_ul {
-            font-size: 12px;
-            margin: 0;
-        }
-
-        .label {
-            font-size: 85%;
-        }
+      }
 
     }
+
+    .__autorzy_html_ul {
+      font-size: 12px;
+      margin: 0;
+    }
+
+    .label {
+      font-size: 85%;
+    }
+
+  }
 }
 
 @media (min-width: 768px) {
-    .appMenu ul.nav-tabs > li {
-        width: auto;
-    }
+  .appMenu ul.nav-tabs > li {
+    width: auto;
+  }
 }
 
 @media (min-width: 992px) {
-    .appHeader .observeButton {
-        margin-top: 40px;
-        float: right;
-    }
+  .appHeader .observeButton {
+    margin-top: 40px;
+    float: right;
+  }
 }

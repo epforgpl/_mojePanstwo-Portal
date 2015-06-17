@@ -20,10 +20,8 @@ $this->Combinator->add_libs('js', 'graph-krs');
 
 <div class="krsPodmioty">
 	<div class="col-md-9 objectMain">
-	            
 	    <div class="object">
-	                
-		    <? if ($object->getData('wykreslony')) { ?>
+	        <? if ($object->getData('wykreslony')) { ?>
     <div class="alert alert-dismissable alert-danger">
         <button type="button" class="close" data-dismiss="alert">×</button>
         Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
@@ -73,22 +71,20 @@ if (($object->getData('adres_ulica')) && ($object->getData('adres_numer')) && ($
                 <div id="streetView"></div>
             </div>
         </section>
-    </div>
-<? } ?>
+                </div>
+<? }
 
-
-<?php if ($object->getId() == '481129') { ?>
+if ($object->getId() == '481129') { ?>
     <div class="special banner">
         <a title="Zobacz umowy podpisywane przez Komitet Konkursowy Kraków 2022"
            href="/dane/krs_podmioty/481129/umowy">
             <img src="/Dane/img/krakow_special_banner.png" width="885" height="85"/>
         </a>
     </div>
-<?php } ?>
+<?php }
 
-<? if ($object->getData('cel_dzialania')) { ?>
+if ($object->getData('cel_dzialania')) { ?>
     <div class="dzialanie block col-xs-12">
-
         <header>
             <div class="sm">Cel działania</div>
         </header>
@@ -97,9 +93,9 @@ if (($object->getData('adres_ulica')) && ($object->getData('adres_numer')) && ($
             <?= $object->getData('cel_dzialania') ?>
         </section>
     </div>
-<? } ?>
+<? }
 
-<? if ($object->getData('sposob_reprezentacji')) { ?>
+if ($object->getData('sposob_reprezentacji')) { ?>
     <div class="reprezentacja block col-xs-12">
         <header>
             <div class="sm">Sposób reprezentacji</div>
@@ -109,13 +105,10 @@ if (($object->getData('adres_ulica')) && ($object->getData('adres_numer')) && ($
             <?= $object->getData('sposob_reprezentacji') ?>
         </section>
     </div>
-<? } ?>
-	
-	        <div class="organy block-group col-xs-12 col-xs-12">
-	
-	            <?
-if ($organy_count = count($organy)) {
+            <? } ?>
 
+	        <div class="organy block-group col-xs-12 col-xs-12">
+                <? if ($organy_count = count($organy)) {
     if ($organy_count == 1) {
         $column_width = 12;
     } elseif ($organy_count == 2) {
@@ -124,20 +117,17 @@ if ($organy_count = count($organy)) {
         $column_width = 4;
     } else {
         $column_width = 6;
-    }
+                    }
 
     foreach ($organy as $organ) { ?>
-	                    <div class="block col-lg-<?= $column_width ?>">
-	                        
-	                        <header>
-	                            <div class="sm normalizeText" id="<?= $organ['idTag'] ?>"><?= $organ['title'] ?></div>
-	                        </header>
-	                        
-	                        <? if ($organ['content']) { ?>
-	                        
-	                            <section class="list-group less-borders">
-	                                <? foreach ($organ['content'] as $osoba) { ?>
+                        <div class="block col-lg-<?= $column_width ?>">
+                            <header>
+                                <div class="sm normalizeText" id="<?= $organ['idTag'] ?>"><?= $organ['title'] ?></div>
+                            </header>
 
+                            <? if ($organ['content']) { ?>
+                                <section class="list-group less-borders">
+                                    <? foreach ($organ['content'] as $osoba) { ?>
         <? if (@$osoba['osoba_id']) { ?>
             <a class="list-group-item" href="/dane/krs_osoby/<?= $osoba['osoba_id'] ?>" itemprop="member" itemscope itemtype="http://schema.org/OrganizationRole">
         <? } elseif (@$osoba['krs_id']) { ?>
@@ -159,11 +149,8 @@ if ($organy_count = count($organy)) {
             <? } ?>
         </h4>
 
-        <?
-        if (isset($osoba['funkcja']) && $osoba['funkcja']) {
-
+        <? if (isset($osoba['funkcja']) && $osoba['funkcja']) {
             if ($organ['idTag'] == 'reprezentacja') {
-
                 $useLabel = true;
                 $class = 'warning';
 
@@ -173,85 +160,58 @@ if ($organy_count = count($organy)) {
                         break;
                     }
                 }
-
             } else {
-
                 $useLabel = false;
-
-            }
-            ?>
+            } ?>
 
             <p itemprop="namedPosition"
                class="list-group-item-text <? if ($useLabel) { ?> label label-<?= $class ?><? } ?>"><?= $osoba['funkcja'] ?></p>
-
         <? } ?>
-
         <? if (@$osoba['osoba_id'] || @$osoba['krs_id']) { ?>
             </a>
         <? } else { ?>
             </div>
         <? } ?>
-
     <? } ?>
-	                            </section>
-	                            
-	                        <? } ?>
-	                    
-	                    </div>
-	                <? } ?>
-
+                                </section>
+                            <? } ?>
+                        </div>
+                    <? } ?>
 <? } ?>
-	        </div>
-	
-	        
-	        <? if ($wspolnicy = $object->getLayer('wspolnicy')) { ?>
-		    <div class="wspolnicy block col-xs-12">
-		        
-		        <header>
-		            <div class="sm">Udziałowcy:</div>
-		        </header>
-			
-				<section>
-			        <div id="wspolnicy_graph">
-			            <div class="list-group less-borders wspolnicy">
-			                <? foreach ($wspolnicy as $osoba) { ?>
-			                <span itemprop="member" itemscope itemtype="http://schema.org/OrganizationRole">
-			
-		                        <? if (@$osoba['osoba_id']) {
+            </div>
+
+            <? if ($wspolnicy = $object->getLayer('wspolnicy')) { ?>
+                <div class="wspolnicy block col-xs-12">
+                    <header>
+                        <div class="sm">Udziałowcy:</div>
+                    </header>
+
+                    <section>
+                        <div id="wspolnicy_graph">
+                            <div class="list-group less-borders wspolnicy">
+                                <? foreach ($wspolnicy as $osoba) { ?>
+                                    <span itemprop="member" itemscope itemtype="http://schema.org/OrganizationRole">
+                                        <? if (@$osoba['osoba_id']) {
     $class = "Person"; ?>
-
     <a class="list-group-item row" href="/dane/krs_osoby/<?= $osoba['osoba_id'] ?>">
-
 <? } elseif (@$osoba['krs_id']) {
-
     $class = "Organization"; ?>
     <a class="list-group-item row" href="/dane/krs_podmioty/<?= $osoba['krs_id'] ?>">
-
 <? } else {
-
     $class = "Intangible"; ?>
-
     <div class="list-group-item row">
-
 <? } ?>
-			
-		                        <h4 class="list-group-item-heading col-xs-6" itemprop="member" itemscope
-		                            itemtype="http://schema.org/Organization<?= $class ?>">
-		                            <span itemprop="name"><?= $osoba['nazwa'] ?></span>
-		                            <? if (
-    ($osoba['privacy_level'] != '1') &&
-    $osoba['data_urodzenia'] &&
-    $osoba['data_urodzenia'] != '0000-00-00'
-) {
-    ?>
+
+                                        <h4 class="list-group-item-heading col-xs-6" itemprop="member" itemscope itemtype="http://schema.org/Organization<?= $class ?>">
+                                            <span itemprop="name"><?= $osoba['nazwa'] ?></span>
+                                            <? if (($osoba['privacy_level'] != '1') && $osoba['data_urodzenia'] && $osoba['data_urodzenia'] != '0000-00-00') { ?>
     <span itemprop="birthDate"
           datetime="<?= substr($osoba['data_urodzenia'], 0, 4) ?>"
-          class="wiek"><?= substr($osoba['data_urodzenia'], 0, 4) ?>
-        '</span>
+          class="wiek"><?= substr($osoba['data_urodzenia'], 0, 4) ?>'</span>
 <? } ?>
-		                        </h4>
-			
-		                        <? if (isset($osoba['funkcja']) && $osoba['funkcja']) { ?>
+                                        </h4>
+
+                                        <? if (isset($osoba['funkcja']) && $osoba['funkcja']) { ?>
     <p itemprop="namedPosition" class="list-group-item-text normalizeText col-xs-6"><?= $osoba['funkcja'] ?></p>
 <? } ?>
 
@@ -260,14 +220,13 @@ if ($organy_count = count($organy)) {
     <? } else { ?>
         </div>
     <? } ?>
-					            
-				            </span>
-				            <? } ?>
-				        </div>
-			        </div>
-			    </section>
-		    </div>
-			<? } ?>
+                                    </span>
+                                <? } ?>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            <? } ?>
 
 <? if ($firmy = $object->getLayer('firmy')) { ?>
     <div class="wspolnicy block col-xs-12">
@@ -291,15 +250,13 @@ if ($organy_count = count($organy)) {
                             <? } ?>
                         </div>
                     </a>
-                <? } ?>
-            </div>
+                            <? } ?>
+                        </div>
         </section>
     </div>
 <? } ?>
-	
-	             
-	    </div>
-	</div>
+        </div>
+    </div>
 	
 	<div class="col-md-3 objectSide">
 	    <? if (!$object->getData('wykreslony')) { ?>
@@ -317,14 +274,11 @@ if ($organy_count = count($organy)) {
 	</div>
 </div>
 
-<div class="col-md-12">
-	<div class="powiazania block block-simple col-xs-12">
-	            <header>
-	                <div class="sm">Powiązania</div>
-	            </header>
-	
-	            <section id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>" data-url="krs_podmioty"></section>
-	        </div>
+<div class="powiazania block block-simple col-xs-12">
+    <header>
+        <div class="sm">Powiązania</div>
+    </header>
+    <section id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>" data-url="krs_podmioty"></section>
 </div>
 
 <?= $this->Element('dataobject/pageEnd'); ?>

@@ -309,7 +309,7 @@ var PLBrowser = Class.create({
                 var firstBlock = new Element('div', {'class': 'mainPart'});
                 firstBlock.insert({
                     bottom: new Element('button', {
-                        'class': 'btn btn-success',
+                        'class': 'btn btn-warning',
                         'id': 'localizeMe'
                     }).update(mPHeart.translation.LC_MOJA_GMINA_LOCALIZEME)
                 });
