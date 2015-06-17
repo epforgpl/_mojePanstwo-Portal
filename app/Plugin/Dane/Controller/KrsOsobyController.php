@@ -118,5 +118,10 @@ class KrsOsobyController extends DataobjectsController
         parent::beforeRender();
 
     }
+    
+    public function getMenu()
+    {
+	    return array();
+    }
 
 }
