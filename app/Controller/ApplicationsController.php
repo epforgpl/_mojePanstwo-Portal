@@ -160,10 +160,12 @@ class ApplicationsController extends AppController
 				$menu['items'][] = array(
 					'id' => $params['menu_id'],
 					'label' => $params['label'],
+					/*
 					'icon' => array(
 						'src' => 'datasets',
 						'id' => $dataset,
 					),
+					*/
 				);
 				
 			}

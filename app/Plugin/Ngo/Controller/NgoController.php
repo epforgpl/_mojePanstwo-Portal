@@ -121,14 +121,65 @@ class NgoController extends ApplicationsController
                 ),
             ),
         );
-
+		
+		$this->_layout['body']['theme'] = 'default';
+		
         $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
     }
-
+	
+	public function fundacje()
+    {
+    	        		    		
+        $this->loadDatasetBrowser('krs_podmioty', array(
+	        'conditions' => array(
+		        'krs_podmioty.forma_prawna_id' => '1',
+	        ),
+        ));
+        $this->set('title_for_layout', 'Fundacje | NGO');
+		    	    	    
+    }
+    
+    public function stowarzyszenia()
+    {
+    	        		    		
+        $this->loadDatasetBrowser('krs_podmioty', array(
+	        'conditions' => array(
+		        'krs_podmioty.forma_prawna_id' => '15',
+	        ),
+        ));
+        $this->set('title_for_layout', 'Stowarzyszenia | NGO');
+		    	    	    
+    }
+	
     public function getMenu()
     {
-        return false;
+				
+		$menu = array(
+			'items' => array(),
+			'base' => '/' . $this->settings['id'],
+		);
+		
+		$menu['items'][] = array(
+			'label' => 'NGO',
+			'icon' => array(
+				'src' => 'glyphicon',
+				'id' => 'home',
+			),
+		);
+		
+		$menu['items'][] = array(
+			'label' => 'Fundacje',
+			'id' => 'fundacje',
+		);	
+		
+		$menu['items'][] = array(
+			'label' => 'Stowarzyszenia',
+			'id' => 'stowarzyszenia',
+		);			
+				
+		return $menu;
+
     }
 
 } 

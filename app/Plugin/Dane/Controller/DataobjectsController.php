@@ -21,7 +21,7 @@ class DataobjectsController extends AppController
     );
 
     public $actions = array();
-    public $appSelected = 'dane';
+    public $appSelected = '';
     public $addDatasetBreadcrumb = true;
 
     public $_layout = array(
