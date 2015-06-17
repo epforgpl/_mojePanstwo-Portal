@@ -3,6 +3,7 @@ $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
 $this->Combinator->add_libs('js', '../plugins/highcharts/locals');
 
 debug($map['params']);
+debug($data);
 
 ?>
 
