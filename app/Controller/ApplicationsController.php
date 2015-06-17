@@ -29,7 +29,7 @@ class ApplicationsController extends AppController
 	
     public $title = false;
     public $description = false;
-    public $appSelected = 'dane';
+    public $appSelected = '';
     
     public $appDatasets = array();
     public $mainMenuLabel = false;

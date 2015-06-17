@@ -11,38 +11,50 @@ class DaneController extends ApplicationsController
         'subtitle' => 'Przeszukuj największą bazę danych publicznych w Polsce',
         'headerImg' => 'dane',
     );
-
+    
     public $mainMenuLabel = 'Szukaj';
+    public $appSelected = 'search';
 
     public function view()
     {
-
-        $apps = $this->getDatasets();
-        $aggs = array();
-        foreach ($apps as $app_id => $datasets) {
-            $aggs['app_' . $app_id] = array(
-                'filter' => array(
-                    'terms' => array(
-                        'dataset' => array_keys($datasets),
-                    ),
-                ),
-            );
+		
+		if(
+			isset( $this->request->query['q'] ) && 
+			!empty( $this->request->query['q'] )
+		) {
+		
+	        $apps = $this->getDatasets();
+	        $aggs = array();
+	        foreach ($apps as $app_id => $datasets) {
+	            $aggs['app_' . $app_id] = array(
+	                'filter' => array(
+	                    'terms' => array(
+	                        'dataset' => array_keys($datasets),
+	                    ),
+	                ),
+	            );
+	        }
+	
+	        $options = array(
+	            'searchTitle' => 'Szukaj w danych publicznych...',
+	            'cover' => array(
+	                'view' => array(
+	                    'plugin' => 'Dane',
+	                    'element' => 'cover',
+	                ),
+	            ),
+	            'aggs' => $aggs,
+	            'aggs-mode' => 'apps',
+	        );
+	
+	        $this->Components->load('Dane.DataBrowser', $options);
+	        $this->render('Dane.Elements/DataBrowser/browser-from-app');
+        
+        } else {
+	        
+	        return $this->redirect('/');
+	        
         }
-
-        $options = array(
-            'searchTitle' => 'Szukaj w danych publicznych...',
-            'cover' => array(
-                'view' => array(
-                    'plugin' => 'Dane',
-                    'element' => 'cover',
-                ),
-            ),
-            'aggs' => $aggs,
-            'aggs-mode' => 'apps',
-        );
-
-        $this->Components->load('Dane.DataBrowser', $options);
-        $this->render('Dane.Elements/DataBrowser/browser-from-app');
 
     }
 
@@ -94,34 +106,7 @@ class DaneController extends ApplicationsController
 
     public function getMenu()
     {
-
-        $menu = array(
-            'items' => array(),
-            'base' => '/' . $this->settings['id'],
-        );
-
-        $menu['items'][] = array(
-            'label' => $this->mainMenuLabel,
-        );
-
-        $menu['items'][] = array(
-            'id' => 'zbiory',
-            'label' => 'Zbiory danych',
-        );
-
-        if (
-            isset($this->request->params['id']) &&
-            ($dataset = $this->getDataset($this->request->params['id']))
-        ) {
-            $menu['items'][] = array(
-                'id' => $dataset['dataset_id'],
-                'label' => $dataset['dataset_name']['label'],
-            );
-            $this->menu_selected = $dataset['dataset_id'];
-        }
-
-        return $menu;
-
+        return array();
     }
 
 } 
