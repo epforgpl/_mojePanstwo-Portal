@@ -24,7 +24,7 @@
                     <?php if ($this->Session->read('Auth.User.photo_small')) {
                         echo '<img class="avatar" src="' . $this->Session->read('Auth.User.photo_small') . '" alt=""/>';
                     } else {
-                        echo '<i class="_mPAppIcon _mPIconUser glyphicon glyphicon-user roundBorder"></i>';
+                        echo '<i class="_mPAppIcon _mPIconUser roundBorder" data-icon="&#xe620;"></i>';
                     } ?>
                     <div class="optionsBtn" data-toggle="collapse"
                          data-target="#mPUserOptions" aria-expanded="false" aria-controls="mPUserOptions">
@@ -43,7 +43,6 @@
                 <?php } else { ?>
                     <a class="_specialCaseLoginButton"
                        href="<?php echo $this->Html->url('/login'); ?>">
-                        <!--<i class="_mPAppIcon _mPIconUser glyphicon glyphicon-user"></i>-->
                         <i class="_mPAppIcon _mPIconUser" data-icon="&#xe620;"></i>
 
                         <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_LOGIN'); ?></p>
