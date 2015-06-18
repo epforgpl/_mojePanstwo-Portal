@@ -52,8 +52,124 @@ var DataBrowser = Class.extend({
                 this.initAggColumnsHorizontal(li);
             else if (li.hasClass('agg-ColumnsVertical'))
                 this.initAggColumnsVertical(li);
+            else if (li.hasClass('agg-GeoPL'))
+                this.initAggGeoPL(li);
         }
 
+    },
+
+    initAggGeoPL: function (li) {
+
+        li = $(li);
+        var data = $.parseJSON(li.attr('data-chart'));
+        var geo_keys = [];
+        var choose_request = li.attr('data-choose-request');
+        var chart_options;
+
+        try {
+            chart_options = $.parseJSON(li.attr('data-chart-options'));
+        } catch (err) {
+            chart_options = false;
+        }
+
+        var geoType = chart_options['unit'];
+
+        $.getJSON(mPHeart.constant.ajax.api + '/geo/geojson/get?quality=4&types=' + geoType, function(res) {
+
+            var geo = Highcharts.geojson(res, 'map');
+
+            var max = 0, min = 9999999999;
+            for (var i = 0; i < geo.length; i++) {
+                var found = false;
+                for (var k = 0; k < data.buckets.length; k++) {
+                    if (geo[i].properties.id == data.buckets[k].key) {
+                        geo[i].value = parseInt(data.buckets[k].doc_count);
+                        geo[i].id = 'o' + geo[i].properties.id;
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                    geo[i].value = 0;
+
+                if (geo[i].value > max)
+                    max = geo[i].value;
+
+                if (geo[i].value < min)
+                    min = geo[i].value;
+
+                geo_keys[i] = geo[i].properties.id;
+            }
+
+            var type = 'linear';
+            if (min == 0 && max == 0)
+                max = 1;
+
+            var options = {
+                title: {
+                    text: ' '
+                },
+                chart: {
+                    backgroundColor: null
+                },
+                mapNavigation: {
+                    enabled: true,
+                    enableMouseWheelZoom: false,
+                    buttonOptions: {
+                        verticalAlign: 'bottom'
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: '{point.name}: {point.value}',
+                    headerFormat: ''
+                },
+                colorAxis: {
+                    minColor: '#ffffff',
+                    maxColor: '#006df0',
+                    min: min,
+                    max: max,
+                    type: type
+                },
+                plotOptions: {
+                    series: {
+                        states: {
+                            select: {
+                                borderColor: '#014068',
+                                borderWidth: 1
+                            },
+                            hover: {
+                                borderColor: '#014068',
+                                borderWidth: 1,
+                                brightness: false,
+                                color: false
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    data: geo,
+                    nullColor: '#ffffff',
+                    borderWidth: 1,
+                    borderColor: '#777',
+                    point: {
+                        events: {
+                            click: function (e) {
+                                window.location.href = choose_request + '' + geo_keys[this.index];
+                                return false;
+                            }
+                        }
+                    }
+                }]
+            };
+
+            li.find('.chart').highcharts('Map', options);
+        });
     },
 
     initAggPieChart: function (li) {

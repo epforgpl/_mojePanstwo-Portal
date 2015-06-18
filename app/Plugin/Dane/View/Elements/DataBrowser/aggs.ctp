@@ -11,7 +11,9 @@
             <? continue;
         }
 
-        if (isset($agg_data['buckets']) && (count($agg_data['buckets']) > 1) && isset($data['aggs_visuals_map'][$agg_id])) {
+        $minBucketsCountNum = $data['aggs_visuals_map'][$agg_id]['skin'] == 'pie_chart' ? 1 : 0;
+
+        if (isset($agg_data['buckets']) && (count($agg_data['buckets']) > $minBucketsCountNum) && isset($data['aggs_visuals_map'][$agg_id])) {
             $empty = true;
 
             foreach ($agg_data['buckets'] as $b) {
