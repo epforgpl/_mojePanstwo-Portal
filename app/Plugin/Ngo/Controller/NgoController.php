@@ -121,9 +121,7 @@ class NgoController extends ApplicationsController
                 ),
             ),
         );
-		
-		$this->_layout['body']['theme'] = 'default';
-		
+				
         $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
     }
