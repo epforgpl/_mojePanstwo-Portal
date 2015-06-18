@@ -11,7 +11,7 @@ echo $this->Html->css('https://mojepanstwo.pl/htmlex/' . $document['Document']['
      data-pages="<?php echo $document['Document']['pages_count']; ?>"
      data-document-id="<?php echo $document['Document']['id'] ?>">
 
-    <? echo $this->Element('toolbar', array(
+    <? echo $this->Element('Dane.toolbar', array(
         'document' => $document['Document'],
     )); ?>
 
