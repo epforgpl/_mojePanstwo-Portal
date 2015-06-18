@@ -21,11 +21,11 @@
                                 'exact' => true
                             )
                         ); ?></div>
-                    <img class="avatar<?php if ($this->Session->read('Auth.User.photo_small')) {
-                        echo '" src="' . $this->Session->read('Auth.User.photo_small');
+                    <?php if ($this->Session->read('Auth.User.photo_small')) {
+                        echo '<img class="avatar" src="' . $this->Session->read('Auth.User.photo_small') . '" alt=""/>';
                     } else {
-                        echo ' default" src="/img/avatars/avatar_default.svg';
-                    } ?>" alt=""/>
+                        echo '<i class="_mPAppIcon _mPIconUser glyphicon glyphicon-user roundBorder"></i>';
+                    } ?>
                     <div class="optionsBtn" data-toggle="collapse"
                          data-target="#mPUserOptions" aria-expanded="false" aria-controls="mPUserOptions">
                         <span class="glyphicon" aria-hidden="true">&#x25BC;</span>
@@ -43,13 +43,14 @@
                 <?php } else { ?>
                     <a class="_specialCaseLoginButton"
                        href="<?php echo $this->Html->url('/login'); ?>">
-                        <i class="_mPAppIcon glyphicon glyphicon-user"></i>
+                        <i class="_mPAppIcon _mPIconUser glyphicon glyphicon-user"></i>
 
                         <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_LOGIN'); ?></p>
                     </a>
                 <?php } ?>
             </div>
-            <div class="_mPSearch _appBlock _appBlockBackground<? if ($appSelected == 'search') echo " _appBlockActive"; ?>">
+            <div
+                class="_mPSearch _appBlock _appBlockBackground<? if ($appSelected == 'search') echo " _appBlockActive"; ?>">
                 <div class="_mPTitle">
                     <i class="_mPAppIcon" data-icon="&#xe600;"></i>
 
