@@ -73,7 +73,7 @@ if ($subs) {
                     <ul class="list-group list-subs">
                         <? foreach ($subs as $sub) { ?>
                             <li>
-
+								
                                 <p class="title"><a href="<?= $sub->getUrl() ?>"><?= $sub->getTitle() ?></a></p>
 
                                 <? /*

@@ -27,7 +27,7 @@ class PowiadomieniaController extends ApplicationsController
     public $uses = array('Dane.Dataobject');
     public $helpers = array('Dane.Dataobject');
 
-    public $appSelected = 'moje-dane';
+    public $appSelected = 'powiadomienia';
 
     public function prepareMetaTags()
     {
@@ -71,7 +71,7 @@ class PowiadomieniaController extends ApplicationsController
 
         $this->set('dataFeed', $dataFeed);
         $this->set('subs', $subs);
-        $this->title = 'Moje Dane';
+        $this->title = 'Powiadomienia';
         $this->setMenuSelected('obserwuje_powiadomienia');
     }
 
@@ -100,7 +100,7 @@ class PowiadomieniaController extends ApplicationsController
                     'label' => 'Powiadomienia',
                 ),
             ),
-            'base' => 'moje-dane',
+            'base' => '/powiadomienia',
         );
 
     }
