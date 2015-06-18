@@ -1,8 +1,9 @@
 <?php
 
 App::uses('Sanitize', 'Utility');
+App::uses('ApplicationsController', 'Controller');
 
-class WyjazdyPoslowController extends AppController
+class WyjazdyPoslowController extends ApplicationsController
 {
     public $settings = array(
         'id' => 'wyjazdy_poslow',
