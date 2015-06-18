@@ -43,7 +43,8 @@
                 <?php } else { ?>
                     <a class="_specialCaseLoginButton"
                        href="<?php echo $this->Html->url('/login'); ?>">
-                        <i class="_mPAppIcon _mPIconUser glyphicon glyphicon-user"></i>
+                        <!--<i class="_mPAppIcon _mPIconUser glyphicon glyphicon-user"></i>-->
+                        <i class="_mPAppIcon _mPIconUser" data-icon="&#xe620;"></i>
 
                         <p class="_mPAppLabel"><?php echo __('LC_COCKPITBAR_LOGIN'); ?></p>
                     </a>
