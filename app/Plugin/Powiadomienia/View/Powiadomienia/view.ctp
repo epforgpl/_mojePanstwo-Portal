@@ -5,8 +5,8 @@ $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 $this->Combinator->add_libs('css', $this->Less->css('datafeed', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.datafeed');
-$this->Combinator->add_libs('css', $this->Less->css('powiadomienia-base', array('plugin' => 'MojeDane')));
-$this->Combinator->add_libs('css', $this->Less->css('powiadomienia-subs', array('plugin' => 'MojeDane')));
+$this->Combinator->add_libs('css', $this->Less->css('powiadomienia-base', array('plugin' => 'Powiadomienia')));
+$this->Combinator->add_libs('css', $this->Less->css('powiadomienia-subs', array('plugin' => 'Powiadomienia')));
 ?>
 
 
@@ -37,7 +37,7 @@ if ($subs) {
 
                 <div class="dataBrowser dataFeed">
 
-                    <h2>Powiadomienia:</h2>
+                    <h2>Twoje powiadomienia:</h2>
 
                     <?
                     if ($this->params['paging']['Dataobject']['pageCount']) {
@@ -98,11 +98,14 @@ if ($subs) {
                         <div class="col-xs-12 information">
 
                             <h2>Nie obserwujesz jeszcze żadnych danych</h2>
-
+							
+							<? /*
                             <h3>Dowiedz się jak skonfigurować subskrypcje i otrzymywać powiadomienia o interesujących
                                 Cię danych.</h3>
                             <a target="_self" href="/powiadomienia/jak_to_dziala" class="btn btn-info">Jak to
                                 działa?</a>
+                            */ ?>    
+                            
                         </div>
                     </div>
                 </div>

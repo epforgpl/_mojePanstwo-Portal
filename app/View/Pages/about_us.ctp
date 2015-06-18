@@ -43,12 +43,6 @@
                                 głównym kodem źródłowym serwisu. Odpowiada za obsługę i wizualizacje wszelkich aplikacji
                                 dostępnych w portalu. Działa w oparciu o środowisko CakePHP 2.x.
                             </li>
-                            <li><a href="https://github.com/epforgpl/_mojePanstwo-API-Client-PHP" target="_blank">_mojePanstwo
-                                    API Client
-                                    PHP</a> - jest klientem działającym w środowisku PHP, za pośrednictwem którego
-                                Portal
-                                łączy się z Serwerem danych.
-                            </li>
                             <li><a href="https://github.com/epforgpl/_mojePanstwo-API-Server" target="_blank">_mojePanstwo
                                     API Server</a>
                                 - jest Serwerem danych, z którego korzysta Portal.
