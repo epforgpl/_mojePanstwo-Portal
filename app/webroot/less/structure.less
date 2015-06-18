@@ -348,15 +348,14 @@ body {
         background-color: @cockpitColorDark;
 
         ._mPIconUser {
-          font-size: 30px;
+          margin-top: 30px;
           overflow: hidden;
-          padding: 4px 2px 0;
-          margin-top: 14px;
+          width: 48px;
+          height: 48px;
+          font-size: 30px;
 
           &.roundBorder {
-            font-size: 35px;
-            margin-top: 30px;
-            border: 1px solid #ffffff;
+            border: 2px solid #ffffff;
             -webkit-border-radius: 50px;
             -moz-border-radius: 50px;
             -ms-border-radius: 50px;
@@ -376,7 +375,8 @@ body {
         > a {
           display: block;
           width: 100%;
-          height: 100%;
+          padding-top: 12px;
+          height: @powerSize;
         }
         > .name {
           position: absolute;
@@ -384,7 +384,7 @@ body {
           left: 0;
           width: 100%;
           text-align: center;
-          padding: 5px 5px 0;
+          padding: 8px 5px 0;
           font-weight: 400;
           line-height: 1em;
           word-wrap: break-word;
