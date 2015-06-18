@@ -11,16 +11,9 @@ $object_id = $object->getId();
 
 <div class="col-md-2">
     <div data-toggle="modal" data-target="#observeModal"
-         class="observeButton btn btn-icon <? if (isset($subscription) && !empty($subscription)) {
-             echo 'btn-success';
-         } else {
-             echo 'btn-primary';
-         } ?>">
-        <i class="icon" data-icon-applications="&#xe60a;"></i><? if (isset($subscription) && !empty($subscription)) {
-            echo 'Obserwujesz...';
-        } else {
-            echo 'Obserwuj...';
-        } ?>
+         class="observeButton btn btn-icon <? echo (isset($subscription) && !empty($subscription)) ? 'btn-success' : 'btn-primary'; ?>">
+        <i class="icon"
+           data-icon-applications="&#xe60a;"></i><? echo (isset($subscription) && !empty($subscription)) ? 'Obserwujesz...' : 'Obserwuj...'; ?>
     </div>
 
     <div class="modal fade" id="observeModal" tabindex="-1" role="dialog" aria-labelledby="observeModalLabel"
@@ -92,8 +85,15 @@ $object_id = $object->getId();
                     <div class="modal-footer<?php if (!$this->Session->read('Auth.User.id')) {
                         echo ' backgroundBlue';
                     } ?>">
-                        <?php if ($this->Session->read('Auth.User.id')) { ?>
-                            <a href="#" class="btn btn-primary submit">Zapisz</a>
+                        <?php if ($this->Session->read('Auth.User.id')) {
+                            if (isset($subscription) && !empty($subscription['Subscription']['id'])) {
+                                ?>
+                                <a href="#" class="btn btn-danger btn-icon unobserve"
+                                   data-subscription-id="<?= $subscription['Subscription']['id'] ?>">
+                                    <i class="icon" data-icon="&#xe605;"></i>Przestań obserwować</a>
+                            <? } ?>
+                            <a href="#" class="btn btn-primary btn-icon submit">
+                                <i class="icon" data-icon="&#xe604;"></i>Zapisz</a>
                         <?php } else { ?>
                             <a href="/login" class="_specialCaseLoginButton" data-dismiss="modal">Zaloguj się, aby
                                 korzystać z funkcji obserwowania

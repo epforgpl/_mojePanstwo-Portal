@@ -71,7 +71,7 @@ if (!isset($renderFile) || !$renderFile)
                 </div>
             </div>
             <?php if (isset($_observeOptions) && !empty($_observeOptions)) {
-                echo $this->element('modals/observe_dataobject');
+                echo $this->element('modals/dataobject-observe');
             } ?>
             <div class="col-xs-12">
                 <div class="status">

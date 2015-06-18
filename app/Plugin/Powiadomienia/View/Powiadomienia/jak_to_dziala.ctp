@@ -1,5 +1,5 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('powiadomienia', array('plugin' => 'MojeDane'))); ?>
-<?php $this->Combinator->add_libs('js', 'MojeDane.powiadomienia') ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('powiadomienia', array('plugin' => 'Powiadomienia'))); ?>
+<?php $this->Combinator->add_libs('js', 'Powiadomienia.powiadomienia') ?>
 
 
 
