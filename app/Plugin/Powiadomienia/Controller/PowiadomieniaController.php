@@ -6,22 +6,9 @@ class PowiadomieniaController extends ApplicationsController
 {
 
     public $settings = array(
-        'id' => 'moje_dane',
-        'menu' => array(
-            array(
-                'id' => 'obserwuje_powiadomienia',
-                'label' => 'Dane',
-                'href' => 'moje-dane'
-            ),
-            array(
-                'id' => 'jak_to_dziala',
-                'label' => 'Jak to działa?',
-                'href' => 'moje-dane/jak_to_dziala'
-            ),
-        ),
-        'title' => 'Moje Dane',
+        'id' => 'powiadomienia',
+        'title' => 'Powiadomienia',
         'subtitle' => 'Obserwuj interesujące Cię dane publiczne',
-        'headerImg' => '/MojeDane/img/header_dane.png',
     );
 
     public $_layout = array(
@@ -50,7 +37,7 @@ class PowiadomieniaController extends ApplicationsController
 
     public function view()
     {
-
+				
         $this->setMenuSelected();
 
         $subs = $this->Dataobject->find('all', array(

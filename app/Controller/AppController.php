@@ -364,7 +364,7 @@ class AppController extends Controller
         ),
         */
         'dane' => array(
-            'name' => 'Szukaj w danych publicznych',
+            'name' => 'Szukaj...',
             'href' => '/dane',
             'tag' => 0,
             'icon' => '&#xe616;',
@@ -380,15 +380,15 @@ class AppController extends Controller
         */
         
         
-        'moje_dane' => array(
-            'name' => 'Moje dane',
-            'href' => '/moje-dane',
+        'powiadomienia' => array(
+            'name' => 'Powiadomienia',
+            'href' => '/powiadomienia',
             'tag' => 3,
             'icon' => '&#xe60a;',
         ),
-        'moje_pisma' => array(
-            'name' => 'Moje pisma',
-            'href' => '/moje-pisma',
+        'pisma' => array(
+            'name' => 'Pisma',
+            'href' => '/pisma',
             'tag' => 3,
             'icon' => '&#xe60b;',
         ),

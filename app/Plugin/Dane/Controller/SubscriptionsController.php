@@ -23,7 +23,13 @@ class SubscriptionsController extends AppController
 
     public function add()
     {
-
+		
+		if(
+			isset( $this->request->data['channel'] ) && 
+			( $this->request->data['channel']==array('') )
+		)
+			unset( $this->request->data['channel'] );
+				
         $this->Subscription->save($this->request->data);
         $this->redirect($this->referer());
 
