@@ -6,15 +6,10 @@ $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
 $this->Combinator->add_libs('js', '../plugins/highcharts/locals');
 $this->Combinator->add_libs('js', '../plugins/highcharts/plugin/map');
 $this->Combinator->add_libs('js', 'WyjazdyPoslow.wyjazdy_poslow.js');
-$this->Combinator->add_libs('js', 'Dane.naglosnij.js');
 ?>
 
 <div class="maplabel">
     <p>Kliknij na podświetlone Państwo, aby poznać szczegóły wyjazdów.</p>
-
-    <div class="naglosnijHandler">
-        <?php echo $this->element('Dane.dataobject/buttons/shoutIt'); ?>
-    </div>
 
 </div>
 
