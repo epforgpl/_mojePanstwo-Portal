@@ -2,7 +2,7 @@
 (function ($) {
     "use strict";
 
-    var suggesterBlock = $('.searcher');
+    var suggesterBlock = $('.suggesterBlockPisma');
 
     if (suggesterBlock.length) {
         $.each(suggesterBlock, function (index, block) {
@@ -118,7 +118,7 @@
                         'data-subid': item.id,
                         'data-subdataset': item.dataset
                     }).append(
-                        $('<a></a>').attr('href', '#').append(
+                        $('<a></a>').append(
                             $('<div></div>').addClass('col-xs-2 col-md-1 _label').append(image)
                         ).append(
                             $('<div></div>').addClass('col-md-10 col-md-11 _title').append(title)

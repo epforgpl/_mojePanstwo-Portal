@@ -66,7 +66,7 @@
         <label for="adresatSelect" class="col-lg-2 control-label">Adresat</label>
 
         <div class="col-lg-10">
-            <div class="suggesterBlock">
+            <div class="suggesterBlockPisma">
             <?= $this->Element('Pisma.searcher', array('q' => '', 'dataset' => 'pisma_adresaci', 'placeholder' => 'Zacznij pisać aby znaleźć adresata...')) ?>
             </div>
             <span
