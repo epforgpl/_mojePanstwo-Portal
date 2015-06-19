@@ -3,40 +3,42 @@
 
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma-my.js') ?>
 
+<? if (!$this->Session->read('Auth.User.id')) { ?>
+<div class="container">
+    <div class="col-md-10 col-sm-offset-1">
+	    <div class="alert-identity alert alert-dismissable alert-success">
+	        <button type="button" class="close" data-dismiss="alert">×</button>
+	        <h4>Uwaga!</h4>
+	
+	        <p>Nie jesteś zalogowany. Twoje pisma będą przechowywane na tym urządzeniu przez 24 godziny. <a
+	                class="_specialCaseLoginButton" href="/login">Zaloguj się</a>, aby trwale przechowywać pisma na
+	            swoim koncie.</p>
+	    </div>
+    </div>
+</div>
+<? } ?>
 
-
+<? if ($pagination['total']) { ?>
 <div class="search-container">
-    <? if ($pagination['total']) { ?>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-10 col-sm-offset-1">
-                    <div class="form-group">
-                        <form method="GET" action="/pisma">
-                            <input name="q" class="form-control input-md" placeholder="Szukaj w moich pismach..."
-                                   type="text"
-                                   value="<?= $q ?>">
-                            <input type="submit" value="Szukaj" style="display: none;"/>
-                        </form>
-                    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="form-group">
+                    <form method="GET" action="/pisma">
+                        <input name="q" class="form-control input-md" placeholder="Szukaj w moich pismach..."
+                               type="text"
+                               value="<?= $q ?>">
+                        <input type="submit" value="Szukaj" style="display: none;"/>
+                    </form>
                 </div>
             </div>
         </div>
-    <? } ?>
+    </div>
 </div>
+<? } ?>
 
 <div class="container" id="myPismaBrowser" data-query='<?= json_encode($query); ?>'>
     <div class="col-md-10 col-sm-offset-1">
-
-        <? if (!$this->Session->read('Auth.User.id')) { ?>
-            <div class="alert alert-dismissable alert-success">
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                <h4>Uwaga!</h4>
-
-                <p>Nie jesteś zalogowany. Twoje pisma będą przechowywane na tym urządzeniu przez 24 godziny. <a
-                        class="_specialCaseLoginButton" href="/login">Zaloguj się</a>, aby trwale przechowywać pisma na
-                    swoim koncie.</p>
-            </div>
-        <? } ?>
 
         <div class="letters">
 
@@ -180,7 +182,7 @@
 
                             <h2>Nie stworzyłeś jeszcze żadnych pism</h2>
                             <br/><br/>
-                            <a target="_self" href="/pisma/nowe" class="btn btn-info">Stwórz pismo</a>
+                            <a target="_self" href="/pisma/nowe" class="btn btn-info">Nowe pismo</a>
                         </div>
                     </div>
                 <?

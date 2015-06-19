@@ -37,7 +37,13 @@ class PowiadomieniaController extends ApplicationsController
 
     public function view()
     {
-				
+		
+		if( !$this->Auth->user() ) {
+			
+			return $this->render('login');
+			
+		}
+		
         $this->setMenuSelected();
 
         $subs = $this->Dataobject->find('all', array(
@@ -73,13 +79,6 @@ class PowiadomieniaController extends ApplicationsController
         $this->set('subs', $subs);
         $this->title = 'Powiadomienia';
         $this->setMenuSelected('obserwuje_powiadomienia');
-    }
-
-    public function moje()
-    {
-        $this->title = 'Moje Powiadomienia';
-        $this->setMenuSelected('moje_powiadomienia');
-
     }
 
     public function jak_to_dziala()
