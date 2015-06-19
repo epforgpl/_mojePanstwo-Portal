@@ -47,13 +47,15 @@ $this->Combinator->add_libs('css', $this->Less->css('powiadomienia-subs', array(
             </div>
             <div class="col-sm-4">
                 <div class="subsPage data-subs">
-                    <? //echo $this->element('modals/powiadomienia-dataobject-observe'); ?>
+                    <? echo $this->element('Powiadomienia.powiadomienia-dataobject-observe'); ?>
                     <div class="dataBrowser">
                         <h2>Obserwujesz:</h2>
                         <ul class="list-group list-subs">
-                            <? foreach ($subs as $sub) { ?>
-                                <li>
-                                    <i class="icon icon-datasets-<?= $sub->getDataset() ?>"></i>
+                            <? foreach ($subs as $sub) {
+                                $dataset = $sub->getDataset();
+                                ?>
+                                <li data-id="<?= $sub->getId() ?>" data-dataset="<?= $dataset; ?>">
+                                    <i class="icon icon-datasets-<?= $dataset ?>"></i>
 
                                     <p class="title">
                                         <a href="<?= $sub->getUrl() ?>"><?= $sub->getTitle() ?></a>

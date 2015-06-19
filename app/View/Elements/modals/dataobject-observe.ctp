@@ -85,13 +85,7 @@ $object_id = $object->getId();
                     <div class="modal-footer<?php if (!$this->Session->read('Auth.User.id')) {
                         echo ' backgroundBlue';
                     } ?>">
-                        <?php if ($this->Session->read('Auth.User.id')) {
-                            if (isset($subscription) && !empty($subscription['Subscription']['id'])) {
-                                ?>
-                                <a href="#" class="btn btn-danger btn-icon unobserve"
-                                   data-subscription-id="<?= $subscription['Subscription']['id'] ?>">
-                                    <i class="icon" data-icon="&#xe605;"></i>Przestań obserwować</a>
-                            <? } ?>
+                        <?php if ($this->Session->read('Auth.User.id')) { ?>
                             <a href="#" class="btn btn-primary btn-icon submit">
                                 <i class="icon" data-icon="&#xe604;"></i>Zapisz</a>
                         <?php } else { ?>
