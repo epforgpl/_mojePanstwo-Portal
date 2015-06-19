@@ -30,6 +30,12 @@
   .list-group {
     margin-bottom: 0 !important;
     .list-group-item {
+	  border-radius: 0;
+      border-style: none none solid;
+      border-bottom-width: 2px;
+      &:last-child {
+	      border-bottom: none;
+      }
       img {
         max-width: 50px;
         max-height: 50px;
