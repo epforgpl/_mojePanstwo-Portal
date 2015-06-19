@@ -14,6 +14,7 @@ class SejmometrController extends ApplicationsController
         $menu = array(
             'items' => array(
                 array(
+	                'id' => '',
                     'label' => 'Posłowie',
                 ),
                 array(
@@ -171,7 +172,7 @@ class SejmometrController extends ApplicationsController
     public function view()
     {
 
-        $this->menu_selected = 'poslowie';
+        $this->menu_selected = 'view';
         $this->loadDatasetBrowser('poslowie');
 
     }

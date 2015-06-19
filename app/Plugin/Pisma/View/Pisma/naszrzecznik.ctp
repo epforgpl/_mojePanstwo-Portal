@@ -32,6 +32,7 @@
 							</div>
 							
 							<h2 class="text-center">Znajdź swojego posła i wyślij pismo teraz!</h2>
+							<input type="hidden" name="szablon_id" value="71" />
 							
 							<fieldset>
 							    <div class="form-group adresaci">
