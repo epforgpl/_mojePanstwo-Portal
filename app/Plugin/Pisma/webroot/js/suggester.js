@@ -60,10 +60,6 @@
                                 $('.ui-autocomplete').hide();
                                 suggesterInput.removeClass('open loader');
                             } else {
-                                results.push({
-                                    type: 'button',
-                                    q: request.term
-                                });
                                 response(results);
                             }
                         });
@@ -102,22 +98,7 @@
             }).autocomplete('widget').addClass("autocompleteSuggester");
 
             suggesterInput.data("ui-autocomplete")._renderItem = function (ul, item) {
-                if (item.type !== 'item') {
-                    if (item.type === 'button') {
-                        params = '?q=' + item.q;
-
-                        suggesterForm.find('input[name="dataset[]"]').each(function () {
-                            params += '&dataset[]=' + $(this).val();
-                        });
-
-                        return $('<li></li>').addClass("row button").append(
-                            $('<a></a>').addClass('btn btn-success').attr({
-                                'href': ((suggesterForm.attr('action').length > 0) ? suggesterForm.attr('action') : ((suggesterInput.attr('data-url').length > 0) ? suggesterInput.attr('data-url') : '')) + params,
-                                'target': '_self'
-                            }).html('<span class="glyphicon glyphicon-search"> </span> ' + mPHeart.suggester.fullSearch)
-                        ).appendTo(ul);
-                    }
-                } else {
+                if (item.type == 'item') {
                     var title = $('<span></span>').text(item.shortTitle),
                         image;
 
