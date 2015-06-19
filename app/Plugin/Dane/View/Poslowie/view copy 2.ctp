@@ -209,7 +209,7 @@ echo $this->Element('dataobject/pageBegin');
 
             <div class="object">
 
-                <div class="block-group">
+                <div class="block-group col-xs-12">
 
 
                     <? if ($projekty_za) { ?>

@@ -2,12 +2,17 @@
     display: block;
 }
 
+a.link-api-call {
+    color: #808080;
+}
+
 .dataBrowser, .dataFeed, .dataobjects {
+
     h2 {
         font-weight: 600;
         font-size: 16px;
         color: #545454;
-        margin: 0 0 15px;
+        margin: 5px 5px 15px;
         padding: 0;
     }
 
@@ -22,22 +27,6 @@
                 background: #ccc;
                 margin-left: 5px;
             }
-        }
-    }
-
-    .dataCounter {
-        color: #808080;
-        font-size: 12px;
-        margin-bottom: 10px;
-        padding-left: 25px;
-        padding-right: 25px;
-
-        p {
-            padding: 0;
-            margin: 0;
-        }
-        strong {
-            font-weight: normal;
         }
     }
 
@@ -74,52 +63,54 @@
         text-align: center;
     }
 
-    .meta {
-        &.meta-date {
-            font-size: 12px;
-            color: #999;
-            margin: -5px 0 12px;
-        }
-
-        &.meta-desc {
-            font-size: 12px;
-            color: #282;
-            margin: 3px 8px 8px;
-
-            .sep {
-                margin: 0 7px;
-            }
-
-        }
-
-    }
-
     .dataAggs {
         margin: 0;
         padding: 0;
         list-style: none;
+        
+        &.bg {
+	        background-color: #f4f5f6;
+	        border-radius: 7px;
+	        -webkit-border-radius: 7px;
+	        -moz-border-radius: 7px;
+	        margin-bottom: 40px;
+	        
+	        li.agg {
+		        border-bottom: 1px solid #DDD;
+		        
+		        &:last-child {
+			        border-bottom: none;
+		        }
+	        }
+        }
 
         .buttons {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+            margin-top: -10px;
         }
-        
+
         .dataobjects {
-	        list-style: none;
+            list-style: none;
+            padding: 10px;
+            margin: 0;
         }
 
         li.agg {
-            margin: 40px 0;
-            padding: 0;
+            margin: 10px 0;
+            padding: 10px;
             list-style: none;
             display: inline-block;
             width: 100%;
+            
+            .nav > li > a:focus, .nav > li > a:hover {
+	            background: none;
+            }
 
-			
-			&:first-child {
-				margin-top: 0;
-			}
-			
+            &:first-child {
+                margin-top: 0;
+            }
+
             &.special {
                 padding: 10px;
                 border-radius: 7px;
@@ -147,16 +138,68 @@
                 padding: 10px 0;
 
                 &.apps {
-                    ul {
-                        li {
-                            img, svg {
-                                width: 30px;
-                                height: 30px;
-                                margin-right: 5px;
-                                margin-top: -3px;
-                            }
-                        }
-                    }
+                   li a {
+						position: relative;
+						display: inline-block;
+						margin: 7px 5px;
+						padding: 0;
+						width: 100%;
+	                   .icon {
+		                   display: block;
+						   width: 40px;
+						   left: 0;
+						   margin: 0 auto;
+							position: absolute;
+							top: 0;
+							text-align: center;
+		                   i {
+								display: block;
+								font-size: 28px;
+								&:before {
+									color: #337ab7;
+								}
+		                   }
+	                   }
+	                   span {
+		                   width: 100%;
+		                   float: left;
+		                   display: block;
+		                   padding-left: 47px;
+		                   color: #337ab7;
+		                   		                   
+		                   &.count {
+			                   
+			                   font-size: 12px;
+			                   color: #666;
+			                   
+			                   strong {
+				                   font-weight: normal;
+			                   }
+			                   
+			                   ._number {
+				                   width: inherit;
+				                   float: inherit;
+				                   display: inherit;
+				                   padding-left: inherit;
+				                   color: #666;
+			                   }
+		                   }
+	                   }
+	                   .glyphicon {
+		                   position: absolute;
+		                   top: 50%;
+		                   right: 10px;
+		                   transform: translate(0, -50%);
+		                   font-size: 18px;
+		                   color: #CCC;
+	                   }
+	                   
+	                   &:hover {
+		                   .glyphicon {
+			                   color: #337ab7;
+		                   }
+	                   }
+                   }
                 }
             }
 

@@ -9,16 +9,6 @@ echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
 
-
-echo $this->Element('Dane.dataobject/subobject', array(
-    'menu' => isset($_submenu) ? $_submenu : false,
-    'object' => $dzielnica,
-    'objectOptions' => array(
-        'hlFields' => array(),
-        'bigTitle' => true,
-    ),
-));
-
 echo $this->Element('Dane.dataobject/subobject', array(
     'menu' => false,
     'object' => $posiedzenie,
@@ -28,15 +18,6 @@ echo $this->Element('Dane.dataobject/subobject', array(
     ),
 ));
 
-?>
-
-    <style>
-        #_main .objectsPage .objectsPageContent .htmlexDoc #docsToolbar {
-            display: none;
-        }
-    </style>
-
-<?
 if ($posiedzenie->getData('yt_video_id')) {
 
     $this->Combinator->add_libs('css', $this->Less->css('view-dzielnica_posiedzenie', array('plugin' => 'Dane')));
@@ -50,7 +31,7 @@ if ($posiedzenie->getData('yt_video_id')) {
             </div>
         </div>
 
-        <? if ($punkty) { ?>
+        <? if ($punkty && @$punkty[0]) { ?>
             <div class="col-md-5 wystapienia">
 
                 <div class="block">

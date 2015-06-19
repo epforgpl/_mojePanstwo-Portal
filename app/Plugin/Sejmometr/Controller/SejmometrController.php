@@ -14,6 +14,7 @@ class SejmometrController extends ApplicationsController
         $menu = array(
             'items' => array(
                 array(
+	                'id' => '',
                     'label' => 'Posłowie',
                 ),
                 array(
@@ -101,6 +102,10 @@ class SejmometrController extends ApplicationsController
         $this->setMeta('og:image', FULL_BASE_URL . '/sejmometr/img/social/sejmometr.jpg');
     }
 
+    public function okregi()
+    {
+        $this->set('okregi', $this->Sejmometr->okregi());
+    }
 
     public function szukaj()
     {
@@ -167,7 +172,7 @@ class SejmometrController extends ApplicationsController
     public function view()
     {
 
-        $this->menu_selected = 'poslowie';
+        $this->menu_selected = 'view';
         $this->loadDatasetBrowser('poslowie');
 
     }

@@ -64,6 +64,7 @@ class AppController extends Controller
     );
 	
 	public $protocol = 'https://';
+	public $port = false;
     public $domainMode = 'MP';
     public $appSelected = false;
     public $breadcrumbs = array();
@@ -184,15 +185,19 @@ class AppController extends Controller
         'moja_gmina' => array(
             'gminy' => array(
             	'label' => 'Gminy',
+            	'menu_id' => 'gminy',
             ),
             'powiaty' => array(
             	'label' => 'Powiaty',
+            	'menu_id' => 'powiaty',
             ),
             'wojewodztwa' => array(
             	'label' => 'Województwa',
+            	'menu_id' => 'wojewodztwa',
             ),
             'miejscowosci' => array(
             	'label' => 'Miejscowosci',
+            	'menu_id' => 'miejscowosci',
             ),
         ),
         'media' => array(
@@ -359,10 +364,10 @@ class AppController extends Controller
         ),
         */
         'dane' => array(
-            'name' => 'Dane publiczne',
+            'name' => 'Szukaj...',
             'href' => '/dane',
             'tag' => 0,
-            'icon' => '&#xe605;',
+            'icon' => '&#xe616;',
         ),
         
         /*
@@ -375,15 +380,15 @@ class AppController extends Controller
         */
         
         
-        'moje_dane' => array(
-            'name' => 'Moje dane',
-            'href' => '/moje-dane',
+        'powiadomienia' => array(
+            'name' => 'Powiadomienia',
+            'href' => '/powiadomienia',
             'tag' => 3,
             'icon' => '&#xe60a;',
         ),
-        'moje_pisma' => array(
-            'name' => 'Moje pisma',
-            'href' => '/moje-pisma',
+        'pisma' => array(
+            'name' => 'Pisma',
+            'href' => '/pisma',
             'tag' => 3,
             'icon' => '&#xe60b;',
         ),
@@ -391,7 +396,7 @@ class AppController extends Controller
             'name' => 'Orzecznictwo',
             'href' => '/orzecznictwo',
             'tag' => 1,
-            'icon' => '&#xe60d;',
+            'icon' => '&#xe617;',
         ),
         'sejmometr' => array(
             'name' => 'Sejmometr',
@@ -439,8 +444,9 @@ class AppController extends Controller
     public function beforeFilter()
     {
 	    
-	    $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";    
-
+	    $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+	    $this->port = ($_SERVER['SERVER_PORT'] == 80) ? false : ':' . $_SERVER['SERVER_PORT'];
+	    	    				
         if (defined('PORTAL_DOMAIN')) {
             $pieces = parse_url(Router::url($this->here, true));
 			
@@ -461,18 +467,17 @@ class AppController extends Controller
 
                     }
 
-                    $this->redirect($this->protocol . PK_DOMAIN . $url);
+                    $this->redirect($this->protocol . PK_DOMAIN . $this->port . $url);
                     die();
 
                 }
 
                 if (preg_match('/^(.*?)\,([a-z0-9\-]+)$/', $this->here, $match)) {
 
-                    $this->redirect($this->protocol . PK_DOMAIN . $match[1]);
+                    $this->redirect($this->protocol . PK_DOMAIN . $this->port . $match[1]);
                     die();
                 }
-
-
+				
                 if (
                     ($this->request->params['controller'] == 'gminy') &&
                     in_array($this->request->params['action'], array(
@@ -567,14 +572,15 @@ class AppController extends Controller
 
                     }
 
-                    $this->redirect($this->protocol . PORTAL_DOMAIN . $url);
+                    $this->redirect($this->protocol . PORTAL_DOMAIN . $this->port . $url);
                     die();
 
                 }
 
 
             } elseif ($pieces['host'] != PORTAL_DOMAIN) {
-                $this->redirect($this->protocol . PORTAL_DOMAIN . $this->here, 301);
+                                
+                $this->redirect($this->protocol . PORTAL_DOMAIN . $this->port . $this->here, 301);
                 die();
 
             }
@@ -604,14 +610,11 @@ class AppController extends Controller
         parent::beforeFilter();
         $this->Auth->allow();
 
-        // debug($this->getApplications()); die();
-
         $this->set('statusbarCrumbs', $this->statusbarCrumbs);
         $this->set('statusbarMode', $this->statusbarMode);
         $this->set('_APPLICATIONS', $this->getApplications());
         $this->set('_APPLICATION', $this->getApplication());
         $this->set('domainMode', $this->domainMode);
-        $this->set('appSelected', $this->appSelected);
 
 //		// remember path for redirect if necessary
 //		if ( Router::url( null ) != '/null' ) { // hack for bug
@@ -695,7 +698,7 @@ class AppController extends Controller
         $menu = $this->getMenu();
 				
 		if( !empty($menu) ) {
-				
+						
 	        if ($this->menu_selected == '_default')
 	            $this->menu_selected = $this->request->params['action'];
 	
@@ -708,7 +711,8 @@ class AppController extends Controller
         $this->set('_applications', $this->applications);
         $this->set('_menu', $menu);
         $this->set('_observeOptions', $this->observeOptions);
-
+        $this->set('appSelected', $this->appSelected);
+        
         $redirect = false;
 
         if ($this->Session->read('Auth.User.id') && $this->Session->read('Pisma.transfer_anonymous')) {

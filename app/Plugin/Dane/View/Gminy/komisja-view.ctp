@@ -9,7 +9,6 @@ echo $this->Element('dataobject/pageBegin', array(
 ));
 ?>
 
-<div class="subobjectPage">
 
 <?
 echo $this->Element('Dane.dataobject/subobject', array(
@@ -20,10 +19,17 @@ echo $this->Element('Dane.dataobject/subobject', array(
     )
 ));
 
-$options = array();
-if( isset($title) )
-	$options['title'] = $title;
+$options = array(
+    'searcher' => false,
+);
+if (isset($title))
+    $options['title'] = $title;
 echo $this->Element('Dane.DataBrowser/browser', $options);
 ?>
 
-</div>
+
+<?php
+echo $this->Element('dataobject/pageEnd', array(
+    'titleTag' => 'p',
+));
+?>

@@ -8,7 +8,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
         toFixedFix = function (n, prec) {
             var k = Math.pow(10, prec);
             return '' + (Math.round(n * k) / k)
-                .toFixed(prec);
+                    .toFixed(prec);
         };
     // Fix for IE parseFloat(0.55).toFixed(0) = 0;
     s = (prec ? toFixedFix(n, prec) : '' + Math.round(n))
@@ -31,37 +31,37 @@ function pl_currency_format(n) {
     var mln = 0;
     var tys = 0;
 
-    if(n > 1000000000) {
+    if (n > 1000000000) {
         mld = Math.round(n / 1000000000, 2);
         n -= mld * 1000000000;
         return mld + ' Mld';
     }
 
-    if(n > 1000000) {
+    if (n > 1000000) {
         mln = Math.round(n / 1000000, 2);
         n -= mln * 1000000;
         return mln + ' M';
     }
 
-    if(n > 1000) {
+    if (n > 1000) {
         tys = Math.round(n / 1000, 2);
         n -= tys * 1000;
         return tys + ' k';
     }
 
-    if(mld > 0)
+    if (mld > 0)
         str += mld + ' Mld ';
-    if(mln  > 0)
+    if (mln > 0)
         str += mln + ' M ';
-    if(tys > 0 && mld === 0)
+    if (tys > 0 && mld === 0)
         str += tys + ' k';
 
-    if(mld === 0 && mln === 0 && tys === 0)
+    if (mld === 0 && mln === 0 && tys === 0)
         str += number_format(n);
 
     return str.trim();
-};
-$(document).ready(function() {
+}
+$(document).ready(function () {
     'use strict';
 
     var api_url = 'http://mojepanstwo.pl:4444/';
@@ -147,9 +147,9 @@ $(document).ready(function() {
 
         var _min = parseInt(section.find('#minmin').data('int'));
         var _sum_wydatki = parseInt(section.find('ul.addons .section_addon').data('int'));
-        var _max =  parseInt(section.find('ul.addons .max').data('int'));
+        var _max = parseInt(section.find('ul.addons .max').data('int'));
         // var _left = parseInt((_sum_wydatki / (_max - _min)) * 100);
-        if(_sum_wydatki <= _min)
+        if (_sum_wydatki <= _min)
             var _left = 0;
         else
             var _left = parseInt(((_sum_wydatki - _min) / (_max - _min)) * 100);

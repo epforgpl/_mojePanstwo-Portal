@@ -2,33 +2,39 @@
 $path = App::path('Plugin');
 $file = $path[0] . '/Dane/View/Elements/' . $theme . '/' . $object->getDataset() . '.ctp';
 $file_exists = file_exists($file);
-
-if (in_array($object->getDataset(), array('krakow_posiedzenia'))) {
-    $object_content_sizes = array(3, 9);
-} else {
-    $object_content_sizes = array(2, 10);
-}
-
 $this->Dataobject->setObject($object);
+
 ?>
+
 <div class="objectRender col-md-12 <?php echo $object->getDataset(); ?>" oid="<?php echo $object->getId(); ?>">
     <div class="row">
 
-        <? if ($object->getThumbnailUrl()) { ?>
-            <div style="width: 12%;" class="col-md-1">
+        <? $width = 12; ?>
+
+        <? if ($object->getThumbnailUrl()) {
+            $width = $width - $thumbWidth; ?>
+            <div class="col-sm-<?= $thumbWidth ?>">
                 <div class="attachment text-center">
-                    <?php if ($object->getUrl() != false) { ?><a class="thumb_cont"
-                                                                 href="<?= $object->getUrl() ?>"><?php } ?>
-                        <object data="/img/error/brak.gif" type="image/png">
-                            <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
-                                 alt="<?= strip_tags($object->getTitle()) ?>"/>
-                        </object>
-                        <?php if ($object->getUrl() != false) { ?></a><? } ?>
+                    <?php if ($object->getUrl() != false) { ?>
+                    <a class="thumb_cont" href="<?= $object->getUrl() ?>">
+                        <?php } ?>
+                        <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
+                             alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
+                        <?php if ($object->getUrl() != false) { ?>
+                    </a>
+                <? } ?>
                 </div>
             </div>
+        <? } elseif ($object->getIcon()) {
+            $width = 11; ?>
+
+            <div class="col-sm-1 icon-cont">
+                <?= $object->getIcon() ?>
+            </div>
+
         <? } ?>
 
-        <div class="data col-md-<? if ($object->getThumbnailUrl()) { ?>10<? } else { ?>12<? } ?>">
+        <div class="data col-sm-<?= $width ?>">
             <div class="row">
 
 
@@ -36,7 +42,7 @@ $this->Dataobject->setObject($object);
 
                     <<?= $titleTag ?> class="title<? if ($bigTitle) { ?> big<? } ?>">
                     <?php if ($show_link && ($object->getUrl() != false)){ ?>
-                    <a class="trimTitle" href="<?= $object->getUrl() ?>"
+                    <a data-trimlength="<?= $truncate ?>" class="trimTitle" href="<?= $object->getUrl() ?>"
                        title="<?= strip_tags($object->getTitle()) ?>">
                         <?php } ?>
                         <?= $object->getShortTitle() ?>
@@ -53,7 +59,11 @@ $this->Dataobject->setObject($object);
                         'object' => $object
                     ));
                 } else {
-                    echo $this->Dataobject->highlights($hlFields);
+
+                    if ($metaDesc = $object->getMetaDescription()) { ?>
+                        <p class="meta meta-desc"><?= $metaDesc ?></p>
+                    <? }
+
                     if ($object->getDescription()) {
                         ?>
                         <div class="description">

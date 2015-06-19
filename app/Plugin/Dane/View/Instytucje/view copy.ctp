@@ -7,7 +7,7 @@
             <div class="col-md-9 col-md-offset-1">
                 <div class="">
 
-                    <div class="block-group">
+                    <div class="block-group col-xs-12">
 
                         <? if (isset($info['opis_html']) && $info['opis_html']) { ?>
                             <div class="block">

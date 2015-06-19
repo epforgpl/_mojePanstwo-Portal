@@ -798,23 +798,6 @@ class OAuth2
     }
 
     /**
-     * Internal method for validating redirect URI supplied
-     *
-     * @param string $inputUri
-     * @param string $storedUri
-     */
-    protected function validateRedirectUri($inputUri, $storedUri)
-    {
-        if (!$inputUri || !$storedUri) {
-            return false; // if either one is missing, assume INVALID
-        }
-
-        return strcasecmp(substr($inputUri, 0, strlen($storedUri)), $storedUri) === 0;
-    }
-
-    // same params as above
-
-    /**
      * Handle the creation of access token, also issue refresh token if support.
      *
      * This belongs in a separate factory, but to keep it simple, I'm just
@@ -855,7 +838,7 @@ class OAuth2
         return $token;
     }
 
-    // Other/utility functions.
+    // same params as above
 
     /**
      * Generates an unique access token.
@@ -880,6 +863,8 @@ class OAuth2
 
         return substr(hash('sha512', $randomData), 0, $tokenLen);
     }
+
+    // Other/utility functions.
 
     /**
      * Send out HTTP headers for JSON.
@@ -1049,6 +1034,21 @@ class OAuth2
 
         // Return retrieved client details together with input
         return ($input + $stored);
+    }
+
+    /**
+     * Internal method for validating redirect URI supplied
+     *
+     * @param string $inputUri
+     * @param string $storedUri
+     */
+    protected function validateRedirectUri($inputUri, $storedUri)
+    {
+        if (!$inputUri || !$storedUri) {
+            return false; // if either one is missing, assume INVALID
+        }
+
+        return strcasecmp(substr($inputUri, 0, strlen($storedUri)), $storedUri) === 0;
     }
 
     /**

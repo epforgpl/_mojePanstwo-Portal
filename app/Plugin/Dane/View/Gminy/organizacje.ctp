@@ -6,21 +6,29 @@ if ($object->getId() == '903') {
 
 echo $this->Element('dataobject/pageBegin');
 ?>
-<h1 class="subheader">Organizacje w Krakowie</h1>
-	
-<? if (isset($_submenu) && !empty($_submenu)) { ?>
-    <div class="menuTabsCont">
-        <div class="container">
+
+<div class="objectsPage">
+
+    <h1 class="subheader">Krajowy Rejestr Sądowy w Krakowie</h1>
+
+    <? if (isset($_submenu) && !empty($_submenu)) { ?>
+        <div class="menuTabsCont">
             <?
-            if( !isset($_submenu['base']) )
+            if (!isset($_submenu['base']))
                 $_submenu['base'] = $object->getUrl();
             echo $this->Element('Dane.dataobject/menuTabs', array(
                 'menu' => $_submenu,
             ));
             ?>
         </div>
-    </div>
-<? } 
-		
-echo $this->Element('Dane.DataBrowser/browser');
-echo $this->Element('dataobject/pageEnd');
+    <? } ?>
+
+    <? $options = array();
+    if (isset($title))
+        $options['title'] = $title;
+
+    echo $this->Element('Dane.DataBrowser/browser', $options);
+    ?>
+</div>
+
+<?= $this->Element('dataobject/pageEnd'); ?>

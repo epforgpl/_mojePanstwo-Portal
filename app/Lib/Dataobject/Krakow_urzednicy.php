@@ -19,7 +19,19 @@ class Krakow_urzednicy extends DataObject
     
     public function getUrl()
     {
-	    return '/dane/gminy/903/oswiadczenia?urzednik_id=' . $this->getId();
+	    return '/dane/gminy/903,krakow/urzednicy/' . $this->getId();
     }
+    
+    public function getBreadcrumbs()
+	{
+				
+		return array(
+			array(
+				'id' => '/dane/gminy/903,krakow/urzednicy',
+				'label' => 'Urzędnicy Urzędu Miasta',
+			),
+		);
+				
+	}
 
 }

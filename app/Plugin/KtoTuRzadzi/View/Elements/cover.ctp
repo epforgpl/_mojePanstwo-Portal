@@ -5,7 +5,7 @@ $this->Combinator->add_libs('js', 'KtoTuRzadzi.administracja.js');
 
 <div id="administracja">
     <div class="container">
-        <div class="content">
+        <div class="content col-xs-12 row">
             <div class="row items">
                 <? foreach ($data['files'] as $item) { ?>
                     <div class="block col-md-<?= $item['width'] ?>">
@@ -24,7 +24,7 @@ $this->Combinator->add_libs('js', 'KtoTuRzadzi.administracja.js');
 
                                 <div class="logo">
                                     <img src="/KtoTuRzadzi/img/instytucje/<?= $item['id'] ?>.png"
-                                         title="<?= $item['nazwa'] ?>"/>
+                                         title="<?= $item['nazwa'] ?>" onerror="imgFixer(this)"/>
                                 </div>
 
                                 <div class="details">

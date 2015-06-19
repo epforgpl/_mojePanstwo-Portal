@@ -49,7 +49,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
             <div class="object">
 
-                <div class="block-group">
+                <div class="block-group col-xs-12">
 
 
                 </div>

@@ -129,8 +129,7 @@
 
     function is_string(arg) {
         return typeof arg === 'string';
-    };
-
+    }
     // Why write the same function twice? Let's curry! Mmmm, curry..
 
     function curry(func) {
@@ -139,20 +138,17 @@
         return function () {
             return func.apply(this, args.concat(aps.call(arguments)));
         };
-    };
-
+    }
     // Get location.hash (or what you'd expect location.hash to be) sans any
     // leading #. Thanks for making this necessary, Firefox!
     function get_fragment(url) {
         return url.replace(re_fragment, '$2');
-    };
-
+    }
     // Get location.search (or what you'd expect location.search to be) sans any
     // leading #. Thanks for making this necessary, IE6!
     function get_querystring(url) {
         return url.replace(/(?:^[^?#]*\?([^#]*).*$)?.*/, '$1');
-    };
-
+    }
     // Section: Param (to string)
     //
     // Method: jQuery.param.querystring
@@ -317,8 +313,7 @@
         }
 
         return result;
-    };
-
+    }
     jq_param[str_querystring] = curry(jq_param_sub, 0, get_querystring);
     jq_param[str_fragment] = jq_param_fragment = curry(jq_param_sub, 1, get_fragment);
 
@@ -437,7 +432,7 @@
                 re_fragment = /^([^#]*)#?(.*)$/;
                 fragment_prefix = '#';
             }
-            ajax_crawlable = !! state;
+            ajax_crawlable = !!state;
         }
 
         return ajax_crawlable;
@@ -616,8 +611,7 @@
         }
 
         return jq_deparam(url_or_params, coerce);
-    };
-
+    }
     jq_deparam[str_querystring] = curry(jq_deparam_sub, 0);
     jq_deparam[str_fragment] = jq_deparam_fragment = curry(jq_deparam_sub, 1);
 
@@ -761,8 +755,7 @@
             that.attr(attr, jq_param[mode](url, params, merge_mode));
         });
 
-    };
-
+    }
     $.fn[str_querystring] = curry(jq_fn_sub, str_querystring);
     $.fn[str_fragment] = curry(jq_fn_sub, str_fragment);
 
@@ -971,8 +964,7 @@
                 };
 
                 old_handler.apply(this, arguments);
-            };
-
+            }
             // This may seem a little complicated, but it normalizes the special event
             // .add method between jQuery 1.4/1.4.1 and 1.4.2+
             if ($.isFunction(handleObj)) {
@@ -1099,8 +1091,7 @@
     function get_fragment(url) {
         url = url || location.href;
         return '#' + url.replace(/^[^#]*#?(.*)$/, '$1');
-    };
-
+    }
     // Method: jQuery.fn.hashchange
     //
     // Bind a handler to the window.onhashchange event or trigger all bound
@@ -1290,8 +1281,7 @@
             }
 
             timeout_id = setTimeout(poll, $.fn[str_hashchange].delay);
-        };
-
+        }
         //// vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
         //// vvvvvvvvvvvvvvvvvvv REMOVE IF NOT SUPPORTING IE6/7/8 vvvvvvvvvvvvvvvvvvv
         //// vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv

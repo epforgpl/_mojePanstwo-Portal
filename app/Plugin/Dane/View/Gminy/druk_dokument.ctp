@@ -17,7 +17,8 @@ echo $this->Element('Dane.dataobject/subobject', array(
 ));
 ?>
 
-<h2 class="light"><a class="btn-back glyphicon glyphicon-circle-arrow-left" href="<?= $druk->getUrl() ?>"></a> <?= $druk_dokument->getTitle() ?></h2>
+    <h2 class="light"><a class="btn-back glyphicon glyphicon-circle-arrow-left"
+                         href="<?= $druk->getUrl() ?>"></a> <?= $druk_dokument->getTitle() ?></h2>
 
 <?
 

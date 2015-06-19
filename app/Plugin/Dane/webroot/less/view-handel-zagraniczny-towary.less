@@ -1,92 +1,93 @@
 .objectsPageContent {
     min-height: 0 !important; /*TODO:check if it REALLY need*/
 }
+
 .tree {
-  background: #fff;
-  padding: 20px 0;
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    li {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-  }
-  .row {
-    &:first-child {
-      margin-bottom: 30px;
-    }
-    &:last-child {
-      h2 {
-        color: #777;
-        margin-left: 20px;
-      }
-      .col-lg-6 {
-        ul {
-          margin-top: 30px;
-          color: #555;
-          padding: 0 5px;
-          li {
-            background: url('/img/arrow-down.png') left 1px no-repeat;
-            padding-left: 30px;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #eaebee;
-            span.currency {
-              display: inline-block;
-              font-size: 10px;
-              font-weight: bold;
-              color: #444;
-              background: #eaebee;
-              padding: 3px 5px;
-              border-radius: 3px;
-            }
-            p {
-              margin-top: 5px;
-              img {
-                margin-right: 5px;
-              }
-              a {
-                margin-left: 10px;
-                font-size: 12px;
-              }
-            }
-            &.open {
-              background-image: url('/img/arrow-up.png');
-            }
-            &:hover {
-              cursor: pointer;
-            }
-            &:last-child {
-              border-bottom: none;
-            }
-            ul {
-              margin-top: 15px;
-              li {
-                background: none;
-                padding: 0;
-                margin: 0;
-                margin-top: 10px;
-              }
-            }
-          }
-          &.notfound {
-            background: none;
+    background: #fff;
+    padding: 20px 0;
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        li {
+            list-style: none;
             margin: 0;
             padding: 0;
-            li {
-              background: none;
-              margin: 0;
-              padding: 0;
-            }
-          }
         }
-        &:first-child {
-          border-right: 1px solid #eaebee;
-        }
-      }
     }
-  }
+    .row {
+        &:first-child {
+            margin-bottom: 30px;
+        }
+        &:last-child {
+            h2 {
+                color: #777;
+                margin-left: 20px;
+            }
+            .col-lg-6 {
+                ul {
+                    margin-top: 30px;
+                    color: #555;
+                    padding: 0 5px;
+                    li {
+                        background: url('/img/arrow-down.png') left 1px no-repeat;
+                        padding-left: 30px;
+                        padding-bottom: 10px;
+                        margin-bottom: 10px;
+                        border-bottom: 1px solid #eaebee;
+                        span.currency {
+                            display: inline-block;
+                            font-size: 10px;
+                            font-weight: bold;
+                            color: #444;
+                            background: #eaebee;
+                            padding: 3px 5px;
+                            border-radius: 3px;
+                        }
+                        p {
+                            margin-top: 5px;
+                            img {
+                                margin-right: 5px;
+                            }
+                            a {
+                                margin-left: 10px;
+                                font-size: 12px;
+                            }
+                        }
+                        &.open {
+                            background-image: url('/img/arrow-up.png');
+                        }
+                        &:hover {
+                            cursor: pointer;
+                        }
+                        &:last-child {
+                            border-bottom: none;
+                        }
+                        ul {
+                            margin-top: 15px;
+                            li {
+                                background: none;
+                                padding: 0;
+                                margin: 0;
+                                margin-top: 10px;
+                            }
+                        }
+                    }
+                    &.notfound {
+                        background: none;
+                        margin: 0;
+                        padding: 0;
+                        li {
+                            background: none;
+                            margin: 0;
+                            padding: 0;
+                        }
+                    }
+                }
+                &:first-child {
+                    border-right: 1px solid #eaebee;
+                }
+            }
+        }
+    }
 }

@@ -18,7 +18,12 @@ class Krakow_rada_uchwaly extends DocDataObject
 
     public function getLabel()
     {
-        return 'Uchwała <strong>Rady Miasta Krakowa</strong> z dnia ' . dataSlownie( $this->getDate() );
+        return 'Uchwała Rady Miasta Krakowa';
+    }
+    
+    public function getShortLabel()
+    {
+        return $this->getLabel();
     }
     
     public function getUrl()
@@ -28,19 +33,26 @@ class Krakow_rada_uchwaly extends DocDataObject
     
     public function getMetaDescriptionParts($preset = false)
 	{
-		/*
+				
 		$output = array();
 		if( $this->getData('krakow_rada_uchwaly.data') )
 			$output[] = dataSlownie($this->getData('krakow_rada_uchwaly.data'));
 		
-		if( $this->getData('krakow_rada_uchwaly.numer_str') )
-			$output[] = $this->getData('krakow_rada_uchwaly.numer_str');
+		if( $this->getData('krakow_rada_uchwaly.str_numer') )
+			$output[] = $this->getData('krakow_rada_uchwaly.str_numer');
 				
 		return $output;
-		*/
-		
-		return false;
-		
+				
+	}
+	
+	public function getBreadcrumbs()
+	{
+		return array(
+			array(
+				'id' => '/dane/gminy/903,krakow/rada_uchwaly',
+				'label' => 'Uchwały Rady Miasta',
+			),
+		);
 	}
 	
 	public $force_hl_fields = true;

@@ -77,8 +77,10 @@ class PagesController extends AppController
                 )
             ));
         }
-
+                				
         $title_for_layout = '_mojePaństwo';
+        if ($page == 'home')
+	        $this->appSelected = '';
 
         $this->set(compact('page', 'subpage', 'title_for_layout'));
 

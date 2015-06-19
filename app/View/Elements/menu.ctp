@@ -4,7 +4,6 @@
             <ul class="nav nav-tabs">
                 <?
                 foreach ($_menu['items'] as $m) {
-
                     if (!isset($m['id']) || !$m['id'])
                         $m['id'] = 'view';
 
@@ -13,7 +12,7 @@
                     if (isset($m['class']) && !empty($m['class'])) {
                         $classes = explode(' ', $m['class']);
                     }
-										
+
                     if (isset($_menu['selected']) && ($m['id'] == $_menu['selected'])) {
                         $classes[] = 'active';
                     }
@@ -25,7 +24,6 @@
                                 $classes[] = 'active';
                                 $item['selected'] = true;
                                 break;
-
                             }
                         }
                     }
@@ -37,14 +35,10 @@
                     }
 
                     $href = $_menu['base'];
-					
-					
+
                     if ($m['id'] && ($m['id'] != 'view')) {
                         $href .= '/' . $m['id'];
                     }
-                    
-                    
-                    
 
                     if (isset($m['label']) && (!empty($m['label']))) {
                         ?>
@@ -52,9 +46,20 @@
                             <a <? if ($dropdown) {
                                 echo 'class="dropdown-toggle" data-toggle="dropdown"';
                             } ?>href="<?= $href ?>">
-                                <? if (isset($m['icon'])) { ?><span class="<?= $m['icon'] ?>"></span> <? } ?>
-                                <?= $m['label'] ?>
-                                <? if (isset($m['count']) && $m['count']) { ?> <span
+                                <? if (isset($m['icon'])) {
+                                    if ($m['icon']['src'] == 'glyphicon') {
+                                        ?><span class="glyphicon glyphicon-<?= $m['icon']['id'] ?>"
+                                                aria-hidden="true" title="<?= $m['label'] ?>"></span> <?
+                                    } else {
+                                        ?><span
+                                        class="icon icon-<?= $m['icon']['src'] ?>-<?= $m['icon']['id'] ?>"
+                                        aria-hidden="true"></span> <?
+                                    }
+                                }
+                                if (@$m['icon']['src'] != 'glyphicon') {
+                                    echo $m['label'];
+                                }
+                                if (isset($m['count']) && $m['count']) { ?> <span
                                     class="badge"><?= $m['count'] ?></span><? } ?>
                                 <? if ($dropdown) { ?>
                                     <span class="caret"></span>

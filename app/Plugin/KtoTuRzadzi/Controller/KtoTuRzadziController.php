@@ -12,56 +12,57 @@ class KtoTuRzadziController extends ApplicationsController
         'headerImg' => '/kto_tu_rzadzi/img/header_kto-tu-rzadzi.png',
     );
 
-    public function prepareMetaTags() {
+    public function prepareMetaTags()
+    {
         parent::prepareMetaTags();
         $this->setMeta('og:image', FULL_BASE_URL . '/kto_tu_rzadzi/img/social/ktoturzadzi.jpg');
     }
-	
-	public function view()
+
+    public function view()
     {
 
         $datasets = $this->getDatasets('kto_tu_rzadzi');
 
-        $options  = array(
+        $options = array(
             'searchTitle' => 'Szukaj instytucji publicznych...',
             'autocompletion' => array(
-	            'dataset' => implode(',', array_keys($datasets)),
+                'dataset' => implode(',', array_keys($datasets)),
             ),
             'conditions' => array(
-	            'dataset' => array_keys( $datasets )
+                'dataset' => array_keys($datasets)
             ),
             'cover' => array(
-	            'view' => array(
-		            'plugin' => 'KtoTuRzadzi',
-		            'element' => 'cover',
-	            ),
+                'view' => array(
+                    'plugin' => 'KtoTuRzadzi',
+                    'element' => 'cover',
+                ),
             ),
             'aggs' => array(
-		        'dataset' => array(
-		            'terms' => array(
-			            'field' => 'dataset',
-		            ),
-		            'visual' => array(
-			            'label' => 'Zbiory danych',
-			            'skin' => 'datasets',
-			            'class' => 'special',
-		                'field' => 'dataset',
-		                'dictionary' => $datasets,
-		            ),
-		        ),
+                'dataset' => array(
+                    'terms' => array(
+                        'field' => 'dataset',
+                    ),
+                    'visual' => array(
+                        'label' => 'Zbiory danych',
+                        'skin' => 'datasets',
+                        'class' => 'special',
+                        'field' => 'dataset',
+                        'dictionary' => $datasets,
+                    ),
+                ),
             ),
         );
-        
-        if( !isset($this->request->query['q']) ) {
-	        
-	        $data = $this->KtoTuRzadzi->getData();
-	        $this->set('data', $data);
-	        
+
+        if (!isset($this->request->query['q'])) {
+
+            $data = $this->KtoTuRzadzi->getData();
+            $this->set('data', $data);
+
         }
 
-	    $this->Components->load('Dane.DataBrowser', $options);
+        $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
 
     }
-	
+
 }

@@ -10,9 +10,7 @@
                 <li>
                     <div class="avatar">
                         <a href="/dane/twitter_accounts/<?= $object->getId() ?>">
-                            <object data="/img/error/avatar.gif" type="image/png">
-                                <img src="<?= $object->getThumbnailUrl() ?>"/>
-                            </object>
+                            <img src="<?= $object->getThumbnailUrl() ?>" onerror="imgFixer(this)"/>
                         </a>
                     </div>
                     <div class="info">
@@ -166,9 +164,8 @@
                     <div class="tweet_header">
                         <div class="avatar">
                             <p>
-                                <object data="/img/error/avatar.gif" type="image/png">
-                                    <img src="<?= $object->getData('twitter_accounts.profile_image_url') ?>"/>
-                                </object>
+                                <img src="<?= $object->getData('twitter_accounts.profile_image_url') ?>"
+                                     onerror="imgFixer(this)"/>
                             </p>
                         </div>
                         <div class="data">

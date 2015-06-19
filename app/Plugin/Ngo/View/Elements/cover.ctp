@@ -1,8 +1,8 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('ngo', array('plugin' => 'Ngo'))) ?>
 
 <div class="col-md-8">
-		
-	<div class="block col-xs-12">
+
+    <div class="block col-xs-12">
         <header>Ostatnio zarejestrowane fundacje</header>
         <section class="aggs-init">
             <div class="dataAggs">
@@ -21,8 +21,13 @@
                 </div>
             </div>
         </section>
+        <footer>
+            <div class="buttons text-center">
+                <a href="/ngo/fundacje" class="btn btn-primary btn-sm">Zobacz więcej</a>
+            </div>
+        </footer>
     </div>
-    
+
     <div class="block col-xs-12">
         <header>Ostatnio zarejestrowane stowarzyszenia</header>
         <section class="aggs-init">
@@ -42,9 +47,15 @@
                 </div>
             </div>
         </section>
+        <footer>
+            <div class="buttons text-center">
+                <a href="/ngo/stowarzyszenia" class="btn btn-primary btn-sm">Zobacz więcej</a>
+            </div>
+        </footer>
     </div>
-		
-</div><div class="col-md-4">
+
+</div>
+<div class="col-md-4">
     <div class="panel panel-primary col-xs-12" data-toggle="modal" data-target="#ngoPartnerModal">
         <div class="panel-body">
             Zostań oficjalnym partnerem mojegoPaństwa

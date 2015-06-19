@@ -43,7 +43,7 @@ class Rady_gmin_interpelacje extends DocDataObject
 	
     public function getLabel()
     {
-        return 'Interpelacja w sprawie';
+        return 'Interpelacja';
     }
     
     public function getFullLabel()
@@ -63,13 +63,27 @@ class Rady_gmin_interpelacje extends DocDataObject
 	
 	public function getMetaDescriptionParts($preset = false)
 	{
-					
+				
 		$output = array(
 			dataSlownie( $this->getDate() ),
+			$this->getData('radni_gmin.nazwa'),
+			$this->getData('radni_gmin.komitet'),
 		);
 		
 		return $output;
 		
+	}
+	
+	public function getBreadcrumbs()
+	{
+				
+		return array(
+			array(
+				'id' => '/dane/gminy/903,krakow/interpelacje',
+				'label' => 'Interpelacje radnych',
+			),
+		);
+				
 	}
 	
 }

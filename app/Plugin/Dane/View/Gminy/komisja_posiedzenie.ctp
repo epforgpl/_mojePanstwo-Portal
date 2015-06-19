@@ -12,6 +12,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
     'object' => $komisja_posiedzenie,
     'objectOptions' => array(
         'bigTitle' => true,
+        'hlFields' => array('komitet', 'liczba_glosow'),
     ),
 ));
 

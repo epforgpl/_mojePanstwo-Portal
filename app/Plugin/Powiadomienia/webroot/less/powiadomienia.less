@@ -1,0 +1,173 @@
+#powiadomienia {
+    @height: 605px;
+
+    .slice {
+        width: 100%;
+        height: @height;
+
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+
+        > .container {
+            height: @height;
+            position: relative;
+        }
+
+        .handler {
+            position: absolute;
+            top: 50%;
+            padding: 0;
+
+            -webkit-transform: translate(0, -50%);
+            -moz-transform: translate(0, -50%);
+            -ms-transform: translate(0, -50%);
+            -o-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+
+            h1, h2 {
+                margin-top: 0;
+            }
+
+            h1 {
+                font-size: 48px;
+                font-weight: normal;
+                color: #014068;
+                margin-bottom: 35px;
+            }
+
+            h2 {
+                font-size: 28px;
+                font-weight: bold;
+                color: #ffffff;
+                margin-bottom: 45px;
+            }
+
+            p {
+                font-size: 16px;
+                font-weight: normal;
+                color: #212121;
+                margin-bottom: 25px;
+
+                &:last-child {
+                    padding-bottom: 0;
+                }
+            }
+
+            .btn {
+                margin-top: 15px;
+                padding: 14px 16px;
+            }
+
+            &.mini {
+                border-left: 4px solid #ffffff;
+                padding: 20px 45px 12px;
+
+                p {
+                    color: #ffffff;
+                }
+            }
+        }
+
+        &.left .handler {
+            left: 30px;
+        }
+
+        &.right .handler {
+            right: 30px;
+        }
+
+        &.start {
+            background: url(/Powiadomienia/img/slice/slice_start_background.jpg) repeat top left;
+            background-size: auto;
+
+            > .container {
+                background: url(/Powiadomienia/img/slice/slice_start_front.png) no-repeat center top;
+                background-size: auto;
+
+                .handler {
+                    padding: 35px 10px 10px;
+                    height: 295px;
+                    text-align: center;
+                    top: 140px;
+                    left: 50%;
+
+                    -webkit-transform: translate(-50%, 0);
+                    -moz-transform: translate(-50%, 0);
+                    -ms-transform: translate(-50%, 0);
+                    -o-transform: translate(-50%, 0);
+                    transform: translate(-50%, 0);
+
+                    .icon {
+                        font-size: 20px;
+                        font-weight: bold;
+                        color: #ffffff;
+                        padding: 5px 5px 0;
+                        background-color: #63afea;
+
+                        border: 1px solid #63afea;
+                        -webkit-border-radius: 20px;
+                        -moz-border-radius: 20px;
+                        -o-border-radius: 20px;
+                        border-radius: 20px;
+                    }
+                }
+            }
+        }
+        &.instytucje {
+            background-image: url(/Powiadomienia/img/slice/slice_instytucje.jpg);
+        }
+        &.gminy {
+            background-image: url(/Powiadomienia/img/slice/slice_gminy.jpg);
+        }
+        &.prawo {
+            background-image: url(/Powiadomienia/img/slice/slice_prawo.jpg);
+        }
+    }
+
+    #rotate {
+        &.hold {
+            position: relative;
+
+            .holdBckgrnd {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 100%;
+                height: 100vh;
+                z-index: 0;
+
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+
+                .temp {
+                    width: 100%;
+                    height: 100%;
+
+                    -webkit-background-size: cover;
+                    -moz-background-size: cover;
+                    -o-background-size: cover;
+                    background-size: cover;
+                }
+            }
+
+            .slice {
+                background: none;
+                position: relative;
+                z-index: 1;
+            }
+        }
+        .slice {
+            min-height: @height;
+            height: 100vh;
+
+            > .container {
+                min-height: @height;
+                height: 100vh;
+            }
+        }
+    }
+}

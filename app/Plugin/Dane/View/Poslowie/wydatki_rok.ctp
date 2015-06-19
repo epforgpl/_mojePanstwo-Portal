@@ -7,7 +7,7 @@
     </div>
 
 <?
-	echo $this->Document->place($rocznik['dokument_id']);
+echo $this->Document->place($rocznik['dokument_id']);
 ?>
 
 <?= $this->Element('dataobject/pageEnd') ?>

@@ -27,5 +27,14 @@ $(document).ready(function () {
                 observeModal.find('form').submit();
             }
         });
+        observeModal.find('a.unobserve').click(function (e) {
+            var that = $(this);
+
+            e.preventDefault();
+            that.addClass('disabled');
+            $.post('/dane/subscriptions/' + that.attr('data-subscription-id') + '/delete', function () {
+                window.location.reload();
+            })
+        })
     }
 });

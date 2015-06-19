@@ -21,7 +21,7 @@ class DataobjectsController extends AppController
     );
 
     public $actions = array();
-    public $appSelected = 'dane';
+    public $appSelected = '';
     public $addDatasetBreadcrumb = true;
 
     public $_layout = array(
@@ -68,8 +68,12 @@ class DataobjectsController extends AppController
             $id &&
             is_numeric($id)
         ) {
-
-            $layers = $this->initLayers;
+			
+			if( @$this->request->params['ext'] == 'json' ) {
+				$layers = isset($this->request->query['layers']) ? $this->request->query['layers'] : array();
+			} else {
+	            $layers = $this->initLayers;
+            }
 
             if ($this->observeOptions)
                 $layers[] = 'channels';
@@ -146,13 +150,20 @@ class DataobjectsController extends AppController
 
                 }
 
-                $dataset = $this->object->getLayer('dataset');
-
-                $this->set('object', $this->object);
-                $this->set('object_subscriptions', $this->object->getLayer('subscriptions'));
-                $this->set('objectOptions', $this->objectOptions);
-                $this->set('microdata', $this->microdata);
-                $this->set('title_for_layout', $this->object->getTitle());
+				if( @$this->request->params['ext'] == 'json' ) {
+					
+					$this->set('data', $this->object->getData());
+					$this->set('layers', $this->object->getLayers());
+	                $this->set('_serialize', array('data', 'layers'));
+					
+				} else {
+					
+	                $this->set('object', $this->object);
+	                $this->set('objectOptions', $this->objectOptions);
+	                $this->set('microdata', $this->microdata);
+	                $this->set('title_for_layout', $this->object->getTitle());
+                
+                }
 
             }
 

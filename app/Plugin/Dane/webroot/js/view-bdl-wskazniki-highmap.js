@@ -1,6 +1,6 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
-    if(local_data == undefined || local_data.length == 0)
+    if (local_data == undefined || local_data.length == 0)
         return false;
 
     var geoType =
@@ -8,45 +8,45 @@ $(document).ready(function() {
             local_data.length > 16 ?
                 local_data.length > 380 ?
                     'gminy'
-                :
+                    :
                     'powiaty'
-            :
+                :
                 'wojewodztwa'
-        :
+            :
             false;
 
-    if(!geoType)
+    if (!geoType)
         return false;
 
-    $.getJSON('http://mojepanstwo.pl:4444/geo/geojson/get?quality=4&types=' + geoType, function(data) {
+    $.getJSON('http://mojepanstwo.pl:4444/geo/geojson/get?quality=4&types=' + geoType, function (data) {
         var geo = Highcharts.geojson(data, 'map');
         var max = 0, min = 9999999999;
-        for(var i = 0; i < geo.length; i++) {
+        for (var i = 0; i < geo.length; i++) {
             var found = false;
-            for(var k = 0; k < local_data.length; k++) {
-                if(geo[i].properties.id == local_data[k].local_id) {
+            for (var k = 0; k < local_data.length; k++) {
+                if (geo[i].properties.id == local_data[k].local_id) {
                     geo[i].value = parseFloat(local_data[k].lv);
                     geo[i].id = 'o' + geo[i].properties.id;
                     found = true;
                     break;
                 }
             }
-            if(!found)
+            if (!found)
                 geo[i].value = 0;
 
-            if(geo[i].value > max)
+            if (geo[i].value > max)
                 max = geo[i].value;
 
-            if(geo[i].value < min)
+            if (geo[i].value < min)
                 min = geo[i].value;
         }
 
         var type = 'linear';
-        if(min == 0 && max == 0)
+        if (min == 0 && max == 0)
             max = 1;
 
         var highmap = $('#highmap');
-            highmap.css('height', '85vh');
+        highmap.css('height', '85vh');
 
         highmap.highcharts('Map', {
             title: {
@@ -84,25 +84,25 @@ $(document).ready(function() {
                     //allowPointSelect: true,
                     point: {
                         events: {
-                            mouseOver: function() {
+                            mouseOver: function () {
                                 this.graphic.toFront();
                             },
-                            mouseOut: function() {
+                            mouseOut: function () {
 
                             },
-                            select: function() {
+                            select: function () {
                                 this.graphic.toFront();
                             },
-                            click: function() {
+                            click: function () {
                                 var index = this.index + 1;
-                                $('tr.wskaznikStatic').each(function() {
+                                $('tr.wskaznikStatic').each(function () {
                                     var _this = $(this);
                                     var _index = $(this).attr('data-local_id');
-                                    if(_index == index) {
+                                    if (_index == index) {
                                         $('html, body').animate({
                                             scrollTop: _this.offset().top
                                         }, 1000);
-                                        if(!_this.hasClass('clicked'))
+                                        if (!_this.hasClass('clicked'))
                                             _this.click();
                                         return true;
                                     }
@@ -138,23 +138,23 @@ $(document).ready(function() {
         });
 
         // sticky map
-        if($(window).width() > 1000) {
+        if ($(window).width() > 1000) {
 
             var mapOffset = highmap.offset();
             var t = mapOffset.top;
             var f = false;
 
-            $(window).scroll(function() {
+            $(window).scroll(function () {
 
                 var top = $(window).scrollTop();
 
-                if(!f && top > t) {
+                if (!f && top > t) {
                     highmap.css('top', '10px');
                     highmap.css('position', 'fixed');
                     f = true;
                 }
 
-                if(f && top <= t) {
+                if (f && top <= t) {
                     highmap.css('position', 'relative');
                     f = false;
                 }
@@ -164,14 +164,14 @@ $(document).ready(function() {
         }
 
         $('tr.wskaznikStatic')
-            .on("mouseenter", function() {
+            .on("mouseenter", function () {
                 var id = parseInt($(this).attr('data-local_id'));
                 highmap
                     .highcharts()
                     .get('o' + id)
                     .select();
             })
-            .on( "mouseleave", function() {
+            .on("mouseleave", function () {
                 var id = parseInt($(this).attr('data-local_id'));
                 highmap
                     .highcharts()

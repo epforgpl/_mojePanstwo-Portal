@@ -1,433 +1,485 @@
 .appMenu {
-	display: none;
+  display: none;
+}
+
+#morebg {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vw;
+  background: #000;
+  opacity: 0.7;
+  z-index: 3;
+}
+
+#more {
+  display: none;
+  position: fixed;
+  border-radius: 5px;
+  top: 5vw;
+  left: 20vw;
+  width: 60vw;
+  height: 80vh;
+  margin: 0;
+  background: #142026;
+  z-index: 4;
+  padding: 10px 30px;
+  a.close {
+    position: absolute;
+    margin-left: 54vw;
+    margin-top: 10px;
+    color: #f1f1f1;
+    text-shadow: none;
+    opacity: 1;
+    float: left;
+    font-weight: normal;
+    font-size: 30px;
+  }
+  h1 {
+    color: #f1f1f1;
+  }
+  h2 {
+    color: #c2d1e7;
+    font-size: 18px;
+  }
+  #list {
+    margin-top: 30px;
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 54vh !important;
+    li {
+      background: #273a48;
+      border-color: #2e4555;
+      color: #fff;
+      img {
+        margin-right: 8px;
+        margin-top: -6px;
+        max-height: 23px;
+      }
+      a {
+        color: #fff;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .badge {
+        background: #142026;
+        font-weight: normal;
+      }
+    }
+  }
 }
 
 #_wrapper {
-    #_main {
-        margin: 0;
-        background-color: #01050b;
+  #_main {
+    .maplabel {
+      padding: 0;
+      width: 100%;
+      position: absolute;
+      top: 0;
 
-        .maplabel {
-            padding: 0;
-            width: 100%;
-            position: absolute;
-            top: 0;
+      &.stick {
+        position: fixed;
+        top: 0;
+        left: 43px;
+        z-index: 1;
+      }
 
-            &.stick {
-                position: fixed;
-                top: 0;
-                left: 50px;
-                z-index: 1;
-            }
+      .navbar.navbar-inverse {
+        border-radius: 0;
+        border: none;
+        background: rgba(0, 0, 0, .5);
+        margin-bottom: 0;
 
-            .navbar.navbar-inverse {
-                border-radius: 0;
-                border: none;
-                background: rgba(0, 0, 0, .5);
-                margin-bottom: 0;
-
-                ul.nav li.active a {
-                    background: #142026;
-                }
-            }
-            .collapse.navbar-collapse {
-                padding-left: 0;
-                padding-right: 0;
-
-                .navbar-text {
-                    padding-left: 0;
-                    margin-left: 0;
-                }
-            }
-
-            & > p {
-                color: #ddd;
-                font-family: "Lato", Arial, sans-serif;
-                font-weight: 300;
-                text-align: center;
-                padding-right: 100px;
-            }
-
-            & > .naglosnijHandler {
-                position: absolute;
-                right: 2%;
-                top: 6px;
-            }
+        ul.nav li.active a {
+          background: #142026;
         }
+      }
+      .collapse.navbar-collapse {
+        padding-left: 0;
+        padding-right: 0;
 
-        #hzMap {
-            padding: 20px 0;
-            position: relative;
-            min-height: 500px;
-            max-height: 80vh;
-            display: block;
-            margin-bottom: 0;
-
-            .loading {
-                width: 100%;
-                min-height: 500px;
-                max-height: 80vh;
-                background: url(/img/loader/search-loading.png) no-repeat center center;
-            }
-
-            .detailInfoBackground {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 2;
-            }
-
-            .detailInfo {
-                width: 90vw;
-                max-width: 960px;
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                z-index: 9000;
-                border: 1px solid #7cb5ec;
-                -moz-border-radius: 2px;
-                -webkit-border-radius: 2px;
-                border-radius: 2px;
-                background-color: #f9f9f9;
-                font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
-                font-size: 12px;
-                color: #333333;
-
-                -webkit-transform: translate(-50%, -46%);
-                -moz-transform: translate(-50%, -46%);
-                -ms-transform: translate(-50%, -46%);
-                -o-transform: translate(-50%, -46%);
-                transform: translate(-50%, -46%);
-
-                .detailInfoClose {
-                    position: absolute;
-                    top: -12px;
-                    right: -12px;
-                    width: 26px;
-                    height: 26px;
-                    padding: 5px 0;
-                    cursor: pointer;
-                    border: 1px solid #7cb5ec;
-                    border-bottom-width: 0;
-                    border-left-width: 0;
-                    -moz-border-radius: 50px;
-                    -webkit-border-radius: 50px;
-                    border-radius: 50px;
-                    background-color: #f9f9f9;
-                    text-align: center;
-                    font-size: 14px;
-                }
-
-                .detail-header {
-                    background-color: #157ab5;
-                    color: #FFF;
-                    margin-top: -8px;
-                    margin-bottom: 8px;
-                }
-
-                .content {
-                    height: auto;
-                    max-height: 85vh;
-                    overflow-x: hidden;
-                    overflow-y: auto;
-                    padding: 8px 0;
-                    & > div {
-                        padding: 5px 12px;
-                    }
-                    .koszt {
-                        text-align: right;
-                    }
-                    .delegacja {
-                        font-size: 15px;
-                        margin: 10px 0 5px;
-                    }
-                    table {
-                        font-size: 10px;
-                        padding-bottom: 16px;
-                        background-color: #FFF;
-                        border-radius: 5px;
-                        td {
-                            padding: 5px;
-                        }
-                        thead {
-                            & > td {
-                                color: #999;
-                                font-size: 9px;
-                            }
-                        }
-                    }
-                }
-                .content.loading {
-                    min-height: 150px;
-                    display: block;
-                }
-            }
+        .navbar-text {
+          padding-left: 0;
+          margin-left: 0;
+          color: #ffffff;
         }
-        #hzDetails {
-            border-top: none;
-            padding: 20px 0;
-
-            .well.well-sm {
-                background: #0e171b;
-                padding-left: 13px;
-                color: #4e596b;
-            }
-            h2 {
-                color: #f1f1f1;
-                font-weight: normal;
-            }
-            p.lead {
-                color: #c2d1e7;
-                font-size: 18px;
-                font-weight: 300;
-            }
-            ul.list-group {
-                li {
-                    background: #273a48;
-                    border-color: #2e4555;
-                    color: #fff;
-                    img {
-                        margin-right: 8px;
-                        margin-top: -6px;
-                        max-height: 23px;
-                    }
-                    a {
-                        color: #fff;
-                    }
-                    a:hover {
-                        text-decoration: underline;
-                    }
-                    .badge {
-                        background: #142026;
-                        font-weight: normal;
-                    }
-                }
-            }
-        }
-        .block {
-            h3 {
-                margin: 0 0 5px;
-                padding: 0;
-            }
-            ul {
-                li {
-                    border-bottom: 1px solid #ddd;
-                    margin: 0 10px;
-                    padding: 10px 0;
-                    img.border {
-                        border: 1px solid #DDD;
-                    }
-                    .title {
-                        font-size: 16px;
-                        padding: 0;
-                        margin: 0;
-                        .klub {
-                            font-size: 12px;
-                            color: #999;
-                        }
-                    }
-                    .loc {
-                        font-weight: 500;
-                        font-size: 12px;
-                    }
-                    .desc {
-                        padding: 0;
-                        margin: 5px 0 0;
-                        font-size: 12px;
-                        color: green;
-                    }
-                    .desc-loc-cont {
-                        margin-top: 5px;
-                        overflow: auto;
-                        .desc {
-                            margin: 0;
-                            padding: 0;
-                        }
-                        .loc {
-                            margin: 2px 0 0;
-                            padding: 0;
-                        }
-                    }
-                }
-                li:last-child {
-                    border-bottom: none;
-                }
-            }
-            .klubyTitle {
-                img {
-                    float: left;
-                    width: 30px;
-
-                    -webkit-transform: translate(0px, -25%);
-                    -moz-transform: translate(0px, -25%);
-                    -ms-transform: translate(0px, -25%);
-                    -o-transform: translate(0px, -25%);
-                    transform: translate(0px, -25%);
-                }
-                span {
-                    display: block;
-                    margin-left: 35px;
-                    font-size: 13px;
-                }
-            }
-        }
-        ul.controversy {
-            list-style: none;
-            li {
-                list-style: outside none none;
-                margin: 15px 0;
-                padding: 5px 0 25px;
-                border-bottom: 1px solid #DDD;
-                .poslowie {
-                    margin: 0;
-                    padding: 0;
-                    background-color: #FCFCFC;
-                    border-radius: 5px;
-                    li {
-                        padding: 5px;
-                        margin: 5px;
-                        min-height: 33px;
-                        border-bottom: 1px solid #EEE;
-                    }
-                    li:last-child {
-                        border-bottom: none;
-                    }
-                }
-                p {
-                    margin: 0;
-                    padding: 0;
-                }
-                p.event {
-                    font-weight: 500;
-                    font-size: 14px;
-                    margin-top: 15px;
-                    margin-bottom: 2px;
-                    margin-left: 8px;
-                }
-                p.dates {
-                    margin-left: 8px;
-                    .label {
-                        padding: 2px 6px;
-                    }
-                }
-                .title {
-                    margin-left: 5px;
-                    font-size: 15px;
-                }
-                .w_title {
-                    font-size: 18px;
-                }
-                ._currency {
-                    font-size: 12px;
-                }
-                .loc {
-                    overflow: auto;
-                }
-                .desc {
-                    font-size: 12px;
-                    padding: 5px 5px 10px;
-                    color: green;
-                }
-                .licza_dni {
-                    color: green;
-                    position: relative;
-                    top: 1px;
-                    strong {
-                        font-weight: 500;
-                    }
-                }
-                .klub {
-                    color: #999;
-                    font-size: 10px;
-                    font-weight: 600;
-                    a {
-                        color: #777;
-                    }
-                    a:hover {
-                        color: #157ab5;
-                    }
-                }
-            }
-            li:last-child {
-                border-bottom: none;
-            }
-        }
+      }
     }
+
+    #hzMap {
+      padding: 20px 0;
+      position: relative;
+      min-height: 500px;
+      max-height: 80vh;
+      display: block;
+      margin-bottom: 0;
+
+      .loading {
+        width: 100%;
+        min-height: 500px;
+        max-height: 80vh;
+        background: url(/img/loader/search-loading.png) no-repeat center center;
+      }
+
+      .detailInfoBackground {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+      }
+
+      .detailInfo {
+        width: 90vw;
+        max-width: 960px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        z-index: 9000;
+        border: 1px solid #7cb5ec;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
+        background-color: #f9f9f9;
+        font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        color: #333333;
+
+        -webkit-transform: translate(-50%, -46%);
+        -moz-transform: translate(-50%, -46%);
+        -ms-transform: translate(-50%, -46%);
+        -o-transform: translate(-50%, -46%);
+        transform: translate(-50%, -46%);
+
+        .detailInfoClose {
+          position: absolute;
+          top: -12px;
+          right: -12px;
+          width: 26px;
+          height: 26px;
+          padding: 5px 0;
+          cursor: pointer;
+          border: 1px solid #7cb5ec;
+          border-bottom-width: 0;
+          border-left-width: 0;
+          -moz-border-radius: 50px;
+          -webkit-border-radius: 50px;
+          border-radius: 50px;
+          background-color: #f9f9f9;
+          text-align: center;
+          font-size: 14px;
+        }
+
+        .detail-header {
+          background-color: #157ab5;
+          color: #FFF;
+          margin-top: -8px;
+          margin-bottom: 8px;
+        }
+
+        .content {
+          height: auto;
+          max-height: 85vh;
+          overflow-x: hidden;
+          overflow-y: auto;
+          padding: 8px 0;
+          & > div {
+            padding: 5px 12px;
+          }
+          .koszt {
+            text-align: right;
+          }
+          .delegacja {
+            font-size: 15px;
+            margin: 10px 0 5px;
+          }
+          table {
+            font-size: 10px;
+            padding-bottom: 16px;
+            background-color: #FFF;
+            border-radius: 5px;
+            td {
+              padding: 5px;
+            }
+            thead {
+              & > td {
+                color: #999;
+                font-size: 9px;
+              }
+            }
+          }
+        }
+        .content.loading {
+          min-height: 150px;
+          display: block;
+        }
+      }
+    }
+    #hzDetails {
+      border-top: none;
+      padding: 20px 0;
+
+      .well.well-sm {
+        background: #0e171b;
+        padding-left: 13px;
+        color: #4e596b;
+      }
+      h2 {
+        font-weight: normal;
+      }
+      p.lead {
+        font-size: 18px;
+        font-weight: 300;
+      }
+      ul.list-group {
+        li {
+          background: #f8f8f8;
+          border-color: #dddddd;
+          color: #545454;
+          img {
+            margin-right: 8px;
+            margin-top: -6px;
+            max-height: 23px;
+          }
+          a {
+            color: #545454;
+          }
+          a:hover {
+            text-decoration: underline;
+          }
+          .badge {
+            font-weight: normal;
+          }
+        }
+      }
+    }
+    .block {
+      h3 {
+        margin: 0 0 5px;
+        padding: 0;
+      }
+      ul {
+        li {
+          border-bottom: 1px solid #ddd;
+          margin: 0 10px;
+          padding: 10px 0;
+          img.border {
+            border: 1px solid #DDD;
+          }
+          .title {
+            font-size: 16px;
+            padding: 0;
+            margin: 0;
+            .klub {
+              font-size: 12px;
+              color: #999;
+            }
+          }
+          .loc {
+            font-weight: 500;
+            font-size: 12px;
+          }
+          .desc {
+            padding: 0;
+            margin: 5px 0 0;
+            font-size: 12px;
+            color: green;
+          }
+          .desc-loc-cont {
+            margin-top: 5px;
+            overflow: auto;
+            .desc {
+              margin: 0;
+              padding: 0;
+            }
+            .loc {
+              margin: 2px 0 0;
+              padding: 0;
+            }
+          }
+        }
+        li:last-child {
+          border-bottom: none;
+        }
+      }
+      .klubyTitle {
+        img {
+          float: left;
+          width: 30px;
+
+          -webkit-transform: translate(0px, -25%);
+          -moz-transform: translate(0px, -25%);
+          -ms-transform: translate(0px, -25%);
+          -o-transform: translate(0px, -25%);
+          transform: translate(0px, -25%);
+        }
+        span {
+          display: block;
+          margin-left: 35px;
+          font-size: 13px;
+        }
+      }
+    }
+    ul.controversy {
+      list-style: none;
+      li {
+        list-style: outside none none;
+        margin: 15px 0;
+        padding: 5px 0 25px;
+        border-bottom: 1px solid #DDD;
+        .poslowie {
+          margin: 0;
+          padding: 0;
+          background-color: #FCFCFC;
+          border-radius: 5px;
+          li {
+            padding: 5px;
+            margin: 5px;
+            min-height: 33px;
+            border-bottom: 1px solid #EEE;
+          }
+          li:last-child {
+            border-bottom: none;
+          }
+        }
+        p {
+          margin: 0;
+          padding: 0;
+        }
+        p.event {
+          font-weight: 500;
+          font-size: 14px;
+          margin-top: 15px;
+          margin-bottom: 2px;
+          margin-left: 8px;
+        }
+        p.dates {
+          margin-left: 8px;
+          .label {
+            padding: 2px 6px;
+          }
+        }
+        .title {
+          margin-left: 5px;
+          font-size: 15px;
+        }
+        .w_title {
+          font-size: 18px;
+        }
+        ._currency {
+          font-size: 12px;
+        }
+        .loc {
+          overflow: auto;
+        }
+        .desc {
+          font-size: 12px;
+          padding: 5px 5px 10px;
+          color: green;
+        }
+        .licza_dni {
+          color: green;
+          position: relative;
+          top: 1px;
+          strong {
+            font-weight: 500;
+          }
+        }
+        .klub {
+          color: #999;
+          font-size: 10px;
+          font-weight: 600;
+          a {
+            color: #777;
+          }
+          a:hover {
+            color: #157ab5;
+          }
+        }
+      }
+      li:last-child {
+        border-bottom: none;
+      }
+    }
+  }
 }
 
 .mapMain {
-    position: relative;
-    padding-top: 50px;
+  position: relative;
+  padding-top: 50px;
+  background-color: #201622;
 
-    .anchor {
-        position: absolute;
-        top: 0;
-    }
+  .anchor {
+    position: absolute;
+    top: 0;
+  }
 
-    .hzTypeMenu {
-        position: absolute;
-        margin-top: 10px;
-        margin-left: 10px;
-        z-index: 1;
-        height: 38px;
+  .hzTypeMenu {
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 10px;
+    z-index: 1;
+    height: 38px;
 
-        li:not(.active) a:hover {
-            background: none;
-            color: #ffffff;
-        }
+    li:not(.active) a:hover {
+      background: none;
     }
-    .nav-pills > li {
-        float: none;
-    }
+  }
+  .nav-pills > li {
+    float: none;
+  }
 }
 
 .highcharts-tooltip {
-    & > span {
-        display: block;
-        font: normal 12px Arial;
-        div {
-            display: block;
-            overflow: hidden;
-        }
-        img.hzFlagIcon {
-            float: left;
-            margin-right: 7px;
-            margin-top: -3px;
-        }
-        ul {
-            display: block;
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
+  & > span {
+    display: block;
+    font: normal 12px Arial;
+    div {
+      display: block;
+      overflow: hidden;
     }
+    img.hzFlagIcon {
+      float: left;
+      margin-right: 7px;
+      margin-top: -3px;
+    }
+    ul {
+      display: block;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+  }
 }
 
 span.firstUpper:first-letter {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 #_wrapper #_main #hzMap .detailInfo .content .kraj, #_wrapper #_main #hzMap .detailInfo .content .ilosc, #_wrapper #_main #hzMap .detailInfo .content .koszt {
-    font-size: 14px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+  font-size: 14px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 #_wrapper #_main #hzMap .detailInfo .content .miasto, #_wrapper #_main #hzMap .detailInfo .content .nazwa {
-    padding-bottom: 5px;
-    line-height: 14px;
+  padding-bottom: 5px;
+  line-height: 14px;
 }
 
 #_wrapper #_main .block ul li .desc ._number, #_wrapper #_main .block ul li .desc ._currency {
-    font-weight: 500;
-    color: green;
-    font-size: 13px;
+  font-weight: 500;
+  color: green;
+  font-size: 13px;
 }
 
 ul li.list-group-item ul {
-    margin-top: 10px;
-    font-size: 12px;
-    margin-bottom: 5px;
+  margin-top: 10px;
+  font-size: 12px;
+  margin-bottom: 5px;
 }

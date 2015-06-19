@@ -16,13 +16,13 @@
 <? echo $this->Element('dataobject/pageBegin'); ?>
 
 <div class="objectsPage">
-	<?
-		$options = array();
-		if( isset($title) )
-			$options['title'] = $title;
-			
-		echo $this->Element('Dane.DataBrowser/browser', $options);
-	?>
+    <?
+    $options = array();
+    if (isset($title))
+        $options['title'] = $title;
+
+    echo $this->Element('Dane.DataBrowser/browser', $options);
+    ?>
 </div>
 
 <?= $this->Element('dataobject/pageEnd'); ?>

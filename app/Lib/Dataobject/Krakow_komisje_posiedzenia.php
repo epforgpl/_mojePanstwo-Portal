@@ -28,7 +28,13 @@ class Krakow_komisje_posiedzenia extends DataObject
 
     public function getLabel()
     {
-        return 'Druk w pracach rady gminy <a href="/dane/gminy/903">Kraków</a>';
+        return 'Posiedzenie komisji';
+    }
+    
+    public function getShortLabel() {
+	    
+	    return 'Posiedzenie komisji';
+	    
     }
     
     public function getShortTitle() {
@@ -67,6 +73,26 @@ class Krakow_komisje_posiedzenia extends DataObject
 		
 		return $output;
 		
+	}
+	
+	public function getBreadcrumbs()
+	{
+				
+		return array(
+			array(
+				'id' => '/dane/gminy/903,krakow/komisje',
+				'label' => 'Komisje Rady Miasta',
+			),
+			array(
+				'id' => '/dane/gminy/903,krakow/komisje/' . $this->getData('krakow_komisje.id'),
+				'label' => $this->getData('krakow_komisje.nazwa'),
+			),
+			array(
+				'id' => '/dane/gminy/903,krakow/komisje/' . $this->getData('krakow_komisje.id') . '/posiedzenia',
+				'label' => 'Posiedzenia komisji'
+			),
+		);
+				
 	}
 	
 }

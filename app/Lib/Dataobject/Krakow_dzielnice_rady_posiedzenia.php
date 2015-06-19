@@ -78,5 +78,21 @@ class Krakow_dzielnice_rady_posiedzenia extends DataObject
 		return $output;
 		
 	}
+	
+	public function getBreadcrumbs()
+	{
+				
+		return array(
+			array(
+				'id' => '/dane/gminy/903,krakow/dzielnice/' . $this->getData('dzielnice.id'),
+				'label' => $this->getData('dzielnice.nazwa'),
+			),
+			array(
+				'id' => '/dane/gminy/903,krakow/dzielnice/' . $this->getData('dzielnice.id') . '/rada_posiedzenia',
+				'label' => 'Posiedzenia Rady Dzielnicy',
+			),
+		);
+				
+	}
 
 }

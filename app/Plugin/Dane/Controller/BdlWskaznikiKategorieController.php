@@ -10,8 +10,8 @@ class BdlWskaznikiKategorieController extends DataobjectsController
         parent::load();
         $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'bdl_wskazniki_grupy',
-	            'bdl_wskazniki_grupy.kategoria_id' => $this->object->getId(),
+                'dataset' => 'bdl_wskazniki_grupy',
+                'bdl_wskazniki_grupy.kategoria_id' => $this->object->getId(),
             ),
         ));
         $this->set('DataBrowserTitle', 'Grupy wskaźników w tej kategorii');

@@ -47,51 +47,52 @@ class MojaGminaController extends ApplicationsController
         ),
         'title' => 'Moja gmina',
         // 'subtitle' => 'moja gmina',
-		'headerImg' => '/moja_gmina/img/header_moja-gmina.png',
+        'headerImg' => '/moja_gmina/img/header_moja-gmina.png',
     );
 
 
     public $components = array('RequestHandler');
 
 
-    public function prepareMetaTags() {
+    public function prepareMetaTags()
+    {
         parent::prepareMetaTags();
         $this->setMeta('og:image', FULL_BASE_URL . '/moja_gmina/img/social/mojagmina.jpg');
     }
 
     public function index()
     {
-		
-		$datasets = $this->getDatasets('moja_gmina');
-			    
-        $options  = array(
+
+        $datasets = $this->getDatasets('moja_gmina');
+
+        $options = array(
             'searchTitle' => 'Szukaj w gminach, powiatach, województwach i miejscowościach...',
             'conditions' => array(
-	            'dataset' => array_keys($datasets),
+                'dataset' => array_keys($datasets),
             ),
             'cover' => array(
-	            'view' => array(
-		            'plugin' => 'MojaGmina',
-		            'element' => 'cover',
-	            ),
+                'view' => array(
+                    'plugin' => 'MojaGmina',
+                    'element' => 'cover',
+                ),
             ),
             'aggs' => array(
-		        'dataset' => array(
-		            'terms' => array(
-			            'field' => 'dataset',
-		            ),
-		            'visual' => array(
-			            'label' => 'Zbiory danych',
-			            'skin' => 'datasets',
-			            'class' => 'special',
-		                'field' => 'dataset',
-		                'dictionary' => $datasets,
-		            ),
-		        ),
+                'dataset' => array(
+                    'terms' => array(
+                        'field' => 'dataset',
+                    ),
+                    'visual' => array(
+                        'label' => 'Zbiory danych',
+                        'skin' => 'datasets',
+                        'class' => 'special',
+                        'field' => 'dataset',
+                        'dictionary' => $datasets,
+                    ),
+                ),
             ),
         );
-        
-	    $this->Components->load('Dane.DataBrowser', $options);
+
+        $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
 
 
@@ -101,16 +102,16 @@ class MojaGminaController extends ApplicationsController
     {
 
         $output = array();
-		$this->loadModel('Dane.Dataobject');
-		
-		$gminy = $this->Dataobject->find('all', array(
-			'conditions' => array(
-				'dataset' => 'gminy',
-				'q' => @$this->request->query['q'],
-			),
-			'limit' => 10,
-		));
-				
+        $this->loadModel('Dane.Dataobject');
+
+        $gminy = $this->Dataobject->find('all', array(
+            'conditions' => array(
+                'dataset' => 'gminy',
+                'q' => @$this->request->query['q'],
+            ),
+            'limit' => 10,
+        ));
+
         foreach ($gminy as $gmina) {
             $output[] = array(
                 'id' => $gmina->getId(),
@@ -118,7 +119,7 @@ class MojaGminaController extends ApplicationsController
                 'typ' => $gmina->getData('typ_nazwa'),
             );
         }
-        
+
         $this->set('output', $output);
         $this->set('_serialize', 'output');
 
@@ -126,31 +127,31 @@ class MojaGminaController extends ApplicationsController
 
     public function gminy()
     {
-	    $this->title = 'Gminy w Polsce - Moja Gmina';
+        $this->title = 'Gminy w Polsce - Moja Gmina';
         $this->loadDatasetBrowser('gminy');
     }
 
     public function kody_pocztowe()
     {
-	    $this->title = 'Kody pocztowe w Polsce- Moja Gmina';
+        $this->title = 'Kody pocztowe w Polsce- Moja Gmina';
         $this->loadDatasetBrowser('kody_pocztowe');
     }
 
     public function miejscowosci()
     {
-	    $this->title = 'Miejscowości w Polsce - Moja Gmina';
+        $this->title = 'Miejscowości w Polsce - Moja Gmina';
         $this->loadDatasetBrowser('miejscowosci');
     }
 
     public function powiaty()
     {
-	    $this->title = 'Powiaty w Polsce - Moja Gmina';
+        $this->title = 'Powiaty w Polsce - Moja Gmina';
         $this->loadDatasetBrowser('powiaty');
     }
 
     public function wojewodztwa()
     {
-	    $this->title = 'Województwa w Polsce - Moja Gmina';
+        $this->title = 'Województwa w Polsce - Moja Gmina';
         $this->loadDatasetBrowser('wojewodztwa');
     }
 

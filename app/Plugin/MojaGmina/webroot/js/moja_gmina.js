@@ -304,19 +304,6 @@ var PLBrowser = Class.create({
 
             layer.items_loaded = false;
 
-            if (layer.l == 1) {
-
-                var firstBlock = new Element('div', {'class': 'mainPart'});
-                firstBlock.insert({
-                    bottom: new Element('button', {
-                        'class': 'btn btn-success',
-                        'id': 'localizeMe'
-                    }).update(mPHeart.translation.LC_MOJA_GMINA_LOCALIZEME)
-                });
-
-                map_info.insert(firstBlock);
-            }
-
             switch (Number(layer.l)) {
                 case 1:
                     ajaxUrl = '/moja_gmina/geo/wojewodztwa';

@@ -37,7 +37,7 @@ $(document).ready(function () {
             $('.dataFeed-ul').append($modal);
         }
 
-        console.log(that);
+        //console.log(that);
         $modal.modal('show');
 
         /*$.ajax({

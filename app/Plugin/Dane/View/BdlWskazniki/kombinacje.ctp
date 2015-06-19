@@ -16,14 +16,14 @@
         <?
         if (!empty($expanded_dimension)) {
 
-            foreach($expanded_dimension['options'] as $_option) {
-                if($this->request->params['subid'] == $_option['data']['id']) {
+            foreach ($expanded_dimension['options'] as $_option) {
+                if ($this->request->params['subid'] == $_option['data']['id']) {
                     $option = $_option;
                     break;
                 }
             }
 
-            if($option) {
+            if ($option) {
 
                 ?>
 
@@ -68,7 +68,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row bdl-details">
                     <div class="col-md-7">
                         <div id="highmap"></div>
                     </div>
@@ -79,7 +79,7 @@
                                 <ul class="nav nav-pills nav-stacked">
                                     <? foreach ($dimension['levels'] as $level) { ?>
                                         <li<? if (isset($level['selected'])) {
-                                            $menuSelect = $level['id']; ?> class="active" <? } ?>>
+                                $menuSelect = $level['id']; ?> class="active" <? } ?>>
                                             <a href="/dane/bdl_wskazniki/<?= $object->getId() . '/' /*DS zawierało '\' zamiast '/' */ . $option['data']['id'] . '/' . $level['id'] ?>">
                                                 <?= $level["label"] ?>
                                             </a>
@@ -116,27 +116,26 @@
                                         <div class="col-md-4">
                                             <ul class="nav nav-pills">
                                                 <li role="presentation" class="dropdown bdl-levels-menu pull-right">
-                                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                                                        <? foreach ($dimension['levels'] as $level) { ?>
-                                                            <? if (isset($level['selected'])) { ?>
-                                                                <?= $level["label"] ?> <span class="caret"></span>
-                                                            <? } ?>
-                                                        <? } ?>
+                                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"
+                                                       role="button" aria-expanded="false">
+                                                        Obszar <span class="caret"></span>
                                                     </a>
                                                     <ul class="dropdown-menu" role="menu">
-                                                        <? $isset = false; ?>
                                                         <? foreach ($dimension['levels'] as $level) { ?>
-                                                            <? if(!isset($level['selected'])) { $isset = true; ?>
+                                                            <? if (!isset($level['selected'])) { ?>
                                                                 <li>
-                                                                    <a href="/dane/bdl_wskazniki/<?= $object->getId() . ','.$this->request->params['slug'].'/kombinacje/' . $option['data']['id'] . '/' . $level['id'] ?>">
+                                                                    <a href="/dane/bdl_wskazniki/<?= $object->getId() . ',' . $this->request->params['slug'] . '/kombinacje/' . $option['data']['id'] . '/' . $level['id'] ?>">
                                                                         <?= $level["label"] ?>
                                                                     </a>
                                                                 </li>
+                                                            <? } else { ?>
+                                                                <li class="disable">
+                                                                    <a>
+                                                                        <span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                                        &nbsp;<?= $level["label"] ?>
+                                                                    </a>
+                                                                </li>
                                                             <? } ?>
-                                                        <? } ?>
-
-                                                        <? if(!$isset) { ?>
-                                                            <li class="disable"><a>Brak</a></li>
                                                         <? } ?>
                                                     </ul>
                                                 </li>
@@ -170,7 +169,8 @@
                                         </thead>
                                         <tbody>
                                         <? foreach ($local_data as $local) { ?>
-                                            <tr class="wskaznikStatic" data-dim_id="<?= $option['data']['id'] ?>" data-local_type="<?= $menuSelect ?>"
+                                            <tr class="wskaznikStatic" data-dim_id="<?= $option['data']['id'] ?>"
+                                                data-local_type="<?= $menuSelect ?>"
                                                 data-local_id="<?= $local["local_id"] ?>">
                                                 <td>
                                                     <div class="holder">
@@ -179,8 +179,10 @@
 
                                                         <div class="wskaznikChart">
                                                             <div class="progress progress-striped active">
-                                                                <div class="progress-bar" role="progressbar" aria-valuenow="45"
-                                                                     aria-valuemin="0" aria-valuemax="100" style="width: 15%"></div>
+                                                                <div class="progress-bar" role="progressbar"
+                                                                     aria-valuenow="45"
+                                                                     aria-valuemin="0" aria-valuemax="100"
+                                                                     style="width: 15%"></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -218,8 +220,9 @@
 
     </div>
 
-<? if(isset($local_data) && is_array($local_data)): ?>
-    <script type="text/javascript">var local_data = <?= json_encode($local_data); ?>; var unitStr = '<?= $option['data']['jednostka'] ?>';</script>
+<? if (isset($local_data) && is_array($local_data)): ?>
+    <script type="text/javascript">var local_data = <?= json_encode($local_data); ?>;
+        var unitStr = '<?= $option['data']['jednostka'] ?>';</script>
 <? endif; ?>
 
 <?= $this->Element('dataobject/pageEnd'); ?>

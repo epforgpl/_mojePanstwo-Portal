@@ -23,9 +23,8 @@
 
         <div class="col-md-1 avatar">
             <a href="/dane/poslowie/<?= $object->getData('posel_id') ?>">
-                <object data="/img/error/avatar.gif" type="image/png">
-                    <img src="http://resources.sejmometr.pl/mowcy/a/1/<?= $object->getData('mowca_id') ?>.jpg"/>
-                </object>
+                <img src="http://resources.sejmometr.pl/mowcy/a/1/<?= $object->getData('mowca_id') ?>.jpg"
+                     onerror="imgFixer(this)"/>
             </a>
         </div>
         <div class="col-md-8">
@@ -35,10 +34,9 @@
             </p>
 
             <p>
-                <object data="/img/error/brak.gif" type="image/png">
-                    <img alt="<?= $object->getData('sejm_kluby.nazwa') ?>"
-                         src="http://resources.sejmometr.pl/s_kluby/<?= $object->getData('klub_id') ?>_a_t.png"/>
-                </object>
+                <img alt="<?= $object->getData('sejm_kluby.nazwa') ?>"
+                     src="http://resources.sejmometr.pl/s_kluby/<?= $object->getData('klub_id') ?>_a_t.png"
+                     onerror="imgFixer(this)"/>
             </p>
         </div>
         <div class="col-md-3 text-right">

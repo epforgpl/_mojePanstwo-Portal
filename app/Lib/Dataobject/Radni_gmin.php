@@ -95,5 +95,14 @@ class Radni_gmin extends DataObject
 		return $output;
 		
 	}
+	
+	public function getBreadcrumbs() {
+		return array(
+			array(
+				'id' => '/dane/gminy/' . $this->getData('gmina_id') . '/rada',
+				'label' => 'Radni gminy',
+			),
+		);
+	}
 
 }

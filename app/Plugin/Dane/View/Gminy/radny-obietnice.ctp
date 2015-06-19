@@ -13,6 +13,7 @@ echo $this->Element('dataobject/pageBegin', array(
 ));
 
 echo $this->Element('Dane.dataobject/subobject', array(
+    'menu' => isset($_submenu) ? $_submenu : false,
     'object' => $radny,
     'objectOptions' => array(
         'hlFields' => array('komitet', 'liczba_glosow'),
@@ -26,7 +27,8 @@ echo $this->Element('Dane.dataobject/subobject', array(
         <div class="object radny-obietnice">
 
             <ul class="list-unstyled">
-                <? foreach ($radny->getLayer('obietnice') as $obietnica) { if( !@$obietnica['text'] ) continue; ?>
+                <? foreach ($radny->getLayer('obietnice') as $obietnica) {
+                    if (!@$obietnica['text']) continue; ?>
 
                     <li class="panel panel-default<? if (isset($obietnica['do_sprawdzenia']) && !empty($obietnica['do_sprawdzenia'])) { ?> checking<? } ?>">
                         <div class="panel-header">

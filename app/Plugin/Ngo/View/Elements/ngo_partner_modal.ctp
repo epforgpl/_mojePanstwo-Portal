@@ -8,14 +8,13 @@
                 <h4 class="modal-title" id="myModalLabel">Zostań oficjalnym partnerem mojegoPaństwa</h4>
             </div>
             <div class="modal-body">
-                <? /*
                 <p>
-                    Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse
-                    a pellentesque dui, non felis. Maecenas malesuada elit lectus felis,
-                    malesuada ultricies. Curabitur et ligula. Ut molestie a, ultricies porta
-                    urna. Vestibulum commodo volutpat a, convallis ac, laoreet enim.
+                    Portal MojePaństwo.pl pomaga Twojej organizacji docierać do osób zainteresowanych Waszymi
+                    działaniami. Jak również usprawnia pracę samej organizacji oferując specjalne narzędzia dostępne
+                    tylko dla oficjalnych partnerów. Aby uzyskać taki status należy wypełnić poniższy formularz a
+                    skontaktujemy się w celu potwierdzenia profilu i uaktywnimy nowe funkcje. W chwili obecnej
+                    poszukujemy 25 partnerów, którzy wspólnie z nami przejdą testy działań wersji beta portalu.
                 </p>
-                */ ?>
 
                 <form class="form-horizontal" method="post">
                     <div class="form-group">
@@ -59,7 +58,9 @@
                                name="phone">
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-lg pull-right">Wyślij</button>
+                        <button type="submit" class="btn btn-primary btn-icon text-center">
+                            <i class="icon" data-icon="&#xe604;"></i>Wyślij
+                        </button>
                     </div>
                 </form>
             </div>

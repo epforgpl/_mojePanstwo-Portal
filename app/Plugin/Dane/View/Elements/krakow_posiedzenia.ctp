@@ -40,21 +40,19 @@ $this->Dataobject->setObject($object);
 
 
                 <div
-                    class="attachment col-xs-4 nopadding text-center">
+                    class="attachment col-xs-6 nopadding text-center">
                     <?php if ($object->getUrl() != false) { ?>
                     <a class="thumb_cont" href="<?= $object->getUrl() ?>">
                         <?php } ?>
-                        <object data="/img/error/brak.gif" type="image/png">
-                            <img class="thumb pull-right"
-                                 src="<?= $object->getThumbnailUrl($thumbSize) ?>"
-                                 alt="<?= strip_tags($object->getTitle()) ?>"/>
-                        </object>
+                        <img class="thumb pull-right"
+                             src="<?= $object->getThumbnailUrl($thumbSize) ?>"
+                             alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
                         <?php if ($object->getUrl() != false) { ?>
                     </a>
                 <?php } ?>
 
                 </div>
-                <div class="content col-xs-8">
+                <div class="content col-xs-6">
 
 
                     <p class="title">

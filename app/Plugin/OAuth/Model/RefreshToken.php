@@ -98,7 +98,7 @@ class RefreshToken extends OAuthAppModel
 
     public function save($data)
     {
-	    
+
         $response = $this->getDataSource()->request('oauth/refresh_tokens/save/', array(
             'data' => $data,
             'method' => 'POST'

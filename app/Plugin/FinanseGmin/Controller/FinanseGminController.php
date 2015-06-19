@@ -9,19 +9,19 @@ class FinanseGminController extends ApplicationsController
         'FinanseGmin.Finanse'
     );
 
-	public $settings = array(
+    public $settings = array(
         'id' => 'finanse_gmin',
-		'menu' => array(
+        'menu' => array(
             array(
                 'id' => 'finanse_gmin',
                 'label' => 'Finanse gmin'
             )
-		),
+        ),
         'title' => 'Finanse Gmin',
-		'subtitle' => 'Dane o finansach gmin Polsce',
+        'subtitle' => 'Dane o finansach gmin Polsce',
         'headerImg' => 'bdl',
-	);
-	
+    );
+
     /*public function view()
     {
         $this->setMenuSelected();
@@ -38,39 +38,39 @@ class FinanseGminController extends ApplicationsController
      * Metody ze starego plugin`u Finanse
      *
      *     // poprzednia wersja działów
-    public function dzialy2()
-    {
-    $data = $this->API->Finanse()->getBudgetData();
-    $this->set('data', $data);
-
-    // $application = $this->getApplication();
-    $this->set('title_for_layout', 'Wydatki gmin w Polsce');
-    }
-
-    public function dzialy()
-    {
-    $data = $this->API->Finanse()->getBudgetData();
-    $this->set('data', $data);
-    $this->set('title_for_layout', 'Wydatki gmin w Polsce');
-    }
-
-    public function getBudgetData()
-    {
-
-    $data = $this->API->Finanse()->getBudgetData($this->request->query);
-    $this->set('data', $data);
-    $this->set('_serialize', 'data');
-
-    }
-
-    public function getBudgetData2()
-    {
-
-    $data = $this->API->Finanse()->getBudgetData2($this->request->query);
-    $this->set('data', $data);
-    $this->set('_serialize', 'data');
-
-    }
+     * public function dzialy2()
+     * {
+     * $data = $this->API->Finanse()->getBudgetData();
+     * $this->set('data', $data);
+     *
+     * // $application = $this->getApplication();
+     * $this->set('title_for_layout', 'Wydatki gmin w Polsce');
+     * }
+     *
+     * public function dzialy()
+     * {
+     * $data = $this->API->Finanse()->getBudgetData();
+     * $this->set('data', $data);
+     * $this->set('title_for_layout', 'Wydatki gmin w Polsce');
+     * }
+     *
+     * public function getBudgetData()
+     * {
+     *
+     * $data = $this->API->Finanse()->getBudgetData($this->request->query);
+     * $this->set('data', $data);
+     * $this->set('_serialize', 'data');
+     *
+     * }
+     *
+     * public function getBudgetData2()
+     * {
+     *
+     * $data = $this->API->Finanse()->getBudgetData2($this->request->query);
+     * $this->set('data', $data);
+     * $this->set('_serialize', 'data');
+     *
+     * }
      */
 
 } 

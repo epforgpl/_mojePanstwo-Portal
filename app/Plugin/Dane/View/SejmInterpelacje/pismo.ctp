@@ -9,16 +9,17 @@
 )) ?>
 
     <div class="row">
-	    <div class="col-md-3 dataFeed">
-		    
-		    <div class="object">
+        <div class="col-md-3 dataFeed">
+
+            <div class="object">
                 <? echo $this->Element('Dane.DataFeed/feed-min'); ?>
-	        </div>
-		    
-	    </div><div class="col-md-9">
+            </div>
+
+        </div>
+        <div class="col-md-9">
 
             <?
-            if ( !($pismo->getLayer('teksty')) && $pismo->getData('dokument_id')) {
+            if (!($pismo->getLayer('teksty')) && $pismo->getData('dokument_id')) {
 
                 echo $this->Document->place($pismo->getData('dokument_id'));
 

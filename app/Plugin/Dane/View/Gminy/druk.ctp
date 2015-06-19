@@ -13,6 +13,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
     'object' => $druk,
     'objectOptions' => array(
         'bigTitle' => true,
+        'truncate' => 1024,
     )
 ));
 

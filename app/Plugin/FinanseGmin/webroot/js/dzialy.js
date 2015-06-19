@@ -8,7 +8,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
         toFixedFix = function (n, prec) {
             var k = Math.pow(10, prec);
             return '' + (Math.round(n * k) / k)
-                .toFixed(prec);
+                    .toFixed(prec);
         };
     // Fix for IE parseFloat(0.55).toFixed(0) = 0;
     s = (prec ? toFixedFix(n, prec) : '' + Math.round(n))
@@ -31,32 +31,32 @@ function pl_currency_format(n) {
     var mln = 0;
     var tys = 0;
 
-    if(n > 1000000000) {
+    if (n > 1000000000) {
         mld = Math.round(n / 1000000000, 2);
         n -= mld * 1000000000;
         return mld + ' Mld';
     }
 
-    if(n > 1000000) {
+    if (n > 1000000) {
         mln = Math.round(n / 1000000, 2);
         n -= mln * 1000000;
         return mln + ' M';
     }
 
-    if(n > 1000) {
+    if (n > 1000) {
         tys = Math.round(n / 1000, 2);
         n -= tys * 1000;
         return tys + ' k';
     }
 
-    if(mld > 0)
+    if (mld > 0)
         str += mld + ' Mld ';
-    if(mln  > 0)
+    if (mln > 0)
         str += mln + ' M ';
-    if(tys > 0 && mld === 0)
+    if (tys > 0 && mld === 0)
         str += tys + ' k';
 
-    if(mld === 0 && mln === 0 && tys === 0)
+    if (mld === 0 && mln === 0 && tys === 0)
         str += number_format(n);
 
     return str.trim();
@@ -69,7 +69,7 @@ var zakresy = [
     [500000, 999999999]
 ];
 
-$(document).ready(function() {
+$(document).ready(function () {
     'use strict';
 
     var api_url = 'http://mojepanstwo.pl:4444/';
@@ -192,7 +192,7 @@ $(document).ready(function() {
             return false;
         },
         select: function (event, ui) {
-            if(ui.item.value === null)
+            if (ui.item.value === null)
                 return false;
 
             $("#teryt_search_input").val(ui.item.name);
@@ -202,11 +202,11 @@ $(document).ready(function() {
             $('#gmina_alert').show();
             $('#sections').hide();
 
-            $.getJSON(api_url + 'finanse/finanse/getCommuneData?id=' + ui.item.value, function(data) {
+            $.getJSON(api_url + 'finanse/finanse/getCommuneData?id=' + ui.item.value, function (data) {
                 $('#gmina_alert p').removeClass('loading');
                 $('#gmina_alert .close').show();
 
-                if(!data || data.length === 0) {
+                if (!data || data.length === 0) {
                     $('#section_' + _dzial_id + '_addon').css('display', 'none');
                     $('#gmina_alert p').html('Wystąpił błąd. Spróbuj ponownie za kilka minut.');
                     return false;
@@ -215,7 +215,7 @@ $(document).ready(function() {
                 var zakres = zakresy[parseInt(data.sections[0].zakres)];
                 $('#gmina_alert p').html('Zestawienie wydatków gminy ' + ui.item.name + ' z innymi gminami o liczbie mieszkańców z przedziału od ' + zakres[0] + ' do ' + zakres[1]);
 
-                for(var i = 0; i < data.sections.length; i++) {
+                for (var i = 0; i < data.sections.length; i++) {
                     var d = data.sections[i];
                     var e = $('#dsection_' + d.id);
                     e.find('p.dsum').html(pl_currency_format(d.sum_wydatki));
@@ -228,8 +228,8 @@ $(document).ready(function() {
 
                     var _min = parseInt(d.min);
                     var _sum_wydatki = parseInt(d.commune);
-                    var _max =  parseInt(d.max);
-                    if(_sum_wydatki <= _min)
+                    var _max = parseInt(d.max);
+                    if (_sum_wydatki <= _min)
                         var _left = 0;
                     else
                         var _left = parseInt(((_sum_wydatki - _min) / (_max - _min)) * 100);
@@ -237,7 +237,7 @@ $(document).ready(function() {
                     e.find('ul.addons li.section_addon').css('left', _left + '%');
 
                     var charts_data = [];
-                    for(var s = 0; s < d.buckets.length; s++) {
+                    for (var s = 0; s < d.buckets.length; s++) {
                         charts_data.push(Number(d.buckets[s].height));
                     }
 

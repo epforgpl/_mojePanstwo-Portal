@@ -110,7 +110,7 @@ class AuthCode extends OAuthAppModel
 
     public function findByCode($code)
     {
-        
+
         $response = $this->getDataSource()->request('oauth/auth_codes/find/' . $code, array(
             'data' => array(),
             'method' => 'GET'

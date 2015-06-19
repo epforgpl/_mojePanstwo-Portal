@@ -1,6 +1,7 @@
 <?php
 App::uses('HttpSocket', 'Network/Http');
 App::import('Model', 'Paszport.User');
+
 /**
  * Class UsersController
  *
@@ -636,7 +637,7 @@ class UsersController extends PaszportAppController
      */
     public function add()
     {
-        if($this->request->isPost()) {
+        if ($this->request->isPost()) {
             $to_save = $this->data;
             $user = $this->PassportApi->User()->add($to_save);
             if (isset($user['user'])) {
@@ -675,7 +676,7 @@ class UsersController extends PaszportAppController
             )
         );
 
-        foreach($groups['group'] as &$group) {
+        foreach ($groups['group'] as &$group) {
             $group = __d('paszport', $group, true);
         }
 

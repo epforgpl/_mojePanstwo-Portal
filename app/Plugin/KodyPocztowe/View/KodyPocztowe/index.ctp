@@ -7,7 +7,7 @@ $this->Combinator->add_libs('js', 'KodyPocztowe.kody.js');
 <div id="kodyPocztowe" class="container<? if ($details) {
     echo " details";
 } ?>">
-    <div class="col-xs-12 col-md-8">
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
         <div class="kodyPocztoweBlock col-xs-12 col-sm-7 pull-left">
             <div class="row">
                 <p><?php echo __d('kody_pocztowe', "LC_KODY_POCZTOWE_SZUKAM_KODU"); ?></p>

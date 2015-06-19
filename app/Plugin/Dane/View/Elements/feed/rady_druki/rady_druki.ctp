@@ -18,10 +18,8 @@ if ($object->getThumbnailUrl($thumbSize)) {
     <?php } ?>
         <a class="thumb_cont" href="<?= $object->getUrl() ?>/tresc">
             <?php } ?>
-            <object data="/img/error/brak.gif" type="image/png">
-                <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
-                     alt="<?= strip_tags($object->getTitle()) ?>"/>
-            </object>
+            <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
+                 alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
             <?php if ($object->getUrl() != false) { ?>
         </a>
     <?php } ?>
@@ -57,24 +55,14 @@ if ($object->getThumbnailUrl($thumbSize)) {
 <? } else { ?>
     <div class="content<? if ($object->getPosition()) { ?> col-md-11<? } ?>">
 
-
-        <? if ($object->force_hl_fields || $forceLabel) { ?>
+    <? if ($object->force_hl_fields || $forceLabel) { ?>
             <p class="header">
                 <?= $object->getLabel(); ?>
             </p>
         <? } ?>
 
         <p class="title">
-            <?php if ($object->getUrl() != false){ ?>
-            <a href="<?= $object->getUrl() ?>/tresc" title="<?= strip_tags($object->getTitle()) ?>">
-                <?php } ?>
-                <?= $object->getShortTitle() ?>
-                <?php if ($object->getUrl() != false){ ?>
-            </a> <?
-        }
-        if ($object->getTitleAddon()) {
-            echo '<small>' . $object->getTitleAddon() . '</small>';
-        } ?>
+            <a class="btn btn-primary btn-xs" href="<?= $object->getUrl() ?>/tresc">Zobacz treść druku</a>
         </p>
 
         <?= $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults) ?>

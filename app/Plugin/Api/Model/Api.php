@@ -1,10 +1,12 @@
 <?
 
-class Api extends AppModel {
+class Api extends AppModel
+{
 
     public $useDbConfig = 'mpAPI';
 
-    public function getAllAPIs() {
+    public function getAllAPIs()
+    {
         return $this->getDataSource()->request('/');
     }
 }

@@ -9,14 +9,15 @@
     <div class="searcher form-group has-feedback">
         <div class="col-md-12">
             <div class="input-group">
-                <input class="form-control hasclear input-lg"
+                <input class="form-control hasclear input-lg<? if (isset($url) && !empty($q)) { echo ' clearer-on'; }?>"
                        placeholder="<?= isset($placeholder) ? $placeholder : 'Szukaj...'; ?>"
                        type="text"
                        name="q"
                        value="<?= $q ?>"
-                       required
                        data-dataset="<?= isset($dataset) ? $dataset : '*'; ?>"
-                       data-url="<?= $url ?>"
+                       data-url="<?= @$url ?>"
+                       data-autocompletion="true"
+                       required
                     />
                 <? if (isset($url) && !empty($q)) { ?>
                     <a class="clearer" href="<?= $url ?>">
@@ -31,4 +32,16 @@
             </div>
         </div>
     </div>
+    <? if (($params = $this->Paginator->params()) && isset($params['count'])) {
+        $took = round($dataBrowser['took'], 2);
+        ?>
+        <div class="dataCounter">
+            <p class="pull-left"><?= pl_dopelniacz($params['count'], 'wynik', 'wyniki', 'wyników') ?><? if ($took) { ?> (<?= $took ?> s)<? } ?></p>
+
+            <p class="pull-right">
+                <a href="#" class="link-discrete link-api-call" data-toggle="modal" data-target=".modal-api-call"><span
+                        class="glyphicon glyphicon-cog"></span> API</a>
+            </p>
+        </div>
+    <? } ?>
 </form>

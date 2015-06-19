@@ -1,5 +1,5 @@
 <?= $this->Element('dataobject/pageBegin'); ?>
-    <div class="object block-group">
+    <div class="object block-group col-xs-12">
 
         <div class="block">
 

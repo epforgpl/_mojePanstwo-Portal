@@ -1,10 +1,10 @@
 <?
-	
-	$objectRenderOptions = array(
-		'forceLabel' => ( isset($dataBrowserObjectRender) && isset($dataBrowserObjectRender['forceLabel']) ) ? (boolean) $dataBrowserObjectRender['forceLabel'] : false,
-	);
-	
-	
+
+$objectRenderOptions = array(
+    'forceLabel' => (isset($dataBrowserObjectRender) && isset($dataBrowserObjectRender['forceLabel'])) ? (boolean)$dataBrowserObjectRender['forceLabel'] : false,
+);
+
+
 $path = App::path('Plugin');
 $file = $path[0] . '/Dane/View/Elements/' . $theme . '/' . $object->getDataset() . '.ctp';
 $file_exists = file_exists($file);
@@ -23,7 +23,9 @@ $this->Dataobject->setObject($object);
     echo " unreaded";
 } else {
     echo " readed";
-} ?><? if( $classes = $object->getClasses() ) { echo " " . implode(' ', $classes); } ?>"
+} ?><? if ($classes = $object->getClasses()) {
+    echo " " . implode(' ', $classes);
+} ?>"
      oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
 
     <div class="row">
@@ -34,7 +36,7 @@ $this->Dataobject->setObject($object);
                 <p class="sentence"><?= $sentence ?></p>
             <? } ?>
 
-            <div>                
+            <div>
 
                 <div class="content">
 
@@ -48,7 +50,7 @@ $this->Dataobject->setObject($object);
                     <? } ?>
 
                     <p class="header">
-                        Zamówienie publiczne z dnia <?= dataSlownie( $object->getDate() ) ?>
+                        Zamówienie publiczne z dnia <?= dataSlownie($object->getDate()) ?>
                     </p>
 
                     <p class="title">
@@ -63,36 +65,38 @@ $this->Dataobject->setObject($object);
                         echo '<small>' . $object->getTitleAddon() . '</small>';
                     } ?>
                     </p>
-                    
-                    <? if( $metaDesc = $object->getMetaDescription() ) {?>
-                    <p class="meta meta-desc"><?= $metaDesc ?></p>
+
+                    <? if ($metaDesc = $object->getMetaDescription()) { ?>
+                        <p class="meta meta-desc"><?= $metaDesc ?></p>
                     <? } ?>
-                                        	                    
-                    <? 
-			
-						$cena = false;
-						$waluta = false;
-						if( $wykonawcy = $object->getStatic('wykonawcy') ) {
-														
-							foreach( $wykonawcy as $w ) {
-								if( $w['krs_id']==$this->request->params['id'] )
-									$cena = $w['cena'];
-									$waluta = $w['waluta'];
-							}
-							
-						}
-						
-						if( $cena ) {
-					?>
-					
-					<div class="row dataHighlights dimmed inl" style="display: block !important;">
-						<div class="dataHighlight col-md-12">
-							<p class="_label">Cena:</p>
-							<p class="_value"><span class="base"><?= number_format_h($cena) ?> <?= $waluta ?></span></p>
-						</div>
-					</div>
-					
-					<? } ?>
+
+                    <?
+
+                    $cena = false;
+                    $waluta = false;
+                    if ($wykonawcy = $object->getStatic('wykonawcy')) {
+
+                        foreach ($wykonawcy as $w) {
+                            if ($w['krs_id'] == $this->request->params['id'])
+                                $cena = $w['cena'];
+                            $waluta = $w['waluta'];
+                        }
+
+                    }
+
+                    if ($cena) {
+                        ?>
+
+                        <div class="row dataHighlights dimmed inl" style="display: block !important;">
+                            <div class="dataHighlight col-md-12">
+                                <p class="_label">Cena:</p>
+
+                                <p class="_value"><span class="base"><?= number_format_h($cena) ?> <?= $waluta ?></span>
+                                </p>
+                            </div>
+                        </div>
+
+                    <? } ?>
 
                 </div>
 

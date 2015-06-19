@@ -10,29 +10,17 @@ echo $this->Element('dataobject/pageBegin', array(
 ));
 
 echo $this->Element('Dane.dataobject/subobject', array(
-    'menu' => isset($_submenu) ? $_submenu : false,
-    'object' => $komisja,
-    'objectOptions' => array(
-        'bigTitle' => true,
-    ),
-));
-
-echo $this->Element('Dane.dataobject/subobject', array(
     'menu' => false,
     'object' => $posiedzenie,
     'objectOptions' => array(
         'bigTitle' => true,
-        'hlFields' => array(),
+        'hlFields' => array('krakow_komisje.nazwa'),
+        'thumbWidth' => 2,
     ),
 ));
 
 ?>
 
-    <style>
-        #_main .objectsPage .objectsPageContent .htmlexDoc #docsToolbar {
-            display: none;
-        }
-    </style>
 
 <?
 if ($posiedzenie->getData('yt_video_id') && $punkty) {
@@ -76,7 +64,7 @@ if ($posiedzenie->getData('yt_video_id') && $punkty) {
     </div>
 <?
 }
-    ?>
+?>
 
     <div class="row">
         <div class="col-md-10 col-md-offset-1 objectMain">
@@ -100,9 +88,6 @@ if ($posiedzenie->getData('yt_video_id') && $punkty) {
                 <h2 class="light">Protokół z obrad</h2>
                 <?= $this->Document->place($dokument) ?>
             <? } ?>
-
-
-            
 
 
         </div>

@@ -125,7 +125,7 @@
         </div>*/ ?>
 
         <div class="object">
-            <div class="block-group">
+            <div class="block-group col-xs-12">
                 <?php /* if (($object->getId() == '903') && ($posiedzenie = $object->getLayer('ostatnie_posiedzenie')) && !empty($posiedzenie['data']) && !empty($posiedzenie['terms'])) { ?>
     <div id="prawo" class="block">
         <div class="block-header">
@@ -181,9 +181,8 @@
                                                 <li>
                                                     <a title="<?= $radny['imiona'] . ' ' . $radny['nazwisko'] ?>"
                                                        href="/dane/gminy/903/radni/<?= $radny['id'] ?>">
-                                                        <object data="/img/error/avatar.gif" type="image/png"><img
-                                                                src="http://resources.sejmometr.pl/avatars/3/<?= $radny['avatar_id'] ?>.jpg"/>
-                                                        </object>
+                                                        <img onerror="imgFixer(this)"
+                                                             src="http://resources.sejmometr.pl/avatars/3/<?= $radny['avatar_id'] ?>.jpg"/>
                                                     </a>
                                                 </li>
                                             <? } ?>
@@ -211,10 +210,8 @@
                                     <? foreach ($prawo_lokalne as $obj) { ?>
                                         <li>
                                             <a href="<?= $obj->getUrl() ?>">
-                                                <object data="/img/error/dokument.gif" type="image/png">
-                                                    <img class="img-responsive"
-                                                         src="http://docs.sejmometr.pl/thumb/4/<?= $obj->getData('dokument_id') ?>.png"/>
-                                                </object>
+                                                <img class="img-responsive" onerror="imgFixer(this)"
+                                                     src="http://docs.sejmometr.pl/thumb/4/<?= $obj->getData('dokument_id') ?>.png"/>
                                             </a>
 
                                             <div class="inner">
@@ -258,9 +255,8 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <a href="/dane/gminy/903,krakow/urzad">
-                                            <object data="/img/error/brak.gif" type="image/png">
-                                                <img class="img-responsive" src="/dane/img/pk-prezydent.jpg">
-                                            </object>
+                                            <img class="img-responsive" src="/dane/img/pk-prezydent.jpg"
+                                                 onerror="imgFixer(this)">
                                         </a>
                                     </div>
                                     <div class="col-md-6">
@@ -276,10 +272,8 @@
                                     <? foreach ($zarzadzenia as $obj) { ?>
                                         <li>
                                             <a href="<?= $obj->getUrl() ?>">
-                                                <object data="/img/error/dokument.gif" type="image/png">
-                                                    <img
-                                                        src="http://docs.sejmometr.pl/thumb/4/<?= $obj->getData('dokument_id') ?>.png"/>
-                                                </object>
+                                                <img onerror="imgFixer(this)"
+                                                     src="http://docs.sejmometr.pl/thumb/4/<?= $obj->getData('dokument_id') ?>.png"/>
                                             </a>
 
                                             <div class="inner">

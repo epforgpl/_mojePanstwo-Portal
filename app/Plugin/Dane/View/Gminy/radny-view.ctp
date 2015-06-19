@@ -9,8 +9,6 @@ echo $this->Element('dataobject/pageBegin', array(
 ));
 ?>
 
-<div class="subobjectPage">
-
 <?
 echo $this->Element('Dane.dataobject/subobject', array(
     'menu' => isset($_submenu) ? $_submenu : false,
@@ -19,12 +17,17 @@ echo $this->Element('Dane.dataobject/subobject', array(
         'hlFields' => array('komitet', 'liczba_glosow'),
         'bigTitle' => true,
     )
-));
+)); ?>
 
+<?
 $options = array();
-if( isset($title) )
-	$options['title'] = $title;
+if (isset($title))
+    $options['title'] = $title;
 echo $this->Element('Dane.DataBrowser/browser', $options);
 ?>
 
-</div>
+<?php
+echo $this->Element('dataobject/pageEnd', array(
+    'titleTag' => 'p',
+));
+?>

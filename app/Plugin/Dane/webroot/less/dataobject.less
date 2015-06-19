@@ -91,10 +91,31 @@
         font-family: "Lato", Arial, sans-serif;
         margin-top: 25px;
 
-		&.object {
-			margin-top: 0;
-		}
-		
+        &.panel {
+            background-color: #FFF;
+            margin-top: -15px;
+            margin-left: 3px;
+            margin-right: 3px;
+
+            .dataObjects .innerContainer .objectRender {
+                border-bottom: 1px solid #DDD;
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+        }
+
+        .form-horizontal.suggesterBlock {
+            padding-left: 0;
+            padding-right: 0;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        &.object {
+            margin-top: 0;
+        }
+
         &.dataFeed {
             margin-top: 0;
         }
@@ -604,11 +625,12 @@
                     font-size: 1.5em;
                     text-align: center;
                     margin: 3em 0;
+                    color: #BBB;
                 }
 
                 .objectRender {
                     padding: 10px;
-                    margin: 7px 0;      
+                    margin: 7px 0;
 
                     .action {
                         padding: 0;
@@ -625,7 +647,7 @@
 
         }
     }
-	
+
     .dataFeed .feed-timeline .dataObjects .innerContainer .objectRender {
         margin-top: 0;
         margin-bottom: 0;
@@ -633,7 +655,7 @@
         padding-left: 5px;
         padding-bottom: 0;
         border-width: 0;
-        border-left: 3px solid #438fca;
+        border-left: 3px solid #ABC;
         display: block;
         float: left;
         position: relative;
@@ -644,9 +666,9 @@
         width: 100%;
         margin: 0;
         padding-right: 0;
-        
+
         .navigator {
-	        margin-left: 3px;
+            margin-left: 3px;
         }
 
         &:first-child {
@@ -670,7 +692,7 @@
             height: 0;
             border-style: solid;
             border-width: 6px 0 6px 9px;
-            border-color: transparent transparent transparent #438fca;
+            border-color: transparent transparent transparent #ABC;
         }
 
         > div {
@@ -687,16 +709,16 @@
             padding: 5px;
             min-width: 98%;
         }
-        
+
     }
-    
+
     .dataFeed .feed-timeline.feed-min .dataObjects .innerContainer .objectRender > div {
-	    border-style: none;
+        border-style: none;
         background-color: inherit;
         margin-left: 0;
         padding-left: 0;
         .title {
-	        margin-left: 0;
+            margin-left: 0;
         }
     }
 
@@ -762,10 +784,6 @@
                         margin-left: inherit;
                         margin-right: inherit;
                     }
-                }
-
-                .attachment img {
-                    max-width: 155px;
                 }
 
                 .feed-header {
@@ -839,6 +857,7 @@
 
     .header {
         padding-left: 0;
+        margin-top: 15px;
 
         .tools {
             padding-right: 0;
@@ -909,11 +928,20 @@
         }
 
     }
-	
-	.subobjectPage {
-		padding: 0 20px;
-	}
-	
+
+    .subobjectPage {
+        padding: 0 20px;
+
+        .icon-cont {
+            width: 55px;
+            padding-top: 17px;
+        }
+
+        .dataHighlights {
+            margin-left: 8px;
+        }
+    }
+
     .objectsPageContent {
 
         .dataBrowser {
@@ -947,13 +975,53 @@
         }
 
     }
-	
-	.objectRender-addons {
-		margin: -20px 0 25px 52px;
-		font-size: 13px;
-		color: green;
-	}
-	
+
+    .objectRender-addons {
+        margin: -20px 0 25px 52px;
+        font-size: 13px;
+        color: green;
+    }
+
+    .sidebar {
+        .block > section {
+            padding-bottom: 5px;
+        }
+
+        .objectRender {
+            padding: 0;
+
+            .attachment {
+                margin-bottom: 0;
+
+                .thumb_cont {
+                    width: 100%;
+                    height: auto;
+                    max-height: 100%;
+                }
+
+                img {
+                    margin-top: 0;
+                    max-width: 100%;
+                }
+            }
+
+            .content {
+                padding-top: 0;
+
+                .title,
+                .meta {
+                    margin-right: 0;
+                    margin-left: 0;
+                    line-height: 1.1em;
+                }
+
+                .title {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+
     .objectRender {
         font-size: 14px;
         padding-bottom: 15px;
@@ -1040,24 +1108,28 @@
                 margin-left: 10px;
             }
         }
-        
+
         .description {
-	        margin-bottom: 20px;
+            margin-bottom: 20px;
+            em {
+	            font-weight: bold;
+	            font-style: normal;
+            }
         }
-        
+
         .object-icon {
-	        color: #999;
-		    display: block;
-		    float: left;
-		    font-size: 37px;
-		    height: 45px;
-		    width: 45px;
+            color: #999;
+            display: block;
+            float: left;
+            font-size: 37px;
+            height: 45px;
+            width: 45px;
             position: relative;
             top: -6px;
         }
-        
+
         .object-icon-side {
-	        margin-left: 45px;
+            margin-left: 45px;
         }
 
         .status {
@@ -1126,7 +1198,6 @@
 
             img {
                 width: 100%;
-                max-width: 100px;
                 margin-top: 10px;
 
                 &.noBorder {
@@ -1136,7 +1207,6 @@
 
             .thumb_cont {
                 max-height: 100px;
-                max-width: 100px;
                 margin-left: auto;
                 margin-right: 0;
                 overflow: hidden;
@@ -1157,12 +1227,6 @@
 
                 text-align: center;
 
-            }
-        }
-
-        &.rady_posiedzenia, &.rady_gmin_debaty, &.rady_gmin_wystapienia {
-            .attachment img {
-                max-width: 150px;
             }
         }
 
@@ -1259,7 +1323,6 @@
             .video img {
                 display: block;
                 width: 100%;
-                max-width: 100px;
             }
 
             blockquote._ {
@@ -1317,7 +1380,7 @@
             }
 
             .description {
-                margin: 10px;
+                margin: 10px 8px;
                 color: #545454;
                 line-height: 1.4;
                 word-wrap: break-word;

@@ -457,7 +457,7 @@
                     <p>Żródło: Fundacja ePaństwo 2013</p>
                 </div>
             </div>
-            
+
             <div class="col-md-10 col-md-offset-1 separator-top">
                 <div class="desc">
                     <p><?= __d('media', 'LC_PANSTWOINTERNET_MEDIA_TEXT_1') ?></p>

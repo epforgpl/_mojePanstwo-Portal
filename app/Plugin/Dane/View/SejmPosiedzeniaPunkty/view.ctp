@@ -50,11 +50,10 @@
 
                                                         <div class="aoverflow">
                                                             <p class="img-debata">
-                                                                <object data="/img/error/brak.gif" type="image/png">
-                                                                    <img
-                                                                        src="http://resources.sejmometr.pl/stenogramy/subpunkty/<?= $debata->getId() ?>.jpg"/>
-                                                                </object>
+                                                                <img onerror="imgFixer(this)"
+                                                                     src="http://resources.sejmometr.pl/stenogramy/subpunkty/<?= $debata->getId() ?>.jpg"/>
                                                             </p>
+
                                                             <p class="debata-stats">
                                                                 <? if ($debata->getData('liczba_wystapien')) { ?>Liczba wystąpień:
                                                                     <b><?= $debata->getData('liczba_wystapien') ?></b><? } ?>

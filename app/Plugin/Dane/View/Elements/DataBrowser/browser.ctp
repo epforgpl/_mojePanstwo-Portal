@@ -3,8 +3,9 @@ $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin'
 $this->Combinator->add_libs('css', $this->Less->css('dataobjectpage', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
+$displayAggs = isset($displayAggs) ? (boolean)$displayAggs : true;
 ?>
-<div class="dataBrowser">
+<div class="dataBrowser<? if (isset($class)) echo " " . $class; ?>">
 
     <div class="modal modal-api-call">
         <div class="modal-dialog">
@@ -27,8 +28,7 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
         </div>
     </div>
 
-
-    <div class="suggesterBlock row searchForm col-md-8">
+    <div class="suggesterBlock searchForm">
         <? if (!isset($title) && isset($DataBrowserTitle)) {
             $title = $DataBrowserTitle;
         }
@@ -49,24 +49,6 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
         <? } ?>
     </div>
 
-
-    <? if (
-        ($params = $this->Paginator->params()) &&
-        isset($params['count'])
-    ) {
-        $took = round($dataBrowser['took'], 2);
-        ?>
-        <div class="row">
-            <div
-                class="dataCounter col-md-8">
-                <p class="pull-left"><?= pl_dopelniacz($params['count'], 'wynik', 'wyniki', 'wyników') ?><? if ($took) { ?> (<?= $took ?> s)<? } ?></p>
-
-                <p class="pull-right"><a href="#" class="link-discrete link-api-call" data-toggle="modal"
-                                         data-target=".modal-api-call"><span class="glyphicon glyphicon-cog"></span> API</a>
-                </p></div>
-        </div>
-    <? } ?>
-
     <div class="row">
 
         <? if ($dataBrowser['mode'] == 'cover') { ?>
@@ -76,7 +58,7 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
         <? } else { ?>
 
-            <div class="col-md-8">
+            <div class="col-md-<?= $displayAggs ? 8 : 12 ?>">
 
 
                 <div class="dataObjects">
@@ -131,7 +113,7 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
                 </div>
 
             </div>
-            <? if (!empty($dataBrowser['aggs'])) { ?>
+            <? if ($displayAggs && !empty($dataBrowser['aggs'])) { ?>
                 <div class="col-md-4">
                     <? echo $this->Element('Dane.DataBrowser/aggs', array('data' => $dataBrowser)); ?>
                 </div>

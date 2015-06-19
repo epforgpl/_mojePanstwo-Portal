@@ -53,7 +53,7 @@ $(document).ready(function () {
                 }
             }
 
-            var infoBlock = $('<div></div>').addClass('infoBlock current active').css('height', 0).append(
+            var infoBlock = $('<div></div>').addClass('infoBlock current active col-xs-12').css('height', 0).append(
                 $('<div></div>').addClass('arrow')
             ).append(
                 $('<div></div>').addClass('content').append(

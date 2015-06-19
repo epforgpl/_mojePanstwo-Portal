@@ -10,66 +10,66 @@ class MediaController extends ApplicationsController
         'subtitle' => 'Polityka w mediach społecznościowych',
         'headerImg' => 'media',
     );
+    public $mainMenuLabel = 'Analiza';
 
-    public function prepareMetaTags() {
+    public function prepareMetaTags()
+    {
         parent::prepareMetaTags();
         $this->setMeta('og:image', FULL_BASE_URL . '/media/img/social/media.jpg');
     }
-    	
-	public $mainMenuLabel = 'Analiza';
-	
-	public function view() {
-		
-		if( isset($this->request->query['q']) && $this->request->query['q'] ) {
-		
-			$datasets = $this->getDatasets('media');
-		    
-	        $options  = array(
-	            'searchTitle' => 'Szukaj w tweetach i kontach twitter...',
-	            'conditions' => array(
-		            'dataset' => array_keys($datasets),
-	            ),
-	            'cover' => array(
-		            'view' => array(
-			            'plugin' => 'Media',
-			            'element' => 'cover',
-		            ),
-		            'aggs' => array(),
-	            ),
-	            'aggs' => array(
-			        'dataset' => array(
-			            'terms' => array(
-				            'field' => 'dataset',
-			            ),
-			            'visual' => array(
-				            'label' => 'Zbiory danych',
-				            'skin' => 'datasets',
-				            'class' => 'special',
-			                'field' => 'dataset',
-			                'dictionary' => $datasets,
-			            ),
-			        ),
-	            ),
-	        );
-	        
-		    $this->Components->load('Dane.DataBrowser', $options);
-	        $this->render('Dane.Elements/DataBrowser/browser-from-app');
-        
+
+    public function view()
+    {
+
+        if (isset($this->request->query['q']) && $this->request->query['q']) {
+
+            $datasets = $this->getDatasets('media');
+
+            $options = array(
+                'searchTitle' => 'Szukaj w tweetach i kontach twitter...',
+                'conditions' => array(
+                    'dataset' => array_keys($datasets),
+                ),
+                'cover' => array(
+                    'view' => array(
+                        'plugin' => 'Media',
+                        'element' => 'cover',
+                    ),
+                    'aggs' => array(),
+                ),
+                'aggs' => array(
+                    'dataset' => array(
+                        'terms' => array(
+                            'field' => 'dataset',
+                        ),
+                        'visual' => array(
+                            'label' => 'Zbiory danych',
+                            'skin' => 'datasets',
+                            'class' => 'special',
+                            'field' => 'dataset',
+                            'dictionary' => $datasets,
+                        ),
+                    ),
+                ),
+            );
+
+            $this->Components->load('Dane.DataBrowser', $options);
+            $this->render('Dane.Elements/DataBrowser/browser-from-app');
+
         } else {
-	        
-	        return $this->_view();
-	        
+
+            return $this->_view();
+
         }
-		
-	}
-	
+
+    }
+
     public function _view()
     {
-	    
-	    
-	    
+
+
         $this->setMenuSelected();
-        
+
         $ranges = array('24h', '3d', '7d', '1m');
         $range = (isset($this->request->query['range']) && in_array($this->request->query['range'], $ranges)) ?
             $this->request->query['range'] :
@@ -166,10 +166,9 @@ class MediaController extends ApplicationsController
         );
         $font['diff'] = $font['max'] - $font['min'];
 
-		
-		$stats = $this->Media->getTwitterStats($range);
-		
-		
+
+        $stats = $this->Media->getTwitterStats($range);
+
 
         $tags = $stats['from']['*']['tags']['objects'];
 
@@ -373,7 +372,7 @@ class MediaController extends ApplicationsController
 
         );
 
-		
+
         foreach ($ranks as &$rank) {
 
             foreach ($rank['groups'] as $g => $group) {
@@ -383,7 +382,7 @@ class MediaController extends ApplicationsController
                 if ($group['mode'] == 'tweet') {
 
                     $types = $this->Media->getTwitterTweetsGroupByTypes($range, $accounts_types_ids, $group['field']);
-						
+
                     foreach ($types as &$type) {
                         $type = array_merge($type, array(
                             'nazwa' => $accounts_types_nazwy[$type['id']],

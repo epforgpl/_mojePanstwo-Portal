@@ -10,25 +10,32 @@ $options = array(
 );
 ?>
 
-<? if( $object->getId() == 903 ) {?>
+<div class="col-md-8">
+    <? if (isset($_submenu) && !empty($_submenu)) { ?>
+        <div class="menuTabsCont col-xs-8">
+            <?
+            if (!isset($_submenu['base']))
+                $_submenu['base'] = $object->getUrl();
+            echo $this->Element('Dane.dataobject/menuTabs', array(
+                'menu' => $_submenu,
+            ));
+            ?>
+        </div>
+    <? } ?>
+    <? if ($object->getId() == 903) { ?>
 
-<div class="col-md-12">
-	<div class="block-group">
-
-        <div class="block block-default col-md-4">
-
-            <header>Najnowsze posiedzenie Rady Miasta</header>
+        <div class="block block-default col-xs-12">
+            <header>Najnowsze projekty legislacyjne pod obrady rady</header>
 
             <section class="aggs-init">
-
                 <div class="dataAggs">
                     <div class="agg agg-Dataobjects">
-                        <? if ($dataBrowser['aggs']['all']['rada_posiedzenia']['top']['hits']['hits']) { ?>
+                        <? if ($dataBrowser['aggs']['all']['rada_projekty']['top']['hits']['hits']) { ?>
                             <ul class="dataobjects">
-                                <? foreach ($dataBrowser['aggs']['all']['rada_posiedzenia']['top']['hits']['hits'] as $doc) { ?>
+                                <? foreach ($dataBrowser['aggs']['all']['rada_projekty']['top']['hits']['hits'] as $doc) { ?>
                                     <li>
                                         <?
-                                        echo $this->Dataobject->render($doc, 'krakow_posiedzenia');
+                                        echo $this->Dataobject->render($doc, 'default');
                                         ?>
                                     </li>
                                 <? } ?>
@@ -38,28 +45,27 @@ $options = array(
                     </div>
                 </div>
             </section>
-            <? if ($dataBrowser['aggs']['all']['rada_posiedzenia']['top']['hits']['hits']) { ?>
+            <? if ($dataBrowser['aggs']['all']['rada_projekty']['top']['hits']['hits']) { ?>
                 <footer>
                     <div class="buttons text-center">
-                        <a href="<?= $object->getUrl() ?>/posiedzenia" class="btn btn-primary btn-sm">Więcej
-                            posiedzeń</a>
+                        <a href="<?= $object->getUrl() ?>/druki" class="btn btn-primary btn-sm">Zobacz więcej</a>
                     </div>
                 </footer>
             <? } ?>
         </div>
-        <div class="block block-default col-md-4">
 
-            <header>Najnowsze nagrania posiedzeń komisji Rady Miasta</header>
+        <div class="block block-default col-xs-12">
+            <header>Najnowsze uchwały Rady</header>
 
             <section class="aggs-init">
                 <div class="dataAggs">
                     <div class="agg agg-Dataobjects">
-                        <? if ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits']) { ?>
+                        <? if ($dataBrowser['aggs']['all']['krakow_rada_uchwaly']['top']['hits']['hits']) { ?>
                             <ul class="dataobjects">
-                                <? foreach ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits'] as $doc) { ?>
+                                <? foreach ($dataBrowser['aggs']['all']['krakow_rada_uchwaly']['top']['hits']['hits'] as $doc) { ?>
                                     <li>
                                         <?
-                                        echo $this->Dataobject->render($doc, 'krakow_rada_posiedzenia');
+                                        echo $this->Dataobject->render($doc, 'default');
                                         ?>
                                     </li>
                                 <? } ?>
@@ -69,28 +75,28 @@ $options = array(
                     </div>
                 </div>
             </section>
-            <? if ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits']) { ?>
+            <? if ($dataBrowser['aggs']['all']['krakow_rada_uchwaly']['top']['hits']['hits']) { ?>
                 <footer>
                     <div class="buttons text-center">
-                        <a href="<?= $object->getUrl() ?>/komisje_posiedzenia"
-                           class="btn btn-primary btn-sm">Więcej posiedzeń</a>
+                        <a href="<?= $object->getUrl() ?>/rada_uchwaly" class="btn btn-primary btn-sm">Zobacz
+                            więcej</a>
                     </div>
                 </footer>
             <? } ?>
         </div>
-        <div class="block block-default col-md-4">
 
-            <header>Najnowsze nagrania posiedzeń rad dzielnic</header>
+        <div class="block block-default col-xs-12">
+            <header>Najnowsze interpelacje radnych</header>
 
             <section class="aggs-init">
                 <div class="dataAggs">
                     <div class="agg agg-Dataobjects">
-                        <? if ($dataBrowser['aggs']['all']['dzielnice_posiedzenia']['top']['hits']['hits']) { ?>
+                        <? if ($dataBrowser['aggs']['all']['interpelacje']['top']['hits']['hits']) { ?>
                             <ul class="dataobjects">
-                                <? foreach ($dataBrowser['aggs']['all']['dzielnice_posiedzenia']['top']['hits']['hits'] as $doc) { ?>
+                                <? foreach ($dataBrowser['aggs']['all']['interpelacje']['top']['hits']['hits'] as $doc) { ?>
                                     <li>
                                         <?
-                                        echo $this->Dataobject->render($doc, 'dzielnice_posiedzenia');
+                                        echo $this->Dataobject->render($doc, 'default');
                                         ?>
                                     </li>
                                 <? } ?>
@@ -100,151 +106,52 @@ $options = array(
                     </div>
                 </div>
             </section>
-            <? if ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits']) { ?>
+            <? if ($dataBrowser['aggs']['all']['interpelacje']['top']['hits']['hits']) { ?>
                 <footer>
                     <div class="buttons text-center">
-                        <a href="<?= $object->getUrl() ?>/komisje_posiedzenia"
-                           class="btn btn-primary btn-sm">Więcej posiedzeń</a>
+                        <a href="<?= $object->getUrl() ?>/interpelacje" class="btn btn-primary btn-sm">Zobacz
+                            więcej</a>
                     </div>
                 </footer>
             <? } ?>
         </div>
-    </div>
-</div>
-<? } ?>
 
-    <div class="col-md-8">
 
-<? if ($object->getId() == 903) { ?>
-	
-	<div class="block block-simple col-xs-12">
-        <header>Najnowsze projekty legislacyjne pod obrady rady</header>
+    <? } else { ?>
 
-        <section class="aggs-init">
-            <div class="dataAggs">
-                <div class="agg agg-Dataobjects">
-                    <? if ($dataBrowser['aggs']['all']['rada_projekty']['top']['hits']['hits']) { ?>
-                        <ul class="dataobjects">
-                            <? foreach ($dataBrowser['aggs']['all']['rada_projekty']['top']['hits']['hits'] as $doc) { ?>
-                                <li>
-                                    <?
-                                    echo $this->Dataobject->render($doc, 'default');
-                                    ?>
-                                </li>
-                            <? } ?>
-                        </ul>
-                    <? } ?>
+        <div class="block block-default col-xs-12">
+            <header>Najnowsze prawo lokalne</header>
 
+            <section class="aggs-init">
+                <div class="dataAggs">
+                    <div class="agg agg-Dataobjects">
+                        <? if ($dataBrowser['aggs']['all']['prawo']['top']['hits']['hits']) { ?>
+                            <ul class="dataobjects">
+                                <? foreach ($dataBrowser['aggs']['all']['prawo']['top']['hits']['hits'] as $doc) { ?>
+                                    <li>
+                                        <?
+                                        echo $this->Dataobject->render($doc, 'default');
+                                        ?>
+                                    </li>
+                                <? } ?>
+                            </ul>
+                        <? } ?>
+
+                    </div>
                 </div>
-            </div>
-        </section>
-        <? if ($dataBrowser['aggs']['all']['rada_projekty']['top']['hits']['hits']) { ?>
-            <footer>
-                <div class="buttons text-center">
-                    <a href="<?= $object->getUrl() ?>/druki" class="btn btn-primary btn-sm">Zobacz więcej</a>
-                </div>
-            </footer>
-        <? } ?>
-    </div>
-	
-    <div class="block block-simple col-xs-12">
-        <header>Najnowsze uchwały Rady</header>
+            </section>
+            <? if ($dataBrowser['aggs']['all']['prawo']['top']['hits']['hits']) { ?>
+                <footer>
+                    <div class="buttons text-center">
+                        <a href="<?= $object->getUrl() ?>/prawo" class="btn btn-primary btn-sm">Zobacz więcej</a>
+                    </div>
+                </footer>
+            <? } ?>
+        </div>
 
-        <section class="aggs-init">
-            <div class="dataAggs">
-                <div class="agg agg-Dataobjects">
-                    <? if ($dataBrowser['aggs']['all']['krakow_rada_uchwaly']['top']['hits']['hits']) { ?>
-                        <ul class="dataobjects">
-                            <? foreach ($dataBrowser['aggs']['all']['krakow_rada_uchwaly']['top']['hits']['hits'] as $doc) { ?>
-                                <li>
-                                    <?
-                                    echo $this->Dataobject->render($doc, 'default');
-                                    ?>
-                                </li>
-                            <? } ?>
-                        </ul>
-                    <? } ?>
+    <? } ?>
 
-                </div>
-            </div>
-        </section>
-        <? if ($dataBrowser['aggs']['all']['krakow_rada_uchwaly']['top']['hits']['hits']) { ?>
-            <footer>
-                <div class="buttons text-center">
-                    <a href="<?= $object->getUrl() ?>/rada_uchwaly" class="btn btn-primary btn-sm">Zobacz
-                        więcej</a>
-                </div>
-            </footer>
-        <? } ?>
-    </div>
-
-    <div class="block block-simple col-xs-12">
-        <header>Najnowsze interpelacje radnych</header>
-
-        <section class="aggs-init">
-            <div class="dataAggs">
-                <div class="agg agg-Dataobjects">
-                    <? if ($dataBrowser['aggs']['all']['interpelacje']['top']['hits']['hits']) { ?>
-                        <ul class="dataobjects">
-                            <? foreach ($dataBrowser['aggs']['all']['interpelacje']['top']['hits']['hits'] as $doc) { ?>
-                                <li>
-                                    <?
-                                    echo $this->Dataobject->render($doc, 'default');
-                                    ?>
-                                </li>
-                            <? } ?>
-                        </ul>
-                    <? } ?>
-
-                </div>
-            </div>
-        </section>
-        <? if ($dataBrowser['aggs']['all']['interpelacje']['top']['hits']['hits']) { ?>
-            <footer>
-                <div class="buttons text-center">
-                    <a href="<?= $object->getUrl() ?>/interpelacje" class="btn btn-primary btn-sm">Zobacz
-                        więcej</a>
-                </div>
-            </footer>
-        <? } ?>
-    </div>
-
-    
-<? } else { ?>
-
-    <div class="block block-simple col-xs-12">
-        <header>Najnowsze prawo lokalne</header>
-
-        <section class="aggs-init">
-            <div class="dataAggs">
-                <div class="agg agg-Dataobjects">
-                    <? if ($dataBrowser['aggs']['all']['prawo']['top']['hits']['hits']) { ?>
-                        <ul class="dataobjects">
-                            <? foreach ($dataBrowser['aggs']['all']['prawo']['top']['hits']['hits'] as $doc) { ?>
-                                <li>
-                                    <?
-                                    echo $this->Dataobject->render($doc, 'default');
-                                    ?>
-                                </li>
-                            <? } ?>
-                        </ul>
-                    <? } ?>
-
-                </div>
-            </div>
-        </section>
-        <? if ($dataBrowser['aggs']['all']['prawo']['top']['hits']['hits']) { ?>
-            <footer>
-                <div class="buttons text-center">
-                    <a href="<?= $object->getUrl() ?>/prawo" class="btn btn-primary btn-sm">Zobacz więcej</a>
-                </div>
-            </footer>
-        <? } ?>
-    </div>
-
-<? } ?>
-
-    <div class="block block-simple col-xs-12">
+    <div class="block block-default col-xs-12">
         <header>Najnowsze zamówienia publiczne</header>
 
         <section class="aggs-init">
@@ -274,7 +181,7 @@ $options = array(
         <? } ?>
     </div>
 
-    <div class="block block-simple col-xs-12">
+    <div class="block block-default col-xs-12">
         <header>Najwięcej zamówień publicznych otrzymali</header>
 
         <section class="aggs-init">
@@ -386,5 +293,106 @@ $options = array(
         </section>
     </div>
 
+
+</div>
+<div class="col-md-4 sidebar">
+
+    <? if ($object->getId() == 903) { ?>
+
+        <div class="block block-simple col-md-12">
+
+            <header>Najnowsze posiedzenie Rady Miasta</header>
+
+            <section class="aggs-init nopadding">
+
+                <div class="dataAggs">
+                    <div class="agg agg-Dataobjects">
+                        <? if ($dataBrowser['aggs']['all']['rada_posiedzenia']['top']['hits']['hits']) { ?>
+                            <ul class="dataobjects">
+                                <? foreach ($dataBrowser['aggs']['all']['rada_posiedzenia']['top']['hits']['hits'] as $doc) { ?>
+                                    <li>
+                                        <?
+                                        echo $this->Dataobject->render($doc, 'krakow_posiedzenia');
+                                        ?>
+                                    </li>
+                                <? } ?>
+                            </ul>
+                        <? } ?>
+
+                    </div>
+                </div>
+            </section>
+            <? if ($dataBrowser['aggs']['all']['rada_posiedzenia']['top']['hits']['hits']) { ?>
+                <footer>
+                    <div class="buttons pull-right">
+                        <a href="<?= $object->getUrl() ?>/posiedzenia" class="btn-primary btn-sm">Zobacz więcej</a>
+                    </div>
+                </footer>
+            <? } ?>
+        </div>
+        <div class="block block-simple col-md-12">
+
+            <header>Najnowsze nagrania posiedzeń komisji</header>
+
+            <section class="aggs-init nopadding">
+                <div class="dataAggs">
+                    <div class="agg agg-Dataobjects">
+                        <? if ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits']) { ?>
+                            <ul class="dataobjects">
+                                <? foreach ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits'] as $doc) { ?>
+                                    <li>
+                                        <?
+                                        echo $this->Dataobject->render($doc, 'krakow_rada_posiedzenia');
+                                        ?>
+                                    </li>
+                                <? } ?>
+                            </ul>
+                        <? } ?>
+
+                    </div>
+                </div>
+            </section>
+            <? if ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits']) { ?>
+                <footer>
+                    <div class="buttons pull-right">
+                        <a href="<?= $object->getUrl() ?>/komisje_posiedzenia"
+                           class="btn-primary btn-sm">Zobacz więcej</a>
+                    </div>
+                </footer>
+            <? } ?>
+        </div>
+        <div class="block block-simple col-md-12">
+
+            <header>Najnowsze nagrania posiedzeń rad dzielnic</header>
+
+            <section class="aggs-init nopadding">
+                <div class="dataAggs">
+                    <div class="agg agg-Dataobjects">
+                        <? if ($dataBrowser['aggs']['all']['dzielnice_posiedzenia']['top']['hits']['hits']) { ?>
+                            <ul class="dataobjects">
+                                <? foreach ($dataBrowser['aggs']['all']['dzielnice_posiedzenia']['top']['hits']['hits'] as $doc) { ?>
+                                    <li>
+                                        <?
+                                        echo $this->Dataobject->render($doc, 'dzielnice_posiedzenia');
+                                        ?>
+                                    </li>
+                                <? } ?>
+                            </ul>
+                        <? } ?>
+
+                    </div>
+                </div>
+            </section>
+            <? if ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits']) { ?>
+                <footer>
+                    <div class="buttons pull-right">
+                        <a href="<?= $object->getUrl() ?>/dzielnice"
+                           class="btn-primary btn-sm">Zobacz więcej</a>
+                    </div>
+                </footer>
+            <? } ?>
+        </div>
+
+    <? } ?>
 
 </div>

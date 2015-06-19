@@ -1,17 +1,22 @@
-<ul class="dataAggs">
+<ul class="dataAggs bg">
     <? foreach ($data['aggs'] as $agg_id => $agg_data) {
         if ($agg_id == '_channels')
             continue;
 
         if ($agg_id == 'apps') { ?>
             <li class="agg">
-                <h2>Szukaj w</h2>
+                <h2>Szukaj w aplikacji:</h2>
                 <? echo $this->element('Dane.DataBrowser/apps', array('data' => $agg_data)); ?>
             </li>
             <? continue;
         }
-
-        if (isset($agg_data['buckets']) && (count($agg_data['buckets']) > 1) && isset($data['aggs_visuals_map'][$agg_id])) {
+		
+        $minBucketsCountNum = (
+	        ( !isset($this->request->query['conditions'][$data['aggs_visuals_map'][$agg_id]['field']]) ) &&
+        	( $data['aggs_visuals_map'][$agg_id]['skin'] == 'pie_chart' )
+        ) ? 1 : 0;		
+		
+        if (isset($agg_data['buckets']) && (count($agg_data['buckets']) > $minBucketsCountNum) && isset($data['aggs_visuals_map'][$agg_id])) {
             $empty = true;
 
             foreach ($agg_data['buckets'] as $b) {

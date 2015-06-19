@@ -33,16 +33,14 @@ $this->Dataobject->setObject($object);
             <div class="feed-header">
                 <? if ($object->getCreator('url')) { ?>
                     <div class="thumb_cont">
-                        <object data="/img/error/brak.gif" type="image/png">
-                            <img alt="<?= addslashes($object->getCreator('name')) ?>"
-                                 src="<?= $object->getCreator('url') ?>" class="thumb"/>
-                        </object>
+                        <img alt="<?= addslashes($object->getCreator('name')) ?>"
+                             src="<?= $object->getCreator('url') ?>" class="thumb" onerror="imgFixer(this)"/>
                     </div>
                 <? } ?>
 
                 <div class="inner">
                     <? if ($sentence = $object->getSentence()) { ?>
-												
+
                         <p class="date"><?= $this->Czas->dataSlownie($object->getDate()) ?></p>
                         <p class="title">
                             <?php if ($object->getUrl() != false) { ?>
@@ -71,9 +69,9 @@ $this->Dataobject->setObject($object);
                 ));
             }
             ?>
-            
-            <? if($selected) {?>
-            <p class="label label-warning navigator">Tu jesteś</p>
+
+            <? if ($selected) { ?>
+                <p class="label label-warning navigator">Tu jesteś</p>
             <? } ?>
 
         </div>

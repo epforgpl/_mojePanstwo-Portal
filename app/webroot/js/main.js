@@ -110,7 +110,12 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
         fbScript = document.createElement("script"),
         scriptsPos = document.getElementsByTagName("script")[0],
         jsHour,
-        mPCookie;
+        cookieBackgroundLimit = 4,
+        mPCookie = {};
+
+    if ($.cookie('mojePanstwo') !== undefined) {
+        mPCookie = $.extend(true, mPCookie, JSON.parse($.cookie('mojePanstwo')));
+    }
 
     $('#_main').css('margin-bottom', $('footer.footer').outerHeight());
 
@@ -121,12 +126,7 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
         }
 
         fbScript.id = "facebook-jssdk";
-
-        if (mPHeart.language.twoDig === 'pl') {
-            fbScript.src = "//connect.facebook.net/pl_PL/all.js";
-        } else {
-            fbScript.src = "//connect.facebook.net/en_US/all.js";
-        }
+        fbScript.src = "//connect.facebook.net/" + ((mPHeart.language.twoDig === 'pl') ? 'pl_PL' : 'en_US') + '/all.js';
 
         scriptsPos.parentNode.insertBefore(fbScript, scriptsPos);
 
@@ -142,36 +142,56 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
         };
     }
 
-    /*COOKIE MANAGER*/
+    /*----- COOKIE MANAGER -----*/
+    function cookieSave(mPCookie) {
+        $.cookie('mojePanstwo', JSON.stringify(mPCookie), {expires: 365});
+    }
+
+    /*COOKIE LAW CONTROLER*/
+    if (mPCookie === undefined || mPCookie.law === undefined) {
+        $('.cookieLaw .btn').click(function () {
+            mPCookie.law = true;
+            $(this).parents('.cookieLaw').fadeOut();
+
+            cookieSave(mPCookie);
+        });
+    }
+
+    /*COOKIE BACKGROUND CONTROL*/
     if ($('body').hasClass('theme-wallpaper')) {
         jsHour = jsDate.getHours();
-        mPCookie = {
-            background: {
+
+        if (mPCookie === undefined || mPCookie.background === undefined) {
+            mPCookie.background = {
                 url: '/img/home/backgrounds/home-background-default0.jpg',
                 current: 0,
-                limit: 5,
+                limit: cookieBackgroundLimit,
                 time: jsHour
-            }
-        };
-
-        if ($.cookie('mojePanstwo')) {
-            mPCookie = $.extend(true, mPCookie, JSON.parse($.cookie('mojePanstwo')));
+            };
         }
 
         /*COOKIE MANAGER - BACKGROUND CHANGER*/
         if (mPCookie.background.time !== jsHour) {
             if (mPCookie.background.current + 1 < mPCookie.background.limit) {
                 mPCookie.background.current = mPCookie.background.current + 1;
-                mPCookie.background.url = '/img/home/backgrounds/home-background-default' + mPCookie.background.current + '.jpg';
+                /*CHECK IF NEW BACKGROUND EXIST - IF NOT SET DEFAULT*/
+                var http = new XMLHttpRequest();
+                http.open('HEAD', '/img/home/backgrounds/home-background-default' + mPCookie.background.current + '.jpg', false);
+                http.send();
+                if (http.status === 404) {
+                    mPCookie.background.url = '/img/home/backgrounds/home-background-default0.jpg';
+                } else {
+                    mPCookie.background.url = '/img/home/backgrounds/home-background-default' + mPCookie.background.current + '.jpg';
+                }
             } else {
                 mPCookie.background.current = 0;
                 mPCookie.background.url = '/img/home/backgrounds/home-background-default0.jpg';
             }
             mPCookie.background.time = jsHour;
+            mPCookie.background.limit = cookieBackgroundLimit;
         }
 
-        /*COOKIE MANAGER - RESAVE ALL*/
-        $.cookie('mojePanstwo', JSON.stringify(mPCookie));
+        cookieSave(mPCookie);
     }
 
     /*GLOBAL MODAL FOR LOGIN VIA PASZPORT PLUGIN*/
@@ -208,4 +228,5 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
     if ($('.trimTitle').length > 0) {
         trimTitle();
     }
-})(jQuery);
+})
+(jQuery);

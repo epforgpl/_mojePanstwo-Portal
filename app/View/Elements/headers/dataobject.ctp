@@ -16,23 +16,27 @@ if (!isset($renderFile) || !$renderFile)
                 <? if (isset($treeList)) { ?>
                     <ul class="breadcrumb">
                         <?php foreach ($_breadcrumbs as $bread) { ?>
-                            <li><a href="<?= $bread['href'] ?>" target="_self"><?= $bread['label'] ?></a></li>
+                            <li><a class="normalizeText" href="<?= $bread['href'] ?>"
+                                   target="_self"><?= trim($bread['label']) ?></a></li>
                         <? } ?>
                     </ul>
                     <ul class="breadcrumb tree">
                         <li>
-                            <a href="/bdl/#kategoria_id=<?php echo $object->getData('bdl_wskazniki.kategoria_id') ?>">
-                                <?= $object->getData('bdl_wskazniki.kategoria_tytul'); ?>
-                            </a>
+                            <a class="normalizeText"
+                               href="/bdl/#kategoria_id=<?php echo $object->getData('bdl_wskazniki.kategoria_id') ?>"><?=
+                                trim($object->getData('bdl_wskazniki.kategoria_tytul'));
+                                ?></a>
                             <ul>
                                 <li class="e">
-                                    <a href="/bdl/#kategoria_id=<?php echo $object->getData('bdl_wskazniki.kategoria_id') ?>&grupa_id=<?= $object->getData('bdl_wskazniki.grupa_id'); ?>">
-                                        <?= $object->getData('bdl_wskazniki.grupa_tytul'); ?>
-                                    </a>
+                                    <a class="normalizeText"
+                                       href="/bdl/#kategoria_id=<?php echo $object->getData('bdl_wskazniki.kategoria_id')
+                                       ?>&grupa_id=<?= $object->getData('bdl_wskazniki.grupa_id'); ?>"><?=
+                                        trim($object->getData('bdl_wskazniki.grupa_tytul'));
+                                        ?></a>
                                     <ul>
                                         <li class="e h1">
-                                            <a href="<?php echo $object->getUrl() ?>">
-                                                <h1><?= $object->getData('bdl_wskazniki.tytul'); ?></h1>
+                                            <a class="normalizeText" href="<?php echo $object->getUrl() ?>">
+                                                <h1><?= trim($object->getData('bdl_wskazniki.tytul')); ?></h1>
                                             </a>
                                         </li>
                                     </ul>
@@ -67,7 +71,7 @@ if (!isset($renderFile) || !$renderFile)
                 </div>
             </div>
             <?php if (isset($_observeOptions) && !empty($_observeOptions)) {
-                echo $this->element('modals/observe_dataobject');
+                echo $this->element('modals/dataobject-observe');
             } ?>
             <div class="col-xs-12">
                 <div class="status">

@@ -29,7 +29,7 @@ class ApplicationsController extends AppController
 	
     public $title = false;
     public $description = false;
-    public $appSelected = 'dane';
+    public $appSelected = '';
     
     public $appDatasets = array();
     public $mainMenuLabel = false;
@@ -147,15 +147,25 @@ class ApplicationsController extends AppController
 		
 		$menu['items'][] = array(
 			'label' => $this->mainMenuLabel,
+			'icon' => array(
+				'src' => 'glyphicon',
+				'id' => 'home',
+			),
 		);
 		
 		if( array_key_exists($this->settings['id'], $this->datasets) ) {
 			foreach($this->datasets[ $this->settings['id'] ] as $dataset => $params) {
-				
+								
 				if( @$params['menu_id'] )
 				$menu['items'][] = array(
 					'id' => $params['menu_id'],
 					'label' => $params['label'],
+					/*
+					'icon' => array(
+						'src' => 'datasets',
+						'id' => $dataset,
+					),
+					*/
 				);
 				
 			}

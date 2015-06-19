@@ -50,12 +50,10 @@ class Krakow_posiedzenia_punkty extends DocDataObject
 	    	return false;
     }
 	
-	/*
 	public function getShortLabel()
     {
-        return '<a href="/dane/gminy/903,krakow/posiedzenia/' . $this->getData('krakow_posiedzenia.id') . '">Sesja ' . $this->getData('krakow_sesje.str_numer') . ', ' . 'Posiedzenie #' . $this->getData('krakow_posiedzenia.numer') . '</a> <span class="separator">|</span> Punkt #' . $this->getData('numer');
+        return '<a class="link-discrete" href="/dane/gminy/903,krakow/posiedzenia/' . $this->getData('krakow_posiedzenia.id') . '">Posiedzenie ' . dataSlownie($this->getData('krakow_posiedzenia.data')) . '</a> <span class="separator">|</span> Punkt #' . $this->getData('numer');
     }
-	*/
 	
     public function getLabel()
     {
@@ -77,5 +75,39 @@ class Krakow_posiedzenia_punkty extends DocDataObject
     public function hasHighlights(){
 	    return false;
     }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+		
+		$output = array();
+				
+		if( $this->getData('rady_druki.tytul') )
+			$output[] = $this->getData('rady_druki.tytul');
+			
+		if( $this->getData('wynik_str') )
+			$output[] = $this->getData('wynik_str');
+		
+		return $output;
+		
+	}
+	
+	public function getBreadcrumbs()
+	{
+				
+		return array(
+			array(
+				'id' => '/dane/gminy/903,krakow/posiedzenia',
+				'label' => 'Posiedzenia Rady Miasta',
+			),
+			array(
+				'id' => '/dane/gminy/903,krakow/posiedzenia/' . $this->getData('krakow_posiedzenia.id'),
+				'label' => dataSlownie($this->getData('krakow_posiedzenia.data')),
+			),
+			array(
+				'label' => 'Punkt #' . $this->getData('numer'),
+			),
+		);
+				
+	}
 
 }

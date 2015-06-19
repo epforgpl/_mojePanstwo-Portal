@@ -48,6 +48,12 @@ class PaszportController extends ApplicationsController
 
     public function forgot()
     {
+        $this->setLayout(array(
+            'header' => false,
+            'body' => array(
+                'theme' => 'wallpaper',
+            )
+        ));
         if ($this->request->isPost()) {
             if (isset($this->request->data['User']['password'])) {
 
@@ -162,7 +168,12 @@ class PaszportController extends ApplicationsController
 
     public function login()
     {
-
+        $this->setLayout(array(
+            'header' => false,
+            'body' => array(
+                'theme' => 'wallpaper',
+            )
+        ));
         $this->setMenuSelected();
 
         if ($this->Auth->loggedIn()) {
@@ -210,6 +221,12 @@ class PaszportController extends ApplicationsController
 
     public function register()
     {
+        $this->setLayout(array(
+            'header' => false,
+            'body' => array(
+                'theme' => 'wallpaper',
+            )
+        ));
         if ($this->request->isPost()) {
 
             $user = new User();

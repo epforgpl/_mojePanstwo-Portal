@@ -1,54 +1,50 @@
-<div class="objectPageHeaderContainer subobjectContainer">
-    <div class="container" style="width: inherit;">
-        <?
-        $col_width = '9';
-        if (isset($back)) {
-            $col_width = '9';
-            ?>
-            <div class="col-md-1 btn-back-cont">
-                <a class="btn-back glyphicon glyphicon-circle-arrow-left" href="<?= $back['href'] ?>"
-                   title="<?= addslashes($back['title']) ?>"></a>
-            </div>
-        <? } ?>
-        <div class="col-md-<?= $col_width ?>">
-            <p class="header">
-                <?= $object->getShortLabel(); ?>
-            </p>
+<div class="subobjectPage nopadding">
+    <div class="objectPageHeaderContainer subobjectContainer">
 
-            <div class="objectPageHeader">
-                <?php
-                echo $this->Dataobject->render($object, 'subobject', $objectOptions);
+        <div class="row">
+            <div class="col-md-12">
+
+                <p class="header">
+
+                    <? if ($bcs = $object->getBreadcrumbs()) {
+                    if (isset($addBreadcrumbs))
+                        $bcs = array_merge($bcs, $addBreadcrumbs);
+                    ?>
+                <ul class="breadcrumb">
+                    <? foreach ($bcs as $bc) {
+                        if (!isset($bc['id']))
+                            $bc['id'] = false;
+                        ?>
+                        <li><? if ($bc['id']) { ?><a target="_self"
+                                                     href="<?= $bc['id'] ?>"><? } ?><?= $bc['label'] ?><? if ($bc['id']) { ?></a><? } ?>
+                        </li>
+                    <? } ?>
+                </ul>
+                <? } else { ?>
+                    <?= $object->getShortLabel(); ?>
+                <? } ?>
+
+                </p>
+
+                <div class="objectPageHeader">
+                    <?php
+                    echo $this->Dataobject->render($object, 'subobject', $objectOptions);
+                    ?>
+                </div>
+            </div>
+        </div>
+
+        <? if (isset($menu) && !empty($menu)) { ?>
+            <div class="menuTabsCont">
+                <?
+                if (!isset($_submenu['base']))
+                    $_submenu['base'] = $object->getUrl();
+                echo $this->Element('Dane.dataobject/menuTabs', array(
+                    'menu' => $_submenu,
+                ));
                 ?>
             </div>
-        </div>
-        <? /* ?>
-        <div class="col-md-1 pull-right">
+        <? } ?>
 
-            <? if ($neighbours = $object->getLayer('neighbours')) { ?>
-                <ul class="pagination pagination-sm pagination-neighbours">
-                    <? if ($neighbours['previous']) { ?>
-                        <li><a title="<?= addslashes($neighbours['previous']['title']) ?>"
-                               href="<?= $neighbours['previous']['id'] ?>">←</a></li><? } ?>
-                    <? if ($neighbours['next']) { ?>
-                        <li><a title="<?= addslashes($neighbours['next']['title']) ?>"
-                               href="<?= $neighbours['next']['id'] ?>">→</a></li><? } ?>
-                </ul>
-            <? } ?>
-        </div>
-        <? */ ?>
     </div>
 </div>
-
-<? if (isset($menu) && !empty($menu)) { ?>
-    <div class="menuTabsCont">
-        <div class="container">
-            <?
-            if( !isset($menu['base']) )
-                $menu['base'] = $object->getUrl();
-            echo $this->Element('Dane.dataobject/menuTabs', array(
-                'menu' => $menu,
-            ));
-            ?>
-        </div>
-    </div>
-<? } ?>
