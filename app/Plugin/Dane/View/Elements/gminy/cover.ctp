@@ -24,7 +24,7 @@ $options = array(
     <? } ?>
     <? if ($object->getId() == 903) { ?>
 
-        <div class="block block-simple col-xs-12">
+        <div class="block block-default col-xs-12">
             <header>Najnowsze projekty legislacyjne pod obrady rady</header>
 
             <section class="aggs-init">
@@ -54,7 +54,7 @@ $options = array(
             <? } ?>
         </div>
 
-        <div class="block block-simple col-xs-12">
+        <div class="block block-default col-xs-12">
             <header>Najnowsze uchwały Rady</header>
 
             <section class="aggs-init">
@@ -85,7 +85,7 @@ $options = array(
             <? } ?>
         </div>
 
-        <div class="block block-simple col-xs-12">
+        <div class="block block-default col-xs-12">
             <header>Najnowsze interpelacje radnych</header>
 
             <section class="aggs-init">
@@ -119,7 +119,7 @@ $options = array(
 
     <? } else { ?>
 
-        <div class="block block-simple col-xs-12">
+        <div class="block block-default col-xs-12">
             <header>Najnowsze prawo lokalne</header>
 
             <section class="aggs-init">
@@ -151,7 +151,7 @@ $options = array(
 
     <? } ?>
 
-    <div class="block block-simple col-xs-12">
+    <div class="block block-default col-xs-12">
         <header>Najnowsze zamówienia publiczne</header>
 
         <section class="aggs-init">
@@ -181,7 +181,7 @@ $options = array(
         <? } ?>
     </div>
 
-    <div class="block block-simple col-xs-12">
+    <div class="block block-default col-xs-12">
         <header>Najwięcej zamówień publicznych otrzymali</header>
 
         <section class="aggs-init">
@@ -299,11 +299,11 @@ $options = array(
 
     <? if ($object->getId() == 903) { ?>
 
-        <div class="block block-default col-md-12">
+        <div class="block block-simple col-md-12">
 
             <header>Najnowsze posiedzenie Rady Miasta</header>
 
-            <section class="aggs-init">
+            <section class="aggs-init nopadding">
 
                 <div class="dataAggs">
                     <div class="agg agg-Dataobjects">
@@ -325,17 +325,16 @@ $options = array(
             <? if ($dataBrowser['aggs']['all']['rada_posiedzenia']['top']['hits']['hits']) { ?>
                 <footer>
                     <div class="buttons pull-right">
-                        <a href="<?= $object->getUrl() ?>/posiedzenia" class="btn btn-primary btn-sm">Więcej
-                            posiedzeń</a>
+                        <a href="<?= $object->getUrl() ?>/posiedzenia" class="btn-primary btn-sm">Zobacz więcej</a>
                     </div>
                 </footer>
             <? } ?>
         </div>
-        <div class="block block-default col-md-12">
+        <div class="block block-simple col-md-12">
 
-            <header>Najnowsze nagrania posiedzeń komisji Rady Miasta</header>
+            <header>Najnowsze nagrania posiedzeń komisji</header>
 
-            <section class="aggs-init">
+            <section class="aggs-init nopadding">
                 <div class="dataAggs">
                     <div class="agg agg-Dataobjects">
                         <? if ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits']) { ?>
@@ -357,16 +356,16 @@ $options = array(
                 <footer>
                     <div class="buttons pull-right">
                         <a href="<?= $object->getUrl() ?>/komisje_posiedzenia"
-                           class="btn btn-primary btn-sm">Więcej posiedzeń</a>
+                           class="btn-primary btn-sm">Zobacz więcej</a>
                     </div>
                 </footer>
             <? } ?>
         </div>
-        <div class="block block-default col-md-12">
+        <div class="block block-simple col-md-12">
 
             <header>Najnowsze nagrania posiedzeń rad dzielnic</header>
 
-            <section class="aggs-init">
+            <section class="aggs-init nopadding">
                 <div class="dataAggs">
                     <div class="agg agg-Dataobjects">
                         <? if ($dataBrowser['aggs']['all']['dzielnice_posiedzenia']['top']['hits']['hits']) { ?>
@@ -388,7 +387,7 @@ $options = array(
                 <footer>
                     <div class="buttons pull-right">
                         <a href="<?= $object->getUrl() ?>/dzielnice"
-                           class="btn btn-primary btn-sm">Więcej posiedzeń</a>
+                           class="btn-primary btn-sm">Zobacz więcej</a>
                     </div>
                 </footer>
             <? } ?>

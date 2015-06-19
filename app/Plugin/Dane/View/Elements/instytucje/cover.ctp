@@ -15,7 +15,7 @@ $options = array(
     <div class="blocks">
 
         <? if (@$dataBrowser['aggs']['all']['prawo']['top']['hits']['hits']) { ?>
-            <div class="block block-simple col-xs-12">
+            <div class="block block-default col-xs-12">
                 <header>Najnowsze akty prawne:</header>
 
                 <section class="aggs-init">
@@ -46,7 +46,7 @@ $options = array(
 
 
         <? if (@$dataBrowser['aggs']['all']['prawo_urzedowe']['top']['hits']['hits']) { ?>
-            <div class="block block-simple col-xs-12">
+            <div class="block block-default col-xs-12">
                 <header>Najnowsze pozycje w dzienniku urzędowym:</header>
 
                 <section class="aggs-init">
@@ -77,7 +77,7 @@ $options = array(
 
 
         <? if (@$dataBrowser['aggs']['all']['zamowienia']['top']['hits']['hits']) { ?>
-            <div class="block block-simple col-xs-12">
+            <div class="block block-default col-xs-12">
                 <header>Najnowsze zamówienia publiczne:</header>
 
                 <section class="aggs-init">
@@ -108,7 +108,7 @@ $options = array(
 
 
         <? if (@$dataBrowser['aggs']['all']['dokumenty']['wykonawcy']['id']['buckets']) { ?>
-            <div class="block block-simple col-xs-12">
+            <div class="block block-default col-xs-12">
                 <header>Najwięcej zamówień publicznych otrzymali:</header>
 
                 <section class="aggs-init">
