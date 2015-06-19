@@ -374,6 +374,11 @@
                 list-style: none;
                 padding: 5px 0;
                 margin: 0;
+                margin: 5px 0;
+                
+                &:first-child {
+	                margin-top: -10px;
+                }
 
                 .glyphicon {
                     top: 4px;
@@ -457,6 +462,7 @@
         float: left;
         width: 100%;
         padding-bottom: 0;
+        margin-top: -15px;
     }
     .wysihtml5-toolbar {
         .btn {
@@ -665,7 +671,7 @@
                 > .glyphicon {
                     color: #838383;
                     margin-left: 10px;
-                    font-size: 20px;
+                    font-size: 14px;
                     cursor: pointer;
                 }
             }
@@ -691,8 +697,12 @@
         padding: 0 10px;
 
         p {
-            margin: 0;
-            color: #666;
+            margin: 5px 0;
+            color: green;
+            b {
+	            color: #333;
+	            font-weight: normal;
+            }
         }
     }
 

@@ -235,6 +235,7 @@ class PismaController extends ApplicationsController
         );
 
         $this->set('pismo_init', $pismo);
+        $this->title = 'Nowe pismo';
         
     }
     
