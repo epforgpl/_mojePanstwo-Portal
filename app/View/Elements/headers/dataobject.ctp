@@ -70,17 +70,7 @@ if (!isset($renderFile) || !$renderFile)
                     </h1>
                 </div>
             </div>
-            <?php if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
-            
-            <div class="col-md-2">
-			    <div data-toggle="modal" data-target="#observeModal"
-			         class="observeButton btn btn-icon <? echo (isset($subscription) && !empty($subscription)) ? 'btn-success' : 'btn-primary'; ?>">
-			        <i class="icon"
-			           data-icon-applications="&#xe60a;"></i><? echo (isset($subscription) && !empty($subscription)) ? 'Obserwujesz...' : 'Obserwuj...'; ?>
-			    </div>
-            </div>
-            
-            <?
+            <?php if (isset($_observeOptions) && !empty($_observeOptions)) {
                 echo $this->element('modals/dataobject-observe');
             } ?>
             <div class="col-xs-12">
