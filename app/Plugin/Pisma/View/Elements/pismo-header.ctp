@@ -21,7 +21,12 @@
             <div class="col-md-10">
 
                 <div class="letter-meta">
-                    <p class="pull-left">
+                    <? /*
+                    <p class="">
+                        <b><?= dataSlownie(substr($pismo['created_at'], 0, 10)) ?></b>
+                    </p>
+                    */ ?>
+                    <p class="">
                         Autor: <b><?
                             if ($pismo['from_user_type'] == 'account') {
                                 echo $pismo['from_user_name'];
@@ -29,11 +34,7 @@
                                 echo "Anonimowy użytkownik";
                             }
                             ?></b>
-                    </p>
-
-                    <p class="pull-right">
-                        Utworzono: <b><?= dataSlownie(substr($pismo['created_at'], 0, 10)) ?></b>
-                    </p>
+                    </p>                    
                 </div>
 
             </div>

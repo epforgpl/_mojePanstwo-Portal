@@ -24,7 +24,7 @@ class PismaController extends ApplicationsController
         'subtitle' => 'Wysyłaj pisma urzędowe do instytucje publicznych',
     );
     public $helpers = array('Form');
-    public $uses = array('Pisma.Pismo');
+    public $uses = array('Pisma.Pismo', 'Sejmometr.Sejmometr');
     public $components = array('RequestHandler');
     public $appSelected = 'pisma';
     private $aggs_dict = array(
@@ -235,6 +235,7 @@ class PismaController extends ApplicationsController
         );
 
         $this->set('pismo_init', $pismo);
+        $this->title = 'Nowe pismo';
         
     }
     
@@ -250,7 +251,7 @@ class PismaController extends ApplicationsController
         );
 
         $this->set('pismo_init', $pismo);
-        
+        $this->set('okregi', $this->Sejmometr->okregi());
     }
 
     public function my()
