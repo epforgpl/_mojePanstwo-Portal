@@ -58,7 +58,7 @@ $this->Combinator->add_libs('css', $this->Less->css('powiadomienia-subs', array(
                                     <p class="title">
                                         <a href="<?= $sub->getUrl() ?>"><?= $sub->getTitle() ?></a>
                                     </p>
-                                    <i class="options" data-icon="&#xe612;"></i>
+                                    <i class="options glyphicon glyphicon-option-vertical"></i>
                                 </li>
                             <? } ?>
                         </ul>

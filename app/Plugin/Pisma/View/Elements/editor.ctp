@@ -3,10 +3,10 @@
 <?php echo $this->Html->script('/plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5.all', array('block' => 'scriptBlock')); ?>
 <?php echo $this->Html->script('/plugins/bootstrap3-wysiwyg/dist/locales/bootstrap-wysihtml5.pl-PL', array('block' => 'scriptBlock')); ?>
 
-<?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'MojePisma'))) ?>
-<?php $this->Combinator->add_libs('js', 'MojePisma.jquery.autosize.min.js') ?>
-<?php $this->Combinator->add_libs('js', 'MojePisma.jquery_steps.js') ?>
-<?php $this->Combinator->add_libs('js', 'MojePisma.pisma.js') ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.jquery.autosize.min.js') ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.jquery_steps.js') ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
 
 <?php
 if (!empty($pismo['szablon_id'])) {
@@ -18,7 +18,7 @@ if (!empty($pismo['adresat_id'])) {
 ?>
 
 <div class="container editPage">
-    <? echo $this->element('MojePisma.pismo-header', array(
+    <? echo $this->element('Pisma.pismo-header', array(
         'pismo' => $pismo,
         'alert' => true,
         'editable' => true
@@ -33,7 +33,7 @@ if (!empty($pismo['adresat_id'])) {
             <div class="container start">
                 <div class="col-xs-12">
                     <form class="letter form-horizontal">
-                        <?php echo $this->element('MojePisma.start') ?>
+                        <?php echo $this->element('Pisma.start') ?>
                         <fieldset class="final">
                             <div class="form-group">
                                 <div class="col-lg-10 col-lg-offset-1 text-center">
@@ -84,7 +84,7 @@ if (!empty($pismo['adresat_id'])) {
                 <div class="container edit">
                     <div class="editor-container row">
                         <div class="col-xs-12 col-md-10 norightpadding">
-                            <? echo $this->Element('MojePisma.render', array('pismoEditPage' => true)); ?>
+                            <? echo $this->Element('Pisma.render', array('pismoEditPage' => true)); ?>
                         </div>
                         <div class="col-xs-12 col-md-2 nopadding">
                             <div class="editor-tooltip">

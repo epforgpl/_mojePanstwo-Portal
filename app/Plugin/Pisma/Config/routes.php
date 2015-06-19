@@ -5,31 +5,31 @@ foreach ($pisma_prefixes as $pisma_prefix) {
 
 
     Router::connect("$pisma_prefix", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'my',
         '[method]' => 'GET'
     ));
     Router::connect("$pisma_prefix/nowe", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'home',
         '[method]' => 'GET'
     ));
     Router::connect("$pisma_prefix/moje", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'my',
         '[method]' => 'GET'
     ));
     Router::connect("$pisma_prefix/moje", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'post',
         '[method]' => 'POST'
     ));
     Router::connect("$pisma_prefix", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'create',
         '[method]' => 'POST'
@@ -41,21 +41,21 @@ foreach ($pisma_prefixes as $pisma_prefix) {
 
     // GET
     Router::connect("$pisma_prefix/:id,:slug", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'view',
         '[method]' => 'GET'
     ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id', 'slug')));
 
     Router::connect("$pisma_prefix/:id", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'view',
         '[method]' => 'GET'
     ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id')));
 
     Router::connect("$pisma_prefix/:id,", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'view',
         '[method]' => 'GET'
@@ -64,21 +64,21 @@ foreach ($pisma_prefixes as $pisma_prefix) {
 
     // POST
     Router::connect("$pisma_prefix/:id,:slug", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'post',
         '[method]' => 'POST'
     ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id', 'slug')));
 
     Router::connect("$pisma_prefix/:id", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'post',
         '[method]' => 'POST'
     ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id')));
 
     Router::connect("$pisma_prefix/:id,", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'post',
         '[method]' => 'POST'
@@ -87,21 +87,21 @@ foreach ($pisma_prefixes as $pisma_prefix) {
 
     // PUT
     Router::connect("$pisma_prefix/:id,:slug", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'put',
         '[method]' => 'PUT'
     ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id', 'slug')));
 
     Router::connect("$pisma_prefix/:id", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'put',
         '[method]' => 'PUT'
     ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id')));
 
     Router::connect("$pisma_prefix/:id,", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'put',
         '[method]' => 'PUT'
@@ -111,21 +111,21 @@ foreach ($pisma_prefixes as $pisma_prefix) {
     // EDIT
 
     Router::connect("$pisma_prefix/:id,:slug/edit", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'edit',
         '[method]' => 'GET'
     ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id', 'slug')));
 
     Router::connect("$pisma_prefix/:id/edit", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'edit',
         '[method]' => 'GET'
     ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id')));
 
     Router::connect("$pisma_prefix/:id,/edit", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'edit',
         '[method]' => 'GET'
@@ -135,21 +135,21 @@ foreach ($pisma_prefixes as $pisma_prefix) {
     // HTML
 
     Router::connect("$pisma_prefix/:id,:slug/html", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'html',
         '[method]' => 'GET'
     ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id', 'slug')));
 
     Router::connect("$pisma_prefix/:id/html", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'html',
         '[method]' => 'GET'
     ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id')));
 
     Router::connect("$pisma_prefix/:id,/html", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'html',
         '[method]' => 'GET'
@@ -159,26 +159,31 @@ foreach ($pisma_prefixes as $pisma_prefix) {
     // SHARE
 
     Router::connect("$pisma_prefix/:id,:slug/share", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'share',
         '[method]' => 'GET'
     ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id', 'slug')));
 
     Router::connect("$pisma_prefix/:id/share", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'share',
         '[method]' => 'GET'
     ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id')));
 
     Router::connect("$pisma_prefix/:id,/share", array(
-        'plugin' => 'MojePisma',
+        'plugin' => 'Pisma',
         'controller' => 'Pisma',
         'action' => 'share',
         '[method]' => 'GET'
     ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id')));
-
+	
+	Router::connect("$pisma_prefix/:action", array(
+        'plugin' => 'Pisma',
+        'controller' => 'Pisma',
+        '[method]' => 'GET'
+    ));
 
     /*
     Router::connect("$pisma_prefix/szablony/:id", array(

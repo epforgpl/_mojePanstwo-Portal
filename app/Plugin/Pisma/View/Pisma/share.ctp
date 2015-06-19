@@ -1,16 +1,16 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'MojePisma'))) ?>
-<?php $this->Combinator->add_libs('js', 'MojePisma.rangy/rangy-core.js') ?>
-<?php $this->Combinator->add_libs('js', 'MojePisma.rangy/rangy-classapplier.js') ?>
-<?php $this->Combinator->add_libs('js', 'MojePisma.rangy/rangy-textrange.js') ?>
-<?php $this->Combinator->add_libs('js', 'MojePisma.rangy/rangy-highlighter.js') ?>
-<?php $this->Combinator->add_libs('js', 'MojePisma.pisma.js') ?>
-<?php $this->Combinator->add_libs('js', 'MojePisma.pisma-share.js') ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.rangy/rangy-core.js') ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.rangy/rangy-classapplier.js') ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.rangy/rangy-textrange.js') ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.rangy/rangy-highlighter.js') ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.pisma-share.js') ?>
 
 
 
 <div class="container">
 
-    <? echo $this->element('MojePisma.pismo-header', array(
+    <? echo $this->element('Pisma.pismo-header', array(
         'pismo' => $pismo,
         'alert' => true,
     )); ?>
@@ -18,7 +18,7 @@
         <div id="stepper">
             <div class="content clearfix">
                 <div class="col-md-10 view">
-                    <? echo $this->Element('MojePisma.render'); ?>
+                    <? echo $this->Element('Pisma.render'); ?>
                 </div>
                 <div class="col-md-2 nopadding">
                     <div class="editor-tooltip">

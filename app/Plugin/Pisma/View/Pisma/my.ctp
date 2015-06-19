@@ -1,7 +1,7 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'MojePisma'))) ?>
-<?php $this->Combinator->add_libs('css', $this->Less->css('pisma-moje', array('plugin' => 'MojePisma'))) ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('pisma-moje', array('plugin' => 'Pisma'))) ?>
 
-<?php $this->Combinator->add_libs('js', 'MojePisma.pisma-my.js') ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.pisma-my.js') ?>
 
 
 
@@ -69,7 +69,7 @@
                         </div>
                         <div class="optionsUnChecked">
 
-                            <? if (isset($aggs['template'])) echo $this->element('MojePisma.aggs', array(
+                            <? if (isset($aggs['template'])) echo $this->element('Pisma.aggs', array(
                                 'data' => $aggs['template'],
                                 'label' => 'Szablon',
                                 'allLabel' => 'Wszystkie szablony',
@@ -77,7 +77,7 @@
                                 'selected' => isset($filters_selected['template']),
                             )); ?>
 
-                            <? if (isset($aggs['to'])) echo $this->element('MojePisma.aggs', array(
+                            <? if (isset($aggs['to'])) echo $this->element('Pisma.aggs', array(
                                 'data' => $aggs['to'],
                                 'label' => 'Adresat',
                                 'allLabel' => 'Wszyscy adresaci',
@@ -85,7 +85,7 @@
                                 'selected' => isset($filters_selected['to']),
                             )); ?>
 
-                            <? if (isset($aggs['sent'])) echo $this->element('MojePisma.aggs', array(
+                            <? if (isset($aggs['sent'])) echo $this->element('Pisma.aggs', array(
                                 'data' => $aggs['sent'],
                                 'label' => 'Status',
                                 'allLabel' => 'Wszystkie statusy',
@@ -93,7 +93,7 @@
                                 'selected' => isset($filters_selected['sent']),
                             )); ?>
 
-                            <? if (isset($aggs['access'])) echo $this->element('MojePisma.aggs', array(
+                            <? if (isset($aggs['access'])) echo $this->element('Pisma.aggs', array(
                                 'data' => $aggs['access'],
                                 'label' => 'Dostęp',
                                 'allLabel' => 'Wszystko',

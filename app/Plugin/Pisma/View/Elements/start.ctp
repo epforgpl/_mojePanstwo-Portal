@@ -1,5 +1,5 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'MojePisma'))) ?>
-<?php $this->Combinator->add_libs('js', 'MojePisma.pisma-button.js') ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma'))) ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.pisma-button.js') ?>
 
 <fieldset>
     <div class="form-group szablony">
@@ -37,6 +37,7 @@
             </div>
         </div>
     </div>
+    <? /*
     <div class="form-group widocznosc">
         <label for="widocznoscSelect" class="col-lg-2 control-label">Widoczność</label>
 
@@ -57,6 +58,7 @@
             </div>
         </div>
     </div>
+    */ ?>
 </fieldset>
 
 <fieldset>

@@ -10,9 +10,12 @@
             </li>
             <? continue;
         }
-
-        $minBucketsCountNum = $data['aggs_visuals_map'][$agg_id]['skin'] == 'pie_chart' ? 1 : 0;
-
+		
+        $minBucketsCountNum = (
+	        ( !isset($this->request->query['conditions'][$data['aggs_visuals_map'][$agg_id]['field']]) ) &&
+        	( $data['aggs_visuals_map'][$agg_id]['skin'] == 'pie_chart' )
+        ) ? 1 : 0;		
+		
         if (isset($agg_data['buckets']) && (count($agg_data['buckets']) > $minBucketsCountNum) && isset($data['aggs_visuals_map'][$agg_id])) {
             $empty = true;
 

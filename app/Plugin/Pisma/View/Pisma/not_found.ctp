@@ -1,5 +1,5 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'MojePisma'))) ?>
-<?php $this->Combinator->add_libs('css', $this->Less->css('pisma-moje', array('plugin' => 'MojePisma'))) ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('pisma-moje', array('plugin' => 'Pisma'))) ?>
 
 <div class="container">
     <div class="col-md-10 col-md-offset-1">

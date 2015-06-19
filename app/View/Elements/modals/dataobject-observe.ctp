@@ -25,11 +25,17 @@ $this->Combinator->add_libs('js', 'Dane.modal-dataobject-observe');
                     <div class="alert alert-danger" role="alert">
                         <p>Prosze zaznaczyć przynajmniej jeden kanał do obserwowania</p>
                     </div>
-                    <input type="hidden" name="dataset" value="<?= $dataset ?>"/>
-                    <input type="hidden" name="object_id" value="<?= $object_id ?>"/>
+                    <input type="hidden" name="dataset" value="<?= $object->getDataset() ?>"/>
+                    <input type="hidden" name="object_id" value="<?= $object->getId() ?>"/>
 
                     <div class="options">
-                        <? if (isset($channels) && !empty($channels)) {
+                        <? 
+							                    
+	                    $channels = $object->getLayer('channels');  
+	                    $userSubscription =  $object->getLayer('subscription');
+	                    $userSubscriptionList = $userSubscription['SubscriptionChannel'];
+	                    
+	                    if (isset($channels) && !empty($channels)) {
                             if (isset($userSubscription)) { ?>
                                 <div class="checkbox first">
                                     <input type="checkbox" id="checkbox_all" name="channel[]"

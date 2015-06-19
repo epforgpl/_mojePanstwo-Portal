@@ -11,18 +11,21 @@
     > li {
       background: none;
       border-bottom: 1px solid #d0d1d5;
-      padding: 15px 10px;
+      padding: 15px 0;
       margin: 0;
       position: relative;
       display: inline-block;
       width: 100%;
 
       .icon {
-        font-style: normal;
-        float: left;
+        color: #666;
+	    float: left;
+	    font-size: 22px;
+	    font-style: normal;
+	    margin-left: 5px;
       }
       .title {
-        padding-left: 20px;
+        padding-left: 40px;
         margin: 0;
         a {
           color: #555;
@@ -36,13 +39,24 @@
         cursor: pointer;
         position: absolute;
         right: 0;
-        top: 50%;
+        top: 27px;
+        color: #DDD;
         -webkit-transform: translate(0, -50%);
         -moz-transform: translate(0, -50%);
         -ms-transform: translate(0, -50%);
         -o-transform: translate(0, -50%);
         transform: translate(0, -50%);
       }
+      
+      &:hover {
+	      .options {
+		      color: #666;
+		      &:hover {
+	            color: #157ab5;
+		      }
+	      }
+      }
+      
     }
 
     .subscriptions_list {

@@ -19,15 +19,14 @@ class PismaController extends ApplicationsController
 
 
     public $settings = array(
-        'id' => 'moje_pisma',
-        'title' => 'Moje Pisma',
+        'id' => 'pisma',
+        'title' => 'Pisma',
         'subtitle' => 'Wysyłaj pisma urzędowe do instytucje publicznych',
-        'headerImg' => '/MojePisma/img/header_pisma.png',
     );
     public $helpers = array('Form');
-    public $uses = array('MojePisma.Pismo');
+    public $uses = array('Pisma.Pismo');
     public $components = array('RequestHandler');
-    public $appSelected = 'moje-pisma';
+    public $appSelected = 'pisma';
     private $aggs_dict = array(
         'access' => array(
             'private' => 'Prywatne',
@@ -181,7 +180,7 @@ class PismaController extends ApplicationsController
 
             if ($redirect == 'object') {
 
-                $url = '/moje-pisma/' . $id;
+                $url = '/pisma/' . $id;
                 if ($slug)
                     $url .= ',' . $slug;
 
@@ -189,7 +188,7 @@ class PismaController extends ApplicationsController
 
             } elseif ($redirect == 'my') {
 
-                return $this->redirect('/moje-pisma');
+                return $this->redirect('/pisma');
 
             }
 
@@ -199,7 +198,7 @@ class PismaController extends ApplicationsController
         ) {
 
             $this->Pismo->documents_delete($this->request->data['id']);
-            return $this->redirect('/moje-pisma');
+            return $this->redirect('/pisma');
 
         }
 
@@ -228,14 +227,6 @@ class PismaController extends ApplicationsController
     {
 
         $this->menu_selected = 'nowe';
-
-        /*
-        $API = $this->Pismo;
-
-        $templatesGroups = $API->templates_grouped();
-        $this->set('templatesGroups', $templatesGroups);
-        */
-
         $query = array_merge($this->request->query, $this->request->params);
 
         $pismo = array(
@@ -243,14 +234,23 @@ class PismaController extends ApplicationsController
             'adresat_id' => isset($query['adresat_id']) ? $query['adresat_id'] : false,
         );
 
-        /*
-        if ($session = $this->Session->read('Pisma.unsaved')) {
-            $this->set('pismo', $session);
-            $this->Session->delete('Pisma.unsaved');
-        }
-        */
+        $this->set('pismo_init', $pismo);
+        
+    }
+    
+    public function naszrzecznik()
+    {
+
+        $this->menu_selected = 'nowe';
+        $query = array_merge($this->request->query, $this->request->params);
+
+        $pismo = array(
+            'szablon_id' => isset($query['szablon_id']) ? $query['szablon_id'] : false,
+            'adresat_id' => isset($query['adresat_id']) ? $query['adresat_id'] : false,
+        );
 
         $this->set('pismo_init', $pismo);
+        
     }
 
     public function my()
@@ -354,10 +354,10 @@ class PismaController extends ApplicationsController
         $this->set('items', $items);
         $this->set('aggs', $aggs);
         $this->set('q', $q);
-        $this->set('title_for_layout', 'Moje pisma');
+        $this->set('title_for_layout', 'Pisma');
         $this->set('filters_selected', $filters_selected);
 
-        $this->title = 'Moje Pisma';
+        $this->title = 'Pisma';
     }
 
     public function getMenu()
@@ -373,7 +373,7 @@ class PismaController extends ApplicationsController
                     'label' => 'Nowe pismo',
                 ),
             ),
-            'base' => '/moje-pisma',
+            'base' => '/pisma',
         );
 
         return $menu;

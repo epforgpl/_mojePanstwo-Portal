@@ -1,14 +1,14 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'MojePisma'))) ?>
-<?php $this->Combinator->add_libs('js', 'MojePisma.pisma.js') ?>
-<?php $this->Combinator->add_libs('js', 'MojePisma.pisma-social-share.js') ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.pisma-social-share.js') ?>
 
-<?php echo $this->Html->script('/MojePisma/js/zeroclipboard', array('block' => 'scriptBlock')); ?>
+<?php echo $this->Html->script('/Pisma/js/zeroclipboard', array('block' => 'scriptBlock')); ?>
 
 
 
 <div class="container">
 
-    <? echo $this->element('MojePisma.pismo-header', array(
+    <? echo $this->element('Pisma.pismo-header', array(
         'pismo' => $pismo,
         'alert' => true,
     )); ?>
@@ -16,7 +16,7 @@
         <div id="stepper">
             <div class="content clearfix">
                 <div class="col-md-10 view norightpadding">
-                    <? echo $this->Element('MojePisma.render'); ?>
+                    <? echo $this->Element('Pisma.render'); ?>
                 </div>
                 <div class="col-md-2 nopadding">
                     <div class="editor-tooltip">
@@ -83,7 +83,7 @@
                                         <a class="btn btn-social-icon btn-wykop"
                                            href="http://www.wykop.pl/dodaj/link/?url=<?php echo Router::url($this->here, true); ?>&title=<?= $pismo['nazwa'] ?>"
                                            target="_blank">
-                                            <img class="fa" src="/MojePisma/img/wykop_logo.png" alt="wykop.pl"
+                                            <img class="fa" src="/Pisma/img/wykop_logo.png" alt="wykop.pl"
                                                  onerror="imgFixer(this)"/>
                                         </a>
                                     </li>
