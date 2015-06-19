@@ -24,19 +24,9 @@
                             <div class="row">
                                 <div class="col-md-10 col-md-offset-1">
                                     <div class="well">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sodales sem
-                                            ante. Phasellus nec libero risus. Aliquam erat volutpat. Fusce vel arcu
-                                            dolor. Aenean condimentum eros ipsum, eget pharetra diam dictum at.
-                                            Pellentesque porttitor sodales magna a posuere. Donec ut lacus ac orci
-                                            ullamcorper bibendum. Sed venenatis nunc a libero cursus, sit amet congue
-                                            nisi pellentesque. Nunc et tempor sapien.</p>
+                                        <p>Chcesz aby Adam Bodnar został wybrany przez Sejm na Rzecznika Praw Obywatelskich (RPO)? Skorzystaj z poniższego formularza by wysłać maila do wybranego posła lub posłanki z prośbą o głosowanie za kandydaturą Adama Bodnara na RPO. Możesz wysłać wiadomość z proponowaną poniżej treścią lub zmienić treść wg swojego uznania.</p>
 
-                                        <p>Sed venenatis ut ipsum nec accumsan. Donec aliquam nisl et varius mollis.
-                                            Donec pellentesque mi vitae nisi fringilla, non vestibulum mauris porttitor.
-                                            Mauris nec nisi laoreet, gravida ex et, sodales nibh. Cras porttitor enim at
-                                            urna eleifend, a faucibus sapien sagittis. </p>
-
-                                        <p><a href="#">Więcej o akcji &raquo;</a></p>
+                                        <p><a href="http://naszrzecznik.pl" target="_blank">Więcej o akcji &raquo;</a></p>
                                     </div>
 
                                 </div>
