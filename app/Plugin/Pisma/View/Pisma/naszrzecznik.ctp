@@ -66,12 +66,7 @@
                             </fieldset>
                             
                             <h2 class="text-center">Nie wiesz kto jest Twoim posłem?</h2>
-                            <p class="help-block text-center">Zlokalizuj się lub wskaż na mapie miejsce zamieszkania:</p>
-
-                            <a class="btn btn-warning btn-icon" id="localizeMe">
-                                <i class="icon" data-icon-applications="&#xe609;"></i>
-                                Zlokalizuj mnie
-                            </a>
+                            <p class="help-block text-center"><a href="#" id="localizeMe">Zlokalizuj się</a> lub wskaż na mapie miejsce zamieszkania:</p>
 
                             <div class="row">
                                 <div id="map"></div>
