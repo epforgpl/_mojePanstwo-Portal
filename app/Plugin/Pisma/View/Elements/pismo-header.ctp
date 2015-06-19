@@ -3,7 +3,7 @@
 
         <div class="titleBlock">
             <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
-                <a href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>"><?= $pismo['nazwa'] ?></a>
+                <a href="/pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>"><?= $pismo['nazwa'] ?></a>
                 <i class="glyphicon glyphicon-edit"></i>
             </h1>
 

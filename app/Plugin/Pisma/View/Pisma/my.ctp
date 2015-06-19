@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-1">
                     <div class="form-group">
-                        <form method="GET" action="/moje-pisma">
+                        <form method="GET" action="/pisma">
                             <input name="q" class="form-control input-md" placeholder="Szukaj w moich pismach..."
                                    type="text"
                                    value="<?= $q ?>">
@@ -57,7 +57,7 @@
                     </div>
                     <div class="col-md-7 text-right">
                         <div class="optionsChecked">
-                            <form action="/moje-pisma/moje" method="post">
+                            <form action="/pisma/moje" method="post">
                                 <input name="action" value="delete" type="hidden"/>
 
                                 <div class="inputs">
@@ -108,7 +108,7 @@
                 <? if (!empty($filters_selected)) { ?>
                     <div class="row">
                         <div class="col-md-12">
-                            <p class="remove-filters"><a href="/moje-pisma/moje"><span
+                            <p class="remove-filters"><a href="/pisma/moje"><span
                                         class="glyphicon glyphicon-remove"></span> Usuń wszystkie filtry</a></p>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                             </div>
                             <div class="col-sm-9">
                                 <div class="thumb">
-                                    <a href="/moje-pisma/<?= $item['alphaid'] ?>,<?= $item['slug'] ?>">
+                                    <a href="/pisma/<?= $item['alphaid'] ?>,<?= $item['slug'] ?>">
                                         <img src="http://pisma.sds.tiktalik.com/thumbs/<?= $item['hash'] ?>.png"
                                              onerror="imgFixer(this)"/>
                                     </a>
@@ -130,7 +130,7 @@
                                 <div class="cont">
 
                                     <p class="title">
-                                        <a href="/moje-pisma/<?= $item['alphaid'] ?>,<?= $item['slug'] ?>"><?= (isset($item['name']) && $item['name']) ? $item['name'] : 'Pismo' ?></a>
+                                        <a href="/pisma/<?= $item['alphaid'] ?>,<?= $item['slug'] ?>"><?= (isset($item['name']) && $item['name']) ? $item['name'] : 'Pismo' ?></a>
                                     </p>
 
                                     <? if (isset($item['sent']) && $item['sent']) { ?>
@@ -161,7 +161,7 @@
                     <div class="paginationListNumber">
                         <div class="btn-group" role="group">
                             <?php for ($x = 0; $x < $pagination['total'] / $pagination['perPage']; $x++) { ?>
-                                <a href="/moje-pisma/moje?page=<?php echo $x + 1; ?>" type="button"
+                                <a href="/pisma/moje?page=<?php echo $x + 1; ?>" type="button"
                                    class="btn btn-default<?php if (($x + 1) == $pagination['page']) echo ' active' ?>"><?php echo $x + 1; ?></a>
                             <?php } ?>
                         </div>
@@ -180,7 +180,7 @@
 
                             <h2>Nie stworzyłeś jeszcze żadnych pism</h2>
                             <br/><br/>
-                            <a target="_self" href="/moje-pisma/nowe" class="btn btn-info">Stwórz pismo</a>
+                            <a target="_self" href="/pisma/nowe" class="btn btn-info">Stwórz pismo</a>
                         </div>
                     </div>
                 <?

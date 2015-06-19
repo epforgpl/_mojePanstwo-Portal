@@ -21,7 +21,7 @@
                 <div class="col-md-2 nopadding">
                     <div class="editor-tooltip">
 
-                        <? $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
+                        <? $href_base = '/pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
 
                         <? if ($pismo['is_owner']) { ?>
 
@@ -176,7 +176,7 @@
                                 <li class="inner-addon left-addon">
                                     <form onsubmit="return confirm('Czy na pewno chcesz usunąć to pismo?');"
                                           method="post"
-                                          action="/moje-pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
+                                          action="/pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
                                         <i class="glyphicon glyphicon-trash"></i>
                                         <input name="delete" type="submit" class="form-control btn btn-danger"
                                                value="Skasuj"/>

@@ -52,7 +52,7 @@ if (!empty($pismo['adresat_id'])) {
         <section>
 
 
-            <form class="form-save" method="post" action="/moje-pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
+            <form class="form-save" method="post" action="/pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
 
                 <div class="row">
                     <div class="col-md-10">
@@ -69,7 +69,7 @@ if (!empty($pismo['adresat_id'])) {
                                         <input type="submit" class="btn btn-primary action savePismo" name="_save"
                                                value="Zapisz"/>
                                         <a class="btn btn-default" style="width: inherit; margin-left: 5px;"
-                                           href="/moje-pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">Anuluj</a>
+                                           href="/pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">Anuluj</a>
                                         <input type="hidden" name="save" value="1"/>
 
                                     </li>

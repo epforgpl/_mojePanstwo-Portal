@@ -10,7 +10,7 @@
                 <div class="container start naszrzecznik">
                     <div class="col-xs-12">
 
-                        <form class="letter form-horizontal" action="/moje-pisma" method="post">
+                        <form class="letter form-horizontal" action="/pisma" method="post">
 
                             <?php $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma'))) ?>
                             <?php $this->Combinator->add_libs('css', $this->Less->css('naszrzecznik', array('plugin' => 'Pisma'))) ?>

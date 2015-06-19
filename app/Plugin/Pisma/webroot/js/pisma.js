@@ -97,9 +97,6 @@ var PISMA = Class.extend({
                 if (preinit.szablon_id) {
                     self.szablonData(preinit.szablon_id);
                 }
-                if (preinit.adresat_id) {
-                    self.adresatData(preinit.adresat_id);
-                }
                 self.html.stepper_div.removeData('pismo');
             }
         }
@@ -204,20 +201,6 @@ var PISMA = Class.extend({
             }
         });
     },
-    adresatData: function (adresat_id) {
-        "use strict";
-        var self = this;
-
-        $.getJSON(mPHeart.constant.ajax.api + "/dane/index.json?conditions[dataset]=instytucje&conditions[id]=" + adresat_id, function (d) {
-            self.objects.adresaci = {
-                id: d.Dataobject[0].id,
-                title: d.Dataobject[0].data['instytucje.nazwa'],
-                adres: d.Dataobject[0].data['instytucje.adres_str']
-            };
-
-            self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title);
-        });
-    },
     adresaci: function () {
         "use strict";
         var self = this;
@@ -290,7 +273,7 @@ var PISMA = Class.extend({
                                 clearTimeout(self.cache.adresatInterval);
                             }
                             self.cache.adresatInterval = setTimeout(function () {
-                                $.getJSON(mPHeart.constant.ajax.api + "/dane/index.json?conditions[dataset]=instytucje&conditions[q]=" + adresat, function (data) {
+                                $.getJSON("/dane/suggest.json?dataset[]=pisma_adresaci&q=" + adresat, function (data) {
                                     self.cache.adresaci[adresat] = data;
                                     self.adresaciList(data);
                                 });
@@ -342,20 +325,19 @@ var PISMA = Class.extend({
             $('<ul></ul>').addClass('ul-raw')
         ).show();
 
-        if (data.Dataobject.length) {
-            $.each(data.Dataobject, function () {
+        if (data.options.length) {
+            $.each(data.options, function () {
                 var that = this;
 
                 self.html.adresaci.find('.adresaciList .ul-raw').append(
                     $('<li></li>').addClass('row').data({
-                        id: that.id,
-                        title: that.data['instytucje.nazwa'],
-                        adres: that.data['instytucje.adres_str']
+                        id: that.payload.object_id,
+                        title: that.text
                     }).mouseover(function () {
                         self.html.adresaci.find('.adresaciList .ul-raw li.active').removeClass('active');
                         $(this).addClass('active');
                     }).append(
-                        $('<a></a>').attr('href', that._mpurl).text(that.data['instytucje.nazwa']).click(function (e) {
+                        $('<a></a>').attr('href', '#').text(that.text).click(function (e) {
                             e.preventDefault();
                             self.adresaciListAccept($(this).parent('li'));
                         })
@@ -379,8 +361,7 @@ var PISMA = Class.extend({
 
         self.objects.adresaci = {
             id: that.data('id'),
-            title: that.data('title'),
-            adres: that.data('adres')
+            title: that.data('title')
         };
 
         self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title).after($('<span></span>').addClass('glyphicon glyphicon-ok-circle'));

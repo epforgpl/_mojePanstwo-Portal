@@ -8,7 +8,7 @@
                 <div class="container start">
                     <div class="col-xs-12">
 
-                        <form class="letter form-horizontal" action="/moje-pisma" method="post">
+                        <form class="letter form-horizontal" action="/pisma" method="post">
 
                             <?php echo $this->element('Pisma.start') ?>
 
