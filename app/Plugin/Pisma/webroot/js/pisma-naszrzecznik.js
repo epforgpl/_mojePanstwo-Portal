@@ -65,7 +65,7 @@ WybierzPoslaModal.prototype.initialize = function() {
                 var url = '/pisma';
                 var form = $('<form action="' + url + '" method="post">' +
                 '<input type="text" name="adresat_id" value="poslowie:' + row.id + '" />' +
-                '<input type="text" name="szablon_id" value="666" />' +
+                '<input type="text" name="szablon_id" value="71" />' +
                 '</form>');
                 $('body').append(form);
                 form.submit();
