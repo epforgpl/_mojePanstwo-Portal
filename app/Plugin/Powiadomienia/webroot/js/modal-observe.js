@@ -93,8 +93,8 @@ $(document).ready(function () {
 
             e.preventDefault();
             that.addClass('disabled');
-            $.post('/dane/subscriptions' + that.attr('data-subscription-id') + '/delete', function (data) {
-
+            $.post('/dane/subscriptions/' + that.attr('data-subscription-id') + '/delete', function () {
+                window.location.reload();
             })
         })
     });

@@ -66,19 +66,14 @@
         <label for="adresatSelect" class="col-lg-2 control-label">Adresat</label>
 
         <div class="col-lg-10">
-            <input class="form-control input-lg" id="adresatSelect"
-                   placeholder="Zacznij pisać aby znaleźć adresata..."
-                   type="text" autocomplete="off"/>
-
-            <input type="hidden" name="adresat_id"<?php if (!empty($pismo['adresat_id'])) {
-                echo ' value="' . $pismo['adresat_id'] . '"';
-            } ?>>
-
-            <div class="list adresaciList content" style="display: none">
-                <ul class="ul-raw"></ul>
-            </div>
+            <?= $this->Element('Pisma.searcher', array('q' => '', 'dataset' => 'pisma_adresaci', 'placeholder' => 'Zacznij pisać aby znaleźć adresata...')) ?>
             <span
                 class="help-block">Na podstawie wybranego adresata, uzupełnimy dane teleadresowe w Twoim piśmie.</span>
         </div>
+
+        <input type="hidden" name="adresat_id"<?php if (!empty($pismo['adresat_id'])) {
+            echo ' value="' . $pismo['adresat_id'] . '"';
+        } ?>>
+
     </div>
 </fieldset>

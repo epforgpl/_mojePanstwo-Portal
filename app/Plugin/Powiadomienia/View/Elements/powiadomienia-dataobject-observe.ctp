@@ -1,13 +1,5 @@
 <?php
 $this->Combinator->add_libs('js', 'Powiadomienia.modal-observe');
-$this->Combinator->add_libs('js', 'Dane.modal-dataobject-observe');
-
-//$subscription = $object->getLayer('subscription');
-//$userSubscription = @$object->getLayer('subscription')['SubscriptionChannel'];
-//$userSubscriptionList = empty($userSubscription) ? array() : array_column($userSubscription, 'channel');
-//$channels = $object->getLayer('channels');
-//$dataset = $object->getDataset();
-//$object_id = $object->getId();
 ?>
 <div class="modal fade" id="observeModal" tabindex="-1" role="dialog" aria-labelledby="observeModalLabel"
      aria-hidden="true">
@@ -31,9 +23,7 @@ $this->Combinator->add_libs('js', 'Dane.modal-dataobject-observe');
                     <div class="options loading">
                     </div>
                 </div>
-                <div class="modal-footer<?php if (!$this->Session->read('Auth.User.id')) {
-                    echo ' backgroundBlue';
-                } ?>">
+                <div class="modal-footer">
                     <a href="#" class="btn btn-primary btn-icon submit">
                         <i class="icon" data-icon="&#xe604;"></i>Zapisz</a>
                     <a href="#" class="btn btn-warning btn-icon unobserve">

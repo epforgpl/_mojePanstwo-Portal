@@ -35,25 +35,20 @@
 							<input type="hidden" name="szablon_id" value="71" />
 							
 							<fieldset>
-							    <div class="form-group adresaci">
-							        <label for="adresatSelect" class="col-lg-2 control-label">Adresat</label>
-							
-							        <div class="col-lg-9">
-							            <input class="form-control input-lg" id="adresatSelect"
-							                   placeholder="Zacznij pisać aby znaleźć posła..."
-							                   type="text" autocomplete="off"/>
-							
-							            <input type="hidden" name="adresat_id"<?php if (!empty($pismo['adresat_id'])) {
-							                echo ' value="' . $pismo['adresat_id'] . '"';
-							            } ?>>
-							
-							            <div class="list adresaciList content" style="display: none">
-							                <ul class="ul-raw"></ul>
-							            </div>
-							            <span
-							                class="help-block">Na podstawie wybranego posła, uzupełnimy dane teleadresowe w Twoim piśmie.</span>
-							        </div>
-							    </div>
+                                <div class="form-group adresaci">
+                                    <label for="adresatSelect" class="col-lg-2 control-label">Adresat</label>
+
+                                    <div class="col-lg-9">
+                                        <?= $this->Element('Pisma.searcher', array('q' => '', 'dataset' => 'pisma_adresaci-aktywni_poslowie', 'placeholder' => 'Zacznij pisać aby znaleźć adresata...')) ?>
+                                        <span
+                                            class="help-block">Na podstawie wybranego posła, uzupełnimy dane teleadresowe w Twoim piśmie.</span>
+                                    </div>
+
+                                    <input type="hidden" name="adresat_id"<?php if (!empty($pismo['adresat_id'])) {
+                                        echo ' value="' . $pismo['adresat_id'] . '"';
+                                    } ?>>
+
+                                </div>
 							</fieldset>
 
                             <fieldset class="final">

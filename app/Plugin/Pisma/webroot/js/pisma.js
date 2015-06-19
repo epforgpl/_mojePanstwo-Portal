@@ -32,14 +32,12 @@ var PISMA = Class.extend({
             this.checkStep();
             this.changeTitle();
             this.szablony();
-            this.adresaci();
             this.editor();
             this.lastPageButtons();
             this.unsaveWarning();
         } else {
             this.stepsMarkers();
             this.changeTitle();
-            this.adresaci();
             this.lastPageButtons();
         }
     },
@@ -200,182 +198,6 @@ var PISMA = Class.extend({
                 });
             }
         });
-    },
-    adresaci: function () {
-        "use strict";
-        var self = this;
-
-        this.html.adresaci.keydown(function (event) {
-            var charCode = event.which || event.keyCode;
-
-            if (charCode === 13) {
-                event.preventDefault();
-                return false;
-            }
-        });
-
-        self.html.adresaci.find('#adresatSelect').on('keyup', function (e) {
-            var adresatInput = $(this),
-                charCode = e.which || e.keyCode,
-                adresat = adresatInput.val(),
-                adresaciList,
-                previous,
-                next;
-
-            if (adresat.length > 0) {
-                adresaciList = self.html.adresaci.find('.adresaciList');
-
-                if (charCode === self.keycode.enter) {
-                    if (adresaciList.find('li.active').length) {
-                        self.adresaciListAccept(adresaciList.find('li.active'));
-                    } else {
-                        self.html.adresaci.find('.list').hide();
-                        adresatInput.val('');
-                        adresatInput.blur();
-                    }
-                } else if (charCode === self.keycode.escape) {
-                    e.preventDefault();
-                    if (adresaciList.is(':visible')) {
-                        self.html.adresaci.find('.list').hide();
-                    }
-
-                    adresatInput.val('');
-                    adresatInput.blur();
-
-                } else {
-                    if (charCode === self.keycode.arrowUp) {
-                        e.preventDefault();
-
-                        if (adresaciList.is(':visible')) {
-                            previous = self.html.adresaci.find('.adresaciList li.active');
-
-                            if (previous.prev().length) {
-                                previous.prev().addClass('active');
-                                previous.removeClass('active');
-                            }
-                        }
-                    } else if (charCode === self.keycode.arrowDown) {
-                        e.preventDefault();
-
-                        if (adresaciList.is(':visible')) {
-                            next = self.html.adresaci.find('.adresaciList li.active');
-
-                            if (next.next().length) {
-                                next.next().addClass('active');
-                                next.removeClass('active');
-                            }
-                        }
-                    } else {
-                        if (self.cache.adresaci.hasOwnProperty(adresat)) {
-                            self.adresaciList(self.cache.adresaci[adresat]);
-                        } else {
-                            if (self.cache.adresatInterval) {
-                                clearTimeout(self.cache.adresatInterval);
-                            }
-                            self.cache.adresatInterval = setTimeout(function () {
-                                $.getJSON("/dane/suggest.json?dataset[]=pisma_adresaci&q=" + adresat, function (data) {
-                                    self.cache.adresaci[adresat] = data;
-                                    self.adresaciList(data);
-                                });
-                            }, 200);
-                        }
-                    }
-                }
-            } else {
-                self.html.adresaci.find('.list').hide();
-            }
-        }).focusin(function () {
-            $(this).val('');
-            self.html.adresaci.find('.glyphicon.glyphicon-ok-circle').remove();
-            self.html.adresaci.find('input[name="adresat_id"]').val('');
-            self.html.szablony.find('.pisma-list-button').removeAttr('data-adresatid');
-            self.adresaciReset(self);
-        }).focusout(function () {
-            setTimeout(function () {
-                self.html.adresaci.find('.list').hide();
-                if (self.html.adresaci.find('.glyphicon.glyphicon-ok-circle').length === 0) {
-                    self.html.adresaci.find('#adresatSelect').val('');
-                }
-            }, 300);
-        });
-
-        if (self.objects.adresaci !== null && self.objects.adresaci.id) {
-            $.getJSON(mPHeart.constant.ajax.api + "/dane/instytucje/" + self.objects.adresaci.id + ".json", function (d) {
-                self.objects.adresaci = {
-                    id: d.object.id,
-                    title: d.object.data['instytucje.nazwa'],
-                    adres: d.object.data['instytucje.adres']
-                };
-
-                self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title).after($('<span></span>').addClass('glyphicon glyphicon-ok-circle'));
-                self.html.adresaci.find('input[name="adresat_id"]').val('instytucje:' + self.objects.adresaci.id);
-                self.html.szablony.find('.pisma-list-button').attr('data-adresatid', self.objects.adresaci.id);
-            });
-        }
-    },
-    adresaciList: function (data) {
-        "use strict";
-        var self = this;
-
-        self.html.adresaci.find('.glyphicon.glyphicon-ok-circle').remove();
-        self.html.adresaci.find('input[name="adresat_id"]').val('');
-        self.html.szablony.find('.pisma-list-button').removeAttr('data-adresatid');
-
-        self.html.adresaci.find('.adresaciList').empty().append(
-            $('<ul></ul>').addClass('ul-raw')
-        ).show();
-
-        if (data.options.length) {
-            $.each(data.options, function () {
-                var that = this;
-
-                self.html.adresaci.find('.adresaciList .ul-raw').append(
-                    $('<li></li>').addClass('row').data({
-                        id: that.payload.object_id,
-                        title: that.text
-                    }).mouseover(function () {
-                        self.html.adresaci.find('.adresaciList .ul-raw li.active').removeClass('active');
-                        $(this).addClass('active');
-                    }).append(
-                        $('<a></a>').attr('href', '#').text(that.text).click(function (e) {
-                            e.preventDefault();
-                            self.adresaciListAccept($(this).parent('li'));
-                        })
-                    )
-                );
-            });
-            self.html.adresaci.find('.adresaciList .ul-raw li:first').addClass('active');
-        } else {
-            self.html.adresaci.find('.adresaciList .ul-raw').append(
-                $('<li></li>').addClass('row').append(
-                    $('<p></p>').addClass('col-md-12').text('Brak wyników dla szukanej frazy')
-                )
-            );
-        }
-    },
-    adresaciListAccept: function (that) {
-        "use strict";
-        var self = this;
-
-        self.adresaciReset(self);
-
-        self.objects.adresaci = {
-            id: that.data('id'),
-            title: that.data('title')
-        };
-
-        self.html.adresaci.find('#adresatSelect').val(self.objects.adresaci.title).after($('<span></span>').addClass('glyphicon glyphicon-ok-circle'));
-        self.html.adresaci.find('input[name="adresat_id"]').val('instytucje:' + self.objects.adresaci.id);
-        self.html.szablony.find('.pisma-list-button').attr('data-adresatid', self.objects.adresaci.id);
-
-        self.html.adresaci.find('.adresaciList').hide();
-
-        return false;
-    },
-    adresaciReset: function (self) {
-        "use strict";
-        self.html.adresaci.find('.adresaciList .ul-raw .btn-default').removeClass('btn-default disabled').addClass('btn-success');
-        self.objects.adresaci = null;
     },
     editor: function () {
         "use strict";
@@ -653,9 +475,9 @@ var PISMA = Class.extend({
         if (self.objects.adresaci !== null && self.objects.adresaci.id) {
             editorTop.find('.control-addressee').html('').append(
                 $('<p></p>').html(self.objects.adresaci.title)
-            ).append(
-                $('<p></p>').html(self.objects.adresaci.adres)
-            );
+            )/*.append(
+             $('<p></p>').html(self.objects.adresaci.adres)
+             )*/;
         } else {
             editorTop.find('.control-addressee').html('');
         }
@@ -792,7 +614,7 @@ var PISMA = Class.extend({
             .end()
             .find('input[name="miejscowosc"]').val($.trim(preview.find('.control.control-date input.city').val()))
             .end()
-            .find('input[name="adresat_id"]').val((self.objects.adresaci) ? 'instytucje:' + self.objects.adresaci.id : '')
+            .find('input[name="adresat_id"]').val((self.objects.adresaci) ? self.objects.adresaci.dataset + ':' + self.objects.adresaci.id : '')
             .end()
             .find('input[name="adresat"]').val($.trim(preview.find('.control.control-addressee').html()))
             .end()
