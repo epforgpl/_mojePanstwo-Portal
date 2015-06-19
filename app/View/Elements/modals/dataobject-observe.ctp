@@ -1,12 +1,13 @@
 <?php
 $this->Combinator->add_libs('js', 'Dane.modal-dataobject-observe');
 
-//$subscription = $object->getLayer('subscription');
-//$userSubscription = @$object->getLayer('subscription')['SubscriptionChannel'];
-//$userSubscriptionList = empty($userSubscription) ? array() : array_column($userSubscription, 'channel');
-//$channels = $object->getLayer('channels');
-//$dataset = $object->getDataset();
-//$object_id = $object->getId();
+$subscription = $object->getLayer('subscription');
+$userSubscription = @$object->getLayer('subscription')['SubscriptionChannel'];
+$userSubscriptionList = empty($userSubscription) ? array() : array_column($userSubscription, 'channel');
+$channels = $object->getLayer('channels');
+$dataset = $object->getDataset();
+$object_id = $object->getId();
+
 ?>
 <div class="modal fade" id="observeModal" tabindex="-1" role="dialog" aria-labelledby="observeModalLabel"
      aria-hidden="true">
@@ -25,17 +26,11 @@ $this->Combinator->add_libs('js', 'Dane.modal-dataobject-observe');
                     <div class="alert alert-danger" role="alert">
                         <p>Prosze zaznaczyć przynajmniej jeden kanał do obserwowania</p>
                     </div>
-                    <input type="hidden" name="dataset" value="<?= $object->getDataset() ?>"/>
-                    <input type="hidden" name="object_id" value="<?= $object->getId() ?>"/>
+                    <input type="hidden" name="dataset" value="<?= $dataset ?>"/>
+                    <input type="hidden" name="object_id" value="<?= $object_id ?>"/>
 
                     <div class="options">
-                        <? 
-							                    
-	                    $channels = $object->getLayer('channels');  
-	                    $userSubscription =  $object->getLayer('subscription');
-	                    $userSubscriptionList = $userSubscription['SubscriptionChannel'];
-	                    
-	                    if (isset($channels) && !empty($channels)) {
+                        <? if (isset($channels) && !empty($channels)) {
                             if (isset($userSubscription)) { ?>
                                 <div class="checkbox first">
                                     <input type="checkbox" id="checkbox_all" name="channel[]"
