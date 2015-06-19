@@ -1,5 +1,7 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
+<?php $this->Combinator->add_libs('js', 'Pisma.pisma-naszrzecznik.js') ?>
+<?php echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false', array('block' => 'scriptBlock')); ?>
 
 <div class="container">
     <div class="row">
@@ -65,10 +67,33 @@
                             
                             <h2 class="text-center">Nie wiesz kto jest Twoim posłem?</h2>
                             <p class="help-block text-center">Zlokalizuj się lub wskaż na mapie miejsce zamieszkania:</p>
+
+                            <a class="btn btn-warning btn-icon" id="localizeMe">
+                                <i class="icon" data-icon-applications="&#xe609;"></i>
+                                Zlokalizuj mnie
+                            </a>
+
+                            <div class="row">
+                                <div id="map"></div>
+                            </div>
                             
                         </form>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div data-name="okregi" data-value='<?= json_encode($okregi) ?>'></div>
+
+<div class="modal fade" id="wybierzPosla" tabindex="-1" role="dialog" aria-labelledby="wybierzPoslaLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header"></div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
             </div>
         </div>
     </div>
