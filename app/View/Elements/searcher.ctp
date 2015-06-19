@@ -15,7 +15,7 @@
                        name="q"
                        value="<?= $q ?>"
                        data-dataset="<?= isset($dataset) ? $dataset : '*'; ?>"
-                       data-url="<?= $url ?>"
+                       data-url="<?= @$url ?>"
                        data-autocompletion="true"
                        required
                     />
