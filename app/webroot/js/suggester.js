@@ -21,7 +21,7 @@
 	                    if (term in suggesterCache) {
 	                        response(suggesterCache[term]);
 	                    } else {
-	                        suggesterInput.addClass('loader');
+	                        // suggesterInput.addClass('loader');
 	                        $.get('/dane/suggest.json', {
 	                            'q': term,
 	                            'dataset[]': (suggesterInput.data('dataset')) ? suggesterInput.attr('data-dataset').split(',') : '*'
@@ -58,7 +58,7 @@
 	
 	                            if (results.length === 0) {
 	                                $('.ui-autocomplete').hide();
-	                                suggesterInput.removeClass('open loader');
+	                                // suggesterInput.removeClass('open loader');
 	                            } else {
 	                                results.push({
 	                                    type: 'button',
@@ -73,12 +73,12 @@
 	                    var $ui = $('#ui-id-' + index);
 	
 	                    $ui.css({
-	                        'margin-top': Math.floor((suggesterInput.offset().top + suggesterInput.outerHeight()) - parseInt($ui.css('top'), 10) - parseInt($ui.css('border-bottom-left-radius'), 10)) + 7 + 'px',
+	                        'margin-top': Math.floor((suggesterInput.offset().top + suggesterInput.outerHeight()) - parseInt($ui.css('top'), 10) - parseInt($ui.css('border-bottom-left-radius'), 10)) + 8 + 'px',
 	                        'width': suggesterInput.outerWidth() - 2,
 	                        'left': parseInt($ui.css('left'), 10) + 1 + 'px'
 	                    });
 	                    suggesterInput.addClass('open');
-	                    suggesterInput.removeClass('loader');
+	                    // suggesterInput.removeClass('loader');
 	                },
 	                close: function () {
 	                    suggesterInput.removeClass('open');

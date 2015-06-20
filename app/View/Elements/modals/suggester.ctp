@@ -2,7 +2,7 @@
      aria-labelledby="suggesterBlockModal"
      aria-hidden="true">
     <div class="modal-dialog container">
-        <div class="modal-content col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3">
+        <div class="modal-content col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
             <div class="modal-body">
                 <form class="suggesterBlock" action="<? if (isset($action)) {
                     echo $action;
