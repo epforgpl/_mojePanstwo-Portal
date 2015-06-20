@@ -1,5 +1,14 @@
 .theme-default {
-    background-color: #F8F8F8;
+    background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top,  #ffffff 13%, #F8F8F8 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(10%,#ffffff), color-stop(100%,#F8F8F8)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ffffff 13%,#F8F8F8 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ffffff 13%,#F8F8F8 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ffffff 13%,#F8F8F8 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #ffffff 13%,#F8F8F8 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#F8F8F8',GradientType=0 ); /* IE6-9 */
+
+  background-attachment: fixed;
 }
 
 .theme-simply {
@@ -74,7 +83,7 @@
         background: none;
     }
     > section {
-        padding: 15px 10px;
+        padding: 0;
     }
 
     > footer {
@@ -92,7 +101,7 @@
     > header {
         padding: 10px 15px;
         color: #333333;
-        background-color: #e6e7eb;
+        background-color: #EAEBEF;
         border-color: #ddd;
         display: inline-block;
         font-size: 16px;
