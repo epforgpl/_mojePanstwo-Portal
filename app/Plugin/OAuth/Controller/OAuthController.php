@@ -170,6 +170,13 @@ class OAuthController extends OAuthAppController
             ),
             'group_id' => $user['group_id'],
         );
+        
+        if(isset($this->request->query['groups']) && $this->request->query['groups'] == 'admin') {
+            $this->AdminUsersGroup = ClassRegistry::init(array('class' => 'OAuth.AdminUsersGroupModel', 'alias' => 'AdminUsersGroup'));
+            $results = $this->AdminUsersGroup->getGroups($user['id']);
+            $user['admin_groups'] = $results['groups'];
+        }
+        
         $this->set(compact('user'));
     }
 

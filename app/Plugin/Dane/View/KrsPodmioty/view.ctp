@@ -199,7 +199,7 @@ if ($www = $object->getData('www')) {
     <? if ($object->getData('wykreslony')) { ?>
     <div class="alert alert-dismissable alert-danger">
         <button type="button" class="close" data-dismiss="alert">×</button>
-        Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
+        Podmiot wykreślony z KRS
     </div>
 <? } ?>
 
@@ -292,6 +292,7 @@ $adres .= ', Polska';
     </div>
 <? } ?>
 
+<? if (!$object->getData('wykreslony')) { ?>
         <div class="organy block">
             <div>
                 <?
@@ -595,7 +596,7 @@ if (isset($historia) && $historia) {
 
         <div id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>" data-url="krs_podmioty"></div>
     </div>
-
+<? } ?>
 
     <? if ($zamowienia) { ?>
     <div id="zamowienia" class="block">
