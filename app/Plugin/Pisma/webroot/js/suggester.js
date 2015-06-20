@@ -8,14 +8,14 @@
         $.each(suggesterBlock, function (index, block) {
             var suggesterCache = {},
                 suggesterInput = $(block).find('input.form-control'),
-                suggesterForm = suggesterInput.parents('form'),
-                params;
+                suggesterForm = suggesterInput.parents('form');
 
             suggesterInput.autocomplete({
                 minLength: 2,
                 delay: 300,
                 source: function (request, response) {
                     var term = request.term;
+
                     if (term in suggesterCache) {
                         response(suggesterCache[term]);
                     } else {
@@ -47,9 +47,9 @@
                                         value: item.payload.object_id,
                                         link: '/dane/' + item.payload.dataset + '/' + item.payload.object_id + ((item.payload.slug) ? ',' + item.payload.slug : ''),
                                         dataset: item.payload.dataset,
-                                        image: (item.payload.image_url !== undefined) ? item.payload.image_url : false
-                                        //sub_dataset: (item.payload.sub_dataset) ? item.payload.sub_dataset : false,
-                                        //sub_id: (item.payload.sub_id) ? item.payload.sub_id : false
+                                        image: (item.payload.image_url !== undefined) ? item.payload.image_url : false,
+                                        subdataset: (item.payload.subdataset) ? item.payload.subdataset : false,
+                                        subid: (item.payload.subid) ? item.payload.subid : false
                                     };
                                 }
                             });
@@ -84,14 +84,24 @@
                 },
                 select: function (evt, ui) {
                     if (ui.item) {
+                        if (suggesterInput.parent().find('.glyphicon.glyphicon-ok-circle').length === 0) {
+                            suggesterInput.parent().append(
+                                $('<div></div>').addClass('glyphicon glyphicon-ok-circle')
+                            )
+                        }
                         suggesterInput.val(ui.item.title);
-                        $('#stepper .adresaci input[name="adresat_id"]').val(ui.item.dataset + ':' + ui.item.value);
-                        $('#stepper .szablony .pisma-list-button').attr('data-adresatid', ui.item.value);
+                        suggesterForm.find('.adresaci input[name="adresat_id"]').val(ui.item.subdataset + ':' + ui.item.subid);
+                        suggesterForm.find('.szablony .pisma-list-button').attr('data-adresatid', ui.item.subid);
                         $P.objects.adresaci = {
-                            id: ui.item.value,
-                            dataset: ui.item.dataset,
+                            id: ui.item.subid,
+                            dataset: ui.item.subdataset,
                             title: ui.item.title
                         };
+                    } else {
+                        suggesterInput.parent().find('.glyphicon.glyphicon-ok-circle').remove();
+                        suggesterForm.find('.adresaci input[name="adresat_id"]').val('');
+                        suggesterForm.find('.szablony .pisma-list-button').attr('data-adresatid', false);
+                        $P.objects.adresaci = {};
                     }
                     return false;
                 }
@@ -105,7 +115,7 @@
                     if (item.image.length > 0) {
                         image = $('<img />').addClass('doc').attr('src', item.image);
                     } else {
-                        image = $('<i></i>').addClass('icon icon-datasets-' + ((item.dataset) ? item.dataset : item.dataset));
+                        image = $('<i></i>').addClass('icon icon-datasets-' + ((item.subdataset) ? item.subdataset : item.dataset));
                     }
 
                     if (item.detail) {
@@ -115,8 +125,8 @@
                     }
 
                     return $('<li></li>').addClass("row").attr({
-                        'data-subid': item.id,
-                        'data-subdataset': item.dataset
+                        'data-subid': item.subid,
+                        'data-subdataset': item.subdataset
                     }).append(
                         $('<a></a>').append(
                             $('<div></div>').addClass('col-xs-2 col-md-1 _label').append(image)
