@@ -26,67 +26,16 @@
     font-size: 18px;
     color: #000000;
 
-    .main_input {
-        width: 100%;
-        position: relative;
-
-        .ui-autocomplete-input.open {
-            border-bottom-left-radius: 0;
-            -webkit-border-bottom-left-radius: 0;
-        }
-
-        .glyph-addon {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            width: @searchHeight;
-            pointer-events: none;
-            text-align: center;
-
-            -webkit-transform: translate(0, -50%);
-            -moz-transform: translate(0, -50%);
-            -ms-transform: translate(0, -50%);
-            -o-transform: translate(0, -50%);
-            transform: translate(0, -50%);
-
-            &:before {
-                font-size: 16px;
-                color: @searchColorPlaceholder;
-            }
-        }
-
-        .form-control {
-            padding-left: @searchHeight;
-            height: @searchHeight;
-            font-size: 16px;
-            font-weight: 300;
-            color: @searchColor;
-            width: 100%;
-
-            -moz-border-radius: @suggesterRadius;
-            -webkit-border-radius: @suggesterRadius;
-            border-radius: @suggesterRadius;
-            -webkit-transition: all .4s;
-            -o-transition: all .4s;
-            transition: all .4s;
-        }
-
-        .form-control::-webkit-input-placeholder {
-            color: @searchColorPlaceholder;
-        }
-        .form-control::-moz-placeholder {
-            color: @searchColorPlaceholder;
-        }
-        .form-control:-ms-input-placeholder {
-            color: @searchColorPlaceholder;
-        }
-        input:-moz-placeholder {
-            color: @searchColorPlaceholder;
-        }
-    }
     .form-control {
+        
         background: #ffffff no-repeat 98% center;
-
+				
+		&.open {
+			-moz-border-bottom-left-radius: 0;
+		    -webkit-border-bottom-left-radius: 0;
+		    border-bottom-left-radius: 0;
+		}
+		
         &.loader {
             background-image: url(/img/loader/loading-small.png);
             background-size: 20px;
@@ -123,18 +72,35 @@
     -webkit-border-top-right-radius: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+    
+    -moz-border-bottom-left-radius: 7px;
+    -moz-border-bottom-right-radius: 7px;
+    -webkit-border-bottom-left-radius: 7px;
+    -webkit-border-bottom-right-radius: 7px;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    
     overflow: hidden;
     border-width: 0;
     padding: 0;
-    background-color: #F3f3f3;
+    background-color: #FFF;
     z-index: 9100;
     margin-left: 20px;
+    
+    box-shadow: 0 0 5px #CCC;
+    -moz-box-shadow: 0 0 5px #CCC;
+    -webkit-box-shadow: 0 0 5px #CCC;
 
     .ui-menu-item {
-        border-top: 1px solid #E3E3E3;
         display: block;
         width: 100%;
+        padding: 0;
+        margin: 0;
 
+		&:first-child {
+			border-top: none;
+		}
+		
         &:last-child {
             border-bottom-left-radius: @suggesterRadius;
             border-bottom-right-radius: @suggesterRadius;
@@ -143,13 +109,13 @@
         &.button {
             color: #FFFFFF;
             background-color: #59a4dd;
+            padding: 7px;
 
             &.ui-state-hover, &.ui-state-focus a,
             a {
                 background: none;
                 color: #FFFFFF;
                 font-size: 13px;
-                padding: 8px 0;
                 text-transform: uppercase;
 
                 span {
@@ -160,10 +126,6 @@
                     color: #FFFFFF;
                 }
             }
-        }
-
-        &.ui-state-hover, &.ui-state-focus {
-            border-top: 1px solid #e3e3e3;
         }
 
         a {
@@ -193,7 +155,7 @@
                     background-color: inherit;
 
                     .icon {
-                        color: #666;
+                        color: #999;
                         font-weight: 400;
                         font-size: @blockSize;
                         font-style: normal;
@@ -209,8 +171,8 @@
                     min-height: @blockSize + 12;
 
                     > span {
-                        color: #428bca;
-                        font-weight: bold;
+                        color: #157ab5;
+                        font-weight: normal;
                         font-size: 13px;
                         line-height: 1.2em;
 
@@ -232,9 +194,8 @@
     }
 
     .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
-        background: #EEEEEE none;
+        background: #FAFAFA;
         color: #333333;
-        margin: 0;
         border: none;
 
         span {
@@ -243,10 +204,8 @@
     }
 
     .ui-menu .ui-menu-item a.ui-state-focus, .ui-menu .ui-menu-item a.ui-state-active {
-        margin: 0;
         color: #333333;
-        padding: 12px;
-        background-color: #EEEEEE;
+        background-color: #FAFAFA;
     }
 
 }

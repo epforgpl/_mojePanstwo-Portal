@@ -121,14 +121,14 @@ class ApplicationsController extends AppController
 	    	isset($this->request->params['id']) && 	    	
 	    	( $data = $this->getDatasetByAlias(@$this->settings['id'], $this->request->params['id']) )
 	    ) {
-		    		    
-			$fields = array('searchTitle', 'order');
+		    		        
+			$fields = array('searchTitle', 'order', 'autocompletion');
 			$params = array();
-			
+						
 			foreach( $fields as $field )
 				if( isset($data['dataset_name'][ $field ]) )
 					$params[ $field ] = $data['dataset_name'][ $field ];
-			
+						
 			$this->menu_selected = $this->request->params['id'];
 			$this->title = $data['dataset_name']['label'];
 	        $this->loadDatasetBrowser($data['dataset_id'], $params);

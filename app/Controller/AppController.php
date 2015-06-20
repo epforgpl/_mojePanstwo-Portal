@@ -119,6 +119,9 @@ class AppController extends Controller
             	'label' => 'Organizacje',
 				'searchTitle' => 'Szukaj organizacji...',
 				'menu_id' => 'organizacje',
+				'autocompletion' => array(
+					'dataset' => 'krs_podmioty',
+				),
             ),
             'krs_osoby' => array(
             	'label' => 'Osoby',

@@ -39,12 +39,12 @@ $displayAggs = isset($displayAggs) ? (boolean)$displayAggs : true;
         if (!isset($searcher) || $searcher) { ?>
             <?
             $value = isset($this->request->query['q']) ? addslashes($this->request->query['q']) : '';
-            $dataset = ($dataBrowser['autocompletion']) ? $dataBrowser['autocompletion']['dataset'] : false;
+            $autocompletion = ($dataBrowser['autocompletion']) ? $dataBrowser['autocompletion'] : false;
             $placeholder = (isset($dataBrowser['searchTitle']) && ($dataBrowser['searchTitle'])) ? addslashes($dataBrowser['searchTitle']) : 'Szukaj...';
             $url = ($dataBrowser['cancel_url']) ? $dataBrowser['cancel_url'] : '';
             ?>
 
-            <?= $this->Element('searcher', array('q' => $value, 'dataset' => $dataset, 'placeholder' => $placeholder, 'url' => $url)) ?>
+            <?= $this->Element('searcher', array('q' => $value, 'autocompletion' => $autocompletion, 'placeholder' => $placeholder, 'url' => $url)) ?>
 
         <? } ?>
     </div>

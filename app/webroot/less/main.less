@@ -576,6 +576,9 @@ svg.svg {
 
 .form-control {
   border-color: #BBB;
+  &:focus {
+	  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  }
 }
 
 .form-control::-webkit-input-placeholder {
@@ -1150,7 +1153,7 @@ blockquote p {
   color: #333;
 
   &.ui-state-focus {
-    background: #EEE;
+    background: #F3F3F3;
     border: none;
     font-weight: normal;
   }
