@@ -41,7 +41,7 @@ class DataobjectsController extends AppController
         } else {
             $this->initLayers[] = $layers;
         }
-
+        
     }
 
     public function addInitAggs($aggs = false)
@@ -70,7 +70,7 @@ class DataobjectsController extends AppController
         ) {
 			
 			if( @$this->request->params['ext'] == 'json' ) {
-				$layers = isset($this->request->query['layers']) ? $this->request->query['layers'] : array();
+				$layers = isset($this->request->query['layers']) ? $this->request->query['layers'] : $this->initLayers;
 			} else {
 	            $layers = $this->initLayers;
             }
