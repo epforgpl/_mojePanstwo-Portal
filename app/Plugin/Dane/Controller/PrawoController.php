@@ -15,205 +15,82 @@ class PrawoController extends DataobjectsController
     public $headerObject = array('url' => '/dane/img/headers/ustawa.jpg', 'height' => '250px');
 
     public $objectOptions = array(
-        // 'hlFields' => array('isap_status_str', 'sygnatura', 'data_wydania', 'data_publikacji', 'data_wejscia_w_zycie'),
         'hlFields' => array(),
         'routes' => array(
             'description' => false,
         ),
     );
-
-
-    public $menu = array(
-        'items' => array(
-            array(
-                'id' => '',
-                'label' => 'Treść',
-            ),
-            array(
-                'id' => 'feed',
-                'label' => 'Akty powiązane',
-            ),
-        ),
-    );
-
-    public function hasla()
+    
+    public function _prepareView()
     {
-
-        $this->_prepareView();
-
-    }
-
-
-    // public function view($package = 1)
-    // {
-
-    /*
-    $this->_prepareView();
-
-    if ($projekt_id = $this->object->getData('projekt_id')) {
-
-        $projekt = $this->API->getObject('prawo_projekty', $projekt_id);
-        $this->set('projekt', $projekt);
-
-    }
-
-    */
-
-    /*
-    $dokument_id = false;
-
-    if ($files = $this->object->getLayer('files')) {
-        foreach ($files as $file) {
-            if ($file['slug'] == 'tekst_aktualny') {
-                $dokument_id = $file['dokument_id'];
-                break;
-            }
+	            
+        $aggs_fields = array();
+        foreach(array('akty_uchylajace', 'akty_uchylone', 'akty_wykonawcze', 'akty_uznane_za_uchylone', 'akty_zmieniajace', 'akty_zmienione', 'informacja_o_tekscie_jednolitym', 'odeslania', 'orzeczenie_do_aktu', 'orzeczenie_tk', 'podstawa_prawna', 'tekst_jednolity_do_aktu', 'uchylenia_wynikajace_z') as $field) {
+	        $aggs_fields[$field] = array(
+                'filter' => array(
+                    'term' => array(
+                    	'data.prawo.' . $field => $this->request->params['id'],
+                    ),
+                ),
+	        );
         }
-    }
-
-    // debug( $dokument_id ); die();
-    $this->set('document', $this->API->document($files[0]['dokument_id']));
-    */
-
-    /*
-    $datalinerParams = array(
-        'requestData' => array(
-            'conditions' => array(
-                '_source' => 'prawo.historia:' . $this->object->getId(),
+                
+        $this->addInitAggs(array(
+            'all' => array(
+                'global' => '_empty',
+                'aggs' => array(
+                    'prawo' => array(
+                        'filter' => array(
+                            'bool' => array(
+                                'must' => array(
+                                    array(
+                                        'term' => array(
+                                            'dataset' => 'prawo',
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                        'aggs' => $aggs_fields,
+                    ),
+                ),
             ),
-        ),
-    );
-
-    $data = $this->Dataliner->index( array(
-        'conditions' => $datalinerParams['requestData']['conditions'],
-    ) );
-
-    $datalinerParams['initData'] = $data;
-    */
-
-    /*
-    'type' => 'blog_post',
-                                    'date' => $object->getDate(),
-                                    'title' => 'Opublikowanie pierwotnej wersji aktu',
-                                    'content' => '<div class="row"><div class="col-md-2"><img style="max-width: 56px;" src="' . $object->getThumbnailUrl(3) . '" /></div><div class="col-md-10"><a href="/dane/prawo/' . $object->getId() . '">' . $object->getTitle() . '</a></div></div>'
-    */
-
-    // $this->set( 'datalinerParams', $datalinerParams );
-
-
-    // $this->set('document', $this->API->document( $this->object->getData('dokument_id') ));
-
-
-    /*
-    $docs = $this->object->getLayer('docs');
-    $selected_doc_id = $this->object->getData('dokument_id');
-
-    if (@$this->request->query['f'])
-        foreach ($docs as $category)
-            foreach ($category['files'] as $file)
-                if ($file['files']['dokument_id'] == $this->request->query['f']) {
-                    $selected_doc_id = $file['files']['dokument_id'];
-                    break;
-                }
-
-    $document = $this->API->document($selected_doc_id);
-    if ($this->request->isAjax()) {
-        $this->set('html', $document->loadHtml($package));
-        $this->set('_serialize', 'html');
-    } else {
-        $this->set(array(
-            'docs' => $docs,
-            'document' => $document,
-            'documentPackage' => $package,
         ));
-
+        
+	    return parent::_prepareView();
+	    
     }
-    */
-
-    // }
-
+    
     public function view()
     {
-
-        $this->load();
-
-    }
-
-    public function tekst_aktualny()
-    {
-
         $this->_prepareView();
-
-        $dokument_id = false;
-
-        if ($files = $this->object->getLayer('files')) {
-            foreach ($files as $file) {
-                if ($file['slug'] == 'tekst_aktualny') {
-                    $dokument_id = $file['dokument_id'];
-                    break;
-                }
-            }
-        }
-
-        $this->set('document', $this->API->document($dokument_id));
-
     }
-
-    public function tresc()
+    
+    public function hasla()
     {
-
-        $url = '/dane/' . $this->request->params['controller'] . '/' . $this->request->params['id'];
-        if (isset($this->request->params['slug']))
-            $url .= ',' . $this->request->params['slug'];
-
-        $this->redirect($url);
-
-    }
-
-    public function tekst()
-    {
-
         $this->_prepareView();
-
-        $dokument_id = false;
-
-        if ($files = $this->object->getLayer('files')) {
-            foreach ($files as $file) {
-                if ($file['slug'] == 'tekst') {
-                    $dokument_id = $file['dokument_id'];
-                    break;
-                }
-            }
-        }
-
-        $this->set('document', $this->API->document($dokument_id));
-
-    }
-
-    public function podstawa_prawna()
-    {
-        return $this->connections_view('podstawa_prawna', 'Podstawa prawna');
     }
 
     private function connections_view($id, $title)
     {
-
-        parent::_prepareView();
-        $this->dataobjectsBrowserView(array(
-            // 'source' => 'poslowie.wspolpracownicy:' . $this->object->getId(),
-            'dataset' => 'prawo',
-            'noResultsTitle' => 'Brak aktów',
-            'title' => $title,
+		
+		$this->_prepareView();
+        $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-                $id => $this->object->getId(),
+                'dataset' => 'prawo',
+                'prawo.' . $id => $this->object->getId(),
             ),
         ));
-
-        $this->request->params['action'] = $id;
+		
         $this->set('title_for_layout', $title . ': ' . $this->object->getTitle());
 
     }
-
+	
+	public function podstawa_prawna()
+    {
+        return $this->connections_view('podstawa_prawna', 'Podstawa prawna');
+    }
+	
     public function podstawa_prawna_z_artykulem()
     {
         return $this->connections_view('podstawa_prawna_z_artykulem', 'Podstawa prawna z artykułem');
@@ -249,7 +126,7 @@ class PrawoController extends DataobjectsController
         return $this->connections_view('tekst_jednolity_do_aktu', 'Tekst jednolity do aktu');
     }
 
-    public function orzeczenie_tk()
+    public function orzeczenia_tk()
     {
         return $this->connections_view('orzeczenie_tk', 'Orzeczenia TK');
     }
@@ -261,7 +138,7 @@ class PrawoController extends DataobjectsController
 
     public function akty_zmieniajace()
     {
-        return $this->connections_view('akty_zmieniajace', 'Akty zmieniające');
+        return $this->connections_view('akty_zmieniajace', 'Nowelizacje');
     }
 
     public function akty_uchylajace()
@@ -284,79 +161,113 @@ class PrawoController extends DataobjectsController
         return $this->connections_view('odeslania', 'Odesłania');
     }
 
-
-    /*
-    public function beforeRender()
-    {
-
-        parent::beforeRender();
-
-        $counters_dictionary = array();
-
-
-        // PREPARE MENU
-        $href_base = '/dane/prawo/' . $this->request->params['id'];
-
-        $menu = array(
+	public function getMenu()
+	{
+		
+		$menu = array(
             'items' => array(
                 array(
                     'id' => '',
-                    'href' => $href_base,
-                    'label' => 'Aktualności',
-                    'icon' => 'glyphicon glyphicon-feed',
-                ),
-                array(
-                    'id' => 'tresc',
-                    'href' => $href_base . '/tresc',
                     'label' => 'Treść',
-                    'icon' => 'glyphicon glyphicon-align-left',
                 ),
-            )
+            ),
+            'base' => $this->object->getUrl(),
         );
+        
 
-
-        if ($items = $this->object->getLayer('counters')) {
-
-            $dropdowns = array();
-
-            foreach ($items as $item) {
-
-                $counters_dictionary[$item['slug']] = $item['count'];
-
-                if ($item['count']) {
-
-                    $dropdowns[] = array(
-                        'id' => $item['slug'],
-                        'href' => $href_base . '/' . $item['slug'],
-                        'label' => $item['nazwa'],
-                        'count' => $item['count'],
-                    );
-
-                }
-
-            }
-
-            if (!empty($dropdowns)) {
-
-                $menu['items'][] = array(
-                    'id' => 'more',
-                    'label' => 'Powiązane akty',
-                    'dropdown' => array(
-                        'items' => $dropdowns,
-                    ),
-                );
-
-            }
-            
-
-        }
-
-        $menu['selected'] = ($this->request->params['action'] == 'view') ? '' : $this->request->params['action'];
-
-        $this->set('counters_dictionary', $counters_dictionary);
-        $this->set('_menu', $menu);
-
-    }
-    */
+        
+        if( @$this->object_aggs['all']['prawo']['akty_uchylajace']['doc_count'] )
+        	$menu['items'][] = array(
+	        	'id' => 'akty_uchylajace',
+	        	'label' => 'Akty uchylające',
+	        	'count' => $this->object_aggs['all']['prawo']['akty_uchylajace']['doc_count'],
+        	);
+        	
+        if( @$this->object_aggs['all']['prawo']['akty_uchylone']['doc_count'] )
+        	$menu['items'][] = array(
+	        	'id' => 'akty_uchylone',
+	        	'label' => 'Akty uchylone',
+	        	'count' => $this->object_aggs['all']['prawo']['akty_uchylone']['doc_count'],
+        	);
+        	
+        if( @$this->object_aggs['all']['prawo']['akty_wykonawcze']['doc_count'] )
+        	$menu['items'][] = array(
+	        	'id' => 'akty_wykonawcze',
+	        	'label' => 'Akty wykonawcze',
+	        	'count' => $this->object_aggs['all']['prawo']['akty_wykonawcze']['doc_count'],
+        	);
+        	
+        if( @$this->object_aggs['all']['prawo']['akty_uznane_za_uchylone']['doc_count'] )
+        	$menu['items'][] = array(
+	        	'id' => 'akty_uznane_za_uchylone',
+	        	'label' => 'Akty uznane za uchylone',
+	        	'count' => $this->object_aggs['all']['prawo']['akty_uznane_za_uchylone']['doc_count'],
+        	);
+                
+        if( @$this->object_aggs['all']['prawo']['akty_zmieniajace']['doc_count'] )
+        	$menu['items'][] = array(
+	        	'id' => 'akty_zmieniajace',
+	        	'label' => 'Nowelizacje',
+	        	'count' => $this->object_aggs['all']['prawo']['akty_zmieniajace']['doc_count'],
+        	);
+        	
+        if( @$this->object_aggs['all']['prawo']['akty_zmienione']['doc_count'] )
+        	$menu['items'][] = array(
+	        	'id' => 'akty_zmienione',
+	        	'label' => 'Akty zmienione',
+	        	'count' => $this->object_aggs['all']['prawo']['akty_zmienione']['doc_count'],
+        	);
+        
+        if( @$this->object_aggs['all']['prawo']['informacja_o_tekscie_jednolitym']['doc_count'] )
+        	$menu['items'][] = array(
+	        	'id' => 'informacja_o_tekscie_jednolitym',
+	        	'label' => 'Informacja o tekście jednolitym',
+	        	'count' => $this->object_aggs['all']['prawo']['informacja_o_tekscie_jednolitym']['doc_count'],
+        	);
+        	
+        if( @$this->object_aggs['all']['prawo']['odeslania']['doc_count'] )
+        	$menu['items'][] = array(
+	        	'id' => 'odeslania',
+	        	'label' => 'Odesłania',
+	        	'count' => $this->object_aggs['all']['prawo']['odeslania']['doc_count'],
+        	);
+        	
+        if( @$this->object_aggs['all']['prawo']['orzeczenie_do_aktu']['doc_count'] )
+        	$menu['items'][] = array(
+	        	'id' => 'orzeczenie_do_aktu',
+	        	'label' => 'Orzeczenia do aktu',
+	        	'count' => $this->object_aggs['all']['prawo']['orzeczenie_do_aktu']['doc_count'],
+        	);
+        
+        if( @$this->object_aggs['all']['prawo']['orzeczenie_tk']['doc_count'] )
+        	$menu['items'][] = array(
+	        	'id' => 'orzeczenia_tk',
+	        	'label' => 'Orzeczenia TK',
+	        	'count' => $this->object_aggs['all']['prawo']['orzeczenie_tk']['doc_count'],
+        	);
+        	
+        if( @$this->object_aggs['all']['prawo']['podstawa_prawna']['doc_count'] )
+        	$menu['items'][] = array(
+	        	'id' => 'podstawa_prawna',
+	        	'label' => 'Podstawa prawna',
+	        	'count' => $this->object_aggs['all']['prawo']['podstawa_prawna']['doc_count'],
+        	);
+        	
+        if( @$this->object_aggs['all']['prawo']['tekst_jednolity_do_aktu']['doc_count'] )
+        	$menu['items'][] = array(
+	        	'id' => 'tekst_jednolity_do_aktu',
+	        	'label' => 'Tekst jednolity do aktu',
+	        	'count' => $this->object_aggs['all']['prawo']['tekst_jednolity_do_aktu']['doc_count'],
+        	);
+        	
+        if( @$this->object_aggs['all']['prawo']['uchylenia_wynikajace_z']['doc_count'] )
+        	$menu['items'][] = array(
+	        	'id' => 'uchylenia_wynikajace_z',
+	        	'label' => 'Uchylenia wynikające z',
+	        	'count' => $this->object_aggs['all']['prawo']['uchylenia_wynikajace_z']['doc_count'],
+        	);
+        
+        return $menu;
+	}
 
 } 

@@ -201,7 +201,7 @@ $this->Dataobject->setObject($object);
                                 <? } ?>
                             <? } elseif ($object->getDescription()) { ?>
                                 <div class="description">
-                                    <?= $this->Text->truncate($object->getDescription(), 250) ?>
+                                    <?= $this->Text->truncate($object->getDescription(), 300) ?>
                                 </div>
                             <? } ?>
 
