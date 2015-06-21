@@ -287,5 +287,5 @@ if ($object->getData('sposob_reprezentacji')) { ?>
 </div>
 
 <div><div>
-
+	
 <?= $this->Element('dataobject/pageEnd'); ?>

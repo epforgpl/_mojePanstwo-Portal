@@ -9,8 +9,6 @@ $path = App::path('Plugin');
 $file = $path[0] . '/Dane/View/Elements/' . $theme . '/' . $object->getDataset() . '.ctp';
 $file_exists = file_exists($file);
 
-// debug( $object->getStatic() );
-
 $shortTitle = $object->getData('zamowienia_publiczne_dokumenty.nazwa');
 
 $object_content_sizes = array(2, 10);
@@ -38,6 +36,7 @@ $this->Dataobject->setObject($object);
 
             <div>
 
+               
                 <div class="content">
 
                     <? if ($alertsButtons) { ?>
@@ -49,54 +48,85 @@ $this->Dataobject->setObject($object);
                         </div>
                     <? } ?>
 
-                    <p class="header">
-                        Zamówienie publiczne z dnia <?= dataSlownie($object->getDate()) ?>
-                    </p>
-
-                    <p class="title">
-                        <?php if ($object->getUrl() != false){ ?>
-                        <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
-                            <?php } ?>
-                            <?= $this->Text->truncate($shortTitle, 150) ?>
-                            <?php if ($object->getUrl() != false){ ?>
-                        </a> <?
-                    }
-                    if ($object->getTitleAddon()) {
-                        echo '<small>' . $object->getTitleAddon() . '</small>';
+                    <? if ($object->getIcon()) {
+                        echo $object->getIcon();
                     } ?>
-                    </p>
 
-                    <? if ($metaDesc = $object->getMetaDescription()) { ?>
-                        <p class="meta meta-desc"><?= $metaDesc ?></p>
-                    <? } ?>
+                    <div class="<? if ($object->getIcon()) { ?>object-icon-side <? } ?>">                       
 
-                    <?
-
-                    $cena = false;
-                    $waluta = false;
-                    if ($wykonawcy = $object->getStatic('wykonawcy')) {
-
-                        foreach ($wykonawcy as $w) {
-                            if ($w['krs_id'] == $this->request->params['id'])
-                                $cena = $w['cena'];
-                            $waluta = $w['waluta'];
+                        <p class="title">
+                            <?php if ($object->getUrl() != false){ ?>
+                            <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
+                                <?php } ?>
+                                <?= $this->Text->truncate($shortTitle, 150) ?>
+                                <?php if ($object->getUrl() != false){ ?>
+                            </a> <?
                         }
+                        if ($object->getTitleAddon()) {
+                            echo '<small>' . $object->getTitleAddon() . '</small>';
+                        } ?>
+                        </p>
+						
+						<?
+														
+							$wykonawca = false;
+							if(
+								( $wykonawcy = $object->getStatic() ) &&
+								isset( $wykonawcy['wykonawcy'] ) && 
+								( $wykonawcy = $wykonawcy['wykonawcy'] )
+							) {
+								foreach( $wykonawcy as $w ) {
+									if( $w['krs_id']==$this->request->params['id'] ) {
+										$wykonawca = $w;
+									}
+								}
+							}
+							
+							$meta_parts = array(
+								dataSlownie($object->getDate()),
+							);
+							
+							if( $wykonawca )
+								$meta_parts[] = number_format_h($wykonawca['cena']) . ' ' . $wykonawca['waluta'];
+							
+							if( $object->getData('zamowienia_publiczne_dokumenty.zamawiajacy_nazwa') )
+								$meta_parts[] = 'Zamawiający: ' . $object->getData('zamowienia_publiczne_dokumenty.zamawiajacy_nazwa');
+															
+						?>
+						
+                        <p class="meta meta-desc"><?= implode('<span class="separator">-</span>', $meta_parts) ?></p>
 
-                    }
+                        <?
 
-                    if ($cena) {
+                        // debug( $object->getData() );
+                        if ($file_exists) {
+                            echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(
+                                'object' => $object,
+                                'hlFields' => $hlFields,
+                                'hlFieldsPush' => $hlFieldsPush,
+                                'defaults' => $defaults,
+                            ));
+                        } else {
+                            // echo $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults);
+                        }
                         ?>
 
-                        <div class="row dataHighlights dimmed inl" style="display: block !important;">
-                            <div class="dataHighlight col-md-12">
-                                <p class="_label">Cena:</p>
-
-                                <p class="_value"><span class="base"><?= number_format_h($cena) ?> <?= $waluta ?></span>
-                                </p>
+                        <? if (
+                            ($object->hasHighlights()) &&
+                            ($highlight = $object->getLayer('highlight'))
+                        ) { ?>
+                            <? if ($highlight[0] != '<em>' . $object->getShortTitle() . '</em>') { ?>
+                                <div class="description">
+                                    <?= $highlight[0] ?>
+                                </div>
+                            <? } ?>
+                        <? } elseif ($object->getDescription()) { ?>
+                            <div class="description">
+                                <?= $this->Text->truncate($object->getDescription(), 250) ?>
                             </div>
-                        </div>
+                        <? } ?>
 
-                    <? } ?>
+                    </div>
 
                 </div>
 

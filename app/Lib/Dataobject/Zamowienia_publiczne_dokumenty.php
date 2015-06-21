@@ -114,7 +114,7 @@ class Zamowienia_publiczne_dokumenty extends DocDataObject
         )
             $parent_id = $this->getData('parent_id');
 
-        return '/dane/zamowienia_publiczne/' . $parent_id . '/dokumenty/' . $this->getId();
+        return '/dane/zamowienia_publiczne/' . $parent_id;
 
     }
 

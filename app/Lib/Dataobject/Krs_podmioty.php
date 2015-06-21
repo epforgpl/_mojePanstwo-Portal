@@ -80,7 +80,7 @@ class Krs_podmioty extends DataObject
 	{
 		
 		$output = array(
-			$this->getData('forma_prawna_str'),
+			'<span class="normalizeText">' . $this->getData('forma_prawna_str') . '</span>',
 			$this->getData('adres_miejscowosc'),
 		);
 		
@@ -97,7 +97,7 @@ class Krs_podmioty extends DataObject
 	public function getDescription() {
 		
 		if( $this->getData('cel_dzialania') )
-			return mb_substr($this->getData('cel_dzialania'), 0, 100) . '...';
+			return '<span class="normalizeText">' . mb_substr($this->getData('cel_dzialania'), 0, 200) . '</span>...';
 		else
 			return false;
 		

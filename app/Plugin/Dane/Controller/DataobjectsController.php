@@ -30,7 +30,10 @@ class DataobjectsController extends AppController
         ),
         'body' => array(
             'theme' => 'default'
-        )
+        ),
+        'footer' => array(
+	        'element' => 'default',
+        ),
     );
 
     public function addInitLayers($layers)
@@ -87,8 +90,9 @@ class DataobjectsController extends AppController
                 'aggs' => $this->initAggs,
             ))
             ) {
-
-                $this->set('object_aggs', $this->Dataobject->getAggs());
+				
+				$this->object_aggs = $this->Dataobject->getAggs();
+                $this->set('object_aggs', $this->object_aggs);
 
                 if (
                     ($this->domainMode == 'MP') &&

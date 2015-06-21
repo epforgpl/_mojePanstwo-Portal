@@ -4,7 +4,7 @@ App::uses('DataobjectsController', 'Dane.Controller');
 
 class KrsPodmiotyController extends DataobjectsController
 {
-    public $menu = array();
+
     public $helpers = array(
         'Time',
     );
@@ -70,13 +70,13 @@ class KrsPodmiotyController extends DataobjectsController
             'udzialy',
             'firmy',
         ));
-
+        
         if ($this->Session->read('KRS.odpis') == $this->params->id) {
             $this->addInitLayers('odpis');
         }
 
         $this->_prepareView();
-
+        
         $desc_parts = array('Informacje gospodarcze o ' . $this->object->getShortTitle());
         $desc_bodies_parts = array();
 
@@ -257,7 +257,38 @@ class KrsPodmiotyController extends DataobjectsController
 
     public function _prepareView()
     {
-
+		
+		$this->addInitAggs(array(
+            'all' => array(
+                'global' => '_empty',
+                'aggs' => array(
+                    'zamowienia' => array(
+                        'filter' => array(
+                            'bool' => array(
+                                'must' => array(
+                                    array(
+                                        'term' => array(
+                                            'dataset' => 'zamowienia_publiczne_dokumenty',
+                                        ),
+                                    ),
+                                    array(
+                                        'nested' => array(
+	                                        'path' => 'zamowienia_publiczne-wykonawcy',
+	                                        'filter' => array(
+		                                        'term' => array(
+			                                        'zamowienia_publiczne-wykonawcy.krs_id' => $this->request->params['id'],
+		                                        ),
+	                                        ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        ));
+		
         parent::_prepareView();
 
         if (defined('PK_DOMAIN')) {
@@ -265,7 +296,7 @@ class KrsPodmiotyController extends DataobjectsController
             $pieces = parse_url(Router::url($this->here, true));
             if (($pieces['host'] == PK_DOMAIN) && ($this->object->getData('gmina_id') != '903')) {
 
-                $this->redirect('http://' . PORTAL_DOMAIN . $_SERVER['REQUEST_URI']);
+                $this->redirect('//' . PORTAL_DOMAIN . $_SERVER['REQUEST_URI']);
                 die();
 
             }
@@ -348,7 +379,6 @@ class KrsPodmiotyController extends DataobjectsController
         $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
                 'dataset' => 'zamowienia_publiczne_dokumenty',
-                // 'gminy_okregi_wyborcze.gmina_id' => $this->object->getId(),
                 'feeds_channels' => array(
                     'dataset' => 'krs_podmioty',
                     'object_id' => $this->object->getId(),
@@ -356,22 +386,9 @@ class KrsPodmiotyController extends DataobjectsController
                 ),
             ),
             'renderFile' => 'krs_podmioty-zamowienia_publiczne_dokumenty',
-            // 'aggsPreset' => 'zamowienia_publiczne',
         ));
 
         $this->set('title_for_layout', 'Zamówienia publiczne dla ' . $this->object->getData('nazwa'));
-        $this->set('DataBrowserTitle', 'Zamówienia publiczne dla ' . $this->object->getData('nazwa'));
-
-        /*
-        $this->_prepareView();
-        $this->dataobjectsBrowserView(array(
-            'source' => 'krs_podmioty.zamowienia:' . $this->object->getId(),
-            'dataset' => 'zamowienia_publiczne',
-            'title' => 'Udzielone zamówienia publiczne',
-            'noResultsTitle' => 'Brak zamówień publicznych',
-        ));
-        $this->set('title_for_layout', 'Zamówienia publiczne udzielone ' . $this->object->getTitle());
-        */
 
     }
 
@@ -494,45 +511,44 @@ class KrsPodmiotyController extends DataobjectsController
         $this->set('title_for_layout', 'Zmiany umów ' . $this->object->getTitle());
 
     }
-
-    public function beforeRender()
+    
+    public function getMenu()
     {
-
-        $counters = $this->object->getLayers('counters');
-
-        // PREPARE MENU
-        $href_base = $this->object->getUrl();
+	    
+	    $counters = $this->object->getLayers('counters');
 
         $menu = array(
             'items' => array(
                 array(
                     'id' => '',
-                    'href' => $href_base,
                     'label' => 'Podstawowe dane',
+                    'icon' => array(
+						'src' => 'glyphicon',
+						'id' => 'home',
+					),
                 ),
-            )
+            ),
+            'base' => $this->object->getUrl(),
         );
-
-
-        $menu['items'][] = array(
-            'id' => 'graph',
-            'href' => $href_base . '/graph',
-            'label' => 'Powiązania'
-        );
-
-
+		
+		if( @$this->object_aggs['all']['zamowienia']['doc_count'] ) {
+			$menu['items'][] = array(
+				'id' => 'zamowienia',
+				'label' => 'Zamówienia publiczne',
+				'count' => $this->object_aggs['all']['zamowienia']['doc_count'],
+			);
+		}
+				
         if ($this->request->params['id'] == 481129) { // KOMITET KONKURSOWY KRAKÓW 2022
 
             $menu['items'][] = array(
                 'id' => 'umowy',
-                'href' => $href_base . '/umowy',
                 'label' => 'Podpisane umowy',
                 'count' => 94,
             );
 
             $menu['items'][] = array(
                 'id' => 'faktury',
-                'href' => $href_base . '/faktury',
                 'label' => 'Faktury',
                 'count' => 129,
             );
@@ -541,9 +557,8 @@ class KrsPodmiotyController extends DataobjectsController
         if ($counters['liczba_oddzialow']) {
             $menu['items'][] = array(
                 'id' => 'oddzialy',
-                'href' => $href_base . '/oddzialy',
                 'label' => 'Oddziały',
-                // 'count' => $counters['liczba_oddzialow'],
+                'count' => $counters['liczba_oddzialow'],
             );
         }
 
@@ -562,14 +577,15 @@ class KrsPodmiotyController extends DataobjectsController
         if ($this->request->params['action'] == 'kultura') {
             $menu['items'][] = array(
                 'id' => 'kultura',
-                'href' => $href_base . '/kultura',
                 'label' => 'Indeksy kultury',
             );
         }
-
-        $this->menu = $menu;
-        parent::beforeRender();
-
+        
+        if( (count($menu['items'])==1) && !$menu['items'][0]['id'] ) {
+	        return array();
+        } else {
+		    return $menu;
+		}
     }
 
 }
