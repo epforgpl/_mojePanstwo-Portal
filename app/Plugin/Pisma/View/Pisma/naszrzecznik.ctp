@@ -18,7 +18,7 @@
 
 
 
-                            <h1 class="">Wyślij pismo z poparciem kandydatury Adama Bodnara na Rzecznika Praw
+                            <h1 class="text-center">Wyślij pismo z poparciem kandydatury Adama Bodnara na Rzecznika Praw
                                 Obywatelskich</h1>
 
                             <div class="row">

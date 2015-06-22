@@ -156,7 +156,7 @@ Okregi.prototype.createPolandPolygon = function() {
                 this.polandPath
             )
         ],
-        fillColor: "#F8F8F8",
+        fillColor: "#F3F3F3",
         fillOpacity: 1,
         strokeOpacity: 1,
         strokeColor: "#888888",

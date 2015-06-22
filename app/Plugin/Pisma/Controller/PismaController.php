@@ -135,7 +135,7 @@ class PismaController extends ApplicationsController
             $params['anonymous_user_id'] = session_id();
 
         $status = false;
-
+				
         if (isset($this->request->data['name'])) {
 
             $params['name'] = $this->request->data['name'];
@@ -219,7 +219,12 @@ class PismaController extends ApplicationsController
             $this->Session->write('Pisma.transfer_anonymous', true);
 
         $status = $this->Pismo->documents_create($pismo);
-        return $this->redirect($status['url'] . '/edit');
+        
+        if( isset($status['error']) && $status['error'] ) {
+	        
+        } else {
+	        return $this->redirect($status['url'] . '/edit');
+        }        
 
     }
 
@@ -252,6 +257,7 @@ class PismaController extends ApplicationsController
 
         $this->set('pismo_init', $pismo);
         $this->set('okregi', $this->Sejmometr->okregi());
+        $this->title = 'Nasz Rzecznik | Pisma';
     }
 
     public function my()
