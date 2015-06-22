@@ -158,7 +158,7 @@ class PaszportController extends ApplicationsController
                     );
                 }
             } elseif (isset($response['user']) && $response['user']) {
-                $this->Auth->login($response['user']);
+                $this->Auth->login($response['user']['User']);
                 $this->redirect($this->Auth->redirectUrl());
             } else {
                 throw new BadRequestException();
