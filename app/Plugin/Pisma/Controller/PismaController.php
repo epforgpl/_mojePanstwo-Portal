@@ -364,7 +364,7 @@ class PismaController extends ApplicationsController
         $this->set('title_for_layout', 'Pisma');
         $this->set('filters_selected', $filters_selected);
 
-        $this->title = 'Pisma';
+        $this->title = 'Moje Pisma';
     }
 
     public function getMenu()
