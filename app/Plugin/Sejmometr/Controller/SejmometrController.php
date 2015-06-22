@@ -173,7 +173,11 @@ class SejmometrController extends ApplicationsController
     {
 
         $this->menu_selected = 'view';
-        $this->loadDatasetBrowser('poslowie');
+        $this->loadDatasetBrowser('poslowie', array(
+	        'autocompletion' => array(
+		        'dataset' => 'poslowie',
+	        ),
+        ));
 
     }
 

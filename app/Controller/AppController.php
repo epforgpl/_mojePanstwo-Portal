@@ -219,6 +219,9 @@ class AppController extends Controller
             'poslowie' => array(
             	'label' => 'Posłowie',
 				'menu_id' => 'poslowie',
+				'autocompletion' => array(
+					'dataset' => 'poslowie',
+				),
             ),
             'sejm_dezyderaty' => array(
             	'label' => 'Dezyderaty komisji',
