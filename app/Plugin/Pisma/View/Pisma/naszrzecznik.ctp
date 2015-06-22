@@ -24,9 +24,14 @@
                             <div class="row">
                                 <div class="col-md-10 col-md-offset-1">
                                     <div class="well">
-                                        <p>Chcesz aby Adam Bodnar został wybrany przez Sejm na Rzecznika Praw Obywatelskich (RPO)? Skorzystaj z poniższego formularza by wysłać maila do wybranego posła lub posłanki z prośbą o głosowanie za kandydaturą Adama Bodnara na RPO. Możesz wysłać wiadomość z proponowaną poniżej treścią lub zmienić treść wg swojego uznania.</p>
+                                        <p>Chcesz aby Adam Bodnar został wybrany przez Sejm na Rzecznika Praw
+                                            Obywatelskich (RPO)? Skorzystaj z poniższego formularza by wysłać maila do
+                                            wybranego posła lub posłanki z prośbą o głosowanie za kandydaturą Adama
+                                            Bodnara na RPO. Możesz wysłać wiadomość z proponowaną poniżej treścią lub
+                                            zmienić treść wg swojego uznania.</p>
 
-                                        <p><a href="http://naszrzecznik.pl" target="_blank">Więcej o akcji &raquo;</a></p>
+                                        <p><a href="http://naszrzecznik.pl" target="_blank">Więcej o akcji &raquo;</a>
+                                        </p>
                                     </div>
 
                                 </div>
@@ -57,7 +62,9 @@
                             <fieldset class="final">
                                 <div class="form-group">
                                     <div class="col-lg-10 col-lg-offset-1 text-center">
-                                        <button type="submit" class="btn btn-md btn-primary">Stwórz pismo</button>
+                                        <button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
+                                                class="icon glyphicon glyphicon-pencil"></i>Stwórz pismo
+                                        </button>
                                     </div>
                                 </div>
                             </fieldset>
