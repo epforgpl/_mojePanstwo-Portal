@@ -27,24 +27,39 @@
                 </div>
             </div>
             <div>
-                <div class="form-group">
-                    <label for="inputPassword">Hasło</label>
-
-                    <div id="form-user-edit-password">
-                        <a href="#" title="Edytuj">
-                            ******
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </a>
+                <? if($canCreatePassword) { ?>
+                    <div class="form-group">
+                        <label for="inputPassword">Utwórz hasło</label>
+                        <div id="form-user-create-password">
+                            <a href="#" title="Edytuj">
+                                ******
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                        </div>
                     </div>
-                </div>
+                <? } else { ?>
+                    <div class="form-group">
+                        <label for="inputPassword">Hasło</label>
+                        <div id="form-user-edit-password">
+                            <a href="#" title="Edytuj">
+                                ******
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                        </div>
+                    </div>
+                <? } ?>
             </div>
         </form>
         <h3>Dodatkowe opcje</h3>
         <button type="button" id="deletePaszportButton" class="btn btn-default remove-button" data-toggle="modal"
-                data-target=".delete-paszport-modal">
+                data-target=".delete-paszport-modal" <? if($canCreatePassword) echo 'disabled'?>>
             <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
             Usuń paszport
         </button>
+
+        <? if($canCreatePassword) { ?>
+            <p class="help-block">Opcja usunięcia paszportu dostępna po utworzeniu hasła.</p>
+        <? } ?>
         <div class="modal fade delete-paszport-modal" tabindex="-1" role="dialog"
              aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog">
