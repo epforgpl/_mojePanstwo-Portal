@@ -1,32 +1,6 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('api', array('plugin' => 'Api'))) ?>
 
-<div id="api" class="newLayout">
-    <? /*
-    <div class="jumbotron">
-        <div class="container">
-            <h1>API</h1>
-
-            <p>Dowiedz się jak uzyskać dostęp do największego zbioru otwartych danych w Polsce i jak zintegrować je ze
-                swoją aplikacją! One API page to rule them all! </p>
-
-            <!--<div class="searchBar col-md-12">-->
-            <!--<form method="GET">-->
-            <!--<div class="col-md-12 searchFor">-->
-            <!--<div class="input-group">-->
-            <!--<input type="text" name="q" placeholder="Szukaj w API..." value=""-->
-            <!--class="form-control input-lg"-->
-            <!--autocomplete="off">-->
-            <!--<span class="input-group-btn">-->
-            <!--<button class="btn" type="submit"></button>-->
-            <!--</span>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</form>-->
-            <!--</div>-->
-
-        </div>
-    </div>
-    */ ?>
+<div id="api">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -53,9 +27,7 @@
                     <div class="option col-xs-12 col-sm-6 col-md-4" data-icon="">
                         <h3>
                             <span class="icon">
-                                <img
-                                    src="<?php echo '/' . strtolower($api['slug']) . '/icon/' . $api['slug'] . '.svg' ?>"
-                                    alt=""/>
+                                <i class="icon-datasets-<?= strtolower($api['slug']) ?>"></i>
                             </span><?php echo $api['name'];
                             if (intval($api['version']) == 0) {
                                 echo ' <span class="beta">BETA</span>';

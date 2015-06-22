@@ -6,9 +6,7 @@
     $navbar.affix({
         offset: {
             top: function () {
-                return (this.top = $('.jumbotron').outerHeight(true))
-            }, bottom: function () {
-                return (this.bottom = $('footer').outerHeight(true))
+                return (this.top = $('.appHeader').outerHeight(true) + $('.appMenu').outerHeight(true))
             }
         }
     });
