@@ -49,7 +49,7 @@
 	                                        value: item.payload.object_id,
 	                                        link: '/dane/' + item.payload.dataset + '/' + item.payload.object_id + ((item.payload.slug) ? ',' + item.payload.slug : ''),
 	                                        dataset: item.payload.dataset,
-	                                        image: (item.payload.image_url !== undefined) ? item.payload.image_url : false
+                                            image: (item.payload.image !== undefined) ? item.payload.image : false
 	                                    };
 	                                }
 	                            });
@@ -137,7 +137,7 @@
 	                    ).appendTo(ul);
 	                }
 	            };
-            };
+            }
         });
     }
 }(jQuery));
