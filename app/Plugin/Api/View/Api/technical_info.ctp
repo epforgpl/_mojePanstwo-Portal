@@ -3,6 +3,7 @@
 <?php $this->Combinator->add_libs('js', 'Api.technical.js'); ?>
 
 <div id="api" class="newLayout">
+    <? /*
     <div class="jumbotron">
         <div class="container">
             <h1>Opis techniczny</h1>
@@ -11,6 +12,7 @@
                 wszystkich API aplikacji</p>
         </div>
     </div>
+    */ ?>
 
     <div class="container">
         <div class="row">

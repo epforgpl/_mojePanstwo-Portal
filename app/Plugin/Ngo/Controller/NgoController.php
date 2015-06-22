@@ -179,5 +179,15 @@ class NgoController extends ApplicationsController
 		return $menu;
 
     }
-
+	
+	public function beforeRender() {
+		
+		parent::beforeRender();
+		
+		$app = $this->getApplication($this->settings['id']);
+		$app['name'] = 'NGO - Portal organizacji pozarządowych';
+        $this->set('_app', $app);
+		
+	}
+	
 } 

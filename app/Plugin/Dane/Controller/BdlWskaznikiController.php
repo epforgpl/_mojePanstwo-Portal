@@ -91,7 +91,7 @@ class BdlWskaznikiController extends DataobjectsController
     {
 
         parent::load();
-
+        
         $expand_dimension = isset($this->request->query['i']) ? (int)$this->request->query['i'] : $this->object->getData('i');
         $dims = $this->object->getLayer('dimennsions');
         $expanded_dimension = array();
@@ -185,9 +185,6 @@ class BdlWskaznikiController extends DataobjectsController
             $i++;
         }
 
-
-        $this->set('treeList', true);
-
         $this->set('dims', $dims);
         $this->set('expand_dimension', $expand_dimension);
         $this->set('expanded_dimension', $expanded_dimension);
@@ -226,6 +223,24 @@ class BdlWskaznikiController extends DataobjectsController
 
         return $this->redirect('/dane/bdl_wskazniki/' . $this->request->params['id'] . ',' . $this->request->params['slug'] . '/kombinacje/' . $this->request->params['subid']);
 
+    }
+    
+    public function beforeRender()
+    {
+	    parent::beforeRender();
+	 	if( $this->object ) {
+	 	
+		    $this->addBreadcrumb(array(
+	            'href' => '/bdl/#kategoria_id=' . $this->object->getData('bdl_wskazniki.kategoria_id'),
+	            'label' => '<span class="normalizeText">' . $this->object->getData('bdl_wskazniki.kategoria_tytul') . '</span>',
+	        ));	
+	        
+	        $this->addBreadcrumb(array(
+	            'href' => '/bdl/#kategoria_id=' . $this->object->getData('bdl_wskazniki.kategoria_id') . '&grupa_id=' . $this->object->getData('bdl_wskazniki.grupa_id'),
+	            'label' => '<span class="normalizeText">' . $this->object->getData('bdl_wskazniki.grupa_tytul') . '</span>',
+	        ));
+        
+        }   
     }
 
 } 

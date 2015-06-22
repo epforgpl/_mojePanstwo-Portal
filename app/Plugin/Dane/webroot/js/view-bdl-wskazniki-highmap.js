@@ -18,7 +18,7 @@ $(document).ready(function () {
     if (!geoType)
         return false;
 
-    $.getJSON('http://mojepanstwo.pl:4444/geo/geojson/get?quality=4&types=' + geoType, function (data) {
+    $.getJSON(mPHeart.constant.ajax.api + '/geo/geojson/get?quality=4&types=' + geoType, function (data) {
         var geo = Highcharts.geojson(data, 'map');
         var max = 0, min = 9999999999;
         for (var i = 0; i < geo.length; i++) {

@@ -1,13 +1,19 @@
 <?
 
-class ApiController extends AppController
+App::uses('ApplicationsController', 'Controller');
+
+class ApiController extends ApplicationsController
 {
     public $helpers = array();
 
     public $components = array();
 
     public $uses = array('Api.Api');
-
+	
+	public $settings = array(
+		'id' => 'api',
+	);
+	
     public function beforeFilter()
     {
         parent::beforeFilter();
@@ -16,7 +22,7 @@ class ApiController extends AppController
     public function index()
     {
         $apis = $this->Api->getAllApis();
-
+		$this->menu_selected = 'view';
         $this->set(compact('apis'));
     }
 
@@ -42,5 +48,28 @@ class ApiController extends AppController
 
     public function technical_info()
     {
+    }
+    
+    public function getMenu()
+    {
+	    
+	    $menu = array(
+		    'items' => array(
+			    array(
+				    'label' => 'Start',
+					'icon' => array(
+						'src' => 'glyphicon',
+						'id' => 'home',
+					),
+			    ),
+			    array(
+				    'id' => 'technical_info',
+				    'label' => 'Opis techniczny',
+			    ),
+		    ),
+		    'base' => '/api',
+	    );
+	    return $menu;
+	    
     }
 }

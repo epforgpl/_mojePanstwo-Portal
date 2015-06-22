@@ -1,6 +1,7 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('api', array('plugin' => 'Api'))) ?>
 
 <div id="api" class="newLayout">
+    <? /*
     <div class="jumbotron">
         <div class="container">
             <h1>API</h1>
@@ -25,6 +26,7 @@
 
         </div>
     </div>
+    */ ?>
     <div class="container">
         <div class="row">
             <div class="col-md-12">

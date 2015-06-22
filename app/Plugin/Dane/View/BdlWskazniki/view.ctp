@@ -7,7 +7,7 @@
 <?= $this->Element('dataobject/pageBegin', array('renderFile' => 'page-bdl_wskazniki')); ?>
 <?= $this->Element('bdl_select', array('expand_dimension' => $expand_dimension, 'dims' => $dims)); ?>
 
-    <div id="bdl-wskazniki">
+    <div id="bdl-wskazniki" class="col-md-12">
         <div class="object">
 
             <?

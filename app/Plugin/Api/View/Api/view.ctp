@@ -32,6 +32,8 @@ $this->Html->scriptBlock('window.swaggerUi = new SwaggerUi({url: "' . $api["swag
 ?>
 
 <div id="api" class="newLayout">
+    
+    <? /*
     <div class="jumbotron">
         <div class="container">
             <h1><?php echo $api['name'];
@@ -58,6 +60,7 @@ $this->Html->scriptBlock('window.swaggerUi = new SwaggerUi({url: "' . $api["swag
 
         </div>
     </div>
+    */ ?>
 
     <div class="container">
         <div class="details">

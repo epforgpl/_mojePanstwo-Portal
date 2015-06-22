@@ -1,6 +1,6 @@
 <div class="appMenu">
     <div class="container">
-        <? if (isset($_menu) && isset($_menu['items'])) { ?>
+        <? if (isset($_menu) && isset($_menu['items'])) {?>
             <ul class="nav nav-tabs">
                 <?
                 foreach ($_menu['items'] as $m) {

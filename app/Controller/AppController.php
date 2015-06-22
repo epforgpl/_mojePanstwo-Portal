@@ -313,6 +313,12 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe615;',
         ),
+        'api' => array(
+            'name' => 'API',
+            'href' => '/api',
+            'tag' => 4,
+            'icon' => '&#xe615;',
+        ),
         'kto_tu_rzadzi' => array(
             'name' => 'Kto tu rządzi?',
             'href' => '/kto_tu_rzadzi',
@@ -825,6 +831,8 @@ class AppController extends Controller
     public function addBreadcrumb($params)
     {
         $this->breadcrumbs[] = $params;
+        $this->set('_breadcrumbs', $this->breadcrumbs);
+
     }
 
     public function getDatasets($app = false)
