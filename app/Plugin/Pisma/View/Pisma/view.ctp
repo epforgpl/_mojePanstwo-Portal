@@ -20,28 +20,19 @@
                 </div>
                 <div class="col-md-2 nopadding">
                     <div class="editor-tooltip">
-
-                        <? $href_base = '/pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
-
-                        <? if ($pismo['is_owner']) { ?>
-
+                        <? $href_base = '/pisma/' . $pismo['alphaid'] . ',' . $pismo['slug'];
+                        if ($pismo['is_owner']) { ?>
                             <ul class="form-buttons">
-
-                                
-
                                 <? if ($pismo['to_email']) { ?>
                                     <li class="inner-addon">
                                         <? if ($pismo['sent']) { ?>
-
                                             <p class="desc">To pismo zostałe wysłane do
                                                 adresata <?= $this->Czas->dataSlownie($pismo['sent_at']) ?>.</p>
-
                                         <? } else { ?>
-
-                                            <i class="glyphicon glyphicon-send"></i>
-                                            <a title="Możesz wysłać pismo do adresata poprzez e-mail" href="<?= $href_base . '/send' ?>" target="_self"
-                                               class="btn btn-primary sendPismo">Wyślij...</a>
-
+                                            <a title="Możesz wysłać pismo do adresata poprzez e-mail"
+                                               href="<?= $href_base . '/send' ?>" target="_self"
+                                               class="btn btn-primary sendPismo btn-icon"><i
+                                                    class="icon glyphicon glyphicon-send"></i>Wyślij...</a>
 
                                             <div id="sendPismoModal" class="modal fade" tabindex="-1" role="dialog"
                                                  aria-labelledby="myModalLabel" aria-hidden="true">
@@ -101,12 +92,13 @@
                                 <? } ?>
                                 <? if (!$pismo['sent']) { ?>
                                     <li class="inner-addon">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                        <a href="<?= $href_base . '/edit' ?>" target="_self" class="btn btn-primary">Edytuj</a>
+                                        <a href="<?= $href_base . '/edit' ?>" target="_self"
+                                           class="btn btn-primary btn-icon"><i
+                                                class="icon glyphicon glyphicon-edit"></i>Edytuj</a>
                                     </li>
                                 <? } ?>
-                                
-                                
+
+
                                 <? if ($pismo['access'] == 'private') { ?>
                                     <li class="inner-addon">
                                         <form action="" method="post">
@@ -168,8 +160,6 @@
                                         </a>
                                     </li>
                                 <? } ?>
-                                
-                                
                             </ul>
 
                             <ul class="form-buttons more-buttons-target" style="display: none;">
@@ -177,9 +167,9 @@
                                     <form onsubmit="return confirm('Czy na pewno chcesz usunąć to pismo?');"
                                           method="post"
                                           action="/pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
-                                        <i class="glyphicon glyphicon-trash"></i>
-                                        <input name="delete" type="submit" class="form-control btn btn-danger"
-                                               value="Skasuj"/>
+                                        <button name="delete" type="submit" class="btn btn-icon btn-danger"><i
+                                                class="icon glyphicon glyphicon-trash"></i>Skasuj
+                                        </button>
                                     </form>
                                 </li>
                             </ul>
@@ -189,8 +179,8 @@
                                         class="glyphicon glyphicon-chevron-down"></span> <span
                                         class="text">Więcej</span></a>
                             </p>
-                            
-                            
+
+
 
                             <? if (!$this->Session->read('Auth.User.id')) { ?>
                                 <div class="alert alert-dismissable alert-success">

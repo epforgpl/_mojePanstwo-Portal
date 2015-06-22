@@ -64,10 +64,10 @@ if (!empty($pismo['adresat_id'])) {
                                 <div class="wysightml5Block pull-left"></div>
                                 <ul class="actionButton form-buttons pull-right">
                                     <li class="inner-addon">
-
-                                        <i class="glyphicon glyphicon-save"></i>
-                                        <input type="submit" class="btn btn-primary action savePismo" name="_save"
-                                               value="Zapisz"/>
+                                        <button type="submit" class="btn btn-primary btn-icon action savePismo"
+                                                name="_save"><i
+                                                class="icon glyphicon glyphicon-save"></i>Zapisz
+                                        </button>
                                         <a class="btn btn-default" style="width: inherit; margin-left: 5px;"
                                            href="/pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">Anuluj</a>
                                         <input type="hidden" name="save" value="1"/>

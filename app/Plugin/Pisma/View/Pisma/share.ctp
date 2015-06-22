@@ -46,9 +46,9 @@
                             <li class="inner-addon left-addon">
                                 <form onsubmit="return confirm('Czy na pewno chcesz usunąć to pismo?');" method="post"
                                       action="/pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
-                                    <i class="glyphicon glyphicon-trash"></i>
-                                    <input name="delete" type="submit" class="form-control btn btn-danger"
-                                           value="Skasuj"/>
+                                    <button name="delete" type="submit" class="btn btn-danger btn-icon"><i
+                                            class="icon glyphicon glyphicon-trash"></i>Skasuj
+                                    </button>
                                 </form>
                             </li>
                         </ul>
