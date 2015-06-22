@@ -206,6 +206,15 @@ class User extends PaszportAppModel
         return $this->getDataSource()->request('paszport/users/read', array('data' => array('user_id' => $uid)));
     }
 
+    public function canCreatePassword() {
+        $response = $this->getDataSource()->request('paszport/user/canCreatePassword', array(
+            'data' => array(),
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
     public function setUserName($username)
     {
         $response = $this->getDataSource()->request('paszport/user/setUserName', array(
@@ -256,6 +265,16 @@ class User extends PaszportAppModel
     public function setPassword($data)
     {
         $response = $this->getDataSource()->request('paszport/user/setPassword', array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    public function createNewPassword($data)
+    {
+        $response = $this->getDataSource()->request('paszport/user/createNewPassword', array(
             'data' => $data,
             'method' => 'POST'
         ));

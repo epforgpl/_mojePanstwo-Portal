@@ -147,6 +147,76 @@ $(function () {
         return false;
     });
 
+    $('#form-user-create-password a').click(function () {
+
+        var form = $('#form-user-create-password');
+        var a = form.find('a').first();
+        a.hide();
+
+        var closeForm = function () {
+            a.show();
+            form.find('.create-password-form-groups').first().remove();
+        };
+
+        form.append(
+            '<div class="create-password-form-groups">' +
+            '<div class="form-group">' +
+            '<label for="inputPassword">Hasło</label>' +
+            '<input id="inputPassword" value="" type="password" class="form-control" name="password">' +
+            '</div>' +
+            '<div class="form-group">' +
+            '<label for="inputConfirmPassword">Potwierdź hasło</label>' +
+            '<input id="inputConfirmPassword" value="" type="password" class="form-control" name="confirmPassword">' +
+            '</div>' +
+            '<button type="submit" class="btn btn-link create-password-cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Anuluj</button> ' +
+            '<button type="submit" class="btn btn-link create-password-submit"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Zapisz</button>' +
+            '</div>'
+        );
+
+        var group = form.find('.create-password-form-groups').first();
+        group.find('.form-group input').first().focus();
+
+        group.find('button.create-password-cancel').first().click(function () {
+            closeForm();
+            return false;
+        });
+
+        group.find('button.create-password-submit').first().click(function () {
+
+            var confirmPassword = $('#inputConfirmPassword').val();
+            var password = $('#inputPassword').val();
+
+            if (password.length < 6 || password.length < 6 || password != confirmPassword) {
+                group.find('.form-group').each(function () {
+                    $(this).addClass('has-error');
+                });
+                return false;
+            }
+
+            $.post("/paszport/user/createNewPassword", {
+                password: password,
+                confirm_password: confirmPassword
+            }, function (data) {
+
+                if (data == 'true') {
+                    closeForm();
+                    location.reload();
+                } else {
+                    group.find('.form-group').each(function () {
+                        $(this).addClass('has-error');
+                    });
+                }
+
+                return false;
+
+            });
+
+            return false;
+        });
+
+        return false;
+    });
+
     $('#submitDeletePaszport').click(function () {
         var password = $('#inputDeletePassword').val();
 

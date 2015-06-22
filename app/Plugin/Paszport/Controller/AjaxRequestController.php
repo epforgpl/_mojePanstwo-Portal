@@ -62,6 +62,12 @@ class AjaxRequestController extends ApplicationsController
         return json_encode($response);
     }
 
+    public function createNewPassword() {
+        $user = new User();
+        $response = $user->createNewPassword($this->data);
+        return json_encode($response);
+    }
+
     public function delete()
     {
         $user = new User();

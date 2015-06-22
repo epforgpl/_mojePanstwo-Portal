@@ -31,6 +31,9 @@ class PaszportController extends ApplicationsController
         if ($this->Auth->loggedIn()) {
             $user = $this->Auth->User();
             $this->set('user', $user);
+
+            $user = new User();
+            $this->set('canCreatePassword', $user->canCreatePassword());
         } else {
             $this->redirect(array('action' => 'login'));
         }
