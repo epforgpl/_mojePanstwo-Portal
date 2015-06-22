@@ -9,7 +9,7 @@
                 <span class="separator">|</span>
                 <?php echo $this->Html->link(__('LC_FOOTER_REPORT_BUG'), '/zglosblad', array('target' => '_self', 'class' => 'link-discrete')); ?>
                 <span class="separator">|</span>
-                <?php echo $this->Html->link(__('API'), '/api', array('target' => '_self', 'class' => 'link-discrete')); ?>
+                <?php echo $this->Html->link(__('LC_FOOTER_API'), '/api', array('target' => '_self', 'class' => 'link-discrete')); ?>
             </div>
         </div>
     </section>

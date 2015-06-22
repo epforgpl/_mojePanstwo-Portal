@@ -2,18 +2,7 @@
 
 <?php $this->Combinator->add_libs('js', 'Api.technical.js'); ?>
 
-<div id="api" class="newLayout">
-    <? /*
-    <div class="jumbotron">
-        <div class="container">
-            <h1>Opis techniczny</h1>
-
-            <p>Chcesz skorzystać z naszego API? Zapoznaj się z wprowadzeniem i informacjami technicznymi wspólnymi dla
-                wszystkich API aplikacji</p>
-        </div>
-    </div>
-    */ ?>
-
+<div id="api">
     <div class="container">
         <div class="row">
             <div id="navbar" class="navbar col-md-3 pull-left">
