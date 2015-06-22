@@ -674,21 +674,34 @@ body {
     }
     .minimal {
       height: @footerHeight;
-      margin-right: 10px;
+      margin-left: 40px;
+      width: 340px;
 
       position: absolute;
-      bottom: 0;
-      right: 0;
+      bottom: 5px;
+      left: 50%;
       z-index: 900;
 
-      a, .separator {
-        color: #aaaaaa;
+      -webkit-transform: translate(-50%, 0px);
+      -moz-transform: translate(-50%, 0px);
+      -ms-transform: translate(-50%, 0px);
+      -o-transform: translate(-50%, 0px);
+      transform: translate(-50%, 0px);
+
+      .separator {
+        color: darken(#EDEDED, 20%);
       }
 
       a {
         font-size: 10px;
         font-weight: bold;
         margin: 20px 0;
+        color: #EDEDED;
+
+        -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=135, Color=#000000)";
+        text-shadow: 1px 1px 1px #000000;
+        filter: progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=135, Color=#000000);
+
       }
     }
   }
