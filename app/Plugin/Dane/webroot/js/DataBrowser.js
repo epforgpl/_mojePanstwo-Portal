@@ -275,8 +275,8 @@ var DataBrowser = Class.extend({
                 useHTML: true,
                 labelFormatter: function () {
                     var name = this.name;
-                    if (name.length > 12)
-                        name = name.substring(0, 12) + '...';
+                    if (name.length > 20)
+                        name = name.substring(0, 20) + '...';
                     return '<a href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + name + '</a>';
                 },
                 itemWidth: 150
