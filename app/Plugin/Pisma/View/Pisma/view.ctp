@@ -21,7 +21,19 @@
                 <div class="col-md-2 nopadding">
                     <div class="editor-tooltip">
                         <? $href_base = '/pisma/' . $pismo['alphaid'] . ',' . $pismo['slug'];
-                        if ($pismo['is_owner']) { ?>
+                        if ($pismo['is_owner']) {
+                            if (!$this->Session->read('Auth.User.id')) { ?>
+                                <div class="alert alert-dismissable alert-success">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <h4>Uwaga!</h4>
+
+                                    <p>Nie jesteś zalogowany. Twoje pisma będą przechowywane na tym urządzeniu przez 24
+                                        godziny. <a
+                                            class="_specialCaseLoginButton" href="/login">Zaloguj się</a>, aby trwale
+                                        przechowywać pisma na
+                                        swoim koncie.</p>
+                                </div>
+                            <? } ?>
                             <ul class="form-buttons">
                                 <? if ($pismo['to_email']) { ?>
                                     <li class="inner-addon">
@@ -162,39 +174,23 @@
                                 <? } ?>
                             </ul>
 
-                            <ul class="form-buttons more-buttons-target" style="display: none;">
-                                <li class="inner-addon left-addon">
-                                    <form onsubmit="return confirm('Czy na pewno chcesz usunąć to pismo?');"
-                                          method="post"
-                                          action="/pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
-                                        <button name="delete" type="submit" class="btn btn-icon btn-danger"><i
-                                                class="icon glyphicon glyphicon-trash"></i>Skasuj
-                                        </button>
-                                    </form>
-                                </li>
-                            </ul>
-
-                            <p class="more-buttons-switcher-cont">
-                                <a class="more-buttons-switcher" data-mode="more" href="#more"><span
-                                        class="glyphicon glyphicon-chevron-down"></span> <span
-                                        class="text">Więcej</span></a>
-                            </p>
-
-
-
-                            <? if (!$this->Session->read('Auth.User.id')) { ?>
-                                <div class="alert alert-dismissable alert-success">
-                                    <button type="button" class="close" data-dismiss="alert">×</button>
-                                    <h4>Uwaga!</h4>
-
-                                    <p>Nie jesteś zalogowany. Twoje pisma będą przechowywane na tym urządzeniu przez 24
-                                        godziny. <a
-                                            class="_specialCaseLoginButton" href="/login">Zaloguj się</a>, aby trwale
-                                        przechowywać pisma na
-                                        swoim koncie.</p>
-                                </div>
-                            <? } ?>
-
+                            <div class="more-buttons-switcher-cont">
+                                <ul class="form-buttons more-buttons-target" style="display: none;">
+                                    <li class="inner-addon left-addon">
+                                        <form onsubmit="return confirm('Czy na pewno chcesz usunąć to pismo?');"
+                                              method="post"
+                                              action="/pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
+                                            <button name="delete" type="submit" class="btn btn-icon btn-danger"><i
+                                                    class="icon glyphicon glyphicon-trash"></i>Skasuj
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                                <a class="more-buttons-switcher" data-mode="more" href="#more">
+                                    <span class="glyphicon glyphicon-chevron-down"></span>
+                                    <span class="text">Więcej</span>
+                                </a>
+                            </div>
                         <? } ?>
 
                     </div>

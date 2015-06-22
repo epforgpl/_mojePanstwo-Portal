@@ -46,8 +46,8 @@ var PISMA = Class.extend({
         var self = this;
 
         self.methods.stepper = self.html.stepper_div.steps({
-            step: 2,
-            startIndex: 1,
+            step: 1,
+            startIndex: 0,
             headerTag: "h2",
             bodyTag: "section",
             transitionEffect: "slideLeft",
@@ -64,13 +64,6 @@ var PISMA = Class.extend({
                 previous: "Cofnij",
                 loading: "Ładowanie..."
             },
-            onInit: function () {
-                self.html.stepper_div.find('fieldset[class="final"] button').click(function (e) {
-                    e.preventDefault();
-                    self.scanEditor();
-                    self.methods.stepper.steps("next");
-                });
-            },
             onStepChanged: function () {
                 self.checkStep();
             }
@@ -85,22 +78,7 @@ var PISMA = Class.extend({
     },
     checkStep: function () {
         "use strict";
-        var self = this,
-            preinit;
-
-        if (self.html.stepper_div.data('pismo') !== undefined) {
-            preinit = self.html.stepper_div.data('pismo');
-
-            if (preinit) {
-                if (preinit.szablon_id) {
-                    self.szablonData(preinit.szablon_id);
-                }
-                if (preinit.adresat_id) {
-                    self.adresatData(preinit.adresat_id);
-                }
-                self.html.stepper_div.removeData('pismo');
-            }
-        }
+        var self = this;
         if (self.methods.stepper.data().state.currentIndex === 1) {
             self.editorDetail();
         }
@@ -716,8 +694,10 @@ $(document).ready(function () {
         event.preventDefault();
 
         var switcher = $(event.target).parent('.more-buttons-switcher'),
-            target_element = $P.html.stepper_div.find('.more-buttons-target'),
+            target_element = switcher.parent().find('.more-buttons-target'),
             mode = switcher.data('mode');
+
+        console.log(switcher, target_element, mode);
 
         if (mode === 'more') {
             switcher.attr('href', '#less').data('mode', 'less').find('.text').text('Mniej');

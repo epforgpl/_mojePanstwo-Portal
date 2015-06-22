@@ -42,23 +42,23 @@
 
                         </ul>
 
-                        <ul class="form-buttons more-buttons-target" style="display: none;">
-                            <li class="inner-addon left-addon">
-                                <form onsubmit="return confirm('Czy na pewno chcesz usunąć to pismo?');" method="post"
-                                      action="/pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
-                                    <button name="delete" type="submit" class="btn btn-danger btn-icon"><i
-                                            class="icon glyphicon glyphicon-trash"></i>Skasuj
-                                    </button>
-                                </form>
-                            </li>
-                        </ul>
-
-                        <p class="more-buttons-switcher-cont">
-                            <a class="more-buttons-switcher" data-mode="more" href="#more"><span
-                                    class="glyphicon glyphicon-chevron-down"></span> <span
-                                    class="text">Więcej</span></a>
-                        </p>
-
+                        <div class="more-buttons-switcher-cont">
+                            <ul class="form-buttons more-buttons-target" style="display: none;">
+                                <li class="inner-addon left-addon">
+                                    <form onsubmit="return confirm('Czy na pewno chcesz usunąć to pismo?');"
+                                          method="post"
+                                          action="/pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
+                                        <button name="delete" type="submit" class="btn btn-danger btn-icon"><i
+                                                class="icon glyphicon glyphicon-trash"></i>Skasuj
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                            <a class="more-buttons-switcher" data-mode="more" href="#more">
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                                <span class="text">Więcej</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

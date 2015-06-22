@@ -1,5 +1,5 @@
 .theme-default {
-	background: #F3F3F3;
+  background: #F3F3F3;
 }
 
 .suggesterBlockPisma .form-control.loader {
@@ -142,6 +142,8 @@
 }
 
 #stepper {
+  @btnSize: 160px;
+
   &.vertical {
     > .steps {
       display: inline;
@@ -356,7 +358,7 @@
     margin-top: -5px;
 
     .alert {
-      margin-top: 30px;
+      margin-top: 5px;
     }
 
     form {
@@ -365,17 +367,35 @@
     }
 
     .more-buttons-switcher-cont {
-      margin-top: 10px;
-      margin-right: 40px;
-      text-align: center;
-    }
+      width: 100%;
+      float: left;
 
-    .more-buttons-switcher {
-      .glyphicon {
-        position: relative;
-        top: 3px;
-        margin-right: 2px;
-        margin-left: 2px;
+      .more-buttons-switcher {
+        display: block;
+        float: left;
+        width: @btnSize;
+        text-align: center;
+
+        .glyphicon {
+          position: relative;
+          top: 3px;
+          margin-right: 2px;
+          margin-left: 2px;
+        }
+      }
+      .more-buttons-target {
+        float: left;
+        display: block;
+
+        > li {
+          float: left;
+          width: 100%;
+          display: block;
+
+          &:first-child {
+            margin-top: 0;
+          }
+        }
       }
     }
 
@@ -399,7 +419,7 @@
           font-size: 12px;
           font-weight: 400;
           text-transform: uppercase;
-          width: 160px;
+          width: @btnSize;
           margin: 0;
           word-spacing: 0.3em;
         }
@@ -418,7 +438,7 @@
           }
           #clipboardCopy {
             border-color: #e3e3e3;
-            width: 160px;
+            width: @btnSize;
             white-space: nowrap;
             overflow: hidden;
             float: left;

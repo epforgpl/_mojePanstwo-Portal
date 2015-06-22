@@ -27,31 +27,8 @@ if (!empty($pismo['adresat_id'])) {
     <div id="stepper" class="stepper"<? if (!empty($pismo_init)) {
         echo ' data-pismo=' . json_encode($pismo_init);
     } ?> data-status-check="<?= $pismo['saved'] ?>">
-
-        <h2>Wybierz szablon i adresata</h2>
-        <section>
-            <div class="container start">
-                <div class="col-xs-12">
-                    <form class="letter form-horizontal">
-                        <?php echo $this->element('Pisma.start') ?>
-                        <fieldset class="final">
-                            <div class="form-group">
-                                <div class="col-lg-10 col-lg-offset-1 text-center">
-                                    <button type="submit" class="btn btn-md btn-default btn-icon"><span
-                                            class="icon glyphicon glyphicon-play"></span>Wróć do edycji treści pisma
-                                    </button>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
-        </section>
-
         <h2>Wpisz treść</h2>
         <section>
-
-
             <form class="form-save" method="post" action="/pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
 
                 <div class="row">
