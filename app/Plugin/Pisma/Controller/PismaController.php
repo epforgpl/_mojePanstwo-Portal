@@ -43,9 +43,6 @@ class PismaController extends ApplicationsController
     public function view($id, $slug = '')
     {
         $pismo = $this->load($id);
-
-        if ($pismo['is_owner'])
-            $this->menu_selected = 'view';
     }
 
     private function load($id)
@@ -93,12 +90,6 @@ class PismaController extends ApplicationsController
 
             if (!$pismo['is_owner'])
                 return $this->redirect($this->referer());
-
-            if ($pismo['saved']) {
-                $this->menu_selected = 'view';
-            } else {
-                $this->menu_selected = 'nowe';
-            }
 
         } else {
 
