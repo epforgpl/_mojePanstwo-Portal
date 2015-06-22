@@ -263,7 +263,8 @@ var PISMA = Class.extend({
                 },
                 toolbar: {
                     'image': false,
-                    'emSmall': false
+                    'emSmall': false,
+                    'link': false
                 },
                 'html': true,
                 'fa': true,
