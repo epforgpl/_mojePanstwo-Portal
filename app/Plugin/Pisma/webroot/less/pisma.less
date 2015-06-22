@@ -390,18 +390,9 @@
         list-style: none;
         padding: 5px 0;
         margin: 0;
-        margin: 5px 0;
 
         &:first-child {
           margin-top: -10px;
-        }
-
-        .glyphicon {
-          top: 4px;
-
-          &.invert {
-            color: #555;
-          }
         }
 
         .btn {
@@ -516,19 +507,11 @@
       padding: 5px 0;
       margin: 0;
 
-      .glyphicon {
-        top: 4px;
-
-        &.invert {
-          color: #555;
-        }
-      }
-
       .btn {
         font-size: 12px;
         font-weight: 400;
         text-transform: uppercase;
-        width: 160px;
+        width: auto;
         margin: 0;
         word-spacing: 0.3em;
         border: none;
@@ -647,6 +630,10 @@
 
       &.final {
         margin-top: -10px;
+
+        .createBtn {
+          width: auto;
+        }
       }
 
       .form-group {
@@ -762,12 +749,6 @@
 
     li {
       list-style: none;
-
-      .glyphicon {
-        color: #FFF;
-        top: -2px;
-      }
-
       .clean {
         font-family: inherit;
         font-size: inherit;

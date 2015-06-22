@@ -4,37 +4,45 @@
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma-my.js') ?>
 
 <? if (!$this->Session->read('Auth.User.id')) { ?>
-<div class="container">
-    <div class="col-md-10 col-sm-offset-1">
-	    <div class="alert-identity alert alert-dismissable alert-success">
-	        <button type="button" class="close" data-dismiss="alert">×</button>
-	        <h4>Uwaga!</h4>
-	
-	        <p>Nie jesteś zalogowany. Twoje pisma będą przechowywane na tym urządzeniu przez 24 godziny. <a
-	                class="_specialCaseLoginButton" href="/login">Zaloguj się</a>, aby trwale przechowywać pisma na
-	            swoim koncie.</p>
-	    </div>
+    <div class="container">
+        <div class="col-md-10 col-sm-offset-1">
+            <div class="alert-identity alert alert-dismissable alert-success">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <h4>Uwaga!</h4>
+
+                <p>Nie jesteś zalogowany. Twoje pisma będą przechowywane na tym urządzeniu przez 24 godziny. <a
+                        class="_specialCaseLoginButton" href="/login">Zaloguj się</a>, aby trwale przechowywać pisma na
+                    swoim koncie.</p>
+            </div>
+        </div>
     </div>
-</div>
 <? } ?>
 
 <? if ($pagination['total']) { ?>
-<div class="search-container">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-10 col-sm-offset-1">
-                <div class="form-group">
-                    <form method="GET" action="/pisma">
-                        <input name="q" class="form-control input-md" placeholder="Szukaj w moich pismach..."
-                               type="text"
-                               value="<?= $q ?>">
-                        <input type="submit" value="Szukaj" style="display: none;"/>
-                    </form>
+    <div class="search-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="suggesterBlock searchForm">
+                        <form class="form-horizontal suggesterBlock" method="get" action="/pisma">
+                            <div class="searcher form-group has-feedback">
+                                <div class="input-group">
+                                    <input class="form-control hasclear input-lg" name="q" type="text" value="<?= $q ?>"
+                                           placeholder="Szukaj w moich pismach...">
+
+                                    <div class="input-group-btn">
+                                        <button type="submit" class="btn btn-primary input-lg">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 <? } ?>
 
 <div class="container" id="myPismaBrowser" data-query='<?= json_encode($query); ?>'>

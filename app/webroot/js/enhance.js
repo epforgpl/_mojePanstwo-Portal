@@ -32,7 +32,7 @@ function imgFixer(img) {
         imgBlankSrc = defaultImg + "&w=" + size + "&txt=brak+zdjęcia";
     } else {/*IMG LINK TO OTHERS - SO WE GENERATE SQUARE TOO*/
         /*LINK WITH ERROR TEXT*/
-        imgBlankSrc = defaultImg + "&w=" + size + "&txt=brak+miniatury";
+        imgBlankSrc = defaultImg + "&w=" + size + "&h=" + size;
     }
 
     /*REMOVE ONERROR FUNCTION - CAUSE WE USE IT ALREADY*/

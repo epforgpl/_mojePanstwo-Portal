@@ -238,13 +238,6 @@ var PISMA = Class.extend({
             }
         });
 
-        self.html.editorTop.find('.control-addressee').click(function () {
-            self.methods.stepper.steps("previous");
-        }).end()
-            .find('.control-template').click(function () {
-                self.methods.stepper.steps("previous");
-            });
-
         months = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'];
         uDatepicker = $.datepicker._updateDatepicker;
         $.datepicker._updateDatepicker = function () {
