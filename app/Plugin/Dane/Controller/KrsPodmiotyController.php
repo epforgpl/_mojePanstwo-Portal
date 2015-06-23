@@ -21,7 +21,9 @@ class KrsPodmiotyController extends DataobjectsController
         'itemtype' => 'http://schema.org/Organization',
         'titleprop' => 'name',
     );
-
+    
+    public $objectModerable = true;
+    
     public function beforeFilter()
     {
         parent::beforeFilter();
@@ -586,6 +588,22 @@ class KrsPodmiotyController extends DataobjectsController
         } else {
 		    return $menu;
 		}
+    }
+    
+    public function beforeRender()
+    {
+	    
+	    if(
+	    	( $this->object->getData('forma_prawna_id')=='1' ) || // FUNDACJA
+	    	( $this->object->getData('forma_prawna_id')=='15' ) // STOWARZYSZENIE
+	    ) {
+		    
+		    $this->_layout['header']['element'] = 'dataobject-cover';
+		    
+	    }
+	    
+	    parent::beforeRender();
+	    
     }
 
 }
