@@ -161,7 +161,7 @@ class PismaController extends ApplicationsController
 
             } elseif (isset($this->request->data['send'])) {
 
-                $this->Pismo->documents_send($id);
+                $this->Pismo->documents_send($id, $this->request->data);
 
             } elseif (isset($this->request->data['access'])) {
 

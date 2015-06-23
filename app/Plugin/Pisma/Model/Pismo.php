@@ -106,10 +106,11 @@ class Pismo extends AppModel
 
     }
 
-    public function documents_send($id)
+    public function documents_send($id, $data = array())
     {
         return $this->getDataSource()->request('pisma/documents/' . $id . '/send', array(
             'method' => 'POST',
+            'data' => $data,
         ));
     }
 

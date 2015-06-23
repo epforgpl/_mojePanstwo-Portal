@@ -20,8 +20,79 @@
                 </div>
                 <div class="col-md-2 nopadding">
                     <div class="editor-tooltip">
-                        <? $href_base = '/pisma/' . $pismo['alphaid'] . ',' . $pismo['slug'];
-                        if ($pismo['is_owner']) {
+                        <? $href_base = '/pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
+                        
+                        <div id="sendPismoModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	                        <div class="modal-dialog">
+	                            <div class="modal-content">
+	                                <div class="modal-header">
+	                                    <button type="button" class="close" data-dismiss="modal"
+	                                            aria-label="Close">
+	                                        <span aria-hidden="true">&times;</span></button>
+	                                    <h4 class="modal-title">Wysyłanie pisma</h4>
+	                                </div>
+	                                <form action="<?= $href_base ?>" method="POST">
+	                                    <div class="modal-body">
+	
+	                                        <? if ($this->Session->read('Auth.User.id')) { ?>
+	
+	                                            <p>Twoje pismo zostanie wysłane z adresu <span
+	                                                    class="email">pisma@mojepanstwo.pl</span> na
+	                                                adres:</p>
+	
+	                                            <p class="email email-big text-center"><?= $pismo['to_email'] ?></p>
+	
+	                                            <div class="additional-desc">
+	                                                <p>W polu <b>CC</b> wiadomości zostanie podany Twój
+	                                                    adres e-mail - otrzymasz więc kopię wysłanego
+	                                                    pisma.
+	                                                </p>
+	
+	                                                <p>W polu <b>Reply-to</b> wiadomości również
+	                                                    zostanie podany Twój adres email, aby adresat
+	                                                    przesłał odpowiedź bezpośrednio na Twój adres.
+	                                                </p>
+	                                            </div>
+	
+	                                        <? } else { ?>
+	
+	                                            <p>Twoje pismo zostanie wysłane z adresu <span
+	                                                    class="email">pisma@mojepanstwo.pl</span> na
+	                                                adres:</p>
+	
+	                                            <p class="email email-big text-center"><?= $pismo['to_email'] ?></p>
+												
+												<p>Podaj swój adres e-mail:</p>
+												<input name="email" class="form-control" type="email" required="required" />
+												
+	                                            <div class="additional-desc">
+	                                                <p>W polu <b>CC</b> wiadomości zostanie podany Twój
+	                                                    adres e-mail - otrzymasz więc kopię wysłanego
+	                                                    pisma.
+	                                                </p>
+	
+	                                                <p>W polu <b>Reply-to</b> wiadomości również
+	                                                    zostanie podany Twój adres email, aby adresat
+	                                                    przesłał odpowiedź bezpośrednio na Twój adres.
+	                                                </p>
+	                                            </div>
+	                                            
+	                                        <? } ?>
+	
+	                                    </div>
+	                                    <div class="modal-footer">
+	                                        
+	                                        <button type="button" class="btn btn-default"
+	                                                data-dismiss="modal">Zamknij
+	                                        </button>
+	                                        <input name="send" value="Wyślij" type="submit" class="btn btn-primary" value="Wyślij"/>
+	                                    </div>
+	                                </form>
+	                            </div>
+	                        </div>
+	                    </div>
+                        
+                        <? if ($pismo['is_owner']) {
                             if (!$this->Session->read('Auth.User.id')) { ?>
                                 <div class="alert alert-dismissable alert-success">
                                     <button type="button" class="close" data-dismiss="alert">×</button>
@@ -46,59 +117,7 @@
                                                class="btn btn-primary sendPismo btn-icon"><i
                                                     class="icon glyphicon glyphicon-send"></i>Wyślij...</a>
 
-                                            <div id="sendPismoModal" class="modal fade" tabindex="-1" role="dialog"
-                                                 aria-labelledby="myModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span></button>
-                                                            <h4 class="modal-title">Wysyłanie pisma</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-
-                                                            <? if ($this->Session->read('Auth.User.id')) { ?>
-
-                                                                <p>Twoje pismo zostanie wysłane z adresu <span
-                                                                        class="email">pisma@mojepanstwo.pl</span> na
-                                                                    adres:</p>
-
-                                                                <p class="email email-big text-center"><?= $pismo['to_email'] ?></p>
-
-                                                                <div class="additional-desc">
-                                                                    <p>W polu <b>CC</b> wiadomości zostanie podany Twój
-                                                                        adres e-mail - otrzymasz więc kopię wysłanego
-                                                                        pisma.
-                                                                    </p>
-
-                                                                    <p>W polu <b>Reply-to</b> wiadomości również
-                                                                        zostanie podany Twój adres email, aby adresat
-                                                                        przesłał odpowiedź bezpośrednio na Twój adres.
-                                                                    </p>
-                                                                </div>
-
-                                                            <? } else { ?>
-
-                                                                <p class="text-center">Aby wysyłać pisma musisz się
-                                                                    zalogować.</p>
-                                                            <? } ?>
-
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <form action="<?= $href_base ?>" method="POST">
-                                                                <button type="button" class="btn btn-default"
-                                                                        data-dismiss="modal">Zamknij
-                                                                </button>
-                                                                <? if ($this->Session->read('Auth.User.id')) { ?>
-                                                                    <input name="send" value="Wyślij" type="submit"
-                                                                           class="btn btn-primary" value="Wyślij"/>
-                                                                <? } ?>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
                                         <? } ?>
                                     </li>
                                 <? } ?>
