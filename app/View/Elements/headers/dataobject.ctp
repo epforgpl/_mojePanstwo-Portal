@@ -70,9 +70,11 @@ if (!isset($renderFile) || !$renderFile)
                     </h1>
                 </div>
             </div>
-            <?php if (isset($_observeOptions) && !empty($_observeOptions)) {
-                echo $this->element('modals/dataobject-observe');
-            } ?>
+            <?php if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
+                <div class="col-md-2">
+                    <? echo $this->element('modals/dataobject-observe'); ?>
+                </div>
+            <? } ?>
             <div class="col-xs-10">
                 <div class="status">
                     <?= @$this->element('status_bar/' . $object->getDataset(), array('plugin' => 'Dane')) ?>

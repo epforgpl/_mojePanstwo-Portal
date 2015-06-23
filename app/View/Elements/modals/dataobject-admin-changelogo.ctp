@@ -1,0 +1,1 @@
+<div class="opt btn btn-default addLogo">Dodaj logo</div>

@@ -38,6 +38,99 @@
         color: #053f69;
       }
     }
+
+    &.dataobject-cover {
+      background-color: #053f69;
+
+      &, & a, & .title, & .title a {
+        color: #ffffff;
+      }
+
+      .headlineBar {
+        min-height: 142px;
+
+        &:before {
+          display: block;
+          width: 100%;
+          height: 228px;
+
+          background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+          background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0.8)));
+          background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+          background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+          background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+          background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#cc000000', GradientType=0);
+        }
+
+        .holder {
+          position: relative;
+
+          .title {
+            display: table-cell;
+            vertical-align: bottom;
+            height: 108px;
+
+            h1, h1 a {
+              font-size: 45px;
+            }
+
+            .glyphicon {
+              font-size: 30px;
+              color: #78c329;
+              margin-left: 12px;
+            }
+          }
+
+          .options {
+            position: absolute;
+            bottom: 24px;
+            right: 0;
+            text-align: right;
+
+            .opt {
+              margin-left: 10px;
+
+              &.addBackgroundBtn {
+                position: relative;
+
+                > .cropit-image-input {
+                  cursor: pointer;
+                  display: block;
+                  width: 100%;
+                  height: 100%;
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+
+                  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+                  filter: alpha(opacity=0);
+                  -moz-opacity: 0;
+                  -khtml-opacity: 0;
+                  opacity: 0;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .statusBar {
+        background-color: #ffffff;
+        padding: 30px 0 12px;
+
+        .dataHighlights .dataHighlight {
+          ._label {
+            font-size: 10px;
+            margin-bottom: 10px;
+          }
+          ._value {
+            font-size: 24px;
+            line-height: 1em;
+          }
+        }
+      }
+    }
   }
 
   /*GENERAL CODE*/
@@ -145,11 +238,10 @@
     padding-right: 10px;
 
     h1 {
-      font-size: 26px;
-      font-weight: 300;
       margin: 0 0 15px;
 
-      a {
+      &, & a {
+        font-family: Roboto, sans-serif;
         font-size: 26px;
         font-weight: 300;
       }
@@ -231,11 +323,12 @@
           position: relative;
           top: 1px;
           margin-right: 1px;
+
           &.badge {
-	          top: 0px;
-			    font-size: 11px;
-			    background-color: #FFF;
-			    color: #789;
+            top: 0;
+            font-size: 11px;
+            background-color: #FFF;
+            color: #789;
           }
         }
       }
@@ -324,6 +417,7 @@
       line-height: 1.5em;
       margin: -4px 0 0;
       color: #789;
+      white-space: nowrap;
 
       img {
         float: left;
@@ -355,7 +449,36 @@
     .label {
       font-size: 85%;
     }
+  }
+}
 
+#modalAdminAddBackground {
+  text-align: left;
+
+  .modal-dialog {
+    width: 770px;
+
+    .image-editor {
+      .cropit-image-preview {
+        background-color: #f8f8f8;
+        background-size: cover;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin-top: 7px;
+        width: 750px;
+        height: 200px;
+        cursor: move;
+      }
+
+      .cropit-image-background {
+        opacity: .2;
+        cursor: auto;
+      }
+
+      .image-size-label {
+        margin-top: 10px;
+      }
+    }
   }
 }
 

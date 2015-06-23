@@ -11,11 +11,9 @@
             </div>
             <?php if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
                 <div class="col-md-2">
-                    <div class="observeButton btn btn-icon btn-primary">
-                        <i class="icon" data-icon-applications="&#xe60a;"></i>Obserwuj...
-                    </div>
+                    <? echo $this->element('modals/dataobject-observe'); ?>
                 </div>
-            <?php } ?>
+            <? } ?>
         </div>
     </div>
 </div>

@@ -3,6 +3,8 @@
 (function ($) {
     "use strict";
 
+    var appHeader = $('.appHeader');
+
     if (window.screen.width > 768) {
         var appMenu = $('.appMenu'),
             appMenuLi = appMenu.find('ul.nav > li'),
@@ -44,6 +46,31 @@
                     appMenu.find('a.show_hide').attr('data-status', 'less');
                 }
             }
+        }
+    }
+
+    if (appHeader.hasClass('dataobject-cover')) {
+        var changeBackground = $('#modalAdminAddBackground');
+
+        if (changeBackground.length) {
+            appHeader.find('.addBackgroundBtn').click(function () {
+                changeBackground.modal('show');
+            });
+            changeBackground.find('.image-editor').cropit({
+                imageState: {
+                    src: 'http://lorempixel.com/1500/400/'
+                },
+                width: 750,
+                height: 200,
+                exportZoom: 2
+            });
+            changeBackground.find('.export').click(function () {
+                var imageData = changeBackground.find('.image-editor').cropit('export', {
+                    type: 'image/jpeg',
+                    quality: .9
+                });
+                changeBackground.find('.modal-footer').append($('<img/>').attr('src', imageData));
+            });
         }
     }
 }(jQuery));
