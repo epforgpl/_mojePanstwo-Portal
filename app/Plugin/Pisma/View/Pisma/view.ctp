@@ -61,9 +61,14 @@
 	                                                adres:</p>
 	
 	                                            <p class="email email-big text-center"><?= $pismo['to_email'] ?></p>
-												
-												<p>Podaj swój adres e-mail:</p>
-												<input name="email" class="form-control" type="email" required="required" />
+
+                                                <p>Podaj swoje imię i nazwisko bądź nazwę instytucji:</p>
+                                                <input name="name" class="form-control" type="text"
+                                                       required="required"/>
+
+                                                <p>Podaj swój adres e-mail:</p>
+                                                <input name="email" class="form-control" type="email"
+                                                       required="required"/>
 												
 	                                            <div class="additional-desc">
 	                                                <p>W polu <b>CC</b> wiadomości zostanie podany Twój

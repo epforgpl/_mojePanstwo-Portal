@@ -532,6 +532,17 @@ var PISMA = Class.extend({
         }
         elEd.focus();
     },
+    requiredInputs: function () {
+        var self = this,
+            nadawca = $('#editor-cont .control.control-sender textarea.nadawca');
+
+        if (nadawca.length > 0 && nadawca.val() == "") {
+            nadawca.val('');
+            return false
+        }
+
+        return false;
+    },
     generateFormInsert: function () {
         "use strict";
         var self = this,
@@ -643,18 +654,41 @@ var PISMA = Class.extend({
 
         if (modal.sendPismo.length) {
             modal.sendPismo.find('.btn[type="submit"]').click(function () {
-                if ($(this).hasClass('disabled')) {
+                var correct = true;
+                $.each(modal.sendPismo.find('input:required'), function () {
+                    if ($(this).val() == "") {
+                        $(this).val('');
+                        correct = false;
+                        return false;
+                    } else {
+                        if ($(this).attr('type') == "email") {
+                            var emailReg = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+
+                            if (!emailReg.test($(this).val())) {
+                                $(this).focus();
+                                correct = false;
+                                return false;
+                            }
+                        }
+                    }
+                });
+                if ($(this).hasClass('loading')) {
+                    correct = false;
                     return false;
                 }
-                $(this).addClass('disabled loading');
+                if (correct) {
+                    $(this).addClass('loading');
+                }
             });
         }
 
         self.html.stepper_div.find('.form-save .savePismo').click(function (e) {
             e.preventDefault();
 
-            $(this).parent('form').find('input[name="_save"]').attr('name', 'save');
-            self.generateFormInsert();
+            if (self.requiredInputs()) {
+                $(this).parent('form').find('input[name="_save"]').attr('name', 'save');
+                self.generateFormInsert();
+            }
         });
     },
     unsaveWarning: function () {
@@ -667,10 +701,18 @@ var PISMA = Class.extend({
             self.confirmExit = true;
 
             btnActions.find('.btn.savePismo, a[name="cancel"], input[name="delete"]').click(function () {
-                self.confirmExit = false;
+                if ($(this).hasClass('savePismo')) {
+                    if (self.requiredInputs()) {
+                        self.confirmExit = false;
+                    }
+                } else {
+                    self.confirmExit = false;
+                }
             });
             $('.form-save .savePismo').click(function () {
-                self.confirmExit = false;
+                if (self.requiredInputs()) {
+                    self.confirmExit = false;
+                }
             });
 
             $(window).bind('beforeunload', function () {
