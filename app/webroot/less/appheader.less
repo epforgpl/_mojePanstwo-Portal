@@ -141,8 +141,6 @@
   }
 
   .holder {
-    padding-left: 10px;
-    padding-right: 10px;
 
     h1 {
       font-size: 26px;
@@ -243,13 +241,16 @@
         a {
           background: none;
           padding-bottom: 8px;
-          border-bottom: @borderSize solid #666;
+          border-bottom: @borderSize solid #789;
           margin-bottom: 0;
           cursor: pointer;
           border-left: none;
           border-right: none;
           border-top: none;
           color: #333;
+          .glyphicon {
+	          color: #789;
+          }
         }
       }
       &.show_hide a {

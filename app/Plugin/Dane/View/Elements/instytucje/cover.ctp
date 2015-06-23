@@ -1,8 +1,6 @@
 <?
 
 $this->Combinator->add_libs('css', $this->Less->css('zamowienia', array('plugin' => 'ZamowieniaPubliczne')));
-$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
-$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
 $options = array(
@@ -10,12 +8,21 @@ $options = array(
 );
 
 ?>
-<div class="col-md-8">
-
+<div class="col-md-9">
+	
     <div class="blocks">
-
+		
+		<?
+			if( $adres = $object->getData('adres_str') ) {
+				$adres = str_ireplace('ul.', '<br/>ul.', $adres) . ', Polska';
+				echo $this->element('Dane.adres', array(
+					'adres' => $adres,
+				));
+			}
+		?>
+						
         <? if (@$dataBrowser['aggs']['all']['prawo']['top']['hits']['hits']) { ?>
-            <div class="block block-default col-xs-12">
+            <div class="block block-default block-size-sm col-xs-12">
                 <header>Najnowsze akty prawne:</header>
 
                 <section class="aggs-init">
@@ -33,7 +40,7 @@ $options = array(
                                     <? } ?>
                                 </ul>
                                 <div class="buttons">
-                                    <a href="#" class="btn btn-primary btn-sm">Zobacz więcej</a>
+                                    <a href="#" class="btn btn-primary btn-xs">Zobacz więcej</a>
                                 </div>
                             <? } ?>
 
@@ -46,7 +53,7 @@ $options = array(
 
 
         <? if (@$dataBrowser['aggs']['all']['prawo_urzedowe']['top']['hits']['hits']) { ?>
-            <div class="block block-default col-xs-12">
+            <div class="block block-default block-size-sm col-xs-12">
                 <header>Najnowsze pozycje w dzienniku urzędowym:</header>
 
                 <section class="aggs-init">
@@ -64,7 +71,7 @@ $options = array(
                                     <? } ?>
                                 </ul>
                                 <div class="buttons">
-                                    <a href="#" class="btn btn-primary btn-sm">Zobacz więcej</a>
+                                    <a href="#" class="btn btn-primary btn-xs">Zobacz więcej</a>
                                 </div>
                             <? } ?>
 
@@ -77,103 +84,13 @@ $options = array(
 
 
         <? if (@$dataBrowser['aggs']['all']['zamowienia']['top']['hits']['hits']) { ?>
-            <div class="block block-default col-xs-12">
-                <header>Najnowsze zamówienia publiczne:</header>
-
-                <section class="aggs-init">
-
-                    <div class="dataAggs">
-                        <div class="agg agg-Dataobjects">
-                            <? if ($dataBrowser['aggs']['all']['zamowienia']['top']['hits']['hits']) { ?>
-                                <ul class="dataobjects">
-                                    <? foreach ($dataBrowser['aggs']['all']['zamowienia']['top']['hits']['hits'] as $doc) { ?>
-                                        <li>
-                                            <?
-                                            echo $this->Dataobject->render($doc, 'default');
-                                            ?>
-                                        </li>
-                                    <? } ?>
-                                </ul>
-                                <div class="buttons">
-                                    <a href="#" class="btn btn-primary btn-sm">Zobacz więcej</a>
-                                </div>
-                            <? } ?>
-
-                        </div>
-                    </div>
-
-                </section>
-            </div>
-        <? } ?>
-
-
-        <? if (@$dataBrowser['aggs']['all']['dokumenty']['wykonawcy']['id']['buckets']) { ?>
-            <div class="block block-default col-xs-12">
-                <header>Najwięcej zamówień publicznych otrzymali:</header>
-
-                <section class="aggs-init">
-
-                    <div class="dataAggs">
-                        <div class="agg agg-Dataobjects">
-
-                            <ul class="wykonawcy">
-                                <?
-                                foreach ($dataBrowser['aggs']['all']['dokumenty']['wykonawcy']['id']['buckets'] as $doc) {
-
-                                    $wykonawca = array(
-                                        'id' => $doc['key'],
-                                        'nazwa' => $doc['nazwa']['buckets'][0]['key'],
-                                        'cena' => $doc['cena']['value'],
-                                    );
-                                    ?>
-                                    <li>
-                                        <a class="nazwa pull-left"
-                                           href="#"><?= $this->Text->truncate($wykonawca['nazwa'], 70) ?></a>
-                                            <span class="cena pull-right"><?= number_format_h($wykonawca['cena']) ?>
-                                                PLN</span>
-
-                                        <p class="stats"><?= pl_dopelniacz($doc['dokumenty']['doc_count'], 'zamówienie', 'zamówienia', 'zamówień') ?></p>
-
-                                        <div style="display: none;">
-                                            <ul class="dataobjects smaller">
-                                                <?
-                                                foreach ($doc['dokumenty']['top']['hits']['hits'] as $hit) {
-
-                                                    $czesc = false;
-
-                                                    if (
-                                                        isset($hit['fields']['source'][0]['static']['wykonawcy']) &&
-                                                        $hit['fields']['source'][0]['static']['wykonawcy']
-                                                    ) {
-                                                        foreach ($hit['fields']['source'][0]['static']['wykonawcy'] as $w)
-                                                            if ($w['id'] == $wykonawca['id'])
-                                                                $czesc = $w;
-                                                    }
-
-                                                    echo $this->Dataobject->render($hit, 'zamowienia_publiczne_dokumenty', array(
-                                                        'czesc' => $czesc,
-                                                    ));
-                                                }
-                                                ?>
-                                            </ul>
-
-                                            <? if ($doc['dokumenty']['doc_count'] > 5) { ?>
-                                                <div class="buttons">
-                                                    <a href="#" class="btn btn-primary btn-sm">Więcej</a>
-                                                </div>
-                                            <? } ?>
-                                        </div>
-
-                                    </li>
-                                <? } ?>
-                            </ul>
-                            <div class="buttons">
-                                <a href="#" class="btn btn-primary btn-sm">Zobacz więcej</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </section>
+            <div class="block block-default block-size-sm col-xs-12">
+                <header>Zamówienia publiczne:</header>
+				<section>
+	                <?= $this->element('Dane.zamowienia_publiczne', array(
+	                	'url' => $object->getUrl() . '/mp_zamowienia.json',
+	                )); ?>
+				</section>
             </div>
         <? } ?>
 

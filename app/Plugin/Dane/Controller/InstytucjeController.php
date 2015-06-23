@@ -17,6 +17,7 @@ class InstytucjeController extends DataobjectsController
 
     public $loadChannels = true;
     public $initLayers = array();
+    public $components = array('RequestHandler');
 
     public function view()
     {
@@ -288,7 +289,8 @@ class InstytucjeController extends DataobjectsController
     public function getMenu()
     {
 
-        $object = $this->object;
+        if( !$this->object )
+        	return false;
 
         $menu = array(
             'items' => array(),
@@ -297,6 +299,10 @@ class InstytucjeController extends DataobjectsController
 
         $menu['items'][] = array(
             'label' => 'Dane',
+            'icon' => array(
+	            'src' => 'glyphicon',
+	            'id' => 'home',
+            ),
         );
 
         $menu['items'][] = array(
@@ -427,37 +433,30 @@ class InstytucjeController extends DataobjectsController
 
     public function beforeRender()
     {
-
-        if ($this->object->getId() == 3214) {
-            $this->headerObject = array('url' => '/dane/img/headers/sejmometr.jpg', 'height' => '250px');
-        } else {
-            $this->headerObject = array('url' => '/dane/img/headers/instytucje.jpg', 'height' => '250px');
-        }
-
-
-        $this->addons = array(
-            'wniosek_udostepnienie' => array(
-                'adresat_id' => $this->object->getDataset() . ':' . $this->object->getId(),
-                'szablon_id' => 35,
-                'nazwa' => 'Wyślij wniosek o udostępnienie informacji publicznej',
-                'opis' => 'Masz pytania dotyczące działalności tej instytucji? Kliknij, aby wysłać odpowiedni wniosek.',
-            )
-        );
-
-        if ($this->object->getData('email')) {
-
-            $this->actions = array(
-                'pismo' => array(
-                    'adresat_id' => $this->object->getDataset() . ':' . $this->object->getId(),
-                    'szablon_id' => 35,
-                    'nazwa' => 'Wyślij wniosek o udostępnienie informacji publicznej',
-                    'opis' => 'Masz pytania dotyczące działalności tej instytucji? Kliknij, aby wysłać odpowiedni wniosek.',
-                ),
-            );
-
+		
+		if( $this->object ) {
+			
+	        if ($this->object->getId() == 3214) {
+	            $this->headerObject = array('url' => '/dane/img/headers/sejmometr.jpg', 'height' => '250px');
+	        } else {
+	            $this->headerObject = array('url' => '/dane/img/headers/instytucje.jpg', 'height' => '250px');
+	        }
+        
         }
 
         parent::beforeRender();
+    }
+    
+    public function mp_zamowienia() {
+	    
+	    $this->loadModel('ZamowieniaPubliczne.ZamowieniaPubliczne');
+	    $aggs = $this->ZamowieniaPubliczne->getAggs(array(
+		    'instytucja_id' => $this->request->params['id'],
+	    ));
+	    
+	    $this->set('aggs', $aggs);
+	    $this->set('_serialize', 'aggs');
+	    
     }
 
 } 
