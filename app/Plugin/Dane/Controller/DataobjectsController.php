@@ -23,6 +23,8 @@ class DataobjectsController extends AppController
     public $actions = array();
     public $appSelected = '';
     public $addDatasetBreadcrumb = true;
+    
+    public $objectModerable = false;
 
     public $_layout = array(
         'header' => array(
@@ -256,11 +258,14 @@ class DataobjectsController extends AppController
             $selected = $this->request->params['action'];
             if ($selected == 'view')
                 $selected = '';
-
+							
             $this->menu['selected'] = $selected;
             $this->menu['base'] = $this->object->getUrl();
             $this->set('object_actions', $this->actions);
             $this->set('object_addons', $this->addons);
+            
+            $this->objectModerable = $this->objectModerable && true; // && user is superuser
+            $this->set('object_moderable', $this->objectModerable);
 
             $this->prepareMetaTags();
 
