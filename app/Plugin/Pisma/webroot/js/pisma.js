@@ -533,7 +533,7 @@ var PISMA = Class.extend({
         elEd.focus();
     },
     requiredInputs: function () {
-        var nadawca = self.html.stepper_div.find('.control.control-sender textarea.nadawca');
+        var nadawca = $('#editor-cont .control.control-sender textarea.nadawca');
 
         if (nadawca.length > 0 && nadawca.val() == "") {
             nadawca.val('');
