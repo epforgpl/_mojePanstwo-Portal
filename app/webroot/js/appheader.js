@@ -161,7 +161,7 @@
 
             changeBackground.find('.delete').click(function () {
                 $.ajax({
-                    url: '/pages/' + $(this).attr('data-type') + '/' + dataset + '/' + object_id,
+                    url: '/dane/' + dataset + '/' + object_id + '/page/' + $(this).attr('data-type'),
                     method: "DELETE",
                     before: function () {
                         $(this).addClass('loading disabled')
