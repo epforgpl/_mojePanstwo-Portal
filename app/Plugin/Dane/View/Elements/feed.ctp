@@ -1,7 +1,4 @@
 <?
-
-$this->Combinator->add_libs('css', $this->Less->css('feed', array('plugin' => 'Dane')));
-
 $file_exists = false;
 if (isset($file)) {
     $path = App::path('Plugin');
