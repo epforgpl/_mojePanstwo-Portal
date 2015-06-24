@@ -533,15 +533,14 @@ var PISMA = Class.extend({
         elEd.focus();
     },
     requiredInputs: function () {
-        var self = this,
-            nadawca = $('#editor-cont .control.control-sender textarea.nadawca');
+        var nadawca = $('#editor-cont .control.control-sender textarea.nadawca');
 
         if (nadawca.length > 0 && nadawca.val() == "") {
             nadawca.val('');
             return false
         }
 
-        return false;
+        return true;
     },
     generateFormInsert: function () {
         "use strict";
