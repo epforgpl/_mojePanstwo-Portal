@@ -1,129 +1,129 @@
 .theme-default {
-    background: #ffffff; /* Old browsers */
-background: -moz-linear-gradient(top,  #ffffff 13%, #F8F8F8 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(10%,#ffffff), color-stop(100%,#F8F8F8)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #ffffff 13%,#F8F8F8 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #ffffff 13%,#F8F8F8 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #ffffff 13%,#F8F8F8 100%); /* IE10+ */
-background: linear-gradient(to bottom,  #ffffff 13%,#F8F8F8 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#F8F8F8',GradientType=0 ); /* IE6-9 */
+  background: #ffffff; /* Old browsers */
+  background: -moz-linear-gradient(top, #ffffff 13%, #F8F8F8 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(13%, #ffffff), color-stop(100%, #F8F8F8)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #ffffff 13%, #F8F8F8 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #ffffff 13%, #F8F8F8 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #ffffff 13%, #F8F8F8 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #ffffff 13%, #F8F8F8 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#F8F8F8', GradientType=0); /* IE6-9 */
 
   background-attachment: fixed;
 }
 
 .theme-simply {
-    background-color: #FFFFFF;
+  background-color: #FFFFFF;
 }
 
 .theme-wallpaper {
-    background: no-repeat center center fixed #000000;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -ms-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+  background: no-repeat center center fixed #000000;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .block {
-    padding: 0;
-    display: inline-block;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border-radius: 4px;
+  padding: 0;
+  display: inline-block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
 
-    > header, > section, > footer {
-        width: 100%;
-        display: block;
-        float: left;
+  > header, > section, > footer {
+    width: 100%;
+    display: block;
+    float: left;
+  }
+
+  > section {
+    &.nopadding {
+      padding: 0;
     }
 
-    > section {
-        &.nopadding {
-            padding: 0;
-        }
-
-        ul {
-            padding: 0;
-            margin: 0;
-            list-style: none;
-        }
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
     }
+  }
 }
 
 .theme-default .block-group,
 .theme-wallpaper .block-group,
 .theme-simply .block-group.block-border {
-    background-color: #fff;
-    display: inline-block;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 0;
-    margin-top: 10px;
-    margin-bottom: 10px;
+  background-color: #fff;
+  display: inline-block;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
 
-    .block {
-        border-width: 0;
-        float: left;
-        margin-top: 0;
-        margin-bottom: 0;
-    }
+  .block {
+    border-width: 0;
+    float: left;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }
 
 .theme-simply .block,
 .theme-default .block.block-simple,
 .theme-wallpaper .block.block-simple {
+  background: none;
+  border: none;
+
+  > header {
+    padding: 10px;
+    color: #3d3d3d;
+    font-size: 16px;
+    font-weight: 600;
     background: none;
-    border: none;
+  }
+  > section {
+    padding: 0;
+  }
 
-    > header {
-        padding: 10px;
-        color: #3d3d3d;
-        font-size: 16px;
-        font-weight: 600;
-        background: none;
-    }
-    > section {
-        padding: 0;
-    }
-
-    > footer {
-        padding: 0 8px 15px;
-        color: #3d3d3d;
-    }
+  > footer {
+    padding: 0 8px 15px;
+    color: #3d3d3d;
+  }
 }
 
 .theme-default .block,
 .theme-wallpaper .block,
 .theme-simply .block.block-border {
-    background-color: #fff;
-    border: 1px solid #ddd;
+  background-color: #fff;
+  border: 1px solid #ddd;
 
-    > header {
-        padding: 10px 15px;
-        color: #333333;
-        background-color: #EAEBEF;
-        border-color: #ddd;
-        display: inline-block;
-        font-size: 16px;
+  > header {
+    padding: 10px 15px;
+    color: #333333;
+    background-color: #EAEBEF;
+    border-color: #ddd;
+    display: inline-block;
+    font-size: 16px;
 
-        .sm {
-            color: #333;
-            font-weight: 400;
-            font-size: 16px;
-            white-space: normal;
-            line-height: 24px;
-            text-align: left;
-            word-spacing: 3px;
-            width: auto;
-            float: left;
-        }
+    .sm {
+      color: #333;
+      font-weight: 400;
+      font-size: 16px;
+      white-space: normal;
+      line-height: 24px;
+      text-align: left;
+      word-spacing: 3px;
+      width: auto;
+      float: left;
     }
-    > section {
-        padding: 15px;
-    }
+  }
+  > section {
+    padding: 15px;
+  }
 
-    > footer {
-        padding: 0 15px 15px;
-        color: #333333;
-    }
+  > footer {
+    padding: 0 15px 15px;
+    color: #333333;
+  }
 }

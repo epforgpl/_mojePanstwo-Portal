@@ -17,11 +17,6 @@ class Powiaty extends DataObject
         return 'Powiat';
     }
 
-    public function getIcon()
-    {
-        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe626;"></i>';
-    }
-
     public function hasHighlights()
     {
         return false;

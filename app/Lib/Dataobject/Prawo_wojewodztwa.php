@@ -23,11 +23,6 @@ class Prawo_wojewodztwa extends DocDataObject
         return $output;
     }
 
-    public function getIcon()
-    {
-        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe637;"></i>';
-    }
-
     public function getMetaDescriptionParts($preset = false)
     {
         return array(

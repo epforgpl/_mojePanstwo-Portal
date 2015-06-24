@@ -26,11 +26,6 @@ class Sa_orzeczenia extends DataObject
     public function getLabel() {
 	    return 'Orzeczenie ' . $this->getData('sad_dopelniacz');
     }
-
-    public function getIcon()
-    {
-        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe632;"></i>';
-    }
     
     public function getMetaDescriptionParts($preset = false)
 	{

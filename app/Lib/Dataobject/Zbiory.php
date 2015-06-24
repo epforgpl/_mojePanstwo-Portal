@@ -21,11 +21,6 @@ class Zbiory extends DataObject
     {
         return false;
     }
-
-    public function getIcon()
-    {
-        return false;
-    }
     
     public function getUrl()
     {

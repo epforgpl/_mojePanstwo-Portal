@@ -48,6 +48,7 @@
     $this->Combinator->add_libs('css', $this->Less->css('structure'), false);
     $this->Combinator->add_libs('css', $this->Less->css('main'), false);
     $this->Combinator->add_libs('css', $this->Less->css('themes'), false);
+    $this->Combinator->add_libs('css', $this->Less->css('icon-datasets'));
     $this->Combinator->add_libs('css', $this->Less->css('bootstrap-checkboxes'));
     $this->Combinator->add_libs('css', $this->Less->css('suggester'));
     $this->Combinator->add_libs('css', $this->Less->css('appheader'));
@@ -183,8 +184,8 @@ $this->Combinator->add_libs('js', 'main', false);
 $this->Combinator->add_libs('js', 'suggester');
 $this->Combinator->add_libs('js', 'appheader');
 
-if( isset($object_moderable) && $object_moderable ) {
-	$this->Combinator->add_libs('js', 'Dane.dataobjects-moderate');
+if (isset($object_moderable) && $object_moderable) {
+    $this->Combinator->add_libs('js', 'Dane.dataobjects-moderate');
     $this->Combinator->add_libs('css', $this->Less->css('dataobjects-moderate', array('plugin' => 'Dane')));
 }
 

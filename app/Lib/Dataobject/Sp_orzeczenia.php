@@ -27,11 +27,6 @@ class Sp_orzeczenia extends DataObject
 
     }
 
-    public function getIcon()
-    {
-        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe633;"></i>';
-    }
-
     public function getTitle()
     {
 

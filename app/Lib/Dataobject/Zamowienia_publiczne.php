@@ -72,11 +72,6 @@ class Zamowienia_publiczne extends DataObject
 
     }
 
-    public function getIcon()
-    {
-        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe625;"></i>';
-    }
-
     public function getMetaDescriptionParts($preset = false)
 	{
 
