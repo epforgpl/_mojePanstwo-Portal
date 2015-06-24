@@ -110,7 +110,7 @@
                 $.ajax({
                     url: '/dane/' + dataset + '/' + object_id + '/page/logo.json',
                     method: "POST",
-                    data: imageData,
+                    data: {'image': imageData},
                     before: function () {
                         $(this).addClass('loading disabled')
                     },
@@ -144,7 +144,7 @@
                 $.ajax({
                     url: '/dane/' + dataset + '/' + object_id + '/page/cover.json',
                     method: "POST",
-                    data: imageData,
+                    data: {'image': imageData},
                     before: function () {
                         $(this).addClass('loading disabled')
                     },
