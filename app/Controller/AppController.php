@@ -144,6 +144,9 @@ class AppController extends Controller
             	'label' => 'Prawo powszechne',
 				'searchTitle' => 'Szukaj w prawie powszechnym...',
 				'menu_id' => 'powszechne',
+				'autocompletion' => array(
+					'dataset' => 'prawo',
+				),
             ),
             'prawo_wojewodztwa' => array(
             	'label' => 'Prawo lokalne',
@@ -159,6 +162,9 @@ class AppController extends Controller
             	'label' => 'Tematy w prawie',
 				'searchTitle' => 'Szukaj w tematach...',
 				'menu_id' => 'tematy',
+				'autocompletion' => array(
+					'dataset' => 'prawo_hasla',
+				),
             ),
         ),  
         'orzecznictwo' => array(
