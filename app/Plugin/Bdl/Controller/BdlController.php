@@ -20,6 +20,9 @@ class BdlController extends ApplicationsController
 
         $options = array(
             'searchTitle' => 'Szukaj w Banku Danych Lokalnych...',
+            'autocompletion' => array(
+                'dataset' => 'bdl_wskazniki',
+            ),
             'conditions' => array(
                 'dataset' => array_keys($datasets)
             ),

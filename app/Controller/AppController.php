@@ -294,6 +294,10 @@ class AppController extends Controller
             'instytucje' => array(
             	'label' => 'Instytucje',
 				'menu_id' => 'instytucje',
+				'order' => 'weight desc',
+				'autocompletion' => array(
+					'dataset' => 'instytucje',
+				),
             ),
         ),
     );

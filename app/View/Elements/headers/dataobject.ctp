@@ -9,7 +9,7 @@ if (!isset($renderFile) || !$renderFile)
     $renderFile = 'page';
 ?>
 
-<div class="appHeader dataobject">
+<div class="appHeader dataobject" data-dataset="<?= $object->getDataset() ?>" data-object_id="<?= $object->getId() ?>">
     <div class="container">
         <div class="holder row">
             <div class="col-md-10">

@@ -13,11 +13,12 @@ if (!isset($renderFile) || !$renderFile)
     $renderFile = 'page';
 ?>
 
-<div class="appHeader dataobject dataobject-cover"<? if ($object->getData('page_photo')) {
+<div class="appHeader dataobject dataobject-cover" data-dataset="<?= $object->getDataset() ?>" data-object_id="<?= $object->getId() ?>" <? if ($object->getData('page_photo')) {
     echo ' data-photo="/pages/photo/' . $dataset . '/' . $object_id . '.png"';
 } ?><? if ($object->getData('‘page_logo’')) {
     echo ' data-photo="/pages/logo/' . $dataset . '/' . $object_id . '.png"';
 } ?>>
+	
     <div class="headlineBar">
         <div class="container">
             <div class="holder row">
