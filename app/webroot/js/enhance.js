@@ -65,7 +65,7 @@ function trimTitle() {
         var that = jQuery(this),
             body = jQuery.trim(that.text()),
             title = (that.attr('title') !== undefined && that.attr('title') !== '') ? that.attr('title') : ((that.data('trimtitle') !== undefined && that.data('trimtitle') !== '') ? that.data('trimtitle') : false),
-            trimLength = ((that.data('trimlength') !== undefined) ? that.data('trimlength') : 150),
+            trimLength = ((that.data('trimlength') !== undefined) ? that.data('trimlength') : 200),
             splitLocation,
             shortTitle = false,
             hyperlink;
