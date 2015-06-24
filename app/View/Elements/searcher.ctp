@@ -19,6 +19,7 @@
                        data-dataset="<?= $autocompletion ? $autocompletion['dataset'] : '*'; ?>"
                        data-url="<?= @$url ?>"
                        data-autocompletion="<?= $autocompletion ? 'true' : 'false' ?>"
+                       autocomplete="off"
                        required
                     />
                 <? if (isset($url) && !empty($q)) { ?>
