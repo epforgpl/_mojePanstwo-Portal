@@ -108,7 +108,7 @@
                     quality: .9
                 });
                 $.ajax({
-                    url: '/pages/logo/' + dataset + '/' + object_id,
+                    url: '/dane/' + dataset + '/' + object_id + '/page/logo',
                     method: "POST",
                     data: imageData,
                     before: function () {
@@ -139,7 +139,7 @@
                     quality: .9
                 });
                 $.ajax({
-                    url: '/pages/cover/' + dataset + '/' + object_id,
+                    url: '/dane/' + dataset + '/' + object_id + '/page/cover',
                     method: "POST",
                     data: imageData,
                     before: function () {

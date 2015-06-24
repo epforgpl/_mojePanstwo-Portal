@@ -10,20 +10,22 @@ $objectOptions = $this->viewVars['objectOptions'];
 /** @var Object $microdata */
 $objectOptions['microdata'] = $microdata;
 
-//$logo = $pageLayer['logo'];//boolean
-//$cover = $pageLayer['cover'];//boolean
-
 if (!isset($renderFile) || !$renderFile)
     $renderFile = 'page';
 ?>
 
-<div class="appHeader dataobject dataobject-cover" data-dataset="<?= $object->getDataset() ?>" data-object_id="<?= $object->getId() ?>" <? if ($object->getData('page_photo')) {
+<div class="appHeader dataobject dataobject-cover<? if ($pageLayer['logo']) {
+    echo ' dataobject-cover-logo';
+} ?><? if ($pageLayer['cover']) {
+    echo ' dataobject-cover-cover';
+} ?>" data-dataset="<?= $object->getDataset() ?>"
+     data-object_id="<?= $object->getId() ?>" <? if ($object->getData('page_photo')) {
     echo ' data-photo="/pages/photo/' . $dataset . '/' . $object_id . '.png"';
 } ?><? if ($object->getData('‘page_logo’')) {
-    echo ' data-photo="/pages/logo/' . $dataset . '/' . $object_id . '.png"';
+    echo ' data-cover="/pages/cover/' . $dataset . '/' . $object_id . '.png"';
 } ?>>
-	
-    <div class="headlineBar">
+
+<div class="headlineBar">
         <div class="container">
             <div class="holder row">
                 <div class="col-md-9">
