@@ -85,7 +85,34 @@
     }
 
     if (appHeader.hasClass('dataobject-cover')) {
-        var changeBackground = $('#modalAdminAddBackground');
+        var changeLogo = $('#modalAdminAddLogo'),
+            changeBackground = $('#modalAdminAddBackground');
+
+        if (changeLogo.length) {
+            appHeader.find('.addLogoBtn').click(function () {
+                changeLogo.modal('show');
+            });
+            changeLogo.find('.image-editor').cropit({
+                imageState: {
+                    src: 'http://lorempixel.com/180/180/'
+                },
+                width: 180,
+                height: 180
+            });
+            changeLogo.find('.export').click(function () {
+                var imageData = changeLogo.find('.image-editor').cropit('export', {
+                    type: 'image/jpeg',
+                    quality: .9
+                });
+                changeLogo.find('.modal-footer').append($('<img/>').attr('src', imageData));
+            });
+            changeLogo.on('change', '.btn-file :file', function () {
+                var input = $(this),
+                    numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                input.trigger('fileselect', [numFiles, label]);
+            });
+        }
 
         if (changeBackground.length) {
             appHeader.find('.addBackgroundBtn').click(function () {
@@ -105,6 +132,12 @@
                     quality: .9
                 });
                 changeBackground.find('.modal-footer').append($('<img/>').attr('src', imageData));
+            });
+            changeBackground.on('change', '.btn-file :file', function () {
+                var input = $(this),
+                    numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                input.trigger('fileselect', [numFiles, label]);
             });
         }
     }

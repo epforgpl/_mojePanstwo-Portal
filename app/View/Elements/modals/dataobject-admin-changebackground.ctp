@@ -1,6 +1,6 @@
 <div class="opt btn btn-default addBackgroundBtn">Dodaj obrazek tła</div>
 
-<div class="modal fade" id="modalAdminAddBackground" tabindex="-1" role="dialog"
+<div class="modal modalAdmin fade" id="modalAdminAddBackground" tabindex="-1" role="dialog"
      aria-labelledby="modalAdminAddBackgroundLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -13,7 +13,8 @@
                 <div class="image-editor">
                     <div class="cropit-image-preview"></div>
                     <p>Zalecany rozmiar: 1500x400px</p>
-                    <input type="file" class="btn btn-default pull-left cropit-image-input"/>
+                    <span class="btn btn-default btn-file">Przeglądaj<input type="file"
+                                                                            class="cropit-image-input"/></span>
                 </div>
             </div>
             <div class="modal-footer">

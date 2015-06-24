@@ -464,31 +464,69 @@
   }
 }
 
-#modalAdminAddBackground {
+.modalAdmin {
   text-align: left;
 
-  .modal-dialog {
-    width: 770px;
+  .btn-file {
+    position: relative;
+    overflow: hidden;
 
-    .image-editor {
-      .cropit-image-preview {
-        background-color: #f8f8f8;
-        background-size: cover;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        margin-top: 7px;
+    input[type=file] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 100%;
+      min-height: 100%;
+      font-size: 100px;
+      text-align: right;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      outline: none;
+      background: white;
+      cursor: inherit;
+      display: block;
+    }
+  }
+
+  .image-editor {
+    .cropit-image-preview {
+      background-color: #f8f8f8;
+      background-size: cover;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      margin-top: 7px;
+      cursor: move;
+    }
+
+    .cropit-image-background {
+      opacity: .2;
+      cursor: auto;
+    }
+
+    .image-size-label {
+      margin-top: 10px;
+    }
+  }
+
+  &#modalAdminAddLogo {
+    .modal-dialog {
+      width: 250px;
+
+      .image-editor .cropit-image-preview {
+        width: 180px;
+        height: 180px;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  &#modalAdminAddBackground {
+    .modal-dialog {
+      width: 770px;
+
+      .image-editor .cropit-image-preview {
         width: 750px;
         height: 200px;
-        cursor: move;
-      }
-
-      .cropit-image-background {
-        opacity: .2;
-        cursor: auto;
-      }
-
-      .image-size-label {
-        margin-top: 10px;
       }
     }
   }
