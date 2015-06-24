@@ -90,6 +90,7 @@
             changeLogo = $('#modalAdminAddLogo'),
             changeBackground = $('#modalAdminAddBackground');
 
+
         if (changeLogo.length) {
             appHeader.find('.addLogoBtn').click(function () {
                 changeLogo.modal('show');
@@ -117,12 +118,6 @@
                         //location.reload(true)
                     }
                 });
-            });
-            changeLogo.on('change', '.btn-file :file', function () {
-                var input = $(this),
-                    numFiles = input.get(0).files ? input.get(0).files.length : 1,
-                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-                input.trigger('fileselect', [numFiles, label]);
             });
         }
 
@@ -155,11 +150,26 @@
                     }
                 });
             });
+        }
+        if (changeLogo.length || changeBackground.length) {
             changeBackground.on('change', '.btn-file :file', function () {
                 var input = $(this),
                     numFiles = input.get(0).files ? input.get(0).files.length : 1,
                     label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
                 input.trigger('fileselect', [numFiles, label]);
+            });
+
+            changeBackground.find('.delete').click(function () {
+                $.ajax({
+                    url: '/pages/' + $(this).attr('data-type') + '/' + dataset + '/' + object_id,
+                    method: "DELETE",
+                    before: function () {
+                        $(this).addClass('loading disabled')
+                    },
+                    complete: function () {
+                        //location.reload(true)
+                    }
+                });
             });
         }
     }

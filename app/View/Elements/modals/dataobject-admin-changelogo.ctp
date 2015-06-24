@@ -18,6 +18,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-default delete" data-type="logo">Usuń logo</button>
                 <button type="button" class="btn btn-primary export">Dodaj</button>
             </div>
         </div>
