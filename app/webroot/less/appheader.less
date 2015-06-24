@@ -355,9 +355,6 @@
           content: "\e623";
         }
       }
-      &.hideMenu.first {
-        clear: left;
-      }
       &.open a {
         background: none;
       }
@@ -397,6 +394,22 @@
   .dataHighlight {
     padding: 5px 0;
     display: block;
+
+    &.show_hide_status {
+      display: inline-block;
+      text-align: center;
+      width: 100%;
+
+      a {
+        font-size: 18px;
+        line-height: 1em;
+        padding: 6px 6px 0;
+        color: #157ab5;
+      }
+    }
+    &.hideMenu.first {
+      clear: left;
+    }
 
     ._label {
       font-size: 9px;

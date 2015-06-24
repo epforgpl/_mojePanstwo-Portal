@@ -6,10 +6,43 @@
     var appHeader = $('.appHeader');
 
     if (window.screen.width > 768) {
-        var appMenu = $('.appMenu'),
+        var statusBar = appHeader.find('.status'),
+            statusLi = statusBar.find('ul.dataHighlights > li'),
+            statusLiTop,
+            appMenu = $('.appMenu'),
             appMenuLi = appMenu.find('ul.nav > li'),
             appMenuLiTop,
             appMenuLiActive;
+
+        if (statusLi.length > 0) {
+            if (statusLi.first().offset().top !== statusLi.last().offset().top) {
+                statusLiTop = statusLi.first().offset().top;
+                $.each(statusLi, function () {
+                    if ($(this).offset().top > statusLiTop) {
+                        $(this).addClass('hideMenu');
+                    }
+                });
+                statusBar.find('.hideMenu:first').addClass('first');
+                statusBar.find('.hideMenu:last').after(
+                    $('<li></li>').addClass('dataHighlight show_hide_status').append(
+                        $('<a></a>').addClass('glyphicon glyphicon-chevron-down').attr({
+                            'href': '#',
+                            'data-status': 'more'
+                        }).click(function (e) {
+                            e.preventDefault();
+                            if ($(this).data('status') === 'more') {
+                                $(this).data('status', 'less').addClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
+                                statusBar.find('.hideMenu').stop(true, true).slideDown();
+                            } else {
+                                $(this).data('status', 'more').addClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
+                                statusBar.find('.hideMenu').stop(true, true).slideUp();
+                            }
+                        })
+                    )
+                );
+                statusBar.find('.hideMenu').hide();
+            }
+        }
 
         if (appMenuLi.length > 0) {
             if (appMenuLi.first().offset().top !== appMenuLi.last().offset().top) {
@@ -23,7 +56,9 @@
                     $('<li></li>').addClass('show_hide').append(
                         $('<a></a>').attr({
                             'href': '#'
-                        }).click(function () {
+                        }).click(function (e) {
+                            e.preventDefault();
+
                             if ($(this).data('status') === 'more') {
                                 $(this).data('status', 'less');
                                 appMenu.find('.hideMenu').stop(true, true).slideDown();
