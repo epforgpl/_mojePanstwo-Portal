@@ -11,7 +11,9 @@ class KtoTuRzadziController extends ApplicationsController
         'subtitle' => 'Urzędy i urzędnicy w Polsce',
         'headerImg' => '/kto_tu_rzadzi/img/header_kto-tu-rzadzi.png',
     );
-
+    
+    public $mainMenuLabel = 'Przeglądaj';
+    
     public function prepareMetaTags()
     {
         parent::prepareMetaTags();
