@@ -32,9 +32,4 @@ class Prawo extends DocDataObject
 	    return $this->getData('label');
     }
 
-    public function getIcon()
-    {
-        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe637;"></i>';
-    }
-
 }

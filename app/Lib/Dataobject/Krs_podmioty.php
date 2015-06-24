@@ -63,7 +63,7 @@ class Krs_podmioty extends DataObject
 
     public function getIcon()
     {
-        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe63a;"></i>';
+        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe63c;"></i>';
     }
  	
     public function getLabel()
