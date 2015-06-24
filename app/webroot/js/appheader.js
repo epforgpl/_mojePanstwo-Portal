@@ -108,13 +108,16 @@
                     quality: .9
                 });
                 $.ajax({
-                    url: '/dane/' + dataset + '/' + object_id + '/page/logo',
+                    url: '/dane/' + dataset + '/' + object_id + '/page/logo.json',
                     method: "POST",
                     data: imageData,
                     before: function () {
                         $(this).addClass('loading disabled')
                     },
-                    complete: function () {
+                    success: function () {
+                        //location.reload(true)
+                    },
+                    error: function () {
                         //location.reload(true)
                     }
                 });
@@ -139,13 +142,16 @@
                     quality: .9
                 });
                 $.ajax({
-                    url: '/dane/' + dataset + '/' + object_id + '/page/cover',
+                    url: '/dane/' + dataset + '/' + object_id + '/page/cover.json',
                     method: "POST",
                     data: imageData,
                     before: function () {
                         $(this).addClass('loading disabled')
                     },
-                    complete: function () {
+                    success: function () {
+                        //location.reload(true)
+                    },
+                    error: function () {
                         //location.reload(true)
                     }
                 });
@@ -161,12 +167,15 @@
 
             changeBackground.find('.delete').click(function () {
                 $.ajax({
-                    url: '/dane/' + dataset + '/' + object_id + '/page/' + $(this).attr('data-type'),
+                    url: '/dane/' + dataset + '/' + object_id + '/page/' + $(this).attr('data-type') + '.json',
                     method: "DELETE",
                     before: function () {
                         $(this).addClass('loading disabled')
                     },
-                    complete: function () {
+                    success: function () {
+                        //location.reload(true)
+                    },
+                    error: function () {
                         //location.reload(true)
                     }
                 });

@@ -15,17 +15,17 @@ if (!isset($renderFile) || !$renderFile)
 ?>
 
 <div class="appHeader dataobject dataobject-cover<? if ($pageLayer['logo']) {
-    echo ' dataobject-cover-logo';
+    echo ' cover-logo';
 } ?><? if ($pageLayer['cover']) {
-    echo ' dataobject-cover-cover';
+    echo ' cover-background';
 } ?>" data-dataset="<?= $object->getDataset() ?>"
-     data-object_id="<?= $object->getId() ?>" <? if ($object->getData('page_photo')) {
-    echo ' data-photo="/pages/photo/' . $dataset . '/' . $object_id . '.png"';
-} ?><? if ($object->getData('‘page_logo’')) {
-    echo ' data-cover="/pages/cover/' . $dataset . '/' . $object_id . '.png"';
+     data-object_id="<?= $object->getId() ?>" <? if ($pageLayer['logo']) {
+    echo ' data-photo="/pages/logo/' . $dataset . '/' . $object_id . '.png"';
+} ?><? if ($pageLayer['cover']) {
+    echo ' data-cover="/pages/cover/' . $dataset . '/' . $object_id . '.jpeg"';
 } ?>>
 
-<div class="headlineBar">
+    <div class="headlineBar">
         <div class="container">
             <div class="holder row">
                 <div class="col-md-9">
