@@ -34,11 +34,6 @@ class Sejm_interpelacje extends DocDataObject
     {
         return '<strong>Interpelacja</strong> nr ' . $this->getData('numer');
     }
-
-    public function getIcon()
-    {
-        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe637;"></i>';
-    }
     
     public function getHighlightsFields()
     {

@@ -31,11 +31,6 @@ class Sejm_druki extends DocDataObject
     {
         return 'Druk sejmowy nr ' . $this->getData('numer') . ' z dnia' . dataSlownie( $this->getDate() );
     }
-
-    public function getIcon()
-    {
-        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe60f;"></i>';
-    }
     
     public function getMetaDescriptionParts($preset = false)
 	{

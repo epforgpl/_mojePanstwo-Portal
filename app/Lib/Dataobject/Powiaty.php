@@ -30,11 +30,6 @@ class Powiaty extends DataObject
 	    return $this->getTitle();
     }
 
-    public function getIcon()
-    {
-        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe626;"></i>';
-    }
-
     public function hasHighlights()
     {
         return false;

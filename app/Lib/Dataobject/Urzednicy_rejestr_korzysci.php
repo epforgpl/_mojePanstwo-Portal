@@ -29,11 +29,6 @@ class Urzednicy_rejestr_korzysci extends DataObject
     {
         return 'Wpis w rejestrze korzyści';
     }
-
-    public function getIcon()
-    {
-        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe628;"></i>';
-    }
     
     public function hasHighlights()
     {

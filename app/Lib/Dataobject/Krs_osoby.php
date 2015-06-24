@@ -17,12 +17,14 @@ class Krs_osoby extends DataObject
 
     public function getIcon()
     {
-        if ($this->getData('krs_osoby.plec') == 'K')
-            $icon = '&#xe639;';
-        else
-            $icon = '&#xe63b;';
+        $icon = "osoby";
 
-        return '<i class="object-icon glyphicon" data-icon-datasets="' . $icon . '"></i>';
+        if ($this->getData('krs_osoby.plec') == 'K')
+            $icon .= '_kobieta';
+        else
+            $icon .= '_mezczyzna';
+
+        return '<i class="object-icon icon-datasets-' . $icon . '"></i>';
     }
 
     public function getData($field = '*')

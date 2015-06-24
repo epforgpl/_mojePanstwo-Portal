@@ -24,11 +24,6 @@ class Poslowie_wspolpracownicy extends DocDataObject
         return 'Współpracownik posła';
     }
 
-    public function getIcon()
-    {
-        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe613;"></i>';
-    }
-
     public function getTitle()
     {
         return $this->getShortTitle();

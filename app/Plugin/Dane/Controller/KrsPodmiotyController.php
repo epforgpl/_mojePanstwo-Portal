@@ -597,8 +597,8 @@ class KrsPodmiotyController extends DataobjectsController
 	    	( $this->object->getData('forma_prawna_id')=='1' ) || // FUNDACJA
 	    	( $this->object->getData('forma_prawna_id')=='15' ) // STOWARZYSZENIE
 	    ) {
-		    
-		    // $this->_layout['header']['element'] = 'dataobject-cover';
+
+            $this->_layout['header']['element'] = 'dataobject-cover';
 		    
 	    }
 	    

@@ -25,11 +25,6 @@ class Urzednicy extends DataObject
         return 'Urzędnik';
     }
 
-    public function getIcon()
-    {
-        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe627;"></i>';
-    }
-
     public function hasHighlights()
     {
         return false;

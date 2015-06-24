@@ -27,9 +27,4 @@ class Poslowie_oswiadczenia_majatkowe extends DocDataObject
 
     }
 
-    public function getIcon()
-    {
-        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe617;"></i>';
-    }
-
 }

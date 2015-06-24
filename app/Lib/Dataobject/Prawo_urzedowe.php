@@ -25,9 +25,4 @@ class Prawo_urzedowe extends DocDataObject
     {
         return $this->getData('prawo_urzedowe.forma_str') . ' z dnia ' . dataSlownie($this->getDate());
     }
-
-    public function getIcon()
-    {
-        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe637;"></i>';
-    }
 }
