@@ -349,6 +349,15 @@ class User extends PaszportAppModel
         return $this->getDataSource()->register($data);
     }
 
+    public function getUsersByEmail($data) {
+        $response = $this->getDataSource()->request('paszport/users/email.json', array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
     public function schema()
     {
         return array();

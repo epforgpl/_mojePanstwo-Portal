@@ -3,7 +3,7 @@
 class DataobjectsController extends AppController
 {
 
-    public $uses = array('Dane.Dataobject', 'Dane.Subscription');
+    public $uses = array('Dane.Dataobject', 'Dane.Subscription', 'Dane.ObjectUsersManagement');
     public $components = array('RequestHandler');
 
     public $object = false;
@@ -37,6 +37,14 @@ class DataobjectsController extends AppController
 	        'element' => 'default',
         ),
     );
+
+    public function __construct($request, $response) {
+        parent::__construct($request, $response);
+        $this->ObjectUsersManagement->setRequest(array(
+            'dataset' => $request['pass'][0],
+            'object_id' => (int) $request['pass'][1]
+        ));
+    }
 
     public function addInitLayers($layers)
     {
@@ -263,16 +271,21 @@ class DataobjectsController extends AppController
             $this->menu['base'] = $this->object->getUrl();
             $this->set('object_actions', $this->actions);
             $this->set('object_addons', $this->addons);
-            
-            $this->objectModerable = $this->objectModerable && true; // && user is superuser
-            $this->set('object_moderable', $this->objectModerable);
+            $this->set('object_moderable', $this->isObjectModerable());
 
             $this->prepareMetaTags();
-
         }
 
         parent::beforeRender();
 
+    }
+
+    private function isObjectModerable() {
+        $response = $this->ObjectUsersManagement->index();
+        if(isset($response['name']) && $response['name'] == 'Forbidden')
+            return false;
+
+        return true;
     }
 
     /*

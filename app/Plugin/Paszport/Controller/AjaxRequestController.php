@@ -5,6 +5,7 @@ App::import('Model', 'Paszport.User');
 
 class AjaxRequestController extends ApplicationsController
 {
+    public $components = array('RequestHandler');
 
     public function __construct($request = null, $response = null)
     {
@@ -75,6 +76,12 @@ class AjaxRequestController extends ApplicationsController
             (isset($this->data['password']) ? $this->data['password'] : null)
         );
 
+        return json_encode($response);
+    }
+
+    public function getUsersByEmail() {
+        $user = new User();
+        $response = $user->getUsersByEmail($this->data);
         return json_encode($response);
     }
 

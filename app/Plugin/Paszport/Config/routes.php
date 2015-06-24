@@ -30,3 +30,6 @@ Router::redirect('/paszport/users/failed', array(
 ));
 
 Router::redirect('/pages/fblogin', array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'fblogin'));
+
+Router::connect('/paszport/users/email', array('plugin' => 'paszport', 'controller' => 'AjaxRequest', 'action' => 'getUsersByEmail', '[method]' => 'POST'));
+
