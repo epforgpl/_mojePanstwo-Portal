@@ -85,7 +85,9 @@
     }
 
     if (appHeader.hasClass('dataobject-cover')) {
-        var changeLogo = $('#modalAdminAddLogo'),
+        var object_id = appHeader.attr('data-object_id'),
+            dataset = appHeader.attr('data-dataset'),
+            changeLogo = $('#modalAdminAddLogo'),
             changeBackground = $('#modalAdminAddBackground');
 
         if (changeLogo.length) {
@@ -101,10 +103,20 @@
             });
             changeLogo.find('.export').click(function () {
                 var imageData = changeLogo.find('.image-editor').cropit('export', {
-                    type: 'image/jpeg',
+                    type: 'image/png',
                     quality: .9
                 });
-                changeLogo.find('.modal-footer').append($('<img/>').attr('src', imageData));
+                $.ajax({
+                    url: '/pages/logo/' + dataset + '/' + object_id,
+                    method: "POST",
+                    data: imageData,
+                    before: function () {
+                        $(this).addClass('loading disabled')
+                    },
+                    complete: function () {
+                        //location.reload(true)
+                    }
+                });
             });
             changeLogo.on('change', '.btn-file :file', function () {
                 var input = $(this),
@@ -131,7 +143,17 @@
                     type: 'image/jpeg',
                     quality: .9
                 });
-                changeBackground.find('.modal-footer').append($('<img/>').attr('src', imageData));
+                $.ajax({
+                    url: '/pages/cover/' + dataset + '/' + object_id,
+                    method: "POST",
+                    data: imageData,
+                    before: function () {
+                        $(this).addClass('loading disabled')
+                    },
+                    complete: function () {
+                        //location.reload(true)
+                    }
+                });
             });
             changeBackground.on('change', '.btn-file :file', function () {
                 var input = $(this),

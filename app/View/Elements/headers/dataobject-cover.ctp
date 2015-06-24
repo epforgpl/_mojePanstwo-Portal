@@ -5,9 +5,13 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 $object = $this->viewVars['object'];
 $dataset = @$object->getDataset();
 $object_id = @$object->getId();
+$pageLayer = @$object->getLayer();
 $objectOptions = $this->viewVars['objectOptions'];
 /** @var Object $microdata */
 $objectOptions['microdata'] = $microdata;
+
+//$logo = $pageLayer['logo'];//boolean
+//$cover = $pageLayer['cover'];//boolean
 
 if (!isset($renderFile) || !$renderFile)
     $renderFile = 'page';
@@ -68,7 +72,7 @@ if (!isset($renderFile) || !$renderFile)
                             <a class="trimTitle" href="<?= $object->getUrl() ?>"
                                title="<?= strip_tags($object->getTitle()) ?>">
                                 <?php } ?>
-                                <span<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= trim($object->getTitle()) ?><? if ($object->getData('page_moderated')) { ?>
+                                <span<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= trim($object->getTitle()) ?><? if ($pageLayer['moderated']) { ?>
                                         <i class="glyphicon glyphicon-ok-sign"></i><? } ?></span>
                                 <?php if ($object->getUrl() != false){ ?>
                             </a>
