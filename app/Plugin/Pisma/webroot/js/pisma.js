@@ -533,7 +533,7 @@ var PISMA = Class.extend({
         elEd.focus();
     },
     requiredInputs: function () {
-        var nadawca = $('#editor-cont .control.control-sender textarea.nadawca');
+        var nadawca = self.html.stepper_div.find('.control.control-sender textarea.nadawca');
 
         if (nadawca.length > 0 && nadawca.val() == "") {
             nadawca.val('');
@@ -642,13 +642,16 @@ var PISMA = Class.extend({
     lastPageButtons: function () {
         "use strict";
         var self = this,
+            $sendPismoModal = $('#sendPismoModal'),
             modal = {
-                sendPismo: $('#sendPismoModal')
+                sendPismo: $sendPismoModal
             };
 
         self.html.stepper_div.find('.editor-tooltip .sendPismo').click(function (e) {
             e.preventDefault();
-            $('#sendPismoModal').modal('show');
+
+            $sendPismoModal.find('#senderName').val($.trim(self.html.stepper_div.find('.control.control-sender').text()).split('\n')[0]);
+            $sendPismoModal.modal('show');
         });
 
         if (modal.sendPismo.length) {
@@ -738,8 +741,6 @@ $(document).ready(function () {
         var switcher = $(event.target).parent('.more-buttons-switcher'),
             target_element = switcher.parent().find('.more-buttons-target'),
             mode = switcher.data('mode');
-
-        console.log(switcher, target_element, mode);
 
         if (mode === 'more') {
             switcher.attr('href', '#less').data('mode', 'less').find('.text').text('Mniej');

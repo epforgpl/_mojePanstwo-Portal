@@ -66,8 +66,8 @@
                                                 <div class="form-group">
                                                     <label for="senderName">Podaj swoje imię i nazwisko bądź nazwę
                                                         instytucji:</label>
-                                                    <input name="name" class="form-control" id="senderName" type="text"
-                                                           required="required"/>
+                                                    <input name="name" class="form-control" type="text" id="senderName"
+                                                           value="" required="required"/>
                                                 </div>
 
                                                 <div class="form-group">
