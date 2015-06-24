@@ -33,16 +33,16 @@
         <?php } ?>
     </ul>
 <? } ?>
-<ul class="dataHighlights col-xs-12">
+<ul class="dataHighlights oneline col-xs-12">
     <?php $typ_nazwa = $object->getData('typ_nazwa');
     if (isset($typ_nazwa) && !empty($typ_nazwa)) { ?>
         <li class="dataHighlight col-sm-6 col-sm-3">
-            <p class="_label">Typ gminy</p>
 
             <p class="_value"><?= $typ_nazwa; ?></p>
         </li>
     <?php } ?>
-
+	
+	<? /*
     <?php
     $liczba_ludnosci = $object->getData('liczba_ludnosci');
     if (isset($liczba_ludnosci) && !empty($liczba_ludnosci)) { ?>
@@ -62,4 +62,5 @@
             <p class="_value"><?= number_format($powierzchnia, 0); ?> km<sup>2</sup></p>
         </li>
     <?php } ?>
+    */ ?>
 </ul>

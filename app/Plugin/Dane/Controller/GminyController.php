@@ -6,8 +6,8 @@ class GminyController extends DataobjectsController
 {
 
     public $observeOptions = true;
+    public $addDatasetBreadcrumb = false;
 
-    public $breadcrumbsMode = 'app';
     public $submenus = array(
         'rada' => array(
             'items' => array(
@@ -3139,6 +3139,10 @@ class GminyController extends DataobjectsController
         $menu['items'][] = array(
             'id' => '',
             'label' => 'Aktualności',
+            'icon' => array(
+	            'src' => 'glyphicon',
+	            'id' => 'home',
+            ),
         );
 
 
@@ -3214,6 +3218,23 @@ class GminyController extends DataobjectsController
         }
 
         parent::beforeRender();
+        
+
+	 	if( $this->object ) {
+	 		 	 				
+		    $this->addBreadcrumb(array(
+	            'href' => '/dane/wojewodztwa/' . $this->object->getData('wojewodztwa.id'),
+	            'label' => 'Województwo ' . lcfirst($this->object->getData('wojewodztwa.nazwa')),
+	        ));
+	        
+	        if( $this->object->getData('powiaty.typ_id')=='1' ) {
+		        $this->addBreadcrumb(array(
+		            'href' => '/dane/powiaty/' . $this->object->getData('powiaty.id'),
+		            'label' => 'Powiat ' . lcfirst($this->object->getData('powiaty.nazwa')),
+		        ));
+	        }
+	                
+        }   
 
     }
 

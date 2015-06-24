@@ -195,6 +195,9 @@ class AppController extends Controller
             'gminy' => array(
             	'label' => 'Gminy',
             	'menu_id' => 'gminy',
+            	'autocompletion' => array(
+					'dataset' => 'gminy',
+				),
             ),
             'powiaty' => array(
             	'label' => 'Powiaty',
@@ -205,7 +208,7 @@ class AppController extends Controller
             	'menu_id' => 'wojewodztwa',
             ),
             'miejscowosci' => array(
-            	'label' => 'Miejscowosci',
+            	'label' => 'Miejscowości',
             	'menu_id' => 'miejscowosci',
             ),
         ),

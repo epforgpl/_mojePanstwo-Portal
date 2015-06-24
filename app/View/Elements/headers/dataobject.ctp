@@ -13,44 +13,12 @@ if (!isset($renderFile) || !$renderFile)
     <div class="container">
         <div class="holder row">
             <div class="col-md-10">
-                <? if (isset($treeList)) { ?>
-                    <ul class="breadcrumb">
-                        <?php foreach ($_breadcrumbs as $bread) { ?>
-                            <li><a class="normalizeText" href="<?= $bread['href'] ?>"
-                                   target="_self"><?= trim($bread['label']) ?></a></li>
-                        <? } ?>
-                    </ul>
-                    <ul class="breadcrumb tree">
-                        <li>
-                            <a class="normalizeText"
-                               href="/bdl/#kategoria_id=<?php echo $object->getData('bdl_wskazniki.kategoria_id') ?>"><?=
-                                trim($object->getData('bdl_wskazniki.kategoria_tytul'));
-                                ?></a>
-                            <ul>
-                                <li class="e">
-                                    <a class="normalizeText"
-                                       href="/bdl/#kategoria_id=<?php echo $object->getData('bdl_wskazniki.kategoria_id')
-                                       ?>&grupa_id=<?= $object->getData('bdl_wskazniki.grupa_id'); ?>"><?=
-                                        trim($object->getData('bdl_wskazniki.grupa_tytul'));
-                                        ?></a>
-                                    <ul>
-                                        <li class="e h1">
-                                            <a class="normalizeText" href="<?php echo $object->getUrl() ?>">
-                                                <h1><?= trim($object->getData('bdl_wskazniki.tytul')); ?></h1>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                <? } else { ?>
-                    <ul class="breadcrumb">
-                        <?php foreach ($_breadcrumbs as $bread) { ?>
-                            <li><a href="<?= $bread['href'] ?>" target="_self"><?= $bread['label'] ?></a></li>
-                        <? } ?>
-                    </ul>
-                <? } ?>
+                
+                <ul class="breadcrumb">
+                    <?php foreach ($_breadcrumbs as $bread) { ?>
+                        <li><? if( isset($bread['href']) ) { ?><a href="<?= $bread['href'] ?>" target="_self"><? } ?><?= $bread['label'] ?><? if( isset($bread['href']) ) { ?></a><? } ?></li>
+                    <? } ?>
+                </ul>
 
                 <div class="title<? if (isset($treeList)) echo ' hide'; ?>">
                     <h1 class="smaller">
