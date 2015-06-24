@@ -51,7 +51,7 @@ $(document).ready(function () {
                                 'id': 'checkbox_' + value.DatasetChannel.subject_dataset + '_' + value.DatasetChannel.channel,
                                 'name': 'channel[]',
                                 value: value.DatasetChannel.channel,
-                                'checked': ($.inArray(value.DatasetChannel.channel, subsChannelId) > -1) ? 'checked' : false,
+                                'checked': (($.inArray(value.DatasetChannel.channel, subsChannelId) > -1) || (rslt.subscription.SubscriptionChannel.length == 0)) ? 'checked' : false,
                                 'disabled': (rslt.subscription.SubscriptionChannel.length == 0) ? 'disabled' : false
                             })
                         ).append(

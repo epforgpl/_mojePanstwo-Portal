@@ -59,9 +59,7 @@ $object_id = $object->getId();
                             } else { ?>
                                 <div class="checkbox first">
                                     <input type="checkbox" id="checkbox_all" name="channel[]" value="" checked>
-                                    <label for="checkbox_all">Wszystkie dane
-                                        <small>*</small>
-                                    </label>
+                                    <label for="checkbox_all">Wszystkie dane</label>
                                 </div>
 
                                 <? foreach ($channels as $ch) {
@@ -88,9 +86,8 @@ $object_id = $object->getId();
                         <a href="#" class="btn btn-primary btn-icon submit">
                             <i class="icon" data-icon="&#xe604;"></i>Zapisz</a>
                         <? if (isset($subscription) && !empty($subscription['Subscription']['id'])) { ?>
-                            <a href="#" class="btn btn-warning btn-icon unobserve"
-                               data-subscription-id="<?= $subscription['Subscription']['id'] ?>">
-                                <i class="icon" data-icon="&#xe605;"></i>Przestań obserwować</a>
+                            <a href="#" class="btn btn-link unobserve"
+                               data-subscription-id="<?= $subscription['Subscription']['id'] ?>">Przestań obserwować</a>
                         <? } ?>
                     <?php } else { ?>
                         <a href="/login" class="_specialCaseLoginButton" data-dismiss="modal">Zaloguj się, aby
