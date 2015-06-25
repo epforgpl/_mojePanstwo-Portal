@@ -38,15 +38,6 @@ class DataobjectsController extends AppController
         ),
     );
 
-    public function __construct($request, $response) {
-        parent::__construct($request, $response);
-        
-        $this->ObjectUsersManagement->setRequest(array(
-            'dataset' => @$request['pass'][0],
-            'object_id' => (int) @$request['pass'][1]
-        ));
-    }
-
     public function addInitLayers($layers)
     {
 
@@ -91,6 +82,9 @@ class DataobjectsController extends AppController
 
             if ($this->observeOptions)
                 $layers[] = 'channels';
+                
+            if ($this->objectModerable)
+                $layers[] = 'page';
 
             if ($this->object = $this->Dataobject->find('first', array(
                 'conditions' => array(
@@ -267,12 +261,17 @@ class DataobjectsController extends AppController
             $selected = $this->request->params['action'];
             if ($selected == 'view')
                 $selected = '';
-							
+			
+			$object_moderable = $this->objectModerable && false;
+			
+			// debug( $this->Auth->user() ); die();
+			// debug( $this->object->getLayer('page') ); die();
+			
             $this->menu['selected'] = $selected;
             $this->menu['base'] = $this->object->getUrl();
             $this->set('object_actions', $this->actions);
             $this->set('object_addons', $this->addons);
-            $this->set('object_moderable', $this->isObjectModerable());
+            $this->set('object_moderable', $object_moderable);
 
             $this->prepareMetaTags();
         }
@@ -280,26 +279,6 @@ class DataobjectsController extends AppController
         parent::beforeRender();
 
     }
-
-    private function isObjectModerable() {
-        
-        return false;
-        
-        $response = $this->ObjectUsersManagement->index();
-        if(isset($response['name']) && $response['name'] == 'Forbidden')
-            return false;
-
-        return true;
-    }
-
-    /*
-    public function unsubscribe() {
-	    	    
-	    $this->Dataobject->unsubscribe($this->request->params['controller'], $this->request->params['id']);
-	    $this->redirect($this->referer());
-	    
-    }
-    */
 
     public function prepareMetaTags()
     {
