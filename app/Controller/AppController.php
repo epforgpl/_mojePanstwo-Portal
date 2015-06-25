@@ -858,4 +858,14 @@ class AppController extends Controller
         } else return $this->datasets;
 
     }
+    
+    public function getUserRoles() {
+	    
+	    if( $this->Auth->user() ) {
+		    
+		    return array_column($this->Auth->user('UserRole'), 'role_id');
+		    
+	    } else return array();
+	    
+    }
 }

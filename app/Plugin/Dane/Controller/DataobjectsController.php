@@ -98,7 +98,7 @@ class DataobjectsController extends AppController
 				
 				$this->object_aggs = $this->Dataobject->getAggs();
                 $this->set('object_aggs', $this->object_aggs);
-
+								
                 if (
                     ($this->domainMode == 'MP') &&
                     (
@@ -261,17 +261,27 @@ class DataobjectsController extends AppController
             $selected = $this->request->params['action'];
             if ($selected == 'view')
                 $selected = '';
+						
+			$object_moderable = $this->objectModerable && 
+			(
+				in_array('2', $this->getUserRoles()) || // check if superuser 
+				( $this->getPageRoles()=='1' ) // check if user has permissions to page 
+			);
 			
-			$object_moderable = $this->objectModerable && false;
+			$object_editable = $this->objectModerable && 
+			(
+				in_array('2', $this->getUserRoles()) || // check if superuser 
+				$this->getPageRoles() // check if user has permissions to page 
+			);
 			
-			// debug( $this->Auth->user() ); die();
-			// debug( $this->object->getLayer('page') ); die();
-			
+			// debug($this->getUserRoles()); die();
+						
             $this->menu['selected'] = $selected;
             $this->menu['base'] = $this->object->getUrl();
             $this->set('object_actions', $this->actions);
             $this->set('object_addons', $this->addons);
             $this->set('object_moderable', $object_moderable);
+            $this->set('object_editable', $object_editable);
 
             $this->prepareMetaTags();
         }
@@ -289,6 +299,21 @@ class DataobjectsController extends AppController
             'og:title' => $this->object->getTitle(),
             'og:image' => FULL_BASE_URL . '/dane/img/social/dane.jpg'
         ));
+    }
+    
+    public function getPageRoles() {
+	    
+	    if( 
+	    	$this->Auth->user() && 
+	    	isset( $this->object ) && 
+	    	( $page = $this->object->getLayer('page') ) && 
+	    	isset( $page['roles'] )
+	    ) {
+		    
+		    return $page['roles']['ObjectUser']['role'];
+		    
+	    } else return false;
+	    
     }
 
 }
