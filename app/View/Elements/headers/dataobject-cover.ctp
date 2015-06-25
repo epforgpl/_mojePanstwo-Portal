@@ -10,25 +10,27 @@ $objectOptions = $this->viewVars['objectOptions'];
 /** @var Object $microdata */
 $objectOptions['microdata'] = $microdata;
 
+$pageLayer = ['logo' => false, 'cover' => false];
+
 if (!isset($renderFile) || !$renderFile)
     $renderFile = 'page';
 ?>
 
-<div class="appHeader dataobject dataobject-cover<? if ($pageLayer['logo']) {
-    echo ' cover-logo';
-} ?><? if ($pageLayer['cover']) {
-    echo ' cover-background';
-} ?>" data-dataset="<?= $object->getDataset() ?>"
-     data-object_id="<?= $object->getId() ?>" <? if ($pageLayer['logo']) {
-    echo ' data-photo="/pages/logo/' . $dataset . '/' . $object_id . '.png"';
-} ?><? if ($pageLayer['cover']) {
-    echo ' data-cover="/pages/cover/' . $dataset . '/' . $object_id . '.jpeg"';
-} ?>>
+<div class="appHeader dataobject dataobject-cover<? if ($pageLayer['logo']) echo ' cover-logo';
+if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object->getDataset() ?>"
+     data-object_id="<?= $object->getId() ?>">
 
-    <div class="headlineBar">
+    <div class="headlineBar" <? if ($pageLayer['cover']) {
+        echo ' style="background-image: url(/pages/cover/' . $dataset . '/' . $object_id . '.jpg)"';
+    } ?>>
         <div class="container">
+            <? if ($pageLayer['logo']) { ?>
+                <div class="logoBox">
+                    <img src="/pages/logo/<?= $dataset ?>/<?= $object_id ?>.png"/>
+                </div>
+            <? } ?>
             <div class="holder row">
-                <div class="col-md-9">
+                <div class="holderBlock col-md-9">
                     <? if (isset($treeList)) { ?>
                         <ul class="breadcrumb">
                             <?php foreach ($_breadcrumbs as $bread) { ?>
@@ -74,7 +76,7 @@ if (!isset($renderFile) || !$renderFile)
                             <a class="trimTitle" href="<?= $object->getUrl() ?>"
                                title="<?= strip_tags($object->getTitle()) ?>">
                                 <?php } ?>
-                                <span<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= trim($object->getTitle()) ?><? if ($pageLayer['moderated']) { ?>
+                                <span<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= trim($object->getTitle()) ?><? if (isset($pageLayer['moderated']) && $pageLayer['moderated']) { ?>
                                         <i class="glyphicon glyphicon-ok-sign"></i><? } ?></span>
                                 <?php if ($object->getUrl() != false){ ?>
                             </a>
@@ -86,18 +88,13 @@ if (!isset($renderFile) || !$renderFile)
                     </div>
                 </div>
                 <div class="col-md-3 options">
-                    <?php if ($object->getLayer('permission') || true) {
+                    <?php if ($object->getLayer('permission')) {
                         echo $this->element('modals/dataobject-admin-changelogo');
                         echo $this->element('modals/dataobject-admin-changebackground');
                     } else { ?>
-                        <div class="opt">
-                            <? if (isset($_observeOptions) && !empty($_observeOptions)) {
-                                echo $this->element('modals/dataobject-observe');
-                            }
-                            ?>
-                        </div>
-                        //Facebook
-                        //Twitter
+                        <? if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
+                            <div class="opt"><?= $this->element('modals/dataobject-observe'); ?></div>
+                        <? } ?>
                     <? } ?>
                 </div>
             </div>
