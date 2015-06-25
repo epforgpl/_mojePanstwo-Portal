@@ -342,9 +342,6 @@ class KrsPodmiotyController extends DataobjectsController
         $this->addInitLayers(array('powiazania'));
         $this->_prepareView();
 
-        debug($this->object->getLayer('powiazania'));
-        die();
-
     }
 
     public function graph()
@@ -529,6 +526,10 @@ class KrsPodmiotyController extends DataobjectsController
 						'id' => 'home',
 					),
                 ),
+                array(
+                    'id' => 'graph',
+                    'label' => 'Powiązania',
+                ),
             ),
             'base' => $this->object->getUrl(),
         );
@@ -583,11 +584,7 @@ class KrsPodmiotyController extends DataobjectsController
             );
         }
         
-        if( (count($menu['items'])==1) && !$menu['items'][0]['id'] ) {
-	        return array();
-        } else {
-		    return $menu;
-		}
+        return $menu;
     }
     
     public function beforeRender()
