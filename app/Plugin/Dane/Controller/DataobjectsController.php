@@ -40,9 +40,10 @@ class DataobjectsController extends AppController
 
     public function __construct($request, $response) {
         parent::__construct($request, $response);
+        
         $this->ObjectUsersManagement->setRequest(array(
-            'dataset' => $request['pass'][0],
-            'object_id' => (int) $request['pass'][1]
+            'dataset' => @$request['pass'][0],
+            'object_id' => (int) @$request['pass'][1]
         ));
     }
 
@@ -281,6 +282,9 @@ class DataobjectsController extends AppController
     }
 
     private function isObjectModerable() {
+        
+        return false;
+        
         $response = $this->ObjectUsersManagement->index();
         if(isset($response['name']) && $response['name'] == 'Forbidden')
             return false;
