@@ -271,6 +271,20 @@ if ($object->getData('sposob_reprezentacji')) { ?>
             pobrać</a>
     </div>
 <? } ?>
+	
+	<? /*
+	<div class="banner block">
+        <?php echo $this->Html->image('Dane.banners/krspodmioty_banner.png', array(
+            'width' => '69',
+            'alt' => 'Aktualny odpis z KRS za darmo',
+            'class' => 'pull-right'
+        )); ?>
+        <p>Napisz i <strong>wyślij pismo</strong> do tej organizacji</p>
+        <a href="/dane/krs_podmioty/<?= $object->getId() ?>/odpis" class="btn btn-primary">Stwórz pismo</a>
+    </div>
+    */ ?>
+		
+		
 	</div>
 </div>
 
@@ -286,6 +300,30 @@ if ($object->getData('sposob_reprezentacji')) { ?>
     <section id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>" data-url="krs_podmioty"></section>
 </div>
 
-<div><div>
+<div class="container"><div class="objectsPageContent main">
+	
+<div class="krsPodmioty">
+	<div class="col-md-9 objectMain">
+	    <div class="object">
+	        
+	        <? if( $dzialalnosci = $object->getLayer('dzialalnosci') ) {?>
+		    <div class="block block-default col-xs-12">
+		        <header>Działalność według PKD</header>
+		        <section>
+			        
+			        <ul>
+				    <? foreach( $dzialalnosci as $d ) {?>
+				    	<li><?= $d['str'] ?></li>
+				    <? } ?>
+			        </ul>
+			        
+		        </section>
+		    </div>
+		    <? } ?>
+		    
+	    </div>
+	</div>
+</div>
+
 	
 <?= $this->Element('dataobject/pageEnd'); ?>
