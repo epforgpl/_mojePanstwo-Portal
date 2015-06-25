@@ -103,19 +103,19 @@
                 height: 180
             });
             changeLogo.find('.export').click(function () {
-                var imageData = changeLogo.find('.image-editor').cropit('export', {
-                    type: 'image/png',
-                    quality: .9
-                });
+                var self = $(this),
+                    imageData = changeLogo.find('.image-editor').cropit('export', {
+                        type: 'image/png'
+                    });
                 $.ajax({
                     url: '/dane/' + dataset + '/' + object_id + '/page/logo.json',
                     method: "POST",
                     data: {'image': imageData},
                     before: function () {
-                        $(this).addClass('loading disabled')
+                        self.addClass('loading disabled')
                     },
                     success: function () {
-                        //location.reload(true)
+                        location.reload(true)
                     },
                     error: function () {
                         //location.reload(true)
@@ -137,19 +137,20 @@
                 exportZoom: 2
             });
             changeBackground.find('.export').click(function () {
-                var imageData = changeBackground.find('.image-editor').cropit('export', {
-                    type: 'image/jpeg',
-                    quality: .9
-                });
+                var self = $(this),
+                    imageData = changeBackground.find('.image-editor').cropit('export', {
+                        type: 'image/jpeg',
+                        quality: .9
+                    });
                 $.ajax({
                     url: '/dane/' + dataset + '/' + object_id + '/page/cover.json',
                     method: "POST",
                     data: {'image': imageData},
                     before: function () {
-                        $(this).addClass('loading disabled')
+                        self.addClass('loading disabled')
                     },
                     success: function () {
-                        //location.reload(true)
+                        location.reload(true)
                     },
                     error: function () {
                         //location.reload(true)
@@ -166,14 +167,16 @@
             });
 
             changeBackground.find('.delete').click(function () {
+                var self = $(this);
+
                 $.ajax({
                     url: '/dane/' + dataset + '/' + object_id + '/page/' + $(this).attr('data-type') + '.json',
                     method: "DELETE",
                     before: function () {
-                        $(this).addClass('loading disabled')
+                        self.addClass('loading disabled')
                     },
                     success: function () {
-                        //location.reload(true)
+                        location.reload(true)
                     },
                     error: function () {
                         //location.reload(true)

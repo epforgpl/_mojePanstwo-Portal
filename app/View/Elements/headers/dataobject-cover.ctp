@@ -21,7 +21,7 @@ if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object
      data-object_id="<?= $object->getId() ?>">
 
     <div class="headlineBar" <? if ($pageLayer['cover']) {
-        echo ' style="background-image: url(/pages/cover/' . $dataset . '/' . $object_id . '.jpeg)"';
+        echo ' style="background-image: url(/pages/cover/' . $dataset . '/' . $object_id . '.jpg)"';
     } ?>>
         <div class="container">
             <? if ($pageLayer['logo']) { ?>
@@ -92,14 +92,9 @@ if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object
                         echo $this->element('modals/dataobject-admin-changelogo');
                         echo $this->element('modals/dataobject-admin-changebackground');
                     } else { ?>
-                        <div class="opt">
-                            <? if (isset($_observeOptions) && !empty($_observeOptions)) {
-                                echo $this->element('modals/dataobject-observe');
-                            }
-                            ?>
-                        </div>
-                        //Facebook
-                        //Twitter
+                        <? if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
+                            <div class="opt"><?= $this->element('modals/dataobject-observe'); ?></div>
+                        <? } ?>
                     <? } ?>
                 </div>
             </div>
