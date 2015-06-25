@@ -92,12 +92,14 @@
 
 
         if (changeLogo.length) {
+            var image = changeLogo.find('.cropit-image-preview').attr('data-image');
+
             appHeader.find('.addLogoBtn').click(function () {
                 changeLogo.modal('show');
             });
             changeLogo.find('.image-editor').cropit({
                 imageState: {
-                    src: 'http://lorempixel.com/180/180/'
+                    src: (image) ? image : 'http://lorempixel.com/180/180/'
                 },
                 width: 180,
                 height: 180
@@ -125,12 +127,14 @@
         }
 
         if (changeBackground.length) {
+            var image = changeBackground.find('.cropit-image-preview').attr('data-image');
+
             appHeader.find('.addBackgroundBtn').click(function () {
                 changeBackground.modal('show');
             });
             changeBackground.find('.image-editor').cropit({
                 imageState: {
-                    src: 'http://lorempixel.com/1500/400/'
+                    src: (image) ? image : 'http://lorempixel.com/1500/400/'
                 },
                 width: 750,
                 height: 200,
