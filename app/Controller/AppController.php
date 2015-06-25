@@ -527,6 +527,7 @@ class AppController extends Controller
                         'zamowienia',
                         'organizacje',
                         'biznes',
+                        'osoby',
                         'ngo',
                         'spzoz',
                         'dotacje_ue',
