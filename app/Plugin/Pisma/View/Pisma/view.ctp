@@ -125,7 +125,7 @@
                                                 adresata <?= $this->Czas->dataSlownie($pismo['sent_at']) ?>.</p>
                                         <? } else { ?>
                                             <a title="Możesz wysłać pismo do adresata poprzez e-mail"
-                                               href="<?= $href_base . '/send' ?>" target="_self"
+                                               href="#" target="_self"
                                                class="btn btn-primary sendPismo btn-icon"><i
                                                     class="icon glyphicon glyphicon-send"></i>Wyślij...</a>
 
