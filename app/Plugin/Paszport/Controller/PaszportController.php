@@ -184,11 +184,12 @@ class PaszportController extends ApplicationsController
                 'action' => 'profile'
             ));
         } else {
-            $ref = $this->request->referer();
+            /*$ref = $this->request->referer();
             if ($ref != Router::url(null, true)) {
                 // if referer is not login itself, save it for succesfull redirect
+                pr($ref); die();
                 $this->Auth->redirectUrl($ref);
-            }
+            }*/
 
             if ($this->request->is('post')) {
                 try {
