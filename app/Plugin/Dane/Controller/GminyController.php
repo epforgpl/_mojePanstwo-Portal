@@ -2937,6 +2937,7 @@ class GminyController extends DataobjectsController
             $this->Components->load('Dane.DataBrowser', array(
                 'conditions' => array(
                     'dataset' => 'krakow_urzednicy',
+                    'krakow_urzednicy.jednostka_id!=' => '17',
                 ),
                 'aggsPreset' => 'krakow_urzednicy',
             ));
