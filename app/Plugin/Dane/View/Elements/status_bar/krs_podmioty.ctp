@@ -63,7 +63,7 @@
     if (isset($www) && !empty($www)) {
         $url = (stripos($www, 'http') === false) ? 'http://' . $www : $www;
         ?>
-        <li class="dataHighlight col-sm-3">
+        <li class="dataHighlight col-sm-6">
             <p class="_label">Strona WWW</p>
 
             <p class="_value"><a target="_blank" title="<?= addslashes($object->getTitle()) ?>"
@@ -74,7 +74,7 @@
     <?
     $email = $object->getData('email');
     if (isset($email) && !empty($email)) { ?>
-        <li class="dataHighlight col-sm-3">
+        <li class="dataHighlight col-sm-6">
             <p class="_label">Adres e-mail</p>
 
             <p itemprop="email" class="_value"><a target="_blank" href="mailto:<?= $email ?>"><?= $email; ?></a></p>
