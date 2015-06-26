@@ -336,5 +336,20 @@ class DataobjectsController extends AppController
             'og:image' => FULL_BASE_URL . '/dane/img/social/dane.jpg'
         ));
     }
+    
+    public function getPageRoles() {
+	    
+	    if( 
+	    	$this->Auth->user() && 
+	    	isset( $this->object ) && 
+	    	( $page = $this->object->getLayer('page') ) && 
+	    	isset( $page['roles'] )
+	    ) {
+		    
+		    return @$page['roles']['ObjectUser']['role'];
+		    
+	    } else return false;
+	    
+    }
 
 }
