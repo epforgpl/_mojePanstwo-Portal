@@ -9,7 +9,7 @@ class BdlTempItem extends AppModel
 	    
     }
     
-    public function findById() {
+    public function findById($id) {
 	    
     }
     

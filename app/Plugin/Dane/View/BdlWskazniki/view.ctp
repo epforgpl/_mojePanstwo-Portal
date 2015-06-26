@@ -26,23 +26,24 @@
                             <h4 class="modal-title">Edycja nazwy i opisu wskaźnika:</h4>
                         </div>
                         <div class="modal-body">
-                            <div class="hidden alert alert-success"></div>
-                            <div class="col-sm-4 "><label class="pull-right">Nazwa:</label></div>
-                            <div class="col-sm-6"><input id="nazwa" class="form-control"
-                                                         value="<?= $object->getData('bdl_podgrupa.nazwa') ? $object->getData('bdl_podgrupa.nazwa') : $object->getData('bdl_podgrupa.tytul'); ?>">
+                            <div class="col-sm-11">
+                                <div class="hidden alert alert-success"></div>
+                                <div class="row "><label class="">Nazwa:</label></div>
+                                <div class="row"><input id="nazwa" class="form-control"
+                                                        value="<?= $object->getData('bdl_podgrupa.nazwa') ? $object->getData('bdl_podgrupa.nazwa') : $object->getData('bdl_podgrupa.tytul'); ?>">
+                                </div>
+                                <br>
+
+                                <div class="row"><label>Opis:</label></div>
                             </div>
-                            <br><br>
                             <article id="editor">
                                 <?= $object->getData('bdl_podgrupa.opis'); ?>
                             </article>
-                            <p class="text-info">
-                                <small>Aby zapisać kliknij 'Zapisz'</small>
-                            </p>
-                            <div class="pull-right">
-                                <button id="bdl_savebtn" class="btn-lg btn-primary">Zapisz</button>
-                            </div>
-                            <br><br>
-
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-md btn-primary btn-icon" id><i
+                                    class="icon glyphicon glyphicon-save"></i>Zapisz
+                            </button>
                         </div>
                     </div>
                 </div>
