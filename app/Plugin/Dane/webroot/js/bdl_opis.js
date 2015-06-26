@@ -30,8 +30,8 @@ $(document).ready(function () {
 
     $("#bdl_savebtn").click(function () {
 
-        dane = {
-            tytul: $("#nazwa").val(),
+        var dane = {
+            nazwa: $("#nazwa").val(),
             opis: $("#editor").html()
         };
         saveData(dane);
