@@ -8,6 +8,19 @@
 <?= $this->Element('bdl_select', array('expand_dimension' => $expand_dimension, 'dims' => $dims)); ?>
 
     <div id="bdl-wskazniki" class="col-md-12">
+        
+        <? if( in_array('bdl_opis', $object_editable) ) {?>
+	        
+	        <?php $this->Combinator->add_libs('js', 'Dane.bdl_opis'); ?>
+	        <?php $this->Combinator->add_libs('css', $this->Less->css('bdl_opis', array('plugin' => 'Dane'))); ?>
+
+	        <div class="bdl_opis">
+		        
+		        <button id="bdl_opis">Edytuj</button>
+	        
+	        </div>
+        <? } ?>
+        
         <div class="object">
 
             <?

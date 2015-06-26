@@ -9,7 +9,7 @@ if (!isset($renderFile) || !$renderFile)
     $renderFile = 'page';
 ?>
 
-<div class="appHeader dataobject"<? if( isset($object_editable) && !empty($object_editable) ) {?> data-editables='<?= json_encode($object_editable) ?>'<?}?> data-dataset="<?= $object->getDataset() ?>" data-object_id="<?= $object->getId() ?>">
+<div class="appHeader dataobject"<? if( isset($object_editable) && !empty($object_editable) ) {?> data-editables='<?= json_encode($object_editable) ?>'<?}?> data-url="<?= urlencode($object->getUrl()) ?>" data-dataset="<?= $object->getDataset() ?>" data-object_id="<?= $object->getId() ?>">
     <div class="container">
         <div class="holder row">
             <div class="col-md-10">
