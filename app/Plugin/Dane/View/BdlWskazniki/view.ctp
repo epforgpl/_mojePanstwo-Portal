@@ -27,7 +27,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="hidden alert alert-success"></div>
-                            <div class="col-sm-4 "><label class="pull-right margin-top-10">Nazwa:</label></div>
+                            <div class="col-sm-4 "><label class="pull-right">Nazwa:</label></div>
                             <div class="col-sm-6"><input id="nazwa" class="form-control"
                                                          value="<?= $object->getData('bdl_podgrupa.nazwa') ? $object->getData('bdl_podgrupa.nazwa') : $object->getData('bdl_podgrupa.tytul'); ?>">
                             </div>
