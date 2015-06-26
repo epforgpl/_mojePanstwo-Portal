@@ -15,7 +15,7 @@ if (!isset($renderFile) || !$renderFile)
     $renderFile = 'page';
 ?>
 
-<div class="appHeader dataobject dataobject-cover<? if ($pageLayer['logo']) echo ' cover-logo';
+<div class="appHeader dataobject dataobject-cover<? if(isset($object_editable)) {?> editable<? }?><? if ($pageLayer['logo']) echo ' cover-logo';
 if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object->getDataset() ?>"
      data-object_id="<?= $object->getId() ?>">
 
@@ -87,13 +87,12 @@ if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object
                     </div>
                 </div>
                 <div class="col-md-3 options">
-                    <?php if( @$object_editable ) {
+                    <? if( @$object_editable ) {
                         echo $this->element('modals/dataobject-admin-changelogo', array('customLogo' => $pageLayer['logo'], 'dataset' => $dataset, 'object_id' => $object_id));
                         echo $this->element('modals/dataobject-admin-changebackground', array('customBackground' => $pageLayer['cover'], 'dataset' => $dataset, 'object_id' => $object_id));
-                    } else { ?>
-                        <? if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
-                            <div class="opt"><?= $this->element('modals/dataobject-observe'); ?></div>
-                        <? } ?>
+                    } ?>
+                    <? if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
+                        <div class="opt"><?= $this->element('modals/dataobject-observe'); ?></div>
                     <? } ?>
                 </div>
             </div>

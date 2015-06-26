@@ -330,7 +330,7 @@ class DataobjectsController extends AppController
 	    	isset( $page['roles'] )
 	    ) {
 		    
-		    return $page['roles']['ObjectUser']['role'];
+		    return @$page['roles']['ObjectUser']['role'];
 		    
 	    } else return false;
 	    
