@@ -137,6 +137,8 @@
             min-height: @logoHeaderMinSize;
 
             .logoBox {
+              width: 180px;
+              height: 180px;
               position: absolute;
               bottom: -(@logoBoxSize/6);
               left: 15px;
@@ -152,6 +154,11 @@
               -ms-box-shadow: 3px 3px 3px rgba(0, 0, 0, .09);
               -o-box-shadow: 3px 3px 3px rgba(0, 0, 0, .09);
               box-shadow: 3px 3px 3px rgba(0, 0, 0, .09);
+
+              > img {
+                width: 100%;
+                height: 100%;
+              }
             }
 
             .holder .holderBlock .title {
