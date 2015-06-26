@@ -2941,7 +2941,7 @@ class GminyController extends DataobjectsController
 	                            'size' => 999,
 	                            'fielddata_fields' => array('dataset', 'id'),
 	                            'sort' => array(
-	                                'date' => array(
+	                                'data.krakow_oswiadczenia.rok' => array(
 	                                    'order' => 'desc',
 	                                ),
 	                            ),
