@@ -69,8 +69,37 @@ class BdlController extends ApplicationsController
 
     }
     
+    
     public function getMenu() {
-	    return array();
+	    
+	    $menu = array(
+		    'items' => array(
+			    array(
+				    'id' =>'',
+				    'label' => 'Wskaźniki',
+				    'icon' => array(
+					    'src' => 'glyphicon',
+					    'id' => 'home',
+				    ),
+			    ),
+		    ),
+		    'base' => '/bdl',
+	    );
+	    
+	    if( $this->hasUserRole('3') ) {
+		    
+		    $menu['items'][] = array(
+			    'id' => 'user_items',
+			    'label' => 'Tworzenie wskaźników',
+		    );
+		    
+	    }
+	    
+	    if( count($menu['items'])===1 )
+	    	return array();
+	    else 
+	    	return $menu;	    
+	    
     }
 
 } 
