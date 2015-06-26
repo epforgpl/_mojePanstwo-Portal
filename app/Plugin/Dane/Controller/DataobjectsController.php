@@ -281,18 +281,33 @@ class DataobjectsController extends AppController
             $selected = $this->request->params['action'];
             if ($selected == 'view')
                 $selected = '';
-						
-			$object_moderable = $this->objectModerable && 
+			
+			
+			$object_editable = array(
+				
+			);
+			
+			
+			
+			if( $this->objectModerable && 
 			(
 				in_array('2', $this->getUserRoles()) || // check if superuser 
 				( $this->getPageRoles()=='1' ) // check if user has permissions to page 
-			);
+			) ){
+				
+				$object_editable[] = 'users';
+			}
 			
-			$object_editable = $this->objectModerable && 
+			if( $this->objectModerable && 
 			(
 				in_array('2', $this->getUserRoles()) || // check if superuser 
 				$this->getPageRoles() // check if user has permissions to page 
-			);
+			) ) {
+				
+				$object_editable[] = 'cover';
+				$object_editable[] = 'logo';
+				
+			}
 			
 			// debug($this->getUserRoles()); die();
 						
@@ -300,29 +315,12 @@ class DataobjectsController extends AppController
             $this->menu['base'] = $this->object->getUrl();
             $this->set('object_actions', $this->actions);
             $this->set('object_addons', $this->addons);
-            $this->set('object_moderable', $object_moderable);
             $this->set('object_editable', $object_editable);
 
             $this->prepareMetaTags();
         }
 
         parent::beforeRender();
-
-    }
-
-    public function getPageRoles()
-    {
-
-        if (
-            $this->Auth->user() &&
-            isset($this->object) &&
-            ($page = $this->object->getLayer('page')) &&
-            isset($page['roles'])
-        ) {
-
-            return @$page['roles']['ObjectUser']['role'];
-
-        } else return false;
 
     }
     

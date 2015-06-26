@@ -69,8 +69,8 @@
     echo $this->Html->css('../libs/font-awesome/4.3.0/css/font-awesome.min.css');
     $this->Combinator->add_libs('css', $this->Less->css('social-buttons'), false);
 
-    if( isset($object_moderable) && $object_moderable ) {
-        $this->Combinator->add_libs('css', $this->Less->css('dataobjects-moderate', array('plugin' => 'Dane')));
+    if( isset($object_editable) && !empty($object_editable) ) {
+        $this->Combinator->add_libs('css', $this->Less->css('dataobjects-editable', array('plugin' => 'Dane')));
     }
 
     /* HAD TO BE EXCLUDED CAUSE ERRORS AT BOOTSTRAP */
@@ -189,9 +189,9 @@ $this->Combinator->add_libs('js', 'main', false);
 $this->Combinator->add_libs('js', 'suggester');
 $this->Combinator->add_libs('js', 'appheader');
 
-if (isset($object_moderable) && $object_moderable) {
+if( isset($object_editable) && !empty($object_editable) ) {
     $this->Combinator->add_libs('js', 'jquery.autocomplete.min');
-    $this->Combinator->add_libs('js', 'Dane.dataobjects-moderate');
+    $this->Combinator->add_libs('js', 'Dane.dataobjects-editable');
 }
 
 /* BLOCK FOR SPECIAL SCRIPTS LIKE PROTOTYPE THAT CANNOT BE MERGE TO ONE FILE*/
