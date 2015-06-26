@@ -16,7 +16,7 @@ $options = array(
 
 
             <div class="databrowser-panel">
-                <h2>Najnowsze posiedzenia komisji:</h2>
+                <h2>Najnowsze posiedzenia rady dzielnicy:</h2>
 
                 <div class="aggs-init">
 
