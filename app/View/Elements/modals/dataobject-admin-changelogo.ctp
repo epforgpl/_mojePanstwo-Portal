@@ -1,4 +1,4 @@
-<div class="opt btn btn-default addLogoBtn"><?= ($customLogo) ? 'Zmień' : 'Dodaj' ?> logo</div>
+<div class="opt btn btn-default btn-xs addLogoBtn"><?= ($customLogo) ? 'Zmień' : 'Dodaj' ?> logo</div>
 
 <div class="modal modalAdmin fade" id="modalAdminAddLogo" tabindex="-1" role="dialog"
      aria-labelledby="modalAdminAddLogoLabel">

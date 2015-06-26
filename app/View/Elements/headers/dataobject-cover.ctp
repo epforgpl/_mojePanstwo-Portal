@@ -5,7 +5,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 $object = $this->viewVars['object'];
 $dataset = @$object->getDataset();
 $object_id = @$object->getId();
-$pageLayer = @$object->getLayer();
+$pageLayer = @$object->getLayer('page');
 $objectOptions = $this->viewVars['objectOptions'];
 
 /** @var Object $microdata */

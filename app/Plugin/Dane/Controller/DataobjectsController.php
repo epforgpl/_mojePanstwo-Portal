@@ -257,22 +257,24 @@ class DataobjectsController extends AppController
                     ));
 
             }
-            
+                        
             if( $page = $this->object->getLayer('page') ) {
 								
 				if( @isset($this->request->query['page']['cover']) )
 					$page['cover'] = $this->request->query['page']['cover'];
 					
 				if( @isset($this->request->query['page']['logo']) )
-					$page['cover'] = $this->request->query['page']['logo'];
+					$page['logo'] = $this->request->query['page']['logo'];
 					
 				if( @isset($this->request->query['page']['moderated']) )
 					$page['moderated'] = $this->request->query['page']['moderated'];
 					
 				$this->object->layers['page'] = $page;
-				
+												
 				if( $page['cover'] || $page['logo'] )
 					$this->_layout['header']['element'] = 'dataobject-cover';
+								
+				$this->set('object', $this->object);
 									
 			}
 

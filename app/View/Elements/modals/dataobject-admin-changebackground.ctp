@@ -1,4 +1,4 @@
-<div class="opt btn btn-default addBackgroundBtn"><?= ($customBackground) ? 'Zmień' : 'Dodaj' ?> obrazek tła</div>
+<div class="opt btn btn-default btn-xs addBackgroundBtn"><?= ($customBackground) ? 'Zmień' : 'Dodaj' ?> obrazek tła</div>
 
 <div class="modal modalAdmin fade" id="modalAdminAddBackground" tabindex="-1" role="dialog"
      aria-labelledby="modalAdminAddBackgroundLabel">
