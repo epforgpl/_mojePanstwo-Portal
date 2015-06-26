@@ -227,7 +227,11 @@ class BdlWskaznikiController extends DataobjectsController
     
     public function beforeRender()
     {
+	    
+	    $this->addObjectEditable('bdl_opis');
+	    	    
 	    parent::beforeRender();
+	 	
 	 	if( $this->object ) {
 	 	
 		    $this->addBreadcrumb(array(
