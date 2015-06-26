@@ -857,9 +857,6 @@ class DataBrowserComponent extends Component
                 'autocompletion' => $this->autocompletion,
                 'mode' => 'data',
             );
-            
-            debug($dataBrowser); die();
-
 
             if ($this->aggsMode == 'apps') {
 
