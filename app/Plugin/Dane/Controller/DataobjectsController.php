@@ -23,8 +23,8 @@ class DataobjectsController extends AppController
     public $actions = array();
     public $appSelected = '';
     public $addDatasetBreadcrumb = true;
+    public $editables = array();
     
-    public $objectModerable = false;
 
     public $_layout = array(
         'header' => array(
@@ -38,6 +38,14 @@ class DataobjectsController extends AppController
         ),
     );
 
+	public function addObjectEditable($e)
+	{
+		if( is_string($e) )
+			$this->editables[] = $e;
+		elseif( is_array($e) )
+			$this->editables = array_merge($this->editables, $e);
+	}
+	
     public function addInitLayers($layers)
     {
 
@@ -283,34 +291,29 @@ class DataobjectsController extends AppController
                 $selected = '';
 			
 			
-			$object_editable = array(
-				
-			);
+			$object_editable = array();
 			
-			
-			
-			if( $this->objectModerable && 
-			(
+			if(
 				in_array('2', $this->getUserRoles()) || // check if superuser 
 				( $this->getPageRoles()=='1' ) // check if user has permissions to page 
-			) ){
+			) {
 				
 				$object_editable[] = 'users';
 			}
 			
-			if( $this->objectModerable && 
-			(
+			if( 
 				in_array('2', $this->getUserRoles()) || // check if superuser 
 				$this->getPageRoles() // check if user has permissions to page 
-			) ) {
+			) {
 				
 				$object_editable[] = 'cover';
 				$object_editable[] = 'logo';
 				
 			}
 			
-			// debug($this->getUserRoles()); die();
-						
+			if( !empty($this->editables) )
+				$object_editable = array_merge($object_editable, $this->editables);
+												
             $this->menu['selected'] = $selected;
             $this->menu['base'] = $this->object->getUrl();
             $this->set('object_actions', $this->actions);
@@ -347,6 +350,13 @@ class DataobjectsController extends AppController
 		    return @$page['roles']['ObjectUser']['role'];
 		    
 	    } else return false;
+	    
+    }
+    
+    public function update() {
+	    
+	    $this->view = 'view';
+	    $this->view();
 	    
     }
 
