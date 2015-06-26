@@ -62,7 +62,7 @@ ObjectUsersManagement.prototype.initialize = function () {
                 url: '/dane/' + _this.dataset + '/' + _this.id + '/page/logo.json',
                 method: "POST",
                 data: {'image': imageData},
-                before: function () {
+                beforeSend: function () {
                     self.addClass('loading disabled')
                 },
                 success: function () {
@@ -95,11 +95,12 @@ ObjectUsersManagement.prototype.initialize = function () {
                     type: 'image/jpeg',
                     quality: .9
                 });
+
             $.ajax({
                 url: '/dane/' + _this.dataset + '/' + _this.id + '/page/cover.json',
                 method: "POST",
                 data: {'image': imageData},
-                before: function () {
+                beforeSend: function () {
                     self.addClass('loading disabled')
                 },
                 success: function () {
@@ -125,7 +126,7 @@ ObjectUsersManagement.prototype.initialize = function () {
             $.ajax({
                 url: '/dane/' + _this.dataset + '/' + _this.id + '/page/' + $(this).attr('data-type') + '.json',
                 method: "DELETE",
-                before: function () {
+                beforeSend: function () {
                     self.addClass('loading disabled')
                 },
                 success: function () {
