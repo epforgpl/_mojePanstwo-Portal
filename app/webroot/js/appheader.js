@@ -134,10 +134,10 @@
             });
             changeBackground.find('.image-editor').cropit({
                 imageState: {
-                    src: (image) ? image : 'http://lorempixel.com/1500/400/'
+                    src: (image) ? image : 'http://lorempixel.com/1500/300/'
                 },
                 width: 750,
-                height: 200,
+                height: 150,
                 exportZoom: 2
             });
             changeBackground.find('.export').click(function () {
