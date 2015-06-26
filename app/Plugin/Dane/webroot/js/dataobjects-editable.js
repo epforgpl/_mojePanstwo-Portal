@@ -10,11 +10,7 @@ var ObjectUsersManagement = function (header, dataset, id, editables) {
 };
 
 ObjectUsersManagement.prototype.initialize = function () {
-    var _this = this,
-        editablePanel = $('.editablePanel'),
-        moderateModal = $('#moderate-modal'),
-        changeLogo = $('#modalAdminAddLogo'),
-        changeBackground = $('#modalAdminAddBackground');
+    var _this = this;
 
     $('body').append(
         $('<div></div>').addClass('editablePanel dropdown').append(
@@ -25,6 +21,11 @@ ObjectUsersManagement.prototype.initialize = function () {
     );
 
     $('#moderate-add').hide();
+
+    var editablePanel = $('.editablePanel'),
+        moderateModal = $('#moderate-modal'),
+        changeLogo = $('#modalAdminAddLogo'),
+        changeBackground = $('#modalAdminAddBackground');
 
     if (moderateModal.length) {
         editablePanel.find('.users').click(function () {
