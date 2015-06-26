@@ -171,7 +171,15 @@ class PaszportController extends ApplicationsController
                     );
                 }
             } elseif (isset($response['user']) && $response['user']) {
-                $this->Auth->login($response['user']['User']);
+                // dostosowanie danych do takiego samego formatu który jest zwracany
+                // podczas logowania przez formularz
+                $user = $response['user']['User'];
+                foreach($response['user'] as $model => $values) {
+                    if($model != 'User')
+                        $user[$model] = $values;
+                }
+
+                $this->Auth->login($user);
                 $this->redirect($this->Auth->redirectUrl());
             } else {
                 throw new BadRequestException();
