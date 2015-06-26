@@ -87,7 +87,7 @@ if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object
                     </div>
                 </div>
                 <div class="col-md-3 options">
-                    <?php if (isset($pageLayer['permission']) && $pageLayer['permission']) {
+                    <?php if( @$object_editable ) {
                         echo $this->element('modals/dataobject-admin-changelogo', array('customLogo' => $pageLayer['logo'], 'dataset' => $dataset, 'object_id' => $object_id));
                         echo $this->element('modals/dataobject-admin-changebackground', array('customBackground' => $pageLayer['cover'], 'dataset' => $dataset, 'object_id' => $object_id));
                     } else { ?>

@@ -585,22 +585,6 @@ class KrsPodmiotyController extends DataobjectsController
         }
         
         return $menu;
-    }
-    
-    public function beforeRender()
-    {
-	    
-	    if(
-	    	( $this->object->getData('forma_prawna_id')=='1' ) || // FUNDACJA
-	    	( $this->object->getData('forma_prawna_id')=='15' ) // STOWARZYSZENIE
-	    ) {
-
-            // $this->_layout['header']['element'] = 'dataobject-cover';
-		    
-	    }
-	    
-	    parent::beforeRender();
-	    
-    }
+    }	    
 
 }

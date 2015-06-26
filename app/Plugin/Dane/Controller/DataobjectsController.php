@@ -233,12 +233,12 @@ class DataobjectsController extends AppController
 
 
     public function beforeRender()
-    {
-
+    {		
+		
         $is_json = (isset($this->request->params['ext']) && $this->request->params['ext'] == 'json');
 
         if (!$is_json) {
-
+		
             if (
                 ($this->request->params['controller'] == 'Datasets') &&
                 ($breadcrumbs_data = $this->getDataset($this->object->getData('slug')))
@@ -257,6 +257,24 @@ class DataobjectsController extends AppController
                     ));
 
             }
+            
+            if( $page = $this->object->getLayer('page') ) {
+								
+				if( @isset($this->request->query['page']['cover']) )
+					$page['cover'] = $this->request->query['page']['cover'];
+					
+				if( @isset($this->request->query['page']['logo']) )
+					$page['cover'] = $this->request->query['page']['logo'];
+					
+				if( @isset($this->request->query['page']['moderated']) )
+					$page['moderated'] = $this->request->query['page']['moderated'];
+					
+				$this->object->layers['page'] = $page;
+				
+				if( $page['cover'] || $page['logo'] )
+					$this->_layout['header']['element'] = 'dataobject-cover';
+									
+			}
 
             $selected = $this->request->params['action'];
             if ($selected == 'view')
