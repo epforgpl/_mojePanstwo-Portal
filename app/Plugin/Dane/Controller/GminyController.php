@@ -2916,22 +2916,95 @@ class GminyController extends DataobjectsController
                     'id' => $this->request->params['subid'],
                 ),
             ));
-
-            $this->Components->load('Dane.DataBrowser', array(
-                'conditions' => array(
-                    'dataset' => 'krakow_oswiadczenia',
-                    'krakow_oswiadczenia.urzednik_id' => $this->request->params['subid'],
-                ),
-                'order' => array(
-                    'krakow_oswiadczenia.id' => 'desc',
-                ),
-            ));
-
-            $this->set('DataBrowserTitle', 'Oświadczenia majątkowe:');
+            
+            $global_aggs = array(
+	            'oswiadczenia' => array(
+	                'filter' => array(
+	                    'bool' => array(
+	                        'must' => array(
+	                            array(
+	                                'term' => array(
+	                                    'dataset' => 'krakow_oswiadczenia',
+	                                ),
+	                            ),
+	                            array(
+	                                'term' => array(
+	                                    'data.krakow_oswiadczenia.urzednik_id' => $urzednik->getId(),
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	                'aggs' => array(
+	                    'top' => array(
+	                        'top_hits' => array(
+	                            'size' => 999,
+	                            'fielddata_fields' => array('dataset', 'id'),
+	                            'sort' => array(
+	                                'date' => array(
+	                                    'order' => 'desc',
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	            ),
+	        );
+	
+	        $options = array(
+	            'searcher' => false,
+	            'searchTitle' => 'Szukaj w ' . $urzednik->getTitle() . '...',
+	            'conditions' => array(
+	                '_object' => 'krakow_urzednicy.' . $urzednik->getId(),
+	            ),
+	            'cover' => array(
+	                'view' => array(
+	                    'plugin' => 'Dane',
+	                    'element' => 'krakow_urzednicy/cover',
+	                ),
+	                'aggs' => array(
+	                    'all' => array(
+	                        'global' => '_empty',
+	                        'aggs' => $global_aggs,
+	                    ),
+	                ),
+	            ),
+	            /*
+	            'aggs' => array(
+	                'dataset' => array(
+	                    'terms' => array(
+	                        'field' => 'dataset',
+	                    ),
+	                    'visual' => array(
+	                        'label' => 'Zbiory danych',
+	                        'skin' => 'datasets',
+	                        'class' => 'special',
+	                        'field' => 'dataset',
+	                        'dictionary' => array(
+	                            'krakow_oswiadczenia' => array('prawo', 'Prawo lokalne'),
+	                        ),
+	                    ),
+	                ),
+	            ),
+	            */
+	        );
+	
+	        if ($urzednik->getData('krs_osoba_id')) {
+                $this->set('osoba', $this->Dataobject->find('first', array(
+                    'conditions' => array(
+                        'dataset' => 'krs_osoby',
+                        'id' => $urzednik->getData('krs_osoba_id'),
+                    ),
+                    'layers' => array('organizacje'),
+                )));
+            }
+	
+	        $this->Components->load('Dane.DataBrowser', $options);
+            
             $this->set('urzednik', $urzednik);
             $this->set('title_for_layout', $urzednik->getTitle());
             $this->render('urzednik');
-
+            
         } else {
 
             $this->Components->load('Dane.DataBrowser', array(

@@ -13,6 +13,7 @@ class DataBrowserComponent extends Component
     private $searchTitle = false;
     private $autocompletion = false;
     private $aggsMode = false;
+    private $searcher = true;
 
     private $aggs_presets = array(
         'gminy' => array(
@@ -785,9 +786,9 @@ class DataBrowserComponent extends Component
                 }
             }
         }
-
+		
         $this->settings = $settings;
-
+		
         if (isset($settings['cover']))
             $this->cover = $settings['cover'];
 
@@ -802,6 +803,9 @@ class DataBrowserComponent extends Component
 
         if (isset($settings['aggs-mode']))
             $this->aggsMode = $settings['aggs-mode'];
+            
+        if (isset($settings['searcher']))
+            $this->searcher = $settings['searcher'];
 
     }
 
@@ -849,9 +853,12 @@ class DataBrowserComponent extends Component
                 'cover' => $this->cover,
                 'chapters' => $this->chapters,
                 'searchTitle' => $this->searchTitle,
+                'searcher' => $this->searcher,
                 'autocompletion' => $this->autocompletion,
                 'mode' => 'data',
             );
+            
+            debug($dataBrowser); die();
 
 
             if ($this->aggsMode == 'apps') {
@@ -952,6 +959,7 @@ class DataBrowserComponent extends Component
                     'cancel_url' => false,
                     'chapters' => $this->chapters,
                     'searchTitle' => $this->searchTitle,
+                    'searcher' => $this->searcher,
                     'autocompletion' => $this->autocompletion,
                     'mode' => 'cover',
                 ));
