@@ -9,16 +9,6 @@ echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
 
-/*
-echo $this->Element('Dane.dataobject/subobject', array(
-    'menu' => $_submenu,
-    'object' => $dzielnica,
-    'objectOptions' => array(
-        'hlFields' => array(),
-        'bigTitle' => true,
-    )
-));
-*/
 
 echo $this->Element('Dane.dataobject/subobject', array(
     'menu' => false,
@@ -27,12 +17,9 @@ echo $this->Element('Dane.dataobject/subobject', array(
         'hlFields' => array(),
         'bigTitle' => true,
     ),
-    'back' => array(
-        'href' => $dzielnica->getUrl(),
-        'title' => 'Dzielnica ' . $dzielnica->getTitle(),
-    ),
 ));
 
+/*
 if ($pagination['total']) {
     echo $this->Element('Dane.DataobjectsBrowser/view', array(
         'page' => $page,
@@ -43,9 +30,19 @@ if ($pagination['total']) {
         'renderFile' => 'krakow_dzielnice_uchwaly-glosy',
     ));
 }
+*/
+?>
 
-if (isset($document))
-    echo $this->Document->place($document);
+<div class="prawo row">
+
+    <div class="col-md-12">
+        <div class="object">
+            <?= $this->Document->place($uchwala->getData('dokument_id')) ?>
+        </div>
+    </div>
 
 
+</div>
+
+<?
 echo $this->Element('dataobject/pageEnd');

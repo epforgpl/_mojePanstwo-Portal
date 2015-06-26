@@ -33,6 +33,33 @@ class Krakow_dzielnice_uchwaly extends DataObject
 	    return '/dane/gminy/903,krakow/dzielnice/' . $this->getData('dzielnica_id') . '/rada_uchwaly/' . $this->getId();
     }
     
+    public function getMetaDescriptionParts($preset = false)
+	{
+				
+		$output = array(
+			dataSlownie($this->getDate()),
+		);
+		
+		return $output;
+		
+	}
+	
+	public function getBreadcrumbs()
+	{
+				
+		return array(
+			array(
+				'id' => '/dane/gminy/903,krakow/dzielnice/' . $this->getData('dzielnice.id'),
+				'label' => $this->getData('dzielnice.nazwa'),
+			),
+			array(
+				'id' => '/dane/gminy/903,krakow/dzielnice/' . $this->getData('dzielnice.id') . '/rada_uchwaly',
+				'label' => 'Uchwały Rady Dzielnicy',
+			),
+		);
+				
+	}
+    
     public $force_hl_fields = true;
 
 }

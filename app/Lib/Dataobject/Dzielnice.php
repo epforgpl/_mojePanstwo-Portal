@@ -35,14 +35,20 @@ class Dzielnice extends DataObject
 	    return '/dane/gminy/' . $this->getData('gminy.id') . '/dzielnice/' . $this->getId();
     }
     
-    public function getShortLabel()
-    {
-	    return 'Dzielnica';
-    }
-    
     public function getLabel()
     {
 	    return 'Dzielnica Miasta ' . $this->getData('gminy.nazwa');
     }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+		
+		$output = array(
+			'Dzielnica miasta Kraków'
+		);
+		
+		return $output;
+		
+	}
     
 }
