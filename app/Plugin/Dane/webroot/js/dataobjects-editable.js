@@ -21,6 +21,12 @@ ObjectUsersManagement.prototype.initialize = function () {
     );
 
     $('#moderate-add').hide();
+    
+    var editablePanel = $('.editablePanel'),
+        moderateModal = $('#moderate-modal'),
+        changeLogo = $('#modalAdminAddLogo'),
+        changeBackground = $('#modalAdminAddBackground'),
+        bdl_opis = $('#bdl_opis_modal');
 
     var editablePanel = $('.editablePanel'),
         moderateModal = $('#moderate-modal'),
@@ -129,6 +135,11 @@ ObjectUsersManagement.prototype.initialize = function () {
                     //location.reload(true)
                 }
             });
+        });
+    }
+    if(bdl_opis.length){
+        editablePanel.find('.bdl_opis').click(function () {
+           bdl_opis.modal("show");
         });
     }
 };
@@ -338,6 +349,12 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '</div>',
             '</div>',
             '</div>'
+        ]);
+    }
+
+    if (jQuery.inArray("bdl_opis", this.editables)) {
+        $.merge(list, [
+            '<li><a class="bdl_opis" href="#">Zmiana opisu i nazwy</a></li>'
         ]);
     }
 

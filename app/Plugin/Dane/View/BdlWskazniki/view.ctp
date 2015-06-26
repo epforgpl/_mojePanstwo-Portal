@@ -8,19 +8,48 @@
 <?= $this->Element('bdl_select', array('expand_dimension' => $expand_dimension, 'dims' => $dims)); ?>
 
     <div id="bdl-wskazniki" class="col-md-12">
-        
-        <? if( in_array('bdl_opis', $object_editable) ) {?>
-	        
-	        <?php $this->Combinator->add_libs('js', 'Dane.bdl_opis'); ?>
-	        <?php $this->Combinator->add_libs('css', $this->Less->css('bdl_opis', array('plugin' => 'Dane'))); ?>
 
-	        <div class="bdl_opis">
-		        
-		        <button id="bdl_opis">Edytuj</button>
-	        
-	        </div>
+        <? if (in_array('bdl_opis', $object_editable)) { ?>
+
+            <?php $this->Combinator->add_libs('js', 'Dane.bdl_opis'); ?>
+            <?php $this->Combinator->add_libs('css', $this->Less->css('bdl_opis', array('plugin' => 'Dane'))); ?>
+            <?php $this->Combinator->add_libs('css', '../plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5'); ?>
+            <?php echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5.all', array('block' => 'scriptBlock')); ?>
+            <?php echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/locales/bootstrap-wysihtml5.pl-PL', array('block' => 'scriptBlock')); ?>
+
+            <div id="bdl_opis_modal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Edycja nazwy i opisu wskaźnika:</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="hidden alert alert-success"></div>
+                            <div class="col-sm-4 "><label class="pull-right margin-top-10">Nazwa:</label></div>
+                            <div class="col-sm-6"><input id="nazwa" class="form-control"
+                                                         value="<?= $object->getData('bdl_podgrupa.nazwa') ? $object->getData('bdl_podgrupa.nazwa') : $object->getData('bdl_podgrupa.tytul'); ?>">
+                            </div>
+                            <br><br>
+                            <article id="editor">
+                                <?= $object->getData('bdl_podgrupa.opis'); ?>
+                            </article>
+                            <p class="text-info">
+                                <small>Aby zapisać kliknij 'Zapisz'</small>
+                            </p>
+                            <div class="pull-right">
+                                <button id="bdl_savebtn" class="btn-lg btn-primary">Zapisz</button>
+                            </div>
+                            <br><br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         <? } ?>
-        
+
         <div class="object">
 
             <?
