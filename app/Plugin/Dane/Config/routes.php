@@ -165,8 +165,8 @@ foreach ($map as $m) {
     Router::connect('/dane/:controller' . $m['pattern'], array(
         'plugin' => 'Dane',
         'action' => 'update',
+        '[method]' => 'POST'
     ), array(
-	    '[method]' => 'POST',
         'id' => '([0-9]+)',
         'pass' => $pass,
     ));
