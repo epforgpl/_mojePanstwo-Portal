@@ -1,3 +1,5 @@
+/*global $,jQuery,mPHeart*/
+
 var ObjectUsersManagement = function (header, dataset, id, editables) {
     this.users = [];
     this.header = header;
@@ -8,6 +10,12 @@ var ObjectUsersManagement = function (header, dataset, id, editables) {
 };
 
 ObjectUsersManagement.prototype.initialize = function () {
+    var _this = this,
+        editablePanel = $('.editablePanel'),
+        moderateModal = $('#moderate-modal'),
+        changeLogo = $('#modalAdminAddLogo'),
+        changeBackground = $('#modalAdminAddBackground');
+
     $('body').append(
         $('<div></div>').addClass('editablePanel dropdown').append(
             this.getDOM()
@@ -18,13 +26,6 @@ ObjectUsersManagement.prototype.initialize = function () {
 
     $('#moderate-add').hide();
 
-    var _this = this;
-
-    var editablePanel = $('.editablePanel'),
-        moderateModal = $('#moderate-modal'),
-        changeLogo = $('#modalAdminAddLogo'),
-        changeBackground = $('#modalAdminAddBackground');
-
     if (moderateModal.length) {
         editablePanel.find('.users').click(function () {
             moderateModal.modal('show');
@@ -33,14 +34,14 @@ ObjectUsersManagement.prototype.initialize = function () {
     }
 
     if (changeLogo.length) {
-        var image = changeLogo.find('.cropit-image-preview').attr('data-image');
+        var logoImage = changeLogo.find('.cropit-image-preview').attr('data-image');
 
         editablePanel.find('.logo').click(function () {
             changeLogo.modal('show');
         });
         changeLogo.find('.image-editor').cropit({
             imageState: {
-                src: (image) ? image : 'http://lorempixel.com/180/180/'
+                src: (logoImage) ? logoImage : 'http://lorempixel.com/180/180/'
             },
             width: 180,
             height: 180
@@ -51,7 +52,7 @@ ObjectUsersManagement.prototype.initialize = function () {
                     type: 'image/png'
                 });
             $.ajax({
-                url: '/dane/' + this.dataset + '/' + this.id + '/page/logo.json',
+                url: '/dane/' + _this.dataset + '/' + _this.id + '/page/logo.json',
                 method: "POST",
                 data: {'image': imageData},
                 before: function () {
@@ -68,14 +69,14 @@ ObjectUsersManagement.prototype.initialize = function () {
     }
 
     if (changeBackground.length) {
-        var image = changeBackground.find('.cropit-image-preview').attr('data-image');
+        var backgroundImage = changeBackground.find('.cropit-image-preview').attr('data-image');
 
         editablePanel.find('.cover').click(function () {
             changeBackground.modal('show');
         });
         changeBackground.find('.image-editor').cropit({
             imageState: {
-                src: (image) ? image : 'http://lorempixel.com/1500/300/'
+                src: (backgroundImage) ? backgroundImage : 'http://lorempixel.com/1500/300/'
             },
             width: 750,
             height: 150,
@@ -88,7 +89,7 @@ ObjectUsersManagement.prototype.initialize = function () {
                     quality: .9
                 });
             $.ajax({
-                url: '/dane/' + this.dataset + '/' + this.id + '/page/cover.json',
+                url: '/dane/' + _this.dataset + '/' + _this.id + '/page/cover.json',
                 method: "POST",
                 data: {'image': imageData},
                 before: function () {
@@ -115,7 +116,7 @@ ObjectUsersManagement.prototype.initialize = function () {
             var self = $(this);
 
             $.ajax({
-                url: '/dane/' + this.dataset + '/' + this.id + '/page/' + $(this).attr('data-type') + '.json',
+                url: '/dane/' + _this.dataset + '/' + _this.id + '/page/' + $(this).attr('data-type') + '.json',
                 method: "DELETE",
                 before: function () {
                     self.addClass('loading disabled')
@@ -140,16 +141,18 @@ ObjectUsersManagement.prototype.reLoadUsers = function () {
 };
 
 ObjectUsersManagement.prototype.getSpinner = function () {
-    return $('#moderate-modal .spinner').first();
+    return $('#moderate-modal').find('.spinner').first();
 };
 
 ObjectUsersManagement.prototype.onLoadUsers = function (res) {
     this.getSpinner().hide();
     this.setUsers(res.response);
 
-    var _this = this;
+    var _this = this,
+        moderateAdd = $('#moderate-add'),
+        moderateUsers = $('#moderate-users');
 
-    $('#moderate-add').html(
+    moderateAdd.html(
         this.getAddUserFormDOM()
     );
 
@@ -158,7 +161,7 @@ ObjectUsersManagement.prototype.onLoadUsers = function (res) {
         type: 'POST'
     });
 
-    $('#moderate-users select').change(function () {
+    moderateUsers.find('select').change(function () {
         var tr = $(this).closest('tr').first();
         var index = tr.attr('data-user-index');
         var role = $(this).val();
@@ -184,7 +187,7 @@ ObjectUsersManagement.prototype.onLoadUsers = function (res) {
             $.ajax({
                 url: '/dane/' + _this.dataset + '/' + _this.id + '/users/' + user.id + '.json',
                 type: 'DELETE',
-                success: function (res) {
+                success: function () {
                     _this.reLoadUsers();
                 }
             });
@@ -200,7 +203,7 @@ ObjectUsersManagement.prototype.onLoadUsers = function (res) {
             data: {
                 role: role
             },
-            success: function (res) {
+            success: function () {
                 _this.reLoadUsers();
             }
         });
@@ -208,14 +211,14 @@ ObjectUsersManagement.prototype.onLoadUsers = function (res) {
         return false;
     });
 
-    $('#moderate-add form').bind('submit', function () {
+    moderateAdd.find('form').bind('submit', function () {
         var email = $(this).find('input[type=email]').first();
         var role = $(this).find('select').first();
         _this.getSpinner().show();
         $.post('/dane/' + _this.dataset + '/' + _this.id + '/users/index.json', {
             email: email.val(),
             role: role.val()
-        }, function (res) {
+        }, function () {
             email.val(null);
             _this.reLoadUsers();
         });
@@ -223,7 +226,7 @@ ObjectUsersManagement.prototype.onLoadUsers = function (res) {
         return false;
     });
 
-    $("#moderate-users img").error(function () {
+    moderateUsers.find("img").error(function () {
         $(this).attr('src', 'https://placeholdit.imgix.net/~text?txtsize=22&bg=ddd&txtclr=ddd%26text%3Davatar&txt=Avatar&w=80&h=80');
     });
 };
@@ -424,9 +427,4 @@ $(document).ready(function () {
         object_id = header.attr('data-object_id'),
         editables = header.attr('data-editables');
     new ObjectUsersManagement(header, dataset, object_id, editables);
-    /*
-     $('#moderate-btn-add').bind('click', function () {
-     $('#moderate-add').slideToggle();
-     return false;
-     });*/
 });
