@@ -352,5 +352,12 @@ class DataobjectsController extends AppController
 	    } else return false;
 	    
     }
+    
+    public function update() {
+	    
+	    $this->view = 'view';
+	    $this->view();
+	    
+    }
 
 }

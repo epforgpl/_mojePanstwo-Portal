@@ -246,5 +246,17 @@ class BdlWskaznikiController extends DataobjectsController
         
         }   
     }
+    
+    public function update()
+    {
+	    	    	    
+	    $res = $this->Dataobject->getDatasource()->request('dane/bdl_wskazniki/' . $this->request->params['id'], array(
+		    'method' => 'POST',
+		    'data' => $this->request->data,
+	    ));
+	    
+	    debug( $res ); die();
+	    
+    }
 
 } 
