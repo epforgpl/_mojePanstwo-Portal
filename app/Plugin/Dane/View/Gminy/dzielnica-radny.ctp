@@ -1,3 +1,8 @@
+<style>
+	.objectsPage .objectsPageWindow .objectsPageContent .object .dataHighlights .dataHighlight {
+		width: 100% !important;
+	}
+</style>
 <?
 echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
 echo $this->Combinator->add_libs('js', 'Dane.dataobjects-ajax');
