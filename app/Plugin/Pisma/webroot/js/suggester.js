@@ -133,7 +133,7 @@
                         $('<a></a>').attr({'href': "#", 'onclick': 'return false;'}).append(
                             $('<div></div>').addClass('col-xs-2 col-md-1 _label').append(image)
                         ).append(
-                            $('<div></div>').addClass('col-md-10 col-md-11 _title').append(title)
+                            $('<div></div>').addClass('col-xs-10 col-md-11 _title').append(title)
                         )
                     ).appendTo(ul);
                 }

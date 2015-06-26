@@ -21,7 +21,7 @@ ObjectUsersManagement.prototype.initialize = function () {
     );
 
     $('#moderate-add').hide();
-    
+
     var editablePanel = $('.editablePanel'),
         moderateModal = $('#moderate-modal'),
         changeLogo = $('#modalAdminAddLogo'),
@@ -34,7 +34,8 @@ ObjectUsersManagement.prototype.initialize = function () {
         changeBackground = $('#modalAdminAddBackground');
 
     if (moderateModal.length) {
-        editablePanel.find('.users').click(function () {
+        editablePanel.find('.users').click(function (evt) {
+            evt.preventDefault();
             moderateModal.modal('show');
             _this.reLoadUsers();
         });
@@ -43,7 +44,8 @@ ObjectUsersManagement.prototype.initialize = function () {
     if (changeLogo.length) {
         var logoImage = changeLogo.find('.cropit-image-preview').attr('data-image');
 
-        editablePanel.find('.logo').click(function () {
+        editablePanel.find('.logo').click(function (evt) {
+            evt.preventDefault();
             changeLogo.modal('show');
         });
         changeLogo.find('.image-editor').cropit({
@@ -78,7 +80,8 @@ ObjectUsersManagement.prototype.initialize = function () {
     if (changeBackground.length) {
         var backgroundImage = changeBackground.find('.cropit-image-preview').attr('data-image');
 
-        editablePanel.find('.cover').click(function () {
+        editablePanel.find('.cover').click(function (evt) {
+            evt.preventDefault();
             changeBackground.modal('show');
         });
         changeBackground.find('.image-editor').cropit({
@@ -138,9 +141,10 @@ ObjectUsersManagement.prototype.initialize = function () {
             });
         });
     }
-    if(bdl_opis.length){
-        editablePanel.find('.bdl_opis').click(function () {
-           bdl_opis.modal("show");
+    if (bdl_opis.length) {
+        editablePanel.find('.bdl_opis').click(function (evt) {
+            evt.preventDefault();
+            bdl_opis.modal("show");
         });
     }
 };
