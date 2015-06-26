@@ -310,6 +310,22 @@ class DataobjectsController extends AppController
 
     }
 
+    public function getPageRoles()
+    {
+
+        if (
+            $this->Auth->user() &&
+            isset($this->object) &&
+            ($page = $this->object->getLayer('page')) &&
+            isset($page['roles'])
+        ) {
+
+            return @$page['roles']['ObjectUser']['role'];
+
+        } else return false;
+
+    }
+    
     public function prepareMetaTags()
     {
         parent::prepareMetaTags();

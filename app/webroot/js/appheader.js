@@ -84,7 +84,7 @@
         }
     }
 
-    if (appHeader.hasClass('dataobject-cover')) {
+    if (appHeader.hasClass('editable')) {
         var object_id = appHeader.attr('data-object_id'),
             dataset = appHeader.attr('data-dataset'),
             changeLogo = $('#modalAdminAddLogo'),
