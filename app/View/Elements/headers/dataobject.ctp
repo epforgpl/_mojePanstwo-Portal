@@ -26,7 +26,7 @@ if (!isset($renderFile) || !$renderFile)
                     <h1 class="smaller">
                         <?php if ($object->getUrl() != false){ ?>
                         <a class="trimTitle" href="<?= $object->getUrl() ?>"
-                           title="<?= strip_tags($object->getTitle()) ?>">
+                           title="<?= htmlspecialchars(strip_tags($object->getTitle())) ?>">
                             <?php } ?>
 
                             <span<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= $object->geticon() . '&nbsp;' . $object->getTitle() ?></span>
