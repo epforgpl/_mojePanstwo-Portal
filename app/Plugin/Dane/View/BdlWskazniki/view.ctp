@@ -41,7 +41,7 @@
                             </article>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-md btn-primary btn-icon" id><i
+                            <button type="button" class="btn btn-md btn-primary btn-icon" id="bdl_savebtn"><i
                                     class="icon glyphicon glyphicon-save"></i>Zapisz
                             </button>
                         </div>
