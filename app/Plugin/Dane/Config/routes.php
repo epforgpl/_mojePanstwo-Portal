@@ -178,7 +178,15 @@ foreach ($map as $m) {
         'id' => '([0-9]+)',
         'pass' => $pass,
     ));
-
+    
+    Router::connect('/dane/:controller' . $m['pattern'] . '/dzialania/nowe', array(
+        'plugin' => 'Dane',
+        'action' => 'dzialania_nowe',
+    ), array(
+        'id' => '([0-9]+)',
+        'pass' => $pass,
+    ));
+	
     Router::connect('/dane/:controller' . $m['pattern'] . '/:action', array(
         'plugin' => 'Dane',
     ), array(
