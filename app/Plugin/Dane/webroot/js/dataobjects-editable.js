@@ -5,7 +5,7 @@ var ObjectUsersManagement = function (header, dataset, id, editables) {
     this.header = header;
     this.dataset = dataset;
     this.id = id;
-    this.editables = editables;    
+    this.editables = editables;
     this.initialize();
 };
 
@@ -116,28 +116,30 @@ ObjectUsersManagement.prototype.initialize = function () {
         });
     }
     if (changeLogo.length || changeBackground.length) {
-        changeBackground.on('change', '.btn-file :file', function () {
-            var input = $(this),
-                numFiles = input.get(0).files ? input.get(0).files.length : 1,
-                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-            input.trigger('fileselect', [numFiles, label]);
-        });
+        $.each([changeLogo, changeBackground], function () {
+            $(this).on('change', '.btn-file :file', function () {
+                var input = $(this),
+                    numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                input.trigger('fileselect', [numFiles, label]);
+            });
 
-        changeBackground.find('.delete').click(function () {
-            var self = $(this);
+            $(this).find('.delete').click(function () {
+                var self = $(this);
 
-            $.ajax({
-                url: '/dane/' + _this.dataset + '/' + _this.id + '/page/' + $(this).attr('data-type') + '.json',
-                method: "DELETE",
-                beforeSend: function () {
-                    self.addClass('loading disabled')
-                },
-                success: function () {
-                    location.reload(true)
-                },
-                error: function () {
-                    //location.reload(true)
-                }
+                $.ajax({
+                    url: '/dane/' + _this.dataset + '/' + _this.id + '/page/' + $(this).attr('data-type') + '.json',
+                    method: "DELETE",
+                    beforeSend: function () {
+                        self.addClass('loading disabled')
+                    },
+                    success: function () {
+                        location.reload(true)
+                    },
+                    error: function () {
+                        //location.reload(true)
+                    }
+                });
             });
         });
     }
@@ -268,9 +270,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '<ul class="dropdown-menu" aria-labelledby="moderatePanelModal">'
         ],
         modal = [];
-        
-    console.log('users', this.editables, jQuery.inArray("users", this.editables));
-    
+
     if (jQuery.inArray("users", this.editables) !== -1) {
         $.merge(list, [
             '<li><a class="users" href="#">Moderatorzy strony...</a></li>'
@@ -300,7 +300,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '</div>'
         ]);
     }
-    if (jQuery.inArray("logo", this.editables) !== -1 ) {
+    if (jQuery.inArray("logo", this.editables) !== -1) {
         $.merge(list, [
             '<li><a class="logo" href="#">' + (this.header.hasClass('cover-logo') ? 'Zmień' : 'Dodaj') + ' logo</a></li>'
         ]);
@@ -330,7 +330,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
         ]);
     }
 
-    if (jQuery.inArray("cover", this.editables) !== -1 ) {
+    if (jQuery.inArray("cover", this.editables) !== -1) {
         $.merge(list, [
             '<li><a class="cover" href="#">' + (this.header.hasClass('cover-background') ? 'Zmień' : 'Dodaj') + ' obrazek tła</a></li>'
         ]);
@@ -359,7 +359,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '</div>'
         ]);
     }
-		
+
     if (jQuery.inArray("bdl_opis", this.editables) !== -1) {
         $.merge(list, [
             '<li><a class="bdl_opis" href="#">Zmiana opisu i nazwy</a></li>'
