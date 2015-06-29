@@ -116,28 +116,30 @@ ObjectUsersManagement.prototype.initialize = function () {
         });
     }
     if (changeLogo.length || changeBackground.length) {
-        changeBackground.on('change', '.btn-file :file', function () {
-            var input = $(this),
-                numFiles = input.get(0).files ? input.get(0).files.length : 1,
-                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-            input.trigger('fileselect', [numFiles, label]);
-        });
+        $.each([changeLogo, changeBackground], function () {
+            $(this).on('change', '.btn-file :file', function () {
+                var input = $(this),
+                    numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                input.trigger('fileselect', [numFiles, label]);
+            });
 
-        changeBackground.find('.delete').click(function () {
-            var self = $(this);
+            $(this).find('.delete').click(function () {
+                var self = $(this);
 
-            $.ajax({
-                url: '/dane/' + _this.dataset + '/' + _this.id + '/page/' + $(this).attr('data-type') + '.json',
-                method: "DELETE",
-                beforeSend: function () {
-                    self.addClass('loading disabled')
-                },
-                success: function () {
-                    location.reload(true)
-                },
-                error: function () {
-                    //location.reload(true)
-                }
+                $.ajax({
+                    url: '/dane/' + _this.dataset + '/' + _this.id + '/page/' + $(this).attr('data-type') + '.json',
+                    method: "DELETE",
+                    beforeSend: function () {
+                        self.addClass('loading disabled')
+                    },
+                    success: function () {
+                        location.reload(true)
+                    },
+                    error: function () {
+                        //location.reload(true)
+                    }
+                });
             });
         });
     }
@@ -268,9 +270,10 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '<ul class="dropdown-menu" aria-labelledby="moderatePanelModal">'
         ],
         modal = [];
-    if (jQuery.inArray("users", this.editables)) {
+
+    if (jQuery.inArray("users", this.editables) !== -1) {
         $.merge(list, [
-            '<li><a class="users" href="#">Ustaw moderatorów strony</a></li>'
+            '<li><a class="users" href="#">Moderatorzy strony...</a></li>'
         ]);
         $.merge(modal, [
             '<div class="modal fade" id="moderate-modal" tabindex="-1" role="dialog">',
@@ -297,7 +300,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '</div>'
         ]);
     }
-    if (jQuery.inArray("logo", this.editables)) {
+    if (jQuery.inArray("logo", this.editables) !== -1) {
         $.merge(list, [
             '<li><a class="logo" href="#">' + (this.header.hasClass('cover-logo') ? 'Zmień' : 'Dodaj') + ' logo</a></li>'
         ]);
@@ -327,7 +330,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
         ]);
     }
 
-    if (jQuery.inArray("cover", this.editables)) {
+    if (jQuery.inArray("cover", this.editables) !== -1) {
         $.merge(list, [
             '<li><a class="cover" href="#">' + (this.header.hasClass('cover-background') ? 'Zmień' : 'Dodaj') + ' obrazek tła</a></li>'
         ]);
@@ -357,7 +360,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
         ]);
     }
 
-    if (jQuery.inArray("bdl_opis", this.editables)) {
+    if (jQuery.inArray("bdl_opis", this.editables) !== -1) {
         $.merge(list, [
             '<li><a class="bdl_opis" href="#">Zmiana opisu i nazwy</a></li>'
         ]);
@@ -449,5 +452,5 @@ $(document).ready(function () {
         dataset = header.attr('data-dataset'),
         object_id = header.attr('data-object_id'),
         editables = header.attr('data-editables');
-    new ObjectUsersManagement(header, dataset, object_id, editables);
+    new ObjectUsersManagement(header, dataset, object_id, jQuery.parseJSON(editables));
 });
