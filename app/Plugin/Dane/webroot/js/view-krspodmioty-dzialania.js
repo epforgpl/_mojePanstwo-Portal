@@ -94,6 +94,7 @@ function loadScript() {
 
 $(document).ready(function () {
     var objectMain = $('.objectMain'),
+        form = objectMain.find('form'),
         imageEditor = objectMain.find('.image-editor'),
         imageAlert = imageEditor.find('.alert.alert-danger'),
         imageChoosed = imageEditor.find('input[name="cover_photo"]'),
@@ -167,6 +168,26 @@ $(document).ready(function () {
     }
     googleBtn.click(function () {
         googleMapBlock.slideToggle();
+    });
+
+    form.submit(function() {
+        var header = $('.appHeader.dataobject').first(),
+            dataset = header.attr('data-dataset'),
+            object_id = header.attr('data-object_id'),
+            inputs = $(this).serializeArray();
+
+        $.ajax({
+            url: '/dane/' + dataset + '/' + object_id + '/dzialania.json',
+            method: 'POST',
+            data: inputs,
+            success: function (res) {
+
+                console.log(res);
+
+            }
+        });
+
+        return false;
     });
 
     /*ASYNCHRONIZE ACTION FOR GOOGLE MAP*/
