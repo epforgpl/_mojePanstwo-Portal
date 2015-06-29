@@ -20,12 +20,12 @@ if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object
      data-object_id="<?= $object->getId() ?>"<? if( isset($object_editable) && !empty($object_editable) ) {?> data-editables='<?= json_encode($object_editable) ?>'<?}?>>
 
     <div class="headlineBar" <? if ($pageLayer['cover']) {
-        echo ' style="background-image: url(/pages/cover/' . $dataset . '/' . $object_id . '.jpg)"';
+        echo ' style="background-image: url(http://sds.tiktalik.com/portal/pages/cover/' . $dataset . '/' . $object_id . '.jpg)"';
     } ?>>
         <div class="container">
             <? if ($pageLayer['logo']) { ?>
                 <div class="logoBox">
-                    <img src="/pages/logo/<?= $dataset ?>/<?= $object_id ?>.png"/>
+                    <img src="http://sds.tiktalik.com/portal/pages/logo/<?= $dataset ?>/<?= $object_id ?>.png"/>
                 </div>
             <? } ?>
             <div class="holder row">
