@@ -28,8 +28,9 @@ Lista wykorzystanych wskaźników:
             </div>
             <div class="modal-body">
                 <div class="col-sm-11">
-                    <form method="post" action="">
                     <div class="hidden alert alert-success info"></div>
+                    <form method="post" action="">
+                        <input type="hidden" name="_method" value="PUT" />
                         <input class="hidden" name="id" value="<?= $id ?>">
                     <div class="row "><label class="">Tytuł:</label></div>
                     <div class="row"><input  name="tytul" class="form-control nazwa"

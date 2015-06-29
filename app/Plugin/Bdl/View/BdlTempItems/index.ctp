@@ -4,7 +4,7 @@
 <? } else { ?>
     <ul>
         <? foreach ($BdlTempItems as $key => $val) { ?>
-            <li><a href="<?= $key ?>"><?= $val['tytul'] ?></a><form method="DELETE" action="bdl_temp_items/delete/<?= $key ?>"><button class="btn btn-primary btn-sm" type="submit"><i
+            <li><a href="/bdl/bdl_temp_items/<?= $key ?>"><?= $val['tytul'] ?></a><form method="DELETE" action="/bdl/bdl_temp_items/delete/<?= $key ?>"><button class="btn btn-primary btn-sm" type="submit"><i
                         class="icon glyphicon glyphicon-remove"></i></button></form></li>
         <? } ?>
     </ul>
