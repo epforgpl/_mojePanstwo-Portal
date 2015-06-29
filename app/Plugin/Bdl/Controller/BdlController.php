@@ -89,7 +89,7 @@ class BdlController extends ApplicationsController
 	    if( $this->hasUserRole('3') ) {
 		    
 		    $menu['items'][] = array(
-			    'id' => 'user_items',
+			    'id' => 'bdl_temp_items',
 			    'label' => 'Tworzenie wskaźników',
 		    );
 		    

@@ -1,3 +1,12 @@
+<?php $this->Combinator->add_libs('js', 'Bdl.BdlTempItems/index'); ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('BdlTempItems/index', array('plugin' => 'Bdl'))); ?>
+<?php $this->Combinator->add_libs('css', '../plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5'); ?>
+<?php echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5.all', array('block' => 'scriptBlock')); ?>
+<?php echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/locales/bootstrap-wysihtml5.pl-NEW', array('block' => 'scriptBlock')); ?>
+
+
+
+
 <button class="btn btn-primary" id="new_temp_item">Dodaj Nowy</button>
 <? if ($BdlTempItems == false) { ?>
     Nie ma wskaźników do wyświetlenia
@@ -13,12 +22,23 @@
 
 
 
-<?php $this->Combinator->add_libs('js', 'Bdl.BdlTempItems/index'); ?>
-<?php $this->Combinator->add_libs('css', $this->Less->css('BdlTempItems/index', array('plugin' => 'Bdl'))); ?>
-<?php $this->Combinator->add_libs('css', '../plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5'); ?>
-<?php echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5.all', array('block' => 'scriptBlock')); ?>
-<?php echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/locales/bootstrap-wysihtml5.pl-NEW', array('block' => 'scriptBlock')); ?>
+<div class="container">
 
+	<button class="btn btn-primary" id="new_temp_item">Dodaj Nowy</button>
+	<? if ($BdlTempItems == false) { ?>
+	    Nie ma wskaźników do wyświetlenia
+	<? } else { ?>
+	    <ul>
+	        <? foreach ($BdlTempItems as $key => $val) { ?>
+	            <li><a href="bdl_temp_items/<?= $key ?>"><?= $val['tytul'] ?></a><a href="bdl_temp_items/delete/<?= $key ?>"><i
+	                        class="icon glyphicon glyphicon-remove"></i></a></li>
+	        <? } ?>
+	    </ul>
+	<? } ?>
+	
+	
+	
+	
 <div id="temp_item_opis_modal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">

@@ -1,10 +1,18 @@
 <?php
 
-class BdlTempItemsController extends AppController
+App::uses('ApplicationsController', 'Controller');
+
+class BdlTempItemsController extends ApplicationsController
 {
 
     public $components = array('RequestHandler');
-
+	
+	public $settings = array(
+        'id' => 'bdl',
+        'title' => 'Bdl',
+        'subtitle' => 'Dane statystyczne o Polsce',
+    );
+	
     public function index()
     {
         $BdlTempItems = $this->BdlTempItem->find('all');
@@ -75,5 +83,37 @@ class BdlTempItemsController extends AppController
     {
 
 
+    }
+    
+    public function getMenu() {
+	    
+	    $menu = array(
+		    'items' => array(
+			    array(
+				    'id' =>'',
+				    'label' => 'Wskaźniki',
+				    'icon' => array(
+					    'src' => 'glyphicon',
+					    'id' => 'home',
+				    ),
+			    ),
+		    ),
+		    'base' => '/bdl',
+	    );
+	    
+	    if( $this->hasUserRole('3') ) {
+		    
+		    $menu['items'][] = array(
+			    'id' => 'bdl_temp_items',
+			    'label' => 'Tworzenie wskaźników',
+		    );
+		    
+	    }
+	    
+	    if( count($menu['items'])===1 )
+	    	return array();
+	    else 
+	    	return $menu;	    
+	    
     }
 }
