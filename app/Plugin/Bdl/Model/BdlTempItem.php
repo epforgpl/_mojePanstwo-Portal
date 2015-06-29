@@ -14,12 +14,14 @@ class BdlTempItem extends AppModel
 
         $ret = CakeSession::read('TempItems');
 
-       // $ret = CakeSession::read();
-
         if (isset($params['conditions'])) {
             if (isset($params['conditions']['id'])) {
                 $id = $params['conditions']['id'];
-                $ret = Set::classicExtract($ret, $id);
+                if ($id == 0) {
+                    $ret = Set::classicExtract($ret, "$id");
+                } else {
+                    $ret = array(Set::classicExtract($ret, "$id"));
+                }
             }
         }
 
@@ -66,11 +68,20 @@ class BdlTempItem extends AppModel
 
     public function save($data)
     {
+        debug($data);
+        if (isset($data['id'])) {
+            if (CakeSession::write('TempItems.'.$data['id'], $data)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         if (CakeSession::check('TempItems')) {
             $ret = CakeSession::read('TempItems');
-            array_merge($ret, $data);
+            array_push($ret, $data);
         } else {
-            $ret = $data;
+            $ret = array($data);
         }
         if (CakeSession::write('TempItems', $ret)) {
             return true;

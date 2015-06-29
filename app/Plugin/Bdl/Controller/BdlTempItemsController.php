@@ -1,10 +1,12 @@
 <?php
 
-class BdlTempItemsController extends AppController {
+class BdlTempItemsController extends AppController
+{
 
     public $components = array('RequestHandler');
 
-    public function index() {
+    public function index()
+    {
         $BdlTempItems = $this->BdlTempItem->find('all');
         $this->set(array(
             'BdlTempItems' => $BdlTempItems,
@@ -12,15 +14,18 @@ class BdlTempItemsController extends AppController {
         ));
     }
 
-    public function view($id) {
+    public function view($id)
+    {
         $BdlTempItem = $this->BdlTempItem->findById($id);
         $this->set(array(
             'BdlTempItem' => $BdlTempItem,
-            '_serialize' => array('BdlTempItem')
+            '_serialize' => array('BdlTempItem'),
+            'id'=> $id
         ));
     }
 
-    public function add() {
+    public function add()
+    {
         $this->BdlTempItem->create();
         if ($this->BdlTempItem->save($this->request->data)) {
             $message = 'Saved';
@@ -31,9 +36,12 @@ class BdlTempItemsController extends AppController {
             'message' => $message,
             '_serialize' => array('message')
         ));
+
+        $this->redirect($this->referer());
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $this->BdlTempItem->id = $id;
         if ($this->BdlTempItem->save($this->request->data)) {
             $message = 'Saved';
@@ -44,9 +52,12 @@ class BdlTempItemsController extends AppController {
             'message' => $message,
             '_serialize' => array('message')
         ));
+
+        $this->redirect($this->referer());
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         if ($this->BdlTempItem->delete($id)) {
             $message = 'Deleted';
         } else {
@@ -56,11 +67,13 @@ class BdlTempItemsController extends AppController {
             'message' => $message,
             '_serialize' => array('message')
         ));
+
+        $this->redirect($this->referer());
     }
-    
-    public function addIngredient($item_id = false) {
-	    
-	    
-	    
+
+    public function addIngredient($item_id = false)
+    {
+
+
     }
 }
