@@ -2,8 +2,8 @@
 
 class ObjectPagesManagementController extends AppController {
 
-    public $uses = array('Dane.ObjectPagesManagement');
-    public $components = array('RequestHandler');
+    public $uses = array('Dane.ObjectPagesManagement', '');
+    public $components = array('RequestHandler', 'S3');
 
     public function __construct($request, $response) {
         parent::__construct($request, $response);
@@ -43,46 +43,27 @@ class ObjectPagesManagementController extends AppController {
         $this->deleteImage('cover', 'jpg');
     }
 
-    private function createDir($type) {
-        $path = APP . 'webroot/pages/' . $type . '/' . $this->request['dataset'];
-        if (!file_exists($path)) {
-            mkdir($path, 0777, true);
-        }
-    }
-
-    private function getSrc($type, $ext) {
-        $this->createDir($type);
-        return APP . 'webroot/pages/' . $type . '/' . $this->request['dataset'] . '/' . $this->request['object_id'] . '.'. $ext;
-    }
-
     private function deleteImage($type, $ext) {
-        $src = $this->getSrc($type, $ext);
-        $success = unlink($src);
-
-        $this->setResponse($success);
+        $this->setResponse(
+            $this->S3->deleteObject(
+                S3Component::$bucket,
+                'pages/'. $type .'/' . $this->request['dataset'] . '/' . $this->request['object_id'] . '.' .$ext
+            )
+        );
     }
 
     private function saveImage($type, $ext, $base64) {
-        $src = $this->getSrc($type, $ext);
-        $sizeInBytes = (int) ((strlen($base64) - 814) / 1.37);
         $base64 = explode(',', $base64);
         $data = base64_decode($base64[1]);
-        $image = imagecreatefromstring($data);
-        $success = false;
 
-        if($sizeInBytes < 2500000) {
-            switch ($ext) {
-                case 'png':
-                    $success = imagepng($image, $src);
-                break;
-
-                case 'jpg':
-                    $success = imagejpeg($image, $src);
-                break;
-            }
-        }
-
-        return $success;
+        return $this->S3->putObject(
+            $data,
+            S3Component::$bucket,
+            'pages/'. $type .'/' . $this->request['dataset'] . '/' . $this->request['object_id'] . '.' .$ext,
+            S3::ACL_PUBLIC_READ,
+            array(),
+            array('Content-Type' => 'image/' . $ext)
+        );
     }
 
     private function setResponse($response) {

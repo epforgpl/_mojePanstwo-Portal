@@ -46,14 +46,27 @@ ObjectUsersManagement.prototype.initialize = function () {
 
         editablePanel.find('.logo').click(function (evt) {
             evt.preventDefault();
-            changeLogo.modal('show');
+            changeLogo.modal('show').on('hidden.bs.modal', function () {
+                changeLogo.find('.alert').remove();
+            });
         });
         changeLogo.find('.image-editor').cropit({
             imageState: {
-                src: (logoImage) ? logoImage : 'http://lorempixel.com/180/180/'
+                src: (logoImage) ? logoImage : ''
             },
             width: 180,
-            height: 180
+            height: 180,
+            onImageLoaded: function () {
+                changeLogo.find('.alert').slideUp("normal", function () {
+                    $(this).remove();
+                });
+            },
+            onFileReaderError: function (evt) {
+                _this.cropItErrorMsg(changeLogo, evt);
+            },
+            onImageError: function (evt) {
+                _this.cropItErrorMsg(changeLogo, evt);
+            }
         });
         changeLogo.find('.export').click(function () {
             var self = $(this),
@@ -82,15 +95,28 @@ ObjectUsersManagement.prototype.initialize = function () {
 
         editablePanel.find('.cover').click(function (evt) {
             evt.preventDefault();
-            changeBackground.modal('show');
+            changeBackground.modal('show').on('hidden.bs.modal', function () {
+                changeBackground.find('.alert').remove();
+            });
         });
         changeBackground.find('.image-editor').cropit({
             imageState: {
-                src: (backgroundImage) ? backgroundImage : 'http://lorempixel.com/1500/300/'
+                src: (backgroundImage) ? backgroundImage : ''
             },
             width: 750,
             height: 150,
-            exportZoom: 2
+            exportZoom: 2,
+            onImageLoaded: function () {
+                changeBackground.find('.alert').slideUp("normal", function () {
+                    $(this).remove();
+                });
+            },
+            onFileReaderError: function (evt) {
+                _this.cropItErrorMsg(changeBackground, evt);
+            },
+            onImageError: function (evt) {
+                _this.cropItErrorMsg(changeBackground, evt);
+            }
         });
         changeBackground.find('.export').click(function () {
             var self = $(this),
@@ -174,6 +200,26 @@ ObjectUsersManagement.prototype.initialize = function () {
         });
 	    
 	});
+};
+
+ObjectUsersManagement.prototype.cropItErrorMsg = function (el, error) {
+    var alert = el.find('.alert.alert-danger');
+
+    if (mPHeart.language.twoDig == 'pl') {
+        if (error.code === 0) {
+            error.message = 'Błąd ładowowania zdjęcia - proszę spróbować inne.'
+        } else if (error.code === 1) {
+            error.message = 'Zdjęcie nie spełnia zalecanej wielkości.'
+        }
+    }
+
+    if (alert.length) {
+        alert.text(error.message);
+    } else {
+        el.find('.image-editor').prepend(
+            $('<div></div>').addClass('alert alert-danger').text(error.message).slideDown()
+        )
+    }
 };
 
 ObjectUsersManagement.prototype.reLoadUsers = function () {
@@ -341,7 +387,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '</div>',
             '<div class="modal-body">',
             '<div class="image-editor">',
-            '<div class="cropit-image-preview"' + (this.header.hasClass('cover-logo') ? ' data-image="/pages/logo/' + this.dataset + '/' + this.id + '.png"' : '') + '></div>',
+            '<div class="cropit-image-preview"' + (this.header.hasClass('cover-logo') ? ' data-image="http://sds.tiktalik.com/portal/pages/logo/' + this.dataset + '/' + this.id + '.png"' : '') + '></div>',
             '<p>Zalecany rozmiar: 180x180px</p>',
             '<span class="btn btn-default btn-file">Przeglądaj<input type="file" class= "cropit-image-input" /></span>',
             '</div>',
@@ -371,7 +417,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '</div>',
             '<div class="modal-body">',
             '<div class="image-editor">',
-            '<div class="cropit-image-preview"' + (this.header.hasClass('cover-background') ? ' data-image="/pages/cover/' + this.dataset + '/' + this.id + '.jpg"' : '') + '></div>',
+            '<div class="cropit-image-preview"' + (this.header.hasClass('cover-background') ? ' data-image="http://sds.tiktalik.com/portal/pages/cover/' + this.dataset + '/' + this.id + '.jpg"' : '') + '></div>',
             '<p>Zalecany rozmiar: 1500x300px</p>',
             '<span class="btn btn-default btn-file">Przeglądaj<input type="file" class= "cropit-image-input" /></span>',
             '</div>',
