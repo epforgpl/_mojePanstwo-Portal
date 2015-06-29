@@ -28,24 +28,27 @@ Lista wykorzystanych wskaźników:
             </div>
             <div class="modal-body">
                 <div class="col-sm-11">
+                    <form method="post" action="">
                     <div class="hidden alert alert-success info"></div>
+                        <input class="hidden" name="id" value="<?= $id ?>">
                     <div class="row "><label class="">Tytuł:</label></div>
-                    <div class="row"><input class="form-control nazwa"
+                    <div class="row"><input  name="tytul" class="form-control nazwa"
                                             value="<?= $BdlTempItem['tytul'] ?>">
                     </div>
                     <br>
 
                     <div class="row"><label>Opis:</label></div>
                 </div>
-                <article id="editor">
+                <textarea name="opis" id="editor">
                     <?= $BdlTempItem['opis'] ?>
-                </article>
+                </textarea>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-md btn-primary btn-icon" id="temp_item_savebtn"><i
+                <button type="submit" class="btn btn-md btn-primary btn-icon" id="temp_item_savebtn"><i
                         class="icon glyphicon glyphicon-ok"></i>Dodaj
                 </button>
             </div>
+            </form>
         </div>
     </div>
 </div>

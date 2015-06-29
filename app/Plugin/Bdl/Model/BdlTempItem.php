@@ -68,7 +68,6 @@ class BdlTempItem extends AppModel
 
     public function save($data)
     {
-        debug($data);
         if (isset($data['id'])) {
             if (CakeSession::write('TempItems.'.$data['id'], $data)) {
                 return true;
