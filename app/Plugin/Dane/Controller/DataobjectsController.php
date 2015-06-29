@@ -245,7 +245,7 @@ class DataobjectsController extends AppController
 		
         $is_json = (isset($this->request->params['ext']) && $this->request->params['ext'] == 'json');
 
-        if (!$is_json) {
+        if (!$is_json && $this->object) {
 		
             if (
                 ($this->request->params['controller'] == 'Datasets') &&
@@ -353,11 +353,26 @@ class DataobjectsController extends AppController
 	    
     }
     
-    public function update() {
+    public function post()
+    {
 	    
-	    $this->view = 'view';
-	    $this->view();
+	    $response = false;
 	    
+	    if( 
+	    	@$this->request->params['pass'][0] && 
+	    	@$this->request->params['pass'][1]
+	    ) {
+	    
+		    $response = $this->Dataobject->getDatasource()->request('dane/' . $this->request->params['pass'][0] . '/' . $this->request->params['pass'][1], array(
+			    'method' => 'POST',
+			    'data' => $this->request->data,
+		    ));
+	        
+        }
+        
+        $this->set('response', $response);
+        $this->set('_serialize', 'response');
+        
     }
 
 }

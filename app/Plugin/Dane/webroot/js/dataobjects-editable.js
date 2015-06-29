@@ -149,6 +149,13 @@ ObjectUsersManagement.prototype.initialize = function () {
             bdl_opis.modal("show");
         });
     }
+    
+    editablePanel.find('.bdl_wymiar').click(function (evt) {
+	    evt.preventDefault();
+	    
+	    alert('wymiar');
+	    
+	});
 };
 
 ObjectUsersManagement.prototype.reLoadUsers = function () {
@@ -363,6 +370,12 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
     if (jQuery.inArray("bdl_opis", this.editables) !== -1) {
         $.merge(list, [
             '<li><a class="bdl_opis" href="#">Zmiana opisu i nazwy</a></li>'
+        ]);
+    }
+    
+    if (jQuery.inArray("bdl_wymiar", this.editables) !== -1) {
+        $.merge(list, [
+            '<li><a class="bdl_wymiar" href="#">Ustaw wymiar rozwinięcia</a></li>'
         ]);
     }
 

@@ -18,7 +18,9 @@ $(document).ready(function () {
     });
 
     function saveData(dane) {
+                                
         $.ajax({
+            url: decodeURIComponent(($('.appHeader.dataobject').attr('data-url')+'').replace(/\+/g, '%20')) + '.json',
             method: 'post',
             data: dane,
             success: function (res) {
@@ -42,7 +44,8 @@ $(document).ready(function () {
 
         dane = {
             tytul: $("#nazwa").val(),
-            opis: $("#editor").html()
+            opis: $("#editor").html(),
+            _action: 'opis',
         };
         saveData(dane);
     });
