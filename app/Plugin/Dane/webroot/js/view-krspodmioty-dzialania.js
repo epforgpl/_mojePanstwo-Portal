@@ -122,12 +122,19 @@ $(document).ready(function () {
 
 
     if (imageEditor.length) {
-        imageEditor.cropit({
+        var imageWidth = 874,
+            imageHeight = 347,
+            imgEditorWidth = imageEditor.width(),
+            imgEditorHeight = imageHeight * (imageEditor.width() / imageWidth),
+            exportZoom = imageWidth / imageEditor.width();
+
+        imageEditor.css({'width': imgEditorWidth, height: imgEditorHeight}).cropit({
             imageState: {
                 src: (imageChoosed.val() !== "") ? imageChoosed.val() : ''
             },
-            width: 874,
-            height: 347,
+            width: imgEditorWidth,
+            height: imgEditorHeight,
+            exportZoom: exportZoom,
             onImageLoaded: function () {
                 imageEditor.find('.alert').slideUp("normal", function () {
                     $(this).remove();
