@@ -16,6 +16,8 @@ class BdlTempItemsController extends AppController
 
     public function view($id)
     {
+        debug($_SERVER['REQUEST_METHOD']);
+
         $BdlTempItem = $this->BdlTempItem->findById($id);
         $this->set(array(
             'BdlTempItem' => $BdlTempItem,
@@ -42,6 +44,9 @@ class BdlTempItemsController extends AppController
 
     public function edit($id)
     {
+        debug($this->request->data);
+
+        die();
         $this->BdlTempItem->id = $id;
         if ($this->BdlTempItem->save($this->request->data)) {
             $message = 'Saved';

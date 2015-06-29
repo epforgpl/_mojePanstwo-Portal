@@ -4,8 +4,8 @@
 <? } else { ?>
     <ul>
         <? foreach ($BdlTempItems as $key => $val) { ?>
-            <li><a href="bdl_temp_items/<?= $key ?>"><?= $val['tytul'] ?></a><a href="bdl_temp_items/delete/<?= $key ?>"><i
-                        class="icon glyphicon glyphicon-remove"></i></a></li>
+            <li><a href="<?= $key ?>"><?= $val['tytul'] ?></a><form method="DELETE" action="bdl_temp_items/delete/<?= $key ?>"><button class="btn btn-primary btn-sm" type="submit"><i
+                        class="icon glyphicon glyphicon-remove"></i></button></form></li>
         <? } ?>
     </ul>
 <? } ?>
@@ -29,22 +29,23 @@
             </div>
             <div class="modal-body">
                 <div class="col-sm-11">
+                    <form method="post" action="">
                     <div class="hidden alert alert-success info"></div>
                     <div class="row "><label class="">Tytuł:</label></div>
-                    <div class="row"><input class="form-control nazwa"
-                                            value="">
+                    <div class="row"><input name="tytul" class="form-control nazwa" value="">
                     </div>
                     <br>
 
                     <div class="row"><label>Opis:</label></div>
                 </div>
-                <article id="editor">
-                </article>
+                <textarea name="opis" id="editor">
+                </textarea>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-md btn-primary btn-icon" id="temp_item_savebtn"><i
+                <button type="submit" class="btn btn-md btn-primary btn-icon" id="temp_item_savebtn"><i
                         class="icon glyphicon glyphicon-ok"></i>Dodaj
                 </button>
+                </form>
             </div>
         </div>
     </div>

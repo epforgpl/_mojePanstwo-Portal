@@ -47,12 +47,7 @@ $(document).ready(function () {
     }
 
     $("#temp_item_savebtn").click(function () {
-
-        dane = {
-            tytul: $("#temp_item_opis_modal .nazwa").val(),
-            opis: $("#temp_item_opis_modal #editor").html()
-        };
-        saveData(dane);
+        $('#temp_item_opis_modal').modal('hide');
     });
 
 });
