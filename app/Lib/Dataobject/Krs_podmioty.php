@@ -98,4 +98,12 @@ class Krs_podmioty extends DataObject
 		
 	}
 	
+	public function getTitleAddon()
+    {
+	    if( $this->getData('wykreslony')=='1' )
+			return '<span class="label label-danger label-xs">Podmiot wykreślony z KRS</span>';  
+		else
+			return false; 
+    }
+	
 }
