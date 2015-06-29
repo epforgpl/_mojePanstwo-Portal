@@ -151,9 +151,27 @@ ObjectUsersManagement.prototype.initialize = function () {
     }
     
     editablePanel.find('.bdl_wymiar').click(function (evt) {
-	    evt.preventDefault();
 	    
-	    alert('wymiar');
+	    evt.preventDefault();
+	    var url = decodeURIComponent(($('.appHeader.dataobject').attr('data-url')+'').replace(/\+/g, '%20'));
+	    
+	    $.ajax({
+            url: url + '.json',
+            method: 'post',
+            data: {
+	            _action: 'wymiar',
+	            i: $('#filters_form').attr('data-expand'),
+            },
+            success: function (res) {
+                
+                window.location = url;
+                
+            },
+            error: function (xhr) {
+                alert("Wystąpił błąd: " + xhr.status + " " + xhr.statusText);
+            }
+
+        });
 	    
 	});
 };
