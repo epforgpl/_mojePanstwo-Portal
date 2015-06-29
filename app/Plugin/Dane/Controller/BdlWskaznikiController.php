@@ -228,7 +228,8 @@ class BdlWskaznikiController extends DataobjectsController
     public function beforeRender()
     {
 	    
-	    $this->addObjectEditable('bdl_opis');
+	    if( $this->hasUserRole('3') )
+		    $this->addObjectEditable('bdl_opis');
 	    	    
 	    parent::beforeRender();
 	 	

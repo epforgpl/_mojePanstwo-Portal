@@ -5,7 +5,7 @@ var ObjectUsersManagement = function (header, dataset, id, editables) {
     this.header = header;
     this.dataset = dataset;
     this.id = id;
-    this.editables = editables;
+    this.editables = editables;    
     this.initialize();
 };
 
@@ -268,9 +268,12 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '<ul class="dropdown-menu" aria-labelledby="moderatePanelModal">'
         ],
         modal = [];
-    if (jQuery.inArray("users", this.editables)) {
+        
+    console.log('users', this.editables, jQuery.inArray("users", this.editables));
+    
+    if (jQuery.inArray("users", this.editables) !== -1) {
         $.merge(list, [
-            '<li><a class="users" href="#">Ustaw moderatorów strony</a></li>'
+            '<li><a class="users" href="#">Moderatorzy strony...</a></li>'
         ]);
         $.merge(modal, [
             '<div class="modal fade" id="moderate-modal" tabindex="-1" role="dialog">',
@@ -297,7 +300,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '</div>'
         ]);
     }
-    if (jQuery.inArray("logo", this.editables)) {
+    if (jQuery.inArray("logo", this.editables) !== -1 ) {
         $.merge(list, [
             '<li><a class="logo" href="#">' + (this.header.hasClass('cover-logo') ? 'Zmień' : 'Dodaj') + ' logo</a></li>'
         ]);
@@ -327,7 +330,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
         ]);
     }
 
-    if (jQuery.inArray("cover", this.editables)) {
+    if (jQuery.inArray("cover", this.editables) !== -1 ) {
         $.merge(list, [
             '<li><a class="cover" href="#">' + (this.header.hasClass('cover-background') ? 'Zmień' : 'Dodaj') + ' obrazek tła</a></li>'
         ]);
@@ -356,8 +359,8 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '</div>'
         ]);
     }
-
-    if (jQuery.inArray("bdl_opis", this.editables)) {
+		
+    if (jQuery.inArray("bdl_opis", this.editables) !== -1) {
         $.merge(list, [
             '<li><a class="bdl_opis" href="#">Zmiana opisu i nazwy</a></li>'
         ]);
@@ -449,5 +452,5 @@ $(document).ready(function () {
         dataset = header.attr('data-dataset'),
         object_id = header.attr('data-object_id'),
         editables = header.attr('data-editables');
-    new ObjectUsersManagement(header, dataset, object_id, editables);
+    new ObjectUsersManagement(header, dataset, object_id, jQuery.parseJSON(editables));
 });
