@@ -228,8 +228,10 @@ class BdlWskaznikiController extends DataobjectsController
     public function beforeRender()
     {
 	    
-	    if( $this->hasUserRole('3') )
+	    if( $this->hasUserRole('3') ) {
 		    $this->addObjectEditable('bdl_opis');
+		    $this->addObjectEditable('bdl_wymiar');
+		}
 	    	    
 	    parent::beforeRender();
 	 	
@@ -246,17 +248,6 @@ class BdlWskaznikiController extends DataobjectsController
 	        ));
         
         }   
-    }
-    
-    public function update()
-    {
-	    $response = $this->Dataobject->getDatasource()->request('dane/bdl_wskazniki/' . $this->request->params['id'], array(
-		    'method' => 'POST',
-		    'data' => $this->request->data,
-	    ));
-
-        $this->set('response', $response);
-        $this->set('_serialize', array('data'));
-    }
+    }    
 
 } 

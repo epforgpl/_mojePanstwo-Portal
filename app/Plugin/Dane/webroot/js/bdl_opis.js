@@ -19,6 +19,7 @@ $(document).ready(function () {
 
     function saveData(dane) {
         $.ajax({
+            url: decodeURIComponent(($('.appHeader.dataobject').attr('data-url')+'').replace(/\+/g, '%20')) + '.json',
             method: 'post',
             data: dane,
             success: function (res) {
@@ -34,13 +35,13 @@ $(document).ready(function () {
             error: function (xhr) {
                 alert("Wystąpił błąd: " + xhr.status + " " + xhr.statusText);
             }
-
         });
     }
 
     $("#bdl_savebtn").click(function () {
 
         dane = {
+            _action: 'opis',
             tytul: $("#bdl_opis_modal .nazwa").val(),
             opis: $("#bdl_opis_modal .editor").html()
         };

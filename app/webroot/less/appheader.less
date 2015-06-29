@@ -559,10 +559,10 @@
     text-align: center;
 
     .cropit-image-preview {
-      background-color: #f8f8f8;
       background-size: cover;
+      background-color: #ffffff;
       border: 1px solid #ccc;
-      border-radius: 3px;
+      border-radius: 10px;
       margin-top: 7px;
       cursor: move;
     }
@@ -575,6 +575,18 @@
     .image-size-label {
       margin-top: 10px;
     }
+
+    .alert {
+      padding: 2px 0;
+
+      -webkit-transition: height 0.8s;
+      -moz-transition: height 0.8s;
+      transition: height 0.8s;
+    }
+  }
+
+  .modal-footer {
+    text-align: center;
   }
 
   &#modalAdminAddLogo {
@@ -585,6 +597,7 @@
         width: 180px;
         height: 180px;
         margin: 0 auto;
+        background: url(/img/cropit/cropit_default_logo.png) center center no-repeat;
       }
     }
   }
@@ -597,6 +610,7 @@
         width: 750px;
         height: 200px;
         margin: 0 auto;
+        background: url(/img/cropit/cropit_default_cover.png) center center no-repeat;
       }
     }
   }
