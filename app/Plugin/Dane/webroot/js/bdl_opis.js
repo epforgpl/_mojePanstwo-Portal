@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $('#editor').wysihtml5({
+    $('#bdl_opis_modal #editor').wysihtml5({
         toolbar: {
             "font-styles": true, //Font styling, e.g. h1, h2, etc.
             "emphasis": true, //Italics, bold, etc.
@@ -11,7 +11,7 @@ $(document).ready(function () {
             "color": false, //Button to change color of font
             "blockquote": false
         },
-        'locale': 'pl-PL',
+        'locale': 'pl-NEW',
         parser: function (html) {
             return html;
         }
@@ -26,9 +26,9 @@ $(document).ready(function () {
                     alert("Błąd zapisu");
                 } else {
                     if (res != null) {
-                        $("#info").html('Zmieniono opis i nazwę.');
+                        $("#bdl_opis_modal .info").html('Zmieniono opis i nazwę.');
                     }
-                    $('#info').removeClass('hidden');
+                    $('#bdl_opis_modal .info').removeClass('hidden');
                 }
             },
             error: function (xhr) {
@@ -41,8 +41,8 @@ $(document).ready(function () {
     $("#bdl_savebtn").click(function () {
 
         dane = {
-            tytul: $("#nazwa").val(),
-            opis: $("#editor").html()
+            tytul: $("#bdl_opis_modal .nazwa").val(),
+            opis: $("#bdl_opis_modal .editor").html()
         };
         saveData(dane);
     });
