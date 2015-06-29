@@ -1,0 +1,122 @@
+.dodaj_dzialanie {
+  .image-editor {
+    text-align: center;
+
+    .cropit-image-preview {
+      background-size: cover;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      margin-top: 7px;
+      cursor: move;
+    }
+
+    .cropit-image-background {
+      opacity: .2;
+      cursor: auto;
+    }
+
+    .image-size-label {
+      margin-top: 10px;
+    }
+
+    .btn-file {
+      position: relative;
+      overflow: hidden;
+
+      input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+      }
+    }
+  }
+  .googleBlock {
+    min-height: 50px;
+    display: inline-block;
+    width: 100%;
+
+    .googleBtn {
+      display: none;
+      width: auto;
+      float: left;
+    }
+
+    .googleMapElement {
+      display: block;
+
+      &.loaded {
+        display: none;
+
+        #googleMap {
+          position: relative;
+          top: 0;
+        }
+        #pac-input {
+          display: block;
+        }
+      }
+
+      #googleMap {
+        display: block;
+        height: 400px;
+        width: 100%;
+        position: absolute;
+        top: -9999px;
+      }
+
+      .controls {
+        margin-top: 16px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      #pac-input {
+        display: none;
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      .pac-container {
+        font-family: Roboto;
+      }
+
+      #type-selector {
+        color: #fff;
+        background-color: #4d90fe;
+        padding: 5px 11px 0 11px;
+      }
+
+      #type-selector label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+    }
+  }
+}
