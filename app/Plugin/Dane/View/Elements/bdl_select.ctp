@@ -14,7 +14,7 @@
                             <select onchange="document.getElementById('filters_form').submit();"
                                     name="d<?= $d['order'] ?>">
                                 <? foreach ($d['options'] as $o) { ?>
-                                    <option<? if ($o['selected'] == true) { ?> selected="selected"<?php } ?>
+                                    <option<? if (@$o['selected'] == true) { ?> selected="selected"<?php } ?>
                                         value="<?= $o['id'] ?>"><?= $o['value'] ?></option>
                                 <? } ?>
                             </select>
@@ -28,7 +28,7 @@
                             <select onchange="document.getElementById('filters_form').submit();"
                                     name="d<?= $d['order'] ?>">
                                 <? foreach ($d['options'] as $o) { ?>
-                                    <option<? if ($o['selected'] == true) { ?> selected="selected"<?php } ?>
+                                    <option<? if (@$o['selected'] == true) { ?> selected="selected"<?php } ?>
                                         value="<?= $o['id'] ?>"><?= $o['value'] ?></option>
                                 <? } ?>
                             </select>
