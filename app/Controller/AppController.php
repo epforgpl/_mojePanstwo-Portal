@@ -144,6 +144,9 @@ class AppController extends Controller
             	'label' => 'Prawo powszechne',
 				'searchTitle' => 'Szukaj w prawie powszechnym...',
 				'menu_id' => 'powszechne',
+				'autocompletion' => array(
+					'dataset' => 'prawo',
+				),
             ),
             'prawo_wojewodztwa' => array(
             	'label' => 'Prawo lokalne',
@@ -159,6 +162,9 @@ class AppController extends Controller
             	'label' => 'Tematy w prawie',
 				'searchTitle' => 'Szukaj w tematach...',
 				'menu_id' => 'tematy',
+				'autocompletion' => array(
+					'dataset' => 'prawo_hasla',
+				),
             ),
         ),  
         'orzecznictwo' => array(
@@ -189,6 +195,9 @@ class AppController extends Controller
             'gminy' => array(
             	'label' => 'Gminy',
             	'menu_id' => 'gminy',
+            	'autocompletion' => array(
+					'dataset' => 'gminy',
+				),
             ),
             'powiaty' => array(
             	'label' => 'Powiaty',
@@ -199,7 +208,7 @@ class AppController extends Controller
             	'menu_id' => 'wojewodztwa',
             ),
             'miejscowosci' => array(
-            	'label' => 'Miejscowosci',
+            	'label' => 'Miejscowości',
             	'menu_id' => 'miejscowosci',
             ),
         ),
@@ -288,6 +297,10 @@ class AppController extends Controller
             'instytucje' => array(
             	'label' => 'Instytucje',
 				'menu_id' => 'instytucje',
+				'order' => 'weight desc',
+				'autocompletion' => array(
+					'dataset' => 'instytucje',
+				),
             ),
         ),
     );
@@ -514,6 +527,7 @@ class AppController extends Controller
                         'zamowienia',
                         'organizacje',
                         'biznes',
+                        'osoby',
                         'ngo',
                         'spzoz',
                         'dotacje_ue',
@@ -844,5 +858,25 @@ class AppController extends Controller
 
         } else return $this->datasets;
 
+    }
+    
+    public function getUserRoles() {
+	    
+	    if( $this->Auth->user() ) {
+		    
+		    return array_column($this->Auth->user('UserRole'), 'role_id');
+		    
+	    } else return array();
+	    
+    }
+    
+    public function hasUserRole($role) {
+	    
+	    $roles = $this->getUserRoles();
+	    if( in_array('2', $roles) )
+	    	return true;
+	    else
+	    	return in_array($role, $roles);
+	    
     }
 }

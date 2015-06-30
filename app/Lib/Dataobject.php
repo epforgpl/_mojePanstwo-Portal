@@ -264,9 +264,10 @@ class Dataobject
     }
 	
 	public function getIcon()
-	{
-		return '<i class="object-icon glyphicon glyphicon-file"></i>';
-	}
+    {
+	    $class = strtolower(array_pop(explode('\\', get_class($this))));
+        return '<i class="object-icon icon-datasets-' . $class . '"></i>';
+    }
     
     public function getHeaderThumbnailUrl($size = 'default')
     {

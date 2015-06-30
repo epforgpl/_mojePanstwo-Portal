@@ -51,20 +51,24 @@
 }
 
 #sendPismoModal {
-
   .email {
-    color: #D33;
+    color: #789;
     &.email-big {
       font-size: 18px;
       margin-bottom: 20px;
     }
   }
-
   .additional-desc {
+    background-color: #eee;
     font-size: 12px;
-    margin-bottom: -20px;
+    margin: 25px -15px -25px;
+    padding: 15px 15px 5px;
   }
-
+  .loading, .loading:focus, .loading:hover {
+    color: rgba(255, 255, 255, 0);
+    background-color: #ffffff;
+    cursor: default;
+  }
 }
 
 .wizard,
@@ -486,6 +490,7 @@
     width: 100%;
     padding-bottom: 0;
     margin-top: -15px;
+    margin-bottom: 15px;
   }
   .wysihtml5-toolbar {
     .btn {
@@ -679,7 +684,7 @@
       width: 100%;
 
       h1 {
-        margin: 30px 0 10px;
+        margin: 17px 0 10px;
         display: block;
         float: left;
         max-width: 100%;

@@ -26,8 +26,7 @@ $this->Combinator->add_libs('js', 'Powiadomienia.modal-observe');
                 <div class="modal-footer">
                     <a href="#" class="btn btn-primary btn-icon submit">
                         <i class="icon" data-icon="&#xe604;"></i>Zapisz</a>
-                    <a href="#" class="btn btn-warning btn-icon unobserve">
-                        <i class="icon" data-icon="&#xe605;"></i>Przestań obserwować</a>
+                    <a href="#" class="btn btn-link unobserve">Przestań obserwować</a>
                 </div>
             </form>
         </div>

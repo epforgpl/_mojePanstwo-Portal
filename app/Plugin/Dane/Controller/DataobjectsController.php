@@ -3,7 +3,7 @@
 class DataobjectsController extends AppController
 {
 
-    public $uses = array('Dane.Dataobject', 'Dane.Subscription');
+    public $uses = array('Dane.Dataobject', 'Dane.Subscription', 'Dane.ObjectUsersManagement');
     public $components = array('RequestHandler');
 
     public $object = false;
@@ -23,6 +23,8 @@ class DataobjectsController extends AppController
     public $actions = array();
     public $appSelected = '';
     public $addDatasetBreadcrumb = true;
+    public $editables = array();
+    
 
     public $_layout = array(
         'header' => array(
@@ -36,6 +38,14 @@ class DataobjectsController extends AppController
         ),
     );
 
+	public function addObjectEditable($e)
+	{
+		if( is_string($e) )
+			$this->editables[] = $e;
+		elseif( is_array($e) )
+			$this->editables = array_merge($this->editables, $e);
+	}
+	
     public function addInitLayers($layers)
     {
 
@@ -78,8 +88,13 @@ class DataobjectsController extends AppController
 	            $layers = $this->initLayers;
             }
 
-            if ($this->observeOptions)
+            if ($this->observeOptions) {
                 $layers[] = 'channels';
+                $layers[] = 'subscribers';
+            }
+                
+            if ($this->objectModerable)
+                $layers[] = 'page';
 
             if ($this->object = $this->Dataobject->find('first', array(
                 'conditions' => array(
@@ -93,7 +108,7 @@ class DataobjectsController extends AppController
 				
 				$this->object_aggs = $this->Dataobject->getAggs();
                 $this->set('object_aggs', $this->object_aggs);
-
+								
                 if (
                     ($this->domainMode == 'MP') &&
                     (
@@ -228,12 +243,12 @@ class DataobjectsController extends AppController
 
 
     public function beforeRender()
-    {
-
+    {		
+		
         $is_json = (isset($this->request->params['ext']) && $this->request->params['ext'] == 'json');
 
-        if (!$is_json) {
-
+        if (!$is_json && $this->object) {
+		
             if (
                 ($this->request->params['controller'] == 'Datasets') &&
                 ($breadcrumbs_data = $this->getDataset($this->object->getData('slug')))
@@ -252,33 +267,68 @@ class DataobjectsController extends AppController
                     ));
 
             }
+                        
+            if( $page = $this->object->getLayer('page') ) {
+								
+				if( @isset($this->request->query['page']['cover']) )
+					$page['cover'] = $this->request->query['page']['cover'];
+					
+				if( @isset($this->request->query['page']['logo']) )
+					$page['logo'] = $this->request->query['page']['logo'];
+					
+				if( @isset($this->request->query['page']['moderated']) )
+					$page['moderated'] = $this->request->query['page']['moderated'];
+					
+				$this->object->layers['page'] = $page;
+												
+				if( $page['cover'] || $page['logo'] )
+					$this->_layout['header']['element'] = 'dataobject-cover';
+								
+				$this->set('object', $this->object);
+									
+			}
 
             $selected = $this->request->params['action'];
             if ($selected == 'view')
                 $selected = '';
-
+			
+			
+			$object_editable = array();
+			
+			if(
+				in_array('2', $this->getUserRoles()) || // check if superuser 
+				( $this->getPageRoles()=='1' ) // check if user has permissions to page 
+			) {
+				
+				$object_editable[] = 'users';
+			}
+			
+			if( 
+				in_array('2', $this->getUserRoles()) || // check if superuser 
+				$this->getPageRoles() // check if user has permissions to page 
+			) {
+				
+				$object_editable[] = 'cover';
+				$object_editable[] = 'logo';
+				
+			}
+			
+			if( !empty($this->editables) )
+				$object_editable = array_merge($object_editable, $this->editables);
+												
             $this->menu['selected'] = $selected;
             $this->menu['base'] = $this->object->getUrl();
             $this->set('object_actions', $this->actions);
             $this->set('object_addons', $this->addons);
+            $this->set('object_editable', $object_editable);
 
             $this->prepareMetaTags();
-
         }
 
         parent::beforeRender();
 
     }
-
-    /*
-    public function unsubscribe() {
-	    	    
-	    $this->Dataobject->unsubscribe($this->request->params['controller'], $this->request->params['id']);
-	    $this->redirect($this->referer());
-	    
-    }
-    */
-
+    
     public function prepareMetaTags()
     {
         parent::prepareMetaTags();
@@ -288,6 +338,43 @@ class DataobjectsController extends AppController
             'og:title' => $this->object->getTitle(),
             'og:image' => FULL_BASE_URL . '/dane/img/social/dane.jpg'
         ));
+    }
+    
+    public function getPageRoles() {
+	    
+	    if( 
+	    	$this->Auth->user() && 
+	    	isset( $this->object ) && 
+	    	( $page = $this->object->getLayer('page') ) && 
+	    	isset( $page['roles'] )
+	    ) {
+		    
+		    return @$page['roles']['ObjectUser']['role'];
+		    
+	    } else return false;
+	    
+    }
+    
+    public function post()
+    {
+	    
+	    $response = false;
+	    
+	    if( 
+	    	@$this->request->params['pass'][0] && 
+	    	@$this->request->params['pass'][1]
+	    ) {
+	    
+		    $response = $this->Dataobject->getDatasource()->request('dane/' . $this->request->params['pass'][0] . '/' . $this->request->params['pass'][1], array(
+			    'method' => 'POST',
+			    'data' => $this->request->data,
+		    ));
+	        
+        }
+        
+        $this->set('response', $response);
+        $this->set('_serialize', 'response');
+        
     }
 
 }

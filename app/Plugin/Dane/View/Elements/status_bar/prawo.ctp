@@ -38,4 +38,14 @@
             <p class="_value"><?= $this->Czas->dataSlownie($data_wejscia_w_zycie); ?></p>
         </li>
     <? } ?>
+    
+    <?
+    if ( $organ = $object->getData('isap_organ_wydajacy_str') ) { ?>
+        <li class="dataHighlight col-sm-6 col-sm-3">
+            <p class="_label">Organ wydający</p>
+
+            <p class="_value"><?= $organ ?></p>
+        </li>
+    <? } ?>    
+    
 </ul>

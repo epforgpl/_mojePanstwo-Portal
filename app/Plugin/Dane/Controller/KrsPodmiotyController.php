@@ -4,7 +4,9 @@ App::uses('DataobjectsController', 'Dane.Controller');
 
 class KrsPodmiotyController extends DataobjectsController
 {
-
+    
+    public $observeOptions = true;
+    
     public $helpers = array(
         'Time',
     );
@@ -21,6 +23,8 @@ class KrsPodmiotyController extends DataobjectsController
         'itemtype' => 'http://schema.org/Organization',
         'titleprop' => 'name',
     );
+
+    public $objectModerable = true;
 
     public function beforeFilter()
     {
@@ -70,13 +74,13 @@ class KrsPodmiotyController extends DataobjectsController
             'udzialy',
             'firmy',
         ));
-        
+
         if ($this->Session->read('KRS.odpis') == $this->params->id) {
             $this->addInitLayers('odpis');
         }
 
         $this->_prepareView();
-        
+
         $desc_parts = array('Informacje gospodarcze o ' . $this->object->getShortTitle());
         $desc_bodies_parts = array();
 
@@ -257,8 +261,8 @@ class KrsPodmiotyController extends DataobjectsController
 
     public function _prepareView()
     {
-		
-		$this->addInitAggs(array(
+
+        $this->addInitAggs(array(
             'all' => array(
                 'global' => '_empty',
                 'aggs' => array(
@@ -273,12 +277,12 @@ class KrsPodmiotyController extends DataobjectsController
                                     ),
                                     array(
                                         'nested' => array(
-	                                        'path' => 'zamowienia_publiczne-wykonawcy',
-	                                        'filter' => array(
-		                                        'term' => array(
-			                                        'zamowienia_publiczne-wykonawcy.krs_id' => $this->request->params['id'],
-		                                        ),
-	                                        ),
+                                            'path' => 'zamowienia_publiczne-wykonawcy',
+                                            'filter' => array(
+                                                'term' => array(
+                                                    'zamowienia_publiczne-wykonawcy.krs_id' => $this->request->params['id'],
+                                                ),
+                                            ),
                                         ),
                                     ),
                                 ),
@@ -288,7 +292,7 @@ class KrsPodmiotyController extends DataobjectsController
                 ),
             ),
         ));
-		
+
         parent::_prepareView();
 
         if (defined('PK_DOMAIN')) {
@@ -334,14 +338,17 @@ class KrsPodmiotyController extends DataobjectsController
 
     }
 
+    public function dzialania_nowe()
+    {
+        $this->addInitLayers(array('dzialania_nowe'));
+        $this->_prepareView();
+    }
+
     public function powiazania()
     {
 
         $this->addInitLayers(array('powiazania'));
         $this->_prepareView();
-
-        debug($this->object->getLayer('powiazania'));
-        die();
 
     }
 
@@ -511,11 +518,11 @@ class KrsPodmiotyController extends DataobjectsController
         $this->set('title_for_layout', 'Zmiany umów ' . $this->object->getTitle());
 
     }
-    
+
     public function getMenu()
     {
-	    
-	    $counters = $this->object->getLayers('counters');
+
+        $counters = $this->object->getLayers('counters');
 
         $menu = array(
             'items' => array(
@@ -523,22 +530,26 @@ class KrsPodmiotyController extends DataobjectsController
                     'id' => '',
                     'label' => 'Podstawowe dane',
                     'icon' => array(
-						'src' => 'glyphicon',
-						'id' => 'home',
-					),
+                        'src' => 'glyphicon',
+                        'id' => 'home',
+                    ),
+                ),
+                array(
+                    'id' => 'graph',
+                    'label' => 'Powiązania',
                 ),
             ),
             'base' => $this->object->getUrl(),
         );
-		
-		if( @$this->object_aggs['all']['zamowienia']['doc_count'] ) {
-			$menu['items'][] = array(
-				'id' => 'zamowienia',
-				'label' => 'Zamówienia publiczne',
-				'count' => $this->object_aggs['all']['zamowienia']['doc_count'],
-			);
-		}
-				
+
+        if (@$this->object_aggs['all']['zamowienia']['doc_count']) {
+            $menu['items'][] = array(
+                'id' => 'zamowienia',
+                'label' => 'Zamówienia publiczne',
+                'count' => $this->object_aggs['all']['zamowienia']['doc_count'],
+            );
+        }
+
         if ($this->request->params['id'] == 481129) { // KOMITET KONKURSOWY KRAKÓW 2022
 
             $menu['items'][] = array(
@@ -580,12 +591,8 @@ class KrsPodmiotyController extends DataobjectsController
                 'label' => 'Indeksy kultury',
             );
         }
-        
-        if( (count($menu['items'])==1) && !$menu['items'][0]['id'] ) {
-	        return array();
-        } else {
-		    return $menu;
-		}
+
+        return $menu;
     }
 
 }

@@ -12,7 +12,7 @@ $this->Combinator->add_libs('js', array('appheader'));
             </div>
             <div class="content col-xs-12 col-sm-7 col-md-9">
                 <p class="header">
-                    Portal oparty o dane publiczne o Krakowie. Prowadzony przez Fundację Stańczyka.
+                    Portal oparty o dane publiczne o Krakowie. Prowadzony przez <a href="http://www.stanczyk.org.pl/" target="_blank">Fundację Stańczyka</a>.
                 </p>
             </div>
         </div>

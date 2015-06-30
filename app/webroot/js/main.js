@@ -159,12 +159,14 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 
     /*COOKIE BACKGROUND CONTROL*/
     if ($('body').hasClass('theme-wallpaper')) {
+        var rand = Math.floor(Math.random() * cookieBackgroundLimit);
+
         jsHour = jsDate.getHours();
 
         if (mPCookie === undefined || mPCookie.background === undefined) {
             mPCookie.background = {
-                url: '/img/home/backgrounds/home-background-default0.jpg',
-                current: 0,
+                url: '/img/home/backgrounds/home-background-default' + rand + '.jpg',
+                current: rand,
                 limit: cookieBackgroundLimit,
                 time: jsHour
             };
@@ -173,19 +175,20 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
         /*COOKIE MANAGER - BACKGROUND CHANGER*/
         if (mPCookie.background.time !== jsHour) {
             if (mPCookie.background.current + 1 < mPCookie.background.limit) {
-                mPCookie.background.current = mPCookie.background.current + 1;
                 /*CHECK IF NEW BACKGROUND EXIST - IF NOT SET DEFAULT*/
                 var http = new XMLHttpRequest();
                 http.open('HEAD', '/img/home/backgrounds/home-background-default' + mPCookie.background.current + '.jpg', false);
                 http.send();
                 if (http.status === 404) {
-                    mPCookie.background.url = '/img/home/backgrounds/home-background-default0.jpg';
+                    mPCookie.background.current = rand;
+                    mPCookie.background.url = '/img/home/backgrounds/home-background-default' + rand + '.jpg';
                 } else {
+                    mPCookie.background.current = mPCookie.background.current + 1;
                     mPCookie.background.url = '/img/home/backgrounds/home-background-default' + mPCookie.background.current + '.jpg';
                 }
             } else {
-                mPCookie.background.current = 0;
-                mPCookie.background.url = '/img/home/backgrounds/home-background-default0.jpg';
+                mPCookie.background.current = rand;
+                mPCookie.background.url = '/img/home/backgrounds/home-background-default' + rand + '.jpg';
             }
             mPCookie.background.time = jsHour;
             mPCookie.background.limit = cookieBackgroundLimit;

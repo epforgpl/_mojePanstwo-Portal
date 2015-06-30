@@ -362,7 +362,16 @@ class mpAPISource extends DataSource {
         $code = $this->Http->response->code;
 
         if($code == 200) {
-            return $response['User'];
+
+            $user = $response['User'];
+            foreach($response as $key => $values) {
+                if($key != 'User') {
+                    $user[$key] = $values;
+                }
+            }
+
+            return $user;
+
         } elseif($code == 403) {
             throw new ForbiddenException("Nieprawidłowe hasło");
         } elseif($code == 404) {

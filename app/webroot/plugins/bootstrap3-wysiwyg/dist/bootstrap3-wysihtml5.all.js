@@ -14938,7 +14938,7 @@ this["wysihtml5"]["tpl"]["link"] = Handlebars.template(function (Handlebars, dep
     function program7(depth0, data) {
 
 
-        return "\n      <span class=\"glyphicon glyphicon-share\"></span>\n    ";
+        return "\n      <span class=\"glyphicon glyphicon-link\"></span>\n    ";
     }
 
     buffer += "<li>\n  <div class=\"bootstrap-wysihtml5-insert-link-modal modal fade\" data-wysihtml5-dialog=\"createLink\">\n    <div class=\"modal-dialog ";

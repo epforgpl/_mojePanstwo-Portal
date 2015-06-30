@@ -27,22 +27,20 @@
     <meta name="theme-color" content="#ffffff"/>
 
     <?php
-    //echo $this->Html->meta(array('property' => 'og:url', 'content' => Router::url($this->here, true)));
-    //echo $this->Html->meta(array('property' => 'og:type', 'content' => 'website'));
-    //echo $this->Html->meta(array('property' => 'og:title', 'content' => strip_tags($title_for_layout)));
-    /* echo $this->Html->meta(array(
+    echo $this->Html->meta(array('property' => 'og:url', 'content' => Router::url($this->here, true)));
+    echo $this->Html->meta(array('property' => 'og:type', 'content' => 'website'));
+    echo $this->Html->meta(array('property' => 'og:title', 'content' => strip_tags($title_for_layout)));
+    echo $this->Html->meta(array(
         'property' => 'og:description',
         'content' => (isset($_META) && array_key_exists('description', $_META)) ? strip_tags($_META['description']) : strip_tags(__('LC_MAINHEADER_TEXT'))
     ));
     echo $this->Html->meta(array(
         'property' => 'og:image',
-        'content' => (isset($_META) && array_key_exists('image', $_META)) ? FULL_BASE_URL . $_META['image'] : FULL_BASE_URL . '/img/favicon/facebook-400x400.jpg',
-    ));*/
-    //echo $this->Html->meta(array('property' => 'fb:admins', 'content' => '616010705')); /*Daniel Macyszyn*/
-    //echo $this->Html->meta(array('property' => 'fb:admins', 'content' => '100000234760647')); /*Mariusz Konrad Machuta-Rakowski*/
-    //echo $this->Html->meta(array('property' => 'fb:app_id', 'content' => FACEBOOK_appId));
-
-    echo $this->Html->css('//fonts.googleapis.com/css?family=Lato:200,300,400,700,900,400italic');
+        'content' => (isset($_META) && array_key_exists('image', $_META)) ? FULL_BASE_URL . $_META['image'] : FULL_BASE_URL . '/img/favicon/facebook.png',
+    ));
+    echo $this->Html->meta(array('property' => 'fb:admins', 'content' => '616010705')); /*Daniel Macyszyn*/
+    echo $this->Html->meta(array('property' => 'fb:admins', 'content' => '100000234760647')); /*Mariusz Konrad Machuta-Rakowski*/
+    echo $this->Html->meta(array('property' => 'fb:app_id', 'content' => FACEBOOK_appId));
 
     echo $this->Html->css('../libs/jqueryui/themes/cupertino/jquery-ui.theme.min.css');
 
@@ -50,6 +48,7 @@
     $this->Combinator->add_libs('css', $this->Less->css('structure'), false);
     $this->Combinator->add_libs('css', $this->Less->css('main'), false);
     $this->Combinator->add_libs('css', $this->Less->css('themes'), false);
+    $this->Combinator->add_libs('css', $this->Less->css('icon-datasets'));
     $this->Combinator->add_libs('css', $this->Less->css('bootstrap-checkboxes'));
     $this->Combinator->add_libs('css', $this->Less->css('suggester'));
     $this->Combinator->add_libs('css', $this->Less->css('appheader'));
@@ -69,6 +68,10 @@
     /* SOCIAL BUTTONS */
     echo $this->Html->css('../libs/font-awesome/4.3.0/css/font-awesome.min.css');
     $this->Combinator->add_libs('css', $this->Less->css('social-buttons'), false);
+
+    if( isset($object_editable) && !empty($object_editable) ) {
+        $this->Combinator->add_libs('css', $this->Less->css('dataobjects-editable', array('plugin' => 'Dane')));
+    }
 
     /* HAD TO BE EXCLUDED CAUSE ERRORS AT BOOTSTRAP */
     echo $this->Html->css('../libs/bootstrap/3.3.4/css/bootstrap.min.css');
@@ -158,6 +161,7 @@ echo $this->Html->script('../plugins/bootstrap-switch/bootstrap-switch.js'); ?>
                 api: 'https://api-v2.mojepanstwo.pl'
             }
         },
+        user_id: '<?= AuthComponent::user('id'); ?>',
         language: {
             twoDig: "<?php switch (Configure::read('Config.language')) { case 'pol': echo "pl"; break; case 'eng': echo "en"; break; }  ?>",
             threeDig: "<?php echo Configure::read('Config.language'); ?>"
@@ -184,6 +188,11 @@ $this->Combinator->add_libs('js', 'structure', false);
 $this->Combinator->add_libs('js', 'main', false);
 $this->Combinator->add_libs('js', 'suggester');
 $this->Combinator->add_libs('js', 'appheader');
+
+if( isset($object_editable) && !empty($object_editable) ) {
+    $this->Combinator->add_libs('js', 'jquery.autocomplete.min');
+    $this->Combinator->add_libs('js', 'Dane.dataobjects-editable');
+}
 
 /* BLOCK FOR SPECIAL SCRIPTS LIKE PROTOTYPE THAT CANNOT BE MERGE TO ONE FILE*/
 echo $this->fetch('scriptBlock');

@@ -23,11 +23,11 @@
         <div class="control control-sender">
             <?php if (isset($pismoEditPage) && $pismoEditPage) {
                 if (empty($pismo['nadawca'])) { ?>
-                    <textarea class="nadawca empty" placeholder="Wpisz dane nadawcy (opcjonalnie)" rows="1"
-                              maxlength="511"></textarea>
+                    <textarea class="nadawca empty" placeholder="Wpisz dane nadawcy" rows="1"
+                              maxlength="511" required="required"></textarea>
                 <? } else { ?>
-                    <textarea class="nadawca" placeholder="Wpisz dane nadawcy (opcjonalnie)" rows="1"
-                              maxlength="511"><?= $pismo['nadawca'] ?></textarea>
+                    <textarea class="nadawca" placeholder="Wpisz dane nadawcy" rows="1"
+                              maxlength="511" required="required"><?= $pismo['nadawca'] ?></textarea>
                 <? }
             } else {
                 if (!empty($pismo['nadawca'])) { ?>

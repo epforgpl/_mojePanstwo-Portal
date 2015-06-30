@@ -18,7 +18,8 @@
                        value="<?= $q ?>"
                        data-dataset="<?= $autocompletion ? $autocompletion['dataset'] : '*'; ?>"
                        data-url="<?= @$url ?>"
-                       data-autocompletion="<?= $autocompletion ? 'true' : 'false' ?>"
+                       data-autocompletion="<?= $autocompletion ? 'true' : 'false' ?>" 
+                       autocomplete="<?= $autocompletion ? 'off' : 'on' ?>" 
                        required
                     />
                 <? if (isset($url) && !empty($q)) { ?>
@@ -38,7 +39,7 @@
         $took = round($dataBrowser['took'], 2);
         ?>
         <div class="dataCounter">
-            <p class="pull-left"><?= pl_dopelniacz($params['count'], 'wynik', 'wyniki', 'wyników') ?><? if ($took) { ?> (<?= $took ?> s)<? } ?></p>
+            <? if($params['count']) {?><p class="pull-left"><?= pl_dopelniacz($params['count'], 'wynik', 'wyniki', 'wyników') ?><? if ($took) { ?> (<?= $took ?> s)<? } ?></p><? } ?>
 
             <p class="pull-right">
                 <a href="#" class="link-discrete link-api-call" data-toggle="modal" data-target=".modal-api-call"><span

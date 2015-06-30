@@ -6,53 +6,14 @@ class MojaGminaController extends ApplicationsController
 {
     public $settings = array(
         'id' => 'moja_gmina',
-        'menu' => array(
-            array(
-                'id' => '',
-                'label' => 'Start',
-                'href' => 'moja_gmina'
-            ),
-            array(
-                'id' => 'gminy',
-                'label' => 'Gminy',
-                'href' => 'moja_gmina/gminy'
-            ),
-            array(
-                'id' => 'powiaty',
-                'label' => 'Powiaty',
-                'href' => 'moja_gmina/powiaty'
-            ),
-            array(
-                'id' => 'wojewodztwa',
-                'label' => 'Województwa',
-                'href' => 'moja_gmina/wojewodztwa'
-            ),
-            array(
-                'id' => 'miejscowosci',
-                'label' => 'Miejscowości',
-                'href' => 'moja_gmina/miejscowosci'
-            ),
-            array(
-                'id' => 'kody_pocztowe',
-                'label' => 'Kody pocztowe',
-                'href' => 'moja_gmina/kody_pocztowe'
-            ),
-            /*
-            array(
-                'id' => 'radni',
-                'label' => 'Radni gmin',
-                'href' => 'moja_gmina/radni'
-            )
-            */
-        ),
         'title' => 'Moja gmina',
         // 'subtitle' => 'moja gmina',
         'headerImg' => '/moja_gmina/img/header_moja-gmina.png',
     );
 
 
+    public $mainMenuLabel = 'Przeglądaj';
     public $components = array('RequestHandler');
-
 
     public function prepareMetaTags()
     {
@@ -60,13 +21,16 @@ class MojaGminaController extends ApplicationsController
         $this->setMeta('og:image', FULL_BASE_URL . '/moja_gmina/img/social/mojagmina.jpg');
     }
 
-    public function index()
+    public function view()
     {
 
         $datasets = $this->getDatasets('moja_gmina');
-
+        
         $options = array(
-            'searchTitle' => 'Szukaj w gminach, powiatach, województwach i miejscowościach...',
+            'searchTitle' => 'Szukaj gminy...',
+            'autocompletion' => array(
+                'dataset' => implode(',', array_keys($datasets)),
+            ),
             'conditions' => array(
                 'dataset' => array_keys($datasets),
             ),
@@ -124,39 +88,5 @@ class MojaGminaController extends ApplicationsController
         $this->set('_serialize', 'output');
 
     }
-
-    public function gminy()
-    {
-        $this->title = 'Gminy w Polsce - Moja Gmina';
-        $this->loadDatasetBrowser('gminy');
-    }
-
-    public function kody_pocztowe()
-    {
-        $this->title = 'Kody pocztowe w Polsce- Moja Gmina';
-        $this->loadDatasetBrowser('kody_pocztowe');
-    }
-
-    public function miejscowosci()
-    {
-        $this->title = 'Miejscowości w Polsce - Moja Gmina';
-        $this->loadDatasetBrowser('miejscowosci');
-    }
-
-    public function powiaty()
-    {
-        $this->title = 'Powiaty w Polsce - Moja Gmina';
-        $this->loadDatasetBrowser('powiaty');
-    }
-
-    public function wojewodztwa()
-    {
-        $this->title = 'Województwa w Polsce - Moja Gmina';
-        $this->loadDatasetBrowser('wojewodztwa');
-    }
-
-    public function radni()
-    {
-        $this->loadDatasetBrowser('radni_gmin');
-    }
+    
 } 

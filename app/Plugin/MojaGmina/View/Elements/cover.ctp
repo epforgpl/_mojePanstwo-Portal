@@ -11,7 +11,7 @@ echo $this->Html->script('MojaGmina.moja_gmina', array('block' => 'scriptBlock')
 
 <div class="col-xs-12 col-md-8">
     <div class="block col-xs-12">
-        <header>Znajdź swoją gminę
+        <header>Znajdź swoją gminę na mapie:
             <button class="btn btn-warning pull-right btn-icon" id="localizeMe"><i class="icon"
                                                                                    data-icon-applications="&#xe609;"></i>Zlokalizuj
                 mnie

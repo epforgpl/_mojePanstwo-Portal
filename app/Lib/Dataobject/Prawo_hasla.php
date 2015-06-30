@@ -23,11 +23,6 @@ class Prawo_hasla extends DataObject
     {
         return 'Hasło w aktach prawnych';
     }
-
-    public function getIcon()
-    {
-        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe636;"></i>';
-    }
     
     public function hasHighlights()
     {

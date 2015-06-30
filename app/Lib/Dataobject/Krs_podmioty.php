@@ -60,11 +60,6 @@ class Krs_podmioty extends DataObject
 		        	$val = false;
 
     }
-
-    public function getIcon()
-    {
-        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe63a;"></i>';
-    }
  	
     public function getLabel()
     {
@@ -102,5 +97,13 @@ class Krs_podmioty extends DataObject
 			return false;
 		
 	}
+	
+	public function getTitleAddon()
+    {
+	    if( $this->getData('wykreslony')=='1' )
+			return '<span class="label label-danger label-xs">Podmiot wykreślony z KRS</span>';  
+		else
+			return false; 
+    }
 	
 }

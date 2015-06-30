@@ -1,7 +1,4 @@
 <?
-
-$this->Combinator->add_libs('css', $this->Less->css('feed', array('plugin' => 'Dane')));
-
 $file_exists = false;
 if (isset($file)) {
     $path = App::path('Plugin');
@@ -34,11 +31,9 @@ $this->Dataobject->setObject($object);
 
     <div class="row">
         <div class="col-xs-1 action text-center">
-            <span class="<?php if ($object->getDataset() && $object->getAction()) {
-                echo 'mpIcon icon-dataset-' . $object->getCreator('dataset') . ' icon-action-' . $object->getAction();
-            } else {
-                echo 'glyphicon glyphicon-volume-up';
-            } ?>"></span>
+            
+            <span class="mpIcon icon-datasets-<?= $object->getDataset() ?>"></span>
+            
         </div>
         <div class="data col-xs-11">
             <div class="feed-header">

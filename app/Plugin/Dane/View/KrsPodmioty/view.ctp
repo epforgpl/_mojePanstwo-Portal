@@ -21,12 +21,26 @@ $this->Combinator->add_libs('js', 'graph-krs');
 <div class="krsPodmioty">
 	<div class="col-md-9 objectMain">
 	    <div class="object">
+	       
 	        <? if ($object->getData('wykreslony')) { ?>
-    <div class="alert alert-dismissable alert-danger">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
-    </div>
-<? }
+			    <div class="alert alert-dismissable alert-danger">
+			        <button type="button" class="close" data-dismiss="alert">×</button>
+			        Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
+			    </div>    
+			<? }
+				
+				
+			if ($object->getData('cel_dzialania')) { ?>
+			    <div class="dzialanie block block-simple col-xs-12">
+			        <header>
+			            <div class="sm">Cel działania</div>
+			        </header>
+			
+			        <section class="content normalizeText textBlock">
+			            <?= $object->getData('cel_dzialania') ?>
+			        </section>
+			    </div>
+			<? }
 
 $adres = $object->getData('adres_ulica');
 $adres .= ' ' . $object->getData('adres_numer');
@@ -34,7 +48,7 @@ $adres .= ', ' . $object->getData('adres_miejscowosc');
 $adres .= ', Polska';
 
 if (($object->getData('adres_ulica')) && ($object->getData('adres_numer')) && ($object->getData('adres_miejscowosc'))) { ?>
-    <div class="block block-simple col-xs-12 adres">
+    <div class="block col-xs-12 adres">
         <header>
             <div class="sm">Adres</div>
             <div class="mapsOptions pull-right">
@@ -82,18 +96,6 @@ if ($object->getId() == '481129') { ?>
         </a>
     </div>
 <?php }
-
-if ($object->getData('cel_dzialania')) { ?>
-    <div class="dzialanie block col-xs-12">
-        <header>
-            <div class="sm">Cel działania</div>
-        </header>
-
-        <section class="content normalizeText textBlock">
-            <?= $object->getData('cel_dzialania') ?>
-        </section>
-    </div>
-<? }
 
 if ($object->getData('sposob_reprezentacji')) { ?>
     <div class="reprezentacja block col-xs-12">
@@ -267,10 +269,43 @@ if ($object->getData('sposob_reprezentacji')) { ?>
             'class' => 'pull-right'
         )); ?>
         <p>Pobierz aktualny odpis z KRS <strong>za darmo</strong></p>
-        <a href="/dane/krs_podmioty/<?= $object->getId() ?>/odpis" class="btn btn-primary">Kliknij aby
-            pobrać</a>
+        <a href="/dane/krs_podmioty/<?= $object->getId() ?>/odpis" class="btn btn-primary">Kliknij aby pobrać</a>
     </div>
 <? } ?>
+
+<? /*
+        <div class="banner block">
+            <?php echo $this->Html->image('Dane.banners/krspodmioty_banner.png', array('width' => '69', 'alt' => 'Aktualny odpis z KRS za darmo', 'class' => 'pull-right')); ?>
+            <p>Napisz i <strong>wyślij pismo</strong> do tej organizacji</p>
+            <a href="/dane/krs_podmioty/<?= $object->getId() ?>/odpis" class="btn btn-primary">Stwórz pismo</a>
+        </div>
+*/ ?>
+        <? if($object->getLayer('subscribers') && count($object->getLayer('subscribers')) > 0) { ?>
+            <? $subscribers = $object->getLayer('subscribers'); ?>
+            <div class="block block-simple col-xs-12 dodaj_dzialanie">
+                <header>
+                    <div class="sm">Obserwują (<?= $subscribers['count'] ?>)</div>
+                </header>
+                <section>
+                    <ul class="subscribers list col-xs-12">
+                        <? foreach($subscribers['list'] as $subscriber) { ?>
+                            <?
+                                $src = $subscriber['Users']['photo_small'];
+                                if (!$src)
+                                    $src = '/img/users-photo-' . rand(0, 2) . '.jpg';
+
+                                $username = $subscriber['Users']['username'];
+                            ?>
+                            <li class="col-md-2" <? if($username != '') { ?> data-toggle="tooltip" data-placement="left" title="<?= $username ?>" <? } ?>>
+                                <div class="subscriber">
+                                    <img src="<?= $src ?>"/>
+                                </div>
+                            </li>
+                        <? } ?>
+                    </ul>
+                </section>
+            </div>
+		<? } ?>
 	</div>
 </div>
 
@@ -286,6 +321,30 @@ if ($object->getData('sposob_reprezentacji')) { ?>
     <section id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>" data-url="krs_podmioty"></section>
 </div>
 
-<div><div>
+<div class="container"><div class="objectsPageContent main">
+	
+<div class="krsPodmioty">
+	<div class="col-md-9 objectMain">
+	    <div class="object">
+	        
+	        <? if ($dzialalnosci = $object->getLayer('dzialalnosci')) { ?>
+    <div class="block block-default col-xs-12">
+        <header>Działalność według PKD</header>
+        <section>
+
+            <ul>
+                <? foreach ($dzialalnosci as $d) { ?>
+                    <li><?= $d['str'] ?></li>
+                <? } ?>
+            </ul>
+
+        </section>
+    </div>
+<? } ?>
+		    
+	    </div>
+	</div>
+</div>
+
 	
 <?= $this->Element('dataobject/pageEnd'); ?>

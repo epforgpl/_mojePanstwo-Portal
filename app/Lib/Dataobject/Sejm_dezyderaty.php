@@ -28,9 +28,4 @@ class Sejm_dezyderaty extends DocDataObject
     {
         return '<strong>Dezyderat</strong> ' . $this->getData('sejm_komisje.dopelniacz');
     }
-
-    public function getIcon()
-    {
-        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe611;"></i>';
-    }
 } 

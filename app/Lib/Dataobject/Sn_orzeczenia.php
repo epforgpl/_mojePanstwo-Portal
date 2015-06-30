@@ -28,11 +28,6 @@ class Sn_orzeczenia extends DocDataObject
         return '<strong>Orzeczenie</strong> Sądu Najwyższego z dnia ' . dataSlownie( $this->getDate() );
 
     }
-
-    public function getIcon()
-    {
-        return '<i class="object-icon glyphicon" data-icon-datasets="&#xe634;"></i>';
-    }
     
     public function getTitle()
     {

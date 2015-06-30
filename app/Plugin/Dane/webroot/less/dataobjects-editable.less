@@ -1,0 +1,176 @@
+.editablePanel {
+  @btnSize: 135px;
+  @padding: 10px;
+  @border: 50px;
+  @bgColor: #337ab7;
+
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  z-index: 1045;
+
+  &.open #moderatePanelModal:before {
+    content: " ";
+    display: block;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: -26px;
+    bottom: -12px;
+    background: none;
+    border-bottom: 15px solid @bgColor;
+    border-right: 15px solid @bgColor;
+    -webkit-border-bottom-right-radius: 35px;
+    -moz-border-radius-bottomright: 35px;
+    border-bottom-right-radius: 35px;
+  }
+
+  #moderatePanelModal {
+    width: @btnSize;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    position: relative;
+    padding: @padding @padding @padding @padding+28px;
+    outline: none;
+    background-color: @bgColor;
+    border-color: @bgColor;
+    -webkit-border-radius: @border;
+    -moz-border-radius: @border;
+    border-radius: @border;
+
+    &:hover {
+      background-color: @bgColor;
+      border-color: @bgColor;
+    }
+
+    .glyphicon {
+      font-size: 20px;
+      position: absolute;
+      top: 50%;
+      left: @padding;
+      -webkit-transform: translate(0, -50%);
+      -moz-transform: translate(0, -50%);
+      -ms-transform: translate(0, -50%);
+      -o-transform: translate(0, -50%);
+      transform: translate(0, -50%);
+    }
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 45px-@padding;
+    left: @btnSize;
+    padding: 10px 0 15px;
+    border-color: @bgColor;
+    background-color: @bgColor;
+    -webkit-border-radius: 15px 0 15px 15px;
+    -moz-border-radius: 15px 0 15px 15px;
+    border-radius: 15px 0 15px 15px;
+    -webkit-transform: translate(-100%, 0);
+    -moz-transform: translate(-100%, 0);
+    -ms-transform: translate(-100%, 0);
+    -o-transform: translate(-100%, 0);
+    transform: translate(-100%, 0);
+
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=0, Direction=90, Color=#333333)"; /*IE 8*/
+    -moz-box-shadow: 0 0 0 #333333; /*FF 3.5+*/
+    -webkit-box-shadow: 0 0 0 #333333; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    box-shadow: 0 0 0 #333333; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=0, Direction=90, Color=#333333); /*IE 5.5-7*/
+
+    &:after {
+      content: " ";
+      display: block;
+      position: absolute;
+      right: -1px;
+      top: -20px;
+      width: 10px;
+      height: 20px;
+      background: @bgColor;
+    }
+
+    a {
+      color: #ffffff;
+
+      &:focus, &:hover, &.active {
+        background: none;
+        color: #000;
+      }
+    }
+  }
+
+  #moderate-modal {
+    .spinner {
+      margin: -20px 0 0 0;
+      float: right;
+    }
+
+    .modal-footer {
+      text-align: center;
+      button {
+        margin: 0 auto;
+        display: inline-block;
+        max-width: 120px;
+        text-align: center;
+      }
+    }
+  }
+
+  #moderate-add {
+    margin-bottom: 10px;
+    form {
+      .form-group {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  #moderate-users {
+    table {
+      margin-bottom: 0;
+      tr {
+        td {
+          vertical-align: middle;
+          img {
+            max-width: 40px;
+            min-height: 40px;
+          }
+        }
+      }
+    }
+  }
+
+  .autocomplete-suggestions {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #fff;
+    overflow: auto;
+    strong {
+      font-weight: normal;
+      color: #3399FF;
+    }
+  }
+
+  .autocomplete-suggestion {
+    padding: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .autocomplete-selected {
+    background: #F0F0F0;
+  }
+
+  .autocomplete-group {
+    padding: 2px 5px;
+    strong {
+      display: block;
+      border-bottom: 1px solid #000;
+    }
+  }
+
+}

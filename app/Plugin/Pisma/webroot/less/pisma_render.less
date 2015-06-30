@@ -1,9 +1,5 @@
 @editable: #fcfcaa;
 
-.editor-container {
-    margin-top: -25px;
-}
-
 #editor-cont {
     background-color: #FFFFFF;
     border: 1px solid #E3E3E3;
@@ -70,6 +66,10 @@
                     width: 100%;
                     height: auto;
                     overflow: hidden;
+
+                  &:invalid {
+                    border: 1px solid red;
+                  }
                 }
             }
             &.control-addressee {

@@ -3,7 +3,11 @@
         if ($agg_id == '_channels')
             continue;
 
-        if ($agg_id == 'apps') { ?>
+        if ( 
+        	( $agg_id == 'apps' ) && 
+        	isset($agg_data['buckets']) && 
+        	!empty($agg_data['buckets'])
+        ) { ?>
             <li class="agg">
                 <h2>Szukaj w aplikacji:</h2>
                 <? echo $this->element('Dane.DataBrowser/apps', array('data' => $agg_data)); ?>
