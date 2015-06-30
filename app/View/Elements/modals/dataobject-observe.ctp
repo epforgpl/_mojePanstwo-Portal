@@ -35,7 +35,7 @@ $object_id = $object->getId();
                     <input type="hidden" name="dataset" value="<?= $dataset ?>"/>
                     <input type="hidden" name="object_id" value="<?= $object_id ?>"/>
 
-                    <div class="options">
+                    <div class="optionsBlock">
                         <? if (isset($channels) && !empty($channels)) {
                             if (isset($userSubscription)) { ?>
                                 <div class="checkbox first">
@@ -69,7 +69,8 @@ $object_id = $object->getId();
                                                id="checkbox_<?= $ch['DatasetChannel']['subject_dataset'] . '_' . $ch['DatasetChannel']['channel'] ?>"
                                                name="channel[]" value="<?= $ch['DatasetChannel']['channel'] ?>"
                                                checked
-                                               disabled>
+                                               disabled
+                                            />
                                         <label
                                             for="checkbox_<?= $ch['DatasetChannel']['subject_dataset'] . '_' . $ch['DatasetChannel']['channel'] ?>"><?= $ch['DatasetChannel']['title'] ?></label>
                                     </div>
