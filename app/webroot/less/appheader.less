@@ -135,7 +135,11 @@
 
       .statusBar {
         background-color: #ffffff;
-        padding: 10px 0 0;
+        padding: 0;
+
+        > .container > .holder > .col-xs-10 {
+          min-height: 0;
+        }
       }
 
       &.cover-logo {
@@ -462,7 +466,7 @@
 }
 
 .dataHighlights {
-  padding: 0 0 10px;
+  padding: 10px 0;
   margin: 0;
 
   &.oneline {
