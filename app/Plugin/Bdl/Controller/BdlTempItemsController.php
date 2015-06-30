@@ -6,13 +6,13 @@ class BdlTempItemsController extends ApplicationsController
 {
 
     public $components = array('RequestHandler');
-	
-	public $settings = array(
+
+    public $settings = array(
         'id' => 'bdl',
         'title' => 'Bdl',
         'subtitle' => 'Dane statystyczne o Polsce',
     );
-	
+
     public function index()
     {
         $BdlTempItems = $this->BdlTempItem->find('all');
@@ -28,7 +28,7 @@ class BdlTempItemsController extends ApplicationsController
         $this->set(array(
             'BdlTempItem' => $BdlTempItem,
             '_serialize' => array('BdlTempItem'),
-            'id'=> $id
+            'id' => $id
         ));
     }
 
@@ -79,41 +79,71 @@ class BdlTempItemsController extends ApplicationsController
         $this->redirect($this->referer());
     }
 
-    public function addIngredient($item_id = false)
+    public function listall()
+    {
+        $this->autoRender = false;
+        $data = $this->BdlTempItem->find('list');
+        // Tu musi zwracac stringa
+
+        $this->json($data);
+    }
+
+    public function getone()
+    {
+        $src = $this->request->data;
+        $this->autoRender = false;
+        $data = $this->BdlTempItem->findById($src['id']);
+
+        $this->json($data);
+    }
+
+    public function addIngredients($item_id = false)
+    {
+        $data=$this->request->data;
+        $old=$this->BdlTempItem->findById($data['id']);
+
+        $data=array_merge($old,$data);
+
+        if($this->BdlTempItem->save($data)){
+            debug($data);
+            $this->json(true);
+        }else{
+            $this->json(false);
+        }
+
+        $this->autoRender=false;
+    }
+
+    public function getMenu()
     {
 
+        $menu = array(
+            'items' => array(
+                array(
+                    'id' => '',
+                    'label' => 'Wskaźniki',
+                    'icon' => array(
+                        'src' => 'glyphicon',
+                        'id' => 'home',
+                    ),
+                ),
+            ),
+            'base' => '/bdl',
+        );
 
-    }
-    
-    public function getMenu() {
-	    
-	    $menu = array(
-		    'items' => array(
-			    array(
-				    'id' =>'',
-				    'label' => 'Wskaźniki',
-				    'icon' => array(
-					    'src' => 'glyphicon',
-					    'id' => 'home',
-				    ),
-			    ),
-		    ),
-		    'base' => '/bdl',
-	    );
-	    
-	    if( $this->hasUserRole('3') ) {
-		    
-		    $menu['items'][] = array(
-			    'id' => 'bdl_temp_items',
-			    'label' => 'Tworzenie wskaźników',
-		    );
-		    
-	    }
-	    
-	    if( count($menu['items'])===1 )
-	    	return array();
-	    else 
-	    	return $menu;	    
-	    
+        if ($this->hasUserRole('3')) {
+
+            $menu['items'][] = array(
+                'id' => 'bdl_temp_items',
+                'label' => 'Tworzenie wskaźników',
+            );
+
+        }
+
+        if (count($menu['items']) === 1)
+            return array();
+        else
+            return $menu;
+
     }
 }
