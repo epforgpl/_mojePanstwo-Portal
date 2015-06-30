@@ -88,8 +88,10 @@ class DataobjectsController extends AppController
 	            $layers = $this->initLayers;
             }
 
-            if ($this->observeOptions)
+            if ($this->observeOptions) {
                 $layers[] = 'channels';
+                $layers[] = 'subscribers';
+            }
                 
             if ($this->objectModerable)
                 $layers[] = 'page';

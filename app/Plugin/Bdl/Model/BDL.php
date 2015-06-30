@@ -4,7 +4,30 @@ class BDL extends AppModel
 {
 
     public $useDbConfig = 'mpAPI';
+	
+	public function expandDim($params)
+    {
+        $data = $this->getDataSource()->request('bdl/expandDim', array(
+            'method' => 'GET',
+            'data' => $params,
+        ));
 
+        return @$data;
+    }
+	
+	public function getChartDataForDimmesions($dims)
+    {
+        $data = $this->getDataSource()->request('bdl/chartDataForDimmesions', array(
+            'method' => 'GET',
+            'data' => array(
+                'dims' => $dims,
+            ),
+        ));
+
+        return @$data['data'];
+    }
+	
+	/*
     public function getDataForDimmesions($dims, $podgrupa_id)
     {
         $data = $this->getDataSource()->request('bdl/dataForDimmesions', array(
@@ -18,17 +41,7 @@ class BDL extends AppModel
         return @$data['data'];
     }
 
-    public function getChartDataForDimmesions($dims)
-    {
-        $data = $this->getDataSource()->request('bdl/chartDataForDimmesions', array(
-            'method' => 'GET',
-            'data' => array(
-                'dims' => $dims,
-            ),
-        ));
-
-        return @$data['data'];
-    }
+    
 
     public function getDataForDimension($dim_id)
     {
@@ -66,6 +79,7 @@ class BDL extends AppModel
 
         return @$data['data'];
     }
+    */
 
     public function getTree()
     {

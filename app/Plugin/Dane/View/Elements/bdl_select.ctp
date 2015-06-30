@@ -20,9 +20,23 @@
                             </select>
                         </p>
                     </li>
-                <?
-                } 
-            } ?>
+                <? } elseif (isset($redirect) && $redirect) { ?>
+                    <li style="display: none;">
+                        <p class="label"><?= $d['label'] ?>:</p>
+
+                        <p class="value">
+                            <select onchange="document.getElementById('filters_form').submit();"
+                                    name="d<?= $d['order'] ?>">
+                                <? foreach ($d['options'] as $o) { ?>
+                                    <option<? if ($o['selected'] == true) { ?> selected="selected"<?php } ?>
+                                        value="<?= $o['id'] ?>"><?= $o['value'] ?></option>
+                                <? } ?>
+                            </select>
+                            <input name="d" value="1"/>
+                        </p>
+                    </li>
+                <? } ?>
+            <? } ?>
         </ul>
     </form>
 </div>
