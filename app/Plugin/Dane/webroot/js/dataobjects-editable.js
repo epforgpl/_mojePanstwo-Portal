@@ -332,7 +332,7 @@ ObjectUsersManagement.prototype.setUsers = function (users) {
 ObjectUsersManagement.prototype.getDOM = function () {
     return [
         '<button class="btn btn-primary btn-open-moderate dropdown-toggle" type="button" id="moderatePanelModal" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">',
-        '<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>',
+        '<i class="glyphicon glyphicon-cog" aria-hidden="true"></i>Zarządzaj',
         '</button>'
     ].join('');
 };
