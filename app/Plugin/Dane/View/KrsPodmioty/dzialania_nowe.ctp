@@ -53,6 +53,8 @@ echo $this->Element('dataobject/pageBegin'); ?>
                             <div class="col-xs-12 googleMapElement">
                                 <input id="pac-input" class="controls" type="text" placeholder="Szukaj...">
 
+                                <div id="loc" class="btn btn-sm"><i data-icon="&#xe607;"></i></div>
+
                                 <div id="googleMap"></div>
                                 <input type="hidden" type="text" name="geo_lat"/>
                                 <input type="hidden" type="text" name="geo_lng"/>
@@ -63,20 +65,6 @@ echo $this->Element('dataobject/pageBegin'); ?>
                         </div>
                     </form>
                 </div>
-            </section>
-        </div>
-    </div>
-    <div class="col-md-3 objectSide">
-        <div class="block block-simple col-xs-12 dodaj_dzialanie">
-            <header>
-                <div class="sm">Obserwują</div>
-            </header>
-            <section>
-                <ul class="list col-xs-12">
-                    <li class="col-md-2">//avatar</li>
-                    <li class="col-md-2">//avatar</li>
-                    <li class="col-md-2">//avatar</li>
-                </ul>
             </section>
         </div>
     </div>

@@ -1,6 +1,7 @@
 .dodaj_dzialanie {
   .image-editor {
     text-align: center;
+    margin-bottom: 80px;
 
     .cropit-image-preview {
       background-size: cover;
@@ -54,6 +55,7 @@
 
     .googleMapElement {
       display: block;
+      position: relative;
 
       &.loaded {
         display: none;
@@ -63,6 +65,10 @@
           top: 0;
         }
         #pac-input {
+          display: block;
+        }
+
+        #loc {
           display: block;
         }
       }
@@ -93,7 +99,7 @@
         font-size: 15px;
         font-weight: 300;
         margin-left: 12px;
-        padding: 0 11px 0 13px;
+        padding: 0 30px 0 12px;
         text-overflow: ellipsis;
         width: 400px;
       }
@@ -104,6 +110,14 @@
 
       .pac-container {
         font-family: Roboto;
+      }
+
+      #loc {
+        display: none;
+        position: absolute;
+        left: 434px;
+        top: 17px;
+        z-index: 1;
       }
 
       #type-selector {
