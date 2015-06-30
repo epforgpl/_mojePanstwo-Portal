@@ -29,10 +29,8 @@ class ObjectPagesManagementController extends AppController {
     }
 
     public function setCover() {
-        $success = false;
-        if($this->ObjectPagesManagement->setCover($this->data['credits'])) {
+        if($success = $this->ObjectPagesManagement->setCover($this->data['credits'])) {
             $this->saveImage('cover', 'jpg', $this->data['image']);
-            $success = true;
         }
 
         $this->setResponse($success);
