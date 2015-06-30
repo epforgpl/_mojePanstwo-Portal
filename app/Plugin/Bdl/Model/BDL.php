@@ -5,16 +5,49 @@ class BDL extends AppModel
 
     public $useDbConfig = 'mpAPI';
 	
-	public function expandDim($params)
+	public function getData($params)
     {
-        $data = $this->getDataSource()->request('bdl/expandDim', array(
+        $data = $this->getDataSource()->request('bdl/data', array(
             'method' => 'GET',
             'data' => $params,
         ));
 
         return @$data;
     }
+    
+    public function getCombination($params)
+    {	
+	    
+	    if( is_string($params) )
+		    $params = array(
+			    'id' => $params,
+		    );
+	    
+        $data = $this->getDataSource()->request('bdl/combinations', array(
+            'method' => 'GET',
+            'data' => $params,
+        ));
+
+        return @$data;
+    }
+    
+    /*
+    public function getLocalDataForDimension($dim_id, $level)
+    {
+
+        $data = $this->getDataSource()->request('bdl/localDataForDimension/' . $dim_id, array(
+            'method' => 'GET',
+            'data' => array(
+                'level' => $level,
+            ),
+        ));
+
+        return @$data['data'];
+
+    }
+	*/
 	
+	/*
 	public function getChartDataForDimmesions($dims)
     {
         $data = $this->getDataSource()->request('bdl/chartDataForDimmesions', array(
@@ -27,7 +60,6 @@ class BDL extends AppModel
         return @$data['data'];
     }
 	
-	/*
     public function getDataForDimmesions($dims, $podgrupa_id)
     {
         $data = $this->getDataSource()->request('bdl/dataForDimmesions', array(
@@ -51,20 +83,8 @@ class BDL extends AppModel
 
         return @$data['data'];
     }
-
-    public function getLocalDataForDimension($dim_id, $level)
-    {
-
-        $data = $this->getDataSource()->request('bdl/localDataForDimension/' . $dim_id, array(
-            'method' => 'GET',
-            'data' => array(
-                'level' => $level,
-            ),
-        ));
-
-        return @$data['data'];
-
-    }
+    */
+    
 
     public function getLocalChartDataForDimmesions($dimid, $localtype, $localid)
     {
@@ -79,7 +99,6 @@ class BDL extends AppModel
 
         return @$data['data'];
     }
-    */
 
     public function getTree()
     {

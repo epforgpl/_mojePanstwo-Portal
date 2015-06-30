@@ -177,6 +177,99 @@ $(document).ready(function () {
                     .highcharts()
                     .get('o' + id)
                     .select(false);
+            })
+            .on("click", function() {
+                var wskaznik = $(this),
+                    wskaznikwidth = $(this).outerWidth(),
+                    wskaznikData = wskaznik.data(),
+                    wskaznikChart = wskaznik.find('.wskaznikChart');
+
+                if (wskaznik.hasClass('clicked')) {
+                    wskaznikChart.hide();
+                    wskaznik.removeClass('clicked');
+                    return false;
+                }
+
+                wskaznikChart.css({'width': wskaznikwidth});
+
+                $.ajax({
+                    url: '/dane/bdl_wskazniki/local_chart_data_for_dimmensions.json?dims=' + wskaznikData.dim_id + '&localtype=' + wskaznikData.local_type + '&localid=' + wskaznikData.local_id,
+                    type: "POST",
+                    dataType: "json",
+                    beforeSend: function () {
+                        wskaznikChart.slideDown();
+                        wskaznikChart.find('.chart .progress-bar').attr('aria-valuenow', '45').css('width', '45%');
+                    },
+                    always: function () {
+                        wskazniki.find('.chart .progress-bar').attr('aria-valuenow', '80').css('width', '80%');
+                    },
+                    complete: function (res) {
+                        var data = res.responseJSON.data;
+
+                        var chart = data,
+                            label = [],
+                            value = [];
+
+                        $.each(chart, function () {
+                            label.push(this.y);
+                            value.push(Number(this.v));
+                        });
+
+                        wskaznikChart.highcharts({
+                            title: {
+                                text: ''
+                            },
+                            chart: {
+                                height: 150
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            xAxis: {
+                                categories: label
+                            },
+                            yAxis: {
+                                title: ''
+                            },
+                            tooltip: {
+                                valueSuffix: ''
+                            },
+                            legend: {
+                                enabled: false,
+                                align: 'left'
+                            },
+                            series: [
+                                {
+                                    name: unitStr,
+                                    data: value
+                                }
+                            ]
+                        });
+                    }
+                });
+
+                wskaznik.addClass('clicked');
+            });
+
+            var main = $('#bdl-wskazniki'),
+                wskaznikiTable = main.find('.localDataTable tbody');
+
+            $('.localDataSearch input').keyup(function () {
+                var input = $(this).val();
+
+                if (input != '') {
+                    wskaznikiTable.find('tr').hide();
+                    wskaznikiTable.find('td:contains(' + input + ')').parent().show();
+                    wskaznikiTable.find('[data-ay-sort-weight*="' + input + '"]').parent().show();
+                } else {
+                    wskaznikiTable.find('tr:hidden').show();
+                }
+            });
+
+            $('.localDataSearch .btn').click(function (e) {
+                e.preventDefault();
+                $('.localDataSearch input').val('');
+                wskaznikiTable.find('tr:hidden').show();
             });
 
     });
