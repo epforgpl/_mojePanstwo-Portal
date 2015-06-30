@@ -46,8 +46,9 @@ class BdlTempItem extends AppModel
             }
             case 'list': {
                 $ret2 = array();
+               // debug($ret);
                 foreach ($ret as $key => $val) {
-                    array_merge($ret2, array($key => $val['nazwa']));
+                    $ret2[$key]=$val['tytul'];
                 }
                 return $ret2;
                 break;
