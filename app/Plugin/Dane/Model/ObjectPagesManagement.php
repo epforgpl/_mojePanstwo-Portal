@@ -22,9 +22,12 @@ class ObjectPagesManagement extends AppModel {
         ));
     }
 
-    public function setCover() {
+    public function setCover($credits) {
         return $this->getResponse('setCover', array(
-            'method' => 'POST'
+            'method' => 'POST',
+            'data' => array(
+                'credits' => $credits
+            )
         ));
     }
 

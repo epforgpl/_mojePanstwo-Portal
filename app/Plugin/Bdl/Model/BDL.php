@@ -83,7 +83,7 @@ class BDL extends AppModel
 
         return @$data['data'];
     }
-
+    */
     
 
     public function getLocalChartDataForDimmesions($dimid, $localtype, $localid)
@@ -99,7 +99,6 @@ class BDL extends AppModel
 
         return @$data['data'];
     }
-    */
 
     public function getTree()
     {
