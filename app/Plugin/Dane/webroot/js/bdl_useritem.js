@@ -47,7 +47,7 @@ $(document).ready(function () {
                         $.each(res, function (key, val) {
                             $('<option>').val(key).text(val).appendTo('#lista_wskaznikow');
                             wsk_id = key;
-                        })
+                        });
                         $('#lista_wskaznikow option:last').attr('selected', 'selected');
                         on_success();
                     }
@@ -153,19 +153,19 @@ $(document).ready(function () {
 
         dim_name = $(this).parent().children('a').text();
         dim_id = $(this).parent().parent().attr('data-dim_id');
-    })
+    });
 
     $("#bdl_temp_addbtn_m").click(function () {
         $("#bdl_temp_addbtn_m").addClass('hidden');
         $("#bdl_temp_addbtn_l").addClass('hidden');
-        $(".mianownik_list").append('<li value="' + dim_id + '" class="list-group-item"><span class="icon glyphicon glyphicon-plus  is_pos" is_pos="1"></span> ' + dim_name + '<button class="btn btn-xs btn-danger remove-btn hidden pull-right"><i class="icon glyphicon glyphicon-remove"></i></button></li>')
+        $(".mianownik_list").append('<li value="' + dim_id + '" class="list-group-item"><span class="icon glyphicon glyphicon-plus  is_pos" is_pos="1"></span> ' + dim_name + '<button class="btn btn-xs btn-danger remove-btn hidden pull-right"><i class="icon glyphicon glyphicon-remove"></i></button></li>');
         binding();
     });
 
     $("#bdl_temp_addbtn_l").click(function () {
         $("#bdl_temp_addbtn_m").addClass('hidden');
         $("#bdl_temp_addbtn_l").addClass('hidden');
-        $(".licznik_list").append('<li value="' + dim_id + '" class="list-group-item"><span class="icon glyphicon glyphicon-plus  is_pos" is_pos="1"></span> ' + dim_name + '<button class="btn btn-xs btn-danger remove-btn hidden pull-right"><i class="icon glyphicon glyphicon-remove"></i></button></li>')
+        $(".licznik_list").append('<li value="' + dim_id + '" class="list-group-item"><span class="icon glyphicon glyphicon-plus  is_pos" is_pos="1"></span> ' + dim_name + '<button class="btn btn-xs btn-danger remove-btn hidden pull-right"><i class="icon glyphicon glyphicon-remove"></i></button></li>');
         binding();
     });
 
