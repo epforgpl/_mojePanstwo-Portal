@@ -21,12 +21,26 @@ $this->Combinator->add_libs('js', 'graph-krs');
 <div class="krsPodmioty">
 	<div class="col-md-9 objectMain">
 	    <div class="object">
+	       
 	        <? if ($object->getData('wykreslony')) { ?>
-    <div class="alert alert-dismissable alert-danger">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
-    </div>
-<? }
+			    <div class="alert alert-dismissable alert-danger">
+			        <button type="button" class="close" data-dismiss="alert">×</button>
+			        Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
+			    </div>    
+			<? }
+				
+				
+			if ($object->getData('cel_dzialania')) { ?>
+			    <div class="dzialanie block block-simple col-xs-12">
+			        <header>
+			            <div class="sm">Cel działania</div>
+			        </header>
+			
+			        <section class="content normalizeText textBlock">
+			            <?= $object->getData('cel_dzialania') ?>
+			        </section>
+			    </div>
+			<? }
 
 $adres = $object->getData('adres_ulica');
 $adres .= ' ' . $object->getData('adres_numer');
@@ -34,7 +48,7 @@ $adres .= ', ' . $object->getData('adres_miejscowosc');
 $adres .= ', Polska';
 
 if (($object->getData('adres_ulica')) && ($object->getData('adres_numer')) && ($object->getData('adres_miejscowosc'))) { ?>
-    <div class="block block-simple col-xs-12 adres">
+    <div class="block col-xs-12 adres">
         <header>
             <div class="sm">Adres</div>
             <div class="mapsOptions pull-right">
@@ -82,18 +96,6 @@ if ($object->getId() == '481129') { ?>
         </a>
     </div>
 <?php }
-
-if ($object->getData('cel_dzialania')) { ?>
-    <div class="dzialanie block col-xs-12">
-        <header>
-            <div class="sm">Cel działania</div>
-        </header>
-
-        <section class="content normalizeText textBlock">
-            <?= $object->getData('cel_dzialania') ?>
-        </section>
-    </div>
-<? }
 
 if ($object->getData('sposob_reprezentacji')) { ?>
     <div class="reprezentacja block col-xs-12">
