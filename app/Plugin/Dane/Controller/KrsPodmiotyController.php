@@ -336,6 +336,12 @@ class KrsPodmiotyController extends DataobjectsController
 
     }
 
+    public function dzialania_nowe()
+    {
+        $this->addInitLayers(array('dzialania_nowe'));
+        $this->_prepareView();
+    }
+
     public function powiazania()
     {
 
