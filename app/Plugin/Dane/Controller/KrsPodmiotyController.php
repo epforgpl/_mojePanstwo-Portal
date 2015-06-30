@@ -4,7 +4,9 @@ App::uses('DataobjectsController', 'Dane.Controller');
 
 class KrsPodmiotyController extends DataobjectsController
 {
-
+    
+    public $observeOptions = true;
+    
     public $helpers = array(
         'Time',
     );
