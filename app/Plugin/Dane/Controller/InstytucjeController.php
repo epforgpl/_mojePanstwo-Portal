@@ -14,7 +14,8 @@ class InstytucjeController extends DataobjectsController
     );
 
     public $observeOptions = true;
-
+    public $objectModerable = true;
+    
     public $loadChannels = true;
     public $initLayers = array();
 

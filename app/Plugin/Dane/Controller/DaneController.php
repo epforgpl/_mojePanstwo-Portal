@@ -37,6 +37,9 @@ class DaneController extends ApplicationsController
 	
 	        $options = array(
 	            'searchTitle' => 'Szukaj w danych publicznych...',
+	            'autocompletion' => array(
+	                'dataset' => '*',
+	            ),
 	            'cover' => array(
 	                'view' => array(
 	                    'plugin' => 'Dane',

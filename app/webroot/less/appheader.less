@@ -68,6 +68,19 @@
           filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#cc000000', GradientType=0);
         }
 
+        .credits {
+          bottom: 5px;
+          color: #fff;
+          font-size: 10px;
+          position: absolute;
+          right: 10px;
+          text-shadow: 1px 1px 1px #000;
+
+          > small {
+            margin-right: 6px;
+          }
+        }
+
         .holder {
           position: relative;
 
@@ -122,7 +135,7 @@
 
       .statusBar {
         background-color: #ffffff;
-        padding: 10px 0 0;
+        padding: 0;
       }
 
       &.cover-logo {
@@ -139,6 +152,7 @@
             .logoBox {
               width: 180px;
               height: 180px;
+              background-color: #ffffff;
               position: absolute;
               bottom: -(@logoBoxSize/6);
               left: 15px;
@@ -328,9 +342,11 @@
         margin-right: 4px;
       }
       small {
-	      position: relative;
-	      top: -4px;
-	      margin-left: 5px;
+        label {
+          position: relative;
+          top: -4px;
+          margin-left: 5px;
+        }
       }
     }
   }
@@ -446,7 +462,7 @@
 }
 
 .dataHighlights {
-  padding: 0;
+  padding: 10px 0;
   margin: 0;
 
   &.oneline {
@@ -459,24 +475,41 @@
   .dataHighlight {
     padding: 5px 0;
     display: block;
-
-    &:last-child:not(.show_hide_status) {
-      margin-bottom: 5px;
-    }
+    position: relative;
 
     &.show_hide_status {
-      display: inline-block;
-      text-align: center;
-      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
       padding: 0;
-      margin-top: -10px;
-      float: left;
+      margin-bottom: 0;
+      -webkit-transform: translate(-50%, 50%);
+      -moz-transform: translate(-50%, 50%);
+      -ms-transform: translate(-50%, 50%);
+      -o-transform: translate(-50%, 50%);
+      transform: translate(-50%, 50%);
 
       a {
-        font-size: 14px;
-        line-height: 1em;
-        padding: 6px 6px 0;
-        color: #157ab5;
+        width: 22px;
+        height: 22px;
+        background-color: #337ab7;
+        border: 1px solid #337ab7;
+        -moz-border-radius: 20px;
+        -webkit-border-radius: 20px;
+        border-radius: 20px;
+
+        &:before {
+          font-size: 11px;
+          color: #ffffff;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          -webkit-transform: translate(-50%, -50%);
+          -moz-transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+          -o-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+        }
       }
     }
     &.hideMenu.first {
@@ -562,6 +595,11 @@
 
   .image-editor {
     text-align: center;
+    margin-bottom: 15px;
+
+    > p {
+      margin: 6px 0 10px;
+    }
 
     .cropit-image-preview {
       background-size: cover;

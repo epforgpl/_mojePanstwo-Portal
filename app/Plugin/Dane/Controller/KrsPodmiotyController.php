@@ -4,7 +4,9 @@ App::uses('DataobjectsController', 'Dane.Controller');
 
 class KrsPodmiotyController extends DataobjectsController
 {
-
+    
+    public $observeOptions = true;
+    
     public $helpers = array(
         'Time',
     );
@@ -334,6 +336,12 @@ class KrsPodmiotyController extends DataobjectsController
 
         $this->set('title_for_layout', 'Histora zmian w ' . $this->object->getData('nazwa'));
 
+    }
+
+    public function dzialania_nowe()
+    {
+        $this->addInitLayers(array('dzialania_nowe'));
+        $this->_prepareView();
     }
 
     public function powiazania()

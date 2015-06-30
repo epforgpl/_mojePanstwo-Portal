@@ -71,7 +71,8 @@ ObjectUsersManagement.prototype.initialize = function () {
         changeLogo.find('.export').click(function () {
             var self = $(this),
                 imageData = changeLogo.find('.image-editor').cropit('export', {
-                    type: 'image/png'
+                    type: 'image/png',
+                    fillBg: '#fff'
                 });
             $.ajax({
                 url: '/dane/' + _this.dataset + '/' + _this.id + '/page/logo.json',
@@ -128,7 +129,7 @@ ObjectUsersManagement.prototype.initialize = function () {
             $.ajax({
                 url: '/dane/' + _this.dataset + '/' + _this.id + '/page/cover.json',
                 method: "POST",
-                data: {'image': imageData},
+                data: {'image': imageData, 'credits': changeBackground.find('#credits').val()},
                 beforeSend: function () {
                     self.addClass('loading disabled')
                 },
@@ -175,31 +176,31 @@ ObjectUsersManagement.prototype.initialize = function () {
             bdl_opis.modal("show");
         });
     }
-    
+
     editablePanel.find('.bdl_wymiar').click(function (evt) {
-	    
-	    evt.preventDefault();
-	    var url = decodeURIComponent(($('.appHeader.dataobject').attr('data-url')+'').replace(/\+/g, '%20'));
-	    
-	    $.ajax({
+
+        evt.preventDefault();
+        var url = decodeURIComponent(($('.appHeader.dataobject').attr('data-url') + '').replace(/\+/g, '%20'));
+
+        $.ajax({
             url: url + '.json',
             method: 'post',
             data: {
-	            _action: 'wymiar',
-	            i: $('#filters_form').attr('data-expand'),
+                _action: 'wymiar',
+                i: $('#filters_form').attr('data-expand'),
             },
             success: function (res) {
-                
+
                 window.location = url;
-                
+
             },
             error: function (xhr) {
                 alert("Wystąpił błąd: " + xhr.status + " " + xhr.statusText);
             }
 
         });
-	    
-	});
+
+    });
 };
 
 ObjectUsersManagement.prototype.cropItErrorMsg = function (el, error) {
@@ -331,7 +332,7 @@ ObjectUsersManagement.prototype.setUsers = function (users) {
 ObjectUsersManagement.prototype.getDOM = function () {
     return [
         '<button class="btn btn-primary btn-open-moderate dropdown-toggle" type="button" id="moderatePanelModal" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">',
-        '<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>',
+        '<i class="glyphicon glyphicon-cog" aria-hidden="true"></i>Zarządzaj',
         '</button>'
     ].join('');
 };
@@ -421,6 +422,10 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '<p>Zalecany rozmiar: 1500x300px</p>',
             '<span class="btn btn-default btn-file">Przeglądaj<input type="file" class= "cropit-image-input" /></span>',
             '</div>',
+            '<div class="form-group btn-sm">',
+            '<label for="credits">Prawa autorskie</label>',
+            '<input id="credits" type="text" class="form-control btn-sm" name="credits"/>',
+            '</div>',
             '</div>',
             '<div class="modal-footer">' + (this.header.hasClass('cover-background') ? '<button type="button" class="btn btn-link delete" data-type="cover">Usuń obrazek tła</button>' : ''),
             '<button type="button" class="btn btn-primary export">Dodaj</button>',
@@ -436,7 +441,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '<li><a class="bdl_opis" href="#">Zmiana opisu i nazwy</a></li>'
         ]);
     }
-    
+
     if (jQuery.inArray("bdl_wymiar", this.editables) !== -1) {
         $.merge(list, [
             '<li><a class="bdl_wymiar" href="#">Ustaw wymiar rozwinięcia</a></li>'
