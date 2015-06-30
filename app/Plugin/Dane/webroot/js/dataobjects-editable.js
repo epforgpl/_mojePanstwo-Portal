@@ -129,7 +129,7 @@ ObjectUsersManagement.prototype.initialize = function () {
             $.ajax({
                 url: '/dane/' + _this.dataset + '/' + _this.id + '/page/cover.json',
                 method: "POST",
-                data: {'image': imageData},
+                data: {'image': imageData, 'credits': changeBackground.find('#credits').val()},
                 beforeSend: function () {
                     self.addClass('loading disabled')
                 },
@@ -421,6 +421,10 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '<div class="cropit-image-preview"' + (this.header.hasClass('cover-background') ? ' data-image="http://sds.tiktalik.com/portal/pages/cover/' + this.dataset + '/' + this.id + '.jpg"' : '') + '></div>',
             '<p>Zalecany rozmiar: 1500x300px</p>',
             '<span class="btn btn-default btn-file">Przeglądaj<input type="file" class= "cropit-image-input" /></span>',
+            '</div>',
+            '<div class="form-group btn-sm">',
+            '<label for="credits">Prawa autorskie</label>',
+            '<input id="credits" type="text" class="form-control btn-sm" name="credits"/>',
             '</div>',
             '</div>',
             '<div class="modal-footer">' + (this.header.hasClass('cover-background') ? '<button type="button" class="btn btn-link delete" data-type="cover">Usuń obrazek tła</button>' : ''),
