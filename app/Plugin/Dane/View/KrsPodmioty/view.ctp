@@ -282,11 +282,11 @@ if ($object->getData('sposob_reprezentacji')) { ?>
             <? $subscribers = $object->getLayer('subscribers'); ?>
             <div class="block block-simple col-xs-12 dodaj_dzialanie">
                 <header>
-                    <div class="sm">Obserwują</div>
+                    <div class="sm">Obserwują (<?= $subscribers['count'] ?>)</div>
                 </header>
                 <section>
-                    <ul class="list col-xs-12">
-                        <? foreach($subscribers as $subscriber) { ?>
+                    <ul class="subscribers list col-xs-12">
+                        <? foreach($subscribers['list'] as $subscriber) { ?>
                             <?
                                 $src = $subscriber['Users']['photo_small'];
                                 if (!$src)

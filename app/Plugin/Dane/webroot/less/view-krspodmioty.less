@@ -220,21 +220,45 @@ ul.chart-blocks {
             padding: 10px 5px;
         }
 
-      .subscriber {
+        ul.subscribers {
 
-        position: relative;
-        width: 40px;
-        height: 40px;
-        overflow: hidden;
-        border-radius: 3px;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
+          li {
 
-        img {
-          max-height: 40px;
+            margin-bottom: 5px;
+
+            i {
+              position: absolute;
+              margin-left: 0;
+              margin-top: 0;
+              width: 40px;
+              height: 40px;
+              opacity: 0;
+            }
+
+            i:hover {
+              cursor: default;
+            }
+
+            .subscriber {
+              position: relative;
+              width: 40px;
+              height: 40px;
+              overflow: hidden;
+              border-radius: 3px;
+              -moz-border-radius: 3px;
+              -webkit-border-radius: 3px;
+
+              img {
+                max-height: 40px;
+              }
+
+            }
+
+          }
+
         }
 
-      }
+
     }
 
     .anchor {
