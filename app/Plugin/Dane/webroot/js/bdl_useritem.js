@@ -39,7 +39,7 @@ $(document).ready(function () {
             method: 'post',
             success: function (res) {
                 if (res == false) {
-                    alert("Błąd pobierania danych");
+                    alert("Musisz najpierw utworzyć wskaźnik!");
                 } else {
                     if (res != null) {
                         $('#lista_wskaznikow').children().remove();
