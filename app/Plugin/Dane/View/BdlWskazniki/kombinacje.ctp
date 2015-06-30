@@ -14,6 +14,10 @@
 
     <div id="bdl-wskazniki">
         <?
+	    
+	    debug($this->request->params['subid']);
+	    debug($expanded_dimension); 
+	       
         if (!empty($expanded_dimension)) {
 
             foreach ($expanded_dimension['options'] as $_option) {
