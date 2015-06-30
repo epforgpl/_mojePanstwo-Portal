@@ -278,19 +278,32 @@ if ($object->getData('sposob_reprezentacji')) { ?>
             <a href="/dane/krs_podmioty/<?= $object->getId() ?>/odpis" class="btn btn-primary">Stwórz pismo</a>
         </div>
 */ ?>
-		<div class="block block-simple col-xs-12 dodaj_dzialanie">
-            <header>
-                <div class="sm">Obserwują</div>
-            </header>
-            <section>
-                <ul class="list col-xs-12">
-                    <li class="col-md-2">//avatar</li>
-                    <li class="col-md-2">//avatar</li>
-                    <li class="col-md-2">//avatar</li>
-                </ul>
-            </section>
-        </div>
-		
+        <? if($object->getLayer('subscribers') && count($object->getLayer('subscribers')) > 0) { ?>
+            <? $subscribers = $object->getLayer('subscribers'); ?>
+            <div class="block block-simple col-xs-12 dodaj_dzialanie">
+                <header>
+                    <div class="sm">Obserwują</div>
+                </header>
+                <section>
+                    <ul class="list col-xs-12">
+                        <? foreach($subscribers as $subscriber) { ?>
+                            <?
+                                $src = $subscriber['Users']['photo_small'];
+                                if (!$src)
+                                    $src = '/img/users-photo-' . rand(0, 2) . '.jpg';
+
+                                $username = $subscriber['Users']['username'];
+                            ?>
+                            <li class="col-md-2" <? if($username != '') { ?> data-toggle="tooltip" data-placement="left" title="<?= $username ?>" <? } ?>>
+                                <div class="subscriber">
+                                    <img src="<?= $src ?>"/>
+                                </div>
+                            </li>
+                        <? } ?>
+                    </ul>
+                </section>
+            </div>
+		<? } ?>
 	</div>
 </div>
 
