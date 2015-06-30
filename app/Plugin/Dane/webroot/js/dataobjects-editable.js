@@ -71,7 +71,8 @@ ObjectUsersManagement.prototype.initialize = function () {
         changeLogo.find('.export').click(function () {
             var self = $(this),
                 imageData = changeLogo.find('.image-editor').cropit('export', {
-                    type: 'image/png'
+                    type: 'image/png',
+                    fillBg: '#fff'
                 });
             $.ajax({
                 url: '/dane/' + _this.dataset + '/' + _this.id + '/page/logo.json',
@@ -175,31 +176,31 @@ ObjectUsersManagement.prototype.initialize = function () {
             bdl_opis.modal("show");
         });
     }
-    
+
     editablePanel.find('.bdl_wymiar').click(function (evt) {
-	    
-	    evt.preventDefault();
-	    var url = decodeURIComponent(($('.appHeader.dataobject').attr('data-url')+'').replace(/\+/g, '%20'));
-	    
-	    $.ajax({
+
+        evt.preventDefault();
+        var url = decodeURIComponent(($('.appHeader.dataobject').attr('data-url') + '').replace(/\+/g, '%20'));
+
+        $.ajax({
             url: url + '.json',
             method: 'post',
             data: {
-	            _action: 'wymiar',
-	            i: $('#filters_form').attr('data-expand'),
+                _action: 'wymiar',
+                i: $('#filters_form').attr('data-expand'),
             },
             success: function (res) {
-                
+
                 window.location = url;
-                
+
             },
             error: function (xhr) {
                 alert("Wystąpił błąd: " + xhr.status + " " + xhr.statusText);
             }
 
         });
-	    
-	});
+
+    });
 };
 
 ObjectUsersManagement.prototype.cropItErrorMsg = function (el, error) {
@@ -436,7 +437,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '<li><a class="bdl_opis" href="#">Zmiana opisu i nazwy</a></li>'
         ]);
     }
-    
+
     if (jQuery.inArray("bdl_wymiar", this.editables) !== -1) {
         $.merge(list, [
             '<li><a class="bdl_wymiar" href="#">Ustaw wymiar rozwinięcia</a></li>'

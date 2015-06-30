@@ -267,24 +267,43 @@ if ($object->getData('sposob_reprezentacji')) { ?>
             'class' => 'pull-right'
         )); ?>
         <p>Pobierz aktualny odpis z KRS <strong>za darmo</strong></p>
-        <a href="/dane/krs_podmioty/<?= $object->getId() ?>/odpis" class="btn btn-primary">Kliknij aby
-            pobrać</a>
+        <a href="/dane/krs_podmioty/<?= $object->getId() ?>/odpis" class="btn btn-primary">Kliknij aby pobrać</a>
     </div>
 <? } ?>
-	
-	<? /*
-	<div class="banner block">
-        <?php echo $this->Html->image('Dane.banners/krspodmioty_banner.png', array(
-            'width' => '69',
-            'alt' => 'Aktualny odpis z KRS za darmo',
-            'class' => 'pull-right'
-        )); ?>
-        <p>Napisz i <strong>wyślij pismo</strong> do tej organizacji</p>
-        <a href="/dane/krs_podmioty/<?= $object->getId() ?>/odpis" class="btn btn-primary">Stwórz pismo</a>
-    </div>
-    */ ?>
-		
-		
+
+<? /*
+        <div class="banner block">
+            <?php echo $this->Html->image('Dane.banners/krspodmioty_banner.png', array('width' => '69', 'alt' => 'Aktualny odpis z KRS za darmo', 'class' => 'pull-right')); ?>
+            <p>Napisz i <strong>wyślij pismo</strong> do tej organizacji</p>
+            <a href="/dane/krs_podmioty/<?= $object->getId() ?>/odpis" class="btn btn-primary">Stwórz pismo</a>
+        </div>
+*/ ?>
+        <? if($object->getLayer('subscribers') && count($object->getLayer('subscribers')) > 0) { ?>
+            <? $subscribers = $object->getLayer('subscribers'); ?>
+            <div class="block block-simple col-xs-12 dodaj_dzialanie">
+                <header>
+                    <div class="sm">Obserwują (<?= $subscribers['count'] ?>)</div>
+                </header>
+                <section>
+                    <ul class="subscribers list col-xs-12">
+                        <? foreach($subscribers['list'] as $subscriber) { ?>
+                            <?
+                                $src = $subscriber['Users']['photo_small'];
+                                if (!$src)
+                                    $src = '/img/users-photo-' . rand(0, 2) . '.jpg';
+
+                                $username = $subscriber['Users']['username'];
+                            ?>
+                            <li class="col-md-2" <? if($username != '') { ?> data-toggle="tooltip" data-placement="left" title="<?= $username ?>" <? } ?>>
+                                <div class="subscriber">
+                                    <img src="<?= $src ?>"/>
+                                </div>
+                            </li>
+                        <? } ?>
+                    </ul>
+                </section>
+            </div>
+		<? } ?>
 	</div>
 </div>
 
@@ -306,20 +325,20 @@ if ($object->getData('sposob_reprezentacji')) { ?>
 	<div class="col-md-9 objectMain">
 	    <div class="object">
 	        
-	        <? if( $dzialalnosci = $object->getLayer('dzialalnosci') ) {?>
-		    <div class="block block-default col-xs-12">
-		        <header>Działalność według PKD</header>
-		        <section>
-			        
-			        <ul>
-				    <? foreach( $dzialalnosci as $d ) {?>
-				    	<li><?= $d['str'] ?></li>
-				    <? } ?>
-			        </ul>
-			        
-		        </section>
-		    </div>
-		    <? } ?>
+	        <? if ($dzialalnosci = $object->getLayer('dzialalnosci')) { ?>
+    <div class="block block-default col-xs-12">
+        <header>Działalność według PKD</header>
+        <section>
+
+            <ul>
+                <? foreach ($dzialalnosci as $d) { ?>
+                    <li><?= $d['str'] ?></li>
+                <? } ?>
+            </ul>
+
+        </section>
+    </div>
+<? } ?>
 		    
 	    </div>
 	</div>

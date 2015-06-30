@@ -139,6 +139,7 @@
             .logoBox {
               width: 180px;
               height: 180px;
+              background-color: #ffffff;
               position: absolute;
               bottom: -(@logoBoxSize/6);
               left: 15px;
@@ -328,11 +329,11 @@
         margin-right: 4px;
       }
       small {
-	      label {
-		      position: relative;
-		      top: -4px;
-		      margin-left: 5px;
-	      }
+        label {
+          position: relative;
+          top: -4px;
+          margin-left: 5px;
+        }
       }
     }
   }
@@ -564,6 +565,10 @@
 
   .image-editor {
     text-align: center;
+
+    > p {
+      margin: 6px 0 10px;
+    }
 
     .cropit-image-preview {
       background-size: cover;

@@ -1,5 +1,7 @@
 /*global $,JQuery, mPHeart, google*/
-var googleMap, markers = [];
+var googleMap,
+    geolocalizateMe,
+    markers = [];
 
 function initialize() {
     var polandLatlng = new google.maps.LatLng(51.919438, 19.145136),
@@ -21,12 +23,6 @@ function initialize() {
         $('.googleBtn').fadeIn();
         $('.googleMapElement').addClass('loaded');
     });
-
-    function clearMarkers() {
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(null);
-        }
-    }
 
     google.maps.event.addListener(googleMap, "click", function (event) {
         clearMarkers();
@@ -77,6 +73,60 @@ function initialize() {
         var bounds = googleMap.getBounds();
         searchBox.setBounds(bounds);
     });
+
+    geolocalizateMe = function () {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+                clearMarkers();
+                markers = [];
+
+                var bounds = new google.maps.LatLngBounds();
+                var marker = new google.maps.Marker({
+                    map: googleMap,
+                    icon: markerImage,
+                    position: pos
+                });
+
+                markers.push(marker);
+
+                bounds.extend(pos);
+                googleMap.fitBounds(bounds);
+            }, function () {
+                handleNoGeolocation(true);
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleNoGeolocation(false);
+        }
+
+        function handleNoGeolocation(errorFlag) {
+            var content = '';
+
+            if (errorFlag) {
+                content = 'Błąd: System geolokalizacji nie odpowiada.';
+            } else {
+                content = 'Błąd: Twoja przeglądarka nie wspiera geolokalizacji.';
+            }
+
+            var options = {
+                map: googleMap,
+                position: polandLatlng,
+                content: content,
+                zoom: 6
+            };
+
+            var infowindow = new google.maps.InfoWindow(options);
+            googleMap.setCenter(options.position);
+        }
+    };
+}
+
+function clearMarkers() {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
 }
 
 
@@ -99,6 +149,7 @@ $(document).ready(function () {
         imageAlert = imageEditor.find('.alert.alert-danger'),
         imageChoosed = imageEditor.find('input[name="cover_photo"]'),
         googleBtn = $('.googleBtn'),
+        googleLocMeBtn = $('#loc'),
         googleMapBlock = $('.googleMapElement'),
 
         cropItErrorMsg = function () {
@@ -150,9 +201,6 @@ $(document).ready(function () {
         });
         objectMain.find('.submitBtn').click(function (e) {
             e.preventDefault();
-
-            console.log('click');
-
             imageChoosed.val(imageEditor.cropit('export', {
                 type: 'image/jpeg',
                 quality: .9
@@ -167,10 +215,20 @@ $(document).ready(function () {
         })
     }
     googleBtn.click(function () {
+        var $pac = $('#pac-input');
+
         googleMapBlock.slideToggle();
+        $('#loc').css('left', $pac.position().left + $pac.outerWidth() - 8);
+        $('html, body').animate({
+            scrollTop: $('#googleMap').offset().top
+        });
     });
 
-    form.submit(function() {
+    googleLocMeBtn.click(function () {
+        geolocalizateMe();
+    });
+
+    form.submit(function () {
         var header = $('.appHeader.dataobject').first(),
             dataset = header.attr('data-dataset'),
             object_id = header.attr('data-object_id'),
