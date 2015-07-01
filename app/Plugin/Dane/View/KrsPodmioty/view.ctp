@@ -32,9 +32,6 @@ $this->Combinator->add_libs('js', 'graph-krs');
 				
 			if ($object->getData('cel_dzialania')) { ?>
 			    <div class="dzialanie block block-simple col-xs-12">
-			        <header>
-			            <div class="sm">Cel działania</div>
-			        </header>
 			
 			        <section class="content normalizeText textBlock">
 			            <?= $object->getData('cel_dzialania') ?>
@@ -261,28 +258,10 @@ if ($object->getData('sposob_reprezentacji')) { ?>
     </div>
 	
 	<div class="col-md-3 objectSide">
-	    <? if (!$object->getData('wykreslony')) { ?>
-    <div class="banner block">
-        <?php echo $this->Html->image('Dane.banners/krspodmioty_banner.png', array(
-            'width' => '69',
-            'alt' => 'Aktualny odpis z KRS za darmo',
-            'class' => 'pull-right'
-        )); ?>
-        <p>Pobierz aktualny odpis z KRS <strong>za darmo</strong></p>
-        <a href="/dane/krs_podmioty/<?= $object->getId() ?>/odpis" class="btn btn-primary">Kliknij aby pobrać</a>
-    </div>
-<? } ?>
-
-<? /*
-        <div class="banner block">
-            <?php echo $this->Html->image('Dane.banners/krspodmioty_banner.png', array('width' => '69', 'alt' => 'Aktualny odpis z KRS za darmo', 'class' => 'pull-right')); ?>
-            <p>Napisz i <strong>wyślij pismo</strong> do tej organizacji</p>
-            <a href="/dane/krs_podmioty/<?= $object->getId() ?>/odpis" class="btn btn-primary">Stwórz pismo</a>
-        </div>
-*/ ?>
-        <? if($object->getLayer('subscribers') && count($object->getLayer('subscribers')) > 0) { ?>
+	    
+	    <? if($object->getLayer('subscribers') && count($object->getLayer('subscribers')) > 0) { ?>
             <? $subscribers = $object->getLayer('subscribers'); ?>
-            <div class="block block-simple col-xs-12 dodaj_dzialanie">
+            <div class="block block-simple col-xs-12 dodaj_dzialanie" style="margin-top: -2px; margin-bottom: 15px;">
                 <header>
                     <div class="sm">Obserwują (<?= $subscribers['count'] ?>)</div>
                 </header>
@@ -306,6 +285,32 @@ if ($object->getData('sposob_reprezentacji')) { ?>
                 </section>
             </div>
 		<? } ?>
+	    
+	    <? if (!$object->getData('wykreslony')) { ?>
+		    <div class="banner block">
+		        <?php echo $this->Html->image('Dane.banners/krspodmioty_banner.png', array(
+		            'width' => '69',
+		            'alt' => 'Aktualny odpis z KRS za darmo',
+		            'class' => 'pull-right'
+		        )); ?>
+		        <p>Pobierz aktualny odpis z KRS <strong>za darmo</strong></p>
+		        <a href="/dane/krs_podmioty/<?= $object->getId() ?>/odpis" class="btn btn-primary">Kliknij aby pobrać</a>
+		    </div>
+		<? } ?>
+
+        <div class="banner block">
+            <?php echo $this->Html->image('Dane.banners/krspodmioty_banner.png', array('width' => '69', 'alt' => 'Aktualny odpis z KRS za darmo', 'class' => 'pull-right')); ?>
+            <p>Napisz i <strong>wyślij pismo</strong> do tej organizacji</p>
+            <a href="/dane/krs_podmioty/<?= $object->getId() ?>/odpis" class="btn btn-primary">Stwórz pismo</a>
+        </div>
+        
+        <div class="banner block">
+            <?php echo $this->Html->image('Dane.banners/krspodmioty_banner.png', array('width' => '69', 'alt' => 'Aktualny odpis z KRS za darmo', 'class' => 'pull-right')); ?>
+            <p><strong>Zarządzaj profilem</strong> tej organizacji</p>
+            <a href="/dane/krs_podmioty/<?= $object->getId() ?>/odpis" class="btn btn-primary">Poproś o uprawnienia</a>
+        </div>
+
+        
 	</div>
 </div>
 
