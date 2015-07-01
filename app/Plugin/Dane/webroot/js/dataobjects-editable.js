@@ -31,7 +31,8 @@ ObjectUsersManagement.prototype.initialize = function () {
         moderateModal = $('#moderate-modal'),
         changeLogo = $('#modalAdminAddLogo'),
         changeBackground = $('#modalAdminAddBackground'),
-        bdl_opis = $('#bdl_opis_modal');
+        bdl_opis = $('#bdl_opis_modal'),
+        prawo_hasla_merge = $('#prawo_hasla_merge_modal');
 
     var editablePanel = $('.editablePanel'),
         moderateModal = $('#moderate-modal'),
@@ -179,6 +180,14 @@ ObjectUsersManagement.prototype.initialize = function () {
         editablePanel.find('.bdl_opis').click(function (evt) {
             evt.preventDefault();
             bdl_opis.modal("show");
+        });
+    }
+
+    if (prawo_hasla_merge.length) {
+        editablePanel.find('.prawo_hasla_merge').click(function (evt) {
+            evt.preventDefault();
+            prawo_hasla_merge.modal("show");
+            _this.insitutionLoad();
         });
     }
 
@@ -453,9 +462,31 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
         ]);
     }
     
-    if (jQuery.inArray("prawo_hasla-merge", this.editables) !== -1) {
+    if (jQuery.inArray("prawo_hasla_merge", this.editables) !== -1) {
         $.merge(list, [
-            '<li><a class="prawo_hasla-merge" href="#">Połącz z instytucją</a></li>'
+            '<li><a class="prawo_hasla_merge" href="#">Połącz z instytucją</a></li>'
+        ]);
+        $.merge(modal, [
+            '<div class="modal fade" id="prawo_hasla_merge_modal" tabindex="-1" role="dialog">',
+            '<div class="modal-dialog modal-lg" role="document">',
+            '<div class="modal-content">',
+            '<div class="modal-header">',
+            '<h4 class="modal-title">',
+            'Połącz z instytucją:',
+            '</h4>',
+            '</div>',
+            '<div class="modal-body">',
+            '<div class="info alert alert-success hidden"></div>',
+            '<div id="instytucja-prawo-merge"></div>',
+            '</div>',
+            '<div class="modal-footer">',
+            '<button type="button" class="btn btn-md btn-primary btn-icon" data-dismiss="modal">',
+            '<i class="icon glyphicon glyphicon-ok"></i>Gotowe',
+            '</button>',
+            '</div>',
+            '</div>',
+            '</div>',
+            '</div>'
         ]);
     }
 
@@ -538,6 +569,59 @@ ObjectUsersManagement.prototype.getRolesSelectDOM = function (selected_id) {
     }
     h.push('</select>');
     return h.join('');
+};
+
+ObjectUsersManagement.prototype.insitutionLoad = function (res) {
+
+    var _this = this,
+        instytucjaMerge = $('#instytucja-prawo-merge');
+
+    $("#prawo_hasla_merge_modal").find('.info').html('').addClass('hidden')
+
+    instytucjaMerge.html(
+        this.getAddInstitutionFormDOM()
+    );
+
+    $('#instytucja_wybierz_merge').autocomplete({
+        paramName: 'q',
+        serviceUrl: '/dane/suggest.json?dataset[]=instytucje',
+        transformResult: function(response) {
+            res= $.parseJSON(response);
+            return {
+                suggestions: $.map(res.options, function(dataItem) {
+                    return { value: dataItem.text, data: dataItem.payload.object_id };
+                })
+            };
+        }
+    });
+
+    instytucjaMerge.find('form').bind('submit', function () {
+        var id = $(this).find('input[type=text]').first();
+
+        url=decodeURIComponent(($('.appHeader.dataobject').attr('data-url')+'').replace(/\+/g, '%20')) + '.json';
+
+        $.post(url, {
+            _action: 'merge',
+            instytucja_id: id.val()
+        }, function () {
+            instytucjaMerge.find('form').addClass('hidden');
+            $("#prawo_hasla_merge_modal").find('.info').html('Dane zostały przesłane').removeClass('hidden');
+        });
+
+        return false;
+    });
+
+};
+
+ObjectUsersManagement.prototype.getAddInstitutionFormDOM = function () {
+    return [
+        '<form class="">',
+        '<div class="form-group">',
+        '<input type="text" class="form-control" id="instytucja_wybierz_merge" placeholder="Szukaj instytucji..." required>',
+        '</div>',
+        '<button type="submit" class="btn btn-default">Połącz</button>',
+        '</form>'
+    ].join('');
 };
 
 $(document).ready(function () {
