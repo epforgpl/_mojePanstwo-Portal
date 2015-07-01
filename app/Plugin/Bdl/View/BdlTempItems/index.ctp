@@ -14,11 +14,11 @@
         <? if ($BdlTempItems == false) { ?>
            <h4>Nie ma wskaźników do wyświetlenia</h4>
         <? } else { ?>
-            <ul class="list-group">
+            <ul class="list-group lista_wskz">
                 <? foreach ($BdlTempItems as $key => $val) { ?>
                     <li class="list-group-item"><a href="/bdl/bdl_temp_items/<?= $key ?>"><?= $val['tytul'] ?></a>
 
-                        <form class="remove_btn" method="DELETE" action="/bdl/bdl_temp_items/delete/<?= $key ?>">
+                        <form class="remove_btn hidden" method="DELETE" action="/bdl/bdl_temp_items/delete/<?= $key ?>">
                             <button class="btn btn-danger btn-xs pull-right" type="submit"><i
                                     class="icon glyphicon glyphicon-remove"></i></button>
                         </form>

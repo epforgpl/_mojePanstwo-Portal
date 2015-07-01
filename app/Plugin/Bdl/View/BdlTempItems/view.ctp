@@ -24,12 +24,10 @@
                     <?= $BdlTempItem['opis'] ?>
         </textarea>
         </div>
-        <div class="row">
-            <button type="submit" class="btn btn-md btn-primary btn-icon temp-btn pull-right" id="temp_item_savebtn"><i
-                    class="icon glyphicon glyphicon-ok"></i>Zapisz opis i nazwę
-            </button>
-        </div>
     </form>
+    <div class="row">
+        <label class="">Składniki:</label>
+    </div>
     <div class="row">
         <div class="col-sm-6">
             <h4 class="text-center">Licznik</h4>
@@ -47,21 +45,15 @@
         </div>
     </div>
     <div class="row">
-        <button type="submit" class="btn btn-md btn-primary btn-icon temp-btn pull-right" id="bdl_temp_savebtn"><i
-                class="icon glyphicon glyphicon-ok"></i>Zapisz składniki
-        </button>
-
-    </div>
-    <div class="row">
         <div class="text-center">
-            <button class="btn btn-lg btn-primary btn-icon temp-btn" id="bdl_temp_save_all_btn"><i
-                    class="icon glyphicon glyphicon-ok"></i>Zapisz Wszystko
+            <button class="btn btn-md btn-primary btn-icon temp-btn" id="bdl_temp_save_all_btn"><i
+                    class="icon glyphicon glyphicon-ok"></i>Zapisz
             </button>
-            <button class="btn btn-lg btn-success btn-icon temp-btn" id="bdl_temp_save_all_btn"><i
+            <button class="btn btn-md btn-success btn-icon temp-btn" id="bdl_temp_save_all_btn"><i
                     class="icon glyphicon glyphicon-upload"></i>Zapisz i Opublikuj
             </button>
             <form class="remove_btn" method="DELETE" action="/bdl/bdl_temp_items/delete/<?= $id ?>">
-                <button class="btn btn-lg btn-danger btn-icon temp-btn" id="bdl_temp_save_all_btn"><i
+                <button class="btn btn-md btn-danger btn-icon temp-btn" id="bdl_temp_save_all_btn"><i
                         class="icon glyphicon glyphicon-remove"></i>Usuń
                 </button>
             </form>

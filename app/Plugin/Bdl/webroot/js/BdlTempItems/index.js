@@ -25,26 +25,13 @@ $(document).ready(function () {
         }
     });
 
-    function saveData(dane) {
-        $.ajax({
-            url: 'bdl_temp_items/add',
-            method: 'post',
-            data: dane,
-            success: function (res) {
-                if (res == false) {
-                    alert("Błąd zapisu");
-                } else {
-                    if (res != null) {
-                        $("#temp_item_opis_modal .info").html('Zmieniono opis i nazwę.');
-                    }
-                    $('#temp_item_opis_modal .info').removeClass('hidden');
-                }
-            },
-            error: function (xhr) {
-                alert("Wystąpił błąd: " + xhr.status + " " + xhr.statusText);
-            }
+    $(".lista_wskz li")
+        .bind('mouseenter', function () {
+            $(this).find(".remove_btn").removeClass('hidden');
+        })
+        .bind('mouseleave', function () {
+            $(this).find(".remove_btn").addClass('hidden');
         });
-    }
 
     $("#temp_item_savebtn").click(function () {
         $('#temp_item_opis_modal').modal('hide');
