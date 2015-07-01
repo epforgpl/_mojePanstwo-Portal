@@ -719,11 +719,6 @@
                         }).get(0);
                         var canvasContext = canvas.getContext('2d');
 
-                        if (exportOptions.type === 'image/jpeg') {
-                            canvasContext.fillStyle = exportOptions.fillBg;
-                            canvasContext.fillRect(0, 0, canvas.width, canvas.height);
-                        }
-
                         var canvasTmp, contextTmp, canvasWidth, canvasHeight;
                         var tmp = new Image();
 
@@ -744,15 +739,20 @@
                             canvasWidth /= 2;
                             canvasHeight /= 2;
 
-                            if (canvasWidth < newUncroppedWidth || canvasHeight < newUncroppedHeight) {
+                            if (canvasWidth <= newUncroppedWidth || canvasHeight <= newUncroppedHeight) {
                                 break;
                             }
 
                             contextTmp.drawImage(tmp, 0, 0, canvasWidth, canvasHeight);
-                            tmp.src = canvasTmp.toDataURL(exportOptions.type, exportOptions.quality);
+                            tmp.src = canvasTmp.toDataURL(exportOptions.type, 1);
                         }
 
                         canvasContext.drawImage(canvasTmp, 0, 0, canvasWidth * 2, canvasHeight * 2, 0, 0, newUncroppedWidth, newUncroppedHeight);
+
+                        if (exportOptions.type === 'image/jpeg') {
+                            canvasContext.fillStyle = exportOptions.fillBg;
+                            canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+                        }
 
                         return canvas.toDataURL(exportOptions.type, exportOptions.quality);
                     }
