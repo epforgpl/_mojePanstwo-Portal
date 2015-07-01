@@ -12,8 +12,8 @@ var ObjectUsersManagement = function (header, dataset, id, editables) {
 ObjectUsersManagement.prototype.initialize = function () {
     var _this = this;
 
-    $('body').append(
-        $('<div></div>').addClass('editablePanel dropdown').append(
+    $('.appHeader .options').append(
+        $('<div></div>').addClass('opt editablePanel dropdown').append(
             this.getDOM()
         ).append(
             this.getDOMModals()
@@ -331,8 +331,8 @@ ObjectUsersManagement.prototype.setUsers = function (users) {
 
 ObjectUsersManagement.prototype.getDOM = function () {
     return [
-        '<button class="btn btn-primary btn-open-moderate dropdown-toggle" type="button" id="moderatePanelModal" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">',
-        '<i class="glyphicon glyphicon-cog" aria-hidden="true"></i>Zarządzaj',
+        '<button class="btn btn-primary btn-icon btn-open-moderate dropdown-toggle" type="button" id="moderatePanelModal" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">',
+        '<i class="icon glyphicon glyphicon-cog" aria-hidden="true"></i>Zarządzaj',
         '</button>'
     ].join('');
 };

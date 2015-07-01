@@ -97,17 +97,16 @@ if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object
             </div>
         </div>
     </div>
-    <? if ($this->elementExists('status_bar/' . $object->getDataset(), array('plugin' => 'Dane'))) { ?>
-        <div class="statusBar">
-            <div class="container">
-                <div class="holder row">
-                    <div class="col-xs-10">
-                        <div class="status">
-                            <?= $this->element('status_bar/' . $object->getDataset(), array('plugin' => 'Dane')) ?>
-                        </div>
+
+    <div class="statusBar">
+        <div class="container">
+            <div class="holder row">
+                <div class="col-xs-10">
+                    <div class="status">
+                        <?= @$this->element('status_bar/' . $object->getDataset(), array('plugin' => 'Dane')) ?>
                     </div>
                 </div>
             </div>
         </div>
-    <? } ?>
+    </div>
 </div>
