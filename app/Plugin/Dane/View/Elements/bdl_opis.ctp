@@ -90,16 +90,15 @@
             </div>
 
             <div class="modal-footer">
-                <span class="text-center">
+                <div class="text-center">
                     <button type="button" class="btn btn-md btn-primary btn-icon btn-inline"
                             id="bdl_temp_savebtn"><i
                             class="icon glyphicon glyphicon-ok"></i>Zapisz
                     </button>
-                    <button type="button" class="btn btn-md btn-danger btn-icon  btn-inline"
-                            id="bdl_temp_cancelbtn"><i
-                            class="icon glyphicon glyphicon-remove"></i>Anuluj
-                    </button>
-                </span>
+                    <div class="inline">
+                        <a class="margintop" id="bdl_cancel_btn" href="">Anuluj</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

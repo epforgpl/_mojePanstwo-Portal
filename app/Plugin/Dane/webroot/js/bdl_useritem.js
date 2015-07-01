@@ -107,8 +107,6 @@ $(document).ready(function () {
 
     $("#bdl_temp_savebtn").click(function () {
 
-
-        console.log('ABBB');
         var skladniki = [];
 
         $(".licznik_list").find('li').each(function () {

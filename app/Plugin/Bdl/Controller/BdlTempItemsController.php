@@ -30,6 +30,10 @@ class BdlTempItemsController extends ApplicationsController
             '_serialize' => array('BdlTempItem'),
             'id' => $id
         ));
+
+        if ($BdlTempItem == false) {
+            $this->redirect(array('action' => 'index'));
+        }
     }
 
     public function add()
@@ -99,19 +103,19 @@ class BdlTempItemsController extends ApplicationsController
 
     public function addIngredients($item_id = false)
     {
-        $data=$this->request->data;
-        $old=$this->BdlTempItem->findById($data['id']);
+        $data = $this->request->data;
+        $old = $this->BdlTempItem->findById($data['id']);
 
-        $data=array_merge($old,$data);
+        $data = array_merge($old, $data);
 
-        if($this->BdlTempItem->save($data)){
+        if ($this->BdlTempItem->save($data)) {
             debug($data);
             $this->json(true);
-        }else{
+        } else {
             $this->json(false);
         }
 
-        $this->autoRender=false;
+        $this->autoRender = false;
     }
 
     public function getMenu()
