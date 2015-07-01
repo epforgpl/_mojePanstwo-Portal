@@ -5,10 +5,12 @@
 
 <div class="wskaznik" data-dim_id="<?= $data['id'] ?>" data-years="<?= htmlspecialchars(json_encode($data['years']), ENT_QUOTES, 'UTF-8') ?>">
     <h2>
-        <a href="<?= $url ?>/kombinacje/<?= $data['id'] ?>"><?= trim($title) ?></a>
         <? if (in_array('bdl_opis', $object_editable)) { ?>
+	        <a class="pull-left" href="<?= $url ?>/kombinacje/<?= $data['id'] ?>"><?= trim($title) ?></a>
             <button class="btn btn-sm btn-primary add_to_item pull-right"><span
                     class="icon glyphicon glyphicon-plus"></span></button>
+        <? } else {?>
+	        <a href="<?= $url ?>/kombinacje/<?= $data['id'] ?>"><?= trim($title) ?></a>        
         <? } ?>
     </h2>
     

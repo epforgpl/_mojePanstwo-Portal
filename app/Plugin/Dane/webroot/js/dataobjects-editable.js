@@ -447,6 +447,12 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '<li><a class="bdl_wymiar" href="#">Ustaw wymiar rozwinięcia</a></li>'
         ]);
     }
+    
+    if (jQuery.inArray("prawo_hasla-merge", this.editables) !== -1) {
+        $.merge(list, [
+            '<li><a class="prawo_hasla-merge" href="#">Połącz z instytucją</a></li>'
+        ]);
+    }
 
     $.merge(list, ['</ul>']);
     $.merge(list, modal);

@@ -737,7 +737,10 @@ class AppController extends Controller
 
     public function beforeRender()
     {
-                
+        
+        if( @$this->request->params['ext']=='json' )
+        	return false;
+               
         $layout = $this->setLayout();
         $menu = $this->getMenu();
 				

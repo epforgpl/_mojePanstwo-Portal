@@ -24,8 +24,6 @@ class KrsPodmiotyController extends DataobjectsController
         'titleprop' => 'name',
     );
 
-    public $objectModerable = true;
-
     public function beforeFilter()
     {
         parent::beforeFilter();

@@ -6,7 +6,7 @@ class PrawoHaslaController extends DataobjectsController
 {
 
     public $headerObject = array('url' => '/dane/img/headers/prawne.jpg', 'height' => '250px');
-
+    public $observeOptions = true;
     public $objectOptions = array(
         'hlFields' => array(),
     );
@@ -132,5 +132,16 @@ class PrawoHaslaController extends DataobjectsController
         $this->set('title_for_layout', "Akty prawne dla tematu " . $this->object->getTitle());
 
     }
+    
+    public function beforeRender()
+    {
+	    
+	    if( $this->hasUserRole('3') ) {
+		    $this->addObjectEditable('prawo_hasla-merge');
+		}
+	    	    
+	    parent::beforeRender();
+	 	   
+    } 
 
 } 

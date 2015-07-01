@@ -16,9 +16,9 @@ $(document).ready(function () {
                     remove_btn = '<button class="btn btn-xs btn-danger remove-btn hidden pull-right"><i class="icon glyphicon glyphicon-remove"></i></button>';
 
                     if (val.is_pos == 1) {
-                        znak = '<span class="icon glyphicon glyphicon-plus is_pos" is_pos="1"></span>';
+                        znak = '<span class="icon sign glyphicon glyphicon-plus is_pos" is_pos="1"></span>';
                     } else {
-                        znak = '<span class="icon glyphicon glyphicon-minus  is_pos" is_pos="0"></span>';
+                        znak = '<span class="icon sign glyphicon glyphicon-minus  is_pos" is_pos="0"></span>';
                     }
 
                     if (val.is_l == 1) {
@@ -158,14 +158,14 @@ $(document).ready(function () {
     $("#bdl_temp_addbtn_m").click(function () {
         $("#bdl_temp_addbtn_m").addClass('hidden');
         $("#bdl_temp_addbtn_l").addClass('hidden');
-        $(".mianownik_list").append('<li value="' + dim_id + '" class="list-group-item"><span class="icon glyphicon glyphicon-plus  is_pos" is_pos="1"></span> ' + dim_name + '<button class="btn btn-xs btn-danger remove-btn hidden pull-right"><i class="icon glyphicon glyphicon-remove"></i></button></li>');
+        $(".mianownik_list").append('<li value="' + dim_id + '" class="list-group-item"><span class="icon glyphicon sign glyphicon-plus  is_pos" is_pos="1"></span> ' + dim_name + '<button class="btn btn-xs btn-danger remove-btn hidden pull-right"><i class="icon glyphicon glyphicon-remove"></i></button></li>');
         binding();
     });
 
     $("#bdl_temp_addbtn_l").click(function () {
         $("#bdl_temp_addbtn_m").addClass('hidden');
         $("#bdl_temp_addbtn_l").addClass('hidden');
-        $(".licznik_list").append('<li value="' + dim_id + '" class="list-group-item"><span class="icon glyphicon glyphicon-plus  is_pos" is_pos="1"></span> ' + dim_name + '<button class="btn btn-xs btn-danger remove-btn hidden pull-right"><i class="icon glyphicon glyphicon-remove"></i></button></li>');
+        $(".licznik_list").append('<li value="' + dim_id + '" class="list-group-item"><span class="icon glyphicon glyphicon-plus sign is_pos" is_pos="1"></span> ' + dim_name + '<button class="btn btn-xs btn-danger remove-btn hidden pull-right"><i class="icon glyphicon glyphicon-remove"></i></button></li>');
         binding();
     });
 
