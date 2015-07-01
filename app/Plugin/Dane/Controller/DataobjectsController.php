@@ -93,8 +93,7 @@ class DataobjectsController extends AppController
                 $layers[] = 'subscribers';
             }
                 
-            if ($this->objectModerable)
-                $layers[] = 'page';
+            $layers[] = 'page';
 
             if ($this->object = $this->Dataobject->find('first', array(
                 'conditions' => array(

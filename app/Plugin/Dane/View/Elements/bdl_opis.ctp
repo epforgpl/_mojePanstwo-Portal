@@ -67,7 +67,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <h4 class="text-center">Licznik</h4>
-                            <ul class="licznik_list list-group">
+                            <ul class="licznik_list skladniki_list list-group">
 
                             </ul>
                             <button type="button" class="btn btn-md btn-success btn-icon" id="bdl_temp_addbtn_l">
@@ -77,7 +77,7 @@
                         </div>
                         <div class="col-sm-6">
                             <h4 class="text-center">Mianownik</h4>
-                            <ul class="mianownik_list list-group">
+                            <ul class="mianownik_list skladniki_list list-group">
 
                             </ul>
                             <button type="button" class="btn btn-md btn-success btn-icon" id="bdl_temp_addbtn_m">
