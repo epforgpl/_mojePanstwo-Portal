@@ -12,6 +12,7 @@ var ObjectUsersManagement = function (header, dataset, id, editables) {
 ObjectUsersManagement.prototype.initialize = function () {
     var _this = this;
 
+    console.log('test');
     $('.appHeader .options').append(
         $('<div></div>').addClass('opt editablePanel dropdown').append(
             this.getDOM()
@@ -576,7 +577,7 @@ ObjectUsersManagement.prototype.insitutionLoad = function (res) {
     var _this = this,
         instytucjaMerge = $('#instytucja-prawo-merge');
 
-    $("#prawo_hasla_merge_modal").find('.info').html('').addClass('hidden')
+    $("#prawo_hasla_merge_modal").find('.info').html('').addClass('hidden');
 
     instytucjaMerge.html(
         this.getAddInstitutionFormDOM()
