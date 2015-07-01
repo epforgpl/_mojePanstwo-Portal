@@ -22,6 +22,11 @@ ObjectUsersManagement.prototype.initialize = function () {
 
     $('#moderate-add').hide();
 
+    $('#moderate-btn-add').bind('click', function () {
+        $('#moderate-add').slideToggle();
+        return false;
+    });
+
     var editablePanel = $('.editablePanel'),
         moderateModal = $('#moderate-modal'),
         changeLogo = $('#modalAdminAddLogo'),
