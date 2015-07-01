@@ -137,7 +137,7 @@ class PrawoHaslaController extends DataobjectsController
     {
 	    
 	    if( $this->hasUserRole('3') ) {
-		    $this->addObjectEditable('prawo_hasla-merge');
+		    $this->addObjectEditable('prawo_hasla_merge');
 		}
 	    	    
 	    parent::beforeRender();

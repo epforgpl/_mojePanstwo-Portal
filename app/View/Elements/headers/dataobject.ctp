@@ -41,8 +41,8 @@ if (!isset($renderFile) || !$renderFile)
                 </div>
             </div>
             <?php if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
-                <div class="col-md-2">
-                    <? echo $this->element('modals/dataobject-observe'); ?>
+                <div class="col-md-2 options">
+                    <div class="opt"><? echo $this->element('modals/dataobject-observe'); ?></div>
                 </div>
             <? } ?>
             <div class="col-xs-10">
