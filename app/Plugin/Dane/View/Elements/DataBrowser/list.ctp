@@ -5,7 +5,7 @@
             <? foreach ($data['buckets'] as $b) { ?>
                 <li>
                     <?
-					
+									
                     if (is_array($b['label']['buckets'][0]['key']['label'])) {
 
                         $href = $b['label']['buckets'][0]['key']['label'][0];

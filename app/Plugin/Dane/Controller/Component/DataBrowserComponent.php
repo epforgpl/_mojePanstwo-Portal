@@ -376,6 +376,58 @@ class DataBrowserComponent extends Component
                 ),
             ),
         ),
+        'krakow_pomoc_publiczna' => array(
+            'roczniki' => array(
+                'terms' => array(
+                    'field' => 'krakow_pomoc_publiczna.rok',
+                ),
+                'visual' => array(
+                    'label' => 'Rok',
+                    'skin' => 'list',
+                    'field' => 'krakow_pomoc_publiczna.rok'
+                ),
+            ),
+            'beneficjenci' => array(
+                'terms' => array(
+                    'field' => 'krakow_pomoc_publiczna.beneficjent_id',
+                    'exclude' => array(
+                        'pattern' => ''
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'krakow_pomoc_publiczna.beneficjent',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Beneficjenci',
+                    'skin' => 'pie_chart',
+                    'field' => 'krakow_pomoc_publiczna.beneficjent_id'
+                ),
+            ),
+            'przeznaczenie' => array(
+                'terms' => array(
+                    'field' => 'krakow_pomoc_publiczna.przeznaczenie_id',
+                    'exclude' => array(
+                        'pattern' => ''
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'krakow_pomoc_publiczna.przeznaczenie',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Przeznaczenie',
+                    'skin' => 'columns_horizontal',
+                    'field' => 'krakow_pomoc_publiczna.przeznaczenie_id'
+                ),
+            ),
+        ),
         'rady_gmin_interpelacje' => array(
             'radni' => array(
                 'terms' => array(

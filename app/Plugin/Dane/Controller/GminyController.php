@@ -58,6 +58,10 @@ class GminyController extends DataobjectsController
                     'label' => 'Zarządzenia Prezydenta',
                 ),
                 array(
+                    'id' => 'pomoc_publiczna',
+                    'label' => 'Pomoc publiczna',
+                ),
+                array(
                     'id' => 'jednostki',
                     'label' => 'Jednostki i Wydziały',
                 ),
@@ -1716,6 +1720,42 @@ class GminyController extends DataobjectsController
             $this->set('title_for_layout', 'Zarządzenia Prezydenta Krakowa');
             $this->set('_submenu', array_merge($this->submenus['urzad'], array(
                 'selected' => 'zarzadzenia',
+            )));
+
+        }
+    }
+    
+    public function pomoc_publiczna()
+    {
+        $this->_prepareView();
+
+        if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
+
+            $akt = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'krakow_zarzadzenia',
+                    'id' => $this->request->params['subid'],
+                ),
+            ));
+
+            $this->set('akt', $akt);
+            $this->set('title_for_layout', $akt->getTitle());
+            $this->render('zarzadzenie');
+
+        } else {
+
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'dataset' => 'krakow_pomoc_publiczna',
+                ),
+                'aggsPreset' => 'krakow_pomoc_publiczna',
+                'searchTitle' => 'Szukaj w pomocy publicznej...',
+                'order' => 'krakow_pomoc_publiczna.rok desc',
+            ));
+
+            $this->set('title_for_layout', 'Pomoc publiczna w Krakowie');
+            $this->set('_submenu', array_merge($this->submenus['urzad'], array(
+                'selected' => 'pomoc_publiczna',
             )));
 
         }

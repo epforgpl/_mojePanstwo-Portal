@@ -560,6 +560,7 @@ class AppController extends Controller
                         'finanse',
                         'wpf',
                         'powiazania',
+                        'pomoc_publiczna',
                     ))
                 ) {
 
@@ -868,7 +869,7 @@ class AppController extends Controller
 	    
 	    if( $this->Auth->user() ) {
 		    
-		    return array_column($this->Auth->user('UserRole'), 'role_id');
+		    return @array_column($this->Auth->user('UserRole'), 'role_id');
 		    
 	    } else return array();
 	    

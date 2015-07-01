@@ -295,7 +295,7 @@ class DataobjectsController extends AppController
 			$object_editable = array();
 			
 			if(
-				in_array('2', $this->getUserRoles()) || // check if superuser 
+				@in_array('2', $this->getUserRoles()) || // check if superuser 
 				( $this->getPageRoles()=='1' ) // check if user has permissions to page 
 			) {
 				
@@ -303,7 +303,7 @@ class DataobjectsController extends AppController
 			}
 			
 			if( 
-				in_array('2', $this->getUserRoles()) || // check if superuser 
+				@in_array('2', $this->getUserRoles()) || // check if superuser 
 				$this->getPageRoles() // check if user has permissions to page 
 			) {
 				
