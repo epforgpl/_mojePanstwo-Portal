@@ -96,7 +96,7 @@
                             class="icon glyphicon glyphicon-ok"></i>Zapisz
                     </button>
                     <div class="inline">
-                        <a class="margintop" id="bdl_cancel_btn" href="">Anuluj</a>
+                        <a class="margintop" id="bdl_temp_cancelbtn" href="#">Anuluj</a>
                     </div>
                 </div>
             </div>
