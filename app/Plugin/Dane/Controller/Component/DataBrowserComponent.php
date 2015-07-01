@@ -380,6 +380,9 @@ class DataBrowserComponent extends Component
             'roczniki' => array(
                 'terms' => array(
                     'field' => 'krakow_pomoc_publiczna.rok',
+                    'order' => array(
+	                    '_term' => 'desc',
+                    ),
                 ),
                 'visual' => array(
                     'label' => 'Rok',
@@ -391,7 +394,7 @@ class DataBrowserComponent extends Component
                 'terms' => array(
                     'field' => 'krakow_pomoc_publiczna.beneficjent_id',
                     'exclude' => array(
-                        'pattern' => ''
+                        'pattern' => '0'
                     ),
                 ),
                 'aggs' => array(
@@ -403,7 +406,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Beneficjenci',
-                    'skin' => 'pie_chart',
+                    'skin' => 'columns_horizontal',
                     'field' => 'krakow_pomoc_publiczna.beneficjent_id'
                 ),
             ),
@@ -411,7 +414,7 @@ class DataBrowserComponent extends Component
                 'terms' => array(
                     'field' => 'krakow_pomoc_publiczna.przeznaczenie_id',
                     'exclude' => array(
-                        'pattern' => ''
+                        'pattern' => '0'
                     ),
                 ),
                 'aggs' => array(
@@ -423,7 +426,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Przeznaczenie',
-                    'skin' => 'columns_horizontal',
+                    'skin' => 'pie_chart',
                     'field' => 'krakow_pomoc_publiczna.przeznaczenie_id'
                 ),
             ),

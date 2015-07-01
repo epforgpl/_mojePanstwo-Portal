@@ -275,8 +275,8 @@ var DataBrowser = Class.extend({
                 useHTML: true,
                 labelFormatter: function () {
                     var name = this.name;
-                    if (name.length > 20)
-                        name = name.substring(0, 20) + '...';
+                    if (name.length > 18)
+                        name = name.substring(0, 15) + '...';
                     return '<a href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + name + '</a>';
                 },
                 itemWidth: 150
@@ -562,7 +562,7 @@ var DataBrowser = Class.extend({
                         }
                     }
                 }
-            }]
+            }],
         });
 
     },
