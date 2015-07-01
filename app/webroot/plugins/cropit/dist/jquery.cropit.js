@@ -1,11 +1,11 @@
-/*! cropit - v0.3.0 <https://github.com/scottcheng/cropit> */
+/*! cropit - v0.3.1 <https://github.com/scottcheng/cropit> */
 (function webpackUniversalModuleDefinition(root, factory) {
     if (typeof exports === 'object' && typeof module === 'object')
-        module.exports = factory(require("jQuery"));
+        module.exports = factory(require("jquery"));
     else if (typeof define === 'function' && define.amd)
-        define(["jQuery"], factory);
+        define(["jquery"], factory);
     else if (typeof exports === 'object')
-        exports["cropit"] = factory(require("jQuery"));
+        exports["cropit"] = factory(require("jquery"));
     else
         root["cropit"] = factory(root["jQuery"]);
 })(this, function (__WEBPACK_EXTERNAL_MODULE_1__) {
@@ -710,6 +710,9 @@
 
                         var exportZoom = exportOptions.originalSize ? 1 / this.zoom : this.options.exportZoom;
 
+                        var newUncroppedWidth = this.zoom * exportZoom * this.imageSize.w;
+                        var newUncroppedHeight = this.zoom * exportZoom * this.imageSize.h;
+
                         var canvas = (0, _jquery2['default'])('<canvas />').attr({
                             width: croppedSize.w * exportZoom,
                             height: croppedSize.h * exportZoom
@@ -721,9 +724,76 @@
                             canvasContext.fillRect(0, 0, canvas.width, canvas.height);
                         }
 
-                        canvasContext.drawImage(this.image, this.offset.x * exportZoom, this.offset.y * exportZoom, this.zoom * exportZoom * this.imageSize.w, this.zoom * exportZoom * this.imageSize.h);
+                        var canvasTmp, contextTmp, canvasWidth, canvasHeight;
+                        var tmp = new Image();
+
+                        tmp.src = this.image.src;
+
+                        canvasWidth = tmp.width;
+                        canvasHeight = tmp.height;
+
+                        canvasTmp = document.createElement('canvas');
+                        contextTmp = canvasTmp.getContext('2d');
+
+                        canvasTmp.width = canvasWidth;
+                        canvasTmp.height = canvasHeight;
+
+                        contextTmp.drawImage(tmp, 0, 0, canvasWidth, canvasHeight);
+
+                        while (true) {
+                            canvasWidth /= 2;
+                            canvasHeight /= 2;
+
+                            if (canvasWidth < newUncroppedWidth || canvasHeight < newUncroppedHeight) {
+                                break;
+                            }
+
+                            contextTmp.drawImage(tmp, 0, 0, canvasWidth, canvasHeight);
+                            tmp.src = canvasTmp.toDataURL(exportOptions.type, exportOptions.quality);
+                        }
+
+                        canvasContext.drawImage(canvasTmp, 0, 0, canvasWidth * 2, canvasHeight * 2, 0, 0, newUncroppedWidth, newUncroppedHeight);
 
                         return canvas.toDataURL(exportOptions.type, exportOptions.quality);
+                    }
+                }, {
+                    key: 'preResizeImage',
+                    value: function preResizeImage(src, targetWidth, targetHeight, type, quality) {
+                        var canvas, context, canvasWidth, canvasHeight, stepsW, stepsH, steps;
+                        var tmp = new Image();
+
+                        tmp.src = src.src;
+
+                        type = type || 'image/jpeg';
+                        quality = quality || 1;
+
+                        canvasWidth = tmp.width;
+                        canvasHeight = tmp.height;
+
+                        stepsW = Math.ceil(Math.log(canvasWidth / targetWidth) / Math.log(2));
+                        stepsH = Math.ceil(Math.log(canvasHeight / targetHeight) / Math.log(2));
+                        steps = (stepsW > stepsH) ? stepsW : stepsH;
+
+
+                        canvas = document.createElement('canvas');
+                        context = canvas.getContext('2d');
+
+                        canvas.width = canvasWidth;
+                        canvas.height = canvasHeight;
+
+                        context.drawImage(tmp, 0, 0, canvasWidth, canvasHeight);
+
+                        while (--steps > 0) {
+                            canvasWidth /= 2;
+                            canvasHeight /= 2;
+
+                            context.drawImage(canvas, 0, 0, canvasWidth, canvasHeight);
+                        }
+                        tmp.src = canvas.toDataURL(type, quality);
+                        tmp.w = canvasWidth;
+                        tmp.h = canvasHeight;
+
+                        return tmp;
                     }
                 }, {
                     key: 'getImageState',
