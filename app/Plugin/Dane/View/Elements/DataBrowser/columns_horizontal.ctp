@@ -1,11 +1,14 @@
 <?
 $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
 $this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+
+$counter_field = isset( $map['counter_field'] ) ? $map['counter_field'] : 'doc_count';
+
 ?>
 
 <? if (!isset($this->request->query['conditions'][$map['field']])) { ?>
     <div class="agg agg-ColumnsHorizontal" data-choose-request="<?= $map['chooseRequest']; ?>"
-         data-chart="<?= htmlentities(json_encode($data)) ?>">
+         data-chart="<?= htmlentities(json_encode($data)) ?>" data-counter_field="<?= $counter_field ?>">
         <div class="chart"></div>
     </div>
 <? } else { ?>

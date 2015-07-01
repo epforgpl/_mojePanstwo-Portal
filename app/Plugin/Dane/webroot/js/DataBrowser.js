@@ -255,7 +255,7 @@ var DataBrowser = Class.extend({
                 useHTML: true,
                 labelFormatter: function () {
                     var name = this.name;
-                    if (name.length > 35)
+                    if (name.length > 32)
                         name = name.substring(0, 35) + '...';
 
                     return '<a title="' + this.name + '" href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + name + '</a>';
@@ -265,7 +265,10 @@ var DataBrowser = Class.extend({
                 verticalAlign: 'top',
                 x: 0,
                 y: 20,
-                itemMarginBottom: 5
+                itemMarginBottom: 5,
+                itemStyle: {
+	                'font-weight': 'normal'
+                }
                 // itemWidth: 150
             };
 
@@ -279,7 +282,10 @@ var DataBrowser = Class.extend({
                         name = name.substring(0, 15) + '...';
                     return '<a href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + name + '</a>';
                 },
-                itemWidth: 150
+                itemWidth: 150,
+                itemStyle: {
+	                'font-weight': 'normal'
+                }
             };
 
         }
@@ -568,20 +574,25 @@ var DataBrowser = Class.extend({
     },
 
     initAggColumnsHorizontal: function (li) {
-
+				
         li = $(li);
         var data = $.parseJSON(li.attr('data-chart'));
         var choose_request = li.attr('data-choose-request');
-
+        var counter_field = li.attr('data-counter_field');
+        
         var columns_horizontal_data = [];
         var columns_horizontal_categories = [];
         var columns_horizontal_keys = [];
 
         for (var i = 0; i < data.buckets.length; i++) {
             columns_horizontal_categories[i] = data.buckets[i].label.buckets[0].key;
-            columns_horizontal_data[i] = data.buckets[i].label.buckets[0].doc_count || data.buckets[i].doc_count;
+            columns_horizontal_data[i] = data.buckets[i].label.buckets[0][counter_field] || data.buckets[i][counter_field]['value'] || data.buckets[i][counter_field];
             columns_horizontal_keys[i] = data.buckets[i].key;
         }
+        
+        console.log('columns_horizontal_categories', columns_horizontal_categories);
+        console.log('columns_horizontal_data', columns_horizontal_data);
+        console.log('columns_horizontal_keys', columns_horizontal_keys);
 
         li.find('.chart').highcharts({
             chart: {
@@ -598,6 +609,16 @@ var DataBrowser = Class.extend({
                 categories: columns_horizontal_categories,
                 title: {
                     text: null
+                },
+                labels: {
+                    formatter: function() {
+	                    
+	                    var v = this.value;
+	                    if (v.length > 15)
+	                        v = v.substring(0, 12) + '...';
+	                    
+	                    return v;
+                    }
                 }
             },
             yAxis: {

@@ -396,6 +396,9 @@ class DataBrowserComponent extends Component
                     'exclude' => array(
                         'pattern' => '0'
                     ),
+                    'order' => array(
+	                    'sum' => 'desc',
+                    ),
                 ),
                 'aggs' => array(
                     'label' => array(
@@ -403,11 +406,17 @@ class DataBrowserComponent extends Component
                             'field' => 'krakow_pomoc_publiczna.beneficjent',
                         ),
                     ),
+                    'sum' => array(
+	                    'sum' => array(
+		                    'field' => 'data.krakow_pomoc_publiczna.wartosc',
+	                    ),
+                    ),
                 ),
                 'visual' => array(
                     'label' => 'Beneficjenci',
                     'skin' => 'columns_horizontal',
-                    'field' => 'krakow_pomoc_publiczna.beneficjent_id'
+                    'field' => 'krakow_pomoc_publiczna.beneficjent_id',
+                    'counter_field' => 'sum',
                 ),
             ),
             'przeznaczenie' => array(
