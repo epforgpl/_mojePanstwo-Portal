@@ -94,7 +94,7 @@
             }
 
             .glyphicon {
-              font-size: 20px;
+              font-size: 22px;
               color: #78c329;
               margin-left: 6px;
             }
@@ -102,7 +102,7 @@
 
           .options {
             position: absolute;
-            bottom: 24px;
+            bottom: 15px;
             right: 0;
             text-align: right;
 
@@ -136,11 +136,16 @@
       .statusBar {
         background-color: #ffffff;
         padding: 0;
+        min-height: 48px;
       }
 
       &.cover-logo {
         @logoHeaderMinSize: 200px;
         @logoBoxSize: 180px;
+
+        &.cover-logo-minimal .headlineBar .container .logoBox {
+          //bottom: -8px;
+        }
 
         .headlineBar {
           min-height: @logoHeaderMinSize;
@@ -176,13 +181,13 @@
             }
 
             .holder .holderBlock .title {
-              padding-left: @logoBoxSize + 10;
+              padding-left: @logoBoxSize + 20;
               height: @logoHeaderMinSize - 32;
             }
           }
         }
         .statusBar .holder .col-xs-10 {
-          margin-left: @logoBoxSize+10;
+          margin-left: @logoBoxSize+20;
         }
       }
       &.cover-background {
@@ -423,7 +428,7 @@
           border-top: none;
           color: #333;
           .glyphicon {
-	          color: #789;
+            color: #789;
           }
         }
       }
@@ -667,8 +672,9 @@
 }
 
 @media (min-width: 992px) {
-  .appHeader .observeButton {
-    margin-top: 40px;
+  .appHeader .opt {
     float: right;
+    display: block;
+    margin-top: 10px;
   }
 }
