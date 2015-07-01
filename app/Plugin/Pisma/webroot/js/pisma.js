@@ -180,21 +180,6 @@ var PISMA = Class.extend({
             }
         });
     },
-    adresatData: function (adresat_id) {
-        "use strict";
-        var self = this;
-
-        /*$.getJSON("/dane/suggest.json?dataset[]=pisma_adresaci&q=" + adresat_id, function (d) {*/
-        $.getJSON("/dane/suggest.json?dataset[]=pisma_adresaci&q=" + $('#editor-cont .control.control-addressee > p:first').text(), function (d) {
-            self.objects.adresaci = {
-                id: d.options[0].payload.subid,
-                dataset: d.options[0].payload.subdataset,
-                title: d.options[0].text
-            };
-
-            self.html.adresaci.find('.suggesterBlockPisma input.form-control').val(self.objects.adresaci.title);
-        });
-    },
     editor: function () {
         "use strict";
         var wysightml5toolbar,

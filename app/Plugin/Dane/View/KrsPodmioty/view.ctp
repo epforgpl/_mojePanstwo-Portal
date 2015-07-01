@@ -23,21 +23,21 @@ $this->Combinator->add_libs('js', 'graph-krs');
 	    <div class="object">
 	       
 	        <? if ($object->getData('wykreslony')) { ?>
-			    <div class="alert alert-dismissable alert-danger">
-			        <button type="button" class="close" data-dismiss="alert">×</button>
-			        Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
-			    </div>    
-			<? }
-				
-				
-			if ($object->getData('cel_dzialania')) { ?>
-			    <div class="dzialanie block block-simple col-xs-12">
-			
-			        <section class="content normalizeText textBlock">
-			            <?= $object->getData('cel_dzialania') ?>
-			        </section>
-			    </div>
-			<? }
+    <div class="alert alert-dismissable alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
+    </div>
+<? }
+
+
+if ($object->getData('cel_dzialania')) { ?>
+    <div class="dzialanie block block-simple col-xs-12">
+
+        <section class="content normalizeText textBlock">
+            <?= $object->getData('cel_dzialania') ?>
+        </section>
+    </div>
+<? }
 
 $adres = $object->getData('adres_ulica');
 $adres .= ' ' . $object->getData('adres_numer');
@@ -259,50 +259,52 @@ if ($object->getData('sposob_reprezentacji')) { ?>
 	
 	<div class="col-md-3 objectSide">
 	    
-	    <? if($object->getLayer('subscribers') && count($object->getLayer('subscribers')) > 0) { ?>
-            <? $subscribers = $object->getLayer('subscribers'); ?>
-            <div class="block block-simple col-xs-12 dodaj_dzialanie" style="margin-top: -2px; margin-bottom: 15px;">
-                <header>
-                    <div class="sm">Obserwują (<?= $subscribers['count'] ?>)</div>
-                </header>
-                <section>
-                    <ul class="subscribers list col-xs-12">
-                        <? foreach($subscribers['list'] as $subscriber) { ?>
-                            <?
-                                $src = $subscriber['Users']['photo_small'];
-                                if (!$src)
-                                    $src = '/img/users-photo-' . rand(0, 2) . '.jpg';
+	    <? if ($object->getLayer('subscribers') && count($object->getLayer('subscribers')) > 0) { ?>
+    <? $subscribers = $object->getLayer('subscribers'); ?>
+    <div class="block block-simple col-xs-12 dodaj_dzialanie" style="margin-top: -2px; margin-bottom: 15px;">
+        <header>
+            <div class="sm">Obserwują (<?= $subscribers['count'] ?>)</div>
+        </header>
+        <section>
+            <ul class="subscribers list col-xs-12">
+                <? foreach ($subscribers['list'] as $subscriber) { ?>
+                    <?
+                    $src = $subscriber['Users']['photo_small'];
+                    if (!$src)
+                        $src = '/img/users-photo-' . rand(0, 2) . '.jpg';
 
-                                $username = $subscriber['Users']['username'];
-                            ?>
-                            <li class="col-md-2" <? if($username != '') { ?> data-toggle="tooltip" data-placement="left" title="<?= $username ?>" <? } ?>>
-                                <div class="subscriber">
-                                    <img src="<?= $src ?>"/>
-                                </div>
-                            </li>
-                        <? } ?>
-                    </ul>
-                </section>
-            </div>
-		<? } ?>
-	    
-	    <? if (!$object->getData('wykreslony')) {
-		    
-		    echo $this->element('tools/krs_odpis', array(
-		    	'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
-		    ));
-		    
-		    echo $this->element('tools/pismo', array(
-		    	'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
-		    ));
-		    
-		    $page = $object->getLayer('page');
-		    if( !$page['moderated'] )
-			    echo $this->element('tools/admin', array(
-			    	'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
-			    ));
-		    
-		} ?>
+                    $username = $subscriber['Users']['username'];
+                    ?>
+                    <li class="col-md-2" <? if ($username != '') { ?> data-toggle="tooltip" data-placement="left" title="<?= $username ?>" <? } ?>>
+                        <div class="subscriber">
+                            <img src="<?= $src ?>"/>
+                        </div>
+                    </li>
+                <? } ?>
+            </ul>
+        </section>
+    </div>
+<? } ?>
+
+<? if (!$object->getData('wykreslony')) {
+
+    echo $this->element('tools/krs_odpis', array(
+        'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
+    ));
+
+    $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
+    $this->Combinator->add_libs('js', 'Pisma.pisma-button');
+    echo $this->element('tools/pismo', array(
+        'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
+    ));
+
+    $page = $object->getLayer('page');
+    if (!$page['moderated'])
+        echo $this->element('tools/admin', array(
+            'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
+        ));
+
+} ?>
         
 	</div>
 </div>
