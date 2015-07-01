@@ -286,30 +286,23 @@ if ($object->getData('sposob_reprezentacji')) { ?>
             </div>
 		<? } ?>
 	    
-	    <? if (!$object->getData('wykreslony')) { ?>
-		    <div class="banner block">
-		        <?php echo $this->Html->image('Dane.banners/krspodmioty_banner.png', array(
-		            'width' => '69',
-		            'alt' => 'Aktualny odpis z KRS za darmo',
-		            'class' => 'pull-right'
-		        )); ?>
-		        <p>Pobierz aktualny odpis z KRS <strong>za darmo</strong></p>
-		        <a href="/dane/krs_podmioty/<?= $object->getId() ?>/odpis" class="btn btn-primary">Kliknij aby pobrać</a>
-		    </div>
-		<? } ?>
-
-        <div class="banner block">
-            <?php echo $this->Html->image('Dane.banners/krspodmioty_banner.png', array('width' => '69', 'alt' => 'Aktualny odpis z KRS za darmo', 'class' => 'pull-right')); ?>
-            <p>Napisz i <strong>wyślij pismo</strong> do tej organizacji</p>
-            <a href="/dane/krs_podmioty/<?= $object->getId() ?>/odpis" class="btn btn-primary">Stwórz pismo</a>
-        </div>
-        
-        <div class="banner block">
-            <?php echo $this->Html->image('Dane.banners/krspodmioty_banner.png', array('width' => '69', 'alt' => 'Aktualny odpis z KRS za darmo', 'class' => 'pull-right')); ?>
-            <p><strong>Zarządzaj profilem</strong> tej organizacji</p>
-            <a href="/dane/krs_podmioty/<?= $object->getId() ?>/odpis" class="btn btn-primary">Poproś o uprawnienia</a>
-        </div>
-
+	    <? if (!$object->getData('wykreslony')) {
+		    
+		    echo $this->element('tools/krs_odpis', array(
+		    	'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
+		    ));
+		    
+		    echo $this->element('tools/pismo', array(
+		    	'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
+		    ));
+		    
+		    $page = $object->getLayer('page');
+		    if( !$page['moderated'] )
+			    echo $this->element('tools/admin', array(
+			    	'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
+			    ));
+		    
+		} ?>
         
 	</div>
 </div>

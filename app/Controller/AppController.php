@@ -738,27 +738,28 @@ class AppController extends Controller
     public function beforeRender()
     {
         
-        if( @$this->request->params['ext']=='json' )
-        	return false;
-               
-        $layout = $this->setLayout();
-        $menu = $this->getMenu();
-				
-		if( !empty($menu) ) {
-						
-	        if ($this->menu_selected == '_default')
-	            $this->menu_selected = $this->request->params['action'];
-	
-	        $menu['selected'] = $this->menu_selected;
+        if( @$this->request->params['ext']!='json' ) {
+        	               
+	        $layout = $this->setLayout();
+	        $menu = $this->getMenu();
+					
+			if( !empty($menu) ) {
+							
+		        if ($this->menu_selected == '_default')
+		            $this->menu_selected = $this->request->params['action'];
+		
+		        $menu['selected'] = $this->menu_selected;
+	        
+	        }
+	        
+	        $this->set('_layout', $layout);
+	        $this->set('_breadcrumbs', $this->breadcrumbs);
+	        $this->set('_applications', $this->applications);
+	        $this->set('_menu', $menu);
+	        $this->set('_observeOptions', $this->observeOptions);
+	        $this->set('appSelected', $this->appSelected);
         
         }
-        
-        $this->set('_layout', $layout);
-        $this->set('_breadcrumbs', $this->breadcrumbs);
-        $this->set('_applications', $this->applications);
-        $this->set('_menu', $menu);
-        $this->set('_observeOptions', $this->observeOptions);
-        $this->set('appSelected', $this->appSelected);
         
     }
 
