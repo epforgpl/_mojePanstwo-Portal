@@ -757,45 +757,6 @@
                         return canvas.toDataURL(exportOptions.type, exportOptions.quality);
                     }
                 }, {
-                    key: 'preResizeImage',
-                    value: function preResizeImage(src, targetWidth, targetHeight, type, quality) {
-                        var canvas, context, canvasWidth, canvasHeight, stepsW, stepsH, steps;
-                        var tmp = new Image();
-
-                        tmp.src = src.src;
-
-                        type = type || 'image/jpeg';
-                        quality = quality || 1;
-
-                        canvasWidth = tmp.width;
-                        canvasHeight = tmp.height;
-
-                        stepsW = Math.ceil(Math.log(canvasWidth / targetWidth) / Math.log(2));
-                        stepsH = Math.ceil(Math.log(canvasHeight / targetHeight) / Math.log(2));
-                        steps = (stepsW > stepsH) ? stepsW : stepsH;
-
-
-                        canvas = document.createElement('canvas');
-                        context = canvas.getContext('2d');
-
-                        canvas.width = canvasWidth;
-                        canvas.height = canvasHeight;
-
-                        context.drawImage(tmp, 0, 0, canvasWidth, canvasHeight);
-
-                        while (--steps > 0) {
-                            canvasWidth /= 2;
-                            canvasHeight /= 2;
-
-                            context.drawImage(canvas, 0, 0, canvasWidth, canvasHeight);
-                        }
-                        tmp.src = canvas.toDataURL(type, quality);
-                        tmp.w = canvasWidth;
-                        tmp.h = canvasHeight;
-
-                        return tmp;
-                    }
-                }, {
                     key: 'getImageState',
                     value: function getImageState() {
                         return {
