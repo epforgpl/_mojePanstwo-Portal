@@ -15,7 +15,11 @@ class PrawoHaslaController extends DataobjectsController
     {
 
         $this->_prepareView();
-
+		
+		if( $this->object->getData('instytucja_id') ) {
+			return $this->redirect( $this->object->getUrl() );
+		}
+		
         $options = array(
             'searchTitle' => 'Szukaj w temacie...',
             'conditions' => array(

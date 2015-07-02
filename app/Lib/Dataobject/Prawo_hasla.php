@@ -29,4 +29,12 @@ class Prawo_hasla extends DataObject
         return false;
     }
     
+    public function getUrl()
+    {
+	    if( $this->getData('instytucja_id') )
+	    	return '/dane/instytucje/' . $this->getData('instytucja_id');
+	    else
+	    	return '/dane/prawo_hasla/' . $this->getId();
+    }
+    
 }
