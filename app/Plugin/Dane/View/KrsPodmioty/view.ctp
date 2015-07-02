@@ -258,33 +258,32 @@ if ($object->getData('sposob_reprezentacji')) { ?>
     </div>
 	
 	<div class="col-md-3 objectSide">
-	    
-	    <? if ($object->getLayer('subscribers') && count($object->getLayer('subscribers')) > 0) { ?>
-    <? $subscribers = $object->getLayer('subscribers'); ?>
-    <div class="block block-simple col-xs-12 dodaj_dzialanie" style="margin-top: -2px; margin-bottom: 15px;">
-        <header>
-            <div class="sm">Obserwują (<?= $subscribers['count'] ?>)</div>
-        </header>
-        <section>
-            <ul class="subscribers list col-xs-12">
-                <? foreach ($subscribers['list'] as $subscriber) { ?>
-                    <?
-                    $src = $subscriber['Users']['photo_small'];
-                    if (!$src)
-                        $src = '/img/users-photo-' . rand(0, 2) . '.jpg';
+	    <? $subscribers = $object->getLayer('subscribers'); ?>
+        <? if ($subscribers && $subscribers['count'] > 0) { ?>
+            <div class="block block-simple col-xs-12 dodaj_dzialanie" style="margin-top: -2px; margin-bottom: 15px;">
+                <header>
+                    <div class="sm">Obserwują (<?= $subscribers['count'] ?>)</div>
+                </header>
+                <section>
+                    <ul class="subscribers list col-xs-12">
+                        <? foreach ($subscribers['list'] as $subscriber) { ?>
+                            <?
+                            $src = $subscriber['Users']['photo_small'];
+                            if (!$src)
+                                $src = '/img/users-photo-' . rand(0, 2) . '.jpg';
 
-                    $username = $subscriber['Users']['username'];
-                    ?>
-                    <li class="col-md-2" <? if ($username != '') { ?> data-toggle="tooltip" data-placement="left" title="<?= $username ?>" <? } ?>>
-                        <div class="subscriber">
-                            <img src="<?= $src ?>"/>
-                        </div>
-                    </li>
-                <? } ?>
-            </ul>
-        </section>
-    </div>
-<? } ?>
+                            $username = $subscriber['Users']['username'];
+                            ?>
+                            <li class="col-md-2" <? if ($username != '') { ?> data-toggle="tooltip" data-placement="left" title="<?= $username ?>" <? } ?>>
+                                <div class="subscriber">
+                                    <img src="<?= $src ?>"/>
+                                </div>
+                            </li>
+                        <? } ?>
+                    </ul>
+                </section>
+            </div>
+        <? } ?>
 
 <? if (!$object->getData('wykreslony')) {
     $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
