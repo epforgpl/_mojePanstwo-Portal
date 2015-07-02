@@ -12,7 +12,6 @@ var ObjectUsersManagement = function (header, dataset, id, editables) {
 ObjectUsersManagement.prototype.initialize = function () {
     var _this = this;
 
-    console.log('test');
     $('.appHeader .options').append(
         $('<div></div>').addClass('opt editablePanel dropdown').append(
             this.getDOM()
@@ -593,11 +592,14 @@ ObjectUsersManagement.prototype.insitutionLoad = function (res) {
                     return { value: dataItem.text, data: dataItem.payload.object_id };
                 })
             };
+        },
+        onSelect: function (suggestion) {
+            $('#instytucja_id_wybierz_merge').val(suggestion.data);
         }
     });
 
     instytucjaMerge.find('form').bind('submit', function () {
-        var id = $(this).find('input[type=text]').first();
+        var id = $(this).find('#instytucja_id_wybierz_merge').first();
 
         url=decodeURIComponent(($('.appHeader.dataobject').attr('data-url')+'').replace(/\+/g, '%20')) + '.json';
 
@@ -619,6 +621,7 @@ ObjectUsersManagement.prototype.getAddInstitutionFormDOM = function () {
         '<form class="">',
         '<div class="form-group">',
         '<input type="text" class="form-control" id="instytucja_wybierz_merge" placeholder="Szukaj instytucji..." required>',
+        '<input type="hidden" class="form-control" id="instytucja_id_wybierz_merge" value="">',
         '</div>',
         '<button type="submit" class="btn btn-default">Połącz</button>',
         '</form>'
