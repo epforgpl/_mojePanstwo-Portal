@@ -4,7 +4,7 @@
     <?php echo $this->Html->image('Dane.banners/zarzadzanie.svg', array('width' => '69', 'alt' => 'Aktualny odpis z KRS za darmo', 'class' => 'pull-right')); ?>
     <p><strong>Zarządzaj profilem</strong> tej organizacji</p>
 
-    <div class="btn btn-primary" data-toggle="modal" data-target="#uprawnieniaModal">Poproś o uprawnienia</button>
+    <div class="btn btn-sm btn-primary" data-toggle="modal" data-target="#uprawnieniaModal">Poproś o uprawnienia</button>
 </div>
 
     <div class="modal fade" id="uprawnieniaModal" tabindex="-1" role="dialog" aria-labelledby="uprawnieniaModalLabel"

@@ -45,7 +45,7 @@ $adres .= ', ' . $object->getData('adres_miejscowosc');
 $adres .= ', Polska';
 
 if (($object->getData('adres_ulica')) && ($object->getData('adres_numer')) && ($object->getData('adres_miejscowosc'))) { ?>
-    <div class="block col-xs-12 adres">
+    <div class="block col-xs-12 adres<? if(!$object->getData('cel_dzialania')) { ?> block-simple<? } ?>">
         <header>
             <div class="sm">Adres</div>
             <div class="mapsOptions pull-right">
