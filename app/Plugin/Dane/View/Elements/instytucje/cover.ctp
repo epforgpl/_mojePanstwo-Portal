@@ -9,11 +9,10 @@ $options = array(
 
 ?>
 <div class="col-md-9">
-	
+
     <div class="blocks">
-		
-		
-						
+
+
         <? if (@$dataBrowser['aggs']['all']['prawo']['top']['hits']['hits']) { ?>
             <div class="block block-simple block-size-sm col-xs-12">
                 <header>Najnowsze akty prawne:</header>
@@ -79,11 +78,11 @@ $options = array(
         <? if (@$dataBrowser['aggs']['all']['zamowienia']['top']['hits']['hits']) { ?>
             <div class="block block-simple block-size-sm col-xs-12">
                 <header>Zamówienia publiczne:</header>
-				<section>
-	                <?= $this->element('Dane.zamowienia_publiczne', array(
-	                	'url' => $object->getUrl() . '/mp_zamowienia.json',
-	                )); ?>
-				</section>
+                <section>
+                    <?= $this->element('Dane.zamowienia_publiczne', array(
+                        'url' => $object->getUrl() . '/mp_zamowienia.json',
+                    )); ?>
+                </section>
             </div>
         <? } ?>
 
@@ -91,9 +90,9 @@ $options = array(
 
 </div>
 <div class="col-md-3">
-	
-<?	
-	
+    <?
+    $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
+
     $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
     $this->Combinator->add_libs('js', 'Pisma.pisma-button');
     echo $this->element('tools/pismo', array());
@@ -101,16 +100,16 @@ $options = array(
     $page = $object->getLayer('page');
     if (!$page['moderated'])
         echo $this->element('tools/admin', array());
-	
-?>
 
-<?
-			if( $adres = $object->getData('adres_str') ) {
-				$adres = str_ireplace('ul.', '<br/>ul.', $adres) . ', Polska';
-				echo $this->element('Dane.adres', array(
-					'adres' => $adres,
-				));
-			}
-		?>
-	
+    ?>
+
+    <?
+    if ($adres = $object->getData('adres_str')) {
+        $adres = str_ireplace('ul.', '<br/>ul.', $adres) . ', Polska';
+        echo $this->element('Dane.adres', array(
+            'adres' => $adres,
+        ));
+    }
+    ?>
+
 </div>

@@ -1,4 +1,4 @@
-<div class="banner block">
+<div class="banner odpis block">
     <?php echo $this->Html->image('Dane.banners/krspodmioty_banner.png', array(
         'width' => '69',
         'alt' => 'Aktualny odpis z KRS za darmo',
