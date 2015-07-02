@@ -41,6 +41,8 @@ $(document).ready(function () {
                     .end()
                     .find('.modal-footer .btn-primary.disabled').removeClass('disabled');
                 $(this).parent('li').addClass('active');
+
+                szablonChosen(pismoModal.find('ul.ul-raw li.active a >span').text(), pismoModal.find('ul.ul-raw li.active a').attr('data-szablonid'));
             });
         });
         pismoModal.find('.modal-body').html(list);
@@ -89,7 +91,8 @@ $(document).ready(function () {
                 })
             );
             pismoModal.append(form);
-            form.submit();
+
+            pismoModal.find('form').submit();
         }
     }
 
@@ -131,15 +134,6 @@ $(document).ready(function () {
                 ).append(
                     $('<div></div>').addClass('modal-footer').append(
                         $('<button></button>').addClass('btn btn-default').attr('data-dismiss', 'modal').text('Zamknij')
-                    ).append(
-                        $('<button></button>').addClass('btn btn-primary disabled').text('Zatwierdź').click(function (e) {
-                            e.preventDefault();
-                            if ($(this).hasClass('disabled')) {
-                                return false;
-                            }
-                            $(this).css('width', $(this).outerWidth()).addClass('loading disabled').text('');
-                            szablonChosen(pismoModal.find('ul.ul-raw li.active a >span').text(), pismoModal.find('ul.ul-raw li.active a').attr('data-szablonid'));
-                        })
                     )
                 )
             )

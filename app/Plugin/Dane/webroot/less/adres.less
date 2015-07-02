@@ -1,81 +1,105 @@
 .mp-adres {
-    @bannerWidth: 100%;
-    @bannerHeight: 180px;
+  @bannerWidth: 100%;
+  @bannerHeight: 180px;
 
-    height: @bannerHeight;
+  height: @bannerHeight;
+  width: @bannerWidth;
+  position: relative;
+  overflow: hidden;
+  -webkit-transition: height 0.8s;
+  -moz-transition: height 0.8s;
+  transition: height 0.8s;
+
+  &.big {
+    height: 2*@bannerHeight;
+  }
+
+  .bg {
     width: @bannerWidth;
+    height: @bannerHeight;
     position: relative;
+    top: 0;
+    z-index: 2;
+    background-color: #000000;
+
+    img {
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    .content {
+      width: @bannerWidth;
+      height: @bannerHeight;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 3;
+      padding: 20px;
+
+      background: -moz-linear-gradient(left, rgba(66, 139, 202, 0.9) 10%, rgba(66, 139, 202, 0) 50%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, right top, color-stop(10%, rgba(66, 139, 202, 0.9)), color-stop(50%, rgba(66, 139, 202, 0))); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(left, rgba(66, 139, 202, 0.9) 10%, rgba(66, 139, 202, 0) 50%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(left, rgba(66, 139, 202, 0.9) 10%, rgba(66, 139, 202, 0) 50%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(left, rgba(66, 139, 202, 0.9) 10%, rgba(66, 139, 202, 0) 50%); /* IE10+ */
+      background: linear-gradient(to right, rgba(66, 139, 202, 0.9) 10%, rgba(66, 139, 202, 0) 50%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e6428bca', endColorstr='#00428bca', GradientType=1); /* IE6-9 */
+
+      p {
+        color: #ffffff;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 26px;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=135, Color=#000000)";
+        text-shadow: 1px 1px 1px #000000;
+        filter: progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=135, Color=#000000);
+      }
+
+      .btn {
+        display: block;
+        margin-top: 5px;
+
+        &:first-of-type {
+          margin-top: 1em;
+        }
+      }
+    }
+  }
+}
+
+#googleMapBtnModal {
+  @mapHeight: 400px;
+
+  .googleViewBtn {
+    padding-bottom: 20px;
+  }
+
+  .googleView {
+    position: relative;
+    display: block;
     overflow: hidden;
-    -webkit-transition: height 0.8s;
-    -moz-transition: height 0.8s;
-    transition: height 0.8s;
+    width: 100%;
+    height: @mapHeight;
 
-    &.big {
-        height: 2*@bannerHeight;
+    #googleMap, #streetView {
+      width: 100%;
+      height: @mapHeight;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
 
-    .bg {
-        width: @bannerWidth;
-        height: @bannerHeight;
-        position: relative;
-        top: 0;
-        z-index: 2;
-
-        img {
-            width: 100% !important;
-            height: auto !important;
-        }
-
-        .content {
-            width: @bannerWidth;
-            height: @bannerHeight;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 3;
-            padding: 20px;
-
-            background: -moz-linear-gradient(left, rgba(66, 139, 202, 0.9) 10%, rgba(66, 139, 202, 0) 50%); /* FF3.6+ */
-            background: -webkit-gradient(linear, left top, right top, color-stop(10%, rgba(66, 139, 202, 0.9)), color-stop(50%, rgba(66, 139, 202, 0))); /* Chrome,Safari4+ */
-            background: -webkit-linear-gradient(left, rgba(66, 139, 202, 0.9) 10%, rgba(66, 139, 202, 0) 50%); /* Chrome10+,Safari5.1+ */
-            background: -o-linear-gradient(left, rgba(66, 139, 202, 0.9) 10%, rgba(66, 139, 202, 0) 50%); /* Opera 11.10+ */
-            background: -ms-linear-gradient(left, rgba(66, 139, 202, 0.9) 10%, rgba(66, 139, 202, 0) 50%); /* IE10+ */
-            background: linear-gradient(to right, rgba(66, 139, 202, 0.9) 10%, rgba(66, 139, 202, 0) 50%); /* W3C */
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e6428bca', endColorstr='#00428bca', GradientType=1); /* IE6-9 */
-
-            p {
-                color: white;
-                font-weight: 300;
-                font-size: 16px;
-                line-height: 26px;
-            }
-
-            .btn {
-                display: block;
-                margin-top: 5px;
-
-                &:first-of-type {
-                    margin-top: 1em;
-                }
-            }
-        }
+    #streetView {
+      left: -100%;
+      z-index: 2;
     }
+  }
 
-    .googleView, #googleMap, #streetView {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 1;
-        width: @bannerWidth;
-        height: 2*@bannerHeight;
+  .googleView {
+    #googleMapsContent .btn {
+      display: block;
+      margin: 5px auto 0;
+      padding: 2px 10px;
+      width: 80px;
     }
-
-    .googleView {
-        #googleMapsContent .btn {
-            display: block;
-            margin: 5px auto 0;
-            padding: 2px 10px;
-            width: 80px;
-        }
-    }
+  }
 }

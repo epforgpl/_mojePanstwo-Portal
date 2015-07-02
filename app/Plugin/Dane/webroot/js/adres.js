@@ -1,10 +1,10 @@
-/*global $,jQuery,mPHeart,google,googleMapAdres,connectionGraphObject,sticky*/
-var googleMap, panorama, addLatLng;
+/*global $,jQuery,mPHeart,google,googleMapAdres*/
+var googleMap, panorama, addLatLng, marker;
 
 function initialize() {
     "use strict";
     //SETTING DEFAULT CENTER TO GOOGLE MAP AT POLAND//
-        
+
     var infowindow,
         element,
         contentStringHeightTemp,
@@ -15,7 +15,7 @@ function initialize() {
         },
         geocoder = new google.maps.Geocoder(),
         contentString = document.createElement("div");
-			
+
     googleMap = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
 
     contentString.innerHTML = googleMapAdres + '<a href="https://maps.google.com/maps?daddr=' + googleMapAdres.replace(/ /g, '+') + '&t=m" target="_blank" class="btn btn-info">Dojazd</a>';
@@ -83,6 +83,12 @@ function initialize() {
                 visible: true
             };
 
+        var boxBlock = $('.mp-adres'),
+            box = boxBlock.find('.bg');
+
+        $('.googleMapImage').attr('src', 'https://maps.googleapis.com/maps/api/staticmap?center=' + boxBlock.attr('data-adres') + '&markers=' + boxBlock.attr('data-adres') + '&zoom=15&sensor=false&scale=2&feature:road&size=' + Math.ceil(box.outerWidth()) + 'x' + Math.ceil(box.outerHeight() / 2));
+        $('.streetViewImage').attr('src', 'https://maps.googleapis.com/maps/api/streetview?location=' + addLatLng.toUrlValue() + '&fov=90&heading=' + angle + '&pitch=10&size=' + Math.ceil(box.outerWidth()) + 'x' + Math.ceil(box.outerHeight() / 2));
+
         panorama.setOptions(panoOptions);
     }
 
@@ -95,11 +101,11 @@ function initialize() {
 
     geocoder.geocode({'address': googleMapAdres}, function (results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
-            var gps = results[0].geometry.location,
-                marker = new google.maps.Marker({
-                    map: googleMap,
-                    position: gps
-                });
+            var gps = results[0].geometry.location;
+            marker = new google.maps.Marker({
+                map: googleMap,
+                position: gps
+            });
 
             createStreetview(gps.lat(), gps.lng());
 
@@ -108,13 +114,6 @@ function initialize() {
 
             google.maps.event.addListener(marker, 'click', function () {
                 infowindow.open(googleMap, marker);
-            });
-
-            //NEED TO WAIT A LITTLE UNTIL MAP IDLE AND CAN CENTER ON AUTO OPEN INFOWINDOW//
-            google.maps.event.addListenerOnce(googleMap, 'idle', function () {
-                setTimeout(function () {
-                    google.maps.event.trigger(marker, 'click');
-                }, 2000);
             });
         }
     });
@@ -128,67 +127,7 @@ function loadScript() {
     } else {
         var script = document.createElement('script');
         script.type = 'text/javascript';
-        script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=' + mPHeart.language.twoDig + '&' + 'callback=initialize';
-        document.body.appendChild(script);
-    }
-}
-jQuery(document).ready(function () {
-    "use strict";
-    var dataHighlights,
-        banner = jQuery('.profile_baner'),
-        mapsOptions = $('.mapsOptions '),
-        menu = jQuery('.objectsPageContent .objectMenu'),
-        menuAutoScroll = true,
-        headerHeight = jQuery('header').outerHeight(),
-        dataHighlightsOptions = jQuery('.dataHighlightsOptions'),
-        $showHideSide = $('.showHideSide'),
-        $objectSideInner = $('.objectSideInner');
-
-    if (banner.length > 0) {
-        banner.find('.bg img').css({'width': banner.outerWidth() + 'px', 'height': banner.outerHeight() + 'px'});
-
-        /*ASYNCHRONIZE ACTION FOR GOOGLE MAP*/
-        window.onload = loadScript();
-
-        mapsOptions.find('button').click(function () {
-            var that = $(this);
-
-            if (that.hasClass('active')) {
-                mapsOptions.find('.active').removeClass('active');
-
-                banner.removeClass('big');
-                banner.find('.bg').fadeIn();
-            } else if (that.hasClass('googleMap')) {
-                mapsOptions.find('.active').removeClass('active');
-
-                banner.addClass('big');
-                banner.find('#googleMap').show();
-                banner.find('#streetView').hide();
-                banner.find('.bg').fadeOut();
-
-                $(this).addClass('active');
-            } else if (that.hasClass('streetView')) {
-                mapsOptions.find('.active').removeClass('active');
-
-                banner.addClass('big');
-                banner.find('#googleMap').hide();
-                banner.find('#streetView').show();
-                banner.find('.bg').fadeOut();
-
-                $(this).addClass('active');
-            }
-        });
-    }
-});
-
-function loadScript() {
-    "use strict";
-    if ((typeof google !== "undefined") && google.maps) {
-        initialize();
-    } else {
-        var script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=' + mPHeart.language.twoDig + '&' + 'callback=initialize';
+        script.src = 'https://maps.googleapis.com/maps/api/js?sensor=false&language=' + mPHeart.language.twoDig + '&' + 'callback=initialize';
         document.body.appendChild(script);
     }
 }
@@ -196,42 +135,56 @@ function loadScript() {
 jQuery(document).ready(function () {
     "use strict";
     var banner = jQuery('.mp-adres'),
-        mapsOptions = $('.mapsOptions ');
+        mapsOptions = $('.mapsOptions '),
+        googleViewBtn = $('.googleViewBtn');
 
     if (banner.length > 0) {
         banner.find('.bg img').css({'width': banner.outerWidth() + 'px', 'height': banner.outerHeight() + 'px'});
 
-        /*ASYNCHRONIZE ACTION FOR GOOGLE MAP*/
-        window.onload = loadScript();
+        window.load = loadScript();
 
-        mapsOptions.find('button').click(function () {
-            var that = $(this);
+        $('.googleMapBtnModal').click(function (e) {
+            var self = $(this),
+                googleMapBtnModal = $('#googleMapBtnModal');
 
-            if (that.hasClass('active')) {
-                mapsOptions.find('.active').removeClass('active');
+            e.preventDefault;
 
-                banner.removeClass('big');
-                banner.find('.bg').fadeIn();
-            } else if (that.hasClass('googleMap')) {
-                mapsOptions.find('.active').removeClass('active');
+            googleMapBtnModal.on('shown.bs.modal', function () {
+                if (self.hasClass('reload')) {
+                    google.maps.event.trigger(googleMap, 'resize');
+                    google.maps.event.trigger(panorama, 'resize');
 
-                banner.addClass('big');
-                banner.find('#googleMap').show();
-                banner.find('#streetView').hide();
-                banner.find('.bg').fadeOut();
-
-                $(this).addClass('active');
-            } else if (that.hasClass('streetView')) {
-                mapsOptions.find('.active').removeClass('active');
-
-                banner.addClass('big');
-                banner.find('#googleMap').hide();
-                banner.find('#streetView').show();
-                banner.find('.bg').fadeOut();
-
-                $(this).addClass('active');
-            }
+                    //NEED TO WAIT A LITTLE UNTIL MAP IDLE AND CAN CENTER ON AUTO OPEN INFOWINDOW//
+                    google.maps.event.addListenerOnce(googleMap, 'idle', function () {
+                        setTimeout(function () {
+                            google.maps.event.trigger(marker, 'click');
+                        }, 2000);
+                    });
+                    self.removeClass('reload');
+                }
+            });
+            googleMapBtnModal.modal('show');
         });
+
+
+        googleViewBtn.find('.btn').click(function () {
+            var self = $(this);
+
+            if (!self.hasClass('.active')) {
+                if (self.hasClass('showGoogleMap')) {
+                    $('#streetView').animate({
+                        left: '-100%'
+                    });
+                    self.addClass('active');
+                    googleViewBtn.find('.showStreetView').removeClass('active')
+                } else {
+                    $('#streetView').animate({
+                        left: '0'
+                    });
+                    self.addClass('active');
+                    googleViewBtn.find('.showGoogleMap').removeClass('active')
+                }
+            }
+        })
     }
-    
 });
