@@ -12,17 +12,10 @@ $options = array(
 	
     <div class="blocks">
 		
-		<?
-			if( $adres = $object->getData('adres_str') ) {
-				$adres = str_ireplace('ul.', '<br/>ul.', $adres) . ', Polska';
-				echo $this->element('Dane.adres', array(
-					'adres' => $adres,
-				));
-			}
-		?>
+		
 						
         <? if (@$dataBrowser['aggs']['all']['prawo']['top']['hits']['hits']) { ?>
-            <div class="block block-default block-size-sm col-xs-12">
+            <div class="block block-simple block-size-sm col-xs-12">
                 <header>Najnowsze akty prawne:</header>
 
                 <section class="aggs-init">
@@ -53,7 +46,7 @@ $options = array(
 
 
         <? if (@$dataBrowser['aggs']['all']['prawo_urzedowe']['top']['hits']['hits']) { ?>
-            <div class="block block-default block-size-sm col-xs-12">
+            <div class="block block-simple block-size-sm col-xs-12">
                 <header>Najnowsze pozycje w dzienniku urzędowym:</header>
 
                 <section class="aggs-init">
@@ -84,7 +77,7 @@ $options = array(
 
 
         <? if (@$dataBrowser['aggs']['all']['zamowienia']['top']['hits']['hits']) { ?>
-            <div class="block block-default block-size-sm col-xs-12">
+            <div class="block block-simple block-size-sm col-xs-12">
                 <header>Zamówienia publiczne:</header>
 				<section>
 	                <?= $this->element('Dane.zamowienia_publiczne', array(
@@ -96,4 +89,28 @@ $options = array(
 
     </div>
 
+</div>
+<div class="col-md-3">
+	
+<?	
+	
+    $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
+    $this->Combinator->add_libs('js', 'Pisma.pisma-button');
+    echo $this->element('tools/pismo', array());
+
+    $page = $object->getLayer('page');
+    if (!$page['moderated'])
+        echo $this->element('tools/admin', array());
+	
+?>
+
+<?
+			if( $adres = $object->getData('adres_str') ) {
+				$adres = str_ireplace('ul.', '<br/>ul.', $adres) . ', Polska';
+				echo $this->element('Dane.adres', array(
+					'adres' => $adres,
+				));
+			}
+		?>
+	
 </div>
