@@ -100,7 +100,6 @@ $options = array(
     $page = $object->getLayer('page');
     if (!$page['moderated'])
         echo $this->element('tools/admin', array());
-
     ?>
 
     <?
