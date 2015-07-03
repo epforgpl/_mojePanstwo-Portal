@@ -3,7 +3,7 @@
 namespace MP\Lib;
 require_once('DocDataObject.php');
 
-class Zamowienia_publiczne_dokumenty extends DocDataObject
+class Zamowienia_publiczne_dokumenty extends DataObject
 {
 
     public $force_hl_fields = true;

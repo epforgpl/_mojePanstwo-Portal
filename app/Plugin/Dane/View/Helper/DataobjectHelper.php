@@ -64,14 +64,14 @@ class DataobjectHelper extends AppHelper
 
     public function render($object, $theme = 'default', $options = array())
     {
-
+			
         if (is_array($object)) {
 
             $dataset = $object['fields']['dataset'][0];
 
             $class = ucfirst($dataset);
             $file = APPLIBS . 'Dataobject/' . $class . '.php';
-
+						
             $object = array(
                 'dataset' => $object['fields']['dataset'][0],
                 'global_id' => $object['_id'],
@@ -79,6 +79,9 @@ class DataobjectHelper extends AppHelper
                 'data' => $object['fields']['source'][0]['data'],
                 'slug' => false,
             );
+			
+			debug($object);
+            debug($file); die();
 
             if (file_exists($file)) {
                 require_once($file);

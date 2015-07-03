@@ -103,6 +103,7 @@ class InstytucjeController extends DataobjectsController
                     ),
                 ),
             ),
+            /*
             'zamowienia' => array(
                 'filter' => array(
                     'bool' => array(
@@ -148,7 +149,8 @@ class InstytucjeController extends DataobjectsController
                     ),
                 ),
             ),
-            'dokumenty' => array(
+            */
+            'zamowienia_publiczne_dokumenty' => array(
                 'filter' => array(
                     'bool' => array(
                         'must' => array(
@@ -194,6 +196,34 @@ class InstytucjeController extends DataobjectsController
                     ),
                 ),
                 'aggs' => array(
+                    'dni' => array(
+						'date_histogram' => array(
+							'field' => 'date',
+							'interval' => 'day',
+						),
+						'aggs' => array(
+							'wykonawcy' => array(
+								'nested' => array(
+									'path' => 'zamowienia_publiczne-wykonawcy',
+								),
+								'aggs' => array(
+									'waluty' => array(
+										'terms' => array(
+											'field' => 'zamowienia_publiczne-wykonawcy.waluta',
+										),
+										'aggs' => array(
+											'suma' => array(
+												'sum' => array(
+													'field' => 'zamowienia_publiczne-wykonawcy.cena',
+												),
+											),
+										),
+									),
+								),
+							),
+						),
+					),
+                    /*
                     'wykonawcy' => array(
                         'nested' => array(
                             'path' => 'zamowienia_publiczne-wykonawcy',
@@ -241,6 +271,7 @@ class InstytucjeController extends DataobjectsController
                             ),
                         ),
                     ),
+                    */
                 ),
             ),
         );

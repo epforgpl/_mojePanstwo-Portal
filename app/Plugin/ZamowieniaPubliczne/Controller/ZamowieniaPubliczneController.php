@@ -4,7 +4,10 @@ App::uses('ApplicationsController', 'Controller');
 
 class ZamowieniaPubliczneController extends ApplicationsController
 {
-
+	
+	public $components = array('RequestHandler');
+	public $helpers = array('Dane.Dataobject');
+	
     public $settings = array(
         'id' => 'zamowienia_publiczne',
         'menu' => array(
@@ -163,6 +166,28 @@ class ZamowieniaPubliczneController extends ApplicationsController
     {
         $this->title = 'Dotacje unijne - Zamówienia publiczne';
         $this->loadDatasetBrowser('dotacje_ue');
+    }
+    
+    public function aggs()
+    {
+	    
+	    $data = $this->ZamowieniaPubliczne->getDataSource()->request('zamowieniapubliczne/aggs', array(
+		    'method' => 'GET',
+		    'data' => $this->request->query,
+	    ));
+	    $this->set('data', $data);
+	    
+	    if( @$this->request->params['ext']=='html' ) {
+		    
+		    $this->layout = false;
+		    $this->view = 'aggs-html';
+		    
+	    } else {
+	    	    	    	    
+	        $this->set('_serialize', 'data');
+        
+        }
+	    
     }
 
 } 

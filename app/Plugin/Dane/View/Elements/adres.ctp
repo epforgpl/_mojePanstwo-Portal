@@ -8,7 +8,7 @@
         <header>
             <div class="sm">Adres</div>
             <div class="mapsOptions pull-right">
-                <button type="button" class="btn btn-primary btn-sm googleMapBtnModal reload">Otwórz mapę</button>
+                <button type="button" class="btn btn-default btn-sm googleMapBtnModal reload">Otwórz mapę</button>
             </div>
         </header>
 
