@@ -15,9 +15,12 @@
         <section class="mp-adres nopadding" data-adres="<?= urlencode($adres) ?>">
             <div class="bg">
                 <script>
-                    var el = document.getElementsByClassName("bg")[0],
+                    var tmp = document.createElement("div"),
+                        el = document.getElementsByClassName("bg")[0],
                         size = el.offsetWidth;
-                    document.write('<img class="googleMapImage" src="https://maps.googleapis.com/maps/api/staticmap?center=<?= urlencode($adres) ?>&markers=<?= urlencode($adres) ?>&zoom=15&sensor=false&scale=2&feature:road&size=' + size + 'x180" />')
+                    tmp.innerHTML = "<?= $adres ?>";
+                    var adres = (tmp.textContent || tmp.innerText || "").replace(/ /g, '+');
+                    document.write('<img class="googleMapImage" src="https://maps.googleapis.com/maps/api/staticmap?center' + adres + '&markers=' + adres + '&zoom=15&sensor=false&scale=2&feature:road&size=' + size + 'x180" />')
                 </script>
 
                 <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"
