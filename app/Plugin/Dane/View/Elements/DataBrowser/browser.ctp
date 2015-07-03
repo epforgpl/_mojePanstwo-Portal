@@ -15,10 +15,15 @@ $displayAggs = isset($displayAggs) ? (boolean)$displayAggs : true;
                     <h4 class="modal-title"><span class="glyphicon glyphicon-cog"></span> REST API</h4>
                 </div>
                 <div class="modal-body">
+                    
+                    <? if( isset($dataBrowser['api_call']) ) {?>
+                    
                     <p>Aby pobrać dane widoczne na tym ekranie, wyślij żądanie HTTP GET pod adres:</p>
 
                     <a class="modal-api-call-link" target="_blank"
                        href="<?= $dataBrowser['api_call'] ?>"><?= htmlspecialchars($dataBrowser['api_call']) ?></a>
+                       
+                    <? } ?>
 
                 </div>
                 <div class="modal-footer">

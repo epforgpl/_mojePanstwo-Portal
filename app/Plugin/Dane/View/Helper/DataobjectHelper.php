@@ -80,9 +80,6 @@ class DataobjectHelper extends AppHelper
                 'slug' => false,
             );
 			
-			debug($object);
-            debug($file); die();
-
             if (file_exists($file)) {
                 require_once($file);
                 $class = 'MP\\Lib\\' . $class;

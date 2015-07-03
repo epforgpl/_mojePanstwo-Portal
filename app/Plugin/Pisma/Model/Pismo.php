@@ -123,5 +123,11 @@ class Pismo extends AppModel
     {
         return $this->getDataSource()->request('pisma/templates/' . $id);
     }
+    
+    public function templates_index($params){
+	    return $this->getDataSource()->request('pisma/templates', array(
+		    'data' => $params,
+	    ));
+    }
 
 }
