@@ -14,10 +14,11 @@
 
         <section class="mp-adres nopadding" data-adres="<?= urlencode($adres) ?>">
             <div class="bg">
-                <img class="googleMapImage"
-                     src=""/>
-                <img class="streetViewImage"
-                     src=""/>
+                <script>
+                    var el = document.getElementsByClassName("bg")[0],
+                        size = el.offsetWidth;
+                    document.write('<img class="googleMapImage" src="https://maps.googleapis.com/maps/api/staticmap?center=<?= urlencode($adres) ?>&markers=<?= urlencode($adres) ?>&zoom=15&sensor=false&scale=2&feature:road&size=' + size + 'x180" />')
+                </script>
 
                 <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"
                      class="content">
