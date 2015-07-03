@@ -11,39 +11,35 @@ $(document).ready(function () {
         form;
 
     function szablonList(data) {
-        var list = $('<div></div>').addClass('list');
+        var list = $('<div></div>').addClass('list listBlock').append(
+            $('<ul></ul>').addClass('ul-raw')
+        );
 
         $.each(data, function (key, value) {
-            var listBlock = $('<div></div>').addClass('listBlock').append(
-                $('<h4></h4>').text(value.nazwa)
-            ).append(
-                $('<ul></ul>').addClass('ul-raw')
-            );
-            $.each(value.templates, function (name, obj) {
-                listBlock.find('ul.ul-raw').append(
-                    $('<li></li>').append(
-                        $('<a></a>').attr({
-                            'data-szablonId': obj.id,
-                            'href': '#' + value.nazwa + '-' + obj.nazwa
-                        }).append(
-                            $('<span></span>').text(obj.nazwa)
-                        ).append(
-                            $('<p></p>').text(obj.opis)
-                        )
-                    )
-                );
-            });
-            list.append(listBlock);
-            list.find('ul.ul-raw li a').click(function (e) {
-                e.preventDefault();
-                pismoModal
-                    .find('ul.ul-raw li.active').removeClass('active')
-                    .end()
-                    .find('.modal-footer .btn-primary.disabled').removeClass('disabled');
-                $(this).parent('li').addClass('active');
+            var obj = value.Template;
 
-                szablonChosen(pismoModal.find('ul.ul-raw li.active a >span').text(), pismoModal.find('ul.ul-raw li.active a').attr('data-szablonid'));
-            });
+            list.find('ul.ul-raw').append(
+                $('<li></li>').append(
+                    $('<a></a>').attr({
+                        'data-szablonId': obj.id,
+                        'href': '#' + obj.nazwa.replace(/ /g, '_')
+                    }).append(
+                        $('<span></span>').text(obj.nazwa)
+                    ).append(
+                        $('<p></p>').text(obj.opis)
+                    )
+                )
+            );
+        });
+        list.find('ul.ul-raw li a').click(function (e) {
+            e.preventDefault();
+            pismoModal
+                .find('ul.ul-raw li.active').removeClass('active')
+                .end()
+                .find('.modal-footer .btn-primary.disabled').removeClass('disabled');
+            $(this).parent('li').addClass('active');
+
+            szablonChosen(pismoModal.find('ul.ul-raw li.active a >span').text(), pismoModal.find('ul.ul-raw li.active a').attr('data-szablonid'));
         });
         pismoModal.find('.modal-body').html(list);
     }
@@ -143,8 +139,8 @@ $(document).ready(function () {
             e.preventDefault();
 
             if (pismoModal.data('cache') === undefined) {
-                var adresat_id = (pismoBtn.data('adresatid') !== undefined) ? '?adresat_id=' + pismoBtn.data('adresatid') : '';
-                $.get('http://mojepanstwo.pl:4444/pisma/templates/grouped.json' + adresat_id, function (data) {
+                var adresat_id = (pismoBtn.data('adresatid') !== undefined) ? '?adresat=instytucje:' + pismoBtn.data('adresatid') : '';
+                $.get('/pisma/szablony/index.json' + adresat_id, function (data) {
                     pismoModal.data('cache', data);
                     szablonList(data);
                 });
