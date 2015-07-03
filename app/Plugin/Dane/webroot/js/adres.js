@@ -83,12 +83,6 @@ function initialize() {
                 visible: true
             };
 
-        var boxBlock = $('.mp-adres'),
-            box = boxBlock.find('.bg');
-
-        $('.googleMapImage').attr('src', 'https://maps.googleapis.com/maps/api/staticmap?center=' + boxBlock.attr('data-adres') + '&markers=' + boxBlock.attr('data-adres') + '&zoom=15&sensor=false&scale=2&feature:road&size=' + Math.ceil(box.outerWidth()) + 'x' + Math.ceil(box.outerHeight() / 2));
-        $('.streetViewImage').attr('src', 'https://maps.googleapis.com/maps/api/streetview?location=' + addLatLng.toUrlValue() + '&fov=90&heading=' + angle + '&pitch=10&size=' + Math.ceil(box.outerWidth()) + 'x' + Math.ceil(box.outerHeight() / 2));
-
         panorama.setOptions(panoOptions);
     }
 

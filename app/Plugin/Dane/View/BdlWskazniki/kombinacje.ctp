@@ -14,7 +14,19 @@
 )); ?>
 
     <div id="bdl-wskazniki">
-        
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="bdlTreeDropdownMenu"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                BDL (wg kategorii)
+                <span class="caret"></span>
+            </button>
+            <?
+            $this->Combinator->add_libs('js', 'Bdl.jstree.min');
+            $this->Combinator->add_libs('js', 'Bdl.bdl');
+            ?>
+            <div id="tree" class="dropdown-menu" aria-labelledby="bdlTreeDropdownMenu"
+                <?= printf('data-structure="%s"', htmlspecialchars(json_encode($tree), ENT_QUOTES, 'UTF-8')) ?>></div>
+        </div>
         
         <div class="object">
             <?  if (isset($combination)) {

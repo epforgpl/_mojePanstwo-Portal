@@ -1,18 +1,14 @@
 #uprawnieniaModal {
   .modal-header {
-    height: 153px;
     position: relative;
     border-bottom: none;
-
-    background: url(/ngo/img/sidebar_background.jpg) top center no-repeat;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -ms-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+    width: 100%;
+    display: inline-block;
+    margin-top: 20px;
+    padding-bottom: 0;
 
     .close, h4 {
-      color: #ffffff;
+      color: #222222;
     }
     .close {
       -webkit-opacity: 1;
@@ -24,11 +20,7 @@
     h4 {
       font-family: 'Roboto', sans-serif;
       font-size: 24px;
-      font-weight: bold;
       line-height: 1.2em;
-      position: absolute;
-      bottom: 15px;
-      left: 15px;
     }
   }
   .modal-body {
@@ -38,28 +30,43 @@
       color: #222222;
       padding: 5px 15px;
     }
-    > form {
-      padding: 10px;
+    .form-group {
+      margin-left: 0;
+      margin-right: 0;
+      padding-left: 10px;
+      padding-right: 10px;
 
-      .form-group {
-        &:last-child {
-          margin-bottom: 0;
-        }
-        > label {
-          font-size: 14px;
-          font-weight: normal;
-          color: #9a9a9a;
-          line-height: 1em;
-          margin-bottom: 10px;
-        }
+      &:last-child {
+        margin-bottom: 0;
       }
-      .btn-icon {
-        width: auto;
-        margin-left: auto;
-        margin-right: auto;
-        display: block;
-        margin-top: 15px;
+      > label {
+        font-size: 14px;
+        font-weight: normal;
+        color: #9a9a9a;
+        line-height: 1em;
+        margin-bottom: 10px;
       }
+    }
+  }
+  .modal-footer {
+    margin-top: 10px;
+    text-align: center;
+
+    &.backgroundBlue {
+      padding: 15px 10px;
+      background-color: #428BCA;
+
+      a {
+        color: #ffffff;
+      }
+    }
+
+    .btn-icon {
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      margin-top: 15px;
     }
   }
 }

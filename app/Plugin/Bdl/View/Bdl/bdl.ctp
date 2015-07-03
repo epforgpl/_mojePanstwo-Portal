@@ -8,5 +8,6 @@ $this->Combinator->add_libs('js', 'Bdl.bdl');
 
 
 <div class="container">
-    <div id="tree" data-structure='<?= json_encode($tree) ?>'></div>
+    <div
+        id="tree" <?= printf('data-structure="%s"', htmlspecialchars(json_encode($tree), ENT_QUOTES, 'UTF-8')) ?>></div>
 </div>

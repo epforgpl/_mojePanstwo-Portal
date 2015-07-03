@@ -2,19 +2,19 @@
 jQuery(document).ready(function () {
     var main = jQuery('#bdl-wskazniki'),
         wskazniki = main.find('.wskaznik');
-			
+
     wskazniki.each(function (index) {
-                
+
         var el = $(this),
             data = el.data('years'),
             id = el.data('dim_id');
-        
-        if( data ) {
-            
+
+        if (data) {
+
             var chart_div = el.find('.chart'),
                 label = [],
                 value = [];
-			
+
             jQuery.each(data, function () {
                 label.push(this[0]);
                 value.push(Number(this[1]));
@@ -50,8 +50,21 @@ jQuery(document).ready(function () {
                     }
                 ]
             });
-	        
+
         }
-        
+
+    });
+
+    $('.dropdown').on({
+        "click": function (e) {
+            if ($(e.target).hasClass('btn')) {
+                this.closable = true;
+            } else {
+                this.closable = false;
+            }
+        },
+        "hide.bs.dropdown": function () {
+            return this.closable;
+        }
     });
 });
