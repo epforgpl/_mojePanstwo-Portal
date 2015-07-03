@@ -54,17 +54,4 @@ jQuery(document).ready(function () {
         }
 
     });
-
-    $('.dropdown').on({
-        "click": function (e) {
-            if ($(e.target).hasClass('btn')) {
-                this.closable = true;
-            } else {
-                this.closable = false;
-            }
-        },
-        "hide.bs.dropdown": function () {
-            return this.closable;
-        }
-    });
 });
