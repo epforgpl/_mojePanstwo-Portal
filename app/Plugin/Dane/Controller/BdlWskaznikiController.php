@@ -256,8 +256,17 @@ class BdlWskaznikiController extends DataobjectsController
 	            'href' => '/bdl/#kategoria_id=' . $this->object->getData('bdl_wskazniki.kategoria_id') . '&grupa_id=' . $this->object->getData('bdl_wskazniki.grupa_id'),
 	            'label' => '<span class="normalizeText">' . $this->object->getData('bdl_wskazniki.grupa_tytul') . '</span>',
 	        ));
-        
-        }   
+
+        }
+
+        $tree = Cache::read('BDL.tree', 'long');
+        if (!$tree) {
+            $this->loadModel('Bdl.BDL');
+            $tree = $this->BDL->getTree();
+            Cache::write('BDL.tree', $tree, 'long');
+        }
+
+        $this->set('tree', $tree);
     }    
 
 } 
