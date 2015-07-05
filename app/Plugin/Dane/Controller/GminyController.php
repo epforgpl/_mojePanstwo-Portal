@@ -196,19 +196,8 @@ class GminyController extends DataobjectsController
                         ),
                     ),
                 ),
-                'aggs' => array(
-                    'top' => array(
-                        'top_hits' => array(
-                            'size' => 3,
-                            'fielddata_fields' => array('dataset', 'id'),
-                            'sort' => array(
-                                'date' => 'desc',
-                            ),
-                        ),
-                    ),
-                ),
             ),
-            'dokumenty' => array(
+            'zamowienia_publiczne_dokumenty' => array(
                 'filter' => array(
                     'bool' => array(
                         'must' => array(
@@ -238,53 +227,33 @@ class GminyController extends DataobjectsController
                     ),
                 ),
                 'aggs' => array(
-                    'wykonawcy' => array(
-                        'nested' => array(
-                            'path' => 'zamowienia_publiczne-wykonawcy',
-                        ),
-                        'aggs' => array(
-                            'id' => array(
-                                'terms' => array(
-                                    'field' => 'zamowienia_publiczne-wykonawcy.id',
-                                    'order' => array(
-                                        'cena' => 'desc',
-                                    ),
-                                    'size' => 3,
-                                ),
-                                'aggs' => array(
-                                    'nazwa' => array(
-                                        'terms' => array(
-                                            'field' => 'zamowienia_publiczne-wykonawcy.nazwa',
-                                        ),
-                                    ),
-                                    'miejscowosc' => array(
-                                        'terms' => array(
-                                            'field' => 'zamowienia_publiczne-wykonawcy.miejscowosc',
-                                        ),
-                                    ),
-                                    'cena' => array(
-                                        'sum' => array(
-                                            'field' => 'zamowienia_publiczne-wykonawcy.cena',
-                                        ),
-                                    ),
-                                    'dokumenty' => array(
-                                        'reverse_nested' => '_empty',
-                                        'aggs' => array(
-                                            'top' => array(
-                                                'top_hits' => array(
-                                                    'size' => 3,
-                                                    'fielddata_fields' => array('dataset', 'id'),
-                                                    'sort' => array(
-                                                        'zamowienia_publiczne-wykonawcy.cena' => 'desc',
-                                                    ),
-                                                ),
-                                            ),
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
+                    'dni' => array(
+						'date_histogram' => array(
+							'field' => 'date',
+							'interval' => 'day',
+						),
+						'aggs' => array(
+							'wykonawcy' => array(
+								'nested' => array(
+									'path' => 'zamowienia_publiczne-wykonawcy',
+								),
+								'aggs' => array(
+									'waluty' => array(
+										'terms' => array(
+											'field' => 'zamowienia_publiczne-wykonawcy.waluta',
+										),
+										'aggs' => array(
+											'suma' => array(
+												'sum' => array(
+													'field' => 'zamowienia_publiczne-wykonawcy.cena',
+												),
+											),
+										),
+									),
+								),
+							),
+						),
+					),
                 ),
             ),
             'krs_podmioty' => array(

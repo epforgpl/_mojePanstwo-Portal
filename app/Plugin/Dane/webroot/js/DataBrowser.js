@@ -579,6 +579,8 @@ var DataBrowser = Class.extend({
         var data = $.parseJSON(li.attr('data-chart'));
         var choose_request = li.attr('data-choose-request');
         var counter_field = li.attr('data-counter_field');
+        if( !counter_field )
+        	counter_field = 'doc_count';
         
         var columns_horizontal_data = [];
         var columns_horizontal_categories = [];

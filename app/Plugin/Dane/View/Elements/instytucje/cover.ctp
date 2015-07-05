@@ -32,7 +32,7 @@ $options = array(
                                     <? } ?>
                                 </ul>
                                 <div class="buttons">
-                                    <a href="#" class="btn btn-primary btn-xs">Zobacz więcej</a>
+                                    <a href="<?= $object->getUrl() ?>/prawo" class="btn btn-primary btn-xs">Zobacz więcej</a>
                                 </div>
                             <? } ?>
 
@@ -48,10 +48,14 @@ $options = array(
                 <header>Rozstrzygnięcia zamówień publicznych:</header>
                 <section>
                     <?= $this->element('Dane.zamowienia_publiczne', array(
-                        'url' => $object->getUrl() . '/mp_zamowienia.json',
                         'histogram' => $dataBrowser['aggs']['all']['zamowienia_publiczne_dokumenty']['dni']['buckets'],
                         'request' => array(
 	                        'instytucja_id' => $object->getId(),
+                        ),
+                        'more' => $object->getUrl() . '/zamowienia',
+                        'aggs' => array(
+                        	'stats' => array(), 
+                        	'dokumenty' => array(), 
                         ),
                     )); ?>
                 </section>

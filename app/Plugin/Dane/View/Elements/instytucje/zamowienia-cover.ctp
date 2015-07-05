@@ -1,3 +1,13 @@
+<?
+
+$this->Combinator->add_libs('css', $this->Less->css('zamowienia', array('plugin' => 'ZamowieniaPubliczne')));
+$this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
+
+$options = array(
+    'mode' => 'init',
+);
+
+?>
 <div class="col-md-12">
 
     <div class="blocks">        
@@ -8,15 +18,17 @@
                 <section>
                     <?= $this->element('Dane.zamowienia_publiczne', array(
                         'histogram' => $dataBrowser['aggs']['all']['zamowienia_publiczne_dokumenty']['dni']['buckets'],
-                        'request' => array(),
+                        'request' => array(
+	                        'instytucja_id' => $object->getId(),
+                        ),
                         'more' => array(
-                        	'url' => '/zamowienia_publiczne/rozstrzygniete',
+                        	'url' => $object->getUrl() . '/zamowienia_rozstrzygniete',
                         	'convert' => true,
                         ),
                         'aggs' => array(
                         	'stats' => array(), 
                         	'dokumenty' => array(
-	                        	'size' => 10,
+	                        	'size' => 5,
                         	), 
                         	'wykonawcy' => array(),
                         ),

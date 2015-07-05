@@ -66,20 +66,22 @@ class DataobjectHelper extends AppHelper
     {
 			
         if (is_array($object)) {
-
+		
             $dataset = $object['fields']['dataset'][0];
 
             $class = ucfirst($dataset);
             $file = APPLIBS . 'Dataobject/' . $class . '.php';
-						
+									
             $object = array(
                 'dataset' => $object['fields']['dataset'][0],
                 'global_id' => $object['_id'],
                 'id' => $object['fields']['id'][0],
-                'data' => $object['fields']['source'][0]['data'],
+                'data' => isset($object['_source']) ? $object['_source']['data'] : $object['fields']['source'][0]['data'],
+                'static' => isset($object['_source']['static']) ? $object['_source']['static'] : false,
                 'slug' => false,
             );
-			
+            
+			require_once( APPLIBS . 'Dataobject.php' );
             if (file_exists($file)) {
                 require_once($file);
                 $class = 'MP\\Lib\\' . $class;

@@ -6,7 +6,7 @@
     ?>
     <div class="block block-default col-xs-12 adres">
         <header>
-            <div class="sm">Adres</div>
+            <div class="sm"><?= isset($label) ? $label : 'Adres' ?></div>
             <div class="mapsOptions pull-right">
                 <button type="button" class="btn btn-default btn-sm googleMapBtnModal reload">Otwórz mapę</button>
             </div>

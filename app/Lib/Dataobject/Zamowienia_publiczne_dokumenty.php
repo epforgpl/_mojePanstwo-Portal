@@ -112,9 +112,9 @@ class Zamowienia_publiczne_dokumenty extends DataObject
             $this->getData('child') &&
             $this->getData('parent_id')
         )
-            $parent_id = $this->getData('parent_id');
-
-        return '/dane/zamowienia_publiczne/' . $parent_id;
+        	return '/dane/zamowienia_publiczne/' . $this->getData('parent_id') . '/dokumenty/' . $this->getId();
+        else
+        	return '/dane/zamowienia_publiczne/' . $this->getId();
 
     }
 

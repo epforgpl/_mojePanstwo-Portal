@@ -2,7 +2,7 @@
 
 <div class="banner uprawnienia block">
     <?php echo $this->Html->image('Dane.banners/zarzadzanie.svg', array('width' => '69', 'alt' => 'Poproś o uprawnienia', 'class' => 'pull-right')); ?>
-    <p><strong>Zarządzaj profilem</strong> tej organizacji</p>
+    <p><?= isset($label) ? $label : '<strong>Zarządzaj profilem</strong> tej organizacji' ?></p>
 
     <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#uprawnieniaModal">Poproś o uprawnienia</button>
 </div>

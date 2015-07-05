@@ -161,6 +161,20 @@ class DataBrowserComponent extends Component
             ),
             */
         ),
+        'zamowienia_publiczne_dokumenty' => array(
+	        'date' => array(
+                'date_histogram' => array(
+                    'field' => 'date',
+                    'interval' => 'year',
+                    'format' => 'yyyy-MM-dd',
+                ),
+                'visual' => array(
+                    'label' => 'Liczba rozstrzygnięć w czasie',
+                    'skin' => 'date_histogram',
+                    'field' => 'date'
+                ),
+            ),
+        ),
         'rady_druki' => array(
             'autor_id' => array(
                 'terms' => array(
@@ -826,7 +840,7 @@ class DataBrowserComponent extends Component
 
     public function __construct($collection, $settings)
     {
-
+				
         if (
             (
                 !isset($settings['aggs']) ||

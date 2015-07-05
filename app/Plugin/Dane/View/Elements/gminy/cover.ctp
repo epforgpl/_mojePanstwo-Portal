@@ -1,8 +1,8 @@
 <?
 
 $this->Combinator->add_libs('css', $this->Less->css('zamowienia', array('plugin' => 'ZamowieniaPubliczne')));
-$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
-$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+// $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
+// $this->Combinator->add_libs('js', '../plugins/highcharts/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
 $options = array(
@@ -10,7 +10,7 @@ $options = array(
 );
 ?>
 
-<div class="col-md-8">
+<div class="col-md-9">
     <? if (isset($_submenu) && !empty($_submenu)) { ?>
         <div class="menuTabsCont col-xs-8">
             <?
@@ -40,6 +40,9 @@ $options = array(
                                     </li>
                                 <? } ?>
                             </ul>
+                            <div class="buttons">
+                                <a href="<?= $object->getUrl() ?>/druki" class="btn btn-primary btn-xs">Zobacz więcej</a>
+                            </div>
                         <? } ?>
 
                     </div>
@@ -119,7 +122,7 @@ $options = array(
 
     <? } else { ?>
 
-        <div class="block block-simple col-xs-12">
+        <div class="block block-simple block-size-sm col-xs-12">
             <header>Najnowsze prawo lokalne</header>
 
             <section class="aggs-init">
@@ -135,120 +138,36 @@ $options = array(
                                     </li>
                                 <? } ?>
                             </ul>
+                            <div class="buttons btn-sm text-center">
+		                        <a href="<?= $object->getUrl() ?>/prawo" class="btn btn-primary btn-sm">Zobacz więcej</a>
+		                    </div>
                         <? } ?>
 
                     </div>
                 </div>
             </section>
-            <? if ($dataBrowser['aggs']['all']['prawo']['top']['hits']['hits']) { ?>
-                <footer>
-                    <div class="buttons text-center">
-                        <a href="<?= $object->getUrl() ?>/prawo" class="btn btn-primary btn-sm">Zobacz więcej</a>
-                    </div>
-                </footer>
-            <? } ?>
         </div>
+        
+        <? if (@$dataBrowser['aggs']['all']['zamowienia_publiczne_dokumenty']['dni']['buckets']) { ?>
+            <div class="block block-simple block-size-sm col-xs-12">
+                <header>Rozstrzygnięcia zamówień publicznych:</header>
+                <section>
+                    <?= $this->element('Dane.zamowienia_publiczne', array(
+                        'histogram' => $dataBrowser['aggs']['all']['zamowienia_publiczne_dokumenty']['dni']['buckets'],
+                        'request' => array(
+	                        'gmina_id' => $object->getId(),
+                        ),
+                        'more' => $object->getUrl() . '/zamowienia',
+                        'aggs' => array(
+                        	'stats' => array(), 
+                        	'dokumenty' => array(), 
+                        ),
+                    )); ?>
+                </section>
+            </div>
+        <? } ?>
 
     <? } ?>
-
-    <div class="block block-simple col-xs-12">
-        <header>Najnowsze zamówienia publiczne</header>
-
-        <section class="aggs-init">
-            <div class="dataAggs">
-                <div class="agg agg-Dataobjects">
-                    <? if ($dataBrowser['aggs']['all']['zamowienia']['top']['hits']['hits']) { ?>
-                        <ul class="dataobjects">
-                            <? foreach ($dataBrowser['aggs']['all']['zamowienia']['top']['hits']['hits'] as $doc) { ?>
-                                <li>
-                                    <?
-                                    echo $this->Dataobject->render($doc, 'default');
-                                    ?>
-                                </li>
-                            <? } ?>
-                        </ul>
-                    <? } ?>
-                </div>
-            </div>
-        </section>
-        <? if ($dataBrowser['aggs']['all']['zamowienia']['top']['hits']['hits']) { ?>
-            <footer>
-                <div class="buttons text-center">
-                    <a href="<?= $object->getUrl() ?>/zamowienia" class="btn btn-primary btn-sm">Zobacz
-                        więcej</a>
-                </div>
-            </footer>
-        <? } ?>
-    </div>
-
-    <div class="block block-simple col-xs-12">
-        <header>Najwięcej zamówień publicznych otrzymali</header>
-
-        <section class="aggs-init">
-            <div class="dataAggs">
-                <div class="agg agg-Dataobjects">
-
-                    <ul class="wykonawcy">
-                        <?
-                        foreach ($dataBrowser['aggs']['all']['dokumenty']['wykonawcy']['id']['buckets'] as $doc) {
-                            $wykonawca = array(
-                                'id' => $doc['key'],
-                                'nazwa' => $doc['nazwa']['buckets'][0]['key'],
-                                'cena' => $doc['cena']['value'],
-                            );
-                            ?>
-                            <li>
-
-                                <h2 class="smaller">
-                                    <a class="nazwa pull-left"
-                                       href="#"><?= $this->Text->truncate($wykonawca['nazwa'], 70) ?></a>
-                                    <span class="cena pull-right"><?= number_format_h($wykonawca['cena']) ?> PLN</span>
-                                </h2>
-
-                                <p class="stats"><?= pl_dopelniacz($doc['dokumenty']['doc_count'], 'zamówienie', 'zamówienia', 'zamówień') ?></p>
-
-                                <div style="display: none;">
-                                    <ul class="dataobjects smaller">
-                                        <?
-                                        foreach ($doc['dokumenty']['top']['hits']['hits'] as $hit) {
-
-                                            $czesc = false;
-
-                                            if (
-                                                isset($hit['fields']['source'][0]['static']['wykonawcy']) &&
-                                                $hit['fields']['source'][0]['static']['wykonawcy']
-                                            ) {
-                                                foreach ($hit['fields']['source'][0]['static']['wykonawcy'] as $w)
-                                                    if ($w['id'] == $wykonawca['id'])
-                                                        $czesc = $w;
-                                            }
-
-                                            echo $this->Dataobject->render($hit, 'zamowienia_publiczne_dokumenty', array(
-                                                'czesc' => $czesc,
-                                            ));
-                                        }
-                                        ?>
-                                    </ul>
-
-                                    <? if ($doc['dokumenty']['doc_count'] > 5) { ?>
-                                        <div class="buttons">
-                                            <a href="#" class="btn btn-primary btn-sm">Więcej</a>
-                                        </div>
-                                    <? } ?>
-                                </div>
-
-                            </li>
-                        <? } ?>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <footer>
-            <div class="buttons text-center">
-                <a href="<?= $object->getUrl() ?>/zamowienia" class="btn btn-primary btn-sm">Zobacz więcej</a>
-            </div>
-        </footer>
-    </div>
 
     <div class="block block-simple col-xs-12">
         <header>Typy zarejestrowanych organizacji<? if ($object->getId() == 903) { ?> w Krakowie<? } ?></header>
@@ -293,10 +212,35 @@ $options = array(
         </section>
     </div>
 
-
 </div>
-<div class="col-md-4 sidebar">
+<div class="col-md-3 sidebar">
+	
+    <?
+	    
+    if ($adres = $object->getData('adres')) {
+        $adres = $adres . ', Polska';
+        echo $this->element('Dane.adres', array(
+            'adres' => $adres,
+            'label' => 'Urząd gminy',
+        ));
+    }
+    
+    $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
 
+    $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
+    $this->Combinator->add_libs('js', 'Pisma.pisma-button');
+    echo $this->element('tools/pismo', array(
+	    'label' => '<strong>Wyślij pismo</strong> do tej gminy',
+    ));
+
+    $page = $object->getLayer('page');
+    if (!$page['moderated'])
+        echo $this->element('tools/admin', array(
+	        'label' => '<strong>Zarządzaj profilem</strong> tej gminy',
+        ));
+    ?>
+
+	
     <? if ($object->getId() == 903) { ?>
 
         <div class="block block-default col-md-12">

@@ -31,10 +31,10 @@ $this->Dataobject->setObject($object);
     <div class="row">
 
         <div class="data col-xs-12">
-
-            <? if ($sentence = $object->getSentence()) { ?>
+			
+            <? /* if ($sentence = $object->getSentence()) { ?>
                 <p class="sentence"><?= $sentence ?></p>
-            <? } ?>
+            <? } */ ?>
 
             <div>
 
