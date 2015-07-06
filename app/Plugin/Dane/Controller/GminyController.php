@@ -594,7 +594,52 @@ class GminyController extends DataobjectsController
 
     public function _prepareView()
     {
-
+		
+		if( $this->request->action != 'view' )
+			$this->addInitAggs(array(
+	            'all' => array(
+	                'global' => '_empty',
+	                'aggs' => array(
+	                    'zamowienia' => array(
+			                'filter' => array(
+			                    'bool' => array(
+			                        'must' => array(
+			                            array(
+			                                'term' => array(
+			                                    'dataset' => 'zamowienia_publiczne',
+			                                ),
+			                            ),
+			                            array(
+			                                'term' => array(
+			                                    'data.zamowienia_publiczne.gmina_id' => $this->request->params['id'],
+			                                ),
+			                            ),
+			                        ),
+			                    ),
+			                ),
+			            ),
+			            'prawo' => array(
+				            'filter' => array(
+			                    'bool' => array(
+			                        'must' => array(
+			                            array(
+			                                'term' => array(
+			                                    'dataset' => 'prawo_wojewodztwa',
+			                                ),
+			                            ),
+			                            array(
+			                                'term' => array(
+			                                    'data.prawo_wojewodztwa.gmina_id' => $this->request->params['id'],
+			                                ),
+			                            ),
+			                        ),
+			                    ),
+			                ),
+			            ),
+	                ),
+	            ),
+	        ));
+		
         if ($this->params->id == 903)
             $this->addInitLayers(array('dzielnice'));
 
@@ -2717,17 +2762,116 @@ class GminyController extends DataobjectsController
     {
 
         $this->_prepareView();
-        $this->Components->load('Dane.DataBrowser', array(
+        
+        $global_aggs = array(
+            'zamowienia_publiczne_dokumenty' => array(
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'zamowienia_publiczne_dokumenty',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+                                    'data.zamowienia_publiczne_dokumenty.typ_id' => '3',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+                                    'data.zamowienia_publiczne_dokumenty.gmina_id' => $this->request->params['id'],
+                                ),
+                            ),
+                            array(
+                                'range' => array(
+                                    'date' => array(
+                                        'gt' => 'now-1y'
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'aggs' => array(
+                    'dni' => array(
+						'date_histogram' => array(
+							'field' => 'date',
+							'interval' => 'day',
+						),
+						'aggs' => array(
+							'wykonawcy' => array(
+								'nested' => array(
+									'path' => 'zamowienia_publiczne-wykonawcy',
+								),
+								'aggs' => array(
+									'waluty' => array(
+										'terms' => array(
+											'field' => 'zamowienia_publiczne-wykonawcy.waluta',
+										),
+										'aggs' => array(
+											'suma' => array(
+												'sum' => array(
+													'field' => 'zamowienia_publiczne-wykonawcy.cena',
+												),
+											),
+										),
+									),
+								),
+							),
+						),
+					),
+                ),
+            ),
+        );
+
+
+        $options = array(
+            'searchTitle' => 'Szukaj w zamówieniach publicznych...',
             'conditions' => array(
                 'dataset' => 'zamowienia_publiczne',
                 'zamowienia_publiczne.gmina_id' => $this->object->getId(),
+	            'aggsPreset' => 'zamowienia_publiczne',
+           ),
+            'cover' => array(
+                'view' => array(
+                    'plugin' => 'Dane',
+                    'element' => 'gminy/zamowienia-cover',
+                ),
+                'aggs' => array(
+                    'all' => array(
+                        'global' => '_empty',
+                        'aggs' => $global_aggs,
+                    ),
+                ),
             ),
-            'aggsPreset' => 'zamowienia_publiczne',
-        ));
+            
+        );
 
+        $this->Components->load('Dane.DataBrowser', $options);
+        
         $this->set('title_for_layout', 'Zamówienia publiczne w gminie ' . $this->object->getData('nazwa'));
-        $this->set('DataBrowserTitle', 'Zamówienia publiczne w gminie ' . $this->object->getData('nazwa'));
 
+    }
+    
+    public function zamowienia_rozstrzygniete()
+    {
+
+        $this->_prepareView();
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+                'dataset' => 'zamowienia_publiczne_dokumenty',
+                'zamowienia_publiczne_dokumenty.gmina_id' => $this->object->getId(),
+            ),
+            'renderFile' => 'zamowienia_publiczne_dokumenty',
+            'aggsPreset' => 'zamowienia_publiczne_dokumenty',
+        ));
+		
+		$this->menu_selected = 'zamowienia';
+		$this->set('DataBrowserTitle', 'Rozstrzygnięcia zamówień publicznych');
+        $this->set('title_for_layout', "Rozstrzygnięte zamówienia publiczne w gminie " . $this->object->getTitle());
+        
+        $this->menu['selected'] = 'zamowienia';
     }
 
     public function miejscowosci()
@@ -3218,6 +3362,14 @@ class GminyController extends DataobjectsController
             'items' => array(),
             'base' => $this->object->getUrl(),
         );
+        
+        $aggs = array();
+		if( isset($this->viewVars['dataBrowser']['aggs']['all']) )
+			$aggs = $this->viewVars['dataBrowser']['aggs']['all'];
+			
+		if( isset($this->object_aggs['all']) )
+			$aggs = $this->object_aggs['all'];
+					
 
         $menu['items'][] = array(
             'id' => '',
@@ -3263,19 +3415,23 @@ class GminyController extends DataobjectsController
             */
 
         } else {
+			
+			if( isset($aggs['prawo']) && $aggs['prawo']['doc_count'] )
+	            $menu['items'][] = array(
+	                'label' => 'Prawo lokalne',
+	                'id' => 'prawo',
+	                'count' => $aggs['prawo']['doc_count'],
+	            );
+			
+			if( isset($aggs['zamowienia']) && $aggs['zamowienia']['doc_count'] )
+	            $menu['items'][] = array(
+	                'label' => 'Zamówienia publiczne',
+	                'id' => 'zamowienia',
+	                'count' => $aggs['zamowienia']['doc_count'],
+	            );
 
             $menu['items'][] = array(
-                'label' => 'Prawo lokalne',
-                'id' => 'prawo',
-            );
-
-            $menu['items'][] = array(
-                'label' => 'Zamówienia publiczne',
-                'id' => 'zamowienia',
-            );
-
-            $menu['items'][] = array(
-                'label' => 'Organizacje',
+                'label' => 'KRS',
                 'id' => 'organizacje',
             );
 

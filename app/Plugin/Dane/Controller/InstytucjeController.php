@@ -535,42 +535,6 @@ class InstytucjeController extends DataobjectsController
         $this->load();
         
         $global_aggs = array(
-            /*
-            'zamowienia' => array(
-                'filter' => array(
-                    'bool' => array(
-                        'must' => array(
-                            array(
-                                'term' => array(
-                                    'dataset' => 'zamowienia_publiczne',
-                                ),
-                            ),
-                            array(
-                                'nested' => array(
-                                    'path' => 'feeds_channels',
-                                    'filter' => array(
-                                        'bool' => array(
-                                            'must' => array(
-                                                array(
-                                                    'term' => array(
-                                                        'feeds_channels.dataset' => 'instytucje',
-                                                    ),
-                                                ),
-                                                array(
-                                                    'term' => array(
-                                                        'feeds_channels.object_id' => $this->request->params['id'],
-                                                    ),
-                                                ),
-                                            ),
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-            */
             'zamowienia_publiczne_dokumenty' => array(
                 'filter' => array(
                     'bool' => array(
@@ -658,6 +622,7 @@ class InstytucjeController extends DataobjectsController
                     'object_id' => $this->object->getId(),
                 ),
             ),
+            'aggsPreset' => 'zamowienia_publiczne',
             'cover' => array(
                 'view' => array(
                     'plugin' => 'Dane',
@@ -670,25 +635,6 @@ class InstytucjeController extends DataobjectsController
                     ),
                 ),
             ),
-            /*
-            'aggs' => array(
-                'dataset' => array(
-                    'terms' => array(
-                        'field' => 'dataset',
-                    ),
-                    'visual' => array(
-                        'label' => 'Zbiory danych',
-                        'skin' => 'datasets',
-                        'class' => 'special',
-                        'field' => 'dataset',
-                        'dictionary' => array(
-                            'prawo_wojewodztwa' => array('prawo', 'Prawo lokalne'),
-                            'zamowienia_publiczne' => array('zamowienia_publiczne', 'Zamówienia publiczne'),
-                        ),
-                    ),
-                ),
-            ),
-            */
         );
 
         $this->Components->load('Dane.DataBrowser', $options);

@@ -141,6 +141,22 @@ class ZamowieniaPubliczneController extends ApplicationsController
     {
         $this->loadDatasetBrowser('zamowienia_publiczne_wykonawcy');
     }
+    
+    public function rozstrzygniete()
+    {
+        
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+                'dataset' => 'zamowienia_publiczne_dokumenty',
+                'zamowienia_publiczne_dokumenty.typ_id' => '3',
+            ),
+            'renderFile' => 'zamowienia_publiczne_dokumenty',
+            'aggsPreset' => 'zamowienia_publiczne_dokumenty',
+        ));
+		
+        $this->render('Dane.Elements/DataBrowser/browser-from-app');
+        
+    }
 
     public function dotacje_unijne()
     {

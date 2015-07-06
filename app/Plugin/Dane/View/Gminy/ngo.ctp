@@ -9,7 +9,7 @@ echo $this->Element('dataobject/pageBegin');
 
 <div class="objectsPage">
 
-    <h1 class="subheader">Krajowy Rejestr Sądowy w Krakowie</h1>
+    <h1 class="subheader">Krajowy Rejestr Sądowy</h1>
 
     <? if (isset($_submenu) && !empty($_submenu)) { ?>
         <div class="menuTabsCont">

@@ -24,7 +24,7 @@ $options = array(
     <? } ?>
     <? if ($object->getId() == 903) { ?>
 
-        <div class="block block-simple col-xs-12">
+        <div class="block block-simple block-size-sm col-xs-12">
             <header>Najnowsze projekty legislacyjne pod obrady rady</header>
 
             <section class="aggs-init">
@@ -48,16 +48,9 @@ $options = array(
                     </div>
                 </div>
             </section>
-            <? if ($dataBrowser['aggs']['all']['rada_projekty']['top']['hits']['hits']) { ?>
-                <footer>
-                    <div class="buttons text-center">
-                        <a href="<?= $object->getUrl() ?>/druki" class="btn btn-primary btn-sm">Zobacz więcej</a>
-                    </div>
-                </footer>
-            <? } ?>
         </div>
 
-        <div class="block block-simple col-xs-12">
+        <div class="block block-simple block-size-sm col-xs-12">
             <header>Najnowsze uchwały Rady</header>
 
             <section class="aggs-init">
@@ -81,14 +74,14 @@ $options = array(
             <? if ($dataBrowser['aggs']['all']['krakow_rada_uchwaly']['top']['hits']['hits']) { ?>
                 <footer>
                     <div class="buttons text-center">
-                        <a href="<?= $object->getUrl() ?>/rada_uchwaly" class="btn btn-primary btn-sm">Zobacz
+                        <a href="<?= $object->getUrl() ?>/rada_uchwaly" class="btn btn-primary btn-xs">Zobacz
                             więcej</a>
                     </div>
                 </footer>
             <? } ?>
         </div>
 
-        <div class="block block-simple col-xs-12">
+        <div class="block block-simple block-size-sm col-xs-12">
             <header>Najnowsze interpelacje radnych</header>
 
             <section class="aggs-init">
@@ -112,7 +105,7 @@ $options = array(
             <? if ($dataBrowser['aggs']['all']['interpelacje']['top']['hits']['hits']) { ?>
                 <footer>
                     <div class="buttons text-center">
-                        <a href="<?= $object->getUrl() ?>/interpelacje" class="btn btn-primary btn-sm">Zobacz
+                        <a href="<?= $object->getUrl() ?>/interpelacje" class="btn btn-primary btn-xs">Zobacz
                             więcej</a>
                     </div>
                 </footer>
@@ -139,34 +132,34 @@ $options = array(
                                 <? } ?>
                             </ul>
                             <div class="buttons btn-sm text-center">
-		                        <a href="<?= $object->getUrl() ?>/prawo" class="btn btn-primary btn-sm">Zobacz więcej</a>
+		                        <a href="<?= $object->getUrl() ?>/prawo" class="btn btn-primary btn-xs">Zobacz więcej</a>
 		                    </div>
                         <? } ?>
 
                     </div>
                 </div>
             </section>
-        </div>
-        
-        <? if (@$dataBrowser['aggs']['all']['zamowienia_publiczne_dokumenty']['dni']['buckets']) { ?>
-            <div class="block block-simple block-size-sm col-xs-12">
-                <header>Rozstrzygnięcia zamówień publicznych:</header>
-                <section>
-                    <?= $this->element('Dane.zamowienia_publiczne', array(
-                        'histogram' => $dataBrowser['aggs']['all']['zamowienia_publiczne_dokumenty']['dni']['buckets'],
-                        'request' => array(
-	                        'gmina_id' => $object->getId(),
-                        ),
-                        'more' => $object->getUrl() . '/zamowienia',
-                        'aggs' => array(
-                        	'stats' => array(), 
-                        	'dokumenty' => array(), 
-                        ),
-                    )); ?>
-                </section>
-            </div>
-        <? } ?>
+        </div>        
 
+    <? } ?>
+    
+    <? if (@$dataBrowser['aggs']['all']['zamowienia_publiczne_dokumenty']['dni']['buckets']) { ?>
+        <div class="block block-simple block-size-sm col-xs-12">
+            <header>Rozstrzygnięcia zamówień publicznych:</header>
+            <section>
+                <?= $this->element('Dane.zamowienia_publiczne', array(
+                    'histogram' => $dataBrowser['aggs']['all']['zamowienia_publiczne_dokumenty']['dni']['buckets'],
+                    'request' => array(
+                        'gmina_id' => $object->getId(),
+                    ),
+                    'more' => $object->getUrl() . '/zamowienia',
+                    'aggs' => array(
+                    	'stats' => array(), 
+                    	'dokumenty' => array(), 
+                    ),
+                )); ?>
+            </section>
+        </div>
     <? } ?>
 
     <div class="block block-simple col-xs-12">
@@ -230,14 +223,16 @@ $options = array(
     $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
     $this->Combinator->add_libs('js', 'Pisma.pisma-button');
     echo $this->element('tools/pismo', array(
-	    'label' => '<strong>Wyślij pismo</strong> do tej gminy',
+	    'label' => '<strong>Wyślij pismo</strong> do urzędu tej gminy',
     ));
-
+	
+	/*	
     $page = $object->getLayer('page');
     if (!$page['moderated'])
         echo $this->element('tools/admin', array(
 	        'label' => '<strong>Zarządzaj profilem</strong> tej gminy',
         ));
+    */
     ?>
 
 	

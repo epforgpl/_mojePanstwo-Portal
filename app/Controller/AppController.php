@@ -525,6 +525,7 @@ class AppController extends Controller
                         'darczyncy',
                         'wskazniki',
                         'zamowienia',
+                        'zamowienia_rozstrzygniete',
                         'organizacje',
                         'biznes',
                         'osoby',
