@@ -96,7 +96,6 @@ body.theme-default {
     h2 {
       border: none;
       font-size: 18px;
-      font-style: 400;
       margin: 0;
       padding: 0;
       text-transform: lowercase;
@@ -119,17 +118,14 @@ body.theme-default {
 
       .map {
         padding: 10px;
-        width: 178px;
-        height: 165px;
         float: left;
 
         .imageInside {
-          height: 165px;
-          width: 178px;
+          width: 100%;
+          height: 100%;
         }
       }
       .charts {
-        margin: 5px;
         float: right;
 
         .head {
@@ -195,7 +191,6 @@ body.theme-default {
 
         .chart {
           height: 150px;
-          width: 688px;
           position: relative;
 
           .progress {
@@ -342,125 +337,196 @@ body.theme-default {
   }
 }
 
-#tree {
-  @fontSize: 14px;
-  @nodeColor: #157ab5;
-  @leafColor: #157ab5;
+@leftSideAccordionWidth: 300px;
 
-  max-width: 600px;
+#leftSideAccordion {
+  position: fixed;
+  height: 100vh;
+  left: 85px;
+  top: 0;
+  background-color: #fff;
+  width: @leftSideAccordionWidth;
+  border-right: 1px solid #ddd;
+  z-index: 1;
 
-  ul {
-    list-style: none;
-    margin-top: 5px;
-    padding-left: 2.7%;
-    display: inline-block;
-    float: left;
-    width: 100%;
+  > header {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 0;
+    text-align: center;
+  }
 
-    .jstree-anchor {
-      display: inline-block;
-      padding: 0 0 0 20px;
-      margin: 0;
-      vertical-align: top;
-      font-size: @fontSize;
-      font-weight: bold;
-      color: @nodeColor;
-      line-height: 1em;
-
-      &:focus {
-        outline: 0;
-      }
-
-      &, &:link, &:visited, &:hover, &:active {
-        text-decoration: none;
-      }
+  > section {
+    h3 {
+      background: #226799;
+      border: 0 none;
+      color: #fff;
+      font-size: 14px;
+      font-weight: normal;
+      padding: 8px;
+      margin-top: 0;
+      margin-bottom: 0;
+      -webkit-border-radius: 0;
+      -moz-border-radius: 0;
+      border-radius: 0;
     }
 
-    .jstree-node {
-      display: inline-block;
-      float: left;
-      margin-bottom: 10px;
-      margin-top: 10px;
-      width: 100%;
-      position: relative;
-      cursor: pointer;
+    .ui-accordion-content {
+      -webkit-border-radius: 0;
+      -moz-border-radius: 0;
+      border-radius: 0;
+    }
 
-      &:last-child {
-        margin-bottom: 0;
-      }
+    .treeBlock {
+      overflow: auto;
 
-      &:hover > a {
-        color: darken(@nodeColor, 20%);
-      }
+      #tree {
+        @fontSize: 12px;
+        @nodeColor: #157ab5;
+        @leafColor: @nodeColor;
 
-      > .jstree-ocl {
-        font-family: 'bdl';
-        speak: none;
-        font-style: normal;
-        font-weight: normal;
-        font-variant: normal;
-        text-transform: none;
-        line-height: 1;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
+        width: 100%;
+        height: auto;
+        display: block;
+        float: left;
 
-        position: absolute;
-        top: 6px;
-        left: 0;
-        -webkit-transform: translate(0, -50%);
-        -moz-transform: translate(0, -50%);
-        -ms-transform: translate(0, -50%);
-        -o-transform: translate(0, -50%);
-        transform: translate(0, -50%);
+        ul {
+          list-style: none;
+          margin-top: 5px;
+          padding-left: 2.7%;
+          display: inline-block;
+          float: left;
+          width: 100%;
 
-        margin-right: 6px;
-        cursor: pointer;
-        display: inline-block;
-        text-decoration: none;
+          .jstree-anchor {
+            display: inline-block;
+            padding: 0 0 0 20px;
+            margin: 0;
+            vertical-align: top;
+            font-size: @fontSize;
+            font-weight: bold;
+            color: @nodeColor;
+            line-height: 1em;
 
-        font-size: 14px;
-        color: @nodeColor;
-      }
+            &:focus {
+              outline: 0;
+            }
 
-      &.jstree-open {
-        > .jstree-ocl:before {
-          content: "\e600";
-        }
-        > .jstree-children {
-          display: block;
-        }
-      }
-      &.jstree-closed {
-        > .jstree-ocl:before {
-          content: "\e601";
-        }
-        > .jstree-children {
-          display: none;
-        }
-      }
+            &, &:link, &:visited, &:hover, &:active {
+              text-decoration: none;
+            }
+          }
 
-      .jstree-leaf {
-        &:hover > a {
-          color: darken(@leafColor, 20%);
-        }
+          .jstree-node {
+            display: inline-block;
+            float: left;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            width: 100%;
+            position: relative;
+            cursor: pointer;
 
-        > .jstree-ocl {
-          color: @leafColor;
-        }
+            &:last-child {
+              margin-bottom: 0;
+            }
 
-        .jstree-anchor {
-          font-size: @fontSize;
-          font-weight: normal;
-          color: @leafColor;
+            &:hover > a {
+              color: darken(@nodeColor, 20%);
+            }
 
-          .jstree-themeicon:before {
-            font-family: 'datasets';
-            content: '\e62f';
-            font-style: normal;
-            margin-right: 5px;
+            > .jstree-ocl {
+              font-family: 'bdl';
+              speak: none;
+              font-style: normal;
+              font-weight: normal;
+              font-variant: normal;
+              text-transform: none;
+              line-height: 1;
+              -webkit-font-smoothing: antialiased;
+              -moz-osx-font-smoothing: grayscale;
+
+              position: absolute;
+              top: 6px;
+              left: 0;
+              -webkit-transform: translate(0, -50%);
+              -moz-transform: translate(0, -50%);
+              -ms-transform: translate(0, -50%);
+              -o-transform: translate(0, -50%);
+              transform: translate(0, -50%);
+
+              margin-right: 6px;
+              cursor: pointer;
+              display: inline-block;
+              text-decoration: none;
+
+              font-size: 14px;
+              color: @nodeColor;
+            }
+
+            &.jstree-open {
+              > .jstree-ocl:before {
+                content: "\e600";
+              }
+              > .jstree-children {
+                display: block;
+              }
+            }
+            &.jstree-closed {
+              > .jstree-ocl:before {
+                content: "\e601";
+              }
+              > .jstree-children {
+                display: none;
+              }
+            }
+
+            .jstree-leaf {
+              &:hover > a {
+                color: darken(@leafColor, 20%);
+              }
+
+              > .jstree-ocl {
+                color: @leafColor;
+              }
+
+              .jstree-anchor {
+                font-size: @fontSize;
+                font-weight: normal;
+                color: @leafColor;
+
+                .jstree-themeicon:before {
+                  font-family: 'datasets';
+                  content: '\e62f';
+                  font-style: normal;
+                  margin-right: 5px;
+                }
+              }
+            }
           }
         }
       }
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  #_wrapper #_main {
+    padding-left: 85px+@leftSideAccordionWidth;
+
+    .container {
+      width: 100%;
+      max-width: 970px;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  #_wrapper #_main {
+    padding-left: 85px+@leftSideAccordionWidth;
+
+    .container {
+      width: 100%;
+      max-width: 1170px;
     }
   }
 }

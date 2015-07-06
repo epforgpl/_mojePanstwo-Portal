@@ -1,16 +1,23 @@
 /** BDL WSKAZNIKI PAGE CODE */
 jQuery(document).ready(function () {
-    var main = jQuery('#bdl-wskazniki'),
-        wskazniki = main.find('.wskaznik');
+    var $leftSideAccordion = $('#leftSideAccordion'),
+        bdlWskazniki = jQuery('#bdl-wskazniki'),
+        wskazniki = bdlWskazniki.find('.wskaznik');
 
-    wskazniki.each(function (index) {
+    $leftSideAccordion.find(' > section').accordion({
+        heightStyle: "fill",
+        create: function () {
+            $('#tree').bind("loaded.jstree", function () {
+                $('.jScrollPane').jScrollPane();
+            });
+        }
+    });
 
+    wskazniki.each(function () {
         var el = $(this),
-            data = el.data('years'),
-            id = el.data('dim_id');
+            data = el.data('years');
 
         if (data) {
-
             var chart_div = el.find('.chart'),
                 label = [],
                 value = [];
@@ -50,8 +57,6 @@ jQuery(document).ready(function () {
                     }
                 ]
             });
-
         }
-
     });
 });
