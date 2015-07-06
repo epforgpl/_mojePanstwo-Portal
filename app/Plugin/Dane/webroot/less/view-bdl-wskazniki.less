@@ -11,7 +11,7 @@
 
 body.theme-default {
   background: inherit;
-  background-color: #F3F3F3;
+  background-color: #FFF;
 }
 
 #_main {
@@ -82,9 +82,10 @@ body.theme-default {
     font-weight: 400;
     padding: 20px;
     overflow: auto;
-    margin: 20px 0;
+    margin: 0;
     background-color: #FFF;
-    border: 1px solid #DDD;
+    border: none;
+    border-bottom: 1px solid #DDD;
     border-radius: 7px;
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
@@ -338,37 +339,64 @@ body.theme-default {
 }
 
 @leftSideAccordionWidth: 300px;
-
+.appHeader.dataobject {
+	background: #FFF !important;
+}
+.appMenu {
+	display: none !important;
+}
+.breadcrumb {
+	display: none;
+}
 #leftSideAccordion {
   position: fixed;
   height: 100vh;
   left: 85px;
   top: 0;
-  background-color: #fff;
+  background-color: #eaebef;
   width: @leftSideAccordionWidth;
   border-right: 1px solid #ddd;
   z-index: 1;
-
+  
+  .appTitle {
+	  padding: 10px;
+	  margin: 0;
+  }
+  
   > header {
     font-size: 14px;
     font-weight: bold;
-    padding: 8px 0;
-    text-align: center;
+    padding: 8px;
+    text-align: left;
   }
-
+  
+  .jspTrack {
+	  background-color: #eaebef;
+  }
+  
+  .jspDrag {
+	  background: #BCD none repeat scroll 0 0;
+	  margin: 0 5px;
+  }
+  
+  .ui-widget-content {
+	  background-color: #eaebef;
+  }
+  
   > section {
     h3 {
-      background: #226799;
+      background: #438fca;
       border: 0 none;
-      color: #fff;
+      color: #FFF;
       font-size: 14px;
       font-weight: normal;
-      padding: 8px;
+      padding: 8px 8px 8px 26px;
       margin-top: 0;
       margin-bottom: 0;
       -webkit-border-radius: 0;
       -moz-border-radius: 0;
       border-radius: 0;
+      outline: none;
     }
 
     .ui-accordion-content {
@@ -379,6 +407,7 @@ body.theme-default {
 
     .treeBlock {
       overflow: auto;
+      padding: 5px 0 !important;
 
       #tree {
         @fontSize: 12px;
@@ -397,7 +426,9 @@ body.theme-default {
           display: inline-block;
           float: left;
           width: 100%;
-
+		  
+		  
+		  
           .jstree-anchor {
             display: inline-block;
             padding: 0 0 0 20px;

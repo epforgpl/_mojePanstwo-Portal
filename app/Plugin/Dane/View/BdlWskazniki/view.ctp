@@ -9,8 +9,6 @@ $this->Combinator->add_libs('js', '../plugins/jscrollPane/script/jquery.jscrollp
 <?= $this->Element('bdl_select', array('expand_dimension' => $expand_dimension, 'dims' => $dims)); ?>
 
     <div id="leftSideAccordion">
-        <header>Bank Danych Lokalnych</header>
-
         <section>
             <h3>Wskaźniki</h3>
 
