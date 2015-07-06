@@ -190,6 +190,10 @@ class AppController extends Controller
             'zamowienia_publiczne' => array(
             	'label' => 'Zamówienia publiczne',
             ),
+            'zamowienia_publiczne_zamawiajacy' => array(
+            	'label' => 'Zamawiający',
+            	'menu_id' => 'zamawiajacy',
+            ),
         ),
         'moja_gmina' => array(
             'gminy' => array(
