@@ -4,7 +4,8 @@
     <?php echo $this->Html->image('Dane.banners/zarzadzanie.svg', array('width' => '69', 'alt' => 'Poproś o uprawnienia', 'class' => 'pull-right')); ?>
     <p><?= isset($label) ? $label : '<strong>Zarządzaj profilem</strong> tej organizacji' ?></p>
 
-    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#uprawnieniaModal">Poproś o uprawnienia</button>
+    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#uprawnieniaModal">Poproś o uprawnienia
+    </button>
 </div>
 
 <div class="modal fade" id="uprawnieniaModal" tabindex="-1" role="dialog" aria-labelledby="uprawnieniaModalLabel"
@@ -28,33 +29,38 @@
                         skontaktujemy się w celu potwierdzenia profilu i uaktywnimy nowe funkcje. W chwili obecnej
                         poszukujemy 25 partnerów, którzy wspólnie z nami przejdą testy działań wersji beta portalu.
                     </p>
+                    <?php if ($this->Session->read('Auth.User.id')) { ?>
+                        <div class="form-group">
+                            <label for="inputName">Imię</label>
+                            <input required="required" autocomplete="off" type="text" class="form-control"
+                                   id="inputName"
+                                   name="firstname">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputSurname">Nazwisko</label>
+                            <input required="required" autocomplete="off" type="text" class="form-control"
+                                   id="inputSurname"
+                                   name="lastname">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPosition">Funkcja</label>
+                            <input required="required" autocomplete="off" type="text" class="form-control"
+                                   id="inputPosition" name="position">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="inputName">Imię</label>
-                        <input required="required" autocomplete="off" type="text" class="form-control" id="inputName"
-                               name="firstname">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputSurname">Nazwisko</label>
-                        <input required="required" autocomplete="off" type="text" class="form-control" id="inputSurname"
-                               name="lastname">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPosition">Funkcja</label>
-                        <input required="required" autocomplete="off" type="text" class="form-control"
-                               id="inputPosition" name="position">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputEmail">Email</label>
-                        <input required="required" autocomplete="off" type="email" class="form-control" id="inputEmail"
-                               name="email">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPhone">Telefon</label>
-                        <input required="required" autocomplete="off" type="phone" class="form-control" id="inputPhone"
-                               name="phone">
-                    </div>
+                        <div class="form-group">
+                            <label for="inputEmail">Email</label>
+                            <input required="required" autocomplete="off" type="email" class="form-control"
+                                   id="inputEmail"
+                                   name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPhone">Telefon</label>
+                            <input required="required" autocomplete="off" type="phone" class="form-control"
+                                   id="inputPhone"
+                                   name="phone">
+                        </div>
+                    <?php } ?>
                 </div>
                 <div class="modal-footer<?php if (!$this->Session->read('Auth.User.id')) {
                     echo ' backgroundBlue';

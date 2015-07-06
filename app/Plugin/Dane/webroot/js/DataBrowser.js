@@ -205,7 +205,23 @@ var DataBrowser = Class.extend({
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false,
-                height: 300
+                height: 300,
+                events: {
+                    load: function () {
+                        var chart = this,
+                            legend = chart.legend;
+
+                        for (var i = 0, len = legend.allItems.length; i < len; i++) {
+                            (function(i) {
+                                var item = legend.allItems[i].legendItem;
+                                item.on('mouseover', function (e) {
+                                    chart.series[0].points[i].onMouseOver();
+                                });
+                            })(i);
+                        }
+
+                    }
+                }
             },
             title: {
                 text: ''
@@ -247,7 +263,6 @@ var DataBrowser = Class.extend({
                 }
             }]
         };
-
 
         if (chart_options['mode'] == 'init') {
 
@@ -506,7 +521,7 @@ var DataBrowser = Class.extend({
             chart: {
                 type: 'column',
                 backgroundColor: null,
-                height: 300,
+                height: 300
             },
             title: {
                 text: ''
@@ -592,9 +607,7 @@ var DataBrowser = Class.extend({
             columns_horizontal_keys[i] = data.buckets[i].key;
         }
         
-        console.log('columns_horizontal_categories', columns_horizontal_categories);
-        console.log('columns_horizontal_data', columns_horizontal_data);
-        console.log('columns_horizontal_keys', columns_horizontal_keys);
+        var _this = this;
 
         li.find('.chart').highcharts({
             chart: {
@@ -633,7 +646,13 @@ var DataBrowser = Class.extend({
                 }
             },
             tooltip: {
-                valueSuffix: ' '
+                valueSuffix: ' ',
+                positioner: function () {
+                    return { x: this.now.anchorX, y: this.now.anchorY - 20 };
+                },
+                style: {
+                    zIndex: 9
+                }
             },
             plotOptions: {
                 bar: {
@@ -658,10 +677,28 @@ var DataBrowser = Class.extend({
                             return false;
                         }
                     }
+                },
+                dataLabels: {
+                    enabled: true,
+                    formatter: function() {
+                        return _this.getAsPLNumber(this.y);
+                    }
                 }
             }]
         });
 
+    },
+
+    getAsPLNumber: function(s) {
+        var num = Math.round(s);
+
+        if(num >= 1000000) {
+            return (Math.round(num / 100000, 2) / 10) + 'M';
+        } else if (num >= 1000) {
+            return (Math.round(num / 100, 2) / 10) + 'k';
+        }
+
+        return num;
     },
 
     scienNotationToNum: function (str) {
@@ -672,6 +709,7 @@ var DataBrowser = Class.extend({
     },
 
     prepareNumeric: function (str) {
+        console.log(str);
         var number = str[0];
         if (str.indexOf('E') > -1)
             str = this.scienNotationToNum(str);
@@ -694,6 +732,7 @@ var DataBrowser = Class.extend({
             newStr += '0';
 
         newStr += unit;
+        console.log(newStr);
         return newStr;
     },
 

@@ -15,14 +15,14 @@
     </h2>
     
     <div class="stats">
-        <div class="map call-md-2">
+        <div class="map col-xs-4 col-md-3">
             <a href="<?= $object->getUrl() ?>/kombinacje/<?= $data['id'] ?>">
                 <img width="216" height="200"
                      src="http://resources.sds.tiktalik.com/BDL_wymiary_kombinacje/<?= $data['id'] ?>.png"
                      class="imageInside" onerror="imgFixer(this)"/>
             </a>
         </div>
-        <div class="charts col-md-9">
+        <div class="charts col-xs-12 col-md-9">
             <div class="head">
                 <p class="vp">
                     <span
