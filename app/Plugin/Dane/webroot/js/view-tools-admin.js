@@ -16,9 +16,7 @@ $(document).ready(function() {
             method: 'POST',
             data: inputs,
             success: function (res) {
-
-                console.log(res);
-
+                location.reload();
             }
         });
 
