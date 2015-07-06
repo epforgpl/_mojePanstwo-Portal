@@ -503,108 +503,38 @@ class AppController extends Controller
                     die();
                 }
 				
-                if (
-                    ($this->request->params['controller'] == 'gminy') &&
-                    in_array($this->request->params['action'], array(
-                        'view',
-                        'okregi_wyborcze',
-                        'interpelacje',
-                        'posiedzenia',
-                        'debaty',
-                        'punkty',
-                        'szukaj',
-                        'rada_uchwaly',
-                        'druki',
-                        'radni_powiazania',
-                        'urzednicy_powiazania',
-                        'radni',
-                        'radni_6',
-                        'radni6',
-                        'uchwaly',
-                        'radni_dzielnic',
-                        'darczyncy',
-                        'wskazniki',
-                        'zamowienia',
-                        'zamowienia_rozstrzygniete',
-                        'organizacje',
-                        'biznes',
-                        'osoby',
-                        'ngo',
-                        'spzoz',
-                        'dotacje_ue',
-                        'rady_gmin_wystapienia',
-                        'map',
-                        'zamowienia_publiczne',
-                        'prawo_lokalne',
-                        'urzednicy',
-                        'oswiadczenia',
-                        'jednostki',
-                        'komisje',
-                        'komisje_posiedzenia',
-                        'sklad',
-                        'dzielnice',
-                        'zarzadzenia',
-                        'zarzadzenie',
-                        'urzad',
-                        'rada',
-                        'krs',
-                        'komisje',
-                        'rada_posiedzenia',
-                        'rada_uchwaly',
-                        'punkty',
-                        'porzadek',
-                        'podsumowanie',
-                        'stenogram',
-                        'informacja',
-                        'glosowania',
-                        'protokol',
-                        'finanse',
-                        'wpf',
-                        'powiazania',
-                        'pomoc_publiczna',
-                    ))
-                ) {
-
-                } elseif (
-                ($this->request->params['controller'] == 'krs_podmioty')
-                ) {
-
-                } elseif (
-                ($this->request->params['controller'] == 'Powiadomienia')
-                ) {
-
-                } elseif (
-                ($this->request->params['controller'] == 'Pisma')
-                ) {
-
-                } elseif (
-                ($this->request->params['controller'] == 'radni_dzielnic')
-                ) {
-
-                } elseif (
-                ($this->request->params['controller'] == 'Subscriptions')
-                ) {
-
-                } elseif (stripos($_SERVER['REQUEST_URI'], '/cross-domain-') === 0
-                    or stripos($_SERVER['REQUEST_URI'], '/login') === 0
-                    or stripos($_SERVER['REQUEST_URI'], '/logout') === 0
-                ) {
-
-                } else {
-
-                    $url = $_SERVER['REQUEST_URI'];
+				$_id = strtolower($this->request->params['plugin'] . '.' . $this->request->params['controller']);
+				
+				// debug($_id); die();
+							
+				$cross_domain = (
+					stripos($_SERVER['REQUEST_URI'], '/cross-domain-') === 0 or 
+					stripos($_SERVER['REQUEST_URI'], '/login') === 0 or 
+					stripos($_SERVER['REQUEST_URI'], '/logout') === 0
+                );
+				
+				if( 
+					!in_array($_id, array(
+						'dane.gminy',
+						'powiadomienia.powiadomienia',
+						'subscriptions.subscriptions',
+						'pisma.pisma',
+						'pisma.szablony',
+						'zamowieniapubliczne.zamowieniapubliczne',
+					)) && 
+					!$cross_domain
+				) {
+					
+					
+					
+					$url = $_SERVER['REQUEST_URI'];
                     if ($url[0] == ',') {
-
                         $p = strpos($url, '/');
                         $url = ($p === false) ? '' : substr($url, $p);
-
                     }
-
-                    $this->redirect($this->protocol . PORTAL_DOMAIN . $this->port . $url);
-                    die();
-
-                }
-
+                    return $this->redirect($this->protocol . PORTAL_DOMAIN . $this->port . $url);
+					
+				}
 
             } elseif ($pieces['host'] != PORTAL_DOMAIN) {
                                 
