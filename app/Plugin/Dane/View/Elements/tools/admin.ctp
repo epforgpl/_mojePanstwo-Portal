@@ -19,6 +19,7 @@
                     Zostań oficjalnym właścicielem</h4>
             </div>
             <form class="form-horizontal" method="post">
+	            <input type="hidden" name="_action" value="moderate_request" />
                 <div class="modal-body">
                     <p>
                         Portal MojePaństwo.pl pomaga Twojej organizacji docierać do osób zainteresowanych Waszymi

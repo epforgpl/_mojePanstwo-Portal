@@ -374,6 +374,8 @@ class DataobjectsController extends AppController
         $this->set('response', $response);
         $this->set('_serialize', 'response');
         
+        $this->redirect($this->referer());
+        
     }
 
 }
