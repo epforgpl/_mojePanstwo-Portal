@@ -1,4 +1,5 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('tool-uprawnienia', array('plugin' => 'Dane'))) ?>
+<?php $this->Combinator->add_libs('js', 'Dane.view-tools-admin'); ?>
 
 <div class="banner uprawnienia block">
     <?php echo $this->Html->image('Dane.banners/zarzadzanie.svg', array('width' => '69', 'alt' => 'Poproś o uprawnienia', 'class' => 'pull-right')); ?>
@@ -20,7 +21,7 @@
                     Zostań oficjalnym właścicielem</h4>
             </div>
             <form class="form-horizontal" method="post">
-	            <input type="hidden" name="_action" value="moderate_request" />
+                <input type="hidden" name="_action" value="moderate_request"/>
                 <div class="modal-body">
                     <p>
                         Portal MojePaństwo.pl pomaga Twojej organizacji docierać do osób zainteresowanych Waszymi
