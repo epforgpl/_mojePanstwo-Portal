@@ -700,7 +700,7 @@
 
                         var exportDefaults = {
                             type: 'image/png',
-                            quality: 0.75,
+                            quality: 1,
                             originalSize: false,
                             fillBg: '#fff'
                         };
@@ -717,14 +717,64 @@
                             width: croppedSize.w * exportZoom,
                             height: croppedSize.h * exportZoom
                         }).get(0);
-                        var canvasContext = canvas.getContext('2d');
+                        var ctx = canvas.getContext("2d");
 
                         if (exportOptions.type === 'image/jpeg') {
-                            canvasContext.fillStyle = exportOptions.fillBg;
-                            canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+                            ctx.fillStyle = exportOptions.fillBg;
+                            ctx.fillRect(0, 0, canvas.width, canvas.height);
                         }
 
-                        canvasContext.drawImage(this.image, this.offset.x * exportZoom, this.offset.y * exportZoom, this.zoom * exportZoom * this.imageSize.w, this.zoom * exportZoom * this.imageSize.h);
+                        var posX = this.offset.x * exportZoom;
+                        var posY = this.offset.y * exportZoom;
+                        var sizeW = this.zoom * exportZoom * this.imageSize.w;
+                        var sizeH = this.zoom * exportZoom * this.imageSize.h;
+
+                        var canvasTmp, contextTmp, canvasWidth, canvasHeight, posXTemp, posYTemp;
+                        var tmp = new Image();
+                        tmp.src = this.image.src;
+
+                        canvasWidth = tmp.width;
+                        canvasHeight = tmp.height;
+
+                        if (canvasWidth >= sizeW || canvasHeight >= sizeH) {
+                            var ratio = 1.5,
+                                tmpType = 'image/jpeg';
+
+                            canvasTmp = document.createElement('canvas');
+                            contextTmp = canvasTmp.getContext('2d');
+
+                            contextTmp.fillStyle = exportOptions.fillBg;
+                            contextTmp.fillRect(0, 0, sizeW, sizeH);
+
+                            posXTemp = this.offset.x;
+                            posYTemp = this.offset.y;
+                            canvasTmp.width = canvasWidth;
+                            canvasTmp.height = canvasHeight;
+
+                            contextTmp.drawImage(tmp, posXTemp, posYTemp, canvasWidth, canvasHeight);
+
+                            while (true) {
+                                posXTemp /= ratio;
+                                posYTemp /= ratio;
+                                canvasWidth /= ratio;
+                                canvasHeight /= ratio;
+
+                                if (canvasWidth < sizeW || canvasHeight < sizeH) {
+                                    break;
+                                }
+
+                                contextTmp.fillStyle = exportOptions.fillBg;
+                                contextTmp.fillRect(0, 0, posXTemp + canvasWidth + 10, posYTemp + canvasHeight + 10);
+                                contextTmp.drawImage(tmp, posXTemp, posYTemp, canvasWidth, canvasHeight);
+                                tmp.src = canvasTmp.toDataURL(tmpType, 1);
+                            }
+
+                            ctx.fillStyle = exportOptions.fillBg;
+                            ctx.fillRect(0, 0, canvas.width, canvas.height);
+                            ctx.drawImage(canvasTmp, posXTemp * ratio, posYTemp * ratio, canvasWidth * ratio, canvasHeight * ratio, posX, posY, sizeW, sizeH);
+                        } else {
+                            ctx.drawImage(this.image, posX, posY, sizeW, sizeH);
+                        }
 
                         return canvas.toDataURL(exportOptions.type, exportOptions.quality);
                     }
