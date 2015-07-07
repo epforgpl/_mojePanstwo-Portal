@@ -452,7 +452,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '</div>',
             '<div class="form-group btn-sm">',
             '<label for="credits">Prawa autorskie</label>',
-            '<input id="credits" type="text" class="form-control btn-sm" name="credits"/>',
+            '<input id="credits" type="text" class="form-control btn-sm" name="credits" value="' + $('.credits a').attr('href') + '"/>',
             '</div>',
             '</div>',
             '<div class="modal-footer">' + (this.header.hasClass('cover-background') ? '<button type="button" class="btn btn-link delete" data-type="cover">Usuń obrazek tła</button>' : ''),
