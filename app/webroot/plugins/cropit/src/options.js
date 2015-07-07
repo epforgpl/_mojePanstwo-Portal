@@ -44,19 +44,19 @@ $
 ;
 ;
 ,
-{
-    '$previewContainer',
-        description
-:
-    'Preview container. Only needed when `imageBackground` is true.',
-        defaultSelector
-: `.
-    $
     {
-        CLASS_NAMES.PREVIEW_CONTAINER
+        '$previewContainer',
+            description
+    :
+        'Preview container. Only needed when `imageBackground` is true.',
+            defaultSelector
+    : `.
+        $
+        {
+            CLASS_NAMES.PREVIEW_CONTAINER
+        }
+        ;`,
     }
-    ;`,
-}
 ;
 ;
 ,
@@ -333,8 +333,8 @@ default:
         loaded.
             When;
         set;
-        to;
-        'image', image;
+        to; \`'image'\`,
+        image;
         is;
         zoomed;
         to;
@@ -343,6 +343,7 @@ default:
     default:
         'min',
     }
+;
 ;
 ;
 ;
@@ -363,16 +364,64 @@ default:
 ;
 ,
     {
-        'rejectSmallImage',
+        'smallImage',
             type
     :
-        'boolean',
+        'string',
             description
-    :
-        'When set to true, `onImageError` would be called when cropit loads an image that is smaller than the container.',;
+    : `When;
+        set;
+        to; \`'reject'\`, \`onImageError\` would;
+        be;
+        called;
+        when;
+        cropit;
+        loads;
+        an;
+        image;
+        that;
+        is;
+        smaller;
+        than;
+        the;
+        container.
+            When;
+        set;
+        to; \`'allow'\`,
+        images;
+        smaller;
+        than;
+        the;
+        container;
+        can;
+        be;
+        zoomed;
+        down;
+        to;
+        its;
+        original;
+        size, overiding; \`minZoom\` option.
+        When;
+        set;
+        to; \`'stretch'\`,
+        the;
+        minimum;
+        zoom;
+        of;
+        small;
+        images;
+        would;
+        follow; \`minZoom\` option.`,
     default:
-        true,
+        'reject',
     }
+;
+;
+;
+;
+;
+;
+;
 ;
 ;
 ,

@@ -1,4 +1,4 @@
-/*! cropit - v0.3.2 <https://github.com/scottcheng/cropit> */
+/*! cropit - v0.4.0 <https://github.com/scottcheng/cropit> */
 (function webpackUniversalModuleDefinition(root, factory) {
     if (typeof exports === 'object' && typeof module === 'object')
         module.exports = factory(require("jquery"));
@@ -452,7 +452,7 @@
                 }, {
                     key: 'onPreImageLoaded',
                     value: function onPreImageLoaded() {
-                        if (this.options.rejectSmallImage && (this.preImage.width * this.options.maxZoom < this.previewSize.w * this.options.exportZoom || this.preImage.height * this.options.maxZoom < this.previewSize.h * this.options.exportZoom)) {
+                        if (this.options.smallImage === 'reject' && (this.preImage.width * this.options.maxZoom < this.previewSize.w * this.options.exportZoom || this.preImage.height * this.options.maxZoom < this.previewSize.h * this.options.exportZoom)) {
                             this.onImageError(_constants.ERRORS.SMALL_IMAGE);
                             return;
                         }
@@ -640,7 +640,7 @@
                             exportZoom: this.options.exportZoom,
                             maxZoom: this.options.maxZoom,
                             minZoom: this.options.minZoom,
-                            rejectSmallImage: this.options.rejectSmallImage
+                            smallImage: this.options.smallImage
                         });
                         this.setZoom((0, _utils.exists)(zoom) ? zoom : this.zoom);
 
@@ -736,45 +736,34 @@
                         canvasWidth = tmp.width;
                         canvasHeight = tmp.height;
 
-                        if (canvasWidth >= sizeW || canvasHeight >= sizeH) {
-                            var ratio = 1.5,
-                                tmpType = 'image/jpeg';
+                        var ratio = 0.5,
+                            steps = Math.ceil(Math.log(canvasWidth / sizeW) / Math.log(2));
 
-                            canvasTmp = document.createElement('canvas');
-                            contextTmp = canvasTmp.getContext('2d');
+                        canvasTmp = document.createElement('canvas');
+                        contextTmp = canvasTmp.getContext('2d');
 
-                            contextTmp.fillStyle = exportOptions.fillBg;
-                            contextTmp.fillRect(0, 0, sizeW, sizeH);
+                        posXTemp = this.offset.x;
+                        posYTemp = this.offset.y;
+                        canvasTmp.width = canvasWidth;
+                        canvasTmp.height = canvasHeight;
 
-                            posXTemp = this.offset.x;
-                            posYTemp = this.offset.y;
-                            canvasTmp.width = canvasWidth;
-                            canvasTmp.height = canvasHeight;
+                        contextTmp.drawImage(tmp, posXTemp, posYTemp, canvasWidth, canvasHeight);
 
-                            contextTmp.drawImage(tmp, posXTemp, posYTemp, canvasWidth, canvasHeight);
+                        for (var i = 1; i < steps; i++) {
+                            posXTemp *= ratio;
+                            posYTemp *= ratio;
+                            canvasWidth *= ratio;
+                            canvasHeight *= ratio;
 
-                            while (true) {
-                                posXTemp /= ratio;
-                                posYTemp /= ratio;
-                                canvasWidth /= ratio;
-                                canvasHeight /= ratio;
-
-                                if (canvasWidth < sizeW || canvasHeight < sizeH) {
-                                    break;
-                                }
-
-                                contextTmp.fillStyle = exportOptions.fillBg;
-                                contextTmp.fillRect(0, 0, posXTemp + canvasWidth + 10, posYTemp + canvasHeight + 10);
-                                contextTmp.drawImage(tmp, posXTemp, posYTemp, canvasWidth, canvasHeight);
-                                tmp.src = canvasTmp.toDataURL(tmpType, 1);
+                            if (canvasWidth < sizeW || canvasHeight < sizeH) {
+                                break;
                             }
 
-                            ctx.fillStyle = exportOptions.fillBg;
-                            ctx.fillRect(0, 0, canvas.width, canvas.height);
-                            ctx.drawImage(canvasTmp, posXTemp * ratio, posYTemp * ratio, canvasWidth * ratio, canvasHeight * ratio, posX, posY, sizeW, sizeH);
-                        } else {
-                            ctx.drawImage(this.image, posX, posY, sizeW, sizeH);
+                            contextTmp.drawImage(tmp, posXTemp, posYTemp, canvasWidth, canvasHeight);
+                            tmp.src = canvasTmp.toDataURL(exportOptions.type, 1);
                         }
+
+                        ctx.drawImage(tmp, posX, posY, sizeW, sizeH);
 
                         return canvas.toDataURL(exportOptions.type, exportOptions.quality);
                     }
@@ -926,7 +915,7 @@
                         var exportZoom = _ref.exportZoom;
                         var maxZoom = _ref.maxZoom;
                         var minZoom = _ref.minZoom;
-                        var rejectSmallImage = _ref.rejectSmallImage;
+                        var smallImage = _ref.smallImage;
 
                         var widthRatio = previewSize.w / imageSize.w;
                         var heightRatio = previewSize.h / imageSize.h;
@@ -937,7 +926,7 @@
                             this.minZoom = Math.max(widthRatio, heightRatio);
                         }
 
-                        if (!rejectSmallImage) {
+                        if (smallImage === 'allow') {
                             this.minZoom = Math.min(this.minZoom, 1);
                         }
 
@@ -1108,7 +1097,7 @@
                 }, {
                     name: 'initialZoom',
                     type: 'string',
-                    description: 'Determines the zoom when an image is loaded.\n        When set to `\'min\'`, image is zoomed to the smallest when loaded.\n        When set to \'image\', image is zoomed to 100% when loaded.',
+                    description: 'Determines the zoom when an image is loaded.\n        When set to `\'min\'`, image is zoomed to the smallest when loaded.\n        When set to `\'image\'`, image is zoomed to 100% when loaded.',
                     'default': 'min'
                 }, {
                     name: 'freeMove',
@@ -1116,10 +1105,10 @@
                     description: 'When set to true, you can freely move the image instead of being bound to the container borders',
                     'default': false
                 }, {
-                    name: 'rejectSmallImage',
-                    type: 'boolean',
-                    description: 'When set to true, `onImageError` would be called when cropit loads an image that is smaller than the container.',
-                    'default': true
+                    name: 'smallImage',
+                    type: 'string',
+                    description: 'When set to `\'reject\'`, `onImageError` would be called when cropit loads an image that is smaller than the container.\n        When set to `\'allow\'`, images smaller than the container can be zoomed down to its original size, overiding `minZoom` option.\n        When set to `\'stretch\'`, the minimum zoom of small images would follow `minZoom` option.',
+                    'default': 'reject'
                 }, {
                     name: 'allowCrossOrigin',
                     type: 'boolean',

@@ -26,6 +26,18 @@ body {
     white-space: normal;
     line-height: 1em;
 
+    &.loading {
+      color: rgba(0, 0, 0, 0);
+
+      &:not(btn-default) {
+        background-image: url(/img/loader/search-loading.png);
+      }
+
+      > i {
+        display: none;
+      }
+    }
+
     .btnIconMode(@color:#FAFAFA) {
       background-color: @color;
       outline: none;

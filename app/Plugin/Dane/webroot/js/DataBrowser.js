@@ -709,7 +709,6 @@ var DataBrowser = Class.extend({
     },
 
     prepareNumeric: function (str) {
-        console.log(str);
         var number = str[0];
         if (str.indexOf('E') > -1)
             str = this.scienNotationToNum(str);
@@ -732,7 +731,7 @@ var DataBrowser = Class.extend({
             newStr += '0';
 
         newStr += unit;
-        console.log(newStr);
+
         return newStr;
     },
 
