@@ -585,6 +585,7 @@ ObjectUsersManagement.prototype.insitutionLoad = function (res) {
     $('#instytucja_wybierz_merge').autocomplete({
         paramName: 'q',
         serviceUrl: '/dane/suggest.json?dataset[]=instytucje',
+        deferRequestBy: 400,
         transformResult: function(response) {
             res= $.parseJSON(response);
             return {
