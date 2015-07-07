@@ -226,13 +226,13 @@ $options = array(
 	    'label' => '<strong>Wyślij pismo</strong> do urzędu tej gminy',
     ));
 	
-	/*	
-    $page = $object->getLayer('page');
-    if (!$page['moderated'])
-        echo $this->element('tools/admin', array(
-	        'label' => '<strong>Zarządzaj profilem</strong> tej gminy',
-        ));
-    */
+	if( $object->getId()!=903 ) {
+	    $page = $object->getLayer('page');
+	    if (!$page['moderated'])
+	        echo $this->element('tools/admin', array(
+		        'label' => '<strong>Zarządzaj profilem</strong> tej gminy',
+	        ));
+    }
     ?>
 
 	
