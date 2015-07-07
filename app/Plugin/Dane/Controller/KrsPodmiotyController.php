@@ -377,6 +377,47 @@ class KrsPodmiotyController extends DataobjectsController
         $this->_prepareView();
     }
 
+    public function dzialania_edycja() {
+
+        $id = @$this->request->params['subid'];
+        if(!$id)
+            throw new NotFoundException;
+
+        $dzialanie = $this->Dataobject->find('first', array(
+            'conditions' => array(
+                'dataset' => 'dzialania',
+                'id' => $id
+            )
+        ));
+
+        $this->set('dzialanie', $dzialanie);
+
+        $this->_prepareView();
+    }
+
+    public function dzialania() {
+
+        if($id = @$this->request->params['subid']) {
+
+            $dzialanie = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'dzialania',
+                    'id' => $id
+                )
+            ));
+
+            if(!$dzialanie)
+                throw new NotFoundException;
+
+            $this->set('dzialanie', $dzialanie);
+
+        } else {
+            // działania list
+        }
+
+        $this->_prepareView();
+    }
+
     public function powiazania()
     {
 

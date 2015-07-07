@@ -151,6 +151,9 @@ $(document).ready(function () {
         googleBtn = $('.googleBtn'),
         googleLocMeBtn = $('#loc'),
         googleMapBlock = $('.googleMapElement'),
+        header = $('.appHeader.dataobject').first(),
+        dataset = header.attr('data-dataset'),
+        object_id = header.attr('data-object_id');
 
         cropItErrorMsg = function () {
             if (mPHeart.language.twoDig == 'pl') {
@@ -229,14 +232,18 @@ $(document).ready(function () {
     });
 
     form.submit(function () {
-        var header = $('.appHeader.dataobject').first(),
-            dataset = header.attr('data-dataset'),
-            object_id = header.attr('data-object_id'),
-            inputs = $(this).serializeArray();
+        var inputs = $(this).serializeArray();
+
+        var id = 0;
+        for(var i = 0; i < inputs.length; i++)
+            if(inputs[i].name == 'id') {
+                id = parseInt(inputs[i].value);
+                inputs.splice(i, 1);
+            }
 
         $.ajax({
             url: '/dane/' + dataset + '/' + object_id + '/dzialania.json',
-            method: 'POST',
+            method: id > 0 ? 'PUT' : 'POST',
             data: inputs,
             success: function (res) {
 
@@ -246,6 +253,10 @@ $(document).ready(function () {
         });
 
         return false;
+    });
+
+    $('.cancelBtn').click(function() {
+        window.location = '/dane/' + dataset + '/' + object_id;
     });
 
     /*ASYNCHRONIZE ACTION FOR GOOGLE MAP*/
