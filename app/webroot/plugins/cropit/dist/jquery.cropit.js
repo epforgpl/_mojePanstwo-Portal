@@ -1,4 +1,4 @@
-/*! cropit - v0.3.1 <https://github.com/scottcheng/cropit> */
+/*! cropit - v0.3.2 <https://github.com/scottcheng/cropit> */
 (function webpackUniversalModuleDefinition(root, factory) {
     if (typeof exports === 'object' && typeof module === 'object')
         module.exports = factory(require("jquery"));
@@ -277,6 +277,9 @@
                         var _this = this;
 
                         this.image = new Image();
+                        if (this.options.allowCrossOrigin) {
+                            this.image.crossOrigin = 'Anonymous';
+                        }
                         this.preImage = new Image();
                         this.image.onload = this.onImageLoaded.bind(this);
                         this.preImage.onload = this.onPreImageLoaded.bind(this);
@@ -710,49 +713,18 @@
 
                         var exportZoom = exportOptions.originalSize ? 1 / this.zoom : this.options.exportZoom;
 
-                        var newUncroppedWidth = this.zoom * exportZoom * this.imageSize.w;
-                        var newUncroppedHeight = this.zoom * exportZoom * this.imageSize.h;
-
                         var canvas = (0, _jquery2['default'])('<canvas />').attr({
                             width: croppedSize.w * exportZoom,
                             height: croppedSize.h * exportZoom
                         }).get(0);
                         var canvasContext = canvas.getContext('2d');
 
-                        var canvasTmp, contextTmp, canvasWidth, canvasHeight;
-                        var tmp = new Image();
-
-                        tmp.src = this.image.src;
-
-                        canvasWidth = tmp.width;
-                        canvasHeight = tmp.height;
-
-                        canvasTmp = document.createElement('canvas');
-                        contextTmp = canvasTmp.getContext('2d');
-
-                        canvasTmp.width = canvasWidth;
-                        canvasTmp.height = canvasHeight;
-
-                        contextTmp.drawImage(tmp, 0, 0, canvasWidth, canvasHeight);
-
-                        while (true) {
-                            canvasWidth /= 2;
-                            canvasHeight /= 2;
-
-                            if (canvasWidth <= newUncroppedWidth || canvasHeight <= newUncroppedHeight) {
-                                break;
-                            }
-
-                            contextTmp.drawImage(tmp, 0, 0, canvasWidth, canvasHeight);
-                            tmp.src = canvasTmp.toDataURL(exportOptions.type, 1);
-                        }
-
-                        canvasContext.drawImage(canvasTmp, 0, 0, canvasWidth * 2, canvasHeight * 2, 0, 0, newUncroppedWidth, newUncroppedHeight);
-
                         if (exportOptions.type === 'image/jpeg') {
                             canvasContext.fillStyle = exportOptions.fillBg;
                             canvasContext.fillRect(0, 0, canvas.width, canvas.height);
                         }
+
+                        canvasContext.drawImage(this.image, this.offset.x * exportZoom, this.offset.y * exportZoom, this.zoom * exportZoom * this.imageSize.w, this.zoom * exportZoom * this.imageSize.h);
 
                         return canvas.toDataURL(exportOptions.type, exportOptions.quality);
                     }
@@ -1098,6 +1070,11 @@
                     type: 'boolean',
                     description: 'When set to true, `onImageError` would be called when cropit loads an image that is smaller than the container.',
                     'default': true
+                }, {
+                    name: 'allowCrossOrigin',
+                    type: 'boolean',
+                    description: 'Set to true if you need to crop image served from other domains.',
+                    'default': false
                 }],
 
                 callbacks: [{

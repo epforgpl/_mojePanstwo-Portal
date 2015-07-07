@@ -174,7 +174,7 @@
                                         wybieranych w wyborach powszechnych.</p>
                                 </div>
 
-                                <div class="pk-radni jScrollPane">
+                                <div class="pk-radni">
                                     <? if ($radni = $object->getLayer('radni')) { ?>
                                         <ul>
                                             <? foreach ($radni as $radny) { ?>

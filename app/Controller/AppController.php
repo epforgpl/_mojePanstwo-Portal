@@ -190,6 +190,10 @@ class AppController extends Controller
             'zamowienia_publiczne' => array(
             	'label' => 'Zamówienia publiczne',
             ),
+            'zamowienia_publiczne_zamawiajacy' => array(
+            	'label' => 'Zamawiający',
+            	'menu_id' => 'zamawiajacy',
+            ),
         ),
         'moja_gmina' => array(
             'gminy' => array(
@@ -504,7 +508,9 @@ class AppController extends Controller
                 }
 				
 				$_id = strtolower($this->request->params['plugin'] . '.' . $this->request->params['controller']);
-								
+				
+				// debug($_id); die();
+							
 				$cross_domain = (
 					stripos($_SERVER['REQUEST_URI'], '/cross-domain-') === 0 or 
 					stripos($_SERVER['REQUEST_URI'], '/login') === 0 or 
@@ -522,6 +528,8 @@ class AppController extends Controller
 					)) && 
 					!$cross_domain
 				) {
+					
+					
 					
 					$url = $_SERVER['REQUEST_URI'];
                     if ($url[0] == ',') {

@@ -22,9 +22,10 @@ if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object
     <div class="headlineBar" <? if ($pageLayer['cover']) {
         echo ' style="background-image: url(http://sds.tiktalik.com/portal/pages/cover/' . $dataset . '/' . $object_id . '.jpg)"';
     } ?>>
-        <? if (isset($pageLayer['credits']) && !empty($pageLayer['credits'])) { ?>
-            <div class="credits">
-            <small>Prawa autorskie:</small><?= $pageLayer['credits'] ?></div><? } ?>
+        <? if (isset($pageLayer['credits']) && !empty($pageLayer['credits']) && $pageLayer['credits'] !== "") { ?>
+            <div class="credits"><a class="small" href="<?= $pageLayer['credits'] ?>" target="_blank">Prawa
+                    autorskie</a></div>
+        <? } ?>
         <div class="container">
             <? if ($pageLayer['logo']) { ?>
                 <div class="logoBox">

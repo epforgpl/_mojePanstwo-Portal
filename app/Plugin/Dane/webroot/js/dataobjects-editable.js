@@ -62,6 +62,8 @@ ObjectUsersManagement.prototype.initialize = function () {
             },
             width: 180,
             height: 180,
+            minZoom: 'fit',
+            rejectSmallImage: false,
             onImageLoaded: function () {
                 changeLogo.find('.alert').slideUp("normal", function () {
                     $(this).remove();
@@ -80,6 +82,7 @@ ObjectUsersManagement.prototype.initialize = function () {
                     type: 'image/png',
                     fillBg: '#fff'
                 });
+
             $.ajax({
                 url: '/dane/' + _this.dataset + '/' + _this.id + '/page/logo.json',
                 method: "POST",
@@ -113,6 +116,7 @@ ObjectUsersManagement.prototype.initialize = function () {
             width: 750,
             height: 150,
             exportZoom: 2,
+            rejectSmallImage: false,
             onImageLoaded: function () {
                 changeBackground.find('.alert').slideUp("normal", function () {
                     $(this).remove();
@@ -403,6 +407,11 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '<div class="modal-body">',
             '<div class="image-editor">',
             '<div class="cropit-image-preview"' + (this.header.hasClass('cover-logo') ? ' data-image="http://sds.tiktalik.com/portal/pages/logo/' + this.dataset + '/' + this.id + '.png"' : '') + '></div>',
+            '<div class="slider-wrapper">',
+            '<span class="icon icon-small glyphicon glyphicon-tree-conifer"></span>',
+            '<input type="range" class="cropit-image-zoom-input" />',
+            '<span class="icon icon-large glyphicon glyphicon-tree-conifer"></span>',
+            '</div>',
             '<p>Zalecany rozmiar: 180x180px</p>',
             '<span class="btn btn-default btn-file">Przeglądaj<input type="file" class= "cropit-image-input" /></span>',
             '</div>',
@@ -417,6 +426,8 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
     }
 
     if (jQuery.inArray("cover", this.editables) !== -1) {
+        var credits = $('.credits > a').attr('href') || '';
+
         $.merge(list, [
             '<li><a class="cover" href="#">' + (this.header.hasClass('cover-background') ? 'Zmień' : 'Dodaj') + ' obrazek tła</a></li>'
         ]);
@@ -433,12 +444,17 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '<div class="modal-body">',
             '<div class="image-editor">',
             '<div class="cropit-image-preview"' + (this.header.hasClass('cover-background') ? ' data-image="http://sds.tiktalik.com/portal/pages/cover/' + this.dataset + '/' + this.id + '.jpg"' : '') + '></div>',
+            '<div class="slider-wrapper">',
+            '<span class="icon icon-small glyphicon glyphicon-tree-conifer"></span>',
+            '<input type="range" class="cropit-image-zoom-input" />',
+            '<span class="icon icon-large glyphicon glyphicon-tree-conifer"></span>',
+            '</div>',
             '<p>Zalecany rozmiar: 1500x300px</p>',
             '<span class="btn btn-default btn-file">Przeglądaj<input type="file" class= "cropit-image-input" /></span>',
             '</div>',
             '<div class="form-group btn-sm">',
             '<label for="credits">Prawa autorskie</label>',
-            '<input id="credits" type="text" class="form-control btn-sm" name="credits"/>',
+            '<input id="credits" type="text" class="form-control btn-sm" name="credits" value="' + credits + '" />',
             '</div>',
             '</div>',
             '<div class="modal-footer">' + (this.header.hasClass('cover-background') ? '<button type="button" class="btn btn-link delete" data-type="cover">Usuń obrazek tła</button>' : ''),
@@ -461,7 +477,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '<li><a class="bdl_wymiar" href="#">Ustaw wymiar rozwinięcia</a></li>'
         ]);
     }
-    
+
     if (jQuery.inArray("prawo_hasla_merge", this.editables) !== -1) {
         $.merge(list, [
             '<li><a class="prawo_hasla_merge" href="#">Połącz z instytucją</a></li>'
@@ -589,8 +605,8 @@ ObjectUsersManagement.prototype.insitutionLoad = function (res) {
         transformResult: function(response) {
             res= $.parseJSON(response);
             return {
-                suggestions: $.map(res.options, function(dataItem) {
-                    return { value: dataItem.text, data: dataItem.payload.object_id };
+                suggestions: $.map(res.options, function (dataItem) {
+                    return {value: dataItem.text, data: dataItem.payload.object_id};
                 })
             };
         },
@@ -602,7 +618,7 @@ ObjectUsersManagement.prototype.insitutionLoad = function (res) {
     instytucjaMerge.find('form').bind('submit', function () {
         var id = $(this).find('#instytucja_id_wybierz_merge').first();
 
-        url=decodeURIComponent(($('.appHeader.dataobject').attr('data-url')+'').replace(/\+/g, '%20')) + '.json';
+        url = decodeURIComponent(($('.appHeader.dataobject').attr('data-url') + '').replace(/\+/g, '%20')) + '.json';
 
         $.post(url, {
             _action: 'merge',

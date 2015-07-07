@@ -102,16 +102,16 @@
   }
 }
 
-  .autocomplete-suggestions {
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    background: #fff;
-    overflow: auto;
-    strong {
-      font-weight: normal;
-      color: #3399FF;
-    }
+.autocomplete-suggestions {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background: #fff;
+  overflow: auto;
+  strong {
+    font-weight: normal;
+    color: #3399FF;
   }
+}
 
 .autocomplete-suggestions {
   border: 1px solid #ccc;
@@ -145,8 +145,8 @@
   }
 }
 
-#prawo_hasla_merge_modal{
-  .btn-icon{
+#prawo_hasla_merge_modal {
+  .btn-icon {
     width: auto;
     margin: 0 auto;
     display: block;
@@ -180,6 +180,30 @@
   .image-editor {
     text-align: center;
     margin-bottom: 15px;
+
+    .slider-wrapper {
+      display: inline-block;
+      margin: 10px auto 0;
+      text-align: center;
+      width: auto;
+
+      .cropit-image-zoom-input {
+        margin: 6px 8px 0;
+        float: left;
+      }
+
+      .icon {
+        float: left;
+
+        &.icon-small {
+          font-size: 16px;
+          margin-top: 5px;
+        }
+        &.icon-large {
+          font-size: 24px;
+        }
+      }
+    }
 
     > p {
       margin: 6px 0 10px;
@@ -224,11 +248,16 @@
     .modal-dialog {
       width: 250px;
 
-      .image-editor .cropit-image-preview {
-        width: 180px;
-        height: 180px;
-        margin: 0 auto;
-        background: url(/img/cropit/cropit_default_logo.png) center center no-repeat;
+      .image-editor {
+        .cropit-image-preview {
+          width: 180px;
+          height: 180px;
+          margin: 0 auto;
+          background: url(/img/cropit/cropit_default_logo.png) center center no-repeat;
+        }
+        .slider-wrapper .cropit-image-zoom-input {
+          width: 120px;
+        }
       }
     }
   }
@@ -237,11 +266,16 @@
     .modal-dialog {
       width: 780px;
 
-      .image-editor .cropit-image-preview {
-        width: 750px;
-        height: 200px;
-        margin: 0 auto;
-        background: url(/img/cropit/cropit_default_cover.png) center center no-repeat;
+      .image-editor {
+        .cropit-image-preview {
+          width: 750px;
+          height: 200px;
+          margin: 0 auto;
+          background: url(/img/cropit/cropit_default_cover.png) center center no-repeat;
+        }
+        .slider-wrapper .cropit-image-zoom-input {
+          width: 180px;
+        }
       }
 
       .form-group {

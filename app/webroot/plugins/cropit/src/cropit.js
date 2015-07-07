@@ -21,6 +21,9 @@ Cropit;
     init();
     {
         this.image = new Image();
+        if (this.options.allowCrossOrigin) {
+            this.image.crossOrigin = 'Anonymous';
+        }
         this.preImage = new Image();
         this.image.onload = this.onImageLoaded.bind(this);
         this.preImage.onload = this.onPreImageLoaded.bind(this);
