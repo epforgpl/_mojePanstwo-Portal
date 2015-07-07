@@ -426,6 +426,8 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
     }
 
     if (jQuery.inArray("cover", this.editables) !== -1) {
+        var credits = $('.credits a').attr('href') || '';
+
         $.merge(list, [
             '<li><a class="cover" href="#">' + (this.header.hasClass('cover-background') ? 'Zmień' : 'Dodaj') + ' obrazek tła</a></li>'
         ]);
@@ -452,7 +454,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '</div>',
             '<div class="form-group btn-sm">',
             '<label for="credits">Prawa autorskie</label>',
-            '<input id="credits" type="text" class="form-control btn-sm" name="credits" value="' + $('.credits a').attr('href') + '"/>',
+            '<input id="credits" type="text" class="form-control btn-sm" name="credits" value="' + credits + '" />',
             '</div>',
             '</div>',
             '<div class="modal-footer">' + (this.header.hasClass('cover-background') ? '<button type="button" class="btn btn-link delete" data-type="cover">Usuń obrazek tła</button>' : ''),
