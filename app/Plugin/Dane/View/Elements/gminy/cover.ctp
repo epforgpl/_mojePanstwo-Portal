@@ -114,14 +114,15 @@ $options = array(
 
 
     <? } else { ?>
-
+	
+		<? if (@$dataBrowser['aggs']['all']['prawo']['top']['hits']['hits']) { ?>
         <div class="block block-simple block-size-sm col-xs-12">
             <header>Najnowsze prawo lokalne</header>
 
             <section class="aggs-init">
                 <div class="dataAggs">
                     <div class="agg agg-Dataobjects">
-                        <? if ($dataBrowser['aggs']['all']['prawo']['top']['hits']['hits']) { ?>
+                        
                             <ul class="dataobjects">
                                 <? foreach ($dataBrowser['aggs']['all']['prawo']['top']['hits']['hits'] as $doc) { ?>
                                     <li>
@@ -134,13 +135,13 @@ $options = array(
                             <div class="buttons btn-sm text-center">
 		                        <a href="<?= $object->getUrl() ?>/prawo" class="btn btn-primary btn-xs">Zobacz więcej</a>
 		                    </div>
-                        <? } ?>
 
                     </div>
                 </div>
             </section>
         </div>        
-
+	    <? } ?>
+	    
     <? } ?>
     
     <? if (@$dataBrowser['aggs']['all']['zamowienia_publiczne_dokumenty']['dni']['buckets']) { ?>

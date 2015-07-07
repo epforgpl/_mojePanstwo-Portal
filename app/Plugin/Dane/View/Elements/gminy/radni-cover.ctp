@@ -14,8 +14,6 @@ $options = array(
         <? if ($object->getId() == 903) { ?>
 
             <div class="databrowser-panel">
-                <h2>Radni rady miasta Kraków:</h2>
-
                 <div class="aggs-init">
 
                     <div class="dataAggs">
