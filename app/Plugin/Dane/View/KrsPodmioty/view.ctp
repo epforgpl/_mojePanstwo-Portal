@@ -27,10 +27,18 @@ $this->Combinator->add_libs('js', 'graph-krs');
         <button type="button" class="close" data-dismiss="alert">×</button>
         Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
     </div>
-<? }
+<? } ?>
 
+<? if( @$object_aggs['all']['dzialania']['top']['hits']['hits'] ) {?>
+<div class="block block-simple col-xs-12">
+	<header>Działania</header>
+    <section class="content">
+        <?= debug($object_aggs['all']['dzialania']['top']['hits']['hits']) ?>
+    </section>
+</div>
+<? } ?>
 
-if ($object->getData('cel_dzialania')) { ?>
+<? if ($object->getData('cel_dzialania')) { ?>
     <div class="dzialanie block block-simple col-xs-12">
 
         <section class="content normalizeText textBlock">

@@ -288,6 +288,40 @@ class KrsPodmiotyController extends DataobjectsController
                             ),
                         ),
                     ),
+                    'dzialania' => array(
+                        'filter' => array(
+                            'bool' => array(
+                                'must' => array(
+                                    array(
+                                        'term' => array(
+                                            'dataset' => 'dzialania',
+                                        ),
+                                    ),
+                                    array(
+                                        'term' => array(
+                                            'data.dzialania.dataset' => 'krs_podmioty',
+                                        ),
+                                    ),
+                                    array(
+                                        'term' => array(
+                                            'data.dzialania.object_id' => $this->request->params['id'],
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                        'aggs' => array(
+	                        'top' => array(
+		                        'top_hits' => array(
+		                            'fielddata_fields' => array('dataset', 'id'),
+			                        'size' => 3, 
+			                        'sort' => array(
+				                        'date' => 'desc',
+			                        ),
+		                        ),
+	                        ),
+                        ),
+                    ),
                 ),
             ),
         ));
@@ -541,6 +575,14 @@ class KrsPodmiotyController extends DataobjectsController
             'base' => $this->object->getUrl(),
         );
 
+        if (@$this->object_aggs['all']['dzialania']['doc_count']) {
+            $menu['items'][] = array(
+                'id' => 'dzialania',
+                'label' => 'Działania',
+                'count' => $this->object_aggs['all']['dzialania']['doc_count'],
+            );
+        }
+        
         if (@$this->object_aggs['all']['zamowienia']['doc_count']) {
             $menu['items'][] = array(
                 'id' => 'zamowienia',
