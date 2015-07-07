@@ -139,7 +139,7 @@ $(document).ready(function () {
             e.preventDefault();
 
             if (pismoModal.data('cache') === undefined) {
-                var adresat_id = (pismoBtn.data('adresatid') !== undefined) ? '?adresat=instytucje:' + pismoBtn.data('adresatid') : '';
+                var adresat_id = (pismoBtn.data('adresatid') !== undefined) ? '?adresat=' + pismoBtn.data('adresatid') : '';
                 $.get('/pisma/szablony/index.json' + adresat_id, function (data) {
                     pismoModal.data('cache', data);
                     szablonList(data);
