@@ -88,7 +88,7 @@ echo $this->Element('dataobject/pageBegin'); ?>
                         </section>
                     </div>
                     <? if (isset($admin)) { ?>
-                        <div class="modal fade in" id="<?= $item['id'] ?>">
+                        <div class="modal" id="<?= $item['id'] ?>">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">

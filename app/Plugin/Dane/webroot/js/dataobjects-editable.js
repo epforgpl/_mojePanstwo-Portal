@@ -47,6 +47,10 @@ ObjectUsersManagement.prototype.initialize = function () {
         });
     }
 
+    $(prawo_hasla_merge).on('shown.bs.modal', function() {
+        $(this).find('input:first').focus();
+    });
+
     if (changeLogo.length) {
         var logoImage = changeLogo.find('.cropit-image-preview').attr('data-image');
 
@@ -651,4 +655,6 @@ $(document).ready(function () {
         object_id = header.attr('data-object_id'),
         editables = header.attr('data-editables');
     new ObjectUsersManagement(header, dataset, object_id, jQuery.parseJSON(editables));
+
+
 });
