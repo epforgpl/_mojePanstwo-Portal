@@ -1,9 +1,7 @@
 <?php
 
-App::uses('AppModel', 'Model');
+App::uses('AdminModel', 'Admin.Model');
 
-class PageRequest extends AppModel {
-
-    public $useDbConfig = 'mpAPI';
+class PageRequest extends AdminModel {
 
 }
