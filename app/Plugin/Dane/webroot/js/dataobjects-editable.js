@@ -87,7 +87,11 @@ ObjectUsersManagement.prototype.initialize = function () {
                     fillBg: '#fff'
                 });
 
-            $.ajax({
+            changeLogo.append(
+                $('<img/>').attr('src', imageData)
+            );
+
+            /*$.ajax({
                 url: '/dane/' + _this.dataset + '/' + _this.id + '/page/logo.json',
                 method: "POST",
                 data: {'image': imageData},
@@ -100,7 +104,7 @@ ObjectUsersManagement.prototype.initialize = function () {
                 error: function () {
                     //location.reload(true)
                 }
-            });
+             });*/
         });
     }
 
