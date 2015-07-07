@@ -20,7 +20,7 @@ Zoomer;
 
         if (!rejectSmallImage) {
             this.minZoom = Math.min(this.minZoom, 1);
-        }
+    }
 
         this.maxZoom = Math.max(this.minZoom, maxZoom / exportZoom);
     }
@@ -42,7 +42,7 @@ Zoomer;
 
         if (this.minZoom === this.maxZoom) {
             return 0;
-        }
+    }
         else {
             return (zoom - this.minZoom) / (this.maxZoom - this.minZoom);
         }

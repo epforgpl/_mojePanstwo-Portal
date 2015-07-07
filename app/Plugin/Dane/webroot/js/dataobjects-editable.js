@@ -63,6 +63,7 @@ ObjectUsersManagement.prototype.initialize = function () {
             width: 180,
             height: 180,
             minZoom: 'fit',
+            rejectSmallImage: false,
             onImageLoaded: function () {
                 changeLogo.find('.alert').slideUp("normal", function () {
                     $(this).remove();
@@ -81,6 +82,7 @@ ObjectUsersManagement.prototype.initialize = function () {
                     type: 'image/png',
                     fillBg: '#fff'
                 });
+
             $.ajax({
                 url: '/dane/' + _this.dataset + '/' + _this.id + '/page/logo.json',
                 method: "POST",
@@ -114,7 +116,7 @@ ObjectUsersManagement.prototype.initialize = function () {
             width: 750,
             height: 150,
             exportZoom: 2,
-            minZoom: 'fit',
+            rejectSmallImage: false,
             onImageLoaded: function () {
                 changeBackground.find('.alert').slideUp("normal", function () {
                     $(this).remove();
