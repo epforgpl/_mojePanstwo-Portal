@@ -426,7 +426,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
     }
 
     if (jQuery.inArray("cover", this.editables) !== -1) {
-        var credits = $('.credits a').attr('href') || '';
+        var credits = $('.credits > a').attr('href') || '';
 
         $.merge(list, [
             '<li><a class="cover" href="#">' + (this.header.hasClass('cover-background') ? 'Zmień' : 'Dodaj') + ' obrazek tła</a></li>'
