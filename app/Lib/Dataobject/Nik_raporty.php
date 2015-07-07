@@ -27,5 +27,23 @@ class Nik_raporty extends DocDataObject
     {
         return 'Raport Najwyższej Izby Kontroli';
     }
+    
+    public function getThumbnailUrl($size = '2')
+    {
+        $dokument_id = $this->getData('dokument_id');
+        return $dokument_id ? 'http://docs.sejmometr.pl/thumb/' . $size . '/' . $dokument_id . '.png' : false;
+    }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+			
+		$output = array();
+				
+		if( $this->getDate() )
+			$output[] = dataSlownie($this->getDate());
+		
+		return $output;
+		
+	}
 
 }

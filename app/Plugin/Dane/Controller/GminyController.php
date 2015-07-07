@@ -43,6 +43,10 @@ class GminyController extends DataobjectsController
                     'id' => 'radni_powiazania',
                     'label' => 'Powiązania radnych',
                 ),
+                array(
+                    'id' => 'darczyncy',
+                    'label' => 'Darczyńcy',
+                ),
             ),
         ),
         'urzad' => array(
@@ -1316,7 +1320,27 @@ class GminyController extends DataobjectsController
         }
 
     }
+	
+	public function darczyncy()
+    {
 
+        $this->_prepareView();
+     
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+                'dataset' => 'krakow_darczyncy',
+            ),
+            'aggsPreset' => 'krakow_darczyncy',
+        ));
+
+        $this->set('_submenu', array_merge($this->submenus['rada'], array(
+            'selected' => 'darczyncy',
+        )));
+        $this->set('title_for_layout', 'Darczyńcy komitetów wyborczych w Krakowie');
+
+
+    }
+	
     public function posiedzenia()
     {
         $this->_prepareView();

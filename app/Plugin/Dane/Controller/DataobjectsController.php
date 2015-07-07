@@ -57,9 +57,10 @@ class DataobjectsController extends AppController
         
     }
 
-    public function addInitAggs($aggs = false)
+    public function addInitAggs($aggs = array())
     {
-        $this->initAggs = $aggs;
+	    if($aggs)
+	        $this->initAggs = array_merge($this->initAggs, $aggs);
     }
 
     public function _prepareView()
@@ -93,6 +94,7 @@ class DataobjectsController extends AppController
                 $layers[] = 'subscribers';
             }
                 
+            $layers[] = 'dataset';
             $layers[] = 'page';
 
             if ($this->object = $this->Dataobject->find('first', array(
@@ -243,7 +245,7 @@ class DataobjectsController extends AppController
 
     public function beforeRender()
     {		
-		
+				
         $is_json = (isset($this->request->params['ext']) && $this->request->params['ext'] == 'json');
 
         if (!$is_json && $this->object) {
@@ -265,8 +267,15 @@ class DataobjectsController extends AppController
                         'label' => $breadcrumbs_data['dataset_name']['label'],
                     ));
 
+            } elseif( $dataset = $this->object->getLayer('dataset') ) {
+	            
+	            $this->addBreadcrumb(array(
+                    'href' => '/dane/' . $dataset['Dataset']['alias'],
+                    'label' => $dataset['Dataset']['name'],
+                ));
+	            
             }
-                        
+                                    
             if( $page = $this->object->getLayer('page') ) {
 								
 				if( @isset($this->request->query['page']['cover']) )

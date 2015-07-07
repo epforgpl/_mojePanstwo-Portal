@@ -30,6 +30,7 @@ class ApplicationsController extends AppController
     public $title = false;
     public $description = false;
     public $appSelected = '';
+    public $_app = array();
     
     public $appDatasets = array();
     public $mainMenuLabel = false;
@@ -53,6 +54,7 @@ class ApplicationsController extends AppController
 	        isset($this->settings['id']) && 
         	( $app = $this->getApplication($this->settings['id']) ) 
         ) {
+	        $app = array_merge($app, $this->_app);
             $this->set('_app', $app);
         };
 
