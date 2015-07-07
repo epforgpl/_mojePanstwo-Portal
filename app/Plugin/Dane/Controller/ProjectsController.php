@@ -44,7 +44,7 @@ class ProjectsController extends AppController {
 
     private function setResponse($name, $value) {
         $this->set($name, $value);
-        $this->set('_serialize', $name);
+        $this->set('_serialize', array($name));
     }
 
 }

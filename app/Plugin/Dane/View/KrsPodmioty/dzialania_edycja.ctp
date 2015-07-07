@@ -9,33 +9,20 @@ echo $this->Element('dataobject/pageBegin'); ?>
     <div class="col-md-9 objectMain">
         <div class="block block-simple col-xs-12 dodaj_dzialanie">
             <header>
-                <div class="sm">Dodaj działanie</div>
+                Edycja działania
             </header>
 
             <section>
                 <div class="col-xs-12">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras id maximus ante. Integer fermentum,
-                        leo
-                        vitae commodo aliquet, nulla mauris egestas enim, eget volutpat urna purus quis magna. Sed
-                        eleifend
-                        diam eget ornare faucibus. Nunc laoreet finibus posuere. Maecenas vel justo et elit varius
-                        consectetur. Nulla dolor est, gravida id molestie quis, vestibulum non metus. Aenean vitae
-                        placerat
-                        enim, vitae suscipit dui. Integer aliquet justo fermentum, commodo nisl pulvinar, rutrum tellus.
-                        Duis sit amet mauris varius, pretium sem laoreet, posuere nisi. Donec pellentesque nibh turpis,
-                        non
-                        feugiat urna venenatis ut. Curabitur euismod porta arcu ultrices pretium. Ut condimentum metus
-                        enim,
-                        eget congue quam tincidunt quis. </p>
-
                     <form action="" method="POST">
+                        <input type="hidden" name="id" value="<?= $dzialanie->getData('id'); ?>"/>
                         <div class="form-group">
                             <label for="dzialanieTitle">Tytuł</label>
-                            <input type="text" class="form-control" id="dzialanieTitle" name="tytul">
+                            <input type="text" class="form-control" value="<?= $dzialanie->getData('tytul'); ?>" id="dzialanieTitle" name="tytul">
                         </div>
                         <div class="form-group">
                             <label for="dzialanieOpis">Opis</label>
-                            <textarea class="form-control" id="dzialanieOpis" name="opis"></textarea>
+                            <textarea class="form-control" id="dzialanieOpis" name="opis"><?= $dzialanie->getData('opis'); ?></textarea>
                         </div>
                         <div class="form-group">
                             <div class="image-editor">
@@ -44,7 +31,7 @@ echo $this->Element('dataobject/pageBegin'); ?>
                                 <p>Zalecany rozmiar: 874x347</p>
                                 <span class="btn btn-default btn-file">Przeglądaj<input type="file"
                                                                                         class="cropit-image-input"/></span>
-                                <input type="hidden" type="text" name="cover_photo"/>
+                                <input type="hidden" type="text" <? if($dzialanie->getData('photo') == '1') { ?>value="http://sds.tiktalik.com/portal/pages/dzialania/<?= $dzialanie->getData('dataset'); ?>/<?= $dzialanie->getData('object_id'); ?>/<?= $dzialanie->getData('id'); ?>.jpg"<? } ?> name="cover_photo"/>
                             </div>
                         </div>
                         <div class="form-group googleBlock">
@@ -56,8 +43,8 @@ echo $this->Element('dataobject/pageBegin'); ?>
                                 <div id="loc" class="btn btn-sm"><i data-icon="&#xe607;"></i></div>
 
                                 <div id="googleMap"></div>
-                                <input type="hidden" type="text" name="geo_lat"/>
-                                <input type="hidden" type="text" name="geo_lng"/>
+                                <input type="hidden" value="<?= $dzialanie->getData('geo_lat'); ?>" name="geo_lat"/>
+                                <input type="hidden" value="<?= $dzialanie->getData('geo_lng'); ?>" name="geo_lng"/>
                             </div>
                         </div>
                         <div class="text-center">
