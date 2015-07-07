@@ -47,7 +47,7 @@ ObjectUsersManagement.prototype.initialize = function () {
         });
     }
 
-    $(prawo_hasla_merge).on('shown.bs.modal', function() {
+    $(prawo_hasla_merge).on('shown.bs.modal', function () {
         $(this).find('input:first').focus();
     });
 
@@ -67,7 +67,7 @@ ObjectUsersManagement.prototype.initialize = function () {
             width: 180,
             height: 180,
             minZoom: 'fit',
-            rejectSmallImage: false,
+            smallImage: 'stretch',
             onImageLoaded: function () {
                 changeLogo.find('.alert').slideUp("normal", function () {
                     $(this).remove();
@@ -209,7 +209,7 @@ ObjectUsersManagement.prototype.initialize = function () {
             method: 'post',
             data: {
                 _action: 'wymiar',
-                i: $('#filters_form').attr('data-expand'),
+                i: $('#filters_form').attr('data-expand')
             },
             success: function (res) {
 
@@ -606,8 +606,8 @@ ObjectUsersManagement.prototype.insitutionLoad = function (res) {
         paramName: 'q',
         serviceUrl: '/dane/suggest.json?dataset[]=instytucje',
         deferRequestBy: 400,
-        transformResult: function(response) {
-            res= $.parseJSON(response);
+        transformResult: function (response) {
+            res = $.parseJSON(response);
             return {
                 suggestions: $.map(res.options, function (dataItem) {
                     return {value: dataItem.text, data: dataItem.payload.object_id};
