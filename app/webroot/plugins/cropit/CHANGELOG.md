@@ -1,3 +1,17 @@
+## 0.3.2 (July 3, 2015)
+
+### New features
+
+* Added back `allowCrossOrigin` option
+
+
+## 0.3.1 (June 30, 2015)
+
+### Bug fixes
+
+* Fixed jQuery import in AMD and CommonJS.
+
+
 ## 0.3.0 (June 21, 2015)
 
 ### New features

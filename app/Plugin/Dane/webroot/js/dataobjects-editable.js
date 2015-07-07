@@ -63,6 +63,7 @@ ObjectUsersManagement.prototype.initialize = function () {
             width: 180,
             height: 180,
             minZoom: 'fit',
+            rejectSmallImage: false,
             onImageLoaded: function () {
                 changeLogo.find('.alert').slideUp("normal", function () {
                     $(this).remove();
@@ -81,6 +82,7 @@ ObjectUsersManagement.prototype.initialize = function () {
                     type: 'image/png',
                     fillBg: '#fff'
                 });
+
             $.ajax({
                 url: '/dane/' + _this.dataset + '/' + _this.id + '/page/logo.json',
                 method: "POST",
@@ -114,7 +116,7 @@ ObjectUsersManagement.prototype.initialize = function () {
             width: 750,
             height: 150,
             exportZoom: 2,
-            minZoom: 'fit',
+            rejectSmallImage: false,
             onImageLoaded: function () {
                 changeBackground.find('.alert').slideUp("normal", function () {
                     $(this).remove();
@@ -424,6 +426,8 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
     }
 
     if (jQuery.inArray("cover", this.editables) !== -1) {
+        var credits = $('.credits > a').attr('href') || '';
+
         $.merge(list, [
             '<li><a class="cover" href="#">' + (this.header.hasClass('cover-background') ? 'Zmień' : 'Dodaj') + ' obrazek tła</a></li>'
         ]);
@@ -450,7 +454,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '</div>',
             '<div class="form-group btn-sm">',
             '<label for="credits">Prawa autorskie</label>',
-            '<input id="credits" type="text" class="form-control btn-sm" name="credits"/>',
+            '<input id="credits" type="text" class="form-control btn-sm" name="credits" value="' + credits + '" />',
             '</div>',
             '</div>',
             '<div class="modal-footer">' + (this.header.hasClass('cover-background') ? '<button type="button" class="btn btn-link delete" data-type="cover">Usuń obrazek tła</button>' : ''),
