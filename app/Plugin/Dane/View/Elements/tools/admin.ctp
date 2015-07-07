@@ -18,17 +18,16 @@
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title"
                     id="myModalLabel"><?php echo $this->Html->image('Dane.banners/zarzadzanie.svg', array('width' => '69', 'alt' => '', 'class' => 'pull-left')); ?>
-                    Zostań oficjalnym właścicielem</h4>
+                    Zostań właścicielem tego profilu</h4>
             </div>
             <form class="form-horizontal" method="post">
                 <input type="hidden" name="_action" value="moderate_request"/>
                 <div class="modal-body">
                     <p>
                         Portal MojePaństwo.pl pomaga Twojej organizacji docierać do osób zainteresowanych Waszymi
-                        działaniami. Jak również usprawnia pracę samej organizacji oferując specjalne narzędzia dostępne
+                        działaniami, a także usprawnia pracę samej organizacji oferując specjalne narzędzia dostępne
                         tylko dla oficjalnych partnerów. Aby uzyskać taki status należy wypełnić poniższy formularz a
-                        skontaktujemy się w celu potwierdzenia profilu i uaktywnimy nowe funkcje. W chwili obecnej
-                        poszukujemy 25 partnerów, którzy wspólnie z nami przejdą testy działań wersji beta portalu.
+                        skontaktujemy się w celu potwierdzenia profilu i uaktywnimy nowe funkcje.
                     </p>
                     <?php if ($this->Session->read('Auth.User.id')) { ?>
                         <div class="form-group">
