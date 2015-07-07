@@ -5,5 +5,5 @@
         'class' => 'pull-right'
     )); ?>
     <p>Pobierz aktualny odpis z KRS <strong>za darmo</strong></p>
-    <a href="" class="btn btn-sm btn-primary">Kliknij aby pobrać</a>
+    <a href="<?= $href ?>" class="btn btn-sm btn-primary">Kliknij aby pobrać</a>
 </div>

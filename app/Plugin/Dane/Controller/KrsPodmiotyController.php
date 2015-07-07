@@ -5,7 +5,7 @@ App::uses('DataobjectsController', 'Dane.Controller');
 class KrsPodmiotyController extends DataobjectsController
 {
     
-    public $observeOptions = false;
+    public $observeOptions = true;
     
     public $helpers = array(
         'Time',
@@ -85,6 +85,7 @@ class KrsPodmiotyController extends DataobjectsController
         if ($this->Session->read('KRS.odpis') == $this->object->getId()) {
 
             $odpis = $this->object->getLayer('odpis');
+                        
             if ($odpis['status']) {
                 $this->set('odpis', $odpis['url']);
             }
@@ -371,7 +372,7 @@ class KrsPodmiotyController extends DataobjectsController
     public function odpis()
     {
 
-        $id = (int)$this->request->params['id'];
+        $id = (int) $this->request->params['id'];
         $this->Session->write('KRS.odpis', $id);
         $this->redirect('/dane/krs_podmioty/' . $id);
 
