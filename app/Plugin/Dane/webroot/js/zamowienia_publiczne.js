@@ -98,7 +98,8 @@ jQuery(document).ready(function () {
                     tickWidth: 0,
                     lineWidth: 0,
                     gridLineWidth: 1,
-                    tickPixelInterval: 20,
+                    tickPixelInterval: 40,
+                    gridLineColor: '#EEE',
                     labels: {
                         enabled: true
                     }

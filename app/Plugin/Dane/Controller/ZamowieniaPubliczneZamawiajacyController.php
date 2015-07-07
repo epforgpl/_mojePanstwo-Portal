@@ -40,8 +40,9 @@ class ZamowieniaPubliczneZamawiajacyController extends DataobjectsController
 		}
 		
 		parent::load();
-		if( $this->object->getData('instytucja_id') )
-			return $this->redirect('/dane/instytucje/' . $this->object->getData('instytucja_id'));
+				
+		if( $this->object->getData('dataset') && $this->object->getData('object_id') )
+			return $this->redirect('/dane/' . $this->object->getData('dataset') . '/' . $this->object->getData('object_id'));
 		
 	}
 	
