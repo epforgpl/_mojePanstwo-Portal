@@ -105,11 +105,7 @@ $options = array(
             'adres' => $adres,
         ));
     }
-    
-    $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
 
-    $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
-    $this->Combinator->add_libs('js', 'Pisma.pisma-button');
     echo $this->element('tools/pismo', array());
 
     $page = $object->getLayer('page');

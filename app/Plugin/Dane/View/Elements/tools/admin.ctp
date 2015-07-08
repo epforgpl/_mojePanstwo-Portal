@@ -1,3 +1,4 @@
+<?php $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane'))); ?>
 <?php $this->Combinator->add_libs('css', $this->Less->css('tool-uprawnienia', array('plugin' => 'Dane'))) ?>
 
 <div class="banner uprawnienia block">
