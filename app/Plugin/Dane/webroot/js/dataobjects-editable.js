@@ -98,7 +98,7 @@ ObjectUsersManagement.prototype.initialize = function () {
                     self.addClass('loading disabled')
                 },
                 success: function () {
-                    //location.reload(true)
+                    location.reload(true)
                 },
                 error: function () {
                     //location.reload(true)
@@ -155,7 +155,7 @@ ObjectUsersManagement.prototype.initialize = function () {
                     self.addClass('loading disabled')
                 },
                 success: function () {
-                    //location.reload(true)
+                    location.reload(true)
                 },
                 error: function () {
                     //location.reload(true)
