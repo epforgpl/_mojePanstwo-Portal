@@ -29,6 +29,5 @@ echo $this->Element('dataobject/pageBegin');
         ?>
     </div>
 <? }
-
 echo $this->Element('Dane.DataBrowser/browser', array());
 echo $this->Element('dataobject/pageEnd');

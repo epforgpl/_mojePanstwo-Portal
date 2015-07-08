@@ -615,7 +615,8 @@ class KrsPodmiotyController extends DataobjectsController
             ),
             'base' => $this->object->getUrl(),
         );
-
+		
+		/*
         if (@$this->object_aggs['all']['dzialania']['doc_count']) {
             $menu['items'][] = array(
                 'id' => 'dzialania',
@@ -623,6 +624,7 @@ class KrsPodmiotyController extends DataobjectsController
                 'count' => $this->object_aggs['all']['dzialania']['doc_count'],
             );
         }
+        */
         
         if (@$this->object_aggs['all']['zamowienia']['doc_count']) {
             $menu['items'][] = array(

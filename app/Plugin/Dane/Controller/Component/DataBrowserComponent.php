@@ -454,6 +454,37 @@ class DataBrowserComponent extends Component
                 ),
             ),
         ),
+        'krakow_darczyncy' => array(
+            'komitety' => array(
+                'terms' => array(
+                    'field' => 'krakow_darczyncy.komitet_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                    'order' => array(
+	                    'sum' => 'desc',
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'krakow_darczyncy.komitet',
+                        ),
+                    ),
+                    'sum' => array(
+	                    'sum' => array(
+		                    'field' => 'data.krakow_darczyncy.wartosc_wplata',
+	                    ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Komitety',
+                    'skin' => 'columns_horizontal',
+                    'field' => 'krakow_darczyncy.komitet_id',
+                    'counter_field' => 'sum',
+                ),
+            ),
+        ),
         'rady_gmin_interpelacje' => array(
             'radni' => array(
                 'terms' => array(
@@ -908,9 +939,10 @@ class DataBrowserComponent extends Component
         // debug($this->getSettings()); die();
 
         if (
-            (!$this->cover) ||
+            (!$this->cover) || 
             (
-                $this->cover &&
+                $this->cover && 
+                ( !isset( $this->cover['force'] ) || !$this->cover['force'] ) && 
                 isset($this->queryData['conditions']) &&
                 !empty($this->queryData['conditions'])
             )
@@ -1018,7 +1050,7 @@ class DataBrowserComponent extends Component
 
                 if (isset($this->cover['aggs']))
                     $params['aggs'] = $this->cover['aggs'];
-
+                
                 if (isset($this->cover['conditions'])) {
 
                     $params['conditions'] = array_merge($params['conditions'], $this->cover['conditions']);
