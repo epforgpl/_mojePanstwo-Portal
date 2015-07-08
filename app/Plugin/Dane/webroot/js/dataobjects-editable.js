@@ -82,15 +82,18 @@ ObjectUsersManagement.prototype.initialize = function () {
         });
         changeLogo.find('.export').click(function () {
             var self = $(this),
-                imageData = changeLogo.find('.image-editor').cropit('export', {
-                    type: 'image/png',
-                    fillBg: '#fff'
-                });
+                imageData = changeLogo.find('.image-editor').cropit('imageSrc'),
+                imagePos = changeLogo.find('.image-editor').cropit('offset'),
+                imageZoom = changeLogo.find('.image-editor').cropit('zoom');
 
             $.ajax({
                 url: '/dane/' + _this.dataset + '/' + _this.id + '/page/logo.json',
                 method: "POST",
-                data: {'image': imageData},
+                data: {
+                    'image': imageData,
+                    'pos': imagePos,
+                    'zoom': imageZoom
+                },
                 beforeSend: function () {
                     self.addClass('loading disabled')
                 },
@@ -135,15 +138,19 @@ ObjectUsersManagement.prototype.initialize = function () {
         });
         changeBackground.find('.export').click(function () {
             var self = $(this),
-                imageData = changeBackground.find('.image-editor').cropit('export', {
-                    type: 'image/jpeg',
-                    quality: .9
-                });
+                imageData = changeLogo.find('.image-editor').cropit('imageSrc'),
+                imagePos = changeLogo.find('.image-editor').cropit('offset'),
+                imageZoom = changeLogo.find('.image-editor').cropit('zoom');
 
             $.ajax({
                 url: '/dane/' + _this.dataset + '/' + _this.id + '/page/cover.json',
                 method: "POST",
-                data: {'image': imageData, 'credits': changeBackground.find('#credits').val()},
+                data: {
+                    'image': imageData,
+                    'pos': imagePos,
+                    'zoom': imageZoom,
+                    'credits': changeBackground.find('#credits').val()
+                },
                 beforeSend: function () {
                     self.addClass('loading disabled')
                 },

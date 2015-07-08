@@ -18,7 +18,7 @@
                     var tmp = document.createElement("div"),
                         el = document.getElementsByClassName("bg")[0],
                         size = el.offsetWidth;
-                    tmp.innerHTML = "<?= $adres ?>";
+                    tmp.innerHTML = "<?= trim(preg_replace('/\s+/', ' ', $adres)) ?>";
                     var adres = (tmp.textContent || tmp.innerText || "").replace(/ /g, '+');
                     document.write('<img class="googleMapImage" src="https://maps.googleapis.com/maps/api/staticmap?center' + adres + '&markers=' + adres + '&zoom=15&sensor=false&scale=2&feature:road&size=' + size + 'x180" />')
                 </script>
@@ -49,7 +49,7 @@
                         <div class="googleView">
                             <script>
                                 var container = document.createElement('div');
-                                container.innerHTML = '<?= $adres ?>';
+                                container.innerHTML = '<?= trim(preg_replace('/\s+/', ' ', $adres)) ?>';
                                 var googleMapAdres = container.textContent || container.innerText;
                             </script>
                             <div id="googleMap"></div>
