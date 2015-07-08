@@ -15,7 +15,7 @@ class BdlTempItemsController extends ApplicationsController
 
     public function index()
     {
-        $BdlTempItems = $this->BdlTempItem->find('all');
+        $BdlTempItems = $this->BdlTempItem->search('all');
         $this->set(array(
             'BdlTempItems' => $BdlTempItems,
             '_serialize' => array('BdlTempItems')
@@ -24,7 +24,7 @@ class BdlTempItemsController extends ApplicationsController
 
     public function view($id)
     {
-        $BdlTempItem = $this->BdlTempItem->findById($id);
+        $BdlTempItem = $this->BdlTempItem->searchById($id);
         $this->set(array(
             'BdlTempItem' => $BdlTempItem,
             '_serialize' => array('BdlTempItem'),
@@ -86,7 +86,7 @@ class BdlTempItemsController extends ApplicationsController
     public function listall()
     {
         $this->autoRender = false;
-        $data = $this->BdlTempItem->find('list');
+        $data = $this->BdlTempItem->search('list');
         // Tu musi zwracac stringa
 
         $this->json($data);
@@ -96,7 +96,7 @@ class BdlTempItemsController extends ApplicationsController
     {
         $src = $this->request->data;
         $this->autoRender = false;
-        $data = $this->BdlTempItem->findById($src['id']);
+        $data = $this->BdlTempItem->searchById($src['id']);
 
         $this->json($data);
     }
@@ -104,7 +104,7 @@ class BdlTempItemsController extends ApplicationsController
     public function addIngredients($item_id = false)
     {
         $data = $this->request->data;
-        $old = $this->BdlTempItem->findById($data['id']);
+        $old = $this->BdlTempItem->searchById($data['id']);
 
         $data = array_merge($old, $data);
 

@@ -5,7 +5,7 @@ class BdlTempItem extends AppModel
 
     public $useTable = false;
 
-    public function find($type = 'first', $params = array())
+    public function search($type = 'first', $params = array())
     {
         $ret = null;
         if (!CakeSession::check('TempItems')) {
@@ -62,9 +62,9 @@ class BdlTempItem extends AppModel
         return false;
     }
 
-    public function findById($id)
+    public function searchById($id)
     {
-        return $this->find('first', array('conditions' => array('id' => $id)));
+        return $this->search('first', array('conditions' => array('id' => $id)));
     }
 
     public function save($data)

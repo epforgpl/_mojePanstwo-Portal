@@ -4,6 +4,9 @@ App::uses('DataobjectsController', 'Dane.Controller');
 
 class BdlWskaznikiController extends DataobjectsController
 {
+  /*  public $uses = array(
+        'Bdl.BdlTempItem',
+    );*/
 
     public $menu = array();
     public $components = array('RequestHandler');
@@ -200,6 +203,46 @@ class BdlWskaznikiController extends DataobjectsController
         $this->set('expanded_dimension', $expanded_dimension);
         $this->set('dimmensions_array', $dimmensions_array);
 
+        $BdlTempItems = CakeSession::read('TempItems');;
+        $this->set(array(
+            'BdlTempItems' => $BdlTempItems,
+            '_serialize' => array('BdlTempItems')
+        ));
+
+        $datasets = $this->getDatasets('bdl');
+
+        $options = array(
+            'searchTitle' => 'Szukaj w Banku Danych Lokalnych...',
+            'autocompletion' => array(
+                'dataset' => 'bdl_wskazniki',
+            ),
+            'conditions' => array(
+                'dataset' => array_keys($datasets)
+            ),
+            'cover' => array(
+                'view' => array(
+                    'plugin' => 'Bdl',
+                    'element' => 'cover',
+                ),
+                'aggs' => array(),
+            ),
+            'aggs' => array(
+                'dataset' => array(
+                    'terms' => array(
+                        'field' => 'dataset',
+                    ),
+                    'visual' => array(
+                        'label' => 'Zbiory danych',
+                        'skin' => 'datasets',
+                        'class' => 'special',
+                        'field' => 'dataset',
+                        'dictionary' => $datasets,
+                    ),
+                ),
+            ),
+        );
+        $this->Components->load('Dane.DataBrowser', $options);
+
 
     }
 
@@ -267,6 +310,7 @@ class BdlWskaznikiController extends DataobjectsController
         }
 
         $this->set('tree', $tree);
+
     }    
 
 } 

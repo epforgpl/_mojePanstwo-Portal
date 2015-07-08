@@ -62,16 +62,25 @@ class BdlController extends ApplicationsController
 
         }
 
+        $BdlTempItems = CakeSession::read('TempItems');;
+        $this->set(array(
+            'BdlTempItems' => $BdlTempItems,
+            '_serialize' => array('BdlTempItems')
+        ));
+
         $this->Components->load('Dane.DataBrowser', $options);
         $this->title = 'Bank Danych Lokalnych';
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
+
+
 
 
     }
     
     
     public function getMenu() {
-	    
+	    return false;
+
 	    $menu = array(
 		    'items' => array(
 			    array(
