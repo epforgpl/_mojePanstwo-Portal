@@ -1,0 +1,318 @@
+@font-face {
+  font-family: 'bdl';
+  src: url('/Bdl/fonts/bdl.eot?9ev9nw');
+  src: url('/Bdl/fonts/bdl.eot?#iefix9ev9nw') format('embedded-opentype'),
+  url('/Bdl/fonts/bdl.woff?9ev9nw') format('woff'),
+  url('/Bdl/fonts/bdl.ttf?9ev9nw') format('truetype'),
+  url('/Bdl/fonts/bdl.svg?9ev9nw#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@leftSideAccordionWidth: 300px;
+
+#leftSideAccordion {
+  position: fixed;
+  height: 100vh;
+  left: 85px;
+  top: 0;
+  background-color: #eaebef;
+  width: @leftSideAccordionWidth;
+  border-right: 1px solid #ddd;
+  z-index: 1;
+
+  .input-group {
+    margin: 7px 12px 7px 7px;
+  }
+
+  .ui-accordion .ui-accordion-content {
+    padding: 0;
+  }
+
+  .appTitle {
+    padding: 10px;
+    margin: 0;
+  }
+
+  > header {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px;
+    text-align: left;
+  }
+
+  .jspTrack {
+    background-color: #eaebef;
+  }
+
+  .jspDrag {
+    background: #BCD none repeat scroll 0 0;
+    margin: 0 5px;
+  }
+
+  .ui-widget-content {
+    background-color: #eaebef;
+  }
+
+  h3 {
+    background: #053f69;
+    border: 0 none;
+    color: #FFF;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 12px 8px 12px 26px;
+    margin-top: 0;
+    margin-bottom: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    outline: none;
+  }
+
+  .ui-accordion-content {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+  }
+
+  .suggesterBlock, .treeBlock {
+    width: 100%;
+    float: left;
+  }
+
+  .treeBlock {
+    overflow: auto;
+    padding: 5px 0 !important;
+
+    #tree {
+      @fontSize: 13px;
+      @nodeColor: #444;
+      @leafColor: #157ab5;
+
+      width: 100%;
+      height: auto;
+      display: block;
+      float: left;
+
+      ul {
+        list-style: none;
+        margin-top: 5px;
+        padding-left: 6%;
+        display: inline-block;
+        float: left;
+        width: 100%;
+
+        .jstree-anchor {
+          display: inline-block;
+          padding: 0 0 0 20px;
+          margin: 0;
+          vertical-align: top;
+          font-size: @fontSize;
+          font-weight: normal;
+          color: @nodeColor;
+          line-height: 1.3em;
+
+          &:focus {
+            outline: 0;
+          }
+
+          &, &:link, &:visited, &:hover, &:active {
+            text-decoration: none;
+          }
+        }
+
+        .jstree-node {
+          display: inline-block;
+          float: left;
+          margin-bottom: 10px;
+          margin-top: 10px;
+          width: 100%;
+          position: relative;
+          cursor: pointer;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          > .jstree-ocl {
+            font-family: 'bdl';
+            speak: none;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+
+            position: absolute;
+            top: 8px;
+            left: 0;
+            -webkit-transform: translate(0, -50%);
+            -moz-transform: translate(0, -50%);
+            -ms-transform: translate(0, -50%);
+            -o-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+
+            margin-right: 6px;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+
+            font-size: 14px;
+            color: @nodeColor;
+          }
+
+          &.jstree-open {
+            > .jstree-ocl:before {
+              content: "\e600";
+            }
+            > .jstree-children {
+              display: block;
+            }
+          }
+          &.jstree-closed {
+            > .jstree-ocl:before {
+              content: "\e601";
+            }
+            > .jstree-children {
+              display: none;
+            }
+          }
+
+          .jstree-leaf {
+
+            > .jstree-ocl {
+              color: @leafColor;
+            }
+
+            .jstree-anchor {
+              font-weight: normal;
+              color: @leafColor;
+
+            }
+          }
+        }
+      }
+    }
+  }
+
+  input {
+    padding-right: 15px;
+    font-size: 12px;
+  }
+
+  .btn {
+    font-size: 14px;
+  }
+
+  .list-group-item:last-child {
+    margin-bottom: 0;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+  .list-group-item:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+  .list-group-item {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin: 0;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+  }
+
+  .suggesterBlock {
+    margin-bottom: 0;
+  }
+  .form-horizontal.suggesterBlock {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+#temp_item_opis_modal {
+  #editor {
+    max-height: 450px;
+    height: 250px;
+    background-color: white;
+    border-collapse: separate;
+    border: 1px solid rgb(204, 204, 204);
+    padding: 4px;
+    box-sizing: content-box;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+    box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    overflow: scroll;
+    outline: none;
+    margin: 10px 0;
+    width: 99%;
+  }
+
+  #voiceBtn {
+    width: 20px;
+    color: transparent;
+    background-color: transparent;
+    transform: scale(2.0, 2.0);
+    -webkit-transform: scale(2.0, 2.0);
+    -moz-transform: scale(2.0, 2.0);
+    border: transparent;
+    cursor: pointer;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+  }
+
+  div[data-role="editor-toolbar"] {
+    margin: 10px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .btn-icon {
+    width: auto;
+    margin: 0 auto;
+    display: block;
+  }
+
+}
+
+.remove_btn {
+  display: inline;
+}
+
+.btn-addnew {
+  margin: 10px auto;
+
+}
+
+@media (min-width: 992px) {
+  #_wrapper #_main {
+    padding-left: 85px+@leftSideAccordionWidth;
+
+    .container {
+      width: 100%;
+      max-width: 970px;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  #_wrapper #_main {
+    padding-left: 85px+@leftSideAccordionWidth;
+
+    .container {
+      width: 100%;
+      max-width: 1170px;
+    }
+  }
+}
