@@ -700,7 +700,7 @@
 
                         var exportDefaults = {
                             type: 'image/png',
-                            quality: 1,
+                            quality: 0.75,
                             originalSize: false,
                             fillBg: '#fff'
                         };
@@ -717,53 +717,14 @@
                             width: croppedSize.w * exportZoom,
                             height: croppedSize.h * exportZoom
                         }).get(0);
-                        var ctx = canvas.getContext("2d");
+                        var canvasContext = canvas.getContext('2d');
 
                         if (exportOptions.type === 'image/jpeg') {
-                            ctx.fillStyle = exportOptions.fillBg;
-                            ctx.fillRect(0, 0, canvas.width, canvas.height);
+                            canvasContext.fillStyle = exportOptions.fillBg;
+                            canvasContext.fillRect(0, 0, canvas.width, canvas.height);
                         }
 
-                        var posX = this.offset.x * exportZoom;
-                        var posY = this.offset.y * exportZoom;
-                        var sizeW = this.zoom * exportZoom * this.imageSize.w;
-                        var sizeH = this.zoom * exportZoom * this.imageSize.h;
-
-                        var canvasTmp, contextTmp, canvasWidth, canvasHeight, posXTemp, posYTemp;
-                        var tmp = new Image();
-                        tmp.src = this.image.src;
-
-                        canvasWidth = tmp.width;
-                        canvasHeight = tmp.height;
-
-                        var ratio = 0.5,
-                            steps = Math.ceil(Math.log(canvasWidth / sizeW) / Math.log(2));
-
-                        canvasTmp = document.createElement('canvas');
-                        contextTmp = canvasTmp.getContext('2d');
-
-                        posXTemp = this.offset.x;
-                        posYTemp = this.offset.y;
-                        canvasTmp.width = canvasWidth;
-                        canvasTmp.height = canvasHeight;
-
-                        contextTmp.drawImage(tmp, posXTemp, posYTemp, canvasWidth, canvasHeight);
-
-                        for (var i = 1; i < steps; i++) {
-                            posXTemp *= ratio;
-                            posYTemp *= ratio;
-                            canvasWidth *= ratio;
-                            canvasHeight *= ratio;
-
-                            if (canvasWidth < sizeW || canvasHeight < sizeH) {
-                                break;
-                            }
-
-                            contextTmp.drawImage(tmp, posXTemp, posYTemp, canvasWidth, canvasHeight);
-                            tmp.src = canvasTmp.toDataURL(exportOptions.type, 1);
-                        }
-
-                        ctx.drawImage(tmp, posX, posY, sizeW, sizeH);
+                        canvasContext.drawImage(this.image, this.offset.x * exportZoom, this.offset.y * exportZoom, this.zoom * exportZoom * this.imageSize.w, this.zoom * exportZoom * this.imageSize.h);
 
                         return canvas.toDataURL(exportOptions.type, exportOptions.quality);
                     }
