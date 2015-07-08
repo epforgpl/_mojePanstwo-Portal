@@ -14,6 +14,14 @@ body.theme-default {
   background-color: #FFF;
 }
 
+#_wrapper #_main .objectsPage {
+	margin-top: -20px;
+}
+
+.appHeader .holder h1.smaller, .appHeader .holder h1.smaller a {
+	margin: 15px 7px;
+}
+
 #_main {
   .objectPageHeaderBg {
     .objectPageHeader {
@@ -358,6 +366,14 @@ body.theme-default {
   border-right: 1px solid #ddd;
   z-index: 1;
   
+  .input-group {
+		margin: 7px 12px 7px 7px;
+  }
+  
+  .ui-accordion .ui-accordion-content {
+	  padding: 0;
+  }
+  
   .appTitle {
 	  padding: 10px;
 	  margin: 0;
@@ -385,12 +401,12 @@ body.theme-default {
   
   > section {
     h3 {
-      background: #438fca;
+      background: #053f69;
       border: 0 none;
       color: #FFF;
       font-size: 14px;
       font-weight: normal;
-      padding: 8px 8px 8px 26px;
+      padding: 12px 8px 12px 26px;
       margin-top: 0;
       margin-bottom: 0;
       -webkit-border-radius: 0;
@@ -410,9 +426,9 @@ body.theme-default {
       padding: 5px 0 !important;
 
       #tree {
-        @fontSize: 12px;
-        @nodeColor: #157ab5;
-        @leafColor: @nodeColor;
+        @fontSize: 13px;
+        @nodeColor: #444;
+        @leafColor: #157ab5;
 
         width: 100%;
         height: auto;
@@ -422,7 +438,7 @@ body.theme-default {
         ul {
           list-style: none;
           margin-top: 5px;
-          padding-left: 2.7%;
+          padding-left: 6%;
           display: inline-block;
           float: left;
           width: 100%;
@@ -435,10 +451,10 @@ body.theme-default {
             margin: 0;
             vertical-align: top;
             font-size: @fontSize;
-            font-weight: bold;
+            font-weight: normal;
             color: @nodeColor;
-            line-height: 1em;
-
+	        line-height: 18px;
+    
             &:focus {
               outline: 0;
             }
@@ -461,9 +477,6 @@ body.theme-default {
               margin-bottom: 0;
             }
 
-            &:hover > a {
-              color: darken(@nodeColor, 20%);
-            }
 
             > .jstree-ocl {
               font-family: 'bdl';
@@ -512,25 +525,15 @@ body.theme-default {
             }
 
             .jstree-leaf {
-              &:hover > a {
-                color: darken(@leafColor, 20%);
-              }
 
               > .jstree-ocl {
                 color: @leafColor;
               }
 
               .jstree-anchor {
-                font-size: @fontSize;
                 font-weight: normal;
                 color: @leafColor;
 
-                .jstree-themeicon:before {
-                  font-family: 'datasets';
-                  content: '\e62f';
-                  font-style: normal;
-                  margin-right: 5px;
-                }
               }
             }
           }
