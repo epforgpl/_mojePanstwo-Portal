@@ -17,8 +17,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title"
-                    id="myModalLabel"><?php echo $this->Html->image('Dane.banners/zarzadzanie.svg', array('width' => '69', 'alt' => '', 'class' => 'pull-left')); ?>
-                    Zostań właścicielem tego profilu</h4>
+                    id="uprawnieniaModalLabel">Zostań właścicielem tego profilu</h4>
             </div>
             <form class="form-horizontal" method="post">
                 <input type="hidden" name="_action" value="moderate_request"/>

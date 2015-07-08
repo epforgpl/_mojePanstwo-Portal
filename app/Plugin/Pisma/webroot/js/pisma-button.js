@@ -127,10 +127,6 @@ $(document).ready(function () {
                             $('<p></p>').text("Ładowanie...")
                         )
                     )
-                ).append(
-                    $('<div></div>').addClass('modal-footer').append(
-                        $('<button></button>').addClass('btn btn-default').attr('data-dismiss', 'modal').text('Zamknij')
-                    )
                 )
             )
         );

@@ -22,7 +22,7 @@ $object_id = $object->getId();
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Obserwuj</h4>
+                <h4 class="modal-title" id="observeModalLabel">Obserwuj</h4>
             </div>
             <form action="/dane/subscriptions" method="post">
                 <div class="modal-body">
