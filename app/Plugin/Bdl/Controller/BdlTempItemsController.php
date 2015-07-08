@@ -109,7 +109,6 @@ class BdlTempItemsController extends ApplicationsController
         $data = array_merge($old, $data);
 
         if ($this->BdlTempItem->save($data)) {
-            debug($data);
             $this->json(true);
         } else {
             $this->json(false);

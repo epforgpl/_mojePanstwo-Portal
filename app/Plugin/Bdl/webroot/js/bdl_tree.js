@@ -85,7 +85,7 @@ String.prototype.capitalizeFirstLetter = function () {
         $leftSideAccordion.find('.accordion').accordion({
             heightStyle: "fill",
             create: function () {
-                //$('.jScrollPane').jScrollPane();
+                $('.jScrollPane').jScrollPane();
             }
         });
     });

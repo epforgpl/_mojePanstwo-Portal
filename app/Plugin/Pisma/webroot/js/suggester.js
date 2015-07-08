@@ -75,6 +75,10 @@
                         'width': suggesterInput.outerWidth() - 2,
                         'left': parseInt($ui.css('left'), 10) + 1 + 'px'
                     });
+                    $ui.find('.ui-menu-item').each(function () {
+                        var self = $(this);
+                        self.find('._title').css('height', self.find('._title > span').outerHeight())
+                    });
                     suggesterInput.addClass('open');
                     suggesterInput.removeClass('loader');
                 },
@@ -131,9 +135,9 @@
                         'data-subdataset': item.subdataset
                     }).append(
                         $('<a></a>').attr({'href': "#", 'onclick': 'return false;'}).append(
-                            $('<div></div>').addClass('col-xs-2 col-md-1 _label').append(image)
+                            $('<div></div>').addClass('col-xs-2 _label').append(image)
                         ).append(
-                            $('<div></div>').addClass('col-xs-10 col-md-11 _title').append(title)
+                            $('<div></div>').addClass('col-xs-10 _title').append(title)
                         )
                     ).appendTo(ul);
                 }

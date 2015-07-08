@@ -219,14 +219,26 @@
     position: relative;
     display: block;
     padding: 10px 15px;
-    margin: 0;
-    margin-bottom: -1px;
+    margin: 0 0 -1px 0;
     background-color: #fff;
     border: 1px solid #ddd;
   }
 
   .suggesterBlock {
     margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+
+    .searcher {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+
+      > .col-md-12 {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
   }
   .form-horizontal.suggesterBlock {
     padding-left: 0;

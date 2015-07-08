@@ -16,7 +16,7 @@ $this->Combinator->add_libs('js', 'Bdl.bdl_tree');
         <h3>Bank Danych Loklanych</h3>
 
         <div>
-            <div class="suggesterBlock searchForm col-xs-12">
+            <div class="suggesterBlock searchForm col-xs-12 nopadding">
                 <?
                 $value = isset($this->request->query['q']) ? addslashes($this->request->query['q']) : '';
                 $autocompletion = ($dataBrowser['autocompletion']) ? $dataBrowser['autocompletion'] : false;
