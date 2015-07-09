@@ -60,13 +60,48 @@
     color: #FFF;
     font-size: 14px;
     font-weight: normal;
-    padding: 12px 8px 12px 26px;
+    padding: 12px 8px;
     margin-top: 0;
     margin-bottom: 0;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
     outline: none;
+
+    &.ui-accordion-header-active .ui-accordion-header-icon:before {
+      -webkit-transform: rotate(90deg);
+      -moz-transform: rotate(90deg);
+      -o-transform: rotate(90deg);
+      transform: rotate(90deg);
+    }
+
+    .ui-accordion-header-icon {
+      background: none;
+      position: relative;
+      top: 2px;
+      left: -2px;
+      margin-top: 0;
+      display: inline-block;
+      font-family: 'Glyphicons Halflings';
+      font-style: normal;
+      font-weight: normal;
+      line-height: 1;
+      text-indent: 0;
+
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+
+      &:before {
+        content: "\e080";
+        display: inline-block;
+        font-size: 12px;
+        font-weight: normal;
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+      }
+    }
   }
 
   .ui-accordion-content {
