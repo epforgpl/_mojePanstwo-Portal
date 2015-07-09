@@ -38,7 +38,11 @@ String.prototype.capitalizeFirstLetter = function () {
                 podgrupy = {
                     data: {'id': podgrupyKey},
                     'text': podgrupyData.dane.tytul.toLowerCase().capitalizeFirstLetter(),
-                    'a_attr': {'href': '/dane/bdl_wskazniki/' + podgrupyKey, 'target': '_self'}
+                    'id': 'link_id=' + podgrupyKey,
+                    'a_attr': {
+                        'href': '/dane/bdl_wskazniki/' + podgrupyKey + '#kategoria_id=' + itemKey + '&grupa_id=' + grupyKey + '&link_id=' + podgrupyKey,
+                        'target': '_self'
+                    }
                 };
                 grupyChildren.push(podgrupy);
             });
@@ -80,10 +84,13 @@ String.prototype.capitalizeFirstLetter = function () {
             }
 
             $.each(link, function () {
-                tree.jstree("open_node", this);
+                if (this.match("link_id=")) {
+                    $('a[id="' + this + '_anchor"]').addClass('jstree-active')
+                } else {
+                    tree.jstree("open_node", this);
+                }
                 jScrollPaneReinit();
             });
-            jScrollPaneReinit();
         }
         $leftSideAccordion.find('.accordion').accordion({
             heightStyle: "fill",

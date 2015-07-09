@@ -9,6 +9,7 @@
   font-style: normal;
 }
 
+
 @leftSideAccordionWidth: 300px;
 
 #leftSideAccordion {
@@ -133,7 +134,6 @@
       height: auto;
       display: block;
       float: left;
-      padding-right: 20px;
 
       > .jstree-children > li {
         > i.jstree-ocl {
@@ -254,7 +254,7 @@
               font-weight: normal;
               color: @leafColor;
 
-              &.jstree-clicked {
+              &.jstree-active {
                 background-color: #d3d3d3;
               }
             }
@@ -324,12 +324,9 @@
     border: 1px solid rgb(204, 204, 204);
     padding: 4px;
     box-sizing: content-box;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
-    box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-    border-bottom-left-radius: 3px;
-    border-top-left-radius: 3px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0 1px 1px 0 inset;
+    box-shadow: rgba(0, 0, 0, 0.0745098) 0 1px 1px 0 inset;
+    border-radius: 3px;
     overflow: scroll;
     outline: none;
     margin: 10px 0;
