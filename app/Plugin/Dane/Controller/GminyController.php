@@ -51,12 +51,10 @@ class GminyController extends DataobjectsController
         ),
         'urzad' => array(
             'items' => array(
-                /*
                 array(
                     'id' => 'urzad',
                     'label' => 'Urząd',
                 ),
-                */
                 array(
                     'id' => 'zarzadzenia',
                     'label' => 'Zarządzenia Prezydenta',
