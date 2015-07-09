@@ -8,7 +8,7 @@ $options = array(
     'mode' => 'init',
 );
 ?>
-<div class="col-md-12">
+<div class="col-md-9">
     <div class="databrowser-panels">
 
         <? if ($object->getId() == 903) { ?>
@@ -41,4 +41,16 @@ $options = array(
 
     </div>
 
+</div><div class="col-md-3">
+	
+	<?
+    $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
+	$this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
+    $this->Combinator->add_libs('js', 'Pisma.pisma-button');
+    echo $this->element('tools/pismo', array(
+	    'label' => '<strong>Wyślij pismo</strong> do Rady Miasta',
+	    'adresat' => 'krakow_rada_miasta',
+    ));
+    ?>
+	
 </div>
