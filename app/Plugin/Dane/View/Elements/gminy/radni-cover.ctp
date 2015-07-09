@@ -49,7 +49,7 @@ $options = array(
     $this->Combinator->add_libs('js', 'Pisma.pisma-button');
     echo $this->element('tools/pismo', array(
 	    'label' => '<strong>Wyślij pismo</strong> do Rady Miasta',
-	    'adresat' => 'krakow_rada_miasta',
+	    'adresat' => 'rada_gminy:' . $object->getId() .'',
     ));
     ?>
 	
