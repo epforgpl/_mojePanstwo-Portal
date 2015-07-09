@@ -1,0 +1,42 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro&subset=latin,latin-ext);
+
+.pkrkHeader {
+  font-family: 'Source Sans Pro', sans-serif;
+  background: #f64c18;
+  box-sizing: content-box;
+  display: block;
+  line-height: 34px;
+  padding: 0 34px;
+
+  &::after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+
+  .top-bar__list {
+    display: block;
+    list-style: outside none none;
+    margin: 0;
+
+    .top-bar__item, .top-bar__title {
+      float: left;
+      font-size: 13px;
+    }
+
+    .top-bar__title {
+      text-transform: uppercase;
+    }
+
+    .top-bar__title, .top-bar__item a {
+      border-right: 1px solid #d53200;
+      color: white;
+      display: inline-block;
+      padding: 0 14px;
+    }
+
+    .top-bar__item {
+      box-shadow: 1px 0 0 #ff8686, 1px 0 0 #ff8686 inset;
+    }
+  }
+}
