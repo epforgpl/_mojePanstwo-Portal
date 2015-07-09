@@ -138,9 +138,9 @@ ObjectUsersManagement.prototype.initialize = function () {
         });
         changeBackground.find('.export').click(function () {
             var self = $(this),
-                imageData = changeLogo.find('.image-editor').cropit('imageSrc'),
-                imagePos = changeLogo.find('.image-editor').cropit('offset'),
-                imageZoom = changeLogo.find('.image-editor').cropit('zoom');
+                imageData = changeBackground.find('.image-editor').cropit('imageSrc'),
+                imagePos = changeBackground.find('.image-editor').cropit('offset'),
+                imageZoom = changeBackground.find('.image-editor').cropit('zoom');
 
             $.ajax({
                 url: '/dane/' + _this.dataset + '/' + _this.id + '/page/cover.json',
