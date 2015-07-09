@@ -24,7 +24,7 @@ $(document).ready(function () {
                         'data-szablonId': obj.id,
                         'href': '#' + obj.nazwa.replace(/ /g, '_')
                     }).append(
-                        $('<span></span>').text(obj.nazwa)
+                        $('<span></span>').html('<strong>'+obj.nazwa+'</strong>')
                     ).append(
                         $('<p></p>').text(obj.opis)
                     )
