@@ -20,9 +20,9 @@ class Krakow_glosowania_glosy extends DocDataObject
 	);
 	
     protected $routes = array(
-        'title' => 'krakow_posiedzenia_punkty.tytul',
-        'shortTitle' => 'krakow_posiedzenia_punkty.tytul',
-        'date' => 'krakow_glosowania.data_start',
+        'title' => 'krakow_glosowania.tytul',
+        'shortTitle' => 'krakow_glosowania.tytul',
+        'date' => 'krakow_glosowania.data_stop',
     );
     
     protected $hl_fields = array();
@@ -37,6 +37,8 @@ class Krakow_glosowania_glosy extends DocDataObject
         	$this->hl_fields[] = 'druk_id';
         }
         */
+        
+        // debug( $this->getData() );
 
     }
 	
@@ -74,5 +76,17 @@ class Krakow_glosowania_glosy extends DocDataObject
     public function hasHighlights(){
 	    return false;
     }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+		
+		$output = array();
+				
+		if( $this->getData('krakow_glosowania.data_stop') )
+			$output[] = dataSlownie($this->getData('krakow_glosowania.data_stop'));
+		
+		return $output;
+		
+	}
 
 }

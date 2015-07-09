@@ -8,10 +8,41 @@ $options = array(
     'mode' => 'init',
 );
 ?>
-<div class="col-md-8">
+<div class="col-md-9">
 
     <div class="databrowser-panels">
+		
+		<? if (@$dataBrowser['aggs']['all']['glosowania']['top']['hits']['hits']) { ?>
+            <div class="databrowser-panel">
+                <h2>Wyniki głosowań:</h2>
 
+                <div class="aggs-init">
+
+                    <div class="dataAggs">
+                        <div class="agg agg-Dataobjects">
+                            <? if ($dataBrowser['aggs']['all']['glosowania']['top']['hits']['hits']) { ?>
+                                <ul class="dataobjects">
+                                    <? foreach ($dataBrowser['aggs']['all']['glosowania']['top']['hits']['hits'] as $doc) { ?>
+                                        <li>
+                                            <?
+                                            echo $this->Dataobject->render($doc, 'default');
+                                            ?>
+                                        </li>
+                                    <? } ?>
+                                </ul>
+                                <div class="buttons">
+                                    <a href="<?= $radny->getUrl() ?>/glosowania" class="btn btn-primary btn-sm">Zobacz
+                                        więcej</a>
+                                </div>
+                            <? } ?>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        <? } ?>
+		
         <? if (@$dataBrowser['aggs']['all']['interpelacje']['top']['hits']['hits']) { ?>
             <div class="databrowser-panel">
                 <h2>Najnowsze interpelacje:</h2>
@@ -68,7 +99,7 @@ $options = array(
                                                             <div class="content">
 
 
-                                                                <i class="object-icon glyphicon glyphicon-file"></i>
+                                                                <i class="object-icon icon-datasets-krakow_rada_komisje"></i>
 
                                                                 <div class="object-icon-side ">
 
@@ -175,4 +206,13 @@ $options = array(
 
     </div>
 
+</div><div class="col-md-3">
+<?
+    $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
+	$this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
+    $this->Combinator->add_libs('js', 'Pisma.pisma-button');
+    echo $this->element('tools/pismo', array(
+	    'label' => '<strong>Wyślij pismo</strong> do radnego',
+    ));
+?>
 </div>

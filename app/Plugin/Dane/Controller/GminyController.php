@@ -41,7 +41,7 @@ class GminyController extends DataobjectsController
                 ),
                 array(
                     'id' => 'radni_powiazania',
-                    'label' => 'Powiązania radnych',
+                    'label' => 'Radni w KRS',
                 ),
                 array(
                     'id' => 'darczyncy',
@@ -62,6 +62,10 @@ class GminyController extends DataobjectsController
                     'label' => 'Zarządzenia Prezydenta',
                 ),
                 array(
+                    'id' => 'umowy',
+                    'label' => 'Umowy',
+                ),
+                array(
                     'id' => 'pomoc_publiczna',
                     'label' => 'Pomoc publiczna',
                 ),
@@ -75,7 +79,7 @@ class GminyController extends DataobjectsController
                 ),
                 array(
                     'id' => 'urzednicy_powiazania',
-                    'label' => 'Powiązania urzędników',
+                    'label' => 'Urzędnicy w KRS',
                 ),
             ),
         ),
@@ -726,13 +730,34 @@ class GminyController extends DataobjectsController
 		                ),
 	                ),
 	            ),
+	            'darczyncy' => array(
+	                'filter' => array(
+		                'bool' => array(
+			                'must' => array(
+				                array(
+					                'term' => array(
+						            	'dataset' => 'krakow_darczyncy',
+						            ),
+				                ),
+			                ),
+		                ),
+	                ),
+	                'aggs' => array(
+		                'top' => array(
+			                'top_hits' => array(
+	                            'fielddata_fields' => array('dataset', 'id'),
+				                'size' => 3,
+			                ),
+		                ),
+	                ),
+	            ),
 	        );
         }
 
         $options = array(
             'searchTitle' => 'Szukaj powiązań w Krakowie...',
             'conditions' => array(
-                'dataset' => array('krakow_pomoc_publiczna', 'krs_osoby'),
+                'dataset' => array('krakow_pomoc_publiczna', 'krs_osoby', 'krakow_darczyncy'),
             ),
             'cover' => array(
                 'view' => array(
@@ -769,6 +794,10 @@ class GminyController extends DataobjectsController
 			'pomoc_publiczna' => array(
 				'title' => 'Pomoc publiczna udzielona przez urząd gminy Kraków',
 				'href' => $this->object->getUrl() . '/pomoc_publiczna'
+			),
+			'darczyncy' => array(
+				'title' => 'Darczyńcy komitetów wyborczych',
+				'href' => $this->object->getUrl() . '/darczyncy'
 			),
 		));
         $this->Components->load('Dane.DataBrowser', $options);
@@ -1030,6 +1059,7 @@ class GminyController extends DataobjectsController
         $this->set('_submenu', array_merge($this->submenus['rada'], array(
             'selected' => 'darczyncy',
         )));
+        $this->set('DataBrowserTitle', 'Darczyńcy komitetów wyborczych w Krakowie');
         $this->set('title_for_layout', 'Darczyńcy komitetów wyborczych w Krakowie');
 
 
@@ -2071,6 +2101,30 @@ class GminyController extends DataobjectsController
                                 ),
                             ),
                         ),
+                        'glosowania' => array(
+	                        'filter' => array(
+		                        'bool' => array(
+			                        'must' => array(
+				                        array(
+					                        'term' => array(
+						                        'dataset' => 'krakow_glosowania_glosy',
+					                        ),
+				                        ),
+			                        ),
+		                        ),
+	                        ),
+	                        'aggs' => array(
+                                'top' => array(
+                                    'top_hits' => array(
+                                        'size' => 3,
+                                        'fielddata_fields' => array('dataset', 'id'),
+                                        'sort' => array(
+                                            'date' => 'desc',
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
                     );
 
                     $options = array(
@@ -2475,7 +2529,73 @@ class GminyController extends DataobjectsController
         $this->set('title_for_layout', 'Radni dzielnic w Krakowie');
 
     }
+	
+	public function umowy()
+    {
 
+        $this->_prepareView();
+        
+        $global_aggs = array(
+            'umowy' => array(
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'krakow_umowy',
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'aggs' => array(
+                    'dni' => array(
+						'date_histogram' => array(
+							'field' => 'date',
+							'interval' => 'day',
+						),
+						'aggs' => array(
+							'suma' => array(
+								'sum' => array(
+									'field' => 'data.krakow_umowy.wartosc_brutto',
+								),
+							),
+						),
+					),
+                ),
+            ),
+        );
+
+
+        $options = array(
+            'searchTitle' => 'Szukaj w umowach...',
+            'conditions' => array(
+                'dataset' => 'krakow_umowy',
+           ),
+            'cover' => array(
+                'view' => array(
+                    'plugin' => 'Dane',
+                    'element' => 'gminy/umowy-cover',
+                ),
+                'aggs' => array(
+                    'all' => array(
+                        'global' => '_empty',
+                        'aggs' => $global_aggs,
+                    ),
+                ),
+            ),
+            
+        );
+
+        $this->Components->load('Dane.DataBrowser', $options);
+        
+        $this->set('title_for_layout', 'Umowy zawierane przez Urząd Gminy Kraków');
+        $this->set('_submenu', array_merge($this->submenus['urzad'], array(
+            'selected' => 'umowy',
+        )));
+
+    }
+	
     public function zamowienia()
     {
 
