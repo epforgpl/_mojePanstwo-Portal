@@ -46,9 +46,8 @@
             connectionGraph.removeClass('loading');
 
             if (nodes.length === 0) {
-                connectionGraph.find('>svg').remove().end().append(
-                    $('<span></span>').addClass('svg-info').text(mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_BRAK_POWIAZAN)
-                );
+                connectionGraph.remove();
+                $('.powiazania').remove();
                 return;
             }
 
