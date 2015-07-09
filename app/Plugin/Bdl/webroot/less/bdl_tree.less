@@ -9,7 +9,6 @@
   font-style: normal;
 }
 
-
 @leftSideAccordionWidth: 300px;
 
 #leftSideAccordion {
@@ -42,13 +41,21 @@
     text-align: left;
   }
 
-  .jspTrack {
-    background-color: #eaebef;
+  .jspPane {
+    width: 100% !important;
   }
 
-  .jspDrag {
-    background: #BCD none repeat scroll 0 0;
-    margin: 0 5px;
+  .jspVerticalBar {
+    background: none;
+
+    .jspTrack {
+      background: none;
+
+      .jspDrag {
+        background: #BCD none repeat scroll 0 0;
+        margin: 0 5px;
+      }
+    }
   }
 
   .ui-widget-content {
@@ -170,9 +177,10 @@
 
         .jstree-anchor {
           display: inline-block;
-          padding-top: 10px;
+          width: 100%;
+          padding: 10px;
           padding-bottom: 10px;
-          padding-right: 0;
+          padding-right: 15px;
           margin: 0;
           vertical-align: top;
           font-size: @fontSize;
