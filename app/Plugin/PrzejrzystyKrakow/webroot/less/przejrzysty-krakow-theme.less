@@ -2,11 +2,18 @@
 
 .pkrkHeader {
   font-family: 'Source Sans Pro', sans-serif;
-  background: #f64c18;
   box-sizing: content-box;
   display: block;
   line-height: 34px;
   padding: 0 34px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+  -moz-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+  -o-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
 
   &::after {
     clear: both;
@@ -18,6 +25,7 @@
     display: block;
     list-style: outside none none;
     margin: 0;
+    padding: 0;
 
     .top-bar__item, .top-bar__title {
       float: left;
@@ -29,14 +37,29 @@
     }
 
     .top-bar__title, .top-bar__item a {
-      border-right: 1px solid #d53200;
       color: white;
       display: inline-block;
       padding: 0 14px;
     }
+  }
+}
 
-    .top-bar__item {
-      box-shadow: 1px 0 0 #ff8686, 1px 0 0 #ff8686 inset;
+#_wrapper {
+  #_mPCockpit {
+    &:hover {
+      ._mPBasic {
+        left: 0;
+      }
     }
+    ._mPBasic {
+      left: -80px;
+      -webkit-transition: 0.5s all ease;
+      -moz-transition: 0.5s all ease;
+      -o-transition: 0.5s all ease;
+      transition: 0.5s all ease;
+    }
+  }
+  #_main {
+    padding-left: 0;
   }
 }
