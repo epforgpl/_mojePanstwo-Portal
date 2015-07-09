@@ -109,6 +109,10 @@
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
+
+    &.noOverflow {
+      overflow: hidden !important;
+    }
   }
 
   .suggesterBlock, .treeBlock {
@@ -129,6 +133,7 @@
       height: auto;
       display: block;
       float: left;
+      padding-right: 20px;
 
       > .jstree-children > li {
         > i.jstree-ocl {

@@ -70,6 +70,7 @@ String.prototype.capitalizeFirstLetter = function () {
         } else {
             document.location.href = data.node.a_attr.href;
         }
+        jScrollPaneReinit();
     }).bind("loaded.jstree", function () {
         if (window.location.href.indexOf('#') > 0) {
             var link = window.location.href.slice(window.location.href.indexOf('#') + 1);
@@ -80,15 +81,28 @@ String.prototype.capitalizeFirstLetter = function () {
 
             $.each(link, function () {
                 tree.jstree("open_node", this);
+                jScrollPaneReinit();
             });
+            jScrollPaneReinit();
         }
         $leftSideAccordion.find('.accordion').accordion({
             heightStyle: "fill",
             create: function () {
+                $('.treeBlock ').css('height', $('.noOverflow').outerHeight() - $('.noOverflow .suggesterBlock').outerHeight());
                 $('.jScrollPane').jScrollPane();
+                jScrollPaneReinit();
             }
         });
     });
+
+    function jScrollPaneReinit() {
+        var api = $('.jScrollPane').data('jsp');
+        if (api) {
+            setTimeout(function () {
+                api.reinitialise();
+            }, 400);
+        }
+    }
 
     if ($tempItemOpisModal.length) {
         $('#temp_item_opis_modal #editor').wysihtml5({
