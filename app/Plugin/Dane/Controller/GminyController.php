@@ -3224,7 +3224,7 @@ class GminyController extends DataobjectsController
                 'label' => 'Rada Miasta',
             );
             $menu['items'][] = array(
-                'id' => 'zarzadzenia',
+                'id' => 'urzad',
                 'label' => 'Urząd Miasta',
             );
             $menu['items'][] = array(
