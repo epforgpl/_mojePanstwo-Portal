@@ -31,11 +31,11 @@ echo $this->Element('dataobject/pageBegin'); ?>
                                 <p>Zalecany rozmiar: 874x347</p>
                                 <span class="btn btn-default btn-file">Przeglądaj<input type="file"
                                                                                         class="cropit-image-input"/></span>
-                                <input type="hidden" type="text" <? if($dzialanie->getData('photo') == '1') { ?>value="http://sds.tiktalik.com/portal/pages/dzialania/<?= $dzialanie->getData('dataset'); ?>/<?= $dzialanie->getData('object_id'); ?>/<?= $dzialanie->getData('id'); ?>.jpg"<? } ?> name="cover_photo"/>
+                                <input type="hidden" type="text" <? if(isset($dzialanie_photo_base64)) { ?>value="<?= $dzialanie_photo_base64; ?>"<? } ?> name="cover_photo"/>
                             </div>
                         </div>
                         <div class="form-group googleBlock">
-                            <span class="btn btn-link googleBtn" data-icon="&#xe607;">Dodaj lokalizację</span>
+                            <span class="btn btn-link googleBtn" data-icon="&#xe607;">Zmień lokalizację</span>
 
                             <div class="col-xs-12 googleMapElement">
                                 <input id="pac-input" class="controls" type="text" placeholder="Szukaj...">

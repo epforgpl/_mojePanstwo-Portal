@@ -29,7 +29,7 @@ $this->Combinator->add_libs('js', 'graph-krs');
     </div>
 <? } ?>
 
-<? /* if( @$object_aggs['all']['dzialania']['top']['hits']['hits'] ) {?>
+<? if( @$object_aggs['all']['dzialania']['top']['hits']['hits'] ) {?>
 <div class="block block-simple col-xs-12 dzialania">
 	<header>Działania organizacji</header>
     <section class="content">
@@ -49,7 +49,7 @@ $this->Combinator->add_libs('js', 'graph-krs');
         <? } ?>
     </section>
 </div>
-<? } */ ?>
+<? } ?>
 
 <? if ($object->getData('cel_dzialania')) { ?>
     <div class="dzialanie block block-simple col-xs-12">

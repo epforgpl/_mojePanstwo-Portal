@@ -375,10 +375,12 @@ class KrsPodmiotyController extends DataobjectsController
     {
         $this->addInitLayers(array('dzialania_nowe'));
         $this->_prepareView();
+
+        if(!$this->getPageRoles() || !in_array($this->getPageRoles(), array('1', '2')))
+            throw new ForbiddenException;
     }
 
     public function dzialania_edycja() {
-
         $id = @$this->request->params['subid'];
         if(!$id)
             throw new NotFoundException;
@@ -390,9 +392,21 @@ class KrsPodmiotyController extends DataobjectsController
             )
         ));
 
+        if($dzialanie->getData('dzialania.photo') == '1') {
+            $src = "http://sds.tiktalik.com/portal/pages/dzialania/" . $dzialanie->getData('dataset') . "/" . $dzialanie->getData('object_id') . "/" . $dzialanie->getData('id') . ".jpg";
+            $data = @file_get_contents($src);
+            if($data) {
+                $base64 = 'data:image/jpeg;base64,' . base64_encode($data);
+                $this->set('dzialanie_photo_base64', $base64);
+            }
+        }
+
         $this->set('dzialanie', $dzialanie);
 
         $this->_prepareView();
+
+        if(!$this->getPageRoles() || !in_array($this->getPageRoles(), array('1', '2')))
+            throw new ForbiddenException;
     }
 
     public function dzialania() {

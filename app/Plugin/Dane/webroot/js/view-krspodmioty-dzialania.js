@@ -24,6 +24,8 @@ function initialize() {
         $('.googleMapElement').addClass('loaded');
     });
 
+
+
     google.maps.event.addListener(googleMap, "click", function (event) {
         clearMarkers();
         markers = [];
@@ -68,6 +70,23 @@ function initialize() {
         }
         googleMap.fitBounds(bounds);
     });
+
+    var googleMapBlock = $('.googleMapElement'),
+        lat = parseFloat(googleMapBlock.find('input[name="geo_lat"]').val()),
+        lng = parseFloat(googleMapBlock.find('input[name="geo_lng"]').val());
+
+    if(lat > 0 && lng > 0) {
+        clearMarkers();
+        markers = [];
+
+        var marker = new google.maps.Marker({
+            map: googleMap,
+            icon: markerImage,
+            position: {lat: lat, lng: lng}
+        });
+
+        markers.push(marker);
+    }
 
     google.maps.event.addListener(googleMap, 'bounds_changed', function () {
         var bounds = googleMap.getBounds();
@@ -242,12 +261,16 @@ $(document).ready(function () {
             }
 
         $.ajax({
-            url: '/dane/' + dataset + '/' + object_id + '/dzialania.json',
+            url: '/dane/' + dataset + '/' + object_id + '/dzialania' + (id > 0 ? '/' + id : '') + '.json',
             method: id > 0 ? 'PUT' : 'POST',
             data: inputs,
             success: function (res) {
 
-                console.log(res);
+                if(res.success && id) {
+                    window.location = '/dane/' + dataset + '/' + object_id + '/dzialania/' + id;
+                } else {
+                    window.location = '/dane/' + dataset + '/' + object_id + '/dzialania/' + res.success;
+                }
 
             }
         });
@@ -257,6 +280,20 @@ $(document).ready(function () {
 
     $('.cancelBtn').click(function() {
         window.location = '/dane/' + dataset + '/' + object_id;
+    });
+
+    $('.btn[data-action="delete"]').click(function() {
+        var id = $(this).data('id');
+        if(confirm("Czy na pewno chcesz usunąć to działanie?")) {
+            $.ajax({
+                url: '/dane/' + dataset + '/' + object_id + '/dzialania/' + id + '.json',
+                method: 'DELETE',
+                data: [],
+                success: function(res) {
+                    window.location = '/dane/' + dataset + '/' + object_id;
+                }
+            });
+        }
     });
 
     /*ASYNCHRONIZE ACTION FOR GOOGLE MAP*/
