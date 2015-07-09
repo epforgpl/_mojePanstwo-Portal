@@ -130,17 +130,44 @@
       display: block;
       float: left;
 
+      > .jstree-children > li {
+        > i.jstree-ocl {
+          left: 10px;
+        }
+        a.jstree-anchor {
+          padding-left: 30px;
+        }
+        > .jstree-children > li {
+          > i.jstree-ocl {
+            left: 20px;
+          }
+          a.jstree-anchor {
+            padding-left: 40px;
+          }
+          > .jstree-children > li {
+            > i.jstree-ocl {
+              left: 30px;
+            }
+            a.jstree-anchor {
+              padding-left: 50px;
+            }
+          }
+        }
+      }
+
       ul {
         list-style: none;
         margin-top: 5px;
-        padding-left: 6%;
+        padding-left: 0;
         display: inline-block;
         float: left;
         width: 100%;
 
         .jstree-anchor {
           display: inline-block;
-          padding: 0 0 0 20px;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          padding-right: 0;
           margin: 0;
           vertical-align: top;
           font-size: @fontSize;
@@ -160,8 +187,6 @@
         .jstree-node {
           display: inline-block;
           float: left;
-          margin-bottom: 10px;
-          margin-top: 10px;
           width: 100%;
           position: relative;
           cursor: pointer;
@@ -182,8 +207,7 @@
             -moz-osx-font-smoothing: grayscale;
 
             position: absolute;
-            top: 8px;
-            left: 0;
+            top: 18px;
             -webkit-transform: translate(0, -50%);
             -moz-transform: translate(0, -50%);
             -ms-transform: translate(0, -50%);
@@ -217,7 +241,6 @@
           }
 
           .jstree-leaf {
-
             > .jstree-ocl {
               color: @leafColor;
             }
@@ -226,6 +249,9 @@
               font-weight: normal;
               color: @leafColor;
 
+              &.jstree-clicked {
+                background-color: #d3d3d3;
+              }
             }
           }
         }
