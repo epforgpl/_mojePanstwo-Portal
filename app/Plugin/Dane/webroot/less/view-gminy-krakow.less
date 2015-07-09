@@ -1,264 +1,273 @@
 #_main {
-    .appHeader.pk {
-        height: 167px;
+  .appHeader.pk {
+    height: 167px;
 
-        background: bottom right no-repeat #1d1520;
-        background-image: url(/Dane/img/customObject/krakow/przejrzysty_krakow.jpg);
-        background-image: url(/Dane/img/customObject/krakow/przejrzysty_krakow.jpg), -webkit-gradient(linear, left top, left bottom, from(#1d1520), to(#271d25));
-        background-image: url(/Dane/img/customObject/krakow/przejrzysty_krakow.jpg), -webkit-linear-gradient(top, #1d1520, #271d25);
-        background-image: url(/Dane/img/customObject/krakow/przejrzysty_krakow.jpg), -moz-linear-gradient(top, #1d1520, #271d25);
-        background-image: url(/Dane/img/customObject/krakow/przejrzysty_krakow.jpg), -o-linear-gradient(top, #1d1520, #271d25);
-        background-image: url(/Dane/img/customObject/krakow/przejrzysty_krakow.jpg), linear-gradient(to bottom, #1d1520, #271d25);
+    background: bottom right no-repeat #1d1520;
+    background-image: url(/Dane/img/customObject/krakow/przejrzysty_krakow.jpg);
+    background-image: url(/Dane/img/customObject/krakow/przejrzysty_krakow.jpg), -webkit-gradient(linear, left top, left bottom, from(#1d1520), to(#271d25));
+    background-image: url(/Dane/img/customObject/krakow/przejrzysty_krakow.jpg), -webkit-linear-gradient(top, #1d1520, #271d25);
+    background-image: url(/Dane/img/customObject/krakow/przejrzysty_krakow.jpg), -moz-linear-gradient(top, #1d1520, #271d25);
+    background-image: url(/Dane/img/customObject/krakow/przejrzysty_krakow.jpg), -o-linear-gradient(top, #1d1520, #271d25);
+    background-image: url(/Dane/img/customObject/krakow/przejrzysty_krakow.jpg), linear-gradient(to bottom, #1d1520, #271d25);
 
-        .attachment {
-            margin-top: 30px;
-            padding-left: 0;
+    .attachment {
+      margin-top: 30px;
+      padding-left: 0;
 
-            a {
-                display: block;
-                float: left;
-            }
-            img {
-                margin: 0;
-                width: 100%;
-            }
-        }
-        .content {
-            margin-top: 80px;
-
-            .header {
-                font-size: 14px;
-                font-weight: normal;
-                color: #ffffff;
-                line-height: 1.1em;
-
-                a {
-                    color: #FFF;
-                }
-            }
-        }
+      a {
+        display: block;
+        float: left;
+      }
+      img {
+        margin: 0;
+        width: 100%;
+      }
     }
+    .content {
+      margin-top: 80px;
+
+      .header {
+        font-size: 14px;
+        font-weight: normal;
+        color: #ffffff;
+        line-height: 1.1em;
+
+        a {
+          color: #FFF;
+        }
+      }
+    }
+  }
 }
 
 .pk-header {
-    font-size: 16px;
-    font-weight: 300;
-    margin: 10px 10px 30px;
+  font-size: 16px;
+  font-weight: 300;
+  margin: 10px 10px 30px;
 }
 
 .pk-funkcje {
-    p {
-        font-size: 14px;
-        font-weight: 300;
-    }
+  p {
+    font-size: 14px;
+    font-weight: 300;
+  }
 }
 
 .pk-radni {
-    overflow-x: auto;
-    overflow-y: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 72px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  ul {
+    width: auto;
     height: 72px;
-    width: 100%;
     margin: 0;
     padding: 0;
+    white-space: nowrap;
 
-    ul {
-        width: auto;
-        height: 72px;
-        margin: 0;
-        padding: 0;
-        white-space: nowrap;
-
-        li {
-            display: inline;
-            margin-right: -5px;
-            padding: 0;
-            border: 1px solid #FFF;
-            img {
-                max-height: 70px;
-            }
-        }
+    li {
+      display: inline;
+      margin-right: -5px;
+      padding: 0;
+      border: 1px solid #FFF;
+      img {
+        max-height: 70px;
+      }
     }
+  }
 }
 
 #komitety_chart {
-    height: 100px;
-    overflow: hidden;
+  height: 100px;
+  overflow: hidden;
 }
 
 .objectsPage {
-    &.krakow .suggesterBlock {
-        width: 100%;
-        margin-left: 0;
-        margin-right: 0;
-        padding-left: 0;
-        padding-right: 0;
-    }
-    .objectPageHeaderContainer.krakow .objectRender .attachment img {
-        max-width: inherit;
-    }
+  &.krakow .suggesterBlock {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .objectPageHeaderContainer.krakow .objectRender .attachment img {
+    max-width: inherit;
+  }
 }
 
 #fundatorzy {
-    text-align: center;
-    .part {
-        width: 100%;
-        display: block;
-        float: left;
+  text-align: center;
+  .part {
+    width: 100%;
+    display: block;
+    float: left;
 
-        p.info {
-            margin-bottom: 10px;
-            font-size: 12px;
-        }
-
-        .logotypy {
-            a {
-                margin: 0 10px;
-                outline: none;
-
-                .image {
-                    max-width: 350px;
-                    max-height: 60px;
-                    margin-right: 20px;
-                    margin-bottom: 25px;
-                    vertical-align: middle;
-                }
-            }
-        }
+    p.info {
+      margin-bottom: 10px;
+      font-size: 12px;
     }
+
+    .logotypy {
+      a {
+        margin: 0 10px;
+        outline: none;
+
+        .image {
+          max-width: 350px;
+          max-height: 60px;
+          margin-right: 20px;
+          margin-bottom: 25px;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
 }
 
 .special.banner {
+  display: block;
+  margin: 0 4px -3px;
+  padding: 0;
+  overflow: hidden;
+  height: 85px;
+
+  a {
+    float: left;
     display: block;
-    margin: 0 4px -3px;
-    padding: 0;
-    overflow: hidden;
     height: 85px;
 
-    a {
-        float: left;
-        display: block;
-        height: 85px;
-
-        img {
-            float: left;
-        }
+    img {
+      float: left;
     }
+  }
 }
 
 .sklad {
-    padding: 0 20px;
-    margin-top: 10px;
+  padding: 0 20px;
+  margin-top: 10px;
 
-    .label {
-        margin-left: 10px;
-        font-size: 12px;
-    }
+  .label {
+    margin-left: 10px;
+    font-size: 12px;
+  }
 }
 
 #dzielnice_map {
-    height: 400px;
-    margin: 0 20px 0 0 !important; /*TODO:check if it REALLY need*/
-    padding: 0;
-    width: 100%;
-    background-color: #E5E3DF;
+  height: 400px;
+  margin: 0 20px 0 0 !important; /*TODO:check if it REALLY need*/
+  padding: 0;
+  width: 100%;
+  background-color: #E5E3DF;
 }
 
 .pk-dzielnice {
-    height: 400px;
-    overflow: auto;
-    margin: 0;
-    padding: 0;
+  height: 400px;
+  overflow: auto;
+  margin: 0;
+  padding: 0;
 
-    li {
-        border-bottom: 1px solid #EEE;
-        font-size: 13px;
-        font-weight: 400;
-        margin: 0 !important; /*TODO:check if it REALLY need*/
-        padding: 5px 0 !important; /*TODO:check if it REALLY need*/
-    }
+  li {
+    border-bottom: 1px solid #EEE;
+    font-size: 13px;
+    font-weight: 400;
+    margin: 0 !important; /*TODO:check if it REALLY need*/
+    padding: 5px 0 !important; /*TODO:check if it REALLY need*/
+  }
 }
 
 .docs-list {
-    li {
-        overflow: auto;
-        padding: 6px !important; /*TODO:check if it REALLY need*/
-        img {
-            float: left;
-        }
-
-        .inner {
-            margin-left: 48px;
-
-            p {
-                margin: 0;
-                padding: 0;
-            }
-
-            .date {
-                color: #818793;
-                font-size: 11px;
-            }
-        }
+  li {
+    overflow: auto;
+    padding: 6px !important; /*TODO:check if it REALLY need*/
+    img {
+      float: left;
     }
+
+    .inner {
+      margin-left: 48px;
+
+      p {
+        margin: 0;
+        padding: 0;
+      }
+
+      .date {
+        color: #818793;
+        font-size: 11px;
+      }
+    }
+  }
 }
 
 .subobjectContainer {
-    .radni_gmin {
+  .radni_gmin {
 
-        h1 {
-            font-size: 24px !important; /*TODO:check if it REALLY need*/
-            margin-bottom: 20px;
-        }
-
-        .attachment {
-            max-width: 130px;
-        }
+    h1 {
+      font-size: 24px !important; /*TODO:check if it REALLY need*/
+      margin-bottom: 20px;
     }
 
-    .objectRender.krakow_posiedzenia .attachment img {
-        max-width: inherit;
+    .attachment {
+      max-width: 130px;
     }
+  }
 
-    .objectRender .attachment .thumb_cont {
-        max-height: 130px;
-    }
+  .objectRender.krakow_posiedzenia .attachment img {
+    max-width: inherit;
+  }
+
+  .objectRender .attachment .thumb_cont {
+    max-height: 130px;
+  }
 }
 
 .objectsPage .dataBrowser._dataset_krakow_posiedzenia_punkty {
-    position: relative;
-    top: -30px;
-    margin-top: 0;
-    margin-bottom: -30px;
+  position: relative;
+  top: -30px;
+  margin-top: 0;
+  margin-bottom: -30px;
 }
 
 @media (min-width: 768px) {
-    .objectsPage .objectPageHeaderBg.extended .menuTabsCont ul.nav-tabs > li > a {
-        font-size: 12px;
-        padding-left: 5px;
-        padding-right: 5px;
-    }
+  .objectsPage .objectPageHeaderBg.extended .menuTabsCont ul.nav-tabs > li > a {
+    font-size: 12px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 }
 
 @media (min-width: 992px) {
-    .objectsPage .objectPageHeaderBg.extended .menuTabsCont ul.nav-tabs > li > a {
-        font-size: 14px;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
+  .objectsPage .objectPageHeaderBg.extended .menuTabsCont ul.nav-tabs > li > a {
+    font-size: 14px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 
 @media (min-width: 1200px) {
-    .objectsPage .objectPageHeaderBg.extended .menuTabsCont ul.nav-tabs > li > a {
-        font-size: 16px;
-        padding-left: 15px;
-        padding-right: 15px;
-    }
+  .objectsPage .objectPageHeaderBg.extended .menuTabsCont ul.nav-tabs > li > a {
+    font-size: 16px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 }
 
 .radny-obietnice {
-    padding: 20px 0;
+  padding: 20px 0;
 }
 
 .radni_cover .objectRender .attachment img {
-    margin-top: -20px !important;
+  margin-top: -20px !important;
+}
+
+.databrowser-panels .databrowser-panel {
+  display: inline-block;
+
+  .thumbnail {
+    padding: 0;
+    margin-right: 10px;
+  }
 }
