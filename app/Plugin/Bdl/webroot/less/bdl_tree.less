@@ -150,7 +150,8 @@
 
   .treeBlock {
     overflow: auto;
-    padding: 5px 0 !important;
+    padding: 0;
+    margin: 0;
 
     #tree {
       @fontSize: 13px;
@@ -163,12 +164,6 @@
       float: left;
 
       > .jstree-children > li {
-        &.jstree-open {
-		      
-		      >ul {
-	          }
-	      }
-	      
         > i.jstree-ocl {
           left: 20px;
         }
@@ -176,9 +171,9 @@
           padding-left: 40px;
         }
         > .jstree-children > li {
-	        &.jstree-open {
+          &.jstree-open {
 
-			}
+          }
           > i.jstree-ocl {
             left: 30px;
           }
@@ -186,7 +181,7 @@
             padding-left: 50px;
           }
           > .jstree-children > li {
-	      	> i.jstree-ocl {
+            > i.jstree-ocl {
               left: 40px;
             }
             a.jstree-anchor {
@@ -198,7 +193,6 @@
 
       ul {
         list-style: none;
-        margin-top: 5px;
         padding-left: 0;
         display: inline-block;
         float: left;
@@ -207,7 +201,7 @@
         .jstree-anchor {
           display: inline-block;
           width: 100%;
-          padding: 10px;
+          padding-top: 10px;
           padding-bottom: 10px;
           padding-right: 15px;
           margin: 0;
@@ -291,10 +285,10 @@
               font-weight: bold;
               font-size: 12px;
               color: @leafColor;
-              
+
               &.jstree-active {
-	              color: white;
-	              background-color: #337ab7;
+                color: white;
+                background-color: #337ab7;
               }
 
             }

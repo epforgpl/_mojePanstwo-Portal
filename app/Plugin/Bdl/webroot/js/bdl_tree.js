@@ -6,9 +6,9 @@ String.prototype.capitalizeFirstLetter = function () {
 };
 
 (function ($) {
-    
+
     // return false;
-    
+
     "use strict";
     var $leftSideAccordion = $('#leftSideAccordion'),
         $tempItemOpisModal = $('#temp_item_opis_modal'),
@@ -98,17 +98,16 @@ String.prototype.capitalizeFirstLetter = function () {
                 jsScrollTarget = link[link.length - 1];
                 jScrollPaneReinit();
             });
-            
-            
+
 
         }
-        
+
         $leftSideAccordion.removeClass('init').find('h3 span').remove();
-        
+
         $leftSideAccordion.find('.accordion').accordion({
             heightStyle: "fill",
             create: function () {
-                $('.treeBlock ').css('height', $('.noOverflow').outerHeight() - $('.noOverflow .suggesterBlock').outerHeight());
+                $('.treeBlock ').css('height', $('.noOverflow').outerHeight() - $('.noOverflow .suggesterBlock').outerHeight() - 5);
                 $('.jScrollPane').jScrollPane();
                 jScrollPaneReinit();
             }
