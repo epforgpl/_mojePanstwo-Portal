@@ -125,9 +125,9 @@ String.prototype.capitalizeFirstLetter = function () {
                     jsScrollHandler = setTimeout(function () {
                         api.scrollTo(0, ($('a[id="' + jsScrollTarget + '_anchor"]').offset().top - $('.suggesterBlock').outerHeight()) - ($('.noOverflow').outerHeight() / 2), 'ease');
                         jsScrollTarget = null;
-                    }, 450);
+                    }, 250);
                 }
-            }, 400);
+            }, 200);
         }
     }
 

@@ -11,7 +11,8 @@ $this->Combinator->add_libs('js', 'Bdl.jstree.min');
 $this->Combinator->add_libs('js', 'Bdl.bdl_tree');
 ?>
 
-<div class="init" id="leftSideAccordion">
+
+<div id="leftSideAccordion" class="init hidden-xs hidden-sm">
     <div class="accordion">
         <h3><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-s"></span>Bank Danych Lokalnych</h3>
 
