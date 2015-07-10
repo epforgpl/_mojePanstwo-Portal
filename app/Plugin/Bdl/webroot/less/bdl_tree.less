@@ -84,7 +84,7 @@
 
   h3 {
     width: @leftSideAccordionWidth;
-    background: #201622;
+    background: #666;
     border: 0 none;
     color: #FFF;
     font-size: 14px;
@@ -97,11 +97,15 @@
     border-radius: 0;
     outline: none;
 
-    &.ui-accordion-header-active .ui-accordion-header-icon:before {
-      -webkit-transform: rotate(90deg);
-      -moz-transform: rotate(90deg);
-      -o-transform: rotate(90deg);
-      transform: rotate(90deg);
+    &.ui-accordion-header-active {
+      background: #201622;
+
+      .ui-accordion-header-icon:before {
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        transform: rotate(90deg);
+      }
     }
 
     .ui-accordion-header-icon {
