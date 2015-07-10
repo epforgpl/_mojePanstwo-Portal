@@ -10,28 +10,34 @@
 }
 
 @leftSideAccordionWidth: 300px;
+@headerHeight: 48px;
 
-.appHeader.dataobject {
-	background-color: #201622 !important;
-	background: #201622 !important;
-	height: 48px !important;
-	min-height: 48px !important;
-	position: fixed;
-	z-index: 2;
-	
-	.container {
-		margin: 0 15px;
-	}
-}
+#_wrapper {
+  #_main {
+    padding-bottom: 30px;
 
-#_wrapper #_main .objectsPage {
-	margin-top: 50px;
-}
+    .appHeader.dataobject {
+      background: #201622;
+      height: 48px;
+      min-height: @headerHeight;
+      position: fixed;
+      z-index: 2;
 
-.appHeader .holder h1.smaller, .appHeader .holder h1.smaller a {
-	font-size: 14px !important;
-	color: #FFF !important;
-	margin: 17px 0 0 0 !important;
+      .container {
+        margin: 0 15px;
+      }
+    }
+
+    .appHeader .holder h1.smaller, .appHeader .holder h1.smaller a {
+      font-size: 14px;
+      color: #FFF;
+      margin: 17px 0 0 0;
+    }
+
+    .objectsPage {
+      margin-top: 50px;
+    }
+  }
 }
 
 #leftSideAccordion {
@@ -108,6 +114,7 @@
 
   h3 {
     width: @leftSideAccordionWidth;
+    height: @headerHeight;
     background: #666;
     border: 0 none;
     color: #FFF;
@@ -442,8 +449,8 @@
     }
   }
 
-  #_wrapper footer.footer .col-xs-12 {
-    padding-left: @leftSideAccordionWidth;
+  #_wrapper footer.footer > section {
+    margin-left: (85px+@leftSideAccordionWidth)/2;
   }
 }
 
@@ -455,33 +462,5 @@
       width: 100%;
       max-width: 1170px;
     }
-  }
-
-  #_wrapper footer.footer .col-xs-12 {
-    padding-left: @leftSideAccordionWidth;
-  }
-}
-
-@media (min-width: 1440px) {
-  #_wrapper footer.footer .col-xs-12 {
-    padding-left: @leftSideAccordionWidth - 50px;
-  }
-}
-
-@media (min-width: 1520px) {
-  #_wrapper footer.footer .col-xs-12 {
-    padding-left: @leftSideAccordionWidth - 100px;
-  }
-}
-
-@media (min-width: 1600px) {
-  #_wrapper footer.footer .col-xs-12 {
-    padding-left: @leftSideAccordionWidth - 150px;
-  }
-}
-
-@media (min-width: 1670px) {
-  #_wrapper footer.footer .col-xs-12 {
-    padding-left: @leftSideAccordionWidth - 200px;
   }
 }

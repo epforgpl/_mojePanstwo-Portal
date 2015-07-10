@@ -85,7 +85,7 @@ footer.footer {
     width: 340px;
 
     position: absolute;
-    bottom: 5px;
+    bottom: 10px;
     left: 50%;
     z-index: 900;
 
@@ -96,14 +96,18 @@ footer.footer {
     transform: translate(-50%, 0px);
 
     .separator {
-      color: lighten(#157ab5, 30%);
+      color: lighten(#999999, 30%);
     }
 
     a {
       font-size: 10px;
       font-weight: bold;
       margin: 20px 0;
-      color: #157ab5;
+      color: #999999;
+
+      &:hover {
+        color: #157ab5;
+      }
     }
   }
 }
@@ -114,6 +118,10 @@ footer.footer {
   }
   a {
     color: #EDEDED;
+
+    &:hover {
+      color: lighten(#EDEDED, 5%);
+    }
 
     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=135, Color=#000000)";
     text-shadow: 1px 1px 1px #000000;
