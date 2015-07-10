@@ -20,7 +20,7 @@
                         size = el.offsetWidth;
                     tmp.innerHTML = "<?= trim(preg_replace('/\s+/', ' ', $adres)) ?>";
                     var adres = (tmp.textContent || tmp.innerText || "").replace(/ /g, '+');
-                    document.write('<img class="googleMapImage" src="https://maps.googleapis.com/maps/api/staticmap?center' + adres + '&markers=' + adres + '&zoom=15&sensor=false&scale=2&feature:road&size=' + size + 'x180" />')
+                    document.write('<img class="googleMapImage" src="https://maps.googleapis.com/maps/api/staticmap?center' + adres + '&markers=' + adres + '&zoom=15&sensor=false&scale=2&feature:road&size=' + size + 'x270" />')
                 </script>
 
                 <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"
@@ -30,7 +30,7 @@
             </div>
         </section>
 
-        <div class="modal fade first" id="googleMapBtnModal" tabindex="-1" role="dialog"
+        <div class="modal show fade first" id="googleMapBtnModal" tabindex="-1" role="dialog"
              aria-labelledby="googleMapBtnModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

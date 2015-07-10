@@ -35,27 +35,22 @@
       left: 0;
       z-index: 3;
 
-      background: -moz-linear-gradient(left, rgba(66, 139, 202, 0.9) 10%, rgba(66, 139, 202, 0) 50%); /* FF3.6+ */
-      background: -webkit-gradient(linear, left top, right top, color-stop(10%, rgba(66, 139, 202, 0.9)), color-stop(50%, rgba(66, 139, 202, 0))); /* Chrome,Safari4+ */
-      background: -webkit-linear-gradient(left, rgba(66, 139, 202, 0.9) 10%, rgba(66, 139, 202, 0) 50%); /* Chrome10+,Safari5.1+ */
-      background: -o-linear-gradient(left, rgba(66, 139, 202, 0.9) 10%, rgba(66, 139, 202, 0) 50%); /* Opera 11.10+ */
-      background: -ms-linear-gradient(left, rgba(66, 139, 202, 0.9) 10%, rgba(66, 139, 202, 0) 50%); /* IE10+ */
-      background: linear-gradient(to right, rgba(66, 139, 202, 0.9) 10%, rgba(66, 139, 202, 0) 50%); /* W3C */
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e6428bca', endColorstr='#00428bca', GradientType=1); /* IE6-9 */
+      background: -moz-linear-gradient(top, rgba(66, 139, 202, 1) 0%, rgba(66, 139, 202, 0) 75%);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(66, 139, 202, 1)), color-stop(75%, rgba(66, 139, 202, 0)));
+      background: -webkit-linear-gradient(top, rgba(66, 139, 202, 1) 0%, rgba(66, 139, 202, 0) 75%);
+      background: -o-linear-gradient(top, rgba(66, 139, 202, 1) 0%, rgba(66, 139, 202, 0) 75%);
+      background: -ms-linear-gradient(top, rgba(66, 139, 202, 1) 0%, rgba(66, 139, 202, 0) 75%);
+      background: linear-gradient(to bottom, rgba(66, 139, 202, 1) 0%, rgba(66, 139, 202, 0) 75%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#428bca', endColorstr='#00428bca', GradientType=0);
 
       p {
         position: absolute;
-        top: 50%;
+        top: 20px;
         left: 20px;
         color: #ffffff;
         font-weight: 300;
         font-size: 16px;
-        line-height: 26px;
-        -webkit-transform: translate(0, -50%);
-        -moz-transform: translate(0, -50%);
-        -ms-transform: translate(0, -50%);
-        -o-transform: translate(0, -50%);
-        transform: translate(0, -50%);
+        line-height: 1.2em;
         -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=135, Color=#000000)";
         text-shadow: 1px 1px 1px #000000;
         filter: progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=135, Color=#000000);
