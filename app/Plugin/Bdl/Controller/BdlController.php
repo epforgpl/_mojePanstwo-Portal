@@ -16,6 +16,11 @@ class BdlController extends ApplicationsController
 
     public function view()
     {
+        $this->setLayout(array(
+            'footer' => array(
+                'element' => 'minimal',
+            ),
+        ));
         $datasets = $this->getDatasets('bdl');
 
         $options = array(
@@ -50,14 +55,14 @@ class BdlController extends ApplicationsController
         );
 
         if (!isset($this->request->query['q']) || empty($this->request->query['q'])) {
-						
+
             $tree = Cache::read('BDL.tree', 'long');
             if (!$tree) {
                 $this->loadModel('Bdl.BDL');
                 $tree = $this->BDL->getTree();
                 Cache::write('BDL.tree', $tree, 'long');
             }
-            
+
             $this->set('tree', $tree);
 
         }
@@ -73,42 +78,41 @@ class BdlController extends ApplicationsController
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
 
 
-
-
     }
-    
-    
-    public function getMenu() {
-	    return false;
 
-	    $menu = array(
-		    'items' => array(
-			    array(
-				    'id' =>'',
-				    'label' => 'Wskaźniki',
-				    'icon' => array(
-					    'src' => 'glyphicon',
-					    'id' => 'home',
-				    ),
-			    ),
-		    ),
-		    'base' => '/bdl',
-	    );
-	    
-	    if( $this->hasUserRole('3') ) {
-		    
-		    $menu['items'][] = array(
-			    'id' => 'bdl_temp_items',
-			    'label' => 'Tworzenie wskaźników',
-		    );
-		    
-	    }
-	    
-	    if( count($menu['items'])===1 )
-	    	return array();
-	    else 
-	    	return $menu;	    
-	    
+
+    public function getMenu()
+    {
+        return false;
+
+        $menu = array(
+            'items' => array(
+                array(
+                    'id' => '',
+                    'label' => 'Wskaźniki',
+                    'icon' => array(
+                        'src' => 'glyphicon',
+                        'id' => 'home',
+                    ),
+                ),
+            ),
+            'base' => '/bdl',
+        );
+
+        if ($this->hasUserRole('3')) {
+
+            $menu['items'][] = array(
+                'id' => 'bdl_temp_items',
+                'label' => 'Tworzenie wskaźników',
+            );
+
+        }
+
+        if (count($menu['items']) === 1)
+            return array();
+        else
+            return $menu;
+
     }
 
 } 

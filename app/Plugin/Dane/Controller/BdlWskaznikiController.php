@@ -120,7 +120,13 @@ class BdlWskaznikiController extends DataobjectsController
     {
 
         parent::load();
-        
+
+        $this->setLayout(array(
+            'footer' => array(
+                'element' => 'minimal',
+            ),
+        ));
+
         $expand_dimension = isset($this->request->query['i']) ? (int) $this->request->query['i'] : $this->object->getData('i');
         $dims = $this->object->getLayer('dimennsions');
         $expanded_dimension = array();
