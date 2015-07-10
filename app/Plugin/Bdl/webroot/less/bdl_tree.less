@@ -20,18 +20,25 @@
   width: @leftSideAccordionWidth;
   border-right: 1px solid #ddd;
   z-index: 1;
-  
+
   &.init {
-	  .noOverflow {
-		  overflow: auto;
-	  }
-	  .init-hide {
-		  display: none;
-	  }
-	  .init-bottom {
-		  position: absolute;
-		  bottom: 0;
-	  }
+    .noOverflow {
+      overflow: auto;
+    }
+    .init-hide {
+      display: none;
+    }
+    .init-bottom {
+      position: absolute;
+      bottom: 0;
+    }
+
+    h3:first-child .ui-accordion-header-icon:before {
+      -webkit-transform: rotate(90deg);
+      -moz-transform: rotate(90deg);
+      -o-transform: rotate(90deg);
+      transform: rotate(90deg);
+    }
   }
 
   .input-group {
