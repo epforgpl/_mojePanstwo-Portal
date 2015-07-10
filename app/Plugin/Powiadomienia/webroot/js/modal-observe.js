@@ -10,7 +10,7 @@ $(document).ready(function () {
             thatParent = that.parent(),
             data = thatParent.data();
 
-        observeModal.find('.modal-body .header span').text(thatParent.find('.title > a').text());
+        observeModal.find('.modal-body .header > span').empty().append(thatParent.find('.title > a').clone());
         observeModal.find('.modal-body >input[name="dataset"]').val(data.dataset);
         observeModal.find('.modal-body >input[name="object_id"]').val(data.id);
 

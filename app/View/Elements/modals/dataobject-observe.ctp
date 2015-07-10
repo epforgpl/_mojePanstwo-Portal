@@ -26,7 +26,9 @@ $object_id = $object->getId();
             </div>
             <form action="/dane/subscriptions" method="post">
                 <div class="modal-body">
-                    <p class="header">Otrzymuj powiadomienia o nowych danych dla: <span><?= $object->getTitle(); ?></span></p>
+                    <p class="header">Otrzymuj powiadomienia o nowych danych dla: <span><a
+                                href="/dane/<?= $dataset ?>/<?= $object_id ?>,<?= $object->slug() ?>"><?= $object->getTitle(); ?></a></span>
+                    </p>
 
                     <div class="alert alert-danger" role="alert">
                         <p>Prosze zaznaczyć przynajmniej jeden kanał do obserwowania</p>
@@ -53,7 +55,7 @@ $object_id = $object->getId();
                                         <label
                                             for="checkbox_<?= $ch['DatasetChannel']['subject_dataset'] . '_' . $ch['DatasetChannel']['channel'] ?>"><?= $ch['DatasetChannel']['title'] ?></label>
                                     </div>
-                                <?
+                                    <?
                                 }
                             } else { ?>
                                 <div class="checkbox first">
@@ -73,7 +75,7 @@ $object_id = $object->getId();
                                         <label
                                             for="checkbox_<?= $ch['DatasetChannel']['subject_dataset'] . '_' . $ch['DatasetChannel']['channel'] ?>"><?= $ch['DatasetChannel']['title'] ?></label>
                                     </div>
-                                <?
+                                    <?
                                 }
                             }
                         } ?>

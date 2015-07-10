@@ -103,7 +103,8 @@ body {
   @appHeight: 70px;
 
   width: 100%;
-  min-height: 100%;
+  min-height: 100vh;
+  //min-height: 100%;
   position: relative;
 
   -moz-box-sizing: border-box;
@@ -822,11 +823,15 @@ body {
           margin-bottom: 30px;
           margin-top: 0;
           text-align: center;
-          
+
+          a {
+            color: #337ab7;
+          }
+
           span {
-	          display: block;
-	          color: #666;
-	          margin-top: 5px;
+            display: block;
+            color: #666;
+            margin-top: 5px;
           }
         }
       }
