@@ -6,6 +6,9 @@ String.prototype.capitalizeFirstLetter = function () {
 };
 
 (function ($) {
+    
+    // return false;
+    
     "use strict";
     var $leftSideAccordion = $('#leftSideAccordion'),
         $tempItemOpisModal = $('#temp_item_opis_modal'),
@@ -57,6 +60,7 @@ String.prototype.capitalizeFirstLetter = function () {
         rootData.push(item);
     });
 
+
     tree.jstree({
         'core': {
             'data': rootData
@@ -94,7 +98,13 @@ String.prototype.capitalizeFirstLetter = function () {
                 jsScrollTarget = link[link.length - 1];
                 jScrollPaneReinit();
             });
+            
+            
+
         }
+        
+        $leftSideAccordion.removeClass('init').find('h3 span').remove();
+        
         $leftSideAccordion.find('.accordion').accordion({
             heightStyle: "fill",
             create: function () {

@@ -11,11 +11,11 @@ $this->Combinator->add_libs('js', 'Bdl.jstree.min');
 $this->Combinator->add_libs('js', 'Bdl.bdl_tree');
 ?>
 
-<div id="leftSideAccordion">
+<div class="init" id="leftSideAccordion">
     <div class="accordion">
-        <h3>Bank Danych Loklanych</h3>
+        <h3><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-s"></span>Bank Danych Lokalnych</h3>
 
-        <div div class="noOverflow">
+        <div class="noOverflow">
             <div class="suggesterBlock searchForm col-xs-12 nopadding">
                 <?
                 $value = isset($this->request->query['q']) ? addslashes($this->request->query['q']) : '';
@@ -35,9 +35,9 @@ $this->Combinator->add_libs('js', 'Bdl.bdl_tree');
 
         </div>
 
-        <h3>Tworzenie wskaźników</h3>
+        <h3 class="init-bottom"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Tworzenie wskaźników</h3>
 
-        <div>
+        <div class="init-hide">
             <? if ($BdlTempItems == false) { ?>
                 <h4>Nie ma wskaźników do wyświetlenia</h4>
             <? } else { ?>

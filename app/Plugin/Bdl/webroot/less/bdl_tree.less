@@ -20,6 +20,19 @@
   width: @leftSideAccordionWidth;
   border-right: 1px solid #ddd;
   z-index: 1;
+  
+  &.init {
+	  .noOverflow {
+		  overflow: auto;
+	  }
+	  .init-hide {
+		  display: none;
+	  }
+	  .init-bottom {
+		  position: absolute;
+		  bottom: 0;
+	  }
+  }
 
   .input-group {
     margin: 7px 12px 7px 7px;
@@ -52,7 +65,7 @@
       background: none;
 
       .jspDrag {
-        background: #BCD none repeat scroll 0 0;
+        background: #89A none repeat scroll 0 0;
         margin: 0 5px;
       }
     }
