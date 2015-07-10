@@ -84,12 +84,12 @@
 
   h3 {
     width: @leftSideAccordionWidth;
-    background: #053f69;
+    background: #201622;
     border: 0 none;
     color: #FFF;
     font-size: 14px;
     font-weight: normal;
-    padding: 12px 8px;
+    padding: 15px 8px 15px 20px;
     margin-top: 0;
     margin-bottom: 0;
     -webkit-border-radius: 0;
@@ -163,25 +163,34 @@
       float: left;
 
       > .jstree-children > li {
+        &.jstree-open {
+		      
+		      >ul {
+	          }
+	      }
+	      
         > i.jstree-ocl {
-          left: 10px;
+          left: 20px;
         }
         a.jstree-anchor {
-          padding-left: 30px;
+          padding-left: 40px;
         }
         > .jstree-children > li {
+	        &.jstree-open {
+
+			}
           > i.jstree-ocl {
-            left: 20px;
+            left: 30px;
           }
           a.jstree-anchor {
-            padding-left: 40px;
+            padding-left: 50px;
           }
           > .jstree-children > li {
-            > i.jstree-ocl {
-              left: 30px;
+	      	> i.jstree-ocl {
+              left: 40px;
             }
             a.jstree-anchor {
-              padding-left: 50px;
+              padding-left: 60px;
             }
           }
         }
@@ -279,12 +288,15 @@
             }
 
             .jstree-anchor {
-              font-weight: normal;
+              font-weight: bold;
+              font-size: 12px;
               color: @leafColor;
-
+              
               &.jstree-active {
-                background-color: #d3d3d3;
+	              color: white;
+	              background-color: #337ab7;
               }
+
             }
           }
         }
