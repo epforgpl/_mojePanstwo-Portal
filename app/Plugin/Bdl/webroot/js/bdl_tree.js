@@ -128,7 +128,8 @@ String.prototype.capitalizeFirstLetter = function () {
                 if (jsScrollTarget !== null) {
                     clearTimeout(jsScrollHandler);
                     jsScrollHandler = setTimeout(function () {
-                        api.scrollTo(0, ($('a[id="' + jsScrollTarget + '_anchor"]').offset().top - $('.suggesterBlock').outerHeight()) - ($('.noOverflow').outerHeight() / 2), 'ease');
+                        var linkPos = $('a[id="' + jsScrollTarget + '_anchor"]').parents('li').offset().top - $('.suggesterBlock').outerHeight() - ($('.noOverflow').outerHeight() / 2);
+                        api.scrollTo(0, linkPos, 'ease');
                         jsScrollTarget = null;
                     }, 250);
                 }
