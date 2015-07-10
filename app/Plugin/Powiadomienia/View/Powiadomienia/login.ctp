@@ -1,5 +1,9 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('paszport', array('plugin' => 'Paszport'))) ?>
-
+<style>
+	.theme-default {
+		background: #EEE;
+	}
+</style>
 <div class="objectsPage fullPageHeight">
     <div id="modalPaszportLoginForm" class="paszportModal">
         <div class="modal-dialog inpage">
