@@ -13,8 +13,9 @@ $this->Combinator->add_libs('js', 'Bdl.bdl_tree');
 
 
 <div id="leftSideAccordion" class="init hidden-xs hidden-sm">
-    <div class="accordion">
-        <h3><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-s"></span>Bank Danych Lokalnych</h3>
+    <div class="accordion ui-accordion ui-widget ui-helper-reset">
+        <h3 class="ui-accordion-header ui-state-default ui-accordion-header-active ui-state-active ui-corner-top ui-accordion-icons">
+            <span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-s"></span>Bank Danych Lokalnych</h3>
 
         <div class="noOverflow">
             <div class="suggesterBlock searchForm col-xs-12 nopadding">
@@ -33,10 +34,10 @@ $this->Combinator->add_libs('js', 'Bdl.bdl_tree');
                 <div
                     id="tree" <?= printf('data-structure="%s"', htmlspecialchars(json_encode($tree), ENT_QUOTES, 'UTF-8')) ?>></div>
             </div>
-
         </div>
 
-        <h3 class="init-bottom"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Tworzenie wskaźników</h3>
+        <h3 class="init-bottom ui-accordion-header ui-state-default ui-corner-all ui-accordion-icons"><span
+                class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Tworzenie wskaźników</h3>
 
         <div class="init-hide">
             <? if ($BdlTempItems == false) { ?>
