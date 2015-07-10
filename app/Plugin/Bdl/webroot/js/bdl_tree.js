@@ -113,11 +113,15 @@ String.prototype.capitalizeFirstLetter = function () {
                 if (jsScrollTarget !== null) {
                     clearTimeout(jsScrollHandler);
                     jsScrollHandler = setTimeout(function () {
-                        api.scrollTo(0, ($('a[id="' + jsScrollTarget + '_anchor"]').offset().top - $('.suggesterBlock').outerHeight()) - ($('.noOverflow').outerHeight() / 2), 'ease');
-                        jsScrollTarget = null;
-                    }, 450);
+                        $('#leftSideAccordion').animate({
+                            'margin-left': 0
+                        }, 400, function () {
+                            api.scrollTo(0, ($('a[id="' + jsScrollTarget + '_anchor"]').offset().top - $('.suggesterBlock').outerHeight()) - ($('.noOverflow').outerHeight() / 2), 'ease');
+                            jsScrollTarget = null;
+                        });
+                    }, 250);
                 }
-            }, 400);
+            }, 200);
         }
     }
 
