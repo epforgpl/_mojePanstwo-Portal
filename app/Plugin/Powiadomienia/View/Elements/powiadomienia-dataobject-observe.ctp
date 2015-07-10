@@ -20,7 +20,7 @@ $this->Combinator->add_libs('js', 'Powiadomienia.modal-observe');
                     <input type="hidden" name="dataset" value=""/>
                     <input type="hidden" name="object_id" value=""/>
 
-                    <div class="options loading">
+                    <div class="optionsBlock options loading">
                     </div>
                 </div>
                 <div class="modal-footer">
