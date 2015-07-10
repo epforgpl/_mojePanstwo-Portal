@@ -26,8 +26,7 @@ $object_id = $object->getId();
             </div>
             <form action="/dane/subscriptions" method="post">
                 <div class="modal-body">
-                    <p class="header">Otrzymuj powiadomienia o nowych danych związanych z
-                        "<?= $object->getTitle(); ?>"</p>
+                    <p class="header">Otrzymuj powiadomienia o nowych danych dla: <span><?= $object->getTitle(); ?></span></p>
 
                     <div class="alert alert-danger" role="alert">
                         <p>Prosze zaznaczyć przynajmniej jeden kanał do obserwowania</p>

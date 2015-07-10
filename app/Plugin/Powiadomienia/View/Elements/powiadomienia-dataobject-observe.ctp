@@ -12,7 +12,7 @@ $this->Combinator->add_libs('js', 'Powiadomienia.modal-observe');
             </div>
             <form action="/dane/subscriptions" method="post">
                 <div class="modal-body">
-                    <p class="header">Otrzymuj powiadomienia o nowych danych związanych z "<span></span>"</p>
+                    <p class="header">Otrzymuj powiadomienia o nowych danych dla: <span></span></p>
 
                     <div class="alert alert-danger" role="alert">
                         <p>Prosze zaznaczyć przynajmniej jeden kanał do obserwowania</p>
