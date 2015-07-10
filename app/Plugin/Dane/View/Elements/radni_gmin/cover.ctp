@@ -25,7 +25,7 @@ $options = array(
                                     <? foreach ($dataBrowser['aggs']['all']['glosowania']['top']['hits']['hits'] as $doc) { ?>
                                         <li>
                                             <?
-                                            echo $this->Dataobject->render($doc, 'default');
+                                            echo $this->Dataobject->render($doc, 'rady_gmin_glosowania');
                                             ?>
                                         </li>
                                     <? } ?>
@@ -74,7 +74,7 @@ $options = array(
             </div>
         <? } ?>
 
-        <? if (@$dataBrowser['aggs']['all']['komisje']['komisje']['top']['hits']['hits']) { ?>
+        <? if (@$dataBrowser['aggs']['all']['komisje']['komisje']['kadencja']['top']['hits']['hits']) { ?>
             <div class="databrowser-panel">
                 <h2>Komisje, w których zasiada radny:</h2>
 
@@ -82,9 +82,9 @@ $options = array(
 
                     <div class="dataAggs">
                         <div class="agg agg-Dataobjects">
-                            <? if ($dataBrowser['aggs']['all']['komisje']['komisje']['top']['hits']['hits']) { ?>
+                            <? if ($dataBrowser['aggs']['all']['komisje']['komisje']['kadencja']['top']['hits']['hits']) { ?>
                                 <ul class="dataobjects">
-                                    <? foreach ($dataBrowser['aggs']['all']['komisje']['komisje']['top']['hits']['hits'] as $doc) { ?>
+                                    <? foreach ($dataBrowser['aggs']['all']['komisje']['komisje']['kadencja']['top']['hits']['hits'] as $doc) { ?>
                                         <li>
                                             <div class="objectRender readed docdataobject objclass">
 

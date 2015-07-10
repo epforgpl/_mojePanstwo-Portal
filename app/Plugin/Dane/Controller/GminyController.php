@@ -1992,6 +1992,10 @@ class GminyController extends DataobjectsController
                         'label' => 'Dane',
                     ),
                     array(
+                        'label' => 'Wyniki głosowań',
+                        'id' => 'glosowania',
+                    ),
+                    array(
                         'label' => 'Interpelacje',
                         'id' => 'interpelacje',
                     ),
@@ -2077,6 +2081,18 @@ class GminyController extends DataobjectsController
                                                 'id' => $radny->getId(),
                                             ),
                                         ),
+                                        /*
+                                        array(
+	                                        'nested' => array(
+		                                        'path' => 'radni_gmin-komisje',
+		                                        'filter' => array(
+			                                        'term' => array(
+				                                        'radni_gmin-komisje.kadencja_id' => '7',
+			                                        ),
+		                                        ),
+	                                        ),
+                                        ),
+                                        */
                                     ),
                                 ),
                             ),
@@ -2086,14 +2102,23 @@ class GminyController extends DataobjectsController
                                         'path' => 'radni_gmin-komisje',
                                     ),
                                     'aggs' => array(
-                                        'top' => array(
-                                            'top_hits' => array(
-                                                'size' => 100,
-                                                'fielddata_fields' => array('komisja_id', 'komisja_nazwa', 'stanowisko_id', 'stanowisko_nazwa'),
-                                                'sort' => array(
-                                                    'radni_gmin-komisje.stanowisko_id' => 'desc',
-                                                ),
-                                            ),
+                                        'kadencja' => array(
+	                                        'filter' => array(
+		                                        'term' => array(
+			                                        'radni_gmin-komisje.kadencja_id' => '7',
+		                                        ),
+	                                        ),
+	                                        'aggs' => array(
+		                                        'top' => array(
+		                                            'top_hits' => array(
+		                                                'size' => 100,
+		                                                'fielddata_fields' => array('komisja_id', 'komisja_nazwa', 'stanowisko_id', 'stanowisko_nazwa', 'kadencja_id'),
+		                                                'sort' => array(
+		                                                    'radni_gmin-komisje.stanowisko_id' => 'desc',
+		                                                ),
+		                                            ),
+		                                        ),
+	                                        ),
                                         ),
                                     ),
                                 ),
@@ -2106,6 +2131,11 @@ class GminyController extends DataobjectsController
 				                        array(
 					                        'term' => array(
 						                        'dataset' => 'krakow_glosowania_glosy',
+					                        ),
+				                        ),
+				                        array(
+					                        'term' => array(
+						                        'radni_gmin.id' => $radny->getId(),
 					                        ),
 				                        ),
 			                        ),
@@ -2204,7 +2234,8 @@ class GminyController extends DataobjectsController
                         'aggsPreset' => 'rady_gmin_wystapienia',
                         'renderFile' => 'radni_gmin/rady_gmin_glosowania',
                     ));
-
+					
+					$submenu['selected'] = 'glosowania';
                     $title_for_layout .= ' - Wyniki głosowań';
 
                     break;
