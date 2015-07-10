@@ -1,3 +1,5 @@
+var jsScrollHandler, jsScrollTarget = null;
+
 String.prototype.capitalizeFirstLetter = function () {
     "use strict";
     return this.charAt(0).toUpperCase() + this.slice(1);
@@ -89,6 +91,7 @@ String.prototype.capitalizeFirstLetter = function () {
                 } else {
                     tree.jstree("open_node", this);
                 }
+                jsScrollTarget = link[link.length - 1];
                 jScrollPaneReinit();
             });
         }
@@ -107,6 +110,13 @@ String.prototype.capitalizeFirstLetter = function () {
         if (api) {
             setTimeout(function () {
                 api.reinitialise();
+                if (jsScrollTarget !== null) {
+                    clearTimeout(jsScrollHandler);
+                    jsScrollHandler = setTimeout(function () {
+                        api.scrollTo(0, ($('a[id="' + jsScrollTarget + '_anchor"]').offset().top - $('.suggesterBlock').outerHeight()) - ($('.noOverflow').outerHeight() / 2), 'ease');
+                        jsScrollTarget = null;
+                    }, 450);
+                }
             }, 400);
         }
     }
