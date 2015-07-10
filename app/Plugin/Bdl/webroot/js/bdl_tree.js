@@ -6,9 +6,6 @@ String.prototype.capitalizeFirstLetter = function () {
 };
 
 (function ($) {
-
-    // return false;
-
     "use strict";
     var $leftSideAccordion = $('#leftSideAccordion'),
         $tempItemOpisModal = $('#temp_item_opis_modal'),
@@ -82,6 +79,8 @@ String.prototype.capitalizeFirstLetter = function () {
         }
         jScrollPaneReinit();
     }).bind("loaded.jstree", function () {
+        var $treeBlock = $('.treeBlock');
+
         if (window.location.href.indexOf('#') > 0) {
             var link = window.location.href.slice(window.location.href.indexOf('#') + 1);
 
@@ -107,10 +106,17 @@ String.prototype.capitalizeFirstLetter = function () {
         $leftSideAccordion.find('.accordion').accordion({
             heightStyle: "fill",
             create: function () {
-                $('.treeBlock ').css('height', $('.noOverflow').outerHeight() - $('.noOverflow .suggesterBlock').outerHeight() - 5);
+                $treeBlock.css('height', $('.noOverflow').outerHeight() - $('.noOverflow .suggesterBlock').outerHeight() - 5);
                 $('.jScrollPane').jScrollPane();
                 jScrollPaneReinit();
             }
+        });
+
+        $(window).resize(function () {
+            $treeBlock.css('height', 'auto');
+            $leftSideAccordion.find('.accordion').accordion("refresh");
+            $treeBlock.css('height', $('.noOverflow').outerHeight() - $('.noOverflow .suggesterBlock').outerHeight() - 5);
+            jScrollPaneReinit();
         });
     });
 
