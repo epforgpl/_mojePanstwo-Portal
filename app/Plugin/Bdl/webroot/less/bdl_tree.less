@@ -16,6 +16,16 @@
 	background: #201622 !important;
 	height: 48px !important;
 	min-height: 48px !important;
+	position: fixed;
+	z-index: 2;
+	
+	.container {
+		margin: 0 15px;
+	}
+}
+
+#_wrapper #_main .objectsPage {
+	margin-top: 50px;
 }
 
 .appHeader .holder h1.smaller, .appHeader .holder h1.smaller a {
@@ -55,7 +65,7 @@
   }
 
   .input-group {
-    margin: 7px;
+    margin: 10px;
   }
 
   .ui-accordion .ui-accordion-content {
@@ -85,7 +95,8 @@
       background: none;
 
       .jspDrag {
-        background: #89A none repeat scroll 0 0;
+        background: rgba(0, 0, 0, 0.25) none repeat scroll 0 0;
+        box-shadow: 0 0 1px #CCC;
         margin: 0 5px;
       }
     }
