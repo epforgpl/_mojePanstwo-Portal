@@ -23,115 +23,133 @@ class InstytucjeController extends DataobjectsController
 		
 		if( $this->request->params['action'] != 'view' ) {
 			
+			$aggs = array(
+				'prawo' => array(
+	                'filter' => array(
+	                    'bool' => array(
+	                        'must' => array(
+	                            array(
+	                                'term' => array(
+	                                    'dataset' => 'prawo',
+	                                ),
+	                            ),
+	                            array(
+	                                'nested' => array(
+	                                    'path' => 'feeds_channels',
+	                                    'filter' => array(
+	                                        'bool' => array(
+	                                            'must' => array(
+	                                                array(
+	                                                    'term' => array(
+	                                                        'feeds_channels.dataset' => 'instytucje',
+	                                                    ),
+	                                                ),
+	                                                array(
+	                                                    'term' => array(
+	                                                        'feeds_channels.object_id' => $this->request->params['id'],
+	                                                    ),
+	                                                ),
+	                                            ),
+	                                        ),
+	                                    ),
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	            ),
+	            'prawo_urzedowe' => array(
+	                'filter' => array(
+	                    'bool' => array(
+	                        'must' => array(
+	                            array(
+	                                'term' => array(
+	                                    'dataset' => 'prawo_urzedowe',
+	                                ),
+	                            ),
+	                            array(
+	                                'term' => array(
+	                                    'data.prawo_urzedowe.instytucja_id' => $this->request->params['id'],
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	            ),
+	            'zamowienia' => array(
+	                'filter' => array(
+	                    'bool' => array(
+	                        'must' => array(
+	                            array(
+	                                'term' => array(
+	                                    'dataset' => 'zamowienia_publiczne',
+	                                ),
+	                            ),
+	                            array(
+	                                'nested' => array(
+	                                    'path' => 'feeds_channels',
+	                                    'filter' => array(
+	                                        'bool' => array(
+	                                            'must' => array(
+	                                                array(
+	                                                    'term' => array(
+	                                                        'feeds_channels.dataset' => 'instytucje',
+	                                                    ),
+	                                                ),
+	                                                array(
+	                                                    'term' => array(
+	                                                        'feeds_channels.object_id' => $this->request->params['id'],
+	                                                    ),
+	                                                ),
+	                                            ),
+	                                        ),
+	                                    ),
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	            ),
+	            'urzednicy' => array(
+	                'filter' => array(
+	                    'bool' => array(
+	                        'must' => array(
+	                            array(
+	                                'term' => array(
+	                                    'dataset' => 'urzednicy',
+	                                ),
+	                            ),
+	                            array(
+	                                'term' => array(
+	                                    'data.urzednicy.instytucja_id' => $this->request->params['id'],
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	            ),
+			);
+			
+			if( $this->request->params['id']=='3214' ) { // SEJM
+				$aggs['sejm_posiedzenia'] = array(
+	                'filter' => array(
+	                    'bool' => array(
+	                        'must' => array(
+	                            array(
+	                                'term' => array(
+	                                    'dataset' => 'sejm_posiedzenia',
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	            );
+			}
+			
 			$this->addInitAggs(array(
 	            'all' => array(
 	                'global' => '_empty',
-	                'aggs' => array(
-	                    'prawo' => array(
-			                'filter' => array(
-			                    'bool' => array(
-			                        'must' => array(
-			                            array(
-			                                'term' => array(
-			                                    'dataset' => 'prawo',
-			                                ),
-			                            ),
-			                            array(
-			                                'nested' => array(
-			                                    'path' => 'feeds_channels',
-			                                    'filter' => array(
-			                                        'bool' => array(
-			                                            'must' => array(
-			                                                array(
-			                                                    'term' => array(
-			                                                        'feeds_channels.dataset' => 'instytucje',
-			                                                    ),
-			                                                ),
-			                                                array(
-			                                                    'term' => array(
-			                                                        'feeds_channels.object_id' => $this->request->params['id'],
-			                                                    ),
-			                                                ),
-			                                            ),
-			                                        ),
-			                                    ),
-			                                ),
-			                            ),
-			                        ),
-			                    ),
-			                ),
-			            ),
-			            'prawo_urzedowe' => array(
-			                'filter' => array(
-			                    'bool' => array(
-			                        'must' => array(
-			                            array(
-			                                'term' => array(
-			                                    'dataset' => 'prawo_urzedowe',
-			                                ),
-			                            ),
-			                            array(
-			                                'term' => array(
-			                                    'data.prawo_urzedowe.instytucja_id' => $this->request->params['id'],
-			                                ),
-			                            ),
-			                        ),
-			                    ),
-			                ),
-			            ),
-			            'zamowienia' => array(
-			                'filter' => array(
-			                    'bool' => array(
-			                        'must' => array(
-			                            array(
-			                                'term' => array(
-			                                    'dataset' => 'zamowienia_publiczne',
-			                                ),
-			                            ),
-			                            array(
-			                                'nested' => array(
-			                                    'path' => 'feeds_channels',
-			                                    'filter' => array(
-			                                        'bool' => array(
-			                                            'must' => array(
-			                                                array(
-			                                                    'term' => array(
-			                                                        'feeds_channels.dataset' => 'instytucje',
-			                                                    ),
-			                                                ),
-			                                                array(
-			                                                    'term' => array(
-			                                                        'feeds_channels.object_id' => $this->request->params['id'],
-			                                                    ),
-			                                                ),
-			                                            ),
-			                                        ),
-			                                    ),
-			                                ),
-			                            ),
-			                        ),
-			                    ),
-			                ),
-			            ),
-			            'urzednicy' => array(
-			                'filter' => array(
-			                    'bool' => array(
-			                        'must' => array(
-			                            array(
-			                                'term' => array(
-			                                    'dataset' => 'urzednicy',
-			                                ),
-			                            ),
-			                            array(
-			                                'term' => array(
-			                                    'data.urzednicy.instytucja_id' => $this->request->params['id'],
-			                                ),
-			                            ),
-			                        ),
-			                    ),
-			                ),
-			            ),
-	                ),
+	                'aggs' => $aggs,
 	            ),
 	        ));
 			
@@ -366,6 +384,74 @@ class InstytucjeController extends DataobjectsController
                 ),
             ),
         );
+        
+        if( $this->object->getId()=='3214' ) { // SEJM
+	        
+	        $global_aggs['sejm_posiedzenia'] = array(
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'sejm_posiedzenia',
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'aggs' => array(
+                    'top' => array(
+                        'top_hits' => array(
+                            'size' => 1,
+                            'fielddata_fields' => array('dataset', 'id'),
+                            'sort' => array(
+                                'date' => array(
+                                    'order' => 'desc',
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            );
+            
+            $cover = 'cover-sejm';
+	        
+        } elseif( $this->object->getId()=='3217' ) { // NIK
+	        
+	        $global_aggs['nik_raporty'] = array(
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'nik_raporty',
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'aggs' => array(
+                    'top' => array(
+                        'top_hits' => array(
+                            'size' => 4,
+                            'fielddata_fields' => array('dataset', 'id'),
+                            'sort' => array(
+                                'date' => array(
+                                    'order' => 'desc',
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            );
+            
+            $cover = 'cover-nik';
+	                
+        } else {
+	        
+	        $cover = 'cover';
+	        
+        }
 
 
         $options = array(
@@ -376,7 +462,7 @@ class InstytucjeController extends DataobjectsController
             'cover' => array(
                 'view' => array(
                     'plugin' => 'Dane',
-                    'element' => 'instytucje/cover',
+                    'element' => 'instytucje/' . $cover,
                 ),
                 'aggs' => array(
                     'all' => array(
@@ -433,6 +519,24 @@ class InstytucjeController extends DataobjectsController
 	            'id' => 'home',
             ),
         );
+        
+        if( $this->object->getId()=='3217' ) { // NIK
+	        $menu['items'][] = array(
+	            'label' => 'Raporty',
+	            'id' => 'raporty',
+	        );	        
+        }
+        
+        /*
+        if( $this->object->getId()=='3214' ) { // Sejm
+	        $menu['items'][] = array(
+	            'label' => 'Posiedzenia',
+	            'id' => 'posiedzenia',
+	        );	        
+        }
+        */
+        
+        
 		
 		if( isset($aggs['prawo']) && $aggs['prawo']['doc_count'] ) {
 	        $menu['items'][] = array(
@@ -527,6 +631,144 @@ class InstytucjeController extends DataobjectsController
 
         $this->set('title_for_layout', "Tweety napisane przez " . $this->object->getTitle());
 
+    }
+    
+    public function raporty()
+    {
+		
+        $this->load();
+        
+        if( $this->object->getId()=='3217' ) { // NIK
+	        
+	        
+	        
+	        if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
+	        	
+	        	$raport = $this->Dataobject->find('first', array(
+	                'conditions' => array(
+	                    'dataset' => 'nik_raporty',
+	                    'id' => $this->request->params['subid'],
+	                ),
+	            ));
+	
+	            $this->set('raport', $raport);
+	            $this->set('title_for_layout', $raport->getTitle());
+	            $this->_layout['body']['theme'] = 'doc';
+	            $this->render('nik_raport');
+	            
+	        
+	        } else {
+		        
+		        $this->Components->load('Dane.DataBrowser', array(
+		            'conditions' => array(
+		                'dataset' => 'nik_raporty',
+		            ),
+		        ));
+		        $this->set('title_for_layout', "Raporty Najwyższej Izby Kontroli");
+	        
+	        }
+	        
+	        
+	        
+        }
+    }
+    
+    public function posiedzenia()
+    {
+		
+        $this->load();
+        
+        if( $this->object->getId()=='3214' ) { // Sejm
+	        	        
+	        if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
+	        	
+	        	$posiedzenie = $this->Dataobject->find('first', array(
+	                'conditions' => array(
+	                    'dataset' => 'sejm_posiedzenia',
+	                    'id' => $this->request->params['subid'],
+	                ),
+	            ));
+								
+				$submenu = array(
+	                'items' => array(),
+	            );
+				
+				$submenu['items'][] = array(
+					'label' => 'Posiedzenie',
+				);
+				
+				$submenu['items'][] = array(
+					'id' => 'projekty',
+					'label' => 'Rozpatrywane projekty',
+				);
+				
+				$submenu['items'][] = array(
+					'id' => 'punkty',
+					'label' => 'Punkty porządkowe',
+				);
+				
+				$submenu['items'][] = array(
+					'id' => 'przebieg',
+					'label' => 'Przebieg posiedzenia',
+				);
+				
+				$submenu['base'] = '/dane/instytucje/3214/posiedzenia/' . $posiedzenie->getId();
+
+				switch( $this->request->params['subaction'] ) {
+					
+					case 'projekty': {
+						
+						$submenu['selected'] = 'projekty';
+						break;
+						
+					}
+					
+					case 'punkty': {
+						
+						$submenu['selected'] = 'punkty';
+						break;
+						
+					}
+					
+					case 'przebieg': {
+						
+						$submenu['selected'] = 'przebieg';
+						break;
+						
+					}
+					
+					default: {
+						
+						$submenu['selected'] = 'view';
+						
+					}
+					
+				}
+
+
+
+				
+
+				$this->set('_submenu', $submenu);
+	            $this->set('posiedzenie', $posiedzenie);
+	            $this->set('title_for_layout', $posiedzenie->getTitle());
+	            $this->render('sejm_posiedzenie');
+	            
+	        
+	        } else {
+		        
+		        $this->Components->load('Dane.DataBrowser', array(
+		            'conditions' => array(
+		                'dataset' => 'nik_raporty',
+		            ),
+		        ));
+		        $this->set('title_for_layout', "Raporty Najwyższej Izby Kontroli");
+	        
+	        }
+	        
+	        
+	        
+        }
     }
 
     public function zamowienia()

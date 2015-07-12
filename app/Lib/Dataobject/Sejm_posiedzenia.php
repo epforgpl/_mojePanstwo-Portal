@@ -42,8 +42,9 @@ class Sejm_posiedzenia extends DataObject
         return false;
     }
     
-    public function getDescription()
+    public function getTitleAddon()
     {
+	    	    
 	    $parts = array(
 		    dataSlownie( $this->getData('data_start') ),
 	    );

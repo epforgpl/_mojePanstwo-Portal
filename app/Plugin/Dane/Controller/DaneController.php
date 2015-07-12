@@ -84,6 +84,10 @@ class DaneController extends ApplicationsController
         isset($this->request->params['id'])
         ) {
 			
+			switch( $this->request->params['id'] ) {
+				case 'nik_raporty': return $this->redirect('/dane/instytucje/3217,najwyzsza-izba-kontroli/raporty');
+			}
+			
 			$dataset_info = $this->getDataset($this->request->params['id']);
 			
             if (@$dataset_info['dataset_name']['menu_id']) {

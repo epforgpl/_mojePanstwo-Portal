@@ -45,5 +45,15 @@ class Nik_raporty extends DocDataObject
 		return $output;
 		
 	}
+	
+	public function getUrl() {
+		
+		$url = '/dane/instytucje/3217/raporty/' . $this->getId();
+		if( $this->getSlug() )
+			$url .= ',' . $this->getSlug();
+			
+		return $url;
+		
+	}
 
 }
