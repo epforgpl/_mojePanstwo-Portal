@@ -174,7 +174,8 @@ class GminyController extends DataobjectsController
 
     public function view()
     {
-
+		
+		
         $_layers = array('szef', 'channels');
         $this->addInitLayers($_layers);
 
@@ -182,76 +183,530 @@ class GminyController extends DataobjectsController
 
         if ($this->request->params['id'] == '903')
             $this->set('title_for_layout', 'Przejrzysty Kraków');
+			
+		if( 
+			($this->request->params['id'] == '903') && 
+			isset( $this->request->query['q'] ) && 
+			$this->request->query['q']
+		) {
+			
+			
+			$aggs = array(
+	            'osoby' => array(
+	                'filter' => array(
+		                'bool' => array(
+			                'must' => array(
+				                array(
+					                'term' => array(
+						            	'dataset' => 'krs_osoby',
+						            ),
+				                ),
+				                array(
+					                'term' => array(
+						            	'data.krs_osoby.gmina_id' => $this->object->getId(),
+						            ),
+				                ),
+			                ),
+		                ),
+	                ),
+	                'aggs' => array(
+		                'top' => array(
+			                'top_hits' => array(
+	                            'fielddata_fields' => array('dataset', 'id'),
+				                'size' => 3,
+			                ),
+		                ),
+	                ),
+	            ),
+	            'organizacje' => array(
+	                'filter' => array(
+		                'bool' => array(
+			                'must' => array(
+				                array(
+					                'term' => array(
+						            	'dataset' => 'krs_podmioty',
+						            ),
+				                ),
+				                array(
+					                'term' => array(
+						            	'data.krs_podmioty.gmina_id' => $this->object->getId(),
+						            ),
+				                ),
+			                ),
+		                ),
+	                ),
+	                'aggs' => array(
+		                'top' => array(
+			                'top_hits' => array(
+	                            'fielddata_fields' => array('dataset', 'id'),
+				                'size' => 3,
+			                ),
+		                ),
+	                ),
+	            ),
+	            'pomoc_publiczna' => array(
+	                'filter' => array(
+		                'bool' => array(
+			                'must' => array(
+				                array(
+					                'term' => array(
+						            	'dataset' => 'krakow_pomoc_publiczna',
+						            ),
+				                ),
+			                ),
+		                ),
+	                ),
+	                'aggs' => array(
+		                'top' => array(
+			                'top_hits' => array(
+	                            'fielddata_fields' => array('dataset', 'id'),
+				                'size' => 3,
+			                ),
+		                ),
+	                ),
+	            ),
+	            'radni_gminy' => array(
+	                'filter' => array(
+		                'bool' => array(
+			                'must' => array(
+				                array(
+					                'term' => array(
+						            	'dataset' => 'radni_gmin',
+						            ),
+				                ),
+				                array(
+					                'term' => array(
+						            	'data.radni_gmin.gmina_id' => $this->object->getId(),
+						            ),
+				                ),
+			                ),
+		                ),
+	                ),
+	                'aggs' => array(
+		                'top' => array(
+			                'top_hits' => array(
+	                            'fielddata_fields' => array('dataset', 'id'),
+				                'size' => 3,
+			                ),
+		                ),
+	                ),
+	            ),
+	            'rady_gmin_interpelacje' => array(
+	                'filter' => array(
+		                'bool' => array(
+			                'must' => array(
+				                array(
+					                'term' => array(
+						            	'dataset' => 'rady_gmin_interpelacje',
+						            ),
+				                ),
+			                ),
+		                ),
+	                ),
+	                'aggs' => array(
+		                'top' => array(
+			                'top_hits' => array(
+	                            'fielddata_fields' => array('dataset', 'id'),
+				                'size' => 3,
+			                ),
+		                ),
+	                ),
+	            ),
+	            'rady_druki' => array(
+	                'filter' => array(
+		                'bool' => array(
+			                'must' => array(
+				                array(
+					                'term' => array(
+						            	'dataset' => 'rady_druki',
+						            ),
+				                ),
+			                ),
+		                ),
+	                ),
+	                'aggs' => array(
+		                'top' => array(
+			                'top_hits' => array(
+	                            'fielddata_fields' => array('dataset', 'id'),
+				                'size' => 3,
+			                ),
+		                ),
+	                ),
+	            ),
+	            'krakow_rada_uchwaly' => array(
+	                'filter' => array(
+		                'bool' => array(
+			                'must' => array(
+				                array(
+					                'term' => array(
+						            	'dataset' => 'krakow_rada_uchwaly',
+						            ),
+				                ),
+			                ),
+		                ),
+	                ),
+	                'aggs' => array(
+		                'top' => array(
+			                'top_hits' => array(
+	                            'fielddata_fields' => array('dataset', 'id'),
+				                'size' => 3,
+			                ),
+		                ),
+	                ),
+	            ),	            
+	            'darczyncy' => array(
+	                'filter' => array(
+		                'bool' => array(
+			                'must' => array(
+				                array(
+					                'term' => array(
+						            	'dataset' => 'krakow_darczyncy',
+						            ),
+				                ),
+			                ),
+		                ),
+	                ),
+	                'aggs' => array(
+		                'top' => array(
+			                'top_hits' => array(
+	                            'fielddata_fields' => array('dataset', 'id'),
+				                'size' => 3,
+			                ),
+		                ),
+	                ),
+	            ),
+	            'krakow_komisje' => array(
+	                'filter' => array(
+		                'bool' => array(
+			                'must' => array(
+				                array(
+					                'term' => array(
+						            	'dataset' => 'krakow_komisje',
+						            ),
+				                ),
+				                array(
+					                'term' => array(
+						            	'data.krakow_komisje.kadencja_id' => '7',
+						            ),
+				                ),
+			                ),
+		                ),
+	                ),
+	                'aggs' => array(
+		                'top' => array(
+			                'top_hits' => array(
+	                            'fielddata_fields' => array('dataset', 'id'),
+				                'size' => 3,
+			                ),
+		                ),
+	                ),
+	            ),
+	            'krakow_zarzadzenia' => array(
+	                'filter' => array(
+		                'bool' => array(
+			                'must' => array(
+				                array(
+					                'term' => array(
+						            	'dataset' => 'krakow_zarzadzenia',
+						            ),
+				                ),
+			                ),
+		                ),
+	                ),
+	                'aggs' => array(
+		                'top' => array(
+			                'top_hits' => array(
+	                            'fielddata_fields' => array('dataset', 'id'),
+				                'size' => 3,
+			                ),
+		                ),
+	                ),
+	            ),
+	            'krakow_umowy' => array(
+	                'filter' => array(
+		                'bool' => array(
+			                'must' => array(
+				                array(
+					                'term' => array(
+						            	'dataset' => 'krakow_umowy',
+						            ),
+				                ),
+			                ),
+		                ),
+	                ),
+	                'aggs' => array(
+		                'top' => array(
+			                'top_hits' => array(
+	                            'fielddata_fields' => array('dataset', 'id'),
+				                'size' => 3,
+			                ),
+		                ),
+	                ),
+	            ),
+	            'krakow_jednostki' => array(
+	                'filter' => array(
+		                'bool' => array(
+			                'must' => array(
+				                array(
+					                'term' => array(
+						            	'dataset' => 'krakow_jednostki',
+						            ),
+				                ),
+			                ),
+		                ),
+	                ),
+	                'aggs' => array(
+		                'top' => array(
+			                'top_hits' => array(
+	                            'fielddata_fields' => array('dataset', 'id'),
+				                'size' => 3,
+			                ),
+		                ),
+	                ),
+	            ),
+	            'krakow_urzednicy' => array(
+	                'filter' => array(
+		                'bool' => array(
+			                'must' => array(
+				                array(
+					                'term' => array(
+						            	'dataset' => 'krakow_urzednicy',
+						            ),
+				                ),
+			                ),
+		                ),
+	                ),
+	                'aggs' => array(
+		                'top' => array(
+			                'top_hits' => array(
+	                            'fielddata_fields' => array('dataset', 'id'),
+				                'size' => 3,
+			                ),
+		                ),
+	                ),
+	            ),
+	            'dzielnice' => array(
+	                'filter' => array(
+		                'bool' => array(
+			                'must' => array(
+				                array(
+					                'term' => array(
+						            	'dataset' => 'dzielnice',
+						            ),
+				                ),
+				                array(
+					                'term' => array(
+						            	'data.dzielnice.gmina_id' => $this->object->getId(),
+						            ),
+				                ),
+			                ),
+		                ),
+	                ),
+	                'aggs' => array(
+		                'top' => array(
+			                'top_hits' => array(
+	                            'fielddata_fields' => array('dataset', 'id'),
+				                'size' => 3,
+			                ),
+		                ),
+	                ),
+	            ),
+	            'zamowienia_publiczne' => array(
+	                'filter' => array(
+		                'bool' => array(
+			                'must' => array(
+				                array(
+					                'term' => array(
+						            	'dataset' => 'zamowienia_publiczne',
+						            ),
+				                ),
+				                array(
+					                'term' => array(
+						            	'data.zamowienia_publiczne.gmina_id' => $this->object->getId(),
+						            ),
+				                ),
+			                ),
+		                ),
+	                ),
+	                'aggs' => array(
+		                'top' => array(
+			                'top_hits' => array(
+	                            'fielddata_fields' => array('dataset', 'id'),
+				                'size' => 3,
+			                ),
+		                ),
+	                ),
+	            ),
+	        );
 
+	        $options = array(
+	            'searchTitle' => 'Szukaj powiązań w Krakowie...',
+	            'conditions' => array(
+	                'dataset' => array('krakow_pomoc_publiczna', 'krs_osoby', 'krakow_darczyncy', 'radni_gmin', 'rady_gmin_interpelacje', 'rady_druki', 'krakow_rada_uchwaly', 'krakow_komisje', 'krakow_zarzadzenia', 'krakow_umowy', 'krakow_jednostki', 'krakow_urzednicy', 'dzielnice', 'zamowienia_publiczne', 'krs_podmioty'),
+	            ),
+	            'cover' => array(
+	                'view' => array(
+	                    'plugin' => 'Dane',
+	                    'element' => 'gminy/powiazania-cover',
+	                ),
+	                'force' => true,
+	                'aggs' => $aggs,
+	            ),
+	            'aggs' => array(
+	                'dataset' => array(
+	                    'terms' => array(
+	                        'field' => 'dataset',
+	                    ),
+	                    'visual' => array(
+	                        'label' => 'Zbiory danych',
+	                        'skin' => 'datasets',
+	                        'class' => 'special',
+	                        'field' => 'dataset',
+	                        'dictionary' => array(
+	                            'prawo_wojewodztwa' => array('prawo', 'Prawo lokalne'),
+	                            'zamowienia_publiczne' => array('zamowienia_publiczne', 'Zamówienia publiczne'),
+	                        ),
+	                    ),
+	                ),
+	            ),
+	        );
+			
+			$this->set('aggs_dictionary', array(
+				'osoby' => array(
+					'title' => 'Osoby w Krajowym Rejestrze Sądowym dla Krakowa',
+					'href' => $this->object->getUrl() . '/osoby'
+				),
+				'organizacje' => array(
+					'title' => 'Organizacje w Krajowym Rejestrze Sądowym dla Krakowa',
+					'href' => $this->object->getUrl() . '/organizacje'
+				),
+				'pomoc_publiczna' => array(
+					'title' => 'Pomoc publiczna udzielona przez urząd gminy Kraków',
+					'href' => $this->object->getUrl() . '/pomoc_publiczna'
+				),
+				'darczyncy' => array(
+					'title' => 'Darczyńcy komitetów wyborczych',
+					'href' => $this->object->getUrl() . '/darczyncy'
+				),
+				'radni_gminy' => array(
+					'title' => 'Radni Miasta Kraków',
+					'href' => $this->object->getUrl() . '/rada'
+				),
+				'rady_gmin_interpelacje' => array(
+					'title' => 'Interpelacje radnych',
+					'href' => $this->object->getUrl() . '/interpelacje'
+				),
+				'rady_druki' => array(
+					'title' => 'Projekty legislacyjne',
+					'href' => $this->object->getUrl() . '/druki'
+				),
+				'krakow_rada_uchwaly' => array(
+					'title' => 'Uchwały Rady Miasta',
+					'href' => $this->object->getUrl() . '/rada_uchwaly',
+				),	
+				'krakow_komisje' => array(
+					'title' => 'Komisje Rady Miasta',
+					'href' => $this->object->getUrl() . '/komisje',
+				),		
+				'krakow_zarzadzenia' => array(
+					'title' => 'Zarządzenia Prezydenta Miasta',
+					'href' => $this->object->getUrl() . '/zarzadzenia',
+				),
+				'krakow_umowy' => array(
+					'title' => 'Umowy zawierane przez Urząd Miasta Kraków',
+					'href' => $this->object->getUrl() . '/umowy',
+				),
+				'krakow_jednostki' => array(
+					'title' => 'Jednostki i wydziały Urzędu Miasta Kraków',
+					'href' => $this->object->getUrl() . '/jednostki',
+				),
+				'krakow_urzednicy' => array(
+					'title' => 'Urzędnicy Urzędu Miasta Kraków',
+					'href' => $this->object->getUrl() . '/urzednicy',
+				),
+				'dzielnice' => array(
+					'title' => 'Dzielnice Miasta Kraków',
+					'href' => $this->object->getUrl() . '/dzielnice',
+				),
+				'zamowienia_publiczne' => array(
+					'title' => 'Zamówienia publiczne w Krakowie',
+					'href' => $this->object->getUrl() . '/zamowienia',
+				),
+			));
+	        $this->Components->load('Dane.DataBrowser', $options);
+			
+			
+		} else {
 
-        $global_aggs = array(
-            'zamowienia' => array(
-                'filter' => array(
-                    'bool' => array(
-                        'must' => array(
-                            array(
-                                'term' => array(
-                                    'dataset' => 'zamowienia_publiczne',
-                                ),
-                            ),
-                            array(
-                                'term' => array(
-                                    'data.zamowienia_publiczne.gmina_id' => $this->request->params['id'],
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-            'zamowienia_publiczne_dokumenty' => array(
-                'filter' => array(
-                    'bool' => array(
-                        'must' => array(
-                            array(
-                                'term' => array(
-                                    'dataset' => 'zamowienia_publiczne_dokumenty',
-                                ),
-                            ),
-                            array(
-                                'term' => array(
-                                    'data.zamowienia_publiczne_dokumenty.typ_id' => '3',
-                                ),
-                            ),
-                            array(
-                                'term' => array(
-                                    'data.zamowienia_publiczne_dokumenty.gmina_id' => $this->request->params['id'],
-                                ),
-                            ),
-                            array(
-                                'range' => array(
-                                    'date' => array(
-                                        'gt' => 'now-1y'
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-                'aggs' => array(
-                    'dni' => array(
-						'date_histogram' => array(
-							'field' => 'date',
-							'interval' => 'day',
-						),
-						'aggs' => array(
-							'wykonawcy' => array(
-								'nested' => array(
-									'path' => 'zamowienia_publiczne-wykonawcy',
-								),
-								'aggs' => array(
-									'waluty' => array(
-										'terms' => array(
-											'field' => 'zamowienia_publiczne-wykonawcy.waluta',
-										),
-										'aggs' => array(
-											'suma' => array(
-												'sum' => array(
-													'field' => 'zamowienia_publiczne-wykonawcy.cena',
+	        $global_aggs = array(
+	            'zamowienia' => array(
+	                'filter' => array(
+	                    'bool' => array(
+	                        'must' => array(
+	                            array(
+	                                'term' => array(
+	                                    'dataset' => 'zamowienia_publiczne',
+	                                ),
+	                            ),
+	                            array(
+	                                'term' => array(
+	                                    'data.zamowienia_publiczne.gmina_id' => $this->request->params['id'],
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	            ),
+	            'zamowienia_publiczne_dokumenty' => array(
+	                'filter' => array(
+	                    'bool' => array(
+	                        'must' => array(
+	                            array(
+	                                'term' => array(
+	                                    'dataset' => 'zamowienia_publiczne_dokumenty',
+	                                ),
+	                            ),
+	                            array(
+	                                'term' => array(
+	                                    'data.zamowienia_publiczne_dokumenty.typ_id' => '3',
+	                                ),
+	                            ),
+	                            array(
+	                                'term' => array(
+	                                    'data.zamowienia_publiczne_dokumenty.gmina_id' => $this->request->params['id'],
+	                                ),
+	                            ),
+	                            array(
+	                                'range' => array(
+	                                    'date' => array(
+	                                        'gt' => 'now-1y'
+	                                    ),
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	                'aggs' => array(
+	                    'dni' => array(
+							'date_histogram' => array(
+								'field' => 'date',
+								'interval' => 'day',
+							),
+							'aggs' => array(
+								'wykonawcy' => array(
+									'nested' => array(
+										'path' => 'zamowienia_publiczne-wykonawcy',
+									),
+									'aggs' => array(
+										'waluty' => array(
+											'terms' => array(
+												'field' => 'zamowienia_publiczne-wykonawcy.waluta',
+											),
+											'aggs' => array(
+												'suma' => array(
+													'sum' => array(
+														'field' => 'zamowienia_publiczne-wykonawcy.cena',
+													),
 												),
 											),
 										),
@@ -259,342 +714,343 @@ class GminyController extends DataobjectsController
 								),
 							),
 						),
-					),
-                ),
-            ),
-            'krs_podmioty' => array(
-                'filter' => array(
-                    'bool' => array(
-                        'must' => array(
-                            array(
-                                'term' => array(
-                                    'dataset' => 'krs_podmioty',
-                                ),
-                            ),
-                            array(
-                                'term' => array(
-                                    'data.krs_podmioty.gmina_id' => $this->request->params['id'],
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-                'aggs' => array(
-                    'typ_id' => array(
-                        'terms' => array(
-                            'field' => 'krs_podmioty.forma_prawna_id',
-                            'exclude' => array(
-                                'pattern' => '0'
-                            ),
-                            'size' => 12,
-                        ),
-                        'aggs' => array(
-                            'label' => array(
-                                'terms' => array(
-                                    'field' => 'data.krs_podmioty.forma_prawna_str',
-                                ),
-                            ),
-                        ),
-                    ),
-                    'kapitalizacja' => array(
-                        'range' => array(
-                            'field' => 'krs_podmioty.wartosc_kapital_zakladowy',
-                            'ranges' => array(
-                                array('from' => 1, 'to' => 5000),
-                                array('from' => 5000, 'to' => 10000),
-                                array('from' => 10000, 'to' => 50000),
-                                array('from' => 50000, 'to' => 100000),
-                                array('from' => 100000, 'to' => 500000),
-                                array('from' => 500000, 'to' => 1000000),
-                                array('from' => 1000000, 'to' => 5000000),
-                                array('from' => 5000000, 'to' => 10000000),
-                                array('from' => 10000000),
-                            ),
-                        ),
-                    ),
-                    'date' => array(
-                        'date_histogram' => array(
-                            'field' => 'date',
-                            'interval' => 'year',
-                            'format' => 'yyyy-MM-dd',
-                        ),
-                    ),
-                ),
-            ),
-        );
-
-        if ($this->object->getId() == 903) {
-
-            $global_aggs['rada_posiedzenia'] = array(
-                'filter' => array(
-                    'bool' => array(
-                        'must' => array(
-                            array(
-                                'term' => array(
-                                    'dataset' => 'krakow_posiedzenia',
-                                ),
-                            ),
-                            array(
-                                'range' => array(
-                                    'date' => array(
-                                        'lte' => 'now',
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-                'aggs' => array(
-                    'top' => array(
-                        'top_hits' => array(
-                            'size' => 1,
-                            'fielddata_fields' => array('dataset', 'id'),
-                            'sort' => array(
-                                'date' => 'desc',
-                            ),
-                        ),
-                    ),
-                ),
-            );
-
-            $global_aggs['rada_komisje_posiedzenia'] = array(
-                'filter' => array(
-                    'bool' => array(
-                        'must' => array(
-                            array(
-                                'term' => array(
-                                    'dataset' => 'krakow_komisje_posiedzenia',
-                                ),
-                            ),
-                        ),
-                        'must_not' => array(
-                            array(
-                                'term' => array(
-                                    'data.krakow_komisje_posiedzenia.yt_video_id' => '',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-                'aggs' => array(
-                    'top' => array(
-                        'top_hits' => array(
-                            'size' => 1,
-                            'fielddata_fields' => array('dataset', 'id'),
-                            'sort' => array(
-                                'date' => 'desc',
-                            ),
-                        ),
-                    ),
-                ),
-            );
-
-            $global_aggs['dzielnice_posiedzenia'] = array(
-                'filter' => array(
-                    'bool' => array(
-                        'must' => array(
-                            array(
-                                'term' => array(
-                                    'dataset' => 'krakow_dzielnice_rady_posiedzenia',
-                                ),
-                            ),
-                        ),
-                        'must_not' => array(
-                            array(
-                                'term' => array(
-                                    'data.krakow_dzielnice_rady_posiedzenia.yt_video_id' => '',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-                'aggs' => array(
-                    'top' => array(
-                        'top_hits' => array(
-                            'size' => 1,
-                            'fielddata_fields' => array('dataset', 'id'),
-                            'sort' => array(
-                                'date' => 'desc',
-                            ),
-                        ),
-                    ),
-                ),
-            );
-
-            $global_aggs['rada_projekty'] = array(
-                'filter' => array(
-                    'bool' => array(
-                        'must' => array(
-                            array(
-                                'term' => array(
-                                    'dataset' => 'rady_druki',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-                'aggs' => array(
-                    'top' => array(
-                        'top_hits' => array(
-                            'size' => 3,
-                            'fielddata_fields' => array('dataset', 'id'),
-                            'sort' => array(
-                                'date' => 'desc',
-                            ),
-                        ),
-                    ),
-                ),
-            );
-
-            $global_aggs['interpelacje'] = array(
-                'filter' => array(
-                    'bool' => array(
-                        'must' => array(
-                            array(
-                                'term' => array(
-                                    'dataset' => 'rady_gmin_interpelacje',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-                'aggs' => array(
-                    'top' => array(
-                        'top_hits' => array(
-                            'size' => 3,
-                            'fielddata_fields' => array('dataset', 'id'),
-                            'sort' => array(
-                                'date' => 'desc',
-                            ),
-                        ),
-                    ),
-                ),
-            );
-
-            $global_aggs['zarzadzenia'] = array(
-                'filter' => array(
-                    'bool' => array(
-                        'must' => array(
-                            array(
-                                'term' => array(
-                                    'dataset' => 'krakow_zarzadzenia',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-                'aggs' => array(
-                    'top' => array(
-                        'top_hits' => array(
-                            'size' => 3,
-                            'fielddata_fields' => array('dataset', 'id'),
-                            'sort' => array(
-                                'date' => 'desc',
-                            ),
-                        ),
-                    ),
-                ),
-            );
-
-            $global_aggs['krakow_rada_uchwaly'] = array(
-                'filter' => array(
-                    'bool' => array(
-                        'must' => array(
-                            array(
-                                'term' => array(
-                                    'dataset' => 'krakow_rada_uchwaly',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-                'aggs' => array(
-                    'top' => array(
-                        'top_hits' => array(
-                            'size' => 3,
-                            'fielddata_fields' => array('dataset', 'id'),
-                            'sort' => array(
-                                'date' => 'desc',
-                            ),
-                        ),
-                    ),
-                ),
-            );
-
-
-        } else {
-
-            $global_aggs['prawo'] = array(
-                'filter' => array(
-                    'bool' => array(
-                        'must' => array(
-                            array(
-                                'term' => array(
-                                    'dataset' => 'prawo_wojewodztwa',
-                                ),
-                            ),
-                            array(
-                                'term' => array(
-                                    'data.prawo_wojewodztwa.gmina_id' => $this->request->params['id'],
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-                'aggs' => array(
-                    'top' => array(
-                        'top_hits' => array(
-                            'size' => 3,
-                            'fielddata_fields' => array('dataset', 'id'),
-                            'sort' => array(
-                                'date' => array(
-                                    'order' => 'desc',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            );
-
+	                ),
+	            ),
+	            'krs_podmioty' => array(
+	                'filter' => array(
+	                    'bool' => array(
+	                        'must' => array(
+	                            array(
+	                                'term' => array(
+	                                    'dataset' => 'krs_podmioty',
+	                                ),
+	                            ),
+	                            array(
+	                                'term' => array(
+	                                    'data.krs_podmioty.gmina_id' => $this->request->params['id'],
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	                'aggs' => array(
+	                    'typ_id' => array(
+	                        'terms' => array(
+	                            'field' => 'krs_podmioty.forma_prawna_id',
+	                            'exclude' => array(
+	                                'pattern' => '0'
+	                            ),
+	                            'size' => 12,
+	                        ),
+	                        'aggs' => array(
+	                            'label' => array(
+	                                'terms' => array(
+	                                    'field' => 'data.krs_podmioty.forma_prawna_str',
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                    'kapitalizacja' => array(
+	                        'range' => array(
+	                            'field' => 'krs_podmioty.wartosc_kapital_zakladowy',
+	                            'ranges' => array(
+	                                array('from' => 1, 'to' => 5000),
+	                                array('from' => 5000, 'to' => 10000),
+	                                array('from' => 10000, 'to' => 50000),
+	                                array('from' => 50000, 'to' => 100000),
+	                                array('from' => 100000, 'to' => 500000),
+	                                array('from' => 500000, 'to' => 1000000),
+	                                array('from' => 1000000, 'to' => 5000000),
+	                                array('from' => 5000000, 'to' => 10000000),
+	                                array('from' => 10000000),
+	                            ),
+	                        ),
+	                    ),
+	                    'date' => array(
+	                        'date_histogram' => array(
+	                            'field' => 'date',
+	                            'interval' => 'year',
+	                            'format' => 'yyyy-MM-dd',
+	                        ),
+	                    ),
+	                ),
+	            ),
+	        );
+	
+	        if ($this->object->getId() == 903) {
+	
+	            $global_aggs['rada_posiedzenia'] = array(
+	                'filter' => array(
+	                    'bool' => array(
+	                        'must' => array(
+	                            array(
+	                                'term' => array(
+	                                    'dataset' => 'krakow_posiedzenia',
+	                                ),
+	                            ),
+	                            array(
+	                                'range' => array(
+	                                    'date' => array(
+	                                        'lte' => 'now',
+	                                    ),
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	                'aggs' => array(
+	                    'top' => array(
+	                        'top_hits' => array(
+	                            'size' => 1,
+	                            'fielddata_fields' => array('dataset', 'id'),
+	                            'sort' => array(
+	                                'date' => 'desc',
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	            );
+	
+	            $global_aggs['rada_komisje_posiedzenia'] = array(
+	                'filter' => array(
+	                    'bool' => array(
+	                        'must' => array(
+	                            array(
+	                                'term' => array(
+	                                    'dataset' => 'krakow_komisje_posiedzenia',
+	                                ),
+	                            ),
+	                        ),
+	                        'must_not' => array(
+	                            array(
+	                                'term' => array(
+	                                    'data.krakow_komisje_posiedzenia.yt_video_id' => '',
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	                'aggs' => array(
+	                    'top' => array(
+	                        'top_hits' => array(
+	                            'size' => 1,
+	                            'fielddata_fields' => array('dataset', 'id'),
+	                            'sort' => array(
+	                                'date' => 'desc',
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	            );
+	
+	            $global_aggs['dzielnice_posiedzenia'] = array(
+	                'filter' => array(
+	                    'bool' => array(
+	                        'must' => array(
+	                            array(
+	                                'term' => array(
+	                                    'dataset' => 'krakow_dzielnice_rady_posiedzenia',
+	                                ),
+	                            ),
+	                        ),
+	                        'must_not' => array(
+	                            array(
+	                                'term' => array(
+	                                    'data.krakow_dzielnice_rady_posiedzenia.yt_video_id' => '',
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	                'aggs' => array(
+	                    'top' => array(
+	                        'top_hits' => array(
+	                            'size' => 1,
+	                            'fielddata_fields' => array('dataset', 'id'),
+	                            'sort' => array(
+	                                'date' => 'desc',
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	            );
+	
+	            $global_aggs['rada_projekty'] = array(
+	                'filter' => array(
+	                    'bool' => array(
+	                        'must' => array(
+	                            array(
+	                                'term' => array(
+	                                    'dataset' => 'rady_druki',
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	                'aggs' => array(
+	                    'top' => array(
+	                        'top_hits' => array(
+	                            'size' => 3,
+	                            'fielddata_fields' => array('dataset', 'id'),
+	                            'sort' => array(
+	                                'date' => 'desc',
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	            );
+	
+	            $global_aggs['interpelacje'] = array(
+	                'filter' => array(
+	                    'bool' => array(
+	                        'must' => array(
+	                            array(
+	                                'term' => array(
+	                                    'dataset' => 'rady_gmin_interpelacje',
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	                'aggs' => array(
+	                    'top' => array(
+	                        'top_hits' => array(
+	                            'size' => 3,
+	                            'fielddata_fields' => array('dataset', 'id'),
+	                            'sort' => array(
+	                                'date' => 'desc',
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	            );
+	
+	            $global_aggs['zarzadzenia'] = array(
+	                'filter' => array(
+	                    'bool' => array(
+	                        'must' => array(
+	                            array(
+	                                'term' => array(
+	                                    'dataset' => 'krakow_zarzadzenia',
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	                'aggs' => array(
+	                    'top' => array(
+	                        'top_hits' => array(
+	                            'size' => 3,
+	                            'fielddata_fields' => array('dataset', 'id'),
+	                            'sort' => array(
+	                                'date' => 'desc',
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	            );
+	
+	            $global_aggs['krakow_rada_uchwaly'] = array(
+	                'filter' => array(
+	                    'bool' => array(
+	                        'must' => array(
+	                            array(
+	                                'term' => array(
+	                                    'dataset' => 'krakow_rada_uchwaly',
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	                'aggs' => array(
+	                    'top' => array(
+	                        'top_hits' => array(
+	                            'size' => 3,
+	                            'fielddata_fields' => array('dataset', 'id'),
+	                            'sort' => array(
+	                                'date' => 'desc',
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	            );
+	
+	
+	        } else {
+	
+	            $global_aggs['prawo'] = array(
+	                'filter' => array(
+	                    'bool' => array(
+	                        'must' => array(
+	                            array(
+	                                'term' => array(
+	                                    'dataset' => 'prawo_wojewodztwa',
+	                                ),
+	                            ),
+	                            array(
+	                                'term' => array(
+	                                    'data.prawo_wojewodztwa.gmina_id' => $this->request->params['id'],
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	                'aggs' => array(
+	                    'top' => array(
+	                        'top_hits' => array(
+	                            'size' => 3,
+	                            'fielddata_fields' => array('dataset', 'id'),
+	                            'sort' => array(
+	                                'date' => array(
+	                                    'order' => 'desc',
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	            );
+	
+	        }
+	
+	        $options = array(
+	            'searchTitle' => 'Szukaj w gminie ' . $this->object->getTitle() . '...',
+	            'conditions' => array(
+	                '_object' => 'gminy.' . $this->object->getId(),
+	            ),
+	            'cover' => array(
+	                'view' => array(
+	                    'plugin' => 'Dane',
+	                    'element' => 'gminy/cover',
+	                ),
+	                'aggs' => array(
+	                    'all' => array(
+	                        'global' => '_empty',
+	                        'aggs' => $global_aggs,
+	                    ),
+	                ),
+	            ),
+	            'aggs' => array(
+	                'dataset' => array(
+	                    'terms' => array(
+	                        'field' => 'dataset',
+	                    ),
+	                    'visual' => array(
+	                        'label' => 'Zbiory danych',
+	                        'skin' => 'datasets',
+	                        'class' => 'special',
+	                        'field' => 'dataset',
+	                        'dictionary' => array(
+	                            'prawo_wojewodztwa' => array('prawo', 'Prawo lokalne'),
+	                            'zamowienia_publiczne' => array('zamowienia_publiczne', 'Zamówienia publiczne'),
+	                        ),
+	                    ),
+	                ),
+	            ),
+	        );
+	
+	        $this->Components->load('Dane.DataBrowser', $options);
+        
         }
-
-        $options = array(
-            'searchTitle' => 'Szukaj w gminie ' . $this->object->getTitle() . '...',
-            'conditions' => array(
-                '_object' => 'gminy.' . $this->object->getId(),
-            ),
-            'cover' => array(
-                'view' => array(
-                    'plugin' => 'Dane',
-                    'element' => 'gminy/cover',
-                ),
-                'aggs' => array(
-                    'all' => array(
-                        'global' => '_empty',
-                        'aggs' => $global_aggs,
-                    ),
-                ),
-            ),
-            'aggs' => array(
-                'dataset' => array(
-                    'terms' => array(
-                        'field' => 'dataset',
-                    ),
-                    'visual' => array(
-                        'label' => 'Zbiory danych',
-                        'skin' => 'datasets',
-                        'class' => 'special',
-                        'field' => 'dataset',
-                        'dictionary' => array(
-                            'prawo_wojewodztwa' => array('prawo', 'Prawo lokalne'),
-                            'zamowienia_publiczne' => array('zamowienia_publiczne', 'Zamówienia publiczne'),
-                        ),
-                    ),
-                ),
-            ),
-        );
-
-        $this->Components->load('Dane.DataBrowser', $options);
 
     }
 
@@ -1452,7 +1908,10 @@ class GminyController extends DataobjectsController
 
     public function zarzadzenia()
     {
+
         $this->_prepareView();
+        $this->request->params['action'] = 'urzad';
+
 
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
 
@@ -1488,7 +1947,8 @@ class GminyController extends DataobjectsController
     public function pomoc_publiczna()
     {
         $this->_prepareView();
-
+        $this->request->params['action'] = 'urzad';
+        
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
 
             $akt = $this->Dataobject->find('first', array(
@@ -1963,6 +2423,7 @@ class GminyController extends DataobjectsController
     {
 
         $this->addInitLayers('urzednicy_powiazania');
+        $this->request->params['action'] = 'urzad';
 
         $this->_prepareView();
         $this->request->params['action'] = 'urzednicy_powiazania';
@@ -2563,6 +3024,8 @@ class GminyController extends DataobjectsController
     {
 
         $this->_prepareView();
+        $this->request->params['action'] = 'urzad';
+
         
         $global_aggs = array(
             'umowy' => array(
@@ -2926,7 +3389,7 @@ class GminyController extends DataobjectsController
     {
 
         $this->_prepareView();
-        $this->request->params['action'] = 'zarzadzenia';
+        $this->request->params['action'] = 'urzad';
 
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
 
@@ -3048,7 +3511,7 @@ class GminyController extends DataobjectsController
     {
 
         $this->_prepareView();
-        $this->request->params['action'] = 'zarzadzenia';
+        $this->request->params['action'] = 'urzad';
 
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
 
@@ -3092,7 +3555,7 @@ class GminyController extends DataobjectsController
     public function oswiadczenia()
     {
 
-        $this->request->params['action'] = 'zarzadzenia';
+        $this->request->params['action'] = 'urzad';
         $this->_prepareView();
 
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
