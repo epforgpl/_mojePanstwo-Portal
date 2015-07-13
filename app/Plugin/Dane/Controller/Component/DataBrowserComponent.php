@@ -454,6 +454,50 @@ class DataBrowserComponent extends Component
                 ),
             ),
         ),
+        'krakow_zamowienia_publiczne' => array(
+            'roczniki' => array(
+                'terms' => array(
+                    'field' => 'krakow_zamowienia_publiczne.rok',
+                    'order' => array(
+	                    '_term' => 'desc',
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Rok',
+                    'skin' => 'list',
+                    'field' => 'krakow_zamowienia_publiczne.rok'
+                ),
+            ),
+            'wykonawcy' => array(
+                'terms' => array(
+                    'field' => 'krakow_zamowienia_publiczne.wykonawca_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                    'order' => array(
+	                    'sum' => 'desc',
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'krakow_zamowienia_publiczne.wykonawca',
+                        ),
+                    ),
+                    'sum' => array(
+	                    'sum' => array(
+		                    'field' => 'data.krakow_zamowienia_publiczne.wartosc_brutto',
+	                    ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Beneficjenci',
+                    'skin' => 'columns_horizontal',
+                    'field' => 'krakow_zamowienia_publiczne.wykonawca_id',
+                    'counter_field' => 'sum',
+                ),
+            ),
+        ),
         'krakow_darczyncy' => array(
             'komitety' => array(
                 'terms' => array(
