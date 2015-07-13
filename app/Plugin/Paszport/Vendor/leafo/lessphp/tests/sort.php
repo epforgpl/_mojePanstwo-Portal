@@ -27,14 +27,11 @@ class lesscNormalized extends lessc
 
 class SortingFormatter extends lessc_formatter_lessjs
 {
-    function sortKey($block)
+    function block($block)
     {
-        if (!isset($block->sortKey)) {
-            sort($block->selectors, SORT_STRING);
-            $block->sortKey = implode(",", $block->selectors);
-        }
+        $this->sortBlock($block);
 
-        return $block->sortKey;
+        return parent::block($block);
     }
 
     function sortBlock($block)
@@ -44,15 +41,20 @@ class SortingFormatter extends lessc_formatter_lessjs
             if ($sort == 0) {
                 // TODO
             }
+
             return $sort;
         });
 
     }
 
-    function block($block)
+    function sortKey($block)
     {
-        $this->sortBlock($block);
-        return parent::block($block);
+        if (!isset($block->sortKey)) {
+            sort($block->selectors, SORT_STRING);
+            $block->sortKey = implode(",", $block->selectors);
+        }
+
+        return $block->sortKey;
     }
 
 }

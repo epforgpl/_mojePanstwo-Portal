@@ -29,7 +29,8 @@ if (isset($debugKitInHistoryMode)) {
             <?php
             if (!isset($debugKitInHistoryMode)):
                 $queryLog = $this->Toolbar->getQueryLogs($dbName, array(
-                    'explain' => $explain, 'threshold' => $content['threshold']
+                    'explain' => $explain,
+                    'threshold' => $content['threshold']
                 ));
             else:
                 $queryLog = $content[$dbName];

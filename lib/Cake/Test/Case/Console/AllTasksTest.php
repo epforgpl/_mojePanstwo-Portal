@@ -25,20 +25,19 @@
  *
  * @package       Cake.Test.Case.Console
  */
-class AllTasksTest extends PHPUnit_Framework_TestSuite
-{
+class AllTasksTest extends PHPUnit_Framework_TestSuite {
 
-    /**
-     * suite method, defines tests for this suite.
-     *
-     * @return void
-     */
-    public static function suite()
-    {
-        $suite = new CakeTestSuite('All Tasks tests');
+	/**
+	 * suite method, defines tests for this suite.
+	 *
+	 * @return void
+	 */
+	public static function suite() {
+		$suite = new CakeTestSuite( 'All Tasks tests' );
 
-        $path = CORE_TEST_CASES . DS . 'Console' . DS . 'Command' . DS . 'Task' . DS;
-        $suite->addTestDirectory($path);
-        return $suite;
-    }
+		$path = CORE_TEST_CASES . DS . 'Console' . DS . 'Command' . DS . 'Task' . DS;
+		$suite->addTestDirectory( $path );
+
+		return $suite;
+	}
 }

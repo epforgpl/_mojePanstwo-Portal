@@ -10,6 +10,33 @@ msgstr "Malejąco"
 msgid "LC_DANE_DOKUMENT"
 msgstr "Dokument"
 
+msgid "LC_DANE_AGE"
+msgstr "Wiek"
+
+msgid "LC_DANE_DEBATY"
+msgstr "Debaty"
+
+msgid "LC_DANE_PRZEBIEG_PRAC"
+msgstr "Przebieg prac"
+
+msgid "LC_DANE_ODPOWIEDZI"
+msgstr "Odpowiedzi"
+
+msgid "LC_DANE_FILTER_DAYBUTTON_SINGLE"
+msgstr "Dnia"
+
+msgid "LC_DANE_FILTER_DAYS_SINGLE_PLACEHOLDER"
+msgstr "Podaj datę..."
+
+msgid "LC_DANE_FILTER_DAYS_MULTI_FROM_PLACEHOLDER"
+msgstr "Od dnia..."
+
+msgid "LC_DANE_FILTER_DAYS_MULTI_TILL_PLACEHOLDER"
+msgstr "Do dnia..."
+
+msgid "LC_DANE_FILTER_DAYBUTTON_MULTI"
+msgstr "Od-Do"
+
 msgid "LC_DANE_TOOLBAR_LOADEDALLDOC"
 msgstr "Załadowano cały dokument"
 
@@ -34,6 +61,9 @@ msgstr "Pobierz dokument"
 msgid "LC_SEARCH_BAR_PLACEHOLDER"
 msgstr "Szukaj w danych publicznych..."
 
+msgid "LC_DANE_CATALOG_HEADER"
+msgstr "Dane publiczne to dane, które wytwarzają pracujący dla Ciebie urzędnicy. Są to np. treści ustaw, informacje statystyczne, zamówienia publiczne, czy wpisy w Krajowym Rejestrze Sądowym. Za pomocą tej aplikacji możesz przeszukiwać i czytać dane publiczne, a także ustawiać powiadomienia na interesujące Cię tematy."
+
 msgid "LC_DANE_ZBIORY_DANYCH"
 msgstr "Zbiory danych"
 
@@ -46,8 +76,20 @@ msgstr "Szukaj..."
 msgid "LC_DANE_WYNIKOW"
 msgstr "wyników"
 
+msgid "LC_DANE_BRAK_WYNIKOW"
+msgstr "Brak wyników"
+
+msgid "LC_DANE_SORTOWANIE_ROSNACO"
+msgstr "rosnąco"
+
+msgid "LC_DANE_SORTOWANIE_MALEJACO"
+msgstr "malejąco"
+
 msgid "LC_DANE_SORTOWANIE"
 msgstr "Sortowanie"
+
+msgid "LC_DANE_SORTOWANIE_TRAFNOSC"
+msgstr "Trafność"
 
 msgid "LC_DANE_MOTTO"
 msgstr "Przeglądaj dane i dokumenty wytwarzane przez instytucje państwowe."
@@ -63,6 +105,9 @@ msgstr "z dnia"
 
 msgid "LC_DANE_AUTHOR"
 msgstr "Autor"
+
+msgid "LC_DANE_ADRESAT"
+msgstr "Adresat"
 
 msgid "LC_DANE_CATEGORY"
 msgstr "Kategoria"
@@ -208,11 +253,8 @@ msgstr "Liczba buntów"
 msgid "LC_DANE_POSLOWIE_PROFESSION"
 msgstr "Zawód"
 
-msgid "LC_DANE_POSLOWIE_AGE"
-msgstr "Wiek"
-
 msgid "LC_DANE_POSLOWIE_VOTING_ATTENDENCE"
-msgstr "Frekwencja na głosowaniach"
+msgstr "Frekwencja"
 
 msgid "LC_DANE_POSLOWIE_REBELS"
 msgstr "Zbuntowanie"
@@ -221,7 +263,7 @@ msgid "LC_DANE_POSLOWIE_AMOUNT_PERFORMANCES"
 msgstr "Liczba wystąpień"
 
 msgid "LC_DANE_POSLOWIE_AMOUNT_BILLS"
-msgstr "Liczba złożonych projektów ustaw"
+msgstr "Liczba projektów ustaw"
 
 msgid "LC_DANE_SEJM_DEBATY_HEADER"
 msgstr "<strong>Debata</strong> podczas posiedzenia Sejmu"
@@ -300,6 +342,9 @@ msgstr "Nieobowiązująca ustawa"
 
 msgid "LC_DANE_SEJM_POSIEDZENIA_HEADLINE"
 msgstr "Posiedzenie Sejmu"
+
+msgid "LC_DANE_SEJMPOSIEDZENIAPUNKTY_PUNKTY"
+msgstr "<strong>Punkt nr %s</strong> porządku dziennego na <strong>posiedzeniu #%s </strong>"
 
 msgid "LC_DANE_RCL_ETAPY_HEADLINE"
 msgstr "Etap w pracach legislacyjnych rządu"
@@ -408,6 +453,39 @@ msgstr "Oznaczenie sądu"
 
 msgid "LC_DANE_VIEW_KRSPODMIOTY_SYGNATURA"
 msgstr "Sygnatura akt"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_OTWORZ_MAPE"
+msgstr "Mapa Google"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_OTWORZ_MAPE_STREET"
+msgstr "Street View"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_DATA_URODZENIA"
+msgstr "Data urodzenia"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_PLEC"
+msgstr "Płeć"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_KOBIETA"
+msgstr "Kobieta"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_MEZCZYZNA"
+msgstr "Mężczyzna"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_IMIONA"
+msgstr "Imiona"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_NAZWISKO"
+msgstr "Nazwisko"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_KAPITAL_ZAKLADOWY"
+msgstr "Kapitał zakładowy"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_LINK"
+msgstr "Przejdź do elementu"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_NO_STREETVIEW_PICTURE_AVAILABLE"
+msgstr "Brak dostępnego zdjęcia Street View"
 
 msgid "LC_DANE_GMINA_DO_KTOREJ_ZOSTAL_WYBRANY_RADNY"
 msgstr "Gmina, do której rady został wybrany radny"
@@ -535,6 +613,9 @@ msgstr "Orzeczenie"
 msgid "LC_DANE_DATA_WPLYWU"
 msgstr "Data wpływu"
 
+msgid "LC_DANE_DATA_OGLOSZENIA"
+msgstr "Data ogłoszenia"
+
 msgid "LC_DANE_DATA_ORZECZENIA"
 msgstr "Data orzeczenia"
 
@@ -545,7 +626,7 @@ msgid "LC_DANE_TRESC"
 msgstr "Treść"
 
 msgid "LC_INDYWIDUALNE_WYNIKI_GLOSWANIA"
-msgstr "Indywidualne wyniki głosowania"
+msgstr "Wyniki głosowania"
 
 msgid "LC_DANE_PRZEBIEG_POSIEDZENIA"
 msgstr "Przebieg posiedzenia"
@@ -562,7 +643,7 @@ msgstr "Start"
 msgid "LC_DANE_LICZBA_WYSTAPIEN"
 msgstr "Liczba wystąpień"
 
-msgid "LC_DANE_LICZBA_GLOSOWAN "
+msgid "LC_DANE_LICZBA_GLOSOWAN"
 msgstr "Liczba głosowań"
 
 msgid "LC_DANE_LICZBA_PRZYJETYCH_USTAW"
@@ -659,13 +740,37 @@ msgid "LC_KOLEJLINIE_ODJAZD"
 msgstr "Odjazd"
 
 msgid "LC_GMINY_WYNIKI_WYBOROW"
-msgstr "Wyniki wyborów do rady gminy"
+msgstr "Radni gminy"
+
+msgid "LC_GMINY_POSIEDZENIA_GMINY"
+msgstr "Posiedzenia rady gminy"
+
+msgid "LC_GMINY_NAJNOWSZE_PRAWO_LOKALNE"
+msgstr "Najnowsze prawo lokalne"
+
+msgid "LC_GMINY_MATERIALY_PRACACH"
+msgstr "Materiały w pracach rady gminy"
+
+msgid "LC_GMINY_RADNI"
+msgstr "Radni gminy"
+
+msgid "LC_GMINY_LISTA_DARCZYNCOW"
+msgstr "Zobacz także listę darczyńców komitetów wyborczych w wyborach z 2012 roku."
+
+msgid "LC_GMINY_ZAMOWIENIA_PUBLICZNE"
+msgstr "Zamówienia publiczne"
 
 msgid "LC_DANE_BDL_GRUPY_DLA_KATEGORII"
-msgstr "Grupy dla kategorii: %s"
+msgstr "Grupy w tej kategorii"
 
 msgid "LC_DANE_BDL_WSKAZNIKI_W_GRUPIE"
-msgstr "Wskazniki w grupie: %s"
+msgstr "Wskazniki w tej grupie"
+
+msgid "LC_DANE_BDL_WSKAZNIKI_POKAZ_WIECEJ"
+msgstr "Pokaż więcej"
+
+msgid "LC_DANE_BDL_WSKAZNIKI_POKAZ_MNIEJ"
+msgstr "Pokaż mniej"
 
 msgid "LC_DANE_WSKAZNIKI_W_GMINIE"
 msgstr "Wskaźniki w gminie %s"
@@ -675,6 +780,9 @@ msgstr "Gminy w powiecie"
 
 msgid "LC_DANE_GMINY_W_WOJEWODZTWIE"
 msgstr "Gminy w województwie"
+
+msgid "LC_SEJMPOSIEDZENIAPUNKTY_BRAK_DEBAT"
+msgstr "Debata nadal trwa bądź wypowiedzi są nadal przetwarzane"
 
 msgid "LC_SEJMPOSIEDZENIAPUNKTY_BRAK_POSIEDZEN"
 msgstr "Debata nadal trwa bądź nagranie jest nadal przetwarzane"
@@ -693,3 +801,299 @@ msgstr "Wyśrodkuj"
 
 msgid "LC_RADYGMINDEBATY_WYSTAPIENIA"
 msgstr "Wystąpienia"
+
+msgid "LC_DANE_TWITTY_OZNACZONE_TAGIEM"
+msgstr "Tweety oznaczone tagiem <strong>%s</strong>"
+
+msgid "LC_DANE_ORZECZENIA_WYDANE_PRZEZ"
+msgstr "Orzeczenia wydane przez <strong>%s</strong>"
+
+msgid "LC_DANE_EMAIL_KONTAKTOWY"
+msgstr "Email kontaktowy"
+
+msgid "LC_DANE_POSLOWIE_ZASIADAJACY_W_KOMISJI"
+msgstr "Posłowie zasiadający w komisji"
+
+msgid "LC_DANE_KLUBY_GLOSUJACE"
+msgstr "Kluby, które głosowały <strong>%s</strong>"
+
+msgid "LC_DANE_WYSTAPIENIA_POSLA"
+msgstr "Wystąpienia posła <strong>%s</strong>"
+
+msgid "LC_DANE_GLOSY_POSLA"
+msgstr "Głosy oddane przez posła <strong>%s</strong>"
+
+msgid "LC_DANE_INTERPELACJE_POSLA"
+msgstr "Interpelacje posła <strong>%s</strong>"
+
+msgid "LC_DANE_INTERPELACJE"
+msgstr "Interpelacje"
+
+msgid "LC_DANE_KOMISJE_SEJMOWE"
+msgstr "Komisje Sejmowe"
+
+msgid "LC_DANE_KOMISJE"
+msgstr "Komisje"
+
+msgid "LC_DANE_WSPOLPRACOWNICY_POSLA"
+msgstr "Współpracownicy posła <strong>%s</strong>"
+
+msgid "LC_DANE_WSPOLPRACOWNICY"
+msgstr "Współpracownicy"
+
+msgid "LC_DANE_REJSETR_KORZYSCI_POSLA"
+msgstr "Rejestr korzyści posła <strong>%s</strong>"
+
+msgid "LC_DANE_REJESTR_KORZYSCI"
+msgstr "Rejestr korzyści"
+
+msgid "LC_DANE_OSWIADCZENIA_MAJATKOWE_POSLA"
+msgstr "Oświadczenia majątkowe posła <strong>%s</strong>"
+
+msgid "LC_DANE_OSWIADCZENIA_MAJATKOWE"
+msgstr "Oświadczenia majątkowe"
+
+msgid "LC_DANE_POSLOWIE_STATYSTYCZNY_POSEL"
+msgstr "Statystyczny poseł"
+
+msgid "LC_DANE_POSLOWIE_BIURA_POSELSKIE"
+msgstr "Biura poselskie"
+
+msgid "LC_DANE_POSLOWIE_STATYSTYKI_PRAC"
+msgstr "Statystki prac"
+
+msgid "LC_DANE_POSLOWIE_WYSTAPIENIA"
+msgstr "Wystąpienia"
+
+msgid "LC_DANE_POSLOWIE_FREKWENCJA"
+msgstr "Frekwencja"
+
+msgid "LC_DANE_POSLOWIE_ZBUNTOWANIE"
+msgstr "Zbuntowanie"
+
+msgid "LC_DANE_POSLOWIE_WNIESIONE_PROJEKTY_USTAW"
+msgstr "Wniesione projekty ustaw"
+
+msgid "LC_DANE_POSLOWIE_WNIESIONE_PROJEKTY_UCHWAL"
+msgstr "Wniesione projekty uchwał"
+
+msgid "LC_DANE_POSLOWIE_POPARCIA_W_OKREGU"
+msgstr "Poparcie w okręgu"
+
+msgid "LC_DANE_POSLOWIE_POWIAZANIA_BIZNES"
+msgstr "Powiązania z KRS"
+
+msgid "LC_DANE_POSLOWIE_POWIAZANIA_NGO"
+msgstr "Powiązania z NGO"
+
+msgid "LC_DANE_POSLOWIE_POWIAZANIA_WHERE_FIRMA"
+msgstr "Nazwa przedsiębiorstwa"
+
+msgid "LC_DANE_POSLOWIE_POWIAZANIA_WHERE_NGO"
+msgstr "Nazwa organizacji pozarządowej"
+
+msgid "LC_DANE_POSLOWIE_POWIAZANIA_WHERE_FORMA"
+msgstr "Forma prawna przedsiębiorstwa"
+
+msgid "LC_DANE_POSLOWIE_POWIAZANIA_WHERE_KAPITAL"
+msgstr "Wysokość kapitału zakładowego"
+
+msgid "LC_DANE_POSLOWIE_POWIAZANIA_CEL_DZIALANIA"
+msgstr "Cel działania"
+
+msgid "LC_DANE_POSLOWIE_POWIAZANIA_WHERE_DATA"
+msgstr "Data rejestracji"
+
+msgid "LC_DANE_POSLOWIE_POWIAZANIA_WHOM_ROLA"
+msgstr "Zatrudniony na stanowisku"
+
+msgid "LC_DANE_POSLOWIE_POWIAZANIA_WHOM_UDZIAL"
+msgstr "Udział w przedsiębiorstwie"
+
+msgid "LC_DANE_POSLOWIE_POWIAZANIA_WHOM_FORMA"
+msgstr "Forma zatrudnienia"
+
+msgid "LC_DANE_POSLOWIE_POSITION_STANOWISKA"
+msgstr "Wypowiadał\\a się jako"
+
+msgid "LC_DANE_POSLOWIE_POSITION_KOMISJESTANOWISKA"
+msgstr "Funkcje w komisjach"
+
+msgid "LC_DANE_POSLOWIE_KOMISJESTANOWISKO_NAZWA"
+msgstr "Nazwa komisji"
+
+msgid "LC_DANE_POSLOWIE_KOMISJESTANOWISKO_STANOWISKO"
+msgstr "Stanowisko"
+
+msgid "LC_DANE_POSLOWIE_KOMISJESTANOWISKO_CZAS"
+msgstr "Okres"
+
+msgid "LC_DANE_POSLOWIE_KOMISJESTANOWISKO_OD"
+msgstr "Od"
+
+msgid "LC_DANE_POSLOWIE_KOMISJESTANOWISKO_DO"
+msgstr "do"
+
+msgid "LC_BDL_WSKAZNIKI_LASTYEAR"
+msgstr "w %s r."
+
+msgid "LC_BDL_WSKAZNIKI_PREVLASTYEAR"
+msgstr "w stosunku do %s r."
+
+msgid "LC_BDL_WSKAZNIKI_NAZWA"
+msgstr "Nazwa"
+
+msgid "LC_BDL_WSKAZNIKI_WARTOSC"
+msgstr "Wartość"
+
+msgid "LC_BDL_WSKAZNIKI_ROK"
+msgstr "Rok"
+
+msgid "LC_BDL_WSKAZNIKI_PRZYROST"
+msgstr "Przyrost"
+
+msgid "LC_BDL_WSKAZNIKI_SEARCH_PLACEHOLDER_WOJEWODZTWA"
+msgstr "Szukaj województwa..."
+
+msgid "LC_BDL_WSKAZNIKI_SEARCH_PLACEHOLDER_POWIAT"
+msgstr "Szukaj powiatu..."
+
+msgid "LC_BDL_WSKAZNIKI_SEARCH_PLACEHOLDER_GMINY"
+msgstr "Szukaj gminy..."
+
+msgid "LC_BDL_WSKAZNIKI_SEARCH_PLACEHOLDER"
+msgstr "Wpisz szukaną frazę..."
+
+msgid "LC_SEJMGLOSOWANIA_KLUBY_HEADER"
+msgstr "Wyniki klubowe"
+
+msgid "LC_SEJMGLOSOWANIA_KLUBY_NAZWAKLUBU"
+msgstr "Nazwa klubu"
+
+msgid "LC_SEJMGLOSOWANIA_KLUBY_LICZEBNOSCKLUBU"
+msgstr "Liczebność"
+
+msgid "LC_SEJMGLOSOWANIA_KLUBY_LICZBAGLOSUJACYCH"
+msgstr "Głosowało"
+
+msgid "LC_SEJMGLOSOWANIA_KLUBY_NIEOBECNI"
+msgstr "Nieobecnych"
+
+msgid "LC_SEJMGLOSOWANIA_KLUBY_ZA"
+msgstr "Za"
+
+msgid "LC_SEJMGLOSOWANIA_KLUBY_PRZECIW"
+msgstr "Przeciw"
+
+msgid "LC_SEJMGLOSOWANIA_KLUBY_WSTRZYMALISIE"
+msgstr "Wstrzymali się"
+
+msgid "LC_SEJMGLOSOWANIA_KLUBY_LICZBABUNTOW"
+msgstr "Liczba buntów"
+
+msgid "LC_SEJMGLOSOWANIA_INDYWIDUALNE_HEADER"
+msgstr "Wyniki indywidualne"
+
+msgid "LC_SEJMGLOSOWANIA_INDYWIDUALNE_HEADER_SEARCH_PLACEHOLDER"
+msgstr "Szukaj po imieniu bądź nazwisku..."
+
+msgid "LC_POSLOWIE_W_KLUBIE"
+msgstr "Posłowie w tym klubie"
+
+
+
+
+
+
+
+
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_przedmiot"
+msgstr "Przedmiot zamówienia"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_uprawnienie"
+msgstr "Uprawnienia do wykonywania określonej działalności lub czynności"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_wiedza"
+msgstr "Wiedza i doświadczenie"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_potencjal"
+msgstr "Potencjał techniczny"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_osoby_zdolne"
+msgstr "Osoby zdolne do wykonania zamówienia"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_sytuacja_ekonomiczna"
+msgstr "Sytuacja ekonomiczna i finansowa wykonawcy"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_le_wymagania"
+msgstr "Wymagania dotyczące rejestracji w licytacji"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_le_postapien"
+msgstr "Sposób postępowania w toku licytacji"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_zal_pprawna"
+msgstr "Podstawa prawna prowadzenia postępowania w trybie zapytanie o cenę"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_zal_uzasadnienie"
+msgstr "Uzasadnienie wyboru trybu prowadzenia postępowania"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_zamowienie_uzupelniajace"
+msgstr "Zamówienie uzupełniające"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_wadium"
+msgstr "Wadium"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_wybor_wykonawcow"
+msgstr "Wybór wykonawców"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_zmieniona_umowa"
+msgstr "Dopuszczalność zmiany umowy"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_aukcja_www"
+msgstr "Aukajca WWW"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_siwz_www"
+msgstr "SIWZ"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_siwz_adres"
+msgstr "Adres pod którym dostępny jest SIWZ"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_dk_potrzeby"
+msgstr "Potrzeby"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_dk_nagrody"
+msgstr "Nagrody"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_oferty_miejsce"
+msgstr "Miejsce składania ofert"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_umowa_zabezpieczenia"
+msgstr "Umowa zabezpieczenia"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_umowa_istotne_postanowienia"
+msgstr "Istotne postanowienia umowy"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_info"
+msgstr "Inne informacje"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_inne_dokumenty"
+msgstr "Inne dokumenty"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_inne_dok_potw"
+msgstr "Inne dokumenty potwierdzjące"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_niepelnosprawne"
+msgstr "Osoby niepełnosprawne"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_zal_pprawna_hid"
+msgstr "Podstawa prawna prowadzenia postępowania"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_zamowienie_pprawna"
+msgstr "Podstawa prawna prowadzenia postępowania"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_zamowienie_pprawna_hid"
+msgstr "Podstawa prawna prowadzenia postępowania"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_zamowienie_uzasadnienie"
+msgstr "Uzasadnienie wyboru trybu prowadzenia postępowania"

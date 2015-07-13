@@ -1,0 +1,35 @@
+msgid "LC_KODY_POCZTOWE_ZNAM_ADRES"
+msgstr "Znam adres"
+
+msgid "LC_KODY_POCZTOWE_SZUKAM_KODU"
+msgstr "szukam kodu pocztowego"
+
+msgid "LC_KODY_POCZTOWE_WPISZ_MIEJSCOWOSC"
+msgstr "Wpisz miejscowość"
+
+msgid "LC_KODY_POCZTOWE_WPISZ_ADRES"
+msgstr "Wpisz adres"
+
+msgid "LC_KODY_POCZTOWE_ZNAM_KOD"
+msgstr "Znam kod pocztowy"
+
+msgid "LC_KODY_POCZTOWE_SZUKAM_ADRESU"
+msgstr "szukam adresu"
+
+msgid "LC_KODY_POCZTOWE_WPISZ_KOD"
+msgstr "Wpisz kod pocztowy"
+
+msgid "LC_KODY_POCZTOWE_SZUKAJ"
+msgstr "Szukaj"
+
+msgid "LC_KODY_POCZTOWE_NAZWA"
+msgstr "Nazwa"
+
+msgid "LC_KODY_POCZTOWE_QUESTION_CITY"
+msgstr "Czy chodziło Ci o jedną z tych miejscowości?"
+
+msgid "LC_KODY_POCZTOWE_CITY_IN_COMMUNITY"
+msgstr "Miejscowość w gminie"
+
+msgid "LC_KODY_POCZTOWE_GMINA"
+msgstr "gmina"

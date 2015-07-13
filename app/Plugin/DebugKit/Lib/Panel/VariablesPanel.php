@@ -30,6 +30,7 @@ class VariablesPanel extends DebugPanel
      * beforeRender callback
      *
      * @param Controller $controller
+     *
      * @return array
      */
     public function beforeRender(Controller $controller)

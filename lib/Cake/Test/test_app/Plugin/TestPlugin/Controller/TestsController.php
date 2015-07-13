@@ -23,23 +23,20 @@
  *
  * @package       Cake.Test.TestApp.Plugin.TestPlugin.Controller
  */
-class TestsController extends TestPluginAppController
-{
+class TestsController extends TestPluginAppController {
 
-    public $uses = array();
+	public $uses = array();
 
-    public $helpers = array('TestPlugin.OtherHelper', 'Html');
+	public $helpers = array( 'TestPlugin.OtherHelper', 'Html' );
 
-    public $components = array('TestPlugin.Plugins');
+	public $components = array( 'TestPlugin.Plugins' );
 
-    public function index()
-    {
-        $this->set('test_value', 'It is a variable');
-    }
+	public function index() {
+		$this->set( 'test_value', 'It is a variable' );
+	}
 
-    public function some_method()
-    {
-        return 25;
-    }
+	public function some_method() {
+		return 25;
+	}
 
 }

@@ -1,1 +1,0 @@
-<p class="line desc dimmed"><?php echo $item['data']['opis'] ?></p>

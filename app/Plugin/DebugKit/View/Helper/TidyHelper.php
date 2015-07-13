@@ -39,11 +39,43 @@ class TidyHelper extends AppHelper
     public $results = null;
 
     /**
+     * report method
+     *
+     * Call process if a string is passed, or no prior results exist - and return the results using
+     * the toolbar helper to generate a nested navigatable array
+     *
+     * @param mixed $html null
+     *
+     * @return string
+     */
+    public function report($html = null)
+    {
+        if ($html) {
+            $this->process($html);
+        } elseif ($this->results === null) {
+            $this->process($this->_View->output);
+        }
+        if (!$this->results) {
+            return '<p>' . __d('debug_kit', 'No markup errors found') . '</p>';
+        }
+        foreach ($this->results as &$results) {
+            foreach ($results as $type => &$messages) {
+                foreach ($messages as &$message) {
+                    $message = html_entity_decode($message, ENT_COMPAT, Configure::read('App.encoding'));
+                }
+            }
+        }
+
+        return $this->Toolbar->makeNeatArray(array_filter($this->results), 0, 0, false);
+    }
+
+    /**
      * Return a nested array of errors for the passed html string
      * Fudge the markup slightly so that the tag which is invalid is highlighted
      *
      * @param string $html ''
      * @param string $out ''
+     *
      * @return array
      */
     public function process($html = '', &$out = '')
@@ -79,36 +111,8 @@ class TidyHelper extends AppHelper
             }
         }
         $this->results = $result;
-        return $result;
-    }
 
-    /**
-     * report method
-     *
-     * Call process if a string is passed, or no prior results exist - and return the results using
-     * the toolbar helper to generate a nested navigatable array
-     *
-     * @param mixed $html null
-     * @return string
-     */
-    public function report($html = null)
-    {
-        if ($html) {
-            $this->process($html);
-        } elseif ($this->results === null) {
-            $this->process($this->_View->output);
-        }
-        if (!$this->results) {
-            return '<p>' . __d('debug_kit', 'No markup errors found') . '</p>';
-        }
-        foreach ($this->results as &$results) {
-            foreach ($results as $type => &$messages) {
-                foreach ($messages as &$message) {
-                    $message = html_entity_decode($message, ENT_COMPAT, Configure::read('App.encoding'));
-                }
-            }
-        }
-        return $this->Toolbar->makeNeatArray(array_filter($this->results), 0, 0, false);
+        return $result;
     }
 
     /**
@@ -117,6 +121,7 @@ class TidyHelper extends AppHelper
      *
      * @param string $in ''
      * @param string $out ''
+     *
      * @return string
      */
     public function tidyErrors($in = '', &$out = '')
@@ -128,6 +133,7 @@ class TidyHelper extends AppHelper
             $tidy = tidy_parse_string($out, array(), 'UTF8');
             $tidy->cleanRepair();
             $errors = $tidy->errorBuffer . "\n";
+
             return $errors;
         }
 
@@ -145,6 +151,7 @@ class TidyHelper extends AppHelper
         $Error = new File($errors);
         $errors = $Error->read();
         $Error->delete();
+
         return $errors;
     }
 
@@ -153,6 +160,7 @@ class TidyHelper extends AppHelper
      *
      * @param mixed $cmd
      * @param mixed $out null
+     *
      * @return boolean True if successful
      */
     protected function _exec($cmd, &$out = null)
@@ -171,6 +179,7 @@ class TidyHelper extends AppHelper
         if ($return) {
             return false;
         }
+
         return $_out ? $_out : true;
     }
 }

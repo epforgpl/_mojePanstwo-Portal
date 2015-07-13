@@ -5,6 +5,8 @@ App::uses('Set', 'Utility');
 class TwitterController extends DataobjectsController
 {
 
+    public $breadcrumbsMode = 'app';
+
     public $components = array(
         'RequestHandler',
     );
@@ -14,20 +16,15 @@ class TwitterController extends DataobjectsController
     );
     public $menu = array();
 
+    public $objectOptions = array(
+        'hlFields' => array(),
+    );
+
     public function view()
     {
 
-        parent::_prepareView();
-        $this->dataobjectsBrowserView(array(
-            'source' => 'twitter.responsesTo:' . $this->object->getId(),
-            'dataset' => 'twitter',
-            'title' => 'Odpowiedzi',
-            'noResultsTitle' => 'Brak odpowiedzi na tego tweeta',
-            'excludeFilters' => array(
-                'twitter_account_id',
-                'twitter_accounts.typ_id',
-            ),
-        ));
+        $this->feed();
+        $this->render('view');
 
     }
 

@@ -6,8 +6,9 @@ class Mapaprawa extends AppModel
     public function getPath($object)
     {
 
-        if (!$object)
+        if (!$object) {
             return false;
+        }
 
         $related = $object->loadRelated();
 
@@ -123,16 +124,14 @@ class Mapaprawa extends AppModel
 
                     switch ($dataset) {
 
-                        case 'rcl_etapy':
-                        {
+                        case 'rcl_etapy': {
 
                             $label = $object->getShortTitle();
                             break;
 
                         }
 
-                        case 'sejm_posiedzenia_punkty':
-                        {
+                        case 'sejm_posiedzenia_punkty': {
 
                             $label = 'Obrady Sejmu';
                             $sublabel = $object->getData('opis');
@@ -140,29 +139,27 @@ class Mapaprawa extends AppModel
 
                         }
 
-                        case 'sejm_zamrazarka':
-                        {
+                        case 'sejm_zamrazarka': {
 
                             $label = 'Projekt wpłynął do Sejmu';
                             break;
 
                         }
 
-                        case 'sejm_druki':
-                        {
+                        case 'sejm_druki': {
 
-                            if ($object->getData('typ_id') == '1')
+                            if ($object->getData('typ_id') == '1') {
                                 $label = 'Projekt został doręczony posłom';
-                            else
+                            } else {
                                 $label = $object->getData('druk_typ_nazwa');
+                            }
 
                             $sublabel = 'Druk nr ' . $object->getData('numer');
                             break;
 
                         }
 
-                        case 'prawo':
-                        {
+                        case 'prawo': {
 
                             $label = 'Publikacja ustawy w Dziennku Ustaw';
                             $sublabel = $object->getData('sygnatura');

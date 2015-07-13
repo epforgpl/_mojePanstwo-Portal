@@ -7,7 +7,12 @@
                 <tr>
                     <th><?php echo __d('dane', 'LC_DANE_MIEJSCOWOSC_GMINA'); ?></th>
                     <td>
-                        <a href="<?php echo $this->Html->url(array('plugin' => 'Dane', 'controller' => 'gminy', 'action' => 'view', 'id' => $object->getData('gminy.id'))); ?>"><?php echo $object->getData('gminy.nazwa'); ?></a>
+                        <a href="<?php echo $this->Html->url(array(
+                            'plugin' => 'Dane',
+                            'controller' => 'gminy',
+                            'action' => 'view',
+                            'id' => $object->getData('gminy.id')
+                        )); ?>"><?php echo $object->getData('gminy.nazwa'); ?></a>
                     </td>
                 </tr>
                 <tr>

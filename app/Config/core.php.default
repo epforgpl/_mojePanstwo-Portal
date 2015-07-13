@@ -81,8 +81,9 @@ Configure::write('Error', array(
  */
 Configure::write('Exception', array(
     'handler' => 'ErrorHandler::handleException',
-    'renderer' => 'ExceptionRenderer',
-    'log' => true
+    'renderer' => 'AppExceptionRenderer',
+    'log' => true,
+    'skipLog' => array('MissingActionException', 'MissingControllerException')
 ));
 
 /**
@@ -221,7 +222,9 @@ Configure::write('Cache.disable', true);
  *
  */
 Configure::write('Session', array(
-    'defaults' => 'php'
+    'cookie' => 'MP',
+    'defaults' => 'php',
+    'timeout' => 8640,
 ));
 
 /**
@@ -379,4 +382,19 @@ Cache::config('_cake_model_', array(
     'path' => CACHE . 'models' . DS,
     'serialize' => ($engine === 'File'),
     'duration' => $duration
+));
+
+Cache::config('short', array(
+    'engine' => 'File',
+    'duration' => '+1 hours',
+    'path' => CACHE,
+    'prefix' => 'cake_short_'
+));
+
+// long
+Cache::config('long', array(
+    'engine' => 'File',
+    'duration' => '+1 week',
+    'probability' => 100,
+    'path' => CACHE . 'long' . DS,
 ));

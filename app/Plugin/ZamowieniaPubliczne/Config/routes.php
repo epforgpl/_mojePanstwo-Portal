@@ -1,7 +1,4 @@
-<?php
+<?
 
-/*
-Router::connect('/ustawy', array('plugin' => 'ustawy', 'controller' => 'ustawy','action' => 'index'));
-Router::connect('/ustawy/szukaj', array('plugin' => 'ustawy', 'controller' => 'ustawy', 'action' => 'search'));
-Router::connect('/ustawy/:action', array('plugin' => 'ustawy', 'controller' => 'ustawy'));
-*/
+Router::connect('/zamowienia_publiczne', array('plugin' => 'ZamowieniaPubliczne', 'controller' => 'ZamowieniaPubliczne', 'action' => 'view'));
+Router::connect('/zamowienia_publiczne/:action', array('plugin' => 'ZamowieniaPubliczne', 'controller' => 'ZamowieniaPubliczne'));

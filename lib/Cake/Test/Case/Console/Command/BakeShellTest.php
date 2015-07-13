@@ -19,109 +19,104 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('ConsoleOutput', 'Console');
-App::uses('ConsoleInput', 'Console');
-App::uses('ShellDispatcher', 'Console');
-App::uses('Shell', 'Console');
-App::uses('BakeShell', 'Console/Command');
-App::uses('ModelTask', 'Console/Command/Task');
-App::uses('ControllerTask', 'Console/Command/Task');
-App::uses('DbConfigTask', 'Console/Command/Task');
-App::uses('Controller', 'Controller');
+App::uses( 'ConsoleOutput', 'Console' );
+App::uses( 'ConsoleInput', 'Console' );
+App::uses( 'ShellDispatcher', 'Console' );
+App::uses( 'Shell', 'Console' );
+App::uses( 'BakeShell', 'Console/Command' );
+App::uses( 'ModelTask', 'Console/Command/Task' );
+App::uses( 'ControllerTask', 'Console/Command/Task' );
+App::uses( 'DbConfigTask', 'Console/Command/Task' );
+App::uses( 'Controller', 'Controller' );
 
-if (!class_exists('UsersController')) {
-    class UsersController extends Controller
-    {
-    }
+if ( ! class_exists( 'UsersController' ) ) {
+	class UsersController extends Controller {
+	}
 }
 
-class BakeShellTest extends CakeTestCase
-{
+class BakeShellTest extends CakeTestCase {
 
-    /**
-     * fixtures
-     *
-     * @var array
-     */
-    public $fixtures = array('core.user');
+	/**
+	 * fixtures
+	 *
+	 * @var array
+	 */
+	public $fixtures = array( 'core.user' );
 
-    /**
-     * setup test
-     *
-     * @return void
-     */
-    public function setUp()
-    {
-        parent::setUp();
-        $out = $this->getMock('ConsoleOutput', array(), array(), '', false);
-        $in = $this->getMock('ConsoleInput', array(), array(), '', false);
+	/**
+	 * setup test
+	 *
+	 * @return void
+	 */
+	public function setUp() {
+		parent::setUp();
+		$out = $this->getMock( 'ConsoleOutput', array(), array(), '', false );
+		$in  = $this->getMock( 'ConsoleInput', array(), array(), '', false );
 
-        $this->Shell = $this->getMock(
-            'BakeShell',
-            array('in', 'out', 'hr', 'err', 'createFile', '_stop', '_checkUnitTest'),
-            array($out, $out, $in)
-        );
-    }
+		$this->Shell = $this->getMock(
+			'BakeShell',
+			array( 'in', 'out', 'hr', 'err', 'createFile', '_stop', '_checkUnitTest' ),
+			array( $out, $out, $in )
+		);
+	}
 
-    /**
-     * tearDown method
-     *
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-        unset($this->Dispatch, $this->Shell);
-    }
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
+	public function tearDown() {
+		parent::tearDown();
+		unset( $this->Dispatch, $this->Shell );
+	}
 
-    /**
-     * test bake all
-     *
-     * @return void
-     */
-    public function testAllWithModelName()
-    {
-        App::uses('User', 'Model');
-        $userExists = class_exists('User');
-        $this->skipIf($userExists, 'User class exists, cannot test `bake all [param]`.');
+	/**
+	 * test bake all
+	 *
+	 * @return void
+	 */
+	public function testAllWithModelName() {
+		App::uses( 'User', 'Model' );
+		$userExists = class_exists( 'User' );
+		$this->skipIf( $userExists, 'User class exists, cannot test `bake all [param]`.' );
 
-        $this->Shell->Model = $this->getMock('ModelTask', array(), array(&$this->Dispatcher));
-        $this->Shell->Controller = $this->getMock('ControllerTask', array(), array(&$this->Dispatcher));
-        $this->Shell->View = $this->getMock('ModelTask', array(), array(&$this->Dispatcher));
-        $this->Shell->DbConfig = $this->getMock('DbConfigTask', array(), array(&$this->Dispatcher));
+		$this->Shell->Model      = $this->getMock( 'ModelTask', array(), array( &$this->Dispatcher ) );
+		$this->Shell->Controller = $this->getMock( 'ControllerTask', array(), array( &$this->Dispatcher ) );
+		$this->Shell->View       = $this->getMock( 'ModelTask', array(), array( &$this->Dispatcher ) );
+		$this->Shell->DbConfig   = $this->getMock( 'DbConfigTask', array(), array( &$this->Dispatcher ) );
 
-        $this->Shell->DbConfig->expects($this->once())
-            ->method('getConfig')
-            ->will($this->returnValue('test'));
+		$this->Shell->DbConfig->expects( $this->once() )
+		                      ->method( 'getConfig' )
+		                      ->will( $this->returnValue( 'test' ) );
 
-        $this->Shell->Model->expects($this->never())
-            ->method('getName');
+		$this->Shell->Model->expects( $this->never() )
+		                   ->method( 'getName' );
 
-        $this->Shell->Model->expects($this->once())
-            ->method('bake')
-            ->will($this->returnValue(true));
+		$this->Shell->Model->expects( $this->once() )
+		                   ->method( 'bake' )
+		                   ->will( $this->returnValue( true ) );
 
-        $this->Shell->Controller->expects($this->once())
-            ->method('bake')
-            ->will($this->returnValue(true));
+		$this->Shell->Controller->expects( $this->once() )
+		                        ->method( 'bake' )
+		                        ->will( $this->returnValue( true ) );
 
-        $this->Shell->View->expects($this->once())
-            ->method('execute');
+		$this->Shell->View->expects( $this->once() )
+		                  ->method( 'execute' );
 
-        $this->Shell->expects($this->once())->method('_stop');
-        $this->Shell->expects($this->at(0))
-            ->method('out')
-            ->with('Bake All');
+		$this->Shell->expects( $this->once() )->method( '_stop' );
+		$this->Shell->expects( $this->at( 0 ) )
+		            ->method( 'out' )
+		            ->with( 'Bake All' );
 
-        $this->Shell->expects($this->at(5))
-            ->method('out')
-            ->with('<success>Bake All complete</success>');
+		$this->Shell->expects( $this->at( 5 ) )
+		            ->method( 'out' )
+		            ->with( '<success>Bake All complete</success>' );
 
-        $this->Shell->connection = '';
-        $this->Shell->params = array();
-        $this->Shell->args = array('User');
-        $this->Shell->all();
+		$this->Shell->connection = '';
+		$this->Shell->params     = array();
+		$this->Shell->args       = array( 'User' );
+		$this->Shell->all();
 
-        $this->assertEquals('User', $this->Shell->View->args[0]);
-    }
+		$this->assertEquals( 'User', $this->Shell->View->args[0] );
+	}
 }

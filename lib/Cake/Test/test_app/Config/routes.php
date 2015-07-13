@@ -20,5 +20,5 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-Router::parseExtensions('json');
-Router::connect('/some_alias', array('controller' => 'tests_apps', 'action' => 'some_method'));
+Router::parseExtensions( 'json' );
+Router::connect( '/some_alias', array( 'controller' => 'tests_apps', 'action' => 'some_method' ) );

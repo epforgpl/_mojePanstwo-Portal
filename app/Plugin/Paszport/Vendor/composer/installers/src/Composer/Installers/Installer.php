@@ -39,6 +39,18 @@ class Installer extends LibraryInstaller
         'typo3-cms' => 'TYPO3CmsInstaller',
     );
 
+    public function uninstall(InstalledRepositoryInterface $repo, PackageInterface $package)
+    {
+        if (!$repo->hasPackage($package)) {
+            throw new \InvalidArgumentException('Package is not installed: ' . $package);
+        }
+
+        $repo->removePackage($package);
+
+        $installPath = $this->getInstallPath($package);
+        $this->io->write(sprintf('Deleting %s - %s', $installPath, $this->filesystem->removeDirectory($installPath) ? '<comment>deleted</comment>' : '<error>not deleted</error>'));
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -59,37 +71,11 @@ class Installer extends LibraryInstaller
         return $installer->getInstallPath($package, $frameworkType);
     }
 
-    public function uninstall(InstalledRepositoryInterface $repo, PackageInterface $package)
-    {
-        if (!$repo->hasPackage($package)) {
-            throw new \InvalidArgumentException('Package is not installed: ' . $package);
-        }
-
-        $repo->removePackage($package);
-
-        $installPath = $this->getInstallPath($package);
-        $this->io->write(sprintf('Deleting %s - %s', $installPath, $this->filesystem->removeDirectory($installPath) ? '<comment>deleted</comment>' : '<error>not deleted</error>'));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function supports($packageType)
-    {
-        $frameworkType = $this->findFrameworkType($packageType);
-
-        if ($frameworkType === false) {
-            return false;
-        }
-
-        $locationPattern = $this->getLocationPattern($frameworkType);
-        return preg_match('#' . $frameworkType . '-' . $locationPattern . '#', $packageType, $matches) === 1;
-    }
-
     /**
      * Finds a supported framework type if it exists and returns it
      *
      * @param  string $type
+     *
      * @return string
      */
     protected function findFrameworkType($type)
@@ -107,10 +93,27 @@ class Installer extends LibraryInstaller
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function supports($packageType)
+    {
+        $frameworkType = $this->findFrameworkType($packageType);
+
+        if ($frameworkType === false) {
+            return false;
+        }
+
+        $locationPattern = $this->getLocationPattern($frameworkType);
+
+        return preg_match('#' . $frameworkType . '-' . $locationPattern . '#', $packageType, $matches) === 1;
+    }
+
+    /**
      * Get the second part of the regular expression to check for support of a
      * package type
      *
      * @param  string $frameworkType
+     *
      * @return string
      */
     protected function getLocationPattern($frameworkType)
@@ -123,6 +126,7 @@ class Installer extends LibraryInstaller
             $locations = array_keys($framework->getLocations());
             $pattern = $locations ? '(' . implode('|', $locations) . ')' : false;
         }
-        return $pattern ? : '(\w+)';
+
+        return $pattern ?: '(\w+)';
     }
 }

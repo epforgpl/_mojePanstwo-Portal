@@ -1,4 +1,3 @@
-powiadomienia.css
-frazy.css
-dane.css
-permissions.css
+!.gitignore
+!empty
+*.css

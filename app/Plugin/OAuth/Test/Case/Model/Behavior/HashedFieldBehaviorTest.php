@@ -19,6 +19,15 @@ class HashedFieldBehaviorTest extends CakeTestCase
         $this->AccessToken->recursive = -1;
     }
 
+    public function testBeforeSave()
+    {
+        $this->_createToken();
+
+        $result = $this->AccessToken->findByClientId($this->_clientId);
+        $expected = Security::hash($this->_token, null, true);
+        $this->assertEquals($expected, $result['AccessToken']['oauth_token']);
+    }
+
     protected function _createToken()
     {
         $this->AccessToken->create(array(
@@ -28,15 +37,6 @@ class HashedFieldBehaviorTest extends CakeTestCase
             'expires' => time() + 86400,
         ));
         $this->AccessToken->save();
-    }
-
-    public function testBeforeSave()
-    {
-        $this->_createToken();
-
-        $result = $this->AccessToken->findByClientId($this->_clientId);
-        $expected = Security::hash($this->_token, null, true);
-        $this->assertEquals($expected, $result['AccessToken']['oauth_token']);
     }
 
     public function testBeforeFind()

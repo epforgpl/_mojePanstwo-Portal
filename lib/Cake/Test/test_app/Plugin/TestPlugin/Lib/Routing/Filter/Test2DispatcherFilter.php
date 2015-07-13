@@ -17,26 +17,24 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('DispatcherFilter', 'Routing');
+App::uses( 'DispatcherFilter', 'Routing' );
 
 /**
  * Class Test2DispatcherFilter
  *
  * @package          Cake.Test.TestApp.Routing.Filter
  */
-class Test2DispatcherFilter extends DispatcherFilter
-{
+class Test2DispatcherFilter extends DispatcherFilter {
 
-    public function beforeDispatch(CakeEvent $event)
-    {
-        $event->data['response']->statusCode(500);
-        $event->stopPropagation();
-        return $event->data['response'];
-    }
+	public function beforeDispatch( CakeEvent $event ) {
+		$event->data['response']->statusCode( 500 );
+		$event->stopPropagation();
 
-    public function afterDispatch(CakeEvent $event)
-    {
-        $event->data['response']->statusCode(200);
-    }
+		return $event->data['response'];
+	}
+
+	public function afterDispatch( CakeEvent $event ) {
+		$event->data['response']->statusCode( 200 );
+	}
 
 }

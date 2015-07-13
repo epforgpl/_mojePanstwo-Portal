@@ -1,51 +1,189 @@
 <?php
 
-class ZamowieniaPubliczneController extends AppController
-{
+App::uses('ApplicationsController', 'Controller');
 
-    public $helpers = array(
-        'Dane.Dataobject',
-        'Dane.DataobjectsSlider',
+class ZamowieniaPubliczneController extends ApplicationsController
+{
+	
+	public $components = array('RequestHandler');
+	public $helpers = array('Dane.Dataobject');
+	
+    public $settings = array(
+        'id' => 'zamowienia_publiczne',
+        'menu' => array(
+            array(
+                'id' => '',
+                'href' => 'zamowienia_publiczne',
+                'label' => 'Zamówienia',
+            ),
+            /*
+            array(
+                'id' => 'wykonawcy',
+                'href' => 'zamowienia_publiczne/wykonawcy',
+                'label' => 'Wykonawcy',
+            ),
+            */
+            array(
+                'id' => 'dotacje_unijne',
+                'href' => 'zamowienia_publiczne/dotacje_unijne',
+                'label' => 'Dotacje unijne',
+            ),
+        ),
+        'title' => 'Zamówienia Publiczne',
+        'subtitle' => 'Znajdź zamówienie dla swojej firmy - Sprawdzaj kto dostaje zamówienia publiczne',
+        'headerImg' => '/zamowienia_publiczne/img/header_zamowienia-publiczne.png',
     );
 
-    public function index()
+    public function prepareMetaTags()
+    {
+        parent::prepareMetaTags();
+        $this->setMeta('og:image', FULL_BASE_URL . '/zamowienia_publiczne/img/social/zamowienia.jpg');
+    }
+
+    public function view()
     {
 
-        $stats = $this->API->ZamowieniaPubliczne()->getStats();
-        $this->set('stats', $stats);
+        $datasets = $this->getDatasets('zamowienia_publiczne');
 
-
-        $api = $this->API->Dane();
-
-
-        $api->searchDataset('zamowienia_publiczne', array(
-            'limit' => 20,
+        $options = array(
+            'searchTitle' => 'Szukaj w zamówieniach publicznych...',
             'conditions' => array(
-                'rodzaj_id' => 2,
+                'dataset' => array_keys($datasets)
             ),
-        ));
-        $this->set('uslugi', $api->getObjects());
+            'cover' => array(
+                'view' => array(
+                    'plugin' => 'ZamowieniaPubliczne',
+                    'element' => 'cover',
+                ),
+                'aggs' => array(
+                    'all' => array(
+                        'global' => '_empty',
+                        'aggs' => array(
+                            'zamowienia_publiczne_dokumenty' => array(
+				                'filter' => array(
+				                    'bool' => array(
+				                        'must' => array(
+				                            array(
+				                                'term' => array(
+				                                    'dataset' => 'zamowienia_publiczne_dokumenty',
+				                                ),
+				                            ),
+				                            array(
+				                                'term' => array(
+				                                    'data.zamowienia_publiczne_dokumenty.typ_id' => '3',
+				                                ),
+				                            ),
+				                            array(
+				                                'range' => array(
+				                                    'date' => array(
+				                                        'gt' => 'now-1y'
+				                                    ),
+				                                ),
+				                            ),
+				                        ),
+				                    ),
+				                ),
+				                'aggs' => array(
+				                    'dni' => array(
+										'date_histogram' => array(
+											'field' => 'date',
+											'interval' => 'day',
+										),
+										'aggs' => array(
+											'wykonawcy' => array(
+												'nested' => array(
+													'path' => 'zamowienia_publiczne-wykonawcy',
+												),
+												'aggs' => array(
+													'waluty' => array(
+														'terms' => array(
+															'field' => 'zamowienia_publiczne-wykonawcy.waluta',
+														),
+														'aggs' => array(
+															'suma' => array(
+																'sum' => array(
+																	'field' => 'zamowienia_publiczne-wykonawcy.cena',
+																),
+															),
+														),
+													),
+												),
+											),
+										),
+									),
+				                ),
+				            ),
+                        ),
+                    ),
+                ),
+            ),
+            'aggs' => array(
+                'dataset' => array(
+                    'terms' => array(
+                        'field' => 'dataset',
+                    ),
+                    'visual' => array(
+                        'label' => 'Zbiory danych',
+                        'skin' => 'datasets',
+                        'class' => 'special',
+                        'field' => 'dataset',
+                        'dictionary' => $datasets,
+                    ),
+                ),
+            ),
+        );
 
+        $this->Components->load('Dane.DataBrowser', $options);
+        $this->render('Dane.Elements/DataBrowser/browser-from-app');
+    }
 
-        $api->searchDataset('zamowienia_publiczne', array(
-            'limit' => 20,
+    public function wykonawcy()
+    {
+        $this->loadDatasetBrowser('zamowienia_publiczne_wykonawcy');
+    }
+    
+    public function rozstrzygniete()
+    {
+        
+        $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-                'rodzaj_id' => 3,
+                'dataset' => 'zamowienia_publiczne_dokumenty',
+                'zamowienia_publiczne_dokumenty.typ_id' => '3',
             ),
+            'renderFile' => 'zamowienia_publiczne_dokumenty',
+            'aggsPreset' => 'zamowienia_publiczne_dokumenty',
         ));
-        $this->set('dostawy', $api->getObjects());
+		
+        $this->render('Dane.Elements/DataBrowser/browser-from-app');
+        
+    }
 
-
-        $api->searchDataset('zamowienia_publiczne', array(
-            'limit' => 20,
-            'conditions' => array(
-                'rodzaj_id' => 1,
-            ),
-        ));
-        $this->set('roboty', $api->getObjects());
-
-        $application = $this->getApplication();
-        $this->set('title_for_layout', $application['Application']['name']);
+    public function dotacje_unijne()
+    {
+        $this->title = 'Dotacje unijne - Zamówienia publiczne';
+        $this->loadDatasetBrowser('dotacje_ue');
+    }
+    
+    public function aggs()
+    {
+	    
+	    $data = $this->ZamowieniaPubliczne->getDataSource()->request('zamowieniapubliczne/aggs', array(
+		    'method' => 'GET',
+		    'data' => $this->request->query,
+	    ));
+	    $this->set('data', $data);
+	    
+	    if( @$this->request->params['ext']=='html' ) {
+		    
+		    $this->layout = false;
+		    $this->view = 'aggs-html';
+		    
+	    } else {
+	    	    	    	    
+	        $this->set('_serialize', 'data');
+        
+        }
+	    
     }
 
 } 

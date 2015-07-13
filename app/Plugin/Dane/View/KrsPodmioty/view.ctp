@@ -1,285 +1,371 @@
-<?= $this->Element('dataobject/pageBegin'); ?>
+<?
+if (isset($odpis) && $odpis) {
+    $this->Html->meta(array(
+        'http-equiv' => "refresh",
+        'content' => "0;URL='$odpis'"
+    ), null, array('inline' => false));
+}
 
-<?php $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty', array('plugin' => 'Dane'))); ?>
-<?php $this->Combinator->add_libs('js', 'Dane.view-krspodmioty'); ?>
+echo $this->Element('dataobject/pageBegin');
 
-    <div class="krsPodmioty row">
-    <div class="col-md-2">
-        <div class="objectMenu vertical">
-            <ul class="nav nav-pills nav-stacked row">
-                <li class="active">
-                    <a href="#info" class="normalizeText">Info</a>
-                </li>
-                <? foreach ($_menu as $m) { ?>
-                    <li>
-                        <a class="normalizeText" href="#<?= $m['id'] ?>"><?= $m['label'] ?></a>
-                    </li>
-                <? } ?>
-            </ul>
-        </div>
+echo $this->Html->script('Dane.d3/d3', array('block' => 'scriptBlock'));
+
+$this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('view-krs-graph', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
+$this->Combinator->add_libs('js', 'graph-krs');
+
+?>
+
+<div class="krsPodmioty">
+	<div class="col-md-9 objectMain">
+	    <div class="object">
+	       
+<? if ($object->getData('wykreslony')) { ?>
+    <div class="alert alert-dismissable alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
     </div>
+<? } ?>
 
-    <div class="col-md-10">
-    <div class="objectsPageContent main">
-    <div class="object">
-
-        <?
-        $adres = $object->getData('adres_ulica');
-        $adres .= ' ' . $object->getData('adres_numer');
-        $adres .= ', ' . $object->getData('adres_miejscowosc');
-        $adres .= ', Polska';
-        ?>
-
-        <div id="info" class="indicators">
-            <? foreach ($indicators as $indicator) { ?>
-                <div class="indicator col-lg-3">
-                    <p class="_value"><?
-                        if (isset($indicator['format'])) {
-                            switch ($indicator['format']) {
-                                case 'date':
-                                {
-                                    echo $this->Czas->dataSlownie($indicator['value']);
-                                    break;
-                                }
-                                case 'pln':
-                                {
-                                    setlocale(LC_MONETARY, 'pl_PL');
-                                    echo money_format('%i', $indicator['value']);
-                                    break;
-                                }
-                            }
-
-                        } else {
-                            echo $indicator['value'];
-                        }
-                        ?></p>
-
-                    <p class="_label"><?= $indicator['label'] ?></p>
+<? /* if( @$object_aggs['all']['dzialania']['top']['hits']['hits'] ) {?>
+<div class="block block-simple col-xs-12 dzialania">
+	<header>Działania organizacji</header>
+    <section class="content">
+        <? foreach ($object_aggs['all']['dzialania']['top']['hits']['hits'] as $dzialanie) { ?>
+            <div class="col-sm-4">
+                <div class="photo">
+                    <? if($dzialanie['fields']['source'][0]['data']['dzialania.photo'] == '1') { ?>
+                        <img alt="<?= $dzialanie['fields']['source'][0]['data']['dzialania.tytul']; ?>" src="http://sds.tiktalik.com/portal/pages/dzialania/krs_podmioty/<?= $object->getId(); ?>/<?= $dzialanie['fields']['id'][0]; ?>.jpg"/>
+                    <? } ?>
                 </div>
-            <? } ?>
-        </div>
+                <h4>
+                    <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>">
+                        <?= $dzialanie['fields']['source'][0]['data']['dzialania.tytul']; ?>
+                    </a>
+                </h4>
+            </div>
+        <? } ?>
+    </section>
+</div>
+<? } */ ?>
 
-        <div class="profile_baner" data-adres="<?= urlencode($adres) ?>">
+<? if ($object->getData('cel_dzialania')) { ?>
+    <div class="dzialanie block block-simple col-xs-12">
+
+        <section class="content normalizeText textBlock">
+            <?= $object->getData('cel_dzialania') ?>
+        </section>
+    </div>
+<? }
+
+$adres = $object->getData('adres_ulica');
+$adres .= ' ' . $object->getData('adres_numer');
+$adres .= ', ' . $object->getData('adres_miejscowosc');
+$adres .= ', Polska';
+
+if (($object->getData('adres_ulica')) && ($object->getData('adres_numer')) && ($object->getData('adres_miejscowosc'))) { ?>
+    <div class="block col-xs-12 adres<? if(!$object->getData('cel_dzialania')) { ?> block-simple<? } ?>">
+        <header>
+            <div class="sm">Adres</div>
+            <div class="mapsOptions pull-right">
+                <button
+                    class="googleMap btn btn-sm btn-default"><?= __d('dane', 'LC_DANE_VIEW_KRSPODMIOTY_OTWORZ_MAPE') ?></button>
+                <button
+                    class="streetView btn btn-sm btn-default"><?= __d('dane', 'LC_DANE_VIEW_KRSPODMIOTY_OTWORZ_MAPE_STREET') ?></button>
+            </div>
+        </header>
+
+        <section class="profile_baner nopadding" data-adres="<?= urlencode($adres) ?>">
             <div class="bg">
                 <img
-                    src="http://maps.googleapis.com/maps/api/staticmap?center=<?= urlencode($adres) ?>&markers=<?= urlencode($adres) ?>&zoom=15&sensor=false&size=640x140&scale=2&feature:road"/>
+                    src="http://maps.googleapis.com/maps/api/staticmap?center=<?= urlencode($adres) ?>&markers=<?= urlencode($adres) ?>&zoom=15&sensor=false&size=831x212&scale=2&feature:road"/>
 
-                <div class="content">
-                    <p>
+                <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"
+                     class="content">
+                    <p itemprop="streetAddress">
                         ul. <?= $object->getData('adres_ulica') ?> <?= $object->getData('adres_numer') ?><? if ($object->getData('adres_lokal')) { ?>/<?= $object->getData('adres_lokal') ?><? } ?></p>
                     <? if ($object->getData('adres_poczta') != $object->getData('adres_miejscowosc')) { ?>
                         <p><?= $object->getData('adres_miejscowosc') ?></p><? } ?>
-                    <p><?= $object->getData('adres_kod_pocztowy') ?> <?= $object->getData('adres_poczta') ?></p>
+                    <p><span itemprop="postalCode"><?= $object->getData('adres_kod_pocztowy') ?></span> <span
+                            itemprop="addressLocality"><?= $object->getData('adres_poczta') ?></span>
+                    </p>
 
                     <p><?= $object->getData('adres_kraj') ?></p>
-                    <button class="btn btn-info"><?= __d('dane', 'LC_DANE_VIEW_KRSPODMIOTY_OTWORZ_MAPE') ?></button>
                 </div>
             </div>
-            <div id="googleMap">
+            <div class="googleView">
                 <script>
                     var googleMapAdres = '<?= $adres ?>';
                 </script>
+                <div id="googleMap"></div>
+                <div id="streetView"></div>
             </div>
+        </section>
+    </div>
+<? }
+
+if ($object->getId() == '481129') { ?>
+    <div class="special banner">
+        <a title="Zobacz umowy podpisywane przez Komitet Konkursowy Kraków 2022"
+           href="/dane/krs_podmioty/481129/umowy">
+            <img src="/Dane/img/krakow_special_banner.png" width="885" height="85"/>
+        </a>
+    </div>
+<?php }
+
+if ($object->getData('sposob_reprezentacji')) { ?>
+    <div class="reprezentacja block col-xs-12">
+        <header>
+            <div class="sm">Sposób reprezentacji</div>
+        </header>
+
+        <section class="content normalizeText textBlock">
+            <?= $object->getData('sposob_reprezentacji') ?>
+        </section>
+    </div>
+<? } ?>
+
+	        <div class="organy block-group col-xs-12 col-xs-12">
+                <? if ($organy_count = count($organy)) {
+    if ($organy_count == 1) {
+        $column_width = 12;
+    } elseif ($organy_count == 2) {
+        $column_width = 6;
+    } elseif ($organy_count == 3) {
+        $column_width = 4;
+    } else {
+        $column_width = 6;
+    }
+
+    foreach ($organy as $organ) { ?>
+                        <div class="block col-lg-<?= $column_width ?>">
+                            <header>
+                                <div class="sm normalizeText" id="<?= $organ['idTag'] ?>"><?= $organ['title'] ?></div>
+                            </header>
+
+                            <? if ($organ['content']) { ?>
+                                <section class="list-group less-borders">
+                                    <? foreach ($organ['content'] as $osoba) { ?>
+        <? if (@$osoba['osoba_id']) { ?>
+            <a class="list-group-item" href="/dane/krs_osoby/<?= $osoba['osoba_id'] ?>" itemprop="member" itemscope itemtype="http://schema.org/OrganizationRole">
+        <? } elseif (@$osoba['krs_id']) { ?>
+            <a class="list-group-item" href="/dane/krs_podmioty/<?= $osoba['krs_id'] ?>" itemprop="member" itemscope itemtype="http://schema.org/OrganizationRole">
+        <? } else { ?>
+            <div class="list-group-item" itemprop="member" itemscope itemtype="http://schema.org/OrganizationRole">
+        <? } ?>
+
+        <h4 class="list-group-item-heading" itemprop="member" itemscope itemtype="http://schema.org/OrganizationPerson">
+            <span itemprop="name"><?= $osoba['nazwa'] ?></span>
+            <? if (
+                ($osoba['privacy_level'] != '1') &&
+                $osoba['data_urodzenia'] &&
+                $osoba['data_urodzenia'] != '0000-00-00'
+            ) {
+                ?>
+                <span itemprop="birthDate" datetime="<?= substr($osoba['data_urodzenia'], 0, 4) ?>"
+                      class="wiek"><?= substr($osoba['data_urodzenia'], 0, 4) ?>'</span>
+            <? } ?>
+        </h4>
+
+        <? if (isset($osoba['funkcja']) && $osoba['funkcja']) {
+            if ($organ['idTag'] == 'reprezentacja') {
+                $useLabel = true;
+                $class = 'warning';
+
+                foreach (array('prezes', 'prezydent', 'przewodnicząc') as $phr) {
+                    if (stripos($osoba['funkcja'], ltrim($phr)) === 0) {
+                        $class = 'danger';
+                        break;
+                    }
+                }
+            } else {
+                $useLabel = false;
+            } ?>
+
+            <p itemprop="namedPosition"
+               class="list-group-item-text <? if ($useLabel) { ?> label label-<?= $class ?><? } ?>"><?= $osoba['funkcja'] ?></p>
+        <? } ?>
+        <? if (@$osoba['osoba_id'] || @$osoba['krs_id']) { ?>
+            </a>
+        <? } else { ?>
+            </div>
+        <? } ?>
+    <? } ?>
+                                </section>
+                            <? } ?>
+                        </div>
+                    <? } ?>
+<? } ?>
+            </div>
+
+            <? if ($wspolnicy = $object->getLayer('wspolnicy')) { ?>
+                <div class="wspolnicy block col-xs-12">
+                    <header>
+                        <div class="sm">Udziałowcy:</div>
+                    </header>
+
+                    <section>
+                        <div id="wspolnicy_graph">
+                            <div class="list-group less-borders wspolnicy">
+                                <? foreach ($wspolnicy as $osoba) { ?>
+                                    <span itemprop="member" itemscope itemtype="http://schema.org/OrganizationRole">
+                                        <? if (@$osoba['osoba_id']) {
+    $class = "Person"; ?>
+    <a class="list-group-item row" href="/dane/krs_osoby/<?= $osoba['osoba_id'] ?>">
+<? } elseif (@$osoba['krs_id']) {
+    $class = "Organization"; ?>
+    <a class="list-group-item row" href="/dane/krs_podmioty/<?= $osoba['krs_id'] ?>">
+<? } else {
+    $class = "Intangible"; ?>
+    <div class="list-group-item row">
+<? } ?>
+
+                                        <h4 class="list-group-item-heading col-xs-6" itemprop="member" itemscope itemtype="http://schema.org/Organization<?= $class ?>">
+                                            <span itemprop="name"><?= $osoba['nazwa'] ?></span>
+                                            <? if (($osoba['privacy_level'] != '1') && $osoba['data_urodzenia'] && $osoba['data_urodzenia'] != '0000-00-00') { ?>
+    <span itemprop="birthDate"
+          datetime="<?= substr($osoba['data_urodzenia'], 0, 4) ?>"
+          class="wiek"><?= substr($osoba['data_urodzenia'], 0, 4) ?>'</span>
+<? } ?>
+                                        </h4>
+
+                                        <? if (isset($osoba['funkcja']) && $osoba['funkcja']) { ?>
+    <p itemprop="namedPosition" class="list-group-item-text normalizeText col-xs-6"><?= $osoba['funkcja'] ?></p>
+<? } ?>
+
+    <? if (@$osoba['osoba_id'] || @$osoba['krs_id']) { ?>
+        </a>
+    <? } else { ?>
         </div>
-
-        <? if ($object->getData('sposob_reprezentacji')) { ?>
-            <div class="reprezentacja block">
-                <h2>Sposób reprezentacji</h2>
-
-                <div class="content normalizeText">
-                    <?= $object->getData('sposob_reprezentacji') ?>
+    <? } ?>
+                                    </span>
+                                <? } ?>
+                            </div>
+                        </div>
+                    </section>
                 </div>
+            <? } ?>
+
+<? if ($firmy = $object->getLayer('firmy')) { ?>
+    <div class="wspolnicy block col-xs-12">
+        <header>
+            <div class="sm">Ta firma posiada udziały w:</div>
+        </header>
+
+        <section id="wspolnicy_graph">
+            <div class="list-group less-borders wspolnicy">
+                <? foreach ($firmy as $firma) { ?>
+                    <a class="list-group-item row" href="/dane/krs_podmioty/<?= $firma['id'] ?>">
+                        <div class="list-group-item row">
+                            <h4 class="list-group-item-heading col-xs-6">
+                                <?= $firma['nazwa'] ?>
+                            </h4>
+
+                            <? if (isset($firma['udzialy_str']) && $firma['udzialy_str']) { ?>
+                                <p class="list-group-item-text normalizeText col-xs-6">
+                                    <?= $firma['udzialy_str'] ?>
+                                </p>
+                            <? } ?>
+                        </div>
+                    </a>
+                <? } ?>
+            </div>
+        </section>
+    </div>
+<? } ?>
+        </div>
+    </div>
+	
+	<div class="col-md-3 objectSide">
+	    <? $subscribers = $object->getLayer('subscribers'); ?>
+        <? if ($subscribers && $subscribers['count'] > 0) { ?>
+            <div class="block block-simple col-xs-12 dodaj_dzialanie" style="margin-top: -2px; margin-bottom: 15px;">
+                <header>
+                    <div class="sm">Obserwują (<?= $subscribers['count'] ?>)</div>
+                </header>
+                <section>
+                    <ul class="subscribers list col-xs-12">
+                        <? foreach ($subscribers['list'] as $subscriber) { ?>
+                            <?
+                            $src = $subscriber['Users']['photo_small'];
+                            if (!$src)
+                                $src = '/img/users-photo-' . rand(0, 2) . '.jpg';
+
+                            $username = $subscriber['Users']['username'];
+                            ?>
+                            <li class="col-md-2" <? if ($username != '') { ?> data-toggle="tooltip" data-placement="left" title="<?= $username ?>" <? } ?>>
+                                <div class="subscriber">
+                                    <img src="<?= $src ?>"/>
+                                </div>
+                            </li>
+                        <? } ?>
+                    </ul>
+                </section>
             </div>
         <? } ?>
 
-        <div class="organy">
-            <? $organy_count = count($organy);
-            if ($organy_count) {
-            if ($organy_count < 5)
-                $column_width = 12 / $organy_count;
-            else
-                $column_width = 3;
-            ?>
-            <? foreach ($organy as $organ) { ?>
-            <div class="col-lg-<?= $column_width ?>">
-                <div class="block small">
-                    <h2 id="<?= $organ['idTag'] ?>" class="normalizeText"><?= $organ['title'] ?></h2>
-                    <? if (isset($organ['label']) && $organ['label']) { ?>
-                        <p class="label label-primary"><?= $organ['label'] ?></p>
-                    <? } ?>
+<? if (!$object->getData('wykreslony')) {
+    $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
 
-                    <? if ($organ['content']) { ?>
-                    <div class="list-group less-borders">
-                        <? foreach ($organ['content'] as $osoba) { ?>
-                        <? if (@$osoba['osoba_id']) { ?>
-                        <a class="list-group-item" href="/dane/krs_osoby/<?= $osoba['osoba_id'] ?>">
-                            <? } else { ?>
-                            <div class="list-group-item">
-                                <? } ?>
+    echo $this->element('tools/krs_odpis', array(
+        'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
+    ));
 
-                                <h4 class="list-group-item-heading">
-                                    <?= $osoba['nazwa'] ?><? if (isset($osoba['wiek']) && $osoba['wiek']) { ?>
-                                        <span class="wiek">,
-                                            <?= pl_dopelniacz($osoba['wiek'], 'rok', 'lata', 'lat') ?>
-                                                        </span>
-                                    <? } ?>
-                                </h4>
+    $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
+    $this->Combinator->add_libs('js', 'Pisma.pisma-button');
+    echo $this->element('tools/pismo', array(
+        'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
+    ));
 
-                                <? if (isset($osoba['funkcja']) && $osoba['funkcja']) { ?>
-                                    <p class="list-group-item-text normalizeText">
-                                        <?= $osoba['funkcja'] ?>
-                                    </p>
-                                <? } ?>
+    $page = $object->getLayer('page');
+    if (!$page['moderated'])
+        echo $this->element('tools/admin', array(
+            'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
+        ));
 
-                                <? if (@$osoba['osoba_id']) { ?>
-                        </a>
-                        <? } else { ?>
-                    </div>
+} ?>
+        
+	</div>
+</div>
+
+<div class="powiazania block block-simple col-xs-12">
+    <header>
+        <div class="sm">Powiązania</div>
+    </header>
+</div>
+
+</div></div>
+
+<div class="powiazania block block-simple col-xs-12">
+    <section id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>" data-url="krs_podmioty"></section>
+</div>
+
+<div class="container"><div class="objectsPageContent main">
+	
+<div class="krsPodmioty">
+	<div class="col-md-9 objectMain">
+	    <div class="object">
+	        
+	        <? if ($dzialalnosci = $object->getLayer('dzialalnosci')) { ?>
+    <div class="block block-default col-xs-12">
+        <header>Działalność według PKD</header>
+        <section>
+
+            <ul>
+                <? foreach ($dzialalnosci as $d) { ?>
+                    <li><?= $d['str'] ?></li>
                 <? } ?>
-                <? } ?>
-                </div>
-                <? } ?>
-            </div>
-        </div>
-    <? } ?>
-    <? } ?>
+            </ul>
+
+        </section>
     </div>
+<? } ?>
+		    
+	    </div>
+	</div>
+</div>
 
-    <? if ($object->getData('cel_dzialania')) { ?>
-        <div class="dzialanie block">
-            <h2>Cel działania</h2>
-
-            <div class="content normalizeText">
-                <?= $object->getData('cel_dzialania') ?>
-            </div>
-        </div>
-    <? } ?>
-
-    <? if ($dzialalnosci) { ?>
-        <div class="dzialalnosci block">
-            <h2 id="<?= $dzialalnosci['idTag'] ?>"><?= $dzialalnosci['title'] ?></h2>
-
-            <div class="content normalizeText">
-                <div class="list-group less-borders">
-                    <? foreach ($dzialalnosci['content'] as $d) { ?>
-                        <li class="list-group-item"><?= $d['str'] ?></li>
-                    <? } ?>
-                </div>
-            </div>
-        </div>
-    <? } ?>
-
-    <? /*
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_INFORMACJE')) ?>
-                    </div>
-                    <table class="table stripped">
-                        <tr>
-                            <th><?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_FIRMA')) ?></th>
-                            <td><?php echo $object->getData('firma'); ?></td>
-                        </tr>
-                        <tr>
-                            <th><?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_KRS')) ?></th>
-                            <td><?php echo $object->getData('krs'); ?></td>
-                        </tr>
-                        <tr>
-                            <th><?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_SIEDZIBA')) ?></th>
-                            <td><?php echo $object->getData('siedziba'); ?></td>
-                        </tr>
-                        <tr>
-                            <th><?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_NAZWA')) ?></th>
-                            <td><?php echo $object->getData('nazwa'); ?>  (
-                                <small><?php echo $object->getData('nazwa_skrocona'); ?></small>
-                                )
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_FORMA_PRAWNA')) ?></th>
-                            <td><?php echo $object->getData('forma_prawna_str'); ?></td>
-                        </tr>
-                        <tr>
-                            <th><?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_STATUS')) ?></th>
-                            <td>
-                                <input type="checkbox" readonly="" <?php echo ((bool)$object->getData('nazwa')) ? 'checked' : null; ?>/> OPP
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_REJESTRACJI')) ?></th>
-                            <td><?php echo $object->getData('data_rejestracji'); ?></td>
-                        </tr>
-                        <tr>
-                            <th><?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_WPIS')) ?></th>
-                            <td><?php echo $object->getData('data_dokonania_wpisu'); ?></td>
-                        </tr>
-                        <tr>
-                            <th><?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_SPRAWDZENIA')) ?></th>
-                            <td><?php echo $object->getData('data_sprawdzenia'); ?></td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_KONTAKT')) ?>
-                    </div>
-                    <table class="table stripped">
-                        <tr>
-                            <th><?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_ADRES')) ?></th>
-                            <td><?php echo $object->getData('adres'); ?></td>
-                        </tr>
-                        <tr>
-                            <th><?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_KOD')) ?></th>
-                            <td>
-                                <a href="<?php echo $this->Html->url(array('plugin' => 'Dane', 'controller' => 'kody_pocztowe', 'action' => 'view', 'id' => $object->getData('kod_pocztowy_id'))); ?>"><?php echo $object->getData('adres_kod_pocztowy'); ?></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_MIEJSCOWOSC')) ?></th>
-                            <td>
-                                <a href="<?php echo $this->Html->url(array('plugin' => 'Dane', 'controller' => 'miejscowosci', 'action' => 'view', 'id' => $obszar['Miejscowosc']['id'])); ?>">
-                                    <?php echo $obszar['Miejscowosc']['nazwa']; ?>
-                                </a>
-                                    (
-                                        <strong><?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_GMINA')) ?></strong>:
-                                            <a href="<?php echo $this->Html->url(array('plugin' => 'Dane', 'controller' => 'gminy', 'action' => 'view', 'id' => $obszar['Gmina']['id'])); ?>">
-                                                <?php echo $obszar['Gmina']['nazwa']; ?>
-                                            </a>,
-                                        <strong><?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_POWIAT')) ?></strong>: <?php echo $obszar['Powiat']['nazwa']; ?>,
-                                        <strong><?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_WOJEWODZTWO')) ?></strong>: <?php echo $obszar['Wojewodztwo']['nazwa']; ?>
-                                    )
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_EMAIL')) ?></th>
-                            <td><?php echo $object->getData('email'); ?></td>
-                        </tr>
-                        <tr>
-                            <th><?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_WWW')) ?></th>
-                            <td><?php echo $object->getData('www'); ?></td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_SADOWE')) ?>
-                    </div>
-                    <table class="table stripped">
-                        <tr>
-                            <th><?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_OZNACZENIA')) ?></th>
-                            <td><?php echo $object->getData('oznaczenie_sadu'); ?></td>
-                        </tr>
-                        <tr>
-                            <th><?php echo __d('dane', __('LC_DANE_VIEW_KRSPODMIOTY_SYGNATURA')) ?></th>
-                            <td><?php echo $object->getData('sygnatura_akt'); ?></td>
-                        </tr>
-                    </table>
-                </div>
-            */
-    ?>
-    </div>
-    </div>
-    </div>
-
+	
 <?= $this->Element('dataobject/pageEnd'); ?>

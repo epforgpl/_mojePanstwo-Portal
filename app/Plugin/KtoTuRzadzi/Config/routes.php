@@ -1,5 +1,8 @@
-<?php
+<?
 
+foreach (array('kto_tu_rzadzi') as $base) {
 
-Router::mapResources('KtoTuRzadzi.geo');
-Router::parseExtensions();
+    Router::connect('/' . $base, array('plugin' => 'KtoTuRzadzi', 'controller' => 'KtoTuRzadzi', 'action' => 'view'));
+    Router::connect('/' . $base . '/:id', array('plugin' => 'KtoTuRzadzi', 'controller' => 'KtoTuRzadzi', 'action' => 'action',));
+
+}

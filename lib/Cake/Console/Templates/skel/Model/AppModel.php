@@ -12,7 +12,7 @@
  * @since         CakePHP(tm) v 0.2.9
  */
 
-App::uses('Model', 'Model');
+App::uses( 'Model', 'Model' );
 
 /**
  * Application model for Cake.
@@ -22,6 +22,5 @@ App::uses('Model', 'Model');
  *
  * @package       app.Model
  */
-class AppModel extends Model
-{
+class AppModel extends Model {
 }

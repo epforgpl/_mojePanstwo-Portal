@@ -18,7 +18,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('View', 'View');
+App::uses( 'View', 'View' );
 
 /**
  * Theme view class
@@ -28,7 +28,6 @@ App::uses('View', 'View');
  * @package       Cake.View
  * @deprecated Deprecated since 2.1, use View class instead
  */
-class ThemeView extends View
-{
+class ThemeView extends View {
 
 }

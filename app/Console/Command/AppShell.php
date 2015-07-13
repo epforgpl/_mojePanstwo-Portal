@@ -17,7 +17,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('Shell', 'Console');
+App::uses( 'Shell', 'Console' );
 
 /**
  * Application Shell
@@ -27,7 +27,6 @@ App::uses('Shell', 'Console');
  *
  * @package       app.Console.Command
  */
-class AppShell extends Shell
-{
+class AppShell extends Shell {
 
 }

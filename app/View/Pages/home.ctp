@@ -1,104 +1,117 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('home')) ?>
-<?php $this->Combinator->add_libs('js', 'home') ?>
+<?php
+$this->Combinator->add_libs('css', $this->Less->css('home'));
+$this->Combinator->add_libs('js', 'home');
+?>
 
-<div id="home" class="container">
-    <div class="header row">
-        <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-            <h2>
-                <?php echo __('LC_MAINHEADER_TEXT') ?>
-                <!--                <a class="learnMore" href="/przewodnik">-->
-                <!--                    --><?php //echo __('LC_MAINHEADER_GUIDE') ?>
-                <!--                </a>-->
-            </h2>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-            <p class="msg">
-                To jest wersja alpha <b>_mojego</b>Państwa. Portal zostanie uruchomiony wkrótce.
-            </p>
-        </div>
-    </div>
-
-    <? /*
-    <div class="globalSearch row">
-        <div class="col-sm-10 col-md-8 col-md-offset-2 col-lg-6 col-sm-offset-1 col-md-offset-2 col-lg-offset-3">
-
-            <div class="input-group">
-            		<form action="/dane" method="get">
-	                <input name="q" type="text" class="form-control" placeholder="<?php echo __('LC_SEARCH_PUBLIC_DATA_PLACEHOLDER') ?>">
-	                <input type="submit" name="submit" style="display: none;" />
-	                <span class="input-group-btn">
-	                    <button class="btn btn-default" type="button" data-icon="&#xe600;"></button>
-	                </span>
-            		</form>
-            </div>
-
-        </div>
-    </div>
-    */
-    ?>
-
-    <div class="apps row">
-        <div class="col-md-12 col-lg-12">
-            <ul class="row">
-                <?php foreach ($_APPLICATIONS as $key => $app) { ?>
-                    <li class="col-xs-5 col-sm-2<?php
-                    if ($key % 2 == 0)
-                        echo(' ' . 'col-xs-offset-1');
-                    if ($key % 2 == 0 && $key % 5 != 0)
-                        echo(' ' . 'col-sm-offset-0');
-                    if ($key % 5 == 0)
-                        echo(' ' . 'col-sm-offset-1');
-                    ?>">
-                        <?php if ($app['Application']['type'] == 'app') { ?>
-                            <a class="appContruct" href="/<?= $app['Application']['slug'] ?>">
-                                <div class="appIcon">
-                                    <div class="innerIcon">
-                                        <img
-                                            src="/<?= $app['Application']['plugin'] ?>/icon/<?= $app['Application']['slug'] ?>.svg"
-                                            alt="<?= $app['Application']['name'] ?>"/>
-                                    </div>
-                                </div>
-                                <div class="appName">
-                                    <?= $app['Application']['name'] ?>
-                                </div>
-                            </a>
-                        <?php } else if ($app['Application']['type'] == 'folder') { ?>
-                            <div class="appContruct appFolder" data-folder-slug="/<?= $app['Application']['slug'] ?>">
-                                <div class="appIcon">
-                                    <div class="innerIcon">
-                                        <img src="/icon/folder.svg"
-                                             alt="<?= $app['Application']['name'] ?>"/>
-                                    </div>
-                                </div>
-                                <div class="appName">
-                                    <?= $app['Application']['name'] ?>
-                                </div>
-                                <ul class="appList">
-                                    <?php foreach ($app['Content'] as $key => $appList) { ?>
-                                        <li>
-                                            <a href="/<?= $appList['slug'] ?>">
-                                                <div class="appIcon">
-                                                    <div class="innerIcon">
-                                                        <img
-                                                            src="/<?= $appList['plugin'] ?>/icon/<?= $appList['slug'] ?>.svg"
-                                                            alt="<?= $appList['name'] ?>"/>
-                                                    </div>
-                                                </div>
-                                                <div class="appName">
-                                                    <?= $appList['name'] ?>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    <?php } ?>
-                                </ul>
+<div id="home" class="fullPageHeight">
+    <div class="_handler">
+        <div class="container">
+            <div class="startWindow col-xs-12 col-md-10 col-md-offset-1">
+                <div class="windowSet">
+                    <div class="_mPSearchOutside">
+                        <form class="suggesterBlock" action="/dane">
+                            <div class="main_input">
+                                <i class="glyph-addon" data-icon="&#xe600;"></i>
+                                <input name="q" value="" type="text" autocomplete="off"
+                                       class="datasearch form-control input-lg"
+                                       data-autocompletion="true"
+                                       placeholder="<?= __("LC_SEARCH_PUBLIC_DATA_PLACEHOLDER") ?>" <?php if (isset($app)) {
+                                    echo 'data-app="' . $app . '"';
+                                } ?> />
                             </div>
-                        <? } ?>
-                    </li>
-                <?php } ?>
-            </ul>
+                        </form>
+                    </div>
+
+                    <div class="appsList">
+                        <h2>Aplikacje</h2>
+                        <? foreach ($_applications as $a) {
+                            if ($a['tag'] == 1) { ?>
+                                <a class="homePageIcon col-xs-6 col-sm-4 col-md-3" href="<?= $a['href'] ?>"
+                                   target="_self">
+                                    <i class="icon" <? if ($a['icon']) {
+                                        echo 'data-icon-applications="' . $a['icon'] . '"';
+                                    } else {
+                                        echo 'data-icon="&#xe612;"';
+                                    } ?>></i>
+
+                                    <p><?= $a['name'] ?></p>
+                                </a>
+                            <? }
+                        } ?>
+                    </div>
+
+                    <? /*
+                    <div class="basicOptions">
+                        <div class="col-xs-12 col-sm-6 part">
+                            <div class="observeBrick mainBrick">
+                                <div class="title">Obserwuj</div>
+                                <span class="line"></span>
+
+                                <div class="description">
+                                    Otrzymuj powiadomienia o aktywnościach urzędów, urzędnikow oraz firm, którymi jesteś
+                                    zainteresowany.
+                                </div>
+                                <div class="action">
+                                    <? if ($this->Session->read('Auth.User.id')) { ?>
+                                        <a href="/moje-dane" target="_self" class="btn btn-primary btn-icon">
+                                            <img class="icon" src="/MojeDane/icon/powiadomienia.svg" alt=""/>Moje Dane
+                                        </a>
+                                    <? } else { ?>
+                                        <a href="/moje-dane/jak_to_dziala" target="_self"
+                                           class="btn btn-primary btn-icon">
+                                            <img class="icon" src="/MojeDane/icon/powiadomienia.svg" alt=""/>Zacznij
+                                            obserwować
+                                        </a>
+                                    <? } ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 part">
+                            <div class="shoutBrick mainBrick">
+                                <div class="title">Komunikuj</div>
+                                <span class="line"></span>
+
+                                <div class="description">
+                                    Wysyłaj wnioski o udostępnienie informacji publicznych oraz inne pisma do urzędów i
+                                    dziel się nimi w mediach społecznościowych.
+                                </div>
+                                <div class="action">
+
+                                    <? if ($this->Session->read('Auth.User.id')) { ?>
+                                        <a href="/moje-pisma" target="_self" class="btn btn-primary btn-icon">
+                                            <img class="icon" src="/MojeDane/icon/powiadomienia.svg" alt=""/>Moje Pisma
+                                        </a>
+                                    <? } else { ?>
+                                        <a href="/moje-pisma/nowe" target="_self" class="btn btn-primary btn-icon">
+                                            <img class="icon" src="/MojeDane/icon/powiadomienia.svg" alt=""/>Napisz
+                                            Pismo
+                                        </a>
+                                    <? } ?>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					*/ ?>
+
+                    <div class="appsList">
+                        <h2>Raporty</h2>
+                        <? foreach ($_applications as $a) {
+                            if ($a['tag'] == 2) { ?>
+                                <a class="homePageIcon col-xs-6 col-sm-4 col-md-3" href="<?= $a['href'] ?>">
+                                    <i class="icon" <? if ($a['icon']) {
+                                        echo 'data-icon-applications="' . $a['icon'] . '"';
+                                    } else {
+                                        echo 'data-icon="&#xe612;"';
+                                    } ?>></i>
+
+                                    <p><?= $a['name'] ?></p>
+                                </a>
+                            <? }
+                        } ?>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

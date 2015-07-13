@@ -62,22 +62,6 @@ class Dispatcher implements CakeEventListener
     }
 
     /**
-     * Returns the CakeEventManager instance or creates one if none was
-     * created. Attaches the default listeners and filters
-     *
-     * @return CakeEventManager
-     */
-    public function getEventManager()
-    {
-        if (!$this->_eventManager) {
-            $this->_eventManager = new CakeEventManager();
-            $this->_eventManager->attach($this);
-            $this->_attachFilters($this->_eventManager);
-        }
-        return $this->_eventManager;
-    }
-
-    /**
      * Returns the list of events this object listens to.
      *
      * @return array
@@ -85,43 +69,6 @@ class Dispatcher implements CakeEventListener
     public function implementedEvents()
     {
         return array('Dispatcher.beforeDispatch' => 'parseParams');
-    }
-
-    /**
-     * Attaches all event listeners for this dispatcher instance. Loads the
-     * dispatcher filters from the configured locations.
-     *
-     * @param CakeEventManager $manager
-     * @return void
-     * @throws MissingDispatcherFilterException
-     */
-    protected function _attachFilters($manager)
-    {
-        $filters = Configure::read('Dispatcher.filters');
-        if (empty($filters)) {
-            return;
-        }
-
-        foreach ($filters as $filter) {
-            if (is_string($filter)) {
-                $filter = array('callable' => $filter);
-            }
-            if (is_string($filter['callable'])) {
-                list($plugin, $callable) = pluginSplit($filter['callable'], true);
-                App::uses($callable, $plugin . 'Routing/Filter');
-                if (!class_exists($callable)) {
-                    throw new MissingDispatcherFilterException($callable);
-                }
-                $manager->attach(new $callable);
-            } else {
-                $on = strtolower($filter['on']);
-                $options = array();
-                if (isset($filter['priority'])) {
-                    $options = array('priority' => $filter['priority']);
-                }
-                $manager->attach($filter['callable'], 'Dispatcher.' . $on . 'Dispatch', $options);
-            }
-        }
     }
 
     /**
@@ -176,53 +123,55 @@ class Dispatcher implements CakeEventListener
     }
 
     /**
-     * Initializes the components and models a controller will be using.
-     * Triggers the controller action, and invokes the rendering if Controller::$autoRender is true and echo's the output.
-     * Otherwise the return value of the controller action are returned.
+     * Returns the CakeEventManager instance or creates one if none was
+     * created. Attaches the default listeners and filters
      *
-     * @param Controller $controller Controller to invoke
-     * @param CakeRequest $request The request object to invoke the controller for.
-     * @param CakeResponse $response The response object to receive the output
-     * @return CakeResponse the resulting response object
+     * @return CakeEventManager
      */
-    protected function _invoke(Controller $controller, CakeRequest $request, CakeResponse $response)
+    public function getEventManager()
     {
-        $controller->constructClasses();
-        $controller->startupProcess();
-
-        $render = true;
-        $result = $controller->invokeAction($request);
-        if ($result instanceof CakeResponse) {
-            $render = false;
-            $response = $result;
+        if (!$this->_eventManager) {
+            $this->_eventManager = new CakeEventManager();
+            $this->_eventManager->attach($this);
+            $this->_attachFilters($this->_eventManager);
         }
-
-        if ($render && $controller->autoRender) {
-            $response = $controller->render();
-        } elseif (!($result instanceof CakeResponse) && $response->body() === null) {
-            $response->body($result);
-        }
-        $controller->shutdownProcess();
-
-        return $response;
+        return $this->_eventManager;
     }
 
     /**
-     * Applies Routing and additionalParameters to the request to be dispatched.
-     * If Routes have not been loaded they will be loaded, and app/Config/routes.php will be run.
+     * Attaches all event listeners for this dispatcher instance. Loads the
+     * dispatcher filters from the configured locations.
      *
-     * @param CakeEvent $event containing the request, response and additional params
+     * @param CakeEventManager $manager
      * @return void
+     * @throws MissingDispatcherFilterException
      */
-    public function parseParams($event)
+    protected function _attachFilters($manager)
     {
-        $request = $event->data['request'];
-        Router::setRequestInfo($request);
-        $params = Router::parse($request->url);
-        $request->addParams($params);
+        $filters = Configure::read('Dispatcher.filters');
+        if (empty($filters)) {
+            return;
+        }
 
-        if (!empty($event->data['additionalParams'])) {
-            $request->addParams($event->data['additionalParams']);
+        foreach ($filters as $filter) {
+            if (is_string($filter)) {
+                $filter = array('callable' => $filter);
+            }
+            if (is_string($filter['callable'])) {
+                list($plugin, $callable) = pluginSplit($filter['callable'], true);
+                App::uses($callable, $plugin . 'Routing/Filter');
+                if (!class_exists($callable)) {
+                    throw new MissingDispatcherFilterException($callable);
+                }
+                $manager->attach(new $callable);
+            } else {
+                $on = strtolower($filter['on']);
+                $options = array();
+                if (isset($filter['priority'])) {
+                    $options = array('priority' => $filter['priority']);
+                }
+                $manager->attach($filter['callable'], 'Dispatcher.' . $on . 'Dispatch', $options);
+            }
         }
     }
 
@@ -272,6 +221,57 @@ class Dispatcher implements CakeEventListener
             }
         }
         return false;
+    }
+
+    /**
+     * Initializes the components and models a controller will be using.
+     * Triggers the controller action, and invokes the rendering if Controller::$autoRender is true and echo's the output.
+     * Otherwise the return value of the controller action are returned.
+     *
+     * @param Controller $controller Controller to invoke
+     * @param CakeRequest $request The request object to invoke the controller for.
+     * @param CakeResponse $response The response object to receive the output
+     * @return CakeResponse the resulting response object
+     */
+    protected function _invoke(Controller $controller, CakeRequest $request, CakeResponse $response)
+    {
+        $controller->constructClasses();
+        $controller->startupProcess();
+
+        $render = true;
+        $result = $controller->invokeAction($request);
+        if ($result instanceof CakeResponse) {
+            $render = false;
+            $response = $result;
+        }
+
+        if ($render && $controller->autoRender) {
+            $response = $controller->render();
+        } elseif (!($result instanceof CakeResponse) && $response->body() === null) {
+            $response->body($result);
+        }
+        $controller->shutdownProcess();
+
+        return $response;
+    }
+
+    /**
+     * Applies Routing and additionalParameters to the request to be dispatched.
+     * If Routes have not been loaded they will be loaded, and app/Config/routes.php will be run.
+     *
+     * @param CakeEvent $event containing the request, response and additional params
+     * @return void
+     */
+    public function parseParams($event)
+    {
+        $request = $event->data['request'];
+        Router::setRequestInfo($request);
+        $params = Router::parse($request->url);
+        $request->addParams($params);
+
+        if (!empty($event->data['additionalParams'])) {
+            $request->addParams($event->data['additionalParams']);
+        }
     }
 
 }

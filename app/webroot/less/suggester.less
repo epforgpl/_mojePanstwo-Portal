@@ -1,0 +1,280 @@
+@suggesterRadius: 6px;
+
+@searchHeight: 50px;
+@searchColor: #333333;
+@searchColorPlaceholder: #AAAAAA;
+
+.suggesterBlockModal {
+  .modal-dialog {
+    width: inherit;
+
+    .modal-content {
+      background: none;
+      border: none;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      -ms-filter: none;
+      box-shadow: none;
+      filter: none;
+
+    }
+  }
+}
+
+.suggesterBlock, .suggesterBlockPisma {
+  font-weight: 400;
+  font-size: 18px;
+  color: #000000;
+
+  .main_input {
+    width: 100%;
+    position: relative;
+
+    .ui-autocomplete-input.open {
+      border-bottom-left-radius: 0;
+      -webkit-border-bottom-left-radius: 0;
+    }
+
+    .glyph-addon {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: @searchHeight;
+      pointer-events: none;
+      text-align: center;
+
+      -webkit-transform: translate(0, -50%);
+      -moz-transform: translate(0, -50%);
+      -ms-transform: translate(0, -50%);
+      -o-transform: translate(0, -50%);
+      transform: translate(0, -50%);
+
+      &:before {
+        font-size: 16px;
+        color: @searchColorPlaceholder;
+      }
+    }
+
+    .form-control {
+      padding-left: @searchHeight;
+      height: @searchHeight;
+      width: 100%;
+
+      -moz-border-radius: @suggesterRadius;
+      -webkit-border-radius: @suggesterRadius;
+      border-radius: @suggesterRadius;
+      -webkit-transition: all .4s;
+      -o-transition: all .4s;
+      transition: all .4s;
+    }
+
+    .form-control::-webkit-input-placeholder {
+      color: @searchColorPlaceholder;
+    }
+    .form-control::-moz-placeholder {
+      color: @searchColorPlaceholder;
+    }
+    .form-control:-ms-input-placeholder {
+      color: @searchColorPlaceholder;
+    }
+    input:-moz-placeholder {
+      color: @searchColorPlaceholder;
+    }
+  }
+
+  .form-control {
+
+    background: #ffffff no-repeat 98% center;
+
+    &.open {
+      -moz-border-bottom-left-radius: 0;
+      -webkit-border-bottom-left-radius: 0;
+      border-bottom-left-radius: 0;
+      -moz-border-bottom-right-radius: 0;
+      -webkit-border-bottom-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &.loader {
+      background-image: url(/img/loader/loading-small.png);
+      background-size: 20px;
+
+      &.clearer-on {
+        background-position: 95% center;
+      }
+    }
+  }
+  .dataCounter {
+    color: #808080;
+    display: inline-block;
+    font-size: 12px;
+    margin-bottom: 15px;
+    margin-top: -5px;
+    padding-left: 15px;
+    padding-right: 5px;
+    width: 100%;
+
+    p {
+      padding: 0;
+      margin: 0;
+    }
+    strong {
+      font-weight: normal;
+    }
+  }
+}
+
+.theme-wallpaper, .modal-open {
+  .autocompleteSuggester {
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+  }
+}
+
+.autocompleteSuggester {
+  -moz-border-top-left-radius: 0;
+  -moz-border-top-right-radius: 0;
+  -webkit-border-top-left-radius: 0;
+  -webkit-border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+
+  -moz-border-bottom-left-radius: 7px;
+  -moz-border-bottom-right-radius: 7px;
+  -webkit-border-bottom-left-radius: 7px;
+  -webkit-border-bottom-right-radius: 7px;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+
+  overflow: hidden;
+  border-width: 0;
+  padding: 0;
+  background-color: #FAFAFA;
+  z-index: 9100;
+  margin-left: 20px;
+
+  box-shadow: 0 2px 5px #666;
+  -moz-box-shadow: 0 2px 5px #666;
+  -webkit-box-shadow: 0 2px 5px #666;
+
+  .ui-menu-item {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+    &:first-child {
+      border-top: none;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: @suggesterRadius;
+      border-bottom-right-radius: @suggesterRadius;
+    }
+
+    &.button {
+      color: #FFFFFF;
+      background-color: #59a4dd;
+      padding: 5px;
+
+      &.ui-state-hover, &.ui-state-focus a,
+      a {
+        background: none;
+        color: #FFFFFF;
+        font-size: 13px;
+        text-transform: uppercase;
+
+        span {
+          font-size: 16px;
+          margin-right: 5px;
+          position: relative;
+          top: 3px;
+          color: #FFFFFF;
+        }
+      }
+    }
+
+    a {
+      font-family: "Lato", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #333;
+      border-radius: 0;
+      -webkit-border-radius: 0;
+      border: none;
+      padding: 6px;
+      display: inline;
+      float: left;
+      width: 100%;
+      margin: 0;
+      cursor: pointer;
+
+      > div {
+        margin: 0;
+        @blockSize: 24px;
+
+        &._label {
+          width: 30px;
+          text-align: right;
+          padding-left: 0;
+          padding-right: 0;
+          background-color: inherit;
+
+          .icon {
+            color: #999;
+            font-weight: 400;
+            font-size: 20px;
+            font-style: normal;
+            line-height: 36px;
+          }
+
+          .doc {
+            max-height: @blockSize+10px;
+          }
+        }
+
+        &._title {
+          position: relative;
+          min-height: @blockSize + 12;
+
+          > span {
+            color: #666;
+            font-weight: normal;
+            font-size: 13px;
+            line-height: 1.2em;
+
+            &.vertical-center {
+              position: absolute;
+              top: 50%;
+              transform: translate(0, -50%);
+            }
+
+            > small {
+              margin-top: 3px;
+              display: block;
+              width: 100%;
+              color: #789;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+    background: #FAFAFA;
+    color: #333333;
+    border: none;
+
+    span {
+      color: #333333;
+    }
+  }
+
+  .ui-menu .ui-menu-item a.ui-state-focus, .ui-menu .ui-menu-item a.ui-state-active {
+    color: #333333;
+    background-color: #FAFAFA;
+  }
+
+}

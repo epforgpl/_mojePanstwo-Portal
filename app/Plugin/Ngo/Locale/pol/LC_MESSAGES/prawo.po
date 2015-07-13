@@ -1,0 +1,50 @@
+msgid "LC_USTAWY_HEADLINE"
+msgstr "Aktualne treści <b>ustaw</b> obowiązujących w Polsce"
+
+msgid "LC_USTAWY_SZUKAJ"
+msgstr "Szukaj..."
+
+msgid "LC_USTAWY_SZUKAJ_ORGANIZACJI"
+msgstr "Szukaj ustawy..."
+
+msgid "LC_USTAWY_USTAWA"
+msgstr "Ustawa"
+
+msgid "LC_USTAWY_WYNIKI_WYSZUKIWANIA"
+msgstr "Wyniki wyszukiwania"
+
+msgid "LC_USTAWY_WIECEJ_WYNIKOW"
+msgstr "Więcej wyników"
+
+msgid "LC_USTAWY_WIECEJ_WYNIKI_WYSZUKIWANIA"
+msgstr "Wyniki wyszukiwania"
+
+msgid "LC_USTAWY_WIECEJ_NAJNOWSZE"
+msgstr "Najnowsze"
+
+msgid "LC_USTAWY_WIECEJ_KONSTYTUCJE"
+msgstr "Konstytucja"
+
+msgid "LC_USTAWY_WIECEJ_POZOSTALE"
+msgstr "Ustrojowe"
+
+msgid "LC_USTAWY_WIECEJ_KODEKSY"
+msgstr "Kodeksy"
+
+msgid "LC_USTAWY_WIECEJ_RATYFIKACJE"
+msgstr "Ratyfikacje umów"
+
+msgid "LC_USTAWY_TITLE_USTAWA"
+msgstr "Ustawa"
+
+msgid "LC_USTAWY_PUBLIKACJA"
+msgstr "z dnia"
+
+msgid "LC_USTAWY_NIEDAWNO_WESZLY_W_ZYCIE"
+msgstr "Niedawno weszły w życie"
+
+msgid "LC_USTAWY_NIEDLUGO_WEJDA_W_ZYCIE"
+msgstr "Niedługo wejdą w życie"
+
+msgid "LC_USTAWY_BRAK_WYNIKOW"
+msgstr "Brak wyników dla szukanej frazy"

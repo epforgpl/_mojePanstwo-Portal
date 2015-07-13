@@ -80,27 +80,6 @@ class Encryption
     }
 
     /**
-     * Encrypt the supplied data using the supplied key
-     *
-     * @param string $data The data to encrypt
-     * @param string $key The key to encrypt with
-     *
-     * @returns string The encrypted data
-     */
-    public function encrypt($data, $key)
-    {
-        $salt = mcrypt_create_iv(128, MCRYPT_DEV_URANDOM);
-        list ($cipherKey, $macKey, $iv) = $this->getKeys($salt, $key);
-
-        $data = $this->pad($data);
-
-        $enc = mcrypt_encrypt($this->cipher, $cipherKey, $data, $this->mode, $iv);
-
-        $mac = hash_hmac('sha512', $enc, $macKey, true);
-        return $salt . $enc . $mac;
-    }
-
-    /**
      * Generates a set of keys given a random salt and a master key
      *
      * @param string $salt A random string to change the keys each encryption
@@ -119,6 +98,7 @@ class Encryption
         $cipherKey = substr($key, 0, $keySize);
         $macKey = substr($key, $keySize, $keySize);
         $iv = substr($key, 2 * $keySize);
+
         return array($cipherKey, $macKey, $iv);
     }
 
@@ -149,7 +129,44 @@ class Encryption
             }
             $result .= $res;
         }
+
         return substr($result, 0, $length);
+    }
+
+    protected function unpad($data)
+    {
+        $length = mcrypt_get_block_size($this->cipher, $this->mode);
+        $last = ord($data[strlen($data) - 1]);
+        if ($last > $length) {
+            return false;
+        }
+        if (substr($data, -1 * $last) !== str_repeat(chr($last), $last)) {
+            return false;
+        }
+
+        return substr($data, 0, -1 * $last);
+    }
+
+    /**
+     * Encrypt the supplied data using the supplied key
+     *
+     * @param string $data The data to encrypt
+     * @param string $key The key to encrypt with
+     *
+     * @returns string The encrypted data
+     */
+    public function encrypt($data, $key)
+    {
+        $salt = mcrypt_create_iv(128, MCRYPT_DEV_URANDOM);
+        list ($cipherKey, $macKey, $iv) = $this->getKeys($salt, $key);
+
+        $data = $this->pad($data);
+
+        $enc = mcrypt_encrypt($this->cipher, $cipherKey, $data, $this->mode, $iv);
+
+        $mac = hash_hmac('sha512', $enc, $macKey, true);
+
+        return $salt . $enc . $mac;
     }
 
     protected function pad($data)
@@ -159,17 +176,7 @@ class Encryption
         if ($padAmount == 0) {
             $padAmount = $length;
         }
-        return $data . str_repeat(chr($padAmount), $padAmount);
-    }
 
-    protected function unpad($data)
-    {
-        $length = mcrypt_get_block_size($this->cipher, $this->mode);
-        $last = ord($data[strlen($data) - 1]);
-        if ($last > $length) return false;
-        if (substr($data, -1 * $last) !== str_repeat(chr($last), $last)) {
-            return false;
-        }
-        return substr($data, 0, -1 * $last);
+        return $data . str_repeat(chr($padAmount), $padAmount);
     }
 }

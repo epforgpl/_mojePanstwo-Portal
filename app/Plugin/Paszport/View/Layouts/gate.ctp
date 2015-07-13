@@ -23,7 +23,8 @@
     <?php echo $this->Session->flash(); ?>
     <?php echo $this->Session->flash('auth', array(
         'element' => 'alert',
-        'params' => array('plugin' => 'BoostCake')));
+        'params' => array('plugin' => 'BoostCake')
+    ));
     ?>
     <?php echo $this->fetch('content'); ?>
 </div>

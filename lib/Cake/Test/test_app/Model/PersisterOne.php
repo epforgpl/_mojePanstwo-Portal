@@ -25,42 +25,41 @@
  *
  * @package       Cake.Test.TestApp.Model
  */
-class PersisterOne extends AppModel
-{
+class PersisterOne extends AppModel {
 
-    public $useTable = 'posts';
+	public $useTable = 'posts';
 
-    public $actsAs = array('PersisterOneBehavior', 'TestPlugin.TestPluginPersisterOne');
+	public $actsAs = array( 'PersisterOneBehavior', 'TestPlugin.TestPluginPersisterOne' );
 
-    public $hasMany = array('Comment', 'TestPlugin.TestPluginComment');
+	public $hasMany = array( 'Comment', 'TestPlugin.TestPluginComment' );
 
-    public $validate = array(
-        'title' => array(
-            'custom' => array(
-                'rule' => array('custom', '.*'),
-                'allowEmpty' => true,
-                'required' => false,
-                'message' => 'Post title is required'
-            ),
-            'between' => array(
-                'rule' => array('between', 5, 15),
-                'message' => array('You may enter up to %s chars (minimum is %s chars)', 14, 6)
-            )
-        ),
-        'body' => array(
-            'first_rule' => array(
-                'rule' => array('custom', '.*'),
-                'allowEmpty' => true,
-                'required' => false,
-                'message' => 'Post body is required'
-            ),
-            'second_rule' => array(
-                'rule' => array('custom', '.*'),
-                'allowEmpty' => true,
-                'required' => false,
-                'message' => 'Post body is super required'
-            )
-        ),
-    );
+	public $validate = array(
+		'title' => array(
+			'custom'  => array(
+				'rule'       => array( 'custom', '.*' ),
+				'allowEmpty' => true,
+				'required'   => false,
+				'message'    => 'Post title is required'
+			),
+			'between' => array(
+				'rule'    => array( 'between', 5, 15 ),
+				'message' => array( 'You may enter up to %s chars (minimum is %s chars)', 14, 6 )
+			)
+		),
+		'body'  => array(
+			'first_rule'  => array(
+				'rule'       => array( 'custom', '.*' ),
+				'allowEmpty' => true,
+				'required'   => false,
+				'message'    => 'Post body is required'
+			),
+			'second_rule' => array(
+				'rule'       => array( 'custom', '.*' ),
+				'allowEmpty' => true,
+				'required'   => false,
+				'message'    => 'Post body is super required'
+			)
+		),
+	);
 
 }

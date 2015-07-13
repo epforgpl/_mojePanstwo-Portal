@@ -83,6 +83,11 @@ EOD;
         $this->assertEquals($this->compile($input), trim($outputWithComments));
     }
 
+    public function compile($str)
+    {
+        return trim($this->less->parse($str));
+    }
+
     public function testOldInterface()
     {
         $this->less = new lessc(__DIR__ . "/inputs/hi.less");
@@ -122,6 +127,7 @@ div:before {
     {
         $this->less->registerFunction("add-two", function ($list) {
             list($a, $b) = $list[2];
+
             return $a[1] + $b[1];
         });
 
@@ -143,7 +149,6 @@ div:before {
             $this->compile("result: add-two(10, 20);"),
             "result: add-two(10,20);");
     }
-
 
     public function testFormatters()
     {
@@ -188,11 +193,6 @@ div span, div .big, div hello.world, pre span, pre .big, pre hello.world {
 }
 "));
 
-    }
-
-    public function compile($str)
-    {
-        return trim($this->less->parse($str));
     }
 
 }

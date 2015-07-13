@@ -22,6 +22,14 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
     private static $parser;
 
+    protected function getVersionConstraint($operator, $version)
+    {
+        return new VersionConstraint(
+            $operator,
+            self::getVersionParser()->normalize($version)
+        );
+    }
+
     protected static function getVersionParser()
     {
         if (!self::$parser) {
@@ -29,14 +37,6 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         }
 
         return self::$parser;
-    }
-
-    protected function getVersionConstraint($operator, $version)
-    {
-        return new VersionConstraint(
-            $operator,
-            self::getVersionParser()->normalize($version)
-        );
     }
 
     protected function getPackage($name, $version)

@@ -1,0 +1,103 @@
+.fullPageHeight {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.createAccount,
+.paszportModal,
+.forgotPassword {
+    padding-bottom: 10px;
+
+    .modal-content {
+        box-shadow: none;
+
+        .modal-body {
+            overflow: hidden;
+
+            .input.select {
+                margin: 10px 0;
+
+                label {
+                    margin-right: 10px;
+                }
+            }
+
+            .text-success {
+                padding: 10px;
+                text-align: center;
+            }
+        }
+    }
+}
+
+#modalPaszportLoginForm .modal-dialog.inpage {
+	position: static;
+	left: inherit;
+	top: inherit;
+	transform: none;
+	margin: 30px auto;
+	max-width: 600px;
+	.modal-content .modal-body {
+		width: 600px;
+	}
+}
+
+.editProfile {
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    .form-group {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 20px;
+
+        &:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        label {
+            font-size: 16px;
+        }
+
+        input.error {
+            border-color: #ff2222;
+        }
+
+        .edit-password-form-groups,
+        .create-password-form-groups {
+            padding: 10px;
+
+            .form-group {
+                padding-bottom: 5px;
+                border-bottom: none;
+
+                label {
+                    font-size: 14px;
+                }
+
+                &:last-child {
+                    padding-bottom: 0;
+                }
+            }
+
+            button .glyphicon {
+                margin-left: 0;
+                margin-right: 5px;
+            }
+        }
+
+        .glyphicon {
+            margin-left: 10px;
+        }
+    }
+
+    .remove-button {
+        margin-top: 5px;
+        color: #DA4F49;
+
+        .glyphicon {
+            margin-right: 5px;
+        }
+    }
+}

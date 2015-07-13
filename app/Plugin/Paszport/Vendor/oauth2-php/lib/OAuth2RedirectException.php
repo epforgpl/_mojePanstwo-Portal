@@ -30,7 +30,7 @@ class OAuth2RedirectException extends OAuth2ServerException
      *
      * @ingroup oauth2_error
      */
-    public function __construct($redirect_uri, $error, $error_description = NULL, $state = NULL)
+    public function __construct($redirect_uri, $error, $error_description = null, $state = null)
     {
         parent::__construct(OAuth2::HTTP_FOUND, $error, $error_description);
 
@@ -72,10 +72,11 @@ class OAuth2RedirectException extends OAuth2ServerException
 
         // Add our params to the parsed uri
         foreach ($params as $k => $v) {
-            if (isset($parse_url[$k]))
+            if (isset($parse_url[$k])) {
                 $parse_url[$k] .= "&" . http_build_query($v);
-            else
+            } else {
                 $parse_url[$k] = http_build_query($v);
+            }
         }
 
         // Put humpty dumpty back together

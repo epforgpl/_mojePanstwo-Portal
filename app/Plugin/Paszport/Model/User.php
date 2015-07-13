@@ -8,6 +8,7 @@ class User extends PaszportAppModel
     public $actsAs = array('Containable', 'Expandable.Expandable' => array('with' => 'Paszport.UserExpand'));
     public $name = 'Paszport.User';
     public $useTable = false;
+    public $useDbConfig = 'mpAPI';
 
     public function __construct($id = false, $table = null, $ds = null)
     {
@@ -90,12 +91,19 @@ class User extends PaszportAppModel
      *
      * @param $data
      * @param $hashed_pass
+     *
      * @return array|bool
      */
     public function checkAndLoginAgainstPostImport($data, $hashed_pass)
     {
         $password = (sha1($data['User']['email'] . SEJMOMETR_USERS_SALT . $data['User']['password']));
-        $usr = $this->find('first', array('conditions' => array('User.email' => $data['User']['email'], 'User.password' => $password, 'User.source' => 'sejmometr')));
+        $usr = $this->find('first', array(
+            'conditions' => array(
+                'User.email' => $data['User']['email'],
+                'User.password' => $password,
+                'User.source' => 'sejmometr'
+            )
+        ));
         if ($usr) {
             $this->id = $usr['User']['id'];
             $this->save(array(
@@ -104,15 +112,31 @@ class User extends PaszportAppModel
                 'logged_before' => 1,
                 'language_id' => 1,
             ));
+
             return $usr['User'];
         } else {
             return false;
         }
     }
 
+    public function find($type, $conditions)
+    {
+        $response = $this->getDataSource()->request('paszport/user/find', array(
+            'data' => array(
+                'type' => $type,
+                'conditions' => $conditions
+            ),
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
     /**
      * Additional validation for password confirmation
+     *
      * @param string $check
+     *
      * @return bool
      */
     public function confirmPassword($check)
@@ -133,6 +157,7 @@ class User extends PaszportAppModel
      * jesli nie to go rejestruje
      *
      * @param array $user_data
+     *
      * @return array
      */
     public function twitter($user_data)
@@ -171,8 +196,171 @@ class User extends PaszportAppModel
 
     }
 
+    public function login($email, $password)
+    {
+        return $this->getDataSource()->login($email, $password);
+    }
+
+    public function read($uid)
+    {
+        return $this->getDataSource()->request('paszport/users/read', array('data' => array('user_id' => $uid)));
+    }
+
+    public function canCreatePassword() {
+        $response = $this->getDataSource()->request('paszport/user/canCreatePassword', array(
+            'data' => array(),
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    public function setUserName($username)
+    {
+        $response = $this->getDataSource()->request('paszport/user/setUserName', array(
+            'data' => array(
+                'value' => $username
+            ),
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    public function registerFromFacebook($userData)
+    {
+        $response = $this->getDataSource()->request('paszport/user/registerFromFacebook', array(
+            'data' => $userData,
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    public function findFacebookUser($facebook_id, $email)
+    {
+        $response = $this->getDataSource()->request('paszport/user/findFacebook', array(
+            'data' => array(
+                'facebook_id' => $facebook_id,
+                'email' => $email
+            ),
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    public function setEmail($email)
+    {
+        $response = $this->getDataSource()->request('paszport/user/setEmail', array(
+            'data' => array(
+                'value' => $email
+            ),
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    public function setPassword($data)
+    {
+        $response = $this->getDataSource()->request('paszport/user/setPassword', array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    public function createNewPassword($data)
+    {
+        $response = $this->getDataSource()->request('paszport/user/createNewPassword', array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    public function deletePaszport($password)
+    {
+        $response = $this->getDataSource()->request('paszport/user/deletePaszport', array(
+            'data' => array(
+                'password' => $password
+            ),
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    /**
+     * Walidacja adresu e-mail
+     * Wysyłanie wiadomości z linkiem do zmiany hasła
+     *
+     * @param $data
+     * @return mixed
+     */
+    public function forgot($data)
+    {
+        $response = $this->getDataSource()->request('paszport/user/forgot', array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    /**
+     * Walidacja tokenu zmiany hasła
+     *
+     * @param $data
+     * @return mixed
+     */
+    public function forgotToken($data)
+    {
+        $response = $this->getDataSource()->request('paszport/user/forgotToken', array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    /**
+     * Wysyłanie nowego hasła
+     * Zmiana hasła użytkownika
+     *
+     * @param $data
+     * @return mixed
+     */
+    public function forgotNewPassword($data)
+    {
+        $response = $this->getDataSource()->request('paszport/user/forgotNewPassword', array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
+    public function register($data)
+    {
+        return $this->getDataSource()->register($data);
+    }
+
+    public function getUsersByEmail($data) {
+        $response = $this->getDataSource()->request('paszport/users/email.json', array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+
+        return $response;
+    }
+
     public function schema()
     {
         return array();
     }
+
 }

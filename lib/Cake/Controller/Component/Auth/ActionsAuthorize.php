@@ -14,7 +14,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('BaseAuthorize', 'Controller/Component/Auth');
+App::uses( 'BaseAuthorize', 'Controller/Component/Auth' );
 
 /**
  * An authorization adapter for AuthComponent. Provides the ability to authorize using the AclComponent,
@@ -25,21 +25,21 @@ App::uses('BaseAuthorize', 'Controller/Component/Auth');
  * @see AuthComponent::$authenticate
  * @see AclComponent::check()
  */
-class ActionsAuthorize extends BaseAuthorize
-{
+class ActionsAuthorize extends BaseAuthorize {
 
-    /**
-     * Authorize a user using the AclComponent.
-     *
-     * @param array $user The user to authorize
-     * @param CakeRequest $request The request needing authorization.
-     * @return boolean
-     */
-    public function authorize($user, CakeRequest $request)
-    {
-        $Acl = $this->_Collection->load('Acl');
-        $user = array($this->settings['userModel'] => $user);
-        return $Acl->check($user, $this->action($request));
-    }
+	/**
+	 * Authorize a user using the AclComponent.
+	 *
+	 * @param array $user The user to authorize
+	 * @param CakeRequest $request The request needing authorization.
+	 *
+	 * @return boolean
+	 */
+	public function authorize( $user, CakeRequest $request ) {
+		$Acl  = $this->_Collection->load( 'Acl' );
+		$user = array( $this->settings['userModel'] => $user );
+
+		return $Acl->check( $user, $this->action( $request ) );
+	}
 
 }

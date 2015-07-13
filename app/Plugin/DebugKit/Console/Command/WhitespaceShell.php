@@ -89,6 +89,7 @@ class WhitespaceShell extends Shell
     public function getOptionParser()
     {
         $parser = parent::getOptionParser();
+
         return $parser->addOption('path', array(
             'short' => 'p',
             'help' => __d('cake_console', 'Absolute path or relative to APP.')

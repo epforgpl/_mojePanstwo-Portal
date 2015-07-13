@@ -70,6 +70,7 @@ class ExpandableBehavior extends ModelBehavior
      *
      * @param object Model $Model
      * @param array $settings
+     *
      * @return boolean
      */
     public function setup(Model $Model, $settings = array())
@@ -77,6 +78,7 @@ class ExpandableBehavior extends ModelBehavior
         if (isset($settings['with'])) {
             $base = array('schema' => $Model->schema());
             $settings = array_merge($settings, $base);
+
             return $this->settings[$Model->alias] = $settings;
         }
     }
@@ -94,6 +96,7 @@ class ExpandableBehavior extends ModelBehavior
      * @param object Model $Model
      * @param mixed $results
      * @param boolean $primary
+     *
      * @return mixed $results
      */
     public function afterFind(Model $Model, $results, $primary)
@@ -112,6 +115,7 @@ class ExpandableBehavior extends ModelBehavior
                 }
             }
         }
+
         return $results;
     }
 
@@ -120,12 +124,14 @@ class ExpandableBehavior extends ModelBehavior
      * Sets up what data will be saved for expandable
      *
      * @param object Model $Model
+     *
      * @return boolean
      */
     public function beforeSave(Model $Model)
     {
         $settings = $this->settings[$Model->alias];
         $this->_fieldsToSave = array_diff_key($Model->data[$Model->alias], $settings['schema']);
+
         return true;
     }
 
@@ -135,6 +141,7 @@ class ExpandableBehavior extends ModelBehavior
      *
      * @param object Model $Model
      * @param boolean $created
+     *
      * @return boolean
      */
     public function afterSave(Model $Model, $created)
@@ -160,6 +167,7 @@ class ExpandableBehavior extends ModelBehavior
                 }
                 $saved = $Model->{$with}->save($data);
             }
+
             return true;
         }
     }

@@ -32,12 +32,9 @@
 body {
     .class(2.0em);
 @group > @f(red);
-@class(10 px, 10 px + 2);
+    @class(10 px, 10 px + 2);
 
-@group
-> .cool
-
-;
+@group > . cool;
 }
 
 @lots
@@ -51,8 +48,8 @@ body {
 }
 
 .skip_args {
-@class(, 12 px);
-@lots(,,, 88 px,, 12 px);
+    @class(, 12 px);
+    @lots(,,, 88 px,, 12 px);
 @group > @f(red,,,,);
 @group > @f(red);
 }

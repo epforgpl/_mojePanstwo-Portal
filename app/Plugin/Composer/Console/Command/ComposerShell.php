@@ -44,27 +44,34 @@ class ComposerShell extends AppShell
     }
 
     /**
-     * Catch-all for Composer commands
+     * Check if composer.phar is available
+     * Offer to install if it isn't available
      */
-    public function main()
-    {
-        $command = implode(" ", $this->args) . ' ' . $this->_optionsToString($this->params);
-        passthru("php {$this->pharDir}composer.phar " . $command);
-    }
-
-    /**
-     * Update composer.phar
-     * Offer to install updated version if available
-     */
-    public function reinstall()
+    protected function _checkComposerPhar()
     {
         $version = @exec("php {$this->pharDir}composer.phar --version");
-        $this->out('Current ' . $version);
 
-        $setup = $this->in('Would you like to update to the latest version of Composer?', array('y', 'n'), 'y');
+        if (stripos($version, 'Composer') === false || stripos($version, 'version') === false) {
+            if (file_exists("{$this->pharDir}composer.phar")) {
+                $this->out('<warning>Composer is installed, but there was an error executing it.</warning>');
+            } else {
+                $this->out('<warning>Composer is not installed.</warning>');
+            }
 
-        if ($setup === 'y') {
-            $this->_setup();
+            if (array_key_exists('yes', $this->params)) {
+                $this->_setup();
+            } else {
+                $setup = $this->in('Would you like to install the latest version of Composer?', array(
+                    'y',
+                    'n'
+                ), 'y');
+
+                if ($setup !== 'y') {
+                    $this->error("Terminating. You may overwrite the location of composer.phar by defining 'Composer.phar_dir' configuration.");
+                } else {
+                    $this->_setup();
+                }
+            }
         }
     }
 
@@ -100,110 +107,17 @@ class ComposerShell extends AppShell
     }
 
     /**
-     * Add options from Composer
-     * or CakePHP's Shell will exit upon unrecognized options.
-     */
-    public function getOptionParser()
-    {
-        $parser = parent::getOptionParser();
-
-        $parser->addOptions(array(
-            /**
-             * Composer options
-             */
-            'help' => array('short' => 'h'),
-            'quiet' => array('short' => 'q'),
-            'verbose' => array('short' => 'v'),
-            'version' => array('short' => 'V'),
-            'ansi' => array(),
-            'no-ansi' => array(),
-            'no-interaction' => array('short' => 'n'),
-            'profile' => array(),
-            'working-dir' => array('short' => 'd'),
-
-            /**
-             * CakePHP-Composer-only options
-             */
-            'yes' => array(
-                'short' => 'y',
-                'help' => 'Automatic yes to prompts, allowing commands to run non-interactively. Automatically installs composer.phar if it is missing.',
-                'plugin_only' => true
-            )
-        ));
-
-        return $parser;
-    }
-
-    /**
-     * Convert options to string
-     *
-     * @param array $options Options array
-     * @return string Results
-     */
-    protected function _optionsToString($options)
-    {
-        if (empty($options) || !is_array($options)) {
-            return '';
-        }
-
-        $parser = self::getOptionParser();
-        $parserOptions = $parser->options();
-        $results = '';
-
-        foreach ($options as $option => $value) {
-            if (!isset($parserOptions[$option]->_plugin_only) || !$parserOptions[$option]->_plugin_only) {
-                if (strlen($results) > 0) {
-                    $results .= ' ';
-                }
-                if (empty($value)) {
-                    $results .= "--$option";
-                } else {
-                    $results .= "--$option=$value";
-                }
-            }
-        }
-
-        return $results;
-    }
-
-    /**
-     * Check if composer.phar is available
-     * Offer to install if it isn't available
-     */
-    protected function _checkComposerPhar()
-    {
-        $version = @exec("php {$this->pharDir}composer.phar --version");
-
-        if (stripos($version, 'Composer') === false || stripos($version, 'version') === false) {
-            if (file_exists("{$this->pharDir}composer.phar")) {
-                $this->out('<warning>Composer is installed, but there was an error executing it.</warning>');
-            } else {
-                $this->out('<warning>Composer is not installed.</warning>');
-            }
-
-            if (array_key_exists('yes', $this->params)) {
-                $this->_setup();
-            } else {
-                $setup = $this->in('Would you like to install the latest version of Composer?', array('y', 'n'), 'y');
-
-                if ($setup !== 'y') {
-                    $this->error("Terminating. You may overwrite the location of composer.phar by defining 'Composer.phar_dir' configuration.");
-                } else {
-                    $this->_setup();
-                }
-            }
-        }
-    }
-
-    /**
      * Determine that composer.json is configured properly.
      * Checks that vendor-dir is set, defaults to APP.Vendor if it isn't.
      * Does not overwrite if vendor-dir has been set explicitly.
      */
     protected function _checkComposerJSON()
     {
-        if (file_exists('composer.json')) $jsonLocation = 'composer.json';
-        else $jsonLocation = APP . 'composer.json';
+        if (file_exists('composer.json')) {
+            $jsonLocation = 'composer.json';
+        } else {
+            $jsonLocation = APP . 'composer.json';
+        }
 
         $jsonSave = false;
         if (file_exists($jsonLocation)) {
@@ -211,7 +125,10 @@ class ComposerShell extends AppShell
 
             if (empty($json)) {
                 $this->out('<warning>Your composer.json is not valid.</warning>');
-                $create = $this->in('Overwrite the existing and create a default pre-configured composer.json?', array('y', 'n'), 'y');
+                $create = $this->in('Overwrite the existing and create a default pre-configured composer.json?', array(
+                    'y',
+                    'n'
+                ), 'y');
 
                 if ($create === 'y') {
                     $json = new stdClass;
@@ -241,6 +158,98 @@ class ComposerShell extends AppShell
             }
 
             file_put_contents($jsonLocation, $encoded);
+        }
+    }
+
+    /**
+     * Catch-all for Composer commands
+     */
+    public function main()
+    {
+        $command = implode(" ", $this->args) . ' ' . $this->_optionsToString($this->params);
+        passthru("php {$this->pharDir}composer.phar " . $command);
+    }
+
+    /**
+     * Convert options to string
+     *
+     * @param array $options Options array
+     *
+     * @return string Results
+     */
+    protected function _optionsToString($options)
+    {
+        if (empty($options) || !is_array($options)) {
+            return '';
+        }
+
+        $parser = self::getOptionParser();
+        $parserOptions = $parser->options();
+        $results = '';
+
+        foreach ($options as $option => $value) {
+            if (!isset($parserOptions[$option]->_plugin_only) || !$parserOptions[$option]->_plugin_only) {
+                if (strlen($results) > 0) {
+                    $results .= ' ';
+                }
+                if (empty($value)) {
+                    $results .= "--$option";
+                } else {
+                    $results .= "--$option=$value";
+                }
+            }
+        }
+
+        return $results;
+    }
+
+    /**
+     * Add options from Composer
+     * or CakePHP's Shell will exit upon unrecognized options.
+     */
+    public function getOptionParser()
+    {
+        $parser = parent::getOptionParser();
+
+        $parser->addOptions(array(
+            /**
+             * Composer options
+             */
+            'help' => array('short' => 'h'),
+            'quiet' => array('short' => 'q'),
+            'verbose' => array('short' => 'v'),
+            'version' => array('short' => 'V'),
+            'ansi' => array(),
+            'no-ansi' => array(),
+            'no-interaction' => array('short' => 'n'),
+            'profile' => array(),
+            'working-dir' => array('short' => 'd'),
+            /**
+             * CakePHP-Composer-only options
+             */
+            'yes' => array(
+                'short' => 'y',
+                'help' => 'Automatic yes to prompts, allowing commands to run non-interactively. Automatically installs composer.phar if it is missing.',
+                'plugin_only' => true
+            )
+        ));
+
+        return $parser;
+    }
+
+    /**
+     * Update composer.phar
+     * Offer to install updated version if available
+     */
+    public function reinstall()
+    {
+        $version = @exec("php {$this->pharDir}composer.phar --version");
+        $this->out('Current ' . $version);
+
+        $setup = $this->in('Would you like to update to the latest version of Composer?', array('y', 'n'), 'y');
+
+        if ($setup === 'y') {
+            $this->_setup();
         }
     }
 

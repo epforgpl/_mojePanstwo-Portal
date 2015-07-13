@@ -35,12 +35,12 @@ var googleMapKolejeLinie = {
 
             var stationContent = '<div class="infoWindowBox"><strong>' + stationName + '</strong>';
             if (stationData[i].a.przyjazd_str != '')
-                stationContent += ('<span>' + _mPHeart.translation.LC_KOLEJLINIE_PRZYJAZD + ': ' + stationData[i].a.przyjazd_str + '</span>');
+                stationContent += ('<span>' + mPHeart.translation.LC_KOLEJLINIE_PRZYJAZD + ': ' + stationData[i].a.przyjazd_str + '</span>');
             if (stationData[i].a.odjazd_str != '')
-                stationContent += ('<span>' + _mPHeart.translation.LC_KOLEJLINIE_ODJAZD + ': ' + stationData[i].a.odjazd_str + '</span>');
+                stationContent += ('<span>' + mPHeart.translation.LC_KOLEJLINIE_ODJAZD + ': ' + stationData[i].a.odjazd_str + '</span>');
             stationContent += '</div>';
 
-            infowindow = new google.maps.InfoWindow({content: "<div><strong>' + stationName + '</strong><span>" + _mPHeart.translation.LC_KOLEJELINIE_PRZYJAZD + ": --:--</span><span>" + _mPHeart.translation.LC_KOLEJELINIE_ODJAZD + ": --:--</span></div>"});
+            infowindow = new google.maps.InfoWindow({content: "<div><strong>' + stationName + '</strong><span>" + mPHeart.translation.LC_KOLEJELINIE_PRZYJAZD + ": --:--</span><span>" + mPHeart.translation.LC_KOLEJELINIE_ODJAZD + ": --:--</span></div>"});
 
             marker = new google.maps.Marker({
                 map: that.map,

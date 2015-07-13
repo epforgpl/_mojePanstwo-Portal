@@ -1,0 +1,6 @@
+<?
+
+class DataobjectsFeedComponent extends Component
+{
+
+}

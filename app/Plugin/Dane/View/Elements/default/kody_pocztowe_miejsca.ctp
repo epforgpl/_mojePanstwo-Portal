@@ -5,7 +5,12 @@
         </p>
 
         <p class="title">
-            <a href="<?php echo $this->Html->url(array('plugin' => 'Dane', 'controller' => $item['dataset'], 'action' => 'view', 'id' => $item['object_id'])); ?>"
+            <a href="<?php echo $this->Html->url(array(
+                'plugin' => 'Dane',
+                'controller' => $item['dataset'],
+                'action' => 'view',
+                'id' => $item['object_id']
+            )); ?>"
                title="<?php echo $item['data']['kod'] ?>"><?php echo $item['data']['kod'] ?></a>
         </p>
 

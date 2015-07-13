@@ -30,6 +30,8 @@ class Facebook extends BaseFacebook
     const FBSS_COOKIE_EXPIRE = 31556926; // 1 year
 
     // Stores the shared session ID if one is set.
+    protected static $kSupportedKeys =
+        array('state', 'code', 'access_token', 'user_id');
     protected $sharedSessionID;
 
     /**
@@ -42,6 +44,7 @@ class Facebook extends BaseFacebook
      * accepts "sharedSession" as a boolean to turn on a secondary
      * cookie for environments with a shared session (that is, your app
      * shares the domain with other apps).
+     *
      * @see BaseFacebook::__construct in facebook.php
      */
     public function __construct($config)
@@ -55,9 +58,6 @@ class Facebook extends BaseFacebook
         }
     }
 
-    protected static $kSupportedKeys =
-        array('state', 'code', 'access_token', 'user_id');
-
     protected function initSharedSession()
     {
         $cookie_name = $this->getSharedSessionCookieName();
@@ -68,6 +68,7 @@ class Facebook extends BaseFacebook
             ) {
                 // good case
                 $this->sharedSessionID = $data['id'];
+
                 return;
             }
             // ignoring potentially unreachable data
@@ -96,6 +97,11 @@ class Facebook extends BaseFacebook
         }
     }
 
+    protected function getSharedSessionCookieName()
+    {
+        return self::FBSS_COOKIE_NAME . '_' . $this->getAppId();
+    }
+
     /**
      * Provides the implementations of the inherited abstract
      * methods.  The implementation uses PHP sessions to maintain
@@ -106,6 +112,7 @@ class Facebook extends BaseFacebook
     {
         if (!in_array($key, self::$kSupportedKeys)) {
             self::errorLog('Unsupported key passed to setPersistentData.');
+
             return;
         }
 
@@ -113,27 +120,28 @@ class Facebook extends BaseFacebook
         $_SESSION[$session_var_name] = $value;
     }
 
+    protected function constructSessionVariableName($key)
+    {
+        $parts = array('fb', $this->getAppId(), $key);
+        if ($this->sharedSessionID) {
+            array_unshift($parts, $this->sharedSessionID);
+        }
+
+        return implode('_', $parts);
+    }
+
     protected function getPersistentData($key, $default = false)
     {
         if (!in_array($key, self::$kSupportedKeys)) {
             self::errorLog('Unsupported key passed to getPersistentData.');
+
             return $default;
         }
 
         $session_var_name = $this->constructSessionVariableName($key);
+
         return isset($_SESSION[$session_var_name]) ?
             $_SESSION[$session_var_name] : $default;
-    }
-
-    protected function clearPersistentData($key)
-    {
-        if (!in_array($key, self::$kSupportedKeys)) {
-            self::errorLog('Unsupported key passed to clearPersistentData.');
-            return;
-        }
-
-        $session_var_name = $this->constructSessionVariableName($key);
-        unset($_SESSION[$session_var_name]);
     }
 
     protected function clearAllPersistentData()
@@ -146,25 +154,23 @@ class Facebook extends BaseFacebook
         }
     }
 
+    protected function clearPersistentData($key)
+    {
+        if (!in_array($key, self::$kSupportedKeys)) {
+            self::errorLog('Unsupported key passed to clearPersistentData.');
+
+            return;
+        }
+
+        $session_var_name = $this->constructSessionVariableName($key);
+        unset($_SESSION[$session_var_name]);
+    }
+
     protected function deleteSharedSessionCookie()
     {
         $cookie_name = $this->getSharedSessionCookieName();
         unset($_COOKIE[$cookie_name]);
         $base_domain = $this->getBaseDomain();
         setcookie($cookie_name, '', 1, '/', '.' . $base_domain);
-    }
-
-    protected function getSharedSessionCookieName()
-    {
-        return self::FBSS_COOKIE_NAME . '_' . $this->getAppId();
-    }
-
-    protected function constructSessionVariableName($key)
-    {
-        $parts = array('fb', $this->getAppId(), $key);
-        if ($this->sharedSessionID) {
-            array_unshift($parts, $this->sharedSessionID);
-        }
-        return implode('_', $parts);
     }
 }

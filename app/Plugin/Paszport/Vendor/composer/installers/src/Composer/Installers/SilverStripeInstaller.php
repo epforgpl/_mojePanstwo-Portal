@@ -18,6 +18,7 @@ class SilverStripeInstaller extends BaseInstaller
      *
      * @param  PackageInterface $package
      * @param  string $frameworkType
+     *
      * @return string
      */
     public function getInstallPath(PackageInterface $package, $frameworkType = '')

@@ -20,7 +20,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('AppController', 'Controller');
+App::uses( 'AppController', 'Controller' );
 
 /**
  * Error Handling Controller
@@ -29,38 +29,36 @@ App::uses('AppController', 'Controller');
  *
  * @package       Cake.Controller
  */
-class CakeErrorController extends AppController
-{
+class CakeErrorController extends AppController {
 
-    /**
-     * Uses Property
-     *
-     * @var array
-     */
-    public $uses = array();
+	/**
+	 * Uses Property
+	 *
+	 * @var array
+	 */
+	public $uses = array();
 
-    /**
-     * __construct
-     *
-     * @param CakeRequest $request
-     * @param CakeResponse $response
-     */
-    public function __construct($request = null, $response = null)
-    {
-        parent::__construct($request, $response);
-        $this->constructClasses();
-        if (count(Router::extensions()) &&
-            !$this->Components->attached('RequestHandler')
-        ) {
-            $this->RequestHandler = $this->Components->load('RequestHandler');
-        }
-        if ($this->Components->enabled('Auth')) {
-            $this->Components->disable('Auth');
-        }
-        if ($this->Components->enabled('Security')) {
-            $this->Components->disable('Security');
-        }
-        $this->_set(array('cacheAction' => false, 'viewPath' => 'Errors'));
-    }
+	/**
+	 * __construct
+	 *
+	 * @param CakeRequest $request
+	 * @param CakeResponse $response
+	 */
+	public function __construct( $request = null, $response = null ) {
+		parent::__construct( $request, $response );
+		$this->constructClasses();
+		if ( count( Router::extensions() ) &&
+		     ! $this->Components->attached( 'RequestHandler' )
+		) {
+			$this->RequestHandler = $this->Components->load( 'RequestHandler' );
+		}
+		if ( $this->Components->enabled( 'Auth' ) ) {
+			$this->Components->disable( 'Auth' );
+		}
+		if ( $this->Components->enabled( 'Security' ) ) {
+			$this->Components->disable( 'Security' );
+		}
+		$this->_set( array( 'cacheAction' => false, 'viewPath' => 'Errors' ) );
+	}
 
 }

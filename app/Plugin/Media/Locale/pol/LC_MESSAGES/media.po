@@ -1,0 +1,251 @@
+msgid "LC_PANSTWOINTERNET_REPORT_PDF"
+msgstr "Raport w wersji PDF"
+
+msgid "LC_PANSTWOINTERNET_PER_DAY"
+msgstr "dziennie"
+
+msgid "LC_PANSTWOINTERNET_RETWEET"
+msgstr "Retweet"
+
+msgid "LC_PANSTWOINTERNET_ODPOWIEDZI"
+msgstr "Odpowiedzi"
+
+msgid "LC_PANSTWOINTERNET_RANKING"
+msgstr "Pełny ranking &raquo;"
+
+msgid "LC_PANSTWOINTERNET_HEADLINE"
+msgstr "Państwo w Internecie"
+
+msgid "LC_PANSTWOINTERNET_HEADLINE"
+msgstr "Państwo w&nbsp;mediach społecznościowych"
+
+msgid "LC_PANSTWOINTERNET_SUBTITLE"
+msgstr "Analiza Fundacji ePaństwo"
+
+msgid "LC_PANSTWOINTERNET_INTRO_1"
+msgstr "W mediach społecznościowych coraz częściej pojawiają się oficjalne konta władz publicznych. Postanowiliśmy przyjrzeć się bliżej skali tego zjawiska oraz sprawdzić jak instytucje działają w mediach społecznościowych."
+
+msgid "LC_PANSTWOINTERNET_INTRO_2"
+msgstr "Biorąc pod uwagę pozycję Twittera w Polsce i jego rosnącą rolę w komunikacji państwa z obywatelami, stworzyliśmy podsumowanie aktywności polskich polityków, urzędników i urzędów w tym serwisie, w roku 2013. Do analizy dołączyliśmy także aktywność komentatorów publicznych - dziennikarzy, blogerów i osób wypowiadających się na tematy polityczne."
+
+msgid "LC_PANSTWOINTERNET_INTRO_3"
+msgstr "Opisaliśmy również niektóre problemy prawne, które pojawiają się w związku z działaniami administracji państwowej w mediach społecznościowych."
+
+msgid "LC_PANSTWOINTERNET_TAGI"
+msgstr "Tagi"
+
+msgid "LC_PANSTWOINTERNET_POSLOWIE"
+msgstr "Posłowie"
+
+msgid "LC_PANSTWOINTERNET_DZIENNIKARZE"
+msgstr "Dziennikarze"
+
+msgid "LC_PANSTWOINTERNET_URZEDY"
+msgstr "Urzędy"
+
+msgid "LC_PANSTWOINTERNET_MINISTROWIE"
+msgstr "Ministrowie"
+
+msgid "LC_PANSTWOINTERNET_WZMIANKI"
+msgstr "Wzmianki"
+
+msgid "LC_PANSTWOINTERNET_ADRESY"
+msgstr "Adresy"
+
+msgid "LC_PANSTWOINTERNET_MEDIA_HEADLINE"
+msgstr "Urzędy w mediach społecznościowych"
+
+msgid "LC_PANSTWOINTERNET_MEDIA_TOPIC"
+msgstr "Urzędy administracji centralnej i ich konta na portalach społecznościowych"
+
+msgid "LC_PANSTWOINTERNET_MEDIA_TEXT_1"
+msgstr "Najpopularniejszym serwisem wśród urzędów administracji centralnej jest Facebook (30 kont). Na drugim miejscu uplasował się YouTube (19), oraz Twitter (19). Pozostałe serwisy są używane rzadziej."
+
+msgid "LC_PANSTWOINTERNET_MEDIA_TEXT_2"
+msgstr "Najwięcej kont na portalach społecznościowych prowadzą Narodowy Bank Polski, Ministerstwo Gospodarki oraz Ministerstwo Infrastruktury i Rozwoju."
+
+msgid "LC_PANSTWOINTERNET_MEDIA_TEXT_3"
+msgstr "Urzędy centralne, które nie prowadzą żadnych kont w mediach społecznościowych to"
+
+msgid "LC_PANSTWOINTERNET_MEDIA_TEXT_4"
+msgstr "Kancelaria Senatu, Rada Legislacyjna, Urząd Zamówień Publicznych, Naczelny Sąd Administracyjny, Kancelaria Sejmu, Trybunał Stanu, Trybunał Konstytucyjny, Urząd Ochrony Konkurencji i Konsumentów, Rzecznik Praw Obywatelskich, Rzecznik Praw Pacjenta, Agencja Wywiadu, Polska Akademia Nauk, Główny Inspektorat Transportu Drogowego, Rządowe Centrum Legislacji, Krajowa Rada Sądownictwa, Państwowa Inspekcja Pracy, Generalny Inspektor Ochrony Danych Osobowych, oraz Ministerstwo Transportu, Budownictwa i Gospodarki Morskiej (27 listopada 2013 r. z połączenia Ministerstwa Rozwoju Regionalnego i Ministerstwa Transportu, Budownictwa i Gospodarki Morskiej utworzono Ministerstwo Infrastruktury i Rozwoju). Zakład Ubezpieczeń Społecznych zadeklarował posiadanie konta na nieistniejącym już portalu blip.pl."
+
+msgid "LC_PANSTWOINTERNET_TWITTER_HEADLINE"
+msgstr "Polityka na Twitterze w 2013 roku"
+
+msgid "LC_PANSTWOINTERNET_TWITTER_TOPIC"
+msgstr "Poniższe zestawienia powstały na podstawie analizy aktywności <a href=\"/dane/twitter_accounts\">371 kont <\/a> Twitterze, należących do posłów, urzędników rządowych, urzędów i wybranych dziennikarzy oraz blogerów. Za pomocą interfejsu API serwisu Twitter pobraliśmy i przeanalizowaliśmy wszystkie tweety \"pochodzące od\", \"adresowane do\" i \"wzmiankujące\" monitorowane przez nas konta - opublikowane w 2013 roku."
+
+msgid "LC_PANSTWOINTERNET_PRAWO_HEADLINE"
+msgstr "Podstawy prawne obecności państwa w mediach społecznościowych"
+
+msgid "LC_PANSTWOINTERNET_PRAWO_TOPIC"
+msgstr "Czy istnieją regulacje prawne dotyczące obecności urzędów i urzędników w mediach społecznościowych?"
+
+msgid "LC_PANSTWOINTERNET_PRAWO_SOURCE"
+msgstr "Źródło"
+
+msgid "LC_PANSTWOINTERNET_PRAWO_TEXT_1"
+msgstr "Organy administracji publicznej w Polsce są związane art. 7 <a href=\"/dane/ustawy/3534\">Konstytucji<\/a>, który stanowi:"
+
+msgid "LC_PANSTWOINTERNET_PRAWO_QUOTE_1"
+msgstr "\"Organy władzy publicznej działają na podstawie i w granicach prawa.\""
+
+msgid "LC_PANSTWOINTERNET_PRAWO_TEXT_2"
+msgstr "Treść tego przepisu (tzw. \"zasada legalizmu\") jest przedmiotem wielu interpretacji. Istnieją zwolennicy interpretowania go w sposób ścisły, to jest taki, który daje urzędom prawo wykonywania jakichkolwiek czynności, tylko wtedy gdy istnieje do tego wyraźne upoważnienie w przepisach prawa. Inni twierdzą, że zasada ta dotyczy tylko aktywności w sferze \"prawnej\" lub \"działań władczych\" władzy wobec obywatela. Istnieje jednak bogate orzecznictwo sądowe wskazujące na to, iż zasadę legalizmu należy rozumieć w sposób ścisły:"
+
+msgid "LC_PANSTWOINTERNET_PRAWO_QUOTE_2"
+msgstr "\"Z art. 7 Konstytucji RP wynika, że \"organy władzy publicznej działają na podstawie i w granicach prawa\". Oznacza to, że organy państwowe mogą działać wyłącznie na podstawie upoważnienia przewidzianego w prawie, a więc że działanie organów państwa musi posiadać odpowiednią legitymację formalną w postaci prawnej, która udziela upoważnienia do podjęcia tego działania. Brak regulacji prawnej upoważniającej organ państwowy do podjęcia danego działania należy uznać za równoznaczny z zakazem tego działania.\""
+
+msgid "LC_PANSTWOINTERNET_PRAWO_QUOTE_2_WYROK"
+msgstr "Wyrok NSA sygn. akt. II FSK 562/08"
+
+msgid "LC_PANSTWOINTERNET_PRAWO_QUOTE_3"
+msgstr "\"Art. 7 Konstytucji Rzeczypospolitej Polskiej z 1997 r. stanowiący, że organy władzy publicznej działają na podstawie i w granicach prawa, zawiera normę zakazującą domniemywania kompetencji takiego organu i tym samym nakazuje, by wszelkie działania organu władzy publicznej były oparte na wyraźnie określonej normie kompetencyjnej.\""
+
+msgid "LC_PANSTWOINTERNET_PRAWO_QUOTE_3_WYROK"
+msgstr "Postanowienie składu 7 sędziów SN sygn. akt. WK 22/04"
+
+msgid "LC_PANSTWOINTERNET_PRAWO_TEXT_3"
+msgstr "Jaka zatem jest podstawa prawna aktywności urzędów i urzędników w mediach społecznościowych? Postanowiliśmy to sprawdzić i zapytaliśmy 41 najważniejszych instytucji administracji centralnej w Polsce (na podstawie ustawy o dostępie do informacji publicznej). Każdą z tych instytucji poprosiliśmy o odpowiedź na pytanie, czy prowadzi konta na portalach społecznowych, a jeśli tak - na jakiej podstawie prawnej to czyni."
+
+msgid "LC_PANSTWOINTERNET_PRAWO_TEXT_4"
+msgstr "Spośród wytypowanych przez nas urzędów, 26 potwierdziło prowadzenie kont na portalach społecznościowych. Odpowiedzi na pytania o przepisy prawa na podstawie których prowadzą taką aktywność były niejednolite."
+
+msgid "LC_PANSTWOINTERNET_PRAWO_TEXT_5"
+msgstr "Część urzędów uznała wprost, że nie istnieje podstawa prawna do prowadzenia aktywności na portalach społecznościowych. Przykładowo Ministerstwo Finansów uznało, że:"
+
+msgid "LC_PANSTWOINTERNET_PRAWO_QUOTE_4"
+msgstr "\"Prowadzenie kont w tych serwisach nie wynika z przepisów prawa, a jest częścią polityki informacyjnej Ministerstwa.\""
+
+msgid "LC_PANSTWOINTERNET_PRAWO_TEXT_6"
+msgstr "Z kolei Kancelaria Prezesa Rady Ministrów wskazała, że:"
+
+msgid "LC_PANSTWOINTERNET_PRAWO_QUOTE_5"
+msgstr "\"Korzysta z nowoczesnych narzędzi komunikacji, aby jak najlepiej sprostać oczekiwaniom obywateli.\""
+
+msgid "LC_PANSTWOINTERNET_PRAWO_TEXT_7"
+msgstr "W większości odpowiedzi w tej grupie - instytucje podkreślały, że traktują media społecznościowe jako dodatkowy kanał informacyjny, dzięki któremu w łatwiejszy sposób mogą dotrzeć do obywatela."
+
+msgid "LC_PANSTWOINTERNET_PRAWO_TEXT_8"
+msgstr "Następujące urzędy nie wskazały przepisów prawa upoważniających do funkcjonowania w mediach społecznościowych:"
+
+msgid "LC_PANSTWOINTERNET_PRAWO_TEXT_9"
+msgstr "Część urzędów wskazała jednak podstawy prawne, które ich zdaniem uprawniają je do prowadzenia aktywności w mediach społecznościowych. Przepisy przedstawiamy w poniższym zestawieniu."
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_HEADLINE"
+msgstr "Kontrowersje"
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TEXT"
+msgstr "Analizując ilość kont zakładanych w serwisach społecznościowych przez ministerstwa, urzędy i inne instytucje można stwierdzić, że władze publiczne chętnie wykorzystują tego rodzaju formę porozumiewania się z obywatelami. Media społecznościowe są używane jako dodatkowy kanał udostępniania informacji oraz pełnią rolę komunikatorów pomiędzy urzędem a obywatelem. Należy docenić inicjatywę w komunikowaniu obywatelom swoich działań. Aktywność publicznych podmiotów w mediach społecznościowych skłania jednak do rozważenia kilku kwestii."
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TOPIC_1"
+msgstr "Urzędnik jako dostawca treści"
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TEXT_1-1"
+msgstr "Zauważmy, że urzędy państwowe, które prowadzą aktywność na portalach społecznościowych, dostarczają tym portalom wartościowe treści, które są często używane w celach handlowych lub marketingowych. Ponowne wykorzystywanie informacji pochodzących od urzędów, w tym w celach handlowych lub marketingowych, nie jest oczywiście niczym nagannym, ale uprzywilejowanie wybranych podmiotów, poprzez oddanie im pierwszeństwa dystrybucji informacji, może rodzić wątpliwości."
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TEXT_1-2"
+msgstr "Obecność urzędów w mediach społecznościowych może być postrzegana jako ingerencja państwa w rynek medialny. Zwłaszcza, że nie są organizowane w tych sprawach żadne przetargi, czy konkursy. Nie wiadomo zatem, dlaczego dany urząd wybiera np. konto na Facebooku, a nie na Google+, a przecież te portale konkurują między sobą o aktywność użytkowników, która jest dla nich źródłem wymiernego przychodu."
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TOPIC_2"
+msgstr "Kto stoi za publikacjami?"
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TEXT_2-1"
+msgstr "Gdy organ publiczny udostępnia treści w Biuletynie Informacji Publicznej, jest zobowiązany do podania danych określających tożsamość osoby, która wytworzyła informację lub odpowiada za jej treść (zgodnie z ustawą z dnia 6 września 2001 r. o dostępie do informacji publicznej). Nie ma ona zastosowania wówczas, gdy urząd publikuje treści na Facebooku czy Twitterze. W konsekwencji nie można stwierdzić czyim konkretnie działaniem są aktywności na oficjalnych kontach instytucji państwowych. Nie wiadomo czy poszczególne wpisy są efektem pracy specjalisty od PR-u, czy stanowią autorski wpis np. premiera lub ministra."
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TEXT_2-2"
+msgstr "Przykładowo z uzyskanych przez nas informacji wynika, że dostęp do konta na Twitterze <a target=\"_blank\" href=\"https://twitter.com/premierrp\">@PremierRP</a> w 2013 r., miały 3 osoby - pracownicy KPRM, zatrudnieni na stanowiskach specjalistów. Co ciekawe: z uzyskanej informacji wynika, że dostępu do tego konta nie ma sam Donald Tusk. Premier Donald Tusk, obsługuje natomiast wyłącznie i osobiście konto <a target=\"_blank\" href=\"https://twitter.com/premiertusk\">@premiertusk</a>."
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TEXT_2-4"
+msgstr "Obywatele powinni wiedzieć czy treść, którą czytają jest tekstem stworzonym przez osobę zatrudnioną do prowadzenia danego profilu, czy został udostępniony przez właściciela konta i to jego poglądy wyraża. <strong>Dobrą praktyką byłoby podawanie danych osoby, która wytworzyła dane udostępniane za pośrednictwem serwisów społecznościowych.<\/strong>"
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TOPIC_3"
+msgstr "Fałszywe konta"
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TEXT_3-1"
+msgstr "Na portalach społecznościowych pojawiają się fałszywe konta urzędników i polityków. Oto kilka przykładów:"
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TEXT_3-2"
+msgstr "W obecnym stanie rzeczy, nie istnieje mechanizm pozwalający na weryfikację kont figurujących jako oficjalne konta urzędów, pod kątem ich autentyczności. W związku z tym istnieje potencjalne zagrożenie, że obywatel może zostać wprowadzony w błąd. Stworzenie rejestru oficjalnych kont władz publicznych wyeliminowałoby ten problem. Rejestr umożliwiałby sprawdzenie, czy konkretne konto rzeczywiście jest prowadzone przez państwową instytucję."
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TOPIC_4"
+msgstr "Blokowanie użytkowników"
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TEXT_4-1"
+msgstr "W 2013 roku <a href=\"http:\/\/www.polskatimes.pl\/artykul\/622851,sikorski-zbanowal-warzeche-na-twitterze-za-f-me-like-the-w-i-am,id,t.html?cookie=1\" target=\"_blank\">doszło w serwisie Twitter do incydentu<\/a>, w który zaangażowany był Minister Spraw Zagranicznych - Radosław Sikorski oraz dziennikarz i publicysta Łukasz Warzecha. Po burzliwej wymianie zdań między panami - Minister zablokował na Twitterze konto dziennikarza, co oznacza, że ten nie mógł otrzymywać nowych wiadomości ministra. Radosław Sikorski bardzo intensywnie posługuje się serwisem Twitter, często zamieszczając wpisy dotyczące aktualnych wydarzeń politycznych. Fakt, że jest on Ministrem Spraw Zagranicznych pozwala przypuszczać, że jego poglądy wyrażane w tweetach, jeśli nie są oficjalnymi stanowiskami urzędowymi, to przynajmniej są z nimi zbieżne. Można zatem powiedzieć, że minister blokując dziennikarza, de facto pozbawił go w pewnej części obywatelskiego prawa do uzyskiwania informacji o działalności władz publicznych. Dodatkowo Łukasz Warzecha jest zawodowym dziennikarzem piszącym również o polityce zagranicznej, więc efekty zablokowania go przez Ministra Spraw Zagranicznych mogą mieć realny wpływ na warunki jego pracy. Od takiej decyzji ministra nie przysługuje żadna, regulowana prawnie procedura odwoławcza."
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TOPIC_5"
+msgstr "Wpadki"
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TOPIC_5-1"
+msgstr "1. NBP i Jarosław Kuźniar"
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TEXT_5-1-1"
+msgstr "Pracownik NBP omyłkowo skomentował wpis Jarosława Kuźniara używając oficjalnego konta Banku. Komentarz o kontrowersyjnym charakterze szybko usunięto, a NBP przeprosiło dziennikarza."
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TOPIC_5-2"
+msgstr "2. Paweł Adamowicz - “cały czas JA piszę” podczas ważnego spotkania"
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TEXT_5-2-1"
+msgstr "Prezydent Gdańska podczas dyskusji na Twitterze stwierdził, że to on cały czas pisze komentarze. Internauci zauważyli, że miało to miejsce podczas ważnego spotkania z współpracownikami."
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TOPIC_5-3"
+msgstr "3. Wanda Nowicka, Wisłocka zamiast Szymborskiej"
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TEXT_5-3-1"
+msgstr "Wanda Nowicka po śmierci Wisławy Szymborskiej zamieściła na Twitterze wpis, w którym żegnała \"Wisłocką\"."
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TOPIC_5-4"
+msgstr "4. Piotr Guział nazywa swoich komentatorów \"chamami\"."
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TEXT_5-4-1"
+msgstr "Burmistrz Ursynowa w kilku wpisach na Twitterze nazwał użytkowników zamieszczających wpisy na jego profilu \"idiotami\" i \"chamami\"."
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TOPIC_5-5"
+msgstr "5. Paweł Poncyljusz przypadkiem wysłał na Twitterze wiadomość do wszystkich, zamiast samego Adama Bielana"
+
+msgid "LC_PANSTWOINTERNET_KONTROWERSJE_TEXT_5-5-1"
+msgstr "Paweł Poncyljusz po Kongresie PiS, na którym ponownie wybrano Jarosława Kaczyńskiego na prezesa partii wysłał wiadomość, w której zawiastował schyłek partii do wszystkich, zamiast tylko do Adama Bielana."
+
+msgid "LC_PANSTWOINTERNET_WNIOSKI_HEADLINE"
+msgstr "Wnioski"
+
+msgid "LC_PANSTWOINTERNET_WNIOSKI_TOPIC"
+msgstr "Urzędy administracji centralnej i ich konta na portalach społecznościowych"
+
+msgid "LC_PANSTWOINTERNET_WNIOSKI_TEXT_1"
+msgstr "Ze zgromadzonego materiału wypływają trzy podstawowe wnioski:"
+
+msgid "LC_PANSTWOINTERNET_WNIOSKI_TEXT_POINT_1"
+msgstr "W obecnym stanie prawnym nie ma przepisów, które wyraźnie regulowałyby kwestie zakładania i prowadzenia kont na portalach społecznościowych przez instytucje państwowe."
+
+msgid "LC_PANSTWOINTERNET_WNIOSKI_TEXT_POINT_2"
+msgstr "Brakuje informacji o autorach treści publikowanych na kontach państwowych instytucji w mediach społecznościowych."
+
+msgid "LC_PANSTWOINTERNET_WNIOSKI_TEXT_POINT_3"
+msgstr "Nie ma możliwości sprawdzenia czy konto instytucji na portalu społecznościowym jest autentyczne."
+
+msgid "LC_PANSTWOINTERNET_WNIOSKI_TEXT_2"
+msgstr "Obecność państwa w social media bez wątpienia niesie ze sobą korzyści, ale łączy się też z pewnymi wątpliwościami. Państwo powinno reagować na zmieniające się nawyki swoich obywateli i otwierać się na nowoczesne formy komunikacji społecznej. Proces ten powinien być jednak legalny i przejrzysty – na tyle, by każdy obywatel wiedział jakie są reguły gry, gdy komunikuje się ze swoim państwem w mediach społecznościowych."
+
+msgid "LC_PANSTWOINTERNET_OFUNDACJI_HEADLINE"
+msgstr "O Fundacji"
+
+msgid "LC_PANSTWOINTERNET_OFUNDACJI_TEXT_1"
+msgstr "<strong>Fundacja ePaństwo<\/strong> jest jedną z najważniejszych organizacji działających na rzecz otwartej i przejrzystej władzy oraz zaangażowania obywatelskiego. Wykorzystując nowe technologie i moc internetu otwieramy nowe zbiory danych, które bezpłatnie udostępniamy wszystkim obywatelom. Zachęcamy do budowy użytecznych inicjatyw i serwisów obywatelskich, które umożliwią skuteczne zmiany w Polsce. Zachęcamy Polaków do korzystania ze swoich praw, chcemy by zainteresowali się i zajęli usprawnianiem swojego Państwa."
+
+msgid "LC_PANSTWOINTERNET_OFUNDACJI_PARTNER"
+msgstr "Partner raportu"
+
+msgid "LC_PANSTWOINTERNET_OFUNDACJI_TEXT_2"
+msgstr "<strong>Fundacja Instytut Spraw Publicznych (ISP)<\/strong> jest jednym z wiodących polskich think tanków, niezależnym ośrodkiem badawczo-analitycznym. ISP powstał w 1995 roku. Poprzez prowadzenie badań, ekspertyz i rekomendacji dotyczących podstawowych kwestii życia publicznego Instytut służy obywatelowi, społeczeństwu i państwu. ISP współpracuje z ekspertami i badaczami z polskich i zagranicznych ośrodków naukowych. Wyniki projektów badawczych prezentowane są na konferencjach i seminariach oraz publikowane w formie książek, raportów, komunikatów i rozpowszechniane wśród posłów i senatorów, członków rządu i administracji, w środowiskach akademickich, a także wśród dziennikarzy i działaczy organizacji pozarządowych."
+
+msgid "LC_PANSTWOINTERNET_OFUNDACJI_TEXT_3"
+msgstr "Umiejętności cyfrowych nie zdobywa się raz na całe życie. Pojawiają się nowe technologie i nowe możliwości – aby umiejętnie je wykorzystywać musimy się więc nauczyć tego, jak się uczyć. To między innymi od poziomu naszych umiejętności cyfrowych zależy, jak szybko Polska będzie się rozwijać."
+
+msgid "LC_PANSTWOINTERNET_OFUNDACJI_TEXT_4"
+msgstr "Komisja Europejska powołała Wielką Koalicję na rzecz Cyfrowych Miejsc Pracy. Naszą krajową odpowiedzią na to wyzwanie jest powołanie Szerokiego Porozumienia na Rzecz Umiejętności Cyfrowych. Inicjatorem tego przedsięwzięcia jest Włodzimierz Marciński – Lider Cyfryzacji w Polsce."
+
+msgid "LC_PANSTWOINTERNET_OFUNDACJI_TEXT_5"
+msgstr "Celem szerokiego Porozumienia jest łączenie aktywności biznesu, organizacji pozarządowych i instytucji publicznych, które budują rozwój społeczeństwa informacyjnego. Zależy nam na podniesieniu tematu rozwoju umiejętności cyfrowych w debacie publicznej. Chcielibyśmy, by naszą narodową marką stali się wysoko wykwalifikowani pracownicy, informatycy którzy wygrywają międzynarodowe zawody w programowaniu i samodzielni w sieci seniorzy."

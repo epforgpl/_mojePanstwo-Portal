@@ -36,6 +36,32 @@ class FirePhpToolbarHelperTestCase extends CakeTestCase
 {
 
     /**
+     * Start test - switch view paths
+     *
+     * @return void
+     **/
+    public static function setupBeforeClass()
+    {
+        App::build(array(
+            'View' => array(
+                CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'Test' . DS . 'test_app' . DS . 'View' . DS,
+                APP . 'Plugin' . DS . 'DebugKit' . DS . 'View' . DS,
+                CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'View' . DS
+            )
+        ), true);
+    }
+
+    /**
+     * End Test
+     *
+     * @return void
+     */
+    public static function tearDownAfterClass()
+    {
+        App::build();
+    }
+
+    /**
      * setUp
      *
      * @return void
@@ -55,31 +81,6 @@ class FirePhpToolbarHelperTestCase extends CakeTestCase
 
         $this->firecake = FireCake::getInstance('TestFireCake');
         TestFireCake::reset();
-    }
-
-    /**
-     * Start test - switch view paths
-     *
-     * @return void
-     **/
-    public static function setupBeforeClass()
-    {
-        App::build(array(
-            'View' => array(
-                CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'Test' . DS . 'test_app' . DS . 'View' . DS,
-                APP . 'Plugin' . DS . 'DebugKit' . DS . 'View' . DS,
-                CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'View' . DS
-            )), true);
-    }
-
-    /**
-     * End Test
-     *
-     * @return void
-     */
-    public static function tearDownAfterClass()
-    {
-        App::build();
     }
 
     /**

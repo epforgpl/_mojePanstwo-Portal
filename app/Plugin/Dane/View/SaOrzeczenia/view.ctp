@@ -1,16 +1,23 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('view-saorzeczenia', array('plugin' => 'Dane'))); ?>
 
 <?= $this->Element('dataobject/pageBegin'); ?>
-    <div class="object">
-        <div class="document col-md-9">
-            <?php echo $html['body']; ?>
-        </div>
-        <div class="sidebox col-md-3">
-            <ul>
-                <li><?php echo __d('dane', 'LC_DANE_DATA_WPLYWU') . ': <strong>' . $this->Czas->dataSlownie($object->getData('data_wplywu')) . '</strong>'; ?></li>
-                <li><?php echo __d('dane', 'LC_DANE_DATA_ORZECZENIA') . ': <strong>' . $this->Czas->dataSlownie($object->getData('data_orzeczenia')) . '</strong>'; ?></li>
-                <li><?php echo __d('dane', 'LC_DANE_DLUGOSC_ROZPATRYWANIA') . ': ' . pl_dopelniacz($object->getData('dlugosc_rozpatrywania'), 'dzień', 'dni', 'dni'); ?></li>
-            </ul>
+
+    <div class="col-xs-12 col-md-8 objectMain">
+        <div class="object">
+            <? if ($parts = $object->getLayer('html')) { ?>
+
+                <? foreach ($parts as $part) { ?>
+                    <div class="block">
+                        <header><?= $part['title'] ?></header>
+                        <section><?= $part['content'] ?></section>
+                    </div>
+                <? } ?>
+
+                <footer>
+                    <a href="http://orzeczenia.nsa.gov.pl/doc/<?= $object->getData('sa_orzeczenia.nsa_id'); ?>">Źródło</a>
+                </footer>
+            <? } ?>
         </div>
     </div>
+
 <?= $this->Element('dataobject/pageEnd'); ?>

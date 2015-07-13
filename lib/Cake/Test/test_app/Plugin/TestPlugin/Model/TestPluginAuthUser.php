@@ -23,27 +23,26 @@
  *
  * @package       Cake.Test.TestApp.Plugin.TestPlugin.Model
  */
-class TestPluginAuthUser extends TestPluginAppModel
-{
+class TestPluginAuthUser extends TestPluginAppModel {
 
-    /**
-     * Name property
-     *
-     * @var string
-     */
-    public $name = 'TestPluginAuthUser';
+	/**
+	 * Name property
+	 *
+	 * @var string
+	 */
+	public $name = 'TestPluginAuthUser';
 
-    /**
-     * useTable property
-     *
-     * @var string
-     */
-    public $useTable = 'auth_users';
+	/**
+	 * useTable property
+	 *
+	 * @var string
+	 */
+	public $useTable = 'auth_users';
 
-    /**
-     * useDbConfig property
-     *
-     * @var string 'test'
-     */
-    public $useDbConfig = 'test';
+	/**
+	 * useDbConfig property
+	 *
+	 * @var string 'test'
+	 */
+	public $useDbConfig = 'test';
 }

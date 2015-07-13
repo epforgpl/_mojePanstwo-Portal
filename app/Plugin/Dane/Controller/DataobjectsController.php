@@ -1,179 +1,388 @@
-<?php
+<?
 
-class DataobjectsController extends DaneAppController
+class DataobjectsController extends AppController
 {
 
-    public $helpers = array('Paginator');
-    public $components = array('Paginator');
+    public $uses = array('Dane.Dataobject', 'Dane.Subscription', 'Dane.ObjectUsersManagement');
+    public $components = array('RequestHandler');
+
     public $object = false;
+    public $initLayers = array();
+    public $initAggs = array();
     public $objectOptions = array(
-    	'hlFields' => false,
+        'hlFields' => false,
     );
-    public $dataset = false;
-    public $menu = array(
-        array(
-            'id' => 'view',
-            'label' => 'LC_DANE_START',
+    public $loadChannels = false;
+    public $channels = array();
+
+    public $microdata = array(
+        'itemtype' => 'http://schema.org/Intangible',
+        'titleprop' => 'name',
+    );
+
+    public $actions = array();
+    public $appSelected = '';
+    public $addDatasetBreadcrumb = true;
+    public $editables = array();
+    
+
+    public $_layout = array(
+        'header' => array(
+            'element' => 'dataobject',
+        ),
+        'body' => array(
+            'theme' => 'default'
+        ),
+        'footer' => array(
+	        'element' => 'default',
         ),
     );
-    public $menuMode = 'horizontal';
 
-    public function index()
+	public function addObjectEditable($e)
+	{
+		if( is_string($e) )
+			$this->editables[] = $e;
+		elseif( is_array($e) )
+			$this->editables = array_merge($this->editables, $e);
+	}
+	
+    public function addInitLayers($layers)
     {
-        $conditions = $this->request->query;
-        $queryData = array(
-            'conditions' => $conditions,
-            'paramType' => 'querystring',
-        );
-        $this->paginate = $queryData;
-        $this->set('objects', $this->Paginator->paginate());
-        $pagination = $this->Dataobject->pagination;
-        $this->set('pagination', $pagination);
+
+        if (is_array($layers)) {
+            $this->initLayers = array_merge($this->initLayers, $layers);
+        } else {
+            $this->initLayers[] = $layers;
+        }
+        
     }
 
-
-    public function view()
+    public function addInitAggs($aggs = array())
     {
-        $this->_prepareView();
-    }
-
-    public function related()
-    {
-        $this->view = 'view';
-        $this->set('showRelated', true);
-        return $this->view();
+	    if($aggs)
+	        $this->initAggs = array_merge($this->initAggs, $aggs);
     }
 
     public function _prepareView()
     {
-        $this->dataset = $this->API->getDataset($this->params->controller);
-        $this->set('dataset', $this->dataset);
+        return $this->load();
+    }
 
-        $this->object = $this->API->getObject($this->params->controller, $this->params->id);
+    public function load()
+    {
 
-        if (is_object($this->object)) {
+        $dataset = isset($this->request->params['controller']) ? $this->request->params['controller'] : false;
+        $id = isset($this->request->params['id']) ? $this->request->params['id'] : false;
+        $slug = isset($this->request->params['slug']) ? $this->request->params['slug'] : '';
 
+        // debug(array('dataset' => $dataset, 'id' => $id, 'slug' => $slug, )); die();
 
-            $this->object->loadRelated();
-            if ($this->object->hasRelated())
-                foreach ($this->menu as $item) {
-                    if ($item['id'] == 'related') {
-                        break;
+        if (
+            $dataset &&
+            $id &&
+            is_numeric($id)
+        ) {
+			
+			if( @$this->request->params['ext'] == 'json' ) {
+				$layers = isset($this->request->query['layers']) ? $this->request->query['layers'] : $this->initLayers;
+			} else {
+	            $layers = $this->initLayers;
+            }
+
+            if ($this->observeOptions) {
+                $layers[] = 'channels';
+                $layers[] = 'subscribers';
+            }
+                
+            $layers[] = 'dataset';
+            $layers[] = 'page';
+
+            if ($this->object = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => $dataset,
+                    'id' => $id,
+                ),
+                'layers' => $layers,
+                'aggs' => $this->initAggs,
+            ))
+            ) {
+				
+				$this->object_aggs = $this->Dataobject->getAggs();
+                $this->set('object_aggs', $this->object_aggs);
+								
+                if (
+                    ($this->domainMode == 'MP') &&
+                    (
+                        !isset($this->request->params['ext']) ||
+                        !in_array($this->request->params['ext'], array('json'))
+                    ) &&
+                    !$slug &&
+                    $this->object->getSlug() &&
+                    ($this->object->getSlug() != $slug) &&
+                    $this->object->getUrl()
+                ) {
+
+                    $url = $this->object->getUrl();
+
+                    if (
+                        isset($this->request->params['action']) &&
+                        ($this->request->params['action']) &&
+                        ($this->request->params['action'] != 'view')
+                    ) {
+
+                        $url .= '/' . $this->request->params['action'];
+
+                        if (
+                            isset($this->request->params['subid']) &&
+                            ($this->request->params['subid'])
+                        ) {
+
+                            $url .= '/' . $this->request->params['subid'];
+
+                            if (
+                                isset($this->request->params['subaction']) &&
+                                ($this->request->params['subaction'])
+                            ) {
+
+                                $url .= '/' . $this->request->params['subaction'];
+
+                                if (
+                                    isset($this->request->params['subsubid']) &&
+                                    ($this->request->params['subsubid'])
+                                ) {
+
+                                    $url .= '/' . $this->request->params['subsubid'];
+
+                                }
+
+                            }
+
+                        }
+
                     }
-                    $this->menu[] = array(
-                        'id' => 'related',
-                        'label' => 'Powiązania',
-                    );
+
+                    if (
+                    !empty($this->request->query)
+                    )
+                        $url .= '?' . http_build_query($this->request->query);
+
+                    return $this->redirect($url);
+
                 }
 
-            $this->set('object', $this->object);
-            $this->set('objectOptions', $this->objectOptions);
-
-            $this->prepareMenu();
-
-            foreach ($this->menu as &$item) {
-                if ($item['id'] == $this->params->action) {
-                    $item['selected'] = true;
-                    break;
+				if( @$this->request->params['ext'] == 'json' ) {
+					
+					$this->set('data', $this->object->getData());
+					$this->set('layers', $this->object->getLayers());
+	                $this->set('_serialize', array('data', 'layers'));
+					
+				} else {
+					
+	                $this->set('object', $this->object);
+	                $this->set('objectOptions', $this->objectOptions);
+	                $this->set('microdata', $this->microdata);
+	                $this->set('title_for_layout', $this->object->getTitle());
+                
                 }
+
             }
 
-            $this->addStatusbarCrumb(array(
-                'href' => '/dane/kanal/' . $this->dataset['Datachannel']['slug'],
-                'text' => $this->dataset['Datachannel']['nazwa'],
-            ));
-
-            $this->addStatusbarCrumb(array(
-                'href' => '/dane/' . $this->object->getDataset(),
-                'text' => $this->dataset['Dataset']['name'],
-            ));
-
-            $title_for_layout = $this->object->getTitle();
-
-            $this->set('menu', $this->menu);
-            $this->set('menuMode', $this->menuMode);
-            $this->set('title_for_layout', $title_for_layout);
-
-
         } else {
-
-            throw new NotFoundException('Could not find that object');
-
+            throw new BadRequestException();
         }
+
     }
 
-    protected function innerSearch($dataset, $initalConditions = array(), $options = array())
+    public function suggest()
     {
-        $alias = $dataset;
-        $this->menuMode = 'none';
-        $conditions = (isset($this->request->query)) ? $this->request->query : $this->data;
-        $conditions = array_merge($conditions, $initalConditions);
-        if (isset($initalConditions['fields'])) {
-            $fields = $initalConditions['fields'];
-            unset($initalConditions['fields']);
-        } else {
-            $fields = null;
-        }
-        $sortings = array();
-        $dataset = array();
-        $filters = array();
-        if (!is_null($alias)) {
-            if (!is_array($alias)) {
-                // ŁADOWANIE INFORMACJI O DATASET'CIE
-                $data = $this->API->getDataset($alias);
-                $dataset = $data['Dataset'];
-                $conditions['dataset'] = $dataset['alias'];
-                // ŁADOWANIE SORTOWAŃ
-                $sortings = $this->API->getDatasetSortings($dataset['alias']);
+        $hits = array();
 
-                // ŁADOWANIE FILTRÓW
-                $filters = $this->API->getDatasetFilters($dataset['alias'], array('exclude' => $this->params->controller));
-
-            } else {
-                $conditions['dataset'] = $alias;
-            }
-
-            // ŁADOWANIE OBIEKTÓW
-            $this->loadModel('Dane.Dataobject');
-
-            $queryData = array(
-                'conditions' => $conditions,
-                'paramType' => 'querystring',
-                'facets' => true,
+        if (isset($this->request->query['q']) && ($q = trim($this->request->query['q']))) {
+            $params = array(
+                'dataset' => false,
             );
-            if (!is_null($fields)) {
-                $queryData['fields'] = $fields;
-            }
-            $this->paginate = $queryData;
-            $dataobjects = $this->Paginator->paginate('Dataobject');
-            $pagination = $this->Dataobject->pagination;
-            $facets = $this->Dataobject->facets;
-            $total = $this->Dataobject->total;
-            if (isset($this->request->query)) {
-                $this->data = array('Dataset' => $this->request->query);
-            }
 
-            $searchTitle = isset($options['searchTitle']) ? $options['searchTitle'] : false;
+            if (isset($this->request->query['dataset']) && ($dataset = $this->request->query['dataset']))
+                $params['dataset'] = $dataset;
 
-            $this->set(compact('dataobjects', 'pagination', 'sortings', 'filters', 'total', 'facets', 'dataset', 'conditions', 'searchTitle'));
-            $this->view = 'Dataobjects/innerSearch';
+            $hits = $this->Dataobject->suggest($q, $params);
         }
-        $this->set('menuMode', $this->menuMode);
+
+        $this->set('hits', $hits);
+        $this->set('_serialize', 'hits');
     }
 
-    protected function externalRedir($name = null, $id = null)
+    public function view()
     {
-        if (is_null($name)) {
-            $name = $this->name;
-        }
-        if (is_null($id)) {
-            $id = $this->params->id;
-        }
-        $this->redirect('http://sejmometr.pl/' . Inflector::underscore($name) . '/' . $id, '302');
+        $this->load();
     }
 
-    protected function prepareMenu()
+    public function feed($params = array())
     {
+
+        if (!is_array($params))
+            $params = array();
+
+        $this->loadChannels = true;
+
+        if ($this->object === false)
+            $this->load(array(
+                'subscriptions' => true,
+            ));
+
+        $params = array_merge(array(
+            'feed' => $this->object->getDataset() . '/' . $this->object->getId(),
+            'preset' => $this->object->getDataset(),
+        ), $params);
+
+        if (isset($params['searchTitle']))
+            $_params['searchTitle'] = $params['searchTitle'];
+
+        $this->Components->load('Dane.DataFeed', $params);
+
+    }
+
+
+    public function beforeRender()
+    {		
+				
+        $is_json = (isset($this->request->params['ext']) && $this->request->params['ext'] == 'json');
+
+        if (!$is_json && $this->object) {
+		
+            if (
+                ($this->request->params['controller'] == 'Datasets') &&
+                ($breadcrumbs_data = $this->getDataset($this->object->getData('slug')))
+            ) {
+
+                $this->addAppBreadcrumb($breadcrumbs_data['app_id']);
+
+            } elseif ($breadcrumbs_data = $this->getDataset($this->object->getDataset())) {
+
+                $this->addAppBreadcrumb($breadcrumbs_data['app_id']);
+
+                if ($this->addDatasetBreadcrumb)
+                    $this->addBreadcrumb(array(
+                        'href' => '/dane/' . $breadcrumbs_data['dataset_id'],
+                        'label' => $breadcrumbs_data['dataset_name']['label'],
+                    ));
+
+            } elseif( $dataset = $this->object->getLayer('dataset') ) {
+	            
+	            $this->addBreadcrumb(array(
+                    'href' => '/dane/' . $dataset['Dataset']['alias'],
+                    'label' => $dataset['Dataset']['name'],
+                ));
+	            
+            }
+                                    
+            if( $page = $this->object->getLayer('page') ) {
+								
+				if( @isset($this->request->query['page']['cover']) )
+					$page['cover'] = $this->request->query['page']['cover'];
+					
+				if( @isset($this->request->query['page']['logo']) )
+					$page['logo'] = $this->request->query['page']['logo'];
+					
+				if( @isset($this->request->query['page']['moderated']) )
+					$page['moderated'] = $this->request->query['page']['moderated'];
+					
+				$this->object->layers['page'] = $page;
+												
+				if( $page['cover'] || $page['logo'] )
+					$this->_layout['header']['element'] = 'dataobject-cover';
+								
+				$this->set('object', $this->object);
+									
+			}
+
+            $selected = $this->request->params['action'];
+            if ($selected == 'view')
+                $selected = '';
+			
+			
+			$object_editable = array();
+			
+			if(
+				@in_array('2', $this->getUserRoles()) || // check if superuser 
+				( $this->getPageRoles()=='1' ) // check if user has permissions to page 
+			) {
+				
+				$object_editable[] = 'users';
+			}
+			
+			if( 
+				@in_array('2', $this->getUserRoles()) || // check if superuser 
+				$this->getPageRoles() // check if user has permissions to page 
+			) {
+				
+				$object_editable[] = 'cover';
+				$object_editable[] = 'logo';
+				
+			}
+			
+			if( !empty($this->editables) )
+				$object_editable = array_merge($object_editable, $this->editables);
+												
+            $this->menu['selected'] = $selected;
+            $this->menu['base'] = $this->object->getUrl();
+            $this->set('object_actions', $this->actions);
+            $this->set('object_addons', $this->addons);
+            $this->set('object_editable', $object_editable);
+
+            $this->prepareMetaTags();
+        }
+
+        parent::beforeRender();
+
+    }
+    
+    public function prepareMetaTags()
+    {
+        parent::prepareMetaTags();
+        if ($desc = $this->object->getDescription())
+            $this->setMeta('description', $desc);
+        $this->setMeta(array(
+            'og:title' => $this->object->getTitle(),
+            'og:image' => FULL_BASE_URL . '/dane/img/social/dane.jpg'
+        ));
+    }
+    
+    public function getPageRoles() {
+	    
+	    if( 
+	    	$this->Auth->user() && 
+	    	isset( $this->object ) && 
+	    	( $page = $this->object->getLayer('page') ) && 
+	    	isset( $page['roles'] )
+	    ) {
+		    
+		    return @$page['roles']['ObjectUser']['role'];
+		    
+	    } else return false;
+	    
+    }
+    
+    public function post()
+    {
+	    
+	    $response = false;
+	    
+	    if( 
+	    	@$this->request->params['pass'][0] && 
+	    	@$this->request->params['pass'][1]
+	    ) {
+	    
+		    $response = $this->Dataobject->getDatasource()->request('dane/' . $this->request->params['pass'][0] . '/' . $this->request->params['pass'][1], array(
+			    'method' => 'POST',
+			    'data' => $this->request->data,
+		    ));
+	        
+        }
+        
+        $this->set('response', $response);
+        $this->set('_serialize', array('response'));
+        
     }
 
 }

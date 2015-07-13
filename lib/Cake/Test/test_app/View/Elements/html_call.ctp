@@ -1,3 +1,3 @@
 <?php
-echo $this->Html->link('Test', 'http://example.com');
+echo $this->Html->link( 'Test', 'http://example.com' );
 ?>

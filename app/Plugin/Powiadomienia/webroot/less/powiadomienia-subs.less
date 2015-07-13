@@ -1,0 +1,95 @@
+.alerts-login {
+  margin-top: 20px;
+}
+
+.container .subsPage .dataBrowser {
+  margin-top: 23px;
+
+  .list-subs {
+    list-style: none;
+
+    > li {
+      background: none;
+      border-bottom: 1px solid #d0d1d5;
+      padding: 15px 0;
+      margin: 0;
+      position: relative;
+      display: inline-block;
+      width: 100%;
+
+      &:before {
+        font-family: "Glyphicons Halflings";
+        content: "\e022";
+        color: #666;
+        font-size: 20px;
+        font-style: normal;
+        margin-left: 5px;
+        position: absolute;
+        top: 12px;
+        left: 3px;
+        z-index: 0;
+      }
+
+      .icon {
+        color: #666;
+        float: left;
+        font-size: 22px;
+        font-style: normal;
+        margin-top: -3px;
+        position: relative;
+
+        &:before {
+          background-color: #F3F3F3;
+          padding: 5px;
+        }
+      }
+      .title {
+        padding-left: 40px;
+        padding-right: 15px;
+        margin: 0;
+
+        a {
+          color: #555;
+
+          &:hover {
+            color: #157ab5;
+          }
+        }
+      }
+      .options {
+        cursor: pointer;
+        position: absolute;
+        right: 0;
+        top: 27px;
+        color: #DDD;
+        -webkit-transform: translate(0, -50%);
+        -moz-transform: translate(0, -50%);
+        -ms-transform: translate(0, -50%);
+        -o-transform: translate(0, -50%);
+        transform: translate(0, -50%);
+      }
+
+      &:hover {
+        .options {
+          color: #666;
+          &:hover {
+            color: #157ab5;
+          }
+        }
+      }
+
+    }
+
+    .subscriptions_list {
+      overflow: auto;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid #DDD;
+
+      li {
+        padding: 5px 15px;
+      }
+    }
+  }
+}

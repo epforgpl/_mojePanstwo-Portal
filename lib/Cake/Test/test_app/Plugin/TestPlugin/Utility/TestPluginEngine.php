@@ -1,6 +1,5 @@
 <?php
 
-class TestPluginEngine
-{
+class TestPluginEngine {
 
 }

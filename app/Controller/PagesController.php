@@ -43,13 +43,13 @@ class PagesController extends AppController
      * Displays a view
      *
      * @param mixed What page to display
+     *
      * @return void
      * @throws NotFoundException When the view file could not be found
      *    or MissingViewException in debug mode.
      */
     public function display()
     {
-
         $path = func_get_args();
 
         $count = count($path);
@@ -65,11 +65,24 @@ class PagesController extends AppController
         if (!empty($path[1])) {
             $subpage = $path[1];
         }
-        $title_for_layout = '_mojePaństwo';
-        $this->set(compact('page', 'subpage', 'title_for_layout'));
 
+        if ($page == 'home' || $page == 'about_us' || $page == 'regulations' || $page == 'report_bug') {
+            $this->setLayout(array(
+                'header' => false,
+                'body' => array(
+                    'theme' => 'wallpaper'
+                ),
+                'footer' => array(
+                    'element' => 'minimal'
+                )
+            ));
+        }
+                				
+        $title_for_layout = '_mojePaństwo';
         if ($page == 'home')
-            $this->statusbarMode = 'home';
+	        $this->appSelected = '';
+
+        $this->set(compact('page', 'subpage', 'title_for_layout'));
 
         try {
             $this->render(implode('/', $path));

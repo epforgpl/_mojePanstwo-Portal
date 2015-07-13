@@ -68,6 +68,6 @@ interface IOAuth2GrantCode extends IOAuth2Storage
      *
      * @ingroup oauth2_section_4
      */
-    public function setAuthCode($code, $client_id, $user_id, $redirect_uri, $expires, $scope = NULL);
+    public function setAuthCode($code, $client_id, $user_id, $redirect_uri, $expires, $scope = null);
 
 }

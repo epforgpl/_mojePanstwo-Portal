@@ -1,10 +1,51 @@
 h1 {
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 300;
-    margin: 10px 5px;
+    margin: 0;
+    padding: 10px;
+    color: #FFF;
+    a {
+        color: #FFF;
+        text-decoration: underline;
+    }
+
+    &._ {
+
+        overflow: auto;
+
+        ._thumb_cont {
+            float: left;
+            width: 80px;
+        }
+
+        ._title {
+
+        }
+
+    }
 }
 
 .objectPageHeader .objectRender {
+
+    .content {
+        .account {
+            margin: 2px;
+            span {
+                color: #999;
+                font-style: italic;
+                font-size: 12px;
+                margin-left: 3px;
+
+                a {
+                    color: #888;
+                    &:hover {
+                        color: #157AB5;
+                    }
+                }
+
+            }
+        }
+    }
 
     .content blockquote._ {
         font-size: 20px;
@@ -16,4 +57,9 @@ h1 {
         display: none;
     }
 
+    .dataHighlights {
+        margin-top: 0;
+    }
+
 }
+

@@ -1,28 +1,36 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty', array('plugin' => 'Dane'))); ?>
+<?php
 
-<?= $this->Element('dataobject/pageBegin'); ?>
+$this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty', array('plugin' => 'Dane')));
 
-    <h1>Oddziały</h1>
+echo $this->Element('dataobject/pageBegin');
 
-<?
-$items = $object->getLayer('oddzialy');
-if (count($items)) {
+if ($oddzialy = $object->getLayer('oddzialy')) {
     ?>
-    <ul class="stdUl">
-        <? foreach ($items as $item) { ?>
-
-            <li>
-                <h2 class="title"><?= $item['nazwa'] ?></h2>
-
-                <p class="details"><?= $item['adres'] ?></p>
-            </li>
-
-        <? } ?>
-    </ul>
+    <div class="mpanel">
+        <div style="margin-top: 25px; margin-bottom: 25px;" class="col-md-10 col-md-offset-1">
+            <table class="table table-striped table-hover ">
+                <thead>
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Adres</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?
+                foreach ($oddzialy as $oddzial) {
+                    ?>
+                    <tr>
+                        <td><?= $oddzial['nazwa'] ?></td>
+                        <td><?= $oddzial['adres'] ?></td>
+                    </tr>
+                <?
+                }
+                ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 <?
 }
-?>
 
-
-
-<?= $this->Element('dataobject/pageEnd'); ?>
+echo $this->Element('dataobject/pageEnd');

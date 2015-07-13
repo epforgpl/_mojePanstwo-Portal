@@ -15,6 +15,7 @@ class Group extends PaszportAppModel
                 $results[$key][$this->alias]['label'] = __($result[$this->alias]['label'], true);
             }
         }
+
         return $results;
     }
 }

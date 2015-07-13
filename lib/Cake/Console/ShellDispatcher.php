@@ -22,362 +22,360 @@
  *
  * @package       Cake.Console
  */
-class ShellDispatcher
-{
+class ShellDispatcher {
 
-    /**
-     * Contains command switches parsed from the command line.
-     *
-     * @var array
-     */
-    public $params = array();
+	/**
+	 * Contains command switches parsed from the command line.
+	 *
+	 * @var array
+	 */
+	public $params = array();
 
-    /**
-     * Contains arguments parsed from the command line.
-     *
-     * @var array
-     */
-    public $args = array();
+	/**
+	 * Contains arguments parsed from the command line.
+	 *
+	 * @var array
+	 */
+	public $args = array();
 
-    /**
-     * Constructor
-     *
-     * The execution of the script is stopped after dispatching the request with
-     * a status code of either 0 or 1 according to the result of the dispatch.
-     *
-     * @param array $args the argv from PHP
-     * @param boolean $bootstrap Should the environment be bootstrapped.
-     */
-    public function __construct($args = array(), $bootstrap = true)
-    {
-        set_time_limit(0);
-        $this->parseParams($args);
+	/**
+	 * Constructor
+	 *
+	 * The execution of the script is stopped after dispatching the request with
+	 * a status code of either 0 or 1 according to the result of the dispatch.
+	 *
+	 * @param array $args the argv from PHP
+	 * @param boolean $bootstrap Should the environment be bootstrapped.
+	 */
+	public function __construct( $args = array(), $bootstrap = true ) {
+		set_time_limit( 0 );
+		$this->parseParams( $args );
 
-        if ($bootstrap) {
-            $this->_initConstants();
-            $this->_initEnvironment();
-        }
-    }
+		if ( $bootstrap ) {
+			$this->_initConstants();
+			$this->_initEnvironment();
+		}
+	}
 
-    /**
-     * Run the dispatcher
-     *
-     * @param array $argv The argv from PHP
-     * @return void
-     */
-    public static function run($argv)
-    {
-        $dispatcher = new ShellDispatcher($argv);
-        return $dispatcher->_stop($dispatcher->dispatch() === false ? 1 : 0);
-    }
+	/**
+	 * Parses command line options and extracts the directory paths from $params
+	 *
+	 * @param array $args Parameters to parse
+	 *
+	 * @return void
+	 */
+	public function parseParams( $args ) {
+		$this->_parsePaths( $args );
 
-    /**
-     * Defines core configuration.
-     *
-     * @return void
-     */
-    protected function _initConstants()
-    {
-        if (function_exists('ini_set')) {
-            ini_set('html_errors', false);
-            ini_set('implicit_flush', true);
-            ini_set('max_execution_time', 0);
-        }
+		$defaults = array(
+			'app'     => 'app',
+			'root'    => dirname( dirname( dirname( dirname( __FILE__ ) ) ) ),
+			'working' => null,
+			'webroot' => 'webroot'
+		);
+		$params   = array_merge( $defaults, array_intersect_key( $this->params, $defaults ) );
+		$isWin    = false;
+		foreach ( $defaults as $default => $value ) {
+			if ( strpos( $params[ $default ], '\\' ) !== false ) {
+				$isWin = true;
+				break;
+			}
+		}
+		$params = str_replace( '\\', '/', $params );
 
-        if (!defined('CAKE_CORE_INCLUDE_PATH')) {
-            define('DS', DIRECTORY_SEPARATOR);
-            define('CAKE_CORE_INCLUDE_PATH', dirname(dirname(dirname(__FILE__))));
-            define('CAKEPHP_SHELL', true);
-            if (!defined('CORE_PATH')) {
-                define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
-            }
-        }
-    }
+		if ( isset( $params['working'] ) ) {
+			$params['working'] = trim( $params['working'] );
+		}
 
-    /**
-     * Defines current working environment.
-     *
-     * @return void
-     * @throws CakeException
-     */
-    protected function _initEnvironment()
-    {
-        if (!$this->_bootstrap()) {
-            $message = "Unable to load CakePHP core.\nMake sure " . DS . 'lib' . DS . 'Cake exists in ' . CAKE_CORE_INCLUDE_PATH;
-            throw new CakeException($message);
-        }
+		if ( ! empty( $params['working'] ) && ( ! isset( $this->args[0] ) || isset( $this->args[0] ) && $this->args[0][0] !== '.' ) ) {
+			if ( $params['working'][0] === '.' ) {
+				$params['working'] = realpath( $params['working'] );
+			}
+			if ( empty( $this->params['app'] ) && $params['working'] != $params['root'] ) {
+				$params['root'] = dirname( $params['working'] );
+				$params['app']  = basename( $params['working'] );
+			} else {
+				$params['root'] = $params['working'];
+			}
+		}
 
-        if (!isset($this->args[0]) || !isset($this->params['working'])) {
-            $message = "This file has been loaded incorrectly and cannot continue.\n" .
-                "Please make sure that " . DS . 'lib' . DS . 'Cake' . DS . "Console is in your system path,\n" .
-                "and check the cookbook for the correct usage of this command.\n" .
-                "(http://book.cakephp.org/)";
-            throw new CakeException($message);
-        }
+		if ( $params['app'][0] === '/' || preg_match( '/([a-z])(:)/i', $params['app'], $matches ) ) {
+			$params['root'] = dirname( $params['app'] );
+		} elseif ( strpos( $params['app'], '/' ) ) {
+			$params['root'] .= '/' . dirname( $params['app'] );
+		}
 
-        $this->shiftArgs();
-    }
+		$params['app']     = basename( $params['app'] );
+		$params['working'] = rtrim( $params['root'], '/' );
+		if ( ! $isWin || ! preg_match( '/^[A-Z]:$/i', $params['app'] ) ) {
+			$params['working'] .= '/' . $params['app'];
+		}
 
-    /**
-     * Initializes the environment and loads the CakePHP core.
-     *
-     * @return boolean Success.
-     */
-    protected function _bootstrap()
-    {
-        if (!defined('ROOT')) {
-            define('ROOT', $this->params['root']);
-        }
-        if (!defined('APP_DIR')) {
-            define('APP_DIR', $this->params['app']);
-        }
-        if (!defined('APP')) {
-            define('APP', $this->params['working'] . DS);
-        }
-        if (!defined('WWW_ROOT')) {
-            define('WWW_ROOT', APP . $this->params['webroot'] . DS);
-        }
-        if (!defined('TMP') && !is_dir(APP . 'tmp')) {
-            define('TMP', CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'Console' . DS . 'Templates' . DS . 'skel' . DS . 'tmp' . DS);
-        }
-        $boot = file_exists(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'bootstrap.php');
-        require CORE_PATH . 'Cake' . DS . 'bootstrap.php';
+		if ( ! empty( $matches[0] ) || ! empty( $isWin ) ) {
+			$params = str_replace( '/', '\\', $params );
+		}
 
-        if (!file_exists(APP . 'Config' . DS . 'core.php')) {
-            include_once CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'Console' . DS . 'Templates' . DS . 'skel' . DS . 'Config' . DS . 'core.php';
-            App::build();
-        }
+		$this->params = array_merge( $this->params, $params );
+	}
 
-        $this->setErrorHandlers();
+	/**
+	 * Parses out the paths from from the argv
+	 *
+	 * @param array $args
+	 *
+	 * @return void
+	 */
+	protected function _parsePaths( $args ) {
+		$parsed = array();
+		$keys   = array( '-working', '--working', '-app', '--app', '-root', '--root' );
+		foreach ( $keys as $key ) {
+			while ( ( $index = array_search( $key, $args ) ) !== false ) {
+				$keyname            = str_replace( '-', '', $key );
+				$valueIndex         = $index + 1;
+				$parsed[ $keyname ] = $args[ $valueIndex ];
+				array_splice( $args, $index, 2 );
+			}
+		}
+		$this->args   = $args;
+		$this->params = $parsed;
+	}
 
-        if (!defined('FULL_BASE_URL')) {
-            $url = Configure::read('App.fullBaseUrl');
-            define('FULL_BASE_URL', $url ? $url : 'http://localhost');
-            Configure::write('App.fullBaseUrl', FULL_BASE_URL);
-        }
+	/**
+	 * Defines core configuration.
+	 *
+	 * @return void
+	 */
+	protected function _initConstants() {
+		if ( function_exists( 'ini_set' ) ) {
+			ini_set( 'html_errors', false );
+			ini_set( 'implicit_flush', true );
+			ini_set( 'max_execution_time', 0 );
+		}
 
-        return true;
-    }
+		if ( ! defined( 'CAKE_CORE_INCLUDE_PATH' ) ) {
+			define( 'DS', DIRECTORY_SEPARATOR );
+			define( 'CAKE_CORE_INCLUDE_PATH', dirname( dirname( dirname( __FILE__ ) ) ) );
+			define( 'CAKEPHP_SHELL', true );
+			if ( ! defined( 'CORE_PATH' ) ) {
+				define( 'CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS );
+			}
+		}
+	}
 
-    /**
-     * Set the error/exception handlers for the console
-     * based on the `Error.consoleHandler`, and `Exception.consoleHandler` values
-     * if they are set. If they are not set, the default ConsoleErrorHandler will be
-     * used.
-     *
-     * @return void
-     */
-    public function setErrorHandlers()
-    {
-        App::uses('ConsoleErrorHandler', 'Console');
-        $error = Configure::read('Error');
-        $exception = Configure::read('Exception');
+	/**
+	 * Defines current working environment.
+	 *
+	 * @return void
+	 * @throws CakeException
+	 */
+	protected function _initEnvironment() {
+		if ( ! $this->_bootstrap() ) {
+			$message = "Unable to load CakePHP core.\nMake sure " . DS . 'lib' . DS . 'Cake exists in ' . CAKE_CORE_INCLUDE_PATH;
+			throw new CakeException( $message );
+		}
 
-        $errorHandler = new ConsoleErrorHandler();
-        if (empty($error['consoleHandler'])) {
-            $error['consoleHandler'] = array($errorHandler, 'handleError');
-            Configure::write('Error', $error);
-        }
-        if (empty($exception['consoleHandler'])) {
-            $exception['consoleHandler'] = array($errorHandler, 'handleException');
-            Configure::write('Exception', $exception);
-        }
-        set_exception_handler($exception['consoleHandler']);
-        set_error_handler($error['consoleHandler'], Configure::read('Error.level'));
-    }
+		if ( ! isset( $this->args[0] ) || ! isset( $this->params['working'] ) ) {
+			$message = "This file has been loaded incorrectly and cannot continue.\n" .
+			           "Please make sure that " . DS . 'lib' . DS . 'Cake' . DS . "Console is in your system path,\n" .
+			           "and check the cookbook for the correct usage of this command.\n" .
+			           "(http://book.cakephp.org/)";
+			throw new CakeException( $message );
+		}
 
-    /**
-     * Dispatches a CLI request
-     *
-     * @return boolean
-     * @throws MissingShellMethodException
-     */
-    public function dispatch()
-    {
-        $shell = $this->shiftArgs();
+		$this->shiftArgs();
+	}
 
-        if (!$shell) {
-            $this->help();
-            return false;
-        }
-        if (in_array($shell, array('help', '--help', '-h'))) {
-            $this->help();
-            return true;
-        }
+	/**
+	 * Initializes the environment and loads the CakePHP core.
+	 *
+	 * @return boolean Success.
+	 */
+	protected function _bootstrap() {
+		if ( ! defined( 'ROOT' ) ) {
+			define( 'ROOT', $this->params['root'] );
+		}
+		if ( ! defined( 'APP_DIR' ) ) {
+			define( 'APP_DIR', $this->params['app'] );
+		}
+		if ( ! defined( 'APP' ) ) {
+			define( 'APP', $this->params['working'] . DS );
+		}
+		if ( ! defined( 'WWW_ROOT' ) ) {
+			define( 'WWW_ROOT', APP . $this->params['webroot'] . DS );
+		}
+		if ( ! defined( 'TMP' ) && ! is_dir( APP . 'tmp' ) ) {
+			define( 'TMP', CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'Console' . DS . 'Templates' . DS . 'skel' . DS . 'tmp' . DS );
+		}
+		$boot = file_exists( ROOT . DS . APP_DIR . DS . 'Config' . DS . 'bootstrap.php' );
+		require CORE_PATH . 'Cake' . DS . 'bootstrap.php';
 
-        $Shell = $this->_getShell($shell);
+		if ( ! file_exists( APP . 'Config' . DS . 'core.php' ) ) {
+			include_once CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'Console' . DS . 'Templates' . DS . 'skel' . DS . 'Config' . DS . 'core.php';
+			App::build();
+		}
 
-        $command = null;
-        if (isset($this->args[0])) {
-            $command = $this->args[0];
-        }
+		$this->setErrorHandlers();
 
-        if ($Shell instanceof Shell) {
-            $Shell->initialize();
-            return $Shell->runCommand($command, $this->args);
-        }
-        $methods = array_diff(get_class_methods($Shell), get_class_methods('Shell'));
-        $added = in_array($command, $methods);
-        $private = $command[0] === '_' && method_exists($Shell, $command);
+		if ( ! defined( 'FULL_BASE_URL' ) ) {
+			$url = Configure::read( 'App.fullBaseUrl' );
+			define( 'FULL_BASE_URL', $url ? $url : 'http://localhost' );
+			Configure::write( 'App.fullBaseUrl', FULL_BASE_URL );
+		}
 
-        if (!$private) {
-            if ($added) {
-                $this->shiftArgs();
-                $Shell->startup();
-                return $Shell->{$command}();
-            }
-            if (method_exists($Shell, 'main')) {
-                $Shell->startup();
-                return $Shell->main();
-            }
-        }
+		return true;
+	}
 
-        throw new MissingShellMethodException(array('shell' => $shell, 'method' => $command));
-    }
+	/**
+	 * Set the error/exception handlers for the console
+	 * based on the `Error.consoleHandler`, and `Exception.consoleHandler` values
+	 * if they are set. If they are not set, the default ConsoleErrorHandler will be
+	 * used.
+	 *
+	 * @return void
+	 */
+	public function setErrorHandlers() {
+		App::uses( 'ConsoleErrorHandler', 'Console' );
+		$error     = Configure::read( 'Error' );
+		$exception = Configure::read( 'Exception' );
 
-    /**
-     * Get shell to use, either plugin shell or application shell
-     *
-     * All paths in the loaded shell paths are searched.
-     *
-     * @param string $shell Optionally the name of a plugin
-     * @return mixed An object
-     * @throws MissingShellException when errors are encountered.
-     */
-    protected function _getShell($shell)
-    {
-        list($plugin, $shell) = pluginSplit($shell, true);
+		$errorHandler = new ConsoleErrorHandler();
+		if ( empty( $error['consoleHandler'] ) ) {
+			$error['consoleHandler'] = array( $errorHandler, 'handleError' );
+			Configure::write( 'Error', $error );
+		}
+		if ( empty( $exception['consoleHandler'] ) ) {
+			$exception['consoleHandler'] = array( $errorHandler, 'handleException' );
+			Configure::write( 'Exception', $exception );
+		}
+		set_exception_handler( $exception['consoleHandler'] );
+		set_error_handler( $error['consoleHandler'], Configure::read( 'Error.level' ) );
+	}
 
-        $plugin = Inflector::camelize($plugin);
-        $class = Inflector::camelize($shell) . 'Shell';
+	/**
+	 * Removes first argument and shifts other arguments up
+	 *
+	 * @return mixed Null if there are no arguments otherwise the shifted argument
+	 */
+	public function shiftArgs() {
+		return array_shift( $this->args );
+	}
 
-        App::uses('Shell', 'Console');
-        App::uses('AppShell', 'Console/Command');
-        App::uses($class, $plugin . 'Console/Command');
+	/**
+	 * Run the dispatcher
+	 *
+	 * @param array $argv The argv from PHP
+	 *
+	 * @return void
+	 */
+	public static function run( $argv ) {
+		$dispatcher = new ShellDispatcher( $argv );
 
-        if (!class_exists($class)) {
-            throw new MissingShellException(array(
-                'class' => $class
-            ));
-        }
-        $Shell = new $class();
-        $Shell->plugin = trim($plugin, '.');
-        return $Shell;
-    }
+		return $dispatcher->_stop( $dispatcher->dispatch() === false ? 1 : 0 );
+	}
 
-    /**
-     * Parses command line options and extracts the directory paths from $params
-     *
-     * @param array $args Parameters to parse
-     * @return void
-     */
-    public function parseParams($args)
-    {
-        $this->_parsePaths($args);
+	/**
+	 * Stop execution of the current script
+	 *
+	 * @param integer|string $status see http://php.net/exit for values
+	 *
+	 * @return void
+	 */
+	protected function _stop( $status = 0 ) {
+		exit( $status );
+	}
 
-        $defaults = array(
-            'app' => 'app',
-            'root' => dirname(dirname(dirname(dirname(__FILE__)))),
-            'working' => null,
-            'webroot' => 'webroot'
-        );
-        $params = array_merge($defaults, array_intersect_key($this->params, $defaults));
-        $isWin = false;
-        foreach ($defaults as $default => $value) {
-            if (strpos($params[$default], '\\') !== false) {
-                $isWin = true;
-                break;
-            }
-        }
-        $params = str_replace('\\', '/', $params);
+	/**
+	 * Dispatches a CLI request
+	 *
+	 * @return boolean
+	 * @throws MissingShellMethodException
+	 */
+	public function dispatch() {
+		$shell = $this->shiftArgs();
 
-        if (isset($params['working'])) {
-            $params['working'] = trim($params['working']);
-        }
+		if ( ! $shell ) {
+			$this->help();
 
-        if (!empty($params['working']) && (!isset($this->args[0]) || isset($this->args[0]) && $this->args[0][0] !== '.')) {
-            if ($params['working'][0] === '.') {
-                $params['working'] = realpath($params['working']);
-            }
-            if (empty($this->params['app']) && $params['working'] != $params['root']) {
-                $params['root'] = dirname($params['working']);
-                $params['app'] = basename($params['working']);
-            } else {
-                $params['root'] = $params['working'];
-            }
-        }
+			return false;
+		}
+		if ( in_array( $shell, array( 'help', '--help', '-h' ) ) ) {
+			$this->help();
 
-        if ($params['app'][0] === '/' || preg_match('/([a-z])(:)/i', $params['app'], $matches)) {
-            $params['root'] = dirname($params['app']);
-        } elseif (strpos($params['app'], '/')) {
-            $params['root'] .= '/' . dirname($params['app']);
-        }
+			return true;
+		}
 
-        $params['app'] = basename($params['app']);
-        $params['working'] = rtrim($params['root'], '/');
-        if (!$isWin || !preg_match('/^[A-Z]:$/i', $params['app'])) {
-            $params['working'] .= '/' . $params['app'];
-        }
+		$Shell = $this->_getShell( $shell );
 
-        if (!empty($matches[0]) || !empty($isWin)) {
-            $params = str_replace('/', '\\', $params);
-        }
+		$command = null;
+		if ( isset( $this->args[0] ) ) {
+			$command = $this->args[0];
+		}
 
-        $this->params = array_merge($this->params, $params);
-    }
+		if ( $Shell instanceof Shell ) {
+			$Shell->initialize();
 
-    /**
-     * Parses out the paths from from the argv
-     *
-     * @param array $args
-     * @return void
-     */
-    protected function _parsePaths($args)
-    {
-        $parsed = array();
-        $keys = array('-working', '--working', '-app', '--app', '-root', '--root');
-        foreach ($keys as $key) {
-            while (($index = array_search($key, $args)) !== false) {
-                $keyname = str_replace('-', '', $key);
-                $valueIndex = $index + 1;
-                $parsed[$keyname] = $args[$valueIndex];
-                array_splice($args, $index, 2);
-            }
-        }
-        $this->args = $args;
-        $this->params = $parsed;
-    }
+			return $Shell->runCommand( $command, $this->args );
+		}
+		$methods = array_diff( get_class_methods( $Shell ), get_class_methods( 'Shell' ) );
+		$added   = in_array( $command, $methods );
+		$private = $command[0] === '_' && method_exists( $Shell, $command );
 
-    /**
-     * Removes first argument and shifts other arguments up
-     *
-     * @return mixed Null if there are no arguments otherwise the shifted argument
-     */
-    public function shiftArgs()
-    {
-        return array_shift($this->args);
-    }
+		if ( ! $private ) {
+			if ( $added ) {
+				$this->shiftArgs();
+				$Shell->startup();
 
-    /**
-     * Shows console help. Performs an internal dispatch to the CommandList Shell
-     *
-     * @return void
-     */
-    public function help()
-    {
-        $this->args = array_merge(array('command_list'), $this->args);
-        $this->dispatch();
-    }
+				return $Shell->{$command}();
+			}
+			if ( method_exists( $Shell, 'main' ) ) {
+				$Shell->startup();
 
-    /**
-     * Stop execution of the current script
-     *
-     * @param integer|string $status see http://php.net/exit for values
-     * @return void
-     */
-    protected function _stop($status = 0)
-    {
-        exit($status);
-    }
+				return $Shell->main();
+			}
+		}
+
+		throw new MissingShellMethodException( array( 'shell' => $shell, 'method' => $command ) );
+	}
+
+	/**
+	 * Shows console help. Performs an internal dispatch to the CommandList Shell
+	 *
+	 * @return void
+	 */
+	public function help() {
+		$this->args = array_merge( array( 'command_list' ), $this->args );
+		$this->dispatch();
+	}
+
+	/**
+	 * Get shell to use, either plugin shell or application shell
+	 *
+	 * All paths in the loaded shell paths are searched.
+	 *
+	 * @param string $shell Optionally the name of a plugin
+	 *
+	 * @return mixed An object
+	 * @throws MissingShellException when errors are encountered.
+	 */
+	protected function _getShell( $shell ) {
+		list( $plugin, $shell ) = pluginSplit( $shell, true );
+
+		$plugin = Inflector::camelize( $plugin );
+		$class  = Inflector::camelize( $shell ) . 'Shell';
+
+		App::uses( 'Shell', 'Console' );
+		App::uses( 'AppShell', 'Console/Command' );
+		App::uses( $class, $plugin . 'Console/Command' );
+
+		if ( ! class_exists( $class ) ) {
+			throw new MissingShellException( array(
+				'class' => $class
+			) );
+		}
+		$Shell         = new $class();
+		$Shell->plugin = trim( $plugin, '.' );
+
+		return $Shell;
+	}
 
 }

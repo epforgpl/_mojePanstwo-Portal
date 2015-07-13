@@ -1,14 +1,42 @@
 (function (a) {
     function b(b, c) {
-        var h, i, j, k, l, m, p, r, s, t, w, x, E, e = jQuery.extend({}, {width: b.width(), height: b.height(), hwratio: 1, enable: !0, draggable: !0, gravitydriven: !1, template: 1, maxspeed: 4, attenuation: .01, perspective: .4, sensitivityx: .05, sensitivityy: .05, fadein: 800, fog: .5, zsort: !0, fps: 60, fpsmobile: 30, scale: 1, imgscale: 0, onclick: function () {
-        }}, c), f = 0, g = 0, n = 0, o = 0, q = 0, u = -1, v = -1, y = !1, z = !1, A = !1, B = {}, C = null, D = 0;
+        var h, i, j, k, l, m, p, r, s, t, w, x, E, e = jQuery.extend({}, {
+            width: b.width(),
+            height: b.height(),
+            hwratio: 1,
+            enable: !0,
+            draggable: !0,
+            gravitydriven: !1,
+            template: 1,
+            maxspeed: 4,
+            attenuation: .01,
+            perspective: .4,
+            sensitivityx: .05,
+            sensitivityy: .05,
+            fadein: 800,
+            fog: .5,
+            zsort: !0,
+            fps: 60,
+            fpsmobile: 30,
+            scale: 1,
+            imgscale: 0,
+            onclick: function () {
+            }
+        }, c), f = 0, g = 0, n = 0, o = 0, q = 0, u = -1, v = -1, y = !1, z = !1, A = !1, B = {}, C = null, D = 0;
         Date.now === void 0 && (Date.now = function () {
-            return(new Date).getTime()
+            return (new Date).getTime()
         });
         var F = Date.now(), G = function () {
-            b.attr("unselectable", "on").css({"-moz-user-select": "none", "-o-user-select": "none", "-khtml-user-select": "none", "-webkit-user-select": "none", "-ms-user-select": "none", "user-select": "none"}).each(function () {
+            b.attr("unselectable", "on").css({
+                "-moz-user-select": "none",
+                "-o-user-select": "none",
+                "-khtml-user-select": "none",
+                "-webkit-user-select": "none",
+                "-ms-user-select": "none",
+                "user-select": "none"
+            }).each(function () {
                 a(this).attr("unselectable", "on").bind("selectstart", function () {
-                    return!1
+                    return !1
                 })
             }), b.find("img").bind("dragstart", function (a) {
                 a.preventDefault()
@@ -62,7 +90,7 @@
                 var d = a.originalEvent.touches[0] || a.originalEvent.changedTouches[0];
                 b = d.pageX, c = d.pageY
             } else b = a.clientX, c = a.clientY;
-            return{x: b, y: c}
+            return {x: b, y: c}
         }, R = function (c) {
             switch (c.type) {
                 case"touchmove":
@@ -155,7 +183,7 @@
             a.x = a.x * h - a.z * k, a.z = b * i - a.y * j, a.y = b * j + a.y * i
         }, Y = function (a) {
             var b = .5 * (a.z * e.perspective + 1);
-            return{x: (a.x * b + .5) * e.width, y: (a.y * b + .5) * e.height}
+            return {x: (a.x * b + .5) * e.width, y: (a.y * b + .5) * e.height}
         }, Z = function () {
             _(), -1 == u && (V(), u = setInterval(S, E))
         }, $ = function () {
@@ -174,7 +202,7 @@
         }, db = function () {
             for (var b, c = [], d = [], e = 0; s > e; e++)t[e].img ? (b = a(r[e]), t[e].img = !1, d[e] = !0) : (b = a(r[e]).find("img"), d[e] = !1), c[e] = b.length, b.each(function () {
                 jQuery.data(this, "layerindex", e)
-            }).one("load",function () {
+            }).one("load", function () {
                 var b = a(this), e = jQuery.data(this, "layerindex");
                 if (c[e]--, 0 == c[e]) {
                     var f = a(r[e]);
@@ -221,7 +249,7 @@
             }
             return c
         }, gb = function () {
-            return{x: 2 * Math.random() - 1, y: 2 * Math.random() - 1, z: 2 * Math.random() - 1}
+            return {x: 2 * Math.random() - 1, y: 2 * Math.random() - 1, z: 2 * Math.random() - 1}
         }, hb = 0, ib = 0, jb = function (a, b) {
             if (0 == a)return kb(Math.PI, 0);
             if (a == b - 1)return kb(0, 0);
@@ -230,7 +258,7 @@
             return c = Math.acos(e), d = (ib + 2 * (3.6 / Math.sqrt(b)) / (hb + f)) % (2 * Math.PI), hb = f, ib = d, kb(c, d)
         }, kb = function (a, b) {
             var c = Math.cos(a), d = Math.sin(a) * Math.cos(b), e = Math.sin(a) * Math.sin(b);
-            return{x: d, y: e, z: c}
+            return {x: d, y: e, z: c}
         }, lb = function (a, b, c) {
             b = a > b ? a : b;
             var h, d = c ? .8 * Math.PI / b : Math.PI / b, e = .1 * Math.PI;
@@ -238,25 +266,29 @@
         }, mb = function (a, b) {
             b = a > b ? a : b;
             var c = Math.sin(2 * Math.PI * a / b), d = Math.cos(2 * Math.PI * a / b);
-            return{x: c, y: d, z: 0}
+            return {x: c, y: d, z: 0}
         }, ob = function (a, b) {
             b = a > b ? a : b;
             var c = .25 * Math.PI + 2 * Math.PI * (a % 4) / 4, d = 4 * Math.ceil((a + 1) / 4) / b, e = d * Math.sin(c), f = d * Math.cos(c);
-            return{x: e, y: f, z: 0}
+            return {x: e, y: f, z: 0}
         }, pb = function (a, b) {
             b = a > b ? a : b;
             var d, e, c = 8 * a / b;
-            return 2 > c ? (d = c - 1, e = -1) : 4 > c ? (d = 1, e = c - 3) : 6 > c ? (d = 5 - c, e = 1) : (d = -1, e = 7 - c), {x: d, y: e, z: 0}
+            return 2 > c ? (d = c - 1, e = -1) : 4 > c ? (d = 1, e = c - 3) : 6 > c ? (d = 5 - c, e = 1) : (d = -1, e = 7 - c), {
+                x: d,
+                y: e,
+                z: 0
+            }
         }, qb = function (a, b, c) {
             var d = 1, e = 4.4 * Math.PI / b, f = 2 * (a / b - .5) / d, g = Math.cos(a * e) / d, h = Math.sin(a * e) / d;
-            return{x: c ? f : h, y: c ? h : f, z: g}
+            return {x: c ? f : h, y: c ? h : f, z: g}
         }, rb = function (a, b) {
             var c = 1, d = 6 * Math.PI / b, e = 2 * (Math.pow(a / b, .8) - .5) / c, f = a * Math.cos(a * d) / (b * c), g = a * Math.sin(a * d) / (b * c);
-            return{x: g, y: e, z: f}
+            return {x: g, y: e, z: f}
         }, sb = function (a) {
             var b = a.toLowerCase();
-            if (b == "false" + "" || b == "no" + "")return!1;
-            if (b == "true" + "" || b == "yes" + "")return!0;
+            if (b == "false" + "" || b == "no" + "")return !1;
+            if (b == "true" + "" || b == "yes" + "")return !0;
             var c = parseFloat(a);
             return 0 == isNaN(c) ? c : a
         }, tb = function () {
@@ -301,7 +333,7 @@
     var c = "cloud";
     a.fn[c] = function (d) {
         var f, g, e = arguments;
-        if (0 == this.length)return!1;
+        if (0 == this.length)return !1;
         if (f = a(this), g = f.data(c)) {
             if (g[d])return g[d].apply(this, Array.prototype.slice.call(e, 1))
         } else if ("object" == typeof d || !d)return f.data(c, new b(f, d))

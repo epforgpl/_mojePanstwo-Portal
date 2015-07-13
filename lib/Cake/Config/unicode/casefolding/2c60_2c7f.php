@@ -39,11 +39,43 @@
  *     Note that the Turkic mappings do not maintain canonical equivalence without additional processing.
  *     See the discussions of case mapping in the Unicode Standard for more information.
  */
-$config['2c60_2c7f'][] = array('upper' => 11360, 'status' => 'C', 'lower' => array(11361)); /* LATIN CAPITAL LETTER L WITH DOUBLE BAR */
-$config['2c60_2c7f'][] = array('upper' => 11362, 'status' => 'C', 'lower' => array(619)); /* LATIN CAPITAL LETTER L WITH MIDDLE TILDE */
-$config['2c60_2c7f'][] = array('upper' => 11363, 'status' => 'C', 'lower' => array(7549)); /* LATIN CAPITAL LETTER P WITH STROKE */
-$config['2c60_2c7f'][] = array('upper' => 11364, 'status' => 'C', 'lower' => array(637)); /* LATIN CAPITAL LETTER R WITH TAIL */
-$config['2c60_2c7f'][] = array('upper' => 11367, 'status' => 'C', 'lower' => array(11368)); /* LATIN CAPITAL LETTER H WITH DESCENDER */
-$config['2c60_2c7f'][] = array('upper' => 11369, 'status' => 'C', 'lower' => array(11370)); /* LATIN CAPITAL LETTER K WITH DESCENDER */
-$config['2c60_2c7f'][] = array('upper' => 11371, 'status' => 'C', 'lower' => array(11372)); /* LATIN CAPITAL LETTER Z WITH DESCENDER */
-$config['2c60_2c7f'][] = array('upper' => 11381, 'status' => 'C', 'lower' => array(11382)); /* LATIN CAPITAL LETTER HALF H */
+$config['2c60_2c7f'][] = array(
+	'upper'  => 11360,
+	'status' => 'C',
+	'lower'  => array( 11361 )
+); /* LATIN CAPITAL LETTER L WITH DOUBLE BAR */
+$config['2c60_2c7f'][] = array(
+	'upper'  => 11362,
+	'status' => 'C',
+	'lower'  => array( 619 )
+); /* LATIN CAPITAL LETTER L WITH MIDDLE TILDE */
+$config['2c60_2c7f'][] = array(
+	'upper'  => 11363,
+	'status' => 'C',
+	'lower'  => array( 7549 )
+); /* LATIN CAPITAL LETTER P WITH STROKE */
+$config['2c60_2c7f'][] = array(
+	'upper'  => 11364,
+	'status' => 'C',
+	'lower'  => array( 637 )
+); /* LATIN CAPITAL LETTER R WITH TAIL */
+$config['2c60_2c7f'][] = array(
+	'upper'  => 11367,
+	'status' => 'C',
+	'lower'  => array( 11368 )
+); /* LATIN CAPITAL LETTER H WITH DESCENDER */
+$config['2c60_2c7f'][] = array(
+	'upper'  => 11369,
+	'status' => 'C',
+	'lower'  => array( 11370 )
+); /* LATIN CAPITAL LETTER K WITH DESCENDER */
+$config['2c60_2c7f'][] = array(
+	'upper'  => 11371,
+	'status' => 'C',
+	'lower'  => array( 11372 )
+); /* LATIN CAPITAL LETTER Z WITH DESCENDER */
+$config['2c60_2c7f'][] = array(
+	'upper'  => 11381,
+	'status' => 'C',
+	'lower'  => array( 11382 )
+); /* LATIN CAPITAL LETTER HALF H */

@@ -5,10 +5,6 @@ App::uses('DataobjectsController', 'Dane.Controller');
 class KolejLinieController extends DataobjectsController
 {
     public $menu = array();
+    public $initLayers = array('rozklad');
 
-    public function view()
-    {
-        parent::view();
-        $this->object->loadLayer('rozklad');
-    }
 } 

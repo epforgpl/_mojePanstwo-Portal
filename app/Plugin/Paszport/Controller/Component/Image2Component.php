@@ -21,7 +21,26 @@ class Image2Component extends Component
     public $helpers = array(
         'Html'
     );
-
+    /**
+     * Original image sizes
+     *
+     * @var array
+     */
+    public $sizes = false;
+    /**
+     * Server path
+     *
+     * @var string
+     */
+    public $serverPath = false;
+    /**
+     * Cache dir for "resize" method, relative to 'img'.DS
+     * retained for backward compatibility
+     *
+     * @var array
+     */
+    public $cacheDir = 'resized';
+    public $sourceDir = '';
     /**
      * Cache filename
      *
@@ -30,34 +49,38 @@ class Image2Component extends Component
     protected $_cacheServerPath = false;
 
     /**
-     * Original image sizes
+     * Resize image
      *
-     * @var array
-     */
-    public $sizes = false;
-
-    /**
-     * Server path
+     * @param integer $width
+     * @param integer $height
+     * @param boolean $ratio
      *
-     * @var string
+     * @return object
      */
-    public $serverPath = false;
+    public function resizeit($width, $height, $ratio = true)
+    {
 
-    /**
-     * Cache dir for "resize" method, relative to 'img'.DS
-     * retained for backward compatibility
-     *
-     * @var array
-     */
-    public $cacheDir = 'resized';
+        if ($this->_cacheServerPath) {
+            $this->source($this->_cacheServerPath, true);
+        }
+        if ($ratio) {
+            if (($this->sizes[1] / $height) > ($this->sizes[0] / $width)) {
+                $width = ceil(($this->sizes[0] / $this->sizes[1]) * $height);
+            } else {
+                $height = ceil($width / ($this->sizes[0] / $this->sizes[1]));
+            }
+        }
+        $this->_nativeResize(0, 0, $width, $height, 'resize');
 
-    public $sourceDir = '';
+        return $this;
+    }
 
     /**
      * Load image
      *
      * @param string $path Path to image relative to webroot
      * @param boolean $absolute Path is absolute server path
+     *
      * @return object $this
      */
     public function source($path = '', $absolute = false)
@@ -75,67 +98,7 @@ class Image2Component extends Component
         if ($this->sizes = @getimagesize($path)) {
             $this->serverPath = $path;
         }
-        return $this;
-    }
 
-    /**
-     * Resize image
-     *
-     * @param integer $width
-     * @param integer $height
-     * @param boolean $ratio
-     * @return object
-     */
-    public function resizeit($width, $height, $ratio = true)
-    {
-
-        if ($this->_cacheServerPath) {
-            $this->source($this->_cacheServerPath, true);
-        }
-        if ($ratio) {
-            if (($this->sizes[1] / $height) > ($this->sizes[0] / $width)) {
-                $width = ceil(($this->sizes[0] / $this->sizes[1]) * $height);
-            } else {
-                $height = ceil($width / ($this->sizes[0] / $this->sizes[1]));
-            }
-        }
-        $this->_nativeResize(0, 0, $width, $height, 'resize');
-        return $this;
-    }
-
-    /**
-     * Crop image
-     *
-     * @param integer $width
-     * @param integer $height
-     * @param boolean $resize Resize image before croping
-     * @return object
-     */
-    public function crop($width, $height, $resize = true)
-    {
-
-        if ($this->_cacheServerPath) {
-            $this->source($this->_cacheServerPath, true);
-        }
-        if ($resize) {
-            $ratio_x = $width / $this->sizes[0];
-            $ratio_y = $height / $this->sizes[1];
-            if (($ratio_y) > ($ratio_x)) {
-                $start_x = round(($this->sizes[0] - ($width / $ratio_y)) / 2);
-                $start_y = 0;
-                $this->sizes[0] = round($width / $ratio_y);
-            } else {
-                $start_x = 0;
-                $start_y = round(($this->sizes[1] - ($height / $ratio_x)) / 2);
-                $this->sizes[1] = round($height / $ratio_x);
-            }
-        } else {
-            $start_x = intval(($this->sizes[0] - $width) / 2);
-            $start_y = intval(($this->sizes[1] - $height) / 2);
-            $this->sizes[0] = $width;
-            $this->sizes[1] = $height;
-        }
-        $this->_nativeResize($start_x, $start_y, $width, $height, 'crop');
         return $this;
     }
 
@@ -146,12 +109,20 @@ class Image2Component extends Component
      * @param int $start_y ;
      * @param int $width ;
      * @param int $height
+     *
      * @return void
      */
     protected function _nativeResize($start_x, $start_y, $width, $height, $method = 'na')
     {
         $cache_dir = dirname($this->serverPath) . DS;
-        $cache_path = $cache_dir . implode('_', array($start_x, $start_y, $width, $height, $method, basename($this->serverPath)));
+        $cache_path = $cache_dir . implode('_', array(
+                $start_x,
+                $start_y,
+                $width,
+                $height,
+                $method,
+                basename($this->serverPath)
+            ));
         if (file_exists($cache_path)) {
             if (@filemtime($cache_path) >= @filemtime($this->serverPath)) { // check if up to date
                 $this->_cacheServerPath = $cache_path;
@@ -186,11 +157,50 @@ class Image2Component extends Component
     }
 
     /**
+     * Crop image
+     *
+     * @param integer $width
+     * @param integer $height
+     * @param boolean $resize Resize image before croping
+     *
+     * @return object
+     */
+    public function crop($width, $height, $resize = true)
+    {
+
+        if ($this->_cacheServerPath) {
+            $this->source($this->_cacheServerPath, true);
+        }
+        if ($resize) {
+            $ratio_x = $width / $this->sizes[0];
+            $ratio_y = $height / $this->sizes[1];
+            if (($ratio_y) > ($ratio_x)) {
+                $start_x = round(($this->sizes[0] - ($width / $ratio_y)) / 2);
+                $start_y = 0;
+                $this->sizes[0] = round($width / $ratio_y);
+            } else {
+                $start_x = 0;
+                $start_y = round(($this->sizes[1] - ($height / $ratio_x)) / 2);
+                $this->sizes[1] = round($height / $ratio_x);
+            }
+        } else {
+            $start_x = intval(($this->sizes[0] - $width) / 2);
+            $start_y = intval(($this->sizes[1] - $height) / 2);
+            $this->sizes[0] = $width;
+            $this->sizes[1] = $height;
+        }
+        $this->_nativeResize($start_x, $start_y, $width, $height, 'crop');
+
+        return $this;
+    }
+
+    /**
      * Add watermark
      *
      * @param string $watermark_image Watermark PNG image path related to webroot e.g. img/watermark.png
      * @param string $position (center, overlay, more will be added shortly)
      * @param boolean $watermark_absolute_path true if is watermark path server absolute
+     *
      * @return object
      */
     public function watermark($watermark_path, $position = 'center', $watermark_absolute_path = false)
@@ -209,6 +219,7 @@ class Image2Component extends Component
         if (file_exists($cache_path)) {
             if (@filemtime($cache_path) > @filemtime($this->_cacheServerPath)) { // check if up to date
                 $this->_cacheServerPath = $cache_path;
+
                 return $this;
             }
         }
@@ -261,6 +272,7 @@ class Image2Component extends Component
 
         $this->_cacheServerPath = $cache_path;
         unset($watermark);
+
         return $this;
     }
 
@@ -284,6 +296,7 @@ class Image2Component extends Component
 
         $content = base64_encode(file_get_contents($this->_cacheServerPath));
         $content = 'data:' . $this->sizes['mime'] . ';base64,' . $content;
+
         return $content;
     }
 
@@ -298,14 +311,16 @@ class Image2Component extends Component
      * @param array $htmlAttributes Array of HTML attributes.
      * @param boolean $return Wheter this method should return a value or output it. This overrides AUTO_OUTPUT. (!!! DEPRECATED, NOT USED)
      * @param string $server_path Local server path to file
+     *
      * @return mixed    Either string or echos the value, depends on AUTO_OUTPUT and $return.
      * @access public
      */
     public function resize($path, $width, $height, $method = 'resizeRatio', $htmlAttributes = array(), $return = false, $server_path = false)
     {
         $types = array(1 => "gif", "jpeg", "png", "swf", "psd", "wbmp"); // used to determine image type
-        if (empty($htmlAttributes['alt']))
-            $htmlAttributes['alt'] = 'thumb'; // Ponemos alt default
+        if (empty($htmlAttributes['alt'])) {
+            $htmlAttributes['alt'] = 'thumb';
+        } // Ponemos alt default
 
         $uploadsDir = 'uploads';
 
@@ -317,7 +332,9 @@ class Image2Component extends Component
         }
 
         if (!($size = getimagesize($url))) // $size[0]:width, [1]:height, [2]:type
-            return; // image doesn't exist
+        {
+            return;
+        } // image doesn't exist
 
 
         switch ($method) {

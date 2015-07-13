@@ -23,36 +23,48 @@
  *
  * @package       Cake.Test.Fixture
  */
-class TranslateTableFixture extends CakeTestFixture
-{
+class TranslateTableFixture extends CakeTestFixture {
 
-    /**
-     * table property
-     *
-     * @var string 'another_i18n'
-     */
-    public $table = 'another_i18n';
+	/**
+	 * table property
+	 *
+	 * @var string 'another_i18n'
+	 */
+	public $table = 'another_i18n';
 
-    /**
-     * fields property
-     *
-     * @var array
-     */
-    public $fields = array(
-        'id' => array('type' => 'integer', 'key' => 'primary'),
-        'locale' => array('type' => 'string', 'length' => 6, 'null' => false),
-        'model' => array('type' => 'string', 'null' => false),
-        'foreign_key' => array('type' => 'integer', 'null' => false),
-        'field' => array('type' => 'string', 'null' => false),
-        'content' => array('type' => 'text'));
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
+	public $fields = array(
+		'id'          => array( 'type' => 'integer', 'key' => 'primary' ),
+		'locale'      => array( 'type' => 'string', 'length' => 6, 'null' => false ),
+		'model'       => array( 'type' => 'string', 'null' => false ),
+		'foreign_key' => array( 'type' => 'integer', 'null' => false ),
+		'field'       => array( 'type' => 'string', 'null' => false ),
+		'content'     => array( 'type' => 'text' )
+	);
 
-    /**
-     * records property
-     *
-     * @var array
-     */
-    public $records = array(
-        array('locale' => 'eng', 'model' => 'TranslatedItemWithTable', 'foreign_key' => 1, 'field' => 'title', 'content' => 'Another Title #1'),
-        array('locale' => 'eng', 'model' => 'TranslatedItemWithTable', 'foreign_key' => 1, 'field' => 'content', 'content' => 'Another Content #1')
-    );
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
+	public $records = array(
+		array(
+			'locale'      => 'eng',
+			'model'       => 'TranslatedItemWithTable',
+			'foreign_key' => 1,
+			'field'       => 'title',
+			'content'     => 'Another Title #1'
+		),
+		array(
+			'locale'      => 'eng',
+			'model'       => 'TranslatedItemWithTable',
+			'foreign_key' => 1,
+			'field'       => 'content',
+			'content'     => 'Another Content #1'
+		)
+	);
 }

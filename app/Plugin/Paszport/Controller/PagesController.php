@@ -49,6 +49,7 @@ class PagesController extends PaszportAppController
      * Displays a view
      *
      * @param mixed What page to display
+     *
      * @return void
      */
     public function beforeFilter()

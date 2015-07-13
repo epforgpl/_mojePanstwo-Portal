@@ -22,6 +22,21 @@ msgstr "Przebieg prac"
 msgid "LC_DANE_ODPOWIEDZI"
 msgstr "Odpowiedzi"
 
+msgid "LC_DANE_FILTER_DAYBUTTON_SINGLE"
+msgstr "Dnia"
+
+msgid "LC_DANE_FILTER_DAYS_SINGLE_PLACEHOLDER"
+msgstr "Podaj datę..."
+
+msgid "LC_DANE_FILTER_DAYS_MULTI_FROM_PLACEHOLDER"
+msgstr "Od dnia..."
+
+msgid "LC_DANE_FILTER_DAYS_MULTI_TILL_PLACEHOLDER"
+msgstr "Do dnia..."
+
+msgid "LC_DANE_FILTER_DAYBUTTON_MULTI"
+msgstr "Od-Do"
+
 msgid "LC_DANE_TOOLBAR_LOADEDALLDOC"
 msgstr "Załadowano cały dokument"
 
@@ -373,6 +388,9 @@ msgstr "Kliknij nazwę gminy, aby zobaczyć więcej informacji o niej."
 msgid "LC_DANE_VIEW_KODYPOCZTOWE_HINT_MIEJSCOWOSC"
 msgstr "Kliknij nazwę miejscowości lub ulicy, aby zobaczyć ją na mapie."
 
+msgid "LC_DANE_VIEW_KRSPODMIOTY_BRAK_POWIAZAN"
+msgstr "Brak powiązań z podmiotami i osobami"
+
 msgid "LC_DANE_VIEW_KRSPODMIOTY_INFORMACJE"
 msgstr "Informacje podstawowe"
 
@@ -440,7 +458,37 @@ msgid "LC_DANE_VIEW_KRSPODMIOTY_SYGNATURA"
 msgstr "Sygnatura akt"
 
 msgid "LC_DANE_VIEW_KRSPODMIOTY_OTWORZ_MAPE"
-msgstr "Otwórz mapę"
+msgstr "Mapa Google"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_OTWORZ_MAPE_STREET"
+msgstr "Street View"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_DATA_URODZENIA"
+msgstr "Data urodzenia"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_PLEC"
+msgstr "Płeć"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_KOBIETA"
+msgstr "Kobieta"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_MEZCZYZNA"
+msgstr "Mężczyzna"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_IMIONA"
+msgstr "Imiona"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_NAZWISKO"
+msgstr "Nazwisko"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_KAPITAL_ZAKLADOWY"
+msgstr "Kapitał zakładowy"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_LINK"
+msgstr "Przejdź do elementu"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_NO_STREETVIEW_PICTURE_AVAILABLE"
+msgstr "Brak dostępnego zdjęcia Street View"
 
 msgid "LC_DANE_GMINA_DO_KTOREJ_ZOSTAL_WYBRANY_RADNY"
 msgstr "Gmina, do której rady został wybrany radny"
@@ -695,7 +743,7 @@ msgid "LC_KOLEJLINIE_ODJAZD"
 msgstr "Odjazd"
 
 msgid "LC_GMINY_WYNIKI_WYBOROW"
-msgstr "Wyniki wyborów do rady gminy"
+msgstr "Radni gminy"
 
 msgid "LC_GMINY_POSIEDZENIA_GMINY"
 msgstr "Posiedzenia rady gminy"
@@ -716,10 +764,16 @@ msgid "LC_GMINY_ZAMOWIENIA_PUBLICZNE"
 msgstr "Zamówienia publiczne"
 
 msgid "LC_DANE_BDL_GRUPY_DLA_KATEGORII"
-msgstr "Grupy dla kategorii: %s"
+msgstr "Grupy w tej kategorii"
 
 msgid "LC_DANE_BDL_WSKAZNIKI_W_GRUPIE"
-msgstr "Wskazniki w grupie: %s"
+msgstr "Wskazniki w tej grupie"
+
+msgid "LC_DANE_BDL_WSKAZNIKI_POKAZ_WIECEJ"
+msgstr "Pokaż więcej"
+
+msgid "LC_DANE_BDL_WSKAZNIKI_POKAZ_MNIEJ"
+msgstr "Pokaż mniej"
 
 msgid "LC_DANE_WSKAZNIKI_W_GMINIE"
 msgstr "Wskaźniki w gminie %s"
@@ -901,8 +955,20 @@ msgstr "Rok"
 msgid "LC_BDL_WSKAZNIKI_PRZYROST"
 msgstr "Przyrost"
 
+msgid "LC_BDL_WSKAZNIKI_SEARCH_PLACEHOLDER_WOJEWODZTWA"
+msgstr "Szukaj województwa..."
+
+msgid "LC_BDL_WSKAZNIKI_SEARCH_PLACEHOLDER_POWIAT"
+msgstr "Szukaj powiatu..."
+
+msgid "LC_BDL_WSKAZNIKI_SEARCH_PLACEHOLDER_GMINY"
+msgstr "Szukaj gminy..."
+
 msgid "LC_BDL_WSKAZNIKI_SEARCH_PLACEHOLDER"
 msgstr "Wpisz szukaną frazę..."
+
+msgid "LC_SEJMGLOSOWANIA_KLUBY_HEADER"
+msgstr "Wyniki klubowe"
 
 msgid "LC_SEJMGLOSOWANIA_KLUBY_NAZWAKLUBU"
 msgstr "Nazwa klubu"
@@ -927,3 +993,110 @@ msgstr "Wstrzymali się"
 
 msgid "LC_SEJMGLOSOWANIA_KLUBY_LICZBABUNTOW"
 msgstr "Liczba buntów"
+
+msgid "LC_SEJMGLOSOWANIA_INDYWIDUALNE_HEADER"
+msgstr "Wyniki indywidualne"
+
+msgid "LC_SEJMGLOSOWANIA_INDYWIDUALNE_HEADER_SEARCH_PLACEHOLDER"
+msgstr "Szukaj po imieniu bądź nazwisku..."
+
+msgid "LC_POSLOWIE_W_KLUBIE"
+msgstr "Posłowie w tym klubie"
+
+
+
+
+
+
+
+
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_przedmiot"
+msgstr "Przedmiot zamówienia"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_uprawnienie"
+msgstr "Uprawnienia do wykonywania określonej działalności lub czynności"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_wiedza"
+msgstr "Wiedza i doświadczenie"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_potencjal"
+msgstr "Potencjał techniczny"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_osoby_zdolne"
+msgstr "Osoby zdolne do wykonania zamówienia"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_sytuacja_ekonomiczna"
+msgstr "Sytuacja ekonomiczna i finansowa wykonawcy"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_le_wymagania"
+msgstr "Wymagania dotyczące rejestracji w licytacji"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_le_postapien"
+msgstr "Sposób postępowania w toku licytacji"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_zal_pprawna"
+msgstr "Podstawa prawna prowadzenia postępowania w trybie zapytanie o cenę"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_zal_uzasadnienie"
+msgstr "Uzasadnienie wyboru trybu prowadzenia postępowania"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_zamowienie_uzupelniajace"
+msgstr "Zamówienie uzupełniające"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_wadium"
+msgstr "Wadium"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_wybor_wykonawcow"
+msgstr "Wybór wykonawców"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_zmieniona_umowa"
+msgstr "Dopuszczalność zmiany umowy"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_aukcja_www"
+msgstr "Aukajca WWW"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_siwz_www"
+msgstr "SIWZ"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_siwz_adres"
+msgstr "Adres pod którym dostępny jest SIWZ"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_dk_potrzeby"
+msgstr "Potrzeby"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_dk_nagrody"
+msgstr "Nagrody"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_oferty_miejsce"
+msgstr "Miejsce składania ofert"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_umowa_zabezpieczenia"
+msgstr "Umowa zabezpieczenia"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_umowa_istotne_postanowienia"
+msgstr "Istotne postanowienia umowy"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_info"
+msgstr "Inne informacje"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_inne_dokumenty"
+msgstr "Inne dokumenty"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_inne_dok_potw"
+msgstr "Inne dokumenty potwierdzjące"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_niepelnosprawne"
+msgstr "Osoby niepełnosprawne"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_zal_pprawna_hid"
+msgstr "Podstawa prawna prowadzenia postępowania"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_zamowienie_pprawna"
+msgstr "Podstawa prawna prowadzenia postępowania"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_zamowienie_pprawna_hid"
+msgstr "Podstawa prawna prowadzenia postępowania"
+
+msgid "LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_zamowienie_uzasadnienie"
+msgstr "Uzasadnienie wyboru trybu prowadzenia postępowania"

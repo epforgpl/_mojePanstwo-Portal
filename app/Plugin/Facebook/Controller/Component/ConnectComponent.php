@@ -75,8 +75,10 @@ class ConnectComponent extends Component
     /**
      * Initialize, load the api, decide if we're logged in
      * Sync the connected Facebook user with your application
+     *
      * @param controller object to attach to
      * @param settings for Connect
+     *
      * @return void
      * @access public
      */
@@ -95,6 +97,7 @@ class ConnectComponent extends Component
      * Currently the uid is fetched from $this->uid
      *
      * @param controller object to attach to
+     *
      * @return void
      */
     public function startup(Controller $controller)
@@ -103,18 +106,6 @@ class ConnectComponent extends Component
         if (!$this->noAuth && !empty($this->uid)) {
             $this->__syncFacebookUser();
         }
-    }
-
-    /**
-     * Get registration Data
-     * @return associative array of registration data (if there is any)
-     */
-    function registrationData()
-    {
-        if (isset($this->Controller->request->data['signed_request'])) {
-            return FacebookInfo::parseSignedRequest($this->Controller->request->data['signed_request']);
-        }
-        return array();
     }
 
     /**
@@ -144,6 +135,7 @@ class ConnectComponent extends Component
         // if you don't have a facebook_id field in your user table, throw an error
         if (!$this->User->hasField('facebook_id')) {
             $this->__error("Facebook.Connect handleFacebookUser Error.  facebook_id not found in {$Auth->userModel} table.");
+
             return false;
         }
 
@@ -155,6 +147,7 @@ class ConnectComponent extends Component
             if (!$this->User->field('facebook_id')) {
                 $this->User->saveField('facebook_id', $this->uid);
             }
+
             return true;
         } else {
             // attempt to find the user by their facebook id
@@ -185,12 +178,81 @@ class ConnectComponent extends Component
                     $this->__runCallback('afterFacebookLogin');
                 }
             }
+
             return true;
         }
     }
 
     /**
+     * Initialize the actual User model object defined by the plugin
+     * @return true if successful
+     * @access private
+     */
+    private function __initUserModel()
+    {
+        if ($this->model) {
+            $plugin = '';
+            if ($this->plugin) {
+                $plugin = $this->plugin . '.';
+            }
+            App::uses($this->model, $plugin . 'Model');
+            $this->User = ClassRegistry::init($plugin . $this->model);
+        }
+        if (isset($this->User)) {
+            $this->User->recursive = -1;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Handle errors.
+     *
+     * @param string of error message
+     *
+     * @return void
+     * @access private
+     */
+    private function __error($msg)
+    {
+        $this->errors[] = __($msg, true);
+    }
+
+    /**
+     * Run the callback if it exists
+     *
+     * @param string callback
+     * @param mixed passed in publiciable (optional)
+     *
+     * @return mixed result of the callback function
+     */
+    private function __runCallback($callback, $passedIn = null)
+    {
+        if (method_exists($this->Controller, $callback)) {
+            return call_user_func_array(array($this->Controller, $callback), array($passedIn));
+        }
+
+        return true;
+    }
+
+    /**
+     * Get registration Data
+     * @return associative array of registration data (if there is any)
+     */
+    function registrationData()
+    {
+        if (isset($this->Controller->request->data['signed_request'])) {
+            return FacebookInfo::parseSignedRequest($this->Controller->request->data['signed_request']);
+        }
+
+        return array();
+    }
+
+    /**
      * Read the logged in user
+     *
      * @param field key to return (xpath without leading slash)
      * @param mixed return
      */
@@ -211,6 +273,7 @@ class ConnectComponent extends Component
 
         if ($field) {
             $retval = Set::extract("/$field", $this->me);
+
             return empty($retval) ? null : $retval[0];
         }
 
@@ -279,52 +342,5 @@ class ConnectComponent extends Component
         ));
 
         return $roles;
-    }
-
-    /**
-     * Run the callback if it exists
-     * @param string callback
-     * @param mixed passed in publiciable (optional)
-     * @return mixed result of the callback function
-     */
-    private function __runCallback($callback, $passedIn = null)
-    {
-        if (method_exists($this->Controller, $callback)) {
-            return call_user_func_array(array($this->Controller, $callback), array($passedIn));
-        }
-        return true;
-    }
-
-    /**
-     * Initialize the actual User model object defined by the plugin
-     * @return true if successful
-     * @access private
-     */
-    private function __initUserModel()
-    {
-        if ($this->model) {
-            $plugin = '';
-            if ($this->plugin) {
-                $plugin = $this->plugin . '.';
-            }
-            App::uses($this->model, $plugin . 'Model');
-            $this->User = ClassRegistry::init($plugin . $this->model);
-        }
-        if (isset($this->User)) {
-            $this->User->recursive = -1;
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Handle errors.
-     * @param string of error message
-     * @return void
-     * @access private
-     */
-    private function __error($msg)
-    {
-        $this->errors[] = __($msg, true);
     }
 }

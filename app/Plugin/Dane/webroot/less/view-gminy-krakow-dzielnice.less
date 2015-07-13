@@ -1,0 +1,56 @@
+#_main .objectsPage .objectsPageWindow {
+    position: relative;
+    padding-top: 0;
+
+    .objectsPageContent {
+        margin-top: 0;
+
+        .holder {
+            ul.dzielniceList {
+                position: relative;
+                z-index: 10;
+
+                padding: 6px 12px;
+                background-color: rgba(255, 255, 255, .8);
+                list-style-type: none;
+
+                li a {
+                    padding: 2px 0;
+                    display: block;
+
+                    &.hover, &:hover {
+                        color: #000000;
+                    }
+                }
+            }
+        }
+        #dzielnice_map {
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 500px;
+        }
+        #fundatorzy {
+            margin-bottom: 0;
+        }
+    }
+}
+
+@media (min-width: 728px) {
+    #_main .objectsPage .objectsPageWindow .objectsPageContent {
+        .holder {
+            position: relative;
+            min-height: 500px;
+
+            ul.dzielniceList {
+                position: absolute;
+                right: 0;
+                top: 20px;
+            }
+        }
+        #dzielnice_map {
+            position: absolute;
+        }
+    }
+}

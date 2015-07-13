@@ -12,11 +12,11 @@
 require "lib/OAuth2StoragePDO.php";
 
 try {
-    $oauth = new OAuth2(new OAuth2StoragePDO());
-    $token = $oauth->getBearerToken();
-    $oauth->verifyAccessToken($token);
-} catch (OAuth2ServerException $oauthError) {
-    $oauthError->sendHttpResponse();
+	$oauth = new OAuth2( new OAuth2StoragePDO() );
+	$token = $oauth->getBearerToken();
+	$oauth->verifyAccessToken( $token );
+} catch ( OAuth2ServerException $oauthError ) {
+	$oauthError->sendHttpResponse();
 }
 
 // With a particular scope, you'd do:
@@ -27,7 +27,7 @@ try {
 
 <html>
 <head>
-    <title>Hello!</title>
+	<title>Hello!</title>
 </head>
 <body>
 <p>This is a secret.</p>

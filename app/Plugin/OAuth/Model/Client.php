@@ -3,6 +3,7 @@
 App::uses('OAuthAppModel', 'OAuth.Model');
 App::uses('String', 'Utility');
 
+
 /**
  * Client Model
  *
@@ -12,6 +13,9 @@ App::uses('String', 'Utility');
  */
 class Client extends OAuthAppModel
 {
+
+    public $useTable = false;
+    public $useDbConfig = 'mpAPI';
 
     /**
      * Primary key field
@@ -26,14 +30,6 @@ class Client extends OAuthAppModel
      * @var string
      */
     public $displayField = 'client_id';
-
-    /**
-     * Secret to distribute when using addClient
-     *
-     * @var type
-     */
-    protected $addClientSecret = false;
-
     /**
      * Validation rules
      *
@@ -54,7 +50,6 @@ class Client extends OAuthAppModel
             ),
         ),
     );
-
     public $actsAs = array(
         'OAuth.HashedField' => array(
             'fields' => array(
@@ -62,7 +57,6 @@ class Client extends OAuthAppModel
             ),
         ),
     );
-
     /**
      * hasMany associations
      *
@@ -109,6 +103,12 @@ class Client extends OAuthAppModel
             'counterQuery' => ''
         )
     );
+    /**
+     * Secret to distribute when using addClient
+     *
+     * @var type
+     */
+    protected $addClientSecret = false;
 
     /**
      * AddClient
@@ -116,6 +116,7 @@ class Client extends OAuthAppModel
      * Convinience function for adding client, will create a uuid client_id and random secret
      *
      * @param mixed $data Either an array (e.g. $controller->request->data) or string redirect_uri
+     *
      * @return booleen Success of failure
      */
     public function add($data = null)
@@ -147,7 +148,7 @@ class Client extends OAuthAppModel
         $this->addClientSecret = $this->newClientSecret();
         $this->data['Client']['client_secret'] = $this->addClientSecret;
 
-        return $this->save($this->data);
+        return $this->getDataSource()->request('oauth/clients/save/', $this->data);
     }
 
     /**
@@ -164,6 +165,7 @@ class Client extends OAuthAppModel
         while ($length--) {
             $str .= $chars[mt_rand(0, $count - 1)];
         }
+
         return OAuthComponent::hash($str);
     }
 
@@ -172,13 +174,17 @@ class Client extends OAuthAppModel
         if ($this->addClientSecret) {
             $this->data['Client']['client_secret'] = $this->addClientSecret;
         }
+
         return true;
     }
 
-    public function find($type, $queryData = array())
+    public function getRedirectURL($client_id)
     {
-        $api = mpapiComponent::getApi()->OAuth()->Client();
-        return $api->find($type, $queryData);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://api-v2.mojepanstwo.pl/oauth/clients/' . $client_id);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $response = curl_exec($ch);
+        $data = json_decode($response, true);
+        return $data;
     }
-
 }

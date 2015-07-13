@@ -12,11 +12,40 @@ class UserExpandFixture extends CakeTestFixture
      * @var array
      */
     public $fields = array(
-        'id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'key' => 'primary', 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-        'user_id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'key' => 'index', 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+        'id' => array(
+            'type' => 'string',
+            'null' => false,
+            'default' => null,
+            'length' => 36,
+            'key' => 'primary',
+            'collate' => 'utf8_general_ci',
+            'charset' => 'utf8'
+        ),
+        'user_id' => array(
+            'type' => 'string',
+            'null' => false,
+            'default' => null,
+            'length' => 36,
+            'key' => 'index',
+            'collate' => 'utf8_general_ci',
+            'charset' => 'utf8'
+        ),
         'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
-        'key' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 128, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-        'value' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+        'key' => array(
+            'type' => 'string',
+            'null' => true,
+            'default' => null,
+            'length' => 128,
+            'collate' => 'utf8_general_ci',
+            'charset' => 'utf8'
+        ),
+        'value' => array(
+            'type' => 'text',
+            'null' => true,
+            'default' => null,
+            'collate' => 'utf8_general_ci',
+            'charset' => 'utf8'
+        ),
         'indexes' => array(
             'PRIMARY' => array('column' => 'id', 'unique' => 1),
             'search' => array('column' => array('user_id', 'key'), 'unique' => 1)

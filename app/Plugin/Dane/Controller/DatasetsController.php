@@ -1,37 +1,64 @@
 <?php
 App::uses('CakeTime', 'Utility');
+App::uses('DataobjectsController', 'Dane.Controller');
 
-class DatasetsController extends DaneAppController
+class DatasetsController extends DataobjectsController
 {
 
-    public $components = array(
-        'RequestHandler',
+    public $uses = array('Dane.Dataobject');
+
+    public $_layout = array(
+        'header' => array(
+            'element' => 'dataset',
+        ),
+        'body' => array(
+            'theme' => 'simply'
+        )
     );
 
-    public function view()
+    public $components = array(
+        'Paginator'
+    );
+
+    public function view($slug = false)
     {
 
-        $alias = (string)@$this->request->params['alias'];
-        $data = $this->API->getDataset($alias);
-        $dataset = $data['Dataset'];
-        $datachannel = $data['Datachannel'];
+        if ($slug) {
+
+            $layers = $this->initLayers;
+
+            if ($this->object = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'zbiory',
+                    'zbiory.slug' => $slug,
+                ),
+                'layers' => $layers,
+            ))
+            ) {
+
+                $this->set('object', $this->object);
+                $this->set('objectOptions', $this->objectOptions);
+                $this->set('microdata', $this->microdata);
+                $this->set('title_for_layout', $this->object->getTitle());
+
+                // $this->addAppBreadcrumb('krs');
+
+                if ($desc = $this->object->getDescription())
+                    $this->setMetaDescription($desc);
 
 
-        $this->addStatusbarCrumb(array(
-            'text' => $datachannel['nazwa'],
-            'href' => '/dane/kanal/' . $datachannel['slug'],
-        ));
+                $this->Components->load('Dane.DataBrowser', array(
+                    'conditions' => array(
+                        'dataset' => $this->object->getData('slug'),
+                    ),
+                    'aggsPreset' => $this->object->getData('slug'),
+                ));
 
+            }
 
-        $title_for_layout = $dataset['name'];
-        $this->set('title_for_layout', $title_for_layout);
-
-
-        $this->dataobjectsBrowserView(array(
-            'source' => 'dataset:' . $alias,
-            'showTitle' => true,
-            'titleTag' => 'h1',
-        ));
+        } else {
+            throw new BadRequestException();
+        }
 
     }
 

@@ -11,9 +11,9 @@
 
 require "lib/OAuth2StoragePDO.php";
 
-$oauth = new OAuth2(new OAuth2StoragePDO());
+$oauth = new OAuth2( new OAuth2StoragePDO() );
 try {
-    $oauth->grantAccessToken();
-} catch (OAuth2ServerException $oauthError) {
-    $oauthError->sendHttpResponse();
+	$oauth->grantAccessToken();
+} catch ( OAuth2ServerException $oauthError ) {
+	$oauthError->sendHttpResponse();
 }

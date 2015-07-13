@@ -13,7 +13,11 @@
                     <h5><?php echo __d('paszport', 'LC_PASZPORT_CHANGE_AVATAR_TITLE', true); ?></h5>
 
                     <?php echo $this->Form->create('User', array('class' => 'inline', 'type' => 'file')); ?>
-                    <?php echo $this->Form->input('User.photo', array('label' => " ", 'type' => 'file', 'class' => 'btn btn-link')); ?>
+                    <?php echo $this->Form->input('User.photo', array(
+                        'label' => " ",
+                        'type' => 'file',
+                        'class' => 'btn btn-link'
+                    )); ?>
                     <?php echo $this->Form->submit(__d('paszport', 'LC_PASZPORT_SEND', true), array('class' => 'btn btn-primary')); ?>
                     <?php echo $this->Form->end(); ?>
                 </div>

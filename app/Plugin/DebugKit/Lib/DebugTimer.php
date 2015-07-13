@@ -38,6 +38,7 @@ class DebugTimer
      *
      * @param string $name The name of the timer to start.
      * @param string $message A message for your timer
+     *
      * @return boolean Always true
      */
     public static function start($name = null, $message = null)
@@ -72,6 +73,7 @@ class DebugTimer
             'message' => $message,
             'named' => $named
         );
+
         return true;
     }
 
@@ -81,6 +83,7 @@ class DebugTimer
      * $name should be the same as the $name used in startTimer().
      *
      * @param string $name The name of the timer to end.
+     *
      * @return boolean true if timer was ended, false if timer was not started.
      */
     public static function stop($name = null)
@@ -111,6 +114,7 @@ class DebugTimer
             return false;
         }
         self::$_timers[$name]['end'] = $end;
+
         return true;
     }
 
@@ -119,6 +123,7 @@ class DebugTimer
      * Calculates elapsed time for each timer. If clear is true, will delete existing timers
      *
      * @param boolean $clear false
+     *
      * @return array
      */
     public static function getAll($clear = false)
@@ -153,45 +158,8 @@ class DebugTimer
         if ($clear) {
             self::$_timers = array();
         }
+
         return $times;
-    }
-
-    /**
-     * Clear all existing timers
-     *
-     * @return boolean true
-     */
-    public static function clear()
-    {
-        self::$_timers = array();
-        return true;
-    }
-
-    /**
-     * Get the difference in time between the timer start and timer end.
-     *
-     * @param $name string the name of the timer you want elapsed time for.
-     * @param $precision int the number of decimal places to return, defaults to 5.
-     * @return float number of seconds elapsed for timer name, 0 on missing key
-     */
-    public static function elapsedTime($name = 'default', $precision = 5)
-    {
-        if (!isset(self::$_timers[$name]['start']) || !isset(self::$_timers[$name]['end'])) {
-            return 0;
-        }
-        return round(self::$_timers[$name]['end'] - self::$_timers[$name]['start'], $precision);
-    }
-
-    /**
-     * Get the total execution time until this point
-     *
-     * @return float elapsed time in seconds since script start.
-     */
-    public static function requestTime()
-    {
-        $start = self::requestStartTime();
-        $now = microtime(true);
-        return ($now - $start);
     }
 
     /**
@@ -208,7 +176,50 @@ class DebugTimer
         } else {
             $startTime = env('REQUEST_TIME');
         }
+
         return $startTime;
+    }
+
+    /**
+     * Get the difference in time between the timer start and timer end.
+     *
+     * @param $name string the name of the timer you want elapsed time for.
+     * @param $precision int the number of decimal places to return, defaults to 5.
+     *
+     * @return float number of seconds elapsed for timer name, 0 on missing key
+     */
+    public static function elapsedTime($name = 'default', $precision = 5)
+    {
+        if (!isset(self::$_timers[$name]['start']) || !isset(self::$_timers[$name]['end'])) {
+            return 0;
+        }
+
+        return round(self::$_timers[$name]['end'] - self::$_timers[$name]['start'], $precision);
+    }
+
+    /**
+     * Clear all existing timers
+     *
+     * @return boolean true
+     */
+    public static function clear()
+    {
+        self::$_timers = array();
+
+        return true;
+    }
+
+    /**
+     * Get the total execution time until this point
+     *
+     * @return float elapsed time in seconds since script start.
+     */
+    public static function requestTime()
+    {
+        $start = self::requestStartTime();
+        $now = microtime(true);
+
+        return ($now - $start);
     }
 
 }

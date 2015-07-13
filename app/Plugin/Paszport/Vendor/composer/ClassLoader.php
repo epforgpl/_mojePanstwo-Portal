@@ -135,16 +135,6 @@ class ClassLoader
     }
 
     /**
-     * Turns on searching the include path for class files.
-     *
-     * @param bool $useIncludePath
-     */
-    public function setUseIncludePath($useIncludePath)
-    {
-        $this->useIncludePath = $useIncludePath;
-    }
-
-    /**
      * Can be used to check if the autoloader uses the include path to check
      * for classes.
      *
@@ -153,6 +143,16 @@ class ClassLoader
     public function getUseIncludePath()
     {
         return $this->useIncludePath;
+    }
+
+    /**
+     * Turns on searching the include path for class files.
+     *
+     * @param bool $useIncludePath
+     */
+    public function setUseIncludePath($useIncludePath)
+    {
+        $this->useIncludePath = $useIncludePath;
     }
 
     /**
@@ -177,6 +177,7 @@ class ClassLoader
      * Loads the given class or interface.
      *
      * @param  string $class The name of the class
+     *
      * @return bool|null True if loaded, null otherwise
      */
     public function loadClass($class)

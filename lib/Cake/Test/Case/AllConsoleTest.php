@@ -25,23 +25,22 @@
  *
  * @package       Cake.Test.Case
  */
-class AllConsoleTest extends PHPUnit_Framework_TestSuite
-{
+class AllConsoleTest extends PHPUnit_Framework_TestSuite {
 
-    /**
-     * suite method, defines tests for this suite.
-     *
-     * @return void
-     */
-    public static function suite()
-    {
-        $suite = new CakeTestSuite('All console classes');
+	/**
+	 * suite method, defines tests for this suite.
+	 *
+	 * @return void
+	 */
+	public static function suite() {
+		$suite = new CakeTestSuite( 'All console classes' );
 
-        $path = CORE_TEST_CASES . DS . 'Console' . DS;
+		$path = CORE_TEST_CASES . DS . 'Console' . DS;
 
-        $suite->addTestFile($path . 'AllConsoleLibsTest.php');
-        $suite->addTestFile($path . 'AllTasksTest.php');
-        $suite->addTestFile($path . 'AllShellsTest.php');
-        return $suite;
-    }
+		$suite->addTestFile( $path . 'AllConsoleLibsTest.php' );
+		$suite->addTestFile( $path . 'AllTasksTest.php' );
+		$suite->addTestFile( $path . 'AllShellsTest.php' );
+
+		return $suite;
+	}
 }

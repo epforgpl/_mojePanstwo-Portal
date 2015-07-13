@@ -22,13 +22,12 @@
  *
  * @package       Cake.Test.Fixture
  */
-class PrefixTestFixture extends CakeTestFixture
-{
+class PrefixTestFixture extends CakeTestFixture {
 
-    public $table = 'prefix_prefix_tests';
+	public $table = 'prefix_prefix_tests';
 
-    public $fields = array(
-        'id' => array('type' => 'integer', 'key' => 'primary'),
-    );
+	public $fields = array(
+		'id' => array( 'type' => 'integer', 'key' => 'primary' ),
+	);
 
 }

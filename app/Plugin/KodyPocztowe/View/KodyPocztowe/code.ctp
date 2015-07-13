@@ -1,3 +1,8 @@
+<?php
+$this->Combinator->add_libs('css', $this->Less->css('kody_pocztowe', array('plugin' => 'KodyPocztowe')));
+$this->Combinator->add_libs('js', 'KodyPocztowe.kody.js');
+?>
+
 <div class="container">
     <h1>
         <?php echo $city; ?>

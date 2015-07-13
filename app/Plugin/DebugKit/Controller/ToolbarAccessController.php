@@ -39,7 +39,9 @@ class ToolbarAccessController extends DebugKitAppController
      */
     public $helpers = array(
         'DebugKit.Toolbar' => array('output' => 'DebugKit.HtmlToolbar'),
-        'Js', 'Number', 'DebugKit.SimpleGraph'
+        'Js',
+        'Number',
+        'DebugKit.SimpleGraph'
     );
 
     /**
@@ -81,6 +83,7 @@ class ToolbarAccessController extends DebugKitAppController
      * Get a stored history state from the toolbar cache.
      *
      * @param null $key
+     *
      * @return void
      */
     public function history_state($key = null)

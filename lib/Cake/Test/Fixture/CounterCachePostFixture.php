@@ -23,19 +23,18 @@
  *
  * @package       Cake.Test.Fixture
  */
-class CounterCachePostFixture extends CakeTestFixture
-{
+class CounterCachePostFixture extends CakeTestFixture {
 
-    public $fields = array(
-        'id' => array('type' => 'integer', 'key' => 'primary'),
-        'title' => array('type' => 'string', 'length' => 255),
-        'user_id' => array('type' => 'integer', 'null' => true),
-        'published' => array('type' => 'boolean', 'null' => false, 'default' => 0)
-    );
+	public $fields = array(
+		'id'        => array( 'type' => 'integer', 'key' => 'primary' ),
+		'title'     => array( 'type' => 'string', 'length' => 255 ),
+		'user_id'   => array( 'type' => 'integer', 'null' => true ),
+		'published' => array( 'type' => 'boolean', 'null' => false, 'default' => 0 )
+	);
 
-    public $records = array(
-        array('id' => 1, 'title' => 'Rock and Roll', 'user_id' => 66, 'published' => false),
-        array('id' => 2, 'title' => 'Music', 'user_id' => 66, 'published' => true),
-        array('id' => 3, 'title' => 'Food', 'user_id' => 301, 'published' => true),
-    );
+	public $records = array(
+		array( 'id' => 1, 'title' => 'Rock and Roll', 'user_id' => 66, 'published' => false ),
+		array( 'id' => 2, 'title' => 'Music', 'user_id' => 66, 'published' => true ),
+		array( 'id' => 3, 'title' => 'Food', 'user_id' => 301, 'published' => true ),
+	);
 }

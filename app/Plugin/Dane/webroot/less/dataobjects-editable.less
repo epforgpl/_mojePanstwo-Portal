@@ -1,0 +1,286 @@
+@btnSize: 135px;
+
+.appHeader .options > .opt > .btn {
+  min-width: @btnSize;
+}
+
+.editablePanel {
+
+  @padding: 10px;
+  @border: 50px;
+  @bgColor: #007ab9;
+
+  &.open #moderatePanelModal {
+    -webkit-border-bottom-right-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    -moz-border-radius-bottomright: 0;
+    -moz-border-radius-bottomleft: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  #moderatePanelModal {
+    width: @btnSize;
+  }
+
+  .dropdown-menu {
+    margin-top: 0;
+    position: absolute;
+    top: 40px - @padding;
+    left: @btnSize;
+    padding: 10px 0 15px;
+    border-color: @bgColor;
+    background-color: @bgColor;
+    -webkit-border-radius: 3px 0 3px 3px;
+    -moz-border-radius: 3px 0 3px 3px;
+    border-radius: 3px 0 3px 3px;
+    -webkit-transform: translate(-100%, 0);
+    -moz-transform: translate(-100%, 0);
+    -ms-transform: translate(-100%, 0);
+    -o-transform: translate(-100%, 0);
+    transform: translate(-100%, 0);
+
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=0, Direction=90, Color=#333333)"; /*IE 8*/
+    -moz-box-shadow: 0 0 0 #333333; /*FF 3.5+*/
+    -webkit-box-shadow: 0 0 0 #333333; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    box-shadow: 0 0 0 #333333; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=0, Direction=90, Color=#333333); /*IE 5.5-7*/
+
+    a {
+      color: #ffffff;
+
+      &:focus, &:hover, &.active {
+        background: none;
+        color: #dedede;
+      }
+    }
+  }
+
+  #moderate-modal {
+    text-align: left;
+
+    .spinner {
+      margin: -20px 0 0 0;
+      float: right;
+    }
+
+    .modal-footer {
+      text-align: center;
+      button {
+        margin: 0 auto;
+        display: inline-block;
+        max-width: 120px;
+        text-align: center;
+      }
+    }
+  }
+
+  #moderate-add {
+    margin-bottom: 10px;
+    form {
+      .form-group {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  #moderate-users {
+    color: #666;
+
+    table {
+      margin-bottom: 0;
+      tr {
+        td {
+          vertical-align: middle;
+          img {
+            max-width: 40px;
+            min-height: 40px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.autocomplete-suggestions {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background: #fff;
+  overflow: auto;
+  strong {
+    font-weight: normal;
+    color: #3399FF;
+  }
+}
+
+.autocomplete-suggestions {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background: #fff;
+  overflow: auto;
+  strong {
+    font-weight: normal;
+    color: #3399FF;
+  }
+}
+
+.autocomplete-suggestion {
+  padding: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.autocomplete-selected {
+  background: #F0F0F0;
+}
+
+.autocomplete-group {
+  padding: 2px 5px;
+  strong {
+    display: block;
+    border-bottom: 1px solid #000;
+  }
+}
+
+#prawo_hasla_merge_modal {
+  .btn-icon {
+    width: auto;
+    margin: 0 auto;
+    display: block;
+  }
+}
+
+.modalAdmin {
+  text-align: left;
+
+  .btn-file {
+    position: relative;
+    overflow: hidden;
+
+    input[type=file] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 100%;
+      min-height: 100%;
+      font-size: 100px;
+      text-align: right;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      outline: none;
+      background: white;
+      cursor: inherit;
+      display: block;
+    }
+  }
+
+  .image-editor {
+    text-align: center;
+    margin-bottom: 15px;
+
+    .slider-wrapper {
+      display: inline-block;
+      margin: 10px auto 0;
+      text-align: center;
+      width: auto;
+
+      .cropit-image-zoom-input {
+        margin: 6px 8px 0;
+        float: left;
+      }
+
+      .icon {
+        float: left;
+
+        &.icon-small {
+          font-size: 16px;
+          margin-top: 5px;
+        }
+        &.icon-large {
+          font-size: 24px;
+        }
+      }
+    }
+
+    > p {
+      margin: 6px 0 10px;
+    }
+
+    .cropit-image-preview {
+      background-size: cover;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      margin-top: 7px;
+      cursor: move;
+    }
+
+    .cropit-image-background {
+      opacity: .2;
+      cursor: auto;
+    }
+
+    .image-size-label {
+      margin-top: 10px;
+    }
+
+    .alert {
+      padding: 2px 0;
+
+      -webkit-transition: height 0.8s;
+      -moz-transition: height 0.8s;
+      transition: height 0.8s;
+    }
+  }
+
+  .modal-footer {
+    text-align: center;
+
+    .btn-icon {
+      width: auto;
+    }
+  }
+
+  &#modalAdminAddLogo {
+    .modal-dialog {
+      width: 250px;
+
+      .image-editor {
+        .cropit-image-preview {
+          width: 180px;
+          height: 180px;
+          margin: 0 auto;
+          background: url(/img/cropit/cropit_default_logo.png) center center no-repeat;
+        }
+        .slider-wrapper .cropit-image-zoom-input {
+          width: 120px;
+        }
+      }
+    }
+  }
+
+  &#modalAdminAddBackground {
+    .modal-dialog {
+      width: 780px;
+
+      .image-editor {
+        .cropit-image-preview {
+          width: 750px;
+          height: 200px;
+          margin: 0 auto;
+          background: url(/img/cropit/cropit_default_cover.png) center center no-repeat;
+        }
+        .slider-wrapper .cropit-image-zoom-input {
+          width: 180px;
+        }
+      }
+
+      .form-group {
+        color: #000000;
+      }
+    }
+  }
+}

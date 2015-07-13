@@ -18,18 +18,16 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('BaseLog', 'Log/Engine');
+App::uses( 'BaseLog', 'Log/Engine' );
 
 /**
  * Class TestAppLog
  *
  * @package       Cake.Test.TestApp.Lib.Log.Engine
  */
-class TestAppLog extends BaseLog
-{
+class TestAppLog extends BaseLog {
 
-    public function write($type, $message)
-    {
-    }
+	public function write( $type, $message ) {
+	}
 
 }

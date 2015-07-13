@@ -6,4 +6,4 @@
 <?php echo $bar; ?>
 <!--/nocache-->
 
-<?php echo $this->element('nocache/sub1'); ?>
+<?php echo $this->element( 'nocache/sub1' ); ?>

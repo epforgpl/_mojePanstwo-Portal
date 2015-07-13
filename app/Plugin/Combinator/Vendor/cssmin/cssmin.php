@@ -131,6 +131,7 @@ abstract class aCssParserPlugin
      *
      * @param CssParser $parser The CssParser object of this plugin.
      * @param array $configuration Plugin configuration [optional]
+     *
      * @return void
      */
     public function __construct(CssParser $parser, array $configuration = null)
@@ -159,6 +160,7 @@ abstract class aCssParserPlugin
      * @param integer $index Current index
      * @param string $char Current char
      * @param string $previousChar Previous char
+     *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
     abstract public function parse($index, $char, $previousChar, $state);
@@ -197,6 +199,7 @@ abstract class aCssMinifierPlugin
      *
      * @param CssMinifier $minifier The CssMinifier object of this plugin.
      * @param array $configuration Plugin configuration [optional]
+     *
      * @return void
      */
     public function __construct(CssMinifier $minifier, array $configuration = array())
@@ -209,6 +212,7 @@ abstract class aCssMinifierPlugin
      * Apply the plugin to the token.
      *
      * @param aCssToken $token Token to process
+     *
      * @return boolean Return TRUE to break the processing of this token; FALSE to continue
      */
     abstract public function apply(aCssToken &$token);
@@ -254,6 +258,7 @@ abstract class aCssMinifierFilter
      *
      * @param CssMinifier $minifier The CssMinifier object of this plugin.
      * @param array $configuration Filter configuration [optional]
+     *
      * @return void
      */
     public function __construct(CssMinifier $minifier, array $configuration = array())
@@ -266,6 +271,7 @@ abstract class aCssMinifierFilter
      * Filter the tokens.
      *
      * @param array $tokens Array of objects of type aCssToken
+     *
      * @return integer Count of added, changed or removed tokens; a return value large than 0 will rebuild the array
      */
     abstract public function apply(array &$tokens);
@@ -370,6 +376,7 @@ abstract class aCssDeclarationToken extends aCssToken
      * @param string $value Value of the declaration
      * @param boolean $isImportant Is the !important flag is set?
      * @param boolean $IsLast Is the declaration the last one of the block?
+     *
      * @return void
      */
     public function __construct($property, $value, $isImportant = false, $isLast = false)
@@ -510,6 +517,7 @@ class CssWhitesmithsFormatter extends aCssFormatter
                 $level--;
             }
         }
+
         return implode("\n", $r);
     }
 }
@@ -567,9 +575,22 @@ class CssVariablesMinifierPlugin extends aCssMinifierPlugin
     }
 
     /**
+     * Sets the variables.
+     *
+     * @param array $variables Variables to set
+     *
+     * @return void
+     */
+    public function setVariables(array $variables)
+    {
+        $this->variables = $variables;
+    }
+
+    /**
      * Implements {@link aCssMinifierPlugin::minify()}.
      *
      * @param aCssToken $token Token to process
+     *
      * @return boolean Return TRUE to break the processing of this token; FALSE to continue
      */
     public function apply(aCssToken &$token)
@@ -591,9 +612,11 @@ class CssVariablesMinifierPlugin extends aCssMinifierPlugin
                 // If no value was found trigger an error and replace the token with a CssNullToken
                 CssMin::triggerError(new CssError(__FILE__, __LINE__, __METHOD__ . ": No value found for variable <code>" . $variable . "</code> in media types <code>" . implode(", ", $mediaTypes) . "</code>", (string)$token));
                 $token = new CssNullToken();
+
                 return true;
             }
         }
+
         return false;
     }
 
@@ -610,17 +633,6 @@ class CssVariablesMinifierPlugin extends aCssMinifierPlugin
             "CssAtPageDeclarationToken",
             "CssRulesetDeclarationToken"
         );
-    }
-
-    /**
-     * Sets the variables.
-     *
-     * @param array $variables Variables to set
-     * @return void
-     */
-    public function setVariables(array $variables)
-    {
-        $this->variables = $variables;
     }
 }
 
@@ -642,6 +654,7 @@ class CssVariablesMinifierFilter extends aCssMinifierFilter
      * Implements {@link aCssMinifierFilter::filter()}.
      *
      * @param array $tokens Array of objects of type aCssToken
+     *
      * @return integer Count of added, changed or removed tokens; a return value large than 0 will rebuild the array
      */
     public function apply(array &$tokens)
@@ -697,6 +710,7 @@ class CssVariablesMinifierFilter extends aCssMinifierFilter
         } else {
             $plugin->setVariables($variables);
         }
+
         return count($remove);
     }
 }
@@ -741,6 +755,7 @@ class CssUrlParserPlugin extends aCssParserPlugin
      * @param integer $index Current index
      * @param string $char Current char
      * @param string $previousChar Previous char
+     *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
     public function parse($index, $char, $previousChar, $state)
@@ -766,6 +781,7 @@ class CssUrlParserPlugin extends aCssParserPlugin
         } else {
             return false;
         }
+
         return true;
     }
 }
@@ -817,6 +833,7 @@ class CssStringParserPlugin extends aCssParserPlugin
      * @param integer $index Current index
      * @param string $char Current char
      * @param string $previousChar Previous char
+     *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
     public function parse($index, $char, $previousChar, $state)
@@ -859,6 +876,7 @@ class CssStringParserPlugin extends aCssParserPlugin
         } else {
             return false;
         }
+
         return true;
     }
 }
@@ -876,9 +894,20 @@ class CssStringParserPlugin extends aCssParserPlugin
 class CssSortRulesetPropertiesMinifierFilter extends aCssMinifierFilter
 {
     /**
+     * User defined sort function.
+     *
+     * @return integer
+     */
+    public static function userDefinedSort1($a, $b)
+    {
+        return strcmp($a->Property, $b->Property);
+    }
+
+    /**
      * Implements {@link aCssMinifierFilter::filter()}.
      *
      * @param array $tokens Array of objects of type aCssToken
+     *
      * @return integer Count of added, changed or removed tokens; a return value larger than 0 will rebuild the array
      */
     public function apply(array &$tokens)
@@ -942,17 +971,8 @@ class CssSortRulesetPropertiesMinifierFilter extends aCssMinifierFilter
             array_splice($tokens, $startIndex + 1, $endIndex - $startIndex - 1, $declarations);
             $r += $endIndex - $startIndex - 1;
         }
-        return $r;
-    }
 
-    /**
-     * User defined sort function.
-     *
-     * @return integer
-     */
-    public static function userDefinedSort1($a, $b)
-    {
-        return strcmp($a->Property, $b->Property);
+        return $r;
     }
 }
 
@@ -979,6 +999,7 @@ class CssRulesetStartToken extends aCssRulesetStartToken
      * Set the properties of a ruleset token.
      *
      * @param array $selectors Selectors of the ruleset
+     *
      * @return void
      */
     public function __construct(array $selectors = array())
@@ -1013,6 +1034,13 @@ class CssRulesetStartToken extends aCssRulesetStartToken
 class CssRulesetParserPlugin extends aCssParserPlugin
 {
     /**
+     * Selectors.
+     *
+     * @var array
+     */
+    private $selectors = array();
+
+    /**
      * Implements {@link aCssParserPlugin::getTriggerChars()}.
      *
      * @return array
@@ -1033,18 +1061,12 @@ class CssRulesetParserPlugin extends aCssParserPlugin
     }
 
     /**
-     * Selectors.
-     *
-     * @var array
-     */
-    private $selectors = array();
-
-    /**
      * Implements {@link aCssParserPlugin::parse()}.
      *
      * @param integer $index Current index
      * @param string $char Current char
      * @param string $previousChar Previous char
+     *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
     public function parse($index, $char, $previousChar, $state)
@@ -1104,6 +1126,7 @@ class CssRulesetParserPlugin extends aCssParserPlugin
         } else {
             return false;
         }
+
         return true;
     }
 }
@@ -1150,6 +1173,7 @@ class CssRulesetDeclarationToken extends aCssDeclarationToken
      * @param mixed $mediaTypes Media types of the declaration
      * @param boolean $isImportant Is the !important flag is set
      * @param boolean $isLast Is the declaration the last one of the ruleset
+     *
      * @return void
      */
     public function __construct($property, $value, $mediaTypes = null, $isImportant = false, $isLast = false)
@@ -1177,6 +1201,7 @@ class CssRemoveLastDelarationSemiColonMinifierFilter extends aCssMinifierFilter
      * Implements {@link aCssMinifierFilter::filter()}.
      *
      * @param array $tokens Array of objects of type aCssToken
+     *
      * @return integer Count of added, changed or removed tokens; a return value large than 0 will rebuild the array
      */
     public function apply(array &$tokens)
@@ -1191,6 +1216,7 @@ class CssRemoveLastDelarationSemiColonMinifierFilter extends aCssMinifierFilter
                 $tokens[$i]->IsLast = true;
             }
         }
+
         return 0;
     }
 }
@@ -1212,6 +1238,7 @@ class CssRemoveEmptyRulesetsMinifierFilter extends aCssMinifierFilter
      * Implements {@link aCssMinifierFilter::filter()}.
      *
      * @param array $tokens Array of objects of type aCssToken
+     *
      * @return integer Count of added, changed or removed tokens; a return value large than 0 will rebuild the array
      */
     public function apply(array &$tokens)
@@ -1221,7 +1248,12 @@ class CssRemoveEmptyRulesetsMinifierFilter extends aCssMinifierFilter
             $current = get_class($tokens[$i]);
             $next = isset($tokens[$i + 1]) ? get_class($tokens[$i + 1]) : false;
             if (($current === "CssRulesetStartToken" && $next === "CssRulesetEndToken") ||
-                ($current === "CssAtKeyframesRulesetStartToken" && $next === "CssAtKeyframesRulesetEndToken" && !array_intersect(array("from", "0%", "to", "100%"), array_map("strtolower", $tokens[$i]->Selectors)))
+                ($current === "CssAtKeyframesRulesetStartToken" && $next === "CssAtKeyframesRulesetEndToken" && !array_intersect(array(
+                        "from",
+                        "0%",
+                        "to",
+                        "100%"
+                    ), array_map("strtolower", $tokens[$i]->Selectors)))
             ) {
                 $tokens[$i] = null;
                 $tokens[$i + 1] = null;
@@ -1229,6 +1261,7 @@ class CssRemoveEmptyRulesetsMinifierFilter extends aCssMinifierFilter
                 $r = $r + 2;
             }
         }
+
         return $r;
     }
 }
@@ -1250,6 +1283,7 @@ class CssRemoveEmptyAtBlocksMinifierFilter extends aCssMinifierFilter
      * Implements {@link aCssMinifierFilter::filter()}.
      *
      * @param array $tokens Array of objects of type aCssToken
+     *
      * @return integer Count of added, changed or removed tokens; a return value large than 0 will rebuild the array
      */
     public function apply(array &$tokens)
@@ -1269,6 +1303,7 @@ class CssRemoveEmptyAtBlocksMinifierFilter extends aCssMinifierFilter
                 $r = $r + 2;
             }
         }
+
         return $r;
     }
 }
@@ -1289,6 +1324,7 @@ class CssRemoveCommentsMinifierFilter extends aCssMinifierFilter
      * Implements {@link aCssMinifierFilter::filter()}.
      *
      * @param array $tokens Array of objects of type aCssToken
+     *
      * @return integer Count of added, changed or removed tokens; a return value large than 0 will rebuild the array
      */
     public function apply(array &$tokens)
@@ -1300,6 +1336,7 @@ class CssRemoveCommentsMinifierFilter extends aCssMinifierFilter
                 $r++;
             }
         }
+
         return $r;
     }
 }
@@ -1372,6 +1409,7 @@ class CssParser
      *
      * @param string $source CSS source [optional]
      * @param array $plugins Plugin configuration [optional]
+     *
      * @return void
      */
     public function __construct($source = null, array $plugins = null)
@@ -1409,132 +1447,10 @@ class CssParser
     }
 
     /**
-     * Append a token to the array of tokens.
-     *
-     * @param aCssToken $token Token to append
-     * @return void
-     */
-    public function appendToken(aCssToken $token)
-    {
-        $this->tokens[] = $token;
-    }
-
-    /**
-     * Clears the current buffer.
-     *
-     * @return void
-     */
-    public function clearBuffer()
-    {
-        $this->buffer = "";
-    }
-
-    /**
-     * Returns and clear the current buffer.
-     *
-     * @param string $trim Chars to use to trim the returned buffer
-     * @param boolean $tolower if TRUE the returned buffer will get converted to lower case
-     * @return string
-     */
-    public function getAndClearBuffer($trim = "", $tolower = false)
-    {
-        $r = $this->getBuffer($trim, $tolower);
-        $this->buffer = "";
-        return $r;
-    }
-
-    /**
-     * Returns the current buffer.
-     *
-     * @param string $trim Chars to use to trim the returned buffer
-     * @param boolean $tolower if TRUE the returned buffer will get converted to lower case
-     * @return string
-     */
-    public function getBuffer($trim = "", $tolower = false)
-    {
-        $r = $this->buffer;
-        if ($trim) {
-            $r = trim($r, " \t\n\r\0\x0B" . $trim);
-        }
-        if ($tolower) {
-            $r = strtolower($r);
-        }
-        return $r;
-    }
-
-    /**
-     * Returns the current media types state.
-     *
-     * @return array
-     */
-    public function getMediaTypes()
-    {
-        return $this->stateMediaTypes;
-    }
-
-    /**
-     * Returns the CSS source.
-     *
-     * @return string
-     */
-    public function getSource()
-    {
-        return $this->source;
-    }
-
-    /**
-     * Returns the current state.
-     *
-     * @return integer The current state
-     */
-    public function getState()
-    {
-        return $this->state;
-    }
-
-    /**
-     * Returns a plugin by class name.
-     *
-     * @param string $name Class name of the plugin
-     * @return aCssParserPlugin
-     */
-    public function getPlugin($class)
-    {
-        static $index = null;
-        if (is_null($index)) {
-            $index = array();
-            for ($i = 0, $l = count($this->plugins); $i < $l; $i++) {
-                $index[get_class($this->plugins[$i])] = $i;
-            }
-        }
-        return isset($index[$class]) ? $this->plugins[$index[$class]] : false;
-    }
-
-    /**
-     * Returns the parsed tokens.
-     *
-     * @return array
-     */
-    public function getTokens()
-    {
-        return $this->tokens;
-    }
-
-    /**
-     * Returns if the current state equals the passed state.
-     *
-     * @param integer $state State to compare with the current state
-     * @return boolean TRUE is the state equals to the passed state; FALSE if not
-     */
-    public function isState($state)
-    {
-        return ($this->state == $state);
-    }
-
-    /**
      * Parse the CSS source and return a array with parsed tokens.
      *
      * @param string $source CSS source
+     *
      * @return array Array with tokens
      */
     public function parse($source)
@@ -1542,7 +1458,7 @@ class CssParser
         // Reset
         $this->source = "";
         $this->tokens = array();
-        // Create a global and plugin lookup table for trigger chars; set array of plugins as local variable and create 
+        // Create a global and plugin lookup table for trigger chars; set array of plugins as local variable and create
         // several helper variables for plugin handling
         $globalTriggerChars = "";
         $plugins = $this->plugins;
@@ -1568,9 +1484,9 @@ class CssParser
         $source = str_replace("\r", "\n", $source); // Mac to Unix line endings
         $this->source = $source;
         // Variables
-        $buffer = & $this->buffer;
-        $exclusive = & $this->stateExclusive;
-        $state = & $this->state;
+        $buffer = &$this->buffer;
+        $exclusive = &$this->stateExclusive;
+        $state = &$this->state;
         $c = $p = null;
         // --
         for ($i = 0, $l = strlen($source); $i < $l; $i++) {
@@ -1588,7 +1504,7 @@ class CssParser
             $buffer .= $c;
             // Extended processing only if the current char is a global trigger char
             if (strpos($globalTriggerChars, $c) !== false) {
-                // Exclusive state is set; process with the exclusive plugin 
+                // Exclusive state is set; process with the exclusive plugin
                 if ($exclusive) {
                     $tPluginIndex = $pluginIndex[$exclusive];
                     if (strpos($pluginTriggerChars[$tPluginIndex], $c) !== false && ($pluginTriggerStates[$tPluginIndex] === false || strpos($pluginTriggerStates[$tPluginIndex], $state) !== false)) {
@@ -1624,7 +1540,167 @@ class CssParser
             }
             $p = $c; // Set the parent char
         }
+
         return $this->tokens;
+    }
+
+    /**
+     * Append a token to the array of tokens.
+     *
+     * @param aCssToken $token Token to append
+     *
+     * @return void
+     */
+    public function appendToken(aCssToken $token)
+    {
+        $this->tokens[] = $token;
+    }
+
+    /**
+     * Clears the current buffer.
+     *
+     * @return void
+     */
+    public function clearBuffer()
+    {
+        $this->buffer = "";
+    }
+
+    /**
+     * Returns and clear the current buffer.
+     *
+     * @param string $trim Chars to use to trim the returned buffer
+     * @param boolean $tolower if TRUE the returned buffer will get converted to lower case
+     *
+     * @return string
+     */
+    public function getAndClearBuffer($trim = "", $tolower = false)
+    {
+        $r = $this->getBuffer($trim, $tolower);
+        $this->buffer = "";
+
+        return $r;
+    }
+
+    /**
+     * Returns the current buffer.
+     *
+     * @param string $trim Chars to use to trim the returned buffer
+     * @param boolean $tolower if TRUE the returned buffer will get converted to lower case
+     *
+     * @return string
+     */
+    public function getBuffer($trim = "", $tolower = false)
+    {
+        $r = $this->buffer;
+        if ($trim) {
+            $r = trim($r, " \t\n\r\0\x0B" . $trim);
+        }
+        if ($tolower) {
+            $r = strtolower($r);
+        }
+
+        return $r;
+    }
+
+    /**
+     * Sets/restores the buffer.
+     *
+     * @param string $buffer Buffer to set
+     *
+     * @return void
+     */
+    public function setBuffer($buffer)
+    {
+        $this->buffer = $buffer;
+    }
+
+    /**
+     * Returns the current media types state.
+     *
+     * @return array
+     */
+    public function getMediaTypes()
+    {
+        return $this->stateMediaTypes;
+    }
+
+    /**
+     * Returns the CSS source.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    /**
+     * Returns the current state.
+     *
+     * @return integer The current state
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * Sets the current state in the state stack; equals to {@link CssParser::popState()} + {@link CssParser::pushState()}.
+     *
+     * @param integer $state State to set
+     *
+     * @return integer
+     */
+    public function setState($state)
+    {
+        $r = array_pop($this->states);
+        array_push($this->states, $state);
+        $this->state = $this->states[count($this->states) - 1];
+
+        return $r;
+    }
+
+    /**
+     * Returns a plugin by class name.
+     *
+     * @param string $name Class name of the plugin
+     *
+     * @return aCssParserPlugin
+     */
+    public function getPlugin($class)
+    {
+        static $index = null;
+        if (is_null($index)) {
+            $index = array();
+            for ($i = 0, $l = count($this->plugins); $i < $l; $i++) {
+                $index[get_class($this->plugins[$i])] = $i;
+            }
+        }
+
+        return isset($index[$class]) ? $this->plugins[$index[$class]] : false;
+    }
+
+    /**
+     * Returns the parsed tokens.
+     *
+     * @return array
+     */
+    public function getTokens()
+    {
+        return $this->tokens;
+    }
+
+    /**
+     * Returns if the current state equals the passed state.
+     *
+     * @param integer $state State to compare with the current state
+     *
+     * @return boolean TRUE is the state equals to the passed state; FALSE if not
+     */
+    public function isState($state)
+    {
+        return ($this->state == $state);
     }
 
     /**
@@ -1636,6 +1712,7 @@ class CssParser
     {
         $r = array_pop($this->states);
         $this->state = $this->states[count($this->states) - 1];
+
         return $r;
     }
 
@@ -1643,30 +1720,22 @@ class CssParser
      * Adds a new state onto the state stack.
      *
      * @param integer $state State to add onto the state stack.
+     *
      * @return integer The index of the added state in the state stacks
      */
     public function pushState($state)
     {
         $r = array_push($this->states, $state);
         $this->state = $this->states[count($this->states) - 1];
-        return $r;
-    }
 
-    /**
-     * Sets/restores the buffer.
-     *
-     * @param string $buffer Buffer to set
-     * @return void
-     */
-    public function setBuffer($buffer)
-    {
-        $this->buffer = $buffer;
+        return $r;
     }
 
     /**
      * Set the exclusive state.
      *
      * @param string $exclusive Exclusive state
+     *
      * @return void
      */
     public function setExclusive($exclusive)
@@ -1678,25 +1747,12 @@ class CssParser
      * Set the media types state.
      *
      * @param array $mediaTypes Media types state
+     *
      * @return void
      */
     public function setMediaTypes(array $mediaTypes)
     {
         $this->stateMediaTypes = $mediaTypes;
-    }
-
-    /**
-     * Sets the current state in the state stack; equals to {@link CssParser::popState()} + {@link CssParser::pushState()}.
-     *
-     * @param integer $state State to set
-     * @return integer
-     */
-    public function setState($state)
-    {
-        $r = array_pop($this->states);
-        array_push($this->states, $state);
-        $this->state = $this->states[count($this->states) - 1];
-        return $r;
     }
 
     /**
@@ -1795,6 +1851,7 @@ class CssOtbsFormatter extends aCssFormatter
                 $r[] = str_repeat($indent, $level) . "}";
             }
         }
+
         return implode("\n", $r);
     }
 }
@@ -1861,6 +1918,7 @@ class CssMinifier
      * @param string $source CSS source [optional]
      * @param array $filters Filter configuration [optional]
      * @param array $plugins Plugin configuration [optional]
+     *
      * @return void
      */
     public function __construct($source = null, array $filters = null, array $plugins = null)
@@ -1918,37 +1976,10 @@ class CssMinifier
     }
 
     /**
-     * Returns the minified Source.
-     *
-     * @return string
-     */
-    public function getMinified()
-    {
-        return $this->minified;
-    }
-
-    /**
-     * Returns a plugin by class name.
-     *
-     * @param string $name Class name of the plugin
-     * @return aCssMinifierPlugin
-     */
-    public function getPlugin($class)
-    {
-        static $index = null;
-        if (is_null($index)) {
-            $index = array();
-            for ($i = 0, $l = count($this->plugins); $i < $l; $i++) {
-                $index[get_class($this->plugins[$i])] = $i;
-            }
-        }
-        return isset($index[$class]) ? $this->plugins[$index[$class]] : false;
-    }
-
-    /**
      * Minifies the CSS source.
      *
      * @param string $source CSS source
+     *
      * @return string
      */
     public function minify($source)
@@ -2008,7 +2039,38 @@ class CssMinifier
             $r .= (string)$tokens[$i];
         }
         $this->minified = $r;
+
         return $r;
+    }
+
+    /**
+     * Returns the minified Source.
+     *
+     * @return string
+     */
+    public function getMinified()
+    {
+        return $this->minified;
+    }
+
+    /**
+     * Returns a plugin by class name.
+     *
+     * @param string $name Class name of the plugin
+     *
+     * @return aCssMinifierPlugin
+     */
+    public function getPlugin($class)
+    {
+        static $index = null;
+        if (is_null($index)) {
+            $index = array();
+            for ($i = 0, $l = count($this->plugins); $i < $l; $i++) {
+                $index[get_class($this->plugins[$i])] = $i;
+            }
+        }
+
+        return isset($index[$class]) ? $this->plugins[$index[$class]] : false;
     }
 }
 
@@ -2069,6 +2131,7 @@ class CssMin
      * {@link http://goo.gl/JrW54 Autoload} function of CssMin.
      *
      * @param string $class Name of the class
+     *
      * @return void
      */
     public static function autoload($class)
@@ -2143,12 +2206,14 @@ class CssMin
      * @param string $source CSS source
      * @param array $filters Filter configuration [optional]
      * @param array $plugins Plugin configuration [optional]
+     *
      * @return string Minified CSS
      */
     public static function minify($source, array $filters = null, array $plugins = null)
     {
         self::$errors = array();
         $minifier = new CssMinifier($source, $filters, $plugins);
+
         return $minifier->getMinified();
     }
 
@@ -2157,12 +2222,14 @@ class CssMin
      *
      * @param string $source CSS source
      * @param array $plugins Plugin configuration [optional]
+     *
      * @return array Array of aCssToken
      */
     public static function parse($source, array $plugins = null)
     {
         self::$errors = array();
         $parser = new CssParser($source, $plugins);
+
         return $parser->getTokens();
     }
 
@@ -2170,11 +2237,13 @@ class CssMin
      * --
      *
      * @param boolean $to
+     *
      * @return boolean
      */
     public static function setVerbose($to)
     {
         self::$isVerbose = (boolean)$to;
+
         return self::$isVerbose;
     }
 
@@ -2182,6 +2251,7 @@ class CssMin
      * --
      *
      * @param CssError $error
+     *
      * @return void
      */
     public static function triggerError(CssError $error)
@@ -2220,12 +2290,14 @@ class CssImportImportsMinifierFilter extends aCssMinifierFilter
      * Implements {@link aCssMinifierFilter::filter()}.
      *
      * @param array $tokens Array of objects of type aCssToken
+     *
      * @return integer Count of added, changed or removed tokens; a return value large than 0 will rebuild the array
      */
     public function apply(array &$tokens)
     {
         if (!isset($this->configuration["BasePath"]) || !is_dir($this->configuration["BasePath"])) {
             CssMin::triggerError(new CssError(__FILE__, __LINE__, __METHOD__ . ": Base path <code>" . ($this->configuration["BasePath"] ? $this->configuration["BasePath"] : "null") . "</code> is not a directory"));
+
             return 0;
         }
         for ($i = 0, $l = count($tokens); $i < $l; $i++) {
@@ -2415,6 +2487,7 @@ class CssExpressionParserPlugin extends aCssParserPlugin
      * @param integer $index Current index
      * @param string $char Current char
      * @param string $previousChar Previous char
+     *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
     public function parse($index, $char, $previousChar, $state)
@@ -2433,10 +2506,12 @@ class CssExpressionParserPlugin extends aCssParserPlugin
         elseif (($char === ";" || $char === "}") && $state === "T_EXPRESSION" && $this->leftBraces === $this->rightBraces) {
             $this->leftBraces = $this->rightBraces = 0;
             $this->parser->popState();
+
             return $index - 1;
         } else {
             return false;
         }
+
         return true;
     }
 }
@@ -2483,6 +2558,7 @@ class CssError
      *
      * @param string $message Error message
      * @param string $source Corresponding line [optional]
+     *
      * @return void
      */
     public function __construct($file, $line, $message, $source = "")
@@ -2537,6 +2613,7 @@ class CssConvertRgbColorsMinifierPlugin extends aCssMinifierPlugin
      * Implements {@link aCssMinifierPlugin::minify()}.
      *
      * @param aCssToken $token Token to process
+     *
      * @return boolean Return TRUE to break the processing of this token; FALSE to continue
      */
     public function apply(aCssToken &$token)
@@ -2551,6 +2628,7 @@ class CssConvertRgbColorsMinifierPlugin extends aCssMinifierPlugin
             }
             $token->Value = str_replace($m[0], "#" . $m[1] . $m[2] . $m[3], $token->Value);
         }
+
         return false;
     }
 
@@ -2760,6 +2838,7 @@ class CssConvertNamedColorsMinifierPlugin extends aCssMinifierPlugin
      *
      * @param CssMinifier $minifier The CssMinifier object of this plugin.
      * @param array $configuration Plugin configuration [optional]
+     *
      * @return void
      */
     public function __construct(CssMinifier $minifier, array $configuration = array())
@@ -2772,6 +2851,7 @@ class CssConvertNamedColorsMinifierPlugin extends aCssMinifierPlugin
      * Implements {@link aCssMinifierPlugin::minify()}.
      *
      * @param aCssToken $token Token to process
+     *
      * @return boolean Return TRUE to break the processing of this token; FALSE to continue
      */
     public function apply(aCssToken &$token)
@@ -2784,6 +2864,7 @@ class CssConvertNamedColorsMinifierPlugin extends aCssMinifierPlugin
         elseif (preg_match($this->reMatch, $token->Value)) {
             $token->Value = preg_replace($this->reMatch, $this->reReplace, $token->Value);
         }
+
         return false;
     }
 
@@ -2854,12 +2935,37 @@ class CssConvertLevel3PropertiesMinifierFilter extends aCssMinifierFilter
         "border-before-style" => array(null, "-webkit-border-before-style", null, null),
         "border-before-width" => array(null, "-webkit-border-before-width", null, null),
         "border-border-bottom-colors" => array("-moz-border-bottom-colors", null, null, null),
-        "border-bottom-left-radius" => array("-moz-border-radius-bottomleft", "-webkit-border-bottom-left-radius", null, null),
-        "border-bottom-right-radius" => array("-moz-border-radius-bottomright", "-webkit-border-bottom-right-radius", null, null),
+        "border-bottom-left-radius" => array(
+            "-moz-border-radius-bottomleft",
+            "-webkit-border-bottom-left-radius",
+            null,
+            null
+        ),
+        "border-bottom-right-radius" => array(
+            "-moz-border-radius-bottomright",
+            "-webkit-border-bottom-right-radius",
+            null,
+            null
+        ),
         "border-end" => array("-moz-border-end", "-webkit-border-end", null, null),
-        "border-end-color" => array("-moz-border-end-color", "-webkit-border-end-color", null, null),
-        "border-end-style" => array("-moz-border-end-style", "-webkit-border-end-style", null, null),
-        "border-end-width" => array("-moz-border-end-width", "-webkit-border-end-width", null, null),
+        "border-end-color" => array(
+            "-moz-border-end-color",
+            "-webkit-border-end-color",
+            null,
+            null
+        ),
+        "border-end-style" => array(
+            "-moz-border-end-style",
+            "-webkit-border-end-style",
+            null,
+            null
+        ),
+        "border-end-width" => array(
+            "-moz-border-end-width",
+            "-webkit-border-end-width",
+            null,
+            null
+        ),
         "border-fit" => array(null, "-webkit-border-fit", null, null),
         "border-horizontal-spacing" => array(null, "-webkit-border-horizontal-spacing", null, null),
         "border-image" => array("-moz-border-image", "-webkit-border-image", null, null),
@@ -2867,19 +2973,49 @@ class CssConvertLevel3PropertiesMinifierFilter extends aCssMinifierFilter
         "border-radius" => array("-moz-border-radius", "-webkit-border-radius", null, null),
         "border-border-right-colors" => array("-moz-border-right-colors", null, null, null),
         "border-start" => array("-moz-border-start", "-webkit-border-start", null, null),
-        "border-start-color" => array("-moz-border-start-color", "-webkit-border-start-color", null, null),
-        "border-start-style" => array("-moz-border-start-style", "-webkit-border-start-style", null, null),
-        "border-start-width" => array("-moz-border-start-width", "-webkit-border-start-width", null, null),
+        "border-start-color" => array(
+            "-moz-border-start-color",
+            "-webkit-border-start-color",
+            null,
+            null
+        ),
+        "border-start-style" => array(
+            "-moz-border-start-style",
+            "-webkit-border-start-style",
+            null,
+            null
+        ),
+        "border-start-width" => array(
+            "-moz-border-start-width",
+            "-webkit-border-start-width",
+            null,
+            null
+        ),
         "border-top-colors" => array("-moz-border-top-colors", null, null, null),
-        "border-top-left-radius" => array("-moz-border-radius-topleft", "-webkit-border-top-left-radius", null, null),
-        "border-top-right-radius" => array("-moz-border-radius-topright", "-webkit-border-top-right-radius", null, null),
+        "border-top-left-radius" => array(
+            "-moz-border-radius-topleft",
+            "-webkit-border-top-left-radius",
+            null,
+            null
+        ),
+        "border-top-right-radius" => array(
+            "-moz-border-radius-topright",
+            "-webkit-border-top-right-radius",
+            null,
+            null
+        ),
         "border-vertical-spacing" => array(null, "-webkit-border-vertical-spacing", null, null),
         "box-align" => array("-moz-box-align", "-webkit-box-align", null, null),
         "box-direction" => array("-moz-box-direction", "-webkit-box-direction", null, null),
         "box-flex" => array("-moz-box-flex", "-webkit-box-flex", null, null),
         "box-flex-group" => array(null, "-webkit-box-flex-group", null, null),
         "box-flex-lines" => array(null, "-webkit-box-flex-lines", null, null),
-        "box-ordinal-group" => array("-moz-box-ordinal-group", "-webkit-box-ordinal-group", null, null),
+        "box-ordinal-group" => array(
+            "-moz-box-ordinal-group",
+            "-webkit-box-ordinal-group",
+            null,
+            null
+        ),
         "box-orient" => array("-moz-box-orient", "-webkit-box-orient", null, null),
         "box-pack" => array("-moz-box-pack", "-webkit-box-pack", null, null),
         "box-reflect" => array(null, "-webkit-box-reflect", null, null),
@@ -2892,9 +3028,24 @@ class CssConvertLevel3PropertiesMinifierFilter extends aCssMinifierFilter
         "column-count" => array("-moz-column-count", "-webkit-column-count", null, null),
         "column-gap" => array("-moz-column-gap", "-webkit-column-gap", null, null),
         "column-rule" => array("-moz-column-rule", "-webkit-column-rule", null, null),
-        "column-rule-color" => array("-moz-column-rule-color", "-webkit-column-rule-color", null, null),
-        "column-rule-style" => array("-moz-column-rule-style", "-webkit-column-rule-style", null, null),
-        "column-rule-width" => array("-moz-column-rule-width", "-webkit-column-rule-width", null, null),
+        "column-rule-color" => array(
+            "-moz-column-rule-color",
+            "-webkit-column-rule-color",
+            null,
+            null
+        ),
+        "column-rule-style" => array(
+            "-moz-column-rule-style",
+            "-webkit-column-rule-style",
+            null,
+            null
+        ),
+        "column-rule-width" => array(
+            "-moz-column-rule-width",
+            "-webkit-column-rule-width",
+            null,
+            null
+        ),
         "column-span" => array(null, "-webkit-column-span", null, null),
         "column-width" => array("-moz-column-width", "-webkit-column-width", null, null),
         "columns" => array(null, "-webkit-columns", null, null),
@@ -2952,7 +3103,12 @@ class CssConvertLevel3PropertiesMinifierFilter extends aCssMinifierFilter
         "mask-repeat-x" => array(null, "-webkit-mask-repeat-x", null, null),
         "mask-repeat-y" => array(null, "-webkit-mask-repeat-y", null, null),
         "mask-size" => array(null, "-webkit-mask-size", null, null),
-        "match-nearest-mail-blockquote-color" => array(null, "-webkit-match-nearest-mail-blockquote-color", null, null),
+        "match-nearest-mail-blockquote-color" => array(
+            null,
+            "-webkit-match-nearest-mail-blockquote-color",
+            null,
+            null
+        ),
         "max-logical-height" => array(null, "-webkit-max-logical-height", null, null),
         "max-logical-width" => array(null, "-webkit-max-logical-width", null, null),
         "min-logical-height" => array(null, "-webkit-min-logical-height", null, null),
@@ -2999,22 +3155,57 @@ class CssConvertLevel3PropertiesMinifierFilter extends aCssMinifierFilter
         "text-kashida-space" => array(null, null, null, "-ms-text-kashida-space"),
         "text-overflow" => array(null, null, "-o-text-overflow", "-ms-text-overflow"),
         "text-security" => array(null, "-webkit-text-security", null, null),
-        "text-size-adjust" => array(null, "-webkit-text-size-adjust", null, "-ms-text-size-adjust"),
+        "text-size-adjust" => array(
+            null,
+            "-webkit-text-size-adjust",
+            null,
+            "-ms-text-size-adjust"
+        ),
         "text-stroke" => array(null, "-webkit-text-stroke", null, null),
         "text-stroke-color" => array(null, "-webkit-text-stroke-color", null, null),
         "text-stroke-width" => array(null, "-webkit-text-stroke-width", null, null),
         "text-underline-position" => array(null, null, null, "-ms-text-underline-position"),
         "transform" => array("-moz-transform", "-webkit-transform", "-o-transform", null),
-        "transform-origin" => array("-moz-transform-origin", "-webkit-transform-origin", "-o-transform-origin", null),
+        "transform-origin" => array(
+            "-moz-transform-origin",
+            "-webkit-transform-origin",
+            "-o-transform-origin",
+            null
+        ),
         "transform-origin-x" => array(null, "-webkit-transform-origin-x", null, null),
         "transform-origin-y" => array(null, "-webkit-transform-origin-y", null, null),
         "transform-origin-z" => array(null, "-webkit-transform-origin-z", null, null),
         "transform-style" => array(null, "-webkit-transform-style", null, null),
-        "transition" => array("-moz-transition", "-webkit-transition", "-o-transition", null),
-        "transition-delay" => array("-moz-transition-delay", "-webkit-transition-delay", "-o-transition-delay", null),
-        "transition-duration" => array("-moz-transition-duration", "-webkit-transition-duration", "-o-transition-duration", null),
-        "transition-property" => array("-moz-transition-property", "-webkit-transition-property", "-o-transition-property", null),
-        "transition-timing-function" => array("-moz-transition-timing-function", "-webkit-transition-timing-function", "-o-transition-timing-function", null),
+        "transition" => array(
+            "-moz-transition",
+            "-webkit-transition",
+            "-o-transition",
+            null
+        ),
+        "transition-delay" => array(
+            "-moz-transition-delay",
+            "-webkit-transition-delay",
+            "-o-transition-delay",
+            null
+        ),
+        "transition-duration" => array(
+            "-moz-transition-duration",
+            "-webkit-transition-duration",
+            "-o-transition-duration",
+            null
+        ),
+        "transition-property" => array(
+            "-moz-transition-property",
+            "-webkit-transition-property",
+            "-o-transition-property",
+            null
+        ),
+        "transition-timing-function" => array(
+            "-moz-transition-timing-function",
+            "-webkit-transition-timing-function",
+            "-o-transition-timing-function",
+            null
+        ),
         "user-drag" => array(null, "-webkit-user-drag", null, null),
         "user-focus" => array("-moz-user-focus", null, null, null),
         "user-input" => array("-moz-user-input", null, null, null),
@@ -3029,15 +3220,87 @@ class CssConvertLevel3PropertiesMinifierFilter extends aCssMinifierFilter
     );
 
     /**
+     * Transforms the Internet Explorer specific declaration property "filter" to Internet Explorer 8+ compatible
+     * declaratiopn property "-ms-filter".
+     *
+     * @param aCssToken $token
+     *
+     * @return array
+     */
+    private static function filter($token)
+    {
+        $r = array
+        (
+            new CssRulesetDeclarationToken("-ms-filter", "\"" . $token->Value . "\"", $token->MediaTypes),
+        );
+
+        return $r;
+    }
+
+    /**
+     * Transforms "opacity: {value}" into browser specific counterparts.
+     *
+     * @param aCssToken $token
+     *
+     * @return array
+     */
+    private static function opacity($token)
+    {
+        // Calculate the value for Internet Explorer filter statement
+        $ieValue = (int)((float)$token->Value * 100);
+        $r = array
+        (
+            // Internet Explorer >= 8
+            new CssRulesetDeclarationToken("-ms-filter", "\"alpha(opacity=" . $ieValue . ")\"", $token->MediaTypes),
+            // Internet Explorer >= 4 <= 7
+            new CssRulesetDeclarationToken("filter", "alpha(opacity=" . $ieValue . ")", $token->MediaTypes),
+            new CssRulesetDeclarationToken("zoom", "1", $token->MediaTypes)
+        );
+
+        return $r;
+    }
+
+    /**
+     * Transforms "white-space: pre-wrap" into browser specific counterparts.
+     *
+     * @param aCssToken $token
+     *
+     * @return array
+     */
+    private static function whiteSpace($token)
+    {
+        if (strtolower($token->Value) === "pre-wrap") {
+            $r = array
+            (
+                // Firefox < 3
+                new CssRulesetDeclarationToken("white-space", "-moz-pre-wrap", $token->MediaTypes),
+                // Webkit
+                new CssRulesetDeclarationToken("white-space", "-webkit-pre-wrap", $token->MediaTypes),
+                // Opera >= 4 <= 6
+                new CssRulesetDeclarationToken("white-space", "-pre-wrap", $token->MediaTypes),
+                // Opera >= 7
+                new CssRulesetDeclarationToken("white-space", "-o-pre-wrap", $token->MediaTypes),
+                // Internet Explorer >= 5.5
+                new CssRulesetDeclarationToken("word-wrap", "break-word", $token->MediaTypes)
+            );
+
+            return $r;
+        } else {
+            return array();
+        }
+    }
+
+    /**
      * Implements {@link aCssMinifierFilter::filter()}.
      *
      * @param array $tokens Array of objects of type aCssToken
+     *
      * @return integer Count of added, changed or removed tokens; a return value large than 0 will rebuild the array
      */
     public function apply(array &$tokens)
     {
         $r = 0;
-        $transformations = & $this->transformations;
+        $transformations = &$this->transformations;
         for ($i = 0, $l = count($tokens); $i < $l; $i++) {
             if (get_class($tokens[$i]) === "CssRulesetDeclarationToken") {
                 $tProperty = $tokens[$i]->Property;
@@ -3065,72 +3328,8 @@ class CssConvertLevel3PropertiesMinifierFilter extends aCssMinifierFilter
                 }
             }
         }
-        return $r;
-    }
 
-    /**
-     * Transforms the Internet Explorer specific declaration property "filter" to Internet Explorer 8+ compatible
-     * declaratiopn property "-ms-filter".
-     *
-     * @param aCssToken $token
-     * @return array
-     */
-    private static function filter($token)
-    {
-        $r = array
-        (
-            new CssRulesetDeclarationToken("-ms-filter", "\"" . $token->Value . "\"", $token->MediaTypes),
-        );
         return $r;
-    }
-
-    /**
-     * Transforms "opacity: {value}" into browser specific counterparts.
-     *
-     * @param aCssToken $token
-     * @return array
-     */
-    private static function opacity($token)
-    {
-        // Calculate the value for Internet Explorer filter statement
-        $ieValue = (int)((float)$token->Value * 100);
-        $r = array
-        (
-            // Internet Explorer >= 8
-            new CssRulesetDeclarationToken("-ms-filter", "\"alpha(opacity=" . $ieValue . ")\"", $token->MediaTypes),
-            // Internet Explorer >= 4 <= 7
-            new CssRulesetDeclarationToken("filter", "alpha(opacity=" . $ieValue . ")", $token->MediaTypes),
-            new CssRulesetDeclarationToken("zoom", "1", $token->MediaTypes)
-        );
-        return $r;
-    }
-
-    /**
-     * Transforms "white-space: pre-wrap" into browser specific counterparts.
-     *
-     * @param aCssToken $token
-     * @return array
-     */
-    private static function whiteSpace($token)
-    {
-        if (strtolower($token->Value) === "pre-wrap") {
-            $r = array
-            (
-                // Firefox < 3
-                new CssRulesetDeclarationToken("white-space", "-moz-pre-wrap", $token->MediaTypes),
-                // Webkit
-                new CssRulesetDeclarationToken("white-space", "-webkit-pre-wrap", $token->MediaTypes),
-                // Opera >= 4 <= 6
-                new CssRulesetDeclarationToken("white-space", "-pre-wrap", $token->MediaTypes),
-                // Opera >= 7
-                new CssRulesetDeclarationToken("white-space", "-o-pre-wrap", $token->MediaTypes),
-                // Internet Explorer >= 5.5
-                new CssRulesetDeclarationToken("word-wrap", "break-word", $token->MediaTypes)
-            );
-            return $r;
-        } else {
-            return array();
-        }
     }
 }
 
@@ -3150,6 +3349,7 @@ class CssConvertLevel3AtKeyframesMinifierFilter extends aCssMinifierFilter
      * Implements {@link aCssMinifierFilter::filter()}.
      *
      * @param array $tokens Array of objects of type aCssToken
+     *
      * @return integer Count of added, changed or removed tokens; a return value larger than 0 will rebuild the array
      */
     public function apply(array &$tokens)
@@ -3188,6 +3388,7 @@ class CssConvertLevel3AtKeyframesMinifierFilter extends aCssMinifierFilter
                 }
             }
         }
+
         return $r;
     }
 }
@@ -3225,6 +3426,7 @@ class CssConvertHslColorsMinifierPlugin extends aCssMinifierPlugin
      * Implements {@link aCssMinifierPlugin::minify()}.
      *
      * @param aCssToken $token Token to process
+     *
      * @return boolean Return TRUE to break the processing of this token; FALSE to continue
      */
     public function apply(aCssToken &$token)
@@ -3232,22 +3434,8 @@ class CssConvertHslColorsMinifierPlugin extends aCssMinifierPlugin
         if (stripos($token->Value, "hsl") !== false && preg_match($this->reMatch, $token->Value, $m)) {
             $token->Value = str_replace($m[0], $this->hsl2hex($m[1], $m[2], $m[3]), $token->Value);
         }
-        return false;
-    }
 
-    /**
-     * Implements {@link aMinifierPlugin::getTriggerTokens()}
-     *
-     * @return array
-     */
-    public function getTriggerTokens()
-    {
-        return array
-        (
-            "CssAtFontFaceDeclarationToken",
-            "CssAtPageDeclarationToken",
-            "CssRulesetDeclarationToken"
-        );
+        return false;
     }
 
     /**
@@ -3258,6 +3446,7 @@ class CssConvertHslColorsMinifierPlugin extends aCssMinifierPlugin
      * @param integer $hue Hue
      * @param integer $saturation Saturation
      * @param integer $lightness Lightnesss
+     *
      * @return string
      */
     private function hsl2hex($hue, $saturation, $lightness)
@@ -3280,6 +3469,7 @@ class CssConvertHslColorsMinifierPlugin extends aCssMinifierPlugin
             $green = 255 * self::hue2rgb($v1, $v2, $hue);
             $blue = 255 * self::hue2rgb($v1, $v2, $hue - (1 / 3));
         }
+
         return "#" . str_pad(dechex(round($red)), 2, "0", STR_PAD_LEFT) . str_pad(dechex(round($green)), 2, "0", STR_PAD_LEFT) . str_pad(dechex(round($blue)), 2, "0", STR_PAD_LEFT);
     }
 
@@ -3289,6 +3479,7 @@ class CssConvertHslColorsMinifierPlugin extends aCssMinifierPlugin
      * @param integer $v1 Value 1
      * @param integer $v2 Value 2
      * @param integer $hue Hue
+     *
      * @return integer
      */
     private function hue2rgb($v1, $v2, $hue)
@@ -3308,7 +3499,23 @@ class CssConvertHslColorsMinifierPlugin extends aCssMinifierPlugin
         if ((3 * $hue) < 2) {
             return ($v1 + ($v2 - $v1) * ((2 / 3) - $hue) * 6);
         }
+
         return $v1;
+    }
+
+    /**
+     * Implements {@link aMinifierPlugin::getTriggerTokens()}
+     *
+     * @return array
+     */
+    public function getTriggerTokens()
+    {
+        return array
+        (
+            "CssAtFontFaceDeclarationToken",
+            "CssAtPageDeclarationToken",
+            "CssRulesetDeclarationToken"
+        );
     }
 }
 
@@ -3377,6 +3584,7 @@ class CssConvertFontWeightMinifierPlugin extends aCssMinifierPlugin
      * based on the {@link CssConvertFontWeightMinifierPlugin::$transformation transformation table}.
      *
      * @param CssMinifier $minifier The CssMinifier object of this plugin.
+     *
      * @return void
      */
     public function __construct(CssMinifier $minifier)
@@ -3389,6 +3597,7 @@ class CssConvertFontWeightMinifierPlugin extends aCssMinifierPlugin
      * Implements {@link aCssMinifierPlugin::minify()}.
      *
      * @param aCssToken $token Token to process
+     *
      * @return boolean Return TRUE to break the processing of this token; FALSE to continue
      */
     public function apply(aCssToken &$token)
@@ -3396,6 +3605,7 @@ class CssConvertFontWeightMinifierPlugin extends aCssMinifierPlugin
         if (in_array($token->Property, $this->include) && preg_match($this->reMatch, $token->Value, $m)) {
             $token->Value = preg_replace($this->reMatch, $this->reReplace, $token->Value);
         }
+
         return false;
     }
 
@@ -3465,6 +3675,7 @@ class CssCompressUnitValuesMinifierPlugin extends aCssMinifierPlugin
      * Implements {@link aCssMinifierPlugin::minify()}.
      *
      * @param aCssToken $token Token to process
+     *
      * @return boolean Return TRUE to break the processing of this token; FALSE to continue
      */
     public function apply(aCssToken &$token)
@@ -3474,6 +3685,7 @@ class CssCompressUnitValuesMinifierPlugin extends aCssMinifierPlugin
                 $token->Value = preg_replace($reMatch, $reReplace, $token->Value);
             }
         }
+
         return false;
     }
 
@@ -3512,6 +3724,7 @@ class CssCompressExpressionValuesMinifierPlugin extends aCssMinifierPlugin
      * Implements {@link aCssMinifierPlugin::minify()}.
      *
      * @param aCssToken $token Token to process
+     *
      * @return boolean Return TRUE to break the processing of this token; FALSE to continue
      */
     public function apply(aCssToken &$token)
@@ -3522,6 +3735,7 @@ class CssCompressExpressionValuesMinifierPlugin extends aCssMinifierPlugin
             $value = trim(JSMin::minify($value));
             $token->Value = "expression(" . $value . ")";
         }
+
         return false;
     }
 
@@ -3575,6 +3789,7 @@ class CssCompressColorValuesMinifierPlugin extends aCssMinifierPlugin
      * Implements {@link aCssMinifierPlugin::minify()}.
      *
      * @param aCssToken $token Token to process
+     *
      * @return boolean Return TRUE to break the processing of this token; FALSE to continue
      */
     public function apply(aCssToken &$token)
@@ -3585,6 +3800,7 @@ class CssCompressColorValuesMinifierPlugin extends aCssMinifierPlugin
                 $token->Value = str_replace($m[0], "#" . $value[0] . $value[2] . $value[4], $token->Value);
             }
         }
+
         return false;
     }
 
@@ -3627,6 +3843,7 @@ class CssCommentToken extends aCssToken
      * Set the properties of a comment token.
      *
      * @param string $comment Comment including comment delimiters
+     *
      * @return void
      */
     public function __construct($comment)
@@ -3660,6 +3877,13 @@ class CssCommentToken extends aCssToken
 class CssCommentParserPlugin extends aCssParserPlugin
 {
     /**
+     * Stored buffer for restore.
+     *
+     * @var string
+     */
+    private $restoreBuffer = "";
+
+    /**
      * Implements {@link aCssParserPlugin::getTriggerChars()}.
      *
      * @return array
@@ -3680,18 +3904,12 @@ class CssCommentParserPlugin extends aCssParserPlugin
     }
 
     /**
-     * Stored buffer for restore.
-     *
-     * @var string
-     */
-    private $restoreBuffer = "";
-
-    /**
      * Implements {@link aCssParserPlugin::parse()}.
      *
      * @param integer $index Current index
      * @param string $char Current char
      * @param string $previousChar Previous char
+     *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
     public function parse($index, $char, $previousChar, $state)
@@ -3708,6 +3926,7 @@ class CssCommentParserPlugin extends aCssParserPlugin
         } else {
             return false;
         }
+
         return true;
     }
 }
@@ -3735,6 +3954,7 @@ class CssAtVariablesStartToken extends aCssAtBlockStartToken
      * Set the properties of a @variables at-rule token.
      *
      * @param array $mediaTypes Media types
+     *
      * @return void
      */
     public function __construct($mediaTypes = null)
@@ -3794,6 +4014,7 @@ class CssAtVariablesParserPlugin extends aCssParserPlugin
      * @param integer $index Current index
      * @param string $char Current char
      * @param string $previousChar Previous char
+     *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
     public function parse($index, $char, $previousChar, $state)
@@ -3802,6 +4023,7 @@ class CssAtVariablesParserPlugin extends aCssParserPlugin
         if ($char === "@" && $state === "T_DOCUMENT" && strtolower(substr($this->parser->getSource(), $index, 10)) === "@variables") {
             $this->parser->pushState("T_AT_VARIABLES::PREPARE");
             $this->parser->clearBuffer();
+
             return $index + 10;
         } // Start of @variables declarations
         elseif ($char === "{" && $state === "T_AT_VARIABLES::PREPARE") {
@@ -3840,6 +4062,7 @@ class CssAtVariablesParserPlugin extends aCssParserPlugin
         } else {
             return false;
         }
+
         return true;
     }
 }
@@ -3913,6 +4136,7 @@ class CssAtPageStartToken extends aCssAtBlockStartToken
      * Sets the properties of the @page at-rule.
      *
      * @param string $selector Selector
+     *
      * @return void
      */
     public function __construct($selector = "")
@@ -3972,6 +4196,7 @@ class CssAtPageParserPlugin extends aCssParserPlugin
      * @param integer $index Current index
      * @param string $char Current char
      * @param string $previousChar Previous char
+     *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
     public function parse($index, $char, $previousChar, $state)
@@ -3980,6 +4205,7 @@ class CssAtPageParserPlugin extends aCssParserPlugin
         if ($char === "@" && $state === "T_DOCUMENT" && strtolower(substr($this->parser->getSource(), $index, 5)) === "@page") {
             $this->parser->pushState("T_AT_PAGE::SELECTOR");
             $this->parser->clearBuffer();
+
             return $index + 5;
         } // Start of @page declarations
         elseif ($char === "{" && $state === "T_AT_PAGE::SELECTOR") {
@@ -4023,6 +4249,7 @@ class CssAtPageParserPlugin extends aCssParserPlugin
         } else {
             return false;
         }
+
         return true;
     }
 }
@@ -4073,6 +4300,7 @@ class CssAtMediaStartToken extends aCssAtBlockStartToken
      * Sets the properties of the @media at-rule.
      *
      * @param array $mediaTypes Media types
+     *
      * @return void
      */
     public function __construct(array $mediaTypes = array())
@@ -4133,6 +4361,7 @@ class CssAtMediaParserPlugin extends aCssParserPlugin
      * @param integer $index Current index
      * @param string $char Current char
      * @param string $previousChar Previous char
+     *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
     public function parse($index, $char, $previousChar, $state)
@@ -4140,6 +4369,7 @@ class CssAtMediaParserPlugin extends aCssParserPlugin
         if ($char === "@" && $state === "T_DOCUMENT" && strtolower(substr($this->parser->getSource(), $index, 6)) === "@media") {
             $this->parser->pushState("T_AT_MEDIA::PREPARE");
             $this->parser->clearBuffer();
+
             return $index + 6;
         } elseif ($char === "{" && $state === "T_AT_MEDIA::PREPARE") {
             $mediaTypes = array_filter(array_map("trim", explode(",", $this->parser->getAndClearBuffer("{"))));
@@ -4154,6 +4384,7 @@ class CssAtMediaParserPlugin extends aCssParserPlugin
         } else {
             return false;
         }
+
         return true;
     }
 }
@@ -4202,6 +4433,7 @@ class CssAtKeyframesStartToken extends aCssAtBlockStartToken
      * Sets the properties of the @page at-rule.
      *
      * @param string $selector Selector
+     *
      * @return void
      */
     public function __construct($name, $atRuleName = null)
@@ -4246,6 +4478,7 @@ class CssAtKeyframesRulesetStartToken extends aCssRulesetStartToken
      * Set the properties of a ruleset token.
      *
      * @param array $selectors Selectors of the ruleset
+     *
      * @return void
      */
     public function __construct(array $selectors = array())
@@ -4334,7 +4567,14 @@ class CssAtKeyframesParserPlugin extends aCssParserPlugin
      */
     public function getTriggerStates()
     {
-        return array("T_DOCUMENT", "T_AT_KEYFRAMES::NAME", "T_AT_KEYFRAMES", "T_AT_KEYFRAMES_RULESETS", "T_AT_KEYFRAMES_RULESET", "T_AT_KEYFRAMES_RULESET_DECLARATION");
+        return array(
+            "T_DOCUMENT",
+            "T_AT_KEYFRAMES::NAME",
+            "T_AT_KEYFRAMES",
+            "T_AT_KEYFRAMES_RULESETS",
+            "T_AT_KEYFRAMES_RULESET",
+            "T_AT_KEYFRAMES_RULESET_DECLARATION"
+        );
     }
 
     /**
@@ -4343,6 +4583,7 @@ class CssAtKeyframesParserPlugin extends aCssParserPlugin
      * @param integer $index Current index
      * @param string $char Current char
      * @param string $previousChar Previous char
+     *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
     public function parse($index, $char, $previousChar, $state)
@@ -4352,18 +4593,21 @@ class CssAtKeyframesParserPlugin extends aCssParserPlugin
             $this->atRuleName = "keyframes";
             $this->parser->pushState("T_AT_KEYFRAMES::NAME");
             $this->parser->clearBuffer();
+
             return $index + 10;
         } // Start of @keyframes at-rule block (@-moz-keyframes)
         elseif ($char === "@" && $state === "T_DOCUMENT" && strtolower(substr($this->parser->getSource(), $index, 15)) === "@-moz-keyframes") {
             $this->atRuleName = "-moz-keyframes";
             $this->parser->pushState("T_AT_KEYFRAMES::NAME");
             $this->parser->clearBuffer();
+
             return $index + 15;
         } // Start of @keyframes at-rule block (@-webkit-keyframes)
         elseif ($char === "@" && $state === "T_DOCUMENT" && strtolower(substr($this->parser->getSource(), $index, 18)) === "@-webkit-keyframes") {
             $this->atRuleName = "-webkit-keyframes";
             $this->parser->pushState("T_AT_KEYFRAMES::NAME");
             $this->parser->clearBuffer();
+
             return $index + 18;
         } // Start of @keyframes rulesets
         elseif ($char === "{" && $state === "T_AT_KEYFRAMES::NAME") {
@@ -4425,6 +4669,7 @@ class CssAtKeyframesParserPlugin extends aCssParserPlugin
         } else {
             return false;
         }
+
         return true;
     }
 }
@@ -4474,6 +4719,7 @@ class CssAtImportToken extends aCssToken
      *
      * @param string $import Import path
      * @param array $mediaTypes Media types
+     *
      * @return void
      */
     public function __construct($import, $mediaTypes)
@@ -4533,6 +4779,7 @@ class CssAtImportParserPlugin extends aCssParserPlugin
      * @param integer $index Current index
      * @param string $char Current char
      * @param string $previousChar Previous char
+     *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
     public function parse($index, $char, $previousChar, $state)
@@ -4540,6 +4787,7 @@ class CssAtImportParserPlugin extends aCssParserPlugin
         if ($char === "@" && $state === "T_DOCUMENT" && strtolower(substr($this->parser->getSource(), $index, 7)) === "@import") {
             $this->parser->pushState("T_AT_IMPORT");
             $this->parser->clearBuffer();
+
             return $index + 7;
         } elseif (($char === ";" || $char === "\n") && $state === "T_AT_IMPORT") {
             $this->buffer = $this->parser->getAndClearBuffer(";");
@@ -4564,6 +4812,7 @@ class CssAtImportParserPlugin extends aCssParserPlugin
         } else {
             return false;
         }
+
         return true;
     }
 }
@@ -4632,6 +4881,7 @@ class CssAtFontFaceParserPlugin extends aCssParserPlugin
      * @param integer $index Current index
      * @param string $char Current char
      * @param string $previousChar Previous char
+     *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
     public function parse($index, $char, $previousChar, $state)
@@ -4640,6 +4890,7 @@ class CssAtFontFaceParserPlugin extends aCssParserPlugin
         if ($char === "@" && $state === "T_DOCUMENT" && strtolower(substr($this->parser->getSource(), $index, 10)) === "@font-face") {
             $this->parser->pushState("T_AT_FONT_FACE::PREPARE");
             $this->parser->clearBuffer();
+
             return $index + 10;
         } // Start of @font-face declarations
         elseif ($char === "{" && $state === "T_AT_FONT_FACE::PREPARE") {
@@ -4682,6 +4933,7 @@ class CssAtFontFaceParserPlugin extends aCssParserPlugin
         } else {
             return false;
         }
+
         return true;
     }
 }
@@ -4739,6 +4991,7 @@ class CssAtCharsetToken extends aCssToken
      * Set the properties of @charset at-rule token.
      *
      * @param string $charset Charset of the @charset at-rule token
+     *
      * @return void
      */
     public function __construct($charset)
@@ -4797,6 +5050,7 @@ class CssAtCharsetParserPlugin extends aCssParserPlugin
      * @param integer $index Current index
      * @param string $char Current char
      * @param string $previousChar Previous char
+     *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
     public function parse($index, $char, $previousChar, $state)
@@ -4804,6 +5058,7 @@ class CssAtCharsetParserPlugin extends aCssParserPlugin
         if ($char === "@" && $state === "T_DOCUMENT" && strtolower(substr($this->parser->getSource(), $index, 8)) === "@charset") {
             $this->parser->pushState("T_AT_CHARSET");
             $this->parser->clearBuffer();
+
             return $index + 8;
         } elseif (($char === ";" || $char === "\n") && $state === "T_AT_CHARSET") {
             $charset = $this->parser->getAndClearBuffer(";");
@@ -4812,6 +5067,7 @@ class CssAtCharsetParserPlugin extends aCssParserPlugin
         } else {
             return false;
         }
+
         return true;
     }
 }

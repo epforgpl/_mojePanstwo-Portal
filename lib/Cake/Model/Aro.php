@@ -17,27 +17,26 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('AclNode', 'Model');
+App::uses( 'AclNode', 'Model' );
 
 /**
  * Access Request Object
  *
  * @package       Cake.Model
  */
-class Aro extends AclNode
-{
+class Aro extends AclNode {
 
-    /**
-     * Model name
-     *
-     * @var string
-     */
-    public $name = 'Aro';
+	/**
+	 * Model name
+	 *
+	 * @var string
+	 */
+	public $name = 'Aro';
 
-    /**
-     * AROs are linked to ACOs by means of Permission
-     *
-     * @var array
-     */
-    public $hasAndBelongsToMany = array('Aco' => array('with' => 'Permission'));
+	/**
+	 * AROs are linked to ACOs by means of Permission
+	 *
+	 * @var array
+	 */
+	public $hasAndBelongsToMany = array( 'Aco' => array( 'with' => 'Permission' ) );
 }

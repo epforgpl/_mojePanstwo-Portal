@@ -61,40 +61,9 @@
  */
 class DATABASE_CONFIG
 {
-
-    public $default = array(
-        'datasource' => 'Database/Mysql',
-        'persistent' => false,
-        'host' => 'localhost',
-        'login' => 'user',
-        'password' => 'password',
-        'database' => 'database_name',
-        'prefix' => '',
-        'encoding' => 'utf8',
-    );
-
     public $mpapiObjects = array(
         'datasource' => '',
         'key' => '',
         'database' => false,
     );
-
-    public $MPApps = array(
-        'datasource' => '',
-        'key' => '',
-        'database' => false,
-    );
-
-    /*
-    public $test = array(
-        'datasource' => 'Database/Mysql',
-        'persistent' => false,
-        'host' => 'localhost',
-        'login' => 'user',
-        'password' => 'password',
-        'database' => 'test_database_name',
-        'prefix' => '',
-        //'encoding' => 'utf8',
-    );
-    */
 }

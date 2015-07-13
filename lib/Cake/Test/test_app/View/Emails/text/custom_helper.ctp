@@ -1,1 +1,1 @@
-Right now: <?php echo $this->Time->toAtom($time); ?>
+Right now: <?php echo $this->Time->toAtom( $time ); ?>

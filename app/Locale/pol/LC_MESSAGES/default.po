@@ -1,3 +1,45 @@
+msgid "LC_PASZPORT_USERNAME_MUST_BE_UNIQUE"
+msgstr "Użytkownik o takiej nazwie już istnieje"
+
+msgid "LC_PASZPORT_ALPHANUMERIC"
+msgstr "Nazwa użytkownika może składać się tylko ze znaków alfanumerycznych"
+
+msgid "LC_PASZPORT_PASSWORD_REQUIRED_AND_LENGTH"
+msgstr "Hasło musi składać się z przynajmniej 6 znaków"
+
+msgid "LC_PASZPORT_PASSWORDS_DONT_MATCH"
+msgstr "Podane hasła różnią się od siebie"
+
+msgid "LC_PASZPORT_EMAIL_MUST_BE_UNIQUE"
+msgstr "Użytkownik o takim adresie e-mail już istnieje"
+
+msgid "LC_PASZPORT_NOT_A_VALID_EMAIL"
+msgstr "Podany adres e-mail jest nieprawidłowy"
+
+msgid "LC_COCKPITBAR_USER_SEARCH"
+msgstr "Szukaj"
+
+msgid "LC_COCKPITBAR_USER_MY_DATA"
+msgstr "Moje Dane"
+
+msgid "LC_COCKPITBAR_USER_MY_DOCS"
+msgstr "Moje Pisma"
+
+msgid "LC_COCKPITBAR_USER_BASIC_INFO"
+msgstr "Podstawowe informacje"
+
+msgid "LC_COCKPITBAR_USER_PUBLIC_DATA"
+msgstr "Dane publiczne"
+
+msgid "LC_COCKPITBAR_USER_APPLICATION"
+msgstr "Aplikacje"
+
+msgid "LC_COCKPITBAR_USER_FAVOURITE"
+msgstr "Ulubione"
+
+msgid "LC_COCKPITBAR_USER_LINK"
+msgstr "Twój profil"
+
 msgid "LC_COCKPITBAR_LOGIN"
 msgstr "Zaloguj się"
 
@@ -5,7 +47,7 @@ msgid "LC_COCKPITBAR_LOGOUT"
 msgstr "Wyloguj się"
 
 msgid "LC_MAINHEADER_TEXT"
-msgstr "<b>_moje</b>Państwo <span>to zestaw aplikacji, dzięki którym możesz kontrolować i wpływać na działania Twojego państwa.</span>"
+msgstr "<b>_moje</b>Państwo <span>to zestaw aplikacji, dzięki którym możesz kontrolować i&nbsp;wpływać na działania Twojego państwa.</span>"
 
 msgid "LC_MAINHEADER_GUIDE"
 msgstr "Więcej&nbsp;&raquo;"
@@ -55,6 +97,12 @@ msgstr "Prosimy o jak najdokładniejszy opis występującego problemu - w ten sp
 msgid "LC_REPORTBUG_EMAIL_SUBMIT"
 msgstr "Wyślij zgłoszenie"
 
+msgid "LC_FOOTER_ABOUT_US"
+msgstr "O portalu"
+
+msgid "LC_FOOTER_API"
+msgstr "API"
+
 msgid "LC_FOOTER_REGULATIONS"
 msgstr "Regulamin"
 
@@ -75,6 +123,9 @@ msgstr "Szukaj"
 
 msgid "LC_SEARCH_DOTS"
 msgstr "Szukaj..."
+
+msgid "LC_SEARCH_BRAK_WYNIKOW"
+msgstr "Brak wyników"
 
 msgid "Jan"
 msgstr "Sty"

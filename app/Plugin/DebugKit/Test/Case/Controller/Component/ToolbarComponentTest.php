@@ -117,24 +117,6 @@ class ToolbarComponentTestCase extends CakeTestCase
     }
 
     /**
-     * loading test controller
-     *
-     * @param array $settings
-     * @return Controller
-     */
-    protected function _loadController($settings = array())
-    {
-        $request = new CakeRequest($this->url);
-        $request->addParams(Router::parse($this->url));
-        $this->Controller = new Controller($request);
-        $this->Controller->uses = null;
-        $this->Controller->components = array('Toolbar' => $settings + array('className' => 'TestToolbar'));
-        $this->Controller->constructClasses();
-        $this->Controller->Components->trigger('initialize', array($this->Controller));
-        return $this->Controller;
-    }
-
-    /**
      * test Loading of panel classes
      *
      * @return void
@@ -149,6 +131,26 @@ class ToolbarComponentTestCase extends CakeTestCase
 
         $this->Controller->Toolbar->loadPanels(array('history'), array('history' => 10));
         $this->assertEquals($this->Controller->Toolbar->panels['history']->history, 10);
+    }
+
+    /**
+     * loading test controller
+     *
+     * @param array $settings
+     *
+     * @return Controller
+     */
+    protected function _loadController($settings = array())
+    {
+        $request = new CakeRequest($this->url);
+        $request->addParams(Router::parse($this->url));
+        $this->Controller = new Controller($request);
+        $this->Controller->uses = null;
+        $this->Controller->components = array('Toolbar' => $settings + array('className' => 'TestToolbar'));
+        $this->Controller->constructClasses();
+        $this->Controller->Components->trigger('initialize', array($this->Controller));
+
+        return $this->Controller;
     }
 
     /**
@@ -249,8 +251,16 @@ class ToolbarComponentTestCase extends CakeTestCase
         ));
 
         $expected = array(
-            'history', 'session', 'request', 'sql_log', 'timer',
-            'log', 'variables', 'environment', 'include', 'test'
+            'history',
+            'session',
+            'request',
+            'sql_log',
+            'timer',
+            'log',
+            'variables',
+            'environment',
+            'include',
+            'test'
         );
         $this->assertEquals($expected, array_keys($this->Controller->Toolbar->panels));
     }

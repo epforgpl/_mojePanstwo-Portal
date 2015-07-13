@@ -71,10 +71,14 @@
 
 @media yeah {
     @page {
+
     @media cool {
-    color:red;
+        color:red
+
+    ;
     }
-    }
+}
+
 }
 
 @media (max-width: 599px) {

@@ -7,6 +7,7 @@ class NumberPlusHelper extends NumberHelper
     /**
      * @param null $num
      * @param int $decimals
+     *
      * @return float|null|string
      *
      * @see http://bakery.cakephp.org/articles/xsaint/2011/05/12/number_plus_helper
@@ -20,7 +21,11 @@ class NumberPlusHelper extends NumberHelper
         if ($num) {
             switch (true) {
                 case ($num < 1000000):
-                    return $this->format($this->precision($this->precision($num, 0), $decimals), array('thousands' => ' ', 'before' => '', 'places' => 0));
+                    return $this->format($this->precision($this->precision($num, 0), $decimals), array(
+                        'thousands' => ' ',
+                        'before' => '',
+                        'places' => 0
+                    ));
                 case ($num >= 1000000 && $num < 1000000000):
                     return $this->precision($this->precision($num, 0) / 1000000, $decimals) . ' mln ';
                 case ($num >= 1000000000):
@@ -29,6 +34,7 @@ class NumberPlusHelper extends NumberHelper
                     return $num;
             }
         }
+
         return $num;
     }
 } 

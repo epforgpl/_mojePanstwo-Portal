@@ -120,9 +120,22 @@ class FireCake
     protected $_enabled = true;
 
     /**
+     * Disable FireCake output
+     * All subsequent output calls will not be run.
+     *
+     * @return void
+     */
+    public static function disable()
+    {
+        $_this = FireCake::getInstance();
+        $_this->_enabled = false;
+    }
+
+    /**
      * get Instance of the singleton
      *
      * @param string $class Class instance to store in the singleton. Used with subclasses and Tests.
+     *
      * @return FireCake
      */
     public static function getInstance($class = null)
@@ -138,6 +151,7 @@ class FireCake
             $instance[0] = new FireCake();
             $instance[0]->setOptions();
         }
+
         return $instance[0];
     }
 
@@ -145,6 +159,7 @@ class FireCake
      * setOptions
      *
      * @param array $options Array of options to set.
+     *
      * @return void
      */
     public static function setOptions($options = array())
@@ -155,45 +170,6 @@ class FireCake
         } else {
             $_this->options = array_merge($_this->options, $options);
         }
-    }
-
-    /**
-     * Return boolean based on presence of FirePHP extension
-     *
-     * @return boolean
-     */
-    public static function detectClientExtension()
-    {
-        $ua = FireCake::getUserAgent();
-        if (preg_match('/\sFirePHP\/([\.|\d]*)\s?/si', $ua, $match) && version_compare($match[1], '0.0.6', '>=')) {
-            return true;
-        }
-        if (env('HTTP_X_FIREPHP_VERSION') && version_compare(env('HTTP_X_FIREPHP_VERSION'), '0.6', '>=')) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Get the Current UserAgent
-     *
-     * @return string UserAgent string of active client connection
-     */
-    public static function getUserAgent()
-    {
-        return env('HTTP_USER_AGENT');
-    }
-
-    /**
-     * Disable FireCake output
-     * All subsequent output calls will not be run.
-     *
-     * @return void
-     */
-    public static function disable()
-    {
-        $_this = FireCake::getInstance();
-        $_this->_enabled = false;
     }
 
     /**
@@ -212,106 +188,12 @@ class FireCake
      *
      * @param string $message Message to log
      * @param string $label Label for message (optional)
+     *
      * @return void
      */
     public static function log($message, $label = null)
     {
         FireCake::fb($message, $label, 'log');
-    }
-
-    /**
-     * Convenience wrapper for WARN messages
-     *
-     * @param string $message Message to log
-     * @param string $label Label for message (optional)
-     * @return void
-     */
-    public static function warn($message, $label = null)
-    {
-        FireCake::fb($message, $label, 'warn');
-    }
-
-    /**
-     * Convenience wrapper for INFO messages
-     *
-     * @param string $message Message to log
-     * @param string $label Label for message (optional)
-     * @return void
-     */
-    public static function info($message, $label = null)
-    {
-        FireCake::fb($message, $label, 'info');
-    }
-
-    /**
-     * Convenience wrapper for ERROR messages
-     *
-     * @param string $message Message to log
-     * @param string $label Label for message (optional)
-     * @return void
-     */
-    public static function error($message, $label = null)
-    {
-        FireCake::fb($message, $label, 'error');
-    }
-
-    /**
-     * Convenience wrapper for TABLE messages
-     *
-     * @param string $label Label for message (optional)
-     * @param string $message Message to log
-     * @return void
-     */
-    public static function table($label, $message)
-    {
-        FireCake::fb($message, $label, 'table');
-    }
-
-    /**
-     * Convenience wrapper for DUMP messages
-     *
-     * @param string $label Unique label for message
-     * @param string $message Message to log
-     * @return void
-     */
-    public static function dump($label, $message)
-    {
-        FireCake::fb($message, $label, 'dump');
-    }
-
-    /**
-     * Convenience wrapper for TRACE messages
-     *
-     * @param string $label Label for message (optional)
-     * @return void
-     */
-    public static function trace($label)
-    {
-        FireCake::fb($label, 'trace');
-    }
-
-    /**
-     * Convenience wrapper for GROUP messages
-     * Messages following the group call will be nested in a group block
-     *
-     * @param string $label Label for group (optional)
-     * @return void
-     */
-    public static function group($label)
-    {
-        FireCake::fb(null, $label, 'groupStart');
-    }
-
-    /**
-     * Convenience wrapper for GROUPEND messages
-     * Closes a group block
-     *
-     * @internal param string $label Label for group (optional)
-     * @return void
-     */
-    public static function groupEnd()
-    {
-        FireCake::fb(null, null, 'groupEnd');
     }
 
     /**
@@ -323,6 +205,7 @@ class FireCake
      * fb($message, $label, $type) - Send a message with a custom label and type.
      *
      * @param mixed $message Message to output. For other parameters see usage above.
+     *
      * @return boolean Success
      */
     public static function fb($message)
@@ -331,6 +214,7 @@ class FireCake
 
         if (headers_sent($filename, $linenum)) {
             trigger_error(__d('debug_kit', 'Headers already sent in %s on line %s. Cannot send log data to FirePHP.', $filename, $linenum), E_USER_WARNING);
+
             return false;
         }
         if (!$_this->_enabled || !$_this->detectClientExtension()) {
@@ -352,6 +236,7 @@ class FireCake
                 break;
             default:
                 trigger_error(__d('debug_kit', 'Incorrect parameter count for FireCake::fb()'), E_USER_WARNING);
+
                 return false;
         }
         if (isset($_this->_levels[$type])) {
@@ -434,7 +319,36 @@ class FireCake
             }
         }
         $_this->_sendHeader('X-Wf-1-Index', $_this->_messageIndex - 1);
+
         return true;
+    }
+
+    /**
+     * Return boolean based on presence of FirePHP extension
+     *
+     * @return boolean
+     */
+    public static function detectClientExtension()
+    {
+        $ua = FireCake::getUserAgent();
+        if (preg_match('/\sFirePHP\/([\.|\d]*)\s?/si', $ua, $match) && version_compare($match[1], '0.0.6', '>=')) {
+            return true;
+        }
+        if (env('HTTP_X_FIREPHP_VERSION') && version_compare(env('HTTP_X_FIREPHP_VERSION'), '0.6', '>=')) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get the Current UserAgent
+     *
+     * @return string UserAgent string of active client connection
+     */
+    public static function getUserAgent()
+    {
+        return env('HTTP_USER_AGENT');
     }
 
     /**
@@ -442,6 +356,7 @@ class FireCake
      *
      * @param array $trace Debug backtrace output
      * @param $messageName
+     *
      * @return array
      */
     protected static function _parseTrace($trace, $messageName)
@@ -464,26 +379,8 @@ class FireCake
                 break;
             }
         }
-        return $message;
-    }
 
-    /**
-     * Fix a trace for use in output
-     *
-     * @param mixed $trace Trace to fix
-     * @return string
-     */
-    protected static function _escapeTrace($trace)
-    {
-        for ($i = 0, $len = count($trace); $i < $len; $i++) {
-            if (isset($trace[$i]['file'])) {
-                $trace[$i]['file'] = Debugger::trimPath($trace[$i]['file']);
-            }
-            if (isset($trace[$i]['args'])) {
-                $trace[$i]['args'] = FireCake::stringEncode($trace[$i]['args']);
-            }
-        }
-        return $trace;
+        return $message;
     }
 
     /**
@@ -493,6 +390,7 @@ class FireCake
      * @param mixed $object Object or variable to encode to string.
      * @param integer $objectDepth Current Depth in object chains.
      * @param integer $arrayDepth Current Depth in array chains.
+     *
      * @return string|Object
      */
     public static function stringEncode($object, $objectDepth = 1, $arrayDepth = 1)
@@ -531,7 +429,42 @@ class FireCake
         if (is_string($object) || is_numeric($object) || is_bool($object) || is_null($object)) {
             return $object;
         }
+
         return $return;
+    }
+
+    /**
+     * Fix a trace for use in output
+     *
+     * @param mixed $trace Trace to fix
+     *
+     * @return string
+     */
+    protected static function _escapeTrace($trace)
+    {
+        for ($i = 0, $len = count($trace); $i < $len; $i++) {
+            if (isset($trace[$i]['file'])) {
+                $trace[$i]['file'] = Debugger::trimPath($trace[$i]['file']);
+            }
+            if (isset($trace[$i]['args'])) {
+                $trace[$i]['args'] = FireCake::stringEncode($trace[$i]['args']);
+            }
+        }
+
+        return $trace;
+    }
+
+    /**
+     * Send Headers - write headers.
+     *
+     * @param $name
+     * @param $value
+     *
+     * @return void
+     */
+    protected function _sendHeader($name, $value)
+    {
+        header($name . ': ' . $value);
     }
 
     /**
@@ -539,6 +472,7 @@ class FireCake
      *
      * @param mixed $object Object or array to json encode
      * @param boolean $skipEncode
+     *
      * @internal param bool $doIt
      * @static
      * @return string
@@ -549,18 +483,109 @@ class FireCake
         if (!$skipEncode) {
             $object = FireCake::stringEncode($object);
         }
+
         return json_encode($object);
     }
 
     /**
-     * Send Headers - write headers.
+     * Convenience wrapper for WARN messages
      *
-     * @param $name
-     * @param $value
+     * @param string $message Message to log
+     * @param string $label Label for message (optional)
+     *
      * @return void
      */
-    protected function _sendHeader($name, $value)
+    public static function warn($message, $label = null)
     {
-        header($name . ': ' . $value);
+        FireCake::fb($message, $label, 'warn');
+    }
+
+    /**
+     * Convenience wrapper for INFO messages
+     *
+     * @param string $message Message to log
+     * @param string $label Label for message (optional)
+     *
+     * @return void
+     */
+    public static function info($message, $label = null)
+    {
+        FireCake::fb($message, $label, 'info');
+    }
+
+    /**
+     * Convenience wrapper for ERROR messages
+     *
+     * @param string $message Message to log
+     * @param string $label Label for message (optional)
+     *
+     * @return void
+     */
+    public static function error($message, $label = null)
+    {
+        FireCake::fb($message, $label, 'error');
+    }
+
+    /**
+     * Convenience wrapper for TABLE messages
+     *
+     * @param string $label Label for message (optional)
+     * @param string $message Message to log
+     *
+     * @return void
+     */
+    public static function table($label, $message)
+    {
+        FireCake::fb($message, $label, 'table');
+    }
+
+    /**
+     * Convenience wrapper for DUMP messages
+     *
+     * @param string $label Unique label for message
+     * @param string $message Message to log
+     *
+     * @return void
+     */
+    public static function dump($label, $message)
+    {
+        FireCake::fb($message, $label, 'dump');
+    }
+
+    /**
+     * Convenience wrapper for TRACE messages
+     *
+     * @param string $label Label for message (optional)
+     *
+     * @return void
+     */
+    public static function trace($label)
+    {
+        FireCake::fb($label, 'trace');
+    }
+
+    /**
+     * Convenience wrapper for GROUP messages
+     * Messages following the group call will be nested in a group block
+     *
+     * @param string $label Label for group (optional)
+     *
+     * @return void
+     */
+    public static function group($label)
+    {
+        FireCake::fb(null, $label, 'groupStart');
+    }
+
+    /**
+     * Convenience wrapper for GROUPEND messages
+     * Closes a group block
+     *
+     * @internal param string $label Label for group (optional)
+     * @return void
+     */
+    public static function groupEnd()
+    {
+        FireCake::fb(null, null, 'groupEnd');
     }
 }

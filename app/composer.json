@@ -1,82 +1,39 @@
 {
-    "name": "epforgpl/mojepanstwo",
-    "description": "_mojePaństwo Portal",
-    "version": "0.0.1-alpha",
-    "type": "project",
-    "keywords": ["_mojePanstwo", "_eP", "moje panstwo", "ep", "ePF", "portal"],
-    "homepage": "http://mojepanstwo.pl",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Daniel Macyszyn",
-            "email": "daniel.macyszyn@epf.org.pl",
-            "homepage": "http://epf.org.pl",
-            "role": "Founder & Web Developer"
-        },
-        {
-            "name": "Mariusz Machuta-Rakowski",
-            "email": "mariusz.machuta-rakowski@epf.org.pl",
-            "role": "Senior Front-end Web Developer"
-        },
-        {
-            "name": "Adam Ciężkowski",
-            "email": "adam.ciezkowski@epf.org.pl",
-            "role": "Senior Back-end Web Developer"
-        }
-    ],
-    "support": {
-        "issues": "https://github.com/epforgpl/_mojePanstwo-Portal/issues"
+  "name": "epforgpl/_mojePanstwo",
+  "description": "_mojePaństwo to następca serwisu sejmometr.pl. Jest zestawem aplikacji, dzięki którym możesz kontrolować i wpływać na działania Twojego państwa. Serwis mojePaństwo jest projektem Open Source, w którym każdy może wziąć udział.",
+  "type": "Project",
+  "keywords": [
+    "_mojePanstwo",
+    "moje panstwo"
+  ],
+  "homepage": "http://mojepanstwo.pl",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Daniel Macyszyn",
+      "email": "daniel.macyszyn@epf.org.pl",
+      "homepage": "http://epf.org.pl",
+      "role": "Founder & Web Developer"
     },
-    "config": {
-        "vendor-dir": "Vendor"
+    {
+      "name": "Mariusz Machuta-Rakowski",
+      "email": "mariusz.machuta@gmail.com",
+      "role": "Senior Front-end Web Developer"
     },
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "browserstate/history.js",
-                "version": "master",
-                "source": {
-                    "url": "https://github.com/browserstate/history.js",
-                    "type": "git",
-                    "reference": "master"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "carhartl/jquery-cookie",
-                "version": "master",
-                "source": {
-                    "url": "https://github.com/carhartl/jquery-cookie",
-                    "type": "git",
-                    "reference": "master"
-                }
-            }
-        }
-    ],
-    "require": {
-        "slywalker/boost_cake": "*",
-        "leafo/lessphp": "0.3.*@dev",
-        "browserstate/history.js": "master",
-        "carhartl/jquery-cookie": "master"
-
-    },
-    "scripts": {
-        "post-install-cmd": [
-            "Console/cake composer.c update"
-        ],
-        "post-update-cmd": [
-            "Console/cake composer.c self-update",
-            "if [ -d \"webroot/js/plugins/browserstate\" ] \nthen \nrm -R webroot/js/plugins/browserstate \nfi ",
-            "if [ -d \"Vendor/browserstate/\" ] \nthen \nmv Vendor/browserstate webroot/js/plugins/browserstate  \nfi",
-            "if [ -d \"Vendor/browserstate/\" ] \nthen \nrm -R Vendor/browserstate/ \nfi",
-
-            "if [ -d \"webroot/js/plugins/carhartl\" ] \nthen \nrm -R webroot/js/plugins/carhartl \nfi ",
-            "if [ -d \"Vendor/carhartl/\" ] \nthen \nmv Vendor/carhartl webroot/js/plugins/carhartl  \nfi",
-            "if [ -d \"Vendor/carhartl/\" ] \nthen \nrm -R Vendor/carhartl/ \nfi"
-        ]
-    },
-    "minimum-stability": "dev"
+    {
+      "name": "Adam Ciężkowski",
+      "role": "Senior Back-end Web Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/epforgpl/_mojePanstwo-Portal/issues"
+  },
+  "config": {
+    "vendor-dir": "Vendor"
+  },
+  "require": {
+    "slywalker/boost_cake": "*",
+    "leafo/lessphp": "0.3.*@dev"
+  },
+  "minimum-stability": "dev"
 }

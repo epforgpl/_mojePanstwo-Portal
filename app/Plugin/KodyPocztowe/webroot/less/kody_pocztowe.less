@@ -1,10 +1,31 @@
-#_wrapper {
+.ui-autocomplete {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-color: #CCCCCC;
+    border-top-width: 0;
+    margin-top: -5px;
+    padding: 0;
+}
+
+.ui-menu .ui-menu-item {
+    font-size: 14px;
+    font-weight: 400;
+    color: #000;
+    padding: 6px 16px;
+
+    &:hover {
+        color: #FFFFFF;
+        background-color: #0078ac;
+    }
+}
+
+#_wrapper #_main {
     #kodyPocztowe {
-        font-family: "Lato", sans-serif;
-        margin-top: 8em;
+        padding-top: 10em;
+        padding-bottom: 10em;
 
         &.details {
-            margin-top: 1em;
+            margin-top: 0;
         }
 
         .kodyPocztoweBlock {
@@ -24,146 +45,98 @@
                 p:first-child {
                     font-size: 20px;
                     font-weight: 400;
+                    margin-bottom: 0;
+                }
+
+                p.subtitle {
+                    color: #666;
+                }
+
+                input {
+                    /*Firefox*/
+                    -moz-border-top-left-radius: 5px;
+                    -moz-border-top-right-radius: 0;
+                    -moz-border-bottom-right-radius: 0;
+                    -moz-border-bottom-left-radius: 5px;
+                    /*Safari, Chrome*/
+                    -webkit-border-radius: 5px 0 0 5px;
+                    -moz-border-radius: 5px 0 0 5px;
+                    -ms-border-radius: 5px 0 0 5px;
+                    -o-border-radius: 5px 0 0 5px;
+                    border-radius: 5px 0 0 5px;
+                }
+
+                .btn {
+                    width: 45px;
+                    height: 45px;
+
+                    &.loading {
+                        background: url(/img/loader/search-loading.png) center center no-repeat #5CB85C;
+
+                        &:before {
+                            content: ' ';
+                        }
+                    }
                 }
             }
         }
     }
-}
 
-#display {
-    color: #333333;
-    font-weight: 300;
-    text-align: center;
-    margin-top: 3em;
-    padding-bottom: 3em;
+    #display {
+        &:before, &:after {
+            content: " ";
+            display: table;
+        }
 
-    &.full {
-        margin-top: 0;
+        &:after {
+            clear: both;
+        }
     }
 
-    h1 {
-        font-weight: 300;
-        color: #222222;
+    .adresList {
+        margin-top: 30px;
+
+        small, a, p {
+            width: 100%;
+            display: block;
+            font-weight: 400;
+        }
+
+        small {
+            font-size: 13px;
+            color: #777;
+        }
+        p, a {
+            font-size: 22px;
+            line-height: 1em;
+            font-weight: 300;
+        }
     }
 
-    h2 {
-        font-weight: 300;
-        font-size: 16px;
-        margin-top: 10px;
-        color: #333333;
-    }
+    .kodyList {
+        margin-top: 40px;
 
-    p {
-        font-weight: 300;
-    }
+        > span, tr {
+            font-size: 20px;
+            font-weight: 300;
 
-    a {
-        color: #333333;
-        text-decoration: underline;
-    }
+            small {
+                padding-right: 10px;
+            }
+        }
 
-    .question {
-        font-size: 16px;
-    }
+        > span.center {
+            width: 100%;
+            text-align: center;
+            font-size: 26px;
+            float: left;
+        }
 
-    ul.cities {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        /* FF 3.5+*/
-        -moz-column-count: 2;
-        -moz-column-gap: 10px;
-        -moz-column-rule: none;
-        /*Saf3, Chrome*/
-        -webkit-column-count: 2;
-        -webkit-column-gap: 10px;
-        -webkit-column-rule: none;
-        column-count: 2;
-        column-gap: 10px;
-        column-rule: none;
-
-        li {
+        .theonlyone {
             a {
-                display: inline-block;
-                padding: 10px;
-                margin: 0;
-                line-height: 23px;
-                text-decoration: none;
-
-                span {
-                    display: block;
-                    text-decoration: none;
-
-                }
-
-                .title {
-                    font-size: 24px;
-                    text-decoration: underline;
-                    color: #157AB5;
-                }
-
-                .desc {
-                    font-size: 13px;
-                    text-decoration: none;
-                }
-
-            }
-
-            span {
-                font-size: 13px;
+                font-size: 60px;
+                font-weight: 300;
             }
         }
-
-    }
-
-    .pagination {
-        margin-left: 45px;
-    }
-
-    .szukajUlice {
-        margin: 20px 0 30px;
-
-        .btn {
-            margin-top: 15px;
-        }
-
-    }
-
-    ul.addresses {
-        list-style: none;
-        margin-top: 2em;
-        padding-top: 2em;
-
-        li {
-            font-size: 18px;
-            padding: 5px;
-            border-bottom: 1px solid #0091BE;
-            text-align: left;
-
-            .ulica {
-                text-align: left;
-            }
-
-            .numery {
-                font-size: 16px;
-            }
-
-            .kod {
-                font-size: 20px;
-                text-decoration: none;
-            }
-
-            &:last-child {
-                border-bottom: none;
-            }
-        }
-    }
-}
-
-@media (max-width: 767px) {
-    #_wrapper #kodyPocztowe .kodyPocztoweBlock:last-child {
-        border-top: 1px solid #CCCCCC;
-        border-left: none;
-        margin-top: 15px;
     }
 }

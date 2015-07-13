@@ -150,7 +150,6 @@ class PagesController extends PanstwoInternetAppController
                     ),
                 ),
             ),
-
             array(
                 'title' => 'Najaktywniejsi',
                 'name' => 'najaktywniejsi',
@@ -166,7 +165,6 @@ class PagesController extends PanstwoInternetAppController
                     ),
                 ),
             ),
-
             array(
                 'title' => 'Najczęściej retweetowani',
                 'name' => 'retweetowani',
@@ -182,8 +180,6 @@ class PagesController extends PanstwoInternetAppController
                     ),
                 ),
             ),
-
-
             array(
                 'title' => 'Najczęściej retweetowane treści',
                 'name' => 'retweetowane_tresci',
@@ -198,8 +194,6 @@ class PagesController extends PanstwoInternetAppController
                     ),
                 ),
             ),
-
-
             array(
                 'title' => 'Najpopularniejsze hashtagi',
                 'name' => 'hashtagi',
@@ -213,8 +207,6 @@ class PagesController extends PanstwoInternetAppController
                     ),
                 ),
             ),
-
-
             array(
                 'title' => 'Najczęściej udostępniane adresy WWW',
                 'name' => 'www',
@@ -224,7 +216,6 @@ class PagesController extends PanstwoInternetAppController
                     ),
                 ),
             ),
-
             array(
                 'title' => 'Najczęściej wzmiankowani',
                 'name' => 'wzmiankowani',
@@ -240,7 +231,6 @@ class PagesController extends PanstwoInternetAppController
                     ),
                 ),
             ),
-
             array(
                 'title' => 'Najczęściej wywołujący dyskusje',
                 'name' => 'wywolujacy_dyskusje',
@@ -256,7 +246,6 @@ class PagesController extends PanstwoInternetAppController
                     ),
                 ),
             ),
-
             array(
                 'title' => 'Najbardziej dyskutowane tweety',
                 'name' => 'dyskutowane_tweety',
@@ -271,7 +260,6 @@ class PagesController extends PanstwoInternetAppController
                     ),
                 ),
             ),
-
             array(
                 'title' => 'Najczęściej używane aplikacje',
                 'name' => 'aplikacje',
@@ -291,11 +279,12 @@ class PagesController extends PanstwoInternetAppController
                 if ($group['mode'] == 'account') {
 
                     $types = $this->API->getTwitterAccountsGroupByTypes($accounts_types_ids, $group['field']);
-                    foreach ($types as &$type)
+                    foreach ($types as &$type) {
                         $type = array_merge($type, array(
                             'title' => $accounts_types_nazwy[$type['id']],
                             'class' => $accounts_types_klasy[$type['id']],
                         ));
+                    }
 
                     $group = array_merge($group, array(
                         'types' => $types,
@@ -305,11 +294,12 @@ class PagesController extends PanstwoInternetAppController
 
                     $types = $this->API->getTwitterTweetsGroupByTypes($accounts_types_ids, $group['field']);
 
-                    foreach ($types as &$type)
+                    foreach ($types as &$type) {
                         $type = array_merge($type, array(
                             'title' => $accounts_types_nazwy[$type['id']],
                             'class' => $accounts_types_klasy[$type['id']],
                         ));
+                    }
 
                     $group = array_merge($group, array(
                         'types' => $types,

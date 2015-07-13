@@ -30,6 +30,7 @@ class RequestPanel extends DebugPanel
      * beforeRender callback - grabs request params
      *
      * @param Controller $controller
+     *
      * @return array
      */
     public function beforeRender(Controller $controller)
@@ -44,6 +45,7 @@ class RequestPanel extends DebugPanel
         }
         $out['get'] = $_GET;
         $out['currentRoute'] = Router::currentRoute();
+
         return $out;
     }
 }

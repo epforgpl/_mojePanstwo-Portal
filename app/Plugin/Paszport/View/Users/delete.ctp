@@ -11,7 +11,10 @@
             <?php echo $this->Form->create('User', array('action' => 'delete')); ?>
             <div class="form-group col-xs-12 col-sm-9">
                 <div class="row">
-                    <?php echo $this->Form->input('User.password', array('label' => __d('paszport', 'LC_PASZPORT_DELETE_PASSWORD_CONFIRM', true), 'class' => "form-control")); ?>
+                    <?php echo $this->Form->input('User.password', array(
+                        'label' => __d('paszport', 'LC_PASZPORT_DELETE_PASSWORD_CONFIRM', true),
+                        'class' => "form-control"
+                    )); ?>
                 </div>
             </div>
             <div class="form-group col-xs-12 col-sm-9">

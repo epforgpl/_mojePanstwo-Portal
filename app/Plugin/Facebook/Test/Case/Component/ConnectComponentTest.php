@@ -15,6 +15,7 @@ class TestUser extends CakeTestModel
     function save($data)
     {
         $this->data = $data;
+
         return true;
     }
 
@@ -26,12 +27,14 @@ class TestUser extends CakeTestModel
     function saveField($field, $facebook_id)
     {
         $this->facebookId = $facebook_id;
+
         return true;
     }
 
     function findByFacebookId($id)
     {
         $this->facebookId = $id;
+
         return array();
     }
 }
@@ -46,6 +49,7 @@ class TestUserHasOne extends CakeTestModel
     function save($data)
     {
         $this->data = $data;
+
         return true;
     }
 
@@ -62,12 +66,14 @@ class TestUserHasOne extends CakeTestModel
     function saveField($field, $facebook_id)
     {
         $this->facebookId = $facebook_id;
+
         return true;
     }
 
     function findByFacebookId($id)
     {
         $this->facebookId = $id;
+
         return array(
             'TestUserHasOne' => array(
                 'id' => 1,
@@ -89,6 +95,7 @@ class TestUserError extends CakeTestModel
     function save($data)
     {
         $this->data = $data;
+
         return true;
     }
 
@@ -100,12 +107,14 @@ class TestUserError extends CakeTestModel
     function saveField($field, $facebook_id)
     {
         $this->facebookId = $facebook_id;
+
         return true;
     }
 
     function findByFacebookId($id)
     {
         $this->facebookId = $id;
+
         return array();
     }
 }
@@ -174,20 +183,24 @@ class ConnectTest extends CakeTestCase
         $this->Connect->Controller->Auth->userModel = 'TestUser';
         $this->Connect->uid = 12;
         $this->Connect->Controller->setReturnValue('beforeFacebookSave', true);
-        $this->Connect->Controller->expectOnce('beforeFacebookLogin', array(array(
-            'TestUser' => array(
-                'facebook_id' => 12,
-                'password' => 'password'
+        $this->Connect->Controller->expectOnce('beforeFacebookLogin', array(
+            array(
+                'TestUser' => array(
+                    'facebook_id' => 12,
+                    'password' => 'password'
+                )
             )
-        )));
+        ));
         $this->Connect->Controller->Auth->setReturnValue('user', false);
         $this->Connect->Controller->Auth->setReturnValue('password', 'password');
-        $this->Connect->Controller->Auth->expectOnce('login', array(array(
-            'TestUser' => array(
-                'facebook_id' => 12,
-                'password' => 'password'
+        $this->Connect->Controller->Auth->expectOnce('login', array(
+            array(
+                'TestUser' => array(
+                    'facebook_id' => 12,
+                    'password' => 'password'
+                )
             )
-        )));
+        ));
         $this->assertTrue($this->Connect->__syncFacebookUser());
         $this->assertTrue($this->Connect->hasAccount);
     }
@@ -215,14 +228,16 @@ class ConnectTest extends CakeTestCase
     {
         $this->Connect->Controller->Auth->userModel = 'TestUserHasOne';
         $this->Connect->uid = 12;
-        $this->Connect->Controller->Auth->expectOnce('login', array(array(
-            'TestUserHasOne' => array(
-                'id' => 1,
-                'username' => 'test',
-                'password' => 'password',
-                'facebook_id' => ''
+        $this->Connect->Controller->Auth->expectOnce('login', array(
+            array(
+                'TestUserHasOne' => array(
+                    'id' => 1,
+                    'username' => 'test',
+                    'password' => 'password',
+                    'facebook_id' => ''
+                )
             )
-        )));
+        ));
         $this->assertTrue($this->Connect->__syncFacebookUser());
     }
 
@@ -266,7 +281,12 @@ class ConnectTest extends CakeTestCase
         $this->Connect->Controller->Auth->setReturnValue('password', 'password');
         $this->Connect->Controller->Auth->expectOnce('login');
         $this->assertTrue($this->Connect->__syncFacebookUser());
-        $this->assertEqual(array('TestUser' => array('facebook_id' => 12, 'password' => 'password')), $this->Connect->User->data);
+        $this->assertEqual(array(
+            'TestUser' => array(
+                'facebook_id' => 12,
+                'password' => 'password'
+            )
+        ), $this->Connect->User->data);
     }
 
     function testUserIfLoggedIn()

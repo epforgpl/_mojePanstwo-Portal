@@ -44,11 +44,6 @@ class PaszportAppController extends AppController
                 'action' => 'login',
                 'plugin' => 'paszport'
             ),
-            'logoutRedirect' => array(
-                'controller' => 'pages',
-                'action' => 'home',
-                'plugin' => 'paszport',
-            ),
             'authenticate' => array(
                 'Form' => array(
                     'fields' => array('username' => 'email', 'password' => 'password'),
@@ -80,10 +75,14 @@ class PaszportAppController extends AppController
 
     public $uses = array('Paszport.User');
 
+    public $PassportApi;
+
     public function beforeFilter()
     {
         parent::beforeFilter();
-        $this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'index');
+
+        $this->Auth->deny(); // default is to deny all
+
         $this->Auth->authError = __d('paszport', 'LC_PASZPORT_UNAUTHORIZED', true);
         if ($this->Auth->loggedIn()) {
             $avatar_for_layout = $this->Auth->user('photo_small');
@@ -101,7 +100,7 @@ class PaszportAppController extends AppController
         */
 
         $this->OAuth->allow();
-        $this->PassportApi = $this->API->Paszport();
+        // $this->PassportApi = $this->API->Paszport();
         $this->Session->write('Config.language', Configure::read('Config.language'));
     }
 
@@ -109,6 +108,7 @@ class PaszportAppController extends AppController
      * Log sink
      *
      * @param array $log array('msg','ip','user_id')
+     *
      * @return bool
      */
     protected function _log($log = array())

@@ -10,12 +10,15 @@ class SejmGlosowaniaController extends DataobjectsController
             'label' => 'LC_INDYWIDUALNE_WYNIKI_GLOSWANIA',
         ),
     );
+    public $breadcrumbsMode = 'app';
 
     public function view()
     {
-        parent::_prepareView();
-        
-        $this->object->loadLayer('wynikiKlubowe');
-        $this->object->loadLayer('wynikiIndywidualne');
+
+        parent::view();
+
+        $this->redirect($this->object->getUrl());
+        die();
+
     }
 } 

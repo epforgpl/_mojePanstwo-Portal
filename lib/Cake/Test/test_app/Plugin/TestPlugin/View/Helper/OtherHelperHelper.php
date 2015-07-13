@@ -18,13 +18,12 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('AppHelper', 'View/Helper');
+App::uses( 'AppHelper', 'View/Helper' );
 
 /**
  * Class OtherHelperHelper
  *
  * @package       Cake.Test.TestApp.Plugin.TestPlugin.View.Helper
  */
-class OtherHelperHelper extends AppHelper
-{
+class OtherHelperHelper extends AppHelper {
 }

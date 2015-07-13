@@ -20,6 +20,7 @@ interface IOAuth2GrantExtension extends IOAuth2Storage
      * is likely to be).
      * @param array $authHeaders
      * Authorization headers
+     *
      * @return
      * FALSE if the authorization is rejected or not support.
      * TRUE or an associative array if you wantto verify the scope:

@@ -1,0 +1,172 @@
+/* vim: set shiftwidth=2 tabstop=2 autoindent cindent expandtab: */
+/* -*- Mode: Java; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
+/* Demo CSS for pdf2htmlEX */
+/* Copyright 2012,2013 Lu Wang <coolwanglu@gmail.com> */
+/* Part 1: Web Page Layout: Free to modify, except for a few of them which are required by pdf2htmlEX.js, see the comments */
+
+@media screen {
+    /* for sidebar */
+    #pdf-outline.opened {
+        display: block;
+    }
+
+    #pdf-outline.opened + #pdf-main {
+        left: 200px;
+    }
+
+    #pdf-main {
+        /* `bottom' and `right' are required for lazy page loading in pdf2htmlEX.js (page visibility test)
+         * alternatively you may set width and height
+         */
+        bottom: 0;
+        right: 0;
+        overflow: auto;
+    }
+}
+
+@media print {
+    @page {
+        margin: 0;
+    }
+
+    html {
+        margin: 0;
+    }
+
+    body {
+        margin: 0;
+        -webkit-print-color-adjust: exact; /* enable printing background images for WebKit */
+    }
+
+    #pdf-main {
+        width: auto;
+        height: auto;
+        overflow: visible;
+        background-color: transparent;
+    }
+}
+
+/* Part 2: Page Elements: Modify with caution
+ * The followings are base classes, which are meant to be override by PDF specific classes
+ * So do not increase the specificity (e.g. ".d" -> "#pdf-main .d")
+ */
+.ep_doc_box .d {
+    /* page decoration */
+    position: relative;
+    margin: 10px auto;
+    border-width: 0;
+    overflow: hidden;
+}
+
+.ep_doc_box .p {
+    /* page */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    border-width: 0; /* required by pdf2htmlEX.js for page visibility test */
+}
+
+.ep_doc_box .b {
+    /* content of a page */
+    position: absolute;
+    border-width: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: block;
+    transform-origin: 0% 0%;
+    -ms-transform-origin: 0% 0%;
+    -moz-transform-origin: 0% 0%;
+    -webkit-transform-origin: 0% 0%;
+    -o-transform-origin: 0% 0%;
+}
+
+.ep_doc_box .b.opened {
+    /* used by pdf2htmlEX.js, to show/hide pages */
+    display: block;
+}
+
+@media print {
+    .d {
+        margin: 0;
+        box-shadow: none;
+        page-break-after: always;
+        page-break-inside: avoid;
+    }
+
+    @-moz-document url-prefix() {
+        /* fix page truncation for FireFox */
+        .d {
+            overflow: visible;
+            border: 1px solid #FFFFFF;
+        }
+        .p {
+            overflow: visible;
+        }
+        .b {
+            overflow: visible;
+        }
+    }
+}
+
+.ep_doc_box .l {
+    /* text line */
+    position: absolute;
+    white-space: pre;
+    font-size: 1px;
+    transform-origin: 0% 100%;
+    -ms-transform-origin: 0% 100%;
+    -moz-transform-origin: 0% 100%;
+    -webkit-transform-origin: 0% 100%;
+    -o-transform-origin: 0% 100%;
+}
+
+.ep_doc_box span {
+    /* text blocks within a line */
+    position: relative;
+    vertical-align: baseline;
+    /* _<id> for spaces may need display:inline, which will override this */
+    display: inline-block;
+}
+
+.ep_doc_box ._ {
+    /* text shift */
+    color: transparent;
+    z-index: -1;
+}
+
+.ep_doc_box ::selection {
+    background: rgba(127, 255, 255, 1);
+}
+
+.ep_doc_box ::-moz-selection {
+    background: rgba(127, 255, 255, 1);
+}
+
+.ep_doc_box .j {
+    /* info for Javascript */
+    display: none;
+}
+
+.ep_doc_box .a {
+    /* annotation links */
+}
+
+/* transparent color - WebKit */
+.ep_doc_box .Cd {
+    /* css drawing */
+    position: absolute;
+    transform-origin: 0% 100%;
+    -ms-transform-origin: 0% 100%;
+    -moz-transform-origin: 0% 100%;
+    -webkit-transform-origin: 0% 100%;
+    -o-transform-origin: 0% 100%;
+}
+
+/* Base CSS END */

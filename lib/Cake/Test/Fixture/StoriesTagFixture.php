@@ -23,26 +23,25 @@
  *
  * @package       Cake.Test.Fixture
  */
-class StoriesTagFixture extends CakeTestFixture
-{
+class StoriesTagFixture extends CakeTestFixture {
 
-    /**
-     * fields property
-     *
-     * @var array
-     */
-    public $fields = array(
-        'story' => array('type' => 'integer', 'null' => false),
-        'tag_id' => array('type' => 'integer', 'null' => false),
-        'indexes' => array('UNIQUE_STORY_TAG' => array('column' => array('story', 'tag_id'), 'unique' => 1))
-    );
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
+	public $fields = array(
+		'story'   => array( 'type' => 'integer', 'null' => false ),
+		'tag_id'  => array( 'type' => 'integer', 'null' => false ),
+		'indexes' => array( 'UNIQUE_STORY_TAG' => array( 'column' => array( 'story', 'tag_id' ), 'unique' => 1 ) )
+	);
 
-    /**
-     * records property
-     *
-     * @var array
-     */
-    public $records = array(
-        array('story' => 1, 'tag_id' => 1)
-    );
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
+	public $records = array(
+		array( 'story' => 1, 'tag_id' => 1 )
+	);
 }

@@ -1,33 +1,35 @@
-#_main .objectsPage .nav-tabs {
-    border-bottom: none;
-}
-
 #_main .objectsPage .objectsPageContent .htmlexDoc {
     background: none;
+    margin-top: 5px;
 
     #docsToolbar {
+        display: none; /*TODO: @danielmacyszyn ?*/
         height: 50px;
         position: relative;
-        font-family: "Lato", sans-serif;
+        font-family: "Lato", Arial, sans-serif;
         font-size: 14px;
         font-weight: normal;
 
         .toolbarSticker {
             height: 50px;
+            background-color: transparent; /*TODO: check @danielmacyszyn change*/
+            width: 900px;
+            margin: 0 auto;
 
             .toolbarActions {
                 padding-top: 10px;
-                background: #ffffff;
-                margin: 0;
+                width: 100%;
+                display: inline-block;
+                float: left;
 
                 div {
                     border-right: 1px solid #969696;
                     float: left;
-                    padding: 0 25px;
+                    padding: 0 12px 0 0;
                     height: 30px;
 
                     &:first-child {
-                        padding-left: 50px;
+                        padding-left: 0;
                     }
 
                     &:nth-last-child(2) {
@@ -53,6 +55,28 @@
                         padding: 5px 2px;
                         text-align: center;
                         width: 30px;
+                        color: #222;
+                        background-color: #ffffff;
+                        display: block;
+                        height: 34px;
+                        line-height: 1.42857;
+                        border: 1px solid #cccccc;
+                        -webkit-border-radius: 4px;
+                        -moz-border-radius: 4px;
+                        -ms-border-radius: 4px;
+                        -o-border-radius: 4px;
+                        border-radius: 4px;
+                        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+                        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+                        -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+                        -ms-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+                        -o-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+                        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+                        -webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+                        -moz-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+                        -ms-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+                        -o-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+                        transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
                     }
                 }
 
@@ -89,23 +113,30 @@
 
         &.stick {
             .toolbarSticker {
-                background: #fff;
                 box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
                 width: 100%;
                 position: fixed;
-                top: 40px;
+                top: 0;
                 left: 0;
-                z-index: 100;
+                z-index: 1;
+                padding-left: 100px;
+
+                > div {
+                    max-width: 970px;
+                    padding-right: 10px;
+                }
 
                 .toolbarActions {
+                    display: block;
+                    float: none;
                     margin: 0 auto;
+                    width: 100%
                 }
             }
         }
     }
     .document {
         .content {
-            background-color: #ffffff;
             min-height: 800px;
 
             .loadMoreDocumentContent {
@@ -113,7 +144,7 @@
 
                 &.loading {
                     display: block;
-                    background: url(../img/loader/ajax-loader-square-blue.gif) center center no-repeat;
+                    background: url(/img/loader/ajax-loader-square-blue.gif) center center no-repeat;
                     height: 20px;
                     padding: 10px 0 20px;
                 }
@@ -122,7 +153,7 @@
         }
         .sidebox {
             padding: 0;
-            font-family: "Lato", sans-serif;
+            font-family: "Lato", Arial, sans-serif;
             font-size: 14px;
             font-weight: normal;
 
@@ -195,7 +226,7 @@
 
                 }
                 &.tables {
-                    font-family: "Lato", sans-serif;
+                    font-family: "Lato", Arial, sans-serif;
                     font-size: 14px;
                     font-weight: 400;
 
@@ -216,16 +247,16 @@
                         }
 
                         .nazwa {
-                            font-family: "Lato", sans-serif;
+                            font-family: "Lato", Arial, sans-serif;
                             font-size: 16px;
                             margin-bottom: 10px;
                         }
                         .desc {
-                            font-family: "Lato", sans-serif;
+                            font-family: "Lato", Arial, sans-serif;
                             font-size: 11px;
 
                             p {
-                                padding: 1px 5px;
+                                padding: 5px;
                                 margin: 0;
                                 line-height: 1em;
                                 display: inline-block;
@@ -234,20 +265,40 @@
                             .l {
                                 display: block;
                                 float: left;
-                                font-family: "Lato", sans-serif;
-                                font-size: 11px;
+                                font-family: "Lato", Arial, sans-serif;
+                                font-size: 10px;
+                                font-weight: 600;
+                                text-transform: uppercase;
+                                color: #666;
                             }
 
                             .v {
                                 display: block;
-                                font-family: "Lato", sans-serif;
+                                font-family: "Lato", Arial, sans-serif;
                                 font-size: 12px;
+                                line-height: 13px;
                                 margin-left: 95px;
+                                color: green;
                             }
                         }
                     }
                 }
             }
         }
+    }
+}
+
+@media (min-width: 728px) {
+    #_main .objectsPage .objectsPageContent .htmlexDoc #docsToolbar.stick .toolbarSticker .toolbarActions {
+        display: block;
+        height: 50px;
+        padding: 10px 0 0;
+        width: 900px;
+
+        -webkit-transform: translate(100px, 0px);
+        -moz-transform: translate(100px, 0px);
+        -ms-transform: translate(100px, 0px);
+        -o-transform: translate(100px, 0px);
+        transform: translate(100px, 0px);
     }
 }

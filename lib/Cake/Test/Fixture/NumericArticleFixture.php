@@ -23,28 +23,27 @@
  *
  * @package       Cake.Test.Fixture
  */
-class NumericArticleFixture extends CakeTestFixture
-{
+class NumericArticleFixture extends CakeTestFixture {
 
-    /**
-     * fields property
-     *
-     * @var array
-     */
-    public $fields = array(
-        'id' => array('type' => 'integer', 'key' => 'primary'),
-        'title' => array('type' => 'string', 'null' => false),
-        'created' => 'datetime',
-        'updated' => 'datetime'
-    );
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
+	public $fields = array(
+		'id'      => array( 'type' => 'integer', 'key' => 'primary' ),
+		'title'   => array( 'type' => 'string', 'null' => false ),
+		'created' => 'datetime',
+		'updated' => 'datetime'
+	);
 
-    /**
-     * records property
-     *
-     * @var array
-     */
-    public $records = array(
-        array('title' => 'First Article', 'created' => '2007-03-18 10:39:23', 'updated' => '2007-03-18 10:41:31'),
-        array('title' => '12345abcde', 'created' => '2007-03-18 10:41:23', 'updated' => '2007-03-18 10:43:31'),
-    );
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
+	public $records = array(
+		array( 'title' => 'First Article', 'created' => '2007-03-18 10:39:23', 'updated' => '2007-03-18 10:41:31' ),
+		array( 'title' => '12345abcde', 'created' => '2007-03-18 10:41:23', 'updated' => '2007-03-18 10:43:31' ),
+	);
 }

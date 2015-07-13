@@ -37,49 +37,11 @@ class DebugKitDebugger extends Debugger
 {
 
     /**
-     * destruct method
-     *
-     * Allow timer info to be displayed if the code dies or is being debugged before rendering the view
-     * Cheat and use the debug log class for formatting
-     *
-     * @return void
-     */
-    public function __destruct()
-    {
-        $timers = DebugTimer::getAll();
-        if (Configure::read('debug') < 2 || count($timers) > 0) {
-            return;
-        }
-        $timers = array_values($timers);
-        $end = end($timers);
-        echo '<table class="cake-sql-log"><tbody>';
-        echo '<caption>Debug timer info</caption>';
-        echo '<tr><th>Message</th><th>Start Time (ms)</th><th>End Time (ms)</th><th>Duration (ms)</th></tr>';
-        $i = 0;
-        foreach ($timers as $timer) {
-            $indent = 0;
-            for ($j = 0; $j < $i; $j++) {
-                if (($timers[$j]['end']) > ($timer['start']) && ($timers[$j]['end']) > ($timer['end'])) {
-                    $indent++;
-                }
-            }
-            $indent = str_repeat(' &raquo; ', $indent);
-
-            extract($timer);
-            $start = round($start * 1000, 0);
-            $end = round($end * 1000, 0);
-            $time = round($time * 1000, 0);
-            echo "<tr><td>{$indent}$message</td><td>$start</td><td>$end</td><td>$time</td></tr>";
-            $i++;
-        }
-        echo '</tbody></table>';
-    }
-
-    /**
      * Start an benchmarking timer.
      *
      * @param string $name The name of the timer to start.
      * @param string $message A message for your timer
+     *
      * @return boolean true
      * @deprecated use DebugTimer::start()
      */
@@ -94,6 +56,7 @@ class DebugKitDebugger extends Debugger
      * $name should be the same as the $name used in startTimer().
      *
      * @param string $name The name of the timer to end.
+     *
      * @return boolean true if timer was ended, false if timer was not started.
      * @deprecated use DebugTimer::stop()
      */
@@ -107,6 +70,7 @@ class DebugKitDebugger extends Debugger
      * Calculates elapsed time for each timer. If clear is true, will delete existing timers
      *
      * @param boolean $clear false
+     *
      * @return array
      * @deprecated use DebugTimer::getAll()
      */
@@ -131,6 +95,7 @@ class DebugKitDebugger extends Debugger
      *
      * @param $name string the name of the timer you want elapsed time for.
      * @param $precision int the number of decimal places to return, defaults to 5.
+     *
      * @return float number of seconds elapsed for timer name, 0 on missing key
      * @deprecated use DebugTimer::elapsedTime()
      */
@@ -190,6 +155,7 @@ class DebugKitDebugger extends Debugger
      * If you don't have memory_get_xx methods this will not work.
      *
      * @param string $message Message to identify this memory point.
+     *
      * @return boolean
      * @deprecated Use DebugMemory::getAll() instead.
      */
@@ -202,6 +168,7 @@ class DebugKitDebugger extends Debugger
      * Get all the stored memory points
      *
      * @param boolean $clear Whether you want to clear the memory points as well. Defaults to false.
+     *
      * @return array Array of memory marks stored so far.
      * @deprecated Use DebugMemory::getAll() instead.
      */
@@ -226,6 +193,7 @@ class DebugKitDebugger extends Debugger
      *
      * @param array $data Data of the error
      * @param array $links Links for the error
+     *
      * @return void
      */
     public static function fireError($data, $links)
@@ -241,6 +209,45 @@ class DebugKitDebugger extends Debugger
             FireCake::log(preg_split('/[\r\n]+/', $data['trace']), 'Trace');
         }
         FireCake::groupEnd();
+    }
+
+    /**
+     * destruct method
+     *
+     * Allow timer info to be displayed if the code dies or is being debugged before rendering the view
+     * Cheat and use the debug log class for formatting
+     *
+     * @return void
+     */
+    public function __destruct()
+    {
+        $timers = DebugTimer::getAll();
+        if (Configure::read('debug') < 2 || count($timers) > 0) {
+            return;
+        }
+        $timers = array_values($timers);
+        $end = end($timers);
+        echo '<table class="cake-sql-log"><tbody>';
+        echo '<caption>Debug timer info</caption>';
+        echo '<tr><th>Message</th><th>Start Time (ms)</th><th>End Time (ms)</th><th>Duration (ms)</th></tr>';
+        $i = 0;
+        foreach ($timers as $timer) {
+            $indent = 0;
+            for ($j = 0; $j < $i; $j++) {
+                if (($timers[$j]['end']) > ($timer['start']) && ($timers[$j]['end']) > ($timer['end'])) {
+                    $indent++;
+                }
+            }
+            $indent = str_repeat(' &raquo; ', $indent);
+
+            extract($timer);
+            $start = round($start * 1000, 0);
+            $end = round($end * 1000, 0);
+            $time = round($time * 1000, 0);
+            echo "<tr><td>{$indent}$message</td><td>$start</td><td>$end</td><td>$time</td></tr>";
+            $i++;
+        }
+        echo '</tbody></table>';
     }
 
 }

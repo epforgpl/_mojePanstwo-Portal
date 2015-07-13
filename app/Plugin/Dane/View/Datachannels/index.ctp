@@ -3,12 +3,7 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane'))) ?>
 
 <?php $this->Combinator->add_libs('js', 'Dane.dataobjectsslider') ?>
-
-<?php echo $this->element('appHeader', array('plugin' => 'Dane', 'q' => $q)); ?>
-
-
-
-
+<?php $this->Combinator->add_libs('js', 'Dane.dane') ?>
 
 <?php
 $di = 0;
@@ -17,8 +12,9 @@ foreach ($channels as $data) {
     if (!empty($data['dataobjects'])) {
 
         $href = '/dane/kanal/' . $datachannel['slug'];
-        if ($q != '')
+        if ($q != '') {
             $href .= '?q=' . urlencode($q);
+        }
 
         ?>
         <div class="stripe<? if ($di % 2) { ?> odd<? } ?>">

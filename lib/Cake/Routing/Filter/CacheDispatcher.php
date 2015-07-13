@@ -13,7 +13,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('DispatcherFilter', 'Routing');
+App::uses( 'DispatcherFilter', 'Routing' );
 
 /**
  * This filter will check whether the response was previously cached in the file system
@@ -21,55 +21,55 @@ App::uses('DispatcherFilter', 'Routing');
  *
  * @package Cake.Routing.Filter
  */
-class CacheDispatcher extends DispatcherFilter
-{
+class CacheDispatcher extends DispatcherFilter {
 
-    /**
-     * Default priority for all methods in this filter
-     * This filter should run before the request gets parsed by router
-     *
-     * @var integer
-     */
-    public $priority = 9;
+	/**
+	 * Default priority for all methods in this filter
+	 * This filter should run before the request gets parsed by router
+	 *
+	 * @var integer
+	 */
+	public $priority = 9;
 
-    /**
-     * Checks whether the response was cached and set the body accordingly.
-     *
-     * @param CakeEvent $event containing the request and response object
-     * @return CakeResponse with cached content if found, null otherwise
-     */
-    public function beforeDispatch(CakeEvent $event)
-    {
-        if (Configure::read('Cache.check') !== true) {
-            return;
-        }
+	/**
+	 * Checks whether the response was cached and set the body accordingly.
+	 *
+	 * @param CakeEvent $event containing the request and response object
+	 *
+	 * @return CakeResponse with cached content if found, null otherwise
+	 */
+	public function beforeDispatch( CakeEvent $event ) {
+		if ( Configure::read( 'Cache.check' ) !== true ) {
+			return;
+		}
 
-        $path = $event->data['request']->here();
-        if ($path === '/') {
-            $path = 'home';
-        }
-        $prefix = Configure::read('Cache.viewPrefix');
-        if ($prefix) {
-            $path = $prefix . '_' . $path;
-        }
-        $path = strtolower(Inflector::slug($path));
+		$path = $event->data['request']->here();
+		if ( $path === '/' ) {
+			$path = 'home';
+		}
+		$prefix = Configure::read( 'Cache.viewPrefix' );
+		if ( $prefix ) {
+			$path = $prefix . '_' . $path;
+		}
+		$path = strtolower( Inflector::slug( $path ) );
 
-        $filename = CACHE . 'views' . DS . $path . '.php';
+		$filename = CACHE . 'views' . DS . $path . '.php';
 
-        if (!file_exists($filename)) {
-            $filename = CACHE . 'views' . DS . $path . '_index.php';
-        }
-        if (file_exists($filename)) {
-            $controller = null;
-            $view = new View($controller);
-            $view->response = $event->data['response'];
-            $result = $view->renderCache($filename, microtime(true));
-            if ($result !== false) {
-                $event->stopPropagation();
-                $event->data['response']->body($result);
-                return $event->data['response'];
-            }
-        }
-    }
+		if ( ! file_exists( $filename ) ) {
+			$filename = CACHE . 'views' . DS . $path . '_index.php';
+		}
+		if ( file_exists( $filename ) ) {
+			$controller     = null;
+			$view           = new View( $controller );
+			$view->response = $event->data['response'];
+			$result         = $view->renderCache( $filename, microtime( true ) );
+			if ( $result !== false ) {
+				$event->stopPropagation();
+				$event->data['response']->body( $result );
+
+				return $event->data['response'];
+			}
+		}
+	}
 
 }

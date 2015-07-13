@@ -23,6 +23,5 @@
  *
  * @package       Cake.Test.TestApp.Plugin.TestPlugin.Lib
  */
-class TestPluginOtherLibrary
-{
+class TestPluginOtherLibrary {
 }

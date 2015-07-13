@@ -19,7 +19,10 @@ class ComposerAutoloaderInit2ace278f1e8d891885347caec23d134b
             return self::$loader;
         }
 
-        spl_autoload_register(array('ComposerAutoloaderInit2ace278f1e8d891885347caec23d134b', 'loadClassLoader'), true, true);
+        spl_autoload_register(array(
+            'ComposerAutoloaderInit2ace278f1e8d891885347caec23d134b',
+            'loadClassLoader'
+        ), true, true);
         self::$loader = $loader = new \Composer\Autoload\ClassLoader();
         spl_autoload_unregister(array('ComposerAutoloaderInit2ace278f1e8d891885347caec23d134b', 'loadClassLoader'));
 

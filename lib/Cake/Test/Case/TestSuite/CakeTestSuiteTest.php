@@ -19,92 +19,87 @@
  *
  * @package       Cake.Test.Case.TestSuite
  */
-class CakeTestSuiteTest extends CakeTestCase
-{
+class CakeTestSuiteTest extends CakeTestCase {
 
-    /**
-     * testAddTestDirectory
-     *
-     * @return void
-     */
-    public function testAddTestDirectory()
-    {
-        $testFolder = CORE_TEST_CASES . DS . 'TestSuite';
-        $count = count(glob($testFolder . DS . '*Test.php'));
+	/**
+	 * testAddTestDirectory
+	 *
+	 * @return void
+	 */
+	public function testAddTestDirectory() {
+		$testFolder = CORE_TEST_CASES . DS . 'TestSuite';
+		$count      = count( glob( $testFolder . DS . '*Test.php' ) );
 
-        $suite = $this->getMock('CakeTestSuite', array('addTestFile'));
-        $suite
-            ->expects($this->exactly($count))
-            ->method('addTestFile');
+		$suite = $this->getMock( 'CakeTestSuite', array( 'addTestFile' ) );
+		$suite
+			->expects( $this->exactly( $count ) )
+			->method( 'addTestFile' );
 
-        $suite->addTestDirectory($testFolder);
-    }
+		$suite->addTestDirectory( $testFolder );
+	}
 
-    /**
-     * testAddTestDirectoryRecursive
-     *
-     * @return void
-     */
-    public function testAddTestDirectoryRecursive()
-    {
-        $testFolder = CORE_TEST_CASES . DS . 'Cache';
-        $count = count(glob($testFolder . DS . '*Test.php'));
-        $count += count(glob($testFolder . DS . 'Engine' . DS . '*Test.php'));
+	/**
+	 * testAddTestDirectoryRecursive
+	 *
+	 * @return void
+	 */
+	public function testAddTestDirectoryRecursive() {
+		$testFolder = CORE_TEST_CASES . DS . 'Cache';
+		$count      = count( glob( $testFolder . DS . '*Test.php' ) );
+		$count += count( glob( $testFolder . DS . 'Engine' . DS . '*Test.php' ) );
 
-        $suite = $this->getMock('CakeTestSuite', array('addTestFile'));
-        $suite
-            ->expects($this->exactly($count))
-            ->method('addTestFile');
+		$suite = $this->getMock( 'CakeTestSuite', array( 'addTestFile' ) );
+		$suite
+			->expects( $this->exactly( $count ) )
+			->method( 'addTestFile' );
 
-        $suite->addTestDirectoryRecursive($testFolder);
-    }
+		$suite->addTestDirectoryRecursive( $testFolder );
+	}
 
-    /**
-     * testAddTestDirectoryRecursiveWithHidden
-     *
-     * @return void
-     */
-    public function testAddTestDirectoryRecursiveWithHidden()
-    {
-        $this->skipIf(!is_writable(TMP), 'Cant addTestDirectoryRecursiveWithHidden unless the tmp folder is writable.');
+	/**
+	 * testAddTestDirectoryRecursiveWithHidden
+	 *
+	 * @return void
+	 */
+	public function testAddTestDirectoryRecursiveWithHidden() {
+		$this->skipIf( ! is_writable( TMP ), 'Cant addTestDirectoryRecursiveWithHidden unless the tmp folder is writable.' );
 
-        $Folder = new Folder(TMP . 'MyTestFolder', true, 0777);
-        mkdir($Folder->path . DS . '.svn', 0777, true);
-        touch($Folder->path . DS . '.svn' . DS . 'InHiddenFolderTest.php');
-        touch($Folder->path . DS . 'NotHiddenTest.php');
-        touch($Folder->path . DS . '.HiddenTest.php');
+		$Folder = new Folder( TMP . 'MyTestFolder', true, 0777 );
+		mkdir( $Folder->path . DS . '.svn', 0777, true );
+		touch( $Folder->path . DS . '.svn' . DS . 'InHiddenFolderTest.php' );
+		touch( $Folder->path . DS . 'NotHiddenTest.php' );
+		touch( $Folder->path . DS . '.HiddenTest.php' );
 
-        $suite = $this->getMock('CakeTestSuite', array('addTestFile'));
-        $suite
-            ->expects($this->exactly(1))
-            ->method('addTestFile');
+		$suite = $this->getMock( 'CakeTestSuite', array( 'addTestFile' ) );
+		$suite
+			->expects( $this->exactly( 1 ) )
+			->method( 'addTestFile' );
 
-        $suite->addTestDirectoryRecursive($Folder->pwd());
+		$suite->addTestDirectoryRecursive( $Folder->pwd() );
 
-        $Folder->delete();
-    }
+		$Folder->delete();
+	}
 
-    /**
-     * testAddTestDirectoryRecursiveWithNonPhp
-     *
-     * @return void
-     */
-    public function testAddTestDirectoryRecursiveWithNonPhp()
-    {
-        $this->skipIf(!is_writable(TMP), 'Cant addTestDirectoryRecursiveWithNonPhp unless the tmp folder is writable.');
+	/**
+	 * testAddTestDirectoryRecursiveWithNonPhp
+	 *
+	 * @return void
+	 */
+	public function testAddTestDirectoryRecursiveWithNonPhp() {
+		$this->skipIf( ! is_writable( TMP ), 'Cant addTestDirectoryRecursiveWithNonPhp unless the tmp folder is writable.' );
 
-        $Folder = new Folder(TMP . 'MyTestFolder', true, 0777);
-        touch($Folder->path . DS . 'BackupTest.php~');
-        touch($Folder->path . DS . 'SomeNotesTest.txt');
-        touch($Folder->path . DS . 'NotHiddenTest.php');
+		$Folder = new Folder( TMP . 'MyTestFolder', true, 0777 );
+		touch( $Folder->path . DS . 'BackupTest.php~' );
+		touch( $Folder->path . DS . 'SomeNotesTest.txt' );
+		touch( $Folder->path . DS . 'NotHiddenTest.php' );
 
-        $suite = $this->getMock('CakeTestSuite', array('addTestFile'));
-        $suite
-            ->expects($this->exactly(1))
-            ->method('addTestFile');
+		$suite = $this->getMock( 'CakeTestSuite', array( 'addTestFile' ) );
+		$suite
+			->expects( $this->exactly( 1 ) )
+			->method( 'addTestFile' );
 
-        $suite->addTestDirectoryRecursive($Folder->pwd());
+		$suite->addTestDirectoryRecursive( $Folder->pwd() );
 
-        $Folder->delete();
-    }
+		$Folder->delete();
+	}
 }

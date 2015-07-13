@@ -1,8 +1,11 @@
 <?php
 $this->Combinator->add_libs('css', $this->Less->css('view-gminy_mapa', array('plugin' => 'Dane')));
+if ($object->getId() == '903') {
+    $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
+}
 
 echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false', array('block' => 'scriptBlock'));
-echo $this->Html->script('scriptaculous/lib/prototype', array('block' => 'scriptBlock'));
+echo $this->Html->script('../plugins/scriptaculous/lib/prototype', array('block' => 'scriptBlock'));
 $this->Combinator->add_libs('js', 'Dane.view-gminy_mapa');
 ?>
 

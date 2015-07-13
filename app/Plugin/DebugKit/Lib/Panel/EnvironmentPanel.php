@@ -31,6 +31,7 @@ class EnvironmentPanel extends DebugPanel
      * beforeRender - Get necessary data about environment to pass back to controller
      *
      * @param Controller $controller
+     *
      * @return array
      */
     public function beforeRender(Controller $controller)
@@ -73,8 +74,19 @@ class EnvironmentPanel extends DebugPanel
 
         $cakeConstants = array_fill_keys(
             array(
-                'DS', 'ROOT', 'FULL_BASE_URL', 'TIME_START', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'YEAR',
-                'LOG_ERROR', 'FULL_BASE_URL'
+                'DS',
+                'ROOT',
+                'FULL_BASE_URL',
+                'TIME_START',
+                'SECOND',
+                'MINUTE',
+                'HOUR',
+                'DAY',
+                'WEEK',
+                'MONTH',
+                'YEAR',
+                'LOG_ERROR',
+                'FULL_BASE_URL'
             ), ''
         );
         $var = get_defined_constants(true);

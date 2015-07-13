@@ -1,26 +1,21 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty', array('plugin' => 'Dane'))); ?>
+<?php
 
-<?= $this->Element('dataobject/pageBegin'); ?>
+$this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty', array('plugin' => 'Dane')));
 
-    <h1>Zmiany umów</h1>
+echo $this->Element('dataobject/pageBegin');
 
-<?
-$items = $object->getLayer('zmianyUmow');
-if (count($items)) {
+if ($zmiany = $object->getLayer('zmiany_umow')) {
     ?>
-    <ul class="stdUl txt">
-        <? foreach ($items as $item) { ?>
-
-            <li>
-                <p class="title"><?= $item['nazwa'] ?></p>
-            </li>
-
-        <? } ?>
-    </ul>
+    <div class="mpanel">
+        <div style="margin-top: 25px; margin-bottom: 25px;" class="col-md-10 col-md-offset-1">
+            <ul class="list-group less-borders">
+                <? foreach ($zmiany as $zmiana) { ?>
+                    <li class="list-group-item"><?= $zmiana['zmiana_tekst'] ?></li>
+                <? } ?>
+            </ul>
+        </div>
+    </div>
 <?
 }
-?>
 
-
-
-<?= $this->Element('dataobject/pageEnd'); ?>
+echo $this->Element('dataobject/pageEnd');

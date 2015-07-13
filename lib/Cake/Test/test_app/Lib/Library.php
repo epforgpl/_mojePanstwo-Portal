@@ -23,6 +23,5 @@
  *
  * @package       Cake.Test.TestApp.Lib
  */
-class Library
-{
+class Library {
 }

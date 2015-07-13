@@ -76,6 +76,7 @@ class DebugPanel
      * Pull information from the controller / request
      *
      * @param \Controller|object $controller Controller reference.
+     *
      * @return void
      */
     public function startup(Controller $controller)
@@ -86,6 +87,7 @@ class DebugPanel
      * Prepare output vars before Controller Rendering.
      *
      * @param \Controller|object $controller Controller reference.
+     *
      * @return void
      */
     public function beforeRender(Controller $controller)

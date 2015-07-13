@@ -34,6 +34,7 @@ class ToolbarAccess extends Object
      *
      * @param string $connection Connection name
      * @param string $query SQL query to explain / find query plan for.
+     *
      * @return array Array of explain information or empty array if connection is unsupported.
      */
     public function explainQuery($connection, $query)
@@ -58,6 +59,7 @@ class ToolbarAccess extends Object
                 $return = array_merge(array($keys), $queryPlan);
             }
         }
+
         return $return;
     }
 

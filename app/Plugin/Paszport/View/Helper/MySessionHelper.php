@@ -66,6 +66,7 @@ class MySessionHelper extends SessionHelper
             }
 
         }
+
         return $out;
     }
 }

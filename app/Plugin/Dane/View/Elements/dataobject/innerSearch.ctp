@@ -11,10 +11,10 @@
     <? } ?>
 
     <div class="row">
-        <div class="col-xs-12 col-sm-3 dataFilters">
+        <div class="col-xs-12 col-sm-4 col-md-3 dataFilters">
             <?php echo $this->Filter->generateFilters($filters, $facets); ?>
         </div>
-        <div class="col-xs-12 col-sm-9 dataObjects">
+        <div class="col-xs-12 col-sm-8 col-md-9 dataObjects">
             <div class="dataInfo">
                 <div class="col-xs-12 col-sm-4 dataStats">
                     <strong><?= $this->Number->currency($pagination['total'], '', array('places' => 0,)); ?></strong>
@@ -43,9 +43,13 @@
                     <?php } ?>
                     <div class="row">
                         <?php echo $this->Form->submit(__d('dane', 'LC_DANE_SORTUJ'), array('class' => 'sortingButton btn btn-primary input-sm hidden-xs')); ?>
-                        <?php echo $this->Form->select('direction', array('asc' => __d('dane', 'LC_DANE_ROSNACO', true), 'desc' => __d('dane', 'LC_DANE_MALEJACO', true)), array('empty' => false, 'class' => 'form-control input-sm')); ?>
+                        <?php echo $this->Form->select('direction', array(
+                            'asc' => __d('dane', 'LC_DANE_ROSNACO', true),
+                            'desc' => __d('dane', 'LC_DANE_MALEJACO', true)
+                        ), array('empty' => false, 'class' => 'form-control input-sm')); ?>
                         <?php echo $this->Form->select('sort', $options, array('class' => 'form-control input-sm')); ?>
-                        <strong class="sortingName hidden-xs"><?php echo __d('dane', 'LC_DANE_SORTOWANIE'); ?></strong>
+                        <strong
+                            class="sortingName hidden-xs"><?php echo __d('dane', 'LC_DANE_SORTOWANIE'); ?></strong>
                     </div>
                     <?php echo $this->Form->end(); ?>
                 </div>
@@ -56,10 +60,23 @@
                         echo $this->Dataobject->render($dataobject['Dataobject']);
                     } ?>
                 </ul>
-                <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                <div class="paginationList col-xs-12 col-sm-6 col-sm-offset-3">
                     <ul class="pagination pagination-sm">
-                        <?php $this->Paginator->options(array('url' => array('plugin' => 'Dane', 'controller' => $this->params->controller, 'id' => $object->object_id, '?' => $this->request->query))); ?>
-                        <?php echo $this->Paginator->numbers(array('tag' => 'li', 'currentTag' => 'a', 'currentClass' => 'active', 'separator' => false, 'escape' => false)); ?>
+                        <?php $this->Paginator->options(array(
+                            'url' => array(
+                                'plugin' => 'Dane',
+                                'controller' => $this->params->controller,
+                                'id' => $object->object_id,
+                                '?' => $this->request->query
+                            )
+                        )); ?>
+                        <?php echo $this->Paginator->numbers(array(
+                            'tag' => 'li',
+                            'currentTag' => 'a',
+                            'currentClass' => 'active',
+                            'separator' => false,
+                            'escape' => false
+                        )); ?>
                     </ul>
                 </div>
             </div>

@@ -73,7 +73,8 @@ class ToolbarHelperTestCase extends CakeTestCase
                 CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'Test' . DS . 'test_app' . DS . 'View' . DS,
                 APP . 'Plugin' . DS . 'DebugKit' . DS . 'View' . DS,
                 CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'View' . DS
-            )), true);
+            )
+        ), true);
         $this->_debug = Configure::read('debug');
     }
 

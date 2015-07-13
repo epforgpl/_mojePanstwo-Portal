@@ -1,17 +1,17 @@
 <?php
 echo $this->Rss->header();
 
-if (!isset($channel)) {
-    $channel = array();
+if ( ! isset( $channel ) ) {
+	$channel = array();
 }
-if (!isset($channel['title'])) {
-    $channel['title'] = $title_for_layout;
+if ( ! isset( $channel['title'] ) ) {
+	$channel['title'] = $title_for_layout;
 }
 
 echo $this->Rss->document(
-    $this->Rss->channel(
-        array(), $channel, $this->fetch('content')
-    )
+	$this->Rss->channel(
+		array(), $channel, $this->fetch( 'content' )
+	)
 );
 
 ?>

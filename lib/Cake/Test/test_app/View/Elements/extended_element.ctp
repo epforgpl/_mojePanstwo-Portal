@@ -1,2 +1,2 @@
-<?php $this->extend('parent_element'); ?>
+<?php $this->extend( 'parent_element' ); ?>
 Element content.

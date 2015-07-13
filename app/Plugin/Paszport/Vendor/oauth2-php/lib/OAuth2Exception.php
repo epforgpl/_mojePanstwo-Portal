@@ -53,6 +53,22 @@ class OAuth2Exception extends Exception
     }
 
     /**
+     * To make debugging easier.
+     *
+     * @returns
+     * The string representation of the error.
+     */
+    public function __toString()
+    {
+        $str = $this->getType() . ': ';
+        if ($this->code != 0) {
+            $str .= $this->code . ': ';
+        }
+
+        return $str . $this->message;
+    }
+
+    /**
      * Returns the associated type for the error. This will default to
      * 'Exception' when a type is not available.
      *
@@ -68,21 +84,7 @@ class OAuth2Exception extends Exception
                 return $message;
             }
         }
-        return 'Exception';
-    }
 
-    /**
-     * To make debugging easier.
-     *
-     * @returns
-     * The string representation of the error.
-     */
-    public function __toString()
-    {
-        $str = $this->getType() . ': ';
-        if ($this->code != 0) {
-            $str .= $this->code . ': ';
-        }
-        return $str . $this->message;
+        return 'Exception';
     }
 }

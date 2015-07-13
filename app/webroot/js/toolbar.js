@@ -16,12 +16,12 @@ jQuery(document).ready(function () {
             percents = Math.round(((documentData.currentPackage / documentData.packages).toFixed(2)) * 100);
 
         if (percents !== 100) {
-            main.find('span').html(_mPHeart.translation.LC_DANE_TOOLBAR_LOADED_DOC_AT + ' ' + percents + "%");
+            main.find('span').html('Załadowano dokument w ' + percents + "%");
         } else {
-            main.find('span').html(_mPHeart.translation.LC_DANE_TOOLBAR_LOADING_ALL);
-            main.find('a').hide();
+            //main.find('span').html('Załaduj cały dokument');
+            //main.find('a').hide();
+            main.remove();
         }
-
     }
 
     /*IF USER HIT BOTTOM OF PAGE LOAD NEW PART OF PAGES*/
@@ -37,7 +37,7 @@ jQuery(document).ready(function () {
             jQuery('html, body').animate({
                 scrollTop: documentCanvas.offset().top + 10
             }, 1000, function () {
-                var canvasP = jQuery('.canvas .p');
+                var canvasP = jQuery('.canvas [data-page-no]');
 
                 docToolbar.find('input[name="document_page"]').val(page);
                 currPage[0] = page;
@@ -53,7 +53,10 @@ jQuery(document).ready(function () {
         if (intervalRunnable && (documentData.currentPackage < documentData.packages)) {
             intervalRunnable = false;
             jQuery('.loadMoreDocumentContent').addClass('loading');
-            jQuery.get('/dane/' + documentData.dataset + '/' + documentId + '/view/' + (parseInt(documentData.currentPackage) + 1) + '.json', function (data) {
+
+            var p = parseInt(documentData.currentPackage) + 1;
+            var url = '/htmlex/' + documentId + '/' + documentId + '_' + p + '.html';
+            jQuery.get(url, function (data) {
                 jQuery('.loadMoreDocumentContent').removeClass('loading');
                 document.find('.canvas').append(data);
                 intervalRunnable = true;
@@ -68,7 +71,10 @@ jQuery(document).ready(function () {
     function loadMoreDoc(callback) {
         intervalRunnable = false;
         jQuery('.loadMoreDocumentContent').addClass('loading');
-        jQuery.get('/dane/' + documentData.dataset + '/' + documentId + '/view/' + (parseInt(documentData.currentPackage) + 1) + '.json', function (data) {
+
+        var p = parseInt(documentData.currentPackage) + 1;
+        var url = '/htmlex/' + documentId + '/' + documentId + '_' + p + '.html';
+        jQuery.get(url, function (data) {
             jQuery('.loadMoreDocumentContent').removeClass('loading');
             document.find('.canvas').append(data);
             intervalRunnable = true;
@@ -120,7 +126,7 @@ jQuery(document).ready(function () {
                     jQuery('.loadMoreDocumentContent').addClass('loading');
                     loadMoreDoc(function () {
                         window.setTimeout(function () {
-                            var canvasCurrentPage = jQuery('.canvas .p')[currPage[0]];
+                            var canvasCurrentPage = jQuery('.canvas [data-page-no]')[currPage[0]];
                             currPage[2] = (jQuery(canvasCurrentPage).length) ? jQuery(canvasCurrentPage).offset().top : 'none';
                         }, 500)
                     });
@@ -169,7 +175,7 @@ jQuery(document).ready(function () {
     jQuery(window).scroll(function () {
         if (pageScroller) {
             var window_top = jQuery(window).scrollTop(),
-                canvasP = jQuery('.canvas .p');
+                canvasP = jQuery('.canvas [data-page-no]');
 
             if (!currPage[2])
                 (jQuery(canvasP[1]).length) ? currPage[2] = jQuery(canvasP[1]).offset().top : currPage[2] = 'none';
@@ -190,6 +196,7 @@ jQuery(document).ready(function () {
         }
     });
 
-    if (docToolbar.length > 0)
+    if (docToolbar.length > 0 && typeof sticky == 'function') {
         sticky('#docsToolbar');
+    }
 });

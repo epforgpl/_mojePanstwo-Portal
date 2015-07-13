@@ -1,2 +1,2 @@
-<?php $this->extend('extend_loop_inner'); ?>
+<?php $this->extend( 'extend_loop_inner' ); ?>
 Outer element.

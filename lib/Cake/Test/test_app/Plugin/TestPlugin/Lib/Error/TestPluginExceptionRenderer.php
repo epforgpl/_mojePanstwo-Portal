@@ -21,23 +21,21 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('ExceptionRenderer', 'Error');
+App::uses( 'ExceptionRenderer', 'Error' );
 
 /**
  * Class TestPluginExceptionRenderer
  *
  * @package       Cake.Test.TestApp.Plugin.TestPlugin.Lib.Error
  */
-class TestPluginExceptionRenderer extends ExceptionRenderer
-{
+class TestPluginExceptionRenderer extends ExceptionRenderer {
 
-    /**
-     * Renders the response for the exception.
-     *
-     * @return void
-     */
-    public function render()
-    {
-        echo 'Rendered by test plugin';
-    }
+	/**
+	 * Renders the response for the exception.
+	 *
+	 * @return void
+	 */
+	public function render() {
+		echo 'Rendered by test plugin';
+	}
 }

@@ -28,7 +28,8 @@
                 $rows = array();
                 for ($i = 0; $i < $len; $i++):
                     $rows[] = array(
-                        $logs[$i][0], h($logs[$i][1])
+                        $logs[$i][0],
+                        h($logs[$i][1])
                     );
                 endfor;
                 echo $this->Toolbar->table($rows, $headers, array('title' => $logName));

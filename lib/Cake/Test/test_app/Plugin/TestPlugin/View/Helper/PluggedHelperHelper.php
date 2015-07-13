@@ -23,8 +23,7 @@
  *
  * @package       Cake.Test.TestApp.Plugin.TestPlugin.View.Helper
  */
-class PluggedHelperHelper extends AppHelper
-{
+class PluggedHelperHelper extends AppHelper {
 
-    public $helpers = array('TestPlugin.OtherHelper');
+	public $helpers = array( 'TestPlugin.OtherHelper' );
 }

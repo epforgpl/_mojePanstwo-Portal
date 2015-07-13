@@ -6,15 +6,19 @@
 
     ul.userNav {
         border-bottom: 0 none;
+        margin-top: 52px;
+        margin-bottom: 30px;
 
         li {
-            .customFont('Istok Web', 14px, 700);
+            font-family: "Lato", Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 700;
             margin-bottom: -3px;
             float: none;
 
             &.active a,
             &.active a:before {
-                color: @lightBlue;
+                color: @white;
             }
 
             &:first-child > a {
@@ -66,10 +70,11 @@
     }
 
     h1 {
+        font-family: "Lato", Arial, sans-serif;
         font-size: 36px;
-    	font-weight: 300;
-    	margin: 0 0 15px 0;
-    	padding: 0;
+        font-weight: 300;
+        margin: 0 0 15px 0;
+        padding: 0;
     }
 
     .general {
@@ -96,7 +101,9 @@
                     }
 
                     label {
-                        .customFont('Istok Web', 16px, 400);
+                        font-family: "Lato", Arial, sans-serif;
+                        font-size: 16px;
+                        font-weight: 400;
                         color: @lightBlue;
 
                         &:before {
@@ -183,6 +190,10 @@
 
                     .editElement {
                         display: none;
+                    }
+
+                    .doubleState {
+                        margin-top: 29px;
                     }
 
                     a.deleteAccount {
@@ -272,7 +283,7 @@
         background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAATCAYAAACp65zuAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJ1JREFUeNpi1PcuYEACikA8GYi9GdAACzJHRU5iUX6in42tqSYDXoWlaUFW5gaqDNgAEzLHSEeJiQEHQDGRlYUZzv71+0+ZWWBpN1YTkQEbK8tEdKv5gfg/FMOBgU/hTyTxDwxzVuyW/U8AfP3+4w9Oq5HB+w9fvjECNfCDjcYPtrIA3fIRyGAE8S5s6f+P5EZGnOGID4wqxAsAAgwAZJZIKuTDCsgAAAAASUVORK5CYII=);
         height: 23px;
         background-repeat: no-repeat;
-        background-position: 0px 3px;
+        background-position: 0 3px;
         text-indent: -9999px;
         text-align: center;
         width: 18px;
@@ -362,6 +373,7 @@ table {
     margin-top: -1px;
 
     tr {
+        font-family: "Lato", Arial, sans-serif;
         font-size: 13px;
     }
 
@@ -373,5 +385,11 @@ table {
     }
     &.logs {
         /**/
+    }
+}
+
+@media (max-width: 768px) {
+    .userCenter ul.userNav {
+        margin-top: 0;
     }
 }

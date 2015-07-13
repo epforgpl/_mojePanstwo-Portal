@@ -1,0 +1,9 @@
+{
+    "controlls": [
+        "details",
+        "sortings"
+    ],
+    "defaults": {
+        "details": true
+    }
+}

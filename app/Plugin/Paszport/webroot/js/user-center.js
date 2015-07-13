@@ -8,7 +8,7 @@
         onRender: function (date) {
             return date.valueOf() < now.valueOf() ? '' : 'disabled';
         }
-    }).on('changeDate',function (ev) {
+    }).on('changeDate', function (ev) {
         if (ev.viewMode == 'days')
             birthDay.hide();
         var selectDate = ev.date;
@@ -22,7 +22,7 @@
     $('.userCenter .basic').find('.btn.doubleState').each(function () {
         $(this).click(function (e) {
             var el = $(e.target),
-                switchOldText = el.text(),
+                switchOldText = el.val(),
                 switchNewText = el.data('text'),
                 form = el.parents('form');
             e.preventDefault();
@@ -50,24 +50,31 @@
 
                 $.ajax({
                     type: "POST",
+                    dataType: "json",
                     url: form.attr('action'),
                     data: data,
                     beforeSend: function () {
                         /*TODO: add twirl*/
                     },
                     success: function (data) {
-                        var status = null;
-                        el.data('text', switchOldText).text(switchNewText).toggleClass('save');
-                        form.find('.viewElement, .editElement').toggle();
-                        status = ($.grep(data, function (e) {
-                            return e.status;
-                        }))[0].status;
+                        var status = data.status;
 
                         if (status == '200') {
+                            el.data('text', switchOldText).val(switchNewText).toggleClass('save');
+                            form.find('.viewElement, .editElement').toggle();
+
                             if (el.hasClass('genderButton') || el.hasClass('languageButton')) {
                                 form.find('.viewElement input').val(form.find('.editElement select option:selected').text());
                             } else {
                                 form.find('.viewElement input').val(form.find('.editElement input').val());
+                            }
+                        } else if (status == 422) {
+                            /*TODO: error dla pola/pól*/
+                        } else if (status == 500) {
+                            var errors = data.alerts.error;
+
+                            for (var i = 0; i < errors.length; i++) {
+                                globalAlert('alert-danger', eval('mPHeart.translation.' + errors[i]));
                             }
                         }
                     },
@@ -76,7 +83,7 @@
                     }
                 });
             } else {
-                el.data('text', switchOldText).text(switchNewText).toggleClass('save');
+                el.data('text', switchOldText).val(switchNewText).toggleClass('save');
                 form.find('.viewElement, .editElement').toggle();
             }
         })
@@ -86,9 +93,9 @@
 
     $('#UserPhoto, #ErrorReportScreenshot').customFileInput({
         button_position: 'left',
-        feedback_text: _mPHeart.translation.LC_PASZPORT_FILE_INPUT_NO_FILE,
-        button_text: _mPHeart.translation.LC_PASZPORT_FILE_INPUT_BROWSE,
-        button_change_text: _mPHeart.translation.LC_PASZPORT_FILE_INPUT_CHANGE
+        feedback_text: mPHeart.translation.LC_PASZPORT_FILE_INPUT_NO_FILE,
+        button_text: mPHeart.translation.LC_PASZPORT_FILE_INPUT_BROWSE,
+        button_change_text: mPHeart.translation.LC_PASZPORT_FILE_INPUT_CHANGE
     });
 
 }($));

@@ -1,15 +1,15 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('htmlexDocMain')); ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('htmlexDocMain_v1')); ?>
 <?php $this->Combinator->add_libs('css', $this->Less->css('mapaprawa', array('plugin' => 'Mapaprawa'))) ?>
 
-<?php $this->Combinator->add_libs('js', 'highcharts/highcharts'); ?>
-<?php $this->Combinator->add_libs('js', 'highcharts/locals'); ?>
-<?php $this->Combinator->add_libs('js', 'mapaprawa.highcharts-init'); ?>
-<?php $this->Combinator->add_libs('js', 'mapaprawa.mapaprawa-graph'); ?>
+<?php $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts'); ?>
+<?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals'); ?>
+<?php $this->Combinator->add_libs('js', 'Mapaprawa.highcharts-init'); ?>
+<?php $this->Combinator->add_libs('js', 'Mapaprawa.mapaprawa-graph'); ?>
 
 <?php echo $this->Html->script('//cdn.jsdelivr.net/raphael/2.1.0/raphael-min.js', array('block' => 'scriptBlock')); ?>
 <?php echo $this->Html->script('//cdn.jsdelivr.net/jsrender/1.0pre35/jsrender.min.js', array('block' => 'scriptBlock')); ?>
 
-<script>var data = <?php echo json_encode($path); ?></script>
+<script>var data =; <?php echo json_encode($path); ?></script>
 
 <div id="mapaprawa">
     <div class="container">
@@ -22,37 +22,38 @@
         </div>
 
         <div class="row descline">
-            <div class="col-md-2 intro">&nbsp;</div>
+            <div class="col-md-2 intro"><?= __d('mapaprawa', 'LC_MAPAPRAWA_PROJEKT_OCOCHODZI') ?></div>
             <div class="col-md-10 content info">
                 <div class="section">
-                    <h3><?= __d('mapaprawa', 'LC_MAPAPRAWA_PROJEKT_OCOCHODZI') ?></h3>
-
-                    <p class="value"><?= $projekt->getData('opis'); ?></p>
+                    <span class="value"><?= $projekt->getData('opis'); ?></span>
                 </div>
             </div>
         </div>
 
         <div class="row graph">
-            <div class="col-md-2">
-                sidebar
-            </div>
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="graphContent">
                     <div class="lawMapContent content">
+
+                        <a class="lawMapNav top hide"
+                           href="#prevSlide"><?php echo __d('mapaprawa', 'LC_MAPAPRAWA_POPRZEDNIE_ETAPY') ?></a>
+
                         <div id="lawMap" class="lawMap">
                             <div id="svgLines"></div>
                             <?php $nodeCenter = 150;
                             $padding = 45; ?>
 
                             <?php foreach ($path as $p) { ?>
-                                <div class="slide<?php if (isset($p['status'])) echo ' ' . $p['status']; ?>"
+                                <div class="slide <?php if (isset($p['status'])) {
+                                    echo ' ' . $p['status'];
+                                } else {
+                                    echo 'active';
+                                } ?>"
                                      data-slide="<?= $p['id'] ?>">
-                                    <div class="desc<? if ($p['sublabel']) { ?> sub<? } ?>">
+                                    <div class="date"><?= $this->Czas->dataSlownie($p['date']) ?></div>
+                                    <div class="desc">
+
                                         <p><?= $p['label'] ?></p>
-                                        <small class="date"><?= substr($p['date'], 0, 10) ?></small>
-                                        <? if ($p['sublabel']) { ?>
-                                            <span class="sublabel"><?= $p['sublabel'] ?></span>
-                                        <? } ?>
                                     </div>
                                     <div class="lastIcon icon icon-<?= $p['icon'] ?>"></div>
                                     <div class="path">
@@ -91,67 +92,77 @@
                                 </div>
                             <?php } ?>
                         </div>
+
+                        <a class="lawMapNav bottom  hide"
+                           href="#nextSlide"><?php echo __d('mapaprawa', 'LC_MAPAPRAWA_NASTEPNE_ETAPY') ?></a>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="row info">
-            <div class="col-md-10 col-md-offset-2">
+            <div class="col-md-12">
                 <div class="column col-md-6">
                     <div class="section autor">
-                        <h3><?= __d('mapaprawa', 'LC_MAPAPRAWA_AUTOR') ?></h3>
-
-                        <p>Ministerstwo Transportu, Budownictwa i Gospodarki Morskiej</p>
+                        <div class="intro">
+                            <h3><?= __d('mapaprawa', 'LC_MAPAPRAWA_AUTOR') ?></h3>
+                        </div>
+                        <div class="content">
+                            <p>Ministerstwo Transportu, Budownictwa i Gospodarki Morskiej</p>
+                        </div>
                     </div>
                     <div class="section ludzie">
-                        <h3><?= __d('mapaprawa', 'LC_MAPAPRAWA_LUDZIE') ?></h3>
+                        <div class="intro">
+                            <h3><?= __d('mapaprawa', 'LC_MAPAPRAWA_LUDZIE') ?></h3>
+                        </div>
 
-                        <p>Osoby które odegrały kluczowe role w pracach nad projektem.</p>
-                        <ul class="ludzieList">
-                            <li class="col-xs-12">
-                                <div class="col-xs-1">
-                                    <div class="row">
-                                        <img src="http://resources.sejmometr.pl/mowcy/a/3/393.jpg">
+                        <div class="content">
+                            <p>Osoby które odegrały kluczowe role w pracach nad projektem.</p>
+                            <ul class="ludzieList">
+                                <li class="col-xs-12">
+                                    <div class="col-xs-1">
+                                        <div class="row">
+                                            <img src="http://resources.sejmometr.pl/mowcy/a/3/393.jpg">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-xs-10">
-                                    <p class="header">
-                                        <a href="/dane/poslowie/402">Jacek Tomczak</a>
-                                    </p>
+                                    <div class="col-xs-10">
+                                        <p class="header">
+                                            <a href="/dane/poslowie/402">Jacek Tomczak</a>
+                                        </p>
 
-                                    <p>Przedstawiciel wnioskodawców</p>
-                                </div>
-                            </li>
-                            <li class="col-xs-12">
-                                <div class="col-xs-1">
-                                    <div class="row">
-                                        <img src="http://resources.sejmometr.pl/mowcy/a/3/393.jpg">
+                                        <p>Przedstawiciel wnioskodawców</p>
                                     </div>
-                                </div>
-                                <div class="col-xs-10">
-                                    <p class="header">
-                                        <a href="/dane/poslowie/402">Jacek Tomczak</a>
-                                    </p>
-
-                                    <p>Przedstawiciel wnioskodawców</p>
-                                </div>
-                            </li>
-                            <li class="col-xs-12">
-                                <div class="col-xs-1">
-                                    <div class="row">
-                                        <img src="http://resources.sejmometr.pl/mowcy/a/3/393.jpg">
+                                </li>
+                                <li class="col-xs-12">
+                                    <div class="col-xs-1">
+                                        <div class="row">
+                                            <img src="http://resources.sejmometr.pl/mowcy/a/3/393.jpg">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-xs-10">
-                                    <p class="header">
-                                        <a href="/dane/poslowie/402">Jacek Tomczak</a>
-                                    </p>
+                                    <div class="col-xs-10">
+                                        <p class="header">
+                                            <a href="/dane/poslowie/402">Jacek Tomczak</a>
+                                        </p>
 
-                                    <p>Przedstawiciel wnioskodawców</p>
-                                </div>
-                            </li>
-                        </ul>
+                                        <p>Przedstawiciel wnioskodawców</p>
+                                    </div>
+                                </li>
+                                <li class="col-xs-12">
+                                    <div class="col-xs-1">
+                                        <div class="row">
+                                            <img src="http://resources.sejmometr.pl/mowcy/a/3/393.jpg">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-10">
+                                        <p class="header">
+                                            <a href="/dane/poslowie/402">Jacek Tomczak</a>
+                                        </p>
+
+                                        <p>Przedstawiciel wnioskodawców</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="section hyperlink">
                         <a href="#">Osoby które wypowiadały sie w sprawie projektu &gt;</a>
@@ -160,24 +171,32 @@
                 </div>
                 <div class="column col-md-6">
                     <div class="section opinie">
-                        <h3><?= __d('mapaprawa', 'LC_MAPAPRAWA_OPINIE') ?></h3>
+                        <div class="intro">
+                            <h3><?= __d('mapaprawa', 'LC_MAPAPRAWA_OPINIE') ?></h3>
+                        </div>
 
-                        <p>Opinie dotyczące projektu stworzone lub zlecone z pieniedzy publicznych.</p>
-                        <ul class="opinieDocs">
-                            <li class="col-xs-4 col-sm-3"><img src="http://placehold.it/100x140" alt=""/></li>
-                            <li class="col-xs-4 col-sm-3"><img src="http://placehold.it/100x140" alt=""/></li>
-                            <li class="col-xs-4 col-sm-3"><img src="http://placehold.it/100x140" alt=""/></li>
-                            <li class="col-xs-4 col-sm-3"><img src="http://placehold.it/100x140" alt=""/></li>
-                        </ul>
+                        <div class="content">
+                            <p>Opinie dotyczące projektu stworzone lub zlecone z pieniedzy publicznych.</p>
+                            <ul class="opinieDocs">
+                                <li class="col-xs-4 col-sm-3"><img src="http://placehold.it/100x140" alt=""/></li>
+                                <li class="col-xs-4 col-sm-3"><img src="http://placehold.it/100x140" alt=""/></li>
+                                <li class="col-xs-4 col-sm-3"><img src="http://placehold.it/100x140" alt=""/></li>
+                                <li class="col-xs-4 col-sm-3"><img src="http://placehold.it/100x140" alt=""/></li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="section statystyki">
-                        <h3><?= __d('mapaprawa', 'LC_MAPAPRAWA_STATYSTYKI') ?></h3>
+                        <div class="intro">
+                            <h3><?= __d('mapaprawa', 'LC_MAPAPRAWA_STATYSTYKI') ?></h3>
+                        </div>
 
-                        <p>Dni poswiecone na prace nad projektem <strong>100</strong></p>
+                        <div class="content">
+                            <p>Dni poswiecone na prace nad projektem <strong>100</strong></p>
 
-                        <div class="innergraph">
-                            <div class="highchart"
-                                 data-chart='[{"color":"#105A96","count":"51.1","label":"Praca w sejmie"},{"color":"#67DC12","count":"45.7","label":"Praca w rządzie"},{"color":"#CC33C4","count":"3.2","label":"Praca w domu"}]'></div>
+                            <div class="innergraph">
+                                <div class="highchart"
+                                     data-chart='[{"color":"#105A96","count":"51.1","label":"Praca w sejmie"},{"color":"#67DC12","count":"45.7","label":"Praca w rządzie"},{"color":"#CC33C4","count":"3.2","label":"Praca w domu"}]'></div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -23,32 +23,49 @@
  *
  * @package       Cake.Test.Fixture
  */
-class UnderscoreFieldFixture extends CakeTestFixture
-{
+class UnderscoreFieldFixture extends CakeTestFixture {
 
-    /**
-     * fields property
-     *
-     * @var array
-     */
-    public $fields = array(
-        'id' => array('type' => 'integer', 'key' => 'primary'),
-        'user_id' => array('type' => 'integer', 'null' => false),
-        'my_model_has_a_field' => array('type' => 'string', 'null' => false),
-        'body_field' => 'text',
-        'published' => array('type' => 'string', 'length' => 1, 'default' => 'N'),
-        'another_field' => array('type' => 'integer', 'length' => 3),
-    );
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
+	public $fields = array(
+		'id'                   => array( 'type' => 'integer', 'key' => 'primary' ),
+		'user_id'              => array( 'type' => 'integer', 'null' => false ),
+		'my_model_has_a_field' => array( 'type' => 'string', 'null' => false ),
+		'body_field'           => 'text',
+		'published'            => array( 'type' => 'string', 'length' => 1, 'default' => 'N' ),
+		'another_field'        => array( 'type' => 'integer', 'length' => 3 ),
+	);
 
-    /**
-     * records property
-     *
-     * @var array
-     */
-    public $records = array(
-        array('user_id' => 1, 'my_model_has_a_field' => 'First Article', 'body_field' => 'First Article Body', 'published' => 'Y', 'another_field' => 2),
-        array('user_id' => 3, 'my_model_has_a_field' => 'Second Article', 'body_field' => 'Second Article Body', 'published' => 'Y', 'another_field' => 3),
-        array('user_id' => 1, 'my_model_has_a_field' => 'Third Article', 'body_field' => 'Third Article Body', 'published' => 'Y', 'another_field' => 5),
-    );
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
+	public $records = array(
+		array(
+			'user_id'              => 1,
+			'my_model_has_a_field' => 'First Article',
+			'body_field'           => 'First Article Body',
+			'published'            => 'Y',
+			'another_field'        => 2
+		),
+		array(
+			'user_id'              => 3,
+			'my_model_has_a_field' => 'Second Article',
+			'body_field'           => 'Second Article Body',
+			'published'            => 'Y',
+			'another_field'        => 3
+		),
+		array(
+			'user_id'              => 1,
+			'my_model_has_a_field' => 'Third Article',
+			'body_field'           => 'Third Article Body',
+			'published'            => 'Y',
+			'another_field'        => 5
+		),
+	);
 
 }

@@ -33,6 +33,7 @@ class DebugKitLog implements CakeLogInterface
      * Makes the reverse link needed to get the logs later.
      *
      * @param $options
+     *
      * @return \DebugKitLog
      */
     public function __construct($options)
@@ -45,6 +46,7 @@ class DebugKitLog implements CakeLogInterface
      *
      * @param $type
      * @param $message
+     *
      * @return void
      */
     public function write($type, $message)

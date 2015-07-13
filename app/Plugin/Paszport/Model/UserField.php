@@ -1,6 +1,6 @@
 <?php
 
-class UserField extends PassportAppModel
+class UserField extends PaszportAppModel
 {
     public $belongsTo = array('User');
 }

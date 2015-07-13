@@ -49,12 +49,14 @@ class FacebookHelper extends AppHelper
 
     /**
      * Get the info on this plugin
+     *
      * @param string name to retrieve (default 'version')
      * - 'name' => Plugin Name
      * - 'author' => Author Name
      * - 'email' => Support Email
      * - 'link' => Support Link
      * - 'license' => License Info
+     *
      * @return string plugin version
      */
     public function info($name = 'version')
@@ -79,6 +81,7 @@ class FacebookHelper extends AppHelper
     /**
      * Register Button
      * $this->Facebook->init() is required for this
+     *
      * @param array of options
      * - fields: comma separated fields to use ('name','birthday','gender','location','email' default)
      * - redirect-uri: Url to redirect the user to.  current page by default
@@ -94,12 +97,38 @@ class FacebookHelper extends AppHelper
             ),
             $options
         );
+
         return $this->__fbTag('fb:registration', $label, $options);
+    }
+
+    /**
+     * Generate a facebook tag
+     *
+     * @param string fb:tag
+     * @param string label to pass inbetween the tag
+     * @param array of options as name=>value pairs to add to facebook tag attribute
+     *
+     * @access private
+     */
+    private function __fbTag($tag, $label, $options)
+    {
+        //@TODO make this a little nicer, pron to errors if a value has a ' in it.
+        $retval = "<$tag";
+        foreach ($options as $name => $value) {
+            if ($value === false) {
+                $value = 0;
+            }
+            $retval .= " " . $name . "='" . $value . "'";
+        }
+        $retval .= ">$label</$tag>";
+
+        return $retval;
     }
 
     /**
      * Login Button
      * $this->Facebook->init() is required for this
+     *
      * @param array of options
      * - redirect string: to your app's login url (default null)
      * - label string: text to use in link (default null)
@@ -114,6 +143,7 @@ class FacebookHelper extends AppHelper
      * - max-rows int: The maximum number of rows of profile pictures to show
      * - perms list: of permissions to ask for when logging in separated by commas (eg: 'email,read_stream,publish_stream'). (http://developers.facebook.com/docs/authentication/permissions)
      * @param string label
+     *
      * @return string XFBML tag
      * @access public
      */
@@ -138,29 +168,35 @@ class FacebookHelper extends AppHelper
             $onclick = "login('" . $options['redirect'] . "');";
             if ($options['img']) {
                 $source = '/Facebook/img/' . $options['img'];
+
                 return $this->Html->image($source, array(
                     'alt' => $options['alt'],
                     'id' => $options['id'],
                     'url' => '#',
                     'onclick' => $onclick,
-                    'escape' => false));
+                    'escape' => false
+                ));
             } else {
                 return $this->Html->link($options['label'], '#', array(
-                    'onclick' => $onclick, 'id' => $options['id'], 'escape' => false));
+                    'onclick' => $onclick,
+                    'id' => $options['id'],
+                    'escape' => false
+                ));
             }
         } else {
             if (!$options['id']) {
                 unset($options['id']);
             }
             unset($options['label'], $options['custom'], $options['redirect'], $options['img'], $options['alt']);
+
             return $this->__fbTag('fb:login-button', $label, $options);
         }
     }
 
-
     /**
      * Logout Button
      * $this->Facebook->init() is required for this
+     *
      * @param array of options
      * - redirect string: to your app's logout url (default null)
      * - label string: text to use in link (default logout)
@@ -172,6 +208,7 @@ class FacebookHelper extends AppHelper
      * - alt string: Image caption
      * - id string: Tag CSS Id
      * @param string label
+     *
      * @return string XFBML tag for logout button
      * @access public
      */
@@ -196,32 +233,40 @@ class FacebookHelper extends AppHelper
             }
             if ($options['img']) {
                 $source = '/Facebook/img/' . $options['img'];
+
                 return $this->Html->image($source, array(
                     'alt' => $options['alt'],
                     'id' => $options['id'],
                     'url' => '#',
-                    'onclick' => $onclick));
+                    'onclick' => $onclick
+                ));
             } else {
                 return $this->Html->link($options['label'], '#', array(
-                    'onclick' => $onclick, 'id' => $options['id']));
+                    'onclick' => $onclick,
+                    'id' => $options['id']
+                ));
             }
         } else {
             $source = '/Facebook/img/facebook-logout.png';
+
             return $this->Html->image($source, array(
                 'alt' => 'Facebook logout',
                 'url' => '#',
                 'id' => $options['id'],
-                'onclick' => 'logout();'));
+                'onclick' => 'logout();'
+            ));
         }
     }
 
     /**
      * Unsubscribe Button - Function which creates link for disconnecting user from the specific application
      * $this->Facebook->init() is required for this
+     *
      * @param array of options
      * - redirect string to your app's logout url (default null)
      * - label string of text to use in link (default logout)
      * - confirm string Alert dialog which will be visible if user clicks on the button/link
+     *
      * @return string Link for disconnect button
      * @access public
      */
@@ -243,17 +288,20 @@ class FacebookHelper extends AppHelper
         if (isset($options['confirm'])) {
             $onclick = 'if(confirm("' . $options['confirm'] . '")){' . $onclick . '}';
         }
+
         return $this->Html->link($options['label'], '#', array('onclick' => $onclick));
     }
 
     /**
      * Share this page
+     *
      * @param string url: url to share with facebook (default current page)
      * @param array options to pass into share
      * - style: 'button' or 'link' (default'button')
      * - label: title of text to link(default 'share')
      * - anchor: a href anchor name (default 'fb_share')
      * - fbxml: true or false.  If true, use fb:share-button xml style instead of javascript share (default false)
+     *
      * @return string XFBML tag along with shareJs script
      * @access public
      */
@@ -285,7 +333,11 @@ class FacebookHelper extends AppHelper
             unset($options['fbxml']);
             $retval = $this->__fbTag('fb:share-button', '', $options);
         } else {
-            $retval = $this->Html->link($options['label'], 'http://www.facebook.com/sharer.php', array('share_url' => $url, 'type' => $options['type'], 'name' => $options['anchor']));
+            $retval = $this->Html->link($options['label'], 'http://www.facebook.com/sharer.php', array(
+                'share_url' => $url,
+                'type' => $options['type'],
+                'name' => $options['anchor']
+            ));
             $retval .= $this->Html->script($this->__fbShareScript);
         }
 
@@ -295,6 +347,7 @@ class FacebookHelper extends AppHelper
     /**
      * Profile Picture of Facebook User
      * $facebook->init() is required for this
+     *
      * @param int facebook user id.
      * @param array options to pass into pic
      * - uid : user_id to view profile picture
@@ -302,6 +355,7 @@ class FacebookHelper extends AppHelper
      * - facebook-logo: (default true)
      * - width: width of the picture in pixels
      * - height: height of the picture in pixels
+     *
      * @return string fb tag for profile picture or empty string if uid is not present
      * @access public
      */
@@ -324,10 +378,12 @@ class FacebookHelper extends AppHelper
     /**
      * New send social plugin
      * $facebook->init() is required for this
+     *
      * @param string url: url to send with facebook (default current page)
      * @param array options to pass into share
      * - colorscheme: 'light' or 'dark' (default'light')
      * - font: Font of the send button (default 'arial')
+     *
      * @return string XFBML tag along with shareJs script
      * @access public
      */
@@ -342,6 +398,7 @@ class FacebookHelper extends AppHelper
             'font' => 'arial',
         );
         $options = array_merge($defaults, $options);
+
         return $this->__fbTag('fb:send', '', $options);
     }
 
@@ -349,6 +406,7 @@ class FacebookHelper extends AppHelper
      * Build a like box
      * $facebook->init() is required for this
      * @link http://developers.facebook.com/docs/reference/plugins/like-box
+     *
      * @param array of options to pass into likebox
      * - stream : 1 turns stream on, 0 turns stream off (default false)
      * - header : 1 turns header on, 0 turns logobar off (default false)
@@ -368,17 +426,20 @@ class FacebookHelper extends AppHelper
             ),
             $options
         );
+
         return $this->__fbTag('fb:like-box', '', $options);
     }
 
     /**
      * Build a become a fan, fanbox
      * $facebook->init() is required for this
+     *
      * @param array options to pass into fanbox
      * - stream : 1 turns stream on, 0 turns stream off (default 0)
      * - connections : 1 turns connections on, 0 turns connections off (default 0)
      * - logobar : 1 turns logobar on, 0 turns logobar off (default 0)
      * - profile_id : Your Application Id (default Configure::read('Facebook.app_id')
+     *
      * @return string xfbhtml tag
      * @access public
      */
@@ -393,17 +454,20 @@ class FacebookHelper extends AppHelper
             ),
             $options
         );
+
         return $this->__fbTag('fb:fan', '', $options);
     }
 
     /**
      * Build a livestream window to your live stream app on facebook
      * $facebook->init() is required for this
+     *
      * @param array options to pass into livestream
      * - event_app_id : Your Application Id (default Configure::read('Facebook.appId')
      * - xid : Your event XID
      * - width : width of window in pixels
      * - height: height of window in pixels
+     *
      * @return string xfbhtml tag
      * @access public
      */
@@ -418,15 +482,18 @@ class FacebookHelper extends AppHelper
             ),
             $options
         );
+
         return $this->__fbTag('fb:live-stream', '', $options);
     }
 
     /**
      * Build a facebook comments area.
      * $facebook->init() is required for this
+     *
      * @param array of options for comments
      * - numposts : number of posts to show (default 10)
      * - width : int width of comments blog (default 550)
+     *
      * @return string xfbhtml tag
      * @access public
      */
@@ -438,6 +505,7 @@ class FacebookHelper extends AppHelper
     /**
      * Build a facebook recommendations area.
      * $facebook->init() is required for this
+     *
      * @param array of options for recommendations
      * - width : int width of object (default 300)
      * - height : int height of object (default 300)
@@ -445,6 +513,7 @@ class FacebookHelper extends AppHelper
      * - colorscheme : light, dark (default light)
      * - font : default arial
      * - bordercolor : color of border (black, white, grey)
+     *
      * @return string xfbhtml tag
      * @access public
      */
@@ -456,9 +525,11 @@ class FacebookHelper extends AppHelper
     /**
      * Build a facebook friendpile area.
      * $facebook->init() is required for this
+     *
      * @param array of options for recommendations
      * - numrows : int of rows object (default 1)
      * - width : int width of object (default 300)
+     *
      * @return string xfbhtml tag
      * @access public
      */
@@ -470,6 +541,7 @@ class FacebookHelper extends AppHelper
     /**
      * Build a facebook activity feed area.
      * $facebook->init() is required for this
+     *
      * @param array of options for recommendations
      * - width : int width of object (default 300)
      * - height : int height of object (default 300)
@@ -478,6 +550,7 @@ class FacebookHelper extends AppHelper
      * - font : default arial
      * - bordercolor : color of border (black, white, grey)
      * - recommendations : show recommendations default "false"
+     *
      * @return string xfbhtml tag
      * @access public
      */
@@ -489,6 +562,7 @@ class FacebookHelper extends AppHelper
     /**
      * Build a facebook like box
      * $facebook->init() is required for this
+     *
      * @param array of options for like box
      * - href : URL to like (default same page)
      * - show_faces : boolean (default true)
@@ -496,6 +570,7 @@ class FacebookHelper extends AppHelper
      * - layout : the layout type if the button (button_count, standard, default: standard)
      * - action : the title of the action (like or recommend, default: like)
      * - colorscheme : the look of the button (dark or light, default: light)
+     *
      * @return string xfbhtml tag
      * @access public
      */
@@ -507,7 +582,9 @@ class FacebookHelper extends AppHelper
     /**
      * HTML XMLNS tag (required)
      * Facebook Auth 2.0 support
+     *
      * @param array $options
+     *
      * @example $this->Facebook->init();
      * @return string of scriptBlock for FB.init() or error
      */
@@ -529,8 +606,8 @@ class FacebookHelper extends AppHelper
 			oauth      : true, // enable OAuth 2.0
 			xfbml      : true  // parse XFBML
 		});
-		
-		
+
+
 		// Checks whether the user is logged in
 		FB.getLoginStatus(function(response) {
 			if (response.authResponse) {
@@ -541,7 +618,7 @@ class FacebookHelper extends AppHelper
 				// alert('You are disconnected');
 			}
 		});
-			   
+
 		FB.Event.subscribe('auth.authResponseChange', function(response) {
 			if (response.authResponse) {
 				// the user has just logged in
@@ -551,7 +628,7 @@ class FacebookHelper extends AppHelper
 				// alert('You just logged out from faceboook');
 			}
 		});
-		
+
 		// Other javascript code goes here!
 
 	};
@@ -591,33 +668,15 @@ class FacebookHelper extends AppHelper
 	// Load the SDK Asynchronously
 	(function() {
 	var e = document.createElement('script'); e.async = true;
-	e.src = document.location.protocol 
+	e.src = document.location.protocol
 	+ '//connect.facebook.net/" . $this->locale . "/all.js';
 	document.getElementById('fb-root').appendChild(e);
 	}());");
+
             return $init;
         } else {
             return "<span class='error'>No Facebook configuration detected. Please add the facebook configuration file to your config folder.</span>";
         }
-    }
-
-    /**
-     * Generate a facebook tag
-     * @param string fb:tag
-     * @param string label to pass inbetween the tag
-     * @param array of options as name=>value pairs to add to facebook tag attribute
-     * @access private
-     */
-    private function __fbTag($tag, $label, $options)
-    {
-        //@TODO make this a little nicer, pron to errors if a value has a ' in it.
-        $retval = "<$tag";
-        foreach ($options as $name => $value) {
-            if ($value === false) $value = 0;
-            $retval .= " " . $name . "='" . $value . "'";
-        }
-        $retval .= ">$label</$tag>";
-        return $retval;
     }
 
 }

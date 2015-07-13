@@ -2,31 +2,34 @@
 
 class DatachannelsController extends DaneAppController
 {
+    public $components = array('RequestHandler');
 
     public function index()
     {
-        $channels = $this->API->getDatachannels();
-        $searchParams = array(
-            'limit' => 12,
-            'conditions' => array(),
-            'facets' => true,
-        );
 
         $q = (string)@$this->request->query['q'];
 
+        $queryData = array(
+            'includeContent' => true,
+        );
+
         if ($q) {
+            $queryData['conditions']['q'] = $q;
+        }
 
-            $searchParams['q'] = $q;
+        $channels = $this->API->getDatachannels($queryData);
 
+
+        if ($q && !empty($channels)) {
             foreach ($channels as &$ch) {
 
-                $this->API->searchDatachannel($ch['Datachannel']['slug'], $searchParams);
-                $ch['dataobjects'] = $this->API->getObjects();
                 $datachannel_count = 0;
 
-                $facets = $this->API->getFacets();
+                $facets = $ch['facets'];
                 if (!empty($facets)) {
+
                     $facets = array_column($facets, 'params', 'field');
+
                     if (array_key_exists('dataset', $facets) &&
                         isset($facets['dataset']['options']) &&
                         !empty($facets['dataset']['options'])
@@ -52,34 +55,13 @@ class DatachannelsController extends DaneAppController
                 $ch['Datachannel']['count'] = $datachannel_count;
 
 
-                if (!empty($ch['dataobjects']))
+                if (!empty($ch['dataobjects'])) {
                     $ch['Datachannel']['score'] = $ch['dataobjects'][0]->getScore();
-
-                /*
-                $ch['Datachannel']['score'] = 0;
-                if( !empty($ch['dataobjects']) )
-                {
-                    $i = 0;
-                    foreach( $ch['dataobjects'] as $object )
-                    {
-                        $ch['Datachannel']['score'] += $object->getScore();
-                        $i++;
-                    }
-                    if( $i )
-                        $ch['Datachannel']['score'] = $ch['Datachannel']['score'] / $i;
                 }
-                */
+
             }
 
             uasort($channels, array($this, 'channelsCompareMethod'));
-            // var_export( $channels ); die();
-
-        } else {
-
-            foreach ($channels as &$ch) {
-                $res = $this->API->searchDatachannel($ch['Datachannel']['slug'], $searchParams);
-                $ch['dataobjects'] = $this->API->getObjects();
-            }
 
         }
 
@@ -90,30 +72,41 @@ class DatachannelsController extends DaneAppController
 
     }
 
-    private function channelsCompareMethod($a, $b)
-    {
-        if ($a['Datachannel']['score'] == $b['Datachannel']['score']) {
-            return 0;
-        }
-        return ($a['Datachannel']['score'] > $b['Datachannel']['score']) ? -1 : 1;
-    }
-
     public function view($name = null)
     {
 
         $alias = (string)@$this->request->params['alias'];
-        $data = $this->API->getDatachannel($alias);
-        $datachannel = $data['Datachannel'];
+        $this->dataobjectsBrowserView(array(
+            'source' => 'datachannel:' . $alias,
+            'showTitle' => true,
+            'titleTag' => 'h1',
+        ));
 
+    }
 
-        $datasets = $data['Dataset'];
+    public function beforeRender()
+    {
+
+        $datasets = array();
+
+        if ($this->dataBrowser) {
+
+            $data = $this->dataBrowser->datachannel;
+            $datachannel = $data['Datachannel'];
+            $datasets = $data['Dataset'];
+
+            $title_for_layout = $datachannel['name'];
+            $this->set('title_for_layout', $title_for_layout);
+
+        }
 
         if (count($datasets) === 1) {
 
             $dataset = $datasets[0];
             $url = '/dane/' . $dataset['base_alias'];
-            if (!empty($this->request->query))
+            if (!empty($this->request->query)) {
                 $url .= '?' . http_build_query($this->request->query);
+            }
 
             $this->redirect($url);
             exit();
@@ -121,16 +114,15 @@ class DatachannelsController extends DaneAppController
         }
 
 
-        $title_for_layout = $datachannel['name'];
-        $this->set('title_for_layout', $title_for_layout);
+    }
 
+    private function channelsCompareMethod($a, $b)
+    {
+        if ($a['Datachannel']['score'] == $b['Datachannel']['score']) {
+            return 0;
+        }
 
-        $this->dataobjectsBrowserView(array(
-            'source' => 'datachannel:' . $alias,
-            'showTitle' => true,
-            'titleTag' => 'h1',
-        ));
-
+        return ($a['Datachannel']['score'] > $b['Datachannel']['score']) ? -1 : 1;
     }
 
 }

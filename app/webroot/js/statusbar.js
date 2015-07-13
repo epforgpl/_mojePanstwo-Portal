@@ -2,7 +2,8 @@
 var _mojePanstwoCockpitSlider = {
     dialog: {
         'boxName': 'mojePanstwoCockpitDialogBox',
-        'invisibleName': 'mojePanstwoCockpitInvisibleDialogBox'
+        'invisibleName': 'mojePanstwoCockpitInvisibleDialogBox',
+        'appMenu': 'hidden'
     },
     data: {
         collection: null,
@@ -31,152 +32,147 @@ var _mojePanstwoCockpitSlider = {
     },
 
     init: function () {
-        var that = this;
         // collect the slides and the controls
-        this.data.collection = document.getElementById(this.setting.containerID).children;
+        _mojePanstwoCockpitSlider.data.collection = document.getElementById(_mojePanstwoCockpitSlider.setting.containerID).children;
+        _mojePanstwoCockpitSlider.data.totalSlides = _mojePanstwoCockpitSlider.data.collection.length;
+        if (_mojePanstwoCockpitSlider.data.totalSlides >= 2) {
+            for (var i = 0; i < _mojePanstwoCockpitSlider.data.collection.length; i++) {
+                // give IDs to slides and controls
+                _mojePanstwoCockpitSlider.data.collection[i].id = _mojePanstwoCockpitSlider.setting.prefix + (i + 1);
 
-        this.data.totalSlides = this.data.collection.length;
-        if (this.data.totalSlides < 2) return;
+                //create DOM element: anchor node
+                var node = document.createElement('a');
+                node.innerHTML = i;
+                node.id = _mojePanstwoCockpitSlider.setting.controlPrefix + (i + 1);
+                node.onclick = function (event) {
+                    event.preventDefault();
+                    _mojePanstwoCockpitSlider.clickSlide(this);
+                };
+                document.getElementById(_mojePanstwoCockpitSlider.setting.controlsID).appendChild(node);
+            }
 
-        for (var i = 0; i < this.data.collection.length; i++) {
-            // give IDs to slides and controls
-            that.data.collection[i].id = that.setting.prefix + (i + 1);
+            _mojePanstwoCockpitSlider.data.controllersCollection = document.getElementById(_mojePanstwoCockpitSlider.setting.controlsID).children;
 
-            //create DOM element: anchor node
-            var node = document.createElement('a');
-            node.innerHTML = i;
-            node.id = that.setting.controlPrefix + (i + 1);
-            node.onclick = function (event) {
-                event.preventDefault();
-                that.clickSlide(this);
-            };
-            document.getElementById(that.setting.controlsID).appendChild(node);
+            document.getElementById(_mojePanstwoCockpitSlider.setting.prefix + '1').className = _mojePanstwoCockpitSlider.setting.prefixhighlightClass;
+            document.getElementById(_mojePanstwoCockpitSlider.setting.controlPrefix + '1').className = _mojePanstwoCockpitSlider.setting.controlPrefixhighlightClass;
         }
 
-        this.data.controllersCollection = document.getElementById(this.setting.controlsID).children;
-
-        document.getElementById(this.setting.prefix + '1').className = this.setting.prefixhighlightClass;
-        document.getElementById(this.setting.controlPrefix + '1').className = this.setting.controlPrefixhighlightClass;
-
-        this.initDialogBox();
-        this.transComplete();
+        _mojePanstwoCockpitSlider.initDialogBox();
+        _mojePanstwoCockpitSlider.transComplete();
     },
 
     clickSlide: function (control) {
-        this.changeSlide(Number(control.id.substr(control.id.lastIndexOf("-") + 1)));
+        _mojePanstwoCockpitSlider.changeSlide(Number(control.id.substr(control.id.lastIndexOf("-") + 1)));
     },
 
     prevSlide: function () {
-        this.changeSlide(Number((this.transStat.crtIndex - 1 <= 0) ? 1 : this.transStat.crtIndex - 1));
+        _mojePanstwoCockpitSlider.changeSlide(Number((_mojePanstwoCockpitSlider.transStat.crtIndex - 1 <= 0) ? 1 : _mojePanstwoCockpitSlider.transStat.crtIndex - 1));
 
         return false;
     },
 
     nextSlide: function () {
-        this.changeSlide(Number((this.transStat.crtIndex + 1 > this.data.totalSlides) ? this.data.totalSlides : this.transStat.crtIndex + 1));
+        _mojePanstwoCockpitSlider.changeSlide(Number((_mojePanstwoCockpitSlider.transStat.crtIndex + 1 > _mojePanstwoCockpitSlider.data.totalSlides) ? _mojePanstwoCockpitSlider.data.totalSlides : _mojePanstwoCockpitSlider.transStat.crtIndex + 1));
 
         return false;
     },
 
     changeSlide: function (slideNo) {
         // don't do any action while a transition is in progress
-        if (this.transStat.crtStep != 0 || slideNo == this.transStat.crtIndex)
+        if (_mojePanstwoCockpitSlider.transStat.crtStep != 0 || slideNo == _mojePanstwoCockpitSlider.transStat.crtIndex)
             return;
 
-        clearTimeout(this.transStat.timeout);
+        clearTimeout(_mojePanstwoCockpitSlider.transStat.timeout);
 
         // get references to the current slide and to the one to be shown next
-        this.transStat.nextSlideIndex = slideNo;
-        this.transStat.crtSlide = document.getElementById(this.setting.prefix + this.transStat.crtIndex);
-        this.transStat.nextSlide = document.getElementById(this.setting.prefix + this.transStat.nextSlideIndex);
-        this.transStat.crtStep = 0;
+        _mojePanstwoCockpitSlider.transStat.nextSlideIndex = slideNo;
+        _mojePanstwoCockpitSlider.transStat.crtSlide = document.getElementById(_mojePanstwoCockpitSlider.setting.prefix + _mojePanstwoCockpitSlider.transStat.crtIndex);
+        _mojePanstwoCockpitSlider.transStat.nextSlide = document.getElementById(_mojePanstwoCockpitSlider.setting.prefix + _mojePanstwoCockpitSlider.transStat.nextSlideIndex);
+        _mojePanstwoCockpitSlider.transStat.crtStep = 0;
 
-        this.transSlide();
+        _mojePanstwoCockpitSlider.transSlide();
     },
 
     transSlide: function () {
-        var that = this;
-
         // setup subMenu width (if not set yet)
-        if (!this.data.menuWidth)
-            that.data.menuWidth = document.getElementById(that.setting.containerID).offsetWidth;
+        if (!_mojePanstwoCockpitSlider.data.menuWidth)
+            _mojePanstwoCockpitSlider.data.menuWidth = document.getElementById(_mojePanstwoCockpitSlider.setting.containerID).offsetWidth;
 
         // make sure the next slide is visible (albeit transparent)
-        this.transStat.nextSlide.style.display = "block";
+        _mojePanstwoCockpitSlider.transStat.nextSlide.style.display = "block";
 
         // calculate new move position
-        if ((this.transStat.crtStep += this.setting.transitionSteps) > this.data.menuWidth)
-            this.transStat.crtStep = this.data.menuWidth;
+        if ((_mojePanstwoCockpitSlider.transStat.crtStep += _mojePanstwoCockpitSlider.setting.transitionSteps) > _mojePanstwoCockpitSlider.data.menuWidth)
+            _mojePanstwoCockpitSlider.transStat.crtStep = _mojePanstwoCockpitSlider.data.menuWidth;
 
         // set direction of move (to the right)
-        if (this.transStat.crtIndex < this.transStat.nextSlideIndex) {
-            if (that.transStat.nextSlide.style.position != 'absolute')
-                that.transStat.nextSlide.style.position = 'absolute';
+        if (_mojePanstwoCockpitSlider.transStat.crtIndex < _mojePanstwoCockpitSlider.transStat.nextSlideIndex) {
+            if (_mojePanstwoCockpitSlider.transStat.nextSlide.style.position != 'absolute')
+                _mojePanstwoCockpitSlider.transStat.nextSlide.style.position = 'absolute';
 
-            that.transStat.crtSlide.style.marginLeft = "-" + this.transStat.crtStep + "px";
-            that.transStat.nextSlide.style.left = (that.data.menuWidth - that.transStat.crtStep) + "px";
+            _mojePanstwoCockpitSlider.transStat.crtSlide.style.marginLeft = "-" + _mojePanstwoCockpitSlider.transStat.crtStep + "px";
+            _mojePanstwoCockpitSlider.transStat.nextSlide.style.left = (_mojePanstwoCockpitSlider.data.menuWidth - _mojePanstwoCockpitSlider.transStat.crtStep) + "px";
 
         }// set direction of move (to the left)
-        else if (this.transStat.crtIndex > this.transStat.nextSlideIndex) {
-            if (that.transStat.nextSlide.style.position != 'absolute')
-                that.transStat.nextSlide.style.position = 'absolute';
+        else if (_mojePanstwoCockpitSlider.transStat.crtIndex > _mojePanstwoCockpitSlider.transStat.nextSlideIndex) {
+            if (_mojePanstwoCockpitSlider.transStat.nextSlide.style.position != 'absolute')
+                _mojePanstwoCockpitSlider.transStat.nextSlide.style.position = 'absolute';
 
-            that.transStat.crtSlide.style.marginLeft = that.transStat.crtStep + "px";
-            that.transStat.nextSlide.style.left = "-" + (that.data.menuWidth - that.transStat.crtStep) + "px";
+            _mojePanstwoCockpitSlider.transStat.crtSlide.style.marginLeft = _mojePanstwoCockpitSlider.transStat.crtStep + "px";
+            _mojePanstwoCockpitSlider.transStat.nextSlide.style.left = "-" + (_mojePanstwoCockpitSlider.data.menuWidth - _mojePanstwoCockpitSlider.transStat.crtStep) + "px";
         }
 
         // if not completed, do this step again after a short delay
-        if (this.transStat.crtStep < this.data.menuWidth)
-            that.transStat.timeout = setTimeout("_mojePanstwoCockpitSlider.transSlide()", that.setting.animationInterval);
+        if (_mojePanstwoCockpitSlider.transStat.crtStep < _mojePanstwoCockpitSlider.data.menuWidth)
+            _mojePanstwoCockpitSlider.transStat.timeout = setTimeout("_mojePanstwoCockpitSlider.transSlide()", _mojePanstwoCockpitSlider.setting.animationInterval);
         else {
             // complete
-            that.transStat.crtSlide.style.display = "none";
-            that.transStat.crtSlide.style.marginLeft = "";
-            that.transStat.nextSlide.style.position = "";
-            that.transStat.nextSlide.style.left = "";
-            that.transComplete();
+            _mojePanstwoCockpitSlider.transStat.crtSlide.style.display = "none";
+            _mojePanstwoCockpitSlider.transStat.crtSlide.style.marginLeft = "";
+            _mojePanstwoCockpitSlider.transStat.nextSlide.style.position = "";
+            _mojePanstwoCockpitSlider.transStat.nextSlide.style.left = "";
+            _mojePanstwoCockpitSlider.transComplete();
         }
     },
 
     transComplete: function () {
-        var that = this;
+        _mojePanstwoCockpitSlider.transStat.crtStep = 0;
+        _mojePanstwoCockpitSlider.transStat.crtIndex = _mojePanstwoCockpitSlider.transStat.nextSlideIndex;
 
-        this.transStat.crtStep = 0;
-        this.transStat.crtIndex = this.transStat.nextSlideIndex;
+        if (_mojePanstwoCockpitSlider.data.totalSlides >= 2) {
+            //unhighlight all controls
+            for (var i = 0; i < _mojePanstwoCockpitSlider.data.controllersCollection.length; i++) {
+                _mojePanstwoCockpitSlider.data.collection[i].className = "";
+                _mojePanstwoCockpitSlider.data.controllersCollection[i].className = "";
+            }
 
-        //unhighlight all controls
-        for (var i = 0; i < this.data.controllersCollection.length; i++) {
-            this.data.collection[i].className = "";
-            this.data.controllersCollection[i].className = "";
+            // highlight the control for the next slide
+            document.getElementById(_mojePanstwoCockpitSlider.setting.prefix + _mojePanstwoCockpitSlider.transStat.crtIndex).className = _mojePanstwoCockpitSlider.setting.prefixhighlightClass;
+            document.getElementById(_mojePanstwoCockpitSlider.setting.controlPrefix + _mojePanstwoCockpitSlider.transStat.crtIndex).className = _mojePanstwoCockpitSlider.setting.controlPrefixhighlightClass;
         }
-
-        // highlight the control for the next slide
-        document.getElementById(this.setting.prefix + this.transStat.crtIndex).className = this.setting.prefixhighlightClass;
-        document.getElementById(this.setting.controlPrefix + this.transStat.crtIndex).className = this.setting.controlPrefixhighlightClass;
-
         // change arrow status
-        if (this.transStat.crtIndex - 1 <= 0) {
-            document.getElementsByClassName(that.setting.controlsArrowLeft)[0].childNodes[0].style.opacity = "0.3";
-            document.getElementsByClassName(that.setting.controlsArrowLeft)[0].childNodes[0].style.filter = 'alpha(opacity="30")';
+        if (_mojePanstwoCockpitSlider.transStat.crtIndex - 1 <= 0) {
+            document.getElementsByClassName(_mojePanstwoCockpitSlider.setting.controlsArrowLeft)[0].childNodes[0].style.opacity = "0.3";
+            document.getElementsByClassName(_mojePanstwoCockpitSlider.setting.controlsArrowLeft)[0].childNodes[0].style.filter = 'alpha(opacity="30")';
         } else {
-            document.getElementsByClassName(that.setting.controlsArrowLeft)[0].childNodes[0].style.opacity = "1";
-            document.getElementsByClassName(that.setting.controlsArrowLeft)[0].childNodes[0].style.filter = 'alpha(opacity="100")';
+            document.getElementsByClassName(_mojePanstwoCockpitSlider.setting.controlsArrowLeft)[0].childNodes[0].style.opacity = "1";
+            document.getElementsByClassName(_mojePanstwoCockpitSlider.setting.controlsArrowLeft)[0].childNodes[0].style.filter = 'alpha(opacity="100")';
 
             // for IE filters, removing filters reenables cleartype
-            if (document.getElementsByClassName(that.setting.controlsArrowLeft)[0].childNodes[0].style.removeAttribute)
-                document.getElementsByClassName(that.setting.controlsArrowLeft)[0].childNodes[0].style.removeAttribute("filter");
+            if (document.getElementsByClassName(_mojePanstwoCockpitSlider.setting.controlsArrowLeft)[0].childNodes[0].style.removeAttribute)
+                document.getElementsByClassName(_mojePanstwoCockpitSlider.setting.controlsArrowLeft)[0].childNodes[0].style.removeAttribute("filter");
         }
 
-        if (this.transStat.crtIndex + 1 > this.data.totalSlides) {
-            document.getElementsByClassName(that.setting.controlsArrowRight)[0].childNodes[0].style.opacity = "0.3";
-            document.getElementsByClassName(that.setting.controlsArrowRight)[0].childNodes[0].style.filter = 'alpha(opacity="30")';
+        if (_mojePanstwoCockpitSlider.transStat.crtIndex + 1 > _mojePanstwoCockpitSlider.data.totalSlides) {
+            document.getElementsByClassName(_mojePanstwoCockpitSlider.setting.controlsArrowRight)[0].childNodes[0].style.opacity = "0.3";
+            document.getElementsByClassName(_mojePanstwoCockpitSlider.setting.controlsArrowRight)[0].childNodes[0].style.filter = 'alpha(opacity="30")';
         } else {
-            document.getElementsByClassName(that.setting.controlsArrowRight)[0].childNodes[0].style.opacity = "1";
-            document.getElementsByClassName(that.setting.controlsArrowRight)[0].childNodes[0].style.filter = 'alpha(opacity="100")';
+            document.getElementsByClassName(_mojePanstwoCockpitSlider.setting.controlsArrowRight)[0].childNodes[0].style.opacity = "1";
+            document.getElementsByClassName(_mojePanstwoCockpitSlider.setting.controlsArrowRight)[0].childNodes[0].style.filter = 'alpha(opacity="100")';
 
             // for IE filters, removing filters reenables cleartype
-            if (document.getElementsByClassName(that.setting.controlsArrowRight)[0].childNodes[0].style.removeAttribute)
-                document.getElementsByClassName(that.setting.controlsArrowRight)[0].childNodes[0].style.removeAttribute("filter");
+            if (document.getElementsByClassName(_mojePanstwoCockpitSlider.setting.controlsArrowRight)[0].childNodes[0].style.removeAttribute)
+                document.getElementsByClassName(_mojePanstwoCockpitSlider.setting.controlsArrowRight)[0].childNodes[0].style.removeAttribute("filter");
         }
     },
 
@@ -285,6 +281,31 @@ var _mojePanstwoCockpitSlider = {
             var element = document.getElementById(_mojePanstwoCockpitSlider.dialog.boxName);
             element.parentNode.removeChild(element);
         }
+    },
+    slideDown: function (elem) {
+        elem.style.maxHeight = '290px';
+        elem.style.opacity = '1';
+        document.getElementById('_mojePanstwoCockpitMenuUpSubMenuTopArrow').style.display = 'block';
+        _mojePanstwoCockpitSlider.dialog.appMenu = 'visible';
+    },
+    slideUp: function (elem) {
+        elem.style.maxHeight = '0';
+        document.getElementById('_mojePanstwoCockpitMenuUpSubMenuTopArrow').style.display = 'none';
+        _mojePanstwoCockpitSlider.once(1, function () {
+            elem.style.opacity = '0';
+            _mojePanstwoCockpitSlider.dialog.appMenu = 'hidden';
+
+        });
+    },
+    once: function (seconds, callback) /* Execute once after the specified interval */ {
+        var counter = 0;
+        var time = window.setInterval(function () {
+            counter++;
+            if (counter >= seconds) {
+                callback();
+                window.clearInterval(time);
+            }
+        }, 800);
     }
 };
 
@@ -293,11 +314,35 @@ var _mojePanstwoCockpitSlider = {
 
     document.getElementById('_mojePanstwoCockpitMenuUpContent').onclick = function (e) {
         e.stopPropagation();
-        document.getElementById('_mojePanstwoCockpitMenuUpSubMenu').style.display = 'block';
-        document.getElementById('_mojePanstwoCockpitMenuUpSubMenuTopArrow').style.display = 'block';
+        if (_mojePanstwoCockpitSlider.dialog.appMenu == 'hidden') {
+            _mojePanstwoCockpitSlider.slideDown(document.getElementById('_mojePanstwoCockpitMenuUpSubMenu'));
+        }
+    };
+    document.getElementsByClassName('_mojePanstwoCockpitMenuUpContentButton')[0].onclick = function () {
+        if (_mojePanstwoCockpitSlider.dialog.appMenu == 'visible') {
+            _mojePanstwoCockpitSlider.slideUp(document.getElementById('_mojePanstwoCockpitMenuUpSubMenu'));
+        }
     };
     document.getElementsByTagName('html')[0].onclick = function () {
-        document.getElementById('_mojePanstwoCockpitMenuUpSubMenu').style.display = 'none';
-        document.getElementById('_mojePanstwoCockpitMenuUpSubMenuTopArrow').style.display = 'none';
+        if (_mojePanstwoCockpitSlider.dialog.appMenu == 'visible') {
+            _mojePanstwoCockpitSlider.slideUp(document.getElementById('_mojePanstwoCockpitMenuUpSubMenu'));
+        }
+    }
+
+    /*TEMPORARY HACK FOR LOGO CHANGE*/
+    if (jQuery('._mojePanstwoCockpitLogo.firstTime').length > 0) {
+        window.setTimeout(function () {
+            jQuery('._mojePanstwoCockpitLogo.firstTime .morph').animate({
+                width: '0'
+            }, 1000, function () {
+                jQuery('._mojePanstwoCockpitLogo.firstTime .morph').remove();
+            });
+            jQuery('._mojePanstwoCockpitLogo.firstTime').animate({
+                'width': '140px'
+            }, 1100, function () {
+                jQuery('._mojePanstwoCockpitLogo.firstTime').removeClass('firstTime')
+            })
+            jQuery.cookie('_mPFirstTime', 0, {expires: 365, path: '/'});
+        }, 5000);
     }
 })();

@@ -8,8 +8,11 @@
                 ?>
 
                 <li>
-                    <div class="avatar"><a href="/dane/twitter_accounts/<?= $object->getId() ?>">
-                            <img src="<?= $object->getThumbnailUrl() ?>"/></a></div>
+                    <div class="avatar">
+                        <a href="/dane/twitter_accounts/<?= $object->getId() ?>">
+                            <img src="<?= $object->getThumbnailUrl() ?>" onerror="imgFixer(this)"/>
+                        </a>
+                    </div>
                     <div class="info">
                         <p class="name">
                             <a href="/dane/twitter_accounts/<?= $object->getId() ?>"><?= $object->getData('name') ?></a>
@@ -24,8 +27,9 @@
                         <? } ?>
                     </div>
                 </li>
-                <? if ($i > 10)
+                <? if ($i > 10) {
                     break;
+                }
             }
             ?>
         </ul>
@@ -36,11 +40,13 @@
         'typ_id' => $type['id'],
     );
 
-    if (@$group['order'])
+    if (@$group['order']) {
         $params['order'] = $group['order'];
+    }
 
-    if (@$group['link']['order'])
+    if (@$group['link']['order']) {
         $params['order'] = $group['link']['order'];
+    }
 
     $href = '/dane/' . $group['link']['dataset'] . '?' . http_build_query($params);
     ?>
@@ -62,8 +68,9 @@
                     <span class="badge"><?= number_format($object['count'], 0, '.', ' ') ?></span>
                     <a href="<?= $href ?>">#<?= $object['tag'] ?></a>
                 </li>
-                <? if ($i >= 5)
+                <? if ($i >= 5) {
                     break;
+                }
             }
             ?>
         </ul>
@@ -78,14 +85,17 @@
 
                 $object['title'] = $object['url'];
 
-                if (stripos($object['title'], 'http://') === 0)
+                if (stripos($object['title'], 'http://') === 0) {
                     $object['title'] = substr($object['title'], 7);
+                }
 
-                if (stripos($object['title'], 'https://') === 0)
+                if (stripos($object['title'], 'https://') === 0) {
                     $object['title'] = substr($object['title'], 8);
+                }
 
-                if (stripos($object['title'], 'www.') === 0)
+                if (stripos($object['title'], 'www.') === 0) {
                     $object['title'] = substr($object['title'], 4);
+                }
 
                 ?>
 
@@ -95,8 +105,9 @@
                        target="_blank"><?= substr($object['title'], 0, 26) ?><? if (strlen($object['title']) > 26) { ?>...<? } ?></a>
                 </li>
                 <?
-                if ($i >= 10)
+                if ($i >= 10) {
                     break;
+                }
             }
             ?>
 
@@ -127,8 +138,9 @@
                 </li>
 
                 <?
-                if ($i >= 10)
+                if ($i >= 10) {
                     break;
+                }
             }
             ?>
 
@@ -152,7 +164,8 @@
                     <div class="tweet_header">
                         <div class="avatar">
                             <p>
-                                <img src="<?= $object->getData('twitter_accounts.profile_image_url') ?>"/>
+                                <img src="<?= $object->getData('twitter_accounts.profile_image_url') ?>"
+                                     onerror="imgFixer(this)"/>
                             </p>
                         </div>
                         <div class="data">
@@ -192,8 +205,9 @@
 
 
                 <?
-                if ($i > 10)
+                if ($i > 10) {
                     break;
+                }
             }
             ?>
 
@@ -206,11 +220,13 @@
         'twitter_accounts:typ_id' => $type['id'],
     );
 
-    if (@$group['order'])
+    if (@$group['order']) {
         $params['order'] = $group['order'];
+    }
 
-    if (@$group['link']['order'])
+    if (@$group['link']['order']) {
         $params['order'] = $group['link']['order'];
+    }
 
     $href = '/dane/' . $group['link']['dataset'] . '?' . http_build_query($params);
     ?>

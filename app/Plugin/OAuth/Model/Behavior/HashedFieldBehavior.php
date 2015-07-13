@@ -37,6 +37,7 @@ class HashedFieldBehavior extends ModelBehavior
                 $Model->data[$Model->alias][$field] = Security::hash($data, null, true);
             }
         }
+
         return true;
     }
 
@@ -59,6 +60,7 @@ class HashedFieldBehavior extends ModelBehavior
                 $conditions[$queryField] = Security::hash($data, null, true);
             }
         }
+
         return $queryData;
     }
 

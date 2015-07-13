@@ -1,0 +1,67 @@
+#aboutUs {
+    @marginSpace: 4em;
+
+    margin-top: @marginSpace;
+    margin-bottom: @marginSpace;
+
+    h2 {
+        color: #2F2F2F;
+        font-size: 16px;
+        font-weight: 600;
+        margin: 40px 0 15px;
+
+        &:first-child {
+            margin-top: 20px;
+        }
+    }
+    p {
+        padding: 5px 0;
+    }
+
+    .mainContent {
+        #epf_logo {
+            margin: 10px 0;
+        }
+    }
+
+    .fundatorzy {
+        padding-left: 20px;
+        padding-right: 20px;
+
+        #fundatorzy {
+            .part {
+                width: 100%;
+                display: block;
+                float: left;
+
+                p.info {
+                    margin-bottom: 10px;
+                }
+
+                .logotypy {
+                    a {
+                        margin: 0 10px;
+                        outline: none;
+
+                        .image {
+                            max-width: 350px;
+                            max-height: 100px;
+                            margin-right: 20px;
+                            margin-bottom: 25px;
+                            vertical-align: middle;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .sideContent {
+        min-height: 620px;
+        padding: 95px 0 0;
+
+        .fb-like-box {
+            background-color: #ffffff;
+        }
+    }
+}

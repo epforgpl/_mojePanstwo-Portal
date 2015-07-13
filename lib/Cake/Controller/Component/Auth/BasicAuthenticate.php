@@ -14,7 +14,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('BaseAuthenticate', 'Controller/Component/Auth');
+App::uses( 'BaseAuthenticate', 'Controller/Component/Auth' );
 
 /**
  * Basic Authentication adapter for AuthComponent.
@@ -41,76 +41,74 @@ App::uses('BaseAuthenticate', 'Controller/Component/Auth');
  * @package       Cake.Controller.Component.Auth
  * @since 2.0
  */
-class BasicAuthenticate extends BaseAuthenticate
-{
+class BasicAuthenticate extends BaseAuthenticate {
 
-    /**
-     * Constructor, completes configuration for basic authentication.
-     *
-     * @param ComponentCollection $collection The Component collection used on this request.
-     * @param array $settings An array of settings.
-     */
-    public function __construct(ComponentCollection $collection, $settings)
-    {
-        parent::__construct($collection, $settings);
-        if (empty($this->settings['realm'])) {
-            $this->settings['realm'] = env('SERVER_NAME');
-        }
-    }
+	/**
+	 * Constructor, completes configuration for basic authentication.
+	 *
+	 * @param ComponentCollection $collection The Component collection used on this request.
+	 * @param array $settings An array of settings.
+	 */
+	public function __construct( ComponentCollection $collection, $settings ) {
+		parent::__construct( $collection, $settings );
+		if ( empty( $this->settings['realm'] ) ) {
+			$this->settings['realm'] = env( 'SERVER_NAME' );
+		}
+	}
 
-    /**
-     * Authenticate a user using HTTP auth. Will use the configured User model and attempt a
-     * login using HTTP auth.
-     *
-     * @param CakeRequest $request The request to authenticate with.
-     * @param CakeResponse $response The response to add headers to.
-     * @return mixed Either false on failure, or an array of user data on success.
-     */
-    public function authenticate(CakeRequest $request, CakeResponse $response)
-    {
-        return $this->getUser($request);
-    }
+	/**
+	 * Authenticate a user using HTTP auth. Will use the configured User model and attempt a
+	 * login using HTTP auth.
+	 *
+	 * @param CakeRequest $request The request to authenticate with.
+	 * @param CakeResponse $response The response to add headers to.
+	 *
+	 * @return mixed Either false on failure, or an array of user data on success.
+	 */
+	public function authenticate( CakeRequest $request, CakeResponse $response ) {
+		return $this->getUser( $request );
+	}
 
-    /**
-     * Get a user based on information in the request. Used by cookie-less auth for stateless clients.
-     *
-     * @param CakeRequest $request Request object.
-     * @return mixed Either false or an array of user information
-     */
-    public function getUser(CakeRequest $request)
-    {
-        $username = env('PHP_AUTH_USER');
-        $pass = env('PHP_AUTH_PW');
+	/**
+	 * Get a user based on information in the request. Used by cookie-less auth for stateless clients.
+	 *
+	 * @param CakeRequest $request Request object.
+	 *
+	 * @return mixed Either false or an array of user information
+	 */
+	public function getUser( CakeRequest $request ) {
+		$username = env( 'PHP_AUTH_USER' );
+		$pass     = env( 'PHP_AUTH_PW' );
 
-        if (empty($username) || empty($pass)) {
-            return false;
-        }
-        return $this->_findUser($username, $pass);
-    }
+		if ( empty( $username ) || empty( $pass ) ) {
+			return false;
+		}
 
-    /**
-     * Handles an unauthenticated access attempt by sending appropriate login headers
-     *
-     * @param CakeRequest $request A request object.
-     * @param CakeResponse $response A response object.
-     * @return void
-     * @throws UnauthorizedException
-     */
-    public function unauthenticated(CakeRequest $request, CakeResponse $response)
-    {
-        $Exception = new UnauthorizedException();
-        $Exception->responseHeader(array($this->loginHeaders()));
-        throw $Exception;
-    }
+		return $this->_findUser( $username, $pass );
+	}
 
-    /**
-     * Generate the login headers
-     *
-     * @return string Headers for logging in.
-     */
-    public function loginHeaders()
-    {
-        return sprintf('WWW-Authenticate: Basic realm="%s"', $this->settings['realm']);
-    }
+	/**
+	 * Handles an unauthenticated access attempt by sending appropriate login headers
+	 *
+	 * @param CakeRequest $request A request object.
+	 * @param CakeResponse $response A response object.
+	 *
+	 * @return void
+	 * @throws UnauthorizedException
+	 */
+	public function unauthenticated( CakeRequest $request, CakeResponse $response ) {
+		$Exception = new UnauthorizedException();
+		$Exception->responseHeader( array( $this->loginHeaders() ) );
+		throw $Exception;
+	}
+
+	/**
+	 * Generate the login headers
+	 *
+	 * @return string Headers for logging in.
+	 */
+	public function loginHeaders() {
+		return sprintf( 'WWW-Authenticate: Basic realm="%s"', $this->settings['realm'] );
+	}
 
 }

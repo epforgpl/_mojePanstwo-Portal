@@ -1,26 +1,76 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('view-radnigmin', array('plugin' => 'Dane'))); ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane'))) ?>
 
 <?= $this->Element('dataobject/pageBegin'); ?>
-    <div class="object">
-        <div class="col-md-10 col-md-offset-1">
-            <h2><?php echo __d('dane', 'LC_DANE_GMINA_DO_KTOREJ_ZOSTAL_WYBRANY_RADNY'); ?>:</h2>
+    <div class="object block-group col-xs-12">
 
-            <div class="col-md-12">
-                <div class="col-md-2">
-                    <a href="<?php echo $this->Html->url(array('plugin' => 'Dane', 'controller' => 'gminy', 'action' => 'view', 'id' => $object->getData('gminy.id'))); ?>">
-                        <img
-                            src="http://resources.sejmometr.pl/gminy/thumbs/png/<?php echo $object->getData('gminy.id'); ?>.png"
-                            class="pull-left"/>
-                    </a>
-                </div>
-                <div class="col-md-10">
-                    <h3>
-                        <a href="<?php echo $this->Html->url(array('plugin' => 'Dane', 'controller' => 'gminy', 'action' => 'view', 'id' => $object->getData('gminy.id'))); ?>">
-                            <?php echo $object->getData('gminy.nazwa'); ?>
-                        </a>
-                    </h3>
+        <? if ($wystapienia) { ?>
+            <div class="block">
+
+                <div class="block-header"><h2 class="label">Wystąpienia na sesjach rady gminy</h2></div>
+
+                <div class="content">
+                    <div class="dataobjectsSliderRow row">
+                        <div>
+                            <?php echo $this->dataobjectsSlider->render($wystapienia, array(
+                                'perGroup' => 4,
+                                'rowNumber' => 1,
+                                'labelMode' => 'none',
+                                'file' => 'radni_gmin_wystapienia',
+                                'dfFields' => array('rady_gmin_posiedzenia.data'),
+                            )) ?>
+                        </div>
+                    </div>
                 </div>
             </div>
+        <? } ?>
+
+        <div class="block">
+            <div class="block-header"><h2 class="label">Dane wyborcze</h2></div>
+
+            <div class="content">
+                <?php echo $this->Dataobject->hlTableForObject($object, array(
+                    'rady_gmin_komitety.nazwa',
+                    'poparcie'
+                ), array(
+                    'col_width' => 3,
+                    'display' => 'firstRow',
+                    'limit' => 100,
+                )); ?>
+            </div>
         </div>
+
+        <div class="block">
+
+            <div class="content">
+                <?php echo $this->Dataobject->hlTableForObject($object, array(
+                    'rady_gmin_okregi.nr_okregu',
+                    'numer_listy',
+                    'pozycja',
+                    'liczba_glosow',
+                    'procent_glosow_w_okregu'
+                ), array(
+                    'col_width' => 2,
+                    'display' => 'firstRow',
+                    'limit' => 100,
+                )); ?>
+            </div>
+        </div>
+
+        <div class="block">
+            <div class="block-header"><h2 class="label">Pochodzenie</h2></div>
+
+            <div class="content">
+                <?php echo $this->Dataobject->hlTableForObject($object, array(
+                    'miejsce_zamieszkania',
+                    'obywatelstwo'
+                ), array(
+                    'col_width' => 3,
+                    'display' => 'firstRow',
+                    'limit' => 100,
+                )); ?>
+            </div>
+        </div>
+
+
     </div>
 <?= $this->Element('dataobject/pageEnd'); ?>

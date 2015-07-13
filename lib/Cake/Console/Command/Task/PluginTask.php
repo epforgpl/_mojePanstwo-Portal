@@ -17,220 +17,219 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('AppShell', 'Console/Command');
-App::uses('File', 'Utility');
-App::uses('Folder', 'Utility');
+App::uses( 'AppShell', 'Console/Command' );
+App::uses( 'File', 'Utility' );
+App::uses( 'Folder', 'Utility' );
 
 /**
  * The Plugin Task handles creating an empty plugin, ready to be used
  *
  * @package       Cake.Console.Command.Task
  */
-class PluginTask extends AppShell
-{
+class PluginTask extends AppShell {
 
-    /**
-     * path to plugins directory
-     *
-     * @var array
-     */
-    public $path = null;
+	/**
+	 * path to plugins directory
+	 *
+	 * @var array
+	 */
+	public $path = null;
 
-    /**
-     * Path to the bootstrap file. Changed in tests.
-     *
-     * @var string
-     */
-    public $bootstrap = null;
+	/**
+	 * Path to the bootstrap file. Changed in tests.
+	 *
+	 * @var string
+	 */
+	public $bootstrap = null;
 
-    /**
-     * initialize
-     *
-     * @return void
-     */
-    public function initialize()
-    {
-        $this->path = current(App::path('plugins'));
-        $this->bootstrap = APP . 'Config' . DS . 'bootstrap.php';
-    }
+	/**
+	 * initialize
+	 *
+	 * @return void
+	 */
+	public function initialize() {
+		$this->path      = current( App::path( 'plugins' ) );
+		$this->bootstrap = APP . 'Config' . DS . 'bootstrap.php';
+	}
 
-    /**
-     * Execution method always used for tasks
-     *
-     * @return void
-     */
-    public function execute()
-    {
-        if (isset($this->args[0])) {
-            $plugin = Inflector::camelize($this->args[0]);
-            $pluginPath = $this->_pluginPath($plugin);
-            if (is_dir($pluginPath)) {
-                $this->out(__d('cake_console', 'Plugin: %s already exists, no action taken', $plugin));
-                $this->out(__d('cake_console', 'Path: %s', $pluginPath));
-                return false;
-            }
-            $this->_interactive($plugin);
-        } else {
-            return $this->_interactive();
-        }
-    }
+	/**
+	 * Execution method always used for tasks
+	 *
+	 * @return void
+	 */
+	public function execute() {
+		if ( isset( $this->args[0] ) ) {
+			$plugin     = Inflector::camelize( $this->args[0] );
+			$pluginPath = $this->_pluginPath( $plugin );
+			if ( is_dir( $pluginPath ) ) {
+				$this->out( __d( 'cake_console', 'Plugin: %s already exists, no action taken', $plugin ) );
+				$this->out( __d( 'cake_console', 'Path: %s', $pluginPath ) );
 
-    /**
-     * Interactive interface
-     *
-     * @param string $plugin
-     * @return void
-     */
-    protected function _interactive($plugin = null)
-    {
-        while ($plugin === null) {
-            $plugin = $this->in(__d('cake_console', 'Enter the name of the plugin in CamelCase format'));
-        }
+				return false;
+			}
+			$this->_interactive( $plugin );
+		} else {
+			return $this->_interactive();
+		}
+	}
 
-        if (!$this->bake($plugin)) {
-            $this->error(__d('cake_console', "An error occurred trying to bake: %s in %s", $plugin, $this->path . $plugin));
-        }
-    }
+	/**
+	 * Interactive interface
+	 *
+	 * @param string $plugin
+	 *
+	 * @return void
+	 */
+	protected function _interactive( $plugin = null ) {
+		while ( $plugin === null ) {
+			$plugin = $this->in( __d( 'cake_console', 'Enter the name of the plugin in CamelCase format' ) );
+		}
 
-    /**
-     * Bake the plugin, create directories and files
-     *
-     * @param string $plugin Name of the plugin in CamelCased format
-     * @return boolean
-     */
-    public function bake($plugin)
-    {
-        $pathOptions = App::path('plugins');
-        if (count($pathOptions) > 1) {
-            $this->findPath($pathOptions);
-        }
-        $this->hr();
-        $this->out(__d('cake_console', "<info>Plugin Name:</info> %s", $plugin));
-        $this->out(__d('cake_console', "<info>Plugin Directory:</info> %s", $this->path . $plugin));
-        $this->hr();
+		if ( ! $this->bake( $plugin ) ) {
+			$this->error( __d( 'cake_console', "An error occurred trying to bake: %s in %s", $plugin, $this->path . $plugin ) );
+		}
+	}
 
-        $looksGood = $this->in(__d('cake_console', 'Look okay?'), array('y', 'n', 'q'), 'y');
+	/**
+	 * Bake the plugin, create directories and files
+	 *
+	 * @param string $plugin Name of the plugin in CamelCased format
+	 *
+	 * @return boolean
+	 */
+	public function bake( $plugin ) {
+		$pathOptions = App::path( 'plugins' );
+		if ( count( $pathOptions ) > 1 ) {
+			$this->findPath( $pathOptions );
+		}
+		$this->hr();
+		$this->out( __d( 'cake_console', "<info>Plugin Name:</info> %s", $plugin ) );
+		$this->out( __d( 'cake_console', "<info>Plugin Directory:</info> %s", $this->path . $plugin ) );
+		$this->hr();
 
-        if (strtolower($looksGood) === 'y') {
-            $Folder = new Folder($this->path . $plugin);
-            $directories = array(
-                'Config' . DS . 'Schema',
-                'Model' . DS . 'Behavior',
-                'Model' . DS . 'Datasource',
-                'Console' . DS . 'Command' . DS . 'Task',
-                'Controller' . DS . 'Component',
-                'Lib',
-                'View' . DS . 'Helper',
-                'Test' . DS . 'Case' . DS . 'Controller' . DS . 'Component',
-                'Test' . DS . 'Case' . DS . 'View' . DS . 'Helper',
-                'Test' . DS . 'Case' . DS . 'Model' . DS . 'Behavior',
-                'Test' . DS . 'Fixture',
-                'Vendor',
-                'webroot'
-            );
+		$looksGood = $this->in( __d( 'cake_console', 'Look okay?' ), array( 'y', 'n', 'q' ), 'y' );
 
-            foreach ($directories as $directory) {
-                $dirPath = $this->path . $plugin . DS . $directory;
-                $Folder->create($dirPath);
-                new File($dirPath . DS . 'empty', true);
-            }
+		if ( strtolower( $looksGood ) === 'y' ) {
+			$Folder      = new Folder( $this->path . $plugin );
+			$directories = array(
+				'Config' . DS . 'Schema',
+				'Model' . DS . 'Behavior',
+				'Model' . DS . 'Datasource',
+				'Console' . DS . 'Command' . DS . 'Task',
+				'Controller' . DS . 'Component',
+				'Lib',
+				'View' . DS . 'Helper',
+				'Test' . DS . 'Case' . DS . 'Controller' . DS . 'Component',
+				'Test' . DS . 'Case' . DS . 'View' . DS . 'Helper',
+				'Test' . DS . 'Case' . DS . 'Model' . DS . 'Behavior',
+				'Test' . DS . 'Fixture',
+				'Vendor',
+				'webroot'
+			);
 
-            foreach ($Folder->messages() as $message) {
-                $this->out($message, 1, Shell::VERBOSE);
-            }
+			foreach ( $directories as $directory ) {
+				$dirPath = $this->path . $plugin . DS . $directory;
+				$Folder->create( $dirPath );
+				new File( $dirPath . DS . 'empty', true );
+			}
 
-            $errors = $Folder->errors();
-            if (!empty($errors)) {
-                foreach ($errors as $message) {
-                    $this->error($message);
-                }
-                return false;
-            }
+			foreach ( $Folder->messages() as $message ) {
+				$this->out( $message, 1, Shell::VERBOSE );
+			}
 
-            $controllerFileName = $plugin . 'AppController.php';
+			$errors = $Folder->errors();
+			if ( ! empty( $errors ) ) {
+				foreach ( $errors as $message ) {
+					$this->error( $message );
+				}
 
-            $out = "<?php\n\n";
-            $out .= "App::uses('AppController', 'Controller');\n\n";
-            $out .= "class {$plugin}AppController extends AppController {\n\n";
-            $out .= "}\n";
-            $this->createFile($this->path . $plugin . DS . 'Controller' . DS . $controllerFileName, $out);
+				return false;
+			}
 
-            $modelFileName = $plugin . 'AppModel.php';
+			$controllerFileName = $plugin . 'AppController.php';
 
-            $out = "<?php\n\n";
-            $out .= "App::uses('AppModel', 'Model');\n\n";
-            $out .= "class {$plugin}AppModel extends AppModel {\n\n";
-            $out .= "}\n";
-            $this->createFile($this->path . $plugin . DS . 'Model' . DS . $modelFileName, $out);
+			$out = "<?php\n\n";
+			$out .= "App::uses('AppController', 'Controller');\n\n";
+			$out .= "class {$plugin}AppController extends AppController {\n\n";
+			$out .= "}\n";
+			$this->createFile( $this->path . $plugin . DS . 'Controller' . DS . $controllerFileName, $out );
 
-            $this->_modifyBootstrap($plugin);
+			$modelFileName = $plugin . 'AppModel.php';
 
-            $this->hr();
-            $this->out(__d('cake_console', '<success>Created:</success> %s in %s', $plugin, $this->path . $plugin), 2);
-        }
+			$out = "<?php\n\n";
+			$out .= "App::uses('AppModel', 'Model');\n\n";
+			$out .= "class {$plugin}AppModel extends AppModel {\n\n";
+			$out .= "}\n";
+			$this->createFile( $this->path . $plugin . DS . 'Model' . DS . $modelFileName, $out );
 
-        return true;
-    }
+			$this->_modifyBootstrap( $plugin );
 
-    /**
-     * Update the app's bootstrap.php file.
-     *
-     * @param string $plugin Name of plugin
-     * @return void
-     */
-    protected function _modifyBootstrap($plugin)
-    {
-        $bootstrap = new File($this->bootstrap, false);
-        $contents = $bootstrap->read();
-        if (!preg_match("@\n\s*CakePlugin::loadAll@", $contents)) {
-            $bootstrap->append("\nCakePlugin::load('$plugin', array('bootstrap' => false, 'routes' => false));\n");
-            $this->out('');
-            $this->out(__d('cake_dev', '%s modified', $this->bootstrap));
-        }
-    }
+			$this->hr();
+			$this->out( __d( 'cake_console', '<success>Created:</success> %s in %s', $plugin, $this->path . $plugin ), 2 );
+		}
 
-    /**
-     * find and change $this->path to the user selection
-     *
-     * @param array $pathOptions
-     * @return void
-     */
-    public function findPath($pathOptions)
-    {
-        $valid = false;
-        foreach ($pathOptions as $i => $path) {
-            if (!is_dir($path)) {
-                array_splice($pathOptions, $i, 1);
-            }
-        }
-        $max = count($pathOptions);
-        while (!$valid) {
-            foreach ($pathOptions as $i => $option) {
-                $this->out($i + 1 . '. ' . $option);
-            }
-            $prompt = __d('cake_console', 'Choose a plugin path from the paths above.');
-            $choice = $this->in($prompt, null, 1);
-            if (intval($choice) > 0 && intval($choice) <= $max) {
-                $valid = true;
-            }
-        }
-        $this->path = $pathOptions[$choice - 1];
-    }
+		return true;
+	}
 
-    /**
-     * get the option parser for the plugin task
-     *
-     * @return void
-     */
-    public function getOptionParser()
-    {
-        $parser = parent::getOptionParser();
-        return $parser->description(__d('cake_console',
-            'Create the directory structure, AppModel and AppController classes for a new plugin. ' .
-            'Can create plugins in any of your bootstrapped plugin paths.'
-        ))->addArgument('name', array(
-                'help' => __d('cake_console', 'CamelCased name of the plugin to create.')
-            ));
-    }
+	/**
+	 * find and change $this->path to the user selection
+	 *
+	 * @param array $pathOptions
+	 *
+	 * @return void
+	 */
+	public function findPath( $pathOptions ) {
+		$valid = false;
+		foreach ( $pathOptions as $i => $path ) {
+			if ( ! is_dir( $path ) ) {
+				array_splice( $pathOptions, $i, 1 );
+			}
+		}
+		$max = count( $pathOptions );
+		while ( ! $valid ) {
+			foreach ( $pathOptions as $i => $option ) {
+				$this->out( $i + 1 . '. ' . $option );
+			}
+			$prompt = __d( 'cake_console', 'Choose a plugin path from the paths above.' );
+			$choice = $this->in( $prompt, null, 1 );
+			if ( intval( $choice ) > 0 && intval( $choice ) <= $max ) {
+				$valid = true;
+			}
+		}
+		$this->path = $pathOptions[ $choice - 1 ];
+	}
+
+	/**
+	 * Update the app's bootstrap.php file.
+	 *
+	 * @param string $plugin Name of plugin
+	 *
+	 * @return void
+	 */
+	protected function _modifyBootstrap( $plugin ) {
+		$bootstrap = new File( $this->bootstrap, false );
+		$contents  = $bootstrap->read();
+		if ( ! preg_match( "@\n\s*CakePlugin::loadAll@", $contents ) ) {
+			$bootstrap->append( "\nCakePlugin::load('$plugin', array('bootstrap' => false, 'routes' => false));\n" );
+			$this->out( '' );
+			$this->out( __d( 'cake_dev', '%s modified', $this->bootstrap ) );
+		}
+	}
+
+	/**
+	 * get the option parser for the plugin task
+	 *
+	 * @return void
+	 */
+	public function getOptionParser() {
+		$parser = parent::getOptionParser();
+
+		return $parser->description( __d( 'cake_console',
+			'Create the directory structure, AppModel and AppController classes for a new plugin. ' .
+			'Can create plugins in any of your bootstrapped plugin paths.'
+		) )->addArgument( 'name', array(
+			'help' => __d( 'cake_console', 'CamelCased name of the plugin to create.' )
+		) );
+	}
 
 }

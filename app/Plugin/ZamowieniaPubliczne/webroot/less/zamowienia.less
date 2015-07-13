@@ -1,34 +1,73 @@
-#_wrapper {
-    font-family: "Lato", sans-serif;
+.dataAggs {
+    .wykonawcy {
+        > li {
+            list-style: none;
+            margin: 0 0 10px;
+            padding: 0;
+            border-bottom: 1px solid #DDD;
 
-    h1 {
-        font-weight: 400;
-    }
+            &:last-child {
+                border-bottom: none;
+            }
 
-    h2 {
-        font-weight: 300;
-        margin-bottom: 5px;
-        margin-left: 40px;
-        margin-top: 10px;
-    }
+            > .nazwa {
+                padding-right: 5px;
+            }
+            > .cena {
+                color: #282;
+            }
 
-    #zamowienia {
-        margin-bottom: 50px;
+            header {
+                font-weight: normal;
+                overflow: auto;
+                font-size: 16px;
+                margin-bottom: 5px;
 
-        .banner p {
-            font-size: 18px;
-            font-weight: 300;
+                &.smaller {
+                    font-size: 16px;
+                }
+
+                .cena {
+                    color: green;
+                }
+
+            }
+
+            .stats {
+                color: #666;
+                font-size: 14px;
+                font-style: italic;
+
+                strong {
+                    font-weight: normal;
+                }
+            }
+
+            .dataobjects {
+                padding: 0 15px;
+
+                &.smaller {
+                    .objectRender .title {
+                        font-size: 14px;
+                    }
+                }
+
+                .objectRender .title {
+
+                    a {
+                        color: #545454;
+                        &:hover {
+                            color: #2a6496;
+                        }
+                    }
+
+                }
+
+                .meta.meta-desc {
+                    color: green;
+                }
+            }
         }
 
-        #highchartContainer {
-            height: 300px;
-            width: 100%;
-        }
     }
-
-    .searchDiv {
-        margin: 35px 0 20px;
-        overflow: auto;
-    }
-
 }

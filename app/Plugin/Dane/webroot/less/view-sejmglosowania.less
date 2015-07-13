@@ -6,7 +6,7 @@
 
         h2 {
             margin-top: 0;
-            font-family: "Lato", sans-serif;
+            font-family: "Lato", Arial, sans-serif;
             font-size: 20px;
             font-weight: 400;
         }
@@ -15,17 +15,29 @@
             tr {
                 text-align: center;
 
+                &.active {
+                    background-color: #EEEEEE;
+                }
+
                 th {
-                    font-family: "Lato", sans-serif;
+                    font-family: "Lato", Arial, sans-serif;
                     font-size: 12px;
                     font-weight: 700;
                     text-align: center;
+
+                    &.searchableVote {
+                        cursor: pointer;
+                    }
                 }
 
                 td {
-                    font-family: "Lato", sans-serif;
+                    font-family: "Lato", Arial, sans-serif;
                     font-size: 13px;
                     font-weight: 400;
+
+                    &.club {
+                        cursor: pointer;
+                    }
 
                     img {
                         height: 25px;
@@ -40,86 +52,96 @@
         }
 
         &.indywidualneTable {
-            .slide {
-                @paddingSize: 10px;
-                @imgSize: 90px;
+            .searchName {
+                margin-bottom: 15px;
+            }
 
-                padding-top: @paddingSize;
-                padding-bottom: @paddingSize;
-                margin-bottom: 10px;
+            .results {
+                float: left;
 
-                .person {
-                    width: 70%;
-                    float: left;
+                .slide {
+                    @paddingSize: 15px;
+                    @imgSize: 90px;
 
-                    .avatar {
-                        float: left;
-                        margin-right: 5px;
-                        width: @imgSize;
-                        height: @imgSize;
-                        border: 2px solid #EEEEEE;
-                        border-radius: @imgSize;
-                        overflow: hidden;
+                    padding: @paddingSize;
 
-                        img {
-                            width: @imgSize;
-                            position: relative;
-                            z-index: 1;
-                        }
+                    &:nth-child(even) {
+                        background-color: #f7f7f7;
                     }
-                    .info {
-                        float: left;
-                        width: 50%;
-                        height: @imgSize;
-                        position: relative;
-                        margin-top: 20px;
-                        text-align: center;
-                        vertical-align: middle;
 
-                        .poselName {
-                            margin-bottom: 5px;
-                            font-family: "Lato", sans-serif;
-                            font-size: 16px;
-                            font-weight: 400;
-                            line-height: 1em;
-                        }
-                        .clubName {
-                            color: #000000;
-                            font-family: "Lato", sans-serif;
-                            font-size: 14px;
-                            font-weight: 700;
-                            position: absolute;
-                            left: -15px;
-                            bottom: 10px;
+                    .person {
+                        width: 70%;
+                        float: left;
+
+                        .avatar {
+                            float: left;
+                            margin-right: 5px;
+                            width: @imgSize;
+                            height: @imgSize;
+                            border: 2px solid #EEEEEE;
+                            border-radius: @imgSize;
+                            overflow: hidden;
 
                             img {
-                                height: 25px;
+                                width: @imgSize;
+                                position: relative;
+                                z-index: 1;
+                            }
+                        }
+                        .info {
+                            float: left;
+                            width: 50%;
+                            height: @imgSize;
+                            position: relative;
+                            margin-top: 20px;
+                            text-align: center;
+                            vertical-align: middle;
+
+                            .poselName {
+                                margin-bottom: 5px;
+                                font-family: "Lato", Arial, sans-serif;
+                                font-size: 16px;
+                                font-weight: 400;
+                                line-height: 1em;
+                            }
+                            .clubName {
+                                color: #000000;
+                                font-family: "Lato", Arial, sans-serif;
+                                font-size: 14px;
+                                font-weight: 700;
+                                position: absolute;
+                                left: -15px;
+                                bottom: 10px;
+
+                                img {
+                                    height: 25px;
+                                }
                             }
                         }
                     }
-                }
-                .voted {
-                    width: 30%;
-                    float: right;
-                    color: #121212;
-                    font-family: "Lato", sans-serif;
-                    font-size: 13px;
-                    font-weight: 400;
-                    margin-top: @imgSize/3;
+                    .voted {
+                        width: 30%;
+                        float: right;
+                        color: #121212;
+                        font-family: "Lato", Arial, sans-serif;
+                        font-size: 13px;
+                        font-weight: 400;
+                        margin-top: @imgSize/3;
 
-                    &.btn-glos-1 {
-                        background-color: #5CB85C;
-                        border-color: #4CAE4C;
-                        color: #FFFFFF;
-                    }
-                    &.btn-glos-2 {
-                        background-color: #D9534F;
-                        border-color: #D43F3A;
-                        color: #FFFFFF;
-                    }
-                    &.btn-glos-3 {
-                        background-color: #EBEBEB;
-                        border-color: #ADADAD;
+                        &.btn-glos-1 {
+                            background-color: #5CB85C;
+                            border-color: #4CAE4C;
+                            color: #FFFFFF;
+                        }
+                        &.btn-glos-2 {
+                            background-color: #D9534F;
+                            border-color: #D43F3A;
+                            color: #FFFFFF;
+                        }
+                        &.btn-glos-3 {
+                            background-color: #EBEBEB;
+                            border-color: #ADADAD;
+                        }
                     }
                 }
             }

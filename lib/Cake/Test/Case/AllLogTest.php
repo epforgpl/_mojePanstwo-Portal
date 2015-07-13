@@ -25,19 +25,18 @@
  *
  * @package       Cake.Test.Case
  */
-class AllLogTest extends PHPUnit_Framework_TestSuite
-{
+class AllLogTest extends PHPUnit_Framework_TestSuite {
 
-    /**
-     * suite method, defines tests for this suite.
-     *
-     * @return void
-     */
-    public static function suite()
-    {
-        $suite = new CakeTestSuite('All Logging related class tests');
-        $suite->addTestDirectory(CORE_TEST_CASES . DS . 'Log');
-        $suite->addTestDirectory(CORE_TEST_CASES . DS . 'Log' . DS . 'Engine');
-        return $suite;
-    }
+	/**
+	 * suite method, defines tests for this suite.
+	 *
+	 * @return void
+	 */
+	public static function suite() {
+		$suite = new CakeTestSuite( 'All Logging related class tests' );
+		$suite->addTestDirectory( CORE_TEST_CASES . DS . 'Log' );
+		$suite->addTestDirectory( CORE_TEST_CASES . DS . 'Log' . DS . 'Engine' );
+
+		return $suite;
+	}
 }

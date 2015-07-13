@@ -40,32 +40,6 @@ class LessHelper extends AppHelper
         $this->cssFolder = new Folder(WWW_ROOT . 'css');
     }
 
-    /**
-     * When called, will reset lessFolder for specific theme
-     *
-     * @note Note that it assumes themes are stored in app/View/Themed
-     *
-     * @param string $theme_name
-     */
-    private function set_theme($theme_name)
-    {
-
-        $app_root = ROOT . DS . APP_DIR;
-
-        $theme_path = DS . $app_root . DS . 'View' . DS . 'Themed' . DS . $theme_name . DS . 'webroot' . DS;
-        $this->lessFolder = new Folder($theme_path . 'less');
-        $this->cssFolder = new Folder($theme_path . 'css');
-
-    }
-
-    private function set_plugin($plugin_name)
-    {
-        $app_root = ROOT . DS . APP_DIR;
-        $plugin_path = $app_root . DS . 'Plugin' . DS . $plugin_name . DS . 'webroot' . DS;
-        $this->lessFolder = new Folder($plugin_path . 'less');
-        $this->cssFolder = new Folder($plugin_path . 'css');
-    }
-
     public function css($file, $options = array())
     {
 
@@ -97,7 +71,34 @@ class LessHelper extends AppHelper
         if (isset($options['plugin']) and trim($options['plugin'])) {
             $file = $options['plugin'] . '.' . $file;
         }
+
         return $file;
+    }
+
+    /**
+     * When called, will reset lessFolder for specific theme
+     *
+     * @note Note that it assumes themes are stored in app/View/Themed
+     *
+     * @param string $theme_name
+     */
+    private function set_theme($theme_name)
+    {
+
+        $app_root = ROOT . DS . APP_DIR;
+
+        $theme_path = DS . $app_root . DS . 'View' . DS . 'Themed' . DS . $theme_name . DS . 'webroot' . DS;
+        $this->lessFolder = new Folder($theme_path . 'less');
+        $this->cssFolder = new Folder($theme_path . 'css');
+
+    }
+
+    private function set_plugin($plugin_name)
+    {
+        $app_root = ROOT . DS . APP_DIR;
+        $plugin_path = $app_root . DS . 'Plugin' . DS . $plugin_name . DS . 'webroot' . DS;
+        $this->lessFolder = new Folder($plugin_path . 'less');
+        $this->cssFolder = new Folder($plugin_path . 'css');
     }
 
     public function auto_compile_less($lessFilename, $cssFilename, $plugin = null)
@@ -106,11 +107,13 @@ class LessHelper extends AppHelper
         // Check if cache & output folders are writable and the less file exists.
         if (!is_writable(CACHE . 'less')) {
             trigger_error(__d('cake_dev', '"%s" directory is NOT writable.', CACHE . 'less'), E_USER_NOTICE);
+
             return;
         }
 
         if (file_exists($lessFilename) == false) {
             trigger_error(__d('cake_dev', 'File: "%s" not found.', $lessFilename), E_USER_NOTICE);
+
             return;
         }
 

@@ -41,6 +41,7 @@ class TimedBehavior extends ModelBehavior
      *
      * @param \Model|object $Model Model using the behavior
      * @param array $settings Settings to override for model.
+     *
      * @return void
      */
     public function setup(Model $Model, $settings = null)
@@ -57,11 +58,13 @@ class TimedBehavior extends ModelBehavior
      *
      * @param Model $Model
      * @param array $queryData Array of query data (not modified)
+     *
      * @return boolean true
      */
     public function beforeFind(Model $Model, $queryData)
     {
         DebugKitDebugger::startTimer($Model->alias . '_find', $Model->alias . '->find()');
+
         return true;
     }
 
@@ -71,11 +74,13 @@ class TimedBehavior extends ModelBehavior
      * @param Model $Model
      * @param array $results Array of results
      * @param $primary
+     *
      * @return boolean true.
      */
     public function afterFind(Model $Model, $results, $primary = false)
     {
         DebugKitDebugger::stopTimer($Model->alias . '_find');
+
         return true;
     }
 
@@ -84,11 +89,13 @@ class TimedBehavior extends ModelBehavior
      *
      * @param Model $Model
      * @param array $options
+     *
      * @return boolean true
      */
     public function beforeSave(Model $Model, $options = array())
     {
         DebugKitDebugger::startTimer($Model->alias . '_save', $Model->alias . '->save()');
+
         return true;
     }
 
@@ -97,11 +104,13 @@ class TimedBehavior extends ModelBehavior
      *
      * @param \Model $Model
      * @param string $created
+     *
      * @return boolean Always true
      */
     public function afterSave(Model $Model, $created, $options = array())
     {
         DebugKitDebugger::stopTimer($Model->alias . '_save');
+
         return true;
     }
 

@@ -6,7 +6,6 @@
 
 <?php $this->Combinator->add_libs('js', 'Paszport.enhance.min'); ?>
 <?php $this->Combinator->add_libs('js', 'Paszport.bootstrap-datepicker'); ?>
-<?php $this->Combinator->add_libs('js', 'Paszport.bootstrap-select'); ?>
 <?php $this->Combinator->add_libs('js', 'Paszport.jqBootstrapValidation'); ?>
 <?php $this->Combinator->add_libs('js', 'Paszport.fileinput.jquery'); ?>
 <?php $this->Combinator->add_libs('js', 'Paszport.main'); ?>

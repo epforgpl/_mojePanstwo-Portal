@@ -49,16 +49,21 @@ class FacebookHelperTestCase extends CakeTestCase
     public function testDisconnect()
     {
         $results = $this->Facebook->disconnect();
-        $this->assertEqual('<a href="#" onclick="FB.api({ method: &#039;Auth.revokeAuthorization&#039; }, function(response) {window.location.reload();});">logout</a>', $results);
+        $this->assertEqual('<a href="#" onclick="FB.api({ method: &#039;Auth.revokeAuthorization&#039; }, function(response) {window.location.reload();})">logout</a>', $results);
 
         $results = $this->Facebook->disconnect(array('label' => 'disconnect'));
-        $this->assertEqual('<a href="#" onclick="FB.api({ method: &#039;Auth.revokeAuthorization&#039; }, function(response) {window.location.reload();});">disconnect</a>', $results);
+        $this->assertEqual('<a href="#" onclick="FB.api({ method: &#039;Auth.revokeAuthorization&#039; }, function(response) {window.location.reload();})">disconnect</a>', $results);
 
-        $results = $this->Facebook->disconnect(array('redirect' => array('controller' => 'users', 'action' => 'logout')));
-        $this->assertEqual('<a href="#" onclick="FB.api({ method: &#039;Auth.revokeAuthorization&#039; }, function(response) {window.location = &#039;/users/logout&#039;});">logout</a>', $results);
+        $results = $this->Facebook->disconnect(array(
+            'redirect' => array(
+                'controller' => 'users',
+                'action' => 'logout'
+            )
+        ));
+        $this->assertEqual('<a href="#" onclick="FB.api({ method: &#039;Auth.revokeAuthorization&#039; }, function(response) {window.location = &#039;/users/logout&#039;})">logout</a>', $results);
 
         $results = $this->Facebook->disconnect(array('confirm' => 'Are you sure?'));
-        $this->assertEqual('<a href="#" onclick="if(confirm(&quot;Are you sure?&quot;)){FB.api({ method: &#039;Auth.revokeAuthorization&#039; }, function(response) {window.location.reload();});}">logout</a>', $results);
+        $this->assertEqual('<a href="#" onclick="if(confirm(&quot;Are you sure?&quot;)){FB.api({ method: &#039;Auth.revokeAuthorization&#039; }, function(response) {window.location.reload();})}">logout</a>', $results);
     }
 
     public function testInfo()

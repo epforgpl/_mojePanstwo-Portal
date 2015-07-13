@@ -36,6 +36,7 @@ class DebugKitGroupTestCase extends PHPUnit_Framework_TestSuite
      *
      * @param null $directory
      * @param null $excludes
+     *
      * @return array
      */
     public static function getTestFiles($directory = null, $excludes = null)
@@ -45,6 +46,7 @@ class DebugKitGroupTestCase extends PHPUnit_Framework_TestSuite
             foreach ($directory as $d) {
                 $files = array_merge($files, self::getTestFiles($d, $excludes));
             }
+
             return array_unique($files);
         }
 

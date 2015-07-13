@@ -1,3 +1,3 @@
-<?php echo $this->fetch('content'); ?>
+<?php echo $this->fetch( 'content' ); ?>
 
 This email was sent using the TestPlugin.

@@ -26,6 +26,5 @@
  *
  * @package       Cake.Test.TestApp.Model.Behavior
  */
-class PersisterOneBehaviorBehavior extends ModelBehavior
-{
+class PersisterOneBehaviorBehavior extends ModelBehavior {
 }

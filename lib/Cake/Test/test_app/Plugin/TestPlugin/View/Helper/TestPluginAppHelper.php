@@ -1,6 +1,5 @@
 <?php
 
-class TestPluginAppHelper extends AppHelper
-{
+class TestPluginAppHelper extends AppHelper {
 
 }

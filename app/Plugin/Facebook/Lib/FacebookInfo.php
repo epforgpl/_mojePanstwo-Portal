@@ -28,27 +28,6 @@ class FacebookInfo
     public static $configs = array();
 
     /**
-     * Testing getting a configuration option.
-     * @param key to search for
-     * @return mixed result of configuration key.
-     * @access public
-     */
-    static function getConfig($key = null)
-    {
-        if (!empty($key)) {
-            if (isset(self::$configs[$key]) || (self::$configs[$key] = Configure::read("Facebook.$key"))) {
-                return self::$configs[$key];
-            } elseif (Configure::load('facebook') && (self::$configs[$key] = Configure::read("Facebook.$key"))) {
-                return self::$configs[$key];
-            }
-        } else {
-            Configure::load('facebook');
-            return Configure::read('Facebook');
-        }
-        return null;
-    }
-
-    /**
      * Get the version of the Facebook Plugin
      * @return string version number
      */
@@ -109,10 +88,10 @@ class FacebookInfo
     static function description()
     {
         return "The purpose of the Facebook plugin is to
-	provide a seamless way to connect your cakePHP app 
-	to everyone's favorite social networking site -- Facebook. 
-	The goal for this plugin is to not only provide extremely 
-	useful dynamic features but to also provide a complete 
+	provide a seamless way to connect your cakePHP app
+	to everyone's favorite social networking site -- Facebook.
+	The goal for this plugin is to not only provide extremely
+	useful dynamic features but to also provide a complete
 	interface to the Facebook API.";
     }
 
@@ -126,7 +105,9 @@ class FacebookInfo
 
     /**
      * Random strong string password generator
+     *
      * @param int length
+     *
      * @return string password
      */
     static function randPass($length = 8)
@@ -144,7 +125,9 @@ class FacebookInfo
 
     /**
      * Parse the signed request from registration
+     *
      * @param string signed request
+     *
      * @return associative array of registration data
      */
     static function parseSignedRequest($signed_request)
@@ -158,6 +141,7 @@ class FacebookInfo
 
         if (strtoupper($data['algorithm']) !== 'HMAC-SHA256') {
             error_log('Unknown algorithm. Expected HMAC-SHA256');
+
             return null;
         }
 
@@ -165,6 +149,7 @@ class FacebookInfo
         $expected_sig = hash_hmac('sha256', $payload, $secret, $raw = true);
         if ($sig !== $expected_sig) {
             error_log('Bad Signed JSON signature!');
+
             return null;
         }
 
@@ -172,8 +157,35 @@ class FacebookInfo
     }
 
     /**
+     * Testing getting a configuration option.
+     *
+     * @param key to search for
+     *
+     * @return mixed result of configuration key.
+     * @access public
+     */
+    static function getConfig($key = null)
+    {
+        if (!empty($key)) {
+            if (isset(self::$configs[$key]) || (self::$configs[$key] = Configure::read("Facebook.$key"))) {
+                return self::$configs[$key];
+            } elseif (Configure::load('facebook') && (self::$configs[$key] = Configure::read("Facebook.$key"))) {
+                return self::$configs[$key];
+            }
+        } else {
+            Configure::load('facebook');
+
+            return Configure::read('Facebook');
+        }
+
+        return null;
+    }
+
+    /**
      * Helper function to base64 decode a string passed through a url.
+     *
      * @param string input
+     *
      * @return string base64_decoded
      */
     static function base64_url_decode($input)

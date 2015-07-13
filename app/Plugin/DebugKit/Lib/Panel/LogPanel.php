@@ -48,11 +48,13 @@ class LogPanel extends DebugPanel
      * beforeRender Callback
      *
      * @param Controller $controller
+     *
      * @return array
      */
     public function beforeRender(Controller $controller)
     {
         $logger = $this->logger;
+
         return $logger;
     }
 }

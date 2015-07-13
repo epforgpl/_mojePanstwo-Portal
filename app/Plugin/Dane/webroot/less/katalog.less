@@ -1,18 +1,9 @@
+#_mojePanstwoCockpit ._mojePanstwoCockpitContent ._mojePanstwoCockpitSearchInput {
+    display: block;
+}
+
 #_main {
     margin-top: 75px;
-
-    .searchBar {
-        height: 75px;
-        position: fixed;
-        top: 40px;
-        left: 0;
-        z-index: 100;
-        -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=162, Color=#aaa)"; /*IE 8*/
-        -moz-box-shadow: 1px 3px 3px #aaa; /*FF 3.5+*/
-        -webkit-box-shadow: 1px 3px 3px #aaa; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-        box-shadow: 1px 3px 3px #aaa; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
-        filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=162, Color=#aaa); /*IE 5.5-7*/
-    }
 }
 
 .form-control.search {
@@ -20,36 +11,39 @@
 }
 
 .stripe {
-
     background-color: #F3F3F3;
 
     &.odd {
-        background-color: #EBEBEB;
-
+        background-color: #EAEAEA;
     }
 }
 
 .catalog {
-    font-family: "Lato", sans-serif;
+    font-family: "Lato", Arial, sans-serif;
 
     .catalogSquares {
 
         h2:first-child {
-            margin-top: 0px;
+            margin-top: 0;
         }
 
         h2 {
             font-size: 40px;
             font-weight: 300;
             color: #666;
-            font-family: "Lato", sans-serif;
+            font-family: "Lato", Arial, sans-serif;
             margin-bottom: 10px;
             margin-left: 5px;
 
             small {
                 font-size: 16px;
-                color: #157AB5;
+                color: #555;
                 margin-left: 10px;
+                font-weight: 300;
+
+                strong {
+                    font-weight: 400;
+                }
             }
         }
 
@@ -71,15 +65,16 @@
 
             .description .title {
                 margin-top: 0;
-                font-family: "Lato", sans-serif;
+                font-family: "Lato", Arial, sans-serif;
                 margin-bottom: 3px;
+                float: left;
             }
         }
 
         .datachannel {
             overflow: auto;
             margin: 0;
-            padding: 10px 0;
+            padding: 5px 0 0;
             width: 100%;
 
             .dataobjectsSliderRow {
@@ -180,4 +175,3 @@
         }
     }
 }
-

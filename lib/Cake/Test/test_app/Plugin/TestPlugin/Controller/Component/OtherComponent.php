@@ -23,6 +23,5 @@
  *
  * @package       Cake.Test.TestApp.Plugin.TestPlugin.Controller.Component
  */
-class OtherComponent extends Component
-{
+class OtherComponent extends Component {
 }

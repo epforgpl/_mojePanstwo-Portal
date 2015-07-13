@@ -18,11 +18,13 @@ class Log extends PaszportAppModel
                 }
             }
         }
+
         return $results;
     }
 
     /**
      * @param $results single entity of Log
+     *
      * @return string
      */
     protected function logsJsonToString($results)

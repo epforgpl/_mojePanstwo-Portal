@@ -48,6 +48,7 @@ class HtmlToolbarHelper extends ToolbarHelper
      * @param integer $openDepth Depth to add open class
      * @param integer $currentDepth current depth.
      * @param boolean $doubleEncode
+     *
      * @return string
      */
     public function makeNeatArray($values, $openDepth = 0, $currentDepth = 0, $doubleEncode = false)
@@ -95,6 +96,7 @@ class HtmlToolbarHelper extends ToolbarHelper
             $out .= '</li>';
         }
         $out .= '</ul>';
+
         return $out;
     }
 
@@ -103,6 +105,7 @@ class HtmlToolbarHelper extends ToolbarHelper
      *
      * @param string $label label content
      * @param string $message message content
+     *
      * @return string
      */
     public function message($label, $message)
@@ -116,11 +119,13 @@ class HtmlToolbarHelper extends ToolbarHelper
      *
      * @param $title
      * @param $anchor
+     *
      * @return string
      */
     public function panelStart($title, $anchor)
     {
         $link = $this->Html->link($title, '#' . $anchor);
+
         return $link;
     }
 
@@ -129,6 +134,7 @@ class HtmlToolbarHelper extends ToolbarHelper
      *
      * @param array $rows Rows to make.
      * @param array $headers Optional header row.
+     *
      * @return string
      */
     public function table($rows, $headers = array())
@@ -139,6 +145,7 @@ class HtmlToolbarHelper extends ToolbarHelper
         }
         $out .= $this->Html->tableCells($rows, array('class' => 'odd'), array('class' => 'even'), false, false);
         $out .= '</table>';
+
         return $out;
     }
 
@@ -182,6 +189,7 @@ class HtmlToolbarHelper extends ToolbarHelper
      *
      * @param string $sql SQL query string you want an explain link for.
      * @param $connection
+     *
      * @return string Rendered Html link or '' if the query is not a select/describe
      */
     public function explainLink($sql, $connection)
@@ -209,6 +217,7 @@ class HtmlToolbarHelper extends ToolbarHelper
             'class' => 'sql-explain-link'
         ));
         $form .= $this->Form->end();
+
         return $form;
     }
 

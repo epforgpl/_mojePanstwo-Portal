@@ -19,23 +19,24 @@ App::uses('OAuthAppController', 'OAuth.Controller');
 class OAuthController extends OAuthAppController
 {
 
-    public $components = array('OAuth.OAuth', 'Auth' => array(
-        'loginAction' => array(
-            'controller' => 'users',
-            'action' => 'login',
-            'plugin' => 'paszport'
-        ),
-        'authenticate' => array(
-            'Form' => array(
-                'fields' => array('username' => 'email', 'password' => 'password'),
-                'passwordHasher' => array(
-                    'className' => 'Simple',
-                    'hashType' => 'sha256'
-                ),
-                'userModel' => 'Paszport.User',
-            )
-        )
-    ), 'Session', 'Security');
+    public $components = array('OAuth.OAuth', 'Security');
+//    , 'Auth' => array(
+//        'loginAction' => array(
+//            'controller' => 'users',
+//            'action' => 'login',
+//            'plugin' => 'paszport'
+//        ),
+//        'authenticate' => array(
+//            'Form' => array(
+//                'fields' => array('username' => 'email', 'password' => 'password'),
+//                'passwordHasher' => array(
+//                    'className' => 'Simple',
+//                    'hashType' => 'sha256'
+//                ),
+//                'userModel' => 'Paszport.User',
+//            )
+//        )
+//    ), 'Session', 'Security');
 
     public $uses = array('Paszport.User');
 
@@ -50,9 +51,16 @@ class OAuthController extends OAuthAppController
     public function beforeFilter()
     {
         parent::beforeFilter();
-        $this->OAuth->authenticate = array('fields' => array('username' => 'email'), 'userModel' => 'Paszport.User');
-        $this->Auth->authError = __('LC_UNAUTHORIZED', true);
-        $this->Auth->allow($this->OAuth->allowedActions);
+
+        // user has to be logged in to authorize
+        $this->Auth->allow();
+        $this->Auth->deny('authorize');
+
+        $this->OAuth->authenticate = array(
+            'fields' => array('username' => 'email'),
+            'userModel' => 'Paszport.User'
+        );
+        $this->Auth->authError = 'Proszę się zalogować';
         $this->Security->blackHoleCallback = 'blackHole';
     }
 
@@ -70,76 +78,42 @@ class OAuthController extends OAuthAppController
     public function authorize()
     {
         $this->set('title_for_layout', 'LC_GIVE_ACCESS');
-        if (!$this->Auth->loggedIn()) {
-            $this->redirect(array('action' => 'login', '?' => $this->request->query));
+
+        $this->validateRequest();
+
+        $userId = $this->Auth->user('id');
+
+        if ($this->Session->check('OAuth.logout')) {
+            $this->Auth->logout();
+            $this->Session->delete('OAuth.logout');
         }
 
-        if ($this->request->is('post')) {
-            $this->validateRequest();
-
-            $userId = $this->Auth->user('id');
-
-            if ($this->Session->check('OAuth.logout')) {
-                $this->Auth->logout();
-                $this->Session->delete('OAuth.logout');
-            }
-
-            //Did they accept the form? Adjust accordingly
-            $accepted = $this->request->data['accept'] == __('LC_AUTHORIZE');
-            try {
-                $this->OAuth->finishClientAuthorization($accepted, $userId, $this->request->data['Authorize']);
-            } catch (OAuth2RedirectException $e) {
-                $e->sendHttpResponse();
-            }
+        //Did they accept the form? Adjust accordingly
+        $accepted = true; // $this->request->data['accept'] == __('LC_AUTHORIZE');
+        try {
+            $OAuthParams = $this->OAuth->getAuthorizeParams();
+        } catch (Exception $e) {
+            $e->sendHttpResponse();
         }
-        // Clickjacking prevention (supported by IE8+, FF3.6.9+, Opera10.5+, Safari4+, Chrome 4.1.249.1042+)
-        $this->response->header('X-Frame-Options: DENY');
 
-        if ($this->Session->check('OAuth.params')) {
-            $OAuthParams = $this->Session->read('OAuth.params');
-            $this->Session->delete('OAuth.params');
-        } else {
-            try {
-                $OAuthParams = $this->OAuth->getAuthorizeParams();
-            } catch (Exception $e) {
-                $e->sendHttpResponse();
-            }
+        try {
+            $this->OAuth->finishClientAuthorization($accepted, $userId, $OAuthParams);
+        } catch (OAuth2RedirectException $e) {
+            $e->sendHttpResponse();
         }
-        $this->loadModel('OAuth.Client');
-        $client = $this->Client->find('first', array('conditions' => array('Client.client_id' => $OAuthParams['client_id'])));
-        //@TODO : switch to php client
-        $this->set(compact('OAuthParams', 'client'));
     }
 
     /**
-     * Example Login Action
+     * Check for any Security blackhole errors
      *
-     * Users must authorize themselves before granting the app authorization
-     * Allows login state to be maintained after authorization
-     *
+     * @throws BadRequestException
      */
-    public function login()
+    private function validateRequest()
     {
-        $OAuthParams = $this->OAuth->getAuthorizeParams();
-        if ($this->request->is('post')) {
-            $this->validateRequest();
-
-            //Attempted login
-            $user = $this->API->Paszport()->User()->login($this->data);
-            if ($user['user'] && $this->Auth->login($user['user'])) {
-                //Write this to session so we can log them out after authenticating
-                $this->Session->write('OAuth.logout', true);
-
-                //Write the auth params to the session for later
-                $this->Session->write('OAuth.params', $OAuthParams);
-
-                //Off we go
-                $this->redirect(array('action' => 'authorize'));
-            } else {
-                $this->Session->setFlash(__('LC_LOGIN_FAILED'), 'alert', array('class' => 'alert-error'), 'auth');
-            }
+        if ($this->blackHoled) {
+            //Has been blackholed before - naughty
+            throw new BadRequestException(__d('OAuth', 'The request has been black-holed'));
         }
-        $this->set(compact('OAuthParams'));
     }
 
     /**
@@ -194,7 +168,15 @@ class OAuthController extends OAuthAppController
                 'big_square' => $user['photo'],
                 'small_square' => $user['photo_small'],
             ),
+            'group_id' => $user['group_id'],
         );
+
+        if (isset($this->request->query['groups']) && $this->request->query['groups'] == 'admin') {
+            $this->AdminUsersGroup = ClassRegistry::init(array('class' => 'OAuth.AdminUsersGroupModel', 'alias' => 'AdminUsersGroup'));
+            $results = $this->AdminUsersGroup->getGroups($user['id']);
+            $user['admin_groups'] = $results['groups'];
+        }
+
         $this->set(compact('user'));
     }
 
@@ -223,19 +205,6 @@ class OAuthController extends OAuthAppController
                 $e = new OAuth2ServerException(OAuth2::HTTP_BAD_REQUEST, OAuth2::ERROR_INVALID_REQUEST, 'Request Invalid.');
                 $e->sendHttpResponse();
             }
-        }
-    }
-
-    /**
-     * Check for any Security blackhole errors
-     *
-     * @throws BadRequestException
-     */
-    private function validateRequest()
-    {
-        if ($this->blackHoled) {
-            //Has been blackholed before - naughty
-            throw new BadRequestException(__d('OAuth', 'The request has been black-holed'));
         }
     }
 

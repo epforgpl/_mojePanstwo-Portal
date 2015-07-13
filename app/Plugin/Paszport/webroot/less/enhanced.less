@@ -52,7 +52,7 @@
         text-align: center;
 
         -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=0, Direction=180, Color=#ffffff)"; /*IE 8*/
-        text-shadow: 0px 1px 0px #ffffff; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+        text-shadow: 0 1px 0 #ffffff; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
         filter: progid:DXImageTransform.Microsoft.Shadow(Strength=0, Direction=180, Color=#ffffff); /*IE 5.5-7*/
 
         border: 1px solid #CCCCCC;
@@ -94,8 +94,8 @@
 
 /* EO Hack */
 .customfile-feedback-populated {
-    padding-left: 25px !important;
-    background: url(../img/fileInput/icon-generic.gif) 5px center no-repeat;
+    padding-left: 25px !important; /*TODO:check if it REALLY need*/
+    background: url(/Paszport/img/fileInput/icon-generic.gif) 5px center no-repeat;
     white-space: nowrap;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
@@ -115,15 +115,15 @@
 
 /*file type icons*/
 .customfile-ext-jpg, .customfile-ext-gif, .customfile-ext-png, .customfile-ext-jpeg, .customfile-ext-bmp {
-    background-image: url(../img/fileInput/icon-image.gif);
+    background-image: url(/img/fileInput/icon-image.gif);
 }
 
 .customfile-ext-mp3, .customfile-ext-mp4, .customfile-ext-mov, .customfile-ext-swf, .customfile-ext-wav, .customfile-ext-m4v {
-    background-image: url(../img/fileInput/icon-media.gif);
+    background-image: url(/img/fileInput/icon-media.gif);
 }
 
 .customfile-ext-zip, .customfile-ext-tar, .customfile-ext-sit {
-    background-image: url(../img/fileInput/icon-zip.gif);
+    background-image: url(/img/fileInput/icon-zip.gif);
 }
 
 /*!
@@ -142,9 +142,6 @@
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
-    /*.dow {
-      border-top: 1px solid #ddd !important;
-    }*/
 
 }
 

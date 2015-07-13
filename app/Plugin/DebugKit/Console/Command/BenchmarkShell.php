@@ -60,6 +60,7 @@ class BenchmarkShell extends Shell
      * Prints calculated results
      *
      * @param array $times Array of time values
+     *
      * @return void
      */
     protected function _results($times)
@@ -93,6 +94,19 @@ class BenchmarkShell extends Shell
     }
 
     /**
+     * Calculate the standard deviation.
+     *
+     * @param array $times Array of values
+     * @param boolean $sample
+     *
+     * @return float Standard deviation
+     */
+    protected function _deviation($times, $sample = true)
+    {
+        return sqrt($this->_variance($times, $sample));
+    }
+
+    /**
      * One-pass, numerically stable calculation of population variance.
      *
      * Donald E. Knuth (1998).
@@ -102,6 +116,7 @@ class BenchmarkShell extends Shell
      * @param array $times Array of values
      * @param boolean $sample If true, calculates an unbiased estimate of the population
      *                          variance from a finite sample.
+     *
      * @return float Variance
      */
     protected function _variance($times, $sample = true)
@@ -120,18 +135,6 @@ class BenchmarkShell extends Shell
         }
 
         return $M2 / $n;
-    }
-
-    /**
-     * Calculate the standard deviation.
-     *
-     * @param array $times Array of values
-     * @param boolean $sample
-     * @return float Standard deviation
-     */
-    protected function _deviation($times, $sample = true)
-    {
-        return sqrt($this->_variance($times, $sample));
     }
 
     public function getOptionParser()
@@ -159,6 +162,7 @@ class BenchmarkShell extends Shell
                 'Example Use: `cake benchmark --n 10 --t 100 http://localhost/testsite`. ' .
                 '<info>Note:</info> this benchmark does not include browser render times.'
             ));
+
         return $parser;
     }
 }

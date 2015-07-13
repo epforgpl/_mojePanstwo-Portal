@@ -12,7 +12,7 @@
  * @since         CakePHP(tm) v 0.2.9
  */
 
-App::uses('Helper', 'View');
+App::uses( 'Helper', 'View' );
 
 /**
  * Application helper
@@ -22,6 +22,5 @@ App::uses('Helper', 'View');
  *
  * @package       app.View.Helper
  */
-class AppHelper extends Helper
-{
+class AppHelper extends Helper {
 }

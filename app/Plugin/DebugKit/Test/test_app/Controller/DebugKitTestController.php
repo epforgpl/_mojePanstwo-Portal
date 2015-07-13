@@ -53,6 +53,7 @@ class DebugKitTestController extends Controller
     public function request_action_return()
     {
         $this->autoRender = false;
+
         return 'I am some value from requestAction.';
     }
 

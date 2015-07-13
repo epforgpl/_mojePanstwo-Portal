@@ -1,62 +1,39 @@
-<?= $this->Element('dataobject/pageBegin'); ?>
-
-<?php $this->Combinator->add_libs('css', $this->Less->css('view-krsosoby', array('plugin' => 'Dane'))); ?>
-<?php // $this->Combinator->add_libs('js', 'Dane.view-krspodmioty'); ?>
-
 <?
-if ($organizacje = $object->getLayer('organizacje')) {
-    ?>
-    <div class="object">
+echo $this->Element('dataobject/pageBegin');
 
-        <div class="block">
-            <h2>Powiązane organizacje:</h2>
+echo $this->Html->script('Dane.d3/d3', array('block' => 'scriptBlock'));
 
-            <div class="content">
+$this->Combinator->add_libs('css', $this->Less->css('view-krsosoby', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('view-krs-graph', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('js', 'Dane.view-krsosoby');
+$this->Combinator->add_libs('js', 'graph-krs');
+?>
 
-                <ul class="list-group less-borders">
-                    <?
-                    foreach ($organizacje as $organizacja) {
-                        $kapitalZakladowy = (float)$organizacja['kapital_zakladowy'];
-                        ?>
-                        <li class="list-group-item">
-                            <h3><a href="/dane/krs_podmioty/<?= $organizacja['id'] ?>"><?= $organizacja['nazwa'] ?></a>
-                            </h3>
-
-                            <p class="subtitle"><span
-                                    class="normalizeText"><?= $organizacja['forma_prawna_str'] ?></span><? if ($kapitalZakladowy) { ?>
-                                    <span class="separator">|</span> kapitał zakładowy: <?
-
-                                    setlocale(LC_MONETARY, 'pl_PL');
-                                    echo money_format('%i', $organizacja['kapital_zakladowy']);
-
-                                }?>
-
-                                <? if (!empty($organizacja['role']))
-                                {
-                                ?>
-                            <ul class="list-group less-borders role">
-                                <? foreach ($organizacja['role'] as $rola) {
-                                    ?>
-                                    <li class="list-group-item">
-                                        <p><span
-                                                class="label label-primary"><?= $rola['label'] ?></span> <? if (isset($rola['params']['subtitle']) && $rola['params']['subtitle']) { ?>
-                                                <span
-                                                    class="sublabel normalizeText"><?= $rola['params']['subtitle'] ?></span><? } ?>
-                                        </p>
-                                    </li>
-                                <?
-                                }
-                                ?>
-                            </ul>
-                            <?
-                            }
-                            ?>
-                        </li>
-                    <? } ?>
-                </ul>
+    <div class="col-md-9 objectMain krsOsoby">
+        <div class="object">
+            <div class="block-group col-xs-12 col-xs-12">
+                <? if ($organizacje = $object->getLayer('organizacje')) {
+    echo $this->Element('Dane.objects/krs_osoby/organizacje', array(
+        'organizacje' => $organizacje,
+    ));
+} ?>
             </div>
         </div>
     </div>
-<? } ?>
+
+    <div class="powiazania block block-simple col-md-12">
+        <header>
+            <div class="sm">Powiązania</div>
+        </header>
+    </div>
+
+</div></div>
+
+    <div class="powiazania block block-simple col-md-12">
+        <section id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>"
+                 data-url="krs_osoby"></section>
+    </div>
+
+<div><div>
 
 <?= $this->Element('dataobject/pageEnd'); ?>

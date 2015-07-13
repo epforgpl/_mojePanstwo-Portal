@@ -1,11 +1,5 @@
-		<blockquote class="_">
-		    <a href="/dane/sejm_wystapienia/<?= $object->getId() ?>"><?= $object->getData('skrot') ?></a>
-		</blockquote>
-		
-		<?= $this->Dataobject->highlights() ?>
-	
-	</div>
-</div>
+<blockquote class="_">
+    <a href="/dane/sejm_wystapienia/<?= $object->getId() ?>"><?= $object->hl ? $object->hl : $object->getData('skrot') ?></a>
+</blockquote>
 
-<div>
-    <div>
+<?= $this->Dataobject->highlights($hlFields, $hlFieldsPush) ?>

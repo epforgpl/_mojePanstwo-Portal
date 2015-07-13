@@ -4,7 +4,7 @@
 
 <?= $this->Element('dataobject/pageBegin'); ?>
     <div class="col-md-12 row">
-        <div class="object">
+        <div class="object mpanel">
             <div class="col-md-7">
                 <div class="ytVideo">
                     <div id="pb_player" data-youtube="<?php echo $object->getData('yt_video_id'); ?>"></div>

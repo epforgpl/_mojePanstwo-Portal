@@ -27,7 +27,10 @@
                     <tr>
                         <td><?php echo $key['Key']['key']; ?></td>
                         <td><?php echo $this->Time->timeAgoInWords($key['Key']['created']); ?></td>
-                        <td><a href="<?php echo $this->Html->url(array('action' => 'delete', $key['Key']['id'])); ?>"
+                        <td><a href="<?php echo $this->Html->url(array(
+                                'action' => 'delete',
+                                $key['Key']['id']
+                            )); ?>"
                                class="btn btn-danger pull-right"><?php echo __d('paszport', 'LC_PASZPORT_DELETE'); ?></a>
                         </td>
                     </tr>

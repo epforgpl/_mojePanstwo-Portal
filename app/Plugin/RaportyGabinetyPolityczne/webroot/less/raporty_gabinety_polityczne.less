@@ -1,0 +1,352 @@
+body {
+    background-color: #000000;
+}
+
+.cookieLaw {
+    display: none;
+}
+
+#_wrapper #_main {
+    .gabinety-polityczne {
+        background: url(/RaportyGabinetyPolityczne/img/background.jpg) no-repeat center top fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../img/background.jpg', sizingMethod='scale');
+        -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../img/background.jpg', sizingMethod='scale')";
+
+        &:before, &:after {
+            content: " ";
+            display: table;
+            clear: both;
+        }
+
+        .slider {
+            @blue: #009de0;
+            @white: #ffffff;
+
+            display: inline-block;
+            min-height: 1075px;
+            padding: 0 0 40px 0;
+
+            .inner {
+                @border: 5px solid @blue;
+
+                float: left;
+                min-height: 1px;
+                padding-bottom: 20px;
+                position: relative;
+
+                .title {
+                    border-top: @border;
+                    border-bottom: @border;
+                    margin-bottom: 30px;
+                    padding: 30px 0 40px;
+                    width: auto;
+                    display: inline-block;
+
+                    > small {
+                        color: @blue;
+                        font-size: 24px;
+                        font-weight: bold;
+                    }
+
+                    > h2 {
+                        color: @white;
+                        margin: 0;
+                        font-size: 100px;
+                        font-weight: bold;
+                        line-height: 80px;
+                        white-space: nowrap;
+                    }
+                }
+
+                .subtitle {
+                    margin-bottom: 20px;
+
+                    > h3 {
+                        color: @white;
+                        padding: 10px 0;
+                        font-size: 24px;
+                        font-weight: bold;
+                        float: left;
+                        border-bottom: @border;
+                    }
+                }
+
+                .content {
+                    font-size: 18px;
+                    color: @white;
+                    padding: 0;
+                    float: left;
+
+                    > p, > ul {
+                        padding-bottom: 10px;
+                    }
+                }
+            }
+
+            &.intro .inner {
+                margin-top: 6%;
+
+                .content {
+                    margin-bottom: 150px;
+                }
+            }
+
+            &.przegladaj {
+                .sorting {
+                    display: block;
+                    float: left;
+                    width: 100%;
+
+                    .btn {
+                        color: #FFFFFF;
+                        outline: 0 none;
+                    }
+                }
+
+                .ministerstwa {
+                    .slide {
+                        position: relative;
+                        float: left;
+                        width: 100%;
+                        display: block;
+
+                        .options {
+                            position: absolute;
+                            right: 15px;
+                            top: 10px;
+
+                            .opt {
+                                display: inline-block;
+                                text-align: right;
+                                width: 100%;
+                            }
+                        }
+
+                        .head {
+                            color: @white;
+                            font-size: 36px;
+                            font-weight: bold;
+                            float: left;
+                            width: 100%;
+                            cursor: pointer;
+                            background-color: rgba(100, 100, 100, .5);
+                            padding: 15px 135px 15px 30px;
+                            margin: 0;
+                            outline: 0;
+                            border-top: 1px solid #000000;
+
+                            &:before {
+                                content: '►';
+                                font-size: 16px;
+                                left: 8px;
+                                position: absolute;
+                                top: 30px;
+                            }
+
+                            &.open:before {
+                                content: '▼';
+                            }
+                        }
+
+                        .brak {
+                            color: @white;
+                            display: block;
+                            font-size: 24px;
+                            padding-top: 30px;
+                            text-align: center;
+                            width: 100%;
+                        }
+
+                        .list {
+                            float: left;
+                            width: 100%;
+                            padding-bottom: 20px;
+                            background-color: rgba(0, 0, 0, .4);
+
+                            .point {
+                                @paddingTop: 10px;
+                                @paddingSide: 15px;
+                                @paddingBottom: 40px;
+
+                                width: 30.4%;
+                                margin: 0.5% 1.5% 2.5%;
+                                position: relative;
+                                float: left;
+
+                                &:nth-child(3n-2) {
+                                    margin-left: 1.3%;
+                                }
+
+                                .flipbox {
+                                    background: #006599;
+                                    display: block;
+                                    width: 100%;
+                                    height: 100%;
+                                    position: relative;
+                                    margin-top: 10px;
+
+                                    > div, > button, > h4 {
+                                        padding-left: @paddingSide;
+                                        padding-right: @paddingSide;
+                                    }
+
+                                    > h4 {
+                                        padding-top: @paddingTop;
+                                        margin-bottom: 8px;
+                                        line-height: 1em;
+                                    }
+
+                                    > div.info {
+                                        padding-bottom: @paddingBottom;
+
+                                        > p {
+                                            font-weight: normal;
+                                            line-height: 1.1em;
+                                            margin-bottom: 8px;
+                                        }
+                                    }
+
+                                    &.flipped {
+                                        .reverted {
+                                            padding: 15px;
+                                            height: 100%;
+
+                                            .infoLabel {
+                                                font-size: 12px;
+                                                font-weight: 300;
+                                                line-height: 12px;
+                                                padding-bottom: 10px;
+                                            }
+
+                                            .infoList {
+                                                height: 65%;
+                                                overflow-y: auto;
+                                                padding-right: 10px;
+
+                                                > p {
+                                                    color: @white;
+                                                    font-size: 13px;
+                                                    line-height: 1.1em;
+                                                    padding-left: 10px;
+                                                    margin-bottom: 6px;
+
+                                                    &:before {
+                                                        content: '-';
+                                                        padding-right: 5px;
+                                                        margin-left: -10px;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                h4 {
+                                    color: @white;
+                                    font-size: 34px;
+                                    font-weight: bold;
+                                    margin-bottom: 30px;
+                                }
+                                .info {
+                                    float: left;
+                                    color: @white;
+                                    font-size: 16px;
+                                    font-weight: bold;
+                                    padding-bottom: 40px;
+                                }
+
+                                .btn {
+                                    position: absolute;
+                                    bottom: @paddingSide - 5;
+                                    outline: 0 none;
+
+                                    &.doswiadczenie {
+                                        right: @paddingSide - 5;
+                                    }
+                                    &.krs {
+                                        left: @paddingSide - 5;
+                                    }
+                                }
+
+                                .reverse {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            &.publikowanie {
+                .inner {
+                    background-color: rgba(0, 0, 0, .6);
+
+                    .table {
+                        tr {
+                            border-top: 1px solid #ddd;
+
+                            td {
+                                border-top-width: 0;
+                            }
+                        }
+                    }
+
+                    .iconList {
+                        position: relative;
+                        display: block;
+                        height: 40px;
+
+                        .icon {
+                            text-decoration: none;
+                            width: 20px;
+                            height: 20px;
+                            position: absolute;
+                            display: block;
+                            top: 50%;
+                            margin-top: -12px;
+
+                            > img {
+                                width: 80%;
+                            }
+
+                            &.www {
+                                left: 60px;
+                            }
+                            &.doc {
+                                left: 100px;
+                            }
+                            &.pdf {
+                                &.hand {
+                                    left: 140px;
+                                }
+                                &.machine {
+                                    left: 180px;
+                                }
+                            }
+
+                            .tooltip {
+                                width: 120px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1550px) {
+    .gabinety-polityczne .slider.przegladaj .ministerstwa .slide .list .point {
+        width: 47%;
+
+        &:nth-child(3n-2) {
+            margin-left: 1.5%;
+        }
+        &:nth-child(odd) {
+            margin-left: 1.3%;
+        }
+    }
+}

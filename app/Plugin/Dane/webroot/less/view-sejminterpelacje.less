@@ -1,3 +1,7 @@
+.objectsPage .objectsPageWindow .objectsPageContent {
+    margin-top: 25px !important;
+}
+
 .sejmInterpelacje {
     .document {
         .canvas {
@@ -9,5 +13,37 @@
     }
     .dataHighlights .dataHighlight ._value {
         padding-left: 28px;
+    }
+}
+
+#_main .objectsPage .objectsPageContent .htmlexDoc.nominheight .document .content {
+    min-height: inherit;
+}
+
+#_main .objectsPage .objectsPageContent .htmlexDoc .document .sidebox ul.tables li {
+
+    border-bottom: 1px solid #DDD;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    .nazwa {
+        border-radius: 8px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        -o-border-radius: 8px;
+        display: inline-block;
+        padding: 0 9px 2px;
+    }
+
+    &.s {
+
+        background-color: inherit;
+
+        .nazwa {
+            background-color: tomato;
+            color: white;
+        }
     }
 }

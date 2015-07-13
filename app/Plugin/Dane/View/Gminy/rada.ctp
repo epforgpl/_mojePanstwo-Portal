@@ -1,47 +1,40 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane'))); ?>
-<?php $this->Combinator->add_libs('css', $this->Less->css('view-gminy_rada', array('plugin' => 'Dane'))); ?>
 <?php $this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane'))) ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane'))); ?>
+<?php $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts'); ?>
+<?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals'); ?>
+<?php $this->Combinator->add_libs('js', 'Dane.view-gminy'); ?>
 
+<?php if ($object->getId() == '903') {
+    $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
+    echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.exp', array('block' => 'scriptBlock'));
+    $this->Combinator->add_libs('js', 'Dane.view-gminy-krakow');
+} ?>
 
-<?php echo $this->Element('dataobject/pageBegin'); ?>
+<? echo $this->Element('dataobject/pageBegin'); ?>
 
-    <div class="header">
+<div class="objectsPage">
 
-        <div class="col-lg-9 ">
-            <h1>Rada gminy <?= $object->getData('nazwa') ?></h1>
+    <h1 class="subheader">Rada Miasta Kraków</h1>
+
+    <? if (isset($_submenu) && !empty($_submenu)) { ?>
+        <div class="menuTabsCont">
+            <?
+            if (!isset($_submenu['base']))
+                $_submenu['base'] = $object->getUrl();
+            echo $this->Element('Dane.dataobject/menuTabs', array(
+                'menu' => $_submenu,
+            ));
+            ?>
         </div>
+    <? } ?>
 
-        <div class="col-lg-3 text-right tools">
-            <a class="btn btn-primary" href="/dane/gminy/<?= $object->getId() ?>/radni">Zobacz skład rady</a>
-        </div>
-    </div>
+    <? $options = array();
+    if (isset($title))
+        $options['title'] = $title;
 
-    <div class="object">
+    echo $this->Element('Dane.DataBrowser/browser', $options);
+    ?>
+</div>
 
-        <div class="col-lg-12">
-
-            <h2><a href="/dane/gminy/<?= $object->getId() ?>/rady_posiedzenia">Posiedzenia rady</a></h2>
-
-            <div
-                class="radyPosiedzenia"><? echo $this->dataobjectsSlider->render($rady_posiedzenia, array('perGroup' => 1, 'theme' => 'rada-gminy-posiedzenie')); ?></div>
-
-            <p class="well well-sm">Zobacz też <a href="/dane/gminy/<?= $object->getId() ?>/rady_gmin_debaty">listę
-                    debat</a> oraz <a href="/dane/gminy/<?= $object->getId() ?>/rady_gmin_wystapienia">listę
-                    wystąpień</a> na wszystkich posiedzeniach rady miasta <?= $object->getData('nazwa') ?>.</p>
-
-            <h2><a href="/dane/gminy/<?= $object->getId() ?>/rady_druki">Druki</a></h2>
-
-            <div
-                class="radyDruki"><? echo $this->dataobjectsSlider->render($rady_druki, array('perGroup' => 4)); ?></div>
-
-            <h2><a href="/dane/gminy/<?= $object->getId() ?>/radni">Radni gminy</a></h2>
-
-            <div class="radniGminy"><? echo $this->dataobjectsSlider->render($radni, array(
-                    'perGroup' => 4,
-                    'theme' => 'gmina'
-                )); ?></div>
-
-        </div>
-
-    </div>
-<?php echo $this->Element('dataobject/pageEnd'); ?>
+<?= $this->Element('dataobject/pageEnd'); ?>

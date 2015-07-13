@@ -17,27 +17,26 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('AppModel', 'Model');
+App::uses( 'AppModel', 'Model' );
 
 /**
  * Action for Access Control Object
  *
  * @package       Cake.Model
  */
-class AcoAction extends AppModel
-{
+class AcoAction extends AppModel {
 
-    /**
-     * Model name
-     *
-     * @var string
-     */
-    public $name = 'AcoAction';
+	/**
+	 * Model name
+	 *
+	 * @var string
+	 */
+	public $name = 'AcoAction';
 
-    /**
-     * ACO Actions belong to ACOs
-     *
-     * @var array
-     */
-    public $belongsTo = array('Aco');
+	/**
+	 * ACO Actions belong to ACOs
+	 *
+	 * @var array
+	 */
+	public $belongsTo = array( 'Aco' );
 }

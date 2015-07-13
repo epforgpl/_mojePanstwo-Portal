@@ -4,6 +4,5 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('front', array('plugin' => 'Paszport'))) ?>
 
 <?php $this->Combinator->add_libs('js', 'Paszport.jqBootstrapValidation'); ?>
-<?php $this->Combinator->add_libs('js', 'Paszport.bootstrap-select'); ?>
 <?php $this->Combinator->add_libs('js', 'Paszport.main'); ?>
 <?php $this->Combinator->add_libs('js', 'Paszport.front'); ?>

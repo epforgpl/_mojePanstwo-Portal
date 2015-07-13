@@ -29,6 +29,5 @@
  *
  * @package       Cake.Test.TestApp.Plugin.TestPlugin.Model.Behavior
  */
-class TestPluginPersisterOneBehavior extends ModelBehavior
-{
+class TestPluginPersisterOneBehavior extends ModelBehavior {
 }

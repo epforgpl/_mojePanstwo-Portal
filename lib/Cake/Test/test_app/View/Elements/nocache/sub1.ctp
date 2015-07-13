@@ -1,8 +1,8 @@
-<?php echo $this->element('nocache/sub2'); ?>
+<?php echo $this->element( 'nocache/sub2' ); ?>
 
-    <!--nocache-->
+	<!--nocache-->
 <?php $foobar = 'in sub1'; ?>
 <?php echo $foobar; ?>
-    <!--/nocache-->
+	<!--/nocache-->
 
 <?php echo 'printing: "' . $foobar . '"'; ?>

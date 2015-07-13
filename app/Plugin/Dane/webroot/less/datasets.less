@@ -1,0 +1,103 @@
+#_wrapper {
+    background-color: #EEE;
+
+    h1 {
+        font-family: "Lato", Arial, sans-serif;
+        font-size: 26px;
+        font-weight: 300;
+
+        strong {
+            font-weight: 400;
+        }
+    }
+
+    h2 {
+        font-family: "Lato", Arial, sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        text-align: center;
+    }
+
+    .innerContent {
+        text-align: center;
+
+        .main_input {
+            margin: 10px 0;
+
+            input {
+                font-size: 16px;
+            }
+
+            .btn {
+                width: 45px;
+                height: 45px;
+
+                &.loading {
+                    background: url(/img/loader/search-loading.png) center center no-repeat #5CB85C;
+
+                    &:before {
+                        content: ' ';
+                    }
+                }
+            }
+        }
+    }
+
+    .appHeader {
+        padding-bottom: 10px;
+    }
+
+    .appBody {
+
+        background-color: #F6F6F6;
+        border-top: 1px solid #ccc;
+        padding-top: 10px;
+
+        .datasets {
+
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+
+                display: block;
+                padding: 0;
+                margin: 0;
+
+                a {
+                    background-color: #FFF;
+                    border: 1px solid #DDD;
+                    border-radius: 5px;
+                    -webkit-border-radius: 5px;
+
+                    display: block;
+                    min-height: 160px;
+                    padding: 5px;;
+                    margin: 10px;
+                    outline: none;
+
+                    p {
+                        padding: 0;
+                        margin: 5px;
+
+                        &.title {
+                            font-weight: 300;
+                            font-size: 24px;
+                        }
+
+                        &.desc {
+                            color: #666;
+                            padding: 5px;
+                        }
+
+                    }
+                }
+
+            }
+
+        }
+
+    }
+
+}

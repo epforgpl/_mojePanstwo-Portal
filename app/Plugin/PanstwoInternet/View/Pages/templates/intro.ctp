@@ -7,7 +7,7 @@
 
     <p>
         <a class="pull-right" href="../PanstwoInternet/download/Raport_ePanstwo.pdf">
-            <img src="img/Adobe_PDF_Icon.svg" alt="PDF"
+            <img src="img/icons/pdf.svg" alt="PDF"
                  width="20"/> <?= __d('panstwo_internet', 'LC_PANSTWOINTERNET_REPORT_PDF'); ?>
         </a>
     </p>

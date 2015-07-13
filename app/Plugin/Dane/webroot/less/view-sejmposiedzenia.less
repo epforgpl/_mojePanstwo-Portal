@@ -1,59 +1,136 @@
-.objectsPageContent {
-    .object {
-        h2 {
-            font-size: 24px;
-            font-weight: 300;
-            margin: 40px 0 10px;
-            color: #0783B8;
-            font-family: "Lato", sans-serif;
-        }
-        .wskazniki {
-            font-weight: 300;
-            display: block;
-            margin: 15px 0;
-            overflow: auto;
+.projekty {
 
-            .wskaznik {
-                width: 20%;
-                float: left;
-                padding: 10px;
-                border-right: 1px solid #CCC;
+    .column {
+
+        border-right: 1px solid #CCC;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        text-align: center;
+
+        h2 {
+
+            font-size: 18px;
+            font-weight: 300;
+            margin: 10px 0;
+            display: inline-block;
+
+        }
+
+        &:last-child {
+            border-right: none;
+        }
+
+        > ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-align: left;
+
+            > li {
+                margin: 0;
+                padding: 15px 0;
+                list-style: none;
+                border-bottom: 1px solid #DDD;
+
+                .title {
+                    font-size: 16px;
+                    margin-bottom: 0;
+                }
+
+                .desc {
+                    font-size: 12px;
+
+                    p {
+                        padding: 10px;
+                        color: #555;
+                    }
+                }
 
                 &:last-child {
-                    border-right: none;
+                    border-bottom: none;
                 }
 
-                small, strong {
-                    display: block;
+                .button {
+                    text-align: center;
+                }
+            }
+        }
+
+        .__autorzy_html_ul {
+
+            list-style: none;
+            margin-top: 10px;
+
+            li {
+                list-style: none;
+                font-size: 12px;
+
+                img {
+                    margin-right: 4px;
                 }
 
-                small {
-                    font-size: 13px;
+            }
+
+        }
+
+    }
+
+}
+
+#punkty_cont {
+    background-color: #FFF;
+    .block {
+        border: none;
+    }
+}
+
+#punkty {
+
+    > li {
+
+        border-top: 1px solid #ddd;
+        padding: 15px 0;
+
+        &:first-child {
+            border-top: none;
+        }
+
+        .counter {
+            p {
+                font-size: 28px;
+                font-weight: 300;
+                color: #BBB;
+            }
+        }
+
+        .display {
+
+            h3 {
+                margin-top: 3px;
+                font-weight: 400;
+            }
+
+            .stats {
+                font-size: 12px;
+                font-weight: 300;
+                margin-top: 15px;
+
+                img {
+                    margin-right: 8px;
                 }
 
                 strong {
-                    font-family: "Lato", sans-serif;
-                    font-size: 16px;
                     font-weight: 400;
                 }
             }
 
         }
-        .dataobjectsSlider {
-            .carousel {
-                .carousel-control {
-                    background: none;
 
-                    > span {
-                        color: #AAA;
-                    }
-
-                }
-                .item .object {
-                    min-height: 140px;
-                    padding: 0 15px;
-                }
-            }
+        .status {
+            font-size: 13px;
+            margin-top: 3px;
         }
+
     }
+
 }

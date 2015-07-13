@@ -25,19 +25,18 @@
  *
  * @package       Cake.Test.Case
  */
-class AllCacheTest extends PHPUnit_Framework_TestSuite
-{
+class AllCacheTest extends PHPUnit_Framework_TestSuite {
 
-    /**
-     * suite method, defines tests for this suite.
-     *
-     * @return void
-     */
-    public static function suite()
-    {
-        $suite = new CakeTestSuite('All Cache related class tests');
-        $suite->addTestDirectory(CORE_TEST_CASES . DS . 'Cache');
-        $suite->addTestDirectory(CORE_TEST_CASES . DS . 'Cache' . DS . 'Engine');
-        return $suite;
-    }
+	/**
+	 * suite method, defines tests for this suite.
+	 *
+	 * @return void
+	 */
+	public static function suite() {
+		$suite = new CakeTestSuite( 'All Cache related class tests' );
+		$suite->addTestDirectory( CORE_TEST_CASES . DS . 'Cache' );
+		$suite->addTestDirectory( CORE_TEST_CASES . DS . 'Cache' . DS . 'Engine' );
+
+		return $suite;
+	}
 }

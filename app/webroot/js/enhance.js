@@ -1,25 +1,38 @@
+/*global $, jQuery, window, mPHeart*/
+/* HTML5 HISTORY.JS */
+(function (window) {
+    "use strict";
+    // Prepare
+    var History = window.History; // Note: We are using a capital H instead of a lower h
+    if (!History.enabled) {
+        // History.js is disabled for this browser.
+        // This is because we can optionally choose to support HTML4 browsers or not.
+        return false;
+    }
+})(window);
+
 /* SCRIPT FIX IMG WITH BROKEN LINKS */
 function imgFixer(img) {
-    var style = window.getComputedStyle(img),
+    "use strict";
+
+    var style = window.getComputedStyle(img, null),
         maxWidth = style.getPropertyValue('max-width'),
-        size = (img.offsetWidth == 0) ? ((maxWidth == "") ? 100 : parseInt(maxWidth)) : img.offsetWidth,
+        size = (img.offsetWidth === 0) ? ((maxWidth === "") ? 100 : parseInt(maxWidth, 10)) : img.offsetWidth,
         imgBlankSrc = img.src,
-        imgBlankSetting = "/fff/ddd";
+        defaultImg = 'https://placeholdit.imgix.net/~text?txtsize=20&bg=ffffff&txttrack=0';
 
     /*IMG LINK TO DOCUMENT - SO WE GENERATE RECTANGLE*/
     if (imgBlankSrc.toLowerCase().indexOf("docs.sejmometr") >= 0) {
         /*WE TRY SIMILAR NEW IMAGE TO DOCUMENTS*/
         img.style.border = "2px solid #ddd";
         /*LINK WITH DOCUMENT TEXT*/
-        imgBlankSrc = "http://placehold.it/" + size + "x" + Math.ceil(Number(size * 1.32)) + imgBlankSetting + "&text=document";
-    }/*IMG LINK TO AVATAR - SO WE GENERATE SQUARE*/
-    else if (imgBlankSrc.toLowerCase().indexOf("resources.sejmometr") >= 0) {
+        imgBlankSrc = defaultImg + "&w=" + size + "&h=" + Math.ceil(Number(size * 1.32)) + "&txt=brak+dokumentu";
+    } else if (imgBlankSrc.toLowerCase().indexOf("resources.sejmometr") >= 0) {/*IMG LINK TO AVATAR - SO WE GENERATE SQUARE*/
         /*LINK WITH AVATAR TEXT*/
-        imgBlankSrc = "http://placehold.it/" + size + imgBlankSetting + "&text=avatar";
-    }/*IMG LINK TO OTHERS - SO WE GENERATE SQUARE TOO*/
-    else {
+        imgBlankSrc = defaultImg + "&w=" + size + "&txt=brak+zdjęcia";
+    } else {/*IMG LINK TO OTHERS - SO WE GENERATE SQUARE TOO*/
         /*LINK WITH ERROR TEXT*/
-        imgBlankSrc = "http://placehold.it/" + size + imgBlankSetting + "&text=error";
+        imgBlankSrc = defaultImg + "&w=" + size + "&h=" + size;
     }
 
     /*REMOVE ONERROR FUNCTION - CAUSE WE USE IT ALREADY*/
@@ -29,40 +42,53 @@ function imgFixer(img) {
     /*AND INSTERT NEW SRC*/
     img.src = imgBlankSrc;
 
-    if (typeof countDataObjectsSliderRowDetect != 'undefined' && countDataObjectsSliderRowDetect == true)
-        window.setTimeout(countDataObjectsSliderRow, 0);
-
     return true;
 }
+/*FUNCTION CHECK IS ELEMENT IS VISIBLE AT SCREEN*/
+function isElementVisibled(elem) {
+    "use strict";
+
+    var docViewTop, docViewBottom, elemTop, elemBottom;
+
+    docViewTop = jQuery(window).scrollTop();
+    docViewBottom = docViewTop + jQuery(window).height();
+    elemTop = jQuery(elem).offset().top;
+    elemBottom = elemTop + jQuery(elem).height();
+
+    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+}
 /*FUNCTION CUT TITLE TO SHORTER FORM WITH OPTION OF EXPANDING IT*/
-trimTitle = function () {
+function trimTitle() {
+    "use strict";
+
     jQuery('.trimTitle').each(function () {
         var that = jQuery(this),
             body = jQuery.trim(that.text()),
-            title = (that.attr('title') != undefined && that.attr('title') != '') ? that.attr('title') : ((that.data('trimtitle') != undefined && that.data('trimtitle') != '') ? that.data('trimtitle') : false),
-            trimLength = ((that.data('trimlength') != undefined) ? that.data('trimlength') : 150);
+            title = (that.attr('title') !== undefined && that.attr('title') !== '') ? that.attr('title') : ((that.data('trimtitle') !== undefined && that.data('trimtitle') !== '') ? that.data('trimtitle') : false),
+            trimLength = ((that.data('trimlength') !== undefined) ? that.data('trimlength') : 200),
+            splitLocation,
+            shortTitle = false,
+            hyperlink;
 
-        if (title != false && trimLength != undefined) {
+        if (title !== false && trimLength !== undefined) {
             if (body.length > trimLength + 20) {
-                var splitLocation = body.indexOf(' ', trimLength),
-                    shortTitle = false,
-                    hyperlink = (that.children().length > 0);
+                splitLocation = body.indexOf(' ', trimLength);
+                hyperlink = (that.closest('a').length);
 
-                if (splitLocation != -1) {
+                if (splitLocation !== -1) {
                     splitLocation = body.indexOf(' ', trimLength);
                     shortTitle = body.substring(0, splitLocation);
                     that.data('trimtitle', title);
 
-                    if (hyperlink == true) { /*TARGET IS HYPERLINK*/
-                        that.find('a').html(shortTitle).after('<span class="trimTitleTrigger">...</span>');
+                    if (hyperlink) { /*TARGET IS HYPERLINK*/
+                        that.closest('a').html(shortTitle).after('<span class="trimTitleTrigger hyper">...</span>');
 
-                        that.find('.trimTitleTrigger').click(function () {
-                            that.find('a').html(that.data('trimtitle'));
+                        that.parent().find('.trimTitleTrigger').click(function () {
+                            that.closest('a').html(that.data('trimtitle'));
                             jQuery('.trimTitleTrigger').remove();
                         });
                     } else { /*TARGET IS NORMAL TEXT */
                         that.html(shortTitle + '<span class="trimTitleTrigger">...</span>');
-
                         that.click(function () {
                             that.html(jQuery(this).data('trimtitle'));
                         });
@@ -70,46 +96,123 @@ trimTitle = function () {
                 }
             }
         }
-    })
-};
+    });
+}
 
 /* JQUERY - STICK ELEMENT AT SCROLL */
-sticky = function (dom, direction) {
-    if (jQuery(dom).length) {
-        if (direction == undefined)
-            direction = 'down';
+function stickyGo(dom, direction) {
+    "use strict";
 
-        stickyGo(dom, direction);
-
-        jQuery(window).scroll(function () {
-            stickyGo(dom, direction);
-        });
-    }
-};
-
-stickyGo = function (dom, direction) {
     var anchor = jQuery('.anchor'),
-        exist = false;
+        exist = false,
 
-    jQuery.each(anchor, function () {
-        if (jQuery(this).attr('data-id') == dom)
-            exist = true;
-    });
-
-    if (exist == false)
-        jQuery('<div class="anchor" data-id=' + dom + '></div>').insertBefore(dom);
-
-    var stickGoAnchor = jQuery('.anchor[data-id=' + dom + ']'),
         window_top = jQuery(window).scrollTop(),
         header_fixed = jQuery('header').outerHeight(true),
         window_height = jQuery(window).height(),
-        div_top = stickGoAnchor.offset().top;
+        stickGoAnchor,
+        div_top;
 
-    if (window_top + header_fixed > div_top && direction == 'down') {
+    jQuery.each(anchor, function () {
+        if (jQuery(this).attr('data-id') === dom) {
+            exist = true;
+        }
+    });
+
+    if (exist === false) {
+        jQuery('<div class="anchor" data-id=' + dom + '></div>').insertBefore(dom);
+    }
+
+    stickGoAnchor = jQuery('.anchor[data-id=' + dom + ']');
+    div_top = stickGoAnchor.offset().top;
+
+    if (window_top + header_fixed > div_top && direction === 'down') {
         jQuery(dom).addClass('stick');
-    } else if ((window_top + header_fixed + window_height - jQuery(dom).outerHeight()) < div_top && direction == 'up') {
+    } else if ((window_top + header_fixed + window_height - jQuery(dom).outerHeight()) < div_top && direction === 'up') {
         jQuery(dom).addClass('stick');
     } else {
         jQuery(dom).removeClass('stick');
     }
-};
+}
+
+function sticky(dom, direction) {
+    "use strict";
+
+    if (jQuery(dom).length) {
+        if (direction === undefined) {
+            direction = 'down';
+        }
+        stickyGo(dom, direction);
+        jQuery(window).scroll(function () {
+            stickyGo(dom, direction);
+        });
+    }
+}
+
+/*OTHER LIBRARY*/
+/* Simple JavaScript Inheritance
+ * By John Resig http://ejohn.org/
+ * MIT Licensed.
+ */
+// Inspired by base2 and Prototype
+(function () {
+    var initializing = false, fnTest = /xyz/.test(function () {
+        xyz;
+    }) ? /\b_super\b/ : /.*/;
+
+    // The base Class implementation (does nothing)
+    this.Class = function () {
+    };
+
+    // Create a new Class that inherits from this class
+    Class.extend = function (prop) {
+        var _super = this.prototype;
+
+        // Instantiate a base class (but only create the instance,
+        // don't run the init constructor)
+        initializing = true;
+        var prototype = new this();
+        initializing = false;
+
+        // Copy the properties over onto the new prototype
+        for (var name in prop) {
+            // Check if we're overwriting an existing function
+            prototype[name] = typeof prop[name] == "function" &&
+            typeof _super[name] == "function" && fnTest.test(prop[name]) ?
+                (function (name, fn) {
+                    return function () {
+                        var tmp = this._super;
+
+                        // Add a new ._super() method that is the same method
+                        // but on the super-class
+                        this._super = _super[name];
+
+                        // The method only need to be bound temporarily, so we
+                        // remove it when we're done executing
+                        var ret = fn.apply(this, arguments);
+                        this._super = tmp;
+
+                        return ret;
+                    };
+                })(name, prop[name]) :
+                prop[name];
+        }
+
+        // The dummy class constructor
+        function Class() {
+            // All construction is actually done in the init method
+            if (!initializing && this.init)
+                this.init.apply(this, arguments);
+        }
+
+        // Populate our constructed prototype object
+        Class.prototype = prototype;
+
+        // Enforce the constructor to be what we expect
+        Class.prototype.constructor = Class;
+
+        // And make this class extendable
+        Class.extend = arguments.callee;
+
+        return Class;
+    };
+})();

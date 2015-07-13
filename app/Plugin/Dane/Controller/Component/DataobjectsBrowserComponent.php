@@ -3,6 +3,7 @@
 class DataobjectsBrowserComponent extends Component
 {
 
+    public $settings = array();
     public $source = array();
     public $title = false;
     public $noResultsTitle = false;
@@ -13,17 +14,41 @@ class DataobjectsBrowserComponent extends Component
     public $showTitle = false;
     public $titleTag = 'h2';
     public $hlFields = false;
+    public $hlFieldsPush = false;
     public $routes = array();
+    public $inline = false;
+    public $limit = 20;
+    public $conditions = array();
+    public $orders = array();
+    public $allowedParams = false;
+
+    public $dataset = false;
+    public $datachannel = false;
+    public $dataset_dictionary = array();
+    public $renderFile = false;
+    public $class = false;
+    public $back = false;
+    public $backTitle = false;
 
     public $excludeFilters = array();
+    public $hiddenFilters = array();
 
     public $components = array(
         'Paginator',
+        'RequestsHandler'
     );
 
     public $helpers = array(
         'Number',
         'Dane.Filter',
+        'Dane.Dataobject',
+    );
+
+    public $config = array(
+        'controlls' => array('sortings'),
+        'defaults' => array(
+            'details' => false,
+        ),
     );
 
     public function __construct($collection, $settings = array())
@@ -31,53 +56,106 @@ class DataobjectsBrowserComponent extends Component
 
         parent::__construct($collection, $settings);
 
+        $this->settings = $settings;
+
         if (isset($settings['title'])) {
             $this->showTitle = true;
             $this->title = $settings['title'];
         }
 
-        if (isset($settings['href']) && $settings['href'])
+        if (isset($settings['href']) && $settings['href']) {
             $this->href = $settings['href'];
+        }
 
-        if (isset($settings['titleTag']) && $settings['titleTag'])
+        if (isset($settings['dataset_dictionary']) && $settings['dataset_dictionary'] && is_array($settings['dataset_dictionary'])) {
+            $this->dataset_dictionary = $settings['dataset_dictionary'];
+        }
+
+        if (isset($settings['titleTag']) && $settings['titleTag']) {
             $this->titleTag = $settings['titleTag'];
+        }
 
-        if (isset($settings['noResultsTitle']) && $settings['noResultsTitle'])
+        if (isset($settings['noResultsTitle']) && $settings['noResultsTitle']) {
             $this->noResultsTitle = $settings['noResultsTitle'];
+        }
 
-        if (isset($settings['excludeFilters']))
+        if (isset($settings['excludeFilters'])) {
             $this->excludeFilters = $settings['excludeFilters'];
-            
-        if (isset($settings['hlFields']))
+        }
+
+        if (isset($settings['hiddenFilters'])) {
+            $this->hiddenFilters = $settings['hiddenFilters'];
+        }
+
+        if (isset($settings['hlFields'])) {
             $this->hlFields = $settings['hlFields'];
-            
-        if (isset($settings['routes']))
+        }
+
+        if (isset($settings['hlFieldsPush'])) {
+            $this->hlFieldsPush = $settings['hlFieldsPush'];
+        }
+
+        if (isset($settings['routes'])) {
             $this->routes = $settings['routes'];
-            		
+        }
+
+        if (isset($settings['class'])) {
+            $this->class = $settings['class'];
+        }
+
+        if (isset($settings['renderFile'])) {
+            $this->renderFile = $settings['renderFile'];
+        }
+
+        if (isset($settings['limit'])) {
+            $this->limit = max(min($settings['limit'], 1000), 0);
+        }
+
+        if (isset($settings['conditions'])) {
+            $this->conditions = $settings['conditions'];
+        }
+
+        if (isset($settings['allowedParams']) && $settings['allowedParams']) {
+            $this->allowedParams = $settings['allowedParams'];
+        }
+
+        if (isset($settings['back']) && $settings['back']) {
+            $this->back = $settings['back'];
+        }
+
+        if (isset($settings['backTitle']) && $settings['backTitle']) {
+            $this->backTitle = $settings['backTitle'];
+        }
+
+
         $add_source_params = array();
         $source_params = array();
-        $source_parts = explode(' ', $settings['source']);
-        foreach ($source_parts as $part) {
 
-            $p = strpos($part, ':');
-            if ($p !== false) {
-                $key = substr($part, 0, $p);
-                $value = substr($part, $p + 1);
+        if (isset($settings['source'])) {
+            $source_parts = explode(' ', $settings['source']);
+            foreach ($source_parts as $part) {
 
-                $source_params[$key] = $value;
+                $p = strpos($part, ':');
+                if ($p !== false) {
+                    $key = substr($part, 0, $p);
+                    $value = substr($part, $p + 1);
 
-                if (($key != 'dataset') && ($key != 'datachannel'))
-                    $add_source_params[$key] = $value;
+                    $source_params[$key] = $value;
+
+                    if (($key != 'dataset') && ($key != 'datachannel')) {
+                        $add_source_params[$key] = $value;
+                    }
+                }
+
             }
-
-
         }
 
         $this->source = $add_source_params;
 
 
-        if (isset($settings['dataset']))
+        if (isset($settings['dataset'])) {
             $source_params['dataset'] = $settings['dataset'];
+        }
 
 
         if (isset($source_params['dataset']) && !empty($source_params['dataset'])) {
@@ -87,6 +165,8 @@ class DataobjectsBrowserComponent extends Component
         } elseif (isset($source_params['datachannel']) && !empty($source_params['datachannel'])) {
             $this->mode = 'datachannel';
             $this->tag = $source_params['datachannel'];
+        } else {
+            $this->mode = '*';
         }
 
     }
@@ -95,7 +175,7 @@ class DataobjectsBrowserComponent extends Component
     {
 
         $q = '';
-        $conditions = array();
+        $conditions = $this->conditions;
         $order = array();
         $order_selected = false;
         $useDefaults = true;
@@ -103,6 +183,8 @@ class DataobjectsBrowserComponent extends Component
         $filters = array();
         $switchers = array();
         $orders = array();
+
+        $controller->mode = 'dataobjectsBrowser';
 
 
         if (
@@ -119,8 +201,9 @@ class DataobjectsBrowserComponent extends Component
                 if ($this->mode == 'datachannel') {
 
                     $url = '/dane/' . $dataset;
-                    if (isset($controller->request->query['q']) && $controller->request->query['q'])
+                    if (isset($controller->request->query['q']) && $controller->request->query['q']) {
                         $url .= '?q=' . urlencode($controller->request->query['q']);
+                    }
 
                     $controller->redirect($url);
                     exit();
@@ -137,8 +220,9 @@ class DataobjectsBrowserComponent extends Component
         if (!$this->href) {
             $here = $controller->here;
 
-            if ($p = strpos($here, '.'))
+            if ($p = strpos($here, '.')) {
                 $here = substr($here, 0, $p);
+            }
 
             /*
             $strlen = strlen($here);
@@ -149,37 +233,49 @@ class DataobjectsBrowserComponent extends Component
             $this->href = $here;
         }
 
+        if ($this->mode == 'dataset') {
+            $this->read_dataset_config($this->tag);
+        }
+
+
         if (!empty($this->source)) {
 
             $source_parts = array();
-            foreach ($this->source as $key => $value)
+            foreach ($this->source as $key => $value) {
                 $source_parts[] = $key . ':' . $value;
+            }
 
             $conditions['_source'] = implode(' ', $source_parts);
 
         }
 
+        if (!isset($controller->request->query['order']) && isset($this->settings['order'])) {
+            $controller->request->query['order'] = $this->settings['order'];
+        }
+
         $query_keys = array_keys($controller->request->query);
+
         foreach ($query_keys as $key) {
 
             $value = $controller->request->query[$key];
             switch ($key) {
 
-                case 'order':
-                {
+                case 'order': {
                     $order_parts = explode(' ', $value);
                     $order = array(
                         'field' => $order_parts[0],
                         'direction' => isset($order_parts[1]) ? $order_parts[1] : 'desc',
                     );
                     $order['str'] = $order['field'] . ' ' . $order['direction'];
+
+                    $this->hlFieldsPush = array($order['field']);
+
                     break;
                 }
 
-                case 'q':
-                {
+                case 'q': {
                     $q = $value;
-                    if ($value)
+                    if ($value) {
                         $orders[] = array(
                             'sorting' => array(
                                 'field' => 'score',
@@ -187,24 +283,30 @@ class DataobjectsBrowserComponent extends Component
                                 'direction' => 'desc',
                             ),
                         );
+                    }
                     break;
                 }
 
-                case 'search':
-                {
+                case 'search': {
 
                     $useDefaults = false;
                     break;
 
                 }
 
-                default:
-                    {
+                case 'submit': {
+
+                    break;
+
+                }
+
+                default: {
 
                     $key = str_replace(':', '.', $key);
 
-                    if (in_array($key, $this->excludeFilters))
+                    if (in_array($key, $this->excludeFilters)) {
                         continue;
+                    }
 
                     if (array_key_exists($key, $conditions)
                         && ($conditions[$key] != $value)
@@ -215,86 +317,94 @@ class DataobjectsBrowserComponent extends Component
                     }
 
 
-                    }
+                }
 
             }
         }
-
-
-        foreach ($conditions as $key => &$cond)
-            if (preg_match('/data_/', $key) && $cond)
-                $cond = preg_replace('/\:/', '\:', CakeTime::toAtom($cond));
-
 
         if ($this->mode == 'dataset') {
 
             $conditions['dataset'] = $this->tag;
 
-            $dataset = $controller->API->getDataset($this->tag);
-            if( !$this->title )
-	            $this->title = $dataset['Dataset']['name'];
 
-            // ŁADOWANIE SORTOWAŃ
+            $dataset = $controller->API->getDataset($this->tag, array(
+                'full' => true,
+            ));
 
-            $orders = array_merge($orders, $controller->API->getDatasetSortings($this->tag));
+            if ($dataset) {
+
+                $this->dataset = $dataset;
+
+                foreach ($this->excludeFilters as &$ef)
+                    if (strpos($ef, '.') === false)
+                        $ef = $this->tag . '.' . $ef;
 
 
-            if (empty($orders) || ((count($orders) === 1) && ($orders[0]['sorting']['field'] == 'score')))
-                $orders[] = array(
-                    'sorting' => array(
-                        'field' => 'date',
-                        'label' => 'Data',
-                        'direction' => 'desc',
-                    ),
-                );
+                if (!$this->title) {
+                    $this->title = $dataset['Dataset']['name'];
+                }
 
-            if (isset($order['field'])) {
-                foreach ($orders as &$_order) {
-                    if ($_order['sorting']['field'] == $order['field']) {
-                        $_order['selected_direction'] = $order['direction'];
-                        $order_selected = true;
-                        break;
+                // ŁADOWANIE SORTOWAŃ
+
+                $orders = array_merge($orders, $dataset['orders']);
+
+                if (isset($order['field'])) {
+                    foreach ($orders as &$_order) {
+                        if ($_order['sorting']['field'] == $order['field']) {
+                            $this->hlFieldsPush = $order['field'];
+                            $_order['selected_direction'] = $order['direction'];
+                            $order_selected = true;
+                            break;
+                        }
                     }
                 }
-            }
 
 
-            // ŁADOWANIE PRZEŁĄCZNIKÓW
-            $switchers = $controller->API->getDatasetSwitchers($this->tag);
-            if ($useDefaults && !empty($switchers)) {
-                foreach ($switchers as $switcher) {
+                // ŁADOWANIE PRZEŁĄCZNIKÓW
+                $switchers = $dataset['switchers'];
+                if ($useDefaults && !empty($switchers)) {
+                    foreach ($switchers as $switcher) {
 
-                    $switcher = $switcher['switcher'];
-                    if ($switcher['dataset_search_default'] == '1')
-                        $conditions['!' . $switcher['name']] = '1';
+                        $switcher = $switcher['switcher'];
+                        if ($switcher['dataset_search_default'] == '1') {
+                            $conditions['!' . $switcher['name']] = '1';
+                        }
+
+                    }
+                }
+
+
+                // ŁADOWANIE FILTRÓW
+                $filters = $dataset['filters'];
+
+                if (!empty($filters)) {
+
+                    $_filters = array();
+                    foreach ($filters as $filter) {
+                        if (!in_array($filter['filter']['field'], $this->excludeFilters)) {
+                            $_filters[] = $filter;
+                        }
+                    }
+
+                    $filters = $_filters;
 
                 }
-            }
-
-
-            // ŁADOWANIE FILTRÓW
-            $filters = $controller->API->getDatasetFilters($this->tag, true);
-
-            if (!empty($filters)) {
-
-                $_filters = array();
-                foreach ($filters as $filter)
-                    if (!in_array($filter['filter']['field'], $this->excludeFilters))
-                        $_filters[] = $filter;
-
-                $filters = $_filters;
 
             }
-
 
         } elseif ($this->mode == 'datachannel') {
 
 
-            $datachannel = $controller->API->getDatachannel($this->tag);
-            $this->title = $datachannel['Datachannel']['name'];
+            $datachannel = $controller->API->getDatachannel($this->tag, array(
+                'full' => true,
+            ));
 
-            $data = $controller->API->getDatachannel($this->tag);
-            $datachannel = $data['Datachannel'];
+            $this->datachannel = $datachannel;
+            $datachannel = $datachannel['Datachannel'];
+            $this->title = $datachannel['name'];
+
+            // $data = $controller->API->getDatachannel($this->tag);
+            // $datachannel = $data['Datachannel'];
             $conditions['datachannel'] = $datachannel['slug'];
 
             $title_for_layout = $datachannel['name'];
@@ -322,53 +432,25 @@ class DataobjectsBrowserComponent extends Component
 
         } else {
 
-            if (isset($controller->request->query['dataset']) &&
-                !empty($controller->request->query['dataset'])
-            ) {
-
-                $dataset = is_array($controller->request->query['dataset']) ?
-                    $controller->request->query['dataset'][0] :
-                    $controller->request->query['dataset'];
-
-
-                if ($dataset) {
-
-                    /*
-                    $query = $controller->request->query;
-                    unset($query['dataset']);
-                    unset($query['datachannel']);
-                    unset($query['search']);
-
-                    return $controller->redirect('/dane/' . $dataset . '?' . http_build_query($query));
-                    */
-
-                }
-            }
 
             $filters[] = array(
                 'filter' => array(
                     'field' => 'dataset',
-                    'typ_id' => '2',
+                    'typ_id' => '5',
                     'parent_field' => false,
                     'label' => 'Zbiory danych:',
                     'desc' => false,
                     'multi' => '0',
+                    'dictionary' => $this->dataset_dictionary,
                 ),
             );
 
-            $orders[] = array(
-                'sorting' => array(
-                    'field' => 'date',
-                    'label' => 'Data',
-                    'direction' => 'desc',
-                ),
-            );
 
         }
 
 
         // ŁADOWANIE OBIEKTÓW
-        // $controller->Dataobject = ClassRegistry::init('Dane.Dataobject');		
+        // $controller->Dataobject = ClassRegistry::init('Dane.Dataobject');
         $controller->loadModel('Dane.Dataobject');
 
 
@@ -377,25 +459,35 @@ class DataobjectsBrowserComponent extends Component
             'conditions' => $conditions,
             'paramType' => 'querystring',
             'facets' => true,
+            'limit' => $this->limit,
         );
 
 
-        if (empty($order) && !empty($orders))
+        // debug( $queryData );
+
+
+        if (empty($order) && !empty($orders)) {
             $order = array(
                 'field' => $orders[0]['sorting']['field'],
                 'direction' => $orders[0]['sorting']['direction'],
                 'str' => $orders[0]['sorting']['field'] . ' ' . $orders[0]['sorting']['direction'],
             );
+        }
 
 
-        if (!$order_selected && !empty($order))
-            foreach ($orders as &$o)
-                if ($o['sorting']['field'] == $order['field'])
+        if (!$order_selected && !empty($order)) {
+            foreach ($orders as &$o) {
+                if ($o['sorting']['field'] == $order['field']) {
+                    $this->hlFieldsPush = $order['field'];
                     $o['selected_direction'] = $order['direction'];
+                }
+            }
+        }
 
 
-        if (!empty($order))
+        if (!empty($order)) {
             $queryData['order'] = $order['str'];
+        }
 
 
         $this->Paginator->settings = $queryData;
@@ -403,13 +495,35 @@ class DataobjectsBrowserComponent extends Component
 
 
         $pagination = $controller->Dataobject->pagination;
-        $facets = $controller->Dataobject->facets;
+        $pagination['page'] = (int)@$controller->request->query['page'];
+        if (!$pagination['page']) {
+            $pagination['page'] = 1;
+        }
 
+
+        $facets = $controller->Dataobject->facets;
+        $didyoumean = $controller->Dataobject->didyoumean;
 
         $total = $controller->Dataobject->total;
 
-        if (isset($controller->request->query))
+        if (isset($controller->request->query)) {
             $controller->data = array('Dataset' => $controller->request->query);
+        }
+
+        if (empty($this->excludeFilters)) {
+
+            $emptyFilters = empty($filters) && empty($switchers);
+
+        } else {
+
+            $_filters = array();
+            foreach ($filters as $f)
+                if (!in_array($f['filter']['field'], $this->excludeFilters))
+                    $_filters[] = $f;
+
+            $emptyFilters = empty($_filters) && empty($switchers);
+
+        }
 
 
         $page = array(
@@ -421,40 +535,90 @@ class DataobjectsBrowserComponent extends Component
             'showTitle' => $this->showTitle,
             'titleTag' => $this->titleTag,
             'noResultsTitle' => $this->noResultsTitle,
+            'back' => $this->back,
+            'backTitle' => $this->backTitle,
         );
-        $controller->set(compact('objects', 'pagination', 'orders', 'filters', 'total', 'facets', 'page', 'title_for_layout', 'conditions', 'switchers', 'q'));
 
-        $controller->set('dataBrowser', $this);
-
-
-        $path = App::path('View', 'Dane');
-        $path = $path[0] . $controller->viewPath . '/' . $controller->view . '.ctp';
-
-        if (file_exists($path))
-            $controller->set('originalViewPath', $path);
+        $config = $this->config;
 
 
-        if (strtolower($controller->request->ext) == 'json')
-            $controller->view = $this->getJSONPath();
-        else
+        if (@$controller->request->params['ext'] == 'json') {
+
+
+            $view = new View($controller, false);
+
+            $objects = $view->element('Dane.DataobjectsBrowser/objects', array_merge(
+                compact('objects', 'page', 'defaults', 'emptyFilters'),
+                array(
+                    'dataBrowser' => $this,
+                    'defaults' => $config['defaults'],
+                    'renderFile' => $this->renderFile,
+                    'class' => $this->class,
+                )
+            ));
+
+            $header = $view->element('Dane.DataobjectsBrowser/header', array_merge(
+                compact('pagination', 'orders', 'page', 'didyoumean', 'emptyFilters'),
+                array(
+                    'controlls' => $config['controlls'],
+                )
+            ));
+
+
+            $filters = $view->element('Dane.DataobjectsBrowser/filters', array_merge(compact('conditions', 'filters', 'switchers', 'facets', 'page', 'emptyFilters'), array('dataBrowser' => $this)));
+            $pagination = $view->element('Dane.DataobjectsBrowser/pagination', compact('pagination'));
+
+            $controller->set(compact('objects', 'header', 'filters', 'pagination'));
+            $controller->set('_serialize', array('objects', 'header', 'filters', 'pagination'));
+
+
+        } else {
+
+
+            $path = App::path('View', 'Dane');
+            $path = $path[0] . $controller->viewPath . '/' . $controller->view . '.ctp';
             $controller->view = $this->getViewPath();
+
+            if (file_exists($path)) {
+                $controller->set('originalViewPath', $path);
+            }
+
+            $controller->set(array_merge(
+                compact('conditions', 'objects', 'pagination', 'orders', 'filters', 'didyoumean', 'total', 'facets', 'page', 'title_for_layout', 'switchers', 'q', 'emptyFilters'),
+                array(
+                    'renderFile' => $this->renderFile,
+                    'class' => $this->class,
+                    'dataBrowser' => $this,
+                )
+            ));
+
+
+        }
+
 
     }
 
+    private function read_dataset_config($dataset)
+    {
+
+        $file = APP . 'Config/DataobjectsBrowser/datasets/' . $dataset . '.json';
+        if (
+            file_exists($file) &&
+            ($config = json_decode(file_get_contents($file), true))
+        ) {
+            $this->config = array_merge($this->config, $config);
+        }
+
+        return $this->config;
+
+    }
 
     public function getViewPath()
     {
 
         $path = App::path('View', 'Dane');
+
         return $path[0] . '/Component/dataobjectsBrowser/view.ctp';
-
-    }
-
-    public function getJSONPath()
-    {
-
-        $path = App::path('View', 'Dane');
-        return $path[0] . '/Component/dataobjectsBrowser/json.ctp';
 
     }
 

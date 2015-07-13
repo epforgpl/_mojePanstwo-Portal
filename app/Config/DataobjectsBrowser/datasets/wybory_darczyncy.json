@@ -1,0 +1,8 @@
+{
+    "controlls": [
+        "details",
+    ],
+    "defaults": {
+        "details": true
+    }
+}

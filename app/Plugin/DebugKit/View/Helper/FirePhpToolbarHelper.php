@@ -48,6 +48,7 @@ class FirePhpToolbarHelper extends ToolbarHelper
      * wraps FireCake::dump() allowing panel elements to continue functioning
      *
      * @param string $values
+     *
      * @return void
      */
     public function makeNeatArray($values)
@@ -60,6 +61,7 @@ class FirePhpToolbarHelper extends ToolbarHelper
      *
      * @param string $label Label of message
      * @param string $message Message content
+     *
      * @return void
      */
     public function message($label, $message)
@@ -73,6 +75,7 @@ class FirePhpToolbarHelper extends ToolbarHelper
      * @param array $rows Rows to print
      * @param array $headers Headers for table
      * @param array $options Additional options and params
+     *
      * @return void
      */
     public function table($rows, $headers, $options = array())
@@ -93,6 +96,7 @@ class FirePhpToolbarHelper extends ToolbarHelper
      *
      * @param $title
      * @param $anchor
+     *
      * @return void
      */
     public function panelStart($title, $anchor)

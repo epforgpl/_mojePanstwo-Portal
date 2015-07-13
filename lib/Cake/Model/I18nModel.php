@@ -14,35 +14,34 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('AppModel', 'Model');
+App::uses( 'AppModel', 'Model' );
 
 /**
  * A model used by TranslateBehavior to access the translation tables.
  *
  * @package Cake.Model
  */
-class I18nModel extends AppModel
-{
+class I18nModel extends AppModel {
 
-    /**
-     * Model name
-     *
-     * @var string
-     */
-    public $name = 'I18nModel';
+	/**
+	 * Model name
+	 *
+	 * @var string
+	 */
+	public $name = 'I18nModel';
 
-    /**
-     * Table name
-     *
-     * @var string
-     */
-    public $useTable = 'i18n';
+	/**
+	 * Table name
+	 *
+	 * @var string
+	 */
+	public $useTable = 'i18n';
 
-    /**
-     * Display field
-     *
-     * @var string
-     */
-    public $displayField = 'field';
+	/**
+	 * Display field
+	 *
+	 * @var string
+	 */
+	public $displayField = 'field';
 
 }

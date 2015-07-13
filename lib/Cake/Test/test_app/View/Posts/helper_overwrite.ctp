@@ -1,4 +1,4 @@
 <?php
 echo $html;
-echo $this->Html->link('Test link', '#');
+echo $this->Html->link( 'Test link', '#' );
 ?>

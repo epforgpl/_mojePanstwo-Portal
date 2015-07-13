@@ -47,26 +47,13 @@ class InputTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($output, $this->less->parse($input));
     }
 
-    public function fileNameProvider()
-    {
-        return array_map(function ($a) {
-                return array($a);
-            },
-            self::findInputNames());
-    }
-
-    // only run when env is set
     public function buildInput($inFname)
     {
         $css = $this->less->parse(file_get_contents($inFname));
         file_put_contents(self::outputNameFor($inFname), $css);
     }
 
-    static public function findInputNames($pattern = "*.less")
-    {
-        $files = glob(__DIR__ . "/" . self::$inputDir . "/" . $pattern);
-        return array_filter($files, "is_file");
-    }
+    // only run when env is set
 
     static public function outputNameFor($input)
     {
@@ -78,5 +65,20 @@ class InputTest extends PHPUnit_Framework_TestCase
         $out = preg_replace("/.less$/", ".css", $out);
 
         return __DIR__ . "/" . $out;
+    }
+
+    public function fileNameProvider()
+    {
+        return array_map(function ($a) {
+            return array($a);
+        },
+            self::findInputNames());
+    }
+
+    static public function findInputNames($pattern = "*.less")
+    {
+        $files = glob(__DIR__ . "/" . self::$inputDir . "/" . $pattern);
+
+        return array_filter($files, "is_file");
     }
 }

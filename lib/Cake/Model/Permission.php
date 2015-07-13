@@ -17,250 +17,257 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('AppModel', 'Model');
+App::uses( 'AppModel', 'Model' );
 
 /**
  * Permissions linking AROs with ACOs
  *
  * @package       Cake.Model
  */
-class Permission extends AppModel
-{
+class Permission extends AppModel {
 
-    /**
-     * Explicitly disable in-memory query caching
-     *
-     * @var boolean
-     */
-    public $cacheQueries = false;
+	/**
+	 * Explicitly disable in-memory query caching
+	 *
+	 * @var boolean
+	 */
+	public $cacheQueries = false;
 
-    /**
-     * Override default table name
-     *
-     * @var string
-     */
-    public $useTable = 'aros_acos';
+	/**
+	 * Override default table name
+	 *
+	 * @var string
+	 */
+	public $useTable = 'aros_acos';
 
-    /**
-     * Permissions link AROs with ACOs
-     *
-     * @var array
-     */
-    public $belongsTo = array('Aro', 'Aco');
+	/**
+	 * Permissions link AROs with ACOs
+	 *
+	 * @var array
+	 */
+	public $belongsTo = array( 'Aro', 'Aco' );
 
-    /**
-     * No behaviors for this model
-     *
-     * @var array
-     */
-    public $actsAs = null;
+	/**
+	 * No behaviors for this model
+	 *
+	 * @var array
+	 */
+	public $actsAs = null;
 
-    /**
-     * Constructor, used to tell this model to use the
-     * database configured for ACL
-     */
-    public function __construct()
-    {
-        $config = Configure::read('Acl.database');
-        if (!empty($config)) {
-            $this->useDbConfig = $config;
-        }
-        parent::__construct();
-    }
+	/**
+	 * Constructor, used to tell this model to use the
+	 * database configured for ACL
+	 */
+	public function __construct() {
+		$config = Configure::read( 'Acl.database' );
+		if ( ! empty( $config ) ) {
+			$this->useDbConfig = $config;
+		}
+		parent::__construct();
+	}
 
-    /**
-     * Checks if the given $aro has access to action $action in $aco
-     *
-     * @param string $aro ARO The requesting object identifier.
-     * @param string $aco ACO The controlled object identifier.
-     * @param string $action Action (defaults to *)
-     * @return boolean Success (true if ARO has access to action in ACO, false otherwise)
-     */
-    public function check($aro, $aco, $action = '*')
-    {
-        if (!$aro || !$aco) {
-            return false;
-        }
+	/**
+	 * Checks if the given $aro has access to action $action in $aco
+	 *
+	 * @param string $aro ARO The requesting object identifier.
+	 * @param string $aco ACO The controlled object identifier.
+	 * @param string $action Action (defaults to *)
+	 *
+	 * @return boolean Success (true if ARO has access to action in ACO, false otherwise)
+	 */
+	public function check( $aro, $aco, $action = '*' ) {
+		if ( ! $aro || ! $aco ) {
+			return false;
+		}
 
-        $permKeys = $this->getAcoKeys($this->schema());
-        $aroPath = $this->Aro->node($aro);
-        $acoPath = $this->Aco->node($aco);
+		$permKeys = $this->getAcoKeys( $this->schema() );
+		$aroPath  = $this->Aro->node( $aro );
+		$acoPath  = $this->Aco->node( $aco );
 
-        if (!$aroPath || !$acoPath) {
-            trigger_error(__d('cake_dev',
-                    "%s - Failed ARO/ACO node lookup in permissions check. Node references:\nAro: %s\nAco: %s",
-                    'DbAcl::check()',
-                    print_r($aro, true),
-                    print_r($aco, true)),
-                E_USER_WARNING
-            );
-            return false;
-        }
+		if ( ! $aroPath || ! $acoPath ) {
+			trigger_error( __d( 'cake_dev',
+					"%s - Failed ARO/ACO node lookup in permissions check. Node references:\nAro: %s\nAco: %s",
+					'DbAcl::check()',
+					print_r( $aro, true ),
+					print_r( $aco, true ) ),
+				E_USER_WARNING
+			);
 
-        if (!$acoPath) {
-            trigger_error(__d('cake_dev',
-                    "%s - Failed ACO node lookup in permissions check. Node references:\nAro: %s\nAco: %s",
-                    'DbAcl::check()',
-                    print_r($aro, true),
-                    print_r($aco, true)),
-                E_USER_WARNING
-            );
-            return false;
-        }
+			return false;
+		}
 
-        if ($action !== '*' && !in_array('_' . $action, $permKeys)) {
-            trigger_error(__d('cake_dev', "ACO permissions key %s does not exist in %s", $action, 'DbAcl::check()'), E_USER_NOTICE);
-            return false;
-        }
+		if ( ! $acoPath ) {
+			trigger_error( __d( 'cake_dev',
+					"%s - Failed ACO node lookup in permissions check. Node references:\nAro: %s\nAco: %s",
+					'DbAcl::check()',
+					print_r( $aro, true ),
+					print_r( $aco, true ) ),
+				E_USER_WARNING
+			);
 
-        $inherited = array();
-        $acoIDs = Hash::extract($acoPath, '{n}.' . $this->Aco->alias . '.id');
+			return false;
+		}
 
-        $count = count($aroPath);
-        for ($i = 0; $i < $count; $i++) {
-            $permAlias = $this->alias;
+		if ( $action !== '*' && ! in_array( '_' . $action, $permKeys ) ) {
+			trigger_error( __d( 'cake_dev', "ACO permissions key %s does not exist in %s", $action, 'DbAcl::check()' ), E_USER_NOTICE );
 
-            $perms = $this->find('all', array(
-                'conditions' => array(
-                    "{$permAlias}.aro_id" => $aroPath[$i][$this->Aro->alias]['id'],
-                    "{$permAlias}.aco_id" => $acoIDs
-                ),
-                'order' => array($this->Aco->alias . '.lft' => 'desc'),
-                'recursive' => 0
-            ));
+			return false;
+		}
 
-            if (empty($perms)) {
-                continue;
-            }
-            $perms = Hash::extract($perms, '{n}.' . $this->alias);
-            foreach ($perms as $perm) {
-                if ($action === '*') {
+		$inherited = array();
+		$acoIDs    = Hash::extract( $acoPath, '{n}.' . $this->Aco->alias . '.id' );
 
-                    foreach ($permKeys as $key) {
-                        if (!empty($perm)) {
-                            if ($perm[$key] == -1) {
-                                return false;
-                            } elseif ($perm[$key] == 1) {
-                                $inherited[$key] = 1;
-                            }
-                        }
-                    }
+		$count = count( $aroPath );
+		for ( $i = 0; $i < $count; $i ++ ) {
+			$permAlias = $this->alias;
 
-                    if (count($inherited) === count($permKeys)) {
-                        return true;
-                    }
-                } else {
-                    switch ($perm['_' . $action]) {
-                        case -1:
-                            return false;
-                        case 0:
-                            continue;
-                        case 1:
-                            return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
+			$perms = $this->find( 'all', array(
+				'conditions' => array(
+					"{$permAlias}.aro_id" => $aroPath[ $i ][ $this->Aro->alias ]['id'],
+					"{$permAlias}.aco_id" => $acoIDs
+				),
+				'order'      => array( $this->Aco->alias . '.lft' => 'desc' ),
+				'recursive'  => 0
+			) );
 
-    /**
-     * Allow $aro to have access to action $actions in $aco
-     *
-     * @param string $aro ARO The requesting object identifier.
-     * @param string $aco ACO The controlled object identifier.
-     * @param string $actions Action (defaults to *) Invalid permissions will result in an exception
-     * @param integer $value Value to indicate access type (1 to give access, -1 to deny, 0 to inherit)
-     * @return boolean Success
-     * @throws AclException on Invalid permission key.
-     */
-    public function allow($aro, $aco, $actions = '*', $value = 1)
-    {
-        $perms = $this->getAclLink($aro, $aco);
-        $permKeys = $this->getAcoKeys($this->schema());
-        $save = array();
+			if ( empty( $perms ) ) {
+				continue;
+			}
+			$perms = Hash::extract( $perms, '{n}.' . $this->alias );
+			foreach ( $perms as $perm ) {
+				if ( $action === '*' ) {
 
-        if (!$perms) {
-            trigger_error(__d('cake_dev', '%s - Invalid node', 'DbAcl::allow()'), E_USER_WARNING);
-            return false;
-        }
-        if (isset($perms[0])) {
-            $save = $perms[0][$this->alias];
-        }
+					foreach ( $permKeys as $key ) {
+						if ( ! empty( $perm ) ) {
+							if ( $perm[ $key ] == - 1 ) {
+								return false;
+							} elseif ( $perm[ $key ] == 1 ) {
+								$inherited[ $key ] = 1;
+							}
+						}
+					}
 
-        if ($actions === '*') {
-            $save = array_combine($permKeys, array_pad(array(), count($permKeys), $value));
-        } else {
-            if (!is_array($actions)) {
-                $actions = array('_' . $actions);
-            }
-            foreach ($actions as $action) {
-                if ($action{0} !== '_') {
-                    $action = '_' . $action;
-                }
-                if (!in_array($action, $permKeys, true)) {
-                    throw new AclException(__d('cake_dev', 'Invalid permission key "%s"', $action));
-                }
-                $save[$action] = $value;
-            }
-        }
-        list($save['aro_id'], $save['aco_id']) = array($perms['aro'], $perms['aco']);
+					if ( count( $inherited ) === count( $permKeys ) ) {
+						return true;
+					}
+				} else {
+					switch ( $perm[ '_' . $action ] ) {
+						case - 1:
+							return false;
+						case 0:
+							continue;
+						case 1:
+							return true;
+					}
+				}
+			}
+		}
 
-        if ($perms['link'] && !empty($perms['link'])) {
-            $save['id'] = $perms['link'][0][$this->alias]['id'];
-        } else {
-            unset($save['id']);
-            $this->id = null;
-        }
-        return ($this->save($save) !== false);
-    }
+		return false;
+	}
 
-    /**
-     * Get an array of access-control links between the given Aro and Aco
-     *
-     * @param string $aro ARO The requesting object identifier.
-     * @param string $aco ACO The controlled object identifier.
-     * @return array Indexed array with: 'aro', 'aco' and 'link'
-     */
-    public function getAclLink($aro, $aco)
-    {
-        $obj = array();
-        $obj['Aro'] = $this->Aro->node($aro);
-        $obj['Aco'] = $this->Aco->node($aco);
+	/**
+	 * Get the crud type keys
+	 *
+	 * @param array $keys Permission schema
+	 *
+	 * @return array permission keys
+	 */
+	public function getAcoKeys( $keys ) {
+		$newKeys = array();
+		$keys    = array_keys( $keys );
+		foreach ( $keys as $key ) {
+			if ( ! in_array( $key, array( 'id', 'aro_id', 'aco_id' ) ) ) {
+				$newKeys[] = $key;
+			}
+		}
 
-        if (empty($obj['Aro']) || empty($obj['Aco'])) {
-            return false;
-        }
-        $aro = Hash::extract($obj, 'Aro.0.' . $this->Aro->alias . '.id');
-        $aco = Hash::extract($obj, 'Aco.0.' . $this->Aco->alias . '.id');
-        $aro = current($aro);
-        $aco = current($aco);
+		return $newKeys;
+	}
 
-        return array(
-            'aro' => $aro,
-            'aco' => $aco,
-            'link' => $this->find('all', array('conditions' => array(
-                    $this->alias . '.aro_id' => $aro,
-                    $this->alias . '.aco_id' => $aco
-                )))
-        );
-    }
+	/**
+	 * Allow $aro to have access to action $actions in $aco
+	 *
+	 * @param string $aro ARO The requesting object identifier.
+	 * @param string $aco ACO The controlled object identifier.
+	 * @param string $actions Action (defaults to *) Invalid permissions will result in an exception
+	 * @param integer $value Value to indicate access type (1 to give access, -1 to deny, 0 to inherit)
+	 *
+	 * @return boolean Success
+	 * @throws AclException on Invalid permission key.
+	 */
+	public function allow( $aro, $aco, $actions = '*', $value = 1 ) {
+		$perms    = $this->getAclLink( $aro, $aco );
+		$permKeys = $this->getAcoKeys( $this->schema() );
+		$save     = array();
 
-    /**
-     * Get the crud type keys
-     *
-     * @param array $keys Permission schema
-     * @return array permission keys
-     */
-    public function getAcoKeys($keys)
-    {
-        $newKeys = array();
-        $keys = array_keys($keys);
-        foreach ($keys as $key) {
-            if (!in_array($key, array('id', 'aro_id', 'aco_id'))) {
-                $newKeys[] = $key;
-            }
-        }
-        return $newKeys;
-    }
+		if ( ! $perms ) {
+			trigger_error( __d( 'cake_dev', '%s - Invalid node', 'DbAcl::allow()' ), E_USER_WARNING );
+
+			return false;
+		}
+		if ( isset( $perms[0] ) ) {
+			$save = $perms[0][ $this->alias ];
+		}
+
+		if ( $actions === '*' ) {
+			$save = array_combine( $permKeys, array_pad( array(), count( $permKeys ), $value ) );
+		} else {
+			if ( ! is_array( $actions ) ) {
+				$actions = array( '_' . $actions );
+			}
+			foreach ( $actions as $action ) {
+				if ( $action{0} !== '_' ) {
+					$action = '_' . $action;
+				}
+				if ( ! in_array( $action, $permKeys, true ) ) {
+					throw new AclException( __d( 'cake_dev', 'Invalid permission key "%s"', $action ) );
+				}
+				$save[ $action ] = $value;
+			}
+		}
+		list( $save['aro_id'], $save['aco_id'] ) = array( $perms['aro'], $perms['aco'] );
+
+		if ( $perms['link'] && ! empty( $perms['link'] ) ) {
+			$save['id'] = $perms['link'][0][ $this->alias ]['id'];
+		} else {
+			unset( $save['id'] );
+			$this->id = null;
+		}
+
+		return ( $this->save( $save ) !== false );
+	}
+
+	/**
+	 * Get an array of access-control links between the given Aro and Aco
+	 *
+	 * @param string $aro ARO The requesting object identifier.
+	 * @param string $aco ACO The controlled object identifier.
+	 *
+	 * @return array Indexed array with: 'aro', 'aco' and 'link'
+	 */
+	public function getAclLink( $aro, $aco ) {
+		$obj        = array();
+		$obj['Aro'] = $this->Aro->node( $aro );
+		$obj['Aco'] = $this->Aco->node( $aco );
+
+		if ( empty( $obj['Aro'] ) || empty( $obj['Aco'] ) ) {
+			return false;
+		}
+		$aro = Hash::extract( $obj, 'Aro.0.' . $this->Aro->alias . '.id' );
+		$aco = Hash::extract( $obj, 'Aco.0.' . $this->Aco->alias . '.id' );
+		$aro = current( $aro );
+		$aco = current( $aco );
+
+		return array(
+			'aro'  => $aro,
+			'aco'  => $aco,
+			'link' => $this->find( 'all', array(
+				'conditions' => array(
+					$this->alias . '.aro_id' => $aro,
+					$this->alias . '.aco_id' => $aco
+				)
+			) )
+		);
+	}
 }

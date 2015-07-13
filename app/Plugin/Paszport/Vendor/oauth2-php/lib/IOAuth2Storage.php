@@ -24,7 +24,7 @@ interface IOAuth2Storage
      *
      * @ingroup oauth2_section_3
      */
-    public function checkClientCredentials($client_id, $client_secret = NULL);
+    public function checkClientCredentials($client_id, $client_secret = null);
 
     /**
      * Get client details corresponding client_id.
@@ -80,7 +80,7 @@ interface IOAuth2Storage
      *
      * @ingroup oauth2_section_4
      */
-    public function setAccessToken($oauth_token, $client_id, $user_id, $expires, $scope = NULL);
+    public function setAccessToken($oauth_token, $client_id, $user_id, $expires, $scope = null);
 
     /**
      * Check restricted grant types of corresponding client identifier.

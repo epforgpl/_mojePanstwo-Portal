@@ -4,6 +4,8 @@ App::uses('AppHelper', 'View/Helper');
 
 class CombinatorHelper extends AppHelper
 {
+    var $helpers = array('Html');
+
     var $Vue = null;
     var $libs = array('js' => array(), 'css' => array());
     var $viewLibs = array('js' => array(), 'css' => array());
@@ -52,17 +54,47 @@ class CombinatorHelper extends AppHelper
         }
     }
 
+    private function clean_path($path)
+    {
+        // delete the / at the end of the path
+        $len = strlen($path);
+        if (strrpos($path, '/') == ($len - 1)) {
+            $path = substr($path, 0, $len - 1);
+        }
+
+        // delete the / at the start of the path
+        if (strpos($path, '/') == '0') {
+            $path = substr($path, 1, $len);
+        }
+
+        return $path;
+    }
+
     function scripts($type, $async = false)
     {
         switch ($type) {
             case 'js':
                 $this->libs[$type] = array_merge($this->libs[$type], $this->viewLibs[$type]);
-                $cachefile_js = $this->generate_filename('js');
-                return $this->get_js_html($cachefile_js, $async);
+
+                if (Configure::read('debug') > 0) {
+                    return $this->Html->script($this->libs[$type]);
+
+                } else {
+                    $cachefile_js = $this->generate_filename('js');
+
+                    return $this->get_js_html($cachefile_js, $async);
+                }
             case 'css':
                 $this->libs[$type] = array_merge($this->libs[$type], $this->viewLibs[$type]);
-                $cachefile_css = $this->generate_filename('css');
-                return $this->get_css_html($cachefile_css);
+
+                if (Configure::read('debug') > 0) {
+                    return $this->Html->css($this->libs[$type]);
+
+                } else {
+                    $cachefile_css = $this->generate_filename('css');
+
+                    return $this->get_css_html($cachefile_css);
+                }
             default:
                 $this->libs['js'] = array_merge($this->libs['js'], $this->viewLibs['js']);
                 $cachefile_js = $this->generate_filename('js');
@@ -70,6 +102,7 @@ class CombinatorHelper extends AppHelper
                 $this->libs[$type] = array_merge($this->libs[$type], $this->viewLibs[$type]);
                 $cachefile_css = $this->generate_filename('css');
                 $output_css = $this->get_css_html($cachefile_css);
+
                 return $output_css . "\n" . $cachefile_js;
         }
     }
@@ -103,7 +136,19 @@ class CombinatorHelper extends AppHelper
         }
         $hash = implode('-', $this->libs[$type]);
         $hash = $lastmodified . '-' . md5(Inflector::slug(str_replace('css', '', strtolower($hash)), '-')) . '-' . md5(serialize($this->inline_code[$type]));
+
         return 'cache-' . $hash . '.' . $type;
+    }
+
+    private function clean_lib_list($filename, $type)
+    {
+        if (strpos($filename, '?') === false) {
+            if (strpos($filename, '.' . $type) === false) {
+                $filename .= '.' . $type;
+            }
+        }
+
+        return $filename;
     }
 
     private function get_js_html($cachefile, $async)
@@ -150,6 +195,7 @@ class CombinatorHelper extends AppHelper
                 fclose($fp);
             }
         }
+
         return '<script ' . ($async == true ? 'async ' : '') . 'src="' . $this->url('/' . $this->extraPath . $this->__options['js']['cachePath'] . '/' . $cachefile) . '" type="text/javascript"></script>';
     }
 
@@ -197,6 +243,7 @@ class CombinatorHelper extends AppHelper
                 fclose($fp);
             }
         }
+
         return '<link href="' . $this->url('/' . $this->extraPath . $this->__options['css']['cachePath'] . '/' . $cachefile) . '" rel="stylesheet" type="text/css" >';
     }
 
@@ -248,31 +295,5 @@ class CombinatorHelper extends AppHelper
                 }
                 break;
         }
-    }
-
-    private function clean_lib_list($filename, $type)
-    {
-        if (strpos($filename, '?') === false) {
-            if (strpos($filename, '.' . $type) === false) {
-                $filename .= '.' . $type;
-            }
-        }
-
-        return $filename;
-    }
-
-    private function clean_path($path)
-    {
-        // delete the / at the end of the path
-        $len = strlen($path);
-        if (strrpos($path, '/') == ($len - 1)) {
-            $path = substr($path, 0, $len - 1);
-        }
-
-        // delete the / at the start of the path
-        if (strpos($path, '/') == '0') {
-            $path = substr($path, 1, $len);
-        }
-        return $path;
     }
 }

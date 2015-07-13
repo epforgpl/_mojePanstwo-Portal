@@ -25,14 +25,14 @@
  */
 
 // Setup a 'default' cache configuration for use in the application.
-Cache::config('default', array('engine' => 'File'));
-Cache::config('short', array(
-    'engine' => 'File',
-    'duration' => '+3 hours',
-    'path' => CACHE,
-    'prefix' => 'cake_short_'
-));
-Configure::write('Config.language', 'pol');
+Cache::config( 'default', array( 'engine' => 'File' ) );
+Cache::config( 'short', array(
+	'engine'   => 'File',
+	'duration' => '+3 hours',
+	'path'     => CACHE,
+	'prefix'   => 'cake_short_'
+) );
+Configure::write( 'Config.language', 'pol' );
 /**
  * The settings below can be used to set additional paths to models, views and controllers.
  *
@@ -94,44 +94,50 @@ Configure::write('Config.language', 'pol');
  *
  * ));
  */
-Configure::write('Dispatcher.filters', array(
-    'AssetDispatcher',
-    'CacheDispatcher'
-));
+Configure::write( 'Dispatcher.filters', array(
+	'AssetDispatcher',
+	'CacheDispatcher'
+) );
 CakePlugin::loadAll(
-    array(
-        array('routes' => true, 'bootstrap' => true),
-        'DebugKit' => array('routes' => false),
-        'UserBar' => array('routes' => false, 'bootstrap' => true),
-        'BoostCake' => array('bootstrap' => false, 'routes' => false),
-        'Composer' => array('routes' => false),
-        'Less' => array('routes' => false, 'bootstrap' => false),
-        'Facebook' => array('routes' => false, 'bootstrap' => false),
-        'Expandable' => array('routes' => false, 'bootstrap' => false),
-        'Upload' => array('routes' => false, 'bootstrap' => false),
-        'Api' => array('routes' => true, 'bootstrap' => false),
-        'KtoTuRzadzi' => array('routes' => true, 'bootstrap' => false),
-        'Powiadomienia' => array('routes' => true, 'bootstrap' => false),
-        'PanstwoInternet' => array('routes' => true, 'bootstrap' => false),
-        'OAuth' => array('bootstrap' => false, 'routes' => true),
-        'Combinator' => array('bootstrap' => false, 'routes' => false),
-        'Mapaprawa' => array('routes' => true, 'bootstrap' => false),
-    )
+	array(
+		array( 'routes' => true, 'bootstrap' => true ),
+		'DebugKit'      => array( 'routes' => false ),
+		'UserBar'       => array( 'routes' => false, 'bootstrap' => true ),
+		'BoostCake'     => array( 'bootstrap' => false, 'routes' => false ),
+		'Administracja' => array( 'routes' => false, 'bootstrap' => false ),
+		'Composer'      => array( 'routes' => false ),
+		'Less'          => array( 'routes' => false, 'bootstrap' => false ),
+		'Facebook'      => array( 'routes' => false, 'bootstrap' => false ),
+		'Expandable'    => array( 'routes' => false, 'bootstrap' => false ),
+		'Upload'        => array( 'routes' => false, 'bootstrap' => false ),
+		'Api'           => array( 'routes' => true, 'bootstrap' => false ),
+		'Pisma'         => array( 'routes' => true, 'bootstrap' => false ),
+		'MojaGmina'     => array( 'routes' => true, 'bootstrap' => false ),
+		'Powiadomienia' => array( 'routes' => true, 'bootstrap' => false ),
+		'Orzecznictwo' => array( 'routes' => true, 'bootstrap' => false ),
+		'Ngo' => array( 'routes' => true, 'bootstrap' => false ),
+		'Media'         => array( 'routes' => true, 'bootstrap' => false ),
+		'OAuth'         => array( 'bootstrap' => false, 'routes' => true ),
+		'Combinator'    => array( 'bootstrap' => false, 'routes' => false ),
+		'Mapaprawa'     => array( 'routes' => true, 'bootstrap' => false ),
+		'Kultura'       => array( 'routes' => true, 'bootstrap' => false ),
+		'Finanse'       => array( 'routes' => true, 'bootstrap' => false ),
+	)
 );
 /**
  * Configures default file logging options
  */
-App::uses('CakeLog', 'Log');
-CakeLog::config('debug', array(
-    'engine' => 'File',
-    'types' => array('notice', 'info', 'debug'),
-    'file' => 'debug',
-));
-CakeLog::config('error', array(
-    'engine' => 'File',
-    'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
-    'file' => 'error',
-));
+App::uses( 'CakeLog', 'Log' );
+CakeLog::config( 'debug', array(
+	'engine' => 'File',
+	'types'  => array( 'notice', 'info', 'debug' ),
+	'file'   => 'debug',
+) );
+CakeLog::config( 'error', array(
+	'engine' => 'File',
+	'types'  => array( 'warning', 'error', 'critical', 'alert', 'emergency' ),
+	'file'   => 'error',
+) );
 
 
 //setlocale(LC_ALL, 'pl_PL');

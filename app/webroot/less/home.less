@@ -1,183 +1,198 @@
 @import "variable";
-@import "statusbar-submenu.less";
 
-#_mojePanstwoCockpit {
-    ._mojePanstwoCockpitContent {
+#home {
+  float: left;
+  min-height: 100%;
+  width: 100%;
+
+  ._handler {
+    background: rgba(0, 0, 0, 0.4);
+
+    .startWindow {
+      min-height: 100vh;
+
+      .windowSet {
         width: 100%;
+        float: left;
+        padding-top: 30px;
+        padding-bottom: 30px;
+
+        ._mPSearchOutside {
+          height: 50px;
+
+          .main_input {
+            @color: #dddddd;
+
+            border-bottom: 2px solid #63afea;
+
+            .glyph-addon {
+              color: @color;
+            }
+            .form-control {
+              background-color: rgba(0, 0, 0, .6);
+              border-width: 0;
+              color: @color;
+              -webkit-border-bottom-left-radius: 0;
+              -webkit-border-bottom-right-radius: 0;
+              -moz-border-radius-bottomleft: 0;
+              -moz-border-radius-bottomright: 0;
+              border-bottom-left-radius: 0;
+              border-bottom-right-radius: 0;
+
+              &:focus {
+                background-color: #ffffff;
+                color: #333333;
+              }
+            }
+          }
+
+          .suggesterBlock {
+            margin-bottom: 0;
+            display: block;
+          }
+        }
+        .basicOptions {
+          width: 100%;
+          float: left;
+
+          .part {
+            &:first-child {
+              padding-left: 0;
+            }
+            &:last-child {
+              padding-right: 0;
+            }
+
+            .mainBrick {
+              min-height: 290px;
+              border-bottom: 2px solid #63afea;
+              padding: 25px 25px 80px;
+              color: #ffffff;
+              background: rgba(0, 0, 0, .6);
+              position: relative;
+
+              .title {
+                font-size: 50px;
+                font-weight: 300;
+                text-align: center;
+                color: #ffffff;
+              }
+
+              .line {
+                width: 65px;
+                height: 2px;
+                border-bottom: 1px solid #dddddd;
+                margin: 5px auto 15px;
+                display: block;
+              }
+
+              .description {
+                font-size: 15px;
+                line-height: 1.2em;
+                text-align: center;
+                font-weight: 300;
+              }
+
+              .action {
+                position: absolute;
+                bottom: 25px;
+                left: 50%;
+
+                -webkit-transform: translate(-50%, 0);
+                -moz-transform: translate(-50%, 0);
+                -ms-transform: translate(-50%, 0);
+                -o-transform: translate(-50%, 0);
+                transform: translate(-50%, 0);
+              }
+            }
+          }
+        }
+
+        .appsList {
+          width: 100%;
+          float: left;
+          margin-top: 20px;
+
+          h2 {
+            color: #ffffff;
+            text-align: center;
+          }
+
+          .homePageIcon {
+            @hoverColor: #63afea;
+
+            padding-top: 8px;
+            padding-right: 30px;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            height: 120px;
+            text-align: center;
+
+            -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color=#333333)";
+            text-shadow: 2px 2px 2px #333333;
+            filter: progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color=#333333);
+
+            &:hover {
+              border-left-color: @hoverColor;
+
+              > i, > p {
+                color: @hoverColor;
+              }
+            }
+
+            > i {
+              margin: 0 auto;
+              display: block;
+              height: 50px;
+              min-width: 50px;
+              max-width: 65px;
+              color: #ffffff;
+
+              &:before {
+                font-size: 40px;
+                line-height: 50px;
+              }
+            }
+
+            > p {
+              margin-top: 20px;
+              color: #ffffff;
+              font-size: 14px;
+              font-weight: 700;
+              line-height: 1em;
+            }
+          }
+        }
+      }
     }
+  }
 }
 
-#_wrapper {
-    .standardGradient();
+.autocompleteSuggester .ui-menu-item a > div._label {
+  min-width: 58px;
+}
 
-    ._mojePanstwoCockpitMenuUp {
-        display: none;
+@media (max-width: 768px) {
+  #home {
+    .startWindow {
+      .windowSet {
+        width: 100%;
+        float: left;
+
+        ._mPSearchOutside {
+          margin-right: 0;
+          margin-top: 20px;
+        }
+
+        .basicOptions .part {
+          padding-left: 0;
+          padding-right: 0;
+
+          .mainBrick {
+            margin-bottom: 20px;
+          }
+        }
+      }
     }
-
-    #home {
-        font-family: "Lato", sans-serif;
-        color: #ffffff;
-
-        .header h2 {
-            float: left;
-            font-size: 20px;
-            font-weight: 300;
-            letter-spacing: 0.05em;
-            line-height: 1.3em;
-            text-align: center;
-            margin: 3em 0;
-            color: #F3F3F3;
-            padding: 0 20px;
-
-            strong {
-                font-weight: 700;
-            }
-            span {
-                font-weight: 300;
-            }
-
-            a.learnMore {
-                color: #ffffff;
-                font-size: 18px;
-                font-weight: 400;
-            }
-        }
-
-        .globalSearch {
-            @searchBackground: #026899;
-            @searchHeight: 44px;
-
-            font-weight: 400;
-            font-size: 18px;
-            margin-bottom: 1em;
-
-            .input-group {
-                width: 100%;
-
-                .form-control,
-                .input-group-btn button {
-                    height: @searchHeight;
-                    color: #FFF !important;
-                    font-size: 16px;
-
-                }
-                .form-control {
-                    @iconColor: #026c99;
-                    @iconColorShadow: #025A80;
-                    @iconColorBorder: lighten(@iconColor, 1%);
-
-                    border: 1px solid #02709E;
-                    background-color: @searchBackground;
-                    padding-right: @searchHeight;
-                    width: 100%;
-                    -moz-border-radius: 20px; /*Firefox*/
-                    -webkit-border-radius: 20px; /*Safari, Chrome*/
-                    border-radius: 20px;
-                    font-size: 16px;
-
-                }
-
-                .form-control::-webkit-input-placeholder {
-                    /* WebKit browsers */
-                    color: #BBB;
-                }
-                .form-control:-moz-placeholder {
-                    /* Mozilla Firefox 4 to 18 */
-                    color: #BBB;
-                }
-                .form-control::-moz-placeholder {
-                    /* Mozilla Firefox 19+ */
-                    color: #BBB;
-                }
-                .form-control:-ms-input-placeholder {
-                    /* Internet Explorer 10+ */
-                    color: #BBB;
-                }
-
-                .input-group-btn {
-                    position: inherit;
-
-                    button {
-                        position: absolute;
-                        top: 0;
-                        right: 2px;
-                        background: none;
-                        border-width: 0;
-                        width: @searchHeight;
-                        text-align: center;
-                        color: #BBB;
-                    }
-                }
-            }
-        }
-
-        .msg {
-            text-align: center;
-            font-weight: 300;
-            color: #FFFFFF;
-        }
-
-        .apps ul {
-            margin: 4em 0 0;
-            padding: 0;
-            list-style: none;
-
-            li {
-                margin-bottom: 5em;
-                height: 145px;
-
-                .appContruct {
-                    &.appFolder {
-                        position: relative;
-                        cursor: pointer;
-                    }
-
-                    @iconSize: 90px;
-                    @iconColor: #026c99;
-
-                    width: 100%;
-                    display: block;
-                    text-align: center;
-                    color: #ffffff;
-
-                    &:hover {
-                        .appIcon {
-                            border: 3px solid #218AB6;
-                        }
-                    }
-
-                    .appIcon {
-                        @iconColor: #026c99;
-
-                        width: @iconSize;
-                        height: @iconSize;
-                        margin: 0 auto;
-                        background-color: @iconColor;
-                        border: 3px solid @iconColor;
-                        -moz-border-radius: 50px; /*Firefox*/
-                        -webkit-border-radius: 50px; /*Safari, Chrome*/
-                        border-radius: 50px;
-
-                        .innerIcon {
-                            width: @iconSize;
-                            height: @iconSize;
-                            display: table-cell;
-                            vertical-align: middle;
-                        }
-
-                    }
-
-                    .appName {
-                        margin-top: 20px;
-                        font-size: 16px;
-                        font-weight: 400;
-                        line-height: 1em;
-                        text-align: center;
-                        color: #ffffff;
-                    }
-                }
-
-            }
-        }
-    }
+  }
 }

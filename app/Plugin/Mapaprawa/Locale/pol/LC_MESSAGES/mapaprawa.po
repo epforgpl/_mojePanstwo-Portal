@@ -1,6 +1,9 @@
 msgid "LC_MAPAPRAWA_STATUSETAPU"
 msgstr "Co się wydarzyło?"
 
+msgid "LC_MAPAPRAWA_DOKUMENT"
+msgstr "Dokument"
+
 msgid "LC_MAPAPRAWA_DOKUMENTACJA"
 msgstr "Dokumentacja"
 
@@ -24,3 +27,9 @@ msgstr "Opinie"
 
 msgid "LC_MAPAPRAWA_STATYSTYKI"
 msgstr "Statystyki"
+
+msgid "LC_MAPAPRAWA_POPRZEDNIE_ETAPY"
+msgstr "Poprzednie etapy"
+
+msgid "LC_MAPAPRAWA_NASTEPNE_ETAPY"
+msgstr "Następne etapy"

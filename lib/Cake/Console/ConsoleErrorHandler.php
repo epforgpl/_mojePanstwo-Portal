@@ -17,9 +17,9 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('ErrorHandler', 'Error');
-App::uses('ConsoleOutput', 'Console');
-App::uses('CakeLog', 'Log');
+App::uses( 'ErrorHandler', 'Error' );
+App::uses( 'ConsoleOutput', 'Console' );
+App::uses( 'CakeLog', 'Log' );
 
 /**
  * Error Handler for Cake console. Does simple printing of the
@@ -27,84 +27,84 @@ App::uses('CakeLog', 'Log');
  *
  * @package       Cake.Console
  */
-class ConsoleErrorHandler
-{
+class ConsoleErrorHandler {
 
-    /**
-     * Standard error stream.
-     *
-     * @var ConsoleOutput
-     */
-    public static $stderr;
+	/**
+	 * Standard error stream.
+	 *
+	 * @var ConsoleOutput
+	 */
+	public static $stderr;
 
-    /**
-     * Get the stderr object for the console error handling.
-     *
-     * @return ConsoleOutput
-     */
-    public static function getStderr()
-    {
-        if (empty(self::$stderr)) {
-            self::$stderr = new ConsoleOutput('php://stderr');
-        }
-        return self::$stderr;
-    }
+	/**
+	 * Handle a exception in the console environment. Prints a message to stderr.
+	 *
+	 * @param Exception $exception The exception to handle
+	 *
+	 * @return void
+	 */
+	public function handleException( Exception $exception ) {
+		$stderr = self::getStderr();
+		$stderr->write( __d( 'cake_console', "<error>Error:</error> %s\n%s",
+			$exception->getMessage(),
+			$exception->getTraceAsString()
+		) );
 
-    /**
-     * Handle a exception in the console environment. Prints a message to stderr.
-     *
-     * @param Exception $exception The exception to handle
-     * @return void
-     */
-    public function handleException(Exception $exception)
-    {
-        $stderr = self::getStderr();
-        $stderr->write(__d('cake_console', "<error>Error:</error> %s\n%s",
-            $exception->getMessage(),
-            $exception->getTraceAsString()
-        ));
-        return $this->_stop($exception->getCode() ? $exception->getCode() : 1);
-    }
+		return $this->_stop( $exception->getCode() ? $exception->getCode() : 1 );
+	}
 
-    /**
-     * Handle errors in the console environment. Writes errors to stderr,
-     * and logs messages if Configure::read('debug') is 0.
-     *
-     * @param integer $code Error code
-     * @param string $description Description of the error.
-     * @param string $file The file the error occurred in.
-     * @param integer $line The line the error occurred on.
-     * @param array $context The backtrace of the error.
-     * @return void
-     */
-    public function handleError($code, $description, $file = null, $line = null, $context = null)
-    {
-        if (error_reporting() === 0) {
-            return;
-        }
-        $stderr = self::getStderr();
-        list($name, $log) = ErrorHandler::mapErrorCode($code);
-        $message = __d('cake_console', '%s in [%s, line %s]', $description, $file, $line);
-        $stderr->write(__d('cake_console', "<error>%s Error:</error> %s\n", $name, $message));
+	/**
+	 * Get the stderr object for the console error handling.
+	 *
+	 * @return ConsoleOutput
+	 */
+	public static function getStderr() {
+		if ( empty( self::$stderr ) ) {
+			self::$stderr = new ConsoleOutput( 'php://stderr' );
+		}
 
-        if (!Configure::read('debug')) {
-            CakeLog::write($log, $message);
-        }
+		return self::$stderr;
+	}
 
-        if ($log === LOG_ERR) {
-            return $this->_stop(1);
-        }
-    }
+	/**
+	 * Wrapper for exit(), used for testing.
+	 *
+	 * @param integer $code The exit code.
+	 *
+	 * @return void
+	 */
+	protected function _stop( $code = 0 ) {
+		exit( $code );
+	}
 
-    /**
-     * Wrapper for exit(), used for testing.
-     *
-     * @param integer $code The exit code.
-     * @return void
-     */
-    protected function _stop($code = 0)
-    {
-        exit($code);
-    }
+	/**
+	 * Handle errors in the console environment. Writes errors to stderr,
+	 * and logs messages if Configure::read('debug') is 0.
+	 *
+	 * @param integer $code Error code
+	 * @param string $description Description of the error.
+	 * @param string $file The file the error occurred in.
+	 * @param integer $line The line the error occurred on.
+	 * @param array $context The backtrace of the error.
+	 *
+	 * @return void
+	 */
+	public function handleError( $code, $description, $file = null, $line = null, $context = null ) {
+		if ( error_reporting() === 0 ) {
+			return;
+		}
+		$stderr = self::getStderr();
+		list( $name, $log ) = ErrorHandler::mapErrorCode( $code );
+		$message = __d( 'cake_console', '%s in [%s, line %s]', $description, $file, $line );
+		$stderr->write( __d( 'cake_console', "<error>%s Error:</error> %s\n", $name, $message ) );
+
+		if ( ! Configure::read( 'debug' ) ) {
+			CakeLog::write( $log, $message );
+		}
+
+		if ( $log === LOG_ERR ) {
+			return $this->_stop( 1 );
+		}
+	}
 
 }

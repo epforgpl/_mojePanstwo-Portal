@@ -1,5 +1,13 @@
 <IfModule mod_rewrite.c>
     RewriteEngine on
+    
+    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+    RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+    RewriteRule   ^dane/administracja_publiczna(.*)  /dane/instytucje$1  [R,L]
+    RewriteRule   ^dane/legislacja_projekty_ustaw(.*)  /dane/prawo_projekty$1  [R,L]
+    RewriteRule   ^dane/legislacja_projekty_uchwal(.*)  /dane/prawo_projekty$1  [R,L]
+    
     RewriteRule    ^$   app/webroot/    [L]
     RewriteRule    (.*) app/webroot/$1    [L]
 </IfModule>

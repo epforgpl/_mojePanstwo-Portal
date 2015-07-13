@@ -37,6 +37,7 @@ class HistoryPanel extends DebugPanel
      * Constructor
      *
      * @param array $settings Array of settings.
+     *
      * @return \HistoryPanel
      */
     public function __construct($settings)
@@ -50,6 +51,7 @@ class HistoryPanel extends DebugPanel
      * beforeRender callback function
      *
      * @param Controller $controller
+     *
      * @return array contents for panel
      */
     public function beforeRender(Controller $controller)
@@ -80,13 +82,15 @@ class HistoryPanel extends DebugPanel
                         'plugin' => 'debug_kit',
                         'controller' => 'toolbar_access',
                         'action' => 'history_state',
-                        $i + 1))
+                        $i + 1
+                    ))
                 );
             }
         }
         if (count($historyStates) >= $this->history) {
             array_pop($historyStates);
         }
+
         return $historyStates;
     }
 }

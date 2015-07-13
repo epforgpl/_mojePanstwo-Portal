@@ -17,15 +17,13 @@ class KolejStacjeController extends DataobjectsController
         */
     );
 
-    public function view()
-    {
-        parent::view();
-    }
-
     public function linie()
     {
+
+        $this->addInitLayers(array('linie'));
+
         parent::view();
-        $this->object->loadLayer('linie');
+
         $ids = array();
         foreach ($this->object->layers['linie'] as $linia) {
             array_push($ids, $linia['a']['id']);

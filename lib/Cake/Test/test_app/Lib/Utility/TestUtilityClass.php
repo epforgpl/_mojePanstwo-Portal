@@ -23,6 +23,5 @@
  *
  * @package       Cake.Test.TestApp.Lib.Utility
  */
-class TestUtilityClass
-{
+class TestUtilityClass {
 }

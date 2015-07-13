@@ -4,11 +4,11 @@ App::uses('DataobjectsController', 'Dane.Controller');
 
 class MiejscowosciController extends DataobjectsController
 {
-    public $menu = array();
 
     public function view()
     {
         parent::view();
-        $this->set('obszary', $this->object->loadLayer('obszary'));
+        $this->redirect('/dane/gminy/' . $this->object->getData('gmina_id') . '/miejscowosci/' . $this->object->getId());
     }
+
 } 

@@ -140,7 +140,7 @@ jQuery(document).ready(function () {
                     }
                 }
             });
-        }
+        };
 
 //        checkStatus();
 //        var pingerCheck = setInterval(checkStatus, delay);

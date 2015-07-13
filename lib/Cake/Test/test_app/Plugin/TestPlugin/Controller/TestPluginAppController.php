@@ -18,13 +18,12 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('AppController', 'Controller');
+App::uses( 'AppController', 'Controller' );
 
 /**
  * Class TestPluginAppController
  *
  * @package       Cake.Test.TestApp.Plugin.TestPlugin.Controller
  */
-class TestPluginAppController extends AppController
-{
+class TestPluginAppController extends AppController {
 }

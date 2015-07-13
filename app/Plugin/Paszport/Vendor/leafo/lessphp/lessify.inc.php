@@ -33,14 +33,34 @@ class easyparse
 
     function seek($where = null)
     {
-        if ($where === null) return $this->count;
-        else $this->count = $where;
+        if ($where === null) {
+            return $this->count;
+        } else {
+            $this->count = $where;
+        }
+
         return true;
     }
 
-    function preg_quote($what)
+    function literal($what, $eatWhitespace = true)
     {
-        return preg_quote($what, '/');
+        // this is here mainly prevent notice from { } string accessor
+        if ($this->count >= strlen($this->buffer)) {
+            return false;
+        }
+
+        // shortcut on single letter
+        if (!$eatWhitespace and strlen($what) == 1) {
+            if ($this->buffer{$this->count} == $what) {
+                $this->count++;
+
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        return $this->match($this->preg_quote($what), $m, $eatWhitespace);
     }
 
     function match($regex, &$out, $eatWhitespace = true)
@@ -48,25 +68,16 @@ class easyparse
         $r = '/' . $regex . ($eatWhitespace ? '\s*' : '') . '/Ais';
         if (preg_match($r, $this->buffer, $out, null, $this->count)) {
             $this->count += strlen($out[0]);
+
             return true;
         }
+
         return false;
     }
 
-    function literal($what, $eatWhitespace = true)
+    function preg_quote($what)
     {
-        // this is here mainly prevent notice from { } string accessor
-        if ($this->count >= strlen($this->buffer)) return false;
-
-        // shortcut on single letter
-        if (!$eatWhitespace and strlen($what) == 1) {
-            if ($this->buffer{$this->count} == $what) {
-                $this->count++;
-                return true;
-            } else return false;
-        }
-
-        return $this->match($this->preg_quote($what), $m, $eatWhitespace);
+        return preg_quote($what, '/');
     }
 
 }
@@ -75,6 +86,38 @@ class tagparse extends easyparse
 {
     static private $combinators = null;
     static private $match_opts = null;
+
+    static function compilePaths($paths)
+    {
+        return implode(', ', array_map(array('self', 'compilePath'), $paths));
+    }
+
+    static function compilePath($path)
+    {
+        return implode(' ', array_map(array('self', 'compileTag'), $path));
+    }
+
+    static function compileTag($tag)
+    {
+        ob_start();
+        if (isset($tag['comb'])) {
+            echo $tag['comb'] . " ";
+        }
+        if (isset($tag['front'])) {
+            echo $tag['front'];
+        }
+        if (isset($tag['attr'])) {
+            echo '[' . $tag['attr'];
+            if (isset($tag['op'])) {
+                echo $tag['op'] . $tag['op_value'];
+            }
+            echo ']';
+        }
+
+        return ob_get_clean();
+    }
+
+    // array of tags
 
     function parse()
     {
@@ -89,44 +132,100 @@ class tagparse extends easyparse
         $this->buffer = preg_replace('/\s+/', ' ', $this->buffer) . ' ';
 
         $tags = array();
-        while ($this->tag($t)) $tags[] = $t;
+        while ($this->tag($t)) {
+            $tags[] = $t;
+        }
 
         return $tags;
     }
 
-    static function compileString($string)
+    function tag(&$out)
     {
-        list(, $delim, $str) = $string;
-        $str = str_replace($delim, "\\" . $delim, $str);
-        $str = str_replace("\n", "\\\n", $str);
-        return $delim . $str . $delim;
-    }
-
-    static function compilePaths($paths)
-    {
-        return implode(', ', array_map(array('self', 'compilePath'), $paths));
-    }
-
-    // array of tags
-    static function compilePath($path)
-    {
-        return implode(' ', array_map(array('self', 'compileTag'), $path));
-    }
-
-
-    static function compileTag($tag)
-    {
-        ob_start();
-        if (isset($tag['comb'])) echo $tag['comb'] . " ";
-        if (isset($tag['front'])) echo $tag['front'];
-        if (isset($tag['attr'])) {
-            echo '[' . $tag['attr'];
-            if (isset($tag['op'])) {
-                echo $tag['op'] . $tag['op_value'];
-            }
-            echo ']';
+        $s = $this->seek();
+        $tag = array();
+        if ($this->combinator($op)) {
+            $tag['comb'] = $op;
         }
-        return ob_get_clean();
+
+        if (!$this->match('(.*?)( |$|\[|' . self::$combinators . ')', $match)) {
+            $this->seek($s);
+
+            return false;
+        }
+
+        if (!empty($match[3])) {
+            // give back combinator
+            $this->count -= strlen($match[3]);
+        }
+
+        if (!empty($match[1])) {
+            $tag['front'] = $match[1];
+        }
+
+        if ($match[2] == '[') {
+            if ($this->ident($i)) {
+                $tag['attr'] = $i;
+
+                if ($this->match(self::$match_opts, $m) && $this->value($v)) {
+                    $tag['op'] = $m[1];
+                    $tag['op_value'] = $v;
+                }
+
+                if ($this->literal(']')) {
+                    $out = $tag;
+
+                    return true;
+                }
+            }
+        } elseif (isset($tag['front'])) {
+            $out = $tag;
+
+            return true;
+        }
+
+        $this->seek($s);
+
+        return false;
+    }
+
+    function combinator(&$op)
+    {
+        if ($this->match(self::$combinators, $m)) {
+            $op = $m[1];
+
+            return true;
+        }
+
+        return false;
+    }
+
+    function ident(&$out)
+    {
+        // [-]?{nmstart}{nmchar}*
+        // nmstart: [_a-z]|{nonascii}|{escape}
+        // nmchar: [_a-z0-9-]|{nonascii}|{escape}
+        if ($this->match('(-?[_a-z][_\w]*)', $m)) {
+            $out = $m[1];
+
+            return true;
+        }
+
+        return false;
+    }
+
+    function value(&$out)
+    {
+        if ($this->string($str)) {
+            $out = $this->compileString($str);
+
+            return true;
+        } elseif ($this->ident($id)) {
+            $out = $id;
+
+            return true;
+        }
+
+        return false;
     }
 
     function string(&$out)
@@ -181,89 +280,27 @@ class tagparse extends easyparse
                         $buff .= $char;
                 }
             }
-            if (!$finished) break;
+            if (!$finished) {
+                break;
+            }
             $out = array('string', $delim, $buff);
             $this->seek($i + 1);
+
             return true;
         }
 
         $this->seek($s);
+
         return false;
     }
 
-    function tag(&$out)
+    static function compileString($string)
     {
-        $s = $this->seek();
-        $tag = array();
-        if ($this->combinator($op)) $tag['comb'] = $op;
+        list(, $delim, $str) = $string;
+        $str = str_replace($delim, "\\" . $delim, $str);
+        $str = str_replace("\n", "\\\n", $str);
 
-        if (!$this->match('(.*?)( |$|\[|' . self::$combinators . ')', $match)) {
-            $this->seek($s);
-            return false;
-        }
-
-        if (!empty($match[3])) {
-            // give back combinator
-            $this->count -= strlen($match[3]);
-        }
-
-        if (!empty($match[1])) $tag['front'] = $match[1];
-
-        if ($match[2] == '[') {
-            if ($this->ident($i)) {
-                $tag['attr'] = $i;
-
-                if ($this->match(self::$match_opts, $m) && $this->value($v)) {
-                    $tag['op'] = $m[1];
-                    $tag['op_value'] = $v;
-                }
-
-                if ($this->literal(']')) {
-                    $out = $tag;
-                    return true;
-                }
-            }
-        } elseif (isset($tag['front'])) {
-            $out = $tag;
-            return true;
-        }
-
-        $this->seek($s);
-        return false;
-    }
-
-    function ident(&$out)
-    {
-        // [-]?{nmstart}{nmchar}*
-        // nmstart: [_a-z]|{nonascii}|{escape}
-        // nmchar: [_a-z0-9-]|{nonascii}|{escape}
-        if ($this->match('(-?[_a-z][_\w]*)', $m)) {
-            $out = $m[1];
-            return true;
-        }
-        return false;
-    }
-
-    function value(&$out)
-    {
-        if ($this->string($str)) {
-            $out = $this->compileString($str);
-            return true;
-        } elseif ($this->ident($id)) {
-            $out = $id;
-            return true;
-        }
-        return false;
-    }
-
-
-    function combinator(&$op)
-    {
-        if ($this->match(self::$combinators, $m)) {
-            $op = $m[1];
-            return true;
-        }
-        return false;
+        return $delim . $str . $delim;
     }
 }
 
@@ -283,7 +320,9 @@ class nodecounter
 
     function dump($stack = null)
     {
-        if (is_null($stack)) $stack = array();
+        if (is_null($stack)) {
+            $stack = array();
+        }
         $stack[] = $this->getName();
         echo implode(' -> ', $stack) . " ($this->count)\n";
         foreach ($this->children as $child) {
@@ -291,18 +330,20 @@ class nodecounter
         }
     }
 
-    static function compileProperties($c, $block)
+    function getName()
     {
-        foreach ($block as $name => $value) {
-            if ($c->isProperty($name, $value)) {
-                echo $c->compileProperty($name, $value) . "\n";
-            }
+        if (is_null($this->name)) {
+            return "[root]";
+        } else {
+            return $this->name;
         }
     }
 
     function compile($c, $path = null)
     {
-        if (is_null($path)) $path = array();
+        if (is_null($path)) {
+            $path = array();
+        }
         $path[] = $this->name;
 
         $isVisible = !is_null($this->the_block) || !is_null($this->child_blocks);
@@ -339,19 +380,24 @@ class nodecounter
 
     }
 
-    function getName()
+    static function compileProperties($c, $block)
     {
-        if (is_null($this->name)) return "[root]";
-        else return $this->name;
+        foreach ($block as $name => $value) {
+            if ($c->isProperty($name, $value)) {
+                echo $c->compileProperty($name, $value) . "\n";
+            }
+        }
     }
 
-    function getNode($name)
+    function addBlock($path, $block)
     {
-        if (!isset($this->children[$name])) {
-            $this->children[$name] = new nodecounter($name);
+        $node = $this->findNode($path);
+        if (!is_null($node->the_block)) {
+            throw new exception("can this happen?");
         }
 
-        return $this->children[$name];
+        unset($block['__tags']);
+        $node->the_block = $block;
     }
 
     function findNode($path)
@@ -365,13 +411,13 @@ class nodecounter
         return $current;
     }
 
-    function addBlock($path, $block)
+    function getNode($name)
     {
-        $node = $this->findNode($path);
-        if (!is_null($node->the_block)) throw new exception("can this happen?");
+        if (!isset($this->children[$name])) {
+            $this->children[$name] = new nodecounter($name);
+        }
 
-        unset($block['__tags']);
-        $node->the_block = $block;
+        return $this->children[$name];
     }
 
     function addToNode($path, $block)
@@ -394,7 +440,9 @@ class lessify extends lessc
     public function parse($str = null)
     {
         $this->prepareParser($str ? $str : $this->buffer);
-        while (false !== $this->parseChunk()) ;
+        while (false !== $this->parseChunk()) {
+            ;
+        }
 
         $root = new nodecounter(null);
 
@@ -403,8 +451,12 @@ class lessify extends lessc
 
         $visitedTags = array();
         foreach (end($this->env) as $name => $block) {
-            if (!$this->isBlock($name, $block)) continue;
-            if (isset($visitedTags[$name])) continue;
+            if (!$this->isBlock($name, $block)) {
+                continue;
+            }
+            if (isset($visitedTags[$name])) {
+                continue;
+            }
 
             foreach ($block['__tags'] as $t) {
                 $visitedTags[$t] = true;
@@ -423,14 +475,17 @@ class lessify extends lessc
                 foreach ($block['__tags'] as $rawtag) {
                     $p = new tagparse($rawtag);
                     $paths[] = $path = $p->parse();
-                    if (is_null($common)) $common = $path;
-                    else {
+                    if (is_null($common)) {
+                        $common = $path;
+                    } else {
                         $new_common = array();
                         foreach ($path as $tag) {
                             $head = array_shift($common);
                             if ($tag == $head) {
                                 $new_common[] = $head;
-                            } else break;
+                            } else {
+                                break;
+                            }
                         }
                         $common = $new_common;
                         if (empty($common)) {
@@ -442,7 +497,9 @@ class lessify extends lessc
 
                 if (!empty($common)) {
                     $new_paths = array();
-                    foreach ($paths as $p) $new_paths[] = array_slice($p, count($common));
+                    foreach ($paths as $p) {
+                        $new_paths[] = array_slice($p, count($common));
+                    }
                     $block['__tags'] = $new_paths;
                     $root->addToNode($common, $block);
                     $order[] = array('compressed', $common, $block);

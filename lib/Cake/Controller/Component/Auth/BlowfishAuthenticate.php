@@ -14,7 +14,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('FormAuthenticate', 'Controller/Component/Auth');
+App::uses( 'FormAuthenticate', 'Controller/Component/Auth' );
 
 /**
  * An authentication adapter for AuthComponent. Provides the ability to authenticate using POST data using Blowfish
@@ -39,19 +39,17 @@ App::uses('FormAuthenticate', 'Controller/Component/Auth');
  * @see    AuthComponent::$authenticate
  * @deprecated Since 2.4. Just use FormAuthenticate with 'passwordHasher' setting set to 'Blowfish'
  */
-class BlowfishAuthenticate extends FormAuthenticate
-{
+class BlowfishAuthenticate extends FormAuthenticate {
 
-    /**
-     * Constructor. Sets default passwordHasher to Blowfish
-     *
-     * @param ComponentCollection $collection The Component collection used on this request.
-     * @param array $settings Array of settings to use.
-     */
-    public function __construct(ComponentCollection $collection, $settings)
-    {
-        $this->settings['passwordHasher'] = 'Blowfish';
-        parent::__construct($collection, $settings);
-    }
+	/**
+	 * Constructor. Sets default passwordHasher to Blowfish
+	 *
+	 * @param ComponentCollection $collection The Component collection used on this request.
+	 * @param array $settings Array of settings to use.
+	 */
+	public function __construct( ComponentCollection $collection, $settings ) {
+		$this->settings['passwordHasher'] = 'Blowfish';
+		parent::__construct( $collection, $settings );
+	}
 
 }

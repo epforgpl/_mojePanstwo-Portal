@@ -19,33 +19,33 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-$ds = DIRECTORY_SEPARATOR;
+$ds    = DIRECTORY_SEPARATOR;
 $dispatcher = 'Cake' . $ds . 'Console' . $ds . 'ShellDispatcher.php';
 $found = false;
-$paths = explode(PATH_SEPARATOR, ini_get('include_path'));
+$paths = explode( PATH_SEPARATOR, ini_get( 'include_path' ) );
 
-foreach ($paths as $path) {
-    if (file_exists($path . $ds . $dispatcher)) {
-        $found = $path;
-        break;
-    }
+foreach ( $paths as $path ) {
+	if ( file_exists( $path . $ds . $dispatcher ) ) {
+		$found = $path;
+		break;
+	}
 }
 
-if (!$found) {
-    $rootInstall = dirname(dirname(dirname(__FILE__))) . $ds . $dispatcher;
-    $composerInstall = dirname(dirname(__FILE__)) . $ds . $dispatcher;
+if ( ! $found ) {
+	$rootInstall     = dirname( dirname( dirname( __FILE__ ) ) ) . $ds . $dispatcher;
+	$composerInstall = dirname( dirname( __FILE__ ) ) . $ds . $dispatcher;
 
-    if (file_exists($composerInstall)) {
-        include $composerInstall;
-    } elseif (file_exists($rootInstall)) {
-        include $rootInstall;
-    } else {
-        trigger_error('Could not locate CakePHP core files.', E_USER_ERROR);
-    }
+	if ( file_exists( $composerInstall ) ) {
+		include $composerInstall;
+	} elseif ( file_exists( $rootInstall ) ) {
+		include $rootInstall;
+	} else {
+		trigger_error( 'Could not locate CakePHP core files.', E_USER_ERROR );
+	}
 } else {
-    include $found . $ds . $dispatcher;
+	include $found . $ds . $dispatcher;
 }
 
-unset($paths, $path, $found, $dispatcher, $root, $ds);
+unset( $paths, $path, $found, $dispatcher, $root, $ds );
 
-return ShellDispatcher::run($argv);
+return ShellDispatcher::run( $argv );

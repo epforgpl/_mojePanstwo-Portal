@@ -23,24 +23,28 @@
  *
  * @package       Cake.Test.Fixture
  */
-class BakeArticlesBakeTagFixture extends CakeTestFixture
-{
+class BakeArticlesBakeTagFixture extends CakeTestFixture {
 
-    /**
-     * fields property
-     *
-     * @var array
-     */
-    public $fields = array(
-        'bake_article_id' => array('type' => 'integer', 'null' => false),
-        'bake_tag_id' => array('type' => 'integer', 'null' => false),
-        'indexes' => array('UNIQUE_TAG' => array('column' => array('bake_article_id', 'bake_tag_id'), 'unique' => 1))
-    );
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
+	public $fields = array(
+		'bake_article_id' => array( 'type' => 'integer', 'null' => false ),
+		'bake_tag_id'     => array( 'type' => 'integer', 'null' => false ),
+		'indexes'         => array(
+			'UNIQUE_TAG' => array(
+				'column' => array( 'bake_article_id', 'bake_tag_id' ),
+				'unique' => 1
+			)
+		)
+	);
 
-    /**
-     * records property
-     *
-     * @var array
-     */
-    public $records = array();
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
+	public $records = array();
 }

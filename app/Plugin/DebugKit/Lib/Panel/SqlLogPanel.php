@@ -38,6 +38,7 @@ class SqlLogPanel extends DebugPanel
      * Gets the connection names that should have logs + dumps generated.
      *
      * @param \Controller|string $controller
+     *
      * @return array
      */
     public function beforeRender(Controller $controller)
@@ -67,6 +68,7 @@ class SqlLogPanel extends DebugPanel
             }
             $connections[$configName] = $explain;
         }
+
         return array('connections' => $connections, 'threshold' => $this->slowRate);
     }
 }

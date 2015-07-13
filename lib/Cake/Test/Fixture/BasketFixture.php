@@ -23,29 +23,28 @@
  *
  * @package       Cake.Test.Fixture
  */
-class BasketFixture extends CakeTestFixture
-{
+class BasketFixture extends CakeTestFixture {
 
-    /**
-     * fields property
-     *
-     * @var array
-     */
-    public $fields = array(
-        'id' => array('type' => 'integer', 'key' => 'primary'),
-        'type' => array('type' => 'string', 'length' => 255),
-        'name' => array('type' => 'string', 'length' => 255),
-        'object_id' => array('type' => 'integer'),
-        'user_id' => array('type' => 'integer'),
-    );
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
+	public $fields = array(
+		'id'        => array( 'type' => 'integer', 'key' => 'primary' ),
+		'type'      => array( 'type' => 'string', 'length' => 255 ),
+		'name'      => array( 'type' => 'string', 'length' => 255 ),
+		'object_id' => array( 'type' => 'integer' ),
+		'user_id'   => array( 'type' => 'integer' ),
+	);
 
-    /**
-     * records property
-     *
-     * @var array
-     */
-    public $records = array(
-        array('id' => 1, 'type' => 'nonfile', 'name' => 'basket1', 'object_id' => 1, 'user_id' => 1),
-        array('id' => 2, 'type' => 'file', 'name' => 'basket2', 'object_id' => 2, 'user_id' => 1),
-    );
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
+	public $records = array(
+		array( 'id' => 1, 'type' => 'nonfile', 'name' => 'basket1', 'object_id' => 1, 'user_id' => 1 ),
+		array( 'id' => 2, 'type' => 'file', 'name' => 'basket2', 'object_id' => 2, 'user_id' => 1 ),
+	);
 }

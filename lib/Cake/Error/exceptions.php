@@ -24,36 +24,36 @@
  *
  * @package       Cake.Error
  */
-class CakeBaseException extends RuntimeException
-{
+class CakeBaseException extends RuntimeException {
 
-    /**
-     * Array of headers to be passed to CakeResponse::header()
-     *
-     * @var array
-     */
-    protected $_responseHeaders = null;
+	/**
+	 * Array of headers to be passed to CakeResponse::header()
+	 *
+	 * @var array
+	 */
+	protected $_responseHeaders = null;
 
-    /**
-     * Get/set the response header to be used
-     *
-     * @param string|array $header . An array of header strings or a single header string
-     *    - an associative array of "header name" => "header value"
-     *    - an array of string headers is also accepted
-     * @param string $value The header value.
-     * @return array
-     * @see CakeResponse::header()
-     */
-    public function responseHeader($header = null, $value = null)
-    {
-        if ($header) {
-            if (is_array($header)) {
-                return $this->_responseHeaders = $header;
-            }
-            $this->_responseHeaders = array($header => $value);
-        }
-        return $this->_responseHeaders;
-    }
+	/**
+	 * Get/set the response header to be used
+	 *
+	 * @param string|array $header . An array of header strings or a single header string
+	 *    - an associative array of "header name" => "header value"
+	 *    - an array of string headers is also accepted
+	 * @param string $value The header value.
+	 *
+	 * @return array
+	 * @see CakeResponse::header()
+	 */
+	public function responseHeader( $header = null, $value = null ) {
+		if ( $header ) {
+			if ( is_array( $header ) ) {
+				return $this->_responseHeaders = $header;
+			}
+			$this->_responseHeaders = array( $header => $value );
+		}
+
+		return $this->_responseHeaders;
+	}
 
 }
 
@@ -64,10 +64,9 @@ class CakeBaseException extends RuntimeException
  *
  * @package       Cake.Error
  */
-if (!class_exists('HttpException', false)) {
-    class HttpException extends CakeBaseException
-    {
-    }
+if ( ! class_exists( 'HttpException', false ) ) {
+	class HttpException extends CakeBaseException {
+	}
 }
 
 /**
@@ -75,22 +74,20 @@ if (!class_exists('HttpException', false)) {
  *
  * @package       Cake.Error
  */
-class BadRequestException extends HttpException
-{
+class BadRequestException extends HttpException {
 
-    /**
-     * Constructor
-     *
-     * @param string $message If no message is given 'Bad Request' will be the message
-     * @param integer $code Status code, defaults to 400
-     */
-    public function __construct($message = null, $code = 400)
-    {
-        if (empty($message)) {
-            $message = 'Bad Request';
-        }
-        parent::__construct($message, $code);
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param string $message If no message is given 'Bad Request' will be the message
+	 * @param integer $code Status code, defaults to 400
+	 */
+	public function __construct( $message = null, $code = 400 ) {
+		if ( empty( $message ) ) {
+			$message = 'Bad Request';
+		}
+		parent::__construct( $message, $code );
+	}
 
 }
 
@@ -99,22 +96,20 @@ class BadRequestException extends HttpException
  *
  * @package       Cake.Error
  */
-class UnauthorizedException extends HttpException
-{
+class UnauthorizedException extends HttpException {
 
-    /**
-     * Constructor
-     *
-     * @param string $message If no message is given 'Unauthorized' will be the message
-     * @param integer $code Status code, defaults to 401
-     */
-    public function __construct($message = null, $code = 401)
-    {
-        if (empty($message)) {
-            $message = 'Unauthorized';
-        }
-        parent::__construct($message, $code);
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param string $message If no message is given 'Unauthorized' will be the message
+	 * @param integer $code Status code, defaults to 401
+	 */
+	public function __construct( $message = null, $code = 401 ) {
+		if ( empty( $message ) ) {
+			$message = 'Unauthorized';
+		}
+		parent::__construct( $message, $code );
+	}
 
 }
 
@@ -123,22 +118,20 @@ class UnauthorizedException extends HttpException
  *
  * @package       Cake.Error
  */
-class ForbiddenException extends HttpException
-{
+class ForbiddenException extends HttpException {
 
-    /**
-     * Constructor
-     *
-     * @param string $message If no message is given 'Forbidden' will be the message
-     * @param integer $code Status code, defaults to 403
-     */
-    public function __construct($message = null, $code = 403)
-    {
-        if (empty($message)) {
-            $message = 'Forbidden';
-        }
-        parent::__construct($message, $code);
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param string $message If no message is given 'Forbidden' will be the message
+	 * @param integer $code Status code, defaults to 403
+	 */
+	public function __construct( $message = null, $code = 403 ) {
+		if ( empty( $message ) ) {
+			$message = 'Forbidden';
+		}
+		parent::__construct( $message, $code );
+	}
 
 }
 
@@ -147,22 +140,20 @@ class ForbiddenException extends HttpException
  *
  * @package       Cake.Error
  */
-class NotFoundException extends HttpException
-{
+class NotFoundException extends HttpException {
 
-    /**
-     * Constructor
-     *
-     * @param string $message If no message is given 'Not Found' will be the message
-     * @param integer $code Status code, defaults to 404
-     */
-    public function __construct($message = null, $code = 404)
-    {
-        if (empty($message)) {
-            $message = 'Not Found';
-        }
-        parent::__construct($message, $code);
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param string $message If no message is given 'Not Found' will be the message
+	 * @param integer $code Status code, defaults to 404
+	 */
+	public function __construct( $message = null, $code = 404 ) {
+		if ( empty( $message ) ) {
+			$message = 'Not Found';
+		}
+		parent::__construct( $message, $code );
+	}
 
 }
 
@@ -171,22 +162,20 @@ class NotFoundException extends HttpException
  *
  * @package       Cake.Error
  */
-class MethodNotAllowedException extends HttpException
-{
+class MethodNotAllowedException extends HttpException {
 
-    /**
-     * Constructor
-     *
-     * @param string $message If no message is given 'Method Not Allowed' will be the message
-     * @param integer $code Status code, defaults to 405
-     */
-    public function __construct($message = null, $code = 405)
-    {
-        if (empty($message)) {
-            $message = 'Method Not Allowed';
-        }
-        parent::__construct($message, $code);
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param string $message If no message is given 'Method Not Allowed' will be the message
+	 * @param integer $code Status code, defaults to 405
+	 */
+	public function __construct( $message = null, $code = 405 ) {
+		if ( empty( $message ) ) {
+			$message = 'Method Not Allowed';
+		}
+		parent::__construct( $message, $code );
+	}
 
 }
 
@@ -195,22 +184,20 @@ class MethodNotAllowedException extends HttpException
  *
  * @package       Cake.Error
  */
-class InternalErrorException extends HttpException
-{
+class InternalErrorException extends HttpException {
 
-    /**
-     * Constructor
-     *
-     * @param string $message If no message is given 'Internal Server Error' will be the message
-     * @param integer $code Status code, defaults to 500
-     */
-    public function __construct($message = null, $code = 500)
-    {
-        if (empty($message)) {
-            $message = 'Internal Server Error';
-        }
-        parent::__construct($message, $code);
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param string $message If no message is given 'Internal Server Error' will be the message
+	 * @param integer $code Status code, defaults to 500
+	 */
+	public function __construct( $message = null, $code = 500 ) {
+		if ( empty( $message ) ) {
+			$message = 'Internal Server Error';
+		}
+		parent::__construct( $message, $code );
+	}
 
 }
 
@@ -220,52 +207,49 @@ class InternalErrorException extends HttpException
  *
  * @package       Cake.Error
  */
-class CakeException extends CakeBaseException
-{
+class CakeException extends CakeBaseException {
 
-    /**
-     * Array of attributes that are passed in from the constructor, and
-     * made available in the view when a development error is displayed.
-     *
-     * @var array
-     */
-    protected $_attributes = array();
+	/**
+	 * Array of attributes that are passed in from the constructor, and
+	 * made available in the view when a development error is displayed.
+	 *
+	 * @var array
+	 */
+	protected $_attributes = array();
 
-    /**
-     * Template string that has attributes sprintf()'ed into it.
-     *
-     * @var string
-     */
-    protected $_messageTemplate = '';
+	/**
+	 * Template string that has attributes sprintf()'ed into it.
+	 *
+	 * @var string
+	 */
+	protected $_messageTemplate = '';
 
-    /**
-     * Constructor.
-     *
-     * Allows you to create exceptions that are treated as framework errors and disabled
-     * when debug = 0.
-     *
-     * @param string|array $message Either the string of the error message, or an array of attributes
-     *   that are made available in the view, and sprintf()'d into CakeException::$_messageTemplate
-     * @param integer $code The code of the error, is also the HTTP status code for the error.
-     */
-    public function __construct($message, $code = 500)
-    {
-        if (is_array($message)) {
-            $this->_attributes = $message;
-            $message = __d('cake_dev', $this->_messageTemplate, $message);
-        }
-        parent::__construct($message, $code);
-    }
+	/**
+	 * Constructor.
+	 *
+	 * Allows you to create exceptions that are treated as framework errors and disabled
+	 * when debug = 0.
+	 *
+	 * @param string|array $message Either the string of the error message, or an array of attributes
+	 *   that are made available in the view, and sprintf()'d into CakeException::$_messageTemplate
+	 * @param integer $code The code of the error, is also the HTTP status code for the error.
+	 */
+	public function __construct( $message, $code = 500 ) {
+		if ( is_array( $message ) ) {
+			$this->_attributes = $message;
+			$message           = __d( 'cake_dev', $this->_messageTemplate, $message );
+		}
+		parent::__construct( $message, $code );
+	}
 
-    /**
-     * Get the passed in attributes
-     *
-     * @return array
-     */
-    public function getAttributes()
-    {
-        return $this->_attributes;
-    }
+	/**
+	 * Get the passed in attributes
+	 *
+	 * @return array
+	 */
+	public function getAttributes() {
+		return $this->_attributes;
+	}
 
 }
 
@@ -275,16 +259,14 @@ class CakeException extends CakeBaseException
  *
  * @package       Cake.Error
  */
-class MissingControllerException extends CakeException
-{
+class MissingControllerException extends CakeException {
 
-    protected $_messageTemplate = 'Controller class %s could not be found.';
+	protected $_messageTemplate = 'Controller class %s could not be found.';
 
 //@codingStandardsIgnoreStart
-    public function __construct($message, $code = 404)
-    {
-        parent::__construct($message, $code);
-    }
+	public function __construct( $message, $code = 404 ) {
+		parent::__construct( $message, $code );
+	}
 //@codingStandardsIgnoreEnd
 
 }
@@ -295,16 +277,14 @@ class MissingControllerException extends CakeException
  *
  * @package       Cake.Error
  */
-class MissingActionException extends CakeException
-{
+class MissingActionException extends CakeException {
 
-    protected $_messageTemplate = 'Action %s::%s() could not be found.';
+	protected $_messageTemplate = 'Action %s::%s() could not be found.';
 
 //@codingStandardsIgnoreStart
-    public function __construct($message, $code = 404)
-    {
-        parent::__construct($message, $code);
-    }
+	public function __construct( $message, $code = 404 ) {
+		parent::__construct( $message, $code );
+	}
 //@codingStandardsIgnoreEnd
 
 }
@@ -315,16 +295,14 @@ class MissingActionException extends CakeException
  *
  * @package       Cake.Error
  */
-class PrivateActionException extends CakeException
-{
+class PrivateActionException extends CakeException {
 
-    protected $_messageTemplate = 'Private Action %s::%s() is not directly accessible.';
+	protected $_messageTemplate = 'Private Action %s::%s() is not directly accessible.';
 
 //@codingStandardsIgnoreStart
-    public function __construct($message, $code = 404, Exception $previous = null)
-    {
-        parent::__construct($message, $code, $previous);
-    }
+	public function __construct( $message, $code = 404, Exception $previous = null ) {
+		parent::__construct( $message, $code, $previous );
+	}
 //@codingStandardsIgnoreEnd
 
 }
@@ -334,10 +312,9 @@ class PrivateActionException extends CakeException
  *
  * @package       Cake.Error
  */
-class MissingComponentException extends CakeException
-{
+class MissingComponentException extends CakeException {
 
-    protected $_messageTemplate = 'Component class %s could not be found.';
+	protected $_messageTemplate = 'Component class %s could not be found.';
 
 }
 
@@ -346,10 +323,9 @@ class MissingComponentException extends CakeException
  *
  * @package       Cake.Error
  */
-class MissingBehaviorException extends CakeException
-{
+class MissingBehaviorException extends CakeException {
 
-    protected $_messageTemplate = 'Behavior class %s could not be found.';
+	protected $_messageTemplate = 'Behavior class %s could not be found.';
 
 }
 
@@ -358,10 +334,9 @@ class MissingBehaviorException extends CakeException
  *
  * @package       Cake.Error
  */
-class MissingViewException extends CakeException
-{
+class MissingViewException extends CakeException {
 
-    protected $_messageTemplate = 'View file "%s" is missing.';
+	protected $_messageTemplate = 'View file "%s" is missing.';
 
 }
 
@@ -370,10 +345,9 @@ class MissingViewException extends CakeException
  *
  * @package       Cake.Error
  */
-class MissingLayoutException extends CakeException
-{
+class MissingLayoutException extends CakeException {
 
-    protected $_messageTemplate = 'Layout file "%s" is missing.';
+	protected $_messageTemplate = 'Layout file "%s" is missing.';
 
 }
 
@@ -382,10 +356,9 @@ class MissingLayoutException extends CakeException
  *
  * @package       Cake.Error
  */
-class MissingHelperException extends CakeException
-{
+class MissingHelperException extends CakeException {
 
-    protected $_messageTemplate = 'Helper class %s could not be found.';
+	protected $_messageTemplate = 'Helper class %s could not be found.';
 
 }
 
@@ -394,10 +367,9 @@ class MissingHelperException extends CakeException
  *
  * @package       Cake.Error
  */
-class MissingDatabaseException extends CakeException
-{
+class MissingDatabaseException extends CakeException {
 
-    protected $_messageTemplate = 'Database connection "%s" could not be found.';
+	protected $_messageTemplate = 'Database connection "%s" could not be found.';
 
 }
 
@@ -406,18 +378,16 @@ class MissingDatabaseException extends CakeException
  *
  * @package       Cake.Error
  */
-class MissingConnectionException extends CakeException
-{
+class MissingConnectionException extends CakeException {
 
-    protected $_messageTemplate = 'Database connection "%s" is missing, or could not be created.';
+	protected $_messageTemplate = 'Database connection "%s" is missing, or could not be created.';
 
-    public function __construct($message, $code = 500)
-    {
-        if (is_array($message)) {
-            $message += array('enabled' => true);
-        }
-        parent::__construct($message, $code);
-    }
+	public function __construct( $message, $code = 500 ) {
+		if ( is_array( $message ) ) {
+			$message += array( 'enabled' => true );
+		}
+		parent::__construct( $message, $code );
+	}
 
 }
 
@@ -426,10 +396,9 @@ class MissingConnectionException extends CakeException
  *
  * @package       Cake.Error
  */
-class MissingTaskException extends CakeException
-{
+class MissingTaskException extends CakeException {
 
-    protected $_messageTemplate = 'Task class %s could not be found.';
+	protected $_messageTemplate = 'Task class %s could not be found.';
 
 }
 
@@ -438,10 +407,9 @@ class MissingTaskException extends CakeException
  *
  * @package       Cake.Error
  */
-class MissingShellMethodException extends CakeException
-{
+class MissingShellMethodException extends CakeException {
 
-    protected $_messageTemplate = "Unknown command %1\$s %2\$s.\nFor usage try `cake %1\$s --help`";
+	protected $_messageTemplate = "Unknown command %1\$s %2\$s.\nFor usage try `cake %1\$s --help`";
 
 }
 
@@ -450,10 +418,9 @@ class MissingShellMethodException extends CakeException
  *
  * @package       Cake.Error
  */
-class MissingShellException extends CakeException
-{
+class MissingShellException extends CakeException {
 
-    protected $_messageTemplate = 'Shell class %s could not be found.';
+	protected $_messageTemplate = 'Shell class %s could not be found.';
 
 }
 
@@ -462,10 +429,9 @@ class MissingShellException extends CakeException
  *
  * @package       Cake.Error
  */
-class MissingDatasourceConfigException extends CakeException
-{
+class MissingDatasourceConfigException extends CakeException {
 
-    protected $_messageTemplate = 'The datasource configuration "%s" was not found in database.php';
+	protected $_messageTemplate = 'The datasource configuration "%s" was not found in database.php';
 
 }
 
@@ -474,10 +440,9 @@ class MissingDatasourceConfigException extends CakeException
  *
  * @package       Cake.Error
  */
-class MissingDatasourceException extends CakeException
-{
+class MissingDatasourceException extends CakeException {
 
-    protected $_messageTemplate = 'Datasource class %s could not be found. %s';
+	protected $_messageTemplate = 'Datasource class %s could not be found. %s';
 
 }
 
@@ -486,10 +451,9 @@ class MissingDatasourceException extends CakeException
  *
  * @package       Cake.Error
  */
-class MissingTableException extends CakeException
-{
+class MissingTableException extends CakeException {
 
-    protected $_messageTemplate = 'Table %s for model %s was not found in datasource %s.';
+	protected $_messageTemplate = 'Table %s for model %s was not found in datasource %s.';
 
 }
 
@@ -498,10 +462,9 @@ class MissingTableException extends CakeException
  *
  * @package       Cake.Error
  */
-class MissingModelException extends CakeException
-{
+class MissingModelException extends CakeException {
 
-    protected $_messageTemplate = 'Model %s could not be found.';
+	protected $_messageTemplate = 'Model %s could not be found.';
 
 }
 
@@ -510,10 +473,9 @@ class MissingModelException extends CakeException
  *
  * @package       Cake.Error
  */
-class MissingTestLoaderException extends CakeException
-{
+class MissingTestLoaderException extends CakeException {
 
-    protected $_messageTemplate = 'Test loader %s could not be found.';
+	protected $_messageTemplate = 'Test loader %s could not be found.';
 
 }
 
@@ -522,10 +484,9 @@ class MissingTestLoaderException extends CakeException
  *
  * @package       Cake.Error
  */
-class MissingPluginException extends CakeException
-{
+class MissingPluginException extends CakeException {
 
-    protected $_messageTemplate = 'Plugin %s could not be found.';
+	protected $_messageTemplate = 'Plugin %s could not be found.';
 
 }
 
@@ -534,10 +495,9 @@ class MissingPluginException extends CakeException
  *
  * @package       Cake.Error
  */
-class MissingDispatcherFilterException extends CakeException
-{
+class MissingDispatcherFilterException extends CakeException {
 
-    protected $_messageTemplate = 'Dispatcher filter %s could not be found.';
+	protected $_messageTemplate = 'Dispatcher filter %s could not be found.';
 
 }
 
@@ -546,8 +506,7 @@ class MissingDispatcherFilterException extends CakeException
  *
  * @package       Cake.Error
  */
-class AclException extends CakeException
-{
+class AclException extends CakeException {
 }
 
 /**
@@ -556,8 +515,7 @@ class AclException extends CakeException
  *
  * @package       Cake.Error
  */
-class CacheException extends CakeException
-{
+class CacheException extends CakeException {
 }
 
 /**
@@ -566,8 +524,7 @@ class CacheException extends CakeException
  *
  * @package       Cake.Error
  */
-class RouterException extends CakeException
-{
+class RouterException extends CakeException {
 }
 
 /**
@@ -576,8 +533,7 @@ class RouterException extends CakeException
  *
  * @package       Cake.Error
  */
-class CakeLogException extends CakeException
-{
+class CakeLogException extends CakeException {
 }
 
 /**
@@ -586,8 +542,7 @@ class CakeLogException extends CakeException
  *
  * @package       Cake.Error
  */
-class CakeSessionException extends CakeException
-{
+class CakeSessionException extends CakeException {
 }
 
 /**
@@ -596,8 +551,7 @@ class CakeSessionException extends CakeException
  *
  * @package       Cake.Error
  */
-class ConfigureException extends CakeException
-{
+class ConfigureException extends CakeException {
 }
 
 /**
@@ -606,8 +560,7 @@ class ConfigureException extends CakeException
  *
  * @package       Cake.Error
  */
-class SocketException extends CakeException
-{
+class SocketException extends CakeException {
 }
 
 /**
@@ -616,8 +569,7 @@ class SocketException extends CakeException
  *
  * @package       Cake.Error
  */
-class XmlException extends CakeException
-{
+class XmlException extends CakeException {
 }
 
 /**
@@ -626,8 +578,7 @@ class XmlException extends CakeException
  *
  * @package       Cake.Error
  */
-class ConsoleException extends CakeException
-{
+class ConsoleException extends CakeException {
 }
 
 /**
@@ -635,27 +586,25 @@ class ConsoleException extends CakeException
  *
  * @package       Cake.Error
  */
-class FatalErrorException extends CakeException
-{
+class FatalErrorException extends CakeException {
 
-    /**
-     * Constructor
-     *
-     * @param string $message
-     * @param integer $code
-     * @param string $file
-     * @param integer $line
-     */
-    public function __construct($message, $code = 500, $file = null, $line = null)
-    {
-        parent::__construct($message, $code);
-        if ($file) {
-            $this->file = $file;
-        }
-        if ($line) {
-            $this->line = $line;
-        }
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param string $message
+	 * @param integer $code
+	 * @param string $file
+	 * @param integer $line
+	 */
+	public function __construct( $message, $code = 500, $file = null, $line = null ) {
+		parent::__construct( $message, $code );
+		if ( $file ) {
+			$this->file = $file;
+		}
+		if ( $line ) {
+			$this->line = $line;
+		}
+	}
 
 }
 
@@ -664,16 +613,14 @@ class FatalErrorException extends CakeException
  *
  * @package       Cake.Error
  */
-class NotImplementedException extends CakeException
-{
+class NotImplementedException extends CakeException {
 
-    protected $_messageTemplate = '%s is not implemented.';
+	protected $_messageTemplate = '%s is not implemented.';
 
 //@codingStandardsIgnoreStart
-    public function __construct($message, $code = 501)
-    {
-        parent::__construct($message, $code);
-    }
+	public function __construct( $message, $code = 501 ) {
+		parent::__construct( $message, $code );
+	}
 //@codingStandardsIgnoreEnd
 
 }

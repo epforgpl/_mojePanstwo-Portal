@@ -7,25 +7,32 @@
     if (isset($facet['params']['options']) && is_array($facet['params']['options']) && !empty($facet['params']['options'])) {
         foreach ($facet['params']['options'] as $option) {
 
-            $fid = 'filter_input_' . $field . $option['id'];
-            if (!$value)
-                $checked = false;
-            elseif (is_array($value))
-                $checked = in_array($option['id'], $value);
-            else
-                $checked = ($option['id'] == $value);
-            ?>
-            <li class="option checkbox list-group-item">
-                <span class="badge"><?= $this->Number->currency($option['count'], '', array('places' => 0)) ?></span>
+            if ($option['count']) {
 
-                <div class="checkbox-inline">
-                    <input<? if ($checked) { ?> checked="checked"<? } ?> id="<?= $fid ?>" type="checkbox"
-                                                                         name="<?= $name ?>[]"
-                                                                         value="<?= $option['id'] ?>"/>
-                    <label for="<?= $fid ?>"><?= $option['label'] ?></label>
-                </div>
-            </li>
-        <?
+                $fid = 'filter_input_' . $field . $option['id'];
+                if (!$value) {
+                    $checked = false;
+                } elseif (is_array($value)) {
+                    $checked = in_array($option['id'], $value);
+                } else {
+                    $checked = ($option['id'] == $value);
+                }
+                ?>
+                <li class="option checkbox list-group-item<? if ($checked) { ?> active<? } ?>">
+					<span
+                        class="badge"><?= $this->Number->currency($option['count'], '', array('places' => 0)) ?></span>
+
+                    <div class="checkbox-inline">
+                        <input<? if ($checked) { ?> checked="checked"<? } ?> id="<?= $fid ?>" type="checkbox"
+                                                                             name="<?= $name ?>[]"
+                                                                             value="<?= $option['id'] ?>"/>
+                        <label title="<?= addslashes($option['label']) ?>"
+                               for="<?= $fid ?>"><?= $this->Text->truncate($option['label'], 45) ?></label>
+                    </div>
+                </li>
+
+            <?
+            }
         }
     }
     ?>

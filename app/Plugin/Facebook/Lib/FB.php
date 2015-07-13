@@ -35,9 +35,31 @@ class FB
     }
 
     /**
+     * PHP 5.3.0 only
+     * Usage:
+     * - FB::method(params);
+     * Example:
+     * - FB::getUser();
+     */
+    public static function __callstatic($method, $params)
+    {
+        try {
+            if (empty(self::$Facebook)) {
+                $this->__initInstance();
+            }
+
+            return call_user_func_array(array(self::$Facebook, $method), $params);
+        } catch (FacebookApiException $e) {
+            error_log($e);
+        }
+    }
+
+    /**
      * Forward any call to the Facebook API
+     *
      * @param string method name
      * @param mixed params passed into method
+     *
      * @return mixed return value of result from Facebook API
      */
     public function __call($method, $params)
@@ -51,30 +73,13 @@ class FB
 
     /**
      * Retrieve the property of the Facebook API
+     *
      * @param string name of property
+     *
      * @return mixed property of Facebook API
      */
     public function __get($name)
     {
         return self::$Facebook->$name;
-    }
-
-    /**
-     * PHP 5.3.0 only
-     * Usage:
-     * - FB::method(params);
-     * Example:
-     * - FB::getUser();
-     */
-    public static function __callstatic($method, $params)
-    {
-        try {
-            if (empty(self::$Facebook)) {
-                $this->__initInstance();
-            }
-            return call_user_func_array(array(self::$Facebook, $method), $params);
-        } catch (FacebookApiException $e) {
-            error_log($e);
-        }
     }
 }

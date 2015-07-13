@@ -42,7 +42,7 @@ variables {
 
     .variables {
         width: @z + 1cm; // 14cm
-        height: @b + @x + 0px; // 24px
+        height: @b + @x + 0; // 24px
         color: @c;
         background: @light-blue;
         font-family: @fonts;
@@ -100,34 +100,31 @@ namespaces {
 
 mixin-functions {
     @outer: 10px;
-@class(@var: 22 px, @car: 400 px + @outer) {
-margin: @var;
+    @class(@var: 22 px, @car: 400 px + @outer) {
+    margin: @var;
     height: @car;
 } @group {
-@f(@color) {
-color: @color;
+    @f(@color) {
+    color: @color;
 }
 
-.cool {
-    border-bottom: 1px solid green;
-}
+    .cool {
+        border-bottom: 1px solid green;
+    }
 
 }
 
-.class(@width:200px) {
-    padding: @width;
-}
+    .class(@width:200px) {
+        padding: @width;
+    }
 
-body {
-    .class(2.0em);
-@group > @f(red);
-@class(10 px, 10 px + 2);
+    body {
+        .class(2.0em);
+    @group > @f(red);
+        @class(10 px, 10 px + 2);
 
-@group
-> .cool
-
-;
-}
+    @group > . cool;
+    }
 
 }
 

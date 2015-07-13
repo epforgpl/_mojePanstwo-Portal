@@ -1,6 +1,5 @@
 <?php
 
-class TestAppEngine
-{
+class TestAppEngine {
 
 }

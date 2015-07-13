@@ -1,244 +1,240 @@
-.objectsPageContent {
-    .object {
-        h2 {
-            font-size: 24px;
-            font-weight: 300;
-            margin: 40px 0 10px;
-            color: #0783B8;
-            font-family: "Lato", sans-serif;
-
-            &:first-child {
-                margin-top: 10px;
-            }
+#szef {
+    padding: 0;
+    margin: 0;
+    .dataHighlight {
+        ._value {
+            font-size: 16px;
         }
+    }
+}
 
-        .jumbotron {
-            margin-bottom: 15px;
+.dataobjectsSlider .objectRender .posiedzenie {
+    img {
+        width: 100%;
+    }
+}
+
+.darczyncy {
+    padding: 20px;
+    text-align: center;
+}
+
+.punkt-nr {
+    font-size: 16px;
+    font-weight: 300;
+    color: #666;
+}
+
+#ytVideoCont {
+    > div {
+        position: relative;
+    }
+
+    #ytVideo {
+        margin-top: 0;
+        min-height: 375px;
+
+        &.stick {
+            position: fixed;
+            top: 40px;
         }
+    }
+}
 
-        .wynikiWyborow .wynik {
-            padding: 3px;
+.objectsPage .objectsPageWindow {
+    padding-top: 5px;
 
-            b, strong {
-                font-weight: 400;
-            }
-
-            .progress {
-                margin-top: 5px;
-            }
-
-            a {
-                color: #333;
-
-                &:hover {
-                    color: #157AB5;
-                }
-            }
-
+    ul.raw {
+        li {
+            border: none;
         }
+    }
 
-        .googleMaps {
+    .gminy {
+        .profile_baner {
+            @bannerWidth: 100%;
+            @bannerHeight: 212px;
+
+            height: @bannerHeight;
+            width: @bannerWidth;
+            position: relative;
             overflow: hidden;
-            padding: 15px 0 0 0;
-            text-align: center;
-        }
 
-        .textblock {
+            .bg {
+                width: @bannerWidth;
+                height: @bannerHeight;
+                position: relative;
+                top: 0;
+                z-index: 2;
 
-            padding: 0 15px;
-
-            p {
-                padding: 1px 5px;
-                margin: 0;
-            }
-        }
-
-        .wskazniki {
-            font-weight: 300;
-            display: block;
-            margin: 15px 0;
-            overflow: auto;
-
-            .wskaznikiLine {
-
-                &:last-child .wskaznik {
-                    border-bottom: none;
+                img {
+                    width: 970px;
                 }
 
-                .wskaznik {
-                    width: 20%;
-                    float: left;
-                    padding: 10px;
-                    border-right: 1px solid #CCC;
-                    border-bottom: 1px solid #CCC;
+                .content {
+                    width: @bannerWidth;
+                    height: @bannerHeight;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: 3;
+                    padding: 20px;
 
-                    &:last-child {
-                        border-right: none;
-                    }
+                    background: -moz-linear-gradient(left, rgba(66, 139, 202, 0.9) 10%, rgba(66, 139, 202, 0) 50%); /* FF3.6+ */
+                    background: -webkit-gradient(linear, left top, right top, color-stop(10%, rgba(66, 139, 202, 0.9)), color-stop(50%, rgba(66, 139, 202, 0))); /* Chrome,Safari4+ */
+                    background: -webkit-linear-gradient(left, rgba(66, 139, 202, 0.9) 10%, rgba(66, 139, 202, 0) 50%); /* Chrome10+,Safari5.1+ */
+                    background: -o-linear-gradient(left, rgba(66, 139, 202, 0.9) 10%, rgba(66, 139, 202, 0) 50%); /* Opera 11.10+ */
+                    background: -ms-linear-gradient(left, rgba(66, 139, 202, 0.9) 10%, rgba(66, 139, 202, 0) 50%); /* IE10+ */
+                    background: linear-gradient(to right, rgba(66, 139, 202, 0.9) 10%, rgba(66, 139, 202, 0) 50%); /* W3C */
+                    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e6428bca', endColorstr='#00428bca', GradientType=1); /* IE6-9 */
 
-                    small, strong {
-                        display: block;
-                    }
-
-                    small {
-                        font-size: 13px;
-                    }
-
-                    strong {
-                        font-family: "Lato", sans-serif;
+                    p, h2 {
+                        color: white;
+                        font-weight: 300;
                         font-size: 16px;
+                        line-height: 20px;
+                    }
+
+                    h2 {
+                        margin: 0 0 20px;
+                        padding: 0;
+                        font-family: Lato;
+                        font-size: 22px;
                         font-weight: 400;
                     }
-                }
-            }
 
-        }
-
-        .dataobjectsSlider {
-            .carousel {
-                .carousel-control {
-                    background: none;
-
-                    > span {
-                        color: #AAA;
-                    }
-
-                }
-                .item {
-                    .object {
-                        min-height: 140px;
-                        padding: 0 15px;
+                    .btn {
+                        margin-top: 1em;
                     }
                 }
             }
-        }
 
-        .radniGminy {
-            .dataobjectsSlider {
-                .carousel {
-                    .item {
-                        .object {
-                            min-height: 120px;
-                        }
-                    }
+            #googleMap {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 1;
+                width: @bannerWidth;
+                height: @bannerHeight;
+
+                #googleMapsContent .btn {
+                    display: block;
+                    margin: 5px auto 0;
+                    padding: 2px 10px;
+                    width: 80px;
                 }
             }
         }
 
-        .zamowieniaPubliczne {
-            .dataobjectsSlider {
-                .carousel {
-                    .item {
-                        .object {
-                            min-height: 205px;
-                        }
-                    }
+        .block.small {
+            padding: 10px 5px;
+        }
+
+        .dzielnice {
+            ul {
+                li {
+                    float: left;
+                    display: block;
                 }
             }
         }
 
-        .prawoLokalne {
-            .dataobjectsSlider {
-                .carousel {
-                    .item {
-                        .object {
-                            width: 50%;
-                            border-bottom: none;
-                            padding-left: 0;
-                            padding-right: 0;
-                        }
-                    }
-                    .carousel-inner {
-                        > .item {
-                            height: 220px;
-                            overflow: hidden;
-                        }
-                    }
-                }
-            }
-        }
+        .wynikiWyborow {
 
-        .radyDruki {
-            .dataobjectsSlider {
-                .carousel {
-                    .item {
-                        .object {
-                            height: 200px;
-                            overflow: hidden;
-                            padding: 0;
-                        }
-                    }
-                }
-            }
-        }
+            padding: 5px 10px;
 
-        .radyPosiedzenia {
-            .dataobjectsSlider {
-                .carousel {
-                    .item {
-                        .object {
-                            width: 50%;
-                            border-bottom: none;
-                        }
-                    }
-                    .carousel-inner {
-                        > .item {
-                            height: 140px;
-                            overflow: hidden;
-                        }
-                    }
-                }
-            }
-        }
-
-        .radyPosiedzenia {
-
-            .dataobjectsSlider {
-                .carousel {
-                    .item {
-
-                        width: 100%;
-
-                    }
-                }
-            }
-            .attachment img {
-                width: 100%;
-                max-width: 180px;
-            }
-        }
-
-        .radniGminy {
-            .objectRender .content .line {
-
-                color: #888;
-                font-weight: 300;
+            .wynik {
+                padding: 3px;
 
                 b, strong {
-
                     font-weight: 400;
-
                 }
 
+                .progress {
+                    margin-bottom: 10px;
+                    height: 5px;
+                    margin-top: 2px;
+
+                    .progress-bar {
+                        background-color: #CCC;
+                        box-shadow: none;
+                    }
+                }
+
+                a {
+                    font-size: 13px;
+                }
+
+                small {
+                    font-size: 14px;
+                    font-weight: 300;
+                    margin-left: 10px;
+                }
             }
         }
 
     }
 
-    .customObject {
-        font-family: "Lato", sans-serif;
-        font-weight: 400;
+    .anchor {
+        @padding: 10px;
+        margin-top: -@padding;
+        margin-bottom: @padding;
+    }
 
+    .objectMenu.stick {
+        position: fixed;
+        top: 50px;
+    }
+
+    .customObject {
         &.krakow903 {
-            .logo img {
-                width: 100%;
-            }
-            .textline {
-                color: #3A3A3A;
-                font-size: 14px;
-                line-height: 1.1em;
-                margin-top: 40px;
-            }
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+    }
+}
+
+.wyniki_glosowania {
+
+    li {
+
+        border-bottom: 1px solid #DDD;
+        padding: 10px !important; /*TODO:check if it REALLY need*/
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        .title {
+            font-size: 18px;
+            margin-bottom: 0;
+        }
+
+        .desc {
+            color: #999;
+            font-size: 11px;
+            margin: 5px;
+        }
+
+        img {
+            max-height: 65px;
+        }
+
+    }
+
+}
+
+#sources {
+    font-size: 12px;
+}
+
+.poparcie {
+    ._value {
+        strong {
+            font-weight: normal;
+        }
+        .procent {
+            font-size: 13px;
         }
     }
 }

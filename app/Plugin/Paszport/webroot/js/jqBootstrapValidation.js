@@ -412,7 +412,7 @@
                             $helpBlock.data("original-contents") ?
                                 $helpBlock.data("original-contents") :
                                 $helpBlock.html()
-                            )
+                        )
                     );
 
                     $helpBlock.data(
@@ -421,7 +421,7 @@
                             $helpBlock.data("original-role") ?
                                 $helpBlock.data("original-role") :
                                 $helpBlock.attr("role")
-                            )
+                        )
                     );
 
                     $controlGroup.data(
@@ -430,7 +430,7 @@
                             $controlGroup.data("original-clases") ?
                                 $controlGroup.data("original-classes") :
                                 $controlGroup.attr("class")
-                            )
+                        )
                     );
 
                     $this.data(
@@ -439,7 +439,7 @@
                             $this.data("original-aria-invalid") ?
                                 $this.data("original-aria-invalid") :
                                 $this.attr("aria-invalid")
-                            )
+                        )
                     );
 
                     // =============================================================
@@ -458,19 +458,19 @@
                             $.each(validators, function (validatorType, validatorTypeArray) {
                                 if (
                                     value || // has a truthy value
-                                        value.length || // not an empty string
-                                        ( // am including empty values
-                                            (
-                                                params &&
-                                                    params.includeEmpty
-                                                ) || !!settings.validatorTypes[validatorType].includeEmpty
-                                            ) ||
-                                        ( // validator is blocking submit
-                                            !!settings.validatorTypes[validatorType].blockSubmit &&
-                                                params && !!params.submitting
-                                            ) ||
-                                        ($this.attr("required") !== undefined || $this.attr("aria-required") !== undefined || $this.attr('data-required') != undefined)
-                                    ) {
+                                    value.length || // not an empty string
+                                    ( // am including empty values
+                                    (
+                                    params &&
+                                    params.includeEmpty
+                                    ) || !!settings.validatorTypes[validatorType].includeEmpty
+                                    ) ||
+                                    ( // validator is blocking submit
+                                    !!settings.validatorTypes[validatorType].blockSubmit &&
+                                    params && !!params.submitting
+                                    ) ||
+                                    ($this.attr("required") !== undefined || $this.attr("aria-required") !== undefined || $this.attr('data-required') != undefined)
+                                ) {
                                     $.each(
                                         validatorTypeArray,
                                         function (i, validator) {
@@ -528,7 +528,7 @@
                                     "keypress",
                                     "change"
                                 ]
-                            ).concat(["revalidate"]).join(".validation ") + ".validation",
+                        ).concat(["revalidate"]).join(".validation ") + ".validation",
                         function (e, params) {
 
                             var value = getValue($this);
@@ -569,11 +569,11 @@
                                 if (settings.options.semanticallyStrict && errorsFound.length === 1) {
                                     // Only one? Being strict? Just output it.
                                     $helpBlock.html(errorsFound[0] +
-                                        ( settings.options.prependExistingHelpBlock ? $helpBlock.data("original-contents") : "" ));
+                                    ( settings.options.prependExistingHelpBlock ? $helpBlock.data("original-contents") : "" ));
                                 } else {
                                     // Multiple? Being sloppy? Glue them together into an UL.
                                     $helpBlock.html("<ul role=\"alert\"><li>" + errorsFound.join("</li><li>") + "</li></ul>" +
-                                        ( settings.options.prependExistingHelpBlock ? $helpBlock.data("original-contents") : "" ));
+                                    ( settings.options.prependExistingHelpBlock ? $helpBlock.data("original-contents") : "" ));
                                 }
                             } else {
                                 $controlGroup.removeClass("has-warning has-error has-success");
@@ -838,9 +838,9 @@
                 },
                 validate: function ($this, value, validator) {
                     return !!(
-                        (value.length === 0 && !validator.negative) ||
-                            (value.length > 0 && validator.negative)
-                        );
+                    (value.length === 0 && !validator.negative) ||
+                    (value.length > 0 && validator.negative)
+                    );
                 },
                 blockSubmit: true
             },

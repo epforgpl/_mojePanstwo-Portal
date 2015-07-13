@@ -1,14 +1,28 @@
 <?php
 
 App::uses('Sanitize', 'Utility');
+App::uses('ApplicationsController', 'Controller');
 
-class KodyPocztoweController extends KodyPocztoweAppController
+class KodyPocztoweController extends ApplicationsController
 {
     public $uses = array('KodyPocztowe.KodPocztowy', 'Dane.Dataobject');
-    public $components = array('Session', 'Paginator');
+    public $components = array('Session', 'Paginator', 'RequestHandler');
+
+    public $settings = array(
+        'id' => 'kody_pocztowe',
+        'title' => 'Kody pocztowe',
+        // 'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce',
+        // 'headerImg' => 'prawo',
+    );
+
+    public function getMenu()
+    {
+        return false;
+    }
 
     public function index()
     {
+
         $details = false;
         $mstr = @$this->request->query['mstr'];
         $mid = @$this->request->query['mid'];
@@ -19,9 +33,17 @@ class KodyPocztoweController extends KodyPocztoweAppController
         $this->set('kod', $kod);
 
         if ($kod) {
-            $code = $this->API->searchCode($kod);
-            if ($code && $code['Code'] && $code['Code']['id']) {
-                $this->redirect(array('plugin' => 'Dane', 'controller' => 'kody_pocztowe', 'action' => 'view', 'id' => $code['Code']['id']));
+
+            $code = $this->Dataobject->find('all', array(
+                'conditions' => array(
+                    'dataset' => 'kody_pocztowe',
+                    'kody_pocztowe.kod' => $kod,
+                ),
+            ));
+
+
+            if ($code && $code[0]) {
+                return $this->redirect('/dane/kody_pocztowe/' . $code[0]->getId());
             } else {
                 $this->Session->setFlash('Podany kod pocztowy nie zostały odnaleziony');
             }
@@ -68,9 +90,92 @@ class KodyPocztoweController extends KodyPocztoweAppController
         $this->set('details', $details);
 
         $application = $this->getApplication();
-        $this->set('title_for_layout', $application['Application']['name']);
+        $this->set('title_for_layout', $application['name']);
 
     }
 
+    public function adres()
+    {
+
+        if (isset($this->request->params['ext']) && ($this->request->params['ext'] == 'json')) {
+
+            $search = array();
+
+            $q = @$this->request->query['q'];
+            if ($q) {
+
+
+                $objects = $this->Dataobject->find('all', array(
+                    'conditions' => array(
+                        'dataset' => 'kody_pocztowe_ulice',
+                        'q' => $q,
+                    ),
+                ));
+
+
+                foreach ($objects as $obj) {
+
+                    $text = $obj->getData('miejscowosci.nazwa');
+
+                    switch ($obj->getData('typ_id')) {
+                        case '2': {
+                            $text .= ', ulica';
+                            break;
+                        }
+                        case '3': {
+                            $text .= ', Plac';
+                            break;
+                        }
+                        case '4': {
+                            $text .= ', Osiedle';
+                            break;
+                        }
+                        case '5': {
+                            $text .= ', Aleja';
+                            break;
+                        }
+                        case '6': {
+                            $text .= ', Skwer';
+                            break;
+                        }
+                        case '7': {
+                            $text .= ', Wybrzeże';
+                            break;
+                        }
+                    }
+
+                    if ($obj->getData('ulica')) {
+                        $text .= ' ' . $obj->getData('ulica');
+                    }
+
+                    $score = @$obj->getLayer('score');
+
+                    $s = array(
+                        'id' => $obj->getId(),
+                        'text' => $text,
+                        'score' => @$score['value'],
+                    );
+
+                    if ($obj->getData('miejscowosci.nazwa') != $obj->getData('miejscowosci.nazwa_gminy')) {
+                        $s['desc'] = $obj->getData('miejscowosci.nazwa_gminy');
+                    }
+
+                    $search[] = $s;
+                }
+            }
+
+            $this->set('search', $search);
+            $this->set('_serialize', array('search'));
+
+        } elseif (isset($this->request->params['adres_id']) && $this->request->params['adres_id']) {
+
+            $adres = $api->getObject('kody_pocztowe_ulice', $this->request->params['adres_id']);
+            $adres->loadLayer('kody');
+            $this->set('adres', $adres);
+
+        } else {
+            $this->redirect('/kody_pocztowe');
+        }
+    }
 
 } 

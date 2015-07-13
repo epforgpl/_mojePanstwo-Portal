@@ -1,103 +1,215 @@
 <?
+
+$objectRenderOptions = array(
+    'forceLabel' => (isset($dataBrowserObjectRender) && isset($dataBrowserObjectRender['forceLabel'])) ? (boolean)$dataBrowserObjectRender['forceLabel'] : false,
+);
+
+
 $path = App::path('Plugin');
 $file = $path[0] . '/Dane/View/Elements/' . $theme . '/' . $object->getDataset() . '.ctp';
 $file_exists = file_exists($file);
 
-if (in_array($object->getDataset(), array('rady_posiedzenia', 'rady_gmin_debaty', 'rady_gmin_wystapienia'))) {
-    $object_content_sizes = array(3, 9);
-} else {
-    $object_content_sizes = array(2, 10);
-}
+$shortTitle = (isset($options['forceTitle'])) ?
+    $options['forceTitle'] :
+    $object->getShortTitle();
 
-$this->Dataobject->setObject( $object );
+$object_content_sizes = array(2, 10);
+
+// debug( $object->getData() ); 
+
+$this->Dataobject->setObject($object);
 ?>
-<div class="objectRender col-md-12 <?= $object->getDataset() ?><? if ($bg) { ?> bg<? } ?>"
-     oid="<?php echo $item['data']['id'] ?>">
-<div class="row">
-        <? if ($this->Dataobject->getDate()) { ?>
-            <div class="formatDate col-md-1 dimmed">
-                <?php echo($this->Dataobject->getDate()); ?>
-            </div>
-        <? } ?>
-        <div class="data col-md-<?= $this->Dataobject->getDate() ? '11' : '12' ?>">
-            <div class="row">
-                <? if ($object->getThumbnailUrl( $thumbSize )) { ?>
-                    <div class="attachment col-md-<?= $object_content_sizes[0] ?> text-center">
+<div class="objectRender<? if ($alertsStatus) {
+    echo " unreaded";
+} else {
+    echo " readed";
+} ?><? if ($classes = $object->getClasses()) {
+    echo " " . implode(' ', $classes);
+} ?>"
+     oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
+
+    <div class="row">
+
+        <div class="data col-xs-12">
+			
+            <? /* if ($sentence = $object->getSentence()) { ?>
+                <p class="sentence"><?= $sentence ?></p>
+            <? } */ ?>
+
+            <div>
+
+                <?
+                if ($object->getPosition()) {
+                    ?>
+                    <div class="content col-md-1">
+                        <span class="badge badge-position pull-right"><?= $object->getPosition() ?></span>
+                    </div>
+                <?
+                }
+                ?>
+
+                <? if ($object->getThumbnailUrl($thumbSize)) {
+
+                    $size = $object_content_sizes[0];
+                    if ($object->getPosition()) {
+                        $size--;
+                    }
+
+                    ?>
+                    <div
+                        class="attachment col-xs-<?= $size + 2 ?> col-sm-<?= $size + 1 ?> col-sm-<?= $size ?> text-center">
                         <?php if ($object->getUrl() != false) { ?>
-                        <a href="<?= $object->getUrl() ?>">
+                        <a class="thumb_cont" href="<?= $object->getUrl() ?>">
                             <?php } ?>
-                            <img onerror="imgFixer(this)" src="<?= $object->getThumbnailUrl( $thumbSize ) ?>"
-                                 alt="<?= strip_tags($object->getTitle()) ?>"/>
+                            <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
+                                 alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
                             <?php if ($object->getUrl() != false) { ?>
                         </a>
                     <?php } ?>
+
                     </div>
                     <div class="content col-md-<?= $object_content_sizes[1] ?>">
-                        
-                        <? if( $object->force_hl_fields ) { ?>
-                        <p class="header">
-                            <?= $object->getLabel(); ?>
-                        </p>
+
+                        <? if ($alertsButtons) { ?>
+                            <div class="alertsButtons pull-right">
+                                <input class="btn btn-xs read" type="button"
+                                       value="<?php echo __d('powiadomienia', 'LC_POWIADOMIENIA_OPTIONS_ALERT_BUTTON_READ'); ?>"/>
+                                <input class="btn btn-xs unread" type="button"
+                                       value="<?php echo __d('powiadomienia', 'LC_POWIADOMIENIA_OPTIONS_ALERT_BUTTON_UNREAD'); ?>"/>
+                            </div>
+                        <? } ?>
+
+                        <? if ($object->force_hl_fields || $objectRenderOptions['forceLabel']) { ?>
+                            <p class="header">
+                                <?= $object->getLabel(); ?>
+                            </p>
                         <? } ?>
 
                         <p class="title">
                             <?php if ($object->getUrl() != false) { ?>
                             <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
                                 <?php } ?>
-                                <?= $object->getShortTitle() ?>
+                                <?= $this->Text->truncate($shortTitle, 150) ?>
                                 <?php if ($object->getUrl() != false) { ?>
-                            </a> <? if($object->getTitleAddon()) echo '<small>' . $object->getTitleAddon() . '</small>'; ?>
-                        <?php } ?>
+                            </a> <?
+                        }
+                        if ($object->getTitleAddon()) {
+                            echo '<small>' . $object->getTitleAddon() . '</small>';
+                        } ?>
                         </p>
+
+                        <? if ($metaDesc = $object->getMetaDescription()) { ?>
+                            <p class="meta meta-desc"><?= $metaDesc ?></p>
+                        <? } ?>
+
                         <?
-                        if ($file_exists)
+                        if ($file_exists) {
                             echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(
-                                'item' => $item,
-                                'object' => $object
+                                // 'item' => $item,
+                                'object' => $object,
+                                'hlFields' => $hlFields,
+                                'hlFieldsPush' => $hlFieldsPush,
+                                'defaults' => $defaults,
                             ));
-                        else
-	                        echo $this->Dataobject->highlights( $hlFields );
+                        } else {
+
+                            // echo $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults);
+                        }
                         ?>
+
+                        <? if (
+                            ($object->hasHighlights()) &&
+                            ($highlight = $object->getLayer('highlight'))
+                        ) { ?>
+                            <? if ($highlight[0] != '<em>' . $object->getShortTitle() . '</em>') { ?>
+                                <div class="description highlight">
+                                    <?= $highlight[0] ?>
+                                </div>
+                            <? } ?>
+                        <? } elseif ($object->getDescription()) { ?>
+                            <div class="description">
+                                <?= $object->getDescription() ?>
+                            </div>
+                        <? } ?>
+
                     </div>
 
                 <? } else { ?>
-                    <div class="content">
-                        
-                        <? if( $object->force_hl_fields ) { ?>
-                        <p class="header">
-                            <?= $object->getLabel(); ?>
-                        </p>
-                        <? } ?>
+                    <div class="content<? if ($object->getPosition()) { ?> col-md-11<? } ?>">
 
-                        <p class="title">
-                            <?php if ($object->getUrl() != false){ ?>
-                            <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
-                                <?php } ?>
-                                <?= $object->getShortTitle() ?>
+                        <? if ($alertsButtons) { ?>
+                            <div class="alertsButtons pull-right">
+                                <input class="btn btn-xs read" type="button"
+                                       value="<?php echo __d('powiadomienia', 'LC_POWIADOMIENIA_OPTIONS_ALERT_BUTTON_READ'); ?>"/>
+                                <input class="btn btn-xs unread" type="button"
+                                       value="<?php echo __d('powiadomienia', 'LC_POWIADOMIENIA_OPTIONS_ALERT_BUTTON_UNREAD'); ?>"/>
+                            </div>
+                        <? } ?>
+												
+                        <? if ($object->getIcon()) {
+                            echo $object->getIcon();
+                        } ?>
+
+                        <div class="<? if ($object->getIcon()) { ?>object-icon-side <? } ?>">
+
+                            <? if ($object->force_hl_fields || $objectRenderOptions['forceLabel']) { ?>
+                                <p class="header">
+                                    <?= $object->getLabel(); ?>
+                                </p>
+                            <? } ?>
+
+                            <p class="title">
                                 <?php if ($object->getUrl() != false){ ?>
-                            </a> <? if($object->getTitleAddon()) echo '<small>' . $object->getTitleAddon() . '</small>'; ?>
-                        <?php } ?>
-                        </p>
-                        <?
-                        if ($file_exists)
-                            echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(
-                                'item' => $item,
-                                'object' => $object
-                            ));
-                        else
-                        	echo $this->Dataobject->highlights( $hlFields );
-                        ?>
+                                <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
+                                    <?php } ?>
+                                    <?= $this->Text->truncate($shortTitle, 150) ?>
+                                    <?php if ($object->getUrl() != false){ ?>
+                                </a> <?
+                            }
+                            if ($object->getTitleAddon()) {
+                                echo '<small>' . $object->getTitleAddon() . '</small>';
+                            } ?>
+                            </p>
+
+                            <? if ($metaDesc = $object->getMetaDescription()) { ?>
+                                <p class="meta meta-desc"><?= $metaDesc ?></p>
+                            <? } ?>
+
+                            <?
+
+                            // debug( $object->getData() );
+                            if ($file_exists) {
+                                echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(
+                                    'object' => $object,
+                                    'hlFields' => $hlFields,
+                                    'hlFieldsPush' => $hlFieldsPush,
+                                    'defaults' => $defaults,
+                                ));
+                            } else {
+                                // echo $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults);
+                            }
+                            ?>
+
+                            <? if (
+                                ($object->hasHighlights()) &&
+                                ($highlight = $object->getLayer('highlight'))
+                            ) { ?>
+                                <? if ($highlight[0] != '<em>' . $object->getShortTitle() . '</em>') { ?>
+                                    <div class="description">
+                                        <?= $highlight[0] ?>
+                                    </div>
+                                <? } ?>
+                            <? } elseif ($object->getDescription()) { ?>
+                                <div class="description">
+                                    <?= $this->Text->truncate($object->getDescription(), 300) ?>
+                                </div>
+                            <? } ?>
+
+                        </div>
 
                     </div>
                 <? } ?>
             </div>
         </div>
     </div>
-    <?php if ($object->hasHighlights() && $object->getHlText()) { ?>
-        <div class="row">
-            <div class="highlights alert alert-info">
-                <?php echo $object->getHlText(); ?>
-            </div>
-        </div>
-    <?php } ?>
 </div>

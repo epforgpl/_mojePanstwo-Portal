@@ -1,49 +1,55 @@
+/*PREPARE CONTENT FOR DIALOG BOX AT SHOUTIT BUTTON*/
 .shoutIt .shoutItContent {
-    display: none;
+    visibility: hidden;
+    position: absolute;
+    left: -9999px;
 }
 
-.shoutItContent {
-    > div {
-        width: 167px;
-        height: 102px;
-        display: block;
-        float: left;
-        margin-right: 12px;
+/*STYLE FOR DIALOG BOX*/
+.shoutItDialog {
+    min-width: 560px;
+    overflow: hidden;
 
-        &:last-child {
-            margin-right: 0;
+    .shoutItContent {
+        > div {
+            width: 167px;
+            height: 102px;
+            display: block;
+            float: left;
+            margin-right: 12px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        .facebookBox {
+            background: url(/Dane/img/shoutit-facebook.png) top left no-repeat;
+
+            .fb-like {
+                margin: 65px 0 0 16px;
+                width: 85px;
+            }
+        }
+
+        .twitterBox {
+            background: url(/Dane/img/shoutit-twitter.png) top left no-repeat;
+
+            .tweet {
+                margin: 65px 0 0 16px;
+            }
+        }
+
+        .wykopBox {
+            background: url(/Dane/img/shoutit-wykop.png) top left no-repeat;
+
+            .wykop-button {
+                float: right;
+                margin: 30px 5px 0 0;
+                position: relative;
+                z-index: 1;
+            }
         }
     }
 
-    .facebookBox {
-        background: url(../Dane/img/shoutit-facebook.png) top left no-repeat;
-
-        .fb-like {
-            margin: 65px 0 0 16px;
-            width: 85px;
-        }
-    }
-
-    .twitterBox {
-        background: url(../Dane/img/shoutit-twitter.png) top left no-repeat;
-
-        .tweet {
-            margin: 65px 0 0 16px;
-        }
-    }
-
-    .wykopBox {
-        background: url(../Dane/img/shoutit-wykop.png) top left no-repeat;
-
-        .wykop-button {
-            float: right;
-            margin: 30px 5px 0 0;
-            position: relative;
-            z-index: 1;
-        }
-    }
 }
-
-/*.shoutItContent { visibility: hidden; width: 0px; position: absolute; margin: 10px 0 15px; }
-.shoutItDialog .ui-dialog-titlebar > span:before { content: "\e016"; font-family: 'sejmometr'; font-size: 22px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; text-transform: none; padding-right: 8px; }
-.shoutItDialog .shoutItContent { visibility: visible; width: 550px; position: relative; }*/

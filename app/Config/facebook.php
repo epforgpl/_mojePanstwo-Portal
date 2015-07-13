@@ -4,12 +4,12 @@
  * save the file to app/Config/facebook.php
  */
 $config = array(
-    'Facebook' => array(
-        'appId' => FACEBOOK_appId,
-        'apiKey' => FACEBOOK_apiKey,
-        'secret' => FACEBOOK_secret,
-        'cookie' => true,
-        'locale' => 'en_US',
-    )
+	'Facebook' => array(
+		'appId'  => FACEBOOK_appId,
+		'apiKey' => FACEBOOK_apiKey,
+		'secret' => FACEBOOK_secret,
+		'cookie' => true,
+		'locale' => 'en_US',
+	)
 );
 ?>

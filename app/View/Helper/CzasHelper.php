@@ -27,9 +27,9 @@ class CzasHelper extends AppHelper
         return pl_dopelniacz(pl_wiek($data), 'rok', 'lata', 'lat');
     }
 
-    public function dataSlownie($data)
+    public function dataSlownie($data, $options = array())
     {
-        return dataSlownie($data);
+        return dataSlownie($data, $options);
     }
 
 }

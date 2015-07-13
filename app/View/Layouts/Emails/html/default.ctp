@@ -426,7 +426,10 @@ body, td {
                                         <p>
                                             <strong>
                                                 <singleline
-                                                    label="Title"><?php echo $this->Html->link(__d('passport', 'LC_PROJECT_NAME', true), $this->Html->url(array('controller' => 'users', 'action' => 'login'), true), array('style' => 'font-size:24px;text-decoration: none; color: #000000;')); ?></singleline>
+                                                    label="Title"><?php echo $this->Html->link(__d('passport', 'LC_PROJECT_NAME', true), $this->Html->url(array(
+                                                        'controller' => 'users',
+                                                        'action' => 'login'
+                                                    ), true), array('style' => 'font-size:24px;text-decoration: none; color: #000000;')); ?></singleline>
                                             </strong>
                                         </p>
                                     </div>
@@ -511,11 +514,22 @@ body, td {
 
                                     <p class="footer-content-left" align="left">
                                         <a class="btn btn-link"
-                                           href="<?php echo $this->Html->url(array('controller' => 'pages', 'action' => 'regulations', true)); ?>"><?php echo __d('passport', 'LC_REGULATIONS'); ?></a>
+                                           href="<?php echo $this->Html->url(array(
+                                               'controller' => 'pages',
+                                               'action' => 'regulations',
+                                               true
+                                           )); ?>"><?php echo __d('passport', 'LC_REGULATIONS'); ?></a>
                                         <a class="btn btn-link"
-                                           href="<?php echo $this->Html->url(array('controller' => 'pages', 'action' => 'privacy', true)); ?>"><?php echo __d('passport', 'LC_PRIVACY_POLICY'); ?></a>
+                                           href="<?php echo $this->Html->url(array(
+                                               'controller' => 'pages',
+                                               'action' => 'privacy',
+                                               true
+                                           )); ?>"><?php echo __d('passport', 'LC_PRIVACY_POLICY'); ?></a>
                                         <a class="btn btn-link"
-                                           href="<?php echo $this->Html->url(array('controller' => 'error_reports', 'action' => 'index'), true); ?>"><?php echo __d('passport', 'LC_ERROR_REPORTS'); ?></a>
+                                           href="<?php echo $this->Html->url(array(
+                                               'controller' => 'error_reports',
+                                               'action' => 'index'
+                                           ), true); ?>"><?php echo __d('passport', 'LC_ERROR_REPORTS'); ?></a>
                                     </p>
                                 </td>
                                 <td class="hide w0" width="60"></td>

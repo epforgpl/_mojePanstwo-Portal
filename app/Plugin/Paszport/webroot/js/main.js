@@ -4,15 +4,14 @@ var changeColor = function (color, ratio, darker) {
 
     var difference = Math.round(ratio * 256) * (darker ? -1 : 1),
         rgb = color.match(new RegExp('^rgba?\\(\\s*' +
-            '(\\d|[1-9]\\d|1\\d{2}|2[0-4][0-9]|25[0-5])' +
-            '\\s*,\\s*' +
-            '(\\d|[1-9]\\d|1\\d{2}|2[0-4][0-9]|25[0-5])' +
-            '\\s*,\\s*' +
-            '(\\d|[1-9]\\d|1\\d{2}|2[0-4][0-9]|25[0-5])' +
-            '(?:\\s*,\\s*' +
-            '(0|1|0?\\.\\d+))?' +
-            '\\s*\\)$'
-            , 'i')),
+        '(\\d|[1-9]\\d|1\\d{2}|2[0-4][0-9]|25[0-5])' +
+        '\\s*,\\s*' +
+        '(\\d|[1-9]\\d|1\\d{2}|2[0-4][0-9]|25[0-5])' +
+        '\\s*,\\s*' +
+        '(\\d|[1-9]\\d|1\\d{2}|2[0-4][0-9]|25[0-5])' +
+        '(?:\\s*,\\s*' +
+        '(0|1|0?\\.\\d+))?' +
+        '\\s*\\)$', 'i')),
         alpha = !!rgb && rgb[4] != null ? rgb[4] : null,
 
         decimal = !!rgb ? [rgb[1], rgb[2], rgb[3]] : color.replace(
@@ -25,18 +24,18 @@ var changeColor = function (color, ratio, darker) {
         ).split(/,/), returnValue;
 
     return !!rgb ?
-        'rgb' + (alpha !== null ? 'a' : '') + '(' +
-            Math[darker ? 'max' : 'min'](
-                parseInt(decimal[0], 10) + difference, darker ? 0 : 255
-            ) + ', ' +
-            Math[darker ? 'max' : 'min'](
-                parseInt(decimal[1], 10) + difference, darker ? 0 : 255
-            ) + ', ' +
-            Math[darker ? 'max' : 'min'](
-                parseInt(decimal[2], 10) + difference, darker ? 0 : 255
-            ) +
-            (alpha !== null ? ', ' + alpha : '') +
-            ')' :
+    'rgb' + (alpha !== null ? 'a' : '') + '(' +
+    Math[darker ? 'max' : 'min'](
+        parseInt(decimal[0], 10) + difference, darker ? 0 : 255
+    ) + ', ' +
+    Math[darker ? 'max' : 'min'](
+        parseInt(decimal[1], 10) + difference, darker ? 0 : 255
+    ) + ', ' +
+    Math[darker ? 'max' : 'min'](
+        parseInt(decimal[2], 10) + difference, darker ? 0 : 255
+    ) +
+    (alpha !== null ? ', ' + alpha : '') +
+    ')' :
 
         [
             '#',
@@ -58,7 +57,3 @@ var lighterColor = function (color, ratio) {
 var darkerColor = function (color, ratio) {
     return changeColor(color, ratio, true);
 };
-
-$(document).ready(function () {
-    $('.selectpicker').selectpicker();
-});

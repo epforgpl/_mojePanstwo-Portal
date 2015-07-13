@@ -17,18 +17,18 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 ?>
-<h2><?php echo __d('cake_dev', 'Missing Database Connection'); ?></h2>
+<h2><?php echo __d( 'cake_dev', 'Missing Database Connection' ); ?></h2>
 <p class="error">
-    <strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
-    <?php echo __d('cake_dev', 'Scaffold requires a database connection'); ?>
+	<strong><?php echo __d( 'cake_dev', 'Error' ); ?>: </strong>
+	<?php echo __d( 'cake_dev', 'Scaffold requires a database connection' ); ?>
 </p>
 <p class="error">
-    <strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
-    <?php echo __d('cake_dev', 'Confirm you have created the file: %s', APP_DIR . DS . 'Config' . DS . 'database.php'); ?>
+	<strong><?php echo __d( 'cake_dev', 'Error' ); ?>: </strong>
+	<?php echo __d( 'cake_dev', 'Confirm you have created the file: %s', APP_DIR . DS . 'Config' . DS . 'database.php' ); ?>
 </p>
 <p class="notice">
-    <strong><?php echo __d('cake_dev', 'Notice'); ?>: </strong>
-    <?php echo __d('cake_dev', 'If you want to customize this error message, create %s', APP_DIR . DS . 'View' . DS . 'Errors' . DS . 'missing_database.ctp'); ?>
+	<strong><?php echo __d( 'cake_dev', 'Notice' ); ?>: </strong>
+	<?php echo __d( 'cake_dev', 'If you want to customize this error message, create %s', APP_DIR . DS . 'View' . DS . 'Errors' . DS . 'missing_database.ctp' ); ?>
 </p>
 
-<?php echo $this->element('exception_stack_trace'); ?>
+<?php echo $this->element( 'exception_stack_trace' ); ?>

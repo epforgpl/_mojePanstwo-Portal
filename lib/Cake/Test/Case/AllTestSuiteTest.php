@@ -25,19 +25,18 @@
  *
  * @package       Cake.Test.Case
  */
-class AllTestSuiteTest extends PHPUnit_Framework_TestSuite
-{
+class AllTestSuiteTest extends PHPUnit_Framework_TestSuite {
 
-    /**
-     * suite method, defines tests for this suite.
-     *
-     * @return void
-     */
-    public static function suite()
-    {
-        $suite = new CakeTestSuite('All Test Suite classes tests');
+	/**
+	 * suite method, defines tests for this suite.
+	 *
+	 * @return void
+	 */
+	public static function suite() {
+		$suite = new CakeTestSuite( 'All Test Suite classes tests' );
 
-        $suite->addTestDirectory(CORE_TEST_CASES . DS . 'TestSuite');
-        return $suite;
-    }
+		$suite->addTestDirectory( CORE_TEST_CASES . DS . 'TestSuite' );
+
+		return $suite;
+	}
 }

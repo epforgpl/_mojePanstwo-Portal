@@ -1,22 +1,136 @@
-.wystapienie {
-	
-	display: block;
-	padding: 15px 0;
-	overflow: auto;
-		
-	blockquote p {
-	    color: #555555;
-	    font-family: sans-serif;
-	    font-size: 14px;
-	    font-weight: 300;
-	    line-height: 1.4em;
-    }
-    
-    &:hover {
-		blockquote p {
-			color: inherit;
-		}
-	}
+.debata-wystapienia, .debata-wystapienie {
+    .dataBrowser .dataObjects .innerContainer {
 
-	
+        background-color: inherit !important; /*TODO:check if it REALLY need*/
+
+        .objectRender {
+            border-bottom: none;
+            margin: 0;
+            padding: 10px 40px;
+        }
+
+    }
+
+    .sw_avatar {
+        min-width: 70px;
+        img {
+            max-width: 52px;
+        }
+    }
+
+    .sw_content {
+        padding: 10px;
+        background-color: #FFF;
+        border-radius: 3px;
+        margin: 0 75px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        -o-border-radius: 3px;
+
+        .mowca {
+
+            font-size: 13px;
+            font-weight: 500;
+            .label {
+                font-size: 10px;
+                margin-left: 5px;
+                position: relative;
+                top: -1px;
+                text-transform: uppercase;
+            }
+            .label-default {
+                background-color: #AAA;
+            }
+        }
+
+        .link {
+            visibility: hidden;
+            font-size: 12px;
+            margin-bottom: 0;
+            text-align: center;
+        }
+
+        .full-text {
+
+            font-size: 16px;
+            line-height: 25px;
+
+            p {
+                padding: 10px;
+
+                &.opis {
+                    text-align: center;
+                    font-style: italic;
+                    color: #666;
+                }
+            }
+
+        }
+
+    }
+
+    .sw_content:hover {
+        .link {
+            visibility: visible;
+        }
+    }
+
+    @arrowSize: 30px;
+
+    .porzadek {
+        .sw_avatar {
+            float: right;
+            text-align: right;
+        }
+        .sw_content {
+            background-color: #FBFBFB;
+            position: relative;
+
+            &:before {
+                position: absolute;
+                top: 25 px-(@arrowSize/2);
+                right: -@arrowSize;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+                border-color: rgba(251, 251, 251, 0);
+                border-left-color: #fbfbfb;
+                border-width: @arrowSize/2;
+            }
+
+            .mowca {
+                text-align: left;
+            }
+        }
+    }
+
+    .wystapienie {
+        .sw_avatar {
+            float: left;
+            text-align: left;
+        }
+
+        .sw_content {
+            position: relative;
+
+            &:before {
+                position: absolute;
+                top: 25 px-(@arrowSize/2);
+                left: -@arrowSize;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+                border-color: rgba(255, 255, 255, 0);
+                border-right-color: #ffffff;
+                border-width: @arrowSize/2;
+            }
+        }
+    }
+
 }

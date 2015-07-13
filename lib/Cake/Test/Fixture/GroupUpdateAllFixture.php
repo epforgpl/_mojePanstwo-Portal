@@ -23,38 +23,37 @@
  *
  * @package       Cake.Test.Fixture
  */
-class GroupUpdateAllFixture extends CakeTestFixture
-{
+class GroupUpdateAllFixture extends CakeTestFixture {
 
-    public $table = 'group_update_all';
+	public $table = 'group_update_all';
 
-    public $fields = array(
-        'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
-        'name' => array('type' => 'string', 'null' => false, 'length' => 29),
-        'code' => array('type' => 'integer', 'null' => false, 'length' => 4),
-        'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
-    );
+	public $fields = array(
+		'id'      => array( 'type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary' ),
+		'name'    => array( 'type' => 'string', 'null' => false, 'length' => 29 ),
+		'code'    => array( 'type' => 'integer', 'null' => false, 'length' => 4 ),
+		'indexes' => array( 'PRIMARY' => array( 'column' => 'id', 'unique' => 1 ) )
+	);
 
-    public $records = array(
-        array(
-            'id' => 1,
-            'name' => 'group one',
-            'code' => 120
-        ),
-        array(
-            'id' => 2,
-            'name' => 'group two',
-            'code' => 125
-        ),
-        array(
-            'id' => 3,
-            'name' => 'group three',
-            'code' => 130
-        ),
-        array(
-            'id' => 4,
-            'name' => 'group four',
-            'code' => 135
-        ),
-    );
+	public $records = array(
+		array(
+			'id'   => 1,
+			'name' => 'group one',
+			'code' => 120
+		),
+		array(
+			'id'   => 2,
+			'name' => 'group two',
+			'code' => 125
+		),
+		array(
+			'id'   => 3,
+			'name' => 'group three',
+			'code' => 130
+		),
+		array(
+			'id'   => 4,
+			'name' => 'group four',
+			'code' => 135
+		),
+	);
 }

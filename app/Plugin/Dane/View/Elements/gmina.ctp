@@ -17,8 +17,8 @@ $file_exists = file_exists($file);
                 <? if ($object->getThumbnailUrl()) { ?>
                     <div class="attachment col-md-2">
                         <a href="<?= $object->getUrl() ?>">
-                            <img onerror="imgFixer(this)" src="<?= $object->getThumbnailUrl() ?>"
-                                 alt="<?= strip_tags($object->getTitle()) ?>"/>
+                            <img src="<?= $object->getThumbnailUrl() ?>"
+                                 alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
                         </a>
                     </div>
                     <div class="content col-md-10">
@@ -28,11 +28,12 @@ $file_exists = file_exists($file);
                                title="<?= strip_tags($object->getTitle()) ?>"><?= $object->getShortTitle() ?></a>
                         </p>
                         <?
-                        if ($file_exists)
+                        if ($file_exists) {
                             echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(
                                 'item' => $item,
                                 'object' => $object
                             ));
+                        }
                         ?>
                     </div>
 
@@ -44,11 +45,12 @@ $file_exists = file_exists($file);
                                title="<?= strip_tags($object->getTitle()) ?>"><?= $object->getShortTitle() ?></a>
                         </p>
                         <?
-                        if ($file_exists)
+                        if ($file_exists) {
                             echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(
                                 'item' => $item,
                                 'object' => $object
                             ));
+                        }
                         ?>
 
                     </div>

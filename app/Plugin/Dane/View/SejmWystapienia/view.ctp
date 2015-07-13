@@ -2,7 +2,7 @@
 
 <?= $this->Element('dataobject/pageBegin'); ?>
     <div class="col-md-10 col-md-offset-1">
-        <div class="object">
+        <div class="object row">
             <div class="document col-md-10 col-md-offset-1">
                 <blockquote>
                     <?php echo $html['SejmWystapienia']['o_txt']; ?>

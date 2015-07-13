@@ -178,7 +178,7 @@
 
         fillMonths: function () {
             var html = '';
-            var i = 0
+            var i = 0;
             while (i < 12) {
                 html += '<span class="month">' + DPGlobal.dates.monthsShort[i++] + '</span>';
             }
@@ -267,7 +267,7 @@
                                 this.viewDate['set' + DPGlobal.modes[this.viewMode].navFnc].call(
                                     this.viewDate,
                                     this.viewDate['get' + DPGlobal.modes[this.viewMode].navFnc].call(this.viewDate) +
-                                        DPGlobal.modes[this.viewMode].navStep * (target[0].className === 'prev' ? -1 : 1)
+                                    DPGlobal.modes[this.viewMode].navStep * (target[0].className === 'prev' ? -1 : 1)
                                 );
                                 this.fill();
                                 this.set();
@@ -443,33 +443,33 @@
             return date.join(format.separator);
         },
         headTemplate: '<thead>' +
-            '<tr>' +
-            '<th class="prev">&lsaquo;</th>' +
-            '<th colspan="5" class="switch"></th>' +
-            '<th class="next">&rsaquo;</th>' +
-            '</tr>' +
-            '</thead>',
+        '<tr>' +
+        '<th class="prev">&lsaquo;</th>' +
+        '<th colspan="5" class="switch"></th>' +
+        '<th class="next">&rsaquo;</th>' +
+        '</tr>' +
+        '</thead>',
         contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>'
     };
     DPGlobal.template = '<div class="datepicker dropdown-menu">' +
-        '<div class="datepicker-days">' +
-        '<table class=" table-condensed">' +
-        DPGlobal.headTemplate +
-        '<tbody></tbody>' +
-        '</table>' +
-        '</div>' +
-        '<div class="datepicker-months">' +
-        '<table class="table-condensed">' +
-        DPGlobal.headTemplate +
-        DPGlobal.contTemplate +
-        '</table>' +
-        '</div>' +
-        '<div class="datepicker-years">' +
-        '<table class="table-condensed">' +
-        DPGlobal.headTemplate +
-        DPGlobal.contTemplate +
-        '</table>' +
-        '</div>' +
-        '</div>';
+    '<div class="datepicker-days">' +
+    '<table class=" table-condensed">' +
+    DPGlobal.headTemplate +
+    '<tbody></tbody>' +
+    '</table>' +
+    '</div>' +
+    '<div class="datepicker-months">' +
+    '<table class="table-condensed">' +
+    DPGlobal.headTemplate +
+    DPGlobal.contTemplate +
+    '</table>' +
+    '</div>' +
+    '<div class="datepicker-years">' +
+    '<table class="table-condensed">' +
+    DPGlobal.headTemplate +
+    DPGlobal.contTemplate +
+    '</table>' +
+    '</div>' +
+    '</div>';
 
 }(window.jQuery);

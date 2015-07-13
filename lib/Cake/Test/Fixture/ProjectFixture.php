@@ -23,27 +23,26 @@
  *
  * @package       Cake.Test.Fixture
  */
-class ProjectFixture extends CakeTestFixture
-{
+class ProjectFixture extends CakeTestFixture {
 
-    /**
-     * fields property
-     *
-     * @var array
-     */
-    public $fields = array(
-        'id' => array('type' => 'integer', 'key' => 'primary'),
-        'name' => array('type' => 'string', 'null' => false)
-    );
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
+	public $fields = array(
+		'id'   => array( 'type' => 'integer', 'key' => 'primary' ),
+		'name' => array( 'type' => 'string', 'null' => false )
+	);
 
-    /**
-     * records property
-     *
-     * @var array
-     */
-    public $records = array(
-        array('name' => 'Project 1'),
-        array('name' => 'Project 2'),
-        array('name' => 'Project 3')
-    );
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
+	public $records = array(
+		array( 'name' => 'Project 1' ),
+		array( 'name' => 'Project 2' ),
+		array( 'name' => 'Project 3' )
+	);
 }
