@@ -227,7 +227,7 @@ class mpAPISource extends DataSource {
         	$this->Aggs = $res['Aggs']; 
            
         if( $model->findQueryType == 'first' ) {
-	        return array($res['Dataobject']);
+	        return array($res);
         } else {	        
 	        return $res['Dataobject'];
         }
