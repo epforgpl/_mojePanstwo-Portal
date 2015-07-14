@@ -112,7 +112,7 @@ class DataobjectHelper extends AppHelper
         $alertsButtons = isset($options['alertsButtons']) ? $options['alertsButtons'] : false;
         $alertsStatus = isset($options['alertsStatus']) ? $options['alertsStatus'] : false;
         $truncate = isset($options['truncate']) ? $options['truncate'] : 150;
-
+				
         $this->setObject($object);
         if (!empty($routes)) {
             $object->addRoutes($routes);
@@ -150,7 +150,7 @@ class DataobjectHelper extends AppHelper
             'thumbWidth' => $thumbWidth,
             'truncate' => $truncate,
         );
-
+				
         return $this->_View->element($theme, $params, array('plugin' => 'Dane'));
     }
 
