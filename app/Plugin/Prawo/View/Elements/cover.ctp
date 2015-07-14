@@ -51,7 +51,7 @@ $options = array(
         <header>Autorzy obowiązujących aktów prawnych</header>
         <section class="aggs-init">
             <div class="dataAggs">
-                <div class="agg agg-ColumnsHorizontal" data-choose-request="asd"
+                <div class="agg agg-ColumnsHorizontal" data-choose-request="dane/prawo?conditions[prawo.autor_id]="
                      data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['prawo_obowiazujace']['autor_id'])) ?>">
                     <div class="chart"></div>
                 </div>

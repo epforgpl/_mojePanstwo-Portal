@@ -1,15 +1,19 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty-dzialania', array('plugin' => 'Dane')));
-$this->Combinator->add_libs('css', '../plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5');
-$this->Combinator->add_libs('css', '../plugins/aehlke-tag-it/css/jquery.tagit');
-$this->Combinator->add_libs('css', '../plugins/aehlke-tag-it/css/tagit.ui-zendesk');
+echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block' => 'scriptBlock'));
 
+/* bootstrap3-wysihtml5 */
+$this->Combinator->add_libs('css', '../plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5');
 echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5.all', array('block' => 'scriptBlock'));
 echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/locales/bootstrap-wysihtml5.pl-NEW', array('block' => 'scriptBlock'));
-echo $this->Html->script('../plugins/aehlke-tag-it/js/tag-it.min', array('block' => 'scriptBlock'));
 
+/* tag-it */
+$this->Combinator->add_libs('css', '../plugins/aehlke-tag-it/css/jquery.tagit');
+$this->Combinator->add_libs('css', '../plugins/aehlke-tag-it/css/tagit.ui-zendesk');
+$this->Combinator->add_libs('js', '../plugins/aehlke-tag-it/js/tag-it.min');
+
+/* page script */
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialania');
-echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block' => 'scriptBlock'));
 
 echo $this->Element('dataobject/pageBegin'); ?>
 
@@ -45,12 +49,13 @@ echo $this->Element('dataobject/pageBegin'); ?>
                             <textarea class="form-control" id="dzialanieOpis" name="opis"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="dzialanieTagi">Tagi</label>
-                            <ul id="dzialanieTagi"></ul>
+                            <label>Tagi</label>
+                            <div class="row tags">
+                                <input type="text" class="form-control tagit" name="tagi"/>
+                            </div>
                         </div>
                         <div class="form-group">
                             <div class="image-editor">
-
                                 <div class="cropit-image-preview"></div>
                                 <p>Zalecany rozmiar: 874x347</p>
                                 <span class="btn btn-default btn-file">Przeglądaj<input type="file"
