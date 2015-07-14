@@ -181,9 +181,6 @@ class mpAPISource extends DataSource {
 		        }
 	        
 	        }
-	        
-			$endpoint_parts[] = 'index';
-        
         }
                                 
 		$base_url = implode('/', $endpoint_parts) . '.' . $this->config['ext'];
