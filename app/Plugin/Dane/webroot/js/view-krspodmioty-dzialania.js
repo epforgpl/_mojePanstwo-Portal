@@ -172,7 +172,25 @@ $(document).ready(function () {
         googleMapBlock = $('.googleMapElement'),
         header = $('.appHeader.dataobject').first(),
         dataset = header.attr('data-dataset'),
-        object_id = header.attr('data-object_id');
+        object_id = header.attr('data-object_id'),
+        opis = $('#dzialanieOpis');
+
+        opis.wysihtml5({
+            toolbar: {
+                "font-styles": true, //Font styling, e.g. h1, h2, etc.
+                "emphasis": true, //Italics, bold, etc.
+                "lists": false, //(Un)ordered lists, e.g. Bullets, Numbers.
+                "html": false, //Button which allows you to edit the generated HTML.
+                "link": true, //Button to insert a link.
+                "image": false, //Button to insert an image.
+                "color": false, //Button to change color of font
+                "blockquote": false
+            },
+            'locale': 'pl-NEW',
+            parser: function (html) {
+                return html;
+            }
+        });
 
         cropItErrorMsg = function () {
             if (mPHeart.language.twoDig == 'pl') {
@@ -294,6 +312,26 @@ $(document).ready(function () {
                 }
             });
         }
+    });
+
+    /* Tags autocomplete input */
+    $(function() {
+        $('.tags input.tagit').tagit({
+            allowSpaces: true,
+            removeConfirmation: true,
+            autocomplete: {
+                source: function( request, response ) {
+                    $.getJSON("/dane/tematy.json?term=" + request.term, function(res) {
+                        var data = [];
+                        for(var i = 0; i < res.length; i++)
+                            data.push(res[i].label);
+
+                        response(data);
+                    });
+                },
+                minLength: 3
+            }
+        });
     });
 
     /*ASYNCHRONIZE ACTION FOR GOOGLE MAP*/

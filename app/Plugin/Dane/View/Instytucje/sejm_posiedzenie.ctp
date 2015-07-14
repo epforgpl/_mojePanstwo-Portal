@@ -11,14 +11,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
     'menu' => $_submenu,
 ));
 
-?>
-    <div class="row">
+echo $this->Element('Dane.DataBrowser/browser');
 
-        <div class="col-lg-10">
-
-
-        </div>
-    </div>
-<?
 
 echo $this->Element('dataobject/pageEnd');

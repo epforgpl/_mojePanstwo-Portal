@@ -526,17 +526,16 @@ class InstytucjeController extends DataobjectsController
 	            'id' => 'raporty',
 	        );	        
         }
-        
-        /*
-        if( $this->object->getId()=='3214' ) { // Sejm
-	        $menu['items'][] = array(
-	            'label' => 'Posiedzenia',
-	            'id' => 'posiedzenia',
-	        );	        
-        }
-        */
-        
-        
+		
+		if( isset($aggs['sejm_posiedzenia']) && $aggs['sejm_posiedzenia']['doc_count'] ) {
+	        if( $this->object->getId()=='3214' ) { // Sejm
+		        $menu['items'][] = array(
+		            'label' => 'Posiedzenia',
+		            'id' => 'posiedzenia',
+		            'count' => $aggs['sejm_posiedzenia']['doc_count'],
+		        );	        
+	        }     
+        }   
 		
 		if( isset($aggs['prawo']) && $aggs['prawo']['doc_count'] ) {
 	        $menu['items'][] = array(
@@ -694,27 +693,31 @@ class InstytucjeController extends DataobjectsController
 	            );
 				
 				$submenu['items'][] = array(
-					'label' => 'Posiedzenie',
+					'label' => 'Prace',
 				);
 				
-				$submenu['items'][] = array(
-					'id' => 'projekty',
-					'label' => 'Rozpatrywane projekty',
-				);
-				
-				$submenu['items'][] = array(
-					'id' => 'punkty',
-					'label' => 'Punkty porządkowe',
-				);
-				
+				/*
 				$submenu['items'][] = array(
 					'id' => 'przebieg',
 					'label' => 'Przebieg posiedzenia',
 				);
+				*/
+				
+				$submenu['items'][] = array(
+					'id' => 'wystapienia',
+					'label' => 'Wystąpienia',
+				);
+				
+				$submenu['items'][] = array(
+					'id' => 'glosowania',
+					'label' => 'Głosowania',
+				);
+				
+				
 				
 				$submenu['base'] = '/dane/instytucje/3214/posiedzenia/' . $posiedzenie->getId();
 
-				switch( $this->request->params['subaction'] ) {
+				switch( @$this->request->params['subaction'] ) {
 					
 					case 'projekty': {
 						
@@ -739,6 +742,134 @@ class InstytucjeController extends DataobjectsController
 					
 					default: {
 						
+						$global_aggs = array(
+	                        'punkty' => array(
+	                            'filter' => array(
+	                                'bool' => array(
+	                                    'must' => array(
+	                                        array(
+	                                            'term' => array(
+	                                                'dataset' => 'sejm_posiedzenia_punkty',
+	                                            ),
+	                                        ),
+	                                        array(
+	                                            'term' => array(
+	                                                'data.sejm_posiedzenia_punkty.posiedzenie_id' => $posiedzenie->getId(),
+	                                            ),
+	                                        ),
+	                                    ),
+	                                ),
+	                            ),
+	                            'aggs' => array(
+	                                'top' => array(
+	                                    'top_hits' => array(
+	                                        'size' => 1000,
+	                                        'fielddata_fields' => array('dataset', 'id'),
+	                                        'sort' => array(
+	                                            'data.sejm_posiedzenia_punkty.numer' => array(
+	                                                'order' => 'asc',
+	                                            ),
+	                                        ),
+	                                    ),
+	                                ),
+                                ),
+	                        ),
+	                        'projekty' => array(
+		                        'filter' => array(
+	                                'bool' => array(
+	                                    'must' => array(
+	                                        array(
+	                                            'term' => array(
+	                                                'dataset' => 'prawo_projekty',
+	                                            ),
+	                                        ),
+	                                        array(
+	                                            'term' => array(
+	                                                'data.prawo_projekty.posiedzenie_id' => $posiedzenie->getId(),
+	                                            ),
+	                                        ),
+	                                    ),
+	                                ),
+	                            ),
+	                            'aggs' => array(
+	                                'top' => array(
+	                                    'top_hits' => array(
+	                                        'size' => 1000,
+	                                        'fielddata_fields' => array('dataset', 'id'),
+	                                    ),
+	                                ),
+	                            ),
+	                        ),
+	                        'glosowania' => array(
+		                        'filter' => array(
+	                                'bool' => array(
+	                                    'must' => array(
+	                                        array(
+	                                            'term' => array(
+	                                                'dataset' => 'sejm_glosowania',
+	                                            ),
+	                                        ),
+	                                        array(
+	                                            'term' => array(
+	                                                'data.sejm_glosowania.posiedzenie_id' => $posiedzenie->getId(),
+	                                            ),
+	                                        ),
+	                                        array(
+	                                            'term' => array(
+	                                                'data.sejm_glosowania_typy.istotne' => '1',
+	                                            ),
+	                                        ),
+	                                    ),
+	                                ),
+	                            ),
+	                            'aggs' => array(
+	                                'top' => array(
+	                                    'top_hits' => array(
+	                                        'size' => 1000,
+	                                        'fielddata_fields' => array('dataset', 'id'),
+	                                    ),
+	                                ),
+	                            ),
+	                        ),
+	                    );
+	
+	                    $options = array(
+	                        'searchTitle' => 'Szukaj w posiedzeniu...',
+	                        'conditions' => array(
+	                            '_object' => 'radni_gmin.' . $posiedzenie->getId(),
+	                        ),
+	                        'cover' => array(
+	                            'view' => array(
+	                                'plugin' => 'Dane',
+	                                'element' => 'sejm_posiedzenia/cover',
+	                            ),
+	                            'aggs' => array(
+	                                'all' => array(
+	                                    'global' => '_empty',
+	                                    'aggs' => $global_aggs,
+	                                ),
+	                            ),
+	                        ),
+	                        'aggs' => array(
+	                            'dataset' => array(
+	                                'terms' => array(
+	                                    'field' => 'dataset',
+	                                ),
+	                                'visual' => array(
+	                                    'label' => 'Zbiory danych',
+	                                    'skin' => 'datasets',
+	                                    'class' => 'special',
+	                                    'field' => 'dataset',
+	                                    'dictionary' => array(
+	                                        'prawo_wojewodztwa' => array('prawo', 'Prawo lokalne'),
+	                                        'zamowienia_publiczne' => array('zamowienia_publiczne', 'Zamówienia publiczne'),
+	                                    ),
+	                                ),
+	                            ),
+	                        ),
+	                    );
+	
+	                    $this->Components->load('Dane.DataBrowser', $options);	
 						$submenu['selected'] = 'view';
 						
 					}
@@ -759,10 +890,10 @@ class InstytucjeController extends DataobjectsController
 		        
 		        $this->Components->load('Dane.DataBrowser', array(
 		            'conditions' => array(
-		                'dataset' => 'nik_raporty',
+		                'dataset' => 'sejm_posiedzenia',
 		            ),
 		        ));
-		        $this->set('title_for_layout', "Raporty Najwyższej Izby Kontroli");
+		        $this->set('title_for_layout', "Posiedzenia Sejmu RP");
 	        
 	        }
 	        

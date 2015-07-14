@@ -207,6 +207,11 @@ class Dataobject
         return $this->getData($this->routes['label']);
     }
     
+    public function getSideLabel()
+    {
+        return false;
+    }
+    
     public function getShortLabel()
     {
         return $this->getData($this->routes['label']);

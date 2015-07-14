@@ -74,6 +74,8 @@ Router::connect( '/dane/:controller/:slug/:id', array(
 ), array( 'id' => '[0-9]+' ) );
 */
 
+Router::connect('/dane/tematy', array('plugin' => 'Dane', 'controller' => 'Projects', 'action' => 'tematy', '[method]' => 'GET', 'ext' => 'json'));
+
 # ObjectUsersManagement
 Router::connect('/dane/:dataset/:object_id/users/index', array('plugin' => 'Dane', 'controller' => 'ObjectUsersManagement', 'action' => 'index', '[method]' => 'GET'), array('dataset' => '([a-zA-Z\_]+)', 'object_id' => '[0-9]+'));
 Router::connect('/dane/:dataset/:object_id/users/index', array('plugin' => 'Dane', 'controller' => 'ObjectUsersManagement', 'action' => 'add', '[method]' => 'POST'), array('dataset' => '([a-zA-Z\_]+)', 'object_id' => '[0-9]+'));

@@ -1,8 +1,16 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty-dzialania', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', '../plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5');
 
+echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5.all', array('block' => 'scriptBlock'));
+echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/locales/bootstrap-wysihtml5.pl-NEW', array('block' => 'scriptBlock'));
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialania');
 echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block' => 'scriptBlock'));
+
+/* tag-it */
+$this->Combinator->add_libs('css', '../plugins/aehlke-tag-it/css/jquery.tagit');
+$this->Combinator->add_libs('css', '../plugins/aehlke-tag-it/css/tagit.ui-zendesk');
+$this->Combinator->add_libs('js', '../plugins/aehlke-tag-it/js/tag-it.min');
 
 echo $this->Element('dataobject/pageBegin'); ?>
 
@@ -23,6 +31,12 @@ echo $this->Element('dataobject/pageBegin'); ?>
                         <div class="form-group">
                             <label for="dzialanieOpis">Opis</label>
                             <textarea class="form-control" id="dzialanieOpis" name="opis"><?= $dzialanie->getData('opis'); ?></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Tagi</label>
+                            <div class="row tags">
+                                <input type="text" class="form-control tagit" value="<?= $dzialanie->getData('tagi'); ?>" name="tagi"/>
+                            </div>
                         </div>
                         <div class="form-group">
                             <div class="image-editor">
@@ -48,13 +62,12 @@ echo $this->Element('dataobject/pageBegin'); ?>
                             </div>
                         </div>
                         <div class="text-center">
-                            <div class="btn btn-warning btn-icon cancelBtn">
-                                <i class="icon glyphicon glyphicon-remove"></i>
-                                Anuluj
-                            </div>
                             <div class="btn btn-primary btn-icon submitBtn" type="submit">
                                 <i class="icon glyphicon glyphicon-ok"></i>
                                 Zapisz
+                            </div>
+                            <div class="btn btn-link cancelBtn">
+                                Anuluj
                             </div>
                         </div>
                     </form>

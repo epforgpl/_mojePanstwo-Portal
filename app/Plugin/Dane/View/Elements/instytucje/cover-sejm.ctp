@@ -15,7 +15,6 @@ $options = array(
 		
 		
         <? 
-	        /*
 	    if ( $doc = @$dataBrowser['aggs']['all']['sejm_posiedzenia']['top']['hits']['hits'][0]['fields']['source'][0] ) { 
         ?>
             <div class="block block-simple block-size-sm col-xs-12">
@@ -62,7 +61,7 @@ $options = array(
 
                 </section>
             </div>
-        <? } */ ?>
+        <? } ?>
 				
 		<? if (@$dataBrowser['aggs']['all']['zamowienia_publiczne_dokumenty']['dni']['buckets']) { ?>
             <div class="block block-simple block-size-sm col-xs-12">

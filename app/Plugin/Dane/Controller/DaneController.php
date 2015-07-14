@@ -50,7 +50,8 @@ class DaneController extends ApplicationsController
 	            'aggs' => $aggs,
 	            'aggs-mode' => 'apps',
 	        );
-	
+			
+            $this->_layout['header']['element'] = 'search';
 	        $this->Components->load('Dane.DataBrowser', $options);
 	        $this->render('Dane.Elements/DataBrowser/browser-from-app');
         
@@ -128,7 +129,15 @@ class DaneController extends ApplicationsController
 
     public function getMenu()
     {
-        return array();
+        $menu = array(
+	        'items' => array(
+		        array(
+			        'label' => 'Dane publiczne',
+		        ),
+	        ),
+	        'base' => '/dane',
+        );
+        return $menu;
     }
 
 } 
