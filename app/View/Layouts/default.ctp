@@ -149,6 +149,10 @@
 
 <?php
 echo $this->Html->script('../libs/jquery/2.1.4/jquery-2.1.4.min.js');
+
+if (isset($object_editable) && !empty($object_editable))
+    echo $this->Html->script('../js/jquery.autocomplete.min');
+
 echo $this->Html->script('../libs/jqueryui/1.11.4/jquery-ui.min.js');
 echo $this->Html->script('../libs/jqueryui/i18n/jquery-ui-i18n.min.js');
 
@@ -197,7 +201,6 @@ $this->Combinator->add_libs('js', 'suggester');
 $this->Combinator->add_libs('js', 'appheader');
 
 if (isset($object_editable) && !empty($object_editable)) {
-    $this->Combinator->add_libs('js', 'jquery.autocomplete.min');
     $this->Combinator->add_libs('js', 'Dane.dataobjects-editable');
 }
 

@@ -173,8 +173,7 @@ $(document).ready(function () {
         header = $('.appHeader.dataobject').first(),
         dataset = header.attr('data-dataset'),
         object_id = header.attr('data-object_id'),
-        opis = $('#dzialanieOpis'),
-        tagi = $('#dzialanieTagi');
+        opis = $('#dzialanieOpis');
 
         opis.wysihtml5({
             toolbar: {
@@ -191,12 +190,6 @@ $(document).ready(function () {
             parser: function (html) {
                 return html;
             }
-        });
-
-        var tagsCache = [];
-
-        tagi.tagit({
-            allowSpaces: true
         });
 
         cropItErrorMsg = function () {
@@ -319,6 +312,26 @@ $(document).ready(function () {
                 }
             });
         }
+    });
+
+    /* Tags autocomplete input */
+    $(function() {
+        $('.tags input.tagit').tagit({
+            allowSpaces: true,
+            removeConfirmation: true,
+            autocomplete: {
+                source: function( request, response ) {
+                    $.getJSON("/dane/tematy.json?term=" + request.term, function(res) {
+                        var data = [];
+                        for(var i = 0; i < res.length; i++)
+                            data.push(res[i].label);
+
+                        response(data);
+                    });
+                },
+                minLength: 3
+            }
+        });
     });
 
     /*ASYNCHRONIZE ACTION FOR GOOGLE MAP*/

@@ -34,13 +34,24 @@ class ProjectsController extends AppController {
      * @desc Autocomplete `tematy`.`q`
      */
     public function tematy() {
-        $this->setResponse('tematy', $this->Dataobject->getDatasource()->request(
+        $response = $this->Dataobject->getDatasource()->request(
             'dane/tematy.json',
             array(
                 'method' => 'GET',
                 'data' => $this->request->query
             )
-        ));
+        );
+
+        $values = array();
+        foreach($response as $temat)
+            $values[] = (object) array(
+                'value' => $temat['id'],
+                'label' => $temat['q']
+            );
+
+        $this->autoRender = false;
+
+        return json_encode($values);
     }
 
     private function getResponse($method) {

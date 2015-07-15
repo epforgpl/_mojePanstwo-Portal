@@ -7,6 +7,11 @@ echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/locales/bootstrap-w
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialania');
 echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block' => 'scriptBlock'));
 
+/* tag-it */
+$this->Combinator->add_libs('css', '../plugins/aehlke-tag-it/css/jquery.tagit');
+$this->Combinator->add_libs('css', '../plugins/aehlke-tag-it/css/tagit.ui-zendesk');
+$this->Combinator->add_libs('js', '../plugins/aehlke-tag-it/js/tag-it.min');
+
 echo $this->Element('dataobject/pageBegin'); ?>
 
     <div class="col-md-9 objectMain">
@@ -26,6 +31,12 @@ echo $this->Element('dataobject/pageBegin'); ?>
                         <div class="form-group">
                             <label for="dzialanieOpis">Opis</label>
                             <textarea class="form-control" id="dzialanieOpis" name="opis"><?= $dzialanie->getData('opis'); ?></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Tagi</label>
+                            <div class="row tags">
+                                <input type="text" class="form-control tagit" value="<?= $dzialanie->getData('tagi'); ?>" name="tagi"/>
+                            </div>
                         </div>
                         <div class="form-group">
                             <div class="image-editor">
