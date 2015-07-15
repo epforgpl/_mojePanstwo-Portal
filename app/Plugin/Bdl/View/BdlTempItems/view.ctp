@@ -4,7 +4,10 @@
 <?php echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5.all', array('block' => 'scriptBlock')); ?>
 <?php echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/locales/bootstrap-wysihtml5.pl-NEW', array('block' => 'scriptBlock')); ?>
 
+<?= $this->Element('Bdl.leftsideaccordion', array('tree' => $tree)); ?>
+
 <div class="container temp_items">
+    <div class="container">
     <div class="hidden alert alert-success info"></div>
     <form method="post" action="">
         <input type="hidden" name="_method" value="PUT"/>
@@ -20,7 +23,7 @@
             <label>Opis:</label>
         </div>
         <div class="row">
-        <textarea name="opis" id="editor">
+        <textarea name="opis" id="editor_opis">
                     <?= $BdlTempItem['opis'] ?>
         </textarea>
         </div>
@@ -49,9 +52,6 @@
             <button class="btn btn-md btn-primary btn-icon temp-btn" id="bdl_temp_save_all_btn"><i
                     class="icon glyphicon glyphicon-ok"></i>Zapisz
             </button>
-            <button class="btn btn-md btn-success btn-icon temp-btn" id="bdl_temp_save_all_btn"><i
-                    class="icon glyphicon glyphicon-upload"></i>Zapisz i Opublikuj
-            </button>
             <form class="remove_btn" method="DELETE" action="/bdl/bdl_temp_items/delete/<?= $id ?>">
                 <button class="btn btn-md btn-danger btn-icon temp-btn" id="bdl_temp_save_all_btn"><i
                         class="icon glyphicon glyphicon-remove"></i>Usuń
@@ -59,5 +59,6 @@
             </form>
         </div>
     </div>
+</div>
 </div>
 <br>

@@ -5,9 +5,9 @@ $this->Combinator->add_libs('css', $this->Less->css('bdl_tree', array('plugin' =
 
 echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5.all', array('block' => 'scriptBlock'));
 echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/locales/bootstrap-wysihtml5.pl-NEW', array('block' => 'scriptBlock'));
+echo $this->Html->script('Bdl.jstree.min', array('block' => 'scriptBlock'));
 $this->Combinator->add_libs('js', '../plugins/jscrollPane/script/jquery.mousewheel.js');
 $this->Combinator->add_libs('js', '../plugins/jscrollPane/script/jquery.jscrollpane.js');
-$this->Combinator->add_libs('js', 'Bdl.jstree.min');
 $this->Combinator->add_libs('js', 'Bdl.bdl_tree');
 ?>
 
@@ -42,7 +42,7 @@ $this->Combinator->add_libs('js', 'Bdl.bdl_tree');
 
         <div class="init-hide">
             <? if ($BdlTempItems == false) { ?>
-                <h4>Nie ma wskaźników do wyświetlenia</h4>
+                <h4 class="brak_wskz">Nie ma wskaźników do wyświetlenia</h4>
             <? } else { ?>
                 <ul class="list-group lista_wskz">
                     <? foreach ($BdlTempItems as $key => $val) { ?>
@@ -58,7 +58,8 @@ $this->Combinator->add_libs('js', 'Bdl.bdl_tree');
                     <? } ?>
                 </ul>
             <? } ?>
-            <button class="btn btn-sm btn-primary btn-addnew" id="new_temp_item">Dodaj Nowy</button>
+            <button class="btn btn-xs btn-primary btn-addnew btn-icon" id="new_temp_item"><i
+                    class="icon glyphicon glyphicon-plus"></i>Dodaj</button>
 
         </div>
     </div>
@@ -76,7 +77,7 @@ $this->Combinator->add_libs('js', 'Bdl.bdl_tree');
                     <div class="col-sm-11">
                         <div class="hidden alert alert-success info"></div>
                         <div class="row "><label class="">Tytuł:</label></div>
-                        <div class="row"><input name="tytul" class="form-control nazwa" value="">
+                        <div class="row"><input name="tytul" class="form-control nazwa" value="" required>
                         </div>
                         <br>
 

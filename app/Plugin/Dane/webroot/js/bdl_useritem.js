@@ -69,8 +69,10 @@ $(document).ready(function () {
                     alert("Błąd zapisu");
                 } else {
                     if (res != null) {
-                        $("#bdl_user_wskaznik_modal .info").html('Zapisano wskaźnik');
-                        $('#bdl_user_wskaznik_modal .info').removeClass('hidden');
+                       // $("#bdl_user_wskaznik_modal .info").html('Zapisano wskaźnik');
+                      //  $('#bdl_user_wskaznik_modal .info').removeClass('hidden');
+
+                        $("#bdl_user_wskaznik_modal").modal('hide');
                     }
                 }
             },

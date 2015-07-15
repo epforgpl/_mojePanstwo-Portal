@@ -4,28 +4,31 @@
 <?php echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5.all', array('block' => 'scriptBlock')); ?>
 <?php echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/locales/bootstrap-wysihtml5.pl-NEW', array('block' => 'scriptBlock')); ?>
 
-
+<?= $this->Element('Bdl.leftsideaccordion', array('tree' => $tree)); ?>
 
 <div class="container">
-    <div class="row">
-        <button class="btn btn-primary btn-addnew" id="new_temp_item">Dodaj Nowy</button>
-    </div>
-    <div class="row">
-        <? if ($BdlTempItems == false) { ?>
-           <h4>Nie ma wskaźników do wyświetlenia</h4>
-        <? } else { ?>
-            <ul class="list-group lista_wskz">
-                <? foreach ($BdlTempItems as $key => $val) { ?>
-                    <li class="list-group-item"><a href="/bdl/bdl_temp_items/<?= $key ?>"><?= $val['tytul'] ?></a>
+    <div class="container">
+        <div class="row">
+            <? if ($BdlTempItems == false) { ?>
+                <h4>Nie ma wskaźników do wyświetlenia</h4>
+            <? } else { ?>
+                <ul class="list-group lista_wskz">
+                    <? foreach ($BdlTempItems as $key => $val) { ?>
+                        <li class="list-group-item"><a href="/bdl/bdl_temp_items/<?= $key ?>"><?= $val['tytul'] ?></a>
 
-                        <form class="remove_btn hidden" method="DELETE" action="/bdl/bdl_temp_items/delete/<?= $key ?>">
-                            <button class="btn btn-danger btn-xs pull-right" type="submit"><i
-                                    class="icon glyphicon glyphicon-remove"></i></button>
-                        </form>
-                    </li>
-                <? } ?>
-            </ul>
-        <? } ?>
+                            <form class="remove_btn hidden" method="DELETE"
+                                  action="/bdl/bdl_temp_items/delete/<?= $key ?>">
+                                <button class="btn btn-danger btn-xs pull-right" type="submit"><i
+                                        class="icon glyphicon glyphicon-remove"></i></button>
+                            </form>
+                        </li>
+                    <? } ?>
+                </ul>
+            <? } ?>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary btn-addnew" id="new_temp_item_btn">Dodaj Nowy</button>
+        </div>
     </div>
 </div>
 
@@ -48,7 +51,7 @@
 
                         <div class="row"><label>Opis:</label></div>
                 </div>
-                <textarea name="opis" id="editor">
+                <textarea name="opis" id="editor_opis">
                 </textarea>
             </div>
             <div class="modal-footer">

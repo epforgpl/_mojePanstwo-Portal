@@ -3,7 +3,7 @@
  */
 $(document).ready(function () {
 
-    $('#editor').wysihtml5({
+    $('#editor_opis').wysihtml5({
         toolbar: {
             "font-styles": true, //Font styling, e.g. h1, h2, etc.
             "emphasis": true, //Italics, bold, etc.

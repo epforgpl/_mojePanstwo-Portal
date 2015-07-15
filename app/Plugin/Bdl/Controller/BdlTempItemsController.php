@@ -15,18 +15,88 @@ class BdlTempItemsController extends ApplicationsController
 
     public function index()
     {
+
+        $this->setLayout(array(
+            'footer' => array(
+                'element' => 'minimal',
+            ),
+            'header' => array(
+                'element' => 'empty',
+                //TODO:po przejsciu na baze "dataobject-bdl"
+            ),
+        ));
+
         $BdlTempItems = $this->BdlTempItem->search('all');
         $this->set(array(
             'BdlTempItems' => $BdlTempItems,
             '_serialize' => array('BdlTempItems')
         ));
+
+        $datasets = $this->getDatasets('bdl');
+        $options = array(
+            'searchTitle' => 'Szukaj w Banku Danych Lokalnych...',
+            'autocompletion' => array(
+                'dataset' => 'bdl_wskazniki',
+            ),
+            'conditions' => array(
+                'dataset' => array_keys($datasets)
+            ),
+            'cover' => array(
+                'view' => array(
+                    'plugin' => 'Bdl',
+                    'element' => 'cover',
+                ),
+                'aggs' => array(),
+            ),
+            'aggs' => array(
+                'dataset' => array(
+                    'terms' => array(
+                        'field' => 'dataset',
+                    ),
+                    'visual' => array(
+                        'label' => 'Zbiory danych',
+                        'skin' => 'datasets',
+                        'class' => 'special',
+                        'field' => 'dataset',
+                        'dictionary' => $datasets,
+                    ),
+                ),
+            ),
+        );
+
+        if (!isset($this->request->query['q']) || empty($this->request->query['q'])) {
+
+            $tree = Cache::read('BDL.tree', 'long');
+            if (!$tree) {
+                $this->loadModel('Bdl.BDL');
+                $tree = $this->BDL->getTree();
+                Cache::write('BDL.tree', $tree, 'long');
+            }
+
+            $this->set('tree', $tree);
+
+        }
+
+        $this->Components->load('Dane.DataBrowser', $options);
     }
 
     public function view($id)
     {
+        $this->setLayout(array(
+            'footer' => array(
+                'element' => 'minimal',
+            ),
+            'header' => array(
+                'element' => 'empty',
+                //TODO:po przejsciu na baze "dataobject-bdl"
+            ),
+        ));
+
+        $BdlTempItems = $this->BdlTempItem->search('all');
         $BdlTempItem = $this->BdlTempItem->searchById($id);
         $this->set(array(
             'BdlTempItem' => $BdlTempItem,
+            'BdlTempItems' => $BdlTempItems,
             '_serialize' => array('BdlTempItem'),
             'id' => $id
         ));
@@ -34,6 +104,53 @@ class BdlTempItemsController extends ApplicationsController
         if ($BdlTempItem == false) {
             $this->redirect(array('action' => 'index'));
         }
+
+        $datasets = $this->getDatasets('bdl');
+        $options = array(
+            'searchTitle' => 'Szukaj w Banku Danych Lokalnych...',
+            'autocompletion' => array(
+                'dataset' => 'bdl_wskazniki',
+            ),
+            'conditions' => array(
+                'dataset' => array_keys($datasets)
+            ),
+            'cover' => array(
+                'view' => array(
+                    'plugin' => 'Bdl',
+                    'element' => 'cover',
+                ),
+                'aggs' => array(),
+            ),
+            'aggs' => array(
+                'dataset' => array(
+                    'terms' => array(
+                        'field' => 'dataset',
+                    ),
+                    'visual' => array(
+                        'label' => 'Zbiory danych',
+                        'skin' => 'datasets',
+                        'class' => 'special',
+                        'field' => 'dataset',
+                        'dictionary' => $datasets,
+                    ),
+                ),
+            ),
+        );
+
+        if (!isset($this->request->query['q']) || empty($this->request->query['q'])) {
+
+            $tree = Cache::read('BDL.tree', 'long');
+            if (!$tree) {
+                $this->loadModel('Bdl.BDL');
+                $tree = $this->BDL->getTree();
+                Cache::write('BDL.tree', $tree, 'long');
+            }
+
+            $this->set('tree', $tree);
+
+        }
+
+        $this->Components->load('Dane.DataBrowser', $options);
     }
 
     public function add()
