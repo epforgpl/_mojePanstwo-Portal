@@ -11,7 +11,9 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
 			foreach( $dataBrowser['aggs']['all']['projekty']['top']['hits']['hits'] as $b ) 
 				if( @$b['fields']['id'][0] )
 					$projekty[ $b['fields']['id'][0] ] = $b;
-					
+		
+		// debug( $dataBrowser['aggs']['all']['glosowania'] );
+			
 		$glosowania = array();
 		if( @$dataBrowser['aggs']['all']['glosowania']['top']['hits']['hits'] ) 
 			foreach( $dataBrowser['aggs']['all']['glosowania']['top']['hits']['hits'] as $b ) 
@@ -97,7 +99,7 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
 					                        
 					                        
 					                        <div class="info">
-						                        <? if( $data['sejm_posiedzenia_punkty.liczba_wystapien'] ) {?><img src="http://resources.sejmometr.pl/stenogramy/punkty/<?= $data['sejm_posiedzenia_punkty.id'] ?>.jpg" /><? } ?>
+						                        <? if( $data['sejm_posiedzenia_punkty.liczba_wystapien'] ) {?><a href="/dane/instytucje/3214,sejm/punkty/<?= $data['sejm_posiedzenia_punkty.id'] ?>"><img src="http://resources.sejmometr.pl/stenogramy/punkty/<?= $data['sejm_posiedzenia_punkty.id'] ?>.jpg" /></a><? } ?>
 						                        <p class="numer"><a href="/dane/instytucje/3214,sejm/punkty/<?= $data['sejm_posiedzenia_punkty.id'] ?>">Punkt #<?= $data['sejm_posiedzenia_punkty.numer'] ?></a></p>
 						                        <p class="stats"><?= $data['sejm_posiedzenia_punkty.stats_str_pl'] ?></p>
 					                        </div>

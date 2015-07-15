@@ -7,9 +7,13 @@ echo $this->Element('dataobject/pageBegin', array(
 ));
 
 echo $this->Element('Dane.dataobject/subobject', array(
-    'object' => $posiedzenie,
-    'menu' => $_submenu,
+    'object' => $debata,
+    'objectOptions' => array(
+	    'truncate' => 1000,
+	),
 ));
 
 echo $this->Element('Dane.DataBrowser/browser');
+
+
 echo $this->Element('dataobject/pageEnd');

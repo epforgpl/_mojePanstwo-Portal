@@ -34,6 +34,33 @@ class Sejm_posiedzenia_punkty extends DataObject
     {
         return '<strong>Punkt #' . $this->getData('numer') . '</strong> porządku dziennego w Sejmie';
     }
+    
+    public function getBreadcrumbs()
+	{
+					
+		return array(
+			array(
+				'id' => '/dane/instytucje/3214,sejm/posiedzenia/' . $this->getData('sejm_posiedzenia.id'),
+				'label' => 'Posiedzenie #' . $this->getData('sejm_posiedzenia.tytul'),
+			),
+			array(
+				'label' => 'Punkt porządku #' . $this->getData('numer'),
+			),
+		);
+				
+	}
+	
+	public function getMetaDescriptionParts($preset = false)
+	{
+		
+		$output = array();
+						
+		if( $this->getDate() )
+			$output[] = dataSlownie($this->getDate());
+		
+		return $output;
+		
+	}
 
 
 }

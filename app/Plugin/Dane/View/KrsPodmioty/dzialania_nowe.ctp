@@ -16,24 +16,12 @@ echo $this->Element('dataobject/pageBegin'); ?>
     <div class="col-md-9 objectMain">
         <div class="block block-simple col-xs-12 dodaj_dzialanie">
             <header>
-                <div class="sm">Dodaj działanie</div>
+                <div>Dodaj nowe działanie swojej organizacji!</div>
             </header>
 
             <section>
                 <div class="col-xs-12">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras id maximus ante. Integer fermentum,
-                        leo
-                        vitae commodo aliquet, nulla mauris egestas enim, eget volutpat urna purus quis magna. Sed
-                        eleifend
-                        diam eget ornare faucibus. Nunc laoreet finibus posuere. Maecenas vel justo et elit varius
-                        consectetur. Nulla dolor est, gravida id molestie quis, vestibulum non metus. Aenean vitae
-                        placerat
-                        enim, vitae suscipit dui. Integer aliquet justo fermentum, commodo nisl pulvinar, rutrum tellus.
-                        Duis sit amet mauris varius, pretium sem laoreet, posuere nisi. Donec pellentesque nibh turpis,
-                        non
-                        feugiat urna venenatis ut. Curabitur euismod porta arcu ultrices pretium. Ut condimentum metus
-                        enim,
-                        eget congue quam tincidunt quis. </p>
+                    <p>Poinformuj innych o działaniach swojej organizacji. Informacje o działaniach będą widoczne na stronie profilowej Twojej organizacji, a także będą pojawiały się przy wynikach wyszukiwania na portalu mojePaństwo.</p>
 
                     <form action="" method="POST">
                         <div class="form-group">
