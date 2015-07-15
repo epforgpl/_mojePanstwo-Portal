@@ -38,7 +38,7 @@ $this->Combinator->add_libs('js', 'Bdl.bdl_tree');
         </div>
 
         <h3 class="init-bottom ui-accordion-header ui-state-default ui-corner-all ui-accordion-icons"><span
-                class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Tworzenie wskaźników</h3>
+                class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Wskaźniki Żywej Kultury</h3>
 
         <div class="init-hide">
             <? if ($BdlTempItems == false) { ?>
@@ -58,7 +58,7 @@ $this->Combinator->add_libs('js', 'Bdl.bdl_tree');
                     <? } ?>
                 </ul>
             <? } ?>
-            <button class="btn btn-primary btn-addnew pull-right" id="new_temp_item">Dodaj Nowy</button>
+            <button class="btn btn-sm btn-primary btn-addnew" id="new_temp_item">Dodaj Nowy</button>
 
         </div>
     </div>
@@ -83,6 +83,21 @@ $this->Combinator->add_libs('js', 'Bdl.bdl_tree');
                         <div class="row"><label>Opis:</label></div>
                     </div>
                     <textarea name="opis" id="editor"></textarea>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="pull-right"><input class="bdl_input" type="radio" name="source" value="BDL" checked> BDL</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="pull-left"><input class="import_input" type="radio" name="source" value="import"> Importuj</label>
+                        </div>
+                    </div>
+                    <div class="row input_url hidden">
+                        <div class="col-sm-11">
+                            <label class="">URL skoroszytu:</label><br>
+                            <input type="url" name="url" class="form-control nazwa">
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-md btn-primary btn-icon" id="temp_item_savebtn"><i

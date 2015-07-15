@@ -155,6 +155,14 @@ String.prototype.capitalizeFirstLetter = function () {
             }
         });
 
+        $(".import_input").bind('click', function () {
+            $(".input_url").removeClass('hidden');
+        });
+
+        $(".bdl_input").bind('click', function () {
+            $(".input_url").addClass('hidden');
+        });
+
         $(".lista_wskz li")
             .bind('mouseenter', function () {
                 $(this).find(".remove_btn").removeClass('hidden');
