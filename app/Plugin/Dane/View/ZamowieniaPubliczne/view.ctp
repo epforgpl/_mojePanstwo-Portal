@@ -66,6 +66,13 @@ echo $this->Element('dataobject/pageBegin'); ?>
                                     <td><?= number_format_h($item['cena_min']) ?> <?= $item['waluta'] ?></td>
                                     <td><?= number_format_h($item['cena_max']) ?> <?= $item['waluta'] ?></td>
                                     <td><?= number_format_h($item['wartosc']) ?> <?= $item['waluta'] ?></td>
+                                    <? if (isset($admin)) { ?>
+                                        <td>
+                                            <button class="btn btn-xs btn-primary open_modal"
+                                                    numer="<?= $item['id'] ?>"><span class="glyphicon glyphicon-edit"
+                                                                                     aria-hidden="true"></span></button>
+                                        </td>
+                                    <? } ?>
                                 </tr>
                                 </tbody>
                             </table>
@@ -80,6 +87,67 @@ echo $this->Element('dataobject/pageBegin'); ?>
                             </ul>
                         </section>
                     </div>
+                    <? if (isset($admin)) { ?>
+                        <div class="modal" id="<?= $item['id'] ?>">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Edycja:</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="" action="">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <label class="pull-right">Cena:</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input name="cena" class="form-control" value="<?= $item['cena'] ?>">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <label class="pull-right">Cena Min:</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input name="cena_min" class="form-control" value="<?= $item['cena_min'] ?>">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <label class="pull-right">Cena Max:</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input name="cena_max" class="form-control" value="<?= $item['cena_max'] ?>">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                            <label class="pull-right">Wartość:</label>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" value="<?= $item['wartosc'] ?>" disabled>
+                                        </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-md btn-primary btn-icon btn-inline"
+                                                    id="bdl_temp_savebtn"><i
+                                                    class="icon glyphicon glyphicon-ok"></i>Zapisz
+                                            </button>
+                                            </form>
+                                            <div class="inline">
+                                                <a class="margintop" id="bdl_temp_cancelbtn" href="#">Anuluj</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <? } ?>
                 <? } ?>
             <? } ?>
             <? if (isset($details['przedmiot'])) { ?>

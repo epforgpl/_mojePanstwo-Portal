@@ -24,6 +24,8 @@ function initialize() {
         $('.googleMapElement').addClass('loaded');
     });
 
+
+
     google.maps.event.addListener(googleMap, "click", function (event) {
         clearMarkers();
         markers = [];
@@ -68,6 +70,23 @@ function initialize() {
         }
         googleMap.fitBounds(bounds);
     });
+
+    var googleMapBlock = $('.googleMapElement'),
+        lat = parseFloat(googleMapBlock.find('input[name="geo_lat"]').val()),
+        lng = parseFloat(googleMapBlock.find('input[name="geo_lng"]').val());
+
+    if(lat > 0 && lng > 0) {
+        clearMarkers();
+        markers = [];
+
+        var marker = new google.maps.Marker({
+            map: googleMap,
+            icon: markerImage,
+            position: {lat: lat, lng: lng}
+        });
+
+        markers.push(marker);
+    }
 
     google.maps.event.addListener(googleMap, 'bounds_changed', function () {
         var bounds = googleMap.getBounds();
@@ -151,6 +170,27 @@ $(document).ready(function () {
         googleBtn = $('.googleBtn'),
         googleLocMeBtn = $('#loc'),
         googleMapBlock = $('.googleMapElement'),
+        header = $('.appHeader.dataobject').first(),
+        dataset = header.attr('data-dataset'),
+        object_id = header.attr('data-object_id'),
+        opis = $('#dzialanieOpis');
+
+        opis.wysihtml5({
+            toolbar: {
+                "font-styles": true, //Font styling, e.g. h1, h2, etc.
+                "emphasis": true, //Italics, bold, etc.
+                "lists": false, //(Un)ordered lists, e.g. Bullets, Numbers.
+                "html": false, //Button which allows you to edit the generated HTML.
+                "link": true, //Button to insert a link.
+                "image": false, //Button to insert an image.
+                "color": false, //Button to change color of font
+                "blockquote": false
+            },
+            'locale': 'pl-NEW',
+            parser: function (html) {
+                return html;
+            }
+        });
 
         cropItErrorMsg = function () {
             if (mPHeart.language.twoDig == 'pl') {
@@ -229,23 +269,69 @@ $(document).ready(function () {
     });
 
     form.submit(function () {
-        var header = $('.appHeader.dataobject').first(),
-            dataset = header.attr('data-dataset'),
-            object_id = header.attr('data-object_id'),
-            inputs = $(this).serializeArray();
+        var inputs = $(this).serializeArray();
+
+        var id = 0;
+        for(var i = 0; i < inputs.length; i++)
+            if(inputs[i].name == 'id') {
+                id = parseInt(inputs[i].value);
+                inputs.splice(i, 1);
+            }
 
         $.ajax({
-            url: '/dane/' + dataset + '/' + object_id + '/dzialania.json',
-            method: 'POST',
+            url: '/dane/' + dataset + '/' + object_id + '/dzialania' + (id > 0 ? '/' + id : '') + '.json',
+            method: id > 0 ? 'PUT' : 'POST',
             data: inputs,
             success: function (res) {
 
-                console.log(res);
+                if(res.success && id) {
+                    window.location = '/dane/' + dataset + '/' + object_id + '/dzialania/' + id;
+                } else {
+                    window.location = '/dane/' + dataset + '/' + object_id + '/dzialania/' + res.success;
+                }
 
             }
         });
 
         return false;
+    });
+
+    $('.cancelBtn').click(function() {
+        window.location = '/dane/' + dataset + '/' + object_id;
+    });
+
+    $('.btn[data-action="delete"]').click(function() {
+        var id = $(this).data('id');
+        if(confirm("Czy na pewno chcesz usunąć to działanie?")) {
+            $.ajax({
+                url: '/dane/' + dataset + '/' + object_id + '/dzialania/' + id + '.json',
+                method: 'DELETE',
+                data: [],
+                success: function(res) {
+                    window.location = '/dane/' + dataset + '/' + object_id;
+                }
+            });
+        }
+    });
+
+    /* Tags autocomplete input */
+    $(function() {
+        $('.tags input.tagit').tagit({
+            allowSpaces: true,
+            removeConfirmation: true,
+            autocomplete: {
+                source: function( request, response ) {
+                    $.getJSON("/dane/tematy.json?term=" + request.term, function(res) {
+                        var data = [];
+                        for(var i = 0; i < res.length; i++)
+                            data.push(res[i].label);
+
+                        response(data);
+                    });
+                },
+                minLength: 3
+            }
+        });
     });
 
     /*ASYNCHRONIZE ACTION FOR GOOGLE MAP*/

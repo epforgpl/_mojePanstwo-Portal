@@ -67,7 +67,7 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Usuwanie paszportu</h4>
+                        <h4 class="modal-title" id="myLargeModalLabel">Usuwanie paszportu</h4>
                     </div>
                     <div class="modal-body">
                         <p>Wprowadź aktualne hasło aby potwierdzić operację usunięcia Paszportu.</p>

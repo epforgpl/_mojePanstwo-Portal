@@ -30,7 +30,8 @@
 		$mode = false;
 	
 ?>
-<div class="mp-zamowienia_publiczne" <?= printf('data-histogram="%s"', htmlspecialchars(json_encode($output), ENT_QUOTES, 'UTF-8')) ?> <?= printf('data-request="%s"', htmlspecialchars(json_encode($request), ENT_QUOTES, 'UTF-8')) ?>>	
+<div
+	class="mp-zamowienia_publiczne" <?= printf('data-histogram="%s"', htmlspecialchars(json_encode($output), ENT_QUOTES, 'UTF-8')) ?> <?= printf('data-request="%s"', htmlspecialchars(json_encode($request), ENT_QUOTES, 'UTF-8')) ?>>
 	
 	<div class="highstock"></div>
     <div class="dataAggs">

@@ -15,6 +15,9 @@ $shortTitle = (isset($options['forceTitle'])) ?
 
 $object_content_sizes = array(2, 10);
 
+if( !isset($truncate) )
+	$truncate = 150;
+
 // debug( $object->getData() ); 
 
 $this->Dataobject->setObject($object);
@@ -68,6 +71,7 @@ $this->Dataobject->setObject($object);
                     <?php } ?>
 
                     </div>
+                                        
                     <div class="content col-md-<?= $object_content_sizes[1] ?>">
 
                         <? if ($alertsButtons) { ?>
@@ -89,7 +93,7 @@ $this->Dataobject->setObject($object);
                             <?php if ($object->getUrl() != false) { ?>
                             <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
                                 <?php } ?>
-                                <?= $this->Text->truncate($shortTitle, 150) ?>
+                                <?= $this->Text->truncate($shortTitle, $truncate) ?>
                                 <?php if ($object->getUrl() != false) { ?>
                             </a> <?
                         }
@@ -149,8 +153,12 @@ $this->Dataobject->setObject($object);
                         <? if ($object->getIcon()) {
                             echo $object->getIcon();
                         } ?>
-
-                        <div class="<? if ($object->getIcon()) { ?>object-icon-side <? } ?>">
+						
+						<? if( $object->getSideLabel() ) { ?>
+						<h3 class="label-glos"><?= $object->getSideLabel() ?></h3>
+						<? } ?>
+						
+                        <div class="<? if ($object->getIcon()) { ?>object-icon-side <? } ?> <? if( $object->getSideLabel() ) { echo 'marginRight'; } ?>">
 
                             <? if ($object->force_hl_fields || $objectRenderOptions['forceLabel']) { ?>
                                 <p class="header">
@@ -162,7 +170,7 @@ $this->Dataobject->setObject($object);
                                 <?php if ($object->getUrl() != false){ ?>
                                 <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
                                     <?php } ?>
-                                    <?= $this->Text->truncate($shortTitle, 150) ?>
+                                    <?= $this->Text->truncate($shortTitle, $truncate) ?>
                                     <?php if ($object->getUrl() != false){ ?>
                                 </a> <?
                             }

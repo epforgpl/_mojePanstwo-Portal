@@ -10,7 +10,7 @@ WybierzPoslaModal.prototype.initialize = function() {
     var id_okregu = this.okrag[0];
     $('#wybierzPosla .modal-header').first().html([
         '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>',
-        '<h4 class="modal-title" id="myModalLabel">Posłowie w okręgu ' + nr_okregu + '</h4>'
+        '<h4 class="modal-title">Posłowie w okręgu ' + nr_okregu + '</h4>'
     ].join(''));
 
     $('#wybierzPosla .modal-body').first().html(

@@ -179,6 +179,10 @@ class ZamowieniaPubliczneController extends DataobjectsController
             $this->set('details', $details);
             $this->set('text_details', $text_details);
 
+            if($this->hasUserRole('2')){
+                $this->set('admin', true);
+            }
+
         }
 
     }

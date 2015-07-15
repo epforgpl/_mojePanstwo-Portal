@@ -2,7 +2,6 @@
 ##############################################
 tmp/*
 app/[Cc]onfig/constants.php
-app/[Cc]onfig/core.php
 app/[Cc]onfig/database.php
 app/[Cc]onfig/email.php
 !empty

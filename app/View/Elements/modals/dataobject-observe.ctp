@@ -22,12 +22,13 @@ $object_id = $object->getId();
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Obserwuj</h4>
+                <h4 class="modal-title" id="observeModalLabel">Obserwuj</h4>
             </div>
             <form action="/dane/subscriptions" method="post">
                 <div class="modal-body">
-                    <p class="header">Otrzymuj powiadomienia o nowych danych związanych z
-                        "<?= $object->getTitle(); ?>"</p>
+                    <p class="header">Otrzymuj powiadomienia o nowych danych dla: <span><a
+                                href="/dane/<?= $dataset ?>/<?= $object_id ?>,<?= $object->slug() ?>"><?= $object->getTitle(); ?></a></span>
+                    </p>
 
                     <div class="alert alert-danger" role="alert">
                         <p>Prosze zaznaczyć przynajmniej jeden kanał do obserwowania</p>
@@ -54,7 +55,7 @@ $object_id = $object->getId();
                                         <label
                                             for="checkbox_<?= $ch['DatasetChannel']['subject_dataset'] . '_' . $ch['DatasetChannel']['channel'] ?>"><?= $ch['DatasetChannel']['title'] ?></label>
                                     </div>
-                                <?
+                                    <?
                                 }
                             } else { ?>
                                 <div class="checkbox first">
@@ -74,7 +75,7 @@ $object_id = $object->getId();
                                         <label
                                             for="checkbox_<?= $ch['DatasetChannel']['subject_dataset'] . '_' . $ch['DatasetChannel']['channel'] ?>"><?= $ch['DatasetChannel']['title'] ?></label>
                                     </div>
-                                <?
+                                    <?
                                 }
                             }
                         } ?>

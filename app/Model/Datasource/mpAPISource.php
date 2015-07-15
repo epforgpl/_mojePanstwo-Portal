@@ -181,9 +181,6 @@ class mpAPISource extends DataSource {
 		        }
 	        
 	        }
-	        
-			$endpoint_parts[] = 'index';
-        
         }
                                 
 		$base_url = implode('/', $endpoint_parts) . '.' . $this->config['ext'];
@@ -230,7 +227,7 @@ class mpAPISource extends DataSource {
         	$this->Aggs = $res['Aggs']; 
            
         if( $model->findQueryType == 'first' ) {
-	        return array($res['Dataobject']);
+	        return array($res);
         } else {	        
 	        return $res['Dataobject'];
         }

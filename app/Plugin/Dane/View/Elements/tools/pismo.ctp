@@ -2,11 +2,23 @@
 $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
 $this->Combinator->add_libs('js', 'Pisma.pisma-button');
+	
+	$adresat_id = false;
+	
+	if( isset($adresat) ) {
+		
+		$adresat_id = $adresat;
+		
+	} elseif( $object ) {
+		
+		$adresat_id = $object->getDataset() . ':' . $object->getId();
+		
+	}		
 ?>
 
 <div class="banner pismo block">
     <?php echo $this->Html->image('Dane.banners/pisma.svg', array('width' => '92', 'alt' => 'Stwórz pismo do organizacji', 'class' => 'pull-right')); ?>
     <p><?= isset($label) ? $label : '<strong>Wyślij pismo</strong> do tej organizacji'; ?></p>
-    <a href="/pisma/nowe" class="btn btn-sm btn-primary pisma-list-button" data-adresatid="<?= $object->getDataset(); ?>:<?= $object->getId(); ?>">Napisz
+    <a onclick="return false;" href="/pisma/nowe" class="btn btn-sm btn-primary pisma-list-button" data-adresatid="<?= $adresat_id ?>">Napisz
         pismo</a>
 </div>

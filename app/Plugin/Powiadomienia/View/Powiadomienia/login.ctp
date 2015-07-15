@@ -1,12 +1,15 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('paszport', array('plugin' => 'Paszport'))) ?>
-
+<style>
+	.theme-default {
+		background: #EEE;
+	}
+</style>
 <div class="objectsPage fullPageHeight">
     <div id="modalPaszportLoginForm" class="paszportModal">
         <div class="modal-dialog inpage">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title"
-                        id="myModalLabel">Zaloguj się, aby korzystać z powiadomień</h4>
+                    <h4 class="modal-title">Zaloguj się, aby korzystać z powiadomień</h4>
                 </div>
                 <div class="modal-body">
                     <?php echo $this->Form->create('User', array(

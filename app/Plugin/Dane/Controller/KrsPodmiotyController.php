@@ -5,7 +5,7 @@ App::uses('DataobjectsController', 'Dane.Controller');
 class KrsPodmiotyController extends DataobjectsController
 {
     
-    public $observeOptions = false;
+    public $observeOptions = true;
     
     public $helpers = array(
         'Time',
@@ -85,6 +85,7 @@ class KrsPodmiotyController extends DataobjectsController
         if ($this->Session->read('KRS.odpis') == $this->object->getId()) {
 
             $odpis = $this->object->getLayer('odpis');
+                        
             if ($odpis['status']) {
                 $this->set('odpis', $odpis['url']);
             }
@@ -287,6 +288,40 @@ class KrsPodmiotyController extends DataobjectsController
                             ),
                         ),
                     ),
+                    'dzialania' => array(
+                        'filter' => array(
+                            'bool' => array(
+                                'must' => array(
+                                    array(
+                                        'term' => array(
+                                            'dataset' => 'dzialania',
+                                        ),
+                                    ),
+                                    array(
+                                        'term' => array(
+                                            'data.dzialania.dataset' => 'krs_podmioty',
+                                        ),
+                                    ),
+                                    array(
+                                        'term' => array(
+                                            'data.dzialania.object_id' => $this->request->params['id'],
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                        'aggs' => array(
+	                        'top' => array(
+		                        'top_hits' => array(
+		                            'fielddata_fields' => array('dataset', 'id'),
+			                        'size' => 3, 
+			                        'sort' => array(
+				                        'date' => 'desc',
+			                        ),
+		                        ),
+	                        ),
+                        ),
+                    ),
                 ),
             ),
         ));
@@ -340,6 +375,61 @@ class KrsPodmiotyController extends DataobjectsController
     {
         $this->addInitLayers(array('dzialania_nowe'));
         $this->_prepareView();
+
+        if(!$this->getPageRoles() || !in_array($this->getPageRoles(), array('1', '2')))
+            throw new ForbiddenException;
+    }
+
+    public function dzialania_edycja() {
+        $id = @$this->request->params['subid'];
+        if(!$id)
+            throw new NotFoundException;
+
+        $dzialanie = $this->Dataobject->find('first', array(
+            'conditions' => array(
+                'dataset' => 'dzialania',
+                'id' => $id
+            )
+        ));
+
+        if($dzialanie->getData('dzialania.photo') == '1') {
+            $src = "http://sds.tiktalik.com/portal/pages/dzialania/" . $dzialanie->getData('dataset') . "/" . $dzialanie->getData('object_id') . "/" . $dzialanie->getData('id') . ".jpg";
+            $data = @file_get_contents($src);
+            if($data) {
+                $base64 = 'data:image/jpeg;base64,' . base64_encode($data);
+                $this->set('dzialanie_photo_base64', $base64);
+            }
+        }
+
+        $this->set('dzialanie', $dzialanie);
+
+        $this->_prepareView();
+
+        if(!$this->getPageRoles() || !in_array($this->getPageRoles(), array('1', '2')))
+            throw new ForbiddenException;
+    }
+
+    public function dzialania() {
+
+        if($id = @$this->request->params['subid']) {
+
+            $dzialanie = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'dzialania',
+                    'id' => $id
+                )
+            ));
+
+            if(!$dzialanie)
+                throw new NotFoundException;
+
+            $this->set('dzialanie', $dzialanie);
+
+        } else {
+            // działania list
+        }
+
+        $this->_prepareView();
     }
 
     public function powiazania()
@@ -371,7 +461,7 @@ class KrsPodmiotyController extends DataobjectsController
     public function odpis()
     {
 
-        $id = (int)$this->request->params['id'];
+        $id = (int) $this->request->params['id'];
         $this->Session->write('KRS.odpis', $id);
         $this->redirect('/dane/krs_podmioty/' . $id);
 
@@ -539,7 +629,17 @@ class KrsPodmiotyController extends DataobjectsController
             ),
             'base' => $this->object->getUrl(),
         );
-
+		
+		/*
+        if (@$this->object_aggs['all']['dzialania']['doc_count']) {
+            $menu['items'][] = array(
+                'id' => 'dzialania',
+                'label' => 'Działania',
+                'count' => $this->object_aggs['all']['dzialania']['doc_count'],
+            );
+        }
+        */
+        
         if (@$this->object_aggs['all']['zamowienia']['doc_count']) {
             $menu['items'][] = array(
                 'id' => 'zamowienia',

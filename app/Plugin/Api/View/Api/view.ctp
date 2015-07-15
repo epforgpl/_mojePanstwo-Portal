@@ -27,44 +27,14 @@ $this->Html->script(array(
 
 ), array('inline' => 'false', 'block' => 'scriptBlock'));
 
-$this->Html->scriptBlock('window.swaggerUi = new SwaggerUi({url: "' . $api["swagger_url"] . '", uiRoot: "' . $uiRoot . '",docExpansion: "list"});window.swaggerUi.load();',
+$this->Html->scriptBlock('window.swaggerUi = new SwaggerUi({url: "http://api-v2.mojepanstwo.pl/swagger.json", uiRoot: "/api/",docExpansion: "list"});window.swaggerUi.load();',
     array('inline' => 'false', 'block' => 'scriptBlock'));
 ?>
 
 <div id="api" class="newLayout">
-    
-    <? /*
-    <div class="jumbotron">
-        <div class="container">
-            <h1><?php echo $api['name'];
-                if (intval($api['version']) == 0) {
-                    echo ' <span class="beta">BETA</span>';
-                } ?></h1>
-
-            <p><?php echo $api['description'] ?></p>
-
-            <!--<div class="searchBar col-md-12">-->
-            <!--<form method="GET">-->
-            <!--<div class="col-md-12 searchFor">-->
-            <!--<div class="input-group">-->
-            <!--<input type="text" name="q" placeholder="Szukaj w API..." value=""-->
-            <!--class="form-control input-lg"-->
-            <!--autocomplete="off">-->
-            <!--<span class="input-group-btn">-->
-            <!--<button class="btn" type="submit"></button>-->
-            <!--</span>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</form>-->
-            <!--</div>-->
-
-        </div>
-    </div>
-    */ ?>
-
     <div class="container">
         <div class="details">
-            <? echo $this->element($api['slug']); ?>
+            <? echo $this->element($slug); ?>
         </div>
 
         <div class="swagger-section row">

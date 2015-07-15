@@ -1,3 +1,28 @@
+## 0.4.0 (July 7, 2015)
+
+### New features
+
+* Added option to allow small image to be either zoomed down its original size or stretch to fill/fit container
+
+### Breaking changes
+
+* Replaced `rejectSmallImage` option with `smallImage`. `rejectSmallImage: true` is now `smallImage: 'reject'`, and `rejectSmallImage: false` is now `smallImage: 'allow'`.
+
+
+## 0.3.2 (July 3, 2015)
+
+### New features
+
+* Added back `allowCrossOrigin` option
+
+
+## 0.3.1 (June 30, 2015)
+
+### Bug fixes
+
+* Fixed jQuery import in AMD and CommonJS.
+
+
 ## 0.3.0 (June 21, 2015)
 
 ### New features

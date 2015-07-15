@@ -12,10 +12,9 @@
             border: 1px solid #ccc;
             border-radius: 3px;
             margin-top: 7px;
-            width: 1500px;
-            height: 400px;
+            width: 250px;
+            height: 250px;
             cursor: move;
-            /*transform: scale(0.5,0.5);*/
         }
 
         .cropit-image-background {
@@ -53,7 +52,6 @@
 <form action="#">
     <div class="image-editor">
         <input type="file" class="cropit-image-input">
-
         <div class="cropit-image-preview"></div>
         <div class="image-size-label">
             Resize image
@@ -67,7 +65,7 @@
 <div id="result">
     <code>$form.serialize() =</code>
     <code id="result-data"></code>
-</div>
+    </div>
 
 <script>
     $(function () {

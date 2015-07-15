@@ -24,7 +24,7 @@ $(document).ready(function () {
                         'data-szablonId': obj.id,
                         'href': '#' + obj.nazwa.replace(/ /g, '_')
                     }).append(
-                        $('<span></span>').text(obj.nazwa)
+                        $('<span></span>').html('<strong>'+obj.nazwa+'</strong>')
                     ).append(
                         $('<p></p>').text(obj.opis)
                     )
@@ -127,10 +127,6 @@ $(document).ready(function () {
                             $('<p></p>').text("Ładowanie...")
                         )
                     )
-                ).append(
-                    $('<div></div>').addClass('modal-footer').append(
-                        $('<button></button>').addClass('btn btn-default').attr('data-dismiss', 'modal').text('Zamknij')
-                    )
                 )
             )
         );
@@ -139,7 +135,7 @@ $(document).ready(function () {
             e.preventDefault();
 
             if (pismoModal.data('cache') === undefined) {
-                var adresat_id = (pismoBtn.data('adresatid') !== undefined) ? '?adresat=instytucje:' + pismoBtn.data('adresatid') : '';
+                var adresat_id = (pismoBtn.data('adresatid') !== undefined) ? '?adresat=' + pismoBtn.data('adresatid') : '';
                 $.get('/pisma/szablony/index.json' + adresat_id, function (data) {
                     pismoModal.data('cache', data);
                     szablonList(data);

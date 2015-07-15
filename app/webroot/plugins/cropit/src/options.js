@@ -2,10 +2,10 @@ import { CLASS_NAMES } from './constants';
 
 const options = {
     elements: [
-        {
-            name: '$preview',
-            description: 'The HTML element that displays image preview.',
-            defaultSelector:;
+    {
+        name: '$preview',
+        description: 'The HTML element that displays image preview.',
+        defaultSelector:;
 `.
 $
 {
@@ -14,49 +14,49 @@ $
 ;
 `,
 },
-{
-    '$fileInput',
-        description
-:
-    'File input element.',
-        defaultSelector
-: `input.$
     {
-        CLASS_NAMES.FILE_INPUT
+        '$fileInput',
+            description
+    :
+        'File input element.',
+            defaultSelector
+    : `input.$
+        {
+            CLASS_NAMES.FILE_INPUT
+        }
+        ;`,
     }
-    ;`,
-}
 ;
 ;
 ,
-{
-    '$zoomSlider',
-        description
-:
-    'Range input element that controls image zoom.',
-        defaultSelector
-: `input.$
     {
-        CLASS_NAMES.ZOOM_SLIDER
+        '$zoomSlider',
+            description
+    :
+        'Range input element that controls image zoom.',
+            defaultSelector
+    : `input.$
+        {
+            CLASS_NAMES.ZOOM_SLIDER
+        }
+        ;`,
     }
-    ;`,
-}
 ;
 ;
 ,
-{
-    '$previewContainer',
-        description
-:
-    'Preview container. Only needed when `imageBackground` is true.',
-        defaultSelector
-: `.
-    $
     {
-        CLASS_NAMES.PREVIEW_CONTAINER
+        '$previewContainer',
+            description
+    :
+        'Preview container. Only needed when `imageBackground` is true.',
+            defaultSelector
+    : `.
+        $
+        {
+            CLASS_NAMES.PREVIEW_CONTAINER
+        }
+        ;`,
     }
-    ;`,
-}
 ;
 ;
 ,
@@ -92,7 +92,7 @@ return o;
     {
         name: 'imageBackgroundBorderWidth',
         type: 'array or number',
-        description:;
+        description:
 `
 Width;
 of;
@@ -139,65 +139,65 @@ applied.
 `,
 default:
 [0, 0, 0, 0],
-},
-{
-    'exportZoom',
-        type
-:
-    'number',
-        description
-: `The;
-    ratio;
-    between;
-    the;
-    desired;
-    image;
-    size;
-    to;
-export
-    and;
-    the;
-    preview;
-    size.
-        For;
-    example,;
-    if the preview;
-    size;
-    is; \`300
-    px * 200;
-    px;\`,
-    and; \`exportZoom = 2\`,
-    then;
-    the;
-    exported;
-    image;
-    size;
-    will;
-    be; \`600
-    px * 400;
-    px;\`.
-    This;
-    also;
-    affects;
-    the;
-    maximum;
-    zoom;
-    level, since;
-    the;
-    exported;
-    image;
-    cannot;
-    be;
-    zoomed;
-    to;
-    larger;
-    than;
-    its;
-    original;
-    size.`,
-default:
-    1,
-}
+    },
+    {
+        'exportZoom',
+            type
+    :
+        'number',
+            description
+    : `The;
+        ratio;
+        between;
+        the;
+        desired;
+        image;
+        size;
+        to;
+    export
+        and;
+        the;
+        preview;
+        size.
+            For;
+        example,;
+        if the preview;
+        size;
+        is; \`300
+        px * 200;
+        px;\`,
+        and; \`exportZoom = 2\`,
+        then;
+        the;
+        exported;
+        image;
+        size;
+        will;
+        be; \`600
+        px * 400;
+        px;\`.
+        This;
+        also;
+        affects;
+        the;
+        maximum;
+        zoom;
+        level, since;
+        the;
+        exported;
+        image;
+        cannot;
+        be;
+        zoomed;
+        to;
+        larger;
+        than;
+        its;
+        original;
+        size.`,
+    default:
+        1,
+    }
 ;
 ;
 ;
@@ -205,174 +205,237 @@ default:
 ;
 ;
 ,
-{
-    'allowDragNDrop',
-        type
-:
-    'boolean',
-        description
-:
-    'When set to true, you can load an image by dragging it from local file browser onto the preview area.',;
-default:
-    true,
-}
+    {
+        'allowDragNDrop',
+            type
+    :
+        'boolean',
+            description
+    :
+        'When set to true, you can load an image by dragging it from local file browser onto the preview area.',;
+    default:
+        true,
+    }
 ;
 ;
 ,
-{
-    'minZoom',
-        type
-:
-    'string',
-        description
-: `This;
-    options;
-    decides;
-    the;
-    minimal;
-    zoom;
-    level;
-    of;
-    the;
-    image.
-        If;
-    set;
-    to; \`'fill'\`,
-    the;
-    image;
-    has;
-    to;
-    fill;
-    the;
-    preview;
-    area, i.e.both;
-    width;
-    and;
-    height;
-    must;
-    not;
-    go;
-    smaller;
-    than;
-    the;
-    preview;
-    area.
-        If;
-    set;
-    to; \`'fit'\`,
-    the;
-    image;
-    can;
-    shrink;
-    further;
-    to;
-    fit;
-    the;
-    preview;
-    area, i.e.at;
-    least;
-    one;
-    of;
-    its;
-    edges;
-    must;
-    not;
-    go;
-    smaller;
-    than;
-    the;
-    preview;
-    area.`,
-default:
-    'fill',
-}
+    {
+        'minZoom',
+            type
+    :
+        'string',
+            description
+    : `This;
+        options;
+        decides;
+        the;
+        minimal;
+        zoom;
+        level;
+        of;
+        the;
+        image.
+            If;
+        set;
+        to; \`'fill'\`,
+        the;
+        image;
+        has;
+        to;
+        fill;
+        the;
+        preview;
+        area, i.e.both;
+        width;
+        and;
+        height;
+        must;
+        not;
+        go;
+        smaller;
+        than;
+        the;
+        preview;
+        area.
+            If;
+        set;
+        to; \`'fit'\`,
+        the;
+        image;
+        can;
+        shrink;
+        further;
+        to;
+        fit;
+        the;
+        preview;
+        area, i.e.at;
+        least;
+        one;
+        of;
+        its;
+        edges;
+        must;
+        not;
+        go;
+        smaller;
+        than;
+        the;
+        preview;
+        area.`,
+    default:
+        'fill',
+    }
 ;
 ;
 ;
 ;
 ;
 ,
-{
-    'maxZoom',
-        type
-:
-    'string',
-        description
-:
-    'Determines how big the image can be zoomed. E.g. if set to 1.5, the image can be zoomed to 150% of its original size.',;
-default:
-    1,
-}
+    {
+        'maxZoom',
+            type
+    :
+        'string',
+            description
+    :
+        'Determines how big the image can be zoomed. E.g. if set to 1.5, the image can be zoomed to 150% of its original size.',;
+    default:
+        1,
+    }
 ;
 ;
 ,
-{
-    'initialZoom',
-        type
-:
-    'string',
-        description
-: `Determines;
-    the;
-    zoom;
-    when;
-    an;
-    image;
-    is;
-    loaded.
+    {
+        'initialZoom',
+            type
+    :
+        'string',
+            description
+    : `Determines;
+        the;
+        zoom;
+        when;
+        an;
+        image;
+        is;
+        loaded.
+            When;
+        set;
+        to; \`'min'\`,
+        image;
+        is;
+        zoomed;
+        to;
+        the;
+        smallest;
+        when;
+        loaded.
+            When;
+        set;
+        to; \`'image'\`,
+        image;
+        is;
+        zoomed;
+        to;
+        100 % when;
+        loaded.`,
+    default:
+        'min',
+    }
+;
+;
+;
+;
+;
+,
+    {
+        'freeMove',
+            type
+    :
+        'boolean',
+            description
+    :
+        'When set to true, you can freely move the image instead of being bound to the container borders',;
+    default:
+        false,
+    }
+;
+;
+,
+    {
+        'smallImage',
+            type
+    :
+        'string',
+            description
+    : `When;
+        set;
+        to; \`'reject'\`, \`onImageError\` would;
+        be;
+        called;
+        when;
+        cropit;
+        loads;
+        an;
+        image;
+        that;
+        is;
+        smaller;
+        than;
+        the;
+        container.
+            When;
+        set;
+        to; \`'allow'\`,
+        images;
+        smaller;
+        than;
+        the;
+        container;
+        can;
+        be;
+        zoomed;
+        down;
+        to;
+        its;
+        original;
+        size, overiding; \`minZoom\` option.
         When;
-    set;
-    to; \`'min'\`,
-    image;
-    is;
-    zoomed;
-    to;
-    the;
-    smallest;
-    when;
-    loaded.
-        When;
-    set;
-    to;
-    'image', image;
-    is;
-    zoomed;
-    to;
-    100 % when;
-    loaded.`,
-default:
-    'min',
-}
+        set;
+        to; \`'stretch'\`,
+        the;
+        minimum;
+        zoom;
+        of;
+        small;
+        images;
+        would;
+        follow; \`minZoom\` option.`,
+    default:
+        'reject',
+    }
+;
+;
+;
+;
+;
 ;
 ;
 ;
 ;
 ,
-{
-    'freeMove',
-        type
-:
-    'boolean',
-        description
-:
-    'When set to true, you can freely move the image instead of being bound to the container borders',;
-default:
-    false,
-}
-;
-;
-,
-{
-    'rejectSmallImage',
-        type
-:
-    'boolean',
-        description
-:
-    'When set to true, `onImageError` would be called when cropit loads an image that is smaller than the container.',;
-default:
-    true,
-}
+    {
+        'allowCrossOrigin',
+            type
+    :
+        'boolean',
+            description
+    :
+        'Set to true if you need to crop image served from other domains.',;
+    default:
+        false,
+    }
 ;
 ;
 ,

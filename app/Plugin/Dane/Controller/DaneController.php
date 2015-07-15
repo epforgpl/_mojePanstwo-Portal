@@ -12,6 +12,7 @@ class DaneController extends ApplicationsController
         'headerImg' => 'dane',
     );
     
+    
     public $mainMenuLabel = 'Szukaj';
     public $appSelected = 'search';
 
@@ -49,7 +50,8 @@ class DaneController extends ApplicationsController
 	            'aggs' => $aggs,
 	            'aggs-mode' => 'apps',
 	        );
-	
+			
+            $this->_layout['header']['element'] = 'search';
 	        $this->Components->load('Dane.DataBrowser', $options);
 	        $this->render('Dane.Elements/DataBrowser/browser-from-app');
         
@@ -82,15 +84,33 @@ class DaneController extends ApplicationsController
         if (
         isset($this->request->params['id'])
         ) {
-
-            if (
-                ($dataset_info = $this->getDataset($this->request->params['id'])) &&
-                @$dataset_info['dataset_name']['menu_id']
-            ) {
+			
+			switch( $this->request->params['id'] ) {
+				case 'nik_raporty': return $this->redirect('/dane/instytucje/3217,najwyzsza-izba-kontroli/raporty');
+			}
+			
+			$dataset_info = $this->getDataset($this->request->params['id']);
+			
+            if (@$dataset_info['dataset_name']['menu_id']) {
 
                 $url = '/' . $dataset_info['app_id'] . '/' . $dataset_info['dataset_name']['menu_id'] . '?' . http_build_query($this->request->query);
                 return $this->redirect($url);
 
+            } else {
+	            	            
+	            $this->loadModel('Dane.Dataobject');
+	            $dataset = $this->Dataobject->find('first', array(
+		            'conditions' => array(
+			            'dataset' => 'zbiory',
+			            'zbiory.slug' => $this->request->params['id'],
+		            ),
+	            ));
+	            
+	            $this->title = $dataset->getData('nazwa');
+	            $this->setMetaDescription($dataset->getData('opis'));
+	            $this->_app['name'] = $dataset->getData('nazwa');
+	            $this->_app['href'] = '/dane/' . $dataset->getData('slug');
+	            
             }
 
             $fields = array('searchTitle', 'order');
@@ -109,7 +129,15 @@ class DaneController extends ApplicationsController
 
     public function getMenu()
     {
-        return array();
+        $menu = array(
+	        'items' => array(
+		        array(
+			        'label' => 'Dane publiczne',
+		        ),
+	        ),
+	        'base' => '/dane',
+        );
+        return $menu;
     }
 
 } 

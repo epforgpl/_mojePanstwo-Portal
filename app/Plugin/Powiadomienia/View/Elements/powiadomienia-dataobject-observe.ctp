@@ -8,11 +8,11 @@ $this->Combinator->add_libs('js', 'Powiadomienia.modal-observe');
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Obserwuj</h4>
+                <h4 class="modal-title" id="observeModalLabel">Obserwuj</h4>
             </div>
             <form action="/dane/subscriptions" method="post">
                 <div class="modal-body">
-                    <p class="header">Otrzymuj powiadomienia o nowych danych związanych z "<span></span>"</p>
+                    <p class="header">Otrzymuj powiadomienia o nowych danych dla: <span></span></p>
 
                     <div class="alert alert-danger" role="alert">
                         <p>Prosze zaznaczyć przynajmniej jeden kanał do obserwowania</p>
@@ -20,7 +20,7 @@ $this->Combinator->add_libs('js', 'Powiadomienia.modal-observe');
                     <input type="hidden" name="dataset" value=""/>
                     <input type="hidden" name="object_id" value=""/>
 
-                    <div class="options loading">
+                    <div class="optionsBlock options loading">
                     </div>
                 </div>
                 <div class="modal-footer">

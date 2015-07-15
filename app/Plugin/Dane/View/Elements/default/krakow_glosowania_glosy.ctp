@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
 
         <?
 
@@ -16,15 +16,16 @@
 
             ?>
 
-            <div style="padding: 5px;">
-                <p>Głos <? if ($object->getData('radni_gmin.plec') == 'K') { ?>radnej<? } else { ?>radnego<? } ?>:
-                    <span class="label label-<?= $m[1] ?>"><?= $m[0] ?></span></p>
-            </div>
+                <? /*Głos <? if ($object->getData('radni_gmin.plec') == 'K') { ?>radnej<? } else { ?>radnego<? } ?>:*/?>
+                
+                <h3 class="label-glos"><span class="label label-md label-<?= $m[1] ?>"><?= $m[0] ?></span></h3>
+                
 
         <? } ?>
 
 
     </div>
+    <? /*
     <div class="col-md-6">
 
         <?
@@ -40,11 +41,10 @@
 
             ?>
 
-            <div style="padding: 5px;">
                 <p class="label label-<?= $class ?>"><?= $object->getData('krakow_glosowania.wynik_str') ?></p>
-            </div>
 
         <? } ?>
 
     </div>
+    */?>
 </div>

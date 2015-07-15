@@ -454,6 +454,81 @@ class DataBrowserComponent extends Component
                 ),
             ),
         ),
+        'krakow_zamowienia_publiczne' => array(
+            'roczniki' => array(
+                'terms' => array(
+                    'field' => 'krakow_zamowienia_publiczne.rok',
+                    'order' => array(
+	                    '_term' => 'desc',
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Rok',
+                    'skin' => 'list',
+                    'field' => 'krakow_zamowienia_publiczne.rok'
+                ),
+            ),
+            'wykonawcy' => array(
+                'terms' => array(
+                    'field' => 'krakow_zamowienia_publiczne.wykonawca_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                    'order' => array(
+	                    'sum' => 'desc',
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'krakow_zamowienia_publiczne.wykonawca',
+                        ),
+                    ),
+                    'sum' => array(
+	                    'sum' => array(
+		                    'field' => 'data.krakow_zamowienia_publiczne.wartosc_brutto',
+	                    ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Beneficjenci',
+                    'skin' => 'columns_horizontal',
+                    'field' => 'krakow_zamowienia_publiczne.wykonawca_id',
+                    'counter_field' => 'sum',
+                ),
+            ),
+        ),
+        'krakow_darczyncy' => array(
+            'komitety' => array(
+                'terms' => array(
+                    'field' => 'krakow_darczyncy.komitet_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                    'order' => array(
+	                    'sum' => 'desc',
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'krakow_darczyncy.komitet',
+                        ),
+                    ),
+                    'sum' => array(
+	                    'sum' => array(
+		                    'field' => 'data.krakow_darczyncy.wartosc_wplata',
+	                    ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Komitety',
+                    'skin' => 'columns_horizontal',
+                    'field' => 'krakow_darczyncy.komitet_id',
+                    'counter_field' => 'sum',
+                ),
+            ),
+        ),
         'rady_gmin_interpelacje' => array(
             'radni' => array(
                 'terms' => array(
@@ -908,9 +983,10 @@ class DataBrowserComponent extends Component
         // debug($this->getSettings()); die();
 
         if (
-            (!$this->cover) ||
+            (!$this->cover) || 
             (
-                $this->cover &&
+                $this->cover && 
+                ( !isset( $this->cover['force'] ) || !$this->cover['force'] ) && 
                 isset($this->queryData['conditions']) &&
                 !empty($this->queryData['conditions'])
             )
@@ -1018,7 +1094,7 @@ class DataBrowserComponent extends Component
 
                 if (isset($this->cover['aggs']))
                     $params['aggs'] = $this->cover['aggs'];
-
+                
                 if (isset($this->cover['conditions'])) {
 
                     $params['conditions'] = array_merge($params['conditions'], $this->cover['conditions']);

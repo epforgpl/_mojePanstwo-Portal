@@ -22,15 +22,36 @@ $this->Combinator->add_libs('js', 'graph-krs');
 	<div class="col-md-9 objectMain">
 	    <div class="object">
 	       
-	        <? if ($object->getData('wykreslony')) { ?>
+<? if ($object->getData('wykreslony')) { ?>
     <div class="alert alert-dismissable alert-danger">
         <button type="button" class="close" data-dismiss="alert">×</button>
         Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
     </div>
-<? }
+<? } ?>
 
+<? /* if( @$object_aggs['all']['dzialania']['top']['hits']['hits'] ) {?>
+<div class="block block-simple col-xs-12 dzialania">
+	<header>Działania organizacji</header>
+    <section class="content">
+        <? foreach ($object_aggs['all']['dzialania']['top']['hits']['hits'] as $dzialanie) { ?>
+            <div class="col-sm-4">
+                <div class="photo">
+                    <? if($dzialanie['fields']['source'][0]['data']['dzialania.photo'] == '1') { ?>
+                        <img alt="<?= $dzialanie['fields']['source'][0]['data']['dzialania.tytul']; ?>" src="http://sds.tiktalik.com/portal/pages/dzialania/krs_podmioty/<?= $object->getId(); ?>/<?= $dzialanie['fields']['id'][0]; ?>.jpg"/>
+                    <? } ?>
+                </div>
+                <h4>
+                    <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>">
+                        <?= $dzialanie['fields']['source'][0]['data']['dzialania.tytul']; ?>
+                    </a>
+                </h4>
+            </div>
+        <? } ?>
+    </section>
+</div>
+<? } */ ?>
 
-if ($object->getData('cel_dzialania')) { ?>
+<? if ($object->getData('cel_dzialania')) { ?>
     <div class="dzialanie block block-simple col-xs-12">
 
         <section class="content normalizeText textBlock">

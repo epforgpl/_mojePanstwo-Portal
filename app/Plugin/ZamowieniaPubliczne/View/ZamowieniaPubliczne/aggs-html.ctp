@@ -3,7 +3,7 @@
 		<? if( $data['aggregations']['stats']['count'] || $data['aggregations']['stats']['sum'] ) {?>
 		<div class="row">
 			<div class="col-md-12">
-				<p><?= pl_dopelniacz($data['aggregations']['stats']['count'], 'zamówienie', 'zamówienia', 'zamówień') ?> zamówień, na sumę <strong><?= number_format_h($data['aggregations']['stats']['sum']) ?> PLN</strong></p>
+				<p><?= pl_dopelniacz($data['aggregations']['stats']['count'], 'zamówienie', 'zamówienia', 'zamówień') ?>, na sumę <strong><?= number_format_h($data['aggregations']['stats']['sum']) ?> PLN</strong></p>
 			</div>
 		</div>
 		<? } ?>

@@ -72,14 +72,13 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 $(document).ready(function () {
     if ($(window).outerWidth() > 728) {
-        var header = $('.objectPageHeaderBg').outerHeight(true),
-            dzielniceMap = $('#dzielnice_map'),
+        var dzielniceMap = $('#dzielnice_map'),
             holder = dzielniceMap.parent().find('.holder'),
             fundatorzy = $('#fundatorzy').outerHeight(true);
-        var size = $(window).outerHeight() - header - fundatorzy;
+        var size = $(window).outerHeight() - fundatorzy;
 
         holder.css('min-height', size);
-        dzielniceMap.css('height', size);
+        dzielniceMap.css('min-height', size);
     }
 
     $('.dzielniceList a').mouseover(function () {

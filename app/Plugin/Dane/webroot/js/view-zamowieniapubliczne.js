@@ -11,4 +11,9 @@ $(document).ready(function () {
 
     $('#sources').html(links.join(', '));
 
+
+    $(".open_modal").click(function(){
+        var numer=$(this).attr('numer');
+       $('#'+numer+'').modal('show');
+    });
 });

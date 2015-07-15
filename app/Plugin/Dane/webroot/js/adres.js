@@ -109,6 +109,10 @@ function initialize() {
             google.maps.event.addListener(marker, 'click', function () {
                 infowindow.open(googleMap, marker);
             });
+
+            google.maps.event.addListenerOnce(googleMap, 'idle', function () {
+                $('#googleMapBtnModal').removeClass('show');
+            });
         }
     });
 }
@@ -130,7 +134,8 @@ jQuery(document).ready(function () {
     "use strict";
     var banner = jQuery('.mp-adres'),
         mapsOptions = $('.mapsOptions '),
-        googleViewBtn = $('.googleViewBtn');
+        googleViewBtn = $('.googleViewBtn'),
+        googleMapBtnModal = $('#googleMapBtnModal');
 
     if (banner.length > 0) {
         banner.find('.bg img').css({'width': banner.outerWidth() + 'px', 'height': banner.outerHeight() + 'px'});
@@ -138,23 +143,18 @@ jQuery(document).ready(function () {
         window.load = loadScript();
 
         $('.googleMapBtnModal').click(function (e) {
-            var self = $(this),
-                googleMapBtnModal = $('#googleMapBtnModal');
+            var self = $(this);
 
             e.preventDefault;
 
             googleMapBtnModal.on('shown.bs.modal', function () {
                 if (self.hasClass('reload')) {
+                    self.removeClass('reload');
+
                     google.maps.event.trigger(googleMap, 'resize');
                     google.maps.event.trigger(panorama, 'resize');
 
-                    //NEED TO WAIT A LITTLE UNTIL MAP IDLE AND CAN CENTER ON AUTO OPEN INFOWINDOW//
-                    google.maps.event.addListenerOnce(googleMap, 'idle', function () {
-                        setTimeout(function () {
-                            google.maps.event.trigger(marker, 'click');
-                        }, 2000);
-                    });
-                    self.removeClass('reload');
+                    google.maps.event.trigger(marker, 'click');
                 }
             });
             googleMapBtnModal.modal('show');

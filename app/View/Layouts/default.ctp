@@ -69,9 +69,13 @@
     echo $this->Html->css('../libs/font-awesome/4.3.0/css/font-awesome.min.css');
     $this->Combinator->add_libs('css', $this->Less->css('social-buttons'), false);
 
-    if( isset($object_editable) && !empty($object_editable) ) {
+    if (isset($object_editable) && !empty($object_editable)) {
         $this->Combinator->add_libs('css', $this->Less->css('dataobjects-editable', array('plugin' => 'Dane')));
     }
+
+    /* SPECIAL THEME FOR PRZEJRZYSTY KRAKOW */
+    if ($domainMode == 'PK')
+        $this->Combinator->add_libs('css', $this->Less->css('przejrzysty-krakow-theme', array('plugin' => 'PrzejrzystyKrakow')));
 
     /* HAD TO BE EXCLUDED CAUSE ERRORS AT BOOTSTRAP */
     echo $this->Html->css('../libs/bootstrap/3.3.4/css/bootstrap.min.css');
@@ -107,8 +111,11 @@
     <?php echo $this->Element('flash'); ?>
     <?php echo $this->Element('cockpit'); ?>
     <div id="_main">
+        <?php
+        if ($domainMode == 'PK')
+            echo $this->Element('PrzejrzystyKrakow.pkrk-header');
 
-        <?php if (isset($_layout['header']) && !empty($_layout['header'])) {
+        if (isset($_layout['header']) && !empty($_layout['header'])) {
             echo $this->Element('headers/' . $_layout['header']['element']);
             echo $this->Element('menu');
         } ?>
@@ -127,8 +134,8 @@
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
         a = s.createElement(o),
             m = s.getElementsByTagName(o)[0];
         a.async = 1;
@@ -142,6 +149,10 @@
 
 <?php
 echo $this->Html->script('../libs/jquery/2.1.4/jquery-2.1.4.min.js');
+
+if (isset($object_editable) && !empty($object_editable))
+    echo $this->Html->script('../js/jquery.autocomplete.min');
+
 echo $this->Html->script('../libs/jqueryui/1.11.4/jquery-ui.min.js');
 echo $this->Html->script('../libs/jqueryui/i18n/jquery-ui-i18n.min.js');
 
@@ -189,8 +200,7 @@ $this->Combinator->add_libs('js', 'main', false);
 $this->Combinator->add_libs('js', 'suggester');
 $this->Combinator->add_libs('js', 'appheader');
 
-if( isset($object_editable) && !empty($object_editable) ) {
-    $this->Combinator->add_libs('js', 'jquery.autocomplete.min');
+if (isset($object_editable) && !empty($object_editable)) {
     $this->Combinator->add_libs('js', 'Dane.dataobjects-editable');
 }
 

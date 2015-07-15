@@ -6,8 +6,7 @@
             <div class="modal-content">
                 <? if (isset($tokenSuccess) && $tokenSuccess) { ?>
                     <div class="modal-header">
-                        <h4 class="modal-title"
-                            id="myModalLabel"><?= __d('paszport', 'LC_PASZPORT_CHANGE_PASSWORD') ?></h4>
+                        <h4 class="modal-title"><?= __d('paszport', 'LC_PASZPORT_CHANGE_PASSWORD') ?></h4>
                     </div>
                     <div class="modal-body">
 
@@ -36,8 +35,7 @@
                     </div>
                 <? } else { ?>
                     <div class="modal-header">
-                        <h4 class="modal-title"
-                            id="myModalLabel"><?php echo __d('paszport', "LC_PASZPORT_PASSWORD_FORGOT_MOTTO") ?></h4>
+                        <h4 class="modal-title"><?php echo __d('paszport', "LC_PASZPORT_PASSWORD_FORGOT_MOTTO") ?></h4>
                     </div>
                     <div class="modal-body">
 
