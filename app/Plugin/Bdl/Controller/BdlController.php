@@ -20,6 +20,9 @@ class BdlController extends ApplicationsController
             'footer' => array(
                 'element' => 'minimal',
             ),
+            'header' => array(
+	            'element' => 'empty',
+            ),
         ));
         $datasets = $this->getDatasets('bdl');
 
@@ -75,7 +78,7 @@ class BdlController extends ApplicationsController
 
         $this->Components->load('Dane.DataBrowser', $options);
         $this->title = 'Bank Danych Lokalnych';
-        $this->render('Dane.Elements/DataBrowser/browser-from-app');
+        // $this->render('Dane.Elements/DataBrowser/browser-from-app');
 
 
     }

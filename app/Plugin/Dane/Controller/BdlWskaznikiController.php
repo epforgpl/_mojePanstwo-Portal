@@ -19,7 +19,16 @@ class BdlWskaznikiController extends DataobjectsController
 
     public function kombinacje()
     {
-
+		 
+		$this->setLayout(array(
+            'footer' => array(
+                'element' => 'minimal',
+            ),
+            'header' => array(
+	            'element' => 'dataobject-bdl',
+            ),
+        )); 
+		      
         parent::load();
         
         $expand_dimension = isset($this->request->query['i']) ? (int) $this->request->query['i'] : $this->object->getData('i');
@@ -125,7 +134,11 @@ class BdlWskaznikiController extends DataobjectsController
             'footer' => array(
                 'element' => 'minimal',
             ),
+            'header' => array(
+	            'element' => 'dataobject-bdl',
+            ),
         ));
+        
 
         $expand_dimension = isset($this->request->query['i']) ? (int) $this->request->query['i'] : $this->object->getData('i');
         $dims = $this->object->getLayer('dimennsions');

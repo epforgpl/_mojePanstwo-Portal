@@ -12,20 +12,35 @@
 @leftSideAccordionWidth: 300px;
 @headerHeight: 48px;
 
+.appMenu {
+	display: none;
+}
+
 #_wrapper {
   #_main {
     padding-bottom: 30px;
 
-    .appHeader.dataobject {
-      background: #201622;
-      height: 48px;
-      min-height: @headerHeight;
-      position: fixed;
-      z-index: 2;
-
-      .container {
-        margin: 0 15px;
-      }
+    .appHeader {
+	    
+	    .options-bdl {
+		    button {
+			    margin-right: -72px;
+			    margin-top: 4px;
+		    }
+	    }
+	    
+	    &.dataobject {
+			background: #201622;
+			height: 48px;
+			min-height: @headerHeight;
+			position: fixed;
+			z-index: 2;
+			
+			.container {
+				margin: 0 15px;
+			}
+		}
+	    
     }
 
     .appHeader .holder h1.smaller, .appHeader .holder h1.smaller a {
@@ -49,6 +64,10 @@
   width: @leftSideAccordionWidth;
   border-right: 1px solid #ddd;
   z-index: 1;
+  box-shadow: 0 0 5px #AAA;
+  -moz-box-shadow: 0 0 5px #AAA;
+  -webkit-box-shadow: 0 0 5px #AAA;
+  -o-box-shadow: 0 0 5px #AAA;
 
   &.init {
     .noOverflow {

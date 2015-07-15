@@ -1,4 +1,4 @@
-<?= $this->Element('dataobject/pageBegin', array('renderFile' => 'page-bdl_wskazniki')); ?>
+<?= $this->Element('dataobject/pageBegin'); ?>
 <?= $this->Element('bdl_select', array('expand_dimension' => $expand_dimension, 'dims' => $dims)); ?>
 
 <?= $this->Element('Bdl.leftsideaccordion', array('tree' => $tree)); ?>
@@ -39,7 +39,13 @@
         <? if (in_array('bdl_opis', $object_editable)) {
             echo $this->element('Dane.bdl_opis');
         } ?>
-
+		
+		<? if( $object->getData('opis') ) {?>
+		<div class="opis">
+			<?= $object->getData('opis') ?> 
+		</div>
+		<? } ?>
+		
         <div class="object">
             <?
             if (!empty($expanded_dimension)) {

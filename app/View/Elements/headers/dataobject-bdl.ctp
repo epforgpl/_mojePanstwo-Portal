@@ -14,7 +14,7 @@ if (!isset($renderFile) || !$renderFile)
 <div class="appHeader dataobject"<? if( isset($object_editable) && !empty($object_editable) ) {?> data-editables='<?= json_encode($object_editable) ?>'<?}?> data-url="<?= urlencode($object->getUrl()) ?>" data-dataset="<?= $object->getDataset() ?>" data-object_id="<?= $object->getId() ?>">
     <div class="container">
         <div class="holder row">
-            <div class="col-md-10">
+            <div class="col-sm-8">
                 
                 <ul class="breadcrumb">
                     <?php foreach ($_breadcrumbs as $bread) { ?>
@@ -29,7 +29,7 @@ if (!isset($renderFile) || !$renderFile)
                            title="<?= htmlspecialchars(strip_tags($object->getTitle())) ?>">
                             <?php } ?>
 
-                            <span<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= $object->geticon() . '&nbsp;' . $object->getTitle() ?></span>
+                            <span<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= $object->geticon() . '&nbsp;' . $this->Text->truncate($object->getTitle()) ?></span>
 
                             <?php if ($object->getUrl() != false){ ?>
                         </a>
@@ -42,12 +42,12 @@ if (!isset($renderFile) || !$renderFile)
             </div>
                         
             
-            <div class="col-md-2 options">
+            <div class="col-sm-2 options options-bdl">
 	            <?php if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
                     <div class="opt"><? echo $this->element('modals/dataobject-observe'); ?></div>
 	            <? } ?>
             </div>
-            <div class="col-xs-10">
+            <div class="col-sm-10">
                 <div class="status">
                     <?= @$this->element('status_bar/' . $object->getDataset(), array('plugin' => 'Dane')) ?>
                 </div>
