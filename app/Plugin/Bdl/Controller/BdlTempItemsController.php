@@ -7,6 +7,10 @@ class BdlTempItemsController extends ApplicationsController
 
     public $components = array('RequestHandler');
 
+  /*  public $uses = array(
+        'BDL.BdlTempItem',
+    );*/
+
     public $settings = array(
         'id' => 'bdl',
         'title' => 'Bdl',
@@ -203,7 +207,7 @@ class BdlTempItemsController extends ApplicationsController
     public function listall()
     {
         $this->autoRender = false;
-        $data = $this->BdlTempItem->search('list');
+        $data = $this->BdlTempItem->searchList();
         // Tu musi zwracac stringa
 
         $this->json($data);

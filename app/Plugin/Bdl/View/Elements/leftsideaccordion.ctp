@@ -45,7 +45,7 @@ $this->Combinator->add_libs('js', 'Bdl.bdl_tree');
                 <h4 class="brak_wskz">Nie ma wskaźników do wyświetlenia</h4>
             <? } else { ?>
                 <ul class="list-group lista_wskz">
-                    <? foreach ($BdlTempItems as $key => $val) { ?>
+                    <? foreach ($BdlTempItems['BdlTempItems'] as $key => $val) { ?>
                         <li class="list-group-item"><a
                                 href="/bdl/bdl_temp_items/<?= $key ?>"><?= $val['tytul'] ?></a>
 
@@ -54,6 +54,14 @@ $this->Combinator->add_libs('js', 'Bdl.bdl_tree');
                                 <button class="btn btn-danger btn-xs pull-right" type="submit"><i
                                         class="icon glyphicon glyphicon-remove"></i></button>
                             </form>
+                        </li>
+                    <? } ?>
+                </ul>
+                <ul class="list-group lista_wskz">
+                    <? foreach ($BdlTempItems['BdlImportItems'] as $key => $val) { ?>
+                        <li class="list-group-item"><a
+                                href="/bdl/bdl_temp_items/<?= $key ?>"><?= $val['tytul'] ?></a>
+
                         </li>
                     <? } ?>
                 </ul>
