@@ -5,6 +5,10 @@ App::uses('ApplicationsController', 'Controller');
 class BdlController extends ApplicationsController
 {
 
+    public $uses = array(
+        'Bdl.BdlTempItem','Dane.Dataobject', 'Dane.Subscription', 'Dane.ObjectUsersManagement'
+    );
+
     public $settings = array(
         'id' => 'bdl',
         'title' => 'Bdl',

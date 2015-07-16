@@ -8,6 +8,7 @@ class BdlWskaznikiController extends DataobjectsController
         'Bdl.BdlTempItem', 'Dane.Dataobject', 'Dane.Subscription', 'Dane.ObjectUsersManagement'
     );
 
+
     public $menu = array();
     public $components = array('RequestHandler');
     public $objectOptions = array(
@@ -254,6 +255,7 @@ class BdlWskaznikiController extends DataobjectsController
         $this->set('dimmensions_array', $dimmensions_array);
 
         $BdlTempItems = $this->BdlTempItem->searchAll();
+
         $this->set(array(
             'BdlTempItems' => $BdlTempItems,
             '_serialize' => array('BdlTempItems')

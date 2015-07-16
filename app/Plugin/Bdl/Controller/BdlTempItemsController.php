@@ -7,6 +7,10 @@ class BdlTempItemsController extends ApplicationsController
 
     public $components = array('RequestHandler');
 
+    public $uses = array(
+        'Bdl.BdlTempItem','Dane.Dataobject', 'Dane.Subscription', 'Dane.ObjectUsersManagement'
+    );
+
     public $settings = array(
         'id' => 'bdl',
         'title' => 'Bdl',
@@ -204,9 +208,6 @@ class BdlTempItemsController extends ApplicationsController
     {
         $this->autoRender = false;
         $data = $this->BdlTempItem->searchList();
-                
-        // Tu musi zwracac stringa
-
         $this->json($data);
     }
 

@@ -57,6 +57,14 @@ $this->Combinator->add_libs('js', 'Bdl.bdl_tree');
                         </li>
                     <? } ?>
                 </ul>
+                <ul class="list-group lista_wskz">
+                    <? foreach ($BdlTempItems['BdlImportItems'] as $key => $val) { ?>
+                        <li class="list-group-item"><a
+                                href="/bdl/bdl_temp_items/<?= $val['BdlImportItem']['id'] ?>"><?= $val['BdlImportItem']['nazwa'] ?></a>
+
+                        </li>
+                    <? } ?>
+                </ul>
             <? } ?>
             <button class="btn btn-xs btn-primary btn-addnew btn-icon" id="new_temp_item"><i
                     class="icon glyphicon glyphicon-plus"></i>Dodaj</button>
