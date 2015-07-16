@@ -374,9 +374,18 @@ class KrsPodmiotyController extends DataobjectsController
     public function dodaj_dzialanie() {
         $this->addInitLayers(array('dzialania_nowe'));
         $this->_prepareView();
-
-        if(!@in_array('2', $this->getUserRoles()) || !$this->getPageRoles() || !in_array($this->getPageRoles(), array('1', '2')))
+				
+        if(
+        	@in_array('2', $this->getUserRoles()) || 
+        	(
+        		$this->getPageRoles() &&
+				in_array($this->getPageRoles(), array('1', '2'))
+			)
+        ) {
+	        
+        } else {
             throw new ForbiddenException;
+        }
     }
 
     public function dzialania_edycja() {
