@@ -2,10 +2,14 @@
 $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty-dzialania', array('plugin' => 'Dane')));
 echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block' => 'scriptBlock'));
 
-/* bootstrap3-wysihtml5 */
+/* bootstrap3-wysihtml5
 $this->Combinator->add_libs('css', '../plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5');
 echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5.all', array('block' => 'scriptBlock'));
 echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/locales/bootstrap-wysihtml5.pl-NEW', array('block' => 'scriptBlock'));
+*/
+
+/* tinymce */
+echo $this->Html->script('../tinymce/tinymce.min', array('block' => 'scriptBlock'));
 
 /* tag-it */
 $this->Combinator->add_libs('css', '../plugins/aehlke-tag-it/css/jquery.tagit');
@@ -43,12 +47,16 @@ echo $this->Element('dataobject/pageBegin'); ?>
                             </div>
                         </div>
                         <div class="form-group">
+                            <label>Zdjęcie</label>
                             <div class="image-editor">
                                 <div class="cropit-image-preview"></div>
-                                <p>Zalecany rozmiar: 874x347</p>
-                                <span class="btn btn-default btn-file">Przeglądaj<input type="file"
-                                                                                        class="cropit-image-input"/></span>
-                                <input type="hidden" type="text" name="cover_photo"/>
+                                <div class="slider-wrapper">
+                                    <span class="icon icon-small glyphicon glyphicon-tree-conifer"></span>
+                                    <input type="range" class="cropit-image-zoom-input" />
+                                    <span class="icon icon-large glyphicon glyphicon-tree-conifer"></span>
+                                </div>
+                                <p>Zalecany rozmiar: 810x320px</p>
+                                <span class="btn btn-default btn-file">Przeglądaj<input type="file" class= "cropit-image-input" /></span>
                             </div>
                         </div>
                         <div class="form-group googleBlock">

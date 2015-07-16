@@ -1,11 +1,8 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('bdl', array('plugin' => 'Bdl')));
-
-$this->Combinator->add_libs('js', 'Bdl.jstree.min');
+echo $this->Html->script('../js/jstree.min', array('block' => 'scriptBlock'));
 $this->Combinator->add_libs('js', 'Bdl.bdl');
 ?>
-
-
 
 <div class="container">
     <div

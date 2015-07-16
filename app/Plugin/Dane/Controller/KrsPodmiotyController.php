@@ -371,12 +371,11 @@ class KrsPodmiotyController extends DataobjectsController
 
     }
 
-    public function dzialania_nowe()
-    {
+    public function dodaj_dzialanie() {
         $this->addInitLayers(array('dzialania_nowe'));
         $this->_prepareView();
 
-        if(!$this->getPageRoles() || !in_array($this->getPageRoles(), array('1', '2')))
+        if(!@in_array('2', $this->getUserRoles()) || !$this->getPageRoles() || !in_array($this->getPageRoles(), array('1', '2')))
             throw new ForbiddenException;
     }
 
@@ -405,7 +404,7 @@ class KrsPodmiotyController extends DataobjectsController
 
         $this->_prepareView();
 
-        if(!$this->getPageRoles() || !in_array($this->getPageRoles(), array('1', '2')))
+        if(!@in_array('2', $this->getUserRoles()) || !$this->getPageRoles() || !in_array($this->getPageRoles(), array('1', '2')))
             throw new ForbiddenException;
     }
 
