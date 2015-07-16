@@ -125,6 +125,7 @@ String.prototype.capitalizeFirstLetter = function () {
         if (api) {
             setTimeout(function () {
                 api.reinitialise();
+                console.log('jsScrollTarget', jsScrollTarget);
                 if (jsScrollTarget !== null) {
                     clearTimeout(jsScrollHandler);
                     jsScrollHandler = setTimeout(function () {

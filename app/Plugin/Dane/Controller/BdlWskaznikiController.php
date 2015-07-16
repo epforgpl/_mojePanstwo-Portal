@@ -5,7 +5,7 @@ App::uses('DataobjectsController', 'Dane.Controller');
 class BdlWskaznikiController extends DataobjectsController
 {
     public $uses = array(
-        'Bdl.BdlTempItem',
+        'Bdl.BdlTempItem', 'Dane.Dataobject', 'Dane.Subscription', 'Dane.ObjectUsersManagement'
     );
 
     public $menu = array();
@@ -131,6 +131,19 @@ class BdlWskaznikiController extends DataobjectsController
         $this->set('levels_selected', $selected_level_id);
         $this->set('combination', $combination);
         $this->set('expand_dimension', $expand_dimension);
+        
+        $datasets = $this->getDatasets('bdl');
+
+        $options = array(
+            'searchTitle' => 'Szukaj w Banku Danych Lokalnych...',
+            'autocompletion' => array(
+                'dataset' => 'bdl_wskazniki',
+            ),
+            'conditions' => array(
+                'dataset' => array_keys($datasets)
+            ),            
+        );
+        $this->Components->load('Dane.DataBrowser', $options);
 
     }
 

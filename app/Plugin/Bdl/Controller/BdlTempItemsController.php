@@ -203,7 +203,8 @@ class BdlTempItemsController extends ApplicationsController
     public function listall()
     {
         $this->autoRender = false;
-        $data = $this->BdlTempItem->search('list');
+        $data = $this->BdlTempItem->searchList();
+                
         // Tu musi zwracac stringa
 
         $this->json($data);

@@ -141,6 +141,9 @@ $(document).ready(function () {
     });
 
     $(".add_to_item").click(function () {
+        
+        console.log('click');
+        
         pullList(function () {
             var url = '/bdl/bdl_temp_items/' + wsk_id;
             getWskz(url);

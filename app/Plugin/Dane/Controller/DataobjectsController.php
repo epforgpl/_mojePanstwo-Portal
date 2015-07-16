@@ -96,7 +96,7 @@ class DataobjectsController extends AppController
                 
             $layers[] = 'dataset';
             $layers[] = 'page';
-
+						
             if ($this->object = $this->Dataobject->find('first', array(
                 'conditions' => array(
                     'dataset' => $dataset,
