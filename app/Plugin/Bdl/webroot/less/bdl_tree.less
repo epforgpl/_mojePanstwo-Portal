@@ -22,19 +22,21 @@
 
     .appHeader {
 	    
+	    
+	    
 	    .options-bdl {
-		    button {
-			    margin-right: -72px;
-			    margin-top: 4px;
-		    }
+		    bottom: -4px;
+		    margin-right: 6px;
 	    }
 	    
 	    &.dataobject {
+		    left: 0;
 			background: #201622;
 			height: 48px;
 			min-height: @headerHeight;
 			position: fixed;
-			z-index: 2;
+			z-index: 1;
+			padding-left: 385px;
 			
 			.container {
 				margin: 0 15px;
@@ -64,10 +66,6 @@
   width: @leftSideAccordionWidth;
   border-right: 1px solid #ddd;
   z-index: 1;
-  box-shadow: 0 0 5px #AAA;
-  -moz-box-shadow: 0 0 5px #AAA;
-  -webkit-box-shadow: 0 0 5px #AAA;
-  -o-box-shadow: 0 0 5px #AAA;
 
   &.init {
     .noOverflow {
