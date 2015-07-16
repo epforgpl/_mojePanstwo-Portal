@@ -1,7 +1,7 @@
 <?= $this->Element('dataobject/pageBegin'); ?>
 
 <? if( $object->getData('opis') ) {?>
-    <div class="opis col-xs-12">
+    <div class="opis">
         <?= $object->getData('opis') ?>
     </div>
 <? } ?>
