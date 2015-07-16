@@ -8,7 +8,7 @@ class KrsPodmiotyController extends DataobjectsController
     public $observeOptions = true;
     
     public $helpers = array(
-        'Time',
+        'Time', 'Czas'
     );
     public $components = array('RequestHandler');
     public $objectOptions = array(
@@ -374,18 +374,9 @@ class KrsPodmiotyController extends DataobjectsController
     public function dodaj_dzialanie() {
         $this->addInitLayers(array('dzialania_nowe'));
         $this->_prepareView();
-				
-        if(
-        	@in_array('2', $this->getUserRoles()) || 
-        	(
-        		$this->getPageRoles() &&
-				in_array($this->getPageRoles(), array('1', '2'))
-			)
-        ) {
-	        
-        } else {
+
+        if(!$this->_canEdit())
             throw new ForbiddenException;
-        }
     }
 
     public function dzialania_edycja() {
@@ -413,17 +404,8 @@ class KrsPodmiotyController extends DataobjectsController
 
         $this->_prepareView();
 
-        if(
-            @in_array('2', $this->getUserRoles()) ||
-            (
-                $this->getPageRoles() &&
-                in_array($this->getPageRoles(), array('1', '2'))
-            )
-        ) {
-
-        } else {
+        if(!$this->_canEdit())
             throw new ForbiddenException;
-        }
     }
 
     public function dzialania() {
@@ -646,6 +628,13 @@ class KrsPodmiotyController extends DataobjectsController
             ),
             'base' => $this->object->getUrl(),
         );
+
+        if($this->_canEdit()) {
+            $menu['items'][] = array(
+                'id' => 'odpisy',
+                'label' => 'Odpisy'
+            );
+        }
 		
 		/*
         if (@$this->object_aggs['all']['dzialania']['doc_count']) {
@@ -708,6 +697,31 @@ class KrsPodmiotyController extends DataobjectsController
         }
 
         return $menu;
+    }
+
+    public function odpisy() {
+        $this->addInitLayers('odpisy');
+        $this->_prepareView();
+
+        if(!$this->_canEdit())
+            throw new ForbiddenException;
+
+        $this->set('title_for_layout', 'Odpisy z KRS podmiotu ' . $this->object->getTitle());
+    }
+
+    public function pobierz_nowy_odpis() {
+        $this->set('data', array(1, 2, 3));
+        $this->set('_serialize', 'data');
+    }
+
+    private function _canEdit() {
+        return (
+            @in_array('2', $this->getUserRoles()) ||
+            (
+                $this->getPageRoles() &&
+                in_array($this->getPageRoles(), array('1', '2'))
+            )
+        );
     }
 
 }
