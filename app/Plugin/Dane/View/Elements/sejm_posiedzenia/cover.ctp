@@ -35,7 +35,44 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
                             <li>
                             
                             	<div class="row">
-	                            	<div class="col-md-6 projekty">
+	                            	
+	                            	<div class="col-md-6">
+		                            	
+		                            	<? 
+			                            	if( $data = $doc['fields']['source'][0]['data'] ) {
+				                        ?>
+				                        <div class="punkt">
+					                        
+					                        
+					                        <div class="info">
+						                        <? if( $data['sejm_posiedzenia_punkty.liczba_wystapien'] ) {?><a href="/dane/instytucje/3214,sejm/punkty/<?= $data['sejm_posiedzenia_punkty.id'] ?>"><img src="http://resources.sejmometr.pl/stenogramy/punkty/<?= $data['sejm_posiedzenia_punkty.id'] ?>.jpg" /></a><? } ?>
+						                        <p class="numer"><a href="/dane/instytucje/3214,sejm/punkty/<?= $data['sejm_posiedzenia_punkty.id'] ?>">Punkt #<?= $data['sejm_posiedzenia_punkty.numer'] ?></a></p>
+						                        <p class="stats"><?= $data['sejm_posiedzenia_punkty.stats_str_pl'] ?></p>
+					                        </div>
+					                        
+					                        <?
+					                        if( @$doc['fields']['source'][0]['static']['istotne_glosowania_ids'] ) {
+						                    ?><ul class="glosowania"><?
+												foreach( $doc['fields']['source'][0]['static']['istotne_glosowania_ids'] as $glosowanie_id ) {
+													if( array_key_exists($glosowanie_id, $glosowania) ) {
+													?><li><?
+														echo $this->Dataobject->render($glosowania[$glosowanie_id], 'default', array(
+					                            			'truncate' => 1000,
+				                            			));
+													?></li><?
+													}
+												}	
+											?></ul><?
+							                }
+							                ?>
+					                        
+					                        
+				                        </div>	
+				                        <?  	
+			                            	}
+			                            ?>
+		                            	
+	                            	</div><div class="col-md-6 projekty">
 		                            	
 		                            	<? 
 			                            	if( @$doc['fields']['source'][0]['static']['prawo_projekty'] ) {
@@ -89,42 +126,6 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
 			                            ?>
 			                            	
 
-		                            	
-	                            	</div><div class="col-md-6">
-		                            	
-		                            	<? 
-			                            	if( $data = $doc['fields']['source'][0]['data'] ) {
-				                        ?>
-				                        <div class="punkt">
-					                        
-					                        
-					                        <div class="info">
-						                        <? if( $data['sejm_posiedzenia_punkty.liczba_wystapien'] ) {?><a href="/dane/instytucje/3214,sejm/punkty/<?= $data['sejm_posiedzenia_punkty.id'] ?>"><img src="http://resources.sejmometr.pl/stenogramy/punkty/<?= $data['sejm_posiedzenia_punkty.id'] ?>.jpg" /></a><? } ?>
-						                        <p class="numer"><a href="/dane/instytucje/3214,sejm/punkty/<?= $data['sejm_posiedzenia_punkty.id'] ?>">Punkt #<?= $data['sejm_posiedzenia_punkty.numer'] ?></a></p>
-						                        <p class="stats"><?= $data['sejm_posiedzenia_punkty.stats_str_pl'] ?></p>
-					                        </div>
-					                        
-					                        <?
-					                        if( @$doc['fields']['source'][0]['static']['istotne_glosowania_ids'] ) {
-						                    ?><ul class="glosowania"><?
-												foreach( $doc['fields']['source'][0]['static']['istotne_glosowania_ids'] as $glosowanie_id ) {
-													if( array_key_exists($glosowanie_id, $glosowania) ) {
-													?><li><?
-														echo $this->Dataobject->render($glosowania[$glosowanie_id], 'default', array(
-					                            			'truncate' => 1000,
-				                            			));
-													?></li><?
-													}
-												}	
-											?></ul><?
-							                }
-							                ?>
-					                        
-					                        
-				                        </div>	
-				                        <?  	
-			                            	}
-			                            ?>
 		                            	
 	                            	</div>
                             	</div>

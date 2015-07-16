@@ -7,9 +7,9 @@ class Sejm_wystapienia extends DataObject
 
     protected $tiny_label = 'Wystąpienie w Sejmie';
 
-    public function __construct($params = array())
+    public function __construct($params = array(), $options = array())
     {
-        parent::__construct($params);
+        parent::__construct($params, $options);
         $this->data['stanowisko_mowca'] = $this->data['stanowiska.nazwa'] . ' ' . $this->data['ludzie.nazwa'];
     }
 
@@ -54,28 +54,12 @@ class Sejm_wystapienia extends DataObject
 
     public function getUrl() {
 
-        $output = '/dane';
+        return '/dane/instytucje/3214,sejm/debaty/' . $this->getData('debata_id') . '/wystapienia/' . $this->getId();
 
-        if( $this->getData('punkt_id') ) {
-
-            $output .= '/sejm_posiedzenia_punkty/' . $this->getData('punkt_id');
-
-            if( $this->getData('debata_id') ) {
-
-                $output .= '/debaty/' . $this->getData('debata_id');
-
-            }
-
-        } elseif( $this->getData('debata_id') ) {
-
-            $output .= '/sejm_debaty/' . $this->getData('debata_id');
-
-        }
-
-        $output .= '/wystapienia/' . $this->getId();
-
-        return $output;
-
+    }
+    
+    public function getSlug() {
+	    return false;
     }
 
 }

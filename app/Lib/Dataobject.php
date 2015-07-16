@@ -38,7 +38,7 @@ class Dataobject
 
     public function __construct($params = array(), $options = array())
     {
-				
+					
 		$this->options = $options;
         $this->data = $params['data'];
         $this->layers = isset( $params['layers'] ) ? $params['layers'] : array();

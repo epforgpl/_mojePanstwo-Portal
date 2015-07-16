@@ -1162,7 +1162,7 @@ class InstytucjeController extends DataobjectsController
                                     ),
                                     array(
                                         'term' => array(
-                                            'data.sejm_wystapienia.subpunkt_id' => $debata->getId(),
+                                            'data.sejm_wystapienia.debata_id' => $debata->getId(),
                                         ),
                                     ),
                                 ),
@@ -1173,6 +1173,11 @@ class InstytucjeController extends DataobjectsController
                                 'top_hits' => array(
                                     'size' => 1000,
                                     'fielddata_fields' => array('dataset', 'id'),
+                                    'sort' => array(
+	                                    'data.sejm_wystapienia._ord' => array(
+		                                    'order' => 'asc',
+	                                    ),
+                                    ),
                                 ),
                             ),
                         ),
@@ -1188,7 +1193,7 @@ class InstytucjeController extends DataobjectsController
                                     ),
                                     array(
                                         'term' => array(
-                                            'data.sejm_glosowania.subpunkt_id' => $debata->getId(),
+                                            'data.sejm_glosowania.debata_id' => $debata->getId(),
                                         ),
                                     ),
                                 ),
@@ -1214,7 +1219,7 @@ class InstytucjeController extends DataobjectsController
                                     ),
                                     array(
                                         'term' => array(
-                                            'data.sejm_posiedzenia_punkty.id' => $debata->getData('punkt_id'),
+                                            'data.sejm_posiedzenia_punkty.subpunkt_id' => $debata->getId(),
                                         ),
                                     ),
                                 ),
@@ -1235,7 +1240,7 @@ class InstytucjeController extends DataobjectsController
                         ),
                     ),
                 );
-
+                
                 $options = array(
                     'searchTitle' => 'Szukaj w debacie...',
                     'conditions' => array(
@@ -1274,7 +1279,25 @@ class InstytucjeController extends DataobjectsController
 
                 $this->Components->load('Dane.DataBrowser', $options);	
 				
-
+				
+				if( 
+					( @$this->request->params['subaction']=='wystapienia' ) && 
+					( is_numeric( $this->request->params['subsubid'] ) )
+				) {
+					
+					$wystapienie = $this->Dataobject->find('first', array(
+		                'conditions' => array(
+		                    'dataset' => 'sejm_wystapienia',
+		                    'id' => $this->request->params['subsubid'],
+		                ),
+		                'layers' => array(
+			                'html',
+		                ),
+		            ));	
+		            
+		            $this->set('wystapienie', $wystapienie);
+					
+				}
 				
 
 	            $this->set('debata', $debata);
@@ -1290,6 +1313,55 @@ class InstytucjeController extends DataobjectsController
 		            ),
 		        ));
 		        $this->set('title_for_layout', "Punkty porządkowe na posiedzeniach Sejmu RP");
+	        
+	        }
+	        
+	        
+	        
+        }
+    }
+    
+    public function glosowania()
+    {
+		
+		$this->request->params['action'] = 'posiedzenia';
+        $this->load();
+        
+        if( $this->object->getId()=='3214' ) { // Sejm
+	        	        
+	        if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
+	        	
+	        	$glosowanie = $this->Dataobject->find('first', array(
+	                'conditions' => array(
+	                    'dataset' => 'sejm_glosowania',
+	                    'id' => $this->request->params['subid'],
+	                ),
+	            ));				
+				
+				
+                $options = array(
+                    'searchTitle' => 'Szukaj posła...',
+                    'conditions' => array(
+                        'dataset' => 'poslowie_glosy',
+                        'poslowie_glosy.glosowanie_id' => $glosowanie->getId(),
+                    ),
+                );
+
+                $this->Components->load('Dane.DataBrowser', $options);									
+
+	            $this->set('glosowanie', $glosowanie);
+	            $this->set('title_for_layout', $glosowanie->getTitle());
+	            $this->render('sejm_glosowanie');
+	            
+	        
+	        } else {
+		        
+		        $this->Components->load('Dane.DataBrowser', array(
+		            'conditions' => array(
+		                'dataset' => 'sejm_glosowania_glosy',
+		            ),
+		        ));
+		        $this->set('title_for_layout', "Wyniki głosowań posłów na Sejm RP");
 	        
 	        }
 	        

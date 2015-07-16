@@ -11,44 +11,26 @@ class SejmDebatyController extends DataobjectsController
         'hlFields' => array(),
     );
 
-
+	public function _redirect()
+	{
+		
+		$this->load();
+		return $this->redirect('/dane/instytucje/3214,sejm/debaty/' . $this->object->getId());
+		
+	}
+	
     public function view()
     {
-
-        $this->addInitLayers(array('nav'));
-        parent::view();
-
-
-        if (
-            ($nav = $this->object->getLayer('nav')) &&
-            isset($nav['posiedzenie']) &&
-            isset($nav['posiedzenie']['punkty']) &&
-            !empty($nav['posiedzenie']['punkty'])
-        ) {
-
-            $this->redirect('/dane/sejm_posiedzenia_punkty/' . $nav['posiedzenie']['punkty'][0]['id'] . '/debaty/' . $this->object->getId());
-
-        } else {
-
-
-            $this->Components->load('Dane.DataBrowser', array(
-                'conditions' => array(
-                    'dataset' => 'sejm_wystapienia',
-                    'sejm_wystapienia.debata_id' => $this->object->getId(),
-                ),
-                'order' => 'sejm_wystapienia._ord asc',
-                'limit' => 1000,
-                'renderFile' => 'sejm_debaty-wystapienie',
-                // 'aggsPreset' => 'sejm_wystapienia',
-            ));
-
-
-        }
+		
+		return $this->_redirect();		
+        
     }
 
     public function wystapienia()
     {
-
+		
+		return $this->redirect();	
+		
         $this->_prepareView();
 
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
@@ -76,7 +58,9 @@ class SejmDebatyController extends DataobjectsController
 
     public function glosowania()
     {
-
+		
+		return $this->redirect();
+		
         $this->_prepareView();
         $this->request->params['action'] = 'glosowania';
 

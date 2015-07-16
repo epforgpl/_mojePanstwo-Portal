@@ -17,7 +17,8 @@ var _SG = Class.extend({
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false,
-                spacing: [0, 0, 0, 0]
+                spacing: [0, 0, 0, 0],
+                backgroundColor: 'rgba(0,0,0,0)'
             },
             title: {
                 text: ''

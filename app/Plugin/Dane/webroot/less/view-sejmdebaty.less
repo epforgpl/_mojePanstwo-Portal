@@ -1,4 +1,19 @@
+.theme-default {
+	background: #EEE;
+	background-color: #EEE;
+}
+
 .debata-wystapienia, .debata-wystapienie {
+	
+	li {
+		list-style: none;
+		margin: 10px 0;
+		
+		.glosowanie {
+			margin: 0 70px 0 57px;
+		}
+	}
+	
     .dataBrowser .dataObjects .innerContainer {
 
         background-color: inherit !important; /*TODO:check if it REALLY need*/
@@ -13,9 +28,6 @@
 
     .sw_avatar {
         min-width: 70px;
-        img {
-            max-width: 52px;
-        }
     }
 
     .sw_content {
@@ -48,23 +60,56 @@
             font-size: 12px;
             margin-bottom: 0;
             text-align: center;
+            display: none;
         }
-
-        .full-text {
-
-            font-size: 16px;
-            line-height: 25px;
-
-            p {
-                padding: 10px;
-
-                &.opis {
-                    text-align: center;
-                    font-style: italic;
-                    color: #666;
-                }
-            }
-
+        
+        .link-expand {
+	        display: block;
+        }
+        
+        &.expanded .link-expand {
+	        display: none;
+        }
+        
+        &.expanded .link-collapse {
+	        display: block;
+        }
+        
+        &._loading .link {
+	        display: none;
+        }
+        
+        &._disabled .link {
+	        visibility: hidden !important;
+        }
+        
+        .loader {
+	        display: none;
+        }
+        
+        &._loading .loader {
+	        display: block;
+        }
+        
+        &.expanded {
+	        font-size: 15px;
+	        line-height: 1.5em;
+	        .text {
+		        margin-top: -3px;
+	        }
+        }
+        
+		.text {
+			
+			margin-bottom: 10px;
+			
+	        p {
+	            &.opis {
+	                text-align: center;
+	                font-style: italic;
+	                color: #999;
+	            }
+	        }
         }
 
     }
