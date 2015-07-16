@@ -12,7 +12,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"
                         aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Edycja opisu wskaźnika:</h4>
+                <h4 class="modal-title">Zmiana Opisu</h4>
             </div>
             <div class="modal-body">
                 <div class="col-sm-11">
@@ -20,7 +20,9 @@
                     <div class="row"><label>Opis:</label></div>
                 </div>
                 <article id="editor">
-                    <?= $object->getData('bdl_podgrupa.opis'); ?>
+                    <? if( $object->getData('opis') ) {?>
+                            <?= $object->getData('opis') ?>
+                    <? } ?>
                 </article>
             </div>
             <div class="modal-footer">

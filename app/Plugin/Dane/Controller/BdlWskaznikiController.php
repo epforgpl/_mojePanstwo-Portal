@@ -4,9 +4,9 @@ App::uses('DataobjectsController', 'Dane.Controller');
 
 class BdlWskaznikiController extends DataobjectsController
 {
-  /*  public $uses = array(
+    public $uses = array(
         'Bdl.BdlTempItem',
-    );*/
+    );
 
     public $menu = array();
     public $components = array('RequestHandler');
@@ -222,7 +222,7 @@ class BdlWskaznikiController extends DataobjectsController
         $this->set('expanded_dimension', $expanded_dimension);
         $this->set('dimmensions_array', $dimmensions_array);
 
-        $BdlTempItems = CakeSession::read('TempItems');;
+        $BdlTempItems = $this->BdlTempItem->searchAll();
         $this->set(array(
             'BdlTempItems' => $BdlTempItems,
             '_serialize' => array('BdlTempItems')

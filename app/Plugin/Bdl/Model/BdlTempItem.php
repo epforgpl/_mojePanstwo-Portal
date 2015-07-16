@@ -49,10 +49,9 @@ class BdlTempItem extends AppModel
         return $res;
     }
 
-    public function searchAll($type='BDL'){
+    public function searchAll(){
         $res = $this->getDataSource()->request('BDL/user_items/', array(
-            'method' => 'GET',
-            'type' => $type
+            'method' => 'GET'
         ));
 
         return $res;

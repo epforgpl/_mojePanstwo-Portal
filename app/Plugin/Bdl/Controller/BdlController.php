@@ -69,8 +69,7 @@ class BdlController extends ApplicationsController
             $this->set('tree', $tree);
 
         }
-
-        $BdlTempItems = CakeSession::read('TempItems');;
+        $BdlTempItems = $this->BdlTempItem->searchAll();
         $this->set(array(
             'BdlTempItems' => $BdlTempItems,
             '_serialize' => array('BdlTempItems')

@@ -87,10 +87,10 @@ $this->Combinator->add_libs('js', 'Bdl.bdl_tree');
 
                     <div class="row">
                         <div class="col-sm-6">
-                            <label class="pull-right"><input class="bdl_input" type="radio" name="source" value="BDL" checked> BDL</label>
+                            <label class="pull-right"><input class="bdl_input" type="radio" name="type" value="BDL" checked> BDL</label>
                         </div>
                         <div class="col-sm-6">
-                            <label class="pull-left"><input class="import_input" type="radio" name="source" value="import"> Importuj</label>
+                            <label class="pull-left"><input class="import_input" type="radio" name="type" value="import"> Importuj</label>
                         </div>
                     </div>
                     <div class="row input_url hidden">
