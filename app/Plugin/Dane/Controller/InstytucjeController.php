@@ -1345,6 +1345,7 @@ class InstytucjeController extends DataobjectsController
                         'dataset' => 'poslowie_glosy',
                         'poslowie_glosy.glosowanie_id' => $glosowanie->getId(),
                     ),
+                    'renderFile' => 'sejm_glosowania/glosy',
                 );
 
                 $this->Components->load('Dane.DataBrowser', $options);									
