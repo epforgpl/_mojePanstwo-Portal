@@ -46,12 +46,21 @@ class BdlWskaznikiController extends DataobjectsController
                     0;
             }
             
-            $this->loadModel('Bdl.BDL');
-            $exp_data = $this->BDL->getData(array(
+            $params = array(
                 'dims' => $dimmensions_array,
                 'wskaznik_id' => $this->object->getId(),
-            ));
+            );
             
+            $cache_id = 'BDL/series/' . md5(serialize($params));
+            $exp_data = Cache::read($cache_id, 'long');
+            if( !$exp_data ) {
+                
+                $this->loadModel('Bdl.BDL');
+                $exp_data = $this->BDL->getData($params);
+                Cache::write($cache_id, $exp_data, 'long');
+                
+            }
+                        
             $redirect_url = $this->object->getUrl();
             
             if(
@@ -176,15 +185,24 @@ class BdlWskaznikiController extends DataobjectsController
 				unset( $option );
 			
             if ($expand_dimension == $i) {
-								
-                $this->loadModel('Bdl.BDL');
-                
-                $dimmensions_array[ $i ] = '!';
-                $exp_data = $this->BDL->getData(array(
+								                
+                $dimmensions_array[ $i ] = '!';                
+                $params = array(
 	                'dims' => $dimmensions_array,
 	                'wskaznik_id' => $this->object->getId(),
 	                'years' => true,
-                ));                
+                );
+                
+                $cache_id = 'BDL/series/' . md5(serialize($params));
+                $exp_data = Cache::read($cache_id, 'long');
+                if( !$exp_data ) {
+	                
+	                $this->loadModel('Bdl.BDL');
+	                $exp_data = $this->BDL->getData($params);
+	                Cache::write($cache_id, $exp_data, 'long');
+	                
+                }
+                                
                 
                 $expanded_dimension = $dim;
 				
