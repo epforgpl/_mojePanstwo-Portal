@@ -1,4 +1,11 @@
 <?= $this->Element('dataobject/pageBegin'); ?>
+
+<? if( $object->getData('opis') ) {?>
+    <div class="opis col-xs-12">
+        <?= $object->getData('opis') ?>
+    </div>
+<? } ?>
+
 <?= $this->Element('bdl_select', array('expand_dimension' => $expand_dimension, 'dims' => $dims)); ?>
 
 <?= $this->Element('Bdl.leftsideaccordion', array('tree' => $tree)); ?>
@@ -40,11 +47,7 @@
             echo $this->element('Dane.bdl_opis');
         } ?>
 		
-		<? if( $object->getData('opis') ) {?>
-		<div class="opis">
-			<?= $object->getData('opis') ?> 
-		</div>
-		<? } ?>
+
 		
         <div class="object">
             <?

@@ -481,7 +481,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
 
     if (jQuery.inArray("bdl_opis", this.editables) !== -1) {
         $.merge(list, [
-            '<li><a class="bdl_opis" href="#">Zmiana opisu i nazwy</a></li>'
+            '<li><a class="bdl_opis" href="#">Zmiana opisu</a></li>'
         ]);
     }
 

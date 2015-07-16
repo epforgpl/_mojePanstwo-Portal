@@ -26,7 +26,7 @@ class BdlTempItemsController extends ApplicationsController
             ),
         ));
 
-        $BdlTempItems = $this->BdlTempItem->search('all');
+        $BdlTempItems = $this->BdlTempItem->searchAll();
         $this->set(array(
             'BdlTempItems' => $BdlTempItems,
             '_serialize' => array('BdlTempItems')
@@ -80,7 +80,7 @@ class BdlTempItemsController extends ApplicationsController
         $this->Components->load('Dane.DataBrowser', $options);
     }
 
-    public function view($id)
+    public function view($id, $type='BDL')
     {
         $this->setLayout(array(
             'footer' => array(
@@ -92,8 +92,10 @@ class BdlTempItemsController extends ApplicationsController
             ),
         ));
 
-        $BdlTempItems = $this->BdlTempItem->search('all');
-        $BdlTempItem = $this->BdlTempItem->searchById($id);
+        $BdlTempItems = $this->BdlTempItem->searchAll();
+
+        $BdlTempItem = $this->BdlTempItem->searchById($id, $type);
+
         $this->set(array(
             'BdlTempItem' => $BdlTempItem,
             'BdlTempItems' => $BdlTempItems,
@@ -145,9 +147,7 @@ class BdlTempItemsController extends ApplicationsController
                 $tree = $this->BDL->getTree();
                 Cache::write('BDL.tree', $tree, 'long');
             }
-
             $this->set('tree', $tree);
-
         }
 
         $this->Components->load('Dane.DataBrowser', $options);
@@ -156,7 +156,7 @@ class BdlTempItemsController extends ApplicationsController
     public function add()
     {
         $this->BdlTempItem->create();
-        if ($this->BdlTempItem->save($this->request->data)) {
+        if ($this->BdlTempItem->save($this->request->data, $this->request->data['type'])) {
             $message = 'Saved';
         } else {
             $message = 'Error';
@@ -234,36 +234,5 @@ class BdlTempItemsController extends ApplicationsController
         $this->autoRender = false;
     }
 
-    public function getMenu()
-    {
 
-        $menu = array(
-            'items' => array(
-                array(
-                    'id' => '',
-                    'label' => 'Wskaźniki',
-                    'icon' => array(
-                        'src' => 'glyphicon',
-                        'id' => 'home',
-                    ),
-                ),
-            ),
-            'base' => '/bdl',
-        );
-
-        if ($this->hasUserRole('3')) {
-
-            $menu['items'][] = array(
-                'id' => 'bdl_temp_items',
-                'label' => 'Tworzenie wskaźników',
-            );
-
-        }
-
-        if (count($menu['items']) === 1)
-            return array();
-        else
-            return $menu;
-
-    }
 }
