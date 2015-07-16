@@ -7,7 +7,7 @@ class BdlTempItem extends AppModel
 
     public $useDbConfig = 'mpAPI';
 
-    public function save($data, $type)
+    public function save($data, $type='BDL')
     {
 
         $res = $this->getDataSource()->request('BDL/user_items', array(
@@ -20,7 +20,7 @@ class BdlTempItem extends AppModel
 
     }
 
-    public function delete($id, $type)
+    public function delete($id, $type='BDL')
     {
 
         $res = $this->getDataSource()->request('BDL/user_items/'.$id, array(
@@ -33,14 +33,14 @@ class BdlTempItem extends AppModel
     }
 
     public function searchList(){
-        $res = $this->getDataSource()->request('BDL/user_items/list', array(
+        $res = $this->getDataSource()->request('BDL/user_items/list/', array(
             'method' => 'GET'
         ));
 
         return $res;
     }
 
-    public function searchById($id, $type){
+    public function searchById($id, $type='BDL'){
         $res = $this->getDataSource()->request('BDL/user_items/'.$id, array(
             'method' => 'GET',
             'type' => $type,

@@ -47,10 +47,10 @@ $this->Combinator->add_libs('js', 'Bdl.bdl_tree');
                 <ul class="list-group lista_wskz">
                     <? foreach ($BdlTempItems['BdlTempItems'] as $key => $val) { ?>
                         <li class="list-group-item"><a
-                                href="/bdl/bdl_temp_items/<?= $key ?>"><?= $val['tytul'] ?></a>
+                                href="/bdl/bdl_temp_items/<?= $val['BdlTempItem']['id'] ?>"><?= $val['BdlTempItem']['tytul'] ?></a>
 
                             <form class="remove_btn hidden" method="DELETE"
-                                  action="/bdl/bdl_temp_items/delete/<?= $key ?>">
+                                  action="/bdl/bdl_temp_items/delete/<?= $val['BdlTempItem']['id'] ?>">
                                 <button class="btn btn-danger btn-xs pull-right" type="submit"><i
                                         class="icon glyphicon glyphicon-remove"></i></button>
                             </form>
@@ -60,7 +60,7 @@ $this->Combinator->add_libs('js', 'Bdl.bdl_tree');
                 <ul class="list-group lista_wskz">
                     <? foreach ($BdlTempItems['BdlImportItems'] as $key => $val) { ?>
                         <li class="list-group-item"><a
-                                href="/bdl/bdl_temp_items/<?= $key ?>"><?= $val['tytul'] ?></a>
+                                href="/bdl/bdl_temp_items/<?= $val['BdlImportItem']['id'] ?>"><?= $val['BdlImportItem']['nazwa'] ?></a>
 
                         </li>
                     <? } ?>
