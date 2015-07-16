@@ -5,7 +5,7 @@ $this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('p
 $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-dzialania', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
-$this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialania');
+#$this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialania');
 ?>
 
 <div class="krsPodmioty">

@@ -196,7 +196,7 @@ $(document).ready(function () {
         selector: "#dzialanieOpis",
         language : 'pl',
         plugins: "media image",
-        menubar: "edit format edit insert",
+        menubar: "edit format insert",
         valid_elements : "@[id|class|style|title|dir<ltr?rtl|lang|xml::lang|onclick|ondblclick|"
         + "onmousedown|onmouseup|onmouseover|onmousemove|onmouseout|onkeypress|"
         + "onkeydown|onkeyup],a[rel|rev|charset|hreflang|tabindex|accesskey|type|"
