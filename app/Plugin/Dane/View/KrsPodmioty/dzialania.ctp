@@ -19,10 +19,6 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialania');
                                 <?= $dzialanie->getData('tytul'); ?>
                             </div>
                             <div class="col-sm-4 text-right">
-                                <div class="btn btn-danger btn-icon btn-auto-width" data-action="delete" data-id="<?= $dzialanie->getData('id'); ?>">
-                                    <i class="icon glyphicon glyphicon-remove"></i>
-                                    Usuń
-                                </div>
                                 <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania_edycja/<?= $dzialanie->getData('id'); ?>">
                                     <div class="btn btn-primary btn-icon btn-auto-width">
                                         <i class="icon glyphicon glyphicon-pencil"></i>
@@ -35,6 +31,20 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialania');
                 <? } else { ?>
                     <header><?= $dzialanie->getData('tytul'); ?></header>
                 <? } ?>
+
+                <div class="row sub-header">
+                    <div class="col-sm-6">
+                        <span class="date">
+                            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                            <?= $this->Czas->dataSlownie(
+                                $dzialanie->getData('data_utworzenia')
+                            ); ?>
+                        </span>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="share pull-right"></div>
+                    </div>
+                </div>
 
                 <? if($dzialanie->getData('photo') == '1') { ?>
                     <div class="photo">

@@ -172,4 +172,65 @@
     }
   }
 
+  .image-editor {
+    text-align: center;
+    margin-bottom: 105px;
+
+    .slider-wrapper {
+      display: block;
+      margin: 10px auto 0;
+      text-align: center;
+      width: auto;
+      overflow: hidden;
+
+      .cropit-image-zoom-input {
+        margin: 6px 8px 0;
+        float: left;
+        width: 90%;
+      }
+
+      .icon {
+        float: left;
+
+        &.icon-small {
+          font-size: 16px;
+          margin-top: 5px;
+        }
+        &.icon-large {
+          font-size: 24px;
+        }
+      }
+    }
+
+    > p {
+      margin: 6px 0 10px;
+    }
+
+    .cropit-image-preview {
+      background-size: cover;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      margin-top: 7px;
+      cursor: move;
+    }
+
+    .cropit-image-background {
+      opacity: .2;
+      cursor: auto;
+    }
+
+    .image-size-label {
+      margin-top: 10px;
+    }
+
+    .alert {
+      padding: 2px 0;
+
+      -webkit-transition: height 0.8s;
+      -moz-transition: height 0.8s;
+      transition: height 0.8s;
+    }
+  }
+
 }
