@@ -50,11 +50,14 @@ var _SG = Class.extend({
 
 $(document).ready(function () {
     $SG = new _SG();
-    
+
     var $modal;
 
     $('.wynik_klubowy_wyjatki').click(function (e) {
         var that = $(this);
+
+        var nazwa_klubu=that.parent().siblings().text();
+        var tytul='Posłowie '+nazwa_klubu+' głosujący inaczej niż reszta klubu.'
 
         e.preventDefault();
         if ($modal == undefined) {
@@ -76,7 +79,7 @@ $(document).ready(function () {
                                 $('<span></span>').attr('aria-hidden', 'true').html('&times;')
                             )
                         ).append(
-                            $('<h4></h4>').addClass('modal-title').attr('id', 'wynikKlubowyWyjatkiLabel').html('&nbsp;')
+                            $('<h5></h5>').addClass('modal-title').attr('id', 'wynikKlubowyWyjatkiLabel').html(tytul)
                         )
                     ).append(
                         $('<div></div>').addClass('modal-body').append(
@@ -87,18 +90,23 @@ $(document).ready(function () {
             );
 
             $('.dataFeed-ul').append($modal);
+        }else{
+            $("#wynikKlubowyWyjatkiModal .innerContainer").remove();
+            $('.modal-title').html(tytul);
+            $('.modal-body').append($('<div></div>').addClass('loading'));
         }
 
-        //console.log(that);
         $modal.modal('show');
 
-        /*$.ajax({
-         url: that,
-         type: 'GET',
-         success: function(data){
-         console.log(data);
-         }
-         });*/
+        $.ajax({
+            url: that.attr('href'),
+            type: 'GET',
+            success: function (data) {
+                var toModal = $(data).find(".dataObjects");
+                $('.modal-body').html(toModal.html());
+                $('.loading').remove();
+            }
+        });
     });
-    
+
 });

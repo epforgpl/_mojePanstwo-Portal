@@ -21,7 +21,7 @@ class ProjectsController extends AppController {
             $width = 810;
             $height = 320;
 
-            $src = 'pages/dzialania/' . $this->request['dataset'] . '/' . $this->request['object_id'] . '/' . $id . '.' . $ext;
+            $src = 'pages/dzialania/' . $id . '.' . $ext;
             $tmp_src = APP . 'tmp/' . $id . '.' .$ext;
             $tmp_src_zoom = APP . 'tmp/' . $id . '_zoom.' .$ext;
             $tmp_src_crop = APP . 'tmp/' . $id . '_crop.' .$ext;
@@ -32,13 +32,13 @@ class ProjectsController extends AppController {
             $object = $this->S3->putObject(
                 $decoded,
                 S3Component::$bucket,
-                'original/'.$src,
+                '0/'.$src,
                 S3::ACL_PUBLIC_READ,
                 array(),
                 array('Content-Type' => 'image/' . $ext)
             );
 
-            $tmp_image = file_put_contents($tmp_src, file_get_contents('http://sds.tiktalik.com/portal/original/' . $src));
+            $tmp_image = file_put_contents($tmp_src, file_get_contents('http://sds.tiktalik.com/portal/0/' . $src));
             exec("convert $tmp_src -resize $zoom% $tmp_src_zoom");
 
             $x = $x >= 0 ? '-' . $x : '+' . (-$x);
@@ -51,7 +51,20 @@ class ProjectsController extends AppController {
             $object = $this->S3->putObject(
                 $crop_image,
                 S3Component::$bucket,
-                $src,
+                '1/'.$src,
+                S3::ACL_PUBLIC_READ,
+                array(),
+                array('Content-Type' => 'image/' . $ext)
+            );
+
+            exec("convert $tmp_src_crop -resize x200 $tmp_src_crop");
+
+            $crop_image = file_get_contents($tmp_src_crop);
+
+            $object = $this->S3->putObject(
+                $crop_image,
+                S3Component::$bucket,
+                '2/'.$src,
                 S3::ACL_PUBLIC_READ,
                 array(),
                 array('Content-Type' => 'image/' . $ext)

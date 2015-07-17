@@ -2,6 +2,9 @@
 <?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals'); ?>
 <?php $this->Combinator->add_libs('js', 'Dane.highcharts-sejm_glosowania'); ?>
 
+
+<?php $this->Combinator->add_libs('css', $this->Less->css('sejm-wyjatki', array('plugin' => 'Dane'))); ?>
+
 <?
 /*
 $wynikiKlubowe = array();

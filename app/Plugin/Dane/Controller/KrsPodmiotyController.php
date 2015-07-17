@@ -740,7 +740,7 @@ class KrsPodmiotyController extends DataobjectsController
         if( @$this->request->params['subid'] ) {
 	        
 	        $res = $this->Dataobject->getDatasource()->request('krs/odpisy/' . $this->request->params['subid']);
-	        $this->redirect( $res['url'] );
+            $this->redirect( $res['url'] );
 	        
         } else {
 	        
