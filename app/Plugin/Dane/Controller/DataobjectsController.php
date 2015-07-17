@@ -275,8 +275,15 @@ class DataobjectsController extends AppController
                 ));
 	            
             }
-                                    
-            if( $page = $this->object->getLayer('page') ) {
+                
+                                
+            if( 
+	            !( 
+	            	( $this->object->getDataset()=='gminy') && 
+	            	( $this->object->getId()=='903') 
+	            ) && 
+            	( $page = $this->object->getLayer('page') )
+            ) {
 								
 				if( @isset($this->request->query['page']['cover']) )
 					$page['cover'] = $this->request->query['page']['cover'];

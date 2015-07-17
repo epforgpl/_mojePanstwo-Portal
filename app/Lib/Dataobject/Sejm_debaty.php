@@ -58,6 +58,9 @@ class Sejm_debaty extends DataObject
 				'id' => '/dane/instytucje/3214,sejm/posiedzenia/' . $this->getData('posiedzenie_id'),
 				'label' => 'Posiedzenie #' . $this->getData('sejm_posiedzenia.tytul'),
 			),
+			array(
+				'label' => 'Debaty',
+			),
 		);
 				
 	}

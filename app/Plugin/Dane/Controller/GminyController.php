@@ -3825,7 +3825,8 @@ class GminyController extends DataobjectsController
 
         if ($this->domainMode == 'PK') {
             $this->_layout['footer']['element'] = 'pk';
-        }
+            $this->_layout['header']['element'] = 'pk';
+       }
 
         parent::beforeRender();
         
