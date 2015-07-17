@@ -7,31 +7,59 @@ $odpisy = $object->getLayer('odpisy');
 ?>
 <div class="container">
     <div class="krsPodmioty">
-        <div class="col-md-9 objectMain">
-            <h4 class="text-muted margin-top-20">
-                Ostatnie 10 odpisów z KRS
-                <div class="btn btnUpdate btn-primary btn-icon auto-width pull-right">
-                    <i class="icon glyphicon glyphicon-refresh"></i>
-                    Pobierz nowy odpis
-                </div>
-            </h4>
-            <? if(@count($odpisy)) { ?>
-                <div class="list-group margin-top-15">
-                    <? foreach($odpisy as $odpis) { ?>
-                        <li class="list-group-item">
-                            <h4 class="list-group-item-heading">
-                                <?= $this->Czas->dataSlownie(
-                                    date('Y-m-d', strtotime($odpis['complete_ts']))
-                                ); ?>
-                            </h4>
-                            <p class="list-group-item-text">
-                                <?= date('H:i:s', strtotime($odpis['complete_ts'])); ?>
-                            </p>
-                        </li>
-                    <? } ?>
-                </div>
-            <? } ?>
+        
+        <div class="row">
+	        <div class="col-xs-10 col-xs-offset-1">
+        
+			    <p class="row margin-top-30">Część danych na profilu Twojej organizacji pochodzi z odpisów, pobieranych z <a href="https://ems.ms.gov.pl/krs/wyszukiwaniepodmiotu?t:lb=t" target="_blank"> Centralnej Informacji Krajowego Rejestru Sądowego</a>. Te dane są stale aktualizowane, jednak jeśli są one nieaktualne, możesz poprosić o pobranie nowego odpisu i zaktualizowanie informacji.</p>
+			    
+			    <div class="row">
+			    
+			        <div class="block block-simple col-md-12">
+				        <header>
+				            <div class="sm">Pobrane odpisy</div>
+				        </header>
+				
+				        <section class="content">		        
+					        
+					        <div class="row">
+						        <div class="col-md-8">
+							        
+							        <? if(@count($odpisy)) { ?>
+					                <div class="list-group">
+					                    <? foreach($odpisy as $odpis) { ?>
+					                        <li class="list-group-item">
+					                            <p class="list-group-item-text">
+					                                <a href="<?= $object->getUrl() ?>/odpisy/">
+					                                <?= $this->Czas->dataSlownie(
+					                                    date('Y-m-d', strtotime($odpis['complete_ts']))
+					                                ); ?> 
+					                                <?= date('H:i:s', strtotime($odpis['complete_ts'])); ?>
+					                                </a>
+					                            </p>
+					                        </li>
+					                    <? } ?>
+						            <? } ?>
+							        </div>
+			
+							        
+						        </div><div class="col-md-4">
+							        
+							        <div class="btn btnUpdate btn-primary btn-icon auto-width">
+						                <i class="icon glyphicon glyphicon-refresh"></i> Poproś o nowy odpis
+						            </div>
+							        
+						        </div>
+					        </div>
+												
+				        </section>
+				    </div>
+					    
+			    </div>
+	        
+	        </div>
         </div>
-        <div class="col-md-3 objectSide"></div>
+			         
+
     </div>
 </div>
