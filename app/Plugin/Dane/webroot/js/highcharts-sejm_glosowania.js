@@ -50,7 +50,7 @@ var _SG = Class.extend({
 
 $(document).ready(function () {
     $SG = new _SG();
-    
+
     var $modal;
 
     $('.wynik_klubowy_wyjatki').click(function (e) {
@@ -92,13 +92,18 @@ $(document).ready(function () {
         //console.log(that);
         $modal.modal('show');
 
-        /*$.ajax({
-         url: that,
-         type: 'GET',
-         success: function(data){
-         console.log(data);
-         }
-         });*/
+        $.ajax({
+            url: that.attr('href'),
+            type: 'GET',
+            success: function (data) {
+                console.log(1);
+              //  newDom = $.parseHTML(data);
+                var toModal = $(data).find(".dataObjects");
+                $('.modal-body').html(toModal.html());
+                $('.loading').remove();
+               // console.log(data);
+            }
+        });
     });
-    
+
 });
