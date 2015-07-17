@@ -17,7 +17,7 @@ $counter_field = isset( $map['counter_field'] ) ? $map['counter_field'] : 'doc_c
             <span class="label label-primary">
                 <span aria-hidden="true">&times;</span>&nbsp;
                 <? $key = $data['buckets'][0]['label']['buckets'][0]['key']; ?>
-                <?= strlen($key) > 45 ? substr($key, 0, 45) . '..' : $key; ?>
+                <?= strlen($key) > 40 ? substr($key, 0, 40) . '..' : $key; ?>
             </span>
         </a>
     </p>
