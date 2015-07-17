@@ -720,26 +720,24 @@ class KrsPodmiotyController extends DataobjectsController
     }
 
     public function odpisy() {
-        $this->addInitLayers('odpisy');
-        $this->_prepareView();
-
-        if(!$this->_canEdit())
-            throw new ForbiddenException;
-
-        $this->set('title_for_layout', 'Odpisy z KRS podmiotu ' . $this->object->getTitle());
-    }
-
-    public function pobierz_nowy_odpis() {
-        $this->set('data', $this->Dataobject->getDatasource()->request(
-            'dane/krs_podmioty/' . $this->request->params['id'],
-            array(
-                'method' => 'POST',
-                'data' => array(
-                    '_action' => 'pobierz_nowy_odpis'
-                )
-            )
-        ));
-        $this->set('_serialize', 'data');
+        
+        if( @$this->request->params['subid'] ) {
+	        
+	        $res = $this->Dataobject->getDatasource()->request('krs/odpisy/' . $this->request->params['subid']);
+	        $this->redirect( $res['url'] );
+	        
+        } else {
+	        
+	        $this->addInitLayers('odpisy');
+	        $this->_prepareView();
+	
+	        if(!$this->_canEdit())
+	            throw new ForbiddenException;
+	
+	        $this->set('title_for_layout', 'Odpisy z KRS podmiotu ' . $this->object->getTitle());
+	        
+        }
+                
     }
 
     private function _canEdit() {

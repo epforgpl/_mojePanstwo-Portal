@@ -3,6 +3,12 @@
 $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty', array('plugin' => 'Dane')));
 $odpisy = $object->getLayer('odpisy');
 
+$status_dict = array(
+	'0' => array('W kolejce', 'primary'),
+	'1' => array('Pobieranie', 'warning'),
+	'2' => array('Pobrany', 'success'),
+);
+
 ?>
 <div class="container">
     <div class="krsPodmioty">
@@ -27,16 +33,39 @@ $odpisy = $object->getLayer('odpisy');
 							        <? if(@count($odpisy)) { ?>
 					                <div class="list-group">
 					                    <? foreach($odpisy as $odpis) { ?>
-					                        <li class="list-group-item">
-					                            <p class="list-group-item-text">
-					                                <a href="<?= $object->getUrl() ?>/odpisy/">
-					                                <?= $this->Czas->dataSlownie(
-					                                    date('Y-m-d', strtotime($odpis['complete_ts']))
-					                                ); ?> 
-					                                <?= date('H:i:s', strtotime($odpis['complete_ts'])); ?>
-					                                </a>
-					                            </p>
-					                        </li>
+					                        <div class="list-group-item">
+					                                
+					                                <? if($odpis['complete']) {?>
+					                                <a class="pull-right label label-success" href="<?= $object->getUrl() ?>/odpisy/<?= $odpis['id'] ?>">Pobrany</a>
+					                                <?
+					                                } else {
+						                            	$status = $status_dict[ $odpis['status'] ];
+					                                ?>
+					                                <span class="pull-right label label-<?= $status[1] ?>">
+						                                <?= $status[0] ?>
+					                                </span>
+					                                <? } ?>
+					                                
+					                                
+					                                <?
+						                                if( 
+							                                !$odpis['complete_ts'] || 
+						                                	( $odpis['complete_ts'] == '0000-00-00 00:00:00' )
+						                                ) {
+							                                ?><span class="text-muted">Oczekiwanie na pobranie odpisu...</span><?
+							                            } else {
+					                                ?>
+					                                
+					                                <? if($odpis['complete']) {?><a href="<?= $object->getUrl() ?>/odpisy/<?= $odpis['id'] ?>"><? } ?>
+					                                
+					                                
+					                                <?= $this->Czas->dataSlownie( $odpis['complete_ts'] ) ?> 
+					                                
+					                                <? if($odpis['complete']){?></a><? } ?>
+					                                
+					                                <? } ?>
+					                                
+					                        </div>
 					                    <? } ?>
 						            <? } ?>
 							        </div>
