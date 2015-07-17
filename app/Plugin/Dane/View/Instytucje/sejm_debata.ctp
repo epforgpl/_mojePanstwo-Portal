@@ -13,7 +13,10 @@ echo $this->Element('Dane.dataobject/subobject', array(
 	),
 ));
 
+?><div class="dataBrowser-debata"><?
+	
 echo $this->Element('Dane.DataBrowser/browser');
 
+?></div><?
 
 echo $this->Element('dataobject/pageEnd');

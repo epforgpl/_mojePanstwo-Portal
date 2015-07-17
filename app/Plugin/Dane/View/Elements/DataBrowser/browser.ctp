@@ -3,7 +3,8 @@ $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin'
 $this->Combinator->add_libs('css', $this->Less->css('dataobjectpage', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
-$displayAggs = isset($displayAggs) ? (boolean)$displayAggs : true;
+$displayAggs = isset($displayAggs) ? (boolean) $displayAggs : true;
+$columns = isset($columns) ? $columns : array(8, 4);
 ?>
 <div class="dataBrowser<? if (isset($class)) echo " " . $class; ?>">
 
@@ -67,7 +68,7 @@ $displayAggs = isset($displayAggs) ? (boolean)$displayAggs : true;
 
         <? } else { ?>
 
-            <div class="col-md-<?= $displayAggs ? 8 : 12 ?>">
+            <div class="col-md-<?= $displayAggs ? $columns[0] : 12 ?>">
 
 
                 <div class="dataObjects">
@@ -123,7 +124,7 @@ $displayAggs = isset($displayAggs) ? (boolean)$displayAggs : true;
 
             </div>
             <? if ($displayAggs && !empty($dataBrowser['aggs'])) { ?>
-                <div class="col-md-4">
+                <div class="col-md-<?= $columns[1] ?>">
                     <? echo $this->Element('Dane.DataBrowser/aggs', array('data' => $dataBrowser)); ?>
                 </div>
             <? } ?>

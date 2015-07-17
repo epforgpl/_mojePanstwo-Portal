@@ -60,6 +60,10 @@ class Sejm_glosowania extends DataObject
 				'id' => '/dane/instytucje/3214,sejm/posiedzenia/' . $this->getData('posiedzenie_id'),
 				'label' => 'Posiedzenie #' . $this->getData('sejm_posiedzenia.tytul'),
 			),
+			array(
+				'id' => '/dane/instytucje/3214,sejm/posiedzenia/' . $this->getData('posiedzenie_id') . '/glosowania',
+				'label' => 'Głosowania',
+			),
 		);
 				
 	}

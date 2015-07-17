@@ -62,8 +62,10 @@ $this->Dataobject->setObject($object);
 										
                     <p class="title"><a href="/dane/poslowie/<?= $object->getData('posel_id') ?>"><?= $this->Text->truncate($shortTitle, 150) ?></a></p>
 
-                    <? if ($metaDesc = $object->getMetaDescription()) { ?>
-                        <p class="meta meta-desc"><?= $metaDesc ?></p>
+                    <? if( $object->getData('poslowie_glosy.klub_id')!='7' ) { ?>
+	                <div class="klub">
+	                	<a href="/dane/sejm_kluby/<?= $object->getData('poslowie_glosy.klub_id') ?>"><img src="http://resources.sejmometr.pl/s_kluby/<?= $object->getData('poslowie_glosy.klub_id') ?>_t.png" /></a>             	
+	                </div>
                     <? } ?>
 
                 </div>

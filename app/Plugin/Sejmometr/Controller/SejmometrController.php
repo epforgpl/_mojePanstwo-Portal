@@ -18,7 +18,7 @@ class SejmometrController extends ApplicationsController
                     'label' => 'Posłowie',
                 ),
                 array(
-                    'id' => 'sejm_posiedzenia',
+                    'id' => 'posiedzenia',
                     'label' => 'Posiedzenia',
                 ),
                 array(
@@ -171,9 +171,7 @@ class SejmometrController extends ApplicationsController
 
     public function view()
     {
-		
-		return $this->redirect('/dane/instytucje/3214,sejm');
-		
+				
         $this->menu_selected = 'view';
         $this->loadDatasetBrowser('poslowie', array(
 	        'autocompletion' => array(

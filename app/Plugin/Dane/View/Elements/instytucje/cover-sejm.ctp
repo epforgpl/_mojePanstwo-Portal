@@ -13,8 +13,37 @@ $options = array(
 
     <div class="blocks">
 		
+		<? if (@$dataBrowser['aggs']['all']['prawo']['top']['hits']['hits']) { ?>
+            <div class="block block-simple block-size-sm col-xs-12">
+                <header>Najnowsze akty prawne:</header>
+
+                <section class="aggs-init">
+
+                    <div class="dataAggs">
+                        <div class="agg agg-Dataobjects">
+                            <? if ($dataBrowser['aggs']['all']['prawo']['top']['hits']['hits']) { ?>
+                                <ul class="dataobjects">
+                                    <? foreach ($dataBrowser['aggs']['all']['prawo']['top']['hits']['hits'] as $doc) { ?>
+                                        <li>
+                                            <?
+                                            echo $this->Dataobject->render($doc, 'default');
+                                            ?>
+                                        </li>
+                                    <? } ?>
+                                </ul>
+                                <div class="buttons">
+                                    <a href="<?= $object->getUrl() ?>/prawo" class="btn btn-primary btn-xs">Zobacz więcej</a>
+                                </div>
+                            <? } ?>
+
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+        <? } ?>
 		
-        <? 
+        <? /*
 	    if ( $doc = @$dataBrowser['aggs']['all']['sejm_posiedzenia']['top']['hits']['hits'][0]['fields']['source'][0] ) { 
         ?>
             <div class="block block-simple block-size-sm col-xs-12">
@@ -61,7 +90,7 @@ $options = array(
 
                 </section>
             </div>
-        <? } ?>
+        <? } */ ?>
 				
 		<? if (@$dataBrowser['aggs']['all']['zamowienia_publiczne_dokumenty']['dni']['buckets']) { ?>
             <div class="block block-simple block-size-sm col-xs-12">
@@ -82,35 +111,7 @@ $options = array(
             </div>
         <? } ?>
 
-        <? if (@$dataBrowser['aggs']['all']['prawo_urzedowe']['top']['hits']['hits']) { ?>
-            <div class="block block-simple block-size-sm col-xs-12">
-                <header>Najnowsze pozycje w dzienniku urzędowym:</header>
-
-                <section class="aggs-init">
-
-                    <div class="dataAggs">
-                        <div class="agg agg-Dataobjects">
-                            <? if ($dataBrowser['aggs']['all']['prawo_urzedowe']['top']['hits']['hits']) { ?>
-                                <ul class="dataobjects">
-                                    <? foreach ($dataBrowser['aggs']['all']['prawo_urzedowe']['top']['hits']['hits'] as $doc) { ?>
-                                        <li>
-                                            <?
-                                            echo $this->Dataobject->render($doc, 'default');
-                                            ?>
-                                        </li>
-                                    <? } ?>
-                                </ul>
-                                <div class="buttons">
-                                    <a href="#" class="btn btn-primary btn-xs">Zobacz więcej</a>
-                                </div>
-                            <? } ?>
-
-                        </div>
-                    </div>
-
-                </section>
-            </div>
-        <? } ?>
+        
 
 
     </div>

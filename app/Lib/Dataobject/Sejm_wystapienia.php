@@ -61,5 +61,9 @@ class Sejm_wystapienia extends DataObject
     public function getSlug() {
 	    return false;
     }
+    
+    public function getIcon() {
+	    return false;
+    }
 
 }

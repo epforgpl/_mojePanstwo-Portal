@@ -1,6 +1,9 @@
 <?
 
 $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('sejm-glosowanie', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('js', 'Dane.sejm-glosowanie');
+$this->Combinator->add_libs('js', 'jquery.sticky');
 
 echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
@@ -16,20 +19,21 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
 <div class="row">
 	<div class="col-md-9">
-		
-		<? echo $this->Element('Dane.DataBrowser/browser'); ?>
-
+		<div class="wyniki_indywidualne">
+			<? echo $this->Element('Dane.DataBrowser/browser', array(
+				'columns' => array(7, 5),
+			)); ?>
+		</div>
 	</div>
 	<div class="col-md-3">        
-	
-	
-		<? if( @$dataBrowser['aggs']['all']['punkty']['top']['hits']['hits'] ) { ?>
+			
+		<? if( @$glosowanie_aggs['all']['punkty']['top']['hits']['hits'] ) { ?>
 		<div class="stickybar">
 			<div class="punkty">
 				<p class="title">Rozpatrywane punkty porządku dziennego:</p>
 				<ul>
 				<? 
-				foreach( $dataBrowser['aggs']['all']['punkty']['top']['hits']['hits'] as $doc ) {
+				foreach( $glosowanie_aggs['all']['punkty']['top']['hits']['hits'] as $doc ) {
 					$data = $doc['fields']['source'][0]['data'];
 				?>
 					<li>

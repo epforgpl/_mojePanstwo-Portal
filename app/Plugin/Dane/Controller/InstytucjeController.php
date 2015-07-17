@@ -719,27 +719,37 @@ class InstytucjeController extends DataobjectsController
 
 				switch( @$this->request->params['subaction'] ) {
 					
-					case 'projekty': {
+					case 'wystapienia': {
 						
-						$submenu['selected'] = 'projekty';
+						$this->Components->load('Dane.DataBrowser', array(
+							'searchTitle' => 'Szukaj w wystąpieniach...',
+	                        'conditions' => array(
+	                            'dataset' => 'sejm_wystapienia',
+	                            'sejm_wystapienia.posiedzenie_id' => $posiedzenie->getId(),
+	                        ),
+	                        'order' => 'sejm_wystapienia._ord asc',
+						));
+						$submenu['selected'] = 'wystapienia';
 						break;
 						
 					}
 					
-					case 'punkty': {
+					case 'glosowania': {
 						
-						$submenu['selected'] = 'punkty';
+						$this->Components->load('Dane.DataBrowser', array(
+							'searchTitle' => 'Szukaj w głosowaniach...',
+	                        'conditions' => array(
+	                            'dataset' => 'sejm_glosowania',
+	                            'sejm_glosowania.posiedzenie_id' => $posiedzenie->getId(),
+	                        ),
+	                        'order' => 'sejm_glosowania.numer asc',
+						));
+						
+						$submenu['selected'] = 'glosowania';
 						break;
 						
 					}
-					
-					case 'przebieg': {
-						
-						$submenu['selected'] = 'przebieg';
-						break;
-						
-					}
-					
+				
 					default: {
 						
 						$global_aggs = array(
@@ -1336,8 +1346,47 @@ class InstytucjeController extends DataobjectsController
 	                    'dataset' => 'sejm_glosowania',
 	                    'id' => $this->request->params['subid'],
 	                ),
+	                'aggs' => array(
+		                'all' => array(
+			                'global' => '_empty',
+			                'aggs' => array(
+				                'punkty' => array(
+			                        'filter' => array(
+			                            'bool' => array(
+			                                'must' => array(
+			                                    array(
+			                                        'term' => array(
+			                                            'dataset' => 'sejm_posiedzenia_punkty',
+			                                        ),
+			                                    ),
+			                                    array(
+			                                        'term' => array(
+			                                            'data.sejm_posiedzenia_punkty.glosowanie_id' => $this->request->params['subid'],
+			                                        ),
+			                                    ),
+			                                ),
+			                            ),
+			                        ),
+			                        'aggs' => array(
+			                            'top' => array(
+			                                'top_hits' => array(
+			                                    'size' => 1000,
+			                                    'fielddata_fields' => array('dataset', 'id'),
+			                                    'sort' => array(
+			                                        'date' => array(
+				                                        'order' => 'asc',
+			                                        ),
+			                                    ),
+			                                ),
+			                            ),
+			                        ),
+			                    ),
+			                ),
+		                ),
+	                ),
 	            ));				
 				
+				$this->set('glosowanie_aggs', $this->Dataobject->getAggs());
 				
                 $options = array(
                     'searchTitle' => 'Szukaj posła...',
@@ -1346,6 +1395,8 @@ class InstytucjeController extends DataobjectsController
                         'poslowie_glosy.glosowanie_id' => $glosowanie->getId(),
                     ),
                     'renderFile' => 'sejm_glosowania/glosy',
+                    'limit' => 100,
+                    'aggsPreset' => 'poslowie_glosy',
                 );
 
                 $this->Components->load('Dane.DataBrowser', $options);									
@@ -1361,6 +1412,7 @@ class InstytucjeController extends DataobjectsController
 		            'conditions' => array(
 		                'dataset' => 'sejm_glosowania_glosy',
 		            ),
+		            'order' => array('_title desc'),
 		        ));
 		        $this->set('title_for_layout', "Wyniki głosowań posłów na Sejm RP");
 	        

@@ -1,5 +1,3 @@
-<?php $this->Combinator->add_libs('js', 'Dane.wynik_klubowy_z_wyjatkiem'); ?>
-
 <div class="wynikiKlubowe col-sm-<?= $width ?>">
     <p><?= $label ?>:</p>
     <ul>

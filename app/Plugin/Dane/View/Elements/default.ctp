@@ -1,5 +1,4 @@
 <?
-
 $objectRenderOptions = array(
     'forceLabel' => (isset($dataBrowserObjectRender) && isset($dataBrowserObjectRender['forceLabel'])) ? (boolean)$dataBrowserObjectRender['forceLabel'] : false,
 );

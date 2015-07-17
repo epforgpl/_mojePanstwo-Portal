@@ -23,6 +23,14 @@
 					
 					if( isset($b['label']) ) {
 						
+						if( is_array($b['label']) ) {
+							
+							$label = $b['label']['buckets'][0]['key'];
+							$href = $map['chooseRequest'] . $b['key'];
+							
+						} elseif( is_string($b['label']) ) {
+							
+						}
 						
 					} else {
 						

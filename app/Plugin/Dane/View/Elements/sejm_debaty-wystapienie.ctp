@@ -1,4 +1,4 @@
-<div class="objectRender sejm_debata_wystapienie<? if ($alertsStatus) {
+<div class="objectRender sejm_wystapienia sejm_debata_wystapienie<? if ($alertsStatus) {
     echo " unreaded";
 } else {
     echo " readed";

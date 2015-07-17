@@ -748,6 +748,70 @@ class DataBrowserComponent extends Component
                 ),
             ),
         ),
+        'poslowie_glosy' => array(
+            'klub_id' => array(
+                'terms' => array(
+                    'field' => 'poslowie_glosy.klub_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'data.sejm_kluby.skrot',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Fitruj według klubów:',
+                    'skin' => 'list',
+                    'field' => 'poslowie_glosy.klub_id'
+                ),
+            ),
+            'glosy' => array(
+                'terms' => array(
+                    'field' => 'poslowie_glosy.glos_id',
+                    'include' => array(
+                        'pattern' => '(1|2|3|4)'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'poslowie_glosy.glos_id',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Fitruj według głosu:',
+                    'skin' => 'pie_chart',
+                    'field' => 'poslowie_glosy.glos_id',
+                    'dictionary' => array(
+                        '1' => 'Za',
+                        '2' => 'Przeciw',
+                        '3' => 'Wstrzymanie',
+                        '4' => 'Nieobecność',
+                    ),
+                ),
+            ),
+            'bunty' => array(
+                'terms' => array(
+                    'field' => 'poslowie_glosy.bunt',
+                    'include' => array(
+                        'pattern' => '(1)'
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Bunty',
+                    'skin' => 'list',
+                    'field' => 'poslowie_glosy.bunt',
+                    'dictionary' => array(
+                        '1' => 'Pokaż głosy przeciwne niż większości w klubie posła',
+                    ),
+                ),
+            ),
+        ),
         'zamowienia_publiczne' => array(
             'wartosc_cena' => array(
                 'sum' => array(
@@ -993,7 +1057,9 @@ class DataBrowserComponent extends Component
         ) {
 
             $controller->Paginator->settings = $this->getSettings();
-
+			
+			// debug($this->getSettings());
+			
             // $controller->Paginator->settings['order'] = 'score desc';
             // debug($controller->Paginator->settings); die();
             $hits = $controller->Paginator->paginate('Dataobject');
@@ -1134,7 +1200,7 @@ class DataBrowserComponent extends Component
             'order' => $this->getSettingsForField('order'),
             'limit' => isset($this->settings['limit']) ? $this->settings['limit'] : 30,
         );
-
+        
         if (isset($conditions['q']))
             $output['highlight'] = true;
 

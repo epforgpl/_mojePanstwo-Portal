@@ -16,9 +16,7 @@ class SejmGlosowaniaController extends DataobjectsController
     {
 
         parent::view();
-
-        $this->redirect($this->object->getUrl());
-        die();
+        return $this->redirect($this->object->getUrl());
 
     }
 } 

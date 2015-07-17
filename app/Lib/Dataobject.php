@@ -119,6 +119,8 @@ class Dataobject
 	public function getClasses() {
 		$output = $this->classes;
 		$output[] = 'objclass';
+		if( $this->getDataset() )
+			$output[] = $this->getDataset();
 		return $output;
 	}
 	
