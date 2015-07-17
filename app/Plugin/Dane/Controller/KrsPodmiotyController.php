@@ -425,7 +425,16 @@ class KrsPodmiotyController extends DataobjectsController
             $this->set('dzialanie', $dzialanie);
 
         } else {
-            // działania list
+            
+	        $this->_prepareView();
+	        $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'dzialania',
+	            ),
+	        ));
+	
+	        $this->set('title_for_layout', 'Działania ' . $this->object->getData('nazwa'));
+
         }
 
         $this->_prepareView();
@@ -621,30 +630,20 @@ class KrsPodmiotyController extends DataobjectsController
                         'id' => 'home',
                     ),
                 ),
-                array(
-                    'id' => 'graph',
-                    'label' => 'Powiązania',
-                ),
             ),
             'base' => $this->object->getUrl(),
-        );
-
-        if($this->_canEdit()) {
-            $menu['items'][] = array(
-                'id' => 'odpisy',
-                'label' => 'Odpisy'
-            );
-        }
+        );        
 		
-		/*
-        if (@$this->object_aggs['all']['dzialania']['doc_count']) {
+        if(
+        	@$this->object_aggs['all']['dzialania']['doc_count'] || 
+        	$this->_canEdit()
+        ) {
             $menu['items'][] = array(
                 'id' => 'dzialania',
                 'label' => 'Działania',
                 'count' => $this->object_aggs['all']['dzialania']['doc_count'],
             );
         }
-        */
         
         if (@$this->object_aggs['all']['zamowienia']['doc_count']) {
             $menu['items'][] = array(
@@ -653,6 +652,25 @@ class KrsPodmiotyController extends DataobjectsController
                 'count' => $this->object_aggs['all']['zamowienia']['doc_count'],
             );
         }
+        
+        $menu['items'][] = array(
+            'id' => 'graph',
+            'label' => 'Powiązania'
+        );
+        
+        if($this->_canEdit()) {
+            
+            $menu['items'][] = array(
+                'id' => 'odpisy',
+                'label' => 'Odpisy'
+            );
+            
+            $menu['items'][] = array(
+                'id' => 'dane',
+                'label' => 'Edycja danych'
+            );
+            
+        }        
 
         if ($this->request->params['id'] == 481129) { // KOMITET KONKURSOWY KRAKÓW 2022
 
