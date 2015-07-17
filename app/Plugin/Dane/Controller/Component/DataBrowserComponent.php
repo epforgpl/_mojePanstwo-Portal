@@ -499,6 +499,19 @@ class DataBrowserComponent extends Component
             ),
         ),
         'krakow_darczyncy' => array(
+            'roczniki' => array(
+                'terms' => array(
+                    'field' => 'krakow_darczyncy.rok',
+                    'order' => array(
+	                    '_term' => 'desc',
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Rok',
+                    'skin' => 'list',
+                    'field' => 'krakow_darczyncy.rok'
+                ),
+            ),
             'komitety' => array(
                 'terms' => array(
                     'field' => 'krakow_darczyncy.komitet_id',
