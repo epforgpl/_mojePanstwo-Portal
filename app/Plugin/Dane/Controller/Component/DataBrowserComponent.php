@@ -512,12 +512,12 @@ class DataBrowserComponent extends Component
                 'aggs' => array(
                     'label' => array(
                         'terms' => array(
-                            'field' => 'krakow_darczyncy.komitet',
+                            'field' => 'krakow_darczyncy_komitety.nazwa',
                         ),
                     ),
                     'sum' => array(
 	                    'sum' => array(
-		                    'field' => 'data.krakow_darczyncy.wartosc_wplata',
+		                    'field' => 'data.krakow_darczyncy.wartosc_laczne_wplaty',
 	                    ),
                     ),
                 ),
