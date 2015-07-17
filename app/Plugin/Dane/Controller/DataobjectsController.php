@@ -386,10 +386,21 @@ class DataobjectsController extends AppController
 		    ));
 	        
         }
-        
+
         $this->set('response', $response);
         $this->set('_serialize', array('response'));
-        
+
+        if(!$this->request->is('ajax')) {
+
+            if(isset($response['flash_message'])) {
+                $this->Session->setFlash($response['flash_message']);
+            }
+
+            $this->redirect(
+                $this->referer()
+            );
+        }
+
     }
 
 }

@@ -617,7 +617,9 @@ class KrsPodmiotyController extends DataobjectsController
 
     public function getMenu()
     {
-
+        if(!$this->object)
+            return false;
+        
         $counters = $this->object->getLayers('counters');
 
         $menu = array(
@@ -728,7 +730,15 @@ class KrsPodmiotyController extends DataobjectsController
     }
 
     public function pobierz_nowy_odpis() {
-        $this->set('data', array(1, 2, 3));
+        $this->set('data', $this->Dataobject->getDatasource()->request(
+            'dane/krs_podmioty/' . $this->request->params['id'],
+            array(
+                'method' => 'POST',
+                'data' => array(
+                    '_action' => 'pobierz_nowy_odpis'
+                )
+            )
+        ));
         $this->set('_serialize', 'data');
     }
 

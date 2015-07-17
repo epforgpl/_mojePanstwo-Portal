@@ -1,7 +1,6 @@
 <?
 
 $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty', array('plugin' => 'Dane')));
-$this->Combinator->add_libs('js', 'Dane.view-krspodmioty-odpisy');
 $odpisy = $object->getLayer('odpisy');
 
 ?>
@@ -44,10 +43,13 @@ $odpisy = $object->getLayer('odpisy');
 			
 							        
 						        </div><div class="col-md-4">
-							        
-							        <div class="btn btnUpdate btn-primary btn-icon auto-width">
-						                <i class="icon glyphicon glyphicon-refresh"></i> Poproś o nowy odpis
-						            </div>
+
+                                    <form action="<?= $object->getUrl(); ?>.json" method="post">
+                                        <input type="hidden" name="_action" value="pobierz_nowy_odpis"/>
+                                        <button type="submit" class="btn btnUpdate btn-primary btn-icon auto-width">
+                                            <i class="icon glyphicon glyphicon-refresh"></i> Poproś o nowy odpis
+                                        </button>
+                                    </form>
 							        
 						        </div>
 					        </div>
