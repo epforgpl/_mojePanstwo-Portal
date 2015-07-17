@@ -376,10 +376,10 @@ $(document).ready(function () {
             removeConfirmation: true,
             autocomplete: {
                 source: function( request, response ) {
-                    $.getJSON("/dane/tematy.json?term=" + request.term, function(res) {
+                    $.getJSON("/dane/suggest.json?q=" + request.term + "&dataset[]=tematy", function(res) {
                         var data = [];
-                        for(var i = 0; i < res.length; i++)
-                            data.push(res[i].label);
+                        for(var i = 0; i < res.options.length; i++)
+                            data.push(res.options[i].text);
 
                         response(data);
                     });
