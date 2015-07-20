@@ -4,10 +4,7 @@
 
 <?php echo $this->Html->script('/Pisma/js/zeroclipboard', array('block' => 'scriptBlock')); ?>
 
-
-
 <div class="container">
-
     <? echo $this->element('Pisma.pismo-header', array(
         'pismo' => $pismo,
         'alert' => true,
@@ -141,7 +138,6 @@
                                     </li>
                                 <? } ?>
 
-
                                 <? if ($pismo['access'] == 'private') { ?>
                                     <li class="inner-addon">
                                         <form action="" method="post">
@@ -170,10 +166,18 @@
                                     <li>
                                         <div class="form-group clipboard">
                                             <label for="clipboardCopy">Link do dokumentu</label>
-                                            <input readonly id="clipboardCopy" class="form-control"
-                                                   data-clipboard-text="<?php echo Router::url($this->here, true); ?>"
-                                                   title="Skopiuj link do schowka"
-                                                   placeholder="<?php echo Router::url($this->here, true); ?>"/>
+
+                                            <div class="input-group">
+                                                <input id="clipboardCopy" type="text" class="form-control"
+                                                       readonly="readonly"
+                                                       value="<?php echo Router::url($this->here, true); ?>">
+                                                    <span class="input-group-btn">
+                                                        <button id="clipboardCopyBtn"
+                                                                class="btn btn-default glyphicon glyphicon-copy"
+                                                                data-clipboard-text="<?php echo Router::url($this->here, true); ?>"
+                                                                type="button"></button>
+                                                    </span>
+                                            </div>
                                         </div>
                                     </li>
                                     <li class="shareIt">
@@ -223,7 +227,6 @@
                                 </a>
                             </div>
                         <? } ?>
-
                     </div>
                 </div>
             </div>

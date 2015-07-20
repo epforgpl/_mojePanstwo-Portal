@@ -743,8 +743,8 @@ $(document).ready(function () {
         }
     });
 
-    if ($('#clipboardCopy').length) {
-        var client = new ZeroClipboard(document.getElementById("clipboardCopy"));
+    if ($('#clipboardCopyBtn').length) {
+        var client = new ZeroClipboard(document.getElementById("clipboardCopyBtn"));
 
         client.on("ready", function (readyEvent) {
             if (readyEvent) {
