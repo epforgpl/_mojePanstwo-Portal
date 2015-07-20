@@ -404,7 +404,7 @@ class KrsPodmiotyController extends DataobjectsController
                 if($this->_canEdit()) {
 
                     if($dzialanie->getData('dzialania.photo') == '1') {
-                        $src = "http://sds.tiktalik.com/portal/pages/dzialania/" . $dzialanie->getData('dataset') . "/" . $dzialanie->getData('object_id') . "/" . $dzialanie->getData('id') . ".jpg";
+                        $src = "http://sds.tiktalik.com/portal/1/pages/dzialania/" . $dzialanie->getData('id') . ".jpg";
                         $data = @file_get_contents($src);
                         if($data) {
                             $base64 = 'data:image/jpeg;base64,' . base64_encode($data);
