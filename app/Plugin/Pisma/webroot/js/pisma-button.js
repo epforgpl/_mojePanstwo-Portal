@@ -72,7 +72,7 @@ $(document).ready(function () {
             form = $('<form></form>').attr({
                 'action': '/pisma',
                 'method': method,
-                'class': 'pismaGenerateModalForm'
+                'class': 'pismaGenerateModalForm hide'
             }).append(
                 $('<input>').attr({
                     'name': 'szablon_id',
