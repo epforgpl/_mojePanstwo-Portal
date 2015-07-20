@@ -4,6 +4,7 @@
 <?php echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5.all', array('block' => 'scriptBlock')); ?>
 <?php echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/locales/bootstrap-wysihtml5.pl-NEW', array('block' => 'scriptBlock')); ?>
 
+
 <div class="container temp_items">
     <div class="hidden alert alert-success info"></div>
     <form method="post" action="">

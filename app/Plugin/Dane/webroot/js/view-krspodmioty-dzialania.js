@@ -162,8 +162,9 @@ function loadScript() {
 }
 
 $(document).ready(function () {
+
     var objectMain = $('.objectMain'),
-        form = objectMain.find('form'),
+        form = $('form.dzialanie'),
         imageEditor = objectMain.find('.image-editor'),
         imageAlert = imageEditor.find('.alert.alert-danger'),
         imageChoosed = imageEditor.find('input[name="cover_photo"]'),
@@ -174,23 +175,6 @@ $(document).ready(function () {
         dataset = header.attr('data-dataset'),
         object_id = header.attr('data-object_id'),
         opis = $('#dzialanieOpis');
-
-        /*opis.wysihtml5({
-            toolbar: {
-                "font-styles": true, //Font styling, e.g. h1, h2, etc.
-                "emphasis": true, //Italics, bold, etc.
-                "lists": false, //(Un)ordered lists, e.g. Bullets, Numbers.
-                "html": false, //Button which allows you to edit the generated HTML.
-                "link": true, //Button to insert a link.
-                "image": false, //Button to insert an image.
-                "color": false, //Button to change color of font
-                "blockquote": false
-            },
-            'locale': 'pl-NEW',
-            parser: function (html) {
-                return html;
-            }
-        });*/
 
     tinymce.init({
         selector: "#dzialanieOpis",
@@ -247,11 +231,12 @@ $(document).ready(function () {
             imageHeight = 347,
             imgEditorWidth = imageEditor.width(),
             imgEditorHeight = imageHeight * (imageEditor.width() / imageWidth),
-            exportZoom = imageWidth / imageEditor.width();
+            exportZoom = imageWidth / imageEditor.width(),
+            src = imageEditor.attr('data-image');
 
         imageEditor.css({'width': imgEditorWidth, height: imgEditorHeight}).cropit({
             imageState: {
-                src: (imageChoosed.val() !== "") ? imageChoosed.val() : ''
+                src: (src !== "") ? src : ''
             },
             width: imgEditorWidth,
             height: imgEditorHeight,
@@ -268,20 +253,6 @@ $(document).ready(function () {
                 cropItErrorMsg(evt);
             }
         });
-        objectMain.find('.submitBtn').click(function (e) {
-            e.preventDefault();
-            imageChoosed.val(imageEditor.cropit('export', {
-                type: 'image/jpeg',
-                quality: .9
-            }));
-
-            if (markers.length) {
-                googleMapBlock.find('input[name="geo_lat"]').val(markers[0].getPosition().lat());
-                googleMapBlock.find('input[name="geo_lng"]').val(markers[0].getPosition().lng());
-            }
-
-            objectMain.find('form').submit();
-        })
     }
     googleBtn.click(function () {
         var $pac = $('#pac-input');
@@ -297,58 +268,51 @@ $(document).ready(function () {
         geolocalizateMe();
     });
 
-    form.submit(function () {
-        tinyMCE.triggerSave();
-        var self = $(this);
-        var inputs = $(this).serializeArray();
+    form.submit(function() {
+        if(typeof imageEditor.cropit('zoom') !== "undefined") {
+            var cropitFields = ['imageSrc', 'offset', 'zoom'];
+            for (var m = 0; m < cropitFields.length; m++) {
+                var v = cropitFields[m];
+                if (v == 'offset') {
 
-        var id = 0;
-        for(var i = 0; i < inputs.length; i++)
-            if(inputs[i].name == 'id') {
-                id = parseInt(inputs[i].value);
-                inputs.splice(i, 1);
-            }
+                    $('<input />').attr('type', 'hidden')
+                        .attr('name', "x")
+                        .attr('value', imageEditor.cropit(v).x)
+                        .appendTo(form);
 
-        var cropitFields = ['imageSrc', 'offset', 'zoom'];
-        for(var m = 0; m < cropitFields.length; m++) {
-            var v = cropitFields[m];
-            if(v == 'offset') {
-                inputs.push({
-                    name: 'x',
-                    value: imageEditor.cropit(v).x
-                });
+                    $('<input />').attr('type', 'hidden')
+                        .attr('name', "y")
+                        .attr('value', imageEditor.cropit(v).y)
+                        .appendTo(form);
 
-                inputs.push({
-                    name: 'y',
-                    value: imageEditor.cropit(v).y
-                });
-            } else {
-                inputs.push({
-                    name: v == 'imageSrc' ? 'cover_photo' : v,
-                    value: imageEditor.cropit(v)
-                });
+                } else {
+
+                    $('<input />').attr('type', 'hidden')
+                        .attr('name', v == 'imageSrc' ? 'cover_photo' : v)
+                        .attr('value', imageEditor.cropit(v))
+                        .appendTo(form);
+
+                }
             }
         }
 
-        $.ajax({
-            url: '/dane/' + dataset + '/' + object_id + '/dzialania' + (id > 0 ? '/' + id : '') + '.json',
-            method: id > 0 ? 'PUT' : 'POST',
-            data: inputs,
-            beforeSend: function () {
-                self.find('.submitBtn').addClass('loading disabled')
-            },
-            success: function (res) {
+        if (markers.length) {
+            googleMapBlock.find('input[name="geo_lat"]').val(markers[0].getPosition().lat());
+            googleMapBlock.find('input[name="geo_lng"]').val(markers[0].getPosition().lng());
+        }
 
-                if(res.success && id) {
-                    window.location = '/dane/' + dataset + '/' + object_id + '/dzialania/' + id;
-                } else {
-                    window.location = '/dane/' + dataset + '/' + object_id + '/dzialania/' + res.success;
-                }
+        tinyMCE.triggerSave();
 
-            }
-        });
+        var content = $(this).find('#dzialanieOpis').val();
 
-        return false;
+        if(content.length > 16383) {
+            alert("Opis jest za długi. (maksymalnie 16383 znaków, twój opis ma " + content.length + " znaków)");
+            return false;
+        }
+
+        $(this)
+            .find('.submitBtn')
+            .addClass('loading disabled');
     });
 
     $('.cancelBtn').click(function() {
@@ -388,6 +352,8 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('.sticky').sticky();
 
     /*ASYNCHRONIZE ACTION FOR GOOGLE MAP*/
     window.onload = loadScript();
