@@ -74,8 +74,6 @@ Router::connect( '/dane/:controller/:slug/:id', array(
 ), array( 'id' => '[0-9]+' ) );
 */
 
-Router::connect('/dane/tematy', array('plugin' => 'Dane', 'controller' => 'Projects', 'action' => 'tematy', '[method]' => 'GET', 'ext' => 'json'));
-
 # ObjectUsersManagement
 Router::connect('/dane/:dataset/:object_id/users/index', array('plugin' => 'Dane', 'controller' => 'ObjectUsersManagement', 'action' => 'index', '[method]' => 'GET'), array('dataset' => '([a-zA-Z\_]+)', 'object_id' => '[0-9]+'));
 Router::connect('/dane/:dataset/:object_id/users/index', array('plugin' => 'Dane', 'controller' => 'ObjectUsersManagement', 'action' => 'add', '[method]' => 'POST'), array('dataset' => '([a-zA-Z\_]+)', 'object_id' => '[0-9]+'));
@@ -87,13 +85,6 @@ Router::connect('/dane/:dataset/:object_id/page/logo', array('plugin' => 'Dane',
 Router::connect('/dane/:dataset/:object_id/page/logo', array('plugin' => 'Dane', 'controller' => 'ObjectPagesManagement', 'action' => 'deleteLogo', '[method]' => 'DELETE'), array('dataset' => '([a-zA-Z\_]+)', 'object_id' => '[0-9]+'));
 Router::connect('/dane/:dataset/:object_id/page/cover', array('plugin' => 'Dane', 'controller' => 'ObjectPagesManagement', 'action' => 'setCover', '[method]' => 'POST'), array('dataset' => '([a-zA-Z\_]+)', 'object_id' => '[0-9]+'));
 Router::connect('/dane/:dataset/:object_id/page/cover', array('plugin' => 'Dane', 'controller' => 'ObjectPagesManagement', 'action' => 'deleteCover', '[method]' => 'DELETE'), array('dataset' => '([a-zA-Z\_]+)', 'object_id' => '[0-9]+'));
-
-# Projects
-Router::connect('/dane/:dataset/:object_id/dzialania', array('plugin' => 'Dane', 'controller' => 'Projects', 'action' => 'index', '[method]' => 'GET', 'ext' => 'json'), array('dataset' => '([a-zA-Z\_]+)', 'object_id' => '[0-9]+'));
-Router::connect('/dane/:dataset/:object_id/dzialania', array('plugin' => 'Dane', 'controller' => 'Projects', 'action' => 'add', '[method]' => 'POST', 'ext' => 'json'), array('dataset' => '([a-zA-Z\_]+)', 'object_id' => '[0-9]+'));
-#Router::connect('/dane/:dataset/:object_id/dzialania/:id', array('plugin' => 'Dane', 'controller' => 'Projects', 'action' => 'view', '[method]' => 'GET', 'ext' => 'json'), array('dataset' => '([a-zA-Z\_]+)', 'object_id' => '[0-9]+', 'id' => '[0-9]+'));
-Router::connect('/dane/:dataset/:object_id/dzialania/:id', array('plugin' => 'Dane', 'controller' => 'Projects', 'action' => 'edit', '[method]' => 'PUT', 'ext' => 'json'), array('dataset' => '([a-zA-Z\_]+)', 'object_id' => '[0-9]+', 'id' => '[0-9]+'));
-Router::connect('/dane/:dataset/:object_id/dzialania/:id', array('plugin' => 'Dane', 'controller' => 'Projects', 'action' => 'delete', '[method]' => 'DELETE', 'ext' => 'json'), array('dataset' => '([a-zA-Z\_]+)', 'object_id' => '[0-9]+', 'id' => '[0-9]+'));
 
 Router::connect('/dane', array('plugin' => 'Dane', 'controller' => 'Dane', 'action' => 'view'));
 

@@ -19,7 +19,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
                                 <?= $dzialanie->getData('tytul'); ?>
                             </div>
                             <div class="col-sm-4 text-right">
-                                <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania_edycja/<?= $dzialanie->getData('id'); ?>">
+                                <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania/<?= $dzialanie->getData('id'); ?>/edytuj">
                                     <div class="btn btn-primary btn-icon btn-auto-width">
                                         <i class="icon glyphicon glyphicon-pencil"></i>
                                         Edytuj
@@ -48,7 +48,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 
                 <? if($dzialanie->getData('photo') == '1') { ?>
                     <div class="photo">
-                        <img alt="<?= $dzialanie->getData('tytul'); ?>" src="http://sds.tiktalik.com/portal/pages/dzialania/<?= $dzialanie->getData('id'); ?>.jpg"/>
+                        <img alt="<?= $dzialanie->getData('tytul'); ?>" src="http://sds.tiktalik.com/portal/1/pages/dzialania/<?= $dzialanie->getData('id'); ?>.jpg"/>
                     </div>
                 <? } ?>
 
