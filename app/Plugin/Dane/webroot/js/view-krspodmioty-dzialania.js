@@ -175,8 +175,6 @@ $(document).ready(function () {
         object_id = header.attr('data-object_id'),
         opis = $('#dzialanieOpis');
 
-        console.log(form);
-
         /*opis.wysihtml5({
             toolbar: {
                 "font-styles": true, //Font styling, e.g. h1, h2, etc.
@@ -249,11 +247,12 @@ $(document).ready(function () {
             imageHeight = 347,
             imgEditorWidth = imageEditor.width(),
             imgEditorHeight = imageHeight * (imageEditor.width() / imageWidth),
-            exportZoom = imageWidth / imageEditor.width();
+            exportZoom = imageWidth / imageEditor.width(),
+            src = imageEditor.attr('data-image');
 
         imageEditor.css({'width': imgEditorWidth, height: imgEditorHeight}).cropit({
             imageState: {
-                src: (imageChoosed.val() !== "") ? imageChoosed.val() : ''
+                src: (src !== "") ? src : ''
             },
             width: imgEditorWidth,
             height: imgEditorHeight,
