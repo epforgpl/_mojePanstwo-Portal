@@ -162,6 +162,7 @@ function loadScript() {
 }
 
 $(document).ready(function () {
+
     var objectMain = $('.objectMain'),
         form = $('form.dzialanie'),
         imageEditor = objectMain.find('.image-editor'),
@@ -174,23 +175,6 @@ $(document).ready(function () {
         dataset = header.attr('data-dataset'),
         object_id = header.attr('data-object_id'),
         opis = $('#dzialanieOpis');
-
-        /*opis.wysihtml5({
-            toolbar: {
-                "font-styles": true, //Font styling, e.g. h1, h2, etc.
-                "emphasis": true, //Italics, bold, etc.
-                "lists": false, //(Un)ordered lists, e.g. Bullets, Numbers.
-                "html": false, //Button which allows you to edit the generated HTML.
-                "link": true, //Button to insert a link.
-                "image": false, //Button to insert an image.
-                "color": false, //Button to change color of font
-                "blockquote": false
-            },
-            'locale': 'pl-NEW',
-            parser: function (html) {
-                return html;
-            }
-        });*/
 
     tinymce.init({
         selector: "#dzialanieOpis",
@@ -318,6 +302,13 @@ $(document).ready(function () {
         }
 
         tinyMCE.triggerSave();
+
+        var content = $(this).find('#dzialanieOpis').val();
+
+        if(content.length > 16383) {
+            alert("Opis jest za długi. (maksymalnie 16383 znaków, twój opis ma " + content.length + " znaków)");
+            return false;
+        }
 
         $(this)
             .find('.submitBtn')
