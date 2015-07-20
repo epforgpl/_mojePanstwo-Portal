@@ -401,6 +401,13 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '</div>'
         ]);
     }
+
+    if (jQuery.inArray("logo", this.editables) !== -1) {
+        $.merge(list, [
+            '<li><a class="dzialanie" href="/dane/' + this.dataset + '/' + this.id + '/dodaj_dzialanie">Dodaj działanie</a></li>'
+        ]);
+    }
+
     if (jQuery.inArray("logo", this.editables) !== -1) {
         $.merge(list, [
             '<li><a class="logo" href="#">' + (this.header.hasClass('cover-logo') ? 'Zmień' : 'Dodaj') + ' logo</a></li>'

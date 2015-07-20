@@ -208,8 +208,8 @@ $options = array(
 
 </div>
 <div class="col-md-3 sidebar">
-	
-    <?
+
+<?
     $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
     $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
     $this->Combinator->add_libs('js', 'Pisma.pisma-button');

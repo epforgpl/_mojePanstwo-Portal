@@ -45,8 +45,11 @@ $this->Dataobject->setObject($object);
                     <a class="thumb_cont" href="<?= $object->getUrl() ?>">
                         <?php } ?>
                         <img class="thumb pull-right"
-                             src="<?= $object->getThumbnailUrl($thumbSize) ?>"
-                             alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
+                             src="<?
+                             $img_link = $object->getThumbnailUrl($thumbSize);
+                             $str = preg_replace('#^https?:#', '', $img_link);
+                             echo $img_link;
+                             ?>" alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
                         <?php if ($object->getUrl() != false) { ?>
                     </a>
                 <?php } ?>

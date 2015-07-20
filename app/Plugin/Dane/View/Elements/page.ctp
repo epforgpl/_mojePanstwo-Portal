@@ -31,8 +31,11 @@ if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) {
         <a class="thumb_cont" href="<?= $object->getUrl() ?>">
             <?php } ?>
             <img itemprop="image" class="thumb"
-                 src="<?= $object->getHeaderThumbnailUrl($thumbSize) ?>"
-                 alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
+                 src="<?
+                        $img_link = $object->getThumbnailUrl($thumbSize);
+                        $str = preg_replace('#^https?:#', '', $img_link);
+                        echo $img_link;
+                        ?>" alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
             <?php if ($object->getUrl() != false) { ?>
         </a>
     <?php } ?>
