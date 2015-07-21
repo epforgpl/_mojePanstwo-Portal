@@ -625,10 +625,9 @@ var DataBrowser = Class.extend({
                                     chart.series[0].points[i].onMouseOver();
                                 };
 
-                                /*item.onclick = function (e) {
-                                    console.log(chart.series[0].points[i]);
-                                    chart.series[0].points[i].events.click();
-                                }*/
+                                item.onclick = function (e) {
+                                    $(chart.series[0].points[i].graphic.element).click();
+                                }
                             })(i);
                         }
 
