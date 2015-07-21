@@ -192,11 +192,7 @@
                                         <a class="btn btn-social-icon btn-twitter" href="https://twitter.com/share"
                                            target="_blank"
                                            data-url="<?php echo Router::url($this->here, true); ?>"
-                                           data-lang="<?php if (Configure::read('Config.language') == 'pol') {
-                                               echo('pl');
-                                           } else {
-                                               echo('en');
-                                           } ?>">
+                                           data-lang="<?php echo (Configure::read('Config.language') == 'pol') ? 'pl' : 'en'; ?>">
                                             <i class="fa fa-twitter"></i>
                                         </a>
                                         <a class="btn btn-social-icon btn-wykop"

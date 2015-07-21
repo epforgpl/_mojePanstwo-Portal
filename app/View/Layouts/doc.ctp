@@ -85,9 +85,9 @@
 </head>
 <body>
 <div id="_wrapper">
-    
 
-        <?php echo $content_for_layout; ?>
+
+    <?php echo $content_for_layout; ?>
 
 
 </div>
@@ -97,8 +97,8 @@
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
         a = s.createElement(o),
             m = s.getElementsByTagName(o)[0];
         a.async = 1;
@@ -134,7 +134,7 @@ echo $this->Html->script('../plugins/bootstrap-switch/bootstrap-switch.js'); ?>
             }
         },
         language: {
-            twoDig: "<?php switch (Configure::read('Config.language')) { case 'pol': echo "pl"; break; case 'eng': echo "en"; break; }  ?>",
+            twoDig: "<?php echo (Configure::read('Config.language') === 'pol') ? 'pl' : 'en';  ?>",
             threeDig: "<?php echo Configure::read('Config.language'); ?>"
         },
         suggester: {

@@ -50,7 +50,9 @@
         </div>
     </div>
 
-    <article id="editor">
+    <article id="editor"<?php if (isset($pismoEditPage) && $pismoEditPage) {
+        echo ' contentEditable="true"';
+    } ?>>
         <? if (!empty($pismo['tresc'])) {
             echo $pismo['tresc'];
         } ?>

@@ -137,82 +137,103 @@
       }
     }
   }
+
+  .mce-tinymce {
+    width: 100%;
+    height: 100%;
+    line-height: 1.5em;
+    min-height: 300px;
+    padding: 0;
+    outline: none;
+    float: left;
+    border: none;
+  }
 }
 
-.wysihtml5-toolbar .dropdown-menu, #editor {
-  [data-wysihtml5-command-value="h1"], [data-wysihtml5-command-value="h2"], [data-wysihtml5-command-value="h3"], [data-wysihtml5-command-value="h4"], [data-wysihtml5-command-value="h5"], [data-wysihtml5-command-value="h6"],
-  h1, h2, h3, h4, h5, h6,
-  .h1, .h2, .h3, .h4, .h5, .h6 {
+#editor,
+#tinymce {
+  color: #333;
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+  line-height: 1.42857;
+  margin: 0;
+
+  h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     color: inherit;
     font-family: inherit;
     font-weight: 500;
     line-height: 1.1;
   }
+
   h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small, h1 .small, h2 .small, h3 .small, h4 .small, h5 .small, h6 .small, .h1 .small, .h2 .small, .h3 .small, .h4 .small, .h5 .small, .h6 .small {
     color: #999;
     font-weight: 400;
     line-height: 1;
   }
+
   h1, .h1, h2, .h2, h3, .h3 {
     margin-bottom: 10px;
     margin-top: 20px;
   }
+
   h2, .h2 {
     text-align: left;
   }
+
   h1 small, .h1 small, h2 small, .h2 small, h3 small, .h3 small, h1 .small, .h1 .small, h2 .small, .h2 .small, h3 .small, .h3 .small {
     font-size: 65%;
   }
+
   h4, .h4, h5, .h5, h6, .h6 {
     margin-bottom: 10px;
     margin-top: 10px;
   }
+
   h4 small, .h4 small, h5 small, .h5 small, h6 small, .h6 small, h4 .small, .h4 .small, h5 .small, .h5 .small, h6 .small, .h6 .small {
     font-size: 75%;
   }
-  [data-wysihtml5-command-value="h1"], h1, .h1 {
+
+  h1, .h1 {
     font-size: 36px;
     font-weight: bold;
   }
-  [data-wysihtml5-command-value="h2"], h2, .h2 {
+
+  h2, .h2 {
     font-size: 18px;
     font-weight: 400;
     text-align: center;
     margin-top: 40px;
     margin-bottom: 20px;
   }
-  [data-wysihtml5-command-value="h3"], h3, .h3 {
+
+  h3, .h3 {
     font-size: 24px;
   }
-  [data-wysihtml5-command-value="h4"], h4, .h4 {
+
+  h4, .h4 {
     font-size: 18px;
   }
-  [data-wysihtml5-command-value="h5"], h5, .h5 {
+
+  h5, .h5 {
     font-size: 14px;
   }
-  [data-wysihtml5-command-value="h6"], h6, .h6 {
+
+  h6, .h6 {
     font-size: 12px;
   }
-  p {
-    margin: 0 0 5px;
-  }
-
-}
-
-#editor {
-  width: 100%;
-  height: 100%;
-  line-height: 1.5em;
-  min-height: 300px;
-  padding: 10px;
-  outline: none;
-  float: left;
 
   ul, ol {
     margin-bottom: 10px;
     margin-top: 0;
-    list-style: disc outside;
     padding-left: 40px;
+  }
+
+  ul {
+    list-style: disc outside;
+  }
+
+  ol {
+    list-style: decimal outside;
   }
 
   blockquote {
@@ -259,5 +280,4 @@
       color: #999;
     }
   }
-
 }

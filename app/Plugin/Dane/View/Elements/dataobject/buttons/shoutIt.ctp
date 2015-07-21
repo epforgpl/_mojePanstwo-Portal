@@ -9,11 +9,7 @@
             <div class="fb-like" data-href="<?php echo Router::url($this->here, true); ?>"
                  data-send="false"
                  data-layout="button_count"
-                 data-action="<?php if (Configure::read('Config.language') == 'pol') {
-                     echo('recommend');
-                 } else {
-                     echo('like');
-                 } ?>"
+                 data-action="<?php echo (Configure::read('Config.language') == 'pol') ? 'recommend' : 'like'; ?>"
                  data-width="85"
                  data-show-faces="false">
             </div>
@@ -22,11 +18,7 @@
             <div class="tweet">
                 <a href="https://twitter.com/share" class="twitter-share-button"
                    data-url="<?php echo Router::url($this->here, true); ?>"
-                   data-lang="<?php if (Configure::read('Config.language') == 'pol') {
-                       echo('pl');
-                   } else {
-                       echo('en');
-                   } ?>">Tweet</a>
+                   data-lang="<?php echo (Configure::read('Config.language') == 'pol') ? 'pl' : 'en'; ?>">Tweet</a>
             </div>
         </div>
         <div class="wykopBox">

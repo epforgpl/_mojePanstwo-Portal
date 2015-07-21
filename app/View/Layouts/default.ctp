@@ -174,7 +174,7 @@ echo $this->Html->script('../plugins/bootstrap-switch/bootstrap-switch.js'); ?>
         },
         user_id: '<?= AuthComponent::user('id'); ?>',
         language: {
-            twoDig: "<?php switch (Configure::read('Config.language')) { case 'pol': echo "pl"; break; case 'eng': echo "en"; break; }  ?>",
+            twoDig: "<?php echo (Configure::read('Config.language') === 'pol') ? 'pl' : 'en';  ?>",
             threeDig: "<?php echo Configure::read('Config.language'); ?>"
         },
         social: {
