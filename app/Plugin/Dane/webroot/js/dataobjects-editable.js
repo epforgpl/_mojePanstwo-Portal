@@ -334,14 +334,25 @@ ObjectUsersManagement.prototype.onLoadUsers = function (res) {
     moderateAdd.find('form').bind('submit', function () {
         var email = $(this).find('input[type=email]').first();
         var role = $(this).find('select').first();
-        _this.getSpinner().show();
-        $.post('/dane/' + _this.dataset + '/' + _this.id + '/users/index.json', {
+
+        new AcceptModerateRequestModal({
+            dataset: _this.dataset,
+            object_id: _this.id,
+            user_email: email.val(),
+            role: role.val(),
+            success: function() {
+                email.val(null);
+                _this.reLoadUsers();
+            }
+        });
+
+        /*$.post('/dane/' + _this.dataset + '/' + _this.id + '/users/index.json', {
             email: email.val(),
             role: role.val()
         }, function () {
             email.val(null);
             _this.reLoadUsers();
-        });
+        });*/
 
         return false;
     });

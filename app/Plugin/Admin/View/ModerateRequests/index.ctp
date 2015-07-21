@@ -1,58 +1,73 @@
-
+<? $this->Combinator->add_libs('js','Admin.accept-moderate-request-modal'); ?>
 <div class="container">
     <h1>Żądania uprawnień</h1>
+
     <div class="row margin-top-20">
+
+        <ul class="nav nav-tabs">
+            <? foreach($statuses as $_status => $label) { ?>
+                <li role="presentation" <? if($status == $_status) echo 'class="active"'; ?>>
+                    <a href="/admin/moderate_requests/index/<?= $_status; ?>">
+                        <?= $label; ?>
+                    </a>
+                </li>
+            <? } ?>
+        </ul>
+
         <? if(!count($pages_requests)) { ?>
-            <p>Brak żądań</p>
+            <p class="margin-top-20">Brak żądań</p>
         <? } else { ?>
-            <table class="table table-striped table-hover table-bordered">
+            <table class="table table-striped table-hover table-bordered margin-top-20">
                 <tr>
-                    <th>Dataset</th>
+                    <th>Data utworzenia</th>
                     <th>Obiekt</th>
                     <th>Użytkownik</th>
+                    <th>Kontakt</th>
+                    <th>Zgłaszający</th>
                     <th>Organizacja</th>
-                    <th>Imię</th>
-                    <th>Nazwisko</th>
-                    <th>Stanowisko</th>
-                    <th>E-mail</th>
-                    <th>Telefon</th>
-                    <th>Data utworzenia</th>
-                    <th>Opcje</th>
+                    <? if($status == 0) { ?>
+                        <th>Opcje</th>
+                    <? } ?>
                 </tr>
                 <? foreach($pages_requests as $page_request) { ?>
                     <tr>
-                        <td><?= $page_request['PageRequest']['dataset']; ?></td>
+                        <td><?= $page_request['PageRequest']['cts']; ?></td>
                         <td>
                             <a href="/dane/<?= $page_request['PageRequest']['dataset']; ?>/<?= $page_request['PageRequest']['object_id']; ?>">
-                                <?= $page_request['PageRequest']['object_id']; ?>
+                                <?= $page_request['PageRequest']['dataset']; ?>:<?= $page_request['PageRequest']['object_id']; ?>
                             </a>
                         </td>
                         <td>
                             <?= $page_request['User']['username']; ?>
                             (<?= $page_request['User']['id']; ?> )
                         </td>
-                        <td><?= $page_request['PageRequest']['organization']; ?></td>
-                        <td><?= $page_request['PageRequest']['firstname']; ?></td>
-                        <td><?= $page_request['PageRequest']['lastname']; ?></td>
-                        <td><?= $page_request['PageRequest']['position']; ?></td>
-                        <td><?= $page_request['PageRequest']['email']; ?></td>
-                        <td><?= $page_request['PageRequest']['phone']; ?></td>
-                        <td><?= $page_request['PageRequest']['cts']; ?></td>
                         <td>
-                            <div class="btn-group btn-group-sm" role="group">
-                                <div class="btn-group btn-group-sm">
-                                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Akceptuj jako..
-                                        &nbsp; <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="/admin/moderate_requests/accept/<?= $page_request['PageRequest']['id']; ?>/1">Właściciel</a></li>
-                                        <li><a href="/admin/moderate_requests/accept/<?= $page_request['PageRequest']['id']; ?>/2">Administrator</a></li>
-                                    </ul>
-                                </div>
-                                <a href="/admin/moderate_requests/reject/<?= $page_request['PageRequest']['id']; ?>" class="btn btn-danger">Odrzuć</a>
-                            </div>
+                            <?= $page_request['PageRequest']['email']; ?><br/>
+                            <?= $page_request['PageRequest']['phone']; ?>
                         </td>
+                        <td>
+                            <?= $page_request['PageRequest']['firstname']; ?>
+                            <?= $page_request['PageRequest']['lastname']; ?>
+                            (<?= $page_request['PageRequest']['position']; ?>)
+                        </td>
+                        <td><?= $page_request['PageRequest']['organization']; ?></td>
+                        <? if($status == 0) { ?>
+                            <td>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <div class="btn-group btn-group-sm">
+                                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Akceptuj jako..
+                                            &nbsp; <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="accept-moderate-request-modal-open" data-page-request-id="<?= $page_request['PageRequest']['id']; ?>" data-dataset="<?= $page_request['PageRequest']['dataset']; ?>" data-object-id="<?= $page_request['PageRequest']['object_id']; ?>" data-user-id="<?= $page_request['User']['id']; ?>" data-role="1" href="#">Właściciel</a></li>
+                                            <li><a class="accept-moderate-request-modal-open" data-page-request-id="<?= $page_request['PageRequest']['id']; ?>" data-dataset="<?= $page_request['PageRequest']['dataset']; ?>" data-object-id="<?= $page_request['PageRequest']['object_id']; ?>" data-user-id="<?= $page_request['User']['id']; ?>" data-role="2" href="#">Administrator</a></li>
+                                        </ul>
+                                    </div>
+                                    <a href="/admin/moderate_requests/reject/<?= $page_request['PageRequest']['id']; ?>" class="btn btn-danger">Odrzuć</a>
+                                </div>
+                            </td>
+                        <? } ?>
                     </tr>
                 <? } ?>
             </table>
