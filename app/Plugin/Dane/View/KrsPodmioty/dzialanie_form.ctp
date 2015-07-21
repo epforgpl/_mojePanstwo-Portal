@@ -111,10 +111,10 @@ echo $this->Element('dataobject/pageBegin'); ?>
                 <label>Status</label>
                 <div class="row">
                     <label class="radio-inline">
-                        <input type="radio" name="status" value="1" checked> Opublikowane
+                        <input type="radio" name="status" value="1" <? if (!$edit || ($edit && $dzialanie->getData('status') == '1')) echo 'checked';?>> Opublikowane
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="status" value="0"> Brudnopis
+                        <input type="radio" name="status" value="0" <? if ($edit && $dzialanie->getData('status') == '0') echo 'checked';?>> Brudnopis
                     </label>
                 </div>
             </div>
