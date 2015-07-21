@@ -515,7 +515,7 @@ body {
             margin: 0;
             line-height: 1.1em;
             font-weight: 400;
-            font-weight: 11px;
+            font-size: 11px;
 
             span {
               word-wrap: break-word;
@@ -686,8 +686,6 @@ body {
 
     }
     .minimal {
-      height: @footerHeight;
-      margin-left: 40px;
       width: 340px;
 
       position: absolute;
@@ -882,13 +880,19 @@ body {
 }
 
 @media (min-width: 992px) {
-  #_wrapper #_main footer .standard .left ul > li {
-    width: 20%;
-  }
-
-  #_wrapper #_main footer .standard .right a > img {
-    margin-left: 20px;
-    margin-top: -5px;
+  #_wrapper #_main footer.footer {
+    .standard {
+      .left ul > li {
+        width: 20%;
+      }
+      .right a > img {
+        margin-left: 20px;
+        margin-top: -5px;
+      }
+    }
+    .minimal {
+      margin-left: 40px;
+    }
   }
 }
 
