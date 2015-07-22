@@ -440,12 +440,14 @@
             border-color: #e3e3e3;
             width: @btnSize;
             white-space: nowrap;
-            overflow: hidden;
-            float: left;
-            margin-top: 0;
-            padding-left: 5px;
-            padding-right: 5px;
             text-transform: none;
+            color: #767676;
+            background-color: #ffffff;
+          }
+          #clipboardCopyBtn {
+            width: auto;
+            font-size: 14px;
+            padding: 4px 10px 3px;
           }
         }
         &.shareIt {
@@ -493,6 +495,10 @@
     margin-bottom: 15px;
   }
   .wysihtml5-toolbar {
+    position: absolute;
+    top: -52px;
+    left: 15px;
+
     .btn {
       font-size: 12px;
     }

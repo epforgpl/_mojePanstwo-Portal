@@ -11,7 +11,7 @@ $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
 
 <div id="morebg"></div>
 <div id="more"></div>
-<div class="mapMain">
+<div class="mapMain hidden-xs">
     <div id="maplabel" class="maplabel">
         <nav class="navbar navbar-inverse">
             <div class="container-fluid container">

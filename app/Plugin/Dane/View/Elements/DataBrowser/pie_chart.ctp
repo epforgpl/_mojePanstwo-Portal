@@ -14,7 +14,12 @@ $this->Combinator->add_libs('js', '../plugins/highcharts/locals');
         <a href="<?= $map['cancelRequest']; ?>" aria-label="Close">
             <span class="label label-primary">
                 <span aria-hidden="true">&times;</span>&nbsp;
-                <?= isset($data['buckets'][0]['label']['buckets'][0]['key']) ? $data['buckets'][0]['label']['buckets'][0]['key'] : 'Usuń filtr'; ?>
+                <? if(isset($data['buckets'][0]['label']['buckets'][0]['key'])) { ?>
+                    <? $key = $data['buckets'][0]['label']['buckets'][0]['key']; ?>
+                    <?= strlen($key) > 37 ? substr($key, 0, 37) . '..' : $key; ?>
+                <? } else { ?>
+                    Usuń filtr
+                <? } ?>
             </span>
         </a>
     </p>

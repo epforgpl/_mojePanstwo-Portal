@@ -6,7 +6,17 @@ class ModerateRequestsController extends AdminAppController {
 
     public $uses = array('Admin.PageRequest');
 
-    public function index() {
+    private $statuses = array(
+        'Nowe',
+        'Zaakceptowane',
+        'Odrzucone'
+    );
+
+    public function index($status = 0)
+    {
+        if(!isset($this->statuses[$status]))
+            throw new NotFoundException;
+
         $pages_requests = $this->PageRequest->find('all', array(
             'fields' => array('PageRequest.*', 'User.id', 'User.username'),
             'joins' => array(
@@ -20,10 +30,12 @@ class ModerateRequestsController extends AdminAppController {
                 )
             ),
             'conditions' => array(
-                'PageRequest.status' => '0'
+                'PageRequest.status' => $status
             )
         ));
 
+        $this->set('statuses', $this->statuses);
+        $this->set('status', $status);
         $this->set('pages_requests', $pages_requests);
     }
 

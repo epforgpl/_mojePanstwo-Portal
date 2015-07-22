@@ -1,5 +1,7 @@
 <IfModule mod_rewrite.c>
     RewriteEngine on
+
+    RewriteRule   ^htmlex/(.*) http://docs.mojepanstwo.pl/htmlex/$1 [P]
     
     RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
     RewriteRule ^(.*)$ http://%1/$1 [R=301,L]

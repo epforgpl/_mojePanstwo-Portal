@@ -393,27 +393,13 @@ class KrsPodmiotyController extends DataobjectsController
             )
         ));
 
-        if($dzialanie->getData('dzialania.photo') == '1') {
-            $src = "http://sds.tiktalik.com/portal/pages/dzialania/" . $dzialanie->getData('dataset') . "/" . $dzialanie->getData('object_id') . "/" . $dzialanie->getData('id') . ".jpg";
-            $data = @file_get_contents($src);
-            if($data) {
-                $base64 = 'data:image/jpeg;base64,' . base64_encode($data);
-                $this->set('dzialanie_photo_base64', $base64);
-            }
-        }
-
-        $this->set('dzialanie', $dzialanie);
-
-        $this->_prepareView();
-
-        if(!$this->_canEdit())
-            throw new ForbiddenException;
+        $this->render('dzialanie_form');
     }
 
     public function dzialania() {
 		
-		$this->_prepareView();
-		
+
+        $this->_prepareView();
         if($id = @$this->request->params['subid']) {
 
             $dzialanie = $this->Dataobject->find('first', array(
@@ -423,7 +409,7 @@ class KrsPodmiotyController extends DataobjectsController
                 )
             ));
 
-            if(!$dzialanie)
+            if (!$dzialanie)
                 throw new NotFoundException;
             
             $this->set('dzialanie', $dzialanie);
@@ -438,9 +424,33 @@ class KrsPodmiotyController extends DataobjectsController
 	            
 			}
 
+            if(@$this->request->params['subaction'] == 'edytuj') {
+
+                if($this->_canEdit()) {
+
+                    if($dzialanie->getData('dzialania.photo') == '1') {
+                        $src = "http://sds.tiktalik.com/portal/1/pages/dzialania/" . $dzialanie->getData('id') . ".jpg";
+                        $data = @file_get_contents($src);
+                        if($data) {
+                            $base64 = 'data:image/jpeg;base64,' . base64_encode($data);
+                            $this->set('dzialanie_photo_base64', $base64);
+                        }
+                    }
+
+                    $this->render('dzialanie_form');
+
+                } else {
+                    throw new ForbiddenException;
+                }
+
+            } else {
+
+
+
+            }
+
         } else {
-            
-	        $this->_prepareView();
+
 	        $this->Components->load('Dane.DataBrowser', array(
 	            'conditions' => array(
 	                'dataset' => 'dzialania',
@@ -453,7 +463,7 @@ class KrsPodmiotyController extends DataobjectsController
 	        $this->set('title_for_layout', 'Działania ' . $this->object->getData('nazwa'));
 
         }
-        
+
     }
 
     public function powiazania()
