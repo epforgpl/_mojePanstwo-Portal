@@ -213,6 +213,15 @@ foreach ($map as $m) {
         'pass' => $pass,
     ));
     
+    Router::connect('/dane/:controller' . $m['pattern'] . '/:action/:subid,', array(
+        'plugin' => 'Dane',
+    ), array(
+        'id' => '([0-9]+)',
+        'action' => '([a-zA-Z\_]+)',
+        'subid' => '([0-9]+)',
+        'pass' => $pass,
+    ));
+    
     Router::connect('/dane/:controller' . $m['pattern'] . '/:action/:subid,:subslug', array(
         'plugin' => 'Dane',
     ), array(
@@ -233,6 +242,28 @@ foreach ($map as $m) {
     ));
 
     Router::connect('/dane/:controller' . $m['pattern'] . '/:action/:subid/:subaction/:subsubid', array(
+        'plugin' => 'Dane',
+    ), array(
+        'id' => '([0-9]+)',
+        'action' => '([a-zA-Z\_]+)',
+        'subaction' => '([a-zA-Z\_]+)',
+        'subid' => '([0-9]+)',
+        'subsubid' => '([0-9]+)',
+        'pass' => $pass,
+    ));
+    
+    Router::connect('/dane/:controller' . $m['pattern'] . '/:action/:subid/:subaction/:subsubid,', array(
+        'plugin' => 'Dane',
+    ), array(
+        'id' => '([0-9]+)',
+        'action' => '([a-zA-Z\_]+)',
+        'subaction' => '([a-zA-Z\_]+)',
+        'subid' => '([0-9]+)',
+        'subsubid' => '([0-9]+)',
+        'pass' => $pass,
+    ));
+    
+    Router::connect('/dane/:controller' . $m['pattern'] . '/:action/:subid/:subaction/:subsubid,:subsubslug', array(
         'plugin' => 'Dane',
     ), array(
         'id' => '([0-9]+)',

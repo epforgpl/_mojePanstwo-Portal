@@ -354,6 +354,12 @@ class Dataobject
 		$this->routes = array_merge($this->routes, $routes);
 	}
 	
+	public function setOptions($options)
+	{
+		$this->options = array_merge($this->options, $options);
+		return $this->options;
+	}
+	
     public function __call($func, $arg)
     {
 	    

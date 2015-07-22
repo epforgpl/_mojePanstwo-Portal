@@ -64,7 +64,7 @@ class DataobjectHelper extends AppHelper
 
     public function render($object, $theme = 'default', $options = array())
     {
-			
+						
         if (is_array($object)) {
 		
             $dataset = $object['fields']['dataset'][0];
@@ -90,6 +90,10 @@ class DataobjectHelper extends AppHelper
                 $object = new MP\Lib\Dataobject($object, $options);
             }
 
+        } elseif( is_object($object) ) {
+	        
+	        $object->setOptions($options);
+	        
         }
 
         $bg = isset($options['bg']) ? $options['bg'] : false;

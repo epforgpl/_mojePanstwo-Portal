@@ -5,17 +5,14 @@ echo $this->Element('dataobject/pageBegin', array(
 
 echo $this->Element('Dane.dataobject/subobject', array(
     'object' => $raport,
+    'objectOptions' => array(
+	    'truncate' => 1000,
+	    'mode' => 'subobject',
+	),
 ));
-
 ?>
-    <div class="row">
 
-        <div class="col-lg-10">
+<div class="col-md-12"><?= $this->Element('Dane.DataBrowser/browser') ?></div>
 
-	        <?= $this->Document->place($raport->getData('dokument_id')) ?>
-
-        </div>
-    </div>
 <?
-
 echo $this->Element('dataobject/pageEnd');

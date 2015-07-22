@@ -163,7 +163,7 @@ class InstytucjeController extends DataobjectsController
     {
 
         $this->load();
-
+        
         $global_aggs = array(
             'prawo' => array(
                 'filter' => array(
@@ -643,17 +643,171 @@ class InstytucjeController extends DataobjectsController
 	        
 	        if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
 	        	
-	        	$raport = $this->Dataobject->find('first', array(
-	                'conditions' => array(
-	                    'dataset' => 'nik_raporty',
-	                    'id' => $this->request->params['subid'],
-	                ),
-	            ));
+				
+				if( @is_numeric($this->request->params['subsubid']) ) {
+					
+					$dokument = $this->Dataobject->find('first', array(
+		                'conditions' => array(
+		                    'dataset' => 'nik_raporty_dokumenty',
+		                    'id' => $this->request->params['subsubid'],
+		                ),
+		            ));
+		            
+		            $this->set('dokument', $dokument);
+		            $this->set('title_for_layout', $dokument->getTitle());
+		            $this->_layout['body']['theme'] = 'doc';
+					
+					$this->render('nik_raport_dokument');
+					
+				} else {
+					
+					$raport = $this->Dataobject->find('first', array(
+		                'conditions' => array(
+		                    'dataset' => 'nik_raporty',
+		                    'id' => $this->request->params['subid'],
+		                ),
+		            ));
+		            
+		            if( 
+		            	( $liczba_dokumentow = (int) $raport->getData('liczba_dokumentow') ) && 
+		            	( $liczba_dokumentow===1 )
+		            ) {
+			            
+			            return $this->redirect('/dane/instytucje/3217,najwyzsza-izba-kontroli/raporty/' . $raport->getId() . '/dokumenty/' . $raport->getData('nik_dokument_id'));
+			            
+		            }
+					
+					$this->set('raport', $raport);
+		            $this->set('title_for_layout', $raport->getTitle());
+					
+					$aggs = array(
+	                    'dokumenty' => array(
+	                        'filter' => array(
+	                            'bool' => array(
+		                            'must' => array(
+			                            array(
+				                            'term' => array(
+					                            'nik_raporty_dokumenty.podmiot_id' => '0',
+				                            ),
+			                            ),
+			                            array(
+				                            'term' => array(
+					                            'nik_raporty_dokumenty.jednostka_id' => '0',
+				                            ),
+			                            ),
+		                            ),
+	                            ),
+	                        ),
+	                        'aggs' => array(
+	                            'top' => array(
+	                                'top_hits' => array(
+	                                    'size' => 1000,
+	                                    'fielddata_fields' => array('dataset', 'id'),
+	                                    'sort' => array(
+	                                        'data.nik_raporty_dokumenty.data_publikacji' => array(
+	                                            'order' => 'asc',
+	                                        ),
+	                                        
+	                                    ),
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                    'jednostki' => array(
+	                        'filter' => array(
+	                            'bool' => array(
+		                            'must' => array(
+			                            array(
+				                            'term' => array(
+					                            'nik_raporty_dokumenty.podmiot_id' => '0',
+				                            ),
+			                            ),
+		                            ),
+		                            'must_not' => array(
+			                            array(
+				                            'term' => array(
+					                            'nik_raporty_dokumenty.jednostka_id' => '0',
+				                            ),
+			                            ),
+		                            ),
+	                            ),
+	                        ),
+	                        'aggs' => array(
+	                            'top' => array(
+	                                'top_hits' => array(
+	                                    'size' => 1000,
+	                                    'fielddata_fields' => array('dataset', 'id'),
+	                                    'sort' => array(
+	                                        'data.nik_raporty_dokumenty.data_publikacji' => array(
+	                                            'order' => 'asc',
+	                                        ),
+	                                        
+	                                    ),
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                    'podmioty' => array(
+	                        'filter' => array(
+	                            'bool' => array(
+		                            'must_not' => array(
+			                            array(
+				                            'term' => array(
+					                            'nik_raporty_dokumenty.podmiot_id' => '0',
+				                            ),
+			                            ),
+		                            ),
+	                            ),
+	                        ),
+	                        'aggs' => array(
+	                            'podmioty' => array(
+		                            'terms' => array(
+			                            'field' => 'data.nik_raporty_podmioty.id',
+		                            ),
+		                            'aggs' => array(
+			                            'nazwa' => array(
+				                            'terms' => array(
+					                            'field' => 'data.nik_raporty_podmioty.nazwa',
+				                            ),
+			                            ),
+			                            'top' => array(
+			                                'top_hits' => array(
+			                                    'size' => 1000,
+			                                    'fielddata_fields' => array('dataset', 'id'),
+			                                    'sort' => array(
+			                                        'data.nik_raporty_dokumenty.data_publikacji' => array(
+			                                            'order' => 'asc',
+			                                        ),
+			                                    ),
+			                                ),
+			                            ),
+		                            ),
+	                            ),
+	                        ),
+	                    ),
+	                );
 	
-	            $this->set('raport', $raport);
-	            $this->set('title_for_layout', $raport->getTitle());
-	            $this->_layout['body']['theme'] = 'doc';
-	            $this->render('nik_raport');
+	                $options = array(
+	                    'searchTitle' => 'Szukaj w wynikach kontroli...',
+	                    'conditions' => array(
+	                        'dataset' => 'nik_raporty_dokumenty',
+	                        'nik_raporty_dokumenty.raport_id' => $raport->getId(),
+	                    ),
+	                    'cover' => array(
+	                        'view' => array(
+	                            'plugin' => 'Dane',
+	                            'element' => 'nik_raporty/cover',
+	                        ),
+	                        'aggs' => $aggs,
+	                    ),
+	                );
+	
+	                $this->Components->load('Dane.DataBrowser', $options);	
+	                $this->render('nik_raport');
+					
+				}
+						            
+	            
 	            
 	        
 	        } else {
