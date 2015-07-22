@@ -791,67 +791,64 @@ body {
   }
 }
 
-.modal {
+.modal-dialog {
   color: #a4a4a4;
+  .modal-content {
+    background-color: #ffffff;
 
-  .modal-dialog {
-    .modal-content {
-      background-color: #ffffff;
+    .modal-header {
+      border-bottom-width: 0;
 
-      .modal-header {
-        border-bottom-width: 0;
-
-        .modal-title {
-          font-size: 40px;
-          font-weight: 300;
-          line-height: 0.9em;
-          text-align: center;
-          padding-left: 15px;
-          padding-right: 15px;
-        }
-
-        .close {
-          font-size: 24px;
-          font-weight: 300;
-        }
+      .modal-title {
+        font-size: 40px;
+        font-weight: 300;
+        line-height: 0.9em;
+        text-align: center;
+        padding-left: 15px;
+        padding-right: 15px;
       }
 
-      .modal-body {
-        margin-bottom: 20px;
+      .close {
+        font-size: 24px;
+        font-weight: 300;
+      }
+    }
+
+    .modal-body {
+      margin-bottom: 20px;
+      margin-top: 0;
+
+      .header {
+        font-size: 16px;
+        margin-bottom: 30px;
         margin-top: 0;
-
-        .header {
-          font-size: 16px;
-          margin-bottom: 30px;
-          margin-top: 0;
-          text-align: center;
-
-          a {
-            color: #337ab7;
-          }
-
-          span {
-            display: block;
-            color: #666;
-            margin-top: 5px;
-          }
-        }
-      }
-      .modal-footer {
-        padding: 15px 10px;
         text-align: center;
 
-        &.backgroundBlue {
-          background-color: #428BCA;
-
-          a {
-            color: #ffffff;
-          }
+        a {
+          color: #337ab7;
         }
+
+        span {
+          display: block;
+          color: #666;
+          margin-top: 5px;
+        }
+      }
+    }
+    .modal-footer {
+      padding: 15px 10px;
+      text-align: center;
+
+      &.backgroundBlue {
+        background-color: #428BCA;
 
         a {
-          width: auto;
+          color: #ffffff;
         }
+      }
+
+      a {
+        width: auto;
       }
     }
   }
