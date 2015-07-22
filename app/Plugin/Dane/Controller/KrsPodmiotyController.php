@@ -62,6 +62,7 @@ class KrsPodmiotyController extends DataobjectsController
 
         $this->addInitLayers(array(
             'channels',
+            'subscription',
             'reprezentacja',
             'wspolnicy',
             'jedynyAkcjonariusz',
@@ -736,6 +737,12 @@ class KrsPodmiotyController extends DataobjectsController
 	        
         }
                 
+    }
+
+    public function dane() {
+        $this->_prepareView();
+        if(!$this->_canEdit())
+            throw new ForbiddenException;
     }
 
     private function _canEdit() {

@@ -1,6 +1,8 @@
 <?
 
 $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty-dzialania', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('view-dzialania', array('plugin' => 'Dane')));
+
 echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block' => 'scriptBlock'));
 
 /* tinymce */
@@ -26,15 +28,28 @@ echo $this->Element('dataobject/pageBegin'); ?>
     <input type="hidden" name="_action" value="<?= $edit ? 'edit_activity' : 'add_activity'; ?>"/>
 
     <div class="col-md-9 objectMain">
-        <div class="block block-simple col-xs-12">
+        <div class="block block-simple col-xs-12 dzialanie">
             <? if($edit) { ?>
                 <header>
-                    Edycja działania
-                    <div class="btn btn-danger btn-icon btn-auto-width pull-right" data-action="delete" data-id="<?= $dzialanie->getData('id'); ?>">
-                        <i class="icon glyphicon glyphicon-remove"></i>
-                        Usuń
+                    <div class="header">
+                        <div class="col-sm-8">
+                            <?= $dzialanie->getData('tytul'); ?>
+                        </div>
                     </div>
                 </header>
+                <div class="row sub-header">
+                    <div class="col-sm-6">
+                        <span class="date">
+                            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                            <?= $this->Czas->dataSlownie(
+                                $dzialanie->getData('data_utworzenia')
+                            ); ?>
+                        </span>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="share pull-right"></div>
+                    </div>
+                </div>
                 <input type="hidden" name="id" value="<?= $dzialanie->getData('id'); ?>"/>
             <? } else { ?>
                 <header>
@@ -46,10 +61,10 @@ echo $this->Element('dataobject/pageBegin'); ?>
                 <div class="col-xs-12">
 
                     <? if(!$edit) { ?>
-                        <p>Poinformuj innych o działaniach swojej organizacji. Informacje o działaniach będą widoczne na stronie profilowej Twojej organizacji, a także będą pojawiały się przy wynikach wyszukiwania na portalu mojePaństwo.</p>
+                        <p class="margin-top-10">Poinformuj innych o działaniach swojej organizacji. Informacje o działaniach będą widoczne na stronie profilowej Twojej organizacji, a także będą pojawiały się przy wynikach wyszukiwania na portalu mojePaństwo.</p>
                     <? } ?>
 
-                    <div class="form-group">
+                    <div class="form-group margin-top-10">
                         <label for="dzialanieTitle">Tytuł</label>
                         <input maxlength="195" type="text" class="form-control" id="dzialanieTitle" name="tytul" <? if($edit) echo 'value="'.$dzialanie->getData('tytul').'"'; ?>/>
                     </div>
@@ -110,14 +125,20 @@ echo $this->Element('dataobject/pageBegin'); ?>
             <div class="form-group margin-top-10">
                 <label>Status</label>
                 <div class="row">
-                    <label class="radio-inline">
+                    <label class="checkbox-label">
                         <input type="radio" name="status" value="1" <? if (!$edit || ($edit && $dzialanie->getData('status') == '1')) echo 'checked';?>> Opublikowane
-                    </label>
-                    <label class="radio-inline">
+                    </label><br/>
+                    <label class="checkbox-label">
                         <input type="radio" name="status" value="0" <? if ($edit && $dzialanie->getData('status') == '0') echo 'checked';?>> Brudnopis
                     </label>
                 </div>
             </div>
+            <? if($edit) { ?>
+                <div class="btn btn-link btn-icon btn-auto-width" data-action="delete" data-id="<?= $dzialanie->getData('id'); ?>">
+                    <i class="icon glyphicon glyphicon-remove"></i>
+                    Usuń
+                </div>
+            <? } ?>
         </div>
     </div>
 
