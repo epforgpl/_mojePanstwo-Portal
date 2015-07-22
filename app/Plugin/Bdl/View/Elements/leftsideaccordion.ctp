@@ -8,9 +8,7 @@ echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/locales/bootstrap-w
 echo $this->Html->script('Bdl.jstree.min', array('block' => 'scriptBlock'));
 $this->Combinator->add_libs('js', '../plugins/jscrollPane/script/jquery.mousewheel.js');
 $this->Combinator->add_libs('js', '../plugins/jscrollPane/script/jquery.jscrollpane.js');
-$this->Combinator->add_libs('js', 'Bdl.bdl_tree');
 ?>
-
 
 <div id="leftSideAccordion" class="init hidden-xs hidden-sm">
     <div class="accordion ui-accordion ui-widget ui-helper-reset">

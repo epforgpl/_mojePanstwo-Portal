@@ -7,31 +7,31 @@
  * https://github.com/lipis/bootstrap-social
  */
 
-.button-variant(@background) {
-    color: #ffffff;
+.button-variant(@color, @background) {
+    color: @color;
     background-color: @background;
     border-color: rgba(0, 0, 0, .2);
     &:focus,
     &.focus {
-        color: #ffffff;
+        color: @color;
         background-color: darken(@background, 10%);
         border-color: darken(rgba(0, 0, 0, .2), 25%);
     }
     &:hover {
-        color: #ffffff;
+        color: @color;
         background-color: darken(@background, 10%);
         border-color: darken(rgba(0, 0, 0, .2), 12%);
     }
     &:active,
     &.active,
     .open > .dropdown-toggle& {
-        color: #ffffff;
+        color: @color;
         background-color: darken(@background, 10%);
         border-color: darken(rgba(0, 0, 0, .2), 12%);
         &:hover,
         &:focus,
         &.focus {
-            color: #ffffff;
+            color: @color;
             background-color: darken(@background, 17%);
             border-color: darken(rgba(0, 0, 0, .2), 25%);
         }
@@ -56,7 +56,7 @@
     }
     .badge {
         color: @background;
-        background-color: #ffffff;
+        background-color: @color;
     }
 }
 
@@ -152,9 +152,9 @@
     }
 }
 
-.btn-social(@color-bg) {
+.btn-social(@color-bg, @color: #fff) {
     background-color: @color-bg;
-    .button-variant(@color-bg);
+    .button-variant(@color, @color-bg);
 }
 
 .btn-adn {

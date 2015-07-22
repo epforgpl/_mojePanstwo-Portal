@@ -1,10 +1,4 @@
 <?
-if (isset($tree)) {
-    ?>
+$this->Combinator->add_libs('js', 'Bdl.bdlapp');
 
-    <?= $this->Element('Bdl.leftsideaccordion', array('tree' => $tree)); ?>
-
-    
-<? } ?>
-
-
+echo $this->Element('Bdl.leftsideaccordion', array('tree' => $tree));
