@@ -28,7 +28,13 @@ class Krakow_komisje_posiedzenia extends DataObject
 
     public function getLabel()
     {
-        return 'Druk w pracach rady gminy <a href="/dane/gminy/903">Kraków</a>';
+        return 'Posiedzenie komisji';
+    }
+    
+    public function getShortLabel() {
+	    
+	    return 'Posiedzenie komisji';
+	    
     }
     
     public function getShortTitle() {
@@ -50,16 +56,43 @@ class Krakow_komisje_posiedzenia extends DataObject
 	
 	public function getThumbnailUrl($size = '3')
     {
-    	if( $this->getData('preview_yt_id') )
-	        return 'http://img.youtube.com/vi/' . $this->getData('preview_yt_id') . '/mqdefault.jpg';
+    	if( $this->getData('yt_video_id') )
+	        return 'http://img.youtube.com/vi/' . $this->getData('yt_video_id') . '/mqdefault.jpg';
 	    else
 	        return '/dane/pk/posiedzenie.jpg';
     }
     
-    public function getShortLabel() {
-	    
-	    return 'Posiedzenie Komisji Rady Miasta';
-	    
-    }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+				
+		$output = array(
+			$this->getData('krakow_komisje.nazwa'),
+		);
+		
+		
+		return $output;
+		
+	}
+	
+	public function getBreadcrumbs()
+	{
+				
+		return array(
+			array(
+				'id' => '/dane/gminy/903,krakow/komisje',
+				'label' => 'Komisje Rady Miasta',
+			),
+			array(
+				'id' => '/dane/gminy/903,krakow/komisje/' . $this->getData('krakow_komisje.id'),
+				'label' => $this->getData('krakow_komisje.nazwa'),
+			),
+			array(
+				'id' => '/dane/gminy/903,krakow/komisje/' . $this->getData('krakow_komisje.id') . '/posiedzenia',
+				'label' => 'Posiedzenia komisji'
+			),
+		);
+				
+	}
 	
 }

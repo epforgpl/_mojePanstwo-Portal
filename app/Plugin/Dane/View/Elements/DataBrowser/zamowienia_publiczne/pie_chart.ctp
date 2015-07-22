@@ -1,18 +1,19 @@
 <?
-    $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
-    $this->Combinator->add_libs('js', '../plugins/highcharts/locals');
-    
-    foreach( $data['buckets'] as &$d ) {
-    	$d['doc_count'] = $d['wartosc_cena']['value'];
-    	$d['str'] = number_format_h( $d['wartosc_cena']['value'] );
-    }
-    
+$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
+$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+
+foreach ($data['buckets'] as &$d) {
+    $d['doc_count'] = $d['wartosc_cena']['value'];
+    $d['str'] = number_format_h($d['wartosc_cena']['value']);
+}
+
 ?>
 
-<? if(!isset($this->request->query['conditions'][$map['field']])) { ?>
-    <div class="agg agg-PieChart" data-choose-request="<?= $map['chooseRequest']; ?>" data-chart="<?= htmlentities(json_encode($data)) ?>">
+<? if (!isset($this->request->query['conditions'][$map['field']])) { ?>
+    <div class="agg agg-PieChart" data-choose-request="<?= $map['chooseRequest']; ?>"
+         data-chart="<?= htmlentities(json_encode($data)) ?>">
         <div class="chart">
-	        Spinner
+            Spinner
         </div>
     </div>
 <? } else { ?>

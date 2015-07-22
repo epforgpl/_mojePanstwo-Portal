@@ -7,6 +7,13 @@ class Sejm_glosowania extends DataObject
 	
 	protected $tiny_label = 'Głosowanie';
 	
+	public $dictionary = array(
+	    '1' => array('Za', 'success'),
+	    '2' => array('Przeciw', 'danger'),
+	    '3' => array('Wstrzymanie', 'primary'),
+	    '4' => array('Brak kworum', 'default'),
+	);
+	
 	protected $schema = array(
 		array('sejm_posiedzenia.tytul', 'Numer posiedzenia', 'string', array(
 			'link' => array(
@@ -41,28 +48,35 @@ class Sejm_glosowania extends DataObject
     
     public function getUrl() {
 	    
-	    $output = '/dane';
-	    
-	    if( $this->getData('punkt_id') ) {
-		    
-	    	$output .= '/sejm_posiedzenia_punkty/' . $this->getData('punkt_id');
-	    	
-	    	if( $this->getData('debata_id') ) {
-		    
-		    	$output .= '/debaty/' . $this->getData('debata_id');
-		    	
-		    }
-	    	
-	    } elseif( $this->getData('debata_id') ) {
-		    
-	    	$output .= '/sejm_debaty/' . $this->getData('debata_id');
-	    		    
-	    }
-	    
-	    $output .= '/glosowania/' . $this->getId();
-	    
-	    return $output;
+	    return '/dane/instytucje/3214,sejm/glosowania/' . $this->getData('id');	    
 	    
     }
-
+    
+    public function getBreadcrumbs()
+	{
+					
+		return array(
+			array(
+				'id' => '/dane/instytucje/3214,sejm/posiedzenia/' . $this->getData('posiedzenie_id'),
+				'label' => 'Posiedzenie #' . $this->getData('sejm_posiedzenia.tytul'),
+			),
+			array(
+				'id' => '/dane/instytucje/3214,sejm/posiedzenia/' . $this->getData('posiedzenie_id') . '/glosowania',
+				'label' => 'Głosowania',
+			),
+		);
+				
+	}
+    
+    public function getSideLabel() {
+	    
+	    if( 
+	    	array_key_exists($this->getData('wynik_id'), $this->dictionary) &&
+	    	( $d = $this->dictionary[ $this->getData('wynik_id') ] )
+	    )
+		    return '<span class="label label-md label-' . $d[1] . '">' . $d[0] . '</span>';
+		else
+			return false;
+    }
+    
 }

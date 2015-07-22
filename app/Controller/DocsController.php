@@ -60,25 +60,4 @@ class DocsController extends AppController
         }
 
     }
-
-    public function tunnel()
-    {
-		
-		header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Credentials: true');
-        
-        $content = file_get_contents('http://docs.sejmometr.pl' . $_SERVER['REQUEST_URI']);
-        $content_type = false;
-
-        foreach ($http_response_header as $r) {
-            if (stripos($r, 'Content-Type') === 0) {
-                header($r);
-            }
-        }
-
-        echo $content;
-        die();
-
-    }
-
 }

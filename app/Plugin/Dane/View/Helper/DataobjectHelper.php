@@ -64,8 +64,33 @@ class DataobjectHelper extends AppHelper
 
     public function render($object, $theme = 'default', $options = array())
     {
+			
+        if (is_array($object)) {
+		
+            $dataset = $object['fields']['dataset'][0];
 
-        // debug( $object->getData() );
+            $class = ucfirst($dataset);
+            $file = APPLIBS . 'Dataobject/' . $class . '.php';
+									
+            $object = array(
+                'dataset' => $object['fields']['dataset'][0],
+                'global_id' => $object['_id'],
+                'id' => $object['fields']['id'][0],
+                'data' => isset($object['_source']) ? $object['_source']['data'] : $object['fields']['source'][0]['data'],
+                'static' => isset($object['_source']['static']) ? $object['_source']['static'] : false,
+                'slug' => false,
+            );
+                        
+			require_once( APPLIBS . 'Dataobject.php' );
+            if (file_exists($file)) {
+                require_once($file);
+                $class = 'MP\\Lib\\' . $class;
+                $object = new $class($object, $options);
+            } else {
+                $object = new MP\Lib\Dataobject($object, $options);
+            }
+
+        }
 
         $bg = isset($options['bg']) ? $options['bg'] : false;
         $hlFields = isset($options['hlFields']) ? $options['hlFields'] : false;
@@ -77,12 +102,15 @@ class DataobjectHelper extends AppHelper
         $titleTag = isset($options['titleTag']) ? $options['titleTag'] : 'h1';
         $defaults = isset($options['defaults']) ? $options['defaults'] : array();
         $microdata = isset($options['microdata']) ? $options['microdata'] : array();
-        $disable_link = isset($options['disable_link']) ? (boolean) $options['disable_link'] : false;
+        $disable_link = isset($options['disable_link']) ? (boolean)$options['disable_link'] : false;
+        $selected = isset($options['selected']) ? (boolean)$options['selected'] : false;
+        $thumbWidth = isset($options['thumbWidth']) ? $options['thumbWidth'] : 1;
 
         $class = isset($options['class']) ? $options['class'] : false;
         $alertsButtons = isset($options['alertsButtons']) ? $options['alertsButtons'] : false;
         $alertsStatus = isset($options['alertsStatus']) ? $options['alertsStatus'] : false;
-
+        $truncate = isset($options['truncate']) ? $options['truncate'] : 150;
+				
         $this->setObject($object);
         if (!empty($routes)) {
             $object->addRoutes($routes);
@@ -116,8 +144,11 @@ class DataobjectHelper extends AppHelper
             'defaults' => $defaults,
             'microdata' => $microdata,
             'show_link' => !$disable_link,
+            'selected' => $selected,
+            'thumbWidth' => $thumbWidth,
+            'truncate' => $truncate,
         );
-
+				
         return $this->_View->element($theme, $params, array('plugin' => 'Dane'));
     }
 

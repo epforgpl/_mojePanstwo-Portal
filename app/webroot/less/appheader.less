@@ -1,142 +1,593 @@
 .appHeader {
-    @menuSize: 59px;
+  width: 100%;
+  min-height: 66px;
 
-    width: 100%;
-    height: 208px;
-    background: url(/img/home/backgrounds/home-background-default.jpg) center top no-repeat #222224;
-    background-size: cover;
-    position: relative;
+  &.app {
+    height: 66px;
 
-    > .container {
-        position: relative;
-        height: 100%;
-    }
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    background-color: #201622;
 
     .holder {
+      h1 {
+        margin-top: 16px;
+        margin-left: -5px;
+        font-weight: 300;
+        line-height: 35px;
+      }
+      h1, h1 a {
+        color: #FAFAFA;
+      }
+    }
+  }
+  &.dataset {
+    background: #FAFAFA;
+
+    .holder {
+      h1, h1 a {
+        color: #053f69;
+      }
+    }
+  }
+  &.dataobject {
+    background: #FFF;
+
+    .holder {
+      position: relative;
+
+      h1, h1 a {
+        color: #053f69;
+      }
+
+      .options {
         position: absolute;
-        top: 50%;
-        left: 3px;
+        bottom: 10px;
+        right: 0;
+        text-align: right;
 
-        -webkit-transform: translate(0, -50%);
-        -moz-transform: translate(0, -50%);
-        -ms-transform: translate(0, -50%);
-        -o-transform: translate(0, -50%);
-        transform: translate(0, -50%);
+        .opt {
+          margin-left: 10px;
 
-        h1 {
-            margin: 0 10px 5px;
-            font-size: 40px;
-            font-weight: 300;
-            color: #8abcda;
+          &.addBackgroundBtn {
+            position: relative;
+
+            > .cropit-image-input {
+              cursor: pointer;
+              display: block;
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              top: 0;
+              left: 0;
+
+              -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+              filter: alpha(opacity=0);
+              -moz-opacity: 0;
+              -khtml-opacity: 0;
+              opacity: 0;
+            }
+          }
         }
-
-        h2 {
-            margin: 0 12px 20px;
-            font-size: 18px;
-            font-weight: 300;
-            color: #AAA;
-        }
+      }
     }
 
-  .menu {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: @menuSize;
-        
-        background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.75) 100%); /* FF3.6+ */
-		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.75))); /* Chrome,Safari4+ */
-		background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.75) 100%); /* Chrome10+,Safari5.1+ */
-		background: -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.75) 100%); /* Opera 11.10+ */
-		background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.75) 100%); /* IE10+ */
-		background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.75) 100%); /* W3C */
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#bf000000',GradientType=0 ); /* IE6-9 */
+    &.dataobject-cover {
+      background-color: #053f69;
 
+      &, & a, & .title, & .title a {
+        color: #ffffff;
+      }
 
+      .headlineBar {
+        min-height: 142px;
+        position: relative;
 
+        &:before {
+          content: ' ';
+          display: block;
+          width: 100%;
+          height: 228px;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+
+          background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+          background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0.8)));
+          background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+          background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+          background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+          background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#cc000000', GradientType=0);
+        }
+
+        .credits {
+          bottom: 5px;
+          color: #fff;
+          font-size: 10px;
+          position: absolute;
+          right: 10px;
+          text-shadow: 1px 1px 1px #000;
+
+          > small {
+            margin-right: 6px;
+          }
+        }
+
+        .holder {
+          .title {
+            display: table-cell;
+            vertical-align: bottom;
+            height: 108px;
+
+            h1 {
+              margin-top: 15px;
+            }
+
+            .glyphicon {
+              font-size: 22px;
+              color: #78c329;
+              margin-left: 6px;
+            }
+          }
+          .options {
+            bottom: 15px
+          }
+        }
+      }
+
+      .statusBar {
+        background-color: #ffffff;
+        padding: 0;
+        min-height: 48px;
+      }
+
+      &.cover-logo {
+        @logoHeaderMinSize: 200px;
+        @logoBoxSize: 180px;
+
+        &.cover-logo-minimal .headlineBar .container .logoBox {
+          //bottom: -8px;
+        }
+
+        .headlineBar {
+          min-height: @logoHeaderMinSize;
+
+          .container {
+            position: relative;
+            min-height: @logoHeaderMinSize;
+
+            .logoBox {
+              width: 180px;
+              height: 180px;
+              background-color: #ffffff;
+              position: absolute;
+              bottom: -(@logoBoxSize/6);
+              left: 15px;
+              overflow: hidden;
+              border: 1px solid rgba(255, 255, 255, 0);
+              -webkit-border-radius: 10px;
+              -moz-border-radius: 10px;
+              -ms-border-radius: 10px;
+              -o-border-radius: 10px;
+              border-radius: 10px;
+              -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, .09);
+              -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, .09);
+              -ms-box-shadow: 3px 3px 3px rgba(0, 0, 0, .09);
+              -o-box-shadow: 3px 3px 3px rgba(0, 0, 0, .09);
+              box-shadow: 3px 3px 3px rgba(0, 0, 0, .09);
+
+              > img {
+                width: 100%;
+                height: 100%;
+              }
+            }
+
+            .holder .holderBlock .title {
+              padding-left: @logoBoxSize + 20;
+              height: @logoHeaderMinSize - 32;
+            }
+          }
+        }
+        .statusBar .holder .col-xs-10 {
+          margin-left: @logoBoxSize+20;
+        }
+      }
+      &.cover-background {
+        @logoHeaderSize: 300px;
+        @logoBoxSize: 180px;
+
+        .headlineBar {
+          height: @logoHeaderSize;
+          background: no-repeat center bottom;
+          -webkit-background-size: cover;
+          background-size: cover;
+
+          .container {
+            height: @logoHeaderSize;
+
+            .holder .holderBlock .title {
+              height: @logoHeaderSize - 32;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /*GENERAL CODE*/
+  .breadcrumb {
+    a {
+      font-size: 13px;
+    }
+
+    &.tree {
+      @fontSize: 12px;
+      @fontColor: #666;
+
+      padding: 0 0 20px;
+      margin: -8px 0 0 8px;
+
+      li {
+        color: @fontColor;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        font-size: 24px;
 
         ul {
-          border: none;
-          border-radius: none;
-          margin: 0;
-          margin-top: 1px;
-          height: 100%;
-          li {
-            border: none;
-            border-radius: none;
-            margin: 0;
-            a {
-              color: #ffffff;
-              font-size: 16px;
-              font-weight: 400;
-              border: none;
-              border-bottom: 4px solid none;
-              padding: 20px 20px 15px;
+          list-style: none;
+          padding: 0;
+        }
+
+        h1, h1 a {
+          font-size: @fontSize;
+          margin-bottom: 0;
+        }
+
+        a {
+          font-size: @fontSize;
+          font-weight: 600;
+        }
+
+        &.e {
+          margin: 5px 0 0 0;
+          font-size: @fontSize;
+          padding: 0 20px;
+
+          &.h1 a {
+            font-size: 20px;
+            font-weight: 400;
+            color: @fontColor;
+
+            h1 {
               margin: 0;
-              cursor: pointer !important;
-              &:hover {
-                background: none;
-                border: none;
-                margin: 0;
-              }
-              span.caret {
-                margin-left: 5px;
-              }
-              &:focus {
-                background: none;
-              }
+              padding: 0;
+              font-size: 20px;
+              font-weight: 400;
+              color: @fontColor
             }
+
             &:hover {
-              border: none;
+              color: #157ab5;
             }
-            &.open, &:focus {
-              a {
-                background: none;
-                border-bottom: 4px solid #63afea;
+          }
+
+          a {
+            font-size: @fontSize;
+          }
+
+          &:before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            border-top: 1px solid #7099B3;
+            top: 8px;
+            width: 10px;
+            height: 0;
+          }
+
+          &:after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: -2px;
+            border-left: 1px solid #7099B3;
+            width: 0;
+            height: 10px;
+          }
+
+          ul {
+            li.e {
+              margin-top: 8px;
+              font-size: @fontSize+2;
+
+              &:before {
+                top: 10px;
               }
-            }
-            &.active {
-              a {
-                background: none;
-                border: none;
-                color: #8ABCDA;
-                border-bottom: 4px solid #63afea;
-                margin: 0;
-              }
-            }
-            ul {
-              li {
-                a {
-                  display: block;
-                  border: none !important;
-                  background: #fff !important;
-                  color: #157AB5;
-                  padding: 5px 20px;
-                  font-size: 13px;
-                  &:hover {
-                    border: none !important;
-                  }
-                }
-                a {
-                  &:hover {
-                    color: #157AB5 !important;
-                  }
-                }
-                &.active {
-                  a {
-                    color: #333 !important;
-                    font-weight: bold;
-                  }
-                }
+              &:after {
+                top: 0;
               }
             }
           }
         }
+      }
+    }
+  }
+
+  .holder {
+
+    h1 {
+      margin: 0 0 15px;
+
+      &, & a {
+        font-family: Roboto, sans-serif;
+        font-size: 26px;
+        font-weight: 300;
+      }
+
+      img, svg {
+        height: 30px;
+        margin: 0 -4px 0 -8px;
+        position: relative;
+        top: 5px;
+      }
+
+      a > i {
+        font-size: 0.9em;
+        margin-right: 15px;
+      }
     }
 
+    h1.smaller, h1.smaller a {
+      font-size: 20px;
+      font-weight: 400;
+      margin: 10px 0 15px;
+
+      i {
+        margin-right: 4px;
+      }
+      small {
+        label {
+          position: relative;
+          top: -4px;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+
+  .observeButton {
+    margin: 0 auto;
+    width: auto;
+    display: block;
+  }
 }
 
-.objectsPage .dataBrowser {
-	margin-top: 25px !important;
+.appMenu {
+  min-height: 4px;
+  background: #EAEBEF;
+  border-top: 1px solid #DDD;
+  border-bottom: 1px solid #DDD;
+
+  ul.nav-tabs {
+    border: none;
+    margin: 0;
+    height: 100%;
+
+    li {
+      @borderSize: 3px;
+
+      width: 100%;
+      border: none;
+      margin: 0;
+
+      > a {
+        color: #157ab5;
+        font-size: 13px;
+        font-weight: 500;
+        border: none;
+        padding: 8px;
+        letter-spacing: .035em;
+        cursor: pointer;
+        outline: none;
+        margin: 0 12px @borderSize 2px;
+        position: relative;
+        top: 1px;
+
+        &:focus {
+          background: none;
+        }
+
+        &:hover {
+          color: #157ab5;
+          background: none;
+        }
+        span.caret {
+          margin-left: 5px;
+        }
+        span {
+          position: relative;
+          top: 1px;
+          margin-right: 1px;
+
+          &.badge {
+            top: 0;
+            font-size: 11px;
+            background-color: #FFF;
+            color: #789;
+          }
+        }
+      }
+      &.active {
+        a {
+          background: none;
+          padding-bottom: 8px;
+          border-bottom: @borderSize solid #789;
+          margin-bottom: 0;
+          cursor: pointer;
+          border-left: none;
+          border-right: none;
+          border-top: none;
+          color: #333;
+          .glyphicon {
+            color: #789;
+          }
+        }
+      }
+      &.show_hide a {
+        font-size: 24px;
+        line-height: 1em;
+        padding: 8px 8px 0;
+
+        &:before {
+          font-family: 'main';
+          content: "\e623";
+        }
+      }
+      &.open a {
+        background: none;
+      }
+      ul.dropdown-menu {
+        a {
+          display: block;
+          border: none;
+          background: #fff;
+          padding: 5px 20px;
+          font-size: 13px;
+
+          &:hover {
+            border: none;
+          }
+        }
+        &.active {
+          a {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}
+
+.dataHighlights {
+  padding: 10px 0;
+  margin: 0;
+
+  &.oneline {
+    .dataHighlight ._label {
+      float: left;
+      margin-right: 6px;
+    }
+  }
+
+  .dataHighlight {
+    padding: 5px 0;
+    display: block;
+    position: relative;
+
+    &.show_hide_status {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      padding: 0;
+      margin-bottom: 0;
+      -webkit-transform: translate(-50%, 50%);
+      -moz-transform: translate(-50%, 50%);
+      -ms-transform: translate(-50%, 50%);
+      -o-transform: translate(-50%, 50%);
+      transform: translate(-50%, 50%);
+
+      a {
+        width: 22px;
+        height: 22px;
+        background-color: #337ab7;
+        border: 1px solid #337ab7;
+        -moz-border-radius: 20px;
+        -webkit-border-radius: 20px;
+        border-radius: 20px;
+
+        &:before {
+          font-size: 11px;
+          color: #ffffff;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          -webkit-transform: translate(-50%, -50%);
+          -moz-transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+          -o-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+    &.hideMenu.first {
+      clear: left;
+    }
+
+    ._label {
+      font-size: 9px;
+      line-height: 0.75em;
+      margin: 4px 0 6px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #666;
+
+      &.label {
+        color: #fff;
+        margin-right: 5px;
+      }
+    }
+
+    ._value {
+      font-size: 13px;
+      line-height: 1.5em;
+      margin: -4px 0 0;
+      color: #789;
+
+      img {
+        float: left;
+        margin-right: 5px;
+      }
+
+      .add {
+        display: none;
+      }
+
+      &.tags {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        li {
+          list-style: none;
+          margin: 10px 0;
+        }
+      }
+
+    }
+
+    .__autorzy_html_ul {
+      font-size: 12px;
+      margin: 0;
+    }
+
+    .label {
+      font-size: 85%;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .appMenu ul.nav-tabs > li {
+    width: auto;
+  }
+}
+
+@media (min-width: 992px) {
+  .appHeader .opt {
+    float: right;
+    display: block;
+    margin-top: 5px;
+  }
 }

@@ -1,138 +1,73 @@
-#_wrapper {
-
-    .main-alert {
-        margin: 20px 0 0;
-    }
-
-    .banner {
-        text-align: center;
-        padding: 20px 0;
-
-        p {
-            font-size: 20px;
-            font-weight: 300;
-            margin-bottom: 0;
-
-            &.number {
-                margin: 20px 0;
-            }
-        }
-
-        b {
-            font-weight: 400;
-        }
-    }
-
-    .number {
-        font-size: 30px;
-        font-weight: 300;
-        margin: 5px 0;
-        color: #2E8F3E;
-
-        &.small {
-
-            font-size: 16px;
-            margin: 15px 0;
-
-            span {
-                margin: 0 3px;
-            }
-            strong {
-                font-size: 24px;
-                font-weight: 400;
-            }
-        }
-
-        span {
-            margin: 0 5px;
-            font-weight: 400;
-        }
-
-        strong {
-            font-weight: 400;
-            font-size: 40px;
-        }
-    }
-
-    #highchartContainer {
-        height: 300px;
-        width: 100%;
-    }
-
-    .zam-block {
-
-        background-color: #FFF;
-        margin-top: 15px;
-        margin-bottom: 15px;
-
-        &:first-child {
-            margin-top: 0;
-        }
-
-        .column {
-
-            border-right: 1px solid #DDD;
-            margin: 0;
-            padding-left: 0;
-            padding-right: 0;
+.dataAggs {
+    .wykonawcy {
+        > li {
+            list-style: none;
+            margin: 0 0 10px;
+            padding: 0;
+            border-bottom: 1px solid #DDD;
 
             &:last-child {
-                border-right: none;
+                border-bottom: none;
             }
 
-            .na {
+            > .nazwa {
+                padding-right: 5px;
+            }
+            > .cena {
+                color: #282;
+            }
 
-                margin-top: 15px;
+            header {
+                font-weight: normal;
+                overflow: auto;
+                font-size: 16px;
+                margin-bottom: 5px;
 
-                .label {
-
-                    font-size: 14px;
-
+                &.smaller {
+                    font-size: 16px;
                 }
+
+                .cena {
+                    color: green;
+                }
+
             }
 
-            .soon {
-                color: #CCC;
-                font-size: 20px;
+            .stats {
+                color: #666;
+                font-size: 14px;
                 font-style: italic;
-                font-weight: 300;
-                margin: 50px 0;
-                text-align: center;
+
+                strong {
+                    font-weight: normal;
+                }
             }
 
-            ul {
+            .dataobjects {
+                padding: 0 15px;
 
-                list-style: none;
-                margin: 0;
-                padding: 0;
-
-                li {
-
-                    list-style: none;
-                    padding: 10px;
-                    margin: 10px;
-                    border-bottom: 1px solid #EEE;
-
-                    &:last-child {
-                        border-bottom: none;
+                &.smaller {
+                    .objectRender .title {
+                        font-size: 14px;
                     }
+                }
 
-                    .title {
-                        font-size: 17px;
-                    }
+                .objectRender .title {
 
-                    .desc {
-                        font-size: 13px;
-                        padding: 0 10px;
-                        color: #999;
+                    a {
+                        color: #545454;
+                        &:hover {
+                            color: #2a6496;
+                        }
                     }
 
                 }
 
+                .meta.meta-desc {
+                    color: green;
+                }
             }
-
         }
 
     }
-
 }

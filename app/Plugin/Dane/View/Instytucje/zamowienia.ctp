@@ -1,5 +1,5 @@
 <?
-$this->Combinator->add_libs('css', $this->Less->css('view-administracjapubliczna', array('plugin' => 'Dane')));
-// $this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane')));
-$this->Combinator->add_libs('js', 'Dane.view-administracjapubliczna');
+echo $this->Element('dataobject/pageBegin');
+echo $this->Element('Dane.DataBrowser/browser');
+echo $this->Element('dataobject/pageEnd');
 ?>

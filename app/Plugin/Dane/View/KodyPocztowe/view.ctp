@@ -9,13 +9,10 @@ $this->Combinator->add_libs('js', 'Dane.view-kodypocztowe');
 <?php echo $this->Element('dataobject/pageBegin'); ?>
     <div class="object">
 
-        <div class="block">
-            <div class="block-header">
-                <h2 class="label">Zasięg występowania kodu pocztowego</h2>
-            </div>
+        <div class="block col-xs-12">
+            <header>Zasięg występowania kodu pocztowego</header>
 
-            <div class="content row">
-
+            <section class="content row">
                 <div class="col-md-5">
 
                     <?php foreach ($object->getLayer('struktura') as $gmina) { ?>
@@ -116,7 +113,7 @@ $this->Combinator->add_libs('js', 'Dane.view-kodypocztowe');
                     </div>
                 </div>
 
-            </div>
+            </section>
         </div>
 
     </div>

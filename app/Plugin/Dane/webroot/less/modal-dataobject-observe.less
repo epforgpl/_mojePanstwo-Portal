@@ -1,0 +1,37 @@
+#observeModal {
+  .modal-content {
+    .modal-body {
+      .alert {
+        display: none;
+        padding-bottom: 8px;
+        padding-top: 8px;
+      }
+
+      .optionsBlock {
+        margin-bottom: 10px;
+        text-align: left;
+        color: #000000;
+
+        .checkbox {
+          @padding: 40px;
+
+          padding-left: @padding;
+          padding-right: @padding;
+
+          &.first {
+            margin-bottom: 20px;
+          }
+        }
+      }
+
+      .info {
+        color: #ccc;
+      }
+    }
+    .modal-footer {
+      a.unobserve > .icon {
+        font-size: 0.8em;
+      }
+    }
+  }
+}

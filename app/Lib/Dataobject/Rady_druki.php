@@ -47,5 +47,21 @@ class Rady_druki extends DocDataObject
 		return $output;
 		
 	}
+	
+	public function getBreadcrumbs()
+	{
+		
+		return array(
+			array(
+				'id' => '/dane/gminy/903,krakow/druki',
+				'label' => 'Projekty legislacyjne',
+			),
+			array(
+				'id' => $this->getUrl(),
+				'label' => $this->getData('tytul'),
+			)
+		);
+		
+	}
 
 }

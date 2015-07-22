@@ -21,70 +21,71 @@ if (($object->getDataset() == 'gminy') && ($object->getId() == '903')) {
         'thumbSize' => $thumbSize,
     ));
 
-} else {
-    ?>
+} else { ?>
     <div class="objectRender col-md-12 <?php echo $object->getDataset(); ?>" oid="<?php echo $object->getId() ?>">
-
         <div class="data col-md-<?= $this->Dataobject->getDate() ? '11' : '12' ?>">
             <div class="row">
                 <? if ($object->getHeaderThumbnailUrl($thumbSize)) { ?>
-        <div class="attachment col-md-<?= $object_content_sizes[0] ?> text-center">
+    <div class="attachment col-md-<?= $object_content_sizes[0] ?> text-center">
+        <?php if ($object->getUrl() != false) { ?>
+        <a class="thumb_cont" href="<?= $object->getUrl() ?>">
+            <?php } ?>
+            <img itemprop="image" class="thumb"
+                 src="<?
+                        $img_link = $object->getThumbnailUrl($thumbSize);
+                        $str = preg_replace('#^https?:#', '', $img_link);
+                        echo $img_link;
+                        ?>" alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
             <?php if ($object->getUrl() != false) { ?>
-            <a class="thumb_cont" href="<?= $object->getUrl() ?>">
-                <?php } ?>
-                <img itemprop="image" class="thumb" onerror="imgFixer(this)"
-                     src="<?= $object->getHeaderThumbnailUrl($thumbSize) ?>"
-                     alt="<?= strip_tags($object->getTitle()) ?>"/>
-                <?php if ($object->getUrl() != false) { ?>
-            </a>
+        </a>
+    <?php } ?>
+    </div>
+<div class="content col-md-<?= $object_content_sizes[1] ?>">
+    <p class="header"><?= $object->getLabel(); ?></p>
+    <? if ($object->getTitle()) { ?>
+        <<?= $titleTag ?> class="title trimTitle<? if ($bigTitle) { ?> big<? } ?>"
+                                        title="<?= htmlspecialchars($object->getTitle()) ?>"
+                                        data-trimlength="200">
+                                        <?php if (($object->getUrl() != false) && !empty($this->request)) { ?>
+            <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
         <?php } ?>
-        </div>
-    <div class="content col-md-<?= $object_content_sizes[1] ?>">
-        <p class="header"><?= $object->getLabel(); ?></p>
-        <? if ($object->getShortTitle()) { ?>
-            <<?= $titleTag ?> class="title trimTitle<? if ($bigTitle) { ?> big<? } ?>"
-                                title="<?= htmlspecialchars($object->getShortTitle()) ?>"
-                                data-trimlength="200">
-                                <?php if (($object->getUrl() != false) && !empty($this->request)) { ?>
-                <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
-            <?php } ?>
-                                <span<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= $object->getShortTitle() ?></span>
-                                <?php if (($object->getUrl() != false) && !empty($this->request)) { ?>
-                </a> <? if ($object->getTitleAddon()) {
-                    echo '<small>' . $object->getTitleAddon() . '</small>';
-                } ?>
-            <?php } ?>
-                            </<?= $titleTag ?>>
-                        <? } ?>
+                                        <span<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= $object->getTitle() ?></span>
+                                        <?php if (($object->getUrl() != false) && !empty($this->request)) { ?>
+            </a> <? if ($object->getTitleAddon()) {
+                echo '<small>' . $object->getTitleAddon() . '</small>';
+            } ?>
+        <?php } ?>
+                                    </<?= $titleTag ?>>
+                                <? } ?>
 
-        <? if ($file_exists) {
-            echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(
-                'object' => $object
-            ));
-        } ?>
-        </div>
-    <? } else { ?>
-        <div class="content mini">
-        <p class="header"><?= $object->getLabel(); ?></p>
-        <<?= $titleTag ?> class="title<? if ($bigTitle) { ?> big<? } ?>">
-        <?php if ($object->getUrl() != false){ ?>
-        <a class="trimTitle" href="<?= $object->getUrl() ?>"
-           title="<?= strip_tags($object->getTitle()) ?>">
-    <?php } ?>
-                            <span<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= $object->getShortTitle() ?></span>
-        <?php if ($object->getUrl() != false){ ?>
-        </a> <? if ($object->getTitleAddon()) {
-        echo '<small>' . $object->getTitleAddon() . '</small>';
+    <? if ($file_exists) {
+        echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(
+            'object' => $object
+        ));
     } ?>
-    <?php } ?>
-        </<?= $titleTag ?>>
-        <? if ($file_exists) {
-            echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(
-                'object' => $object
-            ));
-        } ?>
-        </div>
-                <? } ?>
+    </div>
+<? } else { ?>
+    <div class="content mini">
+    <p class="header"><?= $object->getLabel(); ?></p>
+    <<?= $titleTag ?> class="title<? if ($bigTitle) { ?> big<? } ?>">
+    <?php if ($object->getUrl() != false){ ?>
+    <a class="trimTitle" href="<?= $object->getUrl() ?>"
+       title="<?= strip_tags($object->getTitle()) ?>">
+<?php } ?>
+    <span<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= $object->geticon() . $object->getTitle() ?></span>
+    <?php if ($object->getUrl() != false){ ?>
+    </a> <? if ($object->getTitleAddon()) {
+    echo '<small>' . $object->getTitleAddon() . '</small>';
+} ?>
+<?php } ?>
+    </<?= $titleTag ?>>
+    <? if ($file_exists) {
+        echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(
+            'object' => $object
+        ));
+    } ?>
+    </div>
+<? } ?>
             </div>
         </div>
     </div>

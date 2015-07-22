@@ -84,5 +84,25 @@ class Radni_gmin extends DataObject
 	    else 
 	        return 'http://resources.sejmometr.pl/avatars/g/m.png';
     }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+				
+		$output = array(
+			$this->getData('komitet'),
+		);
+				
+		return $output;
+		
+	}
+	
+	public function getBreadcrumbs() {
+		return array(
+			array(
+				'id' => '/dane/gminy/' . $this->getData('gmina_id') . '/rada',
+				'label' => 'Radni gminy',
+			),
+		);
+	}
 
 }

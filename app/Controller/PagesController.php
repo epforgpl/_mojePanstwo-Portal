@@ -50,9 +50,8 @@ class PagesController extends AppController
      */
     public function display()
     {
-
         $path = func_get_args();
-				
+
         $count = count($path);
         if (!$count) {
             return $this->redirect('/');
@@ -66,38 +65,24 @@ class PagesController extends AppController
         if (!empty($path[1])) {
             $subpage = $path[1];
         }
-        
-        if( $page=='apps' ) {
-	        
-	        $title_for_layout = 'Aplikacje - _mojePaństwo';
-	        
-        } else {
-	
-	        $title_for_layout = '_mojePaństwo';
-	        
+
+        if ($page == 'home' || $page == 'about_us' || $page == 'regulations' || $page == 'report_bug') {
+            $this->setLayout(array(
+                'header' => false,
+                'body' => array(
+                    'theme' => 'wallpaper'
+                ),
+                'footer' => array(
+                    'element' => 'minimal'
+                )
+            ));
         }
-        
+                				
+        $title_for_layout = '_mojePaństwo';
+        if ($page == 'home')
+	        $this->appSelected = '';
+
         $this->set(compact('page', 'subpage', 'title_for_layout'));
-
-
-        /*
-        if ($page == 'home') {
-
-            $this->statusbarMode = 'home';
-
-            $folders = array();
-            for ($i = 0; $i < count($this->Applications); $i++) {
-                $folder_info = $this->Applications[$i]['Folder'];
-
-                $folders[$this->Applications[$i]['Application']['folder_id']]['folder'] = $folder_info;
-                $folders[$this->Applications[$i]['Application']['folder_id']]['apps'][] = $this->Applications[$i]['Application'];
-
-            }
-
-            $this->set('folders', $folders);
-
-        }
-        */
 
         try {
             $this->render(implode('/', $path));

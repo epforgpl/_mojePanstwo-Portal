@@ -1,5 +1,26 @@
-.przejrzystyKrakow {
-    background-image: url(/PrzejrzystyKrakow/img/bg.jpg);
+@font-face {
+    font-family: 'przejrzysty_krakow';
+    src: url(/PrzejrzystyKrakow/fonts/przejrzysty_krakow.eot?5lqmy5);
+    src: url(/PrzejrzystyKrakow/fonts/przejrzysty_krakow.eot?#iefix5lqmy5) format('embedded-opentype'),
+    url(/PrzejrzystyKrakow/fonts/przejrzysty_krakow.woff?5lqmy5) format('woff'),
+    url(/PrzejrzystyKrakow/fonts/przejrzysty_krakow.ttf?5lqmy5) format('truetype'),
+    url(/PrzejrzystyKrakow/fonts/przejrzysty_krakow.svg?5lqmy5#przejrzysty_krakow) format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.theme-wallpaper {
+    background-image: url(/PrzejrzystyKrakow/img/bg.jpg) !important;
+}
+
+#home.przejrzystyKrakow {
+    ._handler {
+        background: none;
+
+        .startWindow .windowSet .basicOptions {
+            margin-top: 30px;
+        }
+    }
 
     .headerBar {
         width: 100%;
@@ -38,23 +59,38 @@
             transform: translate(0, -50%);
             display: none;
         }
-        
+
         .subh {
-	        margin-top: 10px;
-	        color: #FFF;
+            margin-top: 10px;
+            color: #FFF;
         }
     }
+
+    .homePageIcon {
+        text-align: center;
+        margin-top: 40px;
+        color: #ffffff;
+
+        i {
+            height: 50px;
+            margin-bottom: 5px;
+        }
+        [data-icon-pk]:before {
+            font-family: 'przejrzysty_krakow';
+            content: attr(data-icon-pk);
+            color: #ffffff;
+            font-size: 40px;
+            font-style: normal;
+            line-height: 50px;
+        }
+    }
+
 }
 
-@media (max-width: 750px) {
-    .przejrzystyKrakow .headerBar {
-        margin-bottom: 0;
-
-        img {
-            margin-top: 25px;
-        }
-        h1 {
-            margin-top: 45px;
-        }
+@media (min-width: 992px) {
+    #home.przejrzystyKrakow ._handler .startWindow .windowSet .appsList .homePageIcon {
+        width: (100%/7);
+        padding-left: 15px;
+        padding-right: 15px;
     }
 }

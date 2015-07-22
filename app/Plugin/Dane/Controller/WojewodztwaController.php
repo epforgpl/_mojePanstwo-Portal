@@ -11,8 +11,8 @@ class WojewodztwaController extends DataobjectsController
         parent::load();
         $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'gminy',
-	            'gminy.wojewodztwo_id' => $this->object->getId(),
+                'dataset' => 'gminy',
+                'gminy.wojewodztwo_id' => $this->object->getId(),
             ),
             'aggsPreset' => 'gminy',
         ));
@@ -27,28 +27,28 @@ class WojewodztwaController extends DataobjectsController
         parent::load();
         $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'powiaty',
-	            'powiaty.wojewodztwo_id' => $this->object->getId(),
+                'dataset' => 'powiaty',
+                'powiaty.wojewodztwo_id' => $this->object->getId(),
             ),
             'aggsPreset' => 'powiaty',
         ));
-        $this->set('title_for_layout',  'Powiaty w województwie ' . $this->object->getData('nazwa'));
+        $this->set('title_for_layout', 'Powiaty w województwie ' . $this->object->getData('nazwa'));
         $this->render('Dane.DataBrowser/browser');
 
     }
-    
+
     public function miejscowosci()
     {
 
-        parent::load();        
+        parent::load();
         $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'miejscowosci',
-	            'miejscowosci.wojewodztwo_id' => $this->object->getId(),
+                'dataset' => 'miejscowosci',
+                'miejscowosci.wojewodztwo_id' => $this->object->getId(),
             ),
             'aggsPreset' => 'miejscowosci',
         ));
-        $this->set('title_for_layout',  'Powiaty w województwie ' . $this->object->getData('nazwa'));
+        $this->set('title_for_layout', 'Powiaty w województwie ' . $this->object->getData('nazwa'));
         $this->render('Dane.DataBrowser/browser');
 
     }

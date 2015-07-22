@@ -14,20 +14,27 @@ class Prawo_hasla extends DataObject
 	protected $hl_fields = array(
 		// 'liczba_aktow',
 	);
+     protected $routes = array(
+        'title' => 'q',
+        'shortTitle' => 'q',
+    );
 
     public function getLabel()
     {
         return 'Hasło w aktach prawnych';
     }
     
-     protected $routes = array(
-        'title' => 'q',
-        'shortTitle' => 'q',
-    );
-    
     public function hasHighlights()
     {
         return false;
+    }
+    
+    public function getUrl()
+    {
+	    if( $this->getData('instytucja_id') )
+	    	return '/dane/instytucje/' . $this->getData('instytucja_id');
+	    else
+	    	return '/dane/prawo_hasla/' . $this->getId();
     }
     
 }

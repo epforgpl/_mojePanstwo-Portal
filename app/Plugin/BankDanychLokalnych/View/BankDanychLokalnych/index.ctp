@@ -19,6 +19,7 @@ $this->Combinator->add_libs('js', 'BankDanychLokalnych.bank_danych_lokalnych.js'
         <div class="rightSide col-md-9 no-padding">
             <div id="indicator">
                 <h3></h3>
+
                 <div class="row"></div>
             </div>
             <div class="btn-group btn-group-sm" id="levels"></div>

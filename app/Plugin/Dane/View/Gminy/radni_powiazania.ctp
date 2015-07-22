@@ -12,94 +12,84 @@ echo $this->Element('dataobject/pageBegin', array(
 
 $powiazania = $object->getLayer('radni_powiazania');
 ?>
+    <div class="objectsPage">
 
-    <div class="col-md-10 col-md-offset-1">
+        <h1 class="subheader">Rada Miasta Kraków</h1>
+
+        <? if (isset($_submenu) && !empty($_submenu)) { ?>
+            <div class="menuTabsCont">
+                <?
+                if (!isset($_submenu['base']))
+                    $_submenu['base'] = $object->getUrl();
+                echo $this->Element('Dane.dataobject/menuTabs', array(
+                    'menu' => $_submenu,
+                ));
+                ?>
+            </div>
+        <? } ?>
+
         <div id="powiazania" class="object">
-
             <? if ($powiazania) { ?>
+                <? foreach ($powiazania as $p) { ?>
+                    <div class="block col-xs-12">
+                        <div class="header col-md-3">
+                            <img src="<? if ($p['radny']['avatar'] == '1') {
+                                echo 'http://resources.sejmometr.pl/avatars/5/' . $p['radny']['avatar_id'] . '.jpg';
+                            } elseif ($p['radny']['plec'] == 'K') {
+                                echo 'http://resources.sejmometr.pl/avatars/g/w.png';
+                            } else {
+                                echo 'http://resources.sejmometr.pl/avatars/g/m.png';
+                            } ?>" onerror="imgFixer(this)"/>
 
-                <h1><a href="<?= $object->getUrl() ?>/rada" class="btn-back glyphicon glyphicon-circle-arrow-left"></a>
-                    Powiązania radnych gminy <?= $object->getData('nazwa') ?> z organizacjami w <a href="/krs">Krajowym
-                        Rejestrze Sądowym</a></h1>
+                            <h2 class="name">
+                                <a href="/dane/gminy/<?= $object->getId() ?>/radni/<?= $p['radny']['id'] ?>"><?= $p['radny']['nazwa'] ?></a>
+                            </h2>
 
-                <div class="block-group">
-
-                    <? foreach ($powiazania as $p) { ?>
-
-                        <div class="block">
-
-                            <div class="block-header">
-                                <h2 class="label pull-left"><a
-                                        href="/dane/gminy/<?= $object->getId() ?>/radni/<?= $p['radny']['id'] ?>"><?= $p['radny']['nazwa'] ?></a>
-                                </h2>
-
-                                <p class="desc pull-right"><?= $p['radny']['komitet'] ?></p>
-                            </div>
-
-                            <div class="content row padding">
-
-                                <div class="col-md-2">
-
-                                    <? if ($p['radny']['avatar'] == '1') { ?>
-                                        <img
-                                            src="http://resources.sejmometr.pl/avatars/5/<?= $p['radny']['avatar_id'] ?>.jpg"/>
-                                    <? } elseif ($p['radny']['plec'] == 'K') { ?>
-                                        <img src="http://resources.sejmometr.pl/avatars/g/w.png"/>
-                                    <? } else { ?>
-                                        <img src="http://resources.sejmometr.pl/avatars/g/m.png"/>
-                                    <? } ?>
-
-                                </div>
-                                <div class="col-md-10">
-
-                                    <ul>
-                                        <?
-                                        foreach ($p['organizacje'] as $o) {
-
-                                            $badges = array();
-
-                                            if ($o['relacja']['reprezentat'] == '1') {
-                                                $badges[] = $o['relacja']['reprezentat_funkcja'] ? $o['relacja']['reprezentat_funkcja'] : 'Członek organu reprezentacji';
-                                            }
-
-                                            if ($o['relacja']['wspolnik'] == '1') {
-                                                $badges[] = 'Wspólnik';
-                                            }
-
-                                            if ($o['relacja']['akcjonariusz'] == '1') {
-                                                $badges[] = 'Akcjonariusz';
-                                            }
-
-                                            if ($o['relacja']['prokurent'] == '1') {
-                                                $badges[] = 'Prokurent';
-                                            }
-
-                                            if ($o['relacja']['nadzorca'] == '1') {
-                                                $badges[] = 'Członek organu nadzoru';
-                                            }
-
-                                            if ($o['relacja']['zalozyciel'] == '1') {
-                                                $badges[] = 'Członek komitetu założycielskiego';
-                                            }
-                                            ?>
-                                            <li>
-                                                <a href="/dane/krs_podmioty/<?= $o['id'] ?>"><?= stripslashes($o['nazwa']) ?></a>
-                                                <span
-                                                    class="badge"><?= implode('</span> <span class="badge">', $badges) ?></span>
-                                            </li>
-                                        <? } ?>
-                                    </ul>
-
-                                </div>
-
-                            </div>
-
+                            <p class="club"><?= $p['radny']['komitet'] ?></p>
                         </div>
 
-                    <? } ?>
-                </div>
-            <? } ?>
+                        <div class="content col-md-9">
+                            <ul>
+                                <?
+                                foreach ($p['organizacje'] as $o) {
 
+                                    $badges = array();
+
+                                    if ($o['relacja']['reprezentat'] == '1') {
+                                        $badges[] = $o['relacja']['reprezentat_funkcja'] ? $o['relacja']['reprezentat_funkcja'] : 'Członek organu reprezentacji';
+                                    }
+
+                                    if ($o['relacja']['wspolnik'] == '1') {
+                                        $badges[] = 'Wspólnik';
+                                    }
+
+                                    if ($o['relacja']['akcjonariusz'] == '1') {
+                                        $badges[] = 'Akcjonariusz';
+                                    }
+
+                                    if ($o['relacja']['prokurent'] == '1') {
+                                        $badges[] = 'Prokurent';
+                                    }
+
+                                    if ($o['relacja']['nadzorca'] == '1') {
+                                        $badges[] = 'Członek organu nadzoru';
+                                    }
+
+                                    if ($o['relacja']['zalozyciel'] == '1') {
+                                        $badges[] = 'Członek komitetu założycielskiego';
+                                    }
+                                    ?>
+                                    <li>
+                                        <a href="/dane/krs_podmioty/<?= $o['id'] ?>"><?= stripslashes($o['nazwa']) ?></a>
+                                        <span
+                                            class="badge"><?= implode('</span> <span class="badge">', $badges) ?></span>
+                                    </li>
+                                <? } ?>
+                            </ul>
+                        </div>
+                    </div>
+                <? } ?>
+            <? } ?>
         </div>
     </div>
 

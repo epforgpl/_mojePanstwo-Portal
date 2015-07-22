@@ -1,121 +1,143 @@
+/*global $, jQuery, ui, mPHeart*/
 (function ($) {
-    var suggesterBlock;
+    "use strict";
 
-    if ((suggesterBlock = $('.suggesterBlock')).length && false) {
+    var suggesterBlock = $('.suggesterBlock');
+
+    if (suggesterBlock.length) {
         $.each(suggesterBlock, function (index, block) {
-            var suggesterInput = $(block).find('input.form-control'),
-                suggesterBtn = $(block).find('.input-group-btn .btn'),
-                suggesterData = {
-                    'app': suggesterInput.data('app')
-                },
-                suggesterCache = {};
+            var suggesterCache = {},
+                suggesterInput = $(block).find('input.form-control'),
+                suggesterForm = suggesterInput.parents('form'),
+                params;
 
-            suggesterInput.autocomplete({
-                minLength: 2,
-                delay: 200,
-                source: function (request, response) {
-                    var term = request.term;
+            if (suggesterInput.attr('data-autocompletion') == 'true') {
 
-                    suggesterBtn = this.element.parents('form').find('.input-group-btn .btn');
+                suggesterInput.autocomplete({
+                    minLength: 2,
+                    delay: 300,
+                    source: function (request, response) {
+                        var term = request.term;
+                        if (term in suggesterCache) {
+                            response(suggesterCache[term]);
+                        } else {
+                            // suggesterInput.addClass('loader');
+                            $.get('/dane/suggest.json', {
+                                'q': term,
+                                'dataset[]': (suggesterInput.data('dataset')) ? suggesterInput.attr('data-dataset').split(',') : '*'
+                            }).done(function (data) {
+                                var results = $.map(data.options, function (item) {
+                                    var shortTitleLimit = 150,
+                                        shortTitle = '';
 
-                    if (term in suggesterCache) {
-                        response(suggesterCache[term]);
-                    } else {
-                        suggesterBtn.addClass('loading');
-                        var parm = "q=" + request.term;
-                        if (suggesterData.app)
-                            parm += "&app=" + suggesterData.app;
-                        $.getJSON("/dane/suggest.json?" + parm, function (data) {
-                            var results = $.map(data.hits, function (item) {
-                                var shortTitleLimit = 200,
-                                    shortTitle = '';
+                                    if (item.payload !== undefined) {
+                                        if (item.payload.dataset === 'twitter') {
+                                            shortTitle = item.text.replace(/(<([^>]+)>)/ig, "");
+                                        } else {
+                                            if (item.text.length > shortTitleLimit) {
+                                                shortTitle = item.text.substr(0, shortTitleLimit);
+                                                shortTitle = shortTitle.substr(0, Math.min(shortTitle.length, shortTitle.lastIndexOf(" "))) + '...';
+                                            } else {
+                                                shortTitle = item.text;
+                                            }
+                                        }
 
-                                if (item.dataset == 'twitter') {
-                                    shortTitle = item.title.replace(/(<([^>]+)>)/ig, "");
-                                } else {
-                                    if (item.title.length > shortTitleLimit) {
-                                        shortTitle = item.title.substr(0, shortTitleLimit);
-                                        shortTitle = shortTitle.substr(0, Math.min(shortTitle.length, shortTitle.lastIndexOf(" "))) + '...';
-                                    } else {
-                                        shortTitle = item.title;
+                                        return {
+                                            type: 'item',
+                                            title: item.text,
+                                            shortTitle: shortTitle,
+                                            value: item.payload.object_id,
+                                            link: '/dane/' + item.payload.dataset + '/' + item.payload.object_id + ((item.payload.slug) ? ',' + item.payload.slug : ''),
+                                            dataset: item.payload.dataset,
+                                            image: (item.payload.image !== undefined) ? item.payload.image : false,
+                                            detail: (item.payload.desc) ? item.payload.desc : false,
+                                        };
                                     }
-                                }
+                                });
 
-                                return {
-                                    type: 'item',
-                                    title: item.title,
-                                    shortTitle: shortTitle,
-                                    value: item.id,
-                                    link: item.dataset + '/' + item.id,
-                                    label: item.label
-                                };
+                                suggesterCache[term] = results;
+
+                                if (results.length === 0) {
+                                    $('.ui-autocomplete').hide();
+                                    // suggesterInput.removeClass('open loader');
+                                } else {
+                                    results.push({
+                                        type: 'button',
+                                        q: request.term
+                                    });
+                                    response(results);
+                                }
+                            });
+                        }
+                    },
+                    open: function () {
+                        var $ui = $('#ui-id-' + index);
+
+                        $ui.css({
+                            'margin-top': Math.floor((suggesterInput.offset().top + suggesterInput.outerHeight()) - parseInt($ui.css('top'), 10) - parseInt($ui.css('border-bottom-left-radius'), 10)) + 8 + 'px',
+                            'width': suggesterInput.outerWidth() - 2,
+                            'left': parseInt($ui.css('left'), 10) + 1 + 'px'
+                        });
+                        suggesterInput.addClass('open');
+                        // suggesterInput.removeClass('loader');
+                    },
+                    close: function () {
+                        suggesterInput.removeClass('open');
+                    },
+                    focus: function () {
+                        return false;
+                    },
+                    select: function (evt, ui) {
+                        if (ui.item) {
+                            suggesterInput.val(ui.item.title);
+                            window.location.href = ui.item.link;
+                        }
+                        return false;
+                    }
+                }).autocomplete('widget').addClass("autocompleteSuggester");
+
+                suggesterInput.data("ui-autocomplete")._renderItem = function (ul, item) {
+                    if (item.type !== 'item') {
+                        if (item.type === 'button') {
+                            params = '?q=' + item.q;
+
+                            suggesterForm.find('input[name="dataset[]"]').each(function () {
+                                params += '&dataset[]=' + $(this).val();
                             });
 
-                            suggesterCache[term] = results;
+                            return $('<li></li>').addClass("row button").append(
+                                $('<a></a>').addClass('btn btn-success').attr({
+                                    'href': ((suggesterForm.attr('action').length > 0) ? suggesterForm.attr('action') : ((suggesterInput.attr('data-url').length > 0) ? suggesterInput.attr('data-url') : '')) + params,
+                                    'target': '_self'
+                                }).html('<span class="glyphicon glyphicon-search"> </span> ' + mPHeart.suggester.fullSearch)
+                            ).appendTo(ul);
+                        }
+                    } else {
+                        var title = $('<span></span>').text(item.shortTitle),
+                            image;
 
-                            if (results.length == 0) {
-                                $('.ui-autocomplete').hide();
-                                suggesterInput.removeClass('open');
-                                suggesterBtn.removeClass('loading');
-                            } else {
-                                results.push({
-                                    type: 'button',
-                                    q: request.term
-                                });
-                                response(results);
-                            }
-                        });
+                        if (item.image.length > 0) {
+                            image = $('<img />').addClass('doc').attr('src', item.image);
+                        } else {
+                            image = $('<i></i>').addClass('icon icon-datasets-' + item.dataset);
+                        }
+
+
+                        if (item.detail) {
+                            title.append($('<small></small>').text(item.detail));
+                        } else {
+                            title.addClass('vertical-center');
+                        }
+
+                        return $('<li></li>').addClass("row").append(
+                            $('<a></a>').attr({'href': item.link, 'target': '_self'}).append(
+                                $('<div></div>').addClass('col-xs-2 col-md-1 _label').append(image)
+                            ).append(
+                                $('<div></div>').addClass('col-xs-10 col-md-11 _title').append(title)
+                            )
+                        ).appendTo(ul);
                     }
-                },
-                open: function (ui) {
-                    var $ui = $('#ui-id-' + (index + 1));
-
-                    $ui.css({
-                        'margin-top': Math.floor((suggesterInput.offset().top + suggesterInput.outerHeight()) - parseInt($ui.css('top')) - parseInt($ui.css('border-bottom-left-radius'))) + 'px',
-                        'width': suggesterInput.outerWidth() - 2,
-                        'left': parseInt($ui.css('left')) + 1 + 'px'
-                    });
-                    suggesterInput.addClass('open');
-                    suggesterBtn.removeClass('loading');
-                },
-                close: function () {
-                    suggesterInput.removeClass('open');
-                },
-                focus: function (event, ui) {
-                    if (ui.item)
-                        suggesterInput.val(ui.item.title);
-                    return false;
-                },
-                select: function (event, ui) {
-                    if (ui.item)
-                        suggesterInput.val(ui.item.title);
-
-                    window.location.href = ui.item.link;
-                    return false;
-                }
-            }).autocomplete("widget").addClass("autocompleteSuggester");
-
-            suggesterInput.data("ui-autocomplete")._renderItem = function (ul, item) {
-                if (item.type == 'item') {
-                    return $('<li></li>').addClass("row")
-                        .append(
-                        $('<a></a>').attr({'href': '/dane/' + item.link, 'target': '_self'})
-                            .append(
-                            $('<p></p>').addClass('col-xs-3 col-md-2').addClass('_label').html('<span class="label label-default label-sm">' + item.label + '</span>')
-                        )
-                            .append(
-                            $('<p></p>').addClass('col-md-9 col-md-10').addClass('_title').text(item.shortTitle)
-                        )
-                    )
-                        .appendTo(ul)
-                } else if (item.type == 'button') {
-                    return $('<li></li>').addClass("row button").append(
-                        $('<a></a>').addClass('btn btn-success').attr({
-                            'href': '/dane/szukaj?q=' + item.q,
-                            'target': '_self'
-                        }).html('<span class="glyphicon glyphicon-search"> </span> ' + mPHeart.suggester.fullSearch)
-                    ).appendTo(ul);
-                }
+                };
             }
         });
     }

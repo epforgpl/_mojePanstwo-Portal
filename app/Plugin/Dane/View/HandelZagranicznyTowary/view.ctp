@@ -1,9 +1,9 @@
 <?
-    $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
-    $this->Combinator->add_libs('js', '../plugins/highcharts/locals');
-    $this->Combinator->add_libs('js', 'Dane.view-handel-zagraniczny-towary');
-    $this->Combinator->add_libs('css', $this->Less->css('view-handel-zagraniczny-towary', array('plugin' => 'Dane')));
-    echo $this->Element('dataobject/pageBegin');
+$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
+$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+$this->Combinator->add_libs('js', 'Dane.view-handel-zagraniczny-towary');
+$this->Combinator->add_libs('css', $this->Less->css('view-handel-zagraniczny-towary', array('plugin' => 'Dane')));
+echo $this->Element('dataobject/pageBegin');
 ?>
 </div></div></div>
 
@@ -76,7 +76,7 @@
     <script type="text/javascript">
         var _chartImpEksData = <? echo json_encode($object->getLayer('stats')); ?>;
         var _objectData = <? echo json_encode($object->getData()); ?>;
-        var _year = '<? echo isset($_GET['y']) ? (int) $_GET['y'] : 2014; ?>';
+        var _year = '<? echo isset($_GET['y']) ? (int)$_GET['y'] : 2014; ?>';
     </script>
 
 

@@ -10,8 +10,8 @@ class HandelZagranicznyTowaryController extends DataobjectsController
     {
         parent::_prepareView();
     }
-	
-	public function beforeRender()
+
+    public function beforeRender()
     {
 
         // debug( $this->object->getData() ); die();

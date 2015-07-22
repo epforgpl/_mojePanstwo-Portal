@@ -1,0 +1,100 @@
+.appHeader {
+    display: none;
+}
+
+.objectsPage {
+    min-height: 100vh;
+    position: relative;
+    background: url(/img/home/backgrounds/home-background-default0.jpg) center top no-repeat;
+    background-size: cover;
+
+    .dataBrowser {
+        margin-top: 0;
+        padding-top: 25px;
+
+        .databrowser-panel {
+            @color: #ffffff;
+            @hoverColor: #63afea;
+
+            margin-top: 15px;
+
+            h2 {
+                color: @color;
+                text-align: center;
+                font-size: 20px;
+                font-weight: bold;
+            }
+            .apps {
+                padding: 10px;
+
+                .homePageIcon {
+                    padding-top: 8px;
+                    padding-right: 30px;
+                    padding-bottom: 8px;
+                    margin-bottom: 20px;
+                    height: 120px;
+                    text-align: center;
+
+                    &:hover {
+                        border-left-color: @hoverColor;
+
+                        i:before, p {
+                            color: @hoverColor;
+                        }
+                    }
+
+                    i {
+                        margin: 0 auto;
+                        display: block;
+
+                        &:before {
+                            font-size: 40px;
+                            line-height: 50px;
+                            color: @color;
+                        }
+                    }
+                    p {
+                        margin-top: 20px;
+                        color: @color;
+                        font-size: 14px;
+                        font-weight: 500;
+                        line-height: 1em;
+                    }
+                }
+            }
+        }
+
+        .box {
+            color: #ffffff;
+            display: block;
+            width: 100%;
+            float: left;
+            margin-top: 15px;
+            padding: 15px 20px;
+
+            background-color: fade(#438fca, 70%);
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            -ms-border-radius: 10px;
+            -o-border-radius: 10px;
+            border-radius: 10px;
+
+            h3 {
+                font-size: 20px;
+                font-weight: bold;
+                color: #ffffff;
+                margin-top: 0;
+            }
+
+            p {
+                font-size: 12px;
+                font-weight: normal;
+            }
+
+            > span {
+                font-size: 14px;
+                font-weight: normal;
+            }
+        }
+    }
+}

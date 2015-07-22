@@ -24,10 +24,21 @@ class Urzednicy extends DataObject
     {
         return 'Urzędnik';
     }
-    
+
     public function hasHighlights()
     {
         return false;
     }
-
+	
+	public function getMetaDescriptionParts($preset = false)
+	{
+		
+		$output = array(
+			$this->getData('stanowisko'),
+		);
+				
+		return $output;
+		
+	}
+	
 }

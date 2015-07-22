@@ -127,7 +127,7 @@ class DataobjectsBrowserComponent extends Component
             $this->backTitle = $settings['backTitle'];
         }
 
-				
+
         $add_source_params = array();
         $source_params = array();
 
@@ -461,8 +461,8 @@ class DataobjectsBrowserComponent extends Component
             'facets' => true,
             'limit' => $this->limit,
         );
-        
-        
+
+
         // debug( $queryData );
 
 
@@ -488,11 +488,11 @@ class DataobjectsBrowserComponent extends Component
         if (!empty($order)) {
             $queryData['order'] = $order['str'];
         }
-		
+
 
         $this->Paginator->settings = $queryData;
         $objects = $this->Paginator->paginate('Dataobject');
-		
+
 
         $pagination = $controller->Dataobject->pagination;
         $pagination['page'] = (int)@$controller->request->query['page'];

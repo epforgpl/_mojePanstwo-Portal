@@ -23,6 +23,21 @@
     {
       "name": "Adam Ciężkowski",
       "role": "Senior Back-end Web Developer"
+    },
+    {
+      "name": "Krzysztof Madejski",
+      "email": "krzysztof.madejski@epf.org.pl",
+      "role": "Back-end Web Developer & Code for Poland Project Coordinator"
+    },
+    {
+      "name": "Marek Bielecki",
+      "email": "marek.bielecki@epf.org.pl",
+      "role": "Back-end Web Developer"
+    },
+    {
+      "name": "Tomasz Drążewski",
+      "email": "tomek.drazewski@epf.org.pl",
+      "role": "Back-end Web Developer"
     }
   ],
   "support": {
@@ -33,7 +48,7 @@
   },
   "require": {
     "slywalker/boost_cake": "*",
-    "leafo/lessphp": "0.3.*@dev"
+    "leafo/lessphp": "*"
   },
   "minimum-stability": "dev"
 }

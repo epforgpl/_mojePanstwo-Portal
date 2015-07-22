@@ -7,15 +7,29 @@ if ($object->getId() == '903') {
 echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
+?>
 
+
+<?
 echo $this->Element('Dane.dataobject/subobject', array(
     'menu' => isset($_submenu) ? $_submenu : false,
     'object' => $komisja,
     'objectOptions' => array(
-        'hlFields' => array(),
         'bigTitle' => true,
     )
 ));
 
-echo $this->Element('Dane.dataobject/feed');
-echo $this->Element('dataobject/pageEnd');
+$options = array(
+    'searcher' => false,
+);
+if (isset($title))
+    $options['title'] = $title;
+echo $this->Element('Dane.DataBrowser/browser', $options);
+?>
+
+
+<?php
+echo $this->Element('dataobject/pageEnd', array(
+    'titleTag' => 'p',
+));
+?>

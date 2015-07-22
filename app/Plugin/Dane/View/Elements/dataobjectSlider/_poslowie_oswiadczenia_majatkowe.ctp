@@ -4,7 +4,8 @@
         <div class="col-md-2">
             <div class="row">
                 <img
-                    src="http://resources.sejmometr.pl/mowcy/a/2/<?php echo $item['data']['ludzie_poslowie.mowca_id'] ?>.jpg"/>
+                    src="http://resources.sejmometr.pl/mowcy/a/2/<?php echo $item['data']['ludzie_poslowie.mowca_id'] ?>.jpg"
+                    onerror="imgFixer(this)"/>
             </div>
         </div>
         <div class="col-md-10">

@@ -1,19 +1,15 @@
 .dataFeed {
+
+    margin-bottom: 25px;
+    overflow: auto;
+
     .dataActions {
-        margin: 10px 10px 0;
+        margin: 15px 10px 5px;
 
         .searchBar {
             width: 100%;
             margin-bottom: 0;
             color: #838383;
-
-            input[type=text] {
-                box-shadow: none;
-                background-color: #FFF;
-                border: none;
-                border-bottom-left-radius: 0;
-                border-bottom-right-radius: 0;
-            }
 
             .form-control-feedback {
                 top: 0;
@@ -22,10 +18,8 @@
         .actionBar {
             width: 100%;
             display: inline-block;
-            background-color: #FAFAFA;
-            padding: 10px;
-            margin-top: 1px;
-            border-radius: 0 0 10px 10px;
+            margin-top: 10px;
+            margin-bottom: -10px;
 
             -webkit-transition: all 1s ease-in-out;
             -moz-transition: all 1s ease-in-out;
@@ -50,8 +44,8 @@
                     text-align: center;
 
                     &.all span:before {
-                        font-family: 'mojePanstwoNewLayout';
-                        content: '\e800';
+                        font-family: 'main';
+                        content: '\e61e';
                     }
 
                     > span {
@@ -116,7 +110,7 @@
             padding-left: 5px;
             padding-right: 5px;
             margin-top: 5px;
-
+            display: none;
             color: #808080;
             font-size: 12px;
 
@@ -134,7 +128,7 @@
                     color: #7d7d7d;
                     text-decoration: none;
                     &:hover {
-	                    color: #157ab5 !important;
+                        color: #157ab5 !important; /*TODO:check if it REALLY need*/
                     }
                 }
                 button {
@@ -143,9 +137,9 @@
                     padding: 0;
                     margin: 0;
                     color: #7d7d7d;
-                    
+
                     &:hover {
-	                    color: #157ab5;
+                        color: #157ab5;
                     }
                 }
 
@@ -160,6 +154,7 @@
         .dataFeed-ul {
             position: relative;
             padding-bottom: 20px;
+            margin-top: 5px;
         }
 
         #infscr-loading {
@@ -175,63 +170,63 @@
     }
 
     .col-feed-side {
-        
+
         .objectSideInner {
-	        .block {
-		        margin-left: 0;
-		        margin-right: 0;
-		        background-color: inherit !important;
-		        border: none;
-		        border-radius: 0;
-		        background-color: inherit;
-		        margin-top: 30px !important;
-		        margin-bottom: 30px !important;
-		        
-		        &:first-child {
-			        margin-top: 0 !important;
-		        }
-	        }
-	        
-	        .dataHighlights {
-		        .dataHighlight {
-			        border-bottom-color: #CCC;
-			        .icon {
-				        margin-right: 5px;
-			        }
-		        }
-	        }
+            .block {
+                margin-left: 0;
+                margin-right: 0;
+                background-color: inherit !important; /*TODO:check if it REALLY need*/
+                border: none;
+                border-radius: 0;
+                background-color: inherit;
+                margin-top: 30px !important; /*TODO:check if it REALLY need*/
+                margin-bottom: 30px !important; /*TODO:check if it REALLY need*/
+
+                &:first-child {
+                    margin-top: 0 !important; /*TODO:check if it REALLY need*/
+                }
+            }
+
+            .dataHighlights {
+                .dataHighlight {
+                    border-bottom-color: #CCC;
+                    .icon {
+                        margin-right: 5px;
+                    }
+                }
+            }
         }
-        
+
         .subscription {
             margin-bottom: 80px;
             margin-top: 20px;
             margin-left: 5px;
             margin-right: 5px;
-            
+
             .alert {
-	            margin-top: 30px;
+                margin-top: 30px;
             }
         }
 
         .dataAggs {
             li.agg {
-                margin: 40px 10px !important;
+                margin: 40px 10px !important; /*TODO:check if it REALLY need*/
             }
         }
-        
+
         .api-link {
-	        font-size: 12px;
-	        margin: 15px;
-	        
-	        a {
-		        color: #7d7d7d;
-		        &:hover {
-			        color: #157ab5;
-		        }
-		        .glyphicon {
-			        margin-right: 3px;
-		        }
-	        }
+            font-size: 12px;
+            margin: 15px;
+
+            a {
+                color: #7d7d7d;
+                &:hover {
+                    color: #157ab5;
+                }
+                .glyphicon {
+                    margin-right: 3px;
+                }
+            }
         }
     }
 }

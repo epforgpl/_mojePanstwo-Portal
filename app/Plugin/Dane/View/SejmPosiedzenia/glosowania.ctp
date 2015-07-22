@@ -1,2 +1,5 @@
 <?
-$this->Combinator->add_libs('css', $this->Less->css('view-sejmposiedzenia-databrowser-fix', array('plugin' => 'Dane')));
+echo $this->Element('dataobject/pageBegin');
+echo $this->Element('Dane.DataBrowser/browser');
+echo $this->Element('dataobject/pageEnd');
+?>

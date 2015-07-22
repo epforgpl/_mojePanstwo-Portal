@@ -1,26 +1,7 @@
-.appHeader {
-    height: 120px !important;
-
-    & .menu {
-        height: 44px !important;
-
-        & ul li a {
-            padding: 10px 20px !important;
-        }
-    }
-
-    & .holder h1 {
-        margin: -15px 10px 5px !important;
-    }
-
-}
-
 .fullPageHeight {
     position: relative;
     width: 100%;
     min-height: 100vh;
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 .createAccount,
@@ -41,17 +22,30 @@
                     margin-right: 10px;
                 }
             }
-            
+
             .text-success {
-	            padding: 10px;
-	            text-align: center;
+                padding: 10px;
+                text-align: center;
             }
         }
     }
 }
 
+#modalPaszportLoginForm .modal-dialog.inpage {
+	position: static;
+	left: inherit;
+	top: inherit;
+	transform: none;
+	margin: 30px auto;
+	max-width: 600px;
+	.modal-content .modal-body {
+		width: 600px;
+	}
+}
+
 .editProfile {
-    margin: 20px 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
 
     .form-group {
         border-bottom: 1px solid #ddd;
@@ -70,7 +64,8 @@
             border-color: #ff2222;
         }
 
-        .edit-password-form-groups {
+        .edit-password-form-groups,
+        .create-password-form-groups {
             padding: 10px;
 
             .form-group {

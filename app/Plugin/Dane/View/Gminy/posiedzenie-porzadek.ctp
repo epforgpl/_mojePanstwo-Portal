@@ -20,26 +20,9 @@ echo $this->Element('Dane.dataobject/subobject', array(
         'routes' => array(
             'shortTitle' => 'pageTitle'
         ),
-    ),
-    'back' => array(
-        'href' => '/dane/gminy/903,krakow/posiedzenia',
-        'title' => 'Wszystkie posiedzenia rady miasta',
+        'thumbWidth' => 2,
     ),
 ));
-?>
 
-	<div class="row">
-		<div class="col-md-9">
-			<h1 class="light text-center">
-				<a href="<?= $posiedzenie->getUrl() ?>" class="btn-back glyphicon glyphicon-circle-arrow-left"></a> 
-				Porządek obrad
-			</h1>
-		</div>
-	</div>
-
-<?
-	
-	echo $this->Document->place($posiedzenie->getData('krakow_posiedzenia.porzadek_dokument_id'));
-
-	echo $this->Element('dataobject/pageEnd');
-	
+echo $this->Document->place($posiedzenie->getData('krakow_posiedzenia.porzadek_dokument_id'));
+echo $this->Element('dataobject/pageEnd');

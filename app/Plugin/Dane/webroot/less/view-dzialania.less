@@ -1,0 +1,49 @@
+
+.dzialanie {
+
+  header {
+    font-size: 18px !important;
+    border-bottom: 1px solid #e3e3e3 !important;
+  }
+
+  .sub-header {
+    .date {
+      margin: 10px 5px;
+      display: inline-block;
+      .glyphicon {
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .photo {
+    position: relative;
+    width: 100%;
+    height: 347px;
+    overflow: hidden;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      height: 100%;
+      width: auto;
+      -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+      transform: translate(-50%,-50%);
+    }
+  }
+
+  p {
+    &.opis {
+      margin-top: 20px;
+    }
+  }
+
+  .btn-auto-width {
+    width: auto;
+  }
+
+}

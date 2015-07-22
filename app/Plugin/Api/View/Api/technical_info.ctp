@@ -2,16 +2,7 @@
 
 <?php $this->Combinator->add_libs('js', 'Api.technical.js'); ?>
 
-<div id="api" class="newLayout">
-    <div class="jumbotron">
-        <div class="container">
-            <h1>Opis techniczny</h1>
-
-            <p>Chcesz skorzystać z naszego API? Zapoznaj się z wprowadzeniem i informacjami technicznymi wspólnymi dla
-                wszystkich API aplikacji</p>
-        </div>
-    </div>
-
+<div id="api">
     <div class="container">
         <div class="row">
             <div id="navbar" class="navbar col-md-3 pull-left">
@@ -38,52 +29,27 @@
                         jednak w świecie REST API brakuje powszechnie przyjętych standardów. Z tych przyczyn
                         stwierdziliśmy, że opisanie
                         kluczowych
-                        elementów wszystkich naszych API nikomu nie zaszkodzi, a wielu programistom pomoże.</p>
-
-                    <p>API Mojego Państwa podzielone jest na szereg API przeważnie odpowiadających aplikacjom serwisu.
-                        Dzięki temu sam
-                        serwis
-                        jest niejako dokumentacją do API pokazując jakie dane można uzyskać wraz w informacją o filtrach
-                        i
-                        sortowaniach.</p>
+                        elementów naszego API nikomu nie zaszkodzi, a wielu programistom pomoże.</p>
                 </div>
 
                 <div class="section">
                     <h1 id="t-versioning">Wersjonowanie</h1>
-
-                    <p>Każde z API wersjonowane jest osobno. Pozwala to stopniowe wprowadzanie zmian, bez konieczności
-                        "podbicia wersji"
-                        całego ekosystemu aplikacji.</p>
 
                     <p>API wersjonujemy liczbami całkowitymi poczynając od 1. Zmiana wersji API wiąże się z utraceniem
                         kompatybilności wstecznej. Może to wiązać się z usunięciem pewnych pól/metod,
                         zmianą znaczenia istniejących lub zmianą istotnych mechanizmów API (sortowania, filtrowania,
                         paginacji, autentykacji).</p>
 
-                    <ul>
-                        <li>Bazowym adresem dla wszystkich API jest <code>http://api.mojepanstwo.pl</code></li>
-                        <li>Pojedyczne API dostępne jest pod adresem <code>http://api.mojepanstwo.pl/%api_slug%/</code>,
-                            który
-                            przekierowuje do najbardziej aktualnej wersji API
-                            <br/>
-                            <strong>Zastosowanie: </strong>Dla użytkowników, którzy chcą być na bieżąco z wprowadzanymi
-                            zmianami. Trzeba
-                            jednak w porę zareagować na informację o podbiciu wersji API.
-                        </li>
-                        <li>Każda wersja każdego API udostępniana jest pod niezmiennym adresem <code>http://api.mojepanstwo.pl/%api_slug%_v%duza_wersja$/</code>
-                            <br/>
-                            <strong>Zastosowanie: </strong>Dla użytkowników potrzebujących więcej stabilności. Starsze
-                            wersje API będą
-                            wyłączane po okresie przejściowym, nie krótszym niż 6 miesięcy.
-                        </li>
-                    </ul>
+                    <p>Kolejne wersja API udostępniane są pod adresami o formacie <code>https://api-v%duza_wersja%.mojepanstwo.pl/</code>.
+                        Starsze wersje API będą wyłączane po okresie przejściowym, nie krótszym niż 6 miesięcy.
+                    </p>
 
                     <p>Zachęcamy użytkowników do zarejestrowania się w serwisie. Pozwoli to nam informować o
                         wprowadzanych zmianach w
                         działaniu serwisu.
                         Będziemy ogłaszać mailowo zarówno wprowadzanie nowych wersji API aplikacji, jak i stopniowe
                         wycofywanie wersji
-                        starszych.</p>
+                        starszych. Docelowo wprowadzimy obowiązkową rejestrację w serwisie.</p>
                 </div>
 
                 <div class="section">
@@ -93,7 +59,7 @@
                         i <a
                             href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">mniej standardowe</a> kody
                         HTTP:
-                        TODO jak obsługujemy języki?</p>
+                    </p>
                     <ul>
                         <li><code>400 Bad Request</code> - Błędne żądanie (źle sformatowane wejście, brakujące wymagane
                             parametry)
@@ -133,14 +99,13 @@
                         i zestaw narzędzi służących do dokumentacji API, dosŧępu do nich przez graficzny interfejs,
                         jak i generowania klientów w wielu językach.</p>
 
-                    <p>Swagger-spec dostępny jest pod adresem <a
-                            href="http://api.mojepanstwo.pl/swagger/api-docs"><code>http://api.mojepanstwo.pl/swagger/api-docs</code></a>.
-                        Nie chcąc uzależniać się od rozwijającego standardu oferujemy także własne proste API Discovery.
-                        Wystarczy
-                        wejść na
-                        <a href="http://api.mojepanstwo.pl/"><code>http://api.mojepanstwo.pl/</code></a> i skorzystać z
-                        wrodzonej
-                        intuicji.</p>
+                    <p>Swagger-spec w wersji 2.0 dostępny jest pod adresem <a
+                            href="https://api-v2.mojepanstwo.pl/swagger.json"><code>https://api-v2.mojepanstwo.pl/swagger.json</code></a>.
+                        Propozycje zmian w API przyjmujemy jako pull-requesty ze zmianami w tym pliku (do edycji zalecamy użycie <a href="http://editor.swagger.io/">Swagger Editor</a>).
+                    </p>
+
+                    <p>Dla ułatwienia przeglądania API prezentujemy je za pomocą przeglądarki <a href="https://github.com/swagger-api/swagger-ui">Swagger-UI</a> na <a href="/api">stronie głównej</a>.
+                    </p>
                 </div>
 
                 <div class="section">
@@ -148,23 +113,6 @@
 
                     <p>API oferuje standardowy mechanizm wyszukiwania, odpytywania o dostępne pola, możliwości
                         sortowania, itp.</p>
-
-                    <p>Dla każdego adresu oferującego wyszukiwania (np. <a
-                            href="http://api.mojepanstwo.pl/kodyPocztowe"><code>http://api.mojepanstwo.pl/kodyPocztowe</code></a>)
-                        istnieje kilka adresów opisujących taki zbiór danych i sposoby wyszukiwania:</p>
-                    <ul>
-                        <li><em><a href="http://api.mojepanstwo.pl/kodyPocztowe/sortings">sortings</a></em> -
-                            Sortowania, jakich
-                            można użyć podczas wyszukiwania
-                        </li>
-                        <li><em><a href="http://api.mojepanstwo.pl/kodyPocztowe/filters">filters</a></em> - Dostępne
-                            filtry
-                        </li>
-                        <li><em><a href="http://api.mojepanstwo.pl/kodyPocztowe/switchers">switchers</a></em> -
-                            Zagregowana filtry w
-                            postaci flag 0/1
-                        </li>
-                    </ul>
 
                     <p>Wszystkie parametry wyszukiwania podaje się w części <em>query</em> zapytania (po ?).
                         Parametry tablicowe podaje się zgodnie z konwencją wykorzystywaną przez CakePHP i Rails:</p>
@@ -178,25 +126,19 @@
                     <p>Podczas wyszukiwania można użyć następujących kluczy w cześci <em>query</em></p>
                     <ul>
                         <li><em>conditions</em> - Filtry ograniczające zbiór danych, można filtrować po wszystkich
-                            polach, a także
-                            zdefiniowanych <em>switchers</em>, np. <code>?conditions[imie]=Jan&conditions[nazwisko]=Kowalski</code>
+                            polach zwracanych w tablicy <code>data</code> wybranego obiektu, np. <code>?conditions[imie]=Jan&conditions[nazwisko]=Kowalski</code>
                         </li>
                         <li><em>q</em> - Pełnotekstowe wyszukiwanie (z odmianą) po podstawowych polach, np. <code>?q=epanstwo</code>
                         </li>
-                        <li><em>fields</em> - Podzbiór pól do uwzględnienia w odpowiedzi, np.
-                            <code>?fields[]=imie&fields[]=nazwisko</code></li>
+                        <!--<li><em>fields</em> - Podzbiór pól do uwzględnienia w odpowiedzi, np.
+                            <code>?fields[]=imie&fields[]=nazwisko</code></li>-->
                         <li><em>order</em> - Sortowanie w formacie <em>"pole (desc|asc)"</em>, np. <code>?order=nazwisko
                                 asc</code></li>
-                        <li><em>offset</em> - Ilość pominiętych rekordów z poczatku zbioru wynikowego. Ma pierwszeństwo
-                            nad
-                            <em>page</em>. Przykład: druga strona to <code>?offset=10&limit=10</code></li>
-                        <li><em>page</em> - Skrót pozwalający na zwracanie kolejnych stron wyników. Strony numerowane są
+                        <li><em>page</em> - Numer strony wyników do zwrócenia. Strony numerowane są
                             od 1. Domyślna
-                            ilosć wyników na stronie to 10. Przykład: <code>?page=2</code></li>
-                        <li><em>limit</em> - Ilość wyników zwróconych na stronie (domyślnie 10)</li>
+                            ilosć wyników na stronie to 50. Przykład: <code>?page=2</code></li>
+                        <li><em>limit</em> - Ilość wyników zwróconych na stronie (domyślnie 50)</li>
                     </ul>
-
-                    <? // TODO API cursoring - np. https://dev.twitter.com/docs/misc/cursoring ?>
                 </div>
 
                 <div class="section">
@@ -204,16 +146,16 @@
 
                     <p>Każdy zasób udostępniany przez serwer jest jednoznacznie identyfikowany poprzez unikalny adres
                         URL (pole
-                        <em>_id</em>).
+                        <em>url</em>).
                         Taki URL zapewnia także łatwą (potencjalnie automatyczną) nawigację między zasobami.</p>
 
-                    <p>Przykładowo: <code>{"_id": "http://api.mojepanstwo.pl/dane/poslowie/1.json"}</code></p>
+                    <p>Przykładowo: <code>{"url": "https://api-v2.mojepanstwo.pl/dane/poslowie/1.json"}</code></p>
 
                     <p>Aby ułatwić linkowanie do naszego serwisu udostępniamy także dla obiektów link, pod którym
                         wysŧępuje on w
                         serwisie mojePaństwo.</p>
 
-                    <p>Przykładowo: <code>{"_mpurl": "http://mojepanstwo.pl/dane/poslowie/1"}</code></p>
+                    <p>Przykładowo: <code>{"mpurl": "http://mojepanstwo.pl/dane/poslowie/1"}</code></p>
                 </div>
 
                 <div class="section">
@@ -230,7 +172,7 @@
                     <p>
                         Listę dostępnych warstw jest wyświetlana w ramach obiektu:</p>
                         <pre>
-                GET: http://api.mojepanstwo.pl/kodyPocztowe/00-511
+                GET: https://api-v2.mojepanstwo.pl/dane/kody_pocztowe/1
 
                 {
                     "id": "864053",
@@ -265,10 +207,10 @@
                 }
                         </pre>
 
-                    <p>Warstwy ładuje sie poprzez podanie w zapytaniu nazw warstw jako tablicy: <code>http://api.mojepanstwo.pl/kodyPocztowe/00-511?layers[]=obszary&layers[]=gminy</code>
+                    <p>Warstwy ładuje sie poprzez podanie w zapytaniu nazw warstw jako tablicy: <code>https://api-v2.mojepanstwo.pl/dane/kody_pocztowe/1?layers[]=obszary&layers[]=gminy</code>
                     </p>
 
-                    <p>Istnieje także skrót pozwalający załadować wszystkie warstwy na raz: <code>http://api.mojepanstwo.pl/kodyPocztowe/00-511?layers=*</code>
+                    <p>Istnieje także skrót pozwalający załadować wszystkie warstwy na raz: <code>https://api-v2.mojepanstwo.pl/dane/kody_pocztowe/1?layers=*</code>
                     </p>
                 </div>
 

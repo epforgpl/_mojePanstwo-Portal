@@ -2,6 +2,10 @@
 
 class MapaprawaController extends AppController
 {
+    public $settings = array(
+        'id' => 'mapa_prawa'
+    );
+
     public $components = array(
         'RequestHandler',
     );

@@ -14,8 +14,9 @@
     <?= $object->getData('html') ?>
 </blockquote>
 
-<? if($object->getData('photo_url')) {?>
-	<img style="max-width: 400px; margin-top: 10px; float: left;" src="<?= $object->getData('photo_url') ?>" />
+<? if ($object->getData('photo_url')) { ?>
+    <img style="max-width: 400px; margin-top: 10px; float: left;" src="<?= $object->getData('photo_url') ?>"
+         onerror="imgFixer(this)"/>
 <? } ?>
 
 <? if ($object->getData('twitter_account_id')) { ?>

@@ -95,4 +95,20 @@ class Radni_dzielnic extends DataObject
 	    	    
 	    return $output;
     }
+    
+    public function getBreadcrumbs()
+	{
+				
+		return array(
+			array(
+				'id' => '/dane/gminy/903,krakow/dzielnice/' . $this->getData('dzielnice.id'),
+				'label' => $this->getData('dzielnice.nazwa'),
+			),
+			array(
+				'id' => '/dane/gminy/903,krakow/dzielnice/' . $this->getData('dzielnice.id') . '/rada_uchwaly',
+				'label' => 'Radni dzielnicy',
+			),
+		);
+				
+	}
 }

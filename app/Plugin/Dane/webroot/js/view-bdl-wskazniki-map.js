@@ -35,7 +35,8 @@
         seriesTypes = Highcharts.seriesTypes,
         defaultPlotOptions = defaultOptions.plotOptions,
         wrap = Highcharts.wrap,
-        noop = function () {};
+        noop = function () {
+        };
 
     /**
      * Override to use the extreme coordinates from the SVG shape, not the
@@ -213,10 +214,10 @@
                 Highcharts.error(23);
             }
             return (hasAlpha ? 'rgba(' : 'rgb(') +
-            Math.round(to[0] + (from[0] - to[0]) * (1 - pos)) + ',' +
-            Math.round(to[1] + (from[1] - to[1]) * (1 - pos)) + ',' +
-            Math.round(to[2] + (from[2] - to[2]) * (1 - pos)) +
-            (hasAlpha ? (',' + (to[3] + (from[3] - to[3]) * (1 - pos))) : '') + ')';
+                Math.round(to[0] + (from[0] - to[0]) * (1 - pos)) + ',' +
+                Math.round(to[1] + (from[1] - to[1]) * (1 - pos)) + ',' +
+                Math.round(to[2] + (from[2] - to[2]) * (1 - pos)) +
+                (hasAlpha ? (',' + (to[3] + (from[3] - to[3]) * (1 - pos))) : '') + ')';
         },
 
         initDataClasses: function (userOptions) {
@@ -386,7 +387,7 @@
 
             grad = horiz ? [+reversed, 0, +!reversed, 0] : [0, +!reversed, 0, +reversed]; // #3190
             this.legendColor = {
-                linearGradient: { x1: grad[0], y1: grad[1], x2: grad[2], y2: grad[3] },
+                linearGradient: {x1: grad[0], y1: grad[1], x2: grad[2], y2: grad[3]},
                 stops: options.stops || [
                     [0, options.minColor],
                     [1, options.maxColor]
@@ -604,46 +605,47 @@
         }
 
         return allItems.concat(proceed.call(this));
-    });/**
+    });
+    /**
      * Mixin for maps and heatmaps
      */
     var colorSeriesMixin = {
 
-            pointAttrToOptions: { // mapping between SVG attributes and the corresponding options
-                stroke: 'borderColor',
-                'stroke-width': 'borderWidth',
-                fill: 'color',
-                dashstyle: 'dashStyle'
-            },
-            pointArrayMap: ['value'],
-            axisTypes: ['xAxis', 'yAxis', 'colorAxis'],
-            optionalAxis: 'colorAxis',
-            trackerGroups: ['group', 'markerGroup', 'dataLabelsGroup'],
-            getSymbol: noop,
-            parallelArrays: ['x', 'y', 'value'],
-            colorKey: 'value',
+        pointAttrToOptions: { // mapping between SVG attributes and the corresponding options
+            stroke: 'borderColor',
+            'stroke-width': 'borderWidth',
+            fill: 'color',
+            dashstyle: 'dashStyle'
+        },
+        pointArrayMap: ['value'],
+        axisTypes: ['xAxis', 'yAxis', 'colorAxis'],
+        optionalAxis: 'colorAxis',
+        trackerGroups: ['group', 'markerGroup', 'dataLabelsGroup'],
+        getSymbol: noop,
+        parallelArrays: ['x', 'y', 'value'],
+        colorKey: 'value',
 
-            /**
-             * In choropleth maps, the color is a result of the value, so this needs translation too
-             */
-            translateColors: function () {
-                var series = this,
-                    nullColor = this.options.nullColor,
-                    colorAxis = this.colorAxis,
-                    colorKey = this.colorKey;
+        /**
+         * In choropleth maps, the color is a result of the value, so this needs translation too
+         */
+        translateColors: function () {
+            var series = this,
+                nullColor = this.options.nullColor,
+                colorAxis = this.colorAxis,
+                colorKey = this.colorKey;
 
-                each(this.data, function (point) {
-                    var value = point[colorKey],
-                        color;
+            each(this.data, function (point) {
+                var value = point[colorKey],
+                    color;
 
-                    color = value === null ? nullColor : (colorAxis && value !== undefined) ? colorAxis.toColor(value, point) : point.color || series.color;
+                color = value === null ? nullColor : (colorAxis && value !== undefined) ? colorAxis.toColor(value, point) : point.color || series.color;
 
-                    if (color) {
-                        point.color = color;
-                    }
-                });
-            }
-        };
+                if (color) {
+                    point.color = color;
+                }
+            });
+        }
+    };
 // Add events to the Chart object itself
     extend(Chart.prototype, {
         renderMapNavigation: function () {
@@ -685,7 +687,10 @@
                             })
                             .add();
                         button.handler = buttonOptions.onclick;
-                        button.align(extend(buttonOptions, { width: button.width, height: 2 * button.height }), null, buttonOptions.alignTo);
+                        button.align(extend(buttonOptions, {
+                            width: button.width,
+                            height: 2 * button.height
+                        }), null, buttonOptions.alignTo);
                     }
                 }
             }
@@ -1084,9 +1089,9 @@
         getBox: function (paths) {
             var MAX_VALUE = Number.MAX_VALUE,
                 maxX = -MAX_VALUE,
-                minX =  MAX_VALUE,
+                minX = MAX_VALUE,
                 maxY = -MAX_VALUE,
-                minY =  MAX_VALUE,
+                minY = MAX_VALUE,
                 minRange = MAX_VALUE,
                 xAxis = this.xAxis,
                 yAxis = this.yAxis,
@@ -1104,9 +1109,9 @@
                         i = path.length,
                         even = false, // while loop reads from the end
                         pointMaxX = -MAX_VALUE,
-                        pointMinX =  MAX_VALUE,
+                        pointMinX = MAX_VALUE,
                         pointMaxY = -MAX_VALUE,
-                        pointMinY =  MAX_VALUE,
+                        pointMinY = MAX_VALUE,
                         properties = point.properties;
 
                     // The first time a map point is used, analyze its box
@@ -1309,7 +1314,7 @@
 
                     each(mapData, function (mapPoint) {
                         if (!joinBy[0] || dataUsed.indexOf('|' + mapPoint[joinBy[0]] + '|') === -1) {
-                            data.push(merge(mapPoint, { value: null }));
+                            data.push(merge(mapPoint, {value: null}));
                         }
                     });
                 }
@@ -1892,7 +1897,10 @@
         }
 
         for (transform in transforms) {
-            if (transforms.hasOwnProperty(transform) && transforms[transform].hitZone && pointInPolygon({x: point.x, y: -point.y}, transforms[transform].hitZone.coordinates[0])) {
+            if (transforms.hasOwnProperty(transform) && transforms[transform].hitZone && pointInPolygon({
+                    x: point.x,
+                    y: -point.y
+                }, transforms[transform].hitZone.coordinates[0])) {
                 return this.transformToLatLon(point, transforms[transform]);
             }
         }
@@ -1968,7 +1976,7 @@
                 }
 
                 if (path.length) {
-                    point = { path: path };
+                    point = {path: path};
                 }
 
             } else if (hType === 'mapline') {
@@ -1979,7 +1987,7 @@
                 }
 
                 if (path.length) {
-                    point = { path: path };
+                    point = {path: path};
                 }
 
             } else if (hType === 'mappoint') {
@@ -2104,9 +2112,6 @@
     Highcharts.maps = {};
 
 
-
-
-
 // Create symbols for the zoom buttons
     function selectiveRoundedRect(attr, x, y, w, h, rTopLeft, rTopRight, rBottomRight, rBottomLeft) {
         var normalize = (attr['stroke-width'] % 2 / 2);
@@ -2134,6 +2139,7 @@
             'Z'
         ];
     }
+
     SVGRenderer.prototype.symbols.topbutton = function (x, y, w, h, attr) {
         return selectiveRoundedRect(attr, x, y, w, h, attr.r, attr.r, 0, 0);
     };
@@ -2183,7 +2189,7 @@
                     type: 'map'
                 },
                 xAxis: hiddenAxis,
-                yAxis: merge(hiddenAxis, { reversed: true })
+                yAxis: merge(hiddenAxis, {reversed: true})
             },
             options, // user's options
 

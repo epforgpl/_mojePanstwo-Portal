@@ -304,33 +304,6 @@ var PLBrowser = Class.create({
 
             layer.items_loaded = false;
 
-            if (layer.l == 1) {
-
-                var firstBlock = new Element('div', {'class': 'mainPart'});
-                firstBlock.insert({
-                    top: new Element('form', {'action': '/moja_gmina', 'class': 'gminaSearch'}).insert({
-                        top: new Element('input', {
-                            'name': 'q',
-                            'type': 'text',
-                            'placeholder': mPHeart.translation.LC_MOJA_GMINA_SZUKAJ_GMINY,
-                            'class': 'form-control'
-                        }),
-                        bottom: new Element('button', {'type': 'submit', 'class': 'hidden'})
-                    })
-                }).insert({
-                    bottom: new Element('div', {'class': 'or'}).insert({top: new Element('span', {'class': 'middle'}).update(mPHeart.translation.LC_MOJA_GMINA_SZUKAJ_GMINY_OR)})
-                }).insert({
-                    bottom: new Element('button', {
-                        'class': 'btn btn-success',
-                        'id': 'localizeMe'
-                    }).update(mPHeart.translation.LC_MOJA_GMINA_LOCALIZEME)
-                }).insert({
-                    bottom: new Element('div', {'class': 'or'}).insert({top: new Element('span', {'class': 'middle'}).update(mPHeart.translation.LC_MOJA_GMINA_SZUKAJ_GMINY_OR)})
-                });
-
-                map_info.insert(firstBlock);
-            }
-
             switch (Number(layer.l)) {
                 case 1:
                     ajaxUrl = '/moja_gmina/geo/wojewodztwa';

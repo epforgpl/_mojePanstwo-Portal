@@ -1,0 +1,107 @@
+.mp-adres {
+  @bannerWidth: 100%;
+  @bannerHeight: 180px;
+
+  height: @bannerHeight;
+  width: @bannerWidth;
+  position: relative;
+  overflow: hidden;
+  -webkit-transition: height 0.8s;
+  -moz-transition: height 0.8s;
+  transition: height 0.8s;
+
+  &.big {
+    height: 2*@bannerHeight;
+  }
+
+  .bg {
+    width: @bannerWidth;
+    height: @bannerHeight;
+    position: relative;
+    top: 0;
+    z-index: 2;
+    background-color: #000000;
+
+    img {
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    .content {
+      width: @bannerWidth;
+      height: @bannerHeight;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 3;
+
+      background: -moz-linear-gradient(top, rgba(66, 139, 202, 1) 0%, rgba(66, 139, 202, 0) 100%);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(66, 139, 202, 1)), color-stop(100%, rgba(66, 139, 202, 0)));
+      background: -webkit-linear-gradient(top, rgba(66, 139, 202, 1) 0%, rgba(66, 139, 202, 0) 100%);
+      background: -o-linear-gradient(top, rgba(66, 139, 202, 1) 0%, rgba(66, 139, 202, 0) 100%);
+      background: -ms-linear-gradient(top, rgba(66, 139, 202, 1) 0%, rgba(66, 139, 202, 0) 100%);
+      background: linear-gradient(to bottom, rgba(66, 139, 202, 1) 0%, rgba(66, 139, 202, 0) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#428bca', endColorstr='#00428bca', GradientType=0);
+
+      p {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        color: #ffffff;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 1.2em;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=135, Color=#000000)";
+        text-shadow: 1px 1px 1px #000000;
+        filter: progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=135, Color=#000000);
+      }
+
+      .btn {
+        display: block;
+        margin-top: 5px;
+
+        &:first-of-type {
+          margin-top: 1em;
+        }
+      }
+    }
+  }
+}
+
+#googleMapBtnModal {
+  @mapHeight: 400px;
+
+  .googleViewBtn {
+    padding-bottom: 20px;
+  }
+
+  .googleView {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: @mapHeight;
+
+    #googleMap, #streetView {
+      width: 100%;
+      height: @mapHeight;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    #streetView {
+      left: -100%;
+      z-index: 2;
+    }
+  }
+
+  .googleView {
+    #googleMapsContent .btn {
+      display: block;
+      margin: 5px auto 0;
+      padding: 2px 10px;
+      width: 80px;
+    }
+  }
+}

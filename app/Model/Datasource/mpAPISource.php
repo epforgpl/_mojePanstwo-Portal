@@ -98,8 +98,8 @@ class mpAPISource extends DataSource {
  */
     public function read(Model $model, $queryData = array(), $recursive = null) {
 	   	
-	   	// debug($queryData);
-	   	         
+	   $method = 'GET';	
+	   	   	         
         /**
          * Here we do the actual count as instructed by our calculate()
          * method above. We could either check the remote source or some
@@ -115,7 +115,7 @@ class mpAPISource extends DataSource {
         
         $this->count = false;
         $this->took = false;
-        
+                
         if( isset($queryData['feed']) ) {
         	        	
         	$endpoint_parts = array('dane/' . $queryData['feed']);
@@ -125,15 +125,14 @@ class mpAPISource extends DataSource {
 	        $endpoint_parts = array('dane');
 	        
 	    }
-        
-        
+                
         if( isset($queryData['feed']) ) {
 	        
 	        $endpoint_parts[] = 'feed';
 	        unset( $queryData['feed'] );
 	        
         } elseif( $model->findQueryType == 'first' ) {
-	        
+	        	        
 	        if( 
 	        	isset($queryData['conditions']['dataset']) && 
 	        	( $queryData['conditions']['dataset'] == 'zbiory' ) && 
@@ -166,24 +165,37 @@ class mpAPISource extends DataSource {
 			// $endpoint_parts[] = 'view';
 	        	        
         } else {
-        
+        	
+        	$method = 'POST';
+        	
         	if( isset($queryData['conditions']['dataset']) ) {
-	        	$endpoint_parts[] = $queryData['conditions']['dataset'];
-	        	unset( $queryData['conditions']['dataset'] );
+        	
+	        	if( is_array($queryData['conditions']['dataset']) ) {
+		        	
+		        	
+	        	} else {        			        	
+			        	
+		        	$endpoint_parts[] = $queryData['conditions']['dataset'];
+		        	unset( $queryData['conditions']['dataset'] );
+		        
+		        }
+	        
 	        }
-	        		     
-			$endpoint_parts[] = 'index';
-        
         }
-                        
+                                
 		$base_url = implode('/', $endpoint_parts) . '.' . $this->config['ext'];
 		
+		$public_query = $queryData;
+		if( isset($public_query['aggs']) )
+			unset( $public_query['aggs'] );
+		
 		$this->public_api_call = $this->config['host'] . '/' . $base_url . '?' . http_build_query($queryData);
-		        
+				
         $res = $this->request($base_url, array(
 	        'data' => $queryData,
+	        'method' => $method,
         ));
-                
+                        
         $code = (int) $this->Http->response->code;
         
         if( $code >= 400 ) {
@@ -204,22 +216,19 @@ class mpAPISource extends DataSource {
 	        	throw new CakeException();
 	        	
         }
+                 
+        if( isset($res['Count']) )
+	        $this->count = $res['Count'];
+	    
+	    if( isset($res['Took']) )
+	        $this->took = $res['Took'];
         
-        // debug( $res );
-            
+        if( isset($res['Aggs']) )
+        	$this->Aggs = $res['Aggs']; 
+           
         if( $model->findQueryType == 'first' ) {
-	        return array($res['Dataobject']);
-        } else {
-	        
-	        if( isset($res['Count']) )
-		        $this->count = $res['Count'];
-		    
-		    if( isset($res['Took']) )
-		        $this->took = $res['Took'];
-	        
-	        if( isset($res['Aggs']) )
-	        	$this->Aggs = $res['Aggs'];
-	        
+	        return array($res);
+        } else {	        
 	        return $res['Dataobject'];
         }
         
@@ -324,6 +333,7 @@ class mpAPISource extends DataSource {
             $error = json_last_error();
             throw new CakeException($error);
         }
+                
         return $res;
 	    
     }
@@ -349,7 +359,16 @@ class mpAPISource extends DataSource {
         $code = $this->Http->response->code;
 
         if($code == 200) {
-            return $response['User'];
+
+            $user = $response['User'];
+            foreach($response as $key => $values) {
+                if($key != 'User') {
+                    $user[$key] = $values;
+                }
+            }
+
+            return $user;
+
         } elseif($code == 403) {
             throw new ForbiddenException("Nieprawidłowe hasło");
         } elseif($code == 404) {

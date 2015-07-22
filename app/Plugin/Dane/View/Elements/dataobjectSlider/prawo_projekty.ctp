@@ -1,9 +1,7 @@
 <div class="attachment col-md-3">
     <a href="<?= $object->getUrl() ?>">
-        <img onerror="imgFixer(this)" src="<?= $object->getThumbnailUrl('1') ?>"
-             alt="<?= strip_tags($object->getTitle()) ?>"
-
-            />
+        <img src="<?= $object->getThumbnailUrl('1') ?>" alt="<?= strip_tags($object->getTitle()) ?>"
+             onerror="imgFixer(this)"/>
     </a>
 </div>
 <div class="content col-md-9">

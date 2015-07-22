@@ -6,7 +6,7 @@ $(function () {
             $wyjazdyPoslowMap = $('#wyjazdyPoslowMap'),
             $detailInfo;
 
-        $.getJSON('http://api.mojepanstwo.pl/wyjazdyposlow/world', function (statsData) {
+        $.getJSON('https://api.mojepanstwo.pl/wyjazdyposlow/world', function (statsData) {
             $.each(statsData, function () {
                 this.value = this.ilosc_wyjazdow;
                 this.laczna_kwota = this.laczna_kwota.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1 ');
@@ -80,21 +80,21 @@ $(function () {
                                     $detailInfo.find('.content').empty()
                                 }
 
-                                $.getJSON('http://api.mojepanstwo.pl/wyjazdyposlow/countryDetails/' + e.point.code.toLowerCase(), function (detail) {
+                                $.getJSON('https://api.mojepanstwo.pl/wyjazdyposlow/countryDetails/' + e.point.code.toLowerCase(), function (detail) {
                                     $detailInfo.find('.content').removeClass('loading').append(
                                         $('<div></div>').addClass('row').addClass('detail-header').append(
-                                            $('<div></div>').addClass('ilosc col-xs-4').html("Państwo:&nbsp;<b>" + e.point.kraj + "</b>")
+                                            $('<div></div>').addClass('ilosc col-xs-12 col-sm-6 col-md-4').html("Państwo:&nbsp;<b>" + e.point.kraj + "</b>")
                                         ).append(
-                                            $('<div></div>').addClass('ilosc col-xs-4').html("Ilość&nbsp;wyjazdów:&nbsp;<b>" + e.point.ilosc_wyjazdow + "</b>")
+                                            $('<div></div>').addClass('ilosc col-xs-12 col-sm-6 col-md-4').html("Ilość&nbsp;wyjazdów:&nbsp;<b>" + e.point.ilosc_wyjazdow + "</b>")
                                         ).append(
-                                            $('<div></div>').addClass('koszt col-xs-4').html("Łączna&nbsp;kwota:&nbsp;<b>" + e.point.laczna_kwota + "</b>")
+                                            $('<div></div>').addClass('koszt col-xs-12 col-sm-6 col-md-4').html("Łączna&nbsp;kwota:&nbsp;<b>" + e.point.laczna_kwota + "</b>")
                                         )
                                     );
 
                                     $.each(detail, function () {
                                         var that = this;
 
-                                        console.log(that);
+                                        //console.log(that);
 
                                         $detailInfo.find('.content').append(
                                             $('<div></div>').addClass('slice').append(

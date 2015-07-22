@@ -5,24 +5,36 @@ if ($object->getId() == '903') {
 }
 
 $this->Combinator->add_libs('css', $this->Less->css('view-radygmindebaty', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.view-radygmindebaty');
+
+$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
+$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+$this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
+
+$options = array(
+    'mode' => 'init',
+);
 
 echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
+?>
 
-
+<?
 echo $this->Element('Dane.dataobject/subobject', array(
-    'menu' => isset($_submenu) ? $_submenu : false,
     'object' => $debata,
     'objectOptions' => array(
         'hlFields' => array('rady_gmin_posiedzenia.numer', 'numer_punktu'),
         'bigTitle' => true,
+        'truncate' => 1024,
     ),
+    /*
     'back' => array(
         'href' => '/dane/gminy/903,krakow/posiedzenia/' . $debata->getData('krakow_posiedzenia.id'),
         'title' => 'Wszystkie punkty podczas posiedzenia nr ' . $debata->getData('krakow_posiedzenia.numer') . ', sesja ' . $debata->getData('krakow_sesje.str_numer'),
     ),
+    */
 ));
 ?>
 
@@ -62,250 +74,61 @@ echo $this->Element('Dane.dataobject/subobject', array(
     </div>
 <? } ?>
 
+    <div class="dataBrowser">
 
-    <div class="gminy">
-        <div class="col-md-3 objectSide">
+        <? if (@$aggs['all']['glosowania']['top']['hits']['hits']) { ?>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="block block-default col-xs-12">
+                        <header>Głosowania</header>
 
-            <div class="objectSideInner">
+                        <section class="aggs-init">
+                            <div class="dataAggs">
+                                <div class="agg agg-Dataobjects">
+                                    <ul class="dataobjects">
+                                        <? foreach ($aggs['all']['glosowania']['top']['hits']['hits'] as $glosowanie) { ?>
+                                            <li>
+                                                <?
+                                                echo $this->Dataobject->render($glosowanie, 'krakow_glosowania');
+                                                ?>
+                                            </li>
+                                        <? } ?>
+                                    </ul>
 
-                <ul class="dataHighlights side">
-
-
-                    <? if ($debata->getData('krakow_glosowania.wynik_str')) { ?>
-                        <li class="dataHighlight">
-                            <p class="_label">Wynik głosowania</p>
-
-                            <?
-                            $class = 'default';
-                            if ($debata->getData('krakow_glosowania.wynik_id') == 1) {
-                                $class = 'success';
-                            } elseif ($debata->getData('krakow_glosowania.wynik_id') == 2) {
-                                $class = 'danger';
-                            }
-                            ?>
-
-                            <div>
-                                <p class="_value"><span
-                                        class="label label-<?= $class ?>"><?= $debata->getData('krakow_glosowania.wynik_str') ?></span>
-                                </p>
-                            </div>
-                        </li>
-                    <? } ?>
-
-
-
-
-                    <? if ($debata->getData('krakow_glosowania.liczba_glosow_za')) { ?>
-                        <li class="dataHighlight big topborder">
-                            <p class="_label">Liczba głosów "Za"</p>
-
-                            <div>
-                                <p class="_value"><?= $debata->getData('krakow_glosowania.liczba_glosow_za') ?></p>
-                            </div>
-                        </li>
-                    <? } ?>
-
-                    <? if ($debata->getData('krakow_glosowania.liczba_glosow_przeciw')) { ?>
-                        <li class="dataHighlight big">
-                            <p class="_label">Liczba głosów "Przeciw"</p>
-
-                            <div>
-                                <p class="_value"><?= $debata->getData('krakow_glosowania.liczba_glosow_przeciw') ?></p>
-                            </div>
-                        </li>
-                    <? } ?>
-
-                    <? if ($debata->getData('krakow_glosowania.liczba_glosow_wstrzymanie')) { ?>
-                        <li class="dataHighlight big">
-                            <p class="_label">Liczba wstrzymań od głosowania</p>
-
-                            <div>
-                                <p class="_value"><?= $debata->getData('krakow_glosowania.liczba_glosow_wstrzymanie') ?></p>
-                            </div>
-                        </li>
-                    <? } ?>
-
-                    <? if ($debata->getData('krakow_glosowania.liczba_nieobecni')) { ?>
-                        <li class="dataHighlight big">
-                            <p class="_label">Liczba nieobecnych</p>
-
-                            <div>
-                                <p class="_value"><?= $debata->getData('krakow_glosowania.liczba_nieobecni') ?></p>
-                            </div>
-                        </li>
-                    <? } ?>
-
-                    <? if ($debata->getData('krakow_glosowania.liczba_nieglosowali')) { ?>
-                        <li class="dataHighlight big topborder">
-                            <p class="_label">Liczba radnych, którzy nie głosowali</p>
-
-                            <div>
-                                <p class="_value"><?= $debata->getData('krakow_glosowania.liczba_nieglosowali') ?></p>
-                            </div>
-                        </li>
-                    <? } ?>
-
-
-
-                    <? if ($debata->getData('krakow_glosowania.typ_str')) { ?>
-                        <li class="dataHighlight topborder">
-                            <p class="_label">Typ głosowania</p>
-
-                            <div>
-                                <p class="_value"><?= $debata->getData('krakow_glosowania.typ_str') ?></p>
-                            </div>
-                        </li>
-                    <? } ?>
-
-                    <? if ($debata->getData('krakow_glosowania.rodzaj_str')) { ?>
-                        <li class="dataHighlight">
-                            <p class="_label">Rodzaj głosowania</p>
-
-                            <div>
-                                <p class="_value"><?= $debata->getData('krakow_glosowania.rodzaj_str') ?></p>
-                            </div>
-                        </li>
-                    <? } ?>
-
-
-                    <? if ($debata->getData('href')) { ?>
-                        <li class="dataHighlight">
-                            <p class="_value" id="sources"><a href="<?= $debata->getData('href') ?>">Źródło</a></p>
-                        </li>
-                    <? } ?>
-
-
-                </ul>
-
-            </div>
-        </div>
-
-
-        <div class="col-md-9 objectMain">
-            <div class="object">
-
-
-                <div class="block-group">
-
-                    <? if ($debata->getData('druk_id')) { ?>
-
-                        <div class="block">
-                            <div class="block-header">
-                                <h2 class="label"><? if ($debata->getData('glosowanie_id')) { ?>Przedmiot głosowania<? } else { ?>Przedmiot obrad<? } ?></h2>
-                            </div>
-
-                            <div class="content padding">
-
-                                <div class="objectRender">
-                                    <div class="row">
-                                        <div class="formatDate col-xs-2 col-lg-1 dimmed">
-                                            <span>18</span>
-
-                                            <p>Mar 2014</p></div>
-                                        <div class="data col-xs-10 col-lg-11">
-                                            <div class="row">
-                                                <div class="col-xs-4 col-sm-3 attachment col-md-2 text-center">
-                                                    <a href="/dane/rady_druki/<?= $debata->getData('rady_druki.id') ?>"
-                                                       class="thumb_cont">
-                                                        <img
-                                                            src="http://docs.sejmometr.pl/thumb/1/<?= $debata->getData('rady_druki.dokument_id') ?>.png"
-                                                            onerror="imgFixer(this)" class="thumb pull-right">
-                                                    </a>
-                                                </div>
-                                                <div class="content col-xs-8 col-sm-9 col-md-10">
-                                                    <p class="title">
-                                                        <a href="/dane/rady_druki/<?= $debata->getData('rady_druki.id') ?>"><?= $debata->getData('rady_druki.tytul') ?></a>
-                                                    </p>
-
-                                                    <div class="description">
-                                                        <?
-                                                        $opis = $debata->getData('rady_druki.opis');
-                                                        if ($opis) {
-
-                                                            $p = stripos($opis, ' /');
-                                                            if ($p) {
-                                                                $opis = substr($opis, $p + 2);
-                                                            }
-
-                                                            echo $opis;
-
-                                                        }
-                                                        ?>
-                                                    </div>
-
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-
                             </div>
-                        </div>
-
-                    <? } ?>
-
-                    <? if ($debata->getData('glosowanie_id') && ($wyniki = $debata->getLayer('wyniki_glosowania'))) { ?>
-
-                        <div class="block">
-                            <div class="block-header">
-                                <h2 class="label">Indywidualne wyniki głosowania</h2>
-                            </div>
-
-                            <div class="content">
-
-                                <ul class="wyniki_glosowania">
-                                    <? foreach ($wyniki as $wynik) { ?>
-
-                                        <li class="row">
-                                            <div class="col-md-2">
-                                                <a href="/dane/radni_gmin/<?= $wynik['radny_id'] ?>" class="thumb_cont">
-                                                    <img
-                                                        src="<? if ($wynik['avatar_id']) { ?>http://resources.sejmometr.pl/avatars/5/<?= $wynik['avatar_id'] ?>.jpg<? } else { ?>http://resources.sejmometr.pl/avatars/g/m.png<? } ?>"
-                                                        class="thumb pull-right">
-                                                </a>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <p class="title"><a
-                                                        href="/dane/radni_gmin/<?= $wynik['radny_id'] ?>"><?= $wynik['nazwa'] ?></a>
-                                                </p>
-
-                                                <p class="desc"><?= $wynik['komitet'] ?></p>
-                                            </div>
-
-                                            <?
-
-                                            $_classes = array(
-                                                '1' => 'success',
-                                                '2' => 'danger',
-                                                '3' => 'primary',
-                                                '4' => 'default'
-                                            );
-
-                                            ?>
-
-                                            <div class="col-md-3">
-                                                <p class="label label-<?= $_classes[$wynik['glos_id']] ?>"><?= $wynik['glos_str'] ?></p>
-                                            </div>
-                                        </li>
-
-                                    <? } ?>
-                                </ul>
-
-                            </div>
-                        </div>
-
-                    <? } ?>
-
+                        </section>
+                    </div>
                 </div>
-
-
             </div>
+        <? } ?>
 
-        </div>
+        <? if (@$aggs['all']['druk']['top']['hits']['hits']['0']) { ?>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="block block-default col-xs-12">
+                        <header>Rozpatrywany druk</header>
+
+                        <section class="aggs-init">
+                            <div class="dataAggs">
+                                <div class="agg agg-Dataobjects">
+                                    <ul class="dataobjects">
+                                        <li>
+                                            <?
+                                            echo $this->Dataobject->render($aggs['all']['druk']['top']['hits']['hits']['0'], 'default');
+                                            ?>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        <? } ?>
+
     </div>
-
 
 
 <?

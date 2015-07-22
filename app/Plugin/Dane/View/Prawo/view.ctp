@@ -1,17 +1,14 @@
 <? echo $this->Element('dataobject/pageBegin'); ?>
 
-    <div class="prawo row">
-        <div class="col-md-2 objectSide">
 
-            <? echo $this->Element('Dane.sides/' . $this->request->params['controller'] . '-left'); ?>
+    <div class="row">
 
+        <div class="object col-md-12">
+
+
+            <?= $this->Document->place($object->getData('dokument_id')) ?>
         </div>
-        <div class="col-md-10 nopadding">
-            <div class="object">
-                <?= $this->Document->place( $object->getData('dokument_id') ) ?>
-            </div>
-        </div>
-
     </div>
+
 
 <?= $this->Element('dataobject/pageEnd'); ?>

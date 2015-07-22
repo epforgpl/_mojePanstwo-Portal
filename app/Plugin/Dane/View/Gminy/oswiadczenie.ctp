@@ -9,17 +9,18 @@ echo $this->Element('dataobject/pageBegin', array(
 ));
 
 echo $this->Element('Dane.dataobject/subobject', array(
-    'menu' => isset($_submenu) ? $_submenu : false,
     'object' => $oswiadczenie,
     'objectOptions' => array(
         'bigTitle' => true,
     )
 ));
-
-
-echo $this->Element('docsBrowser/doc', array(
-    'document' => $document,
-    'documentPackage' => $documentPackage,
-));
-
+?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="object">
+                <?= $this->Document->place($oswiadczenie->getData('dokument_id')) ?>
+            </div>
+        </div>
+    </div>
+<?
 echo $this->Element('dataobject/pageEnd');

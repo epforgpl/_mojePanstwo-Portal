@@ -1,6 +1,7 @@
 # .gitignore generated for CakePHP by GitHub #
 ##############################################
 tmp/*
+app/[Cc]onfig/constants.php
 app/[Cc]onfig/database.php
 app/[Cc]onfig/email.php
 !empty
@@ -14,7 +15,6 @@ app/[Cc]onfig/email.php
 /app/Vendor/autoload.php
 /app/Vendor/composer
 /app/Vendor/leafo
-/app/Config/constants.php
 /app/tmp/*.log.*
 /app/tmp/cake*
 /app/tmp/userbar*

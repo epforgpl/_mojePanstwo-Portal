@@ -23,43 +23,21 @@
     }
 }
 
+#localizeMe {
+  width: auto;
+}
+
 #mojaGmina {
     @sidebarSize: 25%;
     @mapSize: 75%;
     @mapPadding: 0%;
 
+    padding: 0;
+
     h2 {
         font-size: 16px;
         padding: 5px 20px 15px;
         font-weight: 300;
-    }
-
-    .mainPart {
-        .or {
-            border-bottom: 1px solid #CCCCCC;
-            font-size: 12px;
-            height: 10px;
-            margin: 10px 0 20px;
-            text-align: center;
-
-            .middle {
-                background-color: #FFFFFF;
-                padding: 4px 20px;
-            }
-        }
-        #localizeMe {
-            width: 100%;
-
-            &:before {
-                font-family: "mojePanstwo";
-                content: "\e607";
-                margin-right: 5px;
-                font-size: 16px;
-                line-height: 1em;
-                right: 0;
-                vertical-align: text-bottom;
-            }
-        }
     }
 
     .filterSearch {
@@ -130,8 +108,10 @@
         }
     }
 
-    .level.first {
-        .map_info {
+    .level {
+        margin: 10px 0;
+
+        &.first .map_info {
             margin-top: 0;
         }
     }
@@ -153,7 +133,7 @@
 
 @media (max-width: 550px) {
     #mojaGmina {
-        #localizeMe, .filterSearch, .map_info {
+      .filterSearch, .map_info {
             width: 100%;
         }
         .map_info {

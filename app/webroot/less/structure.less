@@ -1,629 +1,922 @@
 * {
-    margin: 0;
+  margin: 0;
 }
 
 html,
 body {
-    margin: 0;
-    padding: 0;
-    min-height: 100%;
-    height: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  height: auto;
+
+  font-family: 'Lato', sans-serif;
 }
 
 .btn {
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
 
-    &.btn-icon {
-        overflow: hidden;
-        text-align: left;
-        width: 100%;
-        position: relative;
-        border-width: 0;
-        padding: 8px 12px 8px 50px;
-        word-wrap: break-word;
-        white-space: normal;
-        line-height: 1em;
+  &.btn-icon {
+    overflow: hidden;
+    text-align: left;
+    width: 100%;
+    position: relative;
+    border-width: 0;
+    padding: 8px 12px 8px 50px;
+    word-wrap: break-word;
+    white-space: normal;
+    line-height: 1em;
 
-        &.obserwuj-button:hover {
-            .btn-text {
-                visibility: hidden;
-            }
-            .btn-text:before {
-                content: "Nie obserwuj";
-                visibility: visible;
-            }
-        }
+    &.loading {
+      color: rgba(0, 0, 0, 0);
 
-        &.btn-primary {
-            background-color: #007ab9;
+      &:not(btn-default) {
+        background-image: url(/img/loader/search-loading.png);
+      }
 
-            .icon {
-                background-color: #00639a;
-            }
-
-            &:hover {
-                background-color: #00639a;
-
-                &.btn-icon .icon {
-                    background-color: #007ab9;
-                }
-            }
-        }
-
-        &.btn-default {
-
-            background-color: #FAFAFA;
-
-            .icon {
-                background-color: #F1F1F1;
-            }
-
-            &:hover {
-                background-color: #F1F1F1;
-
-                &.btn-icon .icon {
-                    background-color: #FAFAFA;
-                }
-            }
-
-        }
-
-        .icon {
-            background-color: #00639a;
-            left: 0;
-            padding: 8px 10px;
-            position: absolute;
-            text-align: center;
-            top: 0;
-            width: 42px;
-            height: 100%;
-
-            &:before, &:after {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-
-                -webkit-transform: translate(-50%, -50%);
-                -moz-transform: translate(-50%, -50%);
-                -ms-transform: translate(-50%, -50%);
-                -o-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
-            }
-        }
+      > i {
+        display: none;
+      }
     }
+
+    .btnIconMode(@color:#FAFAFA) {
+      background-color: @color;
+      outline: none;
+
+      .icon {
+        background-color: darken(@color, 4%);
+        left: 0;
+        padding: 8px 10px;
+        position: absolute;
+        text-align: center;
+        top: 0;
+        width: 42px;
+        height: 100%;
+
+        &:before, &:after {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+
+          -webkit-transform: translate(-50%, -50%);
+          -moz-transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+          -o-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      &:hover {
+        background-color: darken(@color, 4%);
+
+        &.btn-icon .icon {
+          background-color: @color;
+        }
+      }
+    }
+    &.btn-default {
+      .btnIconMode();
+    }
+    &.btn-primary {
+      .btnIconMode(#007ab9);
+    }
+    &.btn-success {
+      .btnIconMode(#5cb85c);
+    }
+    &.btn-warning {
+      .btnIconMode(#f0ad4e);
+    }
+    &.btn-danger {
+      .btnIconMode(#d9534f);
+    }
+  }
 
 }
 
 #_wrapper {
-    @cockpitMobileToggle: #ffffff;
-    @cockpitBlueLight: #59a4dd;
-    @cockpitBlue: #014068;
-    @cockpitBlueDark: #023353;
-    @cockpitBlueDarken: #062f49;
-    @appHeight: 70px;
+  @cockpitMobileToggle: #ffffff;
+  @cockpitColorLight: #438fca;
+  @cockpitColor: #226799;
+  @cockpitColorDark: #053f69;
+  @cockpitBarWidth: 85px;
+  @appHeight: 70px;
 
-    width: 100%;
-    min-height: 100%;
-    position: relative;
-    background-color: #e9eaed;
+  width: 100%;
+  min-height: 100vh;
+  //min-height: 100%;
+  position: relative;
 
-    font-family: 'Lato', sans-serif;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+  ._mPLogo {
+    font-family: "Lato", sans-serif;
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 22px;
+    text-align: right;
+    height: 66px;
 
-    ._mPLogo {
-        font-family: "Lato", sans-serif;
-        font-size: 22px;
-        font-weight: 300;
-        line-height: 22px;
-        margin: 10px;
-        text-align: right;
-
-        img {
-            width: 80px;
-        }
-
-        a, a:hover, a:focus {
-            color: #ffffff;
-        }
+    img {
+      width: 71px;
     }
 
-    #_mPCockpitMobile {
-        width: 100%;
-        height: 70px;
-        background-color: @cockpitBlue;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 901;
+    a, a:hover, a:focus {
+      color: #ffffff;
+      width: 100%;
+      height: 100%;
+      display: block;
+      padding: 16px 7px;
+    }
+  }
 
-        ._mPLogo {
-            float: left;
-            width: 80px;
+  #_mPCockpitMobile {
+    width: 100%;
+    height: 66px;
+    background-color: @cockpitColor;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 901;
+
+    ._mPLogo {
+      position: absolute;
+      top: 0;
+      left: 50%;
+
+      -webkit-transform: translate(-50%, 0);
+      -moz-transform: translate(-50%, 0);
+      -ms-transform: translate(-50%, 0);
+      -o-transform: translate(-50%, 0);
+      transform: translate(-50%, 0);
+    }
+
+    ._mPShowMenu {
+      @iconSize: 25px;
+      @iconLineSize: 2px;
+
+      float: left;
+      width: @cockpitBarWidth;
+      height: 100%;
+      position: relative;
+
+      .tcon {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: @iconSize;
+        height: @iconSize;
+
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+
+        appearance: none;
+        border: none;
+        cursor: pointer;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        transition: 0.3s;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background: transparent;
+        outline: none;
+      }
+      .tcon > * {
+        display: block;
+      }
+      .tcon:hover, .tcon:focus {
+        outline: none;
+      }
+      .tcon::-moz-focus-inner {
+        border: 0;
+      }
+
+      .tcon-menu__lines {
+        display: inline-block;
+        height: @iconLineSize;
+        width: @iconSize;
+        border-radius: 2.85714px;
+        transition: 0.3s;
+        background: @cockpitMobileToggle;
+        position: relative;
+      }
+      .tcon-menu__lines::before, .tcon-menu__lines::after {
+        display: inline-block;
+        height: @iconLineSize;
+        width: @iconSize;
+        border-radius: 2.85714px;
+        transition: 0.3s;
+        background: @cockpitMobileToggle;
+        content: '';
+        position: absolute;
+        left: 0;
+        -webkit-transform-origin: 2.85714px center;
+        -moz-transform-origin: 2.85714px center;
+        -ms-transform-origin: 2.85714px center;
+        -o-transform-origin: 2.85714px center;
+        transform-origin: 2.85714px center;
+      }
+      .tcon-menu__lines::before {
+        top: 7px;
+      }
+      .tcon-menu__lines::after {
+        top: -7px;
+      }
+      .tcon-transform .tcon-menu__lines {
+        -webkit-transform: scale3d(.8, .8, .8);
+        -moz-transform: scale3d(.8, .8, .8);
+        -ms-transform: scale3d(.8, .8, .8);
+        -o-transform: scale3d(.8, .8, .8);
+        transform: scale3d(.8, .8, .8);
+      }
+
+      .tcon-menu--xcross {
+        width: auto;
+      }
+      .tcon-menu--xcross.tcon-transform .tcon-menu__lines {
+        background: transparent;
+      }
+      .tcon-menu--xcross.tcon-transform .tcon-menu__lines::before, .tcon-menu--xcross.tcon-transform .tcon-menu__lines::after {
+        -webkit-transform-origin: 50% 50%;
+        -moz-transform-origin: 50% 50%;
+        -ms-transform-origin: 50% 50%;
+        -o-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        top: 0;
+        width: @iconSize;
+        height: @iconLineSize+1;
+      }
+      .tcon-menu--xcross.tcon-transform .tcon-menu__lines::before {
+        -webkit-transform: rotate3d(0, 0, 1, 45deg);
+        -moz-transform: rotate3d(0, 0, 1, 45deg);
+        -ms-transform: rotate3d(0, 0, 1, 45deg);
+        -o-transform: rotate3d(0, 0, 1, 45deg);
+        transform: rotate3d(0, 0, 1, 45deg);
+      }
+      .tcon-menu--xcross.tcon-transform .tcon-menu__lines::after {
+        -webkit-transform: rotate3d(0, 0, 1, -45deg);
+        -moz-transform: rotate3d(0, 0, 1, -45deg);
+        -ms-transform: rotate3d(0, 0, 1, -45deg);
+        -o-transform: rotate3d(0, 0, 1, -45deg);
+        transform: rotate3d(0, 0, 1, -45deg);
+      }
+
+      .tcon-visuallyhidden {
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+      }
+      .tcon-visuallyhidden:active, .tcon-visuallyhidden:focus {
+        clip: auto;
+        height: auto;
+        margin: 0;
+        overflow: visible;
+        position: static;
+        width: auto;
+      }
+    }
+  }
+
+  #_mPCockpit {
+    width: @cockpitBarWidth;
+    height: 100%;
+    color: #ffffff;
+    padding: 0;
+    text-align: center;
+    font-size: 12px;
+    font-weight: normal;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 900;
+
+    a {
+      color: #ffffff;
+    }
+
+    ._mPBasic, ._mPAppList {
+      float: left;
+    }
+
+    ._appBlock {
+      height: @appHeight;
+      cursor: pointer;
+
+      &._appBlockBackground {
+        &._appBlockActive {
+          @activeColor: #438fca;
+
+          border-left: 4px solid @activeColor;
+
+          ._mPTitle {
+            margin-left: -3px;
+            color: #ffffff;
+
+            ._mPAppIcon {
+              color: #ffffff;
+
+            }
+          }
+        }
+        &:not(._appBlockActive):hover {
+          background-color: @cockpitColorLight;
+          color: #ffffff;
+        }
+      }
+    }
+
+    ._mPBasic {
+      width: @cockpitBarWidth;
+      height: 100%;
+      background-color: @cockpitColor;
+      position: fixed;
+      top: 0;
+      left: 0;
+
+      ._mPPowerButton {
+        @powerSize: 85px;
+
+        min-height: @powerSize;
+        position: relative;
+        overflow: hidden;
+        background-color: @cockpitColorDark;
+
+        ._mPIconUser {
+          margin-top: 30px;
+          overflow: hidden;
+          width: 40px;
+          height: 40px;
+          font-size: 28px;
+
+          &.roundBorder {
+            border: 1px solid #ffffff;
+            -webkit-border-radius: 50px;
+            -moz-border-radius: 50px;
+            -ms-border-radius: 50px;
+            -o-border-radius: 50px;
+            border-radius: 50px;
+
             position: absolute;
             top: 0;
             left: 50%;
-
             -webkit-transform: translate(-50%, 0);
             -moz-transform: translate(-50%, 0);
             -ms-transform: translate(-50%, 0);
             -o-transform: translate(-50%, 0);
             transform: translate(-50%, 0);
+          }
         }
-
-        ._mPShowMenu {
-            @iconSize: 25px;
-            @iconLineSize: 2px;
-
-            float: left;
-            width: 70px;
-            height: 100%;
-            position: relative;
-
-            .tcon {
-                position: absolute;
-                right: 0;
-                top: 50%;
-                width: @iconSize;
-                height: @iconSize;
-
-                -webkit-transform: translate(0, -50%);
-                -moz-transform: translate(0, -50%);
-                -ms-transform: translate(0, -50%);
-                -o-transform: translate(0, -50%);
-                transform: translate(0, -50%);
-
-                appearance: none;
-                border: none;
-                cursor: pointer;
-                display: -webkit-flex;
-                display: -ms-flexbox;
-                display: flex;
-                -webkit-justify-content: center;
-                -ms-flex-pack: center;
-                justify-content: center;
-                -webkit-align-items: center;
-                -ms-flex-align: center;
-                align-items: center;
-                transition: 0.3s;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-                background: transparent;
-                outline: none;
-            }
-            .tcon > * {
-                display: block;
-            }
-            .tcon:hover, .tcon:focus {
-                outline: none;
-            }
-            .tcon::-moz-focus-inner {
-                border: 0;
-            }
-
-            .tcon-menu__lines {
-                display: inline-block;
-                height: @iconLineSize;
-                width: @iconSize;
-                border-radius: 2.85714px;
-                transition: 0.3s;
-                background: @cockpitMobileToggle;
-                position: relative;
-            }
-            .tcon-menu__lines::before, .tcon-menu__lines::after {
-                display: inline-block;
-                height: @iconLineSize;
-                width: @iconSize;
-                border-radius: 2.85714px;
-                transition: 0.3s;
-                background: @cockpitMobileToggle;
-                content: '';
-                position: absolute;
-                left: 0;
-                -webkit-transform-origin: 2.85714px center;
-                -moz-transform-origin: 2.85714px center;
-                -ms-transform-origin: 2.85714px center;
-                -o-transform-origin: 2.85714px center;
-                transform-origin: 2.85714px center;
-            }
-            .tcon-menu__lines::before {
-                top: 7px;
-            }
-            .tcon-menu__lines::after {
-                top: -7px;
-            }
-            .tcon-transform .tcon-menu__lines {
-                -webkit-transform: scale3d(.8, .8, .8);
-                -moz-transform: scale3d(.8, .8, .8);
-                -ms-transform: scale3d(.8, .8, .8);
-                -o-transform: scale3d(.8, .8, .8);
-                transform: scale3d(.8, .8, .8);
-            }
-
-            .tcon-menu--xcross {
-                width: auto;
-            }
-            .tcon-menu--xcross.tcon-transform .tcon-menu__lines {
-                background: transparent;
-            }
-            .tcon-menu--xcross.tcon-transform .tcon-menu__lines::before, .tcon-menu--xcross.tcon-transform .tcon-menu__lines::after {
-                -webkit-transform-origin: 50% 50%;
-                -moz-transform-origin: 50% 50%;
-                -ms-transform-origin: 50% 50%;
-                -o-transform-origin: 50% 50%;
-                transform-origin: 50% 50%;
-                top: 0;
-                width: @iconSize;
-                height: @iconLineSize+1;
-            }
-            .tcon-menu--xcross.tcon-transform .tcon-menu__lines::before {
-                -webkit-transform: rotate3d(0, 0, 1, 45deg);
-                -moz-transform: rotate3d(0, 0, 1, 45deg);
-                -ms-transform: rotate3d(0, 0, 1, 45deg);
-                -o-transform: rotate3d(0, 0, 1, 45deg);
-                transform: rotate3d(0, 0, 1, 45deg);
-            }
-            .tcon-menu--xcross.tcon-transform .tcon-menu__lines::after {
-                -webkit-transform: rotate3d(0, 0, 1, -45deg);
-                -moz-transform: rotate3d(0, 0, 1, -45deg);
-                -ms-transform: rotate3d(0, 0, 1, -45deg);
-                -o-transform: rotate3d(0, 0, 1, -45deg);
-                transform: rotate3d(0, 0, 1, -45deg);
-            }
-
-            .tcon-visuallyhidden {
-                border: 0;
-                clip: rect(0 0 0 0);
-                height: 1px;
-                margin: -1px;
-                overflow: hidden;
-                padding: 0;
-                position: absolute;
-                width: 1px;
-            }
-            .tcon-visuallyhidden:active, .tcon-visuallyhidden:focus {
-                clip: auto;
-                height: auto;
-                margin: 0;
-                overflow: visible;
-                position: static;
-                width: auto;
-            }
+        > a {
+          display: block;
+          width: 100%;
+          padding-top: 12px;
+          height: @powerSize;
         }
-    }
-
-    #_mPCockpit {
-        width: auto;
-        height: 100%;
-        color: #FFFFFF;
-        padding: 0;
-        text-align: center;
-        font-size: 10px;
-        font-weight: bold;
-        position: fixed;
-        top: 0;
-        left: 0;
-
-        a {
-            color: #ffffff;
+        > .name {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          text-align: center;
+          padding: 8px 5px 0;
+          font-weight: 400;
+          line-height: 1em;
+          word-wrap: break-word;
         }
-
-        ._mPBasic, ._mPAppList {
-            float: left;
+        > .avatar {
+          max-height: @powerSize;
+          position: absolute;
+          top: 0;
+          left: 50%;
+          -webkit-transform: translate(-50%, 0);
+          -moz-transform: translate(-50%, 0);
+          -ms-transform: translate(-50%, 0);
+          -o-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
         }
+        > .optionsBtn {
+          display: block;
+          cursor: pointer;
+          width: 100%;
+          height: @powerSize;
+          position: relative;
 
-        ._appBlock {
-            height: @appHeight;
-            cursor: pointer;
-
-            &._appBlockBackground {
-                &._appBlockActive {
-                    background-color: @cockpitBlueDarken;
-                    border-left: 5px solid #63afea;
-
-                    ._mPTitle {
-                        margin-left: -3px;
-                        color: #63afea;
-
-                        ._mPAppIcon {
-                            color: #63afea;
-                        }
-                    }
-                }
-                &:not(._appBlockActive):hover {
-                    background-color: @cockpitBlueLight;
-                }
-            }
-        }
-
-        ._mPBasic {
-            width: 100px;
-            height: 100%;
-            background-color: @cockpitBlue;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 900;
-
-            ._mPPowerButton {
-                background-color: #000000;
-
-                > a {
-                    color: #FFFFFF;
-                    padding-top: 18px;
-                    padding-bottom: 18px;
-                    display: block;
-                }
-            }
-            ._mPUser {
-                height: 90px;
-                position: relative;
-                overflow: hidden;
-
-                a {
-                    display: block;
-                    height: 100%;
-                    width: 100%;
-                    
-                    > img {
-                        width: 100%;
-                        left: 50%;
-                        position: absolute;
-                        top: 50%;
-
-                        -webkit-transform: translate(-50%, -50%);
-                        -moz-transform: translate(-50%, -50%);
-                        -ms-transform: translate(-50%, -50%);
-                        -o-transform: translate(-50%, -50%);
-                        transform: translate(-50%, -50%);
-                    }
-
-                    span {
-                        @userTextHeight: 12px;
-
-                        position: absolute;
-                        top: 50%;
-                        left: 0;
-                        margin-top: -(@userTextHeight/2);
-                        width: 100%;
-                        height: @userTextHeight;
-                        padding: 0 10px;
-                        word-wrap: break-word;
-                    }
-                }
-            }
-            ._mPApplication ._appBlock {
-                position: relative;
-                display: block;
-
-                ._mPTitle {
-                    left: 50%;
-                    position: absolute;
-                    top: 50%;
-                    text-align: center;
-
-                    -webkit-transform: translate(-50%, -50%);
-                    -moz-transform: translate(-50%, -50%);
-                    -ms-transform: translate(-50%, -50%);
-                    -o-transform: translate(-50%, -50%);
-                    transform: translate(-50%, -50%);
-
-                    ._mPAppIcon {
-                        width: 100%;
-                        display: block;
-                        font-size: 20px;
-                    }
-                    ._mPAppLabel {
-                        margin: 0;
-                        line-height: 1.1em;
-                    }
-                    ._mPAppBadge {
-                        font-size: 10px;
-                        padding: 4px;
-                        position: absolute;
-                        right: 0;
-                        top: 0;
-                        background-color: #63afea;
-                        color: #ffffff;
-
-                        -webkit-transform: translate(0, -50%);
-                        -moz-transform: translate(0, -50%);
-                        -ms-transform: translate(0, -50%);
-                        -o-transform: translate(0, -50%);
-                        transform: translate(0, -50%);
-                    }
-                }
-            }
-            ._mPSystem {
-                position: absolute;
-                bottom: 0;
-                width: 100%;
-
-                ._mPRunning, ._mPFooter {
-                    width: 100%;
-                    display: block;
-                    position: relative
-                }
-
-                ._mPFooter {
-                    width: 100%;
-                    margin: 0;
-                    padding: 0;
-                    list-style: none;
-
-                    li {
-                        width: 100%;
-                        float: left;
-                        padding: 2px 0;
-
-                        a {
-                            display: block;
-                            font-size: 10px;
-                            font-weight: normal;
-                            text-align: center;
-                            color: rgba(255, 255, 255, .5);
-
-                            &:hover {
-                                color: rgba(255, 255, 255, 1);
-                            }
-                        }
-
-                    }
-                }
-            }
-        }
-        ._mPAppList {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 899;
-            width: 100px;
-            height: 100%;
-            background-color: @cockpitBlueDarken;
-            padding-top: 20px;
-
-            ._appBlock {
-                @AppListPadding: 5px;
-
-                display: table;
-                width: 100%;
-                padding: 5px;
-                height: @appHeight + (2*@AppListPadding);
-
-                ._appConstruct {
-                    display: table-cell;
-                    vertical-align: middle;
-                    padding: 5px;
-                    width: 100%;
-
-                    ._mPAppIcon {
-                        @iconSize: 20px;
-
-                        margin: 0 auto;
-                        width: @iconSize;
-                        height: @iconSize;
-                        position: relative;
-
-                        > img {
-                            width: 100%;
-                            height: 100%;
-                            position: absolute;
-                            top: 50%;
-                            left: 50%;
-
-                            -webkit-transform: translate(-50%, -50%);
-                            -moz-transform: translate(-50%, -50%);
-                            -ms-transform: translate(-50%, -50%);
-                            -o-transform: translate(-50%, -50%);
-                            transform: translate(-50%, -50%);
-                        }
-                    }
-                    ._mPTitle {
-                        margin-top: 6px;
-                        line-height: 10px;
-                    }
-                }
-            }
-        }
-    }
-
-    #_main {
-        @footerHeight: 30px;
-
-        width: 100%;
-        height: 100%;
-        min-height: 100vh;
-        padding-left: 100px;
-
-        > div:last-of-type:not(.fullPageHeight) {
-            padding-bottom: @footerHeight;
-        }
-
-        footer {
-            height: @footerHeight;
-            margin-right: 10px;
+          > span {
+            @btnSize: 15px;
 
             position: absolute;
-            bottom: 0;
             right: 0;
-            z-index: 900;
+            top: @powerSize - @btnSize;
+            width: @btnSize;
+            height: @btnSize;
+            padding: 3px 0;
+            background-color: #201622;
+            font-size: 10px;
+            color: #ffffff;
+            text-align: center;
+            display: inline-block;
+          }
+        }
+        > .optionsList {
+          margin: 0;
+          padding: 0;
+          list-style-type: none;
+          background-color: #201622;
+          position: relative;
 
-            a, .separator {
-                color: #aaaaaa;
+          li {
+            padding: 0;
+
+            &:first-child {
+              padding-top: 10px;
+            }
+
+            &:last-child {
+              padding-bottom: 10px;
             }
 
             a {
-                font-size: 10px;
-                font-weight: bold;
-                margin: 20px 0;
+              display: block;
+              line-height: 1em;
+              padding: 8px 10px;
+              text-align: left;
+              width: 100%;
             }
+          }
+        }
+      }
+      ._mPApplication ._appBlock {
+        position: relative;
+        display: block;
+
+        &._mPAccount {
+          ._mPTitle {
+            ._mPAppIcon {
+              color: #004562;
+            }
+            ._mPAppLabel {
+              color: #004562;
+            }
+          }
         }
 
-        .fullPageHeight {
-            min-height: 100vh;
+        &._mPAccount:hover {
+          ._mPTitle {
+            ._mPAppIcon {
+              color: #FFF;
+            }
+            ._mPAppLabel {
+              color: #FFF;
+            }
+          }
+        }
+
+        ._mPTitle {
+          left: 50%;
+          position: absolute;
+          top: 50%;
+          text-align: center;
+
+          -webkit-transform: translate(-50%, -50%);
+          -moz-transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+          -o-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+
+          ._mPAppIcon {
+            width: 100%;
+            display: block;
+            font-size: 22px;
+
+            &.glyphicon {
+              margin-bottom: 5px;
+            }
+          }
+          ._mPAppLabel {
+            margin: 0;
+            line-height: 1.1em;
+            font-weight: 400;
+            font-size: 11px;
+
+            span {
+              word-wrap: break-word;
+            }
+          }
+          ._mPAppBadge {
+            font-size: 10px;
+            padding: 4px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            background-color: #63afea;
+            color: #ffffff;
+
+            -webkit-transform: translate(0, -50%);
+            -moz-transform: translate(0, -50%);
+            -ms-transform: translate(0, -50%);
+            -o-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+          }
+        }
+      }
+      ._mPSystem {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+
+        ._mPRunning, ._mPFooter {
+          width: 100%;
+          display: block;
+          position: relative
+        }
+
+        ._mPFooter {
+          width: 100%;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+
+          li {
+            width: 100%;
+            float: left;
+            padding: 2px 0;
+
+            a {
+              display: block;
+              font-size: 10px;
+              font-weight: normal;
+              text-align: center;
+              color: rgba(255, 255, 255, .5);
+
+              &:hover {
+                color: rgba(255, 255, 255, 1);
+              }
+            }
+
+          }
+        }
+      }
+    }
+    ._mPAppList {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 899;
+      width: 100px;
+      height: 100%;
+      background-color: @cockpitColorDark;
+      padding-top: 20px;
+
+      ._appBlock {
+        @AppListPadding: 5px;
+
+        display: table;
+        width: 100%;
+        padding: 5px;
+        height: @appHeight + (2*@AppListPadding);
+
+        ._appConstruct {
+          display: table-cell;
+          vertical-align: middle;
+          padding: 5px;
+          width: 100%;
+
+          ._mPAppIcon {
+            @iconSize: 20px;
+
+            margin: 0 auto;
+            width: @iconSize;
+            height: @iconSize;
             position: relative;
 
-            ._handler {
-                max-width: 100%;
-                min-height: 100vh;
+            > img {
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+
+              -webkit-transform: translate(-50%, -50%);
+              -moz-transform: translate(-50%, -50%);
+              -ms-transform: translate(-50%, -50%);
+              -o-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%);
             }
+          }
+          ._mPTitle {
+            margin-top: 6px;
+            line-height: 10px;
+          }
         }
+      }
     }
+  }
+
+  #_main {
+    width: 100%;
+    height: 100%;
+    padding-left: 85px;
+    position: relative;
+    display: inline-block;
+    margin-bottom: -4px;
+
+    .objectsPage {
+      min-height: 400px;
+    }
+
+    .fullPageHeight {
+      min-height: 100vh;
+      position: relative;
+      margin-bottom: -4px;
+
+      ._handler {
+        max-width: 100%;
+        min-height: 100vh;
+      }
+    }
+  }
+  footer.footer {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+
+    .standard {
+      padding-top: 20px;
+      padding-bottom: 15px;
+      background-color: #e6e7eb;
+
+      .separator {
+        color: #BBB;
+      }
+
+      a {
+        &:first-child {
+          margin-left: 30px;
+        }
+
+        font-size: 12px;
+        font-weight: normal;
+        padding: 5px 0;
+
+        > img {
+          height: 30px;
+          margin-right: 15px;
+        }
+      }
+
+    }
+    .minimal {
+      width: 340px;
+
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      z-index: 900;
+
+      -webkit-transform: translate(-50%, 0px);
+      -moz-transform: translate(-50%, 0px);
+      -ms-transform: translate(-50%, 0px);
+      -o-transform: translate(-50%, 0px);
+      transform: translate(-50%, 0px);
+
+      .separator {
+        color: darken(#EDEDED, 20%);
+      }
+
+      a {
+        font-size: 10px;
+        font-weight: bold;
+        margin: 20px 0;
+        color: #EDEDED;
+
+        -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=135, Color=#000000)";
+        text-shadow: 1px 1px 1px #000000;
+        filter: progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=135, Color=#000000);
+
+      }
+    }
+  }
+
+  .cookieLaw {
+    background-color: #007ab9;
+
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    -webkit-transform: translate(-50%, 0);
+    -moz-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    border-radius: 10px;
+
+    &:before {
+      content: ' ';
+      width: 77px;
+      height: 68px;
+      background: url(/img/cookies.png) top left no-repeat;
+
+      position: absolute;
+      top: 50%;
+      left: 0;
+      -webkit-transform: translate(-50%, -50%);
+      -moz-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      -o-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+
+    > .cookieInfo {
+      @fontSize: 12px;
+
+      width: 100%;
+      display: inline-block;
+      padding: 15px 105px 10px 35px;
+
+      font-size: @fontSize;
+      font-weight: 300;
+      color: #ffffff;
+
+      > p {
+        margin: 0;
+
+        > a {
+          color: #ffffff;
+          text-decoration: underline;
+        }
+      }
+      > .btn {
+        font-size: @fontSize;
+        border-color: #01639a;
+        background-color: #01639a;
+
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        -webkit-transform: translate(0, -50%);
+        -moz-transform: translate(0, -50%);
+        -ms-transform: translate(0, -50%);
+        -o-transform: translate(0, -50%);
+        transform: translate(0, -50%);
+      }
+    }
+  }
+}
+
+.modal {
+  color: #a4a4a4;
+
+  .modal-dialog {
+    .modal-content {
+      background-color: #ffffff;
+
+      .modal-header {
+        border-bottom-width: 0;
+
+        .modal-title {
+          font-size: 40px;
+          font-weight: 300;
+          line-height: 0.9em;
+          text-align: center;
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+
+        .close {
+          font-size: 24px;
+          font-weight: 300;
+        }
+      }
+
+      .modal-body {
+        margin-bottom: 20px;
+        margin-top: 0;
+
+        .header {
+          font-size: 16px;
+          margin-bottom: 30px;
+          margin-top: 0;
+          text-align: center;
+
+          a {
+            color: #337ab7;
+          }
+
+          span {
+            display: block;
+            color: #666;
+            margin-top: 5px;
+          }
+        }
+      }
+      .modal-footer {
+        padding: 15px 10px;
+        text-align: center;
+
+        &.backgroundBlue {
+          background-color: #428BCA;
+
+          a {
+            color: #ffffff;
+          }
+        }
+
+        a {
+          width: auto;
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: 767px) {
-    #_wrapper {
-        overflow-x: hidden;
+  #_wrapper {
+    overflow-x: hidden;
 
-        #_mPCockpit ._mPBasic {
-            margin-left: -100px;
+    #_mPCockpit ._mPBasic {
+      margin-left: -85px;
 
-            ._mPLogo {
-                visibility: hidden;
-            }
-        }
-        #_main {
-            margin-top: 70px;
-            padding-left: 0;
-        }
-
-        .flash-message {
-          margin-top: 70px;
-        }
-
-        #modalPaszportLoginForm .modal-dialog {
-          margin-top: 28px;
-        }
+      ._mPLogo {
+        visibility: hidden;
+      }
     }
+    #_main {
+      margin-top: 66px;
+      padding-left: 0;
+    }
+
+    .flash-message {
+      margin-top: 66px;
+    }
+
+    #modalPaszportLoginForm .modal-dialog {
+      margin-top: 28px;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  #_wrapper #_main footer.footer {
+    .standard {
+      .left ul > li {
+        width: 20%;
+      }
+      .right a > img {
+        margin-left: 20px;
+        margin-top: -5px;
+      }
+    }
+    .minimal {
+      margin-left: 40px;
+    }
+  }
 }
 
 /*ADDITIONAL CUSTOM SIZE*/
 @media (min-width: 768px) and (max-width: 868px) {
-    #_wrapper .container {
-        width: 650px;
-    }
+  #_wrapper .container {
+    width: 650px;
+  }
 }
 
 @media (min-width: 992px) and (max-width: 1092px) {
-    #_wrapper .container {
-        width: 870px;
-    }
+  #_wrapper .container {
+    width: 870px;
+  }
 }
 
 @media (min-width: 1200px) and (max-width: 1300px) {
-    #_wrapper .container {
-        width: 1070px;
-    }
+  #_wrapper .container {
+    width: 1070px;
+  }
 }
 
 @media (min-width: 768px) {
-    #_wrapper #_mPCockpitMobile {
-        display: none;
-    }
+  #_wrapper #_mPCockpitMobile {
+    display: none;
+  }
 }

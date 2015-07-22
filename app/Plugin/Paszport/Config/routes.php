@@ -13,6 +13,7 @@ Router::connect('/paszport/logi', array('plugin' => 'paszport', 'controller' => 
 Router::connect('/paszport/user/setUserName', array('plugin' => 'paszport', 'controller' => 'AjaxRequest', 'action' => 'setUserName'));
 Router::connect('/paszport/user/setEmail', array('plugin' => 'paszport', 'controller' => 'AjaxRequest', 'action' => 'setEmail'));
 Router::connect('/paszport/user/setPassword', array('plugin' => 'paszport', 'controller' => 'AjaxRequest', 'action' => 'setPassword'));
+Router::connect('/paszport/user/createNewPassword', array('plugin' => 'paszport', 'controller' => 'AjaxRequest', 'action' => 'createNewPassword'));
 Router::connect('/paszport/user/delete', array('plugin' => 'paszport', 'controller' => 'AjaxRequest', 'action' => 'delete'));
 
 Router::connect('/fblogin', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'facebookLogin'));
@@ -29,3 +30,6 @@ Router::redirect('/paszport/users/failed', array(
 ));
 
 Router::redirect('/pages/fblogin', array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'fblogin'));
+
+Router::connect('/paszport/users/email', array('plugin' => 'paszport', 'controller' => 'AjaxRequest', 'action' => 'getUsersByEmail', '[method]' => 'POST'));
+

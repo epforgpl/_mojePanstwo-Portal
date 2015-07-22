@@ -47,14 +47,20 @@
                                                         <p class="title"><a
                                                                 href="/dane/sejm_posiedzenia_punkty/<?= $object->getId() ?>,<?= $object->getSlug() ?>/debaty/<?= $debata->getId() ?>">Część
                                                                 #<?= $debata->getData('punkt_i') ?></a></p>
-                                                        
-                                                        <div class="aoverflow">   
-	                                                        <p class="img-debata"><img src="http://resources.sejmometr.pl/stenogramy/subpunkty/<?= $debata->getId() ?>.jpg" /></p>
-	                                                        <p class="debata-stats">
-		                                                        <? if( $debata->getData('liczba_wystapien') ) {?>Liczba wystąpień: <b><?= $debata->getData('liczba_wystapien') ?></b><? } ?>
-		                                                        <br />
-		                                                        <? if( $debata->getData('liczba_glosowan') ) {?>Liczba głosowań: <b><?= $debata->getData('liczba_glosowan') ?></b><? } ?>
-	                                                        </p>
+
+                                                        <div class="aoverflow">
+                                                            <p class="img-debata">
+                                                                <img onerror="imgFixer(this)"
+                                                                     src="http://resources.sejmometr.pl/stenogramy/subpunkty/<?= $debata->getId() ?>.jpg"/>
+                                                            </p>
+
+                                                            <p class="debata-stats">
+                                                                <? if ($debata->getData('liczba_wystapien')) { ?>Liczba wystąpień:
+                                                                    <b><?= $debata->getData('liczba_wystapien') ?></b><? } ?>
+                                                                <br/>
+                                                                <? if ($debata->getData('liczba_glosowan')) { ?>Liczba głosowań:
+                                                                    <b><?= $debata->getData('liczba_glosowan') ?></b><? } ?>
+                                                            </p>
                                                         </div>
 
                                                     </div>

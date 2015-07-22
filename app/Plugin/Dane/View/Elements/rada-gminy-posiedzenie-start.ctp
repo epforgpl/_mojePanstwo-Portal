@@ -18,8 +18,8 @@ $object_content_sizes = array(6, 6);
 
                 <div class="attachment col-md-<?= $object_content_sizes[0] ?> text-center">
                     <a href="<?= $object->getUrl() ?>">
-                        <img onerror="imgFixer(this)" src="<?= $object->getThumbnailUrl() ?>"
-                             alt="<?= strip_tags($object->getTitle()) ?>"/>
+                        <img src="<?= $object->getThumbnailUrl() ?>" alt="<?= strip_tags($object->getTitle()) ?>"
+                             onerror="imgFixer(this)"/>
                     </a>
                 </div>
                 <div class="content col-md-<?= $object_content_sizes[1] ?>">

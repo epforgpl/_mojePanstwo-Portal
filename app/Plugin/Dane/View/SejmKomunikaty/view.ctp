@@ -4,7 +4,7 @@
     <div class="object">
         <div class="document col-md-10 col-md-offset-1">
             <? if ($object->getData('img') == '1') { ?>
-                <img class="imgInside"
+                <img class="imgInside" onerror="imgFixer(this)"
                      src="http://resources.sejmometr.pl/sejm_komunikaty/img/<?= $object->getId() ?>-0.jpg"
                      align="right"/>
             <? } ?>

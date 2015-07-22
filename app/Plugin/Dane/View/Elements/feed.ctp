@@ -1,7 +1,4 @@
 <?
-
-$this->Combinator->add_libs('css', $this->Less->css('feed', array('plugin' => 'Dane')));
-
 $file_exists = false;
 if (isset($file)) {
     $path = App::path('Plugin');
@@ -27,23 +24,23 @@ $this->Dataobject->setObject($object);
     echo " unreaded";
 } else {
     echo " readed";
-} ?><? if( $classes = $object->getClasses() ) { echo " " . implode(' ', $classes); } ?>"
+} ?><? if ($classes = $object->getClasses()) {
+    echo " " . implode(' ', $classes);
+} ?>"
      oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
 
     <div class="row">
         <div class="col-xs-1 action text-center">
-            <span class="<?php if ($object->getDataset() && $object->getAction()) {
-                echo 'mpIcon icon-dataset-' . $object->getCreator('dataset') . ' icon-action-' . $object->getAction();
-            } else {
-                echo 'glyphicon glyphicon-volume-up';
-            } ?>"></span>
+            
+            <span class="mpIcon icon-datasets-<?= $object->getDataset() ?>"></span>
+            
         </div>
         <div class="data col-xs-11">
             <div class="feed-header">
                 <? if ($object->getCreator('url')) { ?>
                     <div class="thumb_cont">
                         <img alt="<?= addslashes($object->getCreator('name')) ?>"
-                             src="<?= $object->getCreator('url') ?>" onerror="imgFixer(this)" class="thumb"/>
+                             src="<?= $object->getCreator('url') ?>" class="thumb" onerror="imgFixer(this)"/>
                     </div>
                 <? } ?>
 
@@ -56,12 +53,7 @@ $this->Dataobject->setObject($object);
             </div>
 
             <div class="row marginTop-sm">
-                <? if ($object->getPosition()) { ?>
-                    <div class="content col-md-1">
-                        <span class="badge badge-position pull-right"><?= $object->getPosition() ?></span>
-                    </div>
                 <?
-                }
                 if ($file_exists) {
                     echo $this->element('Dane.' . $file, array(
                         'object' => $object,
@@ -82,9 +74,11 @@ $this->Dataobject->setObject($object);
                             <?php if ($object->getUrl() != false) { ?>
                             <a class="thumb_cont" href="<?= $object->getUrl() ?>">
                                 <?php } ?>
-                                <img class="thumb pull-right" onerror="imgFixer(this)"
-                                     src="<?= $object->getThumbnailUrl($thumbSize) ?>"
-                                     alt="<?= strip_tags($object->getTitle()) ?>"/>
+                                <img class="thumb pull-right" src="<?
+                                $img_link = $object->getThumbnailUrl($thumbSize);
+                                $str = preg_replace('#^https?:#', '', $img_link);
+                                echo $img_link;
+                                ?>" alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
                                 <?php if ($object->getUrl() != false) { ?>
                             </a>
                         <?php } ?>

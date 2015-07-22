@@ -10,7 +10,8 @@ class Sejm_posiedzenia extends DataObject
     protected $routes = array(
         'shortTitle' => 'numer',
         'date' => 'data_start',
-        'label' => 'label'
+        'label' => 'label',
+        'description' => false,
     );
 	
 	protected $schema = array(
@@ -42,8 +43,9 @@ class Sejm_posiedzenia extends DataObject
         return false;
     }
     
-    public function getDescription()
+    public function getTitleAddon()
     {
+	    	    
 	    $parts = array(
 		    dataSlownie( $this->getData('data_start') ),
 	    );
@@ -56,5 +58,10 @@ class Sejm_posiedzenia extends DataObject
 	    
 	    return implode(' - ', $parts);
     }
-
+	
+	public function getUrl()
+	{
+		return '/dane/instytucje/3214,sejm/posiedzenia/' . $this->getId();
+	}
+	
 }

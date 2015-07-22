@@ -4,17 +4,19 @@ App::uses('DataobjectsController', 'Dane.Controller');
 
 class KrsPodmiotyController extends DataobjectsController
 {
-    public $menu = array();
+    
+    public $observeOptions = true;
+    
     public $helpers = array(
-        'Time',
+        'Time', 'Czas'
     );
     public $components = array('RequestHandler');
     public $objectOptions = array(
         'hlFields' => array(),
         'bigTitle' => true,
     );
-	
-	public $loadChannels = true;
+
+    public $loadChannels = true;
     public $initLayers = array('counters');
 
     public $microdata = array(
@@ -25,60 +27,41 @@ class KrsPodmiotyController extends DataobjectsController
     public function beforeFilter()
     {
         parent::beforeFilter();
+
         $this->Auth->deny(array('pobierz_odpis', 'odpis'));
     }
 
-	
-	
-	public function aktualnosci() {
-		
-		$this->load();
-		
-		if( isset($this->request->params['pass'][0]) ) {
-						
-			$zmiana = $this->API->getObject('krs_podmioty_zmiany', $this->request->params['pass'][0], array(
-                'layers' => array('details'),
-            ));
-            
-            $this->request->params['action'] = 'view';
-            
-            $this->set('zmiana', $zmiana);
-            $this->render('aktualnosc');
-            
-			
-		} else {
-			
-			$this->feed();
-			
-		}
-		
-	}
 
-    public function _prepareView()
+    public function aktualnosci()
     {
 
-        parent::_prepareView();
+        $this->load();
 
-        if (defined('PK_DOMAIN')) {
+        if (isset($this->request->params['pass'][0])) {
 
-            $pieces = parse_url(Router::url($this->here, true));
-            if (($pieces['host'] == PK_DOMAIN) && ($this->object->getData('gmina_id') != '903')) {
+            $zmiana = $this->API->getObject('krs_podmioty_zmiany', $this->request->params['pass'][0], array(
+                'layers' => array('details'),
+            ));
 
-                $this->redirect('http://' . PORTAL_DOMAIN . $_SERVER['REQUEST_URI']);
-                die();
+            $this->request->params['action'] = 'view';
 
-            }
+            $this->set('zmiana', $zmiana);
+            $this->render('aktualnosc');
+
+
+        } else {
+
+            $this->feed();
 
         }
 
     }
-	
-	
+
     public function view()
     {
 
         $this->addInitLayers(array(
-	        'channels',
+            'channels',
             'reprezentacja',
             'wspolnicy',
             'jedynyAkcjonariusz',
@@ -102,6 +85,7 @@ class KrsPodmiotyController extends DataobjectsController
         if ($this->Session->read('KRS.odpis') == $this->object->getId()) {
 
             $odpis = $this->object->getLayer('odpis');
+                        
             if ($odpis['status']) {
                 $this->set('odpis', $odpis['url']);
             }
@@ -211,15 +195,15 @@ class KrsPodmiotyController extends DataobjectsController
         $this->set('organy', $organy);
 
 
-		/*
-		$zamowienia = $this->Dataobject->find('all', array(
-			'conditions' => array(
-				'dataset' => 'zamowienia_publiczne',
-				'krs_podmioty.'
-			),
-			'limit' => 9,
-		));
-		
+        /*
+        $zamowienia = $this->Dataobject->find('all', array(
+            'conditions' => array(
+                'dataset' => 'zamowienia_publiczne',
+                'krs_podmioty.'
+            ),
+            'limit' => 9,
+        ));
+
         $zamowienia = $this->API->search(array(
             'limit' => 9,
             'conditions' => array(
@@ -244,9 +228,9 @@ class KrsPodmiotyController extends DataobjectsController
         */
 
         $desc_bodies_parts[] = 'odpis z KRS';
-		
-		
-		/*
+
+
+        /*
         $dzialalnosc = $this->object->getLayer('dzialalnosci');
         if ($dzialalnosc) {
             $dzialalnosci = array(
@@ -269,8 +253,92 @@ class KrsPodmiotyController extends DataobjectsController
 
         $desc_parts[] = ucfirst(implode(', ', $desc_bodies_parts));
         $this->setMetaDesc(implode('. ', $desc_parts) . '.');
-        
+
         // return $this->feed();
+
+    }
+
+    public function _prepareView()
+    {
+
+        $this->addInitAggs(array(
+            'all' => array(
+                'global' => '_empty',
+                'aggs' => array(
+                    'zamowienia' => array(
+                        'filter' => array(
+                            'bool' => array(
+                                'must' => array(
+                                    array(
+                                        'term' => array(
+                                            'dataset' => 'zamowienia_publiczne_dokumenty',
+                                        ),
+                                    ),
+                                    array(
+                                        'nested' => array(
+                                            'path' => 'zamowienia_publiczne-wykonawcy',
+                                            'filter' => array(
+                                                'term' => array(
+                                                    'zamowienia_publiczne-wykonawcy.krs_id' => $this->request->params['id'],
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                    'dzialania' => array(
+                        'filter' => array(
+                            'bool' => array(
+                                'must' => array(
+                                    array(
+                                        'term' => array(
+                                            'dataset' => 'dzialania',
+                                        ),
+                                    ),
+                                    array(
+                                        'term' => array(
+                                            'data.dzialania.dataset' => 'krs_podmioty',
+                                        ),
+                                    ),
+                                    array(
+                                        'term' => array(
+                                            'data.dzialania.object_id' => $this->request->params['id'],
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                        'aggs' => array(
+	                        'top' => array(
+		                        'top_hits' => array(
+		                            'fielddata_fields' => array('dataset', 'id'),
+			                        'size' => 3, 
+			                        'sort' => array(
+				                        'date' => 'desc',
+			                        ),
+		                        ),
+	                        ),
+                        ),
+                    ),
+                ),
+            ),
+        ));
+
+        parent::_prepareView();
+
+        if (defined('PK_DOMAIN')) {
+
+            $pieces = parse_url(Router::url($this->here, true));
+            if (($pieces['host'] == PK_DOMAIN) && ($this->object->getData('gmina_id') != '903')) {
+
+                $this->redirect('//' . PORTAL_DOMAIN . $_SERVER['REQUEST_URI']);
+                die();
+
+            }
+
+        }
 
     }
 
@@ -278,8 +346,8 @@ class KrsPodmiotyController extends DataobjectsController
     {
 
         parent::_prepareView();
-		
-		/*
+
+        /*
         $historia = $this->API->searchDataset('msig_zmiany', array(
             'limit' => 1000,
             'conditions' => array(
@@ -302,17 +370,82 @@ class KrsPodmiotyController extends DataobjectsController
         $this->set('title_for_layout', 'Histora zmian w ' . $this->object->getData('nazwa'));
 
     }
+
+    public function dodaj_dzialanie() {
+        $this->addInitLayers(array('dzialania_nowe'));
+        $this->_prepareView();
+
+        if(!$this->_canEdit())
+            throw new ForbiddenException;
+
+        $this->render('dzialanie_form');
+    }
+
+    public function dzialania() {
+
+        $this->_prepareView();
+
+        if($id = @$this->request->params['subid']) {
+
+            $dzialanie = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'dzialania',
+                    'id' => $id
+                )
+            ));
+
+            if (!$dzialanie)
+                throw new NotFoundException;
+
+            $this->set('dzialanie', $dzialanie);
+
+            if(@$this->request->params['subaction'] == 'edytuj') {
+
+                if($this->_canEdit()) {
+
+                    if($dzialanie->getData('dzialania.photo') == '1') {
+                        $src = "http://sds.tiktalik.com/portal/1/pages/dzialania/" . $dzialanie->getData('id') . ".jpg";
+                        $data = @file_get_contents($src);
+                        if($data) {
+                            $base64 = 'data:image/jpeg;base64,' . base64_encode($data);
+                            $this->set('dzialanie_photo_base64', $base64);
+                        }
+                    }
+
+                    $this->render('dzialanie_form');
+
+                } else {
+                    throw new ForbiddenException;
+                }
+
+            } else {
+
+
+
+            }
+
+        } else {
+
+	        $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'dzialania',
+	            ),
+	        ));
 	
-	public function powiazania()
-	{
-		
-		$this->addInitLayers(array('powiazania'));
-		$this->_prepareView();
-		
-		debug( $this->object->getLayer('powiazania') ); die();
-		
-	}
-	
+	        $this->set('title_for_layout', 'Działania ' . $this->object->getData('nazwa'));
+
+        }
+
+    }
+
+    public function powiazania()
+    {
+
+        $this->addInitLayers(array('powiazania'));
+        $this->_prepareView();
+
+    }
+
     public function graph()
     {
         if (@$this->request->params['ext'] == 'json') {
@@ -325,16 +458,16 @@ class KrsPodmiotyController extends DataobjectsController
             $this->set('_serialize', 'data');
 
         } else {
-            
+
             $this->_prepareView();
-            
+
         }
     }
 
     public function odpis()
     {
 
-        $id = (int)$this->request->params['id'];
+        $id = (int) $this->request->params['id'];
         $this->Session->write('KRS.odpis', $id);
         $this->redirect('/dane/krs_podmioty/' . $id);
 
@@ -342,36 +475,22 @@ class KrsPodmiotyController extends DataobjectsController
 
     public function zamowienia()
     {
-		
-		$this->_prepareView();
+
+        $this->_prepareView();
         $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'zamowienia_publiczne_dokumenty',
-	            // 'gminy_okregi_wyborcze.gmina_id' => $this->object->getId(),
-	            'feeds_channels' => array(
-		            'dataset' => 'krs_podmioty',
-		            'object_id' => $this->object->getId(),
-		            'channel' => 200,
-	            ),
+                'dataset' => 'zamowienia_publiczne_dokumenty',
+                'feeds_channels' => array(
+                    'dataset' => 'krs_podmioty',
+                    'object_id' => $this->object->getId(),
+                    'channel' => 200,
+                ),
             ),
             'renderFile' => 'krs_podmioty-zamowienia_publiczne_dokumenty',
-            // 'aggsPreset' => 'zamowienia_publiczne',
         ));
-		
+
         $this->set('title_for_layout', 'Zamówienia publiczne dla ' . $this->object->getData('nazwa'));
-        $this->set('DataBrowserTitle', 'Zamówienia publiczne dla ' . $this->object->getData('nazwa'));
-		
-		/*
-        $this->_prepareView();
-        $this->dataobjectsBrowserView(array(
-            'source' => 'krs_podmioty.zamowienia:' . $this->object->getId(),
-            'dataset' => 'zamowienia_publiczne',
-            'title' => 'Udzielone zamówienia publiczne',
-            'noResultsTitle' => 'Brak zamówień publicznych',
-        ));
-        $this->set('title_for_layout', 'Zamówienia publiczne udzielone ' . $this->object->getTitle());
-		*/
-		
+
     }
 
     public function dotacje()
@@ -494,43 +613,75 @@ class KrsPodmiotyController extends DataobjectsController
 
     }
 
-    public function beforeRender()
+    public function getMenu()
     {
-
+        if(!$this->object)
+            return false;
+        
         $counters = $this->object->getLayers('counters');
-
-        // PREPARE MENU
-        $href_base = $this->object->getUrl();
 
         $menu = array(
             'items' => array(
                 array(
                     'id' => '',
-                    'href' => $href_base,
-                    'label' => 'Aktualności',
+                    'label' => 'Podstawowe dane',
+                    'icon' => array(
+                        'src' => 'glyphicon',
+                        'id' => 'home',
+                    ),
                 ),
-            )
-        );
-
+            ),
+            'base' => $this->object->getUrl(),
+        );        
+		
+        if(
+        	@$this->object_aggs['all']['dzialania']['doc_count'] || 
+        	$this->_canEdit()
+        ) {
+            $menu['items'][] = array(
+                'id' => 'dzialania',
+                'label' => 'Działania',
+                'count' => $this->object_aggs['all']['dzialania']['doc_count'],
+            );
+        }
+        
+        if (@$this->object_aggs['all']['zamowienia']['doc_count']) {
+            $menu['items'][] = array(
+                'id' => 'zamowienia',
+                'label' => 'Zamówienia publiczne',
+                'count' => $this->object_aggs['all']['zamowienia']['doc_count'],
+            );
+        }
+        
         $menu['items'][] = array(
             'id' => 'graph',
-            'href' => $href_base . '/graph',
             'label' => 'Powiązania'
         );
-
+        
+        if($this->_canEdit()) {
+            
+            $menu['items'][] = array(
+                'id' => 'odpisy',
+                'label' => 'Odpisy'
+            );
+            
+            $menu['items'][] = array(
+                'id' => 'dane',
+                'label' => 'Edycja danych'
+            );
+            
+        }        
 
         if ($this->request->params['id'] == 481129) { // KOMITET KONKURSOWY KRAKÓW 2022
 
             $menu['items'][] = array(
                 'id' => 'umowy',
-                'href' => $href_base . '/umowy',
                 'label' => 'Podpisane umowy',
                 'count' => 94,
             );
 
             $menu['items'][] = array(
                 'id' => 'faktury',
-                'href' => $href_base . '/faktury',
                 'label' => 'Faktury',
                 'count' => 129,
             );
@@ -539,9 +690,8 @@ class KrsPodmiotyController extends DataobjectsController
         if ($counters['liczba_oddzialow']) {
             $menu['items'][] = array(
                 'id' => 'oddzialy',
-                'href' => $href_base . '/oddzialy',
                 'label' => 'Oddziały',
-                // 'count' => $counters['liczba_oddzialow'],
+                'count' => $counters['liczba_oddzialow'],
             );
         }
 
@@ -560,14 +710,42 @@ class KrsPodmiotyController extends DataobjectsController
         if ($this->request->params['action'] == 'kultura') {
             $menu['items'][] = array(
                 'id' => 'kultura',
-                'href' => $href_base . '/kultura',
                 'label' => 'Indeksy kultury',
             );
         }
 
-        $this->menu = $menu;
-		parent::beforeRender();
-		
+        return $menu;
+    }
+
+    public function odpisy() {
+        
+        if( @$this->request->params['subid'] ) {
+	        
+	        $res = $this->Dataobject->getDatasource()->request('krs/odpisy/' . $this->request->params['subid']);
+            $this->redirect( $res['url'] );
+	        
+        } else {
+	        
+	        $this->addInitLayers('odpisy');
+	        $this->_prepareView();
+	
+	        if(!$this->_canEdit())
+	            throw new ForbiddenException;
+	
+	        $this->set('title_for_layout', 'Odpisy z KRS podmiotu ' . $this->object->getTitle());
+	        
+        }
+                
+    }
+
+    private function _canEdit() {
+        return (
+            @in_array('2', $this->getUserRoles()) ||
+            (
+                $this->getPageRoles() &&
+                in_array($this->getPageRoles(), array('1', '2'))
+            )
+        );
     }
 
 }

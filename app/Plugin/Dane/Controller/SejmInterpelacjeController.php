@@ -7,22 +7,22 @@ class SejmInterpelacjeController extends DataobjectsController
 {
     public $menu = array();
     public $breadcrumbsMode = 'app';
+    public $feed = false;
 
-	public $loadChannels = true;
-	
+    public $loadChannels = true;
+
     public $objectOptions = array(
         'hlFields' => array(),
     );
 
     public function view()
     {
-		
-		$this->load();
-		
-        return $this->feed(array(
-	        'direction' => 'asc',
-	        'timeline' => true,
-	        'searchTitle' => $this->object->getLabel(),
+
+        $this->load();
+        $feed = $this->feed(array(
+            'direction' => 'asc',
+            'timeline' => true,
+            'mode' => 'min',
         ));
 
     }
@@ -30,25 +30,50 @@ class SejmInterpelacjeController extends DataobjectsController
     public function pismo()
     {
 
-        parent::view();        
+        $this->load();
+        $feed = $this->feed(array(
+            'direction' => 'asc',
+            'timeline' => true,
+            'mode' => 'min',
+        ));
 
+        $this->view = 'view';
+
+    }
+
+    public function beforeRender()
+    {
+
+        $id = false;
+
+        if (isset($this->request->params['subid']))
+            $id = $this->request->params['subid'];
+        elseif ($first_hit = $this->feed['hits'][0])
+            $id = $first_hit->getId();
+
+        if ($id)
+            $this->loadDoc($id);
+
+        parent::beforeRender();
+
+    }
+
+    public function loadDoc($id = false)
+    {
         if (
-            ( $pismo_id = @$this->request->params['subid'] ) && 
-            ( $pismo = $this->Dataobject->find('first', array(
-	            'conditions' => array(
-		            'dataset' => 'sejm_interpelacje_pisma',
-		            'id' => $pismo_id,
-	            ),
-	            'layers' => array('teksty'),
-            )) )
+            $id &&
+            ($dokument = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'sejm_interpelacje_pisma',
+                    'id' => $id,
+                ),
+                'layers' => array(
+                    'teksty'
+                ),
+            )))
         ) {
 
-            $this->set('pismo', $pismo);
-
-        } else {
-
-            $this->redirect($this->object->getUrl());
-            die();
+            $this->set('dokument', $dokument);
 
         }
 

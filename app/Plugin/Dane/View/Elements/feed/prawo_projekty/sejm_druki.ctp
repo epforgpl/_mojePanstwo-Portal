@@ -18,9 +18,8 @@ if ($object->getThumbnailUrl($thumbSize)) {
     <?php } ?>
         <a class="thumb_cont" href="<?= $object->getUrl() ?>/tresc">
             <?php } ?>
-            <img class="thumb pull-right" onerror="imgFixer(this)"
-                 src="<?= $object->getThumbnailUrl($thumbSize) ?>"
-                 alt="<?= strip_tags($object->getTitle()) ?>"/>
+            <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
+                 alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
             <?php if ($object->getUrl() != false) { ?>
         </a>
     <?php } ?>
@@ -47,8 +46,8 @@ if ($object->getThumbnailUrl($thumbSize)) {
             echo '<small>' . $object->getTitleAddon() . '</small>';
         } ?>
         </p>
-        
-        
+
+
         <? // debug( $object->getData() ); ?>
 
 

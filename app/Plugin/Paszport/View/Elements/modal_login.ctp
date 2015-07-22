@@ -1,23 +1,22 @@
 <div class="modal fade" id="modalPaszportLoginForm" tabindex="-1" role="dialog"
-     aria-labelledby="<?php echo __d('paszport', 'LC_PASZPORT_PROJECT_MOTTO'); ?>" aria-hidden="true">
+     aria-labelledby="modalPaszportLoginFormLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title"
-                    id="myModalLabel"><?php echo __d('paszport', 'LC_PASZPORT_PROJECT_MOTTO'); ?></h4>
+                    id="modalPaszportLoginFormLabel"><?php echo __d('paszport', 'LC_PASZPORT_PROJECT_MOTTO'); ?></h4>
             </div>
+            <?php echo $this->Form->create('User', array(
+                'id' => 'UserLoginForm',
+                'url' => $this->Html->url(array(
+                    'plugin' => 'paszport',
+                    'controller' => 'paszport',
+                    'action' => 'login',
+                    'full_base' => true
+                ))
+            )); ?>
             <div class="modal-body">
-                <?php echo $this->Form->create('User', array(
-                    'id' => 'UserLoginForm',
-                    'url' => $this->Html->url(array(
-                        'plugin' => 'paszport',
-                        'controller' => 'paszport',
-                        'action' => 'login',
-                        'full_base' => true
-                    ))
-                )); ?>
-
                 <div class="slide or col-xs-12">
                     <?php echo __d('paszport', 'LC_PASZPORT_MODAL_LOGIN_VIA_EMAIL') ?>
                 </div>
@@ -75,13 +74,11 @@
                         ), array('class' => 'btn btn-social btn-facebook btn-md', 'escape' => false)); ?>
                     </div>
                 </div>
-
-                <div class="slide register col-xs-12">
-                    <?php echo $this->Html->link(__d('paszport', 'LC_PASZPORT_MODAL_LOGIN_REGISTER', true), '/register', array('class' => 'register', 'autocomplete' => 'off', 'target' => '_self')); ?>
-                </div>
-
-                <?php echo $this->Form->end(); ?>
             </div>
+            <div class="modal-footer backgroundBlue">
+                <?php echo $this->Html->link(__d('paszport', 'LC_PASZPORT_MODAL_LOGIN_REGISTER', true), '/register', array('class' => 'register', 'autocomplete' => 'off', 'target' => '_self')); ?>
+            </div>
+            <?php echo $this->Form->end(); ?>
         </div>
     </div>
 </div>

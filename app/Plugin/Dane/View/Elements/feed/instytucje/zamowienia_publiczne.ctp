@@ -10,7 +10,7 @@ $size = 2;
 if ($object->getThumbnailUrl($thumbSize)) {
     ?>
 
-    <div class="attachment col-xs-<?= $size + 1 ?> col-sm-<?= $size ?> text-center">
+    <div class="attachment col-xs-<?= $size + 1 ?> col-sm-<?= $size ?> text-center" xmlns="http://www.w3.org/1999/html">
         <?php if ($object->getUrl() != false) { ?>
     <?php if ($object->getData('dokument_id')) { ?>
         <span class="glyphicon glyphicon-search documentFastCheck" aria-hidden="true"
@@ -19,9 +19,8 @@ if ($object->getThumbnailUrl($thumbSize)) {
     <?php } ?>
         <a class="thumb_cont" href="<?= $object->getUrl() ?>">
             <?php } ?>
-            <img class="thumb pull-right" onerror="imgFixer(this)"
-                 src="<?= $object->getThumbnailUrl($thumbSize) ?>"
-                 alt="<?= strip_tags($object->getTitle()) ?>"/>
+            <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
+                 alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
             <?php if ($object->getUrl() != false) { ?>
         </a>
     <?php } ?>

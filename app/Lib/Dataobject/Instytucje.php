@@ -11,7 +11,7 @@ class Instytucje extends DataObject
         'title' => 'nazwa',
         'shortTitle' => 'nazwa',
     );
-
+	
     public function getLabel()
     {
         return 'Instytucja publiczna';
@@ -25,7 +25,7 @@ class Instytucje extends DataObject
     public function getThumbnailUrl($size = '2')
     {
 		
-        return $this->getData('avatar') ? 'http://mojepanstwo.pl/KtoTuRzadzi/img/instytucje/' . $this->getId() . '.png' : false;
+        return $this->getData('avatar') ? 'https://mojepanstwo.pl/KtoTuRzadzi/img/instytucje/' . $this->getId() . '.png' : false;
 
     }
     

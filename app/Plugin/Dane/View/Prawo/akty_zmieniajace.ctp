@@ -1,2 +1,5 @@
 <?
-$this->Combinator->add_libs('css', $this->Less->css('view-prawo', array('plugin' => 'Dane')));
+
+echo $this->Element('dataobject/pageBegin');
+echo $this->Element('Dane.DataBrowser/browser');
+echo $this->Element('dataobject/pageEnd');

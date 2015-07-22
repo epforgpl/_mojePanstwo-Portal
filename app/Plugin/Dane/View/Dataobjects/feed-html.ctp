@@ -1,2 +1,2 @@
 <?
-	echo $this->Element('Dane.DataFeed/feed');
+echo $this->Element('Dane.DataFeed/feed');

@@ -3,12 +3,8 @@
         <a href="/dane/sejm_kluby/<?php echo $item['data']['klub_id'] ?>"<?php if (isset($item['data']['sejm_kluby.nazwa'])) { ?> title="<?= $item['data']['sejm_kluby.nazwa'] ?>"<?php } ?>>
             <img
                 src="http://resources.sejmometr.pl/s_kluby/<?php echo $item['data']['klub_id'] ?>_a_t.png"<?php if (isset($item['data']['sejm_kluby.nazwa'])) { ?>
-                alt="<?php if (isset($item['data']['sejm_kluby.nazwa'])) {
-                    echo $item['data']['sejm_kluby.nazwa'];
-                } else {
-                    ' ';
-                }
-                }; ?>"/>
+                alt="<?php echo(isset($item['data']['sejm_kluby.nazwa']) ? $item['data']['sejm_kluby.nazwa'] : ' ');
+                } ?>" onerror="imgFixer(this)"/>
         </a>
     </p>
 <?php } ?>

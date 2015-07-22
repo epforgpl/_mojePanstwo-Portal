@@ -7,13 +7,19 @@ class KodyPocztoweController extends ApplicationsController
 {
     public $uses = array('KodyPocztowe.KodPocztowy', 'Dane.Dataobject');
     public $components = array('Session', 'Paginator', 'RequestHandler');
-	
-	public $settings = array(
-		'title' => 'Kody pocztowe',
-		// 'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce',
-		// 'headerImg' => 'prawo',
-	);
-	
+
+    public $settings = array(
+        'id' => 'kody_pocztowe',
+        'title' => 'Kody pocztowe',
+        // 'subtitle' => 'Przeglądaj prawo obowiązujące w Polsce',
+        // 'headerImg' => 'prawo',
+    );
+
+    public function getMenu()
+    {
+        return false;
+    }
+
     public function index()
     {
 
@@ -27,25 +33,17 @@ class KodyPocztoweController extends ApplicationsController
         $this->set('kod', $kod);
 
         if ($kod) {
-	        
-	        $code = $this->Dataobject->find('first', array(
-		        'conditions' => array(
-			        'dataset' => 'kody_pocztowe',
-			        'kody_pocztowe.kod' => $kod,
-		        ),
-	        ));
-	        
-	        debug($code); die();
-	        
-            $code = $this->API->searchCode($kod);
 
-            if ($code && $code['object_id']) {
-                $this->redirect(array(
-                    'plugin' => 'Dane',
-                    'controller' => 'kody_pocztowe',
-                    'action' => 'view',
-                    'id' => $code['object_id']
-                ));
+            $code = $this->Dataobject->find('all', array(
+                'conditions' => array(
+                    'dataset' => 'kody_pocztowe',
+                    'kody_pocztowe.kod' => $kod,
+                ),
+            ));
+
+
+            if ($code && $code[0]) {
+                return $this->redirect('/dane/kody_pocztowe/' . $code[0]->getId());
             } else {
                 $this->Session->setFlash('Podany kod pocztowy nie zostały odnaleziony');
             }
@@ -105,15 +103,15 @@ class KodyPocztoweController extends ApplicationsController
 
             $q = @$this->request->query['q'];
             if ($q) {
-	            
 
-	            $objects = $this->Dataobject->find('all', array(
-		            'conditions' => array(
-			            'dataset' => 'kody_pocztowe_ulice',
-			            'q' => $q,
-		            ),
-	            ));
-	                            
+
+                $objects = $this->Dataobject->find('all', array(
+                    'conditions' => array(
+                        'dataset' => 'kody_pocztowe_ulice',
+                        'q' => $q,
+                    ),
+                ));
+
 
                 foreach ($objects as $obj) {
 

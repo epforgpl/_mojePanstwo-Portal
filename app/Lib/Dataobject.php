@@ -33,11 +33,13 @@ class Dataobject
     public $classes = array();
     public $subscribtion = false;
     public $inner_hits = array();
+    public $options = array();
     
 
-    public function __construct($params = array())
+    public function __construct($params = array(), $options = array())
     {
-				
+					
+		$this->options = $options;
         $this->data = $params['data'];
         $this->layers = isset( $params['layers'] ) ? $params['layers'] : array();
         $this->dataset = $params['dataset'];
@@ -117,6 +119,8 @@ class Dataobject
 	public function getClasses() {
 		$output = $this->classes;
 		$output[] = 'objclass';
+		if( $this->getDataset() )
+			$output[] = $this->getDataset();
 		return $output;
 	}
 	
@@ -205,6 +209,11 @@ class Dataobject
         return $this->getData($this->routes['label']);
     }
     
+    public function getSideLabel()
+    {
+        return false;
+    }
+    
     public function getShortLabel()
     {
         return $this->getData($this->routes['label']);
@@ -259,6 +268,12 @@ class Dataobject
     public function getThumbnailUrl($size = 'default')
     {
         return false;
+    }
+	
+	public function getIcon()
+    {
+	    $class = strtolower(array_pop(explode('\\', get_class($this))));
+        return '<i class="object-icon icon-datasets-' . $class . '"></i>';
     }
     
     public function getHeaderThumbnailUrl($size = 'default')
@@ -351,6 +366,11 @@ class Dataobject
             return (isset($this->{$func}[$arg])) ? $this->{$func}[$arg] : false;
         }
         return $this->$func;
+    }
+    
+    public function getBreadcrumbs()
+    {
+	    return array();
     }
     
 }

@@ -1,10 +1,11 @@
 <h1 class="_">
-	<p class="_thumb_cont">
-		<img src="<?= $object->getData('twitter_accounts.profile_image_url') ?>" />
-	</p>
-	<p class="_title">
-	    <?php echo $object->getData('html') ?>
-	</p>
+    <p class="_thumb_cont">
+        <img src="<?= $object->getData('twitter_accounts.profile_image_url') ?>" onerror="imgFixer(this)"/>
+    </p>
+
+    <p class="_title">
+        <?php echo $object->getData('html') ?>
+    </p>
 </h1>
 
 <? /* if ($object->getData('twitter_account_id')) { ?>

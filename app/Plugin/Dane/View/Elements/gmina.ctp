@@ -17,8 +17,8 @@ $file_exists = file_exists($file);
                 <? if ($object->getThumbnailUrl()) { ?>
                     <div class="attachment col-md-2">
                         <a href="<?= $object->getUrl() ?>">
-                            <img onerror="imgFixer(this)" src="<?= $object->getThumbnailUrl() ?>"
-                                 alt="<?= strip_tags($object->getTitle()) ?>"/>
+                            <img src="<?= $object->getThumbnailUrl() ?>"
+                                 alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
                         </a>
                     </div>
                     <div class="content col-md-10">

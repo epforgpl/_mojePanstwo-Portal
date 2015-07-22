@@ -5,5 +5,22 @@ if ($object->getId() == '903') {
 }
 
 echo $this->Element('dataobject/pageBegin');
-echo $this->Element('Dane.DataBrowser/browser');
+?>
+    <h1 class="subheader">Rada Miasta Kraków</h1>
+
+<? if (isset($_submenu) && !empty($_submenu)) { ?>
+    <div class="menuTabsCont">
+        <?
+        if (!isset($_submenu['base']))
+            $_submenu['base'] = $object->getUrl();
+        echo $this->Element('Dane.dataobject/menuTabs', array(
+            'menu' => $_submenu,
+        ));
+        ?>
+    </div>
+<? }
+
+echo $this->Element('Dane.DataBrowser/browser', array(
+    'searcher' => false,
+));
 echo $this->Element('dataobject/pageEnd');

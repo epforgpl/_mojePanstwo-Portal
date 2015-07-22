@@ -4,10 +4,10 @@ echo $this->Combinator->add_libs('css', $this->Less->css('view-sejmdebaty', arra
 
 echo $this->Element('dataobject/pageBegin');
 ?>
-<div class="debata-wystapienia">
-<?
-echo $this->Element('Dane.DataBrowser/browser');
-?>
-</div>
+    <div class="debata-wystapienia">
+        <?
+        echo $this->Element('Dane.DataBrowser/browser');
+        ?>
+    </div>
 <?
 echo $this->Element('dataobject/pageEnd');

@@ -3,8 +3,8 @@
     <div class="avatar col-md-12">
         <div class="col-md-2">
             <div class="row">
-                <img
-                    src="http://resources.sejmometr.pl/mowcy/a/2/<?php echo $item['data']['ludzie_poslowie.mowca_id'] ?>.jpg"/>
+                <img onerror="imgFixer(this)"
+                     src="http://resources.sejmometr.pl/mowcy/a/2/<?php echo $item['data']['ludzie_poslowie.mowca_id'] ?>.jpg"/>
             </div>
         </div>
         <div class="col-md-10">

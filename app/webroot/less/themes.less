@@ -1,0 +1,134 @@
+.theme-default {
+  background: #ffffff;
+  background: -moz-linear-gradient(top, #ffffff 0%, #f8f8f8 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #f8f8f8));
+  background: -webkit-linear-gradient(top, #ffffff 0%, #f8f8f8 100%);
+  background: -o-linear-gradient(top, #ffffff 0%, #f8f8f8 100%);
+  background: -ms-linear-gradient(top, #ffffff 0%, #f8f8f8 100%);
+  background: linear-gradient(to bottom, #ffffff 0%, #f8f8f8 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f8f8f8', GradientType=0);
+}
+
+.theme-doc {
+	background-color: #F6F6F6;
+}
+
+.theme-simply {
+  background-color: #FFFFFF;
+}
+
+.theme-wallpaper {
+  background: no-repeat center center fixed #000000;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.block {
+  padding: 0;
+  display: inline-block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+
+  > header, > section, > footer {
+    width: 100%;
+    display: block;
+    float: left;
+  }
+
+  > section {
+    &.nopadding {
+      padding: 0;
+    }
+
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+  }
+}
+
+.theme-default .block-group,
+.theme-wallpaper .block-group,
+.theme-simply .block-group.block-border {
+  background-color: #fff;
+  display: inline-block;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  .block {
+    border-width: 0;
+    float: left;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.theme-simply .block,
+.theme-default .block.block-simple,
+.theme-wallpaper .block.block-simple {
+  background: none;
+  border: none;
+
+  > header {
+    padding: 10px;
+    color: #3d3d3d;
+    font-size: 16px;
+    font-weight: 600;
+    background: none;
+  }
+  > section {
+    padding: 0;
+    &.textBlock {
+	    padding: 0 10px;
+    }
+  }
+
+  > footer {
+    padding: 0 8px 15px;
+    color: #3d3d3d;
+  }
+}
+
+.theme-default .block,
+.theme-wallpaper .block,
+.theme-simply .block.block-border {
+  background-color: #fff;
+  border: 1px solid #ddd;
+
+  > header {
+    padding: 10px 15px;
+    color: #333333;
+    background-color: #EAEBEF;
+    border-color: #ddd;
+    display: inline-block;
+    font-size: 16px;
+
+    .sm {
+      color: #333;
+      font-weight: 400;
+      font-size: 16px;
+      white-space: normal;
+      line-height: 24px;
+      text-align: left;
+      word-spacing: 3px;
+      width: auto;
+      float: left;
+    }
+  }
+  > section {
+    padding: 15px;
+  }
+
+  > footer {
+    padding: 0 15px 15px;
+    color: #333333;
+  }
+}

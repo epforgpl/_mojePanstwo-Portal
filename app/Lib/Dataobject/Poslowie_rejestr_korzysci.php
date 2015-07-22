@@ -26,5 +26,4 @@ class Poslowie_rejestr_korzysci extends DocDataObject
         return 'Wpis w rejestrze korzyści posła';
 
     }
-
 }

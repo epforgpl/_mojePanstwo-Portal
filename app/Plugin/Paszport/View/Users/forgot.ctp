@@ -3,14 +3,12 @@
 <?php echo $this->Session->flash('flash', array('element' => 'alert')); ?>
 <?php echo $this->Session->flash('auth', array('element' => 'alert')); ?>
 
-<div class="objectsPage fullPageHeight"
-     style="background-image: url('/img/home/backgrounds/home-background-default.jpg')">
+<div class="objectsPage fullPageHeight">
     <div class="forgotPassword" id="modalPaszportLoginForm">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title"
-                        id="myModalLabel"><?php echo __d('paszport', "LC_PASZPORT_PASSWORD_FORGOT_MOTTO") ?></h4>
+                    <h4 class="modal-title"><?php echo __d('paszport', "LC_PASZPORT_PASSWORD_FORGOT_MOTTO") ?></h4>
                 </div>
                 <div class="modal-body">
                     <div class="slide inputForm textForm col-xs-12">

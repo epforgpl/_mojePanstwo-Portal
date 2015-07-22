@@ -4,27 +4,25 @@ namespace MP\Lib;
 
 class Sp_orzeczenia extends DataObject
 {
-	
-	protected $tiny_label = 'Orzeczenie sądu';
-	
-	protected $schema = array(
-		array('wydzial', 'Wydział'),
-		array('podstawa_prawna', 'Podstawa prawna'),
-		array('hasla_tematyczne', 'Hasła tematyczne'),
-	);
-	
+
+    public $force_hl_fields = true;
+    protected $tiny_label = 'Orzeczenie sądu';
+    protected $schema = array(
+        array('wydzial', 'Wydział'),
+        array('podstawa_prawna', 'Podstawa prawna'),
+        array('hasla_tematyczne', 'Hasła tematyczne'),
+    );
     protected $routes = array(
         'shortTitle' => 'sygnatura',
         'date' => 'data',
     );
-	
-	protected $hl_fields = array(
-    	'wydzial', 'hasla_tematyczne'
+    protected $hl_fields = array(
+        'wydzial', 'hasla_tematyczne'
     );
-	
+
     public function getLabel()
     {
-				
+
         return '<strong>Orzeczenie</strong> ' . $this->getData('dopelniacz') . ' z dnia ' . dataSlownie($this->getDate());
 
     }
@@ -35,7 +33,5 @@ class Sp_orzeczenia extends DataObject
         return $this->getShortTitle() . ' - orzeczenie ' . $this->getData('dopelniacz') . ' z dnia ' . $this->dataSlownie($this->getDate());
 
     }
-        
-    public $force_hl_fields = true;
-    
+
 }

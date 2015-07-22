@@ -13,22 +13,23 @@ echo $this->Element('dataobject/pageBegin', array(
 ));
 
 echo $this->Element('Dane.dataobject/subobject', array(
+    'menu' => isset($_submenu) ? $_submenu : false,
     'object' => $radny,
     'objectOptions' => array(
-        'hlFields' => array('komitet', 'liczba_glosow', 'procent_glosow_w_okregu'),
+        'hlFields' => array('komitet', 'liczba_glosow'),
         'bigTitle' => true,
     )
 ));
 
 ?>
 
-    <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-8">
         <div class="object radny-obietnice">
 
-            <h1 class="light"><a href="<?= $radny->getUrl() ?>"
-                                 class="btn-back glyphicon glyphicon-circle-arrow-left"></a> Obietnice wyborcze</h1>
             <ul class="list-unstyled">
-                <? foreach ($radny->getLayer('obietnice') as $obietnica) { ?>
+                <? foreach ($radny->getLayer('obietnice') as $obietnica) {
+                    if (!@$obietnica['text']) continue; ?>
+
                     <li class="panel panel-default<? if (isset($obietnica['do_sprawdzenia']) && !empty($obietnica['do_sprawdzenia'])) { ?> checking<? } ?>">
                         <div class="panel-header">
                             <div class="info date"><span class="glyphicon glyphicon-calendar"

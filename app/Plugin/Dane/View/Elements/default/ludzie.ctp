@@ -8,7 +8,7 @@
         )); ?>">
             <img
                 src="http://resources.sejmometr.pl/mowcy/a/2/<?php echo $item['data']['id'] ?>.jpg"
-                alt="<?php echo $item['data']['nazwa'] ?>"/>
+                alt="<?php echo $item['data']['nazwa'] ?>" onerror="imgFixer(this)"/>
         </a>
     </div>
     <div class="content col-md-11">

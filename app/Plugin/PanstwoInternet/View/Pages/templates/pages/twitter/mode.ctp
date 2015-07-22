@@ -8,8 +8,11 @@
                 ?>
 
                 <li>
-                    <div class="avatar"><a href="/dane/twitter_accounts/<?= $object->getId() ?>">
-                            <img src="<?= $object->getThumbnailUrl() ?>"/></a></div>
+                    <div class="avatar">
+                        <a href="/dane/twitter_accounts/<?= $object->getId() ?>">
+                            <img src="<?= $object->getThumbnailUrl() ?>" onerror="imgFixer(this)"/>
+                        </a>
+                    </div>
                     <div class="info">
                         <p class="name">
                             <a href="/dane/twitter_accounts/<?= $object->getId() ?>"><?= $object->getData('name') ?></a>
@@ -161,7 +164,8 @@
                     <div class="tweet_header">
                         <div class="avatar">
                             <p>
-                                <img src="<?= $object->getData('twitter_accounts.profile_image_url') ?>"/>
+                                <img src="<?= $object->getData('twitter_accounts.profile_image_url') ?>"
+                                     onerror="imgFixer(this)"/>
                             </p>
                         </div>
                         <div class="data">

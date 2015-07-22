@@ -4,32 +4,36 @@
 <?= $this->Element('dataobject/pageBegin'); ?>
 
     <div class="row">
-        <div class="col-md-3 objectSide">
-
-            <div class="objectSideInner">
-                <ul class="dataHighlights side">
-
-                    <li class="dataHighlight -block">
-                        <p class="_label">Autor interpelacji:</p>
-
-                        <p class="_value"><?= str_replace(',', '<br/>', $object->getData('poslowie_str')) ?></p>
-                    </li>
-
-                    <li class="dataHighlight -block">
-                        <p class="_label">Adresat:</p>
-
-                        <p class="_value"><?= str_replace(',', '<br/>', $object->getData('adresaci_str')) ?></p>
-                    </li>
-
-                </ul>
+        <div class="col-xs-12 col-md-3">
+            <div class="dataFeed">
+                <div class="object col-feed-main">
+                    <h2>Dokumenty</h2>
+                    <? echo $this->Element('Dane.DataFeed/feed-min', array(
+                        'selected' => array(
+                            'dataset' => $dokument->getDataset(),
+                            'id' => $dokument->getId(),
+                        ),
+                        'theme' => $dokument->getDataset(),
+                    )); ?>
+                </div>
             </div>
-
         </div>
-        <div class="col-md-9">
+        <div class="col-xs-12 col-md-9 objectMain">
             <div class="object">
-                <?= $this->dataobject->feed($feed); ?>
+                <? if (!($dokument->getLayer('teksty')) && $dokument->getData('dokument_id')) {
+                    echo $this->Document->place($dokument->getData('dokument_id'));
+                } else {
+                    ?>
+                    <? foreach ($dokument->getLayer('teksty') as $tekst) { ?>
+                        <div class="block col-xs-12">
+                            <header><?= $dokument->getData('nazwa') ?></header>
+                            <section class="content"><?= $tekst['html'] ?></section>
+                        </div>
+                    <? } ?>
+                <? } ?>
             </div>
         </div>
     </div>
+
 
 <?= $this->Element('dataobject/pageEnd'); ?>

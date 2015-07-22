@@ -388,6 +388,9 @@ msgstr "Kliknij nazwę gminy, aby zobaczyć więcej informacji o niej."
 msgid "LC_DANE_VIEW_KODYPOCZTOWE_HINT_MIEJSCOWOSC"
 msgstr "Kliknij nazwę miejscowości lub ulicy, aby zobaczyć ją na mapie."
 
+msgid "LC_DANE_VIEW_KRSPODMIOTY_BRAK_POWIAZAN"
+msgstr "Brak powiązań z podmiotami i osobami"
+
 msgid "LC_DANE_VIEW_KRSPODMIOTY_INFORMACJE"
 msgstr "Informacje podstawowe"
 

@@ -8,8 +8,9 @@ if ($object->getId() == '903') {
 echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
+?>
 
-echo $this->Element('Dane.dataobject/subobject', array(
+<? echo $this->Element('Dane.dataobject/subobject', array(
     'menu' => isset($_submenu) ? $_submenu : false,
     'object' => $interpelacja,
     'objectOptions' => array(
@@ -17,19 +18,20 @@ echo $this->Element('Dane.dataobject/subobject', array(
     )
 ));
 ?>
-<h2 class="light">Interpelacja</h2>
+
+    <h2 class="light">Interpelacja</h2>
 <?
 
-echo $this->Document->place( $interpelacja->getData('dokument_id') );
+echo $this->Document->place($interpelacja->getData('dokument_id'));
 
-if( $interpelacja->getData('odp1_dokument_id') ) {
-	echo "<h2 class=\"light\">Odpowiedź</h2>";
-	echo $this->Document->place( $interpelacja->getData('odp1_dokument_id') );
+if ($interpelacja->getData('odp1_dokument_id')) {
+    echo "<h2 class=\"light\">Odpowiedź</h2>";
+    echo $this->Document->place($interpelacja->getData('odp1_dokument_id'));
 }
 
-if( $interpelacja->getData('odp2_dokument_id') ) {
-	echo "<h2 class=\"light\">Odpowiedź</h2>";
-	echo $this->Document->place( $interpelacja->getData('odp2_dokument_id') );
+if ($interpelacja->getData('odp2_dokument_id')) {
+    echo "<h2 class=\"light\">Odpowiedź</h2>";
+    echo $this->Document->place($interpelacja->getData('odp2_dokument_id'));
 }
 
 echo $this->Element('dataobject/pageEnd');

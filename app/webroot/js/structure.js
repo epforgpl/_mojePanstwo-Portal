@@ -57,7 +57,8 @@
         }
     });
     $('#_mPCockpitMobile ._mPShowMenu > button').click(function () {
-        var that = $(this);
+        var that = $(this),
+            mPCockpitWidth = $('#_mPCockpit ._mPBasic').width();
 
         if (that.hasClass('open')) {
             that.removeClass('tcon-transform open');
@@ -66,12 +67,12 @@
                 'margin-left': '0'
             }, {queue: false});
             $('#_mPCockpit ._mPBasic').stop(true, false).animate({
-                'margin-left': '-100px'
+                'margin-left': '-' + mPCockpitWidth
             }, {queue: false});
         } else {
             that.addClass('tcon-transform open');
             $('#_main').stop(true, false).animate({
-                'margin-left': '100px'
+                'margin-left': mPCockpitWidth
             }, {queue: false});
             $('#_mPCockpit ._mPBasic').stop(true, false).animate({
                 'margin-left': '0'

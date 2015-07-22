@@ -4,7 +4,7 @@
     @searchHeight: 45px;
 
     font-weight: 400;
-    font-size: 17px;
+    font-size: 16px;
     margin: 10px 2px 0;
     color: #000000;
 
@@ -80,23 +80,49 @@
     width: 263px;
     .ui-datepicker-title {
         select, option {
-            color: #216ea4 !important;
-            font-size: 12px !important;
+            color: #216ea4 !important; /*TODO:check if it REALLY need*/
+            font-size: 12px !important; /*TODO:check if it REALLY need*/
         }
     }
 }
 
 .objectsPage {
+    
+    .suggesterBlock {
+	    margin-bottom: -10px;
+    }
+    
     .dataBrowser {
         font-family: "Lato", Arial, sans-serif;
         margin-top: 25px;
 
-        &.dataFeed {
+        &.panel {
+            background-color: #FFF;
+            margin-top: -15px;
+            margin-left: 3px;
+            margin-right: 3px;
+
+            .dataObjects .innerContainer .objectRender {
+                border-bottom: 1px solid #DDD;
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+        }
+
+        .form-horizontal.suggesterBlock {
+            padding-left: 0;
+            padding-right: 0;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        &.object {
             margin-top: 0;
         }
 
-        &._dataset_zbiory .objectRender .title {
-            font-size: 22px;
+        &.dataFeed {
+            margin-top: 0;
         }
 
         &.dataFeed .objectRender .title {
@@ -172,7 +198,7 @@
                         .options {
                             > .option {
                                 .badge {
-                                    color: #666;
+                                    color: #789;
                                     font-weight: 400;
                                 }
                             }
@@ -264,8 +290,8 @@
                             margin: 2px 0;
                             background: none;
                             border: none;
-                            border-radius: 10px !important;
-                            -webkit-border-radius: 10px !important;
+                            border-radius: 10px !important; /*TODO:check if it REALLY need*/
+                            -webkit-border-radius: 10px !important; /*TODO:check if it REALLY need*/
 
                             a {
                                 position: relative;
@@ -318,7 +344,7 @@
                                 height: 18px;
                                 margin-right: 5px;
 
-                                background-color: inherit !important;
+                                background-color: inherit !important; /*TODO:check if it REALLY need*/
                                 color: #999;
 
                                 -webkit-transition-duration: 0.5s; /* Safari */
@@ -358,7 +384,7 @@
                             }
 
                             label {
-                                color: #666;
+                                color: #789;
                                 font-size: 13px;
                                 font-weight: 400;
                                 line-height: 14px;
@@ -371,7 +397,7 @@
                                 user-select: none;
 
                                 &:before {
-                                    color: #fff !important;
+                                    color: #fff !important; /*TODO:check if it REALLY need*/
                                     content: "";
                                     font-family: "mojePanstwo";
                                     font-size: 11px;
@@ -390,7 +416,7 @@
                         color: #157ab5;
 
                         &:before {
-                            font-family: 'mojePanstwo';
+                            font-family: 'main';
                             content: "\e60c";
                             speak: none;
                             font-size: 14px;
@@ -431,7 +457,7 @@
                 .dataDetailsToggle {
 
                     border: none;
-                    background-color: inherit !important;
+                    background-color: inherit !important; /*TODO:check if it REALLY need*/
                     font-weight: 400;
 
                     .text {
@@ -588,7 +614,6 @@
             .innerContainer {
                 position: relative;
                 width: 100%;
-                background-color: #FFF;
                 display: inline-block;
                 margin-bottom: 20px;
                 padding: 0;
@@ -601,21 +626,23 @@
                     font-size: 1.5em;
                     text-align: center;
                     margin: 3em 0;
+                    color: #BBB;
                 }
 
                 .objectRender {
-                    padding: 10px 15px;
-                    margin: 0;
-
-                    &.bg {
-                        background-color: #FEFEFE;
+                    padding: 10px;
+                    margin: 7px 0;
+                    border-bottom: 1px solid #DDD;
+                    
+                    &:last-child {
+	                    border-bottom: none;
                     }
 
                     .action {
                         padding: 0;
 
                         span {
-                            color: #bacbce;
+                            color: #999;
                             font-size: 25px;
                             margin-top: 5px;
                         }
@@ -634,7 +661,7 @@
         padding-left: 5px;
         padding-bottom: 0;
         border-width: 0;
-        border-left: 3px solid #4490bd;
+        border-left: 3px solid #ABC;
         display: block;
         float: left;
         position: relative;
@@ -643,18 +670,20 @@
         -moz-border-radius: 0;
         border-radius: 0;
         width: 100%;
+        margin: 0;
+        padding-right: 0;
+
+        .navigator {
+            margin-left: 3px;
+        }
 
         &:first-child {
-            margin-top: 10px;
-
             > div {
                 margin-top: 0;
             }
         }
 
         &:last-child {
-            margin-bottom: 10px;
-
             > div {
                 margin-bottom: 0;
             }
@@ -669,7 +698,7 @@
             height: 0;
             border-style: solid;
             border-width: 6px 0 6px 9px;
-            border-color: transparent transparent transparent #4491bd;
+            border-color: transparent transparent transparent #ABC;
         }
 
         > div {
@@ -683,8 +712,19 @@
             float: left;
             display: block;
             margin: 10px;
-            padding: 5px 5px 10px;
+            padding: 5px;
             min-width: 98%;
+        }
+
+    }
+
+    .dataFeed .feed-timeline.feed-min .dataObjects .innerContainer .objectRender > div {
+        border-style: none;
+        background-color: inherit;
+        margin-left: 0;
+        padding-left: 0;
+        .title {
+            margin-left: 0;
         }
     }
 
@@ -704,7 +744,7 @@
                 -webkit-border-radius: 3px;
 
                 .content {
-                    padding: 0 12px;
+                    padding: 10px;
 
                     .header {
                         display: none;
@@ -752,10 +792,6 @@
                     }
                 }
 
-                .attachment img {
-                    max-width: 155px;
-                }
-
                 .feed-header {
                     overflow: auto;
 
@@ -770,7 +806,7 @@
                         margin-left: 4px;
 
                         .date {
-                            color: #818793;
+                            color: #777;
                             font-size: 11px;
                             margin-top: 3px;
                         }
@@ -827,6 +863,7 @@
 
     .header {
         padding-left: 0;
+        margin-top: 15px;
 
         .tools {
             padding-right: 0;
@@ -865,7 +902,7 @@
 
         .subtitle {
             margin-top: 0;
-            margin-bottom: 10px !important;
+            margin-bottom: 10px !important; /*TODO:check if it REALLY need*/
             font-size: 11px;
             color: #777;
             font-family: "Lato", Arial, sans-serif;
@@ -896,6 +933,18 @@
             -o-opacity: 1;
         }
 
+    }
+
+    .subobjectPage {
+        padding: 0 20px;
+
+        .icon-cont {
+            width: 55px;
+        }
+
+        .dataHighlights {
+            margin-left: 8px;
+        }
     }
 
     .objectsPageContent {
@@ -932,12 +981,55 @@
 
     }
 
+    .objectRender-addons {
+        margin: -20px 0 25px 52px;
+        font-size: 13px;
+        color: green;
+    }
+
+    .sidebar {
+        .block > section {
+            padding-bottom: 5px;
+        }
+
+        .objectRender {
+            padding: 0;
+
+            .attachment {
+                margin-bottom: 0;
+
+                .thumb_cont {
+                    width: 100%;
+                    height: auto;
+                    max-height: 100%;
+                }
+
+                img {
+                    margin-top: 0;
+                    max-width: 100%;
+                }
+            }
+
+            .content {
+                padding-top: 0;
+
+                .title,
+                .meta {
+                    margin-right: 0;
+                    margin-left: 0;
+                    line-height: 1.1em;
+                }
+
+                .title {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+
     .objectRender {
-        font-family: "Lato", Arial, sans-serif;
         font-size: 14px;
-        padding-top: 7px;
-        padding-bottom: 5px;
-        border-bottom: 1px solid #ededed;
+        padding-bottom: 15px;
 
         &.docdataobject .attachment .thumb_cont {
             position: relative;
@@ -1000,9 +1092,10 @@
 
         .header {
             margin-bottom: 10px;
-            margin-top: -2px;
+            margin-top: -5px;
+            margin-left: 7px;
             font-size: 12px;
-            color: #666;
+            color: #789;
             font-weight: 400;
 
             b, strong {
@@ -1011,7 +1104,7 @@
         }
 
         .title {
-            font-size: 17px;
+            font-size: 16px;
             line-height: 1.2em;
             padding: 0;
             margin: -5px 7px 5px;
@@ -1019,7 +1112,44 @@
             small {
                 font-size: 12px;
                 margin-left: 10px;
+                color: #789;
             }
+        }
+
+        .description {
+            margin-bottom: 20px;
+            margin-left: 53px;
+            font-size: 13px;
+            em {
+	            font-weight: bold;
+	            font-style: normal;
+            }
+        }
+
+        .object-icon {
+            color: #999;
+            display: block;
+            float: left;
+            font-size: 37px;
+            height: 45px;
+            width: 45px;
+            position: relative;
+            top: 5px;
+        }
+
+        .object-icon-side {
+            margin-left: 45px;
+            
+            &.marginRight {
+	            margin-right: 50px;
+            }
+            
+        }
+        
+        .label-glos {
+	        position: absolute;
+	        right: 0;
+	        margin: -7px 5px 0 0;
         }
 
         .status {
@@ -1033,7 +1163,7 @@
 
         .sentence {
             color: #444;
-            margin: 10px 0 0;
+            margin: 10px 0 7px;
             padding: 0;
 
             a {
@@ -1088,7 +1218,6 @@
 
             img {
                 width: 100%;
-                max-width: 100px;
                 margin-top: 10px;
 
                 &.noBorder {
@@ -1098,7 +1227,6 @@
 
             .thumb_cont {
                 max-height: 100px;
-                max-width: 100px;
                 margin-left: auto;
                 margin-right: 0;
                 overflow: hidden;
@@ -1119,12 +1247,6 @@
 
                 text-align: center;
 
-            }
-        }
-
-        &.rady_posiedzenia, &.rady_gmin_debaty, &.rady_gmin_wystapienia {
-            .attachment img {
-                max-width: 150px;
             }
         }
 
@@ -1178,10 +1300,10 @@
                 .value {
 
                     font-weight: 300;
-                    font-size: 17px;
+                    font-size: 16px;
                     padding: 0;
                     margin: 0;
-                    color: #666;
+                    color: #789;
 
                 }
 
@@ -1201,8 +1323,7 @@
 
         .content {
             line-height: 1.2em;
-            padding: 5px;
-            margin-top: 7px;
+            padding-top: 8px;
 
             .header-a {
                 a {
@@ -1222,7 +1343,6 @@
             .video img {
                 display: block;
                 width: 100%;
-                max-width: 100px;
             }
 
             blockquote._ {
@@ -1280,9 +1400,9 @@
             }
 
             .description {
-                margin: 10px;
-                color: #545454;
-                line-height: 1.4;
+                margin: 10px 8px;
+                color: #333;
+                line-height: 1.5;
                 word-wrap: break-word;
                 font-size: 12px;
 
@@ -1299,7 +1419,7 @@
             }
 
             .dataHighlights .dataHighlight {
-                margin-bottom: 0 !important;
+                margin-bottom: 0 !important; /*TODO:check if it REALLY need*/
             }
         }
 
@@ -1331,7 +1451,185 @@
         }
 
     }
-
+    
+    .block-size-sm {
+	    .objectRender {
+		    .header {
+			    margin-left: 6px;
+		    }
+		    .title {
+			    font-size: 14px;
+		    }
+		    .object-icon {
+			    font-size: 32px;
+		    }
+	    }
+	    .dataAggs {
+		    .buttons {
+			    margin-bottom: -5px;
+		    }
+	    }
+    }
+	
+	.objectRender.sejm_wystapienia {
+		
+		.content {
+			margin-top: 0;
+			padding-top: 0;
+		}
+		
+		.sw_avatar {
+	        min-width: 70px;
+	    }
+	
+	    .sw_content {
+	        padding: 0;
+	        border-radius: 3px;
+	        margin: 0 75px;
+	        -webkit-border-radius: 3px;
+	        -moz-border-radius: 3px;
+	        -o-border-radius: 3px;
+	
+	        .mowca {
+	
+	            font-size: 13px;
+	            font-weight: 500;
+	            .label {
+	                font-size: 10px;
+	                margin-left: 5px;
+	                position: relative;
+	                top: -1px;
+	                text-transform: uppercase;
+	            }
+	            .label-default {
+	                background-color: #AAA;
+	            }
+	        }
+	
+	        .link {
+	            visibility: hidden;
+	            font-size: 12px;
+	            margin-bottom: 0;
+	            text-align: center;
+	            display: none;
+	        }
+	        
+	        .link-expand {
+		        display: block;
+	        }
+	        
+	        &.expanded .link-expand {
+		        display: none;
+	        }
+	        
+	        &.expanded .link-collapse {
+		        display: block;
+	        }
+	        
+	        &._loading .link {
+		        display: none;
+	        }
+	        
+	        &._disabled .link {
+		        visibility: hidden !important;
+	        }
+	        
+	        .loader {
+		        display: none;
+	        }
+	        
+	        &._loading .loader {
+		        display: block;
+	        }
+	        
+	        &.expanded {
+		        font-size: 15px;
+		        line-height: 1.5em;
+		        .text {
+			        margin-top: -3px;
+		        }
+	        }
+	        
+			.text {
+				
+				margin-bottom: 10px;
+				
+		        p {
+		            &.opis {
+		                text-align: center;
+		                font-style: italic;
+		                color: #999;
+		            }
+		        }
+	        }
+	
+	    }
+	
+	    .sw_content:hover {
+	        .link {
+	            visibility: visible;
+	        }
+	    }
+	
+	    @arrowSize: 30px;
+	
+	    .porzadek {
+	        .sw_avatar {
+	            float: right;
+	            text-align: right;
+	        }
+	        .sw_content {
+	            position: relative;
+	
+	            &:before {
+	                position: absolute;
+	                top: 25 px-(@arrowSize/2);
+	                right: -@arrowSize;
+	                border: solid transparent;
+	                content: " ";
+	                height: 0;
+	                width: 0;
+	                position: absolute;
+	                pointer-events: none;
+	                border-color: rgba(251, 251, 251, 0);
+	                border-left-color: #fbfbfb;
+	                border-width: @arrowSize/2;
+	            }
+	
+	            .mowca {
+	                text-align: left;
+	            }
+	        }
+	    }
+	
+	    .wystapienie {
+	        .sw_avatar {
+	            float: left;
+	            text-align: left;
+	        }
+	
+	        .sw_content {
+	            position: relative;
+	
+	            &:before {
+	                position: absolute;
+	                top: 25 px-(@arrowSize/2);
+	                left: -@arrowSize;
+	                border: solid transparent;
+	                content: " ";
+	                height: 0;
+	                width: 0;
+	                position: absolute;
+	                pointer-events: none;
+	                border-color: rgba(255, 255, 255, 0);
+	                border-right-color: #ffffff;
+	                border-width: @arrowSize/2;
+	            }
+	        }
+	    }
+		
+	}
+	
     .sejm_glosowanie-voting {
 
         margin: 15px -10px;
@@ -1376,7 +1674,7 @@
                     margin: 1px;
                     .exception {
                         font-size: 11px;
-                        color: #666;
+                        color: #789;
                     }
                 }
             }
@@ -1573,7 +1871,7 @@
             }
         }
         .col-feed-main {
-            padding: 0 5px;
+            margin-top: 20px;
         }
     }
 }

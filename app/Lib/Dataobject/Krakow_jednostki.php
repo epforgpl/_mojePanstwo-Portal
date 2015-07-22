@@ -20,7 +20,19 @@ class Krakow_jednostki extends DataObject
     
     public function getUrl()
     {
-	    return '/dane/gminy/903/oswiadczenia?jednostka_id=' . $this->getId();
+	    return '/dane/gminy/903,krakow/jednostki/' . $this->getId();
     }
+    
+    public function getBreadcrumbs()
+	{
+				
+		return array(
+			array(
+				'id' => '/dane/gminy/903,krakow/jednostki',
+				'label' => 'Jednostki organizacyjne Urzędu Miasta',
+			),
+		);
+				
+	}
 
 }

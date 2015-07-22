@@ -30,24 +30,24 @@ class PoslowieController extends DataobjectsController
         $this->load();
 
         if (
-            $this->object->getData('twitter_account_id') && 
+            $this->object->getData('twitter_account_id') &&
             ($twitter_account = $this->Dataobject->find('first', array(
-	            'conditions' => array(
-		            'dataset' => 'twitter_accounts',
-		            'id' => $this->object->getData('twitter_account_id'),
-	            ),
-	            'layers' => array('followers_chart'),
+                'conditions' => array(
+                    'dataset' => 'twitter_accounts',
+                    'id' => $this->object->getData('twitter_account_id'),
+                ),
+                'layers' => array('followers_chart'),
             )))
         ) {
 
             $this->set('twitter_account', $twitter_account);
 
             $this->set('twitts', $this->Dataobject->find('all', array(
-	            'conditions' => array(
-		            'dataset' => 'twitter',
-		            'twitter.twitter_account_id' => $twitter_account->getId(),
-	            ),
-	            'limit' => 12,
+                'conditions' => array(
+                    'dataset' => 'twitter',
+                    'twitter.twitter_account_id' => $twitter_account->getId(),
+                ),
+                'limit' => 12,
             )));
 
         } else {
@@ -70,13 +70,13 @@ class PoslowieController extends DataobjectsController
     public function wydatki()
     {
 
-		$this->addInitLayers(array('wydatki'));
+        $this->addInitLayers(array('wydatki'));
         $this->load();
-		
-		$wydatki = $this->object->getLayer('wydatki');
+
+        $wydatki = $this->object->getLayer('wydatki');
         $rok = @$this->request->params['subid'];
-        
-        		
+
+
         if ($rok && ($roczniki = $wydatki['roczniki'])) {
 
             $founded = false;
@@ -101,24 +101,24 @@ class PoslowieController extends DataobjectsController
         } else {
 
             $this->set('title_for_layout', $this->object->getData('nazwa') . ' | Informacje finansowe');
-			
+
         }
 
     }
 
     public function oswiadczenia_majatkowe()
     {
-		
-		$this->load();
-		
-		$this->Components->load('Dane.DataBrowser', array(
+
+        $this->load();
+
+        $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'poslowie_oswiadczenia_majatkowe',
-	            'poslowie_oswiadczenia_majatkowe.posel_id' => $this->object->getId(),
+                'dataset' => 'poslowie_oswiadczenia_majatkowe',
+                'poslowie_oswiadczenia_majatkowe.posel_id' => $this->object->getId(),
             ),
             'aggsPreset' => 'oswiadczenia_majatkowe',
         ));
-        
+
         $this->set('title_for_layout', 'Oświadczenia majątkowe ' . $this->object->getData('dopelniacz'));
         $this->set('DataBrowserTitle', 'Oświadczenia majątkowe ' . $this->object->getData('dopelniacz'));
         $this->render('Dane.DataBrowser/browser');
@@ -127,55 +127,55 @@ class PoslowieController extends DataobjectsController
 
     public function rejestr_korzysci()
     {
-		
-		$this->load();
-		
-		$this->Components->load('Dane.DataBrowser', array(
+
+        $this->load();
+
+        $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'poslowie_rejestr_korzysci',
-	            'poslowie_rejestr_korzysci.posel_id' => $this->object->getId(),
+                'dataset' => 'poslowie_rejestr_korzysci',
+                'poslowie_rejestr_korzysci.posel_id' => $this->object->getId(),
             ),
             'aggsPreset' => 'oswiadczenia_majatkowe',
         ));
-        
+
         $this->set('title_for_layout', 'Rejestr korzyści ' . $this->object->getData('dopelniacz'));
         $this->set('DataBrowserTitle', 'Rejestr korzyści ' . $this->object->getData('dopelniacz'));
         $this->render('Dane.DataBrowser/browser');
-        
+
     }
 
     public function wspolpracownicy()
     {
-		
-		$this->load();
-		
-		$this->Components->load('Dane.DataBrowser', array(
+
+        $this->load();
+
+        $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'poslowie_wspolpracownicy',
-	            'poslowie_wspolpracownicy.posel_id' => $this->object->getId(),
+                'dataset' => 'poslowie_wspolpracownicy',
+                'poslowie_wspolpracownicy.posel_id' => $this->object->getId(),
             ),
             'aggsPreset' => 'poslowie_wspolpracownicy',
         ));
-        
+
         $this->set('title_for_layout', 'Współpracownicy ' . $this->object->getData('dopelniacz'));
         $this->set('DataBrowserTitle', 'Współpracownicy ' . $this->object->getData('dopelniacz'));
         $this->render('Dane.DataBrowser/browser');
-		
+
     }
 
     public function wystapienia()
     {
-	    
+
         parent::load();
-                
+
         $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'sejm_wystapienia',
-	            'ludzie.id' => $this->object->getData('poslowie.mowca_id'),
+                'dataset' => 'sejm_wystapienia',
+                'ludzie.id' => $this->object->getData('poslowie.mowca_id'),
             ),
             'aggsPreset' => 'sejm_wystapienia',
         ));
-        
+
         $this->set('title_for_layout', 'Wystąpienia sejmowe ' . $this->object->getData('dopelniacz'));
         $this->set('DataBrowserTitle', 'Wystąpienia sejmowe ' . $this->object->getData('dopelniacz'));
         $this->render('Dane.DataBrowser/browser');
@@ -185,109 +185,109 @@ class PoslowieController extends DataobjectsController
     public function interpelacje()
     {
         parent::load();
-	    $this->Components->load('Dane.DataBrowser', array(
+        $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'sejm_interpelacje',
-	            'sejm_interpelacje.posel_id' => $this->object->getId(),
+                'dataset' => 'sejm_interpelacje',
+                'sejm_interpelacje.posel_id' => $this->object->getId(),
             ),
             'aggsPreset' => 'sejm_wystapienia',
         ));
-        
+
         $this->set('title_for_layout', 'Interpelacje ' . $this->object->getData('dopelniacz'));
         $this->set('DataBrowserTitle', 'Interpelacje ' . $this->object->getData('dopelniacz'));
         $this->render('Dane.DataBrowser/browser');
-	    
+
     }
 
     public function prawo_projekty()
     {
-	    
-	    parent::load();
-	    $this->Components->load('Dane.DataBrowser', array(
+
+        parent::load();
+        $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'prawo_projekty',
-	            'prawo_projekty.posel_id' => $this->object->getId(),
+                'dataset' => 'prawo_projekty',
+                'prawo_projekty.posel_id' => $this->object->getId(),
             ),
             'aggsPreset' => 'prawo_projekty',
         ));
-        
+
         $this->set('title_for_layout', 'Projekty podpisane przez ' . $this->object->getData('dopelniacz'));
         $this->set('DataBrowserTitle', 'Projekty podpisane przez ' . $this->object->getData('dopelniacz'));
         $this->render('Dane.DataBrowser/browser');
-        
+
     }
-    
+
     public function projekty_ustaw()
     {
-	    
-	    parent::load();
-	    $this->Components->load('Dane.DataBrowser', array(
+
+        parent::load();
+        $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'prawo_projekty',
-	            'prawo_projekty.posel_id' => $this->object->getId(),
-	            'prawo_projekty.typ_id' => '1',
+                'dataset' => 'prawo_projekty',
+                'prawo_projekty.posel_id' => $this->object->getId(),
+                'prawo_projekty.typ_id' => '1',
             ),
             'aggsPreset' => 'prawo_projekty',
         ));
-        
+
         $this->set('title_for_layout', 'Projekty ustaw podpisane przez ' . $this->object->getData('dopelniacz'));
         $this->set('DataBrowserTitle', 'Projekty ustaw podpisane przez ' . $this->object->getData('dopelniacz'));
         $this->render('Dane.DataBrowser/browser');
-        
+
     }
-    
+
     public function projekty_uchwal()
     {
-	    
-	    parent::load();
-	    $this->Components->load('Dane.DataBrowser', array(
+
+        parent::load();
+        $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'prawo_projekty',
-	            'prawo_projekty.posel_id' => $this->object->getId(),
-	            'prawo_projekty.typ_id' => '2',
+                'dataset' => 'prawo_projekty',
+                'prawo_projekty.posel_id' => $this->object->getId(),
+                'prawo_projekty.typ_id' => '2',
             ),
             'aggsPreset' => 'prawo_projekty',
         ));
-        
+
         $this->set('title_for_layout', 'Projekty uchwał podpisane przez ' . $this->object->getData('dopelniacz'));
         $this->set('DataBrowserTitle', 'Projekty uchwał podpisane przez ' . $this->object->getData('dopelniacz'));
         $this->render('Dane.DataBrowser/browser');
-        
+
     }
 
     public function glosowania()
     {
-	    
-	    $this->load();
-		
-		$this->Components->load('Dane.DataBrowser', array(
+
+        $this->load();
+
+        $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'poslowie_glosy',
-	            'poslowie_glosy.posel_id' => $this->object->getId(),
+                'dataset' => 'poslowie_glosy',
+                'poslowie_glosy.posel_id' => $this->object->getId(),
             ),
             'aggsPreset' => 'poslowie_glosy',
         ));
-        
+
         $this->set('title_for_layout', 'Wyniki głosowań ' . $this->object->getData('dopelniacz'));
         $this->set('DataBrowserTitle', 'Wyniki głosowań ' . $this->object->getData('dopelniacz'));
         $this->render('Dane.DataBrowser/browser');
-        
+
     }
 
     public function prawo_projekty_za()
     {
-	    
-	    parent::load();
-	    $this->Components->load('Dane.DataBrowser', array(
+
+        parent::load();
+        $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'prawo_projekty',
-	            'prawo_projekty.poslowie_za' => $this->object->getId(),
+                'dataset' => 'prawo_projekty',
+                'prawo_projekty.poslowie_za' => $this->object->getId(),
             ),
             'aggsPreset' => 'prawo_projekty',
         ));
-                
-        $glosowal_str = ( $this->object->getData('plec')=='K' ) ? 'głosowała' : 'głosował';
-        
+
+        $glosowal_str = ($this->object->getData('plec') == 'K') ? 'głosowała' : 'głosował';
+
         $this->set('title_for_layout', 'Projekty za którymi ' . $glosowal_str . ' ' . $this->object->getData('nazwa'));
         $this->set('DataBrowserTitle', 'Projekty za którymi ' . $glosowal_str . ' ' . $this->object->getData('nazwa'));
         $this->render('Dane.DataBrowser/browser');
@@ -296,18 +296,18 @@ class PoslowieController extends DataobjectsController
 
     public function prawo_projekty_przeciw()
     {
-        
+
         parent::load();
-	    $this->Components->load('Dane.DataBrowser', array(
+        $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'prawo_projekty',
-	            'prawo_projekty.poslowie_przeciw' => $this->object->getId(),
+                'dataset' => 'prawo_projekty',
+                'prawo_projekty.poslowie_przeciw' => $this->object->getId(),
             ),
             'aggsPreset' => 'prawo_projekty',
         ));
-                
-        $glosowal_str = ( $this->object->getData('plec')=='K' ) ? 'głosowała' : 'głosował';
-        
+
+        $glosowal_str = ($this->object->getData('plec') == 'K') ? 'głosowała' : 'głosował';
+
         $this->set('title_for_layout', 'Projekty przeciw którym ' . $glosowal_str . ' ' . $this->object->getData('nazwa'));
         $this->set('DataBrowserTitle', 'Projekty przeciw którym ' . $glosowal_str . ' ' . $this->object->getData('nazwa'));
         $this->render('Dane.DataBrowser/browser');
@@ -317,16 +317,16 @@ class PoslowieController extends DataobjectsController
     public function prawo_projekty_wstrzymanie()
     {
         parent::load();
-	    $this->Components->load('Dane.DataBrowser', array(
+        $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'prawo_projekty',
-	            'prawo_projekty.poslowie_wstrzymali' => $this->object->getId(),
+                'dataset' => 'prawo_projekty',
+                'prawo_projekty.poslowie_wstrzymali' => $this->object->getId(),
             ),
             'aggsPreset' => 'prawo_projekty',
         ));
-                
-        $wstrzymal_str = ( $this->object->getData('plec')=='K' ) ? 'wstrzymała' : 'wstrzymał';
-        
+
+        $wstrzymal_str = ($this->object->getData('plec') == 'K') ? 'wstrzymała' : 'wstrzymał';
+
         $this->set('title_for_layout', 'Projekty nad którymi ' . $this->object->getData('nazwa') . ' ' . $wstrzymal_str . ' się od głosu');
         $this->set('DataBrowserTitle', 'Projekty nad którymi ' . $this->object->getData('nazwa') . ' ' . $wstrzymal_str . ' się od głosu');
         $this->render('Dane.DataBrowser/browser');
@@ -335,18 +335,18 @@ class PoslowieController extends DataobjectsController
 
     public function prawo_projekty_nieobecnosc()
     {
-	    
+
         parent::load();
-	    $this->Components->load('Dane.DataBrowser', array(
+        $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'prawo_projekty',
-	            'prawo_projekty.poslowie_nieobecni' => $this->object->getId(),
+                'dataset' => 'prawo_projekty',
+                'prawo_projekty.poslowie_nieobecni' => $this->object->getId(),
             ),
             'aggsPreset' => 'prawo_projekty',
         ));
-                
-        $wstrzymal_str = ( $this->object->getData('plec')=='K' ) ? 'pojawiła' : 'pojawił';
-        
+
+        $wstrzymal_str = ($this->object->getData('plec') == 'K') ? 'pojawiła' : 'pojawił';
+
         $this->set('title_for_layout', 'Projekty dla których ' . $this->object->getData('nazwa') . ' nie ' . $wstrzymal_str . ' się na głosowaniu');
         $this->set('DataBrowserTitle', 'Projekty dla których ' . $this->object->getData('nazwa') . ' nie ' . $wstrzymal_str . ' się na głosowaniu');
         $this->render('Dane.DataBrowser/browser');
@@ -355,44 +355,40 @@ class PoslowieController extends DataobjectsController
 
     public function komisja_etyki_uchwaly()
     {
-	    
-	    $this->load();
-		
-		$this->Components->load('Dane.DataBrowser', array(
+
+        $this->load();
+
+        $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-	            'dataset' => 'sejm_komisje_uchwaly',
-	            'sejm_komisje_uchwaly.posel_id' => $this->object->getId(),
+                'dataset' => 'sejm_komisje_uchwaly',
+                'sejm_komisje_uchwaly.posel_id' => $this->object->getId(),
             ),
             'aggsPreset' => 'sejm_komisje_uchwaly',
         ));
-        
+
         $this->set('title_for_layout', 'Uchwały Komisji Etyki wobec ' . $this->object->getData('dopelniacz'));
         $this->set('DataBrowserTitle', 'Uchwały Komisji Etyki wobec ' . $this->object->getData('dopelniacz'));
         $this->render('Dane.DataBrowser/browser');
-        
+
     }
 
 
-    public function beforeRender()
+    public function getMenu()
     {
 
-        // debug( $this->object->getData() ); die();
-
-        // PREPARE MENU
-        $href_base = '/dane/poslowie/' . $this->request->params['id'] . ',' . $this->object->getSlug();
 
         $menu = array(
             'items' => array(
                 array(
                     'id' => '',
-                    'href' => $href_base,
                     'label' => 'Aktualności',
-                    'icon' => 'glyphicon glyphicon-feed',
+                    // 'icon' => 'glyphicon glyphicon-feed',
                 ),
-            )
+            ),
+            'base' => $this->object->getUrl(),
         );
-		
-		/*
+
+        /*
         $menu['items'][] = array(
             'id' => 'dane',
             'label' => 'Dane',
@@ -437,28 +433,26 @@ class PoslowieController extends DataobjectsController
 
         $menu['items'][] = array(
             'id' => 'wydatki',
-            'href' => $href_base . '/wydatki',
             'label' => 'Wydatki',
-            'icon' => 'glyphicon glyphicon-spendings',
+            // 'icon' => 'glyphicon glyphicon-spendings',
         );
 
         $menu['items'][] = array(
             'id' => 'wyjazdy',
-            'href' => $href_base . '/wyjazdy',
             'label' => 'Wyjazdy zagraniczne',
-            'icon' => 'glyphicon glyphicon-travels',
+            // 'icon' => 'glyphicon glyphicon-travels',
         );
 
+        /*
         if ($this->object->getData('twitter_account_id')) {
             $menu['items'][] = array(
                 'id' => 'twitter',
-                'href' => $href_base . '/twitter',
                 'label' => 'Twitter',
             );
         }
+        */
 
-        $this->menu = $menu;
-        parent::beforeRender();
+        return $menu;
 
     }
 

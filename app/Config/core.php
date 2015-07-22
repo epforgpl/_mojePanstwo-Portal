@@ -36,7 +36,7 @@ include( 'constants.php' );
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
-//Configure::write('debug', 2);
+//Configure::write('debug', 2); // should be set in constants.php
 
 /**
  * Configure the Error handler used to handle errors for your application. By default
@@ -54,9 +54,9 @@ include( 'constants.php' );
  * @see ErrorHandler for more information on error handling and configuration.
  */
 Configure::write( 'Error', array(
-	'handler' => 'ErrorHandler::handleError',
-	'level'   => E_ALL & ~E_DEPRECATED & ~E_STRICT,
-	'trace'   => true
+    'handler' => 'ErrorHandler::handleError',
+    'level'   => E_ALL & ~E_DEPRECATED & ~E_STRICT,
+    'trace'   => true
 ) );
 
 /**
@@ -80,10 +80,10 @@ Configure::write( 'Error', array(
  * @see ErrorHandler for more information on exception handling and configuration.
  */
 Configure::write( 'Exception', array(
-	'handler'  => 'ErrorHandler::handleException',
-	'renderer' => 'AppExceptionRenderer',
-	'log'      => true,
-	'skipLog'  => array( 'MissingActionException', 'MissingControllerException' )
+    'handler'  => 'ErrorHandler::handleException',
+    'renderer' => 'AppExceptionRenderer',
+    'log'      => true,
+    'skipLog'  => array( 'MissingActionException', 'MissingControllerException' )
 ) );
 
 /**
@@ -222,9 +222,9 @@ Configure::write( 'Cache.disable', true );
  *
  */
 Configure::write( 'Session', array(
-	'cookie'   => 'MP',
-	'defaults' => 'php',
-	'timeout'  => 8640,
+    'cookie'   => 'MP',
+    'defaults' => 'php',
+    'timeout'  => 8640,
 ) );
 
 /**
@@ -354,7 +354,7 @@ $engine = 'File';
 // In development mode, caches should expire quickly.
 $duration = '+999 days';
 if ( Configure::read( 'debug' ) > 0 ) {
-	$duration = '+10 seconds';
+    $duration = '+10 seconds';
 }
 
 // Prefix each application on the same server with a different string, to avoid Memcache and APC conflicts.
@@ -365,11 +365,11 @@ $prefix = 'myapp_';
  * object listings, and translation cache files are stored with this configuration.
  */
 Cache::config( '_cake_core_', array(
-	'engine'    => $engine,
-	'prefix'    => $prefix . 'cake_core_',
-	'path'      => CACHE . 'persistent' . DS,
-	'serialize' => ( $engine === 'File' ),
-	'duration'  => $duration
+    'engine'    => $engine,
+    'prefix'    => $prefix . 'cake_core_',
+    'path'      => CACHE . 'persistent' . DS,
+    'serialize' => ( $engine === 'File' ),
+    'duration'  => $duration
 ) );
 
 /**
@@ -377,9 +377,24 @@ Cache::config( '_cake_core_', array(
  * is used to store schema descriptions, and table listings in connections.
  */
 Cache::config( '_cake_model_', array(
-	'engine'    => $engine,
-	'prefix'    => $prefix . 'cake_model_',
-	'path'      => CACHE . 'models' . DS,
-	'serialize' => ( $engine === 'File' ),
-	'duration'  => $duration
+    'engine'    => $engine,
+    'prefix'    => $prefix . 'cake_model_',
+    'path'      => CACHE . 'models' . DS,
+    'serialize' => ( $engine === 'File' ),
+    'duration'  => $duration
 ) );
+
+Cache::config('short', array(
+    'engine' => 'File',
+    'duration' => '+1 hours',
+    'path' => CACHE,
+    'prefix' => 'cake_short_'
+));
+
+// long
+Cache::config('long', array(
+    'engine' => 'File',
+    'duration' => '+1 week',
+    'probability' => 100,
+    'path' => CACHE . 'long' . DS,
+));

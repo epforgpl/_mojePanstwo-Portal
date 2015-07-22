@@ -31,5 +31,16 @@ class Msig extends DocDataObject
     {
         return 'Monitor Sądowy i Gospodarczy z dnia ' . dataSlownie( $this->getDate() );
     }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+				
+		$output = array(
+			dataSlownie($this->getDate()),
+		);
+				
+		return $output;
+		
+	}
 
 }

@@ -8,10 +8,10 @@ class DzielniceController extends DataobjectsController
 
     public function view()
     {
-	    
+
         parent::view();
         return $this->redirect('/dane/gminy/' . $this->object->getData('gminy.id') . '/dzielnice/' . $this->object->getId());
-        
+
     }
 
 } 
