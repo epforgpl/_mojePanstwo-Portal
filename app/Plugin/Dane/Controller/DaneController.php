@@ -105,7 +105,7 @@ class DaneController extends ApplicationsController
 			            'zbiory.slug' => $this->request->params['id'],
 		            ),
 	            ));
-	            
+	            	            
 	            $this->title = $dataset->getData('nazwa');
 	            $this->setMetaDescription($dataset->getData('opis'));
 	            $this->_app['name'] = $dataset->getData('nazwa');

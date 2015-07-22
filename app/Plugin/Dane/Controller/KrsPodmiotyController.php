@@ -377,14 +377,29 @@ class KrsPodmiotyController extends DataobjectsController
 
         if(!$this->_canEdit())
             throw new ForbiddenException;
+            
+        $this->render('dzialanie_edycja');
+    }
+	
+    public function dzialania_edycja() {
+        $id = @$this->request->params['subid'];
+        if(!$id)
+            throw new NotFoundException;
+
+        $dzialanie = $this->Dataobject->find('first', array(
+            'conditions' => array(
+                'dataset' => 'dzialania',
+                'id' => $id
+            )
+        ));
 
         $this->render('dzialanie_form');
     }
 
     public function dzialania() {
+		
 
         $this->_prepareView();
-
         if($id = @$this->request->params['subid']) {
 
             $dzialanie = $this->Dataobject->find('first', array(
@@ -396,8 +411,18 @@ class KrsPodmiotyController extends DataobjectsController
 
             if (!$dzialanie)
                 throw new NotFoundException;
-
+            
             $this->set('dzialanie', $dzialanie);
+            
+			if( @$this->request->params['subaction']=='edycja' ) {
+				
+				$this->render('dzialanie_edycja');
+				
+			} else {
+				
+	            $this->render('dzialanie');
+	            
+			}
 
             if(@$this->request->params['subaction'] == 'edytuj') {
 
@@ -429,7 +454,10 @@ class KrsPodmiotyController extends DataobjectsController
 	        $this->Components->load('Dane.DataBrowser', array(
 	            'conditions' => array(
 	                'dataset' => 'dzialania',
+	                'dzialania.dataset' => 'krs_podmioty',
+	                'dzialania.object_id' => $this->object->getId(),
 	            ),
+	            'aggsPreset' => 'dzialania_admin',
 	        ));
 	
 	        $this->set('title_for_layout', 'Działania ' . $this->object->getData('nazwa'));
