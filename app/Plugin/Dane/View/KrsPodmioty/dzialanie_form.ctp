@@ -74,16 +74,16 @@ echo $this->Element('dataobject/pageBegin'); ?>
 	                        <textarea maxlength="511" class="form-control" name="podsumowanie"><? if($edit) echo $dzialanie->getData('podsumowanie'); ?></textarea>
 	                    </div>
 	                    <div class="form-group">
-	                        <label>Tagi</label>
-	                        <div class="row tags">
-	                            <input type="text" class="form-control tagit" name="tagi" <? if($edit) echo 'value="'.$dzialanie->getData('tagi').'"'; ?>/>
-	                        </div>
-	                    </div>
-	                    <div class="form-group">
-	                        <label for="dzialanieOpis">Opis</label>
+	                        <label for="dzialanieOpis">Opis działania</label>
 	                        <textarea maxlength="16383" class="form-control" id="dzialanieOpis" name="opis">
 	                            <? if($edit) echo $dzialanie->getData('opis'); ?>
 	                        </textarea>
+	                    </div>
+	                    <div class="form-group">
+	                        <label>Słowa kluczowe</label>
+	                        <div class="row tags">
+	                            <input type="text" class="form-control tagit" name="tagi" <? if($edit) echo 'value="'.$dzialanie->getData('tagi').'"'; ?>/>
+	                        </div>
 	                    </div>
 	                    <div class="form-group">
 	                        <label>Zdjęcie</label>

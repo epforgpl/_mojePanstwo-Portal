@@ -27,7 +27,7 @@ class Dzialania extends DocDataObject
 	public function getThumbnailUrl($size = '2')
     {
 	    if( $this->getData('photo') )
-	        return 'http://sds.tiktalik.com/portal/' . $size . ' /pages/dzialania/' . $this->getId() . '.jpg';
+	        return 'http://sds.tiktalik.com/portal/' . $size . '/pages/dzialania/' . $this->getId() . '.jpg';
 	    else
 	    	return false;
     }
