@@ -1,5 +1,15 @@
 <?
 
+$this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty-dane', array('plugin' => 'Dane')));
+
+/* tinymce */
+echo $this->Html->script('../tinymce/tinymce.min', array('block' => 'scriptBlock'));
+
+/* page script */
+$this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dane');
+
+$page = $object->getLayer('page');
+$description = ($page['description']) ? $page['description'] : $object->getData('cel_dzialania');
 
 ?>
 <div class="container">
@@ -21,7 +31,7 @@
 
                                 <div class="form-group">
                                     <label for="descriptionTextArea">Misja</label>
-                                    <textarea id="descriptionTextArea" class="form-control"></textarea>
+                                    <textarea name="description" id="descriptionTextArea" class="form-control"><?= $description ?></textarea>
                                 </div>
 
                                 <button class="btn auto-width btn-primary btn-icon submitBtn pull-right" type="submit">
