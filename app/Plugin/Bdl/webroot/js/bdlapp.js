@@ -5,6 +5,7 @@ String.prototype.capitalizeFirstLetter = function () {
 
 var BDLapp = function () {
     this.variable = {
+        link: null,
         jsScrollHandler: null,
         jsScrollTarget: null
     };
@@ -15,6 +16,15 @@ var BDLapp = function () {
     };
 
     this.setup = function () {
+        if (window.location.href.indexOf('#') > 0) {
+            this.variable.link = window.location.href.slice(window.location.href.indexOf('#') + 1);
+
+            if (this.variable.link.slice(this.variable.link.indexOf('&') + 1)) {
+                this.variable.link = this.variable.link.split('&');
+            }
+
+            console.log('setup', this.variable.link);
+        }
     };
     this.treeLoad = function () {
         var self = this,
@@ -86,26 +96,20 @@ var BDLapp = function () {
                 }
                 tree.jstree("open_node", item.node.id);
             } else {
-                self.itemLoad(item.node.data.id);
+                self.itemLoad(item);
             }
             self.treeScrollReload();
         }).bind("loaded.jstree", function () {
             var $treeBlock = $('.treeBlock');
 
-            if (window.location.href.indexOf('#') > 0) {
-                var link = window.location.href.slice(window.location.href.indexOf('#') + 1);
-
-                if (link.slice(link.indexOf('&') + 1)) {
-                    link = link.split('&');
-                }
-
-                $.each(link, function () {
+            if (self.variable.link) {
+                $.each(self.variable.link, function () {
                     if (this.match("link_id=")) {
                         $('a[id="' + this + '_anchor"]').addClass('jstree-active')
                     } else {
                         tree.jstree("open_node", this);
                     }
-                    self.variable.jsScrollTarget = link[link.length - 1];
+                    self.variable.jsScrollTarget = self.variable.link[self.variable.link.length - 1];
                     self.treeScrollReload();
                 });
             }
@@ -193,7 +197,10 @@ var BDLapp = function () {
     };
     this.itemLoad = function (item) {
         var self = this;
-        console.log(item);
+        console.log('itemLoad', item);
+
+        //document.location = item.node.data.id;
+
         self.itemInit();
     };
     this.itemInit = function () {
