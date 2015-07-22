@@ -181,6 +181,11 @@ $(document).ready(function () {
         language : 'pl',
         plugins: "media image",
         menubar: "edit format insert",
+        statusbar : false,
+        content_css: [
+            "/libs/bootstrap/3.3.4/css/bootstrap.min.css",
+            "/css/main.css"
+        ],
         valid_elements : "@[id|class|style|title|dir<ltr?rtl|lang|xml::lang|onclick|ondblclick|"
         + "onmousedown|onmouseup|onmouseover|onmousemove|onmouseout|onkeypress|"
         + "onkeydown|onkeyup],a[rel|rev|charset|hreflang|tabindex|accesskey|type|"
@@ -268,6 +273,11 @@ $(document).ready(function () {
         geolocalizateMe();
     });
 
+    $('.deleteBtn').click(function() {
+        form.append('<input type="hidden" name="deleted" value="1"/>');
+        form.submit();
+    });
+
     form.submit(function() {
         if(typeof imageEditor.cropit('zoom') !== "undefined") {
             var cropitFields = ['imageSrc', 'offset', 'zoom'];
@@ -319,20 +329,6 @@ $(document).ready(function () {
         window.location = '/dane/' + dataset + '/' + object_id;
     });
 
-    $('.btn[data-action="delete"]').click(function() {
-        var id = $(this).data('id');
-        if(confirm("Czy na pewno chcesz usunąć to działanie?")) {
-            $.ajax({
-                url: '/dane/' + dataset + '/' + object_id + '/dzialania/' + id + '.json',
-                method: 'DELETE',
-                data: [],
-                success: function(res) {
-                    window.location = '/dane/' + dataset + '/' + object_id;
-                }
-            });
-        }
-    });
-
     /* Tags autocomplete input */
     $(function() {
         $('.tags input.tagit').tagit({
@@ -348,7 +344,7 @@ $(document).ready(function () {
                         response(data);
                     });
                 },
-                minLength: 3
+                minLength: 1
             }
         });
     });

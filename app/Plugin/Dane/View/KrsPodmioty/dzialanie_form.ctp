@@ -145,12 +145,12 @@ echo $this->Element('dataobject/pageBegin'); ?>
 	            </div>
             
 	            <? if($edit) { ?>
-	            <div class="col-md-12 margin-top-5">
-	                <div class="btn btn-link btn-icon btn-auto-width" data-action="delete" data-id="<?= $dzialanie->getData('id'); ?>">
-	                    <i class="icon glyphicon glyphicon-remove"></i>
-	                    Usuń działanie
-	                </div>
-	            </div>
+                    <div class="col-md-12 margin-top-5">
+                        <div class="btn btn-link btn-icon btn-auto-width deleteBtn">
+                            <i class="icon glyphicon glyphicon-remove"></i>
+                            Usuń działanie
+                        </div>
+                    </div>
 	            <? } ?>
 	            
 	        </div>

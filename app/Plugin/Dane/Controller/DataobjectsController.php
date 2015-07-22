@@ -397,7 +397,8 @@ class DataobjectsController extends AppController
             }
 
             $this->redirect(
-                $this->referer()
+                isset($response['redirect_url']) ?
+                    $response['redirect_url'] : $this->referer()
             );
         }
 
