@@ -19,7 +19,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
                                 <?= $dzialanie->getData('tytul'); ?>
                             </div>
                             <div class="col-sm-4 text-right">
-                                <a href="<?= $object->getUrl() ?>/dzialania/<?= $dzialanie->getData('id') ?>/edycja">
+                                <a href="<?= $object->getUrl() ?>/dzialania/<?= $dzialanie->getData('id') ?>/edytuj">
                                     <div class="btn btn-sm btn-primary btn-icon btn-auto-width">
                                         <i class="icon glyphicon glyphicon-pencil"></i>
                                         Edytuj

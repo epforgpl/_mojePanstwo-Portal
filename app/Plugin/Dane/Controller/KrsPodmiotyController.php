@@ -413,16 +413,6 @@ class KrsPodmiotyController extends DataobjectsController
                 throw new NotFoundException;
             
             $this->set('dzialanie', $dzialanie);
-            
-			if( @$this->request->params['subaction']=='edycja' ) {
-				
-				$this->render('dzialanie_edycja');
-				
-			} else {
-				
-	            $this->render('dzialanie');
-	            
-			}
 
             if(@$this->request->params['subaction'] == 'edytuj') {
 
@@ -445,7 +435,7 @@ class KrsPodmiotyController extends DataobjectsController
 
             } else {
 
-
+				$this->render('dzialanie');
 
             }
 
