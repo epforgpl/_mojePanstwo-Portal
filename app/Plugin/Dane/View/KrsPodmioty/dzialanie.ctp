@@ -14,13 +14,13 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
             <div class="block block-simple col-xs-12 dzialanie">
                 <? if($object_editable) { ?>
                     <header>
-                        <div class="header">
+                        <div class="row">
                             <div class="col-sm-8">
                                 <?= $dzialanie->getData('tytul'); ?>
                             </div>
                             <div class="col-sm-4 text-right">
-                                <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania_edycja/<?= $dzialanie->getData('id'); ?>">
-                                    <div class="btn btn-primary btn-icon btn-auto-width">
+                                <a href="<?= $object->getUrl() ?>/dzialania/<?= $dzialanie->getData('id') ?>/edycja">
+                                    <div class="btn btn-sm btn-primary btn-icon btn-auto-width">
                                         <i class="icon glyphicon glyphicon-pencil"></i>
                                         Edytuj
                                     </div>
