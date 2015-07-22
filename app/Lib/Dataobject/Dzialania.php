@@ -24,10 +24,10 @@ class Dzialania extends DocDataObject
 		return '/dane/' . $this->getData('dataset') . '/' . $this->getData('object_id') . '/dzialania/' . $this->getId();
 	}
 	
-	public function getThumbnailUrl($size = '0')
+	public function getThumbnailUrl($size = '2')
     {
 	    if( $this->getData('photo') )
-	        return 'http://sds.tiktalik.com/portal/pages/dzialania/' . $this->getData('dataset') . '/' . $this->getData('object_id') . '/' . $this->getId() . '.jpg';
+	        return 'http://sds.tiktalik.com/portal/' . $size . ' /pages/dzialania/' . $this->getId() . '.jpg';
 	    else
 	    	return false;
     }
