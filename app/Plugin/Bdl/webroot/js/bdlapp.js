@@ -4,7 +4,7 @@ String.prototype.capitalizeFirstLetter = function () {
 };
 
 var BDLapp = function () {
-    this.const = {
+    this.variable = {
         jsScrollHandler: null,
         jsScrollTarget: null
     };
@@ -105,7 +105,7 @@ var BDLapp = function () {
                     } else {
                         tree.jstree("open_node", this);
                     }
-                    self.const.jsScrollTarget = link[link.length - 1];
+                    self.variable.jsScrollTarget = link[link.length - 1];
                     self.treeScrollReload();
                 });
             }
@@ -178,12 +178,12 @@ var BDLapp = function () {
         if (api) {
             setTimeout(function () {
                 api.reinitialise();
-                if (self.const.jsScrollTarget !== null) {
-                    clearTimeout(self.const.jsScrollHandler);
-                    self.const.jsScrollHandler = setTimeout(function () {
-                        var linkPos = $('a[id="' + self.const.jsScrollTarget + '_anchor"]').parents('li').offset().top - $('.suggesterBlock').outerHeight() - ($('.noOverflow').outerHeight() / 2);
+                if (self.variable.jsScrollTarget !== null) {
+                    clearTimeout(self.variable.jsScrollHandler);
+                    self.variable.jsScrollHandler = setTimeout(function () {
+                        var linkPos = $('a[id="' + self.variable.jsScrollTarget + '_anchor"]').parents('li').offset().top - $('.suggesterBlock').outerHeight() - ($('.noOverflow').outerHeight() / 2);
                         api.scrollTo(0, linkPos, 'ease');
-                        self.const.jsScrollTarget = null;
+                        self.variable.jsScrollTarget = null;
                     }, 250);
                 }
             }, 200);
