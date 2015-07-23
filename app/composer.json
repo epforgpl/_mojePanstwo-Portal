@@ -48,7 +48,7 @@
   },
   "require": {
     "slywalker/boost_cake": "*",
-    "leafo/lessphp": "*"
+    "leafo/lessphp": "0.5.*"
   },
   "minimum-stability": "dev"
 }
