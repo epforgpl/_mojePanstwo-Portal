@@ -136,6 +136,75 @@ $options = array(
     $page = $object->getLayer('page');
     if (!$page['moderated'])
         echo $this->element('tools/admin', array());
+        
+    echo $this->element('tools/datasets', array(
+	    'items' => array(
+		    array(
+                'id' => 'poslowie',
+                'label' => 'Posłowie',
+            ),
+            array(
+                'id' => 'posiedzenia',
+                'label' => 'Posiedzenia Sejmu',
+            ),
+            array(
+                'id' => 'sejm_wystapienia',
+                'label' => 'Wystąpienia',
+            ),
+            array(
+                'id' => 'sejm_glosowania',
+                'label' => 'Głosowania',
+            ),
+            array(
+                'id' => 'sejm_druki',
+                'label' => 'Druki sejmowe',
+            ),
+            array(
+                'id' => 'sejm_interpelacje',
+                'label' => 'Interpelacje',
+            ),
+            array(
+                'id' => 'sejm_kluby',
+                'label' => 'Kluby',
+            ),
+            array(
+                'id' => 'sejm_komisje',
+                'label' => 'Komisje',
+            ),
+            array(
+                'id' => 'sejm_dezyderaty',
+                'label' => 'Dezyderaty komisji',
+            ),
+            array(
+                'id' => 'sejm_komisje_opinie',
+                'label' => 'Opinie komisji sejmowych',
+            ),
+            array(
+                'id' => 'sejm_komisje_uchwaly',
+                'label' => 'Uchwały komisji',
+            ),
+            array(
+                'id' => 'komunikaty',
+                'label' => 'Komunikaty Kancelarii Sejmu',
+            ),
+            array(
+                'id' => 'okregi',
+                'label' => 'Okręgi wyborcze do Sejmu',
+            ),                            
+            array(
+                'id' => 'poslowie_oswiadczenia_majatkowe',
+                'label' => 'Oświadczenia majątkowe posłów',
+            ),
+            array(
+                'id' => 'poslowie_rejestr_korzysci',
+                'label' => 'Rejestr korzyści posłów',
+            ),
+            array(
+                'id' => 'poslowie_wspolpracownicy',
+                'label' => 'Współpracownicy posłów',
+            )
+	    ),
+    ));
     ?>
 
 </div>

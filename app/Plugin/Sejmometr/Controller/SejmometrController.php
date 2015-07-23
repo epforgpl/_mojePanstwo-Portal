@@ -27,20 +27,24 @@ class SejmometrController extends ApplicationsController
                     'dropdown' => array(
                         'items' => array(
                             array(
-                                'id' => 'sejm_debaty',
-                                'label' => 'Debaty',
+                                'id' => 'poslowie',
+                                'label' => 'Posłowie',
                             ),
                             array(
-                                'id' => 'sejm_dezyderaty',
-                                'label' => 'Dezyderaty komisji',
+                                'id' => 'posiedzenia',
+                                'label' => 'Posiedzenia Sejmu',
                             ),
                             array(
-                                'id' => 'sejm_druki',
-                                'label' => 'Druki',
+                                'id' => 'sejm_wystapienia',
+                                'label' => 'Wystąpienia',
                             ),
                             array(
                                 'id' => 'sejm_glosowania',
                                 'label' => 'Głosowania',
+                            ),
+                            array(
+                                'id' => 'sejm_druki',
+                                'label' => 'Druki sejmowe',
                             ),
                             array(
                                 'id' => 'sejm_interpelacje',
@@ -55,16 +59,8 @@ class SejmometrController extends ApplicationsController
                                 'label' => 'Komisje',
                             ),
                             array(
-                                'id' => 'sejm_komunikaty',
-                                'label' => 'Komunikaty Kancelarii Sejmu',
-                            ),
-                            array(
-                                'id' => 'sejm_posiedzenia_punkty',
-                                'label' => 'Punkty porządku dziennego',
-                            ),
-                            array(
-                                'id' => 'sejm_wystapienia',
-                                'label' => 'Wystąpienia posłów',
+                                'id' => 'sejm_dezyderaty',
+                                'label' => 'Dezyderaty komisji',
                             ),
                             array(
                                 'id' => 'sejm_komisje_opinie',
@@ -75,16 +71,20 @@ class SejmometrController extends ApplicationsController
                                 'label' => 'Uchwały komisji',
                             ),
                             array(
+                                'id' => 'sejm_komunikaty',
+                                'label' => 'Komunikaty Kancelarii Sejmu',
+                            ),                            
+                            array(
                                 'id' => 'poslowie_oswiadczenia_majatkowe',
-                                'label' => 'Oświadczenia majątkowe',
+                                'label' => 'Oświadczenia majątkowe posłów',
                             ),
                             array(
                                 'id' => 'poslowie_rejestr_korzysci',
-                                'label' => 'Rejestr korzyści',
+                                'label' => 'Rejestr korzyści posłów',
                             ),
                             array(
                                 'id' => 'poslowie_wspolpracownicy',
-                                'label' => 'Współpracownicy',
+                                'label' => 'Współpracownicy posłów',
                             )
                         )
                     )
