@@ -25,7 +25,9 @@ $options = array(
                                 <? foreach ($dataBrowser['aggs']['all']['nik_raporty']['top']['hits']['hits'] as $doc) { ?>
                                     <li class="col-sm-6">
                                         <?
-                                        echo $this->Dataobject->render($doc, 'default');
+                                        echo $this->Dataobject->render($doc, 'default', array(
+	                                        'truncate' => 130,
+                                        ));
                                         ?>
                                     </li>
                                 <? } ?>

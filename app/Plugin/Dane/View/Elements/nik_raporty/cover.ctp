@@ -99,7 +99,7 @@
 									                    <i class="object-icon icon-datasets-instytucje"></i>
 									                    <div class="object-icon-side">
 										                    <p class="title">
-										                        <a class="link-discrete" title="" href="/dane/instytucje/3217,najwyzsza-izba-kontroli/podmioty/<?= $podmiot['id'] ?>"><?= $podmiot['nazwa'] ?></a>
+										                        <?= $podmiot['nazwa'] ?>
 										                    </p>
 										                    <ul>
 											                <? 
