@@ -413,6 +413,9 @@ class InstytucjeController extends DataobjectsController
                     ),
                 ),
             );
+
+            $this->loadModel('Sejmometr.Sejmometr');
+            $this->set('okregi', $this->Sejmometr->okregi());
             
             $cover = 'cover-sejm';
 	        
