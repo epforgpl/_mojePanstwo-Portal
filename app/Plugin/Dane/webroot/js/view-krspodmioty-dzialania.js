@@ -334,6 +334,9 @@ $(document).ready(function () {
         $('.tags input.tagit').tagit({
             allowSpaces: true,
             removeConfirmation: true,
+            beforeTagAdded: function(event, ui) {
+                return (ui.tagLabel.length >= 2);
+            },
             autocomplete: {
                 source: function( request, response ) {
                     $.getJSON("/dane/suggest.json?q=" + request.term + "&dataset[]=tematy", function(res) {
