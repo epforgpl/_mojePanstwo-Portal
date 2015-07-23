@@ -1894,5 +1894,125 @@ class InstytucjeController extends DataobjectsController
 		    
 	    }
     }
-	
+
+
+    public function komisje_opinie() {
+        $this->load();
+        if( $this->object->getId()=='3214' ) { // Sejm
+
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'dataset' => 'sejm_komisje_opinie',
+                ),
+                'aggsPreset' => 'sejm_komisje_opinie',
+            ));
+            $this->set('title_for_layout', "Opinie komisji Sejmu RP");
+            $this->set('DataBrowserTitle', 'Opinie komisji sejmowych');
+            $this->render('DataBrowser/browser-from-object');
+
+        }
+    }
+
+    public function komisje_uchwaly() {
+        $this->load();
+        if( $this->object->getId()=='3214' ) { // Sejm
+
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'dataset' => 'sejm_komisje_uchwaly',
+                ),
+                'aggsPreset' => 'sejm_komisje_uchwaly',
+            ));
+            $this->set('title_for_layout', "Uchwały komisji Sejmu RP");
+            $this->set('DataBrowserTitle', 'Uchwały komisji sejmowych');
+            $this->render('DataBrowser/browser-from-object');
+
+        }
+    }
+
+    public function komunikaty() {
+        $this->load();
+        if( $this->object->getId()=='3214' ) { // Sejm
+
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'dataset' => 'sejm_komunikaty',
+                ),
+                'aggsPreset' => 'sejm_komunikaty',
+            ));
+            $this->set('title_for_layout', "Komunikaty Kancelarii Sejmu RP");
+            $this->set('DataBrowserTitle', 'Komunikaty kancelarii Sejmu');
+            $this->render('DataBrowser/browser-from-object');
+
+        }
+    }
+
+    public function okregi() {
+        $this->load();
+        if( $this->object->getId()=='3214' ) { // Sejm
+
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'dataset' => 'sejm_okregi',
+                ),
+                'aggsPreset' => 'sejm_okregi',
+            ));
+            $this->set('title_for_layout', "Okręgi wyborcze do Sejmu RP");
+            $this->set('DataBrowserTitle', 'Okręgi wyborcze w wyborach do Sejmu');
+            $this->render('DataBrowser/browser-from-object');
+
+        }
+    }
+
+    public function poslowie_oswiadczenia_majatkowe() {
+        $this->load();
+        if( $this->object->getId()=='3214' ) { // Sejm
+
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'dataset' => 'poslowie_oswiadczenia_majatkowe',
+                ),
+                'aggsPreset' => 'poslowie_oswiadczenia_majatkowe',
+            ));
+            $this->set('title_for_layout', "Oświadczenia majątkowe posłów na Sejm RP");
+            $this->set('DataBrowserTitle', 'Oświadczenia majątkowe posłów');
+            $this->render('DataBrowser/browser-from-object');
+
+        }
+    }
+
+    public function poslowie_rejestr_korzysci() {
+        $this->load();
+        if( $this->object->getId()=='3214' ) { // Sejm
+
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'dataset' => 'poslowie_rejestr_korzysci',
+                ),
+                'aggsPreset' => 'poslowie_rejestr_korzysci',
+            ));
+            $this->set('title_for_layout', "Rejestr korzyści posłów na Sejm RP");
+            $this->set('DataBrowserTitle', 'Rejestr korzyści posłów');
+            $this->render('DataBrowser/browser-from-object');
+
+        }
+    }
+
+    public function poslowie_wspolpracownicy()
+    {
+        $this->load();
+        if ($this->object->getId() == '3214') { // Sejm
+
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'dataset' => 'poslowie_wspolpracownicy',
+                ),
+                'aggsPreset' => 'poslowie_wspolpracownicy',
+            ));
+            $this->set('title_for_layout', "Współpracownicy posłów na Sejm RP");
+            $this->set('DataBrowserTitle', 'Współpracownicy posłów');
+            $this->render('DataBrowser/browser-from-object');
+
+        }
+    }
 } 
