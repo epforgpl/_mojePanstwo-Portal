@@ -743,6 +743,7 @@ class KrsPodmiotyController extends DataobjectsController
     }
 
     public function dane() {
+        $this->addInitLayers('page');
         $this->_prepareView();
         if(!$this->_canEdit())
             throw new ForbiddenException;
