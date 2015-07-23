@@ -67,7 +67,7 @@
                         });
                     }
                 },
-                open: function (event, ui) {
+                open: function () {
                     var uiIndex = index + 1,
                         $ui = $('#ui-id-' + uiIndex);
 
