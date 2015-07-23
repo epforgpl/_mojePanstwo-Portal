@@ -141,66 +141,82 @@ $options = array(
 	    'items' => array(
 		    array(
                 'id' => 'poslowie',
+                'dataset' => 'poslowie',
                 'label' => 'Posłowie',
             ),
             array(
                 'id' => 'posiedzenia',
+                'dataset' => 'sejm_posiedzenia',
                 'label' => 'Posiedzenia Sejmu',
             ),
             array(
-                'id' => 'sejm_wystapienia',
+                'id' => 'wystapienia',
+                'dataset' => 'sejm_wystapienia',
                 'label' => 'Wystąpienia',
             ),
             array(
-                'id' => 'sejm_glosowania',
+                'id' => 'glosowania',
+                'dataset' => 'sejm_glosowania',
                 'label' => 'Głosowania',
             ),
             array(
-                'id' => 'sejm_druki',
+                'id' => 'druki',
+                'dataset' => 'sejm_druki',
                 'label' => 'Druki sejmowe',
             ),
             array(
-                'id' => 'sejm_interpelacje',
+                'id' => 'interpelacje',
+                'dataset' => 'sejm_interpelacje',
                 'label' => 'Interpelacje',
             ),
             array(
-                'id' => 'sejm_kluby',
+                'id' => 'kluby',
+                'dataset' => 'sejm_kluby',
                 'label' => 'Kluby',
             ),
             array(
-                'id' => 'sejm_komisje',
+                'id' => 'komisje',
+                'dataset' => 'sejm_komisje',
                 'label' => 'Komisje',
             ),
             array(
-                'id' => 'sejm_dezyderaty',
+                'id' => 'dezyderaty',
+                'dataset' => 'sejm_dezyderaty',
                 'label' => 'Dezyderaty komisji',
             ),
             array(
-                'id' => 'sejm_komisje_opinie',
+                'id' => 'komisje_opinie',
+                'dataset' => 'sejm_komisje_opinie',
                 'label' => 'Opinie komisji sejmowych',
             ),
             array(
-                'id' => 'sejm_komisje_uchwaly',
+                'id' => 'komisje_uchwaly',
+                'dataset' => 'sejm_komisje_uchwaly',
                 'label' => 'Uchwały komisji',
             ),
             array(
                 'id' => 'komunikaty',
+                'dataset' => 'sejm_komunikaty',
                 'label' => 'Komunikaty Kancelarii Sejmu',
             ),
             array(
                 'id' => 'okregi',
+                'dataset' => 'sejm_okregi',
                 'label' => 'Okręgi wyborcze do Sejmu',
             ),                            
             array(
                 'id' => 'poslowie_oswiadczenia_majatkowe',
+                'dataset' => 'poslowie_oswiadczenia_majatkowe',
                 'label' => 'Oświadczenia majątkowe posłów',
             ),
             array(
                 'id' => 'poslowie_rejestr_korzysci',
+                'dataset' => 'poslowie_rejestr_korzysci',
                 'label' => 'Rejestr korzyści posłów',
             ),
             array(
                 'id' => 'poslowie_wspolpracownicy',
+                'dataset' => 'poslowie_wspolpracownicy',
                 'label' => 'Współpracownicy posłów',
             )
 	    ),
