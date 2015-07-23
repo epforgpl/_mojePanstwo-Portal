@@ -13,9 +13,6 @@ $this->Combinator->add_libs('css', '../plugins/aehlke-tag-it/css/jquery.tagit');
 $this->Combinator->add_libs('css', '../plugins/aehlke-tag-it/css/tagit.ui-zendesk');
 $this->Combinator->add_libs('js', '../plugins/aehlke-tag-it/js/tag-it.min');
 
-/* sticky */
-$this->Combinator->add_libs('js', 'jquery.sticky');
-
 /* page script */
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialania');
 
