@@ -43,11 +43,13 @@ $(document).ready(function () {
     });
 
     form.submit(function() {
-
         tinyMCE.triggerSave();
 
         $(this)
             .find('.submitBtn')
             .addClass('loading disabled');
     });
+
+    $('.sticky').sticky();
+
 });
