@@ -135,9 +135,9 @@
                         'data-subdataset': item.subdataset
                     }).append(
                         $('<a></a>').attr({'href': "#", 'onclick': 'return false;'}).append(
-                            $('<div></div>').addClass('col-xs-2 _label').append(image)
+                            $('<div></div>').addClass('col-xs-1 _label').append(image)
                         ).append(
-                            $('<div></div>').addClass('col-xs-10 _title').append(title)
+                            $('<div></div>').addClass('col-xs-9 col-sm-10 col-md-11 _title').append(title)
                         )
                     ).appendTo(ul);
                 }

@@ -11,6 +11,7 @@ var BDLapp = function () {
     };
 
     this.init = function () {
+        console.log('init');
         this.setup();
         this.treeLoad();
     };
@@ -22,10 +23,9 @@ var BDLapp = function () {
             if (this.variable.link.slice(this.variable.link.indexOf('&') + 1)) {
                 this.variable.link = this.variable.link.split('&');
             }
-
-            console.log('setup', this.variable.link);
         }
     };
+
     this.treeLoad = function () {
         var self = this,
             $leftSideAccordion = $('#leftSideAccordion'),
@@ -33,6 +33,8 @@ var BDLapp = function () {
             tree = $('#tree'),
             json = tree.data('structure'),
             rootData = [];
+
+        console.log('treeLoad');
 
         /** @namespace json.kategorie */
         $.each(json.kategorie, function (itemKey, itemData) {
@@ -77,7 +79,6 @@ var BDLapp = function () {
             item.children = itemChildren;
             rootData.push(item);
         });
-
 
         tree.jstree({
             'core': {
@@ -136,13 +137,13 @@ var BDLapp = function () {
         if ($tempItemOpisModal.length) {
             $('#temp_item_opis_modal #editor').wysihtml5({
                 toolbar: {
-                    "font-styles": true, //Font styling, e.g. h1, h2, etc.
-                    "emphasis": true, //Italics, bold, etc.
-                    "lists": false, //(Un)ordered lists, e.g. Bullets, Numbers.
-                    "html": false, //Button which allows you to edit the generated HTML.
-                    "link": true, //Button to insert a link.
-                    "image": false, //Button to insert an image.
-                    "color": false, //Button to change color of font
+                    "font-styles": true,
+                    "emphasis": true,
+                    "lists": false,
+                    "html": false,
+                    "link": true,
+                    "image": false,
+                    "color": false,
                     "blockquote": false
                 },
                 'locale': 'pl-NEW',
@@ -197,10 +198,9 @@ var BDLapp = function () {
     };
     this.itemLoad = function (item) {
         var self = this;
-        console.log('itemLoad', item);
 
-        //document.location = item.node.data.id;
-
+        console.log(item.node.a_attr.href);
+        document.location = item.node.a_attr.href;
         self.itemInit();
     };
     this.itemInit = function () {
