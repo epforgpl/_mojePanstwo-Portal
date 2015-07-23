@@ -1,5 +1,3 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('view-bdl-wskazniki', array('plugin' => 'Dane'))); ?>
-
 <? $this->Combinator->add_libs('js', 'Bdl.bdlapp'); ?>
 
 <?= $this->Element('dataobject/pageBegin', array('renderFile' => 'page-bdl_wskazniki')); ?>

@@ -1,9 +1,3 @@
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts'); ?>
-<?php $this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki-map'); ?>
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals'); ?>
-<?php $this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki-highmap'); ?>
-<?php $this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki'); ?>
-
     <div class="row bdl-details">
         <div class="col-md-7">
             <div id="highmap"></div>

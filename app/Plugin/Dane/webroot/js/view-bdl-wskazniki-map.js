@@ -9,8 +9,6 @@
 
 /*global HighchartsAdapter*/
 (function (Highcharts) {
-
-
     var UNDEFINED,
         Axis = Highcharts.Axis,
         Chart = Highcharts.Chart,
