@@ -1,6 +1,8 @@
+<? $this->Combinator->add_libs('js', 'Bdl.bdlapp'); ?>
+
 <?= $this->Element('dataobject/pageBegin'); ?>
 
-<? if( $object->getData('opis') ) {?>
+<? if ($object->getData('opis')) { ?>
     <div class="opis">
         <?= $object->getData('opis') ?>
     </div>

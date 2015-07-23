@@ -1,115 +1,109 @@
-<div id="bdl-wskazniki">
-    <div class="object">
-        <? if (isset($combination)) {
-            echo $this->element('Dane.bdl_wskaznik', array(
-                'data' => $combination,
-                'url' => $object->getUrl(),
-                'title' => $title,
-            ));
-        }
-        ?>
+<?php $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts'); ?>
+<?php $this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki-map'); ?>
+<?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals'); ?>
+<?php $this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki-highmap'); ?>
+<?php $this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki'); ?>
 
-        <? if (isset($combination)) { ?>
-            <div class="row bdl-details">
-                <div class="col-md-7">
-                    <div id="highmap"></div>
-                </div>
-                <div class="col-md-5">
+    <div class="row bdl-details">
+        <div class="col-md-7">
+            <div id="highmap"></div>
+        </div>
+        <div class="col-md-5">
+            <div class="row">
+                <div class="content col-md-12">
+                    <? if (isset($combination['local'])) { ?>
                     <div class="row">
-                        <div class="content col-md-12">
-                            <? if (isset($combination['local'])) { ?>
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <div class="input-group localDataSearch">
-                                            <span class="input-group-addon" data-icon="&#xe600;"></span>
-                                            <input type="text" class="form-control"
-                                                   placeholder="<?php switch ($levels_selected) {
-                                                       case 'wojewodztwa':
-                                                           echo __d('dane', 'LC_BDL_WSKAZNIKI_SEARCH_PLACEHOLDER_WOJEWODZTWA');
-                                                           break;
-                                                       case 'powiaty':
-                                                           echo __d('dane', 'LC_BDL_WSKAZNIKI_SEARCH_PLACEHOLDER_POWIAT');
-                                                           break;
-                                                       case 'gminy':
-                                                           echo __d('dane', 'LC_BDL_WSKAZNIKI_SEARCH_PLACEHOLDER_GMINY');
-                                                           break;
-                                                       default:
-                                                           echo __d('dane', 'LC_BDL_WSKAZNIKI_SEARCH_PLACEHOLDER');
-                                                           break;
-                                                   } ?>"
-                                                   autocomplete="off"/>
-                                            <button class="close"
-                                                    type="button" data-icon="&#xe605;"></button>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="nav nav-pills">
-                                            <li role="presentation" class="dropdown bdl-levels-menu pull-right">
-                                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"
-                                                   role="button" aria-expanded="false">
-                                                    Obszar <span class="caret"></span>
-                                                </a>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <? foreach ($levels as $level) { ?>
-                                                        <? if (!isset($level['selected'])) { ?>
-                                                            <li>
-                                                                <a href="/dane/bdl_wskazniki/<?= $object->getId() . ',' . $this->request->params['slug'] . '/kombinacje/' . $combination['id'] . '/' . $level['id'] ?>">
-                                                                    <?= $level["label"] ?>
-                                                                </a>
-                                                            </li>
-                                                        <? } else { ?>
-                                                            <li class="disable">
-                                                                <a>
+                        <div class="col-md-8">
+                            <div class="input-group localDataSearch">
+                                <span class="input-group-addon" data-icon="&#xe600;"></span>
+                                <input type="text" class="form-control"
+                                       placeholder="<?php switch ($levels_selected) {
+                                           case 'wojewodztwa':
+                                               echo __d('dane', 'LC_BDL_WSKAZNIKI_SEARCH_PLACEHOLDER_WOJEWODZTWA');
+                                               break;
+                                           case 'powiaty':
+                                               echo __d('dane', 'LC_BDL_WSKAZNIKI_SEARCH_PLACEHOLDER_POWIAT');
+                                               break;
+                                           case 'gminy':
+                                               echo __d('dane', 'LC_BDL_WSKAZNIKI_SEARCH_PLACEHOLDER_GMINY');
+                                               break;
+                                           default:
+                                               echo __d('dane', 'LC_BDL_WSKAZNIKI_SEARCH_PLACEHOLDER');
+                                               break;
+                                       } ?>"
+                                       autocomplete="off"/>
+                                <button class="close"
+                                        type="button" data-icon="&#xe605;"></button>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="nav nav-pills">
+                                <li role="presentation" class="dropdown bdl-levels-menu pull-right">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"
+                                       role="button" aria-expanded="false">
+                                        Obszar <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <? foreach ($levels as $level) { ?>
+                                            <? if (!isset($level['selected'])) { ?>
+                                                <li>
+                                                    <a href="/dane/bdl_wskazniki/<?= $object->getId() . ',' . $this->request->params['slug'] . '/kombinacje/' . $combination['id'] . '/' . $level['id'] ?>">
+                                                        <?= $level["label"] ?>
+                                                    </a>
+                                                </li>
+                                            <? } else { ?>
+                                                <li class="disable">
+                                                    <a>
                                                                         <span class="glyphicon glyphicon glyphicon-ok"
                                                                               aria-hidden="true"></span>
-                                                                    &nbsp;<?= $level["label"] ?>
-                                                                </a>
-                                                            </li>
-                                                        <? } ?>
-                                                    <? } ?>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                                        &nbsp;<?= $level["label"] ?>
+                                                    </a>
+                                                </li>
+                                            <? } ?>
+                                        <? } ?>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 
-                                <table class="localDataTable table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>
+                        <table class="localDataTable table table-striped">
+                            <thead>
+                            <tr>
+                                <th>
 	                            <span class="ay-sort sortString"
                                       data-ay-sort-index="0"><?= __d('dane', 'LC_BDL_WSKAZNIKI_NAZWA') ?>
-                                        </th>
-                                        <th>
+                                </th>
+                                <th>
 	                        <span class="ay-sort sortNumber"
                                   data-ay-sort-index="1"><?= __d('dane', 'LC_BDL_WSKAZNIKI_WARTOSC') ?></span>
-                                            /
+                                    /
 	                        <span class="ay-sort sortNumber"
                                   data-ay-sort-index="2"><?= __d('dane', 'LC_BDL_WSKAZNIKI_ROK') ?></span>
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <? foreach ($combination['local'] as $local) { ?>
-                                        <tr class="wskaznikStatic" data-dim_id="<?= $combination['id'] ?>"
-                                            data-local_type="<?= $levels_selected ?>"
-                                            data-local_id="<?= $local["local_id"] ?>">
-                                            <td>
-                                                <div class="holder">
-                                                    <a class="sortOption"
-                                                       href="#<?= $local['local_id'] ?>"><?= $local['local_name'] ?></a>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <? foreach ($combination['local'] as $local) { ?>
+                                <tr class="wskaznikStatic" data-dim_id="<?= $combination['id'] ?>"
+                                    data-local_type="<?= $levels_selected ?>"
+                                    data-local_id="<?= $local["local_id"] ?>">
+                                    <td>
+                                        <div class="holder">
+                                            <a class="sortOption"
+                                               href="#<?= $local['local_id'] ?>"><?= $local['local_name'] ?></a>
 
-                                                    <div class="wskaznikChart">
-                                                        <div class="progress progress-striped active">
-                                                            <div class="progress-bar" role="progressbar"
-                                                                 aria-valuenow="45"
-                                                                 aria-valuemin="0" aria-valuemax="100"
-                                                                 style="width: 15%"></div>
-                                                        </div>
-                                                    </div>
+                                            <div class="wskaznikChart">
+                                                <div class="progress progress-striped active">
+                                                    <div class="progress-bar" role="progressbar"
+                                                         aria-valuenow="45"
+                                                         aria-valuemin="0" aria-valuemax="100"
+                                                         style="width: 15%"></div>
                                                 </div>
-                                            </td>
-                                            <td>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
 	                            <span class="sortOption"
                                       data-ay-sort-weight="<?= $local['lv'] ?>">
 	                                <?= number_format($local['lv'], 2, ',', ' ') ?>
@@ -117,18 +111,15 @@
 	                            </span>
 	                            <span class="sortOption"
                                       data-ay-sort-weight="<?= $local['ly'] ?>"><?= __d('dane', 'LC_BDL_WSKAZNIKI_LASTYEAR', array($local['ly'])) ?></span>
-                                            </td>
-                                        </tr>
-                                    <? } ?>
-                                    </tbody>
-                                </table>
+                                    </td>
+                                </tr>
                             <? } ?>
-                        </div>
-
-                    </div>
-                </div>
+                            </tbody>
+                        </table>
+                    <? } ?>
             </div>
-        <? } ?>
+
+            </div>
     </div>
 </div>
 

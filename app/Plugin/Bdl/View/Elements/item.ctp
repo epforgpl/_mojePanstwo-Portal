@@ -46,6 +46,16 @@
                 }
             }
         }
+
+        if (isset($combination)) {
+            echo $this->element('Dane.bdl_wskaznik', array(
+                'data' => $combination,
+                'url' => $object->getUrl(),
+                'title' => $title,
+            ));
+
+            echo $this->element('Bdl.subitem');
+        }
         ?>
     </div>
 </div>

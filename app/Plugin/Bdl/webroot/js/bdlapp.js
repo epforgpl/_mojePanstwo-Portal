@@ -11,7 +11,6 @@ var BDLapp = function () {
     };
 
     this.init = function () {
-        console.log('init');
         this.setup();
         this.treeLoad();
     };
@@ -33,8 +32,6 @@ var BDLapp = function () {
             tree = $('#tree'),
             json = tree.data('structure'),
             rootData = [];
-
-        console.log('treeLoad');
 
         /** @namespace json.kategorie */
         $.each(json.kategorie, function (itemKey, itemData) {
@@ -199,7 +196,6 @@ var BDLapp = function () {
     this.itemLoad = function (item) {
         var self = this;
 
-        console.log(item.node.a_attr.href);
         document.location = item.node.a_attr.href;
         self.itemInit();
     };

@@ -1,9 +1,6 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('view-bdl-wskazniki', array('plugin' => 'Dane'))); ?>
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts'); ?>
-<?php $this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki-map'); ?>
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals'); ?>
-<?php $this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki-highmap'); ?>
-<?php $this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki'); ?>
+
+<? $this->Combinator->add_libs('js', 'Bdl.bdlapp'); ?>
 
 <?= $this->Element('dataobject/pageBegin', array('renderFile' => 'page-bdl_wskazniki')); ?>
 
@@ -15,6 +12,6 @@
     'redirect' => true
 )); ?>
 
-<?= $this->Element('Bdl.subitem'); ?>
+<?= $this->Element('Bdl.item'); ?>
 
 <?= $this->Element('dataobject/pageEnd'); ?>
