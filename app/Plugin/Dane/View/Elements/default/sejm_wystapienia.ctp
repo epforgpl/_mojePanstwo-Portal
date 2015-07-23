@@ -51,12 +51,18 @@
 
                 <div class="text">
 	            <?	
-		            if( isset($object->options['html']) && $object->options['html'] )
+		            
+		            if( $highlight = $object->getLayer('highlight') ) {
+		            ?><a class="link-discrete" href="<?= $object->getUrl() ?>"><?= $highlight[0] ?></a><?
+		            } elseif( isset($object->options['html']) && $object->options['html'] ) {
 		            	echo $object->options['html'];
-		            else
+		            } else {
 			            ?><a class="link-discrete" href="<?= $object->getUrl() ?>"><?= $object->getData('sejm_wystapienia.skrot') ?></a><?
+				    }
 		        ?>
 	           </div>
+	           
+	           <p class="meta meta-desc"><?= dataSlownie($object->getDate()) ?></p>
 
 
             <? } ?>

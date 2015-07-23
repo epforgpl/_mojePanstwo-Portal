@@ -532,17 +532,25 @@ class InstytucjeController extends DataobjectsController
 		        $menu['items'][] = array(
 		            'label' => 'Posiedzenia',
 		            'id' => 'posiedzenia',
-		            'count' => $aggs['sejm_posiedzenia']['doc_count'],
 		        );	        
 	        }     
         }   
 		
-		if( isset($aggs['prawo']) && $aggs['prawo']['doc_count'] ) {
+		if( $this->object->getId()=='3214' ) { // Sejm
 	        $menu['items'][] = array(
-	            'label' => 'Akty prawne',
-	            'id' => 'prawo',
-	            'count' => $aggs['prawo']['doc_count'],
-	        );
+	            'label' => 'Posłowie',
+	            'id' => 'poslowie',
+	        );	        
+        } 
+		
+		if( $this->object->getId()!='3214' ) { // Sejm
+			if( isset($aggs['prawo']) && $aggs['prawo']['doc_count'] ) {
+		        $menu['items'][] = array(
+		            'label' => 'Akty prawne',
+		            'id' => 'prawo',
+		            'count' => $aggs['prawo']['doc_count'],
+		        );
+	        }
         }
 		
 		if( isset($aggs['prawo_urzedowe']) && $aggs['prawo_urzedowe']['doc_count'] ) {
@@ -1564,16 +1572,14 @@ class InstytucjeController extends DataobjectsController
 		        
 		        $this->Components->load('Dane.DataBrowser', array(
 		            'conditions' => array(
-		                'dataset' => 'sejm_glosowania_glosy',
+		                'dataset' => 'sejm_glosowania',
 		            ),
-		            'order' => array('_title desc'),
+		            'aggsPreset' => 'sejm_glosowania',
 		        ));
-		        $this->set('title_for_layout', "Wyniki głosowań posłów na Sejm RP");
+		        $this->set('title_for_layout', "Głosowania w Sejmie RP");
+			    $this->render('DataBrowser/browser-from-object');
 	        
-	        }
-	        
-	        
-	        
+	        }	        
         }
     }
 
@@ -1755,7 +1761,7 @@ class InstytucjeController extends DataobjectsController
         parent::beforeRender();
         
     }
-    
+        
     public function mp_zamowienia() {
 	    
 	    $this->loadModel('ZamowieniaPubliczne.ZamowieniaPubliczne');
@@ -1767,5 +1773,39 @@ class InstytucjeController extends DataobjectsController
 	    $this->set('_serialize', 'aggs');
 	    
     }
+    
+    public function poslowie() {
+	    $this->load();
+	    if( $this->object->getId()=='3214' ) { // Sejm
+		    
+		    $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'poslowie',
+	            ),
+	            'aggsPreset' => 'poslowie',
+	        ));
+	        $this->set('title_for_layout', "Posłowie na Sejm RP");
+		    $this->render('DataBrowser/browser-from-object');
+		    
+	    }
+    }
+    
+    public function wystapienia() {
+	    $this->load();
+	    if( $this->object->getId()=='3214' ) { // Sejm
+		    
+		    $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'sejm_wystapienia',
+	            ),
+	            'aggsPreset' => 'sejm_wystapienia',
+	            'order' => 'sejm_wystapienia._ord asc',
+	        ));
+	        $this->set('title_for_layout', "Wystąpienia w Sejmie RP");
+		    $this->render('DataBrowser/browser-from-object');
+		    
+	    }
+    }
+    
 
 } 
