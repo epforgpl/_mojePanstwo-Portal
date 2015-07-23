@@ -1813,16 +1813,34 @@ class InstytucjeController extends DataobjectsController
 	public function druki() {
 	    $this->load();
 	    if( $this->object->getId()=='3214' ) { // Sejm
+		    		    
+		    if( isset($this->request->params['subid']) ) {
+			    
+			    $druk = $this->Dataobject->find('first', array(
+				    'conditions' => array(
+					    'dataset' => 'sejm_druki',
+					    'id' => $this->request->params['subid'],
+				    ),
+			    ));
+			    
+			    $this->set('druk', $druk);
+			    $this->set('title_for_layout', $druk->getTitle());
+			    $this->render('druk');
+			    
+			    
+		    } else {
 		    
-		    $this->Components->load('Dane.DataBrowser', array(
-	            'conditions' => array(
-	                'dataset' => 'sejm_druki',
-	            ),
-	            'aggsPreset' => 'sejm_druki',
-	        ));
-	        $this->set('title_for_layout', "Druki sejmowe");
-		    $this->set('DataBrowserTitle', 'Druki sejmowe');
-		    $this->render('DataBrowser/browser-from-object');
+			    $this->Components->load('Dane.DataBrowser', array(
+		            'conditions' => array(
+		                'dataset' => 'sejm_druki',
+		            ),
+		            'aggsPreset' => 'sejm_druki',
+		        ));
+		        $this->set('title_for_layout', "Druki sejmowe");
+			    $this->set('DataBrowserTitle', 'Druki sejmowe');
+			    $this->render('DataBrowser/browser-from-object');
+		    
+		    }
 		    
 	    }
     }

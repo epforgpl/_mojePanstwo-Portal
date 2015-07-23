@@ -40,5 +40,23 @@ class Sejm_druki extends DocDataObject
 		);
 		
 	}
+	
+	public function getUrl() {
+		
+		return '/dane/instytucje/3214/druki/' . $this->getId() . ',' . $this->getSlug();
+		
+	}
+	
+	public function getBreadcrumbs()
+	{
+							
+		return array(
+			array(
+				'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/druki',
+				'label' => 'Druki sejmowe',
+			),
+		);
+				
+	}
 
 }
