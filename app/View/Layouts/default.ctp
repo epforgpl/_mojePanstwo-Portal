@@ -149,6 +149,7 @@
 
 <?php
 echo $this->Html->script('../libs/jquery/2.1.4/jquery-2.1.4.min.js');
+echo $this->Html->script('jquery.sticky.js');
 
 if (isset($object_editable) && !empty($object_editable))
     echo $this->Html->script('../js/jquery.autocomplete.min');

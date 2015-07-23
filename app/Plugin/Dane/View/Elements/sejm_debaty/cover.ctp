@@ -1,7 +1,6 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-sejmdebaty', array('plugin' => 'Dane')));
-$this->Combinator->add_libs('js', 'jquery.sticky');
 $this->Combinator->add_libs('js', 'Dane.sejmdebaty');
 
 $glosowania = array();
