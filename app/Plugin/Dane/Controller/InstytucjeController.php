@@ -1496,13 +1496,14 @@ class InstytucjeController extends DataobjectsController
     public function glosowania()
     {
 		
-		$this->request->params['action'] = 'posiedzenia';
+		
         $this->load();
         
         if( $this->object->getId()=='3214' ) { // Sejm
 	        	        
 	        if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
 	        	
+	        	$this->request->params['action'] = 'posiedzenia';
 	        	$glosowanie = $this->Dataobject->find('first', array(
 	                'conditions' => array(
 	                    'dataset' => 'sejm_glosowania',
@@ -1577,6 +1578,7 @@ class InstytucjeController extends DataobjectsController
 		            'aggsPreset' => 'sejm_glosowania',
 		        ));
 		        $this->set('title_for_layout', "Głosowania w Sejmie RP");
+			    $this->set('DataBrowserTitle', 'Głosowania na posiedzeniach Sejmu');
 			    $this->render('DataBrowser/browser-from-object');
 	        
 	        }	        
@@ -1802,10 +1804,95 @@ class InstytucjeController extends DataobjectsController
 	            'order' => 'sejm_wystapienia._ord asc',
 	        ));
 	        $this->set('title_for_layout', "Wystąpienia w Sejmie RP");
+		    $this->set('DataBrowserTitle', 'Wystąpienia na posiedzeniach Sejmu');
 		    $this->render('DataBrowser/browser-from-object');
 		    
 	    }
     }
     
-
+	public function druki() {
+	    $this->load();
+	    if( $this->object->getId()=='3214' ) { // Sejm
+		    
+		    $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'sejm_druki',
+	            ),
+	            'aggsPreset' => 'sejm_druki',
+	        ));
+	        $this->set('title_for_layout', "Druki sejmowe");
+		    $this->set('DataBrowserTitle', 'Druki sejmowe');
+		    $this->render('DataBrowser/browser-from-object');
+		    
+	    }
+    }
+    
+    public function interpelacje() {
+	    $this->load();
+	    if( $this->object->getId()=='3214' ) { // Sejm
+		    
+		    $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'sejm_interpelacje',
+	            ),
+	            'aggsPreset' => 'sejm_interpelacje',
+	        ));
+	        $this->set('title_for_layout', "Interpelacje w Sejmie RP");
+		    $this->set('DataBrowserTitle', 'Interpelacje');
+		    $this->render('DataBrowser/browser-from-object');
+		    
+	    }
+    }
+    
+    public function kluby() {
+	    $this->load();
+	    if( $this->object->getId()=='3214' ) { // Sejm
+		    
+		    $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'sejm_kluby',
+	            ),
+	            'aggsPreset' => 'sejm_kluby',
+	        ));
+	        $this->set('title_for_layout', "Kluby i koła poselskie w Sejmie RP");
+		    $this->set('DataBrowserTitle', 'Kluby i koła poselskie');
+		    $this->render('DataBrowser/browser-from-object');
+		    
+	    }
+    }
+    
+    public function komisje() {
+	    $this->load();
+	    if( $this->object->getId()=='3214' ) { // Sejm
+		    
+		    $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'sejm_komisje',
+	            ),
+	            'aggsPreset' => 'sejm_komisje',
+	        ));
+	        $this->set('title_for_layout', "Komisje w Sejmie RP");
+		    $this->set('DataBrowserTitle', 'Komisje sejmowe');
+		    $this->render('DataBrowser/browser-from-object');
+		    
+	    }
+    }
+    
+    public function dezyderaty() {
+	    $this->load();
+	    if( $this->object->getId()=='3214' ) { // Sejm
+		    
+		    $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'sejm_dezyderaty',
+	            ),
+	            'aggsPreset' => 'sejm_dezyderaty',
+	        ));
+	        $this->set('title_for_layout', "Dezyderaty komisji w Sejmie RP");
+		    $this->set('DataBrowserTitle', 'Dezyderaty komisji sejmowych');
+		    $this->render('DataBrowser/browser-from-object');
+		    
+	    }
+    }
+	
 } 
