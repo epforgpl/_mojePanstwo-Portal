@@ -277,8 +277,21 @@ ObjectUsersManagement.prototype.onLoadUsers = function (res) {
     );
 
     $('#moderate-add-email').autocomplete({
-        serviceUrl: '/paszport/users/email.json',
-        type: 'POST'
+        source: function( request, response ) {
+            $.post("/paszport/users/email.json", {
+                query: request.term
+            }, function(res) {
+                var data = [];
+                for(var i = 0; i < res.suggestions.length; i++)
+                    data.push(res.suggestions[i].value);
+
+                response(data);
+            });
+        },
+        minLength: 1
+        /*serviceUrl: '/paszport/users/email.json',
+        type: 'POST',
+        source: []*/
     });
 
     moderateUsers.find('select').change(function () {

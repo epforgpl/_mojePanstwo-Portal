@@ -16,6 +16,16 @@ $this->Combinator->add_libs('css', $this->Less->css('view-krs-graph', array('plu
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 $this->Combinator->add_libs('js', 'graph-krs');
 
+$page = $object->getLayer('page');
+$description =
+    (isset($page['description']) && strlen($page['description']) > 0)
+        ? $page['description'] :
+            (
+                $object->getData('cel_dzialania') ?
+                    $object->getData('cel_dzialania') :
+                    false
+            );
+
 ?>
 
 <div class="krsPodmioty">
@@ -51,11 +61,10 @@ $this->Combinator->add_libs('js', 'graph-krs');
 </div>
 <? } */ ?>
 
-<? if ($object->getData('cel_dzialania')) { ?>
+<? if ($description) { ?>
     <div class="dzialanie block block-simple col-xs-12">
-
-        <section class="content normalizeText textBlock">
-            <?= $object->getData('cel_dzialania') ?>
+        <section class="content textBlock">
+            <?= $description ?>
         </section>
     </div>
 <? }

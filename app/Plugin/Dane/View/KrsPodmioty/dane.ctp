@@ -9,11 +9,14 @@ echo $this->Html->script('../tinymce/tinymce.min', array('block' => 'scriptBlock
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dane');
 
 $page = $object->getLayer('page');
-$description = isset($page['description']) ? $page['description'] : $object->getData('cel_dzialania');
+
+$description =
+    (isset($page['description']) && strlen($page['description']) > 0)
+        ? $page['description'] : $object->getData('cel_dzialania');
 
 ?>
 <div class="container">
-    <div class="krsPodmioty row">
+    <div class="krsPodmioty row margin-top-10">
 
         <form action="<?= $object->getUrl(); ?>.json" method="post">
             <div class="col-md-9 objectMain">
