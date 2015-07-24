@@ -1951,27 +1951,27 @@ class InstytucjeController extends DataobjectsController
 
             if (isset($this->request->params['subid'])) {
 
-                $komisja = $this->Dataobject->find('first', array(
+                $rejestr = $this->Dataobject->find('first', array(
                     'conditions' => array(
-                        'dataset' => 'sejm_komisje',
+                        'dataset' => 'poslowie_rejestr_korzysci',
                         'id' => $this->request->params['subid'],
                     ),
                 ));
 
-                $this->set('komisja', $komisja);
-                $this->set('title_for_layout', $komisja->getTitle());
-                $this->render('komisja');
+                $this->set('rejestr', $rejestr);
+                $this->set('title_for_layout', $rejestr->getTitle());
+                $this->render('rejestr');
 
 
             } else {
                 $this->Components->load('Dane.DataBrowser', array(
                     'conditions' => array(
-                        'dataset' => 'sejm_komisje',
+                        'dataset' => 'poslowie_rejestr_korzysci',
                     ),
-                    'aggsPreset' => 'sejm_komisje',
+                    'aggsPreset' => 'poslowie_rejestr_korzysci',
                 ));
-                $this->set('title_for_layout', "Komisje w Sejmie RP");
-                $this->set('DataBrowserTitle', 'Komisje sejmowe');
+                $this->set('title_for_layout', "Rejestr korzyści posłów na Sejm RP");
+                $this->set('DataBrowserTitle', 'Rejestr korzyści posłów');
                 $this->render('DataBrowser/browser-from-object');
             }
         }
@@ -2011,7 +2011,7 @@ class InstytucjeController extends DataobjectsController
     }
 
 
-    public function komisje_opinie()
+    public function sejm_komisje_opinie()
     {
         $this->load();
         if ($this->object->getId() == '3214') { // Sejm
@@ -2076,7 +2076,7 @@ class InstytucjeController extends DataobjectsController
         }
     }
 
-    public function komunikaty()
+    public function sejm_komunikaty()
     {
         $this->load();
         if ($this->object->getId() == '3214') { // Sejm
@@ -2158,9 +2158,9 @@ class InstytucjeController extends DataobjectsController
                     ),
                 ));
 
-                $this->set('rejestr', $oswiadczenie);
+                $this->set('oswiadczenie', $oswiadczenie);
                 $this->set('title_for_layout', $oswiadczenie->getTitle());
-                $this->render('$oswiadczenie');
+                $this->render('oswiadczenie');
 
 
             } else {

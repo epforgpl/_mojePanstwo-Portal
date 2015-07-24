@@ -38,7 +38,7 @@ class Sejm_komisje_uchwaly extends DocDataObject
 
     public function getUrl() {
 
-        return '/dane/instytucje/3214/sejm_komisje_uchwaly/' . $this->getId() . ',' . $this->getSlug();
+        return '/dane/instytucje/3214/komisje_uchwaly/' . $this->getId() . ',' . $this->getSlug();
 
     }
 
@@ -47,7 +47,7 @@ class Sejm_komisje_uchwaly extends DocDataObject
 
         return array(
             array(
-                'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/sejm_komisje_uchwaly',
+                'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/komisje_uchwaly',
                 'label' => 'Uchwały komisji sejmowych',
             ),
         );

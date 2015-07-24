@@ -11,6 +11,5 @@ echo $this->Element('Dane.dataobject/subobject', array(
     ),
 ));
 ?>
-
 <?
 echo $this->Element('dataobject/pageEnd');
