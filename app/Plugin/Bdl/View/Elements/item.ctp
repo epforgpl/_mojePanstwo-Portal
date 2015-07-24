@@ -1,7 +1,6 @@
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts'); ?>
-<?php $this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki-map'); ?>
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals'); ?>
-
+<?php $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts', false); ?>
+<?php $this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki-map', false); ?>
+<?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals', false); ?>
 
 <div id="temp_item_opis_modal" class="modal fade">
     <div class="modal-dialog">

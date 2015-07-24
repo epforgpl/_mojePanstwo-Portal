@@ -264,19 +264,13 @@ var BDLapp = function () {
             wskaznikiTable,
             geoType;
 
-        console.log('subitemInit', local_data);
-
         if (typeof(local_data) == 'undefined' || local_data == undefined || local_data.length == 0)
             return false;
-
-        console.log('subitemInit - falsie 1');
 
         geoType = local_data.length > 0 ? local_data.length > 16 ? local_data.length > 380 ? 'gminy' : 'powiaty' : 'wojewodztwa' : false;
 
         if (!geoType)
             return false;
-
-        console.log('subitemInit - falsie 2');
 
         $.getJSON(mPHeart.constant.ajax.api + '/geo/geojson/get?quality=4&types=' + geoType, function (data) {
             var geo = Highcharts.geojson(data, 'map');
