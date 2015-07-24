@@ -36,7 +36,7 @@ class Sejm_komunikaty extends DocDataObject
         return array(
             array(
                 'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/komunikaty',
-                'label' => 'Rejestr korzyści posłów',
+                'label' => 'Komunikaty Kancelarii Sejmu',
             ),
         );
     }
