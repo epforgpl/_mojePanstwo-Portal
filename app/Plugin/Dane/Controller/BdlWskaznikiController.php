@@ -263,15 +263,9 @@ class BdlWskaznikiController extends DataobjectsController
         ));
         
         if( @$this->request->params['ext']=='html' ) {
-	        
-	        
 	        $this->layout = 'blank';
 	        $this->render('html');
-	        
-	        
         } else {
-        
-
 	        $datasets = $this->getDatasets('bdl');
 	
 	        $options = array(
@@ -305,7 +299,6 @@ class BdlWskaznikiController extends DataobjectsController
 	            ),
 	        );
 	        $this->Components->load('Dane.DataBrowser', $options);
-        
         }
 
     }

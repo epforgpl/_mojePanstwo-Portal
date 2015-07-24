@@ -18,8 +18,8 @@ var BDLapp = function () {
     };
 
     this.setup = function () {
-        if (window.location.href.indexOf('#') > 0) {
-            this.variable.link = window.location.href.slice(window.location.href.indexOf('#') + 1);
+        if (History.getState().data.item) { //TODO: check why not work at reload
+            this.variable.link = History.getState().data.item;
 
             if (this.variable.link.slice(this.variable.link.indexOf('&') + 1)) {
                 this.variable.link = this.variable.link.split('&');
@@ -42,7 +42,10 @@ var BDLapp = function () {
                 'data ': {id: itemKey},
                 'text': itemData.dane.tytul.toLowerCase().capitalizeFirstLetter(),
                 'id': 'kategoria_id=' + itemKey,
-                'a_attr': {'href': '#kategoria_id=' + itemKey},
+                'a_attr': {
+                    'href': '#',
+                    'data-item': 'kategoria_id=' + itemKey
+                },
                 'children': true
             }, itemChildren = [];
 
@@ -52,7 +55,10 @@ var BDLapp = function () {
                     'data': {'id': grupyKey},
                     'text': grupyData.dane.tytul.toLowerCase().capitalizeFirstLetter(),
                     'id': 'grupa_id=' + grupyKey,
-                    'a_attr': {'href': '#kategoria_id=' + itemKey + '&grupa_id=' + grupyKey},
+                    'a_attr': {
+                        'href': '#',
+                        'data-item': 'kategoria_id=' + itemKey + '&grupa_id=' + grupyKey
+                    },
                     'children': true
                 }, grupyChildren = [];
 
@@ -64,7 +70,8 @@ var BDLapp = function () {
                         'text': podgrupyData.dane.tytul.toLowerCase().capitalizeFirstLetter(),
                         'id': 'link_id=' + podgrupyKey,
                         'a_attr': {
-                            'href': '/dane/bdl_wskazniki/' + podgrupyKey + '#kategoria_id=' + itemKey + '&grupa_id=' + grupyKey + '&link_id=' + podgrupyKey,
+                            'href': '/dane/bdl_wskazniki/' + podgrupyKey,
+                            'data-item': 'kategoria_id=' + itemKey + '&grupa_id=' + grupyKey + '&link_id=' + podgrupyKey,
                             'target': '_self'
                         }
                     };
@@ -88,12 +95,13 @@ var BDLapp = function () {
             },
             "plugins": ["themes", "json_data", "ui"]
         }).bind("select_node.jstree", function (e, item) {
+            e.preventDefault();
+            if (History.pushState !== undefined) {
+                var obj = {Page: item.node.text, Url: item.node.a_attr.href, item: item.node.a_attr['data-item']};
+                History.pushState(obj, obj.Page, obj.Url, obj.item);
+            }
+
             if (item.node.a_attr.href.charAt(0) === '#') {
-                e.preventDefault();
-                if (History.pushState !== undefined) {
-                    var obj = {Page: item.node.text, Url: item.node.a_attr.href};
-                    History.pushState(obj, obj.Page, obj.Url);
-                }
                 tree.jstree("open_node", item.node.id);
             } else {
                 self.itemLoad(item);
@@ -101,6 +109,8 @@ var BDLapp = function () {
             self.treeScrollReload();
         }).bind("loaded.jstree", function () {
             var $treeBlock = $('.treeBlock');
+
+            console.log(self.variable.link);
 
             if (self.variable.link) {
                 $.each(self.variable.link, function () {
@@ -198,8 +208,28 @@ var BDLapp = function () {
     this.itemLoad = function (item) {
         var self = this;
 
-        document.location = item.node.a_attr.href;
-        self.itemInit();
+        $.ajax({
+            url: item.node.a_attr.href + '.html',
+            type: "GET",
+            dataType: "html",
+            beforeSend: function () {
+
+            },
+            always: function () {
+
+            },
+            complete: function (res) {
+                var bdlBlock = $('#bdl_wskaznik_block'),
+                    html = res.responseText;
+
+                if (bdlBlock.length)
+                    bdlBlock.replaceWith(html);
+                else
+                    $(html).appendTo('#_main');
+
+                self.itemInit();
+            }
+        })
     };
     this.itemInit = function () {
         var bdlWskazniki = jQuery('#bdl-wskazniki'),

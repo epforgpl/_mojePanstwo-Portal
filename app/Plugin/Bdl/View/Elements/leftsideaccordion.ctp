@@ -8,6 +8,11 @@ echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/locales/bootstrap-w
 echo $this->Html->script('Bdl.jstree.min', array('block' => 'scriptBlock'));
 $this->Combinator->add_libs('js', '../plugins/jscrollPane/script/jquery.mousewheel.js');
 $this->Combinator->add_libs('js', '../plugins/jscrollPane/script/jquery.jscrollpane.js');
+
+$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts', false);
+$this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki-map', false);
+$this->Combinator->add_libs('js', '../plugins/highcharts/locals', false);
+
 ?>
 
 <div id="leftSideAccordion" class="init hidden-xs hidden-sm">
