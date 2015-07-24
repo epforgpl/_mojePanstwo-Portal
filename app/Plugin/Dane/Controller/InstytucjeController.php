@@ -1851,170 +1851,329 @@ class InstytucjeController extends DataobjectsController
     public function interpelacje() {
 	    $this->load();
 	    if( $this->object->getId()=='3214' ) { // Sejm
-		    
-		    $this->Components->load('Dane.DataBrowser', array(
-	            'conditions' => array(
-	                'dataset' => 'sejm_interpelacje',
-	            ),
-	            'aggsPreset' => 'sejm_interpelacje',
-	        ));
-	        $this->set('title_for_layout', "Interpelacje w Sejmie RP");
-		    $this->set('DataBrowserTitle', 'Interpelacje');
-		    $this->render('DataBrowser/browser-from-object');
-		    
+            if( isset($this->request->params['subid']) ) {
+
+                $interpelacja = $this->Dataobject->find('first', array(
+                    'conditions' => array(
+                        'dataset' => 'sejm_interpelacje',
+                        'id' => $this->request->params['subid'],
+                    ),
+                ));
+
+                $this->set('interpelacja', $interpelacja);
+                $this->set('title_for_layout', $interpelacja->getTitle());
+                $this->render('interpelacja');
+
+
+            } else {
+                $this->Components->load('Dane.DataBrowser', array(
+                    'conditions' => array(
+                        'dataset' => 'sejm_interpelacje',
+                    ),
+                    'aggsPreset' => 'sejm_interpelacje',
+                ));
+                $this->set('title_for_layout', "Interpelacje w Sejmie RP");
+                $this->set('DataBrowserTitle', 'Interpelacje');
+                $this->render('DataBrowser/browser-from-object');
+            }
 	    }
     }
     
     public function kluby() {
 	    $this->load();
 	    if( $this->object->getId()=='3214' ) { // Sejm
-		    
-		    $this->Components->load('Dane.DataBrowser', array(
-	            'conditions' => array(
-	                'dataset' => 'sejm_kluby',
-	            ),
-	            'aggsPreset' => 'sejm_kluby',
-	        ));
-	        $this->set('title_for_layout', "Kluby i koła poselskie w Sejmie RP");
-		    $this->set('DataBrowserTitle', 'Kluby i koła poselskie');
-		    $this->render('DataBrowser/browser-from-object');
-		    
+
+            if( isset($this->request->params['subid']) ) {
+
+                $klub = $this->Dataobject->find('first', array(
+                    'conditions' => array(
+                        'dataset' => 'sejm_kluby',
+                        'id' => $this->request->params['subid'],
+                    ),
+                ));
+
+                $this->set('klub', $klub);
+                $this->set('title_for_layout', $klub->getTitle());
+                $this->render('klub');
+
+
+            } else {
+                $this->Components->load('Dane.DataBrowser', array(
+                    'conditions' => array(
+                        'dataset' => 'sejm_kluby',
+                    ),
+                    'aggsPreset' => 'sejm_kluby',
+                ));
+                $this->set('title_for_layout', "Kluby i koła poselskie w Sejmie RP");
+                $this->set('DataBrowserTitle', 'Kluby i koła poselskie');
+                $this->render('DataBrowser/browser-from-object');
+            }
 	    }
     }
     
     public function komisje() {
 	    $this->load();
 	    if( $this->object->getId()=='3214' ) { // Sejm
-		    
-		    $this->Components->load('Dane.DataBrowser', array(
-	            'conditions' => array(
-	                'dataset' => 'sejm_komisje',
-	            ),
-	            'aggsPreset' => 'sejm_komisje',
-	        ));
-	        $this->set('title_for_layout', "Komisje w Sejmie RP");
-		    $this->set('DataBrowserTitle', 'Komisje sejmowe');
-		    $this->render('DataBrowser/browser-from-object');
-		    
+
+            if( isset($this->request->params['subid']) ) {
+
+                $komisja = $this->Dataobject->find('first', array(
+                    'conditions' => array(
+                        'dataset' => 'sejm_komisje',
+                        'id' => $this->request->params['subid'],
+                    ),
+                ));
+
+                $this->set('komisja', $komisja);
+                $this->set('title_for_layout', $komisja->getTitle());
+                $this->render('komisja');
+
+
+            } else {
+                $this->Components->load('Dane.DataBrowser', array(
+                    'conditions' => array(
+                        'dataset' => 'sejm_komisje',
+                    ),
+                    'aggsPreset' => 'sejm_komisje',
+                ));
+                $this->set('title_for_layout', "Komisje w Sejmie RP");
+                $this->set('DataBrowserTitle', 'Komisje sejmowe');
+                $this->render('DataBrowser/browser-from-object');
+            }
 	    }
     }
-    
-    public function dezyderaty() {
-	    $this->load();
-	    if( $this->object->getId()=='3214' ) { // Sejm
-		    
-		    $this->Components->load('Dane.DataBrowser', array(
-	            'conditions' => array(
-	                'dataset' => 'sejm_dezyderaty',
-	            ),
-	            'aggsPreset' => 'sejm_dezyderaty',
-	        ));
-	        $this->set('title_for_layout', "Dezyderaty komisji w Sejmie RP");
-		    $this->set('DataBrowserTitle', 'Dezyderaty komisji sejmowych');
-		    $this->render('DataBrowser/browser-from-object');
-		    
-	    }
-    }
 
 
-    public function komisje_opinie() {
-        $this->load();
-        if( $this->object->getId()=='3214' ) { // Sejm
-
-            $this->Components->load('Dane.DataBrowser', array(
-                'conditions' => array(
-                    'dataset' => 'sejm_komisje_opinie',
-                ),
-                'aggsPreset' => 'sejm_komisje_opinie',
-            ));
-            $this->set('title_for_layout', "Opinie komisji Sejmu RP");
-            $this->set('DataBrowserTitle', 'Opinie komisji sejmowych');
-            $this->render('DataBrowser/browser-from-object');
-
-        }
-    }
-
-    public function komisje_uchwaly() {
-        $this->load();
-        if( $this->object->getId()=='3214' ) { // Sejm
-
-            $this->Components->load('Dane.DataBrowser', array(
-                'conditions' => array(
-                    'dataset' => 'sejm_komisje_uchwaly',
-                ),
-                'aggsPreset' => 'sejm_komisje_uchwaly',
-            ));
-            $this->set('title_for_layout', "Uchwały komisji Sejmu RP");
-            $this->set('DataBrowserTitle', 'Uchwały komisji sejmowych');
-            $this->render('DataBrowser/browser-from-object');
-
-        }
-    }
-
-    public function komunikaty() {
-        $this->load();
-        if( $this->object->getId()=='3214' ) { // Sejm
-
-            $this->Components->load('Dane.DataBrowser', array(
-                'conditions' => array(
-                    'dataset' => 'sejm_komunikaty',
-                ),
-                'aggsPreset' => 'sejm_komunikaty',
-            ));
-            $this->set('title_for_layout', "Komunikaty Kancelarii Sejmu RP");
-            $this->set('DataBrowserTitle', 'Komunikaty kancelarii Sejmu');
-            $this->render('DataBrowser/browser-from-object');
-
-        }
-    }
-
-    public function okregi() {
-        $this->load();
-        if( $this->object->getId()=='3214' ) { // Sejm
-
-            $this->Components->load('Dane.DataBrowser', array(
-                'conditions' => array(
-                    'dataset' => 'sejm_okregi',
-                ),
-                'aggsPreset' => 'sejm_okregi',
-            ));
-            $this->set('title_for_layout', "Okręgi wyborcze do Sejmu RP");
-            $this->set('DataBrowserTitle', 'Okręgi wyborcze w wyborach do Sejmu');
-            $this->render('DataBrowser/browser-from-object');
-
-        }
-    }
-
-    public function poslowie_oswiadczenia_majatkowe() {
-        $this->load();
-        if( $this->object->getId()=='3214' ) { // Sejm
-
-            $this->Components->load('Dane.DataBrowser', array(
-                'conditions' => array(
-                    'dataset' => 'poslowie_oswiadczenia_majatkowe',
-                ),
-                'aggsPreset' => 'poslowie_oswiadczenia_majatkowe',
-            ));
-            $this->set('title_for_layout', "Oświadczenia majątkowe posłów na Sejm RP");
-            $this->set('DataBrowserTitle', 'Oświadczenia majątkowe posłów');
-            $this->render('DataBrowser/browser-from-object');
-
-        }
-    }
 
     public function poslowie_rejestr_korzysci() {
         $this->load();
         if( $this->object->getId()=='3214' ) { // Sejm
 
-            $this->Components->load('Dane.DataBrowser', array(
-                'conditions' => array(
-                    'dataset' => 'poslowie_rejestr_korzysci',
-                ),
-                'aggsPreset' => 'poslowie_rejestr_korzysci',
-            ));
-            $this->set('title_for_layout', "Rejestr korzyści posłów na Sejm RP");
-            $this->set('DataBrowserTitle', 'Rejestr korzyści posłów');
-            $this->render('DataBrowser/browser-from-object');
+            if (isset($this->request->params['subid'])) {
+
+                $rejestr = $this->Dataobject->find('first', array(
+                    'conditions' => array(
+                        'dataset' => 'poslowie_rejestr_korzysci',
+                        'id' => $this->request->params['subid'],
+                    ),
+                ));
+
+                $this->set('rejestr', $rejestr);
+                $this->set('title_for_layout', $rejestr->getTitle());
+                $this->render('rejestr');
+
+
+            } else {
+                $this->Components->load('Dane.DataBrowser', array(
+                    'conditions' => array(
+                        'dataset' => 'poslowie_rejestr_korzysci',
+                    ),
+                    'aggsPreset' => 'poslowie_rejestr_korzysci',
+                ));
+                $this->set('title_for_layout', "Rejestr korzyści posłów na Sejm RP");
+                $this->set('DataBrowserTitle', 'Rejestr korzyści posłów');
+                $this->render('DataBrowser/browser-from-object');
+            }
+        }
+    }
+
+    public function sejm_dezyderaty()
+    {
+        $this->load();
+        if ($this->object->getId() == '3214') { // Sejm
+
+            if (isset($this->request->params['subid'])) {
+
+                $dezyderat = $this->Dataobject->find('first', array(
+                    'conditions' => array(
+                        'dataset' => 'sejm_dezyderaty',
+                        'id' => $this->request->params['subid'],
+                    ),
+                ));
+
+                $this->set('dezyderat', $dezyderat);
+                $this->set('title_for_layout', $dezyderat->getTitle());
+                $this->render('dezyderat');
+
+
+            } else {
+                $this->Components->load('Dane.DataBrowser', array(
+                    'conditions' => array(
+                        'dataset' => 'sejm_dezyderaty',
+                    ),
+                    'aggsPreset' => 'sejm_dezyderaty',
+                ));
+                $this->set('title_for_layout', "Dezyderaty komisji w Sejmie RP");
+                $this->set('DataBrowserTitle', 'Dezyderaty komisji sejmowych');
+                $this->render('DataBrowser/browser-from-object');
+            }
+        }
+    }
+
+
+    public function sejm_komisje_opinie()
+    {
+        $this->load();
+        if ($this->object->getId() == '3214') { // Sejm
+
+            if (isset($this->request->params['subid'])) {
+
+                $opinia = $this->Dataobject->find('first', array(
+                    'conditions' => array(
+                        'dataset' => 'sejm_komisje_opinie',
+                        'id' => $this->request->params['subid'],
+                    ),
+                ));
+
+                $this->set('opinia', $opinia);
+                $this->set('title_for_layout', $opinia->getTitle());
+                $this->render('opinia');
+
+
+            } else {
+                $this->Components->load('Dane.DataBrowser', array(
+                    'conditions' => array(
+                        'dataset' => 'sejm_komisje_opinie',
+                    ),
+                    'aggsPreset' => 'sejm_komisje_opinie',
+                ));
+                $this->set('title_for_layout', "Opinie komisji Sejmu RP");
+                $this->set('DataBrowserTitle', 'Opinie komisji sejmowych');
+                $this->render('DataBrowser/browser-from-object');
+            }
+        }
+    }
+
+    public function komisje_uchwaly()
+    {
+        $this->load();
+        if ($this->object->getId() == '3214') { // Sejm
+            if (isset($this->request->params['subid'])) {
+
+                $uchwala = $this->Dataobject->find('first', array(
+                    'conditions' => array(
+                        'dataset' => 'sejm_komisje_uchwaly',
+                        'id' => $this->request->params['subid'],
+                    ),
+                ));
+
+                $this->set('uchwala', $uchwala);
+                $this->set('title_for_layout', $uchwala->getTitle());
+                $this->render('uchwala');
+
+
+            } else {
+                $this->Components->load('Dane.DataBrowser', array(
+                    'conditions' => array(
+                        'dataset' => 'sejm_komisje_uchwaly',
+                    ),
+                    'aggsPreset' => 'sejm_komisje_uchwaly',
+                ));
+                $this->set('title_for_layout', "Uchwały komisji Sejmu RP");
+                $this->set('DataBrowserTitle', 'Uchwały komisji sejmowych');
+                $this->render('DataBrowser/browser-from-object');
+            }
+        }
+    }
+
+    public function sejm_komunikaty()
+    {
+        $this->load();
+        if ($this->object->getId() == '3214') { // Sejm
+
+            if (isset($this->request->params['subid'])) {
+
+                $komunikat = $this->Dataobject->find('first', array(
+                    'conditions' => array(
+                        'dataset' => 'sejm_komunikaty',
+                        'id' => $this->request->params['subid'],
+                    ),
+                ));
+
+                $this->set('komunikat', $komunikat);
+                $this->set('title_for_layout', $komunikat->getTitle());
+                $this->render('komunikat');
+
+
+            } else {
+                $this->Components->load('Dane.DataBrowser', array(
+                    'conditions' => array(
+                        'dataset' => 'sejm_komunikaty',
+                    ),
+                    'aggsPreset' => 'sejm_komunikaty',
+                ));
+                $this->set('title_for_layout', "Komunikaty Kancelarii Sejmu RP");
+                $this->set('DataBrowserTitle', 'Komunikaty kancelarii Sejmu');
+                $this->render('DataBrowser/browser-from-object');
+            }
+        }
+    }
+
+    public function okregi()
+    {
+        $this->load();
+        if ($this->object->getId() == '3214') { // Sejm
+
+            if (isset($this->request->params['subid'])) {
+
+                $okreg = $this->Dataobject->find('first', array(
+                    'conditions' => array(
+                        'dataset' => 'sejm_okregi',
+                        'id' => $this->request->params['subid'],
+                    ),
+                ));
+
+                $this->set('okreg', $okreg);
+                $this->set('title_for_layout', $okreg->getTitle());
+                $this->render('okreg');
+
+
+            } else {
+                $this->Components->load('Dane.DataBrowser', array(
+                    'conditions' => array(
+                        'dataset' => 'sejm_okregi',
+                    ),
+                    'aggsPreset' => 'sejm_okregi',
+                ));
+                $this->set('title_for_layout', "Okręgi wyborcze do Sejmu RP");
+                $this->set('DataBrowserTitle', 'Okręgi wyborcze w wyborach do Sejmu');
+                $this->render('DataBrowser/browser-from-object');
+
+            }
+
+        }
+    }
+
+    public function poslowie_oswiadczenia_majatkowe()
+    {
+        $this->load();
+        if ($this->object->getId() == '3214') { // Sejm
+
+            if (isset($this->request->params['subid'])) {
+
+                $oswiadczenie = $this->Dataobject->find('first', array(
+                    'conditions' => array(
+                        'dataset' => 'poslowie_oswiadczenia_majatkowe',
+                        'id' => $this->request->params['subid'],
+                    ),
+                ));
+
+                $this->set('oswiadczenie', $oswiadczenie);
+                $this->set('title_for_layout', $oswiadczenie->getTitle());
+                $this->render('oswiadczenie');
+
+
+            } else {
+                $this->Components->load('Dane.DataBrowser', array(
+                    'conditions' => array(
+                        'dataset' => 'poslowie_oswiadczenia_majatkowe',
+                    ),
+                    'aggsPreset' => 'poslowie_oswiadczenia_majatkowe',
+                ));
+                $this->set('title_for_layout', "Oświadczenia majątkowe posłów na Sejm RP");
+                $this->set('DataBrowserTitle', 'Oświadczenia majątkowe posłów');
+                $this->render('DataBrowser/browser-from-object');
+            }
 
         }
     }
@@ -2034,6 +2193,31 @@ class InstytucjeController extends DataobjectsController
             $this->set('DataBrowserTitle', 'Współpracownicy posłów');
             $this->render('DataBrowser/browser-from-object');
 
+            if (isset($this->request->params['subid'])) {
+
+                $wspolpracownik = $this->Dataobject->find('first', array(
+                    'conditions' => array(
+                        'dataset' => 'poslowie_wspolpracownicy',
+                        'id' => $this->request->params['subid'],
+                    ),
+                ));
+
+                $this->set('wspolpracownik', $wspolpracownik);
+                $this->set('title_for_layout', $wspolpracownik->getTitle());
+                $this->render('wspolpracownik');
+
+
+            } else {
+                $this->Components->load('Dane.DataBrowser', array(
+                    'conditions' => array(
+                        'dataset' => 'poslowie_wspolpracownicy',
+                    ),
+                    'aggsPreset' => 'poslowie_wspolpracownicy',
+                ));
+                $this->set('title_for_layout', "Współpracownicy posłów na Sejm RP");
+                $this->set('DataBrowserTitle', 'Współpracownicy posłów');
+                $this->render('DataBrowser/browser-from-object');
+            }
         }
     }
 } 

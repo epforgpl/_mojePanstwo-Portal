@@ -27,4 +27,22 @@ class Poslowie_oswiadczenia_majatkowe extends DocDataObject
 
     }
 
+    public function getUrl() {
+
+        return '/dane/instytucje/3214/poslowie_oswiadczenia_majatkowe/' . $this->getId() . ',' . $this->getSlug();
+
+    }
+
+    public function getBreadcrumbs()
+    {
+
+        return array(
+            array(
+                'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/poslowie_oswiadczenia_majatkowe',
+                'label' => 'Oświadczenia majątkowe posłów',
+            ),
+        );
+
+    }
+
 }

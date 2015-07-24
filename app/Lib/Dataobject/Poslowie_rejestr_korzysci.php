@@ -26,4 +26,22 @@ class Poslowie_rejestr_korzysci extends DocDataObject
         return 'Wpis w rejestrze korzyści posła';
 
     }
+
+    public function getUrl() {
+
+        return '/dane/instytucje/3214/poslowie_rejestr_korzysci/' . $this->getId() . ',' . $this->getSlug();
+
+    }
+
+    public function getBreadcrumbs()
+    {
+
+        return array(
+            array(
+                'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/poslowie_rejestr_korzysci',
+                'label' => 'Rejestr korzyści posłów',
+            ),
+        );
+
+    }
 }
