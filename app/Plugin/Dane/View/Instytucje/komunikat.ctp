@@ -11,5 +11,15 @@ echo $this->Element('Dane.dataobject/subobject', array(
     ),
 ));
 ?>
+<div class="container">
+    <?
+    if(isset($tresc))
+        echo $tresc;
+    if($komunikat->data['img']){?>
+        <img class="pull-right" src="/sejm_komunikaty/img/<?= $komunikat->data['id'] ?>.jpg'">
+    <?}
+    ?>
+</div>
+
 <?
 echo $this->Element('dataobject/pageEnd');
