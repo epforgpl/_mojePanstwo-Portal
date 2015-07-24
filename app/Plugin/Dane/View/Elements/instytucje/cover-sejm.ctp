@@ -4,6 +4,12 @@ $this->Combinator->add_libs('css', $this->Less->css('zamowienia', array('plugin'
 $this->Combinator->add_libs('css', $this->Less->css('sejm', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
+
+$this->Combinator->add_libs('css', $this->Less->css('view-instytucje-cover-sejm', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('js', 'Dane.view-instytucje-cover-sejm');
+echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false', array('block' => 'scriptBlock'));
+
+
 $options = array(
     'mode' => 'init',
 );
@@ -12,7 +18,27 @@ $options = array(
 <div class="col-md-9">
 
     <div class="blocks">
-		
+
+        <? if(@$okregi) { ?>
+            <div class="block block-simple block-size-sm col-xs-12">
+                <header>Okręgi:</header>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div id="map"></div>
+                    </div>
+                    <div class="col-sm-4">
+                        <h4>Okregi według numerów</h4>
+                        <div class="row">
+                            <? foreach($okregi as $i => $okrag) { ?>
+                                <button id="okrag<?= $okrag[0]; ?>" data-index="<?= $i; ?>" type="button" class="btn btn-link okrag"><?= $okrag[1]; ?></button>
+                            <? } ?>
+                        </div>
+                    </div>
+                </div>
+                <div data-name="okregi" data-value='<?= json_encode($okregi) ?>'></div>
+            </div>
+        <? } ?>
+
 		<? if (@$dataBrowser['aggs']['all']['prawo']['top']['hits']['hits']) { ?>
             <div class="block block-simple block-size-sm col-xs-12">
                 <header>Najnowsze akty prawne:</header>
