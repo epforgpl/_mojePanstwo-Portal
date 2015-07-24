@@ -5,9 +5,9 @@ require_once('DocDataObject.php');
 
 class Poslowie_rejestr_korzysci extends DocDataObject
 {
-	
-	protected $tiny_label = 'Rejestr korzyści';
-	
+
+    protected $tiny_label = 'Rejestr korzyści';
+
     protected $routes = array(
         'date' => 'data',
         'shortTitle' => 'label',
@@ -20,6 +20,11 @@ class Poslowie_rejestr_korzysci extends DocDataObject
 
     }
 
+    public function getShortTitle()
+    {
+        return 'Wpis w rejestrze korzyści posła ' . $this->getData('poslowie.dopelniacz');
+    }
+
     public function getLabel()
     {
 
@@ -27,7 +32,8 @@ class Poslowie_rejestr_korzysci extends DocDataObject
 
     }
 
-    public function getUrl() {
+    public function getUrl()
+    {
 
         return '/dane/instytucje/3214/poslowie_rejestr_korzysci/' . $this->getId() . ',' . $this->getSlug();
 
@@ -42,6 +48,17 @@ class Poslowie_rejestr_korzysci extends DocDataObject
                 'label' => 'Rejestr korzyści posłów',
             ),
         );
+
+    }
+    public function getMetaDescriptionParts($preset = false)
+    {
+
+        $output = array();
+
+        if( $this->getDate() )
+            $output[] = dataSlownie($this->getDate());
+
+        return $output;
 
     }
 }

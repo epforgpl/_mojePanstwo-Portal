@@ -27,7 +27,12 @@ class Sejm_kluby extends DataObject
     
     public function getThumbnailUrl($size = 2)
     {
-	    return 'http://resources.sejmometr.pl/s_kluby/' . $this->getId() . '_t.png';
+
+        if($this->getData('avatar')) {
+            return 'http://resources.sejmometr.pl/s_kluby/' . $this->getId() . '_t.png';
+        }else{
+            return false;
+        }
     }
     
     public function hasHighlights()

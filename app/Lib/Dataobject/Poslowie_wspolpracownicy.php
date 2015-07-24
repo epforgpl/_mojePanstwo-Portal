@@ -22,11 +22,15 @@ class Poslowie_wspolpracownicy extends DocDataObject
     public function getLabel()
     {
         return 'Współpracownik posła';
+
+
     }
 
     public function getTitle()
     {
         return $this->getShortTitle();
+
+
     }
 
     public function getShortTitle()
@@ -49,6 +53,24 @@ class Poslowie_wspolpracownicy extends DocDataObject
                 'label' => 'Współpracownicy posłów',
             ),
         );
+
+    }
+
+    public function getMetaDescriptionParts($preset = false)
+    {
+
+        $output = array();
+
+        if( $this->getDate() )
+            $output[] = dataSlownie($this->getDate());
+
+        if($this->getData('funkcja'))
+            $output[] = $this->getData('funkcja');
+
+        if($this->getData('poslowie.dopelniacz'))
+            $output[] = $this->getData('poslowie.dopelniacz');
+
+        return $output;
 
     }
 } 

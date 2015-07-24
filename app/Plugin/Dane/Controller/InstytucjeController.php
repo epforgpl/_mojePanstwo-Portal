@@ -2137,9 +2137,27 @@ class InstytucjeController extends DataobjectsController
 
                 $okreg = $this->Dataobject->find('first', array(
                     'conditions' => array(
-                        'dataset' => 'sejm_okregi',
+                        'dataset' => 'sejm_okregi_wyborcze',
                         'id' => $this->request->params['subid'],
                     ),
+                ));
+
+                $this->set('_submenu', array(
+                    'items' => array(
+                        array(
+                            'id' => '',
+                            'label' => 'Posłowie z tego okręgu',
+                        ),
+                    ),
+                    'selected' => '',
+                ));
+
+                $this->Components->load('Dane.DataBrowser', array(
+                    'conditions' => array(
+                        'dataset' => 'poslowie',
+                        'poslowie.sejm_okreg_id' => $okreg->getId(),
+                    ),
+                    'aggsPreset' => 'poslowie',
                 ));
 
                 $this->set('okreg', $okreg);

@@ -33,13 +33,23 @@ class Sejm_komunikaty extends DocDataObject
 
     public function getBreadcrumbs()
     {
-
         return array(
             array(
-                'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/sejm_komunikaty',
+                'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/komunikaty',
                 'label' => 'Rejestr korzyści posłów',
             ),
         );
+    }
+
+    public function getMetaDescriptionParts($preset = false)
+    {
+
+        $output = array();
+
+        if( $this->getDate() )
+            $output[] = dataSlownie($this->getDate());
+
+        return $output;
 
     }
 }

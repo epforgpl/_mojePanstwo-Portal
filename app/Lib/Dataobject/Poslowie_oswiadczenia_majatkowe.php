@@ -20,6 +20,11 @@ class Poslowie_oswiadczenia_majatkowe extends DocDataObject
 
     }
 
+    public function getShortTitle(){
+        return $this->getData('poslowie.nazwa') . ' - ' . $this->getData('label');
+    }
+
+
     public function getLabel()
     {
 
@@ -42,6 +47,19 @@ class Poslowie_oswiadczenia_majatkowe extends DocDataObject
                 'label' => 'Oświadczenia majątkowe posłów',
             ),
         );
+
+    }
+
+    public function getMetaDescriptionParts($preset = false)
+    {
+
+
+        $output = array();
+
+        if( $this->getDate() )
+            $output[] = dataSlownie($this->getDate());
+
+        return $output;
 
     }
 

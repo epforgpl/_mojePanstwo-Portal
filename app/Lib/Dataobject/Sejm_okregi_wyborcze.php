@@ -15,7 +15,7 @@ class Sejm_okregi_wyborcze extends DataObject
 	
 	public function getUrl() {
 		
-		return '/dane/instytucje/3214/druki/' . $this->getId() . ',' . $this->getSlug();
+		return '/dane/instytucje/3214/okregi/' . $this->getId() . ',' . $this->getSlug();
 		
 	}
 		
@@ -24,8 +24,8 @@ class Sejm_okregi_wyborcze extends DataObject
 							
 		return array(
 			array(
-				'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/druki',
-				'label' => 'Druki sejmowe',
+				'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/okregi',
+				'label' => 'Okręgi w wyborach do Sejmu RP',
 			),
 		);
 				
