@@ -1977,7 +1977,7 @@ class InstytucjeController extends DataobjectsController
         }
     }
 
-    public function sejm_dezyderaty()
+    public function dezyderaty()
     {
         $this->load();
         if ($this->object->getId() == '3214') { // Sejm
@@ -2011,7 +2011,7 @@ class InstytucjeController extends DataobjectsController
     }
 
 
-    public function sejm_komisje_opinie()
+    public function komisje_opinie()
     {
         $this->load();
         if ($this->object->getId() == '3214') { // Sejm

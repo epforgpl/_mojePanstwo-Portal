@@ -31,7 +31,7 @@ class Sejm_komisje extends DataObject
 
     public function getUrl() {
 
-        return '/dane/instytucje/3214/sejm_komisje/' . $this->getId() . ',' . $this->getSlug();
+        return '/dane/instytucje/3214/komisje/' . $this->getId() . ',' . $this->getSlug();
 
     }
 
@@ -40,7 +40,7 @@ class Sejm_komisje extends DataObject
 
         return array(
             array(
-                'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/sejm_komisje',
+                'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/komisje',
                 'label' => 'Komisje sejmowe',
             ),
         );

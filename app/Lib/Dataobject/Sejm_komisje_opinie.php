@@ -25,7 +25,7 @@ class Sejm_komisje_opinie extends DocDataObject
 
     public function getUrl() {
 
-        return '/dane/instytucje/3214/sejm_komisje_opinie/' . $this->getId() . ',' . $this->getSlug();
+        return '/dane/instytucje/3214/komisje_opinie/' . $this->getId() . ',' . $this->getSlug();
 
     }
 
@@ -34,7 +34,7 @@ class Sejm_komisje_opinie extends DocDataObject
 
         return array(
             array(
-                'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/sejm_komisje_opinie',
+                'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/komisje_opinie',
                 'label' => 'Opinie komisji sejmowych',
             ),
         );
