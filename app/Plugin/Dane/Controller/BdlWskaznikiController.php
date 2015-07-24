@@ -254,47 +254,59 @@ class BdlWskaznikiController extends DataobjectsController
         $this->set('expanded_dimension', $expanded_dimension);
         $this->set('dimmensions_array', $dimmensions_array);
 
-        $BdlTempItems = $this->BdlTempItem->searchAll();
 
         $this->set(array(
-            'BdlTempItems' => $BdlTempItems,
-            '_serialize' => array('BdlTempItems')
+            'object' => array(
+	            'data' => $this->object->getData(),
+            ),
+            '_serialize' => array('object', 'expanded_dimension', 'expand_dimension', 'dims', 'dimmensions_array'),
         ));
+        
+        if( @$this->request->params['ext']=='html' ) {
+	        
+	        
+	        $this->layout = 'blank';
+	        $this->render('html');
+	        
+	        
+        } else {
+        
 
-        $datasets = $this->getDatasets('bdl');
-
-        $options = array(
-            'searchTitle' => 'Szukaj w Banku Danych Lokalnych...',
-            'autocompletion' => array(
-                'dataset' => 'bdl_wskazniki',
-            ),
-            'conditions' => array(
-                'dataset' => array_keys($datasets)
-            ),
-            'cover' => array(
-                'view' => array(
-                    'plugin' => 'Bdl',
-                    'element' => 'cover',
-                ),
-                'aggs' => array(),
-            ),
-            'aggs' => array(
-                'dataset' => array(
-                    'terms' => array(
-                        'field' => 'dataset',
-                    ),
-                    'visual' => array(
-                        'label' => 'Zbiory danych',
-                        'skin' => 'datasets',
-                        'class' => 'special',
-                        'field' => 'dataset',
-                        'dictionary' => $datasets,
-                    ),
-                ),
-            ),
-        );
-        $this->Components->load('Dane.DataBrowser', $options);
-
+	        $datasets = $this->getDatasets('bdl');
+	
+	        $options = array(
+	            'searchTitle' => 'Szukaj w Banku Danych Lokalnych...',
+	            'autocompletion' => array(
+	                'dataset' => 'bdl_wskazniki',
+	            ),
+	            'conditions' => array(
+	                'dataset' => array_keys($datasets)
+	            ),
+	            'cover' => array(
+	                'view' => array(
+	                    'plugin' => 'Bdl',
+	                    'element' => 'cover',
+	                ),
+	                'aggs' => array(),
+	            ),
+	            'aggs' => array(
+	                'dataset' => array(
+	                    'terms' => array(
+	                        'field' => 'dataset',
+	                    ),
+	                    'visual' => array(
+	                        'label' => 'Zbiory danych',
+	                        'skin' => 'datasets',
+	                        'class' => 'special',
+	                        'field' => 'dataset',
+	                        'dictionary' => $datasets,
+	                    ),
+	                ),
+	            ),
+	        );
+	        $this->Components->load('Dane.DataBrowser', $options);
+        
+        }
 
     }
 
