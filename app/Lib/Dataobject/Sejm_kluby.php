@@ -25,7 +25,7 @@ class Sejm_kluby extends DataObject
         return 'Klub sejmowy';
     }
     
-    public function getThumbnailUrl($size)
+    public function getThumbnailUrl($size = 2)
     {
 	    return 'http://resources.sejmometr.pl/s_kluby/' . $this->getId() . '_t.png';
     }
@@ -37,7 +37,7 @@ class Sejm_kluby extends DataObject
 
     public function getUrl() {
 
-        return '/dane/instytucje/3214/sejm_kluby/' . $this->getId() . ',' . $this->getSlug();
+        return '/dane/instytucje/3214/kluby/' . $this->getId() . ',' . $this->getSlug();
 
     }
 
@@ -46,7 +46,7 @@ class Sejm_kluby extends DataObject
 
         return array(
             array(
-                'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/sejm_kluby',
+                'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/kluby',
                 'label' => 'Kluby i koła poselskie',
             ),
         );

@@ -1891,6 +1891,24 @@ class InstytucjeController extends DataobjectsController
                         'id' => $this->request->params['subid'],
                     ),
                 ));
+                
+                $this->set('_submenu', array(
+	                'items' => array(
+		                array(
+			                'id' => '',
+			                'label' => 'Posłowie w tym klubie',
+		                ),
+	                ),
+	                'selected' => '',
+                ));
+                
+                $this->Components->load('Dane.DataBrowser', array(
+                    'conditions' => array(
+                        'dataset' => 'poslowie',
+                        'poslowie.klub_id' => $klub->getId(),
+                    ),
+                    'aggsPreset' => 'poslowie',
+                ));
 
                 $this->set('klub', $klub);
                 $this->set('title_for_layout', $klub->getTitle());
@@ -2076,7 +2094,7 @@ class InstytucjeController extends DataobjectsController
         }
     }
 
-    public function sejm_komunikaty()
+    public function komunikaty()
     {
         $this->load();
         if ($this->object->getId() == '3214') { // Sejm
@@ -2088,8 +2106,9 @@ class InstytucjeController extends DataobjectsController
                         'dataset' => 'sejm_komunikaty',
                         'id' => $this->request->params['subid'],
                     ),
+                    'layers' => array('html'),
                 ));
-
+                
                 $this->set('komunikat', $komunikat);
                 $this->set('title_for_layout', $komunikat->getTitle());
                 $this->render('komunikat');
@@ -2131,9 +2150,9 @@ class InstytucjeController extends DataobjectsController
             } else {
                 $this->Components->load('Dane.DataBrowser', array(
                     'conditions' => array(
-                        'dataset' => 'sejm_okregi',
+                        'dataset' => 'sejm_okregi_wyborcze',
                     ),
-                    'aggsPreset' => 'sejm_okregi',
+                    'aggsPreset' => 'sejm_okregi_wyborcze',
                 ));
                 $this->set('title_for_layout', "Okręgi wyborcze do Sejmu RP");
                 $this->set('DataBrowserTitle', 'Okręgi wyborcze w wyborach do Sejmu');

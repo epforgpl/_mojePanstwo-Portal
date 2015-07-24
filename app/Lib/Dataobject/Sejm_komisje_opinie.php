@@ -40,4 +40,19 @@ class Sejm_komisje_opinie extends DocDataObject
         );
 
     }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+						
+		$output = array();
+		
+		if( $this->getDate() )
+			$output[] = dataSlownie($this->getDate());
+			
+		if( $this->getData('sejm_komisje_opinie.adresat') )	
+			$output[] = $this->getData('sejm_komisje_opinie.adresat');
+				
+		return $output;
+		
+	}
 } 

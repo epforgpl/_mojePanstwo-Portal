@@ -227,7 +227,7 @@ $options = array(
             ),
             array(
                 'id' => 'okregi',
-                'dataset' => 'sejm_okregi',
+                'dataset' => 'sejm_okregi_wyborcze',
                 'label' => 'Okręgi wyborcze do Sejmu',
             ),                            
             array(

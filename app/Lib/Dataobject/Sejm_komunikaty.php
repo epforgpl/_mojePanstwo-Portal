@@ -27,7 +27,7 @@ class Sejm_komunikaty extends DocDataObject
 
     public function getUrl() {
 
-        return '/dane/instytucje/3214/sejm_komunikaty/' . $this->getId() . ',' . $this->getSlug();
+        return '/dane/instytucje/3214/komunikaty/' . $this->getId() . ',' . $this->getSlug();
 
     }
 

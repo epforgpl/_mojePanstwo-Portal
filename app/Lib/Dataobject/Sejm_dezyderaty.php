@@ -46,4 +46,22 @@ class Sejm_dezyderaty extends DocDataObject
         );
 
     }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+		
+		$output = array();
+		
+		if( $this->getDate() )
+			$output[] = dataSlownie($this->getDate());
+		
+		if( $this->getData('sejm_komisje.nazwa') )
+			$output[] = $this->getData('sejm_komisje.nazwa');
+			
+		if( $this->getData('adresat') )
+			$output[] = 'Adresat: ' . $this->getData('adresat');
+				
+		return $output;
+		
+	}
 }
