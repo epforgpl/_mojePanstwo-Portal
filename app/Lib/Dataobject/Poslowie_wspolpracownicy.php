@@ -33,4 +33,22 @@ class Poslowie_wspolpracownicy extends DocDataObject
     {
         return $this->getData('nazwa');
     }
+
+    public function getUrl() {
+
+        return '/dane/instytucje/3214/poslowie_wspolpracownicy/' . $this->getId() . ',' . $this->getSlug();
+
+    }
+
+    public function getBreadcrumbs()
+    {
+
+        return array(
+            array(
+                'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/poslowie_wspolpracownicy',
+                'label' => 'Współpracownicy posłów',
+            ),
+        );
+
+    }
 } 

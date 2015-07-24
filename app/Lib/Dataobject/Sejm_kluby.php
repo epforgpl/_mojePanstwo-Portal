@@ -35,4 +35,22 @@ class Sejm_kluby extends DataObject
         return false;
     }
 
+    public function getUrl() {
+
+        return '/dane/instytucje/3214/sejm_kluby/' . $this->getId() . ',' . $this->getSlug();
+
+    }
+
+    public function getBreadcrumbs()
+    {
+
+        return array(
+            array(
+                'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/sejm_kluby',
+                'label' => 'Kluby i koła poselskie',
+            ),
+        );
+
+    }
+
 }

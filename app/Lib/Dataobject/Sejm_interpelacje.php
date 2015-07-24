@@ -62,4 +62,22 @@ class Sejm_interpelacje extends DocDataObject
 		
 	}
 
+    public function getUrl() {
+
+        return '/dane/instytucje/3214/interpelacje/' . $this->getId() . ',' . $this->getSlug();
+
+    }
+
+    public function getBreadcrumbs()
+    {
+
+        return array(
+            array(
+                'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/interpelacje',
+                'label' => 'Interpelacje',
+            ),
+        );
+
+    }
+
 }

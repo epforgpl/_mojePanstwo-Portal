@@ -10,14 +10,8 @@ echo $this->Element('Dane.dataobject/subobject', array(
         'mode' => 'subobject',
     ),
 ));
-?><div class="prawo row">
-
-    <div class="col-md-12">
-        <div class="object">
-            <?= $this->Document->place($interpelacja->getData('dokument_id')) ?>
-        </div>
-    </div>
+?>
 
 
-    </div><?
+<?
 echo $this->Element('dataobject/pageEnd');

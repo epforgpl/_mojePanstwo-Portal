@@ -28,4 +28,22 @@ class Sejm_dezyderaty extends DocDataObject
     {
         return '<strong>Dezyderat</strong> ' . $this->getData('sejm_komisje.dopelniacz');
     }
-} 
+
+    public function getUrl() {
+
+        return '/dane/instytucje/3214/sejm_dezyderaty/' . $this->getId() . ',' . $this->getSlug();
+
+    }
+
+    public function getBreadcrumbs()
+    {
+
+        return array(
+            array(
+                'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/sejm_dezyderaty',
+                'label' => 'Dezyderaty',
+            ),
+        );
+
+    }
+}

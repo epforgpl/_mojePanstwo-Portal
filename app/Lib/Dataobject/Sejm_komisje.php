@@ -28,4 +28,22 @@ class Sejm_komisje extends DataObject
     {
         return $this->getData('nazwa');
     }
-} 
+
+    public function getUrl() {
+
+        return '/dane/instytucje/3214/sejm_komisje/' . $this->getId() . ',' . $this->getSlug();
+
+    }
+
+    public function getBreadcrumbs()
+    {
+
+        return array(
+            array(
+                'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/sejm_komisje',
+                'label' => 'Komisje sejmowe',
+            ),
+        );
+
+    }
+}
