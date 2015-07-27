@@ -395,11 +395,19 @@ class KrsPodmiotyController extends DataobjectsController
                 'conditions' => array(
                     'dataset' => 'dzialania',
                     'id' => $id
+                ),
+                'layers' => array(
+                    'features'
                 )
             ));
 
             if (!$dzialanie)
                 throw new NotFoundException;
+
+            if($features = $dzialanie->getLayer('features')) {
+                $this->loadModel('Sejmometr.Sejmometr');
+                $this->set('okregi', $this->Sejmometr->okregi());
+            }
             
             $this->set('dzialanie', $dzialanie);
 

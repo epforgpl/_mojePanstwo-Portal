@@ -5,7 +5,8 @@ $this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('p
 $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-dzialania', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
-#$this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialania');
+$this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialanie');
+
 ?>
 
 <div class="krsPodmioty">
@@ -55,6 +56,82 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
                 <p class="opis">
                     <?= nl2br($dzialanie->getData('opis')); ?>
                 </p>
+
+                <? if($features = $dzialanie->getLayer('features')) { ?>
+                    <? if($mailing = @$features['mailings'][0]) { ?>
+
+                        <?php echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false', array('block' => 'scriptBlock')); ?>
+                        <?php $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma'))) ?>
+                        <?php $this->Combinator->add_libs('css', $this->Less->css('naszrzecznik', array('plugin' => 'Pisma'))) ?>
+                        <?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
+                        <?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
+                        <?php $this->Combinator->add_libs('js', 'Pisma.pisma-button.js') ?>
+
+                        <div class="mailing start naszrzecznik">
+
+                            <form class="letter form-horizontal" action="/pisma" method="post">
+
+                                <h2 class="text-center">Znajdź swojego posła i wyślij pismo teraz!</h2>
+                                <input type="hidden" name="szablon_id" value="<?= $mailing['pismo_szablon_id'] ?>"/>
+
+                                <fieldset>
+                                    <div class="form-group adresaci margin-top-10">
+                                        <label for="adresatSelect" class="col-lg-2 control-label">Adresat</label>
+
+                                        <div class="col-lg-9">
+                                            <div class="suggesterBlockPisma">
+                                                <?= $this->Element('Pisma.searcher', array('q' => '', 'dataset' => 'pisma_adresaci-aktywni_poslowie', 'placeholder' => 'Zacznij pisać aby znaleźć adresata...')) ?>
+                                            </div>
+                                            <span
+                                                class="help-block">Na podstawie wybranego posła, uzupełnimy dane teleadresowe w Twoim piśmie.</span>
+                                        </div>
+
+                                        <input type="hidden" name="adresat_id"<?php if (!empty($pismo['adresat_id'])) {
+                                            echo ' value="' . $pismo['adresat_id'] . '"';
+                                        } ?>>
+
+                                    </div>
+                                </fieldset>
+
+                                <fieldset class="final">
+                                    <div class="form-group">
+                                        <div class="col-lg-10 col-lg-offset-1 text-center">
+                                            <button type="submit" class="createBtn btn auto-width btn-md btn-primary btn-icon"><i
+                                                    class="icon glyphicon glyphicon-pencil"></i>Stwórz pismo
+                                            </button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <h2 class="text-center">Nie wiesz kto jest Twoim posłem?</h2>
+
+                                <p class="help-block text-center"><a href="#" id="localizeMe">Zlokalizuj się</a> lub wskaż
+                                    na mapie miejsce zamieszkania:</p>
+
+                                <div class="row">
+                                    <div id="map"></div>
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                        <div data-name="okregi" data-value='<?= json_encode($okregi) ?>'></div>
+
+                        <div class="modal fade" id="wybierzPosla" tabindex="-1" role="dialog" aria-labelledby="wybierzPoslaLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header"></div>
+                                    <div class="modal-body"></div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <? } ?>
+                <? } ?>
             </div>
         </div>
     </div>
