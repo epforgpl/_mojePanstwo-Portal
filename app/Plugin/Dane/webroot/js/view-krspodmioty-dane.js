@@ -50,6 +50,12 @@ $(document).ready(function () {
             .addClass('loading disabled');
     });
 
+    $('.btnImport').click(function() {
+        tinymce.activeEditor.setContent(
+            $(this).attr('data-opis')
+        );
+    });
+
     $('.sticky').sticky();
 
 });
