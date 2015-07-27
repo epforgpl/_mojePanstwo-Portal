@@ -66,9 +66,9 @@
 }
 
 .punkt-projekty {
-	li {
+	> li {
 		border-bottom: 1px solid #DDD;
-		padding: 10px 0px;
+		padding: 20px 0 10px;
 		
 		&:first-child {
 			padding-top: 0;
@@ -87,30 +87,38 @@
 				font-size: 13px;
 			}
 		}
-				
+		
 		.wynik {
 			text-align: center;
 			font-size: 18px;
+			margin-bottom: 30px;
+		}
+		
+		.punkt_wynik {
+			text-align: center;
+			color: #789;
 		}
 		
 		.punkt {
 						
 			.glosowania {
-				li {
-					margin: 10px 20px 10px 0;
-					border-bottom: none;
-					
-					.objectRender {
-						.object-icon {
-							display: none;
-						}
-						.object-icon-side {
-							margin-left: -5px;
-						}
-					}
-					
+				margin-top: 30px;
+				> li {
+					margin: 10px 20px 10px 0;										
 				}
 			}
 		}
+	}
+}
+
+.punkt_header {	
+	.numer {
+		font-size: 24px;
+		font-weight: 300;
+		margin: 0 13px;
+	}
+	
+	.tytul {
+		margin: 5px 15px 7px;
 	}
 }

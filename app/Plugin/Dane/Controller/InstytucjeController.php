@@ -413,6 +413,33 @@ class InstytucjeController extends DataobjectsController
                     ),
                 ),
             );
+            
+            $global_aggs['prawo_projekty'] = array(
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'prawo_projekty',
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'aggs' => array(
+                    'top' => array(
+                        'top_hits' => array(
+                            'size' => 3,
+                            'fielddata_fields' => array('dataset', 'id'),
+                            'sort' => array(
+                                'date' => array(
+                                    'order' => 'desc',
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            );
 
             $this->loadModel('Sejmometr.Sejmometr');
             $this->set('okregi', $this->Sejmometr->okregi());
@@ -858,7 +885,7 @@ class InstytucjeController extends DataobjectsController
 	            );
 				
 				$submenu['items'][] = array(
-					'label' => 'Prace',
+					'label' => 'Punkty',
 				);
 				
 				/*
@@ -941,8 +968,8 @@ class InstytucjeController extends DataobjectsController
 	                                        'size' => 1000,
 	                                        'fielddata_fields' => array('dataset', 'id'),
 	                                        'sort' => array(
-	                                            'data.sejm_posiedzenia_punkty.numer' => array(
-	                                                'order' => 'asc',
+	                                            'data.sejm_posiedzenia_punkty.liczba_wystapien' => array(
+	                                                'order' => 'desc',
 	                                            ),
 	                                        ),
 	                                    ),
