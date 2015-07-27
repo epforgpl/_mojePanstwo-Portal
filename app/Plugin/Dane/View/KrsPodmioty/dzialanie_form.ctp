@@ -9,9 +9,9 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 echo $this->Html->script('../tinymce/tinymce.min', array('block' => 'scriptBlock'));
 
 /* tag-it */
+echo $this->Html->script('../plugins/aehlke-tag-it/js/tag-it.min', array('block' => 'scriptBlock'));
 $this->Combinator->add_libs('css', '../plugins/aehlke-tag-it/css/jquery.tagit');
 $this->Combinator->add_libs('css', '../plugins/aehlke-tag-it/css/tagit.ui-zendesk');
-$this->Combinator->add_libs('js', '../plugins/aehlke-tag-it/js/tag-it.min');
 
 /* page script */
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialania');
@@ -72,7 +72,7 @@ echo $this->Element('dataobject/pageBegin'); ?>
 	                    </div>
 	                    <div class="form-group">
 	                        <label for="dzialanieOpis">Opis działania</label>
-	                        <textarea maxlength="16383" class="form-control" id="dzialanieOpis" name="opis">
+	                        <textarea maxlength="16383" class="form-control tinymce" id="dzialanieOpis" name="opis">
 	                            <? if($edit) echo $dzialanie->getData('opis'); ?>
 	                        </textarea>
 	                    </div>
@@ -96,20 +96,50 @@ echo $this->Element('dataobject/pageBegin'); ?>
 	                        </div>
 	                    </div>
 	                    <div class="form-group googleBlock">
-	                        <span class="btn btn-link googleBtn" data-icon="&#xe607;">
-	                            <?= $edit ? 'Zmień' : 'Dodaj'; ?> lokalizację
-	                        </span>
-	
-	                        <div class="col-xs-12 googleMapElement">
-	                            <input id="pac-input" class="controls" type="text" placeholder="Szukaj...">
-	
-	                            <div id="loc" class="btn btn-sm"><i data-icon="&#xe607;"></i></div>
-	
-	                            <div id="googleMap"></div>
-	                            <input type="hidden" <? if($edit) echo 'value="' . $dzialanie->getData('geo_lat') . '"'; ?> type="text" name="geo_lat"/>
-	                            <input type="hidden" <? if($edit) echo 'value="' . $dzialanie->getData('geo_lng') . '"'; ?> type="text" name="geo_lng"/>
-	                        </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <span class="btn btn-link googleBtn" data-icon="&#xe607;">
+                                        <?= $edit ? 'Zmień' : 'Dodaj'; ?> lokalizację
+                                    </span>
+
+                                    <div class="col-xs-12 googleMapElement">
+                                        <input id="pac-input" class="controls" type="text" placeholder="Szukaj...">
+
+                                        <div id="loc" class="btn btn-sm"><i data-icon="&#xe607;"></i></div>
+
+                                        <div id="googleMap"></div>
+                                        <input type="hidden" <? if($edit) echo 'value="' . $dzialanie->getData('geo_lat') . '"'; ?> type="text" name="geo_lat"/>
+                                        <input type="hidden" <? if($edit) echo 'value="' . $dzialanie->getData('geo_lng') . '"'; ?> type="text" name="geo_lng"/>
+                                    </div>
+                                </div>
+                            </div>
 	                    </div>
+
+                        <? if(!$edit && false) { ?>
+                            <div class="form-group mailBlock">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="btn btn-link btn-icon btn-auto-width mailBtn">
+                                            <i class="icon glyphicon glyphicon-envelope"></i>
+                                            Dodaj mailing do posłów
+                                        </div>
+                                        <div class="col-xs-12 mailElement">
+                                            <div class="form-group margin-top-10">
+                                                <label for="target">Do</label>
+                                                <select id="target" name="mailing_target" class="form-control">
+                                                    <option>Posłowie</option>
+                                                    <option>Senatorowie</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group margin-top-10">
+                                                <label for="dzialanieOpis">Szablon</label>
+                                                <textarea maxlength="16383" class="form-control tinymce" name="mail_template"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <? } ?>
 	                </div>
                 </div>
             </section>
