@@ -373,6 +373,9 @@ class KrsPodmiotyController extends DataobjectsController
     }
 
     public function dodaj_dzialanie() {
+        
+        $this->request->params['action'] = 'dzialania';
+        
         $this->addInitLayers(array('dzialania_nowe'));
         $this->_prepareView();
 

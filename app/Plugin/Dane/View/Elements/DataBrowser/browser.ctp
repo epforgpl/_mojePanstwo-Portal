@@ -125,6 +125,7 @@ $columns = isset($columns) ? $columns : array(8, 4);
             </div>
             <? if ($displayAggs && !empty($dataBrowser['aggs'])) { ?>
                 <div class="col-md-<?= $columns[1] ?>">
+	                <? if( isset($sideElement) ) echo $this->Element($sideElement) ?>
                     <? echo $this->Element('Dane.DataBrowser/aggs', array('data' => $dataBrowser)); ?>
                 </div>
             <? } ?>

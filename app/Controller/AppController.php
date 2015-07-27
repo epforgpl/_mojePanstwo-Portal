@@ -508,9 +508,7 @@ class AppController extends Controller
                 }
 				
 				$_id = strtolower($this->request->params['plugin'] . '.' . $this->request->params['controller']);
-				
-				// debug($_id); die();
-							
+											
 				$cross_domain = (
 					stripos($_SERVER['REQUEST_URI'], '/cross-domain-') === 0 or 
 					stripos($_SERVER['REQUEST_URI'], '/login') === 0 or 
@@ -520,6 +518,7 @@ class AppController extends Controller
 				if( 
 					!in_array($_id, array(
 						'dane.gminy',
+						'dane.highstock_browser',
 						'powiadomienia.powiadomienia',
 						'subscriptions.subscriptions',
 						'pisma.pisma',

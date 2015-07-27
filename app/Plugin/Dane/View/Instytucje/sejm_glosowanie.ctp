@@ -3,7 +3,6 @@
 $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('sejm-glosowanie', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.sejm-glosowanie');
-$this->Combinator->add_libs('js', 'jquery.sticky');
 
 echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',

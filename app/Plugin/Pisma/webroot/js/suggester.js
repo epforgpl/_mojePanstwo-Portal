@@ -68,12 +68,18 @@
                     }
                 },
                 open: function () {
-                    var $ui = $('#ui-id-' + index);
+                    var uiIndex = index + 1,
+                        $ui = $('#ui-id-' + uiIndex);
 
                     $ui.css({
                         'margin-top': Math.floor((suggesterInput.offset().top + suggesterInput.outerHeight()) - parseInt($ui.css('top'), 10) - parseInt($ui.css('border-bottom-left-radius'), 10)) + 'px',
                         'width': suggesterInput.outerWidth() - 2,
                         'left': parseInt($ui.css('left'), 10) + 1 + 'px'
+                    });
+
+                    $ui.find('.row ._title').each(function () {
+                        var that = $(this);
+                        that.css('height', that.find('>span').height());
                     });
                     suggesterInput.addClass('open');
                     suggesterInput.removeClass('loader');
@@ -131,9 +137,9 @@
                         'data-subdataset': item.subdataset
                     }).append(
                         $('<a></a>').attr({'href': "#", 'onclick': 'return false;'}).append(
-                            $('<div></div>').addClass('col-xs-2 col-md-1 _label').append(image)
+                            $('<div></div>').addClass('col-xs-1 _label').append(image)
                         ).append(
-                            $('<div></div>').addClass('col-xs-10 col-md-11 _title').append(title)
+                            $('<div></div>').addClass('col-xs-9 col-sm-10 col-md-11 _title').append(title)
                         )
                     ).appendTo(ul);
                 }

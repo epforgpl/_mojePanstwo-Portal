@@ -114,7 +114,7 @@ class DataobjectsController extends AppController
                     ($this->domainMode == 'MP') &&
                     (
                         !isset($this->request->params['ext']) ||
-                        !in_array($this->request->params['ext'], array('json'))
+                        !in_array($this->request->params['ext'], array('json', 'html'))
                     ) &&
                     !$slug &&
                     $this->object->getSlug() &&

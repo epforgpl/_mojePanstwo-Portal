@@ -34,11 +34,42 @@ class Sejm_druki extends DocDataObject
     
     public function getMetaDescriptionParts($preset = false)
 	{
-		return array(
-			dataSlownie($this->getDate()),
-			$this->getData('sejm_druki.autorzy_str'),
+		
+		$output = array(
+			dataSlownie( $this->getDate() ),
 		);
 		
+		$static = $this->getStatic();
+		
+		if( isset($static['tresc']) && !empty($static['tresc']) )
+			$output[] = $static['tresc'];
+		
+		return $output;
+		
+	}
+	
+	public function getUrl() {
+		
+		return '/dane/instytucje/3214/druki/' . $this->getId() . ',' . $this->getSlug();
+		
+	}
+	
+	public function getThumbnailUrl($size = '2')
+    {
+        $dokument_id = $this->getData('dokument_id');
+        return $dokument_id ? 'http://docs.sejmometr.pl/thumb/' . $size . '/' . $dokument_id . '.png' : false;
+    }
+	
+	public function getBreadcrumbs()
+	{
+							
+		return array(
+			array(
+				'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/druki',
+				'label' => 'Druki sejmowe',
+			),
+		);
+				
 	}
 
 }

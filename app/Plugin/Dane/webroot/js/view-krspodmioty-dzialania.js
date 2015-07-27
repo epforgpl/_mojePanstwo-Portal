@@ -210,7 +210,7 @@ $(document).ready(function () {
         + "iframe[src|title|width|height|allowfullscreen|frameborder]"
     });
 
-        cropItErrorMsg = function () {
+        cropItErrorMsg = function (error) {
             if (mPHeart.language.twoDig == 'pl') {
                 if (error.code === 0) {
                     error.message = 'Błąd ładowowania zdjęcia - proszę spróbować inne.'
@@ -224,16 +224,16 @@ $(document).ready(function () {
             } else {
                 imageAlert = $('<div></div>').addClass('alert alert-danger').text(error.message);
 
-                el.find('.image-editor').prepend(
+                /*el.find('.image-editor').prepend(
                     imageAlert.slideDown()
-                );
+                );*/
             }
         };
 
 
     if (imageEditor.length) {
-        var imageWidth = 874,
-            imageHeight = 347,
+        var imageWidth = 810,
+            imageHeight = 320,
             imgEditorWidth = imageEditor.width(),
             imgEditorHeight = imageHeight * (imageEditor.width() / imageWidth),
             exportZoom = imageWidth / imageEditor.width(),
@@ -334,6 +334,9 @@ $(document).ready(function () {
         $('.tags input.tagit').tagit({
             allowSpaces: true,
             removeConfirmation: true,
+            beforeTagAdded: function(event, ui) {
+                return (ui.tagLabel.length >= 2);
+            },
             autocomplete: {
                 source: function( request, response ) {
                     $.getJSON("/dane/suggest.json?q=" + request.term + "&dataset[]=tematy", function(res) {

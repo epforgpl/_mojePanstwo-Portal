@@ -4,7 +4,7 @@ class HighstockBrowserController extends AppController {
 	public $uses = array('Dane.Dataobject');
 	
 	public function aggs() {
-		
+				
 		$date_min = isset( $this->request->query['request']['date_min'] ) ? $this->request->query['request']['date_min'] : '*';
 		$date_max = isset( $this->request->query['request']['date_max'] ) ? $this->request->query['request']['date_max'] : '*';
 		

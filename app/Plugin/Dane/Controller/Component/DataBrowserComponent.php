@@ -965,26 +965,27 @@ class DataBrowserComponent extends Component
                 'aggs' => array(
                     'label' => array(
                         'terms' => array(
-                            'field' => 'data.sejm_druki.druk_typ_nazwa',
+                            'field' => 'sejm_druki_typy.nazwa',
                         ),
                     ),
                 ),
                 'visual' => array(
                     'label' => 'Typy druków',
-                    'skin' => 'pie_chart',
-                    'field' => 'sejm_druki.typ_id'
-                ),
-            ),
-            'date' => array(
-                'date_histogram' => array(
-                    'field' => 'sejm_druki.data',
-                    'interval' => 'year',
-                    'format' => 'yyyy-MM-dd',
-                ),
-                'visual' => array(
-                    'label' => 'Liczba druków w czasie',
-                    'skin' => 'date_histogram',
-                    'field' => 'sejm_druki.data'
+                    'skin' => 'list',
+                    'field' => 'sejm_druki.typ_id',
+                    'dictionary' => array(
+                        '1' => 'Projekty ustaw',
+                        '2' => 'Projekty uchwał',
+                        '3' => 'Wnioski',
+                        '5' => 'Powołania na stanowiska',
+                        '6' => 'Zawiadomienia o ratyfikacji umów',
+                        '7' => 'Sprawozdania komisji',
+                        '8' => 'Stanowiska Senatu',
+                        '9' => 'Dodatkowe sprawozdania komisji',
+                        '10' => 'Autopoprawki',
+                        '11' => 'Sprawozdania kontrolne',
+                        '12' => 'Inne',
+                    ),
                 ),
             ),
         ),
