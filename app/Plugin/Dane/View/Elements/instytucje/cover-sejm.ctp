@@ -19,7 +19,7 @@ $options = array(
 
     <div class="blocks">
 		
-	    <?
+	    <? /* 
 	    if ( $doc = @$dataBrowser['aggs']['all']['sejm_posiedzenia']['top']['hits']['hits'][0]['fields']['source'][0] ) { 
         ?>
             <div class="block block-simple block-size-sm col-xs-12">
@@ -32,7 +32,7 @@ $options = array(
                 )) ?>
                 
             </div>
-        <? } ?>
+        <? } */ ?>
         
 
 		<? if (@$dataBrowser['aggs']['all']['prawo_projekty']['top']['hits']['hits']) { ?>
