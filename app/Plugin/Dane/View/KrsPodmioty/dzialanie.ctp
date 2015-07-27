@@ -69,7 +69,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialanie');
 
                         <div class="mailing start naszrzecznik">
 
-                            <form class="letter form-horizontal" action="/pisma" method="post">
+                            <form target="_blank" class="letter form-horizontal" action="/pisma" method="post">
 
                                 <h2 class="text-center">Znajdź swojego posła i wyślij pismo teraz!</h2>
                                 <input type="hidden" name="szablon_id" value="<?= $mailing['pismo_szablon_id'] ?>"/>

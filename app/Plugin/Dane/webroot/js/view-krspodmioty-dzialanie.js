@@ -63,7 +63,7 @@ WybierzPoslaModal.prototype.initialize = function() {
                 var index = parseInt($(this).attr('data-index'));
                 var row = _this.res.Dataobject[index];
                 var url = '/pisma';
-                var form = $('<form action="' + url + '" method="post">' +
+                var form = $('<form target="_blank" action="' + url + '" method="post">' +
                 '<input type="text" name="adresat_id" value="poslowie:' + row.id + '" />' +
                 '<input type="text" name="szablon_id" value="75" />' +
                 '</form>');
