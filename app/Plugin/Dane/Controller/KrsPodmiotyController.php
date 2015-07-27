@@ -308,6 +308,11 @@ class KrsPodmiotyController extends DataobjectsController
                                             'data.dzialania.object_id' => $this->request->params['id'],
                                         ),
                                     ),
+                                    array(
+                                        'term' => array(
+                                            'data.dzialania.status' => 1,
+                                        ),
+                                    ),
                                 ),
                             ),
                         ),
@@ -641,7 +646,6 @@ class KrsPodmiotyController extends DataobjectsController
             'base' => $this->object->getUrl(),
         );        
 		
-		/*
         if(
         	@$this->object_aggs['all']['dzialania']['doc_count'] || 
         	$this->_canEdit()
@@ -652,7 +656,6 @@ class KrsPodmiotyController extends DataobjectsController
                 'count' => $this->object_aggs['all']['dzialania']['doc_count'],
             );
         }
-        */
         
         if (@$this->object_aggs['all']['zamowienia']['doc_count']) {
             $menu['items'][] = array(

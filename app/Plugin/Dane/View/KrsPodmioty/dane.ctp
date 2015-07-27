@@ -22,10 +22,10 @@ $description =
             <div class="col-md-9 objectMain">
                 <div class="row">
                     <div class="col-xs-12">
-                        <p class="margin-top-10">Poinformuj innych o działaniach swojej organizacji. Informacje o działaniach będą widoczne na stronie profilowej Twojej organizacji, a także będą pojawiały się przy wynikach wyszukiwania na portalu mojePaństwo.</p>
+                        <p class="margin-top-10">Dodaj opis misji swojej organizacji, który będzie się pojawiał na jej profilu.</p>
                         <input type="hidden" name="_action" value="save_edit_data_form"/>
-                        <div class="form-group">
-                            <label for="descriptionTextArea">Misja</label>
+                        <div class="form-group margin-top-20">
+                            <? /*<label for="descriptionTextArea">Misja</label> */ ?>
                             <textarea name="description" id="descriptionTextArea" class="form-control"><?= $description ?></textarea>
                         </div>
                     </div>
