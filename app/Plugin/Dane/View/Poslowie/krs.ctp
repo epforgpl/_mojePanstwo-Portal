@@ -1,6 +1,6 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('view-poslowie', array('plugin' => 'Dane')));
-$this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane')));
+//$this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.view-poslowie.js');
 
 echo $this->Element('dataobject/pageBegin');

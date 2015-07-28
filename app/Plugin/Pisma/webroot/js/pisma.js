@@ -408,7 +408,7 @@ var PISMA = Class.extend({
                         });
                     } else {
                         if (that.attr('class').split(" ").length === 1) {
-                            that.html('<br type="_editor">');
+                            //that.html('<br type="_editor">');
                         }
                     }
                 }
@@ -463,7 +463,7 @@ var PISMA = Class.extend({
                         if (self.objects.adresaci) {
                             that.html(self.objects.adresaci.title);
                         } else {
-                            that.html('<br type="_editor">');
+                            //that.html('<br type="_editor">');
                         }
                     }
                 });
@@ -563,6 +563,8 @@ var PISMA = Class.extend({
             self.html.stepper_div.find('.edit .col-md-10').find("textarea:not('.hide')").each(function (idx) {
                 $(preview.find("textarea").eq(idx)).replaceWith('<div class="pre">' + $(this).val().replace(/\n/g, '<br/>') + '</div>');
             });
+
+            preview.find('span:not([class]),div:not([class])').contents().unwrap();
 
             preview.append(
                 $('<textarea></textarea>').attr({name: 'tresc_html'}).val($.trim(preview.find('#editor').html()))

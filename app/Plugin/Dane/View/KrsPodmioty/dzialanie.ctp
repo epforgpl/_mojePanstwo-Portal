@@ -1,7 +1,7 @@
 <?
 echo $this->Element('dataobject/pageBegin');
 
-$this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane')));
+////$this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-dzialania', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
@@ -64,8 +64,25 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 			                    	return '';
 			                    			                    			                    
 		                    }, $output);
-		                    		                  
-		                    // $output = nl2br($output);
+
+                            $output = preg_replace_callback('/\{\$mailing_button (.*?)\}/i', function($matches){
+
+                                $label = 'Wyślij pismo do posła teraz!';
+
+                                preg_match_all('/(.*?)\=\"(.*?)\"/i', $matches[1], $m);
+                                for( $i=0; $i<count($m[0]); $i++ ) {
+                                    if( ($m[1][$i]=='label') && isset($m[2][$i]) )
+                                        $label = $m[2][$i];
+                                }
+
+                                return '<div class="text-center margin-top-10">
+                                                <div class="btn mailingBtn auto-width btn-md btn-primary btn-icon">
+                                                    <i class="icon glyphicon glyphicon-envelope"></i>
+                                                    ' . $label . '
+                                                </div>
+                                            </div>';
+
+                            }, $output);
 		                    
 		                    echo $output;
 		                ?>
@@ -86,7 +103,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 	
 	                            <form target="_blank" class="letter form-horizontal" action="/pisma" method="post">
 	
-	                                <h2 class="text-center">Znajdź swojego posła i wyślij pismo teraz!</h2>
+	                                <h2 class="text-center">Znajdź swojego <? echo $mailing['target'] == '0' ? 'posła' : 'senatora' ?> i wyślij pismo teraz!</h2>
 	                                <input type="hidden" name="szablon_id" value="<?= $mailing['pismo_szablon_id'] ?>"/>
 	
 	                                <fieldset>
@@ -95,10 +112,9 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 	
 	                                        <div class="col-lg-9">
 	                                            <div class="suggesterBlockPisma">
-	                                                <?= $this->Element('Pisma.searcher', array('q' => '', 'dataset' => 'pisma_adresaci-aktywni_poslowie', 'placeholder' => 'Zacznij pisać aby znaleźć adresata...')) ?>
+	                                                <?= $this->Element('Pisma.searcher', array('q' => '', 'dataset' => 'pisma_adresaci-aktywni_' . $mailing['target'] == '0' ? 'poslowie' : 'senatorowie', 'placeholder' => 'Zacznij pisać aby znaleźć adresata...')) ?>
 	                                            </div>
-	                                            <span
-	                                                class="help-block">Na podstawie wybranego posła, uzupełnimy dane teleadresowe w Twoim piśmie.</span>
+	                                            <span class="help-block">Na podstawie wybranego <? echo $mailing['target'] == '0' ? 'posła' : 'senatora' ?>, uzupełnimy dane teleadresowe w Twoim piśmie.</span>
 	                                        </div>
 	
 	                                        <input type="hidden" name="adresat_id"<?php if (!empty($pismo['adresat_id'])) {
@@ -117,15 +133,17 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 	                                        </div>
 	                                    </div>
 	                                </fieldset>
-	
-	                                <h2 class="text-center">Nie wiesz kto jest Twoim posłem?</h2>
-	
-	                                <p class="help-block text-center"><a href="#" id="localizeMe">Zlokalizuj się</a> lub wskaż
-	                                    na mapie miejsce zamieszkania:</p>
-	
-	                                <div class="row">
-	                                    <div id="map"></div>
-	                                </div>
+
+                                    <? if($mailing['target'] == '0') { ?>
+                                        <h2 class="text-center">Nie wiesz kto jest Twoim posłem?</h2>
+
+                                        <p class="help-block text-center"><a href="#" id="localizeMe">Zlokalizuj się</a> lub wskaż
+                                            na mapie miejsce zamieszkania:</p>
+
+                                        <div class="row">
+                                            <div id="map"></div>
+                                        </div>
+                                    <? } ?>
 	
 	                            </form>
 	
