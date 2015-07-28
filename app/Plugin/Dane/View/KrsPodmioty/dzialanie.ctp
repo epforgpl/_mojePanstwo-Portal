@@ -112,7 +112,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 	
 	                                        <div class="col-lg-9">
 	                                            <div class="suggesterBlockPisma">
-	                                                <?= $this->Element('Pisma.searcher', array('q' => '', 'dataset' => 'pisma_adresaci-aktywni_poslowie', 'placeholder' => 'Zacznij pisać aby znaleźć adresata...')) ?>
+	                                                <?= $this->Element('Pisma.searcher', array('q' => '', 'dataset' => 'pisma_adresaci-aktywni_' . $mailing['target'] == '0' ? 'poslowie' : 'senatorowie', 'placeholder' => 'Zacznij pisać aby znaleźć adresata...')) ?>
 	                                            </div>
 	                                            <span class="help-block">Na podstawie wybranego <? echo $mailing['target'] == '0' ? 'posła' : 'senatora' ?>, uzupełnimy dane teleadresowe w Twoim piśmie.</span>
 	                                        </div>
