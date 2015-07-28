@@ -168,6 +168,7 @@ $(document).ready(function () {
         imageEditor = objectMain.find('.image-editor'),
         imageAlert = imageEditor.find('.alert.alert-danger'),
         imageChoosed = imageEditor.find('input[name="cover_photo"]'),
+        mailBlock = $('.mailBlock'),
         googleBtn = $('.googleBtn'),
         googleLocMeBtn = $('#loc'),
         googleMapBlock = $('.googleMapElement'),
@@ -177,11 +178,12 @@ $(document).ready(function () {
         opis = $('#dzialanieOpis');
 
     tinymce.init({
-        selector: "#dzialanieOpis",
         language : 'pl',
-        plugins: "media image",
-        menubar: "edit format insert",
+        plugins: "media image link code",
+        menubar: "edit format insert tools",
         statusbar : false,
+        inline_styles: false,
+        selector: "textarea.tinymce",
         content_css: [
             "/libs/bootstrap/3.3.4/css/bootstrap.min.css",
             "/css/main.css"
@@ -329,27 +331,58 @@ $(document).ready(function () {
         window.location = '/dane/' + dataset + '/' + object_id;
     });
 
+    if(mailBlock.length) {
+
+        var mailBtn = $('.mailBtn'),
+            mailElement = $('.mailElement');
+
+        mailBtn.click(function() {
+            mailElement.slideToggle();
+        });
+
+    }
+
     /* Tags autocomplete input */
     $(function() {
-        $('.tags input.tagit').tagit({
-            allowSpaces: true,
-            removeConfirmation: true,
-            beforeTagAdded: function(event, ui) {
-                return (ui.tagLabel.length >= 2);
-            },
-            autocomplete: {
-                source: function( request, response ) {
-                    $.getJSON("/dane/suggest.json?q=" + request.term + "&dataset[]=tematy", function(res) {
-                        var data = [];
-                        for(var i = 0; i < res.options.length; i++)
-                            data.push(res.options[i].text);
-
-                        response(data);
-                    });
-                },
-                minLength: 1
-            }
-        });
+        
+        var elements = $('.tags input.tagit');
+        for( var i=0; i<elements.length; i++ ) {
+        
+        	var el = $(elements[i]);
+        	
+	        el.tagit({
+	            allowSpaces: true,
+	            removeConfirmation: true,
+	            beforeTagAdded: function(event, ui) {
+	                
+	                if( ui.duringInitialization )
+	                	return false;
+	                
+	                console.log('beforeTagAdded');
+	                return (ui.tagLabel.length >= 2);
+	            },
+	            autocomplete: {
+	                source: function( request, response ) {
+	                    $.getJSON("/dane/suggest.json?q=" + request.term + "&dataset[]=tematy", function(res) {
+	                        var data = [];
+	                        for(var i = 0; i < res.options.length; i++)
+	                            data.push(res.options[i].text);
+	
+	                        response(data);
+	                    });
+	                },
+	                minLength: 1
+	            }
+	        }).tagit('removeAll');
+	        
+	        var data = el.data('value');
+	        if( data && data.length ) {
+		        for( var j=0; j<data.length; j++ ) {
+			        el.tagit('createTag', data[j]);
+		        }
+	        }
+        
+        }
     });
 
     $('.sticky').sticky();

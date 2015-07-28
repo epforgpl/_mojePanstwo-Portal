@@ -400,11 +400,61 @@ class KrsPodmiotyController extends DataobjectsController
                 'conditions' => array(
                     'dataset' => 'dzialania',
                     'id' => $id
-                )
+                ),
+                'layers' => array(
+                    'features'
+                ),
+                'aggs' => array(
+	                'tags' => array(
+		                'nested' => array(
+			                'path' => 'tags',
+		                ),
+		                'aggs' => array(
+			                'id' => array(
+				                'terms' => array(
+					                'field' => 'tags.id',
+				                ),
+				                'aggs' => array(
+					                'label' => array(
+						                'terms' => array(
+							                'field' => 'tags.label',
+						                ),
+					                ),
+				                ),
+			                ),
+		                ),
+	                ),
+                ),
             ));
+            
+            $aggs = $this->Dataobject->getAggs();
+            $tags = array();
+            
+            if( @isset( $aggs['tags']['id']['buckets'] ) ) {
+	            foreach( $aggs['tags']['id']['buckets'] as $b ) {        
+		            if(
+			            ( $id = @$b['key'] ) && 
+			            ( $label = @$b['label']['buckets'][0]['key'] )
+		            ) {
+		            
+		            	$tags[] = array(
+			            	'id' => $id,
+			            	'label' => $label,
+		            	);
+		            
+		            }
+		        }
+		    }		
+            
+            $this->set('dzialanie_tags', $tags);
 
             if (!$dzialanie)
                 throw new NotFoundException;
+
+            if($features = $dzialanie->getLayer('features')) {
+                $this->loadModel('Sejmometr.Sejmometr');
+                $this->set('okregi', $this->Sejmometr->okregi());
+            }
             
             $this->set('dzialanie', $dzialanie);
 
@@ -442,6 +492,7 @@ class KrsPodmiotyController extends DataobjectsController
 	                'dzialania.object_id' => $this->object->getId(),
 	            ),
 	            'aggsPreset' => 'dzialania_admin',
+	            'searchTitle' => 'Szukaj w działaniach...',
 	        ));
 	
 	        $this->set('title_for_layout', 'Działania ' . $this->object->getData('nazwa'));

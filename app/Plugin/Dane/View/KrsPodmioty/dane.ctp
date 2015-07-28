@@ -19,9 +19,10 @@ $description =
     <div class="krsPodmioty row margin-top-10">
 
         <form action="<?= $object->getUrl(); ?>.json" method="post">
-            
-            <p class="margin-top-10">Dodaj opis misji swojej organizacji, który będzie się pojawiał na jej profilu.</p><input type="hidden" name="_action" value="save_edit_data_form"/>
-            
+
+            <p class="margin-top-10">Dodaj opis misji swojej organizacji, który będzie się pojawiał na jej profilu.</p>
+            <input type="hidden" name="_action" value="save_edit_data_form"/>
+
             <div class="row">
 	            <div class="col-md-9 objectMain">
 	                <div class="row">
