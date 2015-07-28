@@ -29,7 +29,9 @@ if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object
         <div class="container">
             <? if ($pageLayer['logo']) { ?>
                 <div class="logoBox">
-                    <img src="http://sds.tiktalik.com/portal/pages/logo/<?= $dataset ?>/<?= $object_id ?>.png"/>
+                    <a href="<?= $object->getUrl() ?>">
+                        <img src="http://sds.tiktalik.com/portal/pages/logo/<?= $dataset ?>/<?= $object_id ?>.png"/>
+                    </a>
                 </div>
             <? } ?>
             <div class="holder row">
