@@ -1,7 +1,7 @@
 <?
 echo $this->Element('dataobject/pageBegin');
 
-$this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane')));
+////$this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-dzialania', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
@@ -64,8 +64,25 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 			                    	return '';
 			                    			                    			                    
 		                    }, $output);
-		                    		                  
-		                    // $output = nl2br($output);
+
+                            $output = preg_replace_callback('/\{\$mailing_button (.*?)\}/i', function($matches){
+
+                                $label = 'Wyślij pismo do posła teraz!';
+
+                                preg_match_all('/(.*?)\=\"(.*?)\"/i', $matches[1], $m);
+                                for( $i=0; $i<count($m[0]); $i++ ) {
+                                    if( ($m[1][$i]=='label') && isset($m[2][$i]) )
+                                        $label = $m[2][$i];
+                                }
+
+                                return '<div class="text-center margin-top-10">
+                                                <div class="btn mailingBtn auto-width btn-md btn-primary btn-icon">
+                                                    <i class="icon glyphicon glyphicon-envelope"></i>
+                                                    ' . $label . '
+                                                </div>
+                                            </div>';
+
+                            }, $output);
 		                    
 		                    echo $output;
 		                ?>

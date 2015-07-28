@@ -109,14 +109,14 @@
             }
             var f = this;
             s.loading.start = s.loading.start || function () {
-                e(s.navSelector).hide();
-                s.loading.msg.appendTo(s.loading.selector).show(s.loading.speed, e.proxy(function () {
-                    this.beginAjax(s)
-                }, f))
-            };
+                    e(s.navSelector).hide();
+                    s.loading.msg.appendTo(s.loading.selector).show(s.loading.speed, e.proxy(function () {
+                        this.beginAjax(s)
+                    }, f))
+                };
             s.loading.finished = s.loading.finished || function () {
-                if (!s.state.isBeyondMaxPage)s.loading.msg.fadeOut(s.loading.speed)
-            };
+                    if (!s.state.isBeyondMaxPage)s.loading.msg.fadeOut(s.loading.speed)
+                };
             s.callback = function (n, r, u) {
                 if (!!s.behavior && n["_callback_" + s.behavior] !== t) {
                     n["_callback_" + s.behavior].call(e(s.contentSelector)[0], r, u)
@@ -590,7 +590,7 @@ $(function () {
                 d.close();
 
                 $.get("/docs/" + documentId + ".json", function (packages) {
-                    var loadMoreDocumentContent = '<div class="loadMoreDocumentContent ' + ((packages["Document"]["packages_count"] > 1) ? "show" : "hide") + '"></div>',
+                    var loadMoreDocumentContent = '<div class="loadMoreDocumentContent ' + ((packages["Document"]["packages_count"] > 1) ? "show" : "hide") + '"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>',
                         modalContent = '<div id="_main"><div class="objectsPage"><div class="objectsPageContent"><div class="htmlexDoc" data-document-id="' + packages["Document"]["id"] + '" data-pages="' + packages["Document"]["pages_count"] + '" data-current-package="1" data-packages="' + packages["Document"]["packages_count"] + '">' +
                             '<div id="docsToolbar"><div class="toolbarSticker"><div class="toolbarActions"><div class="docPages form-group">' +
                             '<span class="control-label">Strona</span><input type="text" name="document_page" value="1" class="form-control"autocomplete="off" />' +
@@ -601,14 +601,14 @@ $(function () {
                         modalContent += '<div class="docPagesAll"><span>Ładowanie dokumentu</span><a href="#">Załaduj cały dokument</a></div>';
 
                     modalContent += '<div class="docDownload"><a class="btn btn-default" href="/docs/' + packages["Document"]["id"] + '/download">Pobierz dokument</a></div></div></div></div>' +
-                    '<div class="document"><div class="canvas">' +
-                    packages['Package'] +
-                    '</div>' +
-                    loadMoreDocumentContent +
-                    '</div></div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>';
+                        '<div class="document"><div class="canvas">' +
+                        packages['Package'] +
+                        '</div>' +
+                        loadMoreDocumentContent +
+                        '</div></div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>';
 
                     d.body.innerHTML = modalContent;
                 });
