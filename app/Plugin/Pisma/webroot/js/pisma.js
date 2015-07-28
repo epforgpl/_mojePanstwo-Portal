@@ -564,13 +564,15 @@ var PISMA = Class.extend({
                 $(preview.find("textarea").eq(idx)).replaceWith('<div class="pre">' + $(this).val().replace(/\n/g, '<br/>') + '</div>');
             });
 
+            preview.find('span:not([class]),div:not([class])').contents().unwrap();
+
             preview.append(
                 $('<textarea></textarea>').attr({name: 'tresc_html'}).val($.trim(preview.find('#editor').html()))
             );
 
             preview
-                //.find('br[type="_editor"]').remove()
-                //.end()
+                .find('br[type="_editor"]').remove()
+                .end()
                 .find('.mirror').remove()
                 .end()
                 .find('.editable').each(function () {
