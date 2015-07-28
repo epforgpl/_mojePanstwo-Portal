@@ -55,7 +55,7 @@ echo $this->Element('dataobject/pageBegin'); ?>
 	
 	<div class="row">
 	    <div class="col-md-9">
-	        <div class="block block-simple col-xs-12 dzialanie">
+	        <div class="block block-simple col-xs-12 dzialanie objectMain">
 	
 	            <section>
 		            <div class="row">
