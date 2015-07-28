@@ -266,4 +266,10 @@ $(document).ready(function () {
         });
         return false;
     });
+
+    $('.mailingBtn').click(function() {
+        $('html, body').animate({
+            scrollTop: $(".mailing.start").offset().top
+        }, 1000);
+    });
 });
