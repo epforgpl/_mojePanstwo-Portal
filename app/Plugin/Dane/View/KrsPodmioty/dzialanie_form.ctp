@@ -23,14 +23,15 @@ echo $this->Element('dataobject/pageBegin'); ?>
 
 <form class="dzialanie" action="<?= $object->getUrl(); ?>.json" method="post">
     <input type="hidden" name="_action" value="<?= $edit ? 'edit_activity' : 'add_activity'; ?>"/>
-	
+
 	<div class="row">
 		<div class="col-md-12">
 			
 			<? if( $edit ) {?>
-            <header><h1><a href="<?= $dzialanie->getUrl() ?>"><?= $dzialanie->getData('tytul'); ?></a></h1></header>
-			<? } else {?>
-            <header>Dodaj nowe działanie organizacji!</header>
+                <header><h1><a href="<?= $dzialanie->getUrl() ?>"><?= $dzialanie->getData('tytul'); ?></a></h1></header>
+                <input type="hidden" name="id" value="<?= $dzialanie->getId() ?>"/>
+            <? } else {?>
+                <header>Dodaj nowe działanie organizacji!</header>
 			<? } ?>
 			
             <div class="row sub-header">
