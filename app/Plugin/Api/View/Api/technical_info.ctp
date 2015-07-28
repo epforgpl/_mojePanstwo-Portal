@@ -101,7 +101,7 @@
                         jak i generowania klientów w wielu językach.</p>
 
                     <p>Swagger-spec w wersji 2.0 dostępny jest pod adresem <a
-                            href="https://api-v3.mojepanstwo.pl/swagger.json"><code>https://api-v2.mojepanstwo.pl/swagger.json</code></a>.
+                            href="https://api-v3.mojepanstwo.pl/swagger.json"><code>https://api-v3.mojepanstwo.pl/swagger.json</code></a>.
                         Propozycje zmian w API przyjmujemy jako pull-requesty ze zmianami <a href="https://github.com/epforgpl/_mojePanstwo-API-Server/blob/master/app/webroot/swagger.json">w tym pliku</a> (do edycji zalecamy użycie <a href="http://editor.swagger.io/">Swagger Editor</a>).
                     </p>
 
