@@ -27,16 +27,22 @@ echo $this->Element('dataobject/pageBegin'); ?>
 	<div class="row">
 		<div class="col-md-12">
 			
+			<? if( $edit ) {?>
             <header><h1><a href="<?= $dzialanie->getUrl() ?>"><?= $dzialanie->getData('tytul'); ?></a></h1></header>
-
+			<? } else {?>
+            <header>Dodaj nowe działanie organizacji!</header>
+			<? } ?>
+			
             <div class="row sub-header">
                 <div class="col-sm-6">
+                    <? if( $edit ) {?>
                     <span class="date">
                         <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                         <?= $this->Czas->dataSlownie(
                             $dzialanie->getData('data_utworzenia')
                         ); ?>
                     </span>
+                    <? } ?>
                 </div>
                 <div class="col-sm-6">
                     <div class="share pull-right"></div>
