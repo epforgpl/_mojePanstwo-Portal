@@ -225,7 +225,7 @@ var BDLapp = function () {
                 if (bdlBlock.length)
                     bdlBlock.replaceWith(html);
                 else
-                    $(html).appendTo('#_main');
+                    $(html).appendTo('#_main .objectsPage .objectsPageWindow .objectsPageContent');
 
                 self.itemInit();
             }
