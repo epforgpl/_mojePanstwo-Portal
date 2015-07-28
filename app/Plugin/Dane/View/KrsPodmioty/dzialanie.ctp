@@ -46,7 +46,30 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialanie');
 	                <? } ?>
 	
 	                <div class="opis">
-	                    <?= nl2br($dzialanie->getData('opis')); ?>
+	                    <?
+		                    $output = $dzialanie->getData('opis');
+		                    $output = preg_replace_callback('/\{\$dokument (.*?)\}/i', function($matches){
+			                    
+			                    $dokument_id = false;
+			                    preg_match_all('/(.*?)\=\"(.*?)\"/i', $matches[1], $m);
+			                    for( $i=0; $i<count($m[0]); $i++ ) {
+				                    
+				                    if( ($m[1][$i]=='id') && is_numeric($m[2][$i]) )
+				                    	$dokument_id = $m[2][$i];
+				                    
+			                    }
+			                    
+			                    if( $dokument_id )
+			                    	return $this->Document->place($dokument_id);
+			                    else
+			                    	return '';
+			                    			                    			                    
+		                    }, $output);
+		                    		                  
+		                    // $output = nl2br($output);
+		                    
+		                    echo $output;
+		                ?>
 	                </div>
 	
 	                <? if($features = $dzialanie->getLayer('features')) { ?>
