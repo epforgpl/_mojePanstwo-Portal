@@ -103,7 +103,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 	
 	                            <form target="_blank" class="letter form-horizontal" action="/pisma" method="post">
 	
-	                                <h2 class="text-center">Znajdź swojego posła i wyślij pismo teraz!</h2>
+	                                <h2 class="text-center">Znajdź swojego <? echo $mailing['target'] == '0' ? 'posła' : 'senatora' ?> i wyślij pismo teraz!</h2>
 	                                <input type="hidden" name="szablon_id" value="<?= $mailing['pismo_szablon_id'] ?>"/>
 	
 	                                <fieldset>
@@ -114,8 +114,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 	                                            <div class="suggesterBlockPisma">
 	                                                <?= $this->Element('Pisma.searcher', array('q' => '', 'dataset' => 'pisma_adresaci-aktywni_poslowie', 'placeholder' => 'Zacznij pisać aby znaleźć adresata...')) ?>
 	                                            </div>
-	                                            <span
-	                                                class="help-block">Na podstawie wybranego posła, uzupełnimy dane teleadresowe w Twoim piśmie.</span>
+	                                            <span class="help-block">Na podstawie wybranego <? echo $mailing['target'] == '0' ? 'posła' : 'senatora' ?>, uzupełnimy dane teleadresowe w Twoim piśmie.</span>
 	                                        </div>
 	
 	                                        <input type="hidden" name="adresat_id"<?php if (!empty($pismo['adresat_id'])) {
@@ -134,15 +133,17 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 	                                        </div>
 	                                    </div>
 	                                </fieldset>
-	
-	                                <h2 class="text-center">Nie wiesz kto jest Twoim posłem?</h2>
-	
-	                                <p class="help-block text-center"><a href="#" id="localizeMe">Zlokalizuj się</a> lub wskaż
-	                                    na mapie miejsce zamieszkania:</p>
-	
-	                                <div class="row">
-	                                    <div id="map"></div>
-	                                </div>
+
+                                    <? if($mailing['target'] == '0') { ?>
+                                        <h2 class="text-center">Nie wiesz kto jest Twoim posłem?</h2>
+
+                                        <p class="help-block text-center"><a href="#" id="localizeMe">Zlokalizuj się</a> lub wskaż
+                                            na mapie miejsce zamieszkania:</p>
+
+                                        <div class="row">
+                                            <div id="map"></div>
+                                        </div>
+                                    <? } ?>
 	
 	                            </form>
 	
