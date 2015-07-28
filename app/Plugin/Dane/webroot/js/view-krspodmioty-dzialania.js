@@ -217,18 +217,14 @@ $(document).ready(function () {
                 if (error.code === 0) {
                     error.message = 'Błąd ładowowania zdjęcia - proszę spróbować inne.'
                 } else if (error.code === 1) {
-                    error.message = 'Zdjęcie nie spełnia zalecanej wielkości.'
+                    error.message = 'Zdjęcie nie spełnia zalecanej wielkości (min. 810x320px)'
                 }
             }
 
             if (alert.length) {
-                alert.text(error.message);
+                alert(error.message);
             } else {
-                imageAlert = $('<div></div>').addClass('alert alert-danger').text(error.message);
-
-                /*el.find('.image-editor').prepend(
-                    imageAlert.slideDown()
-                );*/
+                alert(error.message);
             }
         };
 
