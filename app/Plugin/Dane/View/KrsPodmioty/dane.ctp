@@ -20,21 +20,20 @@ $description =
 
         <form action="<?= $object->getUrl(); ?>.json" method="post">
 
-            <p class="margin-top-10">Napisz w kilku zdaniach na czym polega misja Twojej organizacji. Ten tekst będzie widoczny na pierwszej stronie jej profilu.</p>
+            <p class="margin-top-10">Dodaj opis misji swojej organizacji, który będzie się pojawiał na jej profilu.</p>
             <input type="hidden" name="_action" value="save_edit_data_form"/>
 
-
             <div class="row">
-                <div class="col-md-9 objectMain">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="form-group">
-                                <label for="descriptionTextArea">Misja</label>
-                                <textarea name="description" id="descriptionTextArea" class="form-control"><?= $description ?></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+	            <div class="col-md-9 objectMain">
+	                <div class="row">
+	                    <div class="col-xs-12">
+	                        <div class="form-group margin-top-20">
+	                            <textarea name="description" id="descriptionTextArea" class="form-control"><?= $description ?></textarea>
+	
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
                 <div class="col-md-3">
                     <div class="sticky margin-top-15">
                         <div class="row">
@@ -53,7 +52,7 @@ $description =
 
                         </div>
                     </div>
-                </div>
+	            </div>
             </div>
 
         </form>

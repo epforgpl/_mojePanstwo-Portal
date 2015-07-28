@@ -308,6 +308,11 @@ class KrsPodmiotyController extends DataobjectsController
                                             'data.dzialania.object_id' => $this->request->params['id'],
                                         ),
                                     ),
+                                    array(
+                                        'term' => array(
+                                            'data.dzialania.status' => 1,
+                                        ),
+                                    ),
                                 ),
                             ),
                         ),
