@@ -11,8 +11,8 @@ echo $this->Html->script('../tinymce/tinymce.min', array('block' => 'scriptBlock
 
 /* tag-it */
 echo $this->Html->script('../plugins/aehlke-tag-it/js/tag-it.min', array('block' => 'scriptBlock'));
-$this->Combinator->add_libs('css', '../plugins/aehlke-tag-it/css/jquery.tagit');
-$this->Combinator->add_libs('css', '../plugins/aehlke-tag-it/css/tagit.ui-zendesk');
+echo $this->Html->css('../plugins/aehlke-tag-it/css/jquery.tagit.css');
+echo $this->Html->css('../plugins/aehlke-tag-it/css/tagit.ui-zendesk.css');
 
 /* page script */
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialania');
