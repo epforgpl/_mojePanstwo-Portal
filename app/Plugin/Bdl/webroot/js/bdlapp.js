@@ -211,10 +211,7 @@ var BDLapp = function () {
             type: "GET",
             dataType: "html",
             beforeSend: function () {
-
-            },
-            always: function () {
-
+                self.loading();
             },
             complete: function (res) {
                 var bdlBlock = $('#bdl_wskaznik_block'),
@@ -226,6 +223,7 @@ var BDLapp = function () {
                     $(html).appendTo('#_main .objectsPage .objectsPageWindow .objectsPageContent');
 
                 self.itemInit();
+                self.loaded();
             }
         })
     };
@@ -296,10 +294,7 @@ var BDLapp = function () {
             type: "GET",
             dataType: "html",
             beforeSend: function () {
-
-            },
-            always: function () {
-
+                self.loading();
             },
             complete: function (res) {
                 var bdlDetail = subitem.find('.bdl-details'),
@@ -311,6 +306,7 @@ var BDLapp = function () {
                     subitem.append(html);
 
                 self.subitemInit();
+                self.loaded();
             }
         });
     };
@@ -450,26 +446,26 @@ var BDLapp = function () {
             // sticky map - TODO: make it better or remove it
             /*if ($(window).width() > 1000) {
 
-                var mapOffset = highmap.offset();
-                var t = mapOffset.top;
-                var f = false;
+             var mapOffset = highmap.offset();
+             var t = mapOffset.top;
+             var f = false;
 
-                $(window).scroll(function () {
+             $(window).scroll(function () {
 
-                    var top = $(window).scrollTop();
+             var top = $(window).scrollTop();
 
-                    if (!f && top > t) {
-                        highmap.css('top', '10px');
-                        highmap.css('position', 'fixed');
-                        f = true;
-                    }
+             if (!f && top > t) {
+             highmap.css('top', '10px');
+             highmap.css('position', 'fixed');
+             f = true;
+             }
 
-                    if (f && top <= t) {
-                        highmap.css('position', 'relative');
-                        f = false;
-                    }
+             if (f && top <= t) {
+             highmap.css('position', 'relative');
+             f = false;
+             }
 
-                });
+             });
 
              }*/
 
@@ -583,6 +579,30 @@ var BDLapp = function () {
 
         });
     };
+
+    this.loading = function () {
+        var main = $('#_main');
+
+        if (main.find('.curtain').length == 0) {
+            main.append(
+                $('<div></div>').addClass('curtain loading').css({
+                    'background-color': 'rgba(255, 255, 255, .7)',
+                    'width': '100%',
+                    'height': '100%',
+                    'display': 'block',
+                    'left': '385px',
+                    'position': 'fixed',
+                    'top': 0,
+                    'z-index': 2
+                })
+            )
+        }
+    };
+
+    this.loaded = function () {
+        $('#_main').find('.curtain').remove()
+    };
+
 
     this.init();
 };
