@@ -110,8 +110,6 @@ var BDLapp = function () {
         }).bind("loaded.jstree", function () {
             var $treeBlock = $('.treeBlock');
 
-            console.log(self.variable.link);
-
             if (self.variable.link) {
                 $.each(self.variable.link, function () {
                     if (this.match("link_id=")) {
@@ -449,7 +447,7 @@ var BDLapp = function () {
                 }]
             });
 
-            // sticky map - TODO: make it better
+            // sticky map - TODO: make it better or remove it
             /*if ($(window).width() > 1000) {
 
                 var mapOffset = highmap.offset();
