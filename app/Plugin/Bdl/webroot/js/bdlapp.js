@@ -310,7 +310,7 @@ var BDLapp = function () {
                 if (bdlDetail.length)
                     bdlDetail.replaceWith(html);
                 else
-                    el.append(html);
+                    subitem.append(html);
 
                 self.subitemInit();
             }
@@ -449,8 +449,8 @@ var BDLapp = function () {
                 }]
             });
 
-            // sticky map
-            if ($(window).width() > 1000) {
+            // sticky map - TODO: make it better
+            /*if ($(window).width() > 1000) {
 
                 var mapOffset = highmap.offset();
                 var t = mapOffset.top;
@@ -473,7 +473,7 @@ var BDLapp = function () {
 
                 });
 
-            }
+             }*/
 
             $('tr.wskaznikStatic')
                 .on("mouseenter", function () {
