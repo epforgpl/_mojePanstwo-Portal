@@ -1,7 +1,7 @@
 <?
 echo $this->Element('dataobject/pageBegin');
 
-$this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane')));
+////$this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-dzialania', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
