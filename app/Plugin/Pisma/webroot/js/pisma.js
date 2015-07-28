@@ -408,7 +408,7 @@ var PISMA = Class.extend({
                         });
                     } else {
                         if (that.attr('class').split(" ").length === 1) {
-                            that.html('<br type="_editor">');
+                            //that.html('<br type="_editor">');
                         }
                     }
                 }
@@ -463,7 +463,7 @@ var PISMA = Class.extend({
                         if (self.objects.adresaci) {
                             that.html(self.objects.adresaci.title);
                         } else {
-                            that.html('<br type="_editor">');
+                            //that.html('<br type="_editor">');
                         }
                     }
                 });
@@ -569,8 +569,8 @@ var PISMA = Class.extend({
             );
 
             preview
-                .find('br[type="_editor"]').remove()
-                .end()
+                //.find('br[type="_editor"]').remove()
+                //.end()
                 .find('.mirror').remove()
                 .end()
                 .find('.editable').each(function () {
