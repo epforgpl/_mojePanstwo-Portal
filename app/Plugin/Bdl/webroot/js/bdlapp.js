@@ -232,13 +232,19 @@ var BDLapp = function () {
         })
     };
     this.itemInit = function () {
-        var bdlWskazniki = jQuery('#bdl-wskazniki'),
+        var self = this,
+            bdlWskazniki = jQuery('#bdl-wskazniki'),
             wskazniki = bdlWskazniki.find('.wskaznik');
 
         if (wskazniki.length) {
             wskazniki.each(function () {
                 var el = $(this),
                     data = el.data('years');
+
+                el.find('h2>a').click(function (e) {
+                    e.preventDefault();
+                    self.subitemLoad(el);
+                });
 
                 if (data) {
                     var chart_div = el.find('.chart'),
@@ -284,9 +290,31 @@ var BDLapp = function () {
             });
         }
     };
-    this.subitemLoad = function () {
+    this.subitemLoad = function (subitem) {
         var self = this;
-        self.subitemInit();
+
+        $.ajax({
+            url: subitem.attr('data-id') + '/kombinacje/' + subitem.attr('data-dim_id') + '.html',
+            type: "GET",
+            dataType: "html",
+            beforeSend: function () {
+
+            },
+            always: function () {
+
+            },
+            complete: function (res) {
+                var bdlDetail = subitem.find('.bdl-details'),
+                    html = res.responseText;
+
+                if (bdlDetail.length)
+                    bdlDetail.replaceWith(html);
+                else
+                    el.append(html);
+
+                self.subitemInit();
+            }
+        });
     };
     this.subitemInit = function () {
         var bdlWskazniki = jQuery('#bdl-wskazniki'),

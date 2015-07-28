@@ -2,13 +2,14 @@
 <?php $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts'); ?>
 <?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals'); ?>
 
-<div class="wskaznik" data-dim_id="<?= $data['id'] ?>" data-years="<?= htmlspecialchars(json_encode($data['years']), ENT_QUOTES, 'UTF-8') ?>">
+<div class="wskaznik" data-id="<?= $object->getId() ?>" data-dim_id="<?= $data['id'] ?>"
+     data-years="<?= htmlspecialchars(json_encode($data['years']), ENT_QUOTES, 'UTF-8') ?>">
     <h2>
         <? if (in_array('bdl_opis', $object_editable)) { ?>
-	        <a class="pull-left" href="<?= $url ?>/kombinacje/<?= $data['id'] ?>"><?= trim($title) ?></a>
+            <a class="pull-left" href="<?= $url ?>/kombinacje/<?= $data['id'] ?>"><?= trim($title) ?></a>
             <button class="btn btn-sm btn-primary add_to_item pull-right"><span
                     class="icon glyphicon glyphicon-plus"></span></button>
-        <? } else {?>
+        <? } else { ?>
             <a href="<?= $url ?>/kombinacje/<?= $data['id'] ?>"><?= trim($title) ?></a>
         <? } ?>
     </h2>

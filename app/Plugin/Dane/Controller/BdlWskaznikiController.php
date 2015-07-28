@@ -20,24 +20,24 @@ class BdlWskaznikiController extends DataobjectsController
 
     public function kombinacje()
     {
-		 
-		$this->setLayout(array(
+
+        $this->setLayout(array(
             'footer' => array(
                 'element' => 'minimal',
             ),
             'header' => array(
-	            'element' => 'dataobject-bdl',
+                'element' => 'dataobject-bdl',
             ),
-        )); 
-		      
+        ));
+
         parent::load();
-        
-        $expand_dimension = isset($this->request->query['i']) ? (int) $this->request->query['i'] : $this->object->getData('i');
+
+        $expand_dimension = isset($this->request->query['i']) ? (int)$this->request->query['i'] : $this->object->getData('i');
 
         $dims = $this->object->getLayer('dimennsions');
         $levels = $this->object->getLayer('levels');
-                    
-        
+
+
         if (isset($this->request->query['d']) && $this->request->query['d']) {
 
             $dimmensions_array = array();
@@ -46,36 +46,36 @@ class BdlWskaznikiController extends DataobjectsController
                     (int)$this->request->query['d' . $d] :
                     0;
             }
-            
+
             $params = array(
                 'dims' => $dimmensions_array,
                 'wskaznik_id' => $this->object->getId(),
             );
-            
+
             $cache_id = 'BDL/series/' . md5(serialize($params));
             $exp_data = Cache::read($cache_id, 'long');
-            if( !$exp_data ) {
-                
+            if (!$exp_data) {
+
                 $this->loadModel('Bdl.BDL');
                 $exp_data = $this->BDL->getData($params);
                 Cache::write($cache_id, $exp_data, 'long');
-                
+
             }
-                        
+
             $redirect_url = $this->object->getUrl();
-            
-            if(
-	            !empty($exp_data) && 
-	            isset( $exp_data[0] ) && 
-	            isset( $exp_data[0]['id'] ) && 
-	            ( $id = $exp_data[0]['id'] )
+
+            if (
+                !empty($exp_data) &&
+                isset($exp_data[0]) &&
+                isset($exp_data[0]['id']) &&
+                ($id = $exp_data[0]['id'])
             )
-	            $redirect_url .= '/kombinacje/' . $id;
-	            
-			return $this->redirect($redirect_url);
-			
+                $redirect_url .= '/kombinacje/' . $id;
+
+            return $this->redirect($redirect_url);
+
         }
-			
+
         $selected_level_id = false;
 
         if (!empty($levels)) {
@@ -107,45 +107,49 @@ class BdlWskaznikiController extends DataobjectsController
             }
 
         }
-                        
+
         $this->loadModel('Bdl.BDL');
         $combination = $this->BDL->getCombination(array(
-	        'id' => $this->request->params['subid'],
-	        'local' => $selected_level_id,
+            'id' => $this->request->params['subid'],
+            'local' => $selected_level_id,
         ));
-        
+
         $title = false;
-                
-        foreach( $dims as $i => &$d )
-			foreach( $d['options'] as &$o )
-				if( $o['id'] == $combination['dims'][ $i ] ) {
-					
-					$o['selected'] = true;
-					if( $expand_dimension == $i )
-						$title = $o['value'];
-						                
-                }
-                                
+
         $this->set('dims', $dims);
         $this->set('levels', $levels);
         $this->set('title', $title);
         $this->set('levels_selected', $selected_level_id);
         $this->set('combination', $combination);
         $this->set('expand_dimension', $expand_dimension);
-        
-        $datasets = $this->getDatasets('bdl');
 
-        $options = array(
-            'searchTitle' => 'Szukaj w Banku Danych Lokalnych...',
-            'autocompletion' => array(
-                'dataset' => 'bdl_wskazniki',
-            ),
-            'conditions' => array(
-                'dataset' => array_keys($datasets)
-            ),            
-        );
-        $this->Components->load('Dane.DataBrowser', $options);
+        foreach ($dims as $i => &$d)
+            foreach ($d['options'] as &$o)
+                if ($o['id'] == $combination['dims'][$i]) {
 
+                    $o['selected'] = true;
+                    if ($expand_dimension == $i)
+                        $title = $o['value'];
+
+                }
+
+        if (@$this->request->params['ext'] == 'html') {
+            $this->layout = 'blank';
+            $this->render('subitem');
+        } else {
+            $datasets = $this->getDatasets('bdl');
+
+            $options = array(
+                'searchTitle' => 'Szukaj w Banku Danych Lokalnych...',
+                'autocompletion' => array(
+                    'dataset' => 'bdl_wskazniki',
+                ),
+                'conditions' => array(
+                    'dataset' => array_keys($datasets)
+                ),
+            );
+            $this->Components->load('Dane.DataBrowser', $options);
+        }
     }
 
     public function view()
@@ -158,15 +162,15 @@ class BdlWskaznikiController extends DataobjectsController
                 'element' => 'minimal',
             ),
             'header' => array(
-	            'element' => 'dataobject-bdl',
+                'element' => 'dataobject-bdl',
             ),
         ));
-        
 
-        $expand_dimension = isset($this->request->query['i']) ? (int) $this->request->query['i'] : $this->object->getData('i');
+
+        $expand_dimension = isset($this->request->query['i']) ? (int)$this->request->query['i'] : $this->object->getData('i');
         $dims = $this->object->getLayer('dimennsions');
         $expanded_dimension = array();
-		
+
         // building dimmensions array (it will be usefull as a parameter for future API calls
 
         $dimmensions_array = array();
@@ -183,66 +187,66 @@ class BdlWskaznikiController extends DataobjectsController
             $dimmensions_array[] = $dvalue;
 
         }
-		
+
         // Setting selected dimmension
 
         $i = 0;
         foreach ($dims as &$dim) {
-			
-			if( isset($option) )
-				unset( $option );
-				
+
+            if (isset($option))
+                unset($option);
+
             foreach ($dim['options'] as &$option)
                 $option['selected'] = ($option['id'] == $dimmensions_array[$i]);
-			
-			if( isset($option) )
-				unset( $option );
-			
+
+            if (isset($option))
+                unset($option);
+
             if ($expand_dimension == $i) {
-								                
-                $dimmensions_array[ $i ] = '!';                
+
+                $dimmensions_array[$i] = '!';
                 $params = array(
-	                'dims' => $dimmensions_array,
-	                'wskaznik_id' => $this->object->getId(),
-	                'years' => true,
+                    'dims' => $dimmensions_array,
+                    'wskaznik_id' => $this->object->getId(),
+                    'years' => true,
                 );
-                
+
                 $cache_id = 'BDL/series/' . md5(serialize($params));
                 $exp_data = Cache::read($cache_id, 'long');
-                if( !$exp_data ) {
-	                
-	                $this->loadModel('Bdl.BDL');
-	                $exp_data = $this->BDL->getData($params);
-	                Cache::write($cache_id, $exp_data, 'long');
-	                
+                if (!$exp_data) {
+
+                    $this->loadModel('Bdl.BDL');
+                    $exp_data = $this->BDL->getData($params);
+                    Cache::write($cache_id, $exp_data, 'long');
+
                 }
-                                
-                
+
+
                 $expanded_dimension = $dim;
-				
-				if( isset($option) )
-					unset( $option );
-												
+
+                if (isset($option))
+                    unset($option);
+
                 foreach ($expanded_dimension['options'] as &$option) {
 
                     $temp_dimmensions_array = $dimmensions_array;
-                    $temp_dimmensions_array[$i] = (int) $option['id'];
-                                        
-                    foreach( $exp_data as $ed ) {
-	                    	                    
-	                    if( $temp_dimmensions_array == $ed['dims'] ) {
-		                    
-		                    $option['data'] = $ed;
-		                    break;
-		                    
-	                    }
-	                    
+                    $temp_dimmensions_array[$i] = (int)$option['id'];
+
+                    foreach ($exp_data as $ed) {
+
+                        if ($temp_dimmensions_array == $ed['dims']) {
+
+                            $option['data'] = $ed;
+                            break;
+
+                        }
+
                     }
 
                 }
 
-                if( isset($option) )
-					unset( $option );
+                if (isset($option))
+                    unset($option);
 
             }
 
@@ -257,48 +261,48 @@ class BdlWskaznikiController extends DataobjectsController
 
         $this->set(array(
             'object' => array(
-	            'data' => $this->object->getData(),
+                'data' => $this->object->getData(),
             ),
             '_serialize' => array('object', 'expanded_dimension', 'expand_dimension', 'dims', 'dimmensions_array'),
         ));
-        
-        if( @$this->request->params['ext']=='html' ) {
-	        $this->layout = 'blank';
-	        $this->render('html');
+
+        if (@$this->request->params['ext'] == 'html') {
+            $this->layout = 'blank';
+            $this->render('item');
         } else {
-	        $datasets = $this->getDatasets('bdl');
-	
-	        $options = array(
-	            'searchTitle' => 'Szukaj w Banku Danych Lokalnych...',
-	            'autocompletion' => array(
-	                'dataset' => 'bdl_wskazniki',
-	            ),
-	            'conditions' => array(
-	                'dataset' => array_keys($datasets)
-	            ),
-	            'cover' => array(
-	                'view' => array(
-	                    'plugin' => 'Bdl',
-	                    'element' => 'cover',
-	                ),
-	                'aggs' => array(),
-	            ),
-	            'aggs' => array(
-	                'dataset' => array(
-	                    'terms' => array(
-	                        'field' => 'dataset',
-	                    ),
-	                    'visual' => array(
-	                        'label' => 'Zbiory danych',
-	                        'skin' => 'datasets',
-	                        'class' => 'special',
-	                        'field' => 'dataset',
-	                        'dictionary' => $datasets,
-	                    ),
-	                ),
-	            ),
-	        );
-	        $this->Components->load('Dane.DataBrowser', $options);
+            $datasets = $this->getDatasets('bdl');
+
+            $options = array(
+                'searchTitle' => 'Szukaj w Banku Danych Lokalnych...',
+                'autocompletion' => array(
+                    'dataset' => 'bdl_wskazniki',
+                ),
+                'conditions' => array(
+                    'dataset' => array_keys($datasets)
+                ),
+                'cover' => array(
+                    'view' => array(
+                        'plugin' => 'Bdl',
+                        'element' => 'cover',
+                    ),
+                    'aggs' => array(),
+                ),
+                'aggs' => array(
+                    'dataset' => array(
+                        'terms' => array(
+                            'field' => 'dataset',
+                        ),
+                        'visual' => array(
+                            'label' => 'Zbiory danych',
+                            'skin' => 'datasets',
+                            'class' => 'special',
+                            'field' => 'dataset',
+                            'dictionary' => $datasets,
+                        ),
+                    ),
+                ),
+            );
+            $this->Components->load('Dane.DataBrowser', $options);
         }
 
     }
@@ -334,28 +338,28 @@ class BdlWskaznikiController extends DataobjectsController
         return $this->redirect('/dane/bdl_wskazniki/' . $this->request->params['id'] . '/kombinacje/' . $this->request->params['subid']);
 
     }
-    
+
     public function beforeRender()
     {
-	    
-	    if( $this->hasUserRole('3') ) {
-		    $this->addObjectEditable('bdl_opis');
-		    $this->addObjectEditable('bdl_wymiar');
-		}
-	    	    
-	    parent::beforeRender();
-	 	
-	 	if( $this->object ) {
-	 	
-		    $this->addBreadcrumb(array(
-	            'href' => '/bdl/#kategoria_id=' . $this->object->getData('bdl_wskazniki.kategoria_id'),
-	            'label' => '<span class="normalizeText">' . $this->object->getData('bdl_wskazniki.kategoria_tytul') . '</span>',
-	        ));	
-	        
-	        $this->addBreadcrumb(array(
-	            'href' => '/bdl/#kategoria_id=' . $this->object->getData('bdl_wskazniki.kategoria_id') . '&grupa_id=' . $this->object->getData('bdl_wskazniki.grupa_id'),
-	            'label' => '<span class="normalizeText">' . $this->object->getData('bdl_wskazniki.grupa_tytul') . '</span>',
-	        ));
+
+        if ($this->hasUserRole('3')) {
+            $this->addObjectEditable('bdl_opis');
+            $this->addObjectEditable('bdl_wymiar');
+        }
+
+        parent::beforeRender();
+
+        if ($this->object) {
+
+            $this->addBreadcrumb(array(
+                'href' => '/bdl/#kategoria_id=' . $this->object->getData('bdl_wskazniki.kategoria_id'),
+                'label' => '<span class="normalizeText">' . $this->object->getData('bdl_wskazniki.kategoria_tytul') . '</span>',
+            ));
+
+            $this->addBreadcrumb(array(
+                'href' => '/bdl/#kategoria_id=' . $this->object->getData('bdl_wskazniki.kategoria_id') . '&grupa_id=' . $this->object->getData('bdl_wskazniki.grupa_id'),
+                'label' => '<span class="normalizeText">' . $this->object->getData('bdl_wskazniki.grupa_tytul') . '</span>',
+            ));
 
         }
 
@@ -368,6 +372,6 @@ class BdlWskaznikiController extends DataobjectsController
 
         $this->set('tree', $tree);
 
-    }    
+    }
 
 } 
