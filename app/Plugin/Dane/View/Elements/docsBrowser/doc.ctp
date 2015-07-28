@@ -29,7 +29,11 @@ echo $this->Html->css($document->getCSSLocation());
                     echo 'show';
                 } else {
                     echo 'hide';
-                } ?>"></div>
+                } ?>">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                </div>
             </div>
 
             <? if (!empty($docs) && is_array($docs)) { ?>

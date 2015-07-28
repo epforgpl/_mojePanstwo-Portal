@@ -10,6 +10,31 @@ jQuery(document).ready(function () {
         intervalRunnable = true,
         pageScroller = true;
 
+    /*RESCALE DOCUMENTS TO FIT CONTENT*/
+    function docRescale() {
+        var doc = jQuery('.htmlexDoc .document'),
+            docCanvas = doc.find('.canvas'),
+            scale, scaleW;
+
+        if (doc.outerWidth() < docCanvas.outerWidth()) {
+            scale = ((doc.outerWidth() * 100) / docCanvas.outerWidth()) / 100;
+            scaleW = doc.outerWidth() - docCanvas.outerWidth();
+
+            docCanvas.find('.pf:not(".rescaled")').each(function () {
+                var that = $(this);
+
+                that.addClass('rescaled').css({
+                    'transform': 'scale(' + scale + ')',
+                    'margin-left': scaleW / 2
+                });
+
+                if (that.prev().length) {
+                    that.css('margin-top', -Math.floor((1 - scale) * that.outerHeight()))
+                }
+            });
+        }
+    }
+
     /*RECALCULATE PERCENT OF LOADED DOCUMENT*/
     function docPercentLoad() {
         var main = jQuery('.toolbarActions .docPagesAll'),
@@ -18,10 +43,9 @@ jQuery(document).ready(function () {
         if (percents !== 100) {
             main.find('span').html('Załadowano dokument w ' + percents + "%");
         } else {
-            //main.find('span').html('Załaduj cały dokument');
-            //main.find('a').hide();
             main.remove();
         }
+        docRescale();
     }
 
     /*IF USER HIT BOTTOM OF PAGE LOAD NEW PART OF PAGES*/
@@ -52,12 +76,12 @@ jQuery(document).ready(function () {
     function loadAllDoc() {
         if (intervalRunnable && (documentData.currentPackage < documentData.packages)) {
             intervalRunnable = false;
-            jQuery('.loadMoreDocumentContent').addClass('loading');
+            jQuery('.loadMoreDocumentContent').addClass('spinner black');
 
             var p = parseInt(documentData.currentPackage) + 1;
-            var url = '/htmlex/' + documentId + '/' + documentId + '_' + p + '.html';
+            var url = 'https://mojepanstwo.pl/htmlex/' + documentId + '/' + documentId + '_' + p + '.html';
             jQuery.get(url, function (data) {
-                jQuery('.loadMoreDocumentContent').removeClass('loading');
+                jQuery('.loadMoreDocumentContent').removeClass('spinner black');
                 document.find('.canvas').append(data);
                 intervalRunnable = true;
                 documentData.currentPackage = documentData.currentPackage + 1;
@@ -70,12 +94,12 @@ jQuery(document).ready(function () {
     /*FUNCTION LOAD NEXT PACKAGE OF DOCUMENT*/
     function loadMoreDoc(callback) {
         intervalRunnable = false;
-        jQuery('.loadMoreDocumentContent').addClass('loading');
+        jQuery('.loadMoreDocumentContent').addClass('spinner black');
 
         var p = parseInt(documentData.currentPackage) + 1;
-        var url = '/htmlex/' + documentId + '/' + documentId + '_' + p + '.html';
+        var url = 'https://mojepanstwo.pl/htmlex/' + documentId + '/' + documentId + '_' + p + '.html';
         jQuery.get(url, function (data) {
-            jQuery('.loadMoreDocumentContent').removeClass('loading');
+            jQuery('.loadMoreDocumentContent').removeClass('spinner black');
             document.find('.canvas').append(data);
             intervalRunnable = true;
             documentData.currentPackage = documentData.currentPackage + 1;
@@ -123,7 +147,7 @@ jQuery(document).ready(function () {
             if (isElementVisibled('.loadMoreDocumentContent') && intervalRunnable) {
                 if (documentData.currentPackage < documentData.packages) {
                     intervalRunnable = false;
-                    jQuery('.loadMoreDocumentContent').addClass('loading');
+                    jQuery('.loadMoreDocumentContent').addClass('spinner black');
                     loadMoreDoc(function () {
                         window.setTimeout(function () {
                             var canvasCurrentPage = jQuery('.canvas [data-page-no]')[currPage[0]];
@@ -199,4 +223,9 @@ jQuery(document).ready(function () {
     if (docToolbar.length > 0 && typeof sticky == 'function') {
         sticky('#docsToolbar');
     }
+
+    $(window).resize(function () {
+        $('.htmlexDoc .document .pf.rescaled').removeClass('rescaled');
+        docPercentLoad();
+    });
 });
