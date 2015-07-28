@@ -5,7 +5,6 @@ $this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('p
 $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-dzialania', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
-$this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialanie');
 
 ?>
 
@@ -74,7 +73,8 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialanie');
 	
 	                <? if($features = $dzialanie->getLayer('features')) { ?>
 	                    <? if($mailing = @$features['mailings'][0]) { ?>
-	
+							
+							<?php $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialanie-mailing'); ?>
 	                        <?php echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false', array('block' => 'scriptBlock')); ?>
 	                        <?php $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma'))) ?>
 	                        <?php $this->Combinator->add_libs('css', $this->Less->css('naszrzecznik', array('plugin' => 'Pisma'))) ?>
