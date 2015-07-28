@@ -20,7 +20,7 @@ $description =
 
         <form action="<?= $object->getUrl(); ?>.json" method="post">
 
-            <p class="margin-top-10">Poinformuj innych o działaniach swojej organizacji. Informacje o działaniach będą widoczne na stronie profilowej Twojej organizacji, a także będą pojawiały się przy wynikach wyszukiwania na portalu mojePaństwo.</p>
+            <p class="margin-top-10">Napisz w kilku zdaniach na czym polega misja Twojej organizacji. Ten tekst będzie widoczny na pierwszej stronie jej profilu.</p>
             <input type="hidden" name="_action" value="save_edit_data_form"/>
 
 
