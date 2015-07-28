@@ -13,7 +13,7 @@
                     <li><a href="#t-swagger">Swagger i API Discovery</a></li>
                     <li><a href="#t-search">Standardowy mechanizm wyszukiwania</a></li>
                     <li><a href="#t-object-ids">Identyfikatory obiektów</a></li>
-                    <li><a href="#t-object-layers">Identyfikatory obiektów</a></li>
+                    <li><a href="#t-object-layers">Warstwy danych</a></li>
                 </ul>
             </div>
 
@@ -42,6 +42,7 @@
 
                     <p>Kolejne wersja API udostępniane są pod adresami o formacie <code>https://api-v%duza_wersja%.mojepanstwo.pl/</code>.
                         Starsze wersje API będą wyłączane po okresie przejściowym, nie krótszym niż 6 miesięcy.
+                        Obecna wersja API to <a href="https://api-v3.mojepanstwo.pl/">V3</a>.
                     </p>
 
                     <p>Zachęcamy użytkowników do zarejestrowania się w serwisie. Pozwoli to nam informować o
@@ -100,8 +101,8 @@
                         jak i generowania klientów w wielu językach.</p>
 
                     <p>Swagger-spec w wersji 2.0 dostępny jest pod adresem <a
-                            href="https://api-v2.mojepanstwo.pl/swagger.json"><code>https://api-v2.mojepanstwo.pl/swagger.json</code></a>.
-                        Propozycje zmian w API przyjmujemy jako pull-requesty ze zmianami w tym pliku (do edycji zalecamy użycie <a href="http://editor.swagger.io/">Swagger Editor</a>).
+                            href="https://api-v3.mojepanstwo.pl/swagger.json"><code>https://api-v2.mojepanstwo.pl/swagger.json</code></a>.
+                        Propozycje zmian w API przyjmujemy jako pull-requesty ze zmianami <a href="https://github.com/epforgpl/_mojePanstwo-API-Server/blob/master/app/webroot/swagger.json">w tym pliku</a> (do edycji zalecamy użycie <a href="http://editor.swagger.io/">Swagger Editor</a>).
                     </p>
 
                     <p>Dla ułatwienia przeglądania API prezentujemy je za pomocą przeglądarki <a href="https://github.com/swagger-api/swagger-ui">Swagger-UI</a> na <a href="/api">stronie głównej</a>.
@@ -111,19 +112,19 @@
                 <div class="section">
                     <h1 id="t-search">Standardowy mechanizm wyszukiwania</h1>
 
-                    <p>API oferuje standardowy mechanizm wyszukiwania, odpytywania o dostępne pola, możliwości
-                        sortowania, itp.</p>
+                    <p>API Dane oferuje mechanizm wyszukiwania z filtrowaniem pełnotekstowym oraz po konkretnych polach,
+                        stronicowaniem oraz sortowaniem.</p>
 
                     <p>Wszystkie parametry wyszukiwania podaje się w części <em>query</em> zapytania (po ?).
                         Parametry tablicowe podaje się zgodnie z konwencją wykorzystywaną przez CakePHP i Rails:</p>
                     <ul>
-                        <li><em>Lista elementów</em> - <code>?fields[]=imie&fields[]=nazwisko</code></li>
+                        <li><em>Lista elementów</em> - <code>?layers[]=dataset&layers[]=details</code></li>
                         <li><em>Tablica asocjacyjna</em> -
                             <code>?conditions[imie]=Jan&conditions[nazwisko]=Kowalski</code></li>
-                        <li><em>Pojedyczny element tablicy</em> - skrót w postaci <code>?fields=imie</code></li>
+                        <li><em>Pojedyczny element tablicy</em> - skrót w postaci <code>?layers=dataset</code></li>
                     </ul>
 
-                    <p>Podczas wyszukiwania można użyć następujących kluczy w cześci <em>query</em></p>
+                    <p>Podczas wyszukiwania w cześci <em>query</em> można użyć następujących pól:</p>
                     <ul>
                         <li><em>conditions</em> - Filtry ograniczające zbiór danych, można filtrować po wszystkich
                             polach zwracanych w tablicy <code>data</code> wybranego obiektu, np. <code>?conditions[imie]=Jan&conditions[nazwisko]=Kowalski</code>
@@ -149,13 +150,13 @@
                         <em>url</em>).
                         Taki URL zapewnia także łatwą (potencjalnie automatyczną) nawigację między zasobami.</p>
 
-                    <p>Przykładowo: <code>{"url": "https://api-v2.mojepanstwo.pl/dane/poslowie/1.json"}</code></p>
+                    <p>Przykładowo: <code>{"url": "https://api-v3.mojepanstwo.pl/dane/poslowie/1"}</code></p>
 
                     <p>Aby ułatwić linkowanie do naszego serwisu udostępniamy także dla obiektów link, pod którym
                         wysŧępuje on w
                         serwisie mojePaństwo.</p>
 
-                    <p>Przykładowo: <code>{"mpurl": "http://mojepanstwo.pl/dane/poslowie/1"}</code></p>
+                    <p>Przykładowo: <code>{"mpurl": "https://mojepanstwo.pl/dane/poslowie/1"}</code></p>
                 </div>
 
                 <div class="section">
@@ -172,7 +173,7 @@
                     <p>
                         Listę dostępnych warstw jest wyświetlana w ramach obiektu:</p>
                         <pre>
-                GET: https://api-v2.mojepanstwo.pl/dane/kody_pocztowe/1
+                GET: https://api-v3.mojepanstwo.pl/dane/kody_pocztowe/1
 
                 {
                     "id": "864053",
@@ -207,10 +208,10 @@
                 }
                         </pre>
 
-                    <p>Warstwy ładuje sie poprzez podanie w zapytaniu nazw warstw jako tablicy: <code>https://api-v2.mojepanstwo.pl/dane/kody_pocztowe/1?layers[]=obszary&layers[]=gminy</code>
+                    <p>Warstwy ładuje sie poprzez podanie w zapytaniu nazw warstw jako tablicy: <a href="https://api-v3.mojepanstwo.pl/dane/kody_pocztowe/1?layers[]=obszary&layers[]=gminy"><code>https://api-v3.mojepanstwo.pl/dane/kody_pocztowe/1?layers[]=obszary&layers[]=gminy</code></a>
                     </p>
 
-                    <p>Istnieje także skrót pozwalający załadować wszystkie warstwy na raz: <code>https://api-v2.mojepanstwo.pl/dane/kody_pocztowe/1?layers=*</code>
+                    <p>Istnieje także skrót pozwalający załadować wszystkie warstwy na raz: <a href="https://api-v3.mojepanstwo.pl/dane/kody_pocztowe/1?layers=*"><code>https://api-v3.mojepanstwo.pl/dane/kody_pocztowe/1?layers=*</code></a>
                     </p>
                 </div>
 
