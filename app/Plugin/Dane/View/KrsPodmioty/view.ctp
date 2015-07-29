@@ -64,7 +64,7 @@ $description =
 	                
 	                <div class="photo">
 	                    <? if($dzialanie['fields']['source'][0]['data']['dzialania.photo'] == '1') { ?>
-	                        <img alt="<?= $dzialanie['fields']['source'][0]['data']['dzialania.tytul']; ?>" src="http://sds.tiktalik.com/portal/2/pages/dzialania/<?= $dzialanie['fields']['id'][0]; ?>.jpg" />
+	                        <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>"><img alt="<?= $dzialanie['fields']['source'][0]['data']['dzialania.tytul']; ?>" src="http://sds.tiktalik.com/portal/2/pages/dzialania/<?= $dzialanie['fields']['id'][0]; ?>.jpg" /></a>
 	                    <? } ?>
 	                </div>
 	                
