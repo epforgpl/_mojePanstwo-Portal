@@ -12,7 +12,7 @@ $shortTitle = (isset($options['forceTitle'])) ?
     $options['forceTitle'] :
     $object->getShortTitle();
 
-$object_content_sizes = array(2, 10);
+$object_content_sizes = $object->getDefaultColumnsSizes();
 
 if( !isset($truncate) )
 	$truncate = 150;
@@ -59,7 +59,7 @@ $this->Dataobject->setObject($object);
 
                     ?>
                     <div
-                        class="attachment col-xs-<?= $size + 2 ?> col-sm-<?= $size + 1 ?> col-sm-<?= $size ?> text-center">
+                        class="attachment col-xs-<?= $size + 2 ?> col-sm-<?= $size + 1 ?> col-md-<?= $size ?> text-center">
                         <?php if ($object->getUrl() != false) { ?>
                         <a class="thumb_cont" href="<?= $object->getUrl() ?>">
                             <?php } ?>
@@ -74,7 +74,7 @@ $this->Dataobject->setObject($object);
 
                     </div>
                                         
-                    <div class="content col-md-<?= $object_content_sizes[1] ?>">
+                    <div class="content col-xs-<?= $object_content_sizes[1] - 2 ?> col-sm-<?= $object_content_sizes[1] - 1 ?> col-md-<?= $object_content_sizes[1] ?>">
 
                         <? if ($alertsButtons) { ?>
                             <div class="alertsButtons pull-right">
