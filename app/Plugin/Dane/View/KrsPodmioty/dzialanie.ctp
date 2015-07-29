@@ -109,12 +109,20 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 	                                <fieldset>
 	                                    <div class="form-group adresaci margin-top-10">
 	                                        <label for="adresatSelect" class="col-lg-2 control-label">Adresat</label>
-	
+																						
 	                                        <div class="col-lg-9">
 	                                            <div class="suggesterBlockPisma">
-	                                                <?= $this->Element('Pisma.searcher', array('q' => '', 'dataset' => 'pisma_adresaci-aktywni_' . $mailing['target'] == '0' ? 'poslowie' : 'senatorowie', 'placeholder' => 'Zacznij pisać aby znaleźć adresata...')) ?>
+	                                                <?
+		                                                $dataset = 'pisma_adresaci-aktywni_';
+		                                                $dataset .= ($mailing['target'] == '0') ? 'poslowie' : 'senatorowie';
+		                                                echo $this->Element('Pisma.searcher', array(
+			                                                'q' => '', 
+			                                                'dataset' =>  $dataset, 
+			                                                'placeholder' => 'Zacznij pisać aby znaleźć adresata...'
+		                                                ));
+		                                            ?>
 	                                            </div>
-	                                            <span class="help-block">Na podstawie wybranego <? echo $mailing['target'] == '0' ? 'posła' : 'senatora' ?>, uzupełnimy dane teleadresowe w Twoim piśmie.</span>
+	                                            <span class="help-block">Na podstawie wybranego <? echo ($mailing['target'] == '0') ? 'posła' : 'senatora' ?>, uzupełnimy dane teleadresowe w Twoim piśmie.</span>
 	                                        </div>
 	
 	                                        <input type="hidden" name="adresat_id"<?php if (!empty($pismo['adresat_id'])) {
