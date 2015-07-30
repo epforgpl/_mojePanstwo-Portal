@@ -390,3 +390,39 @@ ul.chart-blocks {
     }
   }
 }
+
+.text-iheight {
+  overflow: hidden;
+  max-height: 100px;
+  margin-bottom: 10px;
+
+  -webkit-transition: max-height 1s ease-in-out;
+  -moz-transition: max-height 1s ease-in-out;
+  -o-transition: max-height 1s ease-in-out;
+  transition: max-height 1s ease-in-out;
+
+  &.show_all {
+    max-height: 9999px;
+    margin-bottom: 30px;
+  }
+
+  .text-iheight-content {
+
+  }
+
+  .text-iheight-toggle {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 10px 0;
+    background-image: linear-gradient(to bottom, transparent, white);
+
+    > a {
+      position: relative;
+      top: 20px;
+    }
+  }
+}
