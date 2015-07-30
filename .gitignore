@@ -15,6 +15,7 @@ app/[Cc]onfig/email.php
 /app/Vendor/autoload.php
 /app/Vendor/composer
 /app/Vendor/leafo
+/app/Vendor/
 /app/tmp/*.log.*
 /app/tmp/cake*
 /app/tmp/userbar*
@@ -25,7 +26,6 @@ app/[Cc]onfig/email.php
 /build
 /dist
 /tags
-composer.lock
 
 # OS generated files #
 ######################
