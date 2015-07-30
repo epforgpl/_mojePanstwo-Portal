@@ -379,4 +379,8 @@ class Dataobject
 	    return array();
     }
     
+    public function getDefaultColumnsSizes() {
+	    return array(2, 10);
+    }
+    
 }

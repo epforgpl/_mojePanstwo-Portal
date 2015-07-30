@@ -27,14 +27,14 @@ class Dzialania extends DocDataObject
 	public function getThumbnailUrl($size = '2')
     {
 	    if( $this->getData('photo') )
-	        return 'http://sds.tiktalik.com/portal/' . $size . '/pages/dzialania/' . $this->getId() . '.jpg';
+	        return 'http://sds.tiktalik.com/portal/2/pages/dzialania/' . $this->getId() . '.jpg';
 	    else
 	    	return false;
     }
     
     public function getDescription()
     {
-	    return false;
+	    return $this->getData('podsumowanie');
     }
     
     public function getMetaDescriptionParts($preset = false)
@@ -48,5 +48,9 @@ class Dzialania extends DocDataObject
 		return $output;
 		
 	}
+	
+	public function getDefaultColumnsSizes() {
+	    return array(4, 8);
+    }
 		
 }

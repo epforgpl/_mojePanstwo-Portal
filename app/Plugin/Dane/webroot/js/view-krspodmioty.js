@@ -134,6 +134,7 @@ function loadScript() {
 jQuery(document).ready(function () {
     "use strict";
     var dataHighlights,
+        objectMain = $('.objectMain'),
         banner = jQuery('.profile_baner'),
         mapsOptions = $('.mapsOptions '),
         menu = jQuery('.objectsPageContent .objectMenu'),
@@ -243,6 +244,23 @@ jQuery(document).ready(function () {
             $objectSideInner.find('.dataHighlights.unhide').slideUp(function () {
                 $objectSideInner.find('.dataHighlights.unhide').removeClass('uhhide').addClass('hide');
             });
+        }
+    });
+
+    console.log(objectMain, objectMain.find('.text-iheight-toggle'));
+
+    objectMain.find('.text-iheight-toggle > a').on('click', function (e) {
+        var that = $(this),
+            main = objectMain.find('.text-iheight');
+
+        e.preventDefault();
+
+        if (main.hasClass('show_all')) {
+            main.removeClass('show_all');
+            that.text('Więcej')
+        } else {
+            main.addClass('show_all');
+            that.text('Mniej')
         }
     });
 });

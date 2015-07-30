@@ -90,8 +90,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 	
 	                <? if($features = $dzialanie->getLayer('features')) { ?>
 	                    <? if($mailing = @$features['mailings'][0]) { ?>
-							
-							<?php $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialanie-mailing'); ?>
+
 	                        <?php echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false', array('block' => 'scriptBlock')); ?>
 	                        <?php $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma'))) ?>
 	                        <?php $this->Combinator->add_libs('css', $this->Less->css('naszrzecznik', array('plugin' => 'Pisma'))) ?>
@@ -109,12 +108,20 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 	                                <fieldset>
 	                                    <div class="form-group adresaci margin-top-10">
 	                                        <label for="adresatSelect" class="col-lg-2 control-label">Adresat</label>
-	
+																						
 	                                        <div class="col-lg-9">
 	                                            <div class="suggesterBlockPisma">
-	                                                <?= $this->Element('Pisma.searcher', array('q' => '', 'dataset' => 'pisma_adresaci-aktywni_' . $mailing['target'] == '0' ? 'poslowie' : 'senatorowie', 'placeholder' => 'Zacznij pisać aby znaleźć adresata...')) ?>
+	                                                <?
+		                                                $dataset = 'pisma_adresaci-aktywni_';
+		                                                $dataset .= ($mailing['target'] == '0') ? 'poslowie' : 'senatorowie';
+		                                                echo $this->Element('Pisma.searcher', array(
+			                                                'q' => '', 
+			                                                'dataset' =>  $dataset, 
+			                                                'placeholder' => 'Zacznij pisać aby znaleźć adresata...'
+		                                                ));
+		                                            ?>
 	                                            </div>
-	                                            <span class="help-block">Na podstawie wybranego <? echo $mailing['target'] == '0' ? 'posła' : 'senatora' ?>, uzupełnimy dane teleadresowe w Twoim piśmie.</span>
+	                                            <span class="help-block">Na podstawie wybranego <? echo ($mailing['target'] == '0') ? 'posła' : 'senatora' ?>, uzupełnimy dane teleadresowe w Twoim piśmie.</span>
 	                                        </div>
 	
 	                                        <input type="hidden" name="adresat_id"<?php if (!empty($pismo['adresat_id'])) {
@@ -135,32 +142,55 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 	                                </fieldset>
 
                                     <? if($mailing['target'] == '0') { ?>
+
+                                        <?php $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialanie-mailing'); ?>
+
                                         <h2 class="text-center">Nie wiesz kto jest Twoim posłem?</h2>
 
-                                        <p class="help-block text-center"><a href="#" id="localizeMe">Zlokalizuj się</a> lub wskaż
-                                            na mapie miejsce zamieszkania:</p>
+                                        <p class="help-block text-center">
+                                            <a href="#" id="localizeMe">Zlokalizuj się</a>
+                                            lub wskaż na mapie miejsce zamieszkania:
+                                        </p>
 
                                         <div class="row">
                                             <div id="map"></div>
                                         </div>
+
+                                        <div data-name="okregi" data-value='<?= json_encode($okregi) ?>'></div>
+
+                                        <div class="modal fade" id="wybierzPosla" tabindex="-1" role="dialog" aria-labelledby="wybierzPoslaLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header"></div>
+                                                    <div class="modal-body"></div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    <? } elseif($mailing['target'] == '1') { ?>
+
+                                        <?php $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialanie-senat'); ?>
+
+                                        <h2 class="text-center">Nie wiesz kto jest Twoim senatorem?</h2>
+
+                                        <p class="help-block text-center">
+                                            <a href="#" id="localizeMe">Zlokalizuj się</a>
+                                            lub wskaż na mapie miejsce zamieszkania:
+                                        </p>
+
+                                        <div class="row">
+                                            <div id="senat" style="height: 500px;"></div>
+                                        </div>
+
+                                        <div data-name="senat" data-value='<?= json_encode($senat) ?>'></div>
+
                                     <? } ?>
-	
+
 	                            </form>
 	
-	                        </div>
-	
-	                        <div data-name="okregi" data-value='<?= json_encode($okregi) ?>'></div>
-	
-	                        <div class="modal fade" id="wybierzPosla" tabindex="-1" role="dialog" aria-labelledby="wybierzPoslaLabel">
-	                            <div class="modal-dialog" role="document">
-	                                <div class="modal-content">
-	                                    <div class="modal-header"></div>
-	                                    <div class="modal-body"></div>
-	                                    <div class="modal-footer">
-	                                        <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
-	                                    </div>
-	                                </div>
-	                            </div>
 	                        </div>
 	
 	                    <? } ?>
