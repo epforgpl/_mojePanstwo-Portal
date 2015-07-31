@@ -8,7 +8,13 @@ class SejmometrController extends ApplicationsController
     public $settings = array(
         'id' => 'sejmometr',
     );
-
+	
+	public function beforeFilter() {
+		
+		return $this->redirect('/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej');
+		
+	}
+	
     public function getMenu()
     {
         $menu = array(
