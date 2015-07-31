@@ -2680,6 +2680,37 @@ class GminyController extends DataobjectsController
                                 ),
                             ),
                         ),
+                        'oswiadczenia' => array(
+                            'filter' => array(
+                                'bool' => array(
+                                    'must' => array(
+                                        array(
+                                            'term' => array(
+                                                'dataset' => 'krakow_oswiadczenia',
+                                            ),
+                                        ),
+                                        array(
+                                            'term' => array(
+                                                'data.krakow_urzednicy.radny_id' => $radny->getId(),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                            'aggs' => array(
+                                'top' => array(
+                                    'top_hits' => array(
+                                        'size' => 3,
+                                        'fielddata_fields' => array('dataset', 'id'),
+                                        'sort' => array(
+                                            'date' => array(
+                                                'order' => 'desc',
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
                     );
 
                     $options = array(
