@@ -1,6 +1,3 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('bdl-select', array('plugin' => 'Dane'))); ?>
-<?php $this->Combinator->add_libs('js', 'Dane.bdl-select'); ?>
-
 <div class="row">
     <form id="filters_form" data-expand="<?= $expand_dimension ?>" class="bdl-select col-xs-12">
         <ul>

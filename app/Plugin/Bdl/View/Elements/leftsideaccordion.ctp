@@ -2,6 +2,7 @@
 $this->Combinator->add_libs('css', '../plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5');
 $this->Combinator->add_libs('css', '../plugins/jscrollPane/style/jquery.jscrollpane.css');
 $this->Combinator->add_libs('css', $this->Less->css('bdl_tree', array('plugin' => 'Bdl')));
+$this->Combinator->add_libs('css', $this->Less->css('bdl-select', array('plugin' => 'Dane')));
 
 echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5.all', array('block' => 'scriptBlock'));
 echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/locales/bootstrap-wysihtml5.pl-NEW', array('block' => 'scriptBlock'));
