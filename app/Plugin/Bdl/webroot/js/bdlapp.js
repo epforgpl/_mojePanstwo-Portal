@@ -11,20 +11,28 @@ var BDLapp = function () {
     };
 
     this.init = function () {
-        this.setup();
         this.treeLoad();
         this.itemInit();
         this.subitemInit();
     };
 
     this.setup = function () {
-        if (History.getState().data.item) { //TODO: check why not work at reload
-            this.variable.link = History.getState().data.item;
+        var self = this;
 
-            if (this.variable.link.slice(this.variable.link.indexOf('&') + 1)) {
-                this.variable.link = this.variable.link.split('&');
+        if (History.getState().data.item == undefined) {
+            var href = window.location.pathname,
+                link_id = href.substr(href.lastIndexOf('/') + 1).split(',')[0];
+
+            self.variable.link = $('#tree').jstree(true).get_node('link_id=' + link_id).parents.reverse()
+        } else {
+            self.variable.link = History.getState().data.item;
+
+            if (self.variable.link.slice(self.variable.link.indexOf('&') + 1)) {
+                self.variable.link = self.variable.link.split('&');
             }
         }
+
+        self.treeFocus();
     };
 
     this.treeLoad = function () {
@@ -112,15 +120,8 @@ var BDLapp = function () {
             var $treeBlock = $('.treeBlock');
 
             if (self.variable.link) {
-                $.each(self.variable.link, function () {
-                    if (this.match("link_id=")) {
-                        $('a[id="' + this + '_anchor"]').addClass('jstree-active')
-                    } else {
-                        tree.jstree("open_node", this);
-                    }
-                    self.variable.jsScrollTarget = self.variable.link[self.variable.link.length - 1];
-                    self.treeScrollReload();
-                });
+                console.log('treefocus treeLoad');
+                self.treeFocus();
             }
 
             $leftSideAccordion.removeClass('init').find('h3 span').remove();
@@ -133,6 +134,8 @@ var BDLapp = function () {
                     self.treeScrollReload();
                 }
             });
+
+            self.setup();
 
             $(window).resize(function () {
                 $treeBlock.css('height', 'auto');
@@ -203,6 +206,20 @@ var BDLapp = function () {
         }
     };
     this.treeFocus = function () {
+        var self = this,
+            tree = $('#tree');
+
+        if (self.variable.link) {
+            $.each(self.variable.link, function () {
+                if (this.match("link_id=")) {
+                    $('a[id="' + this + '_anchor"]').addClass('jstree-active')
+                } else {
+                    tree.jstree("open_node", this);
+                }
+                self.variable.jsScrollTarget = self.variable.link[self.variable.link.length - 1];
+                self.treeScrollReload();
+            });
+        }
     };
     this.itemLoad = function (item) {
         var self = this;
@@ -468,32 +485,6 @@ var BDLapp = function () {
                 }]
             });
 
-            // sticky map - TODO: make it better or remove it
-            /*if ($(window).width() > 1000) {
-
-             var mapOffset = highmap.offset();
-             var t = mapOffset.top;
-             var f = false;
-
-             $(window).scroll(function () {
-
-             var top = $(window).scrollTop();
-
-             if (!f && top > t) {
-             highmap.css('top', '10px');
-             highmap.css('position', 'fixed');
-             f = true;
-             }
-
-             if (f && top <= t) {
-             highmap.css('position', 'relative');
-             f = false;
-             }
-
-             });
-
-             }*/
-
             $('tr.wskaznikStatic')
                 .on("mouseenter", function () {
                     var id = parseInt($(this).attr('data-local_id'));
@@ -626,15 +617,15 @@ var BDLapp = function () {
             main.append(
                 $('<div></div>').addClass('curtain loading').css({
                     'background-color': 'rgba(255, 255, 255, .7)',
+                    'background-position': Math.floor(w / 2) + 'px 50%',
                     'width': w,
                     'height': '100%',
                     'display': 'block',
                     'left': '385px',
                     'position': 'fixed',
                     'top': 0,
-                    'z-index': 2,
-                    'width': w,
-                    'background-position': Math.floor(w / 2) + 'px 50%'
+                    'z-index': 2
+
                 })
             );
         }
