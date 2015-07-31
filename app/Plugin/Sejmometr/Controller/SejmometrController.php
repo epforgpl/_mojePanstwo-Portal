@@ -22,10 +22,12 @@ class SejmometrController extends ApplicationsController
                 array(
 	                'id' => '',
                     'label' => 'Posłowie',
+                    'href' => ''
                 ),
                 array(
                     'id' => 'posiedzenia',
                     'label' => 'Posiedzenia',
+                    'href' => 'posiedzenia'
                 ),
                 array(
                     'id' => '#',
@@ -96,7 +98,7 @@ class SejmometrController extends ApplicationsController
                     )
                 ),
             ),
-            'base' => 'sejmometr'
+            'base' => '/sejmometr'
         );
 
         return $menu;

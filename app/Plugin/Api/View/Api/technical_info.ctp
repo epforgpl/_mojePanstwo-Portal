@@ -156,7 +156,7 @@
                         wysŧępuje on w
                         serwisie mojePaństwo.</p>
 
-                    <p>Przykładowo: <code>{"mpurl": "https://mojepanstwo.pl/dane/poslowie/1"}</code></p>
+                    <p>Przykładowo: <code>{"mp_url": "https://mojepanstwo.pl/dane/poslowie/1"}</code></p>
                 </div>
 
                 <div class="section">
