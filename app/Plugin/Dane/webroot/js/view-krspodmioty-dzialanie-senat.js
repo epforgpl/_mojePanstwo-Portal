@@ -30,40 +30,38 @@ var WybierzPoslaModal = function (okrag) {
 };
 
 WybierzPoslaModal.prototype.initialize = function () {
-    var nr_okregu = this.okrag[1];
     var id_okregu = this.okrag[0];
-    $('#wybierzPosla .modal-header').first().html([
+    $('#wybierzSenatora .modal-header').first().html([
         '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>',
-        '<h4 class="modal-title">Posłowie w okręgu ' + nr_okregu + '</h4>'
+        '<h4 class="modal-title">Senatorowie w okręgu ' + id_okregu + '</h4>'
     ].join(''));
 
-    $('#wybierzPosla .modal-body').first().html(
+    $('#wybierzSenatora .modal-body').first().html(
         '<div class="spinner grey"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>'
     );
 
-    $('#wybierzPosla').modal('show');
+    $('#wybierzSenatora').modal('show');
 
     var _this = this;
 
-    $.getJSON(mPHeart.constant.ajax.api + '/dane/poslowie/index.json?conditions[poslowie.mandat_wygasl]=0&conditions[poslowie.sejm_okreg_id]=' + id_okregu, function (res) {
+    $.getJSON(mPHeart.constant.ajax.api + '/dane/senatorowie/index.json?conditions[senatorowie.okreg_id]=' + id_okregu, function (res) {
         _this.res = res;
         if (res.Dataobject && res.Dataobject.length > 0) {
             var html = ['<div class="list-group" style="margin-bottom: 0;">'];
-
             for (var i = 0; i < res.Dataobject.length; i++) {
                 if (res.Dataobject.hasOwnProperty(i)) {
                     var row = res.Dataobject[i];
                     html.push([
                         '<a href="#" class="list-group-item" data-index="' + i + '">',
                         '<div class="row">',
-                        '<div class="col-sm-2">',
-                        '<img class="img-circle" src="http://resources.sejmometr.pl/mowcy/a/0/' + row.data["ludzie.id"] + '.jpg"/>',
+                        //'<div class="col-sm-2">',
+                        //'<img class="img-circle" src="http://resources.sejmometr.pl/mowcy/a/0/' + row.data["ludzie.id"] + '.jpg"/>',
+                        //'</div>',
+                        '<div class="col-sm-7">',
+                        row.data['senatorowie.nazwa'],
                         '</div>',
                         '<div class="col-sm-5">',
-                        row.data['ludzie.nazwa'],
-                        '</div>',
-                        '<div class="col-sm-5">',
-                        row.data['sejm_kluby.nazwa'],
+                        row.data['senat_kluby.nazwa'],
                         '</div>',
                         '</div>',
                         '</a>'
@@ -75,21 +73,22 @@ WybierzPoslaModal.prototype.initialize = function () {
                 '</div>'
             ].join(''));
 
-            $('#wybierzPosla .modal-body').first().html(
+            $('#wybierzSenatora .modal-body').first().html(
                 html.join('')
             );
 
-            $("#wybierzPosla img").error(function () {
+            $("#wybierzSenatora img").error(function () {
                 $(this).attr('src', 'https://placeholdit.imgix.net/~text?txtsize=13&bg=ffffff&txtclr=ddd%26text%3Davatar&txt=avatar&w=100&h=100');
             });
 
-            $("#wybierzPosla a.list-group-item").click(function () {
+            $("#wybierzSenatora a.list-group-item").click(function () {
                 var index = parseInt($(this).attr('data-index'));
                 var row = _this.res.Dataobject[index];
                 var url = '/pisma';
+                var szablon_id = $('input[name="szablon_id"]').val();
                 var form = $('<form target="_blank" action="' + url + '" method="post">' +
-                '<input type="text" name="adresat_id" value="poslowie:' + row.id + '" />' +
-                '<input type="text" name="szablon_id" value="75" />' +
+                '<input type="text" name="adresat_id" value="senatorowie:' + row.id + '" />' +
+                '<input type="text" name="szablon_id" value="' + szablon_id + '" />' +
                 '</form>');
                 $('body').append(form);
                 form.submit();
@@ -123,34 +122,34 @@ Okregi.prototype.initialize = function () {
 };
 
 Okregi.prototype.createAndAddToMapOkregiPolygons = function () {
+    var _this = this;
+
     for (var i = 0; i < this.data.length; i++) {
         if (this.data.hasOwnProperty(i)) {
 
             var p = parsePolyStrings(this.data[i][2]);
 
+            for(var s = 0; s < p.length; s++) {
+                var options = {
+                    fillColor: '#fff',
+                    fillOpacity: 0,
+                    strokeOpacity: 0.3,
+                    strokeColor: '#444499',
+                    strokeWeight: 1,
+                    path: p[s],
+                    i: i
+                };
 
-            var options = {
-                fillColor: "#F8F8F8",
-                fillOpacity: 1,
-                strokeOpacity: .5,
-                strokeColor: '#444499',
-                strokeWeight: 0,
-                path: p[0],
-                i: i
-            };
+                this.data[i].polygon = [];
+                this.data[i].polygon[s] = new google.maps.Polygon(options);
+                this.data[i].polygon[s].setMap(this.googleMap);
 
-            this.data[i].polygon = new google.maps.Polygon(options);
-            this.data[i].polygon.setMap(this.googleMap);
+                google.maps.event.addListener(this.data[i].polygon[s], 'click', function (e) {
+                    var index = this.i;
+                    _this.createModalPoslowie(index);
+                });
 
-            var _this = this;
-            google.maps.event.addListener(this.data[i].polygon, 'mouseover', function () {
-                _this.okregiPolygonMouseOver(this);
-            });
-
-            google.maps.event.addListener(this.data[i].polygon, 'click', function (e) {
-                var index = this.i;
-                _this.createModalPoslowie(index);
-            });
+            }
         }
     }
 };
@@ -201,6 +200,15 @@ Okregi.prototype.createGoogleMap = function () {
     return new google.maps.Map(
         document.getElementById(this.googleMapId), {
             zoom: 6,
+            minZoom: 6,
+            panControl: false,
+            zoomControl: false,
+            scrollwheel: false,
+            draggable: false,
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            overviewMapControl: false,
             zoomControlOptions: {
                 style: google.maps.ZoomControlStyle.SMALL,
                 position: google.maps.ControlPosition.RIGHT_TOP
@@ -245,9 +253,13 @@ Okregi.prototype.getOkragIndexByPosition = function (lat, lng) {
     var position = new google.maps.LatLng(lat, lng);
     for (var i = 0; i < this.data.length; i++) {
         if (this.data.hasOwnProperty(i)) {
-            var okrag = this.data[i];
-            if (google.maps.geometry.poly.containsLocation(position, okrag.polygon)) {
-                return i;
+            for(var s = 0; s < this.data[i].polygon.length; s++) {
+                if (this.data[i].polygon.hasOwnProperty(s)) {
+                    var okrag = this.data[i].polygon[s];
+                    if (google.maps.geometry.poly.containsLocation(position, okrag.polygon)) {
+                        return i;
+                    }
+                }
             }
         }
     }
@@ -279,6 +291,7 @@ $(document).ready(function () {
             var lat = cords.latitude;
             var lng = cords.longitude;
             var okragIndex = okregi.getOkragIndexByPosition(lat, lng);
+            console.log(okragIndex);
             if (okragIndex !== false) {
                 okregi.createModalPoslowie(okragIndex);
             }
