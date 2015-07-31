@@ -454,11 +454,13 @@ class KrsPodmiotyController extends DataobjectsController
 			
             if($features = $dzialanie->getLayer('features')) {
                 $this->loadModel('Sejmometr.Sejmometr');
-                // $this->set('okregi', $this->Sejmometr->okregi());
-                $this->set('senat', $this->Sejmometr->senat());
-                
-                $this->set('okregi', array());
-                // $this->set('senat', array());
+                if($mailing = @$features['mailings'][0]) {
+                    if($mailing['target'] == '0') {
+                        $this->set('okregi', $this->Sejmometr->okregi());
+                    } else {
+                        $this->set('senat', $this->Sejmometr->senat());
+                    }
+                }
             }
             
             $this->set('dzialanie', $dzialanie);
