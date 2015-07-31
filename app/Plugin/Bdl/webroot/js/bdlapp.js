@@ -619,21 +619,24 @@ var BDLapp = function () {
     };
 
     this.loading = function () {
-        var main = $('#_main');
+        var main = $('#_main'),
+            w = main.find('.objectsPage').width();
 
         if (main.find('.curtain').length == 0) {
             main.append(
                 $('<div></div>').addClass('curtain loading').css({
                     'background-color': 'rgba(255, 255, 255, .7)',
-                    'width': '100%',
+                    'width': w,
                     'height': '100%',
                     'display': 'block',
                     'left': '385px',
                     'position': 'fixed',
                     'top': 0,
-                    'z-index': 2
+                    'z-index': 2,
+                    'width': w,
+                    'background-position': Math.floor(w / 2) + 'px 50%'
                 })
-            )
+            );
         }
     };
 
