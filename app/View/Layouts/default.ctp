@@ -66,7 +66,7 @@
     echo $this->Html->css('../plugins/bootstrap-switch/bootstrap-switch.css');
 
     /* SOCIAL BUTTONS */
-    echo $this->Html->css('../libs/font-awesome/4.3.0/css/font-awesome.min.css');
+    echo $this->Html->css('../libs/font-awesome/4.4.0/css/font-awesome.min.css');
     $this->Combinator->add_libs('css', $this->Less->css('social-buttons'), false);
 
     if (isset($object_editable) && !empty($object_editable)) {

@@ -5,9 +5,6 @@ $file_exists = file_exists($file);
 $this->Dataobject->setObject($object);
 $width = 12;
 
-if ($object->data['gminy.id'] == 903) {
-    $thumbWidth = 2;
-}
 ?>
 
 <div class="objectRender col-md-12 <?php echo $object->getDataset(); ?>" oid="<?php echo $object->getId(); ?>">
@@ -68,9 +65,6 @@ if ($object->data['gminy.id'] == 903) {
                             <?= $object->getDescription() ?>
                         </div>
                     <? }
-                }
-                if ($object->data['gminy.id'] == 903) {
-                    echo $this->element('PrzejrzystyKrakow.radni_details', array('radny' => $object));
                 }
                 ?>
             </div>
