@@ -47,24 +47,30 @@
             if (!empty($expanded_dimension)) {
                 foreach ($expanded_dimension['options'] as $option) {
                     if (isset($option['data'])) {
-                        echo $this->element('Dane.bdl_wskaznik', array(
-                            'data' => $option['data'],
-                            'url' => $object->getUrl(),
-                            'title' => $option['value'],
-                        ));
+                                                                        
+                        if( isset($combination) && ($combination['id']==$option['id']) ) {
+	                        
+	                        echo $this->element('Dane.bdl_wskaznik', array(
+	                            'data' => $option['data'],
+	                            'url' => $object->getUrl(),
+	                            'title' => $option['value'],
+	                        ));
+	                        
+	                        echo $this->element('Bdl.subitem');
+	                        
+                        } else {
+	                        
+	                        echo $this->element('Dane.bdl_wskaznik', array(
+	                            'data' => $option['data'],
+	                            'url' => $object->getUrl(),
+	                            'title' => $option['value'],
+	                        ));
+	                        
+                        }
+                        
                     }
                 }
-            }
-
-            if (isset($combination)) {
-                echo $this->element('Dane.bdl_wskaznik', array(
-                    'data' => $combination,
-                    'url' => $object->getUrl(),
-                    'title' => $title,
-                ));
-
-                echo $this->element('Bdl.subitem');
-            }
+            }			
             ?>
         </div>
     </div>

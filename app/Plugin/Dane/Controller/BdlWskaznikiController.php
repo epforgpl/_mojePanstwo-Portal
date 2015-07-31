@@ -155,6 +155,7 @@ class BdlWskaznikiController extends DataobjectsController
     public function view()
     {
 
+		$this->loadModel('Bdl.BDL');
         parent::load();
 
         $this->setLayout(array(
@@ -166,7 +167,53 @@ class BdlWskaznikiController extends DataobjectsController
             ),
         ));
 
+		$combination = false;
+		$selected_level_id = false;
+        $levels = $this->object->getLayer('levels');
+        
+        if (!empty($levels)) {
 
+            if (isset($this->request->params['subaction']))
+                $this->request->params['level'] = $this->request->params['subaction'];
+
+            if (isset($this->request->params['level']) && in_array($this->request->params['level'], array(
+                    'gminy',
+                    'powiaty',
+                    'wojewodztwa'
+                ))
+            ) {
+
+                foreach ($levels as &$level) {
+                    if ($level['id'] == $this->request->params['level']) {
+
+                        $selected_level_id = $level['id'];
+                        $level['selected'] = true;
+
+                    }
+                }
+
+            }
+
+            if (!$selected_level_id) {
+                $levels[0]['selected'] = true;
+                $selected_level_id = $levels[0]['id'];
+            }
+
+        }
+                
+		
+		if( 
+			isset($this->request->query['k']) && 
+			( $comb_id = $this->request->query['k'] )
+		) {
+			
+			$combination = $this->BDL->getCombination(array(
+	            'id' => $comb_id,
+	            'local' => $selected_level_id,
+	        ));
+						
+		}
+		
         $expand_dimension = isset($this->request->query['i']) ? (int)$this->request->query['i'] : $this->object->getData('i');
         $dims = $this->object->getLayer('dimennsions');
         $expanded_dimension = array();
@@ -215,7 +262,6 @@ class BdlWskaznikiController extends DataobjectsController
                 $exp_data = Cache::read($cache_id, 'long');
                 if (!$exp_data) {
 
-                    $this->loadModel('Bdl.BDL');
                     $exp_data = $this->BDL->getData($params);
                     Cache::write($cache_id, $exp_data, 'long');
 
@@ -257,7 +303,9 @@ class BdlWskaznikiController extends DataobjectsController
         $this->set('expand_dimension', $expand_dimension);
         $this->set('expanded_dimension', $expanded_dimension);
         $this->set('dimmensions_array', $dimmensions_array);
-
+		$this->set('combination', $combination);
+        $this->set('levels', $levels);
+        $this->set('levels_selected', $selected_level_id);
 
         $this->set(array(
             'object' => array(
