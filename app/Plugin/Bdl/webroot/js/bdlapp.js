@@ -21,9 +21,11 @@ var BDLapp = function () {
 
         if (History.getState().data.item == undefined) {
             var href = window.location.pathname,
-                link_id = href.substr(href.lastIndexOf('/') + 1).split(',')[0];
+                link_id = href.substr(href.lastIndexOf('/') + 1).split(',')[0],
+                data = $('#tree').jstree(true).get_node('link_id=' + link_id);
 
-            self.variable.link = $('#tree').jstree(true).get_node('link_id=' + link_id).parents.reverse()
+            self.variable.link = data.parents.reverse();
+            self.variable.link.push(data.id);
         } else {
             self.variable.link = History.getState().data.item;
 
@@ -120,7 +122,6 @@ var BDLapp = function () {
             var $treeBlock = $('.treeBlock');
 
             if (self.variable.link) {
-                console.log('treefocus treeLoad');
                 self.treeFocus();
             }
 
@@ -210,15 +211,19 @@ var BDLapp = function () {
             tree = $('#tree');
 
         if (self.variable.link) {
-            $.each(self.variable.link, function () {
-                if (this.match("link_id=")) {
-                    $('a[id="' + this + '_anchor"]').addClass('jstree-active')
-                } else {
-                    tree.jstree("open_node", this);
+            for (var i = 0; i < self.variable.link.length; i++) {
+                var link = self.variable.link[i];
+
+                if (link !== undefined || link != '#') {
+                    if (link.match("link_id=")) {
+                        $('a[id="' + link + '_anchor"]').addClass('jstree-active')
+                    } else {
+                        tree.jstree("open_node", link);
+                    }
+                    self.variable.jsScrollTarget = self.variable.link[self.variable.link.length - 1];
+                    self.treeScrollReload();
                 }
-                self.variable.jsScrollTarget = self.variable.link[self.variable.link.length - 1];
-                self.treeScrollReload();
-            });
+            }
         }
     };
     this.itemLoad = function (item) {
@@ -321,7 +326,7 @@ var BDLapp = function () {
         var self = this;
 
         $.ajax({
-            url: item.attr('data-id') + '/kombinacje/' + item.attr('data-dim_id') + '.html',
+            url: '/dane/bdl_wskazniki/' + item.attr('data-id') + '/kombinacje/' + item.attr('data-dim_id') + '.html',
             type: "GET",
             dataType: "html",
             beforeSend: function () {
