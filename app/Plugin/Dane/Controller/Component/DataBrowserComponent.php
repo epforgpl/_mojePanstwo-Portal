@@ -499,6 +499,19 @@ class DataBrowserComponent extends Component
             ),
         ),
         'krakow_darczyncy' => array(
+            'roczniki' => array(
+                'terms' => array(
+                    'field' => 'krakow_darczyncy.rok',
+                    'order' => array(
+	                    '_term' => 'desc',
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Rok',
+                    'skin' => 'list',
+                    'field' => 'krakow_darczyncy.rok'
+                ),
+            ),
             'komitety' => array(
                 'terms' => array(
                     'field' => 'krakow_darczyncy.komitet_id',
@@ -512,12 +525,12 @@ class DataBrowserComponent extends Component
                 'aggs' => array(
                     'label' => array(
                         'terms' => array(
-                            'field' => 'krakow_darczyncy.komitet',
+                            'field' => 'krakow_darczyncy_komitety.nazwa',
                         ),
                     ),
                     'sum' => array(
 	                    'sum' => array(
-		                    'field' => 'data.krakow_darczyncy.wartosc_wplata',
+		                    'field' => 'data.krakow_darczyncy.wartosc_laczne_wplaty',
 	                    ),
                     ),
                 ),
@@ -748,6 +761,70 @@ class DataBrowserComponent extends Component
                 ),
             ),
         ),
+        'poslowie_glosy' => array(
+            'klub_id' => array(
+                'terms' => array(
+                    'field' => 'poslowie_glosy.klub_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'data.sejm_kluby.skrot',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Fitruj według klubów:',
+                    'skin' => 'list',
+                    'field' => 'poslowie_glosy.klub_id'
+                ),
+            ),
+            'glosy' => array(
+                'terms' => array(
+                    'field' => 'poslowie_glosy.glos_id',
+                    'include' => array(
+                        'pattern' => '(1|2|3|4)'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'poslowie_glosy.glos_id',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Fitruj według głosu:',
+                    'skin' => 'pie_chart',
+                    'field' => 'poslowie_glosy.glos_id',
+                    'dictionary' => array(
+                        '1' => 'Za',
+                        '2' => 'Przeciw',
+                        '3' => 'Wstrzymanie',
+                        '4' => 'Nieobecność',
+                    ),
+                ),
+            ),
+            'bunty' => array(
+                'terms' => array(
+                    'field' => 'poslowie_glosy.bunt',
+                    'include' => array(
+                        'pattern' => '(1)'
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Bunty',
+                    'skin' => 'list',
+                    'field' => 'poslowie_glosy.bunt',
+                    'dictionary' => array(
+                        '1' => 'Pokaż głosy przeciwne niż większości w klubie posła',
+                    ),
+                ),
+            ),
+        ),
         'zamowienia_publiczne' => array(
             'wartosc_cena' => array(
                 'sum' => array(
@@ -888,26 +965,27 @@ class DataBrowserComponent extends Component
                 'aggs' => array(
                     'label' => array(
                         'terms' => array(
-                            'field' => 'data.sejm_druki.druk_typ_nazwa',
+                            'field' => 'sejm_druki_typy.nazwa',
                         ),
                     ),
                 ),
                 'visual' => array(
                     'label' => 'Typy druków',
-                    'skin' => 'pie_chart',
-                    'field' => 'sejm_druki.typ_id'
-                ),
-            ),
-            'date' => array(
-                'date_histogram' => array(
-                    'field' => 'sejm_druki.data',
-                    'interval' => 'year',
-                    'format' => 'yyyy-MM-dd',
-                ),
-                'visual' => array(
-                    'label' => 'Liczba druków w czasie',
-                    'skin' => 'date_histogram',
-                    'field' => 'sejm_druki.data'
+                    'skin' => 'list',
+                    'field' => 'sejm_druki.typ_id',
+                    'dictionary' => array(
+                        '1' => 'Projekty ustaw',
+                        '2' => 'Projekty uchwał',
+                        '3' => 'Wnioski',
+                        '5' => 'Powołania na stanowiska',
+                        '6' => 'Zawiadomienia o ratyfikacji umów',
+                        '7' => 'Sprawozdania komisji',
+                        '8' => 'Stanowiska Senatu',
+                        '9' => 'Dodatkowe sprawozdania komisji',
+                        '10' => 'Autopoprawki',
+                        '11' => 'Sprawozdania kontrolne',
+                        '12' => 'Inne',
+                    ),
                 ),
             ),
         ),
@@ -993,7 +1071,9 @@ class DataBrowserComponent extends Component
         ) {
 
             $controller->Paginator->settings = $this->getSettings();
-
+			
+			// debug($this->getSettings());
+			
             // $controller->Paginator->settings['order'] = 'score desc';
             // debug($controller->Paginator->settings); die();
             $hits = $controller->Paginator->paginate('Dataobject');
@@ -1134,7 +1214,7 @@ class DataBrowserComponent extends Component
             'order' => $this->getSettingsForField('order'),
             'limit' => isset($this->settings['limit']) ? $this->settings['limit'] : 30,
         );
-
+        
         if (isset($conditions['q']))
             $output['highlight'] = true;
 

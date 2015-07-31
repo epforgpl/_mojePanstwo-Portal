@@ -1,5 +1,4 @@
 <?
-
 $objectRenderOptions = array(
     'forceLabel' => (isset($dataBrowserObjectRender) && isset($dataBrowserObjectRender['forceLabel'])) ? (boolean)$dataBrowserObjectRender['forceLabel'] : false,
 );
@@ -13,7 +12,7 @@ $shortTitle = (isset($options['forceTitle'])) ?
     $options['forceTitle'] :
     $object->getShortTitle();
 
-$object_content_sizes = array(2, 10);
+$object_content_sizes = $object->getDefaultColumnsSizes();
 
 if( !isset($truncate) )
 	$truncate = 150;
@@ -60,19 +59,22 @@ $this->Dataobject->setObject($object);
 
                     ?>
                     <div
-                        class="attachment col-xs-<?= $size + 2 ?> col-sm-<?= $size + 1 ?> col-sm-<?= $size ?> text-center">
+                        class="attachment col-xs-<?= $size + 2 ?> col-sm-<?= $size + 1 ?> col-md-<?= $size ?> text-center">
                         <?php if ($object->getUrl() != false) { ?>
                         <a class="thumb_cont" href="<?= $object->getUrl() ?>">
                             <?php } ?>
-                            <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
-                                 alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
+                            <img class="thumb pull-right" src="<?
+                            $img_link = $object->getThumbnailUrl($thumbSize);
+                            $str = preg_replace('#^https?:#', '', $img_link);
+                            echo $img_link;
+                            ?>" alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
                             <?php if ($object->getUrl() != false) { ?>
                         </a>
                     <?php } ?>
 
                     </div>
                                         
-                    <div class="content col-md-<?= $object_content_sizes[1] ?>">
+                    <div class="content col-xs-<?= $object_content_sizes[1] - 2 ?> col-sm-<?= $object_content_sizes[1] - 1 ?> col-md-<?= $object_content_sizes[1] ?>">
 
                         <? if ($alertsButtons) { ?>
                             <div class="alertsButtons pull-right">

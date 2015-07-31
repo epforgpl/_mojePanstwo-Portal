@@ -26,6 +26,7 @@ class ApiController extends ApplicationsController
     {
         $uiRoot = Router::url(array('plugin' => 'api', 'controller' => 'api', 'action' => 'view', 'slug' => $slug), false);
 
+        $this->menu_selected = $slug;
         $this->set(compact('uiRoot', 'slug'));
     }
 
@@ -49,6 +50,10 @@ class ApiController extends ApplicationsController
 				    'id' => 'technical_info',
 				    'label' => 'Opis techniczny',
 			    ),
+                array(
+                    'id' => 'bdl',
+                    'label' => 'Statystyki'
+                )
 		    ),
 		    'base' => '/api',
 	    );

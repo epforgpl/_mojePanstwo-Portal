@@ -1,7 +1,6 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma_render', array('plugin' => 'Pisma'))) ?>
 
 <div id="editor-cont" class="row">
-
     <div class="editor-controls">
         <div class="control control-date">
             <input type="text" class="datepicker" <?php if (!empty($pismo['data_pisma'])) {
@@ -49,7 +48,6 @@
                 echo $pismo['tytul'];
             } ?>
         </div>
-
     </div>
 
     <article id="editor">

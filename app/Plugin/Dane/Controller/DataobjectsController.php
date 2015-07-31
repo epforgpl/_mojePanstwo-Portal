@@ -275,8 +275,15 @@ class DataobjectsController extends AppController
                 ));
 	            
             }
-                                    
-            if( $page = $this->object->getLayer('page') ) {
+                
+                                
+            if( 
+	            !( 
+	            	( $this->object->getDataset()=='gminy') && 
+	            	( $this->object->getId()=='903') 
+	            ) && 
+            	( $page = $this->object->getLayer('page') )
+            ) {
 								
 				if( @isset($this->request->query['page']['cover']) )
 					$page['cover'] = $this->request->query['page']['cover'];
@@ -379,10 +386,22 @@ class DataobjectsController extends AppController
 		    ));
 	        
         }
-        
+
         $this->set('response', $response);
         $this->set('_serialize', array('response'));
-        
+
+        if(!$this->request->is('ajax')) {
+
+            if(isset($response['flash_message'])) {
+                $this->Session->setFlash($response['flash_message']);
+            }
+
+            $this->redirect(
+                isset($response['redirect_url']) ?
+                    $response['redirect_url'] : $this->referer()
+            );
+        }
+
     }
 
 }

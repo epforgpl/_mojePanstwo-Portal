@@ -43,6 +43,12 @@
                                    name="lastname">
                         </div>
                         <div class="form-group">
+                            <label for="inputOrganization">Organizacja</label>
+                            <input required="required" autocomplete="off" type="text" class="form-control"
+                                   id="inputOrganization"
+                                   name="organization">
+                        </div>
+                        <div class="form-group">
                             <label for="inputPosition">Funkcja</label>
                             <input required="required" autocomplete="off" type="text" class="form-control"
                                    id="inputPosition" name="position">

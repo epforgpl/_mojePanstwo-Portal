@@ -38,6 +38,7 @@ $(function () {
                     }
                 }
             },
+            colors: ['#109618', '#DC3912', '#3366CC', '#DDDDDD'],
             series: [{
                 type: 'pie',
                 name: 'Liczba głosów',

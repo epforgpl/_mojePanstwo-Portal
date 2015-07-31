@@ -109,14 +109,14 @@
             }
             var f = this;
             s.loading.start = s.loading.start || function () {
-                e(s.navSelector).hide();
-                s.loading.msg.appendTo(s.loading.selector).show(s.loading.speed, e.proxy(function () {
-                    this.beginAjax(s)
-                }, f))
-            };
+                    e(s.navSelector).hide();
+                    s.loading.msg.appendTo(s.loading.selector).show(s.loading.speed, e.proxy(function () {
+                        this.beginAjax(s)
+                    }, f))
+                };
             s.loading.finished = s.loading.finished || function () {
-                if (!s.state.isBeyondMaxPage)s.loading.msg.fadeOut(s.loading.speed)
-            };
+                    if (!s.state.isBeyondMaxPage)s.loading.msg.fadeOut(s.loading.speed)
+                };
             s.callback = function (n, r, u) {
                 if (!!s.behavior && n["_callback_" + s.behavior] !== t) {
                     n["_callback_" + s.behavior].call(e(s.contentSelector)[0], r, u)
@@ -578,9 +578,9 @@ $(function () {
                     '<link href="\/libs\/bootstrap\/3.1.1\/css\/bootstrap.min.css" type="text\/css" rel="stylesheet">' +
                     '<link href="\/dane\/css\/htmlexDoc.css" type="text\/css" rel="stylesheet">' +
                     '<link href="\/css\/htmlexDocMain_v2.css" type="text\/css" rel="stylesheet">' +
-                    '<link href="http:\/\/mojepanstwo.pl\/htmlex\/' + documentId + '\/' + documentId + '.css" type="text\/css" rel="stylesheet">' +
+                    '<link href="https:\/\/mojepanstwo.pl\/htmlex\/' + documentId + '\/' + documentId + '.css" type="text\/css" rel="stylesheet">' +
                     '<style>' +
-                    'html,body{margin:0}#docsToolbar{position:fixed !important;width:100%;height:40px!important;z-index:10;top:0;left:0;background-color:#e9eaed;}.toolbarSticker{height:40px!important;}.toolbarActions{padding-top:0!important;float: left;min-height: 1px;position: relative;}.document{margin-top:50px}.docDownload{margin-top:-3px;}.show{display: block !important;}.hide{display: none !important;}.loading {background: url("http:\/\/mojepanstwo.pl\/img\/loader\/loading-small.png") no-repeat center center; min-height: 30px; }.document{margin-bottom:50px;}' +
+                    'html,body{margin:0}#docsToolbar{position:fixed !important;width:100%;height:40px!important;z-index:10;top:0;left:0;background-color:#e9eaed;}.toolbarSticker{height:40px!important;}.toolbarActions{padding-top:0!important;float: left;min-height: 1px;position: relative;}.document{margin-top:50px}.docDownload{margin-top:-3px;}.show{display: block !important;}.hide{display: none !important;}.loading {background: url("https:\/\/mojepanstwo.pl\/img\/loader\/loading-small.png") no-repeat center center; min-height: 30px; }.document{margin-bottom:50px;}' +
                     '<\/style>' +
                     '<\/head><body>' +
                     '<script src="\/libs\/jquery\/2.1.1\/jquery.min.js" type="text\/javascript"><\/script>' +
@@ -590,7 +590,7 @@ $(function () {
                 d.close();
 
                 $.get("/docs/" + documentId + ".json", function (packages) {
-                    var loadMoreDocumentContent = '<div class="loadMoreDocumentContent ' + ((packages["Document"]["packages_count"] > 1) ? "show" : "hide") + '"></div>',
+                    var loadMoreDocumentContent = '<div class="loadMoreDocumentContent ' + ((packages["Document"]["packages_count"] > 1) ? "show" : "hide") + '"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>',
                         modalContent = '<div id="_main"><div class="objectsPage"><div class="objectsPageContent"><div class="htmlexDoc" data-document-id="' + packages["Document"]["id"] + '" data-pages="' + packages["Document"]["pages_count"] + '" data-current-package="1" data-packages="' + packages["Document"]["packages_count"] + '">' +
                             '<div id="docsToolbar"><div class="toolbarSticker"><div class="toolbarActions"><div class="docPages form-group">' +
                             '<span class="control-label">Strona</span><input type="text" name="document_page" value="1" class="form-control"autocomplete="off" />' +
@@ -601,14 +601,14 @@ $(function () {
                         modalContent += '<div class="docPagesAll"><span>Ładowanie dokumentu</span><a href="#">Załaduj cały dokument</a></div>';
 
                     modalContent += '<div class="docDownload"><a class="btn btn-default" href="/docs/' + packages["Document"]["id"] + '/download">Pobierz dokument</a></div></div></div></div>' +
-                    '<div class="document"><div class="canvas">' +
-                    packages['Package'] +
-                    '</div>' +
-                    loadMoreDocumentContent +
-                    '</div></div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>';
+                        '<div class="document"><div class="canvas">' +
+                        packages['Package'] +
+                        '</div>' +
+                        loadMoreDocumentContent +
+                        '</div></div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>';
 
                     d.body.innerHTML = modalContent;
                 });

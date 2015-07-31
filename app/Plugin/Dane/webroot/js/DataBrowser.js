@@ -583,7 +583,7 @@ var DataBrowser = Class.extend({
                         }
                     }
                 }
-            }],
+            }]
         });
 
     },
@@ -612,7 +612,27 @@ var DataBrowser = Class.extend({
         li.find('.chart').highcharts({
             chart: {
                 type: 'bar',
-                backgroundColor: null
+                backgroundColor: null,
+                events: {
+                    load: function () {
+                        var chart = this,
+                            legend = this.series[0].chart.axes[0].labelGroup.element;
+
+                        for (var i = 0, len = legend.childNodes.length; i < len; i++) {
+                            (function(i) {
+                                var item = legend.childNodes[i];
+                                item.onmouseover = function (e) {
+                                    chart.series[0].points[i].onMouseOver();
+                                };
+
+                                item.onclick = function (e) {
+                                    $(chart.series[0].points[i].graphic.element).click();
+                                }
+                            })(i);
+                        }
+
+                    }
+                }
             },
             title: {
                 text: ''

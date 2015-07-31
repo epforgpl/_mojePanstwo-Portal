@@ -27,7 +27,7 @@ $this->Html->script(array(
 
 ), array('inline' => 'false', 'block' => 'scriptBlock'));
 
-$this->Html->scriptBlock('window.swaggerUi = new SwaggerUi({url: "http://api-server.dev/swagger.json", uiRoot: "/api/",docExpansion: "list"});window.swaggerUi.load();',
+$this->Html->scriptBlock('window.swaggerUi = new SwaggerUi({url: "https://api-v3.mojepanstwo.pl/swagger.json", uiRoot: "/api/",docExpansion: "list"});window.swaggerUi.load();',
     array('inline' => 'false', 'block' => 'scriptBlock'));
 ?>
 
@@ -35,7 +35,7 @@ $this->Html->scriptBlock('window.swaggerUi = new SwaggerUi({url: "http://api-ser
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2>Informacje ogólne</h2>
+                <h2>Poznaj szczegóły API</h2>
 
                 <div class="option col-xs-12 col-sm-6 col-md-4">
                     <h3>Opis techniczny</h3>
@@ -44,6 +44,13 @@ $this->Html->scriptBlock('window.swaggerUi = new SwaggerUi({url: "http://api-ser
                         wspólnymi dla wszystkich API aplikacji</p>
                     <a class="btn btn-primary btn-sm"
                        href="<?php echo $this->Html->url(array('action' => 'technical_info')); ?>">Więcej</a>
+                </div>
+                <div class="option col-xs-12 col-sm-6 col-md-4">
+                    <h3>API: Statystyki</h3>
+
+                    <p>Przeglądaj statystyki GUS zebrane w Banku Danych Lokalnych</p>
+                    <a class="btn btn-primary btn-sm"
+                       href="<?php echo $this->Html->url(array('action' => 'view', 'slug' => 'bdl')); ?>">Więcej</a>
                 </div>
             </div>
         </div>

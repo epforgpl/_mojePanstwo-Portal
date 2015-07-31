@@ -30,17 +30,24 @@ class Nik_raporty extends DocDataObject
     
     public function getThumbnailUrl($size = '2')
     {
-        $dokument_id = $this->getData('dokument_id');
-        return $dokument_id ? 'http://docs.sejmometr.pl/thumb/' . $size . '/' . $dokument_id . '.png' : false;
+	    if( isset($this->options['mode']) && ($this->options['mode']==='subobject') ) {
+	    	return false;
+	    } else {
+	        $dokument_id = $this->getData('dokument_id');
+	        return $dokument_id ? 'http://docs.sejmometr.pl/thumb/' . $size . '/' . $dokument_id . '.png' : false;
+        }
     }
     
     public function getMetaDescriptionParts($preset = false)
 	{
-			
+				
 		$output = array();
 				
 		if( $this->getDate() )
 			$output[] = dataSlownie($this->getDate());
+			
+		if( $this->getData('liczba_dokumentow') )
+			$output[] = pl_dopelniacz($this->getData('liczba_dokumentow'), 'dokument', 'dokumenty', 'dokumentów');
 		
 		return $output;
 		

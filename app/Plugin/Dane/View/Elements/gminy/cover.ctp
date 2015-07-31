@@ -208,17 +208,11 @@ $options = array(
 
 </div>
 <div class="col-md-3 sidebar">
-	
-    <?
-	    
-    if ($adres = $object->getData('adres')) {
-        $adres = $adres . ', Polska';
-        echo $this->element('Dane.adres', array(
-            'adres' => $adres,
-            'label' => 'Urząd gminy',
-        ));
-    }
 
+<?
+    $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
+    $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
+    $this->Combinator->add_libs('js', 'Pisma.pisma-button');
     echo $this->element('tools/pismo', array(
 	    'label' => '<strong>Wyślij pismo</strong> do urzędu tej gminy',
     ));

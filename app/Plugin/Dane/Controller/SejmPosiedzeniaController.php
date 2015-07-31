@@ -154,8 +154,8 @@ class SejmPosiedzeniaController extends DataobjectsController
     public function view()
     {
 
-        $this->addInitLayers(array('projekty'));
         parent::view();
+        return $this->redirect($this->object->getUrl());
 
     }
 

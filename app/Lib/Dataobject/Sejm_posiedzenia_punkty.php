@@ -61,6 +61,12 @@ class Sejm_posiedzenia_punkty extends DataObject
 		return $output;
 		
 	}
+	
+	public function getUrl() {
+		
+		return '/dane/instytucje/3214,sejm/punkty/' . $this->getId();
+		
+	}
 
 
 }

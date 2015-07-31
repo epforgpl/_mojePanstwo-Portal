@@ -162,11 +162,13 @@ function loadScript() {
 }
 
 $(document).ready(function () {
+
     var objectMain = $('.objectMain'),
-        form = objectMain.find('form'),
+        form = $('form.dzialanie'),
         imageEditor = objectMain.find('.image-editor'),
         imageAlert = imageEditor.find('.alert.alert-danger'),
         imageChoosed = imageEditor.find('input[name="cover_photo"]'),
+        mailBlock = $('.mailBlock'),
         googleBtn = $('.googleBtn'),
         googleLocMeBtn = $('#loc'),
         googleMapBlock = $('.googleMapElement'),
@@ -175,54 +177,69 @@ $(document).ready(function () {
         object_id = header.attr('data-object_id'),
         opis = $('#dzialanieOpis');
 
-        opis.wysihtml5({
-            toolbar: {
-                "font-styles": true, //Font styling, e.g. h1, h2, etc.
-                "emphasis": true, //Italics, bold, etc.
-                "lists": false, //(Un)ordered lists, e.g. Bullets, Numbers.
-                "html": false, //Button which allows you to edit the generated HTML.
-                "link": true, //Button to insert a link.
-                "image": false, //Button to insert an image.
-                "color": false, //Button to change color of font
-                "blockquote": false
-            },
-            'locale': 'pl-NEW',
-            parser: function (html) {
-                return html;
-            }
-        });
+    tinymce.init({
+        language : 'pl',
+        plugins: "media image link code",
+        menubar: "edit format insert tools",
+        statusbar : false,
+        inline_styles: false,
+        selector: "textarea.tinymce",
+        content_css: [
+            "/libs/bootstrap/3.3.4/css/bootstrap.min.css",
+            "/css/main.css"
+        ],
+        valid_elements : "@[id|class|style|title|dir<ltr?rtl|lang|xml::lang|onclick|ondblclick|"
+        + "onmousedown|onmouseup|onmouseover|onmousemove|onmouseout|onkeypress|"
+        + "onkeydown|onkeyup],a[rel|rev|charset|hreflang|tabindex|accesskey|type|"
+        + "name|href|target|title|class|onfocus|onblur],strong/b,em/i,strike,u,"
+        + "#p,-ol[type|compact],-ul[type|compact],-li,br,img[longdesc|usemap|"
+        + "src|border|alt=|title|hspace|vspace|width|height|align],-sub,-sup,"
+        + "-blockquote,-table[border=0|cellspacing|cellpadding|width|frame|rules|"
+        + "height|align|summary|bgcolor|background|bordercolor],-tr[rowspan|width|"
+        + "height|align|valign|bgcolor|background|bordercolor],tbody,thead,tfoot,"
+        + "#td[colspan|rowspan|width|height|align|valign|bgcolor|background|bordercolor"
+        + "|scope],#th[colspan|rowspan|width|height|align|valign|scope],caption,-div,"
+        + "-span,-code,-pre,address,-h1,-h2,-h3,-h4,-h5,-h6,hr[size|noshade],-font[face"
+        + "|size|color],dd,dl,dt,cite,abbr,acronym,del[datetime|cite],ins[datetime|cite],"
+        + "object[classid|width|height|codebase|*],param[name|value|_value],embed[type|width"
+        + "|height|src|*],script[src|type],map[name],area[shape|coords|href|alt|target],bdo,"
+        + "button,col[align|char|charoff|span|valign|width],colgroup[align|char|charoff|span|"
+        + "valign|width],dfn,fieldset,form[action|accept|accept-charset|enctype|method],"
+        + "input[accept|alt|checked|disabled|maxlength|name|readonly|size|src|type|value],"
+        + "kbd,label[for],legend,noscript,optgroup[label|disabled],option[disabled|label|selected|value],"
+        + "q[cite],samp,select[disabled|multiple|name|size],small,"
+        + "textarea[cols|rows|disabled|name|readonly],tt,var,big,"
+        + "iframe[src|title|width|height|allowfullscreen|frameborder]"
+    });
 
-        cropItErrorMsg = function () {
+        cropItErrorMsg = function (error) {
             if (mPHeart.language.twoDig == 'pl') {
                 if (error.code === 0) {
                     error.message = 'Błąd ładowowania zdjęcia - proszę spróbować inne.'
                 } else if (error.code === 1) {
-                    error.message = 'Zdjęcie nie spełnia zalecanej wielkości.'
+                    error.message = 'Zdjęcie nie spełnia zalecanej wielkości (min. 810x320px)'
                 }
             }
 
             if (alert.length) {
-                alert.text(error.message);
+                alert(error.message);
             } else {
-                imageAlert = $('<div></div>').addClass('alert alert-danger').text(error.message);
-
-                el.find('.image-editor').prepend(
-                    imageAlert.slideDown()
-                );
+                alert(error.message);
             }
         };
 
 
     if (imageEditor.length) {
-        var imageWidth = 874,
-            imageHeight = 347,
+        var imageWidth = 810,
+            imageHeight = 320,
             imgEditorWidth = imageEditor.width(),
             imgEditorHeight = imageHeight * (imageEditor.width() / imageWidth),
-            exportZoom = imageWidth / imageEditor.width();
+            exportZoom = imageWidth / imageEditor.width(),
+            src = imageEditor.attr('data-image');
 
         imageEditor.css({'width': imgEditorWidth, height: imgEditorHeight}).cropit({
             imageState: {
-                src: (imageChoosed.val() !== "") ? imageChoosed.val() : ''
+                src: (src !== "") ? src : ''
             },
             width: imgEditorWidth,
             height: imgEditorHeight,
@@ -239,20 +256,6 @@ $(document).ready(function () {
                 cropItErrorMsg(evt);
             }
         });
-        objectMain.find('.submitBtn').click(function (e) {
-            e.preventDefault();
-            imageChoosed.val(imageEditor.cropit('export', {
-                type: 'image/jpeg',
-                quality: .9
-            }));
-
-            if (markers.length) {
-                googleMapBlock.find('input[name="geo_lat"]').val(markers[0].getPosition().lat());
-                googleMapBlock.find('input[name="geo_lng"]').val(markers[0].getPosition().lng());
-            }
-
-            objectMain.find('form').submit();
-        })
     }
     googleBtn.click(function () {
         var $pac = $('#pac-input');
@@ -268,71 +271,117 @@ $(document).ready(function () {
         geolocalizateMe();
     });
 
-    form.submit(function () {
-        var inputs = $(this).serializeArray();
+    $('.deleteBtn').click(function() {
+        form.append('<input type="hidden" name="deleted" value="1"/>');
+        form.submit();
+    });
 
-        var id = 0;
-        for(var i = 0; i < inputs.length; i++)
-            if(inputs[i].name == 'id') {
-                id = parseInt(inputs[i].value);
-                inputs.splice(i, 1);
-            }
+    form.submit(function() {
+        if(typeof imageEditor.cropit('zoom') !== "undefined") {
+            var cropitFields = ['imageSrc', 'offset', 'zoom'];
+            for (var m = 0; m < cropitFields.length; m++) {
+                var v = cropitFields[m];
+                if (v == 'offset') {
 
-        $.ajax({
-            url: '/dane/' + dataset + '/' + object_id + '/dzialania' + (id > 0 ? '/' + id : '') + '.json',
-            method: id > 0 ? 'PUT' : 'POST',
-            data: inputs,
-            success: function (res) {
+                    $('<input />').attr('type', 'hidden')
+                        .attr('name', "x")
+                        .attr('value', imageEditor.cropit(v).x)
+                        .appendTo(form);
 
-                if(res.success && id) {
-                    window.location = '/dane/' + dataset + '/' + object_id + '/dzialania/' + id;
+                    $('<input />').attr('type', 'hidden')
+                        .attr('name', "y")
+                        .attr('value', imageEditor.cropit(v).y)
+                        .appendTo(form);
+
                 } else {
-                    window.location = '/dane/' + dataset + '/' + object_id + '/dzialania/' + res.success;
+
+                    $('<input />').attr('type', 'hidden')
+                        .attr('name', v == 'imageSrc' ? 'cover_photo' : v)
+                        .attr('value', imageEditor.cropit(v))
+                        .appendTo(form);
+
                 }
-
             }
-        });
+        }
 
-        return false;
+        if (markers.length) {
+            googleMapBlock.find('input[name="geo_lat"]').val(markers[0].getPosition().lat());
+            googleMapBlock.find('input[name="geo_lng"]').val(markers[0].getPosition().lng());
+        }
+
+        tinyMCE.triggerSave();
+
+        var content = $(this).find('#dzialanieOpis').val();
+
+        if(content.length > 16383) {
+            alert("Opis jest za długi. (maksymalnie 16383 znaków, twój opis ma " + content.length + " znaków)");
+            return false;
+        }
+
+        $(this)
+            .find('.submitBtn')
+            .addClass('loading disabled');
     });
 
     $('.cancelBtn').click(function() {
         window.location = '/dane/' + dataset + '/' + object_id;
     });
 
-    $('.btn[data-action="delete"]').click(function() {
-        var id = $(this).data('id');
-        if(confirm("Czy na pewno chcesz usunąć to działanie?")) {
-            $.ajax({
-                url: '/dane/' + dataset + '/' + object_id + '/dzialania/' + id + '.json',
-                method: 'DELETE',
-                data: [],
-                success: function(res) {
-                    window.location = '/dane/' + dataset + '/' + object_id;
-                }
-            });
-        }
-    });
+    if(mailBlock.length) {
+
+        var mailBtn = $('.mailBtn'),
+            mailElement = $('.mailElement');
+
+        mailBtn.click(function() {
+            mailElement.slideToggle();
+        });
+
+    }
 
     /* Tags autocomplete input */
     $(function() {
-        $('.tags input.tagit').tagit({
-            allowSpaces: true,
-            removeConfirmation: true,
-            autocomplete: {
-                source: function( request, response ) {
-                    $.getJSON("/dane/tematy.json?term=" + request.term, function(res) {
-                        var data = [];
-                        for(var i = 0; i < res.length; i++)
-                            data.push(res[i].label);
-
-                        response(data);
-                    });
-                },
-                minLength: 3
-            }
-        });
+        
+        var elements = $('.tags input.tagit');
+        for( var i=0; i<elements.length; i++ ) {
+        
+        	var el = $(elements[i]);
+        	
+	        el.tagit({
+	            allowSpaces: true,
+	            removeConfirmation: true,
+	            beforeTagAdded: function(event, ui) {
+	                
+	                if( ui.duringInitialization )
+	                	return false;
+	                
+	                console.log('beforeTagAdded');
+	                return (ui.tagLabel.length >= 2);
+	            },
+	            autocomplete: {
+	                source: function( request, response ) {
+	                    $.getJSON("/dane/suggest.json?q=" + request.term + "&dataset[]=tematy", function(res) {
+	                        var data = [];
+	                        for(var i = 0; i < res.options.length; i++)
+	                            data.push(res.options[i].text);
+	
+	                        response(data);
+	                    });
+	                },
+	                minLength: 1
+	            }
+	        }).tagit('removeAll');
+	        
+	        var data = el.data('value');
+	        if( data && data.length ) {
+		        for( var j=0; j<data.length; j++ ) {
+			        el.tagit('createTag', data[j]);
+		        }
+	        }
+        
+        }
     });
+
+    $('.sticky').sticky();
 
     /*ASYNCHRONIZE ACTION FOR GOOGLE MAP*/
     window.onload = loadScript();

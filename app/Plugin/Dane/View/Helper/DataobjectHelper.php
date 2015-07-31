@@ -64,7 +64,7 @@ class DataobjectHelper extends AppHelper
 
     public function render($object, $theme = 'default', $options = array())
     {
-			
+						
         if (is_array($object)) {
 		
             $dataset = $object['fields']['dataset'][0];
@@ -80,7 +80,7 @@ class DataobjectHelper extends AppHelper
                 'static' => isset($object['_source']['static']) ? $object['_source']['static'] : false,
                 'slug' => false,
             );
-            
+                        
 			require_once( APPLIBS . 'Dataobject.php' );
             if (file_exists($file)) {
                 require_once($file);
@@ -90,9 +90,11 @@ class DataobjectHelper extends AppHelper
                 $object = new MP\Lib\Dataobject($object, $options);
             }
 
+        } elseif( is_object($object) ) {
+	        
+	        $object->setOptions($options);
+	        
         }
-
-        // debug( $object->getData() );
 
         $bg = isset($options['bg']) ? $options['bg'] : false;
         $hlFields = isset($options['hlFields']) ? $options['hlFields'] : false;

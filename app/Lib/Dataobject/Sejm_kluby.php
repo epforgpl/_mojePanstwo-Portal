@@ -25,14 +25,37 @@ class Sejm_kluby extends DataObject
         return 'Klub sejmowy';
     }
     
-    public function getThumbnailUrl($size)
+    public function getThumbnailUrl($size = 2)
     {
-	    return 'http://resources.sejmometr.pl/s_kluby/' . $this->getId() . '_t.png';
+
+        if($this->getData('avatar')) {
+            return 'http://resources.sejmometr.pl/s_kluby/' . $this->getId() . '_t.png';
+        }else{
+            return false;
+        }
     }
     
     public function hasHighlights()
     {
         return false;
+    }
+
+    public function getUrl() {
+
+        return '/dane/instytucje/3214/kluby/' . $this->getId() . ',' . $this->getSlug();
+
+    }
+
+    public function getBreadcrumbs()
+    {
+
+        return array(
+            array(
+                'id' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/kluby',
+                'label' => 'Kluby i koła poselskie',
+            ),
+        );
+
     }
 
 }

@@ -115,6 +115,8 @@ class mpAPISource extends DataSource {
         
         $this->count = false;
         $this->took = false;
+        
+        $process_response = false;
                 
         if( isset($queryData['feed']) ) {
         	        	
@@ -132,18 +134,14 @@ class mpAPISource extends DataSource {
 	        unset( $queryData['feed'] );
 	        
         } elseif( $model->findQueryType == 'first' ) {
-	        	        
+	        	                
 	        if( 
 	        	isset($queryData['conditions']['dataset']) && 
 	        	( $queryData['conditions']['dataset'] == 'zbiory' ) && 
 	        	isset($queryData['conditions']['zbiory.slug']) 
 	        ) {
 		        
-		        $endpoint_parts[] = $queryData['conditions']['zbiory.slug'];
-		        unset( $queryData['conditions']['dataset'] );
-		        unset( $queryData['conditions']['zbiory.slug'] );
-		        unset( $queryData['limit'] );
-		        unset( $queryData['page'] );
+		        $process_response = true;
 		        
 	        } else {
 	        
@@ -227,7 +225,12 @@ class mpAPISource extends DataSource {
         	$this->Aggs = $res['Aggs']; 
            
         if( $model->findQueryType == 'first' ) {
-	        return array($res);
+	        	        
+	        if( $process_response )
+		        return @isset( $res['Dataobject'] ) ? $res['Dataobject'] : array();
+		    else
+		        return array($res);
+        
         } else {	        
 	        return $res['Dataobject'];
         }

@@ -38,7 +38,7 @@ class Dataobject
 
     public function __construct($params = array(), $options = array())
     {
-				
+					
 		$this->options = $options;
         $this->data = $params['data'];
         $this->layers = isset( $params['layers'] ) ? $params['layers'] : array();
@@ -119,6 +119,8 @@ class Dataobject
 	public function getClasses() {
 		$output = $this->classes;
 		$output[] = 'objclass';
+		if( $this->getDataset() )
+			$output[] = $this->getDataset();
 		return $output;
 	}
 	
@@ -352,6 +354,12 @@ class Dataobject
 		$this->routes = array_merge($this->routes, $routes);
 	}
 	
+	public function setOptions($options)
+	{
+		$this->options = array_merge($this->options, $options);
+		return $this->options;
+	}
+	
     public function __call($func, $arg)
     {
 	    
@@ -369,6 +377,10 @@ class Dataobject
     public function getBreadcrumbs()
     {
 	    return array();
+    }
+    
+    public function getDefaultColumnsSizes() {
+	    return array(2, 10);
     }
     
 }

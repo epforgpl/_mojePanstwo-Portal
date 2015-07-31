@@ -50,6 +50,21 @@ class Sejm_debaty extends DataObject
 		return $this->getData('tytul_prefix');
 	}
 	
+	public function getBreadcrumbs()
+	{
+					
+		return array(
+			array(
+				'id' => '/dane/instytucje/3214,sejm/posiedzenia/' . $this->getData('posiedzenie_id'),
+				'label' => 'Posiedzenie #' . $this->getData('sejm_posiedzenia.tytul'),
+			),
+			array(
+				'label' => 'Debaty',
+			),
+		);
+				
+	}
+	
 	public function getMetaDescriptionParts($preset = false)
 	{
 		
@@ -64,6 +79,13 @@ class Sejm_debaty extends DataObject
 			$output[] = pl_dopelniacz( $this->getData('sejm_debaty.liczba_glosowan'), 'głosowanie', 'głosowania', 'głosowań' );
 		
 		return $output;
+		
+	}
+	
+	public function getUrl()
+	{
+		
+		return '/dane/instytucje/3214,sejm/debaty/' . $this->getId();
 		
 	}
 } 

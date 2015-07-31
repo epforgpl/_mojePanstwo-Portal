@@ -38,15 +38,12 @@ class Krakow_darczyncy extends DocDataObject
 		
 		$output = array();
 		
-		if( $this->getData('wartosc_wplata') )
-			$output[] = number_format_h($this->getData('wartosc_wplata')) . ' PLN';
+		if( $this->getData('wartosc_laczne_wplaty') )
+			$output[] = number_format_h($this->getData('wartosc_laczne_wplaty')) . ' PLN';
 				
-		if( $this->getData('komitet') )
-			$output[] = $this->getData('komitet');
-			
-		if( $this->getData('data_wplaty') )
-			$output[] = dataSlownie($this->getData('data_wplaty'));		
-							
+		if( $this->getData('krakow_darczyncy_komitety.nazwa') )
+			$output[] = $this->getData('krakow_darczyncy_komitety.nazwa');
+										
 		return $output;
 		
 	}

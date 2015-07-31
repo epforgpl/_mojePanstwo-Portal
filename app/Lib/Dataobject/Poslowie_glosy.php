@@ -33,5 +33,10 @@ class Poslowie_glosy extends DataObject
     {
         return 'Wynik głosowania posła ' . $this->getData('poslowie.nazwa') . ' w głosowaniu: ' . $this->getData('sejm_glosowania.tytul');
     }
+    
+    public function getThumbnailUrl($size = '0')
+    {
+        return 'http://resources.sejmometr.pl/mowcy/a/' . $size . '/' . $this->getData('poslowie_glosy.mowca_id') . '.jpg';
+    }
 
 }

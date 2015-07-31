@@ -48,29 +48,25 @@ class Sejm_glosowania extends DataObject
     
     public function getUrl() {
 	    
-	    $output = '/dane';
-	    
-	    if( $this->getData('punkt_id') ) {
-		    
-	    	$output .= '/sejm_posiedzenia_punkty/' . $this->getData('punkt_id');
-	    	
-	    	if( $this->getData('debata_id') ) {
-		    
-		    	$output .= '/debaty/' . $this->getData('debata_id');
-		    	
-		    }
-	    	
-	    } elseif( $this->getData('debata_id') ) {
-		    
-	    	$output .= '/sejm_debaty/' . $this->getData('debata_id');
-	    		    
-	    }
-	    
-	    $output .= '/glosowania/' . $this->getId();
-	    
-	    return $output;
+	    return '/dane/instytucje/3214,sejm/glosowania/' . $this->getData('id');	    
 	    
     }
+    
+    public function getBreadcrumbs()
+	{
+					
+		return array(
+			array(
+				'id' => '/dane/instytucje/3214,sejm/posiedzenia/' . $this->getData('posiedzenie_id'),
+				'label' => 'Posiedzenie #' . $this->getData('sejm_posiedzenia.tytul'),
+			),
+			array(
+				'id' => '/dane/instytucje/3214,sejm/posiedzenia/' . $this->getData('posiedzenie_id') . '/glosowania',
+				'label' => 'Głosowania',
+			),
+		);
+				
+	}
     
     public function getSideLabel() {
 	    
@@ -82,5 +78,5 @@ class Sejm_glosowania extends DataObject
 		else
 			return false;
     }
-
+    
 }

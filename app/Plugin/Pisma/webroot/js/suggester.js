@@ -68,16 +68,18 @@
                     }
                 },
                 open: function () {
-                    var $ui = $('#ui-id-' + index);
+                    var uiIndex = index + 1,
+                        $ui = $('#ui-id-' + uiIndex);
 
                     $ui.css({
                         'margin-top': Math.floor((suggesterInput.offset().top + suggesterInput.outerHeight()) - parseInt($ui.css('top'), 10) - parseInt($ui.css('border-bottom-left-radius'), 10)) + 'px',
                         'width': suggesterInput.outerWidth() - 2,
                         'left': parseInt($ui.css('left'), 10) + 1 + 'px'
                     });
-                    $ui.find('.ui-menu-item').each(function () {
-                        var self = $(this);
-                        self.find('._title').css('height', self.find('._title > span').outerHeight())
+
+                    $ui.find('.row ._title').each(function () {
+                        var that = $(this);
+                        that.css('height', that.find('>span').height());
                     });
                     suggesterInput.addClass('open');
                     suggesterInput.removeClass('loader');

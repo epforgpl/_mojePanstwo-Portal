@@ -541,12 +541,33 @@ class GminyController extends DataobjectsController
 		                ),
 	                ),
 	            ),
+	            'urzad_zamowienia' => array(
+	                'filter' => array(
+		                'bool' => array(
+			                'must' => array(
+				                array(
+					                'term' => array(
+						            	'dataset' => 'krakow_zamowienia_publiczne',
+						            ),
+				                ),
+			                ),
+		                ),
+	                ),
+	                'aggs' => array(
+		                'top' => array(
+			                'top_hits' => array(
+	                            'fielddata_fields' => array('dataset', 'id'),
+				                'size' => 3,
+			                ),
+		                ),
+	                ),
+	            ),
 	        );
 
 	        $options = array(
 	            'searchTitle' => 'Szukaj powiązań w Krakowie...',
 	            'conditions' => array(
-	                'dataset' => array('krakow_pomoc_publiczna', 'krs_osoby', 'krakow_darczyncy', 'radni_gmin', 'rady_gmin_interpelacje', 'rady_druki', 'krakow_rada_uchwaly', 'krakow_komisje', 'krakow_zarzadzenia', 'krakow_umowy', 'krakow_jednostki', 'krakow_urzednicy', 'dzielnice', 'zamowienia_publiczne', 'krs_podmioty'),
+	                'dataset' => array('krakow_pomoc_publiczna', 'krs_osoby', 'krakow_darczyncy', 'radni_gmin', 'rady_gmin_interpelacje', 'rady_druki', 'krakow_rada_uchwaly', 'krakow_komisje', 'krakow_zarzadzenia', 'krakow_umowy', 'krakow_jednostki', 'krakow_urzednicy', 'dzielnice', 'zamowienia_publiczne', 'krs_podmioty', 'krakow_zamowienia_publiczne'),
 	            ),
 	            'cover' => array(
 	                'view' => array(
@@ -635,6 +656,10 @@ class GminyController extends DataobjectsController
 				'zamowienia_publiczne' => array(
 					'title' => 'Zamówienia publiczne w Krakowie',
 					'href' => $this->object->getUrl() . '/zamowienia',
+				),
+				'urzad_zamowienia' => array(
+					'title' => 'Zamówienia publiczne Urzędu Miasta Kraków',
+					'href' => $this->object->getUrl() . '/urzad_zamowienia',
 				),
 			));
 	        $this->Components->load('Dane.DataBrowser', $options);
@@ -3825,7 +3850,8 @@ class GminyController extends DataobjectsController
 
         if ($this->domainMode == 'PK') {
             $this->_layout['footer']['element'] = 'pk';
-        }
+            $this->_layout['header']['element'] = 'pk';
+       }
 
         parent::beforeRender();
         

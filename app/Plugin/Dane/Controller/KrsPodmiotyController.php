@@ -8,7 +8,7 @@ class KrsPodmiotyController extends DataobjectsController
     public $observeOptions = true;
     
     public $helpers = array(
-        'Time',
+        'Time', 'Czas'
     );
     public $components = array('RequestHandler');
     public $objectOptions = array(
@@ -62,6 +62,7 @@ class KrsPodmiotyController extends DataobjectsController
 
         $this->addInitLayers(array(
             'channels',
+            'subscription',
             'reprezentacja',
             'wspolnicy',
             'jedynyAkcjonariusz',
@@ -371,65 +372,133 @@ class KrsPodmiotyController extends DataobjectsController
 
     }
 
-    public function dzialania_nowe()
-    {
+    public function dodaj_dzialanie() {
+        
+        $this->request->params['action'] = 'dzialania';
+        
         $this->addInitLayers(array('dzialania_nowe'));
         $this->_prepareView();
 
-        if(!$this->getPageRoles() || !in_array($this->getPageRoles(), array('1', '2')))
+        if(!$this->_canEdit())
             throw new ForbiddenException;
-    }
-
-    public function dzialania_edycja() {
-        $id = @$this->request->params['subid'];
-        if(!$id)
-            throw new NotFoundException;
-
-        $dzialanie = $this->Dataobject->find('first', array(
-            'conditions' => array(
-                'dataset' => 'dzialania',
-                'id' => $id
-            )
-        ));
-
-        if($dzialanie->getData('dzialania.photo') == '1') {
-            $src = "http://sds.tiktalik.com/portal/pages/dzialania/" . $dzialanie->getData('dataset') . "/" . $dzialanie->getData('object_id') . "/" . $dzialanie->getData('id') . ".jpg";
-            $data = @file_get_contents($src);
-            if($data) {
-                $base64 = 'data:image/jpeg;base64,' . base64_encode($data);
-                $this->set('dzialanie_photo_base64', $base64);
-            }
-        }
-
-        $this->set('dzialanie', $dzialanie);
-
-        $this->_prepareView();
-
-        if(!$this->getPageRoles() || !in_array($this->getPageRoles(), array('1', '2')))
-            throw new ForbiddenException;
+            
+        $this->render('dzialanie_form');
     }
 
     public function dzialania() {
+		
 
+        $this->_prepareView();
         if($id = @$this->request->params['subid']) {
 
             $dzialanie = $this->Dataobject->find('first', array(
                 'conditions' => array(
                     'dataset' => 'dzialania',
                     'id' => $id
-                )
+                ),
+                'layers' => array(
+                    'features'
+                ),
+                'aggs' => array(
+	                'tags' => array(
+		                'nested' => array(
+			                'path' => 'tags',
+		                ),
+		                'aggs' => array(
+			                'id' => array(
+				                'terms' => array(
+					                'field' => 'tags.id',
+				                ),
+				                'aggs' => array(
+					                'label' => array(
+						                'terms' => array(
+							                'field' => 'tags.label',
+						                ),
+					                ),
+				                ),
+			                ),
+		                ),
+	                ),
+                ),
             ));
+            
+            $aggs = $this->Dataobject->getAggs();
+            $tags = array();
+            
+            if( @isset( $aggs['tags']['id']['buckets'] ) ) {
+	            foreach( $aggs['tags']['id']['buckets'] as $b ) {        
+		            if(
+			            ( $id = @$b['key'] ) && 
+			            ( $label = @$b['label']['buckets'][0]['key'] )
+		            ) {
+		            
+		            	$tags[] = array(
+			            	'id' => $id,
+			            	'label' => $label,
+		            	);
+		            
+		            }
+		        }
+		    }		
+            
+            $this->set('dzialanie_tags', $tags);
 
-            if(!$dzialanie)
+            if (!$dzialanie)
                 throw new NotFoundException;
-
+			
+			
+            if($features = $dzialanie->getLayer('features')) {
+                $this->loadModel('Sejmometr.Sejmometr');
+                // $this->set('okregi', $this->Sejmometr->okregi());
+                $this->set('senat', $this->Sejmometr->senat());
+                
+                $this->set('okregi', array());
+                // $this->set('senat', array());
+            }
+            
             $this->set('dzialanie', $dzialanie);
 
+            if(@$this->request->params['subaction'] == 'edytuj') {
+
+                if($this->_canEdit()) {
+
+                    if($dzialanie->getData('dzialania.photo') == '1') {
+                        $src = "http://sds.tiktalik.com/portal/1/pages/dzialania/" . $dzialanie->getData('id') . ".jpg";
+                        $data = @file_get_contents($src);
+                        if($data) {
+                            $base64 = 'data:image/jpeg;base64,' . base64_encode($data);
+                            $this->set('dzialanie_photo_base64', $base64);
+                        }
+                    }
+
+                    $this->render('dzialanie_form');
+
+                } else {
+                    throw new ForbiddenException;
+                }
+
+            } else {
+
+				$this->render('dzialanie');
+
+            }
+
         } else {
-            // działania list
+
+	        $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'dzialania',
+	                'dzialania.dataset' => 'krs_podmioty',
+	                'dzialania.object_id' => $this->object->getId(),
+	            ),
+	            'aggsPreset' => 'dzialania_admin',
+	            'searchTitle' => 'Szukaj w działaniach...',
+	        ));
+	
+	        $this->set('title_for_layout', 'Działania ' . $this->object->getData('nazwa'));
+
         }
 
-        $this->_prepareView();
     }
 
     public function powiazania()
@@ -609,7 +678,9 @@ class KrsPodmiotyController extends DataobjectsController
 
     public function getMenu()
     {
-
+        if(!$this->object)
+            return false;
+        
         $counters = $this->object->getLayers('counters');
 
         $menu = array(
@@ -622,23 +693,20 @@ class KrsPodmiotyController extends DataobjectsController
                         'id' => 'home',
                     ),
                 ),
-                array(
-                    'id' => 'graph',
-                    'label' => 'Powiązania',
-                ),
             ),
             'base' => $this->object->getUrl(),
-        );
+        );        
 		
-		/*
-        if (@$this->object_aggs['all']['dzialania']['doc_count']) {
+        if(
+        	@$this->object_aggs['all']['dzialania']['doc_count'] || 
+        	$this->_canEdit()
+        ) {
             $menu['items'][] = array(
                 'id' => 'dzialania',
                 'label' => 'Działania',
                 'count' => $this->object_aggs['all']['dzialania']['doc_count'],
             );
         }
-        */
         
         if (@$this->object_aggs['all']['zamowienia']['doc_count']) {
             $menu['items'][] = array(
@@ -647,6 +715,25 @@ class KrsPodmiotyController extends DataobjectsController
                 'count' => $this->object_aggs['all']['zamowienia']['doc_count'],
             );
         }
+        
+        $menu['items'][] = array(
+            'id' => 'graph',
+            'label' => 'Powiązania'
+        );
+        
+        if($this->_canEdit()) {
+            
+            $menu['items'][] = array(
+                'id' => 'odpisy',
+                'label' => 'Odpisy'
+            );
+            
+            $menu['items'][] = array(
+                'id' => 'dane',
+                'label' => 'Edycja danych'
+            );
+            
+        }        
 
         if ($this->request->params['id'] == 481129) { // KOMITET KONKURSOWY KRAKÓW 2022
 
@@ -691,6 +778,44 @@ class KrsPodmiotyController extends DataobjectsController
         }
 
         return $menu;
+    }
+
+    public function odpisy() {
+        
+        if( @$this->request->params['subid'] ) {
+	        
+	        $res = $this->Dataobject->getDatasource()->request('krs/odpisy/' . $this->request->params['subid']);
+            $this->redirect( $res['url'] );
+	        
+        } else {
+	        
+	        $this->addInitLayers('odpisy');
+	        $this->_prepareView();
+	
+	        if(!$this->_canEdit())
+	            throw new ForbiddenException;
+	
+	        $this->set('title_for_layout', 'Odpisy z KRS podmiotu ' . $this->object->getTitle());
+	        
+        }
+                
+    }
+
+    public function dane() {
+        $this->addInitLayers('page');
+        $this->_prepareView();
+        if(!$this->_canEdit())
+            throw new ForbiddenException;
+    }
+
+    private function _canEdit() {
+        return (
+            @in_array('2', $this->getUserRoles()) ||
+            (
+                $this->getPageRoles() &&
+                in_array($this->getPageRoles(), array('1', '2'))
+            )
+        );
     }
 
 }

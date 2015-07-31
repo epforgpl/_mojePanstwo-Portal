@@ -25,7 +25,7 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
     
     <? if( @$dataBrowser['aggs']['all']['punkty']['top']['hits']['hits'] ) {?>
     <div class="block block-simple block-size-sm col-xs-12">
-        <header>Rozpatrywane projekty</header>
+        <header>Punkty porządku dziennego</header>
 		
         <section class="aggs-init">
             <div class="dataAggs">
@@ -33,11 +33,65 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
                     <ul class="dataobjects punkt-projekty">
                         <? foreach (@$dataBrowser['aggs']['all']['punkty']['top']['hits']['hits'] as $doc) { ?>
                             <li>
-                            
+                            	
+                            	<? 
+	                            	if( $data = $doc['fields']['source'][0]['data'] ) {
+		                        ?>
+                            	<div class="row punkt_header">
+	                            	<div class="info">
+				                        <p class="numer">
+					                        <a href="/dane/instytucje/3214,sejm/punkty/<?= $data['sejm_posiedzenia_punkty.id'] ?>">
+						                        Punkt #<?= $data['sejm_posiedzenia_punkty.numer'] ?>
+						                    </a>
+						                </p>
+						                <p class="tytul">
+					                        <a class="link-discrete" href="/dane/instytucje/3214,sejm/punkty/<?= $data['sejm_posiedzenia_punkty.id'] ?>"><?= $data['sejm_posiedzenia_punkty.tytul'] ?></a>
+						                </p>
+			                        </div>
+                            	</div>
+                            	<? } ?>
+                            	
                             	<div class="row">
-	                            	<div class="col-md-6 projekty">
+	                            	
+	                            	<div class="col-md-6">
 		                            	
 		                            	<? 
+			                            	if( $data = $doc['fields']['source'][0]['data'] ) {
+				                        ?>
+				                        <div class="punkt">
+					                        
+					                        
+					                        <div class="info">
+						                        <? if( $data['sejm_posiedzenia_punkty.liczba_wystapien'] ) {?><a href="/dane/instytucje/3214,sejm/punkty/<?= $data['sejm_posiedzenia_punkty.id'] ?>"><img src="http://resources.sejmometr.pl/stenogramy/punkty/<?= $data['sejm_posiedzenia_punkty.id'] ?>.jpg" /></a><? } ?>
+						                        <p class="stats"><?= $data['sejm_posiedzenia_punkty.stats_str_pl'] ?></p>
+					                        </div>
+					                        
+					                        <?
+					                        if( @$doc['fields']['source'][0]['static']['istotne_glosowania_ids'] ) {
+						                    ?><ul class="glosowania"><?
+												foreach( $doc['fields']['source'][0]['static']['istotne_glosowania_ids'] as $glosowanie_id ) {
+													if( array_key_exists($glosowanie_id, $glosowania) ) {
+													?><li><?
+														echo $this->Dataobject->render($glosowania[$glosowanie_id], 'default', array(
+					                            			'truncate' => 1000,
+				                            			));
+													?></li><?
+													}
+												}	
+											?></ul><?
+							                }
+							                ?>
+					                        
+					                        
+				                        </div>	
+				                        <?  	
+			                            	}
+			                            ?>
+		                            	
+	                            	</div><div class="col-md-6 projekty">
+		                            	
+		                            	<? 
+			                            				                            	
 			                            	if( @$doc['fields']['source'][0]['static']['prawo_projekty'] ) {
 			                            		foreach( $doc['fields']['source'][0]['static']['prawo_projekty'] as $p ) {
 				                            		if( $projekt = $projekty[ $p['projekt_id'] ] ) {
@@ -80,51 +134,13 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
 				                            		}
 				                            	}
 				                            } else {
+					                            					                            
+					                            ?><p class="punkt_wynik"><?= @$doc['fields']['source'][0]['data']['sejm_posiedzenia_punkty.opis'] ?></p><?
 					                            
-					                            echo $this->Dataobject->render($doc, 'default', array(
-			                            			'truncate' => 1000,
-		                            			));
-		                            					                            			
-				                            }				                            		
+				                            }			                            		
 			                            ?>
 			                            	
 
-		                            	
-	                            	</div><div class="col-md-6">
-		                            	
-		                            	<? 
-			                            	if( $data = $doc['fields']['source'][0]['data'] ) {
-				                        ?>
-				                        <div class="punkt">
-					                        
-					                        
-					                        <div class="info">
-						                        <? if( $data['sejm_posiedzenia_punkty.liczba_wystapien'] ) {?><a href="/dane/instytucje/3214,sejm/punkty/<?= $data['sejm_posiedzenia_punkty.id'] ?>"><img src="http://resources.sejmometr.pl/stenogramy/punkty/<?= $data['sejm_posiedzenia_punkty.id'] ?>.jpg" /></a><? } ?>
-						                        <p class="numer"><a href="/dane/instytucje/3214,sejm/punkty/<?= $data['sejm_posiedzenia_punkty.id'] ?>">Punkt #<?= $data['sejm_posiedzenia_punkty.numer'] ?></a></p>
-						                        <p class="stats"><?= $data['sejm_posiedzenia_punkty.stats_str_pl'] ?></p>
-					                        </div>
-					                        
-					                        <?
-					                        if( @$doc['fields']['source'][0]['static']['istotne_glosowania_ids'] ) {
-						                    ?><ul class="glosowania"><?
-												foreach( $doc['fields']['source'][0]['static']['istotne_glosowania_ids'] as $glosowanie_id ) {
-													if( array_key_exists($glosowanie_id, $glosowania) ) {
-													?><li><?
-														echo $this->Dataobject->render($glosowania[$glosowanie_id], 'default', array(
-					                            			'truncate' => 1000,
-				                            			));
-													?></li><?
-													}
-												}	
-											?></ul><?
-							                }
-							                ?>
-					                        
-					                        
-				                        </div>	
-				                        <?  	
-			                            	}
-			                            ?>
 		                            	
 	                            	</div>
                             	</div>

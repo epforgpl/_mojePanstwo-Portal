@@ -18,8 +18,11 @@ $this->Dataobject->setObject($object);
                     <?php if ($object->getUrl() != false) { ?>
                     <a class="thumb_cont" href="<?= $object->getUrl() ?>">
                         <?php } ?>
-                        <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
-                             alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
+                        <img class="thumb pull-right" src="<?
+                        $img_link = $object->getThumbnailUrl($thumbSize);
+                        $str = preg_replace('#^https?:#', '', $img_link);
+                        echo $img_link;
+                        ?>" alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
                         <?php if ($object->getUrl() != false) { ?>
                     </a>
                 <? } ?>
@@ -55,7 +58,6 @@ $this->Dataobject->setObject($object);
                 <?
                 if ($file_exists) {
                     echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(
-                        'item' => $item,
                         'object' => $object
                     ));
                 } else {

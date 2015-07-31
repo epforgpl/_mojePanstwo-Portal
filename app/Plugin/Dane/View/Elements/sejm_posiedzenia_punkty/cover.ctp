@@ -60,7 +60,7 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
 		    <? } ?>
 		    
 		    
-		    <? if( isset($static['istotne_glosowania_ids']) ) {?>
+		    <? if( isset($static['istotne_glosowania_ids']) && !empty($static['istotne_glosowania_ids']) ) {?>
 		    <div class="block block-simple block-size-sm col-xs-12">
 		        <header>Ważne głosowania</header>
 				
@@ -94,7 +94,7 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
 	    
 	    <div class="col-md-6">
 			
-			<? if( isset($static['prawo_projekty']) ) {?>
+			<? if( isset($static['prawo_projekty']) && !empty($static['prawo_projekty']) ) {?>
 		    <div class="block block-simple block-size-sm col-xs-12">
 		        <header>Rozpatrywane projekty</header>
 				

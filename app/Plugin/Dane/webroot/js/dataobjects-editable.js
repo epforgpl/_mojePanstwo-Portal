@@ -277,8 +277,21 @@ ObjectUsersManagement.prototype.onLoadUsers = function (res) {
     );
 
     $('#moderate-add-email').autocomplete({
-        serviceUrl: '/paszport/users/email.json',
-        type: 'POST'
+        source: function( request, response ) {
+            $.post("/paszport/users/email.json", {
+                query: request.term
+            }, function(res) {
+                var data = [];
+                for(var i = 0; i < res.suggestions.length; i++)
+                    data.push(res.suggestions[i].value);
+
+                response(data);
+            });
+        },
+        minLength: 1
+        /*serviceUrl: '/paszport/users/email.json',
+        type: 'POST',
+        source: []*/
     });
 
     moderateUsers.find('select').change(function () {
@@ -334,14 +347,25 @@ ObjectUsersManagement.prototype.onLoadUsers = function (res) {
     moderateAdd.find('form').bind('submit', function () {
         var email = $(this).find('input[type=email]').first();
         var role = $(this).find('select').first();
-        _this.getSpinner().show();
-        $.post('/dane/' + _this.dataset + '/' + _this.id + '/users/index.json', {
+
+        new AcceptModerateRequestModal({
+            dataset: _this.dataset,
+            object_id: _this.id,
+            user_email: email.val(),
+            role: role.val(),
+            success: function() {
+                email.val(null);
+                _this.reLoadUsers();
+            }
+        });
+
+        /*$.post('/dane/' + _this.dataset + '/' + _this.id + '/users/index.json', {
             email: email.val(),
             role: role.val()
         }, function () {
             email.val(null);
             _this.reLoadUsers();
-        });
+        });*/
 
         return false;
     });
@@ -401,6 +425,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
             '</div>'
         ]);
     }
+
     if (jQuery.inArray("logo", this.editables) !== -1) {
         $.merge(list, [
             '<li><a class="logo" href="#">' + (this.header.hasClass('cover-logo') ? 'Zmień' : 'Dodaj') + ' logo</a></li>'

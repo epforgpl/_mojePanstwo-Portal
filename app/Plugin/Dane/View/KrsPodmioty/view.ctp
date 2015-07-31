@@ -10,11 +10,21 @@ echo $this->Element('dataobject/pageBegin');
 
 echo $this->Html->script('Dane.d3/d3', array('block' => 'scriptBlock'));
 
-$this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane')));
+////$this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-krs-graph', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 $this->Combinator->add_libs('js', 'graph-krs');
+
+$page = $object->getLayer('page');
+$description =
+    (isset($page['description']) && strlen($page['description']) > 0)
+        ? $page['description'] :
+            (
+                $object->getData('cel_dzialania') ?
+                    $object->getData('cel_dzialania') :
+                    false
+            );
 
 ?>
 
@@ -29,37 +39,46 @@ $this->Combinator->add_libs('js', 'graph-krs');
     </div>
 <? } ?>
 
-<? /* if( @$object_aggs['all']['dzialania']['top']['hits']['hits'] ) {?>
-<div class="block block-simple col-xs-12 dzialania">
-	<header>Działania organizacji</header>
-    <section class="content">
-        <? foreach ($object_aggs['all']['dzialania']['top']['hits']['hits'] as $dzialanie) { ?>
-            <div class="col-sm-4">
-                <div class="photo">
-                    <? if($dzialanie['fields']['source'][0]['data']['dzialania.photo'] == '1') { ?>
-                        <img alt="<?= $dzialanie['fields']['source'][0]['data']['dzialania.tytul']; ?>" src="http://sds.tiktalik.com/portal/pages/dzialania/krs_podmioty/<?= $object->getId(); ?>/<?= $dzialanie['fields']['id'][0]; ?>.jpg"/>
-                    <? } ?>
-                </div>
-                <h4>
-                    <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>">
-                        <?= $dzialanie['fields']['source'][0]['data']['dzialania.tytul']; ?>
-                    </a>
-                </h4>
-            </div>
-        <? } ?>
-    </section>
-</div>
-<? } */ ?>
-
-<? if ($object->getData('cel_dzialania')) { ?>
-    <div class="dzialanie block block-simple col-xs-12">
-
-        <section class="content normalizeText textBlock">
-            <?= $object->getData('cel_dzialania') ?>
+<? if ($description) { ?>
+    <div class="block block-simple col-xs-12">
+		<header>Misja</header>
+        <section class="content textBlock text-iheight">
+            <div class="text-iheight-content"><?= $description ?></div>
+			<p class="text-iheight-toggle"><a href="#">Więcej</a></p>
         </section>
     </div>
-<? }
+<? } ?>
 
+<? if( @$object_aggs['all']['dzialania']['top']['hits']['hits'] ) {?>
+	<div class="block block-simple col-xs-12 dzialania">
+		<header>Działania</header>
+	    <section class="content">
+	        <? foreach ($object_aggs['all']['dzialania']['top']['hits']['hits'] as $dzialanie) { ?>
+	            <div class="col-sm-4">
+	                
+	                <h4>
+	                    <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>">
+	                        <?= $this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.tytul'], 100); ?>
+	                    </a>
+	                </h4>
+	                
+	                <div class="photo">
+	                    <? if($dzialanie['fields']['source'][0]['data']['dzialania.photo'] == '1') { ?>
+	                        <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>"><img alt="<?= $dzialanie['fields']['source'][0]['data']['dzialania.tytul']; ?>" src="http://sds.tiktalik.com/portal/2/pages/dzialania/<?= $dzialanie['fields']['id'][0]; ?>.jpg" /></a>
+	                    <? } ?>
+	                </div>
+	                
+	                <div class="desc">
+	                	<?= $this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.podsumowanie'], 200) ?>
+	                </div>
+	                
+	            </div>
+	        <? } ?>
+	    </section>
+	</div>
+<? } ?>
+
+<?
 $adres = $object->getData('adres_ulica');
 $adres .= ' ' . $object->getData('adres_numer');
 $adres .= ', ' . $object->getData('adres_miejscowosc');

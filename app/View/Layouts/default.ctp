@@ -149,6 +149,7 @@
 
 <?php
 echo $this->Html->script('../libs/jquery/2.1.4/jquery-2.1.4.min.js');
+echo $this->Html->script('jquery.sticky.js');
 
 if (isset($object_editable) && !empty($object_editable))
     echo $this->Html->script('../js/jquery.autocomplete.min');
@@ -201,6 +202,7 @@ $this->Combinator->add_libs('js', 'suggester');
 $this->Combinator->add_libs('js', 'appheader');
 
 if (isset($object_editable) && !empty($object_editable)) {
+    $this->Combinator->add_libs('js', 'Admin.accept-moderate-request-modal');
     $this->Combinator->add_libs('js', 'Dane.dataobjects-editable');
 }
 
