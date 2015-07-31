@@ -473,8 +473,13 @@ class KrsPodmiotyController extends DataobjectsController
 
                     $this->render('dzialanie_form');
 
-                } else {
-                    throw new ForbiddenException;
+                }
+                else
+                {
+                    if( !$this->Auth->user() )
+                        throw new UnauthorizedException;
+                    else
+                        throw new ForbiddenException;
                 }
 
             } else {
