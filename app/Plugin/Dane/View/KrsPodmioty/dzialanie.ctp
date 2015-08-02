@@ -103,7 +103,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
                                     <form target="_blank" class="letter form-horizontal" action="/pisma" method="post">
 
                                         <h2 class="text-center">Znajdź swojego <? echo $mailing['target'] == '0' ? 'posła' : 'senatora' ?> i wyślij pismo teraz!</h2>
-                                        <input type="hidden" name="szablon_id" value="<?= $mailing['pismo_szablon_id'] ?>"/>
+                                        <input id="input_szablon_id" type="hidden" name="szablon_id" value="<?= $mailing['pismo_szablon_id'] ?>"/>
 
                                         <fieldset>
                                             <div class="form-group adresaci margin-top-10">
@@ -177,15 +177,17 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
                                             <h2 class="text-center">Nie wiesz kto jest Twoim senatorem?</h2>
 
                                             <p class="help-block text-center">
-                                                <!--<a href="#" id="localizeMe">Zlokalizuj się</a>
-                                                lub--> Wskaż na mapie miejsce zamieszkania:
+                                                <? /*<a href="#" id="localizeMe">Zlokalizuj się</a>*/ ?>
+                                                Wskaż na mapie miejsce zamieszkania:
                                             </p>
 
                                             <div class="row">
-                                                <div id="senat" style="height: 500px;"></div>
+	                                            <div class="col-sm-12">
+	                                                <div id="senat" style="height: 500px;"></div>
+	                                            </div>
                                             </div>
 
-                                            <div data-name="senat" data-value='<?= json_encode($senat) ?>'></div>
+                                            <div data-name="senat" data-value='<?= json_encode($okregi) ?>'></div>
 
                                             <div class="modal fade" id="wybierzSenatora" tabindex="-1" role="dialog" aria-labelledby="wybierzSenatoraLabel">
                                                 <div class="modal-dialog" role="document">

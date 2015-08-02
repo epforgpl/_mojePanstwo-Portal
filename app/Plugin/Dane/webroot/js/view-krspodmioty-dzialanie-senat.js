@@ -133,9 +133,9 @@ Okregi.prototype.createAndAddToMapOkregiPolygons = function () {
                 var options = {
                     fillColor: '#fff',
                     fillOpacity: 0,
-                    strokeOpacity: 0.3,
+                    strokeOpacity: 0.4,
                     strokeColor: '#444499',
-                    strokeWeight: 1,
+                    strokeWeight: 1.25,
                     path: p[s],
                     i: i
                 };
@@ -148,6 +148,24 @@ Okregi.prototype.createAndAddToMapOkregiPolygons = function () {
                     var index = this.i;
                     _this.createModalPoslowie(index);
                 });
+                
+                google.maps.event.addListener(this.data[i].polygon[s],"mouseover",function(){
+					this.setOptions({
+						strokeColor: "#DD3333",
+	                    strokeWeight: 2.5,
+	                    strokeOpacity: 0.9
+					});
+				}); 
+				
+				google.maps.event.addListener(this.data[i].polygon[s],"mouseout",function(){
+					this.setOptions({
+						strokeColor: "#444499",
+	                    strokeWeight: 1.25,
+	                    strokeOpacity: 0.4
+					});
+				});
+                
+                
 
             }
         }
@@ -202,7 +220,7 @@ Okregi.prototype.createGoogleMap = function () {
             zoom: 6,
             minZoom: 6,
             panControl: false,
-            zoomControl: false,
+            zoomControl: true,
             scrollwheel: false,
             draggable: false,
             mapTypeControl: false,

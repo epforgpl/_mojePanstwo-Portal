@@ -451,9 +451,25 @@ class KrsPodmiotyController extends DataobjectsController
                 $this->loadModel('Sejmometr.Sejmometr');
                 if($mailing = @$features['mailings'][0]) {
                     if($mailing['target'] == '0') {
-                        $this->set('okregi', $this->Sejmometr->okregi());
+                        
+                        $okregi = Cache::read('Sejmometr.okregi_sejm', 'long');
+			            if (!$okregi) {
+			                $okregi = $this->Sejmometr->okregi_sejm();
+			                Cache::write('Sejmometr.okregi_sejm', $okregi, 'long');
+			            }
+	                    	                    
+                        $this->set('okregi', $okregi);                        
+                    
                     } else {
-                        $this->set('senat', $this->Sejmometr->senat());
+	                    
+	                    $okregi = Cache::read('Sejmometr.okregi_senat', 'long');
+			            if (!$okregi) {
+			                $okregi = $this->Sejmometr->okregi_senat();
+			                Cache::write('Sejmometr.okregi_senat', $okregi, 'long');
+			            }
+	                    	                    
+                        $this->set('okregi', $okregi);
+                        
                     }
                 }
             }
