@@ -450,10 +450,33 @@ class KrsPodmiotyController extends DataobjectsController
 
             if (!$dzialanie)
                 throw new NotFoundException;
-
+			
+			
             if($features = $dzialanie->getLayer('features')) {
                 $this->loadModel('Sejmometr.Sejmometr');
-                $this->set('okregi', $this->Sejmometr->okregi());
+                if($mailing = @$features['mailings'][0]) {
+                    if($mailing['target'] == '0') {
+                        
+                        $okregi = Cache::read('Sejmometr.okregi_sejm', 'long');
+			            if (!$okregi) {
+			                $okregi = $this->Sejmometr->okregi_sejm();
+			                Cache::write('Sejmometr.okregi_sejm', $okregi, 'long');
+			            }
+	                    	                    
+                        $this->set('okregi', $okregi);                        
+                    
+                    } else {
+	                    
+	                    $okregi = Cache::read('Sejmometr.okregi_senat', 'long');
+			            if (!$okregi) {
+			                $okregi = $this->Sejmometr->okregi_senat();
+			                Cache::write('Sejmometr.okregi_senat', $okregi, 'long');
+			            }
+	                    	                    
+                        $this->set('okregi', $okregi);
+                        
+                    }
+                }
             }
             
             $this->set('dzialanie', $dzialanie);
@@ -473,8 +496,13 @@ class KrsPodmiotyController extends DataobjectsController
 
                     $this->render('dzialanie_form');
 
-                } else {
-                    throw new ForbiddenException;
+                }
+                else
+                {
+                    if( !$this->Auth->user() )
+                        throw new UnauthorizedException;
+                    else
+                        throw new ForbiddenException;
                 }
 
             } else {

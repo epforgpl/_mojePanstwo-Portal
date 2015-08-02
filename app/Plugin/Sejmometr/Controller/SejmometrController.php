@@ -8,7 +8,13 @@ class SejmometrController extends ApplicationsController
     public $settings = array(
         'id' => 'sejmometr',
     );
-
+	
+	public function beforeFilter() {
+		
+		return $this->redirect('/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej');
+		
+	}
+	
     public function getMenu()
     {
         $menu = array(
@@ -16,10 +22,12 @@ class SejmometrController extends ApplicationsController
                 array(
 	                'id' => '',
                     'label' => 'Posłowie',
+                    'href' => ''
                 ),
                 array(
                     'id' => 'posiedzenia',
                     'label' => 'Posiedzenia',
+                    'href' => 'posiedzenia'
                 ),
                 array(
                     'id' => '#',
@@ -90,7 +98,7 @@ class SejmometrController extends ApplicationsController
                     )
                 ),
             ),
-            'base' => 'sejmometr'
+            'base' => '/sejmometr'
         );
 
         return $menu;

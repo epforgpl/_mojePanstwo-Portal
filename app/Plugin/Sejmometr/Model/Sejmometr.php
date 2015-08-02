@@ -21,8 +21,12 @@ class Sejmometr extends AppModel
         return $this->getDataSource()->request('sejmometr/stats');
     }
 
-    public function okregi() {
+    public function okregi_sejm() {
         return $this->getDataSource()->request('sejmometr/okregi');
+    }
+
+    public function okregi_senat() {
+        return $this->getDataSource()->request('sejmometr/senat');
     }
 
     /*
