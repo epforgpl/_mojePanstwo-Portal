@@ -2,7 +2,7 @@
     <div class="flash-message">
         <div class="alert <?php echo (isset($class)) ? $class : 'alert-info'; ?>">
             <div class="container">
-                <?php if (isset($close)): ?>
+                <?php if (isset($close) || @$this->Session->read('Message.flash.params.close')): ?>
                     <a class="close" data-dismiss="alert" href="#">×</a>
                 <?php endif; ?>
                 <?php echo $this->Session->flash(); ?>
