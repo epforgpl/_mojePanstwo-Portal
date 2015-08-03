@@ -12,6 +12,13 @@ if ($object->getDescription()) { ?>
 
 <div class="krakowRadnyDetail">
     <div class="row col-xs-12">
+        <? if ($bip = $object->getLayers('bip_url')) { ?>
+            <div class="option pull-left">
+                <a href="<?= $bip; ?>" target="_blank">
+                    <img class="bip" src="/Dane/img/customObject/krakow/logo_bip.png"/>
+                </a>
+            </div>
+        <? } ?>
         <? if (($tel = $object->getData('tel')) && ($tel !== 'nie')) { ?>
             <div class="option pull-left">
                 <a href="skype:<?= $tel; ?>">
