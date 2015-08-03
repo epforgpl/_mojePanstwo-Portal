@@ -177,8 +177,8 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
                                             <h2 class="text-center">Nie wiesz kto jest Twoim senatorem?</h2>
 
                                             <p class="help-block text-center">
-                                                <? /*<a href="#" id="localizeMe">Zlokalizuj się</a>*/ ?>
-                                                Wskaż na mapie miejsce zamieszkania:
+                                                <a href="#" id="localizeMe">Zlokalizuj się</a>
+                                                lub wskaż na mapie miejsce zamieszkania:
                                             </p>
 
                                             <div class="row">
