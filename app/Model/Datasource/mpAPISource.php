@@ -315,11 +315,12 @@ class mpAPISource extends DataSource {
 	    $request = isset($params['request']) ? $params['request'] : array();
 	      
 	    switch( $method ) {
-		    case 'GET': { $json = $this->Http->get($path, $data, $request); break; }
-		    case 'POST': { $json = $this->Http->post($path, $data, $request); break; }
-		    case 'DELETE': { $json = $this->Http->delete($path, $data, $request); break; }
-		    case 'PATCH': { $json = $this->Http->patch($path, $data, $request); break; }
-		    case 'PUT': { $json = $this->Http->put($path, $data, $request); break; }
+		    case 'GET': { $response = $this->Http->get($path, $data, $request); break; }
+		    case 'POST': { $response = $this->Http->post($path, $data, $request); break; }
+		    case 'DELETE': { $response = $this->Http->delete($path, $data, $request); break; }
+		    case 'PATCH': { $response = $this->Http->patch($path, $data, $request); break; }
+		    case 'PUT': { $response = $this->Http->put($path, $data, $request); break; }
+            default: throw new CakeException("Unrecognized method: " . $method);
 	    }
 	    
 	    if( $this->config['verbose'] ) {
@@ -327,11 +328,18 @@ class mpAPISource extends DataSource {
 		    	'endpoint' => urldecode($this->Http->request['line']),
 		    	'data' => $data,
 		    	'request' => $request,
-		    	'response' => $json,
+		    	'response' => $response,
 		    ));
 	    }
+
+        if (!$response->isOk()) {
+            throw new CakeException("Got HTTP error ". $response->code . " from API: " . $response);
+
+        } else if ($response->isRedirect()) {
+            throw new CakeException("API should not do redirects! Response: " . $response);
+        }
 	    	    
-	    $res = json_decode($json, true);
+	    $res = json_decode($response, true);
         if (is_null($res)) {
             $error = json_last_error();
             throw new CakeException($error);
