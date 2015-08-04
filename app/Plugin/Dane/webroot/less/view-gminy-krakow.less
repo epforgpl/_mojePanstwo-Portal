@@ -271,3 +271,63 @@
     margin-right: 10px;
   }
 }
+
+.user_options_votes {
+  padding-right: 0;
+
+  h3 {
+    margin-top: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #0e1315;
+  }
+
+  .vote {
+    font-size: 13px;
+    font-weight: bold;
+    border-bottom: 2px solid #e6e6e6;
+    width: 100%;
+    text-align: left;
+
+    &:hover, &:focus {
+      text-decoration: none;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &.za {
+      color: #6abd28;
+    }
+
+    &.wstrzymuje {
+      color: #5e5e5e;
+    }
+
+    i {
+      margin-right: 10px;
+      border: 1px solid;
+      margin-top: -1px;
+      padding: 3px 5px;
+      width: 20px;
+      height: 20px;
+      font-size: 9px;
+      display: block;
+      float: left;
+
+      -webkit-border-radius: 20px;
+      -moz-border-radius: 20px;
+      border-radius: 20px;
+    }
+
+    &.przeciw {
+      color: #e50606;
+    }
+  }
+  .radniList .radni_gmin {
+    .data, .content {
+      padding-right: 0;
+    }
+  }
+}
