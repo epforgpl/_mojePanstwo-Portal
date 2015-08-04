@@ -86,7 +86,6 @@ class AppController extends Controller
 
     public $statusbarCrumbs = array();
     public $statusbarMode = false;
-    public $User = false;
     public $meta = array();
 
     /**
@@ -817,5 +816,31 @@ class AppController extends Controller
 	    else
 	    	return in_array($role, $roles);
 	    
+    }
+
+
+    /**
+     * Skrót do ustawiania zmiennych widoku, może być wywołana jednokrotnie podczas działania kontrolera
+     *
+     * Użyj ustawiając pojedynczą zmienną:
+     *     $this->setSerialized('klucz', $zmienna);
+     *
+     * Lub podając tablicę zmiennych:
+     *     $this->setSerialized(array('zmienna' => $zmienna));
+     *     $this->setSerialized(compact($zmienna));
+     *
+     * @param $data
+     * @param null $val
+     */
+    public function setSerialized($data, $val = null) {
+        if (is_array($data)) {
+            $this->set($data);
+            $this->set('_serialize', array_keys($data));
+
+        } else {
+            // one value
+            $this->set($data, $val);
+            $this->set('_serialize', $data);
+        }
     }
 }
