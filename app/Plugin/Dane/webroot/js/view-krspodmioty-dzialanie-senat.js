@@ -221,8 +221,8 @@ Okregi.prototype.createGoogleMap = function () {
             minZoom: 6,
             panControl: false,
             zoomControl: true,
-            scrollwheel: false,
-            draggable: false,
+            scrollwheel: true,
+            draggable: true,
             mapTypeControl: false,
             scaleControl: false,
             streetViewControl: false,
@@ -269,13 +269,16 @@ Okregi.prototype.getWorldPaths = function () {
 
 Okregi.prototype.getOkragIndexByPosition = function (lat, lng) {
     var position = new google.maps.LatLng(lat, lng);
+
     for (var i = 0; i < this.data.length; i++) {
         if (this.data.hasOwnProperty(i)) {
-            for(var s = 0; s < this.data[i].polygon.length; s++) {
-                if (this.data[i].polygon.hasOwnProperty(s)) {
-                    var okrag = this.data[i].polygon[s];
-                    if (google.maps.geometry.poly.containsLocation(position, okrag.polygon)) {
-                        return i;
+            if(this.data[i].polygon !== undefined && this.data[i].polygon.length) {
+                for (var s = 0; s < this.data[i].polygon.length; s++) {
+                    if (this.data[i].polygon.hasOwnProperty(s)) {
+                        var okrag = this.data[i].polygon[s];
+                        if (google.maps.geometry.poly.containsLocation(position, okrag)) {
+                            return i;
+                        }
                     }
                 }
             }
@@ -309,7 +312,6 @@ $(document).ready(function () {
             var lat = cords.latitude;
             var lng = cords.longitude;
             var okragIndex = okregi.getOkragIndexByPosition(lat, lng);
-            console.log(okragIndex);
             if (okragIndex !== false) {
                 okregi.createModalPoslowie(okragIndex);
             }

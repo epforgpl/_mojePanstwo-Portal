@@ -393,7 +393,9 @@ class DataobjectsController extends AppController
         if(!$this->request->is('ajax')) {
 
             if(isset($response['flash_message'])) {
-                $this->Session->setFlash($response['flash_message']);
+                $this->Session->setFlash($response['flash_message'], 'default', array(
+                    'close' => true
+                ));
             }
 
             $this->redirect(

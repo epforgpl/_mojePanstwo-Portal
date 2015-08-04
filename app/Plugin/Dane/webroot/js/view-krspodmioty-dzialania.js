@@ -318,9 +318,11 @@ $(document).ready(function () {
             return false;
         }
 
-        $(this)
-            .find('.submitBtn')
-            .addClass('loading disabled');
+        if($('input[name="deleted"]').length === 0) {
+            $(this)
+                .find('.submitBtn')
+                .addClass('loading disabled');
+        }
     });
 
     $('.cancelBtn').click(function() {
@@ -353,8 +355,7 @@ $(document).ready(function () {
 	                
 	                if( ui.duringInitialization )
 	                	return false;
-	                
-	                console.log('beforeTagAdded');
+
 	                return (ui.tagLabel.length >= 2);
 	            },
 	            autocomplete: {
