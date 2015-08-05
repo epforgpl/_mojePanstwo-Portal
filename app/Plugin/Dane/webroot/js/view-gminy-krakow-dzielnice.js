@@ -14,7 +14,11 @@ var map,
 
 function mapHoverIn(dzielnicaName) {
     map.data.setStyle(function (feature) {
-        var featureName = feature['A']['Name'];
+        var featureName = null;
+        if(feature['A'] !== undefined)
+            featureName = feature['A']['Name'];
+        else if(feature['G'] !== undefined)
+            featureName = feature['G']['Name'];
 
         if (featureName == dzielnicaName) {
             return featureHoverStyle;
@@ -55,13 +59,28 @@ function initialize() {
     google.maps.event.addListenerOnce(map, 'idle', function () {
         map.setZoom(11);
     });
+
     google.maps.event.addListener(map.data, 'click', function (event) {
-        $('.dzielniceList a[data-dzielnica="' + event.feature['A']['Name'] + '"]')[0].click();
+        var name = null;
+        if(event.feature['A'] !== undefined)
+            name = event.feature['A']['Name'];
+        else if(event.feature['G'] !== undefined)
+            name = event.feature['G']['Name'];
+
+        $('.dzielniceList a[data-dzielnica="' + name + '"]')[0].click();
     });
+
     google.maps.event.addListener(map.data, 'mouseover', function (event) {
-        $('.dzielniceList a[data-dzielnica="' + event.feature['A']['Name'] + '"]').addClass('hover');
-        mapHoverIn(event.feature['A']['Name']);
+        var name = null;
+        if(event.feature['A'] !== undefined)
+            name = event.feature['A']['Name'];
+        else if(event.feature['G'] !== undefined)
+            name = event.feature['G']['Name'];
+
+        $('.dzielniceList a[data-dzielnica="' + name + '"]').addClass('hover');
+        mapHoverIn(name);
     });
+
     google.maps.event.addListener(map.data, 'mouseout', function () {
         $('.dzielniceList a.hover').removeClass('hover');
         mapHoverOut();
