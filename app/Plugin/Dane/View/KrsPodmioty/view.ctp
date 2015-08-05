@@ -29,7 +29,7 @@ $description =
 ?>
 
 <div class="krsPodmioty">
-	<div class="col-md-9 objectMain">
+	<div class="col-xs-12 col-md-9 objectMain">
 	    <div class="object">
 	       
 <? if ($object->getData('wykreslony')) { ?>
@@ -297,7 +297,7 @@ if ($object->getData('sposob_reprezentacji')) { ?>
         </div>
     </div>
 	
-	<div class="col-md-3 objectSide">
+	<div class="col-xs-12 col-md-3 objectSide">
 	    <? $subscribers = $object->getLayer('subscribers'); ?>
         <? if ($subscribers && $subscribers['count'] > 0) { ?>
             <div class="block block-simple col-xs-12 dodaj_dzialanie" style="margin-top: -2px; margin-bottom: 15px;">
@@ -314,7 +314,7 @@ if ($object->getData('sposob_reprezentacji')) { ?>
 
                             $username = $subscriber['Users']['username'];
                             ?>
-                            <li class="col-md-2" <? if ($username != '') { ?> data-toggle="tooltip" data-placement="left" title="<?= $username ?>" <? } ?>>
+                            <li class="col-xs-3" <? if ($username != '') { ?> data-toggle="tooltip" data-placement="left" title="<?= $username ?>" <? } ?>>
                                 <div class="subscriber">
                                     <img src="<?= $src ?>"/>
                                 </div>
@@ -364,7 +364,7 @@ if ($object->getData('sposob_reprezentacji')) { ?>
 <div class="container"><div class="objectsPageContent main">
 	
 <div class="krsPodmioty">
-	<div class="col-md-9 objectMain">
+	<div class="col-xs-12 col-md-9 objectMain">
 	    <div class="object">
 	        
 	        <? if ($dzialalnosci = $object->getLayer('dzialalnosci')) { ?>

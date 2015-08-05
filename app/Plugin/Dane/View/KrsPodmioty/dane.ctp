@@ -25,7 +25,7 @@ $description =
 
 
             <div class="row">
-                <div class="col-md-9 objectMain">
+                <div class="col-xs-12 col-md-9 objectMain">
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="form-group">
@@ -35,7 +35,7 @@ $description =
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-xs-12 col-md-3 objectSide">
                     <div class="sticky margin-top-15">
                         <div class="row">
 
