@@ -30,15 +30,15 @@ echo $this->Element('Dane.dataobject/subobject', array(
 <? if ($object->getId() == '903') { ?>
     <div class="row col-xs-12 col-md-2 user_options_votes">
         <? if (@$all_users_votes) { ?>
-            <h3>Jak by zagłosowali inni użytkownicy</h3>
+            <h3>Jak głosowali inni użytkownicy</h3>
             <div class="poll">
-                //poll
+                //poll z, w, p
             </div>
         <? } ?>
 
         <? if (@$user_vote_already) { ?>
             <button class="btn btn-default">Zmień swój głos</button>
-        <? } elseif (@$user_can_vote) { ?>
+        <? } ?>
             <h3>Jak byś ty zagłosował?</h3>
 
             <div class="options">
@@ -46,7 +46,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
                 <button class="btn btn-link vote wstrzymuje"><i data-icon="&#xe624;"></i>Wstrzymuje się</button>
                 <button class="btn btn-link vote przeciw"><i data-icon="&#xe605;"></i>Przeciw</button>
             </div>
-        <? } ?>
+
         <? if (@$user_similar_radni) { ?>
             <h3>Radni, którzy zagłosowali tak jak Ty</h3>
             <div class="radniList objectPage">

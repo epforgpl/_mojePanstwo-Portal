@@ -354,6 +354,21 @@ class DataBrowserComponent extends Component
                 ),
             ),
         ),
+        'krakow_komisje' => array(
+            'kadencje' => array(
+                'terms' => array(
+                    'field' => 'krakow_komisje.kadencja_id',
+                    'order' => array(
+                        '_term' => 'desc',
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Kadencje',
+                    'skin' => 'list',
+                    'field' => 'krakow_komisje.kadencja_id'
+                ),
+            ),
+        ),
         'krakow_komisje_posiedzenia' => array(
             'date' => array(
                 'date_histogram' => array(

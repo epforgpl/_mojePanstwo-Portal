@@ -3051,18 +3051,19 @@ class GminyController extends DataobjectsController
         } else {
 
             $this->_prepareView();
-
-            $this->request->query['conditions']['krakow_komisje.kadencja_id'] = '7';
+           // $this->request->query['conditions']['krakow_komisje.kadencja_id'] = '7';
 
             $this->Components->load('Dane.DataBrowser', array(
                 'conditions' => array(
                     'dataset' => 'krakow_komisje',
                 ),
+                'aggsPreset' => 'krakow_komisje',
             ));
 
             $this->set('_submenu', array_merge($this->submenus['rada'], array(
                 'selected' => 'komisje',
             )));
+
 
             $this->set('title_for_layout', 'Komisje Rady Miasta Krakowa');
 

@@ -8,7 +8,6 @@ echo $this->Element('dataobject/pageBegin');
 ?>
 
     <h1 class="subheader">Rada Miasta Kraków</h1>
-
 <? if (isset($_submenu) && !empty($_submenu)) { ?>
     <div class="menuTabsCont">
         <?
