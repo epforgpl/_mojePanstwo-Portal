@@ -1,0 +1,54 @@
+<div class="apiApps view">
+	<h2><?php echo __('Api App'); ?></h2>
+	<dl>
+				<dt><?php echo __('Id'); ?></dt>
+		<dd>
+			<?php echo h($apiApp['ApiApp']['id']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Name'); ?></dt>
+		<dd>
+			<?php echo h($apiApp['ApiApp']['name']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Description'); ?></dt>
+		<dd>
+			<?php echo h($apiApp['ApiApp']['description']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Home Link'); ?></dt>
+		<dd>
+			<?php echo h($apiApp['ApiApp']['home_link']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Type'); ?></dt>
+		<dd>
+			<?php echo h($apiApp['ApiApp']['type']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Api Key'); ?></dt>
+		<dd>
+			<?php echo h($apiApp['ApiApp']['api_key']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Domains'); ?></dt>
+		<dd>
+			<?php echo h($apiApp['ApiApp']['domains']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('User Id'); ?></dt>
+		<dd>
+			<?php echo h($apiApp['ApiApp']['user_id']); ?>
+			&nbsp;
+		</dd>
+	</dl>
+</div>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
+				<li><?php echo $this->Html->link(__('Edit Api App'), array('action' => 'edit', $apiApp['ApiApp']['id'])); ?> </li>
+		<li><?php echo $this->Form->postLink(__('Delete Api App'), array('action' => 'delete', $apiApp['ApiApp']['id']), null, __('Are you sure you want to delete # %s?', $apiApp['ApiApp']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('List Api Apps'), array('action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Api App'), array('action' => 'add')); ?> </li>
+	</ul>
+</div>

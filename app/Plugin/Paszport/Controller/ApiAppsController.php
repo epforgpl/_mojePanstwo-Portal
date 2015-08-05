@@ -18,7 +18,7 @@ class ApiAppsController extends PaszportAppController {
     public function index() {
         $user = $this->Auth->User();
 
-        if ($user['UserRole'][0]['role_id'] == 2) {
+        if (@$user['UserRole'][0]['role_id'] == 2) {
             // superuser
 //            $this->Paginator->settings = array(
 //                'ApiApp' => array(
@@ -26,18 +26,14 @@ class ApiAppsController extends PaszportAppController {
 //                )
 //            );
 
-            $user_ids = array();
-            $apps = array();
-            foreach($this->Paginator->paginate() as $a) {
-                $app = array_intersect_key($a['ApiApp'], array_flip(array(
-                    'id', 'name', 'description', 'home_link', 'type', 'api_key', 'domains', 'user_id'
-                )));
-
-                $user_ids[$app['user_id']] = 0;
-                $apps[] =  $app;
-            }
+            $apps = $this->Paginator->paginate();
 
             // fill user info
+            $user_ids = array();
+            foreach ($apps as $a) {
+                $user_ids[$a['ApiApp']['user_id']] = 0;
+            }
+
             $users = array();
             foreach ($this->User->find('all', array('conditions' => array(
                 'User.id' => array_keys($user_ids)
@@ -45,15 +41,15 @@ class ApiAppsController extends PaszportAppController {
                 $users[$u['User']['id']] = $u;
             }
 
-            foreach ($apps as $app) {
-                $u = $users[$app['user_id']];
-                $app['user'] = array(
+            foreach ($apps as &$app) {
+                $u = $users[$app['ApiApp']['user_id']];
+                $app['User'] = array(
                     'email' => $u['User']['email'],
                     'username' => $u['User']['username']
                 );
             }
 
-            $this->setSerialized('apps', $apps);
+            $this->setSerialized('apiApps', $apps);
 
         } else {
             $this->Paginator->settings = array(
@@ -74,81 +70,68 @@ class ApiAppsController extends PaszportAppController {
         }
     }
 
-    /**
-     * add method
-     *
-     * @return void
-     */
     public function add() {
-        $user = $this->Auth->User();
-
         if ($this->request->is('post')) {
-            $data = $this->request->data;
-            if (@$data['user_id'] != $$user['id']) {
-                throw new ForbiddenException("It's forbidden to create apps for other users");
-            }
+
+            // sanitize data
+            $data = $this->request->data['ApiApp'];
 
             unset($data['id']);
+            $data['user_id'] = $this->Auth->user('id');
+
             if (@$data['type'] == 'backend') {
                 unset($data['domains']);
             }
             $data['api_key'] = $this->generateApiKey();
 
-            $this->ApiApp->create($data);
-            if ($this->ApiApp->save()) {
-                // TODO response 201
-                $data['id'] = $this->ApiApp->id;
-                $this->setSerialized('apiApp', $data);
-
+            // save
+            if ($this->ApiApp->save(array('ApiApp' => $data))) {
+                $this->Session->setFlash(__('The api app has been saved.'));
+                return $this->redirect(array('action' => 'index'));
             } else {
-                throw new ValidationException($this->ApiApp->validationErrors);
+                $this->Session->setFlash(__('The api app could not be saved. Please, try again.'));
             }
-        } else {
-            throw new BadRequestException();
         }
     }
 
-    public function view($id) {
+    public function view($id = null) {
+        if (!$this->ApiApp->exists($id)) {
+            throw new NotFoundException(__('Invalid api app'));
+        }
+        $options = array('conditions' => array('ApiApp.' . $this->ApiApp->primaryKey => $id));
+        $this->set('apiApp', $this->ApiApp->find('first', $options));
+    }
+
+    public function edit($id = null) {
         $app = $this->ApiApp->read(null, $id);
         if (!$app) {
             throw new NotFoundException(__('Invalid api app'));
         }
 
-        $this->setSerialized('app', $app);
-    }
-
-    /**
-     * edit method
-     *
-     * @throws NotFoundException
-     * @param string $id
-     * @return void
-     */
-    public function edit($id) {
-        $app = $this->ApiApp->read(null, $id);
-        if (!$app) {
-            throw new NotFoundException(__('Invalid api app'));
-        }
-
-        if ($app['user_id'] != $this->Auth->user('id')) {
+        if ($app['ApiApp']['user_id'] != $this->Auth->user('id')) {
             throw new ForbiddenException("Cannot edit other users apps");
         }
-
         if ($this->request->is(array('post', 'put'))) {
-            $allowed_fields = array('name', 'description');
-            if ($app['type'] == 'web') {
+
+            // sanitize
+            $allowed_fields = array('name', 'description', 'home_link');
+            if ($app['ApiApp']['type'] == 'web') {
                 array_push($allowed_fields, 'domains');
             }
 
-            $data = $this->request->data;
-            if (isset($data['type']) && $app['type'] != $data['type']) {
-                throw new ForbiddenException("Cannot change app type");
-            }
+            $data = $this->request->data['ApiApp'];
+            $data = array_intersect_key($data, array_flip($allowed_fields));
 
-            $data = array_merge($data, array_flip($allowed_fields));
-            $this->ApiApp->save($data); // TODO errors?
+            if ($this->ApiApp->save(array('ApiApp' => $data))) {
+                $this->Session->setFlash(__('The api app has been saved.'));
+                return $this->redirect(array('action' => 'index'));
+
+            } else {
+                $this->Session->setFlash(__('The api app could not be saved. Please, try again.'));
+            }
         } else {
-            throw new BadRequestException();
+            $options = array('conditions' => array('ApiApp.' . $this->ApiApp->primaryKey => $id));
+            $this->request->data = $this->ApiApp->find('first', $options);
         }
     }
 
@@ -161,40 +144,42 @@ class ApiAppsController extends PaszportAppController {
             throw new NotFoundException('Invalid id');
         }
 
-        if ($app['user_id'] != $this->Auth->user('id')) {
+        if ($app['ApiApp']['user_id'] != $this->Auth->user('id')) {
             throw new ForbiddenException("Cannot edit other users apps");
         }
 
-        $app['api_key'] = $this->generateApiKey();
-        $this->ApiApp->save($app);
+        $this->request->onlyAllow('post');
 
-        $this->setSerialized($app);
+        $app['ApiApp']['api_key'] = $this->generateApiKey();
+        if ($this->ApiApp->save($app)) {
+            $this->Session->setFlash('Klucz API został zresetowany.');
+
+        } else {
+            throw new Exception('Klucz API powinno się zawsze udać zresetować');
+        }
+
+        return $this->redirect(array('action' => 'index'));
     }
 
-    /**
-     * delete method
-     *
-     * @throws NotFoundException
-     * @param string $id
-     * @return void
-     */
     public function delete($id = null) {
         $app = $this->ApiApp->read(null, $id);
         if (!$app) {
             throw new NotFoundException('Invalid id');
         }
 
-        if ($app['user_id'] != $this->Auth->user('id')) {
+        if ($app['ApiApp']['user_id'] != $this->Auth->user('id')) {
             throw new ForbiddenException("Cannot delete other users apps");
         }
 
-        $this->ApiApp->id = $id;
         $this->request->onlyAllow('post', 'delete');
+
+        $this->ApiApp->id = $id;
         if ($this->ApiApp->delete()) {
-            // TODO return 204?
+            $this->Session->setFlash(__('The api app has been deleted.'));
         } else {
-            throw new InternalErrorException('Why? Why?');
+            throw new Exception('Usunięcie aplikacji zawsze powinno się udać');
         }
+        return $this->redirect(array('action' => 'index'));
     }
 
     /**
