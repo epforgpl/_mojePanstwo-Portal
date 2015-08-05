@@ -54,8 +54,7 @@ $description =
 		<header>Działania</header>
 	    <section class="content">
 	        <? foreach ($object_aggs['all']['dzialania']['top']['hits']['hits'] as $dzialanie) { ?>
-	            <div class="col-sm-4">
-	                
+	            <div class="col-sm-6">
 	                <h4>
 	                    <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>">
 	                        <?= $this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.tytul'], 100); ?>
@@ -71,7 +70,6 @@ $description =
 	                <div class="desc">
 	                	<?= $this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.podsumowanie'], 200) ?>
 	                </div>
-	                
 	            </div>
 	        <? } ?>
 	    </section>
@@ -146,7 +144,7 @@ if ($object->getData('sposob_reprezentacji')) { ?>
     </div>
 <? } ?>
 
-	        <div class="organy block-group col-xs-12 col-xs-12">
+	        <div class="organy block-group col-xs-12">
                 <? if ($organy_count = count($organy)) {
     if ($organy_count == 1) {
         $column_width = 12;
@@ -159,7 +157,7 @@ if ($object->getData('sposob_reprezentacji')) { ?>
     }
 
     foreach ($organy as $organ) { ?>
-                        <div class="block col-lg-<?= $column_width ?>">
+                        <div class="block col-xs-12 col-sm-<?= $column_width ?>">
                             <header>
                                 <div class="sm normalizeText" id="<?= $organ['idTag'] ?>"><?= $organ['title'] ?></div>
                             </header>
