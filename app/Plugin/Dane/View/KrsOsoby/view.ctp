@@ -9,7 +9,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krsosoby');
 $this->Combinator->add_libs('js', 'graph-krs');
 ?>
 
-    <div class="col-md-9 objectMain krsOsoby">
+    <div class="col-xs-12 col-md-9 objectMain krsOsoby">
         <div class="object">
             <div class="block-group col-xs-12 col-xs-12">
                 <? if ($organizacje = $object->getLayer('organizacje')) {

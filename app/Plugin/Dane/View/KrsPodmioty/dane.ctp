@@ -24,17 +24,19 @@ $description =
             <input type="hidden" name="_action" value="save_edit_data_form"/>
 
             <div class="row">
-	            <div class="col-md-9 objectMain">
-	                <div class="row">
-	                    <div class="col-xs-12">
-	                        <div class="form-group margin-top-20">
-	                            <textarea name="description" id="descriptionTextArea" class="form-control"><?= $description ?></textarea>
-	
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-                <div class="col-md-3">
+
+                <div class="col-xs-12 col-md-9 objectMain">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="descriptionTextArea">Misja</label>
+                                <textarea name="description" id="descriptionTextArea" class="form-control"><?= $description ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-3 objectSide">
+
                     <div class="sticky margin-top-15">
                         <div class="row">
 
