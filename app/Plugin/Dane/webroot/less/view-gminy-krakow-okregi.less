@@ -1,0 +1,42 @@
+
+#kto_tu_rzadzi {
+
+  .krakow-map {
+    width: 100%;
+    height: 500px;
+  }
+
+  .map-panel-holder {
+    width: 800px;
+    margin: 0 auto;
+    .map-panel {
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.9);
+      width: 200px;
+      z-index: 2;
+      margin-top: 20px;
+      border-radius: 5px;
+      margin-left: 57%;
+      padding: 20px;
+      .form-group {
+        ul {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          li {
+            margin: 3px 0;
+            a {
+              &.hover {
+                color: #111;
+              }
+            }
+          }
+        }
+        &.margin-bottom-0 {
+          margin-bottom: 0 !important;
+        }
+      }
+    }
+  }
+
+}
