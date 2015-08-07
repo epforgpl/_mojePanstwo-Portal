@@ -29,6 +29,6 @@ echo $this->Element('dataobject/pageBegin', array(
 
     </div>
 
-
+<div data-name="okregi" data-content='<?= json_encode($okregi) ?>'></div>
 
 <?= $this->Element('dataobject/pageEnd');
