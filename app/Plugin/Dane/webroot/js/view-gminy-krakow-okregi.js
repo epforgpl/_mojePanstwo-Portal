@@ -12,7 +12,7 @@ var GminyKrakowOkregi = function(id) {
 GminyKrakowOkregi.prototype.initialize = function() {
     var _this = this;
     this.el.html(this.getSpinner());
-    $.getJSON(mPHeart.constant.ajax.api + '/krakow/okregi/get', function(data) {
+    $.getJSON('https://api-v3.mojepanstwo.pl/krakow/okregi/get', function(data) {
 
         _this.data = data;
         _this.groupDataByYears();
