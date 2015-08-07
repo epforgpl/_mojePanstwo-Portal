@@ -2534,6 +2534,10 @@ class GminyController extends DataobjectsController
                         'label' => 'Obietnice wyborcze',
                         'id' => 'obietnice',
                     ),
+                    array(
+                        'label' => 'Oświadczenia',
+                        'id' => 'oswiadczenia',
+                    ),
                 ),
             );
 
