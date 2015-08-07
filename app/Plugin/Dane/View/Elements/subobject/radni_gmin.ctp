@@ -33,6 +33,13 @@ if ($object->getDescription()) { ?>
                 </a>
             </div>
         <? } ?>
+        <? if ($twitter = $object->getData('twitter')) { ?>
+            <div class="option pull-left">
+                <a href="<?= $twitter; ?>" target="_blank">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </div>
+        <? } ?>
         <? if ($blog = $object->getData('blog')) { ?>
             <div class="option pull-left">
                 <a href="<?= $blog; ?>" target="_blank">
