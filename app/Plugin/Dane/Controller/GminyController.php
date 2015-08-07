@@ -2534,12 +2534,8 @@ class GminyController extends DataobjectsController
                         'id' => 'obietnice',
                     ),
                     array(
-                        'label' => 'Oświadczenia',
+                        'label' => 'Oświadczenia majątkowe',
                         'id' => 'oswiadczenia',
-                    ),
-                    array(
-                        'label' => 'Powiązanie w KRS',
-                        'id' => 'krs',
                     ),
                 ),
             );
@@ -2563,6 +2559,10 @@ class GminyController extends DataobjectsController
                 'layers' => $layers,
             ));
 
+            $submenu['items'][] = array(
+                'label' => ($radny->getData('radni_gmin.plec') == 'M' ? 'Radny' : 'Radna') . ' w KRS',
+                'id' => 'krs',
+            );
 
             // $radny->getLayer( 'neighbours' );
             // $dyzur = $radny->getLayer('najblizszy_dyzur');
