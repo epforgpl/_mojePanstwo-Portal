@@ -47,6 +47,10 @@ class GminyController extends DataobjectsController
                     'id' => 'darczyncy',
                     'label' => 'Darczyńcy',
                 ),
+                array(
+                    'id' => 'okregi',
+                    'label' => 'Okręgi wyborcze',
+                ),
             ),
         ),
         'urzad' => array(
@@ -2530,6 +2534,10 @@ class GminyController extends DataobjectsController
                         'label' => 'Obietnice wyborcze',
                         'id' => 'obietnice',
                     ),
+                    array(
+                        'label' => 'Oświadczenia',
+                        'id' => 'oswiadczenia',
+                    ),
                 ),
             );
 
@@ -3737,6 +3745,22 @@ class GminyController extends DataobjectsController
         $this->set('title_for_layout', 'Wydatki w gminie ' . $this->object->getTitle());
 
     }
+
+    public function okregi()
+    {
+        $this->_prepareView();
+
+        if ($this->object->getId() != '903') # krakow
+            throw new NotFoundException;
+
+        $this->set('title_for_layout', 'Okręgi wyborcze');
+
+        $this->request->params['action'] = 'rada';
+        $this->set('_submenu', array_merge($this->submenus['rada'], array(
+            'selected' => 'okregi',
+        )));
+    }
+
 
     /*
     public function prepareMenu()
