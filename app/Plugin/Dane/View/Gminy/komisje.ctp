@@ -29,6 +29,17 @@ echo $this->Element('dataobject/pageBegin');
         ?>
     </div>
 <? }
+ if (isset($_submenu2) && !empty($_submenu2)) { ?>
+    <div class="menuTabsCont">
+        <?
+        if (!isset($_submenu2['base']))
+            $_submenu2['base'] = $object->getUrl();
+        echo $this->Element('Dane.dataobject/menuTabs', array(
+            'menu' => $_submenu2,
+        ));
+        ?>
+    </div>
+<? }
 
 echo $this->Element('Dane.DataBrowser/browser', array(
     'searcher' => false,

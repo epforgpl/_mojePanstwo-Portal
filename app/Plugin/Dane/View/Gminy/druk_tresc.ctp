@@ -24,7 +24,56 @@ echo $this->Element('Dane.dataobject/subobject', array(
 ?>
 
     <h2 class="light">Treść druku</h2>
+    <div class="row col-xs-12 col-md-10">
+        <? echo $this->Document->place($druk->getData('dokument_id')); ?>
+    </div>
+<? if ($object->getId() == '903') { ?>
+    <div class="row col-xs-12 col-md-2 user_options_votes">
+        <? if (@$all_users_votes) { ?>
+            <h3>Jak głosowali inni użytkownicy</h3>
+            <div class="poll">
+                //poll z, w, p
+            </div>
+        <? } ?>
 
-<?
-echo $this->Document->place($druk->getData('dokument_id'));
-echo $this->Element('dataobject/pageEnd');
+        <? if (@$user_vote_already) { ?>
+            <button class="btn btn-default">Zmień swój głos</button>
+        <? } ?>
+            <h3>Jak byś ty zagłosował?</h3>
+
+            <div class="options">
+                <button class="btn btn-link vote za"><i data-icon="&#xe606;"></i>Za</button>
+                <button class="btn btn-link vote wstrzymuje"><i data-icon="&#xe624;"></i>Wstrzymuje się</button>
+                <button class="btn btn-link vote przeciw"><i data-icon="&#xe605;"></i>Przeciw</button>
+            </div>
+
+        <? if (@$user_similar_radni) { ?>
+            <h3>Radni, którzy zagłosowali tak jak Ty</h3>
+            <div class="radniList objectPage">
+                <div gid="12513508" oid="39252" class="objectRender readed objclass radni_gmin">
+                    <div class="row">
+                        <div class="data col-xs-12">
+                            <div>
+                                <div class="attachment col-md-4 nopadding text-center">
+                                    <a href="/dane/gminy/903/radni/39252" class="thumb_cont">
+                                        <img onerror="imgFixer(this)" alt="Dominik Jaśkowiec"
+                                             src="http://resources.sejmometr.pl/avatars/5/10.jpg"
+                                             class="thumb pull-right">
+                                    </a>
+                                </div>
+                                <div style="margin-left: -10px;" class="content col-md-8">
+                                    <p class="title">
+                                        <a title="Dominik Jaśkowiec" href="/dane/gminy/903/radni/39252">
+                                            Dominik Jaśkowiec </a></p>
+
+                                    <p class="meta meta-desc">KW Platforma Obywatelska RP</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <? } ?>
+    </div>
+<? } ?>
+<? echo $this->Element('dataobject/pageEnd');
