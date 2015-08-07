@@ -67,7 +67,7 @@ class DataBrowserComponent extends Component
                     'label' => 'Województwo',
                     'skin' => 'geo_pl',
                     'params' => array(
-	                    'unit' => 'wojewodztwa',
+                        'unit' => 'wojewodztwa',
                     ),
                     'field' => 'powiaty.wojewodztwo_id',
                 ),
@@ -162,7 +162,7 @@ class DataBrowserComponent extends Component
             */
         ),
         'zamowienia_publiczne_dokumenty' => array(
-	        'date' => array(
+            'date' => array(
                 'date_histogram' => array(
                     'field' => 'date',
                     'interval' => 'year',
@@ -324,6 +324,35 @@ class DataBrowserComponent extends Component
             ),
         ),
         'krakow_rada_uchwaly' => array(
+
+            /*'kadencja_id' => array(
+                'terms' => array(
+                    'field' => 'krakow_rada_uchwaly.kadencja_id',
+                    'order' => array(
+                        '_term' => 'desc',
+                    ),
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Kadencje',
+                    'skin' => 'list',
+                    'field' => 'krakow_rada_uchwaly.kadencja_id',
+                    'dictionary' => array(
+                        '1' => 'I',
+                        '2' => 'II',
+                        '3' => 'III',
+                        '4' => 'IV',
+                        '5' => 'V',
+                        '6' => 'VI',
+                        '7' => 'VII',
+                        '8' => 'VIII',
+                        '9' => 'IX',
+                    ),
+                ),
+            ),*/
+
             'typ_id' => array(
                 'terms' => array(
                     'field' => 'krakow_rada_uchwaly.typ_id',
@@ -416,7 +445,7 @@ class DataBrowserComponent extends Component
                 'terms' => array(
                     'field' => 'krakow_pomoc_publiczna.rok',
                     'order' => array(
-	                    '_term' => 'desc',
+                        '_term' => 'desc',
                     ),
                 ),
                 'visual' => array(
@@ -432,7 +461,7 @@ class DataBrowserComponent extends Component
                         'pattern' => '0'
                     ),
                     'order' => array(
-	                    'sum' => 'desc',
+                        'sum' => 'desc',
                     ),
                 ),
                 'aggs' => array(
@@ -442,9 +471,9 @@ class DataBrowserComponent extends Component
                         ),
                     ),
                     'sum' => array(
-	                    'sum' => array(
-		                    'field' => 'data.krakow_pomoc_publiczna.wartosc',
-	                    ),
+                        'sum' => array(
+                            'field' => 'data.krakow_pomoc_publiczna.wartosc',
+                        ),
                     ),
                 ),
                 'visual' => array(
@@ -480,7 +509,7 @@ class DataBrowserComponent extends Component
                 'terms' => array(
                     'field' => 'krakow_zamowienia_publiczne.rok',
                     'order' => array(
-	                    '_term' => 'desc',
+                        '_term' => 'desc',
                     ),
                 ),
                 'visual' => array(
@@ -496,7 +525,7 @@ class DataBrowserComponent extends Component
                         'pattern' => '0'
                     ),
                     'order' => array(
-	                    'sum' => 'desc',
+                        'sum' => 'desc',
                     ),
                 ),
                 'aggs' => array(
@@ -506,9 +535,9 @@ class DataBrowserComponent extends Component
                         ),
                     ),
                     'sum' => array(
-	                    'sum' => array(
-		                    'field' => 'data.krakow_zamowienia_publiczne.wartosc_brutto',
-	                    ),
+                        'sum' => array(
+                            'field' => 'data.krakow_zamowienia_publiczne.wartosc_brutto',
+                        ),
                     ),
                 ),
                 'visual' => array(
@@ -524,7 +553,7 @@ class DataBrowserComponent extends Component
                 'terms' => array(
                     'field' => 'krakow_darczyncy.rok',
                     'order' => array(
-	                    '_term' => 'desc',
+                        '_term' => 'desc',
                     ),
                 ),
                 'visual' => array(
@@ -540,7 +569,7 @@ class DataBrowserComponent extends Component
                         'pattern' => '0'
                     ),
                     'order' => array(
-	                    'sum' => 'desc',
+                        'sum' => 'desc',
                     ),
                 ),
                 'aggs' => array(
@@ -550,9 +579,9 @@ class DataBrowserComponent extends Component
                         ),
                     ),
                     'sum' => array(
-	                    'sum' => array(
-		                    'field' => 'data.krakow_darczyncy.wartosc_laczne_wplaty',
-	                    ),
+                        'sum' => array(
+                            'field' => 'data.krakow_darczyncy.wartosc_laczne_wplaty',
+                        ),
                     ),
                 ),
                 'visual' => array(
@@ -564,6 +593,30 @@ class DataBrowserComponent extends Component
             ),
         ),
         'rady_gmin_interpelacje' => array(
+            /*'kadencja' => array(
+                'terms' => array(
+                    'field' => 'rady_gmin_interpelacje.kadencja_id',
+                    'order' => array(
+                        '_term' => 'desc',
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Kadencje',
+                    'skin' => 'list',
+                    'field' => 'rady_gmin_interpelacje.kadencja_id',
+                    'dictionary' => array(
+                        '1' => 'I',
+                        '2' => 'II',
+                        '3' => 'III',
+                        '4' => 'IV',
+                        '5' => 'V',
+                        '6' => 'VI',
+                        '7' => 'VII',
+                        '8' => 'VIII',
+                        '9' => 'IX',
+                    ),
+                ),
+            ),*/
             'radni' => array(
                 'terms' => array(
                     'field' => 'radni_gmin.id',
@@ -584,6 +637,7 @@ class DataBrowserComponent extends Component
                     'field' => 'radni_gmin.id'
                 ),
             ),
+
         ),
         'krakow_dzielnice_uchwaly' => array(
             'dzielnice' => array(
@@ -1014,7 +1068,7 @@ class DataBrowserComponent extends Component
 
     public function __construct($collection, $settings)
     {
-				
+
         if (
             (
                 !isset($settings['aggs']) ||
@@ -1038,9 +1092,9 @@ class DataBrowserComponent extends Component
                 }
             }
         }
-		
+
         $this->settings = $settings;
-		
+
         if (isset($settings['cover']))
             $this->cover = $settings['cover'];
 
@@ -1055,7 +1109,7 @@ class DataBrowserComponent extends Component
 
         if (isset($settings['aggs-mode']))
             $this->aggsMode = $settings['aggs-mode'];
-            
+
         if (isset($settings['searcher']))
             $this->searcher = $settings['searcher'];
 
@@ -1082,19 +1136,19 @@ class DataBrowserComponent extends Component
         // debug($this->getSettings()); die();
 
         if (
-            (!$this->cover) || 
+            (!$this->cover) ||
             (
-                $this->cover && 
-                ( !isset( $this->cover['force'] ) || !$this->cover['force'] ) && 
+                $this->cover &&
+                (!isset($this->cover['force']) || !$this->cover['force']) &&
                 isset($this->queryData['conditions']) &&
                 !empty($this->queryData['conditions'])
             )
         ) {
 
             $controller->Paginator->settings = $this->getSettings();
-			
-			// debug($this->getSettings());
-			
+
+            // debug($this->getSettings());
+
             // $controller->Paginator->settings['order'] = 'score desc';
             // debug($controller->Paginator->settings); die();
             $hits = $controller->Paginator->paginate('Dataobject');
@@ -1195,7 +1249,7 @@ class DataBrowserComponent extends Component
 
                 if (isset($this->cover['aggs']))
                     $params['aggs'] = $this->cover['aggs'];
-                
+
                 if (isset($this->cover['conditions'])) {
 
                     $params['conditions'] = array_merge($params['conditions'], $this->cover['conditions']);
@@ -1235,7 +1289,7 @@ class DataBrowserComponent extends Component
             'order' => $this->getSettingsForField('order'),
             'limit' => isset($this->settings['limit']) ? $this->settings['limit'] : 30,
         );
-        
+
         if (isset($conditions['q']))
             $output['highlight'] = true;
 
