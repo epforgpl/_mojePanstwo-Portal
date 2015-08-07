@@ -12,51 +12,50 @@ var GminyKrakowOkregi = function(id) {
 GminyKrakowOkregi.prototype.initialize = function() {
     var _this = this;
     this.el.html(this.getSpinner());
-    $.getJSON('https://api-v3.mojepanstwo.pl/krakow/okregi/get', function(data) {
 
-        _this.data = data;
-        _this.groupDataByYears();
-        _this.el.html(_this.getContent());
-        _this.map = new google.maps.Map(
-            document.getElementById(_this.id + '_map'), {
-                zoom: 11,
-                panControl: false,
-                zoomControl: true,
-                scrollwheel: true,
-                draggable: true,
-                mapTypeControl: false,
-                scaleControl: false,
-                streetViewControl: false,
-                overviewMapControl: false,
-                zoomControlOptions: {
-                    style: google.maps.ZoomControlStyle.SMALL,
-                    position: google.maps.ControlPosition.RIGHT_TOP
-                },
-                mapTypeControlOptions: {
-                    style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-                    position: google.maps.ControlPosition.LEFT_BOTTOM
-                },
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                backgroundColor: '#F8F8F8',
-                center: new google.maps.LatLng(
-                    50.0467656,
-                    20.0048731
-                )
-            }
+
+    _this.data =$('div[data-name="okregi"]').data('content');
+    _this.groupDataByYears();
+    _this.el.html(_this.getContent());
+    _this.map = new google.maps.Map(
+        document.getElementById(_this.id + '_map'), {
+            zoom: 11,
+            panControl: false,
+            zoomControl: true,
+            scrollwheel: true,
+            draggable: true,
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            overviewMapControl: false,
+            zoomControlOptions: {
+                style: google.maps.ZoomControlStyle.SMALL,
+                position: google.maps.ControlPosition.RIGHT_TOP
+            },
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                position: google.maps.ControlPosition.LEFT_BOTTOM
+            },
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            backgroundColor: '#F8F8F8',
+            center: new google.maps.LatLng(
+                50.0467656,
+                20.0048731
+            )
+        }
+    );
+
+    _this.showAreasOnMapByYear('2014');
+
+    $('#kadencjaSelect').change(function() {
+        var year = $(this).val();
+        $('#' + _this.id + '_areas_list').html(
+            _this.getAreasListByYear(year)
         );
 
-        _this.showAreasOnMapByYear('2014');
-
-        $('#kadencjaSelect').change(function() {
-            var year = $(this).val();
-            $('#' + _this.id + '_areas_list').html(
-                _this.getAreasListByYear(year)
-            );
-
-            _this.showAreasOnMapByYear(year);
-        });
-
+        _this.showAreasOnMapByYear(year);
     });
+
 };
 
 GminyKrakowOkregi.prototype.showAreasOnMapByYear = function(year) {

@@ -3807,6 +3807,9 @@ class GminyController extends DataobjectsController
         if ($this->object->getId() != '903') # krakow
             throw new NotFoundException;
 
+        $this->loadModel('PrzejrzystyKrakow.Krakow');
+        $this->set('okregi', $this->Krakow->okregi());
+
         $this->set('title_for_layout', 'Okręgi wyborcze');
 
         $this->request->params['action'] = 'rada';
