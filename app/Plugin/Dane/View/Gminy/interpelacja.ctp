@@ -18,7 +18,6 @@ echo $this->Element('dataobject/pageBegin', array(
     )
 ));
 ?>
-
     <h2 class="light">Interpelacja</h2>
 <?
 

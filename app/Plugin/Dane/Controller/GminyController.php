@@ -2516,7 +2516,6 @@ class GminyController extends DataobjectsController
             $subaction = (isset($this->request->params['subaction']) && $this->request->params['subaction']) ? $this->request->params['subaction'] : 'view';
             $subsubid = (isset($this->request->params['subsubid']) && $this->request->params['subsubid']) ? $this->request->params['subsubid'] : false;
 
-
             $submenu = array(
                 'items' => array(
                     array(
@@ -2537,6 +2536,10 @@ class GminyController extends DataobjectsController
                     array(
                         'label' => 'Oświadczenia',
                         'id' => 'oswiadczenia',
+                    ),
+                    array(
+                        'label' => 'Powiązanie w KRS',
+                        'id' => 'krs',
                     ),
                 ),
             );
@@ -2801,6 +2804,8 @@ class GminyController extends DataobjectsController
                             ),
                         )));
 
+
+
                     } else {
 
                         $this->Components->load('Dane.DataBrowser', array(
@@ -2812,6 +2817,9 @@ class GminyController extends DataobjectsController
                             'order' => 'radni_gmin_oswiadczenia_majatkowe.rok desc',
                         ));
 
+                        $submenu=array_merge($submenu, array(
+                            'selected' => 'oswiadczenia',
+                        ));
                         $this->set('DataBrowserTitle', 'Oświadczenia majątkowe');
                         $title_for_layout .= ' - Oświadczenia majątkowe';
 
@@ -2823,6 +2831,22 @@ class GminyController extends DataobjectsController
 
                     $submenu['selected'] = 'obietnice';
 
+                }
+
+                case 'krs':{
+                    $submenu=array_merge($submenu, array(
+                        'selected' => 'krs',
+                    ));
+
+                    if ($radny->getData('krs_osoba_id')) {
+                        $this->set('osoba', $this->Dataobject->find('first', array(
+                            'conditions' => array(
+                                'dataset' => 'krs_osoby',
+                                'id' => $radny->getData('krs_osoba_id'),
+                            ),
+                            'layers' => array('organizacje'),
+                        )));
+                    }
                 }
 
 
@@ -3676,7 +3700,6 @@ class GminyController extends DataobjectsController
             $this->set('oswiadczenie', $oswiadczenie);
             $this->set('title_for_layout', $oswiadczenie->getTitle());
             $this->render('oswiadczenie');
-
         } else {
 
             $this->Components->load('Dane.DataBrowser', array(
