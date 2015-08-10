@@ -1,34 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tomaszdrazewski
- * Date: 10/08/15
- * Time: 10:34
- */
 
 class Glosy extends AppModel
 {
-
     public $useDbConfig = 'mpAPI';
 
-    public function voteSave($params){
-
-
-        $data = $this->getDataSource()->request('krakow/glosy/save', array(
+    public function vote($druk_id, $data) {
+        return $this->getDataSource()->request('krakow/glosy/save/' . $druk_id, array(
             'method' => 'POST',
-            'data' => $params,
+            'data' => $data,
         ));
-
-        return @$data;
     }
 
-    public function viewVotes($params){
-        $data = $this->getDataSource()->request('krakow/glosy/view', array(
-            'method' => 'GET',
-            'data' => $params,
+    public function getVotes($druk_id) {
+        return $this->getDataSource()->request('krakow/glosy/view/' . $druk_id, array(
+            'method' => 'GET'
         ));
-
-        return @$data;
     }
 
 }

@@ -86,6 +86,10 @@ Router::connect('/dane/:dataset/:object_id/page/logo', array('plugin' => 'Dane',
 Router::connect('/dane/:dataset/:object_id/page/cover', array('plugin' => 'Dane', 'controller' => 'ObjectPagesManagement', 'action' => 'setCover', '[method]' => 'POST'), array('dataset' => '([a-zA-Z\_]+)', 'object_id' => '[0-9]+'));
 Router::connect('/dane/:dataset/:object_id/page/cover', array('plugin' => 'Dane', 'controller' => 'ObjectPagesManagement', 'action' => 'deleteCover', '[method]' => 'DELETE'), array('dataset' => '([a-zA-Z\_]+)', 'object_id' => '[0-9]+'));
 
+# Votes
+Router::connect('/dane/druki/:object_id/vote', array('plugin' => 'Dane', 'controller' => 'Druki', 'action' => 'vote', '[method]' => 'POST'), array('object_id' => '[0-9]+'));
+Router::connect('/dane/druki/:object_id/vote', array('plugin' => 'Dane', 'controller' => 'Druki', 'action' => 'getVotes', '[method]' => 'GET'), array('object_id' => '[0-9]+'));
+
 Router::connect('/dane', array('plugin' => 'Dane', 'controller' => 'Dane', 'action' => 'view'));
 
 Router::connect('/dane/suggest', array(
