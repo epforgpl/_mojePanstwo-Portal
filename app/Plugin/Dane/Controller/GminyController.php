@@ -2596,9 +2596,7 @@ class GminyController extends DataobjectsController
                                         'size' => 3,
                                         'fielddata_fields' => array('dataset', 'id'),
                                         'sort' => array(
-                                            'date' => array(
-                                                'order' => 'desc',
-                                            ),
+                                            'radni_gmin_oswiadczenia_majatkowe.rok' => 'desc',
                                         ),
                                     ),
                                 ),
@@ -3803,13 +3801,25 @@ class GminyController extends DataobjectsController
     {
         $this->_prepareView();
 
-        if ($this->object->getId() != '903') # krakow
+        if ($this->object->getId() != '903')
             throw new NotFoundException;
 
         $this->loadModel('PrzejrzystyKrakow.Krakow');
-        $this->set('okregi', $this->Krakow->okregi());
 
-        $this->set('title_for_layout', 'Okręgi wyborcze');
+        if($subid = @$this->request->params['subid']) {
+
+            $okreg = $this->Krakow->okreg($subid);
+            $this->set('okreg', $okreg);
+
+            $okreg_id = (int) @$okreg[7];
+            if($okreg_id > 0) {
+
+            }
+
+        } else {
+            $this->set('okregi', $this->Krakow->okregi());
+            $this->set('title_for_layout', 'Okręgi wyborcze');
+        }
 
         $this->request->params['action'] = 'rada';
         $this->set('_submenu', array_merge($this->submenus['rada'], array(
