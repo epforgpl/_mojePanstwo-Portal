@@ -2572,8 +2572,36 @@ class GminyController extends DataobjectsController
 
             switch ($subaction) {
                 case 'view': {
-
                     $global_aggs = array(
+                        'oswiadczenia' => array(
+                            'filter' => array(
+                                'bool' => array(
+                                    'must' => array(
+                                        array(
+                                            'term' => array(
+                                                'dataset' => 'radni_gmin_oswiadczenia_majatkowe',
+                                            ),
+                                        ),
+                                        array(
+                                            'term' => array(
+                                                'data.radni_gmin_oswiadczenia_majatkowe.radny_id' => $radny->getId(),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                            'aggs' => array(
+                                'top' => array(
+                                    'top_hits' => array(
+                                        'size' => 3,
+                                        'fielddata_fields' => array('dataset', 'id'),
+                                        'sort' => array(
+                                            'radni_gmin_oswiadczenia_majatkowe.rok' => 'desc',
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
                         'interpelacje' => array(
                             'filter' => array(
                                 'bool' => array(
@@ -3804,13 +3832,25 @@ class GminyController extends DataobjectsController
     {
         $this->_prepareView();
 
-        if ($this->object->getId() != '903') # krakow
+        if ($this->object->getId() != '903')
             throw new NotFoundException;
 
         $this->loadModel('PrzejrzystyKrakow.Krakow');
-        $this->set('okregi', $this->Krakow->okregi());
 
-        $this->set('title_for_layout', 'Okręgi wyborcze');
+        if($subid = @$this->request->params['subid']) {
+
+            $okreg = $this->Krakow->okreg($subid);
+            $this->set('okreg', $okreg);
+
+            $okreg_id = (int) @$okreg[7];
+            if($okreg_id > 0) {
+
+            }
+
+        } else {
+            $this->set('okregi', $this->Krakow->okregi());
+            $this->set('title_for_layout', 'Okręgi wyborcze');
+        }
 
         $this->request->params['action'] = 'rada';
         $this->set('_submenu', array_merge($this->submenus['rada'], array(

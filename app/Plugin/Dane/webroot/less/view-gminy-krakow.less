@@ -283,12 +283,22 @@
     color: #0e1315;
   }
 
+  .poll {
+    height: 180px;
+  }
+
   .vote {
     font-size: 13px;
     font-weight: bold;
     border-bottom: 2px solid #e6e6e6;
     width: 100%;
     text-align: left;
+
+    &.disabled {
+      -moz-opacity: 0.3;
+      -ms-opacity: 0.3;
+      opacity: 0.3;
+    }
 
     &:hover, &:focus {
       text-decoration: none;

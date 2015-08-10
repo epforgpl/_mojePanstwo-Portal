@@ -2,6 +2,9 @@
 echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
 if ($object->getId() == '903') {
     $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
+    $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
+    $this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+    $this->Combinator->add_libs('js', array('Dane.view-gminy-krakow-vote'));
 }
 
 echo $this->Element('dataobject/pageBegin', array(
@@ -27,26 +30,24 @@ echo $this->Element('Dane.dataobject/subobject', array(
     <div class="row col-xs-12 col-md-10">
         <? echo $this->Document->place($druk->getData('dokument_id')); ?>
     </div>
+
 <? if ($object->getId() == '903') { ?>
     <div class="row col-xs-12 col-md-2 user_options_votes">
-        <? if (@$all_users_votes) { ?>
+        <div class="pollBlock hidden">
             <h3>Jak głosowali inni użytkownicy</h3>
-            <div class="poll">
-                //poll z, w, p
-            </div>
-        <? } ?>
+            <div class="poll"></div>
+        </div>
 
-        <? if (@$user_vote_already) { ?>
-            <button class="btn btn-default">Zmień swój głos</button>
-        <? } ?>
-            <h3>Jak byś ty zagłosował?</h3>
+        <h3>Jak byś ty zagłosował?</h3>
 
-            <div class="options">
-                <button class="btn btn-link vote za"><i data-icon="&#xe606;"></i>Za</button>
-                <button class="btn btn-link vote wstrzymuje"><i data-icon="&#xe624;"></i>Wstrzymuje się</button>
-                <button class="btn btn-link vote przeciw"><i data-icon="&#xe605;"></i>Przeciw</button>
-            </div>
-
+        <div class="options<? if (empty(AuthComponent::user('id'))) {
+            echo ' _specialCaseLoginButton';
+        } ?>">
+            <button class="btn btn-link vote za" data-vote="1"><i data-icon="&#xe606;"></i>Za</button>
+            <button class="btn btn-link vote wstrzymuje" data-vote="3"><i data-icon="&#xe624;"></i>Wstrzymuje się
+            </button>
+            <button class="btn btn-link vote przeciw" data-vote="2"><i data-icon="&#xe605;"></i>Przeciw</button>
+        </div>
         <? if (@$user_similar_radni) { ?>
             <h3>Radni, którzy zagłosowali tak jak Ty</h3>
             <div class="radniList objectPage">

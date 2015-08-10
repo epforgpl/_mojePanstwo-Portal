@@ -89,7 +89,7 @@ GminyKrakowOkregi.prototype.showAreasOnMapByYear = function(year) {
                 poly.setMap(this.map);
 
                 google.maps.event.addListener(poly, 'click', function (event) {
-
+                    $('#' + _this.id + '_areas_list a[data-number="' + this.number + '"]')[0].click()
                 });
 
                 google.maps.event.addListener(poly, "mouseover", function() {
@@ -116,7 +116,7 @@ GminyKrakowOkregi.prototype.getAreasListByYear = function(year) {
     var html = [];
     if(this.data[year] !== undefined) {
         for(var i = 0; i < this.data[year].length; i++) {
-            html.push('<li><a href="#" data-number="' + this.data[year][i][2] + '">' + this.data[year][i][2] + ' (' + this.data[year][i][4] + ')</a></li>');
+            html.push('<li><a href="okregi/' + this.data[year][i][0] + '" data-number="' + this.data[year][i][2] + '">' + this.data[year][i][2] + ' (Dzielnice ' + this.data[year][i][4] + ')</a></li>');
         }
     }
     return html.join('');
@@ -188,7 +188,56 @@ GminyKrakowOkregi.prototype.getSpinner = function() {
 
 $(document).ready(function() {
 
-    var o = new GminyKrakowOkregi('kto_tu_rzadzi');
-    o.initialize();
+    if($('div[data-name="okregi"]').length > 0) {
+        var o = new GminyKrakowOkregi('kto_tu_rzadzi');
+        o.initialize();
+    } else if($('div[data-name="okreg"]').length > 0) {
+
+        var okreg = $('div[data-name="okreg"]').data('content');
+
+        var map = new google.maps.Map(
+            document.getElementById('okreg_map'), {
+                zoom: 10,
+                panControl: false,
+                zoomControl: true,
+                scrollwheel: true,
+                draggable: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                overviewMapControl: false,
+                zoomControlOptions: {
+                    style: google.maps.ZoomControlStyle.SMALL,
+                    position: google.maps.ControlPosition.RIGHT_TOP
+                },
+                mapTypeControlOptions: {
+                    style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                    position: google.maps.ControlPosition.LEFT_BOTTOM
+                },
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                backgroundColor: '#F8F8F8',
+                center: new google.maps.LatLng(
+                    50.0467656,
+                    19.9548731
+                )
+            }
+        );
+
+        var polygons = [];
+        var p = parsePolyStrings(okreg[3]);
+
+        for(var s = 0; s < p.length; s++) {
+            var poly = new google.maps.Polygon({
+                fillColor: '#0000aa',
+                fillOpacity: 0.05,
+                strokeWeight: 2,
+                strokeColor: '#0000aa',
+                path: p[s]
+            });
+            poly.setMap(map);
+            polygons.push(poly);
+        }
+
+    }
 
 });
