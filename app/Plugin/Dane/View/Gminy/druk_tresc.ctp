@@ -48,7 +48,6 @@ echo $this->Element('Dane.dataobject/subobject', array(
             </button>
             <button class="btn btn-link vote przeciw" data-vote="2"><i data-icon="&#xe605;"></i>Przeciw</button>
         </div>
-        <div id="fb-root"></div>
         <? if (@$user_similar_radni) { ?>
             <h3>Radni, którzy zagłosowali tak jak Ty</h3>
             <div class="radniList objectPage">
