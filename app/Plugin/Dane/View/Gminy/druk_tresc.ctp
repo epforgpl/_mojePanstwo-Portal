@@ -2,6 +2,8 @@
 echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
 if ($object->getId() == '903') {
     $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
+    $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
+    $this->Combinator->add_libs('js', '../plugins/highcharts/locals');
     $this->Combinator->add_libs('js', array('Dane.view-gminy-krakow-vote'));
 }
 
@@ -31,11 +33,9 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
 <? if (($object->getId() == '903') && !empty(AuthComponent::user('id'))) { ?>
     <div class="row col-xs-12 col-md-2 user_options_votes">
-        <? if (@$all_users_votes) { ?>
+        <? if (@$all_users_votes || true) { ?>
             <h3>Jak głosowali inni użytkownicy</h3>
-            <div class="poll">
-                //poll z, w, p
-            </div>
+            <div class="poll"></div>
         <? } ?>
 
         <? if (@$user_vote_already) { ?>
@@ -45,7 +45,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
         <div class="options">
             <button class="btn btn-link vote za" data-vote="1"><i data-icon="&#xe606;"></i>Za</button>
-            <button class="btn btn-link vote wstrzymuje" data-vote="0"><i data-icon="&#xe624;"></i>Wstrzymuje się
+            <button class="btn btn-link vote wstrzymuje" data-vote="3"><i data-icon="&#xe624;"></i>Wstrzymuje się
             </button>
             <button class="btn btn-link vote przeciw" data-vote="2"><i data-icon="&#xe605;"></i>Przeciw</button>
         </div>
