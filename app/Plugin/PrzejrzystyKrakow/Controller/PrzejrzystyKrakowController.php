@@ -21,4 +21,25 @@ class PrzejrzystyKrakowController extends ApplicationsController
     {
         return false;
     }
+
+
+    public function voteSave($params){
+
+
+        $data = $this->getDataSource()->request('krakow/glosy/save', array(
+            'method' => 'POST',
+            'data' => $params,
+        ));
+
+        return @$data;
+    }
+
+    public function viewVotes($params){
+        $data = $this->getDataSource()->request('krakow/glosy/view', array(
+            'method' => 'GET',
+            'data' => $params,
+        ));
+
+        return @$data;
+    }
 } 
