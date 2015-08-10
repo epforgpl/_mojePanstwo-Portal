@@ -24,11 +24,8 @@ echo $this->Element('Dane.dataobject/subobject', array(
 ));
 
 ?>
-
-
     <div class="col-md-10 col-md-offset-1">
         <div id="komisje" class="object">
-
 
             <? if (isset($osoba) && $osoba) { ?>
 

@@ -2,6 +2,7 @@
 echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
 if ($object->getId() == '903') {
     $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
+    $this->Combinator->add_libs('js', array('Dane.view-gminy-krakow-vote'));
 }
 
 echo $this->Element('dataobject/pageBegin', array(
@@ -27,7 +28,8 @@ echo $this->Element('Dane.dataobject/subobject', array(
     <div class="row col-xs-12 col-md-10">
         <? echo $this->Document->place($druk->getData('dokument_id')); ?>
     </div>
-<? if ($object->getId() == '903') { ?>
+
+<? if (($object->getId() == '903') && !empty(AuthComponent::user('id'))) { ?>
     <div class="row col-xs-12 col-md-2 user_options_votes">
         <? if (@$all_users_votes) { ?>
             <h3>Jak by zagłosowali inni użytkownicy</h3>
@@ -38,15 +40,15 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
         <? if (@$user_vote_already) { ?>
             <button class="btn btn-default">Zmień swój głos</button>
-        <? } elseif (@$user_can_vote) { ?>
-            <h3>Jak byś ty zagłosował?</h3>
-
-            <div class="options">
-                <button class="btn btn-link vote za"><i data-icon="&#xe606;"></i>Za</button>
-                <button class="btn btn-link vote wstrzymuje"><i data-icon="&#xe624;"></i>Wstrzymuje się</button>
-                <button class="btn btn-link vote przeciw"><i data-icon="&#xe605;"></i>Przeciw</button>
-            </div>
         <? } ?>
+        <h3>Jak byś ty zagłosował?</h3>
+
+        <div class="options">
+            <button class="btn btn-link vote za" data-vote="1"><i data-icon="&#xe606;"></i>Za</button>
+            <button class="btn btn-link vote wstrzymuje" data-vote="0"><i data-icon="&#xe624;"></i>Wstrzymuje się
+            </button>
+            <button class="btn btn-link vote przeciw" data-vote="2"><i data-icon="&#xe605;"></i>Przeciw</button>
+        </div>
         <? if (@$user_similar_radni) { ?>
             <h3>Radni, którzy zagłosowali tak jak Ty</h3>
             <div class="radniList objectPage">

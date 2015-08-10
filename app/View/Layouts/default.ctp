@@ -170,7 +170,7 @@ echo $this->Html->script('../plugins/bootstrap-switch/bootstrap-switch.js'); ?>
     var mPHeart = {
         constant: {
             ajax: {
-                api: 'https://api-v2.mojepanstwo.pl'
+                api: "<?php echo @API_url; ?>"
             }
         },
         user_id: '<?= AuthComponent::user('id'); ?>',
