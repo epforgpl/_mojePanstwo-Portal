@@ -70,33 +70,6 @@ msgstr "Adres e-mail"
 msgid "LC_CONTACTUS_SEND"
 msgstr "Wyślij"
 
-msgid "LC_REPORTBUG_HEADLINE"
-msgstr "Jeśli wystąpił jakiś błąd w naszym serwisie, bądź posiadamy błędne lub nieaktualne dane - poinformuj nas o tym, a My postaramy się naprawić błąd w jak najszybszym czasie."
-
-msgid "LC_REPORTBUG_VIA_GITHUB"
-msgstr "Zgłoś błąd bezpośrednio w serwisie GitHub"
-
-msgid "LC_REPORTBUG_OR"
-msgstr "bądź"
-
-msgid "LC_REPORTBUG_EMAIL_HEADLINE"
-msgstr "Wyślij do nas wiadomość"
-
-msgid "LC_REPORTBUG_EMAIL_LINK"
-msgstr "Link"
-
-msgid "LC_REPORTBUG_EMAIL_LINK_PLACEHOLDER"
-msgstr "Np. http://mojepanstwo.pl/błąd"
-
-msgid "LC_REPORTBUG_EMAIL_DESC"
-msgstr "Opis"
-
-msgid "LC_REPORTBUG_EMAIL_DESC_PLACEHOLDER"
-msgstr "Prosimy o jak najdokładniejszy opis występującego problemu - w ten sposób będzie łatwiej nam go zlokalizować i naprawić"
-
-msgid "LC_REPORTBUG_EMAIL_SUBMIT"
-msgstr "Wyślij zgłoszenie"
-
 msgid "LC_FOOTER_ABOUT_US"
 msgstr "O portalu"
 
