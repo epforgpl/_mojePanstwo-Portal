@@ -31,19 +31,18 @@ echo $this->Element('Dane.dataobject/subobject', array(
         <? echo $this->Document->place($druk->getData('dokument_id')); ?>
     </div>
 
-<? if (($object->getId() == '903') && !empty(AuthComponent::user('id'))) { ?>
+<? if ($object->getId() == '903') { ?>
     <div class="row col-xs-12 col-md-2 user_options_votes">
-        <? if (@$all_users_votes || true) { ?>
+        <div class="pollBlock hidden">
             <h3>Jak głosowali inni użytkownicy</h3>
             <div class="poll"></div>
-        <? } ?>
+        </div>
 
-        <? if (@$user_vote_already) { ?>
-            <button class="btn btn-default">Zmień swój głos</button>
-        <? } ?>
         <h3>Jak byś ty zagłosował?</h3>
 
-        <div class="options">
+        <div class="options<? if (empty(AuthComponent::user('id'))) {
+            echo ' _specialCaseLoginButton';
+        } ?>">
             <button class="btn btn-link vote za" data-vote="1"><i data-icon="&#xe606;"></i>Za</button>
             <button class="btn btn-link vote wstrzymuje" data-vote="3"><i data-icon="&#xe624;"></i>Wstrzymuje się
             </button>

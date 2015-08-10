@@ -3,26 +3,28 @@
     var main = $('.user_options_votes'),
         docId = $('.htmlexDoc').attr('data-document-id');
 
-    main.find('.options .vote').click(function () {
-        var that = $(this);
-        if (!that.hasClass('disabled')) {
-            var vote = that.attr('data-vote');
-            $.ajax({
-                url: '/dane/druki/' + docId + '/vote.json',
-                method: 'POST',
-                data: {
-                    vote: vote
-                },
-                beforeSend: function () {
-                    main.find('.options .vote').addClass('disabled')
-                },
-                success: function () {
-                    main.find('.options .vote').removeClass('disabled');
-                    main.find('.options .vote[data-vote="' + vote + '"]').addClass('disabled');
-                }
-            })
-        }
-    });
+    if (!main.find('.options').hasClass('_specialCaseLoginButton')) {
+        main.find('.options .vote').click(function () {
+            var that = $(this);
+            if (!that.hasClass('disabled')) {
+                var vote = that.attr('data-vote');
+                $.ajax({
+                    url: '/dane/druki/' + docId + '/vote.json',
+                    method: 'POST',
+                    data: {
+                        vote: vote
+                    },
+                    beforeSend: function () {
+                        main.find('.options .vote').addClass('disabled')
+                    },
+                    success: function () {
+                        main.find('.options .vote').removeClass('disabled');
+                        main.find('.options .vote[data-vote="' + vote + '"]').addClass('disabled');
+                    }
+                })
+            }
+        });
+    }
 
     if (main.find('.poll').length && !main.find('.poll').hasClass('.rendered')) {
         $.ajax({
@@ -32,7 +34,7 @@
                 var res = res.response,
                     data = [];
 
-                if (res.votes.length) {
+                if (res.votes && res.votes.length) {
                     res.votes.forEach(function (item) {
                         var vote = null;
 
@@ -56,6 +58,7 @@
                         data.push(vote);
                     });
 
+                    main.find('.pollBlock').removeClass('hidden');
                     main.find('.poll').addClass('.rendered');
                     main.find('.poll').highcharts({
                         chart: {
