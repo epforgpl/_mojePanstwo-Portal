@@ -9,23 +9,17 @@ App::uses('ApplicationsController', 'Controller');
 
 class GlosowanieController extends ApplicationsController
 {
-    public function voteSave($params){
+    public $uses = array('PrzejrzystyKrakow.Glosy');
 
-
-        $data = $this->getDataSource()->request('krakow/glosy/save', array(
-            'method' => 'POST',
-            'data' => $params,
-        ));
-
+    public function voteSave($params)
+    {
+        $data = $this->Glosy->voteSave($params);
         return @$data;
     }
 
-    public function viewVotes($params){
-        $data = $this->getDataSource()->request('krakow/glosy/view', array(
-            'method' => 'GET',
-            'data' => $params,
-        ));
-
+    public function viewVotes($params)
+    {
+        $data = $this->Glosy->viewVotes($params);
         return @$data;
     }
 }
