@@ -204,6 +204,50 @@ $options = array(
             </div>
         <? } ?>
 
+        <? if (@$dataBrowser['aggs']['all']['oswiadczenia']['top']['hits']['hits']) { ?>
+            <div class="databrowser-panel">
+                <h2>Oświadczenia majątkowe:</h2>
+
+                <div class="aggs-init">
+
+                    <div class="dataAggs">
+                        <div class="agg agg-Dataobjects">
+                            <? if ($dataBrowser['aggs']['all']['oswiadczenia']['top']['hits']['hits']) { ?>
+                                <ul class="dataobjects">
+                                    <? foreach ($dataBrowser['aggs']['all']['oswiadczenia']['top']['hits']['hits'] as $doc) { ?>
+                                        <div class="objectRender readed docdataobject objclass radni_gmin_oswiadczenia_majatkowe">
+                                            <div class="row">
+                                                <div class="data col-xs-12">
+                                                    <div>
+                                                        <div class="content">
+                                                            <i class="object-icon icon-datasets-radni_gmin_oswiadczenia_majatkowe"></i>
+                                                            <div class="object-icon-side  ">
+                                                                <p class="title">
+                                                                    <a href="<?= $radny->getUrl() ?>/oswiadczenia/<?= $doc['fields']['source'][0]['data']['krakow_oswiadczenia.id'] ?>" title="<?= $doc['fields']['source'][0]['data']['krakow_oswiadczenia.rok'] ?>">
+                                                                        <?= $doc['fields']['source'][0]['data']['krakow_oswiadczenia.rok'] ?>
+                                                                    </a>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <? } ?>
+                                </ul>
+                                <div class="buttons">
+                                    <a href="<?= $radny->getUrl() ?>/oswiadczenia" class="btn btn-primary btn-sm">Zobacz
+                                        więcej</a>
+                                </div>
+                            <? } ?>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        <? } ?>
+
     </div>
 
 </div><div class="col-md-3">
