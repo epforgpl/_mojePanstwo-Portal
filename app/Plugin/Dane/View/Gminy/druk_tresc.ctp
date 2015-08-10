@@ -32,9 +32,9 @@ echo $this->Element('Dane.dataobject/subobject', array(
 <? if (($object->getId() == '903') && !empty(AuthComponent::user('id'))) { ?>
     <div class="row col-xs-12 col-md-2 user_options_votes">
         <? if (@$all_users_votes) { ?>
-            <h3>Jak by zagłosowali inni użytkownicy</h3>
+            <h3>Jak głosowali inni użytkownicy</h3>
             <div class="poll">
-                //poll
+                //poll z, w, p
             </div>
         <? } ?>
 
