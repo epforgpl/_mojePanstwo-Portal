@@ -2572,8 +2572,38 @@ class GminyController extends DataobjectsController
 
             switch ($subaction) {
                 case 'view': {
-
                     $global_aggs = array(
+                        'oswiadczenia' => array(
+                            'filter' => array(
+                                'bool' => array(
+                                    'must' => array(
+                                        array(
+                                            'term' => array(
+                                                'dataset' => 'radni_gmin_oswiadczenia_majatkowe',
+                                            ),
+                                        ),
+                                        array(
+                                            'term' => array(
+                                                'data.radni_gmin_oswiadczenia_majatkowe.radny_id' => $radny->getId(),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                            'aggs' => array(
+                                'top' => array(
+                                    'top_hits' => array(
+                                        'size' => 3,
+                                        'fielddata_fields' => array('dataset', 'id'),
+                                        'sort' => array(
+                                            'date' => array(
+                                                'order' => 'desc',
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
                         'interpelacje' => array(
                             'filter' => array(
                                 'bool' => array(
