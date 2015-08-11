@@ -12,9 +12,10 @@ echo $this->Element('dataobject/pageBegin', array(
 ));
 
 echo $this->Element('Dane.dataobject/subobject', array(
+    'menu' => isset($_submenu) ? $_submenu : false,
     'object' => $radny,
     'objectOptions' => array(
-        'hlFields' => array('komitet', 'liczba_glosow', 'procent_glosow_w_okregu'),
+        'hlFields' => array('komitet', 'liczba_glosow'),
         'bigTitle' => true,
     )
 ));

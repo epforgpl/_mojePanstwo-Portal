@@ -7,14 +7,13 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 $options = array(
     'mode' => 'init',
 );
-
 ?>
 <div class="col-md-9">
 
     <div class="databrowser-panels">
-		
+
 		<? if (@$dataBrowser['aggs']['all']['glosowania']['top']['hits']['hits']) { ?>
-            <div class="databrowser-panel margin-top-10">
+            <div class="databrowser-panel">
                 <h2>Wyniki głosowań:</h2>
 
                 <div class="aggs-init">
@@ -32,7 +31,7 @@ $options = array(
                                     <? } ?>
                                 </ul>
                                 <div class="buttons">
-                                    <a href="<?= $radny->getUrl() ?>/glosowania" class="btn btn-primary btn-xs">Zobacz
+                                    <a href="<?= $radny->getUrl() ?>/glosowania" class="btn btn-primary btn-sm">Zobacz
                                         więcej</a>
                                 </div>
                             <? } ?>
@@ -63,7 +62,7 @@ $options = array(
                                     <? } ?>
                                 </ul>
                                 <div class="buttons">
-                                    <a href="<?= $radny->getUrl() ?>/interpelacje" class="btn btn-primary btn-xs">Zobacz
+                                    <a href="<?= $radny->getUrl() ?>/interpelacje" class="btn btn-primary btn-sm">Zobacz
                                         więcej</a>
                                 </div>
                             <? } ?>
@@ -123,37 +122,6 @@ $options = array(
                                         </li>
                                     <? } ?>
                                 </ul>
-                            <? } ?>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        <? } ?>
-
-		<? if (@$dataBrowser['aggs']['all']['oswiadczenia']['top']['hits']['hits']) { ?>
-            <div class="databrowser-panel">
-                <h2>Oświadczenia majątkowe:</h2>
-
-                <div class="aggs-init">
-
-                    <div class="dataAggs">
-                        <div class="agg agg-Dataobjects">
-                            <? if ($dataBrowser['aggs']['all']['oswiadczenia']['top']['hits']['hits']) { ?>
-                                <ul class="dataobjects">
-                                    <? foreach ($dataBrowser['aggs']['all']['oswiadczenia']['top']['hits']['hits'] as $doc) { ?>
-                                        <li>
-                                            <?
-                                            echo $this->Dataobject->render($doc, 'default');
-                                            ?>
-                                        </li>
-                                    <? } ?>
-                                </ul>
-                                <div class="buttons">
-                                    <a href="<?= $radny->getUrl() ?>/oswiadczenia" class="btn btn-primary btn-xs">Zobacz
-                                        więcej</a>
-                                </div>
                             <? } ?>
 
                         </div>
@@ -231,6 +199,50 @@ $options = array(
 
                 </div>
 
+            </div>
+        <? } ?>
+
+        <? if (@$dataBrowser['aggs']['all']['oswiadczenia']['top']['hits']['hits']) { ?>
+            <div class="databrowser-panel">
+                <h2>Oświadczenia majątkowe:</h2>
+
+                <div class="aggs-init">
+
+                    <div class="dataAggs">
+                        <div class="agg agg-Dataobjects">
+                            <? if ($dataBrowser['aggs']['all']['oswiadczenia']['top']['hits']['hits']) { ?>
+                                <ul class="dataobjects">
+                                    <? foreach ($dataBrowser['aggs']['all']['oswiadczenia']['top']['hits']['hits'] as $doc) { ?>
+                                        <div class="objectRender readed docdataobject objclass radni_gmin_oswiadczenia_majatkowe">
+                                            <div class="row">
+                                                <div class="data col-xs-12">
+                                                    <div>
+                                                        <div class="content">
+                                                            <i class="object-icon icon-datasets-radni_gmin_oswiadczenia_majatkowe"></i>
+                                                            <div class="object-icon-side  ">
+                                                                <p class="title">
+                                                                    <a href="<?= $radny->getUrl() ?>/oswiadczenia/<?= $doc['fields']['source'][0]['data']['radni_gmin_oswiadczenia_majatkowe.id'] ?>" title="<?= $doc['fields']['source'][0]['data']['radni_gmin_oswiadczenia_majatkowe.rok'] ?>">
+                                                                        <?= $doc['fields']['source'][0]['data']['radni_gmin_oswiadczenia_majatkowe.rok'] ?>
+                                                                    </a>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <? } ?>
+                                </ul>
+                                <div class="buttons">
+                                    <a href="<?= $radny->getUrl() ?>/oswiadczenia" class="btn btn-primary btn-sm">Zobacz
+                                        więcej</a>
+                                </div>
+                            <? } ?>
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
         <? } ?>
 
