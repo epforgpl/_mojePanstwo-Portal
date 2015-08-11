@@ -58,7 +58,7 @@ echo $this->Element('dataobject/pageBegin', array(
                     </p>
 
                     <p>
-                        <a target="_blank" href="<?= ($okreg[1] == '2014') ? 'https://trello-attachments.s3.amazonaws.com/54d0f560995fdf500c52501f/54d0f927596c90a3636ced09/d3342ff9f9626679da7e983560fe5e97/okr%C4%99gi_2014.pdf' : 'https://trello-attachments.s3.amazonaws.com/54d0f560995fdf500c52501f/54d0f927596c90a3636ced09/221680cbe63c743f8e053c4fdd134883/okr%C4%99gi_2010.pdf'; ?>">
+                        <a target="_blank" href="/rada_uchwaly/18316">
                             Źródło
                         </a>
                     </p>

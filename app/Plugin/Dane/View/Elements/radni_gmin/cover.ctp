@@ -7,13 +7,54 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 $options = array(
     'mode' => 'init',
 );
+
+$okreg = $radny->getLayer('okreg');
+
+if($okreg) {
+    $this->Combinator->add_libs('js', 'Dane.view-gminy-krakow-okregi');
+    echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false', array('block' => 'scriptBlock'));
+}
+
 ?>
 <div class="col-md-9">
 
     <div class="databrowser-panels">
 
+        <? if($okreg) { ?>
+
+            <div class="databrowser-panel margin-top-10">
+
+                <h2>Okręg nr. <?= $okreg[2] ?></h2>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+
+                        <dl class="dl-horizontal margin-top-20">
+                            <dt>Rok</dt>
+                            <dd><?= $okreg[1] ?></dd>
+                            <dt>Dzielnice</dt>
+                            <dd><?= $okreg[4] ?></dd>
+                            <dt>Ilość mieszkańców</dt>
+                            <dd><?= $okreg[5] ?></dd>
+                            <dt>Liczba mandatów</dt>
+                            <dd><?= $okreg[6] ?></dd>
+                        </dl>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div id="okreg_map" style="width: 100%; height: 200px; border-radius: 10px;" class="object"></div>
+                        <div data-name="okreg" data-content='<?= json_encode($okreg) ?>'></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        <? } ?>
+
 		<? if (@$dataBrowser['aggs']['all']['glosowania']['top']['hits']['hits']) { ?>
-            <div class="databrowser-panel">
+            <div class="databrowser-panel margin-top-10">
                 <h2>Wyniki głosowań:</h2>
 
                 <div class="aggs-init">
@@ -221,8 +262,8 @@ $options = array(
                                                             <i class="object-icon icon-datasets-radni_gmin_oswiadczenia_majatkowe"></i>
                                                             <div class="object-icon-side  ">
                                                                 <p class="title">
-                                                                    <a href="<?= $radny->getUrl() ?>/oswiadczenia/<?= $doc['fields']['source'][0]['data']['radni_gmin_oswiadczenia_majatkowe.id'] ?>" title="<?= $doc['fields']['source'][0]['data']['radni_gmin_oswiadczenia_majatkowe.rok'] ?>">
-                                                                        <?= $doc['fields']['source'][0]['data']['radni_gmin_oswiadczenia_majatkowe.rok'] ?>
+                                                                    <a href="<?= $radny->getUrl() ?>/oswiadczenia/<?= $doc['fields']['source'][0]['data']['krakow_oswiadczenia.id'] ?>" title="<?= $doc['fields']['source'][0]['data']['krakow_oswiadczenia.rok'] ?>">
+                                                                        <?= $doc['fields']['source'][0]['data']['krakow_oswiadczenia.rok'] ?>
                                                                     </a>
                                                                 </p>
                                                             </div>
