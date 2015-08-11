@@ -11,6 +11,8 @@ $options = array(
 <div class="col-md-9">
 
     <div class="databrowser-panels">
+
+        <? pr($radny->getData()); ?>
 		
 		<? if (@$dataBrowser['aggs']['all']['glosowania']['top']['hits']['hits']) { ?>
             <div class="databrowser-panel">
