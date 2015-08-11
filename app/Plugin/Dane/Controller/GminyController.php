@@ -1913,8 +1913,13 @@ class GminyController extends DataobjectsController
                     'dataset' => 'krakow_rada_uchwaly',
                     'id' => $this->request->params['subid']
                 ),
-                'layers' => array('neighbours', 'druki')
+                'layers' => array('neighbours', 'druki', 'docs')
             ));
+
+            $this->set('file',
+                isset($this->request->query['file']) ?
+                    (int) $this->request->query['file'] : 1
+            );
 
             $this->set('uchwala', $uchwala);
             $this->set('title_for_layout', $uchwala->getTitle());

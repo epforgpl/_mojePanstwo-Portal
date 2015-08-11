@@ -17,14 +17,49 @@ echo $this->Element('Dane.dataobject/subobject', array(
     )
 ));
 
+$docs = $uchwala->getLayer('docs');
+
 ?>
     <div class="prawo row">
 
-        <div class="col-md-12">
-            <div class="object">
-                <?= $this->Document->place($uchwala->getData('dokument_id')) ?>
+        <? if(count($docs) > 1) { ?>
+
+            <div class="row">
+
+                <div class="col-md-2">
+
+                    <h4>Pliki powiązane</h4>
+
+                    <ul class="nav nav-pills nav-stacked">
+                        <?php foreach($docs as $i => $doc_id) { ?>
+                            <? $dokument_id = ($file == ($i + 1)) ? $doc_id : false; ?>
+                            <li role="presentation" <?= ($file == ($i + 1)) ? 'class="active"' : ''; ?>>
+                                <a href="<?= $uchwala->getUrl() ?>?file=<?= ($i + 1) ?>">
+                                    Plik #<?= ($i + 1) ?>
+                                </a>
+                            </li>
+                        <? } ?>
+                    </ul>
+                </div>
+
+                <div class="col-md-10">
+                    <?= $this->Document->place(
+                        isset($dokument_id) && $dokument_id ?
+                            $dokument_id : $uchwala->getData('dokument_id')
+                    ) ?>
+                </div>
+
             </div>
-        </div>
+
+        <? } else { ?>
+
+            <div class="col-md-12">
+                <div class="object">
+                    <?= $this->Document->place($uchwala->getData('dokument_id')) ?>
+                </div>
+            </div>
+
+        <? } ?>
 
 
     </div>
