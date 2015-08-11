@@ -63,7 +63,7 @@
     echo $this->Html->css('../plugins/bootstrap-select/bootstrap-select.min.css');
 
     /*BOOTSTRAP CHECKBOX LOOKS SWITCH BUTTONS*/
-    echo $this->Html->css('../plugins/bootstrap-switch/bootstrap-switch.css');
+    echo $this->Html->css('../plugins/bootstrap-switch/dist/bootstrap3/bootstrap-switch.min.css');
 
     /* SOCIAL BUTTONS */
     echo $this->Html->css('../libs/font-awesome/4.3.0/css/font-awesome.min.css');
@@ -159,7 +159,7 @@ echo $this->Html->script('../libs/bootstrap/3.3.4/js/bootstrap.min.js');
 echo $this->Html->script('../plugins/history.js/scripts/bundled/html4+html5/jquery.history.js');
 echo $this->Html->script('../plugins/js-cookie/src/js.cookie.js');
 echo $this->Html->script('../plugins/bootstrap-select/bootstrap-select.min.js');
-echo $this->Html->script('../plugins/bootstrap-switch/bootstrap-switch.js'); ?>
+echo $this->Html->script('../plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js'); ?>
 
 <?php /*PHP DATA FOR JS */ ?>
 <script type="text/javascript">
