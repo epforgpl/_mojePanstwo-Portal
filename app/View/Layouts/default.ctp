@@ -101,10 +101,6 @@
     $mojePanstwo = json_decode($_COOKIE["mojePanstwo"]);
     if (isset($mojePanstwo->background->url) && !empty($mojePanstwo->background->url))
         echo $mojePanstwo->background->url;
-    else
-        echo '/img/home/backgrounds/home-background-default0.jpg';
-} else {
-    echo '/img/home/backgrounds/home-background-default0.jpg';
 } ?>)" <?php } ?>>
 
 <div id="_wrapper">
@@ -161,7 +157,7 @@ echo $this->Html->script('../libs/bootstrap/3.3.4/js/bootstrap.min.js');
 
 /* PACKAGES FROM VENDOR */
 echo $this->Html->script('../plugins/browserstate/history.js/scripts/bundled/html4+html5/jquery.history.js');
-echo $this->Html->script('../plugins/carhartl/jquery-cookie/jquery.cookie.js');
+echo $this->Html->script('../plugins/js-cookie/src/js.cookie.js');
 echo $this->Html->script('../plugins/bootstrap-select/bootstrap-select.min.js');
 echo $this->Html->script('../plugins/bootstrap-switch/bootstrap-switch.js'); ?>
 
