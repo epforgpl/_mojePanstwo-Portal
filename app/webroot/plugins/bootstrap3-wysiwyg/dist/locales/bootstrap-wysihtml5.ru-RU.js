@@ -9,18 +9,22 @@
         // Browser globals
         factory(jQuery);
     }
-}(function ($) {
+}(function($){
     $.fn.wysihtml5.locale["ru-RU"] = {
         font_styles: {
             normal: "Обычный текст",
             h1: "Заголовок 1",
             h2: "Заголовок 2",
-            h3: "Заголовок 3"
+            h3: "Заголовок 3",
+            h4: "Заголовок 4",
+            h5: "Заголовок 5",
+            h6: "Заголовок 6"
         },
         emphasis: {
             bold: "Полужирный",
             italic: "Курсив",
-            underline: "Подчёркнутый"
+            underline: "Подчёркнутый",
+            small: "Уменьшенный"
         },
         lists: {
             unordered: "Маркированный список",

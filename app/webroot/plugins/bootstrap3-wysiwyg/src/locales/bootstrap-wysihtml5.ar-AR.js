@@ -9,35 +9,35 @@
         // Browser globals
         factory(jQuery);
     }
-}(function ($) {
+}(function($){
     $.fn.wysihtml5.locale["ar-AR"] = {
         font_styles: {
-            normal: "نص عادي",
-            h1: "عنوان رئيسي 1",
-            h2: "عنوان رئيسي 2",
-            h3: "عنوان رئيسي 3",
-            h4: "عنوان رئيسي 4",
-            h5: "عنوان رئيسي 5",
-            h6: "عنوان رئيسي 6"
+              normal: "نص عادي",
+              h1: "عنوان رئيسي 1",
+              h2: "عنوان رئيسي 2",
+              h3: "عنوان رئيسي 3",
+              h4: "عنوان رئيسي 4",
+              h5: "عنوان رئيسي 5",
+              h6: "عنوان رئيسي 6"
         },
         emphasis: {
-            bold: "عريض",
-            italic: "مائل",
-            underline: "تحته خط"
+              bold: "عريض",
+              italic: "مائل",
+              underline: "تحته خط"
         },
         lists: {
-            unordered: "قائمة منقطة",
-            ordered: "قائمة مرقمة",
-            outdent: "محاذاه للخارج",
-            indent: "محاذاه للداخل"
+              unordered: "قائمة منقطة",
+              ordered: "قائمة مرقمة",
+              outdent: "محاذاه للخارج",
+              indent: "محاذاه للداخل"
         },
         link: {
-            insert: "إضافة رابط",
-            cancel: "إلغاء"
+              insert: "إضافة رابط",
+              cancel: "إلغاء"
         },
         image: {
-            insert: "إضافة صورة",
-            cancel: "إلغاء"
+              insert: "إضافة صورة",
+              cancel: "إلغاء"
         },
         html: {
             edit: "تعديل HTML"
