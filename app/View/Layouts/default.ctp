@@ -63,7 +63,7 @@
     echo $this->Html->css('../plugins/bootstrap-select/dist/css/bootstrap-select.min.css');
 
     /*BOOTSTRAP CHECKBOX LOOKS SWITCH BUTTONS*/
-    echo $this->Html->css('../plugins/bootstrap-switch/dist/bootstrap3/bootstrap-switch.min.css');
+    echo $this->Html->css('../plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css');
 
     /* SOCIAL BUTTONS */
     echo $this->Html->css('../libs/font-awesome/4.3.0/css/font-awesome.min.css');

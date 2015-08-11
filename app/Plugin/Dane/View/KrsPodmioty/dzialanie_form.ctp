@@ -7,7 +7,7 @@ $this->Combinator->add_libs('css', $this->Less->css('view-dzialania', array('plu
 echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block' => 'scriptBlock'));
 
 /* tinymce */
-echo $this->Html->script('../tinymce/tinymce.min', array('block' => 'scriptBlock'));
+echo $this->Html->script('../plugins/tinymce/tinymce.min', array('block' => 'scriptBlock'));
 
 /* tag-it */
 echo $this->Html->script('../plugins/tag-it/js/tag-it.min', array('block' => 'scriptBlock'));
