@@ -14,11 +14,11 @@
                     wersją) oraz system operacyjnym, na którym błąd występuje. Dzięki czemu będziemy w stanie łatwiej
                     odtworzyć błąd w celu diagnozy i naprawienia go.</p>
 
-                <?php echo $this->Html->link('<i class="fa fa-envelope-o"></i>Wyślij zgłoszenie za pomocą formularza', 'https://gitreports.com/issue/epforgpl/_mojePanstwo-Portal', array(
+                <?php /*echo $this->Html->link('<i class="fa fa-envelope-o"></i>Wyślij zgłoszenie za pomocą formularza', 'https://gitreports.com/issue/epforgpl/_mojePanstwo-Portal', array(
                     'class' => 'btn btn-social btn-reddit',
                     'target' => '_blank',
                     'escape' => false
-                )); ?>
+                )); */ ?>
                 <?php echo $this->Html->link('<i class="fa fa-github"></i>Powiadom bezpośrednio w serwisie GitHub', 'https://github.com/epforgpl/_mojePanstwo-Portal/issues?state=open', array(
                     'class' => 'btn btn-social btn-github',
                     'target' => '_blank',
