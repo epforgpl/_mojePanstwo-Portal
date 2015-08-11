@@ -26,6 +26,47 @@ class ResponseTest extends TestCase
 {
 
     /**
+     * Data provider for content type tests.
+     *
+     * @return array
+     */
+    public static function charsetTypeProvider()
+    {
+        return [
+            ['mp3', 'audio/mpeg'],
+            ['js', 'application/javascript; charset=UTF-8'],
+            ['json', 'application/json; charset=UTF-8'],
+            ['xml', 'application/xml; charset=UTF-8'],
+            ['txt', 'text/plain; charset=UTF-8'],
+        ];
+    }
+
+    /**
+     * A data provider for testing various ranges
+     *
+     * @return array
+     */
+    public static function rangeProvider()
+    {
+        return [
+            // suffix-byte-range
+            [
+                'bytes=-25', 25, 'bytes 13-37/38'
+            ],
+
+            [
+                'bytes=0-', 38, 'bytes 0-37/38'
+            ],
+            [
+                'bytes=10-', 28, 'bytes 10-37/38'
+            ],
+            [
+                'bytes=10-20', 11, 'bytes 10-20/38'
+            ],
+        ];
+    }
+
+    /**
      * Setup for tests
      *
      * @return void
@@ -236,22 +277,6 @@ class ResponseTest extends TestCase
         $response->expects($this->at(6))
             ->method('_sendHeader')->with('Content-Type', 'text/html; charset=UTF-8');
         $response->send();
-    }
-
-    /**
-     * Data provider for content type tests.
-     *
-     * @return array
-     */
-    public static function charsetTypeProvider()
-    {
-        return [
-            ['mp3', 'audio/mpeg'],
-            ['js', 'application/javascript; charset=UTF-8'],
-            ['json', 'application/json; charset=UTF-8'],
-            ['xml', 'application/xml; charset=UTF-8'],
-            ['txt', 'text/plain; charset=UTF-8'],
-        ];
     }
 
     /**
@@ -1597,31 +1622,6 @@ class ResponseTest extends TestCase
             ->will($this->returnValue(true));
 
         $response->file(TEST_APP . 'vendor/img/test_2.JPG');
-    }
-
-    /**
-     * A data provider for testing various ranges
-     *
-     * @return array
-     */
-    public static function rangeProvider()
-    {
-        return [
-            // suffix-byte-range
-            [
-                'bytes=-25', 25, 'bytes 13-37/38'
-            ],
-
-            [
-                'bytes=0-', 38, 'bytes 0-37/38'
-            ],
-            [
-                'bytes=10-', 28, 'bytes 10-37/38'
-            ],
-            [
-                'bytes=10-20', 11, 'bytes 10-20/38'
-            ],
-        ];
     }
 
     /**

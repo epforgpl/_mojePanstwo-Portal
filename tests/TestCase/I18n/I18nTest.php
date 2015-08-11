@@ -15,10 +15,11 @@
 namespace Cake\Test\TestCase\I18n;
 
 use Aura\Intl\Package;
-us  Cake\Cache\Cache;
 use Cake\Core\Plugin;
 use Cake\I18n\I18n;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Cache\Cache;
 
 /**
  * I18nTest class

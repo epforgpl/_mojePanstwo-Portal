@@ -20,13 +20,13 @@ use Cake\ORM\Table;
 class I18nTable extends Table
 {
 
-    public function initialize(array $config)
-    {
-        $this->table('custom_i18n_table');
-    }
-
     public static function defaultConnectionName()
     {
         return 'custom_i18n_datasource';
+    }
+
+    public function initialize(array $config)
+    {
+        $this->table('custom_i18n_table');
     }
 }

@@ -15,10 +15,10 @@
 namespace Cake\Test\TestCase\Shell;
 
 use Cake\Cache\Cache;
-
-us  Cake\Datasource\ConnectionManager;
 use Cake\Shell\OrmCacheShell;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Datasource\ConnectionManager;
 
 /**
  * OrmCacheShell test.

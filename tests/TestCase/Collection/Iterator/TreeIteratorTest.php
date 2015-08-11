@@ -15,9 +15,9 @@
 namespace Cake\Test\TestCase\Collection\Iterator;
 
 use Cake\Collection\Iterator\NestIterator;
+use Cake\TestSuite\TestCase;
 
 us  Cake\Collection\Iterator\TreeIterator;
-use Cake\TestSuite\TestCase;
 
 /**
  * TreeIterator Test

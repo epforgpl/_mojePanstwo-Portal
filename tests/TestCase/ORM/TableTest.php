@@ -15,8 +15,6 @@
 namespace Cake\Test\TestCase\ORM;
 
 use ArrayObject;
-
-us  Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Database\Exception;
 use Cake\Database\Expression\QueryExpression;
@@ -33,6 +31,8 @@ use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use Cake\Validation\Validator;
 
+us  Cake\Core\Configure;
+
 /**
  * Used to test correct class is instantiated when using TableRegistry::get();
  */
@@ -48,6 +48,13 @@ class UsersTable extends Table
 class TableTest extends TestCase
 {
 
+    /**
+     * Handy variable containing the next primary key that will be inserted in the
+     * users table
+     *
+     * @var int
+     */
+    public static $nextUserId = 5;
     public $fixtures = [
         'core.comments',
         'core.users',
@@ -62,14 +69,6 @@ class TableTest extends TestCase
         'core.groups_members',
         'core.polymorphic_tagged',
     ];
-
-    /**
-     * Handy variable containing the next primary key that will be inserted in the
-     * users table
-     *
-     * @var int
-     */
-    public static $nextUserId = 5;
 
     public function setUp()
     {
@@ -1736,6 +1735,19 @@ class TableTest extends TestCase
 
         $table->expects($this->once())->method('exists');
         $this->assertSame($entity, $table->save($entity));
+    }
+
+    /**
+     * Helper method to skip tests when connection is SQLServer.
+     *
+     * @return void
+     */
+    public function skipIfSqlServer()
+    {
+        $this->skipIf(
+            $this->connection->driver() instanceof \Cake\Database\Driver\Sqlserver,
+            'SQLServer does not support the requirements of this test.'
+        );
     }
 
     /**
@@ -4490,18 +4502,5 @@ class TableTest extends TestCase
         $table = TableRegistry::get('Users');
         $this->assertSame($entity, $table->save($entity));
         $this->assertSame(self::$nextUserId, $entity->id);
-    }
-
-    /**
-     * Helper method to skip tests when connection is SQLServer.
-     *
-     * @return void
-     */
-    public function skipIfSqlServer()
-    {
-        $this->skipIf(
-            $this->connection->driver() instanceof \Cake\Database\Driver\Sqlserver,
-            'SQLServer does not support the requirements of this test.'
-        );
     }
 }

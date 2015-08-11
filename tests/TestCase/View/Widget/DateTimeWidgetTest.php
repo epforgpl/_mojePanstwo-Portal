@@ -15,16 +15,52 @@
 namespace Cake\Test\TestCase\View\Widget;
 
 use Cake\TestSuite\TestCase;
-
-us  Cake\View\StringTemplate;
 use Cake\View\Widget\DateTimeWidget;
 use Cake\View\Widget\SelectBoxWidget;
+
+us  Cake\View\StringTemplate;
 
 /**
  * DateTime input test case
  */
 class DateTimeWidgetTest extends TestCase
 {
+
+    /**
+     * Data provider for testing various types of invalid selected values.
+     *
+     * @return array
+     */
+    public static function invalidSelectedValuesProvider()
+    {
+        return [
+            'false' => [false],
+            'true' => [true],
+            'string' => ['Bag of poop'],
+            'array' => [[
+                'derp' => 'hurt'
+            ]]
+        ];
+    }
+
+    /**
+     * Data provider for testing various acceptable selected values.
+     *
+     * @return array
+     */
+    public static function selectedValuesProvider()
+    {
+        $date = new \DateTime('2014-01-20 12:30:45');
+        return [
+            'DateTime' => [$date],
+            'string' => [$date->format('Y-m-d H:i:s')],
+            'int' => [$date->getTimestamp()],
+            'array' => [[
+                'year' => '2014', 'month' => '01', 'day' => '20',
+                'hour' => '12', 'minute' => '30', 'second' => '45',
+            ]]
+        ];
+    }
 
     /**
      * @setUp
@@ -44,23 +80,6 @@ class DateTimeWidgetTest extends TestCase
         $this->context = $this->getMock('Cake\View\Form\ContextInterface');
         $this->selectBox = new SelectBoxWidget($this->templates);
         $this->DateTime = new DateTimeWidget($this->templates, $this->selectBox);
-    }
-
-    /**
-     * Data provider for testing various types of invalid selected values.
-     *
-     * @return array
-     */
-    public static function invalidSelectedValuesProvider()
-    {
-        return [
-            'false' => [false],
-            'true' => [true],
-            'string' => ['Bag of poop'],
-            'array' => [[
-                'derp' => 'hurt'
-            ]]
-        ];
     }
 
     /**
@@ -125,25 +144,6 @@ class DateTimeWidgetTest extends TestCase
         ], $this->context);
         $this->assertContains('<option value="nope">(choose one)</option>', $result);
         $this->assertNotContains('<optgroup', $result, 'No optgroups should be present.');
-    }
-
-    /**
-     * Data provider for testing various acceptable selected values.
-     *
-     * @return array
-     */
-    public static function selectedValuesProvider()
-    {
-        $date = new \DateTime('2014-01-20 12:30:45');
-        return [
-            'DateTime' => [$date],
-            'string' => [$date->format('Y-m-d H:i:s')],
-            'int' => [$date->getTimestamp()],
-            'array' => [[
-                'year' => '2014', 'month' => '01', 'day' => '20',
-                'hour' => '12', 'minute' => '30', 'second' => '45',
-            ]]
-        ];
     }
 
     /**

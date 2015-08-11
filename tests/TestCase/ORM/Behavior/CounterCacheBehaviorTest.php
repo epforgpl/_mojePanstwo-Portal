@@ -15,13 +15,14 @@
 namespace Cake\Test\TestCase\ORM\Behavior;
 
 use Cake\Database\Query;
-us  Cake\Datasource\ConnectionManager;
 use Cake\Event\Event;
 use Cake\ORM\Behavior\CounterCacheBehavior;
 use Cake\ORM\Entity;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Datasource\ConnectionManager;
 
 /**
  * Used for testing counter cache with custom finder
@@ -117,6 +118,29 @@ class CounterCacheBehaviorTest extends TestCase
     }
 
     /**
+     * Returns entity for user
+     *
+     * @return Entity
+     */
+    protected function _getUser($id = 1)
+    {
+        return $this->user->get($id);
+    }
+
+    /**
+     * Get a new Entity
+     *
+     * @return Entity
+     */
+    protected function _getEntity()
+    {
+        return new Entity([
+            'title' => 'Test 123',
+            'user_id' => 1
+        ]);
+    }
+
+    /**
      * Testing simple counter caching when adding a record
      *
      * @return void
@@ -208,6 +232,16 @@ class CounterCacheBehaviorTest extends TestCase
         $this->assertEquals(2, $user2->get('post_count'));
         $this->assertEquals(0, $category1->get('post_count'));
         $this->assertEquals(3, $category2->get('post_count'));
+    }
+
+    /**
+     * Returns entity for category
+     *
+     * @return Entity
+     */
+    protected function _getCategory($id = 1)
+    {
+        return $this->category->find('all')->where(['id' => $id])->first();
     }
 
     /**
@@ -363,38 +397,5 @@ class CounterCacheBehaviorTest extends TestCase
 
         $this->assertEquals(2, $before->get('post_count'));
         $this->assertEquals(3, $after->get('post_count'));
-    }
-
-    /**
-     * Get a new Entity
-     *
-     * @return Entity
-     */
-    protected function _getEntity()
-    {
-        return new Entity([
-            'title' => 'Test 123',
-            'user_id' => 1
-        ]);
-    }
-
-    /**
-     * Returns entity for user
-     *
-     * @return Entity
-     */
-    protected function _getUser($id = 1)
-    {
-        return $this->user->get($id);
-    }
-
-    /**
-     * Returns entity for category
-     *
-     * @return Entity
-     */
-    protected function _getCategory($id = 1)
-    {
-        return $this->category->find('all')->where(['id' => $id])->first();
     }
 }

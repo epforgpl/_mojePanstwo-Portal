@@ -15,15 +15,14 @@
 namespace Cake\Test\TestCase\Network\Email;
 
 use Cake\Core\Configure;
-
-us  Cake\Core\Plugin;
 use Cake\Log\Log;
 use Cake\Network\Email\DebugTransport;
 use Cake\Network\Email\Email;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use Exception;
-use SimpleXmlElement;
+
+us  Cake\Core\Plugin;
 
 /**
  * Help to test Email
@@ -90,6 +89,22 @@ class EmailTest extends TestCase
 {
 
     public $fixtures = ['core.users'];
+
+    /**
+     * Data provider function for testBuildInvalidData
+     *
+     * @return array
+     */
+    public static function invalidEmails()
+    {
+        return [
+            [1.0],
+            [''],
+            ['string'],
+            ['<tag>'],
+            [['ok@cakephp.org', 1.0, '', 'string']]
+        ];
+    }
 
     /**
      * setUp
@@ -248,22 +263,6 @@ class EmailTest extends TestCase
         ];
         $this->assertSame($expected, $this->CakeEmail->to());
         $this->assertSame($this->CakeEmail, $result);
-    }
-
-    /**
-     * Data provider function for testBuildInvalidData
-     *
-     * @return array
-     */
-    public static function invalidEmails()
-    {
-        return [
-            [1.0],
-            [''],
-            ['string'],
-            ['<tag>'],
-            [['ok@cakephp.org', 1.0, '', 'string']]
-        ];
     }
 
     /**
@@ -1619,6 +1618,23 @@ class EmailTest extends TestCase
     }
 
     /**
+     * CakeEmailTest::assertLineLengths()
+     *
+     * @param string $message
+     * @return void
+     */
+    public function assertLineLengths($message)
+    {
+        $lines = explode("\r\n", $message);
+        foreach ($lines as $line) {
+            $this->assertTrue(
+                strlen($line) <= Email::LINE_LENGTH_MUST,
+                'Line length exceeds the max. limit of Email::LINE_LENGTH_MUST'
+            );
+        }
+    }
+
+    /**
      * testSendRenderWithVars method
      *
      * @return void
@@ -1924,6 +1940,34 @@ class EmailTest extends TestCase
 
         // ISO-2022-JP is 7bit
         $this->assertTrue($this->_checkContentTransferEncoding($message, '7bit'));
+    }
+
+    protected function _checkContentTransferEncoding($message, $charset)
+    {
+        $boundary = '--' . $this->CakeEmail->getBoundary();
+        $result['text'] = false;
+        $result['html'] = false;
+        $length = count($message);
+        for ($i = 0; $i < $length; ++$i) {
+            if ($message[$i] === $boundary) {
+                $flag = false;
+                $type = '';
+                while (!preg_match('/^$/', $message[$i])) {
+                    if (preg_match('/^Content-Type: text\/plain/', $message[$i])) {
+                        $type = 'text';
+                    }
+                    if (preg_match('/^Content-Type: text\/html/', $message[$i])) {
+                        $type = 'html';
+                    }
+                    if ($message[$i] === 'Content-Transfer-Encoding: ' . $charset) {
+                        $flag = true;
+                    }
+                    ++$i;
+                }
+                $result[$type] = $flag;
+            }
+        }
+        return $result['text'] && $result['html'];
     }
 
     /**
@@ -2279,34 +2323,6 @@ class EmailTest extends TestCase
         $this->assertTextContains("Content-Type: text/plain; charset=ISO-2022-JP", $result['headers']);
         $this->assertTextNotContains("Content-Type: text/plain; charset=iso-2022-jp-ms", $result['headers']); // not charset=iso-2022-jp-ms
         $this->assertContains(mb_convert_encoding('①㈱', 'ISO-2022-JP-MS'), $result['message']);
-    }
-
-    protected function _checkContentTransferEncoding($message, $charset)
-    {
-        $boundary = '--' . $this->CakeEmail->getBoundary();
-        $result['text'] = false;
-        $result['html'] = false;
-        $length = count($message);
-        for ($i = 0; $i < $length; ++$i) {
-            if ($message[$i] === $boundary) {
-                $flag = false;
-                $type = '';
-                while (!preg_match('/^$/', $message[$i])) {
-                    if (preg_match('/^Content-Type: text\/plain/', $message[$i])) {
-                        $type = 'text';
-                    }
-                    if (preg_match('/^Content-Type: text\/html/', $message[$i])) {
-                        $type = 'html';
-                    }
-                    if ($message[$i] === 'Content-Transfer-Encoding: ' . $charset) {
-                        $flag = true;
-                    }
-                    ++$i;
-                }
-                $result[$type] = $flag;
-            }
-        }
-        return $result['text'] && $result['html'];
     }
 
     /**
@@ -2718,22 +2734,5 @@ XML;
         $this->assertContains('test', $result['_viewVars']['exception']);
         unset($result['_viewVars']['exception']);
         $this->assertEquals($expected, $result);
-    }
-
-    /**
-     * CakeEmailTest::assertLineLengths()
-     *
-     * @param string $message
-     * @return void
-     */
-    public function assertLineLengths($message)
-    {
-        $lines = explode("\r\n", $message);
-        foreach ($lines as $line) {
-            $this->assertTrue(
-                strlen($line) <= Email::LINE_LENGTH_MUST,
-                'Line length exceeds the max. limit of Email::LINE_LENGTH_MUST'
-            );
-        }
     }
 }

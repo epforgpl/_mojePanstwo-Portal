@@ -15,7 +15,6 @@
 namespace Cake\Test\TestCase\ORM;
 
 use Cake\Database\Expression\IdentifierExpression;
-us  Cake\Database\Expression\QueryExpression;
 use Cake\Database\TypeMap;
 use Cake\Datasource\ConnectionManager;
 use Cake\ORM\EagerLoader;
@@ -23,6 +22,8 @@ use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Database\Expression\QueryExpression;
 
 /**
  * Tests EagerLoader
@@ -376,6 +377,27 @@ class EagerLoaderTest extends TestCase
     }
 
     /**
+     * Helper function sued to quoted both keys and values in an array in case
+     * the test suite is running with auto quoting enabled
+     *
+     * @param array $elements
+     * @return array
+     */
+    protected function _quoteArray($elements)
+    {
+        if ($this->connection->driver()->autoQuoting()) {
+            $quoter = function ($e) {
+                return $this->connection->driver()->quoteIdentifier($e);
+            };
+            return array_combine(
+                array_map($quoter, array_keys($elements)),
+                array_map($quoter, array_values($elements))
+            );
+        }
+        return $elements;
+    }
+
+    /**
      * Check that normalizing contains checks alias names.
      *
      * @expectedException \InvalidArgumentException
@@ -441,26 +463,5 @@ class EagerLoaderTest extends TestCase
             'client.order.stuff.stuff_type',
             $assocs['stuffTypes']->propertyPath()
         );
-    }
-
-    /**
-     * Helper function sued to quoted both keys and values in an array in case
-     * the test suite is running with auto quoting enabled
-     *
-     * @param array $elements
-     * @return array
-     */
-    protected function _quoteArray($elements)
-    {
-        if ($this->connection->driver()->autoQuoting()) {
-            $quoter = function ($e) {
-                return $this->connection->driver()->quoteIdentifier($e);
-            };
-            return array_combine(
-                array_map($quoter, array_keys($elements)),
-                array_map($quoter, array_values($elements))
-            );
-        }
-        return $elements;
     }
 }

@@ -15,8 +15,9 @@
 namespace Cake\Test\TestCase\Event;
 
 use Cake\Event\EventDispatcherTrait;
-us  Cake\Event\EventManager;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Event\EventManager;
 
 /**
  * EventDispatcherTrait test case

@@ -17,6 +17,7 @@
 namespace Cake\Test\TestCase\Console;
 
 use Cake\Console\ConsoleOutput;
+
 us  Cake\TestSuite\TestCase;
 
 /**

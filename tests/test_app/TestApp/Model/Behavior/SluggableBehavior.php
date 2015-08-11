@@ -19,10 +19,11 @@
 namespace TestApp\Model\Behavior;
 
 use Cake\Event\Event;
-us  Cake\ORM\Behavior;
 use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\Utility\Inflector;
+
+us  Cake\ORM\Behavior;
 
 class SluggableBehavior extends Behavior
 {

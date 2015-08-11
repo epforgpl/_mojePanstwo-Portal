@@ -17,13 +17,14 @@
 namespace Cake\Test\TestCase\View;
 
 use Cake\Controller\Controller;
-us  Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Network\Request;
 use Cake\Network\Response;
 use Cake\TestSuite\TestCase;
 use Cake\Utility\Xml;
 use Cake\View\XmlView;
+
+us  Cake\Core\App;
 
 /**
  * XmlViewTest

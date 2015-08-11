@@ -15,6 +15,7 @@
 namespace Cake\Test\TestCase\I18n;
 
 use Cake\I18n\Formatter\IcuFormatter;
+
 us  Cake\TestSuite\TestCase;
 
 /**

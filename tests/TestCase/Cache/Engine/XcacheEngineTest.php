@@ -17,8 +17,9 @@
 namespace Cake\Test\TestCase\Cache\Engine;
 
 use Cake\Cache\Cache;
-us  Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Core\Configure;
 
 /**
  * XcacheEngineTest class
@@ -43,22 +44,6 @@ class XcacheEngineTest extends TestCase
         }
         Cache::enable();
         Cache::config('xcache', ['engine' => 'Xcache', 'prefix' => 'cake_']);
-    }
-
-    /**
-     * Helper method for testing.
-     *
-     * @param array $config
-     * @return void
-     */
-    protected function _configCache($config = [])
-    {
-        $defaults = [
-            'className' => 'Xcache',
-            'prefix' => 'cake_',
-        ];
-        Cache::drop('xcache');
-        Cache::config('xcache', array_merge($defaults, $config));
     }
 
     /**
@@ -143,6 +128,22 @@ class XcacheEngineTest extends TestCase
         sleep(2);
         $result = Cache::read('other_test', 'xcache');
         $this->assertFalse($result);
+    }
+
+    /**
+     * Helper method for testing.
+     *
+     * @param array $config
+     * @return void
+     */
+    protected function _configCache($config = [])
+    {
+        $defaults = [
+            'className' => 'Xcache',
+            'prefix' => 'cake_',
+        ];
+        Cache::drop('xcache');
+        Cache::config('xcache', array_merge($defaults, $config));
     }
 
     /**

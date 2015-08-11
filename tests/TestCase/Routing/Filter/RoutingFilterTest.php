@@ -15,11 +15,11 @@
 namespace Cake\Test\TestCase\Routing\Filter;
 
 use Cake\Event\Event;
-
-us  Cake\Network\Request;
 use Cake\Routing\Filter\RoutingFilter;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Network\Request;
 
 /**
  * Routing filter test.

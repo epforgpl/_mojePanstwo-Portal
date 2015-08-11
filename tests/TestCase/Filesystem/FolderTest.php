@@ -17,8 +17,9 @@
 namespace Cake\Test\TestCase\Filesystem;
 
 use Cake\Filesystem\File;
-us  Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Filesystem\Folder;
 
 /**
  * FolderTest class
@@ -901,6 +902,57 @@ class FolderTest extends TestCase
     }
 
     /**
+     * Setup filesystem for copy tests
+     * $path: folder_test/
+     * - folder1/file1.php
+     * - folder1/folderA/fileA.php
+     * - folder2/file2.php
+     * - folder2/folderB/fileB.php
+     * - folder3/
+     *
+     * @return array Filenames to extract in the test methods
+     */
+    protected function _setupFilesystem()
+    {
+        $path = TMP . 'tests';
+
+        $folderOne = $path . DS . 'folder1';
+        $folderOneA = $folderOne . DS . 'folderA';
+        $folderTwo = $path . DS . 'folder2';
+        $folderTwoB = $folderTwo . DS . 'folderB';
+        $folderThree = $path . DS . 'folder3';
+
+        $fileOne = $folderOne . DS . 'file1.php';
+        $fileTwo = $folderTwo . DS . 'file2.php';
+        $fileOneA = $folderOneA . DS . 'fileA.php';
+        $fileTwoB = $folderTwoB . DS . 'fileB.php';
+
+        new Folder($path, true);
+        new Folder($folderOne, true);
+        new Folder($folderOneA, true);
+        new Folder($folderTwo, true);
+        new Folder($folderTwoB, true);
+        new Folder($folderThree, true);
+        touch($fileOne);
+        touch($fileTwo);
+        touch($fileOneA);
+        touch($fileTwoB);
+
+        return compact(
+            'path',
+            'folderOne',
+            'folderOneA',
+            'folderTwo',
+            'folderTwoB',
+            'folderThree',
+            'fileOne',
+            'fileOneA',
+            'fileTwo',
+            'fileTwoB'
+        );
+    }
+
+    /**
      * testCopyWithMerge method
      *
      * Verify that subdirectories existing in both destination and source directory
@@ -1050,57 +1102,6 @@ class FolderTest extends TestCase
     }
 
     /**
-     * Setup filesystem for copy tests
-     * $path: folder_test/
-     * - folder1/file1.php
-     * - folder1/folderA/fileA.php
-     * - folder2/file2.php
-     * - folder2/folderB/fileB.php
-     * - folder3/
-     *
-     * @return array Filenames to extract in the test methods
-     */
-    protected function _setupFilesystem()
-    {
-        $path = TMP . 'tests';
-
-        $folderOne = $path . DS . 'folder1';
-        $folderOneA = $folderOne . DS . 'folderA';
-        $folderTwo = $path . DS . 'folder2';
-        $folderTwoB = $folderTwo . DS . 'folderB';
-        $folderThree = $path . DS . 'folder3';
-
-        $fileOne = $folderOne . DS . 'file1.php';
-        $fileTwo = $folderTwo . DS . 'file2.php';
-        $fileOneA = $folderOneA . DS . 'fileA.php';
-        $fileTwoB = $folderTwoB . DS . 'fileB.php';
-
-        new Folder($path, true);
-        new Folder($folderOne, true);
-        new Folder($folderOneA, true);
-        new Folder($folderTwo, true);
-        new Folder($folderTwoB, true);
-        new Folder($folderThree, true);
-        touch($fileOne);
-        touch($fileTwo);
-        touch($fileOneA);
-        touch($fileTwoB);
-
-        return compact(
-            'path',
-            'folderOne',
-            'folderOneA',
-            'folderTwo',
-            'folderTwoB',
-            'folderThree',
-            'fileOne',
-            'fileOneA',
-            'fileTwo',
-            'fileTwoB'
-        );
-    }
-
-    /**
      * testMove method
      *
      * Verify that directories and files are moved recursively
@@ -1235,7 +1236,7 @@ class FolderTest extends TestCase
         $Folder = new Folder($path);
         $Folder->delete();
     }
-    
+
     public function testMoveWithoutRecursive()
     {
         extract($this->_setupFilesystem());

@@ -15,12 +15,13 @@
 namespace Cake\Test\TestCase\Database\Schema;
 
 use Cake\Cache\Cache;
-us  Cake\Core\Configure;
 use Cake\Database\Connection;
 use Cake\Database\Schema\Collection;
 use Cake\Database\Schema\Table;
 use Cake\Datasource\ConnectionManager;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Core\Configure;
 
 /**
  * Test case for Collection

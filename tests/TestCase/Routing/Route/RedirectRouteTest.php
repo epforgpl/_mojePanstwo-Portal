@@ -15,11 +15,12 @@
 namespace Cake\Test\TestCase\Routing\Route;
 
 use Cake\Core\App;
-us  Cake\Core\Configure;
 use Cake\Network\Response;
-use Cake\Routing\Router;
 use Cake\Routing\Route\RedirectRoute;
+use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Core\Configure;
 
 /**
  * test case for RedirectRoute

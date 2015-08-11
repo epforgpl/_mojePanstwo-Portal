@@ -127,6 +127,22 @@ class TimeHelperTest extends TestCase
     }
 
     /**
+     * Custom assert to allow for variation in the version of the intl library, where
+     * some translations contain a few extra commas.
+     *
+     * @param string $expected
+     * @param string $result
+     * @return void
+     */
+    public function assertTimeFormat($expected, $result)
+    {
+        return $this->assertEquals(
+            str_replace([',', '(', ')', ' at'], '', $expected),
+            str_replace([',', '(', ')', ' at'], '', $result)
+        );
+    }
+
+    /**
      * testToUnix method
      *
      * @return void
@@ -432,22 +448,6 @@ class TimeHelperTest extends TestCase
         $result = $this->Time->format('invalid date', null, 'Date invalid');
         $expected = 'Date invalid';
         $this->assertEquals($expected, $result);
-    }
-
-    /**
-     * Custom assert to allow for variation in the version of the intl library, where
-     * some translations contain a few extra commas.
-     *
-     * @param string $expected
-     * @param string $result
-     * @return void
-     */
-    public function assertTimeFormat($expected, $result)
-    {
-        return $this->assertEquals(
-            str_replace([',', '(', ')', ' at'], '', $expected),
-            str_replace([',', '(', ')', ' at'], '', $result)
-        );
     }
 
     /**

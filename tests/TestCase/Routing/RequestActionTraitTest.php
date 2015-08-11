@@ -14,7 +14,6 @@
 namespace Cake\Test\TestCase\Routing;
 
 use Cake\Core\App;
-us  Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Network\Request;
 use Cake\Routing\DispatcherFactory;
@@ -22,6 +21,8 @@ use Cake\Routing\RequestActionTrait;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Cake\Utility\Security;
+
+us  Cake\Core\Configure;
 
 /**
  */

@@ -15,11 +15,12 @@
 namespace Cake\Test\TestCase\ORM\Behavior;
 
 use Cake\Collection\Collection;
-us  Cake\Event\Event;
 use Cake\ORM\Behavior\TranslateBehavior;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Event\Event;
 
 /**
  * Translate behavior test case
@@ -106,6 +107,50 @@ class TreeBehaviorTest extends TestCase
             '_18:19 - 18:radios'
         ];
         $this->assertMpttValues($expected, $table);
+    }
+
+    /**
+     * Assert MPTT values
+     *
+     * Custom assert method to make identifying the differences between expected
+     * and actual db state easier to identify.
+     *
+     * @param array $expected tree state to be expected
+     * @param \Cake\ORM\Table $table Table instance
+     * @param \Cake\ORM\Query $query Optional query object
+     * @return void
+     */
+    public function assertMpttValues($expected, $table, $query = null)
+    {
+        $query = $query ?: $table->find();
+        $primaryKey = $table->primaryKey();
+        if (is_array($primaryKey)) {
+            $primaryKey = $primaryKey[0];
+        }
+        $displayField = $table->displayField();
+
+        $options = [
+            'valuePath' => function ($item, $key, $iterator) use ($primaryKey, $displayField) {
+                return sprintf(
+                    '%s:%s - %s:%s',
+                    str_pad($item->lft, 2, ' ', STR_PAD_LEFT),
+                    str_pad($item->rght, 2, ' ', STR_PAD_LEFT),
+                    str_pad($item->$primaryKey, 2, ' ', STR_PAD_LEFT),
+                    $item->{$displayField}
+                );
+            }
+        ];
+        $result = array_values($query->find('treeList', $options)->toArray());
+
+        if (count($result) === count($expected)) {
+            $subExpected = array_diff($expected, $result);
+            if ($subExpected) {
+                $subResult = array_intersect_key($result, $subExpected);
+                $this->assertSame($subExpected, $subResult, 'Differences in the tree were found (lft:rght id:display-name)');
+            }
+        }
+
+        $this->assertSame($expected, $result, 'The tree is not the same (lft:rght id:display-name)');
     }
 
     /**
@@ -1345,49 +1390,5 @@ class TreeBehaviorTest extends TestCase
         $this->table->save($entity);
         $entity = $this->table->get(8);
         $this->assertEquals(1, $entity->depth);
-    }
-
-    /**
-     * Assert MPTT values
-     *
-     * Custom assert method to make identifying the differences between expected
-     * and actual db state easier to identify.
-     *
-     * @param array $expected tree state to be expected
-     * @param \Cake\ORM\Table $table Table instance
-     * @param \Cake\ORM\Query $query Optional query object
-     * @return void
-     */
-    public function assertMpttValues($expected, $table, $query = null)
-    {
-        $query = $query ?: $table->find();
-        $primaryKey = $table->primaryKey();
-        if (is_array($primaryKey)) {
-            $primaryKey = $primaryKey[0];
-        }
-        $displayField = $table->displayField();
-
-        $options = [
-            'valuePath' => function ($item, $key, $iterator) use ($primaryKey, $displayField) {
-                return sprintf(
-                    '%s:%s - %s:%s',
-                    str_pad($item->lft, 2, ' ', STR_PAD_LEFT),
-                    str_pad($item->rght, 2, ' ', STR_PAD_LEFT),
-                    str_pad($item->$primaryKey, 2, ' ', STR_PAD_LEFT),
-                    $item->{$displayField}
-                );
-            }
-        ];
-        $result = array_values($query->find('treeList', $options)->toArray());
-
-        if (count($result) === count($expected)) {
-            $subExpected = array_diff($expected, $result);
-            if ($subExpected) {
-                $subResult = array_intersect_key($result, $subExpected);
-                $this->assertSame($subExpected, $subResult, 'Differences in the tree were found (lft:rght id:display-name)');
-            }
-        }
-
-        $this->assertSame($expected, $result, 'The tree is not the same (lft:rght id:display-name)');
     }
 }

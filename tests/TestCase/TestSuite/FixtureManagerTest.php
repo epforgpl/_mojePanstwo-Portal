@@ -15,10 +15,10 @@
 namespace Cake\Test\TestSuite;
 
 use Cake\Core\Plugin;
-
-us  Cake\Database\ConnectionManager;
 use Cake\TestSuite\Fixture\FixtureManager;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Database\ConnectionManager;
 
 /**
  * Fixture manager test case.

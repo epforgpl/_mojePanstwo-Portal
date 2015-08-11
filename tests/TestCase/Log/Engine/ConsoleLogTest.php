@@ -14,10 +14,10 @@
 namespace Cake\Test\TestCase\Log\Engine;
 
 use Cake\Console\ConsoleOutput;
-
-us  Cake\Log\Engine\ConsoleLog;
 use Cake\Log\Log;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Log\Engine\ConsoleLog;
 
 /**
  * ConsoleLogTest class

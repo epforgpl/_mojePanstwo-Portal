@@ -16,8 +16,9 @@
 namespace Cake\Test\TestCase\Cache\Engine;
 
 use Cake\Cache\Cache;
-us  Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Core\Configure;
 
 /**
  * ApcEngineTest class
@@ -45,18 +46,6 @@ class ApcEngineTest extends TestCase
     }
 
     /**
-     * tearDown method
-     *
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-        Cache::drop('apc');
-        Cache::drop('apc_groups');
-    }
-
-    /**
      * Helper method for testing.
      *
      * @param array $config
@@ -70,6 +59,18 @@ class ApcEngineTest extends TestCase
         ];
         Cache::drop('apc');
         Cache::config('apc', array_merge($defaults, $config));
+    }
+
+    /**
+     * tearDown method
+     *
+     * @return void
+     */
+    public function tearDown()
+    {
+        parent::tearDown();
+        Cache::drop('apc');
+        Cache::drop('apc_groups');
     }
 
     /**

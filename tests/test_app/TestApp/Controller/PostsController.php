@@ -14,8 +14,6 @@
  */
 namespace TestApp\Controller;
 
-use TestApp\Controller\AppController;
-
 /**
  * PostsController class
  *

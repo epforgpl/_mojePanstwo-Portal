@@ -15,10 +15,10 @@
 namespace Cake\Test\TestCase\Network\Email;
 
 use Cake\Network\Email\Email;
-
-us  Cake\Network\Email\SmtpTransport;
 use Cake\Network\Socket;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Network\Email\SmtpTransport;
 
 /**
  * Help to test SmtpTransport
@@ -39,15 +39,6 @@ class SmtpTestTransport extends SmtpTransport
     }
 
     /**
-     * Disabled the socket change
-     *
-     * @return void
-     */
-    protected function _generateSocket()
-    {
-    }
-
-    /**
      * Magic function to call protected methods
      *
      * @param string $method
@@ -58,6 +49,15 @@ class SmtpTestTransport extends SmtpTransport
     {
         $method = '_' . $method;
         return call_user_func_array([$this, $method], $args);
+    }
+
+    /**
+     * Disabled the socket change
+     *
+     * @return void
+     */
+    protected function _generateSocket()
+    {
     }
 }
 

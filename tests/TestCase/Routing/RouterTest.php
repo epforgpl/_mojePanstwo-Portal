@@ -15,14 +15,14 @@
 namespace Cake\Test\TestCase\Routing;
 
 use Cake\Core\App;
-us  Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Network\Request;
+use Cake\Routing\Route\Route;
 use Cake\Routing\RouteCollection;
 use Cake\Routing\Router;
-use Cake\Routing\Route\Route;
 use Cake\TestSuite\TestCase;
-use TestPlugin\Routing\Route\TestRoute;
+
+us  Cake\Core\Configure;
 
 /**
  * RouterTest class
@@ -1524,6 +1524,18 @@ class RouterTest extends TestCase
     }
 
     /**
+     * Connect some fallback routes for testing router behavior.
+     *
+     * @return void
+     */
+    protected function _connectDefaultRoutes()
+    {
+        Router::scope('/', function ($routes) {
+            $routes->fallbacks('InflectedRoute');
+        });
+    }
+
+    /**
      * testUuidRoutes method
      *
      * @return void
@@ -2930,17 +2942,5 @@ class RouterTest extends TestCase
 
         $result = Router::url(['controller' => 'FooBar', 'action' => 'index']);
         $this->assertEquals('/foo-bar', $result);
-    }
-
-    /**
-     * Connect some fallback routes for testing router behavior.
-     *
-     * @return void
-     */
-    protected function _connectDefaultRoutes()
-    {
-        Router::scope('/', function ($routes) {
-            $routes->fallbacks('InflectedRoute');
-        });
     }
 }

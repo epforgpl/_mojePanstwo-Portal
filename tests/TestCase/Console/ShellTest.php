@@ -15,7 +15,6 @@
 namespace Cake\Test\TestCase\Console;
 
 use Cake\Console\ConsoleOptionParser;
-us  Cake\Console\Shell;
 use Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
@@ -24,6 +23,8 @@ use Cake\Log\Log;
 use Cake\TestSuite\TestCase;
 use Cake\Utility\Hash;
 use TestApp\Shell\TestingDispatchShell;
+
+us  Cake\Console\Shell;
 
 /**
  * Class for testing merging vars
@@ -64,6 +65,22 @@ class ShellTestShell extends Shell
      */
     public $testMessage = 'all your base are belong to us';
 
+    public function doSomething()
+    {
+    }
+
+    public function logSomething()
+    {
+        $this->log($this->testMessage);
+    }
+
+    //@codingStandardsIgnoreStart
+
+    public function useLogger($enable = true)
+    {
+        $this->_useLogger($enable);
+    }
+
     /**
      * stop method
      *
@@ -78,25 +95,10 @@ class ShellTestShell extends Shell
     protected function _secret()
     {
     }
-
-    //@codingStandardsIgnoreStart
-    public function doSomething()
-    {
-    }
+    //@codingStandardsIgnoreEnd
 
     protected function noAccess()
     {
-    }
-
-    public function logSomething()
-    {
-        $this->log($this->testMessage);
-    }
-    //@codingStandardsIgnoreEnd
-
-    public function useLogger($enable = true)
-    {
-        $this->_useLogger($enable);
     }
 }
 

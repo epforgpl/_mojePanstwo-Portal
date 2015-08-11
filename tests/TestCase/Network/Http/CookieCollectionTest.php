@@ -14,9 +14,9 @@
 namespace Cake\Test\TestCase\Network\Http;
 
 use Cake\Network\Http\CookieCollection;
+use Cake\TestSuite\TestCase;
 
 us  Cake\Network\Http\Response;
-use Cake\TestSuite\TestCase;
 
 /**
  * HTTP cookies test.

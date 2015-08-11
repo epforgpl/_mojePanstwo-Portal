@@ -15,8 +15,9 @@
 namespace Cake\Test\TestCase\ORM\Behavior\Translate;
 
 use Cake\ORM\Behavior\Translate\TranslateTrait;
-us  Cake\ORM\Entity;
 use Cake\TestSuite\TestCase;
+
+us  Cake\ORM\Entity;
 
 class TestEntity extends Entity
 {

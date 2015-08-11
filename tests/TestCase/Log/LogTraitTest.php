@@ -14,10 +14,10 @@
 namespace Cake\Test\TestCase\Log;
 
 use Cake\Log\Log;
-
-us  Cake\Log\LogInterface;
 use Cake\Log\LogTrait;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Log\LogInterface;
 
 /**
  * Test case for LogTrait

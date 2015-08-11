@@ -15,12 +15,13 @@
 namespace Cake\Test\TestCase\ORM;
 
 use Cake\Core\Configure;
-us  Cake\Core\Plugin;
 use Cake\Datasource\ConnectionManager;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use Cake\Validation\Validator;
+
+us  Cake\Core\Plugin;
 
 /**
  * Used to test correct class is instantiated when using TableRegistry::get();

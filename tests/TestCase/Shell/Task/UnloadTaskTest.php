@@ -14,9 +14,9 @@
 namespace Cake\Test\TestCase\Shell\Task;
 
 use Cake\Core\Plugin;
+use Cake\TestSuite\TestCase;
 
 us  Cake\Filesystem\File;
-use Cake\TestSuite\TestCase;
 
 /**
  * UnloadTaskTest class
@@ -84,6 +84,20 @@ class UnloadTaskTest extends TestCase
         $this->assertNotContains($expected, $bootstrap->read());
         $expected = "Plugin::load('TestPluginSecond', ['autoload' => true, 'bootstrap' => false, 'routes' => false]);";
         $this->assertContains($expected, $bootstrap->read());
+    }
+
+    /**
+     * _addPluginToBootstrap
+     *
+     * Quick method to add a plugin to the bootstrap file.
+     * This is useful for the tests
+     *
+     * @param string $name
+     */
+    protected function _addPluginToBootstrap($name)
+    {
+        $bootstrap = new File($this->bootstrap, false);
+        $bootstrap->append("\n\nPlugin::load('$name', ['autoload' => true, 'bootstrap' => false, 'routes' => false]);\n");
     }
 
     /**
@@ -164,20 +178,6 @@ class UnloadTaskTest extends TestCase
         $bootstrap->append("\nPlugin::load('TestPlugin', ['bootstrap' => true, 'route' => false]);\n");
         $this->Task->main('TestPlugin');
         $this->assertNotContains("Plugin::load('TestPlugin', ['bootstrap' => true, 'route' => false]);", $bootstrap->read());
-    }
-
-    /**
-     * _addPluginToBootstrap
-     *
-     * Quick method to add a plugin to the bootstrap file.
-     * This is useful for the tests
-     *
-     * @param string $name
-     */
-    protected function _addPluginToBootstrap($name)
-    {
-        $bootstrap = new File($this->bootstrap, false);
-        $bootstrap->append("\n\nPlugin::load('$name', ['autoload' => true, 'bootstrap' => false, 'routes' => false]);\n");
     }
 
     /**

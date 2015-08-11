@@ -14,9 +14,10 @@
 namespace TestApp\Auth;
 
 use Cake\Auth\BaseAuthenticate;
-us  Cake\Event\Event;
 use Cake\Network\Request;
 use Cake\Network\Response;
+
+us  Cake\Event\Event;
 
 /**
  * TestAuthenticate class

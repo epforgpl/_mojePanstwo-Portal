@@ -15,12 +15,13 @@
 namespace Cake\Test\TestCase\View\Helper;
 
 use Cake\Core\Configure;
-us  Cake\I18n\I18n;
 use Cake\Network\Request;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Cake\View\Helper\PaginatorHelper;
 use Cake\View\View;
+
+us  Cake\I18n\I18n;
 
 /**
  * PaginatorHelperTest class

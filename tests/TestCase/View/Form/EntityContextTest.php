@@ -15,7 +15,6 @@
 namespace Cake\Test\TestCase\View\Form;
 
 use ArrayIterator;
-us  ArrayObject;
 use Cake\Collection\Collection;
 use Cake\Network\Request;
 use Cake\ORM\Entity;
@@ -24,6 +23,8 @@ use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use Cake\Validation\Validator;
 use Cake\View\Form\EntityContext;
+
+us  ArrayObject;
 
 /**
  * Test stub.
@@ -54,6 +55,35 @@ class EntityContextTest extends TestCase
      * @var array
      */
     public $fixtures = ['core.articles', 'core.comments'];
+
+    /**
+     * Data provider for testing collections.
+     *
+     * @return array
+     */
+    public static function collectionProvider()
+    {
+        $one = new Article([
+            'title' => 'First post',
+            'body' => 'Stuff',
+            'user' => new Entity(['username' => 'mark'])
+        ]);
+        $one->errors('title', 'Required field');
+
+        $two = new Article([
+            'title' => 'Second post',
+            'body' => 'Some text',
+            'user' => new Entity(['username' => 'jose'])
+        ]);
+        $two->errors('body', 'Not long enough');
+
+        return [
+            'array' => [[$one, $two]],
+            'basic iterator' => [new ArrayObject([$one, $two])],
+            'array iterator' => [new ArrayIterator([$one, $two])],
+            'collection' => [new Collection([$one, $two])],
+        ];
+    }
 
     /**
      * setup method.
@@ -259,35 +289,6 @@ class EntityContextTest extends TestCase
     }
 
     /**
-     * Data provider for testing collections.
-     *
-     * @return array
-     */
-    public static function collectionProvider()
-    {
-        $one = new Article([
-            'title' => 'First post',
-            'body' => 'Stuff',
-            'user' => new Entity(['username' => 'mark'])
-        ]);
-        $one->errors('title', 'Required field');
-
-        $two = new Article([
-            'title' => 'Second post',
-            'body' => 'Some text',
-            'user' => new Entity(['username' => 'jose'])
-        ]);
-        $two->errors('body', 'Not long enough');
-
-        return [
-            'array' => [[$one, $two]],
-            'basic iterator' => [new ArrayObject([$one, $two])],
-            'array iterator' => [new ArrayIterator([$one, $two])],
-            'collection' => [new Collection([$one, $two])],
-        ];
-    }
-
-    /**
      * Test operations on a collection of entities.
      *
      * @dataProvider collectionProvider
@@ -393,6 +394,57 @@ class EntityContextTest extends TestCase
 
         $expected = ['length' => 255, 'precision' => null];
         $this->assertEquals($expected, $context->attributes('0.user.username'));
+    }
+
+    /**
+     * Setup tables for tests.
+     *
+     * @return void
+     */
+    protected function _setupTables()
+    {
+        $articles = TableRegistry::get('Articles');
+        $articles->belongsTo('Users');
+        $articles->hasMany('Comments');
+        $articles->entityClass(__NAMESPACE__ . '\Article');
+
+        $comments = TableRegistry::get('Comments');
+        $users = TableRegistry::get('Users');
+        $users->hasMany('Articles');
+
+        $articles->schema([
+            'id' => ['type' => 'integer', 'length' => 11, 'null' => false],
+            'title' => ['type' => 'string', 'length' => 255],
+            'user_id' => ['type' => 'integer', 'length' => 11, 'null' => false],
+            'body' => ['type' => 'crazy_text', 'baseType' => 'text']
+        ]);
+        $users->schema([
+            'id' => ['type' => 'integer', 'length' => 11],
+            'username' => ['type' => 'string', 'length' => 255],
+            'bio' => ['type' => 'text'],
+            'rating' => ['type' => 'decimal', 'length' => 10, 'precision' => 3],
+        ]);
+
+        $validator = new Validator();
+        $validator->add('title', 'minlength', [
+            'rule' => ['minlength', 10]
+        ])
+            ->add('body', 'maxlength', [
+                'rule' => ['maxlength', 1000]
+            ])->allowEmpty('body');
+        $articles->validator('create', $validator);
+
+        $validator = new Validator();
+        $validator->add('username', 'length', [
+            'rule' => ['minlength', 10]
+        ]);
+        $users->validator('custom', $validator);
+
+        $validator = new Validator();
+        $validator->add('comment', 'length', [
+            'rule' => ['minlength', 10]
+        ]);
+        $comments->validator('custom', $validator);
     }
 
     /**
@@ -1066,57 +1118,6 @@ class EntityContextTest extends TestCase
         $this->assertEquals([], $context->error('comments.1'));
         $this->assertEquals([], $context->error('comments.1.comment'));
         $this->assertEquals([], $context->error('comments.1.article_id'));
-    }
-
-    /**
-     * Setup tables for tests.
-     *
-     * @return void
-     */
-    protected function _setupTables()
-    {
-        $articles = TableRegistry::get('Articles');
-        $articles->belongsTo('Users');
-        $articles->hasMany('Comments');
-        $articles->entityClass(__NAMESPACE__ . '\Article');
-
-        $comments = TableRegistry::get('Comments');
-        $users = TableRegistry::get('Users');
-        $users->hasMany('Articles');
-
-        $articles->schema([
-            'id' => ['type' => 'integer', 'length' => 11, 'null' => false],
-            'title' => ['type' => 'string', 'length' => 255],
-            'user_id' => ['type' => 'integer', 'length' => 11, 'null' => false],
-            'body' => ['type' => 'crazy_text', 'baseType' => 'text']
-        ]);
-        $users->schema([
-            'id' => ['type' => 'integer', 'length' => 11],
-            'username' => ['type' => 'string', 'length' => 255],
-            'bio' => ['type' => 'text'],
-            'rating' => ['type' => 'decimal', 'length' => 10, 'precision' => 3],
-        ]);
-
-        $validator = new Validator();
-        $validator->add('title', 'minlength', [
-            'rule' => ['minlength', 10]
-        ])
-        ->add('body', 'maxlength', [
-            'rule' => ['maxlength', 1000]
-        ])->allowEmpty('body');
-        $articles->validator('create', $validator);
-
-        $validator = new Validator();
-        $validator->add('username', 'length', [
-            'rule' => ['minlength', 10]
-        ]);
-        $users->validator('custom', $validator);
-
-        $validator = new Validator();
-        $validator->add('comment', 'length', [
-            'rule' => ['minlength', 10]
-        ]);
-        $comments->validator('custom', $validator);
     }
 
     /**

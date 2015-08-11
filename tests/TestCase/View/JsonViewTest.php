@@ -17,13 +17,13 @@
 namespace Cake\Test\TestCase\View;
 
 use Cake\Controller\Controller;
-
-us  Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Network\Request;
 use Cake\Network\Response;
 use Cake\TestSuite\TestCase;
 use Cake\View\JsonView;
+
+us  Cake\Core\App;
 
 /**
  * JsonViewTest
@@ -31,12 +31,6 @@ use Cake\View\JsonView;
  */
 class JsonViewTest extends TestCase
 {
-
-    public function setUp()
-    {
-        parent::setUp();
-        Configure::write('debug', false);
-    }
 
     /**
      * Generates testRenderWithoutView data.
@@ -200,6 +194,12 @@ class JsonViewTest extends TestCase
                 json_encode('<tag> \'quote\' "double-quote" &', JSON_HEX_TAG | JSON_HEX_APOS)
             ],
         ];
+    }
+
+    public function setUp()
+    {
+        parent::setUp();
+        Configure::write('debug', false);
     }
 
     /**

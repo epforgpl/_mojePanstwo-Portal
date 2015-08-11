@@ -15,6 +15,7 @@
 namespace Cake\Test\TestCase\I18n\Parser;
 
 use Cake\I18n\Parser\PoFileParser;
+
 us  Cake\TestSuite\TestCase;
 
 /**

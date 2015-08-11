@@ -133,6 +133,22 @@ class FormHelperTest extends TestCase
     public $autoFixtures = false;
 
     /**
+     * Data provider for type option.
+     *
+     * @return array
+     */
+    public static function requestTypeProvider()
+    {
+        return [
+            // type, method, override
+            ['post', 'post', 'POST'],
+            ['put', 'post', 'PUT'],
+            ['patch', 'post', 'PATCH'],
+            ['delete', 'post', 'DELETE'],
+        ];
+    }
+
+    /**
      * setUp method
      *
      * @return void
@@ -436,22 +452,6 @@ class FormHelperTest extends TestCase
         $this->loadFixtures('Articles');
         $this->Form->create($data);
         $this->assertInstanceOf($class, $this->Form->context());
-    }
-
-    /**
-     * Data provider for type option.
-     *
-     * @return array
-     */
-    public static function requestTypeProvider()
-    {
-        return [
-            // type, method, override
-            ['post', 'post', 'POST'],
-            ['put', 'post', 'PUT'],
-            ['patch', 'post', 'PATCH'],
-            ['delete', 'post', 'DELETE'],
-        ];
     }
 
     /**

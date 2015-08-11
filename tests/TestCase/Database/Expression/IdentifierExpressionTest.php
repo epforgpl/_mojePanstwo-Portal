@@ -16,9 +16,9 @@
 namespace Cake\Test\TestCase\Database\Expression;
 
 use Cake\Database\Expression\IdentifierExpression;
+use Cake\TestSuite\TestCase;
 
 us  Cake\Database\ValueBinder;
-use Cake\TestSuite\TestCase;
 
 /**
  * Tests IdentifierExpression class

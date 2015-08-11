@@ -33,17 +33,6 @@ class RequestHandlerTestController extends Controller
     public $uses = null;
 
     /**
-     * test method for ajax redirection
-     *
-     * @return void
-     */
-    public function destination()
-    {
-        $this->viewPath = 'Posts';
-        $this->render('index');
-    }
-
-    /**
      * test method for ajax redirection + parameter parsing
      *
      * @param string|null $one
@@ -65,5 +54,16 @@ class RequestHandlerTestController extends Controller
     {
         $this->layout = 'ajax2';
         $this->destination();
+    }
+
+    /**
+     * test method for ajax redirection
+     *
+     * @return void
+     */
+    public function destination()
+    {
+        $this->viewPath = 'Posts';
+        $this->render('index');
     }
 }

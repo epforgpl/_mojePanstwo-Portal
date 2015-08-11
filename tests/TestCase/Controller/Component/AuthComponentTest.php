@@ -15,7 +15,6 @@
 namespace Cake\Test\TestCase\Controller\Component;
 
 use Cake\Controller\ComponentRegistry;
-us  Cake\Controller\Component\AuthComponent;
 use Cake\Controller\Controller;
 use Cake\Core\App;
 use Cake\Core\Configure;
@@ -32,6 +31,8 @@ use Cake\TestSuite\TestCase;
 use Cake\Utility\Security;
 use TestApp\Controller\AuthTestController;
 use TestApp\Controller\Component\TestAuthComponent;
+
+us  Cake\Controller\Component\AuthComponent;
 
 /**
  * AuthComponentTest class

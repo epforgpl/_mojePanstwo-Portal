@@ -15,10 +15,10 @@
 namespace Cake\Test\TestCase\Utility;
 
 use Cake\TestSuite\TestCase;
-
-us  Cake\Utility\Crypto\Mcrypt;
 use Cake\Utility\Crypto\OpenSsl;
 use Cake\Utility\Security;
+
+us  Cake\Utility\Crypto\Mcrypt;
 
 /**
  * SecurityTest class

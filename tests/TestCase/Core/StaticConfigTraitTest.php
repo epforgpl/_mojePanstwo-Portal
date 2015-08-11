@@ -14,8 +14,8 @@
 namespace Cake\Test\TestCase\Core;
 
 use Cake\Core\StaticConfigTrait;
+
 us  Cake\TestSuite\TestCase;
-use PHPUnit_Framework_Test;
 
 /**
  * TestConnectionManagerStaticConfig
@@ -26,6 +26,18 @@ class TestConnectionManagerStaticConfig
     use StaticConfigTrait {
         parseDsn as protected _parseDsn;
     }
+
+    /**
+     * Database driver class map.
+     *
+     * @var array
+     */
+    protected static $_dsnClassMap = [
+        'mysql' => 'Cake\Database\Driver\Mysql',
+        'postgres' => 'Cake\Database\Driver\Postgres',
+        'sqlite' => 'Cake\Database\Driver\Sqlite',
+        'sqlserver' => 'Cake\Database\Driver\Sqlserver',
+    ];
 
     /**
      * Parse a DSN
@@ -49,18 +61,6 @@ class TestConnectionManagerStaticConfig
         unset($config['path']);
         return $config;
     }
-
-    /**
-     * Database driver class map.
-     *
-     * @var array
-     */
-    protected static $_dsnClassMap = [
-        'mysql' => 'Cake\Database\Driver\Mysql',
-        'postgres' => 'Cake\Database\Driver\Postgres',
-        'sqlite' => 'Cake\Database\Driver\Sqlite',
-        'sqlserver' => 'Cake\Database\Driver\Sqlserver',
-    ];
 }
 
 /**

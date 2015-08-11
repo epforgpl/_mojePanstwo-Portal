@@ -15,10 +15,10 @@
 namespace Cake\Test\TestCase\Database;
 
 use Cake\Core\Configure;
-
-us  Cake\Database\Connection;
 use Cake\Datasource\ConnectionManager;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Database\Connection;
 
 /**
  * Tests Connection class
@@ -39,21 +39,6 @@ class ConnectionTest extends TestCase
         $this->connection->useSavePoints(false);
         unset($this->connection);
         parent::tearDown();
-    }
-
-    /**
-     * Auxiliary method to build a mock for a driver so it can be injected into
-     * the connection object
-     *
-     * @return \Cake\Database\Driver
-     */
-    public function getMockFormDriver()
-    {
-        $driver = $this->getMock('Cake\Database\Driver');
-        $driver->expects($this->once())
-            ->method('enabled')
-            ->will($this->returnValue(true));
-        return $driver;
     }
 
     /**
@@ -841,6 +826,21 @@ class ConnectionTest extends TestCase
         $connection->begin();
         $connection->begin(); //This one will not be logged
         $connection->rollback();
+    }
+
+    /**
+     * Auxiliary method to build a mock for a driver so it can be injected into
+     * the connection object
+     *
+     * @return \Cake\Database\Driver
+     */
+    public function getMockFormDriver()
+    {
+        $driver = $this->getMock('Cake\Database\Driver');
+        $driver->expects($this->once())
+            ->method('enabled')
+            ->will($this->returnValue(true));
+        return $driver;
     }
 
     /**

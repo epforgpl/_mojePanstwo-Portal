@@ -3,6 +3,7 @@
 namespace TestApp\Model\Entity;
 
 use Cake\Datasource\EntityInterface;
+
 us  Cake\Datasource\EntityTrait;
 
 /**

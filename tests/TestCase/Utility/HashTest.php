@@ -26,6 +26,58 @@ class HashTest extends TestCase
 {
 
     /**
+     * Test get()
+     *
+     * @return void
+     */
+    public function testGet()
+    {
+        $data = ['abc', 'def'];
+
+        $result = Hash::get($data, '0');
+        $this->assertEquals('abc', $result);
+
+        $result = Hash::get($data, 0);
+        $this->assertEquals('abc', $result);
+
+        $result = Hash::get($data, '1');
+        $this->assertEquals('def', $result);
+
+        $data = self::articleData();
+
+        $result = Hash::get([], '1.Article.title');
+        $this->assertNull($result);
+
+        $result = Hash::get($data, '');
+        $this->assertNull($result);
+
+        $result = Hash::get($data, null, '-');
+        $this->assertSame('-', $result);
+
+        $result = Hash::get($data, '0.Article.title');
+        $this->assertEquals('First Article', $result);
+
+        $result = Hash::get($data, '1.Article.title');
+        $this->assertEquals('Second Article', $result);
+
+        $result = Hash::get($data, '5.Article.title');
+        $this->assertNull($result);
+
+        $default = ['empty'];
+        $this->assertEquals($default, Hash::get($data, '5.Article.title', $default));
+        $this->assertEquals($default, Hash::get([], '5.Article.title', $default));
+
+        $result = Hash::get($data, '1.Article.title.not_there');
+        $this->assertNull($result);
+
+        $result = Hash::get($data, '1.Article');
+        $this->assertEquals($data[1]['Article'], $result);
+
+        $result = Hash::get($data, ['1', 'Article']);
+        $this->assertEquals($data[1]['Article'], $result);
+    }
+
+    /**
      * Data provider
      *
      * @return array
@@ -142,99 +194,6 @@ class HashTest extends TestCase
                 'Tag' => []
             ]
         ];
-    }
-
-    /**
-     * Data provider
-     *
-     * @return array
-     */
-    public static function userData()
-    {
-        return [
-            [
-                'User' => [
-                    'id' => 2,
-                    'group_id' => 1,
-                    'Data' => [
-                        'user' => 'mariano.iglesias',
-                        'name' => 'Mariano Iglesias'
-                    ]
-                ]
-            ],
-            [
-                'User' => [
-                    'id' => 14,
-                    'group_id' => 2,
-                    'Data' => [
-                        'user' => 'phpnut',
-                        'name' => 'Larry E. Masters'
-                    ]
-                ]
-            ],
-            [
-                'User' => [
-                    'id' => 25,
-                    'group_id' => 1,
-                    'Data' => [
-                        'user' => 'gwoo',
-                        'name' => 'The Gwoo'
-                    ]
-                ]
-            ]
-        ];
-    }
-
-    /**
-     * Test get()
-     *
-     * @return void
-     */
-    public function testGet()
-    {
-        $data = ['abc', 'def'];
-
-        $result = Hash::get($data, '0');
-        $this->assertEquals('abc', $result);
-
-        $result = Hash::get($data, 0);
-        $this->assertEquals('abc', $result);
-
-        $result = Hash::get($data, '1');
-        $this->assertEquals('def', $result);
-
-        $data = self::articleData();
-
-        $result = Hash::get([], '1.Article.title');
-        $this->assertNull($result);
-
-        $result = Hash::get($data, '');
-        $this->assertNull($result);
-
-        $result = Hash::get($data, null, '-');
-        $this->assertSame('-', $result);
-
-        $result = Hash::get($data, '0.Article.title');
-        $this->assertEquals('First Article', $result);
-
-        $result = Hash::get($data, '1.Article.title');
-        $this->assertEquals('Second Article', $result);
-
-        $result = Hash::get($data, '5.Article.title');
-        $this->assertNull($result);
-
-        $default = ['empty'];
-        $this->assertEquals($default, Hash::get($data, '5.Article.title', $default));
-        $this->assertEquals($default, Hash::get([], '5.Article.title', $default));
-
-        $result = Hash::get($data, '1.Article.title.not_there');
-        $this->assertNull($result);
-
-        $result = Hash::get($data, '1.Article');
-        $this->assertEquals($data[1]['Article'], $result);
-
-        $result = Hash::get($data, ['1', 'Article']);
-        $this->assertEquals($data[1]['Article'], $result);
     }
 
     /**
@@ -1694,6 +1653,47 @@ class HashTest extends TestCase
             14 => 'Larry E. Masters',
             25 => 'The Gwoo'];
         $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * Data provider
+     *
+     * @return array
+     */
+    public static function userData()
+    {
+        return [
+            [
+                'User' => [
+                    'id' => 2,
+                    'group_id' => 1,
+                    'Data' => [
+                        'user' => 'mariano.iglesias',
+                        'name' => 'Mariano Iglesias'
+                    ]
+                ]
+            ],
+            [
+                'User' => [
+                    'id' => 14,
+                    'group_id' => 2,
+                    'Data' => [
+                        'user' => 'phpnut',
+                        'name' => 'Larry E. Masters'
+                    ]
+                ]
+            ],
+            [
+                'User' => [
+                    'id' => 25,
+                    'group_id' => 1,
+                    'Data' => [
+                        'user' => 'gwoo',
+                        'name' => 'The Gwoo'
+                    ]
+                ]
+            ]
+        ];
     }
 
     /**

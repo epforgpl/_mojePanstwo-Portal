@@ -15,10 +15,10 @@
 namespace Cake\Test\TestCase\Console;
 
 use Cake\Console\TaskRegistry;
-
-us  Cake\Core\App;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Core\App;
 
 /**
  * Class TaskRegistryTest

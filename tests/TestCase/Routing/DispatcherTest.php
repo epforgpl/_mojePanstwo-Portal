@@ -14,7 +14,6 @@
 namespace Cake\Test\TestCase\Routing;
 
 use Cake\Controller\Controller;
-us  Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Event\Event;
@@ -26,6 +25,14 @@ use Cake\Routing\Filter\ControllerFactoryFilter;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Cake\Utility\Inflector;
+
+us  Cake\Core\App;
+
+interface DispatcherTestInterfaceController
+{
+
+    public function index();
+}
 
 /**
  * A testing stub that doesn't send headers.
@@ -71,12 +78,6 @@ class TestDispatcher extends Dispatcher
  */
 class MyPluginAppController extends Controller
 {
-}
-
-interface DispatcherTestInterfaceController
-{
-
-    public function index();
 }
 
 /**

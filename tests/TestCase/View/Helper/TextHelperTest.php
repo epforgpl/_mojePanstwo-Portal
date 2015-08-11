@@ -15,12 +15,12 @@
 namespace Cake\Test\TestCase\View\Helper;
 
 use Cake\Core\App;
-
-us  Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
 use Cake\View\Helper\TextHelper;
 use Cake\View\View;
+
+us  Cake\Core\Configure;
 
 /**
  * Class TextHelperTestObject
@@ -54,6 +54,81 @@ class StringMock
  */
 class TextHelperTest extends TestCase
 {
+
+    /**
+     * Data provider for autoLinking
+     *
+     * @return array
+     */
+    public static function autoLinkProvider()
+    {
+        return [
+            [
+                'This is a test text',
+                'This is a test text',
+            ],
+            [
+                'This is a test that includes (www.cakephp.org)',
+                'This is a test that includes (<a href="http://www.cakephp.org">www.cakephp.org</a>)',
+            ],
+            [
+                'This is a test that includes www.cakephp.org:8080',
+                'This is a test that includes <a href="http://www.cakephp.org:8080">www.cakephp.org:8080</a>',
+            ],
+            [
+                'This is a test that includes http://de.wikipedia.org/wiki/Kanton_(Schweiz)#fragment',
+                'This is a test that includes <a href="http://de.wikipedia.org/wiki/Kanton_(Schweiz)#fragment">http://de.wikipedia.org/wiki/Kanton_(Schweiz)#fragment</a>',
+            ],
+            [
+                'This is a test that includes www.wikipedia.org/wiki/Kanton_(Schweiz)#fragment',
+                'This is a test that includes <a href="http://www.wikipedia.org/wiki/Kanton_(Schweiz)#fragment">www.wikipedia.org/wiki/Kanton_(Schweiz)#fragment</a>',
+            ],
+            [
+                'This is a test that includes http://example.com/test.php?foo=bar text',
+                'This is a test that includes <a href="http://example.com/test.php?foo=bar">http://example.com/test.php?foo=bar</a> text',
+            ],
+            [
+                'This is a test that includes www.example.com/test.php?foo=bar text',
+                'This is a test that includes <a href="http://www.example.com/test.php?foo=bar">www.example.com/test.php?foo=bar</a> text',
+            ],
+            [
+                'Text with a partial www.cakephp.org URL',
+                'Text with a partial <a href="http://www.cakephp.org">www.cakephp.org</a> URL',
+            ],
+            [
+                'Text with a partial WWW.cakephp.org URL',
+                'Text with a partial <a href="http://WWW.cakephp.org">WWW.cakephp.org</a> URL',
+            ],
+            [
+                'Text with a partial WWW.cakephp.org &copy, URL',
+                'Text with a partial <a href="http://WWW.cakephp.org">WWW.cakephp.org</a> &amp;copy, URL',
+            ],
+            [
+                'Text with a url www.cot.ag/cuIb2Q and more',
+                'Text with a url <a href="http://www.cot.ag/cuIb2Q">www.cot.ag/cuIb2Q</a> and more',
+            ],
+            [
+                'Text with a url http://www.does--not--work.com and more',
+                'Text with a url <a href="http://www.does--not--work.com">http://www.does--not--work.com</a> and more',
+            ],
+            [
+                'Text with a url http://www.not--work.com and more',
+                'Text with a url <a href="http://www.not--work.com">http://www.not--work.com</a> and more',
+            ],
+            [
+                'Text with a url http://www.sub_domain.domain.pl and more',
+                'Text with a url <a href="http://www.sub_domain.domain.pl">http://www.sub_domain.domain.pl</a> and more',
+            ],
+            [
+                'Text with a partial www.küchenschöhn-not-working.de URL',
+                'Text with a partial <a href="http://www.küchenschöhn-not-working.de">www.küchenschöhn-not-working.de</a> URL'
+            ],
+            [
+                'Text with a partial http://www.küchenschöhn-not-working.de URL',
+                'Text with a partial <a href="http://www.küchenschöhn-not-working.de">http://www.küchenschöhn-not-working.de</a> URL'
+            ],
+        ];
+    }
 
     /**
      * setUp method
@@ -265,81 +340,6 @@ class TextHelperTest extends TestCase
 		</ul> test';
         $result = $this->Text->autoLink($text, ['escape' => false]);
         $this->assertEquals($expected, $result);
-    }
-
-    /**
-     * Data provider for autoLinking
-     *
-     * @return array
-     */
-    public static function autoLinkProvider()
-    {
-        return [
-            [
-                'This is a test text',
-                'This is a test text',
-            ],
-            [
-                'This is a test that includes (www.cakephp.org)',
-                'This is a test that includes (<a href="http://www.cakephp.org">www.cakephp.org</a>)',
-            ],
-            [
-                'This is a test that includes www.cakephp.org:8080',
-                'This is a test that includes <a href="http://www.cakephp.org:8080">www.cakephp.org:8080</a>',
-            ],
-            [
-                'This is a test that includes http://de.wikipedia.org/wiki/Kanton_(Schweiz)#fragment',
-                'This is a test that includes <a href="http://de.wikipedia.org/wiki/Kanton_(Schweiz)#fragment">http://de.wikipedia.org/wiki/Kanton_(Schweiz)#fragment</a>',
-            ],
-            [
-                'This is a test that includes www.wikipedia.org/wiki/Kanton_(Schweiz)#fragment',
-                'This is a test that includes <a href="http://www.wikipedia.org/wiki/Kanton_(Schweiz)#fragment">www.wikipedia.org/wiki/Kanton_(Schweiz)#fragment</a>',
-            ],
-            [
-                'This is a test that includes http://example.com/test.php?foo=bar text',
-                'This is a test that includes <a href="http://example.com/test.php?foo=bar">http://example.com/test.php?foo=bar</a> text',
-            ],
-            [
-                'This is a test that includes www.example.com/test.php?foo=bar text',
-                'This is a test that includes <a href="http://www.example.com/test.php?foo=bar">www.example.com/test.php?foo=bar</a> text',
-            ],
-            [
-                'Text with a partial www.cakephp.org URL',
-                'Text with a partial <a href="http://www.cakephp.org">www.cakephp.org</a> URL',
-            ],
-            [
-                'Text with a partial WWW.cakephp.org URL',
-                'Text with a partial <a href="http://WWW.cakephp.org">WWW.cakephp.org</a> URL',
-            ],
-            [
-                'Text with a partial WWW.cakephp.org &copy, URL',
-                'Text with a partial <a href="http://WWW.cakephp.org">WWW.cakephp.org</a> &amp;copy, URL',
-            ],
-            [
-                'Text with a url www.cot.ag/cuIb2Q and more',
-                'Text with a url <a href="http://www.cot.ag/cuIb2Q">www.cot.ag/cuIb2Q</a> and more',
-            ],
-            [
-                'Text with a url http://www.does--not--work.com and more',
-                'Text with a url <a href="http://www.does--not--work.com">http://www.does--not--work.com</a> and more',
-            ],
-            [
-                'Text with a url http://www.not--work.com and more',
-                'Text with a url <a href="http://www.not--work.com">http://www.not--work.com</a> and more',
-            ],
-            [
-                'Text with a url http://www.sub_domain.domain.pl and more',
-                'Text with a url <a href="http://www.sub_domain.domain.pl">http://www.sub_domain.domain.pl</a> and more',
-            ],
-            [
-                'Text with a partial www.küchenschöhn-not-working.de URL',
-                'Text with a partial <a href="http://www.küchenschöhn-not-working.de">www.küchenschöhn-not-working.de</a> URL'
-            ],
-            [
-                'Text with a partial http://www.küchenschöhn-not-working.de URL',
-                'Text with a partial <a href="http://www.küchenschöhn-not-working.de">http://www.küchenschöhn-not-working.de</a> URL'
-            ],
-        ];
     }
 
     /**

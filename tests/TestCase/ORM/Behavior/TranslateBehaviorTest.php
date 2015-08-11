@@ -15,13 +15,14 @@
 namespace Cake\Test\TestCase\ORM\Behavior;
 
 use Cake\Collection\Collection;
-us  Cake\Event\Event;
 use Cake\I18n\I18n;
-use Cake\ORM\Behavior\TranslateBehavior;
 use Cake\ORM\Behavior\Translate\TranslateTrait;
+use Cake\ORM\Behavior\TranslateBehavior;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Event\Event;
 
 /**
  * Stub entity class
@@ -55,25 +56,6 @@ class TranslateBehaviorTest extends TestCase
         parent::tearDown();
         I18n::locale(I18n::defaultLocale());
         TableRegistry::clear();
-    }
-
-    /**
-     * Returns an array with all the translations found for a set of records
-     *
-     * @param array|\Traversable $data
-     * @return Collection
-     */
-    protected function _extractTranslations($data)
-    {
-        return (new Collection($data))->map(function ($row) {
-            $translations = $row->get('_translations');
-            if (!$translations) {
-                return [];
-            }
-            return array_map(function ($t) {
-                return $t->toArray();
-            }, $translations);
-        });
     }
 
     /**
@@ -355,6 +337,25 @@ class TranslateBehaviorTest extends TestCase
 
         $grouped = $results->combine('title', 'body', 'id');
         $this->assertEquals($expected, $grouped->toArray());
+    }
+
+    /**
+     * Returns an array with all the translations found for a set of records
+     *
+     * @param array|\Traversable $data
+     * @return Collection
+     */
+    protected function _extractTranslations($data)
+    {
+        return (new Collection($data))->map(function ($row) {
+            $translations = $row->get('_translations');
+            if (!$translations) {
+                return [];
+            }
+            return array_map(function ($t) {
+                return $t->toArray();
+            }, $translations);
+        });
     }
 
     /**

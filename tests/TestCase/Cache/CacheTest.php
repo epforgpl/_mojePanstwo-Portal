@@ -15,12 +15,12 @@
 namespace Cake\Test\TestCase\Cache;
 
 use Cake\Cache\Cache;
-
-us  Cake\Cache\Engine\FileEngine;
 use Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Cache\Engine\FileEngine;
 
 /**
  * CacheTest class
@@ -28,6 +28,28 @@ use Cake\TestSuite\TestCase;
  */
 class CacheTest extends TestCase
 {
+
+    /**
+     * Data provider for valid config data sets.
+     *
+     * @return array
+     */
+    public static function configProvider()
+    {
+        return [
+            'Array of data using engine key.' => [[
+                'engine' => 'File',
+                'path' => TMP . 'tests',
+                'prefix' => 'cake_test_'
+            ]],
+            'Array of data using classname key.' => [[
+                'className' => 'File',
+                'path' => TMP . 'tests',
+                'prefix' => 'cake_test_'
+            ]],
+            'Direct instance' => [new FileEngine()],
+        ];
+    }
 
     /**
      * setUp method
@@ -53,20 +75,6 @@ class CacheTest extends TestCase
     }
 
     /**
-     * Configure cache settings for test
-     *
-     * @return void
-     */
-    protected function _configCache()
-    {
-        Cache::config('tests', [
-            'engine' => 'File',
-            'path' => TMP,
-            'prefix' => 'test_'
-        ]);
-    }
-
-    /**
      * Check that no fatal errors are issued doing normal things when Cache.disable is true.
      *
      * @return void
@@ -79,6 +87,20 @@ class CacheTest extends TestCase
         $this->assertNull(Cache::write('no_save', 'Noooo!', 'tests'));
         $this->assertFalse(Cache::read('no_save', 'tests'));
         $this->assertNull(Cache::delete('no_save', 'tests'));
+    }
+
+    /**
+     * Configure cache settings for test
+     *
+     * @return void
+     */
+    protected function _configCache()
+    {
+        Cache::config('tests', [
+            'engine' => 'File',
+            'path' => TMP,
+            'prefix' => 'test_'
+        ]);
     }
 
     /**
@@ -152,28 +174,6 @@ class CacheTest extends TestCase
     public function testDecrementNonExistingConfig()
     {
         $this->assertFalse(Cache::decrement('key', 1, 'totally fake'));
-    }
-
-    /**
-     * Data provider for valid config data sets.
-     *
-     * @return array
-     */
-    public static function configProvider()
-    {
-        return [
-            'Array of data using engine key.' => [[
-                'engine' => 'File',
-                'path' => TMP . 'tests',
-                'prefix' => 'cake_test_'
-            ]],
-            'Array of data using classname key.' => [[
-                'className' => 'File',
-                'path' => TMP . 'tests',
-                'prefix' => 'cake_test_'
-            ]],
-            'Direct instance' => [new FileEngine()],
-        ];
     }
 
     /**

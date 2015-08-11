@@ -17,9 +17,9 @@
 namespace Cake\Test\TestCase\Validation;
 
 use Cake\TestSuite\TestCase;
+use Cake\Validation\ValidationSet;
 
 us  Cake\Validation\ValidationRule;
-use Cake\Validation\ValidationSet;
 
 /**
  * ValidationSetTest

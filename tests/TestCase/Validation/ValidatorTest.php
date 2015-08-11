@@ -15,9 +15,9 @@
 namespace Cake\Test\TestCase\Validation;
 
 use Cake\TestSuite\TestCase;
+use Cake\Validation\Validator;
 
 us  Cake\Validation\ValidationSet;
-use Cake\Validation\Validator;
 
 /**
  * Tests Validator class

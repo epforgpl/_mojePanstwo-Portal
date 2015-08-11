@@ -15,12 +15,13 @@
 namespace Cake\Test\TestCase\View;
 
 use Cake\Core\Configure;
-us  Cake\Core\Plugin;
 use Cake\Network\Request;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Cake\View\Helper\UrlHelper;
 use Cake\View\View;
+
+us  Cake\Core\Plugin;
 
 /**
  * UrlHelperTest class

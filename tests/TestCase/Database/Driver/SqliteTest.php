@@ -27,6 +27,26 @@ class SqliteTest extends TestCase
 {
 
     /**
+     * Data provider for schemaValue()
+     *
+     * @return array
+     */
+    public static function schemaValueProvider()
+    {
+        return [
+            [null, 'NULL'],
+            [false, 'FALSE'],
+            [true, 'TRUE'],
+            [3.14159, '3.14159'],
+            ['33', '33'],
+            [66, 66],
+            [0, 0],
+            [10e5, '1000000'],
+            ['farts', '"farts"'],
+        ];
+    }
+
+    /**
      * Test connecting to Sqlite with default configuration
      *
      * @return void
@@ -93,26 +113,6 @@ class SqliteTest extends TestCase
         $driver->expects($this->any())->method('connection')
             ->will($this->returnValue($connection));
         $driver->connect($config);
-    }
-
-    /**
-     * Data provider for schemaValue()
-     *
-     * @return array
-     */
-    public static function schemaValueProvider()
-    {
-        return [
-            [null, 'NULL'],
-            [false, 'FALSE'],
-            [true, 'TRUE'],
-            [3.14159, '3.14159'],
-            ['33', '33'],
-            [66, 66],
-            [0, 0],
-            [10e5, '1000000'],
-            ['farts', '"farts"'],
-        ];
     }
 
     /**

@@ -28,6 +28,30 @@ class TimeTest extends TestCase
 {
 
     /**
+     * provider for timeAgoInWords() tests
+     *
+     * @return array
+     */
+    public static function timeAgoProvider()
+    {
+        return [
+            ['-12 seconds', '12 seconds ago'],
+            ['-12 minutes', '12 minutes ago'],
+            ['-2 hours', '2 hours ago'],
+            ['-1 day', '1 day ago'],
+            ['-2 days', '2 days ago'],
+            ['-2 days -3 hours', '2 days, 3 hours ago'],
+            ['-1 week', '1 week ago'],
+            ['-2 weeks -2 days', '2 weeks, 2 days ago'],
+            ['+1 week', '1 week'],
+            ['+1 week 1 day', '1 week, 1 day'],
+            ['+2 weeks 2 day', '2 weeks, 2 days'],
+            ['2007-9-24', 'on 9/24/07'],
+            ['now', 'just now'],
+        ];
+    }
+
+    /**
      * setUp method
      *
      * @return void
@@ -52,16 +76,6 @@ class TimeTest extends TestCase
         Time::$defaultLocale = $this->locale;
         Time::resetToStringFormat();
         date_default_timezone_set('UTC');
-    }
-
-    /**
-     * Restored the original system timezone
-     *
-     * @return void
-     */
-    protected function _restoreSystemTimezone()
-    {
-        date_default_timezone_set($this->_systemTimezoneIdentifier);
     }
 
     /**
@@ -91,30 +105,6 @@ class TimeTest extends TestCase
     public function testToQuarter($date, $expected, $range = false)
     {
         $this->assertEquals($expected, (new Time($date))->toQuarter($range));
-    }
-
-    /**
-     * provider for timeAgoInWords() tests
-     *
-     * @return array
-     */
-    public static function timeAgoProvider()
-    {
-        return [
-            ['-12 seconds', '12 seconds ago'],
-            ['-12 minutes', '12 minutes ago'],
-            ['-2 hours', '2 hours ago'],
-            ['-1 day', '1 day ago'],
-            ['-2 days', '2 days ago'],
-            ['-2 days -3 hours', '2 days, 3 hours ago'],
-            ['-1 week', '1 week ago'],
-            ['-2 weeks -2 days', '2 weeks, 2 days ago'],
-            ['+1 week', '1 week'],
-            ['+1 week 1 day', '1 week, 1 day'],
-            ['+2 weeks 2 day', '2 weeks, 2 days'],
-            ['2007-9-24', 'on 9/24/07'],
-            ['now', 'just now'],
-        ];
     }
 
     /**
@@ -393,6 +383,22 @@ class TimeTest extends TestCase
 
         $this->assertTimeFormat('20 avr. 2014 20:00', $time->nice(null, 'fr-FR'));
         $this->assertTimeFormat('20 avr. 2014 16:00', $time->nice('America/New_York', 'fr-FR'));
+    }
+
+    /**
+     * Custom assert to allow for variation in the version of the intl library, where
+     * some translations contain a few extra commas.
+     *
+     * @param string $expected
+     * @param string $result
+     * @return void
+     */
+    public function assertTimeFormat($expected, $result)
+    {
+        return $this->assertEquals(
+            str_replace([',', '(', ')', ' at'], '', $expected),
+            str_replace([',', '(', ')', ' at'], '', $result)
+        );
     }
 
     /**
@@ -791,18 +797,12 @@ class TimeTest extends TestCase
     }
 
     /**
-     * Custom assert to allow for variation in the version of the intl library, where
-     * some translations contain a few extra commas.
+     * Restored the original system timezone
      *
-     * @param string $expected
-     * @param string $result
      * @return void
      */
-    public function assertTimeFormat($expected, $result)
+    protected function _restoreSystemTimezone()
     {
-        return $this->assertEquals(
-            str_replace([',', '(', ')', ' at'], '', $expected),
-            str_replace([',', '(', ')', ' at'], '', $result)
-        );
+        date_default_timezone_set($this->_systemTimezoneIdentifier);
     }
 }

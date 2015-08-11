@@ -15,6 +15,7 @@
 namespace Cake\Test\TestCase\Utility;
 
 use Cake\TestSuite\TestCase;
+
 us  Cake\Utility\MergeVariablesTrait;
 
 class Base

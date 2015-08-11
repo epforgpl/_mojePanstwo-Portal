@@ -15,9 +15,10 @@
 namespace Cake\Test\TestCase\Routing\Route;
 
 use Cake\Core\App;
-us  Cake\Routing\Router;
 use Cake\Routing\Route\DashedRoute;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Routing\Router;
 
 /**
  * Test case for DashedRoute

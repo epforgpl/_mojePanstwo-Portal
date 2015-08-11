@@ -14,11 +14,11 @@
 namespace Cake\Test\TestCase\Network\Http\Adapter;
 
 use Cake\Network\Exception\SocketException;
-
-us  Cake\Network\Http\Adapter\Stream;
 use Cake\Network\Http\Request;
 use Cake\Network\Http\Response;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Network\Http\Adapter\Stream;
 
 /**
  * HTTP stream adapter test.

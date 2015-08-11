@@ -15,9 +15,10 @@
 namespace Cake\Test\TestCase\Core\Configure\Engine;
 
 use Cake\Core\App;
-us  Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Core\Configure\Engine\PhpConfig;
 
 /**
  * Class PhpConfigTest
@@ -146,10 +147,10 @@ class PhpConfigTest extends TestCase
         $expected = <<<PHP
 <?php
 return array (
-  'One' => 
+  'One' =>
   array (
     'two' => 'value',
-    'three' => 
+    'three' =>
     array (
       'four' => 'value four',
     ),
@@ -157,7 +158,7 @@ return array (
     'bool_false' => false,
     'bool_true' => true,
   ),
-  'Asset' => 
+  'Asset' =>
   array (
     'timestamp' => 'force',
   ),

@@ -14,11 +14,12 @@
 namespace Cake\Test\TestCase\Log;
 
 use Cake\Core\App;
-us  Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Log\Engine\FileLog;
 use Cake\Log\Log;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Core\Configure;
 
 /**
  * LogTest class
@@ -26,6 +27,26 @@ use Cake\TestSuite\TestCase;
  */
 class LogTest extends TestCase
 {
+
+    /**
+     * Provider for config() tests.
+     *
+     * @return array
+     */
+    public static function configProvider()
+    {
+        return [
+            'Array of data using engine key.' => [[
+                'engine' => 'File',
+                'path' => TMP . 'tests',
+            ]],
+            'Array of data using classname key.' => [[
+                'className' => 'File',
+                'path' => TMP . 'tests',
+            ]],
+            'Direct instance' => [new FileLog(['path' => LOGS])],
+        ];
+    }
 
     public function setUp()
     {
@@ -140,26 +161,6 @@ class LogTest extends TestCase
     }
 
     /**
-     * Provider for config() tests.
-     *
-     * @return array
-     */
-    public static function configProvider()
-    {
-        return [
-            'Array of data using engine key.' => [[
-                'engine' => 'File',
-                'path' => TMP . 'tests',
-            ]],
-            'Array of data using classname key.' => [[
-                'className' => 'File',
-                'path' => TMP . 'tests',
-            ]],
-            'Direct instance' => [new FileLog(['path' => LOGS])],
-        ];
-    }
-
-    /**
      * Test the various config call signatures.
      *
      * @dataProvider configProvider
@@ -241,6 +242,22 @@ class LogTest extends TestCase
         unlink(LOGS . 'error.log');
     }
 
+    protected function _resetLogConfig()
+    {
+        Log::config('debug', [
+            'engine' => 'File',
+            'path' => LOGS,
+            'types' => ['notice', 'info', 'debug'],
+            'file' => 'debug',
+        ]);
+        Log::config('error', [
+            'engine' => 'File',
+            'path' => LOGS,
+            'types' => ['warning', 'error', 'critical', 'alert', 'emergency'],
+            'file' => 'error',
+        ]);
+    }
+
     /**
      * test selective logging by level/type
      *
@@ -289,44 +306,6 @@ class LogTest extends TestCase
         }
     }
 
-    protected function _resetLogConfig()
-    {
-        Log::config('debug', [
-            'engine' => 'File',
-            'path' => LOGS,
-            'types' => ['notice', 'info', 'debug'],
-            'file' => 'debug',
-        ]);
-        Log::config('error', [
-            'engine' => 'File',
-            'path' => LOGS,
-            'types' => ['warning', 'error', 'critical', 'alert', 'emergency'],
-            'file' => 'error',
-        ]);
-    }
-
-    protected function _deleteLogs()
-    {
-        if (file_exists(LOGS . 'shops.log')) {
-            unlink(LOGS . 'shops.log');
-        }
-        if (file_exists(LOGS . 'error.log')) {
-            unlink(LOGS . 'error.log');
-        }
-        if (file_exists(LOGS . 'debug.log')) {
-            unlink(LOGS . 'debug.log');
-        }
-        if (file_exists(LOGS . 'bogus.log')) {
-            unlink(LOGS . 'bogus.log');
-        }
-        if (file_exists(LOGS . 'spam.log')) {
-            unlink(LOGS . 'spam.log');
-        }
-        if (file_exists(LOGS . 'eggs.log')) {
-            unlink(LOGS . 'eggs.log');
-        }
-    }
-
     /**
      * test scoped logging
      *
@@ -366,6 +345,28 @@ class LogTest extends TestCase
         $this->_deleteLogs();
 
         Log::drop('shops');
+    }
+
+    protected function _deleteLogs()
+    {
+        if (file_exists(LOGS . 'shops.log')) {
+            unlink(LOGS . 'shops.log');
+        }
+        if (file_exists(LOGS . 'error.log')) {
+            unlink(LOGS . 'error.log');
+        }
+        if (file_exists(LOGS . 'debug.log')) {
+            unlink(LOGS . 'debug.log');
+        }
+        if (file_exists(LOGS . 'bogus.log')) {
+            unlink(LOGS . 'bogus.log');
+        }
+        if (file_exists(LOGS . 'spam.log')) {
+            unlink(LOGS . 'spam.log');
+        }
+        if (file_exists(LOGS . 'eggs.log')) {
+            unlink(LOGS . 'eggs.log');
+        }
     }
 
     /**

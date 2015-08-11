@@ -15,7 +15,6 @@
 namespace Cake\Test\TestCase\Controller\Component;
 
 use Cake\Controller\ComponentRegistry;
-us  Cake\Controller\Component\PaginatorComponent;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Datasource\ConnectionManager;
@@ -24,6 +23,8 @@ use Cake\Network\Request;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use Cake\Utility\Hash;
+
+us  Cake\Controller\Component\PaginatorComponent;
 
 /**
  * PaginatorTestController class
@@ -111,6 +112,35 @@ class PaginatorComponentTest extends TestCase
     }
 
     /**
+     * Helper method for mocking queries.
+     *
+     * @return Query
+     */
+    protected function _getMockFindQuery($table = null)
+    {
+        $query = $this->getMockBuilder('Cake\ORM\Query')
+            ->setMethods(['total', 'all', 'count', 'applyOptions'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $results = $this->getMock('Cake\ORM\ResultSet', [], [], '', false);
+        $query->expects($this->any())
+            ->method('count')
+            ->will($this->returnValue(2));
+
+        $query->expects($this->any())
+            ->method('all')
+            ->will($this->returnValue($results));
+
+        $query->expects($this->any())
+            ->method('count')
+            ->will($this->returnValue(2));
+
+        $query->repository($table);
+        return $query;
+    }
+
+    /**
      * test that unknown keys in the default settings are
      * passed to the find operations.
      *
@@ -145,6 +175,32 @@ class PaginatorComponentTest extends TestCase
                 'whitelist' => ['limit', 'sort', 'page', 'direction'],
             ]);
         $this->Paginator->paginate($table, $settings);
+    }
+
+    /**
+     * Helper method for making mocks.
+     *
+     * @param array $methods
+     * @return Table
+     */
+    protected function _getMockPosts($methods = [])
+    {
+        return $this->getMock(
+            'TestApp\Model\Table\PaginatorPostsTable',
+            $methods,
+            [[
+                'connection' => ConnectionManager::get('test'),
+                'alias' => 'PaginatorPosts',
+                'schema' => [
+                    'id' => ['type' => 'integer'],
+                    'author_id' => ['type' => 'integer', 'null' => false],
+                    'title' => ['type' => 'string', 'null' => false],
+                    'body' => 'text',
+                    'published' => ['type' => 'string', 'length' => 1, 'default' => 'N'],
+                    '_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
+                ]
+            ]]
+        );
     }
 
     /**
@@ -1012,60 +1068,5 @@ class PaginatorComponentTest extends TestCase
                 'whitelist' => ['limit', 'sort', 'page', 'direction'],
             ]);
         $this->Paginator->paginate($query, $settings);
-    }
-
-    /**
-     * Helper method for making mocks.
-     *
-     * @param array $methods
-     * @return Table
-     */
-    protected function _getMockPosts($methods = [])
-    {
-        return $this->getMock(
-            'TestApp\Model\Table\PaginatorPostsTable',
-            $methods,
-            [[
-                'connection' => ConnectionManager::get('test'),
-                'alias' => 'PaginatorPosts',
-                'schema' => [
-                    'id' => ['type' => 'integer'],
-                    'author_id' => ['type' => 'integer', 'null' => false],
-                    'title' => ['type' => 'string', 'null' => false],
-                    'body' => 'text',
-                    'published' => ['type' => 'string', 'length' => 1, 'default' => 'N'],
-                    '_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
-                ]
-            ]]
-        );
-    }
-
-    /**
-     * Helper method for mocking queries.
-     *
-     * @return Query
-     */
-    protected function _getMockFindQuery($table = null)
-    {
-        $query = $this->getMockBuilder('Cake\ORM\Query')
-            ->setMethods(['total', 'all', 'count', 'applyOptions'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $results = $this->getMock('Cake\ORM\ResultSet', [], [], '', false);
-        $query->expects($this->any())
-            ->method('count')
-            ->will($this->returnValue(2));
-
-        $query->expects($this->any())
-            ->method('all')
-            ->will($this->returnValue($results));
-
-        $query->expects($this->any())
-            ->method('count')
-            ->will($this->returnValue(2));
-
-        $query->repository($table);
-        return $query;
     }
 }

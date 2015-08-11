@@ -28,6 +28,18 @@ class CsrfComponentTest extends TestCase
 {
 
     /**
+     * Data provider for HTTP method tests.
+     *
+     * @return void
+     */
+    public static function httpMethodProvider()
+    {
+        return [
+            ['PATCH'], ['PUT'], ['POST'], ['DELETE']
+        ];
+    }
+
+    /**
      * setup
      *
      * @return void
@@ -76,18 +88,6 @@ class CsrfComponentTest extends TestCase
         $this->assertEquals('/dir/', $cookie['path'], 'session path.');
 
         $this->assertEquals($cookie['value'], $controller->request->params['_csrfToken']);
-    }
-
-    /**
-     * Data provider for HTTP method tests.
-     *
-     * @return void
-     */
-    public static function httpMethodProvider()
-    {
-        return [
-            ['PATCH'], ['PUT'], ['POST'], ['DELETE']
-        ];
     }
 
     /**

@@ -132,21 +132,22 @@ class TestController extends ControllerTestAppController
     }
 
     //@codingStandardsIgnoreStart
-    protected function protected_m()
-    {
-    }
-
-    private function private_m()
-    {
-    }
 
     public function _hidden()
     {
     }
 
+    public function admin_add()
+    {
+    }
+
+    protected function protected_m()
+    {
+    }
+
     //@codingStandardsIgnoreEnd
 
-    public function admin_add()
+    private function private_m()
     {
     }
 }
@@ -235,6 +236,25 @@ class ControllerTest extends TestCase
         'core.posts',
         'core.comments'
     ];
+
+    /**
+     * Generates status codes for redirect test.
+     *
+     * @return void
+     */
+    public static function statusCodeProvider()
+    {
+        return [
+            [300, "Multiple Choices"],
+            [301, "Moved Permanently"],
+            [302, "Found"],
+            [303, "See Other"],
+            [304, "Not Modified"],
+            [305, "Use Proxy"],
+            [307, "Temporary Redirect"],
+            [403, "Forbidden"],
+        ];
+    }
 
     /**
      * reset environment.
@@ -446,25 +466,6 @@ class ControllerTest extends TestCase
 
         $result = $Controller->render('index');
         $this->assertInstanceOf('Cake\Network\Response', $result);
-    }
-
-    /**
-     * Generates status codes for redirect test.
-     *
-     * @return void
-     */
-    public static function statusCodeProvider()
-    {
-        return [
-            [300, "Multiple Choices"],
-            [301, "Moved Permanently"],
-            [302, "Found"],
-            [303, "See Other"],
-            [304, "Not Modified"],
-            [305, "Use Proxy"],
-            [307, "Temporary Redirect"],
-            [403, "Forbidden"],
-        ];
     }
 
     /**

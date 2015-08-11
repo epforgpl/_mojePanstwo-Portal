@@ -15,11 +15,12 @@
 namespace Cake\Test\TestCase\ORM\Behavior;
 
 use Cake\Event\Event;
-us  Cake\I18n\Time;
 use Cake\ORM\Behavior\TimestampBehavior;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
+
+us  Cake\I18n\Time;
 
 /**
  * Behavior test case

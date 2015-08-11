@@ -17,12 +17,13 @@
 namespace Cake\Test\TestCase\Controller;
 
 use Cake\Core\App;
-us  Cake\Core\Configure;
 use Cake\Network\Request;
 use Cake\Network\Response;
 use Cake\TestSuite\TestCase;
 use Cake\View\Exception\MissingTemplateException;
 use TestApp\Controller\PagesController;
+
+us  Cake\Core\Configure;
 
 /**
  * PagesControllerTest class

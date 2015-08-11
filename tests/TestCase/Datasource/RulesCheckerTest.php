@@ -15,9 +15,9 @@
 namespace Cake\Test\TestCase\Datasource;
 
 use Cake\Datasource\RulesChecker;
+use Cake\TestSuite\TestCase;
 
 us  Cake\ORM\Entity;
-use Cake\TestSuite\TestCase;
 
 /**
  * Tests the integration between the ORM and the domain checker

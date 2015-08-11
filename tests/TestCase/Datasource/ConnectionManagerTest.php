@@ -28,19 +28,6 @@ class ConnectionManagerTest extends TestCase
 {
 
     /**
-     * tearDown method
-     *
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-        Plugin::unload();
-        ConnectionManager::drop('test_variant');
-        ConnectionManager::dropAlias('other_name');
-    }
-
-    /**
      * Data provider for valid config data sets.
      *
      * @return array
@@ -55,6 +42,19 @@ class ConnectionManagerTest extends TestCase
             ]],
             'Direct instance' => [new FakeConnection],
         ];
+    }
+
+    /**
+     * tearDown method
+     *
+     * @return void
+     */
+    public function tearDown()
+    {
+        parent::tearDown();
+        Plugin::unload();
+        ConnectionManager::drop('test_variant');
+        ConnectionManager::dropAlias('other_name');
     }
 
     /**

@@ -15,16 +15,16 @@
 namespace Cake\Test\TestCase\TestSuite;
 
 use Cake\Controller\Controller;
-
-us  Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Datasource\ConnectionManager;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
-use Cake\TestSuite\TestCase;
 use Cake\Test\Fixture\AssertHtmlTestCase;
 use Cake\Test\Fixture\FixturizedTestCase;
+use Cake\TestSuite\TestCase;
+
+us  Cake\Core\App;
 
 /**
  * Testing stub.

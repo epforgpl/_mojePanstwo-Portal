@@ -15,9 +15,10 @@
 namespace Cake\Test\TestCase\Database\Type;
 
 use Cake\Database\Type;
-us  Cake\Database\Type\TimeType;
 use Cake\I18n\Time;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Database\Type\TimeType;
 
 /**
  * Test for the Time type.

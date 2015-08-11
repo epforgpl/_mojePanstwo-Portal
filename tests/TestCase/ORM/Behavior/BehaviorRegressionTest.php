@@ -15,9 +15,10 @@
 namespace Cake\Test\TestCase\ORM\Behavior;
 
 use Cake\ORM\Behavior\Translate\TranslateTrait;
-us  Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
+
+us  Cake\ORM\Entity;
 
 /**
  * Stub entity class

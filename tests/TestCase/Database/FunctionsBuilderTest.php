@@ -14,8 +14,9 @@
 namespace Cake\Test\TestCase\Database;
 
 use Cake\Database\FunctionsBuilder;
-us  Cake\Database\ValueBinder;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Database\ValueBinder;
 
 /**
  * Tests FunctionsBuilder class

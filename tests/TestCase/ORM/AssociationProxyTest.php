@@ -15,10 +15,10 @@
 namespace Cake\Test\TestCase\ORM;
 
 use Cake\ORM\Association;
-
-us  Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
+
+us  Cake\ORM\Table;
 
 /**
  * Tests the features related to proxying methods from the Association

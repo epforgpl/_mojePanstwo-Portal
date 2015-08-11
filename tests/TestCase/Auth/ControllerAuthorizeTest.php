@@ -17,10 +17,10 @@
 namespace Cake\Test\TestCase\Auth;
 
 use Cake\Auth\ControllerAuthorize;
-
-us  Cake\Controller\Controller;
 use Cake\Network\Request;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Controller\Controller;
 
 /**
  * Class ControllerAuthorizeTest

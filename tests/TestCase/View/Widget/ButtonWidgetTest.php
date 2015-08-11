@@ -15,8 +15,9 @@
 namespace Cake\Test\TestCase\View\Widget;
 
 use Cake\TestSuite\TestCase;
-us  Cake\View\StringTemplate;
 use Cake\View\Widget\ButtonWidget;
+
+us  Cake\View\StringTemplate;
 
 /**
  * Basic input test.

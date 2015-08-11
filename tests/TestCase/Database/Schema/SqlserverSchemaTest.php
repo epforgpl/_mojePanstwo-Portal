@@ -27,56 +27,6 @@ use Cake\TestSuite\TestCase;
 class SqlserverSchemaTest extends TestCase
 {
     /**
-     * Helper method for skipping tests that need a real connection.
-     *
-     * @return void
-     */
-    protected function _needsConnection()
-    {
-        $config = ConnectionManager::config('test');
-        $this->skipIf(strpos($config['driver'], 'Sqlserver') === false, 'Not using Sqlserver for test config');
-    }
-
-    /**
-     * Helper method for testing methods.
-     *
-     * @return void
-     */
-    protected function _createTables($connection)
-    {
-        $this->_needsConnection();
-
-        $connection->execute("IF OBJECT_ID('schema_articles', 'U') IS NOT NULL DROP TABLE schema_articles");
-        $connection->execute("IF OBJECT_ID('schema_authors', 'U') IS NOT NULL DROP TABLE schema_authors");
-
-        $table = <<<SQL
-CREATE TABLE schema_authors (
-id int IDENTITY(1,1) PRIMARY KEY,
-name VARCHAR(50),
-bio DATE,
-created DATETIME
-)
-SQL;
-        $connection->execute($table);
-
-        $table = <<<SQL
-CREATE TABLE schema_articles (
-id BIGINT PRIMARY KEY,
-title VARCHAR(20),
-body VARCHAR(1000),
-author_id INTEGER NOT NULL,
-published BIT DEFAULT 0,
-views SMALLINT DEFAULT 0,
-created DATETIME,
-CONSTRAINT [content_idx] UNIQUE ([title], [body]),
-CONSTRAINT [author_idx] FOREIGN KEY ([author_id]) REFERENCES [schema_authors] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
-)
-SQL;
-        $connection->execute($table);
-        $connection->execute('CREATE INDEX [author_idx] ON [schema_articles] ([author_id])');
-    }
-
-    /**
      * Data provider for convert column testing
      *
      * @return array
@@ -221,6 +171,183 @@ SQL;
     }
 
     /**
+     * Column provider for creating column sql
+     *
+     * @return array
+     */
+    public static function columnSqlProvider()
+    {
+        return [
+            // strings
+            [
+                'title',
+                ['type' => 'string', 'length' => 25, 'null' => false],
+                '[title] NVARCHAR(25) NOT NULL'
+            ],
+            [
+                'title',
+                ['type' => 'string', 'length' => 25, 'null' => true, 'default' => 'ignored'],
+                '[title] NVARCHAR(25) DEFAULT NULL'
+            ],
+            [
+                'id',
+                ['type' => 'string', 'length' => 32, 'fixed' => true, 'null' => false],
+                '[id] NCHAR(32) NOT NULL'
+            ],
+            [
+                'id',
+                ['type' => 'uuid', 'null' => false],
+                '[id] UNIQUEIDENTIFIER NOT NULL'
+            ],
+            [
+                'role',
+                ['type' => 'string', 'length' => 10, 'null' => false, 'default' => 'admin'],
+                "[role] NVARCHAR(10) NOT NULL DEFAULT [admin]"
+            ],
+            [
+                'title',
+                ['type' => 'string'],
+                '[title] NVARCHAR(255)'
+            ],
+            // Text
+            [
+                'body',
+                ['type' => 'text', 'null' => false],
+                '[body] NVARCHAR(MAX) NOT NULL'
+            ],
+            // Integers
+            [
+                'post_id',
+                ['type' => 'integer', 'length' => 11],
+                '[post_id] INTEGER'
+            ],
+            [
+                'post_id',
+                ['type' => 'biginteger', 'length' => 20],
+                '[post_id] BIGINT'
+            ],
+            // Decimal
+            [
+                'value',
+                ['type' => 'decimal'],
+                '[value] DECIMAL'
+            ],
+            [
+                'value',
+                ['type' => 'decimal', 'length' => 11],
+                '[value] DECIMAL(11,0)'
+            ],
+            [
+                'value',
+                ['type' => 'decimal', 'length' => 12, 'precision' => 5],
+                '[value] DECIMAL(12,5)'
+            ],
+            // Float
+            [
+                'value',
+                ['type' => 'float'],
+                '[value] FLOAT'
+            ],
+            [
+                'value',
+                ['type' => 'float', 'length' => 11, 'precision' => 3],
+                '[value] FLOAT(3)'
+            ],
+            // Binary
+            [
+                'img',
+                ['type' => 'binary'],
+                '[img] VARBINARY(MAX)'
+            ],
+            // Boolean
+            [
+                'checked',
+                ['type' => 'boolean', 'default' => false],
+                '[checked] BIT DEFAULT 0'
+            ],
+            [
+                'checked',
+                ['type' => 'boolean', 'default' => true, 'null' => false],
+                '[checked] BIT NOT NULL DEFAULT 1'
+            ],
+            // datetimes
+            [
+                'created',
+                ['type' => 'datetime'],
+                '[created] DATETIME'
+            ],
+            // Date & Time
+            [
+                'start_date',
+                ['type' => 'date'],
+                '[start_date] DATE'
+            ],
+            [
+                'start_time',
+                ['type' => 'time'],
+                '[start_time] TIME'
+            ],
+            // timestamps
+            [
+                'created',
+                ['type' => 'timestamp', 'null' => true],
+                '[created] DATETIME DEFAULT NULL'
+            ],
+        ];
+    }
+
+    /**
+     * Provide data for testing constraintSql
+     *
+     * @return array
+     */
+    public static function constraintSqlProvider()
+    {
+        return [
+            [
+                'primary',
+                ['type' => 'primary', 'columns' => ['title']],
+                'PRIMARY KEY ([title])'
+            ],
+            [
+                'unique_idx',
+                ['type' => 'unique', 'columns' => ['title', 'author_id']],
+                'CONSTRAINT [unique_idx] UNIQUE ([title], [author_id])'
+            ],
+            [
+                'author_id_idx',
+                ['type' => 'foreign', 'columns' => ['author_id'], 'references' => ['authors', 'id']],
+                'CONSTRAINT [author_id_idx] FOREIGN KEY ([author_id]) ' .
+                'REFERENCES [authors] ([id]) ON UPDATE SET NULL ON DELETE SET NULL'
+            ],
+            [
+                'author_id_idx',
+                ['type' => 'foreign', 'columns' => ['author_id'], 'references' => ['authors', 'id'], 'update' => 'cascade'],
+                'CONSTRAINT [author_id_idx] FOREIGN KEY ([author_id]) ' .
+                'REFERENCES [authors] ([id]) ON UPDATE CASCADE ON DELETE SET NULL'
+            ],
+            [
+                'author_id_idx',
+                ['type' => 'foreign', 'columns' => ['author_id'], 'references' => ['authors', 'id'], 'update' => 'setDefault'],
+                'CONSTRAINT [author_id_idx] FOREIGN KEY ([author_id]) ' .
+                'REFERENCES [authors] ([id]) ON UPDATE SET DEFAULT ON DELETE SET NULL'
+            ],
+            [
+                'author_id_idx',
+                ['type' => 'foreign', 'columns' => ['author_id'], 'references' => ['authors', 'id'], 'update' => 'setNull'],
+                'CONSTRAINT [author_id_idx] FOREIGN KEY ([author_id]) ' .
+                'REFERENCES [authors] ([id]) ON UPDATE SET NULL ON DELETE SET NULL'
+            ],
+            [
+                'author_id_idx',
+                ['type' => 'foreign', 'columns' => ['author_id'], 'references' => ['authors', 'id'], 'update' => 'noAction'],
+                'CONSTRAINT [author_id_idx] FOREIGN KEY ([author_id]) ' .
+                'REFERENCES [authors] ([id]) ON UPDATE NO ACTION ON DELETE SET NULL'
+            ],
+        ];
+    }
+
+    /**
      * Test parsing Sqlserver column types from field description.
      *
      * @dataProvider convertColumnProvider
@@ -266,6 +393,56 @@ SQL;
         $this->assertInternalType('array', $result);
         $this->assertContains('schema_articles', $result);
         $this->assertContains('schema_authors', $result);
+    }
+
+    /**
+     * Helper method for testing methods.
+     *
+     * @return void
+     */
+    protected function _createTables($connection)
+    {
+        $this->_needsConnection();
+
+        $connection->execute("IF OBJECT_ID('schema_articles', 'U') IS NOT NULL DROP TABLE schema_articles");
+        $connection->execute("IF OBJECT_ID('schema_authors', 'U') IS NOT NULL DROP TABLE schema_authors");
+
+        $table = <<<SQL
+CREATE TABLE schema_authors (
+id int IDENTITY(1,1) PRIMARY KEY,
+name VARCHAR(50),
+bio DATE,
+created DATETIME
+)
+SQL;
+        $connection->execute($table);
+
+        $table = <<<SQL
+CREATE TABLE schema_articles (
+id BIGINT PRIMARY KEY,
+title VARCHAR(20),
+body VARCHAR(1000),
+author_id INTEGER NOT NULL,
+published BIT DEFAULT 0,
+views SMALLINT DEFAULT 0,
+created DATETIME,
+CONSTRAINT [content_idx] UNIQUE ([title], [body]),
+CONSTRAINT [author_idx] FOREIGN KEY ([author_id]) REFERENCES [schema_authors] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
+)
+SQL;
+        $connection->execute($table);
+        $connection->execute('CREATE INDEX [author_idx] ON [schema_articles] ([author_id])');
+    }
+
+    /**
+     * Helper method for skipping tests that need a real connection.
+     *
+     * @return void
+     */
+    protected function _needsConnection()
+    {
+        $config = ConnectionManager::config('test');
+        $this->skipIf(strpos($config['driver'], 'Sqlserver') === false, 'Not using Sqlserver for test config');
     }
 
     /**
@@ -443,132 +620,6 @@ SQL;
     }
 
     /**
-     * Column provider for creating column sql
-     *
-     * @return array
-     */
-    public static function columnSqlProvider()
-    {
-        return [
-            // strings
-            [
-                'title',
-                ['type' => 'string', 'length' => 25, 'null' => false],
-                '[title] NVARCHAR(25) NOT NULL'
-            ],
-            [
-                'title',
-                ['type' => 'string', 'length' => 25, 'null' => true, 'default' => 'ignored'],
-                '[title] NVARCHAR(25) DEFAULT NULL'
-            ],
-            [
-                'id',
-                ['type' => 'string', 'length' => 32, 'fixed' => true, 'null' => false],
-                '[id] NCHAR(32) NOT NULL'
-            ],
-            [
-                'id',
-                ['type' => 'uuid', 'null' => false],
-                '[id] UNIQUEIDENTIFIER NOT NULL'
-            ],
-            [
-                'role',
-                ['type' => 'string', 'length' => 10, 'null' => false, 'default' => 'admin'],
-                "[role] NVARCHAR(10) NOT NULL DEFAULT [admin]"
-            ],
-            [
-                'title',
-                ['type' => 'string'],
-                '[title] NVARCHAR(255)'
-            ],
-            // Text
-            [
-                'body',
-                ['type' => 'text', 'null' => false],
-                '[body] NVARCHAR(MAX) NOT NULL'
-            ],
-            // Integers
-            [
-                'post_id',
-                ['type' => 'integer', 'length' => 11],
-                '[post_id] INTEGER'
-            ],
-            [
-                'post_id',
-                ['type' => 'biginteger', 'length' => 20],
-                '[post_id] BIGINT'
-            ],
-            // Decimal
-            [
-                'value',
-                ['type' => 'decimal'],
-                '[value] DECIMAL'
-            ],
-            [
-                'value',
-                ['type' => 'decimal', 'length' => 11],
-                '[value] DECIMAL(11,0)'
-            ],
-            [
-                'value',
-                ['type' => 'decimal', 'length' => 12, 'precision' => 5],
-                '[value] DECIMAL(12,5)'
-            ],
-            // Float
-            [
-                'value',
-                ['type' => 'float'],
-                '[value] FLOAT'
-            ],
-            [
-                'value',
-                ['type' => 'float', 'length' => 11, 'precision' => 3],
-                '[value] FLOAT(3)'
-            ],
-            // Binary
-            [
-                'img',
-                ['type' => 'binary'],
-                '[img] VARBINARY(MAX)'
-            ],
-            // Boolean
-            [
-                'checked',
-                ['type' => 'boolean', 'default' => false],
-                '[checked] BIT DEFAULT 0'
-            ],
-            [
-                'checked',
-                ['type' => 'boolean', 'default' => true, 'null' => false],
-                '[checked] BIT NOT NULL DEFAULT 1'
-            ],
-            // datetimes
-            [
-                'created',
-                ['type' => 'datetime'],
-                '[created] DATETIME'
-            ],
-            // Date & Time
-            [
-                'start_date',
-                ['type' => 'date'],
-                '[start_date] DATE'
-            ],
-            [
-                'start_time',
-                ['type' => 'time'],
-                '[start_time] TIME'
-            ],
-            // timestamps
-            [
-                'created',
-                ['type' => 'timestamp', 'null' => true],
-                '[created] DATETIME DEFAULT NULL'
-            ],
-        ];
-    }
-
-    /**
      * Test generating column definitions
      *
      * @dataProvider columnSqlProvider
@@ -584,54 +635,26 @@ SQL;
     }
 
     /**
-     * Provide data for testing constraintSql
+     * Get a schema instance with a mocked driver/pdo instances
      *
-     * @return array
+     * @return Driver
      */
-    public static function constraintSqlProvider()
+    protected function _getMockedDriver()
     {
-        return [
-            [
-                'primary',
-                ['type' => 'primary', 'columns' => ['title']],
-                'PRIMARY KEY ([title])'
-            ],
-            [
-                'unique_idx',
-                ['type' => 'unique', 'columns' => ['title', 'author_id']],
-                'CONSTRAINT [unique_idx] UNIQUE ([title], [author_id])'
-            ],
-            [
-                'author_id_idx',
-                ['type' => 'foreign', 'columns' => ['author_id'], 'references' => ['authors', 'id']],
-                'CONSTRAINT [author_id_idx] FOREIGN KEY ([author_id]) ' .
-                'REFERENCES [authors] ([id]) ON UPDATE SET NULL ON DELETE SET NULL'
-            ],
-            [
-                'author_id_idx',
-                ['type' => 'foreign', 'columns' => ['author_id'], 'references' => ['authors', 'id'], 'update' => 'cascade'],
-                'CONSTRAINT [author_id_idx] FOREIGN KEY ([author_id]) ' .
-                'REFERENCES [authors] ([id]) ON UPDATE CASCADE ON DELETE SET NULL'
-            ],
-            [
-                'author_id_idx',
-                ['type' => 'foreign', 'columns' => ['author_id'], 'references' => ['authors', 'id'], 'update' => 'setDefault'],
-                'CONSTRAINT [author_id_idx] FOREIGN KEY ([author_id]) ' .
-                'REFERENCES [authors] ([id]) ON UPDATE SET DEFAULT ON DELETE SET NULL'
-            ],
-            [
-                'author_id_idx',
-                ['type' => 'foreign', 'columns' => ['author_id'], 'references' => ['authors', 'id'], 'update' => 'setNull'],
-                'CONSTRAINT [author_id_idx] FOREIGN KEY ([author_id]) ' .
-                'REFERENCES [authors] ([id]) ON UPDATE SET NULL ON DELETE SET NULL'
-            ],
-            [
-                'author_id_idx',
-                ['type' => 'foreign', 'columns' => ['author_id'], 'references' => ['authors', 'id'], 'update' => 'noAction'],
-                'CONSTRAINT [author_id_idx] FOREIGN KEY ([author_id]) ' .
-                'REFERENCES [authors] ([id]) ON UPDATE NO ACTION ON DELETE SET NULL'
-            ],
-        ];
+        $driver = new \Cake\Database\Driver\Sqlserver();
+        $mock = $this->getMock('FakePdo', ['quote', 'quoteIdentifier']);
+        $mock->expects($this->any())
+            ->method('quote')
+            ->will($this->returnCallback(function ($value) {
+                return '[' . $value . ']';
+            }));
+        $mock->expects($this->any())
+            ->method('quoteIdentifier')
+            ->will($this->returnCallback(function ($value) {
+                return '[' . $value . ']';
+            }));
+        $driver->connection($mock);
+        return $driver;
     }
 
     /**
@@ -744,28 +767,5 @@ SQL;
         $this->assertCount(2, $result);
         $this->assertEquals('DELETE FROM [schema_articles]', $result[0]);
         $this->assertEquals('DBCC CHECKIDENT([schema_articles], RESEED, 0)', $result[1]);
-    }
-
-    /**
-     * Get a schema instance with a mocked driver/pdo instances
-     *
-     * @return Driver
-     */
-    protected function _getMockedDriver()
-    {
-        $driver = new \Cake\Database\Driver\Sqlserver();
-        $mock = $this->getMock('FakePdo', ['quote', 'quoteIdentifier']);
-        $mock->expects($this->any())
-            ->method('quote')
-            ->will($this->returnCallback(function ($value) {
-                return '[' . $value . ']';
-            }));
-        $mock->expects($this->any())
-            ->method('quoteIdentifier')
-            ->will($this->returnCallback(function ($value) {
-                return '[' . $value . ']';
-            }));
-        $driver->connection($mock);
-        return $driver;
     }
 }

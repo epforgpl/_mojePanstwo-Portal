@@ -15,12 +15,12 @@
 namespace Cake\Test\TestCase\Shell\Task;
 
 use Cake\Core\App;
-
-us  Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Filesystem\Folder;
 use Cake\Shell\Task\ExtractTask;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Core\Configure;
 
 /**
  * ExtractTaskTest class

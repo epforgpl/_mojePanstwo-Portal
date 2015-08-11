@@ -15,11 +15,11 @@
 namespace Cake\Test\TestCase\Database\Schema;
 
 use Cake\Database\Schema\Table;
-
-us  Cake\Database\Type;
 use Cake\Datasource\ConnectionManager;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Database\Type;
 
 /**
  * Mock class for testing baseType inheritance
@@ -43,6 +43,75 @@ class TableTest extends TestCase
     public $fixtures = ['core.articles_tags', 'core.products', 'core.orders', 'core.tags'];
 
     protected $_map;
+
+    /**
+     * Dataprovider for invalid addConstraint calls.
+     *
+     * @return array
+     */
+    public static function addConstaintErrorProvider()
+    {
+        return [
+            // No properties
+            [[]],
+            // Empty columns
+            [['columns' => '', 'type' => Table::CONSTRAINT_UNIQUE]],
+            [['columns' => [], 'type' => Table::CONSTRAINT_UNIQUE]],
+            // Missing column
+            [['columns' => ['derp'], 'type' => Table::CONSTRAINT_UNIQUE]],
+            // Invalid type
+            [['columns' => 'author_id', 'type' => 'derp']],
+        ];
+    }
+
+    /**
+     * Dataprovider for invalid addIndex calls
+     *
+     * @return array
+     */
+    public static function addIndexErrorProvider()
+    {
+        return [
+            // Empty
+            [[]],
+            // Invalid type
+            [['columns' => 'author_id', 'type' => 'derp']],
+            // No columns
+            [['columns' => ''], 'type' => Table::INDEX_INDEX],
+            [['columns' => [], 'type' => Table::INDEX_INDEX]],
+            // Missing column
+            [['columns' => ['not_there'], 'type' => Table::INDEX_INDEX]],
+        ];
+    }
+
+    /**
+     * Provider for exceptionally bad foreign key data.
+     *
+     * @return array
+     */
+    public static function badForeignKeyProvider()
+    {
+        return [
+            'references is bad' => [[
+                'type' => Table::CONSTRAINT_FOREIGN,
+                'columns' => ['author_id'],
+                'references' => ['authors'],
+                'delete' => 'derp',
+            ]],
+            'bad update value' => [[
+                'type' => Table::CONSTRAINT_FOREIGN,
+                'columns' => ['author_id'],
+                'references' => ['authors', 'id'],
+                'update' => 'derp',
+            ]],
+            'bad delete value' => [[
+                'type' => Table::CONSTRAINT_FOREIGN,
+                'columns' => ['author_id'],
+                'references' => ['authors', 'id'],
+                'delete' => 'derp',
+            ]],
+        ];
+    }
 
     public function setUp()
     {
@@ -299,26 +368,6 @@ class TableTest extends TestCase
     }
 
     /**
-     * Dataprovider for invalid addConstraint calls.
-     *
-     * @return array
-     */
-    public static function addConstaintErrorProvider()
-    {
-        return [
-            // No properties
-            [[]],
-            // Empty columns
-            [['columns' => '', 'type' => Table::CONSTRAINT_UNIQUE]],
-            [['columns' => [], 'type' => Table::CONSTRAINT_UNIQUE]],
-            // Missing column
-            [['columns' => ['derp'], 'type' => Table::CONSTRAINT_UNIQUE]],
-            // Invalid type
-            [['columns' => 'author_id', 'type' => 'derp']],
-        ];
-    }
-
-    /**
      * Test that an exception is raised when constraints
      * are added for fields that do not exist.
      *
@@ -350,26 +399,6 @@ class TableTest extends TestCase
         ]);
         $this->assertSame($result, $table);
         $this->assertEquals(['faster'], $table->indexes());
-    }
-
-    /**
-     * Dataprovider for invalid addIndex calls
-     *
-     * @return array
-     */
-    public static function addIndexErrorProvider()
-    {
-        return [
-            // Empty
-            [[]],
-            // Invalid type
-            [['columns' => 'author_id', 'type' => 'derp']],
-            // No columns
-            [['columns' => ''], 'type' => Table::INDEX_INDEX],
-            [['columns' => [], 'type' => Table::INDEX_INDEX]],
-            // Missing column
-            [['columns' => ['not_there'], 'type' => Table::INDEX_INDEX]],
-        ];
     }
 
     /**
@@ -500,6 +529,27 @@ class TableTest extends TestCase
     }
 
     /**
+     * Assertion for comparing a regex pattern against a query having its identifiers
+     * quoted. It accepts queries quoted with the characters `<` and `>`. If the third
+     * parameter is set to true, it will alter the pattern to both accept quoted and
+     * unquoted queries
+     *
+     * @param string $pattern
+     * @param string $query the result to compare against
+     * @param bool $optional
+     * @return void
+     */
+    public function assertQuotedQuery($pattern, $query, $optional = false)
+    {
+        if ($optional) {
+            $optional = '?';
+        }
+        $pattern = str_replace('<', '[`"\[]' . $optional, $pattern);
+        $pattern = str_replace('>', '[`"\]]' . $optional, $pattern);
+        $this->assertRegExp('#' . $pattern . '#', $query);
+    }
+
+    /**
      * Test composite foreign keys support
      *
      * @return void
@@ -532,35 +582,6 @@ class TableTest extends TestCase
     }
 
     /**
-     * Provider for exceptionally bad foreign key data.
-     *
-     * @return array
-     */
-    public static function badForeignKeyProvider()
-    {
-        return [
-            'references is bad' => [[
-                'type' => Table::CONSTRAINT_FOREIGN,
-                'columns' => ['author_id'],
-                'references' => ['authors'],
-                'delete' => 'derp',
-            ]],
-            'bad update value' => [[
-                'type' => Table::CONSTRAINT_FOREIGN,
-                'columns' => ['author_id'],
-                'references' => ['authors', 'id'],
-                'update' => 'derp',
-            ]],
-            'bad delete value' => [[
-                'type' => Table::CONSTRAINT_FOREIGN,
-                'columns' => ['author_id'],
-                'references' => ['authors', 'id'],
-                'delete' => 'derp',
-            ]],
-        ];
-    }
-
-    /**
      * Add a foreign key constraint with bad data
      *
      * @dataProvider badForeignKeyProvider
@@ -587,26 +608,5 @@ class TableTest extends TestCase
         $this->assertTrue($table->temporary());
         $table->temporary(false);
         $this->assertFalse($table->temporary());
-    }
-
-    /**
-     * Assertion for comparing a regex pattern against a query having its identifiers
-     * quoted. It accepts queries quoted with the characters `<` and `>`. If the third
-     * parameter is set to true, it will alter the pattern to both accept quoted and
-     * unquoted queries
-     *
-     * @param string $pattern
-     * @param string $query the result to compare against
-     * @param bool $optional
-     * @return void
-     */
-    public function assertQuotedQuery($pattern, $query, $optional = false)
-    {
-        if ($optional) {
-            $optional = '?';
-        }
-        $pattern = str_replace('<', '[`"\[]' . $optional, $pattern);
-        $pattern = str_replace('>', '[`"\]]' . $optional, $pattern);
-        $this->assertRegExp('#' . $pattern . '#', $query);
     }
 }

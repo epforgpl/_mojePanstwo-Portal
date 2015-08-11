@@ -15,8 +15,6 @@
 namespace Cake\Test\TestCase\Auth;
 
 use Cake\Auth\FormAuthenticate;
-
-us  Cake\Cache\Cache;
 use Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
@@ -26,6 +24,8 @@ use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use Cake\Utility\Security;
+
+us  Cake\Cache\Cache;
 
 /**
  * Test case for FormAuthentication

@@ -15,10 +15,11 @@
 namespace Cake\Test\TestCase\Database;
 
 use Cake\Core\Configure;
-us  Cake\Database\Expression\IdentifierExpression;
 use Cake\Database\Query;
 use Cake\Datasource\ConnectionManager;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Database\Expression\IdentifierExpression;
 
 /**
  * Tests Query class
@@ -27,11 +28,10 @@ use Cake\TestSuite\TestCase;
 class QueryTest extends TestCase
 {
 
-    public $fixtures = ['core.articles', 'core.authors', 'core.comments'];
-
     const ARTICLE_COUNT = 3;
     const AUTHOR_COUNT = 4;
     const COMMENT_COUNT = 6;
+    public $fixtures = ['core.articles', 'core.authors', 'core.comments'];
 
     public function setUp()
     {
@@ -541,6 +541,27 @@ class QueryTest extends TestCase
             $result,
             !$this->autoQuote
         );
+    }
+
+    /**
+     * Assertion for comparing a regex pattern against a query having its identifiers
+     * quoted. It accepts queries quoted with the characters `<` and `>`. If the third
+     * parameter is set to true, it will alter the pattern to both accept quoted and
+     * unquoted queries
+     *
+     * @param string $pattern
+     * @param string $query the result to compare against
+     * @param bool $optional
+     * @return void
+     */
+    public function assertQuotedQuery($pattern, $query, $optional = false)
+    {
+        if ($optional) {
+            $optional = '?';
+        }
+        $pattern = str_replace('<', '[`"\[]' . $optional, $pattern);
+        $pattern = str_replace('>', '[`"\]]' . $optional, $pattern);
+        $this->assertRegExp('#' . $pattern . '#', $query);
     }
 
     /**
@@ -2492,6 +2513,25 @@ class QueryTest extends TestCase
     }
 
     /**
+     * Assertion for comparing a table's contents with what is in it.
+     *
+     * @param string $table
+     * @param int $count
+     * @param array $rows
+     * @param array $conditions
+     * @return void
+     */
+    public function assertTable($table, $count, $rows, $conditions = [])
+    {
+        $result = (new Query($this->connection))->select('*')
+            ->from($table)
+            ->where($conditions)
+            ->execute();
+        $this->assertCount($count, $result, 'Row count is incorrect');
+        $this->assertEquals($rows, $result->fetchAll('assoc'));
+    }
+
+    /**
      * Test an insert when not all the listed fields are provided.
      * Columns should be matched up where possible.
      *
@@ -3357,45 +3397,5 @@ class QueryTest extends TestCase
         $list = $result->fetchAll('assoc');
         $this->assertCount(3, $list);
         $result->closeCursor();
-    }
-
-    /**
-     * Assertion for comparing a table's contents with what is in it.
-     *
-     * @param string $table
-     * @param int $count
-     * @param array $rows
-     * @param array $conditions
-     * @return void
-     */
-    public function assertTable($table, $count, $rows, $conditions = [])
-    {
-        $result = (new Query($this->connection))->select('*')
-            ->from($table)
-            ->where($conditions)
-            ->execute();
-        $this->assertCount($count, $result, 'Row count is incorrect');
-        $this->assertEquals($rows, $result->fetchAll('assoc'));
-    }
-
-    /**
-     * Assertion for comparing a regex pattern against a query having its identifiers
-     * quoted. It accepts queries quoted with the characters `<` and `>`. If the third
-     * parameter is set to true, it will alter the pattern to both accept quoted and
-     * unquoted queries
-     *
-     * @param string $pattern
-     * @param string $query the result to compare against
-     * @param bool $optional
-     * @return void
-     */
-    public function assertQuotedQuery($pattern, $query, $optional = false)
-    {
-        if ($optional) {
-            $optional = '?';
-        }
-        $pattern = str_replace('<', '[`"\[]' . $optional, $pattern);
-        $pattern = str_replace('>', '[`"\]]' . $optional, $pattern);
-        $this->assertRegExp('#' . $pattern . '#', $query);
     }
 }

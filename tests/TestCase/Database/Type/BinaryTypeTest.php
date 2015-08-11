@@ -15,9 +15,10 @@
 namespace Cake\Test\TestCase\Database\Type;
 
 use Cake\Database\Type;
-us  Cake\Database\Type\BinaryType;
 use Cake\TestSuite\TestCase;
-use \PDO;
+use PDO;
+
+us  Cake\Database\Type\BinaryType;
 
 /**
  * Test for the Binary type.

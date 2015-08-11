@@ -294,6 +294,20 @@ class ViewTest extends TestCase
     public $fixtures = ['core.users', 'core.posts'];
 
     /**
+     * Data provider for block related tests.
+     *
+     * @return array
+     */
+    public static function blockValueProvider()
+    {
+        return [
+            'string' => ['A string value'],
+            'decimal' => [1.23456],
+            'object with __toString' => [new TestObjectWithToString()],
+        ];
+    }
+
+    /**
      * setUp method
      *
      * @return void
@@ -1505,20 +1519,6 @@ class ViewTest extends TestCase
         $this->View->assign('testWithDecimal', 1.23456789);
         $result = $this->View->fetch('testWithDecimal');
         $this->assertEquals('1.23456789', $result);
-    }
-
-    /**
-     * Data provider for block related tests.
-     *
-     * @return array
-     */
-    public static function blockValueProvider()
-    {
-        return [
-            'string' => ['A string value'],
-            'decimal' => [1.23456],
-            'object with __toString' => [new TestObjectWithToString()],
-        ];
     }
 
     /**

@@ -15,8 +15,9 @@
 namespace Cake\Test\TestCase\Cache\Engine;
 
 use Cake\Cache\Cache;
-us  Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Core\Configure;
 
 /**
  * WincacheEngineTest class
@@ -40,18 +41,6 @@ class WincacheEngineTest extends TestCase
     }
 
     /**
-     * tearDown method
-     *
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-        Cache::drop('wincache');
-        Cache::drop('wincache_groups');
-    }
-
-    /**
      * Helper method for testing.
      *
      * @param array $config
@@ -65,6 +54,18 @@ class WincacheEngineTest extends TestCase
         ];
         Cache::drop('wincache');
         Cache::config('wincache', array_merge($defaults, $config));
+    }
+
+    /**
+     * tearDown method
+     *
+     * @return void
+     */
+    public function tearDown()
+    {
+        parent::tearDown();
+        Cache::drop('wincache');
+        Cache::drop('wincache_groups');
     }
 
     /**

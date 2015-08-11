@@ -17,7 +17,6 @@ namespace Cake\Test\TestCase\Database\Statement;
 use Cake\Database\Statement\StatementDecorator;
 
 us  Cake\TestSuite\TestCase;
-use \PDO;
 
 /**
  * Tests StatementDecorator class

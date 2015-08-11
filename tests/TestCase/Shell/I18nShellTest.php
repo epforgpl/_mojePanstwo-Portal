@@ -15,9 +15,10 @@
 namespace Cake\Test\TestCase\Shell;
 
 use Cake\Cache\Cache;
-us  Cake\Datasource\ConnectionManager;
 use Cake\Shell\I18nShell;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Datasource\ConnectionManager;
 
 /**
  * I18nShell test.

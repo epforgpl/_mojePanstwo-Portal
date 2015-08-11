@@ -15,10 +15,10 @@
 namespace Cake\Test\TestCase\Database\Log;
 
 use Cake\Database\Log\LoggedQuery;
-
-us  Cake\Database\Log\QueryLogger;
 use Cake\Log\Log;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Database\Log\QueryLogger;
 
 /**
  * Tests QueryLogger class

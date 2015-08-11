@@ -14,15 +14,15 @@
 namespace Cake\Test\TestCase\Controller;
 
 use Cake\Controller\Component;
-us  Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
 use Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
 use Cake\Utility\ClassRegistry;
-use TestApp\Controller\ComponentTestController;
 use TestApp\Controller\Component\AppleComponent;
-use TestApp\Controller\Component\OrangeComponent;
+use TestApp\Controller\ComponentTestController;
+
+us  Cake\Controller\ComponentRegistry;
 
 /**
  * ComponentTest class

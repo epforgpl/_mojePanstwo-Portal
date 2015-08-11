@@ -17,14 +17,14 @@
 namespace Cake\Test\TestCase;
 
 use Cake\Cache\Cache;
-
-us  Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Event\EventManager;
 use Cake\Filesystem\Folder;
 use Cake\Log\Log;
 use Cake\Network\Response;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Core\App;
 
 require_once CAKE . 'basics.php';
 

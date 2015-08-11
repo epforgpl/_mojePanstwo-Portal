@@ -26,6 +26,19 @@ class SocketTest extends TestCase
 {
 
     /**
+     * data provider function for testInvalidConnection
+     *
+     * @return array
+     */
+    public static function invalidConnections()
+    {
+        return [
+            [['host' => 'invalid.host', 'port' => 9999, 'timeout' => 1]],
+            [['host' => '127.0.0.1', 'port' => '70000', 'timeout' => 1]]
+        ];
+    }
+
+    /**
      * setUp method
      *
      * @return void
@@ -103,19 +116,6 @@ class SocketTest extends TestCase
         } catch (SocketException $e) {
             $this->markTestSkipped('Cannot test network, skipping.');
         }
-    }
-
-    /**
-     * data provider function for testInvalidConnection
-     *
-     * @return array
-     */
-    public static function invalidConnections()
-    {
-        return [
-            [['host' => 'invalid.host', 'port' => 9999, 'timeout' => 1]],
-            [['host' => '127.0.0.1', 'port' => '70000', 'timeout' => 1]]
-        ];
     }
 
     /**
@@ -292,6 +292,20 @@ class SocketTest extends TestCase
     }
 
     /**
+     * testEnableCryptoBadMode
+     *
+     * @expectedException \InvalidArgumentException
+     * @return void
+     */
+    public function testEnableCryptoBadMode()
+    {
+        // testing wrong encryption mode
+        $this->_connectSocketToSslTls();
+        $this->Socket->enableCrypto('doesntExistMode', 'server');
+        $this->Socket->disconnect();
+    }
+
+    /**
      * _connectSocketToSslTls
      *
      * @return void
@@ -306,20 +320,6 @@ class SocketTest extends TestCase
         } catch (SocketException $e) {
             $this->markTestSkipped('Cannot test network, skipping.');
         }
-    }
-
-    /**
-     * testEnableCryptoBadMode
-     *
-     * @expectedException \InvalidArgumentException
-     * @return void
-     */
-    public function testEnableCryptoBadMode()
-    {
-        // testing wrong encryption mode
-        $this->_connectSocketToSslTls();
-        $this->Socket->enableCrypto('doesntExistMode', 'server');
-        $this->Socket->disconnect();
     }
 
     /**

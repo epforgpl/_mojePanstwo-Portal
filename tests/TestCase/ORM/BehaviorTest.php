@@ -15,6 +15,7 @@
 namespace Cake\Test\TestCase\ORM;
 
 use Cake\ORM\Behavior;
+
 us  Cake\TestSuite\TestCase;
 
 /**

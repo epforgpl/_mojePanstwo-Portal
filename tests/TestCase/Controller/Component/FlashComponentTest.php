@@ -15,13 +15,14 @@
 namespace Cake\Test\TestCase\Controller\Component;
 
 use Cake\Controller\ComponentRegistry;
-us  Cake\Controller\Component\FlashComponent;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Network\Request;
 use Cake\Network\Session;
 use Cake\TestSuite\TestCase;
 use Exception;
+
+us  Cake\Controller\Component\FlashComponent;
 
 /**
  * FlashComponentTest class
@@ -178,7 +179,7 @@ class FlashComponentTest extends TestCase
         ];
         $result = $this->Session->read('Flash.flash');
         $this->assertEquals($expected, $result, 'Element is ignored in magic call.');
-        
+
         $this->Flash->success('It worked', ['plugin' => 'MyPlugin']);
 
         $expected = [

@@ -15,12 +15,13 @@
 namespace Cake\Test\TestCase\View;
 
 use Cake\Core\App;
-us  Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
 use Cake\View\Helper;
 use Cake\View\HelperRegistry;
 use Cake\View\View;
+
+us  Cake\Core\Configure;
 
 /**
  * Extended HtmlHelper

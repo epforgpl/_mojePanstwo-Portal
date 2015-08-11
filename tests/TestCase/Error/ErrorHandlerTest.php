@@ -15,7 +15,6 @@
 namespace Cake\Test\TestCase\Error;
 
 use Cake\Controller\Controller;
-us  Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Error;
@@ -29,6 +28,8 @@ use Cake\Network\Response;
 use Cake\Routing\Exception\MissingControllerException;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Core\App;
 
 /**
  * Testing stub.
@@ -71,6 +72,19 @@ class ErrorHandlerTest extends TestCase
 {
 
     protected $_restoreError = false;
+
+    /**
+     * provides errors for mapping tests.
+     *
+     * @return void
+     */
+    public static function errorProvider()
+    {
+        return [
+            [E_USER_NOTICE, 'Notice'],
+            [E_USER_WARNING, 'Warning'],
+        ];
+    }
 
     /**
      * setup create a request object to get out of router later.
@@ -128,19 +142,6 @@ class ErrorHandlerTest extends TestCase
         $this->assertRegExp('/<pre class="cake-error">/', $result);
         $this->assertRegExp('/<b>Notice<\/b>/', $result);
         $this->assertRegExp('/variable:\s+wrong/', $result);
-    }
-
-    /**
-     * provides errors for mapping tests.
-     *
-     * @return void
-     */
-    public static function errorProvider()
-    {
-        return [
-            [E_USER_NOTICE, 'Notice'],
-            [E_USER_WARNING, 'Warning'],
-        ];
     }
 
     /**

@@ -17,9 +17,9 @@
 namespace Cake\Test\TestCase\Log\Engine;
 
 use Cake\Log\Engine\FileLog;
+use JsonSerializable;
 
 us  Cake\TestSuite\TestCase;
-use JsonSerializable;
 
 /**
  * Class used for testing when an object is passed to a logger
@@ -108,6 +108,20 @@ class FileLogTest extends TestCase
         $this->assertTrue(file_exists(LOGS . 'debug.log'));
         $result = file_get_contents(LOGS . 'debug.log');
         $this->assertContains('Debug: ' . print_r([1, 2], true), $result);
+    }
+
+    /**
+     * helper function to clears all log files in specified directory
+     *
+     * @param string $dir
+     * @return void
+     */
+    protected function _deleteLogs($dir)
+    {
+        $files = array_merge(glob($dir . '*.log'), glob($dir . '*.log.*'));
+        foreach ($files as $file) {
+            unlink($file);
+        }
     }
 
     /**
@@ -238,19 +252,5 @@ class FileLogTest extends TestCase
         $expected = '0640';
         $this->assertEquals($expected, $result);
         unlink($path . 'error.log');
-    }
-
-    /**
-     * helper function to clears all log files in specified directory
-     *
-     * @param string $dir
-     * @return void
-     */
-    protected function _deleteLogs($dir)
-    {
-        $files = array_merge(glob($dir . '*.log'), glob($dir . '*.log.*'));
-        foreach ($files as $file) {
-            unlink($file);
-        }
     }
 }

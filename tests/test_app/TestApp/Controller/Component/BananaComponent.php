@@ -14,8 +14,9 @@
 namespace TestApp\Controller\Component;
 
 use Cake\Controller\Component;
-us  Cake\Controller\Controller;
 use Cake\Event\Event;
+
+us  Cake\Controller\Controller;
 
 /**
  * BananaComponent class

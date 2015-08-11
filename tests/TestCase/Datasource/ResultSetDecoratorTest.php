@@ -15,6 +15,7 @@
 namespace Cake\Test\TestCase\Datasource;
 
 use Cake\Datasource\ResultSetDecorator;
+
 us  Cake\TestSuite\TestCase;
 
 /**

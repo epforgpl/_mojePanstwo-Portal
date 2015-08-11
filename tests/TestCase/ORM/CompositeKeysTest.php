@@ -137,6 +137,19 @@ class CompositeKeyTest extends TestCase
     }
 
     /**
+     * Helper method to skip tests when connection is SQLite.
+     *
+     * @return void
+     */
+    public function skipIfSqlite()
+    {
+        $this->skipIf(
+            $this->connection->driver() instanceof \Cake\Database\Driver\Sqlite,
+            'SQLite does not support the requrirements of this test.'
+        );
+    }
+
+    /**
      * Tests that HasMany associations are correctly eager loaded and results
      * correctly nested when multiple foreignKeys are used
      *
@@ -670,18 +683,5 @@ class CompositeKeyTest extends TestCase
             ]
         ];
         $this->assertEquals($expected, $formatter($items)->toArray());
-    }
-
-    /**
-     * Helper method to skip tests when connection is SQLite.
-     *
-     * @return void
-     */
-    public function skipIfSqlite()
-    {
-        $this->skipIf(
-            $this->connection->driver() instanceof \Cake\Database\Driver\Sqlite,
-            'SQLite does not support the requrirements of this test.'
-        );
     }
 }

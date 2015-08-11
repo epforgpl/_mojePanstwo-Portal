@@ -15,12 +15,13 @@
 namespace Cake\Test\TestCase\Collection;
 
 use ArrayIterator;
-us  ArrayObject;
 use Cake\Collection\Collection;
 use Cake\Collection\CollectionInterface;
 use Cake\Collection\CollectionTrait;
 use Cake\TestSuite\TestCase;
 use NoRewindIterator;
+
+us  ArrayObject;
 
 class TestCollection extends \IteratorIterator implements CollectionInterface
 {

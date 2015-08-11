@@ -17,9 +17,9 @@
 namespace Cake\Test\TestCase\Console;
 
 use Cake\Console\ConsoleOptionParser;
-us  Cake\Console\HelpFormatter;
 use Cake\TestSuite\TestCase;
-use \DOMDocument as DomDocument;
+
+us  Cake\Console\HelpFormatter;
 
 /**
  * Class HelpFormatterTest

@@ -14,6 +14,7 @@
 namespace Cake\Test\TestCase\Datasource;
 
 use Cake\Datasource\ModelAwareTrait;
+
 us  Cake\TestSuite\TestCase;
 
 /**

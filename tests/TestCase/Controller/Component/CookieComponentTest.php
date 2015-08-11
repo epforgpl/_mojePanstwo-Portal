@@ -15,8 +15,6 @@
 namespace Cake\Test\TestCase\Controller\Component;
 
 use Cake\Controller\ComponentRegistry;
-
-us  Cake\Controller\Component\CookieComponent;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\I18n\Time;
@@ -24,6 +22,8 @@ use Cake\Network\Request;
 use Cake\Network\Response;
 use Cake\TestSuite\TestCase;
 use Cake\Utility\Security;
+
+us  Cake\Controller\Component\CookieComponent;
 
 /**
  * CookieComponentTest class
@@ -105,24 +105,6 @@ class CookieComponentTest extends TestCase
     }
 
     /**
-     * sets up some default cookie data.
-     *
-     * @return void
-     */
-    protected function _setCookieData()
-    {
-        $this->Cookie->write(['Encrytped_array' => ['name' => 'CakePHP', 'version' => '1.2.0.x', 'tag' => 'CakePHP Rocks!']]);
-        $this->Cookie->write(['Encrypted_multi_cookies.name' => 'CakePHP']);
-        $this->Cookie->write(['Encrypted_multi_cookies.version' => '1.2.0.x']);
-        $this->Cookie->write(['Encrypted_multi_cookies.tag' => 'CakePHP Rocks!']);
-
-        $this->Cookie->write(['Plain_array' => ['name' => 'CakePHP', 'version' => '1.2.0.x', 'tag' => 'CakePHP Rocks!']], null, false);
-        $this->Cookie->write(['Plain_multi_cookies.name' => 'CakePHP'], null, false);
-        $this->Cookie->write(['Plain_multi_cookies.version' => '1.2.0.x'], null, false);
-        $this->Cookie->write(['Plain_multi_cookies.tag' => 'CakePHP Rocks!'], null, false);
-    }
-
-    /**
      * test that initialize sets settings from components array
      *
      * @return void
@@ -155,6 +137,31 @@ class CookieComponentTest extends TestCase
     }
 
     /**
+     * encrypt method
+     *
+     * @param array|string $value
+     * @return string
+     */
+    protected function _encrypt($value)
+    {
+        if (is_array($value)) {
+            $value = $this->_implode($value);
+        }
+        return "Q2FrZQ==." . base64_encode(Security::encrypt($value, $this->Cookie->config('key')));
+    }
+
+    /**
+     * Implode method to keep keys are multidimensional arrays
+     *
+     * @param array $array Map of key and values
+     * @return string String in the form key1|value1,key2|value2
+     */
+    protected function _implode(array $array)
+    {
+        return json_encode($array);
+    }
+
+    /**
      * testReadEncryptedCookieData
      *
      * @return void
@@ -169,6 +176,24 @@ class CookieComponentTest extends TestCase
         $data = $this->Cookie->read('Encrypted_multi_cookies');
         $expected = ['name' => 'CakePHP', 'version' => '1.2.0.x', 'tag' => 'CakePHP Rocks!'];
         $this->assertEquals($expected, $data);
+    }
+
+    /**
+     * sets up some default cookie data.
+     *
+     * @return void
+     */
+    protected function _setCookieData()
+    {
+        $this->Cookie->write(['Encrytped_array' => ['name' => 'CakePHP', 'version' => '1.2.0.x', 'tag' => 'CakePHP Rocks!']]);
+        $this->Cookie->write(['Encrypted_multi_cookies.name' => 'CakePHP']);
+        $this->Cookie->write(['Encrypted_multi_cookies.version' => '1.2.0.x']);
+        $this->Cookie->write(['Encrypted_multi_cookies.tag' => 'CakePHP Rocks!']);
+
+        $this->Cookie->write(['Plain_array' => ['name' => 'CakePHP', 'version' => '1.2.0.x', 'tag' => 'CakePHP Rocks!']], null, false);
+        $this->Cookie->write(['Plain_multi_cookies.name' => 'CakePHP'], null, false);
+        $this->Cookie->write(['Plain_multi_cookies.version' => '1.2.0.x'], null, false);
+        $this->Cookie->write(['Plain_multi_cookies.tag' => 'CakePHP Rocks!'], null, false);
     }
 
     /**
@@ -606,6 +631,21 @@ class CookieComponentTest extends TestCase
     }
 
     /**
+     * Helper method for generating old style encoded cookie values.
+     *
+     * @param array $array
+     * @return string
+     */
+    protected function _oldImplode(array $array)
+    {
+        $string = '';
+        foreach ($array as $key => $value) {
+            $string .= ',' . $key . '|' . $value;
+        }
+        return substr($string, 1);
+    }
+
+    /**
      * Test reading empty values.
      *
      * @return void
@@ -708,45 +748,5 @@ class CookieComponentTest extends TestCase
     {
         $this->assertNull($this->Cookie->delete('NotFound'));
         $this->assertNull($this->Cookie->delete('Not.Found'));
-    }
-
-    /**
-     * Helper method for generating old style encoded cookie values.
-     *
-     * @param array $array
-     * @return string
-     */
-    protected function _oldImplode(array $array)
-    {
-        $string = '';
-        foreach ($array as $key => $value) {
-            $string .= ',' . $key . '|' . $value;
-        }
-        return substr($string, 1);
-    }
-
-    /**
-     * Implode method to keep keys are multidimensional arrays
-     *
-     * @param array $array Map of key and values
-     * @return string String in the form key1|value1,key2|value2
-     */
-    protected function _implode(array $array)
-    {
-        return json_encode($array);
-    }
-
-    /**
-     * encrypt method
-     *
-     * @param array|string $value
-     * @return string
-     */
-    protected function _encrypt($value)
-    {
-        if (is_array($value)) {
-            $value = $this->_implode($value);
-        }
-        return "Q2FrZQ==." . base64_encode(Security::encrypt($value, $this->Cookie->config('key')));
     }
 }

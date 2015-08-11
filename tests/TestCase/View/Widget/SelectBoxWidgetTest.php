@@ -15,10 +15,10 @@
 namespace Cake\Test\TestCase\View\Widget;
 
 use Cake\Collection\Collection;
-
-us  Cake\TestSuite\TestCase;
 use Cake\View\StringTemplate;
 use Cake\View\Widget\SelectBoxWidget;
+
+us  Cake\TestSuite\TestCase;
 
 /**
  * SelectBox test case

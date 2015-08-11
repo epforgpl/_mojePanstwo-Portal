@@ -15,8 +15,6 @@
 namespace Cake\Test\TestCase\ORM\Association;
 
 use Cake\Database\Expression\IdentifierExpression;
-
-us  Cake\Database\Expression\QueryExpression;
 use Cake\Database\Expression\TupleComparison;
 use Cake\Database\TypeMap;
 use Cake\ORM\Association\HasMany;
@@ -25,6 +23,8 @@ use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Database\Expression\QueryExpression;
 
 /**
  * Tests HasMany class

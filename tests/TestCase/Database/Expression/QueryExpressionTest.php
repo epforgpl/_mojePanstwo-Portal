@@ -15,10 +15,10 @@
 namespace Cake\Test\TestCase\Database\Expression;
 
 use Cake\Database\Expression\CaseExpression;
-
-us  Cake\Database\Expression\QueryExpression;
 use Cake\Database\ValueBinder;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Database\Expression\QueryExpression;
 
 /**
  * Tests QueryExpression class

@@ -15,14 +15,14 @@
 namespace Cake\Test\TestCase\Network;
 
 use Cake\Cache\Cache;
-
-us  Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Network\Session;
 use Cake\Network\Session\CacheSession;
 use Cake\Network\Session\DatabaseSession;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Core\App;
 
 /**
  * Class TestCacheSession

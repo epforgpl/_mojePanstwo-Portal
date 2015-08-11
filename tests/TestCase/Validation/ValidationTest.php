@@ -17,11 +17,11 @@
 namespace Cake\Test\TestCase\Validation;
 
 use Cake\Core\Configure;
-
-us  Cake\Filesystem\File;
 use Cake\TestSuite\TestCase;
 use Cake\Validation\Validation;
 use Locale;
+
+us  Cake\Filesystem\File;
 
 /**
  * Test Case for Validation Class

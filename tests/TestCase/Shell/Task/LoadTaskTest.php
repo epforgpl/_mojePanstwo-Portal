@@ -14,8 +14,9 @@
 namespace Cake\Test\TestCase\Shell\Task;
 
 use Cake\Core\Plugin;
-us  Cake\Filesystem\File;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Filesystem\File;
 
 /**
  * LoadTaskTest class.

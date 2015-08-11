@@ -14,9 +14,9 @@
 namespace TestApp\Controller\Component;
 
 use Cake\Controller\Component;
+use Cake\Event\Event;
 
 us  Cake\Controller\Controller;
-use Cake\Event\Event;
 
 /**
  * OrangeComponent class

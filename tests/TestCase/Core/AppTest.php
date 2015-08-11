@@ -14,10 +14,11 @@
 namespace Cake\Test\TestCase\Core;
 
 use Cake\Core\App;
-us  Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
 use TestApp\Core\TestApp;
+
+us  Cake\Core\Configure;
 
 /**
  * AppTest class

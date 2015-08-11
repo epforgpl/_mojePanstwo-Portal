@@ -15,10 +15,10 @@
 namespace Cake\Test\TestCase\TestSuite;
 
 use Cake\Log\Log;
-
-us  Cake\TestSuite\Fixture\TestFixture;
 use Cake\TestSuite\TestCase;
 use Exception;
+
+us  Cake\TestSuite\Fixture\TestFixture;
 
 /**
  * ArticlesFixture class

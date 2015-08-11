@@ -15,9 +15,10 @@
 namespace Cake\Test\TestCase\Cache\Engine;
 
 use Cake\Cache\Cache;
-us  Cake\Cache\Engine\FileEngine;
 use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Cache\Engine\FileEngine;
 
 /**
  * FileEngineTest class
@@ -39,20 +40,6 @@ class FileEngineTest extends TestCase
     }
 
     /**
-     * tearDown method
-     *
-     * @return void
-     */
-    public function tearDown()
-    {
-        Cache::drop('file_test');
-        Cache::drop('file_groups');
-        Cache::drop('file_groups2');
-        Cache::drop('file_groups3');
-        parent::tearDown();
-    }
-
-    /**
      * Helper method for testing.
      *
      * @param array $config
@@ -66,6 +53,20 @@ class FileEngineTest extends TestCase
         ];
         Cache::drop('file_test');
         Cache::config('file_test', array_merge($defaults, $config));
+    }
+
+    /**
+     * tearDown method
+     *
+     * @return void
+     */
+    public function tearDown()
+    {
+        Cache::drop('file_test');
+        Cache::drop('file_groups');
+        Cache::drop('file_groups2');
+        Cache::drop('file_groups3');
+        parent::tearDown();
     }
 
     /**

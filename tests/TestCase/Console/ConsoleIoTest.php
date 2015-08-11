@@ -15,9 +15,9 @@
 namespace Cake\Test\TestCase\Console;
 
 use Cake\Console\ConsoleIo;
+use Cake\TestSuite\TestCase;
 
 us  Cake\Log\Log;
-use Cake\TestSuite\TestCase;
 
 /**
  * ConsoleIo test.

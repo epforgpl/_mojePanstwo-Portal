@@ -15,11 +15,12 @@
 namespace Cake\Test\TestCase\Error;
 
 use Cake\Controller\Controller;
-us  Cake\Core\Configure;
 use Cake\Error\Debugger;
 use Cake\Log\Log;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
+
+us  Cake\Core\Configure;
 
 /**
  * DebuggerTestCaseDebugger class

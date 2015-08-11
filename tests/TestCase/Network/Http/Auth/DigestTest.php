@@ -14,9 +14,10 @@
 namespace Cake\Test\TestCase\Network\Http\Auth;
 
 use Cake\Network\Http\Auth\Digest;
-us  Cake\Network\Http\Request;
 use Cake\Network\Http\Response;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Network\Http\Request;
 
 /**
  * Digest authentication test

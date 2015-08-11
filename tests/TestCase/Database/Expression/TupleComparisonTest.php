@@ -15,10 +15,10 @@
 namespace Cake\Test\TestCase\Database\Expression;
 
 use Cake\Database\Expression\QueryExpression;
-
-us  Cake\Database\Expression\TupleComparison;
 use Cake\Database\ValueBinder;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Database\Expression\TupleComparison;
 
 /**
  * Tests TupleComparison class

@@ -15,10 +15,11 @@
 namespace Cake\Test\TestCase\ORM;
 
 use Cake\Core\Plugin;
-us  Cake\ORM\Association;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
+
+us  Cake\ORM\Association;
 
 /**
  * A Test double used to assert that default tables are created

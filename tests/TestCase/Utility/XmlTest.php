@@ -15,11 +15,12 @@
 namespace Cake\Test\TestCase\Utility;
 
 use Cake\Collection\Collection;
-us  Cake\Core\Configure;
 use Cake\ORM\Entity;
 use Cake\TestSuite\TestCase;
 use Cake\Utility\Exception\XmlException;
 use Cake\Utility\Xml;
+
+us  Cake\Core\Configure;
 
 /**
  * XmlTest class
@@ -42,6 +43,78 @@ class XmlTest extends TestCase
     public $fixtures = [
         'core.articles', 'core.users'
     ];
+
+    /**
+     * data provider function for testBuildInvalidData
+     *
+     * @return array
+     */
+    public static function invalidDataProvider()
+    {
+        return [
+            [null],
+            [false],
+            [''],
+            ['http://localhost/notthere.xml'],
+        ];
+    }
+
+    /**
+     * data provider for fromArray() failures
+     *
+     * @return array
+     */
+    public static function invalidArrayDataProvider()
+    {
+        return [
+            [''],
+            [null],
+            [false],
+            [[]],
+            [['numeric key as root']],
+            [['item1' => '', 'item2' => '']],
+            [['items' => ['item1', 'item2']]],
+            [[
+                'tags' => [
+                    'tag' => [
+                        [
+                            [
+                                'string'
+                            ]
+                        ]
+                    ]
+                ]
+            ]],
+            [[
+                'tags' => [
+                    '@tag' => [
+                        [
+                            '@id' => '1',
+                            'name' => 'defect'
+                        ],
+                        [
+                            '@id' => '2',
+                            'name' => 'enhancement'
+                        ]
+                    ]
+                ]
+            ]],
+            [new \DateTime()]
+        ];
+    }
+
+    /**
+     * data provider for toArray() failures
+     *
+     * @return array
+     */
+    public static function invalidToArrayDataProvider()
+    {
+        return [
+            [new \DateTime()],
+            [[]]
+        ];
+    }
 
     /**
      * setUp method
@@ -166,21 +239,6 @@ class XmlTest extends TestCase
         $output = $obj->saveXML();
         $this->assertContains('<username>mark</username>', $output);
         $this->assertContains('<email>mark@example.com</email>', $output);
-    }
-
-    /**
-     * data provider function for testBuildInvalidData
-     *
-     * @return array
-     */
-    public static function invalidDataProvider()
-    {
-        return [
-            [null],
-            [false],
-            [''],
-            ['http://localhost/notthere.xml'],
-        ];
     }
 
     /**
@@ -512,50 +570,6 @@ XML;
 XML;
                 $xmlResponse = Xml::fromArray($xml, ['pretty' => true, 'format' => 'attributes']);
                 $this->assertTextEquals($expected, $xmlResponse->asXML());
-    }
-
-    /**
-     * data provider for fromArray() failures
-     *
-     * @return array
-     */
-    public static function invalidArrayDataProvider()
-    {
-        return [
-            [''],
-            [null],
-            [false],
-            [[]],
-            [['numeric key as root']],
-            [['item1' => '', 'item2' => '']],
-            [['items' => ['item1', 'item2']]],
-            [[
-                'tags' => [
-                    'tag' => [
-                        [
-                            [
-                                'string'
-                            ]
-                        ]
-                    ]
-                ]
-            ]],
-            [[
-                'tags' => [
-                    '@tag' => [
-                        [
-                            '@id' => '1',
-                            'name' => 'defect'
-                        ],
-                        [
-                            '@id' => '2',
-                            'name' => 'enhancement'
-                        ]
-                    ]
-                ]
-            ]],
-            [new \DateTime()]
-        ];
     }
 
     /**
@@ -1118,19 +1132,6 @@ XML;
 
         $result = Xml::build($xml);
         $this->assertEquals(' Mark ', (string)$result->name);
-    }
-
-    /**
-     * data provider for toArray() failures
-     *
-     * @return array
-     */
-    public static function invalidToArrayDataProvider()
-    {
-        return [
-            [new \DateTime()],
-            [[]]
-        ];
     }
 
     /**

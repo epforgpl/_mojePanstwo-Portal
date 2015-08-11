@@ -17,13 +17,14 @@
 namespace Cake\Test\TestCase\Network\Session;
 
 use Cake\Core\Configure;
-us  Cake\Datasource\ConnectionManager;
 use Cake\Network\Session;
 use Cake\Network\Session\DatabaseSession;
 use Cake\ORM\Entity;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Datasource\ConnectionManager;
 
 /**
  * Database session test.

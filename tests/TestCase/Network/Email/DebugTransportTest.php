@@ -17,9 +17,9 @@
 namespace Cake\Test\TestCase\Network\Email;
 
 use Cake\Network\Email\DebugTransport;
+use Cake\TestSuite\TestCase;
 
 us  Cake\Network\Email\Email;
-use Cake\TestSuite\TestCase;
 
 /**
  * Test case

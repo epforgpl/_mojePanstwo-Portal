@@ -17,10 +17,10 @@
 namespace Cake\Test\TestCase\Cache\Engine;
 
 use Cake\Cache\Cache;
-
-us  Cake\Cache\Engine\RedisEngine;
 use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Cache\Engine\RedisEngine;
 
 /**
  * RedisEngineTest class
@@ -50,19 +50,6 @@ class RedisEngineTest extends TestCase
     }
 
     /**
-     * tearDown method
-     *
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-        Cache::drop('redis');
-        Cache::drop('redis_groups');
-        Cache::drop('redis_helper');
-    }
-
-    /**
      * Helper method for testing.
      *
      * @param array $config
@@ -77,6 +64,19 @@ class RedisEngineTest extends TestCase
         ];
         Cache::drop('redis');
         Cache::config('redis', array_merge($defaults, $config));
+    }
+
+    /**
+     * tearDown method
+     *
+     * @return void
+     */
+    public function tearDown()
+    {
+        parent::tearDown();
+        Cache::drop('redis');
+        Cache::drop('redis_groups');
+        Cache::drop('redis_helper');
     }
 
     /**

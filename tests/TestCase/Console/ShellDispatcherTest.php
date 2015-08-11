@@ -15,11 +15,11 @@
 namespace Cake\Test\TestCase\Console;
 
 use Cake\Console\ShellDispatcher;
-
-us  Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Core\App;
 
 /**
  * ShellDispatcherTest

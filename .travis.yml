@@ -42,6 +42,7 @@ matrix:
     - php: hhvm
 
 before_script:
+  - cd app
   - composer self-update
   - composer install --prefer-dist --no-interaction
 

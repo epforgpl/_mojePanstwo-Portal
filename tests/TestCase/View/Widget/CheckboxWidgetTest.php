@@ -25,6 +25,37 @@ class CheckboxWidgetTest extends TestCase
 {
 
     /**
+     * Data provider for checkbox values
+     *
+     * @return array
+     */
+    public static function checkedProvider()
+    {
+        return [
+            ['checked'],
+            ['1'],
+            [1],
+            [true],
+        ];
+    }
+
+    /**
+     * Data provider for checkbox values
+     *
+     * @return array
+     */
+    public static function uncheckedProvider()
+    {
+        return [
+            [''],
+            ['0'],
+            [0],
+            [false],
+            [null],
+        ];
+    }
+
+    /**
      * setup method.
      *
      * @return void
@@ -152,21 +183,6 @@ class CheckboxWidgetTest extends TestCase
     }
 
     /**
-     * Data provider for checkbox values
-     *
-     * @return array
-     */
-    public static function checkedProvider()
-    {
-        return [
-            ['checked'],
-            ['1'],
-            [1],
-            [true],
-        ];
-    }
-
-    /**
      * Test rendering checked checkboxes with value.
      *
      * @dataProvider checkedProvider
@@ -190,22 +206,6 @@ class CheckboxWidgetTest extends TestCase
             ]
         ];
         $this->assertHtml($expected, $result);
-    }
-
-    /**
-     * Data provider for checkbox values
-     *
-     * @return array
-     */
-    public static function uncheckedProvider()
-    {
-        return [
-            [''],
-            ['0'],
-            [0],
-            [false],
-            [null],
-        ];
     }
 
     /**

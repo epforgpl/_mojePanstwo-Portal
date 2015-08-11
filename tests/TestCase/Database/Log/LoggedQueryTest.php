@@ -15,6 +15,7 @@
 namespace Cake\Test\TestCase\Database\Log;
 
 use Cake\Database\Log\LoggedQuery;
+
 us  Cake\TestSuite\TestCase;
 
 /**

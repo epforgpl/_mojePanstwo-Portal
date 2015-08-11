@@ -14,9 +14,9 @@
 namespace Cake\Test\TestCase\Network\Http;
 
 use Cake\Network\Http\FormData;
+use Cake\TestSuite\TestCase;
 
 us  Cake\Network\Http\FormData\Part;
-use Cake\TestSuite\TestCase;
 
 /**
  * Test case for FormData.

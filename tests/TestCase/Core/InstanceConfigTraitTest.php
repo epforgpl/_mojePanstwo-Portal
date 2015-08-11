@@ -15,8 +15,9 @@
 namespace Cake\Test\TestCase\Core;
 
 use Cake\Core\InstanceConfigTrait;
-us  Cake\TestSuite\TestCase;
 use Exception;
+
+us  Cake\TestSuite\TestCase;
 
 /**
  * TestInstanceConfig

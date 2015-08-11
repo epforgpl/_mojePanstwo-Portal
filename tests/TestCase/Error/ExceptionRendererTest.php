@@ -15,7 +15,6 @@
 namespace Cake\Test\TestCase\Error;
 
 use Cake\Controller\Component;
-us  Cake\Controller\Controller;
 use Cake\Controller\Exception\MissingActionException;
 use Cake\Controller\Exception\MissingComponentException;
 use Cake\Core\Configure;
@@ -41,6 +40,8 @@ use Cake\View\Exception\MissingLayoutException;
 use Cake\View\Exception\MissingTemplateException;
 use Exception;
 use RuntimeException;
+
+us  Cake\Controller\Controller;
 
 /**
  * BlueberryComponent class
@@ -158,6 +159,108 @@ class ExceptionRendererTest extends TestCase
     protected $_restoreError = false;
 
     /**
+     * Returns an array of tests to run for the various Cake Exception classes.
+     *
+     * @return array
+     */
+    public static function exceptionProvider()
+    {
+        return [
+            [
+                new MissingActionException([
+                    'controller' => 'PostsController',
+                    'action' => 'index',
+                    'prefix' => '',
+                    'plugin' => '',
+                ]),
+                [
+                    '/Missing Method in PostsController/',
+                    '/<em>PostsController::index\(\)<\/em>/'
+                ],
+                404
+            ],
+            [
+                new MissingTemplateException(['file' => '/posts/about.ctp']),
+                [
+                    "/posts\/about.ctp/"
+                ],
+                500
+            ],
+            [
+                new MissingLayoutException(['file' => 'layouts/my_layout.ctp']),
+                [
+                    "/Missing Layout/",
+                    "/layouts\/my_layout.ctp/"
+                ],
+                500
+            ],
+            [
+                new MissingHelperException(['class' => 'MyCustomHelper']),
+                [
+                    '/Missing Helper/',
+                    '/<em>MyCustomHelper<\/em> could not be found./',
+                    '/Create the class <em>MyCustomHelper<\/em> below in file:/',
+                    '/(\/|\\\)MyCustomHelper.php/'
+                ],
+                500
+            ],
+            [
+                new MissingBehaviorException(['class' => 'MyCustomBehavior']),
+                [
+                    '/Missing Behavior/',
+                    '/Create the class <em>MyCustomBehavior<\/em> below in file:/',
+                    '/(\/|\\\)MyCustomBehavior.php/'
+                ],
+                500
+            ],
+            [
+                new MissingComponentException(['class' => 'SideboxComponent']),
+                [
+                    '/Missing Component/',
+                    '/Create the class <em>SideboxComponent<\/em> below in file:/',
+                    '/(\/|\\\)SideboxComponent.php/'
+                ],
+                500
+            ],
+            [
+                new MissingDatasourceConfigException(['name' => 'MyDatasourceConfig']),
+                [
+                    '/Missing Datasource Configuration/',
+                    '/<em>MyDatasourceConfig<\/em> was not found/'
+                ],
+                500
+            ],
+            [
+                new MissingDatasourceException(['class' => 'MyDatasource', 'plugin' => 'MyPlugin']),
+                [
+                    '/Missing Datasource/',
+                    '/<em>MyPlugin.MyDatasource<\/em> could not be found./'
+                ],
+                500
+            ],
+            [
+                new Exception('boom'),
+                [
+                    '/Internal Error/'
+                ],
+                500
+            ],
+            [
+                new RuntimeException('another boom'),
+                [
+                    '/Internal Error/'
+                ],
+                500
+            ],
+            [
+                new CakeException('base class'),
+                ['/Internal Error/'],
+                500
+            ]
+        ];
+    }
+
+    /**
      * setup create a request object to get out of router later.
      *
      * @return void
@@ -188,17 +291,6 @@ class ExceptionRendererTest extends TestCase
     }
 
     /**
-     * Mocks out the response on the ExceptionRenderer object so headers aren't modified.
-     *
-     * @return void
-     */
-    protected function _mockResponse($error)
-    {
-        $error->controller->response = $this->getMock('Cake\Network\Response', ['_sendHeader']);
-        return $error;
-    }
-
-    /**
      * test that methods declared in an ExceptionRenderer subclass are not converted
      * into error400 when debug > 0
      *
@@ -212,6 +304,17 @@ class ExceptionRendererTest extends TestCase
         $result = $ExceptionRenderer->render();
 
         $this->assertEquals('widget thing is missing', $result->body());
+    }
+
+    /**
+     * Mocks out the response on the ExceptionRenderer object so headers aren't modified.
+     *
+     * @return void
+     */
+    protected function _mockResponse($error)
+    {
+        $error->controller->response = $this->getMock('Cake\Network\Response', ['_sendHeader']);
+        return $error;
     }
 
     /**
@@ -501,108 +604,6 @@ class ExceptionRendererTest extends TestCase
         $this->assertEquals('missingController', $ExceptionRenderer->template);
         $this->assertContains('Missing Controller', $result);
         $this->assertContains('<em>PostsController</em>', $result);
-    }
-
-    /**
-     * Returns an array of tests to run for the various Cake Exception classes.
-     *
-     * @return array
-     */
-    public static function exceptionProvider()
-    {
-        return [
-            [
-                new MissingActionException([
-                    'controller' => 'PostsController',
-                    'action' => 'index',
-                    'prefix' => '',
-                    'plugin' => '',
-                ]),
-                [
-                    '/Missing Method in PostsController/',
-                    '/<em>PostsController::index\(\)<\/em>/'
-                ],
-                404
-            ],
-            [
-                new MissingTemplateException(['file' => '/posts/about.ctp']),
-                [
-                    "/posts\/about.ctp/"
-                ],
-                500
-            ],
-            [
-                new MissingLayoutException(['file' => 'layouts/my_layout.ctp']),
-                [
-                    "/Missing Layout/",
-                    "/layouts\/my_layout.ctp/"
-                ],
-                500
-            ],
-            [
-                new MissingHelperException(['class' => 'MyCustomHelper']),
-                [
-                    '/Missing Helper/',
-                    '/<em>MyCustomHelper<\/em> could not be found./',
-                    '/Create the class <em>MyCustomHelper<\/em> below in file:/',
-                    '/(\/|\\\)MyCustomHelper.php/'
-                ],
-                500
-            ],
-            [
-                new MissingBehaviorException(['class' => 'MyCustomBehavior']),
-                [
-                    '/Missing Behavior/',
-                    '/Create the class <em>MyCustomBehavior<\/em> below in file:/',
-                    '/(\/|\\\)MyCustomBehavior.php/'
-                ],
-                500
-            ],
-            [
-                new MissingComponentException(['class' => 'SideboxComponent']),
-                [
-                    '/Missing Component/',
-                    '/Create the class <em>SideboxComponent<\/em> below in file:/',
-                    '/(\/|\\\)SideboxComponent.php/'
-                ],
-                500
-            ],
-            [
-                new MissingDatasourceConfigException(['name' => 'MyDatasourceConfig']),
-                [
-                    '/Missing Datasource Configuration/',
-                    '/<em>MyDatasourceConfig<\/em> was not found/'
-                ],
-                500
-            ],
-            [
-                new MissingDatasourceException(['class' => 'MyDatasource', 'plugin' => 'MyPlugin']),
-                [
-                    '/Missing Datasource/',
-                    '/<em>MyPlugin.MyDatasource<\/em> could not be found./'
-                ],
-                500
-            ],
-            [
-                new Exception('boom'),
-                [
-                    '/Internal Error/'
-                ],
-                500
-            ],
-            [
-                new RuntimeException('another boom'),
-                [
-                    '/Internal Error/'
-                ],
-                500
-            ],
-            [
-                new CakeException('base class'),
-                ['/Internal Error/'],
-                500
-            ]
-        ];
     }
 
     /**

@@ -15,10 +15,11 @@
 namespace Cake\Test\TestCase\View\Widget;
 
 use Cake\Core\Plugin;
-us  Cake\TestSuite\TestCase;
 use Cake\View\StringTemplate;
 use Cake\View\View;
 use Cake\View\Widget\WidgetRegistry;
+
+us  Cake\TestSuite\TestCase;
 
 /**
  * WidgetRegistry test case

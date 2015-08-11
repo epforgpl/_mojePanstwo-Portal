@@ -25,39 +25,6 @@ class ClientTest extends TestCase
 {
 
     /**
-     * Test storing config options and modifying them.
-     *
-     * @return void
-     */
-    public function testConstructConfig()
-    {
-        $config = [
-            'scheme' => 'http',
-            'host' => 'example.org',
-        ];
-        $http = new Client($config);
-        $result = $http->config();
-        foreach ($config as $key => $val) {
-            $this->assertEquals($val, $result[$key]);
-        }
-
-        $result = $http->config([
-            'auth' => ['username' => 'mark', 'password' => 'secret']
-        ]);
-        $this->assertSame($result, $http);
-
-        $result = $http->config();
-        $expected = [
-            'scheme' => 'http',
-            'host' => 'example.org',
-            'auth' => ['username' => 'mark', 'password' => 'secret']
-        ];
-        foreach ($config as $key => $val) {
-            $this->assertEquals($val, $result[$key]);
-        }
-    }
-
-    /**
      * Data provider for buildUrl() tests
      *
      * @return array
@@ -136,6 +103,72 @@ class ClientTest extends TestCase
                 'query string data with some already on the url.'
             ],
         ];
+    }
+
+    /**
+     * Return a list of HTTP methods.
+     *
+     * @return array
+     */
+    public static function methodProvider()
+    {
+        return [
+            [Request::METHOD_GET],
+            [Request::METHOD_POST],
+            [Request::METHOD_PUT],
+            [Request::METHOD_DELETE],
+            [Request::METHOD_PATCH],
+            [Request::METHOD_OPTIONS],
+            [Request::METHOD_TRACE],
+        ];
+    }
+
+    /**
+     * Provider for testing the type option.
+     *
+     * @return array
+     */
+    public static function typeProvider()
+    {
+        return [
+            ['application/json', 'application/json'],
+            ['json', 'application/json'],
+            ['xml', 'application/xml'],
+            ['application/xml', 'application/xml'],
+        ];
+    }
+
+    /**
+     * Test storing config options and modifying them.
+     *
+     * @return void
+     */
+    public function testConstructConfig()
+    {
+        $config = [
+            'scheme' => 'http',
+            'host' => 'example.org',
+        ];
+        $http = new Client($config);
+        $result = $http->config();
+        foreach ($config as $key => $val) {
+            $this->assertEquals($val, $result[$key]);
+        }
+
+        $result = $http->config([
+            'auth' => ['username' => 'mark', 'password' => 'secret']
+        ]);
+        $this->assertSame($result, $http);
+
+        $result = $http->config();
+        $expected = [
+            'scheme' => 'http',
+            'host' => 'example.org',
+            'auth' => ['username' => 'mark', 'password' => 'secret']
+        ];
+        foreach ($config as $key => $val) {
+            $this->assertEquals($val, $result[$key]);
+        }
     }
 
     /**
@@ -337,24 +370,6 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Return a list of HTTP methods.
-     *
-     * @return array
-     */
-    public static function methodProvider()
-    {
-        return [
-            [Request::METHOD_GET],
-            [Request::METHOD_POST],
-            [Request::METHOD_PUT],
-            [Request::METHOD_DELETE],
-            [Request::METHOD_PATCH],
-            [Request::METHOD_OPTIONS],
-            [Request::METHOD_TRACE],
-        ];
-    }
-
-    /**
      * test simple POST request.
      *
      * @dataProvider methodProvider
@@ -380,21 +395,6 @@ class ClientTest extends TestCase
         ]);
         $result = $http->{$method}('/projects/add');
         $this->assertSame($result, $response);
-    }
-
-    /**
-     * Provider for testing the type option.
-     *
-     * @return array
-     */
-    public static function typeProvider()
-    {
-        return [
-            ['application/json', 'application/json'],
-            ['json', 'application/json'],
-            ['xml', 'application/xml'],
-            ['application/xml', 'application/xml'],
-        ];
     }
 
     /**

@@ -15,6 +15,7 @@
 namespace TestApp\View\Helper;
 
 use Cake\Event\Event;
+
 us  Cake\View\Helper;
 
 class EventListenerTestHelper extends Helper

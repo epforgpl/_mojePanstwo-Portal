@@ -15,13 +15,13 @@
 namespace Cake\Test\TestCase\Database\Driver;
 
 use Cake\Core\Configure;
-
-us  Cake\Database\Connection;
 use Cake\Database\Driver\Postgres;
 use Cake\Database\Query;
 use Cake\Datasource\ConnectionManager;
 use Cake\TestSuite\TestCase;
-use \PDO;
+use PDO;
+
+us  Cake\Database\Connection;
 
 /**
  * Tests Postgres driver

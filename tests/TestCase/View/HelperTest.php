@@ -17,17 +17,23 @@
 namespace Cake\Test\TestCase\View;
 
 use Cake\Core\Configure;
-
-us  Cake\Core\Plugin;
 use Cake\Network\Request;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Cake\View\Helper;
 use Cake\View\View;
 
+us  Cake\Core\Plugin;
+
 class TestHelper extends Helper
 {
 
+    /**
+     * Helpers for this helper.
+     *
+     * @var array
+     */
+    public $helpers = ['Html', 'TestPlugin.OtherHelper'];
     /**
      * Settings for this helper.
      *
@@ -37,13 +43,6 @@ class TestHelper extends Helper
         'key1' => 'val1',
         'key2' => ['key2.1' => 'val2.1', 'key2.2' => 'val2.2']
     ];
-
-    /**
-     * Helpers for this helper.
-     *
-     * @var array
-     */
-    public $helpers = ['Html', 'TestPlugin.OtherHelper'];
 
     /**
      * expose a method as public

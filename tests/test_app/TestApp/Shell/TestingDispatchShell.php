@@ -26,16 +26,6 @@ us  Cake\Core\Configure;
 class TestingDispatchShell extends Shell
 {
 
-    protected function _welcome()
-    {
-        $this->out('<info>Welcome to CakePHP Console</info>');
-    }
-
-    public function out($message = null, $newlines = 1, $level = Shell::NORMAL)
-    {
-        echo $message . "\n";
-    }
-
     public function testTask()
     {
         $this->out('I am a test task, I dispatch another Shell');
@@ -46,5 +36,15 @@ class TestingDispatchShell extends Shell
     public function dispatchTestTask()
     {
         $this->out('I am a dispatched Shell');
+    }
+
+    protected function _welcome()
+    {
+        $this->out('<info>Welcome to CakePHP Console</info>');
+    }
+
+    public function out($message = null, $newlines = 1, $level = Shell::NORMAL)
+    {
+        echo $message . "\n";
     }
 }

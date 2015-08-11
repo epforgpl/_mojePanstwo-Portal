@@ -15,14 +15,14 @@
 namespace Cake\Test\TestCase\View\Helper;
 
 use Cake\Controller\Controller;
-
-us  Cake\Core\App;
 use Cake\Core\Plugin;
 use Cake\Network\Request;
 use Cake\Network\Session;
 use Cake\TestSuite\TestCase;
 use Cake\View\Helper\FlashHelper;
 use Cake\View\View;
+
+us  Cake\Core\App;
 
 /**
  * FlashHelperTest class

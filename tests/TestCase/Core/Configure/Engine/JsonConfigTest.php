@@ -15,9 +15,10 @@
 namespace Cake\Test\TestCase\Core\Configure\Engine;
 
 use Cake\Core\App;
-us  Cake\Core\Configure\Engine\JsonConfig;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
+
+us  Cake\Core\Configure\Engine\JsonConfig;
 
 /**
  * Class JsonConfigTest

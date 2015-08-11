@@ -15,9 +15,9 @@
 namespace Cake\Test\TestCase\Datasource;
 
 use Cake\Cache\Cache;
+use Cake\TestSuite\TestCase;
 
 us  Cake\Datasource\QueryCacher;
-use Cake\TestSuite\TestCase;
 
 /**
  * Query cacher test
@@ -70,6 +70,17 @@ class QueryCacherTest extends TestCase
 
         $result = $cacher->fetch($query);
         $this->assertEquals('A winner', $result);
+    }
+
+    /**
+     * Helper for building mocks.
+     */
+    protected function _mockRead($key, $value = false)
+    {
+        $this->engine->expects($this->any())
+            ->method('read')
+            ->with($key)
+            ->will($this->returnValue($value));
     }
 
     /**
@@ -131,16 +142,5 @@ class QueryCacherTest extends TestCase
         $query = $this->getMock('stdClass');
         $result = $cacher->fetch($query);
         $this->assertNull($result, 'Cache miss should not have an isset() return.');
-    }
-
-    /**
-     * Helper for building mocks.
-     */
-    protected function _mockRead($key, $value = false)
-    {
-        $this->engine->expects($this->any())
-            ->method('read')
-            ->with($key)
-            ->will($this->returnValue($value));
     }
 }

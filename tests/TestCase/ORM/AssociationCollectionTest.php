@@ -14,11 +14,12 @@
  */
 namespace Cake\Test\TestCase\ORM;
 
-use Cake\ORM\AssociationCollection;
-us  Cake\ORM\Association\BelongsTo;
 use Cake\ORM\Association\BelongsToMany;
+use Cake\ORM\AssociationCollection;
 use Cake\ORM\Entity;
 use Cake\TestSuite\TestCase;
+
+us  Cake\ORM\Association\BelongsTo;
 
 /**
  * AssociationCollection test case.

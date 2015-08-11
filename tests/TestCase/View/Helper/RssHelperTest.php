@@ -17,11 +17,12 @@
 namespace Cake\Test\TestCase\View\Helper;
 
 use Cake\Filesystem\File;
-us  Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase;
 use Cake\View\Helper\RssHelper;
 use Cake\View\Helper\TimeHelper;
 use Cake\View\View;
+
+us  Cake\Filesystem\Folder;
 
 /**
  * RssHelperTest class
