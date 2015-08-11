@@ -17,7 +17,9 @@
 	            <? foreach ($aggs['umowy']['hits']['hits'] as $doc) {?>
 	                <li>
 	                    <?
-	                      echo $this->Dataobject->render($doc, 'default');
+	                      echo $this->Dataobject->render($doc, 'default', array(
+		                      'truncate' => 10000,
+	                      ));
 	                    ?>
 	                </li>
 	            <? } ?>

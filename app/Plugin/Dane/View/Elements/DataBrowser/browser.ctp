@@ -83,15 +83,14 @@ $columns = isset($columns) ? $columns : array(8, 4);
                                 ?>
                                 <ul class="list-group list-dataobjects">
                                     <?
+                                    
+                                    $params = array();
+                                    if( isset($truncate) )
+                                    	$params['truncate'] = $truncate;
+                                    
                                     foreach ($dataBrowser['hits'] as $object) {
 
-                                        echo $this->Dataobject->render($object, $dataBrowser['renderFile'], array(
-                                            // 'hlFields' => $dataBrowser->hlFields,
-                                            // 'hlFieldsPush' => $dataBrowser->hlFieldsPush,
-                                            // 'routes' => $dataBrowser->routes,
-                                            // 'forceLabel' => in_array($page['mode'], array('*', 'datachannel')),
-                                            // 'defaults' => $defaults,
-                                        ));
+                                        echo $this->Dataobject->render($object, $dataBrowser['renderFile'], $params);
                                     }
                                     ?>
                                 </ul>
