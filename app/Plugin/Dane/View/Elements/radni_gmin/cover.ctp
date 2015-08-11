@@ -12,8 +12,6 @@ $options = array(
 
     <div class="databrowser-panels">
 
-        <? pr($radny->getData()); ?>
-		
 		<? if (@$dataBrowser['aggs']['all']['glosowania']['top']['hits']['hits']) { ?>
             <div class="databrowser-panel">
                 <h2>Wyniki głosowań:</h2>
