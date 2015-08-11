@@ -156,7 +156,7 @@ echo $this->Html->script('../libs/jqueryui/i18n/jquery-ui-i18n.min.js');
 echo $this->Html->script('../libs/bootstrap/3.3.4/js/bootstrap.min.js');
 
 /* PACKAGES FROM VENDOR */
-echo $this->Html->script('../plugins/browserstate/history.js/scripts/bundled/html4+html5/jquery.history.js');
+echo $this->Html->script('../plugins/history.js/scripts/bundled/html4+html5/jquery.history.js');
 echo $this->Html->script('../plugins/js-cookie/src/js.cookie.js');
 echo $this->Html->script('../plugins/bootstrap-select/bootstrap-select.min.js');
 echo $this->Html->script('../plugins/bootstrap-switch/bootstrap-switch.js'); ?>
