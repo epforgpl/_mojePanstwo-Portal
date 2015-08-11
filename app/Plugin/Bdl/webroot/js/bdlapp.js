@@ -24,8 +24,10 @@ var BDLapp = function () {
                 link_id = href.substr(href.lastIndexOf('/') + 1).split(',')[0],
                 data = $('#tree').jstree(true).get_node('link_id=' + link_id);
 
-            self.variable.link = data.parents.reverse();
-            self.variable.link.push(data.id);
+            if (data) {
+                self.variable.link = data.parents.reverse();
+                self.variable.link.push(data.id);
+            }
         } else {
             self.variable.link = History.getState().data.item;
 
@@ -106,17 +108,19 @@ var BDLapp = function () {
             "plugins": ["themes", "json_data", "ui"]
         }).bind("select_node.jstree", function (e, item) {
             e.preventDefault();
-            if (History.pushState !== undefined) {
-                var obj = {Page: item.node.text, Url: item.node.a_attr.href, item: item.node.a_attr['data-item']};
-                History.pushState(obj, obj.Page, obj.Url, obj.item);
-            }
 
             if (item.node.a_attr.href.charAt(0) === '#') {
-                tree.jstree("open_node", item.node.id);
+                tree.jstree("toggle_node", item.node.id);
+                self.treeFocusActive();
             } else {
+                if (History.pushState !== undefined) {
+                    var obj = {Page: item.node.text, Url: item.node.a_attr.href, item: item.node.a_attr['data-item']};
+                    History.pushState(obj, obj.Page, obj.Url, obj.item);
+                }
                 self.headerUpdate(item.node.data.id, item.node.text, item.node.a_attr.href);
                 self.itemLoad(item);
             }
+
             self.treeScrollReload();
         }).bind("loaded.jstree", function () {
             var $treeBlock = $('.treeBlock');
@@ -216,13 +220,30 @@ var BDLapp = function () {
 
                 if (link !== undefined || link != '#') {
                     if (link.match("link_id=")) {
-                        $('a[id="' + link + '_anchor"]').addClass('jstree-active')
+                        $('a[id="' + link + '_anchor"]').addClass('jstree-clicked');
                     } else {
                         tree.jstree("open_node", link);
                     }
                     self.variable.jsScrollTarget = self.variable.link[self.variable.link.length - 1];
                     self.treeScrollReload();
                 }
+            }
+        }
+    };
+    this.treeFocusActive = function () {
+        var self = this,
+            activeLink = History.getState().data.item || self.variable.link || false;
+
+        if (typeof(activeLink) === "string") {
+            activeLink = activeLink.split('&');
+        }
+
+        if (activeLink) {
+            var link = activeLink[activeLink.length - 1];
+
+            if (link.match("link_id=")) {
+
+                $('a[id="' + link + '_anchor"]').addClass('jstree-clicked');
             }
         }
     };
@@ -605,13 +626,16 @@ var BDLapp = function () {
 
     this.headerUpdate = function (id, text, href) {
         var header = $('.appHeader');
-        header.attr({
-            'data-object_id': id || '',
-            'data-url': href || '#'
-        }).find('a.trimTitle').attr({
-            'title': text,
-            'href': href || '#'
-        }).find('span[itemprop="name"]').get(0).lastChild.nodeValue = text;
+
+        if (header.length) {
+            header.attr({
+                'data-object_id': id || '',
+                'data-url': href || '#'
+            }).find('a.trimTitle').attr({
+                'title': text,
+                'href': href || '#'
+            }).find('span[itemprop="name"]').get(0).lastChild.nodeValue = text;
+        }
     };
 
     this.loading = function () {
