@@ -113,8 +113,8 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
         cookieBackgroundLimit = 4,
         mPCookie = {};
 
-    if ($.cookie('mojePanstwo') !== undefined) {
-        mPCookie = $.extend(true, mPCookie, JSON.parse($.cookie('mojePanstwo')));
+    if (Cookies.get('mojePanstwo') !== undefined) {
+        mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
     }
 
     $('#_main').css('margin-bottom', $('footer.footer').outerHeight());
@@ -144,7 +144,7 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 
     /*----- COOKIE MANAGER -----*/
     function cookieSave(mPCookie) {
-        $.cookie('mojePanstwo', JSON.stringify(mPCookie), {expires: 365});
+        Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365});
     }
 
     /*COOKIE LAW CONTROLER*/
@@ -170,28 +170,29 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
                 limit: cookieBackgroundLimit,
                 time: jsHour
             };
-        }
-
-        /*COOKIE MANAGER - BACKGROUND CHANGER*/
-        if (mPCookie.background.time !== jsHour) {
-            if (mPCookie.background.current + 1 < mPCookie.background.limit) {
-                /*CHECK IF NEW BACKGROUND EXIST - IF NOT SET DEFAULT*/
-                var http = new XMLHttpRequest();
-                http.open('HEAD', '/img/home/backgrounds/home-background-default' + mPCookie.background.current + '.jpg', false);
-                http.send();
-                if (http.status === 404) {
+            $('body.theme-wallpaper').css('background-image', 'url(' + mPCookie.background.url + ')');
+        } else {
+            /*COOKIE MANAGER - BACKGROUND CHANGER*/
+            if (mPCookie.background.time !== jsHour) {
+                if (mPCookie.background.current + 1 < mPCookie.background.limit) {
+                    /*CHECK IF NEW BACKGROUND EXIST - IF NOT SET DEFAULT*/
+                    var http = new XMLHttpRequest();
+                    http.open('HEAD', '/img/home/backgrounds/home-background-default' + mPCookie.background.current + '.jpg', false);
+                    http.send();
+                    if (http.status === 404) {
+                        mPCookie.background.current = rand;
+                        mPCookie.background.url = '/img/home/backgrounds/home-background-default' + rand + '.jpg';
+                    } else {
+                        mPCookie.background.current = mPCookie.background.current + 1;
+                        mPCookie.background.url = '/img/home/backgrounds/home-background-default' + mPCookie.background.current + '.jpg';
+                    }
+                } else {
                     mPCookie.background.current = rand;
                     mPCookie.background.url = '/img/home/backgrounds/home-background-default' + rand + '.jpg';
-                } else {
-                    mPCookie.background.current = mPCookie.background.current + 1;
-                    mPCookie.background.url = '/img/home/backgrounds/home-background-default' + mPCookie.background.current + '.jpg';
                 }
-            } else {
-                mPCookie.background.current = rand;
-                mPCookie.background.url = '/img/home/backgrounds/home-background-default' + rand + '.jpg';
+                mPCookie.background.time = jsHour;
+                mPCookie.background.limit = cookieBackgroundLimit;
             }
-            mPCookie.background.time = jsHour;
-            mPCookie.background.limit = cookieBackgroundLimit;
         }
 
         cookieSave(mPCookie);

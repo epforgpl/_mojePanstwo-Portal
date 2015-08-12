@@ -1,0 +1,30 @@
+; This file is for unifying the coding style for different editors and IDEs.
+; More information at http://editorconfig.org
+
+root = true
+
+[*]
+charset = utf-8
+indent_size = 4
+indent_style = space
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{bat,eot,ttf,woof}]
+end_of_line = crlf
+
+[**.js]
+indent_style = tab
+
+[*.md]
+trim_trailing_whitespace = false
+
+[{.travis.yml,package.json}]
+# The indent size used in the `package.json` file cannot be changed
+# https://github.com/npm/npm/pull/3180#issuecomment-16336516
+indent_size = 2
+indent_style = space
+
+[*.yml]
+indent_size = 2

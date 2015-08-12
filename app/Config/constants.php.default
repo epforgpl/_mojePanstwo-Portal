@@ -1,4 +1,10 @@
 <?
+    const URL_PROTOCOL = 'http://';
+    const URL_HOST = 'mojepanstwo.pl';
+
+    define('PORTAL_DOMAIN', 'path to local mojepanstwo address');
+    define('PK_DOMAIN', 'path to local przejrzystykrakow address');
+    define('API_url', 'link to newest API url');
 
     define('CAKE_salt', "alphanumericsalt");
     define('CAKE_cipherSeed', 'numericseednumbersonly');
@@ -13,4 +19,9 @@
     define('FACEBOOK_apiKey', 'numericsalt');
     define('FACEBOOK_secret', 'alphanumericsalt');
 
-    define('MPAPI_path', 'path to local API CLIENT');
+    define('S3_ACCESS_KEY', 'numericsalt');
+    define('S3_SECRET_KEY', 'numericsalt');
+    define('S3_ENDPOINT', 'address');
+
+    define('CROSSDOMAIN_salt', 'numericsalt');
+    define('HFHR_SECRET', 'numericsalt');

@@ -1,11 +1,11 @@
-    <div class="row bdl-details">
-        <div class="col-md-7">
-            <div id="highmap"></div>
-        </div>
-        <div class="col-md-5">
-            <div class="row">
-                <div class="content col-md-12">
-                    <? if (isset($combination['local'])) { ?>
+<div class="row bdl-details">
+    <div class="col-md-7">
+        <div id="highmap"></div>
+    </div>
+    <div class="col-md-5">
+        <div class="row">
+            <div class="content col-md-12">
+                <? if (isset($combination['local'])) { ?>
                     <div class="row">
                         <div class="col-md-8">
                             <div class="input-group localDataSearch">
@@ -61,43 +61,43 @@
                         </div>
                     </div>
 
-                        <table class="localDataTable table table-striped">
-                            <thead>
-                            <tr>
-                                <th>
+                    <table class="localDataTable table table-striped">
+                        <thead>
+                        <tr>
+                            <th>
 	                            <span class="ay-sort sortString"
                                       data-ay-sort-index="0"><?= __d('dane', 'LC_BDL_WSKAZNIKI_NAZWA') ?>
-                                </th>
-                                <th>
+                            </th>
+                            <th>
 	                        <span class="ay-sort sortNumber"
                                   data-ay-sort-index="1"><?= __d('dane', 'LC_BDL_WSKAZNIKI_WARTOSC') ?></span>
-                                    /
+                                /
 	                        <span class="ay-sort sortNumber"
                                   data-ay-sort-index="2"><?= __d('dane', 'LC_BDL_WSKAZNIKI_ROK') ?></span>
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <? foreach ($combination['local'] as $local) { ?>
-                                <tr class="wskaznikStatic" data-dim_id="<?= $combination['id'] ?>"
-                                    data-local_type="<?= $levels_selected ?>"
-                                    data-local_id="<?= $local["local_id"] ?>">
-                                    <td>
-                                        <div class="holder">
-                                            <a class="sortOption"
-                                               href="#<?= $local['local_id'] ?>"><?= $local['local_name'] ?></a>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <? foreach ($combination['local'] as $local) { ?>
+                            <tr class="wskaznikStatic" data-dim_id="<?= $combination['id'] ?>"
+                                data-local_type="<?= $levels_selected ?>"
+                                data-local_id="<?= $local["local_id"] ?>">
+                                <td>
+                                    <div class="holder">
+                                        <a class="sortOption"
+                                           href="#<?= $local['local_id'] ?>"><?= $local['local_name'] ?></a>
 
-                                            <div class="wskaznikChart">
-                                                <div class="progress progress-striped active">
-                                                    <div class="progress-bar" role="progressbar"
-                                                         aria-valuenow="45"
-                                                         aria-valuemin="0" aria-valuemax="100"
-                                                         style="width: 15%"></div>
-                                                </div>
+                                        <div class="wskaznikChart">
+                                            <div class="progress progress-striped active">
+                                                <div class="progress-bar" role="progressbar"
+                                                     aria-valuenow="45"
+                                                     aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: 15%"></div>
                                             </div>
                                         </div>
-                                    </td>
-                                    <td>
+                                    </div>
+                                </td>
+                                <td>
 	                            <span class="sortOption"
                                       data-ay-sort-weight="<?= $local['lv'] ?>">
 	                                <?= number_format($local['lv'], 2, ',', ' ') ?>
@@ -105,15 +105,15 @@
 	                            </span>
 	                            <span class="sortOption"
                                       data-ay-sort-weight="<?= $local['ly'] ?>"><?= __d('dane', 'LC_BDL_WSKAZNIKI_LASTYEAR', array($local['ly'])) ?></span>
-                                    </td>
-                                </tr>
-                            <? } ?>
-                            </tbody>
-                        </table>
-                    <? } ?>
+                                </td>
+                            </tr>
+                        <? } ?>
+                        </tbody>
+                    </table>
+                <? } ?>
             </div>
 
-            </div>
+        </div>
     </div>
 </div>
 

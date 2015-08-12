@@ -3,15 +3,14 @@ $path = App::path('Plugin');
 $file = $path[0] . '/Dane/View/Elements/' . $theme . '/' . $object->getDataset() . '.ctp';
 $file_exists = file_exists($file);
 $this->Dataobject->setObject($object);
+$width = 12;
 
 ?>
 
 <div class="objectRender col-md-12 <?php echo $object->getDataset(); ?>" oid="<?php echo $object->getId(); ?>">
     <div class="row">
-
-        <? $width = 12; ?>
-
-        <? if ($object->getThumbnailUrl()) {
+        <?
+        if ($object->getThumbnailUrl()) {
             $width = $width - $thumbWidth; ?>
             <div class="col-sm-<?= $thumbWidth ?>">
                 <div class="attachment text-center">
@@ -39,10 +38,7 @@ $this->Dataobject->setObject($object);
 
         <div class="data col-sm-<?= $width ?>">
             <div class="row">
-
-
                 <div class="content">
-
                     <<?= $titleTag ?> class="title<? if ($bigTitle) { ?> big<? } ?>">
                     <?php if ($show_link && ($object->getUrl() != false)){ ?>
                     <a data-trimlength="<?= $truncate ?>" class="trimTitle" href="<?= $object->getUrl() ?>"
@@ -61,23 +57,18 @@ $this->Dataobject->setObject($object);
                         'object' => $object
                     ));
                 } else {
-
                     if ($metaDesc = $object->getMetaDescription()) { ?>
                         <p class="meta meta-desc"><?= $metaDesc ?></p>
                     <? }
-
-                    if ($object->getDescription()) {
-                        ?>
+                    if ($object->getDescription()) { ?>
                         <div class="description">
                             <?= $object->getDescription() ?>
                         </div>
-                    <?
-                    }
+                    <? }
                 }
                 ?>
-
+            </div>
             </div>
         </div>
     </div>
-</div>
 </div>

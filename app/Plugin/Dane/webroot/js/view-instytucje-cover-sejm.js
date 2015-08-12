@@ -111,7 +111,7 @@ Okregi.prototype.createPolandPolygon = function() {
                 this.polandPath
             )
         ],
-        fillColor: "#fefefe",
+        fillColor: "#fbfbfb",
         fillOpacity: 1,
         strokeOpacity: 1,
         strokeColor: "#888888",
@@ -129,11 +129,14 @@ Okregi.prototype.createGoogleMap = function() {
             zoom: 6,
             minZoom: 6,
             panControl: false,
-            zoomControl: true,
+            zoomControl: false,
             mapTypeControl: false,
             scaleControl: false,
             streetViewControl: false,
             overviewMapControl: false,
+            scrollwheel: false,
+            navigationControl: false,
+            draggable: false,
             zoomControlOptions: {
                 style: google.maps.ZoomControlStyle.SMALL,
                 position: google.maps.ControlPosition.RIGHT_TOP

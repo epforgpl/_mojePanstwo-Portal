@@ -9,7 +9,7 @@
         // Browser globals
         factory(jQuery);
     }
-}(function ($) {
+}(function($){
     $.fn.wysihtml5.locale["ru-RU"] = {
         font_styles: {
             normal: "Обычный текст",

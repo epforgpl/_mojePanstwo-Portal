@@ -19,5 +19,7 @@ echo $this->Element('dataobject/pageBegin');
         ?>
     </div>
 <? }
-echo $this->Element('Dane.DataBrowser/browser');
+echo $this->Element('Dane.DataBrowser/browser', array(
+	'truncate' => 10000,
+));
 echo $this->Element('dataobject/pageEnd');

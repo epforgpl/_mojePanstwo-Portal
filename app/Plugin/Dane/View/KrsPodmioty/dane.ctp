@@ -3,7 +3,7 @@
 $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty-dane', array('plugin' => 'Dane')));
 
 /* tinymce */
-echo $this->Html->script('../tinymce/tinymce.min', array('block' => 'scriptBlock'));
+echo $this->Html->script('../plugins/tinymce/tinymce.min', array('block' => 'scriptBlock'));
 
 /* page script */
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dane');
@@ -25,7 +25,7 @@ $description =
 
 
             <div class="row">
-                <div class="col-md-9 objectMain">
+                <div class="col-xs-12 col-md-9 objectMain">
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="form-group">
@@ -35,7 +35,7 @@ $description =
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-xs-12 col-md-3 objectSide">
                     <div class="sticky margin-top-15">
                         <div class="row">
 

@@ -87,11 +87,33 @@ class Radni_gmin extends DataObject
     
     public function getMetaDescriptionParts($preset = false)
 	{
-				
-		$output = array(
-			$this->getData('komitet'),
-		);
-				
+			switch ($this->getData('komitet')){
+                case 'KWW Jacka Majchrowskiego':
+                    $klub='Klub Radnych Przyjazny Kraków';
+                    break;
+                case 'KWW JACKA MAJCHROWSKIEGO':
+                    $klub='Klub Radnych Przyjazny Kraków';
+                    break;
+                case 'KW Platforma Obywatelska RP':
+                    $klub='Klub Radnych Platformy Obywatelskiej';
+                    break;
+                case 'KW Prawo i Sprawiedliwość':
+                    $klub='Klub Radnych Prawa i Sprawiedliwości';
+                    break;
+                default:
+                    $klub=$this->getData('komitet');
+            };
+
+        if(false!==strpos($_SERVER['REQUEST_URI'],$this->getId())){
+            $output = array(
+                $klub,
+                $this->getData('komitet')
+            );
+        }else {
+            $output = array(
+                $klub,
+            );
+        }
 		return $output;
 		
 	}

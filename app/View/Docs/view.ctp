@@ -44,7 +44,9 @@
 		</div>
 		<div class="col-md-10 objectsPageContent">
 			
-			<?= $this->Document->place($doc) ?>
+			<?= $this->Document->place($doc, array(
+				'full' => true,
+			)) ?>
 			
 		</div>
 		

@@ -5,7 +5,7 @@ $this->Combinator->add_libs('css', $this->Less->css('bdl_tree', array('plugin' =
 $this->Combinator->add_libs('css', $this->Less->css('bdl-select', array('plugin' => 'Dane')));
 
 echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5.all', array('block' => 'scriptBlock'));
-echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/locales/bootstrap-wysihtml5.pl-NEW', array('block' => 'scriptBlock'));
+echo $this->Html->script('../plugins/bootstrap3-wysiwyg/dist/locales/bootstrap-wysihtml5.pl-PL', array('block' => 'scriptBlock'));
 echo $this->Html->script('Bdl.jstree.min', array('block' => 'scriptBlock'));
 $this->Combinator->add_libs('js', '../plugins/jscrollPane/script/jquery.mousewheel.js');
 $this->Combinator->add_libs('js', '../plugins/jscrollPane/script/jquery.jscrollpane.js');
@@ -41,6 +41,7 @@ $this->Combinator->add_libs('js', '../plugins/highcharts/locals', false);
             </div>
         </div>
 
+        <? /*
         <h3 class="init-bottom ui-accordion-header ui-state-default ui-corner-all ui-accordion-icons"><span
                 class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Wskaźniki Żywej Kultury</h3>
 
@@ -73,7 +74,7 @@ $this->Combinator->add_libs('js', '../plugins/highcharts/locals', false);
             <button class="btn btn-xs btn-primary btn-addnew btn-icon" id="new_temp_item"><i
                     class="icon glyphicon glyphicon-plus"></i>Dodaj</button>
 
-        </div>
+        </div> */ ?>
     </div>
 </div>
 <div id="temp_item_opis_modal" class="modal fade">

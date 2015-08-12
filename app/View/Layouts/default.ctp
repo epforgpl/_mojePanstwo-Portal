@@ -60,13 +60,13 @@
     $this->Combinator->add_libs('css', $this->Less->css('modal-dataobject-observe', array('plugin' => 'Dane')));
 
     /*BOOTSTRAP SELECT LOOKS LIKE BOOTSTRAP BUTTONS*/
-    echo $this->Html->css('../plugins/bootstrap-select/bootstrap-select.min.css');
+    echo $this->Html->css('../plugins/bootstrap-select/dist/css/bootstrap-select.min.css');
 
     /*BOOTSTRAP CHECKBOX LOOKS SWITCH BUTTONS*/
-    echo $this->Html->css('../plugins/bootstrap-switch/bootstrap-switch.css');
+    echo $this->Html->css('../plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css');
 
     /* SOCIAL BUTTONS */
-    echo $this->Html->css('../libs/font-awesome/4.3.0/css/font-awesome.min.css');
+    echo $this->Html->css('../libs/font-awesome/4.4.0/css/font-awesome.min.css');
     $this->Combinator->add_libs('css', $this->Less->css('social-buttons'), false);
 
     if (isset($object_editable) && !empty($object_editable)) {
@@ -101,10 +101,6 @@
     $mojePanstwo = json_decode($_COOKIE["mojePanstwo"]);
     if (isset($mojePanstwo->background->url) && !empty($mojePanstwo->background->url))
         echo $mojePanstwo->background->url;
-    else
-        echo '/img/home/backgrounds/home-background-default0.jpg';
-} else {
-    echo '/img/home/backgrounds/home-background-default0.jpg';
 } ?>)" <?php } ?>>
 
 <div id="_wrapper">
@@ -160,17 +156,17 @@ echo $this->Html->script('../libs/jqueryui/i18n/jquery-ui-i18n.min.js');
 echo $this->Html->script('../libs/bootstrap/3.3.4/js/bootstrap.min.js');
 
 /* PACKAGES FROM VENDOR */
-echo $this->Html->script('../plugins/browserstate/history.js/scripts/bundled/html4+html5/jquery.history.js');
-echo $this->Html->script('../plugins/carhartl/jquery-cookie/jquery.cookie.js');
-echo $this->Html->script('../plugins/bootstrap-select/bootstrap-select.min.js');
-echo $this->Html->script('../plugins/bootstrap-switch/bootstrap-switch.js'); ?>
+echo $this->Html->script('../plugins/history.js/scripts/bundled/html4+html5/jquery.history.js');
+echo $this->Html->script('../plugins/js-cookie/src/js.cookie.js');
+echo $this->Html->script('../plugins/bootstrap-select/dist/js/bootstrap-select.min.js');
+echo $this->Html->script('../plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js'); ?>
 
 <?php /*PHP DATA FOR JS */ ?>
 <script type="text/javascript">
     var mPHeart = {
         constant: {
             ajax: {
-                api: 'https://api-v2.mojepanstwo.pl'
+                api: "<?php echo @API_url; ?>"
             }
         },
         user_id: '<?= AuthComponent::user('id'); ?>',

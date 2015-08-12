@@ -4,9 +4,17 @@
     margin-top: @marginSpace;
     margin-bottom: @marginSpace;
 
+    p:last-child {
+        margin-bottom: 20px;
+    }
+
     .btn {
         display: block;
         width: 330px;
-        margin: 40px auto 30px;
+        margin: 0 auto 10px;
+
+        &.btn-reddit > *:first-child {
+            font-size: 1.2em;
+        }
     }
 }

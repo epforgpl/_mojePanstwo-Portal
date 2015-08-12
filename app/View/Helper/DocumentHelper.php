@@ -3,14 +3,16 @@
 class DocumentHelper extends AppHelper
 {
 
-    public function place($id)
+    public function place($id, $options = array())
     {
 		
 		App::import("Model", "Document");  
 		$Document = new Document();  
 		
+		$full = isset($options['full']) ? (boolean) $options['full'] : false;
+		
 		if( is_numeric($id) )
-			$doc = $Document->load($id);
+			$doc = $Document->load($id, $full);
 		else
 			$doc = $id;
 		

@@ -9,7 +9,7 @@
         // Browser globals
         factory(jQuery);
     }
-}(function ($) {
+}(function($){
     $.fn.wysihtml5.locale["tr-TR"] = {
         font_styles: {
             normal: "Normal",

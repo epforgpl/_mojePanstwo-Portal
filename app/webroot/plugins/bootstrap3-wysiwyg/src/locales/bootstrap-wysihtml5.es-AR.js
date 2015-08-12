@@ -9,7 +9,7 @@
         // Browser globals
         factory(jQuery);
     }
-}(function ($) {
+}(function($){
     $.fn.wysihtml5.locale["es-AR"] = {
         font_styles: {
             normal: "Texto normal",
