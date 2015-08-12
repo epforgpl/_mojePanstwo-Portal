@@ -40,9 +40,9 @@ $docs = $uchwala->getLayer('docs');
 
                     <ul class="nav nav-pills nav-stacked">
                         <?php foreach($docs as $i => $doc_id) { ?>
-                            <? $dokument_id = ($file == ($i + 1)) ? $doc_id : false; ?>
-                            <li role="presentation" <?= ($file == ($i + 1)) ? 'class="active"' : ''; ?>>
-                                <a href="<?= $uchwala->getUrl() ?>?file=<?= ($i + 1) ?>">
+                            <? $dokument_id = ($file == $doc_id) ? $doc_id : false; ?>
+                            <li role="presentation" <?= ($file == $doc_id) ? 'class="active"' : ''; ?>>
+                                <a href="<?= $uchwala->getUrl() ?>?file=<?= $doc_id ?>">
                                     Plik #<?= ($i + 1) ?>
                                 </a>
                             </li>
