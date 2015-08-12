@@ -237,6 +237,7 @@ $(document).ready(function () {
             imageState: {
                 src: (src !== "") ? src : ''
             },
+			smallImage: 'allow',
             width: imgEditorWidth,
             height: imgEditorHeight,
             exportZoom: exportZoom,
