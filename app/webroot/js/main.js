@@ -210,17 +210,11 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
             modalPaszportLoginForm.modal('show');
         });
     }
-
-    /*INITIALIZE BOOTSTRAP TOOLTIP*/
-    $('[data-toggle="tooltip"]').each(function () {
-        var that = $(this),
-            iconTip = $('<i></i>').addClass('glyphicon glyphicon-info-sign').data(that.data()).attr('title', that.attr('title'));
-
-        $.each(that.data(), function (key, value) {
-            iconTip.attr(key, value);
-        });
-
-        that.removeAttr('title').addClass('tooltipIcon').append(iconTip.tooltip());
+    
+    $('[data-toggle="tooltip"]').tooltip({
+	    delay: {
+		    hide: 1
+	    }
     });
 
     /*GLOBAL BOOTSTRAP-SELECT FORM SELECTPICKER CLASS*/

@@ -14,49 +14,49 @@ if ($object->getDescription()) { ?>
     <div class="row col-xs-12">
         <? if ($bip = $object->getLayers('bip_url')) { ?>
             <div class="option pull-left">
-                <a href="<?= $bip; ?>" target="_blank">
+                <a data-toggle="tooltip" data-placement="bottom" title="Biuletyn Informacji Publicznej" href="<?= $bip; ?>" target="_blank">
                     <img class="bip" src="/Dane/img/customObject/krakow/logo_bip.png"/>
                 </a>
             </div>
         <? } ?>
         <? if (($tel = $object->getData('tel')) && ($tel !== 'nie')) { ?>
             <div class="option pull-left">
-                <a href="skype:<?= $tel; ?>">
+                <a data-toggle="tooltip" data-placement="bottom" title="Zadzwoń przez Skype - <?= $tel ?>" href="skype:<?= $tel; ?>">
                     <i class="fa fa-phone"></i>
                 </a>
             </div>
         <? } ?>
         <? if ($fb = $object->getData('fb')) { ?>
             <div class="option pull-left">
-                <a href="<?= $fb; ?>" target="_blank">
+                <a data-toggle="tooltip" data-placement="bottom" title="Facebook" href="<?= $fb; ?>" target="_blank">
                     <i class="fa fa-facebook"></i>
                 </a>
             </div>
         <? } ?>
         <? if ($twitter = $object->getData('twitter')) { ?>
             <div class="option pull-left">
-                <a href="<?= $twitter; ?>" target="_blank">
+                <a data-toggle="tooltip" data-placement="bottom" title="Twitter" href="<?= $twitter; ?>" target="_blank">
                     <i class="fa fa-twitter"></i>
                 </a>
             </div>
         <? } ?>
         <? if ($blog = $object->getData('blog')) { ?>
             <div class="option pull-left">
-                <a href="<?= $blog; ?>" target="_blank">
-                    <i class="fa fa-pencil"></i>
+                <a data-toggle="tooltip" data-placement="bottom" title="Blog" href="<?= $blog; ?>" target="_blank">
+                    <i class="glyphicon glyphicon-link"></i>
                 </a>
             </div>
         <? } ?>
         <? if ($www = $object->getData('www')) { ?>
             <div class="option pull-left">
-                <a href="<?= $www; ?>" target="_blank">
-                    <i class="fa fa-globe"></i>
+                <a data-toggle="tooltip" data-placement="bottom" title="WWW" href="<?= $www; ?>" target="_blank">
+                    <i class="glyphicon glyphicon-link"></i>
                 </a>
             </div>
         <? } ?>
         <? if ($wiki = $object->getData('wiki')) { ?>
             <div class="option pull-left">
-                <a href="<?= $wiki; ?>" target="_blank">
+                <a data-toggle="tooltip" data-placement="bottom" data-placement="bottom" title="Wikipedia" href="<?= $wiki; ?>" target="_blank">
                     <i class="fa fa-wikipedia-w"></i>
                 </a>
             </div>
