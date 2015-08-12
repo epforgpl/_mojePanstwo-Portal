@@ -14,14 +14,41 @@ if ($object->getDescription()) { ?>
     <div class="row col-xs-12">
         <? if ($bip = $object->getLayers('bip_url')) { ?>
             <div class="option pull-left">
-                <a data-toggle="tooltip" data-placement="bottom" title="Biuletyn Informacji Publicznej" href="<?= $bip; ?>" target="_blank">
+                <a data-toggle="tooltip" data-placement="bottom" title="Biuletyn Informacji Publicznej"
+                   href="<?= $bip; ?>" target="_blank">
                     <img class="bip" src="/Dane/img/customObject/krakow/logo_bip.png"/>
                 </a>
             </div>
         <? } ?>
         <? if (($tel = $object->getData('tel')) && ($tel !== 'nie')) { ?>
-            <div class="option pull-left">
-                <a data-toggle="tooltip" data-placement="bottom" title="Zadzwoń przez Skype - <?= $tel ?>" href="skype:<?= $tel; ?>">
+            <div class="option pull-left" data-toggle="modal" data-target="#krakowRadnyDetailPhone">
+                <a data-toggle="tooltip" data-placement="bottom" title="Zadzwoń przez Skype - <?= $tel ?>"
+                   href="#">
+                    <i class="fa fa-phone"></i>
+                </a>
+            </div>
+            <div class="modal fade" id="krakowRadnyDetailPhone">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Numer telefonu:
+                                <strong><?= $tel ?></strong>
+                            </p>
+                            <a class="btn btn-primary btn-social btn-skype" href="skype:<?= $tel; ?>">
+                                <i class="fa fa-skype"></i> Zadzwoń przez Skype
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <? } else { ?>
+            <div class="option pull-left inactive">
+                <a href="#">
                     <i class="fa fa-phone"></i>
                 </a>
             </div>
@@ -32,10 +59,23 @@ if ($object->getDescription()) { ?>
                     <i class="fa fa-facebook"></i>
                 </a>
             </div>
+        <? } else { ?>
+            <div class="option pull-left inactive">
+                <a href="#">
+                    <i class="fa fa-facebook"></i>
+                </a>
+            </div>
         <? } ?>
         <? if ($twitter = $object->getData('twitter')) { ?>
             <div class="option pull-left">
-                <a data-toggle="tooltip" data-placement="bottom" title="Twitter" href="<?= $twitter; ?>" target="_blank">
+                <a data-toggle="tooltip" data-placement="bottom" title="Twitter" href="<?= $twitter; ?>"
+                   target="_blank">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </div>
+        <? } else { ?>
+            <div class="option pull-left inactive">
+                <a href="#">
                     <i class="fa fa-twitter"></i>
                 </a>
             </div>
@@ -46,6 +86,12 @@ if ($object->getDescription()) { ?>
                     <i class="glyphicon glyphicon-link"></i>
                 </a>
             </div>
+        <? } else { ?>
+            <div class="option pull-left inactive">
+                <a href="#">
+                    <i class="glyphicon glyphicon-link"></i>
+                </a>
+            </div>
         <? } ?>
         <? if ($www = $object->getData('www')) { ?>
             <div class="option pull-left">
@@ -53,21 +99,70 @@ if ($object->getDescription()) { ?>
                     <i class="glyphicon glyphicon-link"></i>
                 </a>
             </div>
+        <? } else { ?>
+            <div class="option pull-left inactive">
+                <a href="#">
+                    <i class="glyphicon glyphicon-link"></i>
+                </a>
+            </div>
         <? } ?>
         <? if ($wiki = $object->getData('wiki')) { ?>
             <div class="option pull-left">
-                <a data-toggle="tooltip" data-placement="bottom" data-placement="bottom" title="Wikipedia" href="<?= $wiki; ?>" target="_blank">
+                <a data-toggle="tooltip" data-placement="bottom" data-placement="bottom" title="Wikipedia"
+                   href="<?= $wiki; ?>" target="_blank">
+                    <i class="fa fa-wikipedia-w"></i>
+                </a>
+            </div>
+        <? } else { ?>
+            <div class="option pull-left inactive">
+                <a href="#">
                     <i class="fa fa-wikipedia-w"></i>
                 </a>
             </div>
         <? } ?>
-        
-        <div class="option pull-left">
-            <a data-toggle="tooltip" data-placement="bottom" data-placement="bottom" title="Wyślij pismo do radnego" href="#" target="_blank">
+
+        <? if ($email = $object->getData('email2')) { ?>
+            <div class="option pismo pull-left" data-toggle="modal" data-target="#krakowRadnyDetailPismo">
+                <a data-toggle="tooltip" data-placement="bottom" data-placement="bottom" title="Wyślij pismo do radnego"
+                   href="#"">
                 <i class="glyphicon glyphicon-envelope"></i>
-            </a>
-        </div>
-        
+                </a>
+            </div>
+            <div class="modal fade" id="krakowRadnyDetailPismo">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Adres email:
+                                <strong><?= $email ?></strong>
+                            </p>
+
+                            <div class="col-xs-12 col-md-6 col-md-offset-3 pismoBox" data-dismiss="modal">
+                                <?
+                                $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
+                                $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
+                                $this->Combinator->add_libs('js', 'Pisma.pisma-button');
+                                echo $this->element('tools/pismo', array(
+                                    'label' => '<strong>Wyślij pismo</strong> do radnego',
+                                    'adresat' => 'radni_gmin:' . $radny->getId() . ':' . $radny->getData('plec')
+                                ));
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <? } else { ?>
+            <div class="option inactive pull-left">
+                <a href="#">
+                    <i class="glyphicon glyphicon-envelope"></i>
+                </a>
+            </div>
+        <? } ?>
     </div>
     <!--<div class="row col-xs-12 col-md-7">
         <table class="table table-condensed">
