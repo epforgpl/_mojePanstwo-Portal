@@ -61,6 +61,13 @@ if ($object->getDescription()) { ?>
                 </a>
             </div>
         <? } ?>
+        
+        <div class="option pull-left">
+            <a data-toggle="tooltip" data-placement="bottom" data-placement="bottom" title="Wyślij pismo do radnego" href="#" target="_blank">
+                <i class="glyphicon glyphicon-envelope"></i>
+            </a>
+        </div>
+        
     </div>
     <!--<div class="row col-xs-12 col-md-7">
         <table class="table table-condensed">
