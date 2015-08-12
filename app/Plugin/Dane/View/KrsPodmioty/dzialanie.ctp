@@ -38,7 +38,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 			            </span>
                         </div>
 
-                        <? if($dzialanie->getData('photo') == '1') { ?>
+                        <? if($dzialanie->getData('photo') == '1' && $dzialanie->getData('photo_disabled') == '0') { ?>
                             <div class="photo">
                                 <img alt="<?= $dzialanie->getData('tytul'); ?>" src="http://sds.tiktalik.com/portal/1/pages/dzialania/<?= $dzialanie->getData('id'); ?>.jpg"/>
                             </div>
