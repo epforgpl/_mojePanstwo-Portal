@@ -4,12 +4,11 @@
             <? foreach ($dims as $key => $d) {
                 if ($key != $expand_dimension) {
                     ?>
-                    <li class="col-xs-11 col-sm-6 col-md-3">
+                    <li class="filter col-xs-11 col-sm-6 col-md-3">
                         <p class="label"><? if( !isset($dimension) ) {?><a class="link-discrete" href="<?= $object->getUrl() ?>?i=<?= $key ?>"><? } ?> <?= $d['label'] ?><? if( !isset($dimension) ) {?></a><? } ?>:</p>
 
                         <p class="value">
-                            <select onchange="document.getElementById('filters_form').submit();"
-                                    name="d<?= $d['order'] ?>">
+                            <select name="d<?= $d['order'] ?>">
                                 <? foreach ($d['options'] as $o) { ?>
                                     <option<? if (@$o['selected'] == true) { ?> selected="selected"<?php } ?>
                                         value="<?= $o['id'] ?>"><?= $o['value'] ?></option>
@@ -18,12 +17,11 @@
                         </p>
                     </li>
                 <? } elseif (isset($redirect) && $redirect) { ?>
-                    <li style="display: none;">
+                    <li class="filter" style="display: none;">
                         <p class="label"><?= $d['label'] ?>:</p>
 
                         <p class="value">
-                            <select onchange="document.getElementById('filters_form').submit();"
-                                    name="d<?= $d['order'] ?>">
+                            <select name="d<?= $d['order'] ?>">
                                 <? foreach ($d['options'] as $o) { ?>
                                     <option<? if (@$o['selected'] == true) { ?> selected="selected"<?php } ?>
                                         value="<?= $o['id'] ?>"><?= $o['value'] ?></option>
