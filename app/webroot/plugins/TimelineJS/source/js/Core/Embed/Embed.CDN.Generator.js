@@ -1,4 +1,4 @@
-/* Support Timeline Embed Generator web form (becomes storyjs-embed-generator.js) */  
+/* Support Timeline Embed Generator web form (becomes storyjs-embed-generator.js) */
 if(typeof generator_embed_path == 'undefined' || typeof generator_embed_path == 'undefined') {
 	// REPLACE WITH YOUR BASEPATH IF YOU WANT OTHERWISE IT WILL TRY AND FIGURE IT OUT
 	// TODO Issue #618 better splitting
@@ -9,7 +9,7 @@ if(typeof generator_embed_path == 'undefined' || typeof generator_embed_path == 
 		generator_embed_path = "index.html";
 	} else {
 		generator_embed_path = generator_embed_path + "index.html";
-	} 
+	}
 }
 function getScriptPath(scriptname) {
 	var scriptTags = document.getElementsByTagName('script'),
@@ -30,30 +30,29 @@ function getUrlVars(string) {
 		hash,
 		hashes,
 		str = string.toString();
-			
-	if (str.match('&#038;')) { 
+
+	if (str.match('&#038;')) {
 		str = str.replace("&#038;", "&");
 	} else if (str.match('&#38;')) {
 		str = str.replace("&#38;", "&");
 	} else if (str.match('&amp;')) {
 		str = str.replace("&amp;", "&");
 	}
-	if (str.match('#')) { 
+	if (str.match('#')) {
 		str = str.split('#')[0];
 	}
 	hashes = str.slice(str.indexOf('?') + 1).split('&');
-		
+
 	for(var i = 0; i < hashes.length; i++) {
 		hash = hashes[i].split('=');
 		vars.push(hash[0]);
 		vars[hash[0]] = hash[1];
 	}
-	
-	return vars;
-};
 
+	return vars;
+}
 function getLinkAndIframe() {
-	
+
 	var theobj				= {},
 		e_source			= document.getElementById('embed-source-url'),
 		e_width				= document.getElementById('embed-width'),
@@ -77,7 +76,7 @@ function getLinkAndIframe() {
 		vars,
 		wp,
 		source_key;
-	
+
 	/* SOURCE KEY
 	================================================== */
 	if (e_source.value.match("docs.google.com")) {
@@ -89,36 +88,36 @@ function getLinkAndIframe() {
 			source_key	= e_source.value;
 		}
 	}
-	
+
 	/* START AT END
 	================================================== */
 	if (e_startatend.checked) {
 		start_at_end = true;
 	}
-	
+
 	/* HASH BOOKMARK
 	================================================== */
 	if (e_hashbookmark.checked) {
 		hash_bookmark = true;
 	}
-	
+
 	/* DEBUG
 	================================================== */
 	if (e_debug.checked) {
 		is_debug = true;
 	}
-	
+
 	/* WORDPRESS
 	================================================== */
 	wp		= "[timeline ";
 	if (e_width.value > 0) {
-		wp	+= "width='" + e_width.value + "' "; 
+		wp	+= "width='" + e_width.value + "' ";
 	}
 	if (e_height.value > 0) {
-		wp	+= "height='" + e_width.value + "' "; 
+		wp	+= "height='" + e_width.value + "' ";
 	}
-		
-	wp		+= "font='" + e_font.value + "' "; 
+
+	wp		+= "font='" + e_font.value + "' ";
 	wp		+= "maptype='" + e_maptype.value + "' ";
 	wp		+= "lang='" + e_language.value + "' ";
 	wp		+= "src='" + e_source.value + "' ";
@@ -131,26 +130,26 @@ function getLinkAndIframe() {
 	if (is_debug) {
 		wp	+= "debug='" + is_debug + "' ";
 	}
-	
+
 	if (e_googlemapkey.value != "") {
 		wp	+= "gmap_key='" + e_googlemapkey.value + "' ";
 	}
-	
+
 	if (parseInt(e_startatslide.value, 10) > 0) {
 		wp	+= "start_at_slide='" + parseInt(e_startatslide.value, 10) + "' ";
 	}
 	if (parseInt(e_startzoomadjust.value, 10) > 0) {
 		wp	+= "start_zoom_adjust='" + parseInt(e_startzoomadjust.value, 10) + "' ";
 	}
-	
+
 	wp		+= "]";
-	
+
 	theobj.wordpress = wp;
-	
+
 	/* IFRAME AND LINK
 	================================================== */
 	vars		=  generator_embed_path + "?source=" + source_key;
-	vars		+= "&font=" + e_font.value; 
+	vars		+= "&font=" + e_font.value;
 	vars		+= "&maptype=" + e_maptype.value;
 	vars		+= "&lang=" + e_language.value;
 	if (start_at_end) {
@@ -162,28 +161,28 @@ function getLinkAndIframe() {
 	if (is_debug) {
 		vars	+= "&debug=" + is_debug;
 	}
-	
+
 	if (parseInt(e_startatslide.value, 10) > 0) {
-		vars	+= "&start_at_slide=" + parseInt(e_startatslide.value, 10); 
+		vars	+= "&start_at_slide=" + parseInt(e_startatslide.value, 10);
 	}
-	
+
 	if (parseInt(e_startzoomadjust.value, 10) > 0) {
 		vars	+= "&start_zoom_adjust=" + parseInt(e_startzoomadjust.value, 10);
 	}
-	
+
 	if (e_googlemapkey.value != "") {
 		vars	+= "&gmap_key=" + e_googlemapkey.value;
 	}
-	
+
 	if (e_width.value > 0) {
-		vars	+= "&width=" + e_width.value; 
+		vars	+= "&width=" + e_width.value;
 	}
 	if (e_height.value > 0) {
-		vars	+= "&height=" + e_height.value; 
+		vars	+= "&height=" + e_height.value;
 	}
-	
+
 	iframe		= "<iframe src='" + vars + "'";
-	
+
 	if (e_width.value > 0 || e_width.value.match("%")) {
 		iframe	+= " width='" + e_width.value + "'";
 	}
@@ -191,31 +190,30 @@ function getLinkAndIframe() {
 		iframe	+= " height='" + e_height.value + "'";
 	}
 	iframe		+= " frameborder='0'></iframe>";
-	
+
 	theobj.iframe	= iframe;
 	theobj.link		= vars;
-	
+
 	if (e_wordpress.checked) {
 		theobj.copybox = wp;
 	} else {
 		theobj.copybox = iframe;
 	}
-	
-	return theobj;
-};
 
+	return theobj;
+}
 /* EMBED GENERATOR
 ================================================== */
 function updateEmbedCode(element, options) {
-	
+
 	var e_embed		= document.getElementById('embed_code'),
 		el			= getLinkAndIframe();
-	
+
 	e_embed.value	= el.copybox;
 	jQuery("#preview-embed-link").attr('href', el.link);
 	jQuery("#preview-embed-iframe").html(el.iframe);
 	jQuery("#preview-embed").css("display","block");
-	
+
 }
 
 

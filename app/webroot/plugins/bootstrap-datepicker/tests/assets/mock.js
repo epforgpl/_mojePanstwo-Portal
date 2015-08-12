@@ -21,7 +21,7 @@ window.patch_date = function patch(f){
         res = f.apply(this, arguments);
         window.Date = NativeDate;
     }
-}
+};
 
 
 window.patch_show_hide = function patch(f){

@@ -34,103 +34,103 @@ var testObj = {
   isBroken: function(){
     return false;
   }
-}
+};
 
 Test.context("BDD-style testing",{
-  
+
   setup: function() {
     $('d').update('setup!');
     moo++;
   },
-  
+
   teardown: function() {
     moo--;
   },
-  
+
   'should run setup before each specification': function(){
     assert($('d').innerHTML == 'setup!');
     assert(moo == 1);
   },
-  
+
   'should run teardown after each specification': function(){
     assert(moo == 1);
   },
-  
+
   'should provide extensions to tie in isSomething and respondsTo object methods': function(){
     Object.extend(testObj, Test.BDDMethods);
-    
+
     testObj.shouldBe('nice');
     testObj.shouldNotBe('broken');
-    
+
     testObj.shouldRespondTo('isNice');
     testObj.shouldRespondTo('isBroken');
   },
-  
+
   'should automatically add extensions to strings': function(){
     'a'.shouldEqual('a');
     'a'.shouldNotEqual('b');
     'a'.shouldNotBeNull();
     'a'.shouldBeA(String);
-    
+
     var aString = 'boo!';
     aString.shouldEqual('boo!');
     aString.shouldBeA(String);
     aString.shouldNotBeA(Number);
   },
-  
+
   'should automatically add extensions to numbers': function(){
-    var n = 123;    
+    var n = 123;
     n.shouldEqual(123);
     n.shouldNotEqual(4);
-    
+
     n.shouldBeA(Number);
     n.shouldNotBeA(Test);
   },
-  
+
   'should automatically add extensions to arrays': function(){
     ['a'].shouldNotBeA(String);
     [1,2,3].shouldBeAn(Array);
     [1,2,3].shouldEqualEnum([1,2,3]);
   },
-  
-  'should automatically add extensions to booleans': function(){ 
-    var theTruth = true; 
-    var lies = false; 
-     
-    theTruth.shouldNotBeA(String); 
-    lies.shouldBeA(Boolean); 
-    'false'.shouldNotBeA(Boolean); 
-     
-    theTruth.shouldEqual(true); 
-    lies.shouldNotEqual(true); 
+
+  'should automatically add extensions to booleans': function(){
+    var theTruth = true;
+    var lies = false;
+
+    theTruth.shouldNotBeA(String);
+    lies.shouldBeA(Boolean);
+    'false'.shouldNotBeA(Boolean);
+
+    theTruth.shouldEqual(true);
+    lies.shouldNotEqual(true);
   },
-  
+
   'should support the eval() method': function(){
     eval('2*2').shouldEqual(4);
   },
-  
+
   'should support equality assertion': function(){
     assertEqual(1, 1);
     assertEqual('a', 'a');
     assertEqual(1, '1');
-    
+
     var x = 1;
     var y = 1;
-    assertEqual(1, x)
+    assertEqual(1, x);
     assertEqual(x, y);
   },
-  
+
   'should provide all assertions': function(){
     assertMethods.each(function(m){
       assert(typeof this[m] == 'function');
-    }.bind(this)); 
+    }.bind(this));
   },
-  
+
   'should support deferred execution': function(){
     wait(10,function(){
       'a'.shouldEqual('a');
     });
-    
+
     wait(10,function(){
       'a'.shouldEqual('a');
       wait(10,function(){
@@ -141,7 +141,7 @@ Test.context("BDD-style testing",{
       });
     });
   }
-  
+
 });
 
 // ]]>

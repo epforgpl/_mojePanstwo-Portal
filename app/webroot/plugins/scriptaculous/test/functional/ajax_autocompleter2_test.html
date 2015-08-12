@@ -24,7 +24,7 @@ Autocompleter ac1: <input type="text" id="ac1" autocomplete="off"/>
 
 <script type="text/javascript" language="javascript" charset="utf-8">
 // <![CDATA[
-  new Ajax.Autocompleter('ac1','ac1update','_autocomplete_result.html', { 
+  new Ajax.Autocompleter('ac1','ac1update','_autocomplete_result.html', {
     tokens: ',', indicator: 'ac1_indicator'
   } );
 // ]]>
@@ -62,7 +62,7 @@ Local incremental array autocompleter ac4<br/> with full-search. Type 'Jac', hit
 <script type="text/javascript" language="javascript" charset="utf-8">
 // <![CDATA[
   new Autocompleter.Local('ac4','ac4update',
-  new Array("John Jackson", "", "Jack Johnson", "", "Jane Agnews"), { tokens: new Array(',','\n'), fullSearch: true, partialSearch: true });
+  ["John Jackson", "", "Jack Johnson", "", "Jane Agnews"], { tokens: [',','\n'], fullSearch: true, partialSearch: true });
 // ]]>
 </script>
 <br/><br/>
@@ -73,7 +73,7 @@ Local incremental array autocompleter ac5<br/> with fixed height and scrollbar. 
 <script type="text/javascript" language="javascript" charset="utf-8">
 // <![CDATA[
   new Autocompleter.Local('ac5','ac5update',
-  new Array("John Jackson", "Jack Johnson", "Jane Agnews", "Jack Johnson", "Jane Agnews", "Jack Johnson", "Jane Agnews"), { tokens: new Array(',','\n'), fullSearch: true, partialSearch: true });
+  ["John Jackson", "Jack Johnson", "Jane Agnews", "Jack Johnson", "Jane Agnews", "Jack Johnson", "Jane Agnews"], { tokens: [',','\n'], fullSearch: true, partialSearch: true });
 // ]]>
 </script>
 

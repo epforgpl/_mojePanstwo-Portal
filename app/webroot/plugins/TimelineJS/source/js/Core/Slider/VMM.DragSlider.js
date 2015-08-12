@@ -47,7 +47,7 @@ if(typeof VMM != 'undefined' && typeof VMM.DragSlider == 'undefined') {
 		},
 		dragslider		= this,
 		is_sticky		= false;
-		
+
 		/* PUBLIC FUNCTIONS
 		================================================== */
 		this.createPanel = function(drag_object, move_object, constraint, touch, sticky) {
@@ -73,30 +73,30 @@ if(typeof VMM != 'undefined' && typeof VMM.DragSlider == 'undefined') {
 			} else {
 				dragevent = mousedrag;
 			}
-			
+
 			makeDraggable(drag.element, drag.element_move);
-		}
-		
+		};
+
 		this.updateConstraint = function(constraint) {
 			trace("updateConstraint");
 			drag.constraint = constraint;
-		}
-		
+		};
+
 		this.cancelSlide = function(e) {
 			VMM.unbindEvent(drag.element, onDragMove, dragevent.move);
 			return true;
-		}
-		
+		};
+
 		/* PRIVATE FUNCTIONS
 		================================================== */
 		function makeDraggable(drag_object, move_object) {
-			
+
 			VMM.bindEvent(drag_object, onDragStart, dragevent.down, {element: move_object, delement: drag_object});
 			VMM.bindEvent(drag_object, onDragEnd, dragevent.up, {element: move_object, delement: drag_object});
 			VMM.bindEvent(drag_object, onDragLeave, dragevent.leave, {element: move_object, delement: drag_object});
-			
+
 	    }
-		
+
 		function onDragLeave(e) {
 			VMM.unbindEvent(e.data.delement, onDragMove, dragevent.move);
 			if (!drag.touch) {
@@ -111,7 +111,7 @@ if(typeof VMM != 'undefined' && typeof VMM.DragSlider == 'undefined') {
 				return true;
 			}
 		}
-		
+
 		function onDragStart(e) {
 			dragStart(e.data.element, e.data.delement, e);
 			if (!drag.touch) {
@@ -120,7 +120,7 @@ if(typeof VMM != 'undefined' && typeof VMM.DragSlider == 'undefined') {
 			//e.stopPropagation();
 			return true;
 		}
-		
+
 		function onDragEnd(e) {
 			if (!drag.touch) {
 				e.preventDefault();
@@ -134,15 +134,15 @@ if(typeof VMM != 'undefined' && typeof VMM.DragSlider == 'undefined') {
 				return true;
 			}
 		}
-		
+
 		function onDragMove(e) {
 			dragMove(e.data.element, e);
-			
+
 		}
-		
+
 		function dragStart(elem, delem, e) {
 			if (drag.touch) {
-				trace("IS TOUCH")
+				trace("IS TOUCH");
 				VMM.Lib.css(elem, '-webkit-transition-duration', '0');
 				drag.pagex.start = e.originalEvent.touches[0].screenX;
 				drag.pagey.start = e.originalEvent.touches[0].screenY;
@@ -152,17 +152,17 @@ if(typeof VMM != 'undefined' && typeof VMM.DragSlider == 'undefined') {
 			}
 			drag.left.start = getLeft(elem);
 			drag.time.start = new Date().getTime();
-			
+
 			VMM.Lib.stop(elem);
 			VMM.bindEvent(delem, onDragMove, dragevent.move, {element: elem});
 
 	    }
-		
+
 		function dragEnd(elem, delem, e) {
 			VMM.unbindEvent(delem, onDragMove, dragevent.move);
 			dragMomentum(elem, e);
 		}
-		
+
 		function dragMove(elem, e) {
 			var drag_to, drag_to_y;
 			drag.sliding = true;
@@ -173,13 +173,13 @@ if(typeof VMM != 'undefined' && typeof VMM.DragSlider == 'undefined') {
 				drag.pagex.end = e.pageX;
 				drag.pagey.end = e.pageY;
 			}
-			
+
 			drag.left.end	= getLeft(elem);
 			drag_to			= -(drag.pagex.start - drag.pagex.end - drag.left.start);
-			
-			
+
+
 			if (Math.abs(drag.pagey.start) - Math.abs(drag.pagey.end) > 10) {
-				trace("SCROLLING Y")
+				trace("SCROLLING Y");
 				trace(Math.abs(drag.pagey.start) - Math.abs(drag.pagey.end));
 			}
 			if (Math.abs(drag_to - drag.left.start) > 10) {
@@ -188,7 +188,7 @@ if(typeof VMM != 'undefined' && typeof VMM.DragSlider == 'undefined') {
 				e.stopPropagation();
 			}
 		}
-		
+
 		function dragMomentum(elem, e) {
 			var drag_info = {
 					left:			drag.left.end,
@@ -200,18 +200,18 @@ if(typeof VMM != 'undefined' && typeof VMM.DragSlider == 'undefined') {
 					time_adjust:	(new Date().getTime() - drag.time.start) * 10
 				},
 				multiplier = 3000;
-				
+
 			if (drag.touch) {
 				multiplier = 6000;
 			}
-			
+
 			drag_info.change.x = multiplier * (Math.abs(drag.pagex.end) - Math.abs(drag.pagex.start));
-			
-			
+
+
 			drag_info.left_adjust = Math.round(drag_info.change.x / drag_info.time);
-			
+
 			drag_info.left = Math.min(drag_info.left + drag_info.left_adjust);
-			
+
 			if (drag.constraint) {
 				if (drag_info.left > drag.constraint.left) {
 					drag_info.left = drag.constraint.left;
@@ -225,9 +225,9 @@ if(typeof VMM != 'undefined' && typeof VMM.DragSlider == 'undefined') {
 					}
 				}
 			}
-			
+
 			VMM.fireEvent(dragslider, "DRAGUPDATE", [drag_info]);
-			
+
 			if (!is_sticky) {
 				if (drag_info.time > 0) {
 					if (drag.touch) {
@@ -238,10 +238,10 @@ if(typeof VMM != 'undefined' && typeof VMM.DragSlider == 'undefined') {
 				}
 			}
 		}
-		
+
 		function getLeft(elem) {
 			return parseInt(VMM.Lib.css(elem, 'left').substring(0, VMM.Lib.css(elem, 'left').length - 2), 10);
 		}
-		
+
 	}
 }

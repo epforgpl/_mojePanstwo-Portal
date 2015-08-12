@@ -32,8 +32,7 @@ function loadScript(url, callback) {
 
 function toDot (id){
 	return id.replace(/[-]+/g,'.');
-};
-
+}
 function escapeHTML(html) {
 	if (typeof html === 'string') {
 		html = html
@@ -132,8 +131,7 @@ function toggleExpand($elem, callback) {
 			$elem.addClass("collapsed");
 		});
 	}
-};
-
+}
 function toggleSection(sectionId) {
 	$section = $("#details > div.section:visible");
 
@@ -328,7 +326,7 @@ function loadChildren(name, silent, callback) {
 						cls = '';
 						console.warn('Missing returnType for ' + val.fullname);
 					}
-						
+
 
 					$('<span class="value value-' + cls + '">: ' + escapeHTML(defaults) + '</span>').appendTo($div);
 				}
@@ -350,8 +348,7 @@ function loadChildren(name, silent, callback) {
 			}
 		}
 	});
-};
-
+}
 function loadObjectMembers(name){
 	$.ajax({
 		type: "GET",
@@ -365,8 +362,7 @@ function loadObjectMembers(name){
 		}
 	});
 	$(document).triggerHandler({ type:"xtra.btn.member.event", id: 'object-' + name,table:'object'});
-};
-
+}
 function gotoSection(anchor, hilighted) {
 
 	var name, levels, member, isObjectArr, isObject, parts, $_parent, $_parentparent, $_menu,
@@ -508,9 +504,9 @@ function addFirstLevelMenuItem(key, val, type) {
 		} else {
 			prefix = ': [';
 			suffix = ']';
-		}		
+		}
 	}
-	
+
 	// Global options
 	if ($.inArray(val.name, ['global', 'lang']) !== -1) {
 		$menuItem = $('<div class="menuitem collapsed"></div>').appendTo('#global-options');
@@ -563,7 +559,7 @@ function addFirstLevelMenuItem(key, val, type) {
 	if(val.isParent) {
 		$subMenu = $('<div id="' + name + '-menu" style="display:none"><div>').appendTo($menuItem);
 	}
-	
+
 	$menuItem.append(suffix);
 
 
@@ -593,7 +589,7 @@ prepareOffline = function(callback) {
 			result = API[PRODUCTNAME].names;
 		}
 
-		var type = obj.url.split('/');		
+		var type = obj.url.split('/');
 
 		if (obj.url === 'option/'+ PRODUCTNAME + '/main') {
 			result = API[PRODUCTNAME].main.option;
@@ -611,25 +607,25 @@ prepareOffline = function(callback) {
 		if (splitted.length > 1) {
 			result = API[PRODUCTNAME].option[splitted[1]].children;
 		}
-		
+
 		// result to handler
 		obj.success(result);
 	};
 
 	callback();
-}
+};
 
 // build dictionary for offline use
 buildApiOffline = function(data, callback) {
 
-	var option,		
+	var option,
 		main,
 		names,
 		type,
 		i = 0;
 
 	API[PRODUCTNAME] = { option: [], object: [], main: {}, names: [] };
-		
+
 	names = API[PRODUCTNAME].names;
 
 	function fillWithType(type) {
@@ -638,7 +634,7 @@ buildApiOffline = function(data, callback) {
 			main = API[PRODUCTNAME].main[type] = [];
 			name,
 			parent;
-		
+
 		// Loop over options in dump file
 		for (idx = 0; idx < data[type].length; idx++) {
 			option = data[type][idx];
@@ -646,20 +642,20 @@ buildApiOffline = function(data, callback) {
 			names.push(name);
 
 			if (option.isParent) {
-		
+
 				// Store main options separately
-				if (!/-/.test(name)) {	  
+				if (!/-/.test(name)) {
 					main.push(option);
 				}
-		
+
 				if (slot[name] == undefined) {
 					slot[name] = {details: option, children: []};
 				} else {
-					/* In case the parent option was already 
-					 * deducted from a child option 
-					 */            	
+					/* In case the parent option was already
+					 * deducted from a child option
+					 */
 					slot[name].details = option;
-				}            
+				}
 			}
 
 			// we have a child!
@@ -668,7 +664,7 @@ buildApiOffline = function(data, callback) {
 			} else {
 				slot[option.parent] = {details: null, children: [option]};
 			}
-		}	
+		}
 	}
 
 	while(i < 2) {
@@ -753,26 +749,25 @@ buildPage = function() {
 
 		 // focus search
 		 $("#search")[0].focus();
-	}
+	};
 
 // Startup
 $(document).ready( function () {
-	
+
 	if (runDB) {
-		buildPage();		
+		buildPage();
 	} else {
 		// prepare dump object
 		prepareOffline(function () {
 			// load offline data
-			loadScript('./js/' + PRODUCTNAME + '.json', function() { 
+			loadScript('./js/' + PRODUCTNAME + '.json', function() {
 				buildApiOffline(offline[PRODUCTNAME], buildPage);
 			});
 		});
 		// hide elements that don't make sence in offline mode
 		$('.hidden-offline').hide();
-	};
-
-	// convert hash from redirected dash syntax to new dot syntax
+    }
+    // convert hash from redirected dash syntax to new dot syntax
 	if (/-/.test(location.hash)) {
 		location.hash = location.hash.replace(/(--|-)/g, '.');
 	}
@@ -792,7 +787,7 @@ $(document).ready( function () {
 		} else {
 			if (button.css('display') == 'block') {
 				button.fadeOut("slow");
-			} 
+			}
 		}
 	});
 
@@ -802,21 +797,21 @@ $(document).ready( function () {
 				top : win.scrollTop(),
 				left : win.scrollLeft()
 			};
-		
+
 		viewport.right = viewport.left + win.width();
 		viewport.bottom = viewport.top + win.height();
-		
+
 		var bounds = this.offset();
 		bounds.right = bounds.left + this.outerWidth();
 		bounds.bottom = bounds.top + this.outerHeight();
-		
+
 		return (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
-		
+
 	};
 
 	function updateHeight() {
 		if (jQuery(window).width() >= 768) {
-			// Disable 
+			// Disable
 			var padding,
 			height = $(window).height() - $('#top').height() - $('#footer').height();
 			$("#wrapper").height(height);
@@ -829,9 +824,8 @@ $(document).ready( function () {
 			// no height defined on the element for mobile devices
 			$('#nav-wrap').removeAttr('style');
 		}
-	};      
-	
-	updateHeight();
+    }
+    updateHeight();
 
 	$(window).resize(updateHeight);
 
@@ -856,7 +850,7 @@ $(document).ready( function () {
 				});
 		})
 		.prependTo('#top .container');
-	
+
 });
 
 

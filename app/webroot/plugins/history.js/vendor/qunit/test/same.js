@@ -71,37 +71,37 @@ test("Primitive types and constants", function () {
     equals(QUnit.equiv('', undefined), false, "string");
 
     // Short annotation VS new annotation
-    equals(QUnit.equiv(0, new Number()), true, "short annotation VS new annotation");
-    equals(QUnit.equiv(new Number(), 0), true, "short annotation VS new annotation");
-    equals(QUnit.equiv(1, new Number(1)), true, "short annotation VS new annotation");
-    equals(QUnit.equiv(new Number(1), 1), true, "short annotation VS new annotation");
-    equals(QUnit.equiv(new Number(0), 1), false, "short annotation VS new annotation");
-    equals(QUnit.equiv(0, new Number(1)), false, "short annotation VS new annotation");
+    equals(QUnit.equiv(0, Number()), true, "short annotation VS new annotation");
+    equals(QUnit.equiv(Number(), 0), true, "short annotation VS new annotation");
+    equals(QUnit.equiv(1, Number(1)), true, "short annotation VS new annotation");
+    equals(QUnit.equiv(Number(1), 1), true, "short annotation VS new annotation");
+    equals(QUnit.equiv(Number(0), 1), false, "short annotation VS new annotation");
+    equals(QUnit.equiv(0, Number(1)), false, "short annotation VS new annotation");
 
-    equals(QUnit.equiv(new String(), ""), true, "short annotation VS new annotation");
-    equals(QUnit.equiv("", new String()), true, "short annotation VS new annotation");
-    equals(QUnit.equiv(new String("My String"), "My String"), true, "short annotation VS new annotation");
-    equals(QUnit.equiv("My String", new String("My String")), true, "short annotation VS new annotation");
-    equals(QUnit.equiv("Bad String", new String("My String")), false, "short annotation VS new annotation");
-    equals(QUnit.equiv(new String("Bad String"), "My String"), false, "short annotation VS new annotation");
+    equals(QUnit.equiv(String(), ""), true, "short annotation VS new annotation");
+    equals(QUnit.equiv("", String()), true, "short annotation VS new annotation");
+    equals(QUnit.equiv(String("My String"), "My String"), true, "short annotation VS new annotation");
+    equals(QUnit.equiv("My String", String("My String")), true, "short annotation VS new annotation");
+    equals(QUnit.equiv("Bad String", String("My String")), false, "short annotation VS new annotation");
+    equals(QUnit.equiv(String("Bad String"), "My String"), false, "short annotation VS new annotation");
 
-    equals(QUnit.equiv(false, new Boolean()), true, "short annotation VS new annotation");
-    equals(QUnit.equiv(new Boolean(), false), true, "short annotation VS new annotation");
-    equals(QUnit.equiv(true, new Boolean(true)), true, "short annotation VS new annotation");
-    equals(QUnit.equiv(new Boolean(true), true), true, "short annotation VS new annotation");
-    equals(QUnit.equiv(true, new Boolean(1)), true, "short annotation VS new annotation");
-    equals(QUnit.equiv(false, new Boolean(false)), true, "short annotation VS new annotation");
-    equals(QUnit.equiv(new Boolean(false), false), true, "short annotation VS new annotation");
-    equals(QUnit.equiv(false, new Boolean(0)), true, "short annotation VS new annotation");
-    equals(QUnit.equiv(true, new Boolean(false)), false, "short annotation VS new annotation");
-    equals(QUnit.equiv(new Boolean(false), true), false, "short annotation VS new annotation");
+    equals(QUnit.equiv(false, Boolean()), true, "short annotation VS new annotation");
+    equals(QUnit.equiv(Boolean(), false), true, "short annotation VS new annotation");
+    equals(QUnit.equiv(true, Boolean(true)), true, "short annotation VS new annotation");
+    equals(QUnit.equiv(Boolean(true), true), true, "short annotation VS new annotation");
+    equals(QUnit.equiv(true, Boolean(1)), true, "short annotation VS new annotation");
+    equals(QUnit.equiv(false, Boolean(false)), true, "short annotation VS new annotation");
+    equals(QUnit.equiv(Boolean(false), false), true, "short annotation VS new annotation");
+    equals(QUnit.equiv(false, Boolean(0)), true, "short annotation VS new annotation");
+    equals(QUnit.equiv(true, Boolean(false)), false, "short annotation VS new annotation");
+    equals(QUnit.equiv(Boolean(false), true), false, "short annotation VS new annotation");
 
-    equals(QUnit.equiv(new Object(), {}), true, "short annotation VS new annotation");
-    equals(QUnit.equiv({}, new Object()), true, "short annotation VS new annotation");
-    equals(QUnit.equiv(new Object(), {a:1}), false, "short annotation VS new annotation");
-    equals(QUnit.equiv({a:1}, new Object()), false, "short annotation VS new annotation");
-    equals(QUnit.equiv({a:undefined}, new Object()), false, "short annotation VS new annotation");
-    equals(QUnit.equiv(new Object(), {a:undefined}), false, "short annotation VS new annotation");
+    equals(QUnit.equiv({}, {}), true, "short annotation VS new annotation");
+    equals(QUnit.equiv({}, {}), true, "short annotation VS new annotation");
+    equals(QUnit.equiv({}, {a:1}), false, "short annotation VS new annotation");
+    equals(QUnit.equiv({a:1}, {}), false, "short annotation VS new annotation");
+    equals(QUnit.equiv({a:undefined}, {}), false, "short annotation VS new annotation");
+    equals(QUnit.equiv({}, {a:undefined}), false, "short annotation VS new annotation");
 });
 
 test("Objects Basics.", function() {
@@ -323,7 +323,7 @@ test("Functions.", function() {
     // f2 and f3 have the same code, formatted differently
     var f2 = function () {var i = 0;};
     var f3 = function () {
-        var i = 0 // this comment and no semicoma as difference
+        var i = 0; // this comment and no semicoma as difference
     };
 
     equals(QUnit.equiv(function() {}, function() {}), false, "Anonymous functions"); // exact source code

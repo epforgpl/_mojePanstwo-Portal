@@ -174,7 +174,7 @@ var Type = this.Type = function(name, object){
 			object.prototype.$family = (function(){
 				return lower;
 			}).hide();
-			
+
 		}
 	}
 
@@ -1410,7 +1410,7 @@ this.Events = new Class({
 	addEvent: function(type, fn, internal){
 		type = removeOn(type);
 
-		
+
 
 		this.$events[type] = (this.$events[type] || []).include(fn);
 		if (internal) fn.internal = true;
@@ -1488,9 +1488,8 @@ provides: Slick.Parser
 ...
 */
 
-;(function(){
-
-var parsed,
+(function () {
+    var parsed,
 	separatorIndex,
 	combinatorIndex,
 	reversed,
@@ -1695,8 +1694,7 @@ function parser(
 	}
 
 	return '';
-};
-
+}
 // Slick NS
 
 var Slick = (this.Slick || {});
@@ -1721,9 +1719,8 @@ requires: Slick.Parser
 ...
 */
 
-;(function(){
-
-var local = {},
+(function () {
+    var local = {},
 	featuresCache = {},
 	toString = Object.prototype.toString;
 
@@ -1796,9 +1793,9 @@ local.setDocument = function(document){
 	try {
 		testNode.innerHTML = '<a id="'+id+'"></a>';
 		features.isHTMLDocument = !!document.getElementById(id);
-	} catch(e){};
-
-	if (features.isHTMLDocument){
+    } catch (e) {
+    }
+    if (features.isHTMLDocument){
 
 		testNode.style.display = 'none';
 
@@ -1811,17 +1808,17 @@ local.setDocument = function(document){
 			testNode.innerHTML = 'foo</foo>';
 			selected = testNode.getElementsByTagName('*');
 			starSelectsClosed = (selected && !!selected.length && selected[0].nodeName.charAt(0) == '/');
-		} catch(e){};
-
-		features.brokenStarGEBTN = starSelectsComments || starSelectsClosed;
+        } catch (e) {
+        }
+        features.brokenStarGEBTN = starSelectsComments || starSelectsClosed;
 
 		// IE returns elements with the name instead of just id for getElementsById for some documents
 		try {
 			testNode.innerHTML = '<a name="'+ id +'"></a><b id="'+ id +'"></b>';
 			features.idGetsName = document.getElementById(id) === testNode.firstChild;
-		} catch(e){};
-
-		if (testNode.getElementsByClassName){
+        } catch (e) {
+        }
+        if (testNode.getElementsByClassName){
 
 			// Safari 3.2 getElementsByClassName caches results
 			try {
@@ -1829,15 +1826,15 @@ local.setDocument = function(document){
 				testNode.getElementsByClassName('b').length;
 				testNode.firstChild.className = 'b';
 				cachedGetElementsByClassName = (testNode.getElementsByClassName('b').length != 2);
-			} catch(e){};
-
-			// Opera 9.6 getElementsByClassName doesnt detects the class if its not the first one
+            } catch (e) {
+            }
+            // Opera 9.6 getElementsByClassName doesnt detects the class if its not the first one
 			try {
 				testNode.innerHTML = '<a class="a"></a><a class="f b a"></a>';
 				brokenSecondClassNameGEBCN = (testNode.getElementsByClassName('a').length != 2);
-			} catch(e){};
-
-			features.brokenGEBCN = cachedGetElementsByClassName || brokenSecondClassNameGEBCN;
+            } catch (e) {
+            }
+            features.brokenGEBCN = cachedGetElementsByClassName || brokenSecondClassNameGEBCN;
 		}
 
 		if (testNode.querySelectorAll){
@@ -1846,44 +1843,44 @@ local.setDocument = function(document){
 				testNode.innerHTML = 'foo</foo>';
 				selected = testNode.querySelectorAll('*');
 				features.starSelectsClosedQSA = (selected && !!selected.length && selected[0].nodeName.charAt(0) == '/');
-			} catch(e){};
-
-			// Safari 3.2 querySelectorAll doesnt work with mixedcase on quirksmode
+            } catch (e) {
+            }
+            // Safari 3.2 querySelectorAll doesnt work with mixedcase on quirksmode
 			try {
 				testNode.innerHTML = '<a class="MiX"></a>';
 				features.brokenMixedCaseQSA = !testNode.querySelectorAll('.MiX').length;
-			} catch(e){};
-
-			// Webkit and Opera dont return selected options on querySelectorAll
+            } catch (e) {
+            }
+            // Webkit and Opera dont return selected options on querySelectorAll
 			try {
 				testNode.innerHTML = '<select><option selected="selected">a</option></select>';
 				features.brokenCheckedQSA = (testNode.querySelectorAll(':checked').length == 0);
-			} catch(e){};
-
-			// IE returns incorrect results for attr[*^$]="" selectors on querySelectorAll
+            } catch (e) {
+            }
+            // IE returns incorrect results for attr[*^$]="" selectors on querySelectorAll
 			try {
 				testNode.innerHTML = '<a class=""></a>';
 				features.brokenEmptyAttributeQSA = (testNode.querySelectorAll('[class*=""]').length != 0);
-			} catch(e){};
-
-		}
+            } catch (e) {
+            }
+        }
 
 		// IE6-7, if a form has an input of id x, form.getAttribute(x) returns a reference to the input
 		try {
 			testNode.innerHTML = '<form action="s"><input id="action"/></form>';
 			brokenFormAttributeGetter = (testNode.firstChild.getAttribute('action') != 's');
-		} catch(e){};
-
-		// native matchesSelector function
+        } catch (e) {
+        }
+        // native matchesSelector function
 
 		features.nativeMatchesSelector = root.matchesSelector || /*root.msMatchesSelector ||*/ root.mozMatchesSelector || root.webkitMatchesSelector;
 		if (features.nativeMatchesSelector) try {
 			// if matchesSelector trows errors on incorrect sintaxes we can use it
 			features.nativeMatchesSelector.call(root, ':slick');
 			features.nativeMatchesSelector = null;
-		} catch(e){};
-
-	}
+        } catch (e) {
+        }
+    }
 
 	try {
 		root.slick_expando = 1;

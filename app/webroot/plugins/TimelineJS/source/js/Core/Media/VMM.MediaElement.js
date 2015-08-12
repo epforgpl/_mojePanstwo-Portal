@@ -1,28 +1,32 @@
 /* MediaElement
 ================================================== */
 if(typeof VMM != 'undefined' && typeof VMM.MediaElement == 'undefined') {
-	
+
 	VMM.MediaElement = ({
-		
+
 		init: function() {
 			return this;
 		},
-		
+
 		loadingmessage: function(m) {
 			return "<div class='vco-loading'><div class='vco-loading-container'><div class='vco-loading-icon'></div>" + "<div class='vco-message'><p>" + m + "</p></div></div></div>";
 		},
-		
+
 		thumbnail: function(data, w, h, uid) {
 			var _w		= 16,
 				_h		= 24,
 				_uid	= "";
-				
-			if (w != null && w != "") {_w = w};
-			if (h != null && h != "") {_h = h};
-			if (uid != null && uid != "") {_uid = uid};
-			
 
-			if (data.thumbnail != null && data.thumbnail != "") {
+if (w != null && w != "") {
+                _w = w
+            }
+            if (h != null && h != "") {
+                _h = h
+            }
+            if (uid != null && uid != "") {
+                _uid = uid
+            }
+            if (data.thumbnail != null && data.thumbnail != "") {
 					trace("CUSTOM THUMB");
 					mediaElem =	"<div class='thumbnail thumb-custom' id='" + uid + "_custom_thumb'><img src='" + data.thumbnail + "'></div>";
 					return mediaElem;
@@ -30,7 +34,7 @@ if(typeof VMM != 'undefined' && typeof VMM.MediaElement == 'undefined') {
 				var _valid		= true,
 					mediaElem	= "",
 					m			= VMM.MediaType(data.media); //returns an object with .type and .id
-					
+
 				// DETERMINE THUMBNAIL OR ICON
 				if (m.type == "image") {
 					mediaElem		=	"<div class='thumbnail thumb-photo'></div>";
@@ -97,21 +101,21 @@ if(typeof VMM != 'undefined' && typeof VMM.MediaElement == 'undefined') {
 					mediaElem = "<div class='thumbnail thumb-plaintext'></div>";
 					return mediaElem;
 				}
-			} 
+			}
 		},
-		
+
 		create: function(data, uid) {
 			var _valid = false,
 				//loading_messege			=	"<span class='messege'><p>" + VMM.master_config.language.messages.loading + "</p></span>";
 				loading_messege			=	VMM.MediaElement.loadingmessage(VMM.master_config.language.messages.loading + "...");
-			
+
 			if (data.media != null && data.media != "") {
 				var mediaElem = "", captionElem = "", creditElem = "", _id = "", isTextMedia = false, m;
-				
+
 				m = VMM.MediaType(data.media); //returns an object with .type and .id
 				m.uid = uid;
 				_valid = true;
-				
+
 			// CREDIT
 				if (data.credit != null && data.credit != "") {
 					creditElem			=	"<div class='credit'>" + VMM.Util.linkify_with_twitter(data.credit, "_blank") + "</div>";
@@ -179,35 +183,35 @@ if(typeof VMM != 'undefined' && typeof VMM.MediaElement == 'undefined') {
 					isTextMedia			=	true;
 					VMM.ExternalAPI.wikipedia.get(m);
 			// STORIFY
-				} else if (m.type		==	"storify") { 
+				} else if (m.type		==	"storify") {
 					isTextMedia			=	true;
 					mediaElem			=	"<div class='plain-text-quote'>" + m.id + "</div>";
 			// IFRAME
-				} else if (m.type		==	"iframe") { 
+				} else if (m.type		==	"iframe") {
 					isTextMedia			=	true;
 					mediaElem			=	"<div class='media-shadow'><iframe class='media-frame video' autostart='false' frameborder='0' width='100%' height='100%' src='" + m.id + "'></iframe></div>";
 			// QUOTE
-				} else if (m.type		==	"quote") { 
+				} else if (m.type		==	"quote") {
 					isTextMedia			=	true;
 					mediaElem			=	"<div class='plain-text-quote'>" + m.id + "</div>";
 			// UNKNOWN
-				} else if (m.type		==	"unknown") { 
-					trace("NO KNOWN MEDIA TYPE FOUND TRYING TO JUST PLACE THE HTML"); 
+				} else if (m.type		==	"unknown") {
+					trace("NO KNOWN MEDIA TYPE FOUND TRYING TO JUST PLACE THE HTML");
 					isTextMedia			=	true;
 					mediaElem			=	"<div class='plain-text'><div class='container'>" + VMM.Util.properQuotes(m.id) + "</div></div>";
 			// WEBSITE
-				} else if (m.type		==	"website") { 
-					
+				} else if (m.type		==	"website") {
+
 					mediaElem			=	"<div class='media-shadow website' id='" + m.uid + "'>" + loading_messege + "</div>";
 					VMM.ExternalAPI.webthumb.get(m);
 					//mediaElem			=	"<div class='media-shadow website'><a href='" + m.id + "' target='_blank'>" + "<img src='http://api1.thumbalizr.com/?url=" + m.id.replace(/[\./]$/g, "") + "&width=300' class='media-image'></a></div>";
-					
+
 			// NO MATCH
 				} else {
 					trace("NO KNOWN MEDIA TYPE FOUND");
 					trace(m.type);
 				}
-				
+
 			// WRAP THE MEDIA ELEMENT
 				mediaElem				=	"<div class='media-container' >" + mediaElem + creditElem + captionElem + "</div>";
 			// RETURN
@@ -216,10 +220,9 @@ if(typeof VMM != 'undefined' && typeof VMM.MediaElement == 'undefined') {
 				} else {
 					return "<div class='media-wrapper'>" + mediaElem + "</div>";
 				}
-				
-			};
-			
-		}
-		
+
+}
+        }
+
 	}).init();
 }

@@ -66,7 +66,7 @@
     echo $this->Html->css('../plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css');
 
     /* SOCIAL BUTTONS */
-    echo $this->Html->css('../libs/font-awesome/4.3.0/css/font-awesome.min.css');
+    echo $this->Html->css('../libs/font-awesome/4.4.0/css/font-awesome.min.css');
     $this->Combinator->add_libs('css', $this->Less->css('social-buttons'), false);
 
     if (isset($object_editable) && !empty($object_editable)) {
@@ -166,7 +166,7 @@ echo $this->Html->script('../plugins/bootstrap-switch/dist/js/bootstrap-switch.m
     var mPHeart = {
         constant: {
             ajax: {
-                api: 'https://api-v2.mojepanstwo.pl'
+                api: "<?php echo @API_url; ?>"
             }
         },
         user_id: '<?= AuthComponent::user('id'); ?>',

@@ -28,9 +28,9 @@ $blueline(document).ready(function() {
 
     return false;
   });
- 
-  $("#font-preview-trigger").popover()
- 
+
+  $("#font-preview-trigger").popover();
+
   // Preview
   $("#iframe-preview-button").click(function () {
     var $embed = $("#preview");
@@ -60,7 +60,7 @@ $blueline(document).ready(function() {
 
   $('.collapse').on('show',function(e) {
     window.location.hash = "show-" + $(this).attr('id');
-  })
+  });
 
   if (window.location.hash.match(/#show-/)) {
     var $target = $("#" + window.location.hash.substr(6));

@@ -19,8 +19,8 @@ $(function () {
         var startPeriod = Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
         console.log(startDate.getFullYear() + " " + startDate.getMonth() + " " + startDate.getDate());
         for (var i = data.length-1; i >= 0; i--) {
-            var date = data[i][0] // data[i][0] is date
-            var rate = data[i][1] // data[i][1] is exchange rate
+            var date = data[i][0]; // data[i][0] is date
+            var rate = data[i][1]; // data[i][1] is exchange rate
             if (date < startPeriod) break; // stop measuring highs and lows
 
             if (rate > maxRate) {

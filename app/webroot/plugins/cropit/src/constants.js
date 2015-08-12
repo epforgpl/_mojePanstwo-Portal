@@ -19,7 +19,7 @@ export const ERRORS = {
   SMALL_IMAGE: { code: 1, message: 'Image is too small.' },
 };
 
-const eventName = (events) => events.map((e) => `${e}.cropit`).join(' ');
+const eventName = (events) => events.map((e) =>; `${e}.cropit`).join(' ');
 export const EVENTS = {
   PREVIEW: eventName([
     'mousedown', 'mouseup', 'mouseleave',

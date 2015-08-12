@@ -340,7 +340,7 @@ test("Functions.", function() {
 	var f2 = function () {var i = 0;};
 	var f3 = function () {
 		/*jshint asi:true */
-		var i = 0 // this comment and no semicoma as difference
+		var i = 0; // this comment and no semicoma as difference
 	};
 
 	equal(QUnit.equiv(function() {}, function() {}), false, "Anonymous functions"); // exact source code

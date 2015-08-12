@@ -15,7 +15,7 @@
 		extendClass = H.extendClass,
 		defaultOptions = H.getOptions(),
 		plotOptions = defaultOptions.plotOptions,
-		noop = function () { return; },
+		noop = function () {  },
 		each = H.each,
 		grep = HighchartsAdapter.grep,
 		pick = H.pick,
@@ -53,18 +53,18 @@
 			}
 		},
 		drillUpButton: {
-			position: { 
+			position: {
 				align: 'left',
 				x: 10,
 				y: -50
 			}
 		}
 	});
-	
-	// Stolen from heatmap	
+
+	// Stolen from heatmap
 	var colorSeriesMixin = {
 		// mapping between SVG attributes and the corresponding options
-		pointAttrToOptions: { 
+		pointAttrToOptions: {
 			stroke: 'borderColor',
 			'stroke-width': 'borderWidth',
 			fill: 'color',
@@ -142,11 +142,11 @@
 				}
 				parentList[parent].push(index);
 			});
-			/* 
+			/*
 			*  Quality check:
 			*  - If parent does not exist, then set parent to tree root
 			*  - Add node id to parents children list
-			*/  
+			*/
 			for (key in parentList) {
 				if ((parentList.hasOwnProperty(key)) && (key !== "") && (HighchartsAdapter.inArray(key, allIds) === -1)) {
 					insertItem(key);
@@ -200,7 +200,7 @@
 			each(tree.children, function (child) {
 				child = series.setTreeValues(child);
 				series.insertElementSorted(sorted, child, function (el, el2) {
-					return el.val > el2.val; 
+					return el.val > el2.val;
 				});
 
 				if (!child.ignore) {
@@ -369,7 +369,7 @@
 				if (point) {
 					point.color = color;
 				}
-				// Do it all again with the children	
+				// Do it all again with the children
 				if (node.children.length) {
 					each(node.children, function (child) {
 						series.setColorRecursive(child, color);
@@ -423,7 +423,7 @@
 					this.lP.nW = this.lP.total / this.nH;
 					this.lP.nR = this.lP.aspectRatio(this.lP.nW, this.nH);
 				}
-				this.elArr.push(el);						
+				this.elArr.push(el);
 			};
 			this.reset = function () {
 				this.nW = 0;
@@ -453,7 +453,7 @@
 				if (last || (i < end)) {
 					if (group.direction === 0) {
 						pX = plot.x;
-						pY = plot.y; 
+						pY = plot.y;
 						pW = gW;
 						pH = p / pW;
 					} else {
@@ -472,7 +472,7 @@
 						plot.y = plot.y + pH;
 					} else {
 						plot.x = plot.x + pW;
-					}						
+					}
 				}
 				i = i + 1;
 			});
@@ -645,7 +645,7 @@
 					r: 0, // borderRadius gives wrong size relations and should always be disabled
 					fill: pick(point.color, series.color)
 				};
-				// Overwrite standard series options with level options			
+				// Overwrite standard series options with level options
 				if (level) {
 					attr.stroke = level.borderColor || attr.stroke;
 					attr['stroke-width'] = level.borderWidth || attr['stroke-width'];
@@ -693,7 +693,7 @@
 				}
 			});
 
-			// Set click events on points 
+			// Set click events on points
 			if (seriesOptions.allowDrillToNode) {
 				series.drillTo();
 			}
@@ -714,9 +714,9 @@
 						arr.splice(i, 0, el);
 						inserted = true;
 					}
-					i = i + 1;					
+					i = i + 1;
 				});
-			} 
+			}
 			if (!inserted) {
 				arr.push(el);
 			}
@@ -742,7 +742,7 @@
 					drillId = series.drillToByGroup(point);
 				}
 
-				// If a drill id is returned, add click event and cursor. 
+				// If a drill id is returned, add click event and cursor.
 				if (drillId) {
 					drillName = series.nodeMap[series.rootNode].name || series.rootNode;
 					if (point.graphic) {
@@ -812,7 +812,7 @@
 					parent = this.nodeMap[drillPoint.parent];
 					this.showDrillUpButton((parent.name || parent.id));
 				}
-			} 
+			}
 		},
 		drillToNode: function (id) {
 			var node = this.nodeMap[id],
@@ -836,15 +836,15 @@
 			if (!this.drillUpButton) {
 				attr = buttonOptions.theme;
 				states = attr && attr.states;
-							
+
 				this.drillUpButton = this.chart.renderer.button(
 					backText,
 					null,
 					null,
 					function () {
-						series.drillUp(); 
+						series.drillUp();
 					},
-					attr, 
+					attr,
 					states && states.hover,
 					states && states.select
 				)

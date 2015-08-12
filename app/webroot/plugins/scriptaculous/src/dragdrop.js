@@ -753,7 +753,7 @@ var Sortable = {
     if(Element.isParent(dropon, element)) return;
 
     if(overlap > .33 && overlap < .66 && Sortable.options(dropon).tree) {
-      return;
+
     } else if(overlap>0.5) {
       Sortable.mark(dropon, 'before');
       if(dropon.previousSibling != element) {

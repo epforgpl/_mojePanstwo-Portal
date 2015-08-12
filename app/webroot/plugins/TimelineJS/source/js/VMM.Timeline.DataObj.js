@@ -42,28 +42,28 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 			} else {
 				trace("DATA SOURCE: UNKNOWN");
 			}
-			
+
 		},
-		
+
 		onJSONPLoaded: function() {
 			trace("JSONP IS LOADED");
 			VMM.fireEvent(global, VMM.Timeline.Config.events.data_ready, storyjs_jsonp_data);
 		},
-		
+
 		parseHTML: function (d) {
 			trace("parseHTML");
 			trace("WARNING: THIS IS STILL ALPHA AND WILL NOT WORK WITH ID's other than #timeline");
 			var _data_obj = VMM.Timeline.DataObj.data_template_obj;
-			
+
 			/*	Timeline start slide
 			================================================== */
 			if (VMM.Lib.find("#timeline section", "time")[0]) {
 				_data_obj.timeline.startDate = VMM.Lib.html(VMM.Lib.find("#timeline section", "time")[0]);
 				_data_obj.timeline.headline = VMM.Lib.html(VMM.Lib.find("#timeline section", "h2"));
 				_data_obj.timeline.text = VMM.Lib.html(VMM.Lib.find("#timeline section", "article"));
-				
+
 				var found_main_media = false;
-				
+
 				if (VMM.Lib.find("#timeline section", "figure img").length != 0) {
 					found_main_media = true;
 					_data_obj.timeline.asset.media = VMM.Lib.attr(VMM.Lib.find("#timeline section", "figure img"), "src");
@@ -83,13 +83,13 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 					}
 				}
 			}
-			
+
 			/*	Timeline Date Slides
 			================================================== */
 			VMM.Lib.each("#timeline li", function(i, elem){
-				
+
 				var valid_date = false;
-				
+
 				var _date = {
 					"type":"default",
 					"startDate":"",
@@ -103,11 +103,11 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 		            },
 		            "tags":"Optional"
 				};
-				
+
 				if (VMM.Lib.find(this, "time") != 0) {
-					
+
 					valid_date = true;
-					
+
 					_date.startDate = VMM.Lib.html(VMM.Lib.find(this, "time")[0]);
 
 					if (VMM.Lib.find(this, "time")[1]) {
@@ -137,18 +137,18 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 							_date.asset.caption = VMM.Lib.html(VMM.Lib.find(this, "figcaption"));
 						}
 					}
-					
+
 					trace(_date);
 					_data_obj.timeline.date.push(_date);
-					
+
 				}
-				
+
 			});
-			
+
 			VMM.fireEvent(global, VMM.Timeline.Config.events.data_ready, _data_obj);
-			
+
 		},
-		
+
 		parseJSON: function(d) {
 			trace("parseJSON");
 			if (d.timeline.type == "default") {
@@ -157,19 +157,19 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 			} else if (d.timeline.type == "twitter") {
 				trace("DATA SOURCE: JSON TWEETS");
 				VMM.Timeline.DataObj.model_Tweets.buildData(d);
-				
+
 			} else {
 				trace("DATA SOURCE: UNKNOWN JSON");
 				trace(type.of(d.timeline));
-			};
-		},
-		
-		/*	MODEL OBJECTS 
+            }
+        },
+
+		/*	MODEL OBJECTS
 			New Types of Data can be formatted for the timeline here
 		================================================== */
-		
+
 		model: {
-			
+
 			googlespreadsheet: {
 				extractSpreadsheetKey: function(url) {
 					var key	= VMM.Util.getUrlVars(url)["key"];
@@ -185,28 +185,28 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 				},
 				getData: function(raw) {
 					var getjsondata, key, worksheet, url, timeout, tries = 0;
-					
-					// new Google Docs URLs can specify 'key' differently. 
+
+					// new Google Docs URLs can specify 'key' differently.
 					// that format doesn't seem to have a way to specify a worksheet.
 					key	= VMM.Timeline.DataObj.model.googlespreadsheet.extractSpreadsheetKey(raw);
 					worksheet = VMM.Util.getUrlVars(raw)["worksheet"];
 					if (typeof worksheet == "undefined") worksheet = "1";
-					
+
 					url	= "https://spreadsheets.google.com/feeds/list/" + key + "/" + worksheet + "/public/values?alt=json";
-					
+
 					timeout = setTimeout(function() {
 						trace("Google Docs timeout " + url);
 						trace(url);
 						if (tries < 3) {
 							VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Still waiting on Google Docs, trying again " + tries);
 							tries ++;
-							getjsondata.abort()
+							getjsondata.abort();
 							requestJsonData();
 						} else {
 							VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Google Docs is not responding");
 						}
 					}, 16000);
-					
+
 					function requestJsonData() {
 						getjsondata = VMM.getJSON(url, function(d) {
 							clearTimeout(timeout);
@@ -225,14 +225,14 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 								clearTimeout(timeout);
 							});
 					}
-					
+
 					requestJsonData();
 				},
-				
+
 				buildData: function(d) {
 					var data_obj	= VMM.Timeline.DataObj.data_template_obj,
 						is_valid	= false;
-					
+
 					VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Parsing Google Doc Data");
 
 					function getGVar(v) {
@@ -246,7 +246,7 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 						VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Error parsing spreadsheet. Make sure you have no blank rows and that the headers have not been changed.");
 					} else {
 						is_valid = true;
-						
+
 						for(var i = 0; i < d.feed.entry.length; i++) {
 							var dd		= d.feed.entry[i],
 								dd_type	= "";
@@ -261,7 +261,7 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 							} else if (typeof dd.gsx$titleslide != 'undefined') {
 								dd_type = dd.gsx$titleslide.$t;
 							}
-						
+
 							if (dd_type.match("start") || dd_type.match("title") ) {
 								if (data_obj.timeline.startDate) {
 									VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Invalid data: Multiple 'title' slides. You should only have one row with 'title' in the 'type' column.");
@@ -281,7 +281,7 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 									headline:		getGVar(dd.gsx$headline),
 									text:			getGVar(dd.gsx$text),
 									tag:			getGVar(dd.gsx$tag)
-								}
+								};
 								data_obj.timeline.era.push(era);
 							} else {
 								var date = {
@@ -298,14 +298,13 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 											thumbnail:	getGVar(dd.gsx$mediathumbnail)
 										}
 								};
-							
+
 								data_obj.timeline.date.push(date);
 							}
-						};
-						
-					}
-					
-					
+                        }
+                    }
+
+
 					if (is_valid) {
 						VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Finished Parsing Data");
 						VMM.fireEvent(global, VMM.Timeline.Config.events.data_ready, data_obj);
@@ -315,26 +314,26 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 						VMM.Timeline.DataObj.model.googlespreadsheet.getDataCells(d.feed.link[0].href);
 					}
 				},
-				
+
 				getDataCells: function(raw) {
 					var getjsondata, key, url, timeout, tries = 0;
-					
+
 					key	= VMM.Timeline.DataObj.model.googlespreadsheet.extractSpreadsheetKey(raw);
 					url	= "https://spreadsheets.google.com/feeds/cells/" + key + "/od6/public/values?alt=json";
-					
+
 					timeout = setTimeout(function() {
 						trace("Google Docs timeout " + url);
 						trace(url);
 						if (tries < 3) {
 							VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Still waiting on Google Docs, trying again " + tries);
 							tries ++;
-							getjsondata.abort()
+							getjsondata.abort();
 							requestJsonData();
 						} else {
 							VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Google Docs is not responding");
 						}
 					}, 16000);
-					
+
 					function requestJsonData() {
 						getjsondata = VMM.getJSON(url, function(d) {
 							clearTimeout(timeout);
@@ -348,10 +347,10 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 								clearTimeout(timeout);
 							});
 					}
-					
+
 					requestJsonData();
 				},
-				
+
 				buildDataCells: function(d) {
 					var data_obj	= VMM.Timeline.DataObj.data_template_obj,
 						is_valid	= false,
@@ -360,7 +359,7 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 						max_row		= 0,
 						i			= 0,
 						k			= 0;
-					
+
 					VMM.fireEvent(global, VMM.Timeline.Config.events.messege, VMM.Language.messages.loading_timeline + " Parsing Google Doc Data (cells)");
 
 					function getGVar(v) {
@@ -370,19 +369,19 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 							return "";
 						}
 					}
-					
+
 					if (typeof d.feed.entry != 'undefined') {
 						is_valid = true;
-						
+
 						// DETERMINE NUMBER OF ROWS
 						for(i = 0; i < d.feed.entry.length; i++) {
 							var dd				= d.feed.entry[i];
-							
+
 							if (parseInt(dd.gs$cell.row) > max_row) {
 								max_row = parseInt(dd.gs$cell.row);
 							}
 						}
-						
+
 						// CREATE OBJECT FOR EACH ROW
 						for(var i = 0; i < max_row + 1; i++) {
 							var date = {
@@ -401,7 +400,7 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 							};
 							list.push(date);
 						}
-						
+
 						// PREP GOOGLE DOC CELL DATA TO EVALUATE
 						for(i = 0; i < d.feed.entry.length; i++) {
 							var dd				= d.feed.entry[i],
@@ -413,9 +412,9 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 									row: 		dd.gs$cell.row,
 									name: 		""
 								};
-								
+
 							//trace(cell);
-							
+
 							if (cell.row == 1) {
 								if (cell.content == "Start Date") {
 									column_name = "startDate";
@@ -438,18 +437,16 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 								} else if (cell.content == "Tag") {
 									column_name = "tag";
 								}
-								
+
 								cellnames.push(column_name);
-								
+
 							} else {
 								cell.name = cellnames[cell.col];
 								list[cell.row][cell.name] = cell.content;
 							}
-							
-						};
-						
 
-						for(i = 0; i < list.length; i++) {
+}
+                        for(i = 0; i < list.length; i++) {
 							var date	= list[i];
 							if (date.type.match("start") || date.type.match("title") ) {
 								data_obj.timeline.startDate		= date.startDate;
@@ -466,7 +463,7 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 									headline:		date.headline,
 									text:			date.text,
 									tag:			date.tag
-								}
+								};
 								data_obj.timeline.era.push(era);
 							} else {
 								if (date.startDate) {
@@ -485,16 +482,16 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 												thumbnail:	date.thumbnail
 											}
 									};
-								
+
 									data_obj.timeline.date.push(date);
 
 								} else {
 									trace("Skipping item " + i + " in list: no start date.")
 								}
 							}
-							
+
 						}
-						
+
 					}
 					is_valid = data_obj.timeline.date.length > 0;
 					if (is_valid) {
@@ -504,26 +501,26 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 						VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Unable to load Google Doc data source. Make sure you have no blank rows and that the headers have not been changed.");
 					}
 				}
-				
+
 			},
-			
+
 			storify: {
-				
+
 				getData: function(raw) {
 					var key, url, storify_timeout;
 					//http://storify.com/number10gov/g8-and-nato-chicago-summit
 					//http://api.storify.com/v1/stories/number10gov/g8-and-nato-chicago-summit
-					
+
 					VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Loading Storify...");
-					
+
 					key	= raw.split("storify.com\/")[1];
 					url	= "//api.storify.com/v1/stories/" + key + "?per_page=300&callback=?";
-					
+
 					storify_timeout = setTimeout(function() {
 						trace("STORIFY timeout");
 						VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Storify is not responding");
 					}, 6000);
-					
+
 					VMM.getJSON(url, VMM.Timeline.DataObj.model.storify.buildData)
 						.error(function(jqXHR, textStatus, errorThrown) {
 							trace("STORIFY error");
@@ -532,16 +529,16 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 						.success(function(d) {
 							clearTimeout(storify_timeout);
 						});
-					
+
 				},
-				
+
 				buildData: function(d) {
 					VMM.fireEvent(global, VMM.Timeline.Config.events.messege, "Parsing Data");
 					var _data_obj = VMM.Timeline.DataObj.data_template_obj;
-					
-					_data_obj.timeline.startDate	= 	new Date(d.content.date.created);;
-					_data_obj.timeline.headline		= 	d.content.title;
-					
+
+_data_obj.timeline.startDate = new Date(d.content.date.created);
+                    _data_obj.timeline.headline		= 	d.content.title;
+
 					trace(d);
 					//d.permalink
 					var tt			=	"";
@@ -554,29 +551,29 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 					if (typeof d.content.description != 'undefined' && d.content.description != null) {
 						tt			+=	d.content.description;
 					}
-					
-					tt				+=	"<div class='storify'>"
+
+					tt				+=	"<div class='storify'>";
 					//tt				 += " <a href='" + d.content.permalink + "' target='_blank' alt='link to original story' title='link to original story'>" + "<span class='created-at'></span>" + " </a>";
-					
+
 					tt				+=	"<div class='vcard author'><a class='screen-name url' href='" + d.content.author.permalink + "' target='_blank'>";
-					
-					tt				+=	"<span class='avatar'><img src='" + d.content.author.avatar + "' style='max-width: 32px; max-height: 32px;'></span>"
+
+					tt				+=	"<span class='avatar'><img src='" + d.content.author.avatar + "' style='max-width: 32px; max-height: 32px;'></span>";
 					tt				+=	"<span class='fn'>" + t_name + "</span>";
 					tt				+=	"<span class='nickname'>" + t_nickname + "<span class='thumbnail-inline'></span></span>";
 					tt				+=	"</a>";
 					//tt				+=	"<span class='nickname'>" + d.content.author.stats.stories + " Stories</span>";
 					//tt				+=	"<span class='nickname'>" + d.content.author.stats.subscribers + " Subscribers</span>";
-					tt				+=	"</div>"
 					tt				+=	"</div>";
-					
+					tt				+=	"</div>";
+
 					_data_obj.timeline.text = tt;
 					_data_obj.timeline.asset.media = d.content.thumbnail;
-					
+
 					//_data_obj.timeline.asset.media = 		dd.gsx$media.$t;
 					//_data_obj.timeline.asset.caption = 		dd.gsx$mediacaption.$t;
 					//_data_obj.timeline.asset.credit = 		dd.gsx$mediacredit.$t;
 					_data_obj.timeline.type = 				"storify";
-					
+
 					for(var i = 0; i < d.content.elements.length; i++) {
 						var dd = d.content.elements[i];
 						var is_text = false;
@@ -589,19 +586,19 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 							"startDate": 	dd.posted_at,
 							"endDate": 		dd.posted_at,
 				            "headline": 	" ",
-							"slug": 		"", 
+							"slug": 		"",
 				            "text": 		"",
 				            "asset": {
-								"media": 	"", 
-								"credit": 	"", 
-								"caption": 	"" 
+								"media": 	"",
+								"credit": 	"",
+								"caption": 	""
 							}
 						};
-						
+
 						/*	MEDIA
 						================================================== */
 						if (dd.type == "image") {
-							
+
 							if (typeof dd.source.name != 'undefined') {
 								if (dd.source.name == "flickr") {
 									_date.asset.media		=	"//flickr.com/photos/" + dd.meta.pathalias + "/" + dd.meta.id + "/";
@@ -613,18 +610,18 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 									_date.asset.credit		+=	" on <a href='" + dd.source.href + "'>" + dd.source.name + "</a>";
 								} else {
 									_date.asset.credit		=	"<a href='" + dd.permalink + "'>" + dd.attribution.name + "</a>";
-									
+
 									if (typeof dd.source.href != 'undefined') {
 										_date.asset.credit	+=	" on <a href='" + dd.source.href + "'>" + dd.source.name + "</a>";
 									}
-									
+
 									_date.asset.media		=	dd.data.image.src;
 								}
 							} else {
 								_date.asset.credit			=	"<a href='" + dd.permalink + "'>" + dd.attribution.name + "</a>";
 								_date.asset.media			=	dd.data.image.src;
 							}
-							
+
 							_date.slug	 					=	dd.attribution.name;
 							if (typeof dd.data.image.caption != 'undefined') {
 								if (dd.data.image.caption != 'undefined') {
@@ -632,10 +629,10 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 									_date.slug	 					=	dd.data.image.caption;
 								}
 							}
-							
+
 						} else if (dd.type == "quote") {
 							if (dd.permalink.match("twitter")) {
-								_date.asset.media	=	dd.permalink; 
+								_date.asset.media	=	dd.permalink;
 								_date.slug = VMM.Util.untagify(dd.data.quote.text);
 							} else if (dd.permalink.match("storify")) {
 								is_text = true;
@@ -650,9 +647,9 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 								_date.asset.media	=	dd.permalink;
 							}
 							//_date.asset.media	=	dd.permalink;
-							_date.asset.caption	=	"<a href='" + dd.permalink + "' target='_blank'>" + dd.data.link.title + "</a>"
+							_date.asset.caption	=	"<a href='" + dd.permalink + "' target='_blank'>" + dd.data.link.title + "</a>";
 							_date.slug			=	dd.data.link.title;
-							
+
 						} else if (dd.type == "text") {
 							if (dd.permalink.match("storify")) {
 								is_text = true;
@@ -662,22 +659,22 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 									t_name		=	dd.attribution.name;
 									t_nickname	=	dd.attribution.username + "&nbsp;";
 								}
-								
-								var asset_text	=	"<div class='storify'>"
+
+								var asset_text	=	"<div class='storify'>";
 								asset_text		+=	"<blockquote><p>" + dd.data.text.replace(/<\s*\/?\s*b\s*.*?>/g,"") + "</p></blockquote>";
 								//asset_text		+=	" <a href='" + dd.attribution.href + "' target='_blank' alt='link to author' title='link to author'>" + "<span class='created-at'></span>" + " </a>";
 
 								asset_text		+=	"<div class='vcard author'><a class='screen-name url' href='" + dd.attribution.href + "' target='_blank'>";
-								asset_text		+=	"<span class='avatar'><img src='" + dd.attribution.thumbnail + "' style='max-width: 32px; max-height: 32px;'></span>"
+								asset_text		+=	"<span class='avatar'><img src='" + dd.attribution.thumbnail + "' style='max-width: 32px; max-height: 32px;'></span>";
 								asset_text		+=	"<span class='fn'>" + t_name + "</span>";
 								asset_text		+=	"<span class='nickname'>" + t_nickname + "<span class='thumbnail-inline'></span></span>";
 								asset_text		+=	"</a></div></div>";
 								_date.text		=	asset_text;
-								
+
 								// Try and put it before the element where it is expected on storify
 								if ( (i+1) >= d.content.elements.length ) {
 									_date.startDate = d.content.elements[i-1].posted_at;
-									
+
 								} else {
 									if (d.content.elements[i+1].type == "text" && d.content.elements[i+1].permalink.match("storify")) {
 										if ( (i+2) >= d.content.elements.length ) {
@@ -703,12 +700,12 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 										trace("LEVEL 1");
 										_date.startDate = d.content.elements[i+1].posted_at;
 									}
-									
+
 								}
 								_date.endDate = _date.startDate
 							}
-							
-							
+
+
 						} else if (dd.type == "video") {
 							_date.headline		=	dd.data.video.title;
 							_date.asset.caption	=	dd.data.video.description;
@@ -718,35 +715,34 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 							trace("NO MATCH ");
 							trace(dd);
 						}
-						
+
 						if (is_text) {
 							_date.slug = VMM.Util.untagify(dd.data.text);
 						}
-						
+
 						_data_obj.timeline.date.push(_date);
-						
-						
-					};
-				
-					VMM.fireEvent(global, VMM.Timeline.Config.events.data_ready, _data_obj);
+
+
+}
+                    VMM.fireEvent(global, VMM.Timeline.Config.events.data_ready, _data_obj);
 				}
-				
+
 			},
-			
+
 			tweets: {
-				
+
 				type: "twitter",
-			
+
 				buildData: function(raw_data) {
 					VMM.bindEvent(global, VMM.Timeline.DataObj.model.tweets.onTwitterDataReady, "TWEETSLOADED");
 					VMM.ExternalAPI.twitter.getTweets(raw_data.timeline.tweets);
 				},
-			
+
 				getData: function(raw_data) {
 					VMM.bindEvent(global, VMM.Timeline.DataObj.model.tweets.onTwitterDataReady, "TWEETSLOADED");
 					VMM.ExternalAPI.twitter.getTweetSearch(raw_data);
 				},
-			
+
 				onTwitterDataReady: function(e, d) {
 					var _data_obj = VMM.Timeline.DataObj.data_template_obj;
 
@@ -767,35 +763,34 @@ if (typeof VMM.Timeline !== 'undefined' && typeof VMM.Timeline.DataObj == 'undef
 						};
 						// pass in the 'created_at' string returned from twitter //
 						// stamp arrives formatted as Tue Apr 07 22:52:51 +0000 2009 //
-					
+
 						//var twit_date = VMM.ExternalAPI.twitter.parseTwitterDate(d.tweetdata[i].raw.created_at);
 						//trace(twit_date);
-					
+
 						_date.startDate = d.tweetdata[i].raw.created_at;
-					
+
 						if (type.of(d.tweetdata[i].raw.from_user_name)) {
-							_date.headline = d.tweetdata[i].raw.from_user_name + " (<a href='https://twitter.com/" + d.tweetdata[i].raw.from_user + "'>" + "@" + d.tweetdata[i].raw.from_user + "</a>)" ;						
+							_date.headline = d.tweetdata[i].raw.from_user_name + " (<a href='https://twitter.com/" + d.tweetdata[i].raw.from_user + "'>" + "@" + d.tweetdata[i].raw.from_user + "</a>)" ;
 						} else {
 							_date.headline = d.tweetdata[i].raw.user.name + " (<a href='https://twitter.com/" + d.tweetdata[i].raw.user.screen_name + "'>" + "@" + d.tweetdata[i].raw.user.screen_name + "</a>)" ;
 						}
-					
+
 						_date.asset.media = d.tweetdata[i].content;
 						_data_obj.timeline.date.push(_date);
-					
-					};
-				
-					VMM.fireEvent(global, VMM.Timeline.Config.events.data_ready, _data_obj);
+
+}
+                    VMM.fireEvent(global, VMM.Timeline.Config.events.data_ready, _data_obj);
 				}
-				
+
 			}
 		},
-		
-		
+
+
 		/*	TEMPLATE OBJECTS
 		================================================== */
 		data_template_obj: {  "timeline": { "headline":"", "description":"", "asset": { "media":"", "credit":"", "caption":"" }, "date": [], "era":[] } },
 		date_obj: {"startDate":"2012,2,2,11,30", "headline":"", "text":"", "asset": {"media":"http://youtu.be/vjVfu8-Wp6s", "credit":"", "caption":"" }, "tags":"Optional"}
-	
+
 	};
-	
+
 }

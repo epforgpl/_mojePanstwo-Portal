@@ -564,8 +564,8 @@ Ajax.InPlaceEditor = Class.create({
       var text = ipe.options['text' + mode + 'Controls'];
       if (!text || condition === false) return;
       ipe._form.appendChild(document.createTextNode(text));
-    };
-    this._form = $(document.createElement('form'));
+    }
+      this._form = $(document.createElement('form'));
     this._form.id = this.options.formId;
     this._form.addClassName(this.options.formClassName);
     this._form.onsubmit = this._boundSubmitHandler;
@@ -859,8 +859,8 @@ Ajax.InPlaceEditor.prototype.initialize.dealWithDeprecatedOptions = function(opt
   function fallback(name, expr) {
     if (name in options || expr === undefined) return;
     options[name] = expr;
-  };
-  fallback('cancelControl', (options.cancelLink ? 'link' : (options.cancelButton ? 'button' :
+  }
+    fallback('cancelControl', (options.cancelLink ? 'link' : (options.cancelButton ? 'button' :
     options.cancelLink == options.cancelButton == false ? false : undefined)));
   fallback('okControl', (options.okLink ? 'link' : (options.okButton ? 'button' :
     options.okLink == options.okButton == false ? false : undefined)));

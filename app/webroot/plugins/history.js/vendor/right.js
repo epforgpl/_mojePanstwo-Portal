@@ -1308,7 +1308,7 @@ Function.include({
    */
   delay: function() {
     var args  = $A(arguments), timeout = args.shift(),
-        timer = new Number(setTimeout(this.bind.apply(this, [this].concat(args)), timeout));
+        timer = Number(setTimeout(this.bind.apply(this, [this].concat(args)), timeout));
 
     timer.cancel = function() { clearTimeout(this); };
 
@@ -1325,7 +1325,7 @@ Function.include({
    */
   periodical: function() {
     var args  = $A(arguments), timeout = args.shift(),
-        timer = new Number(setInterval(this.bind.apply(this, [this].concat(args)), timeout));
+        timer = Number(setInterval(this.bind.apply(this, [this].concat(args)), timeout));
 
     timer.stop = function() { clearInterval(this); };
 
@@ -4960,7 +4960,7 @@ function Form_remote_send(event, options) {
 
 /**
  * Adds Xhr params handling if a Form element is passed to Xhr#send
- * 
+ *
  * @param Object params - could be Hash or Form element
  * @return Object
  */

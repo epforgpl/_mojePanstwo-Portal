@@ -1,4 +1,4 @@
-/* DEFAULT LANGUAGE 
+/* DEFAULT LANGUAGE
 ================================================== */
 if(typeof VMM != 'undefined' && typeof VMM.Language == 'undefined') {
 	VMM.Language = {
@@ -11,7 +11,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Language == 'undefined') {
 			month_abbr: ["Jan.", "Feb.", "March", "April", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."],
 			day: ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
 			day_abbr: ["Sun.","Mon.", "Tues.", "Wed.", "Thurs.", "Fri.", "Sat."]
-		}, 
+		},
 		dateformats: {
 			year: "yyyy",
 			month_short: "mmm",
@@ -35,4 +35,4 @@ if(typeof VMM != 'undefined' && typeof VMM.Language == 'undefined') {
 			swipe_nav: "Swipe to Navigate"
 		}
 	}
-};
+}

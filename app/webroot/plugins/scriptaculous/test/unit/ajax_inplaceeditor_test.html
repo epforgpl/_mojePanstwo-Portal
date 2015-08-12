@@ -174,7 +174,7 @@ Third line</div>
       var called = false;
       inPlaceEditor.options.callback = function(form) {
         called = true;
-      }
+      };
       Event.simulateMouse('tobeedited','click');
       Event.simulateMouse(document.forms[0].childNodes[1],'click');
       assert(called, "callback was not called");
@@ -354,7 +354,7 @@ Third line</div>
         onFailure: function() { called.push('onFailure') },
         onComplete: function() { called.push('onComplete') },
         onLeaveEditMode: function() { called.push('onLeaveEditMode') }
-      }
+      };
       // Proper success
       $('newtbe').update('New to be edited');
       var ipe = new Ajax.InPlaceEditor('newtbe', '_ajax_inplaceeditor_result2.html', opts);
@@ -513,15 +513,15 @@ Third line</div>
       function override(name, fx) {
         arguments.callee.backups[name] = Field.Methods[name];
         Field.Methods[name] = fx;
-      };
-      override.backups = {};
+      }
+        override.backups = {};
       function restore() {
         $A(arguments).each(function(n) {
           Field.Methods[name] = override.backups[name];
         });
         Element.addMethods();
-      };
-      override('activate', function(elt) {
+      }
+        override('activate', function(elt) {
         override.backups['activate'](elt);
         activated = true;
       });
@@ -709,8 +709,8 @@ Third line</div>
         var item = editor.options[index];
         assertEqual(ref[0], item.value, 'Incorrect OPTION value');
         assertEqual(ref[1], item.text.strip(), 'Incorrect OPTION text');
-      };
-      assertEqual(1, editor.selectedIndex, 'Did not properly select item');
+      }
+        assertEqual(1, editor.selectedIndex, 'Did not properly select item');
       editor.selectedIndex = 2;
       Event.simulateMouse(ipe._controls.ok, 'click');
       assertEqual('ntbe2', fieldValue);

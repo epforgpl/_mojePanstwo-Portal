@@ -5,7 +5,7 @@
 	the request of the api.
 ================================================== */
 if(typeof VMM != 'undefined' && typeof VMM.MediaType == 'undefined') {
-	
+
 	VMM.MediaType = function(_d) {
 		var d		= _d.replace(/^\s\s*/, '').replace(/\s\s*$/, ''),
 			success	= false,
@@ -18,7 +18,7 @@ if(typeof VMM != 'undefined' && typeof VMM.MediaType == 'undefined') {
 				lang:		VMM.Language.lang,
 				uniqueid:	VMM.Util.unique_ID(6)
 			};
-		
+
 		if (d.match("div class='twitter'")) {
 			media.type = "twitter-ready";
 		    media.id = d;
@@ -29,7 +29,7 @@ if(typeof VMM != 'undefined' && typeof VMM.MediaType == 'undefined') {
 			success = true;
 		} else if (d.match('<iframe')) {
 			media.type = "iframe";
-			trace("IFRAME")
+			trace("IFRAME");
 			regex = /src=['"](\S+?)['"]/;
 			group = d.match(regex);
 			if (group) {
@@ -54,8 +54,8 @@ if(typeof VMM != 'undefined' && typeof VMM.MediaType == 'undefined') {
 		    success = true;
 		} else if (d.match('(player.)?vimeo\.com')) {
 		    media.type = "vimeo";
-		    media.id = d.split(/video\/|\/\/vimeo\.com\//)[1].split(/[?&]/)[0];;
-		    success = true;
+            media.id = d.split(/video\/|\/\/vimeo\.com\//)[1].split(/[?&]/)[0];
+            success = true;
 	    } else if (d.match('(www.)?dailymotion\.com')) {
 			media.id = d.split(/video\/|\/\/dailymotion\.com\//)[1];
 			media.type = "dailymotion";
@@ -105,17 +105,17 @@ if(typeof VMM != 'undefined' && typeof VMM.MediaType == 'undefined') {
 			success = true;
 		} else if (d.match("flickr.com/photos/")) {
 			media.type = "flickr";
-			media.id = VMM.ExternalAPI.flickr.getFlickrIdFromUrl(d)
+			media.id = VMM.ExternalAPI.flickr.getFlickrIdFromUrl(d);
 			media.link = d;
 			success = Boolean(media.id);
 		} else if (VMM.ExternalAPI.instagram.isInstagramUrl(d)) {
 			media.type = "instagram";
 			media.link = d;
-			media.id = VMM.ExternalAPI.instagram.getInstagramIdFromUrl(d)
+			media.id = VMM.ExternalAPI.instagram.getInstagramIdFromUrl(d);
 			success = Boolean(media.id);
-		} else if (d.match(/jpg|jpeg|png|gif|svg|bmp/i) || 
-				   d.match("staticmap") || 
-				   d.match("yfrog.com") || 
+		} else if (d.match(/jpg|jpeg|png|gif|svg|bmp/i) ||
+				   d.match("staticmap") ||
+				   d.match("yfrog.com") ||
 				   d.match("twitpic.com") ||
 				   d.match('maps.googleapis.com/maps/api/streetview')) {
 			media.type = "image";
@@ -142,13 +142,13 @@ if(typeof VMM != 'undefined' && typeof VMM.MediaType == 'undefined') {
 			media.id = d;
 			success = true;
 		} else {
-			trace("unknown media");  
+			trace("unknown media");
 			media.type = "unknown";
 			media.id = d;
 			success = true;
 		}
-		
-		if (success) { 
+
+		if (success) {
 			return media;
 		} else {
 			trace("No valid media id detected");

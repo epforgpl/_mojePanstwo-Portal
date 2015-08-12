@@ -99,7 +99,7 @@ QUnit.test('String primitive', function (assert) {
 
 QUnit.test('String object', function (assert) {
 	assert.expect(1);
-	Cookies.set('c', new String('v'));
+	Cookies.set('c', String('v'));
 	assert.strictEqual(Cookies.get('c'), 'v', 'should write value');
 });
 
@@ -305,7 +305,7 @@ QUnit.test('Array Literal', function (assert) {
 QUnit.test('Array Constructor', function (assert) {
 	/*jshint -W009 */
 	assert.expect(2);
-	var value = new Array();
+	var value = [];
 	value[0] = 'v';
 	Cookies.set('c', value);
 	assert.deepEqual(Cookies.getJSON('c'), ['v'], 'should handle Array Constructor');
@@ -322,7 +322,7 @@ QUnit.test('Object Literal', function (assert) {
 QUnit.test('Object Constructor', function (assert) {
 	/*jshint -W010 */
 	assert.expect(2);
-	var value = new Object();
+	var value = {};
 	value.k = 'v';
 	Cookies.set('c', value);
 	assert.deepEqual(Cookies.getJSON('c'), {k: 'v'}, 'should handle Object Constructor');

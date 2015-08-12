@@ -1,6 +1,6 @@
-﻿/* Hebrew (beta) LANGUAGE 
+﻿/* Hebrew (beta) LANGUAGE
 ================================================== */
-trace("Language code 'iw' for Hebrew is deprecated. Use 'he' instead.")
+trace("Language code 'iw' for Hebrew is deprecated. Use 'he' instead.");
 if(typeof VMM != 'undefined') {
 	VMM.Language = {
 		lang: "iw",
@@ -13,7 +13,7 @@ if(typeof VMM != 'undefined') {
 			month_abbr: ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"],
 			day: ["ראשון","שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"],
 			day_abbr: ["יום א'","יום ב'", "יום ג'", "יום ד'", "יום ה'", "יום ו'", "שבת"]
-		}, 
+		},
 		dateformats: {
 			year: "yyyy",
 			month_short: "mmm",

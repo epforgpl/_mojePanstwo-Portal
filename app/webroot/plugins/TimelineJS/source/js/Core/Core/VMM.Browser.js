@@ -1,7 +1,7 @@
 /*	* DEVICE AND BROWSER DETECTION
 ================================================== */
 if(typeof VMM != 'undefined' && typeof VMM.Browser == 'undefined') {
-	
+
 	VMM.Browser = {
 		init: function () {
 			this.browser = this.searchString(this.dataBrowser) || "An unknown browser";
@@ -15,9 +15,9 @@ if(typeof VMM != 'undefined' && typeof VMM.Browser == 'undefined') {
 		},
 		searchOrientation: function(orientation) {
 			var orient = "";
-			if ( orientation == 0  || orientation == 180) {  
+			if ( orientation == 0  || orientation == 180) {
 				orient = "portrait";
-			} else if ( orientation == 90 || orientation == -90) {  
+			} else if ( orientation == 90 || orientation == -90) {
 				orient = "landscape";
 			} else {
 				orient = "normal";
@@ -41,9 +41,9 @@ if(typeof VMM != 'undefined' && typeof VMM.Browser == 'undefined') {
 			for (var i=0;i<data.length;i++)	{
 				var dataString	= data[i].string,
 					dataProp	= data[i].prop;
-					
+
 				this.versionSearchString = data[i].versionSearch || data[i].identity;
-				
+
 				if (dataString) {
 					if (dataString.indexOf(data[i].subString) != -1) {
 						return data[i].identity;
@@ -157,6 +157,6 @@ if(typeof VMM != 'undefined' && typeof VMM.Browser == 'undefined') {
 			}
 		]
 
-	}
+	};
 	VMM.Browser.init();
 }

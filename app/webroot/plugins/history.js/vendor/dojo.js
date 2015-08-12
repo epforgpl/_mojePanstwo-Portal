@@ -1528,9 +1528,8 @@
 					setArrived(module);
 					finishExec(module);
 					return module;
-				};
-
-				var mid = module.mid;
+                }
+                var mid = module.mid;
 				if(module.injected === arrived){
 					signal(error, makeError("multipleDefine", module));
 					return module;
@@ -5088,7 +5087,7 @@ define(["./_base/kernel", "./has", "./dom", "./on", "./_base/array", "./_base/la
 		// test to see if we can extend an array (not supported in old IE)
 		return lang.delegate([], {length: 1}).length == 1 && !has("bug-for-in-skips-shadowed");
 	});
-	
+
 	var ap = Array.prototype, aps = ap.slice, apc = ap.concat, forEach = array.forEach;
 
 	var tnl = function(/*Array*/ a, /*dojo/NodeList?*/ parent, /*Function?*/ NodeListCtor){
@@ -5262,7 +5261,7 @@ define(["./_base/kernel", "./has", "./dom", "./on", "./_base/array", "./_base/la
 		}
 		var nodeArray = (array && "length" in array) ? array : arguments;
 		if(isNew || !nodeArray.sort){
-			// make sure it's a real array before we pass it on to be wrapped 
+			// make sure it's a real array before we pass it on to be wrapped
 			var target = isNew ? this : [],
 				l = target.length = nodeArray.length;
 			for(var i = 0; i < l; i++){
@@ -5285,8 +5284,8 @@ define(["./_base/kernel", "./has", "./dom", "./on", "./_base/array", "./_base/la
 		};
 		return nodeArray;
 	};
-	
-	var nl = NodeList, nlp = nl.prototype = 
+
+	var nl = NodeList, nlp = nl.prototype =
 		has("array-extensible") ? [] : {};// extend an array if it is extensible
 
 	// expose adapters and the wrapper as private functions
@@ -6856,11 +6855,11 @@ define(["./has"], function(has){
 						return stringify(it.valueOf(), indent, key);
 					}
 					var nextIndent= spacer ? (indent + spacer) : "";
-					/* we used to test for DOM nodes and throw, but FF serializes them as {}, so cross-browser consistency is probably not efficiently attainable */ 
-				
+					/* we used to test for DOM nodes and throw, but FF serializes them as {}, so cross-browser consistency is probably not efficiently attainable */
+
 					var sep = spacer ? " " : "";
 					var newLine = spacer ? "\n" : "";
-				
+
 					// array
 					if(it instanceof Array){
 						var itl = it.length, res = [];
@@ -6892,7 +6891,7 @@ define(["./has"], function(has){
 								// skip non-serializable values
 								continue;
 							}
-							// At this point, the most non-IE browsers don't get in this branch 
+							// At this point, the most non-IE browsers don't get in this branch
 							// (they have native JSON), so push is definitely the way to
 							output.push(newLine + nextIndent + keyStr + ":" + sep + val);
 						}
@@ -9256,7 +9255,7 @@ define([
 	var infixSpaceFunc = function(match, pre, ch, post){
 		return ch ? (pre ? pre + " " : "") + ch + (post ? " " + post : "") : /*n+3*/ match;
 	};
-	
+
 	//Don't apply the infixSpaceRe to attribute value selectors
 	var attRe = /([^[]*)([^\]]*])?/g;
 	var attFunc = function(match, nonAtt, att){
@@ -11448,7 +11447,7 @@ define("dojo/request/xhr", [
 			}
 			function onError(evt){
 				var _xhr = evt.target;
-				var error = new RequestError('Unable to load ' + response.url + ' status: ' + _xhr.status, response); 
+				var error = new RequestError('Unable to load ' + response.url + ' status: ' + _xhr.status, response);
 				dfd.handleResponse(response, error);
 			}
 
@@ -12801,7 +12800,7 @@ define("dojo/request/util", [
 	exports.parseArgs = function parseArgs(url, options, skipData){
 		var data = options.data,
 			query = options.query;
-		
+
 		if(data && !skipData){
 			if(typeof data === 'object'){
 				options.data = ioQuery.objectToQuery(data);
@@ -12978,7 +12977,7 @@ define("dojo/mouse", ["./_base/kernel", "./on", "./has", "./dom", "./_base/windo
 				var relatedTarget = evt.relatedTarget;
 				if(target && (target != (relatedTarget && relatedTarget.nodeType == 1 && select(relatedTarget)))){
 					return listener.call(target, evt);
-				} 
+				}
 			});
 		};
 		return handler;
@@ -14007,7 +14006,7 @@ define([
 		//		`dojo/errors/CancelError` instance.
 
 		// promise: dojo/promise/Promise
-		//		The public promise object that clients can add callbacks to. 
+		//		The public promise object that clients can add callbacks to.
 		var promise = this.promise = new Promise();
 
 		var deferred = this;
@@ -14238,7 +14237,7 @@ define("dojo/_base/NodeList", ["./kernel", "../query", "./array", "./html", "../
 		//		mouseout(), mouseover(), mouseup(), and submit() methods.
 	};
 	=====*/
- 
+
 	var NodeList = query.NodeList,
 		nlp = NodeList.prototype;
 
@@ -15029,7 +15028,7 @@ define(["./has!dom-addeventlistener?:./aspect", "./_base/kernel", "./has"], func
 	};
 	on.once = function(target, type, listener, dontFix){
 		// summary:
-		//		This function acts the same as on(), but will only call the listener once. The 
+		//		This function acts the same as on(), but will only call the listener once. The
 		//		listener will be called for the first
 		//		event that takes place and then listener will automatically be removed.
 		var signal = on(target, type, function(){
@@ -15083,12 +15082,12 @@ define(["./has!dom-addeventlistener?:./aspect", "./_base/kernel", "./has"], func
 				listener = fixTouchListener(listener);
 			}
 			if(!has("event-orientationchange") && (type == "orientationchange")){
-				//"orientationchange" not supported <= Android 2.1, 
+				//"orientationchange" not supported <= Android 2.1,
 				//but works through "resize" on window
-				type = "resize"; 
+				type = "resize";
 				target = window;
 				listener = fixTouchListener(listener);
-			} 
+			}
 		}
 		if(addStopImmediate){
 			// add stopImmediatePropagation if it doesn't exist
@@ -15127,7 +15126,7 @@ define(["./has!dom-addeventlistener?:./aspect", "./_base/kernel", "./has"], func
 		// eventType:
 		//		The event to listen for
 		// children:
-		//		Indicates if children elements of the selector should be allowed. This defaults to 
+		//		Indicates if children elements of the selector should be allowed. This defaults to
 		//		true
 		// example:
 		// |	require(["dojo/on", "dojo/mouse", "dojo/query!css2"], function(listen, mouse){
@@ -15172,14 +15171,14 @@ define(["./has!dom-addeventlistener?:./aspect", "./_base/kernel", "./has"], func
 		// summary:
 		//		Fires an event on the target object.
 		// target:
-		//		The target object to fire the event on. This can be a DOM element or a plain 
+		//		The target object to fire the event on. This can be a DOM element or a plain
 		//		JS object. If the target is a DOM element, native event emiting mechanisms
 		//		are used when possible.
 		// type:
-		//		The event type name. You can emulate standard native events like "click" and 
+		//		The event type name. You can emulate standard native events like "click" and
 		//		"mouseover" or create custom events like "open" or "finish".
 		// event:
-		//		An object that provides the properties for the event. See https://developer.mozilla.org/en/DOM/event.initEvent 
+		//		An object that provides the properties for the event. See https://developer.mozilla.org/en/DOM/event.initEvent
 		//		for some of the properties. These properties are copied to the event object.
 		//		Of particular importance are the cancelable and bubbles properties. The
 		//		cancelable property indicates whether or not the event has a default action
@@ -15187,7 +15186,7 @@ define(["./has!dom-addeventlistener?:./aspect", "./_base/kernel", "./has"], func
 		//		the event object. The bubbles property indicates whether or not the
 		//		event will bubble up the DOM tree. If bubbles is true, the event will be called
 		//		on the target and then each parent successively until the top of the tree
-		//		is reached or stopPropagation() is called. Both bubbles and cancelable 
+		//		is reached or stopPropagation() is called. Both bubbles and cancelable
 		//		default to false.
 		// returns:
 		//		If the event is cancelable and the event is not cancelled,
@@ -15251,7 +15250,7 @@ define(["./has!dom-addeventlistener?:./aspect", "./_base/kernel", "./has"], func
 				}
 			};
 		}
-	} 
+	}
 	if(has("dom-addeventlistener")){
 		// normalize focusin and focusout
 		captures = {
@@ -15266,10 +15265,10 @@ define(["./has!dom-addeventlistener?:./aspect", "./_base/kernel", "./has"], func
 		on.emit = function(target, type, event){
 			if(target.dispatchEvent && document.createEvent){
 				// use the native event emiting mechanism if it is available on the target object
-				// create a generic event				
-				// we could create branch into the different types of event constructors, but 
-				// that would be a lot of extra code, with little benefit that I can see, seems 
-				// best to use the generic constructor and copy properties over, making it 
+				// create a generic event
+				// we could create branch into the different types of event constructors, but
+				// that would be a lot of extra code, with little benefit that I can see, seems
+				// best to use the generic constructor and copy properties over, making it
 				// easy to have events look like the ones created with specific initializers
 				var nativeEvent = target.ownerDocument.createEvent("HTMLEvents");
 				nativeEvent.initEvent(type, !!event.bubbles, !!event.cancelable);
@@ -15362,8 +15361,8 @@ define(["./has!dom-addeventlistener?:./aspect", "./_base/kernel", "./has"], func
 		};
 		var fixAttach = function(target, type, listener){
 			listener = fixListener(listener);
-			if(((target.ownerDocument ? target.ownerDocument.parentWindow : target.parentWindow || target.window || window) != top || 
-						has("jscript") < 5.8) && 
+			if(((target.ownerDocument ? target.ownerDocument.parentWindow : target.parentWindow || target.window || window) != top ||
+						has("jscript") < 5.8) &&
 					!has("config-_allow_leaks")){
 				// IE will leak memory on certain handlers in frames (IE8 and earlier) and in unattached DOM nodes for JScript 5.7 and below.
 				// Here we use global redirection to solve the memory leaks
@@ -15416,13 +15415,13 @@ define(["./has!dom-addeventlistener?:./aspect", "./_base/kernel", "./has"], func
 			this.returnValue = false;
 		};
 	}
-	if(has("touch")){ 
+	if(has("touch")){
 		var Event = function(){};
-		var windowOrientation = window.orientation; 
-		var fixTouchListener = function(listener){ 
-			return function(originalEvent){ 
-				//Event normalization(for ontouchxxx and resize): 
-				//1.incorrect e.pageX|pageY in iOS 
+		var windowOrientation = window.orientation;
+		var fixTouchListener = function(listener){
+			return function(originalEvent){
+				//Event normalization(for ontouchxxx and resize):
+				//1.incorrect e.pageX|pageY in iOS
 				//2.there are no "e.rotation", "e.scale" and "onorientationchange" in Andriod
 				//3.More TBD e.g. force | screenX | screenX | clientX | clientY | radiusX | radiusY
 
@@ -15432,7 +15431,7 @@ define(["./has!dom-addeventlistener?:./aspect", "./_base/kernel", "./has"], func
 					var type = originalEvent.type;
 					try{
 						delete originalEvent.type; // on some JS engines (android), deleting properties make them mutable
-					}catch(e){} 
+					}catch(e){}
 					if(originalEvent.type){
 						// deleting properties doesn't work (older iOS), have to use delegation
 						Event.prototype = originalEvent;
@@ -15451,16 +15450,16 @@ define(["./has!dom-addeventlistener?:./aspect", "./_base/kernel", "./has"], func
 					}
 					originalEvent.corrected = event;
 					if(type == 'resize'){
-						if(windowOrientation == window.orientation){ 
-							return null;//double tap causes an unexpected 'resize' in Andriod 
-						} 
+						if(windowOrientation == window.orientation){
+							return null;//double tap causes an unexpected 'resize' in Andriod
+						}
 						windowOrientation = window.orientation;
-						event.type = "orientationchange"; 
+						event.type = "orientationchange";
 						return listener.call(this, event);
 					}
 					// We use the original event and augment, rather than doing an expensive mixin operation
 					if(!("rotation" in event)){ // test to see if it has rotation
-						event.rotation = 0; 
+						event.rotation = 0;
 						event.scale = 1;
 					}
 					//use event.changedTouches[0].pageX|pageY|screenX|screenY|clientX|clientY|target
@@ -15470,9 +15469,9 @@ define(["./has!dom-addeventlistener?:./aspect", "./_base/kernel", "./has"], func
 						event[i] = firstChangeTouch[i];
 					}
 				}
-				return listener.call(this, event); 
-			}; 
-		}; 
+				return listener.call(this, event);
+			};
+		};
 	}
 	return on;
 });
@@ -16662,20 +16661,20 @@ return {
 	//		Array containing the r, g, b components used as transparent color in dojo.Color;
 	//		if undefined, [255,255,255] (white) will be used.
 	transparentColor: undefined,
-	
+
 	// deps: Function|Array
 	//		Defines dependencies to be used before the loader has been loaded.
-	//		When provided, they cause the loader to execute require(deps, callback) 
+	//		When provided, they cause the loader to execute require(deps, callback)
 	//		once it has finished loading. Should be used with callback.
 	deps: undefined,
-	
+
 	// callback: Function|Array
-	//		Defines a callback to be used when dependencies are defined before 
-	//		the loader has been loaded. When provided, they cause the loader to 
-	//		execute require(deps, callback) once it has finished loading. 
+	//		Defines a callback to be used when dependencies are defined before
+	//		the loader has been loaded. When provided, they cause the loader to
+	//		execute require(deps, callback) once it has finished loading.
 	//		Should be used with deps.
 	callback: undefined,
-	
+
 	// deferredInstrumentation: Boolean
 	//		Whether deferred instrumentation should be loaded or included
 	//		in builds.
@@ -16786,9 +16785,9 @@ define("dojo/_base/event", ["./kernel", "../on", "../has", "../dom-geometry"], f
 				dom.normalizeEvent(evt);
 			}
 			return evt;
-		};		
+		};
 	}
-	
+
 	var ret = {
 		// summary:
 		//		This module defines dojo DOM event API.   Usually you should use dojo/on, and evt.stopPropagation() +
@@ -16807,7 +16806,7 @@ define("dojo/_base/event", ["./kernel", "../on", "../has", "../dom-geometry"], f
 			}
 			return evt;	// Event
 		},
-	
+
 		stop: function(/*Event*/ evt){
 			// summary:
 			//		prevents propagation and clobbers the default action of the

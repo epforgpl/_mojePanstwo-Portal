@@ -17,7 +17,7 @@
       background: #fed;
       padding: 1em;
       width: 400px;
-    } 
+    }
     .final {
       color: #fff;
       font-style: italic;
@@ -71,10 +71,10 @@
   var COMBINED_EFFECTS =
     ['Fade','Appear','BlindUp','BlindDown','Puff','SwitchOff','DropOut','Shake',
      'SlideUp','SlideDown','Pulsate','Squish','Fold','Grow','Shrink'];
-  
+
   var COMBINED_RJS_EFFECTS = $w('fade appear blind_up blind_down puff switch_off '+
     'drop_out shake slide_up slide_down pulsate squish fold grow shrink');
-     
+
   var tmp, tmp2;
 
   new Test.Unit.Runner({
@@ -82,23 +82,23 @@
     setup: function() { with (this) {
       $('sandbox').innerHTML = "";
     }},
-    
+
     teardown: function() { with(this) {
       // remove all queued effects
       Effect.Queue.each(function(e) { e.cancel() });
     }},
-    
+
     testExceptionOnNonExistingElement: function() { with(this) {
-      assertRaise('ElementDoesNotExistError', 
+      assertRaise('ElementDoesNotExistError',
         function(){new Effect.Opacity('nothing-to-see-here')});
-      assertRaise('ElementDoesNotExistError', 
+      assertRaise('ElementDoesNotExistError',
         function(){new Effect.Move('nothing-to-see-here')});
-      assertRaise('ElementDoesNotExistError', 
+      assertRaise('ElementDoesNotExistError',
         function(){new Effect.Scale('nothing-to-see-here')});
-      assertRaise('ElementDoesNotExistError', 
+      assertRaise('ElementDoesNotExistError',
         function(){new Effect.Highlight('nothing-to-see-here')});
     }},
-    
+
     testCallbacks: function() { with(this) {
       tmp = tmp2 = 0;
       var e1 = new Effect.Opacity('sandbox',{from:1.0,to:0.5,duration:0.5,
@@ -120,7 +120,7 @@
         assert(tmp2 > 0);
       });
     }},
-    
+
     testEvent: function() { with(this) {
       tmp = 0;
       new Effect.Event({ afterFinish:function(){ tmp++ }, position:'end'});
@@ -128,12 +128,12 @@
         assertEqual(1, tmp);
       });
     }},
-    
+
     testTransition: function() { with(this) {
       // false implies linear
       var e = new Effect.Opacity('sandbox',{transition:false,from:0.0,to:0.25,duration:0.5});
       assert(e.options.transition == Effect.Transitions.linear);
-      
+
       wait(1000, function() {
         assertEqual(0.25, $('sandbox').getStyle('opacity'));
         // default to sinoidal
@@ -141,7 +141,7 @@
         assert(e.options.transition == Effect.Transitions.sinoidal);
         wait(1000, function() {
           assertEqual(0.25, $('sandbox').getStyle('opacity'));
-          
+
           var transitions = [
             { transition: Effect.Transitions.linear,   expected: 1 },
             { transition: Effect.Transitions.sinoidal, expected: 1 },
@@ -151,18 +151,18 @@
             { transition: Effect.Transitions.pulse,    expected: 1 },
             { transition: Effect.Transitions.none,     expected: 0 }
           ];
-          
+
           transitions.each(function(t){
             var e = new Effect.Opacity('sandbox',{sync:true, from:0, to: 1, transition:t.transition});
             assert(e.options.transition == t.transition);
             e.render(1.0);
             assertEqual(t.expected, e.position, t.transition);
           });
-          
+
         });
       });
     }},
-    
+
     testInspect: function() { with(this) {
       var e1 = new Effect.Opacity('sandbox',{from:1.0,to:0.5,duration:0.5});
       info( e1.inspect() );
@@ -172,40 +172,40 @@
         assert(e1.inspect().indexOf('finished')>0);
       });
     }},
-    
+
     testDefaultOptions: function() { with(this) {
       var oldDefaultOptions = Object.extend({},Effect.DefaultOptions);
-      
+
       assertEqual(1.0, Effect.DefaultOptions.duration);
       Effect.DefaultOptions.duration = 0.5;
       var e1 = new Effect.Opacity('sandbox');
       assertEqual(0.5, e1.options.duration);
-      
+
       wait(750, function() {
         assertEqual('finished', e1.state);
         Effect.DefaultOptions = oldDefaultOptions;
       });
     }},
-    
+
     testEffectsQueue: function() { with(this) {
       var e1 = new Effect.Highlight('sandbox');
       var e2 = new Effect.Appear('sandbox');
-      
+
       assertEqual(2, Effect.Queue.effects.length);
-      
+
       tmp = 0;
       Effect.Queue.each(function(e) { tmp++ });
       assertEqual(2, tmp);
-      
+
       // the internal interval timer should be active
       assertNotNull(Effect.Queue.interval);
       e1.cancel();
       e2.cancel();
       assertEqual(0, Effect.Queue.effects.length);
-      
+
       // should be inactive after all effects are removed from queue
       assertNull(Effect.Queue.interval);
-      
+
       // should be in e3,e1,e2 order
       var e1 = new Effect.Highlight('sandbox');
       var e2 = new Effect.Appear('sandbox',{queue:'end'});
@@ -214,42 +214,42 @@
       assert(e3.startOn < e1.startOn);
       assert(e3.startOn < e2.startOn);
       assertEqual(3, Effect.Queue.effects.length);
-      
+
       Effect.Queue.each(function(e) { e.cancel() });
       assertEqual(0, Effect.Queue.effects.length);
     }},
-    
+
     testScopedEffectsQueue: function() { with(this) {
       var e1 = new Effect.Highlight('sandbox', {queue: {scope:'myscope'} } );
       var e2 = new Effect.Appear('sandbox', {queue: {scope:'myscope'} } );
       var e3 = new Effect.Highlight('sandbox', {queue: {scope:'secondscope'} } );
       var e4 = new Effect.Appear('sandbox');
-     
+
       assertEqual(2, Effect.Queues.get('myscope').effects.length);
       assertEqual(1, Effect.Queues.get('secondscope').effects.length);
       assertEqual(1, Effect.Queues.get('global').effects.length);
       assertEqual(Effect.Queue.effects.length, Effect.Queues.get('global').effects.length);
-     
+
       var tmp = 0;
       Effect.Queues.get('myscope').effects.each(function(e) { tmp++ });
       assertEqual(2, tmp);
-     
+
       // the internal interval timer should be active
       assertNotNull(Effect.Queues.get('myscope').interval);
       assertNotNull(Effect.Queues.get('secondscope').interval);
       assertNotNull(Effect.Queues.get('global').interval);
-    
+
       e1.cancel(); e2.cancel(); e3.cancel(); e4.cancel();
-     
+
       assertEqual(0, Effect.Queues.get('myscope').effects.length);
       assertEqual(0, Effect.Queues.get('secondscope').effects.length);
       assertEqual(0, Effect.Queues.get('global').effects.length);
-     
+
       // should be inactive after all effects are removed from queues
       assertNull(Effect.Queues.get('myscope').interval);
       assertNull(Effect.Queues.get('secondscope').interval);
       assertNull(Effect.Queues.get('global').interval);
-     
+
       // should be in e3 and e4 together and then e1,e2 order
       var e1 = new Effect.Highlight('sandbox', {queue: {scope:'myscope'} } );
       var e2 = new Effect.Appear('sandbox', {queue: {position: 'end', scope:'myscope'} } );
@@ -260,48 +260,48 @@
       assert(e3.startOn < e2.startOn);
       assert(e3.startOn = e4.startOn);
       assertEqual(3, Effect.Queues.get('myscope').effects.length);
-     
+
       Effect.Queues.get('myscope').each(function(e) { e.cancel() });
       assertEqual(0, Effect.Queues.get('myscope').effects.length);
-    
+
       Effect.Queues.get('global').each(function(e) { e.cancel() });
       assertEqual(0, Effect.Queues.get('global').effects.length);
-     
+
       // should only allow the first two effects and ignore the third
       var e1 = new Effect.Highlight('sandbox', {queue: {scope:'myscope', limit: 2} } );
       var e2 = new Effect.Appear('sandbox', {queue: {position: 'end', scope:'myscope', limit: 2} } );
       var e3 = new Effect.Fade('sandbox', {queue: {position: 'front', scope:'myscope', limit: 2} } );
-     
+
       assertEqual(2, Effect.Queues.get('myscope').effects.length);
     }},
-    
+
     testEffectMultiple: function() { with(this) {
       $('sandbox').appendChild(Builder.node('div',{id:'test_1'}));
       $('sandbox').appendChild(Builder.node('div',{id:'test_2'},[Builder.node('div',{id:'test_2a'})]));
       $('sandbox').appendChild(Builder.node('div',{id:'test_3'}));
-      
+
       // only direct child elements
       Effect.multiple('sandbox',Effect.Fade);
       assertEqual(3, Effect.Queue.effects.length);
-      
+
       Effect.Queue.each(function(e) { e.cancel() });
       assertEqual(0, Effect.Queue.effects.length);
-      
+
       // call with array
       Effect.multiple(['test_1','test_3'],Effect.Puff);
       assertEqual(2, Effect.Queue.effects.length);
     }},
-    
+
     testEffectTagifyText: function() { with(this) {
       $('sandbox').innerHTML = "Blah<strong>bleb</strong> Blub";
       assertEqual(3, $('sandbox').childNodes.length);
       Effect.tagifyText('sandbox');
       assertEqual(10, $('sandbox').childNodes.length);
-      
+
       Effect.multiple('sandbox', Effect.Fade);
       assertEqual(10, Effect.Queue.effects.length);
     }},
-    
+
     testEffectParallel: function() { with(this) {
       assert( new Effect.Parallel() );
       assert( new Effect.Parallel([]) );
@@ -310,26 +310,26 @@
         new Effect.Event({sync:true})
       ],{ duration: 2}) );
     }},
-    
+
     testEffectTween: function() { with(this) {
       // basic initialization
       assert(new Effect.Tween(null,0,0,function(){}));
       assert(new Effect.Tween(null,0,0,{duration:0.1},function(){}));
 
       // fun with objects
-      var object = { 
-        blech: 2, 
+      var object = {
+        blech: 2,
         foo: function(p){
           this.bar = p;
         }
       };
       assert(new Effect.Tween(object,0,1,{transition:Effect.Transitions.reverse},'blech'));
       assert(new Effect.Tween(object,0,1,'foo'));
-      
+
       // fun with elements
       assert(new Effect.Tween('tween',50,1,'update'));
-      
-      wait(1500, function(){  
+
+      wait(1500, function(){
         assertEqual(0, object.blech);
         assertEqual(1, object.bar);
         assertEqual('1', $('tween').innerHTML);
@@ -344,22 +344,22 @@
         $('sandbox').appendChild(
           Builder.node('div',{id:'test_element'},
             Builder.node('span','test'))); //some effects require a child element
-            
+
         // should work with new Effect.Blah syntax
         var effect = new Effect[fx]('test_element');
         assertEqual(0, effect.currentFrame);
-        
+
         // and without the 'new'
         var effect = Effect[fx]('test_element');
         assertEqual(0, effect.currentFrame);
-        
+
         // visualEffect
         assert($('test_element') == $('test_element').visualEffect(COMBINED_RJS_EFFECTS[idx]));
-        
+
         // direct element extension
-        var method = COMBINED_EFFECTS[idx].charAt(0).toLowerCase() + COMBINED_EFFECTS[idx].substring(1)
+        var method = COMBINED_EFFECTS[idx].charAt(0).toLowerCase() + COMBINED_EFFECTS[idx].substring(1);
         assert($('test_element') == $('test_element')[method]());
-        
+
         // options parsing (shake, squish and grow are special here)
         if(!['Shake','Squish','Grow'].include(fx)) {
           var effect = Effect[fx]('test_element',{duration:2.0});
@@ -367,7 +367,7 @@
         }
       });
     }},
-    
+
     testSynchronizedEffects: function() { with(this) {
       var e1 = new Effect.Fade('sandbox',{sync:true});
       wait(250, function() {
@@ -375,13 +375,13 @@
         assertEqual(0, e1.currentFrame);
         assertEqual('idle', e1.state);
         e1.render(0.01);
-        
+
         // no frame count for sync effects
         assertEqual(0, e1.currentFrame);
         assertEqual('running', e1.state);
       });
     }},
-    
+
     testEffectPosition: function() { with(this) {
       var testeffect = new Effect.Opacity('sandbox',{
         afterSetup:  function(effect) { effect.frames = 0; },
@@ -399,19 +399,19 @@
         assertEqual('finished', testeffect.state);
       });
     }},
-    
+
     testRenderPerformance: function() { with(this) {
-      info('The render() method is generated on a per-effect basis')
+      info('The render() method is generated on a per-effect basis');
       var e = new Effect.Opacity('sandbox',{sync:true});
       benchmark(function(){
         e.render(0.5);
       },1000, 'Without events');
-      var e = new Effect.Opacity('sandbox',{sync:true,afterUpdate:function(){return}});
+      var e = new Effect.Opacity('sandbox',{sync:true,afterUpdate:function(){}});
       benchmark(function(){
         e.render(0.5);
-      },1000, 'With afterUpdate event');      
+      },1000, 'With afterUpdate event');
     }},
-    
+
     testElementMorph: function() { with(this) {
       $('error_test_ul').morph('font-size:40px', {duration: 0.5}).setStyle({marginRight:'17px'});
       $('error_message_2').morph({
@@ -476,7 +476,7 @@
     testTransformMultiple: function() { with(this) {
       var transformation = new Effect.Transform([
         { 'div.morphing': 'font-size:20px;padding-left:40em;opacity:0.5' },
-        { 'blah'        : 
+        { 'blah'        :
           'width:480px;border-width:10px;border-right-width:20px;' +
           'margin:20px;margin-bottom:-20px;font-size:30px;' +
           'background:#954' }
@@ -490,11 +490,11 @@
         // have a look at the generated color transforms for the 3rd found element
         // which is the "blah" div
         assertEqual('blah', generatedEffect.effects[2].element.id);
-        assertEnumEqual([255,255,255], 
+        assertEnumEqual([255,255,255],
           generatedEffect.effects[2].transforms.detect( function(transform){
             return (transform.style == 'backgroundColor')
           }).originalValue);
-        assertEnumEqual([153,85,68], 
+        assertEnumEqual([153,85,68],
           generatedEffect.effects[2].transforms.detect( function(transform){
             return (transform.style == 'backgroundColor')
         }).targetValue);
@@ -509,7 +509,7 @@
         assertEqual('10px', $('blah').getStyle('border-left-width'));
         assertEqual('20px', $('blah').getStyle('border-right-width'));
 
-        // colors should assume transition from 
+        // colors should assume transition from
         // #ffffff (white) if original was transparent
         // we now should have arrived at the given color
         assertEqual('#995544', $('blah').getStyle('background-color').parseColor());
@@ -522,7 +522,7 @@
           assertEqual('30px', $('blah').getStyle('font-size'));
 
           $('blah').setStyle({fontSize:'100px'});
-          assertEqual('100px', $('blah').getStyle('font-size'));        
+          assertEqual('100px', $('blah').getStyle('font-size'));
           transformation.play();
           wait(700, function(){
             assertEqual('30px', $('blah').getStyle('font-size'));
