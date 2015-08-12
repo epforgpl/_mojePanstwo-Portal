@@ -5,98 +5,56 @@ class BdlTempItem extends AppModel
 
     public $useTable = false;
 
-    public function find($type = 'first', $params = array())
+    public $useDbConfig = 'mpAPI';
+
+    public function save($data, $type='BDL')
     {
-        $ret = null;
-        if (!CakeSession::check('TempItems')) {
-            return false;
-        }
 
-        $ret = CakeSession::read('TempItems');
+        $res = $this->getDataSource()->request('BDL/user_items', array(
+            'method' => 'POST',
+            'data' => $data,
+            'type' => $type
+        ));
 
-        if (isset($params['conditions'])) {
-            if (isset($params['conditions']['id'])) {
-                $id = $params['conditions']['id'];
-                if ($id == 0) {
-                    $ret = Set::classicExtract($ret, "$id");
-                } else {
-                    $ret = array(Set::classicExtract($ret, "$id"));
-                }
-            }
-        }
+        return $res;
 
-        if (isset($params['order'])) {
-            if ($params['order'] == 'DESC') {
-                $ret = array_reverse($ret);
-            }
-        }
-
-        if ($ret == null) {
-            return false;
-        }
-
-        switch ($type) {
-            case 'first': {
-                return $ret[0];
-                break;
-            }
-            case 'all': {
-                return $ret;
-                break;
-            }
-            case 'list': {
-                $ret2 = array();
-               // debug($ret);
-                foreach ($ret as $key => $val) {
-                    $ret2[$key]=$val['tytul'];
-                }
-                return $ret2;
-                break;
-            }
-            case 'count': {
-                return count($ret);
-                break;
-            }
-        }
-
-        return false;
     }
 
-    public function findById($id)
+    public function delete($id, $type='BDL')
     {
-        return $this->find('first', array('conditions' => array('id' => $id)));
+
+        $res = $this->getDataSource()->request('BDL/user_items/'.$id, array(
+            'method' => 'DELETE',
+            'type' => $type,
+        ));
+
+        return $res;
+
     }
 
-    public function save($data)
-    {
-        if (isset($data['id'])) {
-            if (CakeSession::write('TempItems.'.$data['id'], $data)) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+    public function searchList(){
+        $res = $this->getDataSource()->request('BDL/user_items/list/', array(
+            'method' => 'GET'
+        ));
 
-        if (CakeSession::check('TempItems')) {
-            $ret = CakeSession::read('TempItems');
-            array_push($ret, $data);
-        } else {
-            $ret = array($data);
-        }
-        if (CakeSession::write('TempItems', $ret)) {
-            return true;
-        } else {
-            return false;
-        }
+        return $res;
     }
 
-    public function delete($id)
-    {
-        if (CakeSession::delete('TempItems.' . $id)) {
-            return true;
-        } else {
-            return false;
-        }
+    public function searchById($id, $type='BDL'){
+        $res = $this->getDataSource()->request('BDL/user_items/'.$id, array(
+            'method' => 'GET',
+            'type' => $type,
+        ));
+
+        return $res;
+    }
+
+    public function searchAll(){
+        $res = $this->getDataSource()->request('BDL/user_items/', array(
+            'method' => 'GET'
+        ));
+
+        return $res;
     }
 
 }

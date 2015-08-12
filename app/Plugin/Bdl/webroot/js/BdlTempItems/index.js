@@ -4,11 +4,11 @@
 $(document).ready(function () {
 
 
-    $("#new_temp_item").click(function () {
+    $("#new_temp_item_btn").click(function () {
         $('#temp_item_opis_modal').modal('show');
     });
 
-    $('#temp_item_opis_modal #editor').wysihtml5({
+    $('#temp_item_opis_modal #editor_opis').wysihtml5({
         toolbar: {
             "font-styles": true, //Font styling, e.g. h1, h2, etc.
             "emphasis": true, //Italics, bold, etc.

@@ -7,6 +7,10 @@ class BdlTempItemsController extends ApplicationsController
 
     public $components = array('RequestHandler');
 
+    public $uses = array(
+        'Bdl.BdlTempItem','Dane.Dataobject', 'Dane.Subscription', 'Dane.ObjectUsersManagement'
+    );
+
     public $settings = array(
         'id' => 'bdl',
         'title' => 'Bdl',
@@ -15,18 +19,90 @@ class BdlTempItemsController extends ApplicationsController
 
     public function index()
     {
-        $BdlTempItems = $this->BdlTempItem->find('all');
+
+        $this->setLayout(array(
+            'footer' => array(
+                'element' => 'minimal',
+            ),
+            'header' => array(
+                'element' => 'empty',
+                //TODO:po przejsciu na baze "dataobject-bdl"
+            ),
+        ));
+
+        $BdlTempItems = $this->BdlTempItem->searchAll();
         $this->set(array(
             'BdlTempItems' => $BdlTempItems,
             '_serialize' => array('BdlTempItems')
         ));
+
+        $datasets = $this->getDatasets('bdl');
+        $options = array(
+            'searchTitle' => 'Szukaj w Banku Danych Lokalnych...',
+            'autocompletion' => array(
+                'dataset' => 'bdl_wskazniki',
+            ),
+            'conditions' => array(
+                'dataset' => array_keys($datasets)
+            ),
+            'cover' => array(
+                'view' => array(
+                    'plugin' => 'Bdl',
+                    'element' => 'cover',
+                ),
+                'aggs' => array(),
+            ),
+            'aggs' => array(
+                'dataset' => array(
+                    'terms' => array(
+                        'field' => 'dataset',
+                    ),
+                    'visual' => array(
+                        'label' => 'Zbiory danych',
+                        'skin' => 'datasets',
+                        'class' => 'special',
+                        'field' => 'dataset',
+                        'dictionary' => $datasets,
+                    ),
+                ),
+            ),
+        );
+
+        if (!isset($this->request->query['q']) || empty($this->request->query['q'])) {
+
+            $tree = Cache::read('BDL.tree', 'long');
+            if (!$tree) {
+                $this->loadModel('Bdl.BDL');
+                $tree = $this->BDL->getTree();
+                Cache::write('BDL.tree', $tree, 'long');
+            }
+
+            $this->set('tree', $tree);
+
+        }
+
+        $this->Components->load('Dane.DataBrowser', $options);
     }
 
-    public function view($id)
+    public function view($id, $type='BDL')
     {
-        $BdlTempItem = $this->BdlTempItem->findById($id);
+        $this->setLayout(array(
+            'footer' => array(
+                'element' => 'minimal',
+            ),
+            'header' => array(
+                'element' => 'empty',
+                //TODO:po przejsciu na baze "dataobject-bdl"
+            ),
+        ));
+
+        $BdlTempItems = $this->BdlTempItem->searchAll();
+
+        $BdlTempItem = $this->BdlTempItem->searchById($id, $type);
+
         $this->set(array(
             'BdlTempItem' => $BdlTempItem,
+            'BdlTempItems' => $BdlTempItems,
             '_serialize' => array('BdlTempItem'),
             'id' => $id
         ));
@@ -34,12 +110,57 @@ class BdlTempItemsController extends ApplicationsController
         if ($BdlTempItem == false) {
             $this->redirect(array('action' => 'index'));
         }
+
+        $datasets = $this->getDatasets('bdl');
+        $options = array(
+            'searchTitle' => 'Szukaj w Banku Danych Lokalnych...',
+            'autocompletion' => array(
+                'dataset' => 'bdl_wskazniki',
+            ),
+            'conditions' => array(
+                'dataset' => array_keys($datasets)
+            ),
+            'cover' => array(
+                'view' => array(
+                    'plugin' => 'Bdl',
+                    'element' => 'cover',
+                ),
+                'aggs' => array(),
+            ),
+            'aggs' => array(
+                'dataset' => array(
+                    'terms' => array(
+                        'field' => 'dataset',
+                    ),
+                    'visual' => array(
+                        'label' => 'Zbiory danych',
+                        'skin' => 'datasets',
+                        'class' => 'special',
+                        'field' => 'dataset',
+                        'dictionary' => $datasets,
+                    ),
+                ),
+            ),
+        );
+
+        if (!isset($this->request->query['q']) || empty($this->request->query['q'])) {
+
+            $tree = Cache::read('BDL.tree', 'long');
+            if (!$tree) {
+                $this->loadModel('Bdl.BDL');
+                $tree = $this->BDL->getTree();
+                Cache::write('BDL.tree', $tree, 'long');
+            }
+            $this->set('tree', $tree);
+        }
+
+        $this->Components->load('Dane.DataBrowser', $options);
     }
 
     public function add()
     {
         $this->BdlTempItem->create();
-        if ($this->BdlTempItem->save($this->request->data)) {
+        if ($this->BdlTempItem->save($this->request->data, $this->request->data['type'])) {
             $message = 'Saved';
         } else {
             $message = 'Error';
@@ -86,9 +207,7 @@ class BdlTempItemsController extends ApplicationsController
     public function listall()
     {
         $this->autoRender = false;
-        $data = $this->BdlTempItem->find('list');
-        // Tu musi zwracac stringa
-
+        $data = $this->BdlTempItem->searchList();
         $this->json($data);
     }
 
@@ -96,7 +215,7 @@ class BdlTempItemsController extends ApplicationsController
     {
         $src = $this->request->data;
         $this->autoRender = false;
-        $data = $this->BdlTempItem->findById($src['id']);
+        $data = $this->BdlTempItem->searchById($src['id']);
 
         $this->json($data);
     }
@@ -104,12 +223,11 @@ class BdlTempItemsController extends ApplicationsController
     public function addIngredients($item_id = false)
     {
         $data = $this->request->data;
-        $old = $this->BdlTempItem->findById($data['id']);
+        $old = $this->BdlTempItem->searchById($data['id']);
 
         $data = array_merge($old, $data);
 
         if ($this->BdlTempItem->save($data)) {
-            debug($data);
             $this->json(true);
         } else {
             $this->json(false);
@@ -118,36 +236,5 @@ class BdlTempItemsController extends ApplicationsController
         $this->autoRender = false;
     }
 
-    public function getMenu()
-    {
 
-        $menu = array(
-            'items' => array(
-                array(
-                    'id' => '',
-                    'label' => 'Wskaźniki',
-                    'icon' => array(
-                        'src' => 'glyphicon',
-                        'id' => 'home',
-                    ),
-                ),
-            ),
-            'base' => '/bdl',
-        );
-
-        if ($this->hasUserRole('3')) {
-
-            $menu['items'][] = array(
-                'id' => 'bdl_temp_items',
-                'label' => 'Tworzenie wskaźników',
-            );
-
-        }
-
-        if (count($menu['items']) === 1)
-            return array();
-        else
-            return $menu;
-
-    }
 }

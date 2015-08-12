@@ -1,4 +1,6 @@
- <div class="banner odpis block">
+<?php $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane'))); ?>
+
+<div class="banner odpis block">
     <?php echo $this->Html->image('Dane.banners/krspodmioty_banner.png', array(
         'width' => '62',
         'alt' => 'Aktualny odpis z KRS za darmo',

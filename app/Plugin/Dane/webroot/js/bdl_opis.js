@@ -42,8 +42,7 @@ $(document).ready(function () {
 
         dane = {
             _action: 'opis',
-            tytul: $("#bdl_opis_modal .nazwa").val(),
-            opis: $("#bdl_opis_modal .editor").html()
+            opis: $("#bdl_opis_modal #editor").html()
         };
         saveData(dane);
     });

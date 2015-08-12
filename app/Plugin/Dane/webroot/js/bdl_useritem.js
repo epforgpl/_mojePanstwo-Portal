@@ -6,7 +6,7 @@ $(document).ready(function () {
 
     function getWskz(url) {
         $.getJSON(url, function (data) {
-            $('#bdl_user_wskaznik_modal .nazwa_wskaznika').html('<h3 class="text-center">' + data.BdlTempItem.tytul + '</h3>');
+            $('#bdl_user_wskaznik_modal .nazwa_wskaznika').html('<h3 class="text-center">' + data.BdlTempItem.BdlTempItem.BdlTempItem.tytul + '</h3>');
 
             $('.licznik_list').children().remove();
             $('.mianownik_list').children().remove();
@@ -45,8 +45,9 @@ $(document).ready(function () {
                         $('#lista_wskaznikow').children().remove();
 
                         $.each(res, function (key, val) {
-                            $('<option>').val(key).text(val).appendTo('#lista_wskaznikow');
-                            wsk_id = key;
+                            console.log(val);
+                            $('<option>').val(val.BdlTempItem.id).text(val.BdlTempItem.tytul).appendTo('#lista_wskaznikow');
+                            wsk_id = val.BdlTempItem.id;
                         });
                         $('#lista_wskaznikow option:last').attr('selected', 'selected');
                         on_success();
@@ -69,8 +70,10 @@ $(document).ready(function () {
                     alert("Błąd zapisu");
                 } else {
                     if (res != null) {
-                        $("#bdl_user_wskaznik_modal .info").html('Zapisano wskaźnik');
-                        $('#bdl_user_wskaznik_modal .info').removeClass('hidden');
+                       // $("#bdl_user_wskaznik_modal .info").html('Zapisano wskaźnik');
+                      //  $('#bdl_user_wskaznik_modal .info').removeClass('hidden');
+
+                        $("#bdl_user_wskaznik_modal").modal('hide');
                     }
                 }
             },
@@ -139,6 +142,9 @@ $(document).ready(function () {
     });
 
     $(".add_to_item").click(function () {
+        
+        console.log('click');
+        
         pullList(function () {
             var url = '/bdl/bdl_temp_items/' + wsk_id;
             getWskz(url);

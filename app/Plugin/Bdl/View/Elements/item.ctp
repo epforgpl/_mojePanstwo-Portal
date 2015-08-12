@@ -1,66 +1,77 @@
-<?
-$title = trim($result['nazwa']);
-$titleLen = strlen($title);
+<div id="bdl_wskaznik_block">
+    <? if ($object->getData('opis')) { ?>
+        <div class="opis">
+            <?= $object->getData('opis') ?>
+        </div>
+    <? }
+    echo $this->Element('bdl_select', array('expand_dimension' => $expand_dimension, 'dims' => $dims));
+    ?>
 
-$strs = array(
-    'SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ SPÓŁKA KOMANDYTOWA',
-    'SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ W LIKWIDACJI',
-    'SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ',
-    'SPÓŁKA JAWNA',
-);
+    <div id="temp_item_opis_modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Nowy Wskaźnik:</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-11">
+                        <form method="post" action="">
+                            <div class="hidden alert alert-success info"></div>
+                            <div class="row "><label class="">Tytuł:</label></div>
+                            <div class="row"><input name="tytul" class="form-control nazwa" value="">
+                            </div>
+                            <br>
 
-foreach ($strs as $str) {
-    if (endsWith($title, $str)) {
-        $title = substr($title, 0, $titleLen - strlen($str));
-        break;
-    }
-}
+                            <div class="row"><label>Opis:</label></div>
+                    </div>
+                    <textarea name="opis" id="editor"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-md btn-primary btn-icon" id="temp_item_savebtn"><i
+                            class="icon glyphicon glyphicon-ok"></i>Dodaj
+                    </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-
-$title = trim($title);
-?>
-<li>
-    <a class="icon <?php if ($result['type'] == 'organization') {
-        echo "organization";
-    } else {
-        echo "person";
-    } ?>" href="<?php if ($result['type'] == 'organization') {
-        echo('/dane/krs_podmioty/' . $result['id']);
-    } elseif ($result['type'] == 'person') {
-        echo('/dane/krs_osoby/' . $result['id']);
-    } ?>" target="_self">
-        <p class="title">
-            <?php echo $title ?>
-        </p>
-
-        <p class="subtitle">
+    <div id="bdl-wskazniki" class="col-xs-12">
+        <? if (in_array('bdl_opis', $object_editable)) {
+            echo $this->element('Dane.bdl_opis');
+        } ?>
+        <div class="object">
             <?
-            if ($result['type'] == 'organization') {
-
-                $parts = array(
-                    $result['miejscowosc']
-                );
-
-                if ($result['kapital_zakladowy']) {
-                    // setlocale(LC_MONETARY, 'pl_PL');
-                    // $parts[] = money_format('%i', $result['kapital_zakladowy']);
-                    $parts[] = number_format_h($result['kapital_zakladowy']) . ' PLN';
+            if (!empty($expanded_dimension)) {
+                foreach ($expanded_dimension['options'] as $option) {
+                    if (isset($option['data'])) {
+                                                                        
+                        if( isset($combination) && ($combination['id']==$option['id']) ) {
+	                        
+	                        echo $this->element('Dane.bdl_wskaznik', array(
+	                            'data' => $option['data'],
+	                            'url' => $object->getUrl(),
+	                            'title' => $option['value'],
+	                        ));
+	                        
+	                        echo $this->element('Bdl.subitem');
+	                        
+                        } else {
+	                        
+	                        echo $this->element('Dane.bdl_wskaznik', array(
+	                            'data' => $option['data'],
+	                            'url' => $object->getUrl(),
+	                            'title' => $option['value'],
+	                        ));
+	                        
+                        }
+                        
+                    }
                 }
-
-                $wiek = pl_wiek($result['data_rejestracji']);
-
-                if ($wiek) {
-                    $parts[] = pl_dopelniacz($wiek, 'rok', 'lata', 'lat');
-                } else {
-                    $parts[] = '< 1 rok';
-                }
-
-                echo implode(' <span class="separator">|</span> ', $parts);
-
-            } elseif ($result['type'] == 'person') {
-                echo pl_dopelniacz($result['wiek'], 'rok', 'lata', 'lat');
-            }
+            }			
             ?>
-        </p>
-    </a>
-</li>
+        </div>
+    </div>
+</div>

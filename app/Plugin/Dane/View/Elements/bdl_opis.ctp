@@ -12,21 +12,17 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"
                         aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Edycja nazwy i opisu wskaźnika:</h4>
+                <h4 class="modal-title">Zmiana Opisu</h4>
             </div>
             <div class="modal-body">
                 <div class="col-sm-11">
                     <div class="hidden alert alert-success info"></div>
-                    <div class="row "><label class="">Nazwa:</label></div>
-                    <div class="row"><input class="form-control nazwa"
-                                            value="<?= $object->getData('bdl_podgrupa.nazwa') ? $object->getData('bdl_podgrupa.nazwa') : $object->getData('bdl_podgrupa.tytul'); ?>">
-                    </div>
-                    <br>
-
                     <div class="row"><label>Opis:</label></div>
                 </div>
                 <article id="editor">
-                    <?= $object->getData('bdl_podgrupa.opis'); ?>
+                    <? if( $object->getData('opis') ) {?>
+                            <?= $object->getData('opis') ?>
+                    <? } ?>
                 </article>
             </div>
             <div class="modal-footer">
