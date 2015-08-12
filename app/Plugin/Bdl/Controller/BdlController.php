@@ -6,7 +6,7 @@ class BdlController extends ApplicationsController
 {
 
     public $uses = array(
-        'Bdl.BdlTempItem','Dane.Dataobject', 'Dane.Subscription', 'Dane.ObjectUsersManagement'
+        'Bdl.BdlTempItem', 'Dane.Dataobject', 'Dane.Subscription', 'Dane.ObjectUsersManagement'
     );
 
     public $settings = array(
@@ -25,7 +25,7 @@ class BdlController extends ApplicationsController
                 'element' => 'minimal',
             ),
             'header' => array(
-	            'element' => 'empty',
+                'element' => 'empty',
             ),
         ));
         $datasets = $this->getDatasets('bdl');
@@ -123,4 +123,4 @@ class BdlController extends ApplicationsController
 
     }
 
-} 
+}

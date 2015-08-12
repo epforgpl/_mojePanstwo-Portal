@@ -151,7 +151,15 @@ var BDLapp = function () {
         });
 
         if ($tempItemOpisModal.length) {
-            $('#temp_item_opis_modal #editor').wysihtml5({
+			var editor = $('#temp_item_opis_modal #editor');
+
+			editor.wysihtml5.locale['pl-PL'].emphasis = {
+				bold: "B",
+				italic: "I",
+				underline: "U"
+			};
+
+			editor.wysihtml5({
                 toolbar: {
                     "font-styles": true,
                     "emphasis": true,
@@ -162,7 +170,7 @@ var BDLapp = function () {
                     "color": false,
                     "blockquote": false
                 },
-                'locale': 'pl-NEW',
+				'locale': 'pl-PL',
                 parser: function (html) {
                     return html;
                 }

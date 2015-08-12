@@ -4,8 +4,8 @@ class BDL extends AppModel
 {
 
     public $useDbConfig = 'mpAPI';
-	
-	public function getData($params)
+
+    public function getData($params)
     {
         $data = $this->getDataSource()->request('bdl/data', array(
             'method' => 'GET',
@@ -14,15 +14,15 @@ class BDL extends AppModel
 
         return @$data;
     }
-    
+
     public function getCombination($params)
-    {	
-	    
-	    if( is_string($params) )
-		    $params = array(
-			    'id' => $params,
-		    );
-	    
+    {
+
+        if (is_string($params))
+            $params = array(
+                'id' => $params,
+            );
+
         $data = $this->getDataSource()->request('bdl/combinations', array(
             'method' => 'GET',
             'data' => $params,
@@ -30,7 +30,7 @@ class BDL extends AppModel
 
         return @$data;
     }
-    
+
     /*
     public function getLocalDataForDimension($dim_id, $level)
     {
@@ -46,9 +46,9 @@ class BDL extends AppModel
 
     }
 	*/
-	
-	/*
-	public function getChartDataForDimmesions($dims)
+
+    /*
+    public function getChartDataForDimmesions($dims)
     {
         $data = $this->getDataSource()->request('bdl/chartDataForDimmesions', array(
             'method' => 'GET',
@@ -59,7 +59,7 @@ class BDL extends AppModel
 
         return @$data['data'];
     }
-	
+
     public function getDataForDimmesions($dims, $podgrupa_id)
     {
         $data = $this->getDataSource()->request('bdl/dataForDimmesions', array(
@@ -73,7 +73,7 @@ class BDL extends AppModel
         return @$data['data'];
     }
 
-    
+
 
     public function getDataForDimension($dim_id)
     {
@@ -84,7 +84,7 @@ class BDL extends AppModel
         return @$data['data'];
     }
     */
-    
+
 
     public function getLocalChartDataForDimmesions($dimid, $localtype, $localid)
     {
