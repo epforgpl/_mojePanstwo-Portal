@@ -9,7 +9,6 @@ class DaneController extends ApplicationsController
         'id' => 'dane',
         'title' => 'Dane',
         'subtitle' => 'Przeszukuj największą bazę danych publicznych w Polsce',
-        'headerImg' => 'dane',
     );
     
     
@@ -51,9 +50,9 @@ class DaneController extends ApplicationsController
 	            'aggs-mode' => 'apps',
 	        );
 			
-            $this->_layout['header']['element'] = 'search';
+            $this->_layout['header'] = false;
 	        $this->Components->load('Dane.DataBrowser', $options);
-	        $this->render('Dane.Elements/DataBrowser/browser-from-app');
+	        $this->render('Dane.Elements/DataBrowser/browser-general');
         
         } else {
 	        

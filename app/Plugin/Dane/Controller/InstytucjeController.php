@@ -1822,6 +1822,22 @@ class InstytucjeController extends DataobjectsController
 	    }
     }
     
+    public function projekty() {
+	    $this->load();
+	    if( $this->object->getId()=='3214' ) { // Sejm
+		    
+		    $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'prawo_projekty',
+	            ),
+	            'aggsPreset' => 'prawo_projekty',
+	        ));
+	        $this->set('title_for_layout', "Projekty rozpatrywane w Sejmie");
+		    $this->render('DataBrowser/browser-from-object');
+		    
+	    }
+    }
+    
     public function wystapienia() {
 	    $this->load();
 	    if( $this->object->getId()=='3214' ) { // Sejm
