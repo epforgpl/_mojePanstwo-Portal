@@ -85,8 +85,6 @@
 </head>
 <body>
 <div id="_wrapper">
-    
-
         <?php echo $content_for_layout; ?>
 
 

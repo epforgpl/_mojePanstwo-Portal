@@ -7,29 +7,56 @@ class DocsController extends AppController
 
     public function view()
     {
-		
-		App::import("Model", "Document");  
-		$Document = new Document();  
-		
-		$doc = $Document->load($this->request->params['id']);
-				
-		$this->set('doc', $doc);
+
+        App::import("Model", "Document");
+        $Document = new Document();
+
+        $doc = $Document->load($this->request->params['id']);
+        $this->set('doc', $doc);
         $this->set('_serialize', 'doc');
-      
-        
+
+
         $this->set('title_for_layout', $doc['Document']['filename']);
-        
-        if( isset($this->request->params['ext']) && in_array($this->request->params['ext'], array('html', 'htm')) ) {
-        	$this->layout = 'doc';
-        	$this->render('view-html');
+
+        if ($this->hasUserRole('2')) {
+            $isAdmin = true;
+        } else {
+            $isAdmin = false;
+        }
+
+        $this->set('isAdmin', $isAdmin);
+        if (isset($this->request->params['ext']) && in_array($this->request->params['ext'], array('html', 'htm'))) {
+            $this->layout = 'doc';
+            $this->render('view-html');
+        }
+
+    }
+
+    public function edit()
+    {
+
+        App::import("Model", "Document");
+        $Document = new Document();
+
+        $doc = $Document->load($this->request->params['id'], 0);
+
+        $this->set('doc', $doc);
+        $this->set('_serialize', 'doc');
+
+
+        $this->set('title_for_layout', $doc['Document']['filename']);
+
+        if (isset($this->request->params['ext']) && in_array($this->request->params['ext'], array('html', 'htm'))) {
+            $this->layout = 'doc';
+            $this->render('view-html');
         }
 
     }
 
     public function download()
     {
-		
-		$this->loadModel('Document');
+
+        $this->loadModel('Document');
         $doc = $this->Document->load($this->request->params['id']);
         $this->redirect($doc['Document']['url']);
 

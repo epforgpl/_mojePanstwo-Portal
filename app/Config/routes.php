@@ -120,6 +120,7 @@ if ( $host == PK_DOMAIN ) { // HTTP_X_FORWARDED_HOST
 Router::connect( '/pages/*', array( 'controller' => 'pages', 'action' => 'display' ) );
 
 Router::connect( '/docs/:id', array( 'controller' => 'docs', 'action' => 'view' ), array( 'id' => '[0-9]+' ) );
+Router::connect( '/docs/edit/:id', array( 'controller' => 'docs', 'action' => 'edit' ), array( 'id' => '[0-9]+' ) );
 Router::connect( '/docs/:id/download', array(
 	'controller' => 'docs',
 	'action'     => 'download'

@@ -1,6 +1,6 @@
 <?
-	$this->Combinator->add_libs('css', $this->Less->css('htmlexDocMain_v2'));
-	$this->Combinator->add_libs('css', $this->Less->css('doc'));
+$this->Combinator->add_libs('css', $this->Less->css('htmlexDocMain_v2'));
+$this->Combinator->add_libs('css', $this->Less->css('doc'));
 ?>
 
 <div class="container">
@@ -44,21 +44,35 @@
 
                     <p class="_value"><a href="<?= $doc['Document']['url'] ?>" target="_blank">LINK</a></p>
                 </li>
-                <? if ($isAdmin == true) { ?>
-                    <li>
-                        <a href="/docs/edit/<?= $doc['Document']['id'] ?>"
-                        <button class="btn btn-primary">Edytuj</button>
-                        </a>
-                    </li>
-                <? } ?>
+
+
             </ul>
 
         </div>
         <div class="col-md-10 objectsPageContent">
 
-            <?= $this->Document->place($doc) ?>
-
+            <div class="row">
+                <div class="docs-toolbar" role="toolbar">
+                    <button class="btn btn-lg btn-default"><input type="checkbox"></button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-lg btn-default" aria-label="rotate-left"><i
+                                class="fa fa-undo"></i></button>
+                        <button type="button" class="btn btn-lg btn-default" aria-label="rotate-right"><i
+                                class="fa fa-repeat"></i></button>
+                    </div>
+                    <button type="button" class="btn btn-lg btn-default" aria-label="rotate-right"><span
+                            class="glyphicon glyphicon-ok"></span></button>
+                    <button type="button" class="btn btn-lg btn-default" aria-label="rotate-right"><span
+                            class="glyphicon glyphicon-remove"></span></button>
+                </div>
+            </div>
+            <div class="row">
+                <?= $this->Document->place($doc) ?>
+            </div>
         </div>
 
     </div>
 </div>
+<?
+$this->Combinator->add_libs('js', 'Docs/edit');
+?>
