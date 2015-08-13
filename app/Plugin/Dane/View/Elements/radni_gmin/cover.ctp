@@ -11,6 +11,7 @@ $options = array(
 $okreg = $radny->getLayer('okreg');
 
 if ($okreg) {
+    $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow-okregi', array('plugin' => 'Dane')));
     $this->Combinator->add_libs('js', 'Dane.view-gminy-krakow-okregi');
     echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false', array('block' => 'scriptBlock'));
 }
@@ -258,7 +259,7 @@ if ($okreg) {
 </div>
 <div class="col-md-3">
     <? if ($okreg) { ?>
-        <a class="databrowser-panel margin-top-10" href="/okregi/<?= $okreg[2] ?>" target="_self">
+        <a class="okregiBlock margin-top-10" href="/okregi/<?= $okreg[2] ?>" target="_self">
             <h2>Okręg nr. <?= $okreg[2] ?></h2>
 
             <? /*
