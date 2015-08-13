@@ -7,7 +7,7 @@ $this->Combinator->add_libs('css', $this->Less->css('view-dzialania', array('plu
 echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block' => 'scriptBlock'));
 
 /* tinymce */
-echo $this->Html->script('../plugins/tinymce/tinymce.min', array('block' => 'scriptBlock'));
+echo $this->Html->script('../plugins/tinymce/js/tinymce/tinymce.min', array('block' => 'scriptBlock'));
 
 /* tag-it */
 echo $this->Html->script('../plugins/tag-it/js/tag-it.min', array('block' => 'scriptBlock'));
@@ -118,13 +118,13 @@ echo $this->Element('dataobject/pageBegin'); ?>
 	                            </div>
 		                    </div>
 	
-	                        <? if(!$edit && false) { ?>
+	                        <? if(!$edit) { ?>
 	                            <div class="form-group mailBlock">
 	                                <div class="row">
 	                                    <div class="col-sm-12">
 	                                        <div class="btn btn-link btn-icon btn-auto-width mailBtn">
 	                                            <i class="icon glyphicon glyphicon-envelope"></i>
-	                                            Dodaj mailing do posłów
+	                                            Dodaj mailing
 	                                        </div>
 	                                        <div class="col-xs-12 mailElement">
 	                                            <div class="form-group margin-top-10">
@@ -136,7 +136,7 @@ echo $this->Element('dataobject/pageBegin'); ?>
 	                                            </div>
 	                                            <div class="form-group margin-top-10">
 	                                                <label for="dzialanieOpis">Szablon</label>
-	                                                <textarea maxlength="16383" class="form-control tinymce" name="mail_template"></textarea>
+	                                                <textarea style="height: 400px;" maxlength="16383" class="form-control tinymce" name="mail_template"></textarea>
 	                                            </div>
 	                                        </div>
 	                                    </div>
@@ -166,6 +166,14 @@ echo $this->Element('dataobject/pageBegin'); ?>
 			                </div>
 			            </div>
 	            	</div>
+
+                    <div class="col-md-12">
+                        <div class="form-group margin-top-10">
+                            <label class="text-normal">
+                                <input type="checkbox" value="1" name="photo_disabled" <? if ($edit && $dzialanie->getData('photo_disabled') == '1') echo 'checked';?>/> Nie pokazuj zdjęcia na stronie działania
+                            </label>
+                        </div>
+                    </div>
 	            
 		            <div class="col-md-12 margin-top-15">
 			            <button class="btn auto-width btn-primary btn-icon submitBtn" type="submit">

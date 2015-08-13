@@ -1918,7 +1918,7 @@ class GminyController extends DataobjectsController
 
             $this->set('file',
                 isset($this->request->query['file']) ?
-                    (int) $this->request->query['file'] : 1
+                    (int) $this->request->query['file'] : $uchwala->getData('dokument_id')
             );
 
             $this->set('uchwala', $uchwala);

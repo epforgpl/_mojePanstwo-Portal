@@ -221,11 +221,7 @@ $(document).ready(function () {
                 }
             }
 
-            if (alert.length) {
-                alert(error.message);
-            } else {
-                alert(error.message);
-            }
+            alert(error.message);
         };
 
 
@@ -241,6 +237,7 @@ $(document).ready(function () {
             imageState: {
                 src: (src !== "") ? src : ''
             },
+			smallImage: 'allow',
             width: imgEditorWidth,
             height: imgEditorHeight,
             exportZoom: exportZoom,
@@ -342,17 +339,17 @@ $(document).ready(function () {
 
     /* Tags autocomplete input */
     $(function() {
-        
+
         var elements = $('.tags input.tagit');
         for( var i=0; i<elements.length; i++ ) {
-        
+
         	var el = $(elements[i]);
-        	
+
 	        el.tagit({
 	            allowSpaces: true,
 	            removeConfirmation: true,
 	            beforeTagAdded: function(event, ui) {
-	                
+
 	                if( ui.duringInitialization )
 	                	return false;
 
@@ -364,21 +361,21 @@ $(document).ready(function () {
 	                        var data = [];
 	                        for(var i = 0; i < res.options.length; i++)
 	                            data.push(res.options[i].text);
-	
+
 	                        response(data);
 	                    });
 	                },
 	                minLength: 1
 	            }
 	        }).tagit('removeAll');
-	        
+
 	        var data = el.data('value');
 	        if( data && data.length ) {
 		        for( var j=0; j<data.length; j++ ) {
 			        el.tagit('createTag', data[j]);
 		        }
 	        }
-        
+
         }
     });
 
