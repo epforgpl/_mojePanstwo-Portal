@@ -95,17 +95,17 @@ $this->Combinator->add_libs('css', $this->Less->css('Docs/edit'));
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"
                         aria-hidden="true">&times;</button>
-                <h2 class="modal-title">Dodaj zakładkę</h2>
+                <h2 class="modal-title">Dodaj/Edytuj zakładkę</h2>
             </div>
             <div class="modal-body">
                 <div class="col-sm-11">
                     <div class="row">
                         <div class="col-sm-2"><label class="">Tytuł:</label></div>
-                        <div class="col-sm-10"><input class="form-control bookmark-title"></div>
+                        <div class="col-sm-10"><input class="form-control bookmark-title" value=""></div>
                     </div>
                     <div class="row">
                         <div class="col-sm-2"><label>Opis:</label></div>
-                        <div class="col-sm-10"><input class="form-control bookmark-title"></div>
+                        <div class="col-sm-10"><input class="form-control bookmark-desc" value=""></div>
                     </div>
                 </div>
             </div>
@@ -113,6 +113,7 @@ $this->Combinator->add_libs('css', $this->Less->css('Docs/edit'));
                 <button type="button" class="btn btn-md btn-primary btn-icon" id="bookmark-save-btn"><i
                         class="icon glyphicon glyphicon-ok"></i>Zapisz
                 </button>
+                <a class="cancel-modal" data-dismiss="modal">Anuluj</a>
             </div>
         </div>
     </div>

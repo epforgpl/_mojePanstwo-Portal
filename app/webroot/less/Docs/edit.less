@@ -1,5 +1,5 @@
 .pagetoolbar{
-    margin-left: 15px;
+    margin-left: 46px;
     margin-top: 15px;
     z-index: 150;
     position: absolute;
@@ -28,13 +28,26 @@
     margin: 0 5px;
 }
 
-#document_bookmark_modal .btn-icon {
-    width: auto;
-    margin: 15px auto;
-    display: block;
-}
-
-#document_bookmark_modal .row {
-    height: auto;
-    margin: 10px 0;
+#document_bookmark_modal {
+    .modal-dialog {
+        color: #000000;
+    }
+    label{
+        margin-top: 6px;
+    }
+    .btn-icon {
+        width: auto;
+        margin: 15px auto;
+        display: inline-block;
+    }
+    .row {
+        margin: 10px 0;
+    }
+    .modal-body{
+        overflow: hidden;
+    }
+    .cancel-modal{
+        margin-top: 1px;
+        margin-left: 2px;
+    }
 }

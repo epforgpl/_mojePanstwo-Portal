@@ -4,13 +4,14 @@
 
 $(document).ready(function () {
 
+	var id;
 	var interval;
 
 	function InsertMenu(pages) {
 		clearInterval(interval);
 		pages.each(function (page) {
-			var id = $(this).attr('id');
-			var toolbar = '<div class="pagetoolbar hidden ' + id + '">' +
+			var idk = $(this).attr('id');
+			var toolbar = '<div class="pagetoolbar hidden ' + idk + '">' +
 				'<button type="button" class="btn tb-btn btn-primary check">' +
 				'<span class="glyphicon glyphicon-unchecked side altcheckbox"></span>' +
 				'</button>' +
@@ -25,15 +26,11 @@ $(document).ready(function () {
 				'<span class="glyphicon glyphicon-list"></span>' +
 				'</button></div>'
 			$(this).before(toolbar);
-			/*$(this)
-			 .bind('mouseenter', function () {
-			 $(this).parent().find('.'+id+'').removeClass('hidden');
-			 })
-			 .bind('mouseleave', function () {
-			 $(this).parent().find('.'+id+'').addClass('hidden');
-			 });*/
 		});
 		$('.canvas')
+			.bind('mouseover', function () {
+				$('.pagetoolbar').removeClass('hidden');
+			})
 			.bind('mouseenter', function () {
 				$('.pagetoolbar').removeClass('hidden');
 			})
@@ -47,12 +44,12 @@ $(document).ready(function () {
 			if (icon.hasClass('glyphicon-unchecked')) {
 				icon.removeClass('glyphicon-unchecked');
 				icon.addClass('glyphicon-check');
-				$('.btn-counter').html(parseInt($('.btn-counter').html())+1);
+				$('.btn-counter').html(parseInt($('.btn-counter').html()) + 1);
 			} else {
 				icon.removeClass('glyphicon-check');
 				icon.addClass('glyphicon-unchecked');
-				$('.btn-counter').html(parseInt($('.btn-counter').html())-1);
-				if($('#checkbox-main').hasClass('glyphicon-check')){
+				$('.btn-counter').html(parseInt($('.btn-counter').html()) - 1);
+				if ($('#checkbox-main').hasClass('glyphicon-check')) {
 					$('#checkbox-main').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
 				}
 
@@ -121,18 +118,41 @@ $(document).ready(function () {
 			});
 		});
 
-		$('.add-to-list').click(function(){
-			var id=$(this).parent('div').next('.pf').attr('id');
-			$('.spistresci').append('<li><a href="#'+id+'">'+id+'</a></li>')
-
+		$('.add-to-list').click(function () {
+			id = $(this).parent('div').next('.pf').attr('id');
+			if ($('.spistresci').find('.' + id + '').length > 0) {
+				var title = $('.spistresci').find('.' + id + '').html();
+				console.log(title);
+				$('.bookmark-title').val('' + title + '');
+			}else{
+				$('.bookmark-title').val('');
+			}
 		});
+
+		$('#bookmark-save-btn').click(function () {
+			var tytul = $('.bookmark-title').val();
+			$('.spistresci').append('<li><a href="#' + id + '" class="' + id + '">' + tytul + '</a></li>');
+			$('#document_bookmark_modal').modal('hide');
+			$('.bookmark-title').val('');
+			$('.bookmark-desc').val('');
+		});
+
+		$('.cancel-modal').click(function () {
+			$('.bookmark-title').val('');
+			$('.bookmark-desc').val('');
+		});
+
+		$('.modal').on('shown.bs.modal', function () {
+			$(this).find('input:text:visible:first').focus();
+		})
+
 	}
 
 	function CheckAll() {
 		var checkBoxes = $(".altcheckbox");
 		checkBoxes.removeClass('glyphicon-unchecked');
 		checkBoxes.addClass('glyphicon-check');
-		$('.btn-counter').html(checkBoxes.length-1);
+		$('.btn-counter').html(checkBoxes.length - 1);
 	}
 
 	function UncheckAll() {
@@ -156,5 +176,5 @@ $(document).ready(function () {
 		if (pages.length > 0) {
 			InsertMenu(pages);
 		}
-	}, 500);
+	}, 100);
 });
