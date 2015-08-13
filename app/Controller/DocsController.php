@@ -43,7 +43,6 @@ class DocsController extends AppController
         $this->set('doc', $doc);
         $this->set('_serialize', 'doc');
 
-
         $this->set('title_for_layout', $doc['Document']['filename']);
 
         if (isset($this->request->params['ext']) && in_array($this->request->params['ext'], array('html', 'htm'))) {

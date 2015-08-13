@@ -31,37 +31,37 @@ $host = explode(':', $_SERVER['HTTP_HOST']);
 $host = array_shift($host);
 
 if ( $host == PK_DOMAIN ) { // HTTP_X_FORWARDED_HOST
-	
+
 	$pk_actions = array('view', 'okregi_wyborcze', 'interpelacje', 'posiedzenia', 'debaty', 'punkty', 'szukaj', 'rada_uchwaly', 'druki', 'radni_powiazania', 'urzednicy_powiazania', 'radni', 'radni_6', 'radni6', 'uchwaly', 'radni_dzielnic', 'darczyncy', 'wskazniki', 'zamowienia', 'zamowienia_rozstrzygniete', 'organizacje', 'biznes', 'ngo', 'spzoz', 'dotacje_ue', 'rady_gmin_wystapienia', 'map', 'zamowienia_publiczne', 'prawo_lokalne', 'urzednicy', 'oswiadczenia', 'jednostki', 'komisje', 'komisje_posiedzenia', 'sklad', 'dzielnice', 'zarzadzenia', 'zarzadzenie', 'urzad', 'rada', 'krs', 'komisje', 'rada_posiedzenia', 'rada_uchwaly', 'punkty', 'porzadek', 'podsumowanie', 'stenogram', 'informacja', 'glosowania', 'protokol', 'finanse', 'wpf', 'pomoc_publiczna', 'osoby', 'umowy', 'urzad_zamowienia', 'okregi');
 	$pk_actions_reg = '(' . implode('|', $pk_actions) . ')';
-	
+
 	Router::connect( '/', array( 'plugin' => 'Dane', 'controller' => 'gminy', 'action' => 'view', 'id' => 903 ) );
 	Router::connect('/login', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'login'));
 	Router::connect('/logout', array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'logout'));
-	
+
 	Router::connect('/:action', array(
-		'plugin' => 'Dane', 
-		'controller' => 'gminy', 
+		'plugin' => 'Dane',
+		'controller' => 'gminy',
 		'id' => '903'
 	), array(
 		'action' => $pk_actions_reg,
 		// 'subid' => '([0-9]+)',
 		'pass' => array('id'),
 	));
-	
+
 	Router::connect('/:action/:subid', array(
-		'plugin' => 'Dane', 
-		'controller' => 'gminy', 
+		'plugin' => 'Dane',
+		'controller' => 'gminy',
 		'id' => '903'
 	), array(
 		'action' => $pk_actions_reg,
 		'subid' => '([0-9]+)',
 		'pass' => array('id', 'sub_id'),
 	));
-	
+
 	Router::connect('/:action/:subid/:subaction', array(
-		'plugin' => 'Dane', 
-		'controller' => 'gminy', 
+		'plugin' => 'Dane',
+		'controller' => 'gminy',
 		'id' => '903'
 	), array(
 		'action' => $pk_actions_reg,
@@ -69,10 +69,10 @@ if ( $host == PK_DOMAIN ) { // HTTP_X_FORWARDED_HOST
 		'subid' => '([0-9]+)',
 		'pass' => array('id', 'sub_id', 'subaction'),
 	));
-	
+
 	Router::connect('/:action/:subid/:subaction/:subsubid', array(
-		'plugin' => 'Dane', 
-		'controller' => 'gminy', 
+		'plugin' => 'Dane',
+		'controller' => 'gminy',
 		'id' => '903'
 	), array(
 		'action' => $pk_actions_reg,
@@ -81,7 +81,7 @@ if ( $host == PK_DOMAIN ) { // HTTP_X_FORWARDED_HOST
 		'subsubid' => '([0-9]+)',
 		'pass' => array('id', 'sub_id', 'subaction', 'subsubid'),
 	));
-	
+
 
 	/*
 	Router::connect( '/dane/krs_podmioty/:id', array(
@@ -99,15 +99,15 @@ if ( $host == PK_DOMAIN ) { // HTTP_X_FORWARDED_HOST
 	) );
 	Router::connect( '/dane/krs_podmioty/:id,:slug/:action', array( 'plugin' => 'Dane', 'controller' => 'krs_podmioty' ) );
 	Router::connect( '/dane/krs_podmioty/:id,:slug/:action/*', array( 'plugin' => 'Dane', 'controller' => 'krs_podmioty' ) );
-	
-	
-	
-	
+
+
+
+
 	Router::connect( '/:action', array( 'plugin' => 'Dane', 'controller' => 'gminy', 'id' => 903 ) );
 	Router::connect( '/:action/*', array( 'plugin' => 'Dane', 'controller' => 'gminy', 'id' => 903 ) );
 	*/
-	
-	
+
+
 
 
 } else {
@@ -120,7 +120,7 @@ if ( $host == PK_DOMAIN ) { // HTTP_X_FORWARDED_HOST
 Router::connect( '/pages/*', array( 'controller' => 'pages', 'action' => 'display' ) );
 
 Router::connect( '/docs/:id', array( 'controller' => 'docs', 'action' => 'view' ), array( 'id' => '[0-9]+' ) );
-Router::connect( '/docs/edit/:id', array( 'controller' => 'docs', 'action' => 'edit' ), array( 'id' => '[0-9]+' ) );
+Router::connect( '/docs/:id/edit', array( 'controller' => 'docs', 'action' => 'edit' ), array( 'id' => '[0-9]+' ) );
 Router::connect( '/docs/:id/download', array(
 	'controller' => 'docs',
 	'action'     => 'download'

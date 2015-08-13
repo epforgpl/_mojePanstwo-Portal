@@ -36,7 +36,7 @@
                     <p class="_label">CSS</p>
 
                     <p class="_value"><a
-                            href="http://mojepanstwo/htmlex/<?= $doc['Document']['id'] ?>/<?= $doc['Document']['id'] ?>.css"
+                            href="http://mojepanstwo.pl/htmlex/<?= $doc['Document']['id'] ?>/<?= $doc['Document']['id'] ?>.css"
                             target="_blank">LINK</a></p>
                 </li>
                 <li>
@@ -46,7 +46,7 @@
                 </li>
                 <? if ($isAdmin == true) { ?>
                     <li>
-                        <a href="/docs/edit/<?= $doc['Document']['id'] ?>"
+                        <a href="/docs/<?= $doc['Document']['id'] ?>/edit"
                         <button class="btn btn-primary">Edytuj</button>
                         </a>
                     </li>
