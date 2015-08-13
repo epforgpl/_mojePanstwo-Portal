@@ -13,8 +13,13 @@
         margin-right: 15px;
         font-size: 16px;
 
-        &.pismo:hover i {
-            background-color: #4cae4c;
+        &.pismo {
+            a i {
+                background-color: #798;
+            }
+            &:hover i {
+                background-color: #4cae4c;
+            }
         }
 
         &.inactive a i {
@@ -65,35 +70,30 @@
         }
     }
 
-    #krakowRadnyDetailPhone .modal-dialog {
-        max-width: 320px;
+    .modal-dialog {
+        max-width: 350px;
 
         .modal-body {
             > p {
                 text-align: center;
                 margin-bottom: 15px;
             }
-            a {
+            a.btn-skype {
                 display: block;
                 margin: 0 auto;
                 width: 195px;
             }
-        }
-    }
+            .pismoBox {
+                float: none;
+                color: #333;
+                max-width: 260px;
+                margin: 25px auto 0;
 
-    #krakowRadnyDetailPismo .modal-body {
-        > p {
-            text-align: center;
-        }
-        .pismoBox {
-            float: none;
-            margin-top: 25px;
-            color: #333;
-
-            .banner {
-                margin: 10px 0;
-                padding-bottom: 15px;
-                border: 1px solid #ddd;
+                .banner {
+                    margin: 10px 0;
+                    padding-bottom: 15px;
+                    border: 1px solid #ddd;
+                }
             }
         }
     }
