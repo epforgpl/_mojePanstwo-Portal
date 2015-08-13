@@ -44,7 +44,7 @@ WybierzPoslaModal.prototype.initialize = function () {
 
     var _this = this;
 
-    $.getJSON(mPHeart.constant.ajax.api + '/dane/senatorowie/index.json?conditions[senatorowie.okreg_id]=' + id_okregu, function (res) {
+    $.getJSON(mPHeart.constant.ajax.api + '/dane/senatorowie.json?conditions[senatorowie.okreg_id]=' + id_okregu, function (res) {
         _this.res = res;
         if (res.Dataobject && res.Dataobject.length > 0) {
             var html = ['<div class="list-group" style="margin-bottom: 0;">'];
@@ -148,15 +148,15 @@ Okregi.prototype.createAndAddToMapOkregiPolygons = function () {
                     var index = this.i;
                     _this.createModalPoslowie(index);
                 });
-                
+
                 google.maps.event.addListener(this.data[i].polygon[s],"mouseover",function(){
 					this.setOptions({
 						strokeColor: "#DD3333",
 	                    strokeWeight: 2.5,
 	                    strokeOpacity: 0.9
 					});
-				}); 
-				
+				});
+
 				google.maps.event.addListener(this.data[i].polygon[s],"mouseout",function(){
 					this.setOptions({
 						strokeColor: "#444499",
@@ -164,8 +164,8 @@ Okregi.prototype.createAndAddToMapOkregiPolygons = function () {
 	                    strokeOpacity: 0.4
 					});
 				});
-                
-                
+
+
 
             }
         }
