@@ -28,7 +28,7 @@
             "setIdx": 0,
             "setId": 1,
             "iconIdx": 0
-        },
+    },
         {
             "icon": {
                 "paths": [
@@ -753,7 +753,7 @@
             "setIdx": 0,
             "setId": 1,
             "iconIdx": 23
-        }
+    }
     ],
     "height": 1024,
     "metadata": {

@@ -22,8 +22,8 @@ if ($object->getDescription()) { ?>
         <? } ?>
         <? if (($tel = $object->getData('tel')) && ($tel !== 'nie')) { ?>
             <div class="option pull-left" data-toggle="modal" data-target="#krakowRadnyDetailPhone">
-                <a data-toggle="tooltip" data-placement="bottom" title="Zadzwoń przez Skype - <?= $tel ?>"
-                   href="#">
+                <a data-toggle="tooltip" data-placement="bottom" title="Telefon kontaktowy" href="#"
+                   onclick="return false;">
                     <i class="fa fa-phone"></i>
                 </a>
             </div>
@@ -34,6 +34,7 @@ if ($object->getDescription()) { ?>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span>
                             </button>
+                            <h4 class="modal-title">Telefon kontaktowy</h4>
                         </div>
                         <div class="modal-body">
                             <p>Numer telefonu:
@@ -48,7 +49,8 @@ if ($object->getDescription()) { ?>
             </div>
         <? } else { ?>
             <div class="option pull-left inactive">
-                <a href="#">
+                <a data-toggle="tooltip" data-placement="bottom" title="Telefon kontaktowy" href="#"
+                   onclick="return false;">
                     <i class="fa fa-phone"></i>
                 </a>
             </div>
@@ -61,7 +63,7 @@ if ($object->getDescription()) { ?>
             </div>
         <? } else { ?>
             <div class="option pull-left inactive">
-                <a href="#">
+                <a data-toggle="tooltip" data-placement="bottom" title="Facebook" href="#" onclick="return false;">
                     <i class="fa fa-facebook"></i>
                 </a>
             </div>
@@ -75,7 +77,7 @@ if ($object->getDescription()) { ?>
             </div>
         <? } else { ?>
             <div class="option pull-left inactive">
-                <a href="#">
+                <a data-toggle="tooltip" data-placement="bottom" title="Twitter" href="#" onclick="return false;">
                     <i class="fa fa-twitter"></i>
                 </a>
             </div>
@@ -88,7 +90,7 @@ if ($object->getDescription()) { ?>
             </div>
         <? } else { ?>
             <div class="option pull-left inactive">
-                <a href="#">
+                <a data-toggle="tooltip" data-placement="bottom" title="Blog" href="#" onclick="return false;">
                     <i class="glyphicon glyphicon-link"></i>
                 </a>
             </div>
@@ -101,7 +103,7 @@ if ($object->getDescription()) { ?>
             </div>
         <? } else { ?>
             <div class="option pull-left inactive">
-                <a href="#">
+                <a data-toggle="tooltip" data-placement="bottom" title="WWW" href="#" onclick="return false;">
                     <i class="glyphicon glyphicon-link"></i>
                 </a>
             </div>
@@ -115,7 +117,8 @@ if ($object->getDescription()) { ?>
             </div>
         <? } else { ?>
             <div class="option pull-left inactive">
-                <a href="#">
+                <a data-toggle="tooltip" data-placement="bottom" data-placement="bottom" title="Wikipedia" href="#"
+                   onclick="return false;">
                     <i class="fa fa-wikipedia-w"></i>
                 </a>
             </div>
@@ -124,8 +127,8 @@ if ($object->getDescription()) { ?>
         <? if ($email = $object->getData('email2')) { ?>
             <div class="option pismo pull-left" data-toggle="modal" data-target="#krakowRadnyDetailPismo">
                 <a data-toggle="tooltip" data-placement="bottom" data-placement="bottom" title="Wyślij pismo do radnego"
-                   href="#"">
-                <i class="glyphicon glyphicon-envelope"></i>
+                   href="#" onclick="return false;">
+                    <i class="glyphicon glyphicon-envelope"></i>
                 </a>
             </div>
             <div class="modal fade" id="krakowRadnyDetailPismo">
@@ -135,13 +138,14 @@ if ($object->getDescription()) { ?>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span>
                             </button>
+                            <h4 class="modal-title">Wyślij pismo do radnego</h4>
                         </div>
                         <div class="modal-body">
                             <p>Adres email:
                                 <strong><?= $email ?></strong>
                             </p>
 
-                            <div class="col-xs-12 col-md-6 col-md-offset-3 pismoBox" data-dismiss="modal">
+                            <div class="col-xs-12 pismoBox" data-dismiss="modal">
                                 <?
                                 $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
                                 $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
@@ -158,7 +162,8 @@ if ($object->getDescription()) { ?>
             </div>
         <? } else { ?>
             <div class="option inactive pull-left">
-                <a href="#">
+                <a data-toggle="tooltip" data-placement="bottom" data-placement="bottom" title="Wyślij pismo do radnego"
+                   href="#" onclick="return false;">
                     <i class="glyphicon glyphicon-envelope"></i>
                 </a>
             </div>
