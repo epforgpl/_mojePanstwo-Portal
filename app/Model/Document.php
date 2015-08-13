@@ -8,29 +8,24 @@ class Document extends AppModel
 
     // function to load document content's package. if package === 0, then we are loading whole content.
 
-    public function load($id, $package = 1)
+    public function load($id, $options = array())
     {
-        /*if ($package === 0) {
-            try {
-                $doc = $this->getDataSource()->loadDocument($id, 1);
-            } catch (Exception $e) {
-                return false;
-            }
-            if ($doc['Document']['packages_count'] > 1) {
-                for ($i = 2; $i++; $doc['Document']['packages_count']) {
-                    $temp = $this->getDataSource()->loadDocument($id, $i);
-                    $doc['Package'] .= $temp['Package'];
-                }
-            }
-            return $doc;
-        } else {*/
-
-            try {
-                return $this->getDataSource()->loadDocument($id, $package);
-            } catch (Exception $e) {
-                return false;
-            }
-       // }
+	    
+	    if( is_numeric($options) )
+			$options = array(
+				'package' => $options,
+			);
+		elseif( !is_array($options) )
+			$options = array();
+	    	    	    
+	    if( !isset($options['package']) )
+	    	$options['package'] = 1;
+	    	    
+        try {
+            return $this->getDataSource()->loadDocument($id, $options);
+        } catch (Exception $e) {
+            return false;
+        }
 
     }
 

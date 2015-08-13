@@ -1,8 +1,8 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('htmlexDocMain_v2'));
 $this->Combinator->add_libs('css', $this->Less->css('doc'));
-$this->Combinator->add_libs('js', 'Docs/edit');
-$this->Combinator->add_libs('css', $this->Less->css('Docs/edit'));
+// $this->Combinator->add_libs('js', 'Docs/edit');
+// $this->Combinator->add_libs('css', $this->Less->css('Docs/edit'));
 ?>
 
 <div class="container">
