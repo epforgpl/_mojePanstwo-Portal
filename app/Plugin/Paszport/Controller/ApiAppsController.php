@@ -10,6 +10,26 @@ class ApiAppsController extends PaszportAppController {
         parent::beforeFilter();
     }
 
+    public function getMenu()
+    {
+        $menu = array(
+            'items' => array(),
+            'base' => '/' . $this->settings['id'],
+        );
+
+        $menu['items'][] = array(
+            'label' => 'Podstawowe informacje',
+            'id' => '',
+        );
+
+        $menu['items'][] = array(
+            'label' => 'Aplikacje',
+            'id' => 'api_apps',
+        );
+
+        return $menu;
+    }
+
     /**
      * index method
      *
@@ -92,6 +112,14 @@ class ApiAppsController extends PaszportAppController {
                 $this->Session->setFlash(__('The api app could not be saved. Please, try again.'));
             }
         }
+    }
+
+    /**
+     * @return string Random SHA-1
+     */
+    private function generateApiKey()
+    {
+        return sha1(uniqid() . rand(0, PHP_INT_MAX));
     }
 
     public function view($id = null) {
@@ -180,12 +208,5 @@ class ApiAppsController extends PaszportAppController {
             throw new Exception('Usunięcie aplikacji zawsze powinno się udać');
         }
         return $this->redirect(array('action' => 'index'));
-    }
-
-    /**
-     * @return string Random SHA-1
-     */
-    private function generateApiKey() {
-        return sha1(uniqid() . rand(0, PHP_INT_MAX));
     }
 }

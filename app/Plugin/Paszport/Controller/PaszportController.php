@@ -26,6 +26,26 @@ class PaszportController extends ApplicationsController
         parent::beforeRender();
     }
 
+    public function getMenu()
+    {
+        $menu = array(
+            'items' => array(),
+            'base' => '/' . $this->settings['id'],
+        );
+
+        $menu['items'][] = array(
+            'label' => 'Podstawowe informacje',
+            'id' => '',
+        );
+
+        $menu['items'][] = array(
+            'label' => 'Aplikacje',
+            'id' => 'api_apps',
+        );
+
+        return $menu;
+    }
+
     public function profile()
     {
         if ($this->Auth->loggedIn()) {
@@ -127,15 +147,6 @@ class PaszportController extends ApplicationsController
         }
     }
 
-    private function saveRefererUrl() {
-        if (!$this->Session->check('Auth.redirect')) {
-            $ref = $this->request->referer();
-            if ($ref != Router::url(null, true)) {
-                $this->Auth->redirectUrl($ref);
-            }
-        }
-    }
-
     public function facebookLogin()
     {
         $this->saveRefererUrl();
@@ -174,8 +185,8 @@ class PaszportController extends ApplicationsController
                 // dostosowanie danych do takiego samego formatu który jest zwracany
                 // podczas logowania przez formularz
                 $user = $response['user']['User'];
-                foreach($response['user'] as $model => $values) {
-                    if($model != 'User')
+                foreach ($response['user'] as $model => $values) {
+                    if ($model != 'User')
                         $user[$model] = $values;
                 }
 
@@ -183,6 +194,15 @@ class PaszportController extends ApplicationsController
                 $this->redirect($this->Auth->redirectUrl());
             } else {
                 throw new BadRequestException();
+            }
+        }
+    }
+
+    private function saveRefererUrl() {
+        if (!$this->Session->check('Auth.redirect')) {
+            $ref = $this->request->referer();
+            if ($ref != Router::url(null, true)) {
+                $this->Auth->redirectUrl($ref);
             }
         }
     }
