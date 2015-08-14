@@ -12,12 +12,14 @@ $(document).ready(function () {
 		canvas.find('.pf:not(".i")').each(function () {
 		
 			var page = $(this);
-			var width = page.css('width');
-			
+			var width = page.outerWidth();
+			var marginTop = page.css('marginTop');
+			var scale = 1; // pobieramy rzeczywistą wartość z .pf
+						
 			console.log('initializing page', page, width);
 			
-			var toolbar = '<div class="pagetoolbar">' +
-				'<div class="pull-left">' + 
+			var toolbar = $('<div class="pagetoolbar">' +
+				'<div class="row"><div class="pull-left">' + 
 					'<input class="input-checkbox" type="checkbox" />' +
 					'<div class="btn-group">' +
 						'<button type="button" class="btn btn-sm rotate-left" aria-label="rotate-left">' +
@@ -33,11 +35,57 @@ $(document).ready(function () {
 						'<span class="glyphicon glyphicon-bookmark"></span>' +
 					'</button>' + 
 				'</div>' + 
-			'</div>';
+			'</div><div class="row">' +
 			
+			// dane zakładki
 			
+			'</div></div>');
 			
-			page.before(toolbar).css({width: width}).addClass('i');			
+			toolbar.find('.rotate-left').click(function(event){
+									
+				var rotate_iteration = page.data('rotate_iteration') ? page.data('rotate_iteration') : 0;
+				rotate_iteration = (rotate_iteration-1) % 4;
+				if( rotate_iteration<0 )
+					rotate_iteration = 4 + rotate_iteration;
+								
+				page.data('rotate_iteration', rotate_iteration);
+				
+				var deg = 90 * rotate_iteration;
+				page.css({
+					transform: 'rotate(' + deg + 'deg)'
+				});
+				
+				jQuery('.htmlexDoc .document').trigger('scale');
+				
+			});
+			
+			toolbar.find('.rotate-right').click(function(event){
+									
+				var rotate_iteration = page.data('rotate_iteration') ? page.data('rotate_iteration') : 0;
+				rotate_iteration = (rotate_iteration+1) % 4;
+				if( rotate_iteration<0 )
+					rotate_iteration = 4 + rotate_iteration;
+								
+				page.data('rotate_iteration', rotate_iteration);
+				
+				var deg = 90 * rotate_iteration;
+				page.css({
+					transform: 'rotate(' + deg + 'deg)'
+				});	
+				
+				jQuery('.htmlexDoc .document').trigger('scale');			
+				
+			});
+						
+			width *= scale;
+			
+			toolbar.css({
+				width: width + 'px'
+			});
+				
+			page.before(toolbar).addClass('i').css({
+				marginTop: '100px'
+			});			
 		
 		});
 		

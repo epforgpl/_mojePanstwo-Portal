@@ -9,31 +9,65 @@ jQuery(document).ready(function () {
         intervalMain,
         intervalRunnable = true,
         pageScroller = true;
-
+	
+	
+	jQuery('.htmlexDoc .document').on('scale', docRescalePageAll);
+	
     /*RESCALE DOCUMENTS TO FIT CONTENT*/
-    function docRescale() {
-        var doc = jQuery('.htmlexDoc .document'),
-            docCanvas = doc.find('.canvas'),
-            scale, scaleW;
+    function docRescalePage(page) {
+	    
+	    var doc = jQuery('.htmlexDoc .document'), scale, scaleW;
 
-        if (doc.outerWidth() < docCanvas.outerWidth()) {
-            scale = ((doc.outerWidth() * 100) / docCanvas.outerWidth()) / 100;
-            scaleW = doc.outerWidth() - docCanvas.outerWidth();
+	    console.log('rescaling page', page, doc.outerWidth(), page.outerWidth(), (doc.outerWidth() < page.outerWidth()));
 
-            docCanvas.find('.pf:not(".rescaled")').each(function () {
-                var that = $(this);
 
-                that.addClass('rescaled').css({
-                    'transform': 'scale(' + scale + ')',
-                    'margin-left': scaleW / 2
-                });
-
-                if (that.prev().length) {
-                    that.css('margin-top', -Math.floor((1 - scale) * that.outerHeight()))
-                }                
-                
-            });
+	    if (doc.outerWidth() != page.outerWidth()) {
+	    	
+	    	scale = ((doc.outerWidth() * 100) / page.outerWidth()) / 100;
+            scaleW = doc.outerWidth() - page.outerWidth();
+	    	
+	    	var marginLeft = Math.floor(scaleW / 2);
+	    	if( scale < 1 )
+	    		marginLeft = -marginLeft;
+	    		
+	    	var marginTop = -Math.ceil((1 - scale) * page.outerHeight());
+	    	if( scale < 1 )
+	    		marginTop = -marginTop;
+	    	
+	    	
+		    page.addClass('rescaled').css({
+	            'transform': 'scale(' + scale + ')',
+	            'margin-left': marginLeft + 'px',
+	            'margin-top' : marginTop + 15 + 'px'
+	        });
+	        
+	        if( !page.prev().length ) {
+		        doc.find('.canvas').css({
+			        'margin-top': -Math.floor( marginTop / 2 ) - 15 + 'px',
+		        });
+	        }
+	        
+	        if( !page.next().length ) {
+		        
+		        var v = Math.floor( marginTop / 2 );
+		        
+		        doc.find('.canvas').css({
+			        'margin-bottom': v + 'px'
+		        }).data('offset', v);
+		        
+		        page.css({
+			        'margin-bottom': Math.floor( marginTop / 2 ) + 1 + 'px'
+		        });
+	        }
+        
         }
+	    
+	}
+	
+	function docRescalePageAll() {
+        jQuery('.htmlexDoc .document .canvas .pf:not(".rescaled")').each(function () {
+			docRescalePage($(this));                              
+        });
     }
 
     /*RECALCULATE PERCENT OF LOADED DOCUMENT*/
@@ -47,7 +81,7 @@ jQuery(document).ready(function () {
         } else {
             main.remove();
         }
-        docRescale();        
+        docRescalePageAll();        
         jQuery('.htmlexDoc .document').trigger('init');
         
     }
