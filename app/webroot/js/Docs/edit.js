@@ -21,7 +21,7 @@ $(document).ready(function () {
 
 			console.log('initializing page', page, width);
 
-			var toolbar = $('<div class="pagetoolbar '+id+'">' +
+			var toolbar = $('<div class="pagetoolbar ' + id + '">' +
 			'<div class="row"><div class="pull-left">' +
 			'<input type="checkbox" class="input-checkbox">' +
 			'<div class="btn-group">' +
@@ -37,8 +37,8 @@ $(document).ready(function () {
 			'</button>' +
 			'</div>' +
 			'</div><div class="row"><div class="pull-center">' +
-			'<div class="tytul_zakladki text-center '+id+'"></div>'+
-			'<div class="opis_zakladki text-center '+id+'"></div>' +
+			'<div class="tytul_zakladki text-center ' + id + '"></div>' +
+			'<div class="opis_zakladki text-center ' + id + '"></div>' +
 			'</div></div>' +
 			'</div>');
 
@@ -59,6 +59,12 @@ $(document).ready(function () {
 
 				jQuery('.htmlexDoc .document').trigger('scale');
 
+				if (page.data('rotate_iteration') != 0) {
+					page.addClass('rotated');
+				} else {
+					page.removeClass('rotated');
+				}
+
 			});
 
 			toolbar.find('.rotate-right').click(function (event) {
@@ -77,6 +83,12 @@ $(document).ready(function () {
 
 				jQuery('.htmlexDoc .document').trigger('scale');
 
+				if (page.data('rotate_iteration') != 0) {
+					page.addClass('rotated');
+				} else {
+					page.removeClass('rotated');
+				}
+
 			});
 
 			width *= scale;
@@ -94,7 +106,7 @@ $(document).ready(function () {
 				if ($(this).is(':checked')) {
 					$('.btn-counter').html(parseInt($('.btn-counter').html()) + 1);
 					console.log()
-					if($('.btn-counter').html()==$('.input-checkbox').length) {
+					if ($('.btn-counter').html() == $('.input-checkbox').length) {
 						$('#checkbox-main').removeClass('glyphicon-unchecked').addClass('glyphicon-check');
 					}
 				} else {
@@ -109,7 +121,7 @@ $(document).ready(function () {
 				if ($('.spistresci').find('.' + id + '').length > 0) {
 					var title = $('.spistresci').find('.' + id + '').html();
 					$('.bookmark-title').val('' + title + '');
-				}else{
+				} else {
 					$('.bookmark-title').val('');
 				}
 			});
@@ -136,6 +148,11 @@ $(document).ready(function () {
 
 			jQuery('.htmlexDoc .document').trigger('scale');
 
+			if (page.data('rotate_iteration') != 0) {
+				page.addClass('rotated');
+			} else {
+				page.removeClass('rotated');
+			}
 		});
 	});
 
@@ -157,12 +174,17 @@ $(document).ready(function () {
 
 			jQuery('.htmlexDoc .document').trigger('scale');
 
+			if (page.data('rotate_iteration') != 0) {
+				page.addClass('rotated');
+			} else {
+				page.removeClass('rotated');
+			}
 		});
 	});
 
 	$('.check-main').click(function () {
-		var checkBoxes= $('.input-checkbox');
-		var btn=$('#checkbox-main');
+		var checkBoxes = $('.input-checkbox');
+		var btn = $('#checkbox-main');
 		if (btn.hasClass('glyphicon-unchecked')) {
 			checkBoxes.prop('checked', true);
 			$('.btn-counter').html(checkBoxes.length);
@@ -185,24 +207,85 @@ $(document).ready(function () {
 		$(this).find('input:text:visible:first').focus();
 	});
 
-
-
 	$('#bookmark-save-btn').click(function () {
 
 		var tytul = $('.bookmark-title').val();
 		var opis = $('.bookmark-desc').val();
 		$('.spistresci').append('<li><a href="#' + id + '" class="' + id + '">' + tytul + '</a></li>');
 
-		console.log($('.'+id+'').find('.opis_zakladki'))
+		var items=$('.' + id + '');
+		items.find('.opis_zakladki').html(opis);
+		items.find('.tytul_zakladki').html(tytul);
+		items=$('.' + id + '.pagetoolbar').addClass('bookmarked');
 
-		$('.'+id+'').find('.opis_zakladki').html(opis);
-		$('.'+id+'').find('.tytul_zakladki').html(tytul);
 
 		$('#document_bookmark_modal').modal('hide');
 		$('.bookmark-title').val('');
 		$('.bookmark-desc').val('');
 	});
 
+
+	$('.save-doc').click(function () {
+		var data = {
+			'document_id': $('.htmlexDoc').attr('data-document-id'),
+			'pages[]': [],
+			'bookmarks[]': []
+		};
+		$('.rotated').each(function () {
+			var numer_strony = $(this).attr('data-page-no');
+
+			var rotacja = $(this).data('rotate_iteration');
+			if (numer_strony == 0) {
+				return true;
+			} else {
+				var dane = {
+						'numer_strony': numer_strony,
+						'rotate': rotacja
+					};
+				data['pages[]'].push(dane);
+			}
+		});
+		$('.bookmarked').each(function () {
+
+			var tytul=$(this).find('.tytul_zakladki').html();
+			var opis=$(this).find('.opis_zakladki').html();
+			var numer_strony = $(this).next('.pf').attr('data-page-no');
+
+			if (numer_strony == 0) {
+				return true;
+			} else {
+				var dane = {
+					'numer_strony': numer_strony,
+					'tytul': tytul,
+					'opis': opis
+				};
+				data['bookmarks[]'].push(dane);
+			}
+		});
+
+
+		console.log(data);
+
+		$.ajax({
+			url: "../docs/save_doc",
+			method: "post",
+			data: data,
+			success: function (res) {
+				if (res == false) {
+					alert("Wystąpił błąd");
+				} else {
+					location.reload();
+				}
+			},
+			error: function (xhr) {
+				alert("Wystąpił błąd: " + xhr.status + " " + xhr.statusText);
+			}
+		});
+	});
+
+	$('.cancel-chagnes').click(function () {
+		location.reload();
+	});
 	/*
 	 function InsertMenu(pages) {
 	 clearInterval(interval);
