@@ -63,9 +63,7 @@ $(document).ready(function () {
 			var infoBlock = $('<div></div>').addClass('infoBlock current active col-xs-12').css('height', 0).append(
 				$('<div></div>').addClass('arrow')
 			).append(
-				$('<div></div>').addClass('content').append(
-					$('<div></div>').addClass('container')
-				)
+				$('<div></div>').addClass('content')
 			);
 
 			if ($administracja.find('.infoBlock').length !== 0) {
