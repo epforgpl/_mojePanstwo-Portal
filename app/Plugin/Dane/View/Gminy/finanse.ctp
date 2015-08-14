@@ -26,6 +26,8 @@ $zakresy = array(
 $zakres = $zakresy[(int)$object->data('zakres')];
 $data = $object->getLayer('finanse');
 
+pr($dzialy);
+
 ?>
 
     <h1 class="subheader">Wydatki gminy Kraków w I, II i III kwartale 2014 r.</h1>
