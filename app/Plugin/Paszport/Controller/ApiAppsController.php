@@ -14,7 +14,7 @@ class ApiAppsController extends PaszportAppController {
     {
         $menu = array(
             'items' => array(),
-            'base' => '/' . $this->settings['id'],
+            'base' => '/paszport' . $this->settings['id'],
         );
 
         $menu['items'][] = array(
