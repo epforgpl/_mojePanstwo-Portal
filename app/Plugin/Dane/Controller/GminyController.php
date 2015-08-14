@@ -3830,9 +3830,13 @@ class GminyController extends DataobjectsController
             'finanse'
         ));
         $this->_prepareView();
+        $this->loadModel('Finanse.GminaBudzet');
         $this->request->params['action'] = 'finanse';
         $this->set('title_for_layout', 'Wydatki w gminie ' . $this->object->getTitle());
-
+        $this->set('dzialy', $this->GminaBudzet->getDzialy(
+            $this->object->getId(),
+            'wydatki'
+        ));
     }
 
     public function okregi()
