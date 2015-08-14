@@ -11,7 +11,7 @@ class DocsController extends AppController
         App::import("Model", "Document");
         $Document = new Document();
 
-        $doc = $Document->load($this->request->params['id']);
+        $doc = $Document->load($this->request->params['id'], false);
         $this->set('doc', $doc);
         $this->set('_serialize', 'doc');
 
@@ -38,7 +38,7 @@ class DocsController extends AppController
         App::import("Model", "Document");
         $Document = new Document();
 
-        $doc = $Document->load($this->request->params['id'], 0);
+        $doc = $Document->load($this->request->params['id'], false);
 
         $this->set('doc', $doc);
         $this->set('_serialize', 'doc');

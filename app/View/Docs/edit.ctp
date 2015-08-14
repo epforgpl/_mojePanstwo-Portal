@@ -1,8 +1,8 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('htmlexDocMain_v2'));
 $this->Combinator->add_libs('css', $this->Less->css('doc'));
-// $this->Combinator->add_libs('js', 'Docs/edit');
-// $this->Combinator->add_libs('css', $this->Less->css('Docs/edit'));
+$this->Combinator->add_libs('js', 'Docs/edit');
+$this->Combinator->add_libs('css', $this->Less->css('Docs/edit'));
 ?>
 <div class="navbar navbar-fixed-top ">
     <div class="middle nav navbar-nav navbar-right">
@@ -85,7 +85,7 @@ $this->Combinator->add_libs('css', $this->Less->css('doc'));
         </div>
         <div class="col-md-10 objectsPageContent">
             <div class="row">
-                <?= $this->Document->place($doc) ?>
+                <?= $this->Document->place($doc['Document']['id']) ?>
             </div>
         </div>
     </div>

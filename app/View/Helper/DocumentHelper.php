@@ -6,26 +6,33 @@ class DocumentHelper extends AppHelper
     public function place($id, $options = array())
     {
 		
-		if( is_numeric($options) )
-			$options = array(
-				'package' => $options,
+		$_options = array();
+		
+		if( $options ) {
+		
+			if( $options=='*' )
+				$_options['package'] = '*';
+			elseif( is_numeric($options) )
+				$_options['package'] = $options;
+			else
+				$_options = array_merge(array(
+					'package' => 1,
+				), $options);
+		
+		} else {
+			
+			$_options = array(
+				'package' => 1,
 			);
-		elseif( !is_array($options) )
-			$options = array();
+			
+		}
+		
+		$options = $_options;		
 		
 		App::import("Model", "Document");  
 		$Document = new Document();  
-				
-		$options['full'] = isset($options['full']) ? (boolean) $options['full'] : false;
-		
-		debug( $options ); die();
-		
-		if( is_numeric($id) )
-			$doc = $Document->load($id, $options);
-		else
-			$doc = $id;
-			
-		debug($doc); die();
+									
+		$doc = $Document->load($id, $options);
 		
         return $this->_View->element('Document/view', array(
             'document' => $doc,

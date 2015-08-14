@@ -103,6 +103,7 @@ class KrsController extends ApplicationsController
                     ),
                 ),
             ),
+            'apps' => true,
         );
 
         $this->Components->load('Dane.DataBrowser', $options);

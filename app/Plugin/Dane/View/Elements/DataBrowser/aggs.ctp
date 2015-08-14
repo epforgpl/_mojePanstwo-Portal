@@ -7,13 +7,13 @@
         	( $agg_id == 'apps' ) && 
         	isset($agg_data['buckets']) && 
         	!empty($agg_data['buckets'])
-        ) { ?>
+        ) { /* ?>
             <li class="agg">
                 <h2>Szukaj w aplikacji:</h2>
                 <? echo $this->element('Dane.DataBrowser/apps', array('data' => $agg_data)); ?>
             </li>
             <? continue;
-        }
+        */ }
 		
         $minBucketsCountNum = (
 	        ( @!isset($this->request->query['conditions'][$data['aggs_visuals_map'][$agg_id]['field']]) ) &&

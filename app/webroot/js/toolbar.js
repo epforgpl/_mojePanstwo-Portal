@@ -30,13 +30,15 @@ jQuery(document).ready(function () {
 
                 if (that.prev().length) {
                     that.css('margin-top', -Math.floor((1 - scale) * that.outerHeight()))
-                }
+                }                
+                
             });
         }
     }
 
     /*RECALCULATE PERCENT OF LOADED DOCUMENT*/
     function docPercentLoad() {
+                
         var main = jQuery('.toolbarActions .docPagesAll'),
             percents = Math.round(((documentData.currentPackage / documentData.packages).toFixed(2)) * 100);
 
@@ -45,7 +47,9 @@ jQuery(document).ready(function () {
         } else {
             main.remove();
         }
-        docRescale();
+        docRescale();        
+        jQuery('.htmlexDoc .document').trigger('init');
+        
     }
 
     /*IF USER HIT BOTTOM OF PAGE LOAD NEW PART OF PAGES*/

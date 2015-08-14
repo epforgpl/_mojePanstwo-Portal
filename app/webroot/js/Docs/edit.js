@@ -3,10 +3,47 @@
  */
 
 $(document).ready(function () {
+	
+	var doc = jQuery('.htmlexDoc .document');
+	
+	doc.on('init', function(event){
+		
+		var canvas = doc.find('.canvas');
+		canvas.find('.pf:not(".i")').each(function () {
+		
+			var page = $(this);
+			var width = page.css('width');
+			
+			console.log('initializing page', page, width);
+			
+			var toolbar = '<div class="pagetoolbar">' +
+				'<div class="pull-left">' + 
+					'<input class="input-checkbox" type="checkbox" />' +
+					'<div class="btn-group">' +
+						'<button type="button" class="btn btn-sm rotate-left" aria-label="rotate-left">' +
+							'<i	class="fa fa-undo"></i>' +
+						'</button>' +
+						'<button type="button" class="btn btn-sm rotate-right" aria-label="rotate-right">' +
+							'<i	class="fa fa-repeat"></i>' + 
+						'</button>' +
+					'</div>' +
+				'</div>' + 
+				'<div class="pull-right">' + 
+					'<button type="button" class="btn tb-btn btn-sm add-to-list" data-toggle="modal" data-target="#document_bookmark_modal">' +
+						'<span class="glyphicon glyphicon-bookmark"></span>' +
+					'</button>' + 
+				'</div>' + 
+			'</div>';
+			
+			
+			
+			page.before(toolbar).css({width: width}).addClass('i');			
+		
+		});
+		
+	});
 
-	var id;
-	var interval;
-
+	/*
 	function InsertMenu(pages) {
 		clearInterval(interval);
 		pages.each(function (page) {
@@ -169,12 +206,8 @@ $(document).ready(function () {
 			UncheckAll();
 		}
 	});
-
-
-	interval = setInterval(function () {
-		var pages = $('.pf');
-		if (pages.length > 0) {
-			InsertMenu(pages);
-		}
-	}, 100);
+	
+	
+	*/
+	
 });

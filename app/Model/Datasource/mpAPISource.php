@@ -341,13 +341,12 @@ class mpAPISource extends DataSource {
 
     }
 
-    public function loadDocument($id, $package = 1)
+    public function loadDocument($id, $options = array())
     {
+	    
 	    return $this->request('docs/' . $id . '.' . $this->config['ext'], array(
-	        'data' => array(
-		        'package' => $package,
-	        ),
-        ));
+		    'data' => $options,
+	    ));
     }
 
     public function login($email, $password) {

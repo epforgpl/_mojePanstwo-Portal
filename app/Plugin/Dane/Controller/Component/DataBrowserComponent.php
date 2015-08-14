@@ -1068,7 +1068,7 @@ class DataBrowserComponent extends Component
 
     public function __construct($collection, $settings)
     {
-
+				
         if (
             (
                 !isset($settings['aggs']) ||
@@ -1117,7 +1117,30 @@ class DataBrowserComponent extends Component
 
     public function beforeRender($controller)
     {
-
+		
+		if( isset($this->settings['apps']) && $this->settings['apps'] ) {
+			
+			$apps = $controller->getDatasets();
+	        $aggs = array();
+	        foreach ($apps as $app_id => $datasets) {
+	            $aggs['app_' . $app_id] = array(
+	                'filter' => array(
+	                    'terms' => array(
+	                        'dataset' => array_keys($datasets),
+	                    ),
+	                ),
+	            );
+	        }
+	        
+	        if( isset($this->settings['aggs']) )
+		        $this->settings['aggs'] = array_merge($this->settings['aggs'], $aggs);
+		    else
+		    	$this->settings['aggs'] = $aggs;
+		    	
+	        $this->aggsMode = 'apps';	        
+	        			
+		}
+		
         $controller->helpers[] = 'Dane.Dataobject';
 
         if (is_null($controller->Paginator)) {
@@ -1173,7 +1196,7 @@ class DataBrowserComponent extends Component
                 $aggs = array();
 
                 foreach ($_aggs as $app_id => $app_data) {
-                    if ($count = $app_data['doc_count']) {
+                    if ($count = @$app_data['doc_count']) {
 
                         $app_id = substr($app_id, 4);
 

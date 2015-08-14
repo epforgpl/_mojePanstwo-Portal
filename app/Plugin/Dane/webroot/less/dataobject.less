@@ -95,7 +95,67 @@
     .dataBrowser {
         font-family: "Lato", Arial, sans-serif;
         margin-top: 25px;
-
+		
+		.searcher-app {
+			background-color: #F0F0F0;
+			border-bottom: 1px solid #E4E4E4;
+			padding: 15px 0 9px;
+		}
+		
+		.apps-menu {
+			border-bottom: 1px solid #EAEAEA;
+			ul {
+				overflow: auto;
+				padding: 0;
+				margin: 0 -6px;
+				
+				li {
+					list-style: none;
+					float: left;
+					display: block;
+					padding: 0;
+					margin: 0;
+					
+					a {
+						padding: 15px 10px;
+						margin: 0 10px;
+						display: inline-block;
+						font-size: 13px;
+						color: #666;
+						border-bottom: 2px solid #FFF;
+						&:hover {
+							color: #157AB5;
+						}
+						
+						&.active {
+							color: #dc4a38;
+							font-weight: bold;
+							border-bottom-color: #dc4a38;
+						}
+					}
+				}
+			}
+		}
+		
+		.dataCounter {
+			color: #808080;
+			display: inline-block;
+			font-size: 12px;
+			margin-bottom: 0;
+			margin-top: 15px;
+			padding-left: 15px;
+			padding-right: 5px;
+			width: 100%;
+			
+			p {
+				padding: 0;
+				margin: 0;
+			}
+			strong {
+				font-weight: normal;
+			}
+		}
+		
         &.panel {
             background-color: #FFF;
             margin-top: -15px;
@@ -1127,14 +1187,18 @@
         }
 
         .object-icon {
-            color: #999;
+	        background-color: #89A;
+            color: #FFF;
             display: block;
             float: left;
-            font-size: 37px;
-            height: 45px;
-            width: 45px;
-            position: relative;
-            top: 5px;
+            font-size: 28px;
+            height: 40px;
+            width: 40px;
+            padding: 12px 0 0 5px;
+            border-radius: 20px;
+            -webkit-border-radius: 20px;
+            -moz-border-radius: 20px;
+            -o-border-radius: 20px;
         }
 
         .object-icon-side {

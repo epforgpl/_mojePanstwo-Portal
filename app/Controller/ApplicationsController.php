@@ -18,9 +18,7 @@ class ApplicationsController extends AppController
     );
 	
 	public $_layout = array(
-        'header' => array(
-            'element' => 'app',
-        ),
+        'header' => false,
         'body' => array(
             'theme' => 'simply',
         ),
