@@ -143,13 +143,13 @@ function rozdzialy(item, data) {
 			$('<li></li>').addClass('min').attr('data-init', d['dzial']['min']).append(
 				$('<span></span>').addClass('n').text(d['dzial']['min_nazwa'])
 			).append(
-				$('<span></span>').addClass('v').text('(number_format_h)' + d['dzial']['min'])
+				$('<span></span>').addClass('v').text(pl_currency_format(d['dzial']['min']))
 			)
 		).append(
 			$('<li></li>').addClass('max').attr('data-init', d['dzial']['max']).append(
 				$('<span></span>').addClass('n').text(d['dzial']['max_nazwa'])
 			).append(
-				$('<span></span>').addClass('v').text('(number_format_h)' + d['dzial']['max'])
+				$('<span></span>').addClass('v').text(pl_currency_format(d['dzial']['max']))
 			)
 		)
 	);
