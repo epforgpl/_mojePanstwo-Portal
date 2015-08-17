@@ -1,5 +1,7 @@
 var DataBrowser = Class.extend({
-
+	
+	aggsDiv: false,
+	
     init: function (div) {
 
         this.div = $(div);
@@ -39,7 +41,13 @@ var DataBrowser = Class.extend({
     },
 
     initAggs: function () {
-
+		
+		this.aggsDiv = this.div.find('.dataAggs');
+		var height = this.aggsDiv.parent().parent().height();
+		this.aggsDiv.css('height', height+'px');
+		
+		this.aggsDiv.show('slow');
+		
         var lis = this.div.find('.dataAggs .agg');
         for (var i = 0; i < lis.length; i++) {
 

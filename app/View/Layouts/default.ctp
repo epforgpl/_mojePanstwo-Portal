@@ -113,7 +113,6 @@
 
         if (isset($_layout['header']) && !empty($_layout['header'])) {
             echo $this->Element('headers/' . $_layout['header']['element']);
-            echo $this->Element('menu');
         } ?>
 
         <?php echo $content_for_layout; ?>

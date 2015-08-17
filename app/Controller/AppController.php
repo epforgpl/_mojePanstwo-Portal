@@ -71,7 +71,8 @@ class AppController extends Controller
     public $menu = array();
     public $menu_selected = '_default';
     public $observeOptions = false;
-
+	public $app_menu = array(array(), array());
+	
     public $helpers = array(
         'Html',
         'Form',
@@ -308,7 +309,7 @@ class AppController extends Controller
             ),
         ),
     );
-    private $applications = array(
+    public $applications = array(
         'krs' => array(
             'name' => 'Krajowy Rejestr Sądowy',
             'href' => '/krs',
@@ -631,7 +632,9 @@ class AppController extends Controller
 
         if ($id && array_key_exists($id, $this->applications)) {
 
-            return $this->applications[$id];
+            return array_merge($this->applications[$id], array(
+	            'id' => $id,
+            ));
 
         } else return false;
 

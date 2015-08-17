@@ -1190,67 +1190,63 @@ class DataBrowserComponent extends Component
                 'mode' => 'data',
             );
 
-            if ($this->aggsMode == 'apps') {
 
-                $_aggs = $controller->Dataobject->getAggs();
-                $aggs = array();
-
-                foreach ($_aggs as $app_id => $app_data) {
-                    if ($count = @$app_data['doc_count']) {
-
-                        $app_id = substr($app_id, 4);
-
-                        $aggs[] = array(
-                            'key' => $app_id,
-                            'doc_count' => $count,
-                            'app' => $controller->getApplication($app_id),
-                        );
-
-                    }
-                }
-
-                $dataBrowser['aggs'] = array(
-                    'apps' => array(
-                        'buckets' => $aggs,
-                    ),
-                );
-
-            } else {
-
-                $dataBrowser['aggs'] = $controller->Dataobject->getAggs();
-                $dataBrowser['aggs_visuals_map'] = $this->prepareRequests($this->aggs_visuals_map, $controller);
-
-                if (
-                    isset($controller->Paginator->settings['conditions']) &&
-                    isset($controller->Paginator->settings['conditions']['dataset']) &&
-                    is_array($controller->Paginator->settings['conditions']['dataset']) &&
-                    (count($controller->Paginator->settings['conditions']['dataset']) > 1) &&
-                    isset($dataBrowser['aggs']['dataset']) &&
-                    isset($dataBrowser['aggs']['dataset']['buckets']) &&
-                    (count($dataBrowser['aggs']['dataset']['buckets']) === 1) &&
-                    ($dataBrowser['aggs']['dataset']['buckets'][0]['doc_count'])
+			$app_menu = array();
+            $dataBrowser['aggs'] = $controller->Dataobject->getAggs();
+            foreach ($dataBrowser['aggs'] as $app_id => $app_data) {
+                if(
+	                ( stripos($app_id, 'app_')===0 ) && 
+                	( $count = @$app_data['doc_count'] )
                 ) {
 
-                    $params = array();
-                    $conditions = $controller->Paginator->settings['conditions'];
-                    if (isset($conditions['dataset']))
-                        unset($conditions['dataset']);
-
-                    if (isset($conditions['q'])) {
-                        $params['q'] = $conditions['q'];
-                        unset($conditions['q']);
-                    }
-
-                    $params['conditions'] = $conditions;
-
-                    $url = '/dane/' . $dataBrowser['aggs']['dataset']['buckets'][0]['key'];
-                    $url .= '?' . http_build_query($params);
-
-                    return $controller->redirect($url);
+					unset( $dataBrowser['aggs'][$app_id] );
+                    $app_id = substr($app_id, 4);
+                    $app = $controller->getApplication($app_id);
+                    
+                    $app_menu[] = array(
+	                    'id' => $app['id'],
+	                    'href' => $app['href'],
+	                    'title' => $app['name'],
+                    );                    
 
                 }
+            }
+            
+            if( $app_menu )
+            	$controller->app_menu[0] = $app_menu;
+            
+            $dataBrowser['aggs_visuals_map'] = $this->prepareRequests($this->aggs_visuals_map, $controller);
+
+            if (
+                isset($controller->Paginator->settings['conditions']) &&
+                isset($controller->Paginator->settings['conditions']['dataset']) &&
+                is_array($controller->Paginator->settings['conditions']['dataset']) &&
+                (count($controller->Paginator->settings['conditions']['dataset']) > 1) &&
+                isset($dataBrowser['aggs']['dataset']) &&
+                isset($dataBrowser['aggs']['dataset']['buckets']) &&
+                (count($dataBrowser['aggs']['dataset']['buckets']) === 1) &&
+                ($dataBrowser['aggs']['dataset']['buckets'][0]['doc_count'])
+            ) {
+
+                $params = array();
+                $conditions = $controller->Paginator->settings['conditions'];
+                if (isset($conditions['dataset']))
+                    unset($conditions['dataset']);
+
+                if (isset($conditions['q'])) {
+                    $params['q'] = $conditions['q'];
+                    unset($conditions['q']);
+                }
+
+                $params['conditions'] = $conditions;
+
+                $url = '/dane/' . $dataBrowser['aggs']['dataset']['buckets'][0]['key'];
+                $url .= '?' . http_build_query($params);
+
+                return $controller->redirect($url);
 
             }
+
 
             $controller->set('dataBrowser', $dataBrowser);
 

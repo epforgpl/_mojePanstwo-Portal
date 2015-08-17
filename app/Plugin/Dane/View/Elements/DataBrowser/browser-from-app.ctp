@@ -1,6 +1,6 @@
 <?
 $displayAggs = isset($displayAggs) ? (boolean) $displayAggs : true;
-$columns = isset($columns) ? $columns : array(8, 4);
+$columns = isset($columns) ? $columns : array(9, 3);
 ?>
 <div class="objectsPage">
 	<div class="dataBrowser margin-top-0<? if (isset($class)) echo " " . $class; ?>">
@@ -10,17 +10,14 @@ $columns = isset($columns) ? $columns : array(8, 4);
 			    <?= $this->element('Dane.DataBrowser/browser-searcher'); ?>
 			</div>
 		</div>
-		
-		<? if( @isset($dataBrowser['aggs']['apps']['buckets']) ) {?>
+				
+		<? if( @isset($app_menu) ) {?>
 		<div class="apps-menu">
 			<div class="container">
 			    <ul>
+				    <? foreach($app_menu[0] as $a) { ?>
 				    <li>
-				    	<a class="active" href="/dane">Dane publiczne</a>
-				    </li>
-				    <? foreach($dataBrowser['aggs']['apps']['buckets'] as $b) {?>
-				    <li>
-				    	<a href="<?= $b['app']['href'] ?>?q=<?= urlencode($this->request->query['q']) ?>"><?= $b['app']['name'] ?></a>
+				    	<a<? if( isset($a['active']) && $a['active'] ){?> class="active"<? } ?> href="<?= $a['href'] ?>"><?= $a['title'] ?></a>
 				    </li>
 				    <? } ?>
 			    </ul>

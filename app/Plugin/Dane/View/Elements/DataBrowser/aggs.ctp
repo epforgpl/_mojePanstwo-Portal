@@ -1,4 +1,4 @@
-<ul class="dataAggs bg">
+<ul class="dataAggs">
     <? foreach ($data['aggs'] as $agg_id => $agg_data) {
         if ($agg_id == '_channels')
             continue;
