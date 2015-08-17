@@ -241,7 +241,7 @@ $(document).ready(function () {
 				return true;
 			} else {
 				var dane = {
-						'numer_strony': numer_strony,
+						'numer': numer_strony,
 						'rotate': rotacja
 					};
 				data['pages'].push(dane);
@@ -257,7 +257,7 @@ $(document).ready(function () {
 				return true;
 			} else {
 				var dane = {
-					'numer_strony': numer_strony,
+					'strona_numer': numer_strony,
 					'tytul': tytul,
 					'opis': opis
 				};
@@ -266,7 +266,7 @@ $(document).ready(function () {
 		});
 
 		$.ajax({
-			url: "/docs/"+doc_id+"",
+			url: "/docs/"+doc_id+".json",
 			method: "post",
 			data: data,
 			async: false,

@@ -5,6 +5,7 @@ class DocsController extends AppController
 
     public $components = array('RequestHandler');
 
+
     public function view()
     {
 
@@ -89,7 +90,34 @@ class DocsController extends AppController
 
     public function save_doc()
     {
-        debug($this->request->data);
+        $this->loadModel('Document');
 
+        $data = array(
+            'pages' => array(),
+            'bookmarks' => array()
+        );
+
+        $id = $this->request->data['document_id'];
+
+        if (isset($this->request->data['pages'])) {
+            $pages = $this->request->data['pages'];
+            foreach ($pages as $page) {
+                $page['dokument_id'] = $id;
+                $data['pages'][] = $page;
+            }
+        }
+        if (isset($this->request->data['bookmarks'])) {
+            $bookmarks = $this->request->data['bookmarks'];
+            foreach ($bookmarks as $bookmark) {
+                $bookmark['dokument_id'] = $id;
+                $data['bookmarks'][] = $bookmark;
+            }
+        }
+        $msg = $this->Document->save_document($data, $id);
+
+
+        $this->set(array('message' => $msg,
+            '_serialize' => array('message')
+        ));
     }
 }
