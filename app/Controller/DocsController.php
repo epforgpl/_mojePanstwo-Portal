@@ -86,4 +86,10 @@ class DocsController extends AppController
         }
 
     }
+
+    public function save_doc()
+    {
+        debug($this->request->data);
+
+    }
 }
