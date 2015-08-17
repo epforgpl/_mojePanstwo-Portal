@@ -1,13 +1,4 @@
 /*global mPHeart*/
-
-var zakresy = [
-	[0, 20000],
-	[20000, 50000],
-	[50000, 100000],
-	[100000, 500000],
-	[500000, 999999999]
-];
-
 $(document).ready(function () {
 	var lastChoose,
 		$administracja = lastChoose = $('#administracja');
