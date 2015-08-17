@@ -9,7 +9,7 @@ $this->Combinator->add_libs('css', $this->Less->css('Docs/edit'));
         <div class="docs-toolbar" role="toolbar">
             <button type="button" class="btn btn-lg btn-primary check-main"><span
                     class="glyphicon glyphicon-unchecked altcheckbox" id="checkbox-main"></span><span
-                    class="btn-counter">0</span></button>
+                    class="btn-counter checked-counter">0</span></button>
             <div class="btn-group">
                 <button type="button" class="btn btn-lg btn-primary rotate-left-main"
                         aria-label="rotate-left">
@@ -23,7 +23,8 @@ $this->Combinator->add_libs('css', $this->Less->css('Docs/edit'));
                 <button type="button" class="btn btn-lg btn-primary dropdown-toggle"
                         id="spis_tresci_dokumentu"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span
-                        class="glyphicon glyphicon-list"></span> <span class="caret"></span></button>
+                        class="glyphicon glyphicon-list"></span> <span class="caret"></span><span
+                        class="btn-counter bookmark-counter">0</span></button></button>
                 <ul class="dropdown-menu spistresci" aria-labelledby="spis_tresci_dokumentu">
                 </ul>
             </div>

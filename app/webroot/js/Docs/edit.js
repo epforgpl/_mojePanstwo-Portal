@@ -93,24 +93,21 @@ $(document).ready(function () {
 
 			width *= scale;
 
-			var mt = canvas.css('margin-top').replace("px", "");
-
 			toolbar.css({
-				width: width + 'px',
-				marginTop: -mt + 'px'
+				width: width + 'px'
 			});
 
 			page.before(toolbar).addClass('i');
 
 			toolbar.find('.input-checkbox').click(function () {
 				if ($(this).is(':checked')) {
-					$('.btn-counter').html(parseInt($('.btn-counter').html()) + 1);
+					$('.checked-counter').html(parseInt($('.checked-counter').html()) + 1);
 					console.log()
-					if ($('.btn-counter').html() == $('.input-checkbox').length) {
+					if ($('.checked-counter').html() == $('.input-checkbox').length) {
 						$('#checkbox-main').removeClass('glyphicon-unchecked').addClass('glyphicon-check');
 					}
 				} else {
-					$('.btn-counter').html(parseInt($('.btn-counter').html()) - 1);
+					$('.checked-counter').html(parseInt($('.checked-counter').html()) - 1);
 					if ($('#checkbox-main').hasClass('glyphicon-check')) {
 						$('#checkbox-main').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
 					}
@@ -187,12 +184,12 @@ $(document).ready(function () {
 		var btn = $('#checkbox-main');
 		if (btn.hasClass('glyphicon-unchecked')) {
 			checkBoxes.prop('checked', true);
-			$('.btn-counter').html(checkBoxes.length);
+			$('.checked-counter').html(checkBoxes.length);
 			btn.removeClass('glyphicon-unchecked');
 			btn.addClass('glyphicon-check');
 		} else {
 			checkBoxes.prop('checked', false);
-			$('.btn-counter').html('0');
+			$('.checked-counter').html('0');
 			btn.removeClass('glyphicon-check');
 			btn.addClass('glyphicon-unchecked');
 		}
@@ -216,9 +213,13 @@ $(document).ready(function () {
 		var items=$('.' + id + '');
 		items.find('.opis_zakladki').html(opis);
 		items.find('.tytul_zakladki').html(tytul);
-		items=$('.' + id + '.pagetoolbar').addClass('bookmarked');
+		var tool=$('.' + id + '.pagetoolbar');
+		tool.addClass('bookmarked');
+
+		tool.css('margin-bottom', tool.find('.pull-center').outerHeight());
 
 
+		$('.bookmark-counter').html(parseInt($('.bookmark-counter').html()) + 1)
 		$('#document_bookmark_modal').modal('hide');
 		$('.bookmark-title').val('');
 		$('.bookmark-desc').val('');
@@ -226,10 +227,11 @@ $(document).ready(function () {
 
 
 	$('.save-doc').click(function () {
+		var doc_id=$('.htmlexDoc').attr('data-document-id');
 		var data = {
-			'document_id': $('.htmlexDoc').attr('data-document-id'),
-			'pages[]': [],
-			'bookmarks[]': []
+			'document_id': doc_id,
+			'pages': [],
+			'bookmarks': []
 		};
 		$('.rotated').each(function () {
 			var numer_strony = $(this).attr('data-page-no');
@@ -242,7 +244,7 @@ $(document).ready(function () {
 						'numer_strony': numer_strony,
 						'rotate': rotacja
 					};
-				data['pages[]'].push(dane);
+				data['pages'].push(dane);
 			}
 		});
 		$('.bookmarked').each(function () {
@@ -259,22 +261,20 @@ $(document).ready(function () {
 					'tytul': tytul,
 					'opis': opis
 				};
-				data['bookmarks[]'].push(dane);
+				data['bookmarks'].push(dane);
 			}
 		});
 
-
-		console.log(data);
-
 		$.ajax({
-			url: "../docs/save_doc",
+			url: "/docs/"+doc_id+"",
 			method: "post",
 			data: data,
+			async: false,
 			success: function (res) {
 				if (res == false) {
 					alert("Wystąpił błąd");
 				} else {
-					location.reload();
+					//location.reload();
 				}
 			},
 			error: function (xhr) {
@@ -324,11 +324,11 @@ $(document).ready(function () {
 	 if (icon.hasClass('glyphicon-unchecked')) {
 	 icon.removeClass('glyphicon-unchecked');
 	 icon.addClass('glyphicon-check');
-	 $('.btn-counter').html(parseInt($('.btn-counter').html()) + 1);
+	 $('.checked-counter').html(parseInt($('.checked-counter').html()) + 1);
 	 } else {
 	 icon.removeClass('glyphicon-check');
 	 icon.addClass('glyphicon-unchecked');
-	 $('.btn-counter').html(parseInt($('.btn-counter').html()) - 1);
+	 $('.checked-counter').html(parseInt($('.checked-counter').html()) - 1);
 	 if ($('#checkbox-main').hasClass('glyphicon-check')) {
 	 $('#checkbox-main').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
 	 }
@@ -432,14 +432,14 @@ $(document).ready(function () {
 	 var checkBoxes = $(".altcheckbox");
 	 checkBoxes.removeClass('glyphicon-unchecked');
 	 checkBoxes.addClass('glyphicon-check');
-	 $('.btn-counter').html(checkBoxes.length - 1);
+	 $('.checked-counter').html(checkBoxes.length - 1);
 	 }
 
 	 function UncheckAll() {
 	 var checkBoxes = $(".altcheckbox");
 	 checkBoxes.removeClass('glyphicon-check');
 	 checkBoxes.addClass('glyphicon-unchecked');
-	 $('.btn-counter').html('0');
+	 $('.checked-counter').html('0');
 	 }
 
 	 $('.check-main').click(function () {

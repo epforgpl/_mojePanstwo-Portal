@@ -40,8 +40,8 @@ jQuery(document).ready(function () {
 
 			if (deg == 90 || deg == 270) {
 				scale = doc.outerWidth() / page.outerHeight();
-
-				var marginTop = -Math.ceil((1 - scale) * page.outerHeight() - 6);
+				var prop = (page.outerHeight() - page.outerWidth());
+				var marginTop = -Math.ceil((((1 - scale) * page.outerWidth()) + prop) / 2);
 			} else {
 				scale = doc.outerWidth() / page.outerWidth();
 				var marginTop = -Math.ceil((1 - scale) * page.outerHeight() / 2);
