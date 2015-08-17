@@ -7,7 +7,7 @@
         <h3><?php echo __('Api Apps'); ?></h3>
         <?php echo $this->Html->link(__('New Api App'), array('action' => 'add'), array('class' => 'addAppBtn btn btn-primary btn-sm pull-right')); ?>
 
-        <div class="apiApps view">
+        <div class="col-xs-12 apiApps view">
             <h2><?php echo __('Api App'); ?></h2>
             <dl>
                 <dt><?php echo __('Id'); ?></dt>
@@ -52,13 +52,12 @@
                 </dd>
             </dl>
         </div>
-        <div class="actions">
-            <h3><?php echo __('Actions'); ?></h3>
-            <ul>
-                <li><?php echo $this->Html->link(__('Edit Api App'), array('action' => 'edit', $apiApp['ApiApp']['id'])); ?> </li>
-                <li><?php echo $this->Form->postLink(__('Delete Api App'), array('action' => 'delete', $apiApp['ApiApp']['id']), null, __('Are you sure you want to delete # %s?', $apiApp['ApiApp']['id'])); ?> </li>
-                <li><?php echo $this->Html->link(__('List Api Apps'), array('action' => 'index')); ?> </li>
-            </ul>
+        <div class="col-xs-12 apiActionBtn">
+            <div class="btn-group" role="group">
+                <?php echo $this->Html->link(__('Edit Api App'), array('action' => 'edit', $apiApp['ApiApp']['id']), array('class' => 'btn btn-warning')); ?>
+                <?php echo $this->Form->postLink(__('Delete Api App'), array('action' => 'delete', $apiApp['ApiApp']['id']), array('class' => 'btn btn-danger'), __('Are you sure you want to delete # %s?', $apiApp['ApiApp']['id'])); ?>
+                <?php echo $this->Html->link(__('List Api Apps'), array('action' => 'index'), array('class' => 'btn btn-primary')); ?>
+            </div>
         </div>
     </div>
 </div>
