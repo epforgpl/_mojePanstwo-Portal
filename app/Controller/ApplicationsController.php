@@ -49,7 +49,9 @@ class ApplicationsController extends AppController
 
     public function beforeRender()
     {		
-					
+		
+		$app = false;
+				
         if(
 	        isset($this->settings['id']) && 
         	( $app = $this->getApplication($this->settings['id']) ) 
@@ -57,12 +59,65 @@ class ApplicationsController extends AppController
 	        $app = array_merge($app, $this->_app);
             $this->set('_app', $app);
         };
-
+				
         if ($this->menu_selected === false)
             $this->menu_selected = $this->request->params['action'];
 
         $this->set('appSettings', $this->settings);
-
+			
+				
+		if( empty($this->app_menu[0]) )		
+			foreach( $this->applications as $id => $a )
+				if( $a['tag']==1 )
+					$this->app_menu[0][] = array(
+						'id' => $id,
+						'href' => $a['href'],
+						'title' => $a['name'],
+					);		
+		
+		
+				
+		$active = false;
+		$temp = array();
+		$bufor = array(
+			array(
+				'id' => 'dane',
+				'href' => '/dane',
+				'title' => 'Dane publiczne',
+			),
+		);
+		
+		foreach( $this->app_menu[0] as $i => $a ) {
+			
+			if( 
+				isset($this->request->query['q']) && 
+				( $q = $this->request->query['q'] )
+			)	
+				$a['href'] .= '?q=' . urlencode($q);
+			
+			if( $app && ($app['id']==$a['id']) ) {
+			
+				$a['active'] = $active = true;
+				$temp[] = $a;
+			
+			} else {
+				
+				$temp[] = $a;
+				
+			}
+				
+		}
+		
+		$this->app_menu[0] = array_merge($bufor, $temp);
+		
+		if( !$active )
+			$this->app_menu[0][0]['active'] = true;
+			
+		
+			
+		
+		$this->set('app_menu', $this->app_menu);
+		
         if ($this->title)
             $this->set('title_for_layout', $this->title);
         elseif (isset($this->settings['title']))

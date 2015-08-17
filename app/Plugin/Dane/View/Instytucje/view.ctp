@@ -8,7 +8,7 @@
         if (isset($title))
             $options['title'] = $title;
 
-        echo $this->Element('Dane.DataBrowser/browser', $options);
+        echo $this->Element('Dane.DataBrowser/browser-from-object', $options);
         ?>
     </div>
 
