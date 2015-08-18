@@ -118,8 +118,10 @@ $(document).ready(function () {
 				if ($('.spistresci').find('.' + id + '').length > 0) {
 					var title = $('.spistresci').find('.' + id + '').html();
 					$('.bookmark-title').val('' + title + '');
+					$('.bookmark-desc').val($('.' + id + '').find('.opis_zakladki').html());
 				} else {
 					$('.bookmark-title').val('');
+					$('.bookmark-desc').val('');
 				}
 			});
 
@@ -208,12 +210,15 @@ $(document).ready(function () {
 
 		var tytul = $('.bookmark-title').val();
 		var opis = $('.bookmark-desc').val();
-		$('.spistresci').append('<li><a href="#' + id + '" class="' + id + '">' + tytul + '</a></li>');
-
-		var items=$('.' + id + '');
+		if ($('.spistresci').find('.' + id + '').length > 0) {
+			$('.spistresci').find('.' + id + '').html(tytul);
+		} else {
+			$('.spistresci').append('<li><a href="#' + id + '" class="' + id + '">' + tytul + '</a></li>');
+		}
+		var items = $('.' + id + '');
 		items.find('.opis_zakladki').html(opis);
 		items.find('.tytul_zakladki').html(tytul);
-		var tool=$('.' + id + '.pagetoolbar');
+		var tool = $('.' + id + '.pagetoolbar');
 		tool.addClass('bookmarked');
 
 		tool.css('margin-bottom', tool.find('.pull-center').outerHeight());
@@ -227,7 +232,7 @@ $(document).ready(function () {
 
 
 	$('.save-doc').click(function () {
-		var doc_id=$('.htmlexDoc').attr('data-document-id');
+		var doc_id = $('.htmlexDoc').attr('data-document-id');
 		var data = {
 			'document_id': doc_id,
 			'pages': [],
@@ -237,23 +242,23 @@ $(document).ready(function () {
 			var numer_strony = $(this).attr('data-page-no');
 
 			var rotacja = $(this).data('rotate_iteration');
-			if (numer_strony == 0) {
+			if (numer_strony === 0) {
 				return true;
 			} else {
 				var dane = {
-						'numer': numer_strony,
-						'rotate': rotacja
-					};
+					'numer': numer_strony,
+					'rotate': rotacja
+				};
 				data['pages'].push(dane);
 			}
 		});
 		$('.bookmarked').each(function () {
 
-			var tytul=$(this).find('.tytul_zakladki').html();
-			var opis=$(this).find('.opis_zakladki').html();
+			var tytul = $(this).find('.tytul_zakladki').html();
+			var opis = $(this).find('.opis_zakladki').html();
 			var numer_strony = $(this).next('.pf').attr('data-page-no');
 
-			if (numer_strony == 0) {
+			if (numer_strony === 0) {
 				return true;
 			} else {
 				var dane = {
@@ -266,7 +271,7 @@ $(document).ready(function () {
 		});
 
 		$.ajax({
-			url: "/docs/"+doc_id+".json",
+			url: "/docs/" + doc_id + ".json",
 			method: "post",
 			data: data,
 			async: false,
@@ -274,7 +279,7 @@ $(document).ready(function () {
 				if (res == false) {
 					alert("Wystąpił błąd");
 				} else {
-					//location.reload();
+					window.location.href = "docs/" + doc_id + "";
 				}
 			},
 			error: function (xhr) {
@@ -284,7 +289,8 @@ $(document).ready(function () {
 	});
 
 	$('.cancel-chagnes').click(function () {
-		location.reload();
+		var doc_id = $('.htmlexDoc').attr('data-document-id');
+		window.location.href = "docs/" + doc_id + "";
 	});
 	/*
 	 function InsertMenu(pages) {
