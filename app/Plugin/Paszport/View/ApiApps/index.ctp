@@ -22,12 +22,6 @@
                             <?php echo h($apiApp['ApiApp']['api_key']); ?>
                             <?php echo $this->Form->postLink('Zresetuj klucz API', array('action' => 'reset_api_key', $apiApp['ApiApp']['id']), null, 'Czy na pewno chcesz zresetować klucz API? Konieczne będzie jego podmienienie we wszystkich klientach, które z niego korzystają.'); ?>
                         </div>
-
-                        <? /*
-                         <?php echo h($apiApp['ApiApp']['home_link']); ?>
-                         <?php echo h($apiApp['ApiApp']['type']); ?>
-                         <?php echo h($apiApp['ApiApp']['domains']); ?>
-                        */ ?>
                     </div>
                     <div class="col-xs-3 apiActionBtn">
                         <div class="btn-group pull-right" role="group">
