@@ -1,26 +1,60 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('paszport', array('plugin' => 'Paszport'))) ?>
 <?php $this->Combinator->add_libs('css', $this->Less->css('api_apps', array('plugin' => 'Paszport'))) ?>
 <? $this->Combinator->add_libs('js', 'Paszport.paszport-profile.js'); ?>
+<? $this->Combinator->add_libs('js', 'Paszport.api_apps.js'); ?>
 
 <div class="editProfile container">
-	<div class="mainBlock col-md-9">
-		<h3><?php echo __('Api Apps'); ?></h3>
-		<?php echo $this->Html->link(__('New Api App'), array('action' => 'add'), array('class' => 'addAppBtn btn btn-primary btn-sm pull-right')); ?>
-		<div class="apiApps">
-			<?php echo $this->Form->create('ApiApp'); ?>
-			<fieldset>
-				<legend><?php echo __('Add Api App'); ?></legend>
-				<?php
-				echo $this->Form->input('name');
-				echo $this->Form->input('description');
-				echo $this->Form->input('home_link');
-				echo $this->Form->input('type');
-				echo $this->Form->input('domains');
-				?>
-				type = domain lub web, jezeli web to należy wpisać domeny
-			</fieldset>
-			<span>Dodając aplikację zgadasz się na wykorzystanie podanych informacji w działaniach promocyjnych serwisu Moje Państwo.</span>
-			<?php echo $this->Form->end(__('Submit')); ?>
-		</div>
-	</div>
+    <div class="mainBlock col-xs-12 col-md-6">
+        <h3><?php echo __('Api Apps'); ?></h3>
+
+        <div class="apiApps add">
+            <fieldset>
+                <?php echo $this->Form->create('ApiApp'); ?>
+                <div class="form-group">
+                    <span class="title">Typ aplikacji</span>
+
+                    <div class="radio">
+                        <input type="radio" name="data[ApiApp][type]" id="apiNewTypeWeb" value="web">
+                        <label for="apiNewTypeWeb">Aplikacja webowa</label>
+                    </div>
+                    <div class="radio">
+                        <input type="radio" name="data[ApiApp][type]" id="apiNewTypeDomain" value="domain">
+                        <label for="apiNewTypeDomain">Aplikacja serwerowa</label>
+                    </div>
+                    <span class="info-warning">Uwaga! Po utworzenie typu aplikacji niemożna go zmienić</span>
+                </div>
+
+                <div class="form-group">
+                    <? echo $this->Form->input('name', array('class' => 'form-control')); ?>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-primary btn-file">
+                            Przeglądaj&hellip; <? echo $this->Form->file('logo'); ?>
+                        </span>
+                    </span>
+                    <input type="text" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <?php echo $this->Form->input('description', array('class' => 'form-control')); ?>
+                </div>
+                <div class="form-group">
+                    <?php echo $this->Form->input('home_link', array('class' => 'form-control')); ?>
+                </div>
+                <div class="form-group">
+                    <?php echo $this->Form->input('domains', array('class' => 'form-control')); ?>
+                </div>
+            </fieldset>
+            <span class="info-normal col-xs-12 row">Dodając aplikację zgadasz się na wykorzystanie podanych informacji w działaniach promocyjnych serwisu Moje Państwo.</span>
+
+            <div class="optionsBtn col-xs-12">
+                <?php echo $this->Form->button('Submit', array('class' => 'btn btn-primary pull-right')); ?>
+                <?php echo $this->Form->button('Cancel', array(
+                    'class' => 'btn btn-default pull-right',
+                    'type' => 'button',
+                    'onclick' => 'location.href=\'/users\'')); ?>
+            </div>
+            <?php echo $this->Form->end(); ?>
+        </div>
+    </div>
 </div>
