@@ -262,7 +262,7 @@ $(document).ready(function () {
 				return true;
 			} else {
 				var dane = {
-					'strona_numer': numer_strony,
+					'strona_numer_hex': numer_strony,
 					'tytul': tytul,
 					'opis': opis
 				};

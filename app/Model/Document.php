@@ -25,4 +25,11 @@ class Document extends AppModel
         ));
     }
 
+    public function doc_id_from_attach($id)
+    {
+        return $this->getDataSource()->request('docs/attachments/' . $id, array(
+            'method' => 'GET',
+            'id' => $id
+        ));
+    }
 }

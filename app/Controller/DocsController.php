@@ -110,6 +110,7 @@ class DocsController extends AppController
             $bookmarks = $this->request->data['bookmarks'];
             foreach ($bookmarks as $bookmark) {
                 $bookmark['dokument_id'] = $id;
+                $bookmark['strona_start'] = hexdec($bookmark['strona_numer_hex']);
                 $data['bookmarks'][] = $bookmark;
             }
         }
@@ -119,5 +120,41 @@ class DocsController extends AppController
         $this->set(array('message' => $msg,
             '_serialize' => array('message')
         ));
+    }
+
+    public function extract_budget_spendings()
+    {
+
+
+        App::import("Model", "Document");
+        $Document = new Document();
+
+        $id=$Document->doc_id_from_attach($this->request->params['id']);
+        $doc = $Document->load($id['doc_id'], false);
+
+        $this->set('doc', $doc);
+        $this->set('_serialize', 'doc');
+
+        $this->set('title_for_layout', $doc['Document']['filename']);
+
+
+        if ($this->hasUserRole('2')) {
+            $isAdmin = true;
+        } else {
+            $isAdmin = false;
+        }
+
+        $this->set('isAdmin', $isAdmin);
+        if (isset($this->request->params['ext']) && in_array($this->request->params['ext'], array('html', 'htm'))) {
+            $this->layout = 'doc';
+            $this->render('view-html');
+        }
+
+        if (isset($this->request->params['ext']) && in_array($this->request->params['ext'], array('html', 'htm'))) {
+            $this->layout = 'doc';
+            $this->render('view-html');
+        }else{
+            $this->render('attachment');
+        }
     }
 }
