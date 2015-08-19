@@ -7,16 +7,17 @@ class SejmometrController extends ApplicationsController
 
     public $settings = array(
         'id' => 'sejmometr',
+        'title' => 'Sejmometr',
     );
-	
+
 	/*
 	public function beforeFilter() {
-		
+
 		return $this->redirect('/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej');
-		
+
 	}
 	*/
-	
+
     public function getMenu()
     {
         $menu = array(
@@ -83,7 +84,7 @@ class SejmometrController extends ApplicationsController
                             array(
                                 'id' => 'sejm_komunikaty',
                                 'label' => 'Komunikaty Kancelarii Sejmu',
-                            ),                            
+                            ),
                             array(
                                 'id' => 'poslowie_oswiadczenia_majatkowe',
                                 'label' => 'Oświadczenia majątkowe posłów',
@@ -181,7 +182,7 @@ class SejmometrController extends ApplicationsController
 
     public function view()
     {
-				
+
         $datasets = $this->getDatasets('sejmometr');
 
         $options = array(
