@@ -5,6 +5,22 @@ $this->Combinator->add_libs('js', 'Docs/attachment');
 $this->Combinator->add_libs('css', $this->Less->css('Docs/attachment'));
 ?>
 
+<div class="navbar navbar-fixed-top ">
+    <div class="middle nav navbar-nav navbar-right">
+        <div class="docs-toolbar" role="toolbar">
+            <button type="button" class="btn btn-lg btn-primary add_vertical"><span
+                    class="glyphicon glyphicon-plus"></span><span
+                    class="btn-counter line_counter">0</span></button>
+            <button type="button" class="btn btn-lg btn-primary calculate_fields"><span
+                    class="glyphicon glyphicon-list"></span></button>
+            <button type="button" class="btn btn-lg btn-success save-doc"><span
+                    class="glyphicon glyphicon-ok"></span></button>
+            <button type="button" class="btn btn-lg btn-danger cancel-changes"><span
+                    class="glyphicon glyphicon-remove"></span></button>
+        </div>
+    </div>
+</div>
+
 <div class="container">
 
     <div class="col-sm-6"><h1><?= $doc['Document']['filename'] ?></h1></div>
