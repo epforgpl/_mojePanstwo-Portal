@@ -14,10 +14,10 @@ class MediaController extends ApplicationsController
 
     private $twitterAccountTypes = array(
         '0' => 'Wszystkie',
-        '2' => 'Komentator',
-        '3' => 'Urząd',
-        '7' => 'Polityk',
-        '8' => 'Partia',
+        '2' => 'Komentatorzy',
+        '3' => 'Urzędy',
+        '7' => 'Politycy',
+        '8' => 'Partie',
         '9' => 'NGO'
     );
 
