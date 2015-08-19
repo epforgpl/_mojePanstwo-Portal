@@ -72,10 +72,10 @@
             <? echo $this->Element('Dane.DataBrowser/aggs', array(
 	            	'data' => $dataBrowser,
 	        )); ?>
-	        
+
         </div>
     <? } ?>
-    <div class="col-md-<?= $displayAggs ? $columns[0] : 12 ?>">
+        <div class="col-xs-12 col-md-<?= $displayAggs ? $columns[0] : 12 ?>">
 
 		<div class="dataWrap">
 
