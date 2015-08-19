@@ -70,7 +70,7 @@ class BdlController extends ApplicationsController
 		                'aggs' => array(
 			                'label' => array(
 				                'terms' => array(
-					                'field' => 'data.bdl_wskazniki.grupa_tytul_raw',
+					                'field' => 'bdl_wskazniki.grupa_tytul_raw',
 					                'size' => 1,
 				                ),
 			                ),

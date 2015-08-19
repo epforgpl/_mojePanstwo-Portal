@@ -10,8 +10,7 @@
 		if(@$dataBrowser['aggs']['grupy']['buckets']) { 
 			foreach( $dataBrowser['aggs']['grupy']['buckets'] as $b ) {
 				
-				$label = $b['label'];
-				$label = 'Label';
+				$label = @$b['label']['buckets'][0]['key'];								
 				
 	?>
 	
