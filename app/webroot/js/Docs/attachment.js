@@ -23,7 +23,7 @@ $(document).ready(function () {
 			var width = Number(element.attr('width'));
 			var height = Number(element.attr('height'));
 
-			if (top < 160 || left > 1055) {
+			if (top < 160 || left > 1055 || top > 651) {
 
 				element.remove();
 

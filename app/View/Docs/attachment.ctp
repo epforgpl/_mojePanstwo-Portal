@@ -59,8 +59,10 @@ $this->Combinator->add_libs('css', $this->Less->css('Docs/attachment'));
         </div>
         <div class="col-md-10 objectsPageContent">
 
+            <div style="overflow: hidden !important;">
             <?= $xml ?>
-
+                <div style="clear:both;"></div>
+            </div>
         </div>
 
     </div>
