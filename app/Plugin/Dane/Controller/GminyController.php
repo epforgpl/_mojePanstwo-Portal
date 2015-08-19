@@ -1528,6 +1528,7 @@ class GminyController extends DataobjectsController
     {
 
         $this->_prepareView();
+        $this->request->params['action'] = 'rada';
 
         $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
@@ -2181,6 +2182,7 @@ class GminyController extends DataobjectsController
                                     ),
                                 ),
                             ),
+                            'scope' => 'global'
                         );
 
                         $global_aggs['posiedzenia'] = array(
@@ -2211,6 +2213,7 @@ class GminyController extends DataobjectsController
                                     ),
                                 ),
                             ),
+                            'scope' => 'global'
                         );
 
                         $options = array(
@@ -2224,12 +2227,7 @@ class GminyController extends DataobjectsController
                                     'plugin' => 'Dane',
                                     'element' => 'gminy/dzielnica-cover',
                                 ),
-                                'aggs' => array(
-                                    'all' => array(
-                                        'global' => '_empty',
-                                        'aggs' => $global_aggs,
-                                    ),
-                                ),
+                                'aggs' => $global_aggs,
                             ),
                         );
 
@@ -2494,7 +2492,6 @@ class GminyController extends DataobjectsController
         $this->request->params['action'] = 'urzad';
 
         $this->_prepareView();
-        $this->request->params['action'] = 'urzednicy_powiazania';
 
         $this->set('title_for_layout', 'Powiązania urzędników gminy  ' . $this->object->getData('nazwa') . ' z organizacjami w Krajowym Rejestrze Sądowym');
 
@@ -3336,6 +3333,7 @@ class GminyController extends DataobjectsController
                         ),
                     ),
                 ),
+                'scope' => 'global'
             ),
         );
 
@@ -3352,12 +3350,7 @@ class GminyController extends DataobjectsController
                     'plugin' => 'Dane',
                     'element' => 'gminy/zamowienia-cover',
                 ),
-                'aggs' => array(
-                    'all' => array(
-                        'global' => '_empty',
-                        'aggs' => $global_aggs,
-                    ),
-                ),
+                'aggs' => $global_aggs
             ),
 
         );
@@ -3615,6 +3608,7 @@ class GminyController extends DataobjectsController
                             ),
                         ),
                     ),
+                    'scope' => 'global'
                 ),
             );
 
@@ -3629,12 +3623,7 @@ class GminyController extends DataobjectsController
                         'plugin' => 'Dane',
                         'element' => 'krakow_urzednicy/cover',
                     ),
-                    'aggs' => array(
-                        'all' => array(
-                            'global' => '_empty',
-                            'aggs' => $global_aggs,
-                        ),
-                    ),
+                    'aggs' => $global_aggs
                 ),
                 /*
                 'aggs' => array(
@@ -3910,15 +3899,15 @@ class GminyController extends DataobjectsController
             'items' => array(),
             'base' => $this->object->getUrl(),
         );
-		
-		
+
+
         $aggs = array();
         if (isset($this->viewVars['dataBrowser']['aggs']) && !empty($this->viewVars['dataBrowser']['aggs']))
             $aggs = $this->viewVars['dataBrowser']['aggs'];
 
         if (isset($this->object_aggs) && !empty($this->object_aggs))
             $aggs = $this->object_aggs;
-            
+
 
         $menu['items'][] = array(
             'id' => '',
