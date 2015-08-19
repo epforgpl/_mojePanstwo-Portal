@@ -11,12 +11,12 @@ $options = array(
 
     <div class="blocks">        
 				
-		<? if (@$dataBrowser['aggs']['all']['umowy']['dni']['buckets']) { ?>
+		<? if (@$dataBrowser['aggs']['umowy']['dni']['buckets']) { ?>
             <div class="block block-simple block-size-sm col-xs-12">
                 <header>Wartość brutto podpisywanych umów:</header>
                 <section>
                     <?= $this->element('Dane.highstock_browser', array(
-                        'histogram' => $dataBrowser['aggs']['all']['umowy']['dni']['buckets'],
+                        'histogram' => $dataBrowser['aggs']['umowy']['dni']['buckets'],
                         'preset' => 'krakow_umowy',
                         'options' => array(
 	                        'more' => array(

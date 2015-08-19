@@ -40,9 +40,9 @@ $options = array(
                 <div class="aggs-init">
                     <div class="dataAggs">
                         <div class="agg agg-Dataobjects">
-                            <? if ($dataBrowser['aggs']['all']['zarzadzenia']['top']['hits']['hits']) { ?>
+                            <? if ($dataBrowser['aggs']['zarzadzenia']['top']['hits']['hits']) { ?>
                                 <ul class="dataobjects">
-                                    <? foreach ($dataBrowser['aggs']['all']['zarzadzenia']['top']['hits']['hits'] as $doc) { ?>
+                                    <? foreach ($dataBrowser['aggs']['zarzadzenia']['top']['hits']['hits'] as $doc) { ?>
                                         <li>
                                             <?
                                             echo $this->Dataobject->render($doc, 'default');
