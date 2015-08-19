@@ -12,6 +12,17 @@ class MediaController extends ApplicationsController
     );
     public $mainMenuLabel = 'Analiza';
 
+    private $twitterAccountTypes = array(
+        '0' => 'Wszystkie',
+        '2' => 'Komentator',
+        '3' => 'Urząd',
+        '7' => 'Polityk',
+        '8' => 'Partia',
+        '9' => 'NGO'
+    );
+
+    private $twitterAccountType = '0';
+
     public function prepareMetaTags()
     {
         parent::prepareMetaTags();
@@ -41,17 +52,21 @@ class MediaController extends ApplicationsController
                 ),
             ),
         );
-        
+
         if(
-        	isset($this->request->query['type']) && 
-        	in_array($this->request->query['type'], array('2', '3', '4'))
-        ) 
+        	isset($this->request->query['type']) &&
+        	array_key_exists($this->request->query['type'], $this->twitterAccountTypes) &&
+            $this->twitterAccountType = $this->request->query['type']
+        )
         	$must[] = array(
 	        	'term' => array(
-	                'data.twitter.twitter_account_type_id' => $this->request->query['type'],
+	                'data.twitter.twitter_account_type_id' => $this->twitterAccountType,
                 ),
         	);
-        			
+
+        $this->set('twitterAccountTypes', $this->twitterAccountTypes);
+        $this->set('twitterAccountType', $this->twitterAccountType);
+
         $options = array(
             'searchTitle' => 'Szukaj w tweetach i kontach Twitter...',
             'conditions' => array(
@@ -132,7 +147,7 @@ class MediaController extends ApplicationsController
 								                'sum' => array(
 									                'field' => 'data.twitter.liczba_zaangazowan',
 								                ),
-							                ),						                
+							                ),
 						                ),
 					                ),
 				                ),
@@ -160,7 +175,7 @@ class MediaController extends ApplicationsController
         $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
 
-       
+
 
     }
 

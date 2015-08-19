@@ -12,6 +12,7 @@ jQuery(document).ready(function () {
 
 
 	jQuery('.htmlexDoc .document').on('scale', docRescalePageAll);
+	jQuery('.htmlexDoc .document').on('loadall', loadAllDoc);
 
 	/*RESCALE DOCUMENTS TO FIT CONTENT*/
 	function docRescalePage(page) {

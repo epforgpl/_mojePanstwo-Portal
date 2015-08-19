@@ -16,7 +16,6 @@ class DocsController extends AppController
         $this->set('doc', $doc);
         $this->set('_serialize', 'doc');
 
-
         $this->set('title_for_layout', $doc['Document']['filename']);
 
         if ($this->hasUserRole('2')) {
@@ -44,7 +43,22 @@ class DocsController extends AppController
         $this->set('doc', $doc);
         $this->set('_serialize', 'doc');
 
+        $bookmarks = $Document->loadBookmarks($this->request->params['id']);
+        $book=array();
+        foreach($bookmarks['bookmarks'] as $bookmark){
+            $book[$bookmark['Bookmark']['strona_numer_hex']]=array(
+                    'id'=>$bookmark['Bookmark']['id'],
+                    'tytul'=>$bookmark['Bookmark']['tytul'],
+                    'opis'=>$bookmark['Bookmark']['opis'],
+            );
+        }
+        $this->set('bookmarks', $book);
+
         $this->set('title_for_layout', $doc['Document']['filename']);
+
+        if (!$this->hasUserRole('2')) {
+            $this->redirect(''.$this->request->params['id']);
+        }
 
         if (isset($this->request->params['ext']) && in_array($this->request->params['ext'], array('html', 'htm'))) {
             $this->layout = 'doc';
@@ -129,7 +143,7 @@ class DocsController extends AppController
         App::import("Model", "Document");
         $Document = new Document();
 
-        $id=$Document->doc_id_from_attach($this->request->params['id']);
+        $id = $Document->doc_id_from_attach($this->request->params['id']);
         $doc = $Document->load($id['doc_id'], false);
 
         $this->set('doc', $doc);
@@ -153,7 +167,7 @@ class DocsController extends AppController
         if (isset($this->request->params['ext']) && in_array($this->request->params['ext'], array('html', 'htm'))) {
             $this->layout = 'doc';
             $this->render('view-html');
-        }else{
+        } else {
             $this->render('attachment');
         }
     }

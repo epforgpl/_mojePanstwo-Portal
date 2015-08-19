@@ -87,22 +87,22 @@
 }
 
 .objectsPage {
-    
+
     .suggesterBlock {
 	    margin-bottom: -10px;
     }
-    
+
     .dataBrowser {
         font-family: "Lato", Arial, sans-serif;
         margin-top: 25px;
-		
-		.searcher-app {
+
+        .searcher-app {
 			background-color: #F0F0F0;
 			border-bottom: 1px solid #E4E4E4;
 			padding: 15px 0 9px;
 		}
-		
-		.apps-menu {
+
+        .apps-menu {
 			border-bottom: 1px solid #EAEAEA;
 			background-color: #FFF;
 			ul {
@@ -110,15 +110,15 @@
 				height: 50px;
 				padding: 0;
 				margin: 0 -6px;
-				
-				li {
+
+                li {
 					list-style: none;
 					float: left;
 					display: block;
 					padding: 0;
 					margin: 0;
-					
-					a {
+
+                    a {
 						padding: 15px 10px;
 						margin: 0 10px;
 						display: inline-block;
@@ -128,8 +128,8 @@
 						&:hover {
 							color: #157AB5;
 						}
-						
-						&.active {
+
+                        &.active {
 							color: #dc4a38;
 							font-weight: bold;
 							border-bottom-color: #dc4a38;
@@ -138,8 +138,8 @@
 				}
 			}
 		}
-		
-		.dataCounter {
+
+        .dataCounter {
 			color: #808080;
 			display: inline-block;
 			font-size: 12px;
@@ -148,8 +148,8 @@
 			padding-left: 15px;
 			padding-right: 5px;
 			width: 100%;
-			
-			p {
+
+            p {
 				padding: 0;
 				margin: 0;
 			}
@@ -157,7 +157,7 @@
 				font-weight: normal;
 			}
 		}
-		
+
         &.panel {
             background-color: #FFF;
             margin-top: -15px;
@@ -695,7 +695,7 @@
                     padding: 10px;
                     margin: 7px 0;
                     border-bottom: 1px solid #DDD;
-                    
+
                     &:last-child {
 	                    border-bottom: none;
                     }
@@ -1070,7 +1070,7 @@
                     margin-top: 0;
                     max-width: 100%;
                 }
-            }            
+            }
 
             .content {
                 padding-top: 0;
@@ -1092,13 +1092,13 @@
     .objectRender {
         font-size: 14px;
         padding-bottom: 15px;
-		
-		&.twitter {
+
+        &.twitter {
 			.attachment {
 	            max-width: 103px;
 	        }
         }
-		
+
         &.docdataobject .attachment .thumb_cont {
             position: relative;
 
@@ -1202,7 +1202,8 @@
             font-size: 28px;
             height: 40px;
             width: 40px;
-            padding: 12px 0 0 5px;
+            line-height: 1.35em;
+            text-align: center;
             border-radius: 20px;
             -webkit-border-radius: 20px;
             -moz-border-radius: 20px;
@@ -1211,13 +1212,13 @@
 
         .object-icon-side {
             margin-left: 45px;
-            
+
             &.marginRight {
 	            margin-right: 50px;
             }
-            
+
         }
-        
+
         .label-glos {
 	        position: absolute;
 	        right: 0;
@@ -1523,7 +1524,7 @@
         }
 
     }
-    
+
     .block-size-sm {
 	    .objectRender {
 		    .header {
@@ -1542,29 +1543,29 @@
 		    }
 	    }
     }
-	
-	.objectRender.sejm_wystapienia {
-		
-		.content {
+
+    .objectRender.sejm_wystapienia {
+
+        .content {
 			margin-top: 0;
 			padding-top: 0;
 		}
-		
-		.sw_avatar {
+
+        .sw_avatar {
 	        min-width: 70px;
 	    }
-	
-	    .sw_content {
+
+        .sw_content {
 	        padding: 0;
 	        border-radius: 3px;
 	        margin: 0 75px;
 	        -webkit-border-radius: 3px;
 	        -moz-border-radius: 3px;
 	        -o-border-radius: 3px;
-	
-	        .mowca {
-	
-	            font-size: 13px;
+
+            .mowca {
+
+                font-size: 13px;
 	            font-weight: 500;
 	            .label {
 	                font-size: 10px;
@@ -1577,92 +1578,92 @@
 	                background-color: #AAA;
 	            }
 	        }
-	
-	        .link {
+
+            .link {
 	            visibility: hidden;
 	            font-size: 12px;
 	            margin-bottom: 0;
 	            text-align: center;
 	            display: none;
 	        }
-	        
-	        .link-expand {
+
+            .link-expand {
 		        display: block;
 	        }
-	        
-	        &.expanded .link-expand {
+
+            &.expanded .link-expand {
 		        display: none;
 	        }
-	        
-	        &.expanded .link-collapse {
+
+            &.expanded .link-collapse {
 		        display: block;
 	        }
-	        
-	        &._loading .link {
+
+            &._loading .link {
 		        display: none;
 	        }
-	        
-	        &._disabled .link {
+
+            &._disabled .link {
 		        visibility: hidden !important;
 	        }
-	        
-	        .loader {
+
+            .loader {
 		        display: none;
 	        }
-	        
-	        &._loading .loader {
+
+            &._loading .loader {
 		        display: block;
 	        }
-	        
-	        &.expanded {
+
+            &.expanded {
 		        font-size: 15px;
 		        line-height: 1.5em;
 		        .text {
 			        margin-top: -3px;
 		        }
 	        }
-	        
-			.text {
-				
-				margin-bottom: 10px;
+
+            .text {
+
+                margin-bottom: 10px;
 				line-height: 1.35em;
-				
-		        p {
+
+                p {
 		            &.opis {
 		                text-align: center;
 		                font-style: italic;
 		                color: #999;
 		            }
 		        }
-		        
-		        em {
+
+                em {
 			        font-weight: bold;
 		        }
 	        }
-	        
-	        .meta.meta-desc {
+
+            .meta.meta-desc {
 		        margin: 3px 0 8px;
 	        }
-	
-	    }
-	
-	    .sw_content:hover {
+
+        }
+
+        .sw_content:hover {
 	        .link {
 	            visibility: visible;
 	        }
 	    }
-	
-	    @arrowSize: 30px;
-	
-	    .porzadek {
+
+        @arrowSize: 30px;
+
+        .porzadek {
 	        .sw_avatar {
 	            float: right;
 	            text-align: right;
 	        }
 	        .sw_content {
 	            position: relative;
-	
-	            &:before {
+
+                &:before {
 	                position: absolute;
 	                top: 25 px-(@arrowSize/2);
 	                right: -@arrowSize;
@@ -1676,23 +1677,23 @@
 	                border-left-color: #fbfbfb;
 	                border-width: @arrowSize/2;
 	            }
-	
-	            .mowca {
+
+                .mowca {
 	                text-align: left;
 	            }
 	        }
 	    }
-	
-	    .wystapienie {
+
+        .wystapienie {
 	        .sw_avatar {
 	            float: left;
 	            text-align: left;
 	        }
-	
-	        .sw_content {
+
+            .sw_content {
 	            position: relative;
-	
-	            &:before {
+
+                &:before {
 	                position: absolute;
 	                top: 25 px-(@arrowSize/2);
 	                left: -@arrowSize;
@@ -1708,9 +1709,9 @@
 	            }
 	        }
 	    }
-		
-	}
-	
+
+    }
+
     .sejm_glosowanie-voting {
 
         margin: 20px 10px;

@@ -24,8 +24,21 @@ $this->Combinator->add_libs('css', $this->Less->css('Docs/edit'));
                         id="spis_tresci_dokumentu"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span
                         class="glyphicon glyphicon-list"></span> <span class="caret"></span><span
-                        class="btn-counter bookmark-counter">0</span></button></button>
+                        class="btn-counter bookmark-counter">
+                        <? if (isset($bookmarks)) {
+                            echo count($bookmarks);
+                        } else { ?>
+                            0
+                        <? } ?></span></button>
+                </button>
                 <ul class="dropdown-menu spistresci" aria-labelledby="spis_tresci_dokumentu">
+                    <? if (isset($bookmarks)){
+                    foreach ($bookmarks as $key => $bookmark){
+                    ?>
+                    <li><a href='#pf<?= $key ?>' class="<?= $key ?>"><?= $bookmark['tytul'] ?></a></li>
+                        <?
+                        }
+                        } ?>
                 </ul>
             </div>
 
@@ -121,8 +134,7 @@ $this->Combinator->add_libs('css', $this->Less->css('Docs/edit'));
         </div>
     </div>
 </div>
+<div class="hidden" data-name="bookmarks-list" data-value='<?= json_encode($bookmarks) ?>'>
+            </div>
 
-<?
-
-?>
 
