@@ -1401,8 +1401,8 @@ class GminyController extends DataobjectsController
                             ),
                         ),
                     ),
-                    'scope' => 'global',
                 ),
+                'scope' => 'global',
                 'aggs' => array(
                     'top' => array(
                         'top_hits' => array(
@@ -3228,6 +3228,7 @@ class GminyController extends DataobjectsController
                         ),
                     ),
                 ),
+                'scope' => 'global',
                 'aggs' => array(
                     'dni' => array(
                         'date_histogram' => array(
@@ -3257,12 +3258,7 @@ class GminyController extends DataobjectsController
                     'plugin' => 'Dane',
                     'element' => 'gminy/umowy-cover',
                 ),
-                'aggs' => array(
-                    'all' => array(
-                        'global' => '_empty',
-                        'aggs' => $global_aggs,
-                    ),
-                ),
+                'aggs' => $global_aggs,
             ),
 
         );
