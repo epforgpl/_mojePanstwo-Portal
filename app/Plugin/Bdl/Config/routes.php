@@ -13,3 +13,7 @@ Router::connect('/bdl/bdl_temp_items/:item_id/ingredients', array('plugin' => 'B
 
 Router::connect('/bdl', array('plugin' => 'Bdl', 'controller' => 'Bdl', 'action' => 'view'));
 Router::connect('/bdl/:action', array('plugin' => 'Bdl', 'controller' => 'Bdl'));
+Router::connect('/bdl/:action/:id', array('plugin' => 'Bdl', 'controller' => 'Bdl'), array(
+	'id' => '([0-9]+)',
+	'pass' => array('id'),
+));

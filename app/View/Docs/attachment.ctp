@@ -1,11 +1,14 @@
 <?
-	$this->Combinator->add_libs('css', $this->Less->css('htmlexDocMain_v2'));
-	$this->Combinator->add_libs('css', $this->Less->css('doc'));
+$this->Combinator->add_libs('css', $this->Less->css('htmlexDocMain_v2'));
+$this->Combinator->add_libs('css', $this->Less->css('doc'));
+$this->Combinator->add_libs('js', 'Docs/attachment');
+$this->Combinator->add_libs('css', $this->Less->css('Docs/attachment'));
 ?>
 
 <div class="container">
 
-    <h1><?= $doc['Document']['filename'] ?></h1>
+    <div class="col-sm-6"><h1><?= $doc['Document']['filename'] ?></h1></div>
+    <div class="col-sm-6"><h1>ID: <?= $doc['Document']['id'] ?></h1></div>
 
     <div class="row objectsPage">
 
@@ -44,19 +47,19 @@
 
                     <p class="_value"><a href="<?= $doc['Document']['url'] ?>" target="_blank">LINK</a></p>
                 </li>
-                <? if (isset($isAdmin) || $isAdmin == true) { ?>
+                <? /* if (isset($isAdmin) || $isAdmin == true) { ?>
                     <li>
                         <a href="/docs/<?= $doc['Document']['id'] ?>/edit"
                         <button class="btn btn-primary">Edytuj</button>
                         </a>
                     </li>
-                <? } ?>
+                <? } */ ?>
             </ul>
 
         </div>
         <div class="col-md-10 objectsPageContent">
 
-            <?= $this->Document->place($doc['Document']['id']); ?>
+            <?= $xml ?>
 
         </div>
 
