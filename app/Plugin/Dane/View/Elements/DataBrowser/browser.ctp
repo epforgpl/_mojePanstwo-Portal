@@ -11,6 +11,7 @@ $columns = isset($columns) ? $columns : array(9, 3);
 	    <?= $this->element('Dane.DataBrowser/browser-content', array(
 	    	'displayAggs' => $displayAggs,
 	    	'columns' => $columns,
+	    	'menu' => isset($menu) ? $menu : false,
 	    )); ?>
         
     </div>
