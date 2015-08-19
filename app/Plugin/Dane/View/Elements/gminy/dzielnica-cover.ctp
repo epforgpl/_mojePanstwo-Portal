@@ -22,9 +22,9 @@ $options = array(
 
                     <div class="dataAggs">
                         <div class="agg agg-Dataobjects">
-                            <? if ($dataBrowser['aggs']['all']['posiedzenia']['top']['hits']['hits']) { ?>
+                            <? if ($dataBrowser['aggs']['posiedzenia']['top']['hits']['hits']) { ?>
                                 <ul class="dataobjects">
-                                    <? foreach ($dataBrowser['aggs']['all']['posiedzenia']['top']['hits']['hits'] as $doc) { ?>
+                                    <? foreach ($dataBrowser['aggs']['posiedzenia']['top']['hits']['hits'] as $doc) { ?>
                                         <li>
                                             <?
                                             echo $this->Dataobject->render($doc, 'default');
@@ -52,9 +52,9 @@ $options = array(
 
                     <div class="dataAggs">
                         <div class="agg agg-Dataobjects">
-                            <? if ($dataBrowser['aggs']['all']['radni']['top']['hits']['hits']) { ?>
+                            <? if ($dataBrowser['aggs']['radni']['top']['hits']['hits']) { ?>
                                 <ul class="dataobjects row">
-                                    <? foreach ($dataBrowser['aggs']['all']['radni']['top']['hits']['hits'] as $doc) { ?>
+                                    <? foreach ($dataBrowser['aggs']['radni']['top']['hits']['hits'] as $doc) { ?>
                                         <li class="col-md-6">
                                             <?
                                             echo $this->Dataobject->render($doc, 'default');
@@ -78,7 +78,7 @@ $options = array(
     </div>
 
 </div><div class="col-md-3">
-	
+
 	<?
     $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
 	$this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
@@ -88,5 +88,5 @@ $options = array(
 	    'adresat' => 'dzielnice:' . $dzielnica->getId(),
     ));
     ?>
-	
+
 </div>
