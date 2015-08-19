@@ -25,6 +25,14 @@ class Document extends AppModel
         ));
     }
 
+    public function loadBookmarks($id)
+    {
+        return $this->getDataSource()->request('docs/bookmarks/' . $id, array(
+            'method' => 'GET',
+            'id' => $id
+        ));
+    }
+
     public function doc_id_from_attach($id)
     {
         return $this->getDataSource()->request('docs/attachments/' . $id, array(

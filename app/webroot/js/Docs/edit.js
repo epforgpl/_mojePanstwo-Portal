@@ -4,9 +4,11 @@
 
 $(document).ready(function () {
 
+
+
 	var doc = jQuery('.htmlexDoc .document');
 	var id;
-
+	var bookmarks_list = $('div[data-name="bookmarks-list"]').data('value');
 	doc.on('init', function (event) {
 
 		var canvas = doc.find('.canvas');
@@ -98,6 +100,16 @@ $(document).ready(function () {
 			});
 
 			page.before(toolbar).addClass('i');
+
+			var tytul='', opis='';
+			if(bookmarks_list.hasOwnProperty(page.data('page-no'))){
+				toolbar.addClass('bookmarked');
+				tytul=bookmarks_list[page.data('page-no')]['tytul'];
+				opis=bookmarks_list[page.data('page-no')]['opis'];
+				toolbar.find('.opis_zakladki').html(opis);
+				toolbar.find('.tytul_zakladki').html(tytul);
+				toolbar.css('margin-bottom', toolbar.find('.pull-center').outerHeight());
+			}
 
 			toolbar.find('.input-checkbox').click(function () {
 				if ($(this).is(':checked')) {
@@ -292,6 +304,11 @@ $(document).ready(function () {
 		var doc_id = $('.htmlexDoc').attr('data-document-id');
 		window.location.href = "docs/" + doc_id + "";
 	});
+
+	window.setTimeout(function(){
+		doc.trigger('loadall');
+		console.log('LOAD ALL')
+	},500);
 	/*
 	 function InsertMenu(pages) {
 	 clearInterval(interval);
