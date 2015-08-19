@@ -24,6 +24,34 @@ class MediaController extends ApplicationsController
 
         $datasets = $this->getDatasets('media');
 
+		$must = array(
+            array(
+                'term' => array(
+	                'dataset' => 'twitter',
+                ),
+            ),
+            array(
+                'term' => array(
+	                'data.twitter.konto_obserwowane' => '1',
+                ),
+            ),
+            array(
+                'term' => array(
+	                'data.twitter.retweet' => '0',
+                ),
+            ),
+        );
+        
+        if(
+        	isset($this->request->query['type']) && 
+        	in_array($this->request->query['type'], array('2', '3', '4'))
+        ) 
+        	$must[] = array(
+	        	'term' => array(
+	                'data.twitter.twitter_account_type_id' => $this->request->query['type'],
+                ),
+        	);
+        			
         $options = array(
             'searchTitle' => 'Szukaj w tweetach i kontach Twitter...',
             'conditions' => array(
@@ -49,23 +77,7 @@ class MediaController extends ApplicationsController
 	                'tweets' => array(
 		                'filter' => array(
 			                'bool' => array(
-				                'must' => array(
-					                array(
-						                'term' => array(
-							                'dataset' => 'twitter',
-						                ),
-					                ),
-					                array(
-						                'term' => array(
-							                'data.twitter.konto_obserwowane' => '1',
-						                ),
-					                ),
-					                array(
-						                'term' => array(
-							                'data.twitter.retweet' => '0',
-						                ),
-					                ),
-				                ),
+				                'must' => $must,
 			                ),
 		                ),
 		                'aggs' => array(
