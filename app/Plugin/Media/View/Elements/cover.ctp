@@ -6,108 +6,66 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 $options = array(
     'mode' => 'init',
 );
+
 ?>
-<div class="col-md-8">
 
-    <div class="databrowser-panels">
+<div class="col-xs-12 col-md-3 dataAggsContainer">
+    <? echo $this->Element('Dane.DataBrowser/aggs', array(
+        	'data' => $dataBrowser,
+    )); ?>
+</div>
 
-        <div class="databrowser-panel">
-            <h2>Akty prawne, które wejdą niedługo w życie</h2>
+<div class="col-xs-12 col-md-9">
+		
+	<? if( @$dataBrowser['aggs']['tweets']['timerange']['top']['hits']['hits'] ) { ?>
+	    <div class="block col-xs-12">
+	        <header>Najpopularniejsze treści na Twitterze</header>
+	        <section class="aggs-init">
+	            <div class="dataAggs">
+	                <div class="agg agg-Dataobjects">
+	                    <ul class="dataobjects">
+	                        <? foreach ($dataBrowser['aggs']['tweets']['timerange']['top']['hits']['hits'] as $doc) { ?>
+	                            <li>
+	                                <?= $this->Dataobject->render($doc, 'default') ?>
+	                            </li>
+	                        <? } ?>
+	                    </ul>
+	                </div>
+	            </div>
+	        </section>
+	    </div>
+    <? } ?>
+    
+	<? if( @$dataBrowser['aggs']['tweets']['timerange']['accounts']['buckets'] ) { ?>
+		<div class="block col-xs-12">
+	        <header>Najpopularniejsze konta na Twitterze</header>
+	        <section class="aggs-init">
+	            <div class="dataAggs">
+	                <div class="agg agg-Dataobjects">
+	                    <ul class="dataobjects">
+	                        <? foreach ($dataBrowser['aggs']['tweets']['timerange']['accounts']['buckets'] as $doc) { ?>
+	                            <li>
+	                                <? 
+		                                
+		                                $doc = array(
+			                                'id' => $doc['key'],
+			                                'name' => $doc['name']['buckets'][0]['key'],
+			                                'type' => $doc['account_type']['buckets'][0]['key'],
+			                                'image_url' => $doc['image_url']['buckets'][0]['key'],
+			                                'count' => $doc['doc_count'],
+			                                'engagement_count' => $doc['engagement_count']['value'],
+		                                );
+		                                
+		                                debug($doc);
+		                            ?>
+	                            </li>
+	                        <? } ?>
+	                    </ul>
+	                </div>
+	            </div>
+	        </section>
+	    </div>
+    <? } ?>
 
-            <div class="aggs-init">
-
-                <div class="dataAggs">
-                    <div class="agg agg-Dataobjects">
-                        <? if ($dataBrowser['aggs']['prawo']['wejda']['doc_count']) { ?>
-                            <ul class="dataobjects">
-                                <? foreach ($dataBrowser['aggs']['prawo']['wejda']['top']['hits']['hits'] as $doc) { ?>
-                                    <li>
-                                        <?
-                                        echo $this->Dataobject->render($doc, 'default');
-                                        ?>
-                                    </li>
-                                <? } ?>
-                            </ul>
-                        <? } ?>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="databrowser-panel">
-            <h2>Typy obowiązujących aktów prawnych</h2>
-
-            <div class="aggs-init">
-
-                <div class="dataAggs">
-                    <div class="agg agg-PieChart" data-chart-options="<?= htmlentities(json_encode($options)) ?>"
-                         data-choose-request="dane/prawo?conditions[prawo.typ_id]="
-                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['prawo_obowiazujace']['typ_id'])) ?>">
-                        <div class="chart">
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="databrowser-panel">
-            <h2>Nowe akty prawne w czasie</h2>
-
-            <div class="aggs-init">
-
-                <div class="dataAggs">
-                    <div class="agg agg-DateHistogram"
-                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['prawo']['date'])) ?>">
-
-                        <div class="chart"></div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="databrowser-panel">
-            <h2>Akty prawne, które weszły niedawno w życie</h2>
-
-            <div class="aggs-init">
-
-                <div class="dataAggs">
-                    <div class="agg agg-Dataobjects">
-                        <? if ($dataBrowser['aggs']['prawo']['weszly']['doc_count']) { ?>
-                            <ul class="dataobjects">
-                                <? foreach ($dataBrowser['aggs']['prawo']['weszly']['top']['hits']['hits'] as $doc) { ?>
-                                    <li>
-                                        <?
-                                        echo $this->Dataobject->render($doc, 'default');
-                                        ?>
-                                    </li>
-                                <? } ?>
-                            </ul>
-                        <? } ?>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="databrowser-panel">
-            <h2>Autorzy obowiązujących aktów prawnych</h2>
-
-            <div class="aggs-init">
-
-                <div class="dataAggs">
-                    <div class="agg agg-ColumnsHorizontal" data-choose-request="asd"
-                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['prawo_obowiazujace']['autor_id'])) ?>">
-                        <div class="chart"></div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-    </div>
-
+    
 </div>

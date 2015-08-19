@@ -48,6 +48,13 @@ class Dataobject extends AppModel
         return $this->getDataSource()->Aggs;
 
     }
+    
+    public function getApps()
+    {
+
+        return $this->getDataSource()->Apps;
+
+    }
 
     public function getPerformance()
     {

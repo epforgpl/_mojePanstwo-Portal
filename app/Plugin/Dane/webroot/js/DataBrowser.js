@@ -39,14 +39,29 @@ var DataBrowser = Class.extend({
 
 
     },
+	
+	fixAggsHeights: function() {
+		
+		console.log('fixAggsHeights');
+		
+		var div = $('.dataBrowserContent');
+		var height = $(document).height() - div.offset()['top'] - $('footer').height();
+		// console.log(height);
 
+		div.find('.dataAggsContainer .dataAggs').css('height', height+'px');
+		
+	},
+	
     initAggs: function () {
 		
-		this.aggsDiv = this.div.find('.dataAggs');
-		var height = this.aggsDiv.parent().parent().height();
-		this.aggsDiv.css('height', height+'px');
+		this.aggsDiv = this.div.find('.dataAggsContainer .dataAggs');
+		$(window).resize(this.fixAggsHeights);
+		window.setInterval(this.fixAggsHeights, 1000);
 		
-		this.aggsDiv.show('slow');
+		this.fixAggsHeights();		
+		
+		if( this.aggsDiv.length )
+			this.aggsDiv.fadeTo('slow', 1);
 		
         var lis = this.div.find('.dataAggs .agg');
         for (var i = 0; i < lis.length; i++) {
@@ -227,7 +242,7 @@ var DataBrowser = Class.extend({
                                 });
                             })(i);
                         }
-
+                        
                     }
                 }
             },

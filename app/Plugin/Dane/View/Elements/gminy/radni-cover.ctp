@@ -18,9 +18,9 @@ $options = array(
 
                     <div class="dataAggs">
                         <div class="agg agg-Dataobjects">
-                            <? if ($dataBrowser['aggs']['all']['radni']['top']['hits']['hits']) { ?>
+                            <? if ($dataBrowser['aggs']['radni']['top']['hits']['hits']) { ?>
                                 <ul class="dataobjects row radni_cover">
-                                    <? foreach ($dataBrowser['aggs']['all']['radni']['top']['hits']['hits'] as $doc) { ?>
+                                    <? foreach ($dataBrowser['aggs']['radni']['top']['hits']['hits'] as $doc) { ?>
                                         <li class="col-md-4">
                                             <?
                                             echo $this->Dataobject->render($doc, 'krakow_radni');

@@ -123,7 +123,6 @@ class ZamowieniaPubliczneController extends ApplicationsController
                         'field' => 'dataset',
                     ),
                     'visual' => array(
-                        'label' => 'Zbiory danych',
                         'skin' => 'datasets',
                         'class' => 'special',
                         'field' => 'dataset',
@@ -131,6 +130,7 @@ class ZamowieniaPubliczneController extends ApplicationsController
                     ),
                 ),
             ),
+            'apps' => true,
         );
 
         $this->Components->load('Dane.DataBrowser', $options);

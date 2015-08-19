@@ -13,6 +13,7 @@ class mpAPISource extends DataSource {
     public $public_api_call = false;
 
     public $Aggs = array();
+    public $Apps = array();
 
 /**
  * Our default config options. These options will be customized in our
@@ -220,10 +221,29 @@ class mpAPISource extends DataSource {
 
 	    if( isset($res['Took']) )
 	        $this->took = $res['Took'];
-
-        if( isset($res['Aggs']) )
-        	$this->Aggs = $res['Aggs'];
-
+				
+        if( isset($res['Aggs']) ) {
+        	
+        	$this->Aggs = array();
+        	$this->Apps = array();
+        	
+        	foreach( $res['Aggs'] as $key => $value ) {
+	        	
+	        	if( strpos($key, 'app_')===0 ) {
+	        		if(
+		        		isset( $value['doc_count'] ) && 
+		        		$value['doc_count']
+	        		) {
+	        			$this->Apps[ substr($key, 4) ] = $value;
+	        		}
+	        	} else {
+	        		$this->Aggs[ $key ] = $value; 
+	        	}
+	        	
+        	}
+        	        	
+        }
+        
         if( $model->findQueryType == 'first' ) {
 
 	        if( $process_response )

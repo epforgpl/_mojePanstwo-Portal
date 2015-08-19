@@ -18,3 +18,5 @@ $this->Combinator->add_libs('js', array('appheader'));
         </div>
     </div>
 </div>
+
+<? echo $this->Element('menu'); ?>

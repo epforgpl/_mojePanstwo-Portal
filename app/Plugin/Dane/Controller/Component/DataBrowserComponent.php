@@ -14,6 +14,8 @@ class DataBrowserComponent extends Component
     private $autocompletion = false;
     private $aggsMode = false;
     private $searcher = true;
+    private $routes = array();
+    public $dataset = false;
 
     private $aggs_presets = array(
         'gminy' => array(
@@ -1065,7 +1067,27 @@ class DataBrowserComponent extends Component
             ),
         ),
     );
-
+	
+	private function processAggs( $aggs = array() )
+	{
+		
+		foreach( $aggs as $key => $value) {
+            if (is_array($value)) {
+                foreach ($value as $keyM => $valueM) {
+                    if ($keyM === 'visual') {
+                    		                    		                        
+                        $this->aggs_visuals_map[$key] = $valueM;
+                        unset($aggs[$key][$keyM]);
+                    
+                    }
+                }
+            }
+        }
+        		
+		return $aggs;
+		
+	}
+	
     public function __construct($collection, $settings)
     {
 				
@@ -1078,21 +1100,19 @@ class DataBrowserComponent extends Component
             array_key_exists($settings['aggsPreset'], $this->aggs_presets)
         )
             $settings['aggs'] = $this->aggs_presets[$settings['aggsPreset']];
-
-
-        if (isset($settings['aggs'])) {
-            foreach ($settings['aggs'] as $key => $value) {
-                if (is_array($value)) {
-                    foreach ($value as $keyM => $valueM) {
-                        if ($keyM === 'visual') {
-                            $this->aggs_visuals_map[$key] = $valueM;
-                            unset($settings['aggs'][$key][$keyM]);
-                        }
-                    }
-                }
-            }
+		
+        if( isset($settings['aggs']) )
+        	$settings['aggs'] = $this->processAggs( $settings['aggs'] );
+        
+        if(
+	        isset($settings['cover']) && 
+	        isset($settings['cover']['aggs'])
+        ) {
+        	$settings['cover']['aggs'] = $this->processAggs( $settings['cover']['aggs'] );
         }
-
+        
+     
+                
         $this->settings = $settings;
 
         if (isset($settings['cover']))
@@ -1112,6 +1132,12 @@ class DataBrowserComponent extends Component
 
         if (isset($settings['searcher']))
             $this->searcher = $settings['searcher'];
+            
+        if (isset($settings['routes']))
+            $this->routes = $settings['routes'];
+            
+        if (isset($settings['dataset']))
+            $this->dataset = $settings['dataset'];
 
     }
 
@@ -1129,6 +1155,7 @@ class DataBrowserComponent extends Component
 	                        'dataset' => array_keys($datasets),
 	                    ),
 	                ),
+	                'scope' => 'query_main',
 	            );
 	        }
 	        
@@ -1188,35 +1215,54 @@ class DataBrowserComponent extends Component
                 'searcher' => $this->searcher,
                 'autocompletion' => $this->autocompletion,
                 'mode' => 'data',
+                'dataset' => $this->dataset,
+                'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
             );
 
-
+			
+			
 			$app_menu = array();
             $dataBrowser['aggs'] = $controller->Dataobject->getAggs();
-            foreach ($dataBrowser['aggs'] as $app_id => $app_data) {
-                if(
-	                ( stripos($app_id, 'app_')===0 ) && 
-                	( $count = @$app_data['doc_count'] )
-                ) {
-
-					unset( $dataBrowser['aggs'][$app_id] );
-                    $app_id = substr($app_id, 4);
-                    $app = $controller->getApplication($app_id);
-                    
-                    $app_menu[] = array(
-	                    'id' => $app['id'],
-	                    'href' => $app['href'],
-	                    'title' => $app['name'],
-                    );                    
-
-                }
-            }
+            $dataBrowser['apps'] = $controller->Dataobject->getApps();
             
+            
+            foreach( $this->routes as $key => $value ) {
+	            
+	            $parts = explode('/', $key);
+	            if(
+		            isset( $dataBrowser['aggs'][$parts[0]] ) && 
+		            isset( $dataBrowser['aggs'][$parts[0]][$parts[1]] ) 
+	            ) {
+		            
+		            $dataBrowser['aggs'][ $value ] = $dataBrowser['aggs'][$parts[0]][$parts[1]];
+		            unset( $dataBrowser['aggs'][$parts[0]][$parts[1]] );
+					
+					if( isset($dataBrowser['aggs'][$parts[0]]['doc_count']) ) {
+			            $dataBrowser['aggs'][ $value ]['doc_count'] = $dataBrowser['aggs'][$parts[0]]['doc_count'];
+			            unset( $dataBrowser['aggs'][$parts[0]]['doc_count'] );
+			        }
+		            
+	            }
+	            
+            }
+                                    
+                        
+            foreach ($dataBrowser['apps'] as $app_id => $app_data) {
+
+                $app = $controller->getApplication($app_id);
+                $app_menu[] = array(
+                    'id' => $app['id'],
+                    'href' => $app['href'],
+                    'title' => $app['name'],
+                );                    
+
+            }
+                                
             if( $app_menu )
             	$controller->app_menu[0] = $app_menu;
             
-            $dataBrowser['aggs_visuals_map'] = $this->prepareRequests($this->aggs_visuals_map, $controller);
-
+			
+			/*
             if (
                 isset($controller->Paginator->settings['conditions']) &&
                 isset($controller->Paginator->settings['conditions']['dataset']) &&
@@ -1246,13 +1292,14 @@ class DataBrowserComponent extends Component
                 return $controller->redirect($url);
 
             }
+            */
 
 
             $controller->set('dataBrowser', $dataBrowser);
 
 
             if (isset($controller->request->query['conditions']['q']) && $controller->request->query['conditions']['q']) {
-                $controller->title = $controller->request->query['conditions']['q'];
+                $controller->title = $controller->request->query['conditions']['q'] . ' - Szukaj w danych publicznych';
             }
 
 
@@ -1276,9 +1323,8 @@ class DataBrowserComponent extends Component
                 }
 
                 $controller->Dataobject->find('all', $params);
-
-
-                $controller->set('dataBrowser', array(
+				
+				$dataBrowser = array(
                     'aggs' => $controller->Dataobject->getAggs(),
                     'cover' => $this->cover,
                     'cancel_url' => false,
@@ -1287,8 +1333,32 @@ class DataBrowserComponent extends Component
                     'searcher' => $this->searcher,
                     'autocompletion' => $this->autocompletion,
                     'mode' => 'cover',
-                ));
-
+                    'dataset' => $this->dataset,
+	                'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
+                );
+                
+                foreach( $this->routes as $key => $value ) {
+	            
+		            $parts = explode('/', $key);
+		            if(
+			            isset( $dataBrowser['aggs'][$parts[0]] ) && 
+			            isset( $dataBrowser['aggs'][$parts[0]][$parts[1]] ) 
+		            ) {
+			            
+			            $dataBrowser['aggs'][ $value ] = $dataBrowser['aggs'][$parts[0]][$parts[1]];
+			            unset( $dataBrowser['aggs'][$parts[0]][$parts[1]] );
+						
+						if( isset($dataBrowser['aggs'][$parts[0]]['doc_count']) ) {
+				            $dataBrowser['aggs'][ $value ]['doc_count'] = $dataBrowser['aggs'][$parts[0]]['doc_count'];
+				            unset( $dataBrowser['aggs'][$parts[0]]['doc_count'] );
+				        }
+			            
+		            }
+		            
+	            }
+	            
+                $controller->set('dataBrowser', $dataBrowser);
+                
             }
 
         }
@@ -1367,6 +1437,7 @@ class DataBrowserComponent extends Component
         $query = $controller->request->query;
 
         foreach ($maps as $i => $map) {
+                        
             // Anulowanie np. wybranego typu
             $cancelQuery = $query;
 
@@ -1392,8 +1463,11 @@ class DataBrowserComponent extends Component
                 $r .= '&conditions[' . $map['field'] . ']=';
 
             $maps[$i]['chooseRequest'] = $r;
+            
+            if( isset($maps[$i]['forceKey']) )
+            	$maps[ $maps[$i]['forceKey'] ] = $maps[$i];
         }
-
+                
         return $maps;
     }
 
