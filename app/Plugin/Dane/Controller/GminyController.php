@@ -2598,6 +2598,7 @@ class GminyController extends DataobjectsController
                                     ),
                                 ),
                             ),
+                            'scope' => 'global'
                         ),
                         'interpelacje' => array(
                             'filter' => array(
@@ -2629,6 +2630,7 @@ class GminyController extends DataobjectsController
                                     ),
                                 ),
                             ),
+                            'scope' => 'global'
                         ),
                         'komisje' => array(
                             'filter' => array(
@@ -2686,6 +2688,7 @@ class GminyController extends DataobjectsController
                                     ),
                                 ),
                             ),
+                            'scope' => 'global'
                         ),
                         'glosowania' => array(
                             'filter' => array(
@@ -2715,6 +2718,7 @@ class GminyController extends DataobjectsController
                                     ),
                                 ),
                             ),
+                            'scope' => 'global'
                         ),
                         'oswiadczenia' => array(
                             'filter' => array(
@@ -2746,6 +2750,7 @@ class GminyController extends DataobjectsController
                                     ),
                                 ),
                             ),
+                            'scope' => 'global'
                         ),
                     );
 
@@ -2759,12 +2764,7 @@ class GminyController extends DataobjectsController
                                 'plugin' => 'Dane',
                                 'element' => 'radni_gmin/cover',
                             ),
-                            'aggs' => array(
-                                'all' => array(
-                                    'global' => '_empty',
-                                    'aggs' => $global_aggs,
-                                ),
-                            ),
+                            'aggs' => $global_aggs
                         ),
                         'aggs' => array(
                             'dataset' => array(
@@ -2886,7 +2886,7 @@ class GminyController extends DataobjectsController
                 case 'obietnice': {
 
                     $submenu['selected'] = 'obietnice';
-
+                    break;
                 }
 
                 case 'krs':{
@@ -2903,6 +2903,7 @@ class GminyController extends DataobjectsController
                             'layers' => array('organizacje'),
                         )));
                     }
+                    break;
                 }
 
 
