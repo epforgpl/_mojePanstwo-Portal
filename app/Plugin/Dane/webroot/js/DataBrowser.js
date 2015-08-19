@@ -40,11 +40,6 @@ var DataBrowser = Class.extend({
 
 	},
 
-	fixAggsHeights: function () {
-		var div = $('.dataBrowserContent');
-		div.find('.dataAggsContainer .dataAggs').css('height', div.outerHeight() + 'px');
-	},
-
 	initAggs: function () {
 		this.aggsDiv = this.div.find('.dataAggsContainer .dataAggs');
 
@@ -56,22 +51,16 @@ var DataBrowser = Class.extend({
 			var li = $(lis[i]);
 			if (li.hasClass('agg-PieChart')) {
 				this.initAggPieChart(li);
-				this.fixAggsHeights();
 			} else if (li.hasClass('agg-DateHistogram')) {
 				this.initAggDateHistogram(li);
-				this.fixAggsHeights();
 			} else if (li.hasClass('agg-ColumnsHorizontal')) {
 				this.initAggColumnsHorizontal(li);
-				this.fixAggsHeights();
 			} else if (li.hasClass('agg-ColumnsVertical')) {
 				this.initAggColumnsVertical(li);
-				this.fixAggsHeights();
 			} else if (li.hasClass('agg-GeoPL')) {
 				this.initAggGeoPL(li);
-				this.fixAggsHeights();
 			}
 		}
-		this.fixAggsHeights();
 	},
 
 	initAggGeoPL: function (li) {
