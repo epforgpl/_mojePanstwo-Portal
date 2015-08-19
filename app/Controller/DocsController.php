@@ -3,7 +3,7 @@
 class DocsController extends AppController
 {
 
-    public $components = array('RequestHandler');
+    public $components = array('RequestHandler', 'S3');
 
 
     public function view()
@@ -146,7 +146,18 @@ class DocsController extends AppController
         $id = $Document->doc_id_from_attach($this->request->params['id']);
         $doc = $Document->load($id['doc_id'], false);
 
+        $xml=$this->S3->getObject('docs.sejmometr.pl','xml/'.$id['doc_id'].'.xml' );
+
+        $xml = strip_tags($xml->body, '<page><text>');
+        $xml = str_ireplace(array(
+            '<page', '<text', '/text>', '/page>'
+        ), array(
+            '<div class="page"', '<p', '/p>', '/div>'
+        ), $xml);
+
+//        debug($xml);die();
         $this->set('doc', $doc);
+        $this->set('xml', $xml);
         $this->set('_serialize', 'doc');
 
         $this->set('title_for_layout', $doc['Document']['filename']);
@@ -155,14 +166,10 @@ class DocsController extends AppController
         if ($this->hasUserRole('2')) {
             $isAdmin = true;
         } else {
-            $isAdmin = false;
+            $this->redirect(''.$this->request->params['id']);
         }
 
         $this->set('isAdmin', $isAdmin);
-        if (isset($this->request->params['ext']) && in_array($this->request->params['ext'], array('html', 'htm'))) {
-            $this->layout = 'doc';
-            $this->render('view-html');
-        }
 
         if (isset($this->request->params['ext']) && in_array($this->request->params['ext'], array('html', 'htm'))) {
             $this->layout = 'doc';
