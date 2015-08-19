@@ -609,18 +609,51 @@ var DataBrowser = Class.extend({
 		li = $(li);
 		var data = $.parseJSON(li.attr('data-chart'));
 		var choose_request = li.attr('data-choose-request');
+
 		var counter_field = li.attr('data-counter_field');
-		if (!counter_field)
+		if( !counter_field )
 			counter_field = 'doc_count';
+
+		var label_field = li.attr('data-label_field');
+		if( !label_field )
+			label_field = 'label';
+
+		var image_field = li.attr('data-image_field');
 
 		var columns_horizontal_data = [];
 		var columns_horizontal_categories = [];
 		var columns_horizontal_keys = [];
+		var columns_horizontal_images = [];
 
 		for (var i = 0; i < data.buckets.length; i++) {
-			columns_horizontal_categories[i] = data.buckets[i].label.buckets[0].key;
-			columns_horizontal_data[i] = data.buckets[i].label.buckets[0][counter_field] || data.buckets[i][counter_field]['value'] || data.buckets[i][counter_field];
+			columns_horizontal_categories[i] = data.buckets[i][label_field].buckets[0].key;
+			columns_horizontal_data[i] = (data.buckets[i].label ? data.buckets[i].label.buckets[0][counter_field] : false) || data.buckets[i][counter_field]['value'] || data.buckets[i][counter_field];;
 			columns_horizontal_keys[i] = data.buckets[i].key;
+			if(image_field) {
+				columns_horizontal_images[i] = data.buckets[i][image_field].buckets[0].key;
+			}
+		}
+
+		var tooltip = {
+			valueSuffix: ' ',
+			positioner: function () {
+				return { x: this.now.anchorX, y: this.now.anchorY - 20 };
+			},
+			style: {
+				zIndex: 9
+			}
+		};
+
+		if(image_field) {
+			tooltip.useHTML = true;
+			tooltip.formatter = function() {
+				return [
+					'<div class="text-center">',
+					'<img src="' + columns_horizontal_images[this.point.index] + '"/><br/>',
+					this.x,
+					'</div>'
+				].join('');
+			};
 		}
 
 		var _this = this;
@@ -635,7 +668,7 @@ var DataBrowser = Class.extend({
 							legend = this.series[0].chart.axes[0].labelGroup.element;
 
 						for (var i = 0, len = legend.childNodes.length; i < len; i++) {
-							(function (i) {
+							(function(i) {
 								var item = legend.childNodes[i];
 								item.onmouseover = function (e) {
 									chart.series[0].points[i].onMouseOver();
@@ -681,15 +714,7 @@ var DataBrowser = Class.extend({
 					overflow: 'justify'
 				}
 			},
-			tooltip: {
-				valueSuffix: ' ',
-				positioner: function () {
-					return {x: this.now.anchorX, y: this.now.anchorY - 20};
-				},
-				style: {
-					zIndex: 9
-				}
-			},
+			tooltip: tooltip,
 			plotOptions: {
 				bar: {
 					dataLabels: {
