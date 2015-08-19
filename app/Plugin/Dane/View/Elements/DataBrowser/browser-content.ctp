@@ -47,14 +47,12 @@
 		
 	<? if ($displayAggs && !empty($dataBrowser['aggs'])) { ?>
         <div class="col-md-<?= $columns[1] ?> dataAggsContainer">
-            
-            <? debug($menu); ?>
-            
+                        
             <? if( isset($sideElement) ) echo $this->Element($sideElement) ?>
             
-            <? /*echo $this->Element('Dane.DataBrowser/aggs', array(
+            <? echo $this->Element('Dane.DataBrowser/aggs', array(
 	            	'data' => $dataBrowser,
-	        )); */ ?>
+	        )); ?>
         </div>
     <? } ?>
     <div class="col-md-<?= $displayAggs ? $columns[0] : 12 ?>">
