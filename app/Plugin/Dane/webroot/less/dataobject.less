@@ -104,6 +104,7 @@
 		
 		.apps-menu {
 			border-bottom: 1px solid #EAEAEA;
+			background-color: #FFF;
 			ul {
 				overflow: hidden;
 				height: 50px;
@@ -1069,7 +1070,7 @@
                     margin-top: 0;
                     max-width: 100%;
                 }
-            }
+            }            
 
             .content {
                 padding-top: 0;
@@ -1091,7 +1092,13 @@
     .objectRender {
         font-size: 14px;
         padding-bottom: 15px;
-
+		
+		&.twitter {
+			.attachment {
+	            max-width: 103px;
+	        }
+        }
+		
         &.docdataobject .attachment .thumb_cont {
             position: relative;
 

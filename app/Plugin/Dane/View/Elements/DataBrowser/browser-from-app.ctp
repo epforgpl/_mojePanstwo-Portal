@@ -26,7 +26,7 @@ $columns = isset($columns) ? $columns : array(9, 3);
 		<? } ?>
 				
 		<div class="container">
-		    <div class="row">
+		    <div class="row dataBrowserContent">
 			
 			    <?= $this->element('Dane.DataBrowser/browser-content', array(
 			    	'displayAggs' => $displayAggs,

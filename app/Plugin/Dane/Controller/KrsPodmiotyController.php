@@ -263,67 +263,64 @@ class KrsPodmiotyController extends DataobjectsController
     {
 
         $this->addInitAggs(array(
-            'all' => array(
-                'global' => '_empty',
-                'aggs' => array(
-                    'zamowienia' => array(
-                        'filter' => array(
-                            'bool' => array(
-                                'must' => array(
-                                    array(
+            'zamowienia' => array(
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'zamowienia_publiczne_dokumenty',
+                                ),
+                            ),
+                            array(
+                                'nested' => array(
+                                    'path' => 'zamowienia_publiczne-wykonawcy',
+                                    'filter' => array(
                                         'term' => array(
-                                            'dataset' => 'zamowienia_publiczne_dokumenty',
-                                        ),
-                                    ),
-                                    array(
-                                        'nested' => array(
-                                            'path' => 'zamowienia_publiczne-wykonawcy',
-                                            'filter' => array(
-                                                'term' => array(
-                                                    'zamowienia_publiczne-wykonawcy.krs_id' => $this->request->params['id'],
-                                                ),
-                                            ),
+                                            'zamowienia_publiczne-wykonawcy.krs_id' => $this->request->params['id'],
                                         ),
                                     ),
                                 ),
                             ),
                         ),
                     ),
-                    'dzialania' => array(
-                        'filter' => array(
-                            'bool' => array(
-                                'must' => array(
-                                    array(
-                                        'term' => array(
-                                            'dataset' => 'dzialania',
-                                        ),
-                                    ),
-                                    array(
-                                        'term' => array(
-                                            'data.dzialania.dataset' => 'krs_podmioty',
-                                        ),
-                                    ),
-                                    array(
-                                        'term' => array(
-                                            'data.dzialania.object_id' => $this->request->params['id'],
-                                        ),
-                                    ),
+                ),
+                'scope' => 'global',
+            ),
+            'dzialania' => array(
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'dzialania',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+                                    'data.dzialania.dataset' => 'krs_podmioty',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+                                    'data.dzialania.object_id' => $this->request->params['id'],
                                 ),
                             ),
                         ),
-                        'aggs' => array(
-	                        'top' => array(
-		                        'top_hits' => array(
-		                            'fielddata_fields' => array('dataset', 'id'),
-			                        'size' => 3, 
-			                        'sort' => array(
-				                        'date' => 'desc',
-			                        ),
-		                        ),
+                    ),
+                ),
+                'aggs' => array(
+                    'top' => array(
+                        'top_hits' => array(
+                            'fielddata_fields' => array('dataset', 'id'),
+	                        'size' => 3, 
+	                        'sort' => array(
+		                        'date' => 'desc',
 	                        ),
                         ),
                     ),
                 ),
+                'scope' => 'global',
             ),
         ));
 
@@ -721,21 +718,21 @@ class KrsPodmiotyController extends DataobjectsController
         );        
 		
         if(
-        	@$this->object_aggs['all']['dzialania']['doc_count'] || 
+        	@$this->object_aggs['dzialania']['doc_count'] || 
         	$this->_canEdit()
         ) {
             $menu['items'][] = array(
                 'id' => 'dzialania',
                 'label' => 'Działania',
-                'count' => $this->object_aggs['all']['dzialania']['doc_count'],
+                'count' => $this->object_aggs['dzialania']['doc_count'],
             );
         }
         
-        if (@$this->object_aggs['all']['zamowienia']['doc_count']) {
+        if (@$this->object_aggs['zamowienia']['doc_count']) {
             $menu['items'][] = array(
                 'id' => 'zamowienia',
                 'label' => 'Zamówienia publiczne',
-                'count' => $this->object_aggs['all']['zamowienia']['doc_count'],
+                'count' => $this->object_aggs['zamowienia']['doc_count'],
             );
         }
         
@@ -799,7 +796,7 @@ class KrsPodmiotyController extends DataobjectsController
                 'label' => 'Indeksy kultury',
             );
         }
-
+        
         return $menu;
     }
 

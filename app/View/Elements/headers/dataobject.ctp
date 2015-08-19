@@ -9,6 +9,7 @@ $objectOptions['microdata'] = $microdata;
 
 if (!isset($renderFile) || !$renderFile)
     $renderFile = 'page';
+    
 ?>
 
 <div class="appHeader dataobject"<? if( isset($object_editable) && !empty($object_editable) ) {?> data-editables='<?= json_encode($object_editable) ?>'<?}?> data-url="<?= urlencode($object->getUrl()) ?>" data-dataset="<?= $object->getDataset() ?>" data-object_id="<?= $object->getId() ?>">
@@ -53,3 +54,5 @@ if (!isset($renderFile) || !$renderFile)
         </div>
     </div>
 </div>
+
+<? echo $this->Element('menu'); ?>

@@ -8,7 +8,13 @@ $options = array(
 );
 ?>
 
-<div class="col-xs-12 col-md-8">
+<div class="col-xs-12 col-md-3 dataAggsContainer">
+    <? echo $this->Element('Dane.DataBrowser/aggs', array(
+        	'data' => $dataBrowser,
+    )); ?>
+</div>
+
+<div class="col-xs-12 col-md-9">
     <div class="block col-xs-12">
         <header>Najczęściej skarżone organy przed sądami administracyjnymi</header>
 

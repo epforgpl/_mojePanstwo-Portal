@@ -46,7 +46,6 @@ class MojaGminaController extends ApplicationsController
                         'field' => 'dataset',
                     ),
                     'visual' => array(
-                        'label' => 'Zbiory danych',
                         'skin' => 'datasets',
                         'class' => 'special',
                         'field' => 'dataset',
@@ -54,6 +53,7 @@ class MojaGminaController extends ApplicationsController
                     ),
                 ),
             ),
+            'apps' => true,
         );
 
         $this->Components->load('Dane.DataBrowser', $options);

@@ -17,7 +17,7 @@ class BdlController extends ApplicationsController
     public function view()
     {
         $datasets = $this->getDatasets('bdl');
-
+				
         $options = array(
             'searchTitle' => 'Szukaj w Banku Danych Lokalnych...',
             'autocompletion' => array(
@@ -31,7 +31,26 @@ class BdlController extends ApplicationsController
                     'plugin' => 'Bdl',
                     'element' => 'cover',
                 ),
-                'aggs' => array(),
+                'aggs' => array(
+	                'kategorie' => array(
+		                'filter' => array(
+			                'term' => array(
+				                'dataset' => 'bdl_wskazniki_kategorie',
+			                ),
+		                ),
+		                'aggs' => array(
+			                'id' => array(
+				                'terms' => array(
+					                'field' => 'id',
+				                ),
+			                ),
+		                ),
+		                'visual' => array(
+	                        'skin' => 'chapters',
+	                        'field' => 'kategoria',
+	                    ),
+	                ),
+                ),
             ),
             'aggs' => array(
                 'dataset' => array(
@@ -39,7 +58,6 @@ class BdlController extends ApplicationsController
                         'field' => 'dataset',
                     ),
                     'visual' => array(
-                        'label' => 'Zbiory danych',
                         'skin' => 'datasets',
                         'class' => 'special',
                         'field' => 'dataset',
@@ -47,20 +65,12 @@ class BdlController extends ApplicationsController
                     ),
                 ),
             ),
+            'apps' => true,
+            'routes' => array(
+	            'kategorie/id' => 'kategorie',
+            ),
         );
 
-        if (!isset($this->request->query['q']) || empty($this->request->query['q'])) {
-						
-            $tree = Cache::read('BDL.tree', 'long');
-            if (!$tree) {
-                $this->loadModel('Bdl.BDL');
-                $tree = $this->BDL->getTree();
-                Cache::write('BDL.tree', $tree, 'long');
-            }
-            
-            $this->set('tree', $tree);
-
-        }
 
         $this->Components->load('Dane.DataBrowser', $options);
         $this->title = 'Bank Danych Lokalnych';

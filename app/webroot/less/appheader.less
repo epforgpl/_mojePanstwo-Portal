@@ -31,7 +31,7 @@
     }
   }
   &.dataobject {
-    background: #FFF;
+    background: #F0F0F0;
 
     .holder {
       position: relative;
@@ -137,7 +137,7 @@
       }
 
       .statusBar {
-        background-color: #ffffff;
+        background-color: #F0F0F0;
         padding: 0;
         min-height: 48px;
       }
@@ -368,108 +368,45 @@
 
 .appMenu {
   min-height: 4px;
-  background: #EAEBEF;
-  border-top: 1px solid #DDD;
-  border-bottom: 1px solid #DDD;
+  background: #FFF;
+  border-bottom: 1px solid #eaeaea;
 
-  ul.nav-tabs {
-    border: none;
-    margin: 0;
-    height: 100%;
-
-    li {
-      @borderSize: 3px;
-
-      width: 100%;
-      border: none;
-      margin: 0;
-
-      > a {
-        color: #157ab5;
-        font-size: 13px;
-        font-weight: 500;
-        border: none;
-        padding: 8px;
-        letter-spacing: .035em;
-        cursor: pointer;
-        outline: none;
-        margin: 0 12px @borderSize 2px;
-        position: relative;
-        top: 1px;
-
-        &:focus {
-          background: none;
-        }
-
-        &:hover {
-          color: #157ab5;
-          background: none;
-        }
-        span.caret {
-          margin-left: 5px;
-        }
-        span {
-          position: relative;
-          top: 1px;
-          margin-right: 1px;
-
-          &.badge {
-            top: 0;
-            font-size: 11px;
-            background-color: #FFF;
-            color: #789;
-          }
-        }
-      }
-      &.active {
-        a {
-          background: none;
-          padding-bottom: 8px;
-          border-bottom: @borderSize solid #789;
-          margin-bottom: 0;
-          cursor: pointer;
-          border-left: none;
-          border-right: none;
-          border-top: none;
-          color: #333;
-          .glyphicon {
-            color: #789;
-          }
-        }
-      }
-      &.show_hide a {
-        font-size: 24px;
-        line-height: 1em;
-        padding: 8px 8px 0;
-
-        &:before {
-          font-family: 'main';
-          content: "\e623";
-        }
-      }
-      &.open a {
-        background: none;
-      }
-      ul.dropdown-menu {
-        a {
-          display: block;
-          border: none;
-          background: #fff;
-          padding: 5px 20px;
-          font-size: 13px;
-
-          &:hover {
-            border: none;
-          }
-        }
-        &.active {
-          a {
-            font-weight: bold;
-          }
-        }
-      }
-    }
-  }
+  
+  
+  ul {
+    overflow: hidden;
+	height: 50px;
+	padding: 0;
+	margin: 0 -6px;
+	
+	li {
+		list-style: none;
+		float: left;
+		display: block;
+		padding: 0;
+		margin: 0;
+		
+		a {
+			padding: 15px 10px;
+			margin: 0 10px;
+			display: inline-block;
+			font-size: 13px;
+			color: #666;
+			border-bottom: 2px solid #FFF;
+			&:hover {
+				color: #157AB5;
+			}
+			
+			
+		}
+		
+		&.active a {
+			color: #dc4a38;
+			font-weight: bold;
+			border-bottom-color: #dc4a38;
+		}	
+	}
+  }       
 }
 
 .dataHighlights {
@@ -543,8 +480,8 @@
 
     ._value {
       font-size: 13px;
-      line-height: 1.5em;
-      margin: -4px 0 0;
+      line-height: 1.65em;
+      margin: -3px 0 0;
       color: #789;
 
       img {

@@ -45,7 +45,6 @@ class KtoTuRzadziController extends ApplicationsController
                         'field' => 'dataset',
                     ),
                     'visual' => array(
-                        'label' => 'Zbiory danych',
                         'skin' => 'datasets',
                         'class' => 'special',
                         'field' => 'dataset',
@@ -53,6 +52,7 @@ class KtoTuRzadziController extends ApplicationsController
                     ),
                 ),
             ),
+            'apps' => true,
         );
 
         if (!isset($this->request->query['q'])) {

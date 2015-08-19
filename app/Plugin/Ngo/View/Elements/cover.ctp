@@ -1,6 +1,12 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('ngo', array('plugin' => 'Ngo'))) ?>
 
-<div class="col-md-8">
+<div class="col-xs-12 col-md-3 dataAggsContainer">
+<? echo $this->Element('Dane.DataBrowser/aggs', array(
+    	'data' => $dataBrowser,
+)); ?>
+</div>
+
+<div class="col-md-9 col-xs-12">
 
     <div class="block col-xs-12">
         <header>Ostatnio zarejestrowane fundacje</header>
@@ -55,6 +61,7 @@
     </div>
 
 </div>
+<? /*
 <div class="col-md-4">
     <div class="panel panel-primary col-xs-12" data-toggle="modal" data-target="#ngoPartnerModal">
         <div class="panel-body">
@@ -63,3 +70,4 @@
     </div>
     <?php echo $this->element('Ngo.ngo_partner_modal') ?>
 </div>
+*/ ?>

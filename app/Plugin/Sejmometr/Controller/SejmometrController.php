@@ -9,11 +9,13 @@ class SejmometrController extends ApplicationsController
         'id' => 'sejmometr',
     );
 	
+	/*
 	public function beforeFilter() {
 		
 		return $this->redirect('/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej');
 		
 	}
+	*/
 	
     public function getMenu()
     {
@@ -180,12 +182,34 @@ class SejmometrController extends ApplicationsController
     public function view()
     {
 				
-        $this->menu_selected = 'view';
-        $this->loadDatasetBrowser('poslowie', array(
-	        'autocompletion' => array(
-		        'dataset' => 'poslowie',
-	        ),
-        ));
+        $datasets = $this->getDatasets('sejmometr');
+
+        $options = array(
+            'searchTitle' => 'Szukaj w pracach Sejmu...',
+            'autocompletion' => array(
+                'dataset' => 'poslowie',
+            ),
+            'conditions' => array(
+                'dataset' => array_keys($datasets)
+            ),
+            'aggs' => array(
+                'dataset' => array(
+                    'terms' => array(
+                        'field' => 'dataset',
+                    ),
+                    'visual' => array(
+                        'skin' => 'datasets',
+                        'class' => 'special',
+                        'field' => 'dataset',
+                        'dictionary' => $datasets,
+                    ),
+                ),
+            ),
+            'apps' => true,
+        );
+
+        $this->Components->load('Dane.DataBrowser', $options);
+        $this->render('Dane.Elements/DataBrowser/browser-from-app');
 
     }
 

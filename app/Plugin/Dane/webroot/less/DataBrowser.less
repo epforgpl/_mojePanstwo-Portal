@@ -67,18 +67,26 @@ a.link-api-call {
     .dataPagination {
         text-align: center;
     }
-
+	
+	.dataAggsContainer {
+		.dataAggs {
+			
+			border-right: 1px solid #eaeaea;
+	        box-shadow: 5px 2px 10px -3px #DDD;
+	        -moz-box-shadow: -5px 2px 10px -3px #DDD;
+	        -webkit-box-shadow: -5px 2px 10px -3px #DDD;
+	        -o-box-shadow: -5px 2px 10px -3px #DDD;
+	        display: none;
+	        width: 100% !important;
+	        
+		}
+	}
+	
     .dataAggs {
         margin: 0;
         padding: 0;
         list-style: none;
-        border-right: 1px solid #eaeaea;
-        box-shadow: 5px 2px 10px -3px #DDD;
-        -moz-box-shadow: -5px 2px 10px -3px #DDD;
-        -webkit-box-shadow: -5px 2px 10px -3px #DDD;
-        -o-box-shadow: -5px 2px 10px -3px #DDD;
-        display: none;
-        width: 100% !important;
+        
         
         .buttons {
             text-align: center;
@@ -141,7 +149,45 @@ a.link-api-call {
                     }
                 }
             }
-
+            
+            .counter {
+	            color: #789;
+	            font-size: 11px;
+	            margin-left: 5px;
+	            font-weight: bold;
+            }
+			
+			.agg-Datasets {
+				padding: 5px 0 !important;
+				.nav > li {
+					& > a {
+						padding: 5px;
+						.counter {
+							display: none;
+						}
+					}
+					&.active {
+												
+						a {
+							background-color: inherit;
+							color: #dc4a38;
+							font-weight: bold;
+						}
+						
+					}
+				}
+				
+				&.showCounters {
+					.nav > li {
+						& > a {
+							.counter {
+								display: inline;
+							}
+						}
+					}
+				}
+			}
+			
             .agg-List {
                 padding: 10px 0;
 

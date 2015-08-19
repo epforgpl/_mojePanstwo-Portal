@@ -79,10 +79,13 @@ class ApplicationsController extends AppController
 				
 		$active = false;
 		$temp = array();
+		$href = '/dane';
+		if( isset($this->request->query['q']) && $this->request->query['q'] )
+			$href .= '?q=' . urlencode($this->request->query['q']);
 		$bufor = array(
 			array(
 				'id' => 'dane',
-				'href' => '/dane',
+				'href' => $href,
 				'title' => 'Dane publiczne',
 			),
 		);
@@ -153,6 +156,7 @@ class ApplicationsController extends AppController
     {
 
         $options = array_merge(array(
+	        'dataset' => $dataset,
             'conditions' => array(
                 'dataset' => $dataset,
             ),
@@ -178,9 +182,39 @@ class ApplicationsController extends AppController
 	    	isset($this->request->params['id']) && 	    	
 	    	( $data = $this->getDatasetByAlias(@$this->settings['id'], $this->request->params['id']) )
 	    ) {
-		    		        
+		    
+		    $datasets = $this->getDatasets($this->settings['id']);
+		        		        
 			$fields = array('searchTitle', 'order', 'autocompletion');
-			$params = array();
+			$params = array(
+				'aggs' => array(
+					'filter' => array(
+						'filter' => array(
+							'terms' => array(
+								'dataset' => array_keys( $datasets ),
+							),
+						),
+						'aggs' => array(
+							'dataset' => array(
+								'terms' => array(
+									'field' => 'dataset',
+								),
+							),
+						),
+						'scope' => 'query',
+						'visual' => array(
+							'skin' => 'datasets',
+	                        'field' => 'dataset',
+	                        'dictionary' => $datasets,
+	                        'forceKey' => 'dataset',
+						),
+					),
+				),
+				'apps' => true,
+				'routes' => array(
+					'filter/dataset' => 'dataset',
+				),
+			);
 						
 			foreach( $fields as $field )
 				if( isset($data['dataset_name'][ $field ]) )

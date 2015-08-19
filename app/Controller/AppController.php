@@ -139,6 +139,12 @@ class AppController extends Controller
             'bdl_wskazniki' => array(
             	'label' => 'Wskaźniki'
             ),
+            'bdl_wskazniki_grupy' => array(
+            	'label' => 'Grupy wskaźników'
+            ),
+            'bdl_wskazniki_kategorie' => array(
+            	'label' => 'Kategorie wskaźników'
+            ),
         ),
         'prawo' => array(
             'prawo' => array(

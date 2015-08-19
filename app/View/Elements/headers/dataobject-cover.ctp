@@ -113,3 +113,5 @@ if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object
         </div>
     </div>
 </div>
+
+<? echo $this->Element('menu'); ?>

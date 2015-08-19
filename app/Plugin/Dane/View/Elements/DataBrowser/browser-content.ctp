@@ -37,39 +37,27 @@
     <?= $this->element($dataBrowser['cover']['view']['plugin'] . '.' . $dataBrowser['cover']['view']['element']); ?>
 
 
-<? } else { ?>
+<? 
 	
+	} else { 
+	
+		$params = $this->Paginator->params();
+		
+?>
+		
 	<? if ($displayAggs && !empty($dataBrowser['aggs'])) { ?>
-        <div class="col-md-<?= $columns[1] ?>">
+        <div class="col-md-<?= $columns[1] ?> dataAggsContainer">
             <? if( isset($sideElement) ) echo $this->Element($sideElement) ?>
-            <? echo $this->Element('Dane.DataBrowser/aggs', array('data' => $dataBrowser)); ?>
+            <? echo $this->Element('Dane.DataBrowser/aggs', array(
+	            	'data' => $dataBrowser,
+	        )); ?>
         </div>
     <? } ?>
     <div class="col-md-<?= $displayAggs ? $columns[0] : 12 ?>">
 		
-		<div class="dataWrap">
-		
-			<div class="row">
-				<? if (($params = $this->Paginator->params()) && isset($params['count'])) {
-				    $took = round($dataBrowser['took'], 2);
-				    ?>
-				    <div class="col-md-12">
-					    <div class="dataCounter">
-					        <? if($params['count']) {?><p class="pull-left"><?= pl_dopelniacz($params['count'], 'wynik', 'wyniki', 'wyników') ?><? if ($took) { ?> (<?= $took ?> s)<? } ?></p><? } ?>
-							
-							<? /*
-					        <p class="pull-right">
-					            <a href="#" class="link-discrete link-api-call" data-toggle="modal" data-target=".modal-api-call"><span
-					                    class="glyphicon glyphicon-cog"></span> API</a>
-					        </p>
-					        */ ?>
-					        
-					    </div>
-				    </div>
-				<? } ?>
-			</div>
+		<div class="dataWrap">			
 			
-	        <div class="dataObjects">
+	        <div class="dataObjects margin-top-10">
 	
 	            <div class="innerContainer update-objects">
 	
