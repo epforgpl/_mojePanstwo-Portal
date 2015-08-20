@@ -3,6 +3,7 @@
 	$this->Combinator->add_libs('css', $this->Less->css('dataobjectpage', array('plugin' => 'Dane')));
 	$this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
 	$this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
+	
 ?>
 
 <div class="modal modal-api-call">
@@ -44,7 +45,7 @@
 		$params = $this->Paginator->params();
 
 ?>
-
+		
 	<? if ($displayAggs && !empty($dataBrowser['aggs'])) { ?>
 
         <div class="col-md-<?= $columns[1] ?> col-xs-12 dataAggsContainer">

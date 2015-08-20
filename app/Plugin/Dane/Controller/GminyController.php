@@ -1115,6 +1115,7 @@ class GminyController extends DataobjectsController
                             ),
                         ),
                     ),
+                    'scope' => 'global',
                 ),
                 'prawo' => array(
                     'filter' => array(
@@ -1133,6 +1134,7 @@ class GminyController extends DataobjectsController
                             ),
                         ),
                     ),
+                    'scope' => 'global',
                 ),
             ));
 
@@ -3487,11 +3489,10 @@ class GminyController extends DataobjectsController
                 'dataset' => 'prawo_wojewodztwa',
                 'prawo_wojewodztwa.gmina_id' => $this->object->getId(),
             ),
-            'aggsPreset' => 'krs_podmioty',
+            'aggsPreset' => 'prawo_lokalne',
         ));
 
         $this->set('title_for_layout', 'Prawo lokalne gminy ' . $this->object->getData('nazwa'));
-        $this->set('DataBrowserTitle', 'Prawo lokalne gminy ' . $this->object->getData('nazwa'));
 
     }
 
@@ -3908,8 +3909,7 @@ class GminyController extends DataobjectsController
 
         if (isset($this->object_aggs) && !empty($this->object_aggs))
             $aggs = $this->object_aggs;
-
-
+		
         $menu['items'][] = array(
             'id' => '',
             'label' => 'Aktualności',
