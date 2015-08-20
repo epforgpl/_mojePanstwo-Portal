@@ -519,6 +519,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Rok',
+                    'all' => 'Wszystkie lata',
                     'skin' => 'list',
                     'field' => 'krakow_zamowienia_publiczne.rok'
                 ),
@@ -547,6 +548,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Beneficjenci',
+                    'all' => 'Wszyscy beneficjenci',
                     'skin' => 'columns_horizontal',
                     'field' => 'krakow_zamowienia_publiczne.wykonawca_id',
                     'counter_field' => 'sum',
@@ -683,6 +685,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Statusy',
+                    'all' => 'Wszystkie statusy',
                     'skin' => 'pie_chart',
                     'field' => 'krakow_zarzadzenia.realizacja_str'
                 ),
@@ -695,6 +698,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Liczba zarządzeń w czasie',
+                    'all' => 'Cały czas',
                     'skin' => 'date_histogram',
                     'field' => 'date'
                 ),
@@ -715,11 +719,11 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Statusy obowiązywania',
+                    'all' => 'Wszystkie statusy obowiązywania',
                     'skin' => 'pie_chart',
                     'field' => 'krakow_zarzadzenia.status_str'
                 ),
             ),
-
         ),
         'prawo' => array(
             'typ_id' => array(
@@ -1101,14 +1105,14 @@ class DataBrowserComponent extends Component
             )
         )
             $settings['aggs'] = array();
-            
+
         if(
 	        isset($settings['aggsPreset']) &&
             array_key_exists($settings['aggsPreset'], $this->aggs_presets)
         )
         	$settings['aggs'] = array_merge($this->aggs_presets[$settings['aggsPreset']], $settings['aggs']);
-            
-            
+
+
 
         if( isset($settings['aggs']) )
         	$settings['aggs'] = $this->processAggs( $settings['aggs'] );
