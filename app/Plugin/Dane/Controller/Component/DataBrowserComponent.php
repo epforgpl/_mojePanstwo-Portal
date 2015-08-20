@@ -194,6 +194,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Autorzy projektów',
+                    'all' => 'Wszyscy autorzy',
                     'skin' => 'pie_chart',
                     'field' => 'rady_druki.autor_id'
                 ),
@@ -206,6 +207,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Liczba druków w czasie',
+                    'all' => 'Cały czas',
                     'skin' => 'date_histogram',
                     'field' => 'date'
                 ),
@@ -320,6 +322,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Liczba posiedzeń w czasie',
+                    'all' => 'Cały czas',
                     'skin' => 'date_histogram',
                     'field' => 'date'
                 ),
@@ -364,6 +367,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Typy uchwał',
+                    'all' => 'Wszystkie typy',
                     'skin' => 'pie_chart',
                     'field' => 'krakow_rada_uchwaly.typ_id',
                     'dictionary' => array(
@@ -380,6 +384,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Liczba uchwał w czasie',
+                    'all' => 'Cały czas',
                     'skin' => 'date_histogram',
                     'field' => 'date'
                 ),
@@ -415,6 +420,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Liczba posiedzeń w czasie',
+                    'all' => 'Cały czas',
                     'skin' => 'date_histogram',
                     'field' => 'date'
                 ),
@@ -565,6 +571,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Rok',
+                    'all' => 'Wszystkie lata',
                     'skin' => 'list',
                     'field' => 'krakow_darczyncy.rok'
                 ),
@@ -593,6 +600,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Komitety',
+                    'all' => 'Wszystkie komitety',
                     'skin' => 'columns_horizontal',
                     'field' => 'krakow_darczyncy.komitet_id',
                     'counter_field' => 'sum',
@@ -640,6 +648,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Autorzy interpelacji',
+                    'all' => 'Wszyscy autorzy',
                     'skin' => 'columns_horizontal',
                     'field' => 'radni_gmin.id'
                 ),
@@ -742,6 +751,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Typy aktów prawnych',
+                    'all' => 'Wszystkie typy',
                     'skin' => 'pie_chart',
                     'field' => 'prawo.typ_id'
                 ),
@@ -754,6 +764,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Liczba aktów prawnych w czasie',
+                    'all' => 'Cały czas',
                     'skin' => 'date_histogram',
                     'field' => 'date'
                 ),
@@ -774,6 +785,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Autorzy aktów prawnych',
+                    'all' => 'Wszyscy autorzy',
                     'skin' => 'columns_horizontal',
                     'field' => 'prawo.autor_id'
                 ),
@@ -976,6 +988,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Płeć',
+                    'all' => 'Mężczyźni i kobiety',
                     'skin' => 'pie_chart',
                     'field' => 'krs_osoby.plec',
                     'dictionary' => array(
@@ -1002,6 +1015,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Formy prawne organizacji',
+                    'all' => 'Wszystkie formy prawne',
                     'skin' => 'pie_chart',
                     'field' => 'krs_podmioty.forma_prawna_id',
                 ),
@@ -1019,6 +1033,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Kapitalizacja spółek',
+                    'all' => 'Wszystkie zakresy kapitalizacji',
                     'skin' => 'krs/kapitalizacja',
                     'field' => 'krs_podmioty.wartosc_kapital_zakladowy',
                 ),

@@ -198,6 +198,7 @@ DataAggsDropdown.prototype.createPieChart = function() {
 	dropdownMenu.append(dropdownChart);
 
 	var data = this.aggs;
+	console.log(data);
 	var pie_chart_data = [];
 	var pie_chart_keys = [];
 	var choose_request = this.chooseRequest;
