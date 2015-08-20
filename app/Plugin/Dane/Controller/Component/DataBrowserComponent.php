@@ -1098,11 +1098,17 @@ class DataBrowserComponent extends Component
             (
                 !isset($settings['aggs']) ||
                 (empty($settings['aggs']))
-            ) &&
-            isset($settings['aggsPreset']) &&
+            )
+        )
+            $settings['aggs'] = array();
+            
+        if(
+	        isset($settings['aggsPreset']) &&
             array_key_exists($settings['aggsPreset'], $this->aggs_presets)
         )
-            $settings['aggs'] = $this->aggs_presets[$settings['aggsPreset']];
+        	$settings['aggs'] = array_merge($this->aggs_presets[$settings['aggsPreset']], $settings['aggs']);
+            
+            
 
         if( isset($settings['aggs']) )
         	$settings['aggs'] = $this->processAggs( $settings['aggs'] );

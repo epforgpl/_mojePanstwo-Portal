@@ -87,7 +87,7 @@ if ($dataBrowser['mode'] == 'cover') { ?>
     <div class="col-xs-12 col-md-<?= $displayAggs ? $columns[0] : 12 ?>">
 
         <div class="dataWrap">
-
+						
             <? if(isset($dataBrowser['aggs_visuals_map']) && count($dataBrowser['aggs_visuals_map']) > 0) { ?>
                 <ul class="nav nav-pills margin-top-10 dataAggsDropdownList nopadding" role="tablist">
                     <? foreach($dataBrowser['aggs_visuals_map'] as $name => $map) { ?>
