@@ -10,17 +10,12 @@ jQuery(document).ready(function () {
 		intervalRunnable = true,
 		pageScroller = true;
 
-
-	jQuery('.htmlexDoc .document').on('scale', docRescalePageAll);
-	jQuery('.htmlexDoc .document').on('loadall', loadAllDoc);
+	document.find('.document').on('scale', docRescalePageAll).on('loadall', loadAllDoc);
 
 	/*RESCALE DOCUMENTS TO FIT CONTENT*/
 	function docRescalePage(page) {
 
-		var doc = jQuery('.htmlexDoc .document'), scale, scaleW;
-
-		console.log('rescaling page', page, doc.outerWidth(), page.outerWidth(), (doc.outerWidth() < page.outerWidth()));
-
+		var doc = jQuery('.htmlexDoc .document'), scale;
 		//sprawdzanie czy strona jest obrócona
 
 		var regex = /rotate\([0-9]*deg\)/;
@@ -33,7 +28,6 @@ jQuery(document).ready(function () {
 		}
 
 		if (doc.outerWidth() != page.outerWidth()) {
-
 			var scale;
 			var scaleW = doc.outerWidth() - page.outerWidth();
 			var marginLeft = Math.floor(scaleW / 2);
