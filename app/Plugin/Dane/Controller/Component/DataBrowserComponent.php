@@ -452,6 +452,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Rok',
+                    'all' => 'Wszystkie lata',
                     'skin' => 'list',
                     'field' => 'krakow_pomoc_publiczna.rok'
                 ),
@@ -480,6 +481,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Beneficjenci',
+                    'all' => 'Wszyscy beneficjenci',
                     'skin' => 'columns_horizontal',
                     'field' => 'krakow_pomoc_publiczna.beneficjent_id',
                     'counter_field' => 'sum',
@@ -501,6 +503,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Przeznaczenie',
+                    'all' => 'Dowolne przeznaczenie',
                     'skin' => 'pie_chart',
                     'field' => 'krakow_pomoc_publiczna.przeznaczenie_id'
                 ),
@@ -1067,30 +1070,30 @@ class DataBrowserComponent extends Component
             ),
         ),
     );
-	
+
 	private function processAggs( $aggs = array() )
 	{
-		
+
 		foreach( $aggs as $key => $value) {
             if (is_array($value)) {
                 foreach ($value as $keyM => $valueM) {
                     if ($keyM === 'visual') {
-                    		                    		                        
+
                         $this->aggs_visuals_map[$key] = $valueM;
                         unset($aggs[$key][$keyM]);
-                    
+
                     }
                 }
             }
         }
-        		
+
 		return $aggs;
-		
+
 	}
-	
+
     public function __construct($collection, $settings)
     {
-				
+
         if (
             (
                 !isset($settings['aggs']) ||
@@ -1100,19 +1103,19 @@ class DataBrowserComponent extends Component
             array_key_exists($settings['aggsPreset'], $this->aggs_presets)
         )
             $settings['aggs'] = $this->aggs_presets[$settings['aggsPreset']];
-		
+
         if( isset($settings['aggs']) )
         	$settings['aggs'] = $this->processAggs( $settings['aggs'] );
-        
+
         if(
-	        isset($settings['cover']) && 
+	        isset($settings['cover']) &&
 	        isset($settings['cover']['aggs'])
         ) {
         	$settings['cover']['aggs'] = $this->processAggs( $settings['cover']['aggs'] );
         }
-        
-     
-                
+
+
+
         $this->settings = $settings;
 
         if (isset($settings['cover']))
@@ -1132,10 +1135,10 @@ class DataBrowserComponent extends Component
 
         if (isset($settings['searcher']))
             $this->searcher = $settings['searcher'];
-            
+
         if (isset($settings['routes']))
             $this->routes = $settings['routes'];
-            
+
         if (isset($settings['dataset']))
             $this->dataset = $settings['dataset'];
 
@@ -1143,9 +1146,9 @@ class DataBrowserComponent extends Component
 
     public function beforeRender($controller)
     {
-		
+
 		if( isset($this->settings['apps']) && $this->settings['apps'] ) {
-			
+
 			$apps = $controller->getDatasets();
 	        $aggs = array();
 	        foreach ($apps as $app_id => $datasets) {
@@ -1158,16 +1161,16 @@ class DataBrowserComponent extends Component
 	                'scope' => 'query_main',
 	            );
 	        }
-	        
+
 	        if( isset($this->settings['aggs']) )
 		        $this->settings['aggs'] = array_merge($this->settings['aggs'], $aggs);
 		    else
 		    	$this->settings['aggs'] = $aggs;
-		    	
-	        $this->aggsMode = 'apps';	        
-	        			
+
+	        $this->aggsMode = 'apps';
+
 		}
-		
+
         $controller->helpers[] = 'Dane.Dataobject';
 
         if (is_null($controller->Paginator)) {
@@ -1219,34 +1222,34 @@ class DataBrowserComponent extends Component
                 'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
             );
 
-			
-			
+
+
 			$app_menu = array();
             $dataBrowser['aggs'] = $controller->Dataobject->getAggs();
             $dataBrowser['apps'] = $controller->Dataobject->getApps();
-            
-            
+
+
             foreach( $this->routes as $key => $value ) {
-	            
+
 	            $parts = explode('/', $key);
 	            if(
-		            isset( $dataBrowser['aggs'][$parts[0]] ) && 
-		            isset( $dataBrowser['aggs'][$parts[0]][$parts[1]] ) 
+		            isset( $dataBrowser['aggs'][$parts[0]] ) &&
+		            isset( $dataBrowser['aggs'][$parts[0]][$parts[1]] )
 	            ) {
-		            
+
 		            $dataBrowser['aggs'][ $value ] = $dataBrowser['aggs'][$parts[0]][$parts[1]];
 		            unset( $dataBrowser['aggs'][$parts[0]][$parts[1]] );
-					
+
 					if( isset($dataBrowser['aggs'][$parts[0]]['doc_count']) ) {
 			            $dataBrowser['aggs'][ $value ]['doc_count'] = $dataBrowser['aggs'][$parts[0]]['doc_count'];
 			            unset( $dataBrowser['aggs'][$parts[0]]['doc_count'] );
 			        }
-		            
+
 	            }
-	            
+
             }
-                                    
-                        
+
+
             foreach ($dataBrowser['apps'] as $app_id => $app_data) {
 
                 $app = $controller->getApplication($app_id);
@@ -1254,14 +1257,14 @@ class DataBrowserComponent extends Component
                     'id' => $app['id'],
                     'href' => $app['href'],
                     'title' => $app['name'],
-                );                    
+                );
 
             }
-                                
+
             if( $app_menu )
             	$controller->app_menu[0] = $app_menu;
-            
-			
+
+
 			/*
             if (
                 isset($controller->Paginator->settings['conditions']) &&
@@ -1323,7 +1326,7 @@ class DataBrowserComponent extends Component
                 }
 
                 $controller->Dataobject->find('all', $params);
-				
+
 				$dataBrowser = array(
                     'aggs' => $controller->Dataobject->getAggs(),
                     'cover' => $this->cover,
@@ -1336,29 +1339,29 @@ class DataBrowserComponent extends Component
                     'dataset' => $this->dataset,
 	                'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
                 );
-                
+
                 foreach( $this->routes as $key => $value ) {
-	            
+
 		            $parts = explode('/', $key);
 		            if(
-			            isset( $dataBrowser['aggs'][$parts[0]] ) && 
-			            isset( $dataBrowser['aggs'][$parts[0]][$parts[1]] ) 
+			            isset( $dataBrowser['aggs'][$parts[0]] ) &&
+			            isset( $dataBrowser['aggs'][$parts[0]][$parts[1]] )
 		            ) {
-			            
+
 			            $dataBrowser['aggs'][ $value ] = $dataBrowser['aggs'][$parts[0]][$parts[1]];
 			            unset( $dataBrowser['aggs'][$parts[0]][$parts[1]] );
-						
+
 						if( isset($dataBrowser['aggs'][$parts[0]]['doc_count']) ) {
 				            $dataBrowser['aggs'][ $value ]['doc_count'] = $dataBrowser['aggs'][$parts[0]]['doc_count'];
 				            unset( $dataBrowser['aggs'][$parts[0]]['doc_count'] );
 				        }
-			            
+
 		            }
-		            
+
 	            }
-	            
+
                 $controller->set('dataBrowser', $dataBrowser);
-                
+
             }
 
         }
@@ -1437,7 +1440,7 @@ class DataBrowserComponent extends Component
         $query = $controller->request->query;
 
         foreach ($maps as $i => $map) {
-                        
+
             // Anulowanie np. wybranego typu
             $cancelQuery = $query;
 
@@ -1463,11 +1466,11 @@ class DataBrowserComponent extends Component
                 $r .= '&conditions[' . $map['field'] . ']=';
 
             $maps[$i]['chooseRequest'] = $r;
-            
+
             if( isset($maps[$i]['forceKey']) )
             	$maps[ $maps[$i]['forceKey'] ] = $maps[$i];
         }
-                
+
         return $maps;
     }
 
