@@ -1,8 +1,12 @@
 <?
+
 $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('dataobjectpage', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
+$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
+$this->Combinator->add_libs('js', 'Dane.DataAggsDropdown.js');
 
 ?>
 
@@ -15,7 +19,7 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
             </div>
             <div class="modal-body">
 
-                <? if (isset($dataBrowser['api_call'])) { ?>
+                <? if( isset($dataBrowser['api_call']) ) {?>
 
                     <p>Aby pobrać dane widoczne na tym ekranie, wyślij żądanie HTTP GET pod adres:</p>
 
@@ -50,16 +54,16 @@ if ($dataBrowser['mode'] == 'cover') { ?>
 
         <div class="col-md-<?= $columns[1] ?> col-xs-12 dataAggsContainer">
 
-            <? if (isset($sideElement)) echo $this->Element($sideElement) ?>
+            <? if( isset($sideElement) ) echo $this->Element($sideElement) ?>
 
-            <? if (isset($menu) && isset($menu['items'])) { ?>
+            <? if(isset($menu) && isset($menu['items'])) { ?>
 
                 <ul class="dataAggs">
                     <li class="agg special">
                         <div class="agg agg-List agg-Datasets">
                             <ul class="nav nav-pills nav-stacked">
-                                <?php foreach ($menu['items'] as $item) { ?>
-                                    <li<? if ($menu['selected'] == $item['id']) echo ' class="active"' ?>>
+                                <?php foreach($menu['items'] as $item) { ?>
+                                    <li<? if($menu['selected'] == $item['id']) echo ' class="active"' ?>>
                                         <a href="<?= $menu['base'] . '/' . $item['id'] ?>">
                                             <?= $item['label'] ?>
                                         </a>
@@ -84,13 +88,25 @@ if ($dataBrowser['mode'] == 'cover') { ?>
 
         <div class="dataWrap">
 
-            <? if (isset($dataBrowser['aggs_visuals_map']) && count($dataBrowser['aggs_visuals_map']) > 0) { ?>
-                <ul class="nav nav-pills margin-top-20 dataAggsDropdownList">
-                    <? foreach ($dataBrowser['aggs_visuals_map'] as $name => $map) { ?>
-                        <li class="dataAggsDropdown"
+            <? if(isset($dataBrowser['aggs_visuals_map']) && count($dataBrowser['aggs_visuals_map']) > 0) { ?>
+                <ul class="nav nav-pills margin-top-10 dataAggsDropdownList nopadding" role="tablist">
+                    <? foreach($dataBrowser['aggs_visuals_map'] as $name => $map) { ?>
+                        <li role="presentation" class="dropdown dataAggsDropdown<?= isset($this->request->query['conditions'][$map['field']]) ? ' active' : ''; ?>"
                             data-skin="<?= $map['skin'] ?>"
-                            data-aggs='<?= json_encode($dataBrowser['aggs'][$name]) ?>'>
-                            <a href="#"><?= $map['all'] ?> <span class="caret"></span></a>
+                            data-aggs='<?= json_encode($dataBrowser['aggs'][$name]) ?>'
+                            data-cancel-request="<?= $map['cancelRequest'] ?>"
+                            data-choose-request="<?= $map['chooseRequest'] ?>"
+                            data-all-label="<?= $map['all'] ?>"
+                            data-is-selected="<?= isset($this->request->query['conditions'][$map['field']]) ?>">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <? if(isset($this->request->query['conditions'][$map['field']])) { ?>
+                                    <?= isset($dataBrowser['aggs'][$name]['buckets'][0]['label']['buckets'][0]['key']) ? $dataBrowser['aggs'][$name]['buckets'][0]['label']['buckets'][0]['key'] : (isset($dataBrowser['aggs'][$name]['buckets'][0]['key']) ? $dataBrowser['aggs'][$name]['buckets'][0]['key'] : 'Usuń filtr'); ?>
+                                <? } else { ?>
+                                    <?= $map['all'] ?>
+                                <? } ?>
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu"></ul>
                         </li>
                     <? } ?>
                 </ul>
@@ -110,7 +126,7 @@ if ($dataBrowser['mode'] == 'cover') { ?>
                                 <?
 
                                 $params = array();
-                                if (isset($truncate))
+                                if( isset($truncate) )
                                     $params['truncate'] = $truncate;
 
                                 foreach ($dataBrowser['hits'] as $object) {
@@ -149,5 +165,6 @@ if ($dataBrowser['mode'] == 'cover') { ?>
         </div>
 
     </div>
+
 
 <? } ?>
