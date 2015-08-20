@@ -2,8 +2,15 @@
  * Created by tomaszdrazewski on 29/06/15.
  */
 $(document).ready(function () {
+	var editor = $('#editor');
 
-    $('#editor').wysihtml5({
+	editor.wysihtml5.locale['pl-PL'].emphasis = {
+		bold: "B",
+		italic: "I",
+		underline: "U"
+	};
+
+	editor.wysihtml5({
         toolbar: {
             "font-styles": true, //Font styling, e.g. h1, h2, etc.
             "emphasis": true, //Italics, bold, etc.
@@ -14,7 +21,7 @@ $(document).ready(function () {
             "color": false, //Button to change color of font
             "blockquote": false
         },
-        'locale': 'pl-NEW',
+		'locale': 'pl-PL',
         parser: function (html) {
             return html;
         }
