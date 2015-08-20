@@ -3,6 +3,7 @@
 	$this->Combinator->add_libs('css', $this->Less->css('dataobjectpage', array('plugin' => 'Dane')));
 	$this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
 	$this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
+	
 ?>
 
 <div class="modal modal-api-call">
@@ -44,12 +45,15 @@
 		$params = $this->Paginator->params();
 
 ?>
-
+		
 	<? if ($displayAggs && !empty($dataBrowser['aggs'])) { ?>
 
         <div class="col-md-<?= $columns[1] ?> col-xs-12 dataAggsContainer">
 
+            <? if( isset($sideElement) ) echo $this->Element($sideElement) ?>
+
             <? if(isset($menu) && isset($menu['items'])) { ?>
+
                 <ul class="dataAggs">
                     <li class="agg special">
                         <div class="agg agg-List agg-Datasets">
@@ -65,19 +69,32 @@
                         </div>
                     </li>
                 </ul>
-            <? } ?>
 
-            <? if( isset($sideElement) ) echo $this->Element($sideElement) ?>
+            <? } else {
 
-            <? echo $this->Element('Dane.DataBrowser/aggs', array(
-	            	'data' => $dataBrowser,
-	        )); ?>
+                echo $this->Element('Dane.DataBrowser/aggs', array(
+                    'data' => $dataBrowser,
+                ));
+
+            } ?>
 
         </div>
     <? } ?>
         <div class="col-xs-12 col-md-<?= $displayAggs ? $columns[0] : 12 ?>">
 
 		<div class="dataWrap">
+
+            <? if(isset($dataBrowser['aggs_visuals_map']) && count($dataBrowser['aggs_visuals_map']) > 0) { ?>
+                <ul class="nav nav-pills margin-top-20 dataAggsDropdownList">
+                    <? foreach($dataBrowser['aggs_visuals_map'] as $name => $map) { ?>
+                        <li class="dataAggsDropdown"
+                            data-skin="<?= $map['skin'] ?>"
+                            data-aggs='<?= json_encode($dataBrowser['aggs'][$name]) ?>'>
+                            <a href="#"><?= $map['all'] ?> <span class="caret"></span></a>
+                        </li>
+                    <? } ?>
+                </ul>
+            <? } ?>
 
 	        <div class="dataObjects margin-top-10">
 

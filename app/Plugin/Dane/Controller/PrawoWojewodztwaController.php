@@ -4,5 +4,13 @@ App::uses('DocsObjectsController', 'Dane.Controller');
 
 class PrawoWojewodztwaController extends DocsObjectsController
 {
-    public $breadcrumbsMode = 'app';
+    public function view()
+    {
+
+        parent::_prepareView();
+                
+        $this->redirect('/dane/gminy/' . $this->object->getData('gmina_id') . '/prawo/' . $this->object->getId());
+        die();
+
+    }
 } 
