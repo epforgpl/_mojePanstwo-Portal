@@ -91,7 +91,7 @@ if ($dataBrowser['mode'] == 'cover') { ?>
             <? if(isset($dataBrowser['aggs_visuals_map']) && count($dataBrowser['aggs_visuals_map']) > 0) { ?>
                 <ul class="nav nav-pills margin-top-10 dataAggsDropdownList nopadding" role="tablist">
                     <? foreach($dataBrowser['aggs_visuals_map'] as $name => $map) { ?>
-                        <li role="presentation" class="dropdown dataAggsDropdown"
+                        <li role="presentation" class="dropdown dataAggsDropdown<?= isset($this->request->query['conditions'][$map['field']]) ? ' active' : ''; ?>"
                             data-skin="<?= $map['skin'] ?>"
                             data-aggs='<?= json_encode($dataBrowser['aggs'][$name]) ?>'
                             data-cancel-request="<?= $map['cancelRequest'] ?>"

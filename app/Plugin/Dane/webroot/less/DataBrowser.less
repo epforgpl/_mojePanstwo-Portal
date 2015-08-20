@@ -150,6 +150,10 @@ a.link-api-call {
                         .counter {
                             display: none;
                         }
+
+                        &:hover {
+                            background: #eee;
+                        }
                     }
                     &.active {
 
@@ -299,6 +303,16 @@ a.link-api-call {
     }
 
     ul.dataAggsDropdownList {
+
+        li.dataAggsDropdown {
+
+            &.active > a {
+                font-weight: bold;
+                background: none;
+                color: #DC4A38;
+            }
+
+        }
 
     }
 }
