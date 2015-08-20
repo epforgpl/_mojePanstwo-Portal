@@ -1,4 +1,7 @@
 <footer class="footer">
+    <? if (isset($object) && (($object->getDataset() == 'gminy') && ($object->getId() == '903'))) {
+        echo $this->element('Dane.stanczyk_footer');
+    } ?>
     <section class="standard">
         <div class="container">
             <div class="col-xs-12">
