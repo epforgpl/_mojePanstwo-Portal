@@ -87,6 +87,17 @@ class KrsController extends ApplicationsController
                             ),
                         ),
                     ),
+                    'dataset' => array(
+	                    'terms' => array(
+	                        'field' => 'dataset',
+	                    ),
+	                    'visual' => array(
+	                        'skin' => 'datasets',
+	                        'class' => 'special',
+	                        'field' => 'dataset',
+	                        'dictionary' => $datasets,
+	                    ),
+	                ),
                 ),
             ),
             'aggs' => array(
@@ -95,7 +106,6 @@ class KrsController extends ApplicationsController
                         'field' => 'dataset',
                     ),
                     'visual' => array(
-                        'label' => 'Zbiory danych',
                         'skin' => 'datasets',
                         'class' => 'special',
                         'field' => 'dataset',
@@ -103,6 +113,7 @@ class KrsController extends ApplicationsController
                     ),
                 ),
             ),
+            'apps' => true,
         );
 
         $this->Components->load('Dane.DataBrowser', $options);

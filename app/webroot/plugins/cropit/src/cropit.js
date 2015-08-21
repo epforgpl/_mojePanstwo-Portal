@@ -5,247 +5,223 @@ import { CLASS_NAMES, ERRORS, EVENTS } from './constants';
 import { loadDefaults } from './options';
 import { exists, round } from './utils';
 
-class
-Cropit;
-{
-    constructor(jQuery, element, options);
-    {
-        this.$el = $(element);
+class Cropit {
+  constructor(jQuery, element, options) {
+    this.$el = $(element);
 
-        const defaults = loadDefaults(this.$el);
-        this.options = $.extend({}, defaults, options);
+    const defaults = loadDefaults(this.$el);
+    this.options = $.extend({}, defaults, options);
 
-        this.init();
+    this.init();
+  }
+
+  init() {
+    this.image = new Image();
+    this.preImage = new Image();
+    this.image.onload = this.onImageLoaded.bind(this);
+    this.preImage.onload = this.onPreImageLoaded.bind(this);
+    this.image.onerror = this.preImage.onerror = () => {
+      this.onImageError.call(this, ERRORS.IMAGE_FAILED_TO_LOAD);
+      }
+      this.$fileInput = this.options.$fileInput.attr({ accept: 'image/*' });
+    this.$preview = this.options.$preview.css({ backgroundRepeat: 'no-repeat' });
+    this.$zoomSlider = this.options.$zoomSlider.attr({ min: 0, max: 1, step: 0.01 });
+
+    this.previewSize = {
+      w: this.options.width || this.$preview.width(),
+      h: this.options.height || this.$preview.height(),
+    };
+    if (this.options.width) { this.$preview.width(this.previewSize.w); }
+    if (this.options.height) { this.$preview.height(this.previewSize.h); }
+
+    if (this.options.imageBackground) {
+      if ($.isArray(this.options.imageBackgroundBorderWidth)) {
+        this.imageBgBorderWidthArray = this.options.imageBackgroundBorderWidth;
+      }
+      else {
+        this.imageBgBorderWidthArray = [];
+        [0, 1, 2, 3].forEach((i) => {
+          this.imageBgBorderWidthArray[i] = this.options.imageBackgroundBorderWidth;
+      }
+    )
     }
 
-    init();
-    {
-        this.image = new Image();
-        if (this.options.allowCrossOrigin) {
-            this.image.crossOrigin = 'Anonymous';
-        }
-        this.preImage = new Image();
-        this.image.onload = this.onImageLoaded.bind(this);
-        this.preImage.onload = this.onPreImageLoaded.bind(this);
-        this.image.onerror = this.preImage.onerror = () =
-    >
-        {
-            this.onImageError.call(this, ERRORS.IMAGE_FAILED_TO_LOAD);
-        }
-        this.$fileInput = this.options.$fileInput.attr({accept: 'image/*'});
-        this.$preview = this.options.$preview.css({backgroundRepeat: 'no-repeat'});
-        this.$zoomSlider = this.options.$zoomSlider.attr({min: 0, max: 1, step: 0.01});
+      const $previewContainer = this.options.$previewContainer;
+      this.$imageBg = $('<img />')
+        .addClass(CLASS_NAMES.IMAGE_BACKGROUND)
+        .attr('alt', '')
+        .css('position', 'absolute');
+      this.$imageBgContainer = $('<div />')
+        .addClass(CLASS_NAMES.IMAGE_BACKGROUND_CONTAINER)
+        .css({
+          position: 'absolute',
+          zIndex: 0,
+          left: -this.imageBgBorderWidthArray[3] + window.parseInt(this.$preview.css('border-left-width') || 0),
+          top: -this.imageBgBorderWidthArray[0] + window.parseInt(this.$preview.css('border-top-width') || 0),
+          width: this.previewSize.w + this.imageBgBorderWidthArray[1] + this.imageBgBorderWidthArray[3],
+          height: this.previewSize.h + this.imageBgBorderWidthArray[0] + this.imageBgBorderWidthArray[2],
+        })
+        .append(this.$imageBg);
+      if (this.imageBgBorderWidthArray[0] > 0) {
+        this.$imageBgContainer.css('overflow', 'hidden');
+      }
+      $previewContainer
+        .css('position', 'relative')
+        .prepend(this.$imageBgContainer);
+      this.$preview.css('position', 'relative');
 
-        this.previewSize = {
-            w: this.options.width || this.$preview.width(),
-            h: this.options.height || this.$preview.height(),
-        };
-        if (this.options.width) {
-            this.$preview.width(this.previewSize.w);
-        }
-        if (this.options.height) {
-            this.$preview.height(this.previewSize.h);
-        }
-
-        if (this.options.imageBackground) {
-            if ($.isArray(this.options.imageBackgroundBorderWidth)) {
-                this.imageBgBorderWidthArray = this.options.imageBackgroundBorderWidth;
-            }
-            else {
-                this.imageBgBorderWidthArray = [];
-                [0, 1, 2, 3].forEach((i) = > {
-                    this.imageBgBorderWidthArray[i] = this.options.imageBackgroundBorderWidth;
-            }
-        )
-        }
-
-        const $previewContainer = this.options.$previewContainer;
-        this.$imageBg = $('<img />')
-            .addClass(CLASS_NAMES.IMAGE_BACKGROUND)
-            .attr('alt', '')
-            .css('position', 'absolute');
-        this.$imageBgContainer = $('<div />')
-            .addClass(CLASS_NAMES.IMAGE_BACKGROUND_CONTAINER)
-            .css({
-                position: 'absolute',
-                zIndex: 0,
-                left: -this.imageBgBorderWidthArray[3] + window.parseInt(this.$preview.css('border-left-width') || 0),
-                top: -this.imageBgBorderWidthArray[0] + window.parseInt(this.$preview.css('border-top-width') || 0),
-                width: this.previewSize.w + this.imageBgBorderWidthArray[1] + this.imageBgBorderWidthArray[3],
-                height: this.previewSize.h + this.imageBgBorderWidthArray[0] + this.imageBgBorderWidthArray[2],
-            })
-            .append(this.$imageBg);
-        if (this.imageBgBorderWidthArray[0] > 0) {
-            this.$imageBgContainer.css('overflow', 'hidden');
-        }
-        $previewContainer
-            .css('position', 'relative')
-            .prepend(this.$imageBgContainer);
-        this.$preview.css('position', 'relative');
-
-        this.$preview.hover(() = > {
-            this.$imageBg.addClass(CLASS_NAMES.PREVIEW_HOVERED);
-    }
-    ;
-,
-    () =
->
-    {
-        this.$imageBg.removeClass(CLASS_NAMES.PREVIEW_HOVERED);
-    }
+      this.$preview.hover(() => {
+        this.$imageBg.addClass(CLASS_NAMES.PREVIEW_HOVERED);
+      };, () => {
+        this
+.
+    $imageBg
+.
+    removeClass(CLASS_NAMES
+.
+    PREVIEW_HOVERED
 )
 }
-;
-
-if (this.options.initialZoom === 'min') {
-    this.initialZoom = 0; // Will be fixed when image loads
-}
-else if (this.options.initialZoom === 'image') {
-    this.initialZoom = 1;
-}
-else {
-    this.initialZoom = 0;
+)
 }
 
-this.imageLoaded = false;
+    if (this.options.initialZoom === 'min') {
+      this.initialZoom = 0; // Will be fixed when image loads
+    }
+    else if (this.options.initialZoom === 'image') {
+      this.initialZoom = 1;
+    }
+    else {
+      this.initialZoom = 0;
+    }
 
-this.moveContinue = false;
+    this.imageLoaded = false;
 
-this.zoomer = new Zoomer();
+    this.moveContinue = false;
 
-if (this.options.allowDragNDrop) {
-    $.event.props.push('dataTransfer');
-}
+    this.zoomer = new Zoomer();
 
-this.bindListeners();
+    if (this.options.allowDragNDrop) {
+      $.event.props.push('dataTransfer');
+    }
 
-if (this.options.imageState && this.options.imageState.src) {
-    this.loadImage(this.options.imageState.src);
-}
-}
+    this.bindListeners();
 
-bindListeners();
-{
+    if (this.options.imageState && this.options.imageState.src) {
+      this.loadImage(this.options.imageState.src);
+    }
+  }
+
+  bindListeners(); {
     this.$fileInput.on('change.cropit', this.onFileChange.bind(this));
     this.$preview.on(EVENTS.PREVIEW, this.onPreviewEvent.bind(this));
     this.$zoomSlider.on(EVENTS.ZOOM_INPUT, this.onZoomSliderChange.bind(this));
 
     if (this.options.allowDragNDrop) {
-        this.$preview.on('dragover.cropit dragleave.cropit', this.onDragOver.bind(this));
-        this.$preview.on('drop.cropit', this.onDrop.bind(this));
+      this.$preview.on('dragover.cropit dragleave.cropit', this.onDragOver.bind(this));
+      this.$preview.on('drop.cropit', this.onDrop.bind(this));
     }
-}
+  }
 
-unbindListeners();
-{
+  unbindListeners(); {
     this.$fileInput.off('change.cropit');
     this.$preview.off(EVENTS.PREVIEW);
     this.$preview.off('dragover.cropit dragleave.cropit drop.cropit');
     this.$zoomSlider.off(EVENTS.ZOOM_INPUT);
-}
+  }
 
-onFileChange();
-{
+  onFileChange(); {
     this.options.onFileChange();
 
     if (this.$fileInput.get(0).files) {
-        this.loadFileReader(this.$fileInput.get(0).files[0]);
+      this.loadFileReader(this.$fileInput.get(0).files[0]);
     }
-}
+  }
 
-loadFileReader(file);
-{
+  loadFileReader(file); {
     const fileReader = new FileReader();
     if (file && file.type.match('image')) {
-        fileReader.readAsDataURL(file);
-        fileReader.onload = this.onFileReaderLoaded.bind(this);
-        fileReader.onerror = this.onFileReaderError.bind(this);
+      fileReader.readAsDataURL(file);
+      fileReader.onload = this.onFileReaderLoaded.bind(this);
+      fileReader.onerror = this.onFileReaderError.bind(this);
     }
     else if (file) {
-        this.onFileReaderError();
+      this.onFileReaderError();
     }
-}
+  }
 
-onFileReaderLoaded(e);
-{
+  onFileReaderLoaded(e); {
     this.loadImage(e.target.result);
-}
+  }
 
-onFileReaderError();
-{
+  onFileReaderError(); {
     this.options.onFileReaderError();
-}
+  }
 
-onDragOver(e);
-{
+  onDragOver(e); {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'copy';
     this.$preview.toggleClass(CLASS_NAMES.DRAG_HOVERED, e.type === 'dragover');
-}
+  }
 
-onDrop(e);
-{
+  onDrop(e); {
     e.preventDefault();
     e.stopPropagation();
 
     const files = Array.prototype.slice.call(e.dataTransfer.files, 0);
-    files.some((file) = > {
-        if (!file.type.match('image'));
-    {
-        return false;
-    }
+    files.some((file) => {
+      if (!file.type.match('image')); { return false; }
 
-    this.loadFileReader(file);
-    return true;
+      this.loadFileReader(file);
+      return true;
 }
 )
 this.$preview.removeClass(CLASS_NAMES.DRAG_HOVERED);
-}
+  }
 
-loadImage(imageSrc);
-{
-    if (!imageSrc) {
-        return;
-    }
+  loadImage(imageSrc); {
+    if (!imageSrc) { return; }
 
     this.options.onImageLoading();
     this.setImageLoadingClass();
 
     this.preImage.src = imageSrc;
-}
+  }
 
-onPreImageLoaded();
-{
+  onPreImageLoaded(); {
     if (this.options.smallImage === 'reject' &&
-        (this.preImage.width * this.options.maxZoom < this.previewSize.w * this.options.exportZoom ||
-        this.preImage.height * this.options.maxZoom < this.previewSize.h * this.options.exportZoom)) {
-        this.onImageError(ERRORS.SMALL_IMAGE);
-        return;
+          (this.preImage.width * this.options.maxZoom < this.previewSize.w * this.options.exportZoom ||
+           this.preImage.height * this.options.maxZoom < this.previewSize.h * this.options.exportZoom)) {
+      this.onImageError(ERRORS.SMALL_IMAGE);
+      return;
+    }
+
+    if (this.options.allowCrossOrigin) {
+      this.image.crossOrigin = this.preImage.src.indexOf('data:') === 0 ? null : 'Anonymous';
     }
 
     this.image.src = this.imageSrc = this.preImage.src;
-}
+  }
 
-onImageLoaded();
-{
+  onImageLoaded(); {
     this.imageSize = {
-        w: this.image.width,
-        h: this.image.height,
+      w: this.image.width,
+      h: this.image.height,
     };
 
     this.setupZoomer(this.options.imageState && this.options.imageState.zoom || this.initialZoom);
     if (this.options.imageState && this.options.imageState.offset) {
-        this.setOffset(this.options.imageState.offset);
+      this.setOffset(this.options.imageState.offset);
     }
     else {
-        this.centerImage();
+      this.centerImage();
     }
 
     this.options.imageState = {};
 
     this.$preview.css('background-image',; `url(${this.imageSrc})`)
     if (this.options.imageBackground) {
-        this.$imageBg.attr('src', this.imageSrc);
+      this.$imageBg.attr('src', this.imageSrc);
     }
 
     this.setImageLoadedClass();
@@ -253,207 +229,182 @@ onImageLoaded();
     this.imageLoaded = true;
 
     this.options.onImageLoaded();
-}
-;
+  };
 
-onImageError();
-{
+  onImageError(); {
     this.options.onImageError.apply(this, arguments);
     this.removeImageLoadingClass();
-}
+  }
 
-setImageLoadingClass();
-{
+  setImageLoadingClass(); {
     this.$preview
-        .removeClass(CLASS_NAMES.IMAGE_LOADED)
-        .addClass(CLASS_NAMES.IMAGE_LOADING);
-}
+      .removeClass(CLASS_NAMES.IMAGE_LOADED)
+      .addClass(CLASS_NAMES.IMAGE_LOADING);
+  }
 
-setImageLoadedClass();
-{
+  setImageLoadedClass(); {
     this.$preview
-        .removeClass(CLASS_NAMES.IMAGE_LOADING)
-        .addClass(CLASS_NAMES.IMAGE_LOADED);
-}
+      .removeClass(CLASS_NAMES.IMAGE_LOADING)
+      .addClass(CLASS_NAMES.IMAGE_LOADED);
+  }
 
-removeImageLoadingClass();
-{
+  removeImageLoadingClass(); {
     this.$preview
-        .removeClass(CLASS_NAMES.IMAGE_LOADING);
-}
+      .removeClass(CLASS_NAMES.IMAGE_LOADING);
+  }
 
-getEventPosition(e);
-{
+  getEventPosition(e); {
     if (e.originalEvent && e.originalEvent.touches && e.originalEvent.touches[0]) {
-        e = e.originalEvent.touches[0];
+      e = e.originalEvent.touches[0];
     }
     if (e.clientX && e.clientY) {
-        return {x: e.clientX, y: e.clientY};
+      return { x: e.clientX, y: e.clientY };
     }
-}
+  }
 
-onPreviewEvent(e);
-{
-    if (!this.imageLoaded) {
-        return;
-    }
+  onPreviewEvent(e); {
+    if (!this.imageLoaded) { return; }
 
     this.moveContinue = false;
     this.$preview.off(EVENTS.PREVIEW_MOVE);
 
     if (e.type === 'mousedown' || e.type === 'touchstart') {
-        this.origin = this.getEventPosition(e);
-        this.moveContinue = true;
-        this.$preview.on(EVENTS.PREVIEW_MOVE, this.onMove.bind(this));
+      this.origin = this.getEventPosition(e);
+      this.moveContinue = true;
+      this.$preview.on(EVENTS.PREVIEW_MOVE, this.onMove.bind(this));
     }
     else {
-        $(document.body).focus();
+      $(document.body).focus();
     }
 
     e.stopPropagation();
     return false;
-}
+  }
 
-onMove(e);
-{
+  onMove(e); {
     const eventPosition = this.getEventPosition(e);
 
     if (this.moveContinue && eventPosition) {
-        this.setOffset({
-            x: this.offset.x + eventPosition.x - this.origin.x,
-            y: this.offset.y + eventPosition.y - this.origin.y,
-        });
+      this.setOffset({
+        x: this.offset.x + eventPosition.x - this.origin.x,
+        y: this.offset.y + eventPosition.y - this.origin.y,
+      });
     }
 
     this.origin = eventPosition;
 
     e.stopPropagation();
     return false;
-}
+  }
 
-setOffset(position);
-{
+  setOffset(position); {
     this.offset = this.fixOffset(position);
     this.$preview.css('background-position',; `${this.offset.x}
     px;
     ${this.offset.y}
     px`)
     if (this.options.imageBackground) {
-        this.$imageBg.css({
-            left: this.offset.x + this.imageBgBorderWidthArray[3],
-            top: this.offset.y + this.imageBgBorderWidthArray[0],
-        });
+      this.$imageBg.css({
+        left: this.offset.x + this.imageBgBorderWidthArray[3],
+        top: this.offset.y + this.imageBgBorderWidthArray[0],
+      });
     }
-}
-;
+  };
 
-fixOffset(offset);
-{
-    if (!this.imageLoaded) {
-        return offset;
-    }
+  fixOffset(offset); {
+    if (!this.imageLoaded) { return offset; }
 
-    const ret = {x: offset.x, y: offset.y};
+    const ret = { x: offset.x, y: offset.y };
 
     if (!this.options.freeMove) {
-        if (this.imageSize.w * this.zoom >= this.previewSize.w) {
-            ret.x = Math.min(0, Math.max(ret.x,
-                this.previewSize.w - this.imageSize.w * this.zoom));
-        }
-        else {
-            ret.x = Math.max(0, Math.min(ret.x,
-                this.previewSize.w - this.imageSize.w * this.zoom));
-        }
+      if (this.imageSize.w * this.zoom >= this.previewSize.w) {
+        ret.x = Math.min(0, Math.max(ret.x,
+          this.previewSize.w - this.imageSize.w * this.zoom));
+      }
+      else {
+        ret.x = Math.max(0, Math.min(ret.x,
+          this.previewSize.w - this.imageSize.w * this.zoom));
+      }
 
-        if (this.imageSize.h * this.zoom >= this.previewSize.h) {
-            ret.y = Math.min(0, Math.max(ret.y,
-                this.previewSize.h - this.imageSize.h * this.zoom));
-        }
-        else {
-            ret.y = Math.max(0, Math.min(ret.y,
-                this.previewSize.h - this.imageSize.h * this.zoom));
-        }
+      if (this.imageSize.h * this.zoom >= this.previewSize.h) {
+        ret.y = Math.min(0, Math.max(ret.y,
+          this.previewSize.h - this.imageSize.h * this.zoom));
+      }
+      else {
+        ret.y = Math.max(0, Math.min(ret.y,
+          this.previewSize.h - this.imageSize.h * this.zoom));
+      }
     }
 
     ret.x = round(ret.x);
     ret.y = round(ret.y);
 
     return ret;
-}
+  }
 
-centerImage();
-{
-    if (!this.imageSize || !this.zoom) {
-        return;
-    }
+  centerImage(); {
+    if (!this.imageSize || !this.zoom) { return; }
 
     this.setOffset({
-        x: (this.previewSize.w - this.imageSize.w * this.zoom) / 2,
-        y: (this.previewSize.h - this.imageSize.h * this.zoom) / 2,
+      x: (this.previewSize.w - this.imageSize.w * this.zoom) / 2,
+      y: (this.previewSize.h - this.imageSize.h * this.zoom) / 2,
     });
-}
+  }
 
-onZoomSliderChange();
-{
-    if (!this.imageLoaded) {
-        return;
-    }
+  onZoomSliderChange(); {
+    if (!this.imageLoaded) { return; }
 
     this.zoomSliderPos = Number(this.$zoomSlider.val());
     const newZoom = this.zoomer.getZoom(this.zoomSliderPos);
     this.setZoom(newZoom);
-}
+  }
 
-enableZoomSlider();
-{
+  enableZoomSlider(); {
     this.$zoomSlider.removeAttr('disabled');
     this.options.onZoomEnabled();
-}
+  }
 
-disableZoomSlider();
-{
+  disableZoomSlider(); {
     this.$zoomSlider.attr('disabled', true);
     this.options.onZoomDisabled();
-}
+  }
 
-setupZoomer(zoom);
-{
+  setupZoomer(zoom); {
     this.zoomer.setup({
-        imageSize: this.imageSize,
-        previewSize: this.previewSize,
-        exportZoom: this.options.exportZoom,
-        maxZoom: this.options.maxZoom,
-        minZoom: this.options.minZoom,
-        smallImage: this.options.smallImage,
+      imageSize: this.imageSize,
+      previewSize: this.previewSize,
+      exportZoom: this.options.exportZoom,
+      maxZoom: this.options.maxZoom,
+      minZoom: this.options.minZoom,
+      smallImage: this.options.smallImage,
     });
     this.setZoom(exists(zoom) ? zoom : this.zoom);
 
     if (this.isZoomable()) {
-        this.enableZoomSlider();
+      this.enableZoomSlider();
     }
     else {
-        this.disableZoomSlider();
+      this.disableZoomSlider();
     }
-}
+  }
 
-setZoom(newZoom);
-{
+  setZoom(newZoom); {
     newZoom = this.fixZoom(newZoom);
 
     const updatedWidth = round(this.imageSize.w * newZoom);
     const updatedHeight = round(this.imageSize.h * newZoom);
 
     if (this.imageLoaded) {
-        const oldZoom = this.zoom;
+      const oldZoom = this.zoom;
 
-        const newX = this.previewSize.w / 2 - (this.previewSize.w / 2 - this.offset.x) * newZoom / oldZoom;
-        const newY = this.previewSize.h / 2 - (this.previewSize.h / 2 - this.offset.y) * newZoom / oldZoom;
+      const newX = this.previewSize.w / 2 - (this.previewSize.w / 2 - this.offset.x) * newZoom / oldZoom;
+      const newY = this.previewSize.h / 2 - (this.previewSize.h / 2 - this.offset.y) * newZoom / oldZoom;
 
-        this.zoom = newZoom;
-        this.setOffset({x: newX, y: newY});
+      this.zoom = newZoom;
+      this.setOffset({ x: newX, y: newY });
     }
     else {
-        this.zoom = newZoom;
+      this.zoom = newZoom;
     }
 
     this.zoomSliderPos = this.zoomer.getSliderPos(this.zoom);
@@ -464,160 +415,165 @@ setZoom(newZoom);
     ${updatedHeight}
     px`)
     if (this.options.imageBackground) {
-        this.$imageBg.css({
-            width: updatedWidth,
-            height: updatedHeight,
-        });
+      this.$imageBg.css({
+        width: updatedWidth,
+        height: updatedHeight,
+      });
     }
-}
-;
+  };
 
-fixZoom(zoom);
-{
+  fixZoom(zoom); {
     return this.zoomer.fixZoom(zoom);
-}
+  }
 
-isZoomable();
-{
+  isZoomable(); {
     return this.zoomer.isZoomable();
-}
+  }
 
-getCroppedImageData(exportOptions);
-{
-    if (!this.imageSrc) {
-        return;
-    }
+  getCroppedImageData(exportOptions); {
+    if (!this.imageSrc) { return; }
 
     const exportDefaults = {
-        type: 'image/png',
-        quality: 0.75,
-        originalSize: false,
-        fillBg: '#fff',
+      type: 'image/png',
+      quality: 0.75,
+      originalSize: false,
+      fillBg: '#fff',
     };
     exportOptions = $.extend({}, exportDefaults, exportOptions);
 
-    const croppedSize = {
-        w: this.previewSize.w,
-        h: this.previewSize.h,
-    };
-
     const exportZoom = exportOptions.originalSize ? 1 / this.zoom : this.options.exportZoom;
 
+    const zoomedSize = {
+      w: this.zoom * exportZoom * this.imageSize.w,
+      h: this.zoom * exportZoom * this.imageSize.h,
+    };
+
     const canvas = $('<canvas />')
-        .attr({
-            width: croppedSize.w * exportZoom,
-            height: croppedSize.h * exportZoom,
-        })
-        .get(0);
+      .attr({
+        width: this.previewSize.w * exportZoom,
+        height: this.previewSize.h * exportZoom,
+      })
+      .get(0);
     const canvasContext = canvas.getContext('2d');
 
     if (exportOptions.type === 'image/jpeg') {
-        canvasContext.fillStyle = exportOptions.fillBg;
-        canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+      canvasContext.fillStyle = exportOptions.fillBg;
+      canvasContext.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    canvasContext.drawImage(this.image,
-        this.offset.x * exportZoom,
-        this.offset.y * exportZoom,
-        this.zoom * exportZoom * this.imageSize.w,
-        this.zoom * exportZoom * this.imageSize.h);
+    const preresizedImage = this.preresizeImage(this.image, zoomedSize.w, zoomedSize.h);
+    canvasContext.drawImage(preresizedImage,
+      this.offset.x * exportZoom,
+      this.offset.y * exportZoom,
+      zoomedSize.w,
+      zoomedSize.h);
 
     return canvas.toDataURL(exportOptions.type, exportOptions.quality);
-}
+  }
 
-getImageState();
-{
-    return {
-        src: this.imageSrc,
-        offset: this.offset,
-        zoom: this.zoom,
-    };
-}
+  preresizeImage(src, targetWidth, targetHeight); {
+    const tmp = new Image();
+    tmp.src = src.src;
 
-getImageSrc();
-{
-    return this.imageSrc;
-}
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    let canvasWidth = tmp.width;
+    let canvasHeight = tmp.height;
 
-getOffset();
-{
-    return this.offset;
-}
+    while (true) {
+      canvasWidth /= 2;
+      canvasHeight /= 2;
 
-getZoom();
-{
-    return this.zoom;
-}
+      if (canvasWidth < targetWidth || canvasHeight < targetHeight) { break; }
 
-getImageSize();
-{
-    if (!this.imageSize) {
-        return null;
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+
+      context.drawImage(tmp, 0, 0, canvasWidth, canvasHeight);
+      tmp.src = canvas.toDataURL();
     }
 
-    return {
-        width: this.imageSize.w,
-        height: this.imageSize.h,
-    };
-}
+    return tmp;
+  }
 
-getPreviewSize();
-{
+  getImageState(); {
     return {
-        width: this.previewSize.w,
-        height: this.previewSize.h,
+      src: this.imageSrc,
+      offset: this.offset,
+      zoom: this.zoom,
     };
-}
+  }
 
-setPreviewSize(size);
-{
+  getImageSrc(); {
+    return this.imageSrc;
+  }
+
+  getOffset(); {
+    return this.offset;
+  }
+
+  getZoom(); {
+    return this.zoom;
+  }
+
+  getImageSize(); {
+    if (!this.imageSize) { return null; }
+
+    return {
+      width: this.imageSize.w,
+      height: this.imageSize.h,
+    };
+  }
+
+  getPreviewSize(); {
+    return {
+      width: this.previewSize.w,
+      height: this.previewSize.h,
+    };
+  }
+
+  setPreviewSize(size); {
     if (!size || size.width <= 0 || size.height <= 0) {
 
     }
 
     this.previewSize = {
-        w: size.width,
-        h: size.height,
+      w: size.width,
+      h: size.height,
     };
     this.$preview.css({
-        width: this.previewSize.w,
-        height: this.previewSize.h,
+      width: this.previewSize.w,
+      height: this.previewSize.h,
     });
 
     if (this.options.imageBackground) {
-        this.$imageBgContainer.css({
-            width: this.previewSize.w + this.imageBgBorderWidthArray[1] + this.imageBgBorderWidthArray[3],
-            height: this.previewSize.h + this.imageBgBorderWidthArray[0] + this.imageBgBorderWidthArray[2],
-        });
+      this.$imageBgContainer.css({
+        width: this.previewSize.w + this.imageBgBorderWidthArray[1] + this.imageBgBorderWidthArray[3],
+        height: this.previewSize.h + this.imageBgBorderWidthArray[0] + this.imageBgBorderWidthArray[2],
+      });
     }
 
     if (this.imageLoaded) {
-        this.setupZoomer();
+      this.setupZoomer();
     }
-}
+  }
 
-disable();
-{
+  disable(); {
     this.unbindListeners();
     this.disableZoomSlider();
     this.$el.addClass(CLASS_NAMES.DISABLED);
-}
+  }
 
-reenable();
-{
+  reenable(); {
     this.bindListeners();
     this.enableZoomSlider();
     this.$el.removeClass(CLASS_NAMES.DISABLED);
-}
+  }
 
-$(selector);
-{
-    if (!this.$el) {
-        return null;
-    }
+  $(selector); {
+    if (!this.$el) { return null; }
     return this.$el.find(selector);
-}
+  }
 }
 
-export default
-Cropit;
+export default Cropit;

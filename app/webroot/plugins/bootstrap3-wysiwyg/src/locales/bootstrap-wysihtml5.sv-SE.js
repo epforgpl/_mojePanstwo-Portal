@@ -9,7 +9,7 @@
         // Browser globals
         factory(jQuery);
     }
-}(function ($) {
+}(function($){
     $.fn.wysihtml5.locale["sv-SE"] = {
         font_styles: {
             normal: "Normal Text",

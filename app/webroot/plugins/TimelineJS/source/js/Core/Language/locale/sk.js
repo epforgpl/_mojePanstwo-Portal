@@ -1,5 +1,5 @@
 /* Slovak LANGUAGE 
- ================================================== */
+================================================== */
 typeof VMM != "undefined" && (VMM.Language = {
     lang: "sk",
     api: {
@@ -17,7 +17,7 @@ typeof VMM != "undefined" && (VMM.Language = {
         month: "mmmm yyyy",
         full_short: "mmm d",
         full: "d. mmmm',' yyyy",
-        time_short: "h:MM:ss TT",
+		time_short: "h:MM:ss TT",
         time_no_seconds_short: "h:MM TT",
         time_no_seconds_small_date: "h:MM TT'<br/><small>'mmmm d',' yyyy'</small>'",
         full_long: "mmm d',' yyyy 'at' hh:MM TT",

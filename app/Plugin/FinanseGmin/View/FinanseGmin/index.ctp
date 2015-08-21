@@ -4,10 +4,6 @@
 <?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals'); ?>
 <?php $this->Combinator->add_libs('js', 'FinanseGmin.dzialy.js') ?>
 
-<?
-$this->Combinator->add_libs('js', 'FinanseGmin.dzialy.js');
-?>
-
 <div class="container">
     <div class="col-md-10 col-md-offset-1 text-center">
         <div class="row banner">

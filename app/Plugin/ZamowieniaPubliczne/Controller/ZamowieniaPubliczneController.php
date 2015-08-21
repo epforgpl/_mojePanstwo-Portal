@@ -56,65 +56,61 @@ class ZamowieniaPubliczneController extends ApplicationsController
                     'element' => 'cover',
                 ),
                 'aggs' => array(
-                    'all' => array(
-                        'global' => '_empty',
-                        'aggs' => array(
-                            'zamowienia_publiczne_dokumenty' => array(
-				                'filter' => array(
-				                    'bool' => array(
-				                        'must' => array(
-				                            array(
-				                                'term' => array(
-				                                    'dataset' => 'zamowienia_publiczne_dokumenty',
-				                                ),
-				                            ),
-				                            array(
-				                                'term' => array(
-				                                    'data.zamowienia_publiczne_dokumenty.typ_id' => '3',
-				                                ),
-				                            ),
-				                            array(
-				                                'range' => array(
-				                                    'date' => array(
-				                                        'gt' => 'now-1y'
-				                                    ),
-				                                ),
-				                            ),
-				                        ),
-				                    ),
-				                ),
-				                'aggs' => array(
-				                    'dni' => array(
-										'date_histogram' => array(
-											'field' => 'date',
-											'interval' => 'day',
+                    'zamowienia_publiczne_dokumenty' => array(
+		                'filter' => array(
+		                    'bool' => array(
+		                        'must' => array(
+		                            array(
+		                                'term' => array(
+		                                    'dataset' => 'zamowienia_publiczne_dokumenty',
+		                                ),
+		                            ),
+		                            array(
+		                                'term' => array(
+		                                    'data.zamowienia_publiczne_dokumenty.typ_id' => '3',
+		                                ),
+		                            ),
+		                            array(
+		                                'range' => array(
+		                                    'date' => array(
+		                                        'gt' => 'now-1y'
+		                                    ),
+		                                ),
+		                            ),
+		                        ),
+		                    ),
+		                ),
+		                'scope' => 'global',
+		                'aggs' => array(
+		                    'dni' => array(
+								'date_histogram' => array(
+									'field' => 'date',
+									'interval' => 'day',
+								),
+								'aggs' => array(
+									'wykonawcy' => array(
+										'nested' => array(
+											'path' => 'zamowienia_publiczne-wykonawcy',
 										),
 										'aggs' => array(
-											'wykonawcy' => array(
-												'nested' => array(
-													'path' => 'zamowienia_publiczne-wykonawcy',
+											'waluty' => array(
+												'terms' => array(
+													'field' => 'zamowienia_publiczne-wykonawcy.waluta',
 												),
 												'aggs' => array(
-													'waluty' => array(
-														'terms' => array(
-															'field' => 'zamowienia_publiczne-wykonawcy.waluta',
-														),
-														'aggs' => array(
-															'suma' => array(
-																'sum' => array(
-																	'field' => 'zamowienia_publiczne-wykonawcy.cena',
-																),
-															),
+													'suma' => array(
+														'sum' => array(
+															'field' => 'zamowienia_publiczne-wykonawcy.cena',
 														),
 													),
 												),
 											),
 										),
 									),
-				                ),
-				            ),
-                        ),
-                    ),
+								),
+							),
+		                ),
+		            ),
                 ),
             ),
             'aggs' => array(
@@ -123,7 +119,6 @@ class ZamowieniaPubliczneController extends ApplicationsController
                         'field' => 'dataset',
                     ),
                     'visual' => array(
-                        'label' => 'Zbiory danych',
                         'skin' => 'datasets',
                         'class' => 'special',
                         'field' => 'dataset',
@@ -131,6 +126,7 @@ class ZamowieniaPubliczneController extends ApplicationsController
                     ),
                 ),
             ),
+            'apps' => true,
         );
 
         $this->Components->load('Dane.DataBrowser', $options);
