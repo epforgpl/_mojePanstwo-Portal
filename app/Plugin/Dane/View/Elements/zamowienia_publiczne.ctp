@@ -1,7 +1,7 @@
 <?
 	$this->Combinator->add_libs('css', $this->Less->css('zamowienia_publiczne', array('plugin' => 'Dane')));
     $this->Combinator->replace_lib_or_add('js', '../plugins/highcharts/js/highcharts', '../plugins/highstock/js/highstock');
-    $this->Combinator->replace_lib_or_add('js', '../plugins/highcharts/js/locals', '../plugins/highstock/js/locals');
+$this->Combinator->replace_lib_or_add('js', '../plugins/highcharts/locals', '../plugins/highstock/locals');
 	$this->Combinator->add_libs('js', 'Dane.zamowienia_publiczne');
 
 	$output = array();

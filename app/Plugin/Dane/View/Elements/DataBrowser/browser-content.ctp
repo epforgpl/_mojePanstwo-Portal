@@ -56,25 +56,15 @@ if ($dataBrowser['mode'] == 'cover') { ?>
 
             <? if( isset($sideElement) ) echo $this->Element($sideElement) ?>
 
-            <? if(isset($menu) && isset($menu['items'])) { ?>
 
-                <ul class="dataAggs">
-                    <li class="agg special">
-                        <div class="agg agg-List agg-Datasets">
-                            <ul class="nav nav-pills nav-stacked">
-                                <?php foreach($menu['items'] as $item) { ?>
-                                    <li<? if($menu['selected'] == $item['id']) echo ' class="active"' ?>>
-                                        <a href="<?= $menu['base'] . '/' . $item['id'] ?>">
-                                            <?= $item['label'] ?>
-                                        </a>
-                                    </li>
-                                <? } ?>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
 
-            <? } else {
+            <? if(isset($menu) && isset($menu['items'])) {
+
+                echo $this->Element('Dane.DataBrowser/browser-menu', array(
+                    'menu' => $menu,
+                ));
+
+            } else {
 
                 echo $this->Element('Dane.DataBrowser/aggs', array(
                     'data' => $dataBrowser,
@@ -87,7 +77,6 @@ if ($dataBrowser['mode'] == 'cover') { ?>
     <div class="col-xs-12 col-md-<?= $displayAggs ? $columns[0] : 12 ?>">
 
         <div class="dataWrap">
-							
             <? if(isset($dataBrowser['aggs_visuals_map']) && count($dataBrowser['aggs_visuals_map']) > 0) { ?>
                 <ul class="nav nav-pills margin-top-10 dataAggsDropdownList nopadding" role="tablist">
                     <? 
