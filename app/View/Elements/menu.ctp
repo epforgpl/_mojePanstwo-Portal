@@ -60,7 +60,7 @@
                                     echo $m['label'];
                                 }
                                 if (isset($m['count']) && $m['count']) { ?> <span
-                                    class="badge"><?= $m['count'] ?></span><? } ?>
+                                    class="counter"><?= $m['count'] ?></span><? } ?>
                                 <? if ($dropdown) { ?>
                                     <span class="caret"></span>
                                 <? } ?>
@@ -76,7 +76,7 @@
                                             <li<? if (isset($n['selected']) && $n['selected']) { ?> class="active"<? } ?>>
                                                 <a href="<?= isset($n['href']) ? $n['href'] : '#' ?>">
                                                     <?= $n['label'] ?><? if (isset($n['count']) && $n['count']) { ?>
-                                                        <span class="badge"><?= $n['count'] ?></span><? } ?>
+                                                        <span class="counter"><?= $n['count'] ?></span><? } ?>
                                                 </a>
                                             </li>
                                         <? }
