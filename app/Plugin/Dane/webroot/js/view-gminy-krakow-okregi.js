@@ -199,9 +199,9 @@ $(document).ready(function() {
             document.getElementById('okreg_map'), {
                 zoom: 10,
                 panControl: false,
-                zoomControl: true,
-                scrollwheel: true,
-                draggable: true,
+                zoomControl: false,
+                scrollwheel: false,
+                draggable: false,
                 mapTypeControl: false,
                 scaleControl: false,
                 streetViewControl: false,
