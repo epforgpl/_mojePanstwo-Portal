@@ -3,17 +3,18 @@
 <?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals'); ?>
 <?php $this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki'); ?>
 
-<div class="wskaznik" data-dim_id="<?= $data['id'] ?>" data-years="<?= htmlspecialchars(json_encode($data['years']), ENT_QUOTES, 'UTF-8') ?>">
+<div class="wskaznik" data-id="<?= $object->getId() ?>" data-dim_id="<?= $data['id'] ?>"
+     data-years="<?= htmlspecialchars(json_encode($data['years']), ENT_QUOTES, 'UTF-8') ?>">
     <h2>
         <? if (in_array('bdl_opis', $object_editable)) { ?>
 	        <a class="pull-left" href="<?= $url ?>/kombinacje/<?= $data['id'] ?>"><?= trim($title) ?></a>
             <button class="btn btn-sm btn-primary add_to_item pull-right"><span
                     class="icon glyphicon glyphicon-plus"></span></button>
         <? } else {?>
-	        <a href="<?= $url ?>/kombinacje/<?= $data['id'] ?>"><?= trim($title) ?></a>        
+            <a href="<?= $url ?>/kombinacje/<?= $data['id'] ?>"><?= trim($title) ?></a>
         <? } ?>
     </h2>
-    
+
     <div class="stats">
         <div class="map col-xs-4 col-md-3">
             <a href="<?= $object->getUrl() ?>/kombinacje/<?= $data['id'] ?>">
