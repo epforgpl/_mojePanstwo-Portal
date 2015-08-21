@@ -21,9 +21,9 @@ $options = array(
 
                     <div class="dataAggs">
                         <div class="agg agg-Dataobjects">
-                            <? if ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits']) { ?>
+                            <? if ($dataBrowser['aggs']['rada_komisje_posiedzenia']['top']['hits']['hits']) { ?>
                                 <ul class="dataobjects">
-                                    <? foreach ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits'] as $doc) { ?>
+                                    <? foreach ($dataBrowser['aggs']['rada_komisje_posiedzenia']['top']['hits']['hits'] as $doc) { ?>
                                         <li>
                                             <?
                                             echo $this->Dataobject->render($doc, 'default');
@@ -51,9 +51,9 @@ $options = array(
 
                     <div class="dataAggs">
                         <div class="agg agg-Dataobjects">
-                            <? if ($dataBrowser['aggs']['all']['radni']['top']['hits']['hits']) { ?>
+                            <? if ($dataBrowser['aggs']['radni']['top']['hits']['hits']) { ?>
                                 <ul class="dataobjects row">
-                                    <? foreach ($dataBrowser['aggs']['all']['radni']['top']['hits']['hits'] as $doc) {
+                                    <? foreach ($dataBrowser['aggs']['radni']['top']['hits']['hits'] as $doc) {
 
                                         $stanowisko = false;
                                         foreach ($doc['fields']['komisje'][0] as $s)

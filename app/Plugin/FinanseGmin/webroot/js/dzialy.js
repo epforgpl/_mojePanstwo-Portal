@@ -72,7 +72,7 @@ var zakresy = [
 $(document).ready(function () {
     'use strict';
 
-    var api_url = 'http://mojepanstwo.pl:4444/';
+    var api_url = mPHeart.constant.ajax.api + '/';
 
     var sections = jQuery('#sections .section');
     for (var i = 0; i < sections.length; i++) {
