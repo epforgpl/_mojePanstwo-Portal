@@ -2540,6 +2540,7 @@ class GminyController extends DataobjectsController
                 $layers[] = 'obietnice';
             } elseif ($subaction == 'view') {
                 $layers[] = 'okreg';
+                $layers[] = 'powiazania';
             }
 
 

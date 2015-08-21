@@ -259,6 +259,17 @@ if ($okreg) {
                 </div>
             </div>
         <? } ?>
+        
+        <? if( $powiazania = $radny->getLayer('powiazania') ) { ?>
+        	<div class="databrowser-panel">
+                <h2>Dane wynikające z oświadczeń majątkowych:</h2>
+
+                <div>
+	                <? debug($powiazania); ?>
+                </div>
+                
+            </div>
+        <? } ?>
 
     </div>
 </div>
