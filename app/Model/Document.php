@@ -40,4 +40,12 @@ class Document extends AppModel
             'id' => $id
         ));
     }
+
+    public function save_budget($data)
+    {
+        return $this->getDataSource()->request('docs/budget_spendings', array(
+            'method' => 'POST',
+            'data' => $data
+        ));
+    }
 }

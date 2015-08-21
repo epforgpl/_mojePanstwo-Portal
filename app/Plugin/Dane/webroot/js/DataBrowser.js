@@ -609,14 +609,25 @@ var DataBrowser = Class.extend({
 
 		var image_field = li.attr('data-image_field');
 
+		var escape_html_label = li.attr('data-escape-html') == '1';
+
 		var columns_horizontal_data = [];
 		var columns_horizontal_categories = [];
 		var columns_horizontal_keys = [];
 		var columns_horizontal_images = [];
 
 		for (var i = 0; i < data.buckets.length; i++) {
+
+			if(data.buckets[i][label_field].buckets.length === 0)
+				continue;
+
 			columns_horizontal_categories[i] = data.buckets[i][label_field].buckets[0].key;
-			columns_horizontal_data[i] = (data.buckets[i].label ? data.buckets[i].label.buckets[0][counter_field] : false) || data.buckets[i][counter_field]['value'] || data.buckets[i][counter_field];;
+
+			if(escape_html_label) {
+				columns_horizontal_categories[i] = columns_horizontal_categories[i].replace(/<(?:.|\n)*?>/gm, '');
+			}
+
+			columns_horizontal_data[i] = (data.buckets[i].label ? data.buckets[i].label.buckets[0][counter_field] : false) || data.buckets[i][counter_field]['value'] || data.buckets[i][counter_field];
 			columns_horizontal_keys[i] = data.buckets[i].key;
 			if(image_field) {
 				columns_horizontal_images[i] = data.buckets[i][image_field].buckets[0].key;
