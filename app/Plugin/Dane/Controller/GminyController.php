@@ -3797,6 +3797,8 @@ class GminyController extends DataobjectsController
 
     public function okregi()
     {
+	    
+	    $this->request->params['action'] = 'rada';
         $this->_prepareView();
 
         if ($this->object->getId() != '903')
@@ -3806,13 +3808,17 @@ class GminyController extends DataobjectsController
 
         if($subid = @$this->request->params['subid']) {
 
-            $okreg = $this->Krakow->okreg($subid);
+            $okreg = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'krakow_okregi_wyborcze',
+                    'id' => $this->request->params['subid'],
+                ),
+            ));
+
             $this->set('okreg', $okreg);
-
-            $okreg_id = (int) @$okreg[7];
-            if($okreg_id > 0) {
-
-            }
+            $this->set('title_for_layout', $okreg->getTitle());
+            $this->render('okreg');
+            
 
         } else {
             $this->set('okregi', $this->Krakow->okregi());
