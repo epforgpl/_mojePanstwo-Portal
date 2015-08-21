@@ -599,6 +599,14 @@ var DataBrowser = Class.extend({
 		var data = $.parseJSON(li.attr('data-chart'));
 		var choose_request = li.attr('data-choose-request');
 
+		var labelWidth = 100;
+		if(li.attr('data-label-width'))
+			labelWidth = parseInt(li.attr('data-label-width'));
+
+		var chartHeight = false;
+		if(li.attr('data-chart-height'))
+			chartHeight = parseInt(li.attr('data-chart-height'));
+
 		var counter_field = li.attr('data-counter_field');
 		if( !counter_field )
 			counter_field = 'doc_count';
@@ -614,7 +622,7 @@ var DataBrowser = Class.extend({
 		var columns_horizontal_data = [];
 		var columns_horizontal_categories = [];
 		var columns_horizontal_keys = [];
-		var columns_horizontal_images = [];
+		var columns_horizontal_images = {};
 
 		for (var i = 0; i < data.buckets.length; i++) {
 
@@ -630,7 +638,9 @@ var DataBrowser = Class.extend({
 			columns_horizontal_data[i] = (data.buckets[i].label ? data.buckets[i].label.buckets[0][counter_field] : false) || data.buckets[i][counter_field]['value'] || data.buckets[i][counter_field];
 			columns_horizontal_keys[i] = data.buckets[i].key;
 			if(image_field) {
-				columns_horizontal_images[i] = data.buckets[i][image_field].buckets[0].key;
+				columns_horizontal_images[
+					columns_horizontal_categories[i]
+				] = data.buckets[i][image_field].buckets[0].key;
 			}
 		}
 
@@ -644,45 +654,44 @@ var DataBrowser = Class.extend({
 			}
 		};
 
-		if(image_field) {
-			tooltip.useHTML = true;
-			tooltip.formatter = function() {
-				return [
-					'<div class="text-center">',
-					'<img src="' + columns_horizontal_images[this.point.index] + '"/><br/>',
-					this.x,
-					'</div>'
-				].join('');
-			};
-		}
-
 		var _this = this;
 
-		li.find('.chart').highcharts({
-			chart: {
-				type: 'bar',
-				backgroundColor: null,
-				events: {
-					load: function () {
-						var chart = this,
-							legend = this.series[0].chart.axes[0].labelGroup.element;
+		var labelsStyle = {
+			width: labelWidth + 'px',
+			'min-width': labelWidth + 'px'
+		};
 
-						for (var i = 0, len = legend.childNodes.length; i < len; i++) {
-							(function(i) {
-								var item = legend.childNodes[i];
-								item.onmouseover = function (e) {
-									chart.series[0].points[i].onMouseOver();
-								};
+		var chart = {
+			type: 'bar',
+			backgroundColor: null,
+			events: {
+				load: function () {
+					var chart = this,
+						legend = this.series[0].chart.axes[0].labelGroup.element;
 
-								item.onclick = function (e) {
-									$(chart.series[0].points[i].graphic.element).click();
-								}
-							})(i);
-						}
+					for (var i = 0, len = legend.childNodes.length; i < len; i++) {
+						(function(i) {
+							var item = legend.childNodes[i];
+							item.onmouseover = function (e) {
+								chart.series[0].points[i].onMouseOver();
+							};
 
+							item.onclick = function (e) {
+								$(chart.series[0].points[i].graphic.element).click();
+							}
+						})(i);
 					}
+
 				}
-			},
+			}
+		};
+
+		if(chartHeight) {
+			chart.height = chartHeight;
+		}
+
+		li.find('.chart').highcharts({
+			chart: chart,
 			title: {
 				text: ''
 			},
@@ -698,11 +707,22 @@ var DataBrowser = Class.extend({
 					formatter: function () {
 
 						var v = this.value;
-						if (v.length > 15)
-							v = v.substring(0, 12) + '...';
+						if (v.length > (((labelWidth / 10) * 2) - 2))
+							v = v.substring(0, ((labelWidth / 10) * 2) - 5) + '...';
+
+						if(image_field) {
+							return [
+								'<div class="text-center">',
+								'<img style="margin-bottom: 5px;" src="' + columns_horizontal_images[this.value] + '"/><br/>',
+								v,
+								'</div>'
+							].join('');
+						}
 
 						return v;
-					}
+					},
+					style: labelsStyle,
+					useHTML : true
 				}
 			},
 			yAxis: {
