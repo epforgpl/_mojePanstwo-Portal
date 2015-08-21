@@ -3,7 +3,7 @@
 $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty-dane', array('plugin' => 'Dane')));
 
 /* tinymce */
-echo $this->Html->script('../tinymce/tinymce.min', array('block' => 'scriptBlock'));
+echo $this->Html->script('../plugins/tinymce/js/tinymce/tinymce.min', array('block' => 'scriptBlock'));
 
 /* page script */
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dane');

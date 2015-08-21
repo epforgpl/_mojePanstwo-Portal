@@ -24,7 +24,7 @@ class OrzecznictwoController extends ApplicationsController
 
         $datasets = $this->getDatasets('orzecznictwo');
         $_datasets = array_keys($datasets);
-
+				
         $options = array(
             'searchTitle' => 'Szukaj w orzecznictwie...',
             'autocompletion' => array(
@@ -39,6 +39,17 @@ class OrzecznictwoController extends ApplicationsController
                     'element' => 'cover',
                 ),
                 'aggs' => array(
+	                'dataset' => array(
+	                    'terms' => array(
+	                        'field' => 'dataset',
+	                    ),
+	                    'visual' => array(
+	                        'skin' => 'datasets',
+	                        'class' => 'special',
+	                        'field' => 'dataset',
+	                        'dictionary' => $datasets,
+	                    ),
+	                ),
                     'sa_orzeczenia' => array(
                         'filter' => array(
                             'term' => array(
@@ -92,6 +103,7 @@ class OrzecznictwoController extends ApplicationsController
                         'class' => 'special',
                         'field' => 'dataset',
                         'dictionary' => $datasets,
+                        'target' => 'menu',
                     ),
                 ),
             ),

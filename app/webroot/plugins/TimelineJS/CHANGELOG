@@ -1,3 +1,103 @@
+2.35.6 (2015-03-25)
+------
+Restore original animation/easing (revert pull #681)
+
+2.35.5 (2015-02-26)
+------
+#672,679,681,683 a series of presentation/performance tweaks from @acdha
+Fix auto-linking regression
+
+2.35.4 (2015-02-17)
+------
+Fix Stamen map tile URL bug
+
+
+2.35.3 (2015-02-17)
+------
+#673 Update Taiwanese locale
+#689 Update Thai locale
+#693 Update Polish locale
+#705 Frisian localization
+#722 Support 'youtubeTheme' config option
+#732 Updated German Translations
+#733 Move "Swipe to Navigate" to I18N. Now we need translations for 55 languages!
+#744 Hindi localization
+#745 Update Icelandic date formats
+#749 Irish localization
+#762 Belarusian localization
+
+2.35.2 (2014-11-24)
+------
+fix half-width bug on small displays
+
+2.35.1 (2014-11-19)
+------
+#719 whackamole with JS dates
+
+2.35.0 (2014-11-19)
+------
+#718 Issue with dates in 1970 in GMT/BST time zones
+
+2.34.1
+------
+#710 fix regression from #706 re IE https
+#709 retina image for loading.gif (even though we don't use it)
+
+2.34.0
+------
+Remove HTTPS URL rewriting for older IE.
+don't do analytics on https
+Check to make sure that every slide has a start date, so that people get a clear warning if the spreadsheet header has been changed.
+fix jquery version check, again. (should accept jquery 2, although TimelineJS has not been tested with jquery 2) cf. #551
+Update ko.js translation file
+Update fa.js
+
+2.33.1
+------
+Fix bug in handling maps.google URLs
+Update zh-cn localization file.
+
+2.33.0
+------
+#638 (WIP) better handle new-format Google Maps URLs 
+#597 parse new-format Google Spreadsheet URLs correctly
+(no ticket) Support "W" as date format token for "week" based on existing getWeek add on to Date.prototype 
+#632 Accept *.bmp as image URL in media field
+#631 Add bower file
+#589 remove unused code that refers to non-existent modules
+#526 fix jQuery version check so 1.10.x > 1.9.x
+#529 fix untagify to remove closing tags as well
+#567 be more permissive about iframe markup
+#512 fix Dark.css theme even though themes are generally not supported
+#520 treat Streetview API urls as images, not maps
+#536 fix typo in README.md
+#623 set maxheight on soundcloud embeds
+#624 'crush' pngs
+#625 deal with nutty MSIE user agent strings
+
+2.32.0
+------
+Stop YouTube players when slide changes
+Better method for determining embed path root
+Check for iframe and blockquote media before other url tests
+Add languages: 'hr' (Croatian), 'uk' (Ukrainian)
+minor fixes to language files for 'fi' (Finnish) 'sl' (Slovenian)
+
+2.31.0
+------
+Add languages: 'ro' (Romanian), 'th' (Thai)
+minor fixes to language files for 'es' (Spanish) 'fa' (Farsi), 'hu' (Hungarian), 'no' (Norwegian)
+add OpenStreetMap as a map option ('osm')
+Support '.svg' as an image media type
+support custom thumbnails when no media is specified
+clearer warning about "compatibility mode" to IE users.
+
+2.30.0
+------
+Fix language code for 'zh-cn' (Chinese)
+add 'fa' (Farsi)
+Move 'remove' function from Array.prototype to a util method to avoid adverse affects on other JS code.
+
 2.26.2
 -----
 

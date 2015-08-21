@@ -9,11 +9,10 @@ echo $this->Element('dataobject/pageBegin', array(
 ));
 ?>
 
-    <div class="subobjectPage nopadding">
+    <div class="subobjectPage nopadding margin-top-20">
 
         <?
         echo $this->Element('Dane.dataobject/subobject', array(
-            'menu' => isset($_submenu) ? $_submenu : false,
             'object' => $dzielnica,
             'objectOptions' => array(
                 'bigTitle' => true,
@@ -21,9 +20,13 @@ echo $this->Element('dataobject/pageBegin', array(
             )
         ));
 
+        if (!isset($_submenu['base']))
+            $_submenu['base'] = $object->getUrl();
+
         $options = array();
         if (isset($title))
             $options['title'] = $title;
+        $options['menu'] = $_submenu;
         echo $this->Element('Dane.DataBrowser/browser', $options);
         ?>
 

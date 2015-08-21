@@ -7,14 +7,15 @@ class SejmometrController extends ApplicationsController
 
     public $settings = array(
         'id' => 'sejmometr',
+        'title' => 'Sejmometr',
     );
-	
+
 	public function beforeFilter() {
-		
+
 		return $this->redirect('/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej');
-		
+
 	}
-	
+
     public function getMenu()
     {
         $menu = array(
@@ -81,7 +82,7 @@ class SejmometrController extends ApplicationsController
                             array(
                                 'id' => 'sejm_komunikaty',
                                 'label' => 'Komunikaty Kancelarii Sejmu',
-                            ),                            
+                            ),
                             array(
                                 'id' => 'poslowie_oswiadczenia_majatkowe',
                                 'label' => 'Oświadczenia majątkowe posłów',
@@ -179,13 +180,35 @@ class SejmometrController extends ApplicationsController
 
     public function view()
     {
-				
-        $this->menu_selected = 'view';
-        $this->loadDatasetBrowser('poslowie', array(
-	        'autocompletion' => array(
-		        'dataset' => 'poslowie',
-	        ),
-        ));
+
+        $datasets = $this->getDatasets('sejmometr');
+
+        $options = array(
+            'searchTitle' => 'Szukaj w pracach Sejmu...',
+            'autocompletion' => array(
+                'dataset' => 'poslowie',
+            ),
+            'conditions' => array(
+                'dataset' => array_keys($datasets)
+            ),
+            'aggs' => array(
+                'dataset' => array(
+                    'terms' => array(
+                        'field' => 'dataset',
+                    ),
+                    'visual' => array(
+                        'skin' => 'datasets',
+                        'class' => 'special',
+                        'field' => 'dataset',
+                        'dictionary' => $datasets,
+                    ),
+                ),
+            ),
+            'apps' => true,
+        );
+
+        $this->Components->load('Dane.DataBrowser', $options);
+        $this->render('Dane.Elements/DataBrowser/browser-from-app');
 
     }
 

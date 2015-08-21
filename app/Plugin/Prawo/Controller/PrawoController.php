@@ -167,6 +167,17 @@ class PrawoController extends ApplicationsController
                             ),
                         ),
                     ),
+                    'dataset' => array(
+	                    'terms' => array(
+		                    'field' => 'dataset',
+	                    ),
+	                    'visual' => array(
+	                        'skin' => 'datasets',
+	                        'class' => 'special',
+	                        'field' => 'dataset',
+	                        'dictionary' => $datasets,
+	                    ),
+                    ),
                 ),
             ),
             'aggs' => array(
@@ -175,14 +186,15 @@ class PrawoController extends ApplicationsController
                         'field' => 'dataset',
                     ),
                     'visual' => array(
-                        'label' => 'Zbiory danych',
                         'skin' => 'datasets',
                         'class' => 'special',
                         'field' => 'dataset',
                         'dictionary' => $datasets,
+                        'target' => 'menu',
                     ),
                 ),
             ),
+            'apps' => true,
         );
 
         $this->Components->load('Dane.DataBrowser', $options);

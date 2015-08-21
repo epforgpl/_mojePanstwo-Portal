@@ -35,16 +35,4 @@
             </div>
         </div>
     </div>
-    <? if (($params = $this->Paginator->params()) && isset($params['count'])) {
-        $took = round($dataBrowser['took'], 2);
-        ?>
-        <div class="dataCounter">
-            <? if($params['count']) {?><p class="pull-left"><?= pl_dopelniacz($params['count'], 'wynik', 'wyniki', 'wyników') ?><? if ($took) { ?> (<?= $took ?> s)<? } ?></p><? } ?>
-
-            <p class="pull-right">
-                <a href="#" class="link-discrete link-api-call" data-toggle="modal" data-target=".modal-api-call"><span
-                        class="glyphicon glyphicon-cog"></span> API</a>
-            </p>
-        </div>
-    <? } ?>
 </form>

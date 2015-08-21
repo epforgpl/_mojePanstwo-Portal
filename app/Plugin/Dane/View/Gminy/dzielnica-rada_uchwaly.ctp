@@ -8,15 +8,33 @@ if ($object->getId() == '903') $this->Combinator->add_libs('css', $this->Less->c
 echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
+?>
 
-echo $this->Element('Dane.dataobject/subobject', array(
-    'menu' => $_submenu,
-    'object' => $dzielnica,
-    'objectOptions' => array(
-        'hlFields' => array(),
-        'bigTitle' => true,
-    )
+<div class="subobjectPage nopadding margin-top-20">
+
+    <?
+    echo $this->Element('Dane.dataobject/subobject', array(
+        'object' => $dzielnica,
+        'objectOptions' => array(
+            'bigTitle' => true,
+            'hlFields' => array(),
+        )
+    ));
+
+    if (!isset($_submenu['base']))
+        $_submenu['base'] = $dzielnica->getUrl();
+
+    $options = array();
+    if (isset($title))
+        $options['title'] = $title;
+    $options['menu'] = $_submenu;
+    echo $this->Element('Dane.DataBrowser/browser', $options);
+    ?>
+
+</div>
+
+<?php
+echo $this->Element('dataobject/pageEnd', array(
+    'titleTag' => 'p',
 ));
-
-echo $this->Element('Dane.DataBrowser/browser');
-echo $this->Element('dataobject/pageEnd');
+?>

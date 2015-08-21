@@ -30,5 +30,10 @@ class Prawo_wojewodztwa extends DocDataObject
         );
 
     }
+    
+    public function getUrl()
+    {
+	    return '/dane/gminy/' . $this->getData('gmina_id') . '/prawo/' . $this->getId();
+    }
 
 }

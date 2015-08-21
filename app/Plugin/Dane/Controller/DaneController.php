@@ -9,7 +9,6 @@ class DaneController extends ApplicationsController
         'id' => 'dane',
         'title' => 'Dane',
         'subtitle' => 'Przeszukuj największą bazę danych publicznych w Polsce',
-        'headerImg' => 'dane',
     );
     
     
@@ -24,17 +23,6 @@ class DaneController extends ApplicationsController
 			!empty( $this->request->query['q'] )
 		) {
 		
-	        $apps = $this->getDatasets();
-	        $aggs = array();
-	        foreach ($apps as $app_id => $datasets) {
-	            $aggs['app_' . $app_id] = array(
-	                'filter' => array(
-	                    'terms' => array(
-	                        'dataset' => array_keys($datasets),
-	                    ),
-	                ),
-	            );
-	        }
 	
 	        $options = array(
 	            'searchTitle' => 'Szukaj w danych publicznych...',
@@ -47,11 +35,10 @@ class DaneController extends ApplicationsController
 	                    'element' => 'cover',
 	                ),
 	            ),
-	            'aggs' => $aggs,
-	            'aggs-mode' => 'apps',
+	            'apps' => true,
 	        );
 			
-            $this->_layout['header']['element'] = 'search';
+            $this->_layout['header'] = false;
 	        $this->Components->load('Dane.DataBrowser', $options);
 	        $this->render('Dane.Elements/DataBrowser/browser-from-app');
         

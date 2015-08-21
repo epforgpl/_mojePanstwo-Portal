@@ -30,9 +30,9 @@ $options = array(
             <section class="aggs-init">
                 <div class="dataAggs">
                     <div class="agg agg-Dataobjects">
-                        <? if ($dataBrowser['aggs']['all']['rada_projekty']['top']['hits']['hits']) { ?>
+                        <? if ($dataBrowser['aggs']['rada_projekty']['top']['hits']['hits']) { ?>
                             <ul class="dataobjects">
-                                <? foreach ($dataBrowser['aggs']['all']['rada_projekty']['top']['hits']['hits'] as $doc) { ?>
+                                <? foreach ($dataBrowser['aggs']['rada_projekty']['top']['hits']['hits'] as $doc) { ?>
                                     <li>
                                         <?
                                         echo $this->Dataobject->render($doc, 'default');
@@ -56,9 +56,9 @@ $options = array(
             <section class="aggs-init">
                 <div class="dataAggs">
                     <div class="agg agg-Dataobjects">
-                        <? if ($dataBrowser['aggs']['all']['krakow_rada_uchwaly']['top']['hits']['hits']) { ?>
+                        <? if ($dataBrowser['aggs']['krakow_rada_uchwaly']['top']['hits']['hits']) { ?>
                             <ul class="dataobjects">
-                                <? foreach ($dataBrowser['aggs']['all']['krakow_rada_uchwaly']['top']['hits']['hits'] as $doc) { ?>
+                                <? foreach ($dataBrowser['aggs']['krakow_rada_uchwaly']['top']['hits']['hits'] as $doc) { ?>
                                     <li>
                                         <?
                                         echo $this->Dataobject->render($doc, 'default');
@@ -71,7 +71,7 @@ $options = array(
                     </div>
                 </div>
             </section>
-            <? if ($dataBrowser['aggs']['all']['krakow_rada_uchwaly']['top']['hits']['hits']) { ?>
+            <? if ($dataBrowser['aggs']['krakow_rada_uchwaly']['top']['hits']['hits']) { ?>
                 <footer>
                     <div class="buttons text-center">
                         <a href="<?= $object->getUrl() ?>/rada_uchwaly" class="btn btn-primary btn-xs">Zobacz
@@ -87,9 +87,9 @@ $options = array(
             <section class="aggs-init">
                 <div class="dataAggs">
                     <div class="agg agg-Dataobjects">
-                        <? if ($dataBrowser['aggs']['all']['interpelacje']['top']['hits']['hits']) { ?>
+                        <? if ($dataBrowser['aggs']['interpelacje']['top']['hits']['hits']) { ?>
                             <ul class="dataobjects">
-                                <? foreach ($dataBrowser['aggs']['all']['interpelacje']['top']['hits']['hits'] as $doc) { ?>
+                                <? foreach ($dataBrowser['aggs']['interpelacje']['top']['hits']['hits'] as $doc) { ?>
                                     <li>
                                         <?
                                         echo $this->Dataobject->render($doc, 'default');
@@ -102,7 +102,7 @@ $options = array(
                     </div>
                 </div>
             </section>
-            <? if ($dataBrowser['aggs']['all']['interpelacje']['top']['hits']['hits']) { ?>
+            <? if ($dataBrowser['aggs']['interpelacje']['top']['hits']['hits']) { ?>
                 <footer>
                     <div class="buttons text-center">
                         <a href="<?= $object->getUrl() ?>/interpelacje" class="btn btn-primary btn-xs">Zobacz
@@ -115,7 +115,7 @@ $options = array(
 
     <? } else { ?>
 	
-		<? if (@$dataBrowser['aggs']['all']['prawo']['top']['hits']['hits']) { ?>
+		<? if (@$dataBrowser['aggs']['prawo']['top']['hits']['hits']) { ?>
         <div class="block block-simple block-size-sm col-xs-12">
             <header>Najnowsze prawo lokalne</header>
 
@@ -124,7 +124,7 @@ $options = array(
                     <div class="agg agg-Dataobjects">
                         
                             <ul class="dataobjects">
-                                <? foreach ($dataBrowser['aggs']['all']['prawo']['top']['hits']['hits'] as $doc) { ?>
+                                <? foreach ($dataBrowser['aggs']['prawo']['top']['hits']['hits'] as $doc) { ?>
                                     <li>
                                         <?
                                         echo $this->Dataobject->render($doc, 'default');
@@ -144,12 +144,12 @@ $options = array(
 	    
     <? } ?>
     
-    <? if (@$dataBrowser['aggs']['all']['zamowienia_publiczne_dokumenty']['dni']['buckets']) { ?>
+    <? if (@$dataBrowser['aggs']['zamowienia_publiczne_dokumenty']['dni']['buckets']) { ?>
         <div class="block block-simple block-size-sm col-xs-12">
             <header>Rozstrzygnięcia zamówień publicznych:</header>
             <section>
                 <?= $this->element('Dane.zamowienia_publiczne', array(
-                    'histogram' => $dataBrowser['aggs']['all']['zamowienia_publiczne_dokumenty']['dni']['buckets'],
+                    'histogram' => $dataBrowser['aggs']['zamowienia_publiczne_dokumenty']['dni']['buckets'],
                     'request' => array(
                         'gmina_id' => $object->getId(),
                     ),
@@ -170,7 +170,7 @@ $options = array(
             <div class="dataAggs">
                 <div class="agg agg-PieChart" data-chart-options="<?= htmlentities(json_encode($options)) ?>"
                      data-choose-request="<?= $object->getUrl() ?>/organizacje?conditions[krs_podmioty.forma_prawna_id]="
-                     data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['all']['krs_podmioty']['typ_id'])) ?>">
+                     data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['krs_podmioty']['typ_id'])) ?>">
                     <div class="chart">
                     </div>
                 </div>
@@ -185,7 +185,7 @@ $options = array(
             <div class="dataAggs">
                 <div class="agg agg-ColumnsVertical"
                      data-choose-request="<?= $object->getUrl() ?>/organizacje?conditions[krs_podmioty.wartosc_kapital_zakladowy]="
-                     data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['all']['krs_podmioty']['kapitalizacja'])) ?>">
+                     data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['krs_podmioty']['kapitalizacja'])) ?>">
                     <div class="chart"></div>
                 </div>
             </div>
@@ -198,7 +198,7 @@ $options = array(
         <section class="aggs-init">
             <div class="dataAggs">
                 <div class="agg agg-DateHistogram"
-                     data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['all']['krs_podmioty']['date'])) ?>">
+                     data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['krs_podmioty']['date'])) ?>">
 
                     <div class="chart"></div>
                 </div>
@@ -237,9 +237,9 @@ $options = array(
 
                 <div class="dataAggs">
                     <div class="agg agg-Dataobjects">
-                        <? if ($dataBrowser['aggs']['all']['rada_posiedzenia']['top']['hits']['hits']) { ?>
+                        <? if ($dataBrowser['aggs']['rada_posiedzenia']['top']['hits']['hits']) { ?>
                             <ul class="dataobjects">
-                                <? foreach ($dataBrowser['aggs']['all']['rada_posiedzenia']['top']['hits']['hits'] as $doc) { ?>
+                                <? foreach ($dataBrowser['aggs']['rada_posiedzenia']['top']['hits']['hits'] as $doc) { ?>
                                     <li>
                                         <?
                                         echo $this->Dataobject->render($doc, 'krakow_posiedzenia');
@@ -252,7 +252,7 @@ $options = array(
                     </div>
                 </div>
             </section>
-            <? if ($dataBrowser['aggs']['all']['rada_posiedzenia']['top']['hits']['hits']) { ?>
+            <? if ($dataBrowser['aggs']['rada_posiedzenia']['top']['hits']['hits']) { ?>
                 <footer>
                     <div class="buttons pull-right">
                         <a href="<?= $object->getUrl() ?>/posiedzenia" class="btn-primary btn-sm">Zobacz więcej</a>
@@ -267,9 +267,9 @@ $options = array(
             <section class="aggs-init nopadding">
                 <div class="dataAggs">
                     <div class="agg agg-Dataobjects">
-                        <? if ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits']) { ?>
+                        <? if ($dataBrowser['aggs']['rada_komisje_posiedzenia']['top']['hits']['hits']) { ?>
                             <ul class="dataobjects">
-                                <? foreach ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits'] as $doc) { ?>
+                                <? foreach ($dataBrowser['aggs']['rada_komisje_posiedzenia']['top']['hits']['hits'] as $doc) { ?>
                                     <li>
                                         <?
                                         echo $this->Dataobject->render($doc, 'krakow_rada_posiedzenia');
@@ -282,7 +282,7 @@ $options = array(
                     </div>
                 </div>
             </section>
-            <? if ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits']) { ?>
+            <? if ($dataBrowser['aggs']['rada_komisje_posiedzenia']['top']['hits']['hits']) { ?>
                 <footer>
                     <div class="buttons pull-right">
                         <a href="<?= $object->getUrl() ?>/komisje_posiedzenia"
@@ -298,9 +298,9 @@ $options = array(
             <section class="aggs-init nopadding">
                 <div class="dataAggs">
                     <div class="agg agg-Dataobjects">
-                        <? if ($dataBrowser['aggs']['all']['dzielnice_posiedzenia']['top']['hits']['hits']) { ?>
+                        <? if ($dataBrowser['aggs']['dzielnice_posiedzenia']['top']['hits']['hits']) { ?>
                             <ul class="dataobjects">
-                                <? foreach ($dataBrowser['aggs']['all']['dzielnice_posiedzenia']['top']['hits']['hits'] as $doc) { ?>
+                                <? foreach ($dataBrowser['aggs']['dzielnice_posiedzenia']['top']['hits']['hits'] as $doc) { ?>
                                     <li>
                                         <?
                                         echo $this->Dataobject->render($doc, 'dzielnice_posiedzenia');
@@ -313,7 +313,7 @@ $options = array(
                     </div>
                 </div>
             </section>
-            <? if ($dataBrowser['aggs']['all']['rada_komisje_posiedzenia']['top']['hits']['hits']) { ?>
+            <? if ($dataBrowser['aggs']['rada_komisje_posiedzenia']['top']['hits']['hits']) { ?>
                 <footer>
                     <div class="buttons pull-right">
                         <a href="<?= $object->getUrl() ?>/dzielnice"

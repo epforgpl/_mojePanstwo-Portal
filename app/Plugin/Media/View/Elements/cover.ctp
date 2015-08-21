@@ -1,113 +1,103 @@
 <?
+
+$this->Combinator->add_libs('css', $this->Less->css('media-cover', array('plugin' => 'Media')));
+
 $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
 $this->Combinator->add_libs('js', '../plugins/highcharts/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
+$this->Combinator->add_libs('js', 'jquery-tags-cloud-min');
+$this->Combinator->add_libs('js', 'Media.media-cover');
 
 $options = array(
     'mode' => 'init',
 );
+
 ?>
-<div class="col-md-8">
 
-    <div class="databrowser-panels">
+<div class="col-xs-12 col-md-3 dataAggsContainer">
+    <? echo $this->Element('Dane.DataBrowser/aggs', array(
+        	'data' => $dataBrowser,
+    )); ?>
+</div>
 
-        <div class="databrowser-panel">
-            <h2>Akty prawne, które wejdą niedługo w życie</h2>
+<div class="col-xs-12 col-md-9">
 
-            <div class="aggs-init">
+    <? if(isset($twitterAccountTypes) && isset($twitterAccountType)) { ?>
+        <ul class="nav nav-pills margin-top-15">
+            <? foreach($twitterAccountTypes as $type => $label) { ?>
+                <li<? if($twitterAccountType == $type) echo ' class="active"' ?>>
+                    <a href="/media<? if($type != '0') echo '?type=' . $type ?>">
+                        <?= $label ?>
+                    </a>
+                </li>
+            <? } ?>
+        </ul>
+    <? } ?>
 
+	<? if( @$dataBrowser['aggs']['tweets']['timerange']['top']['hits']['hits'] ) { ?>
+	    <div class="block col-xs-12">
+	        <header>Najpopularniejsze treści na Twitterze</header>
+	        <section class="aggs-init">
+	            <div class="dataAggs">
+	                <div class="agg agg-Dataobjects">
+	                    <ul class="dataobjects">
+	                        <? foreach ($dataBrowser['aggs']['tweets']['timerange']['top']['hits']['hits'] as $doc) { ?>
+	                            <li>
+	                                <?= $this->Dataobject->render($doc, 'default') ?>
+	                            </li>
+	                        <? } ?>
+	                    </ul>
+	                </div>
+	            </div>
+	        </section>
+	    </div>
+    <? } ?>
+
+	<? if( @$dataBrowser['aggs']['tweets']['timerange']['accounts']['buckets'] ) { ?>
+		<div class="block col-xs-12">
+	        <header>Najpopularniejsze konta na Twitterze</header>
+            <section class="aggs-init">
                 <div class="dataAggs">
-                    <div class="agg agg-Dataobjects">
-                        <? if ($dataBrowser['aggs']['prawo']['wejda']['doc_count']) { ?>
-                            <ul class="dataobjects">
-                                <? foreach ($dataBrowser['aggs']['prawo']['wejda']['top']['hits']['hits'] as $doc) { ?>
-                                    <li>
-                                        <?
-                                        echo $this->Dataobject->render($doc, 'default');
-                                        ?>
-                                    </li>
-                                <? } ?>
-                            </ul>
-                        <? } ?>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="databrowser-panel">
-            <h2>Typy obowiązujących aktów prawnych</h2>
-
-            <div class="aggs-init">
-
-                <div class="dataAggs">
-                    <div class="agg agg-PieChart" data-chart-options="<?= htmlentities(json_encode($options)) ?>"
-                         data-choose-request="dane/prawo?conditions[prawo.typ_id]="
-                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['prawo_obowiazujace']['typ_id'])) ?>">
-                        <div class="chart">
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="databrowser-panel">
-            <h2>Nowe akty prawne w czasie</h2>
-
-            <div class="aggs-init">
-
-                <div class="dataAggs">
-                    <div class="agg agg-DateHistogram"
-                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['prawo']['date'])) ?>">
-
+                    <div class="agg agg-ColumnsHorizontal" data-image_field="image_url" data-label_field="name"
+                         data-counter_field="engagement_count" data-choose-request="media?conditions[twitter.twitter_account_id]="
+                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['timerange']['accounts'])) ?>">
                         <div class="chart"></div>
                     </div>
                 </div>
+            </section>
+	    </div>
+    <? } ?>
 
-            </div>
+    <? if(@$dataBrowser['aggs']['tweets']['timerange']['tags']['tags']) { ?>
+        <div class="block col-xs-12">
+            <header>Najpopularniejsze hashtagi</header>
+            <section class="aggs-init">
+                <ul id="tagsCloud">
+                    <? $tags = $dataBrowser['aggs']['tweets']['timerange']['tags']['tags'];
+                    foreach($tags['buckets'] as $tag) { ?>
+                        <li style="font-size: <?= (($tag['doc_count'] + 2) * 8) ?>px;">
+                            <a href="/media/tweety?conditions[twitter.tags]=<?= $tag['key'] ?>">
+                                <?= $tag['label']['buckets'][0]['key'] ?>
+                            </a>
+                        </li>
+                    <? } ?>
+                </ul>
+            </section>
         </div>
+    <? } ?>
 
-        <div class="databrowser-panel">
-            <h2>Akty prawne, które weszły niedawno w życie</h2>
-
-            <div class="aggs-init">
-
+    <? if(@$dataBrowser['aggs']['tweets']['timerange']['sources']['buckets']) { ?>
+        <div class="block col-xs-12">
+            <header>Najczęściej używane aplikacje</header>
+            <section class="aggs-init">
                 <div class="dataAggs">
-                    <div class="agg agg-Dataobjects">
-                        <? if ($dataBrowser['aggs']['prawo']['weszly']['doc_count']) { ?>
-                            <ul class="dataobjects">
-                                <? foreach ($dataBrowser['aggs']['prawo']['weszly']['top']['hits']['hits'] as $doc) { ?>
-                                    <li>
-                                        <?
-                                        echo $this->Dataobject->render($doc, 'default');
-                                        ?>
-                                    </li>
-                                <? } ?>
-                            </ul>
-                        <? } ?>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="databrowser-panel">
-            <h2>Autorzy obowiązujących aktów prawnych</h2>
-
-            <div class="aggs-init">
-
-                <div class="dataAggs">
-                    <div class="agg agg-ColumnsHorizontal" data-choose-request="asd"
-                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['prawo_obowiazujace']['autor_id'])) ?>">
+                    <div class="agg agg-ColumnsHorizontal" data-escape-html="1" data-choose-request="/media/tweety?conditions[twitter.src_id]="
+                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['timerange']['sources'])) ?>">
                         <div class="chart"></div>
                     </div>
                 </div>
-
-            </div>
+            </section>
         </div>
-
-
-    </div>
+    <? } ?>
 
 </div>

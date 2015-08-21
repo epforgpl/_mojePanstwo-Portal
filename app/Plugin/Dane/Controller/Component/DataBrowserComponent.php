@@ -14,6 +14,8 @@ class DataBrowserComponent extends Component
     private $autocompletion = false;
     private $aggsMode = false;
     private $searcher = true;
+    private $routes = array();
+    public $dataset = false;
 
     private $aggs_presets = array(
         'gminy' => array(
@@ -156,7 +158,8 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Liczba tweetów w czasie',
                     'skin' => 'date_histogram',
-                    'field' => 'date'
+                    'field' => 'date',
+                    'all' => 'Kiedykolwiek',
                 ),
             ),
             */
@@ -171,7 +174,8 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Liczba rozstrzygnięć w czasie',
                     'skin' => 'date_histogram',
-                    'field' => 'date'
+                    'field' => 'date',
+                    'all' => 'Kiedykolwiek',
                 ),
             ),
         ),
@@ -192,6 +196,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Autorzy projektów',
+                    'all' => 'Wszyscy autorzy',
                     'skin' => 'pie_chart',
                     'field' => 'rady_druki.autor_id'
                 ),
@@ -204,12 +209,12 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Liczba druków w czasie',
+                    'all' => 'Kiedykolwiek',
                     'skin' => 'date_histogram',
                     'field' => 'date'
                 ),
             ),
         ),
-        /*
         'prawo_wojewodztwa' => array(
             'date' => array(
                 'date_histogram' => array(
@@ -220,11 +225,11 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Liczba aktów prawnych w czasie',
                     'skin' => 'date_histogram',
-                    'field' => 'date'
+                    'field' => 'date',
+                    'all' => 'Kiedykolwiek',
                 ),
             ),
         ),
-        */
         'prawo_urzedowe' => array(
             'date' => array(
                 'date_histogram' => array(
@@ -235,7 +240,8 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Liczba aktów prawnych w czasie',
                     'skin' => 'date_histogram',
-                    'field' => 'date'
+                    'field' => 'date',
+                    'all' => 'Kiedykolwiek',
                 ),
             ),
         ),
@@ -291,7 +297,8 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Liczba projektów w czasie',
                     'skin' => 'date_histogram',
-                    'field' => 'date'
+                    'field' => 'date',
+                    'all' => 'Kiedykolwiek',
                 ),
             ),
         ),
@@ -305,7 +312,8 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Liczba interpelacji w czasie',
                     'skin' => 'date_histogram',
-                    'field' => 'date'
+                    'field' => 'date',
+                    'all' => 'Kiedykolwiek',
                 ),
             ),
         ),
@@ -319,7 +327,8 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Liczba posiedzeń w czasie',
                     'skin' => 'date_histogram',
-                    'field' => 'date'
+                    'field' => 'date',
+                    'all' => 'Kiedykolwiek',
                 ),
             ),
         ),
@@ -362,6 +371,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Typy uchwał',
+                    'all' => 'Wszystkie typy',
                     'skin' => 'pie_chart',
                     'field' => 'krakow_rada_uchwaly.typ_id',
                     'dictionary' => array(
@@ -378,6 +388,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Liczba uchwał w czasie',
+                    'all' => 'Kiedykolwiek',
                     'skin' => 'date_histogram',
                     'field' => 'date'
                 ),
@@ -393,6 +404,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Kadencje',
+                    'all' => 'Wszystkie kadencje',
                     'skin' => 'list',
                     'field' => 'krakow_komisje.kadencja_id',
                     'dictionary' => array(
@@ -413,6 +425,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Liczba posiedzeń w czasie',
+                    'all' => 'Kiedykolwiek',
                     'skin' => 'date_histogram',
                     'field' => 'date'
                 ),
@@ -450,6 +463,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Rok',
+                    'all' => 'Wszystkie lata',
                     'skin' => 'list',
                     'field' => 'krakow_pomoc_publiczna.rok'
                 ),
@@ -478,6 +492,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Beneficjenci',
+                    'all' => 'Wszyscy beneficjenci',
                     'skin' => 'columns_horizontal',
                     'field' => 'krakow_pomoc_publiczna.beneficjent_id',
                     'counter_field' => 'sum',
@@ -499,6 +514,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Przeznaczenie',
+                    'all' => 'Dowolne przeznaczenie',
                     'skin' => 'pie_chart',
                     'field' => 'krakow_pomoc_publiczna.przeznaczenie_id'
                 ),
@@ -514,6 +530,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Rok',
+                    'all' => 'Wszystkie lata',
                     'skin' => 'list',
                     'field' => 'krakow_zamowienia_publiczne.rok'
                 ),
@@ -542,6 +559,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Beneficjenci',
+                    'all' => 'Wszyscy beneficjenci',
                     'skin' => 'columns_horizontal',
                     'field' => 'krakow_zamowienia_publiczne.wykonawca_id',
                     'counter_field' => 'sum',
@@ -558,6 +576,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Rok',
+                    'all' => 'Wszystkie lata',
                     'skin' => 'list',
                     'field' => 'krakow_darczyncy.rok'
                 ),
@@ -586,6 +605,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Komitety',
+                    'all' => 'Wszystkie komitety',
                     'skin' => 'columns_horizontal',
                     'field' => 'krakow_darczyncy.komitet_id',
                     'counter_field' => 'sum',
@@ -633,6 +653,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Autorzy interpelacji',
+                    'all' => 'Wszyscy autorzy',
                     'skin' => 'columns_horizontal',
                     'field' => 'radni_gmin.id'
                 ),
@@ -678,6 +699,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Statusy',
+                    'all' => 'Wszystkie statusy',
                     'skin' => 'pie_chart',
                     'field' => 'krakow_zarzadzenia.realizacja_str'
                 ),
@@ -690,6 +712,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Liczba zarządzeń w czasie',
+                    'all' => 'Kiedykolwiek',
                     'skin' => 'date_histogram',
                     'field' => 'date'
                 ),
@@ -710,11 +733,11 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Statusy obowiązywania',
+                    'all' => 'Wszystkie statusy obowiązywania',
                     'skin' => 'pie_chart',
                     'field' => 'krakow_zarzadzenia.status_str'
                 ),
             ),
-
         ),
         'prawo' => array(
             'typ_id' => array(
@@ -733,6 +756,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Typy aktów prawnych',
+                    'all' => 'Wszystkie typy aktów',
                     'skin' => 'pie_chart',
                     'field' => 'prawo.typ_id'
                 ),
@@ -745,6 +769,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Liczba aktów prawnych w czasie',
+                    'all' => 'Wydane kiedykolwiek',
                     'skin' => 'date_histogram',
                     'field' => 'date'
                 ),
@@ -765,6 +790,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Autorzy aktów prawnych',
+                    'all' => 'Wszyscy autorzy',
                     'skin' => 'columns_horizontal',
                     'field' => 'prawo.autor_id'
                 ),
@@ -946,7 +972,8 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Liczba zamówień publicznych w czasie',
                     'skin' => 'date_histogram',
-                    'field' => '_date'
+                    'field' => '_date',
+                    'all' => 'Kiedykolwiek',
                 ),
             ),
         ),
@@ -967,6 +994,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Płeć',
+                    'all' => 'Mężczyźni i kobiety',
                     'skin' => 'pie_chart',
                     'field' => 'krs_osoby.plec',
                     'dictionary' => array(
@@ -993,6 +1021,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Formy prawne organizacji',
+                    'all' => 'Wszystkie formy prawne',
                     'skin' => 'pie_chart',
                     'field' => 'krs_podmioty.forma_prawna_id',
                 ),
@@ -1010,6 +1039,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Kapitalizacja spółek',
+                    'all' => 'Wszystkie zakresy kapitalizacji',
                     'skin' => 'krs/kapitalizacja',
                     'field' => 'krs_podmioty.wartosc_kapital_zakladowy',
                 ),
@@ -1025,7 +1055,8 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Liczba udzielonych dotacji w czasie',
                     'skin' => 'date_histogram',
-                    'field' => 'date'
+                    'field' => 'date',
+                    'all' => 'Kiedykolwiek',
                 ),
             ),
         ),
@@ -1066,6 +1097,30 @@ class DataBrowserComponent extends Component
         ),
     );
 
+	private function processAggs( $aggs = array() )
+	{
+
+		foreach( $aggs as $key => $value) {
+            if (is_array($value)) {
+
+                foreach ($value as $keyM => $valueM) {
+                    if ($keyM === 'visual') {
+
+						if( !isset($valueM['target']) )
+							$valueM['target'] = 'filters';
+
+                        $this->aggs_visuals_map[$key] = $valueM;
+                        unset($aggs[$key][$keyM]);
+
+                    }
+                }
+            }
+        }
+
+		return $aggs;
+
+	}
+
     public function __construct($collection, $settings)
     {
 
@@ -1073,25 +1128,29 @@ class DataBrowserComponent extends Component
             (
                 !isset($settings['aggs']) ||
                 (empty($settings['aggs']))
-            ) &&
-            isset($settings['aggsPreset']) &&
+            )
+        )
+            $settings['aggs'] = array();
+
+        if(
+	        isset($settings['aggsPreset']) &&
             array_key_exists($settings['aggsPreset'], $this->aggs_presets)
         )
-            $settings['aggs'] = $this->aggs_presets[$settings['aggsPreset']];
+        	$settings['aggs'] = array_merge($this->aggs_presets[$settings['aggsPreset']], $settings['aggs']);
 
 
-        if (isset($settings['aggs'])) {
-            foreach ($settings['aggs'] as $key => $value) {
-                if (is_array($value)) {
-                    foreach ($value as $keyM => $valueM) {
-                        if ($keyM === 'visual') {
-                            $this->aggs_visuals_map[$key] = $valueM;
-                            unset($settings['aggs'][$key][$keyM]);
-                        }
-                    }
-                }
-            }
+
+        if( isset($settings['aggs']) )
+        	$settings['aggs'] = $this->processAggs( $settings['aggs'] );
+
+        if(
+	        isset($settings['cover']) &&
+	        isset($settings['cover']['aggs'])
+        ) {
+        	$settings['cover']['aggs'] = $this->processAggs( $settings['cover']['aggs'] );
         }
+
+
 
         $this->settings = $settings;
 
@@ -1113,10 +1172,40 @@ class DataBrowserComponent extends Component
         if (isset($settings['searcher']))
             $this->searcher = $settings['searcher'];
 
+        if (isset($settings['routes']))
+            $this->routes = $settings['routes'];
+
+        if (isset($settings['dataset']))
+            $this->dataset = $settings['dataset'];
+
     }
 
     public function beforeRender($controller)
     {
+
+		if( isset($this->settings['apps']) && $this->settings['apps'] ) {
+
+			$apps = $controller->getDatasets();
+	        $aggs = array();
+	        foreach ($apps as $app_id => $datasets) {
+	            $aggs['app_' . $app_id] = array(
+	                'filter' => array(
+	                    'terms' => array(
+	                        'dataset' => array_keys($datasets),
+	                    ),
+	                ),
+	                'scope' => 'query_main',
+	            );
+	        }
+
+	        if( isset($this->settings['aggs']) )
+		        $this->settings['aggs'] = array_merge($this->settings['aggs'], $aggs);
+		    else
+		    	$this->settings['aggs'] = $aggs;
+
+	        $this->aggsMode = 'apps';
+
+		}
 
         $controller->helpers[] = 'Dane.Dataobject';
 
@@ -1165,75 +1254,91 @@ class DataBrowserComponent extends Component
                 'searcher' => $this->searcher,
                 'autocompletion' => $this->autocompletion,
                 'mode' => 'data',
+                'dataset' => $this->dataset,
+                'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
             );
 
-            if ($this->aggsMode == 'apps') {
 
-                $_aggs = $controller->Dataobject->getAggs();
-                $aggs = array();
 
-                foreach ($_aggs as $app_id => $app_data) {
-                    if ($count = $app_data['doc_count']) {
+			$app_menu = array();
+            $dataBrowser['aggs'] = $controller->Dataobject->getAggs();
+            $dataBrowser['apps'] = $controller->Dataobject->getApps();
 
-                        $app_id = substr($app_id, 4);
 
-                        $aggs[] = array(
-                            'key' => $app_id,
-                            'doc_count' => $count,
-                            'app' => $controller->getApplication($app_id),
-                        );
+            foreach( $this->routes as $key => $value ) {
 
-                    }
-                }
+	            $parts = explode('/', $key);
+	            if(
+		            isset( $dataBrowser['aggs'][$parts[0]] ) &&
+		            isset( $dataBrowser['aggs'][$parts[0]][$parts[1]] )
+	            ) {
 
-                $dataBrowser['aggs'] = array(
-                    'apps' => array(
-                        'buckets' => $aggs,
-                    ),
-                );
+		            $dataBrowser['aggs'][ $value ] = $dataBrowser['aggs'][$parts[0]][$parts[1]];
+		            unset( $dataBrowser['aggs'][$parts[0]][$parts[1]] );
 
-            } else {
+					if( isset($dataBrowser['aggs'][$parts[0]]['doc_count']) ) {
+			            $dataBrowser['aggs'][ $value ]['doc_count'] = $dataBrowser['aggs'][$parts[0]]['doc_count'];
+			            unset( $dataBrowser['aggs'][$parts[0]]['doc_count'] );
+			        }
 
-                $dataBrowser['aggs'] = $controller->Dataobject->getAggs();
-                $dataBrowser['aggs_visuals_map'] = $this->prepareRequests($this->aggs_visuals_map, $controller);
-
-                if (
-                    isset($controller->Paginator->settings['conditions']) &&
-                    isset($controller->Paginator->settings['conditions']['dataset']) &&
-                    is_array($controller->Paginator->settings['conditions']['dataset']) &&
-                    (count($controller->Paginator->settings['conditions']['dataset']) > 1) &&
-                    isset($dataBrowser['aggs']['dataset']) &&
-                    isset($dataBrowser['aggs']['dataset']['buckets']) &&
-                    (count($dataBrowser['aggs']['dataset']['buckets']) === 1) &&
-                    ($dataBrowser['aggs']['dataset']['buckets'][0]['doc_count'])
-                ) {
-
-                    $params = array();
-                    $conditions = $controller->Paginator->settings['conditions'];
-                    if (isset($conditions['dataset']))
-                        unset($conditions['dataset']);
-
-                    if (isset($conditions['q'])) {
-                        $params['q'] = $conditions['q'];
-                        unset($conditions['q']);
-                    }
-
-                    $params['conditions'] = $conditions;
-
-                    $url = '/dane/' . $dataBrowser['aggs']['dataset']['buckets'][0]['key'];
-                    $url .= '?' . http_build_query($params);
-
-                    return $controller->redirect($url);
-
-                }
+	            }
 
             }
+
+
+            foreach ($dataBrowser['apps'] as $app_id => $app_data) {
+
+                $app = $controller->getApplication($app_id);
+                $app_menu[] = array(
+                    'id' => $app['id'],
+                    'href' => $app['href'],
+                    'title' => $app['name'],
+                );
+
+            }
+
+            if( $app_menu )
+            	$controller->app_menu[0] = $app_menu;
+
+
+			/*
+            if (
+                isset($controller->Paginator->settings['conditions']) &&
+                isset($controller->Paginator->settings['conditions']['dataset']) &&
+                is_array($controller->Paginator->settings['conditions']['dataset']) &&
+                (count($controller->Paginator->settings['conditions']['dataset']) > 1) &&
+                isset($dataBrowser['aggs']['dataset']) &&
+                isset($dataBrowser['aggs']['dataset']['buckets']) &&
+                (count($dataBrowser['aggs']['dataset']['buckets']) === 1) &&
+                ($dataBrowser['aggs']['dataset']['buckets'][0]['doc_count'])
+            ) {
+
+                $params = array();
+                $conditions = $controller->Paginator->settings['conditions'];
+                if (isset($conditions['dataset']))
+                    unset($conditions['dataset']);
+
+                if (isset($conditions['q'])) {
+                    $params['q'] = $conditions['q'];
+                    unset($conditions['q']);
+                }
+
+                $params['conditions'] = $conditions;
+
+                $url = '/dane/' . $dataBrowser['aggs']['dataset']['buckets'][0]['key'];
+                $url .= '?' . http_build_query($params);
+
+                return $controller->redirect($url);
+
+            }
+            */
+
 
             $controller->set('dataBrowser', $dataBrowser);
 
 
             if (isset($controller->request->query['conditions']['q']) && $controller->request->query['conditions']['q']) {
-                $controller->title = $controller->request->query['conditions']['q'];
+                $controller->title = $controller->request->query['conditions']['q'] . ' - Szukaj w danych publicznych';
             }
 
 
@@ -1258,8 +1363,7 @@ class DataBrowserComponent extends Component
 
                 $controller->Dataobject->find('all', $params);
 
-
-                $controller->set('dataBrowser', array(
+				$dataBrowser = array(
                     'aggs' => $controller->Dataobject->getAggs(),
                     'cover' => $this->cover,
                     'cancel_url' => false,
@@ -1268,7 +1372,31 @@ class DataBrowserComponent extends Component
                     'searcher' => $this->searcher,
                     'autocompletion' => $this->autocompletion,
                     'mode' => 'cover',
-                ));
+                    'dataset' => $this->dataset,
+	                'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
+                );
+
+                foreach( $this->routes as $key => $value ) {
+
+		            $parts = explode('/', $key);
+		            if(
+			            isset( $dataBrowser['aggs'][$parts[0]] ) &&
+			            isset( $dataBrowser['aggs'][$parts[0]][$parts[1]] )
+		            ) {
+
+			            $dataBrowser['aggs'][ $value ] = $dataBrowser['aggs'][$parts[0]][$parts[1]];
+			            unset( $dataBrowser['aggs'][$parts[0]][$parts[1]] );
+
+						if( isset($dataBrowser['aggs'][$parts[0]]['doc_count']) ) {
+				            $dataBrowser['aggs'][ $value ]['doc_count'] = $dataBrowser['aggs'][$parts[0]]['doc_count'];
+				            unset( $dataBrowser['aggs'][$parts[0]]['doc_count'] );
+				        }
+
+		            }
+
+	            }
+
+                $controller->set('dataBrowser', $dataBrowser);
 
             }
 
@@ -1348,6 +1476,7 @@ class DataBrowserComponent extends Component
         $query = $controller->request->query;
 
         foreach ($maps as $i => $map) {
+
             // Anulowanie np. wybranego typu
             $cancelQuery = $query;
 
@@ -1373,6 +1502,9 @@ class DataBrowserComponent extends Component
                 $r .= '&conditions[' . $map['field'] . ']=';
 
             $maps[$i]['chooseRequest'] = $r;
+
+            if( isset($maps[$i]['forceKey']) )
+            	$maps[ $maps[$i]['forceKey'] ] = $maps[$i];
         }
 
         return $maps;

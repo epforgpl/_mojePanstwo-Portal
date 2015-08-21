@@ -9,7 +9,7 @@
         // Browser globals
         factory(jQuery);
     }
-}(function ($) {
+}(function($){
     $.fn.wysihtml5.locale["hr-HR"] = {
         font_styles: {
             normal: "Normalan tekst",

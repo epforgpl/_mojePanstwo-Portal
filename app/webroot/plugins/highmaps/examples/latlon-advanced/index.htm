@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Highmaps Example</title>
+
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<style type="text/css">
+#container {
+    height: 680px;
+    min-width: 310px;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+.loading {
+    margin-top: 10em;
+    text-align: center;
+    color: gray;
+}
+		</style>
+		<script type="text/javascript">
+$(function () {
+
+    var H = Highcharts,
+        map = H.maps['countries/us/us-all'],
+        chart;
+
+
+    // Add series with state capital bubbles
+    $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=us-capitals.json&callback=?', function (json) {
+        var data = [];
+        $.each(json, function () {
+            this.z = this.population;
+            data.push(this);
+        });
+
+        $('#container').highcharts('Map', {
+
+            title: {
+                text: 'Highmaps lat/lon demo'
+            },
+
+            tooltip: {
+                formatter: function () {
+                    return this.point.capital + ', ' + this.point.parentState + '<br>Lat: ' + this.point.lat + ' Lon: ' + this.point.lon + '<br>Population: ' + this.point.population;
+                },
+                crosshairs: [{
+                    zIndex: 5,
+                    dashStyle: 'dot',
+                    snap: false,
+                    color: 'gray'
+                }, {
+                    zIndex: 5,
+                    dashStyle: 'dot',
+                    snap: false,
+                    color: 'gray'
+                }]
+            },
+
+            mapNavigation: {
+                enabled: true
+            },
+
+            series: [{
+                name: 'Basemap',
+                mapData: map,
+                borderColor: '#606060',
+                nullColor: 'rgba(200, 200, 200, 0.2)',
+                showInLegend: false
+            }, {
+                name: 'Separators',
+                type: 'mapline',
+                data: H.geojson(map, 'mapline'),
+                color: '#101010',
+                enableMouseTracking: false
+            }, {
+                type: 'mapbubble',
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.capital}'
+                },
+                name: 'Cities',
+                data: data,
+                maxSize: '12%',
+                color: H.getOptions().colors[0]
+            }]
+        });
+
+        chart = $('#container').highcharts();
+    });
+
+    // Display custom label with lat/lon next to crosshairs
+    $('#container').mousemove(function (e) {
+        var position;
+
+        if (chart) {
+            if (!chart.lab) {
+                chart.lab = chart.renderer.text('', 0, 0)
+                    .attr({
+                        zIndex: 5
+                    })
+                    .css({
+                        color: '#505050'
+                    })
+                    .add();
+            }
+
+            e = chart.pointer.normalize(e);
+            position = chart.fromPointToLatLon({
+                x: chart.xAxis[0].toValue(e.chartX),
+                y: chart.yAxis[0].toValue(e.chartY)
+            });
+
+            chart.lab.attr({
+                x: e.chartX + 5,
+                y: e.chartY - 22,
+                text: 'Lat: ' + position.lat.toFixed(2) + '<br>Lon: ' + position.lon.toFixed(2)
+            });
+        }
+    });
+
+    $('#container').mouseout(function () {
+        if (chart && chart.lab) {
+            chart.lab.destroy();
+            chart.lab = null;
+        }
+    });
+});
+
+		</script>
+	</head>
+	<body>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/proj4js/2.2.2/proj4.js"></script>
+<script src="../../js/highmaps.js"></script>
+<script src="../../js/modules/exporting.js"></script>
+<script src="http://code.highcharts.com/mapdata/countries/us/us-all.js"></script>
+<div id="container"></div>
+	</body>
+</html>

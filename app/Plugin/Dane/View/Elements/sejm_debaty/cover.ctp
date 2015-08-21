@@ -4,16 +4,16 @@ $this->Combinator->add_libs('css', $this->Less->css('view-sejmdebaty', array('pl
 $this->Combinator->add_libs('js', 'Dane.sejmdebaty');
 
 $glosowania = array();
-if( @$dataBrowser['aggs']['all']['glosowania']['top']['hits']['hits'] )
-	foreach( $dataBrowser['aggs']['all']['glosowania']['top']['hits']['hits'] as $hit )
+if( @$dataBrowser['aggs']['glosowania']['top']['hits']['hits'] )
+	foreach( $dataBrowser['aggs']['glosowania']['top']['hits']['hits'] as $hit )
 		$glosowania[ $hit['fields']['id'][0] ] = $hit;
 ?>
 
 <div class="col-md-9">
 
-	<? if( @$dataBrowser['aggs']['all']['wystapienia']['top']['hits']['hits'] ) {?>
+	<? if( @$dataBrowser['aggs']['wystapienia']['top']['hits']['hits'] ) {?>
 	<ul class="debata-wystapienia" did="<?= $debata->getId() ?>"<? if( isset($wystapienie) ){?> wid="<?= $wystapienie->getId() ?>"<?}?>>
-		<? foreach( $dataBrowser['aggs']['all']['wystapienia']['top']['hits']['hits'] as $doc ) { ?>
+		<? foreach( $dataBrowser['aggs']['wystapienia']['top']['hits']['hits'] as $doc ) { ?>
 		<li>
 			<?
 							
@@ -43,13 +43,13 @@ if( @$dataBrowser['aggs']['all']['glosowania']['top']['hits']['hits'] )
         
 	
 	
-	<? if( @$dataBrowser['aggs']['all']['punkty']['top']['hits']['hits'] ) { ?>
+	<? if( @$dataBrowser['aggs']['punkty']['top']['hits']['hits'] ) { ?>
 	<div class="stickybar">
 		<div class="punkty">
 			<p class="title">Rozpatrywane punkty porządku dziennego:</p>
 			<ul>
 			<? 
-			foreach( $dataBrowser['aggs']['all']['punkty']['top']['hits']['hits'] as $doc ) {
+			foreach( $dataBrowser['aggs']['punkty']['top']['hits']['hits'] as $doc ) {
 				$data = $doc['fields']['source'][0]['data'];
 			?>
 				<li>

@@ -7,6 +7,7 @@ class WyjazdyPoslowController extends ApplicationsController
 {
     public $settings = array(
         'id' => 'wyjazdy_poslow',
+        'title' => 'Wyjazdy posłów'
     );
 
     public function prepareMetaTags()

@@ -9,7 +9,7 @@
         // Browser globals
         factory(jQuery);
     }
-}(function ($) {
+}(function($){
     $.fn.wysihtml5.locale["ja-JP"] = {
         font_styles: {
             normal: "通常の文字",

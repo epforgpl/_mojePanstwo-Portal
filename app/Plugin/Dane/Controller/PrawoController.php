@@ -36,24 +36,20 @@ class PrawoController extends DataobjectsController
         }
                 
         $this->addInitAggs(array(
-            'all' => array(
-                'global' => '_empty',
-                'aggs' => array(
-                    'prawo' => array(
-                        'filter' => array(
-                            'bool' => array(
-                                'must' => array(
-                                    array(
-                                        'term' => array(
-                                            'dataset' => 'prawo',
-                                        ),
-                                    ),
+            'prawo' => array(
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'prawo',
                                 ),
                             ),
                         ),
-                        'aggs' => $aggs_fields,
                     ),
                 ),
+                'scope' => 'global',
+                'aggs' => $aggs_fields,
             ),
         ));
         
@@ -176,95 +172,95 @@ class PrawoController extends DataobjectsController
         
 
         
-        if( @$this->object_aggs['all']['prawo']['akty_uchylajace']['doc_count'] )
+        if( @$this->object_aggs['prawo']['akty_uchylajace']['doc_count'] )
         	$menu['items'][] = array(
 	        	'id' => 'akty_uchylajace',
 	        	'label' => 'Akty uchylające',
-	        	'count' => $this->object_aggs['all']['prawo']['akty_uchylajace']['doc_count'],
+	        	'count' => $this->object_aggs['prawo']['akty_uchylajace']['doc_count'],
         	);
         	
-        if( @$this->object_aggs['all']['prawo']['akty_uchylone']['doc_count'] )
+        if( @$this->object_aggs['prawo']['akty_uchylone']['doc_count'] )
         	$menu['items'][] = array(
 	        	'id' => 'akty_uchylone',
 	        	'label' => 'Akty uchylone',
-	        	'count' => $this->object_aggs['all']['prawo']['akty_uchylone']['doc_count'],
+	        	'count' => $this->object_aggs['prawo']['akty_uchylone']['doc_count'],
         	);
         	
-        if( @$this->object_aggs['all']['prawo']['akty_wykonawcze']['doc_count'] )
+        if( @$this->object_aggs['prawo']['akty_wykonawcze']['doc_count'] )
         	$menu['items'][] = array(
 	        	'id' => 'akty_wykonawcze',
 	        	'label' => 'Akty wykonawcze',
-	        	'count' => $this->object_aggs['all']['prawo']['akty_wykonawcze']['doc_count'],
+	        	'count' => $this->object_aggs['prawo']['akty_wykonawcze']['doc_count'],
         	);
         	
-        if( @$this->object_aggs['all']['prawo']['akty_uznane_za_uchylone']['doc_count'] )
+        if( @$this->object_aggs['prawo']['akty_uznane_za_uchylone']['doc_count'] )
         	$menu['items'][] = array(
 	        	'id' => 'akty_uznane_za_uchylone',
 	        	'label' => 'Akty uznane za uchylone',
-	        	'count' => $this->object_aggs['all']['prawo']['akty_uznane_za_uchylone']['doc_count'],
+	        	'count' => $this->object_aggs['prawo']['akty_uznane_za_uchylone']['doc_count'],
         	);
                 
-        if( @$this->object_aggs['all']['prawo']['akty_zmieniajace']['doc_count'] )
+        if( @$this->object_aggs['prawo']['akty_zmieniajace']['doc_count'] )
         	$menu['items'][] = array(
 	        	'id' => 'akty_zmieniajace',
 	        	'label' => 'Nowelizacje',
-	        	'count' => $this->object_aggs['all']['prawo']['akty_zmieniajace']['doc_count'],
+	        	'count' => $this->object_aggs['prawo']['akty_zmieniajace']['doc_count'],
         	);
         	
-        if( @$this->object_aggs['all']['prawo']['akty_zmienione']['doc_count'] )
+        if( @$this->object_aggs['prawo']['akty_zmienione']['doc_count'] )
         	$menu['items'][] = array(
 	        	'id' => 'akty_zmienione',
 	        	'label' => 'Akty zmienione',
-	        	'count' => $this->object_aggs['all']['prawo']['akty_zmienione']['doc_count'],
+	        	'count' => $this->object_aggs['prawo']['akty_zmienione']['doc_count'],
         	);
         
-        if( @$this->object_aggs['all']['prawo']['informacja_o_tekscie_jednolitym']['doc_count'] )
+        if( @$this->object_aggs['prawo']['informacja_o_tekscie_jednolitym']['doc_count'] )
         	$menu['items'][] = array(
 	        	'id' => 'informacja_o_tekscie_jednolitym',
 	        	'label' => 'Informacja o tekście jednolitym',
-	        	'count' => $this->object_aggs['all']['prawo']['informacja_o_tekscie_jednolitym']['doc_count'],
+	        	'count' => $this->object_aggs['prawo']['informacja_o_tekscie_jednolitym']['doc_count'],
         	);
         	
-        if( @$this->object_aggs['all']['prawo']['odeslania']['doc_count'] )
+        if( @$this->object_aggs['prawo']['odeslania']['doc_count'] )
         	$menu['items'][] = array(
 	        	'id' => 'odeslania',
 	        	'label' => 'Odesłania',
-	        	'count' => $this->object_aggs['all']['prawo']['odeslania']['doc_count'],
+	        	'count' => $this->object_aggs['prawo']['odeslania']['doc_count'],
         	);
         	
-        if( @$this->object_aggs['all']['prawo']['orzeczenie_do_aktu']['doc_count'] )
+        if( @$this->object_aggs['prawo']['orzeczenie_do_aktu']['doc_count'] )
         	$menu['items'][] = array(
 	        	'id' => 'orzeczenie_do_aktu',
 	        	'label' => 'Orzeczenia do aktu',
-	        	'count' => $this->object_aggs['all']['prawo']['orzeczenie_do_aktu']['doc_count'],
+	        	'count' => $this->object_aggs['prawo']['orzeczenie_do_aktu']['doc_count'],
         	);
         
-        if( @$this->object_aggs['all']['prawo']['orzeczenie_tk']['doc_count'] )
+        if( @$this->object_aggs['prawo']['orzeczenie_tk']['doc_count'] )
         	$menu['items'][] = array(
 	        	'id' => 'orzeczenia_tk',
 	        	'label' => 'Orzeczenia TK',
-	        	'count' => $this->object_aggs['all']['prawo']['orzeczenie_tk']['doc_count'],
+	        	'count' => $this->object_aggs['prawo']['orzeczenie_tk']['doc_count'],
         	);
         	
-        if( @$this->object_aggs['all']['prawo']['podstawa_prawna']['doc_count'] )
+        if( @$this->object_aggs['prawo']['podstawa_prawna']['doc_count'] )
         	$menu['items'][] = array(
 	        	'id' => 'podstawa_prawna',
 	        	'label' => 'Podstawa prawna',
-	        	'count' => $this->object_aggs['all']['prawo']['podstawa_prawna']['doc_count'],
+	        	'count' => $this->object_aggs['prawo']['podstawa_prawna']['doc_count'],
         	);
         	
-        if( @$this->object_aggs['all']['prawo']['tekst_jednolity_do_aktu']['doc_count'] )
+        if( @$this->object_aggs['prawo']['tekst_jednolity_do_aktu']['doc_count'] )
         	$menu['items'][] = array(
 	        	'id' => 'tekst_jednolity_do_aktu',
 	        	'label' => 'Tekst jednolity do aktu',
-	        	'count' => $this->object_aggs['all']['prawo']['tekst_jednolity_do_aktu']['doc_count'],
+	        	'count' => $this->object_aggs['prawo']['tekst_jednolity_do_aktu']['doc_count'],
         	);
         	
-        if( @$this->object_aggs['all']['prawo']['uchylenia_wynikajace_z']['doc_count'] )
+        if( @$this->object_aggs['prawo']['uchylenia_wynikajace_z']['doc_count'] )
         	$menu['items'][] = array(
 	        	'id' => 'uchylenia_wynikajace_z',
 	        	'label' => 'Uchylenia wynikające z',
-	        	'count' => $this->object_aggs['all']['prawo']['uchylenia_wynikajace_z']['doc_count'],
+	        	'count' => $this->object_aggs['prawo']['uchylenia_wynikajace_z']['doc_count'],
         	);
         
         return $menu;

@@ -45,3 +45,20 @@
   width: 100%;
   height: 400px;
 }
+
+.okregiBlock {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+
+    &:before {
+        content: ' ';
+        width: 100%;
+        height: 100%;
+        display: inline;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+}
