@@ -8,6 +8,7 @@ $options = array(
     'mode' => 'init',
 );
 
+
 $okreg = $radny->getLayer('okreg');
 
 if ($okreg) {
@@ -19,17 +20,19 @@ if ($okreg) {
 ?>
 <div class="col-md-9">
     <div class="databrowser-panels">
-        <? if (@$dataBrowser['aggs']['all']['glosowania']['top']['hits']['hits']) { ?>
+
+        <? if (@$dataBrowser['aggs']['glosowania']['top']['hits']['hits']) { ?>
             <div class="databrowser-panel margin-top-10">
+
                 <h2>Wyniki głosowań:</h2>
 
                 <div class="aggs-init">
 
                     <div class="dataAggs">
                         <div class="agg agg-Dataobjects">
-                            <? if ($dataBrowser['aggs']['all']['glosowania']['top']['hits']['hits']) { ?>
+                            <? if ($dataBrowser['aggs']['glosowania']['top']['hits']['hits']) { ?>
                                 <ul class="dataobjects">
-                                    <? foreach ($dataBrowser['aggs']['all']['glosowania']['top']['hits']['hits'] as $doc) { ?>
+                                    <? foreach ($dataBrowser['aggs']['glosowania']['top']['hits']['hits'] as $doc) { ?>
                                         <li>
                                             <?
                                             echo $this->Dataobject->render($doc, 'rady_gmin_glosowania');
@@ -50,7 +53,7 @@ if ($okreg) {
             </div>
         <? } ?>
 
-        <? if (@$dataBrowser['aggs']['all']['interpelacje']['top']['hits']['hits']) { ?>
+        <? if (@$dataBrowser['aggs']['interpelacje']['top']['hits']['hits']) { ?>
             <div class="databrowser-panel">
                 <h2>Najnowsze interpelacje:</h2>
 
@@ -58,9 +61,9 @@ if ($okreg) {
 
                     <div class="dataAggs">
                         <div class="agg agg-Dataobjects">
-                            <? if ($dataBrowser['aggs']['all']['interpelacje']['top']['hits']['hits']) { ?>
+                            <? if ($dataBrowser['aggs']['interpelacje']['top']['hits']['hits']) { ?>
                                 <ul class="dataobjects">
-                                    <? foreach ($dataBrowser['aggs']['all']['interpelacje']['top']['hits']['hits'] as $doc) { ?>
+                                    <? foreach ($dataBrowser['aggs']['interpelacje']['top']['hits']['hits'] as $doc) { ?>
                                         <li>
                                             <?
                                             echo $this->Dataobject->render($doc, 'default');
@@ -81,7 +84,7 @@ if ($okreg) {
             </div>
         <? } ?>
 
-        <? if (@$dataBrowser['aggs']['all']['komisje']['komisje']['kadencja']['top']['hits']['hits']) { ?>
+        <? if (@$dataBrowser['aggs']['komisje']['komisje']['kadencja']['top']['hits']['hits']) { ?>
             <div class="databrowser-panel">
                 <h2>Komisje, w których zasiada radny:</h2>
 
@@ -89,9 +92,9 @@ if ($okreg) {
 
                     <div class="dataAggs">
                         <div class="agg agg-Dataobjects">
-                            <? if ($dataBrowser['aggs']['all']['komisje']['komisje']['kadencja']['top']['hits']['hits']) { ?>
+                            <? if ($dataBrowser['aggs']['komisje']['komisje']['kadencja']['top']['hits']['hits']) { ?>
                                 <ul class="dataobjects">
-                                    <? foreach ($dataBrowser['aggs']['all']['komisje']['komisje']['kadencja']['top']['hits']['hits'] as $doc) { ?>
+                                    <? foreach ($dataBrowser['aggs']['komisje']['komisje']['kadencja']['top']['hits']['hits'] as $doc) { ?>
                                         <li>
                                             <div class="objectRender readed docdataobject objclass">
 
@@ -137,6 +140,7 @@ if ($okreg) {
                 </div>
             </div>
         <? } ?>
+
 
         <? if (isset($osoba) && ($organizacje = $osoba->getLayer('organizacje'))) { ?>
             <div class="databrowser-panel">
@@ -209,7 +213,7 @@ if ($okreg) {
             </div>
         <? } ?>
 
-        <? if (@$dataBrowser['aggs']['all']['oswiadczenia']['top']['hits']['hits']) { ?>
+        <? if (@$dataBrowser['aggs']['oswiadczenia']['top']['hits']['hits']) { ?>
             <div class="databrowser-panel">
                 <h2>Oświadczenia majątkowe:</h2>
 
@@ -217,9 +221,9 @@ if ($okreg) {
 
                     <div class="dataAggs">
                         <div class="agg agg-Dataobjects">
-                            <? if ($dataBrowser['aggs']['all']['oswiadczenia']['top']['hits']['hits']) { ?>
+                            <? if ($dataBrowser['aggs']['oswiadczenia']['top']['hits']['hits']) { ?>
                                 <ul class="dataobjects">
-                                    <? foreach ($dataBrowser['aggs']['all']['oswiadczenia']['top']['hits']['hits'] as $doc) { ?>
+                                    <? foreach ($dataBrowser['aggs']['oswiadczenia']['top']['hits']['hits'] as $doc) { ?>
                                         <div
                                             class="objectRender readed docdataobject objclass radni_gmin_oswiadczenia_majatkowe">
                                             <div class="row">
@@ -255,6 +259,18 @@ if ($okreg) {
                 </div>
             </div>
         <? } ?>
+        
+        <? if( $powiazania = $radny->getLayer('powiazania') ) { ?>
+        	<div class="databrowser-panel">
+                <h2>Dane wynikające z oświadczeń majątkowych:</h2>
+
+                <div>
+	                <? debug($powiazania); ?>
+                </div>
+                
+            </div>
+        <? } ?>
+
     </div>
 </div>
 <div class="col-md-3">

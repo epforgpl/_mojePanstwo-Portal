@@ -6,19 +6,19 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
 
 	<? 
 		
-		// debug( $dataBrowser['aggs']['all']['debaty']['top']['hits']['hits'] );
+		// debug( $dataBrowser['aggs']['debaty']['top']['hits']['hits'] );
 		$static = $punkt->getStatic();
 					
 		$projekty = array();
-		if( @$dataBrowser['aggs']['all']['projekty']['top']['hits']['hits'] ) 
-			foreach( $dataBrowser['aggs']['all']['projekty']['top']['hits']['hits'] as $b ) 
+		if( @$dataBrowser['aggs']['projekty']['top']['hits']['hits'] ) 
+			foreach( $dataBrowser['aggs']['projekty']['top']['hits']['hits'] as $b ) 
 				if( @$b['fields']['id'][0] )
 					$projekty[ $b['fields']['id'][0] ] = $b;
 					
 										
 		$glosowania = array();
-		if( @$dataBrowser['aggs']['all']['glosowania']['top']['hits']['hits'] ) 
-			foreach( $dataBrowser['aggs']['all']['glosowania']['top']['hits']['hits'] as $b ) 
+		if( @$dataBrowser['aggs']['glosowania']['top']['hits']['hits'] ) 
+			foreach( $dataBrowser['aggs']['glosowania']['top']['hits']['hits'] as $b ) 
 				if( @$b['fields']['id'][0] )
 					$glosowania[ $b['fields']['id'][0] ] = $b;
 											
@@ -30,7 +30,7 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
     
 		    
 		    
-		    <? if( $dataBrowser['aggs']['all']['debaty']['top']['hits']['hits'] ) {?>
+		    <? if( $dataBrowser['aggs']['debaty']['top']['hits']['hits'] ) {?>
 		    <div class="block block-simple block-size-sm col-xs-12">
 		        <header>Debaty w tym punkcie</header>
 				
@@ -39,7 +39,7 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
 		                <div class="agg agg-Dataobjects">
 		                    <ul class="dataobjects">
 		                        <? 
-			                        foreach ($dataBrowser['aggs']['all']['debaty']['top']['hits']['hits'] as $debata) { 
+			                        foreach ($dataBrowser['aggs']['debaty']['top']['hits']['hits'] as $debata) { 
 				                        $data = $debata['fields']['source'][0]['data'];
 		                        ?>
 		                            <li class="punkt">

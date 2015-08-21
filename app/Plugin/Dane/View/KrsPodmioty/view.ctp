@@ -49,11 +49,11 @@ $description =
     </div>
 <? } ?>
 
-<? if( @$object_aggs['all']['dzialania']['top']['hits']['hits'] ) {?>
+<? if( @$object_aggs['dzialania']['top']['hits']['hits'] ) {?>
 	<div class="block block-simple col-xs-12 dzialania">
 		<header>Działania</header>
 	    <section class="content">
-	        <? foreach ($object_aggs['all']['dzialania']['top']['hits']['hits'] as $dzialanie) { ?>
+	        <? foreach ($object_aggs['dzialania']['top']['hits']['hits'] as $dzialanie) { ?>
 	            <div class="col-sm-6">
 	                <h4>
 	                    <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>">

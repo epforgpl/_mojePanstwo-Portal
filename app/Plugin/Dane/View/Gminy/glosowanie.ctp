@@ -33,7 +33,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
     <div class="dataBrowser">
 
-        <? if (@$aggs['all']['glosy']['top']['hits']['hits']) { ?>
+        <? if (@$aggs['glosy']['top']['hits']['hits']) { ?>
             <div class="row">
                 <div class="col-md-8">
 
@@ -56,7 +56,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
                                 <div class="agg agg-Dataobjects">
 
                                     <ul class="wyniki_glosowania">
-                                        <? foreach ($aggs['all']['glosy']['top']['hits']['hits'] as $hit) {
+                                        <? foreach ($aggs['glosy']['top']['hits']['hits'] as $hit) {
                                             $wynik = $hit['fields']['source'][0]['data'];
                                             ?>
 

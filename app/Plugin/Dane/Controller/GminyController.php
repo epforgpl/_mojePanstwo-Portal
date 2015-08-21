@@ -1738,59 +1738,56 @@ class GminyController extends DataobjectsController
                 ),
                 'layers' => array('neighbours', 'wystapienia'),
                 'aggs' => array(
-                    'all' => array(
-                        'global' => '_empty',
-                        'aggs' => array(
-                            'druk' => array(
-                                'filter' => array(
-                                    'bool' => array(
-                                        'must' => array(
-                                            array(
-                                                'term' => array(
-                                                    'dataset' => 'rady_druki',
-                                                ),
-                                            ),
-                                            array(
-                                                'term' => array(
-                                                    'data.rady_druki.punkt_id' => $this->request->params['subid'],
-                                                ),
-                                            ),
+                    'druk' => array(
+                        'filter' => array(
+                            'bool' => array(
+                                'must' => array(
+                                    array(
+                                        'term' => array(
+                                            'dataset' => 'rady_druki',
                                         ),
                                     ),
-                                ),
-                                'aggs' => array(
-                                    'top' => array(
-                                        'top_hits' => array(
-                                            'fielddata_fields' => array('dataset', 'id'),
-                                            'size' => 1
+                                    array(
+                                        'term' => array(
+                                            'data.rady_druki.punkt_id' => $this->request->params['subid'],
                                         ),
                                     ),
                                 ),
                             ),
-                            'glosowania' => array(
-                                'filter' => array(
-                                    'bool' => array(
-                                        'must' => array(
-                                            array(
-                                                'term' => array(
-                                                    'dataset' => 'krakow_glosowania',
-                                                ),
-                                            ),
-                                            array(
-                                                'term' => array(
-                                                    'data.krakow_glosowania.punkt_id' => $this->request->params['subid'],
-                                                ),
-                                            ),
+                        ),
+                        'scope' => 'global',
+                        'aggs' => array(
+                            'top' => array(
+                                'top_hits' => array(
+                                    'fielddata_fields' => array('dataset', 'id'),
+                                    'size' => 1
+                                ),
+                            ),
+                        ),
+                    ),
+                    'glosowania' => array(
+                        'filter' => array(
+                            'bool' => array(
+                                'must' => array(
+                                    array(
+                                        'term' => array(
+                                            'dataset' => 'krakow_glosowania',
+                                        ),
+                                    ),
+                                    array(
+                                        'term' => array(
+                                            'data.krakow_glosowania.punkt_id' => $this->request->params['subid'],
                                         ),
                                     ),
                                 ),
-                                'aggs' => array(
-                                    'top' => array(
-                                        'top_hits' => array(
-                                            'fielddata_fields' => array('dataset', 'id'),
-                                            'size' => 100
-                                        ),
-                                    ),
+                            ),
+                        ),
+                        'scope' => 'global',
+                        'aggs' => array(
+                            'top' => array(
+                                'top_hits' => array(
+                                    'fielddata_fields' => array('dataset', 'id'),
+                                    'size' => 100
                                 ),
                             ),
                         ),
@@ -1841,33 +1838,29 @@ class GminyController extends DataobjectsController
                     'id' => $this->request->params['subid'],
                 ),
                 'aggs' => array(
-                    'all' => array(
-                        'global' => '_empty',
-                        'aggs' => array(
-                            'glosy' => array(
-                                'filter' => array(
-                                    'bool' => array(
-                                        'must' => array(
-                                            array(
-                                                'term' => array(
-                                                    'dataset' => 'krakow_glosowania_glosy',
-                                                ),
-                                            ),
-                                            array(
-                                                'term' => array(
-                                                    'data.krakow_glosowania_glosy.glosowanie_id' => $this->request->params['subid'],
-                                                ),
-                                            ),
+                    'glosy' => array(
+                        'filter' => array(
+                            'bool' => array(
+                                'must' => array(
+                                    array(
+                                        'term' => array(
+                                            'dataset' => 'krakow_glosowania_glosy',
+                                        ),
+                                    ),
+                                    array(
+                                        'term' => array(
+                                            'data.krakow_glosowania_glosy.glosowanie_id' => $this->request->params['subid'],
                                         ),
                                     ),
                                 ),
-                                'aggs' => array(
-                                    'top' => array(
-                                        'top_hits' => array(
-                                            'fielddata_fields' => array('dataset', 'id'),
-                                            'size' => 100
-                                        ),
-                                    ),
+                            ),
+                        ),
+                        'scope' => 'global',
+                        'aggs' => array(
+                            'top' => array(
+                                'top_hits' => array(
+                                    'fielddata_fields' => array('dataset', 'id'),
+                                    'size' => 100
                                 ),
                             ),
                         ),
@@ -2547,6 +2540,7 @@ class GminyController extends DataobjectsController
                 $layers[] = 'obietnice';
             } elseif ($subaction == 'view') {
                 $layers[] = 'okreg';
+                $layers[] = 'powiazania';
             }
 
 
@@ -3007,6 +3001,7 @@ class GminyController extends DataobjectsController
                                     ),
                                 ),
                             ),
+                            'scope' => 'global',
                             'aggs' => array(
                                 'top' => array(
                                     'top_hits' => array(
@@ -3043,6 +3038,7 @@ class GminyController extends DataobjectsController
                                     ),
                                 ),
                             ),
+                            'scope' => 'global',
                             'aggs' => array(
                                 'top' => array(
                                     'top_hits' => array(
@@ -3067,12 +3063,7 @@ class GminyController extends DataobjectsController
                                     'plugin' => 'Dane',
                                     'element' => 'gminy/komisja-cover',
                                 ),
-                                'aggs' => array(
-                                    'all' => array(
-                                        'global' => '_empty',
-                                        'aggs' => $global_aggs,
-                                    ),
-                                ),
+                                'aggs' => $global_aggs,
                             ),
                         );
 
@@ -3450,7 +3441,7 @@ class GminyController extends DataobjectsController
 
     public function prawo()
     {
-		
+
 		$this->_prepareView();
 
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
@@ -3461,7 +3452,7 @@ class GminyController extends DataobjectsController
                     'id' => $this->request->params['subid'],
                 ),
             ));
-            
+
             $this->set('prawo', $prawo);
             $this->set('title_for_layout', $prawo->getTitle());
             $this->render('prawo-view');
@@ -3475,10 +3466,10 @@ class GminyController extends DataobjectsController
 	            ),
 	            'aggsPreset' => 'prawo_lokalne',
 	        ));
-	
+
 	        $this->set('title_for_layout', 'Prawo lokalne gminy ' . $this->object->getData('nazwa'));
 
-        }	
+        }
 
     }
 
@@ -3793,7 +3784,7 @@ class GminyController extends DataobjectsController
     public function finanse()
     {
         $this->addInitLayers(array(
-            // 'finanse'
+            'finanse'
         ));
         $this->_prepareView();
         $this->loadModel('Finanse.GminaBudzet');
@@ -3807,6 +3798,8 @@ class GminyController extends DataobjectsController
 
     public function okregi()
     {
+
+	    $this->request->params['action'] = 'rada';
         $this->_prepareView();
 
         if ($this->object->getId() != '903')
@@ -3816,13 +3809,18 @@ class GminyController extends DataobjectsController
 
         if($subid = @$this->request->params['subid']) {
 
-            $okreg = $this->Krakow->okreg($subid);
+            $okreg = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'krakow_okregi_wyborcze',
+                    'id' => $this->request->params['subid'],
+                ),
+                'layers' => array('geo')
+            ));
+
             $this->set('okreg', $okreg);
+            $this->set('title_for_layout', $okreg->getTitle());
+            $this->render('okreg');
 
-            $okreg_id = (int) @$okreg[7];
-            if($okreg_id > 0) {
-
-            }
 
         } else {
             $this->set('okregi', $this->Krakow->okregi());
