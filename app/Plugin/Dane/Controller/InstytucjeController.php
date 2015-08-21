@@ -151,9 +151,7 @@ class InstytucjeController extends DataobjectsController
 	            );
 			}
 			
-			$this->addInitAggs(array(
-	            'all' => $aggs,
-	        ));
+			$this->addInitAggs($aggs);
 			
 		}
 		
@@ -538,9 +536,11 @@ class InstytucjeController extends DataobjectsController
 		$aggs = array();
 		if( isset($this->viewVars['dataBrowser']['aggs']) )
 			$aggs = $this->viewVars['dataBrowser']['aggs'];
-			
+		
+		
 		if( isset($this->object_aggs) )
-			$aggs = $this->object_aggs;
+			$aggs = array_merge($aggs, $this->object_aggs);
+
 					
         $menu = array(
             'items' => array(),
@@ -645,14 +645,35 @@ class InstytucjeController extends DataobjectsController
     {
 
         $this->load();
-        $this->Components->load('Dane.DataBrowser', array(
-            'conditions' => array(
-                'dataset' => 'prawo_urzedowe',
-                'prawo_urzedowe.instytucja_id' => $this->object->getId(),
-            ),
-        ));
+        
+        $this->_prepareView();
 
-        $this->set('title_for_layout', "Dziennik urzędowy " . $this->object->getTitle());
+        if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
+
+            $prawo = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'prawo_urzedowe',
+                    'id' => $this->request->params['subid'],
+                ),
+            ));
+            
+            $this->set('prawo', $prawo);
+            $this->set('title_for_layout', $prawo->getTitle());
+            $this->render('dziennik-view');
+
+        } else {
+
+            $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'prawo_urzedowe',
+	                'prawo_urzedowe.instytucja_id' => $this->object->getId(),
+	            ),
+	        ));
+	
+	        $this->set('title_for_layout', "Dziennik urzędowy " . $this->object->getTitle());
+
+        }
+                       
 
     }
 
@@ -1661,6 +1682,7 @@ class InstytucjeController extends DataobjectsController
                         ),
                     ),
                 ),
+                'scope' => 'global',
                 'aggs' => array(
                     'dni' => array(
 						'date_histogram' => array(
@@ -1709,12 +1731,7 @@ class InstytucjeController extends DataobjectsController
                     'plugin' => 'Dane',
                     'element' => 'instytucje/zamowienia-cover',
                 ),
-                'aggs' => array(
-                    'all' => array(
-                        'global' => '_empty',
-                        'aggs' => $global_aggs,
-                    ),
-                ),
+                'aggs' => $global_aggs,
             ),
         );
 

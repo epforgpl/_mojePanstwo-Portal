@@ -67,17 +67,37 @@ $options = array(
             </section>
 	    </div>
     <? } ?>
-	
-	<? // debug( @$dataBrowser['aggs']['tweets']['timerange']['tags']['tags'] ); ?>
-	<? // debug( @$dataBrowser['aggs']['tweets']['timerange']['sources']['buckets'] ); ?>
-	
-    <!--<div class="block col-xs-12">
-        <header>Najpopularniejsze hashtagi</header>
-        <section class="aggs-init">
-            <ul id="tagsCloud">
 
-            </ul>
-        </section>
-    </div>-->
+    <? if(@$dataBrowser['aggs']['tweets']['timerange']['tags']['tags']) { ?>
+        <div class="block col-xs-12">
+            <header>Najpopularniejsze hashtagi</header>
+            <section class="aggs-init">
+                <ul id="tagsCloud">
+                    <? $tags = $dataBrowser['aggs']['tweets']['timerange']['tags']['tags'];
+                    foreach($tags['buckets'] as $tag) { ?>
+                        <li style="font-size: <?= (($tag['doc_count'] + 2) * 8) ?>px;">
+                            <a href="/media/tweety?conditions[twitter.tags]=<?= $tag['key'] ?>">
+                                <?= $tag['label']['buckets'][0]['key'] ?>
+                            </a>
+                        </li>
+                    <? } ?>
+                </ul>
+            </section>
+        </div>
+    <? } ?>
+
+    <? if(@$dataBrowser['aggs']['tweets']['timerange']['sources']['buckets']) { ?>
+        <div class="block col-xs-12">
+            <header>Najczęściej używane aplikacje</header>
+            <section class="aggs-init">
+                <div class="dataAggs">
+                    <div class="agg agg-ColumnsHorizontal" data-escape-html="1" data-choose-request="/media/tweety?conditions[twitter.src_id]="
+                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['timerange']['sources'])) ?>">
+                        <div class="chart"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    <? } ?>
 
 </div>

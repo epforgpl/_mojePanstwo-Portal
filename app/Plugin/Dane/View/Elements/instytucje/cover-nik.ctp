@@ -13,7 +13,7 @@ $options = array(
     <div class="blocks">
 		
 		
-        <? if (@$dataBrowser['aggs']['all']['nik_raporty']['top']['hits']['hits']) { ?>
+        <? if (@$dataBrowser['aggs']['nik_raporty']['top']['hits']['hits']) { ?>
             <div class="block block-simple block-size-sm col-xs-12">
                 <header>Ostatnie raporty i wyniki kontroli:</header>
 
@@ -22,7 +22,7 @@ $options = array(
                     <div class="dataAggs">
                         <div class="agg agg-Dataobjects">
                             <ul class="row dataobjects docs-cover">
-                                <? foreach ($dataBrowser['aggs']['all']['nik_raporty']['top']['hits']['hits'] as $doc) { ?>
+                                <? foreach ($dataBrowser['aggs']['nik_raporty']['top']['hits']['hits'] as $doc) { ?>
                                     <li class="col-sm-6">
                                         <?
                                         echo $this->Dataobject->render($doc, 'default', array(
@@ -43,12 +43,12 @@ $options = array(
             </div>
         <? } ?>
 				
-		<? if (@$dataBrowser['aggs']['all']['zamowienia_publiczne_dokumenty']['dni']['buckets']) { ?>
+		<? if (@$dataBrowser['aggs']['zamowienia_publiczne_dokumenty']['dni']['buckets']) { ?>
             <div class="block block-simple block-size-sm col-xs-12">
                 <header>Rozstrzygnięcia zamówień publicznych:</header>
                 <section>
                     <?= $this->element('Dane.zamowienia_publiczne', array(
-                        'histogram' => $dataBrowser['aggs']['all']['zamowienia_publiczne_dokumenty']['dni']['buckets'],
+                        'histogram' => $dataBrowser['aggs']['zamowienia_publiczne_dokumenty']['dni']['buckets'],
                         'request' => array(
 	                        'instytucja_id' => $object->getId(),
                         ),
@@ -62,7 +62,7 @@ $options = array(
             </div>
         <? } ?>
 
-        <? if (@$dataBrowser['aggs']['all']['prawo_urzedowe']['top']['hits']['hits']) { ?>
+        <? if (@$dataBrowser['aggs']['prawo_urzedowe']['top']['hits']['hits']) { ?>
             <div class="block block-simple block-size-sm col-xs-12">
                 <header>Najnowsze pozycje w dzienniku urzędowym:</header>
 
@@ -70,9 +70,9 @@ $options = array(
 
                     <div class="dataAggs">
                         <div class="agg agg-Dataobjects">
-                            <? if ($dataBrowser['aggs']['all']['prawo_urzedowe']['top']['hits']['hits']) { ?>
+                            <? if ($dataBrowser['aggs']['prawo_urzedowe']['top']['hits']['hits']) { ?>
                                 <ul class="dataobjects">
-                                    <? foreach ($dataBrowser['aggs']['all']['prawo_urzedowe']['top']['hits']['hits'] as $doc) { ?>
+                                    <? foreach ($dataBrowser['aggs']['prawo_urzedowe']['top']['hits']['hits'] as $doc) { ?>
                                         <li>
                                             <?
                                             echo $this->Dataobject->render($doc, 'default');
