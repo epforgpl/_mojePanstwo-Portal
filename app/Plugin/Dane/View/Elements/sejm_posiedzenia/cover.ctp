@@ -7,23 +7,23 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
 	<? 
 							
 		$projekty = array();
-		if( @$dataBrowser['aggs']['all']['projekty']['top']['hits']['hits'] ) 
-			foreach( $dataBrowser['aggs']['all']['projekty']['top']['hits']['hits'] as $b ) 
+		if( @$dataBrowser['aggs']['projekty']['top']['hits']['hits'] ) 
+			foreach( $dataBrowser['aggs']['projekty']['top']['hits']['hits'] as $b ) 
 				if( @$b['fields']['id'][0] )
 					$projekty[ $b['fields']['id'][0] ] = $b;
 		
-		// debug( $dataBrowser['aggs']['all']['glosowania'] );
+		// debug( $dataBrowser['aggs']['glosowania'] );
 			
 		$glosowania = array();
-		if( @$dataBrowser['aggs']['all']['glosowania']['top']['hits']['hits'] ) 
-			foreach( $dataBrowser['aggs']['all']['glosowania']['top']['hits']['hits'] as $b ) 
+		if( @$dataBrowser['aggs']['glosowania']['top']['hits']['hits'] ) 
+			foreach( $dataBrowser['aggs']['glosowania']['top']['hits']['hits'] as $b ) 
 				if( @$b['fields']['id'][0] )
 					$glosowania[ $b['fields']['id'][0] ] = $b;
 											
 	?>
 	
     
-    <? if( @$dataBrowser['aggs']['all']['punkty']['top']['hits']['hits'] ) {?>
+    <? if( @$dataBrowser['aggs']['punkty']['top']['hits']['hits'] ) {?>
     <div class="block block-simple block-size-sm col-xs-12">
         <header>Punkty porządku dziennego</header>
 		
@@ -31,7 +31,7 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
             <div class="dataAggs">
                 <div class="agg agg-Dataobjects">
                     <ul class="dataobjects punkt-projekty">
-                        <? foreach (@$dataBrowser['aggs']['all']['punkty']['top']['hits']['hits'] as $doc) { ?>
+                        <? foreach (@$dataBrowser['aggs']['punkty']['top']['hits']['hits'] as $doc) { ?>
                             <li>
                             	
                             	<? 

@@ -1160,19 +1160,24 @@ class InstytucjeController extends DataobjectsController
 				);
 				*/
 				
+				/*
 				$submenu['items'][] = array(
 					'id' => 'wystapienia',
 					'label' => 'Wystąpienia',
 				);
 				
+				
 				$submenu['items'][] = array(
 					'id' => 'glosowania',
 					'label' => 'Głosowania',
 				);
+				*/
 				
 				
 				
 				$submenu['base'] = '/dane/instytucje/3214/punkty/' . $punkt->getId();
+
+				// debug( $this->request->params ); die();
 
 				switch( @$this->request->params['subaction'] ) {
 					
