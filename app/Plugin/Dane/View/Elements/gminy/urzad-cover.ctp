@@ -25,7 +25,7 @@ $options = array(
 </div>
 <div class="col-md-9">
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-8">
             <div class="databrowser-panels">
                 <? if ($object->getId() == 903) { ?>
                     <div class="databrowser-panel">
@@ -79,7 +79,7 @@ $options = array(
                 <? } ?>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-4">
 
             <?
             if ($adres = $object->getData('adres')) {
