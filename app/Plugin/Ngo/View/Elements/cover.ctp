@@ -13,6 +13,13 @@
 
     } ?>
 
+    <div class="panel panel-primary col-xs-12" data-toggle="modal" data-target="#ngoPartnerModal">
+        <div class="panel-body">
+            Zostań oficjalnym partnerem mojegoPaństwa
+        </div>
+    </div>
+    <?php echo $this->element('Ngo.ngo_partner_modal') ?>
+
     <? echo $this->Element('Dane.DataBrowser/aggs', array(
             'data' => $dataBrowser,
     )); ?>
