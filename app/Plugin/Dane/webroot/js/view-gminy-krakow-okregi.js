@@ -224,7 +224,7 @@ $(document).ready(function() {
         );
 
         var polygons = [];
-        var p = parsePolyStrings(okreg[3]);
+        var p = parsePolyStrings(okreg);
 
         for(var s = 0; s < p.length; s++) {
             var poly = new google.maps.Polygon({

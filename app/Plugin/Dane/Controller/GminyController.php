@@ -1797,7 +1797,7 @@ class GminyController extends DataobjectsController
 
             $this->set('debata', $debata);
             $this->set('aggs', $this->Dataobject->getAggs());
-						
+
             $wystapienia = $debata->getLayer('wystapienia');
             $this->set('wystapienia', $wystapienia);
 
@@ -3798,7 +3798,7 @@ class GminyController extends DataobjectsController
 
     public function okregi()
     {
-	    
+
 	    $this->request->params['action'] = 'rada';
         $this->_prepareView();
 
@@ -3814,12 +3814,13 @@ class GminyController extends DataobjectsController
                     'dataset' => 'krakow_okregi_wyborcze',
                     'id' => $this->request->params['subid'],
                 ),
+                'layers' => array('geo')
             ));
 
             $this->set('okreg', $okreg);
             $this->set('title_for_layout', $okreg->getTitle());
             $this->render('okreg');
-            
+
 
         } else {
             $this->set('okregi', $this->Krakow->okregi());
