@@ -285,6 +285,12 @@ class CombinatorHelper extends AppHelper
         } else {
             $this->libs[$type][] = $toLib;
         }
+
+        foreach($this->viewLibs[$type] as $index => $lib) {
+            if($lib == $fromLib) {
+                unset($this->viewLibs[$type][$index]);
+            }
+        }
     }
 
     function reset_lib_list($type)
