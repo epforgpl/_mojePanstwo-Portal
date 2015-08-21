@@ -29,19 +29,29 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
 	    <div class="col-sm-4">
 
-	        <dl class="dl-horizontal margin-top-20">
-	            <dt>Rok</dt>
-	            <dd><?= $okreg->getData('rok') ?></dd>
-	            <dt>Liczba mieszkańców</dt>
-	            <dd><?= $okreg->getData('liczba_mieszkańców') ?></dd>
-	            <dt>Liczba mandatów</dt>
-	            <dd><?= $okreg->getData('liczba_mandatow') ?></dd>
-	        </dl>
+            <ul class="dataHighlights rightColumn">
+                <li class="dataHighlight col-xs-12">
+                    <p class="_label">Rok</p>
+                    <p class="_value"><?= $okreg->getData('rok') ?></p>
+                </li>
 
-	        <p>
-	            <strong>Ilość mieszkańców / Norma przedstawicielstwa <span
-	                    style="color: rgba(160, 25, 27, 0.78);">*</span></strong> : <?= $okreg->getData('liczba_miesz_norma_przedst') ?>
-	        </p>
+                <? if($okreg->getData('liczba_mieszkańców')) { ?>
+                    <li class="dataHighlight col-xs-12">
+                        <p class="_label">Liczba mieszkańców</p>
+                        <p class="_value"><?= $okreg->getData('liczba_mieszkańców') ?></p>
+                    </li>
+                <? } ?>
+
+                <li class="dataHighlight col-xs-12">
+                    <p class="_label">Liczba mandatów</p>
+                    <p class="_value"><?= $okreg->getData('liczba_mandatow') ?></span></p>
+                </li>
+
+                <li class="dataHighlight col-xs-12">
+                    <p class="_label">Ilość mieszkańców / Norma przedstawicielstwa <span style="color: rgba(160, 25, 27, 0.78);">*</span></p>
+                    <p class="_value"><?= $okreg->getData('liczba_miesz_norma_przedst') ?></p>
+                </li>
+            </ul>
 
 	        <p class="text-muted">
 	            <span style="color: rgba(160, 25, 27, 0.78);">*</span> Norma przedstawicielska -
