@@ -103,7 +103,6 @@ class BdlWskaznikiController extends DataobjectsController
         $this->set('combination', $combination);
         $this->set('expand_dimension', $expand_dimension);
 
-        /*FROM BDL BRANCH*/
         if (@$this->request->params['ext'] == 'html') {
             $this->layout = 'blank';
             $this->render('Bdl.subitem');
@@ -121,7 +120,6 @@ class BdlWskaznikiController extends DataobjectsController
             );
             $this->Components->load('Dane.DataBrowser', $options);
         }
-        /*END FROM BDL BRANCH*/
     }
 
     public function view()
