@@ -76,7 +76,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
     <div class="dataBrowser">
 
-        <? if (@$aggs['all']['glosowania']['top']['hits']['hits']) { ?>
+        <? if (@$aggs['glosowania']['top']['hits']['hits']) { ?>
             <div class="row">
                 <div class="col-md-8">
                     <div class="block block-default col-xs-12">
@@ -86,7 +86,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
                             <div class="dataAggs">
                                 <div class="agg agg-Dataobjects">
                                     <ul class="dataobjects">
-                                        <? foreach ($aggs['all']['glosowania']['top']['hits']['hits'] as $glosowanie) { ?>
+                                        <? foreach ($aggs['glosowania']['top']['hits']['hits'] as $glosowanie) { ?>
                                             <li>
                                                 <?
                                                 echo $this->Dataobject->render($glosowanie, 'krakow_glosowania');
@@ -103,7 +103,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
             </div>
         <? } ?>
 
-        <? if (@$aggs['all']['druk']['top']['hits']['hits']['0']) { ?>
+        <? if (@$aggs['druk']['top']['hits']['hits']['0']) { ?>
             <div class="row">
                 <div class="col-md-8">
                     <div class="block block-default col-xs-12">
@@ -115,7 +115,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
                                     <ul class="dataobjects">
                                         <li>
                                             <?
-                                            echo $this->Dataobject->render($aggs['all']['druk']['top']['hits']['hits']['0'], 'default');
+                                            echo $this->Dataobject->render($aggs['druk']['top']['hits']['hits']['0'], 'default');
                                             ?>
                                         </li>
                                     </ul>
