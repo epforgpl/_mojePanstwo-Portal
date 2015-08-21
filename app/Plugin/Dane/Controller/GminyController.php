@@ -3450,7 +3450,7 @@ class GminyController extends DataobjectsController
 
     public function prawo()
     {
-		
+
 		$this->_prepareView();
 
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
@@ -3461,7 +3461,7 @@ class GminyController extends DataobjectsController
                     'id' => $this->request->params['subid'],
                 ),
             ));
-            
+
             $this->set('prawo', $prawo);
             $this->set('title_for_layout', $prawo->getTitle());
             $this->render('prawo-view');
@@ -3475,10 +3475,10 @@ class GminyController extends DataobjectsController
 	            ),
 	            'aggsPreset' => 'prawo_lokalne',
 	        ));
-	
+
 	        $this->set('title_for_layout', 'Prawo lokalne gminy ' . $this->object->getData('nazwa'));
 
-        }	
+        }
 
     }
 
@@ -3793,7 +3793,7 @@ class GminyController extends DataobjectsController
     public function finanse()
     {
         $this->addInitLayers(array(
-            // 'finanse'
+            'finanse'
         ));
         $this->_prepareView();
         $this->loadModel('Finanse.GminaBudzet');
