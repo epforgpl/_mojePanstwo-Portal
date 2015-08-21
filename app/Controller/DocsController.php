@@ -182,7 +182,7 @@ class DocsController extends AppController
     public function save_budget_spendigns()
     {
         $this->autoRender = false;
-        $dane=json_decode($this->request->data['dane']);
+        $dane = json_decode($this->request->data['dane']);
 
         $data = array();
         foreach ($dane as $page) {
@@ -263,12 +263,13 @@ class DocsController extends AppController
         }
 
         $this->loadModel('Document');
-        $aa=$this->Document->save_budget(json_encode($data));
+        $aa = $this->Document->save_budget(json_encode($data));
 
 
-       echo '<pre>';
-       var_export($aa['dane']);
-       // var_export(json_encode($data));
+        echo '<pre>';
+       // var_export(count($data));
+var_export($aa['data']);
+        // var_export(json_encode($data));
         echo '</pre>';
     }
 }
