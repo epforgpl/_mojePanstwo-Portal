@@ -1,49 +1,8 @@
 .panel {
-  height: 137px;
-  cursor: pointer;
-  position: relative;
-  margin-top: 10px;
-
-  background: url(/ngo/img/sidebar_background.jpg) top center no-repeat;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -ms-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-
-  .panel-body {
-    font-size: 18px;
-    font-weight: bold;
-    color: #ffffff;
-    line-height: 1.2em;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-
-    &:after {
-      content: '▶';
-      float: right;
-      font-size: 10px;
-      color: #ffffff;
-      text-align: center;
-      width: 25px;
-      height: 25px;
-      background-color: #092844;
-      border: 1px solid #092844;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      -ms-border-radius: 5px;
-      -o-border-radius: 5px;
-      border-radius: 5px;
-    }
-  }
-}
-
-#ngoPartnerModal {
-  .modal-header {
-    height: 153px;
+    height: 137px;
+    cursor: pointer;
     position: relative;
-    border-bottom: none;
+    margin-top: 10px;
 
     background: url(/ngo/img/sidebar_background.jpg) top center no-repeat;
     -webkit-background-size: cover;
@@ -52,67 +11,107 @@
     -o-background-size: cover;
     background-size: cover;
 
-    .close, h4 {
-      color: #ffffff;
-    }
-    .close {
-      -webkit-opacity: 1;
-      -moz-opacity: 1;
-      -ms-opacity: 1;
-      -o-opacity: 1;
-      opacity: 1;
-    }
-    h4 {
-      font-family: 'Roboto', sans-serif;
-      font-size: 24px;
-      font-weight: bold;
-      line-height: 1.2em;
-      position: absolute;
-      bottom: 15px;
-      left: 15px;
-    }
-  }
-  .modal-body {
-    > p {
-      font-size: 14px;
-      font-weight: normal;
-      color: #222222;
-      padding: 5px 15px;
-    }
-    > form {
-      padding: 10px;
+    .panel-body {
+        font-size: 18px;
+        font-weight: bold;
+        color: #ffffff;
+        line-height: 1.2em;
+        position: absolute;
+        bottom: 0;
+        left: 0;
 
-      .form-group {
-        &:last-child {
-          margin-bottom: 0;
+        &:after {
+            content: '▶';
+            float: right;
+            font-size: 10px;
+            color: #ffffff;
+            text-align: center;
+            width: 25px;
+            height: 25px;
+            margin-top: 5px;
+            background-color: #092844;
+            border: 1px solid #092844;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            -o-border-radius: 5px;
+            border-radius: 5px;
         }
-        > label {
-          font-size: 14px;
-          font-weight: normal;
-          color: #9a9a9a;
-          line-height: 1em;
-          margin-bottom: 10px;
-        }
-      }
-      .btn-icon {
-        width: auto;
-        margin-left: auto;
-        margin-right: auto;
-        display: block;
-        margin-top: 15px;
-      }
     }
-  }
+}
+
+#ngoPartnerModal {
+    .modal-header {
+        margin-top: 0;
+        height: 153px;
+        position: relative;
+        border-bottom: none;
+
+        background: url(/ngo/img/sidebar_background.jpg) top center no-repeat;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+
+        .close, h4 {
+            color: #ffffff;
+        }
+        .close {
+            margin-top: 0;
+            -webkit-opacity: 1;
+            -moz-opacity: 1;
+            -ms-opacity: 1;
+            -o-opacity: 1;
+            opacity: 1;
+        }
+        h4 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 1.2em;
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+        }
+    }
+    .modal-body {
+        > p {
+            padding: 5px 15px;
+        }
+
+        > form {
+            padding: 10px;
+
+            .form-group {
+                &:last-child {
+                    margin-bottom: 0;
+                }
+                > label {
+                    line-height: 1em;
+                    margin-bottom: 10px;
+                }
+            }
+            .btn-icon {
+                width: auto;
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+                margin-top: 15px;
+            }
+        }
+    }
 }
 
 @media (min-width: 768px) {
-  #ngoPartnerModal {
-    .modal-header h4 {
-      width: 75%;
+    #ngoPartnerModal {
+        .modal-header h4 {
+            width: 75%;
+            margin-left: 10%;
+        }
+        .modal-body > form {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
     }
-    .modal-body > form {
-      margin-left: 20px;
-      margin-right: 20px;
-    }
-  }
 }

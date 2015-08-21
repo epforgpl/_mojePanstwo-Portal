@@ -58,7 +58,7 @@ $options = array(
 	        <header>Najpopularniejsze konta na Twitterze</header>
             <section class="aggs-init">
                 <div class="dataAggs">
-                    <div class="agg agg-ColumnsHorizontal" data-image_field="image_url" data-label_field="name"
+                    <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150" data-image_field="image_url" data-label_field="name"
                          data-counter_field="engagement_count" data-choose-request="media?conditions[twitter.twitter_account_id]="
                          data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['timerange']['accounts'])) ?>">
                         <div class="chart"></div>
