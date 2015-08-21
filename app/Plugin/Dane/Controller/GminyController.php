@@ -3807,7 +3807,7 @@ class GminyController extends DataobjectsController
     public function finanse()
     {
         $this->addInitLayers(array(
-            'finanse'
+            // 'finanse'
         ));
         $this->_prepareView();
         $this->loadModel('Finanse.GminaBudzet');
