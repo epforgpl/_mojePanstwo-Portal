@@ -404,6 +404,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Kadencje',
+                    'all' => 'Wszystkie kadencje',
                     'skin' => 'list',
                     'field' => 'krakow_komisje.kadencja_id',
                     'dictionary' => array(
@@ -1101,13 +1102,13 @@ class DataBrowserComponent extends Component
 
 		foreach( $aggs as $key => $value) {
             if (is_array($value)) {
-	            	                    
+
                 foreach ($value as $keyM => $valueM) {
                     if ($keyM === 'visual') {
-						
+
 						if( !isset($valueM['target']) )
 							$valueM['target'] = 'filters';
-						
+
                         $this->aggs_visuals_map[$key] = $valueM;
                         unset($aggs[$key][$keyM]);
 
@@ -1115,7 +1116,7 @@ class DataBrowserComponent extends Component
                 }
             }
         }
-        
+
 		return $aggs;
 
 	}
@@ -1148,8 +1149,8 @@ class DataBrowserComponent extends Component
         ) {
         	$settings['cover']['aggs'] = $this->processAggs( $settings['cover']['aggs'] );
         }
-		
-		
+
+
 
         $this->settings = $settings;
 
@@ -1374,7 +1375,7 @@ class DataBrowserComponent extends Component
                     'dataset' => $this->dataset,
 	                'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
                 );
-								
+
                 foreach( $this->routes as $key => $value ) {
 
 		            $parts = explode('/', $key);

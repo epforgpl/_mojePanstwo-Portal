@@ -7,6 +7,7 @@ var DataAggsDropdown = function(li) {
 	this.aggs = this.li.data('aggs');
 	this.cancelRequest = this.li.data('cancel-request');
 	this.chooseRequest = this.li.data('choose-request');
+	this.labelDictionary = this.li.data('label-dictionary');
 	this.isSelected = this.li.data('is-selected') == '1';
 	this.allLabel = this.li.data('all-label');
 	this.counterField = this.li.data('counter-field') ? this.li.data('counter-field') : 'doc_count';
@@ -34,9 +35,117 @@ DataAggsDropdown.prototype.create = function() {
 		case 'date_histogram':
 			this.createDateHistogram();
 		break;
+
+		case 'krs/kapitalizacja':
+			this.createColumnsVertical();
+		break;
 	}
 
 	this.isCreated = true;
+};
+
+DataAggsDropdown.prototype.createColumnsVertical = function() {
+
+	var data = this.aggs;
+
+	var columns_vertical_data = [];
+	var columns_vertical_categories = [];
+	var columns_vertical_keys = [];
+	var choose_request = this.chooseRequest;
+
+	var _this = this;
+
+	var dropdownMenu = this.li.find('ul.dropdown-menu'),
+		dropdownChart = '<li class="chart"></li>';
+
+	dropdownChart += [
+		'<li role="separator" class="divider"></li>',
+		'<li><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
+	].join('');
+
+	dropdownMenu.append(dropdownChart);
+
+	for (var i = 0; i < data.buckets.length; i++) {
+		if (data.buckets[i].label === undefined) {
+			columns_vertical_categories[i] = this.prepareNumericLabel(data.buckets[i].key);
+			columns_vertical_data[i] = data.buckets[i].doc_count;
+		} else {
+			columns_vertical_categories[i] = data.buckets[i].label.buckets[0].key;
+			columns_vertical_data[i] = data.buckets[i].label.buckets[0].doc_count || data.buckets[i].doc_count;
+		}
+
+		columns_vertical_keys[i] = data.buckets[i].key;
+	}
+
+	this.li.find('.chart').highcharts({
+		chart: {
+			type: 'column',
+			backgroundColor: null,
+			height: 300
+		},
+		title: {
+			text: ''
+		},
+		subtitle: {
+			text: ''
+		},
+		xAxis: {
+			categories: columns_vertical_categories,
+			title: {
+				text: null
+			},
+			labels: {
+				rotation: -45
+			}
+		},
+		yAxis: {
+			min: 0,
+			title: {
+				text: null
+			},
+			labels: {
+				overflow: 'justify'
+			}
+		},
+		tooltip: {
+			valueSuffix: ' '
+		},
+		plotOptions: {
+			bar: {
+				dataLabels: {
+					enabled: true
+				}
+			}
+		},
+		legend: {
+			enabled: false
+		},
+		credits: {
+			enabled: false
+		},
+		series: [{
+			name: 'Liczba',
+			data: columns_vertical_data,
+			point: {
+				events: {
+					click: function (e) {
+						var index = e.point.index;
+						var bucket = data.buckets[index];
+
+						var dataArg = ['[', bucket.from];
+						dataArg.push(' TO ');
+						if (bucket.to)
+							dataArg.push(bucket.to);
+						dataArg.push(']');
+
+						window.location.href = choose_request + dataArg.join('');
+						return false;
+					}
+				}
+			}
+		}]
+	});
+
 };
 
 DataAggsDropdown.prototype.createDateHistogram = function() {
@@ -183,11 +292,8 @@ DataAggsDropdown.prototype.createDateHistogram = function() {
 };
 
 DataAggsDropdown.prototype.createPieChart = function() {
-
-
-	var _this = this;
-
-	var dropdownMenu = this.li.find('ul.dropdown-menu'),
+	var _this = this,
+		dropdownMenu = this.li.find('ul.dropdown-menu'),
 		dropdownChart = '<li class="chart"></li>';
 
 	dropdownChart += [
@@ -198,7 +304,6 @@ DataAggsDropdown.prototype.createPieChart = function() {
 	dropdownMenu.append(dropdownChart);
 
 	var data = this.aggs;
-	console.log(data);
 	var pie_chart_data = [];
 	var pie_chart_keys = [];
 	var choose_request = this.chooseRequest;
@@ -211,8 +316,15 @@ DataAggsDropdown.prototype.createPieChart = function() {
 	}
 
 	for (var i = 0; i < data.buckets.length; i++) {
-
-		var label = ( typeof data.buckets[i].label.buckets[0] == 'undefined' ) ? '' : data.buckets[i].label.buckets[0].key;
+		var label = '';
+		if(typeof data.buckets[i].label !== 'undefined') {
+			label = ( typeof data.buckets[i].label.buckets[0] == 'undefined' ) ? '' : data.buckets[i].label.buckets[0].key;
+		} else if(typeof data.buckets[i].key !== 'undefined') {
+			var key = data.buckets[i].key;
+			if(this.labelDictionary.hasOwnProperty(key)) {
+				label = this.labelDictionary[key];
+			}
+		}
 
 		pie_chart_data[i] = [
 			label,
@@ -501,6 +613,49 @@ DataAggsDropdown.prototype.getFormattedDate = function (date) {
 	var day = date.getDate().toString();
 	day = day.length == 2 ? day : '0' + day;
 	return year + '-' + month + '-' + day;
+};
+
+DataAggsDropdown.prototype.scienNotationToNum = function (str) {
+	var number = str[0];
+	for (var i = 0; i <= parseInt(str[str.length - 1]); i++)
+		number += '0';
+	return number;
+};
+
+DataAggsDropdown.prototype.prepareNumeric = function (str) {
+	var number = str[0];
+	if (str.indexOf('E') > -1)
+		str = this.scienNotationToNum(str);
+	var zeros = str.split('0').length - 2;
+	var addZeros = 0;
+	var unit = '';
+	var newStr = number;
+
+	if (zeros >= 3 && zeros < 6) {
+		unit = 'k';
+		addZeros = zeros - 3;
+	}
+
+	if (zeros >= 6 && zeros < 9) {
+		unit = 'M';
+		addZeros = zeros - 6;
+	}
+
+	for (var i = 0; i < addZeros; i++)
+		newStr += '0';
+
+	newStr += unit;
+
+	return newStr;
+};
+
+DataAggsDropdown.prototype.prepareNumericLabel = function (str) {
+	if (str.indexOf('-') === -1) {
+		return this.prepareNumeric(str);
+	} else {
+		var s = str.split('-');
+		return this.prepareNumeric(s[0]) + '-' + this.prepareNumeric(s[1]);
+	}
 };
 
 var dataAggsDropdown;
