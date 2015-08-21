@@ -3814,8 +3814,50 @@ class GminyController extends DataobjectsController
                     'dataset' => 'krakow_okregi_wyborcze',
                     'id' => $this->request->params['subid'],
                 ),
+                'aggs' => array(
+	                'radni' => array(
+		                'scope' => 'global',
+		                'filter' => array(
+			                'bool' => array(
+		                        'must' => array(
+		                            array(
+		                                'term' => array(
+		                                    'dataset' => 'radni_gmin',
+		                                ),
+		                            ),
+		                            array(
+		                                'term' => array(
+		                                    'data.radni_gmin.gmina_id' => $this->object->getId(),
+		                                ),
+		                            ),
+		                            array(
+		                                'term' => array(
+		                                    'data.radni_gmin.aktywny' => '1',
+		                                ),
+		                            ),
+		                            array(
+		                                'term' => array(
+		                                    'data.radni_gmin.kadencja_id' => '7',
+		                                ),
+		                            ),
+		                        ),
+		                    ),
+		                ),
+		                'aggs' => array(
+			                'hits' => array(
+				                'top_hits' => array(
+					                'size' => 100,
+	                                'fielddata_fields' => array('dataset', 'id'),
+				                ),
+			                ),
+		                ),
+	                ),
+                ),
                 'layers' => array('geo')
             ));
+            
+            $aggs = $this->Dataobject->getAggs();
+            $this->set('okreg_aggs', $aggs);
 
             $this->set('okreg', $okreg);
             $this->set('title_for_layout', $okreg->getTitle());

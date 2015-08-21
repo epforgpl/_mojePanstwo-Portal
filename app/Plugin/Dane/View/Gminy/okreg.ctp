@@ -23,13 +23,39 @@ echo $this->Element('Dane.dataobject/subobject', array(
     <div class="row">
 
 		<div class="col-sm-8">
-	        <div id="okreg_map" class="object"></div>
-	        <div data-name="okreg" data-content='<?= $okreg->getLayers('geo') ?>'></div>
+	        
+	        <div class="block block-simple col-xs-12 margin-top-0">
+		        <header>Mapa okręgu</header>
+		        <section class="aggs-init margin-sides-10">
+		             <div id="okreg_map" class="object"></div>
+			        <div data-name="okreg" data-content='<?= $okreg->getLayers('geo') ?>'></div>
+		        </section>
+		    </div>
+	        
+	        <? if( @$okreg_aggs['radni']['hits']['hits'] ) { ?>
+	        <div class="block block-simple col-xs-12">
+		        <header>Radni wybrani w tym okręgu</header>
+		        <section class="aggs-init">
+		            <div class="dataAggs">
+		                <div class="agg agg-Dataobjects">
+	                        <ul class="dataobjects">
+	                            <? foreach ($okreg_aggs['radni']['hits']['hits']['hits'] as $doc) { ?>
+	                                <li>
+	                                    <?=  $this->Dataobject->render($doc, 'default'); ?>
+	                                </li>
+	                            <? } ?>
+	                        </ul>
+		                </div>
+		            </div>
+		        </section>
+		    </div>
+		    <? } ?>        
+	        
 	    </div>
 
 	    <div class="col-sm-4">
 
-            <ul class="dataHighlights rightColumn">
+            <ul class="dataHighlights rightColumn margin-top-30">
                 <li class="dataHighlight col-xs-12">
                     <p class="_label">Rok</p>
                     <p class="_value"><?= $okreg->getData('rok') ?></p>
