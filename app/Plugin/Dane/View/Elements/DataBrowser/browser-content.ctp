@@ -87,10 +87,18 @@ if ($dataBrowser['mode'] == 'cover') { ?>
     <div class="col-xs-12 col-md-<?= $displayAggs ? $columns[0] : 12 ?>">
 
         <div class="dataWrap">
-						
+							
             <? if(isset($dataBrowser['aggs_visuals_map']) && count($dataBrowser['aggs_visuals_map']) > 0) { ?>
                 <ul class="nav nav-pills margin-top-10 dataAggsDropdownList nopadding" role="tablist">
-                    <? foreach($dataBrowser['aggs_visuals_map'] as $name => $map) { ?>
+                    <? 
+	                    foreach($dataBrowser['aggs_visuals_map'] as $name => $map) { 
+		                    
+		                    if( isset($map['target']) && ($map['target']=='filters') ) {
+		                    
+			                    if( !isset($map['all']) )
+			                    	$map['all'] = 'Wszystko';
+		                    
+                    ?>
                         <li role="presentation" class="dropdown dataAggsDropdown<?= isset($this->request->query['conditions'][$map['field']]) ? ' active' : ''; ?>"
                             data-skin="<?= $map['skin'] ?>"
                             data-aggs='<?= json_encode($dataBrowser['aggs'][$name]) ?>'
@@ -108,7 +116,7 @@ if ($dataBrowser['mode'] == 'cover') { ?>
                             </a>
                             <ul class="dropdown-menu"></ul>
                         </li>
-                    <? } ?>
+                    <? } } ?>
                 </ul>
             <? } ?>
 

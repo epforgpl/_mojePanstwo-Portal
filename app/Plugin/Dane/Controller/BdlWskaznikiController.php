@@ -248,12 +248,12 @@ class BdlWskaznikiController extends DataobjectsController
 	 	if( $this->object ) {
 	 	
 		    $this->addBreadcrumb(array(
-	            'href' => '/bdl/#kategoria_id=' . $this->object->getData('bdl_wskazniki.kategoria_id'),
+	            'href' => '/bdl/kategorie/' . $this->object->getData('bdl_wskazniki.kategoria_id'),
 	            'label' => '<span class="normalizeText">' . $this->object->getData('bdl_wskazniki.kategoria_tytul') . '</span>',
 	        ));	
 	        
 	        $this->addBreadcrumb(array(
-	            'href' => '/bdl/#kategoria_id=' . $this->object->getData('bdl_wskazniki.kategoria_id') . '&grupa_id=' . $this->object->getData('bdl_wskazniki.grupa_id'),
+	            'href' => '/bdl/kategorie/' . $this->object->getData('bdl_wskazniki.kategoria_id') . '#' . $this->object->getData('bdl_wskazniki.grupa_id'),
 	            'label' => '<span class="normalizeText">' . $this->object->getData('bdl_wskazniki.grupa_tytul') . '</span>',
 	        ));
 

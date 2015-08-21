@@ -207,6 +207,7 @@ class ApplicationsController extends AppController
 	                        'field' => 'dataset',
 	                        'dictionary' => $datasets,
 	                        'forceKey' => 'dataset',
+	                        'target' => 'menu',
 						),
 					),
 				),

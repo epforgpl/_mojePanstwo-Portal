@@ -158,7 +158,8 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Liczba tweetów w czasie',
                     'skin' => 'date_histogram',
-                    'field' => 'date'
+                    'field' => 'date',
+                    'all' => 'Kiedykolwiek',
                 ),
             ),
             */
@@ -173,7 +174,8 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Liczba rozstrzygnięć w czasie',
                     'skin' => 'date_histogram',
-                    'field' => 'date'
+                    'field' => 'date',
+                    'all' => 'Kiedykolwiek',
                 ),
             ),
         ),
@@ -207,13 +209,12 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Liczba druków w czasie',
-                    'all' => 'Cały czas',
+                    'all' => 'Kiedykolwiek',
                     'skin' => 'date_histogram',
                     'field' => 'date'
                 ),
             ),
         ),
-        /*
         'prawo_wojewodztwa' => array(
             'date' => array(
                 'date_histogram' => array(
@@ -224,11 +225,11 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Liczba aktów prawnych w czasie',
                     'skin' => 'date_histogram',
-                    'field' => 'date'
+                    'field' => 'date',
+                    'all' => 'Kiedykolwiek',
                 ),
             ),
         ),
-        */
         'prawo_urzedowe' => array(
             'date' => array(
                 'date_histogram' => array(
@@ -239,7 +240,8 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Liczba aktów prawnych w czasie',
                     'skin' => 'date_histogram',
-                    'field' => 'date'
+                    'field' => 'date',
+                    'all' => 'Kiedykolwiek',
                 ),
             ),
         ),
@@ -295,7 +297,8 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Liczba projektów w czasie',
                     'skin' => 'date_histogram',
-                    'field' => 'date'
+                    'field' => 'date',
+                    'all' => 'Kiedykolwiek',
                 ),
             ),
         ),
@@ -309,7 +312,8 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Liczba interpelacji w czasie',
                     'skin' => 'date_histogram',
-                    'field' => 'date'
+                    'field' => 'date',
+                    'all' => 'Kiedykolwiek',
                 ),
             ),
         ),
@@ -322,9 +326,9 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Liczba posiedzeń w czasie',
-                    'all' => 'Cały czas',
                     'skin' => 'date_histogram',
-                    'field' => 'date'
+                    'field' => 'date',
+                    'all' => 'Kiedykolwiek',
                 ),
             ),
         ),
@@ -384,7 +388,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Liczba uchwał w czasie',
-                    'all' => 'Cały czas',
+                    'all' => 'Kiedykolwiek',
                     'skin' => 'date_histogram',
                     'field' => 'date'
                 ),
@@ -420,7 +424,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Liczba posiedzeń w czasie',
-                    'all' => 'Cały czas',
+                    'all' => 'Kiedykolwiek',
                     'skin' => 'date_histogram',
                     'field' => 'date'
                 ),
@@ -707,7 +711,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Liczba zarządzeń w czasie',
-                    'all' => 'Cały czas',
+                    'all' => 'Kiedykolwiek',
                     'skin' => 'date_histogram',
                     'field' => 'date'
                 ),
@@ -751,7 +755,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Typy aktów prawnych',
-                    'all' => 'Wszystkie typy',
+                    'all' => 'Wszystkie typy aktów',
                     'skin' => 'pie_chart',
                     'field' => 'prawo.typ_id'
                 ),
@@ -764,7 +768,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Liczba aktów prawnych w czasie',
-                    'all' => 'Cały czas',
+                    'all' => 'Wydane kiedykolwiek',
                     'skin' => 'date_histogram',
                     'field' => 'date'
                 ),
@@ -967,7 +971,8 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Liczba zamówień publicznych w czasie',
                     'skin' => 'date_histogram',
-                    'field' => '_date'
+                    'field' => '_date',
+                    'all' => 'Kiedykolwiek',
                 ),
             ),
         ),
@@ -1049,7 +1054,8 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Liczba udzielonych dotacji w czasie',
                     'skin' => 'date_histogram',
-                    'field' => 'date'
+                    'field' => 'date',
+                    'all' => 'Kiedykolwiek',
                 ),
             ),
         ),
@@ -1095,9 +1101,13 @@ class DataBrowserComponent extends Component
 
 		foreach( $aggs as $key => $value) {
             if (is_array($value)) {
+	            	                    
                 foreach ($value as $keyM => $valueM) {
                     if ($keyM === 'visual') {
-
+						
+						if( !isset($valueM['target']) )
+							$valueM['target'] = 'filters';
+						
                         $this->aggs_visuals_map[$key] = $valueM;
                         unset($aggs[$key][$keyM]);
 
@@ -1105,7 +1115,7 @@ class DataBrowserComponent extends Component
                 }
             }
         }
-
+        
 		return $aggs;
 
 	}
@@ -1138,8 +1148,8 @@ class DataBrowserComponent extends Component
         ) {
         	$settings['cover']['aggs'] = $this->processAggs( $settings['cover']['aggs'] );
         }
-
-
+		
+		
 
         $this->settings = $settings;
 
@@ -1364,7 +1374,7 @@ class DataBrowserComponent extends Component
                     'dataset' => $this->dataset,
 	                'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
                 );
-
+								
                 foreach( $this->routes as $key => $value ) {
 
 		            $parts = explode('/', $key);
