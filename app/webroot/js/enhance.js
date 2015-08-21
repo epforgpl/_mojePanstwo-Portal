@@ -63,10 +63,10 @@ function trimTitle() {
 
 	jQuery('.trimTitle').each(function () {
 		var that = jQuery(this),
-			textBody = (that.children().length) ? that.children() : that,
+			textBody = (that.find('.titleName').length) ? that.find('.titleName') : that,
 			body = jQuery.trim(textBody.text()),
 			title = (that.attr('title') !== undefined && that.attr('title') !== '') ? that.attr('title') : ((that.data('trimtitle') !== undefined && that.data('trimtitle') !== '') ? that.data('trimtitle') : false),
-			trimLength = ((that.data('trimlength') !== undefined) ? that.data('trimlength') : 200),
+			trimLength = ((that.data('trimlength') !== undefined) ? that.data('trimlength') : 180),
 			splitLocation,
 			shortTitle = false,
 			hyperlink;
@@ -82,15 +82,8 @@ function trimTitle() {
 					that.data('trimtitle', title);
 
 					if (hyperlink) { /*TARGET IS HYPERLINK*/
-						var nodes = textBody[0].childNodes;
-
-						for (var i = 0; i < nodes.length; i++) {
-							if (nodes[i].nodeType == 3) {
-								nodes[i].nodeValue = shortTitle;
-								$(nodes[i]).after('<span class="trimTitleTrigger hyper">...</span>');
-								break;
-							}
-						}
+						textBody.text(shortTitle);
+						textBody.append($('<span></span>').addClass('trimTitleTrigger hyper').text('...'));
 
 						that.parent().find('.trimTitleTrigger').click(function (e) {
 							var handler = $(this).parents('.trimTitle'),
@@ -99,13 +92,7 @@ function trimTitle() {
 
 							e.preventDefault(handler, handler.children(), handler.children()[0].childNodes);
 
-							for (var i = 0; i < nodes.length; i++) {
-								if (nodes[i].nodeType == 3) {
-									nodes[i].nodeValue = handler.data('trimtitle');
-									break;
-								}
-							}
-
+							textBody.text(handler.data('trimtitle'));
 							handler.find('.trimTitleTrigger').remove();
 						});
 					} else { /*TARGET IS NORMAL TEXT */
