@@ -3450,17 +3450,35 @@ class GminyController extends DataobjectsController
 
     public function prawo()
     {
+		
+		$this->_prepareView();
 
-        $this->_prepareView();
-        $this->Components->load('Dane.DataBrowser', array(
-            'conditions' => array(
-                'dataset' => 'prawo_wojewodztwa',
-                'prawo_wojewodztwa.gmina_id' => $this->object->getId(),
-            ),
-            'aggsPreset' => 'prawo_lokalne',
-        ));
+        if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
 
-        $this->set('title_for_layout', 'Prawo lokalne gminy ' . $this->object->getData('nazwa'));
+            $prawo = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'prawo_wojewodztwa',
+                    'id' => $this->request->params['subid'],
+                ),
+            ));
+            
+            $this->set('prawo', $prawo);
+            $this->set('title_for_layout', $prawo->getTitle());
+            $this->render('prawo-view');
+
+        } else {
+
+            $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'prawo_wojewodztwa',
+	                'prawo_wojewodztwa.gmina_id' => $this->object->getId(),
+	            ),
+	            'aggsPreset' => 'prawo_lokalne',
+	        ));
+	
+	        $this->set('title_for_layout', 'Prawo lokalne gminy ' . $this->object->getData('nazwa'));
+
+        }	
 
     }
 

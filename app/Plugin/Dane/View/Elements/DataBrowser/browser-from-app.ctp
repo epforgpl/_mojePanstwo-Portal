@@ -4,13 +4,13 @@ $columns = isset($columns) ? $columns : array(9, 3);
 ?>
 <div class="objectsPage">
 	<div class="dataBrowser margin-top-0<? if (isset($class)) echo " " . $class; ?>">
-		
+
 		<div class="searcher-app">
 			<div class="container">
 			    <?= $this->element('Dane.DataBrowser/browser-searcher'); ?>
 			</div>
 		</div>
-				
+
 		<? if( @isset($app_menu) ) {?>
 		<div class="apps-menu">
 			<div class="container">
@@ -24,17 +24,27 @@ $columns = isset($columns) ? $columns : array(9, 3);
 			</div>
 		</div>
 		<? } ?>
-				
+
 		<div class="container">
 		    <div class="row dataBrowserContent">
-			
-			    <?= $this->element('Dane.DataBrowser/browser-content', array(
-			    	'displayAggs' => $displayAggs,
-			    	'columns' => $columns,
-			    )); ?>
-		        
+
+                <?
+
+                    $options = array(
+                        'displayAggs' => $displayAggs,
+                        'columns' => $columns,
+                    );
+
+                    if(isset($menu)) {
+                        $options['menu'] = $menu;
+                    }
+
+                ?>
+
+			    <?= $this->element('Dane.DataBrowser/browser-content', $options); ?>
+
 		    </div>
 		</div>
-	
+
 	</div>
 </div>

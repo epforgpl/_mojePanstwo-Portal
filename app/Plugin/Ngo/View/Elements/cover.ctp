@@ -1,9 +1,29 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('ngo', array('plugin' => 'Ngo'))) ?>
 
 <div class="col-xs-12 col-md-3 dataAggsContainer">
-<? echo $this->Element('Dane.DataBrowser/aggs', array(
-    	'data' => $dataBrowser,
-)); ?>
+
+    <? if(isset($_submenu) && isset($_submenu['items'])) {
+
+        if(!isset($_submenu['base']))
+            $_submenu['base'] = '/ngo';
+
+        echo $this->Element('Dane.DataBrowser/browser-menu', array(
+            'menu' => $_submenu,
+        ));
+
+    } ?>
+
+    <div class="panel panel-primary col-xs-12" data-toggle="modal" data-target="#ngoPartnerModal">
+        <div class="panel-body">
+            Zostań oficjalnym partnerem mojegoPaństwa
+        </div>
+    </div>
+    <?php echo $this->element('Ngo.ngo_partner_modal') ?>
+
+    <? echo $this->Element('Dane.DataBrowser/aggs', array(
+            'data' => $dataBrowser,
+    )); ?>
+
 </div>
 
 <div class="col-md-9 col-xs-12">

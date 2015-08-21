@@ -12,6 +12,25 @@ class NgoController extends ApplicationsController
         'headerImg' => 'ngo',
     );
 
+    public $submenus = array(
+        'ngo' => array(
+            'items' => array(
+                array(
+                    'id' => '',
+                    'label' => 'Start',
+                ),
+                array(
+                    'id' => 'fundacje',
+                    'label' => 'Fundacje',
+                ),
+                array(
+                    'id' => 'stowarzyszenia',
+                    'label' => 'Stowarzyszenia',
+                ),
+            )
+        )
+    );
+
     public function prepareMetaTags()
     {
         parent::prepareMetaTags();
@@ -121,43 +140,57 @@ class NgoController extends ApplicationsController
                 ),
             ),
         );
-				
+
+        $this->set('_submenu', array_merge($this->submenus['ngo'], array(
+            'selected' => '',
+        )));
+
         $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
     }
-	
+
 	public function fundacje()
     {
-    	        		    		
         $this->loadDatasetBrowser('krs_podmioty', array(
 	        'conditions' => array(
 		        'krs_podmioty.forma_prawna_id' => '1',
 	        ),
+            'menu' => array_merge($this->submenus['ngo'], array(
+                'selected' => 'fundacje',
+                'base' => '/ngo'
+            ))
         ));
         $this->set('title_for_layout', 'Fundacje | NGO');
-		    	    	    
+
     }
-    
+
     public function stowarzyszenia()
     {
-    	        		    		
+        $this->set('_submenu', array_merge($this->submenus['ngo'], array(
+            'selected' => 'stowarzyszenia',
+        )));
+
         $this->loadDatasetBrowser('krs_podmioty', array(
 	        'conditions' => array(
 		        'krs_podmioty.forma_prawna_id' => '15',
 	        ),
+            'menu' => array_merge($this->submenus['ngo'], array(
+                'selected' => 'stowarzyszenia',
+                'base' => '/ngo'
+            ))
         ));
         $this->set('title_for_layout', 'Stowarzyszenia | NGO');
-		    	    	    
+
     }
-	
+
     public function getMenu()
     {
-				
+
 		$menu = array(
 			'items' => array(),
 			'base' => '/' . $this->settings['id'],
 		);
-		
+
 		$menu['items'][] = array(
 			'label' => 'NGO',
 			'icon' => array(
@@ -165,29 +198,29 @@ class NgoController extends ApplicationsController
 				'id' => 'home',
 			),
 		);
-		
+
 		$menu['items'][] = array(
 			'label' => 'Fundacje',
 			'id' => 'fundacje',
-		);	
-		
+		);
+
 		$menu['items'][] = array(
 			'label' => 'Stowarzyszenia',
 			'id' => 'stowarzyszenia',
-		);			
-				
+		);
+
 		return $menu;
 
     }
-	
+
 	public function beforeRender() {
-		
+
 		parent::beforeRender();
-		
+
 		$app = $this->getApplication($this->settings['id']);
 		$app['name'] = 'NGO - Portal organizacji pozarządowych';
         $this->set('_app', $app);
-		
+
 	}
-	
-} 
+
+}
