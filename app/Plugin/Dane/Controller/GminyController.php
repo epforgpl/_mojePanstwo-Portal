@@ -1115,6 +1115,7 @@ class GminyController extends DataobjectsController
                             ),
                         ),
                     ),
+                    'scope' => 'global',
                 ),
                 'prawo' => array(
                     'filter' => array(
@@ -1133,6 +1134,7 @@ class GminyController extends DataobjectsController
                             ),
                         ),
                     ),
+                    'scope' => 'global',
                 ),
             ));
 
@@ -3139,50 +3141,18 @@ class GminyController extends DataobjectsController
 
         } else {
 
-            $submenu2 = array(
-                'items' => array(
-                    array(
-                        'label' => 'Kadencja VII',
-                        'id' => 'komisje?&conditions[krakow_komisje.kadencja_id]=7',
-                    ),
-                    array(
-                        'label' => 'Kadencja VI',
-                        'id' => 'komisje?&conditions[krakow_komisje.kadencja_id]=6',
-                    ),
-                ),
-            );
-
             $this->_prepareView();
 
-            if (isset($this->request->query['conditions'])) {
-                $id_kadencji = $this->request->query['conditions']['krakow_komisje.kadencja_id'];
-                if ($id_kadencji == 6) {
-                    $submenu2=array_merge($submenu2, array(
-                        'selected' => 'komisje?&conditions[krakow_komisje.kadencja_id]=6',
-                    ));
-                } elseif ($id_kadencji == 7) {
-                    $submenu2=array_merge($submenu2, array(
-                        'selected' => 'komisje?&conditions[krakow_komisje.kadencja_id]=7',
-                    ));
-                }
-            } else {
-                $this->request->query['conditions']['krakow_komisje.kadencja_id'] = '7';
-                $submenu2=array_merge($submenu2, array(
-                    'selected' => 'komisje?&conditions[krakow_komisje.kadencja_id]=7',
-                ));
-            }
             $this->Components->load('Dane.DataBrowser', array(
                 'conditions' => array(
                     'dataset' => 'krakow_komisje',
-                )
+                ),
+                'aggsPreset' => 'krakow_komisje'
             ));
 
             $this->set('_submenu', array_merge($this->submenus['rada'], array(
                 'selected' => 'komisje',
             )));
-
-            $this->set('_submenu2', $submenu2);
-
 
             $this->set('title_for_layout', 'Komisje Rady Miasta Krakowa');
 
@@ -3487,11 +3457,10 @@ class GminyController extends DataobjectsController
                 'dataset' => 'prawo_wojewodztwa',
                 'prawo_wojewodztwa.gmina_id' => $this->object->getId(),
             ),
-            'aggsPreset' => 'krs_podmioty',
+            'aggsPreset' => 'prawo_lokalne',
         ));
 
         $this->set('title_for_layout', 'Prawo lokalne gminy ' . $this->object->getData('nazwa'));
-        $this->set('DataBrowserTitle', 'Prawo lokalne gminy ' . $this->object->getData('nazwa'));
 
     }
 
@@ -3806,7 +3775,7 @@ class GminyController extends DataobjectsController
     public function finanse()
     {
         $this->addInitLayers(array(
-            'finanse'
+            // 'finanse'
         ));
         $this->_prepareView();
         $this->loadModel('Finanse.GminaBudzet');
@@ -3908,7 +3877,6 @@ class GminyController extends DataobjectsController
 
         if (isset($this->object_aggs) && !empty($this->object_aggs))
             $aggs = $this->object_aggs;
-
 
         $menu['items'][] = array(
             'id' => '',

@@ -9,10 +9,21 @@
 	        ( @!isset($this->request->query['conditions'][$data['aggs_visuals_map'][$agg_id]['field']]) ) &&
         	( @$data['aggs_visuals_map'][$agg_id]['skin'] == 'pie_chart' )
         ) ? 1 : 0;
-
-        if (isset($agg_data['buckets']) && (count($agg_data['buckets']) > $minBucketsCountNum) && isset($data['aggs_visuals_map'][$agg_id])) {
+				
+        if(
+        	isset($agg_data['buckets']) && 
+        	( count($agg_data['buckets']) > $minBucketsCountNum ) && 
+        	isset($data['aggs_visuals_map'][$agg_id]) && 
+        	(
+	        	(
+		        	isset($data['aggs_visuals_map'][$agg_id]['target']) && 
+		        	( $data['aggs_visuals_map'][$agg_id]['target'] == 'menu' )
+		        ) || 
+		        ( $agg_id == 'dataset' )
+	        )
+        ) {
             $empty = true;
-
+						
             foreach ($agg_data['buckets'] as $b) {
                 if ($b['doc_count']) {
                     $empty = false;

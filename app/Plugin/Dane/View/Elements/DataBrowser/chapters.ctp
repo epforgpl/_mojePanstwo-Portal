@@ -10,8 +10,8 @@
 				
 				<li<? if( 
 					(
-						!isset($dataBrowser['dataset']) || 
-						!$dataBrowser['dataset'] 
+						!isset($kategoria_id) || 
+						!$kategoria_id 
 					) && 
 					!isset($this->request->query['q'])
 				) {?> class="active"<? } ?>>
@@ -36,10 +36,10 @@
                   					
                 $href = '/bdl/kategorie/' . $b['key'];
                 $label = $b['label']['buckets'][0]['key'];
-                
+                                
                 if( 
-                	isset($dataBrowser['dataset']) && 
-                	( $dataBrowser['dataset'] == $b['key'] )
+                	isset($kategoria_id) && 
+                	( $kategoria_id == $b['key'] )
                 )
                 	$active = true;
 

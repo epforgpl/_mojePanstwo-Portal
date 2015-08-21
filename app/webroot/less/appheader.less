@@ -38,7 +38,8 @@
                 position: relative;
 
                 .options {
-                    bottom: 14px
+                    top: 34px;
+                    bottom: 0;
                 }
             }
             h1, h1 a {
@@ -351,11 +352,16 @@
             font-weight: 400;
             margin: 10px 0 15px;
 
+            .titleName {
+                display: table;
+            }
+
             i {
                 margin-right: 4px;
 
                 &.object-icon {
                     margin-top: -8px;
+                    margin-right: 10px;
                     background-color: #89A;
                     color: #FFF;
                     display: block;
@@ -389,9 +395,9 @@
 }
 
 .appMenu {
-    min-height: 4px;
     background: #FFF;
     border-bottom: 1px solid #eaeaea;
+    border-top: 1px solid #eaeaea;
 
     ul {
         overflow: hidden;
@@ -507,7 +513,7 @@
             font-size: 13px;
             line-height: 1.65em;
             margin: -3px 0 0;
-            color: #789;
+            color: green;
 
             img {
                 float: left;

@@ -190,6 +190,7 @@ class PrawoController extends ApplicationsController
                         'class' => 'special',
                         'field' => 'dataset',
                         'dictionary' => $datasets,
+                        'target' => 'menu',
                     ),
                 ),
             ),

@@ -5,5 +5,7 @@ if ($object->getId() == '903') {
 }
 
 echo $this->Element('dataobject/pageBegin');
-echo $this->Element('Dane.DataBrowser/browser');
+echo $this->Element('Dane.DataBrowser/browser', array(
+	'displayAggs' => false,
+));
 echo $this->Element('dataobject/pageEnd');

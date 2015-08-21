@@ -150,6 +150,7 @@ a.link-api-call {
                         .counter {
                             display: none;
                         }
+
                     }
                     &.active {
 
@@ -297,6 +298,20 @@ a.link-api-call {
             }
         }
     }
+
+    ul.dataAggsDropdownList {
+
+        li.dataAggsDropdown {
+
+            &.active > a {
+                font-weight: bold;
+                background: none;
+                color: #DC4A38;
+            }
+
+        }
+
+    }
 }
 
 @media (min-width: 768px) {
@@ -307,6 +322,7 @@ a.link-api-call {
             position: relative;
             float: left;
             width: 100%;
+            min-height: 95vh;
 
             > div.col-xs-12 {
                 flex-direction: column;

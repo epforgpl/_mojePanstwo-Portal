@@ -1,4 +1,5 @@
 <footer class="footer">
+    <? echo $this->element('Dane.stanczyk_footer'); ?>
     <section class="standard">
         <div class="container">
             <div class="col-xs-12">

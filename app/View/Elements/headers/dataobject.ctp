@@ -34,7 +34,9 @@ if (!isset($renderFile) || !$renderFile)
                             <a class="trimTitle" href="<?= $object->getUrl() ?>"
                                title="<?= htmlspecialchars(strip_tags($object->getTitle())) ?>">
                                 <?php } ?>
-                                <span<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= $object->geticon() . '&nbsp;' . $object->getTitle() ?></span>
+                                <?= $object->geticon() ?>
+                                <div
+                                    class="titleName"<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= $object->getTitle() ?></div>
 
                                 <?php if ($object->getUrl() != false){ ?>
                             </a>

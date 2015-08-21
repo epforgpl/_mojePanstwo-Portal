@@ -20,7 +20,7 @@ $options = array(
     <div class="blocks">
 		
 	    <? /* 
-	    if ( $doc = @$dataBrowser['aggs']['all']['sejm_posiedzenia']['top']['hits']['hits'][0]['fields']['source'][0] ) { 
+	    if ( $doc = @$dataBrowser['aggs']['sejm_posiedzenia']['top']['hits']['hits'][0]['fields']['source'][0] ) { 
         ?>
             <div class="block block-simple block-size-sm col-xs-12">
                                 
@@ -35,7 +35,7 @@ $options = array(
         <? } */ ?>
         
 
-		<? if (@$dataBrowser['aggs']['all']['prawo_projekty']['top']['hits']['hits']) { ?>
+		<? if (@$dataBrowser['aggs']['prawo_projekty']['top']['hits']['hits']) { ?>
             <div class="block block-simple block-size-sm col-xs-12">
                 <header>Najnowsze projekty aktów prawnych skierowane do Sejmu:</header>
 
@@ -43,9 +43,9 @@ $options = array(
 
                     <div class="dataAggs">
                         <div class="agg agg-Dataobjects">
-                            <? if ($dataBrowser['aggs']['all']['prawo_projekty']['top']['hits']['hits']) { ?>
+                            <? if ($dataBrowser['aggs']['prawo_projekty']['top']['hits']['hits']) { ?>
                                 <ul class="dataobjects">
-                                    <? foreach ($dataBrowser['aggs']['all']['prawo_projekty']['top']['hits']['hits'] as $doc) { ?>
+                                    <? foreach ($dataBrowser['aggs']['prawo_projekty']['top']['hits']['hits'] as $doc) { ?>
                                         <li>
                                             <?
                                             echo $this->Dataobject->render($doc, 'default', array(
@@ -89,12 +89,12 @@ $options = array(
         <? } ?>		
         
 				
-		<? if (@$dataBrowser['aggs']['all']['zamowienia_publiczne_dokumenty']['dni']['buckets']) { ?>
+		<? if (@$dataBrowser['aggs']['zamowienia_publiczne_dokumenty']['dni']['buckets']) { ?>
             <div class="block block-simple block-size-sm col-xs-12">
                 <header>Rozstrzygnięcia zamówień publicznych w Kancelarii Sejmu:</header>
                 <section>
                     <?= $this->element('Dane.zamowienia_publiczne', array(
-                        'histogram' => $dataBrowser['aggs']['all']['zamowienia_publiczne_dokumenty']['dni']['buckets'],
+                        'histogram' => $dataBrowser['aggs']['zamowienia_publiczne_dokumenty']['dni']['buckets'],
                         'request' => array(
 	                        'instytucja_id' => $object->getId(),
                         ),

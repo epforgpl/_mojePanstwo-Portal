@@ -436,7 +436,7 @@ class AppController extends Controller
         ),
         'sejmometr' => array(
             'name' => 'Sejmometr',
-            'href' => '/sejmometr',
+            'href' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej',
             'tag' => 1,
             'icon' => '&#xe610;',
         ),

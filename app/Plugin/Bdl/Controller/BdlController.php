@@ -37,21 +37,24 @@ class BdlController extends ApplicationsController
 	                'kategorie' => array(
 		                'filter' => array(
 			                'term' => array(
-				                'dataset' => 'bdl_wskazniki',
+				                'dataset' => 'bdl_wskazniki_kategorie',
 			                ),
 		                ),
 		                'scope' => 'global',
 		                'aggs' => array(
 			                'kategoria_id' => array(
 				                'terms' => array(
-					                'field' => 'data.bdl_wskazniki.kategoria_id',
-					                'size' => 100
+					                'field' => 'id',
+					                'size' => 100,
 				                ),
 				                'aggs' => array(
 					                'label' => array(
 						                'terms'=> array(
-							                'field' => 'data.bdl_wskazniki.kategoria_tytul_raw',
+							                'field' => 'title.raw',
 							                'size' => 1,
+							                'order' => array(
+							                	'_term' => 'asc',
+							                ),
 						                ),
 					                ),
 				                ),
@@ -60,6 +63,7 @@ class BdlController extends ApplicationsController
 		                'visual' => array(
 	                        'skin' => 'chapters',
 	                        'field' => 'kategoria',
+	                        'target' => 'menu',
 	                    ),
 	                ),
 	                'grupy' => array(
@@ -107,6 +111,7 @@ class BdlController extends ApplicationsController
 
         $this->Components->load('Dane.DataBrowser', $options);
         $this->title = 'Bank Danych Lokalnych';
+        $this->set('kategoria_id', $this->request->params['id']);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
 		
 	}
@@ -132,19 +137,23 @@ class BdlController extends ApplicationsController
 	                'kategorie' => array(
 		                'filter' => array(
 			                'term' => array(
-				                'dataset' => 'bdl_wskazniki',
+				                'dataset' => 'bdl_wskazniki_kategorie',
 			                ),
 		                ),
 		                'aggs' => array(
 			                'id' => array(
 				                'terms' => array(
-					                'field' => 'data.bdl_wskazniki.kategoria_id',
+					                'field' => 'id',
+					                'size' => 100,
 				                ),
 				                'aggs' => array(
 					                'label' => array(
 						                'terms'=> array(
-							                'field' => 'data.bdl_wskazniki.kategoria_tytul_raw',
-							                'size' => 100,
+							                'field' => 'title.raw',
+							                'size' => 1,
+							                'order' => array(
+							                	'_term' => 'asc',
+							                ),
 						                ),
 					                ),
 				                ),
@@ -153,6 +162,7 @@ class BdlController extends ApplicationsController
 		                'visual' => array(
 	                        'skin' => 'chapters',
 	                        'field' => 'kategoria',
+	                        'target' => 'menu',
 	                    ),
 	                ),
                 ),

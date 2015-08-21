@@ -67,7 +67,10 @@ $options = array(
             </section>
 	    </div>
     <? } ?>
-
+	
+	<? // debug( @$dataBrowser['aggs']['tweets']['timerange']['tags']['tags'] ); ?>
+	<? // debug( @$dataBrowser['aggs']['tweets']['timerange']['sources']['buckets'] ); ?>
+	
     <!--<div class="block col-xs-12">
         <header>Najpopularniejsze hashtagi</header>
         <section class="aggs-init">

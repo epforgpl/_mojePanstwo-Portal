@@ -150,6 +150,42 @@ class MediaController extends ApplicationsController
 							                ),
 						                ),
 					                ),
+					                'sources' => array(
+						                'terms' => array(
+							                'field' => 'data.twitter.source_id',
+							                'size' => 20,
+						                ),
+						                'aggs' => array(
+							                'label' => array(
+								                'terms' => array(
+									                'field' => 'data.twitter.source',
+									                'size' => 1,
+								                ),
+							                ),
+						                ),
+					                ),
+					                'tags' => array(
+						                'nested' => array(
+							                'path' => 'twitter-tags',
+							                
+						                ),
+						                'aggs' => array(
+							                'tags' => array(
+								                'terms' => array(
+									                'field' => 'twitter-tags.id',
+									                'size' => 20,
+								                ),
+								                'aggs' => array(
+									                'label' => array(
+										                'terms' => array(
+											                'field' => 'twitter-tags.name',
+											                'size' => 1,
+										                ),
+									                ),
+								                ),
+							                ),
+						                ),
+					                ),
 				                ),
 			                ),
 		                ),
