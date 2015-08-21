@@ -16,7 +16,7 @@ class ApplicationsController extends AppController
         'Session',
         'Facebook.Connect'
     );
-	
+
 	public $_layout = array(
         'header' => false,
         'body' => array(
@@ -26,12 +26,12 @@ class ApplicationsController extends AppController
             'element' => 'default',
         ),
     );
-	
+
     public $title = false;
     public $description = false;
     public $appSelected = '';
     public $_app = array();
-    
+
     public $appDatasets = array();
     public $mainMenuLabel = false;
 
@@ -48,35 +48,35 @@ class ApplicationsController extends AppController
     }
 
     public function beforeRender()
-    {		
-		
+    {
+
 		$app = false;
-				
+
         if(
-	        isset($this->settings['id']) && 
-        	( $app = $this->getApplication($this->settings['id']) ) 
+	        isset($this->settings['id']) &&
+        	( $app = $this->getApplication($this->settings['id']) )
         ) {
 	        $app = array_merge($app, $this->_app);
             $this->set('_app', $app);
         };
-				
+
         if ($this->menu_selected === false)
             $this->menu_selected = $this->request->params['action'];
 
         $this->set('appSettings', $this->settings);
-			
-				
-		if( empty($this->app_menu[0]) )		
+
+
+		if( empty($this->app_menu[0]) )
 			foreach( $this->applications as $id => $a )
 				if( $a['tag']==1 )
 					$this->app_menu[0][] = array(
 						'id' => $id,
 						'href' => $a['href'],
 						'title' => $a['name'],
-					);		
-		
-		
-				
+					);
+
+
+
 		$active = false;
 		$temp = array();
 		$href = '/dane';
@@ -89,43 +89,43 @@ class ApplicationsController extends AppController
 				'title' => 'Dane publiczne',
 			),
 		);
-		
+
 		foreach( $this->app_menu[0] as $i => $a ) {
-			
-			if( 
-				isset($this->request->query['q']) && 
+
+			if(
+				isset($this->request->query['q']) &&
 				( $q = $this->request->query['q'] )
-			)	
+			)
 				$a['href'] .= '?q=' . urlencode($q);
-			
+
 			if( $app && ($app['id']==$a['id']) ) {
-			
+
 				$a['active'] = $active = true;
 				$temp[] = $a;
-			
+
 			} else {
-				
+
 				$temp[] = $a;
-				
+
 			}
-				
+
 		}
-		
+
 		$this->app_menu[0] = array_merge($bufor, $temp);
-		
+
 		if( !$active )
 			$this->app_menu[0][0]['active'] = true;
-			
-		
-			
-		
+
+
+
+
 		$this->set('app_menu', $this->app_menu);
-		
+
         if ($this->title)
             $this->set('title_for_layout', $this->title);
         elseif (isset($this->settings['title']))
             $this->set('title_for_layout', $this->settings['title']);
-            
+
        parent::beforeRender();
 
     }
@@ -164,6 +164,11 @@ class ApplicationsController extends AppController
         ), $options);
 
         $this->Components->load('Dane.DataBrowser', $options);
+
+        if(isset($options['menu'])) {
+            $this->set('menu', $options['menu']);
+        }
+
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
 
     }
@@ -174,17 +179,17 @@ class ApplicationsController extends AppController
         $this->set('apps', $this->Application->find('all'));
 
     }
-    
+
     public function action()
     {
-	    	        
-	    if( 
-	    	isset($this->request->params['id']) && 	    	
+
+	    if(
+	    	isset($this->request->params['id']) &&
 	    	( $data = $this->getDatasetByAlias(@$this->settings['id'], $this->request->params['id']) )
 	    ) {
-		    
+
 		    $datasets = $this->getDatasets($this->settings['id']);
-		        		        
+
 			$fields = array('searchTitle', 'order', 'autocompletion');
 			$params = array(
 				'aggs' => array(
@@ -216,27 +221,27 @@ class ApplicationsController extends AppController
 					'filter/dataset' => 'dataset',
 				),
 			);
-						
+
 			foreach( $fields as $field )
 				if( isset($data['dataset_name'][ $field ]) )
 					$params[ $field ] = $data['dataset_name'][ $field ];
-						
+
 			$this->menu_selected = $this->request->params['id'];
 			$this->title = $data['dataset_name']['label'];
 	        $this->loadDatasetBrowser($data['dataset_id'], $params);
-		    
+
 	    }
-	    	    
+
     }
-    
+
     public function getMenu()
     {
-				
+
 		$menu = array(
 			'items' => array(),
 			'base' => '/' . $this->settings['id'],
 		);
-		
+
 		$menu['items'][] = array(
 			'label' => $this->mainMenuLabel,
 			'icon' => array(
@@ -244,10 +249,10 @@ class ApplicationsController extends AppController
 				'id' => 'home',
 			),
 		);
-		
+
 		if( array_key_exists($this->settings['id'], $this->datasets) ) {
 			foreach($this->datasets[ $this->settings['id'] ] as $dataset => $params) {
-								
+
 				if( @$params['menu_id'] )
 				$menu['items'][] = array(
 					'id' => $params['menu_id'],
@@ -259,10 +264,10 @@ class ApplicationsController extends AppController
 					),
 					*/
 				);
-				
+
 			}
-		}				
-				
+		}
+
 		return $menu;
 
     }
