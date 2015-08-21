@@ -45,7 +45,7 @@ var BDLapp = function () {
 				self.loading();
 
 				item.find('.map').fadeOut(function () {
-					item.find('.charts').animate({
+					item.find('.charts').attr('data-chart', chart.outerWidth()).animate({
 						width: '100%'
 					}, {
 						duration: 600,
@@ -334,6 +334,32 @@ var BDLapp = function () {
 
 				})
 			);
+
+			$('.wskaznik').each(function () {
+				var wsk = $(this);
+
+				if (wsk.find('.bdl-details').length) {
+					wsk.find('.bdl-details').slideUp("fast", function () {
+						$(wsk).remove()
+					});
+					wsk.find('.map').fadeOut(function () {
+						var chart = wsk.find('.charts');
+
+						chart.animate({
+							width: chart.attr('data-chart')
+						}, {
+							duration: 600,
+							step: function () {
+								chart.highcharts().reflow()
+							},
+							complete: function () {
+								wsk.find('.map').fadeIn();
+
+							}
+						});
+					});
+				}
+			});
 		}
 	};
 
