@@ -42,7 +42,7 @@ class Krs_podmioty extends DataObject
     protected $hl_fields = array(
     	'krs', 'adres_miejscowosc', 'data_rejestracji', 'wartosc_kapital_zakladowy'
     );
-    
+
  	public function __construct($params = array())
     {
 
@@ -60,50 +60,50 @@ class Krs_podmioty extends DataObject
 		        	$val = false;
 
     }
- 	
+
     public function getLabel()
     {
         return 'Organizacja';
     }
-    
+
     public function hasHighlights()
     {
         return false;
     }
-	
-	public function getMetaDescriptionParts($preset = false)
+
+    public function getMetaDescriptionParts($preset = false)
 	{
-		
-		$output = array(
+
+        $output = array(
 			'<span class="normalizeText">' . $this->getData('forma_prawna_str') . '</span>',
 			$this->getData('adres_miejscowosc'),
 		);
-		
-		if( $this->getData('wartosc_kapital_zakladowy') )
+
+        if( $this->getData('wartosc_kapital_zakladowy') )
 			$output[] = number_format_h($this->getData('wartosc_kapital_zakladowy')) . ' PLN';
-				
-		if( $this->getData('data_rejestracji') )
+
+        if( $this->getData('data_rejestracji') )
 			$output[] = 'Rejestracja: ' . dataSlownie($this->getData('data_rejestracji'));
-		
-		return $output;
-		
-	}
-	
-	public function getDescription() {
-		
-		if( $this->getData('cel_dzialania') )
-			return '<span class="normalizeText">' . mb_substr($this->getData('cel_dzialania'), 0, 200) . '</span>...';
+
+        return $output;
+
+    }
+
+    public function getDescription() {
+
+        if( $this->getData('cel_dzialania') )
+            return '<span class="normalizeText">' . mb_substr($this->getData('cel_dzialania'), 0, 200) . '...</span>';
 		else
 			return false;
-		
-	}
-	
-	public function getTitleAddon()
+
+    }
+
+    public function getTitleAddon()
     {
 	    if( $this->getData('wykreslony')=='1' )
-			return '<span class="label label-danger label-xs">Podmiot wykreślony z KRS</span>';  
+            return '<span class="label label-danger label-xs">Podmiot wykreślony z KRS</span>';
 		else
-			return false; 
+            return false;
     }
-	
+
 }
