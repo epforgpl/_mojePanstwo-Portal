@@ -74,19 +74,15 @@ echo $this->Element('Dane.dataobject/subobject', array(
                 </li>
 
                 <li class="dataHighlight col-xs-12">
-                    <p class="_label">Ilość mieszkańców / Norma przedstawicielstwa <span style="color: rgba(160, 25, 27, 0.78);">*</span></p>
-                    <p class="_value"><?= $okreg->getData('liczba_miesz_norma_przedst') ?></p>
-                </li>
-            </ul>
-
-	        <p class="text-muted">
-	            <span style="color: rgba(160, 25, 27, 0.78);">*</span> Norma przedstawicielska -
+                    <p class="_label" data-toggle="tooltip" data-placement="bottom" title="Norma przedstawicielska -
 	            określa ilość mandatów przypadających na dany okręg. Jest obliczana przez
 	            podzielenie liczby mieszkańców gminy przez liczbę radnych wybieranych do danej rady.
 	            By ustalić liczbę mandatów w danym okręgu wyborczym, stosuje się normę
 	            przedstawicielską. Ułamki równe lub większe od 1/2, jakie wynikają z zastosowania
-	            normy przedstawicielstwa, zaokrągla się w górę do liczby całkowitej.
-	        </p>
+	            normy przedstawicielstwa, zaokrągla się w górę do liczby całkowitej.">Ilość mieszkańców / Norma przedstawicielstwa</p>
+                    <p class="_value"><?= $okreg->getData('liczba_miesz_norma_przedst') ?></p>
+                </li>
+            </ul>
 
 	        <p>
 	            <a target="_blank" href="/dane/gminy/903,krakow/rada_uchwaly/18316">
