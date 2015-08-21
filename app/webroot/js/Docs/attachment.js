@@ -59,28 +59,94 @@ $('.add_vertical').click(function(){
 	})
 });
 $('.calculate_fields').click(function(){
-pages.each(function(){
-	page=$(this);
-	var pozycje=[];
-	page.find('.vert_line').each(function(){
-		pozycje.push($(this).css('left').replace('px',''));
-	});
-	var last_pozycja=0;
-	pozycje.sort(function(a, b){return a-b});
-	$.each(pozycje, function(i,val){
-		pozycja=val;
-		page.find('p').each(function(){
-			left=parseInt($(this).css('margin-left').replace('px',''))-16;
-			if(left<pozycja){ if(left>last_pozycja){
-				col_no=parseInt(i)+1;
-				$(this).addClass('kolumna-'+col_no+'');
-			}}
+	pages.each(function(){
+		page=$(this);
+		var pozycje=[];
+		page.find('.vert_line').each(function(){
+			pozycje.push($(this).css('left').replace('px',''));
+		});
+		var last_pozycja=0;
+		pozycje.sort(function(a, b){return a-b});
+		$.each(pozycje, function(i,pozycja){
+			page.find('p').each(function(){
+				left=parseInt($(this).css('margin-left').replace('px',''))+14;
+				if(left<pozycja){ if(left>last_pozycja){
+					col_no=parseInt(i)+1;
+					$(this).addClass('kolumna-'+col_no+'');
+					$(this).attr('data-col-no', col_no);
+				}}
+			})
+			last_pozycja=pozycja;
 		})
-		last_pozycja=pozycja;
+
+		var wiersze=[];
+		page.find('.kolumna-5').each(function(){
+			wiersze.push(parseInt($(this).css('margin-top').replace('px',''))+parseInt($(this).css('min-height').replace('px','')));
+		});
+		var last_wiersz=0;
+		wiersze.sort(function(a, b){return a-b});
+		$.each(wiersze, function(j, wiersz){
+			page.find('p').each(function(){
+				dist_top=parseInt($(this).css('margin-top').replace('px',''))+4;
+				if(dist_top<=wiersz && dist_top>last_wiersz){
+					row_no=parseInt(j)+1;
+					$(this).addClass('wiersz-'+row_no+'');
+					$(this).attr('data-row-no', row_no);
+				}
+			})
+			last_wiersz=wiersz;
+		})
 	})
-})
 });
 
+	$('.save-doc').click(function(){
+		console.log("Przygotowanie danych \n")
+
+		var data=[];
+		$('.page').each(function(i){
+			strona=[]
+			$(this).find('p').each(function(){
+				strona.push([
+					$(this).attr('data-col-no'),
+					$(this).attr('data-row-no'),
+					$(this).html()
+				]);
+			});
+			data.push(strona);
+		})
+		dane=JSON.stringify(data);
+		$.ajax({
+			url: "",
+			method: "post",
+			data: {'dane':dane},
+			success: function (res) {
+				if (res == false) {
+					alert("Wystąpił błąd");
+				} else {
+					//window.location.href = "docs/" + doc_id + "";
+				}
+			},
+			error: function (xhr) {
+				alert("Wystąpił błąd: " + xhr.status + " " + xhr.statusText);
+			}
+		});
+
+		/*var data=[];
+		var row_num=0;
+		pages.first().each(function(){
+			console.log("Strona\n")
+			row_num=$('.kolumna-5').length;
+			for(_i=2;_i++;_i<row_num){
+				console.log('Wiersz '+_i+"\n")
+				var row=[];
+				$('p[data-row-no='+_i+']').each(function(){
+					col_no=$(this).attr('data-col-no');
+					row[col_no]=$(this).html();
+				})
+				data.push(row);
+			}
+		})*/
+	});
 
 /*
 		var Item = Class.create({
