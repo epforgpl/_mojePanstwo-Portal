@@ -27,47 +27,22 @@ if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object
                     autorskie</a></div>
         <? } ?>
         <div class="container">
-            <? if ($pageLayer['logo']) { ?>
+            <? 
+	            if ($pageLayer['logo']) { 
+		           
+		           $src = is_string($pageLayer['logo']) ? $pageLayer['logo'] : 'http://sds.tiktalik.com/portal/pages/logo/' . $dataset . '/' . $object_id . '.png'
+		           
+            ?>
                 <div class="logoBox hidden-xs">
                     <a href="<?= $object->getUrl() ?>">
-                        <img src="http://sds.tiktalik.com/portal/pages/logo/<?= $dataset ?>/<?= $object_id ?>.png"/>
+                        <img src="<?= $src ?>" />
                     </a>
                 </div>
             <? } ?>
             <div class="holder row">
                 <div class="holderBlock col-md-9">
-                    <? if (isset($treeList)) { ?>
-                        <ul class="breadcrumb">
-                            <?php foreach ($_breadcrumbs as $bread) { ?>
-                                <li><a class="normalizeText" href="<?= $bread['href'] ?>"
-                                       target="_self"><?= trim($bread['label']) ?></a></li>
-                            <? } ?>
-                        </ul>
-                        <ul class="breadcrumb tree">
-                            <li>
-                                <a class="normalizeText"
-                                   href="/bdl/#kategoria_id=<?php echo $object->getData('bdl_wskazniki.kategoria_id') ?>"><?=
-                                    trim($object->getData('bdl_wskazniki.kategoria_tytul'));
-                                    ?></a>
-                                <ul>
-                                    <li class="e">
-                                        <a class="normalizeText"
-                                           href="/bdl/#kategoria_id=<?php echo $object->getData('bdl_wskazniki.kategoria_id')
-                                           ?>&grupa_id=<?= $object->getData('bdl_wskazniki.grupa_id'); ?>"><?=
-                                            trim($object->getData('bdl_wskazniki.grupa_tytul'));
-                                            ?></a>
-                                        <ul>
-                                            <li class="e h1">
-                                                <a class="normalizeText" href="<?php echo $object->getUrl() ?>">
-                                                    <h1><?= trim($object->getData('bdl_wskazniki.tytul')); ?></h1>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    <? } else { ?>
+                    
+                    <? if( $_breadcrumbs ) { ?>
                         <ul class="breadcrumb">
                             <?php foreach ($_breadcrumbs as $bread) { ?>
                                 <li><a href="<?= $bread['href'] ?>" target="_self"><?= $bread['label'] ?></a></li>

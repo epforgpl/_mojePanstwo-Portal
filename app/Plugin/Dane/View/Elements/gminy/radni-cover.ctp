@@ -7,6 +7,7 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 $options = array(
     'mode' => 'init',
 );
+
 ?>
 <div class="col-md-3 col-xs-12 dataAggsContainer">
 
@@ -33,7 +34,9 @@ $options = array(
 
 </div>
 <div class="col-md-9">
-
+		
+        <?= $this->element('Dane.DataBrowser/browser-content-filters') ?>
+		
         <div class="databrowser-panels">
 
             <? if ($object->getId() == 903) { ?>

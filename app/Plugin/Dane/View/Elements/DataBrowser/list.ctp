@@ -4,11 +4,11 @@
     <? if ($data['buckets']) { ?>
         <ul class="nav nav-pills nav-stacked">
             <? 
-	        $limit = 5;
+	        $limit = 10;
 	        $index = 0;
 	        $more = false;
 	        foreach ($data['buckets'] as $b) { 
-		        
+		        		        
 		        if( $index==$limit ) {
 		        	$more = uniqid();
 		        	echo '</ul><ul id="cl' . $more . '" class="nav nav-pills nav-stacked collapse">';
@@ -27,13 +27,13 @@
 							
 							$label = $b['label']['buckets'][0]['key'];
 							$href = $map['chooseRequest'] . $b['key'];
-							
+														
 						} elseif( is_string($b['label']) ) {
 							
 						}
 						
 					} else {
-						
+												
 						$label = $b['key'];
 						$href = $map['chooseRequest'] . $b['key'];
 						

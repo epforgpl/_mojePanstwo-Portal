@@ -2,6 +2,7 @@
 echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
 if ($object->getId() == '903') {
     $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
+    $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow-okreg', array('plugin' => 'Dane')));
 }
 
 $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow-okregi', array('plugin' => 'Dane')));
@@ -22,26 +23,20 @@ echo $this->Element('Dane.dataobject/subobject', array(
 ?>
     <div class="row">
 
-		<div class="col-sm-8">
+		<div class="col-sm-6">
 	        
-	        <div class="block block-simple col-xs-12 margin-top-0">
-		        <header>Mapa okręgu</header>
-		        <section class="aggs-init margin-sides-10">
-		             <div id="okreg_map" class="object"></div>
-			        <div data-name="okreg" data-content='<?= $okreg->getLayers('geo') ?>'></div>
-		        </section>
-		    </div>
+	        
 	        
 	        <? if( @$okreg_aggs['radni']['hits']['hits'] ) { ?>
 	        <div class="block block-simple col-xs-12">
-		        <header>Radni wybrani w tym okręgu</header>
-		        <section class="aggs-init">
+		        <header>Radni wybrani w tym okręgu:</header>
+		        <section class="aggs-init radni">
 		            <div class="dataAggs">
 		                <div class="agg agg-Dataobjects">
 	                        <ul class="dataobjects">
 	                            <? foreach ($okreg_aggs['radni']['hits']['hits']['hits'] as $doc) { ?>
 	                                <li>
-	                                    <?=  $this->Dataobject->render($doc, 'default'); ?>
+	                                    <?=  $this->Dataobject->render($doc, 'krakow_radni'); ?>
 	                                </li>
 	                            <? } ?>
 	                        </ul>
@@ -53,8 +48,17 @@ echo $this->Element('Dane.dataobject/subobject', array(
 	        
 	    </div>
 
-	    <div class="col-sm-4">
-
+	    <div class="col-sm-6">
+			
+			<div class="block col-xs-12 margin-top-0">
+		        <header>Mapa okręgu:</header>
+		        <section class="aggs-init nopadding">
+		             <div id="okreg_map" class="object"></div>
+			        <div data-name="okreg" data-content='<?= $okreg->getLayers('geo') ?>'></div>
+		        </section>
+		    </div>
+			
+			<? /*
             <ul class="dataHighlights rightColumn margin-top-30">
                 <li class="dataHighlight col-xs-12">
                     <p class="_label">Rok</p>
@@ -89,6 +93,8 @@ echo $this->Element('Dane.dataobject/subobject', array(
 	                Źródło
 	            </a>
 	        </p>
+	        
+	        */ ?>
 
 	    </div>
 

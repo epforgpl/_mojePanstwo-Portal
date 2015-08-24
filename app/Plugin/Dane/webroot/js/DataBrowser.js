@@ -686,10 +686,6 @@ var DataBrowser = Class.extend({
 			}
 		};
 
-		if(chartHeight) {
-			chart.height = chartHeight;
-		}
-
 		li.find('.chart').highcharts({
 			chart: chart,
 			title: {
@@ -713,7 +709,7 @@ var DataBrowser = Class.extend({
 						if(image_field) {
 							return [
 								'<div class="text-center">',
-								'<img style="margin-bottom: 5px;" src="' + columns_horizontal_images[this.value] + '"/><br/>',
+								'<img style="margin-bottom: 5px; margin-right: 5px; float: left; max-width: 30px;" src="' + columns_horizontal_images[this.value] + '"/><br/>',
 								v,
 								'</div>'
 							].join('');
@@ -740,7 +736,10 @@ var DataBrowser = Class.extend({
 					dataLabels: {
 						enabled: true
 					}
-				}
+				},
+				series: {
+	                pointWidth: 15
+	            }
 			},
 			legend: {
 				enabled: false
