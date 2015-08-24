@@ -14,7 +14,7 @@
                     <span class="title">Typ aplikacji</span>
 
                     <div class="radio">
-                        <input type="radio" name="data[ApiApp][type]" id="apiNewTypeWeb" value="web">
+                        <input type="radio" name="data[ApiApp][type]" id="apiNewTypeWeb" value="web" checked>
                         <label for="apiNewTypeWeb">Aplikacja webowa</label>
                     </div>
                     <div class="radio">
@@ -41,7 +41,7 @@
                 <div class="form-group">
                     <?php echo $this->Form->input('home_link', array('class' => 'form-control')); ?>
                 </div>
-                <div class="form-group">
+                <div class="form-group domainBlock">
                     <?php echo $this->Form->input('domains', array('class' => 'form-control')); ?>
                 </div>
             </fieldset>

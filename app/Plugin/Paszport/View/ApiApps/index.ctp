@@ -24,8 +24,8 @@
                         </div>
                     </div>
                     <div class="col-xs-3 apiActionBtn">
-                        <div class="btn-group pull-right" role="group">
-                            <?php echo $this->Html->link(__('View'), array('action' => 'view', $apiApp['ApiApp']['id']), array('class' => 'btn btn-primary')); ?>
+                        <div class="pull-left">
+                            <?php /*echo $this->Html->link(__('View'), array('action' => 'view', $apiApp['ApiApp']['id']), array('class' => 'btn btn-primary')); */ ?>
                             <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $apiApp['ApiApp']['id']), array('class' => 'btn btn-warning')); ?>
                             <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $apiApp['ApiApp']['id']), array('class' => 'btn btn-danger'), __('Are you sure you want to delete # %s?', $apiApp['ApiApp']['id'])); ?>
                         </div>

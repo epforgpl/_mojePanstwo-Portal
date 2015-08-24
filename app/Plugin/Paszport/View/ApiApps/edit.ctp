@@ -6,6 +6,7 @@
 <div class="editProfile container">
     <div class="mainBlock col-xs-12 col-md-6">
         <h3><?php echo __('Api Apps'); ?></h3>
+        <?php echo $this->Html->link(__('New Api App'), array('action' => 'add'), array('class' => 'addAppBtn btn btn-primary btn-sm pull-right')); ?>
 
         <div class="apiApps edit">
             <fieldset>
@@ -14,7 +15,7 @@
                     <div class="readonly">
                         <label><?= __('Type') ?></label>
 
-                        <p class="form-control form-control-static"><?= $this->Form->value('apiApp.type'); ?></p>
+                        <p class="form-control form-control-static"><?= $this->request->data['ApiApp']['type']; ?></p>
                     </div>
                 </div>
 
@@ -27,7 +28,8 @@
                             Przeglądaj&hellip; <? echo $this->Form->file('logo'); ?>
                         </span>
                     </span>
-                    <input type="text" class="form-control" readonly value="<?= $this->Form->value('apiApp.logo'); ?>">
+                    <input type="text" class="form-control" readonly
+                           value="<?= @$this->request->data['ApiApp']['logo']; ?>">
                 </div>
                 <div class="form-group">
                     <?php echo $this->Form->input('description', array('class' => 'form-control')); ?>
@@ -35,9 +37,11 @@
                 <div class="form-group">
                     <?php echo $this->Form->input('home_link', array('class' => 'form-control')); ?>
                 </div>
-                <div class="form-group">
-                    <?php echo $this->Form->input('domains', array('class' => 'form-control')); ?>
-                </div>
+                <? if ($this->request->data['ApiApp']['type'] !== 'domain') { ?>
+                    <div class="form-group">
+                        <?php echo $this->Form->input('domains', array('class' => 'form-control')); ?>
+                    </div>
+                <? } ?>
             </fieldset>
             <span class="info-normal col-xs-12 row">Dodając aplikację zgadasz się na wykorzystanie podanych informacji w działaniach promocyjnych serwisu Moje Państwo.</span>
 
