@@ -132,12 +132,10 @@
                             ), array('class' => 'btn btn-social btn-facebook btn-md', 'escape' => false)); ?>
                         </div>
                     </div>
-
-                    <div class="slide register col-xs-12">
-                        <?php echo $this->Html->link(__d('paszport', 'LC_PASZPORT_MODAL_LOGIN_LOGIN', true), '/login', array('class' => 'register', 'autocomplete' => 'off', 'target' => '_self')); ?>
-                    </div>
-
                     <?php echo $this->Form->end(); ?>
+                </div>
+                <div class="modal-footer backgroundBlue">
+                    <?php echo $this->Html->link(__d('paszport', 'LC_PASZPORT_MODAL_LOGIN_LOGIN', true), '/login', array('class' => 'register', 'autocomplete' => 'off', 'target' => '_self')); ?>
                 </div>
             </div>
         </div>
