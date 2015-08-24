@@ -21,9 +21,14 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <? if(isset($this->request->query['conditions'][$map['field']])) {
 
-                        $label = isset($dataBrowser['aggs'][$name]['buckets'][0]['label']['buckets'][0]['key']) ? $dataBrowser['aggs'][$name]['buckets'][0]['label']['buckets'][0]['key'] : (isset($dataBrowser['aggs'][$name]['buckets'][0]['key']) ? $dataBrowser['aggs'][$name]['buckets'][0]['key'] : 'Usuń filtr');
-                        if(isset($map['dictionary']) && isset($map['dictionary'][$label]))
-                            $label = $map['dictionary'][$label];
+                        if(isset($map['dictionary']) && isset($map['dictionary'][$this->request->query['conditions'][$map['field']]]))
+                            $label = $map['dictionary'][$this->request->query['conditions'][$map['field']]];
+                        else
+                            $label = isset($dataBrowser['aggs'][$name]['buckets'][0]['label']['buckets'][0]['key']) ?
+                                $dataBrowser['aggs'][$name]['buckets'][0]['label']['buckets'][0]['key'] :
+                                (isset($dataBrowser['aggs'][$name]['buckets'][0]['key']) ?
+                                    $dataBrowser['aggs'][$name]['buckets'][0]['key'] :
+                                    'Usuń filtr');
 
                         echo $label;
 
