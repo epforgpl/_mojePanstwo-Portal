@@ -46,14 +46,14 @@
             <span class="info-normal col-xs-12 row">Dodając aplikację zgadasz się na wykorzystanie podanych informacji w działaniach promocyjnych serwisu Moje Państwo.</span>
 
             <div class="optionsBtn col-xs-12">
-                <?php echo $this->Html->link(__('List'), array('action' => 'index'), array('class' => 'btn btn-default pull-left')); ?>
+                <?php echo $this->Html->link(__('List'), array('action' => 'index'), array('class' => 'btn btn-default pull-left listBtn')); ?>
 
-                <?php echo $this->Form->button('Submit', array('class' => 'btn btn-primary pull-right')); ?>
+                <?php echo $this->Form->button('Submit', array('class' => 'btn btn-primary pull-right submitBtn')); ?>
                 <?php echo $this->Form->button('Cancel', array(
-                    'class' => 'btn btn-default pull-right',
+                    'class' => 'btn btn-default pull-right cancelBtn',
                     'type' => 'button',
                     'onclick' => 'location.href=\'/users\'')); ?>
-                <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('ApiApp.id')), array('class' => 'btn btn-danger pull-right'), __('Are you sure you want to delete # %s?', $this->Form->value('ApiApp.id'))); ?>
+                <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('ApiApp.id')), array('class' => 'btn btn-danger pull-right deleteBtn'), __('Are you sure you want to delete # %s?', $this->Form->value('ApiApp.id'))); ?>
             </div>
             <?php echo $this->Form->end(); ?>
         </div>

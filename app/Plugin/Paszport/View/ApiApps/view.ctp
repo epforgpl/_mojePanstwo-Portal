@@ -65,9 +65,9 @@
                 </div>
             </div>
             <div class="optionsBtn col-xs-12">
-                <?php echo $this->Html->link(__('List'), array('action' => 'index'), array('class' => 'btn btn-default pull-left')); ?>
-                <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $apiApp['ApiApp']['id']), array('class' => 'btn btn-warning pull-right')); ?>
-                <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $apiApp['ApiApp']['id']), array('class' => 'btn btn-danger pull-right'), __('Are you sure you want to delete # %s?', $apiApp['ApiApp']['id'])); ?>
+                <?php echo $this->Html->link(__('List'), array('action' => 'index'), array('class' => 'btn btn-default pull-left listBtn')); ?>
+                <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $apiApp['ApiApp']['id']), array('class' => 'btn btn-warning pull-right editBtn')); ?>
+                <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $apiApp['ApiApp']['id']), array('class' => 'btn btn-danger pull-right deleteBtn'), __('Are you sure you want to delete # %s?', $apiApp['ApiApp']['id'])); ?>
             </div>
         </div>
     </div>

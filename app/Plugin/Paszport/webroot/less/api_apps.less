@@ -1,4 +1,49 @@
 .editProfile {
+  .optionsBtn {
+    .btn-default, .btn-primary, .btn-warning, .btn-danger {
+      font-weight: bold;
+      margin-right: 5px;
+      border-color: #E7E7E7;
+
+      &:focus, &:hover {
+        background-color: #eee;
+      }
+    }
+    .btn-primary {
+      background-color: #ffffff;
+      color: #337ab7;
+    }
+    .btn-danger {
+      background-color: #ffffff;
+      color: #d9534f;
+    }
+
+    .listBtn, .editBtn, .cancelBtn, .deleteBtn, .submitBtn {
+      &:before {
+        font-family: 'Glyphicons Halflings';
+        font-size: 0.8em;
+        font-weight: normal;
+        margin-right: 8px;
+      }
+    }
+
+    .listBtn:before {
+      content: "\e012";
+    }
+    .editBtn:before {
+      content: "\270f";
+    }
+    .cancelBtn:before {
+      content: "\e014";
+    }
+    .deleteBtn:before {
+      content: "\e090";
+    }
+    .submitBtn:before {
+      content: "\e013";
+    }
+  }
+
   .mainBlock {
     position: relative;
 

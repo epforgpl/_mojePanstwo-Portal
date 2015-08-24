@@ -20,14 +20,14 @@
 
                         <div class="apiGeneratedKey">
                             <?php echo h($apiApp['ApiApp']['api_key']); ?>
-                            <?php echo $this->Form->postLink('Zresetuj klucz API', array('action' => 'reset_api_key', $apiApp['ApiApp']['id']), null, 'Czy na pewno chcesz zresetować klucz API? Konieczne będzie jego podmienienie we wszystkich klientach, które z niego korzystają.'); ?>
+                            <?php echo $this->Form->postLink('Pokaż', array('action' => 'show_api_key', $apiApp['ApiApp']['id']), array('class' => 'btn btn-link btn-sm')); ?>
+                            <?php echo $this->Form->postLink('Zresetuj', array('action' => 'reset_api_key', $apiApp['ApiApp']['id']), array('class' => 'btn btn-link btn-sm'), 'Czy na pewno chcesz zresetować klucz API? Konieczne będzie jego podmienienie we wszystkich klientach, które z niego korzystają.'); ?>
                         </div>
                     </div>
-                    <div class="col-xs-3 apiActionBtn">
+                    <div class="col-xs-3 apiActionBtn optionsBtn">
                         <div class="pull-left">
-                            <?php /*echo $this->Html->link(__('View'), array('action' => 'view', $apiApp['ApiApp']['id']), array('class' => 'btn btn-primary')); */ ?>
-                            <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $apiApp['ApiApp']['id']), array('class' => 'btn btn-warning')); ?>
-                            <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $apiApp['ApiApp']['id']), array('class' => 'btn btn-danger'), __('Are you sure you want to delete # %s?', $apiApp['ApiApp']['id'])); ?>
+                            <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $apiApp['ApiApp']['id']), array('class' => 'btn btn-primary editBtn')); ?>
+                            <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $apiApp['ApiApp']['id']), array('class' => 'btn btn-danger deleteBtn'), __('Are you sure you want to delete # %s?', $apiApp['ApiApp']['id'])); ?>
                         </div>
                         <? if (isset($apiApp['User'])) {
                             // ustawione jeżeli ogląda to admin
