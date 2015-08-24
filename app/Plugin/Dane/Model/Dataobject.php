@@ -34,7 +34,7 @@ class Dataobject extends AppModel
                 $obj = new $class($results[$i]);
             } else
                 $obj = new MP\Lib\Dataobject($results[$i]);
-
+						
             $results[$i] = $obj;
 
         }

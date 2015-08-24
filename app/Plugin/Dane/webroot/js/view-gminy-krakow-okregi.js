@@ -199,9 +199,9 @@ $(document).ready(function() {
             document.getElementById('okreg_map'), {
                 zoom: 10,
                 panControl: false,
-                zoomControl: true,
-                scrollwheel: true,
-                draggable: true,
+                zoomControl: false,
+                scrollwheel: false,
+                draggable: false,
                 mapTypeControl: false,
                 scaleControl: false,
                 streetViewControl: false,
@@ -224,7 +224,7 @@ $(document).ready(function() {
         );
 
         var polygons = [];
-        var p = parsePolyStrings(okreg[3]);
+        var p = parsePolyStrings(okreg);
 
         for(var s = 0; s < p.length; s++) {
             var poly = new google.maps.Polygon({

@@ -332,36 +332,7 @@ class DataBrowserComponent extends Component
                 ),
             ),
         ),
-        'krakow_rada_uchwaly' => array(
-
-            /*'kadencja_id' => array(
-                'terms' => array(
-                    'field' => 'krakow_rada_uchwaly.kadencja_id',
-                    'order' => array(
-                        '_term' => 'desc',
-                    ),
-                    'exclude' => array(
-                        'pattern' => '0'
-                    ),
-                ),
-                'visual' => array(
-                    'label' => 'Kadencje',
-                    'skin' => 'list',
-                    'field' => 'krakow_rada_uchwaly.kadencja_id',
-                    'dictionary' => array(
-                        '1' => 'I',
-                        '2' => 'II',
-                        '3' => 'III',
-                        '4' => 'IV',
-                        '5' => 'V',
-                        '6' => 'VI',
-                        '7' => 'VII',
-                        '8' => 'VIII',
-                        '9' => 'IX',
-                    ),
-                ),
-            ),*/
-
+        'krakow_rada_uchwaly' => array(            
             'typ_id' => array(
                 'terms' => array(
                     'field' => 'krakow_rada_uchwaly.typ_id',
@@ -378,6 +349,33 @@ class DataBrowserComponent extends Component
                         '1' => 'Uchwały',
                         '2' => 'Rezolucje',
                     ),
+                ),
+            ),
+            'kadencja' => array(
+                'terms' => array(
+                    'field' => 'rady_gmin_interpelacje.kadencja_id',
+                    'order' => array(
+                        '_term' => 'desc',
+                    ),
+                    'exclude' => array(
+	                    'pattern' => '0',
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Kadencje',
+                    'skin' => 'list',
+                    'field' => 'rady_gmin_interpelacje.kadencja_id',
+                    'dictionary' => array(
+                        '1' => 'I kadencja',
+                        '2' => 'II kadencja',
+                        '3' => 'III kadencja',
+                        '4' => 'IV kadencja',
+                        '5' => 'V kadencja',
+                        '6' => 'VI kadencja',
+                        '7' => 'VII kadencja',
+                        '8' => 'VIII kadencja',
+                    ),
+                    'all' => 'Wszystkie kadencje',
                 ),
             ),
             'date' => array(
@@ -612,31 +610,36 @@ class DataBrowserComponent extends Component
                 ),
             ),
         ),
-        'rady_gmin_interpelacje' => array(
-            /*'kadencja' => array(
+        'radni_gmin' => array(
+	        'kadencja' => array(
                 'terms' => array(
-                    'field' => 'rady_gmin_interpelacje.kadencja_id',
+                    'field' => 'radni_gmin.kadencja_id',
                     'order' => array(
                         '_term' => 'desc',
+                    ),
+                    'exclude' => array(
+	                    'pattern' => '0',
                     ),
                 ),
                 'visual' => array(
                     'label' => 'Kadencje',
                     'skin' => 'list',
-                    'field' => 'rady_gmin_interpelacje.kadencja_id',
+                    'field' => 'radni_gmin.kadencja_id',
                     'dictionary' => array(
-                        '1' => 'I',
-                        '2' => 'II',
-                        '3' => 'III',
-                        '4' => 'IV',
-                        '5' => 'V',
-                        '6' => 'VI',
-                        '7' => 'VII',
-                        '8' => 'VIII',
-                        '9' => 'IX',
+                        '1' => 'I kadencja',
+                        '2' => 'II kadencja',
+                        '3' => 'III kadencja',
+                        '4' => 'IV kadencja',
+                        '5' => 'V kadencja',
+                        '6' => 'VI kadencja',
+                        '7' => 'VII kadencja',
+                        '8' => 'VIII kadencja',
                     ),
+                    'all' => 'Wszystkie kadencje',
                 ),
-            ),*/
+            ),
+        ),
+        'rady_gmin_interpelacje' => array(
             'radni' => array(
                 'terms' => array(
                     'field' => 'radni_gmin.id',
@@ -653,12 +656,38 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Autorzy interpelacji',
-                    'all' => 'Wszyscy autorzy',
+                    'all' => 'Interpelacje wszystkich radnych',
                     'skin' => 'columns_horizontal',
                     'field' => 'radni_gmin.id'
                 ),
             ),
-
+			'kadencja' => array(
+                'terms' => array(
+                    'field' => 'rady_gmin_interpelacje.kadencja_id',
+                    'order' => array(
+                        '_term' => 'desc',
+                    ),
+                    'exclude' => array(
+	                    'pattern' => '0',
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Kadencje',
+                    'skin' => 'list',
+                    'field' => 'rady_gmin_interpelacje.kadencja_id',
+                    'dictionary' => array(
+                        '1' => 'I kadencja',
+                        '2' => 'II kadencja',
+                        '3' => 'III kadencja',
+                        '4' => 'IV kadencja',
+                        '5' => 'V kadencja',
+                        '6' => 'VI kadencja',
+                        '7' => 'VII kadencja',
+                        '8' => 'VIII kadencja',
+                    ),
+                    'all' => 'Wszystkie kadencje',
+                ),
+            ),
         ),
         'krakow_dzielnice_uchwaly' => array(
             'dzielnice' => array(
@@ -1131,15 +1160,13 @@ class DataBrowserComponent extends Component
             )
         )
             $settings['aggs'] = array();
-
+				
         if(
 	        isset($settings['aggsPreset']) &&
             array_key_exists($settings['aggsPreset'], $this->aggs_presets)
         )
         	$settings['aggs'] = array_merge($this->aggs_presets[$settings['aggsPreset']], $settings['aggs']);
-
-
-
+		
         if( isset($settings['aggs']) )
         	$settings['aggs'] = $this->processAggs( $settings['aggs'] );
 
@@ -1222,8 +1249,6 @@ class DataBrowserComponent extends Component
         if (!property_exists($controller, 'Dataobject'))
             $controller->Dataobject = ClassRegistry::init('Dane.Dataobject');
 
-        // debug($this->getSettings()); die();
-
         if (
             (!$this->cover) ||
             (
@@ -1235,8 +1260,6 @@ class DataBrowserComponent extends Component
         ) {
 
             $controller->Paginator->settings = $this->getSettings();
-
-            // debug($this->getSettings());
 
             // $controller->Paginator->settings['order'] = 'score desc';
             // debug($controller->Paginator->settings); die();
@@ -1350,17 +1373,18 @@ class DataBrowserComponent extends Component
                 $params = array(
                     'limit' => 0,
                     'conditions' => $settings['conditions'],
+                    'aggs' => array(),
                 );
-
+				
+				if (isset($settings['aggs']))
+                    $params['aggs'] = array_merge($params['aggs'], $settings['aggs']);
+				
                 if (isset($this->cover['aggs']))
-                    $params['aggs'] = $this->cover['aggs'];
-
-                if (isset($this->cover['conditions'])) {
-
-                    $params['conditions'] = array_merge($params['conditions'], $this->cover['conditions']);
-
-                }
-
+                    $params['aggs'] = array_merge($params['aggs'], $this->cover['aggs']);
+					
+                if (isset($this->cover['conditions']))
+                    $params['conditions'] = array_merge($params['conditions'], $this->cover['conditions']);				
+				
                 $controller->Dataobject->find('all', $params);
 
 				$dataBrowser = array(

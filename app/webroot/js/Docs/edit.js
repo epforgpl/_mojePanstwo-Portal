@@ -282,16 +282,17 @@ $(document).ready(function () {
 			}
 		});
 
+		dane=JSON.stringify(data)
 		$.ajax({
 			url: "/docs/" + doc_id + ".json",
 			method: "post",
-			data: data,
+			data: {'dane':dane},
 			async: false,
 			success: function (res) {
 				if (res == false) {
 					alert("Wystąpił błąd");
 				} else {
-					window.location.href = "docs/" + doc_id + "";
+					//window.location.href = "docs/" + doc_id + "";
 				}
 			},
 			error: function (xhr) {

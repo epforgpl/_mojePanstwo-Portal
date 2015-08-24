@@ -21,7 +21,21 @@ class TwitterAccountsController extends DataobjectsController
     {
 
         $this->addInitLayers(array('powiazania'));
-        parent::load();
+        $this->load();
+        
+        if(
+	        ( $page = $this->object->getLayer('page') ) && 
+	        ( $page['logo'] )
+        ) {
+	        
+        } else {
+	        	        
+	        $this->object->layers['page'] = array(
+		        'cover' => false,
+		        'logo' => str_replace('_normal', '', $this->object->getData('profile_image_url_https')),
+	        );
+	         
+        }
 
         $powiazania = $this->object->loadLayer('powiazania');
 

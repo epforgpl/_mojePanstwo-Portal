@@ -1316,32 +1316,8 @@ class GminyController extends DataobjectsController
 
             $global_aggs['radni'] = array(
                 'filter' => array(
-                    'bool' => array(
-                        'must' => array(
-                            array(
-                                'term' => array(
-                                    'dataset' => 'radni_gmin',
-                                ),
-                            ),
-                            array(
-                                'term' => array(
-                                    'data.radni_gmin.gmina_id' => $this->object->getId(),
-                                ),
-                            ),
-                            array(
-                                'term' => array(
-                                    'data.radni_gmin.aktywny' => '1',
-                                ),
-                            ),
-                            array(
-                                'term' => array(
-                                    'data.radni_gmin.kadencja_id' => '7',
-                                ),
-                            ),
-                        ),
-                    ),
+                    'match_all' => '_empty',
                 ),
-                'scope' => 'global',
                 'aggs' => array(
                     'top' => array(
                         'top_hits' => array(
@@ -1363,6 +1339,8 @@ class GminyController extends DataobjectsController
             'conditions' => array(
                 'dataset' => 'radni_gmin',
                 'radni_gmin.gmina_id' => '903',
+                'radni_gmin.aktywny' => '1',
+                'radni_gmin.kadencja_id' => '7',
             ),
             'cover' => array(
                 'view' => array(
@@ -1371,6 +1349,7 @@ class GminyController extends DataobjectsController
                 ),
                 'aggs' => $global_aggs,
             ),
+            'aggsPreset' => 'radni_gmin',
         );
 
         $this->set('_submenu', array_merge($this->submenus['rada'], array(
@@ -1797,7 +1776,7 @@ class GminyController extends DataobjectsController
 
             $this->set('debata', $debata);
             $this->set('aggs', $this->Dataobject->getAggs());
-						
+
             $wystapienia = $debata->getLayer('wystapienia');
             $this->set('wystapienia', $wystapienia);
 
@@ -1904,7 +1883,7 @@ class GminyController extends DataobjectsController
                 ),
                 'layers' => array('neighbours', 'druki', 'docs')
             ));
-
+						
             $this->set('file',
                 isset($this->request->query['file']) ?
                     (int) $this->request->query['file'] : $uchwala->getData('dokument_id')
@@ -2540,6 +2519,7 @@ class GminyController extends DataobjectsController
                 $layers[] = 'obietnice';
             } elseif ($subaction == 'view') {
                 $layers[] = 'okreg';
+                $layers[] = 'powiazania';
             }
 
 
@@ -2932,7 +2912,10 @@ class GminyController extends DataobjectsController
 
     public function komisje()
     {
-
+		
+		if( !isset($this->request->query['conditions']['krakow_komisje.kadencja_id']) )
+			$this->request->query['conditions']['krakow_komisje.kadencja_id'] = '7';
+		
         $this->_prepareView();
         $this->request->params['action'] = 'rada';
 
@@ -3797,6 +3780,8 @@ class GminyController extends DataobjectsController
 
     public function okregi()
     {
+
+	    $this->request->params['action'] = 'rada';
         $this->_prepareView();
 
         if ($this->object->getId() != '903')
@@ -3806,13 +3791,65 @@ class GminyController extends DataobjectsController
 
         if($subid = @$this->request->params['subid']) {
 
-            $okreg = $this->Krakow->okreg($subid);
+            $okreg = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'krakow_okregi_wyborcze',
+                    'id' => $this->request->params['subid'],
+                ),
+                'aggs' => array(
+	                'radni' => array(
+		                'scope' => 'global',
+		                'filter' => array(
+			                'bool' => array(
+		                        'must' => array(
+		                            array(
+		                                'term' => array(
+		                                    'dataset' => 'radni_gmin',
+		                                ),
+		                            ),
+		                            array(
+		                                'term' => array(
+		                                    'data.radni_gmin.gmina_id' => $this->object->getId(),
+		                                ),
+		                            ),
+		                            array(
+		                                'term' => array(
+		                                    'data.radni_gmin.aktywny' => '1',
+		                                ),
+		                            ),
+		                            array(
+		                                'term' => array(
+		                                    'data.radni_gmin.kadencja_id' => '7',
+		                                ),
+		                            ),
+		                            array(
+		                                'term' => array(
+		                                    'data.radni_gmin.krakow_okreg_id' => $this->request->params['subid'],
+		                                ),
+		                            ),
+		                        ),
+		                    ),
+		                ),
+		                'aggs' => array(
+			                'hits' => array(
+				                'top_hits' => array(
+					                'size' => 100,
+	                                'fielddata_fields' => array('dataset', 'id'),
+				                ),
+			                ),
+		                ),
+	                ),
+                ),
+                'layers' => array('geo')
+            ));
+            
+            $aggs = $this->Dataobject->getAggs();
+            $this->set('okreg_aggs', $aggs);
+
             $this->set('okreg', $okreg);
+            $this->set('title_for_layout', $okreg->getTitle());
+            $this->render('okreg');
 
-            $okreg_id = (int) @$okreg[7];
-            if($okreg_id > 0) {
-
-            }
 
         } else {
             $this->set('okregi', $this->Krakow->okregi());

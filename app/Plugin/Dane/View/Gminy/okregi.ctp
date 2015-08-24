@@ -31,60 +31,12 @@ echo $this->Element('dataobject/pageBegin', array(
                     } ?>
 
                 </div>
-                <div class="col-xs-12 col-md-8">
+                <div class="col-xs-12 col-md-9">
 
                     <? if (isset($okregi)) { ?>
 
                         <div id="kto_tu_rzadzi" class="object"></div>
                         <div data-name="okregi" data-content='<?= json_encode($okregi) ?>'></div>
-
-                    <? } else if (isset($okreg)) { ?>
-
-                        <div class="row">
-
-                            <div class="col-sm-6">
-
-                                <h2>Okręg nr. <?= $okreg[2] ?></h2>
-
-                                <dl class="dl-horizontal margin-top-20">
-                                    <dt>Rok</dt>
-                                    <dd><?= $okreg[1] ?></dd>
-                                    <dt>Dzielnice</dt>
-                                    <dd><?= $okreg[4] ?></dd>
-                                    <dt>Ilość mieszkańców</dt>
-                                    <dd><?= $okreg[5] ?></dd>
-                                    <dt>Liczba mandatów</dt>
-                                    <dd><?= $okreg[6] ?></dd>
-                                </dl>
-
-                                <p>
-                                    <strong>Ilość mieszkańców / Norma przedstawicielstwa <span
-                                            style="color: rgba(160, 25, 27, 0.78);">*</span></strong> : <?= $okreg[8] ?>
-                                </p>
-
-                                <p class="text-muted">
-                                    <span style="color: rgba(160, 25, 27, 0.78);">*</span> Norma przedstawicielska -
-                                    określa ilość mandatów przypadających na dany okręg. Jest obliczana przez
-                                    podzielenie liczby mieszkańców gminy przez liczbę radnych wybieranych do danej rady.
-                                    By ustalić liczbę mandatów w danym okręgu wyborczym, stosuje się normę
-                                    przedstawicielską. Ułamki równe lub większe od 1/2, jakie wynikają z zastosowania
-                                    normy przedstawicielstwa, zaokrągla się w górę do liczby całkowitej.
-                                </p>
-
-                                <p>
-                                    <a target="_blank" href="/rada_uchwaly/18316">
-                                        Źródło
-                                    </a>
-                                </p>
-
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div id="okreg_map" class="object"></div>
-                                <div data-name="okreg" data-content='<?= json_encode($okreg) ?>'></div>
-                            </div>
-
-                        </div>
 
                     <? } ?>
 
