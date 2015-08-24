@@ -332,7 +332,7 @@ class DataBrowserComponent extends Component
                 ),
             ),
         ),
-        'krakow_rada_uchwaly' => array(            
+        'krakow_rada_uchwaly' => array(
             'typ_id' => array(
                 'terms' => array(
                     'field' => 'krakow_rada_uchwaly.typ_id',
@@ -402,7 +402,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Kadencje',
-                    'all' => 'Wszystkie kadencje',
+                    'all' => false,
                     'skin' => 'list',
                     'field' => 'krakow_komisje.kadencja_id',
                     'dictionary' => array(
@@ -1160,13 +1160,13 @@ class DataBrowserComponent extends Component
             )
         )
             $settings['aggs'] = array();
-				
+
         if(
 	        isset($settings['aggsPreset']) &&
             array_key_exists($settings['aggsPreset'], $this->aggs_presets)
         )
         	$settings['aggs'] = array_merge($this->aggs_presets[$settings['aggsPreset']], $settings['aggs']);
-		
+
         if( isset($settings['aggs']) )
         	$settings['aggs'] = $this->processAggs( $settings['aggs'] );
 
@@ -1375,16 +1375,16 @@ class DataBrowserComponent extends Component
                     'conditions' => $settings['conditions'],
                     'aggs' => array(),
                 );
-				
+
 				if (isset($settings['aggs']))
                     $params['aggs'] = array_merge($params['aggs'], $settings['aggs']);
-				
+
                 if (isset($this->cover['aggs']))
                     $params['aggs'] = array_merge($params['aggs'], $this->cover['aggs']);
-					
+
                 if (isset($this->cover['conditions']))
-                    $params['conditions'] = array_merge($params['conditions'], $this->cover['conditions']);				
-				
+                    $params['conditions'] = array_merge($params['conditions'], $this->cover['conditions']);
+
                 $controller->Dataobject->find('all', $params);
 
 				$dataBrowser = array(

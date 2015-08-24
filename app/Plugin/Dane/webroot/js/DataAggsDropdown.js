@@ -9,6 +9,7 @@ var DataAggsDropdown = function(li) {
 	this.chooseRequest = this.li.data('choose-request');
 	this.labelDictionary = this.li.data('label-dictionary');
 	this.isSelected = this.li.data('is-selected') == '1';
+	this.selected = this.li.data('selected');
 	this.allLabel = this.li.data('all-label');
 	this.counterField = this.li.data('counter-field') ? this.li.data('counter-field') : 'doc_count';
 	this.labelField = this.li.data('label-field') ? this.li.data('label-field') : 'label';
@@ -405,8 +406,8 @@ DataAggsDropdown.prototype.createPieChart = function() {
 			useHTML: true,
 			labelFormatter: function () {
 				var name = this.name;
-				if (name.length > 32)
-					name = name.substring(0, 35) + '...';
+				if (name.length > 45)
+					name = name.substring(0, 42) + '...';
 
 				return '<a title="' + this.name + '" href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + name + '</a>';
 			},
@@ -518,8 +519,8 @@ DataAggsDropdown.prototype.createColumnsHorizontal = function() {
 				formatter: function () {
 
 					var v = this.value;
-					if (v.length > 15)
-						v = v.substring(0, 12) + '...';
+					if (v.length > 45)
+						v = v.substring(0, 42) + '...';
 
 					return v;
 				}
@@ -576,19 +577,26 @@ DataAggsDropdown.prototype.createList = function() {
 		dropdownList = '';
 
 	for(var i = 0; i < this.aggs.buckets.length; i++) {
+
+		var label = this.aggs.buckets[i].key;
+		if(this.labelDictionary.hasOwnProperty(label))
+			label = this.labelDictionary[label];
+
 		dropdownList += [
-			'<li' + (this.isSelected ? ' class="active"' : '') + '>',
+			'<li' + (this.isSelected && this.selected == this.aggs.buckets[i].key ? ' class="active"' : '') + '>',
 				'<a href="' + this.chooseRequest + this.aggs.buckets[i].key + '">',
-					this.aggs.buckets[i].key,
+					label,
 				'</a>',
 			'</li>'
 		].join('');
 	}
 
-	dropdownList += [
-		'<li role="separator" class="divider"></li>',
-		'<li><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
-	].join('');
+	if(this.allLabel.length > 0) {
+		dropdownList += [
+			'<li role="separator" class="divider"></li>',
+			'<li><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
+		].join('');
+	}
 
 	dropdownMenu.append(dropdownList);
 };

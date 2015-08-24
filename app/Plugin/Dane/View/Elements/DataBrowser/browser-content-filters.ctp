@@ -16,11 +16,18 @@
                 data-label-dictionary='<?= json_encode(isset($map['dictionary']) ? $map['dictionary'] : array()) ?>'
                 data-choose-request="<?= $map['chooseRequest'] ?>"
                 data-all-label="<?= $map['all'] ?>"
-                data-is-selected="<?= isset($this->request->query['conditions'][$map['field']]) ?>">
+                data-is-selected="<?= isset($this->request->query['conditions'][$map['field']]) ?>"
+                data-selected="<?= @$this->request->query['conditions'][$map['field']] ?>">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <? if(isset($this->request->query['conditions'][$map['field']])) { ?>
-                        <?= isset($dataBrowser['aggs'][$name]['buckets'][0]['label']['buckets'][0]['key']) ? $dataBrowser['aggs'][$name]['buckets'][0]['label']['buckets'][0]['key'] : (isset($dataBrowser['aggs'][$name]['buckets'][0]['key']) ? $dataBrowser['aggs'][$name]['buckets'][0]['key'] : 'Usuń filtr'); ?>
-                    <? } else { ?>
+                    <? if(isset($this->request->query['conditions'][$map['field']])) {
+
+                        $label = isset($dataBrowser['aggs'][$name]['buckets'][0]['label']['buckets'][0]['key']) ? $dataBrowser['aggs'][$name]['buckets'][0]['label']['buckets'][0]['key'] : (isset($dataBrowser['aggs'][$name]['buckets'][0]['key']) ? $dataBrowser['aggs'][$name]['buckets'][0]['key'] : 'Usuń filtr');
+                        if(isset($map['dictionary']) && isset($map['dictionary'][$label]))
+                            $label = $map['dictionary'][$label];
+
+                        echo $label;
+
+                    } else { ?>
                         <?= $map['all'] ?>
                     <? } ?>
                     <span class="caret"></span>
