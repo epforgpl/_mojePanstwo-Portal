@@ -45,12 +45,14 @@ var BDLapp = function () {
 				self.loading();
 
 				item.find('.map').fadeOut(function () {
-					item.find('.charts').attr('data-chart', chart.outerWidth()).animate({
+					var chart = item.find('.charts');
+
+					chart.attr('data-chart', chart.outerWidth()).animate({
 						width: '100%'
 					}, {
 						duration: 600,
 						step: function () {
-							item.find('.chart').highcharts().reflow()
+							chart.find('.chart').highcharts().reflow()
 						}
 					});
 				});
@@ -350,11 +352,10 @@ var BDLapp = function () {
 						}, {
 							duration: 600,
 							step: function () {
-								chart.highcharts().reflow()
+								chart.find('.chart').highcharts().reflow()
 							},
 							complete: function () {
 								wsk.find('.map').fadeIn();
-
 							}
 						});
 					});
