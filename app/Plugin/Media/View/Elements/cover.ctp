@@ -18,19 +18,26 @@ $options = array(
     <? echo $this->Element('Dane.DataBrowser/aggs', array(
         	'data' => $dataBrowser,
     )); ?>
+
+    <? if(isset($twitterAccountTypes)) { ?>
+        <?= $this->Element('Media.twitter-account-suggestion', array(
+            'types' => $twitterAccountTypes
+        )); ?>
+    <? } ?>
+
 </div>
 
 <div class="col-xs-12 col-md-10">
-		
+
 	<div class="dataWrap">
-		
+
 		<div class="appBanner">
 			<h1 class="appTitle">Media społecznościowe</h1>
 			<p class="appSubtitle">Zobacz kto i jak wykorzystuje media społecznościowe w debacie publicznej.</p>
 		</div>
-		
+
 	</div>
-	
+
 	<div id="accountsSwitcher" class="appMenuStrip row">
 		<div class="dataWrap">
 	    <? if(isset($twitterAccountTypes) && isset($twitterAccountType)) { ?>
@@ -49,7 +56,7 @@ $options = array(
 	    <? } ?>
 		</div>
 	</div>
-	
+
 	<div class="dataWrap">
 		<? if( @$dataBrowser['aggs']['tweets']['timerange']['top']['hits']['hits'] ) { ?>
 		    <div class="block col-xs-12">
@@ -69,7 +76,7 @@ $options = array(
 		        </section>
 		    </div>
 	    <? } ?>
-	
+
 		<? if( @$dataBrowser['aggs']['tweets']['timerange']['accounts']['buckets'] ) { ?>
 			<div class="block col-xs-12">
 		        <header>Najpopularniejsze konta na Twitterze</header>
@@ -85,10 +92,10 @@ $options = array(
 		    </div>
 	    <? } ?>
 	</div>
-	
+
 	    <? if(@$dataBrowser['aggs']['tweets']['timerange']['tags']['tags']) { ?>
 	        <div class="block col-xs-12">
-	        
+
 	            <header>
 		            <div class="dataWrap">Najpopularniejsze hashtagi</div>
 		        </header>
@@ -107,9 +114,9 @@ $options = array(
 	            </section>
 	        </div>
 	    <? } ?>
-	
+
 	<div class="dataWrap">
-				
+
 	    <? if(@$dataBrowser['aggs']['tweets_whitout_account_type_id']['types']['buckets']) { ?>
 	        <div class="block col-xs-12">
 	            <header>Najczęściej używane aplikacje:</header>
@@ -127,13 +134,13 @@ $options = array(
 				                <? } ?>
 			                </ul>
 		                </div>
-		                
+
 		                <? } ?>
 	                </div>
 	            </section>
 	        </div>
 	    <? } ?>
-    
+
 	</div>
 
 </div>
