@@ -1068,9 +1068,22 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Kapitalizacja spółek',
-                    'all' => 'Wszystkie zakresy kapitalizacji',
+                    'all' => 'Dowolny kapitał zakładowy',
                     'skin' => 'krs/kapitalizacja',
                     'field' => 'krs_podmioty.wartosc_kapital_zakladowy',
+                ),
+            ),
+            'date' => array(
+                'date_histogram' => array(
+                    'field' => 'date',
+                    'interval' => 'year',
+                    'format' => 'yyyy-MM-dd',
+                ),
+                'visual' => array(
+                    'label' => 'Liczba rejestracji nowych organizacji w czasie',
+                    'skin' => 'highstockPicker',
+                    'field' => '_date',
+                    'all' => 'Zarejestrowane kiedykolwiek',
                 ),
             ),
         ),

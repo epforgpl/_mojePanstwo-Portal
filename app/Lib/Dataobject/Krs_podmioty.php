@@ -80,11 +80,13 @@ class Krs_podmioty extends DataObject
 		);
 
         if( $this->getData('wartosc_kapital_zakladowy') )
-			$output[] = number_format_h($this->getData('wartosc_kapital_zakladowy')) . ' PLN';
-
+			$output[] = 'Kapitał zakładowy: ' . number_format_h($this->getData('wartosc_kapital_zakladowy')) . ' PLN';
+		
+		/*
         if( $this->getData('data_rejestracji') )
 			$output[] = 'Rejestracja: ' . dataSlownie($this->getData('data_rejestracji'));
-
+		*/
+		
         return $output;
 
     }
