@@ -77,7 +77,7 @@ if ($dataBrowser['mode'] == 'cover') { ?>
     <div class="col-xs-12 col-md-<?= $displayAggs ? $columns[0] : 12 ?>">
 
         <div class="dataWrap">
-            
+
             <?= $this->element('Dane.DataBrowser/browser-content-filters') ?>
 
             <div class="dataObjects margin-top-10">
