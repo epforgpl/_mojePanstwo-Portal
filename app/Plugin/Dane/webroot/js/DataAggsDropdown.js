@@ -321,10 +321,11 @@ DataAggsDropdown.prototype.createPieChart = function() {
 		if(typeof data.buckets[i].label !== 'undefined') {
 			label = ( typeof data.buckets[i].label.buckets[0] == 'undefined' ) ? '' : data.buckets[i].label.buckets[0].key;
 		} else if(typeof data.buckets[i].key !== 'undefined') {
-			var key = data.buckets[i].key;
-			if(this.labelDictionary.hasOwnProperty(key)) {
-				label = this.labelDictionary[key];
-			}
+			label = data.buckets[i].key;
+		}
+
+		if(this.labelDictionary.hasOwnProperty(label)) {
+			label = this.labelDictionary[label];
 		}
 
 		pie_chart_data[i] = [
