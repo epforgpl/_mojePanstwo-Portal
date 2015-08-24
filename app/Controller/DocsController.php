@@ -111,18 +111,22 @@ class DocsController extends AppController
             'bookmarks' => array()
         );
 
-        $id = $this->request->data['document_id'];
-
-        if (isset($this->request->data['pages'])) {
-            $pages = $this->request->data['pages'];
+        $dane = json_decode($this->request->data['dane']);
+        $dane = (array)$dane;
+        $id = $dane['document_id'];
+/*
+        if (isset($dane['pages'])) {
+            $pages = (array)$dane['pages'];
             foreach ($pages as $page) {
+                $page = (array)$page;
                 $page['dokument_id'] = $id;
                 $data['pages'][] = $page;
             }
-        }
-        if (isset($this->request->data['bookmarks'])) {
-            $bookmarks = $this->request->data['bookmarks'];
+        }*/
+        if (isset($dane['bookmarks'])) {
+            $bookmarks = (array)$dane['bookmarks'];
             foreach ($bookmarks as $bookmark) {
+                $bookmark = (array)$bookmark;
                 $bookmark['dokument_id'] = $id;
                 $bookmark['strona_start'] = hexdec($bookmark['strona_numer_hex']);
                 $data['bookmarks'][] = $bookmark;
@@ -131,9 +135,10 @@ class DocsController extends AppController
         $msg = $this->Document->save_document($data, $id);
 
 
-        $this->set(array('message' => $msg,
-            '_serialize' => array('message')
-        ));
+        $this->set(
+            array('message' => $msg,
+                '_serialize' => array('message')
+            ));
     }
 
     public function extract_budget_spendings()
@@ -267,8 +272,8 @@ class DocsController extends AppController
 
 
         echo '<pre>';
-       // var_export(count($data));
-var_export($aa['data']);
+        // var_export(count($data));
+        var_export($aa['data']);
         // var_export(json_encode($data));
         echo '</pre>';
     }

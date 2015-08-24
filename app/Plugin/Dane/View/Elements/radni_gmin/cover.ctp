@@ -196,7 +196,7 @@ if ($okreg) {
                                                                     class="sublabel normalizeText"><?= $rola['params']['subtitle'] ?></span><? } ?>
                                                         </p>
                                                     </li>
-                                                    <?
+                                                <?
                                                 }
                                                 ?>
                                             </ul>
@@ -259,21 +259,152 @@ if ($okreg) {
                 </div>
             </div>
         <? } ?>
-        
-        <? if( $powiazania = $radny->getLayer('powiazania') ) { ?>
-        	<div class="databrowser-panel">
+
+        <? if ($powiazania = $radny->getLayer('powiazania')) { ?>
+            <div class="databrowser-panel">
                 <h2>Dane wynikające z oświadczeń majątkowych:</h2>
 
-                <div>
-	                <? debug($powiazania); ?>
+                <div class="row objectsPage">
+                    <div class="objectRender dane_majatkowe">
+                    <? if ($powiazania['miejsce_pracy_html'] != '') { ?>
+                        <div class="row">
+                            <div class="data col-xs-12">
+                                <div class="content">
+                                    <h5 class="title">Miejsce pracy i zajmowane stanowiska:</h5>
+                                    <ul class="dane_majatkowe">
+                                        <?= $powiazania['miejsce_pracy_html']; ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    <? } ?>
+                    <? if ($powiazania['dg_sc'] != '') { ?>
+                        <div class="row">
+                            <div class="data col-xs-12">
+                                <div class="content">
+                                    <h5 class="title">Działalność gospodarcza i spółki cywilne:</h5>
+
+                                    <p class="dane_majatkowe">
+                                        <?= $powiazania['dg_sc']; ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <? } ?>
+                    <? if ($powiazania['spolki_handlowe'] != '') { ?>
+                        <div class="row">
+                            <div class="data col-xs-12">
+                                <div class="content">
+                                    <h5 class="title">Spółki handlowe:</h5>
+
+                                    <p class="dane_majatkowe">
+                                        <?= $powiazania['spolki_handlowe']; ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <? } ?>
+                    <? if ($powiazania['udzialy_w_spolkach_z_udzialem_gminy'] != '') { ?>
+                        <div class="row">
+                            <div class="data col-xs-12">
+                                <div class="content">
+                                    <h5 class="title">Udziały w spółkach z udziałem gminy:</h5>
+
+                                    <p class="dane_majatkowe">
+                                        <?= $powiazania['udzialy_w_spolkach_z_udzialem_gminy']; ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <? } ?>
+                    <? if ($powiazania['akcje_spolek'] != '') { ?>
+                        <div class="row">
+                            <div class="data col-xs-12">
+                                <div class="content">
+                                    <h5 class="title">Posiadane akcje spółek:</h5>
+
+                                    <p class="dane_majatkowe">
+                                        <?= $powiazania['akcje_spolek']; ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <? } ?>
+                    <? if ($powiazania['czlonek_zarzadu'] != '') { ?>
+                        <div class="row">
+                            <div class="data col-xs-12">
+                                <div class="content">
+                                    <h5  class="title">Członek zarządu w spółkach:</h5>
+
+                                    <p class="dane_majatkowe">
+                                        <?= $powiazania['czlonek_zarzadu']; ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <? } ?>
+                    <? if ($powiazania['rady_nadzorcze'] != '') { ?>
+                        <div class="row">
+                            <div class="data col-xs-12">
+                                <div class="content">
+                                    <h5 class="title">Członek rady nadzorczej w spółkach:</h5>
+
+                                    <p class="dane_majatkowe">
+                                        <?= $powiazania['rady_nadzorcze']; ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <? } ?>
+                    <? if ($powiazania['komisje_rewizyjne'] != '') { ?>
+                        <div class="row">
+                            <div class="data col-xs-12">
+                                <div class="content">
+                                    <h5 class="title">Członek komisji rewizyjnej w spółkach:</h5>
+
+                                    <p class="dane_majatkowe">
+                                        <?= $powiazania['komisje_rewizyjne']; ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <? } ?>
+                    <? if ($powiazania['rada_dzielnicy'] != '') { ?>
+                        <div class="row">
+                            <div class="data col-xs-12">
+                                <div class="content">
+                                    <h5 class="title">Radny dzielnicy:</h5>
+
+                                    <p class="dane_majatkowe">
+                                        <?= $powiazania['rada_dzielnicy']; ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <? } ?>
                 </div>
-                
+                </div>
             </div>
         <? } ?>
 
     </div>
 </div>
 <div class="col-md-3">
+    <? if ($powiazania = $radny->getLayer('powiazania')) { ?>
+        <ul class="dataHighlights rightColumn dane_radnego">
+            <li class="dataHighlight col-xs-12 dane_radnego">
+                <p class="_label">Data urodzenia</p>
+
+                <p class="_value"><?= dataSlownie($powiazania['data_urodzenia']); ?></p>
+            </li>
+
+            <li class="dataHighlight col-xs-12 dane_radnego">
+                <p class="_label">Miejsce urodzenia</p>
+
+                <p class="_value"><?= $powiazania['miejsce_urodzenia']; ?></p>
+            </li>
+        </ul>
+    <? } ?>
     <? if ($okreg) { ?>
         <a class="okregiBlock margin-top-10" href="/okregi/<?= $okreg[2] ?>" target="_self">
             <h2>Okręg nr. <?= $okreg[2] ?></h2>
