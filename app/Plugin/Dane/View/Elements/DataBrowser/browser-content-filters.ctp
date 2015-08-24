@@ -1,4 +1,4 @@
-<? if(isset($dataBrowser['aggs_visuals_map']) && count($dataBrowser['aggs_visuals_map']) > 0) { ?>
+<? if(isset($dataBrowser['aggs_visuals_map']) && count($dataBrowser['aggs_visuals_map']) > 0) { $selected = false; ?>
     <ul class="nav nav-pills margin-top-10 dataAggsDropdownList nopadding" role="tablist">
         <?
             foreach($dataBrowser['aggs_visuals_map'] as $name => $map) {
@@ -21,6 +21,8 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <? if(isset($this->request->query['conditions'][$map['field']])) {
 
+                        $selected = true;
+
                         if(isset($map['dictionary']) && isset($map['dictionary'][$this->request->query['conditions'][$map['field']]]))
                             $label = $map['dictionary'][$this->request->query['conditions'][$map['field']]];
                         else
@@ -29,6 +31,27 @@
                                 (isset($dataBrowser['aggs'][$name]['buckets'][0]['key']) ?
                                     $dataBrowser['aggs'][$name]['buckets'][0]['key'] :
                                     'Usuń filtr');
+
+                        if($map['skin'] == 'krs/kapitalizacja') {
+
+                            $labelParts = explode('TO', $this->request->query['conditions'][$map['field']]);
+                            $from = filter_var($labelParts[0], FILTER_SANITIZE_NUMBER_INT);
+                            $to = filter_var($labelParts[1], FILTER_SANITIZE_NUMBER_INT);
+
+                            if ($from == 1)
+                                $from = '';
+
+                            if ($to == '')
+                                $label = '> ' . number_format_h($from);
+
+                            elseif ($from == '')
+                                $label = '< ' . number_format_h($to);
+                            else
+                                $label = number_format_h($from) . ' - ' . number_format_h($to);
+
+                            $label = 'Kapitalizacja: ' . $label;
+
+                        }
 
                         echo $label;
 
@@ -40,5 +63,14 @@
                 <ul class="dropdown-menu"></ul>
             </li>
         <? } } ?>
+
+        <? if($selected) { ?>
+            <li role="presentation">
+                <a href="<?= $dataBrowser['cancel_url'] ?>" role="button" aria-haspopup="true" aria-expanded="false">
+                    Usuń wszystkie filtry
+                </a>
+            </li>
+        <? } ?>
+
     </ul>
 <? } ?>

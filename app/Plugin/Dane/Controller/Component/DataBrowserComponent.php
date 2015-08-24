@@ -1268,7 +1268,7 @@ class DataBrowserComponent extends Component
             $dataBrowser = array(
                 'hits' => $hits,
                 'took' => $controller->Dataobject->getPerformance(),
-                'cancel_url' => $this->getCancelSearchUrl($controller),
+                'cancel_url' => $controller->here,
                 'api_call' => $controller->Dataobject->getDataSource()->public_api_call,
                 'renderFile' => isset($this->settings['renderFile']) ? 'DataBrowser/templates/' . $this->settings['renderFile'] : 'default',
                 'cover' => $this->cover,
