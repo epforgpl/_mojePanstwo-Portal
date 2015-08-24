@@ -1883,7 +1883,7 @@ class GminyController extends DataobjectsController
                 ),
                 'layers' => array('neighbours', 'druki', 'docs')
             ));
-
+						
             $this->set('file',
                 isset($this->request->query['file']) ?
                     (int) $this->request->query['file'] : $uchwala->getData('dokument_id')
@@ -3822,13 +3822,11 @@ class GminyController extends DataobjectsController
 		                                    'data.radni_gmin.kadencja_id' => '7',
 		                                ),
 		                            ),
-		                            /*
 		                            array(
 		                                'term' => array(
 		                                    'data.radni_gmin.krakow_okreg_id' => $this->request->params['subid'],
 		                                ),
 		                            ),
-		                            */
 		                        ),
 		                    ),
 		                ),

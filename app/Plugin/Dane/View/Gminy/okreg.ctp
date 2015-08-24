@@ -23,9 +23,43 @@ echo $this->Element('Dane.dataobject/subobject', array(
 ?>
     <div class="row">
 
-		<div class="col-sm-6">
+		<div class="col-sm-7">
 	        
-	        
+	        <div class="block block-simple col-xs-12">
+		    	<section class="aggs-init margin-sides-10">
+			    	
+			    	<ul class="dataHighlights oneline">
+		                <li class="dataHighlight col-xs-2">
+		                    <p class="_label">Rok</p>
+		                    <p class="_value"><?= $okreg->getData('rok') ?></p>
+		                </li>
+		
+		                <? if($okreg->getData('liczba_mieszkańców')) { ?>
+		                    <li class="dataHighlight col-xs-3">
+		                        <p class="_label">Liczba mieszkańców</p>
+		                        <p class="_value"><?= $okreg->getData('liczba_mieszkańców') ?></p>
+		                    </li>
+		                <? } ?>
+		
+		                <li class="dataHighlight col-xs-3">
+		                    <p class="_label">Liczba mandatów</p>
+		                    <p class="_value"><?= $okreg->getData('liczba_mandatow') ?></span></p>
+		                </li>
+		
+		                <li class="dataHighlight col-xs-7">
+		                    <p class="_label" data-toggle="tooltip" data-placement="bottom" title="Norma przedstawicielska -
+			            określa ilość mandatów przypadających na dany okręg. Jest obliczana przez
+			            podzielenie liczby mieszkańców gminy przez liczbę radnych wybieranych do danej rady.
+			            By ustalić liczbę mandatów w danym okręgu wyborczym, stosuje się normę
+			            przedstawicielską. Ułamki równe lub większe od 1/2, jakie wynikają z zastosowania
+			            normy przedstawicielstwa, zaokrągla się w górę do liczby całkowitej.">Ilość mieszkańców / Norma przedstawicielstwa</p>
+		                    <p class="_value"><?= $okreg->getData('liczba_miesz_norma_przedst') ?></p>
+		                </li>
+		                		                
+		            </ul>
+			    	
+		    	</section>
+		    </div> 
 	        
 	        <? if( @$okreg_aggs['radni']['hits']['hits'] ) { ?>
 	        <div class="block block-simple col-xs-12">
@@ -33,9 +67,9 @@ echo $this->Element('Dane.dataobject/subobject', array(
 		        <section class="aggs-init radni">
 		            <div class="dataAggs">
 		                <div class="agg agg-Dataobjects">
-	                        <ul class="dataobjects">
+	                        <ul class="dataobjects row radni_cover">
 	                            <? foreach ($okreg_aggs['radni']['hits']['hits']['hits'] as $doc) { ?>
-	                                <li>
+	                                <li class="col-sm-4">
 	                                    <?=  $this->Dataobject->render($doc, 'krakow_radni'); ?>
 	                                </li>
 	                            <? } ?>
@@ -44,57 +78,28 @@ echo $this->Element('Dane.dataobject/subobject', array(
 		            </div>
 		        </section>
 		    </div>
-		    <? } ?>        
+		    <? } ?>
+		    
+		    
+		    <p class="text-center">
+                <a href="/dane/gminy/903,krakow/rada_uchwaly/18316?file=412749">
+	                Źródło
+	            </a>
+            </p>
+		    
+		        
 	        
 	    </div>
 
-	    <div class="col-sm-6">
+	    <div class="col-sm-5">
 			
-			<div class="block col-xs-12 margin-top-0">
+			<div class="block col-xs-12 margin-top-10">
 		        <header>Mapa okręgu:</header>
 		        <section class="aggs-init nopadding">
 		             <div id="okreg_map" class="object"></div>
 			        <div data-name="okreg" data-content='<?= $okreg->getLayers('geo') ?>'></div>
 		        </section>
-		    </div>
-			
-			<? /*
-            <ul class="dataHighlights rightColumn margin-top-30">
-                <li class="dataHighlight col-xs-12">
-                    <p class="_label">Rok</p>
-                    <p class="_value"><?= $okreg->getData('rok') ?></p>
-                </li>
-
-                <? if($okreg->getData('liczba_mieszkańców')) { ?>
-                    <li class="dataHighlight col-xs-12">
-                        <p class="_label">Liczba mieszkańców</p>
-                        <p class="_value"><?= $okreg->getData('liczba_mieszkańców') ?></p>
-                    </li>
-                <? } ?>
-
-                <li class="dataHighlight col-xs-12">
-                    <p class="_label">Liczba mandatów</p>
-                    <p class="_value"><?= $okreg->getData('liczba_mandatow') ?></span></p>
-                </li>
-
-                <li class="dataHighlight col-xs-12">
-                    <p class="_label" data-toggle="tooltip" data-placement="bottom" title="Norma przedstawicielska -
-	            określa ilość mandatów przypadających na dany okręg. Jest obliczana przez
-	            podzielenie liczby mieszkańców gminy przez liczbę radnych wybieranych do danej rady.
-	            By ustalić liczbę mandatów w danym okręgu wyborczym, stosuje się normę
-	            przedstawicielską. Ułamki równe lub większe od 1/2, jakie wynikają z zastosowania
-	            normy przedstawicielstwa, zaokrągla się w górę do liczby całkowitej.">Ilość mieszkańców / Norma przedstawicielstwa</p>
-                    <p class="_value"><?= $okreg->getData('liczba_miesz_norma_przedst') ?></p>
-                </li>
-            </ul>
-
-	        <p>
-	            <a target="_blank" href="/dane/gminy/903,krakow/rada_uchwaly/18316">
-	                Źródło
-	            </a>
-	        </p>
-	        
-	        */ ?>
+		    </div>	        
 
 	    </div>
 
