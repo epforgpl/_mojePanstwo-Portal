@@ -37,15 +37,7 @@
                 </div>
             <?php endforeach; ?>
 
-            <div class="counter col-xs-12">
-                <small>
-                    <?php echo $this->Paginator->counter(array(
-                    'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-                    )); ?>
-                </small>
-            </div>
-
-            <nav>
+            <div class="text-center">
                 <ul class="pagination pagination-sm">
                     <li>
                         <? echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled')); ?>
@@ -57,7 +49,14 @@
                         <? echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled')); ?>
                     </li>
                 </ul>
-            </nav>
+                <div class="counter col-xs-12">
+                    <small>
+                        <?php echo $this->Paginator->counter(array(
+                            'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
+                        )); ?>
+                    </small>
+                </div>
+            </div>
         </div>
     </div>
 </div>
