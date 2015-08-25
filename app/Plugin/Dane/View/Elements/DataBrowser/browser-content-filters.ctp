@@ -16,6 +16,7 @@
                 data-label-dictionary='<?= json_encode(isset($map['dictionary']) ? $map['dictionary'] : array()) ?>'
                 data-choose-request="<?= $map['chooseRequest'] ?>"
                 data-all-label="<?= $map['all'] ?>"
+                data-label="<?= $map['label'] ?>"
                 data-is-selected="<?= isset($this->request->query['conditions'][$map['field']]) ?>"
                 data-selected="<?= @$this->request->query['conditions'][$map['field']] ?>">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -67,7 +68,7 @@
         <? if($selected) { ?>
             <li role="presentation">
                 <a href="<?= $dataBrowser['cancel_url'] ?>" role="button" aria-haspopup="true" aria-expanded="false">
-                    Usuń wszystkie filtry
+                    Usuń filtry
                 </a>
             </li>
         <? } ?>

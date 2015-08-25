@@ -73,20 +73,13 @@ class Krs_podmioty extends DataObject
 
     public function getMetaDescriptionParts($preset = false)
 	{
-
-        $output = array(
-			'<span class="normalizeText">' . $this->getData('forma_prawna_str') . '</span>',
-			$this->getData('adres_miejscowosc'),
-		);
-
-        if( $this->getData('wartosc_kapital_zakladowy') )
-			$output[] = 'Kapitał zakładowy: ' . number_format_h($this->getData('wartosc_kapital_zakladowy')) . ' PLN';
+				
+		$output = array();
 		
-		/*
-        if( $this->getData('data_rejestracji') )
-			$output[] = 'Rejestracja: ' . dataSlownie($this->getData('data_rejestracji'));
-		*/
-		
+		$output[] = 'KRS ' . $this->getData('krs');
+        $output[] = '<span class="normalizeText">' . $this->getData('forma_prawna_str') . '</span>';
+        $output[] = $this->getData('adres_miejscowosc');
+				
         return $output;
 
     }

@@ -309,9 +309,9 @@ DataAggsDropdown.prototype.createPieChart = function() {
 	var pie_chart_keys = [];
 	var choose_request = this.chooseRequest;
 	var chart_options;
-
+		
 	try {
-		chart_options = $.parseJSON(li.attr('data-chart-options'));
+		chart_options = $.parseJSON(this.li.attr('data-chart-options'));
 	} catch (err) {
 		chart_options = false;
 	}
@@ -361,7 +361,7 @@ DataAggsDropdown.prototype.createPieChart = function() {
 			}
 		},
 		title: {
-			text: ''
+			text: this.li.data('label')
 		},
 		tooltip: {
 			pointFormat: '<b>{point.y}</b>'
@@ -431,7 +431,12 @@ DataAggsDropdown.prototype.createPieChart = function() {
 			labelFormatter: function () {
 				var name = this.name;
 				return '<a href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + name + '</a>';
-			}
+			},
+        	layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            margin: 30,
+            y: 50
 		};
 
 	}

@@ -1040,6 +1040,7 @@ class DataBrowserComponent extends Component
                     'exclude' => array(
                         'pattern' => '0'
                     ),
+                    'size' => 10,
                 ),
                 'aggs' => array(
                     'label' => array(
@@ -1158,7 +1159,7 @@ class DataBrowserComponent extends Component
                 }
             }
         }
-
+				
 		return $aggs;
 
 	}
@@ -1457,7 +1458,26 @@ class DataBrowserComponent extends Component
 
         if (isset($conditions['q']))
             $output['highlight'] = true;
-
+		
+		
+		/*
+		if( $output['conditions'] ) {
+			foreach( $output['conditions'] as $field => $value ) {
+				foreach( $this->aggs_visuals_map as $key => $map) {
+					if( 
+						($map['target']=='filters') && 
+						isset($map['field']) && 
+						( $map['field']==$field ) 
+					) {
+						
+						$output['aggs'][$key]['scope'] = 'filters_exclude(' . $field . ')';
+						break;
+					}
+				}				
+			}
+		}
+		*/
+		
         return $output;
 
     }
