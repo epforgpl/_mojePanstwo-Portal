@@ -26,12 +26,18 @@
 
                         if(isset($map['dictionary']) && isset($map['dictionary'][$this->request->query['conditions'][$map['field']]]))
                             $label = $map['dictionary'][$this->request->query['conditions'][$map['field']]];
-                        else
-                            $label = isset($dataBrowser['aggs'][$name]['buckets'][0]['label']['buckets'][0]['key']) ?
-                                $dataBrowser['aggs'][$name]['buckets'][0]['label']['buckets'][0]['key'] :
-                                (isset($dataBrowser['aggs'][$name]['buckets'][0]['key']) ?
-                                    $dataBrowser['aggs'][$name]['buckets'][0]['key'] :
-                                    'Usuń filtr');
+                        else {
+                            foreach($dataBrowser['aggs'][$name]['buckets'] as $b => $bucket) {
+                                if($bucket['key'] == $this->request->query['conditions'][$map['field']]) {
+                                    $label = isset($dataBrowser['aggs'][$name]['buckets'][$b]['label']['buckets'][0]['key']) ?
+                                        $dataBrowser['aggs'][$name]['buckets'][$b]['label']['buckets'][0]['key'] :
+                                        (isset($dataBrowser['aggs'][$name]['buckets'][$b]['key']) ?
+                                            $dataBrowser['aggs'][$name]['buckets'][$b]['key'] :
+                                            'Usuń filtr');
+                                    break;
+                                }
+                            }
+                        }
 
                         if($map['skin'] == 'krs/kapitalizacja') {
 

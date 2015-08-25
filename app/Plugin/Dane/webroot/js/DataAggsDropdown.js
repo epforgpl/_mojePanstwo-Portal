@@ -61,7 +61,7 @@ DataAggsDropdown.prototype.createColumnsVertical = function() {
 
 	if(this.allLabel.length > 0 && this.isSelected) {
 		dropdownChart += [
-			'<li class="cancel"><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
+			'<li class="cancel"><a href="' + this.cancelRequest + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Usuń filtr</a></li>'
 		].join('');
 	}
 
@@ -159,7 +159,7 @@ DataAggsDropdown.prototype.createDateHistogram = function() {
 
 	if(this.allLabel.length > 0 && this.isSelected) {
 		dropdownChart += [
-			'<li class="cancel"><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
+			'<li class="cancel"><a href="' + this.cancelRequest + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Usuń filtr</a></li>'
 		].join('');
 	}
 
@@ -301,7 +301,7 @@ DataAggsDropdown.prototype.createPieChart = function() {
 
 	if(this.allLabel.length > 0 && this.isSelected) {
 		dropdownChart += [
-			'<li class="cancel"><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
+			'<li class="cancel"><a href="' + this.cancelRequest + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Usuń filtr</a></li>'
 		].join('');
 	}
 
@@ -312,6 +312,7 @@ DataAggsDropdown.prototype.createPieChart = function() {
 	var pie_chart_keys = [];
 	var choose_request = this.chooseRequest;
 	var chart_options;
+	var selectedIndex = 0;
 
 	try {
 		chart_options = $.parseJSON(this.li.attr('data-chart-options'));
@@ -337,6 +338,8 @@ DataAggsDropdown.prototype.createPieChart = function() {
 		];
 
 		pie_chart_keys[i] = data.buckets[i].key;
+		if(this.selected == data.buckets[i].key)
+			selectedIndex = i;
 	}
 
 	var options = {
@@ -425,7 +428,8 @@ DataAggsDropdown.prototype.createPieChart = function() {
 			y: 20,
 			itemMarginBottom: 5,
 			itemStyle: {
-				'font-weight': 'normal'
+				'font-weight': 'normal',
+				paddingBottom: '5px'
 			}
 			// itemWidth: 150
 		};
@@ -435,14 +439,21 @@ DataAggsDropdown.prototype.createPieChart = function() {
 		options.legend = {
 			useHTML: true,
 			labelFormatter: function () {
-				var name = this.name;
-				return '<a href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + name + '</a>';
+				if(_this.isSelected && selectedIndex == this.index) {
+					return '<a class="active" href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + this.name + '</a>';
+				} else {
+					return '<a href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + this.name + '</a>';
+				}
 			},
         	layout: 'vertical',
             align: 'right',
             verticalAlign: 'top',
             margin: 30,
-            y: 50
+            y: 50,
+			itemStyle: {
+				'font-weight': 'normal',
+				paddingBottom: '5px'
+			}
 		};
 
 	}
@@ -480,7 +491,7 @@ DataAggsDropdown.prototype.createColumnsHorizontal = function() {
 
 	if(this.allLabel.length > 0 && this.isSelected) {
 		dropdownChart += [
-			'<li class="cancel"><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
+			'<li class="cancel"><a href="' + this.cancelRequest + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Usuń filtr</a></li>'
 		].join('');
 	}
 
@@ -600,7 +611,7 @@ DataAggsDropdown.prototype.createList = function() {
 
 	if(this.allLabel.length > 0 && this.isSelected) {
 		dropdownList += [
-			'<li class="cancel"><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
+			'<li class="cancel"><a href="' + this.cancelRequest + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Usuń filtr</a></li>'
 		].join('');
 	}
 

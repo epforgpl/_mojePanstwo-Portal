@@ -79,7 +79,7 @@ $status_dict = array(
 
                                 <div class="col-md-4">
                                     <div class="sticky">
-                                        <form action="<?= $object->getUrl(); ?>.json" method="post">
+                                        <form action="<?= $object->getUrl(); ?>" method="post">
                                             <input type="hidden" name="_action" value="pobierz_nowy_odpis"/>
                                             <button type="submit" class="btn btnUpdate btn-primary btn-icon auto-width">
                                                 <i class="icon glyphicon glyphicon-refresh"></i> Poproś o nowy odpis
