@@ -59,10 +59,11 @@ DataAggsDropdown.prototype.createColumnsVertical = function() {
 	var dropdownMenu = this.li.find('ul.dropdown-menu'),
 		dropdownChart = '<li class="chart"></li>';
 
-	dropdownChart += [
-		'<li role="separator" class="divider"></li>',
-		'<li><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
-	].join('');
+	if(this.allLabel.length > 0 && this.isSelected) {
+		dropdownChart += [
+			'<li class="cancel"><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
+		].join('');
+	}
 
 	dropdownMenu.append(dropdownChart);
 
@@ -156,10 +157,11 @@ DataAggsDropdown.prototype.createDateHistogram = function() {
 	var dropdownMenu = this.li.find('ul.dropdown-menu'),
 		dropdownChart = '<li class="chart"></li>';
 
-	dropdownChart += [
-		'<li role="separator" class="divider"></li>',
-		'<li><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
-	].join('');
+	if(this.allLabel.length > 0 && this.isSelected) {
+		dropdownChart += [
+			'<li class="cancel"><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
+		].join('');
+	}
 
 	dropdownMenu.append(dropdownChart);
 
@@ -297,10 +299,11 @@ DataAggsDropdown.prototype.createPieChart = function() {
 		dropdownMenu = this.li.find('ul.dropdown-menu'),
 		dropdownChart = '<li class="chart"></li>';
 
-	dropdownChart += [
-		'<li role="separator" class="divider"></li>',
-		'<li><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
-	].join('');
+	if(this.allLabel.length > 0 && this.isSelected) {
+		dropdownChart += [
+			'<li class="cancel"><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
+		].join('');
+	}
 
 	dropdownMenu.append(dropdownChart);
 
@@ -309,7 +312,7 @@ DataAggsDropdown.prototype.createPieChart = function() {
 	var pie_chart_keys = [];
 	var choose_request = this.chooseRequest;
 	var chart_options;
-		
+
 	try {
 		chart_options = $.parseJSON(this.li.attr('data-chart-options'));
 	} catch (err) {
@@ -370,6 +373,9 @@ DataAggsDropdown.prototype.createPieChart = function() {
 			enabled: false
 		},
 		plotOptions: {
+			series: {
+				animation: false
+			},
 			pie: {
 				allowPointSelect: false,
 				cursor: 'pointer',
@@ -472,10 +478,11 @@ DataAggsDropdown.prototype.createColumnsHorizontal = function() {
 	var dropdownMenu = this.li.find('ul.dropdown-menu'),
 		dropdownChart = '<li class="chart"></li>';
 
-	dropdownChart += [
-		'<li role="separator" class="divider"></li>',
-		'<li><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
-	].join('');
+	if(this.allLabel.length > 0 && this.isSelected) {
+		dropdownChart += [
+			'<li class="cancel"><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
+		].join('');
+	}
 
 	dropdownMenu.append(dropdownChart);
 
@@ -591,10 +598,9 @@ DataAggsDropdown.prototype.createList = function() {
 		].join('');
 	}
 
-	if(this.allLabel.length > 0) {
+	if(this.allLabel.length > 0 && this.isSelected) {
 		dropdownList += [
-			'<li role="separator" class="divider"></li>',
-			'<li><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
+			'<li class="cancel"><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
 		].join('');
 	}
 
