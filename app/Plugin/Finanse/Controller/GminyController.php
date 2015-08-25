@@ -13,7 +13,7 @@ class GminyController extends AppController {
     public function dzialy($gmina_id, $typ) {
         $this->set(array(
             'dzialy' => $this->GminaBudzet->getDzialy($gmina_id, $typ),
-            '_serialize' => array('dzialy'),
+            '_serialize' => 'dzialy',
         ));
     }
 

@@ -1460,7 +1460,6 @@ class DataBrowserComponent extends Component
             $output['highlight'] = true;
 		
 		
-		/*
 		if( $output['conditions'] ) {
 			foreach( $output['conditions'] as $field => $value ) {
 				foreach( $this->aggs_visuals_map as $key => $map) {
@@ -1476,7 +1475,7 @@ class DataBrowserComponent extends Component
 				}				
 			}
 		}
-		*/
+
 		
         return $output;
 

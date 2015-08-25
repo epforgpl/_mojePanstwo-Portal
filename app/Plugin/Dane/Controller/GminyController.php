@@ -1883,7 +1883,7 @@ class GminyController extends DataobjectsController
                 ),
                 'layers' => array('neighbours', 'druki', 'docs')
             ));
-						
+
             $this->set('file',
                 isset($this->request->query['file']) ?
                     (int) $this->request->query['file'] : $uchwala->getData('dokument_id')
@@ -2912,10 +2912,10 @@ class GminyController extends DataobjectsController
 
     public function komisje()
     {
-		
+
 		if( !isset($this->request->query['conditions']['krakow_komisje.kadencja_id']) )
 			$this->request->query['conditions']['krakow_komisje.kadencja_id'] = '7';
-		
+
         $this->_prepareView();
         $this->request->params['action'] = 'rada';
 
@@ -3766,7 +3766,7 @@ class GminyController extends DataobjectsController
     public function finanse()
     {
         $this->addInitLayers(array(
-            'finanse'
+            //'finanse'
         ));
         $this->_prepareView();
         $this->loadModel('Finanse.GminaBudzet');
@@ -3842,7 +3842,7 @@ class GminyController extends DataobjectsController
                 ),
                 'layers' => array('geo')
             ));
-            
+
             $aggs = $this->Dataobject->getAggs();
             $this->set('okreg_aggs', $aggs);
 
