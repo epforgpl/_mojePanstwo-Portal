@@ -68,6 +68,7 @@
         <? if($selected) { ?>
             <li role="presentation">
                 <a href="<?= $dataBrowser['cancel_url'] ?>" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     Usuń filtry
                 </a>
             </li>
