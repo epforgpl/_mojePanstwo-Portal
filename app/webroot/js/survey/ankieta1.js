@@ -35,7 +35,7 @@ $(window).load(function () {
 
 		if (page.next('.page').attr('data-pageno') == "4") {
 			surveyAnkieta1.find('.btn').addClass('hide');
-			surveyAnkieta1.find('.btn[type="submit"]').removeClass('hide');
+			surveyAnkieta1.find('.submitBtn').removeClass('hide');
 		}
 
 		page.addClass('hide').next('.page').removeClass('hide');

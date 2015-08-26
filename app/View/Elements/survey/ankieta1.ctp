@@ -101,86 +101,92 @@
                                 <small>Możesz zaznaczyć kilka opcji.</small>
                             </h4>
                             <div class="checkbox col-xs-6">
-                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast]" id="whatYouUseLastKRS"
+                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast][]" id="whatYouUseLastKRS"
                                        value="krs">
                                 <label for="whatYouUseLastKRS">KRS</label>
                             </div>
                             <div class="checkbox col-xs-6">
-                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast]" id="whatYouUseLastHandel"
+                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast][]"
+                                       id="whatYouUseLastHandel"
                                        value="handel_zagraniczny">
                                 <label for="whatYouUseLastHandel">Handel zagraniczny</label>
                             </div>
                             <div class="checkbox col-xs-6">
-                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast]" id="whatYouUseLastNGO"
+                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast][]" id="whatYouUseLastNGO"
                                        value="ngo">
                                 <label for="whatYouUseLastNGO">NGO</label>
                             </div>
                             <div class="checkbox col-xs-6">
-                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast]"
+                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast][]"
                                        id="whatYouUseLastOrzecznictwo" value="orzecznictwo">
                                 <label for="whatYouUseLastOrzecznictwo">Orzecznictwo</label>
                             </div>
                             <div class="checkbox col-xs-6">
-                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast]" id="whatYouUseLastPrawo"
+                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast][]"
+                                       id="whatYouUseLastPrawo"
                                        value="prawo">
                                 <label for="whatYouUseLastPrawo">Prawo</label>
                             </div>
                             <div class="checkbox col-xs-6">
-                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast]"
+                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast][]"
                                        id="whatYouUseLastSejmometr"
                                        value="sejmometr">
                                 <label for="whatYouUseLastSejmometr">Sejmometr</label>
                             </div>
                             <div class="checkbox col-xs-6">
-                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast]" id="whatYouUseLastBDL"
+                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast][]" id="whatYouUseLastBDL"
                                        value="bdl">
                                 <label for="whatYouUseLastBDL">Bank Danych Lokalnych</label>
                             </div>
                             <div class="checkbox col-xs-6">
-                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast]" id="whatYouUseLastKody"
+                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast][]" id="whatYouUseLastKody"
                                        value="kody_pocztowe">
                                 <label for="whatYouUseLastKody">Kody pocztowe</label>
                             </div>
                             <div class="checkbox col-xs-6">
-                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast]" id="whatYouUseLastRzadzi"
+                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast][]"
+                                       id="whatYouUseLastRzadzi"
                                        value="kto_tu_rzadzi">
                                 <label for="whatYouUseLastRzadzi">Kto tu rządzi?</label>
                             </div>
                             <div class="checkbox col-xs-6">
-                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast]" id="whatYouUseLastDostep"
+                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast][]"
+                                       id="whatYouUseLastDostep"
                                        value="dostep_do_informacji_publicznej">
                                 <label for="whatYouUseLastDostep">Dostęp do Informacji Publicznej</label>
                             </div>
                             <div class="checkbox col-xs-6">
-                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast]" id="whatYouUseLastGmina"
+                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast][]"
+                                       id="whatYouUseLastGmina"
                                        value="moja_gmina">
                                 <label for="whatYouUseLastGmina">Moja Gmina</label>
                             </div>
                             <div class="checkbox col-xs-6">
-                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast]"
+                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast][]"
                                        id="whatYouUseLastFinanse"
                                        value="finanse_gmin">
                                 <label for="whatYouUseLastFinanse">Finanse Gmin</label>
                             </div>
                             <div class="checkbox col-xs-6">
-                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast]" id="whatYouUseLastMedia"
+                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast][]"
+                                       id="whatYouUseLastMedia"
                                        value="media">
                                 <label for="whatYouUseLastMedia">Finanse Gmin</label>
                             </div>
                             <div class="checkbox col-xs-6">
-                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast]"
+                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast][]"
                                        id="whatYouUseLastWydatki"
                                        value="wydatki_poslow">
                                 <label for="whatYouUseLastWydatki">Wydatki posłów</label>
                             </div>
                             <div class="checkbox col-xs-6">
-                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast]"
+                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast][]"
                                        id="whatYouUseLastZamowienia"
                                        value="zamowienia_publiczne">
                                 <label for="whatYouUseLastZamowienia">Zamówienia publiczne</label>
                             </div>
                             <div class="checkbox col-xs-6">
-                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast]"
+                                <input type="checkbox" name="survey[ankieta1][whatYouUseLast][]"
                                        id="whatYouUseLastWyjazdy"
                                        value="wyjazdy_poslow">
                                 <label for="whatYouUseLastWyjazdy">Wyjazdy posłów</label>
