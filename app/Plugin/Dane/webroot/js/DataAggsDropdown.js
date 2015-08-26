@@ -84,6 +84,46 @@ DataAggsDropdown.prototype.createHighstockPicker = function() {
 		e.stopPropagation();
 	});
 
+	var buttons = [];
+	if(this.li.data('range') == 'hour') {
+		buttons.push({
+			type : 'hour',
+			count : 1,
+			text : '1h'
+		});
+
+		buttons.push({
+			type : 'day',
+			count : 1,
+			text : '1D'
+		});
+	}
+
+	buttons.push({
+		type : 'month',
+		count : 1,
+		text : '1M'
+	});
+
+	buttons.push({
+		type : 'month',
+		count : 3,
+		text : '3M'
+	});
+
+	buttons.push({
+		type : 'month',
+		count : 6,
+		text : '6M'
+	});
+
+	buttons.push({
+		type : 'all',
+		count : 1,
+		text : 'All'
+	});
+
+
 	var chart = this.li.find('.chart').highcharts('StockChart', {
 		chart: {
 			width: $(this.li).parent('.dataAggsDropdownList').first().outerWidth(),
@@ -113,6 +153,7 @@ DataAggsDropdown.prototype.createHighstockPicker = function() {
 			enabled: false
 		},
 		rangeSelector: {
+			buttons: buttons,
 			selected: 5
 		},
 		title: {

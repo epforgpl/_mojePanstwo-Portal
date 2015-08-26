@@ -1,12 +1,14 @@
 <?
 
+$this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('media-cover', array('plugin' => 'Media')));
 
-$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
-$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+$this->Combinator->replace_lib_or_add('js', '../plugins/highcharts/js/highcharts', '../plugins/highstock/js/highstock');
+$this->Combinator->replace_lib_or_add('js', '../plugins/highcharts/locals', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 $this->Combinator->add_libs('js', 'jquery-tags-cloud-min');
 $this->Combinator->add_libs('js', 'Media.media-cover');
+$this->Combinator->add_libs('js', 'Dane.DataAggsDropdown.js');
 
 $options = array(
     'mode' => 'init',
@@ -56,11 +58,21 @@ $options = array(
 	    <? } ?>
 		</div>
 	</div>
-	
-	<div>
-		<? debug($dataBrowser['aggs']['tweets']); ?>
-	</div>
-	
+
+    <ul class="nav nav-pills margin-top-10 dataAggsDropdownList nopadding" role="tablist">
+        <li role="presentation" class="dropdown dataAggsDropdown"
+            data-skin="highstockPicker"
+            data-choose-request="/media?&conditions[_date]="
+            data-aggs='<?= json_encode($dataBrowser['aggs']['tweets']['histogram']['histogram']) ?>'
+            data-all-label="Cały czas"
+            data-range="hour">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Dzisiaj
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu"></ul>
+        </li>
+    </ul>
 
 	<div class="dataWrap">
 		<? if( @$dataBrowser['aggs']['tweets']['timerange']['top']['hits']['hits'] ) { ?>
