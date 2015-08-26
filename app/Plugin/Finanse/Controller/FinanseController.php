@@ -12,23 +12,23 @@ class FinanseController extends ApplicationsController
     );
 
     public $mainMenuLabel = 'Przeglądaj';
-	
+
 	public function centralne()
 	{
-		
-		
-		
+		//$this->
+
+
 	}
-	
+
 	public function budzety()
 	{
-        $this->loadDatasetBrowser('budzety');
+        $this->loadDatasetBrowser('budzety', array('layers'=>array('wydatki')));
 	}
-	
+
     public function view()
     {
         $datasets = $this->getDatasets('bdl');
-				
+
         $options = array(
             'searchTitle' => 'Szukaj w Finansach...',
             'autocompletion' => array(
@@ -104,4 +104,4 @@ class FinanseController extends ApplicationsController
 
     }
 
-} 
+}
