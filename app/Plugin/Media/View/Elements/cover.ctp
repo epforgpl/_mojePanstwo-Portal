@@ -56,6 +56,11 @@ $options = array(
 	    <? } ?>
 		</div>
 	</div>
+	
+	<div>
+		<? debug($dataBrowser['aggs']['tweets']); ?>
+	</div>
+	
 
 	<div class="dataWrap">
 		<? if( @$dataBrowser['aggs']['tweets']['timerange']['top']['hits']['hits'] ) { ?>

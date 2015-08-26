@@ -134,6 +134,24 @@ class MediaController extends ApplicationsController
 			                ),
 		                ),
 		                'aggs' => array(
+			                'histogram' => array(
+				                'filter' => array(
+					                'range' => array(
+						                'date' => array(
+							                'gte' => 'now-3M',
+						                ),
+					                ),
+				                ),
+				                'aggs' => array(
+					                'histogram' => array(
+						                'date_histogram' => array(
+						                    'field' => 'date',
+						                    'interval' => 'hour',
+						                    'format' => 'yyyy-MM-dd hh',
+						                ),
+					                ),
+				                ),
+			                ),
 			                'timerange' => array(
 				                'filter' => array(
 					                'range' => array(
