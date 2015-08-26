@@ -58,6 +58,7 @@ class BudzetyController extends DataobjectsController
     
     public function view()
     {
+	    $this->addInitLayers(array('wydatki'));
         $this->_prepareView();
     }
     
