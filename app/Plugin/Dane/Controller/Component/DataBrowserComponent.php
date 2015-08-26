@@ -1078,7 +1078,7 @@ class DataBrowserComponent extends Component
             'date' => array(
                 'date_histogram' => array(
                     'field' => 'date',
-                    'interval' => 'year',
+                    'interval' => 'week',
                     'format' => 'yyyy-MM-dd',
                 ),
                 'visual' => array(
