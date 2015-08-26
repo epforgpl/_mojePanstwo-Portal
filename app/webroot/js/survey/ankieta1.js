@@ -47,10 +47,7 @@ $(window).load(function () {
 		Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365});
 	});
 
-	console.log(cockpit, cockpit.find('.surveyPoll'));
-
 	if (!cockpit.find('.surveyPoll').length) {
-		console.log('a');
 		cockpit.append(
 			$('<a></a>').addClass('_appBlock _appBlockBackground surveyPoll hide').append(
 				$('<div></div>').addClass('_mPTitle').append(
