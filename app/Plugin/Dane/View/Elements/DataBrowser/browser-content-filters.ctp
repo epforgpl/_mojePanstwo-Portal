@@ -2,8 +2,8 @@
     <ul class="nav nav-pills margin-top-10 dataAggsDropdownList nopadding" role="tablist">
         <?
             foreach($dataBrowser['aggs_visuals_map'] as $name => $map) {
-
-                if( isset($map['target']) && ($map['target']=='filters') ) {
+	        
+                if( ($name!='dataset') && isset($map['target']) && ($map['target']=='filters') ) {
 
                     if( !isset($map['all']) )
                     	$map['all'] = 'Wszystkie dane';
@@ -16,7 +16,7 @@
                 data-label-dictionary='<?= json_encode(isset($map['dictionary']) ? $map['dictionary'] : array()) ?>'
                 data-choose-request="<?= $map['chooseRequest'] ?>"
                 data-all-label="<?= $map['all'] ?>"
-                data-label="<?= $map['label'] ?>"
+                data-label="<?= @$map['label'] ?>"
                 data-is-selected="<?= isset($this->request->query['conditions'][$map['field']]) ?>"
                 data-selected="<?= @$this->request->query['conditions'][$map['field']] ?>">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

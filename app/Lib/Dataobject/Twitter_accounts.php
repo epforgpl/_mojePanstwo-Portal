@@ -46,7 +46,6 @@ class Twitter_accounts extends DataObject
     public function getThumbnailUrl($size = false)
     {
         $url = $this->getData('profile_image_url_https');
-        debug($url);
         return str_replace('normal', 'bigger', $url);
     }
 

@@ -19,9 +19,13 @@
 		        	isset($data['aggs_visuals_map'][$agg_id]['target']) && 
 		        	( $data['aggs_visuals_map'][$agg_id]['target'] == 'menu' )
 		        ) || 
-		        ( $agg_id == 'dataset' )
+	        	( $agg_id == 'dataset' )
 	        )
         ) {
+	        
+	        if( @$data['aggs_visuals_map'][$agg_id]['target']===false )
+	        	continue;
+	        
             $empty = true;
 						
             foreach ($agg_data['buckets'] as $b) {

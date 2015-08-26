@@ -16,6 +16,7 @@ class DataBrowserComponent extends Component
     private $searcher = true;
     private $routes = array();
     public $dataset = false;
+    public $searchAction = false;
 
     private $aggs_presets = array(
         'gminy' => array(
@@ -1203,6 +1204,9 @@ class DataBrowserComponent extends Component
 
         if (isset($settings['searchTitle']))
             $this->searchTitle = $settings['searchTitle'];
+            
+        if (isset($settings['searchAction']))
+            $this->searchAction = $settings['searchAction'];
 
         if (isset($settings['autocompletion']))
             $this->autocompletion = $settings['autocompletion'];
@@ -1288,6 +1292,7 @@ class DataBrowserComponent extends Component
                 'cover' => $this->cover,
                 'chapters' => $this->chapters,
                 'searchTitle' => $this->searchTitle,
+                'searchAction' => $this->searchAction,
                 'searcher' => $this->searcher,
                 'autocompletion' => $this->autocompletion,
                 'mode' => 'data',
@@ -1407,6 +1412,7 @@ class DataBrowserComponent extends Component
                     'cancel_url' => false,
                     'chapters' => $this->chapters,
                     'searchTitle' => $this->searchTitle,
+                    'searchAction' => $this->searchAction,
                     'searcher' => $this->searcher,
                     'autocompletion' => $this->autocompletion,
                     'mode' => 'cover',
