@@ -6,7 +6,7 @@
         <div class="modal-content">
             <form action="/survey" method="POST">
                 <div class="modal-header">
-                    <button type="submit" class="close" data-dismiss="modal" aria-label="Close"><span
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                     <div class="text">
                         <p>Cześć,</p>
@@ -279,8 +279,8 @@
                         <li>&nbsp;</li>
                         <li>&nbsp;</li>
                     </ul>
-                    <button type="button" class="btn btn-primary pull-right">Dalej</button>
-                    <button type="submit" class="btn submitBtn btn-primary pull-right hide">Zakończ</button>
+                    <button type="button" class="btn nextBtn btn-primary pull-right">Dalej</button>
+                    <button type="button" class="btn submitBtn btn-primary pull-right hide">Zakończ</button>
                 </div>
             </form>
         </div>
