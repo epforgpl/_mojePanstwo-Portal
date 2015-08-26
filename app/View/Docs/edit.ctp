@@ -7,6 +7,8 @@ $this->Combinator->add_libs('css', $this->Less->css('Docs/edit'));
 <div class="navbar navbar-fixed-top ">
     <div class="middle nav navbar-nav navbar-right">
         <div class="docs-toolbar" role="toolbar">
+            <button type="button" class="btn btn-lg btn-primary load-all"><span
+                class="glyphicon glyphicon-save"></span></button>
             <button type="button" class="btn btn-lg btn-primary check-main"><span
                     class="glyphicon glyphicon-unchecked altcheckbox" id="checkbox-main"></span><span
                     class="btn-counter checked-counter">0</span></button>

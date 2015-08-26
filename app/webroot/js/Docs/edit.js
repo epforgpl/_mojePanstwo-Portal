@@ -306,10 +306,10 @@ $(document).ready(function () {
 		window.location.href = "docs/" + doc_id + "";
 	});
 
-	window.setTimeout(function(){
+	$('.load-all').click(function(){
 		doc.trigger('loadall');
-		console.log('LOAD ALL')
-	},500);
+		console.log('LOAD ALL');
+	});
 	/*
 	 function InsertMenu(pages) {
 	 clearInterval(interval);

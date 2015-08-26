@@ -114,7 +114,7 @@ class DocsController extends AppController
         $dane = json_decode($this->request->data['dane']);
         $dane = (array)$dane;
         $id = $dane['document_id'];
-/*
+
         if (isset($dane['pages'])) {
             $pages = (array)$dane['pages'];
             foreach ($pages as $page) {
@@ -122,12 +122,12 @@ class DocsController extends AppController
                 $page['dokument_id'] = $id;
                 $data['pages'][] = $page;
             }
-        }*/
+        }
         if (isset($dane['bookmarks'])) {
             $bookmarks = (array)$dane['bookmarks'];
             foreach ($bookmarks as $bookmark) {
                 $bookmark = (array)$bookmark;
-                $bookmark['dokument_id'] = $id;
+                $bookmark['source_dokument_id'] = $id;
                 $bookmark['strona_start'] = hexdec($bookmark['strona_numer_hex']);
                 $data['bookmarks'][] = $bookmark;
             }
@@ -160,7 +160,6 @@ class DocsController extends AppController
             '<div class="page"', '<p', '/p>', '/div>'
         ), $xml);
 
-//        debug($xml);die();
         $this->set('doc', $doc);
         $this->set('xml', $xml);
         $this->set('_serialize', 'doc');
@@ -199,7 +198,7 @@ class DocsController extends AppController
                     if (!isset($strona[$pole[1]])) {
                         $strona[$pole[1]] = array();
                     }
-                    $strona[$pole[1]]['rocznik'] = '2015';
+                    $strona[$pole[1]]['rocznik'] = '2012';
 
                     switch ($pole[0]) {
                         case 1:
@@ -231,23 +230,48 @@ class DocsController extends AppController
                             break;
                         case 6:
                             //plan
-                            $strona[$pole[1]]['plan'] = str_replace(' ', '', $pole[2]);
+                            if (isset($strona[$pole[1]]['plan'])) {
+                                $strona[$pole[1]]['plan'] .= $pole[2];
+                            } else {
+                                $strona[$pole[1]]['plan'] = $pole[2];
+                            }
+                            $strona[$pole[1]]['plan'] = str_replace(' ', '', $strona[$pole[1]]['plan']);
                             break;
                         case 7:
+                            if (isset($strona[$pole[1]]['dotacje_i_subwencje'])) {
+                                $strona[$pole[1]]['dotacje_i_subwencje'] .= $pole[2];
+                            } else {
+                                $strona[$pole[1]]['dotacje_i_subwencje'] = $pole[2];
+                            }
                             //dotacje i subwencje
-                            $strona[$pole[1]]['dotacje_i_subwencje'] = str_replace(' ', '', $pole[2]);
+                            $strona[$pole[1]]['dotacje_i_subwencje'] = str_replace(' ', '', $strona[$pole[1]]['dotacje_i_subwencje']);
                             break;
                         case 8:
+                            if (isset($strona[$pole[1]]['swiadczenia_na_rzecz_osob_fizycznych'])) {
+                                $strona[$pole[1]]['swiadczenia_na_rzecz_osob_fizycznych'] .= $pole[2];
+                            } else {
+                                $strona[$pole[1]]['swiadczenia_na_rzecz_osob_fizycznych'] = $pole[2];
+                            }
                             //swiadczenia na rzecz osob fizycznych
-                            $strona[$pole[1]]['swiadczenia_na_rzecz_osob_fizycznych'] = str_replace(' ', '', $pole[2]);
+                            $strona[$pole[1]]['swiadczenia_na_rzecz_osob_fizycznych'] = str_replace(' ', '', $strona[$pole[1]]['swiadczenia_na_rzecz_osob_fizycznych']);
                             break;
                         case 9:
+                            if (isset($strona[$pole[1]]['wydatki_biezace_jednostek_budzetowych'])) {
+                                $strona[$pole[1]]['wydatki_biezace_jednostek_budzetowych'] .= $pole[2];
+                            } else {
+                                $strona[$pole[1]]['wydatki_biezace_jednostek_budzetowych'] = $pole[2];
+                            }
                             //wydatki biezace jednostek budzetowych
-                            $strona[$pole[1]]['wydatki_biezace_jednostek_budzetowych'] = str_replace(' ', '', $pole[2]);
+                            $strona[$pole[1]]['wydatki_biezace_jednostek_budzetowych'] = str_replace(' ', '', $strona[$pole[1]]['wydatki_biezace_jednostek_budzetowych']);
                             break;
                         case 10:
+                            if (isset($strona[$pole[1]]['wydatki_majatkowe'])) {
+                                $strona[$pole[1]]['wydatki_majatkowe'] .= $pole[2];
+                            } else {
+                                $strona[$pole[1]]['wydatki_majatkowe'] = $pole[2];
+                            }
                             //wydatki majatkowe
-                            $strona[$pole[1]]['wydatki_majatkowe'] = str_replace(' ', '', $pole[2]);
+                            $strona[$pole[1]]['wydatki_majatkowe'] = str_replace(' ', '', $strona[$pole[1]]['wydatki_majatkowe']);
                             break;
                         case 11:
                             //wydatki na osbluge dlugu
@@ -272,7 +296,7 @@ class DocsController extends AppController
 
 
         echo '<pre>';
-        // var_export(count($data));
+         //var_export($data);
         var_export($aa['data']);
         // var_export(json_encode($data));
         echo '</pre>';

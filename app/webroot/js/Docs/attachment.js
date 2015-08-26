@@ -26,7 +26,7 @@ $(document).ready(function () {
 			var width = Number(element.attr('width'));
 			var height = Number(element.attr('height'));
 
-			if (top < 170 || left > 1055 || top > 651) {
+			if (top < 165 || left > 1055 || top > 651) {
 
 				element.remove();
 
@@ -104,16 +104,32 @@ $('.calculate_fields').click(function(){
 
 		var data=[];
 		$('.page').each(function(i){
-			strona=[]
+			strona=[];
 			$(this).find('p').each(function(){
-				strona.push([
-					$(this).attr('data-col-no'),
-					$(this).attr('data-row-no'),
-					$(this).html()
-				]);
+
+				if($(this).attr('data-col-no')>4 && $(this).attr('data-col-no')<10 && $(this).attr('width')>90){
+					var kwoty=$(this).html().split(' ');
+					kwoty=kwoty.filter(Number);
+					p=$(this);
+					var i=0;
+					$.each(kwoty, function(k,v){
+						strona.push([
+							parseInt(p.attr('data-col-no'))+i,
+							p.attr('data-row-no'),
+							v
+						]);
+						i++;
+					});
+				}else {
+					strona.push([
+						$(this).attr('data-col-no'),
+						$(this).attr('data-row-no'),
+						$(this).html()
+					]);
+				}
 			});
 			data.push(strona);
-		})
+		});
 		dane=JSON.stringify(data);
 		$.ajax({
 			url: "",
