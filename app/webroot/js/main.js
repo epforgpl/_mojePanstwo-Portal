@@ -210,8 +210,8 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
             modalPaszportLoginForm.modal('show');
         });
     }
-    
-    $('[data-toggle="tooltip"]').tooltip({
+
+	$('[data-toggle="tooltip"]').tooltip({
 	    delay: {
 		    hide: 1
 	    }
