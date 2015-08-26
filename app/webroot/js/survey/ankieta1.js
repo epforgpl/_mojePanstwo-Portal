@@ -7,20 +7,20 @@ $(window).load(function () {
 	mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
 
 	surveyAnkieta1.find('.modal-footer .submitBtn').click(function (e) {
-		var that = $(this);
+		var that = $(this),
+			data = surveyAnkieta1.find('form').serializeArray();
 
 		e.preventDefault();
-		mPCookie.survey.ankieta1 = surveyAnkieta1.find('form').serializeArray();
 
 		$.ajax({
 			type: "POST",
-			url: '/survey',
-			data: mPCookie.survey.ankieta1,
-			beforeSend: function (e) {
+			url: '/survey.json',
+			data: data,
+			beforeSend: function () {
 				that.addClass('disabled loading');
 			},
 			complete: function () {
-				mPCookie.survey.ankieta1.complete = true;
+				mPCookie.survey.ankieta1 = 'all';
 				Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365});
 				surveyAnkieta1.addClass('finished');
 				cockpit.find('.surveyPoll').remove();
@@ -43,8 +43,10 @@ $(window).load(function () {
 	});
 	surveyAnkieta1.on('hidden.bs.modal', function () {
 		cockpit.find('.surveyPoll.hide').removeClass('hide');
-		mPCookie.survey.ankieta1 = surveyAnkieta1.find('form').serializeArray();
-		Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365});
+		if (mPCookie.survey.ankieta1 !== 'all') {
+			mPCookie.survey.ankieta1 = 'half';
+			Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365});
+		}
 	});
 
 	if (!cockpit.find('.surveyPoll').length) {
@@ -60,5 +62,9 @@ $(window).load(function () {
 		)
 	}
 
-	surveyAnkieta1.modal('show');
+	if (mPCookie.survey.ankieta1 == undefined)
+		surveyAnkieta1.modal('show');
+
+	if (mPCookie.survey.ankieta1 == 'half')
+		cockpit.find('.surveyPoll.hide').removeClass('hide');
 });
