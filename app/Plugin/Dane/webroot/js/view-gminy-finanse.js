@@ -64,8 +64,6 @@ function pl_currency_format(n) {
 $(document).ready(function () {
     'use strict';
 
-    var api_url = 'http://mojepanstwo.pl:4444/';
-
     var sections = jQuery('#sections .section');
     for (var i = 0; i < sections.length; i++) {
         var section = jQuery(sections[i]),
