@@ -1316,32 +1316,8 @@ class GminyController extends DataobjectsController
 
             $global_aggs['radni'] = array(
                 'filter' => array(
-                    'bool' => array(
-                        'must' => array(
-                            array(
-                                'term' => array(
-                                    'dataset' => 'radni_gmin',
-                                ),
-                            ),
-                            array(
-                                'term' => array(
-                                    'data.radni_gmin.gmina_id' => $this->object->getId(),
-                                ),
-                            ),
-                            array(
-                                'term' => array(
-                                    'data.radni_gmin.aktywny' => '1',
-                                ),
-                            ),
-                            array(
-                                'term' => array(
-                                    'data.radni_gmin.kadencja_id' => '7',
-                                ),
-                            ),
-                        ),
-                    ),
+                    'match_all' => '_empty',
                 ),
-                'scope' => 'global',
                 'aggs' => array(
                     'top' => array(
                         'top_hits' => array(
@@ -1363,6 +1339,8 @@ class GminyController extends DataobjectsController
             'conditions' => array(
                 'dataset' => 'radni_gmin',
                 'radni_gmin.gmina_id' => '903',
+                'radni_gmin.aktywny' => '1',
+                'radni_gmin.kadencja_id' => '7',
             ),
             'cover' => array(
                 'view' => array(
@@ -1371,6 +1349,7 @@ class GminyController extends DataobjectsController
                 ),
                 'aggs' => $global_aggs,
             ),
+            'aggsPreset' => 'radni_gmin',
         );
 
         $this->set('_submenu', array_merge($this->submenus['rada'], array(
@@ -2934,6 +2913,9 @@ class GminyController extends DataobjectsController
     public function komisje()
     {
 
+		if( !isset($this->request->query['conditions']['krakow_komisje.kadencja_id']) )
+			$this->request->query['conditions']['krakow_komisje.kadencja_id'] = '7';
+
         $this->_prepareView();
         $this->request->params['action'] = 'rada';
 
@@ -3784,7 +3766,7 @@ class GminyController extends DataobjectsController
     public function finanse()
     {
         $this->addInitLayers(array(
-            'finanse'
+            //'finanse'
         ));
         $this->_prepareView();
         $this->loadModel('Finanse.GminaBudzet');
@@ -3840,6 +3822,11 @@ class GminyController extends DataobjectsController
 		                                    'data.radni_gmin.kadencja_id' => '7',
 		                                ),
 		                            ),
+		                            array(
+		                                'term' => array(
+		                                    'data.radni_gmin.krakow_okreg_id' => $this->request->params['subid'],
+		                                ),
+		                            ),
 		                        ),
 		                    ),
 		                ),
@@ -3855,7 +3842,7 @@ class GminyController extends DataobjectsController
                 ),
                 'layers' => array('geo')
             ));
-            
+
             $aggs = $this->Dataobject->getAggs();
             $this->set('okreg_aggs', $aggs);
 

@@ -9,6 +9,7 @@ var DataAggsDropdown = function(li) {
 	this.chooseRequest = this.li.data('choose-request');
 	this.labelDictionary = this.li.data('label-dictionary');
 	this.isSelected = this.li.data('is-selected') == '1';
+	this.selected = this.li.data('selected');
 	this.allLabel = this.li.data('all-label');
 	this.counterField = this.li.data('counter-field') ? this.li.data('counter-field') : 'doc_count';
 	this.labelField = this.li.data('label-field') ? this.li.data('label-field') : 'label';
@@ -58,10 +59,11 @@ DataAggsDropdown.prototype.createColumnsVertical = function() {
 	var dropdownMenu = this.li.find('ul.dropdown-menu'),
 		dropdownChart = '<li class="chart"></li>';
 
-	dropdownChart += [
-		'<li role="separator" class="divider"></li>',
-		'<li><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
-	].join('');
+	if(this.allLabel.length > 0 && this.isSelected) {
+		dropdownChart += [
+			'<li class="cancel"><a href="' + this.cancelRequest + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Usuń filtr</a></li>'
+		].join('');
+	}
 
 	dropdownMenu.append(dropdownChart);
 
@@ -155,10 +157,11 @@ DataAggsDropdown.prototype.createDateHistogram = function() {
 	var dropdownMenu = this.li.find('ul.dropdown-menu'),
 		dropdownChart = '<li class="chart"></li>';
 
-	dropdownChart += [
-		'<li role="separator" class="divider"></li>',
-		'<li><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
-	].join('');
+	if(this.allLabel.length > 0 && this.isSelected) {
+		dropdownChart += [
+			'<li class="cancel"><a href="' + this.cancelRequest + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Usuń filtr</a></li>'
+		].join('');
+	}
 
 	dropdownMenu.append(dropdownChart);
 
@@ -296,10 +299,11 @@ DataAggsDropdown.prototype.createPieChart = function() {
 		dropdownMenu = this.li.find('ul.dropdown-menu'),
 		dropdownChart = '<li class="chart"></li>';
 
-	dropdownChart += [
-		'<li role="separator" class="divider"></li>',
-		'<li><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
-	].join('');
+	if(this.allLabel.length > 0 && this.isSelected) {
+		dropdownChart += [
+			'<li class="cancel"><a href="' + this.cancelRequest + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Usuń filtr</a></li>'
+		].join('');
+	}
 
 	dropdownMenu.append(dropdownChart);
 
@@ -308,9 +312,10 @@ DataAggsDropdown.prototype.createPieChart = function() {
 	var pie_chart_keys = [];
 	var choose_request = this.chooseRequest;
 	var chart_options;
+	var selectedIndex = 0;
 
 	try {
-		chart_options = $.parseJSON(li.attr('data-chart-options'));
+		chart_options = $.parseJSON(this.li.attr('data-chart-options'));
 	} catch (err) {
 		chart_options = false;
 	}
@@ -320,10 +325,11 @@ DataAggsDropdown.prototype.createPieChart = function() {
 		if(typeof data.buckets[i].label !== 'undefined') {
 			label = ( typeof data.buckets[i].label.buckets[0] == 'undefined' ) ? '' : data.buckets[i].label.buckets[0].key;
 		} else if(typeof data.buckets[i].key !== 'undefined') {
-			var key = data.buckets[i].key;
-			if(this.labelDictionary.hasOwnProperty(key)) {
-				label = this.labelDictionary[key];
-			}
+			label = data.buckets[i].key;
+		}
+
+		if(this.labelDictionary.hasOwnProperty(label)) {
+			label = this.labelDictionary[label];
 		}
 
 		pie_chart_data[i] = [
@@ -332,6 +338,8 @@ DataAggsDropdown.prototype.createPieChart = function() {
 		];
 
 		pie_chart_keys[i] = data.buckets[i].key;
+		if(this.selected == data.buckets[i].key)
+			selectedIndex = i;
 	}
 
 	var options = {
@@ -359,7 +367,7 @@ DataAggsDropdown.prototype.createPieChart = function() {
 			}
 		},
 		title: {
-			text: ''
+			text: this.li.data('label')
 		},
 		tooltip: {
 			pointFormat: '<b>{point.y}</b>'
@@ -368,6 +376,9 @@ DataAggsDropdown.prototype.createPieChart = function() {
 			enabled: false
 		},
 		plotOptions: {
+			series: {
+				animation: false
+			},
 			pie: {
 				allowPointSelect: false,
 				cursor: 'pointer',
@@ -405,8 +416,8 @@ DataAggsDropdown.prototype.createPieChart = function() {
 			useHTML: true,
 			labelFormatter: function () {
 				var name = this.name;
-				if (name.length > 32)
-					name = name.substring(0, 35) + '...';
+				if (name.length > 45)
+					name = name.substring(0, 42) + '...';
 
 				return '<a title="' + this.name + '" href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + name + '</a>';
 			},
@@ -417,7 +428,8 @@ DataAggsDropdown.prototype.createPieChart = function() {
 			y: 20,
 			itemMarginBottom: 5,
 			itemStyle: {
-				'font-weight': 'normal'
+				'font-weight': 'normal',
+				paddingBottom: '5px'
 			}
 			// itemWidth: 150
 		};
@@ -427,14 +439,20 @@ DataAggsDropdown.prototype.createPieChart = function() {
 		options.legend = {
 			useHTML: true,
 			labelFormatter: function () {
-				var name = this.name;
-				if (name.length > 18)
-					name = name.substring(0, 15) + '...';
-				return '<a href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + name + '</a>';
+				if(_this.isSelected && selectedIndex == this.index) {
+					return '<a class="active" href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + this.name + '</a>';
+				} else {
+					return '<a href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + this.name + '</a>';
+				}
 			},
-			itemWidth: 150,
+        	layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            margin: 30,
+            y: 50,
 			itemStyle: {
-				'font-weight': 'normal'
+				'font-weight': 'normal',
+				paddingBottom: '5px'
 			}
 		};
 
@@ -471,10 +489,11 @@ DataAggsDropdown.prototype.createColumnsHorizontal = function() {
 	var dropdownMenu = this.li.find('ul.dropdown-menu'),
 		dropdownChart = '<li class="chart"></li>';
 
-	dropdownChart += [
-		'<li role="separator" class="divider"></li>',
-		'<li><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
-	].join('');
+	if(this.allLabel.length > 0 && this.isSelected) {
+		dropdownChart += [
+			'<li class="cancel"><a href="' + this.cancelRequest + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Usuń filtr</a></li>'
+		].join('');
+	}
 
 	dropdownMenu.append(dropdownChart);
 
@@ -518,8 +537,8 @@ DataAggsDropdown.prototype.createColumnsHorizontal = function() {
 				formatter: function () {
 
 					var v = this.value;
-					if (v.length > 15)
-						v = v.substring(0, 12) + '...';
+					if (v.length > 45)
+						v = v.substring(0, 42) + '...';
 
 					return v;
 				}
@@ -576,19 +595,25 @@ DataAggsDropdown.prototype.createList = function() {
 		dropdownList = '';
 
 	for(var i = 0; i < this.aggs.buckets.length; i++) {
+
+		var label = this.aggs.buckets[i].key;
+		if(this.labelDictionary.hasOwnProperty(label))
+			label = this.labelDictionary[label];
+
 		dropdownList += [
-			'<li' + (this.isSelected ? ' class="active"' : '') + '>',
+			'<li' + (this.isSelected && this.selected == this.aggs.buckets[i].key ? ' class="active"' : '') + '>',
 				'<a href="' + this.chooseRequest + this.aggs.buckets[i].key + '">',
-					this.aggs.buckets[i].key,
+					label,
 				'</a>',
 			'</li>'
 		].join('');
 	}
 
-	dropdownList += [
-		'<li role="separator" class="divider"></li>',
-		'<li><a href="' + this.cancelRequest + '">' + this.allLabel + '</a></li>'
-	].join('');
+	if(this.allLabel.length > 0 && this.isSelected) {
+		dropdownList += [
+			'<li class="cancel"><a href="' + this.cancelRequest + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Usuń filtr</a></li>'
+		].join('');
+	}
 
 	dropdownMenu.append(dropdownList);
 };

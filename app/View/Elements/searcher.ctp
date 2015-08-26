@@ -1,5 +1,5 @@
 <? $this->Combinator->add_libs('js', 'suggester.js'); ?>
-<form action="" method="get" class="form-horizontal suggesterBlock row col-xs-12">
+<form action="<?= @$dataBrowser['searchAction'] ? $dataBrowser['searchAction'] : '' ?>" method="get" class="form-horizontal suggesterBlock row col-xs-12">
     <? 
 	    if( isset($autocompletion) && $autocompletion['dataset'] ) {
 		    $datasets = explode(",", $autocompletion['dataset']);

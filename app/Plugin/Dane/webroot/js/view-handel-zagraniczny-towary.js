@@ -7,7 +7,6 @@ $(document).ready(function () {
     var seriesExportData = [];
     var seriesImport2014Data = [];
     var seriesExport2014Data = [];
-    var apiHost = 'http://mojepanstwo.pl:4444/';
 
     for (var i = 0; i < data.length; i++) {
         $('#selectYear').append('<option value="' + data[i].rocznik + '">' + data[i].rocznik + '</option>');
@@ -310,7 +309,7 @@ $(document).ready(function () {
             if (parent_id === undefined)
                 parent_id = this.symbol_id;
             $.getJSON(
-                apiHost + 'handel_zagraniczny/stats/getSymbols.json' +
+				mPHeart.constant.ajax.api + '/handel_zagraniczny/stats/getSymbols.json' +
                 '?parent_id=' + parent_id +
                 '&year=' + year +
                 '&type=' + type +
@@ -322,7 +321,7 @@ $(document).ready(function () {
 
         getCountries: function (year, type, done_function) {
             $.getJSON(
-                apiHost + 'handel_zagraniczny/stats/panstwa.json' +
+				mPHeart.constant.ajax.api + '/handel_zagraniczny/stats/panstwa.json' +
                 '?symbol_id=' + this.symbol_id +
                 '&rocznik=' + year +
                 '&order=' + type +

@@ -16,6 +16,7 @@ class DataBrowserComponent extends Component
     private $searcher = true;
     private $routes = array();
     public $dataset = false;
+    public $searchAction = false;
 
     private $aggs_presets = array(
         'gminy' => array(
@@ -333,35 +334,6 @@ class DataBrowserComponent extends Component
             ),
         ),
         'krakow_rada_uchwaly' => array(
-
-            /*'kadencja_id' => array(
-                'terms' => array(
-                    'field' => 'krakow_rada_uchwaly.kadencja_id',
-                    'order' => array(
-                        '_term' => 'desc',
-                    ),
-                    'exclude' => array(
-                        'pattern' => '0'
-                    ),
-                ),
-                'visual' => array(
-                    'label' => 'Kadencje',
-                    'skin' => 'list',
-                    'field' => 'krakow_rada_uchwaly.kadencja_id',
-                    'dictionary' => array(
-                        '1' => 'I',
-                        '2' => 'II',
-                        '3' => 'III',
-                        '4' => 'IV',
-                        '5' => 'V',
-                        '6' => 'VI',
-                        '7' => 'VII',
-                        '8' => 'VIII',
-                        '9' => 'IX',
-                    ),
-                ),
-            ),*/
-
             'typ_id' => array(
                 'terms' => array(
                     'field' => 'krakow_rada_uchwaly.typ_id',
@@ -378,6 +350,33 @@ class DataBrowserComponent extends Component
                         '1' => 'Uchwały',
                         '2' => 'Rezolucje',
                     ),
+                ),
+            ),
+            'kadencja' => array(
+                'terms' => array(
+                    'field' => 'rady_gmin_interpelacje.kadencja_id',
+                    'order' => array(
+                        '_term' => 'desc',
+                    ),
+                    'exclude' => array(
+	                    'pattern' => '0',
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Kadencje',
+                    'skin' => 'list',
+                    'field' => 'rady_gmin_interpelacje.kadencja_id',
+                    'dictionary' => array(
+                        '1' => 'I kadencja',
+                        '2' => 'II kadencja',
+                        '3' => 'III kadencja',
+                        '4' => 'IV kadencja',
+                        '5' => 'V kadencja',
+                        '6' => 'VI kadencja',
+                        '7' => 'VII kadencja',
+                        '8' => 'VIII kadencja',
+                    ),
+                    'all' => 'Wszystkie kadencje',
                 ),
             ),
             'date' => array(
@@ -404,7 +403,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Kadencje',
-                    'all' => 'Wszystkie kadencje',
+                    'all' => false,
                     'skin' => 'list',
                     'field' => 'krakow_komisje.kadencja_id',
                     'dictionary' => array(
@@ -612,31 +611,36 @@ class DataBrowserComponent extends Component
                 ),
             ),
         ),
-        'rady_gmin_interpelacje' => array(
-            /*'kadencja' => array(
+        'radni_gmin' => array(
+	        'kadencja' => array(
                 'terms' => array(
-                    'field' => 'rady_gmin_interpelacje.kadencja_id',
+                    'field' => 'radni_gmin.kadencja_id',
                     'order' => array(
                         '_term' => 'desc',
+                    ),
+                    'exclude' => array(
+	                    'pattern' => '0',
                     ),
                 ),
                 'visual' => array(
                     'label' => 'Kadencje',
                     'skin' => 'list',
-                    'field' => 'rady_gmin_interpelacje.kadencja_id',
+                    'field' => 'radni_gmin.kadencja_id',
                     'dictionary' => array(
-                        '1' => 'I',
-                        '2' => 'II',
-                        '3' => 'III',
-                        '4' => 'IV',
-                        '5' => 'V',
-                        '6' => 'VI',
-                        '7' => 'VII',
-                        '8' => 'VIII',
-                        '9' => 'IX',
+                        '1' => 'I kadencja',
+                        '2' => 'II kadencja',
+                        '3' => 'III kadencja',
+                        '4' => 'IV kadencja',
+                        '5' => 'V kadencja',
+                        '6' => 'VI kadencja',
+                        '7' => 'VII kadencja',
+                        '8' => 'VIII kadencja',
                     ),
+                    'all' => 'Wszystkie kadencje',
                 ),
-            ),*/
+            ),
+        ),
+        'rady_gmin_interpelacje' => array(
             'radni' => array(
                 'terms' => array(
                     'field' => 'radni_gmin.id',
@@ -653,12 +657,38 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Autorzy interpelacji',
-                    'all' => 'Wszyscy autorzy',
+                    'all' => 'Interpelacje wszystkich radnych',
                     'skin' => 'columns_horizontal',
                     'field' => 'radni_gmin.id'
                 ),
             ),
-
+			'kadencja' => array(
+                'terms' => array(
+                    'field' => 'rady_gmin_interpelacje.kadencja_id',
+                    'order' => array(
+                        '_term' => 'desc',
+                    ),
+                    'exclude' => array(
+	                    'pattern' => '0',
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Kadencje',
+                    'skin' => 'list',
+                    'field' => 'rady_gmin_interpelacje.kadencja_id',
+                    'dictionary' => array(
+                        '1' => 'I kadencja',
+                        '2' => 'II kadencja',
+                        '3' => 'III kadencja',
+                        '4' => 'IV kadencja',
+                        '5' => 'V kadencja',
+                        '6' => 'VI kadencja',
+                        '7' => 'VII kadencja',
+                        '8' => 'VIII kadencja',
+                    ),
+                    'all' => 'Wszystkie kadencje',
+                ),
+            ),
         ),
         'krakow_dzielnice_uchwaly' => array(
             'dzielnice' => array(
@@ -1011,6 +1041,7 @@ class DataBrowserComponent extends Component
                     'exclude' => array(
                         'pattern' => '0'
                     ),
+                    'size' => 10,
                 ),
                 'aggs' => array(
                     'label' => array(
@@ -1039,9 +1070,22 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Kapitalizacja spółek',
-                    'all' => 'Wszystkie zakresy kapitalizacji',
+                    'all' => 'Dowolny kapitał zakładowy',
                     'skin' => 'krs/kapitalizacja',
                     'field' => 'krs_podmioty.wartosc_kapital_zakladowy',
+                ),
+            ),
+            'date' => array(
+                'date_histogram' => array(
+                    'field' => 'date',
+                    'interval' => 'year',
+                    'format' => 'yyyy-MM-dd',
+                ),
+                'visual' => array(
+                    'label' => 'Liczba rejestracji nowych organizacji w czasie',
+                    'skin' => 'highstockPicker',
+                    'field' => '_date',
+                    'all' => 'Zarejestrowane kiedykolwiek',
                 ),
             ),
         ),
@@ -1116,7 +1160,7 @@ class DataBrowserComponent extends Component
                 }
             }
         }
-
+				
 		return $aggs;
 
 	}
@@ -1137,8 +1181,6 @@ class DataBrowserComponent extends Component
             array_key_exists($settings['aggsPreset'], $this->aggs_presets)
         )
         	$settings['aggs'] = array_merge($this->aggs_presets[$settings['aggsPreset']], $settings['aggs']);
-
-
 
         if( isset($settings['aggs']) )
         	$settings['aggs'] = $this->processAggs( $settings['aggs'] );
@@ -1162,6 +1204,9 @@ class DataBrowserComponent extends Component
 
         if (isset($settings['searchTitle']))
             $this->searchTitle = $settings['searchTitle'];
+            
+        if (isset($settings['searchAction']))
+            $this->searchAction = $settings['searchAction'];
 
         if (isset($settings['autocompletion']))
             $this->autocompletion = $settings['autocompletion'];
@@ -1222,8 +1267,6 @@ class DataBrowserComponent extends Component
         if (!property_exists($controller, 'Dataobject'))
             $controller->Dataobject = ClassRegistry::init('Dane.Dataobject');
 
-        // debug($this->getSettings()); die();
-
         if (
             (!$this->cover) ||
             (
@@ -1236,8 +1279,6 @@ class DataBrowserComponent extends Component
 
             $controller->Paginator->settings = $this->getSettings();
 
-            // debug($this->getSettings());
-
             // $controller->Paginator->settings['order'] = 'score desc';
             // debug($controller->Paginator->settings); die();
             $hits = $controller->Paginator->paginate('Dataobject');
@@ -1245,12 +1286,13 @@ class DataBrowserComponent extends Component
             $dataBrowser = array(
                 'hits' => $hits,
                 'took' => $controller->Dataobject->getPerformance(),
-                'cancel_url' => $this->getCancelSearchUrl($controller),
+                'cancel_url' => $controller->here,
                 'api_call' => $controller->Dataobject->getDataSource()->public_api_call,
                 'renderFile' => isset($this->settings['renderFile']) ? 'DataBrowser/templates/' . $this->settings['renderFile'] : 'default',
                 'cover' => $this->cover,
                 'chapters' => $this->chapters,
                 'searchTitle' => $this->searchTitle,
+                'searchAction' => $this->searchAction,
                 'searcher' => $this->searcher,
                 'autocompletion' => $this->autocompletion,
                 'mode' => 'data',
@@ -1350,16 +1392,17 @@ class DataBrowserComponent extends Component
                 $params = array(
                     'limit' => 0,
                     'conditions' => $settings['conditions'],
+                    'aggs' => array(),
                 );
 
+				if (isset($settings['aggs']))
+                    $params['aggs'] = array_merge($params['aggs'], $settings['aggs']);
+
                 if (isset($this->cover['aggs']))
-                    $params['aggs'] = $this->cover['aggs'];
+                    $params['aggs'] = array_merge($params['aggs'], $this->cover['aggs']);
 
-                if (isset($this->cover['conditions'])) {
-
+                if (isset($this->cover['conditions']))
                     $params['conditions'] = array_merge($params['conditions'], $this->cover['conditions']);
-
-                }
 
                 $controller->Dataobject->find('all', $params);
 
@@ -1369,6 +1412,7 @@ class DataBrowserComponent extends Component
                     'cancel_url' => false,
                     'chapters' => $this->chapters,
                     'searchTitle' => $this->searchTitle,
+                    'searchAction' => $this->searchAction,
                     'searcher' => $this->searcher,
                     'autocompletion' => $this->autocompletion,
                     'mode' => 'cover',
@@ -1420,7 +1464,25 @@ class DataBrowserComponent extends Component
 
         if (isset($conditions['q']))
             $output['highlight'] = true;
+		
+		
+		if( $output['conditions'] ) {
+			foreach( $output['conditions'] as $field => $value ) {
+				foreach( $this->aggs_visuals_map as $key => $map) {
+					if( 
+						($map['target']=='filters') && 
+						isset($map['field']) && 
+						( $map['field']==$field ) 
+					) {
+						
+						$output['aggs'][$key]['scope'] = 'filters_exclude(' . $field . ')';
+						break;
+					}
+				}				
+			}
+		}
 
+		
         return $output;
 
     }

@@ -28,8 +28,6 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 $(document).ready(function () {
     'use strict';
 
-    var api_url = 'http://mojepanstwo.pl:4444/';
-
     var sections = jQuery('#sections .section');
     for (var i = 0; i < sections.length; i++) {
         var section = jQuery(sections[i]),
@@ -152,7 +150,7 @@ $(document).ready(function () {
 
             $("#teryt_search_input").val(ui.item.name);
 
-            $.getJSON(api_url + 'finanse/finanse/getCommuneData?id=' + ui.item.value, function (data) {
+			$.getJSON(mPHeart.constant.ajax.api + '/finanse/finanse/getCommuneData?id=' + ui.item.value, function (data) {
 
                 if (!data || data.length === 0) {
                     $('#section_' + _dzial_id + '_addon').css('display', 'none');

@@ -21,6 +21,7 @@ class BdlController extends ApplicationsController
 				
         $options = array(
             'searchTitle' => 'Szukaj w Banku Danych Lokalnych...',
+            'searchAction' => '/bdl',
             'autocompletion' => array(
                 'dataset' => 'bdl_wskazniki',
             ),
@@ -98,6 +99,7 @@ class BdlController extends ApplicationsController
                         'class' => 'special',
                         'field' => 'dataset',
                         'dictionary' => $datasets,
+                        'target' => false,
                     ),
                 ),
             ),
@@ -177,6 +179,7 @@ class BdlController extends ApplicationsController
                         'class' => 'special',
                         'field' => 'dataset',
                         'dictionary' => $datasets,
+                        'target' => false,
                     ),
                 ),
             ),
@@ -188,12 +191,31 @@ class BdlController extends ApplicationsController
 
 
         $this->Components->load('Dane.DataBrowser', $options);
-        $this->title = 'Bank Danych Lokalnych';
+        $this->title = 'Bank Danych Lokalnych - Wskaźniki statystyczne dotyczące sytuacji społecznej i gospodarczej Polski.';
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
 
 
     }
     
+    public function beforeRender() {
+	    
+	    parent::beforeRender();
+	    
+	    if( 
+	    	@$this->request->params['id'] && 
+	    	( $items = @$this->viewVars['dataBrowser']['aggs']['kategorie']['buckets'] )
+	    ) {
+	    	foreach( $items as $item ) {
+	    		if( $item['key'] == $this->request->params['id'] ) {
+		    		
+		    		$this->set('title_for_layout', $item['label']['buckets'][0]['key'] . ' - Bank Danych Lokalnych');
+		    		break;
+		    		
+	    		}
+	    	}
+	    }
+	    	    
+    }
     
     public function getMenu() {
 	    

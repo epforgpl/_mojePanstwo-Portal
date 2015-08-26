@@ -1,7 +1,7 @@
 $(function () {
 
-    var API = 'http://mojepanstwo.pl:4444/',
-        geoAPI = API + 'geo/geojson/get?',
+	var API = mPHeart.constant.ajax.api,
+		geoAPI = API + '/geo/geojson/get?',
         indicators = [],
         map = [],
         mapLevel = 0,
@@ -77,7 +77,7 @@ $(function () {
         $('#indicator h3').html(node.name);
 
         if (indicators[node.id] === undefined) {
-            $.getJSON(API + 'dane/bdl_wskazniki/' + trueIds[parseInt(node.id)] + '.json?layers[]=dimennsions', function (data) {
+			$.getJSON(API + '/dane/bdl_wskazniki/' + trueIds[parseInt(node.id)] + '.json?layers[]=dimennsions', function (data) {
                 indicators[node.id] = data.object;
                 setIndicator(indicators[node.id]);
             });
@@ -264,7 +264,7 @@ $(function () {
 
         spinner.show();
 
-        $.getJSON(API + 'bdl/getDataForIndicatorSet' + _get, function (data) {
+		$.getJSON(API + '/bdl/getDataForIndicatorSet' + _get, function (data) {
             spinner.hide();
             // $('#loader').hide();
             // var years = data.years;
@@ -329,7 +329,7 @@ $(function () {
 
     spinner.show();
 
-    $.getJSON(API + 'bdl/getCategories', function (categories) {
+	$.getJSON(API + '/bdl/getCategories', function (categories) {
         categoriesData = [];
         var id = 0;
         for (var i = 0; i < categories.length; i++) {

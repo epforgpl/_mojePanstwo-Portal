@@ -391,7 +391,7 @@ if ($okreg) {
 </div>
 <div class="col-md-3">
     <? if ($powiazania = $radny->getLayer('powiazania')) { ?>
-        <ul class="dataHighlights rightColumn dane_radnego">
+        <ul class="dataHighlights rightColumn dane_radnego margin-top-10">
             <li class="dataHighlight col-xs-12 dane_radnego">
                 <p class="_label">Data urodzenia</p>
 
@@ -406,7 +406,8 @@ if ($okreg) {
         </ul>
     <? } ?>
     <? if ($okreg) { ?>
-        <a class="okregiBlock margin-top-10" href="/okregi/<?= $okreg[2] ?>" target="_self">
+    	
+        <a class="okregiBlock margin-top-10" href="/dane/gminy/903,krakow/okregi/<?= $okreg[2] ?>" target="_self">
             <h2>Okręg nr. <?= $okreg[2] ?></h2>
 
             <? /*

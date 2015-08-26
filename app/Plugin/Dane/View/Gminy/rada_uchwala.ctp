@@ -25,15 +25,12 @@ $docs = $uchwala->getLayer('docs');
 
             <div class="row">
 				
-				<div class="col-md-10">
+				<div class="col-md-9">
 
-                    <?= $this->Document->place(
-                        isset($dokument_id) && $dokument_id ?
-                            $dokument_id : $uchwala->getData('dokument_id')
-                    ) ?>
+                    <?= $this->Document->place($file) ?>
                 </div>
 				
-                <div class="col-md-2">
+                <div class="col-md-3">
 					
 					<? if( count($docs)>1 ) {?> 
                     <p>Pliki powiązane:</p>
@@ -50,7 +47,7 @@ $docs = $uchwala->getLayer('docs');
                     </ul>
                     <? } ?>
                     
-                    <p class="margin-sides-5 margin-top-10"><a href="http://www.bip.krakow.pl/?dok_id=167&sub_dok_id=167&sub=uchwala&query=id=<?= $uchwala->getData('sid') ?>&typ=u" target="_blank"><span class="glyphicon glyphicon-share"></span> Źródło</a></p>
+                    <p class="margin-sides-5 margin-top-20"><a href="http://www.bip.krakow.pl/?dok_id=167&sub_dok_id=167&sub=uchwala&query=id=<?= $uchwala->getData('sid') ?>&typ=u" target="_blank"><span class="glyphicon glyphicon-share"></span> Źródło</a></p>
                     
                 </div>
 
