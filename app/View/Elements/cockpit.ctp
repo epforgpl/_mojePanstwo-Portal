@@ -58,6 +58,7 @@
 </header>
 
 <?
+/*
 if (isset($_COOKIE["mojePanstwo"])) {
     $mojePanstwo = json_decode($_COOKIE["mojePanstwo"]);
 
@@ -67,4 +68,5 @@ if (isset($_COOKIE["mojePanstwo"])) {
 } else {
     echo $this->Element('survey/ankieta1');
 }
+*/
 ?>

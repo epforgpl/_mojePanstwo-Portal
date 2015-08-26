@@ -14,7 +14,7 @@ $(window).load(function () {
 
 		$.ajax({
 			type: "POST",
-			url: '/survey',
+			url: '/survey.json',
 			data: data,
 			beforeSend: function () {
 				that.addClass('disabled loading');

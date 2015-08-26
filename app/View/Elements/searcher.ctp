@@ -1,13 +1,5 @@
 <? $this->Combinator->add_libs('js', 'suggester.js'); ?>
 <form action="<?= @$dataBrowser['searchAction'] ? $dataBrowser['searchAction'] : '' ?>" method="get" class="form-horizontal suggesterBlock row col-xs-12">
-    <? 
-	    if( isset($autocompletion) && $autocompletion['dataset'] ) {
-		    $datasets = explode(",", $autocompletion['dataset']);
-		    foreach ($datasets as $d) {
-		        echo '<input type="hidden" name="dataset[]" value="' . $d . '" />';
-		    }
-	    }
-    ?>
     <div class="searcher form-group has-feedback">
         <div class="col-md-12">
             <div class="input-group">
@@ -18,8 +10,8 @@
                        value="<?= $q ?>"
                        data-dataset="<?= $autocompletion ? $autocompletion['dataset'] : '*'; ?>"
                        data-url="<?= @$url ?>"
-                       data-autocompletion="<?= $autocompletion ? 'true' : 'false' ?>" 
-                       autocomplete="<?= $autocompletion ? 'off' : 'on' ?>" 
+                       data-autocompletion="<?= $autocompletion ? 'true' : 'false' ?>"
+                       autocomplete="<?= $autocompletion ? 'off' : 'on' ?>"
                        required
                     />
                 <? if (isset($url) && !empty($q)) { ?>
