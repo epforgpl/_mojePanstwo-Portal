@@ -3,8 +3,8 @@
 $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('dataobjectpage', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
-$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
-$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+$this->Combinator->replace_lib_or_add('js', '../plugins/highcharts/js/highcharts', '../plugins/highstock/js/highstock');
+$this->Combinator->replace_lib_or_add('js', '../plugins/highcharts/locals', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 $this->Combinator->add_libs('js', 'Dane.DataAggsDropdown.js');
 
@@ -77,9 +77,9 @@ if ($dataBrowser['mode'] == 'cover') { ?>
     <div class="col-xs-12 col-md-<?= $displayAggs ? $columns[0] : 12 ?>">
 
         <div class="dataWrap">
-						
+
             <?= $this->element('Dane.DataBrowser/browser-content-filters') ?>
-            
+
             <? /*
             <?= $this->element('Dane.DataBrowser/browser-content-paging', array(
             	'params' => $params,

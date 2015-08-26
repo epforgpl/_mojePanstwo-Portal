@@ -346,9 +346,33 @@ a.link-api-call {
 
             }
 
-            li.cancel {
+            li.chart.highstock {
+
+                .highstock {
+                    min-height: 210px;
+                }
+
+                .dataAggs {
+
+                    opacity: 1;
+                    &.loading {
+                        opacity: .5;
+                    }
+
+                    .agg.stats {
+                        color: #789;
+                        text-align: center;
+                    }
+                }
+            }
+
+            li.cancel, li.apply {
 
                 text-align: center;
+
+                span {
+                    margin-right: 5px;
+                }
 
                 a {
                     &:hover {
