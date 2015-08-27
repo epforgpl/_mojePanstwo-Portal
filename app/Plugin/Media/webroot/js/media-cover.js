@@ -6,6 +6,8 @@ $(document).ready(function() {
 		widthFromWrapper: false
 	});
 	
+	$('.sticky').sticky();
+	
 	
 	// TAGS CLOUD
 	

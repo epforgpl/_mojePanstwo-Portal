@@ -5,64 +5,41 @@
     <? } else { ?>
         <a target="_blank"
            href="https://twitter.com/<?= $object->getData('twitter_user_screenname') ?>"><b><?= $object->getData('twitter_user_name') ?></b></a>
-    <? } ?>
+    <? } ?> 
+    <span class="date"><?= $this->Czas->dataSlownie($object->getData('twitter.czas_utworzenia'), array(
+    	'relativeMode' => 2,
+    	'seconds' => false,
+    )) ?></span>
 </p>
 
-<p class="meta meta-date"><?= $object->getData('twitter.czas_utworzenia') ?></p>
-
-<blockquote class="_">
-    <?= $object->getData('html') ?>
-</blockquote>
-
-<? if ($object->getData('photo_url')) { ?>
-    <img style="max-width: 400px; margin-top: 10px; float: left;" src="<?= $object->getData('photo_url') ?>"
-         onerror="imgFixer(this)"/>
-<? } ?>
+<a href="/dane/twitter/<?= $object->getId() ?>">
+    
+    <blockquote class="_"><?= strip_tags($object->getData('html')) ?></blockquote>
+    
+    <? if ($object->getData('photo_url')) { ?>
+	    <img class="media" src="<?= $object->getData('photo_url') ?>" onerror="imgFixer(this)" />
+	<? } ?>
+	
+</a>
 
 <? if ($object->getData('twitter_account_id')) { ?>
     <div class="tweet_stats">
-        <div class="row">
-            <div class="col-lg-2">
-
-
-                <p class="_counter"><a title="Liczba retweetów" href="/dane/twitter/<?= $object->getId() ?>"><span
-                            class="glyphicon glyphicon-retweet"></span> <?= number_format($object->getData('liczba_retweetow'), 0, '.', ' ') ?>
-                    </a></p>
-
-                <? /*<p class="_label"><?= __d('media', 'LC_PANSTWOINTERNET_RETWEET') ?></p> */ ?>
-
-            </div>
-            <div class="col-lg-2">
-
-                <p class="_counter"><a title="Licza odpowiedzi" href="/dane/twitter/<?= $object->getId() ?>"><span
-                            class="glyphicon glyphicon-transfer"></span> <?= $object->getData('liczba_odpowiedzi') ?>
-                    </a></p>
-
-                <? /*<p class="_label"><?= __d('media', 'LC_PANSTWOINTERNET_ODPOWIEDZI') ?></p> */ ?>
-
-            </div>
-            <div class="col-lg-2">
-
-                <p class="_counter"><a title="Źródło" target="_blank"
-                                       href="https://twitter.com/<?= $object->getData('twitter_user_screenname') ?>/statuses/<?= $object->getData('twitt_id') ?>"><span
-                            class="glyphicon glyphicon-new-window"></span> &nbsp;</a></p>
-
-            </div>
-        </div>
+        
+        <p class="_counter" title="Liczba retweetów"><span
+                    class="glyphicon glyphicon-retweet"></span> <?= number_format($object->getData('liczba_retweetow'), 0, '.', ' ') ?></p>
+                    
+        <p class="_counter" title="Liczba ulubionych"><span
+                    class="glyphicon glyphicon-star"></span> <?= number_format($object->getData('liczba_ulubionych'), 0, '.', ' ') ?></p>
+            
+        <p class="_counter" title="Licza odpowiedzi"><span
+                    class="glyphicon glyphicon-comment"></span> <?= $object->getData('liczba_odpowiedzi') ?>
+            </p>
+        
+        <? /* ?> 
+        <p class="_counter"><a title="Źródło" target="_blank"
+                               href="https://twitter.com/<?= $object->getData('twitter_user_screenname') ?>/statuses/<?= $object->getData('twitt_id') ?>"><span
+                    class="glyphicon glyphicon-new-window"></span> &nbsp;</a></p>
+        <? */ ?>
+        
     </div>
-<? } else { ?>
-
-    <div class="tweet_stats">
-        <div class="row">
-
-            <div class="col-lg-2">
-
-                <p class="_counter"><a title="Źródło" target="_blank"
-                                       href="https://twitter.com/<?= $object->getData('twitter_user_screenname') ?>/statuses/<?= $object->getData('twitt_id') ?>"><span
-                            class="glyphicon glyphicon-new-window"></span> &nbsp;</a></p>
-
-            </div>
-        </div>
-    </div>
-
 <? } ?>
