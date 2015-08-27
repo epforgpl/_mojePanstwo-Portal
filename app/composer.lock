@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f7a74179a270c19ab84ab39b4528bdb6",
+    "hash": "fe95b2893b75ac9190b5c5e47252791e",
     "packages": [
         {
             "name": "composer/installers",
@@ -152,7 +152,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/raven-php/zipball/8acaaa2abcb35c7632ed72a921bb0c11fff1dadc",
+                "url": "https://api.github.com/repos/getsentry/raven-php/zipball/526803834ea76fdbb914a85594d1c279002e992e",
                 "reference": "8acaaa2abcb35c7632ed72a921bb0c11fff1dadc",
                 "shasum": ""
             },
@@ -777,7 +777,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/6eef1477f3c4451b6024fadb1254009be4602908",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/1a0bd40f71908db4c9d44d308e0008cc44fc5f2f",
                 "reference": "6eef1477f3c4451b6024fadb1254009be4602908",
                 "shasum": ""
             },
@@ -823,7 +823,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4.16"
+        "php": ">=5.3.10"
     },
     "platform-dev": []
 }
