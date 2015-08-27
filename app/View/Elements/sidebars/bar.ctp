@@ -83,6 +83,16 @@
                 </div>
             </a>
 
+            <? if(isset($isAdmin) && $isAdmin === true) { ?>
+                <a class="_mPAppsList _appBlock _appBlockBackground<? if ($appSelected == 'admin') echo " _appBlockActive"; ?>"
+                   href="/admin" target="_self">
+                    <div class="_mPTitle">
+                        <span class="glyphicon glyphicon-cog _mPAppIcon" aria-hidden="true"></span>
+                        <p class="_mPAppLabel">Admin</p>
+                    </div>
+                </a>
+            <? } ?>
+
         </div>
         <div class="_mPSystem">
             <div class="_mPRunning">

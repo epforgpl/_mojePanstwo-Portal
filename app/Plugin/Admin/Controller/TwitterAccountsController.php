@@ -14,6 +14,11 @@ class TwitterAccountsController extends AdminAppController {
         '9' => 'NGO'
     );
 
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->set('action', 'twitter_accounts');
+    }
+
     public function index() {
         $suggestions = $this->TwitterAccountSuggestion->find('all', array(
             'fields' => array('TwitterAccountSuggestion.*', 'User.id', 'User.username'),

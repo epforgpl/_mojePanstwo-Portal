@@ -12,6 +12,11 @@ class ModerateRequestsController extends AdminAppController {
         'Odrzucone'
     );
 
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->set('action', 'moderate_requests');
+    }
+
     public function index($status = 0)
     {
         if(!isset($this->statuses[$status]))
