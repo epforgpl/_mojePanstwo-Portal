@@ -8,13 +8,24 @@
         margin-bottom: 20px;
     }
 
-    .btn {
-        display: block;
+    .sliceBtn {
         width: 330px;
-        margin: 0 auto 10px;
+        margin: 10px auto;
+    }
 
-        &.btn-reddit > *:first-child {
+    .btn.btn-github {
+        display: block;
+
+        > *:first-child {
             font-size: 1.2em;
+        }
+    }
+    .input-group {
+        .input-group-btn, .form-control {
+            height: 34px;
+        }
+        .form-control {
+            margin-top: 2px;
         }
     }
 }
