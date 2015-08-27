@@ -122,6 +122,7 @@ $(document).ready(function() {
 								+ ' TO '
 								+ dateToYYYYMMDD(end)
 								+ ']');
+							apply.css('visibility', 'visible');
 						} else {
 							//load(e.min, e.max);
 						}

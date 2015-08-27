@@ -80,6 +80,8 @@ DataAggsDropdown.prototype.createHighstockPicker = function() {
 
 	dropdownMenu.append(dropdownChart);
 
+	var apply = dropdownMenu.find('li.apply').first();
+
 	dropdownMenu.click(function(e) {
 		e.stopPropagation();
 	});
@@ -141,6 +143,8 @@ DataAggsDropdown.prototype.createHighstockPicker = function() {
 							if (extremes == e) {
 								//load(e.min, e.max);
 							}
+
+							apply.css('visibility', 'visible');
 						}, 300);
 					} else {
 						//load(e.min, e.max);
