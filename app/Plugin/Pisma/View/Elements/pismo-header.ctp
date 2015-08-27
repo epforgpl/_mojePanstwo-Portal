@@ -19,24 +19,13 @@
 
         <div class="row">
             <div class="col-md-10">
-
                 <div class="letter-meta">
-                    <? /*
-                    <p class="">
-                        <b><?= dataSlownie(substr($pismo['created_at'], 0, 10)) ?></b>
+                    <p>Autor:
+                        <b><? echo ($pismo['from_user_type'] == 'account') ? $pismo['from_user_name'] : "Anonimowy użytkownik" ?></b>
                     </p>
-                    */ ?>
-                    <p class="">
-                        Autor: <b><?
-                            if ($pismo['from_user_type'] == 'account') {
-                                echo $pismo['from_user_name'];
-                            } else {
-                                echo "Anonimowy użytkownik";
-                            }
-                            ?></b>
-                    </p>                    
-                </div>
 
+                    <p class="small"><b>Przed wysłaniem pisma należy je zapisać</b></p>
+                </div>
             </div>
         </div>
 

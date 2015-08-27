@@ -98,7 +98,8 @@ Configure::write( 'Dispatcher.filters', array(
 	'AssetDispatcher',
 	'CacheDispatcher'
 ) );
-CakePlugin::loadAll(
+
+$plugin_definitions =
 	array(
 		array( 'routes' => true, 'bootstrap' => true ),
 		'DebugKit'      => array( 'routes' => false ),
@@ -114,16 +115,18 @@ CakePlugin::loadAll(
 		'Pisma'         => array( 'routes' => true, 'bootstrap' => false ),
 		'MojaGmina'     => array( 'routes' => true, 'bootstrap' => false ),
 		'Powiadomienia' => array( 'routes' => true, 'bootstrap' => false ),
-		'Orzecznictwo' => array( 'routes' => true, 'bootstrap' => false ),
-		'Ngo' => array( 'routes' => true, 'bootstrap' => false ),
+        'Orzecznictwo' => array('routes' => true, 'bootstrap' => false),
+        'Ngo' => array('routes' => true, 'bootstrap' => false),
 		'Media'         => array( 'routes' => true, 'bootstrap' => false ),
 		'OAuth'         => array( 'bootstrap' => false, 'routes' => true ),
 		'Combinator'    => array( 'bootstrap' => false, 'routes' => false ),
 		'Mapaprawa'     => array( 'routes' => true, 'bootstrap' => false ),
 		'Kultura'       => array( 'routes' => true, 'bootstrap' => false ),
 		'Finanse'       => array( 'routes' => true, 'bootstrap' => false ),
-	)
-);
+        'Sentry' => array('routes' => false, 'bootstrap' => false),
+	);
+
+CakePlugin::loadAll($plugin_definitions);
 /**
  * Configures default file logging options
  */
@@ -138,7 +141,6 @@ CakeLog::config( 'error', array(
 	'types'  => array( 'warning', 'error', 'critical', 'alert', 'emergency' ),
 	'file'   => 'error',
 ) );
-
 
 //setlocale(LC_ALL, 'pl_PL');
 require_once 'endpoints.php';

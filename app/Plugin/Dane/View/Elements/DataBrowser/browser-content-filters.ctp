@@ -2,7 +2,7 @@
     <ul class="nav nav-pills margin-top-10 dataAggsDropdownList nopadding" role="tablist">
         <?
             foreach($dataBrowser['aggs_visuals_map'] as $name => $map) {
-	        
+
                 if( ($name!='dataset') && isset($map['target']) && ($map['target']=='filters') ) {
 
                     if( !isset($map['all']) )
@@ -40,27 +40,10 @@
                         }
 
                         if($map['skin'] == 'krs/kapitalizacja') {
-
-                            $labelParts = explode('TO', $this->request->query['conditions'][$map['field']]);
-                            $from = filter_var($labelParts[0], FILTER_SANITIZE_NUMBER_INT);
-                            $to = filter_var($labelParts[1], FILTER_SANITIZE_NUMBER_INT);
-
-                            if ($from == 1)
-                                $from = '';
-
-                            if ($to == '')
-                                $label = '> ' . number_format_h($from);
-
-                            elseif ($from == '')
-                                $label = '< ' . number_format_h($to);
-                            else
-                                $label = number_format_h($from) . ' - ' . number_format_h($to);
-
-                            $label = 'Kapitalizacja: ' . $label;
-
+                            $label = 'Kapitalizacja: ' . es_range_number($this->request->query['conditions'][$map['field']]);
                         }
 
-                        echo $label;
+                        echo isset($label) ? $label : $this->request->query['conditions'][$map['field']];
 
                     } else { ?>
                         <?= $map['all'] ?>

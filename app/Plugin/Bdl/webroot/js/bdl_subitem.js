@@ -42,7 +42,7 @@ var BDLapp = function () {
 			type: "GET",
 			dataType: "html",
 			beforeSend: function () {
-				self.loading();
+				self.loading(item);
 
 				item.find('.map').fadeOut(function () {
 					var chart = item.find('.charts');
@@ -61,13 +61,9 @@ var BDLapp = function () {
 				var bdlDetail = item.find('.bdl-details'),
 					html = res.responseText;
 
-				if (bdlDetail.length)
-					bdlDetail.replaceWith(html);
-				else
-					item.append(html);
+				bdlDetail.replaceWith(html);
 
 				self.subitemInit();
-				self.loaded();
 			}
 		});
 	};
@@ -317,55 +313,50 @@ var BDLapp = function () {
 		$('.bdl-select select').selectpicker();
 	};
 
-	this.loading = function () {
-		var main = $('#_main'),
-			w = main.find('.objectsPage').width();
+	this.loading = function (item) {
+		$('.wskaznik').each(function () {
+			var wsk = $(this),
+				wskDetails = wsk.find('.bdl-details');
 
-		if (main.find('.curtain').length == 0) {
-			main.append(
-				$('<div></div>').addClass('curtain loading').css({
-					'background-color': 'rgba(255, 255, 255, .7)',
-					'background-position': Math.floor(w / 2) + 'px 50%',
-					'width': w,
-					'height': '100%',
-					'display': 'block',
-					'left': '85px',
-					'position': 'fixed',
-					'top': 0,
-					'z-index': 2
+			if (wskDetails.length) {
+				wskDetails.slideUp("fast", function () {
+					wskDetails.remove();
 
-				})
-			);
+					$('html, body').animate({
+						scrollTop: item.offset().top
+					}, 500);
+				});
+				wsk.find('.map').fadeOut(function () {
+					var chart = wsk.find('.charts');
 
-			$('.wskaznik').each(function () {
-				var wsk = $(this);
-
-				if (wsk.find('.bdl-details').length) {
-					wsk.find('.bdl-details').slideUp("fast", function () {
-						$(wsk).remove()
+					chart.animate({
+						width: chart.attr('data-chart')
+					}, {
+						duration: 600,
+						step: function () {
+							chart.find('.chart').highcharts().reflow()
+						},
+						complete: function () {
+							wsk.find('.map').fadeIn();
+						}
 					});
-					wsk.find('.map').fadeOut(function () {
-						var chart = wsk.find('.charts');
-
-						chart.animate({
-							width: chart.attr('data-chart')
-						}, {
-							duration: 600,
-							step: function () {
-								chart.find('.chart').highcharts().reflow()
-							},
-							complete: function () {
-								wsk.find('.map').fadeIn();
-							}
-						});
-					});
-				}
-			});
-		}
-	};
-
-	this.loaded = function () {
-		$('#_main').find('.curtain').remove();
+				});
+			}
+		});
+		item.append(
+			$('<div></div>').addClass('bdl-details col-xs-12').append(
+				$('<div></div>').addClass('spinner grey').css({
+					'height': '595px',
+					'padding-top': '250px'
+				}).append(
+					$('<div></div>').addClass('bounce1')
+				).append(
+					$('<div></div>').addClass('bounce2')
+				).append(
+					$('<div></div>').addClass('bounce3')
+				)
+			)
+		);
 	};
 
 	this.itemsInit();

@@ -124,7 +124,7 @@ if ( ! function_exists( 'array_column' ) ) {
 function dataSlownie( $data, $options = array() ) {
 	$_data = $data;
 	$_parts = explode(' ', $data);
-	
+
 	if ( strpos( $_parts[0], '/' ) ) {
 		$parts = explode( '/', $_parts[0] );
 		$data  = $parts[2] . '-' . $parts[1] . '-' . $parts[0];
@@ -177,22 +177,22 @@ function dataSlownie( $data, $options = array() ) {
         $str = $dzien . ' ' . $___vars['miesiace']['celownik'][$miesiac] . ' ' . $rok . '&nbsp;r.';
 
 	}
-	
+
 	if( isset($_parts[1]) )
 		$str .= ' ' . $_parts[1];
-	
+
 	/*
 	$time_str = @substr($_data, 11, 5);
 	if( $time_str )
 		$str .= ' ' . $time_str;
 	*/
 
-	
+
 	$output = '<span class="_ds"';
-	
+
 	if( isset($options['itemprop']) && $options['itemprop'] )
 		$output .= ' itemprop="' . $options['itemprop'] . '"';
-	
+
 	$output .= ' datetime="' . strip_tags( $data ) . '">' . $str . '</span>';
 
 	return $output;
@@ -295,7 +295,7 @@ function closetags( $html ) {
 	return $html;
 }
 
-function human_filesize($bytes, $dec = 2) 
+function human_filesize($bytes, $dec = 2)
 {
     $size   = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
     $factor = floor((strlen($bytes) - 1) / 3);
@@ -303,22 +303,38 @@ function human_filesize($bytes, $dec = 2)
     return sprintf("%.{$dec}f", $bytes / pow(1024, $factor)) . ' ' . @$size[$factor];
 }
 
-function romanic_number($integer, $upcase = true) 
-{ 
-    $table = array('M'=>1000, 'CM'=>900, 'D'=>500, 'CD'=>400, 'C'=>100, 'XC'=>90, 'L'=>50, 'XL'=>40, 'X'=>10, 'IX'=>9, 'V'=>5, 'IV'=>4, 'I'=>1); 
-    $return = ''; 
-    while($integer > 0) 
-    { 
-        foreach($table as $rom=>$arb) 
-        { 
-            if($integer >= $arb) 
-            { 
-                $integer -= $arb; 
-                $return .= $rom; 
-                break; 
-            } 
-        } 
-    } 
+function romanic_number($integer, $upcase = true)
+{
+    $table = array('M'=>1000, 'CM'=>900, 'D'=>500, 'CD'=>400, 'C'=>100, 'XC'=>90, 'L'=>50, 'XL'=>40, 'X'=>10, 'IX'=>9, 'V'=>5, 'IV'=>4, 'I'=>1);
+    $return = '';
+    while($integer > 0)
+    {
+        foreach($table as $rom=>$arb)
+        {
+            if($integer >= $arb)
+            {
+                $integer -= $arb;
+                $return .= $rom;
+                break;
+            }
+        }
+    }
 
-    return $return; 
-} 
+    return $return;
+}
+
+function es_range_number($value) {
+    $parts = explode('TO', $value);
+    $from = filter_var($parts[0], FILTER_SANITIZE_NUMBER_INT);
+    $to = filter_var($parts[1], FILTER_SANITIZE_NUMBER_INT);
+
+    if($from == 1)
+        $from = '';
+
+    if($to == '')
+        return '> ' . number_format_h($from);
+    elseif($from == '')
+        return '< ' . number_format_h($to);
+    else
+        return number_format_h($from) . ' - ' . number_format_h($to);
+}

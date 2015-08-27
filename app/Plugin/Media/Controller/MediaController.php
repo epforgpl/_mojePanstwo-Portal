@@ -81,6 +81,7 @@ class MediaController extends ApplicationsController
                 'dataset' => array_keys($datasets),
             ),
             'cover' => array(
+                'force' => true,
                 'view' => array(
                     'plugin' => 'Media',
                     'element' => 'cover',
@@ -134,6 +135,24 @@ class MediaController extends ApplicationsController
 			                ),
 		                ),
 		                'aggs' => array(
+			                'histogram' => array(
+				                'filter' => array(
+					                'range' => array(
+						                'date' => array(
+							                'gte' => 'now-3M',
+						                ),
+					                ),
+				                ),
+				                'aggs' => array(
+					                'histogram' => array(
+						                'date_histogram' => array(
+						                    'field' => 'date',
+						                    'interval' => 'day',
+						                    'format' => 'yyyy-MM-dd hh',
+						                ),
+					                ),
+				                ),
+			                ),
 			                'timerange' => array(
 				                'filter' => array(
 					                'range' => array(
@@ -206,7 +225,7 @@ class MediaController extends ApplicationsController
 							                'tags' => array(
 								                'terms' => array(
 									                'field' => 'twitter-tags.id',
-									                'size' => 20,
+									                'size' => 10,
 								                ),
 								                'aggs' => array(
 									                'label' => array(

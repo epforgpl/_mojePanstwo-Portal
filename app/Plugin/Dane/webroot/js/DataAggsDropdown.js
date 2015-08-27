@@ -40,9 +40,169 @@ DataAggsDropdown.prototype.create = function() {
 		case 'krs/kapitalizacja':
 			this.createColumnsVertical();
 		break;
+
+		case 'highstockPicker':
+			this.createHighstockPicker();
+		break;
 	}
 
 	this.isCreated = true;
+};
+
+DataAggsDropdown.prototype.createHighstockPicker = function() {
+
+	var data = this.aggs;
+	var _this = this;
+
+	var histogram_data = [];
+	for(var i = 0; i < data.buckets.length; i++) {
+		var bucket = data.buckets[i];
+		histogram_data.push([
+			bucket.key,
+			bucket.doc_count
+		]);
+	}
+
+	var dropdownMenu = this.li.find('ul.dropdown-menu'),
+		dropdownChart = '<li class="chart highstock"></li>';
+
+	dropdownMenu.css('left', '-' + (this.li[0].offsetLeft - 38) + 'px');
+
+	dropdownChart += [
+		'<li class="apply"><a href="' + this.cancelRequest + '"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Zastosuj</a></li>'
+	].join('');
+
+	if(this.allLabel.length > 0 && this.isSelected) {
+		dropdownChart += [
+			'<li class="cancel"><a href="' + this.cancelRequest + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Usuń filtr</a></li>'
+		].join('');
+	}
+
+	dropdownMenu.append(dropdownChart);
+
+	var apply = dropdownMenu.find('li.apply').first();
+
+	dropdownMenu.click(function(e) {
+		e.stopPropagation();
+	});
+
+	var chart = this.li.find('.chart').highcharts('StockChart', {
+		chart: {
+			width: $(this.li).parent('.dataAggsDropdownList').first().outerWidth(),
+			height: 210,
+			backgroundColor: 'transparent',
+			events: {
+				load: function () {
+					//var e = this.xAxis[0].getExtremes();
+					//load(e.min, e.max);
+				}
+			}
+		},
+		navigator: {
+			height: 140,
+			yAxis: {
+				tickWidth: 0,
+				lineWidth: 0,
+				gridLineWidth: 1,
+				tickPixelInterval: 40,
+				gridLineColor: '#EEE',
+				labels: {
+					enabled: true
+				}
+			}
+		},
+		credits: {
+			enabled: false
+		},
+		rangeSelector: {
+			selected: 5
+		},
+		title: {
+			text: ''
+		},
+		series: [{
+			name: 'Suma',
+			data: histogram_data,
+			tooltip: {
+				valueDecimals: 2
+			},
+			color: 'transparent'
+		}],
+		xAxis: {
+			labels: {
+				enabled: false
+			},
+			gridLineWidth: 0,
+			lineWidth: 0,
+			tickWidth: 0,
+			events: {
+				setExtremes: function (e) {
+					if (e.trigger == 'navigator') {
+						extremes = e;
+						setTimeout(function () {
+							if (extremes == e) {
+								//load(e.min, e.max);
+							}
+
+							apply.css('visibility', 'visible');
+						}, 300);
+					} else {
+						//load(e.min, e.max);
+					}
+				}
+			}
+		},
+		yAxis: {
+			labels: {
+				enabled: false
+			},
+			gridLineWidth: 0,
+			lineWidth: 0,
+			tickWidth: 0,
+			events: {
+				setExtremes: function (e) {
+					if (e.trigger == 'navigator') {
+						extremes = e;
+						setTimeout(function () {
+							if (extremes == e) {
+								//load(e.min, e.max);
+							}
+						}, 300);
+					} else {
+						//load(e.min, e.max);
+					}
+				}
+			}
+		}
+	});
+
+	$(this.li).find('.apply').click(function() {
+		var extremes = chart.highcharts().xAxis[0].getExtremes(),
+			start = new Date(extremes.min),
+			end   = new Date(extremes.max);
+
+		window.location.href = _this.chooseRequest + '['
+				+ _this.dateToYYYYMMDD(start)
+				+ ' TO '
+				+ _this.dateToYYYYMMDD(end)
+				+ ']';
+
+		return false;
+	});
+
+};
+
+
+DataAggsDropdown.prototype.dateToYYYYMMDD = function(date) {
+	var d = date,
+		month = '' + (d.getMonth() + 1),
+		day = '' + d.getDate(),
+		year = d.getFullYear();
+
+	if (month.length < 2) month = '0' + month;
+	if (day.length < 2) day = '0' + day;
+
+	return [year, month, day].join('-');
 };
 
 DataAggsDropdown.prototype.createColumnsVertical = function() {

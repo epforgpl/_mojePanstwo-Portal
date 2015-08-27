@@ -1,6 +1,7 @@
 <?
 $this->Combinator->add_libs('js', 'Media.twitter-account-suggestion');
 $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('twitter-account-suggestion', array('plugin' => 'Media')));
 ?>
 
 <div class="banner odpis block">
@@ -25,30 +26,35 @@ $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin
             </div>
             <form class="form-horizontal" method="post">
                 <div class="modal-body margin-sides-20">
-                    <p>W naszych bazach gromadzimy aktywności osób publicznych, organizacji i urzędów. Jeśli chcesz, abyśmy analizowali również Twój profil, wypełnij poniższy formularz:</p>
-                    <div class="form-group">
-                        <label for="inputName">URL</label>
-                        <input required="required" autocomplete="off" type="text" class="form-control" name="name">
-                        <span class="help-block">
-                            Wklej tutaj link do swojego profilu na Twitterze.
-                        </span>
+                    <p class="text-center">W naszych bazach gromadzimy aktywności osób publicznych, organizacji i urzędów. Jeśli chcesz, abyśmy analizowali również Twój profil, wypełnij poniższy formularz:</p>
+
+                    <div class="form-cont">
+	                    <div class="form-group">
+	                        <label for="inputName">URL</label>
+	                        <input required="required" autocomplete="off" type="text" class="form-control" name="name">
+	                        <span class="help-block">
+	                            Wklej tutaj link do swojego profilu na Twitterze.
+	                        </span>
+	                    </div>
+	                    <div class="form-group">
+	                        <label for="inputSurname">Jestem</label>
+	                        <select class="form-control" name="type_id">
+	                            <?php foreach(array(
+	                                2 => 'Komentatorem politycznym',
+	                                3 => 'Przedstawicielem urzędu',
+	                                7 => 'Politykiem',
+	                                9 => 'Przedstawicielem organizacji pozarządowej') as $i => $type) { ?>
+	                                <option value="<?= $i ?>"><?= $type ?></option>
+	                            <? } ?>
+	                        </select>
+	                        <span class="help-block">
+	                            Zaznacz typ swojego profilu.
+	                        </span>
+	                    </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputSurname">Jestem</label>
-                        <select class="form-control" name="type_id">
-                            <?php foreach(array(
-                                2 => 'Komentatorem politycznym',
-                                3 => 'Urzędnikiem',
-                                7 => 'Politykiem',
-                                8 => 'Przedstawicielem parti',
-                                9 => 'NGO') as $i => $type) { ?>
-                                <option value="<?= $i ?>"><?= $type ?></option>
-                            <? } ?>
-                        </select>
-                        <span class="help-block">
-                            Zaznacz typ swojego profilu.
-                        </span>
-                    </div>
+                    
+                    <p class="text-center">Po weryfikacji Twojego konta, dodamy je do naszej bazy.</p>
+
                 </div>
                 <div class="modal-footer text-center">
                     <button type="submit" class="btn btn-primary btn-icon auto-width">

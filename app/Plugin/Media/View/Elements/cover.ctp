@@ -1,9 +1,10 @@
 <?
 
+$this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('media-cover', array('plugin' => 'Media')));
 
-$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
-$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+$this->Combinator->replace_lib_or_add('js', '../plugins/highcharts/js/highcharts', '../plugins/highstock/js/highstock');
+$this->Combinator->replace_lib_or_add('js', '../plugins/highcharts/locals', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 $this->Combinator->add_libs('js', 'jquery-tags-cloud-min');
 $this->Combinator->add_libs('js', 'Media.media-cover');
@@ -15,16 +16,17 @@ $options = array(
 ?>
 
 <div class="col-xs-12 col-md-3 dataAggsContainer">
-    <? echo $this->Element('Dane.DataBrowser/aggs', array(
-        	'data' => $dataBrowser,
-    )); ?>
-
-    <? if(isset($twitterAccountTypes)) { ?>
-        <?= $this->Element('Media.twitter-account-suggestion', array(
-            'types' => $twitterAccountTypes
-        )); ?>
-    <? } ?>
-
+    <div class="sticky">
+	    <? echo $this->Element('Dane.DataBrowser/aggs', array(
+	        	'data' => $dataBrowser,
+	    )); ?>
+	
+	    <? if(isset($twitterAccountTypes)) { ?>
+	        <?= $this->Element('Media.twitter-account-suggestion', array(
+	            'types' => $twitterAccountTypes
+	        )); ?>
+	    <? } ?>
+    </div>
 </div>
 
 <div class="col-xs-12 col-md-9">
@@ -56,6 +58,19 @@ $options = array(
 	    <? } ?>
 		</div>
 	</div>
+
+    <div class="mediaHighstockPicker">
+        <div class="chart" data-aggs='<?= json_encode($dataBrowser['aggs']['tweets']['histogram']['histogram']) ?>'>
+            <div class="spinner grey">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+        </div>
+        <div class="text-center">
+            <a href="#"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Zastosuj</a>
+        </div>
+    </div>
 
 	<div class="dataWrap">
 		<? if( @$dataBrowser['aggs']['tweets']['timerange']['top']['hits']['hits'] ) { ?>

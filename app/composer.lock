@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "edc143afc4b2954873740025a9ae7c0c",
+    "hash": "fe95b2893b75ac9190b5c5e47252791e",
     "packages": [
         {
             "name": "composer/installers",
@@ -141,6 +141,105 @@
             "description": "lessphp is a compiler for LESS written in PHP.",
             "homepage": "http://leafo.net/lessphp/",
             "time": "2014-11-24 18:39:20"
+        },
+        {
+            "name": "raven/raven",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/getsentry/raven-php.git",
+                "reference": "8acaaa2abcb35c7632ed72a921bb0c11fff1dadc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/getsentry/raven-php/zipball/526803834ea76fdbb914a85594d1c279002e992e",
+                "reference": "8acaaa2abcb35c7632ed72a921bb0c11fff1dadc",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.2.4"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "^1.8.0",
+                "phpunit/phpunit": "^4.6.6"
+            },
+            "bin": [
+                "bin/raven"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.13.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Raven_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "David Cramer",
+                    "email": "dcramer@gmail.com"
+                }
+            ],
+            "description": "A PHP client for Sentry (http://getsentry.com)",
+            "homepage": "http://getsentry.com",
+            "keywords": [
+                "log",
+                "logging"
+            ],
+            "time": "2015-07-24 12:26:21"
+        },
+        {
+            "name": "sandreu/cake-sentry",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Sandreu/cake-sentry.git",
+                "reference": "683f1dde1b2b05a384c0ff7686387350f24e0c88"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Sandreu/cake-sentry/zipball/683f1dde1b2b05a384c0ff7686387350f24e0c88",
+                "reference": "683f1dde1b2b05a384c0ff7686387350f24e0c88",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "*",
+                "php": ">=5.2.8",
+                "raven/raven": "~0.10"
+            },
+            "type": "cakephp-plugin",
+            "extra": {
+                "installer-name": "Sentry"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD 3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sandreu",
+                    "email": "deadyman@free.fr",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Sentry error handler plugin for CakePHP2",
+            "homepage": "https://github.com/Sandreu/cake-sentry",
+            "keywords": [
+                "cakephp",
+                "error",
+                "exception",
+                "log",
+                "sentry"
+            ],
+            "time": "2015-02-26 12:54:51"
         },
         {
             "name": "slywalker/boost_cake",
@@ -678,7 +777,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/6eef1477f3c4451b6024fadb1254009be4602908",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/1a0bd40f71908db4c9d44d308e0008cc44fc5f2f",
                 "reference": "6eef1477f3c4451b6024fadb1254009be4602908",
                 "shasum": ""
             },
@@ -724,7 +823,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4.16"
+        "php": ">=5.3.10"
     },
     "platform-dev": []
 }
