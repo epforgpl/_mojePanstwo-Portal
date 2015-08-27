@@ -1,6 +1,7 @@
 <?
 $this->Combinator->add_libs('js', 'Media.twitter-account-suggestion');
 $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('twitter-account-suggestion', array('plugin' => 'Media')));
 ?>
 
 <div class="banner odpis block">
@@ -26,7 +27,7 @@ $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin
             <form class="form-horizontal" method="post">
                 <div class="modal-body margin-sides-20">
                     <p>W naszych bazach gromadzimy aktywności osób publicznych, organizacji i urzędów. Jeśli chcesz, abyśmy analizowali również Twój profil, wypełnij poniższy formularz:</p>
-                    
+
                     <div class="form-cont">
 	                    <div class="form-group">
 	                        <label for="inputName">URL</label>
@@ -51,7 +52,7 @@ $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin
 	                        </span>
 	                    </div>
                     </div>
-                    
+
                 </div>
                 <div class="modal-footer text-center">
                     <button type="submit" class="btn btn-primary btn-icon auto-width">
