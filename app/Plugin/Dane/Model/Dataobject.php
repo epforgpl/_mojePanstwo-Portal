@@ -34,7 +34,7 @@ class Dataobject extends AppModel
                 $obj = new $class($results[$i]);
             } else
                 $obj = new MP\Lib\Dataobject($results[$i]);
-
+						
             $results[$i] = $obj;
 
         }
@@ -46,6 +46,13 @@ class Dataobject extends AppModel
     {
 
         return $this->getDataSource()->Aggs;
+
+    }
+    
+    public function getApps()
+    {
+
+        return $this->getDataSource()->Apps;
 
     }
 

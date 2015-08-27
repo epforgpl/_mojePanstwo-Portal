@@ -56,3 +56,17 @@
         </div>
     <?php } ?>
 </header>
+
+<?
+/*
+if (isset($_COOKIE["mojePanstwo"])) {
+    $mojePanstwo = json_decode($_COOKIE["mojePanstwo"]);
+
+    if (!isset($mojePanstwo->survey->ankieta1->complete)) {
+        echo $this->Element('survey/ankieta1');
+    }
+} else {
+    echo $this->Element('survey/ankieta1');
+}
+*/
+?>

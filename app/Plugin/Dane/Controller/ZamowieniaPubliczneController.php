@@ -27,57 +27,53 @@ class ZamowieniaPubliczneController extends DataobjectsController
     {
 
         $this->addInitAggs(array(
-            'all' => array(
-                'global' => '_empty',
-                'aggs' => array(
-                    'dokumenty' => array(
-                        'filter' => array(
-                            'bool' => array(
-                                'must' => array(
-                                    array(
-                                        'term' => array(
-                                            'dataset' => 'zamowienia_publiczne_dokumenty',
-                                        ),
-                                    ),
-                                    array(
-                                        'term' => array(
-                                            'data.zamowienia_publiczne_dokumenty.parent_id' => $this->request->params['id'],
-                                        ),
-                                    ),
+            'dokumenty' => array(
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'zamowienia_publiczne_dokumenty',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+                                    'data.zamowienia_publiczne_dokumenty.parent_id' => $this->request->params['id'],
                                 ),
                             ),
                         ),
+                    ),
+                ),
+                'scope' => 'global',
+                'aggs' => array(
+                    'wykonawcy' => array(
+                        'nested' => array(
+                            'path' => 'zamowienia_publiczne-wykonawcy',
+                        ),
                         'aggs' => array(
-                            'wykonawcy' => array(
-                                'nested' => array(
-                                    'path' => 'zamowienia_publiczne-wykonawcy',
+                            'top' => array(
+                                'terms' => array(
+                                    'field' => 'zamowienia_publiczne-wykonawcy.id',
                                 ),
                                 'aggs' => array(
-                                    'top' => array(
+                                    'nazwa' => array(
                                         'terms' => array(
-                                            'field' => 'zamowienia_publiczne-wykonawcy.id',
+                                            'field' => 'zamowienia_publiczne-wykonawcy.nazwa',
                                         ),
-                                        'aggs' => array(
-                                            'nazwa' => array(
-                                                'terms' => array(
-                                                    'field' => 'zamowienia_publiczne-wykonawcy.nazwa',
-                                                ),
-                                            ),
-                                            'krs_id' => array(
-                                                'terms' => array(
-                                                    'field' => 'zamowienia_publiczne-wykonawcy.krs_id',
-                                                ),
-                                            ),
-                                            'waluta' => array(
-                                                'terms' => array(
-                                                    'field' => 'zamowienia_publiczne-wykonawcy.waluta',
-                                                ),
-                                            ),
-                                            'cena' => array(
-                                                'sum' => array(
-                                                    'field' => 'zamowienia_publiczne-wykonawcy.cena',
-                                                ),
-                                            ),
+                                    ),
+                                    'krs_id' => array(
+                                        'terms' => array(
+                                            'field' => 'zamowienia_publiczne-wykonawcy.krs_id',
+                                        ),
+                                    ),
+                                    'waluta' => array(
+                                        'terms' => array(
+                                            'field' => 'zamowienia_publiczne-wykonawcy.waluta',
+                                        ),
+                                    ),
+                                    'cena' => array(
+                                        'sum' => array(
+                                            'field' => 'zamowienia_publiczne-wykonawcy.cena',
                                         ),
                                     ),
                                 ),

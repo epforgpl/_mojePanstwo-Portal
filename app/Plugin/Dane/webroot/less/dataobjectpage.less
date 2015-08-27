@@ -16,7 +16,7 @@
 
         &.meta-desc {
             font-size: 12px;
-            color: #789;
+            color: green;
             margin: 3px 8px 8px;
 
             .sep {
@@ -98,10 +98,13 @@
             }
         }
     }
-
-    .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
-        background-color: #FFF;
-    }
+	
+	.nav {
+		font-size: 13px;
+		.open > a, .open > a:hover, .open > a:focus {
+			background-color: #FFF;
+		}
+	}
 
     .dropdown-menu > li {
         &.active > a,
@@ -724,13 +727,11 @@
 h1.light {
     font-size: 22px;
     font-weight: 300;
-    margin: 20px 10px 35px !important; /*TODO:check if it REALLY need*/
 }
 
 h2.light {
     font-size: 20px;
     font-weight: 300;
-    margin: 20px 10px !important; /*TODO:check if it REALLY need*/
 }
 
 .idoc {

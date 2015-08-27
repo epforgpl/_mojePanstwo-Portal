@@ -36,5 +36,15 @@ class Krakow_komisje extends DataObject
 			),
 		);
 	}
+	
+	public function getMetaDescriptionParts($preset = false)
+	{
+
+        if( $this->getData('kadencja_id') )
+			$output[] = 'Kadencja ' . romanic_number( $this->getData('kadencja_id') );
+
+        return $output;
+
+    }
 
 }

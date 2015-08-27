@@ -7,7 +7,6 @@ $(document).ready(function () {
     var seriesExportData = [];
     var seriesImport2014Data = [];
     var seriesExport2014Data = [];
-    var apiHost = 'http://mojepanstwo.pl:4444/';
 
     for (var i = 0; i < data.length; i++) {
         $('#selectYear').append('<option value="' + data[i].rocznik + '">' + data[i].rocznik + '</option>');
@@ -94,14 +93,14 @@ $(document).ready(function () {
     });
 
     var loadTopData = function (year) {
-        $.getJSON(apiHost + 'handel_zagraniczny/stats/towary.json?panstwo_id=' + _objectData.id + '&rocznik=' + year + '&order=import', function (data) {
+		$.getJSON(mPHeart.constant.ajax.api + '/handel_zagraniczny/stats/towary.json?panstwo_id=' + _objectData.id + '&rocznik=' + year + '&order=import', function (data) {
             $('#topImportList').html('');
             $.each(data, function (key, val) {
                 $('#topImportList').append('<li class="list-group-item"><span class="badge">' + pl_currency_format(val.wartosc_pln) + ' zł</span>' + val.nazwa + '</li>');
             });
         });
 
-        $.getJSON(apiHost + 'handel_zagraniczny/stats/towary.json?panstwo_id=' + _objectData.id + '&rocznik=' + year + '&order=eksport', function (data) {
+		$.getJSON(mPHeart.constant.ajax.api + '/handel_zagraniczny/stats/towary.json?panstwo_id=' + _objectData.id + '&rocznik=' + year + '&order=eksport', function (data) {
             $('#topExportList').html('');
             $.each(data, function (key, val) {
                 $('#topExportList').append('<li class="list-group-item"><span class="badge">' + pl_currency_format(val.wartosc_pln) + ' zł</span>' + val.nazwa + '</li>');
@@ -341,7 +340,7 @@ $(document).ready(function () {
 
         get: function (year, type, parent_id, done_function) {
             $.getJSON(
-                apiHost + 'handel_zagraniczny/stats/getSymbols.json' +
+				mPHeart.constant.ajax.api + '/handel_zagraniczny/stats/getSymbols.json' +
                 '?parent_id=' + parent_id +
                 '&year=' + year +
                 '&type=' + type +

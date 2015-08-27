@@ -18,8 +18,11 @@ echo $this->Element('dataobject/pageBegin', array(
     )
 ));
 ?>
-
     <h2 class="light">Interpelacja</h2>
+ 	
+ 	<div class="row">
+	 	<div class="col-md-9">   
+ 
 <?
 
 echo $this->Document->place($interpelacja->getData('dokument_id'));
@@ -33,5 +36,9 @@ if ($interpelacja->getData('odp2_dokument_id')) {
     echo "<h2 class=\"light\">Odpowiedź</h2>";
     echo $this->Document->place($interpelacja->getData('odp2_dokument_id'));
 }
+?>
 
-echo $this->Element('dataobject/pageEnd');
+	 	</div>
+ 	</div>
+
+<? echo $this->Element('dataobject/pageEnd');

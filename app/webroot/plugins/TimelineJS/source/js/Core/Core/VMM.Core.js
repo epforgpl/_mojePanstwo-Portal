@@ -1,9 +1,9 @@
 /* VeriteCo Core
- ================================================== */
+================================================== */
 
 /*	* CodeKit Import
- * http://incident57.com/codekit/
- ================================================== */
+	* http://incident57.com/codekit/
+================================================== */
 // @codekit-prepend "VMM.js";
 // @codekit-prepend "VMM.Library.js";
 // @codekit-prepend "VMM.Browser.js";

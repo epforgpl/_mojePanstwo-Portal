@@ -39,5 +39,17 @@ class Bdl_wskazniki extends DataObject
     {
         return 'Wskaźniki Banku Danych Lokalnych';
     }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+		
+		$output = array();
+						
+		if( $this->getData('data_aktualizacji') )
+			$output[] = 'Aktualizacja: ' . dataSlownie($this->getData('data_aktualizacji'));
+		
+		return $output;
+		
+	}
 
 }

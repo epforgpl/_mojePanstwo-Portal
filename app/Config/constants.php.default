@@ -1,20 +1,31 @@
 <?
+    const URL_PROTOCOL = 'http://';
+    const URL_HOST = 'mojepanstwo.pl';
 
-define('CAKE_salt', "alphanumericsalt");
-define('CAKE_cipherSeed', 'numericseednumbersonly');
+    define('PORTAL_DOMAIN', 'path to local mojepanstwo address');
+    define('PK_DOMAIN', 'path to local przejrzystykrakow address');
+    define('API_url', 'link to newest API url');
 
-define('OAUTH_client_id', 'alphanumericsalt');
-define('OAUTH_client_secret', 'alphanumericsalt');
+    define('CAKE_salt', "alphanumericsalt");
+    define('CAKE_cipherSeed', 'numericseednumbersonly');
 
-define('PASSPORT_client', 'alphanumericsalt');
-define('PASSPORT_salt', 'alphanumericwithspecialcharsalt');
+    define('OAUTH_client_id', 'alphanumericsalt');
+    define('OAUTH_client_secret', 'alphanumericsalt');
 
-define('FACEBOOK_appId', 'numericsalt');
-define('FACEBOOK_apiKey', 'numericsalt');
-define('FACEBOOK_secret', 'alphanumericsalt');
+    define('PASSPORT_client', 'alphanumericsalt');
+    define('PASSPORT_salt', 'alphanumericwithspecialcharsalt');
 
-define('MPAPI_path', 'path to local API CLIENT');
+    define('FACEBOOK_appId', 'numericsalt');
+    define('FACEBOOK_apiKey', 'numericsalt');
+    define('FACEBOOK_secret', 'alphanumericsalt');
 
-// optionally define sentry
-define('SENTRY_DSN_PHP', 'http://app:token@host');
-define('SENTRY_DSN_JS', 'http://app@host');
+    define('S3_ACCESS_KEY', 'numericsalt');
+    define('S3_SECRET_KEY', 'numericsalt');
+    define('S3_ENDPOINT', 'address');
+
+    define('CROSSDOMAIN_salt', 'numericsalt');
+    define('HFHR_SECRET', 'numericsalt');
+
+    // optionally define sentry
+    define('SENTRY_DSN_PHP', 'http://app:token@host');
+    define('SENTRY_DSN_JS', 'http://app@host');

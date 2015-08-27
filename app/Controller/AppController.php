@@ -71,7 +71,8 @@ class AppController extends Controller
     public $menu = array();
     public $menu_selected = '_default';
     public $observeOptions = false;
-
+	public $app_menu = array(array(), array());
+	
     public $helpers = array(
         'Html',
         'Form',
@@ -137,6 +138,12 @@ class AppController extends Controller
         'bdl' => array(
             'bdl_wskazniki' => array(
             	'label' => 'Wskaźniki'
+            ),
+            'bdl_wskazniki_grupy' => array(
+            	'label' => 'Grupy wskaźników'
+            ),
+            'bdl_wskazniki_kategorie' => array(
+            	'label' => 'Kategorie wskaźników'
             ),
         ),
         'prawo' => array(
@@ -308,7 +315,7 @@ class AppController extends Controller
             ),
         ),
     );
-    private $applications = array(
+    public $applications = array(
         'krs' => array(
             'name' => 'Krajowy Rejestr Sądowy',
             'href' => '/krs',
@@ -429,7 +436,7 @@ class AppController extends Controller
         ),
         'sejmometr' => array(
             'name' => 'Sejmometr',
-            'href' => '/sejmometr',
+            'href' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej',
             'tag' => 1,
             'icon' => '&#xe610;',
         ),
@@ -631,7 +638,9 @@ class AppController extends Controller
 
         if ($id && array_key_exists($id, $this->applications)) {
 
-            return $this->applications[$id];
+            return array_merge($this->applications[$id], array(
+	            'id' => $id,
+            ));
 
         } else return false;
 

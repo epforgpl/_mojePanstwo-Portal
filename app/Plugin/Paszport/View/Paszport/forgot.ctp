@@ -8,12 +8,13 @@
                     <div class="modal-header">
                         <h4 class="modal-title"><?= __d('paszport', 'LC_PASZPORT_CHANGE_PASSWORD') ?></h4>
                     </div>
-                    <div class="modal-body">
-
-                        <? if (isset($newPasswordSuccess) && $newPasswordSuccess) { ?>
+                    <? if (isset($newPasswordSuccess) && $newPasswordSuccess) { ?>
+                        <div class="modal-body">
                             <p class="text-success"><?= __d('paszport', 'LC_PASZPORT_CHANGEPASSWORD_SAVED') ?></p>
-                        <? } else { ?>
-                            <form action="/forgot" id="UserForgotForm" method="post" accept-charset="utf-8">
+                        </div>
+                    <? } else { ?>
+                        <form action="/forgot" id="UserForgotForm" method="post" accept-charset="utf-8">
+                            <div class="modal-body">
                                 <input type="hidden" name="token" value="<?= $token ?>"/>
 
                                 <div class="slide inputForm col-xs-12">
@@ -26,31 +27,26 @@
                                         'after' => '<span class="help-block"></span>'
                                     )); ?>
                                 </div>
-                                <div class="slide inputForm sendForm col-xs-12">
-                                    <?php echo $this->Form->submit(__d('paszport', 'LC_PASZPORT_CHANGEPASSWORD_BUTTON'), array('class' => 'btn btn-primary sendForm')); ?>
-                                </div>
-                            </form>
-                        <? } ?>
-
-                    </div>
+                            </div>
+                            <div class="modal-footer backgroundBlue">
+                                <?php echo $this->Form->submit(__d('paszport', 'LC_PASZPORT_CHANGEPASSWORD_BUTTON'), array('class' => 'btn btn-link sendForm')); ?>
+                            </div>
+                        </form>
+                    <? } ?>
                 <? } else { ?>
                     <div class="modal-header">
                         <h4 class="modal-title"><?php echo __d('paszport', "LC_PASZPORT_PASSWORD_FORGOT_MOTTO") ?></h4>
                     </div>
-                    <div class="modal-body">
-
-
-                        <? if (isset($success) && $success) { ?>
+                    <? if (isset($success) && $success) { ?>
+                        <div class="modal-body">
                             <p class="text-success text-center"><?= __d('paszport', 'LC_PASZPORT_CHANGEPASSWORD_EMAIL_SENDED') ?></p>
-                        <? } else { ?>
-
-                            <div class="slide inputForm textForm col-xs-12">
-                                <?php echo __d('paszport', "LC_PASZPORT_FORGOT_PASSWORD_EVANGELION"); ?><br/><br/>
-                            </div>
-
-
-                            <form accept-charset="utf-8" method="post" id="UserForgotForm" action="/forgot">
-
+                        </div>
+                    <? } else { ?>
+                        <form accept-charset="utf-8" method="post" id="UserForgotForm" action="/forgot">
+                            <div class="modal-body">
+                                <div class="slide inputForm textForm col-xs-12">
+                                    <?php echo __d('paszport', "LC_PASZPORT_FORGOT_PASSWORD_EVANGELION"); ?><br/><br/>
+                                </div>
                                 <div class="slide inputForm col-xs-12">
                                     <?php echo $this->Form->input('User.email', array(
                                         'class' => 'input-xlarge form-control',
@@ -63,16 +59,12 @@
                                         'after' => '<span class="help-block"></span>'
                                     )); ?>
                                 </div>
-
-                                <div class="slide inputForm sendForm col-xs-12">
-                                    <?php echo $this->Form->submit(__d('paszport', 'LC_PASZPORT_FORGET_BUTTON'), array('class' => 'btn btn-primary sendForm')); ?>
-                                </div>
-
-                            </form>
-
-                        <? } ?>
-
-                    </div>
+                            </div>
+                            <div class="modal-footer backgroundBlue">
+                                <?php echo $this->Form->submit(__d('paszport', 'LC_PASZPORT_FORGET_BUTTON'), array('class' => 'btn btn-link sendForm')); ?>
+                            </div>
+                        </form>
+                    <? } ?>
                 <? } ?>
             </div>
         </div>

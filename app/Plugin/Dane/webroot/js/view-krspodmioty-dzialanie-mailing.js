@@ -20,7 +20,7 @@ WybierzPoslaModal.prototype.initialize = function () {
 
     var _this = this;
 
-    $.getJSON(mPHeart.constant.ajax.api + '/dane/poslowie/index.json?conditions[poslowie.mandat_wygasl]=0&conditions[poslowie.sejm_okreg_id]=' + id_okregu, function (res) {
+    $.getJSON(mPHeart.constant.ajax.api + '/dane/poslowie.json?conditions[poslowie.mandat_wygasl]=0&conditions[poslowie.sejm_okreg_id]=' + id_okregu, function (res) {
         _this.res = res;
         if (res.Dataobject && res.Dataobject.length > 0) {
             var html = ['<div class="list-group" style="margin-bottom: 0;">'];

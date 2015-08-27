@@ -91,8 +91,10 @@ class PismaController extends ApplicationsController
             if (!$pismo['is_owner'])
                 return $this->redirect($this->referer());
 
-        } else {
+			$this->menu_selected = 'view';
 
+        } else {
+			
             $this->set('title_for_layout', 'Pismo nie istnieje lub nie masz do niego dostępu');
             $this->render('not_found');
 
@@ -249,7 +251,7 @@ class PismaController extends ApplicationsController
         );
 
         $this->set('pismo_init', $pismo);
-        $this->set('okregi', $this->Sejmometr->okregi());
+        $this->set('okregi', $this->Sejmometr->okregi_sejm());
         $this->title = 'Nasz Rzecznik | Pisma';
     }
 

@@ -271,6 +271,28 @@ class CombinatorHelper extends AppHelper
         }
     }
 
+    function replace_lib_or_add($type, $fromLib, $toLib) {
+        $exists = false;
+        foreach($this->libs[$type] as $index => $lib) {
+            if($lib == $fromLib) {
+                $exists = $index;
+                break;
+            }
+        }
+
+        if($exists !== false) {
+            $this->libs[$type][$index] = $toLib;
+        } else {
+            $this->libs[$type][] = $toLib;
+        }
+
+        foreach($this->viewLibs[$type] as $index => $lib) {
+            if($lib == $fromLib) {
+                unset($this->viewLibs[$type][$index]);
+            }
+        }
+    }
+
     function reset_lib_list($type)
     {
         switch ($type) {

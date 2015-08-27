@@ -107,10 +107,6 @@
                         if (item.type === 'button') {
                             params = '?q=' + item.q;
 
-                            suggesterForm.find('input[name="dataset[]"]').each(function () {
-                                params += '&dataset[]=' + $(this).val();
-                            });
-
                             return $('<li></li>').addClass("row button").append(
                                 $('<a></a>').addClass('btn btn-success').attr({
                                     'href': ((suggesterForm.attr('action').length > 0) ? suggesterForm.attr('action') : ((suggesterInput.attr('data-url').length > 0) ? suggesterInput.attr('data-url') : '')) + params,

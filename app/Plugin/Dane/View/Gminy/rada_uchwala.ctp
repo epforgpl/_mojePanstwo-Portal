@@ -17,14 +17,45 @@ echo $this->Element('Dane.dataobject/subobject', array(
     )
 ));
 
-?>
-    <div class="prawo row">
+$docs = $uchwala->getLayer('docs');
 
-        <div class="col-md-12">
-            <div class="object">
-                <?= $this->Document->place($uchwala->getData('dokument_id')) ?>
+?>
+    <div class="prawo margin-sides-10">
+
+
+            <div class="row">
+				
+				<div class="col-md-9">
+
+                    <?= $this->Document->place($file) ?>
+                </div>
+				
+                <div class="col-md-3">
+					
+					<? if( count($docs)>1 ) {?> 
+                    <p>Pliki powiązane:</p>
+
+                    <ul class="nav nav-pills nav-stacked">
+                        <?php foreach($docs as $i => $doc_id) { ?>
+                            <? $dokument_id = ($file == $doc_id) ? $doc_id : false; ?>
+                            <li role="presentation" <?= ($file == $doc_id) ? 'class="active"' : ''; ?>>
+                                <a href="<?= $uchwala->getUrl() ?>?file=<?= $doc_id ?>">
+                                    Plik #<?= ($i + 1) ?>
+                                </a>
+                            </li>
+                        <? } ?>
+                    </ul>
+                    <? } ?>
+                    
+                    <p class="margin-sides-5 margin-top-20"><a href="http://www.bip.krakow.pl/?dok_id=167&sub_dok_id=167&sub=uchwala&query=id=<?= $uchwala->getData('sid') ?>&typ=u" target="_blank"><span class="glyphicon glyphicon-share"></span> Źródło</a></p>
+                    
+                </div>
+
+                
+
             </div>
-        </div>
+
+        
 
 
     </div>

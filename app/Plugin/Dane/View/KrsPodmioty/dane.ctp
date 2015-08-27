@@ -3,7 +3,7 @@
 $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty-dane', array('plugin' => 'Dane')));
 
 /* tinymce */
-echo $this->Html->script('../tinymce/tinymce.min', array('block' => 'scriptBlock'));
+echo $this->Html->script('../plugins/tinymce/js/tinymce/tinymce.min', array('block' => 'scriptBlock'));
 
 /* page script */
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dane');
@@ -20,12 +20,12 @@ $description =
 
         <form action="<?= $object->getUrl(); ?>.json" method="post">
 
-            <p class="margin-top-10">Napisz w kilku zdaniach na czym polega misja Twojej organizacji. Ten tekst będzie widoczny na pierwszej stronie jej profilu.</p>
+            <p class="margin-top-10">Dodaj opis misji swojej organizacji, który będzie się pojawiał na jej profilu.</p>
             <input type="hidden" name="_action" value="save_edit_data_form"/>
 
-
             <div class="row">
-                <div class="col-md-9 objectMain">
+
+                <div class="col-xs-12 col-md-9 objectMain">
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="form-group">
@@ -35,7 +35,8 @@ $description =
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-xs-12 col-md-3 objectSide">
+
                     <div class="sticky margin-top-15">
                         <div class="row">
 
@@ -53,7 +54,7 @@ $description =
 
                         </div>
                     </div>
-                </div>
+	            </div>
             </div>
 
         </form>

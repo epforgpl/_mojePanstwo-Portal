@@ -1,6 +1,6 @@
 /* Romansh / Rumantsch LANGUAGE
- ================================================== */
-if (typeof VMM != 'undefined') {
+================================================== */
+if(typeof VMM != 'undefined') {
     VMM.Language = {
         lang: "rm",
         api: {
@@ -9,8 +9,8 @@ if (typeof VMM != 'undefined') {
         date: {
             month: ["Schaner", "Favrer", "Mars", "Avrigl", "Matg", "Zercladur", "Fanadur", "Avust", "Settember", "October", "November", "December"],
             month_abbr: ["Schan.", "Favr.", "Mars", "Avr.", "Matg", "Zercl.", "Fan.", "Avust", "Sett.", "Oct.", "Nov.", "Dec."],
-            day: ["Dumengia", "Glindesdi", "Mardi", "Mesemna", "Gievgia", "Venderdi", "Sonda"],
-            day_abbr: ["Du", "Gli", "Ma", "Me", "Gie", "Ve", "So"]
+            day: ["Dumengia","Glindesdi", "Mardi", "Mesemna", "Gievgia", "Venderdi", "Sonda"],
+            day_abbr: ["Du","Gli", "Ma", "Me", "Gie", "Ve", "So"]
         },
         dateformats: {
             year: "yyyy",

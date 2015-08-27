@@ -1,0 +1,21 @@
+language: php
+
+php:
+  - 5.4
+  - 5.5
+  - 5.6
+  - 7.0
+
+sudo: false
+
+env:
+  global:
+    - DEFAULT=1
+
+before_script:
+  - cd app
+  - composer self-update
+  - composer install --prefer-dist --no-interaction
+
+notifications:
+  email: false

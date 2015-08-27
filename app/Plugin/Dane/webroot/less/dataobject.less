@@ -87,14 +87,76 @@
 }
 
 .objectsPage {
-    
+
     .suggesterBlock {
-	    margin-bottom: -10px;
+        margin-bottom: -10px;
     }
-    
+
     .dataBrowser {
         font-family: "Lato", Arial, sans-serif;
         margin-top: 25px;
+
+        .searcher-app {
+            background-color: #E6E7E8;
+            border-bottom: 1px solid #DDD;
+            padding: 15px 0 9px;
+        }
+
+        .apps-menu {
+            border-bottom: 1px solid #E0E0E0;
+            background-color: #f8f9fa;
+            ul {
+                overflow: hidden;
+                height: 50px;
+                padding: 0;
+                margin: 0 -6px;
+
+                li {
+                    list-style: none;
+                    float: left;
+                    display: block;
+                    padding: 0;
+                    margin: 0;
+
+                    a {
+                        padding: 15px 10px;
+                        margin: 0 10px;
+                        display: inline-block;
+                        font-size: 13px;
+                        color: #444;
+                        border-bottom: 2px solid #f8f9fa;
+                        &:hover {
+                            color: #157AB5;
+                        }
+
+                        &.active {
+                            color: #dc4a38;
+                            font-weight: bold;
+                            border-bottom-color: #dc4a38;
+                        }
+                    }
+                }
+            }
+        }
+
+        .dataCounter {
+            color: #808080;
+            display: inline-block;
+            font-size: 12px;
+            margin-bottom: -5px;
+            margin-top: 10px;
+            padding-left: 15px;
+            padding-right: 5px;
+            width: 100%;
+
+            p {
+                padding: 0;
+                margin: 0;
+            }
+            strong {
+                font-weight: normal;
+            }
+        }
 
         &.panel {
             background-color: #FFF;
@@ -633,9 +695,9 @@
                     padding: 10px;
                     margin: 7px 0;
                     border-bottom: 1px solid #DDD;
-                    
+
                     &:last-child {
-	                    border-bottom: none;
+                        border-bottom: none;
                     }
 
                     .action {
@@ -1031,6 +1093,12 @@
         font-size: 14px;
         padding-bottom: 15px;
 
+        &.twitter {
+            .attachment {
+                max-width: 103px;
+            }
+        }
+
         &.docdataobject .attachment .thumb_cont {
             position: relative;
 
@@ -1121,35 +1189,40 @@
             margin-left: 53px;
             font-size: 13px;
             em {
-	            font-weight: bold;
-	            font-style: normal;
+                font-weight: bold;
+                font-style: normal;
             }
         }
 
         .object-icon {
-            color: #999;
+            background-color: #89A;
+            color: #FFF;
             display: block;
             float: left;
-            font-size: 37px;
-            height: 45px;
-            width: 45px;
-            position: relative;
-            top: 5px;
+            font-size: 28px;
+            height: 40px;
+            width: 40px;
+            line-height: 1.35em;
+            text-align: center;
+            border-radius: 20px;
+            -webkit-border-radius: 20px;
+            -moz-border-radius: 20px;
+            -o-border-radius: 20px;
         }
 
         .object-icon-side {
             margin-left: 45px;
-            
+
             &.marginRight {
-	            margin-right: 50px;
+                margin-right: 50px;
             }
-            
+
         }
-        
+
         .label-glos {
-	        position: absolute;
-	        right: 0;
-	        margin: -7px 5px 0 0;
+            position: absolute;
+            right: 0;
+            margin: -7px 5px 0 0;
         }
 
         .status {
@@ -1346,7 +1419,7 @@
             }
 
             blockquote._ {
-                font-size: 16px;
+                font-size: 15px;
                 font-style: normal;
                 margin: 0;
                 padding: 3px 0 3px 10px;
@@ -1451,194 +1524,202 @@
         }
 
     }
-    
+
     .block-size-sm {
-	    .objectRender {
-		    .header {
-			    margin-left: 6px;
-		    }
-		    .title {
-			    font-size: 14px;
-		    }
-		    .object-icon {
-			    font-size: 32px;
-		    }
-	    }
-	    .dataAggs {
-		    .buttons {
-			    margin-bottom: -5px;
-		    }
-	    }
+        .objectRender {
+            .header {
+                margin-left: 6px;
+            }
+            .title {
+                font-size: 14px;
+            }
+            .object-icon {
+                font-size: 30px;
+            }
+        }
+        .dataAggs {
+            .buttons {
+                margin-bottom: -5px;
+            }
+        }
     }
-	
-	.objectRender.sejm_wystapienia {
-		
-		.content {
-			margin-top: 0;
-			padding-top: 0;
-		}
-		
-		.sw_avatar {
-	        min-width: 70px;
-	    }
-	
-	    .sw_content {
-	        padding: 0;
-	        border-radius: 3px;
-	        margin: 0 75px;
-	        -webkit-border-radius: 3px;
-	        -moz-border-radius: 3px;
-	        -o-border-radius: 3px;
-	
-	        .mowca {
-	
-	            font-size: 13px;
-	            font-weight: 500;
-	            .label {
-	                font-size: 10px;
-	                margin-left: 5px;
-	                position: relative;
-	                top: -1px;
-	                text-transform: uppercase;
-	            }
-	            .label-default {
-	                background-color: #AAA;
-	            }
-	        }
-	
-	        .link {
-	            visibility: hidden;
-	            font-size: 12px;
-	            margin-bottom: 0;
-	            text-align: center;
-	            display: none;
-	        }
-	        
-	        .link-expand {
-		        display: block;
-	        }
-	        
-	        &.expanded .link-expand {
-		        display: none;
-	        }
-	        
-	        &.expanded .link-collapse {
-		        display: block;
-	        }
-	        
-	        &._loading .link {
-		        display: none;
-	        }
-	        
-	        &._disabled .link {
-		        visibility: hidden !important;
-	        }
-	        
-	        .loader {
-		        display: none;
-	        }
-	        
-	        &._loading .loader {
-		        display: block;
-	        }
-	        
-	        &.expanded {
-		        font-size: 15px;
-		        line-height: 1.5em;
-		        .text {
-			        margin-top: -3px;
-		        }
-	        }
-	        
-			.text {
-				
-				margin-bottom: 10px;
-				line-height: 1.35em;
-				
-		        p {
-		            &.opis {
-		                text-align: center;
-		                font-style: italic;
-		                color: #999;
-		            }
-		        }
-		        
-		        em {
-			        font-weight: bold;
-		        }
-	        }
-	        
-	        .meta.meta-desc {
-		        margin: 3px 0 8px;
-	        }
-	
-	    }
-	
-	    .sw_content:hover {
-	        .link {
-	            visibility: visible;
-	        }
-	    }
-	
-	    @arrowSize: 30px;
-	
-	    .porzadek {
-	        .sw_avatar {
-	            float: right;
-	            text-align: right;
-	        }
-	        .sw_content {
-	            position: relative;
-	
-	            &:before {
-	                position: absolute;
-	                top: 25 px-(@arrowSize/2);
-	                right: -@arrowSize;
-	                border: solid transparent;
-	                content: " ";
-	                height: 0;
-	                width: 0;
-	                position: absolute;
-	                pointer-events: none;
-	                border-color: rgba(251, 251, 251, 0);
-	                border-left-color: #fbfbfb;
-	                border-width: @arrowSize/2;
-	            }
-	
-	            .mowca {
-	                text-align: left;
-	            }
-	        }
-	    }
-	
-	    .wystapienie {
-	        .sw_avatar {
-	            float: left;
-	            text-align: left;
-	        }
-	
-	        .sw_content {
-	            position: relative;
-	
-	            &:before {
-	                position: absolute;
-	                top: 25 px-(@arrowSize/2);
-	                left: -@arrowSize;
-	                border: solid transparent;
-	                content: " ";
-	                height: 0;
-	                width: 0;
-	                position: absolute;
-	                pointer-events: none;
-	                border-color: rgba(255, 255, 255, 0);
-	                border-right-color: #ffffff;
-	                border-width: @arrowSize/2;
-	            }
-	        }
-	    }
-		
-	}
-	
+
+    .objectRender.twitter {
+        .meta.meta-date {
+            position: absolute;
+            right: 0;
+            top: 14px;
+        }
+    }
+
+    .objectRender.sejm_wystapienia {
+
+        .content {
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .sw_avatar {
+            min-width: 70px;
+        }
+
+        .sw_content {
+            padding: 0;
+            border-radius: 3px;
+            margin: 0 75px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            -o-border-radius: 3px;
+
+            .mowca {
+
+                font-size: 13px;
+                font-weight: 500;
+                .label {
+                    font-size: 10px;
+                    margin-left: 5px;
+                    position: relative;
+                    top: -1px;
+                    text-transform: uppercase;
+                }
+                .label-default {
+                    background-color: #AAA;
+                }
+            }
+
+            .link {
+                visibility: hidden;
+                font-size: 12px;
+                margin-bottom: 0;
+                text-align: center;
+                display: none;
+            }
+
+            .link-expand {
+                display: block;
+            }
+
+            &.expanded .link-expand {
+                display: none;
+            }
+
+            &.expanded .link-collapse {
+                display: block;
+            }
+
+            &._loading .link {
+                display: none;
+            }
+
+            &._disabled .link {
+                visibility: hidden !important;
+            }
+
+            .loader {
+                display: none;
+            }
+
+            &._loading .loader {
+                display: block;
+            }
+
+            &.expanded {
+                font-size: 15px;
+                line-height: 1.5em;
+                .text {
+                    margin-top: -3px;
+                }
+            }
+
+            .text {
+
+                margin-bottom: 10px;
+                line-height: 1.35em;
+
+                p {
+                    &.opis {
+                        text-align: center;
+                        font-style: italic;
+                        color: #999;
+                    }
+                }
+
+                em {
+                    font-weight: bold;
+                }
+            }
+
+            .meta.meta-desc {
+                margin: 3px 0 8px;
+            }
+
+        }
+
+        .sw_content:hover {
+            .link {
+                visibility: visible;
+            }
+        }
+
+        @arrowSize: 30px;
+
+        .porzadek {
+            .sw_avatar {
+                float: right;
+                text-align: right;
+            }
+            .sw_content {
+                position: relative;
+
+                &:before {
+                    position: absolute;
+                    top: 25 px-(@arrowSize/2);
+                    right: -@arrowSize;
+                    border: solid transparent;
+                    content: " ";
+                    height: 0;
+                    width: 0;
+                    position: absolute;
+                    pointer-events: none;
+                    border-color: rgba(251, 251, 251, 0);
+                    border-left-color: #fbfbfb;
+                    border-width: @arrowSize/2;
+                }
+
+                .mowca {
+                    text-align: left;
+                }
+            }
+        }
+
+        .wystapienie {
+            .sw_avatar {
+                float: left;
+                text-align: left;
+            }
+
+            .sw_content {
+                position: relative;
+
+                &:before {
+                    position: absolute;
+                    top: 25 px-(@arrowSize/2);
+                    left: -@arrowSize;
+                    border: solid transparent;
+                    content: " ";
+                    height: 0;
+                    width: 0;
+                    position: absolute;
+                    pointer-events: none;
+                    border-color: rgba(255, 255, 255, 0);
+                    border-right-color: #ffffff;
+                    border-width: @arrowSize/2;
+                }
+            }
+        }
+
+    }
+
     .sejm_glosowanie-voting {
 
         margin: 20px 10px;
@@ -1763,7 +1844,7 @@
 
                 a {
 
-                    color: #AAA;
+                    color: #789;
 
                     &:hover {
                         color: #157AB5;
@@ -1771,7 +1852,7 @@
 
                     span {
                         margin-right: 3px;
-                        top: 2px;
+                        font-size: 13px;
                     }
 
                 }

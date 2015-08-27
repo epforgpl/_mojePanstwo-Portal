@@ -65,7 +65,7 @@ Place the embed code where you want the timeline to show in the `<body>` of your
 			js:					'path_to_js/timeline-min.js'	//OPTIONAL PATH TO JS
 		}
 	</script>
-	<script type="text/javascript" src="http://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js"></script>
+	<script type="text/javascript" src="https://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js"></script>
 ```
 ### Using a method (*advanced*)
 You could also initialize a new timeline using the `createStoryJS` method after `storyjs-embed.js` has been loaded
@@ -86,7 +86,7 @@ Here's a simple example:
 		<!-- jQuery -->
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 		<!-- BEGIN TimelineJS -->
-		<script type="text/javascript" src="http://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js"></script>
+		<script type="text/javascript" src="https://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js"></script>
 		<script>
 			$(document).ready(function() {
 				createStoryJS({
@@ -112,15 +112,13 @@ If for some reason you need more fine-grained control over your timeline, load t
 
 ```html
 <!-- always load the CSS -->
-<link rel="stylesheet" type="text/css" href="http://cdn.knightlab.com/libs/timeline/latest/css/timeline.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.knightlab.com/libs/timeline/latest/css/timeline.css">
 <!-- and then one of either -->
-<script type="text/javascript" src="http://cdn.knightlab.com/libs/timeline/latest/js/timeline.js"></script>
+<script type="text/javascript" src="https://cdn.knightlab.com/libs/timeline/latest/js/timeline.js"></script>
 <!-- or -->
-<script type="text/javascript" src="http://cdn.knightlab.com/libs/timeline/latest/js/timeline-min.js"></script>
+<script type="text/javascript" src="https://cdn.knightlab.com/libs/timeline/latest/js/timeline-min.js"></script>
 <!-- but no need for both -->
 ```
-
-If you need to use the files on an HTTPS server, you can change the beginning of the url from `http://cdn.knightlab.com/libs/timeline/` to `https://s3.amazonaws.com/cdn.knightlab.com/libs/timeline/` 
 
 If you need to serve copies of the files from your own server, use the entire contents of the ["/build/" directory](https://github.com/NUKnightLab/TimelineJS/tree/master/build) of our GitHub repository. If you use a local copy of `story-embed.js` it should automatically load the other Timeline resources from your server.
 	
@@ -159,9 +157,11 @@ Languages available:
 * `ar` *Arabic*
 * `hy` *Armenian*
 * `eu` *Basque*
+* `be` *Belarusian*
 * `bg` *Bulgarian*
 * `ca` *Catalan*
 * `zh-cn` *Chinese*
+* `hr` *Croatian / Hrvatski*
 * `cz` *Czech*
 * `da` *Danish*
 * `nl` *Dutch*
@@ -173,14 +173,17 @@ Languages available:
 * `fa` *Farsi*
 * `fi` *Finnish*
 * `fr` *French*
+* `fy` *Frisian*
 * `gl` *Galician*
 * `ka` *Georgian*
 * `de` *German / Deutsch*
 * `el` *Greek*
 * `he` *Hebrew*
+* `hi` *Hindi*
 * `hu` *Hungarian*
 * `is` *Icelandic*
 * `id` *Indonesian*
+* `ga` *Irish*
 * `it` *Italian*
 * `ja` *Japanese*
 * `ko` *Korean*
@@ -193,6 +196,7 @@ Languages available:
 * `pl` *Polish*
 * `pt` *Portuguese*
 * `pt-br` *Portuguese (Brazilian)*
+* `ro` *Romanian*
 * `rm` *Romansh*
 * `ru` *Russian*
 * `sr-cy` *Serbian - Cyrillic*
@@ -206,11 +210,13 @@ Languages available:
 * `ta` *Tamil*
 * `zh-tw` *Taiwanese*
 * `te` *Telugu*
+* `th` *Thai*
 * `tr` *Turkish*
+* `uk` *Ukrainian*
 
 
 
-Help us add more. Grab a copy of a language file and replace it with your language [Example language file](https://github.com/VeriteCo/StoryJS-Core/blob/master/Language/locale/en.js) and find your language's [two letter code here](http://spreadsheets.google.com/pub?key=p9pdwsai2hDMsLkXsoM05KQ&gid=1)
+Help us add more. Grab a copy of a language file and replace it with your language [Example language file](https://github.com/NUKnightLab/TimelineJS/blob/master/source/js/Core/Language/locale/en.js) and find your language's [two letter code here](http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
 
 ###Start at End 
 `start_at_end`
@@ -224,7 +230,7 @@ You can tell TimelineJS to start at a specific slide number
 
 ###Start Zoom Adjust
 `start_zoom_adjust`
-This will tweak the default zoom level. Equivilent to pressing the zoom in or zoom out button the specified number of times. Negative numbers zoom out.
+This will tweak the default zoom level. Equivalent to pressing the zoom in or zoom out button the specified number of times. Negative numbers zoom out.
 *default is 0*
 
 ###Hash Bookmark 
@@ -257,6 +263,9 @@ Due to recent changes to the Google Maps API, you need a [API Key](https://devel
 	* `HYBRID`
 	* `SATELLITE`
 
+* OpenStreetMap
+	- `osm`
+
 ###Font Options 
 `font:`
 * `AbrilFatface-Average` *Abril Fatface & Average*
@@ -279,7 +288,7 @@ Due to recent changes to the Google Maps API, you need a [API Key](https://devel
 * Or make your own
 
 ####Font Combination Preview:
-![Font Combination Preview](http://timeline.verite.co/gfx/font-options.png)
+![Font Combination Preview](http://timeline.knightlab.com/static/img/make/font-options.png)
 
 ## File Formats
 
@@ -306,8 +315,8 @@ Here is the full model:
 		},
 		"date": [
 			{
-				"startDate":"2011,12,10",
-				"endDate":"2011,12,11",
+				"startDate":"2011,12,10,07,02,10",
+				"endDate":"2011,12,11,08,11",
 				"headline":"Headline Goes Here",
 				"text":"<p>Body text goes here, some HTML is OK</p>",
 				"tag":"This is Optional",
@@ -419,7 +428,7 @@ using Google Docs:
 	
 ### Storify:
 
-Support for Storify is still in it's early stages. It works though. Just paste a link to the storify story as the source.
+Support for Storify is still in its early stages. It works though. Just paste a link to the storify story as the source.
 
 ## Media
 

@@ -25,4 +25,9 @@ class Prawo_urzedowe extends DocDataObject
     {
         return $this->getData('prawo_urzedowe.forma_str') . ' z dnia ' . dataSlownie($this->getDate());
     }
+    
+    public function getUrl()
+    {
+	    return '/dane/instytucje/' . $this->getData('instytucja_id') . '/dziennik/' . $this->getId();	    
+    }
 }

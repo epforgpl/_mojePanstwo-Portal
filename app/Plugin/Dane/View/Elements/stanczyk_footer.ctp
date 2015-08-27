@@ -1,4 +1,4 @@
-<div id="fundatorzy" class="customObject krakow903 col-md-12">
+<div id="fundatorzy" class="customObject krakow903 col-xs-12">
     <div class="part">
         <p class="info">Projekt realizowany w ramach programu Obywatele dla Demokracji,
             finansowanego z Funduszy EOG:</p>

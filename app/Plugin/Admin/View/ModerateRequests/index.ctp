@@ -1,5 +1,5 @@
 <? $this->Combinator->add_libs('js','Admin.accept-moderate-request-modal'); ?>
-<div class="container">
+<div class="container margin-top-20">
     <h1>Żądania uprawnień</h1>
 
     <div class="row margin-top-20">

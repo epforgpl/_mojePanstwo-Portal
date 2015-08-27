@@ -1,7 +1,8 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma-moje', array('plugin' => 'Pisma'))) ?>
-
 <?php $this->Combinator->add_libs('js', 'Pisma.pisma-my.js') ?>
+
+<? echo $this->Element('menu'); ?>
 
 <? if (!$this->Session->read('Auth.User.id')) { ?>
     <div class="container">

@@ -1,16 +1,13 @@
+<?
+$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts', false);
+$this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki-map', false);
+$this->Combinator->add_libs('js', '../plugins/highcharts/locals', false);
+
+$this->Combinator->add_libs('js', 'Bdl.bdl_subitem');
+?>
+
 <?= $this->Element('dataobject/pageBegin', array('renderFile' => 'page-bdl_wskazniki')); ?>
 <?= $this->Element('bdl_select', array('expand_dimension' => $expand_dimension, 'dims' => $dims)); ?>
-	
-	<? /*
-    <div class="treeBlock hidden-xs col-sm-4 col-md-3">
-        <?
-        $this->Combinator->add_libs('js', 'Bdl.jstree.min');
-        $this->Combinator->add_libs('js', 'Bdl.bdl');
-        ?>
-        <div
-            id="tree" <?= printf('data-structure="%s"', htmlspecialchars(json_encode($tree), ENT_QUOTES, 'UTF-8')) ?>></div>
-    </div>
-    */ ?>
     <div id="bdl-wskazniki" class="col-xs-12 col-sm-12 col-md-12">
         <? if (in_array('bdl_opis', $object_editable)) {
             echo $this->element('Dane.bdl_opis');

@@ -57,6 +57,7 @@ class InstytucjeController extends DataobjectsController
 	                        ),
 	                    ),
 	                ),
+	                'scope' => 'global',
 	            ),
 	            'prawo_urzedowe' => array(
 	                'filter' => array(
@@ -75,6 +76,7 @@ class InstytucjeController extends DataobjectsController
 	                        ),
 	                    ),
 	                ),
+	                'scope' => 'global',
 	            ),
 	            'zamowienia' => array(
 	                'filter' => array(
@@ -109,6 +111,7 @@ class InstytucjeController extends DataobjectsController
 	                        ),
 	                    ),
 	                ),
+	                'scope' => 'global',
 	            ),
 	            'urzednicy' => array(
 	                'filter' => array(
@@ -127,6 +130,7 @@ class InstytucjeController extends DataobjectsController
 	                        ),
 	                    ),
 	                ),
+	                'scope' => 'global',
 	            ),
 			);
 			
@@ -143,15 +147,11 @@ class InstytucjeController extends DataobjectsController
 	                        ),
 	                    ),
 	                ),
+	                'scope' => 'global',
 	            );
 			}
 			
-			$this->addInitAggs(array(
-	            'all' => array(
-	                'global' => '_empty',
-	                'aggs' => $aggs,
-	            ),
-	        ));
+			$this->addInitAggs($aggs);
 			
 		}
 		
@@ -198,6 +198,7 @@ class InstytucjeController extends DataobjectsController
                         ),
                     ),
                 ),
+                'scope' => 'global',
                 'aggs' => array(
                     'top' => array(
                         'top_hits' => array(
@@ -229,6 +230,7 @@ class InstytucjeController extends DataobjectsController
                         ),
                     ),
                 ),
+                'scope' => 'global',
                 'aggs' => array(
                     'top' => array(
                         'top_hits' => array(
@@ -260,6 +262,7 @@ class InstytucjeController extends DataobjectsController
                         ),
                     ),
                 ),
+                'scope' => 'global',
                 'aggs' => array(
                     'top' => array(
                         'top_hits' => array(
@@ -307,6 +310,7 @@ class InstytucjeController extends DataobjectsController
                         ),
                     ),
                 ),
+                'scope' => 'global',
             ),
             'zamowienia_publiczne_dokumenty' => array(
                 'filter' => array(
@@ -353,6 +357,7 @@ class InstytucjeController extends DataobjectsController
                         ),
                     ),
                 ),
+                'scope' => 'global',
                 'aggs' => array(
                     'dni' => array(
 						'date_histogram' => array(
@@ -399,6 +404,7 @@ class InstytucjeController extends DataobjectsController
                         ),
                     ),
                 ),
+                'scope' => 'global',
                 'aggs' => array(
                     'top' => array(
                         'top_hits' => array(
@@ -426,6 +432,7 @@ class InstytucjeController extends DataobjectsController
                         ),
                     ),
                 ),
+                'scope' => 'global',
                 'aggs' => array(
                     'top' => array(
                         'top_hits' => array(
@@ -442,7 +449,7 @@ class InstytucjeController extends DataobjectsController
             );
 
             $this->loadModel('Sejmometr.Sejmometr');
-            $this->set('okregi', $this->Sejmometr->okregi());
+            $this->set('okregi', $this->Sejmometr->okregi_sejm());
             
             $cover = 'cover-sejm';
 	        
@@ -460,6 +467,7 @@ class InstytucjeController extends DataobjectsController
                         ),
                     ),
                 ),
+                'scope' => 'global',
                 'aggs' => array(
                     'top' => array(
                         'top_hits' => array(
@@ -494,12 +502,7 @@ class InstytucjeController extends DataobjectsController
                     'plugin' => 'Dane',
                     'element' => 'instytucje/' . $cover,
                 ),
-                'aggs' => array(
-                    'all' => array(
-                        'global' => '_empty',
-                        'aggs' => $global_aggs,
-                    ),
-                ),
+                'aggs' => $global_aggs,
             ),
             'aggs' => array(
                 'dataset' => array(
@@ -531,11 +534,13 @@ class InstytucjeController extends DataobjectsController
         	return false;
 			
 		$aggs = array();
-		if( isset($this->viewVars['dataBrowser']['aggs']['all']) )
-			$aggs = $this->viewVars['dataBrowser']['aggs']['all'];
-			
-		if( isset($this->object_aggs['all']) )
-			$aggs = $this->object_aggs['all'];
+		if( isset($this->viewVars['dataBrowser']['aggs']) )
+			$aggs = $this->viewVars['dataBrowser']['aggs'];
+		
+		
+		if( isset($this->object_aggs) )
+			$aggs = array_merge($aggs, $this->object_aggs);
+
 					
         $menu = array(
             'items' => array(),
@@ -640,14 +645,35 @@ class InstytucjeController extends DataobjectsController
     {
 
         $this->load();
-        $this->Components->load('Dane.DataBrowser', array(
-            'conditions' => array(
-                'dataset' => 'prawo_urzedowe',
-                'prawo_urzedowe.instytucja_id' => $this->object->getId(),
-            ),
-        ));
+        
+        $this->_prepareView();
 
-        $this->set('title_for_layout', "Dziennik urzędowy " . $this->object->getTitle());
+        if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
+
+            $prawo = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'prawo_urzedowe',
+                    'id' => $this->request->params['subid'],
+                ),
+            ));
+            
+            $this->set('prawo', $prawo);
+            $this->set('title_for_layout', $prawo->getTitle());
+            $this->render('dziennik-view');
+
+        } else {
+
+            $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'prawo_urzedowe',
+	                'prawo_urzedowe.instytucja_id' => $this->object->getId(),
+	            ),
+	        ));
+	
+	        $this->set('title_for_layout', "Dziennik urzędowy " . $this->object->getTitle());
+
+        }
+                       
 
     }
 
@@ -962,6 +988,7 @@ class InstytucjeController extends DataobjectsController
 	                                    ),
 	                                ),
 	                            ),
+	                            'scope' => 'global',
 	                            'aggs' => array(
 	                                'top' => array(
 	                                    'top_hits' => array(
@@ -993,6 +1020,7 @@ class InstytucjeController extends DataobjectsController
 	                                    ),
 	                                ),
 	                            ),
+	                            'scope' => 'global',
 	                            'aggs' => array(
 	                                'top' => array(
 	                                    'top_hits' => array(
@@ -1024,6 +1052,7 @@ class InstytucjeController extends DataobjectsController
 	                                    ),
 	                                ),
 	                            ),
+	                            'scope' => 'global',
 	                            'aggs' => array(
 	                                'top' => array(
 	                                    'top_hits' => array(
@@ -1045,12 +1074,7 @@ class InstytucjeController extends DataobjectsController
 	                                'plugin' => 'Dane',
 	                                'element' => 'sejm_posiedzenia/cover',
 	                            ),
-	                            'aggs' => array(
-	                                'all' => array(
-	                                    'global' => '_empty',
-	                                    'aggs' => $global_aggs,
-	                                ),
-	                            ),
+	                            'aggs' => $global_aggs,
 	                        ),
 	                        'aggs' => array(
 	                            'dataset' => array(
@@ -1136,19 +1160,24 @@ class InstytucjeController extends DataobjectsController
 				);
 				*/
 				
+				/*
 				$submenu['items'][] = array(
 					'id' => 'wystapienia',
 					'label' => 'Wystąpienia',
 				);
 				
+				
 				$submenu['items'][] = array(
 					'id' => 'glosowania',
 					'label' => 'Głosowania',
 				);
+				*/
 				
 				
 				
 				$submenu['base'] = '/dane/instytucje/3214/punkty/' . $punkt->getId();
+
+				// debug( $this->request->params ); die();
 
 				switch( @$this->request->params['subaction'] ) {
 					
@@ -1193,6 +1222,7 @@ class InstytucjeController extends DataobjectsController
 	                                    ),
 	                                ),
 	                            ),
+	                            'scope' => 'global',
 	                            'aggs' => array(
 	                                'top' => array(
 	                                    'top_hits' => array(
@@ -1224,6 +1254,7 @@ class InstytucjeController extends DataobjectsController
 	                                    ),
 	                                ),
 	                            ),
+	                            'scope' => 'global',
 	                            'aggs' => array(
 	                                'top' => array(
 	                                    'top_hits' => array(
@@ -1250,6 +1281,7 @@ class InstytucjeController extends DataobjectsController
 	                                    ),
 	                                ),
 	                            ),
+	                            'scope' => 'global',
 	                            'aggs' => array(
 	                                'top' => array(
 	                                    'top_hits' => array(
@@ -1276,12 +1308,7 @@ class InstytucjeController extends DataobjectsController
 	                                'plugin' => 'Dane',
 	                                'element' => 'sejm_posiedzenia_punkty/cover',
 	                            ),
-	                            'aggs' => array(
-	                                'all' => array(
-	                                    'global' => '_empty',
-	                                    'aggs' => $global_aggs,
-	                                ),
-	                            ),
+	                            'aggs' => $global_aggs,
 	                        ),
 	                        'aggs' => array(
 	                            'dataset' => array(
@@ -1370,6 +1397,7 @@ class InstytucjeController extends DataobjectsController
                                 ),
                             ),
                         ),
+                        'scope' => 'global',
                         'aggs' => array(
                             'top' => array(
                                 'top_hits' => array(
@@ -1385,6 +1413,7 @@ class InstytucjeController extends DataobjectsController
                         ),
                     ),
                     'glosowania' => array(
+                        'scope' => 'global',
                         'filter' => array(
                             'bool' => array(
                                 'must' => array(
@@ -1427,6 +1456,7 @@ class InstytucjeController extends DataobjectsController
                                 ),
                             ),
                         ),
+                        'scope' => 'global',
                         'aggs' => array(
                             'top' => array(
                                 'top_hits' => array(
@@ -1453,12 +1483,7 @@ class InstytucjeController extends DataobjectsController
                             'plugin' => 'Dane',
                             'element' => 'sejm_debaty/cover',
                         ),
-                        'aggs' => array(
-                            'all' => array(
-                                'global' => '_empty',
-                                'aggs' => $global_aggs,
-                            ),
-                        ),
+                        'aggs' => $global_aggs,
                     ),
                     'aggs' => array(
                         'dataset' => array(
@@ -1540,42 +1565,38 @@ class InstytucjeController extends DataobjectsController
 	                    'id' => $this->request->params['subid'],
 	                ),
 	                'aggs' => array(
-		                'all' => array(
-			                'global' => '_empty',
-			                'aggs' => array(
-				                'punkty' => array(
-			                        'filter' => array(
-			                            'bool' => array(
-			                                'must' => array(
-			                                    array(
-			                                        'term' => array(
-			                                            'dataset' => 'sejm_posiedzenia_punkty',
-			                                        ),
-			                                    ),
-			                                    array(
-			                                        'term' => array(
-			                                            'data.sejm_posiedzenia_punkty.glosowanie_id' => $this->request->params['subid'],
-			                                        ),
-			                                    ),
-			                                ),
-			                            ),
-			                        ),
-			                        'aggs' => array(
-			                            'top' => array(
-			                                'top_hits' => array(
-			                                    'size' => 1000,
-			                                    'fielddata_fields' => array('dataset', 'id'),
-			                                    'sort' => array(
-			                                        'date' => array(
-				                                        'order' => 'asc',
-			                                        ),
-			                                    ),
-			                                ),
-			                            ),
-			                        ),
-			                    ),
-			                ),
-		                ),
+		                'punkty' => array(
+	                        'filter' => array(
+	                            'bool' => array(
+	                                'must' => array(
+	                                    array(
+	                                        'term' => array(
+	                                            'dataset' => 'sejm_posiedzenia_punkty',
+	                                        ),
+	                                    ),
+	                                    array(
+	                                        'term' => array(
+	                                            'data.sejm_posiedzenia_punkty.glosowanie_id' => $this->request->params['subid'],
+	                                        ),
+	                                    ),
+	                                ),
+	                            ),
+	                        ),
+	                        'scope' => 'global',
+	                        'aggs' => array(
+	                            'top' => array(
+	                                'top_hits' => array(
+	                                    'size' => 1000,
+	                                    'fielddata_fields' => array('dataset', 'id'),
+	                                    'sort' => array(
+	                                        'date' => array(
+		                                        'order' => 'asc',
+	                                        ),
+	                                    ),
+	                                ),
+	                            ),
+	                        ),
+	                    ),
 	                ),
 	            ));				
 				
@@ -1666,6 +1687,7 @@ class InstytucjeController extends DataobjectsController
                         ),
                     ),
                 ),
+                'scope' => 'global',
                 'aggs' => array(
                     'dni' => array(
 						'date_histogram' => array(
@@ -1714,12 +1736,7 @@ class InstytucjeController extends DataobjectsController
                     'plugin' => 'Dane',
                     'element' => 'instytucje/zamowienia-cover',
                 ),
-                'aggs' => array(
-                    'all' => array(
-                        'global' => '_empty',
-                        'aggs' => $global_aggs,
-                    ),
-                ),
+                'aggs' => $global_aggs,
             ),
         );
 

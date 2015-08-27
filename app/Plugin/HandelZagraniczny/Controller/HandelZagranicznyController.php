@@ -6,7 +6,8 @@ App::uses('ApplicationsController', 'Controller');
 class HandelZagranicznyController extends ApplicationsController
 {
     public $settings = array(
-        'id' => 'handel_zagraniczny'
+        'id' => 'handel_zagraniczny',
+        'title' => 'Handel zagraniczny',
     );
 
     public function prepareMetaTags()

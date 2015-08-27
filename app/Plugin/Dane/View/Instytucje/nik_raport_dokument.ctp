@@ -16,7 +16,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
 ?><div class="prawo row">
 
-    <div class="col-md-12">
+    <div class="col-md-9">
         <div class="object">
             <?= $this->Document->place($dokument->getData('dokument_id')) ?>
         </div>
