@@ -26,7 +26,7 @@ $this->Combinator->add_libs('css', $this->Less->css('twitter-account-suggestion'
             </div>
             <form class="form-horizontal" method="post">
                 <div class="modal-body margin-sides-20">
-                    <p>W naszych bazach gromadzimy aktywności osób publicznych, organizacji i urzędów. Jeśli chcesz, abyśmy analizowali również Twój profil, wypełnij poniższy formularz:</p>
+                    <p class="text-center">W naszych bazach gromadzimy aktywności osób publicznych, organizacji i urzędów. Jeśli chcesz, abyśmy analizowali również Twój profil, wypełnij poniższy formularz:</p>
 
                     <div class="form-cont">
 	                    <div class="form-group">
@@ -52,6 +52,8 @@ $this->Combinator->add_libs('css', $this->Less->css('twitter-account-suggestion'
 	                        </span>
 	                    </div>
                     </div>
+                    
+                    <p class="text-center">Po weryfikacji Twojego konta, dodamy je do naszej bazy.</p>
 
                 </div>
                 <div class="modal-footer text-center">

@@ -37,24 +37,20 @@ class TwitterAccountsController extends DataobjectsController
 	         
         }
 
-        $powiazania = $this->object->loadLayer('powiazania');
-
-        if (
-            isset($powiazania['posel_id']) &&
-            $powiazania['posel_id']
-        ) {
-
-            return $this->redirect('/dane/poslowie/' . $powiazania['posel_id'] . '/twitter');
-
-        }
 
         $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
                 'dataset' => 'twitter',
                 'twitter.twitter_account_id' => $this->object->getId(),
             ),
+            'cover' => array(
+                'view' => array(
+                    'plugin' => 'Dane',
+                    'element' => 'twitter_accounts/cover',
+                ),
+                'aggs' => array(),
+            ),
         ));
-        // $this->set('DataBrowserTitle', 'Grupy wskaźników w tej kategorii');
         $this->render('Dane.DataBrowser/browser');
 
     }

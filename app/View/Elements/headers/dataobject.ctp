@@ -27,25 +27,28 @@ if (!isset($renderFile) || !$renderFile)
                             </li>
                         <? } ?>
                     </ul>
-
-                    <div class="title<? if (isset($treeList)) echo ' hide'; ?>">
-                        <h1 class="smaller">
-                            <?php if ($object->getUrl() != false){ ?>
-                            <a class="trimTitle" href="<?= $object->getUrl() ?>"
-                               title="<?= htmlspecialchars(strip_tags($object->getTitle())) ?>">
-                                <?php } ?>
-                                <?= $object->geticon() ?>
-                                <div
-                                    class="titleName"<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= $object->getTitle() ?></div>
-
-                                <?php if ($object->getUrl() != false){ ?>
-                            </a>
-                        <? if ($object->getTitleAddon()) {
-                            echo '<small>' . $object->getTitleAddon() . '</small>';
-                        } ?>
-                        <?php } ?>
-                        </h1>
-                    </div>
+					
+					<? if( !isset($objectOptions['renderTitle']) || $objectOptions['renderTitle'] ) { ?>
+	                    <div class="title<? if (isset($treeList)) echo ' hide'; ?>">
+	                        <h1 class="smaller">
+	                            <?php if ($object->getUrl() != false){ ?>
+	                            <a class="trimTitle" href="<?= $object->getUrl() ?>"
+	                               title="<?= htmlspecialchars(strip_tags($object->getTitle())) ?>">
+	                                <?php } ?>
+	                                <?= $object->geticon() ?>
+	                                <div
+	                                    class="titleName"<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= $object->getTitle() ?></div>
+	
+	                                <?php if ($object->getUrl() != false){ ?>
+	                            </a>
+	                        <? if ($object->getTitleAddon()) {
+	                            echo '<small>' . $object->getTitleAddon() . '</small>';
+	                        } ?>
+	                        <?php } ?>
+	                        </h1>
+	                    </div>
+                    <? } ?>
+                    
                 </div>
                 <?php if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
                     <div class="col-md-2 options">

@@ -1,65 +1,4 @@
-<?
-
-$this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
-$this->Combinator->add_libs('css', $this->Less->css('media-cover', array('plugin' => 'Media')));
-
-$this->Combinator->replace_lib_or_add('js', '../plugins/highcharts/js/highcharts', '../plugins/highstock/js/highstock');
-$this->Combinator->replace_lib_or_add('js', '../plugins/highcharts/locals', '../plugins/highstock/locals');
-$this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
-$this->Combinator->add_libs('js', 'jquery-tags-cloud-min');
-$this->Combinator->add_libs('js', 'Media.media-cover');
-
-$options = array(
-    'mode' => 'init',
-);
-
-?>
-
-<div class="col-xs-12 col-md-3 dataAggsContainer">
-    <div class="sticky">
-	    <? echo $this->Element('Dane.DataBrowser/aggs', array(
-	        	'data' => $dataBrowser,
-	    )); ?>
-	
-	    <? if(isset($twitterAccountTypes)) { ?>
-	        <?= $this->Element('Media.twitter-account-suggestion', array(
-	            'types' => $twitterAccountTypes
-	        )); ?>
-	    <? } ?>
-    </div>
-</div>
-
-<div class="col-xs-12 col-md-9">
-
-	<div class="dataWrap">
-
-		<div class="appBanner">
-			<h1 class="appTitle">Media społecznościowe</h1>
-			<p class="appSubtitle">Zobacz kto i jak wykorzystuje media społecznościowe w debacie publicznej.</p>
-		</div>
-
-	</div>
-
-	<div id="accountsSwitcher" class="appMenuStrip row">
-		<div class="dataWrap">
-	    <? if(isset($twitterAccountTypes) && isset($twitterAccountType)) { ?>
-	        <div class="appSwitchers">
-		        <p class="_label">Analizowane konta:</p>
-		        <ul class="nav nav-pills">
-		            <? foreach($twitterAccountTypes as $type => $label) { ?>
-		                <li<? if($twitterAccountType == $type) echo ' class="active"' ?>>
-		                    <a href="/media<? if($type != '0') echo '?type=' . $type ?>">
-		                        <?= $label ?>
-		                    </a>
-		                </li>
-		            <? } ?>
-		        </ul>
-	        </div>
-	    <? } ?>
-		</div>
-	</div>
-
-    <div class="mediaHighstockPicker">
+<div class="mediaHighstockPicker">
         <div class="chart" data-aggs='<?= json_encode($dataBrowser['aggs']['tweets']['histogram']['histogram']) ?>'>
             <div class="spinner grey">
                 <div class="bounce1"></div>
@@ -75,7 +14,7 @@ $options = array(
 	<div class="dataWrap">
 		<? if( @$dataBrowser['aggs']['tweets']['timerange']['top']['hits']['hits'] ) { ?>
 		    <div class="block col-xs-12">
-		        <header>Najpopularniejsze treści na Twitterze:</header>
+		        <header>Najpopularniejsze tre?ci na Twitterze:</header>
 		        <section class="aggs-init">
 		            <div class="dataAggs">
 		                <div class="agg agg-Dataobjects">
@@ -135,7 +74,7 @@ $options = array(
 
 	    <? if(@$dataBrowser['aggs']['tweets_whitout_account_type_id']['types']['buckets']) { ?>
 	        <div class="block col-xs-12">
-	            <header>Najczęściej używane aplikacje:</header>
+	            <header>Najcz??ciej u?ywane aplikacje:</header>
 	            <section class="aggs-init margin-sides-10">
 	                <div class="row">
 		                <? foreach( $dataBrowser['aggs']['tweets_whitout_account_type_id']['types']['buckets'] as $b ) { ?>
@@ -158,5 +97,3 @@ $options = array(
 	    <? } ?>
 
 	</div>
-
-</div>

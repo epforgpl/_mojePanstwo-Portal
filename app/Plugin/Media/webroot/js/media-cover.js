@@ -5,8 +5,9 @@ $(document).ready(function() {
 	$('#accountsSwitcher').sticky({
 		widthFromWrapper: false
 	});
-
-
+	
+	$('.sticky').sticky();
+	
 	// TAGS CLOUD
 
 	var tagsCloud = $("#tagsCloud");
