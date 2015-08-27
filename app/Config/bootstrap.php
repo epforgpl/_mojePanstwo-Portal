@@ -98,7 +98,8 @@ Configure::write( 'Dispatcher.filters', array(
 	'AssetDispatcher',
 	'CacheDispatcher'
 ) );
-CakePlugin::loadAll(
+
+$plugin_definitions =
 	array(
 		array( 'routes' => true, 'bootstrap' => true ),
 		'DebugKit'      => array( 'routes' => false ),
@@ -122,8 +123,13 @@ CakePlugin::loadAll(
 		'Mapaprawa'     => array( 'routes' => true, 'bootstrap' => false ),
 		'Kultura'       => array( 'routes' => true, 'bootstrap' => false ),
 		'Finanse'       => array( 'routes' => true, 'bootstrap' => false ),
-	)
-);
+	);
+
+if (defined('SENTRY_DSN_PHP')) {
+	$plugin_definitions['Sentry'] = array();
+}
+
+CakePlugin::loadAll($plugin_definitions);
 /**
  * Configures default file logging options
  */
@@ -138,7 +144,6 @@ CakeLog::config( 'error', array(
 	'types'  => array( 'warning', 'error', 'critical', 'alert', 'emergency' ),
 	'file'   => 'error',
 ) );
-
 
 //setlocale(LC_ALL, 'pl_PL');
 require_once 'endpoints.php';

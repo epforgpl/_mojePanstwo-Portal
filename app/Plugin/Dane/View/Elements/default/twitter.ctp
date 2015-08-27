@@ -12,6 +12,16 @@
     )) ?></span>
 </p>
 
+<? if( $object->getOptions('page') ) { ?>
+	
+	<blockquote class="_"><?= $object->getData('html') ?></blockquote>
+    
+    <? if ($object->getData('photo_url')) { ?>
+	    <img class="media" src="<?= $object->getData('photo_url') ?>" onerror="imgFixer(this)" />
+	<? } ?>
+	
+<? } else { ?>
+
 <a href="/dane/twitter/<?= $object->getId() ?>">
     
     <blockquote class="_"><?= strip_tags($object->getData('html')) ?></blockquote>
@@ -21,6 +31,9 @@
 	<? } ?>
 	
 </a>
+
+<? } ?>
+
 
 <? if ($object->getData('twitter_account_id')) { ?>
     <div class="tweet_stats">

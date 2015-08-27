@@ -14,18 +14,24 @@
                     wersją) oraz system operacyjnym, na którym błąd występuje. Dzięki czemu będziemy w stanie łatwiej
                     odtworzyć błąd w celu diagnozy i naprawienia go.</p>
 
-                <?php /*echo $this->Html->link('<i class="fa fa-envelope-o"></i>Wyślij zgłoszenie za pomocą formularza', 'https://gitreports.com/issue/epforgpl/_mojePanstwo-Portal', array(
-                    'class' => 'btn btn-social btn-reddit',
-                    'target' => '_blank',
-                    'escape' => false
-                )); */ ?>
-                <?php echo $this->Html->link('<i class="fa fa-github"></i>Powiadom bezpośrednio w serwisie GitHub', 'https://github.com/epforgpl/_mojePanstwo-Portal/issues?state=open', array(
-                    'class' => 'btn btn-social btn-github',
+                <?php echo $this->Html->link('<i class="fa fa-github"></i>Powiadom bezpośrednio w serwisie GitHub', 'https://github.com/epforgpl/_mojePanstwo-Portal/issues/new', array(
+                    'class' => 'btn btn-social btn-github sliceBtn',
                     'target' => '_blank',
                     'escape' => false
                 )); ?>
             </section>
+            <section>
+                <p>Jeśli znajdują się u nas jakies błędy krytyczne bądź błędy bezpieczeństwa - prosimy wtedy o
+                    zgłoszenia droga mailową, aby nie upubliczniać informacji o wykrytej dziurze/błędzie.</p>
 
+                <div class="input-group sliceBtn">
+                    <span class="input-group-btn">
+                        <a class="btn btn-default glyphicon glyphicon-envelope" type="button"
+                           href="mailto:security@mojepanstwo.pl"></a>
+                    </span>
+                    <input type="text" class="form-control" value="security@mojepanstwo.pl" readonly>
+                </div>
+            </section>
         </div>
     </div>
 </div>

@@ -12,6 +12,7 @@ app/[Cc]onfig/email.php
 /app/Plugin/Minify
 /app/Plugin/BoostCake
 /app/Plugin/Composer/Vendor/Composer/composer.phar
+/app/Plugin/Sentry
 /app/Vendor/autoload.php
 /app/Vendor/composer
 /app/Vendor/leafo

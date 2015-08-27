@@ -18,13 +18,13 @@ class TwitterController extends DataobjectsController
 
     public $objectOptions = array(
         'hlFields' => array(),
+        'renderTitle' => false,
     );
 
     public function view()
     {
 
-        $this->feed();
-        $this->render('view');
+        $this->load();
 
     }
 

@@ -39,27 +39,6 @@ include( 'constants.php' );
 //Configure::write('debug', 2); // should be set in constants.php
 
 /**
- * Configure the Error handler used to handle errors for your application. By default
- * ErrorHandler::handleError() is used. It will display errors using Debugger, when debug > 0
- * and log errors with CakeLog when debug = 0.
- *
- * Options:
- *
- * - `handler` - callback - The callback to handle errors. You can set this to any callable type,
- *   including anonymous functions.
- *   Make sure you add App::uses('MyHandler', 'Error'); when using a custom handler class
- * - `level` - integer - The level of errors you are interested in capturing.
- * - `trace` - boolean - Include stack traces for errors in log files.
- *
- * @see ErrorHandler for more information on error handling and configuration.
- */
-Configure::write( 'Error', array(
-    'handler' => 'ErrorHandler::handleError',
-    'level'   => E_ALL & ~E_DEPRECATED & ~E_STRICT,
-    'trace'   => true
-) );
-
-/**
  * Configure the Exception handler used for uncaught exceptions. By default,
  * ErrorHandler::handleException() is used. It will display a HTML page for the exception, and
  * while debug > 0, framework errors like Missing Controller will be displayed. When debug = 0,
@@ -79,12 +58,50 @@ Configure::write( 'Error', array(
  *
  * @see ErrorHandler for more information on exception handling and configuration.
  */
-Configure::write( 'Exception', array(
-    'handler'  => 'ErrorHandler::handleException',
-    'renderer' => 'AppExceptionRenderer',
-    'log'      => true,
-    'skipLog'  => array( 'MissingActionException', 'MissingControllerException' )
-) );
+
+if (defined('SENTRY_DSN_PHP')) {
+    App::uses('SentryErrorHandler', 'Sentry.Lib');
+
+    Configure::write('Sentry', array(
+        'production_only' => false, // true is default value -> no error in sentry when debug
+        'avoid_bot_scan_errors' => 'MissingController or MissingPlugin error message', // or false if you want Sentry to log MissingController and MissingPlugin Exceptions
+//    'User' => array(
+//        'model' => 'SpecialUser', // 'User' is default value
+//        'email_field' => 'special_email' // default checks 'email' and 'mail' fields
+//    ),
+        'PHP' => array(
+            'server' => SENTRY_DSN_PHP
+        ),
+        'javascript' => array(
+            'server' => SENTRY_DSN_JS
+        )
+    ));
+
+    Configure::write('Error', array(
+        'handler' => 'SentryErrorHandler::handleError',
+        'level' => E_ALL,
+        'trace' => true
+    ));
+
+    Configure::write('Exception', array(
+        'handler' => 'SentryErrorHandler::handleException',
+        'renderer' => 'AppExceptionRenderer'
+    ));
+
+} else {
+    Configure::write('Error', array(
+        'handler' => 'ErrorHandler::handleError',
+        'level' => E_ALL & ~E_DEPRECATED & ~E_STRICT,
+        'trace' => true
+    ));
+
+    Configure::write('Exception', array(
+        'handler' => 'ErrorHandler::handleException',
+        'renderer' => 'AppExceptionRenderer',
+        'log' => true,
+        'skipLog' => array('MissingActionException', 'MissingControllerException')
+    ));
+}
 
 /**
  * Application wide charset encoding
