@@ -5,9 +5,9 @@ $(document).ready(function() {
 	$('#accountsSwitcher').sticky({
 		widthFromWrapper: false
 	});
-	
+
 	$('.sticky').sticky();
-	
+
 	// TAGS CLOUD
 
 	var tagsCloud = $("#tagsCloud");
@@ -117,7 +117,7 @@ $(document).ready(function() {
 								start = new Date(extremes.min),
 								end   = new Date(extremes.max);
 
-							apply.attr('href', '/media?conditions[_date]=' + '['
+							apply.attr('href', '?conditions[_date]=' + '['
 								+ dateToYYYYMMDD(start)
 								+ ' TO '
 								+ dateToYYYYMMDD(end)
