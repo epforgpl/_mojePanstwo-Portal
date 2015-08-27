@@ -8,7 +8,6 @@ $this->Combinator->replace_lib_or_add('js', '../plugins/highcharts/locals', '../
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 $this->Combinator->add_libs('js', 'jquery-tags-cloud-min');
 $this->Combinator->add_libs('js', 'Media.media-cover');
-$this->Combinator->add_libs('js', 'Dane.DataAggsDropdown.js');
 
 $options = array(
     'mode' => 'init',
@@ -59,20 +58,18 @@ $options = array(
 		</div>
 	</div>
 
-    <ul class="nav nav-pills margin-top-10 dataAggsDropdownList nopadding" role="tablist">
-        <li role="presentation" class="dropdown dataAggsDropdown"
-            data-skin="highstockPicker"
-            data-choose-request="/media?&conditions[_date]="
-            data-aggs='<?= json_encode($dataBrowser['aggs']['tweets']['histogram']['histogram']) ?>'
-            data-all-label="Cały czas"
-            data-range="hour">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                Dzisiaj
-                <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu"></ul>
-        </li>
-    </ul>
+    <div class="mediaHighstockPicker">
+        <div class="chart" data-aggs='<?= json_encode($dataBrowser['aggs']['tweets']['histogram']['histogram']) ?>'>
+            <div class="spinner grey">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+        </div>
+        <div class="text-center">
+            <a href="#"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Zastosuj</a>
+        </div>
+    </div>
 
 	<div class="dataWrap">
 		<? if( @$dataBrowser['aggs']['tweets']['timerange']['top']['hits']['hits'] ) { ?>
