@@ -176,7 +176,7 @@ $this->Combinator->add_libs('js', '../plugins/highcharts/locals');
             <div class="dataAggs">
                 <div class="agg agg-Dataobjects">
                     <div id="wydatki_budzetu_wg_czesci"></div>
-                    <div id="wydatki_budzetu_wg_czesci2"></div>
+                    <div id="wydatki_budzetu_wg_czesci2" class="hidden"></div>
 <small>Kliknij w interesujący wycinek wykresu, aby uzyskać więcej danych</small>
                 </div>
             </div>
