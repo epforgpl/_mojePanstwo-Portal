@@ -115,19 +115,16 @@ $plugin_definitions =
 		'Pisma'         => array( 'routes' => true, 'bootstrap' => false ),
 		'MojaGmina'     => array( 'routes' => true, 'bootstrap' => false ),
 		'Powiadomienia' => array( 'routes' => true, 'bootstrap' => false ),
-		'Orzecznictwo' => array( 'routes' => true, 'bootstrap' => false ),
-		'Ngo' => array( 'routes' => true, 'bootstrap' => false ),
+        'Orzecznictwo' => array('routes' => true, 'bootstrap' => false),
+        'Ngo' => array('routes' => true, 'bootstrap' => false),
 		'Media'         => array( 'routes' => true, 'bootstrap' => false ),
 		'OAuth'         => array( 'bootstrap' => false, 'routes' => true ),
 		'Combinator'    => array( 'bootstrap' => false, 'routes' => false ),
 		'Mapaprawa'     => array( 'routes' => true, 'bootstrap' => false ),
 		'Kultura'       => array( 'routes' => true, 'bootstrap' => false ),
 		'Finanse'       => array( 'routes' => true, 'bootstrap' => false ),
+        'Sentry' => array('routes' => false, 'bootstrap' => false),
 	);
-
-if (defined('SENTRY_DSN_PHP')) {
-	$plugin_definitions['Sentry'] = array();
-}
 
 CakePlugin::loadAll($plugin_definitions);
 /**

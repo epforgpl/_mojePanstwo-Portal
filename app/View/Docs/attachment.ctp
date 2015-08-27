@@ -63,7 +63,7 @@ $this->Combinator->add_libs('css', $this->Less->css('Docs/attachment'));
 
                     <p class="_value"><a href="<?= $doc['Document']['url'] ?>" target="_blank">LINK</a></p>
                 </li>
-                <? /* if (isset($isAdmin) || $isAdmin == true) { ?>
+                <? /* if (isset($isAdmin) && $isAdmin == true) { ?>
                     <li>
                         <a href="/docs/<?= $doc['Document']['id'] ?>/edit"
                         <button class="btn btn-primary">Edytuj</button>
