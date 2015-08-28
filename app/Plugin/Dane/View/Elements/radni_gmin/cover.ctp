@@ -1,7 +1,6 @@
 <?
-
-$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
-$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
 $options = array(
@@ -406,7 +405,7 @@ if ($okreg) {
         </ul>
     <? } ?>
     <? if ($okreg) { ?>
-    	
+
         <a class="okregiBlock margin-top-10" href="/dane/gminy/903,krakow/okregi/<?= $okreg[2] ?>" target="_self">
             <h2>Okręg nr. <?= $okreg[2] ?></h2>
 

@@ -1,10 +1,12 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('htmlexDocMain_v1')); ?>
-<?php $this->Combinator->add_libs('css', $this->Less->css('mapaprawa', array('plugin' => 'Mapaprawa'))) ?>
+<?php
+$this->Combinator->add_libs('css', $this->Less->css('htmlexDocMain_v1'));
+$this->Combinator->add_libs('css', $this->Less->css('mapaprawa', array('plugin' => 'Mapaprawa')));
 
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts'); ?>
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals'); ?>
-<?php $this->Combinator->add_libs('js', 'Mapaprawa.highcharts-init'); ?>
-<?php $this->Combinator->add_libs('js', 'Mapaprawa.mapaprawa-graph'); ?>
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
+$this->Combinator->add_libs('js', 'Mapaprawa.highcharts-init');
+$this->Combinator->add_libs('js', 'Mapaprawa.mapaprawa-graph');
+?>
 
 <?php echo $this->Html->script('//cdn.jsdelivr.net/raphael/2.1.0/raphael-min.js', array('block' => 'scriptBlock')); ?>
 <?php echo $this->Html->script('//cdn.jsdelivr.net/jsrender/1.0pre35/jsrender.min.js', array('block' => 'scriptBlock')); ?>

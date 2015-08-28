@@ -1,7 +1,9 @@
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts'); ?>
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals'); ?>
-<?php $this->Combinator->add_libs('js', 'Dane.view-sejmglosowania'); ?>
-<?php $this->Combinator->add_libs('css', $this->Less->css('view-sejmglosowania', array('plugin' => 'Dane'))); ?>
+<?php
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
+$this->Combinator->add_libs('js', 'Dane.view-sejmglosowania');
+$this->Combinator->add_libs('css', $this->Less->css('view-sejmglosowania', array('plugin' => 'Dane')));
+?>
 
 <?= $this->Element('dataobject/pageBegin') ?>
 

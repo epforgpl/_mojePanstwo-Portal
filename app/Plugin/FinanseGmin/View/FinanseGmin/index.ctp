@@ -1,8 +1,9 @@
-<? $this->Combinator->add_libs('css', $this->Less->css('sections', array('plugin' => 'FinanseGmin'))); ?>
+<?
+$this->Combinator->add_libs('css', $this->Less->css('sections', array('plugin' => 'FinanseGmin')));
 
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts'); ?>
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals'); ?>
-<?php $this->Combinator->add_libs('js', 'FinanseGmin.dzialy.js') ?>
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
+$this->Combinator->add_libs('js', 'FinanseGmin.dzialy.js') ?>
 
 <div class="container">
     <div class="col-md-10 col-md-offset-1 text-center">

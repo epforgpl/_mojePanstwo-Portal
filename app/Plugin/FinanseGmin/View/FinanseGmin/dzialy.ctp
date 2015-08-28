@@ -1,10 +1,8 @@
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts'); ?>
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals'); ?>
+<?php
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
 
-<?php $this->Combinator->add_libs('css', $this->Less->css('sections', array('plugin' => 'Finanse'))) ?>
-<?php $this->Combinator->add_libs('js', 'Finanse.dzialy.js') ?>
-
-<?
+$this->Combinator->add_libs('css', $this->Less->css('sections', array('plugin' => 'Finanse')));
 $this->Combinator->add_libs('js', 'Finanse.dzialy.js');
 ?>
 

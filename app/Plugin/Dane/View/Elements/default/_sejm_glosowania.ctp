@@ -1,8 +1,9 @@
 <?= $this->Dataobject->highlights() ?>
-
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts'); ?>
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals'); ?>
-<?php $this->Combinator->add_libs('js', 'Dane.highcharts-sejm_glosowania'); ?>
+<?
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
+$this->Combinator->add_libs('js', 'Dane.highcharts-sejm_glosowania');
+?>
 
 <?
 $wynikiKlubowe = array();

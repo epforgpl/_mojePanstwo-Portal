@@ -1,8 +1,8 @@
 <?
 
 $this->Combinator->add_libs('css', $this->Less->css('zamowienia', array('plugin' => 'ZamowieniaPubliczne')));
-// $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
-// $this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+//$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+//$this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
 $options = array(
@@ -114,7 +114,7 @@ $options = array(
 
 
     <? } else { ?>
-	
+
 		<? if (@$dataBrowser['aggs']['prawo']['top']['hits']['hits']) { ?>
         <div class="block block-simple block-size-sm col-xs-12">
             <header>Najnowsze prawo lokalne</header>
@@ -122,7 +122,7 @@ $options = array(
             <section class="aggs-init">
                 <div class="dataAggs">
                     <div class="agg agg-Dataobjects">
-                        
+
                             <ul class="dataobjects">
                                 <? foreach ($dataBrowser['aggs']['prawo']['top']['hits']['hits'] as $doc) { ?>
                                     <li>
@@ -139,11 +139,11 @@ $options = array(
                     </div>
                 </div>
             </section>
-        </div>        
+        </div>
 	    <? } ?>
-	    
+
     <? } ?>
-    
+
     <? if (@$dataBrowser['aggs']['zamowienia_publiczne_dokumenty']['dni']['buckets']) { ?>
         <div class="block block-simple block-size-sm col-xs-12">
             <header>Rozstrzygnięcia zamówień publicznych:</header>
@@ -155,8 +155,8 @@ $options = array(
                     ),
                     'more' => $object->getUrl() . '/zamowienia',
                     'aggs' => array(
-                    	'stats' => array(), 
-                    	'dokumenty' => array(), 
+                        'stats' => array(),
+                        'dokumenty' => array(),
                     ),
                 )); ?>
             </section>
@@ -216,8 +216,8 @@ $options = array(
     echo $this->element('tools/pismo', array(
 	    'label' => '<strong>Wyślij pismo</strong> do urzędu tej gminy',
     ));
-	
-	if( $object->getId()!=903 ) {
+
+if( $object->getId()!=903 ) {
 	    $page = $object->getLayer('page');
 	    if (!$page['moderated'])
 	        echo $this->element('tools/admin', array(
@@ -226,7 +226,7 @@ $options = array(
     }
     ?>
 
-	
+
     <? if ($object->getId() == 903) { ?>
 
         <div class="block block-default col-md-12">

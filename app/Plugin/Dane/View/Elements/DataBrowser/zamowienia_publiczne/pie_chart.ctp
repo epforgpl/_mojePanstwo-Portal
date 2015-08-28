@@ -1,6 +1,6 @@
 <?
-$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
-$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
 
 foreach ($data['buckets'] as &$d) {
     $d['doc_count'] = $d['wartosc_cena']['value'];

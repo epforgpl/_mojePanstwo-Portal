@@ -1,7 +1,6 @@
 <?
-
-$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
-$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
 $options = array(
@@ -38,7 +37,7 @@ $options = array(
                 </div>
             </div>
         <? } ?>
-        
+
         <? if (isset($osoba) && ($organizacje = $osoba->getLayer('organizacje'))) { ?>
             <div class="databrowser-panel">
                 <h2>Powiązania w KRS:</h2>

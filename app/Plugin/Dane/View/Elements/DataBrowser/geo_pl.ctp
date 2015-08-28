@@ -1,7 +1,7 @@
 <?
-$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
-$this->Combinator->add_libs('js', '../plugins/highmaps/js/modules/map');
-$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/plugin/map');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
 ?>
 
 <? if (!isset($this->request->query['conditions'][$map['field']])) { ?>

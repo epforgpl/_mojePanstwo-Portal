@@ -1,19 +1,8 @@
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts'); ?>
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals'); ?>
+<?php
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
 
-<?php $this->Combinator->add_libs('css', $this->Less->css('sections', array('plugin' => 'Finanse'))) ?>
-<?php $this->Combinator->add_libs('js', 'Finanse.dzialy.js') ?>
-
-<? /*
-<?php $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane'))) ?>
-<?php //$this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane'))) ?>
-<?php $this->Combinator->add_libs('css', $this->Less->css('zamowienia', array('plugin' => 'ZamowieniaPubliczne'))) ?>
-
-<?php $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock'); ?>
-<?php $this->Combinator->add_libs('js', '../plugins/highstock/locals'); ?>
-<?php $this->Combinator->add_libs('js', 'ZamowieniaPubliczne.zamowieniapubliczne') ?>
-*/
-
+$this->Combinator->add_libs('css', $this->Less->css('sections', array('plugin' => 'Finanse')));
 $this->Combinator->add_libs('js', 'Finanse.dzialy.js');
 ?>
 

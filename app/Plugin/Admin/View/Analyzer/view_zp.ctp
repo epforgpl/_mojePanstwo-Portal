@@ -1,6 +1,8 @@
 <?php
-$this->Combinator->add_libs('js','Admin.highcharts');
-$this->Combinator->add_libs('js','Admin.highcharts-more');
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock-more');
+$this->Combinator->add_libs('js', '../plugins/highstock/js/locals');
+
 $this->Combinator->add_libs('js','Admin.timeago');
 $this->Combinator->add_libs('js','Admin.refresher');
 $this->Combinator->add_libs('css','Admin.Analyzer/view');
