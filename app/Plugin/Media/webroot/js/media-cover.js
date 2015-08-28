@@ -51,7 +51,7 @@ $(document).ready(function() {
 		highchart = chart.highcharts('StockChart', {
 			chart: {
 				width: $(this.li).parent('.dataAggsDropdownList').first().outerWidth(),
-				height: 210,
+				height: 200,
 				backgroundColor: 'transparent',
 				events: {
 					load: function () {
@@ -61,7 +61,7 @@ $(document).ready(function() {
 				}
 			},
 			navigator: {
-				height: 140,
+				height: 172,
 				yAxis: {
 					tickWidth: 0,
 					lineWidth: 0,
@@ -77,20 +77,7 @@ $(document).ready(function() {
 				enabled: false
 			},
 			rangeSelector: {
-				buttons : [{
-					type : 'day',
-					count : 1,
-					text : '1D'
-				}, {
-					type : 'month',
-					count : 1,
-					text : '1M'
-				}, {
-					type : 'all',
-					count : 1,
-					text : 'All'
-				}],
-				selected : 0
+				enabled: false
 			},
 			title: {
 				text: ''

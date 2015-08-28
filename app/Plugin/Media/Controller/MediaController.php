@@ -20,8 +20,16 @@ class MediaController extends ApplicationsController
         '8' => 'Partie',
         '9' => 'NGO'
     );
+    
+    private $twitterTimeranges = array(
+        'LAST_DAY' => 'Ostatnia doba',
+        'LAST_WEEK' => 'Tydzień',
+        'LAST_MONTH' => 'Miesiąc',
+        'LAST_YEAR' => 'Rok',
+    );
 
     private $twitterAccountType = '0';
+    private $twitterTimerange = 'LAST_DAY';
 
     public function prepareMetaTags()
     {
@@ -74,6 +82,9 @@ class MediaController extends ApplicationsController
 
         $this->set('twitterAccountTypes', $this->twitterAccountTypes);
         $this->set('twitterAccountType', $this->twitterAccountType);
+        
+        $this->set('twitterTimeranges', $this->twitterTimeranges);
+        $this->set('twitterTimerange', $this->twitterTimerange);
 
         $options = array(
             'searchTitle' => 'Szukaj w tweetach i kontach Twitter...',
@@ -179,7 +190,7 @@ class MediaController extends ApplicationsController
 								                ),
 							                ),
 							                'size' => 5,
-							                'fielddata_fields' => array('dataset', 'id'),
+							                'fielddata_fields' => array('dataset', 'id', 'date'),
 						                ),
 					                ),
 					                'accounts' => array(

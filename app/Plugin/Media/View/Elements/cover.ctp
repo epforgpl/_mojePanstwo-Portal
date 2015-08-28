@@ -41,25 +41,44 @@ $options = array(
 	</div>
 
 	<div id="accountsSwitcher" class="appMenuStrip row">
-		<div class="dataWrap">
+		
 	    <? if(isset($twitterAccountTypes) && isset($twitterAccountType)) { ?>
 	        <div class="appSwitchers">
-		        <p class="_label">Analizowane konta:</p>
-		        <ul class="nav nav-pills">
-		            <? foreach($twitterAccountTypes as $type => $label) { ?>
-		                <li<? if($twitterAccountType == $type) echo ' class="active"' ?>>
-		                    <a href="/media<? if($type != '0') echo '?type=' . $type ?>">
-		                        <?= $label ?>
-		                    </a>
-		                </li>
-		            <? } ?>
-		        </ul>
+		        <div class="dataWrap">
+			        <p class="_label">Analizowane konta:</p>
+			        <ul class="nav nav-pills">
+			            <? foreach($twitterAccountTypes as $type => $label) { ?>
+			                <li<? if($twitterAccountType == $type) echo ' class="active"' ?>>
+			                    <a href="/media<? if($type != '0') echo '?type=' . $type ?>">
+			                        <?= $label ?>
+			                    </a>
+			                </li>
+			            <? } ?>
+			        </ul>
+		        </div>
 	        </div>
 	    <? } ?>
-		</div>
+	    
+	    <? if(isset($twitterTimeranges) && isset($twitterTimerange)) { ?>
+	    	<div class="appSwitchers">
+		        <div class="dataWrap">
+			        <p class="_label">Analizowany zakres:</p>
+			        <ul class="nav nav-pills">
+			            <? foreach($twitterTimeranges as $type => $label) { ?>
+			                <li<? if($twitterTimerange == $type) echo ' class="active"' ?>>
+			                    <a href="/media<? if($type != '0') echo '?type=' . $type ?>">
+			                        <?= $label ?>
+			                    </a>
+			                </li>
+			            <? } ?>
+			        </ul>
+		        </div>
+	        </div>
+	    <? } ?>
+	    
 	</div>
 
-    <div class="mediaHighstockPicker">
+    <div class="mediaHighstockPicker row">
         <div class="chart" data-aggs='<?= json_encode($dataBrowser['aggs']['tweets']['histogram']['histogram']) ?>'>
             <div class="spinner grey">
                 <div class="bounce1"></div>
@@ -71,16 +90,27 @@ $options = array(
             <a href="#"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Zastosuj</a>
         </div>
     </div>
-
+	
 	<div class="dataWrap">
-		<? if( @$dataBrowser['aggs']['tweets']['timerange']['top']['hits']['hits'] ) { ?>
+		<? 
+		if( $hits = @$dataBrowser['aggs']['tweets']['timerange']['top']['hits']['hits'] ) { 
+			
+			$docs = array();
+			foreach( $hits as $hit )
+				$docs[ $hit['fields']['date'][0] ] = $hit;
+			
+			unset( $hits );
+			krsort($docs);
+			$docs = array_values($docs);			
+				
+		?>
 		    <div class="block col-xs-12">
 		        <header>Najpopularniejsze treści na Twitterze:</header>
 		        <section class="aggs-init">
 		            <div class="dataAggs">
 		                <div class="agg agg-Dataobjects">
 		                    <ul class="dataobjects">
-		                        <? foreach ($dataBrowser['aggs']['tweets']['timerange']['top']['hits']['hits'] as $doc) { ?>
+		                        <? foreach($docs as $doc) { ?>
 		                            <li>
 		                                <?= $this->Dataobject->render($doc, 'default') ?>
 		                            </li>

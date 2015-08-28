@@ -384,10 +384,18 @@ a.link-discrete {
 }
 
 .appMenuStrip {
-	background-color: #F3F3F3;
-	border-top: 1px solid #ECECEC;
+	background-color: #f8f9fa;
+	border-top: 1px solid #DDD;
 	border-bottom: 1px solid #ECECEC;
-    z-index: 1;
+    z-index: 100;
+    margin-top: -1px;
+    
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=6, Direction=104, Color=#f2f2f2)";
+    -moz-box-shadow: 8px 2px 6px #f2f2f2 inset;
+    -webkit-box-shadow: 8px 2px 6px #f2f2f2 inset;
+    box-shadow: 8px 2px 6px #f2f2f2 inset;
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=6, Direction=104, Color=#f2f2f2);
+    
 }
 
 .sticky-wrapper.is-sticky .appMenuStrip {
@@ -396,17 +404,23 @@ a.link-discrete {
 
 .appSwitchers {
 	overflow: auto;
-	padding: 10px 0;
+	padding: 5px 0;
+	border-bottom: 1px solid #DDD;
+	
+	&:last-child {
+		border-bottom: none;
+	}
+	
 	._label {
 		float: left;
 		margin: 5px 10px;
 		padding: 0;
 	}
 	.nav {
-		margin-top: -5px;
 		> li {
 			> a {
-				padding: 5px 10px;
+				padding: 2px 7px;
+				margin: 4px 2px;
 			}
 		}
 	}
