@@ -48,11 +48,10 @@
                     class="glyphicon glyphicon-comment"></span> <?= $object->getData('liczba_odpowiedzi') ?>
             </p>
         
-        <? /* ?> 
-        <p class="_counter"><a title="Źródło" target="_blank"
-                               href="https://twitter.com/<?= $object->getData('twitter_user_screenname') ?>/statuses/<?= $object->getData('twitt_id') ?>"><span
-                    class="glyphicon glyphicon-new-window"></span> &nbsp;</a></p>
-        <? */ ?>
-        
     </div>
 <? } ?>
+
+
+<p class="_src margin-top-20"><a title="Źródło" target="_blank"
+                               href="https://twitter.com/<?= $object->getData('twitter_user_screenname') ?>/statuses/<?= $object->getData('src_id') ?>"><span
+                    class="glyphicon glyphicon-new-window"></span> Źródło</a></p>

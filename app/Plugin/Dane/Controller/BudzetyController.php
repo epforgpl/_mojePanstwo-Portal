@@ -68,6 +68,12 @@ class BudzetyController extends DataobjectsController
     {
         $this->_prepareView();
     }
+    
+    public function tresc() {
+		
+		$this->_prepareView();
+		
+	}
 
     private function connections_view($id, $title)
     {

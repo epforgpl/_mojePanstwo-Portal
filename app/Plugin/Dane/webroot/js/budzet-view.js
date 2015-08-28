@@ -41,13 +41,17 @@ $(document).ready(function () {
 					enabled: true,
 					formatter: function () {
 						var ret = this.point.name;
-						if (ret.length > 45) {
-							ret = this.point.name.substring(0, 42);
+						if (ret.length > 55) {
+							ret = this.point.name.substring(0, 52);
 							ret += '...';
 						}
 						return ret;
 					}
 				}
+			},
+			pie: {
+				size: "60%",
+				innerSize: "35%"
 			}
 		},
 		title: '',
