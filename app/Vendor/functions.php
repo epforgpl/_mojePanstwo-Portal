@@ -237,15 +237,15 @@ function number_format_h( $n, $decimals = 0, $dec_point = '.', $thousands_sep = 
 
 	// now filter it;
 	if ( $_n > 1000000000000000 ) {
-		return round( ( $n / 1000000000000000 ), 1 ) . '&nbsp;Bld';
+		return round( ( $n / 1000000000000000 ), 1 ) . '&nbsp;bld';
 	} else if ( $_n > 1000000000000 ) {
-		return round( ( $n / 1000000000000 ), 1 ) . '&nbsp;B';
+		return round( ( $n / 1000000000000 ), 1 ) . '&nbsp;bln';
 	} else if ( $_n > 1000000000 ) {
-		return round( ( $n / 1000000000 ), 1 ) . '&nbsp;Mld';
+		return round( ( $n / 1000000000 ), 1 ) . '&nbsp;mld';
 	} else if ( $_n > 1000000 ) {
-		return round( ( $n / 1000000 ), 1 ) . '&nbsp;M';
+		return round( ( $n / 1000000 ), 1 ) . '&nbsp;mln';
 	} else if ( $_n > 1000 ) {
-		return round( ( $n / 1000 ), 1 ) . '&nbsp;k';
+		return round( ( $n / 1000 ), 1 ) . '&nbsp;tys.';
 	}
 
 	return number_format( $n, $decimals, $dec_point, $thousands_sep );
