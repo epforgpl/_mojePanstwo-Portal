@@ -1,8 +1,8 @@
 <?
-$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts', false);
-$this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki-map', false);
-$this->Combinator->add_libs('js', '../plugins/highcharts/locals', false);
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock', false);
+$this->Combinator->add_libs('js', '../plugins/highstock/js/locals', false);
 
+$this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki-map', false);
 $this->Combinator->add_libs('js', 'Bdl.bdl_subitem');
 ?>
 

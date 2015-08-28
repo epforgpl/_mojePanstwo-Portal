@@ -1,10 +1,8 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('view-poslowie', array('plugin' => 'Dane')));
-//$this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane')));
 
-$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
-$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
-
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.view-twitteraccounts');
 $this->Combinator->add_libs('js', 'Dane.view-poslowie.js');
 

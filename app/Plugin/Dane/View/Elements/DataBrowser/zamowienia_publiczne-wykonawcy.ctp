@@ -1,15 +1,15 @@
 <?
-$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
-$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
 
 $counter_field = 'suma';
 
 if( $data ) {
 	foreach( $data['buckets'] as &$b ) {
-		
-		$b['label'] = $b['nazwa'];
-		
-	}
+
+        $b['label'] = $b['nazwa'];
+
+    }
 }
 
 ?>

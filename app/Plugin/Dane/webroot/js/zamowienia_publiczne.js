@@ -1,3 +1,4 @@
+/*global Highcharts*/
 jQuery(document).ready(function () {
     $('.mp-zamowienia_publiczne').each(function () {
         var div = $(this),
@@ -29,10 +30,11 @@ jQuery(document).ready(function () {
 
             for (var i = 0; i < moreBtns.length; i++) {
                 var btn = $(moreBtns[i]),
-                    more = btn.data('more');
+					more = btn.data('more'),
+					href;
 
                 if (more) {
-                    var href = more['url'] + '?' + $.param({
+					href = more['url'] + '?' + $.param({
                             conditions: {
                                 date: '[' + request['date_min'] + ' TO ' + request['date_max'] + ']'
                             }
@@ -41,7 +43,7 @@ jQuery(document).ready(function () {
 
                 var _href = btn.attr('data-href');
                 if (_href) {
-                    var href = _href + '?' + $.param({
+					href = _href + '?' + $.param({
                             date_min: request['date_min'],
                             date_max: request['date_max']
                         });

@@ -1,6 +1,7 @@
 <?
-echo $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
-echo $this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
+
 if ($object->getId() == '903') {
     $this->Combinator->add_libs('css', $this->Less->css('sections', array('plugin' => 'FinanseGmin')));
     $this->Combinator->add_libs('css', $this->Less->css('administracja', array('plugin' => 'KtoTuRzadzi')));

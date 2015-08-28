@@ -5,12 +5,12 @@ if ($object->getId() == '903') {
 }
 
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('krakow_glosowania_votings', array('plugin' => 'Dane')));
 
-$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
-$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 $this->Combinator->add_libs('js', 'Dane.Krakow_glosowania_votings.js');
-$this->Combinator->add_libs('css', $this->Less->css('krakow_glosowania_votings', array('plugin' => 'Dane')));
 
 $options = array(
     'mode' => 'init',

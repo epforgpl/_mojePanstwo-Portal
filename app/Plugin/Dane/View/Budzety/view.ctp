@@ -1,7 +1,9 @@
-<? $this->Combinator->add_libs('js', 'Dane.budzet-view');
-$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
-$this->Combinator->add_libs('js', '../plugins/highcharts/js/modules/drilldown');
-$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+<?
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/js/modules/drilldown');
+$this->Combinator->add_libs('js', '../plugins/highstock/js/locals');
+
+$this->Combinator->add_libs('js', 'Dane.budzet-view');
 ?>
 
 <? echo $this->Element('dataobject/pageBegin'); ?>

@@ -1,9 +1,10 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane'))); ?>
-<?php ////$this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane'))) ?>
-<?php $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane'))); ?>
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts'); ?>
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals'); ?>
-<?php $this->Combinator->add_libs('js', 'Dane.view-gminy'); ?>
+<?php
+$this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
+$this->Combinator->add_libs('js', 'Dane.view-gminy');
+?>
 
 <?php if ($object->getId() == '903') {
     $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));

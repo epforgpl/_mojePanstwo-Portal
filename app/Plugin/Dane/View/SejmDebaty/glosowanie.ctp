@@ -1,9 +1,12 @@
 <?
-echo //$this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane')));
-echo $this->Combinator->add_libs('css', $this->Less->css('view-sejmposiedzeniapunkty', array('plugin' => 'Dane')));
-echo $this->Combinator->add_libs('css', $this->Less->css('view-sejmdebaty', array('plugin' => 'Dane')));
-echo $this->Combinator->add_libs('js', 'Dane.dataobjects-ajax');
-echo $this->Combinator->add_libs('js', 'Dane.filters');
+$this->Combinator->add_libs('css', $this->Less->css('view-sejmposiedzeniapunkty', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('view-sejmdebaty', array('plugin' => 'Dane')));
+
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
+$this->Combinator->add_libs('js', 'Dane.dataobjects-ajax');
+$this->Combinator->add_libs('js', 'Dane.filters');
+
 echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));

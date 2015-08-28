@@ -6,10 +6,9 @@ if ($object->getId() == '903') {
 
 $this->Combinator->add_libs('css', $this->Less->css('view-radygmindebaty', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.view-radygmindebaty');
-
-$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
-$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
 $options = array(

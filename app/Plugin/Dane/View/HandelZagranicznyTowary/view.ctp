@@ -1,6 +1,6 @@
 <?
-$this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts');
-$this->Combinator->add_libs('js', '../plugins/highcharts/locals');
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.view-handel-zagraniczny-towary');
 $this->Combinator->add_libs('css', $this->Less->css('view-handel-zagraniczny-towary', array('plugin' => 'Dane')));
 echo $this->Element('dataobject/pageBegin');

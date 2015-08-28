@@ -1,6 +1,6 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('view-bdl-wskazniki', array('plugin' => 'Dane'))); ?>
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/js/highcharts'); ?>
-<?php $this->Combinator->add_libs('js', '../plugins/highcharts/locals'); ?>
+<?php $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock'); ?>
+<?php $this->Combinator->add_libs('js', '../plugins/highstock/locals'); ?>
 <?php $this->Combinator->add_libs('js', 'Dane.view-bdl-wskazniki'); ?>
 
 <div class="wskaznik" data-id="<?= $object->getId() ?>" data-dim_id="<?= $data['id'] ?>"
