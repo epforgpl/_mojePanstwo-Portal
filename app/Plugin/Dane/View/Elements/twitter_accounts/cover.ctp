@@ -15,7 +15,7 @@ $options = array(
 
 ?>
 
-    <div class="col-xs-12 col-sm-9 margin-top-10">
+    <div class="col-xs-12 col-sm-9 margin-top-10 margin-sides-15">
 
         <div id="accountsSwitcher" class="appMenuStrip row">
 
@@ -27,7 +27,7 @@ $options = array(
                             <ul class="nav nav-pills">
                                 <? foreach($twitterTimeranges as $key => $value) { ?>
                                     <li<? if($twitterTimerange == $key) echo ' class="active"' ?>>
-                                        <a href="/media?t=<?= $key ?>">
+                                        <a href="/dane/twitter_accounts/<?= $object->getId(); ?>?t=<?= $key ?>">
                                             <?= $value ?>
                                         </a>
                                     </li>
@@ -37,7 +37,7 @@ $options = array(
                         <div class="pull-right">
                             <ul class="nav nav-pills">
                                 <li<? if( isset($this->request->query['t']) && ($this->request->query['t']==$last_month_report['param']) ) echo ' class="active"' ?>>
-                                    <a href="/media?t=<?= $last_month_report['param'] ?>"><?= $last_month_report['label'] ?></a>
+                                    <a href="/dane/twitter_accounts/<?= $object->getId(); ?>?t=<?= $last_month_report['param'] ?>"><?= $last_month_report['label'] ?></a>
                                 </li>
 
                                 <? if(isset($dropdownRanges)) { ?>
@@ -51,7 +51,7 @@ $options = array(
                                                     <li class="dropdown-title"><?= $dropdown['title'] ?></li>
                                                     <? foreach($dropdown['ranges'] as $range) { ?>
                                                         <li<? if($twitterTimerange == $range['param'] && strlen($twitterTimerange) === strlen($range['param'])) echo ' class="active"'; ?>>
-                                                            <a href="/media?t=<?= $range['param'] ?>">
+                                                            <a href="/dane/twitter_accounts/<?= $object->getId(); ?>?t=<?= $range['param'] ?>">
                                                                 <?= $range['label'] ?>
                                                             </a>
                                                         </li>
