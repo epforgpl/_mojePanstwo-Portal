@@ -195,6 +195,9 @@ class MediaController extends ApplicationsController
 		$timerange = false;
 		$init = false;
 
+        if(isset($this->request->query['t']))
+            $this->set('t', $this->request->query['t']);
+
 		if( !isset($this->request->query['t']) ) {
 			$this->request->query['t'] = '1D';
 			$init = true;
@@ -221,9 +224,9 @@ class MediaController extends ApplicationsController
 		);
 
         if(
-        	isset($this->request->query['type']) &&
-        	array_key_exists($this->request->query['type'], self::$twitterAccountTypes) &&
-            $this->twitterAccountType = $this->request->query['type']
+        	isset($this->request->query['a']) &&
+        	array_key_exists($this->request->query['a'], self::$twitterAccountTypes) &&
+            $this->twitterAccountType = $this->request->query['a']
         )
         	$selectedAccountsFilter['term'] = array(
 	        	'data.twitter.twitter_account_type_id' => $this->twitterAccountType,
@@ -657,17 +660,17 @@ class MediaController extends ApplicationsController
         $this->title = "Media polityczne w 2013 roku";
         //$this->loadDatasetBrowser('twitter_accounts');
     }
-    
+
     public function getChapters()
     {
-	    
+
 	    $chapters = parent::getChapters();
-	    
+
 	    $chapters['items'][0]['label'] = 'Analiza';
 	    $chapters['items'][0]['element'] = array(
 		    'path' => 'Media.start_menu',
-	    );	    
+	    );
 	    return $chapters;
-	    
+
     }
 }
