@@ -1,9 +1,7 @@
 <? $this->Combinator->add_libs('css', $this->Less->css('bdl', array('plugin' => 'Bdl'))); ?>
 
 <div class="col-xs-12 col-md-3 dataAggsContainer">
-    <? echo $this->Element('Dane.DataBrowser/aggs', array(
-        	'data' => $dataBrowser,
-    )); ?>
+    <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
 </div>
 
 <div id="bdl_div" class="col-xs-12 col-md-9">

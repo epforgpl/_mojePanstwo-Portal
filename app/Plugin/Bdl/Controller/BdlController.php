@@ -110,7 +110,8 @@ class BdlController extends ApplicationsController
             ),
         );
 
-
+		$this->chapter_selected = $this->request->params['id'];
+		
         $this->Components->load('Dane.DataBrowser', $options);
         $this->title = 'Bank Danych Lokalnych';
         $this->set('kategoria_id', $this->request->params['id']);
@@ -217,35 +218,64 @@ class BdlController extends ApplicationsController
 	    	    
     }
     
-    public function getMenu() {
+    public function getChapters() {
 	    
-	    $menu = array(
-		    'items' => array(
-			    array(
-				    'id' =>'',
-				    'label' => 'Wskaźniki',
-				    'icon' => array(
-					    'src' => 'glyphicon',
-					    'id' => 'home',
-				    ),
-			    ),
-		    ),
-		    'base' => '/bdl',
-	    );
-	    
-	    if( $this->hasUserRole('3') ) {
-		    
-		    $menu['items'][] = array(
-			    'id' => 'bdl_temp_items',
-			    'label' => 'Tworzenie wskaźników',
-		    );
-		    
-	    }
-	    
-	    if( count($menu['items'])===1 )
-	    	return array();
-	    else 
-	    	return $menu;	    
+	    $mode = false;
+				
+		$items = array(
+			array(
+				'label' => 'Start',
+				'href' => '/' . $this->settings['id'],
+			),
+		);
+		
+		if(
+			isset( $this->request->query['q'] ) && 
+			$this->request->query['q']
+		) {
+									
+			$items[] = array(
+				'id' => '_results',
+				'label' => 'Wyniki wyszukiwania',
+				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
+			);
+			
+			if( $this->chapter_selected=='view' )
+				$this->chapter_selected = '_results';
+			$mode = 'results';
+			
+		}
+				
+		if( isset($this->viewVars['dataBrowser']['aggs']['kategorie']['buckets']) ) {
+			foreach( $this->viewVars['dataBrowser']['aggs']['kategorie']['buckets'] as $b ) {
+				
+				
+				
+				$item = array(
+					'id' => $b['key'],
+					'label' => $b['label']['buckets'][0]['key'],
+					'href' => '/' . $this->settings['id'] . '/kategorie/' . $b['key'],
+				);
+								
+				if( $mode == 'results' ) {
+										
+					$item['href'] .= '?q=' . urlencode( $this->request->query['q'] );
+					
+				} else {
+					
+					$items[] = $item;
+					
+				}
+				
+			}		
+		}
+						
+		$output = array(
+			'items' => $items,
+			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
+		);
+				
+		return $output;    
 	    
     }
 

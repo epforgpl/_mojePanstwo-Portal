@@ -32,7 +32,7 @@
 		                	<?= $item['label'] ?><? if (isset($item['count'])) { ?> <span class="counter"><?= $item['count'] ?></span><? } ?>
 	                    </a>
 	                    
-	                    <? if( $active && isset($item['element']) ) echo $this->element($item['element']['path']); ?>
+	                    <? if( isset($item['element']) ) echo $this->element($item['element']['path']); ?>
 	                    
 	                </li>
 	                
