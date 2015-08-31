@@ -1,7 +1,7 @@
 <?
 $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
 $this->Combinator->add_libs('js', '../plugins/highstock/js/modules/drilldown');
-$this->Combinator->add_libs('js', '../plugins/highstock/js/locals');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
 
 $this->Combinator->add_libs('js', 'Dane.budzet-view');
 ?>
