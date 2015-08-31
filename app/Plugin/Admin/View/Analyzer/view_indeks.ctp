@@ -25,14 +25,18 @@ $dict = array(
 
 $jsdict = json_encode($dict);
 ?>
+<?= $this->element('Admin.header'); ?>
+
+<h2>Indeksowanie</h2>
+
     <script>
         var dict =<?php echo $jsdict; ?>;
     </script>
-    <div class="container">
+
 <?php
 $temp = array();
 foreach ($data['wartosci'] as $key => $val) {
     echo "<div class='col-sm-12'><hr></div><div class='col-sm-12'><div id='$key'></div></div>";
 }
 ?>
-        </div>
+<?= $this->element('Admin.footer'); ?>

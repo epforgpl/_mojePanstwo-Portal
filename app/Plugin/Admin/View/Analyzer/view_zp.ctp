@@ -123,10 +123,13 @@ $dict = array(
 
 $jsdict = json_encode($dict);
 ?>
+<?= $this->element('Admin.header'); ?>
+
+<h2>Zamówienia publiczne</h2>
+
     <script>
         var dict =<?php echo $jsdict; ?>;
     </script>
-    <div class="container">
 <?php
 
 foreach ($data as $key => $val) {
@@ -142,4 +145,4 @@ foreach ($data as $key => $val) {
     }
 }
 ?>
-    </div>
+<?= $this->element('Admin.footer'); ?>

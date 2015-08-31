@@ -37,6 +37,31 @@ class AdminAppController extends AppController
             'label' => 'Ankiety',
             'href'  => '/admin/surveys',
         ),
+        array(
+            'id'    => 'analyzer_zp',
+            'label' => 'Zamówienia publiczne',
+            'href'  => '/admin/analyzer/zp',
+        ),
+        array(
+            'id'    => 'analyzer_bdl',
+            'label' => 'BDL',
+            'href'  => '/admin/analyzer/bdl',
+        ),
+        array(
+            'id'    => 'analyzer_cluster',
+            'label' => 'Cluster',
+            'href'  => '/admin/analyzer/cluster',
+        ),
+        array(
+            'id'    => 'analyzer_krs',
+            'label' => 'KRS',
+            'href'  => '/admin/analyzer/krs',
+        ),
+        array(
+            'id'    => 'analyzer_indexing',
+            'label' => 'Indeksownaie',
+            'href'  => '/admin/analyzer/indexing',
+        ),
     );
 
     public function beforeFilter() {
