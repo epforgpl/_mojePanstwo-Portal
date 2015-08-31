@@ -666,7 +666,7 @@ class MediaController extends ApplicationsController
 
 	    $chapters = parent::getChapters();
 
-	    $chapters['items'][0]['label'] = 'Analiza';
+	    $chapters['items'][0]['label'] = 'Analiza kont - Twitter';
 	    $chapters['items'][0]['element'] = array(
 		    'path' => 'Media.start_menu',
 	    );
