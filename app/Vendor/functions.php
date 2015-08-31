@@ -338,3 +338,20 @@ function es_range_number($value) {
     else
         return number_format_h($from) . ' - ' . number_format_h($to);
 }
+
+function __months($lang = 'pl') {
+	return array(
+		'Styczeń',
+		'Luty',
+		'Marzec',
+		'Kwiecień',
+		'Maj',
+		'Czerwiec',
+		'Lipiec',
+		'Sierpień',
+		'Wrzesień',
+		'Październik',
+		'Listopad',
+		'Grudzień',
+	);
+}

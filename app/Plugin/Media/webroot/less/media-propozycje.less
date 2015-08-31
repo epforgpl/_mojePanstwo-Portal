@@ -1,0 +1,47 @@
+.accounts_ul {
+	list-style: none;
+	li {
+		list-style: none;
+		
+		.account {
+			
+			margin-top: 10px;
+			padding-top: 10px;
+			border-top: 1px solid #CCC;
+			
+			.bar {
+				
+				font-size: 30px;
+				
+				
+				a {
+					font-size: 20px;
+					margin-left: 10px;
+				}
+			}
+			
+			.buttons {
+				margin-top: 10px;
+				._clear {
+					display: block;
+					border: none;
+					background: none;
+					background-color: none;
+					margin: 0;
+				    padding: 5px 15px;
+				    &:hover {
+					    color: #157ab5;
+				    }
+				}
+			}
+		}
+		
+		&:first-child {
+			.account {
+				border-top: none;
+			}
+		}
+		
+	}
+}
+

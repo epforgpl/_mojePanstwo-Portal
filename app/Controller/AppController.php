@@ -70,6 +70,7 @@ class AppController extends Controller
     public $breadcrumbs = array();
     public $menu = array();
     public $menu_selected = '_default';
+    public $chapter_selected = false;
     public $observeOptions = false;
 	public $app_menu = array(array(), array());
 
@@ -224,15 +225,15 @@ class AppController extends Controller
             ),
         ),
         'media' => array(
+            'twitter_accounts' => array(
+            	'label' => 'Obserwowane konta Twitter',
+				'searchTitle' => 'Szukaj w kontach Twitter...',
+				'menu_id' => 'twitter_konta',
+            ),
             'twitter' => array(
             	'label' => 'Tweety',
 				'searchTitle' => 'Szukaj w tweetach...',
 				'menu_id' => 'tweety',
-            ),
-            'twitter_accounts' => array(
-            	'label' => 'Konta na Twitterze',
-				'searchTitle' => 'Szukaj w kontach Twitter...',
-				'menu_id' => 'twitter_konta',
             ),
         ),
         'sejmometr' => array(

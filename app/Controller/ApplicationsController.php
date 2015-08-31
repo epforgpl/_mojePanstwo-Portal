@@ -62,6 +62,9 @@ class ApplicationsController extends AppController
 
         if ($this->menu_selected === false)
             $this->menu_selected = $this->request->params['action'];
+            
+        if ($this->chapter_selected === false)
+            $this->chapter_selected = $this->request->params['action'];
 
         $this->set('appSettings', $this->settings);
 
@@ -117,9 +120,8 @@ class ApplicationsController extends AppController
 			$this->app_menu[0][0]['active'] = true;
 
 
-
-
 		$this->set('app_menu', $this->app_menu);
+		$this->set('app_chapters', $this->getChapters());
 
         if ($this->title)
             $this->set('title_for_layout', $this->title);
@@ -227,6 +229,7 @@ class ApplicationsController extends AppController
 					$params[ $field ] = $data['dataset_name'][ $field ];
 
 			$this->menu_selected = $this->request->params['id'];
+			$this->chapter_selected = $this->request->params['id'];
 			$this->title = $data['dataset_name']['label'];
 	        $this->loadDatasetBrowser($data['dataset_id'], $params);
 
@@ -271,7 +274,38 @@ class ApplicationsController extends AppController
 		return $menu;
 
     }
-
+	
+	public function getChapters() {
+					
+		$items = array(
+			array(
+				'label' => 'Start',
+				'href' => '/' . $this->settings['id'],
+			),
+		);
+		
+		if(
+			( $map = @$this->viewVars['dataBrowser']['aggs_visuals_map']['dataset']['dictionary'] ) && 
+			( $datasets = @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] )
+		) {
+			
+			foreach( $map as $key => $value ) {
+				$items[] = array(
+					'id' => $value['menu_id'],
+					'label' => $value['label'],
+					'href' => '/' . $this->settings['id'] . '/' . $value['menu_id'],
+				);
+			}
+			
+		}
+		
+		return array(
+			'items' => $items,
+			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
+		);
+		
+	}
+	
     public function json($data) {
         $this->autoRender = false;
         $this->response->type('json');
