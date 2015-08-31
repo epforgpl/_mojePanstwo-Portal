@@ -59,13 +59,23 @@ class MediaController extends ApplicationsController
 	);
 
     private function getDropdownRanges() {
-        $ranges = array();
+        $ranges = array(
+            array(
+                'title' => 'Raporty miesięczne',
+                'ranges' => array()
+            ),
+            array(
+                'title' => 'Raporty roczne',
+                'ranges' => array()
+            )
+        );
+
         $months = __months();
         list($y, $n) = explode(' ', date('Y n'));
 
         for($m = 2; $m <= 4; $m++) {
             $data = explode(' ', date('Y m n', mktime(0, 0, 0, $n- $m, 1, $y)));
-            $ranges[] = array(
+            $ranges[0]['ranges'][] = array(
                 'param' => $data[0] . '-' . $data[1],
                 'label' => $months[$data[2]-1] . ' ' . $data[0]
             );
@@ -73,7 +83,7 @@ class MediaController extends ApplicationsController
 
         for($m = 0; $m < 3; $m++) {
             $year = ($y - $m);
-            $ranges[] = array(
+            $ranges[1]['ranges'][] = array(
                 'param' => $year,
                 'label' => $year
             );
