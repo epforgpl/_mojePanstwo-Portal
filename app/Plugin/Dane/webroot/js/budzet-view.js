@@ -33,7 +33,8 @@ $(document).ready(function () {
 	$('#wydatki_budzetu_wg_czesci').highcharts({
 		chart: {
 			type: 'pie',
-			height: 800
+			height: 600,
+			backgroundColor: null
 		},
 		plotOptions: {
 			series: {
@@ -50,7 +51,7 @@ $(document).ready(function () {
 				}
 			},
 			pie: {
-				size: "60%",
+				size: "80%",
 				innerSize: "35%"
 			}
 		},

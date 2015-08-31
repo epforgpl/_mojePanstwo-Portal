@@ -28,30 +28,42 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td><?= number_format_h($object->getData('liczba_dochody')*1000) ?></td>
-                                    <td><?= number_format_h($object->getData('liczba_wydatki')*1000) ?></td>
-                                    <td><?= number_format_h($object->getData('liczba_deficyt')*1000) ?></td>
+                                    <td><?= number_format_h($object->getData('liczba_dochody') * 1000) ?></td>
+                                    <td><?= number_format_h($object->getData('liczba_wydatki') * 1000) ?></td>
+                                    <td><?= number_format_h($object->getData('liczba_deficyt') * 1000) ?></td>
                                 </tr>
                                 </tbody>
                             </table>
-                            <table class="table table-hover">
-                                <caption>Ze środków Unii Europejskiej</caption>
-                                <thead>
-                                <tr>
-                                    <th>Dochody</th>
-                                    <th>Wydatki</th>
-                                    <th>Deficyt</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td><?= number_format_h($object->getData('liczba_dochody_eu')*1000) ?></td>
-                                    <td><?= number_format_h($object->getData('liczba_wydatki_eu')*1000) ?></td>
-                                    <td><?= number_format_h($object->getData('liczba_deficyt_eu')*1000) ?></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <small class="pull-right">Wszystkie kwoty podanie w tys. zł</small>
+
+                            <? if ($object->getData('rok') > 2006 && $object->getData('rok') < 2010) { ?>
+                                <caption>W tym ze środków Unii Europejskiej</caption>
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <tr>
+                                        <td><?= number_format_h($object->getData('liczba_dochody_eu') * 1000) ?></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            <? } ?>
+                            <? if ($object->getData('rok') > 2009) { ?>
+                                <table class="table table-hover">
+                                    <caption>Ze środków Unii Europejskiej</caption>
+                                    <thead>
+                                    <tr>
+                                        <th>Dochody</th>
+                                        <th>Wydatki</th>
+                                        <th>Deficyt</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><?= number_format_h($object->getData('liczba_dochody_eu') * 1000) ?></td>
+                                        <td><?= number_format_h($object->getData('liczba_wydatki_eu') * 1000) ?></td>
+                                        <td><?= number_format_h($object->getData('liczba_deficyt_eu') * 1000) ?></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            <? } ?>
                         </div>
                     </div>
                 </div>
@@ -116,73 +128,74 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
         $temp = array();
 
         $source = $object->getLayers('dzialy');
-        //debug($source['rozdzialy']);
-        $i = 0;
-        $inne = array(
-            'name' => 'Pozostałe',
-            'y' => 0,
-            'drilldown' => 'Inne'
-        );
-        foreach ($source['dzialy'] as $czesc) {
-            $ret = array();
-            $ret['name'] = $czesc['pl_budzety_wydatki']['tresc'];
-            $ret['y'] = $czesc[0]['plan'];
-            $ret['drilldown'] = $czesc['pl_budzety_wydatki']['dzial_str'];
-            if ($i > 13) {
-                $inne['y'] += (int)$czesc[0]['plan'];
-                $temp[] = $ret;
-            } else {
-                $dane['dzialy'][] = $ret;
+        if ($source['dzialy']) {
+            $i = 0;
+            $inne = array(
+                'name' => 'Pozostałe',
+                'y' => 0,
+                'drilldown' => 'Inne'
+            );
+            foreach ($source['dzialy'] as $czesc) {
+                $ret = array();
+                $ret['name'] = $czesc['pl_budzety_wydatki']['tresc'];
+                $ret['y'] = $czesc[0]['plan'];
+                $ret['drilldown'] = $czesc['pl_budzety_wydatki']['dzial_str'];
+                if ($i > 13) {
+                    $inne['y'] += (int)$czesc[0]['plan'];
+                    $temp[] = $ret;
+                } else {
+                    $dane['dzialy'][] = $ret;
+                }
+                $i++;
             }
-            $i++;
-        }
-        $dane['dzialy'][] = $inne;
-        $dane['rozdzialy'][] = array(
-            'name' => 'Pozostałe',
-            'id' => 'Inne',
-            'data' => $temp
-        );
-        $rozdzialy = array();
-        foreach ($source['rozdzialy'] as $rozdzial) {
-            $ret = array();
-            $src = $rozdzial['pl_budzety_wydatki_dzialy']['src'];
-            if (isset($rozdzialy[$src])) {
+            $dane['dzialy'][] = $inne;
+            $dane['rozdzialy'][] = array(
+                'name' => 'Pozostałe',
+                'id' => 'Inne',
+                'data' => $temp
+            );
+            $rozdzialy = array();
+            foreach ($source['rozdzialy'] as $rozdzial) {
+                $ret = array();
+                $src = $rozdzial['pl_budzety_wydatki_dzialy']['src'];
+                if (isset($rozdzialy[$src])) {
 
-                $rozdzialy[$src]['data'][] = array(
-                    'name' => $rozdzial['pl_budzety_wydatki']['tresc'],
-                    'y' => $rozdzial[0]['plan']
-                );
+                    $rozdzialy[$src]['data'][] = array(
+                        'name' => $rozdzial['pl_budzety_wydatki']['tresc'],
+                        'y' => $rozdzial[0]['plan']
+                    );
 
-            } else {
+                } else {
 
-                $ret['name'] = $rozdzial['pl_budzety_wydatki_dzialy']['tresc'];
-                $ret['id'] = $src;
-                $ret['data'] = array();
-                $ret['data'][] = array(
-                    'name' => $rozdzial['pl_budzety_wydatki']['tresc'],
-                    'y' => $rozdzial[0]['plan']
-                );
-                $rozdzialy[$src] = $ret;
+                    $ret['name'] = $rozdzial['pl_budzety_wydatki_dzialy']['tresc'];
+                    $ret['id'] = $src;
+                    $ret['data'] = array();
+                    $ret['data'][] = array(
+                        'name' => $rozdzial['pl_budzety_wydatki']['tresc'],
+                        'y' => $rozdzial[0]['plan']
+                    );
+                    $rozdzialy[$src] = $ret;
 
+                }
             }
-        }
 
-        foreach($rozdzialy as $rozdzial){
-            $dane['rozdzialy'][]=$rozdzial;
-        }
-        ?>
-        <div class="hidden highchart_datasource" data-highchart='<? echo json_encode($dane) ?>'></div>
+            foreach ($rozdzialy as $rozdzial) {
+                $dane['rozdzialy'][] = $rozdzial;
+            }
+            ?>
+            <div class="hidden highchart_datasource" data-highchart='<? echo json_encode($dane) ?>'></div>
 
-        <header>Wydatki według działów:</header>
-        <section class="aggs-init margin-sides-20">
-            <div class="dataAggs">
-                <div class="agg agg-Dataobjects">
-                    <div id="wydatki_budzetu_wg_czesci" ></div>
-                    <div id="wydatki_budzetu_wg_czesci2" class="hidden"></div>
-<small>Kliknij w interesujący wycinek wykresu, aby uzyskać więcej danych</small>
+            <header>Wydatki według działów:</header>
+            <section class="aggs-init margin-sides-20">
+                <div class="dataAggs">
+                    <div class="agg agg-Dataobjects">
+                        <div id="wydatki_budzetu_wg_czesci"></div>
+                        <div id="wydatki_budzetu_wg_czesci2" class="hidden"></div>
+                        <small>Kliknij w interesujący wycinek wykresu, aby uzyskać więcej danych</small>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        <? } ?>
     </div>
 
 </div>
