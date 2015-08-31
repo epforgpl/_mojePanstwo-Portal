@@ -24,21 +24,19 @@ $(function () {
 	$.map(data, function (el) {
 		var self = el.fields.source[0].data;
 
-		console.log(self);
-
 		if (self['budzety.rok'] >= startDate) {
 			wyd.push({
-				id: self['prawo.id'],
+				id: self['budzety.id'],
 				x: self['budzety.rok'],
 				y: (self['budzety.rok'] < denominacjaDate) ? self['budzety.liczba_wydatki'] / denominacjaValue : self['budzety.liczba_wydatki']
 			});
 			doch.push({
-				id: self['prawo.id'],
+				id: self['budzety.id'],
 				x: self['budzety.rok'],
 				y: (self['budzety.rok'] < denominacjaDate) ? self['budzety.liczba_dochody'] / denominacjaValue : self['budzety.liczba_dochody']
 			});
 			def.push({
-				id: self['prawo.id'],
+				id: self['budzety.id'],
 				x: self['budzety.rok'],
 				y: (self['budzety.rok'] < denominacjaDate) ? self['budzety.liczba_deficyt'] / denominacjaValue : self['budzety.liczba_deficyt']
 			});
