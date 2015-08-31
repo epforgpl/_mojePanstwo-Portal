@@ -21,7 +21,7 @@ class MediaController extends ApplicationsController
         '8' => 'Partie',
         '9' => 'NGO'
     );
-    
+
     private $twitterTimeranges = array(
         '1D' => 'Ostatnia doba',
         '1W' => 'Tydzień',
@@ -43,60 +43,86 @@ class MediaController extends ApplicationsController
 		'W' => 'w',
 		'Y' => 'y',
 	);
-	
+
 	private $dateUnitsMapPHP = array(
 		'D' => 'day',
 		'W' => 'week',
 		'M' => 'month',
 		'Y' => 'year',
-	); 
-	
+	);
+
 	private $histogramMarginsMap = array(
 		'D' => 26,
 		'W' => 13,
 		'M' => 5,
 		'Y' => 3,
-	); 
-	
+	);
+
+    private function getDropdownRanges() {
+        $ranges = array();
+        $months = __months();
+        list($y, $n) = explode(' ', date('Y n'));
+
+        for($m = 2; $m <= 4; $m++) {
+            $data = explode(' ', date('Y m n', mktime(0, 0, 0, $n- $m, 1, $y)));
+            $ranges[] = array(
+                'param' => $data[0] . '-' . $data[1],
+                'label' => $months[$data[2]-1] . ' ' . $data[0]
+            );
+        }
+
+        for($m = 0; $m < 3; $m++) {
+            $year = ($y - $m);
+            $ranges[] = array(
+                'param' => $year,
+                'label' => $year
+            );
+        }
+
+        return $ranges;
+    }
+
     public function view()
     {
-				
+
 		list($y, $n) = explode(' ', date('Y n'));
 		$n--;
-					
+
 		$data = explode(' ', date('Y m n', mktime(0, 0, 0, $n, 1, $y)));
 		$months = __months();
 		$this->set('last_month_report', array(
 			'param' => $data[0] . '-' . $data[1],
 			'label' => $months[$data[2]-1] . ' ' . $data[0],
 		));
-		
-		
+
+        $this->set('dropdownRanges', $this->getDropdownRanges());
+
+
 		$timerange = false;
 		$init = false;
-		
+
 		if( !isset($this->request->query['t']) ) {
 			$this->request->query['t'] = '1D';
 			$init = true;
 		}
-		
+
 		$date_histogram = array(
             'field' => 'date',
             'interval' => 'day',
             'format' => 'yyyy-MM-dd',
         );
-		
+
 		if( $this->twitterTimerange = $this->request->query['t'] ) {
-			
+
 			if( preg_match('/^([0-9]+)(D|W|M|Y)$/', $this->twitterTimerange, $match) ) {
-				
+
 				$ts = time();
-				$value = (int) $match[1];				
-					
-				$unit = array_key_exists($match[2], $this->dateUnitsMapES) ? 
-					$this->dateUnitsMapES[ $match[2] ] : 
+				$value = (int) $match[1];
+
+				$unit = array_key_exists($match[2], $this->dateUnitsMapES) ?
+					$this->dateUnitsMapES[ $match[2] ] :
 					$match[2];
-				
+
 				$timerange = array(
 					'target_filter' => array(
 						'gte' => 'now-' . $value . $unit,
@@ -114,13 +140,13 @@ class MediaController extends ApplicationsController
 					),
 					'xmax' => $ts * 1000,
 				);
-			
+
 			} elseif( preg_match('/^([0-9]{4})\-([0-9]{2})$/', $this->twitterTimerange, $match) ) {
-				
+
 				$month = (int) $match[2];
 				$min = mktime(0, 0, 0, $month, 1, $match[1]);
 				$max = mktime(0, 0, 0, $month+1, 0, $match[1]);
-				
+
 				$timerange = array(
 					'target_filter' => array(
 						'gte' => date('Y-m-d', $min),
@@ -139,19 +165,45 @@ class MediaController extends ApplicationsController
 						'max' => date('Y-m-d', $max),
 					),
 				);
-			
-			} else return $this->redirect('/media');
-			
+
+			} elseif(preg_match('/^([0-9]{4})$/', $this->twitterTimerange, $match)) {
+
+                $year = (int) $match[0];
+                $min = mktime(0, 0, 0, 1, 1, $year);
+                $max = mktime(0, 0, 0, 12, 31, $year);
+
+                $timerange = array(
+                    'target_filter' => array(
+                        'gte' => date('Y-m-d', $min),
+                        'lte' => date('Y-m-d', $max),
+                    ),
+                    'histogram_filter' => array(
+                        'gte' => date('Y-m-d', mktime(0, 0, 0, 1, -49, $year)),
+                        'lte' => date('Y-m-d', mktime(0, 0, 0, 12, 50, $year)),
+                    ),
+                    'range' => array(
+                        'min' => $min,
+                        'max' => $max,
+                    ),
+                    'labels' => array(
+                        'min' => date('Y-m-d', $min),
+                        'max' => date('Y-m-d', $max),
+                    ),
+                );
+
+            } else {
+                $this->redirect('/media');
+            }
 		}
-		
-		$timerange['init'] = $init;		
-		
+
+		$timerange['init'] = $init;
+
 		$selectedAccountsFilter = array(
 			'term' => array(
 				'data.twitter.konto_obserwowane' => '1',
 			),
 		);
-		
+
         if(
         	isset($this->request->query['type']) &&
         	array_key_exists($this->request->query['type'], $this->twitterAccountTypes) &&
@@ -160,17 +212,17 @@ class MediaController extends ApplicationsController
         	$selectedAccountsFilter['term'] = array(
 	        	'data.twitter.twitter_account_type_id' => $this->twitterAccountType,
         	);
-        	
-        
+
+
 
         $this->set('twitterAccountTypes', $this->twitterAccountTypes);
         $this->set('twitterAccountType', $this->twitterAccountType);
-        
+
         $this->set('twitterTimeranges', $this->twitterTimeranges);
         $this->set('twitterTimerange', $this->twitterTimerange);
 
 		$this->set('timerange', $timerange);
-        
+
         $datasets = $this->getDatasets('media');
         $selectedAccountsAggs = array(
 	        'top' => array(
@@ -281,7 +333,7 @@ class MediaController extends ApplicationsController
 	        'tags' => array(
 	            'nested' => array(
 	                'path' => 'twitter-tags',
-	                
+
 	            ),
 	            'aggs' => array(
 	                'tags' => array(
@@ -307,7 +359,7 @@ class MediaController extends ApplicationsController
 							                'field' => 'data.twitter.liczba_zaangazowan',
 						                ),
 					                ),
-				                ),										                
+				                ),
 			                ),
 		                ),
 	                ),
@@ -327,8 +379,8 @@ class MediaController extends ApplicationsController
 	                ),
 	            ),
 	        ),
-	    );		
-		
+	    );
+
         $options = array(
             'searchTitle' => 'Szukaj w tweetach i kontach Twitter...',
             'conditions' => array(
@@ -465,15 +517,15 @@ class MediaController extends ApplicationsController
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
 
     }
-    
+
     public function propozycje_kont()
     {
-	    
+
 	    $accounts = $this->Media->getAccountsPropositions();
-	    	    
+
 		$keys = array_slice($accounts['keys'], 0, 20);
 		// $keys = $accounts['keys'];
-				
+
         $options = array(
             'searchTitle' => 'Szukaj w tweetach i kontach Twitter...',
             'conditions' => array(
@@ -552,36 +604,36 @@ class MediaController extends ApplicationsController
 				                ),
 			                ),
 		                ),
-	                ),	                
-	                
+	                ),
+
                 ),
             ),
             'apps' => true,
         );
-        
+
         $this->set('twitterAccountTypes', $this->twitterAccountTypes);
 		$this->set('accounts', $accounts['items']);
 		$this->set('time', $accounts['time']);
         $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
-	    
+
     }
-    
+
     public function manage_account()
     {
-	    
-	    if( 
+
+	    if(
 	    	isset( $this->request->data['id'] ) &&
-	    	isset( $this->request->data['add'] ) 
+	    	isset( $this->request->data['add'] )
     	) {
-	    	
+
 	    	$res = $this->Media->manage_account($this->request->data);
 	    	$this->Session->setFlash( $res['msg'] );
-	    	
+
     	}
-    	
+
     	return $this->redirect($this->referer());
-	    
+
     }
 
     public function media_2013()

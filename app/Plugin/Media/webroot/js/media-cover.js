@@ -33,18 +33,43 @@ $(document).ready(function() {
 			return [year, month, day].join('-');
 		}
 
+		function dataSlownie(date) {
+			var m = [
+				'stycznia',
+				'lutego',
+				'marca',
+				'kwietnia',
+				'maja',
+				'czerwca',
+				'lipca',
+				'sierpnia',
+				'września',
+				'października',
+				'listopada',
+				'grudnia'
+			];
+
+			var month = date.getMonth();
+			if(m.hasOwnProperty(month)) {
+				month = m[month];
+			}
+
+			return date.getDate() + ' ' + month + ' ' + date.getFullYear() + ' r.';
+		}
+
 		var main = $('.mediaHighstockPicker'),
 			chart = main.find('.chart').first(),
 			aggs = chart.data('aggs'),
 			range = chart.data('range'),
 			xmax = chart.data('xmax'),
-			apply = main.find('.text-center a').first(),
+			switcher = main.find('.dataWrap a.switcher').first(),
+			display = main.find('.dataWrap .display').first(),
 			data = [],
 			highchart;
 
 		for(var i = 0; i < aggs.buckets.length; i++) {
 			var bucket = aggs.buckets[i];
-						
+
 			data.push([
 				bucket.key,
 				bucket.doc_count
@@ -118,20 +143,21 @@ $(document).ready(function() {
 				events: {
 					setExtremes: function (e) {
 						if (e.trigger == 'navigator') {
-							
-							/*
+
+							switcher.removeClass('hidden');
+
 							var extremes = e,
 								start = new Date(extremes.min),
 								end   = new Date(extremes.max);
 
-							apply.attr('href', '?t=' + '['
+							switcher.attr('href', '?conditions[_date]=['
 								+ dateToYYYYMMDD(start)
 								+ ' TO '
 								+ dateToYYYYMMDD(end)
 								+ ']');
-							apply.css('visibility', 'visible');
-							*/
-							
+
+							display.html('<span class="_ds" datetime="' + dateToYYYYMMDD(start) + '">' + dataSlownie(start) + '</span> <span class="separator">—</span> <span class="_ds" datetime="' + dateToYYYYMMDD(end) + '">' + dataSlownie(end) + '</span>');
+
 						} else {
 							//load(e.min, e.max);
 						}
