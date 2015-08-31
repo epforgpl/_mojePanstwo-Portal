@@ -12,7 +12,7 @@ class MediaController extends ApplicationsController
     );
     public $mainMenuLabel = 'Analiza';
 
-    private $twitterAccountTypes = array(
+    public static $twitterAccountTypes = array(
         '0' => 'Wszystkie obserwowane',
         '2' => 'Komentatorzy',
         '3' => 'Urzędy',
@@ -22,7 +22,7 @@ class MediaController extends ApplicationsController
         '9' => 'NGO'
     );
 
-    private $twitterTimeranges = array(
+    public static $twitterTimeranges = array(
         '1D' => 'Ostatnia doba',
         '1W' => 'Tydzień',
         '1M' => 'Miesiąc',
@@ -32,33 +32,34 @@ class MediaController extends ApplicationsController
     private $twitterAccountType = '0';
     private $twitterTimerange = '1D';
 
+    public static $dateUnitsMapES = array(
+        'D' => 'd',
+        'W' => 'w',
+        'Y' => 'y',
+    );
+
+    public static $dateUnitsMapPHP = array(
+        'D' => 'day',
+        'W' => 'week',
+        'M' => 'month',
+        'Y' => 'year',
+    );
+
+    public static $histogramMarginsMap = array(
+        'D' => 26,
+        'W' => 13,
+        'M' => 5,
+        'Y' => 3,
+    );
+
+
     public function prepareMetaTags()
     {
         parent::prepareMetaTags();
         $this->setMeta('og:image', FULL_BASE_URL . '/media/img/social/media.jpg');
     }
 
-	private $dateUnitsMapES = array(
-		'D' => 'd',
-		'W' => 'w',
-		'Y' => 'y',
-	);
-
-	private $dateUnitsMapPHP = array(
-		'D' => 'day',
-		'W' => 'week',
-		'M' => 'month',
-		'Y' => 'year',
-	);
-
-	private $histogramMarginsMap = array(
-		'D' => 26,
-		'W' => 13,
-		'M' => 5,
-		'Y' => 3,
-	);
-
-    private function getDropdownRanges() {
+    public static function getDropdownRanges() {
         $ranges = array(
             array(
                 'title' => 'Raporty miesięczne',
@@ -92,21 +93,104 @@ class MediaController extends ApplicationsController
         return $ranges;
     }
 
+    public static function getLastMonthReport() {
+        list($y, $n) = explode(' ', date('Y n'));
+        $n--;
+
+        $data = explode(' ', date('Y m n', mktime(0, 0, 0, $n, 1, $y)));
+        $months = __months();
+        return array(
+            'param' => $data[0] . '-' . $data[1],
+            'label' => $months[$data[2]-1] . ' ' . $data[0],
+        );
+    }
+
+    public static function getTimerange($twitterTimerange) {
+        if( preg_match('/^([0-9]+)(D|W|M|Y)$/', $twitterTimerange, $match) ) {
+
+            $ts = time();
+            $value = (int) $match[1];
+
+            $unit = array_key_exists($match[2], self::$dateUnitsMapES) ?
+                self::$dateUnitsMapES[ $match[2] ] :
+                $match[2];
+
+            $timerange = array(
+                'target_filter' => array(
+                    'gte' => 'now-' . $value . $unit,
+                ),
+                'histogram_filter' => array(
+                    'gte' => 'now-' . (self::$histogramMarginsMap[$match[2]] * $value) . $unit,
+                ),
+                'range' => array(
+                    'min' => strtotime('-' . $value . self::$dateUnitsMapPHP[ $match[2] ]),
+                    'max' => $ts,
+                ),
+                'labels' => array(
+                    'min' =>  date('Y-m-d H:i', strtotime('-' . $value . self::$dateUnitsMapPHP[ $match[2] ])),
+                    'max' =>  date('Y-m-d H:i', $ts),
+                ),
+                'xmax' => $ts * 1000,
+            );
+
+        } elseif( preg_match('/^([0-9]{4})\-([0-9]{2})$/', $twitterTimerange, $match) ) {
+
+            $month = (int) $match[2];
+            $min = mktime(0, 0, 0, $month, 1, $match[1]);
+            $max = mktime(0, 0, 0, $month+1, 0, $match[1]);
+
+            $timerange = array(
+                'target_filter' => array(
+                    'gte' => date('Y-m-d', $min),
+                    'lte' => date('Y-m-d', $max),
+                ),
+                'histogram_filter' => array(
+                    'gte' => date('Y-m-d', mktime(0, 0, 0, $month, -49, $match[1])),
+                    'lte' => date('Y-m-d', mktime(0, 0, 0, $month+1, 50, $match[1])),
+                ),
+                'range' => array(
+                    'min' => $min,
+                    'max' => $max,
+                ),
+                'labels' => array(
+                    'min' => date('Y-m-d', $min),
+                    'max' => date('Y-m-d', $max),
+                ),
+            );
+
+        } elseif(preg_match('/^([0-9]{4})$/', $twitterTimerange, $match)) {
+
+            $year = (int) $match[0];
+            $min = mktime(0, 0, 0, 1, 1, $year);
+            $max = mktime(0, 0, 0, 12, 31, $year);
+
+            $timerange = array(
+                'target_filter' => array(
+                    'gte' => date('Y-m-d', $min),
+                    'lte' => date('Y-m-d', $max),
+                ),
+                'histogram_filter' => array(
+                    'gte' => date('Y-m-d', mktime(0, 0, 0, 1, -49, $year)),
+                    'lte' => date('Y-m-d', mktime(0, 0, 0, 12, 50, $year)),
+                ),
+                'range' => array(
+                    'min' => $min,
+                    'max' => $max,
+                ),
+                'labels' => array(
+                    'min' => date('Y-m-d', $min),
+                    'max' => date('Y-m-d', $max),
+                ),
+            );
+        }
+
+        return isset($timerange) ? $timerange : false;
+    }
+
     public function view()
     {
-
-		list($y, $n) = explode(' ', date('Y n'));
-		$n--;
-
-		$data = explode(' ', date('Y m n', mktime(0, 0, 0, $n, 1, $y)));
-		$months = __months();
-		$this->set('last_month_report', array(
-			'param' => $data[0] . '-' . $data[1],
-			'label' => $months[$data[2]-1] . ' ' . $data[0],
-		));
-
-        $this->set('dropdownRanges', $this->getDropdownRanges());
-
+		$this->set('last_month_report', self::getLastMonthReport());
+        $this->set('dropdownRanges', self::getDropdownRanges());
 
 		$timerange = false;
 		$init = false;
@@ -123,87 +207,9 @@ class MediaController extends ApplicationsController
         );
 
 		if( $this->twitterTimerange = $this->request->query['t'] ) {
-
-			if( preg_match('/^([0-9]+)(D|W|M|Y)$/', $this->twitterTimerange, $match) ) {
-
-				$ts = time();
-				$value = (int) $match[1];
-
-				$unit = array_key_exists($match[2], $this->dateUnitsMapES) ?
-					$this->dateUnitsMapES[ $match[2] ] :
-					$match[2];
-
-				$timerange = array(
-					'target_filter' => array(
-						'gte' => 'now-' . $value . $unit,
-					),
-					'histogram_filter' => array(
-						'gte' => 'now-' . ($this->histogramMarginsMap[$match[2]] * $value) . $unit,
-					),
-					'range' => array(
-						'min' => strtotime('-' . $value . $this->dateUnitsMapPHP[ $match[2] ]),
-						'max' => $ts,
-					),
-					'labels' => array(
-						'min' =>  date('Y-m-d H:i', strtotime('-' . $value . $this->dateUnitsMapPHP[ $match[2] ])),
-						'max' =>  date('Y-m-d H:i', $ts),
-					),
-					'xmax' => $ts * 1000,
-				);
-
-			} elseif( preg_match('/^([0-9]{4})\-([0-9]{2})$/', $this->twitterTimerange, $match) ) {
-
-				$month = (int) $match[2];
-				$min = mktime(0, 0, 0, $month, 1, $match[1]);
-				$max = mktime(0, 0, 0, $month+1, 0, $match[1]);
-
-				$timerange = array(
-					'target_filter' => array(
-						'gte' => date('Y-m-d', $min),
-						'lte' => date('Y-m-d', $max),
-					),
-					'histogram_filter' => array(
-						'gte' => date('Y-m-d', mktime(0, 0, 0, $month, -49, $match[1])),
-						'lte' => date('Y-m-d', mktime(0, 0, 0, $month+1, 50, $match[1])),
-					),
-					'range' => array(
-						'min' => $min,
-						'max' => $max,
-					),
-					'labels' => array(
-						'min' => date('Y-m-d', $min),
-						'max' => date('Y-m-d', $max),
-					),
-				);
-
-			} elseif(preg_match('/^([0-9]{4})$/', $this->twitterTimerange, $match)) {
-
-                $year = (int) $match[0];
-                $min = mktime(0, 0, 0, 1, 1, $year);
-                $max = mktime(0, 0, 0, 12, 31, $year);
-
-                $timerange = array(
-                    'target_filter' => array(
-                        'gte' => date('Y-m-d', $min),
-                        'lte' => date('Y-m-d', $max),
-                    ),
-                    'histogram_filter' => array(
-                        'gte' => date('Y-m-d', mktime(0, 0, 0, 1, -49, $year)),
-                        'lte' => date('Y-m-d', mktime(0, 0, 0, 12, 50, $year)),
-                    ),
-                    'range' => array(
-                        'min' => $min,
-                        'max' => $max,
-                    ),
-                    'labels' => array(
-                        'min' => date('Y-m-d', $min),
-                        'max' => date('Y-m-d', $max),
-                    ),
-                );
-
-            } else {
+            $timerange = self::getTimerange($this->twitterTimerange);
+            if(!$timerange)
                 $this->redirect('/media');
-            }
 		}
 
 		$timerange['init'] = $init;
@@ -216,7 +222,7 @@ class MediaController extends ApplicationsController
 
         if(
         	isset($this->request->query['type']) &&
-        	array_key_exists($this->request->query['type'], $this->twitterAccountTypes) &&
+        	array_key_exists($this->request->query['type'], self::$twitterAccountTypes) &&
             $this->twitterAccountType = $this->request->query['type']
         )
         	$selectedAccountsFilter['term'] = array(
@@ -225,10 +231,10 @@ class MediaController extends ApplicationsController
 
 
 
-        $this->set('twitterAccountTypes', $this->twitterAccountTypes);
+        $this->set('twitterAccountTypes', self::$twitterAccountTypes);
         $this->set('twitterAccountType', $this->twitterAccountType);
 
-        $this->set('twitterTimeranges', $this->twitterTimeranges);
+        $this->set('twitterTimeranges', self::$twitterTimeranges);
         $this->set('twitterTimerange', $this->twitterTimerange);
 
 		$this->set('timerange', $timerange);
@@ -621,7 +627,7 @@ class MediaController extends ApplicationsController
             'apps' => true,
         );
 
-        $this->set('twitterAccountTypes', $this->twitterAccountTypes);
+        $this->set('twitterAccountTypes', self::$twitterAccountTypes);
 		$this->set('accounts', $accounts['items']);
 		$this->set('time', $accounts['time']);
         $this->Components->load('Dane.DataBrowser', $options);

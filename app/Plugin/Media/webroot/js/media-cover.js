@@ -156,7 +156,7 @@ $(document).ready(function() {
 								start = new Date(extremes.min),
 								end   = new Date(extremes.max);
 
-							switcher.attr('href', '?conditions[_date]=['
+							switcher.attr('href', '?t=['
 								+ dateToYYYYMMDD(start)
 								+ ' TO '
 								+ dateToYYYYMMDD(end)

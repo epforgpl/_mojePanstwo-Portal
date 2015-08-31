@@ -124,7 +124,7 @@ $options = array(
                         <p class="display"><?= $this->Czas->dataSlownie($timerange['labels']['min']) ?> <span class="separator">&mdash;</span> <?= $this->Czas->dataSlownie($timerange['labels']['max']) ?></p>
                     </div>
                     <div class="col-md-8">
-                        <a href="#" class="switcher hidden btn btn-primary btn-icon auto-width">
+                        <a href="#" class="switcher hidden">
                             <i class="icon" data-icon="&#xe604;"></i>
                             Zastosuj
                         </a>
