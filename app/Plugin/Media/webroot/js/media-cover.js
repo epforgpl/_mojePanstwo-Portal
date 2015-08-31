@@ -35,24 +35,30 @@ $(document).ready(function() {
 
 		function dataSlownie(date) {
 			var m = [
-				'stycznia',
-				'lutego',
-				'marca',
-				'kwietnia',
-				'maja',
-				'czerwca',
-				'lipca',
-				'sierpnia',
-				'września',
-				'października',
-				'listopada',
-				'grudnia'
-			];
-
-			var month = date.getMonth();
+					'stycznia',
+					'lutego',
+					'marca',
+					'kwietnia',
+					'maja',
+					'czerwca',
+					'lipca',
+					'sierpnia',
+					'września',
+					'października',
+					'listopada',
+					'grudnia'
+				],
+				current = new Date(),
+				month = date.getMonth();
 			if(m.hasOwnProperty(month)) {
 				month = m[month];
 			}
+
+			if(
+				current.getDate() == date.getDate() &&
+				current.getMonth() == date.getMonth() &&
+				current.getFullYear() == date.getFullYear())
+					return 'dzisiaj';
 
 			return date.getDate() + ' ' + month + ' ' + date.getFullYear() + ' r.';
 		}

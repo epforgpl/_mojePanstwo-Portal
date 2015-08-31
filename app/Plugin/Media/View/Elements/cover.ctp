@@ -87,12 +87,15 @@ $options = array(
                                             Więcej <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownRanges">
-                                            <? foreach($dropdownRanges as $range) { ?>
-                                                <li<? if($twitterTimerange == $range['param'] && strlen($twitterTimerange) === strlen($range['param'])) echo ' class="active"'; ?>>
-                                                    <a href="/media?t=<?= $range['param'] ?>">
-                                                        <?= $range['label'] ?>
-                                                    </a>
-                                                </li>
+                                            <? foreach($dropdownRanges as $dropdown) { ?>
+                                                <li class="dropdown-title"><?= $dropdown['title'] ?></li>
+                                                <? foreach($dropdown['ranges'] as $range) { ?>
+                                                    <li<? if($twitterTimerange == $range['param'] && strlen($twitterTimerange) === strlen($range['param'])) echo ' class="active"'; ?>>
+                                                        <a href="/media?t=<?= $range['param'] ?>">
+                                                            <?= $range['label'] ?>
+                                                        </a>
+                                                    </li>
+                                                <? } ?>
                                             <? } ?>
                                         </ul>
                                     </div>
@@ -116,12 +119,17 @@ $options = array(
         </div>
         <div class="dataWrap">
             <div class="range">
-	            <div class="pull-left">
-		            <p class="display"><?= $this->Czas->dataSlownie($timerange['labels']['min']) ?> <span class="separator">&mdash;</span> <?= $this->Czas->dataSlownie($timerange['labels']['max']) ?></p>
-	            </div>
-	            <div class="pull-right">
-		            <a class="switcher hidden" href="#"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Zastosuj</a>
-	            </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="display"><?= $this->Czas->dataSlownie($timerange['labels']['min']) ?> <span class="separator">&mdash;</span> <?= $this->Czas->dataSlownie($timerange['labels']['max']) ?></p>
+                    </div>
+                    <div class="col-md-8">
+                        <a href="#" class="switcher hidden btn btn-primary btn-icon auto-width">
+                            <i class="icon" data-icon="&#xe604;"></i>
+                            Zastosuj
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
