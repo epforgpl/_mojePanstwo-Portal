@@ -9,8 +9,23 @@
     min-height: inherit;
     margin-bottom: 0;
 
+    #storyLineMediaInformation {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: #41a8de;
+
+        p {
+            margin-top: 30%;
+            text-align: center;
+            color: #ffffff;
+            font-size: 28px;
+            white-space: pre-wrap;
+        }
+    }
+
     #storyLine {
-        display: block;
+        display: none;
         min-width: 100%;
         height: 100vh;
         background-color: #41a8de;
@@ -195,6 +210,7 @@
                             h3 {
                                 color: #ffffff;
                                 font-size: 40px;
+                                white-space: pre-wrap;
 
                                 strong {
                                     font-size: 65px;
@@ -800,6 +816,24 @@
                 }
 
             }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    #_wrapper #_main #storyLineMediaInformation {
+        padding-right: 80px;
+    }
+}
+
+@media (min-width: 1080px) {
+    #_wrapper #_main {
+        #storyLineMediaInformation {
+            display: none;
+        }
+
+        #storyLine {
+            display: block;
         }
     }
 }
