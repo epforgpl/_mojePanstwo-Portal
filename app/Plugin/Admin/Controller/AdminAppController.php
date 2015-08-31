@@ -32,6 +32,11 @@ class AdminAppController extends AppController
             'label' => 'Żądania uprawnień',
             'href'  => '/admin/moderate_requests',
         ),
+        array(
+            'id'    => 'surveys',
+            'label' => 'Ankiety',
+            'href'  => '/admin/surveys',
+        ),
     );
 
     public function beforeFilter() {
