@@ -2778,9 +2778,9 @@
                         return this.tree_widget.options.onSetStateFromStorage(state);
                     } else if (this.supportsLocalStorage()) {
                         return localStorage.setItem(this.getCookieName(), state);
-                    } else if ($.cookie) {
-                        $.cookie.raw = true;
-                        return $.cookie(this.getCookieName(), state, {
+					} else if (Cookies) {
+						Cookies.raw = true;
+						return Cookies.set(this.getCookieName(), state, {
                             path: '/'
                         });
                     }
@@ -2810,9 +2810,9 @@
                         return this.tree_widget.options.onGetStateFromStorage();
                     } else if (this.supportsLocalStorage()) {
                         return localStorage.getItem(this.getCookieName());
-                    } else if ($.cookie) {
-                        $.cookie.raw = true;
-                        return $.cookie(this.getCookieName());
+					} else if (Cookies) {
+						Cookies.raw = true;
+						return Cookies.get(this.getCookieName());
                     } else {
                         return null;
                     }
@@ -3477,4 +3477,4 @@
         }).call(this);
 
     }, {}]
-}, {}, [3]);;
+}, {}, [3]);

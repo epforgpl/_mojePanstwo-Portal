@@ -21,7 +21,7 @@ $(window).load(function () {
 			},
 			complete: function () {
 				mPCookie.survey.ankieta1 = 'all';
-				Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365});
+				Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
 				surveyAnkieta1.addClass('finished');
 				cockpit.find('.surveyPoll').remove();
 			}
@@ -45,7 +45,7 @@ $(window).load(function () {
 		cockpit.find('.surveyPoll.hide').removeClass('hide');
 		if (mPCookie.survey.ankieta1 !== 'all') {
 			mPCookie.survey.ankieta1 = 'half';
-			Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365});
+			Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
 		}
 	});
 

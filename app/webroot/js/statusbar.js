@@ -328,21 +328,4 @@ var _mojePanstwoCockpitSlider = {
             _mojePanstwoCockpitSlider.slideUp(document.getElementById('_mojePanstwoCockpitMenuUpSubMenu'));
         }
     }
-
-    /*TEMPORARY HACK FOR LOGO CHANGE*/
-    if (jQuery('._mojePanstwoCockpitLogo.firstTime').length > 0) {
-        window.setTimeout(function () {
-            jQuery('._mojePanstwoCockpitLogo.firstTime .morph').animate({
-                width: '0'
-            }, 1000, function () {
-                jQuery('._mojePanstwoCockpitLogo.firstTime .morph').remove();
-            });
-            jQuery('._mojePanstwoCockpitLogo.firstTime').animate({
-                'width': '140px'
-            }, 1100, function () {
-                jQuery('._mojePanstwoCockpitLogo.firstTime').removeClass('firstTime')
-            })
-            jQuery.cookie('_mPFirstTime', 0, {expires: 365, path: '/'});
-        }, 5000);
-    }
 })();

@@ -144,7 +144,7 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 
     /*----- COOKIE MANAGER -----*/
     function cookieSave(mPCookie) {
-        Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365});
+		Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
     }
 
     /*COOKIE LAW CONTROLER*/
