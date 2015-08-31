@@ -18,7 +18,7 @@ $options = array(
 <div class="col-xs-12 col-md-3 dataAggsContainer">
     <div class="sticky">
 	    <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
-		
+
 		<? /*
 		<? if(isset($twitterAccountTypes) && isset($twitterAccountType)) { ?>
 	        <div class="appSwitchers">
@@ -37,7 +37,7 @@ $options = array(
 	        </div>
 	    <? } ?>
 	    */ ?>
-		
+
         <? if(isset($twitterAccountTypes)) { ?>
 	        <?= $this->Element('Media.twitter-account-suggestion', array(
 	            'types' => $twitterAccountTypes
@@ -58,7 +58,7 @@ $options = array(
 	</div>
 
 	<div id="accountsSwitcher" class="appMenuStrip row">
-					    
+
 	    <? if(isset($twitterTimeranges) && isset($twitterTimerange)) { ?>
 	    	<div class="appSwitchers">
 		        <div class="dataWrap">
@@ -79,27 +79,31 @@ $options = array(
 			                <li<? if( isset($this->request->query['t']) && ($this->request->query['t']==$last_month_report['param']) ) echo ' class="active"' ?>>
 			                    <a href="/media?t=<?= $last_month_report['param'] ?>"><?= $last_month_report['label'] ?></a>
 			                </li>
-			                <? /*
-			                <li<? if($twitterTimerange == $key) echo ' class="active"' ?>>
-			                    <div class="dropdown">
-				                    <button class="clear dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				                        Więcej <span class="caret"></span>
-				                    </button>
-				                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-										<li><a href="#">Action</a></li>
-										<li><a href="#">Another action</a></li>
-										<li><a href="#">Something else here</a></li>
-										<li><a href="#">Separated link</a></li>
-									</ul>
-			                    </div>
-			                </li>
-			                */ ?>
+
+                            <? if(isset($dropdownRanges)) { ?>
+                                <li<? if($twitterTimerange == $key) echo ' class="active"' ?>>
+                                    <div class="dropdown">
+                                        <button class="clear dropdown-toggle" type="button" id="dropdownRanges" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Więcej <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownRanges">
+                                            <? foreach($dropdownRanges as $range) { ?>
+                                                <li<? if($twitterTimerange == $range['param'] && strlen($twitterTimerange) === strlen($range['param'])) echo ' class="active"'; ?>>
+                                                    <a href="/media?t=<?= $range['param'] ?>">
+                                                        <?= $range['label'] ?>
+                                                    </a>
+                                                </li>
+                                            <? } ?>
+                                        </ul>
+                                    </div>
+                                </li>
+                            <? } ?>
 				        </ul>
 			        </div>
 		        </div>
 	        </div>
 	    <? } ?>
-	    
+
 	</div>
 
     <div class="mediaHighstockPicker row">
@@ -121,25 +125,25 @@ $options = array(
             </div>
         </div>
     </div>
-	
+
 	<div class="dataWrap">
-		
-			
-		<? 
-		if( $hits = @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['top']['hits']['hits'] ) { 
-			
+
+
+		<?
+		if( $hits = @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['top']['hits']['hits'] ) {
+
 			if( $timerange['init'] ) {
 				$docs = array();
 				foreach( $hits as $hit )
 					$docs[ $hit['fields']['date'][0] ] = $hit;
-				
+
 				unset( $hits );
 				krsort($docs);
 				$docs = array_values($docs);
 			} else {
 				$docs = $hits;
-			}	
-				
+			}
+
 		?>
 		    <div class="block col-xs-12">
 		        <header>Najbardziej angażujące tweety:</header>
@@ -158,8 +162,8 @@ $options = array(
 		        </section>
 		    </div>
 	    <? } ?>
-		
-		
+
+
 		<? if( @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement']['buckets'] ) { ?>
 			<div class="block col-xs-12">
 		        <header>Najbardziej angażujące profile:</header>
@@ -174,7 +178,7 @@ $options = array(
 	            </section>
 		    </div>
 	    <? } ?>
-	    
+
 	    <? if( @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_tweets']['buckets'] ) { ?>
 			<div class="block col-xs-12">
 		        <header>Najwięcej tweetów napisali:</header>
@@ -188,7 +192,7 @@ $options = array(
 	            </section>
 		    </div>
 	    <? } ?>
-	    
+
 	    <? if( @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement_tweets']['buckets'] ) { ?>
 			<div class="block col-xs-12">
 		        <header>Najwięcej zaangażowania w przeliczeniu na 1 tweeta:</header>
@@ -202,8 +206,8 @@ $options = array(
 	            </section>
 		    </div>
 	    <? } ?>
-	    
-	    
+
+
 	    <? if( @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['accounts']['ids']['buckets'] ) { ?>
 			<div class="block col-xs-12">
 		        <header>Najczęściej wzmiankowani:</header>
@@ -217,30 +221,30 @@ $options = array(
 	            </section>
 		    </div>
 	    <? } ?>
-	    
 
-	    
-	    
+
+
+
 	</div>
 
-	    <? 
-	    if( $tags = @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['tags']['tags']['buckets'] ) { 
-			   
+	    <?
+	    if( $tags = @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['tags']['tags']['buckets'] ) {
+
 			$max = 0;
 			foreach( $tags as $t )
 				if( $t['rn']['engagement_count']['value'] > $max )
 					$max = $t['rn']['engagement_count']['value'];
-			
+
 			if( !$max )
-				$max = 1;			
-				    
+				$max = 1;
+
 	    ?>
 	        <div class="block col-xs-12">
 
 	            <header>
 		            <div class="dataWrap">Najbardziej angażujące hashtagi:</div>
 		        </header>
-								
+
 	            <section class="aggs-init">
 	                <ul id="tagsCloud">
 	                    <? foreach($tags as $tag) { ?>

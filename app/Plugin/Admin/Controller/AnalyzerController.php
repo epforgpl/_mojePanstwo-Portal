@@ -11,40 +11,64 @@ class AnalyzerController extends AdminAppController
         'RequestHandler'
     );
 
-    public function view()
-    {
+    private $options = array(
+        'krs' => array(
+            'action' => 'analyzer_krs',
+            'analyzer' => 'Krs',
+            'view' => 'view_krs'
+        ),
+        'zp' => array(
+            'action' => 'analyzer_zp',
+            'analyzer' => 'Zamowienia+Publiczne',
+            'view' => 'view_zp'
+        ),
+        'indexing' => array(
+            'action' => 'analyzer_indexing',
+            'analyzer' => 'Indeksowanie',
+            'view' => 'view_indeks'
+        ),
+        'cluster' => array(
+            'action' => 'analyzer_cluster',
+            'analyzer' => 'Cluster',
+            'view' => 'view_cluster'
+        ),
+        'bdl' => array(
+            'action' => 'analyzer_bdl',
+            'analyzer' => 'BDL',
+            'view' => 'view_bdl'
+        ),
+    );
 
-        $id = $this->request->params['named']['id'];
+    private function create($id) {
+        if(!in_array($id, array_keys($this->options)))
+            throw new NotFoundException;
 
-        $analyzer = $this->Analyzer->grabData($id);
-
+        $options = $this->options[$id];
+        $this->set('action', $options['action']);
+        $analyzer = $this->Analyzer->grabData($options['analyzer']);
         $this->set('analyzer', $analyzer);
-
         $this->set('_serialize', array('analyzer'));
-
-        switch ($id) {
-
-            case 'Krs': {
-                $this->render('view_krs');
-                break;
-            }
-            case 'Zamowienia Publiczne': {
-                $this->render('view_zp');
-                break;
-            }
-            case 'Indeksowanie': {
-                $this->render('view_indeks');
-                break;
-            }
-            case 'Cluster': {
-                $this->render('view_cluster');
-                break;
-            }
-            case 'BDL': {
-                $this->render('view_bdl');
-                break;
-            }
-        }
-
+        $this->render($options['view']);
     }
+
+    public function krs() {
+        $this->create('krs');
+    }
+
+    public function zp() {
+        $this->create('zp');
+    }
+
+    public function indexing() {
+        $this->create('indexing');
+    }
+
+    public function cluster() {
+        $this->create('cluster');
+    }
+
+    public function bdl() {
+        $this->create('bdl');
+    }
+
 }
