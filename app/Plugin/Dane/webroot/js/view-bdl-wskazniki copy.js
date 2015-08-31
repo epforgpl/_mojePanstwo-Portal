@@ -138,21 +138,21 @@ jQuery(document).ready(function () {
         wskazniki = main.find('.wskaznik'),
         wskaznikiStatic = main.find('.wskaznikStatic'),
         wskaznikiString = '';
-			
+
     wskazniki.each(function (index) {
-                
+
         var el = $(this);
         var data = el.data('years');
-        var id = el.data('dim_id')
-        
+		var id = el.data('dim_id');
+
         if( data ) {
-            
-            var chart_div = el.find('.chart'),
+
+			var chart_div = el.find('.chart'),
                 label = [],
                 value = [];
 
-			console.log('chart_div', chart_div);
-			
+			//console.log('chart_div', chart_div);
+
             jQuery.each(data, function () {
                 label.push(this[0]);
                 value.push(Number(this[1]));
@@ -188,10 +188,10 @@ jQuery(document).ready(function () {
                     }
                 ]
             });
-	        
-        }
-        
-    });
+
+		}
+
+	});
 
 
 

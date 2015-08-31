@@ -33,8 +33,8 @@ $(document).ready(function () {
             text: 'Litery jak w zdaniu',
             context: 'format',
             onclick: function() {
-                console.log(editor.getContent());
-                console.log(sentencecase(editor.getContent()));
+				//console.log(editor.getContent());
+				//console.log(sentencecase(editor.getContent()));
                 editor.setContent(
                     sentencecase(editor.getContent())
                 );

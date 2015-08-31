@@ -28,7 +28,7 @@ $(document).ready(function () {
 		drilldowns.push({name: $(this)[0]['name'], id: $(this)[0]['id'], data: data_lokal})
 	});
 
-	console.log(drilldowns);
+	//console.log(drilldowns);
 
 	$('#wydatki_budzetu_wg_czesci').highcharts({
 		chart: {

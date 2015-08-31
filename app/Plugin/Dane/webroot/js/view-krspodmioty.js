@@ -247,8 +247,6 @@ jQuery(document).ready(function () {
         }
     });
 
-    console.log(objectMain, objectMain.find('.text-iheight-toggle'));
-
     objectMain.find('.text-iheight-toggle > a').on('click', function (e) {
         var that = $(this),
             main = objectMain.find('.text-iheight');
