@@ -18,12 +18,9 @@ ul.chart-blocks {
             display: block;
             padding: 2px 5px;
             font-size: 10px;
-            font-weight: 2px;
             text-shadow: 0 0 2px #000;
             color: #FFF;
             font-weight: 500;
-            border: 1px solid #F3F3F3;
-            border-style: none solid;
         }
     }
 }
@@ -235,11 +232,17 @@ ul.chart-blocks {
         }
 
         .dzialania {
-            margin-top: 0px;
+            margin-top: 0;
+
             .content {
                 margin-top: -10px;
                 margin-left: -5px;
                 margin-right: -5px;
+
+                .col-sm-6 {
+                    margin-bottom: 20px;
+                }
+
                 .photo {
                     position: relative;
                     width: 100%;
@@ -391,6 +394,14 @@ ul.chart-blocks {
     }
 }
 
+.theme-default .text-iheight .text-iheight-toggle {
+    background-image: linear-gradient(to bottom, transparent, #FDFDFD);
+}
+
+.theme-simple .text-iheight .text-iheight-toggle {
+    background-image: linear-gradient(to bottom, transparent, #ffffff);
+}
+
 .text-iheight {
     overflow: hidden;
     max-height: 100px;
@@ -406,10 +417,6 @@ ul.chart-blocks {
         margin-bottom: 30px;
     }
 
-    .text-iheight-content {
-
-    }
-
     .text-iheight-toggle {
         text-align: center;
         position: absolute;
@@ -418,7 +425,6 @@ ul.chart-blocks {
         width: 100%;
         margin: 0;
         padding: 10px 0;
-        background-image: linear-gradient(to bottom, transparent, white);
 
         > a {
             position: relative;
