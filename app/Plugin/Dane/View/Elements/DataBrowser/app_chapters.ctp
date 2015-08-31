@@ -24,6 +24,9 @@
 	                	<a href="<?= $item['href'] ?>">
 		                	<?= $item['label'] ?><? if (isset($item['count'])) { ?> <span class="counter"><?= $item['count'] ?></span><? } ?>
 	                    </a>
+	                    
+	                    <? if( isset($item['element']) ) echo $this->element($item['element']['path']); ?>
+	                    
 	                </li>
 	                
 	            <? } ?>

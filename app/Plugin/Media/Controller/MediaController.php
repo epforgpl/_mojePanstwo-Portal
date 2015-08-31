@@ -657,4 +657,17 @@ class MediaController extends ApplicationsController
         $this->title = "Media polityczne w 2013 roku";
         //$this->loadDatasetBrowser('twitter_accounts');
     }
+    
+    public function getChapters()
+    {
+	    
+	    $chapters = parent::getChapters();
+	    
+	    $chapters['items'][0]['label'] = 'Analiza';
+	    $chapters['items'][0]['element'] = array(
+		    'path' => 'Media.start_menu',
+	    );	    
+	    return $chapters;
+	    
+    }
 }
