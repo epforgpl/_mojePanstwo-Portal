@@ -7,6 +7,8 @@ Router::redirect('/mediaspolecznosciowe', '/media');
 Router::redirect('/media/twitter/suggestNewAccount', array('plugin' => 'Media', 'controller' => 'Twitter', 'action' => 'suggestNewAccount'));
 
 Router::connect('/media', array('plugin' => 'Media', 'controller' => 'Media', 'action' => 'view'));
+Router::connect('/media/propozycje_kont', array('plugin' => 'Media', 'controller' => 'Media', 'action' => 'propozycje_kont', '[method]' => 'GET'));
+Router::connect('/media/propozycje_kont', array('plugin' => 'Media', 'controller' => 'Media', 'action' => 'manage_account', '[method]' => 'POST'));
 Router::connect('/media/:id', array('plugin' => 'Media', 'controller' => 'Media', 'action' => 'action',));
 
 /*

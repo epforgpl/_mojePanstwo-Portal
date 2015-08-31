@@ -13,7 +13,7 @@ $(document).ready(function() {
 	var tagsCloud = $("#tagsCloud");
 	if( tagsCloud.length )
 		tagsCloud.cloud({
-			hwratio: .3,
+			hwratio: .5,
 			fog: .4
 		});
 
@@ -36,12 +36,15 @@ $(document).ready(function() {
 		var main = $('.mediaHighstockPicker'),
 			chart = main.find('.chart').first(),
 			aggs = chart.data('aggs'),
+			range = chart.data('range'),
+			xmax = chart.data('xmax'),
 			apply = main.find('.text-center a').first(),
 			data = [],
 			highchart;
 
 		for(var i = 0; i < aggs.buckets.length; i++) {
 			var bucket = aggs.buckets[i];
+						
 			data.push([
 				bucket.key,
 				bucket.doc_count
@@ -51,17 +54,18 @@ $(document).ready(function() {
 		highchart = chart.highcharts('StockChart', {
 			chart: {
 				width: $(this.li).parent('.dataAggsDropdownList').first().outerWidth(),
-				height: 210,
+				height: 160,
 				backgroundColor: 'transparent',
 				events: {
 					load: function () {
-						//var e = this.xAxis[0].getExtremes();
-						//load(e.min, e.max);
+						this.xAxis[0].setExtremes(range.min*1000, range.max*1000, true, false);
 					}
-				}
+				},
+				marginLeft: 20,
+				marginRight: 20
 			},
 			navigator: {
-				height: 140,
+				height: 132,
 				yAxis: {
 					tickWidth: 0,
 					lineWidth: 0,
@@ -69,28 +73,28 @@ $(document).ready(function() {
 					tickPixelInterval: 40,
 					gridLineColor: '#EEE',
 					labels: {
-						enabled: true
+						enabled: false
 					}
+				},
+				xAxis: {
+					gridLineWidth: 1,
+					startOnTick: false,
+					endOnTick: false,
+					labels: {
+						enabled: true
+					},
+					tickWidth: 1,
+					tickPixelInterval: 40,
+					// minRange: 3600000
+					max: xmax ? xmax : null
+
 				}
 			},
 			credits: {
 				enabled: false
 			},
 			rangeSelector: {
-				buttons : [{
-					type : 'day',
-					count : 1,
-					text : '1D'
-				}, {
-					type : 'month',
-					count : 1,
-					text : '1M'
-				}, {
-					type : 'all',
-					count : 1,
-					text : 'All'
-				}],
-				selected : 0
+				enabled: false
 			},
 			title: {
 				text: ''
@@ -110,19 +114,24 @@ $(document).ready(function() {
 				gridLineWidth: 0,
 				lineWidth: 0,
 				tickWidth: 0,
+				minRange: 86400000,
 				events: {
 					setExtremes: function (e) {
 						if (e.trigger == 'navigator') {
+							
+							/*
 							var extremes = e,
 								start = new Date(extremes.min),
 								end   = new Date(extremes.max);
 
-							apply.attr('href', '?conditions[_date]=' + '['
+							apply.attr('href', '?t=' + '['
 								+ dateToYYYYMMDD(start)
 								+ ' TO '
 								+ dateToYYYYMMDD(end)
 								+ ']');
 							apply.css('visibility', 'visible');
+							*/
+							
 						} else {
 							//load(e.min, e.max);
 						}
@@ -135,21 +144,7 @@ $(document).ready(function() {
 				},
 				gridLineWidth: 0,
 				lineWidth: 0,
-				tickWidth: 0,
-				events: {
-					setExtremes: function (e) {
-						if (e.trigger == 'navigator') {
-							extremes = e;
-							setTimeout(function () {
-								if (extremes == e) {
-									//load(e.min, e.max);
-								}
-							}, 300);
-						} else {
-							//load(e.min, e.max);
-						}
-					}
-				}
+				tickWidth: 0
 			}
 		});
 

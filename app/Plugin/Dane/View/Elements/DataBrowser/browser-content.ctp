@@ -56,9 +56,11 @@ if ($dataBrowser['mode'] == 'cover') { ?>
 
             <? if( isset($sideElement) ) echo $this->Element($sideElement) ?>
 
-
-
-            <? if(isset($menu) && isset($menu['items'])) {
+            <?  if( isset($app_chapters) ) {
+	            
+	            echo $this->Element('Dane.DataBrowser/app_chapters');
+	            
+	        } elseif(isset($menu) && isset($menu['items'])) {
 
                 echo $this->Element('Dane.DataBrowser/browser-menu', array(
                     'menu' => $menu,
