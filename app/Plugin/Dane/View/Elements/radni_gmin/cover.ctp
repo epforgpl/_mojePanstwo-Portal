@@ -425,7 +425,7 @@ if ($okreg) {
             <div class="row">
                 <div class="col-md-12">
                     <div id="okreg_map" style="width: 100%; height: 200px; border-radius: 10px;" class="object"></div>
-                    <div data-name="okreg" data-content='<?= json_encode($okreg) ?>'></div>
+                    <div data-name="okreg" data-content='<?= json_encode($okreg[3]) ?>'></div>
                 </div>
             </div>
         </a>

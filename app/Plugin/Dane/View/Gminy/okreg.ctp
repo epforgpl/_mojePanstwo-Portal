@@ -24,28 +24,28 @@ echo $this->Element('Dane.dataobject/subobject', array(
     <div class="row">
 
 		<div class="col-sm-7">
-	        
+
 	        <div class="block block-simple col-xs-12">
 		    	<section class="aggs-init margin-sides-10">
-			    	
+
 			    	<ul class="dataHighlights oneline">
 		                <li class="dataHighlight col-xs-2">
 		                    <p class="_label">Rok</p>
 		                    <p class="_value"><?= $okreg->getData('rok') ?></p>
 		                </li>
-		
-		                <? if($okreg->getData('liczba_mieszkańców')) { ?>
+
+		                <? if($okreg->getData('liczba_mieszkancow')) { ?>
 		                    <li class="dataHighlight col-xs-3">
 		                        <p class="_label">Liczba mieszkańców</p>
-		                        <p class="_value"><?= $okreg->getData('liczba_mieszkańców') ?></p>
+		                        <p class="_value"><?= $okreg->getData('liczba_mieszkancow') ?></p>
 		                    </li>
 		                <? } ?>
-		
+
 		                <li class="dataHighlight col-xs-3">
 		                    <p class="_label">Liczba mandatów</p>
 		                    <p class="_value"><?= $okreg->getData('liczba_mandatow') ?></span></p>
 		                </li>
-		
+
 		                <li class="dataHighlight col-xs-7">
 		                    <p class="_label" data-toggle="tooltip" data-placement="bottom" title="Norma przedstawicielska -
 			            określa ilość mandatów przypadających na dany okręg. Jest obliczana przez
@@ -55,12 +55,12 @@ echo $this->Element('Dane.dataobject/subobject', array(
 			            normy przedstawicielstwa, zaokrągla się w górę do liczby całkowitej.">Ilość mieszkańców / Norma przedstawicielstwa</p>
 		                    <p class="_value"><?= $okreg->getData('liczba_miesz_norma_przedst') ?></p>
 		                </li>
-		                		                
+
 		            </ul>
-			    	
+
 		    	</section>
-		    </div> 
-	        
+		    </div>
+
 	        <? if( @$okreg_aggs['radni']['hits']['hits'] ) { ?>
 	        <div class="block block-simple col-xs-12">
 		        <header>Radni wybrani w tym okręgu:</header>
@@ -79,27 +79,27 @@ echo $this->Element('Dane.dataobject/subobject', array(
 		        </section>
 		    </div>
 		    <? } ?>
-		    
-		    
+
+
 		    <p class="text-center">
                 <a href="/dane/gminy/903,krakow/rada_uchwaly/18316?file=412749">
 	                Źródło
 	            </a>
             </p>
-		    
-		        
-	        
+
+
+
 	    </div>
 
 	    <div class="col-sm-5">
-			
+
 			<div class="block col-xs-12 margin-top-10">
 		        <header>Mapa okręgu:</header>
 		        <section class="aggs-init nopadding">
 		             <div id="okreg_map" class="object"></div>
 			        <div data-name="okreg" data-content='<?= $okreg->getLayers('geo') ?>'></div>
 		        </section>
-		    </div>	        
+		    </div>
 
 	    </div>
 
