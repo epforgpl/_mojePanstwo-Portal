@@ -243,3 +243,6 @@
         </div>
     </div>
 </div>
+<div id="storyLineMediaInformation">
+    <p>Raport "Wydatki Posłów" przystosowany jest do ekranów o mnimalnej rozdzielczości 1080px.</p>
+</div>
