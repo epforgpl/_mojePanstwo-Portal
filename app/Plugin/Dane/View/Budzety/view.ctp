@@ -17,8 +17,8 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
                 <div class="dataAggs">
                     <div class="agg agg-Dataobjects">
 
-                        <div class="col-sm-10 col-sm-offset-1">
-                            <table class="table table-hover">
+                        <div class="col-xs-12 col-sm-11 row">
+                            <table class="table table-strict">
                                 <thead>
                                 <tr>
                                     <th>Dochody</th>
@@ -36,8 +36,8 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
                             </table>
 
                             <? if ($object->getData('rok') > 2006 && $object->getData('rok') < 2010) { ?>
-                                <caption>W tym ze środków Unii Europejskiej</caption>
-                                <table class="table table-hover">
+                                <table class="table table-strict">
+                                    <caption>W tym ze środków Unii Europejskiej</caption>
                                     <tbody>
                                     <tr>
                                         <td><?= number_format_h($object->getData('liczba_dochody_eu') * 1000) ?></td>
@@ -46,8 +46,8 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
                                 </table>
                             <? } ?>
                             <? if ($object->getData('rok') > 2009) { ?>
-                                <table class="table table-hover">
-                                    <caption>Ze środków Unii Europejskiej</caption>
+                                <table class="table table-strict">
+                                    <caption>W tym ze środków Unii Europejskiej</caption>
                                     <thead>
                                     <tr>
                                         <th>Dochody</th>
