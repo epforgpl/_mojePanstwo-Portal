@@ -10,10 +10,17 @@
 	                $active = false;
 	                
 	                if(
-		                !$app_chapters['selected'] &&
 		                (
-			                !isset($item['id']) || 
-			                !$item['id']
+			                !$app_chapters['selected'] &&
+			                (
+				                !isset($item['id']) || 
+				                !$item['id']
+			                )
+		                ) || 
+		                (
+			                @$app_chapters['selected'] && 
+			                @$item['id'] && 
+			                ( $app_chapters['selected']==$item['id'] )
 		                )
 	                )
 	                	$active = true;
@@ -25,7 +32,7 @@
 		                	<?= $item['label'] ?><? if (isset($item['count'])) { ?> <span class="counter"><?= $item['count'] ?></span><? } ?>
 	                    </a>
 	                    
-	                    <? if( isset($item['element']) ) echo $this->element($item['element']['path']); ?>
+	                    <? if( $active && isset($item['element']) ) echo $this->element($item['element']['path']); ?>
 	                    
 	                </li>
 	                

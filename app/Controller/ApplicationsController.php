@@ -276,7 +276,9 @@ class ApplicationsController extends AppController
     }
 	
 	public function getChapters() {
-					
+		
+		$mode = false;
+				
 		$items = array(
 			array(
 				'label' => 'Start',
@@ -285,28 +287,72 @@ class ApplicationsController extends AppController
 		);
 		
 		if(
+			isset( $this->request->query['q'] ) && 
+			$this->request->query['q']
+		) {
+									
+			$items[] = array(
+				'id' => '_results',
+				'label' => 'Wyniki wyszukiwania',
+				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
+			);
+			
+			if( $this->chapter_selected=='view' )
+				$this->chapter_selected = '_results';
+			$mode = 'results';
+			
+		}
+		
+		if(
 			( $map = @$this->viewVars['dataBrowser']['aggs_visuals_map']['dataset']['dictionary'] ) && 
 			( $datasets = @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] )
 		) {
-			
+						
 			foreach( $map as $key => $value ) {
-				
+								
 				if( !isset($value['menu_id']) )
 					$value['menu_id'] = '';
 				
-				$items[] = array(
+				$item = array(
 					'id' => $value['menu_id'],
 					'label' => $value['label'],
 					'href' => '/' . $this->settings['id'] . '/' . $value['menu_id'],
 				);
+								
+				if( $mode == 'results' ) {
+										
+					$item['href'] .= '?q=' . urlencode( $this->request->query['q'] );
+
+					foreach( $datasets as $d ) {
+												
+						if( $d['key']==$key ) {
+							
+							if( $d['doc_count'] ) {
+								$item['count'] = $d['doc_count'];
+								$items[] = $item;
+							}
+							
+							break;
+							
+						} 
+					}
+					
+				} else {
+					
+					$items[] = $item;
+					
+				}
+				
 			}
 			
 		}
-		
-		return array(
+				
+		$output = array(
 			'items' => $items,
 			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
 		);
+				
+		return $output;
 		
 	}
 	
