@@ -290,6 +290,10 @@ class ApplicationsController extends AppController
 		) {
 			
 			foreach( $map as $key => $value ) {
+				
+				if( !isset($value['menu_id']) )
+					$value['menu_id'] = '';
+				
 				$items[] = array(
 					'id' => $value['menu_id'],
 					'label' => $value['label'],
