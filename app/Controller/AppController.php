@@ -226,7 +226,7 @@ class AppController extends Controller
         ),
         'media' => array(
             'twitter_accounts' => array(
-            	'label' => 'Obserwowane konta Twitter',
+            	'label' => 'Obserwowane konta',
 				'searchTitle' => 'Szukaj w kontach Twitter...',
 				'menu_id' => 'twitter_konta',
             ),
