@@ -1160,7 +1160,7 @@ class DataBrowserComponent extends Component
                 }
             }
         }
-				
+
 		return $aggs;
 
 	}
@@ -1204,7 +1204,7 @@ class DataBrowserComponent extends Component
 
         if (isset($settings['searchTitle']))
             $this->searchTitle = $settings['searchTitle'];
-            
+
         if (isset($settings['searchAction']))
             $this->searchAction = $settings['searchAction'];
 
@@ -1464,25 +1464,25 @@ class DataBrowserComponent extends Component
 
         if (isset($conditions['q']))
             $output['highlight'] = true;
-		
-		
+
+
 		if( $output['conditions'] ) {
 			foreach( $output['conditions'] as $field => $value ) {
 				foreach( $this->aggs_visuals_map as $key => $map) {
-					if( 
-						($map['target']=='filters') && 
-						isset($map['field']) && 
-						( $map['field']==$field ) 
+					if(
+						($map['target']=='filters') &&
+						isset($map['field']) &&
+						( $map['field']==$field )
 					) {
-						
+
 						$output['aggs'][$key]['scope'] = 'filters_exclude(' . $field . ')';
 						break;
 					}
-				}				
+				}
 			}
 		}
 
-		
+
         return $output;
 
     }
@@ -1549,6 +1549,11 @@ class DataBrowserComponent extends Component
                 unset($cancelQuery['page']);
             if (isset($cancelQuery['conditions']['q']))
                 unset($cancelQuery['conditions']['q']);
+
+            if($map['skin'] == 'date_histogram' && isset($cancelQuery['t'])) {
+                unset($cancelQuery['t']);
+            }
+
             $maps[$i]['cancelRequest'] = $controller->here . '?' . http_build_query($cancelQuery);
 
             // Wybieranie np. danego typu
@@ -1560,7 +1565,10 @@ class DataBrowserComponent extends Component
                 unset($cancelQuery['page']);
 
             $r = $controller->here . '?' . http_build_query($cancelQuery);
-            if (isset($map['field']))
+
+            if($map['skin'] == 'date_histogram') {
+                $r .= '&t=';
+            } elseif (isset($map['field']))
                 $r .= '&conditions[' . $map['field'] . ']=';
 
             $maps[$i]['chooseRequest'] = $r;

@@ -201,7 +201,7 @@ $(document).ready(function () {
 				text: null
 			},
 			tooltip: {
-				pointFormat: '<b>#{point.x}</b> <img src="/media/img/twitterapp/{point.x}.png"/> {point.name}',
+				pointFormat: '<div style="display: block"><b>#{point.x}</b> <img src="/media/img/twitterapp/{point.x}.png"/> {point.name}</div>',
 				useHTML: true
 			},
 			legend: {

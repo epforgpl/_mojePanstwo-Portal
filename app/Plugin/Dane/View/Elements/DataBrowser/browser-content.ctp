@@ -3,6 +3,8 @@
 $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('dataobjectpage', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
+$this->Html->css(array('../plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min'), array('inline' => 'false', 'block' => 'cssBlock'));
+$this->Html->script(array('../plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min', '../plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.pl.min'), array('inline' => 'false', 'block' => 'scriptBlock'));
 $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
@@ -57,9 +59,9 @@ if ($dataBrowser['mode'] == 'cover') { ?>
             <? if( isset($sideElement) ) echo $this->Element($sideElement) ?>
 
             <?  if( isset($app_chapters) ) {
-	            
+
 	            echo $this->Element('Dane.DataBrowser/app_chapters');
-	            
+
 	        } elseif(isset($menu) && isset($menu['items'])) {
 
                 echo $this->Element('Dane.DataBrowser/browser-menu', array(
@@ -73,7 +75,7 @@ if ($dataBrowser['mode'] == 'cover') { ?>
     <div class="col-xs-12 col-md-<?= $displayAggs ? $columns[0] : 12 ?>">
 
         <div class="dataWrap">
-									
+
             <?= $this->element('Dane.DataBrowser/browser-content-paging', array(
             	'params' => $params,
             )) ?>
