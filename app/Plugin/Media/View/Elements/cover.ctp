@@ -154,7 +154,7 @@ $options = array(
 
 		?>
 		    <div class="block col-xs-12">
-		        <header>Najbardziej angażujące tweety:</header>
+		        <header title="Tweety, które uzyskały najwięszką liczbę retweetów, polubień i komentarzy.">Najbardziej angażujące tweety:</header>
 		        <section class="aggs-init">
 		            <div class="dataAggs">
 		                <div class="agg agg-Dataobjects">
@@ -174,7 +174,7 @@ $options = array(
 
 		<? if( @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement']['buckets'] ) { ?>
 			<div class="block col-xs-12">
-		        <header>Najbardziej angażujące profile:</header>
+		        <header title="Profile, których tweety uzyskały największe liczby retweetów, polubień i komentarzy.">Najbardziej angażujące profile:</header>
 	            <section class="aggs-init">
 	                <div class="dataAggs">
 	                    <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150" data-image_field="image_url" data-label_field="name"
@@ -203,7 +203,7 @@ $options = array(
 
 	    <? if( @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement_tweets']['buckets'] ) { ?>
 			<div class="block col-xs-12">
-		        <header>Najwięcej zaangażowania w przeliczeniu na 1 tweeta:</header>
+		        <header title="Profile, które uzyskały najwięcej retweetów, polubień i komentarzy, w przeliczeniu na 1 tweeta.">Najwięcej zaangażowania w przeliczeniu na 1 tweeta:</header>
 	            <section class="aggs-init">
 	                <div class="dataAggs">
 	                    <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150" data-image_field="image_url" data-label_field="name" data-counter_field="engagement_count" data-choose-request="media?conditions[twitter.twitter_account_id]="
@@ -218,7 +218,7 @@ $options = array(
 
 	    <? if( @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['accounts']['ids']['buckets'] ) { ?>
 			<div class="block col-xs-12">
-		        <header>Najczęściej wzmiankowani:</header>
+		        <header title="Profile, które były najczęściej wzmiankowane w innych tweetach i ich retweetach.">Najczęściej wzmiankowani:</header>
 	            <section class="aggs-init">
 	                <div class="dataAggs">
 	                    <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150" data-label_field="name" data-choose-request="media?conditions[twitter.twitter_account_id]="
@@ -249,7 +249,7 @@ $options = array(
 	    ?>
 	        <div class="block col-xs-12">
 
-	            <header>
+	            <header title="Hashatagi osadzone w tweetach, które osiągneły największą liczbę retweetów, polubień i komentarzy.">
 		            <div class="dataWrap">Najbardziej angażujące hashtagi:</div>
 		        </header>
 
@@ -267,33 +267,22 @@ $options = array(
 	        </div>
             <p></p>
 	    <? } ?>
-
+		
+	<? /*
 	<div class="dataWrap">
-
-	    <? if(@$dataBrowser['aggs']['tweets_whitout_account_type_id']['types']['buckets']) { ?>
+				
+	    <? if(@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['sources']) { ?>
 	        <div class="block col-xs-12">
 	            <header>Najczęściej używane aplikacje:</header>
 	            <section class="aggs-init margin-sides-10">
-	                <div class="row">
-		                <? foreach( $dataBrowser['aggs']['tweets_whitout_account_type_id']['types']['buckets'] as $b ) { ?>
-		                <div class="block-source col-sm-4">
-			                <p class="label label-primary"><?= $twitterAccountTypes[ $b['key'] ] ?></p>
-			                <ul class="list-group reset">
-				                <? foreach($b['sources']['buckets'] as $s) { ?>
-				                <li class="list-group-item">
-				                	<span class="badge"><?= $s['label']['buckets'][0]['doc_count'] ?></span>
-				                	<?= $s['label']['buckets'][0]['key'] ?>
-				                </li>
-				                <? } ?>
-			                </ul>
-		                </div>
-
-		                <? } ?>
-	                </div>
+	                
+	                <? debug($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['sources']); ?>
+	                
 	            </section>
 	        </div>
 	    <? } ?>
 
 	</div>
+	*/ ?>
 
 </div>
