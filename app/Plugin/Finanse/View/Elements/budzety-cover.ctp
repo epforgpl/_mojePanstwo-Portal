@@ -7,28 +7,7 @@ $this->Combinator->add_libs('js', 'Finanse.budzety');
 ?>
 
 <div class="col-xs-12 col-md-2 dataAggsContainer">
-
-    <ul class="dataAggs">
-        <li class="agg">
-            <div class="agg agg-List agg-Datasets">
-                <ul class="nav nav-pills nav-stacked">
-	                <li>
-	                	<a href="/finanse">Start</a>
-	                </li>
-	                <li>
-	                	<a href="/finanse/centralne">Finanse centralne</a>
-	                </li>
-	                <li>
-	                	<a href="/finanse/gminy">Finanse gmin</a>
-	                </li>
-	                <li class="active">
-	                	<a href="/finanse/budzety">Ustawy budżetowe</a>
-	                </li>
-                </ul>
-		    </div>
-        </li>
-    </ul>
-
+    <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
 </div>
 
 <div id="bdl_div" class="col-xs-12 col-md-10">

@@ -11,7 +11,7 @@
 	                
 	                if(
 		                (
-			                !$app_chapters['selected'] &&
+			                !@$app_chapters['selected'] &&
 			                (
 				                !isset($item['id']) || 
 				                !$item['id']
