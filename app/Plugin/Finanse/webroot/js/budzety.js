@@ -2,6 +2,9 @@ $(function () {
 	var dataBlock = $('.chart'),
 		data = $.parseJSON(dataBlock.attr('data-json'));
 
+	/**
+	 * @return {number}
+	 */
 	function SortByDate(a, b) {
 		var aName = a.fields.source[0].data['budzety.rok'];
 		var bName = b.fields.source[0].data['budzety.rok'];
@@ -15,8 +18,6 @@ $(function () {
 		doch = [],
 		def = [],
 		startDate = 1990,
-		denominacjaDate = 1996,
-		denominacjaValue = 10,
 		premierPlotBandData = {},
 		premierPlotBandColorO = 'rgba(200,200,200,.2)',
 		premierPlotBandColorE = 'rgba(150,150,150,.2)';
@@ -28,17 +29,17 @@ $(function () {
 			wyd.push({
 				id: self['budzety.id'],
 				x: self['budzety.rok'],
-				y: (self['budzety.rok'] < denominacjaDate) ? self['budzety.liczba_wydatki'] / denominacjaValue : self['budzety.liczba_wydatki']
+				y: self['budzety.liczba_wydatki']
 			});
 			doch.push({
 				id: self['budzety.id'],
 				x: self['budzety.rok'],
-				y: (self['budzety.rok'] < denominacjaDate) ? self['budzety.liczba_dochody'] / denominacjaValue : self['budzety.liczba_dochody']
+				y: self['budzety.liczba_dochody']
 			});
 			def.push({
 				id: self['budzety.id'],
 				x: self['budzety.rok'],
-				y: (self['budzety.rok'] < denominacjaDate) ? self['budzety.liczba_deficyt'] / denominacjaValue : self['budzety.liczba_deficyt']
+				y: self['budzety.liczba_deficyt']
 			});
 
 			if (premierPlotBandData.id !== self['budzety.premier_czlowiek_id']) {
