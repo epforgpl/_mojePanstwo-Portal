@@ -150,9 +150,9 @@ $options = array(
             }
             ?>
             <div class="block col-xs-12">
-                <header>Najbardziej angażujące tweety<i class="glyphicon glyphicon-question-sign" data-toggle="tooltip"
-                                                        data-placement="right"
-                                                        title="Tweety, które uzyskały najwięszką liczbę retweetów, polubień i komentarzy."></i>:
+                <header>Najbardziej angażujące tweety:<i class="glyphicon glyphicon-question-sign" data-toggle="tooltip"
+                                                         data-placement="right"
+                                                         title="Tweety, które uzyskały najwięszką liczbę retweetów, polubień i komentarzy."></i>
                 </header>
                 <section class="aggs-init">
                     <div class="dataAggs">
@@ -172,9 +172,10 @@ $options = array(
 
         <? if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement']['buckets']) { ?>
             <div class="block col-xs-12">
-                <header>Najbardziej angażujące profile<i class="glyphicon glyphicon-question-sign" data-toggle="tooltip"
+                <header>Najbardziej angażujące profile:<i class="glyphicon glyphicon-question-sign"
+                                                          data-toggle="tooltip"
                                                          data-placement="right"
-                                                         title="Profile, których tweety uzyskały największe liczby retweetów, polubień i komentarzy."></i>:
+                                                          title="Profile, których tweety uzyskały największe liczby retweetów, polubień i komentarzy."></i>
                 </header>
                 <section class="aggs-init">
                     <div class="dataAggs">
@@ -183,7 +184,13 @@ $options = array(
                              data-counter_field="engagement_count"
                              data-choose-request="media?conditions[twitter.twitter_account_id]="
                              data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement'])) ?>">
-                            <div class="chart"></div>
+                            <div class="chart">
+                                <div class="spinner grey">
+                                    <div class="bounce1"></div>
+                                    <div class="bounce2"></div>
+                                    <div class="bounce3"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -199,7 +206,13 @@ $options = array(
                              data-image_field="image_url" data-label_field="name"
                              data-choose-request="media?conditions[twitter.twitter_account_id]="
                              data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_tweets'])) ?>">
-                            <div class="chart"></div>
+                            <div class="chart">
+                                <div class="spinner grey">
+                                    <div class="bounce1"></div>
+                                    <div class="bounce2"></div>
+                                    <div class="bounce3"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -208,10 +221,10 @@ $options = array(
 
         <? if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement_tweets']['buckets']) { ?>
             <div class="block col-xs-12">
-                <header>Najwięcej zaangażowania w przeliczeniu na 1 tweeta<i class="glyphicon glyphicon-question-sign"
+                <header>Najwięcej zaangażowania w przeliczeniu na 1 tweeta:<i class="glyphicon glyphicon-question-sign"
                                                                              data-toggle="tooltip"
                                                                              data-placement="right"
-                                                                             title="Profile, które uzyskały najwięcej retweetów, polubień i komentarzy, w przeliczeniu na 1 tweeta."></i>:
+                                                                              title="Profile, które uzyskały najwięcej retweetów, polubień i komentarzy, w przeliczeniu na 1 tweeta."></i>
                 </header>
                 <section class="aggs-init">
                     <div class="dataAggs">
@@ -219,7 +232,13 @@ $options = array(
                              data-image_field="image_url" data-label_field="name" data-counter_field="engagement_count"
                              data-choose-request="media?conditions[twitter.twitter_account_id]="
                              data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement_tweets'])) ?>">
-                            <div class="chart"></div>
+                            <div class="chart">
+                                <div class="spinner grey">
+                                    <div class="bounce1"></div>
+                                    <div class="bounce2"></div>
+                                    <div class="bounce3"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -229,16 +248,22 @@ $options = array(
 
         <? if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['accounts']['ids']['buckets']) { ?>
             <div class="block col-xs-12">
-                <header>Najczęściej wzmiankowani<i class="glyphicon glyphicon-question-sign" data-toggle="tooltip"
+                <header>Najczęściej wzmiankowani:<i class="glyphicon glyphicon-question-sign" data-toggle="tooltip"
                                                    data-placement="right"
-                                                   title="Profile, które były najczęściej wzmiankowane w innych tweetach i ich retweetach."></i>:
+                                                    title="Profile, które były najczęściej wzmiankowane w innych tweetach i ich retweetach."></i>
                 </header>
                 <section class="aggs-init">
                     <div class="dataAggs">
                         <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"
                              data-label_field="name" data-choose-request="media?conditions[twitter.twitter_account_id]="
                              data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['accounts']['ids'])) ?>">
-                            <div class="chart"></div>
+                            <div class="chart">
+                                <div class="spinner grey">
+                                    <div class="bounce1"></div>
+                                    <div class="bounce2"></div>
+                                    <div class="bounce3"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -255,9 +280,9 @@ $options = array(
         ?>
         <div class="block col-xs-12">
             <header>
-                <div class="dataWrap">Najbardziej angażujące hashtagi<i class="glyphicon glyphicon-question-sign"
+                <div class="dataWrap">Najbardziej angażujące hashtagi:<i class="glyphicon glyphicon-question-sign"
                                                                         data-toggle="tooltip" data-placement="right"
-                                                                        title="Hashatagi osadzone w tweetach, które osiągneły największą liczbę retweetów, polubień i komentarzy."></i>:
+                                                                         title="Hashatagi osadzone w tweetach, które osiągneły największą liczbę retweetów, polubień i komentarzy."></i>
                 </div>
             </header>
         </div>
@@ -281,7 +306,13 @@ $options = array(
                 <header>Najczęściej używane aplikacje:</header>
                 <section class="aggs-init margin-sides-10">
                     <div class="pie"
-                         data-json='<?= json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['sources']['buckets']); ?>'></div>
+                         data-json='<?= json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['sources']['buckets']); ?>'>
+                        <div class="spinner grey">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
+                        </div>
+                    </div>
                 </section>
             </div>
         <? } ?>

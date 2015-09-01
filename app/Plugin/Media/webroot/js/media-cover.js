@@ -178,12 +178,16 @@ $(document).ready(function () {
 			}
 		});
 
+		var appPieDataNr = 1,
+			appPieDataY = 30;
 		$.map($.parseJSON(pie.attr('data-json')), function (el) {
 			el = {
-				name: el.label.buckets[0].key,
-				y: 20
+				name: $(el.label.buckets[0].key).text(),
+				x: appPieDataNr++,
+				y: appPieDataY
 			};
 			appPieData.push(el);
+			appPieDataY -= 5;
 		});
 
 		appPie = pie.highcharts({
@@ -197,7 +201,16 @@ $(document).ready(function () {
 				text: null
 			},
 			tooltip: {
-				pointFormat: '<b>{series.name}</b>'
+				pointFormat: '<b>#{point.x}</b> <img src="/media/img/twitterapp/{point.x}.png"/> {point.name}',
+				useHTML: true
+			},
+			legend: {
+				layout: 'vertical',
+				align: 'right',
+				verticalAlign: 'top'
+			},
+			legacy: {
+				enabled: false
 			},
 			plotOptions: {
 				pie: {

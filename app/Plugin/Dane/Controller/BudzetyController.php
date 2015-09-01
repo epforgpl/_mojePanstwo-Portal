@@ -59,8 +59,44 @@ class BudzetyController extends DataobjectsController
     public function view()
     {
         $this->addInitLayers('dzialy');
-
+		$this->addInitAggs(array(
+			'budzety' => array(
+                'filter' => array(
+	                'bool' => array(
+		                'must' => array(
+			                array(
+				                'term' => array(
+					                'dataset' => 'budzety',
+				                ),
+			                ),
+			                array(
+				                'range' => array(
+					                'data.budzety.rok' => array(
+						                'gte' => 1989
+					                ),
+				                ),
+			                ),
+		                ),
+	                ),
+                ),
+                'scope' => 'global',
+                'aggs' => array(
+	                'top' => array(
+		                'top_hits' => array(
+			                'size' => 100,
+			                'sort' => array(
+				                'date' => array(
+					                'order' => 'desc',
+				                ),
+			                ),
+		                ),
+	                ),
+                ),
+            ),
+		));
+		
         $this->_prepareView();
+        // debug($this->object_aggs);
     }
 
     public function dane_liczbowe()
