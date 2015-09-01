@@ -94,20 +94,33 @@ $options = array(
             </div>
         </div>
 
-        <? /* if(@$dataBrowser['aggs']['tweets']['histogram']['histogram']['buckets']) { ?>
-            <div class="mediaHighstockPicker">
-                <div class="chart" data-aggs='<?= json_encode($dataBrowser['aggs']['tweets']['histogram']['histogram']) ?>'>
-                    <div class="spinner grey">
-                        <div class="bounce1"></div>
-                        <div class="bounce2"></div>
-                        <div class="bounce3"></div>
+        <? if( @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts_by_mentions']['accounts'] ) { ?>
+            <div class="block block-simple col-xs-12">
+                <header title="accounts_by_mentions.">accounts_by_mentions:</header>
+                <section class="aggs-init">
+                    <div class="dataAggs">
+                        <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"  data-label_field="screen_name" data-choose-request="/media?conditions[twitter.twitter_account_id]="
+                             data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts_by_mentions']['accounts']['ids'])) ?>">
+                            <div class="chart"></div>
+                        </div>
                     </div>
-                </div>
-                <div class="text-center">
-                    <a href="#"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Zastosuj</a>
-                </div>
+                </section>
             </div>
-        <? } */ ?>
+        <? } ?>
+
+        <? if( @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions_by_account']['accounts'] ) { ?>
+            <div class="block block-simple col-xs-12">
+                <header title="mentions_by_account.">mentions_by_account:</header>
+                <section class="aggs-init">
+                    <div class="dataAggs">
+                        <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"  data-label_field="screen_name" data-choose-request="/media?conditions[twitter.twitter_account_id]="
+                             data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions_by_account']['accounts']['ids'])) ?>">
+                            <div class="chart"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        <? } ?>
 
         <div class="dataWrap">
             <? if (@$dataBrowser['aggs']['tweets']['timerange']['top']['hits']['hits']) { ?>
@@ -130,8 +143,8 @@ $options = array(
             <? } ?>
         </div>
 
-        <? if (@$dataBrowser['aggs']['tweets']['timerange']['tags']['tags'] &&
-        count($dataBrowser['aggs']['tweets']['timerange']['tags']['tags']['buckets'])) { ?>
+        <? if (@$dataBrowser['aggs']['tweets']['tags']['tags']['buckets'] &&
+        count($dataBrowser['aggs']['tweets']['tags']['tags']['buckets'])) { ?>
             <div class="block block-simple col-xs-12">
 
                 <header>
@@ -140,9 +153,17 @@ $options = array(
 
                 <section class="aggs-init">
                     <ul id="tagsCloud">
-                        <? $tags = $dataBrowser['aggs']['tweets']['timerange']['tags']['tags'];
+                        <? $tags = $dataBrowser['aggs']['tweets']['tags']['tags'];
+                        $max = 0; $max_size = 60;
+                        foreach ($tags['buckets'] as $tag) {
+                            if($tag['doc_count'] > $max)
+                                $max = $tag['doc_count'];
+                        }
+
+                        $size = $max_size / $max;
+
                         foreach ($tags['buckets'] as $tag) { ?>
-                            <li style="font-size: <?= (($tag['doc_count'] + 2) * 8) ?>px;">
+                            <li style="font-size: <?= ((int) ($tag['doc_count']) * $size) + 10 ?>px;">
                                 <a href="/media/tweety?conditions[twitter.tags]=<?= $tag['key'] ?>">
                                     <?= $tag['label']['buckets'][0]['key'] ?>
                                 </a>
