@@ -1,5 +1,7 @@
+<? debug($dataBrowser['aggs']); ?>
+
 <? if(isset($dataBrowser['aggs_visuals_map']) && count($dataBrowser['aggs_visuals_map']) > 0) { $selected = false; ?>
-    <ul class="nav nav-pills margin-top-10 dataAggsDropdownList nopadding" role="tablist">
+    <ul class="nav nav-pills dataAggsDropdownList nopadding" role="tablist">
         <?
             foreach($dataBrowser['aggs_visuals_map'] as $name => $map) {
 

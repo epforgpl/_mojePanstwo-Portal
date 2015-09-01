@@ -66,12 +66,6 @@ if ($dataBrowser['mode'] == 'cover') { ?>
                     'menu' => $menu,
                 ));
 
-            } else {
-
-                echo $this->Element('Dane.DataBrowser/aggs', array(
-                    'data' => $dataBrowser,
-                ));
-
             } ?>
 
         </div>
@@ -79,7 +73,10 @@ if ($dataBrowser['mode'] == 'cover') { ?>
     <div class="col-xs-12 col-md-<?= $displayAggs ? $columns[0] : 12 ?>">
 
         <div class="dataWrap">
-
+									
+            <?= $this->element('Dane.DataBrowser/browser-content-paging', array(
+            	'params' => $params,
+            )) ?>
             <?= $this->element('Dane.DataBrowser/browser-content-filters') ?>
 
             <? /*
