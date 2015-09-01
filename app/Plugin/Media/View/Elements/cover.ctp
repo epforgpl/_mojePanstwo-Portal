@@ -244,8 +244,7 @@ $options = array(
                 </section>
             </div>
         <? } ?>
-        <?
-        if ($tags = @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['tags']['tags']['buckets']) {
+        <? if ($tags = @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['tags']['tags']['buckets']) {
         $max = 0;
         foreach ($tags as $t)
             if ($t['rn']['engagement_count']['value'] > $max)
@@ -253,7 +252,6 @@ $options = array(
 
         if (!$max)
             $max = 1;
-
         ?>
         <div class="block col-xs-12">
             <header>
@@ -264,7 +262,7 @@ $options = array(
             </header>
         </div>
     </div>
-    <section class="aggs-init">
+    <section class="aggs-init row">
         <ul id="tagsCloud">
             <? foreach ($tags as $tag) { ?>
                 <li style="font-size: <?= 20 + (70 * $tag['rn']['engagement_count']['value'] / $max) ?>px;">
@@ -278,14 +276,14 @@ $options = array(
     <div class="dataWrap">
         <? } ?>
 
-        <? /* if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['sources']) { ?>
-        <div class="block col-xs-12">
-            <header>Najczęściej używane aplikacje:</header>
-            <section class="aggs-init margin-sides-10">
-                <div class="pie"
-                     data-json='<?= json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['sources']['buckets']); ?>'></div>
-            </section>
-        </div>
-    <? } */ ?>
+        <? if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['sources']) { ?>
+            <div class="block col-xs-12">
+                <header>Najczęściej używane aplikacje:</header>
+                <section class="aggs-init margin-sides-10">
+                    <div class="pie"
+                         data-json='<?= json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['sources']['buckets']); ?>'></div>
+                </section>
+            </div>
+        <? } ?>
     </div>
 </div>

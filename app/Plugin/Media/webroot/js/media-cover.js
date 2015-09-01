@@ -197,7 +197,7 @@ $(document).ready(function () {
 				text: null
 			},
 			tooltip: {
-				pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+				pointFormat: '<b>{series.name}</b>'
 			},
 			plotOptions: {
 				pie: {
@@ -210,7 +210,6 @@ $(document).ready(function () {
 				}
 			},
 			series: [{
-				//name: "Brands",
 				colorByPoint: true,
 				data: appPieData
 			}]
