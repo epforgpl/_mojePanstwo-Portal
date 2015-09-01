@@ -3,13 +3,23 @@ $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
 $this->Combinator->add_libs('js', '../plugins/highstock/js/modules/drilldown');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 
+$this->Combinator->add_libs('js', 'Finanse.budzety');
+
 $this->Combinator->add_libs('js', 'Dane.budzet-view');
 ?>
 
 <? echo $this->Element('dataobject/pageBegin'); ?>
-
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-12">
+        <div id="bdl_div" class="col-xs-12 col-md-10">
+            <div class="chart"
+                 data-json='<?php echo json_encode($object_aggs['budzety']['top']['hits']['hits']); ?>'>
+        </div>
+    </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
 
         <div class="block block-simple col-xs-12">
             <header>Główne parametry budżetu:</header>
@@ -70,55 +80,9 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
             </section>
         </div>
     </div>
-    <div class="col-md-3">
-
-        <ul class="dataHighlights rightColumn margin-top-15">
-
-            <?
-            $data_wydania = $object->getData('prawo.data_wydania');
-            if (isset($data_wydania) && !empty($data_wydania) && ($data_wydania != '0000-00-00')) { ?>
-                <li class="dataHighlight col-xs-12">
-                    <p class="_label">Data wydania</p>
-
-                    <p class="_value"><?= $this->Czas->dataSlownie($data_wydania); ?></p>
-                </li>
-            <? } ?>
-
-            <?
-            $data_publikacji = $object->getData('prawo.data_publikacji');
-            if (isset($data_publikacji) && !empty($data_publikacji) && ($data_publikacji != '0000-00-00')) { ?>
-                <li class="dataHighlight col-xs-12">
-                    <p class="_label">Data publikacji</p>
-
-                    <p class="_value"><?= $this->Czas->dataSlownie($data_publikacji); ?></p>
-                </li>
-            <? } ?>
-
-
-            <?
-            $data_wejscia_w_zycie = $object->getData('prawo.data_wejscia_w_zycie');
-            if (isset($data_wejscia_w_zycie) && !empty($data_wejscia_w_zycie) && ($data_wejscia_w_zycie != '0000-00-00')) { ?>
-                <li class="dataHighlight col-xs-12">
-                    <p class="_label">Data wejścia w życie</p>
-
-                    <p class="_value"><?= $this->Czas->dataSlownie($data_wejscia_w_zycie); ?></p>
-                </li>
-            <? } ?>
-
-            <?
-            if ($sygnatura = $object->getData('prawo.sygnatura')) { ?>
-                <li class="dataHighlight col-xs-12">
-                    <p class="_label">Sygnatura</p>
-
-                    <p class="_value"><?= $sygnatura ?></p>
-                </li>
-            <? } ?>
-        </ul>
-
-    </div>
 </div>
 <div class="row">
-
+<div class="col-md-12">
     <div class="block block-simple col-xs-12">
 
         <? $dane = array(
@@ -187,17 +151,17 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
 
             <header>Wydatki według działów:</header>
             <section class="aggs-init margin-sides-20">
+                <small>Kliknij w interesujący wycinek wykresu, aby uzyskać więcej danych</small>
                 <div class="dataAggs">
                     <div class="agg agg-Dataobjects">
                         <div id="wydatki_budzetu_wg_czesci"></div>
                         <div id="wydatki_budzetu_wg_czesci2" class="hidden"></div>
-                        <small>Kliknij w interesujący wycinek wykresu, aby uzyskać więcej danych</small>
                     </div>
                 </div>
             </section>
         <? } ?>
     </div>
-
+</div>
 </div>
 
 

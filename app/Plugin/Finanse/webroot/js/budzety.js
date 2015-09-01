@@ -29,17 +29,17 @@ $(function () {
 			wyd.push({
 				id: self['budzety.id'],
 				x: self['budzety.rok'],
-				y: self['budzety.liczba_wydatki']
+				y: self['budzety.liczba_wydatki']*1000
 			});
 			doch.push({
 				id: self['budzety.id'],
 				x: self['budzety.rok'],
-				y: self['budzety.liczba_dochody']
+				y: self['budzety.liczba_dochody']*1000
 			});
 			def.push({
 				id: self['budzety.id'],
 				x: self['budzety.rok'],
-				y: self['budzety.liczba_deficyt']
+				y: self['budzety.liczba_deficyt']*1000
 			});
 
 			if (premierPlotBandData.id !== self['budzety.premier_czlowiek_id']) {
@@ -54,7 +54,7 @@ $(function () {
 					align: 'left',
 					text: '<img src="//resources.sejmometr.pl/mowcy/a/3/' + premierPlotBandData.id + '.jpg" alt="" />',
 					useHTML: true,
-					y: +320
+					y: +530
 				};
 				premierPlotBandData.from = self['budzety.rok'];
 			}
@@ -64,28 +64,30 @@ $(function () {
 	dataPremier.push(premierPlotBandData);
 	var dataSeries = [
 		{
-			type: 'line',
 			name: 'Wydatki',
 			data: wyd,
-			color: '#ff4643'
+			color: '#e4d354',
+			fillOpacity: 0.4
 		},
 		{
-			type: 'line',
 			name: 'Dochody',
 			data: doch,
 			setData: doch,
-			color: '#446ff9'
+			color: '#90ed7d',
+			fillOpacity: 0.7
 		},
 		{
-			type: 'area',
 			name: 'Deficyt',
 			data: def,
-			color: '#fff700'
+			color: '#f45b5b',
+			fillOpacity: 0.9
 		}];
 
 	dataBlock.highcharts({
 		chart: {
-			spacingBottom: 40
+			spacingBottom: 40,
+			type: 'area',
+			height: 600
 		},
 		credits: {
 			enabled: false
@@ -102,6 +104,37 @@ $(function () {
 					}
 				},
 				shadow: true
+			},
+			area: {
+				marker: {
+					enabled: false,
+					symbol: 'circle',
+					radius: 4,
+					states: {
+						hover: {
+							enabled: true
+						}
+					}
+				}
+			}
+		},
+		tooltip: {
+			shared: true,
+			valueSuffix: ' mld',
+			formatter: function () {
+				var points = this.points;
+				var pointsLength = points.length;
+				var tooltipMarkup = pointsLength ? '<span style="font-size: 10px">' + points[0].key + '</span><br/>' : '';
+				var index;
+				var val;
+
+				for(index = 0; index < pointsLength; index += 1) {
+					val = (points[index].y/1000000000).toFixed(2);
+
+					tooltipMarkup += '<span style="color:' + points[index].series.color + '">\u25CF</span> ' + points[index].series.name + ': <b>' + val  + ' mld</b><br/>';
+				}
+
+				return tooltipMarkup;
 			}
 		},
 		series: dataSeries,
@@ -111,7 +144,13 @@ $(function () {
 			pointInterval: 1
 		},
 		yAxis: {
-			title: ' '
+			title: ' ',
+			labels: {
+				formatter: function () {
+					return this.value / 1000000000 + ' mld';
+				}
+			}
 		}
 	});
 });
+

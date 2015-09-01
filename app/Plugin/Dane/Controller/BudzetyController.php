@@ -58,53 +58,56 @@ class BudzetyController extends DataobjectsController
 
     public function view()
     {
+
+        $this->addInitLayers('wydatki');
         $this->addInitLayers('dzialy');
-		$this->addInitAggs(array(
-			'budzety' => array(
+        $this->addInitAggs(array(
+            'budzety' => array(
                 'filter' => array(
-	                'bool' => array(
-		                'must' => array(
-			                array(
-				                'term' => array(
-					                'dataset' => 'budzety',
-				                ),
-			                ),
-			                array(
-				                'range' => array(
-					                'data.budzety.rok' => array(
-						                'gte' => 1989
-					                ),
-				                ),
-			                ),
-		                ),
-	                ),
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'budzety',
+                                ),
+                            ),
+                            array(
+                                'range' => array(
+                                    'data.budzety.rok' => array(
+                                        'gte' => 1989
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
                 ),
                 'scope' => 'global',
                 'aggs' => array(
-	                'top' => array(
-		                'top_hits' => array(
-			                'size' => 100,
-			                'sort' => array(
-				                'date' => array(
-					                'order' => 'desc',
-				                ),
-			                ),
-		                ),
-	                ),
+                    'top' => array(
+                        'top_hits' => array(
+                            'size' => 100,
+                            'sort' => array(
+                                'date' => array(
+                                    'order' => 'desc',
+                                ),
+                            ),
+                        ),
+                    ),
                 ),
             ),
-		));
-		
+        ));
+
         $this->_prepareView();
-        // debug($this->object_aggs);
+        //debug($this->object_aggs);
     }
 
-    public function dane_liczbowe()
+    public function wydatki()
     {
 
         $this->addInitLayers('wydatki');
 
         $this->_prepareView();
+
     }
 
     public function csv()
@@ -113,7 +116,7 @@ class BudzetyController extends DataobjectsController
         $this->_prepareView();
 
         header('Content-Type: text/csv; charset=utf-8');
-        header('Content-Disposition: attachment; filename=Wydatki_budzetu_na_rok_'.$this->object->getData('rok').'.csv');
+        header('Content-Disposition: attachment; filename=Wydatki_budzetu_na_rok_' . $this->object->getData('rok') . '.csv');
 
         $output = fopen('php://output', 'w');
 
@@ -249,14 +252,30 @@ class BudzetyController extends DataobjectsController
                     'id' => '',
                     'label' => 'Start',
                 ),
-                array(
-                    'id' => 'tresc',
-                    'label' => 'Treść ustawy',
-                ),
+
             ),
             'base' => $this->object->getUrl(),
         );
 
+        if (count(@$this->object->getLayers('wydatki')) !== 0) {
+            $menu['items'][] = array(
+                'id' => 'wydatki',
+                'label' => 'Wydatki'
+            );
+        }
+
+        if (@$this->object_aggs['prawo']['akty_uchylajace']['doc_count'])
+            $menu['items'][] = array(
+                'id' => 'akty_uchylajace',
+                'label' => 'Akty uchylające',
+                'count' => $this->object_aggs['prawo']['akty_uchylajace']['doc_count'],
+            );
+
+
+        $menu['items'][] = array(
+            'id' => 'tresc',
+            'label' => 'Treść ustawy',
+        );
 
         if (@$this->object_aggs['prawo']['akty_uchylajace']['doc_count'])
             $menu['items'][] = array(
