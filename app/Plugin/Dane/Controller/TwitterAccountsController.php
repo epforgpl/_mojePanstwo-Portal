@@ -77,57 +77,7 @@ class TwitterAccountsController extends DataobjectsController
                     'element' => 'twitter_accounts/cover',
                 ),
                 'aggs' => array(
-                    'tweets_whitout_account_type_id' => array(
-                        'filter' => array(
-                            'bool' => array(
-                                'must' => array(
-                                    array(
-                                        'term' => array(
-                                            'dataset' => 'twitter',
-                                        ),
-                                    ),
-                                    array(
-                                        'term' => array(
-                                            'data.twitter.konto_obserwowane' => '1',
-                                        ),
-                                    ),
-                                    array(
-                                        'term' => array(
-                                            'data.twitter.retweet' => '0',
-                                        ),
-                                    ),
-                                    array(
-                                        'term' => array(
-                                            'data.twitter.twitter_account_id' => $this->object->getId(),
-                                        ),
-                                    )
-                                ),
-                            ),
-                        ),
-                        'aggs' => array(
-                            'types' => array(
-                                'terms' => array(
-                                    'field' => 'data.twitter.twitter_account_type_id',
-                                ),
-                                'aggs' => array(
-                                    'sources' => array(
-                                        'terms' => array(
-                                            'field' => 'data.twitter.source_id',
-                                            'size' => 3,
-                                        ),
-                                        'aggs' => array(
-                                            'label' => array(
-                                                'terms' => array(
-                                                    'field' => 'data.twitter.source',
-                                                    'size' => 1,
-                                                ),
-                                            ),
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
+
                     'tweets' => array(
                         'filter' => array(
                             'bool' => array(
@@ -139,24 +89,6 @@ class TwitterAccountsController extends DataobjectsController
                             ),
                         ),
                         'aggs' => array(
-                            'histogram' => array(
-                                'filter' => array(
-                                    'range' => array(
-                                        'date' => array(
-                                            'gte' => 'now-3M',
-                                        ),
-                                    ),
-                                ),
-                                'aggs' => array(
-                                    'histogram' => array(
-                                        'date_histogram' => array(
-                                            'field' => 'date',
-                                            'interval' => 'day',
-                                            'format' => 'yyyy-MM-dd hh',
-                                        ),
-                                    ),
-                                ),
-                            ),
                             'global_timerange' => array(
                                 'filter' => array(
                                     'range' => array(
@@ -187,7 +119,53 @@ class TwitterAccountsController extends DataobjectsController
                                             ),
                                         ),
                                         'aggs' => array(
-                                            'mentions' => array(
+                                            'mentions_by_account' => array(
+                                                'nested' => array(
+                                                    'path' => 'twitter-mentions',
+                                                ),
+                                                'aggs' => array(
+                                                    'accounts' => array(
+                                                        'filter' => array(
+                                                            'bool' => array(
+                                                                'must_not' => array(
+                                                                    'term' => array(
+                                                                        'twitter-mentions.account_id' => '0',
+                                                                    ),
+                                                                ),
+                                                            ),
+                                                        ),
+                                                        'aggs' => array(
+                                                            'ids' => array(
+                                                                'terms' => array(
+                                                                    'field' => 'twitter-mentions.account_id',
+                                                                    'size' => 10,
+                                                                ),
+                                                                'aggs' => array(
+                                                                    'screen_name' => array(
+                                                                        'terms' => array(
+                                                                            'field' => 'twitter-mentions.screen_name',
+                                                                            'size' => 1,
+                                                                        ),
+                                                                    ),
+                                                                    'name' => array(
+                                                                        'terms' => array(
+                                                                            'field' => 'twitter-mentions.name',
+                                                                            'size' => 1,
+                                                                        ),
+                                                                    ),
+                                                                    'image_url' => array(
+                                                                        'terms' => array(
+                                                                            'field' => 'data.twitter_accounts.profile_image_url_https',
+                                                                            'size' => 1,
+                                                                        ),
+                                                                    ),
+                                                                )
+                                                            ),
+                                                        ),
+                                                    ),
+                                                ),
+                                            ),
+                                            'accounts_by_mentions' => array(
                                                 'nested' => array(
                                                     'path' => 'twitter-mentions',
                                                 ),
@@ -294,22 +272,35 @@ class TwitterAccountsController extends DataobjectsController
                                             ),
                                         ),
                                     ),
-                                    'tags' => array(
-                                        'nested' => array(
-                                            'path' => 'twitter-tags',
+                                ),
+                            ),
+                            'tags' => array(
+                                'nested' => array(
+                                    'path' => 'twitter-tags',
 
+                                ),
+                                'aggs' => array(
+                                    'tags' => array(
+                                        'terms' => array(
+                                            'field' => 'twitter-tags.id',
+                                            'size' => 20,
+                                            'order' => array(
+                                                'rn' => 'desc',
+                                            ),
                                         ),
                                         'aggs' => array(
-                                            'tags' => array(
+                                            'label' => array(
                                                 'terms' => array(
-                                                    'field' => 'twitter-tags.id',
-                                                    'size' => 10,
+                                                    'field' => 'twitter-tags.name',
+                                                    'size' => 1,
                                                 ),
+                                            ),
+                                            'rn' => array(
+                                                'reverse_nested' => '_empty',
                                                 'aggs' => array(
-                                                    'label' => array(
-                                                        'terms' => array(
-                                                            'field' => 'twitter-tags.name',
-                                                            'size' => 1,
+                                                    'engagement_count' => array(
+                                                        'sum' => array(
+                                                            'field' => 'data.twitter.liczba_zaangazowan',
                                                         ),
                                                     ),
                                                 ),
@@ -325,6 +316,35 @@ class TwitterAccountsController extends DataobjectsController
         ));
         $this->render('Dane.DataBrowser/browser');
 
+    }
+
+    public function tweety() {
+        $this->_prepareView();
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+                'dataset' => 'twitter',
+                'twitter.twitter_account_id' => $this->object->getId(),
+            ),
+        ));
+
+        $this->set('title_for_layout', $this->object->getTitle());
+    }
+
+    public function getMenu()
+    {
+        return array(
+            'items' => array(
+                array(
+                    'id' => '',
+                    'label' => 'Analiza',
+                ),
+                array(
+                    'id' => 'tweety',
+                    'label' => 'Tweety',
+                ),
+            ),
+            'base' => $this->object->getUrl(),
+        );
     }
 
 }

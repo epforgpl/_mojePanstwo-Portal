@@ -16,7 +16,7 @@ class MediaController extends ApplicationsController
         '0' => 'Wszystkie obserwowane',
         '2' => 'Komentatorzy',
         '3' => 'Urzędy',
-        '6' => 'Media',
+        // '6' => 'Media',
         '7' => 'Politycy',
         '8' => 'Partie',
         '9' => 'NGO'
@@ -83,7 +83,7 @@ class MediaController extends ApplicationsController
         }
 
         for($m = 0; $m < 3; $m++) {
-            $year = ($y - $m);
+            $year = ($y - $m - 1);
             $ranges[1]['ranges'][] = array(
                 'param' => $year,
                 'label' => $year
@@ -222,15 +222,38 @@ class MediaController extends ApplicationsController
 				'data.twitter.konto_obserwowane' => '1',
 			),
 		);
-
+		
+		$mentions_accounts_filter = array(
+	        'bool' => array(
+		        'must_not' => array(
+			        'term' => array(
+				        'twitter-mentions.account_id' => '0',
+			        ),
+		        ),
+	        ),
+        );
+		
         if(
         	isset($this->request->query['a']) &&
         	array_key_exists($this->request->query['a'], self::$twitterAccountTypes) &&
             $this->twitterAccountType = $this->request->query['a']
-        )
+        ) {
+	        
         	$selectedAccountsFilter['term'] = array(
 	        	'data.twitter.twitter_account_type_id' => $this->twitterAccountType,
         	);
+        	
+        	$mentions_accounts_filter = array(
+		        'bool' => array(
+			        'must' => array(
+				        'term' => array(
+					        'twitter-mentions.account_type_id' => $this->request->query['a'],
+				        ),
+			        ),
+		        ),
+	        );
+        	
+        }
 
 
 
@@ -387,7 +410,7 @@ class MediaController extends ApplicationsController
 	        'sources' => array(
 	            'terms' => array(
 	                'field' => 'data.twitter.source_id',
-	                'size' => 3,
+	                'size' => 5,
 	            ),
 	            'aggs' => array(
 	                'label' => array(
@@ -474,15 +497,7 @@ class MediaController extends ApplicationsController
 										        ),
 										        'aggs' => array(
 											        'accounts' => array(
-												        'filter' => array(
-													        'bool' => array(
-														        'must_not' => array(
-															        'term' => array(
-																        'twitter-mentions.account_id' => '0',
-															        ),
-														        ),
-													        ),
-												        ),
+												        'filter' => $mentions_accounts_filter,
 												        'aggs' => array(
 													        'ids' => array(
 														        'terms' => array(
@@ -666,7 +681,7 @@ class MediaController extends ApplicationsController
 
 	    $chapters = parent::getChapters();
 
-	    $chapters['items'][0]['label'] = 'Analiza';
+	    $chapters['items'][0]['label'] = 'Analiza kont - Twitter';
 	    $chapters['items'][0]['element'] = array(
 		    'path' => 'Media.start_menu',
 	    );
