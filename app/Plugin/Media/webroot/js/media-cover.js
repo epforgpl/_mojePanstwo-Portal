@@ -180,8 +180,11 @@ $(document).ready(function () {
 		var appPieDataNr = 1,
 			appPieDataY = 30;
 		$.map($.parseJSON(pie.attr('data-json')), function (el) {
+			var name = $(el.label.buckets[0].key).text();
 			el = {
-				name: $(el.label.buckets[0].key).text(),
+				id: el.key,
+				name: name,
+				logo: name.toLowerCase().replace(/\s/g, '_'),
 				x: appPieDataNr++,
 				y: appPieDataY
 			};
@@ -201,15 +204,25 @@ $(document).ready(function () {
 				text: null
 			},
 			tooltip: {
-				pointFormat: '<div style="display: block"><b>#{point.x}</b> <img src="/media/img/twitterapp/{point.x}.png"/> {point.name}</div>',
+				title: {
+					text: null
+				},
+				pointFormat: '<div style="display: block"><b>#{point.x}</b> <img src="/media/img/twitterapp/{point.logo}.png"/> {point.name}</div>',
 				useHTML: true
 			},
 			legend: {
 				layout: 'vertical',
 				align: 'right',
-				verticalAlign: 'top'
+				verticalAlign: 'top',
+				useHTML: true,
+				labelFormatter: function () {
+					return '<div style="margin-top:-5px; margin-bottom: 5px;"><b>#' + this.x + '</b> <img src="/media/img/twitterapp/' + this.logo + '.png"/> ' + this.name + '</div>';
+				}
 			},
 			legacy: {
+				enabled: false
+			},
+			credits: {
 				enabled: false
 			},
 			plotOptions: {
@@ -224,7 +237,15 @@ $(document).ready(function () {
 			},
 			series: [{
 				colorByPoint: true,
-				data: appPieData
+				data: appPieData,
+				point: {
+					events: {
+						click: function (event) {
+							window.location.href = '?conditions[source_id]=' + this.id + appPie.attr('data-parms');
+							return false;
+						}
+					}
+				}
 			}]
 		});
 	}());

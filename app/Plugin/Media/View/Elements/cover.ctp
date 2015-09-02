@@ -317,7 +317,18 @@ $options = array(
                 <header>Najczęściej używane aplikacje:</header>
                 <section class="aggs-init margin-sides-10">
                     <div class="pie"
-                         data-json='<?= json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['sources']['buckets']); ?>'>
+                         data-json='<?= json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['sources']['buckets']); ?>'
+                         data-parms="<?
+                         $parms = '';
+
+                         if (isset($timerange["range"])) {
+                             $parms .= '&conditions[date]=[' . date('Y-m-d', $timerange["range"]['min']) . ' TO ' . date('Y-m-d', $timerange["range"]['max']) . ']';
+                         }
+                         if (isset($twitterAccountType) && $twitterAccountType !== '0') {
+                             $parms .= '&conditions[twitter_accounts.typ_id]=' . $twitterAccountType;
+                         }
+                         echo $parms;
+                         ?>">
                         <div class="spinner grey">
                             <div class="bounce1"></div>
                             <div class="bounce2"></div>
