@@ -65,6 +65,7 @@ $(document).ready(function () {
 			range = chart.data('range'),
 			xmax = chart.data('xmax'),
 			switcher = main.find('.dataWrap a.switcher').first(),
+			cancel = main.find('.dataWrap a.cancel').first(),
 			display = main.find('.dataWrap .display').first(),
 			data = [],
 			highchart,
@@ -148,6 +149,7 @@ $(document).ready(function () {
 					setExtremes: function (e) {
 						if (e.trigger == 'navigator') {
 							switcher.removeClass('hidden');
+							cancel.removeClass('hidden');
 
 							var extremes = e,
 								start = new Date(extremes.min),
@@ -175,6 +177,18 @@ $(document).ready(function () {
 				lineWidth: 0,
 				tickWidth: 0
 			}
+		});
+
+		cancel.click(function() {
+			var c = chart.highcharts();
+			c.xAxis[0].setExtremes(range.min * 1000, range.max * 1000, true, false);
+			switcher.addClass('hidden');
+			cancel.addClass('hidden');
+			var start = new Date(range.min * 1000),
+				end = new Date(range.max * 1000);
+
+			display.html('<span class="_ds" datetime="' + dateToYYYYMMDD(start) + '">' + dataSlownie(start) + '</span> <span class="separator">—</span> <span class="_ds" datetime="' + dateToYYYYMMDD(end) + '">' + dataSlownie(end) + '</span>');
+			return false;
 		});
 
 		var appPieDataNr = 1,
