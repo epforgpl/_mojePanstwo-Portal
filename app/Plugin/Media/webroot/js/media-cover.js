@@ -238,7 +238,7 @@ $(document).ready(function () {
 				point: {
 					events: {
 						click: function () {
-							window.location.href = '?conditions[source_id]=' + this.id + appPie.attr('data-parms');
+							window.location.href = '?conditions[twitter.source_id]=' + this.id + appPie.attr('data-parms');
 							return false;
 						}
 					}

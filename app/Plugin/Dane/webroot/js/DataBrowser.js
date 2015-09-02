@@ -716,7 +716,7 @@ var DataBrowser = Class.extend({
 							return [
 								'<a href="' + choose_request + el.id + '" target="_self">',
 								'<div class="text-center" style="line-height: 1em">',
-								columns_horizontal_images.hasOwnProperty(el.name) ? '<img style="margin-bottom: 5px; margin-right: 5px; float: left; max-width: 30px;" src="' + columns_horizontal_images[el.name] + '"/><br/>' : '',
+								columns_horizontal_images.hasOwnProperty(el.name) ? '<img style="margin-bottom: 5px; margin-right: 5px; float: left; max-width: 30px;" src="' + columns_horizontal_images[el.name] + '"/><br/>' : '<div style="width: 30px; height: 30px; margin-bottom: 5px; margin-right: 5px; float: left;"></div><br/>',
 								v,
 								'</div>',
 								'</a>'

@@ -81,18 +81,21 @@ $options = array(
                 <div class="bounce3"></div>
             </div>
         </div>
-        <div class="range">
-            <div class="row">
-                <div class="col-md-4">
-                    <p class="display"><?= $this->Czas->dataSlownie($timerange['labels']['min']) ?> <span
-                            class="separator">&mdash;</span> <?= $this->Czas->dataSlownie($timerange['labels']['max']) ?>
-                    </p>
-                </div>
-                <div class="col-md-8">
-                    <a href="#" class="switcher hidden">
-                        <i class="icon" data-icon="&#xe604;"></i>
-                        Zastosuj
-                    </a>
+        <div class="dataWrap">
+            <div class="range">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="display"><?= $this->Czas->dataSlownie($timerange['labels']['min']) ?> <span
+                                class="separator">&mdash;</span> <?= $this->Czas->dataSlownie($timerange['labels']['max']) ?>
+                        </p>
+                    </div>
+                    <div class="col-md-8">
+                        <a href="#" class="switcher hidden"
+                           data-type="<? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo $twitterAccountType; ?>">
+                            <i class="icon" data-icon="&#xe604;"></i>
+                            Zastosuj
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -208,7 +211,7 @@ $options = array(
             <ul id="tagsCloud">
                 <? foreach ($tags as $tag) { ?>
                     <li style="font-size: <?= 20 + (70 * $tag['rn']['engagement_count']['value'] / $max) ?>px;">
-                        <a href="/media/tweety?conditions[twitter.tags]=<?
+                        <a href="/dane/twitter_accounts/<?= $object->getId(); ?>/tweety?conditions[twitter.tags]=<?
                         $parms = $tag['key'];
                         if (isset($timerange["range"])) {
                             $parms .= '&conditions[date]=[' . date('Y-m-d', $timerange["range"]['min']) . ' TO ' . date('Y-m-d', $timerange["range"]['max']) . ']';
