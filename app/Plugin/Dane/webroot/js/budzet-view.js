@@ -61,7 +61,8 @@ $(document).ready(function () {
 		},
 		tooltip: {
 			headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-			pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y} tys. zł</b><br/>'
+			pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.percentage:.2f} %</b><br/>',
+			valueDecimals: 2
 		},
 		series: [{
 			name: 'Działy',

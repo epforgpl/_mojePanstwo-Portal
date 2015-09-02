@@ -77,7 +77,7 @@ class TwitterAccountsController extends DataobjectsController
                     'element' => 'twitter_accounts/cover',
                 ),
                 'aggs' => array(
-                    
+
                     'tweets' => array(
                         'filter' => array(
                             'bool' => array(
@@ -150,6 +150,12 @@ class TwitterAccountsController extends DataobjectsController
                                                                     'name' => array(
                                                                         'terms' => array(
                                                                             'field' => 'twitter-mentions.name',
+                                                                            'size' => 1,
+                                                                        ),
+                                                                    ),
+                                                                    'image_url' => array(
+                                                                        'terms' => array(
+                                                                            'field' => 'data.twitter_accounts.profile_image_url_https',
                                                                             'size' => 1,
                                                                         ),
                                                                     ),
@@ -266,22 +272,35 @@ class TwitterAccountsController extends DataobjectsController
                                             ),
                                         ),
                                     ),
-                                    'tags' => array(
-                                        'nested' => array(
-                                            'path' => 'twitter-tags',
+                                ),
+                            ),
+                            'tags' => array(
+                                'nested' => array(
+                                    'path' => 'twitter-tags',
 
+                                ),
+                                'aggs' => array(
+                                    'tags' => array(
+                                        'terms' => array(
+                                            'field' => 'twitter-tags.id',
+                                            'size' => 20,
+                                            'order' => array(
+                                                'rn' => 'desc',
+                                            ),
                                         ),
                                         'aggs' => array(
-                                            'tags' => array(
+                                            'label' => array(
                                                 'terms' => array(
-                                                    'field' => 'twitter-tags.id',
-                                                    'size' => 10,
+                                                    'field' => 'twitter-tags.name',
+                                                    'size' => 1,
                                                 ),
+                                            ),
+                                            'rn' => array(
+                                                'reverse_nested' => '_empty',
                                                 'aggs' => array(
-                                                    'label' => array(
-                                                        'terms' => array(
-                                                            'field' => 'twitter-tags.name',
-                                                            'size' => 1,
+                                                    'engagement_count' => array(
+                                                        'sum' => array(
+                                                            'field' => 'data.twitter.liczba_zaangazowan',
                                                         ),
                                                     ),
                                                 ),
@@ -297,6 +316,35 @@ class TwitterAccountsController extends DataobjectsController
         ));
         $this->render('Dane.DataBrowser/browser');
 
+    }
+
+    public function tweety() {
+        $this->_prepareView();
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+                'dataset' => 'twitter',
+                'twitter.twitter_account_id' => $this->object->getId(),
+            ),
+        ));
+
+        $this->set('title_for_layout', $this->object->getTitle());
+    }
+
+    public function getMenu()
+    {
+        return array(
+            'items' => array(
+                array(
+                    'id' => '',
+                    'label' => 'Analiza',
+                ),
+                array(
+                    'id' => 'tweety',
+                    'label' => 'Tweety',
+                ),
+            ),
+            'base' => $this->object->getUrl(),
+        );
     }
 
 }

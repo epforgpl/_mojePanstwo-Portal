@@ -310,146 +310,131 @@ DataAggsDropdown.prototype.createColumnsVertical = function() {
 
 };
 
+DataAggsDropdown.prototype.histogramOptions = [
+	{
+		label: 'Kiedykolwiek',
+		value: null
+	},
+	{
+		label: 'Ostatnie 24 godziny',
+		value: '1D'
+	},
+	{
+		label: 'Ostatni tydzień',
+		value: '1W'
+	},
+	{
+		label: 'Ostatni miesiąc',
+		value: '1M'
+	},
+	{
+		label: 'Ostatni rok',
+		value: '1Y'
+	}
+];
+
 DataAggsDropdown.prototype.createDateHistogram = function() {
 
 	var _this = this;
 
 	var dropdownMenu = this.li.find('ul.dropdown-menu'),
-		dropdownChart = '<li class="chart"></li>';
+		dropdownStr = '<li class="chart"></li>';
 
-	if(this.allLabel.length > 0 && this.isSelected) {
-		dropdownChart += [
-			'<li class="cancel"><a href="' + this.cancelRequest + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Usuń filtr</a></li>'
+	console.log(this.selected);
+
+	var key, option;
+	for(key in _this.histogramOptions) {
+		if(!_this.histogramOptions.hasOwnProperty(key))
+			continue;
+
+		option = _this.histogramOptions[key];
+
+		console.log(option, this.isSelected, this.selected);
+
+		dropdownStr += [
+			'<li', ((option.value == null && !this.isSelected) || (this.isSelected && option.value == this.selected)) ? ' class="active"' : '' ,'>',
+				'<a href="', (option.value === null) ? _this.cancelRequest : _this.chooseRequest + option.value ,'">',
+					option.label,
+				'</a>',
+			'</li>'
 		].join('');
 	}
 
-	dropdownMenu.append(dropdownChart);
+	var rangeSelected = (this.isSelected && this.selected.indexOf('TO') !== -1),
+		rangeFrom = null,
+		rangeTo = null;
 
-	var data = this.aggs;
-	var histogram_keys = [];
-	var choose_request = this.chooseRequest;
-	var histogram_data = [];
-	var max = 0;
-
-	var dateRange = {
-		min: 9000000000000,
-		max: 0
-	};
-
-	for (var i = 0; i < data.buckets.length; i++) {
-		var date = data.buckets[i].key_as_string.split("-");
-
-		var utc = Date.UTC(parseInt(date[0]), parseInt(date[1]) - 1, parseInt(date[2]));
-		if (utc < dateRange.min)
-			dateRange.min = utc;
-		if (utc > dateRange.max)
-			dateRange.max = utc;
-
-		histogram_data[i] = [
-			Date.UTC(parseInt(date[0]), parseInt(date[1]) - 1, parseInt(date[2])),
-			parseInt(data.buckets[i].doc_count)
-		];
-
-		histogram_keys[i] = data.buckets[i].key_as_string;
-
-		if (max < histogram_data[i][1])
-			max = histogram_data[i][1];
+	if(rangeSelected) {
+		var dates = this.selected.split('TO');
+		rangeFrom = dates[0].substring(1, dates[0].length - 1);
+		rangeTo = dates[1].substring(1, dates[1].length - 1);
 	}
 
-	this.li.find('li.chart').highcharts({
-		chart: {
-			zoomType: 'x',
-			backgroundColor: null,
-			height: 200,
-			events: {
-				selection: function (e) {
-					var range = e.xAxis[0];
-					var dateMin = new Date(range.min);
-					var dateMax = new Date(range.max);
-					var dataArg = [
-						'[',
-						_this.getFormattedDate(dateMin),
-						' TO ',
-						_this.getFormattedDate(dateMax),
-						']'
-					];
+	dropdownStr += [
+		'<li role="separator" class="divider"></li>',
+		'<li', rangeSelected ? ' class="active"' : '' ,'>',
+			'<a href="#" data-toggle="modal" data-target=".histogramDateRange">Wybierz zakres..</a>',
+		'</li>'
+	].join('');
 
-					window.location.href = choose_request + dataArg.join('');
-					return false;
-				}
-			}
-		},
-		title: {
-			text: ''
-		},
-		credits: {
-			enabled: false
-		},
-		subtitle: {
-			text: ''
-		},
-		xAxis: {
-			type: 'datetime'
-			//minRange: 365 * 24 * 3600000 // one year
-		},
-		yAxis: {
-			title: {
-				text: ''
-			},
-			min: 0,
-			max: max
-		},
-		legend: {
-			enabled: false
-		},
-		plotOptions: {
-			area: {
-				fillColor: {
-					linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
-					stops: [
-						[0, Highcharts.getOptions().colors[0]],
-						[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-					]
-				},
-				marker: {
-					radius: 2
-				},
-				lineWidth: 1,
-				states: {
-					hover: {
-						lineWidth: 1
-					}
-				},
-				threshold: null
-			}
-		},
+	this.li.append([
+		'<div class="modal fade histogramDateRange" tabindex="-1" role="dialog" aria-labelledby="histogramDateRange">',
+			'<div class="modal-dialog modal-sm">',
+				'<div class="modal-content">',
+					'<div class="modal-header">',
+						'<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>',
+						'<h3 class="modal-title">Niestandardowy zakres dat</h3>',
+					'</div>',
+					'<div class="modal-body">',
+						'<div class="input-daterange input-group" id="datepicker">',
+							'<input type="text" class="input-sm form-control" ', rangeFrom != null ? 'value="' + rangeFrom + '"' : '' ,'name="start"/>',
+							'<span class="input-group-addon">do</span>',
+							'<input type="text" class="input-sm form-control" ', rangeTo != null ? 'value="' + rangeTo + '"' : '' ,'name="end"/>',
+						'</div>',
+					'</div>',
+					'<div class="modal-footer">',
+						'<button class="btn auto-width btn-default btn-icon" type="button" data-dismiss="modal">',
+							'<i class="icon  glyphicon glyphicon-remove text-muted" aria-hidden="true"></i>',
+							'Anuluj',
+						'</button>',
+						'<button class="btn auto-width btn-primary btn-icon" type="button">',
+							'<i class="icon" data-icon="&#xe604;"></i>',
+							'Zastosuj',
+						'</button>',
+					'</div>',
+				'</div>',
+			'</div>',
+		'</div>'
+	].join(''));
 
-		series: [{
-			type: 'area',
-			name: 'Liczba',
-			//pointInterval: 383 * 24 * 3600000,
-			//pointStart: Date.UTC(1918, 0, 1),
-			point: {
-				events: {
-					click: function (e) {
-						var time = e.point.category;
-						var dateMin = new Date(time);
-						var dateMax = new Date(time + 31536000000);
-						var dataArg = [
-							'[',
-							_this.getFormattedDate(dateMin),
-							' TO ',
-							_this.getFormattedDate(dateMax),
-							']'
-						];
+	dropdownMenu.append(dropdownStr);
 
-						window.location.href = choose_request + dataArg.join('');
-						return false;
-					}
-				}
-			},
-			data: histogram_data
-		}]
+	var bootstrapDP = $.fn.datepicker.noConflict();
+	$.fn.bootstrapDP = bootstrapDP;
+	var _datepicker = $('#datepicker'),
+		_start = _datepicker.find('input[name=start]').first(),
+		_end = _datepicker.find('input[name=end]').first(),
+		submit = this.li.find('.histogramDateRange .btn.btn-primary').first();
+
+	_datepicker.bootstrapDP({
+		language: 'pl',
+		orientation: 'auto top',
+		format: "yyyy-mm-dd",
+		autoclose: true
+	});
+
+	submit.click(function() {
+		var startStr = _start.val(),
+			endStr = _end.val(),
+			dataArg = ['[', startStr, ' TO ', endStr, ']'];
+
+		if(startStr == '' || endStr == '') {
+			window.location.href = _this.cancelRequest;
+		} else {
+			window.location.href = _this.chooseRequest + dataArg.join('');
+		}
+
+		return false;
 	});
 
 };

@@ -1,7 +1,5 @@
-$(document).ready(function() {
-
+$(document).ready(function () {
 	// STICKY
-
 	$('#accountsSwitcher').sticky({
 		widthFromWrapper: false
 	});
@@ -9,18 +7,15 @@ $(document).ready(function() {
 	$('.sticky').sticky();
 
 	// TAGS CLOUD
-
 	var tagsCloud = $("#tagsCloud");
-	if( tagsCloud.length )
+	if (tagsCloud.length)
 		tagsCloud.cloud({
 			hwratio: .5,
 			fog: .4
 		});
 
 	// HighstockPicker
-
-	(function() {
-
+	(function () {
 		function dateToYYYYMMDD(date) {
 			var d = date,
 				month = '' + (d.getMonth() + 1),
@@ -50,30 +45,33 @@ $(document).ready(function() {
 				],
 				current = new Date(),
 				month = date.getMonth();
-			if(m.hasOwnProperty(month)) {
+			if (m.hasOwnProperty(month)) {
 				month = m[month];
 			}
 
-			if(
+			if (
 				current.getDate() == date.getDate() &&
 				current.getMonth() == date.getMonth() &&
 				current.getFullYear() == date.getFullYear())
-					return 'dzisiaj';
+				return 'dzisiaj';
 
 			return date.getDate() + ' ' + month + ' ' + date.getFullYear() + ' r.';
 		}
 
 		var main = $('.mediaHighstockPicker'),
 			chart = main.find('.chart').first(),
+			pie = $('.pie'),
 			aggs = chart.data('aggs'),
 			range = chart.data('range'),
 			xmax = chart.data('xmax'),
 			switcher = main.find('.dataWrap a.switcher').first(),
 			display = main.find('.dataWrap .display').first(),
 			data = [],
-			highchart;
+			highchart,
+			appPie,
+			appPieData = [];
 
-		for(var i = 0; i < aggs.buckets.length; i++) {
+		for (var i = 0; i < aggs.buckets.length; i++) {
 			var bucket = aggs.buckets[i];
 
 			data.push([
@@ -89,7 +87,7 @@ $(document).ready(function() {
 				backgroundColor: 'transparent',
 				events: {
 					load: function () {
-						this.xAxis[0].setExtremes(range.min*1000, range.max*1000, true, false);
+						this.xAxis[0].setExtremes(range.min * 1000, range.max * 1000, true, false);
 					}
 				},
 				marginLeft: 20,
@@ -154,7 +152,7 @@ $(document).ready(function() {
 
 							var extremes = e,
 								start = new Date(extremes.min),
-								end   = new Date(extremes.max);
+								end = new Date(extremes.max);
 
 							switcher.attr('href', '?t=['
 								+ dateToYYYYMMDD(start)
@@ -180,6 +178,54 @@ $(document).ready(function() {
 			}
 		});
 
-	}());
+		var appPieDataNr = 1,
+			appPieDataY = 30;
+		$.map($.parseJSON(pie.attr('data-json')), function (el) {
+			el = {
+				name: $(el.label.buckets[0].key).text(),
+				x: appPieDataNr++,
+				y: appPieDataY
+			};
+			appPieData.push(el);
+			appPieDataY -= 5;
+		});
 
+		appPie = pie.highcharts({
+			chart: {
+				plotBackgroundColor: null,
+				plotBorderWidth: null,
+				plotShadow: false,
+				type: 'pie'
+			},
+			title: {
+				text: null
+			},
+			tooltip: {
+				pointFormat: '<div style="display: block"><b>#{point.x}</b> <img src="/media/img/twitterapp/{point.x}.png"/> {point.name}</div>',
+				useHTML: true
+			},
+			legend: {
+				layout: 'vertical',
+				align: 'right',
+				verticalAlign: 'top'
+			},
+			legacy: {
+				enabled: false
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					cursor: 'pointer',
+					dataLabels: {
+						enabled: false
+					},
+					showInLegend: true
+				}
+			},
+			series: [{
+				colorByPoint: true,
+				data: appPieData
+			}]
+		});
+	}());
 });
