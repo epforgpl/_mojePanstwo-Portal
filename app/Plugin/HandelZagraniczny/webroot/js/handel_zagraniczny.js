@@ -373,7 +373,7 @@ $(function () {
                 },
 
                 chart: {
-                    backgroundColor: 'none',
+					backgroundColor: null,
                     borderColor: '#333',
                     spacing: [0, 0, 0, 0]
                 },

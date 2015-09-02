@@ -63,7 +63,7 @@ $options = array(
                         <ul class="nav nav-pills">
                             <? foreach ($twitterTimeranges as $key => $value) { ?>
                                 <li<? if ($twitterTimerange == $key) echo ' class="active"' ?>>
-                                    <a href="/media?t=<?= $key ?><? if (isset($twitterAccountType)) echo "&a=" . $twitterAccountType; ?>">
+                                    <a href="/media?t=<?= $key ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>">
                                         <?= $value ?>
                                     </a>
                                 </li>
@@ -73,7 +73,7 @@ $options = array(
                     <div class="pull-right">
                         <ul class="nav nav-pills">
                             <li<? if (isset($this->request->query['t']) && ($this->request->query['t'] == $last_month_report['param'])) echo ' class="active"' ?>>
-                                <a href="/media?t=<?= $last_month_report['param'] ?><? if (isset($twitterAccountType)) echo "&a=" . $twitterAccountType; ?>"><?= $last_month_report['label'] ?></a>
+                                <a href="/media?t=<?= $last_month_report['param'] ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>"><?= $last_month_report['label'] ?></a>
                             </li>
 
                             <? if (isset($dropdownRanges)) { ?>
@@ -88,7 +88,7 @@ $options = array(
                                                 <li class="dropdown-title"><?= $dropdown['title'] ?></li>
                                                 <? foreach ($dropdown['ranges'] as $range) { ?>
                                                     <li<? if ($twitterTimerange == $range['param'] && strlen($twitterTimerange) === strlen($range['param'])) echo ' class="active"'; ?>>
-                                                        <a href="/media?t=<?= $range['param'] ?><? if (isset($twitterAccountType)) echo "&a=" . $twitterAccountType; ?>">
+                                                        <a href="/media?t=<?= $range['param'] ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>">
                                                             <?= $range['label'] ?>
                                                         </a>
                                                     </li>
@@ -125,7 +125,8 @@ $options = array(
                         </p>
                     </div>
                     <div class="col-md-8">
-                        <a href="#" class="switcher hidden">
+                        <a href="#" class="switcher hidden"
+                           data-type="<? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo $twitterAccountType; ?>">
                             <i class="icon" data-icon="&#xe604;"></i>
                             Zastosuj
                         </a>
@@ -182,7 +183,7 @@ $options = array(
                         <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"
                              data-image_field="image_url" data-label_field="name"
                              data-counter_field="engagement_count"
-                             data-choose-request="media?conditions[twitter.twitter_account_id]="
+                             data-choose-request="/dane/twitter_accounts/"
                              data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement'])) ?>">
                             <div class="chart">
                                 <div class="spinner grey">
@@ -204,7 +205,7 @@ $options = array(
                     <div class="dataAggs">
                         <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"
                              data-image_field="image_url" data-label_field="name"
-                             data-choose-request="media?conditions[twitter.twitter_account_id]="
+                             data-choose-request="/dane/twitter_accounts/"
                              data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_tweets'])) ?>">
                             <div class="chart">
                                 <div class="spinner grey">
@@ -230,7 +231,7 @@ $options = array(
                     <div class="dataAggs">
                         <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"
                              data-image_field="image_url" data-label_field="name" data-counter_field="engagement_count"
-                             data-choose-request="media?conditions[twitter.twitter_account_id]="
+                             data-choose-request="/dane/twitter_accounts/"
                              data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement_tweets'])) ?>">
                             <div class="chart">
                                 <div class="spinner grey">
@@ -254,8 +255,12 @@ $options = array(
                 </header>
                 <section class="aggs-init">
                     <div class="dataAggs">
-                        <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"
-                             data-label_field="name" data-choose-request="media?conditions[twitter.twitter_account_id]="
+                        <div class="agg agg-ColumnsHorizontal"
+                             data-chart-height="1500"
+                             data-label-width="150"
+                             data-label_field="name"
+                             data-image_field="photo"
+                             data-choose-request="/dane/twitter_accounts/"
                              data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['accounts']['ids'])) ?>">
                             <div class="chart">
                                 <div class="spinner grey">
@@ -296,7 +301,7 @@ $options = array(
                     if (isset($timerange["range"])) {
                         $parms .= '&conditions[date]=[' . date('Y-m-d', $timerange["range"]['min']) . ' TO ' . date('Y-m-d', $timerange["range"]['max']) . ']';
                     }
-                    if (isset($twitterAccountType)) {
+                    if (isset($twitterAccountType) && $twitterAccountType !== '0') {
                         $parms .= '&conditions[twitter_accounts.typ_id]=' . $twitterAccountType;
                     }
                     echo $parms;
@@ -315,7 +320,18 @@ $options = array(
                 <header>Najczęściej używane aplikacje:</header>
                 <section class="aggs-init margin-sides-10">
                     <div class="pie"
-                         data-json='<?= json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['sources']['buckets']); ?>'>
+                         data-json='<?= json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['sources']['buckets']); ?>'
+                         data-parms="<?
+                         $parms = '';
+
+                         if (isset($timerange["range"])) {
+                             $parms .= '&conditions[date]=[' . date('Y-m-d', $timerange["range"]['min']) . ' TO ' . date('Y-m-d', $timerange["range"]['max']) . ']';
+                         }
+                         if (isset($twitterAccountType) && $twitterAccountType !== '0') {
+                             $parms .= '&conditions[twitter_accounts.typ_id]=' . $twitterAccountType;
+                         }
+                         echo $parms;
+                         ?>">
                         <div class="spinner grey">
                             <div class="bounce1"></div>
                             <div class="bounce2"></div>

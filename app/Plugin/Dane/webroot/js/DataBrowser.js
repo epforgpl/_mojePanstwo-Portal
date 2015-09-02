@@ -600,19 +600,19 @@ var DataBrowser = Class.extend({
 		var choose_request = li.attr('data-choose-request');
 
 		var labelWidth = 100;
-		if(li.attr('data-label-width'))
+		if (li.attr('data-label-width'))
 			labelWidth = parseInt(li.attr('data-label-width'));
 
 		var chartHeight = false;
-		if(li.attr('data-chart-height'))
+		if (li.attr('data-chart-height'))
 			chartHeight = parseInt(li.attr('data-chart-height'));
 
 		var counter_field = li.attr('data-counter_field');
-		if( !counter_field )
+		if (!counter_field)
 			counter_field = 'doc_count';
 
 		var label_field = li.attr('data-label_field');
-		if( !label_field )
+		if (!label_field)
 			label_field = 'label';
 
 		var image_field = li.attr('data-image_field');
@@ -626,32 +626,36 @@ var DataBrowser = Class.extend({
 
 		for (var i = 0; i < data.buckets.length; i++) {
 
-			if(data.buckets[i][label_field].buckets.length === 0)
+			if (data.buckets[i][label_field].buckets.length === 0)
 				continue;
 
-			columns_horizontal_categories[i] = data.buckets[i][label_field].buckets[0].key;
+			columns_horizontal_categories[i] = {
+				name: data.buckets[i][label_field].buckets[0].key,
+				id: data.buckets[i].key
+			};
 
-			if(escape_html_label) {
-				columns_horizontal_categories[i] = columns_horizontal_categories[i].replace(/<(?:.|\n)*?>/gm, '');
+			if (escape_html_label) {
+				columns_horizontal_categories[i]['name'] = columns_horizontal_categories[i]['name'].replace(/<(?:.|\n)*?>/gm, '');
 			}
 
 			columns_horizontal_data[i] = (data.buckets[i].label ? data.buckets[i].label.buckets[0][counter_field] : false) || data.buckets[i][counter_field]['value'] || data.buckets[i][counter_field];
 			columns_horizontal_keys[i] = data.buckets[i].key;
-			if(image_field) {
+			if (image_field && typeof data.buckets[i][image_field].buckets[0] !== 'undefined') {
 				columns_horizontal_images[
-					columns_horizontal_categories[i]
-				] = data.buckets[i][image_field].buckets[0].key;
+					columns_horizontal_categories[i]['name']
+					] = data.buckets[i][image_field].buckets[0].key;
 			}
 		}
 
 		var tooltip = {
 			valueSuffix: ' ',
 			positioner: function () {
-				return { x: this.now.anchorX, y: this.now.anchorY - 20 };
+				return {x: this.now.anchorX, y: this.now.anchorY - 20};
 			},
 			style: {
 				zIndex: 9
-			}
+			},
+			headerFormat: '<span style="font-size: 10px">{point.key.name}</span><br/>'
 		};
 
 		var _this = this;
@@ -663,6 +667,7 @@ var DataBrowser = Class.extend({
 
 		var chart = {
 			type: 'bar',
+			spacingRight: 60,
 			backgroundColor: null,
 			events: {
 				load: function () {
@@ -670,7 +675,7 @@ var DataBrowser = Class.extend({
 						legend = this.series[0].chart.axes[0].labelGroup.element;
 
 					for (var i = 0, len = legend.childNodes.length; i < len; i++) {
-						(function(i) {
+						(function (i) {
 							var item = legend.childNodes[i];
 							item.onmouseover = function (e) {
 								chart.series[0].points[i].onMouseOver();
@@ -701,24 +706,27 @@ var DataBrowser = Class.extend({
 				},
 				labels: {
 					formatter: function () {
+						var el = this.value,
+							v = el.name;
 
-						var v = this.value;
 						if (v.length > (((labelWidth / 10) * 2) - 2))
 							v = v.substring(0, ((labelWidth / 10) * 2) - 5) + '...';
 
-						if(image_field) {
+						if (image_field) {
 							return [
-								'<div class="text-center">',
-								'<img style="margin-bottom: 5px; margin-right: 5px; float: left; max-width: 30px;" src="' + columns_horizontal_images[this.value] + '"/><br/>',
+								'<a href="' + choose_request + el.id + '" target="_self">',
+								'<div class="text-center" style="line-height: 1em">',
+								columns_horizontal_images.hasOwnProperty(el.name) ? '<img style="margin-bottom: 5px; margin-right: 5px; float: left; max-width: 30px;" src="' + columns_horizontal_images[el.name] + '"/><br/>' : '<div style="width: 30px; height: 30px; margin-bottom: 5px; margin-right: 5px; float: left;"></div><br/>',
 								v,
-								'</div>'
+								'</div>',
+								'</a>'
 							].join('');
 						}
 
-						return v;
+						return '<a href="' + choose_request + el.id + '" target="_self">' + v + '</a>';
 					},
 					style: labelsStyle,
-					useHTML : true
+					useHTML: true
 				}
 			},
 			yAxis: {
@@ -738,8 +746,8 @@ var DataBrowser = Class.extend({
 					}
 				},
 				series: {
-	                pointWidth: 15
-	            }
+					pointWidth: 15
+				}
 			},
 			legend: {
 				enabled: false
@@ -753,7 +761,7 @@ var DataBrowser = Class.extend({
 				point: {
 					events: {
 						click: function (e) {
-							window.location.href = choose_request + '' + columns_horizontal_keys[this.index];
+							window.location.href = choose_request + columns_horizontal_keys[this.index];
 							return false;
 						}
 					}

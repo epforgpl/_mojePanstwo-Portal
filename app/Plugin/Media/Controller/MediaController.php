@@ -182,9 +182,9 @@ class MediaController extends ApplicationsController
                     'max' => date('Y-m-d', $max),
                 ),
             );
-            
+
         } elseif( preg_match('/^\[([0-9]{4})-([0-9]{2})-([0-9]{2}) TO ([0-9]{4})-([0-9]{2})-([0-9]{2})\]$/i', $twitterTimerange, $match) ) {
-	        
+
 	        $min = mktime(0, 0, 0, $match[2], $match[3], $match[1]);
             $max = mktime(0, 0, 0, $match[5], $match[6], $match[4]);
 
@@ -206,7 +206,7 @@ class MediaController extends ApplicationsController
                     'max' => date('Y-m-d', $max),
                 ),
             );
-            	        
+
         }
 
         return isset($timerange) ? $timerange : false;
@@ -247,7 +247,7 @@ class MediaController extends ApplicationsController
 				'data.twitter.konto_obserwowane' => '1',
 			),
 		);
-		
+
 		$mentions_accounts_filter = array(
 	        'bool' => array(
 		        'must_not' => array(
@@ -257,17 +257,17 @@ class MediaController extends ApplicationsController
 		        ),
 	        ),
         );
-		
+
         if(
         	isset($this->request->query['a']) &&
         	array_key_exists($this->request->query['a'], self::$twitterAccountTypes) &&
             $this->twitterAccountType = $this->request->query['a']
         ) {
-	        
+
         	$selectedAccountsFilter['term'] = array(
 	        	'data.twitter.twitter_account_type_id' => $this->twitterAccountType,
         	);
-        	
+
         	$mentions_accounts_filter = array(
 		        'bool' => array(
 			        'must' => array(
@@ -277,7 +277,7 @@ class MediaController extends ApplicationsController
 			        ),
 		        ),
 	        );
-        	
+
         }
 
 
@@ -541,6 +541,12 @@ class MediaController extends ApplicationsController
 																	        'size' => 1,
 																        ),
 															        ),
+                                                                    'photo' => array(
+                                                                        'terms' => array(
+                                                                            'field' => 'twitter-mentions.account_photo_url',
+                                                                            'size' => 1,
+                                                                        ),
+                                                                    ),
 														        )
 													        ),
 												        ),

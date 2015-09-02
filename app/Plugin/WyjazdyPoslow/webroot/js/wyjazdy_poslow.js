@@ -19,7 +19,7 @@ $(function () {
                 },
 
                 chart: {
-                    backgroundColor: 'none',
+					backgroundColor: null,
                     borderColor: '#333',
                     spacing: [0, 0, 0, 0]
                 },
@@ -180,7 +180,8 @@ $(function () {
     // Build the chart
     pieKlubowo.highcharts({
         chart: {
-            type: 'column'
+			type: 'column',
+			backgroundColor: null
         },
         xAxis: {
             type: 'category',

@@ -65,6 +65,7 @@ $(document).ready(function () {
 			range = chart.data('range'),
 			xmax = chart.data('xmax'),
 			switcher = main.find('.dataWrap a.switcher').first(),
+			switcherCancel = main.find('.dataWrap a.switcherCancel').first(),
 			display = main.find('.dataWrap .display').first(),
 			data = [],
 			highchart,
@@ -84,14 +85,14 @@ $(document).ready(function () {
 			chart: {
 				width: $(this.li).parent('.dataAggsDropdownList').first().outerWidth(),
 				height: 160,
-				backgroundColor: 'transparent',
 				events: {
 					load: function () {
 						this.xAxis[0].setExtremes(range.min * 1000, range.max * 1000, true, false);
 					}
 				},
 				marginLeft: 20,
-				marginRight: 20
+				marginRight: 20,
+				backgroundColor: null
 			},
 			navigator: {
 				height: 132,
@@ -147,18 +148,18 @@ $(document).ready(function () {
 				events: {
 					setExtremes: function (e) {
 						if (e.trigger == 'navigator') {
-
 							switcher.removeClass('hidden');
+							switcherCancel.removeClass('hidden');
 
 							var extremes = e,
 								start = new Date(extremes.min),
-								end = new Date(extremes.max);
+								end = new Date(extremes.max),
+								parms = '?t=[' + dateToYYYYMMDD(start) + ' TO ' + dateToYYYYMMDD(end) + ']';
 
-							switcher.attr('href', '?t=['
-								+ dateToYYYYMMDD(start)
-								+ ' TO '
-								+ dateToYYYYMMDD(end)
-								+ ']');
+							if (switcher.attr('data-type') !== '')
+								parms += '&a=' + switcher.attr('data-type');
+
+							switcher.attr('href', parms);
 
 							display.html('<span class="_ds" datetime="' + dateToYYYYMMDD(start) + '">' + dataSlownie(start) + '</span> <span class="separator">—</span> <span class="_ds" datetime="' + dateToYYYYMMDD(end) + '">' + dataSlownie(end) + '</span>');
 
@@ -181,8 +182,11 @@ $(document).ready(function () {
 		var appPieDataNr = 1,
 			appPieDataY = 30;
 		$.map($.parseJSON(pie.attr('data-json')), function (el) {
+			var name = $(el.label.buckets[0].key).text();
 			el = {
-				name: $(el.label.buckets[0].key).text(),
+				id: el.key,
+				name: name,
+				logo: name.toLowerCase().replace(/\s/g, '_'),
 				x: appPieDataNr++,
 				y: appPieDataY
 			};
@@ -192,6 +196,7 @@ $(document).ready(function () {
 
 		appPie = pie.highcharts({
 			chart: {
+				backgroundColor: null,
 				plotBackgroundColor: null,
 				plotBorderWidth: null,
 				plotShadow: false,
@@ -201,15 +206,20 @@ $(document).ready(function () {
 				text: null
 			},
 			tooltip: {
-				pointFormat: '<div style="display: block"><b>#{point.x}</b> <img src="/media/img/twitterapp/{point.x}.png"/> {point.name}</div>',
-				useHTML: true
+				title: {
+					text: null
+				},
+				pointFormat: '<div style="display: block"><b>#{point.x}</b> <img src="/media/img/twitterapp/{point.logo}.png"/> {point.name}</div>',
+				useHTML: true,
+				headerFormat: ' '
 			},
 			legend: {
-				layout: 'vertical',
-				align: 'right',
-				verticalAlign: 'top'
+				enabled: false
 			},
 			legacy: {
+				enabled: false
+			},
+			credits: {
 				enabled: false
 			},
 			plotOptions: {
@@ -224,7 +234,28 @@ $(document).ready(function () {
 			},
 			series: [{
 				colorByPoint: true,
-				data: appPieData
+				data: appPieData,
+				point: {
+					events: {
+						click: function () {
+							window.location.href = '?conditions[twitter.source_id]=' + this.id + appPie.attr('data-parms');
+							return false;
+						}
+					}
+				},
+				dataLabels: {
+					enabled: true,
+					formatter: function () {
+						var ret = '<b>#' + this.point.x + '</b> <img src="/media/img/twitterapp/' + this.point.logo + '.png" style="margin-right:4px" />',
+							name = this.point.name;
+						if (name.length > 55) {
+							name = this.point.name.substring(0, 52);
+							name += '...';
+						}
+						return ret + name;
+					},
+					useHTML: true
+				}
 			}]
 		});
 	}());

@@ -2,9 +2,10 @@
     <? if (isset($object) && (($object->getDataset() == 'gminy') && ($object->getId() == '903'))) {
         echo $this->element('Dane.stanczyk_footer');
     } ?>
+
     <section class="standard">
         <div class="container">
-            <div class="col-xs-12">
+            <div class="col-xs-12 <?= isset($domainMode) && $domainMode == 'PK' ? 'text-center' : ''; ?>">
                 <?php echo $this->Html->link($this->Html->image('logo-epanstwo.svgz', array('alt' => __('LC_FOOTER_EPF'))), 'http://epf.org.pl', array('target' => '_blank', 'escape' => false, 'class' => 'link-discrete')); ?>
                 <?php echo $this->Html->link(__('LC_FOOTER_ABOUT_US'), '/oportalu', array('target' => '_self', 'class' => 'link-discrete')); ?>
                 <span class="separator">|</span>

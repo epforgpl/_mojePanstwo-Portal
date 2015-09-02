@@ -156,7 +156,7 @@ class ApplicationsController extends AppController
 
     public function loadDatasetBrowser($dataset, $options = array())
     {
-
+				
         $options = array_merge(array(
 	        'dataset' => $dataset,
             'conditions' => array(
@@ -164,7 +164,7 @@ class ApplicationsController extends AppController
             ),
             'aggsPreset' => $dataset,
         ), $options);
-
+        
         $this->Components->load('Dane.DataBrowser', $options);
 
         if(isset($options['menu'])) {
@@ -226,6 +226,9 @@ class ApplicationsController extends AppController
 			
 			if( isset($data['dataset_name']['default_order']) )
 				$params['default_order'] = $data['dataset_name']['default_order'];
+				
+			if( isset($data['dataset_name']['default_conditions']) )
+				$params['default_conditions'] = $data['dataset_name']['default_conditions'];
 			
 			foreach( $fields as $field )
 				if( isset($data['dataset_name'][ $field ]) )

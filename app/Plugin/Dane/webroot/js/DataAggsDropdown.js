@@ -90,7 +90,7 @@ DataAggsDropdown.prototype.createHighstockPicker = function() {
 		chart: {
 			width: $(this.li).parent('.dataAggsDropdownList').first().outerWidth(),
 			height: 210,
-			backgroundColor: 'transparent',
+			backgroundColor: null,
 			events: {
 				load: function () {
 					//var e = this.xAxis[0].getExtremes();
