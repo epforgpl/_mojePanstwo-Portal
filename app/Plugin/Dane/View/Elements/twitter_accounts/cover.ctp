@@ -208,7 +208,7 @@ $options = array(
             <ul id="tagsCloud">
                 <? foreach ($tags as $tag) { ?>
                     <li style="font-size: <?= 20 + (70 * $tag['rn']['engagement_count']['value'] / $max) ?>px;">
-                        <a href="/media/tweety?conditions[twitter.tags]=<?
+                        <a href="/dane/twitter_accounts/<?= $object->getId(); ?>/tweety?conditions[twitter.tags]=<?
                         $parms = $tag['key'];
                         if (isset($timerange["range"])) {
                             $parms .= '&conditions[date]=[' . date('Y-m-d', $timerange["range"]['min']) . ' TO ' . date('Y-m-d', $timerange["range"]['max']) . ']';
