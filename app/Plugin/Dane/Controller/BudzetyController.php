@@ -20,6 +20,8 @@ class BudzetyController extends DataobjectsController
         ),
     );
 
+   // public $components=array('RequestHandler');
+
     public function _prepareView()
     {
 
@@ -102,22 +104,15 @@ class BudzetyController extends DataobjectsController
 
     public function wydatki()
     {
-        $types=array('czesci','dzialy');
+        $types=array('wydatki','dzialy');
         $type=$types[0];
-        if(isset($this->request->param['type']) && in_array($this->request->param['type'], $types)){
-            $type=$this->request->param['type'];
+        if(isset($this->request->query['type']) && in_array($this->request->query['type'], $types)){
+            $type=$this->request->query['type'];
         }
 
+        $this->set('type', $type);
+        $this->set('types', $types);
         $this->addInitLayers($type);
-
-        $this->_prepareView();
-
-    }
-
-    public function wydatki_dzialy()
-    {
-
-        $this->addInitLayers('dzialy');
 
         $this->_prepareView();
 

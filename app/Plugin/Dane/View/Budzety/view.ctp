@@ -163,11 +163,11 @@ $sum=0;
                             <div id="wydatki_budzetu_wg_czesci"></div>
                         </div>
                     </div>
+                    <a href="<?=$object->getData('prawo.id')?>/wydatki?type=dzialy">Zobacz te dane w formie tabeli </a>
                 </section>
             <? } ?>
         </div>
     </div>
 </div>
-
 
 <?= $this->Element('dataobject/pageEnd'); ?>
