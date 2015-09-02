@@ -1,7 +1,6 @@
 $(window).load(function () {
 	var mPCookie = mPCookie || {},
-		surveyAnkieta1 = $('#surveyAnkieta1'),
-		cockpit = $('#_mPCockpit ._mPBasic ._mPSystem ._mPRunning');
+		surveyAnkieta1 = $('#surveyAnkieta1');
 
 	mPCookie.survey = {};
 	mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
@@ -12,20 +11,32 @@ $(window).load(function () {
 
 		e.preventDefault();
 
-		$.ajax({
-			type: "POST",
-			url: '/survey.json',
-			data: data,
-			beforeSend: function () {
-				that.addClass('disabled loading');
-			},
-			complete: function () {
-				mPCookie.survey.ankieta1 = 'all';
-				Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
-				surveyAnkieta1.addClass('finished');
-				cockpit.find('.surveyPoll').remove();
+		for (var i = 0; i < data.length; i++) {
+			if (data[i]['value'] == "") {
+				data.splice(i, 1);
+				i--;
 			}
-		});
+		}
+
+		if (data.length == 0) {
+			mPCookie.survey.ankieta1 = 'sended';
+			Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
+			surveyAnkieta1.addClass('finished');
+		} else {
+			$.ajax({
+				type: "POST",
+				url: '/survey.json',
+				data: data,
+				beforeSend: function () {
+					that.addClass('disabled loading');
+				},
+				complete: function () {
+					mPCookie.survey.ankieta1 = 'sended';
+					Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
+					surveyAnkieta1.addClass('finished');
+				}
+			});
+		}
 	});
 	surveyAnkieta1.find('.modal-footer .nextBtn').click(function (e) {
 		e.preventDefault();
@@ -42,29 +53,61 @@ $(window).load(function () {
 		surveyAnkieta1.find('.modal-footer .progressBar li:lt(' + pageNo + ')').addClass('active');
 	});
 	surveyAnkieta1.on('hidden.bs.modal', function () {
-		cockpit.find('.surveyPoll.hide').removeClass('hide');
-		if (mPCookie.survey.ankieta1 !== 'all') {
-			mPCookie.survey.ankieta1 = 'half';
-			Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
+		if (mPCookie.survey.ankieta1 !== 'sended') {
+			var data = surveyAnkieta1.find('form').serializeArray();
+
+			for (var i = 0; i < data.length; i++) {
+				if (data[i]['value'] == "") {
+					data.splice(i, 1);
+					i--;
+				}
+			}
+
+			if (data.length == 0) {
+				mPCookie.survey.ankieta1 = 'sended';
+				Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
+			} else {
+				mPCookie.survey.ankieta1 = 'toSend';
+				Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
+
+				$.ajax({
+					type: "POST",
+					url: '/survey.json',
+					data: data,
+					complete: function () {
+						mPCookie.survey.ankieta1 = 'sended';
+						Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
+					}
+				});
+			}
 		}
 	});
 
-	if (!cockpit.find('.surveyPoll').length) {
-		cockpit.append(
-			$('<a></a>').addClass('_appBlock _appBlockBackground surveyPoll hide').append(
-				$('<div></div>').addClass('_mPTitle').append(
-					$('<p></p>').addClass('_mPAppLabel').text('Ankieta')
-				)
-			).click(function () {
-					$(this).addClass('hide');
-					surveyAnkieta1.modal('show');
-				})
-		)
-	}
-
-	if (mPCookie.survey.ankieta1 == undefined)
+	if (mPCookie.survey.ankieta1 == undefined || !(mPCookie.survey.ankieta1 == 'toSend' || mPCookie.survey.ankieta1 == 'sended')) {
 		surveyAnkieta1.modal('show');
+	} else if (mPCookie.survey.ankieta1 == 'toSend') {
+		var data = surveyAnkieta1.find('form').serializeArray();
 
-	if (mPCookie.survey.ankieta1 == 'half')
-		cockpit.find('.surveyPoll.hide').removeClass('hide');
+		for (var i = 0; i < data.length; i++) {
+			if (data[i]['value'] == "") {
+				data.splice(i, 1);
+				i--;
+			}
+		}
+
+		if (data.length == 0) {
+			mPCookie.survey.ankieta1 = 'sended';
+			Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
+		} else {
+			$.ajax({
+				type: "POST",
+				url: '/survey.json',
+				data: data,
+				complete: function () {
+					mPCookie.survey.ankieta1 = 'sended';
+					Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
+				}
+			});
+		}
+	}
 });

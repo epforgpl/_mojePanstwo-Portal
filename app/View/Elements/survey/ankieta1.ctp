@@ -199,17 +199,17 @@
                                 których
                                 obecnie brakuje (jest za mało)?</label>
                             <input type="text" class="form-control" id="whatWeNeedToAdd"
-                                   name="survey[ankieta1][whatWeNeedToAdd]">
+                                   name="survey[ankieta1][whatWeNeedToAdd]"/>
                         </div>
                         <div class="form-group question">
                             <label for="whatIsMostProp">Co uważasz za największe zalety strony?</label>
                             <input type="text" class="form-control" id="whatIsMostProp"
-                                   name="survey[ankieta1][whatIsMostProp]">
+                                   name="survey[ankieta1][whatIsMostProp]"/>
                         </div>
                         <div class="form-group question">
                             <label for="whatIsMostCons">Co uważasz za największe wady strony? </label>
                             <input type="text" class="form-control" id="whatIsMostCons"
-                                   name="survey[ankieta1][whatIsMostCons]">
+                                   name="survey[ankieta1][whatIsMostCons]"/>
                         </div>
                     </div>
                     <div class="page hide" data-pageno="4">
