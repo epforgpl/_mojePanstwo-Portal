@@ -89,6 +89,39 @@ class TwitterAccountsController extends DataobjectsController
 	                'fielddata_fields' => array('dataset', 'id', 'date'),
 	            ),
 	        ),
+	        /*
+	        'retweets' => array(
+		        'filter' => array(
+			        'term' => array(
+				        'data.twitter.retweet' => '1',
+			        ),
+		        ),
+		        'aggs' => array(
+			        'accounts' => array(
+				        'terms' => array(
+					        'field' => 'data.twitter.twitter_user_id',
+					        'size' => 10,
+				        ),
+				        'aggs' => array(
+					        'name' => array(
+						        'terms' => array(
+							        'field' => 'data.twitter.twitter_user_name',
+							        'size' => 1,
+						        ),
+					        ),
+				        ),
+				        'aggs' => array(
+					        'photo' => array(
+						        'terms' => array(
+							        'field' => 'data.twitter.twitter_user_avatar_url',
+							        'size' => 1,
+						        ),
+					        ),
+				        ),
+			        ),
+		        ),
+	        ),
+	        */
 	        'tags' => array(
 	            'nested' => array(
 	                'path' => 'twitter-tags',
@@ -229,38 +262,49 @@ class TwitterAccountsController extends DataobjectsController
 									        'accounts' => array(
 										        'filter' => $selectedAccountsFilter,
 										        'aggs' => $selectedAccountsAggs,
-									        ),
+									        ),									        
 									        'mentions' => array(
 										        'nested' => array(
 											        'path' => 'twitter-mentions',
 										        ),
 										        'aggs' => array(
-											        'accounts' => array(
-										                'terms' => array(
-											                'field' => 'twitter-mentions.id',
-											                'size' => 10,
+											        'account' => array(
+												        'filter' => array(
+													        'term' => array(
+														        'twitter-mentions.account_id' => $this->object->getId(),
+													        ),
+												        ),
+												        'aggs' => array(
+											                'accounts' => array(
+												                'reverse_nested' => '_empty',
+												                'aggs' => array(
+													                'ids' => array(
+														                'terms' => array(
+															                'field' => 'data.twitter_accounts.id',
+															                'exclude' => array(
+																                'pattern' => '',
+															                ),
+															                'size' => 10,
+														                ),
+														                'aggs' => array(
+															                'name' => array(
+																                'terms' => array(
+																	                'field' => 'data.twitter_accounts.twitter_name',
+																	                'size' => 1,
+																                ),
+															                ),
+															                'photo' => array(
+																                'terms' => array(
+																	                'field' => 'data.twitter_accounts.profile_image_url_https',
+																	                'size' => 1,
+																                ),
+															                ),
+														                ),
+													                ),
+												                ),
+											                ),
 										                ),
-										                'aggs' => array(
-											                'screen_name' => array(
-												                'terms' => array(
-													                'field' => 'twitter-mentions.screen_name',
-													                'size' => 1,
-												                ),
-											                ),
-											                'name' => array(
-												                'terms' => array(
-													                'field' => 'twitter-mentions.name',
-													                'size' => 1,
-												                ),
-											                ),
-											                'photo' => array(
-												                'terms' => array(
-													                'field' => 'twitter-mentions.account_photo_url',
-													                'size' => 1,
-												                ),
-											                ),
-										                ),
-									                ),
+											        ),
 										        ),
 									        ),
 								        ),

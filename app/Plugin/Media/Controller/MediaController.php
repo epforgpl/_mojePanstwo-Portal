@@ -715,6 +715,14 @@ class MediaController extends ApplicationsController
 	    $chapters['items'][0]['element'] = array(
 		    'path' => 'Media.start_menu',
 	    );
+	    
+	    if( $this->isSuperUser() )
+		    $chapters['items'][] = array(
+			    'id' => 'propozycje_kont',
+			    'href' => 'propozycje_kont',
+			    'label' => 'Propozycje nowych kont',
+		    );
+	    
 	    return $chapters;
 
     }
