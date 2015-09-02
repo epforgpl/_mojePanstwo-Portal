@@ -754,7 +754,7 @@ var DataBrowser = Class.extend({
 				point: {
 					events: {
 						click: function (e) {
-							window.location.href = choose_request + '' + columns_horizontal_keys[this.index];
+							window.location.href = choose_request + columns_horizontal_keys[this.index];
 							return false;
 						}
 					}

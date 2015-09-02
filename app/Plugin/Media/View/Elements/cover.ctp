@@ -183,7 +183,7 @@ $options = array(
                         <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"
                              data-image_field="image_url" data-label_field="name"
                              data-counter_field="engagement_count"
-                             data-choose-request="media?conditions[twitter.twitter_account_id]="
+                             data-choose-request="/dane/twitter_accounts/"
                              data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement'])) ?>">
                             <div class="chart">
                                 <div class="spinner grey">
@@ -205,7 +205,7 @@ $options = array(
                     <div class="dataAggs">
                         <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"
                              data-image_field="image_url" data-label_field="name"
-                             data-choose-request="media?conditions[twitter.twitter_account_id]="
+                             data-choose-request="/dane/twitter_accounts/"
                              data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_tweets'])) ?>">
                             <div class="chart">
                                 <div class="spinner grey">
@@ -231,7 +231,7 @@ $options = array(
                     <div class="dataAggs">
                         <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"
                              data-image_field="image_url" data-label_field="name" data-counter_field="engagement_count"
-                             data-choose-request="media?conditions[twitter.twitter_account_id]="
+                             data-choose-request="/dane/twitter_accounts/"
                              data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement_tweets'])) ?>">
                             <div class="chart">
                                 <div class="spinner grey">
@@ -256,7 +256,8 @@ $options = array(
                 <section class="aggs-init">
                     <div class="dataAggs">
                         <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"
-                             data-label_field="name" data-choose-request="media?conditions[twitter.twitter_account_id]="
+                             data-label_field="name"
+                             data-choose-request="/dane/twitter_accounts/"
                              data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['accounts']['ids'])) ?>">
                             <div class="chart">
                                 <div class="spinner grey">
