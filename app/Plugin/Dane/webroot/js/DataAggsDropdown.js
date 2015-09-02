@@ -340,16 +340,12 @@ DataAggsDropdown.prototype.createDateHistogram = function() {
 	var dropdownMenu = this.li.find('ul.dropdown-menu'),
 		dropdownStr = '<li class="chart"></li>';
 
-	console.log(this.selected);
-
 	var key, option;
 	for(key in _this.histogramOptions) {
 		if(!_this.histogramOptions.hasOwnProperty(key))
 			continue;
 
 		option = _this.histogramOptions[key];
-
-		console.log(option, this.isSelected, this.selected);
 
 		dropdownStr += [
 			'<li', ((option.value == null && !this.isSelected) || (this.isSelected && option.value == this.selected)) ? ' class="active"' : '' ,'>',
