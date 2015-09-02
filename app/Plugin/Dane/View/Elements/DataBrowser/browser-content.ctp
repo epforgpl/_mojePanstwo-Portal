@@ -87,7 +87,7 @@ if ($dataBrowser['mode'] == 'cover') { ?>
             )) ?>
             */ ?>
 
-            <div class="dataObjects margin-top-10">
+            <div class="dataObjects">
 
                 <div class="innerContainer update-objects">
 

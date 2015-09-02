@@ -636,7 +636,7 @@ class DataBrowserComponent extends Component
                         '7' => 'VII kadencja',
                         '8' => 'VIII kadencja',
                     ),
-                    'all' => 'Wszystkie kadencje',
+                    'all' => 'Radni wszystkich kadencji',
                 ),
             ),
         ),

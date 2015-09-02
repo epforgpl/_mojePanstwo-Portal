@@ -1343,6 +1343,7 @@ class GminyController extends DataobjectsController
                 'radni_gmin.kadencja_id' => '7',
             ),
             'cover' => array(
+	            'force' => true,
                 'view' => array(
                     'plugin' => 'Dane',
                     'element' => 'gminy/radni-cover',
