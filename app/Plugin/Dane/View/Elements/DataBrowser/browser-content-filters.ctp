@@ -8,7 +8,7 @@
                 if( !isset($map['all']) )
                     $map['all'] = 'Wszystkie dane';
 
-                $isSelected = $map['skin'] == 'date_histogram' ? isset($this->request->query['t']) : isset($this->request->query['conditions'][$map['field']]);
+                $isSelected = isset($this->request->query['conditions'][$map['field']]);
 
                 ?>
                 <li role="presentation" class="dropdown dataAggsDropdown<?= $isSelected ? ' active' : ''; ?>"
@@ -20,7 +20,7 @@
                     data-all-label="<?= $map['all'] ?>"
                     data-label="<?= @$map['label'] ?>"
                     data-is-selected="<?= $isSelected ?>"
-                    data-selected="<?=  $map['skin'] == 'date_histogram' ? @$this->request->query['t'] : @$this->request->query['conditions'][$map['field']] ?>">
+                    data-selected="<?=  @$this->request->query['conditions'][$map['field']] ?>">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <? if($isSelected) {
 
@@ -29,7 +29,7 @@
                             if($map['skin'] == 'krs/kapitalizacja') {
                                 $label = 'Kapitalizacja: ' . es_range_number($this->request->query['conditions'][$map['field']]);
                             } elseif($map['skin'] == 'date_histogram') {
-                                $t = $this->request->query['t'];
+                                $t = $this->request->query['conditions'][$map['field']];
 
                                 $labels = array(
                                     '1D' => 'Ostatnie 24 godziny',

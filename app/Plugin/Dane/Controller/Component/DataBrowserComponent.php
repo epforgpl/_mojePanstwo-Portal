@@ -118,7 +118,7 @@ class DataBrowserComponent extends Component
                         '7' => 'Politycy',
                         '8' => 'Partie polityczna',
                         '9' => 'NGO',
-                    ),                    
+                    ),
                 ),
             ),
         ),
@@ -141,7 +141,7 @@ class DataBrowserComponent extends Component
                         '7' => 'Politycy',
                         '8' => 'Partie polityczna',
                         '9' => 'NGO',
-                    ),  
+                    ),
                 ),
             ),
             /*
@@ -1273,7 +1273,7 @@ class DataBrowserComponent extends Component
         ) {
 
             $controller->Paginator->settings = $this->getSettings();
-						
+
 			if( isset($this->settings['default_order']) )
             	$controller->Paginator->settings['order'] = $this->settings['default_order'];
             	
@@ -1550,10 +1550,6 @@ class DataBrowserComponent extends Component
             if (isset($cancelQuery['conditions']['q']))
                 unset($cancelQuery['conditions']['q']);
 
-            if($map['skin'] == 'date_histogram' && isset($cancelQuery['t'])) {
-                unset($cancelQuery['t']);
-            }
-
             $maps[$i]['cancelRequest'] = $controller->here . '?' . http_build_query($cancelQuery);
 
             // Wybieranie np. danego typu
@@ -1566,9 +1562,7 @@ class DataBrowserComponent extends Component
 
             $r = $controller->here . '?' . http_build_query($cancelQuery);
 
-            if($map['skin'] == 'date_histogram') {
-                $r .= '&t=';
-            } elseif (isset($map['field']))
+            if (isset($map['field']))
                 $r .= '&conditions[' . $map['field'] . ']=';
 
             $maps[$i]['chooseRequest'] = $r;
