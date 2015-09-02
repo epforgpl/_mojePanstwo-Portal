@@ -1276,6 +1276,10 @@ class DataBrowserComponent extends Component
 
 			if( isset($this->settings['default_order']) )
             	$controller->Paginator->settings['order'] = $this->settings['default_order'];
+            	
+            if( isset($this->settings['default_conditions']) )
+            	$controller->Paginator->settings['conditions'] = array_merge($controller->Paginator->settings['conditions'], $this->settings['default_conditions']);
+            	            
 
             $hits = $controller->Paginator->paginate('Dataobject');
 
