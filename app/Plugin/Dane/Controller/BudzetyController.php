@@ -98,13 +98,26 @@ class BudzetyController extends DataobjectsController
         ));
 
         $this->_prepareView();
-        //debug($this->object_aggs);
     }
 
     public function wydatki()
     {
+        $types=array('czesci','dzialy');
+        $type=$types[0];
+        if(isset($this->request->param['type']) && in_array($this->request->param['type'], $types)){
+            $type=$this->request->param['type'];
+        }
 
-        $this->addInitLayers('wydatki');
+        $this->addInitLayers($type);
+
+        $this->_prepareView();
+
+    }
+
+    public function wydatki_dzialy()
+    {
+
+        $this->addInitLayers('dzialy');
 
         $this->_prepareView();
 
