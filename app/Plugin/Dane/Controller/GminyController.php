@@ -1698,6 +1698,8 @@ class GminyController extends DataobjectsController
             $this->set('_submenu', array_merge($this->submenus['rada'], array(
                 'selected' => 'posiedzenia',
             )));
+            
+            $this->set('DataBrowserTitle', 'Posiedzenia Rady Miasta');
             $this->set('title_for_layout', 'Posiedzenia Rady Miasta ' . $this->object->getData('nazwa'));
 
         }

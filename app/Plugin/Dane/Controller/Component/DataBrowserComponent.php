@@ -107,20 +107,18 @@ class DataBrowserComponent extends Component
                     ),
                 ),
                 'visual' => array(
-                    'label' => 'Typy kont',
+                    'label' => 'Typy obserwowanych kont',
+                    'all' => 'Wszystkie obserwowane konta',
                     'skin' => 'pie_chart',
                     'field' => 'twitter_accounts.typ_id',
                     'dictionary' => array(
-                        '1' => 'Posłowie',
-                        '2' => 'Komentatorzy',
+                        '2' => 'Komentatorzy polityczni',
                         '3' => 'Urzędy',
-                        '4' => 'Rząd',
-                        '5' => 'Rzecznik prasowy',
                         '6' => 'Media',
                         '7' => 'Politycy',
-                        '8' => 'Partia polityczna',
+                        '8' => 'Partie polityczna',
                         '9' => 'NGO',
-                    ),
+                    ),                    
                 ),
             ),
         ),
@@ -133,20 +131,17 @@ class DataBrowserComponent extends Component
                     ),
                 ),
                 'visual' => array(
-                    'label' => 'Typy kont',
+                    'label' => 'Typy obserwowanych kont',
                     'skin' => 'pie_chart',
                     'field' => 'twitter_accounts.typ_id',
                     'dictionary' => array(
-                        '1' => 'Posłowie',
-                        '2' => 'Komentatorzy',
+                        '2' => 'Komentatorzy polityczni',
                         '3' => 'Urzędy',
-                        '4' => 'Rząd',
-                        '5' => 'Rzecznik prasowy',
                         '6' => 'Media',
                         '7' => 'Politycy',
-                        '8' => 'Partia polityczna',
+                        '8' => 'Partie polityczna',
                         '9' => 'NGO',
-                    ),
+                    ),  
                 ),
             ),
             /*
@@ -1278,9 +1273,10 @@ class DataBrowserComponent extends Component
         ) {
 
             $controller->Paginator->settings = $this->getSettings();
+			
+			if( isset($this->settings['default_order']) )
+            	$controller->Paginator->settings['order'] = $this->settings['default_order'];
 
-            // $controller->Paginator->settings['order'] = 'score desc';
-            // debug($controller->Paginator->settings); die();
             $hits = $controller->Paginator->paginate('Dataobject');
 
             $dataBrowser = array(

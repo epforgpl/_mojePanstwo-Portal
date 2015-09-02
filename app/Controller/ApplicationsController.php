@@ -189,7 +189,7 @@ class ApplicationsController extends AppController
 	    	isset($this->request->params['id']) &&
 	    	( $data = $this->getDatasetByAlias(@$this->settings['id'], $this->request->params['id']) )
 	    ) {
-
+						
 		    $datasets = $this->getDatasets($this->settings['id']);
 
 			$fields = array('searchTitle', 'order', 'autocompletion');
@@ -223,7 +223,10 @@ class ApplicationsController extends AppController
 					'filter/dataset' => 'dataset',
 				),
 			);
-
+			
+			if( isset($data['dataset_name']['default_order']) )
+				$params['default_order'] = $data['dataset_name']['default_order'];
+			
 			foreach( $fields as $field )
 				if( isset($data['dataset_name'][ $field ]) )
 					$params[ $field ] = $data['dataset_name'][ $field ];

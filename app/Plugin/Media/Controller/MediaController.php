@@ -182,6 +182,31 @@ class MediaController extends ApplicationsController
                     'max' => date('Y-m-d', $max),
                 ),
             );
+            
+        } elseif( preg_match('/^\[([0-9]{4})-([0-9]{2})-([0-9]{2}) TO ([0-9]{4})-([0-9]{2})-([0-9]{2})\]$/i', $twitterTimerange, $match) ) {
+	        
+	        $min = mktime(0, 0, 0, $match[2], $match[3], $match[1]);
+            $max = mktime(0, 0, 0, $match[5], $match[6], $match[4]);
+
+            $timerange = array(
+                'target_filter' => array(
+                    'gte' => date('Y-m-d', $min),
+                    'lte' => date('Y-m-d', $max),
+                ),
+                'histogram_filter' => array(
+                    'gte' => date('Y-m-d', mktime(0, 0, 0, $match[2], $match[3]-49, $match[1])),
+                    'lte' => date('Y-m-d', mktime(0, 0, 0, $match[5], $match[6]+50, $match[4])),
+                ),
+                'range' => array(
+                    'min' => $min,
+                    'max' => $max,
+                ),
+                'labels' => array(
+                    'min' => date('Y-m-d', $min),
+                    'max' => date('Y-m-d', $max),
+                ),
+            );
+            	        
         }
 
         return isset($timerange) ? $timerange : false;
@@ -429,7 +454,6 @@ class MediaController extends ApplicationsController
                 'dataset' => array_keys($datasets),
             ),
             'cover' => array(
-                'force' => true,
                 'view' => array(
                     'plugin' => 'Media',
                     'element' => 'cover',
