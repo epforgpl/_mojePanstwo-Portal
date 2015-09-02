@@ -640,7 +640,7 @@ var DataBrowser = Class.extend({
 
 			columns_horizontal_data[i] = (data.buckets[i].label ? data.buckets[i].label.buckets[0][counter_field] : false) || data.buckets[i][counter_field]['value'] || data.buckets[i][counter_field];
 			columns_horizontal_keys[i] = data.buckets[i].key;
-			if (image_field) {
+			if (image_field && typeof data.buckets[i][image_field].buckets[0] !== 'undefined') {
 				columns_horizontal_images[
 					columns_horizontal_categories[i]['name']
 					] = data.buckets[i][image_field].buckets[0].key;
@@ -716,7 +716,7 @@ var DataBrowser = Class.extend({
 							return [
 								'<a href="' + choose_request + el.id + '" target="_self">',
 								'<div class="text-center" style="line-height: 1em">',
-								'<img style="margin-bottom: 5px; margin-right: 5px; float: left; max-width: 30px;" src="' + columns_horizontal_images[el.name] + '"/><br/>',
+								columns_horizontal_images.hasOwnProperty(el.name) ? '<img style="margin-bottom: 5px; margin-right: 5px; float: left; max-width: 30px;" src="' + columns_horizontal_images[el.name] + '"/><br/>' : '',
 								v,
 								'</div>',
 								'</a>'

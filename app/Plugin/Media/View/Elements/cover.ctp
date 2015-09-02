@@ -255,8 +255,11 @@ $options = array(
                 </header>
                 <section class="aggs-init">
                     <div class="dataAggs">
-                        <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"
+                        <div class="agg agg-ColumnsHorizontal"
+                             data-chart-height="1500"
+                             data-label-width="150"
                              data-label_field="name"
+                             data-image_field="photo"
                              data-choose-request="/dane/twitter_accounts/"
                              data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['accounts']['ids'])) ?>">
                             <div class="chart">
