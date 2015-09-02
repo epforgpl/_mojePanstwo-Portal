@@ -230,6 +230,9 @@ class AppController extends Controller
 				'searchTitle' => 'Szukaj w kontach Twitter...',
 				'menu_id' => 'twitter_konta',
 				'default_order' => 'twitter_accounts.liczba_obserwujacych desc',
+				'default_conditions' => array(
+	                'twitter_accounts.liczba_tweetow>' => 0,
+				),
             ),
             'twitter' => array(
             	'label' => 'Tweety',
