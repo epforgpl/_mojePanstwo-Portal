@@ -65,6 +65,7 @@ $(document).ready(function () {
 			range = chart.data('range'),
 			xmax = chart.data('xmax'),
 			switcher = main.find('.dataWrap a.switcher').first(),
+			switcherCancel = main.find('.dataWrap a.switcherCancel').first(),
 			display = main.find('.dataWrap .display').first(),
 			data = [],
 			highchart,
@@ -148,6 +149,7 @@ $(document).ready(function () {
 					setExtremes: function (e) {
 						if (e.trigger == 'navigator') {
 							switcher.removeClass('hidden');
+							switcherCancel.removeClass('hidden');
 
 							var extremes = e,
 								start = new Date(extremes.min),
@@ -212,13 +214,7 @@ $(document).ready(function () {
 				headerFormat: ' '
 			},
 			legend: {
-				layout: 'vertical',
-				align: 'right',
-				verticalAlign: 'top',
-				useHTML: true,
-				labelFormatter: function () {
-					return '<div style="margin-top:-5px; margin-bottom: 5px;"><b>#' + this.x + '</b> <img src="/media/img/twitterapp/' + this.logo + '.png"/> ' + this.name + '</div>';
-				}
+				enabled: false
 			},
 			legacy: {
 				enabled: false
@@ -246,6 +242,19 @@ $(document).ready(function () {
 							return false;
 						}
 					}
+				},
+				dataLabels: {
+					enabled: true,
+					formatter: function () {
+						var ret = '<b>#' + this.point.x + '</b> <img src="/media/img/twitterapp/' + this.point.logo + '.png" style="margin-right:4px" />',
+							name = this.point.name;
+						if (name.length > 55) {
+							name = this.point.name.substring(0, 52);
+							name += '...';
+						}
+						return ret + name;
+					},
+					useHTML: true
 				}
 			}]
 		});
