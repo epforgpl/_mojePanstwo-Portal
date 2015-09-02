@@ -77,26 +77,63 @@ $options = array(
                     <div class="bounce3"></div>
                 </div>
             </div>
-            <div class="dataWrap">
-                <div class="range">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <p class="display"><?= $this->Czas->dataSlownie($timerange['labels']['min']) ?> <span class="separator">&mdash;</span> <?= $this->Czas->dataSlownie($timerange['labels']['max']) ?></p>
-                        </div>
-                        <div class="col-md-8">
-                            <a href="#" class="switcher hidden">
-                                <i class="icon" data-icon="&#xe604;"></i>
-                                Zastosuj
-                            </a>
-                        </div>
+            <div class="range">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="display"><?= $this->Czas->dataSlownie($timerange['labels']['min']) ?> <span class="separator">&mdash;</span> <?= $this->Czas->dataSlownie($timerange['labels']['max']) ?></p>
+                    </div>
+                    <div class="col-md-8">
+                        <a href="#" class="switcher hidden">
+                            <i class="icon" data-icon="&#xe604;"></i>
+                            Zastosuj
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
+		
+		<? if ($hits = @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['top']['hits']['hits']) {
+            if (@$timerange['init']) {
+                $docs = array();
+                foreach ($hits as $hit)
+                    $docs[$hit['fields']['date'][0]] = $hit;
 
+                unset($hits);
+                krsort($docs);
+                $docs = array_values($docs);
+            } else {
+                $docs = $hits;
+            }
+            ?>
+            <div class="block block-simple col-xs-12">
+                <header>Najbardziej angażujące tweety:<i class="glyphicon glyphicon-question-sign" data-toggle="tooltip"
+                                                         data-placement="right"
+                                                         title="Tweety, które uzyskały najwięszką liczbę retweetów, polubień i komentarzy."></i>
+                </header>
+                <section class="aggs-init">
+                    <div class="dataAggs">
+                        <div class="agg agg-Dataobjects">
+                            <ul class="dataobjects">
+                                <? foreach ($docs as $doc) { ?>
+                                    <li>
+                                        <?= $this->Dataobject->render($doc, 'default') ?>
+                                    </li>
+                                <? } ?>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        <? } ?>
+		
+		
+		<? // debug($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['mentions']); ?>
+		<? // debug($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']); ?>
+		
+		
         <? if( @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts_by_mentions']['accounts'] ) { ?>
             <div class="block block-simple col-xs-12">
-                <header title="accounts_by_mentions.">accounts_by_mentions:</header>
+                <header title="accounts_by_mentions."><?= $this->getTitle() ?> najczęściej wzmiankował:</header>
                 <section class="aggs-init">
                     <div class="dataAggs">
                         <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"  data-label_field="screen_name" data-choose-request="/media?conditions[twitter.twitter_account_id]="
@@ -110,7 +147,7 @@ $options = array(
 
         <? if( @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions_by_account']['accounts'] ) { ?>
             <div class="block block-simple col-xs-12">
-                <header title="mentions_by_account.">mentions_by_account:</header>
+                <header title="mentions_by_accounts"><?= $this->getTitle() ?> był najczęściej wzmiankowany przez:</header>
                 <section class="aggs-init">
                     <div class="dataAggs">
                         <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"  data-label_field="screen_name" data-choose-request="/media?conditions[twitter.twitter_account_id]="
@@ -122,81 +159,8 @@ $options = array(
             </div>
         <? } ?>
 
-        <div class="dataWrap">
-            <? if (@$dataBrowser['aggs']['tweets']['timerange']['top']['hits']['hits']) { ?>
-                <div class="block block-simple col-xs-12">
-                    <header>Najpopularniejsze treści na Twitterze:</header>
-                    <section class="aggs-init">
-                        <div class="dataAggs">
-                            <div class="agg agg-Dataobjects">
-                                <ul class="dataobjects">
-                                    <? foreach ($dataBrowser['aggs']['tweets']['timerange']['top']['hits']['hits'] as $doc) { ?>
-                                        <li>
-                                            <?= $this->Dataobject->render($doc, 'default') ?>
-                                        </li>
-                                    <? } ?>
-                                </ul>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            <? } ?>
-        </div>
+        <? // debug($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['tags']); ?>
+		<? // debug($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['sources']); ?>
 
-        <? if (@$dataBrowser['aggs']['tweets']['tags']['tags']['buckets'] &&
-        count($dataBrowser['aggs']['tweets']['tags']['tags']['buckets'])) { ?>
-            <div class="block block-simple col-xs-12">
-
-                <header>
-                    <div class="dataWrap">Najpopularniejsze hashtagi</div>
-                </header>
-
-                <section class="aggs-init">
-                    <ul id="tagsCloud">
-                        <? $tags = $dataBrowser['aggs']['tweets']['tags']['tags'];
-                        $max = 0; $max_size = 60;
-                        foreach ($tags['buckets'] as $tag) {
-                            if($tag['doc_count'] > $max)
-                                $max = $tag['doc_count'];
-                        }
-
-                        $size = $max_size / $max;
-
-                        foreach ($tags['buckets'] as $tag) { ?>
-                            <li style="font-size: <?= ((int) ($tag['doc_count']) * $size) + 10 ?>px;">
-                                <a href="/media/tweety?conditions[twitter.tags]=<?= $tag['key'] ?>">
-                                    <?= $tag['label']['buckets'][0]['key'] ?>
-                                </a>
-                            </li>
-                        <? } ?>
-                    </ul>
-                </section>
-            </div>
-            <p></p>
-        <? } ?>
-
-        <? if (@$dataBrowser['aggs']['tweets_whitout_account_type_id']['types']['buckets']) { ?>
-            <div class="block block-simple col-xs-12">
-                <header>Najczęściej używane aplikacje:</header>
-                <section class="aggs-init">
-                    <div class="row">
-                        <? foreach ($dataBrowser['aggs']['tweets_whitout_account_type_id']['types']['buckets'] as $b) { ?>
-                            <div class="col-sm-12">
-                                <ul class="list-group reset margin-bottom-0">
-                                    <? foreach ($b['sources']['buckets'] as $s) { ?>
-                                        <? if(@$s['label']['buckets'][0]['doc_count']) { ?>
-                                            <li class="list-group-item">
-                                                <span class="badge"><?= $s['label']['buckets'][0]['doc_count'] ?></span>
-                                                <?= $s['label']['buckets'][0]['key'] ?>
-                                            </li>
-                                        <? } ?>
-                                    <? } ?>
-                                </ul>
-                            </div>
-                        <? } ?>
-                    </div>
-                </section>
-            </div>
-        <? } ?>
 
     </div>
