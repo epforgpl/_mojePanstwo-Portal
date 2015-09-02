@@ -3,23 +3,23 @@ $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
 $this->Combinator->add_libs('js', '../plugins/highstock/js/modules/drilldown');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 
-$this->Combinator->add_libs('js', 'Finanse.budzety');
+//$this->Combinator->add_libs('js', 'Finanse.budzety');
 
 $this->Combinator->add_libs('js', 'Dane.budzet-view');
 ?>
 
 <? echo $this->Element('dataobject/pageBegin'); ?>
 <div class="row">
-    <div class="col-md-12">
-        <div id="bdl_div" class="col-xs-12 col-md-10">
-            <div class="chart"
-                 data-json='<?php echo json_encode($object_aggs['budzety']['top']['hits']['hits']); ?>'>
+    <div class="col-xs-12">
+        <div class="chart"
+             data-json='<?php echo json_encode($object_aggs['budzety']['top']['hits']['hits']); ?>' data-year="<?= $object->getData('rok') ?>" style="z-index: 5; position: relative;">
         </div>
-    </div>
+        <div class="chart2" style="margin-top: -40px; z-index: 0; position: relative;">
+        </div>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-xs-12">
 
         <div class="block block-simple col-xs-12">
             <header>Główne parametry budżetu:</header>
@@ -82,86 +82,91 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
     </div>
 </div>
 <div class="row">
-<div class="col-md-12">
-    <div class="block block-simple col-xs-12">
+    <div class="col-md-12">
+        <div class="block block-simple col-xs-12">
 
-        <? $dane = array(
-            'dzialy' => array(),
-            'rozdzialy' => array()
-        );
-        $temp = array();
-
-        $source = $object->getLayers('dzialy');
-        if ($source['dzialy']) {
-            $i = 0;
-            $inne = array(
-                'name' => 'Pozostałe',
-                'y' => 0,
-                'drilldown' => 'Inne'
+            <? $dane = array(
+                'dzialy' => array(),
+                'rozdzialy' => array()
             );
-            foreach ($source['dzialy'] as $czesc) {
-                $ret = array();
-                $ret['name'] = $czesc['pl_budzety_wydatki']['tresc'];
-                $ret['y'] = $czesc[0]['plan'];
-                $ret['drilldown'] = $czesc['pl_budzety_wydatki']['dzial_str'];
-                if ($i > 13) {
-                    $inne['y'] += (int)$czesc[0]['plan'];
-                    $temp[] = $ret;
-                } else {
-                    $dane['dzialy'][] = $ret;
+            $temp = array();
+
+            $source = $object->getLayers('dzialy');
+            if ($source['dzialy']) {
+                $i = 0;
+                $inne = array(
+                    'name' => 'Pozostałe',
+                    'y' => 0,
+                    'drilldown' => 'Inne'
+                );
+                foreach ($source['dzialy'] as $czesc) {
+                    $ret = array();
+                    $ret['name'] = $czesc['pl_budzety_wydatki']['tresc'];
+                    $ret['y'] = $czesc[0]['plan'];
+                    $ret['drilldown'] = $czesc['pl_budzety_wydatki']['dzial_str'];
+                    if ($i > 13) {
+                        $inne['y'] += (int)$czesc[0]['plan'];
+                        $temp[] = $ret;
+                    } else {
+                        $dane['dzialy'][] = $ret;
+                    }
+                    $i++;
                 }
-                $i++;
-            }
-            $dane['dzialy'][] = $inne;
-            $dane['rozdzialy'][] = array(
-                'name' => 'Pozostałe',
-                'id' => 'Inne',
-                'data' => $temp
-            );
-            $rozdzialy = array();
-            foreach ($source['rozdzialy'] as $rozdzial) {
-                $ret = array();
-                $src = $rozdzial['pl_budzety_wydatki_dzialy']['src'];
-                if (isset($rozdzialy[$src])) {
+                $dane['dzialy'][] = $inne;
+                $dane['rozdzialy'][] = array(
+                    'name' => 'Pozostałe',
+                    'id' => 'Inne',
+                    'data' => $temp
+                );
+                $rozdzialy = array();
+                foreach ($source['rozdzialy'] as $rozdzial) {
+                    $ret = array();
+                    $src = $rozdzial['pl_budzety_wydatki_dzialy']['src'];
+                    if (isset($rozdzialy[$src])) {
 
-                    $rozdzialy[$src]['data'][] = array(
-                        'name' => $rozdzial['pl_budzety_wydatki']['tresc'],
-                        'y' => $rozdzial[0]['plan']
-                    );
+                        $rozdzialy[$src]['data'][] = array(
+                            'name' => $rozdzial['pl_budzety_wydatki']['tresc'],
+                            'y' => $rozdzial[0]['plan']
+                        );
 
-                } else {
+                    } else {
 
-                    $ret['name'] = $rozdzial['pl_budzety_wydatki_dzialy']['tresc'];
-                    $ret['id'] = $src;
-                    $ret['data'] = array();
-                    $ret['data'][] = array(
-                        'name' => $rozdzial['pl_budzety_wydatki']['tresc'],
-                        'y' => $rozdzial[0]['plan']
-                    );
-                    $rozdzialy[$src] = $ret;
+                        $ret['name'] = $rozdzial['pl_budzety_wydatki_dzialy']['tresc'];
+                        $ret['id'] = $src;
+                        $ret['data'] = array();
+                        $ret['data'][] = array(
+                            'name' => $rozdzial['pl_budzety_wydatki']['tresc'],
+                            'y' => $rozdzial[0]['plan']
+                        );
+                        $rozdzialy[$src] = $ret;
 
+                    }
                 }
-            }
 
-            foreach ($rozdzialy as $rozdzial) {
-                $dane['rozdzialy'][] = $rozdzial;
-            }
-            ?>
-            <div class="hidden highchart_datasource" data-highchart='<? echo json_encode($dane) ?>'></div>
+                foreach ($rozdzialy as $rozdzial) {
+                    $dane['rozdzialy'][] = $rozdzial;
+                }
 
-            <header>Wydatki według działów:</header>
-            <section class="aggs-init margin-sides-20">
-                <small>Kliknij w interesujący wycinek wykresu, aby uzyskać więcej danych</small>
-                <div class="dataAggs">
-                    <div class="agg agg-Dataobjects">
-                        <div id="wydatki_budzetu_wg_czesci"></div>
-                        <div id="wydatki_budzetu_wg_czesci2" class="hidden"></div>
+$sum=0;
+                foreach($dane['dzialy'] as $cos){
+                    $sum+=$cos['y'];
+                }
+                //debug($sum);
+                ?>
+                <div class="hidden highchart_datasource" data-highchart='<? echo json_encode($dane) ?>' data-total='<?= $sum ?>'></div>
+
+                <header>Wydatki według działów:</header>
+                <section class="aggs-init margin-sides-20">
+                    <small>Kliknij w interesujący wycinek wykresu, aby uzyskać więcej danych</small>
+                    <div class="dataAggs">
+                        <div class="agg agg-Dataobjects">
+                            <div id="wydatki_budzetu_wg_czesci"></div>
+                        </div>
                     </div>
-                </div>
-            </section>
-        <? } ?>
+                </section>
+            <? } ?>
+        </div>
     </div>
-</div>
 </div>
 
 

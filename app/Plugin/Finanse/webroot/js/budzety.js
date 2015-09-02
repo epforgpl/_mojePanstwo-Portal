@@ -1,5 +1,6 @@
 $(function () {
 	var dataBlock = $('.chart'),
+		dataBlock2 = $('.chart2')
 		data = $.parseJSON(dataBlock.attr('data-json'));
 
 	/**
@@ -14,14 +15,18 @@ $(function () {
 	data.sort(SortByDate);
 
 	var dataPremier = [],
+		dataPremier2 = [],
 		wyd = [],
 		doch = [],
 		def = [],
+		def_proc =[],
 		startDate = 1990,
 		premierPlotBandData = {},
+		premierPlotBandData2 = {},
 		premierPlotBandColorO = 'rgba(200,200,200,.2)',
-		premierPlotBandColorE = 'rgba(150,150,150,.2)';
+		premierPlotBandColorE = 'rgba(100,100,100,.2)';
 
+	var last_year;
 	$.map(data, function (el) {
 		var self = el.fields.source[0].data;
 
@@ -29,17 +34,23 @@ $(function () {
 			wyd.push({
 				id: self['budzety.id'],
 				x: self['budzety.rok'],
-				y: self['budzety.liczba_wydatki']*1000
+				y: self['budzety.liczba_wydatki'] * 1000
 			});
 			doch.push({
 				id: self['budzety.id'],
 				x: self['budzety.rok'],
-				y: self['budzety.liczba_dochody']*1000
+				y: self['budzety.liczba_dochody'] * 1000
 			});
 			def.push({
 				id: self['budzety.id'],
 				x: self['budzety.rok'],
-				y: self['budzety.liczba_deficyt']*1000
+				y: self['budzety.liczba_deficyt'] * 1000
+			});
+
+			def_proc.push({
+				id: self['budzety.id'],
+				x: self['budzety.rok'],
+				y: -(1-self['budzety.liczba_wydatki'] / self['budzety.liczba_dochody'])
 			});
 
 			if (premierPlotBandData.id !== self['budzety.premier_czlowiek_id']) {
@@ -52,16 +63,32 @@ $(function () {
 				premierPlotBandData.id = self['budzety.premier_czlowiek_id'];
 				premierPlotBandData.label = {
 					align: 'left',
-					text: '<img src="//resources.sejmometr.pl/mowcy/a/3/' + premierPlotBandData.id + '.jpg" alt="" />',
+					text: '<img src="//resources.sejmometr.pl/mowcy/a/1/' + premierPlotBandData.id + '.jpg" alt="" width="30" />',
 					useHTML: true,
-					y: +530
+					zIndex: 15,
+					y: +366,
+					//x: -15
 				};
 				premierPlotBandData.from = self['budzety.rok'];
+				last_year = self['budzety.rok'];
+
+				if (premierPlotBandData2.id !== undefined) {
+					premierPlotBandData2.to = self['budzety.rok'];
+					premierPlotBandData2.color = (dataPremier2.length % 2) ? premierPlotBandColorE : premierPlotBandColorO;
+					dataPremier2.push(premierPlotBandData2);
+					premierPlotBandData2 = {};
+				}
+				premierPlotBandData2.id = self['budzety.premier_czlowiek_id'];
+				premierPlotBandData2.from = self['budzety.rok'];
 			}
 		}
 	});
 
+	premierPlotBandData.to = last_year+1;
+	premierPlotBandData.label.x=-15;
 	dataPremier.push(premierPlotBandData);
+	dataPremier2.push(premierPlotBandData2);
+
 	var dataSeries = [
 		{
 			name: 'Wydatki',
@@ -83,11 +110,20 @@ $(function () {
 			fillOpacity: 0.9
 		}];
 
+	var dataSeries2 = [
+		{
+			name: 'Deficyt',
+			data: def_proc,
+			color: '#f45b5b',
+			fillOpacity: 0.5,
+			zIndex: 0.01
+		}];
+
 	dataBlock.highcharts({
 		chart: {
 			spacingBottom: 40,
 			type: 'area',
-			height: 600
+			backgroundColor: null
 		},
 		credits: {
 			enabled: false
@@ -109,7 +145,8 @@ $(function () {
 				marker: {
 					enabled: false,
 					symbol: 'circle',
-					radius: 4,
+					radius: 2,
+					fillColor: '#555555',
 					states: {
 						hover: {
 							enabled: true
@@ -117,6 +154,9 @@ $(function () {
 					}
 				}
 			}
+		},
+		title:{
+			text: null
 		},
 		tooltip: {
 			shared: true,
@@ -140,8 +180,10 @@ $(function () {
 		series: dataSeries,
 		xAxis: {
 			plotBands: dataPremier,
-			pointStart: startDate,
-			pointInterval: 1
+			tickInterval: 2,
+			labels:{
+				autoRotation: 0
+			}
 		},
 		yAxis: {
 			title: ' ',
@@ -150,6 +192,90 @@ $(function () {
 					return this.value / 1000000000 + ' mld';
 				}
 			}
+		}
+	});
+
+	dataBlock2.highcharts({
+		chart: {
+			spacingBottom: 40,
+			type: 'area',
+			height: 200,
+			backgroundColor: null,
+			spacingTop:0,
+			marginTop:5,
+			spacingLeft: 34
+		},
+		credits: {
+			enabled: false
+		},
+		legend: {
+			enabled: false
+		},
+		plotOptions: {
+			series: {
+				cursor: 'pointer',
+				events: {
+					click: function (event) {
+						window.location = "/dane/budzety/" + event.point.id;
+					}
+				},
+				shadow: true
+			},
+			area: {
+				marker: {
+					enabled: false,
+					symbol: 'circle',
+					radius: 2,
+					fillColor: '#555555',
+					states: {
+						hover: {
+							enabled: true
+						}
+					}
+				}
+			}
+		},
+		tooltip: {
+			shared: true,
+			valueSuffix: ' mld',
+			formatter: function () {
+				var points = this.points;
+				var pointsLength = points.length;
+				var tooltipMarkup = pointsLength ? '<span style="font-size: 10px">' + points[0].key + '</span><br/>' : '';
+				var index;
+				var val;
+
+				for(index = 0; index < pointsLength; index += 1) {
+					val = (points[index].y*100).toFixed(2);
+
+					tooltipMarkup += '<span style="color:' + points[index].series.color + '">\u25CF</span> ' + points[index].series.name + ': <b>' + val  + '%</b><br/>';
+				}
+
+				return tooltipMarkup;
+			}
+		},
+		title: {
+			text: null
+		},
+		series: dataSeries2,
+		xAxis: {
+			plotBands: dataPremier2,
+			labels:{
+				step: 1,
+				enabled: false
+			},
+			tickInterval: 1,
+			opposite: true
+		},
+		yAxis: {
+			title: ' ',
+			labels: {
+				formatter: function () {
+					return this.value.toFixed(2)*100 + '%';
+				}
+			},
+			min: 0,
+			reversed: true
 		}
 	});
 });
