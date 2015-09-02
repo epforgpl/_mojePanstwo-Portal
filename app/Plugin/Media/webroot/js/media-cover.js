@@ -208,7 +208,8 @@ $(document).ready(function () {
 					text: null
 				},
 				pointFormat: '<div style="display: block"><b>#{point.x}</b> <img src="/media/img/twitterapp/{point.logo}.png"/> {point.name}</div>',
-				useHTML: true
+				useHTML: true,
+				headerFormat: ' '
 			},
 			legend: {
 				layout: 'vertical',
@@ -240,7 +241,7 @@ $(document).ready(function () {
 				data: appPieData,
 				point: {
 					events: {
-						click: function (event) {
+						click: function () {
 							window.location.href = '?conditions[source_id]=' + this.id + appPie.attr('data-parms');
 							return false;
 						}
