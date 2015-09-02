@@ -84,16 +84,21 @@ $options = array(
         <div class="dataWrap">
             <div class="range">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <p class="display"><?= $this->Czas->dataSlownie($timerange['labels']['min']) ?> <span
                                 class="separator">&mdash;</span> <?= $this->Czas->dataSlownie($timerange['labels']['max']) ?>
                         </p>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-7">
                         <a href="#" class="switcher hidden"
                            data-type="<? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo $twitterAccountType; ?>">
                             <i class="icon" data-icon="&#xe604;"></i>
                             Zastosuj
+                        </a>
+                        <a href="#" class="cancel hidden"
+                           data-type="<? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo $twitterAccountType; ?>">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            Anuluj
                         </a>
                     </div>
                 </div>
