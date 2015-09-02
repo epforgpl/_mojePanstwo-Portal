@@ -87,7 +87,7 @@ $(document).ready(function () {
             borderWidth: 0
         },
         chart: {
-            backgroundColor: 'rgba(255, 255, 255, 0)'
+			backgroundColor: null
         },
         series: series
     });

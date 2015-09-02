@@ -19,7 +19,8 @@ var highchartInit = function () {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false,
-                height: 250
+				height: 250,
+				backgroundColor: null
             },
             title: {
                 text: ''

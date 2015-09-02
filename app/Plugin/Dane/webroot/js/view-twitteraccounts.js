@@ -17,7 +17,7 @@ jQuery(document).ready(function () {
         chart: {
             type: 'spline',
             height: 250,
-            backgroundColor: 'rgba(255, 255, 255, 0)'
+			backgroundColor: null
         },
         title: {
             text: ''

@@ -69,7 +69,8 @@ $(document).ready(function () {
                         chart: {
                             plotBackgroundColor: null,
                             plotBorderWidth: null,
-                            plotShadow: false
+							plotShadow: false,
+							backgroundColor: null
                         },
                         credits: {
                             enabled: false
@@ -129,4 +130,4 @@ $(document).ready(function () {
         , 60 * 1000);
 
 
-})
+});

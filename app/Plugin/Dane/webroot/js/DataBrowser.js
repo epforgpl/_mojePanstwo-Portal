@@ -663,6 +663,7 @@ var DataBrowser = Class.extend({
 
 		var chart = {
 			type: 'bar',
+			spacingRight: 60,
 			backgroundColor: null,
 			events: {
 				load: function () {

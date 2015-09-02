@@ -38,14 +38,13 @@ $(document).ready(function () {
                     $('#krs_downloads_day').html('');
 
                     $('#krs_downloads_day').highcharts({
-
-
                         chart: {
                             type: 'gauge',
                             plotBackgroundColor: null,
                             plotBackgroundImage: null,
                             plotBorderWidth: 0,
-                            plotShadow: false
+							plotShadow: false,
+							backgroundColor: null,
                         },
 
                         credits: {
@@ -136,13 +135,13 @@ $(document).ready(function () {
                         }]
                     });
                     $('#krs_downloads_hour').highcharts({
-
                         chart: {
                             type: 'gauge',
                             plotBackgroundColor: null,
                             plotBackgroundImage: null,
                             plotBorderWidth: 0,
-                            plotShadow: false
+							plotShadow: false,
+							backgroundColor: null
                         },
 
                         credits: {
@@ -235,13 +234,13 @@ $(document).ready(function () {
 
                     });
                     $('#krs_downloads_minute').highcharts({
-
                         chart: {
                             type: 'gauge',
                             plotBackgroundColor: null,
                             plotBackgroundImage: null,
                             plotBorderWidth: 0,
-                            plotShadow: false
+							plotShadow: false,
+							backgroundColor: null
                         },
 
                         credits: {

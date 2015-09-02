@@ -84,7 +84,7 @@ jQuery(document).ready(function () {
         highstock_div.highcharts('StockChart', {
             chart: {
                 height: 210,
-                backgroundColor: 'transparent',
+				backgroundColor: null,
                 events: {
                     load: function () {
                         var e = this.xAxis[0].getExtremes();

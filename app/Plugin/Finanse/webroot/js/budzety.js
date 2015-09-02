@@ -87,7 +87,8 @@ $(function () {
 		chart: {
 			spacingBottom: 40,
 			type: 'area',
-			height: 600
+			height: 600,
+			backgroundColor: null
 		},
 		credits: {
 			enabled: false

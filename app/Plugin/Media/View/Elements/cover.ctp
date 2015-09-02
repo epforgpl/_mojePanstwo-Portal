@@ -63,7 +63,7 @@ $options = array(
                         <ul class="nav nav-pills">
                             <? foreach ($twitterTimeranges as $key => $value) { ?>
                                 <li<? if ($twitterTimerange == $key) echo ' class="active"' ?>>
-                                    <a href="/media?t=<?= $key ?><? if (isset($twitterAccountType)) echo "&a=" . $twitterAccountType; ?>">
+                                    <a href="/media?t=<?= $key ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>">
                                         <?= $value ?>
                                     </a>
                                 </li>
@@ -73,7 +73,7 @@ $options = array(
                     <div class="pull-right">
                         <ul class="nav nav-pills">
                             <li<? if (isset($this->request->query['t']) && ($this->request->query['t'] == $last_month_report['param'])) echo ' class="active"' ?>>
-                                <a href="/media?t=<?= $last_month_report['param'] ?><? if (isset($twitterAccountType)) echo "&a=" . $twitterAccountType; ?>"><?= $last_month_report['label'] ?></a>
+                                <a href="/media?t=<?= $last_month_report['param'] ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>"><?= $last_month_report['label'] ?></a>
                             </li>
 
                             <? if (isset($dropdownRanges)) { ?>
@@ -88,7 +88,7 @@ $options = array(
                                                 <li class="dropdown-title"><?= $dropdown['title'] ?></li>
                                                 <? foreach ($dropdown['ranges'] as $range) { ?>
                                                     <li<? if ($twitterTimerange == $range['param'] && strlen($twitterTimerange) === strlen($range['param'])) echo ' class="active"'; ?>>
-                                                        <a href="/media?t=<?= $range['param'] ?><? if (isset($twitterAccountType)) echo "&a=" . $twitterAccountType; ?>">
+                                                        <a href="/media?t=<?= $range['param'] ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>">
                                                             <?= $range['label'] ?>
                                                         </a>
                                                     </li>
@@ -125,7 +125,8 @@ $options = array(
                         </p>
                     </div>
                     <div class="col-md-8">
-                        <a href="#" class="switcher hidden">
+                        <a href="#" class="switcher hidden"
+                           data-type="<? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo $twitterAccountType; ?>">
                             <i class="icon" data-icon="&#xe604;"></i>
                             Zastosuj
                         </a>
@@ -296,7 +297,7 @@ $options = array(
                     if (isset($timerange["range"])) {
                         $parms .= '&conditions[date]=[' . date('Y-m-d', $timerange["range"]['min']) . ' TO ' . date('Y-m-d', $timerange["range"]['max']) . ']';
                     }
-                    if (isset($twitterAccountType)) {
+                    if (isset($twitterAccountType) && $twitterAccountType !== '0') {
                         $parms .= '&conditions[twitter_accounts.typ_id]=' . $twitterAccountType;
                     }
                     echo $parms;

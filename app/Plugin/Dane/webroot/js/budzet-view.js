@@ -77,7 +77,8 @@ $(document).ready(function () {
 	$('#wydatki_budzetu_wg_czesci2').highcharts({
 		chart: {
 			type: 'column',
-			height: 800
+			height: 800,
+			backgroundColor: null
 		},
 		plotOptions: {
 			series: {

@@ -240,7 +240,8 @@ jQuery(document).ready(function () {
                             text: ''
                         },
                         chart: {
-                            height: 150
+							height: 150,
+							backgroundColor: null
                         },
                         credits: {
                             enabled: false
