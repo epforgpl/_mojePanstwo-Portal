@@ -39,8 +39,8 @@ GminyKrakowOkregi.prototype.initialize = function() {
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             backgroundColor: '#F8F8F8',
             center: new google.maps.LatLng(
-                50.0467656,
-                20.0048731
+                50.057787777873315,
+                19.930715385156184
             )
         }
     );
@@ -197,7 +197,7 @@ $(document).ready(function() {
 
         var map = new google.maps.Map(
             document.getElementById('okreg_map'), {
-                zoom: 10,
+                zoom: 11,
                 panControl: false,
                 zoomControl: false,
                 scrollwheel: false,

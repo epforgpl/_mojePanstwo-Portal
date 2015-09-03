@@ -29,8 +29,8 @@ echo $this->Element('Dane.dataobject/subobject', array(
 		    	<section class="aggs-init margin-sides-10">
 
 			    	<ul class="dataHighlights oneline">
-		                <li class="dataHighlight col-xs-2">
-		                    <p class="_label">Rok</p>
+		                <li class="dataHighlight col-xs-3">
+		                    <p class="_label">Rok wyborów</p>
 		                    <p class="_value"><?= $okreg->getData('rok') ?></p>
 		                </li>
 
