@@ -1,0 +1,2 @@
+msgid "LC_FINANSE_SEARCH_BRAK_WYNIKOW"
+msgstr "Brak wyników"
