@@ -165,7 +165,7 @@ class TwitterAccountsController extends DataobjectsController
 	            'aggs' => array(
 	                'accounts' => array(
 		                'terms' => array(
-			                'field' => 'twitter-mentions.id',
+			                'field' => 'twitter-mentions.screen_name',
 			                'size' => 10,
 		                ),
 		                'aggs' => array(
@@ -280,7 +280,7 @@ class TwitterAccountsController extends DataobjectsController
 												                'aggs' => array(
 													                'ids' => array(
 														                'terms' => array(
-															                'field' => 'data.twitter_accounts.id',
+															                'field' => 'data.twitter.twitter_user_screenname',
 															                'exclude' => array(
 																                'pattern' => '',
 															                ),
@@ -289,13 +289,13 @@ class TwitterAccountsController extends DataobjectsController
 														                'aggs' => array(
 															                'name' => array(
 																                'terms' => array(
-																	                'field' => 'data.twitter_accounts.twitter_name',
+																	                'field' => 'data.twitter.twitter_user_name',
 																	                'size' => 1,
 																                ),
 															                ),
 															                'photo' => array(
 																                'terms' => array(
-																	                'field' => 'data.twitter_accounts.profile_image_url_https',
+																	                'field' => 'data.twitter.twitter_user_avatar_url',
 																	                'size' => 1,
 																                ),
 															                ),
