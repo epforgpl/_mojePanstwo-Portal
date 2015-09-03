@@ -180,7 +180,16 @@ $options = array(
                          data-label-width="150"
                          data-label_field="name"
                          data-image_field="photo"
-                         data-choose-request="/media?conditions[twitter.twitter_account_id]="
+                         <?
+		                    
+		                    $parms = '/dane/twitter_accounts/' . $object->getId() . '/tweety?';
+		                    if (isset($timerange["range"])) {
+	                            $parms .= 'conditions[date]=[' . date('Y-m-d', $timerange["range"]['min']) . ' TO ' . date('Y-m-d', $timerange["range"]['max']) . ']&';
+	                        }
+	                        $parms .= 'conditions[twitter-mentions:screen_name]=';
+		                    
+	                    ?>
+                         data-choose-request="<?= $parms ?>"
                          data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['mentions']['accounts'])) ?>">
                         <div class="chart">
                             <div class="spinner grey">
@@ -205,7 +214,17 @@ $options = array(
                          data-label-width="150"
                          data-label_field="name"
                          data-image_field="photo"
-                         data-choose-request="/media?conditions[twitter.twitter_account_id]="
+                         <?
+	                    
+	                    $parms = '/media/tweety?';
+	                    if (isset($timerange["range"])) {
+                            $parms .= 'conditions[date]=[' . date('Y-m-d', $timerange["range"]['min']) . ' TO ' . date('Y-m-d', $timerange["range"]['max']) . ']&';
+                        }
+                       		                    	                    
+                        $parms .= 'conditions[twitter-mentions:account_id]=' . $object->getId() . '&conditions[twitter.twitter_user_screenname]=';
+		                    
+	                    ?>
+                         data-choose-request="<?= $parms ?>"
                          data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['account']['accounts']['ids'])) ?>">
                         <div class="chart">
                             <div class="spinner grey">
