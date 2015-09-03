@@ -12,7 +12,8 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
 <div class="row">
     <div class="col-xs-12">
         <div class="chart"
-             data-json='<?php echo json_encode($object_aggs['budzety']['top']['hits']['hits']); ?>' data-year="<?= $object->getData('rok') ?>" style="z-index: 5; position: relative;">
+             data-json='<?php echo json_encode($object_aggs['budzety']['top']['hits']['hits']); ?>'
+             data-year="<?= $object->getData('rok') ?>" style="z-index: 5; position: relative;">
         </div>
         <div class="chart2" style="margin-top: -40px; z-index: 0; position: relative;">
         </div>
@@ -147,13 +148,13 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
                     $dane['rozdzialy'][] = $rozdzial;
                 }
 
-$sum=0;
-                foreach($dane['dzialy'] as $cos){
-                    $sum+=$cos['y'];
+                $sum = 0;
+                foreach ($dane['dzialy'] as $cos) {
+                    $sum += $cos['y'];
                 }
-                //debug($sum);
                 ?>
-                <div class="hidden highchart_datasource" data-highchart='<? echo json_encode($dane) ?>' data-total='<?= $sum ?>'></div>
+                <div class="hidden highchart_datasource" data-highchart='<? echo json_encode($dane) ?>'
+                     data-total='<?= $sum ?>'></div>
 
                 <header>Wydatki według działów:</header>
                 <section class="aggs-init margin-sides-20">
@@ -163,7 +164,8 @@ $sum=0;
                             <div id="wydatki_budzetu_wg_czesci"></div>
                         </div>
                     </div>
-                    <a href="<?=$object->getData('prawo.id')?>/wydatki?type=dzialy">Zobacz te dane w formie tabeli </a>
+                        <a href="<?= $object->getData('prawo.id') ?>/wydatki?type=dzialy">Zobacz te dane w formie
+                            tabeli </a>
                 </section>
             <? } ?>
         </div>
