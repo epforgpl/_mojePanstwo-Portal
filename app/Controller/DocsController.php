@@ -188,117 +188,124 @@ class DocsController extends AppController
         $this->autoRender = false;
         $dane = json_decode($this->request->data['dane']);
 
-        $data = array();
-        foreach ($dane as $page) {
-            $strona = array();
-            foreach ($page as $nr_strony => $pole) {
-                if ($pole[1] == 1) {
-                    continue;
-                } else {
-                    if (!isset($strona[$pole[1]])) {
-                        $strona[$pole[1]] = array();
-                    }
-                    $strona[$pole[1]]['rocznik'] = '2012';
-
-                    switch ($pole[0]) {
-                        case 1:
-                            //czesc_str
-                            $strona[$pole[1]]['czesc_str'] = $pole[2];
-                            $strona[$pole[1]]['type'] = 'czesc';
-                            break;
-                        case 2:
-                            //dzial_str
-                            $strona[$pole[1]]['dzial_str'] = $pole[2];
-                            $strona[$pole[1]]['type'] = 'dzial';
-                            break;
-                        case 3:
-                            //rozdzial_str
-                            $strona[$pole[1]]['rozdzial_str'] = $pole[2];
-                            $strona[$pole[1]]['type'] = 'rozdzial';
-                            break;
-                        case 4:
-                            //tresc
-                            if (isset($strona[$pole[1]]['tresc'])) {
-                                $strona[$pole[1]]['tresc'] .= $pole[2];
-                            } else {
-                                $strona[$pole[1]]['tresc'] = $pole[2];
-                            }
-                            break;
-                        case 5:
-                            //pozycja
-                            $strona[$pole[1]]['pozycja'] = $pole[2];
-                            break;
-                        case 6:
-                            //plan
-                            if (isset($strona[$pole[1]]['plan'])) {
-                                $strona[$pole[1]]['plan'] .= $pole[2];
-                            } else {
-                                $strona[$pole[1]]['plan'] = $pole[2];
-                            }
-                            $strona[$pole[1]]['plan'] = str_replace(' ', '', $strona[$pole[1]]['plan']);
-                            break;
-                        case 7:
-                            if (isset($strona[$pole[1]]['dotacje_i_subwencje'])) {
-                                $strona[$pole[1]]['dotacje_i_subwencje'] .= $pole[2];
-                            } else {
-                                $strona[$pole[1]]['dotacje_i_subwencje'] = $pole[2];
-                            }
-                            //dotacje i subwencje
-                            $strona[$pole[1]]['dotacje_i_subwencje'] = str_replace(' ', '', $strona[$pole[1]]['dotacje_i_subwencje']);
-                            break;
-                        case 8:
-                            if (isset($strona[$pole[1]]['swiadczenia_na_rzecz_osob_fizycznych'])) {
-                                $strona[$pole[1]]['swiadczenia_na_rzecz_osob_fizycznych'] .= $pole[2];
-                            } else {
-                                $strona[$pole[1]]['swiadczenia_na_rzecz_osob_fizycznych'] = $pole[2];
-                            }
-                            //swiadczenia na rzecz osob fizycznych
-                            $strona[$pole[1]]['swiadczenia_na_rzecz_osob_fizycznych'] = str_replace(' ', '', $strona[$pole[1]]['swiadczenia_na_rzecz_osob_fizycznych']);
-                            break;
-                        case 9:
-                            if (isset($strona[$pole[1]]['wydatki_biezace_jednostek_budzetowych'])) {
-                                $strona[$pole[1]]['wydatki_biezace_jednostek_budzetowych'] .= $pole[2];
-                            } else {
-                                $strona[$pole[1]]['wydatki_biezace_jednostek_budzetowych'] = $pole[2];
-                            }
-                            //wydatki biezace jednostek budzetowych
-                            $strona[$pole[1]]['wydatki_biezace_jednostek_budzetowych'] = str_replace(' ', '', $strona[$pole[1]]['wydatki_biezace_jednostek_budzetowych']);
-                            break;
-                        case 10:
-                            if (isset($strona[$pole[1]]['wydatki_majatkowe'])) {
-                                $strona[$pole[1]]['wydatki_majatkowe'] .= $pole[2];
-                            } else {
-                                $strona[$pole[1]]['wydatki_majatkowe'] = $pole[2];
-                            }
-                            //wydatki majatkowe
-                            $strona[$pole[1]]['wydatki_majatkowe'] = str_replace(' ', '', $strona[$pole[1]]['wydatki_majatkowe']);
-                            break;
-                        case 11:
-                            //wydatki na osbluge dlugu
-                            $strona[$pole[1]]['wydatki_na_obsluge_dlugu'] = str_replace(' ', '', $pole[2]);
-                            break;
-                        case 12:
-                            //srodki wlasne ue
-                            $strona[$pole[1]]['srodki_wlasne_ue'] = str_replace(' ', '', $pole[2]);
-                            break;
-                        case 13:
-                            //wspolfinansowanie ue
-                            $strona[$pole[1]]['wspolfinansowanie_ue'] = str_replace(' ', '', $pole[2]);
-                            break;
-                    }
-                }
-            }
-            $data = array_merge($data, $strona);
-        }
-
-        $this->loadModel('Document');
-        $aa = $this->Document->save_budget(json_encode($data));
-
 
         echo '<pre>';
-         //var_export($data);
-        var_export($aa['data']);
-        // var_export(json_encode($data));
+        var_export($dane);
         echo '</pre>';
+
+        /*
+                $data = array();
+                foreach ($dane as $page) {
+                    $strona = array();
+                    foreach ($page as $nr_strony => $pole) {
+                        if ($pole[1] == 1) {
+                            continue;
+                        } else {
+                            if (!isset($strona[$pole[1]])) {
+                                $strona[$pole[1]] = array();
+                            }
+                            $strona[$pole[1]]['rocznik'] = '2012';
+
+                            switch ($pole[0]) {
+                                case 1:
+                                    //czesc_str
+                                    $strona[$pole[1]]['czesc_str'] = $pole[2];
+                                    $strona[$pole[1]]['type'] = 'czesc';
+                                    break;
+                                case 2:
+                                    //dzial_str
+                                    $strona[$pole[1]]['dzial_str'] = $pole[2];
+                                    $strona[$pole[1]]['type'] = 'dzial';
+                                    break;
+                                case 3:
+                                    //rozdzial_str
+                                    $strona[$pole[1]]['rozdzial_str'] = $pole[2];
+                                    $strona[$pole[1]]['type'] = 'rozdzial';
+                                    break;
+                                case 4:
+                                    //tresc
+                                    if (isset($strona[$pole[1]]['tresc'])) {
+                                        $strona[$pole[1]]['tresc'] .= $pole[2];
+                                    } else {
+                                        $strona[$pole[1]]['tresc'] = $pole[2];
+                                    }
+                                    break;
+                                case 5:
+                                    //pozycja
+                                    $strona[$pole[1]]['pozycja'] = $pole[2];
+                                    break;
+                                case 6:
+                                    //plan
+                                    if (isset($strona[$pole[1]]['plan'])) {
+                                        $strona[$pole[1]]['plan'] .= $pole[2];
+                                    } else {
+                                        $strona[$pole[1]]['plan'] = $pole[2];
+                                    }
+                                    $strona[$pole[1]]['plan'] = str_replace(' ', '', $strona[$pole[1]]['plan']);
+                                    break;
+                                case 7:
+                                    if (isset($strona[$pole[1]]['dotacje_i_subwencje'])) {
+                                        $strona[$pole[1]]['dotacje_i_subwencje'] .= $pole[2];
+                                    } else {
+                                        $strona[$pole[1]]['dotacje_i_subwencje'] = $pole[2];
+                                    }
+                                    //dotacje i subwencje
+                                    $strona[$pole[1]]['dotacje_i_subwencje'] = str_replace(' ', '', $strona[$pole[1]]['dotacje_i_subwencje']);
+                                    break;
+                                case 8:
+                                    if (isset($strona[$pole[1]]['swiadczenia_na_rzecz_osob_fizycznych'])) {
+                                        $strona[$pole[1]]['swiadczenia_na_rzecz_osob_fizycznych'] .= $pole[2];
+                                    } else {
+                                        $strona[$pole[1]]['swiadczenia_na_rzecz_osob_fizycznych'] = $pole[2];
+                                    }
+                                    //swiadczenia na rzecz osob fizycznych
+                                    $strona[$pole[1]]['swiadczenia_na_rzecz_osob_fizycznych'] = str_replace(' ', '', $strona[$pole[1]]['swiadczenia_na_rzecz_osob_fizycznych']);
+                                    break;
+                                case 9:
+                                    if (isset($strona[$pole[1]]['wydatki_biezace_jednostek_budzetowych'])) {
+                                        $strona[$pole[1]]['wydatki_biezace_jednostek_budzetowych'] .= $pole[2];
+                                    } else {
+                                        $strona[$pole[1]]['wydatki_biezace_jednostek_budzetowych'] = $pole[2];
+                                    }
+                                    //wydatki biezace jednostek budzetowych
+                                    $strona[$pole[1]]['wydatki_biezace_jednostek_budzetowych'] = str_replace(' ', '', $strona[$pole[1]]['wydatki_biezace_jednostek_budzetowych']);
+                                    break;
+                                case 10:
+                                    if (isset($strona[$pole[1]]['wydatki_majatkowe'])) {
+                                        $strona[$pole[1]]['wydatki_majatkowe'] .= $pole[2];
+                                    } else {
+                                        $strona[$pole[1]]['wydatki_majatkowe'] = $pole[2];
+                                    }
+                                    //wydatki majatkowe
+                                    $strona[$pole[1]]['wydatki_majatkowe'] = str_replace(' ', '', $strona[$pole[1]]['wydatki_majatkowe']);
+                                    break;
+                                case 11:
+                                    //wydatki na osbluge dlugu
+                                    $strona[$pole[1]]['wydatki_na_obsluge_dlugu'] = str_replace(' ', '', $pole[2]);
+                                    break;
+                                case 12:
+                                    //srodki wlasne ue
+                                    $strona[$pole[1]]['srodki_wlasne_ue'] = str_replace(' ', '', $pole[2]);
+                                    break;
+                                case 13:
+                                    //wspolfinansowanie ue
+                                    $strona[$pole[1]]['wspolfinansowanie_ue'] = str_replace(' ', '', $pole[2]);
+                                    break;
+                            }
+                        }
+                    }
+                    $data = array_merge($data, $strona);
+                }
+
+                $this->loadModel('Document');
+                $aa = $this->Document->save_budget(json_encode($data));
+
+
+                echo '<pre>';
+                 //var_export($data);
+                var_export($aa['data']);
+                // var_export(json_encode($data));
+                echo '</pre>';
+            */
     }
 }

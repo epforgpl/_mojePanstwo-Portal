@@ -212,6 +212,10 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 			e.preventDefault();
 			modalPaszportLoginForm.modal('show');
 		});
+
+		$('#modalPaszportLoginForm').on('shown.bs.modal', function() {
+				$('#UserEmail').focus();
+		});
 	}
 
 	$('[data-toggle="tooltip"]').tooltip({
