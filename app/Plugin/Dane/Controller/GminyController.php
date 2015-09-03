@@ -2916,9 +2916,6 @@ class GminyController extends DataobjectsController
     public function komisje()
     {
 
-		if( !isset($this->request->query['conditions']['krakow_komisje.kadencja_id']) )
-			$this->request->query['conditions']['krakow_komisje.kadencja_id'] = '7';
-
         $this->_prepareView();
         $this->request->params['action'] = 'rada';
 
@@ -3055,7 +3052,7 @@ class GminyController extends DataobjectsController
                         $this->set('_submenu', array_merge($this->submenus['komisje'], array(
                             'selected' => '',
                         )));
-
+												
                         $this->Components->load('Dane.DataBrowser', $options);
 
                     }
@@ -3116,7 +3113,10 @@ class GminyController extends DataobjectsController
             $this->render('komisja-' . $subaction);
 
         } else {
-
+			
+			if( !isset($this->request->query['conditions']['krakow_komisje.kadencja_id']) )
+				$this->request->query['conditions']['krakow_komisje.kadencja_id'] = '7';
+			
             $this->_prepareView();
 
             $this->Components->load('Dane.DataBrowser', array(

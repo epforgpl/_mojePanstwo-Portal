@@ -9,7 +9,7 @@ $options = array(
 ?>
 
 
-<div class="col-md-3 col-xs-12 dataAggsContainer">
+<div class="col-sm-2 col-xs-12 dataAggsContainer">
 
     <? if(isset($_submenu) && isset($_submenu['items'])) {
 
@@ -23,9 +23,9 @@ $options = array(
     } ?>
 
 </div>
-<div class="col-md-9">
+<div class="col-sm-10">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-12">
 
             <div class="blocks">
 

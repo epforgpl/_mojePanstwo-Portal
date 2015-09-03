@@ -39,17 +39,21 @@ $this->Combinator->add_libs('js', 'Dane.DataAggsDropdown.js');
 </div>
 
 <?
-if ($dataBrowser['mode'] == 'cover') { ?>
+if ($dataBrowser['mode'] == 'cover') {
 
-    <?= $this->element($dataBrowser['cover']['view']['plugin'] . '.' . $dataBrowser['cover']['view']['element']); ?>
-
-
-    <?
+    echo $this->element($dataBrowser['cover']['view']['plugin'] . '.' . $dataBrowser['cover']['view']['element']);
 
 } else {
 
     $params = $this->Paginator->params();
-
+	
+	$displayAggs = $displayAggs && 
+	(
+		!empty($sideElement) || 
+		!empty($app_chapters) || 
+		!empty($menu) 
+	);
+	
     ?>
 
     <? if ($displayAggs && !empty($dataBrowser['aggs'])) { ?>
@@ -72,7 +76,7 @@ if ($dataBrowser['mode'] == 'cover') { ?>
 
         </div>
     <? } ?>
-    <div class="col-xs-12 col-md-<?= $displayAggs ? $columns[0] : 12 ?>">
+    <div class="col-xs-12 col-sm-<?= $displayAggs ? $columns[0] : 9 ?>">
 
         <div class="dataWrap">
 
