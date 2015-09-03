@@ -140,13 +140,39 @@ $options = array(
         </div>
     <? } ?>
 
-
-    <? //debug($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['mentions']['accounts']); ?>
-    <? // debug($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['accounts']); ?>
-
+	<? /*
+	<? debug($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['retweets']['accounts']); ?>
+	
+	<? if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['retweets']['accounts']['buckets']) { ?>
+        <div class="block block-simple col-xs-12">
+            <header><?= $object->getTitle() ?> najczęściej retweetował tweety od:</header>
+            <section class="aggs-init">
+                <div class="dataAggs">
+                    <div class="agg agg-ColumnsHorizontal"
+                         data-chart-height="1500"
+                         data-label-width="150"
+                         data-label_field="name"
+                         data-image_field="photo"
+                         data-choose-request="/media?conditions[twitter.twitter_account_id]="
+                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['retweets']['accounts'])) ?>">
+                        <div class="chart">
+                            <div class="spinner grey">
+                                <div class="bounce1"></div>
+                                <div class="bounce2"></div>
+                                <div class="bounce3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    <? } ?>
+    */ ?>
+    
+	
     <? if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['mentions']['accounts']['buckets']) { ?>
         <div class="block block-simple col-xs-12">
-            <header><?= $object->getTitle() ?> najczęściej wzmiankował:</header>
+            <header>Profil "<?= $object->getTitle() ?>" najczęściej wzmiankował:</header>
             <section class="aggs-init">
                 <div class="dataAggs">
                     <div class="agg agg-ColumnsHorizontal"
@@ -168,10 +194,10 @@ $options = array(
             </section>
         </div>
     <? } ?>
-
-    <? if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['accounts']['buckets']) { ?>
+		
+    <? if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['account']['accounts']['ids']['buckets']) { ?>
         <div class="block block-simple col-xs-12">
-            <header><?= $object->getTitle() ?> był najczęściej wzmiankowany przez:</header>
+            <header>Profil "<?= $object->getTitle() ?>" był najczęściej wzmiankowany przez:</header>
             <section class="aggs-init">
                 <div class="dataAggs">
                     <div class="agg agg-ColumnsHorizontal"
@@ -180,7 +206,7 @@ $options = array(
                          data-label_field="name"
                          data-image_field="photo"
                          data-choose-request="/media?conditions[twitter.twitter_account_id]="
-                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['accounts'])) ?>">
+                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['account']['accounts']['ids'])) ?>">
                         <div class="chart">
                             <div class="spinner grey">
                                 <div class="bounce1"></div>
@@ -206,7 +232,7 @@ $options = array(
 
         <div class="block block-simple col-xs-12">
             <header>
-                <div class="dataWrap">Najbardziej angażujące hashtagi:<i class="glyphicon glyphicon-question-sign"
+                <div class="dataWrap">Najbardziej angażujące hashtagi w tweetach <?= $object->getTItle() ?>:<i class="glyphicon glyphicon-question-sign"
                                                                          data-toggle="tooltip" data-placement="right"
                                                                          title="Hashatagi osadzone w tweetach, które osiągneły największą liczbę retweetów, polubień i komentarzy."></i>
                 </div>

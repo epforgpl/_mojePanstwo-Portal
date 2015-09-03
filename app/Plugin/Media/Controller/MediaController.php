@@ -287,7 +287,7 @@ class MediaController extends ApplicationsController
 
         $this->set('twitterTimeranges', self::$twitterTimeranges);
         $this->set('twitterTimerange', $this->twitterTimerange);
-
+				
 		$this->set('timerange', $timerange);
 
         $datasets = $this->getDatasets('media');
@@ -448,8 +448,9 @@ class MediaController extends ApplicationsController
 	        ),
 	    );
 
+
         $options = array(
-            'searchTitle' => 'Szukaj w tweetach i kontach Twitter...',
+            'searchTitle' => 'Szukaj w mediach społecznościowych...',
             'conditions' => array(
                 'dataset' => array_keys($datasets),
             ),
@@ -470,6 +471,89 @@ class MediaController extends ApplicationsController
 	                        'dictionary' => $datasets,
 	                    ),
 	                ),
+	                /*
+	                'accounts' => array(
+		                'scope' => 'global',
+		                'filter' => array(
+			                'bool' => array(
+				                'must' => array(
+					                array(
+						                'term' => array(
+							                'dataset' => 'twitter_accounts',
+						                ),
+					                ),
+					                array(
+						                'nested' => array(
+							                'path' => 'twitter_accounts-followers',
+							                'filter' => array(
+								                'term' => array(
+									                'twitter_accounts-followers.date' => array(
+									                	substr($timerange['labels']['min'], 0, 10),
+									                	substr($timerange['labels']['max'], 0, 10),
+									                ),
+								                ),
+							                ),
+						                ),
+					                ),
+				                ),
+			                ),
+		                ),
+		                'aggs' => array(
+			                'accounts' => array(
+				                'terms' => array(
+					                'field' => 'id',
+				                ),
+				                'aggs' => array(
+					                'name' => array(
+						                'terms' => array(
+							                'field' => 'twitter_accounts.name',
+							                'size' => 1,
+						                ),
+					                ),
+					                'photo' => array(
+						                'terms' => array(
+							                'field' => 'twitter_accounts.profile_image_url_https',
+							                'size' => 1,
+						                ),
+					                ),
+					                'counts' => array(
+						                'nested' => array(
+							                'path' => 'twitter_accounts-followers',
+						                ),
+						                'aggs' => array(
+							                'dates' => array(
+								                'filter' => array(
+									                'term' => array(
+										                'twitter_accounts-followers.date' => array(
+											                substr($timerange['labels']['min'], 0, 10),
+										                	substr($timerange['labels']['max'], 0, 10),
+										                )
+									                ),
+								                ),
+								                'aggs' => array(
+									                'dates' => array(
+										                'terms' => array(
+											                'field' => 'twitter_accounts-followers.date',
+											                'size' => 2,
+										                ),
+										                'aggs' => array(
+											                'count' => array(
+												                'terms' => array(
+													                'field' => 'twitter_accounts-followers.count',
+													                'size' => 1,
+												                ),
+											                ),
+										                ),
+									                ),
+								                ),								                
+							                ),
+						                ),
+					                ),
+				                ),
+			                ),
+		                ),
+	                ),
+	                */
 	                'tweets' => array(
 		                'scope' => 'global',
 		                'filter' => array(
@@ -715,6 +799,14 @@ class MediaController extends ApplicationsController
 	    $chapters['items'][0]['element'] = array(
 		    'path' => 'Media.start_menu',
 	    );
+	    
+	    if( $this->isSuperUser() )
+		    $chapters['items'][] = array(
+			    'id' => 'propozycje_kont',
+			    'href' => 'propozycje_kont',
+			    'label' => 'Propozycje nowych kont',
+		    );
+	    
 	    return $chapters;
 
     }

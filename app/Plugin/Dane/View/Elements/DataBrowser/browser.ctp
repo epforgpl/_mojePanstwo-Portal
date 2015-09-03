@@ -7,7 +7,7 @@ $columns = isset($columns) ? $columns : array(9, 3);
     <?= $this->element('Dane.DataBrowser/browser-searcher'); ?>
 		
     <div class="row dataBrowserContent">
-	
+				
 	    <?= $this->element('Dane.DataBrowser/browser-content', array(
 	    	'displayAggs' => $displayAggs,
 	    	'columns' => $columns,

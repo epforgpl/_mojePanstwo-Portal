@@ -834,4 +834,9 @@ class AppController extends Controller
 	    	return in_array($role, $roles);
 
     }
+    
+    public function isSuperUser() {
+	    return $this->hasUserRole('2');
+    }
+    
 }

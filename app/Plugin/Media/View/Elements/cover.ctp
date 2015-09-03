@@ -142,6 +142,9 @@ $options = array(
     </div>
 
     <div class="dataWrap">
+        
+        <? // debug($dataBrowser['aggs']['accounts']); ?>
+        
         <? if ($hits = @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['top']['hits']['hits']) {
             if ($timerange['init']) {
                 $docs = array();

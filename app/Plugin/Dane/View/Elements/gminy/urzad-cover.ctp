@@ -8,7 +8,7 @@ $options = array(
 );
 ?>
 
-<div class="col-md-3 col-xs-12 dataAggsContainer">
+<div class="col-sm-2 col-xs-12 dataAggsContainer">
 
     <? if(isset($_submenu) && isset($_submenu['items'])) {
 
@@ -22,9 +22,9 @@ $options = array(
     } ?>
 
 </div>
-<div class="col-md-9">
+<div class="col-sm-10">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-sm-9">
             <div class="databrowser-panels">
                 <? if ($object->getId() == 903) { ?>
                     <div class="databrowser-panel">
@@ -67,7 +67,7 @@ $options = array(
                                             <? } ?>
                                         </ul>
                                         <div class="buttons">
-                                            <a href="<?= $object->getUrl() ?>/zarzadzenia" class="btn btn-primary btn-sm">Zobacz
+                                            <a href="<?= $object->getUrl() ?>/zarzadzenia" class="btn btn-primary btn-xs">Zobacz
                                                 więcej</a>
                                         </div>
                                     <? } ?>
@@ -78,7 +78,7 @@ $options = array(
                 <? } ?>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-sm-3 nopadding">
 
             <?
             if ($adres = $object->getData('adres')) {

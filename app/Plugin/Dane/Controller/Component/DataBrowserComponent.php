@@ -123,28 +123,6 @@ class DataBrowserComponent extends Component
             ),
         ),
         'twitter' => array(
-            'typ_id' => array(
-                'terms' => array(
-                    'field' => 'twitter_accounts.typ_id',
-                    'exclude' => array(
-                        'pattern' => '(0|)'
-                    ),
-                ),
-                'visual' => array(
-                    'label' => 'Typy obserwowanych kont',
-                    'skin' => 'pie_chart',
-                    'field' => 'twitter_accounts.typ_id',
-                    'dictionary' => array(
-                        '2' => 'Komentatorzy polityczni',
-                        '3' => 'Urzędy',
-                        '6' => 'Media',
-                        '7' => 'Politycy',
-                        '8' => 'Partie polityczne',
-                        '9' => 'NGO',
-                    ),
-                ),
-            ),
-            /*
             'date' => array(
                 'date_histogram' => array(
                     'field' => 'date',
@@ -158,7 +136,50 @@ class DataBrowserComponent extends Component
                     'all' => 'Kiedykolwiek',
                 ),
             ),
-            */
+            'account_id' => array(
+                'terms' => array(
+                    'field' => 'twitter_accounts.id',
+                    'exclude' => array(
+                        'pattern' => '(0|)'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'twitter_accounts.name',
+                            'size' => 1,
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Konta',
+                    'all' => 'Wszystkie konta',
+                    'skin' => 'columns_horizontal',
+                    'field' => 'twitter_accounts.id',
+                ),
+            ),
+            'typ_id' => array(
+                'terms' => array(
+                    'field' => 'twitter_accounts.typ_id',
+                    'exclude' => array(
+                        'pattern' => '(0|)'
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Typy kont',
+                    'all' => 'Wszystkie typy kont',
+                    'skin' => 'columns_horizontal',
+                    'field' => 'twitter_accounts.typ_id',
+                    'dictionary' => array(
+                        '2' => 'Komentatorzy polityczni',
+                        '3' => 'Urzędy',
+                        '6' => 'Media',
+                        '7' => 'Politycy',
+                        '8' => 'Partie polityczne',
+                        '9' => 'NGO',
+                    ),
+                ),
+            ),
         ),
         'zamowienia_publiczne_dokumenty' => array(
             'date' => array(
@@ -402,10 +423,10 @@ class DataBrowserComponent extends Component
                     'skin' => 'list',
                     'field' => 'krakow_komisje.kadencja_id',
                     'dictionary' => array(
-                        '6' => 'VI',
-                        '7' => 'VII',
-                        '8' => 'VIII',
-                        '9' => 'IX',
+                        '6' => 'Kadencja VI',
+                        '7' => 'Kadencja VII',
+                        '8' => 'Kadencj VIII',
+                        '9' => 'Kadencja IX',
                     ),
                 ),
             ),
@@ -1246,7 +1267,7 @@ class DataBrowserComponent extends Component
 	        $this->aggsMode = 'apps';
 
 		}
-
+		
         $controller->helpers[] = 'Dane.Dataobject';
 
         if (is_null($controller->Paginator)) {
@@ -1258,10 +1279,10 @@ class DataBrowserComponent extends Component
         }
 
         $this->queryData = $controller->request->query;
-
+        
         if (!property_exists($controller, 'Dataobject'))
             $controller->Dataobject = ClassRegistry::init('Dane.Dataobject');
-
+				
         if (
             (!$this->cover) ||
             (
@@ -1387,7 +1408,7 @@ class DataBrowserComponent extends Component
         } else {
 
             if ($this->cover) {
-
+								
                 $settings = $this->getSettings();
                 $params = array(
                     'limit' => 0,

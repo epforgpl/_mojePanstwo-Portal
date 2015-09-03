@@ -18,15 +18,7 @@ $options = array(
 
 <div class="col-xs-12 col-md-3 dataAggsContainer">
     <div class="sticky">
-	    <? echo $this->Element('Dane.DataBrowser/aggs', array(
-	        	'data' => $dataBrowser,
-	    )); ?>
-
-        <? if(isset($twitterAccountTypes)) { ?>
-	        <?= $this->Element('Media.twitter-account-suggestion', array(
-	            'types' => $twitterAccountTypes
-	        )); ?>
-	    <? } ?>
+        <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
     </div>
 </div>
 
