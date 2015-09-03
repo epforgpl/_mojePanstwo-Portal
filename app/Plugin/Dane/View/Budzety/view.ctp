@@ -151,13 +151,15 @@ $sum=0;
                 foreach($dane['dzialy'] as $cos){
                     $sum+=$cos['y'];
                 }
-                //debug($sum);
                 ?>
                 <div class="hidden highchart_datasource" data-highchart='<? echo json_encode($dane) ?>' data-total='<?= $sum ?>'></div>
 
                 <header>Wydatki według działów:</header>
                 <section class="aggs-init margin-sides-20">
                     <small>Kliknij w interesujący wycinek wykresu, aby uzyskać więcej danych</small>
+                    <button class="btn btn-primary btn-sm btn-icon auto-width btnDrillUp pull-right hide"
+                            data-drill="0"><i class="icon glyphicon glyphicon-chevron-left"></i>Powrót
+                    </button>
                     <div class="dataAggs">
                         <div class="agg agg-Dataobjects">
                             <div id="wydatki_budzetu_wg_czesci"></div>
