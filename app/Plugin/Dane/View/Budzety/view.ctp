@@ -158,7 +158,7 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
 
                 <header>Wydatki według działów:</header>
                 <section class="aggs-init margin-sides-20">
-                    <small>Kliknij w interesujący wycinek wykresu, aby uzyskać więcej danych</small>
+                    <small class="subTitle">Kliknij w interesujący wycinek wykresu, aby uzyskać więcej danych</small>
                     <button class="btn btn-primary btn-sm btn-icon auto-width btnDrillUp pull-right hide"
                             data-drill="0"><i class="icon glyphicon glyphicon-chevron-left"></i>Powrót
                     </button>

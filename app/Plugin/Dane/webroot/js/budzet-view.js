@@ -340,6 +340,9 @@ $(document).ready(function () {
 
 					btnDrillUp.data('drill', parseInt(btnDrillUp.data('drill')) + 1);
 
+					if (event.seriesOptions.id !== 'Inne')
+						$('.subTitle').css('visibility', 'hidden');
+
 					if (btnDrillUp.data('drill') > 0) {
 						$('.btnDrillUp').removeClass('hide').unbind('click').click(function (e) {
 							e.preventDefault();
@@ -363,6 +366,8 @@ $(document).ready(function () {
 					$('.highcharts-title').html('<div class="text-center">' + total + '<br>mld</div>');
 
 					btnDrillUp.data('drill', parseInt(btnDrillUp.data('drill')) - 1);
+
+					$('.subTitle').css('visibility', 'visible');
 
 					if (btnDrillUp.data('drill') > 0) {
 						$('.btnDrillUp').removeClass('hide').unbind('click').click(function (e) {
