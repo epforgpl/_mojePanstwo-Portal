@@ -3,7 +3,7 @@ $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
 $this->Combinator->add_libs('js', '../plugins/highstock/js/modules/drilldown');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 
-//$this->Combinator->add_libs('js', 'Finanse.budzety');
+$this->Combinator->add_libs('css', $this->Less->css('view-budzety', array('plugin' => 'Dane')));
 
 $this->Combinator->add_libs('js', 'Dane.budzet-view');
 ?>
@@ -11,12 +11,24 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
 <? echo $this->Element('dataobject/pageBegin'); ?>
 <div class="row">
     <div class="col-xs-12">
-        <div class="chart"
-             data-json='<?php echo json_encode($object_aggs['budzety']['top']['hits']['hits']); ?>'
-             data-year="<?= $object->getData('rok') ?>" style="z-index: 5; position: relative;">
-        </div>
-        <div class="chart2" style="margin-top: -40px; z-index: 0; position: relative;">
-        </div>
+
+        <?php //debug($object_aggs['budzety']['top']['hits']['hits']); ?>
+
+        <?
+        $past_dochody = 0;
+        $past_wydatki = 0;
+        $past_deficyt = 0;
+        foreach ($object_aggs['budzety']['top']['hits']['hits'] as $row) {
+            if ($row['fields']['source'][0]['data']['prawo.rok'] == $object->getData('rok') - 1) {
+                $past_dochody = $row['fields']['source'][0]['data']['budzety.liczba_dochody'];
+                $past_wydatki = $row['fields']['source'][0]['data']['budzety.liczba_wydatki'];
+                $past_deficyt = $row['fields']['source'][0]['data']['budzety.liczba_deficyt'];
+            }
+        }
+        $proc_dochody = ($object->getData('liczba_dochody') - $past_dochody) / $object->getData('liczba_dochody');
+        $proc_wydatki = ($object->getData('liczba_wydatki') - $past_wydatki) / $object->getData('liczba_wydatki');
+        $proc_deficyt = ($object->getData('liczba_deficyt') - $past_deficyt) / $object->getData('liczba_deficyt');
+        ?>
     </div>
 </div>
 <div class="row">
@@ -28,53 +40,48 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
                 <div class="dataAggs">
                     <div class="agg agg-Dataobjects">
 
-                        <div class="col-xs-12 col-sm-11 row">
-                            <table class="table table-strict">
-                                <thead>
-                                <tr>
-                                    <th>Dochody</th>
-                                    <th>Wydatki</th>
-                                    <th>Deficyt</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td><?= number_format_h($object->getData('liczba_dochody') * 1000) ?></td>
-                                    <td><?= number_format_h($object->getData('liczba_wydatki') * 1000) ?></td>
-                                    <td><?= number_format_h($object->getData('liczba_deficyt') * 1000) ?></td>
-                                </tr>
-                                </tbody>
-                            </table>
-
-                            <? if ($object->getData('rok') > 2006 && $object->getData('rok') < 2010) { ?>
-                                <table class="table table-strict">
-                                    <caption>W tym ze środków Unii Europejskiej</caption>
-                                    <tbody>
-                                    <tr>
-                                        <td><?= number_format_h($object->getData('liczba_dochody_eu') * 1000) ?></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            <? } ?>
-                            <? if ($object->getData('rok') > 2009) { ?>
-                                <table class="table table-strict">
-                                    <caption>W tym ze środków Unii Europejskiej</caption>
-                                    <thead>
-                                    <tr>
-                                        <th>Dochody</th>
-                                        <th>Wydatki</th>
-                                        <th>Deficyt</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td><?= number_format_h($object->getData('liczba_dochody_eu') * 1000) ?></td>
-                                        <td><?= number_format_h($object->getData('liczba_wydatki_eu') * 1000) ?></td>
-                                        <td><?= number_format_h($object->getData('liczba_deficyt_eu') * 1000) ?></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            <? } ?>
+                        <div class="row text-center">
+                            <div class="col-xs-4"><strong>Dochody</strong></div>
+                            <div class="col-xs-4"><strong>Wydatki</strong></div>
+                            <div class="col-xs-4"><strong>Deficyt</strong></div>
+                        </div>
+                        <hr>
+                        <div class="row text-center">
+                            <div
+                                class="col-xs-4">
+                                <h2><?= number_format_h($object->getData('liczba_dochody') * 1000) ?></h2></div>
+                            <div
+                                class="col-xs-4">
+                                <h2><?= number_format_h($object->getData('liczba_wydatki') * 1000) ?></h2></div>
+                            <div
+                                class="col-xs-4">
+                                <h2><?= number_format_h($object->getData('liczba_deficyt') * 1000) ?></h2></div>
+                        </div>
+                        <div class="row text-center">
+                            <div
+                                class="col-xs-4"><span class="factor <? if ($proc_dochody > 0) {
+                                    echo 'u';
+                                } elseif ($proc_dochody < 0) {
+                                    echo 'd';
+                                } ?>"><?= round($proc_dochody*100,2) ?>%</span><span class="i"> w stosunku do roku <?= $object->getData('rok') - 1 ?>
+                                .
+                           </span> </div>
+                            <div
+                                class="col-xs-4"><span class="factor <? if ($proc_wydatki > 0) {
+                                    echo 'u';
+                                } elseif ($proc_wydatki < 0) {
+                                    echo 'd';
+                                } ?>"><?= round($proc_wydatki*100,2) ?>%</span><span class="i"> w stosunku do roku <?= $object->getData('rok') - 1 ?>
+                                .
+                                </span> </div>
+                            <div
+                                class="col-xs-4"><span class="factor <? if ($proc_deficyt > 0) {
+                                    echo 'u';
+                                } elseif ($proc_deficyt < 0) {
+                                    echo 'd';
+                                } ?>"><?= round($proc_deficyt*100,2) ?>%</span><span class="i"> w stosunku do roku <?= $object->getData('rok') - 1 ?>
+                                .
+                                </span></div>
                         </div>
                     </div>
                 </div>
@@ -167,8 +174,8 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
                             <div id="wydatki_budzetu_wg_czesci"></div>
                         </div>
                     </div>
-                        <a href="<?= $object->getData('prawo.id') ?>/wydatki?type=dzialy">Zobacz te dane w formie
-                            tabeli </a>
+                    <a href="<?= $object->getData('prawo.id') ?>/wydatki?type=dzialy">Zobacz te dane w formie
+                        tabeli </a>
                 </section>
             <? } ?>
         </div>

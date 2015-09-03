@@ -1,6 +1,7 @@
 $(function () {
 	var dataBlock = $('.chart'),
-		dataBlock2 = $('.chart2')
+		dataBlock2 = $('.chart2'),
+		dataBlockmid = $('.mid-chart'),
 		data = $.parseJSON(dataBlock.attr('data-json'));
 
 	/**
@@ -19,7 +20,7 @@ $(function () {
 		wyd = [],
 		doch = [],
 		def = [],
-		def_proc =[],
+		def_proc = [],
 		startDate = 1990,
 		premierPlotBandData = {},
 		premierPlotBandData2 = {},
@@ -50,7 +51,7 @@ $(function () {
 			def_proc.push({
 				id: self['budzety.id'],
 				x: self['budzety.rok'],
-				y: -(1-self['budzety.liczba_wydatki'] / self['budzety.liczba_dochody'])
+				y: -(1 - self['budzety.liczba_wydatki'] / self['budzety.liczba_dochody'])
 			});
 
 			if (premierPlotBandData.id !== self['budzety.premier_czlowiek_id']) {
@@ -84,8 +85,8 @@ $(function () {
 		}
 	});
 
-	premierPlotBandData.to = last_year+1;
-	premierPlotBandData.label.x=-15;
+	premierPlotBandData.to = last_year + 1;
+	premierPlotBandData.label.x = -15;
 	dataPremier.push(premierPlotBandData);
 	dataPremier2.push(premierPlotBandData2);
 
@@ -110,6 +111,14 @@ $(function () {
 			fillOpacity: 0.9
 		}];
 
+	var dataSeriesMid = [{
+		name: '',
+		data: def,
+		lineWidth: 0,
+		fillOpacity: 0.0,
+		visible: false,
+	}];
+
 	var dataSeries2 = [
 		{
 			name: 'Deficyt',
@@ -124,6 +133,97 @@ $(function () {
 			spacingBottom: 40,
 			type: 'area',
 			backgroundColor: null
+		},
+		credits: {
+			enabled: false
+		},
+		legend: {
+			align: 'left',
+			backgroundColor: '#eeeeee',
+			enabled: true,
+			floating: true,
+			layout: 'vertical',
+			shadow: true,
+			verticalAlign: 'top',
+			x: +125,
+			y: +50
+		},
+		plotOptions: {
+			series: {
+				cursor: 'pointer',
+				events: {
+					click: function (event) {
+						window.location = "/dane/budzety/" + event.point.id;
+					}
+				},
+				shadow: true
+			},
+			area: {
+				marker: {
+					enabled: false,
+					symbol: 'circle',
+					radius: 2,
+					fillColor: '#555555',
+					states: {
+						hover: {
+							enabled: true
+						}
+					}
+				}
+			}
+		},
+		title: {
+			text: null
+		},
+		tooltip: {
+			shared: true,
+			valueSuffix: ' mld',
+			formatter: function () {
+				var points = this.points;
+				var pointsLength = points.length;
+				var tooltipMarkup = pointsLength ? '<span style="font-size: 10px">' + points[0].key + '</span><br/>' : '';
+				var index;
+				var val;
+
+				for (index = 0; index < pointsLength; index += 1) {
+					val = (points[index].y / 1000000000).toFixed(2);
+
+					tooltipMarkup += '<span style="color:' + points[index].series.color + '">\u25CF</span> ' + points[index].series.name + ': <b>' + val + ' mld</b><br/>';
+				}
+
+				return tooltipMarkup;
+			}
+		},
+		series: dataSeries,
+		xAxis: {
+			plotBands: dataPremier,
+			tickInterval: 1,
+			labels: {
+				autoRotation: 0,
+				step:2
+			}
+		},
+		yAxis: {
+			title: ' ',
+			labels: {
+				formatter: function () {
+					return this.value / 1000000000 + ' mld';
+				}
+			}
+		}
+	});
+
+	dataBlockmid.highcharts({
+		chart: {
+			spacingBottom: 0,
+			type: 'line',
+			height: 90,
+			backgroundColor: null,
+			spacingTop: 0,
+			marginTop: 0,
+			marginBottom: 0,
+			spacingLeft: 70,
+			ignoreHiddenSeries: false
 		},
 		credits: {
 			enabled: false
@@ -155,43 +255,29 @@ $(function () {
 				}
 			}
 		},
-		title:{
+		title: {
 			text: null
 		},
-		tooltip: {
-			shared: true,
-			valueSuffix: ' mld',
-			formatter: function () {
-				var points = this.points;
-				var pointsLength = points.length;
-				var tooltipMarkup = pointsLength ? '<span style="font-size: 10px">' + points[0].key + '</span><br/>' : '';
-				var index;
-				var val;
-
-				for(index = 0; index < pointsLength; index += 1) {
-					val = (points[index].y/1000000000).toFixed(2);
-
-					tooltipMarkup += '<span style="color:' + points[index].series.color + '">\u25CF</span> ' + points[index].series.name + ': <b>' + val  + ' mld</b><br/>';
-				}
-
-				return tooltipMarkup;
-			}
-		},
-		series: dataSeries,
+		series: dataSeriesMid
+		,
 		xAxis: {
-			plotBands: dataPremier,
+			plotBands: dataPremier2,
+			labels: {
+				step: 2,
+				enabled: false
+			},
 			tickInterval: 2,
-			labels:{
-				autoRotation: 0
-			}
+			opposite: true
 		},
 		yAxis: {
-			title: ' ',
+			gridLineColor: 'transparent',
+			lineColor: 'transparent',
 			labels: {
-				formatter: function () {
-					return this.value / 1000000000 + ' mld';
-				}
-			}
+				enabled: false
+			},
+			minorTickLength: 0,
+			tickLength: 0,
+			title: ' '
 		}
 	});
 
@@ -201,8 +287,8 @@ $(function () {
 			type: 'area',
 			height: 200,
 			backgroundColor: null,
-			spacingTop:0,
-			marginTop:5,
+			spacingTop: 0,
+			marginTop: 40,
 			spacingLeft: 34
 		},
 		credits: {
@@ -245,10 +331,10 @@ $(function () {
 				var index;
 				var val;
 
-				for(index = 0; index < pointsLength; index += 1) {
-					val = (points[index].y*100).toFixed(2);
+				for (index = 0; index < pointsLength; index += 1) {
+					val = (points[index].y * 100).toFixed(2);
 
-					tooltipMarkup += '<span style="color:' + points[index].series.color + '">\u25CF</span> ' + points[index].series.name + ': <b>' + val  + '%</b><br/>';
+					tooltipMarkup += '<span style="color:' + points[index].series.color + '">\u25CF</span> ' + points[index].series.name + ': <b>' + val + '%</b><br/>';
 				}
 
 				return tooltipMarkup;
@@ -260,9 +346,9 @@ $(function () {
 		series: dataSeries2,
 		xAxis: {
 			plotBands: dataPremier2,
-			labels:{
-				step: 1,
-				enabled: false
+			labels: {
+				step: 2,
+				enabled: true
 			},
 			tickInterval: 1,
 			opposite: true
@@ -271,7 +357,7 @@ $(function () {
 			title: ' ',
 			labels: {
 				formatter: function () {
-					return this.value.toFixed(2)*100 + '%';
+					return this.value.toFixed(2) * 100 + '%';
 				}
 			},
 			min: 0,
