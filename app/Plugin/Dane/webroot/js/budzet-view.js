@@ -4,7 +4,7 @@
 $(document).ready(function () {
 
 	var dataBlock = $('.chart'),
-		dataBlock2 = $('.chart2')
+		dataBlock2 = $('.chart2');
 	data = $.parseJSON(dataBlock.attr('data-json'));
 
 	/**
@@ -97,7 +97,7 @@ $(document).ready(function () {
 	var selecetedPlot = {};
 	selecetedPlot.from = dataBlock.attr('data-year');
 	selecetedPlot.to = parseInt(dataBlock.attr('data-year')) + 1;
-	selecetedPlot.color = 'rgba(0,0,0,.5)'
+	selecetedPlot.color = 'rgba(0,0,0,.5)';
 	dataPremier.push(selecetedPlot);
 	dataPremier2.push(selecetedPlot);
 
@@ -234,6 +234,7 @@ $(document).ready(function () {
 			area: {
 				marker: {
 					enabled: false,
+					drenabled: false,
 					symbol: 'circle',
 					radius: 2,
 					fillColor: '#555555',
@@ -317,8 +318,7 @@ $(document).ready(function () {
 		drilldowns.push({name: $(this)[0]['name'], id: $(this)[0]['id'], data: data_lokal})
 	});
 
-	//console.log(drilldowns);
-
+	var btnDrillUp = $('.btnDrillUp');
 	$('#wydatki_budzetu_wg_czesci').highcharts({
 		chart: {
 			type: 'pie',
@@ -326,7 +326,8 @@ $(document).ready(function () {
 			backgroundColor: null,
 			events: {
 				drilldown: function (event) {
-					var total = 0; // get total of data
+					var total = 0; // get total of data;
+
 					for (var i = 0, len = event.seriesOptions.data.length; i < len; i++) {
 						if (typeof(event.seriesOptions.data[i]['y']) != "undefined") {
 							total += event.seriesOptions.data[i]['y'];
@@ -336,9 +337,24 @@ $(document).ready(function () {
 					}
 					total = (total / 1000000).toFixed(2);
 					$('.highcharts-title').html('<div class="text-center">' + total + '<br>mld</div>');
+
+					btnDrillUp.data('drill', parseInt(btnDrillUp.data('drill')) + 1);
+
+					if (event.seriesOptions.id !== 'Inne')
+						$('.subTitle').css('visibility', 'hidden');
+
+					if (btnDrillUp.data('drill') > 0) {
+						$('.btnDrillUp').removeClass('hide').unbind('click').click(function (e) {
+							e.preventDefault();
+							$('.highcharts-button').trigger("click");
+						})
+					} else {
+						$('.btnDrillUp').addClass('hide').unbind('click');
+					}
 				},
 				drillup: function (event) {
-					var total = 0; // get total of data
+					var total = 0; // get total of data;
+
 					for (var i = 0, len = event.seriesOptions.data.length; i < len; i++) {
 						if (typeof(event.seriesOptions.data[i]['y']) != "undefined") {
 							total += event.seriesOptions.data[i]['y'];
@@ -348,8 +364,20 @@ $(document).ready(function () {
 					}
 					total = (total / 1000000).toFixed(2);
 					$('.highcharts-title').html('<div class="text-center">' + total + '<br>mld</div>');
-				}
 
+					btnDrillUp.data('drill', parseInt(btnDrillUp.data('drill')) - 1);
+
+					$('.subTitle').css('visibility', 'visible');
+
+					if (btnDrillUp.data('drill') > 0) {
+						$('.btnDrillUp').removeClass('hide').unbind('click').click(function (e) {
+							e.preventDefault();
+							$('.highcharts-button').trigger("click");
+						})
+					} else {
+						$('.btnDrillUp').addClass('hide').unbind('click');
+					}
+				}
 			}
 		},
 		plotOptions: {
@@ -393,7 +421,13 @@ $(document).ready(function () {
 			data: data
 		}],
 		drilldown: {
-			series: drilldowns
+			series: drilldowns,
+			drillUpButton: {
+				position: {
+					y: -5000,
+					x: -5000
+				}
+			}
 		}
 	});
 
