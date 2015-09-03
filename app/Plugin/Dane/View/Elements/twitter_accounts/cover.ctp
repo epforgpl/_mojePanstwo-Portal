@@ -172,7 +172,7 @@ $options = array(
 	
     <? if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['mentions']['accounts']['buckets']) { ?>
         <div class="block block-simple col-xs-12">
-            <header><?= $object->getTitle() ?> najczęściej wzmiankował:</header>
+            <header>Profil "<?= $object->getTitle() ?>" najczęściej wzmiankował:</header>
             <section class="aggs-init">
                 <div class="dataAggs">
                     <div class="agg agg-ColumnsHorizontal"
@@ -197,7 +197,7 @@ $options = array(
 		
     <? if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['account']['accounts']['ids']['buckets']) { ?>
         <div class="block block-simple col-xs-12">
-            <header><?= $object->getTitle() ?> był najczęściej wzmiankowany przez:</header>
+            <header>Profil "<?= $object->getTitle() ?>" był najczęściej wzmiankowany przez:</header>
             <section class="aggs-init">
                 <div class="dataAggs">
                     <div class="agg agg-ColumnsHorizontal"
