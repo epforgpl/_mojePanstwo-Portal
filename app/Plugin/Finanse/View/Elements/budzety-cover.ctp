@@ -13,7 +13,8 @@ $this->Combinator->add_libs('js', 'Finanse.budzety');
         <div class="chart"
              data-json='<?php echo json_encode($dataBrowser['aggs']['budzety']['top']['hits']['hits']); ?>' style="z-index: 5; position: relative;">
         </div>
-        <div class="chart2" style="margin-top: -40px; z-index: 0; position: relative;">
+        <div class="mid-chart" style="margin-top: -60px; z-index: 0; position: relative;"></div>
+        <div class="chart2" style="margin-top: -40px; z-index: 15; position: relative;">
         </div>
     </div>
 <? // debug($dataBrowser['aggs']['budzety']['top']['hits']['hits']); ?>
