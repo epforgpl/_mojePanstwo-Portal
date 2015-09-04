@@ -156,7 +156,7 @@ function rozdzialy(item, data) {
 	});
 
 	infoBlock.find('.leftSide').empty().append(histogram).append(gradient);
-	//graphInit(infoBlock);
+	graphInit(infoBlock);
 
 	infoBlock.find('.rightSide').append(rozdzial);
 
@@ -236,7 +236,7 @@ function graphInit(section) {
 
 	for (var d = 0; d < data.length; d++)
 		if (data[d])
-			charts_data.push(Number(data[d]['height']));
+			charts_data.push(Number(data[d]['doc_count']));
 
 	histogram_div.attr('id', 'h' + i);
 
