@@ -61,8 +61,8 @@ class BudzetyController extends DataobjectsController
     public function view()
     {
 
-        $this->addInitLayers('wydatki');
         $this->addInitLayers('dzialy');
+        $this->addInitLayers('past_dzialy');
         $this->addInitAggs(array(
             'budzety' => array(
                 'filter' => array(

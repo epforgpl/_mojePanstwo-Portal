@@ -24,6 +24,13 @@
                 } ?>>
                 <label for="wniosek_40">Skarga na bezczynność organu</label>
             </div>
+            <div class="radio">
+                <input id="wniosek_82" name="szablon_id" value="82"
+                       type="radio"<?php if (!empty($pismo['szablon_id']) && $pismo['szablon_id'] == 82) {
+                    echo ' checked';
+                } ?>>
+                <label for="wniosek_82">Petycja</label>
+            </div>
             <?php if (!empty($pismo['szablon_id']) && $pismo['szablon_id'] != 35 && $pismo['szablon_id'] != 40) { ?>
                 <div class="radio">
                     <input id="wniosek_<?php echo $pismo['szablon_id'] ?>" name="szablon_id"
