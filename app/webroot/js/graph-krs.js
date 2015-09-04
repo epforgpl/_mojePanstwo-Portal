@@ -187,9 +187,14 @@
 				.enter()
 				.append('svg:text')
 				.attr('dy', -2)
+				.attr('text-anchor', 'middle')
+				.attr("transform", function (d) {
+					console.log(d);
+					return 'rotate(180 ' + (d.target.x - d.source.x) + ',' + (d.target.y - d.source.y) + ')';
+				})
 				.style("font-size", d3Data.size.linkText)
 				.append("svg:textPath")
-				.attr('startOffset', '30%')
+				.attr('startOffset', '50%')
 				.attr('xlink:href', function (d) {
 					return '#path-' + d.source.id + '-' + d.target.id + '-' + d.label.replace(/[^a-zA-Z0-9]+/g, "");
 				})
@@ -242,7 +247,7 @@
 						nameBegin = name.substring(0, limit);
 						nameEnd = name.substring(limit);
 						name = nameBegin + nameEnd.substring(0, nameEnd.indexOf(' '));
-						lines = name.match(RegExp(regex, 'g')).join('\n').split('\n');
+						lines = name.match(new RegExp(regex, 'g')).join('\n').split('\n');
 
 						for (var i = 0; i < lines.length; i++) {
 							var y = ( (lines.length % 2 === 0) ? ((d3Data.size.nodeTextSeparate / 2) + d3Data.size.nodeTextBox) : (d3Data.size.nodeTextBox / 2)) - ( (Math.floor(lines.length / 2)) * (d3Data.size.nodeTextBox + d3Data.size.nodeTextSeparate) ) + ( i * (d3Data.size.nodeTextBox + d3Data.size.nodeTextSeparate) );
@@ -251,7 +256,7 @@
 								.append("tspan")
 								.attr('x', 0)
 								.attr('y', function (d) {
-									return (d.id === root.id) ? y + 8 : y + 3;
+									return y + ((d.id === root.id) ? 8 : 3);
 								})
 								.attr('font-family', 'datasets')
 								.attr('font-size', function (d) {
@@ -267,8 +272,7 @@
 								.append("tspan")
 								.attr('x', 0)
 								.attr('y', function (d) {
-									var size = (d.id === root.id) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize;
-									return y + 8 + size;
+									return y + 8 + ((d.id === root.id) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize);
 								})
 								.style("stroke", "rgb(250,250,250)")
 								.style("stroke-width", "4px")
@@ -277,8 +281,7 @@
 								.append("tspan")
 								.attr('x', 0)
 								.attr('y', function (d) {
-									var size = (d.id === root.id) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize;
-									return y + 8 + size;
+									return y + 8 + ((d.id === root.id) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize);
 								})
 								.text(lines[i]);
 						}
@@ -449,7 +452,6 @@
 				circleDump.attr("transform", transform);
 
 				path.attr("d", linkArc);
-				pathText.attr("transform", textArc);
 				arrowLine.attr("d", arrowArc);
 
 				var q = d3.geom.quadtree(nodes),
@@ -472,13 +474,6 @@
 					dr = Math.floor(Math.sqrt(dx * dx + dy * dy) - (40 * d.linknum));
 
 				return "M" + sourceX + "," + sourceY + "A" + dr + "," + dr + " 0 0,1 " + targetX + "," + targetY;
-			}
-
-			function textArc(d) {
-				var i = 90;
-
-				return "translate(" + (850 * Math.cos(i * 2 * Math.PI / 365) + width) + "," + (850 * Math.sin(i * 2 * Math.PI / 365) + height) + ")" +
-					"rotate(" + (i * 360 / 365) + ")";
 			}
 
 			function arrowArc(d) {
@@ -537,7 +532,7 @@
 				d3Data.innerContainer.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 			}
 
-			function dragstarted(d) {
+			function dragstarted() {
 				d3.event.sourceEvent.stopPropagation();
 				d3.select(this).classed("dragging", true);
 			}
