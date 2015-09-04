@@ -3,12 +3,16 @@
 App::uses('DataobjectsController', 'Dane.Controller');
 App::uses('MediaController', 'Media.Controller');
 
+/**
+ * @property TwitterComponent Twitter
+ */
 class TwitterAccountsController extends DataobjectsController
 {
 
     public $components = array(
-        'RequestHandler',
+        'RequestHandler', 'Media.Twitter'
     );
+
     public $uses = array('Dane.Dataobject');
 
     public $menu = array();
@@ -49,34 +53,34 @@ class TwitterAccountsController extends DataobjectsController
         }
 
         if( $this->twitterTimerange = $this->request->query['t'] ) {
-            $timerange = MediaController::getTimerange($this->twitterTimerange);
+            $timerange = $this->Twitter->getTimerange($this->twitterTimerange);
             if(!$timerange)
                 $this->redirect('/dane/twitter_accounts/' . $this->object->getId());
         }
 
-        $this->set('last_month_report', MediaController::getLastMonthReport());
-        $this->set('dropdownRanges', MediaController::getDropdownRanges());
+        $this->set('last_month_report', $this->Twitter->getLastMonthReport());
+        $this->set('dropdownRanges', $this->Twitter->getDropdownRanges());
 
-        $this->set('twitterAccountTypes', MediaController::$twitterAccountTypes);
+        $this->set('twitterAccountTypes', $this->Twitter->twitterAccountTypes);
         $this->set('twitterAccountType', $this->twitterAccountType);
 
-        $this->set('twitterTimeranges', MediaController::$twitterTimeranges);
+        $this->set('twitterTimeranges', $this->Twitter->twitterTimeranges);
         $this->set('twitterTimerange', $this->twitterTimerange);
 
         $this->set('timerange', $timerange);
-		
+
 		$selectedAccountsFilter = array(
 			'term' => array(
 				'data.twitter_accounts.id' => $this->object->getId(),
 			),
 		);
-		
+
 		$date_histogram = array(
             'field' => 'date',
             'interval' => 'day',
             'format' => 'yyyy-MM-dd',
         );
-        
+
         $selectedAccountsAggs = array(
 	        'top' => array(
 	            'top_hits' => array(
@@ -262,7 +266,7 @@ class TwitterAccountsController extends DataobjectsController
 									        'accounts' => array(
 										        'filter' => $selectedAccountsFilter,
 										        'aggs' => $selectedAccountsAggs,
-									        ),									        
+									        ),
 									        'mentions' => array(
 										        'nested' => array(
 											        'path' => 'twitter-mentions',
@@ -321,9 +325,9 @@ class TwitterAccountsController extends DataobjectsController
     }
 
     public function tweety() {
-        
+
         $this->_prepareView();
-        
+
         if(
 	        ( $page = $this->object->getLayer('page') ) &&
 	        ( $page['logo'] )
@@ -337,7 +341,7 @@ class TwitterAccountsController extends DataobjectsController
 	        );
 
         }
-        
+
         $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
                 'dataset' => 'twitter',
