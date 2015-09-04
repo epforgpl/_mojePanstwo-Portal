@@ -6,18 +6,18 @@
 	var d3Data = {
 			'color': {
 				'links': '#333333',
-				'podmiot': "#D2D5DA",
-				'osoba': "#6CACD8",
-				'podmiotDisabled': "#D3D6DB",
-				'osobaDisabled': "#6DADD9"
+				'osoba': "#D2D5DA",
+				'podmiot': "#6CACD8",
+				'osobaDisabled': "#D3D6DB",
+				'podmiotDisabled': "#6DADD9"
 			},
 			size: {
-				'distance': 140,
+				'distance': 120,
 				'linksLength': 50,
 				'linksWidth': 1,
 				'linkText': '8px',
 				'nodesSize': 15,
-				'nodeText': '10px',
+				'nodeText': '12px',
 				'nodeTextBox': 10,
 				'nodeTextSeparate': 3,
 				'nodesMarkerSize': 10,
@@ -57,7 +57,7 @@
 			if (root) {
 				root.fixed = true;
 				root.x = (width / 2);
-				root.y = d3Data.size.nodesSize + 20;
+				root.y = d3Data.size.nodesSize * 3;
 			}
 
 			graph.relationships.forEach(function (link) {
@@ -135,7 +135,7 @@
 
 			d3Data.force = d3.layout.force()
 				.gravity(0)
-				.linkDistance(Math.floor((d3Data.size.linksLength + d3Data.size.distance)))
+				.linkDistance(Math.floor((d3Data.size.linksLength + d3Data.size.distance + Math.floor(Math.random() * 20) - 10)))
 				.charge(function (d, i) {
 					return i ? 0 : -2000;
 				})
@@ -179,27 +179,6 @@
 				.attr('class', 'arrowLine')
 				.attr("marker-start", "url(#arrow)")
 				.style({"fill": "none", "stroke-width": 1});
-
-			/*CREATE SHADOW UNDER LINE TEXT*/
-			var pathTextShadow = d3Data.innerContainer.append("svg:g")
-				.selectAll("text")
-				.data(d3Data.force.links())
-				.enter()
-				.append('svg:text')
-				.attr('dy', -2)
-				.style("font-size", d3Data.size.linkText)
-				.style("stroke", "white")
-				.style("stroke-width", "1px")
-				.style("opacity", '0.9')
-				.append("svg:textPath")
-				.attr('startOffset', '30%')
-				.attr('xlink:href', function (d) {
-					return '#path-' + d.source.id + '-' + d.target.id + '-' + d.label.replace(/[^a-zA-Z0-9]+/g, "");
-				})
-				.attr('class', 'pathTextShadow')
-				.text(function (d) {
-					return d.label;
-				});
 
 			/*CREATE LINE TEXT*/
 			var pathText = d3Data.innerContainer.append("svg:g")
@@ -278,6 +257,9 @@
 								.attr('font-size', function (d) {
 									return (d.id === root.id) ? '3em' : '1.8em';
 								})
+								.attr('fill', function (d) {
+									return (d.label == 'osoba') ? '#000000' : '#ffffff'
+								})
 								.text(function (d) {
 									return (d.label == 'osoba') ? '\ue627' : '\ue62a'
 								});
@@ -285,16 +267,18 @@
 								.append("tspan")
 								.attr('x', 0)
 								.attr('y', function (d) {
-									return (d.id === root.id) ? y + d3Data.size.nodesSize * 2 + 5 : y + d3Data.size.nodesSize + 5
+									var size = (d.id === root.id) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize;
+									return y + 8 + size;
 								})
-								.style("stroke", "rgb(255,255,255)")
-								.style("stroke-width", "2px")
+								.style("stroke", "rgb(250,250,250)")
+								.style("stroke-width", "4px")
 								.text(lines[i]);
 							d3.select(this)
 								.append("tspan")
 								.attr('x', 0)
 								.attr('y', function (d) {
-									return (d.id === root.id) ? y + d3Data.size.nodesSize * 2 + 5 : y + d3Data.size.nodesSize + 5
+									var size = (d.id === root.id) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize;
+									return y + 8 + size;
 								})
 								.text(lines[i]);
 						}
@@ -345,14 +329,6 @@
 							$('[id^="path-' + root.id + '-' + pathLink[j] + '"],[id^="path-' + pathLink[j] + '-' + root.id + '"]').addClass('link-active').attr('stroke-opacity', 1);
 						}
 
-						pathTextShadow.classed("text-active", function (o) {
-							$(this).css('fill', 'rgba(0,0,0,' + (isConnected(d, o) || !!(o.source === d || o.target === d) ? 1 : opacity) + ')');
-							for (var k = 0; k < pathLink.length; k++) {
-								if (!!(o.source === root && o.target.id === pathLink[k]) || !!(o.source.id === pathLink[k] && o.target === root)) {
-									$(this).addClass('text-active').css('fill', 'rgba(0,0,0,1)');
-								}
-							}
-						});
 						pathText.classed("text-active", function (o) {
 							$(this).css('fill', 'rgba(0,0,0,' + (isConnected(d, o) || !!(o.source === d || o.target === d) ? 1 : opacity) + ')');
 							for (var l = 0; l < pathLink.length; l++) {
@@ -383,9 +359,6 @@
 					});
 					path.classed('link-active', function () {
 						this.setAttribute('stroke-opacity', 1);
-						pathTextShadow.classed("text-active", function () {
-							$(this).css('fill', 'rgba(0,0,0,1)');
-						});
 						pathText.classed("text-active", function () {
 							$(this).css('fill', 'rgba(0,0,0,1)');
 						});
@@ -476,6 +449,7 @@
 				circleDump.attr("transform", transform);
 
 				path.attr("d", linkArc);
+				pathText.attr("transform", textArc);
 				arrowLine.attr("d", arrowArc);
 
 				var q = d3.geom.quadtree(nodes),
@@ -498,6 +472,13 @@
 					dr = Math.floor(Math.sqrt(dx * dx + dy * dy) - (40 * d.linknum));
 
 				return "M" + sourceX + "," + sourceY + "A" + dr + "," + dr + " 0 0,1 " + targetX + "," + targetY;
+			}
+
+			function textArc(d) {
+				var i = 90;
+
+				return "translate(" + (850 * Math.cos(i * 2 * Math.PI / 365) + width) + "," + (850 * Math.sin(i * 2 * Math.PI / 365) + height) + ")" +
+					"rotate(" + (i * 360 / 365) + ")";
 			}
 
 			function arrowArc(d) {
@@ -541,6 +522,12 @@
 							quad.point.x += x;
 							quad.point.y += y;
 						}
+
+						if (root.y > node.y)
+							node.y = root.y + d3Data.size.nodesSize / 2;
+
+						if (root.y > quad.point.y)
+							quad.point.y = root.y + d3Data.size.nodesSize / 2;
 					}
 					return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
 				};
