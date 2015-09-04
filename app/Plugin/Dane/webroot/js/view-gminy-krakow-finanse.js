@@ -99,11 +99,10 @@ $(document).ready(function () {
 				rozdzialy(that, thatItem.attr('data-json'));
 			} else {
 				$.ajax({
-					url: '/finanse/gminy/903/budzet/wydatki/dzialy/' + thatItem.attr('data-id') + '.json?zakres=2014',
+					url: '/finanse/gminy/903/budzet/wydatki/dzialy/' + thatItem.attr('data-id') + '.json?zakres=2014Q1',
 					method: 'get',
 					success: function (res) {
 						var data = JSON.stringify(res);
-
 						thatItem.attr('data-json', data);
 						rozdzialy(that, data);
 					},
@@ -145,20 +144,19 @@ function rozdzialy(item, data) {
 		)
 	);
 
-	$.each(d['dzial']['rodzialy'], function () {
+	$.each(d['dzial'].rozdzialy, function () {
 		var i = this;
-
 		rozdzial.append(
 			$('<tr></tr>').attr('data-rozdzialid', i.id).append(
 				$('<td></td>').text(i.nazwa)
 			).append(
-				$('<td></td>').text(i.wartosc)
+				$('<td></td>').text(pl_currency_format(i.wartosc))
 			)
 		)
 	});
 
 	infoBlock.find('.leftSide').empty().append(histogram).append(gradient);
-	graphInit(infoBlock);
+	//graphInit(infoBlock);
 
 	infoBlock.find('.rightSide').append(rozdzial);
 

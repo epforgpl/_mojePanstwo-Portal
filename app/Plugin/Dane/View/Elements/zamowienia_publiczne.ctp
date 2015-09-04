@@ -69,6 +69,7 @@ if (!isset($mode))
                             <header>Największe zamówienia otrzymali:</header>
                             <section>
                                 <div class="agg"
+                                     data-choose-request="/zamowienia_publiczne?conditions[zamowienia_publiczne.wykonawca_id]="
                                      data-agg_id="wykonawcy" <?= printf('data-agg_params="%s"', htmlspecialchars(json_encode($aggs['wykonawcy']), ENT_QUOTES, 'UTF-8')) ?>></div>
                             </section>
                         </div>

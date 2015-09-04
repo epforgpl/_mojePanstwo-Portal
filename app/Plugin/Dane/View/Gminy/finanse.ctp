@@ -20,7 +20,7 @@ $zakresy = array(
     array(500000, 999999999)
 );
 $zakres = $zakresy[(int)$object->data('zakres')];
-$data = $object->getLayer('finanse');
+
 ?>
 
     <div id="administracja">
@@ -29,22 +29,22 @@ $data = $object->getLayer('finanse');
                 <div class="row items">
                     <? foreach ($dzialy as $item) { ?>
                         <div class="block col-md-3">
-                            <div class="item" data-id="<?= $item['id'] ?>">
+                            <div class="item" data-id="<?= $item['key'] ?>">
 
-                                <a href="#<?= $item['id'] ?>>" class="inner"
-                                   data-title="<?= $item['nazwa'] ?>">
+                                <a href="#<?= $item['key'] ?>>" class="inner"
+                                   data-title="<?= $item['nazwa']['buckets'][0]['key'] ?>">
 
                                     <div class="logo">
-                                        <img src="/finanse_gmin/img/sections/<?= $item['id'] ?>.svg"
+                                        <img src="/finanse_gmin/img/sections/<?= $item['key'] ?>.svg"
                                              onerror="imgFixer(this)"/>
                                     </div>
 
                                     <div class="details"><span class="detail">
-                                            Budżet: <?= number_format_h($item['wartosc']) ?></span>
+                                            Budżet: <?= number_format_h($item['wydatki']['value']) ?></span>
                                     </div>
 
                                     <div class="title">
-                                        <div class="nazwa"><?= $item['nazwa'] ?></div>
+                                        <div class="nazwa"><?= $item['nazwa']['buckets'][0]['key'] ?></div>
                                     </div>
                                 </a>
                             </div>

@@ -370,7 +370,7 @@ class DataBrowserComponent extends Component
             ),
             'kadencja' => array(
                 'terms' => array(
-                    'field' => 'rady_gmin_interpelacje.kadencja_id',
+                    'field' => 'krakow_rada_uchwaly.kadencja_id',
                     'order' => array(
                         '_term' => 'desc',
                     ),
@@ -381,7 +381,7 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Kadencje',
                     'skin' => 'list',
-                    'field' => 'rady_gmin_interpelacje.kadencja_id',
+                    'field' => 'krakow_rada_uchwaly.kadencja_id',
                     'dictionary' => array(
                         '1' => 'I kadencja',
                         '2' => 'II kadencja',

@@ -3768,17 +3768,46 @@ class GminyController extends DataobjectsController
 
     public function finanse()
     {
-        $this->addInitLayers(array(
-            //'finanse'
+	    
+        $this->addInitAggs(array(
+            'dzialy' => array(
+	            'nested' => array(
+		            'path' => 'gminy-wydatki',
+	            ),
+	            'aggs' => array(
+		            'dzialy' => array(
+			            'terms' => array(
+				            'field' => 'dzial_id',
+				            'size' => 100,
+				            'order' => array(
+					            'wydatki' => 'desc',
+				            ),
+			            ),
+			            'aggs' => array(
+				            'nazwa' => array(
+					            'terms' => array(
+						            'field' => 'dzial',
+						            'size' => 1,
+					            ),
+				            ),
+				            'wydatki' => array(
+					            'sum' => array(
+						            'field' => 'wydatki',
+					            ),
+				            ),
+			            ),
+		            ),
+	            ),
+            ),
         ));
+        
         $this->_prepareView();
-        $this->loadModel('Finanse.GminaBudzet');
+        // debug( $this->object_aggs['dzialy']['dzialy']['buckets'] ); die();
+        $this->set('dzialy', $this->object_aggs['dzialy']['dzialy']['buckets']);
+        
         $this->request->params['action'] = 'finanse';
         $this->set('title_for_layout', 'Wydatki w gminie ' . $this->object->getTitle());
-        $this->set('dzialy', $this->GminaBudzet->getDzialy(
-            $this->object->getId(),
-            'wydatki'
-        ));
+        
     }
 
     public function okregi()
@@ -3843,7 +3872,7 @@ class GminyController extends DataobjectsController
 		                ),
 	                ),
                 ),
-                'layers' => array('geo')
+                'layers' => array('geo', 'data')
             ));
 
             $aggs = $this->Dataobject->getAggs();

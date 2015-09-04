@@ -29,8 +29,8 @@ echo $this->Element('Dane.dataobject/subobject', array(
 		    	<section class="aggs-init margin-sides-10">
 
 			    	<ul class="dataHighlights oneline">
-		                <li class="dataHighlight col-xs-2">
-		                    <p class="_label">Rok</p>
+		                <li class="dataHighlight col-xs-3">
+		                    <p class="_label">Rok wyborów</p>
 		                    <p class="_value"><?= $okreg->getData('rok') ?></p>
 		                </li>
 
@@ -52,8 +52,11 @@ echo $this->Element('Dane.dataobject/subobject', array(
 			            podzielenie liczby mieszkańców gminy przez liczbę radnych wybieranych do danej rady.
 			            By ustalić liczbę mandatów w danym okręgu wyborczym, stosuje się normę
 			            przedstawicielską. Ułamki równe lub większe od 1/2, jakie wynikają z zastosowania
-			            normy przedstawicielstwa, zaokrągla się w górę do liczby całkowitej.">Ilość mieszkańców / Norma przedstawicielstwa</p>
-		                    <p class="_value"><?= $okreg->getData('liczba_miesz_norma_przedst') ?></p>
+			            normy przedstawicielstwa, zaokrągla się w górę do liczby całkowitej.">Norma przedstawicielstwa</p>
+			            <?
+				            $data = $okreg->getLayer('data');
+			            ?>
+		                    <p class="_value"><?= $data['ilosc_miesz_norma_przedst'] ?></p>
 		                </li>
 
 		            </ul>
