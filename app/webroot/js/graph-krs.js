@@ -188,10 +188,6 @@
 				.append('svg:text')
 				.attr('dy', -2)
 				.attr('text-anchor', 'middle')
-				.attr("transform", function (d) {
-					console.log(d);
-					return 'rotate(180 ' + (d.target.x - d.source.x) + ',' + (d.target.y - d.source.y) + ')';
-				})
 				.style("font-size", d3Data.size.linkText)
 				.append("svg:textPath")
 				.attr('startOffset', '50%')
