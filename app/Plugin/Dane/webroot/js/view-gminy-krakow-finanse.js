@@ -146,13 +146,11 @@ function rozdzialy(item, data) {
 
 	$.each(d['dzial'].rozdzialy, function () {
 		var i = this;
-		console.log(i);
-
 		rozdzial.append(
 			$('<tr></tr>').attr('data-rozdzialid', i.id).append(
 				$('<td></td>').text(i.nazwa)
 			).append(
-				$('<td></td>').text(i.wartosc)
+				$('<td></td>').text(pl_currency_format(i.wartosc))
 			)
 		)
 	});
