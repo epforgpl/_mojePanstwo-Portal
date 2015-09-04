@@ -3872,7 +3872,7 @@ class GminyController extends DataobjectsController
 		                ),
 	                ),
                 ),
-                'layers' => array('geo')
+                'layers' => array('geo', 'data')
             ));
 
             $aggs = $this->Dataobject->getAggs();
