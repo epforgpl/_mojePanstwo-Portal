@@ -3859,6 +3859,7 @@ class GminyController extends DataobjectsController
 	                                        'dzialy' => array(
 		                                        'terms' => array(
 			                                        'field' => 'gminy-wydatki-dzialy.id',
+			                                        'size' => 100,
 		                                        ),
 		                                        'aggs' => array(
 			                                        'min' => array(
