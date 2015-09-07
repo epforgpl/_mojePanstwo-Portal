@@ -3903,10 +3903,39 @@ class GminyController extends DataobjectsController
 			                                                ),
 			                                            ),
 			                                        ),
-			                                        'histogram' => array(
+			                                        'percentiles' => array(
+				                                        'percentiles' => array(
+					                                        'field' => 'gminy-wydatki-dzialy.wydatki',
+					                                        'percents' => array(50),
+				                                        ),
+			                                        ),
+			                                        'stats' => array(
+				                                        'stats' => array(
+					                                        'field' => 'gminy-wydatki-dzialy.wydatki',
+				                                        ),
+			                                        ),
+			                                        'histogram_1' => array(
 			                                            'histogram' => array(
 			                                                'field' => 'gminy-wydatki-dzialy.wydatki',
 			                                                'interval' => 100000000,
+			                                            ),
+			                                        ),
+			                                        'histogram_2' => array(
+			                                            'histogram' => array(
+			                                                'field' => 'gminy-wydatki-dzialy.wydatki',
+			                                                'interval' => 10000000,
+			                                            ),
+			                                        ),
+			                                        'histogram_3' => array(
+			                                            'histogram' => array(
+			                                                'field' => 'gminy-wydatki-dzialy.wydatki',
+			                                                'interval' => 1000000,
+			                                            ),
+			                                        ),
+			                                        'histogram_4' => array(
+			                                            'histogram' => array(
+			                                                'field' => 'gminy-wydatki-dzialy.wydatki',
+			                                                'interval' => 100000,
 			                                            ),
 			                                        ),
 		                                        ),

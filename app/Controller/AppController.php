@@ -829,10 +829,10 @@ class AppController extends Controller
     public function hasUserRole($role) {
 
 	    $roles = $this->getUserRoles();
-	    if( in_array('2', $roles) )
+	    if( @in_array('2', $roles) )
 	    	return true;
 	    else
-	    	return in_array($role, $roles);
+	    	return @in_array($role, $roles);
 
     }
     

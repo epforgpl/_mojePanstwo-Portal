@@ -128,12 +128,17 @@ $options = array(
 							$min = @$dzial['min']['buckets'][0]['key'];
 							$cur = $item['wydatki']['value'];
 							$max = @$dzial['max']['buckets'][0]['key'];
-														
+							$median = (int) @$dzial['percentiles']['values']['50.0'];
+													
 							$left = ($min == $max) ? false : 100 * ( $cur - $min ) / ( $max - $min );
+							
+							$class = ($cur > $median) ? 'more' : 'less';
+														
+							$dzial['histogram']['buckets'] = $dzial['histogram_1']['buckets'];
 																                    
 	                    ?>
 	                         	                    
-                        <div class="item" data-id="<?= $item['key'] ?>">
+                        <div class="item <?= $class ?>" data-id="<?= $item['key'] ?>">
 							
                             <a href="#<?= $item['key'] ?>>" class="inner"
                                data-title="<?= $item['nazwa']['buckets'][0]['key'] ?>">
@@ -157,7 +162,7 @@ $options = array(
                                 
                                 <div class="chart" style="display: none;">
 	                                <div class="histogram_cont">
-		                                <div class="histogram" data-text="<?= $item['nazwa']['buckets'][0]['key'] ?>" data-histogram='<?= json_encode($dzial['histogram']['buckets']) ?>'>
+		                                <div class="histogram" data-median="<?= $median ?>" data-text="<?= $item['nazwa']['buckets'][0]['key'] ?>" data-histogram='<?= json_encode($dzial['histogram']['buckets']) ?>'>
 		                                </div>
 	                                </div>
 	                                <div class="gradient_cont">

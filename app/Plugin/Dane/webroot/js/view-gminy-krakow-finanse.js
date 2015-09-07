@@ -210,7 +210,7 @@ function graphInit(section) {
 			
 			var v = Number(data[d]['doc_count']);
 			if( v )
-				v=v+2;
+				v=v+1;
 			charts_data.push({
 				x: data[d]['key'],
 				y: v
@@ -238,7 +238,7 @@ function graphInit(section) {
 			formatter: function(){
 				var y = Number(this.y);
 				if( y )
-					y = y - 2;
+					y = y - 1;
 				return 'Liczba gmin, których wydatki mieszczą się w przedziale ' + pl_currency_format( this.x ) + ' - ' + pl_currency_format( this.x + 100000000 ) + ':<br/><b>' + y + '</b>';
 			}
 		},
