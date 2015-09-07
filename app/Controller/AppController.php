@@ -526,7 +526,7 @@ class AppController extends Controller
 					stripos($_SERVER['REQUEST_URI'], '/login') === 0 or
 					stripos($_SERVER['REQUEST_URI'], '/logout') === 0
                 );
-
+								
 				if(
 					!in_array($_id, array(
 						'dane.gminy',
@@ -536,6 +536,7 @@ class AppController extends Controller
 						'pisma.pisma',
 						'pisma.szablony',
 						'zamowieniapubliczne.zamowieniapubliczne',
+						'finanse.gminy'
 					)) &&
 					!$cross_domain
 				) {
@@ -828,10 +829,10 @@ class AppController extends Controller
     public function hasUserRole($role) {
 
 	    $roles = $this->getUserRoles();
-	    if( in_array('2', $roles) )
+	    if( @in_array('2', $roles) )
 	    	return true;
 	    else
-	    	return in_array($role, $roles);
+	    	return @in_array($role, $roles);
 
     }
     

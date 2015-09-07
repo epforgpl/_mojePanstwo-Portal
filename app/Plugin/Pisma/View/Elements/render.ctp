@@ -1,5 +1,4 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('pisma_render', array('plugin' => 'Pisma'))) ?>
-
 <div id="editor-cont" class="row">
     <div class="editor-controls">
         <div class="control control-date">
@@ -21,10 +20,16 @@
 
         <div class="control control-sender">
             <?php if (isset($pismoEditPage) && $pismoEditPage) {
-                if (empty($pismo['nadawca'])) { ?>
+                if (empty($pismo['nadawca'])) {
+                    if(empty($pismo['nadawca_opis'])){?>
                     <textarea class="nadawca empty" placeholder="Wpisz dane nadawcy" rows="1"
                               maxlength="511" required="required"></textarea>
-                <? } else { ?>
+                        <? }else{ ?>
+                        <textarea class="nadawca empty" placeholder="<?=$pismo['nadawca_opis']?>" rows="4"
+                                  maxlength="511" required="required"></textarea>
+
+                <? }
+                } else { ?>
                     <textarea class="nadawca" placeholder="Wpisz dane nadawcy" rows="1"
                               maxlength="511" required="required"><?= $pismo['nadawca'] ?></textarea>
                 <? }
@@ -59,9 +64,13 @@
     <div class="editor-controls">
         <div class="control control-signature">
             <?php if (empty($pismo['podpis'])) { ?>
+                <? if($pismo['szablon_id']==82){?>
+                    <textarea class="podpis empty" placeholder="Podpis wnioskodawcy lub reprezentanta (wymagane)" rows="1"
+                              maxlength="255"></textarea>
+               <? }else{?>
                 <textarea class="podpis empty" placeholder="Podpisz się (opcjonalnie)" rows="1"
                           maxlength="255"></textarea>
-            <? } else { ?>
+            <? }} else { ?>
                 <div class="pre"><?= str_replace("\n", '<br/>', $pismo['podpis']) ?></div>
             <? } ?>
         </div>

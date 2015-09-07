@@ -63,7 +63,7 @@ $(function () {
 				}
 				premierPlotBandData.id = self['budzety.premier_czlowiek_id'];
 				premierPlotBandData.label = {
-					align: 'left',
+					align: 'center',
 					text: '<img src="//resources.sejmometr.pl/mowcy/a/1/' + premierPlotBandData.id + '.jpg" alt="" width="30" />',
 					useHTML: true,
 					zIndex: 15,
@@ -85,8 +85,11 @@ $(function () {
 		}
 	});
 
+	premierPlotBandData.color = (dataPremier.length % 2) ? premierPlotBandColorE : premierPlotBandColorO;
+	premierPlotBandData2.color = (dataPremier2.length % 2) ? premierPlotBandColorE : premierPlotBandColorO;
 	premierPlotBandData.to = last_year + 1;
-	premierPlotBandData.label.x = -15;
+	premierPlotBandData2.to = last_year + 1;
+	//premierPlotBandData.label.x = -15;
 	dataPremier.push(premierPlotBandData);
 	dataPremier2.push(premierPlotBandData2);
 
@@ -156,7 +159,9 @@ $(function () {
 						window.location = "/dane/budzety/" + event.point.id;
 					}
 				},
-				shadow: true
+				shadow: true,
+				pointPlacement: 'between',
+				pointRange: 1
 			},
 			area: {
 				marker: {
@@ -239,7 +244,9 @@ $(function () {
 						window.location = "/dane/budzety/" + event.point.id;
 					}
 				},
-				shadow: true
+				shadow: true,
+				pointPlacement: 'between',
+				pointRange: 1
 			},
 			area: {
 				marker: {
@@ -305,7 +312,9 @@ $(function () {
 						window.location = "/dane/budzety/" + event.point.id;
 					}
 				},
-				shadow: true
+				shadow: true,
+				pointPlacement: 'between',
+				pointRange: 1
 			},
 			area: {
 				marker: {

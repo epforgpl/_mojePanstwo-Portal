@@ -26,14 +26,14 @@ echo $this->Element('dataobject/pageBegin'); ?>
 
 	<div class="row">
 		<div class="col-md-12">
-			
+
 			<? if( $edit ) {?>
                 <header><h1><a href="<?= $dzialanie->getUrl() ?>"><?= $dzialanie->getData('tytul'); ?></a></h1></header>
                 <input type="hidden" name="id" value="<?= $dzialanie->getId() ?>"/>
             <? } else {?>
                 <header>Dodaj nowe działanie organizacji!</header>
 			<? } ?>
-			
+
             <div class="row sub-header">
                 <div class="col-sm-6">
                     <? if( $edit ) {?>
@@ -49,43 +49,43 @@ echo $this->Element('dataobject/pageBegin'); ?>
                     <div class="share pull-right"></div>
                 </div>
             </div>
-			
+
 		</div>
 	</div>
-	
+
 	<div class="row">
 	    <div class="col-md-9">
 	        <div class="block block-simple col-xs-12 dzialanie objectMain">
-	
+
 	            <section>
 		            <div class="row">
 		                <div class="col-xs-12">
-	
+
 		                    <? if(!$edit) { ?>
 		                        <p class="margin-top-10">Poinformuj innych o działaniach swojej organizacji. Informacje o działaniach będą widoczne na stronie profilowej Twojej organizacji, a także będą pojawiały się przy wynikach wyszukiwania na portalu mojePaństwo.</p>
 		                    <? } ?>
-		
+
 		                    <div class="form-group margin-top-10">
 		                        <label for="dzialanieTitle">Tytuł</label>
 		                        <input maxlength="195" type="text" class="form-control" id="dzialanieTitle" name="tytul" <? if($edit) echo 'value="'.$dzialanie->getData('tytul').'"'; ?>/>
 		                    </div>
-		                    <div class="form-group">
+		                    <div class="form-group margin-top-30">
 		                        <label for="dzialanieOpis">Krótkie podsumowanie</label>
-		                        <textarea maxlength="511" class="form-control" name="podsumowanie"><? if($edit) echo $dzialanie->getData('podsumowanie'); ?></textarea>
+		                        <textarea rows="7" maxlength="511" class="form-control" name="podsumowanie"><? if($edit) echo $dzialanie->getData('podsumowanie'); ?></textarea>
 		                    </div>
-		                    <div class="form-group">
+		                    <div class="form-group margin-top-30">
 		                        <label for="dzialanieOpis">Opis działania</label>
 		                        <textarea maxlength="16383" class="form-control tinymce" id="dzialanieOpis" name="opis">
 		                            <? if($edit) echo $dzialanie->getData('opis'); ?>
 		                        </textarea>
 		                    </div>
-		                    <div class="form-group">
+		                    <div class="form-group margin-top-30">
 		                        <label>Słowa kluczowe</label>
 		                        <div class="row tags">
 		                            <input type="text" class="form-control tagit" name="tagi" <? if($edit) printf('data-value="%s"', htmlspecialchars(json_encode(array_column($dzialanie_tags, 'label')), ENT_QUOTES, 'UTF-8')) ?> />
 		                        </div>
 		                    </div>
-		                    <div class="form-group">
+		                    <div class="form-group margin-top-30" style="margin-bottom: 130px;">
 		                        <label>Zdjęcie</label>
 		                        <div class="image-editor" <? if($edit && isset($dzialanie_photo_base64)) echo 'data-image="'.$dzialanie_photo_base64.'"'; ?>>
 		                            <div class="cropit-image-preview"></div>
@@ -97,19 +97,26 @@ echo $this->Element('dataobject/pageBegin'); ?>
 		                            <p>Zalecany rozmiar: 810x320px</p>
 		                            <span class="btn btn-default btn-file">Przeglądaj<input type="file" class= "cropit-image-input" /></span>
 		                        </div>
+		                        
 		                    </div>
-		                    <div class="form-group googleBlock">
+		                    <div class="text-center">
+	                            <label class="text-normal">
+	                                <input type="checkbox" value="1" name="photo_disabled" <? if ($edit && $dzialanie->getData('photo_disabled') == '1') echo 'checked';?>/> Nie pokazuj zdjęcia na stronie działania
+	                            </label>
+	                        </div>
+		                    
+		                    <div class="form-group googleBlock margin-top-30">
 	                            <div class="row">
 	                                <div class="col-sm-12">
 	                                    <span class="btn btn-link googleBtn" data-icon="&#xe607;">
 	                                        <?= $edit ? 'Zmień' : 'Dodaj'; ?> lokalizację
 	                                    </span>
-	
+
 	                                    <div class="col-xs-12 googleMapElement">
 	                                        <input id="pac-input" class="controls" type="text" placeholder="Szukaj...">
-	
+
 	                                        <div id="loc" class="btn btn-sm"><i data-icon="&#xe607;"></i></div>
-	
+
 	                                        <div id="googleMap"></div>
 	                                        <input type="hidden" <? if($edit) echo 'value="' . $dzialanie->getData('geo_lat') . '"'; ?> type="text" name="geo_lat"/>
 	                                        <input type="hidden" <? if($edit) echo 'value="' . $dzialanie->getData('geo_lng') . '"'; ?> type="text" name="geo_lng"/>
@@ -117,7 +124,7 @@ echo $this->Element('dataobject/pageBegin'); ?>
 	                                </div>
 	                            </div>
 		                    </div>
-	
+
 	                        <? if(!$edit) { ?>
 	                            <div class="form-group mailBlock">
 	                                <div class="row">
@@ -150,12 +157,12 @@ echo $this->Element('dataobject/pageBegin'); ?>
 	    </div>
 	    <div class="col-md-3">
 	        <div class="sticky margin-top-20">
-	            
+
 	            <div class="row">
-	            
+
 	            	<div class="col-md-12">
 			            <div class="form-group margin-top-20">
-			                <label>Status</label>
+			                <label>Widoczność</label>
 			                <div class="row">
 			                    <label class="checkbox-label">
 			                        <input type="radio" name="status" value="1" <? if (!$edit || ($edit && $dzialanie->getData('status') == '1')) echo 'checked';?>> Opublikowane
@@ -168,20 +175,21 @@ echo $this->Element('dataobject/pageBegin'); ?>
 	            	</div>
 
                     <div class="col-md-12">
-                        <div class="form-group margin-top-10">
+                        <div class="form-group margin-top-20">
+                            <label>Status</label><br/>
                             <label class="text-normal">
-                                <input type="checkbox" value="1" name="photo_disabled" <? if ($edit && $dzialanie->getData('photo_disabled') == '1') echo 'checked';?>/> Nie pokazuj zdjęcia na stronie działania
+                                <input type="checkbox" value="1" name="zakonczone" <? if ($edit && $dzialanie->getData('zakonczone') == '1') echo 'checked';?>/> Zakończone
                             </label>
                         </div>
                     </div>
-	            
+
 		            <div class="col-md-12 margin-top-15">
 			            <button class="btn auto-width btn-primary btn-icon submitBtn" type="submit">
 			                <i class="icon glyphicon glyphicon-ok"></i>
 			                Zapisz
 			            </button>
 		            </div>
-	            
+
 		            <? if($edit) { ?>
 	                    <div class="col-md-12 margin-top-5">
 	                        <div class="btn btn-link btn-icon btn-auto-width deleteBtn">
@@ -190,9 +198,9 @@ echo $this->Element('dataobject/pageBegin'); ?>
 	                        </div>
 	                    </div>
 		            <? } ?>
-		            
+
 		        </div>
-		        
+
 	        </div>
 	    </div>
 	</div>

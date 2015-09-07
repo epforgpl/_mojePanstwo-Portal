@@ -11,4 +11,9 @@ class Finanse extends AppModel
         return $data;
     }
 
+    public function getCommunePopCount($id) {
+        $data = $this->getDataSource()->request('finanse/getCommunePopCount/' . $id);
+        return $data;
+    }
+
 }

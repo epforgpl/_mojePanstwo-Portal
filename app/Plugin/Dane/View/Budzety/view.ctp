@@ -12,7 +12,7 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
 <div class="row">
     <div class="col-xs-12">
 
-        <?php //debug($object_aggs['budzety']['top']['hits']['hits']); ?>
+        <? // debug($object->getLayers('dzialy')); debug($object->getLayers('past_dzialy')); ?>
 
         <?
         $past_dochody = 0;
@@ -25,9 +25,12 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
                 $past_deficyt = $row['fields']['source'][0]['data']['budzety.liczba_deficyt'];
             }
         }
-        $proc_dochody = ($object->getData('liczba_dochody') - $past_dochody) / $object->getData('liczba_dochody');
-        $proc_wydatki = ($object->getData('liczba_wydatki') - $past_wydatki) / $object->getData('liczba_wydatki');
-        $proc_deficyt = ($object->getData('liczba_deficyt') - $past_deficyt) / $object->getData('liczba_deficyt');
+        $dochody = $object->getData('liczba_dochody');
+        $wydatki = $object->getData('liczba_wydatki');
+        $deficyt = $object->getData('liczba_deficyt');
+        $proc_dochody = ($dochody - $past_dochody) / $dochody;
+        $proc_wydatki = ($wydatki - $past_wydatki) / $wydatki;
+        $proc_deficyt = ($deficyt - $past_deficyt) / $deficyt;
         ?>
     </div>
 </div>
@@ -49,13 +52,13 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
                         <div class="row text-center">
                             <div
                                 class="col-xs-4">
-                                <h2><?= number_format_h($object->getData('liczba_dochody') * 1000) ?></h2></div>
+                                <h2><?= number_format_h($dochody * 1000) ?></h2></div>
                             <div
                                 class="col-xs-4">
-                                <h2><?= number_format_h($object->getData('liczba_wydatki') * 1000) ?></h2></div>
+                                <h2><?= number_format_h($wydatki * 1000) ?></h2></div>
                             <div
                                 class="col-xs-4">
-                                <h2><?= number_format_h($object->getData('liczba_deficyt') * 1000) ?></h2></div>
+                                <h2><?= number_format_h($deficyt * 1000) ?></h2></div>
                         </div>
                         <div class="row text-center">
                             <div
@@ -63,24 +66,27 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
                                     echo 'u';
                                 } elseif ($proc_dochody < 0) {
                                     echo 'd';
-                                } ?>"><?= round($proc_dochody*100,2) ?>%</span><span class="i"> w stosunku do roku <?= $object->getData('rok') - 1 ?>
-                                .
-                           </span> </div>
+                                } ?>"><?= round($proc_dochody * 100, 2) ?>%</span><span
+                                    class="i"> w stosunku do roku <?= $object->getData('rok') - 1 ?>
+                                    .
+                           </span></div>
                             <div
                                 class="col-xs-4"><span class="factor <? if ($proc_wydatki > 0) {
                                     echo 'u';
                                 } elseif ($proc_wydatki < 0) {
                                     echo 'd';
-                                } ?>"><?= round($proc_wydatki*100,2) ?>%</span><span class="i"> w stosunku do roku <?= $object->getData('rok') - 1 ?>
-                                .
-                                </span> </div>
+                                } ?>"><?= round($proc_wydatki * 100, 2) ?>%</span><span
+                                    class="i"> w stosunku do roku <?= $object->getData('rok') - 1 ?>
+                                    .
+                                </span></div>
                             <div
                                 class="col-xs-4"><span class="factor <? if ($proc_deficyt > 0) {
                                     echo 'u';
                                 } elseif ($proc_deficyt < 0) {
                                     echo 'd';
-                                } ?>"><?= round($proc_deficyt*100,2) ?>%</span><span class="i"> w stosunku do roku <?= $object->getData('rok') - 1 ?>
-                                .
+                                } ?>"><?= round($proc_deficyt * 100, 2) ?>%</span><span
+                                    class="i"> w stosunku do roku <?= $object->getData('rok') - 1 ?>
+                                    .
                                 </span></div>
                         </div>
                     </div>
@@ -178,6 +184,86 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
                         tabeli </a>
                 </section>
             <? } ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="block block-simple col-xs-12">
+            <?
+            $dzialy = array();
+            foreach ($object->getLayers('dzialy')['dzialy'] as $dzial) {
+                $dzialy[$dzial['pl_budzety_wydatki']['dzial_str']] = array(
+                    'tresc' => $dzial['pl_budzety_wydatki']['tresc'],
+                    'plan' => $dzial[0]['plan']
+                );
+            }
+            $past_dzialy = array();
+            foreach ($object->getLayers('past_dzialy')['dzialy'] as $dzial) {
+                $past_dzialy[$dzial['pl_budzety_wydatki']['dzial_str']] = array(
+                    'tresc' => $dzial['pl_budzety_wydatki']['tresc'],
+                    'plan' => $dzial[0]['plan']
+                );
+            }
+            $porownanie = array(
+                'bez_zmian' => array(),
+                'wzrost' => array(),
+                'spadek' => array(),
+            );
+
+            $por = array();
+            //ZMIENNA ZAKRESU NEUTRALNOSCI
+
+            $neut = 0.1;
+
+            foreach ($dzialy as $k => $v) {
+
+                $temp = round(($v['plan'] / $wydatki - @$past_dzialy[$k]['plan'] / $past_wydatki) * 100,2);
+                $por[$k] = array('tresc' => $v['tresc'], 'wart' => $temp, 'plan'=>$v['plan']/ $wydatki*100, 'plan_past'=>@$past_dzialy[$k]['plan']/ $past_wydatki*100);
+
+                if ($temp < (-$neut)) {
+                    $porownanie['spadek'][$k] = array('tresc' => $v['tresc'], 'wart' => $temp);
+                } elseif ($temp > $neut) {
+                    $porownanie['wzrost'][$k] = array('tresc' => $v['tresc'], 'wart' => $temp);
+                } else {
+                    $porownanie['bez_zmian'][$k] = array('tresc' => $v['tresc'], 'wart' => $temp);
+                }
+            }
+
+            ?>
+            <header>Zmiany wydatków w poszczególnych działach względem roku poprzedzającego:</header>
+            <section class="aggs-init margin-sides-20">
+                <div class="margin-sides-20">
+                <table class="table table-strict table-condensed">
+                    <thead>
+                    <tr>
+                        <th>Dział</th>
+                        <th>Treść</th>
+                        <th>Procent budżetu</th>
+                        <th>Procent budżetu z roku poprzedzającego</th>
+                        <th>Zmiana w pkt. proc.</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?
+                    foreach ($por as $key => $val) { ?>
+                        <tr>
+                            <th scope="row"><?= $key ?></th>
+                            <td><?= $val['tresc'] ?></td>
+                            <td><?= round($val['plan'],2) ?>%</td>
+                            <td><?= round($val['plan_past'],2) ?>%</td>
+                            <td><span class="factor <? if ($val['wart'] < 0) {
+                                    echo "d";
+                                } elseif ($val['wart'] > 0) {
+                                    echo "u";
+                                } ?>"><?= $val['wart'] ?></span>
+                            </td>
+                        </tr>
+                    <? }?>
+                    </tbody>
+                </table>
+                </div>
+            </section>
         </div>
     </div>
 </div>
