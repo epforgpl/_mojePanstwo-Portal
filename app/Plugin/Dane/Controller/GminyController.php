@@ -3914,25 +3914,19 @@ class GminyController extends DataobjectsController
 					                                        'field' => 'gminy-wydatki-dzialy.wydatki',
 				                                        ),
 			                                        ),
-			                                        'histogram_1' => array(
+			                                        'histogram_0' => array(
 			                                            'histogram' => array(
 			                                                'field' => 'gminy-wydatki-dzialy.wydatki',
 			                                                'interval' => 100000000,
 			                                            ),
 			                                        ),
-			                                        'histogram_2' => array(
+			                                        'histogram_1' => array(
 			                                            'histogram' => array(
 			                                                'field' => 'gminy-wydatki-dzialy.wydatki',
 			                                                'interval' => 10000000,
 			                                            ),
 			                                        ),
-			                                        'histogram_3' => array(
-			                                            'histogram' => array(
-			                                                'field' => 'gminy-wydatki-dzialy.wydatki',
-			                                                'interval' => 1000000,
-			                                            ),
-			                                        ),
-			                                        'histogram_4' => array(
+			                                        'histogram_2' => array(
 			                                            'histogram' => array(
 			                                                'field' => 'gminy-wydatki-dzialy.wydatki',
 			                                                'interval' => 100000,

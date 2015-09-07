@@ -88,29 +88,8 @@ $(document).ready(function () {
 			
 			infoBlock.find('.arrow').css('left', block.position().left + (block.outerWidth() / 2) + 'px');
 			infoBlock.removeClass('current');
-
-			var thatItem = that.parent();
 			
 			rozdzialy(that);
-			
-			/*
-			if (thatItem.attr('data-json')) {
-				rozdzialy(that, thatItem.attr('data-json'));
-			} else {
-				$.ajax({
-					url: '/finanse/gminy/903/budzet/wydatki/dzialy/' + thatItem.attr('data-id') + '.json?zakres=2014Q1',
-					method: 'get',
-					success: function (res) {
-						var data = JSON.stringify(res);
-						thatItem.attr('data-json', data);
-						rozdzialy(that, data);
-					},
-					error: function (xhr) {
-						alert("Wystąpił błąd: " + xhr.status + " " + xhr.statusText);
-					}
-				})
-			}
-			*/
 			
 		})
 	})
@@ -218,11 +197,9 @@ function graphInit(section) {
 		}
 	}
 	
-	console.log(charts_data);
 	
 	histogram_div.attr('id', 'h' + i);
 	
-	console.log(charts_data);
 	
 	chart = new Highcharts.Chart({
 		chart: {
