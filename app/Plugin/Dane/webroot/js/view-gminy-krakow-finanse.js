@@ -1,7 +1,7 @@
 /*global mPHeart*/
 $(document).ready(function () {
 	var lastChoose,
-		$administracja = lastChoose = $('#administracja');
+		$administracja = lastChoose = $('#mp-sections');
 
 	$.each($administracja.find('.item a'), function () {
 		var that = $(this),
@@ -81,20 +81,19 @@ $(document).ready(function () {
 					leftCol = $('<div></div>').addClass('leftSide col-xs-12'),
 					rightCol = $('<div></div>').addClass('rightSide col-xs-12');
 
-				leftCol.append($('<div></div>').addClass('loading'));
+				leftCol.append($('<div></div>'));
 
 				slug.append(leftCol).append(rightCol);
 			});
-
-
-			if (infoBlock.position().left != 0) {
-				infoBlock.css({'margin-left': -infoBlock.position().left, width: $(window).width()})
-			}
+			
 			infoBlock.find('.arrow').css('left', block.position().left + (block.outerWidth() / 2) + 'px');
 			infoBlock.removeClass('current');
 
 			var thatItem = that.parent();
-
+			
+			rozdzialy(that);
+			
+			/*
 			if (thatItem.attr('data-json')) {
 				rozdzialy(that, thatItem.attr('data-json'));
 			} else {
@@ -111,56 +110,26 @@ $(document).ready(function () {
 					}
 				})
 			}
+			*/
+			
 		})
 	})
 });
 
-function rozdzialy(item, data) {
-	var d = $.parseJSON(data),
-		infoBlock = $('.infoBlock').attr('data-itemid', item.parent().attr('data-id')),
+function rozdzialy(item) {
+	var infoBlock = $('.infoBlock').attr('data-itemid', item.parent().attr('data-id')),
 		histogram,
 		gradient,
-		rozdzial = $('<table></table>').addClass('table table-condensed');
+		rozdzialy = item.find('table.rozdzialy'),	
+		subtitle = item.find('.subtitle'),	
+		chart = item.find('.chart');		
 
-	histogram = $('<div></div>').addClass('histogram_cont').append(
-		$('<div>').addClass('histogram').attr('data-init', JSON.stringify(d['dzial']['buckets']))
-	);
-
-	gradient = $('<div></div>').addClass('gradient_cont').append(
-		$('<span></span>').addClass('gradient')
-	).append(
-		$('<ul></ul>').addClass('addons').append(
-			$('<li></li>').addClass('min').attr('data-init', d['dzial']['min']).append(
-				$('<span></span>').addClass('n').text(d['dzial']['min_nazwa'])
-			).append(
-				$('<span></span>').addClass('v').text(pl_currency_format(d['dzial']['min']))
-			)
-		).append(
-			$('<li></li>').addClass('max').attr('data-init', d['dzial']['max']).append(
-				$('<span></span>').addClass('n').text(d['dzial']['max_nazwa'])
-			).append(
-				$('<span></span>').addClass('v').text(pl_currency_format(d['dzial']['max']))
-			)
-		)
-	);
-
-	$.each(d['dzial'].rozdzialy, function () {
-		var i = this;
-		rozdzial.append(
-			$('<tr></tr>').attr('data-rozdzialid', i.id).append(
-				$('<td></td>').text(i.nazwa)
-			).append(
-				$('<td></td>').text(pl_currency_format(i.wartosc))
-			)
-		)
-	});
-
-	infoBlock.find('.leftSide').empty().append(histogram).append(gradient);
+	infoBlock.find('.leftSide').html(chart.html());
 	graphInit(infoBlock);
-
-	infoBlock.find('.rightSide').append(rozdzial);
-
+	
+	infoBlock.find('.rightSide').html( $(subtitle.html() + '<table>' + rozdzialy.html() + '</table>').addClass('table table-condensed') );	
 	infoBlock.css('height', infoBlock.find('.container').outerHeight(true));
+
 }
 
 function number_format(number, decimals, dec_point, thousands_sep) {
@@ -229,17 +198,32 @@ function pl_currency_format(n) {
 
 function graphInit(section) {
 	var histogram_div = jQuery(section.find('.histogram')),
-		data = histogram_div.data('init'),
+		data = histogram_div.data('histogram'),
 		charts_data = [],
 		chart,
-		i = section.attr('data-itemid');
+		i = section.attr('data-itemid'),
+		title = section.find('.histogram').data('text');
+		
 
-	for (var d = 0; d < data.length; d++)
-		if (data[d])
-			charts_data.push(Number(data[d]['doc_count']));
-
+	for (var d = 0; d < data.length; d++) {
+		if (data[d]) {
+			
+			var v = Number(data[d]['doc_count']);
+			if( v )
+				v=v+2;
+			charts_data.push({
+				x: data[d]['key'],
+				y: v
+			});
+		}
+	}
+	
+	console.log(charts_data);
+	
 	histogram_div.attr('id', 'h' + i);
-
+	
+	console.log(charts_data);
+	
 	chart = new Highcharts.Chart({
 		chart: {
 			renderTo: 'h' + i,
@@ -250,7 +234,13 @@ function graphInit(section) {
 		},
 
 		tooltip: {
-			enabled: false
+			enabled: true,
+			formatter: function(){
+				var y = Number(this.y);
+				if( y )
+					y = y - 2;
+				return 'Liczba gmin, których wydatki mieszczą się w przedziale ' + pl_currency_format( this.x ) + ' - ' + pl_currency_format( this.x + 100000000 ) + ':<br/><b>' + y + '</b>';
+			}
 		},
 
 		credits: {
@@ -262,12 +252,12 @@ function graphInit(section) {
 		},
 
 		title: {
-			text: ''
+			text: title
 		},
 
 		xAxis: {
 			labels: {
-				enabled: false
+				enabled: true
 			},
 			gridLineWidth: 0,
 			title: null
@@ -279,7 +269,7 @@ function graphInit(section) {
 			},
 			gridLineWidth: 0,
 			title: {
-				text: 'Liczba gmin',
+				text: '',
 				offset: 20,
 				style: {
 					color: '#AAA',
@@ -294,7 +284,8 @@ function graphInit(section) {
 			column: {
 				groupPadding: 0,
 				pointPadding: 0,
-				borderWidth: 0
+				borderWidth: 0,
+				minPointLength: 0,
 			}
 		},
 

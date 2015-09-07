@@ -1,9 +1,15 @@
-#_wrapper #_main #administracja .items .item .inner .logo img {
-    max-height: 100px;
-}
 
-#_wrapper #administracja .infoBlock .content .container {
-    width: 100%;
+#mp-sections {
+	
+	margin-left: 10px;
+		
+	.items .item .inner .logo img {
+	    max-height: 100px;
+	}
+	
+	.infoBlock .content .container {
+	    width: 100%;
+    }
 
     .leftSide {
         .histogram_cont {
@@ -24,10 +30,11 @@
         }
 
         .gradient_cont {
-            padding: 0 96px;
+            padding: 0 60px;
             min-height: 45px;
             position: relative;
-            top: -45px;
+            top: -66px;
+            margin-bottom: -23px;
 
             .gradient {
                 background: #2746f7; /* Old browsers */
@@ -85,6 +92,9 @@
                         z-index: 1;
                         top: 0;
                         margin-top: 2px;
+                        position: absolute;
+                        top: 2px;
+                        padding-top: 15px;
 
                         &:before {
                             background-color: #333;
@@ -124,4 +134,5 @@
 
         }
     }
+		
 }
