@@ -26,7 +26,7 @@ class TwitterAccountsController extends AdminAppController {
                 array(
                     'table' => 'users',
                     'alias' => 'User',
-                    'type' => 'INNER',
+                    'type' => 'LEFT',
                     'conditions' => array(
                         'User.id = TwitterAccountSuggestion.user_id'
                     )
