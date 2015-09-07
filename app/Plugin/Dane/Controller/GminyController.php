@@ -141,6 +141,20 @@ class GminyController extends DataobjectsController
                 ),
             ),
         ),
+        'finanse' => array(
+            'items' => array(
+                array(
+                    'label' => 'Wydatki',
+                    'id' => '',
+                ),
+                /*
+                array(
+                    'id' => 'dochody',
+                    'label' => 'Dochody',
+                ),
+                */
+            ),
+        ),
     );
 
     public $loadChannels = true;
@@ -3768,45 +3782,272 @@ class GminyController extends DataobjectsController
 
     public function finanse()
     {
-	    
-        $this->addInitAggs(array(
-            'dzialy' => array(
-	            'nested' => array(
-		            'path' => 'gminy-wydatki',
-	            ),
-	            'aggs' => array(
-		            'dzialy' => array(
-			            'terms' => array(
-				            'field' => 'dzial_id',
-				            'size' => 100,
-				            'order' => array(
-					            'wydatki' => 'desc',
-				            ),
-			            ),
-			            'aggs' => array(
-				            'nazwa' => array(
-					            'terms' => array(
-						            'field' => 'dzial',
-						            'size' => 1,
-					            ),
-				            ),
-				            'wydatki' => array(
-					            'sum' => array(
-						            'field' => 'wydatki',
-					            ),
-				            ),
-			            ),
-		            ),
-	            ),
-            ),
-        ));
         
         $this->_prepareView();
-        // debug( $this->object_aggs['dzialy']['dzialy']['buckets'] ); die();
-        $this->set('dzialy', $this->object_aggs['dzialy']['dzialy']['buckets']);
+		$this->loadModel('Dane.Gmina');
+		
+		$population = $this->object->getData('liczba_ludnosci');
+		$populationRange = $this->Gmina->getPopulationRange($population);
+				
+		
+		$gminy_filter = array(
+			'range' => array(
+                'data.gminy.liczba_ludnosci' => array(
+                    'gte' => $populationRange['min'],
+                    'lt' => $populationRange['max']
+                ),
+            ),
+		);
+		
+		$rok = 2014;
+		$kwartal = 2;
+					
+		$options = array(
+            'searcher' => false,
+            'searchTitle' => 'Szukaj w budżecie gminy ' . $this->object->getTitle() . '...',
+            'conditions' => array(),
+            'cover' => array(
+	            'force' => true,
+                'view' => array(
+                    'plugin' => 'Dane',
+                    'element' => 'gminy/wydatki-cover',
+                ),
+                'aggs' => array(
+	                'gminy' => array(
+	                    'filter' => array(
+	                        'bool' => array(
+		                        'must' => array(
+			                        array(
+				                        'term' => array(
+					                        'dataset' => 'gminy',
+				                        ),
+			                        ),
+			                        $gminy_filter,
+		                        ),
+	                        ),
+	                    ),
+	                    'scope' => 'global',
+	                    'aggs' => array(
+		                    'top' => array(
+			                    'top_hits' => array(
+				                    'size' => 100,
+			                    ),
+		                    ),
+	                        'wydatki' => array(
+	                            'nested' => array(
+	                                'path' => 'gminy-wydatki-dzialy',
+	                            ),
+	                            'aggs' => array(
+	                                'timerange' => array(
+	                                    'filter' => array(
+		                                    'bool' => array(
+									            'must' => array(
+									                array(
+									                    'term' => array(
+									                        'gminy-wydatki-dzialy.rok' => $rok,
+									                    ),
+									                ),
+									                array(
+									                    'term' => array(
+									                        'gminy-wydatki-dzialy.kwartal' => $kwartal,
+									                    ),
+									                ),
+									            ),
+									        ),
+	                                    ),
+	                                    'aggs' => array(
+	                                        'dzialy' => array(
+		                                        'terms' => array(
+			                                        'field' => 'gminy-wydatki-dzialy.id',
+		                                        ),
+		                                        'aggs' => array(
+			                                        'min' => array(
+			                                            'terms' => array(
+			                                                'field' => 'gminy-wydatki-dzialy.wydatki',
+			                                                'size' => '1',
+			                                                'order' => array(
+			                                                    '_term' => 'asc',
+			                                                ),
+			                                            ),
+			                                            'aggs' => array(
+			                                                'reverse' => array(
+			                                                    'reverse_nested' => '_empty',
+			                                                    'aggs' => array(
+			                                                        'top' => array(
+			                                                            'top_hits' => array(
+			                                                                'size' => 1,
+			                                                            ),
+			                                                        ),
+			                                                    ),
+			                                                ),
+			                                            ),
+			                                        ),
+			                                        'max' => array(
+			                                            'terms' => array(
+			                                                'field' => 'gminy-wydatki-dzialy.wydatki',
+			                                                'size' => '1',
+			                                                'order' => array(
+			                                                    '_term' => 'desc',
+			                                                ),
+			                                            ),
+			                                            'aggs' => array(
+			                                                'reverse' => array(
+			                                                    'reverse_nested' => '_empty',
+			                                                    'aggs' => array(
+			                                                        'top' => array(
+			                                                            'top_hits' => array(
+			                                                                'size' => 1,
+			                                                            ),
+			                                                        ),
+			                                                    ),
+			                                                ),
+			                                            ),
+			                                        ),
+			                                        'percentiles' => array(
+				                                        'percentiles' => array(
+					                                        'field' => 'gminy-wydatki-dzialy.wydatki',
+					                                        'percents' => array(50),
+				                                        ),
+			                                        ),
+			                                        'stats' => array(
+				                                        'stats' => array(
+					                                        'field' => 'gminy-wydatki-dzialy.wydatki',
+				                                        ),
+			                                        ),
+			                                        'histogram_0' => array(
+			                                            'histogram' => array(
+			                                                'field' => 'gminy-wydatki-dzialy.wydatki',
+			                                                'interval' => 100000000,
+			                                            ),
+			                                        ),
+			                                        'histogram_1' => array(
+			                                            'histogram' => array(
+			                                                'field' => 'gminy-wydatki-dzialy.wydatki',
+			                                                'interval' => 10000000,
+			                                            ),
+			                                        ),
+			                                        'histogram_2' => array(
+			                                            'histogram' => array(
+			                                                'field' => 'gminy-wydatki-dzialy.wydatki',
+			                                                'interval' => 100000,
+			                                            ),
+			                                        ),
+		                                        ),
+	                                        ),
+	                                    ),
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	                'gmina' => array(
+		                'scope' => 'global',
+		                'filter' => array(
+			                'bool' => array(
+				                'must' => array(
+					                array(
+						                'term' => array(
+							                'dataset' => 'gminy',
+						                ),
+					                ),
+					                array(
+						                'term' => array(
+							                'id' => $this->object->getId(),
+						                ),
+					                ),
+				                ),
+			                ),
+		                ),
+		                'aggs' => array(
+			                'wydatki' => array(
+					            'nested' => array(
+						            'path' => 'gminy-wydatki',
+					            ),
+					            'aggs' => array(
+	                                'timerange' => array(
+	                                    'filter' => array(
+		                                    'bool' => array(
+									            'must' => array(
+									                array(
+									                    'term' => array(
+									                        'gminy-wydatki.rok' => $rok,
+									                    ),
+									                ),
+									                array(
+									                    'term' => array(
+									                        'gminy-wydatki.kwartal' => $kwartal,
+									                    ),
+									                ),
+									            ),
+									        ),
+	                                    ),					            
+							            'aggs' => array(
+								            'wydatki' => array(
+									            'sum' => array(
+										            'field' => 'wydatki',
+									            ),
+								            ),
+								            'dzialy' => array(
+									            'terms' => array(
+										            'field' => 'dzial_id',
+										            'size' => 100,
+										            'order' => array(
+											            'wydatki' => 'desc',
+										            ),
+									            ),
+									            'aggs' => array(
+										            'nazwa' => array(
+											            'terms' => array(
+												            'field' => 'dzial',
+												            'size' => 1,
+											            ),
+										            ),
+										            'wydatki' => array(
+											            'sum' => array(
+												            'field' => 'wydatki',
+											            ),
+										            ),
+										            'rozdzialy' => array(
+			                                            'terms' => array(
+			                                                'field' => 'gminy-wydatki.rozdzial_id',
+			                                                'size' => 100,
+			                                                'order' => array(
+				                                                'wydatki' => 'desc',
+			                                                ),
+			                                            ),
+			                                            'aggs' => array(
+			                                                'nazwa' => array(
+			                                                    'terms' => array(
+			                                                        'field' => 'gminy-wydatki.rozdzial',
+			                                                        'size' => 1,
+			                                                    ),
+			                                                ),
+			                                                'wydatki' => array(
+			                                                    'sum' => array(
+			                                                        'field' => 'gminy-wydatki.wydatki',
+			                                                    ),
+			                                                ),
+			                                            ),
+			                                        ),
+									            ),
+								            ),
+							            ),
+								    ),
+								),
+				            ),
+		                ),
+		            ),
+                ),
+            ),
+        );
+
+        $this->Components->load('Dane.DataBrowser', $options);
         
         $this->request->params['action'] = 'finanse';
         $this->set('title_for_layout', 'Wydatki w gminie ' . $this->object->getTitle());
+        $this->set('_submenu', array_merge($this->submenus['finanse'], array(
+            'selected' => '',
+        )));
         
     }
 

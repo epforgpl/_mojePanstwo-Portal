@@ -31,66 +31,6 @@ class GminyController extends AppController {
         $this->Dataobject->find('all', array(
             'limit' => 0,
             'aggs' => array(
-                'gmina' => array(
-                    'filter' => array(
-                        'term' => array(
-                            'id' => $gmina_id,
-                        ),
-                    ),
-                    'aggs' => array(
-                        'wydatki' => array(
-                            'nested' => array(
-                                'path' => 'gminy-wydatki',
-                            ),
-                            'aggs' => array(
-                                'dzial' => array(
-                                    'filter' => array(
-                                        'bool' => array(
-                                            'must' => array(
-                                                array(
-                                                    'term' => array(
-                                                        'gminy-wydatki.rok' => $range['year'],
-                                                    ),
-                                                ),
-                                                array(
-                                                    'term' => array(
-                                                        'gminy-wydatki.kwartal' => $range['quarter'],
-                                                    ),
-                                                ),
-                                                array(
-                                                    'term' => array(
-                                                        'gminy-wydatki.dzial_id' => $id,
-                                                    ),
-                                                ),
-                                            ),
-                                        ),
-                                    ),
-                                    'aggs' => array(
-                                        'rozdzialy' => array(
-                                            'terms' => array(
-                                                'field' => 'gminy-wydatki.rozdzial_id',
-                                                'size' => 100,
-                                            ),
-                                            'aggs' => array(
-                                                'nazwa' => array(
-                                                    'terms' => array(
-                                                        'field' => 'gminy-wydatki.rozdzial',
-                                                        'size' => 1,
-                                                    ),
-                                                ),
-                                                'wydatki' => array(
-                                                    'sum' => array(
-                                                        'field' => 'gminy-wydatki.wydatki',
-                                                    ),
-                                                ),
-                                            ),
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
                 'gminy' => array(
                     'filter' => array(
                         'range' => array(
@@ -175,7 +115,7 @@ class GminyController extends AppController {
                                         'histogram' => array(
                                             'histogram' => array(
                                                 'field' => 'gminy-wydatki-dzialy.wydatki',
-                                                'interval' => 10000,
+                                                'interval' => 1000,
                                             ),
                                             'aggs' => array(
                                                 'reverse' => array(

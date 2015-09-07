@@ -85,9 +85,14 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
 
 		    <p class="text-center">
-                <a href="/dane/gminy/903,krakow/rada_uchwaly/18316?file=412749">
-	                Źródło
-	            </a>
+			    <?
+				    $href = false;
+				    if( $okreg->getData('rok')=='2010' )
+				    	$href = '/rada_uchwaly/18316?file=412749';
+				    elseif( $okreg->getData('rok')=='2014' )
+				    	$href = '/zarzadzenia/32043';
+			    ?>			    
+                <a href="<?= $href ?>">Źródło</a>
             </p>
 
 
