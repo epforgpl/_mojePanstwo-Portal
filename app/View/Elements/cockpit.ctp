@@ -58,6 +58,7 @@
 </header>
 
 <?
+/*
 if ($domainMode == "MP") {
     if (isset($_COOKIE["mojePanstwo"])) {
         $mojePanstwo = json_decode($_COOKIE["mojePanstwo"]);
@@ -69,4 +70,5 @@ if ($domainMode == "MP") {
         echo $this->Element('survey/ankieta1');
     }
 }
+*/
 ?>
