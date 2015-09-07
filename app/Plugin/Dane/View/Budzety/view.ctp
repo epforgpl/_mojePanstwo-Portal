@@ -11,9 +11,6 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
 <? echo $this->Element('dataobject/pageBegin'); ?>
 <div class="row">
     <div class="col-xs-12">
-
-        <? // debug($object->getLayers('dzialy')); debug($object->getLayers('past_dzialy')); ?>
-
         <?
         $past_dochody = 0;
         $past_wydatki = 0;
@@ -214,11 +211,11 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
             $por = array();
             //ZMIENNA ZAKRESU NEUTRALNOSCI
 
-            $neut = 0.1;
+            $neut = 3;
 
             foreach ($dzialy as $k => $v) {
 
-                $temp = round(($v['plan'] / $wydatki - @$past_dzialy[$k]['plan'] / $past_wydatki) * 100,2);
+                $temp = @round(-(1-$v['plan']/@$past_dzialy[$k]['plan'] / $wydatki * $past_wydatki) * 100,2);
                 $por[$k] = array('tresc' => $v['tresc'], 'wart' => $temp, 'plan'=>$v['plan']/ $wydatki*100, 'plan_past'=>@$past_dzialy[$k]['plan']/ $past_wydatki*100);
 
                 if ($temp < (-$neut)) {
@@ -231,38 +228,81 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
             }
 
             ?>
-            <header>Zmiany wydatków w poszczególnych działach względem roku poprzedzającego:</header>
+            <header>Wydatki, które wzrosły względem <?= $object->getData('rok') - 1 ?> roku</header>
             <section class="aggs-init margin-sides-20">
                 <div class="margin-sides-20">
-                <table class="table table-strict table-condensed">
-                    <thead>
-                    <tr>
-                        <th>Dział</th>
-                        <th>Treść</th>
-                        <th>Procent budżetu</th>
-                        <th>Procent budżetu z roku poprzedzającego</th>
-                        <th>Zmiana w pkt. proc.</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?
-                    foreach ($por as $key => $val) { ?>
+                    <table class="table table-strict table-condensed">
+                        <thead>
                         <tr>
-                            <th scope="row"><?= $key ?></th>
-                            <td><?= $val['tresc'] ?></td>
-                            <td><?= round($val['plan'],2) ?>%</td>
-                            <td><?= round($val['plan_past'],2) ?>%</td>
-                            <td><span class="factor <? if ($val['wart'] < 0) {
-                                    echo "d";
-                                } elseif ($val['wart'] > 0) {
-                                    echo "u";
-                                } ?>"><?= $val['wart'] ?></span>
-                            </td>
+                            <th>Dział</th>
+                            <th width="70%">Treść</th>
+                            <th>Zmiana w proc.</th>
                         </tr>
-                    <? }?>
+                        </thead>
+                        <tbody>
+                        <?
+                        foreach ($porownanie['wzrost'] as $key => $val) { ?>
+                            <tr>
+                                <th scope="row"><?= $key ?></th>
+                                <td><?= $val['tresc'] ?></td>
+                                <td><span class="factor u"><?= $val['wart'] ?>%</span>
+                                </td>
+                            </tr>
+                        <? }?>
                     </tbody>
                 </table>
                 </div>
+            </section>
+            <header>Wydatki, które zmalały względem <?= $object->getData('rok') - 1 ?> roku</header>
+            <section class="aggs-init margin-sides-20">
+                <div class="margin-sides-20">
+                    <table class="table table-strict table-condensed">
+                        <thead>
+                        <tr>
+                            <th>Dział</th>
+                            <th width="70%">Treść</th>
+                            <th>Zmiana w proc.</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?
+                        foreach ($porownanie['spadek'] as $key => $val) { ?>
+                            <tr>
+                                <th scope="row"><?= $key ?></th>
+                                <td><?= $val['tresc'] ?></td>
+                                <td><span class="factor d"><?= $val['wart'] ?>%</span>
+                                </td>
+                            </tr>
+                        <? }?>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <header>Wydatki, które pozostały nie zmienione względem <?= $object->getData('rok') - 1 ?> roku</header>
+            <section class="aggs-init margin-sides-20">
+                <div class="margin-sides-20">
+                    <table class="table table-strict table-condensed">
+                        <thead>
+                        <tr>
+                            <th>Dział</th>
+                            <th width="70%">Treść</th>
+                            <th>Zmiana w proc.</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?
+                        foreach ($porownanie['bez_zmian'] as $key => $val) { ?>
+                            <tr>
+                                <th scope="row"><?= $key ?></th>
+                                <td><?= $val['tresc'] ?></td>
+                                <td><span class="factor"><?= $val['wart'] ?>%</span>
+                                </td>
+                            </tr>
+                        <? }?>
+                        </tbody>
+                    </table>
+                </div>
+                <small>Wyznaczone zmiany, uwzględniają zmiany całości wydatków budżetowych.</small>
             </section>
         </div>
     </div>

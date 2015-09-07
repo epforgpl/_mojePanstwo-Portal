@@ -45,7 +45,7 @@ class Document extends AppModel
     {
         return $this->getDataSource()->request('docs/budget_spendings', array(
             'method' => 'POST',
-            'data' => $data
+            'data' => array($data)
         ));
     }
 }

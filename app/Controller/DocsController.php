@@ -114,7 +114,7 @@ class DocsController extends AppController
         $dane = json_decode($this->request->data['dane']);
         $dane = (array)$dane;
         $id = $dane['document_id'];
-
+/*
         if (isset($dane['pages'])) {
             $pages = (array)$dane['pages'];
             foreach ($pages as $page) {
@@ -122,7 +122,7 @@ class DocsController extends AppController
                 $page['dokument_id'] = $id;
                 $data['pages'][] = $page;
             }
-        }
+        }*/
         if (isset($dane['bookmarks'])) {
             $bookmarks = (array)$dane['bookmarks'];
             foreach ($bookmarks as $bookmark) {
@@ -188,9 +188,58 @@ class DocsController extends AppController
         $this->autoRender = false;
         $dane = json_decode($this->request->data['dane']);
 
+        $data = array();
+        foreach ($dane as $page) {
+            $strona = array();
+            foreach ($page as $nr_strony => $pole) {
+                    if (!isset($strona[$pole[1]])) {
+                        $strona[$pole[1]] = array();
+                    }
+                    $strona[$pole[1]]['rocznik'] = '2012';
+
+                    switch ($pole[0]) {
+                        case 1:
+                            //czesc_str
+                            $strona[$pole[1]]['czesc_str'] = $pole[2];
+                            $strona[$pole[1]]['type'] = 'czesc';
+                            break;
+                        case 2:
+                            //dzial_str
+                            $strona[$pole[1]]['dzial_str'] = $pole[2];
+                            $strona[$pole[1]]['type'] = 'dzial';
+                            break;
+                        case 3:
+                            //tresc
+                            if (isset($strona[$pole[1]]['tresc'])) {
+                                $strona[$pole[1]]['tresc'] .= $pole[2];
+                            } else {
+                                $strona[$pole[1]]['tresc'] = $pole[2];
+                            }
+                            break;
+                        case 4:
+                            //pozycja
+                            $strona[$pole[1]]['pozycja'] = $pole[2];
+                            break;
+                        case 5:
+                            //plan
+                            if (isset($strona[$pole[1]]['plan'])) {
+                                $strona[$pole[1]]['plan'] .= $pole[2];
+                            } else {
+                                $strona[$pole[1]]['plan'] = $pole[2];
+                            }
+                            $strona[$pole[1]]['plan'] = str_replace(' ', '', $strona[$pole[1]]['plan']);
+                            break;
+                    }
+            }
+            $data = array_merge($data, $strona);
+        }
+
+        $this->loadModel('Document');
+        $aa = $this->Document->save_budget(json_encode($data));
+
 
         echo '<pre>';
-        var_export($dane);
+        var_export($aa);
         echo '</pre>';
 
         /*

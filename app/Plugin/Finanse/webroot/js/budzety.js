@@ -63,7 +63,7 @@ $(function () {
 				}
 				premierPlotBandData.id = self['budzety.premier_czlowiek_id'];
 				premierPlotBandData.label = {
-					align: 'center',
+					align: 'left',
 					text: '<img src="//resources.sejmometr.pl/mowcy/a/1/' + premierPlotBandData.id + '.jpg" alt="" width="30" />',
 					useHTML: true,
 					zIndex: 15,

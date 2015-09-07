@@ -118,6 +118,15 @@ class BudzetyController extends DataobjectsController
 
     }
 
+    public function dochody()
+    {
+
+        $this->addInitLayers('dochody');
+
+        $this->_prepareView();
+
+    }
+
     public function csv()
     {
         $this->addInitLayers('wydatki');
@@ -264,6 +273,13 @@ class BudzetyController extends DataobjectsController
             ),
             'base' => $this->object->getUrl(),
         );
+
+        if (count(@$this->object->getLayers('dochody')) !== 0) {
+            $menu['items'][] = array(
+                'id' => 'dochody',
+                'label' => 'Dochody'
+            );
+        }
 
         if (count(@$this->object->getLayers('wydatki')) !== 0) {
             $menu['items'][] = array(
