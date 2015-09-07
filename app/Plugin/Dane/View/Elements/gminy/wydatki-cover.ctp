@@ -133,8 +133,27 @@ $options = array(
 							$left = ($min == $max) ? false : 100 * ( $cur - $min ) / ( $max - $min );
 							
 							$class = ($cur > $median) ? 'more' : 'less';
-														
-							$dzial['histogram']['buckets'] = $dzial['histogram_1']['buckets'];
+							
+							$diff = $dzial['stats']['max'] - $dzial['stats']['min'];
+							$intervals = array(100000000, 10000000, 1000000, 100000);
+							$histogram_i = 0;
+							
+							
+							for( $i=count($intervals)-1; $i--; $i>=0 ) {
+								
+								$v = $intervals[$i];
+																								
+								if( $diff<$v*100 ) {
+									$histogram_i = $i;
+									break;
+								}
+								
+							}
+							
+				
+							
+							
+							$dzial['histogram']['buckets'] = $dzial['histogram_' . $histogram_i]['buckets'];
 																                    
 	                    ?>
 	                         	                    
@@ -168,7 +187,7 @@ $options = array(
 	                                <div class="gradient_cont">
 		                                <span class="gradient"></span>
 		                                <ul class="addons">
-			                                <li class="min">
+			                                <li class="min" style="left: 2%;">
 			                                	<span class="n"><?= @$dzial['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'] ?></span>
 			                                	<span class="v"><?= number_format_h($min) ?></span>
 			                                </li>
