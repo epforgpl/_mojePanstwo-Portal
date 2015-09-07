@@ -69,23 +69,23 @@ echo $this->Element('dataobject/pageBegin'); ?>
 		                        <label for="dzialanieTitle">Tytuł</label>
 		                        <input maxlength="195" type="text" class="form-control" id="dzialanieTitle" name="tytul" <? if($edit) echo 'value="'.$dzialanie->getData('tytul').'"'; ?>/>
 		                    </div>
-		                    <div class="form-group">
+		                    <div class="form-group margin-top-30">
 		                        <label for="dzialanieOpis">Krótkie podsumowanie</label>
-		                        <textarea maxlength="511" class="form-control" name="podsumowanie"><? if($edit) echo $dzialanie->getData('podsumowanie'); ?></textarea>
+		                        <textarea rows="7" maxlength="511" class="form-control" name="podsumowanie"><? if($edit) echo $dzialanie->getData('podsumowanie'); ?></textarea>
 		                    </div>
-		                    <div class="form-group">
+		                    <div class="form-group margin-top-30">
 		                        <label for="dzialanieOpis">Opis działania</label>
 		                        <textarea maxlength="16383" class="form-control tinymce" id="dzialanieOpis" name="opis">
 		                            <? if($edit) echo $dzialanie->getData('opis'); ?>
 		                        </textarea>
 		                    </div>
-		                    <div class="form-group">
+		                    <div class="form-group margin-top-30">
 		                        <label>Słowa kluczowe</label>
 		                        <div class="row tags">
 		                            <input type="text" class="form-control tagit" name="tagi" <? if($edit) printf('data-value="%s"', htmlspecialchars(json_encode(array_column($dzialanie_tags, 'label')), ENT_QUOTES, 'UTF-8')) ?> />
 		                        </div>
 		                    </div>
-		                    <div class="form-group">
+		                    <div class="form-group margin-top-30" style="margin-bottom: 130px;">
 		                        <label>Zdjęcie</label>
 		                        <div class="image-editor" <? if($edit && isset($dzialanie_photo_base64)) echo 'data-image="'.$dzialanie_photo_base64.'"'; ?>>
 		                            <div class="cropit-image-preview"></div>
@@ -97,8 +97,15 @@ echo $this->Element('dataobject/pageBegin'); ?>
 		                            <p>Zalecany rozmiar: 810x320px</p>
 		                            <span class="btn btn-default btn-file">Przeglądaj<input type="file" class= "cropit-image-input" /></span>
 		                        </div>
+		                        
 		                    </div>
-		                    <div class="form-group googleBlock">
+		                    <div class="text-center">
+	                            <label class="text-normal">
+	                                <input type="checkbox" value="1" name="photo_disabled" <? if ($edit && $dzialanie->getData('photo_disabled') == '1') echo 'checked';?>/> Nie pokazuj zdjęcia na stronie działania
+	                            </label>
+	                        </div>
+		                    
+		                    <div class="form-group googleBlock margin-top-30">
 	                            <div class="row">
 	                                <div class="col-sm-12">
 	                                    <span class="btn btn-link googleBtn" data-icon="&#xe607;">
@@ -172,15 +179,6 @@ echo $this->Element('dataobject/pageBegin'); ?>
                             <label>Status</label><br/>
                             <label class="text-normal">
                                 <input type="checkbox" value="1" name="zakonczone" <? if ($edit && $dzialanie->getData('zakonczone') == '1') echo 'checked';?>/> Zakończone
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="form-group margin-top-10">
-                            <label>Opcje</label><br/>
-                            <label class="text-normal">
-                                <input type="checkbox" value="1" name="photo_disabled" <? if ($edit && $dzialanie->getData('photo_disabled') == '1') echo 'checked';?>/> Nie pokazuj zdjęcia na stronie działania
                             </label>
                         </div>
                     </div>

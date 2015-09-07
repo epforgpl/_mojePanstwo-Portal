@@ -92,7 +92,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 
                             <? if($dzialanie->getData('zakonczone') == '1') { ?>
 
-                                <div class="alert alert-info" role="alert">
+                                <div class="alert alert-info text-center margin-top-20" role="alert">
                                     Działanie zostało zakończone
                                 </div>
 
