@@ -1,14 +1,30 @@
 
 #mp-sections {
-	
+
 	margin-left: 10px;
-		
+
 	.items .item .inner .logo img {
 	    max-height: 100px;
 	}
-	
+
 	.infoBlock .content .container {
 	    width: 100%;
+    }
+
+    .item {
+
+        &.more {
+            .details {
+                color: #57A148 !important;
+            }
+        }
+
+        &.less {
+            .details {
+                color: #A14848 !important;
+            }
+        }
+
     }
 
     .leftSide {
@@ -30,10 +46,10 @@
         }
 
         .gradient_cont {
-            padding: 0 60px;
+            padding: 0 59px;
             min-height: 45px;
             position: relative;
-            top: -66px;
+            top: -32px;
             margin-bottom: -23px;
 
             .gradient {
@@ -62,16 +78,14 @@
                 position: relative;
 
                 li {
-                    margin: 0;
-                    padding: 0;
                     list-style: none;
                     position: absolute;
                     background: inherit;
                     border: none;
                     width: 250px;
                     text-align: center;
-                    margin-left: -125px;
-                    margin-top: 6px;
+                    margin: 6px 0 0 -125px;
+                    padding: 15px 0 0;
 
                     /* For Safari 3.1 to 6.0 */
                     -webkit-transition-duration: .5s;
@@ -81,25 +95,52 @@
                     transition-timing-function: ease-out;
 
                     &.min {
-                        left: 0%;
+                        left: 0;
                     }
                     &.max {
                         left: 100%;
                     }
 
+                    &._median {
+
+                        margin-top: -99px;
+                        font-size: 12px;
+                        color: #666;
+                        line-height: 1;
+                        background: #F5F5F5;
+                        width: 70px;
+                        margin-left: -35px;
+                        border-radius: 5px;
+                        padding: 2px 0;
+                        border: 1px dashed #ccc;
+
+                        &:before {
+                            border: none;
+                            background: none;
+                            border-radius: 0;
+                            border-left: 1px dashed #666;
+                            content: " ";
+                            height: 65px;
+                            left: 50%;
+                            margin-left: 0;
+                            position: absolute;
+                            top: 28px;
+                            width: 16px;
+                        }
+
+                    }
+
                     &._teryt {
                         font-weight: bold;
                         z-index: 1;
-                        top: 0;
-                        margin-top: 2px;
                         position: absolute;
-                        top: 2px;
-                        padding-top: 15px;
+                        margin-top: -140px;
+                        line-height: 1;
 
                         &:before {
                             background-color: #333;
                             border: 3px solid #fff;
-                            top: -15px;
+                            top: 130px;
                         }
                     }
 
@@ -118,9 +159,9 @@
 
                     span {
                         width: 100%;
-                        font-size: 14px;
+                        font-size: 12px;
                         margin: 0;
-                        padding: 1px 5px;
+                        padding: 0 5px;
                         display: block;
                     }
 
@@ -134,5 +175,32 @@
 
         }
     }
-		
+
+}
+
+.appSwitchers {
+
+    form {
+
+        label {
+            margin-right: 10px;
+            margin-top: 7px;
+            margin-left: 10px;
+        }
+
+    }
+
+}
+
+.nav-actions {
+
+    li {
+        &.active {
+            a {
+                color: #FFF !important;
+                background-color: #157AB5 !important;
+            }
+        }
+    }
+
 }

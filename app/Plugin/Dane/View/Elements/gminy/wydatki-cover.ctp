@@ -21,102 +21,96 @@ $options = array(
         ));
 
     }
-        
+
     $dzialy = $dataBrowser['aggs']['gmina']['wydatki']['timerange']['dzialy']['buckets'];
-    
+
     ?>
-    
-    
+
+
 
 </div>
 <div class="col-sm-10">
-	
-	    
+
+
     <div class="dataWrap">
         <div class="appBanner">
-            <h1 class="appTitle">Wydatki gminy Kraków</h1>
+            <h1 class="appTitle">Wydatki gminy <?= $object->getTitle(); ?></h1>
 
         </div>
     </div>
 
-    <div id="accountsSwitcher" class="appMenuStrip row">
-        <? if (isset($twitterTimeranges) && isset($twitterTimerange)) { ?>
-            <div class="appSwitchers">
-                <div class="dataWrap">
-                    <div class="pull-left">
-                        <p class="_label">Analizowany okres:</p>
-                        <ul class="nav nav-pills">
-                            <? foreach ($twitterTimeranges as $key => $value) { ?>
-                                <li<? if ($twitterTimerange == $key) echo ' class="active"' ?>>
-                                    <a href="/media?t=<?= $key ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>">
-                                        <?= $value ?>
-                                    </a>
-                                </li>
-                            <? } ?>
-                        </ul>
-                    </div>
-                    <div class="pull-right">
-                        <ul class="nav nav-pills">
-                            <li<? if (isset($this->request->query['t']) && ($this->request->query['t'] == $last_month_report['param'])) echo ' class="active"' ?>>
-                                <a href="/media?t=<?= $last_month_report['param'] ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>"><?= $last_month_report['label'] ?></a>
-                            </li>
+    <div id="expensesSwitcher" class="appMenuStrip row">
+        <div class="appSwitchers text-center">
+            <div class="dataWrap">
+                <form class="form-inline" method="get">
 
-                            <? if (isset($dropdownRanges)) { ?>
-                                <li<? if ($twitterTimerange == $key) echo ' class="active"' ?>>
-                                    <div class="dropdown">
-                                        <button class="clear dropdown-toggle" type="button" id="dropdownRanges"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            Więcej <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownRanges">
-                                            <? foreach ($dropdownRanges as $dropdown) { ?>
-                                                <li class="dropdown-title"><?= $dropdown['title'] ?></li>
-                                                <? foreach ($dropdown['ranges'] as $range) { ?>
-                                                    <li<? if ($twitterTimerange == $range['param'] && strlen($twitterTimerange) === strlen($range['param'])) echo ' class="active"'; ?>>
-                                                        <a href="/media?t=<?= $range['param'] ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>">
-                                                            <?= $range['label'] ?>
-                                                        </a>
-                                                    </li>
-                                                <? } ?>
-                                            <? } ?>
-                                        </ul>
-                                    </div>
-                                </li>
-                            <? } ?>
-                        </ul>
+                    <div class="form-group">
+                        <label for="rangeSelect">Analizowany okres: </label>
+                        <? if(isset($ranges)) { ?>
+                            <select id="rangeSelect" class="form-control" name="range">
+                                <? foreach($ranges as $year => $quarters) { ?>
+                                    <option value="<?= $year ?>">
+                                        <?= $year ?> - całość
+                                    </option>
+                                    <? foreach($quarters as $quarter) { ?>
+                                        <option value="<?= $year ?>Q<?= $quarter?>">
+                                            <?= $year ?> - kwartał <?= $quarter ?>
+                                        </option>
+                                    <? } ?>
+                                <? } ?>
+                            </select>
+                        <? } ?>
                     </div>
-                </div>
+
+                    <div class="form-group">
+                        <label for="modeSelect">Porównywane gminy: </label>
+                        <? if(isset($modes)) { ?>
+                            <select id="modeSelect" class="form-control" name="mode">
+                                <? foreach($modes as $value => $mode) { ?>
+                                    <option value="<?= $value ?>">
+                                        <?= $mode['label'] ?>
+                                    </option>
+                                <? } ?>
+                            </select>
+                        <? } ?>
+                    </div>
+
+                </form>
             </div>
-        <? } ?>
+        </div>
     </div>
-    
-    
+
+
     <? /*
     <div class="dataWrap">
         <div class="text-center">
 	        <p>Suma wydatków:</p>
 	        <p><?= number_format_h($dataBrowser['aggs']['gmina']['wydatki']['timerange']['wydatki']['value']); ?></p>
         </div>
-    </div>
-    
-    <ul class="nav nav-tabs">
-		<li class="active"><a href="#home" data-toggle="tab">Porównanie wydatków - w przeliczeniu na osobę</a></li>
-		<li><a href="#profile" data-toggle="tab">Porównanie wydatków - wartości absolutne</a></li>
-    </ul>
-    */ ?>
-    
-    
+    </div> */ ?>
+    <? if(isset($actions)) { ?>
+        <ul class="nav nav-tabs nav-actions margin-top-10">
+            <? foreach($actions['actions'] as $param => $a) { ?>
+                <li<? if($action == $param) echo ' class="active"'; ?>>
+                    <a href="<?= $object->getUrl(); echo '/finanse'; if($param != '') { ?>?<?= $actions['name'] ?>=<?= $param ?><? } ?>">
+                        <?= $a ?>
+                    </a>
+                </li>
+            <? } ?>
+        </ul>
+    <? } ?>
+
     <div id="mp-sections">
         <div class="content">
-            
-            <p class="text-center">Klikniaj na rodzaj wydatków, aby dowiedzieć się więcej:</p>
-            
+
+            <p class="text-center margin-top-20">Klikniaj na rodzaj wydatków, aby dowiedzieć się więcej:</p>
+
             <div class="row items">
                 <? foreach ($dzialy as $item) { ?>
                     <div class="block col-md-3">
-	                    
+
 	                    <?
-		                    
+
 		                    $dzial = false;
 							foreach( $dataBrowser['aggs']['gminy']['wydatki']['timerange']['dzialy']['buckets'] as $b ) {
 								if( $b['key']==$item['key'] ) {
@@ -124,41 +118,38 @@ $options = array(
 									break;
 								}
 							}
-							
+
 							$min = @$dzial['min']['buckets'][0]['key'];
 							$cur = $item['wydatki']['value'];
 							$max = @$dzial['max']['buckets'][0]['key'];
 							$median = (int) @$dzial['percentiles']['values']['50.0'];
-													
-							$left = ($min == $max) ? false : 100 * ( $cur - $min ) / ( $max - $min );
-							
+
 							$class = ($cur > $median) ? 'more' : 'less';
-							
+
 							$diff = $dzial['stats']['max'] - $dzial['stats']['min'];
-							$intervals = array(100000000, 10000000, 1000000, 100000);
+							$intervals = array(100000000, 10000000, 100000, 1000);
 							$histogram_i = 0;
-							
-							
-							for( $i=count($intervals)-1; $i--; $i>=0 ) {
-								
+
+							for($i = count($intervals) - 1; $i >= 0; $i--) {
+
 								$v = $intervals[$i];
-																								
+
 								if( $diff<$v*100 ) {
 									$histogram_i = $i;
 									break;
 								}
-								
+
 							}
-							
-				
-							
-							
-							$dzial['histogram']['buckets'] = $dzial['histogram_' . $histogram_i]['buckets'];
-																                    
+
+                            $left = ($min == $max) ? false : 100 * ( $cur - $min ) / ( $max - $min );
+                            $median_left = ($min == $max) ? false : 100 * ( $median - $min ) / ( $max - $min );
+
+                            $dzial['histogram']['buckets'] = $dzial['histogram_' . $histogram_i]['buckets'];
+
 	                    ?>
-	                         	                    
+
                         <div class="item <?= $class ?>" data-id="<?= $item['key'] ?>">
-							
+
                             <a href="#<?= $item['key'] ?>>" class="inner"
                                data-title="<?= $item['nazwa']['buckets'][0]['key'] ?>">
 
@@ -174,11 +165,11 @@ $options = array(
                                 <div class="title">
                                     <div class="nazwa"><?= $this->Text->truncate($item['nazwa']['buckets'][0]['key'], 50) ?></div>
                                 </div>
-                                
+
                                 <div class="subtitle" style="display: none;">
 	                                <h3>Szczegółowe wydatki gminy <?= $object->getTitle() ?> w tym dziale:</h3>
                                 </div>
-                                
+
                                 <div class="chart" style="display: none;">
 	                                <div class="histogram_cont">
 		                                <div class="histogram" data-median="<?= $median ?>" data-text="<?= $item['nazwa']['buckets'][0]['key'] ?>" data-histogram='<?= json_encode($dzial['histogram']['buckets']) ?>'>
@@ -191,13 +182,18 @@ $options = array(
 			                                	<span class="n"><?= @$dzial['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'] ?></span>
 			                                	<span class="v"><?= number_format_h($min) ?></span>
 			                                </li>
+                                            <li class="_median" style="<?
+
+                                            echo 'left: ' . round($median_left) . '%';
+
+                                            ?>">Mediana<br/><?= number_format_h($median) ?></li>
 			                                <li class="_teryt" style="<?
-			                                	
+
 			                                	if( $left===false )
 			                                		echo 'display: none;';
 			                                	else
-			                                		echo 'left: ' . round($left) . '%';	
-			                                	
+			                                		echo 'left: ' . round($left) . '%';
+
 			                                ?>">
 			                                	<span class="n"><?= $object->getTitle() ?></span>
 			                                	<span class="v"><?= number_format_h($item['wydatki']['value']) ?></span>
@@ -209,10 +205,10 @@ $options = array(
 		                                </ul>
 	                                </div>
                                 </div>
-                                
-                                
-								
-								
+
+
+
+
 								<? /*
 								gradient = $('<div></div>').addClass('gradient_cont').append(
 									$('<span></span>').addClass('gradient')
@@ -232,21 +228,21 @@ $options = array(
 									)
 								);
 								*/ ?>
-                                
-                                
+
+
                                 <table class="rozdzialy" style="display: none">
 	                            <? if( @$item['rozdzialy']['buckets'] ) { foreach($item['rozdzialy']['buckets'] as $r) {?>
-	                            	
+
 	                            	<? if( $title = @$r['nazwa']['buckets'][0]['key'] ) {?>
 	                            	<tr data-id="<?= $r['key'] ?>">
 		                            	<td><?= $title ?></td>
 		                            	<td><?= number_format_h($r['wydatki']['value']) ?></td>
 	                            	</tr>
 	                            	<? } ?>
-	                            	
+
 	                            <? } } ?>
                                 </table>
-                                
+
                             </a>
                         </div>
                     </div>
@@ -254,8 +250,8 @@ $options = array(
             </div>
         </div>
     </div>
-    
-	    
 
-	
+
+
+
 </div>

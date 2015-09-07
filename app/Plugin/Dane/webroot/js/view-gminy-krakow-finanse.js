@@ -3,6 +3,10 @@ $(document).ready(function () {
 	var lastChoose,
 		$administracja = lastChoose = $('#mp-sections');
 
+	$('#expensesSwitcher').sticky({
+		widthFromWrapper: false
+	});
+
 	$.each($administracja.find('.item a'), function () {
 		var that = $(this),
 			block = that.parents('.block'),
@@ -85,12 +89,12 @@ $(document).ready(function () {
 
 				slug.append(leftCol).append(rightCol);
 			});
-			
+
 			infoBlock.find('.arrow').css('left', block.position().left + (block.outerWidth() / 2) + 'px');
 			infoBlock.removeClass('current');
-			
+
 			rozdzialy(that);
-			
+
 		})
 	})
 });
@@ -99,14 +103,14 @@ function rozdzialy(item) {
 	var infoBlock = $('.infoBlock').attr('data-itemid', item.parent().attr('data-id')),
 		histogram,
 		gradient,
-		rozdzialy = item.find('table.rozdzialy'),	
-		subtitle = item.find('.subtitle'),	
-		chart = item.find('.chart');		
+		rozdzialy = item.find('table.rozdzialy'),
+		subtitle = item.find('.subtitle'),
+		chart = item.find('.chart');
 
 	infoBlock.find('.leftSide').html(chart.html());
 	graphInit(infoBlock);
-	
-	infoBlock.find('.rightSide').html( $(subtitle.html() + '<table>' + rozdzialy.html() + '</table>').addClass('table table-condensed') );	
+
+	infoBlock.find('.rightSide').html( $(subtitle.html() + '<table>' + rozdzialy.html() + '</table>').addClass('table table-condensed') );
 	infoBlock.css('height', infoBlock.find('.container').outerHeight(true));
 
 }
@@ -182,11 +186,11 @@ function graphInit(section) {
 		chart,
 		i = section.attr('data-itemid'),
 		title = section.find('.histogram').data('text');
-		
+
 
 	for (var d = 0; d < data.length; d++) {
 		if (data[d]) {
-			
+
 			var v = Number(data[d]['doc_count']);
 			if( v )
 				v=v+1;
@@ -196,18 +200,19 @@ function graphInit(section) {
 			});
 		}
 	}
-	
-	
+
+
 	histogram_div.attr('id', 'h' + i);
-	
-	
+
+
 	chart = new Highcharts.Chart({
 		chart: {
 			renderTo: 'h' + i,
 			type: 'column',
-			height: 150,
+			height: 250,
 			backgroundColor: null,
-			spacingTop: 0
+			spacingTop: 0,
+			marginBottom : 100
 		},
 
 		tooltip: {
@@ -229,7 +234,8 @@ function graphInit(section) {
 		},
 
 		title: {
-			text: title
+			text: title,
+			y: 20
 		},
 
 		xAxis: {
@@ -262,7 +268,10 @@ function graphInit(section) {
 				groupPadding: 0,
 				pointPadding: 0,
 				borderWidth: 0,
-				minPointLength: 0,
+				minPointLength: 0
+			},
+			series: {
+				pointPlacement: "on"
 			}
 		},
 
