@@ -267,7 +267,7 @@ function graphInit(section) {
 				groupPadding: 0,
 				pointPadding: 0,
 				borderWidth: 0,
-				minPointLength: 0
+				minPointLength: 10
 			},
 			series: {
 				pointPlacement: "on"

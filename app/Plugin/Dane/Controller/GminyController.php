@@ -3844,7 +3844,7 @@ class GminyController extends DataobjectsController
         
         $gminy_filter = array(
 	        'term' => array(
-		        'data.gminy.typ_id' => '1',
+		        'gminy.typ_id' => '3',
 	        ),
         );
         */
