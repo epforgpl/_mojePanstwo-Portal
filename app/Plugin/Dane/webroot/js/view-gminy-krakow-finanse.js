@@ -2,16 +2,14 @@
 $(document).ready(function () {
 	var lastChoose,
 		$administracja = lastChoose = $('#mp-sections');
-
-	$('#expensesSwitcher').sticky({
-		widthFromWrapper: false
-	});
-
+	
+	graphInit('#mainChart');
+	
 	$.each($administracja.find('.item a'), function () {
 		var that = $(this),
 			block = that.parents('.block'),
 			items = $(block.parent('.items'));
-
+				
 		that.click(function (e) {
 			var next = block.next(),
 				targetPos = block.position().top,
@@ -55,7 +53,7 @@ $(document).ready(function () {
 				}
 			}
 
-			var infoBlock = $('<div></div>').addClass('infoBlock current active col-xs-12').css('height', 0).append(
+			var infoBlock = $('<div></div>').addClass('infoBlock _chart current active col-xs-12').css('height', 0).append(
 				$('<div></div>').addClass('arrow')
 			).append(
 				$('<div></div>').addClass('content').append(
@@ -100,7 +98,7 @@ $(document).ready(function () {
 });
 
 function rozdzialy(item) {
-	var infoBlock = $('.infoBlock').attr('data-itemid', item.parent().attr('data-id')),
+	var infoBlock = $('._chart').attr('data-itemid', item.parent().attr('data-id')),
 		histogram,
 		gradient,
 		rozdzialy = item.find('table.rozdzialy'),
@@ -180,13 +178,18 @@ function pl_currency_format(n) {
 }
 
 function graphInit(section) {
-	var histogram_div = jQuery(section.find('.histogram')),
+	
+	var section = $(section),
+		histogram_div = jQuery(section.find('.histogram')),
 		data = histogram_div.data('histogram'),
 		charts_data = [],
 		chart,
 		i = section.attr('data-itemid'),
 		title = section.find('.histogram').data('text');
-
+	
+	console.log('section', section);
+	console.log('histogram_div', histogram_div);
+	console.log('data', data);
 
 	for (var d = 0; d < data.length; d++) {
 		if (data[d]) {

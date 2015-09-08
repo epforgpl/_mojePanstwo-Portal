@@ -27,154 +27,153 @@
 
     }
 
-    .leftSide {
-        .histogram_cont {
-            padding: 0 43px;
+    .histogram_cont {
+        padding: 0 43px;
+        height: 170px;
+
+        .histogram {
+            display: block;
+            width: 100%;
             height: 170px;
 
-            .histogram {
+            .highcharts-container {
                 display: block;
-                width: 100%;
+                float: left;
                 height: 170px;
-
-                .highcharts-container {
-                    display: block;
-                    float: left;
-                    height: 170px;
-                }
             }
         }
+    }
 
-        .gradient_cont {
-            padding: 0 59px;
-            min-height: 45px;
+    .gradient_cont {
+        padding: 0 59px;
+        min-height: 45px;
+        position: relative;
+        top: -32px;
+        margin-bottom: -23px;
+
+        .gradient {
+            background: #2746f7; /* Old browsers */
+            background: -moz-linear-gradient(left, blue 0%, red 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, right top, color-stop(0%, #2746f7), color-stop(100%, #cc1c1c)); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(left, blue 0%, red 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(left, blue 0%, red 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(left, blue 0%, red 100%); /* IE10+ */
+            background: linear-gradient(to right, blue 0%, red 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2746f7', endColorstr='#cc1c1c', GradientType=1); /* IE6-9 */
+            width: 100%;
+            height: 5px;
+            display: block;
+            margin: 10px 0 0;
+            border-radius: 4px;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            -o-border-radius: 4px;
+        }
+
+        .addons {
+            margin: 0;
+            padding: 0;
+            list-style: none;
             position: relative;
-            top: -32px;
-            margin-bottom: -23px;
 
-            .gradient {
-                background: #2746f7; /* Old browsers */
-                background: -moz-linear-gradient(left, blue 0%, red 100%); /* FF3.6+ */
-                background: -webkit-gradient(linear, left top, right top, color-stop(0%, #2746f7), color-stop(100%, #cc1c1c)); /* Chrome,Safari4+ */
-                background: -webkit-linear-gradient(left, blue 0%, red 100%); /* Chrome10+,Safari5.1+ */
-                background: -o-linear-gradient(left, blue 0%, red 100%); /* Opera 11.10+ */
-                background: -ms-linear-gradient(left, blue 0%, red 100%); /* IE10+ */
-                background: linear-gradient(to right, blue 0%, red 100%); /* W3C */
-                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2746f7', endColorstr='#cc1c1c', GradientType=1); /* IE6-9 */
-                width: 100%;
-                height: 5px;
-                display: block;
-                margin: 10px 0 0;
-                border-radius: 4px;
-                -webkit-border-radius: 4px;
-                -moz-border-radius: 4px;
-                -o-border-radius: 4px;
-            }
-
-            .addons {
-                margin: 0;
-                padding: 0;
+            li {
                 list-style: none;
-                position: relative;
+                position: absolute;
+                background: inherit;
+                border: none;
+                width: 250px;
+                text-align: center;
+                margin: 6px 0 0 -125px;
+                padding: 15px 0 0;
 
-                li {
-                    list-style: none;
-                    position: absolute;
-                    background: inherit;
-                    border: none;
-                    width: 250px;
-                    text-align: center;
-                    margin: 6px 0 0 -125px;
-                    padding: 15px 0 0;
+                /* For Safari 3.1 to 6.0 */
+                -webkit-transition-duration: .5s;
+                -webkit-transition-timing-function: ease-out;
+                /* Standard syntax */
+                transition-duration: .5s;
+                transition-timing-function: ease-out;
 
-                    /* For Safari 3.1 to 6.0 */
-                    -webkit-transition-duration: .5s;
-                    -webkit-transition-timing-function: ease-out;
-                    /* Standard syntax */
-                    transition-duration: .5s;
-                    transition-timing-function: ease-out;
+                &.min {
+                    left: 0;
+                }
+                &.max {
+                    left: 100%;
+                }
 
-                    &.min {
-                        left: 0;
-                    }
-                    &.max {
-                        left: 100%;
-                    }
+                &._median {
 
-                    &._median {
-
-                        margin-top: -99px;
-                        font-size: 12px;
-                        color: #666;
-                        line-height: 1;
-                        background: #F5F5F5;
-                        width: 70px;
-                        margin-left: -35px;
-                        border-radius: 5px;
-                        padding: 2px 0;
-                        border: 1px dashed #ccc;
-
-                        &:before {
-                            border: none;
-                            background: none;
-                            border-radius: 0;
-                            border-left: 1px dashed #666;
-                            content: " ";
-                            height: 65px;
-                            left: 50%;
-                            margin-left: 0;
-                            position: absolute;
-                            top: 28px;
-                            width: 16px;
-                        }
-
-                    }
-
-                    &._teryt {
-                        font-weight: bold;
-                        z-index: 1;
-                        position: absolute;
-                        margin-top: -140px;
-                        line-height: 1;
-
-                        &:before {
-                            background-color: #333;
-                            border: 3px solid #fff;
-                            top: 130px;
-                        }
-                    }
+                    margin-top: -99px;
+                    font-size: 12px;
+                    color: #666;
+                    line-height: 1;
+                    background: #F5F5F5;
+                    width: 70px;
+                    margin-left: -35px;
+                    border-radius: 5px;
+                    padding: 2px 0;
+                    border: 1px dashed #ccc;
 
                     &:before {
-                        background-color: #fff;
-                        border: 1px solid #666;
-                        border-radius: 50px;
+                        border: none;
+                        background: none;
+                        border-radius: 0;
+                        border-left: 1px dashed #666;
                         content: " ";
-                        height: 16px;
+                        height: 65px;
                         left: 50%;
-                        margin-left: -8px;
+                        margin-left: 0;
                         position: absolute;
-                        top: -17px;
+                        top: 28px;
                         width: 16px;
                     }
 
-                    span {
-                        width: 100%;
-                        font-size: 12px;
-                        margin: 0;
-                        padding: 0 5px;
-                        display: block;
-                    }
+                }
 
-                    &.section_addon {
-                        .n {
-                            margin-top: -65px !important; /*TODO:check if it REALLY need*/
-                        }
+                &._teryt {
+                    font-weight: bold;
+                    z-index: 1;
+                    position: absolute;
+                    margin-top: -140px;
+                    line-height: 1;
+
+                    &:before {
+                        background-color: #333;
+                        border: 3px solid #fff;
+                        top: 130px;
+                    }
+                }
+
+                &:before {
+                    background-color: #fff;
+                    border: 1px solid #666;
+                    border-radius: 50px;
+                    content: " ";
+                    height: 16px;
+                    left: 50%;
+                    margin-left: -8px;
+                    position: absolute;
+                    top: -17px;
+                    width: 16px;
+                }
+
+                span {
+                    width: 100%;
+                    font-size: 12px;
+                    margin: 0;
+                    padding: 0 5px;
+                    display: block;
+                }
+
+                &.section_addon {
+                    .n {
+                        margin-top: -65px !important; /*TODO:check if it REALLY need*/
                     }
                 }
             }
-
         }
+
     }
+
 
 }
 
