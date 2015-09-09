@@ -3785,9 +3785,74 @@ class GminyController extends DataobjectsController
 
         $this->_prepareView();
         $this->loadModel('Dane.Gmina');
-
+		
         $population = $this->object->getData('liczba_ludnosci');
         $populationRange = $this->Gmina->getPopulationRange($population);
+		
+		$options = array(
+			'data' => array(
+				'items' => array(
+					array(
+						'id' => 'wydatki_na_osobe',
+						'label' => 'Wydatki - w przeliczeniu na osobę',
+						'default' => true,
+					),
+					array(
+						'id' => 'wydatki',
+						'label' => 'Wydatki - wartości absolutne',
+					),
+				),
+			),
+			'timerange' => array(
+				'items' => array(
+					array(
+						'id' => 2014,
+						'label' => '2014 - cały rok',
+						'default' => true,
+					),
+					array(
+						'id' => '2014Q3',
+						'label' => '2014 - III kwartał',
+					),array(
+						'id' => '2014Q2',
+						'label' => '2014 - II kwartał',
+					),
+					array(
+						'id' => '2014Q1',
+						'label' => '2014 - I kwartał',
+					),
+				),
+			),
+			'compare' => array(
+				'items' => array(
+					array(
+						'id' => 'wszystkie',
+						'label' => 'Wszystkie gminy',
+					),
+					array(
+						'id' => 'miejskie',
+						'label' => 'Gminy miejskie',
+					),
+					array(
+						'id' => 'miejsko-wiejskie',
+						'label' => 'Gminy miejsko-wiejskie',
+					),
+					array(
+						'id' => 'wiejskie',
+						'label' => 'Gminy wiejskie',
+					),
+				),
+			),
+		);
+		
+		
+		foreach( $options as $key => &$option ) {
+			
+			// $allowed_values = 
+			
+		}
+		
+		
 		
         $ranges = array(
             2014 => array(
