@@ -3848,10 +3848,25 @@ class GminyController extends DataobjectsController
 		
 		foreach( $options as $key => &$option ) {
 			
-			// $allowed_values = 
-			
+			$allowed_values = array_column($option['items'], 'id');
+				
+			if(
+				array_key_exists($key, $this->request->query) && 
+				in_array($this->request->query[$key], $allowed_values)
+			) {
+				
+				$option['selected_id'] = $this->request->query[$key];
+				$option['selected_i'] = array_search($this->request->query[$key], $allowed_values);
+				
+			} else {
+				
+				$option['selected_id'] = $option['items'][0]['id'];
+				$option['selected_i'] = 0;
+				
+			}
+						
 		}
-		
+				
 		
 		
         $ranges = array(
