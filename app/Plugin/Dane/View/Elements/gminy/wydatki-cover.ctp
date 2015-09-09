@@ -47,7 +47,7 @@ $dzialy = $dataBrowser['aggs']['gmina']['wydatki']['timerange']['dzialy']['bucke
         <div class="appSwitchers text-center">
                 <form id="dataForm" method="get" class="col-sm-12">
 					<div class="row">
-						
+
 						<div class="col-sm-4">
 
 		                    <div class="form-group">
@@ -57,9 +57,9 @@ $dzialy = $dataBrowser['aggs']['gmina']['wydatki']['timerange']['dzialy']['bucke
 	                                    <option value="wydatki">Wydatki - wartości absolutne</option>
 		                            </select>
 		                    </div>
-		                    
+
 						</div><div class="col-sm-4">
-							
+
 		                    <div class="form-group">
 		                        <label for="rangeSelect">Analizowany okres: </label>
 		                        <? if(isset($ranges)) { ?>
@@ -77,7 +77,7 @@ $dzialy = $dataBrowser['aggs']['gmina']['wydatki']['timerange']['dzialy']['bucke
 		                            </select>
 		                        <? } ?>
 		                    </div>
-		                    
+
 						</div><div class="col-sm-4">
 
 		                    <div class="form-group">
@@ -92,36 +92,36 @@ $dzialy = $dataBrowser['aggs']['gmina']['wydatki']['timerange']['dzialy']['bucke
 		                            </select>
 		                        <? } ?>
 		                    </div>
-		                    
+
 						</div>
 					</div>
                 </form>
 
         </div>
     </div>
-    
+
 
     <div id="mp-sections">
         <div class="content">
-			
+
 			<?
 				// debug( array_keys($dataBrowser['aggs']['gminy']['wydatki']['timerange'] )); die();
 				// debug( $dataBrowser['aggs']['gmina']['wydatki']['timerange']['wydatki']['value'] ); die();
-				
+
 				$min = @$dataBrowser['aggs']['gminy']['wydatki']['timerange']['min']['buckets'][0]['key'];
 				$cur = $dataBrowser['aggs']['gmina']['wydatki']['timerange']['wydatki']['value'];
 				$max = @$dataBrowser['aggs']['gminy']['wydatki']['timerange']['max']['buckets'][0]['key'];
 				$median = (int) @$dataBrowser['aggs']['gminy']['wydatki']['timerange']['percentiles']['values']['50.0'];
 				$left = ($min == $max) ? false : 100 * ( $cur - $min ) / ( $max - $min );
 				$median_left = ($min == $max) ? false : 100 * ( $median - $min ) / ( $max - $min );
-								
+
 			?>
-			
-			
-			
+
+
+
 			<? // debug($dataBrowser['aggs']['gminy']['wydatki']['timerange']['histogram_0']); ?>
-			
-			
+
+
 			<div id="mainChart" class="">
                 <div class="histogram_cont">
                     <div class="histogram" data-median="<?= $dataBrowser['aggs']['gminy']['wydatki']['timerange']['percentiles']['values']['50.0'] ?>" data-text="Wydatki w przeliczeniu na osobę" data-histogram='<?= json_encode($dataBrowser['aggs']['gminy']['wydatki']['timerange']['histogram_1']['buckets']) ?>'>
@@ -157,13 +157,13 @@ $dzialy = $dataBrowser['aggs']['gmina']['wydatki']['timerange']['dzialy']['bucke
                     </ul>
                 </div>
             </div>
-			
+
 			<div class="row text-center margin-top-20">
 				<div class="col-sm-8 col-sm-offset-2">
-					
+
 		            <p>Wydatki zaznaczone kolorem zielonem, to wydatki na które <?= $object->getTitle() ?> wydaje <strong>więcej</strong> niż przeciętna gmina. Wydatki zaznaczone kolorem czerwonym, to wydatki na które <?= $object->getTitle() ?> wydaje <strong>mniej</strong> niż przeciętna gmina.</p>
 		            <p>Kliknij na rodzaj wydatków, aby dowiedzieć się więcej:</p>
-		        
+
 				</div>
 			</div>
 
