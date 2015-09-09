@@ -3785,10 +3785,10 @@ class GminyController extends DataobjectsController
 
         $this->_prepareView();
         $this->loadModel('Dane.Gmina');
-		
+
         $population = $this->object->getData('liczba_ludnosci');
         $populationRange = $this->Gmina->getPopulationRange($population);
-		
+
 		$options = array(
 			'data' => array(
 				'items' => array(
@@ -3806,7 +3806,7 @@ class GminyController extends DataobjectsController
 			'timerange' => array(
 				'items' => array(
 					array(
-						'id' => 2014,
+						'id' => '2014',
 						'label' => '2014 - cały rok',
 						'default' => true,
 					),
@@ -3844,69 +3844,30 @@ class GminyController extends DataobjectsController
 				),
 			),
 		);
-		
-		
+
+
 		foreach( $options as $key => &$option ) {
-			
+
 			$allowed_values = array_column($option['items'], 'id');
-				
+
 			if(
-				array_key_exists($key, $this->request->query) && 
+				array_key_exists($key, $this->request->query) &&
 				in_array($this->request->query[$key], $allowed_values)
 			) {
-				
+
 				$option['selected_id'] = $this->request->query[$key];
 				$option['selected_i'] = array_search($this->request->query[$key], $allowed_values);
-				
+
 			} else {
-				
+
 				$option['selected_id'] = $option['items'][0]['id'];
 				$option['selected_i'] = 0;
-				
+
 			}
-						
+
 		}
-				
-		
-		
-        $ranges = array(
-            2014 => array(
-                3, 2, 1
-            )
-        );
 
-        $modes = array(
-            'all' => array(
-                'label' => 'Wszystkie'
-            )
-        );
-		
-        $actions = array(
-
-            'name' => 'action',
-
-            'actions' => array(
-
-                '' => 'Porównanie wydatków - wartości absolutne',
-                'pp' => 'Porównanie wydatków - w przeliczeniu na osobę'
-
-            )
-
-        );
-
-        $action = '';
-        if(isset($this->request->query[$actions['name']])) {
-            if(array_key_exists($this->request->query($actions['name']), $actions['actions']))
-                $action = $this->request->query($actions['name']);
-        }
-
-        $this->set('actions', $actions);
-        $this->set('action', $action);
-        $this->set('ranges', $ranges);
-        $this->set('modes', $modes);
-
-        if($action != '')
-            $action = '_' . $action;
+        $this->set('filter_options', $options);
 
         $gminy_filter = array(
             'range' => array(
@@ -3916,12 +3877,12 @@ class GminyController extends DataobjectsController
                 ),
             ),
         );
-        
+
         /*
         $gminy_filter = array(
 	        'match_all' => '_empty',
         );
-        
+
         $gminy_filter = array(
 	        'term' => array(
 		        'gminy.typ_id' => '3',
@@ -3929,10 +3890,22 @@ class GminyController extends DataobjectsController
         );
         */
 
-        $rok = 2014;
-        $kwartal = 2;
-        
-        
+        $timerange = $options['timerange']['items'][
+            $options['timerange']['selected_i']
+        ]['id'];
+
+        if(preg_match('/^([0-9]{4})$/', $timerange)) {
+            $rok = (int) $timerange;
+            $kwartal = 0;
+        } elseif(preg_match('/^([0-9]{4})Q([0-4]{1})$/', $timerange)) {
+            $p = explode('Q', $timerange);
+            $rok = (int) $p[0];
+            $kwartal = (int) $p[1];
+        } else {
+            throw new NotFoundException;
+        }
+
+
         $wydatki_aggs = array(
             'min' => array(
                 'terms' => array(
@@ -4126,7 +4099,7 @@ class GminyController extends DataobjectsController
                                         'aggs' => array(
                                             'wydatki' => array(
                                                 'sum' => array(
-                                                    'field' => 'wydatki' . $action,
+                                                    'field' => 'wydatki',
                                                 ),
                                             ),
                                             'dzialy' => array(
@@ -4146,7 +4119,7 @@ class GminyController extends DataobjectsController
                                                     ),
                                                     'wydatki' => array(
                                                         'sum' => array(
-                                                            'field' => 'wydatki' . $action,
+                                                            'field' => 'wydatki',
                                                         ),
                                                     ),
                                                     'rozdzialy' => array(

@@ -2,14 +2,18 @@
 $(document).ready(function () {
 	var lastChoose,
 		$administracja = lastChoose = $('#mp-sections');
-	
+
 	graphInit('#mainChart');
-	
+
+	$('#dataForm select').change(function() {
+		$('#dataForm').submit();
+	});
+
 	$.each($administracja.find('.item a'), function () {
 		var that = $(this),
 			block = that.parents('.block'),
 			items = $(block.parent('.items'));
-				
+
 		that.click(function (e) {
 			var next = block.next(),
 				targetPos = block.position().top,
@@ -178,7 +182,7 @@ function pl_currency_format(n) {
 }
 
 function graphInit(section) {
-	
+
 	var section = $(section),
 		histogram_div = jQuery(section.find('.histogram')),
 		data = histogram_div.data('histogram'),
@@ -186,7 +190,7 @@ function graphInit(section) {
 		chart,
 		i = section.attr('data-itemid'),
 		title = section.find('.histogram').data('text');
-	
+
 	console.log('section', section);
 	console.log('histogram_div', histogram_div);
 	console.log('data', data);

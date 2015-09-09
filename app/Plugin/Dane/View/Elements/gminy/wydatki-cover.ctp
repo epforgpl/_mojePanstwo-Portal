@@ -43,85 +43,79 @@ $dzialy = $dataBrowser['aggs']['gmina']['wydatki']['timerange']['dzialy']['bucke
         </div>
     </div>
 
-    <div>
-        <div class="appSwitchers text-center">
+    <? if(isset($filter_options)) { ?>
+        <div>
+            <div class="appSwitchers text-center">
                 <form id="dataForm" method="get" class="col-sm-12">
-					<div class="row">
-						
-						<div class="col-sm-4">
+                    <div class="row">
 
-		                    <div class="form-group">
-		                        <label for="modeSelect">Dane: </label>
-		                            <select id="dataSelect" class="form-control" name="data">
-	                                    <option value="wydatki-na-osobe">Wydatki - w przeliczeniu na osobę</option>
-	                                    <option value="wydatki">Wydatki - wartości absolutne</option>
-		                            </select>
-		                    </div>
-		                    
-						</div><div class="col-sm-4">
-							
-		                    <div class="form-group">
-		                        <label for="rangeSelect">Analizowany okres: </label>
-		                        <? if(isset($ranges)) { ?>
-		                            <select id="rangeSelect" class="form-control" name="range">
-		                                <? foreach($ranges as $year => $quarters) { ?>
-		                                    <option value="<?= $year ?>">
-		                                        <?= $year ?> - całość
-		                                    </option>
-		                                    <? foreach($quarters as $quarter) { ?>
-		                                        <option value="<?= $year ?>Q<?= $quarter?>">
-		                                            <?= $year ?> - kwartał <?= $quarter ?>
-		                                        </option>
-		                                    <? } ?>
-		                                <? } ?>
-		                            </select>
-		                        <? } ?>
-		                    </div>
-		                    
-						</div><div class="col-sm-4">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="dataSelect">Dane: </label>
+                                <select id="dataSelect" class="form-control" name="data">
+                                    <? foreach($filter_options['data']['items'] as $i => $item) { ?>
+                                        <option value="<?= $item['id'] ?>"<? if($filter_options['data']['selected_id'] == $item['id']) echo ' selected'; ?>>
+                                            <?= $item['label'] ?>
+                                        </option>
+                                    <? } ?>
+                                </select>
+                            </div>
+                        </div>
 
-		                    <div class="form-group">
-		                        <label for="modeSelect">Porównywane gminy: </label>
-		                        <? if(isset($modes)) { ?>
-		                            <select id="modeSelect" class="form-control" name="mode">
-		                                <? foreach($modes as $value => $mode) { ?>
-		                                    <option value="<?= $value ?>">
-		                                        <?= $mode['label'] ?>
-		                                    </option>
-		                                <? } ?>
-		                            </select>
-		                        <? } ?>
-		                    </div>
-		                    
-						</div>
-					</div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="rangeSelect">Analizowany okres: </label>
+                                <select id="rangeSelect" class="form-control" name="timerange">
+                                    <? foreach($filter_options['timerange']['items'] as $i => $item) { ?>
+                                        <option value="<?= $item['id'] ?>"<? if($filter_options['timerange']['selected_id'] == $item['id']) echo ' selected'; ?>>
+                                            <?= $item['label'] ?>
+                                        </option>
+                                    <? } ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="modeSelect">Porównywane gminy: </label>
+                                <select id="modeSelect" class="form-control" name="compare">
+                                    <? foreach($filter_options['compare']['items'] as $i => $item) { ?>
+                                        <option value="<?= $item['id'] ?>"<? if($filter_options['compare']['selected_id'] == $item['id']) echo ' selected'; ?>>
+                                            <?= $item['label'] ?>
+                                        </option>
+                                    <? } ?>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
                 </form>
-
+            </div>
         </div>
-    </div>
-    
+    <? } ?>
+
 
     <div id="mp-sections">
         <div class="content">
-			
+
 			<?
 				// debug( array_keys($dataBrowser['aggs']['gminy']['wydatki']['timerange'] )); die();
 				// debug( $dataBrowser['aggs']['gmina']['wydatki']['timerange']['wydatki']['value'] ); die();
-				
+
 				$min = @$dataBrowser['aggs']['gminy']['wydatki']['timerange']['min']['buckets'][0]['key'];
 				$cur = $dataBrowser['aggs']['gmina']['wydatki']['timerange']['wydatki']['value'];
 				$max = @$dataBrowser['aggs']['gminy']['wydatki']['timerange']['max']['buckets'][0]['key'];
 				$median = (int) @$dataBrowser['aggs']['gminy']['wydatki']['timerange']['percentiles']['values']['50.0'];
-				$left = ($min == $max) ? false : 100 * ( $cur - $min ) / ( $max - $min );
-				$median_left = ($min == $max) ? false : 100 * ( $median - $min ) / ( $max - $min );
-								
+				$left = ($min == $max) ? 0 : 100 * ( $cur - $min ) / ( $max - $min );
+				$median_left = ($min == $max) ? 0 : 100 * ( $median - $min ) / ( $max - $min );
+
 			?>
-			
-			
-			
+
+
+
 			<? // debug($dataBrowser['aggs']['gminy']['wydatki']['timerange']['histogram_0']); ?>
-			
-			
+
+
 			<div id="mainChart" class="">
                 <div class="histogram_cont">
                     <div class="histogram" data-median="<?= $dataBrowser['aggs']['gminy']['wydatki']['timerange']['percentiles']['values']['50.0'] ?>" data-text="Wydatki w przeliczeniu na osobę" data-histogram='<?= json_encode($dataBrowser['aggs']['gminy']['wydatki']['timerange']['histogram_1']['buckets']) ?>'>
@@ -157,13 +151,13 @@ $dzialy = $dataBrowser['aggs']['gmina']['wydatki']['timerange']['dzialy']['bucke
                     </ul>
                 </div>
             </div>
-			
+
 			<div class="row text-center margin-top-20">
 				<div class="col-sm-8 col-sm-offset-2">
-					
+
 		            <p>Wydatki zaznaczone kolorem zielonem, to wydatki na które <?= $object->getTitle() ?> wydaje <strong>więcej</strong> niż przeciętna gmina. Wydatki zaznaczone kolorem czerwonym, to wydatki na które <?= $object->getTitle() ?> wydaje <strong>mniej</strong> niż przeciętna gmina.</p>
 		            <p>Kliknij na rodzaj wydatków, aby dowiedzieć się więcej:</p>
-		        
+
 				</div>
 			</div>
 
