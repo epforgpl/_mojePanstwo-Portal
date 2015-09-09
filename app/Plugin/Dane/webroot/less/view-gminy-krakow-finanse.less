@@ -101,7 +101,7 @@
                 }
 
                 &._median {
-
+                    z-index: 2;
                     margin-top: -99px;
                     font-size: 12px;
                     color: #666;
@@ -130,16 +130,30 @@
                 }
 
                 &._teryt {
-                    font-weight: bold;
                     z-index: 1;
-                    position: absolute;
-                    margin-top: -140px;
+                    margin-top: -129px;
+                    font-size: 12px;
+                    color: #fff;
                     line-height: 1;
+                    background: #12669F;
+                    width: 70px;
+                    margin-left: -35px;
+                    border-radius: 5px;
+                    padding: 2px 0;
+                    border: none;
 
                     &:before {
-                        background-color: #333;
-                        border: 3px solid #fff;
-                        top: 130px;
+                        border: none;
+                        background: none;
+                        border-radius: 0;
+                        border-left: 1px dashed #12669F;
+                        content: " ";
+                        height: 95px;
+                        left: 50%;
+                        margin-left: 0;
+                        position: absolute;
+                        top: 28px;
+                        width: 16px;
                     }
                 }
 
