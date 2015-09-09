@@ -3785,9 +3785,89 @@ class GminyController extends DataobjectsController
 
         $this->_prepareView();
         $this->loadModel('Dane.Gmina');
-
+		
         $population = $this->object->getData('liczba_ludnosci');
         $populationRange = $this->Gmina->getPopulationRange($population);
+		
+		$options = array(
+			'data' => array(
+				'items' => array(
+					array(
+						'id' => 'wydatki_na_osobe',
+						'label' => 'Wydatki - w przeliczeniu na osobę',
+						'default' => true,
+					),
+					array(
+						'id' => 'wydatki',
+						'label' => 'Wydatki - wartości absolutne',
+					),
+				),
+			),
+			'timerange' => array(
+				'items' => array(
+					array(
+						'id' => 2014,
+						'label' => '2014 - cały rok',
+						'default' => true,
+					),
+					array(
+						'id' => '2014Q3',
+						'label' => '2014 - III kwartał',
+					),array(
+						'id' => '2014Q2',
+						'label' => '2014 - II kwartał',
+					),
+					array(
+						'id' => '2014Q1',
+						'label' => '2014 - I kwartał',
+					),
+				),
+			),
+			'compare' => array(
+				'items' => array(
+					array(
+						'id' => 'wszystkie',
+						'label' => 'Wszystkie gminy',
+					),
+					array(
+						'id' => 'miejskie',
+						'label' => 'Gminy miejskie',
+					),
+					array(
+						'id' => 'miejsko-wiejskie',
+						'label' => 'Gminy miejsko-wiejskie',
+					),
+					array(
+						'id' => 'wiejskie',
+						'label' => 'Gminy wiejskie',
+					),
+				),
+			),
+		);
+		
+		
+		foreach( $options as $key => &$option ) {
+			
+			$allowed_values = array_column($option['items'], 'id');
+				
+			if(
+				array_key_exists($key, $this->request->query) && 
+				in_array($this->request->query[$key], $allowed_values)
+			) {
+				
+				$option['selected_id'] = $this->request->query[$key];
+				$option['selected_i'] = array_search($this->request->query[$key], $allowed_values);
+				
+			} else {
+				
+				$option['selected_id'] = $option['items'][0]['id'];
+				$option['selected_i'] = 0;
+				
+			}
+						
+		}
+				
+		
 		
         $ranges = array(
             2014 => array(
@@ -3844,7 +3924,7 @@ class GminyController extends DataobjectsController
         
         $gminy_filter = array(
 	        'term' => array(
-		        'data.gminy.typ_id' => '1',
+		        'gminy.typ_id' => '3',
 	        ),
         );
         */

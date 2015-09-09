@@ -240,7 +240,7 @@ $dzialy = $dataBrowser['aggs']['gmina']['wydatki']['timerange']['dzialy']['bucke
 	                                <div class="gradient_cont">
 		                                <span class="gradient"></span>
 		                                <ul class="addons">
-			                                <li class="min" style="left: 2%;">
+			                                <li class="min">
 			                                	<span class="n"><?= @$dzial['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'] ?></span>
 			                                	<span class="v"><?= number_format_h($min) ?></span>
 			                                </li>

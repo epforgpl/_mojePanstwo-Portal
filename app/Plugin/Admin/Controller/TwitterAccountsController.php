@@ -39,6 +39,9 @@ class TwitterAccountsController extends AdminAppController {
     }
 
     public function add($id) {
+        if(!array_key_exists($this->request->data['type'], $this->types))
+            throw new NotFoundException;
+
         $data = $this->TwitterAccountSuggestion->find('first', array(
             'fields' => array('TwitterAccountSuggestion.name', 'TwitterAccountSuggestion.type_id'),
             'conditions' => array(
@@ -49,7 +52,7 @@ class TwitterAccountsController extends AdminAppController {
         if($name = @$data['TwitterAccountSuggestion']['name']) {
             $this->TwitterAccount->save(array(
                 'twitter_name' => $name,
-                'typ_id' => $data['TwitterAccountSuggestion']['type_id']
+                'typ_id' => (int) $this->request->params['type']
             ));
 
             $this->TwitterAccountSuggestion->delete($id);
