@@ -65,7 +65,7 @@ $(document).ready(function () {
 					infoBlock = $administracja.find('.infoBlock');
 					infoBlock.addClass('current active');
 				} else {
-					$administracja.find('.infoBlock').addClass('old').removeClass('active').css({
+					$administracja.find('.infoBlock.active').addClass('old').removeClass('active').css({
 						'height': 0,
 						'border-width': 0
 					}).stop(true, true).animate({'margin-top': 0}, 500, function () {
@@ -96,7 +96,7 @@ $(document).ready(function () {
 });
 
 function rozdzialy(item) {
-	var infoBlock = $('._chart').attr('data-itemid', item.parent().attr('data-id')),
+	var infoBlock = $('._chart.active').attr('data-itemid', item.parent().attr('data-id')),
 		chart = item.find('.highchart');
 
 	infoBlock.find('.leftSide').html(chart.html());
@@ -133,39 +133,33 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 	return s.join(dec);
 }
 
-function pl_currency_format(n) {
+function pl_currency_format(n, prec) {
 	var str = '';
+	var bln = 0;
 	var mld = 0;
 	var mln = 0;
 	var tys = 0;
 
 	if (n > 1000000000) {
-		mld = Math.round(n / 1000000000, 2);
+		mld = (n / 1000000000).toFixed(prec);
 		n -= mld * 1000000000;
-		return mld + ' Mld';
+		return mld + ' mld zł.';
 	}
 
 	if (n > 1000000) {
-		mln = Math.round(n / 1000000, 2);
+		mln = (n / 1000000).toFixed(prec)
 		n -= mln * 1000000;
-		return mln + ' M';
+		return mln + ' mln zł.';
 	}
 
 	if (n > 1000) {
-		tys = Math.round(n / 1000, 2);
+		tys = (n / 1000).toFixed(prec)
 		n -= tys * 1000;
-		return tys + ' k';
+		return tys + ' tys. zł.';
 	}
 
-	if (mld > 0)
-		str += mld + ' Mld ';
-	if (mln > 0)
-		str += mln + ' M ';
-	if (tys > 0 && mld === 0)
-		str += tys + ' k';
-
 	if (mld === 0 && mln === 0 && tys === 0)
-		str += number_format(n);
+		str += n + '%';
 
 	return str.trim();
 }
@@ -207,14 +201,14 @@ function graphInit(section) {
 			backgroundColor: null,
 			height: 400,
 			spacingTop: 10,
-			marginBottom : 30
+			marginBottom: 30
 		},
 
 		tooltip: {
 			enabled: true,
-			formatter: function(){
+			formatter: function () {
 				var y = Number(this.y);
-				return 'Liczba gmin, których wydatki mieszczą się w przedziale ' + pl_currency_format( this.x ) + ' - ' + pl_currency_format( this.x + 100000000 ) + ':<br/><b>' + y + '</b>';
+				return title+ '<br/>'+this.x+': <b>' + pl_currency_format(y, 2) + '</b>';
 			}
 		},
 
@@ -240,7 +234,9 @@ function graphInit(section) {
 		},
 
 		yAxis: {
-			gridLineWidth: 0,
+
+			min: 0,
+			gridLineWidth: 1,
 			title: {
 				text: '',
 				offset: 20,
@@ -249,6 +245,11 @@ function graphInit(section) {
 					'font-family': '"Helvetica Neue",Helvetica,Arial,sans-serif',
 					'font-size': '13px',
 					'font-weight': '300'
+				}
+			},
+			labels: {
+				formatter: function () {
+					return pl_currency_format(this.value, 0);
 				}
 			}
 		},

@@ -33,21 +33,18 @@ $this->Combinator->add_libs('js', 'Finanse.budzety-tiles');
                 );
                 $ver=array();
                 foreach($pkb['PKB'] as $rok){
-                   $a=(double) $rok['PKB'];
-                        $b=(double) $pkb['USD'][$rok['rocznik']];
-                    $f_pkb=$a*$b;
-                    $GDP['PKB'][]=array('name'=>$rok['rocznik'],'y'=>$f_pkb);
-                    //$GDP['PKB_per_capita'][]=array('name'=>$rok['rocznik'],'y'=>$rok['PKB_per_capita']*$pkb['USD'][$rok['rocznik']]);
+                    $a=(float) $rok['PKB'];
+                    $b=$pkb['USD'][$rok['rocznik']]['USD'];
+                    $c=(float)$a * (float)$b;
+                    $GDP['PKB'][]=array('name'=>$rok['rocznik'],'y'=>$pkb['USD'][$rok['rocznik']]['USD']*$rok['PKB']);
+                    $GDP['PKB_per_capita'][]=array('name'=>$rok['rocznik'],'y'=>$rok['PKB_per_capita']*$pkb['USD'][$rok['rocznik']]['USD']);
 
-                 //   $ver[]=$rok['PKB']/$rok['PKB_per_capita'];
                 }
-//debug($ver);
-debug($GDP);
                 ?>
 
                 <div class="block col-md-3">
-                    <div class="item">
-                        <a href="#" class="inner">
+                    <div class="item" data-id="PKB">
+                        <a href="#PKB" class="inner">
 
                             <div class="logo">
                                 <img src="/finanse_gmin/img/sections/5.svg" onerror="imgFixer(this)"/>
@@ -70,8 +67,8 @@ debug($GDP);
                     </div>
                 </div>
                 <div class="block col-md-3">
-                    <div class="item">
-                        <a href="#" class="inner">
+                    <div class="item" data-id="PKB_per_capita">
+                        <a href="#PKB_per_capita" class="inner">
 
                             <div class="logo">
                                 <img src="/finanse_gmin/img/sections/1.svg" onerror="imgFixer(this)"/>
@@ -95,8 +92,8 @@ debug($GDP);
                     </div>
                 </div>
                 <div class="block col-md-3">
-                    <div class="item">
-                        <a href="#" class="inner">
+                    <div class="item" data-id="dlug">
+                        <a href="#dlug" class="inner">
 
                             <div class="logo">
                                 <img src="/finanse_gmin/img/sections/1.svg" onerror="imgFixer(this)"/>
@@ -110,12 +107,18 @@ debug($GDP);
                                 <div class="nazwa">Zadłużenie</div>
                             </div>
 
+
                         </a>
                     </div>
                 </div>
+                <?
+                $bezrobocie=array();
+                foreach($pkb['bezrobocie'] as $row){
+                    $bezrobocie[]=array('name'=>$row['rocznik'], 'y'=>$row['v']);
+                }?>
                 <div class="block col-md-3">
-                    <div class="item">
-                        <a href="#" class="inner">
+                    <div class="item" data-id="bezrobocie">
+                        <a href="#bezrobocie" class="inner">
 
                             <div class="logo">
                                 <img src="/finanse_gmin/img/sections/1.svg" onerror="imgFixer(this)"/>
@@ -128,13 +131,40 @@ debug($GDP);
                             <div class="title">
                                 <div class="nazwa">Stopa bezrobocia</div>
                             </div>
+                            <div class="highchart" style="display: none;">
+                                <div class="histogram_cont">
+                                    <div class="histogram" data-text="Stopa bezrobocia" data-histogram='<?= json_encode($bezrobocie) ?>'>
+                                    </div>
+                                </div>
+                            </div>
 
                         </a>
                     </div>
                 </div>
+                <?
+                $dane_budzet=array(
+                    'dochody'=>array(),
+                    'wydatki'=>array(),
+                    'deficyt'=>array(),
+                );
+                foreach($dataBrowser['aggs']['budzety']['top']['hits']['hits'] as $row){
+                    if($row['fields']['source'][0]['data']['prawo.rok']!=1989) {
+                        $dane_budzet['dochody'][$row['fields']['source'][0]['data']['prawo.rok']] = array('name' => $row['fields']['source'][0]['data']['prawo.rok'], 'y' => $row['fields']['source'][0]['data']['budzety.liczba_dochody']);
+                        $dane_budzet['wydatki'][$row['fields']['source'][0]['data']['prawo.rok']] = array('name' => $row['fields']['source'][0]['data']['prawo.rok'], 'y' => $row['fields']['source'][0]['data']['budzety.liczba_wydatki']);
+                        $dane_budzet['deficyt'][$row['fields']['source'][0]['data']['prawo.rok']] = array('name' => $row['fields']['source'][0]['data']['prawo.rok'], 'y' => $row['fields']['source'][0]['data']['budzety.liczba_deficyt']);
+                    }
+                }
+                sort($dane_budzet['dochody']);
+                sort($dane_budzet['wydatki']);
+                sort($dane_budzet['deficyt']);
+                $dane_budzet['dochody']=array_values($dane_budzet['dochody']);
+                $dane_budzet['wydatki']=array_values($dane_budzet['wydatki']);
+                $dane_budzet['deficyt']=array_values($dane_budzet['deficyt']);
+
+                ?>
                 <div class="block col-md-3">
-                    <div class="item">
-                        <a href="#" class="inner">
+                    <div class="item" data-id="budzet_dochody">
+                        <a href="#budzet_dochody" class="inner">
 
                             <div class="logo">
                                 <img src="/finanse_gmin/img/sections/1.svg" onerror="imgFixer(this)"/>
@@ -147,13 +177,18 @@ debug($GDP);
                             <div class="title">
                                 <div class="nazwa">Dochody budżetu krajowego</div>
                             </div>
-
+                            <div class="highchart" style="display: none;">
+                                <div class="histogram_cont">
+                                    <div class="histogram" data-text="Dochody budżetu krajowego" data-histogram='<?= json_encode($dane_budzet['dochody']) ?>'>
+                                    </div>
+                                </div>
+                            </div>
                         </a>
                     </div>
                 </div>
                 <div class="block col-md-3">
-                    <div class="item">
-                        <a href="#" class="inner">
+                    <div class="item" data-id="budzet_wydatki">
+                        <a href="#budzet_wydatki" class="inner">
 
                             <div class="logo">
                                 <img src="/finanse_gmin/img/sections/1.svg" onerror="imgFixer(this)"/>
@@ -166,13 +201,18 @@ debug($GDP);
                             <div class="title">
                                 <div class="nazwa">Wydatki budżetu krajowego</div>
                             </div>
-
+                            <div class="highchart" style="display: none;">
+                                <div class="histogram_cont">
+                                    <div class="histogram" data-text="Wydatki budżetu krajowego" data-histogram='<?= json_encode($dane_budzet['wydatki']) ?>'>
+                                    </div>
+                                </div>
+                            </div>
                         </a>
                     </div>
                 </div>
                 <div class="block col-md-3">
-                    <div class="item">
-                        <a href="#" class="inner">
+                    <div class="item" data-id="budzet_deficyt">
+                        <a href="#budzet_deficyt" class="inner">
 
                             <div class="logo">
                                 <img src="/finanse_gmin/img/sections/1.svg" onerror="imgFixer(this)"/>
@@ -185,13 +225,23 @@ debug($GDP);
                             <div class="title">
                                 <div class="nazwa">Deficyt budżetu krajowego</div>
                             </div>
-
+                            <div class="highchart" style="display: none;">
+                                <div class="histogram_cont">
+                                    <div class="histogram" data-text="Deficyt budżetu krajowego" data-histogram='<?= json_encode($dane_budzet['deficyt']) ?>'>
+                                    </div>
+                                </div>
+                            </div>
                         </a>
                     </div>
                 </div>
+                <?
+                $inflacja=array();
+                foreach($pkb['inflacja'] as $row){
+                    $inflacja[]=array('name'=>$row['rocznik'], 'y'=>$row['v']-100);
+                }?>
                 <div class="block col-md-3">
-                    <div class="item">
-                        <a href="#" class="inner">
+                    <div class="item" data-id="inflacja">
+                        <a href="#inflacja" class="inner">
 
                             <div class="logo">
                                 <img src="/finanse_gmin/img/sections/1.svg" onerror="imgFixer(this)"/>
@@ -205,6 +255,12 @@ debug($GDP);
                                 <div class="nazwa">Inflacja</div>
                             </div>
 
+                            <div class="highchart" style="display: none;">
+                                <div class="histogram_cont">
+                                    <div class="histogram" data-text="Inflacja" data-histogram='<?= json_encode($inflacja) ?>'>
+                                    </div>
+                                </div>
+                            </div>
                         </a>
                     </div>
                 </div>
