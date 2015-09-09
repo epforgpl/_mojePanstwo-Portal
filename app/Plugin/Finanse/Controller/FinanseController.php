@@ -13,7 +13,15 @@ class FinanseController extends ApplicationsController
 
 	public function view()
 	{
-		
+        App::import("Model", "Finanse.PKB");
+        $PKB = new PKB();
+
+        $dane=$PKB->getPKB();
+
+        $this->set('pkb', $dane);
+        $this->set('_serialize', 'pkb');
+
+
         $options = array(
             'searchTitle' => 'Szukaj w budżetach krajowych...',
             'conditions' => array(
@@ -61,15 +69,15 @@ class FinanseController extends ApplicationsController
             ),
             'apps' => true,
         );
-		
+
 		$this->chapter_selected = 'view';
         $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
-        
+
 	}
-    
+
     public function getChapters() {
-	    
+
 	    return array(
 		    'items' => array(
 			    array(
@@ -83,7 +91,7 @@ class FinanseController extends ApplicationsController
 			    ),
 		    ),
 	    );
-	    
+
     }
 
 }

@@ -47,6 +47,7 @@ $dzialy = $dataBrowser['aggs']['gmina']['wydatki']['timerange']['dzialy']['bucke
         <div>
             <div class="appSwitchers text-center">
                 <form id="dataForm" method="get" class="col-sm-12">
+
                     <div class="row">
 
                         <div class="col-sm-4">
