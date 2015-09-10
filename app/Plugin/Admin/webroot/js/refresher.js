@@ -35,6 +35,7 @@ $(document).ready(function () {
                     $("#" + key + "").html("Najnowsze pobrane: " + $.timeago(value[0][Object.keys(value[0])][Object.keys(html)[0]]));
 
                 } else if (key.indexOf('downloads') != -1) {
+
                     $('#krs_downloads_day').html('');
 
                     $('#krs_downloads_day').highcharts({
