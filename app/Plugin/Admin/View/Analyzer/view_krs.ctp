@@ -1,6 +1,6 @@
 <?php
 $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
-$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock-more');
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highcharts-more');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 
 $this->Combinator->add_libs('js','Admin.timeago');
@@ -9,7 +9,6 @@ $this->Combinator->add_libs('css','Admin.Analyzer/view');
 
 
 $data = json_decode($analyzer['AnalyzerExecution']['data'], true);
-
 
 $dict = array(
     'org_status' => array(

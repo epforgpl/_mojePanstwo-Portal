@@ -13,7 +13,11 @@ $options = array(
 );
 
 ?>
-
+<? if (isset($twitterAccountTypes)) { ?>
+    <?= $this->Element('Media.twitter-account-suggestion-modal', array(
+        'types' => $twitterAccountTypes
+    )); ?>
+<? } ?>
 <div class="col-xs-12 col-md-3 dataAggsContainer">
     <div class="sticky">
         <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
@@ -42,6 +46,7 @@ $options = array(
                 'types' => $twitterAccountTypes
             )); ?>
         <? } ?>
+
     </div>
 </div>
 
@@ -142,9 +147,9 @@ $options = array(
     </div>
 
     <div class="dataWrap">
-        
+
         <? // debug($dataBrowser['aggs']['accounts']); ?>
-        
+
         <? if ($hits = @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['top']['hits']['hits']) {
             if ($timerange['init']) {
                 $docs = array();

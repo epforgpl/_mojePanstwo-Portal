@@ -521,7 +521,7 @@ var PISMA = Class.extend({
         requiredInputs: function () {
             var nadawca = $('#editor-cont .control.control-sender textarea.nadawca');
 
-            if (nadawca.length > 0 && nadawca.val() == "") {
+            if (nadawca.length > 0 && nadawca.val() == "" && nadawca.attr('data-req')!=0) {
                 nadawca.val('');
                 return false
             }

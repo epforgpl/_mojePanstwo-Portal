@@ -21,17 +21,19 @@
         <div class="control control-sender">
             <?php if (isset($pismoEditPage) && $pismoEditPage) {
                 if (empty($pismo['nadawca'])) {
-                    if(empty($pismo['nadawca_opis'])){?>
-                    <textarea class="nadawca empty" placeholder="Wpisz dane nadawcy" rows="1"
-                              maxlength="511" required="required"></textarea>
-                        <? }else{ ?>
-                        <textarea class="nadawca empty" placeholder="<?=$pismo['nadawca_opis']?>" rows="4"
+                    if (empty($pismo['nadawca_opis'])) {
+                        ?>
+                        <textarea class="nadawca empty" placeholder="Wpisz dane nadawcy" rows="1"
+                                  maxlength="511" <? if($pismo['name']!='Wniosek o udostępnienie informacji publicznej'){ ?>required="required"<? }else{?> data-req="0"<?} ?>></textarea>
+                    <? } else {
+                        ?>
+                        <textarea class="nadawca empty" placeholder="<?= $pismo['nadawca_opis'] ?>" rows="4"
                                   maxlength="511" required="required"></textarea>
 
-                <? }
+                    <? }
                 } else { ?>
                     <textarea class="nadawca" placeholder="Wpisz dane nadawcy" rows="1"
-                              maxlength="511" required="required"><?= $pismo['nadawca'] ?></textarea>
+                              maxlength="511" <? if($pismo['name']!='Wniosek o udostępnienie informacji publicznej'){ ?> required="required"<? }else{?> data-req="0"<? } ?>><?= $pismo['nadawca'] ?></textarea>
                 <? }
             } else {
                 if (!empty($pismo['nadawca'])) { ?>
@@ -64,13 +66,15 @@
     <div class="editor-controls">
         <div class="control control-signature">
             <?php if (empty($pismo['podpis'])) { ?>
-                <? if($pismo['szablon_id']==82){?>
-                    <textarea class="podpis empty" placeholder="Podpis wnioskodawcy lub reprezentanta (wymagane)" rows="1"
+                <? if ($pismo['szablon_id'] == 82) { ?>
+                    <textarea class="podpis empty" placeholder="Podpis wnioskodawcy lub reprezentanta (wymagane)"
+                              rows="1"
                               maxlength="255"></textarea>
-               <? }else{?>
-                <textarea class="podpis empty" placeholder="Podpisz się (opcjonalnie)" rows="1"
-                          maxlength="255"></textarea>
-            <? }} else { ?>
+                <? } else { ?>
+                    <textarea class="podpis empty" placeholder="Podpisz się (opcjonalnie)" rows="1"
+                              maxlength="255"></textarea>
+                <? }
+            } else { ?>
                 <div class="pre"><?= str_replace("\n", '<br/>', $pismo['podpis']) ?></div>
             <? } ?>
         </div>
