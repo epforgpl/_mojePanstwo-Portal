@@ -189,11 +189,8 @@ function graphInit(section) {
 		charts_data = [],
 		chart,
 		i = section.attr('data-itemid'),
-		title = section.find('.histogram').data('text');
-
-	console.log('section', section);
-	console.log('histogram_div', histogram_div);
-	console.log('data', data);
+		title = section.find('.histogram').data('title'),
+		subtitle = section.find('.histogram').data('subtitle');
 
 	for (var d = 0; d < data.length; d++) {
 		if (data[d]) {
@@ -239,6 +236,11 @@ function graphInit(section) {
 		title: {
 			text: title,
 			y: 20
+		},
+		
+		subtitle: {
+			text: subtitle,
+			y: 40
 		},
 
 		xAxis: {

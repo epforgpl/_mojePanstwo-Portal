@@ -8,31 +8,7 @@ $options = array(
     'mode' => 'init',
 );
 
-$dzialy = $dataBrowser['aggs']['gmina']['wydatki']['timerange']['dzialy']['buckets'];
-
-
-/*
 ?>
-<div class="col-sm-2 col-xs-12 dataAggsContainer">
-
-    <? if(isset($_submenu) && isset($_submenu['items'])) {
-
-        if (!isset($_submenu['base']))
-            $_submenu['base'] = $object->getUrl();
-
-        echo $this->Element('Dane.DataBrowser/browser-menu', array(
-            'menu' => $_submenu,
-        ));
-
-    }
-
-
-    ?>
-
-
-
-</div>
-<? */ ?>
 <div class="col-sm-12">
 
 
@@ -99,55 +75,41 @@ $dzialy = $dataBrowser['aggs']['gmina']['wydatki']['timerange']['dzialy']['bucke
     <div id="mp-sections">
         <div class="content">
 
-			<?
-				// debug( array_keys($dataBrowser['aggs']['gminy']['wydatki']['timerange'] )); die();
-				// debug( $dataBrowser['aggs']['gmina']['wydatki']['timerange']['wydatki']['value'] ); die();
-
-				$min = @$dataBrowser['aggs']['gminy']['wydatki']['timerange']['min']['buckets'][0]['key'];
-				$cur = $dataBrowser['aggs']['gmina']['wydatki']['timerange']['wydatki']['value'];
-				$max = @$dataBrowser['aggs']['gminy']['wydatki']['timerange']['max']['buckets'][0]['key'];
-				$median = (int) @$dataBrowser['aggs']['gminy']['wydatki']['timerange']['percentiles']['values']['50.0'];
-				$left = ($min == $max) ? 0 : 100 * ( $cur - $min ) / ( $max - $min );
-				$median_left = ($min == $max) ? 0 : 100 * ( $median - $min ) / ( $max - $min );
-
-			?>
-
-
-
-			<? // debug($dataBrowser['aggs']['gminy']['wydatki']['timerange']['histogram_0']); ?>
 
 
 			<div id="mainChart" class="">
                 <div class="histogram_cont">
-                    <div class="histogram" data-median="<?= $dataBrowser['aggs']['gminy']['wydatki']['timerange']['percentiles']['values']['50.0'] ?>" data-text="Wydatki w przeliczeniu na osobę" data-histogram='<?= json_encode($dataBrowser['aggs']['gminy']['wydatki']['timerange']['histogram_1']['buckets']) ?>'>
+                    <div class="histogram" data-median="<?= $global['median'] ?>" data-title="<?= $main_chart['title'] ?>" data-subtitle="<?= $main_chart['subtitle'] ?>" data-histogram='<?= json_encode($global['histogram']) ?>'>
                     </div>
                 </div>
                 <div class="gradient_cont">
                     <span class="gradient"></span>
                     <ul class="addons">
                         <li class="min">
-                        	<span class="n"><?= @$dataBrowser['aggs']['gminy']['wydatki']['timerange']['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'] ?></span>
-                        	<span class="v"><?= number_format_h($min) ?></span>
+	                        <a href="/dane/gminy/<?= $global['min']['id'] ?>">
+	                        	<span class="n"><?= $global['min']['label'] ?></span>
+	                        	<span class="v"><?= number_format_h($global['min']['value']) ?></span>
+	                        </a>
                         </li>
-                        <li class="_median" style="<?
-
-                        echo 'left: ' . round($median_left) . '%';
-
-                        ?>">Mediana<br/><?= number_format_h($median) ?></li>
+                        <li class="_median" style="left: <?= round($global['median_left']) ?>%">
+	                        Mediana<br/><?= number_format_h($global['median']) ?>
+                        </li>
                         <li class="_teryt" style="<?
 
-                        	if( $left===false )
+                        	if( $global['left']===false )
                         		echo 'display: none;';
                         	else
-                        		echo 'left: ' . round($left) . '%';
+                        		echo 'left: ' . round($global['left']) . '%';
 
                         ?>">
                         	<span class="n"><?= $object->getTitle() ?></span>
-                        	<span class="v"><?= number_format_h($cur) ?></span>
+                        	<span class="v"><?= number_format_h($global['cur']) ?></span>
                         </li>
                         <li class="max">
-                        	<span class="n"><?= @$dataBrowser['aggs']['gminy']['wydatki']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'] ?></span>
-                        	<span class="v"><?= @number_format_h($max) ?></span>
+                        	<a href="/dane/gminy/<?= $global['max']['id'] ?>">
+	                        	<span class="n"><?= $global['max']['label'] ?></span>
+	                        	<span class="v"><?= @number_format_h($global['max']['value']) ?></span>
+                        	</a>
                         </li>
                     </ul>
                 </div>
@@ -163,141 +125,79 @@ $dzialy = $dataBrowser['aggs']['gmina']['wydatki']['timerange']['dzialy']['bucke
 			</div>
 
             <div class="row items">
-                <? foreach ($dzialy as $item) { ?>
+                <? foreach ($dzialy as $dzial) { ?>
                     <div class="block col-md-3">
 
-	                    <?
+                        <div class="item <?= $dzial['global']['class'] ?>" data-id="<?= $dzial['id'] ?>">
 
-		                    $dzial = false;
-							foreach( $dataBrowser['aggs']['gminy']['wydatki']['timerange']['dzialy']['buckets'] as $b ) {
-								if( $b['key']==$item['key'] ) {
-									$dzial = $b;
-									break;
-								}
-							}
-
-							$min = @$dzial['min']['buckets'][0]['key'];
-							$cur = $item['wydatki']['value'];
-							$max = @$dzial['max']['buckets'][0]['key'];
-							$median = (int) @$dzial['percentiles']['values']['50.0'];
-
-							$class = ($cur > $median) ? 'more' : 'less';
-
-							$diff = $dzial['stats']['max'] - $dzial['stats']['min'];
-							$intervals = array(100000000, 10000000, 100000, 1000);
-							$histogram_i = 0;
-
-							for($i = count($intervals) - 1; $i >= 0; $i--) {
-
-								$v = $intervals[$i];
-
-								if( $diff<$v*100 ) {
-									$histogram_i = $i;
-									break;
-								}
-
-							}
-
-                            $left = ($min == $max) ? false : 100 * ( $cur - $min ) / ( $max - $min );
-                            $median_left = ($min == $max) ? false : 100 * ( $median - $min ) / ( $max - $min );
-
-                            $dzial['histogram']['buckets'] = $dzial['histogram_' . $histogram_i]['buckets'];
-
-	                    ?>
-
-                        <div class="item <?= $class ?>" data-id="<?= $item['key'] ?>">
-
-                            <a href="#<?= $item['key'] ?>>" class="inner"
-                               data-title="<?= $item['nazwa']['buckets'][0]['key'] ?>">
+                            <a href="#<?= $dzial['id'] ?>" class="inner" data-title="<?= $dzial['label'] ?>">
 
                                 <div class="logo">
-                                    <img src="/finanse_gmin/img/sections/<?= $item['key'] ?>.svg"
+                                    <img src="/finanse_gmin/img/sections/<?= $dzial['id'] ?>.svg"
                                          onerror="imgFixer(this)"/>
                                 </div>
 
                                 <div class="details"><span class="detail">
-                                        <?= number_format_h($item['wydatki']['value']) ?></span>
+                                        <?= number_format_h($dzial['global']['cur']) ?></span>
                                 </div>
 
                                 <div class="title">
-                                    <div class="nazwa"><?= $this->Text->truncate($item['nazwa']['buckets'][0]['key'], 50) ?></div>
+                                    <div class="nazwa"><?= $this->Text->truncate($dzial['label'], 50) ?></div>
                                 </div>
 
                                 <div class="subtitle" style="display: none;">
 	                                <h3>Szczegółowe wydatki gminy <?= $object->getTitle() ?> w tym dziale:</h3>
                                 </div>
-
+								
+								
                                 <div class="chart" style="display: none;">
 	                                <div class="histogram_cont">
-		                                <div class="histogram" data-median="<?= $median ?>" data-text="<?= $item['nazwa']['buckets'][0]['key'] ?>" data-histogram='<?= json_encode($dzial['histogram']['buckets']) ?>'>
+		                                <div class="histogram" data-median="<?= $dzial['global']['median'] ?>" data-title="<?= $dzial['label'] ?>" data-subtitle="<?= $main_chart['subtitle'] ?>" data-histogram='<?= json_encode($dzial['global']['histogram']) ?>'>
 		                                </div>
 	                                </div>
 	                                <div class="gradient_cont">
 		                                <span class="gradient"></span>
 		                                <ul class="addons">
 			                                <li class="min">
-			                                	<span class="n"><?= @$dzial['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'] ?></span>
-			                                	<span class="v"><?= number_format_h($min) ?></span>
+			                                	<div class="link" data-href="/dane/gminy/<?= $dzial['global']['min']['id'] ?>">
+				                                	<span class="n"><?= $dzial['global']['min']['label'] ?></span>
+				                                	<span class="v"><?= number_format_h($dzial['global']['min']['value']) ?></span>
+			                                	</div>
 			                                </li>
-                                            <li class="_median" style="<?
-
-                                            echo 'left: ' . round($median_left) . '%';
-
-                                            ?>">Mediana<br/><?= number_format_h($median) ?></li>
+                                            <li class="_median" style="left: <?= round($dzial['global']['median_left']) ?>%">Mediana<br/><?= number_format_h($dzial['global']['median']) ?></li>
 			                                <li class="_teryt" style="<?
 
-			                                	if( $left===false )
+			                                	if( $dzial['global']['left']===false )
 			                                		echo 'display: none;';
 			                                	else
-			                                		echo 'left: ' . round($left) . '%';
+			                                		echo 'left: ' . round($dzial['global']['left']) . '%';
 
 			                                ?>">
 			                                	<span class="n"><?= $object->getTitle() ?></span>
-			                                	<span class="v"><?= number_format_h($item['wydatki']['value']) ?></span>
+			                                	<span class="v"><?= number_format_h($dzial['global']['cur']) ?></span>
 			                                </li>
 			                                <li class="max">
-			                                	<span class="n"><?= @$dzial['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'] ?></span>
-			                                	<span class="v"><?= @number_format_h($max) ?></span>
+				                                <div class="link" data-href="/dane/gminy/<?= $dzial['global']['min']['id'] ?>">
+				                                	<span class="n"><?= $dzial['global']['max']['label'] ?></span>
+				                                	<span class="v"><?= number_format_h($dzial['global']['max']['value']) ?></span>
+				                                </div>
 			                                </li>
 		                                </ul>
 	                                </div>
                                 </div>
 
 
-
-
-								<? /*
-								gradient = $('<div></div>').addClass('gradient_cont').append(
-									$('<span></span>').addClass('gradient')
-								).append(
-									$('<ul></ul>').addClass('addons').append(
-										$('<li></li>').addClass('min').attr('data-init', d['dzial']['min']).append(
-											$('<span></span>').addClass('n').text(d['dzial']['min_nazwa'])
-										).append(
-											$('<span></span>').addClass('v').text(pl_currency_format(d['dzial']['min']))
-										)
-									).append(
-										$('<li></li>').addClass('max').attr('data-init', d['dzial']['max']).append(
-											$('<span></span>').addClass('n').text(d['dzial']['max_nazwa'])
-										).append(
-											$('<span></span>').addClass('v').text(pl_currency_format(d['dzial']['max']))
-										)
-									)
-								);
-								*/ ?>
-
-
                                 <table class="rozdzialy" style="display: none">
-	                            <? if( @$item['rozdzialy']['buckets'] ) { foreach($item['rozdzialy']['buckets'] as $r) {?>
-
-	                            	<? if( $title = @$r['nazwa']['buckets'][0]['key'] ) {?>
-	                            	<tr data-id="<?= $r['key'] ?>">
-		                            	<td><?= $title ?></td>
-		                            	<td><?= number_format_h($r['wydatki']['value']) ?></td>
+	                            <? foreach($dzial['rozdzialy'] as $r) {?>
+									
+									<? if( !@$r['id'] ) continue; ?>
+									
+	                            	<tr data-id="<?= $r['id'] ?>">
+		                            	<td><?= $r['label'] ?></td>
+		                            	<td><?= number_format_h($r['wydatki']) ?></td>
 	                            	</tr>
-	                            	<? } ?>
 
-	                            <? } } ?>
+	                            <? } ?>
                                 </table>
 
                             </a>

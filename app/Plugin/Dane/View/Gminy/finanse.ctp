@@ -14,6 +14,8 @@ $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin
 echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
+
+/*
 $zakresy = array(
     array(0, 20000),
     array(20000, 50000),
@@ -22,6 +24,7 @@ $zakresy = array(
     array(500000, 999999999)
 );
 $zakres = $zakresy[(int)$object->data('zakres')];
+*/
 
 if (!isset($_submenu['base']))
     $_submenu['base'] = $object->getUrl();
