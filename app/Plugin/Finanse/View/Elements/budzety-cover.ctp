@@ -91,6 +91,12 @@ $this->Combinator->add_libs('js', 'Finanse.budzety-tiles');
                         </a>
                     </div>
                 </div>
+                <?
+                $dlug=array();
+                foreach($pkb['dlug'] as $row){
+                    $dlug[]=array('name'=>$row['rocznik'], 'y'=>$row['sektor_finansow_pub']*1000000);
+                }
+                ?>
                 <div class="block col-md-3">
                     <div class="item" data-id="dlug">
                         <a href="#dlug" class="inner">
@@ -106,7 +112,12 @@ $this->Combinator->add_libs('js', 'Finanse.budzety-tiles');
                             <div class="title">
                                 <div class="nazwa">Zadłużenie</div>
                             </div>
-
+                            <div class="highchart" style="display: none;">
+                                <div class="histogram_cont">
+                                    <div class="histogram" data-text="Zadłużenie Sektora Finansów Publicznych" data-histogram='<?= json_encode($dlug) ?>'>
+                                    </div>
+                                </div>
+                            </div>
 
                         </a>
                     </div>
