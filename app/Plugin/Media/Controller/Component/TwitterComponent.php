@@ -11,7 +11,8 @@ class TwitterComponent extends Component {
         // '6' => 'Media',
         '7' => 'Politycy',
         '8' => 'Partie',
-        '9' => 'NGO'
+        '9' => 'NGO',
+        '10' => 'Miasta',
     );
 
     public $twitterTimeranges = array(

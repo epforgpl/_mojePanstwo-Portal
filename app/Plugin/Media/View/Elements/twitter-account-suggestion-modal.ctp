@@ -29,7 +29,8 @@
                                                   3 => 'Przedstawicielem urzędu',
                                                   7 => 'Politykiem',
                                                   8 => 'Przedstawicielem partii politycznej',
-                                                  9 => 'Przedstawicielem organizacji pozarządowej') as $i => $type) { ?>
+                                                  9 => 'Przedstawicielem organizacji pozarządowej',
+                                                  10 => 'Przedstawicielem miasta') as $i => $type) { ?>
                                     <option value="<?= $i ?>"><?= $type ?></option>
                                 <? } ?>
                             </select>
