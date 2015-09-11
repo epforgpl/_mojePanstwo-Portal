@@ -118,6 +118,7 @@ class DataBrowserComponent extends Component
                         '7' => 'Politycy',
                         '8' => 'Partie polityczne',
                         '9' => 'NGO',
+                        '10' => 'Miasta',
                     ),
                 ),
             ),
