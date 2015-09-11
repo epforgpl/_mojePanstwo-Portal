@@ -1,4 +1,7 @@
-<?= $this->element('Admin.header'); ?>
+<?
+	$this->Combinator->add_libs('js', 'Admin.twitterSuggestions');
+	echo $this->element('Admin.header');
+?>
     <h2>Propozycje nowych kont Twitter</h2>
 
 
@@ -11,42 +14,43 @@
                 <th>Użytkownik</th>
                 <th>Nazwa</th>
                 <th>Typ</th>
-                <th>Opcje</th>
             </tr>
             <? foreach($suggestions as $suggestion) { ?>
-                <form action="/admin/twitter_accounts/add/<?= $suggestion['TwitterAccountSuggestion']['id'] ?>" method="post">
-                    <tr>
-                        <td><?= $suggestion['TwitterAccountSuggestion']['cts']; ?></td>
-                        <td>
-                            <? if(isset($suggestion['User']['username'])) { ?>
-                                <?= $suggestion['User']['username']; ?>
-                                (<?= $suggestion['User']['id']; ?> )
-                            <? } else { ?>
-                                Gość
-                            <? } ?>
-                        </td>
-                        <td>
-                            <a href="https://twitter.com/<?= $suggestion['TwitterAccountSuggestion']['name']; ?>">
-                                @<?= $suggestion['TwitterAccountSuggestion']['name']; ?>
-                            </a>
-                        </td>
-                        <td>
-                            <select name="type" class="form-control">
+                <tr>
+                    <td><?= $suggestion['TwitterAccountSuggestion']['cts']; ?></td>
+                    <td>
+                        <? if(isset($suggestion['User']['username'])) { ?>
+                            <?= $suggestion['User']['username']; ?>
+                            (<?= $suggestion['User']['id']; ?> )
+                        <? } else { ?>
+                            Gość
+                        <? } ?>
+                    </td>
+                    <td>
+                        <a href="https://twitter.com/<?= $suggestion['TwitterAccountSuggestion']['name']; ?>">
+                            @<?= $suggestion['TwitterAccountSuggestion']['name']; ?>
+                        </a>
+                    </td>
+                    <td>
+                        <form id="twitterSuggestionsForm" action="/admin/twitter_accounts/add/<?= $suggestion['TwitterAccountSuggestion']['id'] ?>" method="post">
+                            
+                            <select name="type" class="form-control pull-left" style="width: inherit;">
                                 <? foreach($types as $id => $type) { ?>
-                                    <option value="<?= $id ?>"<? if($id == $suggestion['TwitterAccountSuggestion']['type_id']) echo ' selected';?>>
+                                    <option value="<?= $id ?>"<? if($id == $suggestion['TwitterAccountSuggestion']['type_id']) echo ' selected="selected"';?>>
                                         <?= $type ?>
                                     </option>
                                 <? } ?>
                             </select>
-                        </td>
-                        <td>
-                            <div class="btn-group btn-group-sm" role="group">
-                                <input type="submit" class="btn btn-default" value="Dodaj"/>
-                                <a href="/admin/twitter_accounts/remove/<?= $suggestion['TwitterAccountSuggestion']['id'] ?>" class="btn btn-default">Usuń</a>
-                            </div>
-                        </td>
-                    </tr>
-                </form>
+                
+	                        <div class="btn-group btn-group-sm pull-right" role="group">
+	                            <input type="submit" class="btn btn-default" value="Dodaj"/>
+	                            <a href="/admin/twitter_accounts/remove/<?= $suggestion['TwitterAccountSuggestion']['id'] ?>" class="btn btn-default">Usuń</a>
+	                        </div>
+
+                        </form>
+
+                    </td>
+                </tr>
             <? } ?>
         </table>
     <? } ?>

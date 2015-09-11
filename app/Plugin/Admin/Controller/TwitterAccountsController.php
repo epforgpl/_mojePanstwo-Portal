@@ -11,7 +11,8 @@ class TwitterAccountsController extends AdminAppController {
         '3' => 'Urząd',
         '7' => 'Polityk',
         '8' => 'Partia',
-        '9' => 'NGO'
+        '9' => 'NGO',
+        '10' => 'Miasto',
     );
 
     public function beforeFilter() {
@@ -52,7 +53,7 @@ class TwitterAccountsController extends AdminAppController {
         if($name = @$data['TwitterAccountSuggestion']['name']) {
             $this->TwitterAccount->save(array(
                 'twitter_name' => $name,
-                'typ_id' => (int) $this->request->params['type']
+                'typ_id' => (int) $this->request->data['type']
             ));
 
             $this->TwitterAccountSuggestion->delete($id);
