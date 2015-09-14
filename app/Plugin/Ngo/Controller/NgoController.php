@@ -115,6 +115,18 @@ class NgoController extends ApplicationsController
 								                'size' => 1,
 								            ),
 					                    ),
+					                    'lat' => array(
+						                    'terms' => array(
+							                    'field' => 'position.lat',
+							                    'size' => 1,
+						                    ),
+					                    ),
+					                    'lng' => array(
+						                    'terms' => array(
+							                    'field' => 'position.lon',
+							                    'size' => 1,
+						                    ),
+					                    ),
 				                    ),
 			                    ),
 		                    ),
@@ -142,7 +154,17 @@ class NgoController extends ApplicationsController
 		
 		if( $this->request->params['action']=='map' ) {
 			
-			$this->viewVars['dataBrowser'] = $this->viewVars['dataBrowser']['aggs']['map'];
+			$data = $this->viewVars['dataBrowser']['aggs']['map'];
+			foreach( $data['grid']['buckets'] as &$b ) {
+				
+				$b['lat'] = $b['lat']['buckets'][0]['key'];
+				$b['lng'] = $b['lat']['buckets'][0]['lng'];
+				$b['inner_key'] = $b['inner_grid']['buckets'][0]['key'];
+				unset( $b['inner_grid'] );
+				
+			}
+						
+			$this->viewVars['dataBrowser'] = $data;
 			
 		}
 		
