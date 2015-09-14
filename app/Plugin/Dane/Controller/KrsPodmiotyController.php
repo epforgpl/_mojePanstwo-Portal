@@ -4,9 +4,9 @@ App::uses('DataobjectsController', 'Dane.Controller');
 
 class KrsPodmiotyController extends DataobjectsController
 {
-    
+
     public $observeOptions = true;
-    
+
     public $helpers = array(
         'Time', 'Czas'
     );
@@ -86,7 +86,7 @@ class KrsPodmiotyController extends DataobjectsController
         if ($this->Session->read('KRS.odpis') == $this->object->getId()) {
 
             $odpis = $this->object->getLayer('odpis');
-                        
+
             if ($odpis['status']) {
                 $this->set('odpis', $odpis['url']);
             }
@@ -318,7 +318,7 @@ class KrsPodmiotyController extends DataobjectsController
                     'top' => array(
                         'top_hits' => array(
                             'fielddata_fields' => array('dataset', 'id'),
-	                        'size' => 3, 
+	                        'size' => 3,
 	                        'sort' => array(
 		                        'date' => 'desc',
 	                        ),
@@ -375,20 +375,20 @@ class KrsPodmiotyController extends DataobjectsController
     }
 
     public function dodaj_dzialanie() {
-        
+
         $this->request->params['action'] = 'dzialania';
-        
+
         $this->addInitLayers(array('dzialania_nowe'));
         $this->_prepareView();
 
         if(!$this->_canEdit())
             throw new ForbiddenException;
-            
+
         $this->render('dzialanie_form');
     }
 
     public function dzialania() {
-		
+
 
         $this->_prepareView();
         if($id = @$this->request->params['subid']) {
@@ -423,72 +423,67 @@ class KrsPodmiotyController extends DataobjectsController
 	                ),
                 ),
             ));
-            
+
             $aggs = $this->Dataobject->getAggs();
             $tags = array();
-            
+
             if( @isset( $aggs['tags']['id']['buckets'] ) ) {
-	            foreach( $aggs['tags']['id']['buckets'] as $b ) {        
+	            foreach( $aggs['tags']['id']['buckets'] as $b ) {
 		            if(
-			            ( $id = @$b['key'] ) && 
+			            ( $id = @$b['key'] ) &&
 			            ( $label = @$b['label']['buckets'][0]['key'] )
 		            ) {
-		            
+
 		            	$tags[] = array(
 			            	'id' => $id,
 			            	'label' => $label,
 		            	);
-		            
+
 		            }
 		        }
-		    }		
-            
+		    }
+
             $this->set('dzialanie_tags', $tags);
 
             if (!$dzialanie)
                 throw new NotFoundException;
-			
-			
+
+
             if($features = $dzialanie->getLayer('features')) {
                 $this->loadModel('Sejmometr.Sejmometr');
                 if($mailing = @$features['mailings'][0]) {
                     if($mailing['target'] == '0') {
-                        
+
                         $okregi = Cache::read('Sejmometr.okregi_sejm', 'long');
 			            if (!$okregi) {
 			                $okregi = $this->Sejmometr->okregi_sejm();
 			                Cache::write('Sejmometr.okregi_sejm', $okregi, 'long');
 			            }
-	                    	                    
-                        $this->set('okregi', $okregi);                        
-                    
+
+                        $this->set('okregi', $okregi);
+
                     } else {
-	                    
+
 	                    $okregi = Cache::read('Sejmometr.okregi_senat', 'long');
 			            if (!$okregi) {
 			                $okregi = $this->Sejmometr->okregi_senat();
 			                Cache::write('Sejmometr.okregi_senat', $okregi, 'long');
 			            }
-	                    	                    
+
                         $this->set('okregi', $okregi);
-                        
+
                     }
                 }
             }
-            
+
             $this->set('dzialanie', $dzialanie);
 
             if(@$this->request->params['subaction'] == 'edytuj') {
 
                 if($this->_canEdit()) {
 
-                    if($dzialanie->getData('dzialania.photo') == '1') {
-                        $src = "http://sds.tiktalik.com/portal/1/pages/dzialania/" . $dzialanie->getData('id') . ".jpg";
-                        $data = @file_get_contents($src);
-                        if($data) {
-                            $base64 = 'data:image/jpeg;base64,' . base64_encode($data);
-                            $this->set('dzialanie_photo_base64', $base64);
-                        }
+                    if($data = @file_get_contents($dzialanie->getThumbnailUrl('1'))) {
+                        $this->set('dzialanie_photo_base64', 'data:image/jpeg;base64,' . base64_encode($data));
                     }
 
                     $this->render('dzialanie_form');
@@ -519,7 +514,7 @@ class KrsPodmiotyController extends DataobjectsController
 	            'aggsPreset' => 'dzialania_admin',
 	            'searchTitle' => 'Szukaj w działaniach...',
 	        ));
-	
+
 	        $this->set('title_for_layout', 'Działania ' . $this->object->getData('nazwa'));
 
         }
@@ -705,7 +700,7 @@ class KrsPodmiotyController extends DataobjectsController
     {
         if(!$this->object)
             return false;
-        
+
         $counters = $this->object->getLayers('counters');
 
         $menu = array(
@@ -720,10 +715,10 @@ class KrsPodmiotyController extends DataobjectsController
                 ),
             ),
             'base' => $this->object->getUrl(),
-        );        
-		
+        );
+
         if(
-        	@$this->object_aggs['dzialania']['doc_count'] || 
+        	@$this->object_aggs['dzialania']['doc_count'] ||
         	$this->_canEdit()
         ) {
             $menu['items'][] = array(
@@ -732,7 +727,7 @@ class KrsPodmiotyController extends DataobjectsController
                 'count' => $this->object_aggs['dzialania']['doc_count'],
             );
         }
-        
+
         if (@$this->object_aggs['zamowienia']['doc_count']) {
             $menu['items'][] = array(
                 'id' => 'zamowienia',
@@ -740,25 +735,25 @@ class KrsPodmiotyController extends DataobjectsController
                 'count' => $this->object_aggs['zamowienia']['doc_count'],
             );
         }
-        
+
         $menu['items'][] = array(
             'id' => 'graph',
             'label' => 'Powiązania'
         );
-        
+
         if($this->_canEdit()) {
-            
+
             $menu['items'][] = array(
                 'id' => 'odpisy',
                 'label' => 'Odpisy'
             );
-            
+
             $menu['items'][] = array(
                 'id' => 'dane',
                 'label' => 'Edycja danych'
             );
-            
-        }        
+
+        }
 
         if ($this->request->params['id'] == 481129) { // KOMITET KONKURSOWY KRAKÓW 2022
 
@@ -801,29 +796,29 @@ class KrsPodmiotyController extends DataobjectsController
                 'label' => 'Indeksy kultury',
             );
         }
-        
+
         return $menu;
     }
 
     public function odpisy() {
-        
+
         if( @$this->request->params['subid'] ) {
-	        
+
 	        $res = $this->Dataobject->getDatasource()->request('krs/odpisy/' . $this->request->params['subid']);
             $this->redirect( $res['url'] );
-	        
+
         } else {
-	        
+
 	        $this->addInitLayers('odpisy');
 	        $this->_prepareView();
-	
+
 	        if(!$this->_canEdit())
 	            throw new ForbiddenException;
-	
+
 	        $this->set('title_for_layout', 'Odpisy z KRS podmiotu ' . $this->object->getTitle());
-	        
+
         }
-                
+
     }
 
     public function dane() {
