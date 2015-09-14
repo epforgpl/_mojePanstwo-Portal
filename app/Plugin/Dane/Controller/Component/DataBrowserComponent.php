@@ -1467,7 +1467,14 @@ class DataBrowserComponent extends Component
             }
 
         }
-
+        
+        if( @$controller->request->params['ext']=='json' ) {
+	        $controller->viewVars['dataBrowser'] = array(
+		        'hits' => $controller->viewVars['dataBrowser']['hits'],
+		        'aggs' => $controller->viewVars['dataBrowser']['aggs'],
+	        );
+	        $controller->set('_serialize', 'dataBrowser');
+	    }
 
     }
 

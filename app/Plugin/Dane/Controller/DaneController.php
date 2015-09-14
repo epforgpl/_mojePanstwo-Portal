@@ -11,6 +11,7 @@ class DaneController extends ApplicationsController
         'subtitle' => 'Przeszukuj największą bazę danych publicznych w Polsce',
     );
     
+    public $components = array('RequestHandler');
     
     public $mainMenuLabel = 'Szukaj';
     public $appSelected = 'search';
@@ -77,8 +78,11 @@ class DaneController extends ApplicationsController
 			}
 			
 			$dataset_info = $this->getDataset($this->request->params['id']);
-			
-            if (@$dataset_info['dataset_name']['menu_id']) {
+						
+            if(
+	            ( @$this->request->params['ext']!='json' ) && 
+            	@$dataset_info['dataset_name']['menu_id']
+            ) {
 
                 $url = '/' . $dataset_info['app_id'] . '/' . $dataset_info['dataset_name']['menu_id'] . '?' . http_build_query($this->request->query);
                 return $this->redirect($url);
