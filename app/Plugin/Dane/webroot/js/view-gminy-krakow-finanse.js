@@ -206,7 +206,7 @@ function graphInit(section) {
 		chart: {
 			renderTo: 'h' + i,
 			type: 'column',
-			height: 250,
+			height: 300,
 			backgroundColor: null,
 			spacingTop: 0,
 			marginBottom : 100
