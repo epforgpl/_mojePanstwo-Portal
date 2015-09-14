@@ -11,7 +11,9 @@ class NgoController extends ApplicationsController
         'subtitle' => 'Organizacje pozarządowe w Polsce',
         'headerImg' => 'ngo',
     );
-
+	
+	public $components = array('RequestHandler');
+	
     public $submenus = array(
         'ngo' => array(
             'items' => array(
@@ -50,18 +52,113 @@ class NgoController extends ApplicationsController
         return $this->redirect('/ngo');
 
     }
-
+	
+	public function map() {
+		
+		if(
+			isset($this->request->query['ne_lat']) && 
+			isset($this->request->query['ne_lng']) && 
+			isset($this->request->query['sw_lat']) && 
+			isset($this->request->query['sw_lng']) &&
+			isset($this->request->query['z'])
+		) {
+			
+			$precision = floor( $this->request->query['z'] / 2 );
+			
+			$options = array(
+	            'cover' => array(
+		            'force' => true,
+	                'aggs' => array(
+	                    'map' => array(
+		                    'scope' => 'global',
+		                    'filter' => array(
+			                    'bool' => array(
+				                    'must' => array(
+					                    array(
+						                    'term' => array(
+							                    'dataset' => 'krs_podmioty',
+						                    ),
+					                    ),
+					                    array(
+						                    'term' => array(
+							                    'data.krs_podmioty.forma_prawna_typ_id' => '2',
+						                    ),
+					                    ),
+					                    array(
+						                    'geo_bounding_box' => array(
+							                    'position' => array(
+								                    'top_left' => array(
+									                    'lat' => $this->request->query['ne_lat'],
+									                    'lon' => $this->request->query['sw_lng'],
+								                    ),
+								                    'bottom_right' => array(
+									                    'lat' => $this->request->query['sw_lat'],
+									                    'lon' => $this->request->query['ne_lng'],
+								                    ),
+							                    ),
+						                    ),
+					                    ),
+				                    ),
+			                    ),
+		                    ),
+		                    'aggs' => array(
+			                    'grid' => array(
+				                    'geohash_grid' => array(
+						                'field' => 'position',
+						                'precision' => $precision,
+						            ),
+						            'aggs' => array(
+					                    'inner_grid' => array(
+						                    'geohash_grid' => array(
+								                'field' => 'position',
+								                'precision' => $precision + 1,
+								                'size' => 1,
+								            ),
+					                    ),
+				                    ),
+			                    ),
+		                    ),
+	                    ),
+	                ),
+	            ),
+	        );
+						
+	        $this->Components->load('Dane.DataBrowser', $options);
+			$this->set('_serialize', 'dataBrowser');
+		
+		
+		} else {
+			
+			throw new BadRequestException('Required parameters missing');
+			
+		}
+		
+	}
+	
+	public function beforeRender()
+	{
+		
+		parent::beforeRender();
+		
+		if( $this->request->params['action']=='map' ) {
+			
+			$this->viewVars['dataBrowser'] = $this->viewVars['dataBrowser']['aggs']['map'];
+			
+		}
+		
+	}
+	
     public function view()
     {
 
         $options = array(
-            'searchTitle' => 'Szukaj organizacji pozarządowej...',
+            'searchTitle' => 'Szukaj w organizacjach pozarządowych...',
             'autocompletion' => array(
                 'dataset' => 'ngo',
             ),
             'conditions' => array(
                 'dataset' => 'krs_podmioty',
-                'krs_podmioty.forma_prawna_typ_id' => '2',
+                'krs_podmioty.forma_prawna_typ_id' => array('2'),
             ),
             'cover' => array(
                 'view' => array(
@@ -69,6 +166,27 @@ class NgoController extends ApplicationsController
                     'element' => 'cover',
                 ),
                 'aggs' => array(
+                    'dzialania' => array(
+                        'scope' => 'global',
+                        'filter' => array(
+                            'term' => array(
+	                            'dataset' => 'dzialania',
+                            ),
+                        ),
+                        'aggs' => array(
+                            'top' => array(
+                                'top_hits' => array(
+                                    'size' => 3,
+                                    'fielddata_fields' => array('dataset', 'id'),
+                                    'sort' => array(
+                                        'date' => array(
+                                            'order' => 'desc',
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
                     'fundacje' => array(
                         'filter' => array(
                             'bool' => array(
@@ -144,7 +262,9 @@ class NgoController extends ApplicationsController
         $this->set('_submenu', array_merge($this->submenus['ngo'], array(
             'selected' => '',
         )));
-
+		
+        $this->title = 'Organizacje pozarządowe i akcje społeczne';
+		
         $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
     }
@@ -182,45 +302,43 @@ class NgoController extends ApplicationsController
         $this->set('title_for_layout', 'Stowarzyszenia | NGO');
 
     }
-
-    public function getMenu()
-    {
-
-		$menu = array(
-			'items' => array(),
-			'base' => '/' . $this->settings['id'],
-		);
-
-		$menu['items'][] = array(
-			'label' => 'NGO',
-			'icon' => array(
-				'src' => 'glyphicon',
-				'id' => 'home',
+    
+    public function getChapters() {
+	    
+	    $mode = false;
+				
+		$items = array(
+			array(
+				'label' => 'Start',
+				'href' => '/' . $this->settings['id'],
 			),
 		);
-
-		$menu['items'][] = array(
-			'label' => 'Fundacje',
+		
+		$items[] = array(
+			'id' => 'dzialania',
+			'label' => 'Działania społeczne',
+			'href' => '/ngo/dzialania',
+		);
+		
+		$items[] = array(
 			'id' => 'fundacje',
+			'label' => 'Fundacje',
+			'href' => '/ngo/fundacje',
 		);
-
-		$menu['items'][] = array(
-			'label' => 'Stowarzyszenia',
+		
+		$items[] = array(
 			'id' => 'stowarzyszenia',
+			'label' => 'Stowarzyszenia',
+			'href' => '/ngo/stowarzyszenia',
 		);
-
-		return $menu;
-
+						
+		$output = array(
+			'items' => $items,
+			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
+		);
+				
+		return $output;    
+	    
     }
-
-	public function beforeRender() {
-
-		parent::beforeRender();
-
-		$app = $this->getApplication($this->settings['id']);
-		$app['name'] = 'NGO - Portal organizacji pozarządowych';
-        $this->set('_app', $app);
-
-	}
 
 }

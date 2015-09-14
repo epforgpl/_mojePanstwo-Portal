@@ -108,6 +108,7 @@ function trimTitle() {
 }
 
 /* JQUERY - STICK ELEMENT AT SCROLL */
+/*
 function stickyGo(dom, direction) {
 	"use strict";
 
@@ -155,6 +156,7 @@ function sticky(dom, direction) {
 		});
 	}
 }
+*/
 
 /*OTHER LIBRARY*/
 /* Simple JavaScript Inheritance

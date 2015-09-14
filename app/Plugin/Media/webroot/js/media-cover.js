@@ -4,8 +4,6 @@ $(document).ready(function () {
 		widthFromWrapper: false
 	});
 
-	$('.sticky').sticky();
-
 	// TAGS CLOUD
 	var tagsCloud = $("#tagsCloud");
 	if (tagsCloud.length)

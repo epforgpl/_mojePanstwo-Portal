@@ -18,28 +18,10 @@ $options = array(
         'types' => $twitterAccountTypes
     )); ?>
 <? } ?>
-<div class="col-xs-12 col-md-3 dataAggsContainer">
-    <div class="sticky">
+<div class="col-xs-12 col-md-3 col-sm-4 dataAggsContainer">
+    <div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
+        
         <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
-
-        <? /*
-		<? if(isset($twitterAccountTypes) && isset($twitterAccountType)) { ?>
-	        <div class="appSwitchers">
-		        <div class="dataWrap">
-			        <p class="_label">Analizowane konta:</p>
-			        <ul class="nav nav-pills">
-			            <? foreach($twitterAccountTypes as $type => $label) { ?>
-			                <li<? if($twitterAccountType == $type) echo ' class="active"' ?>>
-			                    <a href="/media<? if($type != '0') echo '?type=' . $type ?>">
-			                        <?= $label ?>
-			                    </a>
-			                </li>
-			            <? } ?>
-			        </ul>
-		        </div>
-	        </div>
-	    <? } ?>
-	    */ ?>
 
         <? if (isset($twitterAccountTypes)) { ?>
             <?= $this->Element('Media.twitter-account-suggestion', array(
@@ -50,7 +32,7 @@ $options = array(
     </div>
 </div>
 
-<div class="col-xs-12 col-md-9">
+<div class="col-xs-12 col-md-9 col-sm-8">
     <div class="dataWrap">
         <div class="appBanner">
             <h1 class="appTitle">Media społecznościowe</h1>

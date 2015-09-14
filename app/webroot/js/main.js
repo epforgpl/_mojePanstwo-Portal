@@ -235,3 +235,31 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 	}
 })
 (jQuery);
+
+$(document).ready(function(){
+	
+	var mp_sticky_resize = function(){
+		
+		if( $(window).width() >= 768 ) {
+			$('.mp-sticky.mp-sticky-disable-sm-4').removeClass('_mp-sticky-disabled');
+		} else {
+			$('.mp-sticky.mp-sticky-disable-sm-4').addClass('_mp-sticky-disabled');
+		}
+		
+	};
+	
+	$('.mp-sticky').each(function(){
+		
+		var el = $(this);
+				
+		el.sticky();
+		
+		if( el.hasClass('mp-sticky-disable-sm-4') ) {
+			
+			mp_sticky_resize();
+			$(window).resize(mp_sticky_resize);
+			
+		}
+		
+	});
+});

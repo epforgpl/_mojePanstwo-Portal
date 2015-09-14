@@ -1,117 +1,46 @@
-.panel {
-    height: 137px;
-    cursor: pointer;
-    position: relative;
-    margin-top: 10px;
-
-    background: url(/ngo/img/sidebar_background.jpg) top center no-repeat;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -ms-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-
-    .panel-body {
-        font-size: 18px;
-        font-weight: bold;
-        color: #ffffff;
-        line-height: 1.2em;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-
-        &:after {
-            content: '▶';
-            float: right;
-            font-size: 10px;
-            color: #ffffff;
-            text-align: center;
-            width: 25px;
-            height: 25px;
-            margin-top: 5px;
-            background-color: #092844;
-            border: 1px solid #092844;
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            -ms-border-radius: 5px;
-            -o-border-radius: 5px;
-            border-radius: 5px;
-        }
-    }
+.banner {
+	.img-cog {
+		
+		border-radius: 5px;
+		margin-left: 15px;
+		margin-right: 10px;
+		
+	    
+	    background: -moz-radial-gradient(center, ellipse cover, rgba(0,207,0,1) 0%, rgba(0,181,0,1) 100%); /* ff3.6+ */
+	    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(0,207,0,1)), color-stop(100%, rgba(0,181,0,1))); /* safari4+,chrome */
+	    background:-webkit-radial-gradient(center, ellipse cover, rgba(0,207,0,1) 0%, rgba(0,181,0,1) 100%); /* safari5.1+,chrome10+ */
+	    background: -o-radial-gradient(center, ellipse cover, rgba(0,207,0,1) 0%, rgba(0,181,0,1) 100%); /* opera 11.10+ */
+	    background: -ms-radial-gradient(center, ellipse cover, rgba(0,207,0,1) 0%, rgba(0,181,0,1) 100%); /* ie10+ */
+	    background:radial-gradient(ellipse at center, rgba(0,207,0,1) 0%, rgba(0,181,0,1) 100%); /* w3c */
+	    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00CF00', endColorstr='#00B500',GradientType=1 ); /* ie6-9 */
+	
+		
+		.glyphicon {
+			font-size: 32px;
+			padding: 10px;
+			color: #FFF;
+		}
+	}
 }
 
-#ngoPartnerModal {
-    .modal-header {
-        margin-top: 0;
-        height: 153px;
-        position: relative;
-        border-bottom: none;
-
-        background: url(/ngo/img/sidebar_background.jpg) top center no-repeat;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -ms-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-
-        .close, h4 {
-            color: #ffffff;
-        }
-        .close {
-            margin-top: 0;
-            -webkit-opacity: 1;
-            -moz-opacity: 1;
-            -ms-opacity: 1;
-            -o-opacity: 1;
-            opacity: 1;
-        }
-        h4 {
-            font-family: 'Roboto', sans-serif;
-            font-size: 24px;
-            font-weight: bold;
-            line-height: 1.2em;
-            position: absolute;
-            bottom: 15px;
-            left: 15px;
-        }
-    }
-    .modal-body {
-        > p {
-            padding: 5px 15px;
-        }
-
-        > form {
-            padding: 10px;
-
-            .form-group {
-                &:last-child {
-                    margin-bottom: 0;
-                }
-                > label {
-                    line-height: 1em;
-                    margin-bottom: 10px;
-                }
-            }
-            .btn-icon {
-                width: auto;
-                margin-left: auto;
-                margin-right: auto;
-                display: block;
-                margin-top: 15px;
-            }
-        }
-    }
+#map {
+	height: 460px;
+	.cluster {
+		position: absolute;
+		cursor: pointer;
+		text-align: center;
+		padding: 0 3px;
+		font-size: 10px;
+	}
 }
 
-@media (min-width: 768px) {
-    #ngoPartnerModal {
-        .modal-header h4 {
-            width: 75%;
-            margin-left: 10%;
-        }
-        .modal-body > form {
-            margin-left: 20px;
-            margin-right: 20px;
-        }
-    }
+#actions-newest {
+	.action {
+		.photo {
+			margin-bottom: 5px;
+			img {
+				width: 100%;
+			}
+		}
+	}
 }

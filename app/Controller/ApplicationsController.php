@@ -313,7 +313,7 @@ class ApplicationsController extends AppController
 			( $map = @$this->viewVars['dataBrowser']['aggs_visuals_map']['dataset']['dictionary'] ) && 
 			( $datasets = @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] )
 		) {
-						
+									
 			foreach( $map as $key => $value ) {
 								
 				if( !isset($value['menu_id']) )

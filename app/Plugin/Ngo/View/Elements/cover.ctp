@@ -1,93 +1,103 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('ngo', array('plugin' => 'Ngo'))) ?>
+<?
+	$this->Combinator->add_libs('css', $this->Less->css('ngo', array('plugin' => 'Ngo')));
+	$this->Combinator->add_libs('js', 'latlon-geohash');
+	$this->Combinator->add_libs('js', 'custom-marker');
+	$this->Combinator->add_libs('js', 'Ngo.ngo');
+	$this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
+	
+	echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&language=pl-PL', array('block' => 'scriptBlock'));
+?>
 
-<div class="col-xs-12 col-md-3 dataAggsContainer">
+<div class="col-xs-12 col-md-3 col-sm-4 dataAggsContainer">
+    <div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
+        
+        <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
+		
+        <?
+		$this->Combinator->add_libs('js', 'Media.twitter-account-suggestion');
+		$this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
+		$this->Combinator->add_libs('css', $this->Less->css('twitter-account-suggestion', array('plugin' => 'Media')));
+		?>
+		
+		<div class="banner block">
+		    
+		    <div>
+			    <div class="img-cog pull-left">
+				    <span class="glyphicon glyphicon-cog"></span>
+			    </div>
+			    
+			    <p class="headline margin-top-20"><strong>Zarządzaj profilem</strong> <br/>swojej organizacji!</p>
+		    </div>
+		    
+		    <div class="description margin-top-30">
+			    <p>Dodawaj działania swojej organizacji, uaktualniaj i modyfikuj jej dane!</p>
+			    <p>Aby zacząć, znajdź organizację, korzystając z wyszukiwarki, przejdź na jej profil i poproś o uprawnienia do zarządzania jej profilem.</p>
+			</div>
+		</div>
+		
 
-    <? if(isset($_submenu) && isset($_submenu['items'])) {
 
-        if(!isset($_submenu['base']))
-            $_submenu['base'] = '/ngo';
+    </div>
+</div>
 
-        echo $this->Element('Dane.DataBrowser/browser-menu', array(
-            'menu' => $_submenu,
-        ));
+<div class="col-xs-12 col-md-9 col-sm-8">
 
-    } ?>
+	<div class="dataWrap">
+        <div class="appBanner bottom-border">
+            <h1 class="appTitle">Organizacje pozarządowe i działania społeczne</h1>
 
-    <div class="panel panel-primary col-xs-12" data-toggle="modal" data-target="#ngoPartnerModal">
-        <div class="panel-body">
-            Zostań oficjalnym partnerem mojegoPaństwa
+            <p class="appSubtitle">Poznaj scenę organizacji obywatelskich w Polsce.</p>
         </div>
-    </div>
-    <?php echo $this->element('Ngo.ngo_partner_modal') ?>
+        
+        <div id="actions-newest" class="block block-simple col-sm-12">
+	        <header class="nopadding">Najnowsze działania organizacji pozarządowych:</header>
+	        <section class="content margin-top-10">
+                <div class="row">
+                <? foreach ($dataBrowser['aggs']['dzialania']['top']['hits']['hits'] as $dzialanie) { ?>
+                    <div class="action col-sm-4">
+                        <h4>
+                            <a href="/dane/krs_podmioty//dzialania/<?= $dzialanie['fields']['id'][0]; ?>">
+                                <?= $this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.tytul'], 100); ?>
+                            </a>
+                        </h4>
 
-    <? echo $this->Element('Dane.DataBrowser/aggs', array(
-            'data' => $dataBrowser,
-    )); ?>
+                        <? if ($dzialanie['fields']['source'][0]['data']['dzialania.photo'] == '1') { ?>
+                            <div class="photo">
+                                <a href="/dane/krs_podmioty//dzialania/<?= $dzialanie['fields']['id'][0]; ?>"><img
+                                        alt="<?= $dzialanie['fields']['source'][0]['data']['dzialania.tytul']; ?>"
+                                        src="http://sds.tiktalik.com/portal/2/pages/dzialania/<?= $dzialanie['fields']['id'][0]; ?>.jpg"/></a>
+                            </div>
+                        <? } ?>
 
-</div>
-
-<div class="col-md-9 col-xs-12">
-
-    <div class="block col-xs-12">
-        <header>Ostatnio zarejestrowane fundacje</header>
-        <section class="aggs-init">
-            <div class="dataAggs">
-                <div class="agg agg-Dataobjects">
-                    <? if ($dataBrowser['aggs']['fundacje']['doc_count']) { ?>
-                        <ul class="dataobjects">
-                            <? foreach ($dataBrowser['aggs']['fundacje']['top']['hits']['hits'] as $doc) { ?>
-                                <li>
-                                    <?
-                                    echo $this->Dataobject->render($doc, 'default');
-                                    ?>
-                                </li>
-                            <? } ?>
-                        </ul>
-                    <? } ?>
+                        <div class="desc">
+                            <?= $this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.podsumowanie'], 200) ?>
+                        </div>
+                    </div>
+                <? } ?>
                 </div>
-            </div>
-        </section>
-        <footer>
-            <div class="buttons text-center">
-                <a href="/ngo/fundacje" class="btn btn-primary btn-sm">Zobacz więcej</a>
-            </div>
-        </footer>
-    </div>
-
-    <div class="block col-xs-12">
-        <header>Ostatnio zarejestrowane stowarzyszenia</header>
-        <section class="aggs-init">
-            <div class="dataAggs">
-                <div class="agg agg-Dataobjects">
-                    <? if ($dataBrowser['aggs']['stowarzyszenia']['doc_count']) { ?>
-                        <ul class="dataobjects">
-                            <? foreach ($dataBrowser['aggs']['stowarzyszenia']['top']['hits']['hits'] as $doc) { ?>
-                                <li>
-                                    <?
-                                    echo $this->Dataobject->render($doc, 'default');
-                                    ?>
-                                </li>
-                            <? } ?>
-                        </ul>
-                    <? } ?>
+                <div class="text-center">
+	                <a class="btn btn-xs btn-primary" href="#">Zobacz więcej &raquo;</a>
                 </div>
-            </div>
-        </section>
-        <footer>
-            <div class="buttons text-center">
-                <a href="/ngo/stowarzyszenia" class="btn btn-primary btn-sm">Zobacz więcej</a>
-            </div>
-        </footer>
-    </div>
-
-</div>
-<? /*
-<div class="col-md-4">
-    <div class="panel panel-primary col-xs-12" data-toggle="modal" data-target="#ngoPartnerModal">
-        <div class="panel-body">
-            Zostań oficjalnym partnerem mojegoPaństwa
+            </section>
         </div>
+        
+        <div class="block block-simple col-sm-12">
+	        <header class="nopadding">Mapa organizacji pozarządowych:</header>
+	        <section class="content margin-top-10">
+		        <div id="map"></div>
+	        </section>
+        </div>
+
+        <div class="block block-simple col-sm-12">
+	        <header class="nopadding">Dane statystyczne o sektorze organizacji pozarządowych:</header>
+        </div>
+        
+        <div class="block block-simple col-sm-12">
+	        <header class="nopadding">Ważne akty prawne dotyczące organizacji pozarządowych:</header>
+        </div>
+        
+        
+        
     </div>
-    <?php echo $this->element('Ngo.ngo_partner_modal') ?>
+
 </div>
-*/ ?>
