@@ -91,17 +91,29 @@ $(document).ready(function () {
 				for (var i = 0; i < data.grid.buckets.length; i++) {
 					var cell = data.grid.buckets[i];
 					var center = Geohash.decode(cell.key);
-					var inner_center = Geohash.decode(cell.inner_grid.buckets[0].key);
 					var f = .5;
 
 					if (cell.doc_count == 1) {
-						markers.push(new google.maps.Marker({
-								position: new google.maps.LatLng(center.lat + (inner_center.lat - center.lat) * f, center.lon + (inner_center.lon - center.lon) * f),
-								icon: ngoIcon,
-								map: map
-							})
-						);
+						var marker = new google.maps.Marker({
+							position: new google.maps.LatLng(cell.lat, cell.lng),
+							icon: ngoIcon,
+							map: map,
+							data: cell
+						});
+
+						markers.push(marker);
+						var infowindow = new google.maps.InfoWindow();
+
+						google.maps.event.addListener(marker, 'click', (function (marker, content, infowindow) {
+							return function () {
+								console.log(marker);
+								infowindow.setContent('test');
+								infowindow.open(map, marker);
+							};
+						})(marker, content, infowindow));
 					} else {
+						var inner_center = Geohash.decode(cell.inner_key);
+
 						markers.push(new CustomMarker(new google.maps.LatLng(center.lat + (inner_center.lat - center.lat) * f, center.lon + (inner_center.lon - center.lon) * f), map, {
 							title: cell.doc_count
 						}));
