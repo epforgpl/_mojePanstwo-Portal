@@ -98,9 +98,10 @@ $options = array(
 
                         	if( $global['left']===false )
                         		echo 'display: none;';
-                        	else
-                        		echo 'left: ' . round($global['left']) . '%';
-
+                        	else {
+                                $rg = round($global['left']);
+                                echo 'left: ' . ($rg > 100 ? 100 : $rg) . '%';
+                            }
                         ?>">
                         	<span class="n"><?= $object->getTitle() ?></span>
                         	<span class="v"><?= number_format_h($global['cur']) ?></span>
@@ -148,8 +149,8 @@ $options = array(
                                 <div class="subtitle" style="display: none;">
 	                                <h3>Szczegółowe wydatki gminy <?= $object->getTitle() ?> w tym dziale:</h3>
                                 </div>
-								
-								
+
+
                                 <div class="chart" style="display: none;">
 	                                <div class="histogram_cont">
 		                                <div class="histogram" data-median="<?= $dzial['global']['median'] ?>" data-title="<?= $dzial['label'] ?>" data-subtitle="<?= $main_chart['subtitle'] ?>" data-histogram='<?= json_encode($dzial['global']['histogram']) ?>'>
@@ -169,8 +170,10 @@ $options = array(
 
 			                                	if( $dzial['global']['left']===false )
 			                                		echo 'display: none;';
-			                                	else
-			                                		echo 'left: ' . round($dzial['global']['left']) . '%';
+			                                	else {
+                                                    $rg = round($dzial['global']['left']);
+                                                    echo 'left: ' . ($rg > 100 ? 100 : $rg) . '%';
+                                                }
 
 			                                ?>">
 			                                	<span class="n"><?= $object->getTitle() ?></span>
@@ -189,9 +192,9 @@ $options = array(
 
                                 <table class="rozdzialy" style="display: none">
 	                            <? foreach($dzial['rozdzialy'] as $r) {?>
-									
+
 									<? if( !@$r['id'] ) continue; ?>
-									
+
 	                            	<tr data-id="<?= $r['id'] ?>">
 		                            	<td><?= $r['label'] ?></td>
 		                            	<td><?= number_format_h($r['wydatki']) ?></td>
