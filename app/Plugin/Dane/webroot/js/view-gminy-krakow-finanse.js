@@ -1,12 +1,13 @@
-/*global mPHeart*/
+/*global mPHeart, Highcharts*/
 $(document).ready(function () {
 	var lastChoose,
+		$dataForm = $('#dataForm'),
 		$administracja = lastChoose = $('#mp-sections');
 
 	graphInit('#mainChart');
 
-	$('#dataForm select').change(function() {
-		$('#dataForm').submit();
+	$dataForm.find('select').change(function () {
+		$dataForm.submit();
 	});
 
 	$.each($administracja.find('.item a'), function () {
@@ -70,7 +71,7 @@ $(document).ready(function () {
 					infoBlock = $administracja.find('.infoBlock');
 					infoBlock.addClass('current active');
 				} else {
-					$administracja.find('.infoBlock').addClass('old').removeClass('active').css({
+					$administracja.find('.infoBlock.active').addClass('old').removeClass('active').css({
 						'height': 0,
 						'border-width': 0
 					}).stop(true, true).animate({'margin-top': 0}, 500, function () {
@@ -102,9 +103,7 @@ $(document).ready(function () {
 });
 
 function rozdzialy(item) {
-	var infoBlock = $('._chart').attr('data-itemid', item.parent().attr('data-id')),
-		histogram,
-		gradient,
+	var infoBlock = $('._chart.active').attr('data-itemid', item.parent().attr('data-id')),
 		rozdzialy = item.find('table.rozdzialy'),
 		subtitle = item.find('.subtitle'),
 		chart = item.find('.chart');
@@ -123,7 +122,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 		prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
 		sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
 		dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-		s = '',
+		s,
 		toFixedFix = function (n, prec) {
 			var k = Math.pow(10, prec);
 			return '' + (Math.round(n * k) / k)
@@ -151,19 +150,19 @@ function pl_currency_format(n) {
 	var tys = 0;
 
 	if (n > 1000000000) {
-		mld = Math.round(n / 1000000000, 2);
+		mld = Math.round(n / 1000000000);
 		n -= mld * 1000000000;
 		return mld + ' Mld';
 	}
 
 	if (n > 1000000) {
-		mln = Math.round(n / 1000000, 2);
+		mln = Math.round(n / 1000000);
 		n -= mln * 1000000;
 		return mln + ' M';
 	}
 
 	if (n > 1000) {
-		tys = Math.round(n / 1000, 2);
+		tys = Math.round(n / 1000);
 		n -= tys * 1000;
 		return tys + ' k';
 	}
@@ -182,15 +181,13 @@ function pl_currency_format(n) {
 }
 
 function graphInit(section) {
-
-	var section = $(section),
-		histogram_div = jQuery(section.find('.histogram')),
+	var $section = $(section),
+		histogram_div = jQuery($section.find('.histogram')),
 		data = histogram_div.data('histogram'),
 		charts_data = [],
-		chart,
-		i = section.attr('data-itemid'),
-		title = section.find('.histogram').data('title'),
-		subtitle = section.find('.histogram').data('subtitle');
+		i = $section.attr('data-itemid'),
+		title = $section.find('.histogram').data('title'),
+		subtitle = $section.find('.histogram').data('subtitle');
 
 	for (var d = 0; d < data.length; d++) {
 		if (data[d]) {
@@ -203,11 +200,9 @@ function graphInit(section) {
 		}
 	}
 
-
 	histogram_div.attr('id', 'h' + i);
 
-
-	chart = new Highcharts.Chart({
+	new Highcharts.Chart({
 		chart: {
 			renderTo: 'h' + i,
 			type: 'column',
@@ -237,7 +232,7 @@ function graphInit(section) {
 			text: title,
 			y: 20
 		},
-		
+
 		subtitle: {
 			text: subtitle,
 			y: 40

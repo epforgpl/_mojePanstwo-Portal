@@ -1,46 +1,72 @@
+.gmnoprint {
+    opacity: 1 !important;
+
+    &:before {
+        font-family: 'datasets';
+        content: "\e62a";
+        color: #ffffff;
+        font-size: 15px;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        -webkit-transform: translate(-50%, 0);
+        -moz-transform: translate(-50%, 0);
+        -ms-transform: translate(-50%, 0);
+        -o-transform: translate(-50%, 0);
+        transform: translate(-50%, 0);
+    }
+}
+
 .banner {
-	.img-cog {
-		
-		border-radius: 5px;
-		margin-left: 15px;
-		margin-right: 10px;
-		
-	    
-	    background: -moz-radial-gradient(center, ellipse cover, rgba(0,207,0,1) 0%, rgba(0,181,0,1) 100%); /* ff3.6+ */
-	    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(0,207,0,1)), color-stop(100%, rgba(0,181,0,1))); /* safari4+,chrome */
-	    background:-webkit-radial-gradient(center, ellipse cover, rgba(0,207,0,1) 0%, rgba(0,181,0,1) 100%); /* safari5.1+,chrome10+ */
-	    background: -o-radial-gradient(center, ellipse cover, rgba(0,207,0,1) 0%, rgba(0,181,0,1) 100%); /* opera 11.10+ */
-	    background: -ms-radial-gradient(center, ellipse cover, rgba(0,207,0,1) 0%, rgba(0,181,0,1) 100%); /* ie10+ */
-	    background:radial-gradient(ellipse at center, rgba(0,207,0,1) 0%, rgba(0,181,0,1) 100%); /* w3c */
-	    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00CF00', endColorstr='#00B500',GradientType=1 ); /* ie6-9 */
-	
-		
-		.glyphicon {
-			font-size: 32px;
-			padding: 10px;
-			color: #FFF;
-		}
-	}
+    .img-cog {
+        border-radius: 5px;
+        margin-left: 15px;
+        margin-right: 10px;
+
+        background: -moz-radial-gradient(center, ellipse cover, rgba(0, 207, 0, 1) 0%, rgba(0, 181, 0, 1) 100%); /* ff3.6+ */
+        background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(0, 207, 0, 1)), color-stop(100%, rgba(0, 181, 0, 1))); /* safari4+,chrome */
+        background: -webkit-radial-gradient(center, ellipse cover, rgba(0, 207, 0, 1) 0%, rgba(0, 181, 0, 1) 100%); /* safari5.1+,chrome10+ */
+        background: -o-radial-gradient(center, ellipse cover, rgba(0, 207, 0, 1) 0%, rgba(0, 181, 0, 1) 100%); /* opera 11.10+ */
+        background: -ms-radial-gradient(center, ellipse cover, rgba(0, 207, 0, 1) 0%, rgba(0, 181, 0, 1) 100%); /* ie10+ */
+        background: radial-gradient(ellipse at center, rgba(0, 207, 0, 1) 0%, rgba(0, 181, 0, 1) 100%); /* w3c */
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00CF00', endColorstr='#00B500', GradientType=1); /* ie6-9 */
+
+        .glyphicon {
+            font-size: 32px;
+            padding: 10px;
+            color: #FFF;
+        }
+    }
+}
+
+.mapSpinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 #map {
-	height: 460px;
-	.cluster {
-		position: absolute;
-		cursor: pointer;
-		text-align: center;
-		padding: 0 3px;
-		font-size: 10px;
-	}
+    height: 460px;
+
+    .cluster {
+        position: absolute;
+        cursor: pointer;
+        text-align: center;
+        padding: 0 3px;
+        font-size: 10px;
+    }
 }
 
-#actions-newest {
-	.action {
-		.photo {
-			margin-bottom: 5px;
-			img {
-				width: 100%;
-			}
-		}
-	}
+#actions-newest .action .photo {
+    margin-bottom: 5px;
+    img {
+        width: 100%;
+    }
 }
