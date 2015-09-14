@@ -158,7 +158,7 @@ class NgoController extends ApplicationsController
 			foreach( $data['grid']['buckets'] as &$b ) {
 				
 				$b['lat'] = $b['lat']['buckets'][0]['key'];
-				$b['lng'] = $b['lat']['buckets'][0]['lng'];
+				$b['lng'] = $b['lng']['buckets'][0]['key'];
 				$b['inner_key'] = $b['inner_grid']['buckets'][0]['key'];
 				unset( $b['inner_grid'] );
 				
