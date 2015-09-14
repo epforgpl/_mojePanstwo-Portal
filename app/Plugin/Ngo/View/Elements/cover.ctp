@@ -57,7 +57,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                     <? foreach ($dataBrowser['aggs']['dzialania']['top']['hits']['hits'] as $dzialanie) { ?>
                         <div class="action col-sm-4">
                             <h4>
-                                <a href="/dane/krs_podmioty//dzialania/<?= $dzialanie['fields']['id'][0]; ?>">
+                                <a href="/dane/krs_podmioty/<?= $dzialanie['fields']['source'][0]['data']['dzialania.object_id']; ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>">
                                     <?= $this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.tytul'], 100); ?>
                                 </a>
                             </h4>
