@@ -107,8 +107,7 @@ $(document).ready(function () {
 
 						google.maps.event.addListener(marker, 'click', (function (marker, content, infowindow) {
 							return function () {
-								console.log(marker);
-								infowindow.setContent('test');
+								infowindow.setContent('<p class="name"><a href="/dane/krs_podmioty/' + marker.data.id + '">' + marker.data.name + '</a></p><p class="form">' + marker.data.form + '</p>');
 								infowindow.open(map, marker);
 							};
 						})(marker, content, infowindow));
@@ -128,9 +127,9 @@ $(document).ready(function () {
 	};
 
 	map = new google.maps.Map(document.getElementById('map'), options);
-	google.maps.event.addDomListener(map, 'idle', mapUpdate);
-
 	map.mapTypes.set('style', new google.maps.StyledMapType(style, {name: 'My Style'}));
+
+	google.maps.event.addDomListener(map, 'idle', mapUpdate);
 	border.setMap(map);
 });
 

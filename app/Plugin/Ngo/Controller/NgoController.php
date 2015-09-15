@@ -85,6 +85,11 @@ class NgoController extends ApplicationsController
 						                    ),
 					                    ),
 					                    array(
+						                    'term' => array(
+							                    'data.krs_podmioty.wykreslony' => '0',
+						                    ),
+					                    ),
+					                    array(
 						                    'geo_bounding_box' => array(
 							                    'position' => array(
 								                    'top_left' => array(
@@ -127,6 +132,24 @@ class NgoController extends ApplicationsController
 							                    'size' => 1,
 						                    ),
 					                    ),
+					                    'id' => array(
+						                    'terms' => array(
+							                    'field' => 'id',
+							                    'size' => 1,
+						                    ),
+					                    ),
+					                    'name' => array(
+						                    'terms' => array(
+							                    'field' => 'title.raw',
+							                    'size' => 1,
+						                    ),
+					                    ),
+					                    'form' => array(
+						                    'terms' => array(
+							                    'field' => 'data.krs_podmioty.forma_prawna_str',
+							                    'size' => 1,
+						                    ),
+					                    ),
 				                    ),
 			                    ),
 		                    ),
@@ -157,8 +180,24 @@ class NgoController extends ApplicationsController
 			$data = $this->viewVars['dataBrowser']['aggs']['map'];
 			foreach( $data['grid']['buckets'] as &$b ) {
 				
-				$b['lat'] = $b['lat']['buckets'][0]['key'];
-				$b['lng'] = $b['lng']['buckets'][0]['key'];
+				if( $b['doc_count']===1 ) {
+				
+					$b['lat'] = $b['lat']['buckets'][0]['key'];
+					$b['lng'] = $b['lng']['buckets'][0]['key'];
+					$b['name'] = $b['name']['buckets'][0]['key'];
+					$b['id'] = $b['id']['buckets'][0]['key'];
+					$b['form'] = $b['form']['buckets'][0]['key'];
+				
+				} else {
+					
+					unset( $b['lat'] );
+					unset( $b['lng'] );
+					unset( $b['name'] );
+					unset( $b['id'] );
+					unset( $b['desc'] );
+					
+				}
+				
 				$b['inner_key'] = $b['inner_grid']['buckets'][0]['key'];
 				unset( $b['inner_grid'] );
 				

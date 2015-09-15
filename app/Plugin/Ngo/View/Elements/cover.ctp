@@ -61,7 +61,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                                     <?= $this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.tytul'], 100); ?>
                                 </a>
                             </h4>
-
+														
                             <? if ($dzialanie['fields']['source'][0]['data']['dzialania.photo'] == '1') { ?>
                                 <div class="photo">
                                     <a href="/dane/krs_podmioty//dzialania/<?= $dzialanie['fields']['id'][0]; ?>"><img
@@ -70,13 +70,15 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                                 </div>
                             <? } ?>
 
+							<p class="owner"><?= $dzialanie['fields']['source'][0]['data']['dzialania.owner_name'] ?></p>
+							
                             <div class="desc">
                                 <?= $this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.podsumowanie'], 200) ?>
                             </div>
                         </div>
                     <? } ?>
                 </div>
-                <div class="text-center">
+                <div class="text-center margin-top-20">
                     <a class="btn btn-xs btn-primary" href="#">Zobacz więcej &raquo;</a>
                 </div>
             </section>
@@ -93,7 +95,8 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                 </div>
             </section>
         </div>
-
+		
+		<? /*
         <div class="block block-simple col-sm-12">
             <header class="nopadding">Dane statystyczne o sektorze organizacji pozarządowych:</header>
         </div>
@@ -101,6 +104,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
         <div class="block block-simple col-sm-12">
             <header class="nopadding">Ważne akty prawne dotyczące organizacji pozarządowych:</header>
         </div>
+        */ ?>
 
 
     </div>
