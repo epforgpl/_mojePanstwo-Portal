@@ -64,7 +64,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
 														
                             <? if ($dzialanie['fields']['source'][0]['data']['dzialania.photo'] == '1') { ?>
                                 <div class="photo">
-                                    <a href="/dane/krs_podmioty//dzialania/<?= $dzialanie['fields']['id'][0]; ?>"><img
+                                    <a href="/dane/krs_podmioty/<?= $dzialanie['fields']['source'][0]['data']['dzialania.object_id']; ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>"><img
                                             alt="<?= $dzialanie['fields']['source'][0]['data']['dzialania.tytul']; ?>"
                                             src="http://sds.tiktalik.com/portal/2/pages/dzialania/<?= $dzialanie['fields']['id'][0]; ?>.jpg"/></a>
                                 </div>
@@ -79,7 +79,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                     <? } ?>
                 </div>
                 <div class="text-center margin-top-20">
-                    <a class="btn btn-xs btn-primary" href="#">Zobacz więcej &raquo;</a>
+                    <a class="btn btn-xs btn-primary" href="/ngo/dzialania">Zobacz więcej &raquo;</a>
                 </div>
             </section>
         </div>

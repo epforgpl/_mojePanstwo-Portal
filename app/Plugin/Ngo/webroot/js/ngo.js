@@ -4,6 +4,7 @@ var map,
 
 $(document).ready(function () {
 	var xhr,
+		infowindow = null,
 		options = {
 			zoom: 6,
 			center: new google.maps.LatLng(51.986797406813125, 19.32958984375001),
@@ -27,23 +28,31 @@ $(document).ready(function () {
 			minZoom: 6,
 			maxZoom: 15
 		},
-		style = [
+		mapStyle = [
 			{
 				featureType: "administrative.country",
 				elementType: "labels",
-				stylers: [{visibility: "off"}]
+				stylers: [
+					{visibility: "off"}
+				]
 			}, {
 				featureType: "poi",
 				elementType: "labels",
-				stylers: [{visibility: "off"}]
+				stylers: [
+					{visibility: "off"}
+				]
 			}, {
 				featureType: "water",
 				elementType: "labels",
-				stylers: [{visibility: "off"}]
+				stylers: [
+					{visibility: "off"}
+				]
 			}, {
 				featureType: "road",
 				elementType: "labels",
-				stylers: [{visibility: "off"}]
+				stylers: [
+					{visibility: "off"}
+				]
 			}
 		], border = new google.maps.Polygon({
 			paths: [
@@ -70,64 +79,129 @@ $(document).ready(function () {
 		mapSpinner = $('.mapSpinner');
 
 	var mapUpdate = function () {
-		window.clearTimeout(mapUpdateTimer);
-		mapUpdateTimer = window.setTimeout(function () {
-			mapSpinner.removeClass('hide');
-			var bounds = map.getBounds();
-			if (xhr && xhr.readystate != 4) {
-				xhr.abort();
-			}
-			xhr = $.get('/ngo/map.json', {
-				ne_lat: bounds.getNorthEast().lat(),
-				ne_lng: bounds.getNorthEast().lng(),
-				sw_lat: bounds.getSouthWest().lat(),
-				sw_lng: bounds.getSouthWest().lng(),
-				z: map.getZoom()
-			}, function (data) {
-				for (var j = 0; j < markers.length; j++) {
-					markers[j].setMap(null);
+		if (infowindow === null || infowindow.getMap() === null) {
+			window.clearTimeout(mapUpdateTimer);
+			mapUpdateTimer = window.setTimeout(function () {
+				mapSpinner.removeClass('hide');
+				var bounds = map.getBounds();
+
+				if (xhr && xhr.readystate != 4) {
+					xhr.abort();
 				}
-
-				markers = [];
-				for (var i = 0; i < data.grid.buckets.length; i++) {
-					var cell = data.grid.buckets[i];
-					var center = Geohash.decode(cell.key);
-					var f = .5;
-
-					if (cell.doc_count == 1) {
-						var marker = new google.maps.Marker({
-							position: new google.maps.LatLng(cell.lat, cell.lng),
-							icon: ngoIcon,
-							map: map,
-							data: cell
-						});
-
-						markers.push(marker);
-						var infowindow = new google.maps.InfoWindow();
-
-						google.maps.event.addListener(marker, 'click', (function (marker, content, infowindow) {
-							return function () {
-								infowindow.setContent('<p class="name"><a href="/dane/krs_podmioty/' + marker.data.id + '">' + marker.data.name + '</a></p><p class="form">' + marker.data.form + '</p>');
-								infowindow.open(map, marker);
-							};
-						})(marker, content, infowindow));
-					} else {
-						var inner_center = Geohash.decode(cell.inner_key);
-
-						markers.push(new CustomMarker(new google.maps.LatLng(center.lat + (inner_center.lat - center.lat) * f, center.lon + (inner_center.lon - center.lon) * f), map, {
-							title: cell.doc_count
-						}));
+				xhr = $.get('/ngo/map.json', {
+					ne_lat: bounds.getNorthEast().lat(),
+					ne_lng: bounds.getNorthEast().lng(),
+					sw_lat: bounds.getSouthWest().lat(),
+					sw_lng: bounds.getSouthWest().lng(),
+					z: map.getZoom()
+				}, function (data) {
+					for (var j = 0; j < markers.length; j++) {
+						markers[j].setMap(null);
 					}
 
-					if (i + 1 == data.grid.buckets.length)
-						mapSpinner.addClass('hide');
-				}
-			}, 'json');
-		}, 400);
+					markers = [];
+					for (var i = 0; i < data.grid.buckets.length; i++) {
+						var cell = data.grid.buckets[i],
+							center = Geohash.decode(cell.key),
+							f = .5;
+
+						if (cell.doc_count == 1) {
+							var marker = new google.maps.Marker({
+								position: new google.maps.LatLng(cell.lat, cell.lng),
+								icon: ngoIcon,
+								map: map,
+								data: cell
+							});
+
+							markers.push(marker);
+
+							google.maps.event.addListener(marker, 'click', (function (marker) {
+								return function () {
+									if (infowindow)
+										infowindow.close();
+
+									infowindow = new google.maps.InfoWindow();
+
+									$.get('/dane/krs_podmioty.json?conditions[geohash]=' + marker.data.key, function (data) {
+										var detailBlock = '',
+											info = data.hits[0];
+
+										if (info.data.krs.length > 0) {
+											detailBlock += '<li class="dataHighlight">' +
+												'<p class="_label">Numer KRS</p>' +
+												'<p class="_value">' + info.data.krs + '</p>' +
+												'<li>';
+										}
+										if (info.data.nip.length > 0) {
+											detailBlock += '<li class="dataHighlight">' +
+												'<p class="_label">Numer NIP</p>' +
+												'<p class="_value">' + info.data.nip + '</p>' +
+												'<li>';
+										}
+										if (info.data.regon.length > 0) {
+											detailBlock += '<li class="dataHighlight">' +
+												'<p class="_label">Numer REGON</p>' +
+												'<p class="_value">' + info.data.regon + '</p>' +
+												'<li>';
+										}
+										if (info.data.data_rejestracji.length > 0) {
+											detailBlock += '<li class="dataHighlight">' +
+												'<p class="_label">Data rejestracji</p>' +
+												'<p class="_value">' + info.data.data_rejestracji + '</p>' +
+												'<li>';
+										}
+										if (info.data.sygnatura_akt.length > 0) {
+											detailBlock += '<li class="dataHighlight">' +
+												'<p class="_label">Sygnatura akt</p>' +
+												'<p class="_value">' + info.data.sygnatura_akt + '</p>' +
+												'<li>';
+										}
+
+										infowindow.setContent('<div class="infoWindowNgo">' +
+											'<div class="ngoPlace">' +
+											'<div class="title">' +
+											'<a href="/dane/krs_podmioty/' + marker.data.id + ',' + info.slug + '">' +
+											'<i class="object-icon icon-datasets-krs_podmioty"></i>' +
+											'<div itemprop="name" class="titleName">' + marker.data.name + '</div>' +
+											'</a>' +
+											'</div>' +
+											'<ul class="detail dataHighlights oneline">' + detailBlock + '</ul>' +
+											'</div>' +
+											'<div>');
+									});
+									infowindow.setContent('<div class="infoWindowNgo">' +
+										'<div class="ngoPlace">' +
+										'<div class="title">' +
+										'<a href="/dane/krs_podmioty/' + marker.data.id + '">' +
+										'<i class="object-icon icon-datasets-krs_podmioty"></i>' +
+										'<div itemprop="name" class="titleName">' + marker.data.name + '</div>' +
+										'</a>' +
+										'</div>' +
+										'<ul class="detail dataHighlights oneline loading">' +
+										'</ul>' +
+										'</div>' +
+										'</div>');
+									infowindow.open(map, marker);
+								};
+							})(marker, content, infowindow));
+						} else {
+							var inner_center = Geohash.decode(cell.inner_key);
+
+							markers.push(new CustomMarker(new google.maps.LatLng(center.lat + (inner_center.lat - center.lat) * f, center.lon + (inner_center.lon - center.lon) * f), map, {
+								title: cell.doc_count
+							}));
+						}
+
+						if (i + 1 == data.grid.buckets.length)
+							mapSpinner.addClass('hide');
+					}
+				}, 'json');
+			}, 400);
+		}
 	};
 
 	map = new google.maps.Map(document.getElementById('map'), options);
-	map.mapTypes.set('style', new google.maps.StyledMapType(style, {name: 'My Style'}));
+	map.setOptions({styles: mapStyle});
 
 	google.maps.event.addDomListener(map, 'idle', mapUpdate);
 	border.setMap(map);

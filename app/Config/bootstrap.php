@@ -123,7 +123,8 @@ $plugin_definitions =
 		'Mapaprawa'     => array( 'routes' => true, 'bootstrap' => false ),
 		'Kultura'       => array( 'routes' => true, 'bootstrap' => false ),
 		'Finanse'       => array( 'routes' => true, 'bootstrap' => false ),
-        'Sentry' => array('routes' => false, 'bootstrap' => false),
+        'Sentry'        => array('routes' => false, 'bootstrap' => false),
+        'Widgets'       => array('routes' => true, 'bootstrap' => false)
 	);
 
 CakePlugin::loadAll($plugin_definitions);
