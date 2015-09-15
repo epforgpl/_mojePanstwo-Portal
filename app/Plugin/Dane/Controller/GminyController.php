@@ -3748,6 +3748,10 @@ class GminyController extends DataobjectsController
         $this->set('title_for_layout', $title_for_layout);
     }
 
+    public function mapa()
+    {
+        $this->_prepareView();
+    }
 
     public function map()
     {
@@ -3872,31 +3876,31 @@ class GminyController extends DataobjectsController
 		}
 
         $this->set('filter_options', $options);
-		
+
 		$main_chart = array();
-		
-		
+
+
 		// DATA
-		
+
 		$data = $options['data']['items'][ $options['data']['selected_i'] ]['id'];
-				
+
 		if( $data=='wydatki' ) {
-			
+
 			$main_chart['title'] = 'Wydatki - wartości absolutne';
-			
+
 		} elseif( $data=='wydatki_na_osobe' ) {
 
-			$main_chart['title'] = 'Wydatki w przeliczeniu na osobę';			
-			
+			$main_chart['title'] = 'Wydatki w przeliczeniu na osobę';
+
 		}
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
 		// TIMERANGE
-		
+
 		$timerange = $options['timerange']['items'][ $options['timerange']['selected_i'] ]['id'];
 
         if(preg_match('/^([0-9]{4})$/', $timerange)) {
@@ -3909,16 +3913,16 @@ class GminyController extends DataobjectsController
         } else {
             throw new NotFoundException;
         }
-        
-        
-        
-		
+
+
+
+
 		// COMPARE
-		
+
 		$compare = $options['compare']['items'][ $options['compare']['selected_i'] ]['id'];
-		
+
 		if( $compare=='wszystkie' ) {
-			
+
 			$gminy_filter = array(
 				array(
 					'term' => array(
@@ -3926,11 +3930,11 @@ class GminyController extends DataobjectsController
 		            ),
 				),
 			);
-			
+
 			$main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' ze wszystkimi gminami';
-			
+
 		} elseif( $compare=='miejskie' ) {
-			
+
 			$gminy_filter = array(
 				array(
 					'term' => array(
@@ -3943,11 +3947,11 @@ class GminyController extends DataobjectsController
 					),
 				),
 			);
-			
+
 			$main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z gminami miejskimi';
-			
+
 		} elseif( $compare=='miejsko-wiejskie' ) {
-			
+
 			$gminy_filter = array(
 				array(
 					'term' => array(
@@ -3962,9 +3966,9 @@ class GminyController extends DataobjectsController
 			);
 
 			$main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z gminami miejsko-wiejskimi';
-			
+
 		} elseif( $compare=='wiejskie' ) {
-			
+
 			$gminy_filter = array(
 				array(
 					'term' => array(
@@ -3977,12 +3981,12 @@ class GminyController extends DataobjectsController
 					),
 				),
 			);
-			
+
 			$main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z gminami wiejskimi';
-			
+
 		}
-			
-				
+
+
 		/*
         $gminy_filter = array(
             'range' => array(
@@ -3992,10 +3996,10 @@ class GminyController extends DataobjectsController
                 ),
             ),
         );
-		*/        
+		*/
 
-        
-        
+
+
         $aggs = array(
             'gminy' => array(
                 'filter' => array(
@@ -4129,7 +4133,7 @@ class GminyController extends DataobjectsController
 		                                'aggs' => array(
 			                                'label' => array(
 				                                'terms' => array(
-					                                'field' => 'gminy-wydatki-dzialy.dzial', 
+					                                'field' => 'gminy-wydatki-dzialy.dzial',
 					                                'size' => 1,
 				                                ),
 			                                ),
@@ -4338,7 +4342,7 @@ class GminyController extends DataobjectsController
                 ),
             ),
         );
-        
+
         // debug($aggs); die();
 
         $options = array(
@@ -4547,6 +4551,10 @@ class GminyController extends DataobjectsController
                 'id' => 'finanse',
                 'label' => 'Finanse',
             );
+            $menu['items'][] = array(
+                'id' => 'mapa',
+                'label' => 'Mapa',
+            );
             /*
             $menu['items'][] = array(
                 'id' => 'powiazania',
@@ -4601,7 +4609,7 @@ class GminyController extends DataobjectsController
 
 
         if ($this->object) {
-		
+
             $this->addBreadcrumb(array(
                 'href' => '/dane/wojewodztwa/' . $this->object->getData('wojewodztwa.id'),
                 'label' => 'Województwo ' . lcfirst($this->object->getData('wojewodztwa.nazwa')),
@@ -4613,14 +4621,14 @@ class GminyController extends DataobjectsController
                     'label' => 'Powiat ' . lcfirst($this->object->getData('powiaty.nazwa')),
                 ));
             }
-            
-            
+
+
             if( $this->request->params['action'] == 'finanse' ) {
-	            
+
 	            $aggs = $this->viewVars['dataBrowser']['aggs'];
 	            $this->viewVars['dataBrowser']['aggs'] = null;
-				
-				
+
+
 				$global = array(
 					'min' => array(
 						'value' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['key'],
@@ -4636,26 +4644,26 @@ class GminyController extends DataobjectsController
 					'median' => $aggs['gminy']['sumy']['timerange']['percentiles']['values']['50.0'],
 					'histogram' => $aggs['gminy']['sumy']['timerange']['histogram']['buckets'],
 				);
-								
+
 				$global = array_merge($global, array(
 					'left' => ($global['min']['value'] == $global['max']['value']) ? 0 : 100 * ( $global['cur'] - $global['min']['value'] ) / ( $global['max']['value'] - $global['min']['value'] ),
 					'median_left' => ($global['min']['value'] == $global['max']['value']) ? 0 : 100 * ( $global['median'] - $global['min']['value'] ) / ( $global['max']['value'] - $global['min']['value'] ),
 				));
-				
-												
-				
+
+
+
 				$dzialy = array();
-				
+
 				foreach( $aggs['gmina']['dzialy']['dzialy']['buckets'] as $b ) {
-										
+
 					$dzial = array(
 						'id' => $b['key'],
 						'label' => @$b['label']['buckets'][0]['key'],
 					);
-					
+
 					foreach( $aggs['gminy']['dzialy']['timerange']['dzialy']['buckets'] as $d ) {
 						if( $d['key'] == $b['key'] ) {
-														
+
 							$dzial['global'] = array(
 								'min' => array(
 									'value' => $d['min']['buckets'][0]['key'],
@@ -4671,52 +4679,52 @@ class GminyController extends DataobjectsController
 								'median' => $d['percentiles']['values']['50.0'],
 								'histogram' => $d['histogram_0']['buckets'],
 							);
-							
+
 							$dzial['global'] = array_merge($dzial['global'], array(
 								'left' => ($dzial['global']['min']['value'] == $dzial['global']['max']['value']) ? 0 : 100 * ( $dzial['global']['cur'] - $dzial['global']['min']['value'] ) / ( $dzial['global']['max']['value'] - $dzial['global']['min']['value'] ),
 								'median_left' => ($dzial['global']['min']['value'] == $dzial['global']['max']['value']) ? 0 : 100 * ( $dzial['global']['median'] - $dzial['global']['min']['value'] ) / ( $dzial['global']['max']['value'] - $dzial['global']['min']['value'] ),
 								'class' => ($dzial['global']['cur'] > $dzial['global']['median']) ? 'more' : 'less',
 							));
-							
+
 							break;
-							
-						}						
+
+						}
 					}
-					
+
 					foreach( $aggs['gmina']['rozdzialy']['dzialy']['buckets'] as &$c ) {
 						if( $c['key']==$dzial['id'] ) {
-							
+
 							$rozdzialy = $c['rozdzialy']['buckets'];
 							foreach( $rozdzialy as &$r ) {
-								
+
 								if( !$r['key'] )
 									continue;
-								
+
 								$r = array(
 									'id' => $r['key'],
 									'label' => $r['nazwa']['buckets'][0]['key'],
 									'wydatki' => $r['wydatki']['value'],
 								);
-								
+
 							}
-							
+
 							$dzial['rozdzialy'] = $rozdzialy;
-							
+
 							unset($c);
 							break;
-							
+
 						}
 					}
-					
+
 					$dzialy[] = $dzial;
-					
+
 				}
-				
+
 				// debug( $dzialy ); die();
-				
-				$this->set('global', $global);				
-				$this->set('dzialy', $dzialy);				
-				
+
+				$this->set('global', $global);
+				$this->set('dzialy', $dzialy);
+
             }
 
         }

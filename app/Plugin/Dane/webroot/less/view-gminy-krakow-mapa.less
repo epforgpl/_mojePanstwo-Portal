@@ -1,0 +1,26 @@
+#_main .objectsPage .objectsPageWindow {
+    position: relative;
+    padding-top: 0;
+
+    .objectsPageContent {
+        margin-top: 0;
+
+        #map {
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 500px;
+        }
+
+    }
+}
+
+@media (min-width: 728px) {
+    #_main .objectsPage .objectsPageWindow .objectsPageContent {
+
+        #map {
+            position: absolute;
+        }
+    }
+}
