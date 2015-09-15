@@ -93,8 +93,10 @@ $(document).ready(function () {
     if ($(window).outerWidth() > 728) {
         var dzielniceMap = $('#dzielnice_map'),
             holder = dzielniceMap.parent().find('.holder'),
-            fundatorzy = $('#fundatorzy').outerHeight(true);
-        var size = $(window).outerHeight() - fundatorzy;
+            fundatorzy = $('#fundatorzy').outerHeight(true),
+			header=$('.appHeader').outerHeight(true),
+			submenu=$('.appMenu').outerHeight(true);
+        var size = $(window).outerHeight() - fundatorzy - header - submenu;
 
         holder.css('min-height', size);
         dzielniceMap.css('min-height', size);
