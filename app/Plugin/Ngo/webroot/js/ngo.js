@@ -27,23 +27,31 @@ $(document).ready(function () {
 			minZoom: 6,
 			maxZoom: 15
 		},
-		style = [
+		mapStyle = [
 			{
 				featureType: "administrative.country",
 				elementType: "labels",
-				stylers: [{visibility: "off"}]
+				stylers: [
+					{visibility: "off"}
+				]
 			}, {
 				featureType: "poi",
 				elementType: "labels",
-				stylers: [{visibility: "off"}]
+				stylers: [
+					{visibility: "off"}
+				]
 			}, {
 				featureType: "water",
 				elementType: "labels",
-				stylers: [{visibility: "off"}]
+				stylers: [
+					{visibility: "off"}
+				]
 			}, {
 				featureType: "road",
 				elementType: "labels",
-				stylers: [{visibility: "off"}]
+				stylers: [
+					{visibility: "off"}
+				]
 			}
 		], border = new google.maps.Polygon({
 			paths: [
@@ -127,7 +135,7 @@ $(document).ready(function () {
 	};
 
 	map = new google.maps.Map(document.getElementById('map'), options);
-	map.mapTypes.set('style', new google.maps.StyledMapType(style, {name: 'My Style'}));
+	map.setOptions({styles: mapStyle});
 
 	google.maps.event.addDomListener(map, 'idle', mapUpdate);
 	border.setMap(map);
