@@ -134,8 +134,7 @@ $options = array(
                             <a href="#<?= $dzial['id'] ?>" class="inner" data-title="<?= $dzial['label'] ?>">
 
                                 <div class="logo">
-                                    <img src="/finanse_gmin/img/sections/<?= $dzial['id'] ?>.svg"
-                                         onerror="imgFixer(this)"/>
+                                    <i class="icon-dzialy-<?= $dzial['id'] ?>"></i>
                                 </div>
 
                                 <div class="details"><span class="detail">
