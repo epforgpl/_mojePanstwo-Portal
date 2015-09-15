@@ -114,7 +114,7 @@ class MediaController extends ApplicationsController
 			                'order' => 'desc',
 		                ),
 	                ),
-	                'fielddata_fields' => array('dataset', 'id', 'date'),
+	                'fielddata_fields' => array('id', 'date', 'dataset'),
 	                'size' => 7,
 	            ),
 	        ),

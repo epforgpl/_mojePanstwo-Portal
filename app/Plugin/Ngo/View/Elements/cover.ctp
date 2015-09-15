@@ -79,7 +79,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                     <? } ?>
                 </div>
                 <div class="text-center margin-top-20">
-                    <a class="btn btn-xs btn-primary" href="#">Zobacz więcej &raquo;</a>
+                    <a class="btn btn-xs btn-primary" href="/ngo/dzialania">Zobacz więcej &raquo;</a>
                 </div>
             </section>
         </div>
