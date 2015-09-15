@@ -70,12 +70,61 @@
 	    font-size: 12px;
 	    margin: 10px 0 5px;
 	}
-	
+
 	.photo {
 	    margin-bottom: 5px;
     }
-    
+
     img {
         width: 100%;
+    }
+}
+
+.infoWindowNgo {
+    width: 300px;
+
+    .ngoPlace {
+        width: 100%;
+        display: block;
+        float: left;
+
+        .title {
+            > a {
+                color: #053f69;
+
+                .object-icon {
+                    background-color: #89a;
+                    color: #fff;
+                    display: block;
+                    float: left;
+                    font-size: 18px;
+                    width: 25px;
+                    height: 25px;
+                    line-height: 1.35em;
+                    margin-right: 8px;
+                    text-align: center;
+
+                    -webkit-border-radius: 20px;
+                    -moz-border-radius: 20px;
+                    border-radius: 20px;
+                }
+                .titleName {
+                    margin-top: 6px;
+                    line-height: 1em;
+                    width: 260px;
+                    float: left;
+                }
+            }
+        }
+        .detail {
+            display: block;
+            width: 100%;
+            float: left;
+            padding-top: 4px;
+
+            .dataHighlight {
+                padding: 2px 0 0;
+            }
+        }
     }
 }
