@@ -1,10 +1,10 @@
 var map,
 	markers = [],
-	mapUpdateTimer;
+	mapUpdateTimer,
+	infowindow = null;
 
 $(document).ready(function () {
 	var xhr,
-		infowindow = null,
 		options = {
 			zoom: 6,
 			center: new google.maps.LatLng(51.986797406813125, 19.32958984375001),
@@ -177,18 +177,25 @@ $(document).ready(function () {
 										'<div itemprop="name" class="titleName">' + marker.data.name + '</div>' +
 										'</a>' +
 										'</div>' +
-										'<ul class="detail dataHighlights oneline loading">' +
+										'<ul class="detail dataHighlights oneline">' +
+										'<li class="spinner grey">' +
+										'<div class="bounce1"></div>' +
+										'<div class="bounce2"></div>' +
+										'<div class="bounce3"></div>' +
+										'</li>' +
 										'</ul>' +
 										'</div>' +
 										'</div>');
 									infowindow.open(map, marker);
+									map.setCenter(marker.latlng);
 								};
 							})(marker, content, infowindow));
 						} else {
 							var inner_center = Geohash.decode(cell.inner_key);
 
 							markers.push(new CustomMarker(new google.maps.LatLng(center.lat + (inner_center.lat - center.lat) * f, center.lon + (inner_center.lon - center.lon) * f), map, {
-								title: cell.doc_count
+								title: cell.doc_count,
+								data: cell
 							}));
 						}
 
