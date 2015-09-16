@@ -4022,6 +4022,11 @@ class GminyController extends DataobjectsController
 		                'dataset' => 'gminy',
 		            ),
 				),
+				array(
+					'term' => array(
+						'data.gminy.wojewodzka' => '1',
+					),
+				),
 			);
 
 			$main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z gminami wojewódzkimi';
