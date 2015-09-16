@@ -10,7 +10,7 @@ $(document).ready(function () {
 			items = $(block.parent('.items'));
 
 		that.click(function (e) {
-			var next = block.next('.block'),
+			var next = block.nextAll('.block:first'),
 				targetPos = block.position().top,
 				slideMark;
 
@@ -39,21 +39,21 @@ $(document).ready(function () {
 				scrollTop: block.offset().top
 			}, 600);
 
+			var nextPrev = block;
 			if (next.length == 0) {
 				slideMark = block;
 			} else {
 				while (next.length != 0) {
-					if (next.next('.block').length == 0) {
-						slideMark = next;
+					if (Math.floor(next.position().top) != Math.floor(targetPos)) {
+						slideMark = nextPrev;
 						break;
-					} else {
-						if (next.position().top != targetPos) {
-							slideMark = next.prev('.block');
-							break;
-						}
-						next = next.next('.block');
 					}
+					nextPrev = next;
+					next = next.nextAll('.block:first');
 				}
+
+				if (typeof(slideMark) == "undefined")
+					slideMark = nextPrev;
 			}
 
 			var infoBlock = $('<div></div>').addClass('infoBlock _chart current active col-xs-12').css('height', 0).append(
@@ -117,10 +117,6 @@ function graphInit(section) {
 		charts_data = [],
 		i = section.attr('data-itemid'),
 		title = section.find('.histogram').data('text');
-
-	console.log('section', section);
-	console.log('histogram_div', histogram_div);
-	console.log('data', data);
 
 	for (var d = 0; d < data.length; d++) {
 		if (data[d]) {
