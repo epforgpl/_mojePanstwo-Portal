@@ -45,10 +45,10 @@ $(document).ready(function () {
 				scrollTop: block.offset().top
 			}, 600);
 
+			var nextPrev = block;
 			if (next.length == 0) {
 				slideMark = block;
 			} else {
-				var nextPrev = null;
 				while (next.length != 0) {
 					if (Math.floor(next.position().top) != Math.floor(targetPos)) {
 						slideMark = nextPrev;
