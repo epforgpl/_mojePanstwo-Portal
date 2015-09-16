@@ -3784,6 +3784,13 @@ class GminyController extends DataobjectsController
 
     }
 
+    private $histogramIntervals = array(
+        100000000,                  // 100 mln.
+        10000000,                   // 10 mln.
+        1000000,                    // 1 mln.
+        100000                      // 100 tys.
+    );
+
     public function finanse()
     {
 
@@ -3792,9 +3799,19 @@ class GminyController extends DataobjectsController
 
         $population = $this->object->getData('liczba_ludnosci');
         $populationRange = $this->Gmina->getPopulationRange($population);
-		
+
+        $histogramAggs = array();
+        foreach($this->histogramIntervals as $i => $interval) {
+            $histogramAggs['histogram_' . $i] = array(
+                'histogram' => array(
+                    'field' => 'gminy-wydatki-dzialy.wydatki',
+                    'interval' => $interval,
+                ),
+            );
+        }
+
 		$mode = false;
-		
+
 		$options = array(
 			'data' => array(
 				'items' => array(
@@ -3878,7 +3895,7 @@ class GminyController extends DataobjectsController
 			),
 			'compare' => array(
 				'items' => array(
-										
+
 					array(
 						'id' => 'wojewodzkie',
 						'label' => 'Miasta wojewódzkie',
@@ -3899,7 +3916,7 @@ class GminyController extends DataobjectsController
 						'id' => 'wszystkie',
 						'label' => 'Wszystkie gminy',
 					),
-					
+
 				),
 			),
 		);
@@ -3936,12 +3953,12 @@ class GminyController extends DataobjectsController
 		$data = $options['data']['items'][ $options['data']['selected_i'] ]['id'];
 
 		if( $data=='wydatki' ) {
-			
+
 			$mode = 'absolute';
 			$main_chart['title'] = 'Wydatki - wartości absolutne';
 
 		} elseif( $data=='wydatki_na_osobe' ) {
-			
+
 			$mode = 'perperson';
 			$main_chart['title'] = 'Wydatki w przeliczeniu na osobę';
 
@@ -3985,7 +4002,7 @@ class GminyController extends DataobjectsController
 			);
 
 			$main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' ze wszystkimi gminami';
-			
+
 		} elseif( $compare=='wojewodzkie' ) {
 
 			$gminy_filter = array(
@@ -3998,7 +4015,7 @@ class GminyController extends DataobjectsController
 
 			$main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' ze wszystkimi gminami';
 
-		
+
 		} elseif( $compare=='miejskie' ) {
 
 			$gminy_filter = array(
@@ -4196,7 +4213,7 @@ class GminyController extends DataobjectsController
 			                                'field' => 'gminy-wydatki-dzialy.dzial_id',
 			                                'size' => 100,
 		                                ),
-		                                'aggs' => array(
+		                                'aggs' => array_merge(array(
 			                                'label' => array(
 				                                'terms' => array(
 					                                'field' => 'gminy-wydatki-dzialy.dzial',
@@ -4256,31 +4273,9 @@ class GminyController extends DataobjectsController
 								                    'field' => 'gminy-wydatki-dzialy.wydatki',
 								                ),
 								            ),
-								            'histogram_0' => array(
-								                'histogram' => array(
-								                    'field' => 'gminy-wydatki-dzialy.wydatki',
-								                    'interval' => 100000000,
-								                ),
-								            ),
-								            'histogram_1' => array(
-								                'histogram' => array(
-								                    'field' => 'gminy-wydatki-dzialy.wydatki',
-								                    'interval' => 10000000,
-								                ),
-								            ),
-								            'histogram_2' => array(
-								                'histogram' => array(
-								                    'field' => 'gminy-wydatki-dzialy.wydatki',
-								                    'interval' => 1000000,
-								                ),
-								            ),
-								            'histogram_3' => array(
-								                'histogram' => array(
-								                    'field' => 'gminy-wydatki-dzialy.wydatki',
-								                    'interval' => 100000,
-								                ),
-								            ),
 		                                ),
+                                            $histogramAggs
+                                        ),
 	                                ),
                                 ),
                             ),
@@ -4385,7 +4380,7 @@ class GminyController extends DataobjectsController
 		                                ),
 		                            ),
                                 ),
-                            ),		                    
+                            ),
 	                    ),
                     ),
                     'rozdzialy' => array(
@@ -4442,7 +4437,7 @@ class GminyController extends DataobjectsController
 					                    ),
 				                    ),
                                 ),
-                            ),		                    
+                            ),
 	                    ),
                     ),
                 ),
@@ -4754,11 +4749,11 @@ class GminyController extends DataobjectsController
 				$global = array_merge($global, array(
 					'left' => ($global['min']['value'] == $global['max']['value']) ? 0 : 100 * ( $global['cur'] - $global['min']['value'] ) / ( $global['max']['value'] - $global['min']['value'] ),
 					'median_left' => ($global['min']['value'] == $global['max']['value']) ? 0 : 100 * ( $global['median'] - $global['min']['value'] ) / ( $global['max']['value'] - $global['min']['value'] ),
-				));				
-				
+				));
+
 
 				$dzialy = array();
-								
+
 				foreach( $aggs['gmina']['dzialy']['timerange']['dzialy']['buckets'] as $b ) {
 
 					$dzial = array(
@@ -4768,6 +4763,17 @@ class GminyController extends DataobjectsController
 
 					foreach( $aggs['gminy']['dzialy']['timerange']['dzialy']['buckets'] as $d ) {
 						if( $d['key'] == $b['key'] ) {
+
+                            // choosing best histogram interval
+                            $max = (int) $d['max']['buckets'][0]['key'];
+                            $histogram_i = (string) (count($this->histogramIntervals) - 1);
+
+                            foreach($this->histogramIntervals as $i => $interval) {
+                                if($max > $interval) {
+                                    $histogram_i = $i;
+                                    break;
+                                }
+                            }
 
 							$dzial['global'] = array(
 								'min' => array(
@@ -4782,12 +4788,9 @@ class GminyController extends DataobjectsController
 								),
 								'cur' => $b['wydatki']['value'],
 								'median' => $d['percentiles']['values']['50.0'],
-								'histogram' => $d['histogram_2']['buckets'],
+								'histogram' => $d['histogram_' . $histogram_i]['buckets'],
+                                'interval' => $this->histogramIntervals[(int) $histogram_i]
 							);
-							
-							$histogram_i = 1;
-							
-							$dzial['global']['histogram'] = $d['histogram_' . $histogram_i]['buckets'];
 
 							$dzial['global'] = array_merge($dzial['global'], array(
 								'left' => ($dzial['global']['min']['value'] == $dzial['global']['max']['value']) ? 0 : 100 * ( $dzial['global']['cur'] - $dzial['global']['min']['value'] ) / ( $dzial['global']['max']['value'] - $dzial['global']['min']['value'] ),
@@ -4799,7 +4802,7 @@ class GminyController extends DataobjectsController
 
 						}
 					}
-										
+
 					foreach( $aggs['gmina']['rozdzialy']['timerange']['dzialy']['buckets'] as &$c ) {
 						if( $c['key']==$dzial['id'] ) {
 
