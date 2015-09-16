@@ -24,7 +24,7 @@ class DataobjectsController extends AppController
     public $appSelected = '';
     public $addDatasetBreadcrumb = true;
     public $editables = array();
-    
+
 
     public $_layout = array(
         'header' => array(
@@ -45,7 +45,7 @@ class DataobjectsController extends AppController
 		elseif( is_array($e) )
 			$this->editables = array_merge($this->editables, $e);
 	}
-	
+
     public function addInitLayers($layers)
     {
 
@@ -54,7 +54,7 @@ class DataobjectsController extends AppController
         } else {
             $this->initLayers[] = $layers;
         }
-        
+
     }
 
     public function addInitAggs($aggs = array())
@@ -82,7 +82,7 @@ class DataobjectsController extends AppController
             $id &&
             is_numeric($id)
         ) {
-			
+
 			if( @$this->request->params['ext'] == 'json' ) {
 				$layers = isset($this->request->query['layers']) ? $this->request->query['layers'] : $this->initLayers;
 			} else {
@@ -93,67 +93,83 @@ class DataobjectsController extends AppController
                 $layers[] = 'channels';
                 $layers[] = 'subscribers';
             }
-                
+
             $layers[] = 'dataset';
             $layers[] = 'page';
 
-            if ($this->object = $this->Dataobject->find('first', array(
+            $this->object = $this->Dataobject->find('first', array(
                 'conditions' => array(
                     'dataset' => $dataset,
                     'id' => $id,
                 ),
                 'layers' => $layers,
                 'aggs' => $this->initAggs,
-            ))
+            ));
+
+            $code = (int) $this->Dataobject->getDataSource()->getLastResponseCode();
+
+            if($code >= 400) {
+                if ($code == 400)
+                    throw new BadRequestException();
+                elseif ($code == 403)
+                    throw new ForbiddenException();
+                elseif ($code == 404) {
+                    throw new NotFoundException();
+                } elseif ($code == 405)
+                    throw new MethodNotAllowedException();
+                elseif ($code == 500)
+                    throw new MethodNotAllowedException();
+                elseif ($code == 501)
+                    throw new NotImplementedException();
+                else
+                    throw new CakeException();
+            }
+
+            $this->object_aggs = $this->Dataobject->getAggs();
+            $this->set('object_aggs', $this->object_aggs);
+
+            if (
+                ($this->domainMode == 'MP') &&
+                (
+                    !isset($this->request->params['ext']) ||
+                    !in_array($this->request->params['ext'], array('json', 'html'))
+                ) &&
+                !$slug &&
+                $this->object->getSlug() &&
+                ($this->object->getSlug() != $slug) &&
+                $this->object->getUrl()
             ) {
-				
-				$this->object_aggs = $this->Dataobject->getAggs();
-                $this->set('object_aggs', $this->object_aggs);
-								
+
+                $url = $this->object->getUrl();
+
                 if (
-                    ($this->domainMode == 'MP') &&
-                    (
-                        !isset($this->request->params['ext']) ||
-                        !in_array($this->request->params['ext'], array('json', 'html'))
-                    ) &&
-                    !$slug &&
-                    $this->object->getSlug() &&
-                    ($this->object->getSlug() != $slug) &&
-                    $this->object->getUrl()
+                    isset($this->request->params['action']) &&
+                    ($this->request->params['action']) &&
+                    ($this->request->params['action'] != 'view')
                 ) {
 
-                    $url = $this->object->getUrl();
+                    $url .= '/' . $this->request->params['action'];
 
                     if (
-                        isset($this->request->params['action']) &&
-                        ($this->request->params['action']) &&
-                        ($this->request->params['action'] != 'view')
+                        isset($this->request->params['subid']) &&
+                        ($this->request->params['subid'])
                     ) {
 
-                        $url .= '/' . $this->request->params['action'];
+                        $url .= '/' . $this->request->params['subid'];
 
                         if (
-                            isset($this->request->params['subid']) &&
-                            ($this->request->params['subid'])
+                            isset($this->request->params['subaction']) &&
+                            ($this->request->params['subaction'])
                         ) {
 
-                            $url .= '/' . $this->request->params['subid'];
+                            $url .= '/' . $this->request->params['subaction'];
 
                             if (
-                                isset($this->request->params['subaction']) &&
-                                ($this->request->params['subaction'])
+                                isset($this->request->params['subsubid']) &&
+                                ($this->request->params['subsubid'])
                             ) {
 
-                                $url .= '/' . $this->request->params['subaction'];
-
-                                if (
-                                    isset($this->request->params['subsubid']) &&
-                                    ($this->request->params['subsubid'])
-                                ) {
-
-                                    $url .= '/' . $this->request->params['subsubid'];
-
-                                }
+                                $url .= '/' . $this->request->params['subsubid'];
 
                             }
 
@@ -161,29 +177,29 @@ class DataobjectsController extends AppController
 
                     }
 
-                    if (
-                    !empty($this->request->query)
-                    )
-                        $url .= '?' . http_build_query($this->request->query);
-
-                    return $this->redirect($url);
-
                 }
 
-				if( @$this->request->params['ext'] == 'json' ) {
-					
-					$this->set('data', $this->object->getData());
-					$this->set('layers', $this->object->getLayers());
-	                $this->set('_serialize', array('data', 'layers'));
-					
-				} else {
-					
-	                $this->set('object', $this->object);
-	                $this->set('objectOptions', $this->objectOptions);
-	                $this->set('microdata', $this->microdata);
-	                $this->set('title_for_layout', $this->object->getTitle());
-                
-                }
+                if (
+                !empty($this->request->query)
+                )
+                    $url .= '?' . http_build_query($this->request->query);
+
+                return $this->redirect($url);
+
+            }
+
+            if( @$this->request->params['ext'] == 'json' ) {
+
+                $this->set('data', $this->object->getData());
+                $this->set('layers', $this->object->getLayers());
+                $this->set('_serialize', array('data', 'layers'));
+
+            } else {
+
+                $this->set('object', $this->object);
+                $this->set('objectOptions', $this->objectOptions);
+                $this->set('microdata', $this->microdata);
+                $this->set('title_for_layout', $this->object->getTitle());
 
             }
 
@@ -244,12 +260,12 @@ class DataobjectsController extends AppController
 
 
     public function beforeRender()
-    {		
-				
+    {
+
         $is_json = (isset($this->request->params['ext']) && $this->request->params['ext'] == 'json');
 
         if (!$is_json && $this->object) {
-		
+
             if (
                 ($this->request->params['controller'] == 'Datasets') &&
                 ($breadcrumbs_data = $this->getDataset($this->object->getData('slug')))
@@ -268,69 +284,69 @@ class DataobjectsController extends AppController
                     ));
 
             } elseif( $dataset = $this->object->getLayer('dataset') ) {
-	            
+
 	            $this->addBreadcrumb(array(
                     'href' => '/dane/' . $dataset['Dataset']['alias'],
                     'label' => $dataset['Dataset']['name'],
                 ));
-	            
+
             }
-                
-                                
-            if( 
-	            !( 
-	            	( $this->object->getDataset()=='gminy') && 
-	            	( $this->object->getId()=='903') 
-	            ) && 
+
+
+            if(
+	            !(
+	            	( $this->object->getDataset()=='gminy') &&
+	            	( $this->object->getId()=='903')
+	            ) &&
             	( $page = $this->object->getLayer('page') )
             ) {
-								
+
 				if( @isset($this->request->query['page']['cover']) )
 					$page['cover'] = $this->request->query['page']['cover'];
-					
+
 				if( @isset($this->request->query['page']['logo']) )
 					$page['logo'] = $this->request->query['page']['logo'];
-					
+
 				if( @isset($this->request->query['page']['moderated']) )
 					$page['moderated'] = $this->request->query['page']['moderated'];
-					
+
 				$this->object->layers['page'] = $page;
-												
+
 				if( $page['cover'] || $page['logo'] )
 					$this->_layout['header']['element'] = 'dataobject-cover';
-								
+
 				$this->set('object', $this->object);
-									
+
 			}
 
             $selected = $this->request->params['action'];
             if ($selected == 'view')
                 $selected = '';
-			
-			
+
+
 			$object_editable = array();
-			
+
 			if(
-				@in_array('2', $this->getUserRoles()) || // check if superuser 
-				( $this->getPageRoles()=='1' ) // check if user has permissions to page 
+				@in_array('2', $this->getUserRoles()) || // check if superuser
+				( $this->getPageRoles()=='1' ) // check if user has permissions to page
 			) {
-				
+
 				$object_editable[] = 'users';
 			}
-			
-			if( 
-				@in_array('2', $this->getUserRoles()) || // check if superuser 
-				$this->getPageRoles() // check if user has permissions to page 
+
+			if(
+				@in_array('2', $this->getUserRoles()) || // check if superuser
+				$this->getPageRoles() // check if user has permissions to page
 			) {
-				
+
 				$object_editable[] = 'cover';
 				$object_editable[] = 'logo';
-				
+
 			}
-			
+
 			if( !empty($this->editables) )
 				$object_editable = array_merge($object_editable, $this->editables);
-												
+
             $this->menu['selected'] = $selected;
             $this->menu['base'] = $this->object->getUrl();
             $this->set('object_actions', $this->actions);
@@ -343,7 +359,7 @@ class DataobjectsController extends AppController
         parent::beforeRender();
 
     }
-    
+
     public function prepareMetaTags()
     {
         parent::prepareMetaTags();
@@ -354,37 +370,37 @@ class DataobjectsController extends AppController
             'og:image' => FULL_BASE_URL . '/dane/img/social/dane.jpg'
         ));
     }
-    
+
     public function getPageRoles() {
-	    
-	    if( 
-	    	$this->Auth->user() && 
-	    	isset( $this->object ) && 
-	    	( $page = $this->object->getLayer('page') ) && 
+
+	    if(
+	    	$this->Auth->user() &&
+	    	isset( $this->object ) &&
+	    	( $page = $this->object->getLayer('page') ) &&
 	    	isset( $page['roles'] )
 	    ) {
-		    
+
 		    return @$page['roles']['ObjectUser']['role'];
-		    
+
 	    } else return false;
-	    
+
     }
-    
+
     public function post()
     {
-	    
+
 	    $response = false;
-	    
-	    if( 
-	    	@$this->request->params['pass'][0] && 
+
+	    if(
+	    	@$this->request->params['pass'][0] &&
 	    	@$this->request->params['pass'][1]
 	    ) {
-	    
+
 		    $response = $this->Dataobject->getDatasource()->request('dane/' . $this->request->params['pass'][0] . '/' . $this->request->params['pass'][1], array(
 			    'method' => 'POST',
 			    'data' => $this->request->data,
 		    ));
-	        
+
         }
 
         $this->set('response', $response);
