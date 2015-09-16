@@ -3895,8 +3895,11 @@ class GminyController extends DataobjectsController
 			),
 			'compare' => array(
 				'items' => array(
-
-					array(
+                    array(
+                        'id' => 'wszystkie',
+                        'label' => 'Wszystkie gminy',
+                    ),
+                    array(
 						'id' => 'wojewodzkie',
 						'label' => 'Miasta wojewódzkie',
 					),
@@ -3912,11 +3915,6 @@ class GminyController extends DataobjectsController
 						'id' => 'miejskie',
 						'label' => 'Gminy miejskie',
 					),
-					array(
-						'id' => 'wszystkie',
-						'label' => 'Wszystkie gminy',
-					),
-
 				),
 			),
 		);
