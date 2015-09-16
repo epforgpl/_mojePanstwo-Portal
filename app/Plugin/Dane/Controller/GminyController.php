@@ -3897,13 +3897,13 @@ class GminyController extends DataobjectsController
 			'compare' => array(
 				'items' => array(
                     array(
+                        'id' => 'wojewodzkie',
+                        'label' => 'Miasta wojewódzkie',
+                    ),
+                    array(
                         'id' => 'wszystkie',
                         'label' => 'Wszystkie gminy',
                     ),
-                    array(
-						'id' => 'wojewodzkie',
-						'label' => 'Miasta wojewódzkie',
-					),
 					array(
 						'id' => 'powiatowe',
 						'label' => 'Miasta na prawach powiatów',
