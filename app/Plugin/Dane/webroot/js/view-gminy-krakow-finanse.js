@@ -16,7 +16,7 @@ $(document).ready(function () {
 			items = $(block.parent('.items'));
 
 		that.click(function (e) {
-			var next = block.next('.block'),
+			var next = block.nextAll('.block:first'),
 				targetPos = block.position().top,
 				slideMark;
 
@@ -48,18 +48,18 @@ $(document).ready(function () {
 			if (next.length == 0) {
 				slideMark = block;
 			} else {
+				var nextPrev = null;
 				while (next.length != 0) {
-					if (next.next('.block').length == 0) {
-						slideMark = next;
+					if (Math.floor(next.position().top) != Math.floor(targetPos)) {
+						slideMark = nextPrev;
 						break;
-					} else {
-						if (next.position().top != targetPos) {
-							slideMark = next.prev('.block');
-							break;
-						}
-						next = next.next('.block');
 					}
+					nextPrev = next;
+					next = next.nextAll('.block:first');
 				}
+
+				if (typeof(slideMark) == "undefined")
+					slideMark = nextPrev;
 			}
 
 			var infoBlock = $('<div></div>').addClass('infoBlock _chart current active col-xs-12').css('height', 0).append(
@@ -102,6 +102,9 @@ $(document).ready(function () {
 
 			rozdzialy(that);
 
+			/*$('html, body').animate({
+			 scrollTop: block.offset().top
+			 }, 600);*/
 		})
 	})
 });
@@ -130,13 +133,7 @@ function graphInit(section) {
 
 	for (var d = 0; d < data.length; d++) {
 		if (data[d]) {
-
 			var v = Number(data[d]['doc_count']);
-
-			console.log({
-				x: data[d]['key'],
-				y: v
-			});
 
 			charts_data.push({
 				x: data[d]['key'],
