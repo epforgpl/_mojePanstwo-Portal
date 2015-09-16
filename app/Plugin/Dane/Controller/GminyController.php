@@ -3906,7 +3906,7 @@ class GminyController extends DataobjectsController
 					),
 					array(
 						'id' => 'liczba_ludnosci',
-						'label' => 'Gminy w przedziale ludności 100-200',
+						'label' => 'Gminy w przedziale ludności ' . number_format($populationRange['min']) . ' - ' . number_format($populationRange['max']),
 					),
 					array(
 						'id' => 'miejskie',
@@ -4003,7 +4003,20 @@ class GminyController extends DataobjectsController
 
 			$main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' ze wszystkimi gminami';
 
-		} elseif( $compare=='wojewodzkie' ) {
+		} elseif( $compare=='powiatowe' ) {
+
+            $gminy_filter = array(
+                array(
+                    'term' => array(
+                        'dataset' => 'gminy',
+                    ),
+                ),
+            );
+
+            $main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z miastami na prawach powiatu';
+
+
+        } elseif( $compare=='wojewodzkie' ) {
 
 			$gminy_filter = array(
 				array(
@@ -4013,7 +4026,7 @@ class GminyController extends DataobjectsController
 				),
 			);
 
-			$main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' ze wszystkimi gminami';
+			$main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z gminami wojewódzkimi';
 
 
 		} elseif( $compare=='miejskie' ) {
@@ -4067,19 +4080,20 @@ class GminyController extends DataobjectsController
 
 			$main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z gminami wiejskimi';
 
-		}
+		} elseif($compare == 'liczba_ludnosci') {
 
-
-		/*
-        $gminy_filter = array(
-            'range' => array(
-                'data.gminy.liczba_ludnosci' => array(
-                    'gte' => $populationRange['min'],
-                    'lt' => $populationRange['max']
+            $gminy_filter = array(
+                'range' => array(
+                    'data.gminy.liczba_ludnosci' => array(
+                        'gte' => $populationRange['min'],
+                        'lt' => $populationRange['max']
+                    ),
                 ),
-            ),
-        );
-		*/
+            );
+
+            $main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z gminami w przedziale ludności ' . number_format($populationRange['min']) . ' - ' . number_format($populationRange['max']);
+
+        }
 
 
 

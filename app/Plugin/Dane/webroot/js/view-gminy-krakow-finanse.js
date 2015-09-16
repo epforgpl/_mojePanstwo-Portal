@@ -174,6 +174,11 @@ function graphInit(section) {
 			y: 20
 		},
 
+		subtitle: {
+			text: subtitle,
+			y: 40
+		},
+
 		xAxis: {
 			labels: {
 				enabled: true,
