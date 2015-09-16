@@ -142,19 +142,19 @@ function pl_currency_format(n, prec) {
 		mln = 0,
 		tys = 0;
 
-	if (n > 1000000000) {
+	if (n >= 1000000000) {
 		mld = (n / 1000000000).toFixed(prec);
 		n -= mld * 1000000000;
 		return mld + ' mld zł.';
 	}
 
-	if (n > 1000000) {
+	if (n >= 1000000) {
 		mln = (n / 1000000).toFixed(prec);
 		n -= mln * 1000000;
 		return mln + ' mln zł.';
 	}
 
-	if (n > 1000) {
+	if (n >= 1000) {
 		tys = (n / 1000).toFixed(prec);
 		n -= tys * 1000;
 		return tys + ' tys. zł.';

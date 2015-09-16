@@ -3784,6 +3784,13 @@ class GminyController extends DataobjectsController
 
     }
 
+    private $histogramIntervals = array(
+        100000000,                  // 100 mln.
+        10000000,                   // 10 mln.
+        1000000,                    // 1 mln.
+        100000                      // 100 tys.
+    );
+
     public function finanse()
     {
 
@@ -3792,6 +3799,16 @@ class GminyController extends DataobjectsController
 
         $population = $this->object->getData('liczba_ludnosci');
         $populationRange = $this->Gmina->getPopulationRange($population);
+
+        $histogramAggs = array();
+        foreach($this->histogramIntervals as $i => $interval) {
+            $histogramAggs['histogram_' . $i] = array(
+                'histogram' => array(
+                    'field' => 'gminy-wydatki-dzialy.wydatki',
+                    'interval' => $interval,
+                ),
+            );
+        }
 
 		$options = array(
 			'data' => array(
@@ -4130,7 +4147,7 @@ class GminyController extends DataobjectsController
 			                                'field' => 'gminy-wydatki-dzialy.dzial_id',
 			                                'size' => 100,
 		                                ),
-		                                'aggs' => array(
+		                                'aggs' => array_merge(array(
 			                                'label' => array(
 				                                'terms' => array(
 					                                'field' => 'gminy-wydatki-dzialy.dzial',
@@ -4190,31 +4207,9 @@ class GminyController extends DataobjectsController
 								                    'field' => 'gminy-wydatki-dzialy.wydatki',
 								                ),
 								            ),
-								            'histogram_0' => array(
-								                'histogram' => array(
-								                    'field' => 'gminy-wydatki-dzialy.wydatki',
-								                    'interval' => 100000000,
-								                ),
-								            ),
-								            'histogram_1' => array(
-								                'histogram' => array(
-								                    'field' => 'gminy-wydatki-dzialy.wydatki',
-								                    'interval' => 10000000,
-								                ),
-								            ),
-								            'histogram_2' => array(
-								                'histogram' => array(
-								                    'field' => 'gminy-wydatki-dzialy.wydatki',
-								                    'interval' => 1000000,
-								                ),
-								            ),
-								            'histogram_3' => array(
-								                'histogram' => array(
-								                    'field' => 'gminy-wydatki-dzialy.wydatki',
-								                    'interval' => 100000,
-								                ),
-								            ),
 		                                ),
+                                            $histogramAggs
+                                        ),
 	                                ),
                                 ),
                             ),
@@ -4664,6 +4659,17 @@ class GminyController extends DataobjectsController
 					foreach( $aggs['gminy']['dzialy']['timerange']['dzialy']['buckets'] as $d ) {
 						if( $d['key'] == $b['key'] ) {
 
+                            // choosing best histogram interval
+                            $max = (int) $d['max']['buckets'][0]['key'];
+                            $histogram_i = (string) (count($this->histogramIntervals) - 1);
+
+                            foreach($this->histogramIntervals as $i => $interval) {
+                                if($max > $interval) {
+                                    $histogram_i = $i;
+                                    break;
+                                }
+                            }
+
 							$dzial['global'] = array(
 								'min' => array(
 									'value' => $d['min']['buckets'][0]['key'],
@@ -4677,7 +4683,8 @@ class GminyController extends DataobjectsController
 								),
 								'cur' => $b['wydatki']['value'],
 								'median' => $d['percentiles']['values']['50.0'],
-								'histogram' => $d['histogram_0']['buckets'],
+								'histogram' => $d['histogram_' . $histogram_i]['buckets'],
+                                'interval' => $this->histogramIntervals[(int) $histogram_i]
 							);
 
 							$dzial['global'] = array_merge($dzial['global'], array(
