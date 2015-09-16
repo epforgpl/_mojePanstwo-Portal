@@ -132,6 +132,12 @@ function graphInit(section) {
 		if (data[d]) {
 
 			var v = Number(data[d]['doc_count']);
+
+			console.log({
+				x: data[d]['key'],
+				y: v
+			});
+
 			charts_data.push({
 				x: data[d]['key'],
 				y: v
@@ -179,7 +185,10 @@ function graphInit(section) {
 
 		xAxis: {
 			labels: {
-				enabled: true
+				enabled: true,
+				formatter: function () {
+					return pl_currency_format(this.value);
+				}
 			},
 			gridLineWidth: 0,
 			title: null
