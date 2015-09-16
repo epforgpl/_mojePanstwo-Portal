@@ -43,7 +43,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
                 <h3>Jak byś Ty zagłosował?</h3>
 
-                <div class="options<? if (empty(AuthComponent::user('id'))) {
+                <div class="options<? if (AuthComponent::user('id')) {
 		            echo ' _specialCaseLoginButton';
 		        } ?>">
 		            <button class="btn btn-link vote za" data-vote="1"><i data-icon="&#xe606;"></i>Za</button>
