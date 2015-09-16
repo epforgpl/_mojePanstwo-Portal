@@ -3788,7 +3788,8 @@ class GminyController extends DataobjectsController
         100000000,                  // 100 mln.
         10000000,                   // 10 mln.
         1000000,                    // 1 mln.
-        100000                      // 100 tys.
+        100000,                     // 100 tys.
+        1000
     );
 
     public function finanse()
@@ -4789,10 +4790,14 @@ class GminyController extends DataobjectsController
 
                             foreach($this->histogramIntervals as $i => $interval) {
                                 $buckets = ceil($range / $interval);
-                                if($buckets > 10 && $buckets < 100) {
+                                if($buckets > 8 && $buckets < 100) {
                                     $histogram_i = $i;
                                     break;
                                 }
+                            }
+
+                            if($range > 300000 && $histogram_i == (count($this->histogramIntervals) - 1)) {
+                                $histogram_i = (string) (count($this->histogramIntervals) - 2);
                             }
 
 							$dzial['global'] = array(
