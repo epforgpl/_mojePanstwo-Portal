@@ -190,7 +190,9 @@ function graphInit(section) {
 			},
 			labels: {
 				formatter: function () {
-					return pl_currency_format(this.value, 0);
+					if(this.value <= 100) {
+						return this.value + '%';
+					} else return pl_currency_format(this.value, 0);
 				}
 			}
 		},

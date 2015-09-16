@@ -161,7 +161,7 @@ function pl_currency_format(n, prec) {
 	}
 
 	if (mld === 0 && mln === 0 && tys === 0)
-		str += n + '%';
+		str += n + ' zł.';
 
 	return str.trim();
 }
