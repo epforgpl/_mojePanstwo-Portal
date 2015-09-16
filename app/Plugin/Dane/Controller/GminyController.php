@@ -4781,12 +4781,15 @@ class GminyController extends DataobjectsController
 					foreach( $aggs['gminy']['dzialy']['timerange']['dzialy']['buckets'] as $d ) {
 						if( $d['key'] == $b['key'] ) {
 
-                            // choosing best histogram interval
+                            $min = (int) $d['min']['buckets'][0]['key'];
                             $max = (int) $d['max']['buckets'][0]['key'];
+                            $range = $max - $min;
+
                             $histogram_i = (string) (count($this->histogramIntervals) - 1);
 
                             foreach($this->histogramIntervals as $i => $interval) {
-                                if($max > $interval) {
+                                $buckets = ceil($range / $interval);
+                                if($buckets > 10 && $buckets < 100) {
                                     $histogram_i = $i;
                                     break;
                                 }
