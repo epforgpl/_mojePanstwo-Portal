@@ -12,8 +12,8 @@
 				'podmiotDisabled': "#6DADD9"
 			},
 			size: {
-				'distance': 120,
-				'linksLength': 50,
+				'distance': 900,
+				'linksLength': 40,
 				'linksWidth': 1,
 				'linkText': '8px',
 				'nodesSize': 15,
@@ -245,25 +245,25 @@
 						name = nameBegin + nameEnd.substring(0, nameEnd.indexOf(' '));
 						lines = name.match(new RegExp(regex, 'g')).join('\n').split('\n');
 
+						d3.select(this)
+							.append("tspan")
+							.attr('x', 0)
+							.attr('y', function (d) {
+								return ((d.id === root.id) ? d3Data.size.nodesSize : d3Data.size.nodesSize - 6);
+							})
+							.attr('font-family', 'datasets')
+							.attr('font-size', function (d) {
+								return (d.id === root.id) ? '3em' : '1.8em';
+							})
+							.attr('fill', function (d) {
+								return (d.label == 'osoba') ? '#000000' : '#ffffff'
+							})
+							.text(function (d) {
+								return (d.label == 'osoba') ? '\ue627' : '\ue62a'
+							});
+
 						for (var i = 0; i < lines.length; i++) {
 							var y = ( (lines.length % 2 === 0) ? ((d3Data.size.nodeTextSeparate / 2) + d3Data.size.nodeTextBox) : (d3Data.size.nodeTextBox / 2)) - ( (Math.floor(lines.length / 2)) * (d3Data.size.nodeTextBox + d3Data.size.nodeTextSeparate) ) + ( i * (d3Data.size.nodeTextBox + d3Data.size.nodeTextSeparate) );
-
-							d3.select(this)
-								.append("tspan")
-								.attr('x', 0)
-								.attr('y', function (d) {
-									return y + ((d.id === root.id) ? 8 : 3);
-								})
-								.attr('font-family', 'datasets')
-								.attr('font-size', function (d) {
-									return (d.id === root.id) ? '3em' : '1.8em';
-								})
-								.attr('fill', function (d) {
-									return (d.label == 'osoba') ? '#000000' : '#ffffff'
-								})
-								.text(function (d) {
-									return (d.label == 'osoba') ? '\ue627' : '\ue62a'
-								});
 							d3.select(this)
 								.append("tspan")
 								.attr('x', 0)

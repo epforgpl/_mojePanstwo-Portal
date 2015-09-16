@@ -680,6 +680,6 @@ $(function () {
         }
     };
 
-    sticky('#maplabel');
+	$('#maplabel').sticky();
 
 });

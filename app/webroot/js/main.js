@@ -163,7 +163,6 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 	/*COOKIE BACKGROUND CONTROL*/
 	if ($('body').hasClass('theme-wallpaper')) {
 		var rand = Math.floor(Math.random() * cookieBackgroundLimit);
-
 		jsHour = jsDate.getHours();
 
 		if (mPCookie === undefined || mPCookie.background === undefined) {
@@ -213,8 +212,8 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 			modalPaszportLoginForm.modal('show');
 		});
 
-		$('#modalPaszportLoginForm').on('shown.bs.modal', function() {
-				$('#UserEmail').focus();
+		$('#modalPaszportLoginForm').on('shown.bs.modal', function () {
+			$('#UserEmail').focus();
 		});
 	}
 
@@ -233,33 +232,28 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 	if ($('.trimTitle').length > 0) {
 		trimTitle();
 	}
-})
-(jQuery);
 
-$(document).ready(function(){
-	
-	var mp_sticky_resize = function(){
-		
-		if( $(window).width() >= 768 ) {
+	/**/
+	var $mpSticky = $('.mp-sticky');
+
+	function mp_sticky_resize() {
+		if ($(window).width() >= 768) {
 			$('.mp-sticky.mp-sticky-disable-sm-4').removeClass('_mp-sticky-disabled');
 		} else {
 			$('.mp-sticky.mp-sticky-disable-sm-4').addClass('_mp-sticky-disabled');
 		}
-		
-	};
-	
-	$('.mp-sticky').each(function(){
-		
-		var el = $(this);
-				
-		el.sticky();
-		
-		if( el.hasClass('mp-sticky-disable-sm-4') ) {
-			
-			mp_sticky_resize();
-			$(window).resize(mp_sticky_resize);
-			
-		}
-		
-	});
-});
+	}
+
+	if ($mpSticky.length) {
+		$mpSticky.each(function () {
+			var el = $(this);
+			el.sticky();
+
+			if (el.hasClass('mp-sticky-disable-sm-4')) {
+				mp_sticky_resize();
+				$(window).resize(mp_sticky_resize);
+			}
+		});
+	}
+})
+(jQuery);
