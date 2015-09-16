@@ -101,10 +101,6 @@ $(document).ready(function () {
 			infoBlock.removeClass('current');
 
 			rozdzialy(that);
-
-			/*$('html, body').animate({
-			 scrollTop: block.offset().top
-			 }, 600);*/
 		})
 	})
 });
