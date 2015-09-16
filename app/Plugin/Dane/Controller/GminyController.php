@@ -4666,16 +4666,16 @@ class GminyController extends DataobjectsController
                 'id' => 'finanse',
                 'label' => 'Finanse',
             );
-            $menu['items'][] = array(
-                'id' => 'mapa',
-                'label' => 'Mapa',
-            );
-            /*
-            $menu['items'][] = array(
-                'id' => 'powiazania',
-                'label' => 'Powiązania',
-            );
-            */
+            /*$menu['items'][] = array(
+               'id' => 'mapa',
+               'label' => 'Mapa',
+           );
+
+           $menu['items'][] = array(
+               'id' => 'powiazania',
+               'label' => 'Powiązania',
+           );
+           */
 
         } else {
 
