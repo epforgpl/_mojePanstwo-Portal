@@ -3817,10 +3817,6 @@ class GminyController extends DataobjectsController
 			'data' => array(
 				'items' => array(
 					array(
-						'id' => 'wydatki_na_osobe',
-						'label' => 'Wydatki - w przeliczeniu na osobę',
-					),
-					array(
 						'id' => 'wydatki',
 						'label' => 'Wydatki - wartości absolutne',
 					),
