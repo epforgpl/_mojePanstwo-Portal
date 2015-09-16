@@ -42,7 +42,7 @@ $this->Combinator->add_libs('js', 'Finanse.budzety-tiles');
                 }
                 ?>
 
-                <div class="block col-md-3">
+                <div class="block col-xs-12 col-sm-6 col-md-3">
                     <div class="item" data-id="PKB">
                         <a href="#PKB" class="inner">
 
@@ -66,7 +66,7 @@ $this->Combinator->add_libs('js', 'Finanse.budzety-tiles');
                         </a>
                     </div>
                 </div>
-                <div class="block col-md-3">
+                <div class="block col-xs-12 col-sm-6 col-md-3">
                     <div class="item" data-id="PKB_per_capita">
                         <a href="#PKB_per_capita" class="inner">
 
@@ -97,7 +97,7 @@ $this->Combinator->add_libs('js', 'Finanse.budzety-tiles');
                     $dlug[]=array('name'=>$row['rocznik'], 'y'=>$row['sektor_finansow_pub']*1000000);
                 }
                 ?>
-                <div class="block col-md-3">
+                <div class="block col-xs-12 col-sm-6 col-md-3">
                     <div class="item" data-id="dlug">
                         <a href="#dlug" class="inner">
 
@@ -127,7 +127,7 @@ $this->Combinator->add_libs('js', 'Finanse.budzety-tiles');
                 foreach($pkb['bezrobocie'] as $row){
                     $bezrobocie[]=array('name'=>$row['rocznik'], 'y'=>$row['v']);
                 }?>
-                <div class="block col-md-3">
+                <div class="block col-xs-12 col-sm-6 col-md-3">
                     <div class="item" data-id="bezrobocie">
                         <a href="#bezrobocie" class="inner">
 
@@ -173,7 +173,7 @@ $this->Combinator->add_libs('js', 'Finanse.budzety-tiles');
                 $dane_budzet['deficyt']=array_values($dane_budzet['deficyt']);
 
                 ?>
-                <div class="block col-md-3">
+                <div class="block col-xs-12 col-sm-6 col-md-3">
                     <div class="item" data-id="budzet_dochody">
                         <a href="#budzet_dochody" class="inner">
 
@@ -197,7 +197,7 @@ $this->Combinator->add_libs('js', 'Finanse.budzety-tiles');
                         </a>
                     </div>
                 </div>
-                <div class="block col-md-3">
+                <div class="block col-xs-12 col-sm-6 col-md-3">
                     <div class="item" data-id="budzet_wydatki">
                         <a href="#budzet_wydatki" class="inner">
 
@@ -221,7 +221,7 @@ $this->Combinator->add_libs('js', 'Finanse.budzety-tiles');
                         </a>
                     </div>
                 </div>
-                <div class="block col-md-3">
+                <div class="block col-xs-12 col-sm-6 col-md-3">
                     <div class="item" data-id="budzet_deficyt">
                         <a href="#budzet_deficyt" class="inner">
 
@@ -250,7 +250,7 @@ $this->Combinator->add_libs('js', 'Finanse.budzety-tiles');
                 foreach($pkb['inflacja'] as $row){
                     $inflacja[]=array('name'=>$row['rocznik'], 'y'=>$row['v']-100);
                 }?>
-                <div class="block col-md-3">
+                <div class="block col-xs-12 col-sm-6 col-md-3">
                     <div class="item" data-id="inflacja">
                         <a href="#inflacja" class="inner">
 

@@ -117,70 +117,7 @@ $(document).ready(function () {
     $('#selectYear').val(_year);
     // loadTopData(parseInt(_year)); // default
 
-    function pl_currency_format(n, cut) {
-        var str = '';
-        var mld = 0;
-        var mln = 0;
-        var tys = 0;
-
-        if (n > 1000000000) {
-            if (cut === true) {
-                return (n / 1000000000).toFixed(2) + ' mld';
-            }
-            mld = Math.floor(n / 1000000000);
-            n -= mld * 1000000000;
-        }
-
-        if (n > 1000000) {
-            if (cut === true) {
-                return (n / 1000000).toFixed(2) + ' mln';
-            }
-            mln = Math.floor(n / 1000000);
-            n -= mln * 1000000;
-        }
-
-        if (mld > 0)
-            str += mld + ' mld ';
-        if (mln > 0)
-            str += mln + ' mln ';
-        if (tys > 0 && mld === 0)
-            str += tys + ' tys';
-
-        if (mld === 0 && mln === 0 && tys === 0)
-            str += number_format(n);
-
-        return str.trim();
-    }
-    function number_format(number, decimals, dec_point, thousands_sep) {
-        number = (number + '')
-            .replace(/[^0-9+\-Ee.]/g, '');
-        var n = !isFinite(+number) ? 0 : +number,
-            prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-            sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-            dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-            s = '',
-            toFixedFix = function (n, prec) {
-                var k = Math.pow(10, prec);
-                return '' + (Math.round(n * k) / k)
-                        .toFixed(prec);
-            };
-        // Fix for IE parseFloat(0.55).toFixed(0) = 0;
-        s = (prec ? toFixedFix(n, prec) : '' + Math.round(n))
-            .split('.');
-        if (s[0].length > 3) {
-            s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-        }
-        if ((s[1] || '')
-                .length < prec) {
-            s[1] = s[1] || '';
-            s[1] += new Array(prec - s[1].length + 1)
-                .join('0');
-        }
-        return s.join(dec);
-    }
-
     var tree = {
-
         $import: $('#import'),
         import_data: [],
 
