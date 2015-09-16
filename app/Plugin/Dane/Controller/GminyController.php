@@ -3792,17 +3792,16 @@ class GminyController extends DataobjectsController
 
         $population = $this->object->getData('liczba_ludnosci');
         $populationRange = $this->Gmina->getPopulationRange($population);
-
+		
+		$mode = false;
+		
 		$options = array(
 			'data' => array(
 				'items' => array(
-					/*
 					array(
 						'id' => 'wydatki_na_osobe',
 						'label' => 'Wydatki - w przeliczeniu na osobę',
-						'default' => true,
 					),
-					*/
 					array(
 						'id' => 'wydatki',
 						'label' => 'Wydatki - wartości absolutne',
@@ -3812,14 +3811,22 @@ class GminyController extends DataobjectsController
 			'timerange' => array(
 				'items' => array(
 					array(
+						'id' => '2015Q1',
+						'label' => '2015, I kwartał',
+					),
+					array(
 						'id' => '2014',
-						'label' => '2014, kwartały I - III',
-						'default' => true,
+						'label' => '2014, cały rok',
+					),
+					array(
+						'id' => '2014Q4',
+						'label' => '2014, IV kwartał',
 					),
 					array(
 						'id' => '2014Q3',
 						'label' => '2014, III kwartał',
-					),array(
+					),
+					array(
 						'id' => '2014Q2',
 						'label' => '2014, II kwartał',
 					),
@@ -3827,28 +3834,72 @@ class GminyController extends DataobjectsController
 						'id' => '2014Q1',
 						'label' => '2014, I kwartał',
 					),
+					array(
+						'id' => '2013',
+						'label' => '2013, cały rok',
+					),
+					array(
+						'id' => '2013Q4',
+						'label' => '2013, IV kwartał',
+					),
+					array(
+						'id' => '2013Q3',
+						'label' => '2013, III kwartał',
+					),
+					array(
+						'id' => '2013Q2',
+						'label' => '2013, II kwartał',
+					),
+					array(
+						'id' => '2013Q1',
+						'label' => '2013, I kwartał',
+					),
+					array(
+						'id' => '2012',
+						'label' => '2012, cały rok',
+					),
+					array(
+						'id' => '2012Q4',
+						'label' => '2012, IV kwartał',
+					),
+					array(
+						'id' => '2012Q3',
+						'label' => '2012, III kwartał',
+					),
+					array(
+						'id' => '2012Q2',
+						'label' => '2012, II kwartał',
+					),
+					array(
+						'id' => '2012Q1',
+						'label' => '2012, I kwartał',
+					),
 				),
 			),
 			'compare' => array(
 				'items' => array(
+										
 					array(
-						'id' => 'wszystkie',
-						'label' => 'Wszystkie gminy',
+						'id' => 'wojewodzkie',
+						'label' => 'Miasta wojewódzkie',
 					),
-					/*
+					array(
+						'id' => 'powiatowe',
+						'label' => 'Miasta na prawach powiatów',
+					),
+					array(
+						'id' => 'liczba_ludnosci',
+						'label' => 'Gminy w przedziale ludności 100-200',
+					),
 					array(
 						'id' => 'miejskie',
 						'label' => 'Gminy miejskie',
 					),
 					array(
-						'id' => 'miejsko-wiejskie',
-						'label' => 'Gminy miejsko-wiejskie',
+						'id' => 'wszystkie',
+						'label' => 'Wszystkie gminy',
 					),
-					array(
-						'id' => 'wiejskie',
-						'label' => 'Gminy wiejskie',
-					),
-					*/
+					
 				),
 			),
 		);
@@ -3885,11 +3936,13 @@ class GminyController extends DataobjectsController
 		$data = $options['data']['items'][ $options['data']['selected_i'] ]['id'];
 
 		if( $data=='wydatki' ) {
-
+			
+			$mode = 'absolute';
 			$main_chart['title'] = 'Wydatki - wartości absolutne';
 
 		} elseif( $data=='wydatki_na_osobe' ) {
-
+			
+			$mode = 'perperson';
 			$main_chart['title'] = 'Wydatki w przeliczeniu na osobę';
 
 		}
@@ -3932,7 +3985,20 @@ class GminyController extends DataobjectsController
 			);
 
 			$main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' ze wszystkimi gminami';
+			
+		} elseif( $compare=='wojewodzkie' ) {
 
+			$gminy_filter = array(
+				array(
+					'term' => array(
+		                'dataset' => 'gminy',
+		            ),
+				),
+			);
+
+			$main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' ze wszystkimi gminami';
+
+		
 		} elseif( $compare=='miejskie' ) {
 
 			$gminy_filter = array(
@@ -4278,28 +4344,48 @@ class GminyController extends DataobjectsController
 		                    'path' => 'gminy-wydatki-dzialy',
 	                    ),
 	                    'aggs' => array(
-		                    'dzialy' => array(
-                                'terms' => array(
-                                    'field' => 'gminy-wydatki-dzialy.dzial_id',
-                                    'size' => 100,
-                                    'order' => array(
-                                        'wydatki' => 'desc',
+		                    'timerange' => array(
+                                'filter' => array(
+                                    'bool' => array(
+                                        'must' => array(
+                                            array(
+                                                'term' => array(
+                                                    'gminy-wydatki-dzialy.rok' => $rok,
+                                                ),
+                                            ),
+                                            array(
+                                                'term' => array(
+                                                    'gminy-wydatki-dzialy.kwartal' => $kwartal,
+                                                ),
+                                            ),
+                                        ),
                                     ),
                                 ),
                                 'aggs' => array(
-                                    'label' => array(
-                                        'terms' => array(
-                                            'field' => 'gminy-wydatki-dzialy.dzial',
-                                            'size' => 1,
-                                        ),
-                                    ),
-                                    'wydatki' => array(
-                                        'sum' => array(
-                                            'field' => 'gminy-wydatki-dzialy.wydatki',
-                                        ),
-                                    ),
+                                    'dzialy' => array(
+		                                'terms' => array(
+		                                    'field' => 'gminy-wydatki-dzialy.dzial_id',
+		                                    'size' => 100,
+		                                    'order' => array(
+		                                        'wydatki' => 'desc',
+		                                    ),
+		                                ),
+		                                'aggs' => array(
+		                                    'label' => array(
+		                                        'terms' => array(
+		                                            'field' => 'gminy-wydatki-dzialy.dzial',
+		                                            'size' => 1,
+		                                        ),
+		                                    ),
+		                                    'wydatki' => array(
+		                                        'sum' => array(
+		                                            'field' => 'gminy-wydatki-dzialy.wydatki',
+		                                        ),
+		                                    ),
+		                                ),
+		                            ),
                                 ),
-                            ),
+                            ),		                    
 	                    ),
                     ),
                     'rozdzialy' => array(
@@ -4307,36 +4393,56 @@ class GminyController extends DataobjectsController
 		                    'path' => 'gminy-wydatki-rozdzialy',
 	                    ),
 	                    'aggs' => array(
-		                    'dzialy' => array(
-			                    'terms' => array(
-				                    'field' => 'gminy-wydatki-rozdzialy.dzial_id',
-				                    'size' => 100,
-			                    ),
-			                    'aggs' => array(
-				                    'rozdzialy' => array(
-		                                'terms' => array(
-		                                    'field' => 'gminy-wydatki-rozdzialy.rozdzial_id',
-		                                    'size' => 100,
-		                                    'order' => array(
-		                                        'wydatki' => 'desc',
-		                                    ),
-		                                ),
-		                                'aggs' => array(
-		                                    'nazwa' => array(
-		                                        'terms' => array(
-		                                            'field' => 'gminy-wydatki-rozdzialy.rozdzial',
-		                                            'size' => 1,
-		                                        ),
-		                                    ),
-		                                    'wydatki' => array(
-		                                        'sum' => array(
-		                                            'field' => 'gminy-wydatki-rozdzialy.wydatki',
-		                                        ),
-		                                    ),
-		                                ),
-		                            ),
-			                    ),
-		                    ),
+		                    'timerange' => array(
+                                'filter' => array(
+                                    'bool' => array(
+                                        'must' => array(
+                                            array(
+                                                'term' => array(
+                                                    'gminy-wydatki-rozdzialy.rok' => $rok,
+                                                ),
+                                            ),
+                                            array(
+                                                'term' => array(
+                                                    'gminy-wydatki-rozdzialy.kwartal' => $kwartal,
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'aggs' => array(
+                                    'dzialy' => array(
+					                    'terms' => array(
+						                    'field' => 'gminy-wydatki-rozdzialy.dzial_id',
+						                    'size' => 100,
+					                    ),
+					                    'aggs' => array(
+						                    'rozdzialy' => array(
+				                                'terms' => array(
+				                                    'field' => 'gminy-wydatki-rozdzialy.rozdzial_id',
+				                                    'size' => 100,
+				                                    'order' => array(
+				                                        'wydatki' => 'desc',
+				                                    ),
+				                                ),
+				                                'aggs' => array(
+				                                    'nazwa' => array(
+				                                        'terms' => array(
+				                                            'field' => 'gminy-wydatki-rozdzialy.rozdzial',
+				                                            'size' => 1,
+				                                        ),
+				                                    ),
+				                                    'wydatki' => array(
+				                                        'sum' => array(
+				                                            'field' => 'gminy-wydatki-rozdzialy.wydatki',
+				                                        ),
+				                                    ),
+				                                ),
+				                            ),
+					                    ),
+				                    ),
+                                ),
+                            ),		                    
 	                    ),
                     ),
                 ),
@@ -4648,13 +4754,12 @@ class GminyController extends DataobjectsController
 				$global = array_merge($global, array(
 					'left' => ($global['min']['value'] == $global['max']['value']) ? 0 : 100 * ( $global['cur'] - $global['min']['value'] ) / ( $global['max']['value'] - $global['min']['value'] ),
 					'median_left' => ($global['min']['value'] == $global['max']['value']) ? 0 : 100 * ( $global['median'] - $global['min']['value'] ) / ( $global['max']['value'] - $global['min']['value'] ),
-				));
-
-
+				));				
+				
 
 				$dzialy = array();
-
-				foreach( $aggs['gmina']['dzialy']['dzialy']['buckets'] as $b ) {
+								
+				foreach( $aggs['gmina']['dzialy']['timerange']['dzialy']['buckets'] as $b ) {
 
 					$dzial = array(
 						'id' => $b['key'],
@@ -4677,8 +4782,12 @@ class GminyController extends DataobjectsController
 								),
 								'cur' => $b['wydatki']['value'],
 								'median' => $d['percentiles']['values']['50.0'],
-								'histogram' => $d['histogram_0']['buckets'],
+								'histogram' => $d['histogram_2']['buckets'],
 							);
+							
+							$histogram_i = 1;
+							
+							$dzial['global']['histogram'] = $d['histogram_' . $histogram_i]['buckets'];
 
 							$dzial['global'] = array_merge($dzial['global'], array(
 								'left' => ($dzial['global']['min']['value'] == $dzial['global']['max']['value']) ? 0 : 100 * ( $dzial['global']['cur'] - $dzial['global']['min']['value'] ) / ( $dzial['global']['max']['value'] - $dzial['global']['min']['value'] ),
@@ -4690,8 +4799,8 @@ class GminyController extends DataobjectsController
 
 						}
 					}
-
-					foreach( $aggs['gmina']['rozdzialy']['dzialy']['buckets'] as &$c ) {
+										
+					foreach( $aggs['gmina']['rozdzialy']['timerange']['dzialy']['buckets'] as &$c ) {
 						if( $c['key']==$dzial['id'] ) {
 
 							$rozdzialy = $c['rozdzialy']['buckets'];

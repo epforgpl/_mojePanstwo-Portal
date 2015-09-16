@@ -127,8 +127,7 @@ $options = array(
 
             <div class="row items">
                 <? foreach ($dzialy as $dzial) { ?>
-                    <div class="block col-md-3">
-
+                    <div class="block col-xs-12 col-sm-6 col-md-3">
                         <div class="item <?= $dzial['global']['class'] ?>" data-id="<?= $dzial['id'] ?>">
 
                             <a href="#<?= $dzial['id'] ?>" class="inner" data-title="<?= $dzial['label'] ?>">

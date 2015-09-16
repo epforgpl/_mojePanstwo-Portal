@@ -13,13 +13,9 @@ $(document).ready(function () {
 			zoomControl: true,
 			mapTypeControl: true,
 			scaleControl: true,
-			streetViewControl: false,
-			overviewMapControl: false,
+			streetViewControl: true,
+			overviewMapControl: true,
 			scrollwheel: true,
-			zoomControlOptions: {
-				style: google.maps.ZoomControlStyle.DEFAULT,
-				position: google.maps.ControlPosition.LEFT_TOP
-			},
 			mapTypeControlOptions: {
 				style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
 				position: google.maps.ControlPosition.RIGHT_TOP

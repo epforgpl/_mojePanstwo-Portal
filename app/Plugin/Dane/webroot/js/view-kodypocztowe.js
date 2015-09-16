@@ -29,7 +29,7 @@ var googleMapKodyPocztowe = {
 
             this.listConnection();
 
-            sticky('#map_cont');
+			$('#map_cont').sticky();
 
             var mapWidthInterval = setInterval(function () {
                 var mapWidth = jQuery('#mapa').css('width');
