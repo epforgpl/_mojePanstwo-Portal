@@ -270,7 +270,7 @@
 								.attr('y', function (d) {
 									return y + 8 + ((d.id === root.id) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize);
 								})
-								.style("stroke", "rgb(250,250,250)")
+								.style("stroke", "rgb(255,255,255)")
 								.style("stroke-width", "4px")
 								.text(lines[i]);
 							d3.select(this)
