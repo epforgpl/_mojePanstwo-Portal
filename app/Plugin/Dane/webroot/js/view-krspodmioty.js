@@ -181,8 +181,7 @@ jQuery(document).ready(function () {
     }
 
     /*STICKY MENU*/
-    menu.attr('id', 'stickyMenu').css('width', menu.outerWidth() + 'px');
-    sticky('#stickyMenu');
+	$("#stickyMenu").sticky();
 
     menu.find('.nav a').click(function (event) {
         var target = jQuery(this).attr('href'),

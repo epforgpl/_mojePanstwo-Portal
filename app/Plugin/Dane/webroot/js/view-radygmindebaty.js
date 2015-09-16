@@ -25,8 +25,6 @@ function onYouTubePlayerAPIReady() {
                     seeker(jQuery(this).data('video-position'));
                     return false;
                 });
-
-                // sticky('#ytVideo', 'down');
             }
         }
     });

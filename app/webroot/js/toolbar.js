@@ -301,7 +301,7 @@ jQuery(document).ready(function () {
 	});
 
 	if (docToolbar.length > 0 && typeof sticky == 'function') {
-		sticky('#docsToolbar');
+		$('#docsToolbar').sticky();
 	}
 
 	$(window).resize(function () {

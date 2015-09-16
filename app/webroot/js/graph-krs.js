@@ -12,8 +12,8 @@
 				'podmiotDisabled': "#6DADD9"
 			},
 			size: {
-				'distance': 120,
-				'linksLength': 50,
+				'distance': 150,
+				'linksLength': 80,
 				'linksWidth': 1,
 				'linkText': '8px',
 				'nodesSize': 15,
