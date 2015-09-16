@@ -330,6 +330,18 @@ class NgoController extends ApplicationsController
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
     }
 
+	public function dzialania()
+    {
+        $this->loadDatasetBrowser('dzialania', array(
+            'menu' => array_merge($this->submenus['ngo'], array(
+                'selected' => 'dzialania',
+                'base' => '/ngo'
+            ))
+        ));
+        $this->set('title_for_layout', 'Działania organizacji społecznych');
+
+    }
+	
 	public function fundacje()
     {
         $this->loadDatasetBrowser('krs_podmioty', array(
