@@ -107,56 +107,64 @@ function trimTitle() {
 	});
 }
 
-/* JQUERY - STICK ELEMENT AT SCROLL */
-/*
-function stickyGo(dom, direction) {
-	"use strict";
-
-	var anchor = jQuery('.anchor'),
-		exist = false,
-
-		window_top = jQuery(window).scrollTop(),
-		header_fixed = jQuery('header').outerHeight(true),
-		window_height = jQuery(window).height(),
-		stickGoAnchor,
-		div_top;
-
-	jQuery.each(anchor, function () {
-		if (jQuery(this).attr('data-id') === dom) {
-			exist = true;
-		}
-	});
-
-	if (exist === false) {
-		jQuery('<div class="anchor" data-id=' + dom + '></div>').insertBefore(dom);
+/**/
+function number_format(number, decimals, dec_point, thousands_sep) {
+	number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+	var n = !isFinite(+number) ? 0 : +number,
+		prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+		sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+		dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+		s = '',
+		toFixedFix = function (n, prec) {
+			var k = Math.pow(10, prec);
+			return '' + (Math.round(n * k) / k)
+					.toFixed(prec);
+		};
+	// Fix for IE parseFloat(0.55).toFixed(0) = 0;
+	s = (prec ? toFixedFix(n, prec) : '' + Math.round(n))
+		.split('.');
+	if (s[0].length > 3) {
+		s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
 	}
-
-	stickGoAnchor = jQuery('.anchor[data-id=' + dom + ']');
-	div_top = stickGoAnchor.offset().top;
-
-	if (window_top + header_fixed > div_top && direction === 'down') {
-		jQuery(dom).addClass('stick');
-	} else if ((window_top + header_fixed + window_height - jQuery(dom).outerHeight()) < div_top && direction === 'up') {
-		jQuery(dom).addClass('stick');
-	} else {
-		jQuery(dom).removeClass('stick');
+	if ((s[1] || '')
+			.length < prec) {
+		s[1] = s[1] || '';
+		s[1] += new Array(prec - s[1].length + 1)
+			.join('0');
 	}
+	return s.join(dec);
 }
 
-function sticky(dom, direction) {
-	"use strict";
+/* FUNCTION CONVERT CURRENCY INTO READABLE FORMAT */
+function pl_currency_format(n, prec) {
+	var str = '',
+		mld = 0,
+		mln = 0,
+		tys = 0;
 
-	if (jQuery(dom).length) {
-		if (direction === undefined) {
-			direction = 'down';
-		}
-		stickyGo(dom, direction);
-		jQuery(window).scroll(function () {
-			stickyGo(dom, direction);
-		});
+	if (n > 1000000000) {
+		mld = (n / 1000000000).toFixed(prec);
+		n -= mld * 1000000000;
+		return mld + ' mld zł.';
 	}
+
+	if (n > 1000000) {
+		mln = (n / 1000000).toFixed(prec);
+		n -= mln * 1000000;
+		return mln + ' mln zł.';
+	}
+
+	if (n > 1000) {
+		tys = (n / 1000).toFixed(prec);
+		n -= tys * 1000;
+		return tys + ' tys. zł.';
+	}
+
+	if (mld === 0 && mln === 0 && tys === 0)
+		str += n + '%';
+
+	return str.trim();
 }
-*/
 
 /*OTHER LIBRARY*/
 /* Simple JavaScript Inheritance

@@ -10,7 +10,7 @@ $(document).ready(function () {
 			items = $(block.parent('.items'));
 
 		that.click(function (e) {
-			var next = block.next(),
+			var next = block.next('.block'),
 				targetPos = block.position().top,
 				slideMark;
 
@@ -35,19 +35,23 @@ $(document).ready(function () {
 				lastChoose = block;
 			}
 
+			$('html, body').animate({
+				scrollTop: block.offset().top
+			}, 600);
+
 			if (next.length == 0) {
 				slideMark = block;
 			} else {
 				while (next.length != 0) {
-					if (next.next().length == 0) {
+					if (next.next('.block').length == 0) {
 						slideMark = next;
 						break;
 					} else {
 						if (next.position().top != targetPos) {
-							slideMark = next.prev();
+							slideMark = next.prev('.block');
 							break;
 						}
-						next = next.next();
+						next = next.next('.block');
 					}
 				}
 			}
@@ -103,65 +107,6 @@ function rozdzialy(item) {
 	graphInit(infoBlock);
 
 	infoBlock.css('height', infoBlock.find('.container').outerHeight(true));
-
-}
-
-function number_format(number, decimals, dec_point, thousands_sep) {
-	number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
-	var n = !isFinite(+number) ? 0 : +number,
-		prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-		sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-		dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-		s = '',
-		toFixedFix = function (n, prec) {
-			var k = Math.pow(10, prec);
-			return '' + (Math.round(n * k) / k)
-					.toFixed(prec);
-		};
-	// Fix for IE parseFloat(0.55).toFixed(0) = 0;
-	s = (prec ? toFixedFix(n, prec) : '' + Math.round(n))
-		.split('.');
-	if (s[0].length > 3) {
-		s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-	}
-	if ((s[1] || '')
-			.length < prec) {
-		s[1] = s[1] || '';
-		s[1] += new Array(prec - s[1].length + 1)
-			.join('0');
-	}
-	return s.join(dec);
-}
-
-function pl_currency_format(n, prec) {
-	var str = '';
-	var bln = 0;
-	var mld = 0;
-	var mln = 0;
-	var tys = 0;
-
-	if (n > 1000000000) {
-		mld = (n / 1000000000).toFixed(prec);
-		n -= mld * 1000000000;
-		return mld + ' mld zł.';
-	}
-
-	if (n > 1000000) {
-		mln = (n / 1000000).toFixed(prec)
-		n -= mln * 1000000;
-		return mln + ' mln zł.';
-	}
-
-	if (n > 1000) {
-		tys = (n / 1000).toFixed(prec)
-		n -= tys * 1000;
-		return tys + ' tys. zł.';
-	}
-
-	if (mld === 0 && mln === 0 && tys === 0)
-		str += n + '%';
-
-	return str.trim();
 }
 
 function graphInit(section) {
@@ -170,7 +115,6 @@ function graphInit(section) {
 		histogram_div = jQuery(section.find('.histogram')),
 		data = histogram_div.data('histogram'),
 		charts_data = [],
-		chart,
 		i = section.attr('data-itemid'),
 		title = section.find('.histogram').data('text');
 
@@ -189,12 +133,9 @@ function graphInit(section) {
 		}
 	}
 
-	console.log(charts_data);
-
 	histogram_div.attr('id', 'h' + i);
 
-
-	chart = new Highcharts.Chart({
+	new Highcharts.Chart({
 		chart: {
 			renderTo: 'h' + i,
 			type: 'spline',
