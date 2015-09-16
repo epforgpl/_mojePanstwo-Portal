@@ -22,6 +22,10 @@ class NgoController extends ApplicationsController
                     'label' => 'Start',
                 ),
                 array(
+                    'id' => 'dzialania',
+                    'label' => 'Działania',
+                ),
+                array(
                     'id' => 'fundacje',
                     'label' => 'Fundacje',
                 ),
@@ -333,6 +337,10 @@ class NgoController extends ApplicationsController
 	public function dzialania()
     {
         $this->loadDatasetBrowser('dzialania', array(
+	        'conditions' => array(
+		        'dataset' => 'dzialania',
+		        'dzialania.status' => '1',
+	        ),
             'menu' => array_merge($this->submenus['ngo'], array(
                 'selected' => 'dzialania',
                 'base' => '/ngo'
