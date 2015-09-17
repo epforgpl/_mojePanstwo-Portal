@@ -15,6 +15,8 @@ class mpAPISource extends DataSource {
     public $Aggs = array();
     public $Apps = array();
 
+    private $lastResponseCode = 0;
+
 /**
  * Our default config options. These options will be customized in our
  * ``app/Config/database.php`` and will be merged in the ``__construct()``.
@@ -195,55 +197,38 @@ class mpAPISource extends DataSource {
 	        'method' => $method,
         ));
 
-        $code = (int) $this->Http->response->code;
-
-        if( $code >= 400 ) {
-
-	        if( $code==400 )
-	        	throw new BadRequestException();
-	        elseif( $code==403 )
-	        	throw new ForbiddenException();
-	        elseif( $code==404 )
-	        	throw new NotFoundException();
-	        elseif( $code==405 )
-	        	throw new MethodNotAllowedException();
-	        elseif( $code==500 )
-	        	throw new MethodNotAllowedException();
-        	elseif( $code==501 )
-	        	throw new NotImplementedException();
-	        else
-	        	throw new CakeException();
-
-        }
+        $this->lastResponseCode = (int) $this->Http->response->code;
+        if($this->lastResponseCode >= 400)
+            return false;
 
         if( isset($res['Count']) )
 	        $this->count = $res['Count'];
 
 	    if( isset($res['Took']) )
 	        $this->took = $res['Took'];
-				
+
         if( isset($res['Aggs']) ) {
-        	
+
         	$this->Aggs = array();
         	$this->Apps = array();
-        	
+
         	foreach( $res['Aggs'] as $key => $value ) {
-	        	
+
 	        	if( strpos($key, 'app_')===0 ) {
 	        		if(
-		        		isset( $value['doc_count'] ) && 
+		        		isset( $value['doc_count'] ) &&
 		        		$value['doc_count']
 	        		) {
 	        			$this->Apps[ substr($key, 4) ] = $value;
 	        		}
 	        	} else {
-	        		$this->Aggs[ $key ] = $value; 
+	        		$this->Aggs[ $key ] = $value;
 	        	}
-	        	
+
         	}
-        	        	
+
         }
-        
+
         if( $model->findQueryType == 'first' ) {
 
 	        if( $process_response )
@@ -363,7 +348,7 @@ class mpAPISource extends DataSource {
 
     public function loadDocument($id, $options = array())
     {
-	    
+
 	    return $this->request('docs/' . $id . '.' . $this->config['ext'], array(
 		    'data' => $options,
 	    ));
@@ -398,6 +383,10 @@ class mpAPISource extends DataSource {
         } else {
             throw new BadRequestException("Wystąpił błąd");
         }
+    }
+
+    public function getLastResponseCode() {
+        return $this->lastResponseCode;
     }
 
     public function register($data) {

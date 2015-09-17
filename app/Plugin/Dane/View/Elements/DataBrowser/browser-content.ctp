@@ -56,12 +56,12 @@ if ($dataBrowser['mode'] == 'cover') {
 	
     ?>
 
-    <? if ($displayAggs && !empty($dataBrowser['aggs'])) { ?>
+    <? if (($displayAggs && !empty($dataBrowser['aggs'])) || (isset($app_chapters) && $app_chapters) ) { ?>
 
         <div class="col-md-<?= $columns[1] ?> col-xs-12 dataAggsContainer">
 
             <? if( isset($sideElement) ) echo $this->Element($sideElement) ?>
-
+						
             <?  if( isset($app_chapters) ) {
 
 	            echo $this->Element('Dane.DataBrowser/app_chapters');
