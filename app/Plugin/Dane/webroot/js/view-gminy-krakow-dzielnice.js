@@ -19,6 +19,8 @@ function mapHoverIn(dzielnicaName) {
             featureName = feature['A']['Name'];
         else if(feature['G'] !== undefined)
             featureName = feature['G']['Name'];
+		else if(feature['H'] !== undefined)
+			featureName = feature['H']['Name'];
 
         if (featureName == dzielnicaName) {
             return featureHoverStyle;
@@ -66,6 +68,8 @@ function initialize() {
             name = event.feature['A']['Name'];
         else if(event.feature['G'] !== undefined)
             name = event.feature['G']['Name'];
+		else if(event.feature['H'] !== undefined)
+			name = event.feature['H']['Name'];
 
         $('.dzielniceList a[data-dzielnica="' + name + '"]')[0].click();
     });
@@ -76,6 +80,8 @@ function initialize() {
             name = event.feature['A']['Name'];
         else if(event.feature['G'] !== undefined)
             name = event.feature['G']['Name'];
+		else if(event.feature['H'] !== undefined)
+			name = event.feature['H']['Name'];
 
         $('.dzielniceList a[data-dzielnica="' + name + '"]').addClass('hover');
         mapHoverIn(name);
@@ -94,9 +100,9 @@ $(document).ready(function () {
         var dzielniceMap = $('#dzielnice_map'),
             holder = dzielniceMap.parent().find('.holder'),
             fundatorzy = $('#fundatorzy').outerHeight(true),
-			header=$('.appHeader').outerHeight(true),
-			submenu=$('.appMenu').outerHeight(true);
-        var size = $(window).outerHeight() - fundatorzy - header - submenu;
+			header = $('.appHeader').outerHeight(true),
+			submenu = $('.appMenu').outerHeight(true),
+			size = $(window).outerHeight() - fundatorzy - header - submenu;
 
         holder.css('min-height', size);
         dzielniceMap.css('min-height', size);
