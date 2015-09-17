@@ -5,14 +5,35 @@
     .objectsPageContent {
         margin-top: 0;
 
-        #map {
-            position: relative;
+        .mapholder {
             top: 0;
             left: 0;
             width: 100%;
-            min-height: 500px;
-        }
 
+            #map {
+                top: 0;
+                left: 0;
+                width: 100%;
+                min-height: 500px;
+            }
+
+            .menuholder {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+
+                #map_menu {
+                    top:50px;
+                    left:50px;
+                    width: 200px;
+                    height: 400px;
+                    overflow: scroll;
+                    z-index: 100;
+                    padding: 10px;
+                }
+            }
+        }
     }
 }
 

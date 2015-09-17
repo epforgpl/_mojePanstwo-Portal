@@ -5,46 +5,95 @@ $this->Combinator->add_libs('js', 'Dane.view-gminy-krakow-mapa');
 
 echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&language=pl-PL', array('block' => 'scriptBlock'));
 ?>
-    <div class="container">
-        <div class="row">
-            <form>
-                <label>
-                    <input type="checkbox" id="administrative_locality">
-                    Dzielnice
-                </label>
-                <br>
-                <label>
-                    <input type="checkbox" id="administrative_neighborhood">
-                    Części dzielnic
-                </label>
-                <br>
-                <label>
-                    <input type="checkbox" id="road_arterial">
-                    Ulice główne
-                </label>
-                <br>
-                <label>
-                    <input type="checkbox" id="road_highway">
-                    Drogi szybkiego ruchu
-                </label>
-                <br>
-                <label>
-                    <input type="checkbox" id="road_highway_controlled_access">
-                    Autostrady
-                </label>
-                <br>
-                <label>
-                    <input type="checkbox" id="road_local">
-                    Ulice lokalne
-                </label>
-            </form>
-        </div>
-    </div>
 <?= $this->Element('dataobject/pageBegin'); ?>
 
-    <div id="map"></div>
+    <div class="mapholder">
+        <div class="menuholder">
+            <div id="map_menu" class="ui-widget-content">
+                <h4>Nazwy:</h4>
+                <ul class="list-unstyled">
+                    <li><label>
+                            <input class="google_layers_switch" type="checkbox" id="administrative_locality">
+                            Dzielnice
+                        </label></li>
+                    <li><label>
+                            <input class="google_layers_switch" type="checkbox" id="administrative_neighborhood">
+                            Części dzielnic
+                        </label>
+                    </li>
 
+                    <li><label>
+                            <input class="" type="checkbox" id="road">
+                            Drogi
+                        </label>
+                        <ul class="">
+                            <li><label>
+                                    <input class="google_layers_switch typy_drog" type="checkbox" id="road_arterial">
+                                    Ulice główne
+                                </label></li>
+                            <li><label>
+                                    <input class="google_layers_switch typy_drog" type="checkbox" id="road_highway">
+                                    Drogi szybkiego ruchu
+                                </label></li>
+                            <li><label>
+                                    <input class="google_layers_switch typy_drog" type="checkbox" id="road_highway_controlled_access">
+                                    Autostrady
+                                </label></li>
+                            <li><label>
+                                    <input class="google_layers_switch typy_drog" type="checkbox" id="road_local">
+                                    Ulice lokalne
+                                </label></li>
+                            <li><label>
+                                    <input class="google_layers_switch typy_drog" type="checkbox" id="place_i_wezly">
+                                    Place i węzły drogowe
+                                </label>
+                            </li>
 
+                        </ul>
+                    </li>
+                    <li><label>
+                            <input class="google_layers_switch" type="checkbox" id="water">
+                            Rzeki i zbiorniki wodne
+                        </label></li>
+                            <li><label>
+                                    <input class="google_layers_switch" type="checkbox" id="transit_station">
+                                    Dworce
+                                </label></li>
+                            <ul>
+                            <li><label>
+                                    <input class="google_layers_switch stacje" type="checkbox" id="transit_station_bus">
+                                    Autobusowe
+                                </label></li>
+                            <li><label>
+                                    <input class="google_layers_switch stacje" type="checkbox" id="transit_station_rail">
+                                    Kolejowe
+                                </label></li>
+                            <li><label>
+                                    <input class="google_layers_switch stacje" type="checkbox" id="transit_station_airport">
+                                    Lotnicze
+                                </label>
+                            </li>
+                            </ul>
+                <h4>Obszary:</h4>
+                <ul class="list-unstyled">
+                    <li><label>
+                            <input type="checkbox" id="dzielnice">
+                            Dzielnice
+                        </label>
+                        <ul>
+                            <li>1</li>
+                            <li>1</li>
+                            <li>1</li>
+                            <li>1</li>
+                            <li>1</li>
+                            <li>1</li>
+                            <li>1</li>
+                        </ul>
+                    </li>
+            </div>
+        </div>
+        <div id="map"></div>
+    </div>
 
 <?= $this->Element('dataobject/pageEnd'); ?>
 
