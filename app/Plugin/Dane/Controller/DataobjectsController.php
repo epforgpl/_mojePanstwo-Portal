@@ -352,6 +352,7 @@ class DataobjectsController extends AppController
             $this->set('object_actions', $this->actions);
             $this->set('object_addons', $this->addons);
             $this->set('object_editable', $object_editable);
+            $this->set('_canEdit', $this->_canEdit());
 
             $this->prepareMetaTags();
         }
@@ -420,6 +421,16 @@ class DataobjectsController extends AppController
             );
         }
 
+    }
+    
+    protected function _canEdit() {
+        return (
+            @in_array('2', $this->getUserRoles()) ||
+            (
+                $this->getPageRoles() &&
+                in_array($this->getPageRoles(), array('1', '2'))
+            )
+        );
     }
 
 }

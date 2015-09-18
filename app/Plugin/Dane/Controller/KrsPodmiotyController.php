@@ -389,7 +389,6 @@ class KrsPodmiotyController extends DataobjectsController
 
     public function dzialania() {
 
-
         $this->_prepareView();
         if($id = @$this->request->params['subid']) {
 
@@ -516,7 +515,7 @@ class KrsPodmiotyController extends DataobjectsController
 	        ));
 
 	        $this->set('title_for_layout', 'Działania ' . $this->object->getData('nazwa'));
-
+			
         }
 
     }
@@ -826,16 +825,6 @@ class KrsPodmiotyController extends DataobjectsController
         $this->_prepareView();
         if(!$this->_canEdit())
             throw new ForbiddenException;
-    }
-
-    private function _canEdit() {
-        return (
-            @in_array('2', $this->getUserRoles()) ||
-            (
-                $this->getPageRoles() &&
-                in_array($this->getPageRoles(), array('1', '2'))
-            )
-        );
     }
 
 }
