@@ -239,11 +239,16 @@ $(document).ready(function () {
 												infowindow.close();
 		
 											infowindow = new google.maps.InfoWindow();
-		
+											
+											console.log(marker.data);
+											
+											/*
 											$.get('/dane/krs_podmioty.json?conditions[geohash]=' + marker.data.key, function (data) {
 												var detailBlock = '',
 													info = data.hits[0];
-		
+												
+												
+												
 												if (info.data.krs.length > 0) {
 													detailBlock += '<li class="dataHighlight">' +
 														'<p class="_label">Numer KRS</p>' +
@@ -287,6 +292,8 @@ $(document).ready(function () {
 													'</div>' +
 													'<div>');
 											});
+											*/
+											
 											infowindow.setContent('<div class="infoWindowNgo">' +
 												'<div class="ngoPlace">' +
 												'<div class="title">' +
