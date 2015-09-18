@@ -60,14 +60,11 @@ class NgoController extends ApplicationsController
 	public function map() {
 		
 		if(
-			isset($this->request->query['ne_lat']) && 
-			isset($this->request->query['ne_lng']) && 
-			isset($this->request->query['sw_lat']) && 
-			isset($this->request->query['sw_lng']) &&
-			isset($this->request->query['z'])
+			isset($this->request->query['area'])
 		) {
 			
-			$precision = floor( $this->request->query['z'] / 2 );
+			list($tl, $br) = explode(',', $this->request->query['area']);
+			$precision = strlen($tl)+1;
 			
 			$options = array(
 	            'cover' => array(
@@ -96,18 +93,13 @@ class NgoController extends ApplicationsController
 					                    array(
 						                    'geo_bounding_box' => array(
 							                    'position' => array(
-								                    'top_left' => array(
-									                    'lat' => $this->request->query['ne_lat'],
-									                    'lon' => $this->request->query['sw_lng'],
-								                    ),
-								                    'bottom_right' => array(
-									                    'lat' => $this->request->query['sw_lat'],
-									                    'lon' => $this->request->query['ne_lng'],
-								                    ),
+								                    'top_left' => $tl,
+								                    'bottom_right' => $br,
 							                    ),
 						                    ),
 					                    ),
 				                    ),
+				                    '_cache' => true,
 			                    ),
 		                    ),
 		                    'aggs' => array(
@@ -198,7 +190,7 @@ class NgoController extends ApplicationsController
 					unset( $b['lng'] );
 					unset( $b['name'] );
 					unset( $b['id'] );
-					unset( $b['desc'] );
+					unset( $b['form'] );
 					
 				}
 				
