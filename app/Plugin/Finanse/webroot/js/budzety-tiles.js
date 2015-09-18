@@ -35,10 +35,6 @@ $(document).ready(function () {
 				lastChoose = block;
 			}
 
-			$('html, body').animate({
-				scrollTop: block.offset().top
-			}, 600);
-
 			var nextPrev = block;
 			if (next.length == 0) {
 				slideMark = block;
@@ -68,16 +64,27 @@ $(document).ready(function () {
 				if ($administracja.find('.infoBlock').data('marker')[0] === slideMark[0]) {
 					infoBlock = $administracja.find('.infoBlock');
 					infoBlock.addClass('current active');
+
+					$('html, body').animate({
+						scrollTop: block.offset().top
+					}, 600);
 				} else {
 					$administracja.find('.infoBlock.active').addClass('old').removeClass('active').css({
 						'height': 0,
 						'border-width': 0
 					}).stop(true, true).animate({'margin-top': 0}, 500, function () {
-						$administracja.find('.infoBlock.old').remove()
+						$administracja.find('.infoBlock.old').remove();
+
+						$('html, body').animate({
+							scrollTop: block.offset().top
+						}, 600);
 					});
 					slideMark.after(infoBlock);
 				}
 			} else {
+				$('html, body').animate({
+					scrollTop: block.offset().top
+				}, 600);
 				slideMark.after(infoBlock);
 			}
 
@@ -94,7 +101,6 @@ $(document).ready(function () {
 			infoBlock.removeClass('current');
 
 			rozdzialy(that);
-
 		})
 	})
 });

@@ -146,6 +146,12 @@ class NgoController extends ApplicationsController
 							                    'size' => 1,
 						                    ),
 					                    ),
+					                    'address' => array(
+						                    'terms' => array(
+							                    'field' => 'data.krs_podmioty.adres',
+							                    'size' => 1,
+						                    ),
+					                    ),
 				                    ),
 			                    ),
 		                    ),
@@ -183,6 +189,7 @@ class NgoController extends ApplicationsController
 					$b['name'] = $b['name']['buckets'][0]['key'];
 					$b['id'] = $b['id']['buckets'][0]['key'];
 					$b['form'] = $b['form']['buckets'][0]['key'];
+					$b['address'] = $b['address']['buckets'][0]['key'];
 				
 				} else {
 					
