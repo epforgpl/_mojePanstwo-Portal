@@ -131,6 +131,7 @@ function graphInit(section) {
 		histogram_div = jQuery($section.find('.histogram')),
 		data = histogram_div.data('histogram'),
 		interval = histogram_div.data('interval') || 0,
+		mode = histogram_div.data('mode') || 'absolute',
 		charts_data = [],
 		i = $section.attr('data-itemid'),
 		title = $section.find('.histogram').data('title'),
@@ -163,7 +164,13 @@ function graphInit(section) {
 			enabled: true,
 			formatter: function(){
 				var y = Number(this.y);
-				return 'Liczba gmin, których wydatki mieszczą się w przedziale ' + pl_currency_format(this.x , 1) + ' - ' + pl_currency_format(this.x + interval , 1) + ':<br/><b>' + y + '</b>';
+				return 'Liczba gmin, których wydatki ' + (mode != 'absolute' ? 'na 1 osobę' : '') + ' mieszczą się w przedziale ' + pl_currency_format(this.x , 1) + ' - ' + pl_currency_format(this.x + interval , 1) + ' : <b>' + y + '</b>';
+			},
+			positioner: function() {
+				return {
+					x: 250,
+					y: 230
+				}
 			}
 		},
 
@@ -189,7 +196,7 @@ function graphInit(section) {
 			labels: {
 				enabled: true,
 				formatter: function () {
-					return pl_currency_format(this.value, 1);
+					return pl_number_format(this.value, 1);
 				}
 			},
 			gridLineWidth: 0,

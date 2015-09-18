@@ -3813,15 +3813,67 @@ class GminyController extends DataobjectsController
         $population = $this->object->getData('liczba_ludnosci');
         $populationRange = $this->Gmina->getPopulationRange($population);
 
-        $histogramAggs = array();
-        foreach($this->histogramIntervals as $i => $interval) {
-            $histogramAggs['histogram_' . $i] = array(
-                'histogram' => array(
-                    'field' => 'gminy-wydatki-dzialy.wydatki',
-                    'interval' => $interval,
+        $compare = array(
+            'items' => array(
+                array(
+                    'id' => 'wszystkie',
+                    'label' => 'Wszystkie gminy',
                 ),
+                array(
+                    'id' => 'liczba_ludnosci',
+                    'label' => 'Gminy w przedziale ludności ' . number_format($populationRange['min']) . ' - ' . number_format($populationRange['max']),
+                ),
+            ),
+        );
+
+        if($this->object->getData('powiatowa') == '1') {
+            $compare['items'][] = array(
+                'id' => 'powiatowe',
+                'label' => 'Miasta na prawach powiatów',
             );
         }
+
+        if($this->object->getData('wojewodzka') == '1') {
+            $compare['items'][] = array(
+                'id' => 'wojewodzkie',
+                'label' => 'Miasta wojewódzkie',
+            );
+        }
+
+        $types = array(
+            '1' => array(
+                'id' => 'miejskie',
+                'interval' => 100000000, // 100 mln
+                'interval_pp' => 100,
+            ),
+            '3' => array(
+                'id' => 'miejsko-wiejskie',
+                'interval' => 10000000, // 10 mln
+                'interval_pp' => 100,
+            ),
+            '2' => array(
+                'id' => 'wiejskie',
+                'interval' => 1000000,  // 1 mln
+                'interval_pp' => 100,
+            ),
+        );
+
+        $types['4'] = $types['1']; // miejskie typ_id IN (1, 4)
+
+        if($type = $this->object->getData('typ_id')) {
+            if(array_key_exists($type, $types)) {
+
+                $type = $types[$type];
+
+                $compare['items'][] = array(
+                    'id' => $type['id'],
+                    'label' => 'Gminy ' . $type['id'],
+                );
+            }
+        }
+
+        if(!$type)
+            $type = $types['1'];
 
 		$mode = false;
 
@@ -3832,6 +3884,10 @@ class GminyController extends DataobjectsController
 						'id' => 'wydatki',
 						'label' => 'Wydatki - wartości absolutne',
 					),
+                    array(
+                        'id' => 'wydatki_na_osobe',
+                        'label' => 'Wydatki w przeliczeniu na osobę'
+                    )
 				),
 			),
 			'timerange' => array(
@@ -3902,30 +3958,7 @@ class GminyController extends DataobjectsController
 					),
 				),
 			),
-			'compare' => array(
-				'items' => array(
-                    array(
-                        'id' => 'wojewodzkie',
-                        'label' => 'Miasta wojewódzkie',
-                    ),
-                    array(
-                        'id' => 'wszystkie',
-                        'label' => 'Wszystkie gminy',
-                    ),
-					array(
-						'id' => 'powiatowe',
-						'label' => 'Miasta na prawach powiatów',
-					),
-					array(
-						'id' => 'liczba_ludnosci',
-						'label' => 'Gminy w przedziale ludności ' . number_format($populationRange['min']) . ' - ' . number_format($populationRange['max']),
-					),
-					array(
-						'id' => 'miejskie',
-						'label' => 'Gminy miejskie',
-					),
-				),
-			),
+			'compare' => $compare,
 		);
 
 
@@ -3958,6 +3991,8 @@ class GminyController extends DataobjectsController
 		// DATA
 
 		$data = $options['data']['items'][ $options['data']['selected_i'] ]['id'];
+        $field = 'wydatki';
+        $histogram_interval = $type['interval'];
 
 		if( $data=='wydatki' ) {
 
@@ -3968,15 +4003,29 @@ class GminyController extends DataobjectsController
 
 			$mode = 'perperson';
 			$main_chart['title'] = 'Wydatki w przeliczeniu na osobę';
+            $field = 'wydatki_pp';
+            $histogram_interval = $type['interval_pp'];
+            $this->histogramIntervals = array(
+                100,
+                50,
+                20,
+                10
+            );
 
 		}
 
 
+        $histogramAggs = array();
+        foreach($this->histogramIntervals as $i => $interval) {
+            $histogramAggs['histogram_' . $i] = array(
+                'histogram' => array(
+                    'field' => 'gminy-wydatki-dzialy.' . $field,
+                    'interval' => $interval,
+                ),
+            );
+        }
 
-
-
-
-		// TIMERANGE
+        // TIMERANGE
 
 		$timerange = $options['timerange']['items'][ $options['timerange']['selected_i'] ]['id'];
 
@@ -4009,6 +4058,8 @@ class GminyController extends DataobjectsController
 			);
 
 			$main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' ze wszystkimi gminami';
+
+            $histogram_interval = $mode == 'absolute' ? 100000000 : $type['interval_pp'];
 
 		} elseif( $compare=='powiatowe' ) {
 
@@ -4150,7 +4201,7 @@ class GminyController extends DataobjectsController
                                 'aggs' => array(
 	                                'min' => array(
 						                'terms' => array(
-						                    'field' => 'gminy-wydatki-okresy.wydatki',
+						                    'field' => 'gminy-wydatki-okresy.' . $field,
 						                    'size' => '1',
 						                    'order' => array(
 						                        '_term' => 'asc',
@@ -4171,7 +4222,7 @@ class GminyController extends DataobjectsController
 						            ),
 						            'max' => array(
 						                'terms' => array(
-						                    'field' => 'gminy-wydatki-okresy.wydatki',
+						                    'field' => 'gminy-wydatki-okresy.' . $field,
 						                    'size' => '1',
 						                    'order' => array(
 						                        '_term' => 'desc',
@@ -4192,19 +4243,19 @@ class GminyController extends DataobjectsController
 						            ),
 	                                'percentiles' => array(
 						                'percentiles' => array(
-						                    'field' => 'gminy-wydatki-okresy.wydatki',
+						                    'field' => 'gminy-wydatki-okresy.' . $field,
 						                    'percents' => array(50),
 						                ),
 						            ),
 						            'stats' => array(
 						                'stats' => array(
-						                    'field' => 'gminy-wydatki-okresy.wydatki',
+						                    'field' => 'gminy-wydatki-okresy.' . $field,
 						                ),
 						            ),
 						            'histogram' => array(
 						                'histogram' => array(
-						                    'field' => 'gminy-wydatki-okresy.wydatki',
-						                    'interval' => 100000000,
+						                    'field' => 'gminy-wydatki-okresy.' . $field,
+						                    'interval' => $histogram_interval,
 						                ),
 						            ),
                                 ),
@@ -4248,7 +4299,7 @@ class GminyController extends DataobjectsController
 			                                ),
 			                                'min' => array(
 								                'terms' => array(
-								                    'field' => 'gminy-wydatki-dzialy.wydatki',
+								                    'field' => 'gminy-wydatki-dzialy.' . $field,
 								                    'size' => 1,
 								                    'order' => array(
 								                        '_term' => 'asc',
@@ -4269,7 +4320,7 @@ class GminyController extends DataobjectsController
 								            ),
 								            'max' => array(
 								                'terms' => array(
-								                    'field' => 'gminy-wydatki-dzialy.wydatki',
+								                    'field' => 'gminy-wydatki-dzialy.' . $field,
 								                    'size' => 1,
 								                    'order' => array(
 								                        '_term' => 'desc',
@@ -4290,13 +4341,13 @@ class GminyController extends DataobjectsController
 								            ),
 			                                'percentiles' => array(
 								                'percentiles' => array(
-								                    'field' => 'gminy-wydatki-dzialy.wydatki',
+								                    'field' => 'gminy-wydatki-dzialy.' . $field,
 								                    'percents' => array(50),
 								                ),
 								            ),
 								            'stats' => array(
 								                'stats' => array(
-								                    'field' => 'gminy-wydatki-dzialy.wydatki',
+								                    'field' => 'gminy-wydatki-dzialy.' . $field,
 								                ),
 								            ),
 		                                ),
@@ -4353,7 +4404,7 @@ class GminyController extends DataobjectsController
                                 'aggs' => array(
                                     'wydatki' => array(
                                         'sum' => array(
-                                            'field' => 'gminy-wydatki-okresy.wydatki',
+                                            'field' => 'gminy-wydatki-okresy.' . $field,
                                         ),
                                     ),
                                 ),
@@ -4400,7 +4451,7 @@ class GminyController extends DataobjectsController
 		                                    ),
 		                                    'wydatki' => array(
 		                                        'sum' => array(
-		                                            'field' => 'gminy-wydatki-dzialy.wydatki',
+		                                            'field' => 'gminy-wydatki-dzialy.' . $field,
 		                                        ),
 		                                    ),
 		                                ),
@@ -4455,7 +4506,7 @@ class GminyController extends DataobjectsController
 				                                    ),
 				                                    'wydatki' => array(
 				                                        'sum' => array(
-				                                            'field' => 'gminy-wydatki-rozdzialy.wydatki',
+				                                            'field' => 'gminy-wydatki-rozdzialy.' . $field,
 				                                        ),
 				                                    ),
 				                                ),
@@ -4491,6 +4542,8 @@ class GminyController extends DataobjectsController
         $this->request->params['action'] = 'finanse';
         $this->set('title_for_layout', 'Wydatki w gminie ' . $this->object->getTitle());
         $this->set('main_chart', $main_chart);
+        $this->set('mode', $mode);
+        $this->set('histogram_interval', $histogram_interval);
         $this->set('_submenu', array_merge($this->submenus['finanse'], array(
             'selected' => '',
         )));
@@ -4674,10 +4727,7 @@ class GminyController extends DataobjectsController
                 'id' => 'organizacje',
                 'label' => 'KRS',
             );
-            $menu['items'][] = array(
-                'id' => 'finanse',
-                'label' => 'Finanse',
-            );
+
             /*$menu['items'][] = array(
                'id' => 'mapa',
                'label' => 'Mapa',
@@ -4711,6 +4761,11 @@ class GminyController extends DataobjectsController
             );
 
         }
+
+        $menu['items'][] = array(
+            'id' => 'finanse',
+            'label' => 'Finanse',
+        );
 
         return $menu;
 

@@ -52,6 +52,7 @@
                     </td>
                     <? if($status == 0) { ?>
                         <td>
+                            <? if($page_request['User']['id']) { ?>
                             <div class="btn-group btn-group-sm" role="group">
                                 <div class="btn-group btn-group-sm">
                                     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -65,6 +66,9 @@
                                 </div>
                                 <a href="/admin/moderate_requests/reject/<?= $page_request['PageRequest']['id']; ?>" class="btn btn-danger">Odrzuć</a>
                             </div>
+                            <? } else { ?>
+                                <p>Dana osoba musi się zarejestrować oraz wysłać ponowne zgłoszenie bezpośrednio z profilu organizacji.</p>
+                            <? } ?>
                         </td>
                     <? } ?>
                 </tr>
