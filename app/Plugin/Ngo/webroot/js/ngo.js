@@ -2,12 +2,10 @@ var map,
 	markers = [],
 	mapUpdateTimer,
 	infowindow = null,
-	pendingArea = {tl: false, br: false},
-	lastArea = {tl: false, br: false},
+	pendingArea = {tl: false, br: false, zoom: false},
+	lastArea = {tl: false, br: false, zoom: false},
 	mapActive = true,
 	mapInit = false,
-	tl_polygon = false,
-	br_polygon = false,
 	polygon = false,
 	cacheAjax = {};
 
@@ -95,14 +93,15 @@ $(document).ready(function () {
 		var sw_lat = bounds.getSouthWest().lat();
 		var ne_lng = bounds.getNorthEast().lng();
 
-		var ne_lat_fixed = ne_lat + ((ne_lat - sw_lat) / 2);
-		var ne_lng_fixed = ne_lng + ((ne_lng - sw_lng) / 2);
-		var sw_lat_fixed = sw_lat - ((ne_lat - sw_lat) / 2);
-		var sw_lng_fixed = sw_lng - ((ne_lng - sw_lng) / 2);
+		var ne_lat_fixed = ne_lat + ((ne_lat - sw_lat) * .7);
+		var ne_lng_fixed = ne_lng + ((ne_lng - sw_lng) * .7);
+		var sw_lat_fixed = sw_lat - ((ne_lat - sw_lat) * .7);
+		var sw_lng_fixed = sw_lng - ((ne_lng - sw_lng) * .7);
 
 		return {
 			tl: Geohash.encode(ne_lat_fixed, sw_lng_fixed, precision),
-			br: Geohash.encode(sw_lat_fixed, ne_lng_fixed, precision)
+			br: Geohash.encode(sw_lat_fixed, ne_lng_fixed, precision),
+			zoom: map.getZoom()
 		};
 	};
 
@@ -123,10 +122,8 @@ $(document).ready(function () {
 					if ((area.tl != lastArea.tl) || (area.br != lastArea.br)) {
 						var areaParms = area.tl + ',' + area.br;
 
-						lastArea = area;
-
 						if (areaParms in cacheAjax) {
-							mapUpdateResults(cacheAjax[areaParms]);
+							mapUpdateResults(cacheAjax[areaParms], area);
 						} else {
 							if (xhr && xhr.readystate != 4) {
 								xhr.abort();
@@ -135,7 +132,7 @@ $(document).ready(function () {
 								area: areaParms
 							}, function (data) {
 								cacheAjax[areaParms] = data;
-								mapUpdateResults(data);
+								mapUpdateResults(data, area);
 							}, 'json');
 						}
 					}
@@ -144,12 +141,17 @@ $(document).ready(function () {
 		}
 	};
 
-	var mapUpdateResults = function (data) {
+	var mapUpdateResults = function (data, area) {
+		//if (area.zoom !== lastArea.zoom) {
 		for (var j = 0; j < markers.length; j++) {
 			markers[j].setMap(null);
 		}
 
 		markers = [];
+		//}
+
+		lastArea = area;
+
 		for (var i = 0; i < data.grid.buckets.length; i++) {
 			var cell = data.grid.buckets[i],
 				center = Geohash.decode(cell.key),
