@@ -8,10 +8,10 @@ var map,
 	mapInit = false,
 	tl_polygon = false,
 	br_polygon = false,
-	polygon = false;
+	polygon = false,
+	cacheAjax = {};
 
 $(document).ready(function () {
-		
 	var xhr,
 		options = {
 			zoom: 6,
@@ -85,257 +85,131 @@ $(document).ready(function () {
 			fillOpacity: 1
 		},
 		mapSpinner = $('.mapSpinner');
-			
-	var getArea = function() {
-		
+
+	var getArea = function () {
 		var bounds = map.getBounds();
-		var precision = Math.floor((map.getZoom()) / 2)-1;
-		
+		var precision = Math.floor((map.getZoom()) / 2) - 1;
+
 		var ne_lat = bounds.getNorthEast().lat();
 		var sw_lng = bounds.getSouthWest().lng();
 		var sw_lat = bounds.getSouthWest().lat();
 		var ne_lng = bounds.getNorthEast().lng();
-		var center = bounds.getCenter();
-		
-		console.log(sw_lng, sw_lat);
-		console.log(ne_lng, ne_lat);
-		console.log(center);
-		
+
+		var ne_lat_fixed = ne_lat + ((ne_lat - sw_lat) / 2);
+		var ne_lng_fixed = ne_lng + ((ne_lng - sw_lng) / 2);
+		var sw_lat_fixed = sw_lat - ((ne_lat - sw_lat) / 2);
+		var sw_lng_fixed = sw_lng - ((ne_lng - sw_lng) / 2);
+
 		return {
-			tl: Geohash.encode(ne_lat, sw_lng, precision),
-			br: Geohash.encode(sw_lat, ne_lng, precision)
+			tl: Geohash.encode(ne_lat_fixed, sw_lng_fixed, precision),
+			br: Geohash.encode(sw_lat_fixed, ne_lng_fixed, precision)
 		};
-	}
-	
-	var drawAreas = function(area) {
-		
-		var tl_bounds = Geohash.bounds(area.tl);
-		var br_bounds = Geohash.bounds(area.br);
-		
-		if( tl_polygon )
-			tl_polygon.setMap(null);
-			
-		if( br_polygon )
-			br_polygon.setMap(null);
-			
-		if( polygon )
-			polygon.setMap(null);		
-		
-		var tl_polygon_path = [
-			{lat: tl_bounds.sw.lat, lng: tl_bounds.sw.lon},
-			{lat: tl_bounds.sw.lat, lng: tl_bounds.ne.lon},
-			{lat: tl_bounds.ne.lat, lng: tl_bounds.ne.lon},
-			{lat: tl_bounds.ne.lat, lng: tl_bounds.sw.lon}
-		];
-		
-		tl_polygon = new google.maps.Polygon({
-			paths: tl_polygon_path,
-			strokeColor: '#FF0000',
-			strokeOpacity: 0.8,
-			strokeWeight: 2,
-			fillColor: '#FF0000',
-			fillOpacity: 0.35
-		});
-		tl_polygon.setMap(map);
-						
-		
-		
-		var br_polygon_path = [
-			{lat: br_bounds.sw.lat, lng: br_bounds.sw.lon},
-			{lat: br_bounds.sw.lat, lng: br_bounds.ne.lon},
-			{lat: br_bounds.ne.lat, lng: br_bounds.ne.lon},
-			{lat: br_bounds.ne.lat, lng: br_bounds.sw.lon}
-		];
-		
-		br_polygon = new google.maps.Polygon({
-			paths: br_polygon_path,
-			strokeColor: '#FF0000',
-			strokeOpacity: 0.8,
-			strokeWeight: 2,
-			fillColor: '#FF0000',
-			fillOpacity: 0.35
-		});
-		br_polygon.setMap(map);
-		
-		
-		
-		
-		var tl_center = Geohash.decode(area.tl);	
-		var br_center = Geohash.decode(area.br);
-		
-		var polygon_path = [
-			{lat: tl_center.lat, lng: tl_center.lon},
-			{lat: tl_center.lat, lng: br_center.lon},
-			{lat: br_center.lat, lng: br_center.lon},
-			{lat: br_center.lat, lng: tl_center.lon}
-		];
-		
-		polygon = new google.maps.Polygon({
-			paths: polygon_path,
-			strokeColor: '#0000FF',
-			strokeOpacity: 0.8,
-			strokeWeight: 2,
-			fillColor: '#0000FF',
-			fillOpacity: 0.35
-		});
-		polygon.setMap(map);
-			
 	};
-	
+
 	var mapUpdate = function () {
-		
-		if( !mapActive )
+		if (!mapActive)
 			return false;
-		
+
 		if (infowindow === null || infowindow.getMap() === null) {
-						
-			mapSpinner.removeClass('hide');										
-			pendingArea = getArea();			
-			
+			mapSpinner.removeClass('hide');
+			pendingArea = getArea();
+
 			window.clearTimeout(mapUpdateTimer);
 			mapUpdateTimer = window.setTimeout(function () {
-								
-				if (xhr && xhr.readystate != 4) {
-					xhr.abort();
-				}
-				
 				var area = getArea();
-				// drawAreas(area);
-						
-				if( (area.tl==pendingArea.tl) && (area.br==pendingArea.br) ) {
-				
-					mapInit = true;			
-					
-					if( (area.tl!=lastArea.tl) || (area.br!=lastArea.br) ) {
-						
+
+				if ((area.tl == pendingArea.tl) && (area.br == pendingArea.br)) {
+					mapInit = true;
+					if ((area.tl != lastArea.tl) || (area.br != lastArea.br)) {
+						var areaParms = area.tl + ',' + area.br;
+
 						lastArea = area;
-															
-						xhr = $.get('/ngo/map.json', {
-							area: area.tl + ',' + area.br
-						}, function (data) {
-							for (var j = 0; j < markers.length; j++) {
-								markers[j].setMap(null);
+
+						if (areaParms in cacheAjax) {
+							mapUpdateResults(cacheAjax[areaParms]);
+						} else {
+							if (xhr && xhr.readystate != 4) {
+								xhr.abort();
 							}
-		
-							markers = [];
-							for (var i = 0; i < data.grid.buckets.length; i++) {
-								var cell = data.grid.buckets[i],
-									center = Geohash.decode(cell.key),
-									f = .5;
-		
-								if (cell.doc_count == 1) {
-									var marker = new google.maps.Marker({
-										position: new google.maps.LatLng(cell.lat, cell.lng),
-										icon: ngoIcon,
-										map: map,
-										data: cell
-									});
-		
-									markers.push(marker);
-		
-									google.maps.event.addListener(marker, 'click', (function (marker) {
-										return function () {
-											if (infowindow)
-												infowindow.close();
-		
-											infowindow = new google.maps.InfoWindow();
-											
-											console.log(marker.data);
-											
-											/*
-											$.get('/dane/krs_podmioty.json?conditions[geohash]=' + marker.data.key, function (data) {
-												var detailBlock = '',
-													info = data.hits[0];
-												
-												
-												
-												if (info.data.krs.length > 0) {
-													detailBlock += '<li class="dataHighlight">' +
-														'<p class="_label">Numer KRS</p>' +
-														'<p class="_value">' + info.data.krs + '</p>' +
-														'<li>';
-												}
-												if (info.data.nip.length > 0) {
-													detailBlock += '<li class="dataHighlight">' +
-														'<p class="_label">Numer NIP</p>' +
-														'<p class="_value">' + info.data.nip + '</p>' +
-														'<li>';
-												}
-												if (info.data.regon.length > 0) {
-													detailBlock += '<li class="dataHighlight">' +
-														'<p class="_label">Numer REGON</p>' +
-														'<p class="_value">' + info.data.regon + '</p>' +
-														'<li>';
-												}
-												if (info.data.data_rejestracji.length > 0) {
-													detailBlock += '<li class="dataHighlight">' +
-														'<p class="_label">Data rejestracji</p>' +
-														'<p class="_value">' + info.data.data_rejestracji + '</p>' +
-														'<li>';
-												}
-												if (info.data.sygnatura_akt.length > 0) {
-													detailBlock += '<li class="dataHighlight">' +
-														'<p class="_label">Sygnatura akt</p>' +
-														'<p class="_value">' + info.data.sygnatura_akt + '</p>' +
-														'<li>';
-												}
-		
-												infowindow.setContent('<div class="infoWindowNgo">' +
-													'<div class="ngoPlace">' +
-													'<div class="title">' +
-													'<a href="/dane/krs_podmioty/' + marker.data.id + ',' + info.slug + '">' +
-													'<i class="object-icon icon-datasets-krs_podmioty"></i>' +
-													'<div itemprop="name" class="titleName">' + marker.data.name + '</div>' +
-													'</a>' +
-													'</div>' +
-													'<ul class="detail dataHighlights oneline">' + detailBlock + '</ul>' +
-													'</div>' +
-													'<div>');
-											});
-											*/
-											
-											infowindow.setContent('<div class="infoWindowNgo">' +
-												'<div class="ngoPlace">' +
-												'<div class="title">' +
-												'<a href="/dane/krs_podmioty/' + marker.data.id + '">' +
-												'<i class="object-icon icon-datasets-krs_podmioty"></i>' +
-												'<div itemprop="name" class="titleName">' + marker.data.name + '</div>' +
-												'</a>' +
-												'</div>' +
-												'<ul class="detail dataHighlights oneline">' +
-												'<li class="spinner grey">' +
-												'<div class="bounce1"></div>' +
-												'<div class="bounce2"></div>' +
-												'<div class="bounce3"></div>' +
-												'</li>' +
-												'</ul>' +
-												'</div>' +
-												'</div>');
-											infowindow.open(map, marker);
-											map.setCenter(marker.latlng);
-										};
-									})(marker, content, infowindow));
-								} else {
-									
-									var inner_center = Geohash.decode(cell.inner_key);
-		
-									markers.push(new CustomMarker(new google.maps.LatLng(center.lat + (inner_center.lat - center.lat) * f, center.lon + (inner_center.lon - center.lon) * f), map, {
-										title: cell.doc_count,
-										data: cell
-									}));
-									
-								}
-		
-								if (i + 1 == data.grid.buckets.length)
-									mapSpinner.addClass('hide');
-							}
-						}, 'json');	
+							xhr = $.get('/ngo/map.json', {
+								area: areaParms
+							}, function (data) {
+								cacheAjax[areaParms] = data;
+								mapUpdateResults(data);
+							}, 'json');
+						}
 					}
 				}
 			}, 400);
 		}
 	};
-	
+
+	var mapUpdateResults = function (data) {
+		for (var j = 0; j < markers.length; j++) {
+			markers[j].setMap(null);
+		}
+
+		markers = [];
+		for (var i = 0; i < data.grid.buckets.length; i++) {
+			var cell = data.grid.buckets[i],
+				center = Geohash.decode(cell.key),
+				f = .5;
+
+			if (cell.doc_count == 1) {
+				var marker = new google.maps.Marker({
+					position: new google.maps.LatLng(cell.lat, cell.lng),
+					icon: ngoIcon,
+					map: map,
+					data: cell
+				});
+
+				markers.push(marker);
+
+				google.maps.event.addListener(marker, 'click', (function (marker) {
+					return function () {
+						if (infowindow)
+							infowindow.close();
+
+						infowindow = new google.maps.InfoWindow();
+
+						infowindow.setContent('<div class="infoWindowNgo">' +
+							'<div class="ngoPlace">' +
+							'<div class="title">' +
+							'<a href="/dane/krs_podmioty/' + marker.data.id + '">' +
+							'<i class="object-icon icon-datasets-krs_podmioty"></i>' +
+							'<div class="titleName">' + marker.data.name + '</div>' +
+							'</a>' +
+							'</div>' +
+							'<ul class="detail dataHighlights oneline">' +
+							'<li class="dataHighlight">' +
+							'<p class="_label">Forma prawna</p>' +
+							'<p class="_value">' + marker.data.form + '</p>' +
+							'<li>' +
+							'<li class="dataHighlight">' +
+							'<p class="_label">Adres</p>' +
+							'<p class="_value">' + marker.data.address + '</p>' +
+							'<li>' +
+							'</ul>' +
+							'</div>' +
+							'</div>');
+						infowindow.open(map, marker);
+						map.setCenter(marker.latlng);
+					};
+				})(marker, content, infowindow));
+			} else {
+				var inner_center = Geohash.decode(cell.inner_key);
+
+				markers.push(new CustomMarker(new google.maps.LatLng(center.lat + (inner_center.lat - center.lat) * f, center.lon + (inner_center.lon - center.lon) * f), map, {
+					title: cell.doc_count,
+					data: cell
+				}));
+			}
+
+			if (i + 1 == data.grid.buckets.length)
+				mapSpinner.addClass('hide');
+		}
+	};
+
 	map = new google.maps.Map(document.getElementById('map'), options);
 	map.setOptions({styles: mapStyle});
 

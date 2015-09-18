@@ -11,9 +11,9 @@ class NgoController extends ApplicationsController
         'subtitle' => 'Organizacje pozarządowe w Polsce',
         'headerImg' => 'ngo',
     );
-	
-	public $components = array('RequestHandler');
-	
+
+    public $components = array('RequestHandler');
+
     public $submenus = array(
         'ngo' => array(
             'items' => array(
@@ -56,162 +56,163 @@ class NgoController extends ApplicationsController
         return $this->redirect('/ngo');
 
     }
-	
-	public function map() {
-		
-		if(
-			isset($this->request->query['area'])
-		) {
-			
-			list($tl, $br) = explode(',', $this->request->query['area']);
-			$precision = strlen($tl)+1;
-			
-			$options = array(
-	            'cover' => array(
-		            'force' => true,
-	                'aggs' => array(
-	                    'map' => array(
-		                    'scope' => 'global',
-		                    'filter' => array(
-			                    'bool' => array(
-				                    'must' => array(
-					                    array(
-						                    'term' => array(
-							                    'dataset' => 'krs_podmioty',
-						                    ),
-					                    ),
-					                    array(
-						                    'term' => array(
-							                    'data.krs_podmioty.forma_prawna_typ_id' => '2',
-						                    ),
-					                    ),
-					                    array(
-						                    'term' => array(
-							                    'data.krs_podmioty.wykreslony' => '0',
-						                    ),
-					                    ),
-					                    array(
-						                    'geo_bounding_box' => array(
-							                    'position' => array(
-								                    'top_left' => $tl,
-								                    'bottom_right' => $br,
-							                    ),
-						                    ),
-					                    ),
-				                    ),
-				                    '_cache' => true,
-			                    ),
-		                    ),
-		                    'aggs' => array(
-			                    'grid' => array(
-				                    'geohash_grid' => array(
-						                'field' => 'position',
-						                'precision' => $precision,
-						            ),
-						            'aggs' => array(
-					                    'inner_grid' => array(
-						                    'geohash_grid' => array(
-								                'field' => 'position',
-								                'precision' => $precision + 1,
-								                'size' => 1,
-								            ),
-					                    ),
-					                    'lat' => array(
-						                    'terms' => array(
-							                    'field' => 'position.lat',
-							                    'size' => 1,
-						                    ),
-					                    ),
-					                    'lng' => array(
-						                    'terms' => array(
-							                    'field' => 'position.lon',
-							                    'size' => 1,
-						                    ),
-					                    ),
-					                    'id' => array(
-						                    'terms' => array(
-							                    'field' => 'id',
-							                    'size' => 1,
-						                    ),
-					                    ),
-					                    'name' => array(
-						                    'terms' => array(
-							                    'field' => 'title.raw',
-							                    'size' => 1,
-						                    ),
-					                    ),
-					                    'form' => array(
-						                    'terms' => array(
-							                    'field' => 'data.krs_podmioty.forma_prawna_str',
-							                    'size' => 1,
-						                    ),
-					                    ),
-					                    'address' => array(
-						                    'terms' => array(
-							                    'field' => 'data.krs_podmioty.adres',
-							                    'size' => 1,
-						                    ),
-					                    ),
-				                    ),
-			                    ),
-		                    ),
-	                    ),
-	                ),
-	            ),
-	        );
-						
-	        $this->Components->load('Dane.DataBrowser', $options);
-			$this->set('_serialize', 'dataBrowser');
-		
-		
-		} else {
-			
-			throw new BadRequestException('Required parameters missing');
-			
-		}
-		
-	}
-	
-	public function beforeRender()
-	{
-		
-		parent::beforeRender();
-		
-		if( $this->request->params['action']=='map' ) {
-			
-			$data = $this->viewVars['dataBrowser']['aggs']['map'];
-			foreach( $data['grid']['buckets'] as &$b ) {
-				
-				if( $b['doc_count']===1 ) {
-				
-					$b['lat'] = $b['lat']['buckets'][0]['key'];
-					$b['lng'] = $b['lng']['buckets'][0]['key'];
-					$b['name'] = $b['name']['buckets'][0]['key'];
-					$b['id'] = $b['id']['buckets'][0]['key'];
-					$b['form'] = $b['form']['buckets'][0]['key'];
-					$b['address'] = $b['address']['buckets'][0]['key'];
-				
-				} else {
-					
-					unset( $b['lat'] );
-					unset( $b['lng'] );
-					unset( $b['name'] );
-					unset( $b['id'] );
-					unset( $b['form'] );
-					
-				}
-				
-				$b['inner_key'] = $b['inner_grid']['buckets'][0]['key'];
-				unset( $b['inner_grid'] );
-				
-			}
-						
-			$this->viewVars['dataBrowser'] = $data;
-			
-		}
-		
-	}
-	
+
+    public function map()
+    {
+
+        if (
+        isset($this->request->query['area'])
+        ) {
+
+            list($tl, $br) = explode(',', $this->request->query['area']);
+            $precision = strlen($tl) + 1;
+
+            $options = array(
+                'cover' => array(
+                    'force' => true,
+                    'aggs' => array(
+                        'map' => array(
+                            'scope' => 'global',
+                            'filter' => array(
+                                'bool' => array(
+                                    'must' => array(
+                                        array(
+                                            'term' => array(
+                                                'dataset' => 'krs_podmioty',
+                                            ),
+                                        ),
+                                        array(
+                                            'term' => array(
+                                                'data.krs_podmioty.forma_prawna_typ_id' => '2',
+                                            ),
+                                        ),
+                                        array(
+                                            'term' => array(
+                                                'data.krs_podmioty.wykreslony' => '0',
+                                            ),
+                                        ),
+                                        array(
+                                            'geo_bounding_box' => array(
+                                                'position' => array(
+                                                    'top_left' => $tl,
+                                                    'bottom_right' => $br,
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                    '_cache' => true,
+                                ),
+                            ),
+                            'aggs' => array(
+                                'grid' => array(
+                                    'geohash_grid' => array(
+                                        'field' => 'position',
+                                        'precision' => $precision,
+                                    ),
+                                    'aggs' => array(
+                                        'inner_grid' => array(
+                                            'geohash_grid' => array(
+                                                'field' => 'position',
+                                                'precision' => $precision + 1,
+                                                'size' => 1,
+                                            ),
+                                        ),
+                                        'lat' => array(
+                                            'terms' => array(
+                                                'field' => 'position.lat',
+                                                'size' => 1,
+                                            ),
+                                        ),
+                                        'lng' => array(
+                                            'terms' => array(
+                                                'field' => 'position.lon',
+                                                'size' => 1,
+                                            ),
+                                        ),
+                                        'id' => array(
+                                            'terms' => array(
+                                                'field' => 'id',
+                                                'size' => 1,
+                                            ),
+                                        ),
+                                        'name' => array(
+                                            'terms' => array(
+                                                'field' => 'title.raw',
+                                                'size' => 1,
+                                            ),
+                                        ),
+                                        'form' => array(
+                                            'terms' => array(
+                                                'field' => 'data.krs_podmioty.forma_prawna_str',
+                                                'size' => 1,
+                                            ),
+                                        ),
+                                        'address' => array(
+                                            'terms' => array(
+                                                'field' => 'data.krs_podmioty.adres',
+                                                'size' => 1,
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            );
+
+            $this->Components->load('Dane.DataBrowser', $options);
+            $this->set('_serialize', 'dataBrowser');
+
+
+        } else {
+
+            throw new BadRequestException('Required parameters missing');
+
+        }
+
+    }
+
+    public function beforeRender()
+    {
+
+        parent::beforeRender();
+
+        if ($this->request->params['action'] == 'map') {
+
+            $data = $this->viewVars['dataBrowser']['aggs']['map'];
+            foreach ($data['grid']['buckets'] as &$b) {
+
+                if ($b['doc_count'] === 1) {
+
+                    $b['lat'] = $b['lat']['buckets'][0]['key'];
+                    $b['lng'] = $b['lng']['buckets'][0]['key'];
+                    $b['name'] = $b['name']['buckets'][0]['key'];
+                    $b['id'] = $b['id']['buckets'][0]['key'];
+                    $b['form'] = $b['form']['buckets'][0]['key'];
+                    $b['address'] = $b['address']['buckets'][0]['key'];
+
+                } else {
+
+                    unset($b['lat']);
+                    unset($b['lng']);
+                    unset($b['name']);
+                    unset($b['id']);
+                    unset($b['form']);
+
+                }
+
+                $b['inner_key'] = $b['inner_grid']['buckets'][0]['key'];
+                unset($b['inner_grid']);
+
+            }
+
+            $this->viewVars['dataBrowser'] = $data;
+
+        }
+
+    }
+
     public function view()
     {
 
@@ -234,7 +235,7 @@ class NgoController extends ApplicationsController
                         'scope' => 'global',
                         'filter' => array(
                             'term' => array(
-	                            'dataset' => 'dzialania',
+                                'dataset' => 'dzialania',
                             ),
                         ),
                         'aggs' => array(
@@ -326,20 +327,20 @@ class NgoController extends ApplicationsController
         $this->set('_submenu', array_merge($this->submenus['ngo'], array(
             'selected' => '',
         )));
-		
+
         $this->title = 'Organizacje pozarządowe i akcje społeczne';
-		
+
         $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
     }
 
-	public function dzialania()
+    public function dzialania()
     {
         $this->loadDatasetBrowser('dzialania', array(
-	        'conditions' => array(
-		        'dataset' => 'dzialania',
-		        'dzialania.status' => '1',
-	        ),
+            'conditions' => array(
+                'dataset' => 'dzialania',
+                'dzialania.status' => '1',
+            ),
             'menu' => array_merge($this->submenus['ngo'], array(
                 'selected' => 'dzialania',
                 'base' => '/ngo'
@@ -348,13 +349,13 @@ class NgoController extends ApplicationsController
         $this->set('title_for_layout', 'Działania organizacji społecznych');
 
     }
-	
-	public function fundacje()
+
+    public function fundacje()
     {
         $this->loadDatasetBrowser('krs_podmioty', array(
-	        'conditions' => array(
-		        'krs_podmioty.forma_prawna_id' => '1',
-	        ),
+            'conditions' => array(
+                'krs_podmioty.forma_prawna_id' => '1',
+            ),
             'menu' => array_merge($this->submenus['ngo'], array(
                 'selected' => 'fundacje',
                 'base' => '/ngo'
@@ -371,9 +372,9 @@ class NgoController extends ApplicationsController
         )));
 
         $this->loadDatasetBrowser('krs_podmioty', array(
-	        'conditions' => array(
-		        'krs_podmioty.forma_prawna_id' => '15',
-	        ),
+            'conditions' => array(
+                'krs_podmioty.forma_prawna_id' => '15',
+            ),
             'menu' => array_merge($this->submenus['ngo'], array(
                 'selected' => 'stowarzyszenia',
                 'base' => '/ngo'
@@ -382,43 +383,44 @@ class NgoController extends ApplicationsController
         $this->set('title_for_layout', 'Stowarzyszenia | NGO');
 
     }
-    
-    public function getChapters() {
-	    
-	    $mode = false;
-				
-		$items = array(
-			array(
-				'label' => 'Start',
-				'href' => '/' . $this->settings['id'],
-			),
-		);
-		
-		$items[] = array(
-			'id' => 'dzialania',
-			'label' => 'Działania społeczne',
-			'href' => '/ngo/dzialania',
-		);
-		
-		$items[] = array(
-			'id' => 'fundacje',
-			'label' => 'Fundacje',
-			'href' => '/ngo/fundacje',
-		);
-		
-		$items[] = array(
-			'id' => 'stowarzyszenia',
-			'label' => 'Stowarzyszenia',
-			'href' => '/ngo/stowarzyszenia',
-		);
-						
-		$output = array(
-			'items' => $items,
-			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
-		);
-				
-		return $output;    
-	    
+
+    public function getChapters()
+    {
+
+        $mode = false;
+
+        $items = array(
+            array(
+                'label' => 'Start',
+                'href' => '/' . $this->settings['id'],
+            ),
+        );
+
+        $items[] = array(
+            'id' => 'dzialania',
+            'label' => 'Działania społeczne',
+            'href' => '/ngo/dzialania',
+        );
+
+        $items[] = array(
+            'id' => 'fundacje',
+            'label' => 'Fundacje',
+            'href' => '/ngo/fundacje',
+        );
+
+        $items[] = array(
+            'id' => 'stowarzyszenia',
+            'label' => 'Stowarzyszenia',
+            'href' => '/ngo/stowarzyszenia',
+        );
+
+        $output = array(
+            'items' => $items,
+            'selected' => ($this->chapter_selected == 'view') ? false : $this->chapter_selected,
+        );
+
+        return $output;
+
     }
 
 }

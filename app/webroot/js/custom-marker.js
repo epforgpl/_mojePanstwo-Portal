@@ -32,34 +32,16 @@ CustomMarker.prototype.draw = function () {
 						var detailBlock = '',
 							info = this;
 
-						if (info.data.krs.length > 0) {
+						if (info.data.krs_podmioty.forma_prawna_str.length > 0) {
 							detailBlock += '<li class="dataHighlight">' +
-								'<p class="_label">Numer KRS</p>' +
-								'<p class="_value">' + info.data.krs + '</p>' +
+								'<p class="_label">Forma prawna</p>' +
+								'<p class="_value">' + info.data.krs_podmioty.forma_prawna_str + '</p>' +
 								'<li>';
 						}
-						if (info.data.nip.length > 0) {
+						if (info.data.krs_podmioty.adres.length > 0) {
 							detailBlock += '<li class="dataHighlight">' +
-								'<p class="_label">Numer NIP</p>' +
-								'<p class="_value">' + info.data.nip + '</p>' +
-								'<li>';
-						}
-						if (info.data.regon.length > 0) {
-							detailBlock += '<li class="dataHighlight">' +
-								'<p class="_label">Numer REGON</p>' +
-								'<p class="_value">' + info.data.regon + '</p>' +
-								'<li>';
-						}
-						if (info.data.data_rejestracji.length > 0) {
-							detailBlock += '<li class="dataHighlight">' +
-								'<p class="_label">Data rejestracji</p>' +
-								'<p class="_value">' + info.data.data_rejestracji + '</p>' +
-								'<li>';
-						}
-						if (info.data.sygnatura_akt.length > 0) {
-							detailBlock += '<li class="dataHighlight">' +
-								'<p class="_label">Sygnatura akt</p>' +
-								'<p class="_value">' + info.data.sygnatura_akt + '</p>' +
+								'<p class="_label">Adres</p>' +
+								'<p class="_value">' + info.data.krs_podmioty.adres + '</p>' +
 								'<li>';
 						}
 
