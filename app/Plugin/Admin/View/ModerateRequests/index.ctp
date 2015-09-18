@@ -35,8 +35,12 @@
                         </a>
                     </td>
                     <td>
-                        <?= $page_request['User']['username']; ?>
-                        (<?= $page_request['User']['id']; ?> )
+                        <? if($page_request['User']['id']) { ?>
+                            <?= $page_request['User']['username']; ?>
+                            (<?= $page_request['User']['id']; ?> )
+                        <? } else { ?>
+                            Gość
+                        <? } ?>
                     </td>
                     <td>
                         <?= $page_request['PageRequest']['email']; ?><br/>

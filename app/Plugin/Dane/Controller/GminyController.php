@@ -3748,6 +3748,18 @@ class GminyController extends DataobjectsController
         $this->set('title_for_layout', $title_for_layout);
     }
 
+    public function mapa_layer()
+    {
+
+        App::import('Model','Dane.MapLayers');
+        $layer=new MapLayers;
+        $data=$layer->get_layer($this->request->query['type']);
+
+        $this->set('data', $data);
+        $this->set('_serialize', 'data');
+
+    }
+
     public function mapa()
     {
         $this->_prepareView();
