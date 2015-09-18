@@ -28,7 +28,7 @@ class ModerateRequestsController extends AdminAppController {
                 array(
                     'table' => 'users',
                     'alias' => 'User',
-                    'type' => 'INNER',
+                    'type' => 'LEFT',
                     'conditions' => array(
                         'User.id = PageRequest.user_id'
                     )
