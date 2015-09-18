@@ -65,28 +65,28 @@ echo $this->Element('dataobject/pageBegin'); ?>
 		                        <p class="margin-top-10">Poinformuj innych o działaniach swojej organizacji. Informacje o działaniach będą widoczne na stronie profilowej Twojej organizacji, a także będą pojawiały się przy wynikach wyszukiwania na portalu mojePaństwo.</p>
 		                    <? } ?>
 
-		                    <div class="form-group margin-top-10">
-		                        <label for="dzialanieTitle">Tytuł</label>
+		                    <div class="form-group margin-top-30">
+		                        <label for="dzialanieTitle">Tytuł działania:</label>
 		                        <input maxlength="195" type="text" class="form-control" id="dzialanieTitle" name="tytul" <? if($edit) echo 'value="'.$dzialanie->getData('tytul').'"'; ?>/>
 		                    </div>
 		                    <div class="form-group margin-top-30">
-		                        <label for="dzialanieOpis">Krótkie podsumowanie</label>
+		                        <label for="dzialanieOpis">Krótkie podsumowanie:</label>
 		                        <textarea rows="7" maxlength="511" class="form-control" name="podsumowanie"><? if($edit) echo $dzialanie->getData('podsumowanie'); ?></textarea>
 		                    </div>
 		                    <div class="form-group margin-top-30">
-		                        <label for="dzialanieOpis">Opis działania</label>
+		                        <label for="dzialanieOpis">Opis działania:</label>
 		                        <textarea maxlength="16383" class="form-control tinymce" id="dzialanieOpis" name="opis">
 		                            <? if($edit) echo $dzialanie->getData('opis'); ?>
 		                        </textarea>
 		                    </div>
 		                    <div class="form-group margin-top-30">
-		                        <label>Słowa kluczowe</label>
+		                        <label>Słowa kluczowe:</label>
 		                        <div class="row tags">
 		                            <input type="text" class="form-control tagit" name="tagi" <? if($edit) printf('data-value="%s"', htmlspecialchars(json_encode(array_column($dzialanie_tags, 'label')), ENT_QUOTES, 'UTF-8')) ?> />
 		                        </div>
 		                    </div>
 		                    <div class="form-group margin-top-30" style="margin-bottom: 130px;">
-		                        <label>Zdjęcie</label>
+		                        <label>Zdjęcie:</label>
 		                        <div class="image-editor" <? if($edit && isset($dzialanie_photo_base64)) echo 'data-image="'.$dzialanie_photo_base64.'"'; ?>>
 		                            <div class="cropit-image-preview"></div>
 		                            <div class="slider-wrapper">
