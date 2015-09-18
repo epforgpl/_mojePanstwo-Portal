@@ -84,75 +84,75 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                         </label>
                         <ul>
                             <li><label>
-                                    <input class="dzielnice dzielnica" type="checkbox" id="stare_miasto" value="I" data-layer="dzielnice">
+                                    <input class="dzielnice dzielnica layer" type="checkbox" id="stare_miasto" value="I" data-layer="dzielnice">
                                     I - Stare Miasto
                                 </label></li>
                             <li><label>
-                                    <input class="dzielnice dzielnica" type="checkbox" id="grzegorzki" value="II" data-layer="dzielnice">
+                                    <input class="dzielnice dzielnica layer" type="checkbox" id="grzegorzki" value="II" data-layer="dzielnice">
                                     II - Grzegórzki
                                 </label></li>
                             <li><label>
-                                    <input class="dzielnice dzielnica" type="checkbox" id="pradnik_czerwony" value="III" data-layer="dzielnice">
+                                    <input class="dzielnice dzielnica layer" type="checkbox" id="pradnik_czerwony" value="III" data-layer="dzielnice">
                                     III - Prądnik Czerwony
                                 </label></li>
                             <li><label>
-                                    <input class="dzielnice dzielnica" type="checkbox" id="pradnik_bialy" value="IV" data-layer="dzielnice">
+                                    <input class="dzielnice dzielnica layer" type="checkbox" id="pradnik_bialy" value="IV" data-layer="dzielnice">
                                     IV - Prądnik Biały
                                 </label></li>
                             <li><label>
-                                    <input class="dzielnice dzielnica" type="checkbox" id="krowodrza" value="V" data-layer="dzielnice">
+                                    <input class="dzielnice dzielnica layer" type="checkbox" id="krowodrza" value="V" data-layer="dzielnice">
                                     V - Krowodrza
                                 </label></li>
                             <li><label>
-                                    <input class="dzielnice dzielnica" type="checkbox" id="bronowice" value="VI" data-layer="dzielnice">
+                                    <input class="dzielnice dzielnica layer" type="checkbox" id="bronowice" value="VI" data-layer="dzielnice">
                                     VI - Bronowice
                                 </label></li>
                             <li><label>
-                                    <input class="dzielnice dzielnica" type="checkbox" id="zwierzyniec" value="VII" data-layer="dzielnice">
+                                    <input class="dzielnice dzielnica layer" type="checkbox" id="zwierzyniec" value="VII" data-layer="dzielnice">
                                     VII -  Zwierzyniec
                                 </label></li>
                             <li><label>
-                                    <input class="dzielnice dzielnica" type="checkbox" id="debniki" value="VIII" data-layer="dzielnice">
+                                    <input class="dzielnice dzielnica layer" type="checkbox" id="debniki" value="VIII" data-layer="dzielnice">
                                     VIII - Dębniki
                                 </label></li>
                             <li><label>
-                                    <input class="dzielnice dzielnica" type="checkbox" id="lagiewniki" value="IX" data-layer="dzielnice">
+                                    <input class="dzielnice dzielnica layer" type="checkbox" id="lagiewniki" value="IX" data-layer="dzielnice">
                                     IX - Łagiewniki-Borek Fałęcki
                                 </label></li>
                             <li><label>
-                                    <input class="dzielnice dzielnica" type="checkbox" id="swoszowice" value="X" data-layer="dzielnice">
+                                    <input class="dzielnice dzielnica layer" type="checkbox" id="swoszowice" value="X" data-layer="dzielnice">
                                     X - Swoszowice
                                 </label></li>
                             <li><label>
-                                    <input class="dzielnice dzielnica" type="checkbox" id="podgorze_duchackie" value="XI" data-layer="dzielnice">
+                                    <input class="dzielnice dzielnica layer" type="checkbox" id="podgorze_duchackie" value="XI" data-layer="dzielnice">
                                     XI - Podgórze Duchackie
                                 </label></li>
                             <li><label>
-                                    <input class="dzielnice dzielnica" type="checkbox" id="biezanow" value="XII" data-layer="dzielnice">
+                                    <input class="dzielnice dzielnica layer" type="checkbox" id="biezanow" value="XII" data-layer="dzielnice">
                                     XII - Bieżanów-Prokocim
                                 </label></li>
                             <li><label>
-                                    <input class="dzielnice dzielnica" type="checkbox" id="podgorze" value="XII" data-layer="dzielnice">
+                                    <input class="dzielnice dzielnica layer" type="checkbox" id="podgorze" value="XII" data-layer="dzielnice">
                                     XIII - Podgórze
                                 </label></li>
                             <li><label>
-                                    <input class="dzielnice dzielnica" type="checkbox" id="czyzyny" value="XIV" data-layer="dzielnice">
+                                    <input class="dzielnice dzielnica layer" type="checkbox" id="czyzyny" value="XIV" data-layer="dzielnice">
                                     XIV - Czyżyny
                                 </label></li>
                             <li><label>
-                                    <input class="dzielnice dzielnica" type="checkbox" id="mistrzejowice" value="XIV" data-layer="dzielnice">
+                                    <input class="dzielnice dzielnica layer" type="checkbox" id="mistrzejowice" value="XIV" data-layer="dzielnice">
                                     XV - Mistrzejowice
                                 </label></li>
                             <li><label>
-                                    <input class="dzielnice dzielnica" type="checkbox" id="bienczyce" value="XVI" data-layer="dzielnice">
+                                    <input class="dzielnice dzielnica layer" type="checkbox" id="bienczyce" value="XVI" data-layer="dzielnice">
                                     XVI - Bieńczyce
                                 </label></li>
                             <li><label>
-                                    <input class="dzielnice dzielnica" type="checkbox" id="wzgorza_krzeslawickie" value="XVII" data-layer="dzielnice">
+                                    <input class="dzielnice dzielnica layer" type="checkbox" id="wzgorza_krzeslawickie" value="XVII" data-layer="dzielnice">
                                     XVII - Wzgórza Krzesławickie
                                 </label></li>
                             <li><label>
-                                    <input class="dzielnice dzielnica" type="checkbox" id="nowa_huta" value="XVIII" data-layer="dzielnice">
+                                    <input class="dzielnice dzielnica layer" type="checkbox" id="nowa_huta" value="XVIII" data-layer="dzielnice">
                                     XVIII - Nowa Huta
                                 </label></li>
                         </ul>

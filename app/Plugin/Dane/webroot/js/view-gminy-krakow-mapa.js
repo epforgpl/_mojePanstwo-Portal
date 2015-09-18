@@ -100,20 +100,24 @@ $(document).ready(function () {
 			method: 'GET',
 			url: 'mapa_layer.json',
 			data: {type: type},
+			async: false,
 			success: function (res) {
 
 				if(res.type=='poly') {
 					layers[res.layer] = {};
 					$.each(res.dane, function (k,v) {
+
+						console.log(v['id'], v['spat']);
 						layers[res.layer][v['id']] = new google.maps.Polygon({
-							paths: [
+							paths:
 								google.maps.geometry.encoding.decodePath(v['spat'])
-							],
+							,
 							fillColor: layers_colors[res.layer][v['id']],
 							fillOpacity: .2,
 							strokeOpacity: .5,
 							strokeColor: layers_colors[res.layer][v['id']],
-							strokeWeight: 1
+							strokeWeight: 1,
+							clickable: false
 						});
 					});
 				}
@@ -126,12 +130,33 @@ $(document).ready(function () {
 	}
 
 	$('#dzielnice_all').change(function () {
-		if (!(typeof(layers[$(this).val()]) != "undefined" && layers[$(this).val()] != NULL)) {
+		if (!(typeof(layers[$(this).val()]) != "undefined" && layers[$(this).val()] != null)) {
 			getLayers($(this).val());
 		}
 		$('.dzielnica').prop('checked', $(this).is(':checked'));
-	})
 
+		$('.dzielnica').each(function(){
+			if($(this).is(':checked')){
+				layer_on(layers[$(this).data('layer')][$(this).val()]);
+			}else{
+				layer_off(layers[$(this).data('layer')][$(this).val()]);
+			}
+		});
+	});
+
+
+	$('.layer').change(function(){
+		if (!(typeof(layers[$(this).data('layer')]) != "undefined" && layers[$(this).data('layer')] != null)) {
+			getLayers($(this).data('layer'));
+		}
+		if($(this).is(':checked')){
+			var poly=layers[$(this).data('layer')][$(this).val()]
+			layer_on(poly);
+		}else{
+			var poly=layers[$(this).data('layer')][$(this).val()]
+			layer_off(poly);
+		}
+	});
 
 	function layer_on(poly) {
 		poly.setMap(map);
