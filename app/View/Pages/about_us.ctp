@@ -128,7 +128,7 @@
                 <div class="col-xs-12 col-md-4">
                     <div class="sideContent loading hidden-xs hidden-sm">
                         <div id="fb-root"></div>
-                        <div class="fb-like-box" data-href="https://www.facebook.com/mojepanstwo"
+                        <div class="fb-like-box" data-href="https://www.facebook.com/epanstwo"
                              data-height="430" data-show-faces="true" data-stream="true"
                              data-border-color="#FFFFFF" data-header="true"></div>
                         <script>document.getElementsByClassName('fb-like-box')[0].setAttribute('data-width', document.getElementsByClassName('fb-like-box')[0].parentElement.clientWidth)</script>
