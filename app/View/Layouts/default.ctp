@@ -56,8 +56,8 @@
     /* GLOBAL CSS FOR LOGIN FORM FOR PASZPORT PLUGIN*/
     $this->Combinator->add_libs('css', $this->Less->css('loginForm', array('plugin' => 'Paszport')), false);
 
-    /* CSS FOR OBSERVE BUTTON MODAL FOR DANE PLUGIN*/
-    $this->Combinator->add_libs('css', $this->Less->css('modal-dataobject-observe', array('plugin' => 'Dane')));
+    /* CSS FOR OBSERVE BUTTON MODAL FOR DANE PLUGIN AND OTHER MODALS */
+    $this->Combinator->add_libs('css', $this->Less->css('modal-dataobject', array('plugin' => 'Dane')));
 
     /*BOOTSTRAP SELECT LOOKS LIKE BOOTSTRAP BUTTONS*/
     echo $this->Html->css('../plugins/bootstrap-select/dist/css/bootstrap-select.min.css');
