@@ -144,6 +144,35 @@ $options = array(
 
     <? } ?>
 
+    <? if( @$dataBrowser['aggs']['dzialania']['top']['hits']['hits'] ) {?>
+        <div class="block block-simple col-xs-12 dzialania">
+            <header>Działania</header>
+            <section class="content">
+                <? foreach ($dataBrowser['aggs']['dzialania']['top']['hits']['hits'] as $dzialanie) { ?>
+                    <div class="col-sm-6">
+                        <h4>
+                            <a href="/dane/gminy/<?= $object->getId(); ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>">
+                                <?= $this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.tytul'], 100); ?>
+                            </a>
+                        </h4>
+
+                        <? if ($dzialanie['fields']['source'][0]['data']['dzialania.photo'] == '1') { ?>
+                            <div class="photo">
+                                <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>"><img
+                                        alt="<?= $dzialanie['fields']['source'][0]['data']['dzialania.tytul']; ?>"
+                                        src="http://sds.tiktalik.com/portal/2/pages/dzialania/<?= $dzialanie['fields']['id'][0]; ?>.jpg"/></a>
+                            </div>
+                        <? } ?>
+
+                        <div class="desc">
+                            <?= $this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.podsumowanie'], 200) ?>
+                        </div>
+                    </div>
+                <? } ?>
+            </section>
+        </div>
+    <? } ?>
+
     <? if (@$dataBrowser['aggs']['zamowienia_publiczne_dokumenty']['dni']['buckets']) { ?>
         <div class="block block-simple block-size-sm col-xs-12">
             <header>Rozstrzygnięcia zamówień publicznych:</header>

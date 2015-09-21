@@ -708,6 +708,46 @@ class GminyController extends DataobjectsController
                     ),
                     'scope' => 'global',
                 ),
+                'dzialania' => array(
+                    'filter' => array(
+                        'bool' => array(
+                            'must' => array(
+                                array(
+                                    'term' => array(
+                                        'dataset' => 'dzialania',
+                                    ),
+                                ),
+                                array(
+                                    'term' => array(
+                                        'data.dzialania.dataset' => 'gminy',
+                                    ),
+                                ),
+                                array(
+                                    'term' => array(
+                                        'data.dzialania.object_id' => $this->request->params['id'],
+                                    ),
+                                ),
+                                array(
+                                    'term' => array(
+                                        'data.dzialania.status' => 1,
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                    'aggs' => array(
+                        'top' => array(
+                            'top_hits' => array(
+                                'fielddata_fields' => array('dataset', 'id'),
+                                'size' => 3,
+                                'sort' => array(
+                                    'date' => 'desc',
+                                ),
+                            ),
+                        ),
+                    ),
+                    'scope' => 'global',
+                ),
                 'zamowienia_publiczne_dokumenty' => array(
                     'filter' => array(
                         'bool' => array(
@@ -1147,46 +1187,6 @@ class GminyController extends DataobjectsController
                                     'term' => array(
                                         'data.prawo_wojewodztwa.gmina_id' => $this->request->params['id'],
                                     ),
-                                ),
-                            ),
-                        ),
-                    ),
-                    'scope' => 'global',
-                ),
-                'dzialania' => array(
-                    'filter' => array(
-                        'bool' => array(
-                            'must' => array(
-                                array(
-                                    'term' => array(
-                                        'dataset' => 'dzialania',
-                                    ),
-                                ),
-                                array(
-                                    'term' => array(
-                                        'data.dzialania.dataset' => 'gminy',
-                                    ),
-                                ),
-                                array(
-                                    'term' => array(
-                                        'data.dzialania.object_id' => $this->request->params['id'],
-                                    ),
-                                ),
-                                array(
-                                    'term' => array(
-                                        'data.dzialania.status' => 1,
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                    'aggs' => array(
-                        'top' => array(
-                            'top_hits' => array(
-                                'fielddata_fields' => array('dataset', 'id'),
-                                'size' => 3,
-                                'sort' => array(
-                                    'date' => 'desc',
                                 ),
                             ),
                         ),
@@ -4812,7 +4812,7 @@ class GminyController extends DataobjectsController
             $menu['items'][] = array(
                 'id' => 'dzialania',
                 'label' => 'Działania',
-                'count' => $this->object_aggs['dzialania']['doc_count'],
+                'count' => @$this->object_aggs['dzialania']['doc_count'],
             );
         }
 
