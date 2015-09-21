@@ -142,69 +142,72 @@ $(document).ready(function () {
 	};
 
 	var mapUpdateResults = function (data, area) {
-		//if (area.zoom !== lastArea.zoom) {
-		for (var j = 0; j < markers.length; j++) {
-			markers[j].setMap(null);
-		}
+		if (area.zoom !== lastArea.zoom) {
+			$.each(markers, function (key, value) {
+				value.setMap(null);
+			});
 
-		markers = [];
-		//}
+			markers = {};
+		}
 
 		lastArea = area;
 
 		for (var i = 0; i < data.grid.buckets.length; i++) {
 			var cell = data.grid.buckets[i],
 				center = Geohash.decode(cell.key),
-				f = .5;
+				f = .5,
+				term = 'marker-' + center.lat + '-' + center.lon;
 
-			if (cell.doc_count == 1) {
-				var marker = new google.maps.Marker({
-					position: new google.maps.LatLng(cell.lat, cell.lng),
-					icon: ngoIcon,
-					map: map,
-					data: cell
-				});
+			if (!(term in markers)) {
+				if (cell.doc_count == 1) {
+					var marker = new google.maps.Marker({
+						position: new google.maps.LatLng(cell.lat, cell.lng),
+						icon: ngoIcon,
+						map: map,
+						data: cell
+					});
 
-				markers.push(marker);
+					markers[term] = marker;
 
-				google.maps.event.addListener(marker, 'click', (function (marker) {
-					return function () {
-						if (infowindow)
-							infowindow.close();
+					google.maps.event.addListener(marker, 'click', (function (marker) {
+						return function () {
+							if (infowindow)
+								infowindow.close();
 
-						infowindow = new google.maps.InfoWindow();
+							infowindow = new google.maps.InfoWindow();
 
-						infowindow.setContent('<div class="infoWindowNgo">' +
-							'<div class="ngoPlace">' +
-							'<div class="title">' +
-							'<a href="/dane/krs_podmioty/' + marker.data.id + '">' +
-							'<i class="object-icon icon-datasets-krs_podmioty"></i>' +
-							'<div class="titleName">' + marker.data.name + '</div>' +
-							'</a>' +
-							'</div>' +
-							'<ul class="detail dataHighlights oneline">' +
-							'<li class="dataHighlight">' +
-							'<p class="_label">Forma prawna</p>' +
-							'<p class="_value">' + marker.data.form + '</p>' +
-							'<li>' +
-							'<li class="dataHighlight">' +
-							'<p class="_label">Adres</p>' +
-							'<p class="_value">' + marker.data.address + '</p>' +
-							'<li>' +
-							'</ul>' +
-							'</div>' +
-							'</div>');
-						infowindow.open(map, marker);
-						map.setCenter(marker.latlng);
-					};
-				})(marker, content, infowindow));
-			} else {
-				var inner_center = Geohash.decode(cell.inner_key);
+							infowindow.setContent('<div class="infoWindowNgo">' +
+								'<div class="ngoPlace">' +
+								'<div class="title">' +
+								'<a href="/dane/krs_podmioty/' + marker.data.id + '">' +
+								'<i class="object-icon icon-datasets-krs_podmioty"></i>' +
+								'<div class="titleName">' + marker.data.name + '</div>' +
+								'</a>' +
+								'</div>' +
+								'<ul class="detail dataHighlights oneline">' +
+								'<li class="dataHighlight">' +
+								'<p class="_label">Forma prawna</p>' +
+								'<p class="_value">' + marker.data.form + '</p>' +
+								'<li>' +
+								'<li class="dataHighlight">' +
+								'<p class="_label">Adres</p>' +
+								'<p class="_value">' + marker.data.address + '</p>' +
+								'<li>' +
+								'</ul>' +
+								'</div>' +
+								'</div>');
+							infowindow.open(map, marker);
+							map.setCenter(marker.latlng);
+						};
+					})(marker, content, infowindow));
+				} else {
+					var inner_center = Geohash.decode(cell.inner_key);
 
-				markers.push(new CustomMarker(new google.maps.LatLng(center.lat + (inner_center.lat - center.lat) * f, center.lon + (inner_center.lon - center.lon) * f), map, {
-					title: cell.doc_count,
-					data: cell
-				}));
+					markers[term] = new CustomMarker(new google.maps.LatLng(center.lat + (inner_center.lat - center.lat) * f, center.lon + (inner_center.lon - center.lon) * f), map, {
+						title: cell.doc_count,
+						data: cell
+					});
+				}
 			}
 
 			if (i + 1 == data.grid.buckets.length)
