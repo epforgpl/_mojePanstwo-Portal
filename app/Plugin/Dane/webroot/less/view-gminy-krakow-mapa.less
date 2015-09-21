@@ -28,7 +28,7 @@
                 min-height: 500px;
 
                 #map_menu {
-                    @marginHandler: 40px;
+                    @marginHandler: 35px;
 
                     top: 25px;
                     left: 25px;
@@ -47,6 +47,11 @@
                         position: relative;
                         width: 100%;
                         z-index: 1;
+                        font-size: 18px;
+                        color: #555;
+                        font-weight: 400;
+                        margin-top: 10px;
+                        line-height: 1.1;
                     }
 
                     .menu_scroling {
@@ -56,6 +61,15 @@
                         max-height: 100%;
                         margin-top: -@marginHandler;
                         padding-top: @marginHandler;
+                    }
+
+                    .list-unstyled {
+                        list-style: none;
+                        margin-left: 15px;
+
+                        &.first {
+                            margin-left: 0;
+                        }
                     }
                 }
             }
