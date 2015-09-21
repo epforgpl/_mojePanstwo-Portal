@@ -1,6 +1,9 @@
 #_main .objectsPage .objectsPageWindow {
+    @mapMinSize: 90vh;
+
     position: relative;
     padding-top: 0;
+    min-height: @mapMinSize;
 
     .objectsPageContent {
         margin-top: 0;
@@ -14,7 +17,7 @@
                 top: 0;
                 left: 0;
                 width: 100%;
-                min-height: 500px;
+                min-height: @mapMinSize;
             }
 
             .menuholder {
@@ -25,16 +28,34 @@
                 min-height: 500px;
 
                 #map_menu {
-                    top:25px;
-                    left:25px;
+                    @marginHandler: 40px;
+
+                    top: 25px;
+                    left: 25px;
                     width: 200px;
                     height: 300px;
                     z-index: 100;
                     padding: 10px;
+                    position: relative;
 
-                    .menu_scroliing{
+                    .ui-draggable-handle {
+                        border: 0;
+                        cursor: pointer;
+                        height: @marginHandler;
+                        background: #ffffff;
+                        display: inline-block;
+                        position: relative;
+                        width: 100%;
+                        z-index: 1;
+                    }
+
+                    .menu_scroling {
                         display: block;
-                        overflow: scroll;
+                        overflow-y: scroll;
+                        overflow-x: hidden;
+                        max-height: 100%;
+                        margin-top: -@marginHandler;
+                        padding-top: @marginHandler;
                     }
                 }
             }
@@ -44,7 +65,6 @@
 
 @media (min-width: 728px) {
     #_main .objectsPage .objectsPageWindow .objectsPageContent {
-
         #map {
             position: absolute;
         }
