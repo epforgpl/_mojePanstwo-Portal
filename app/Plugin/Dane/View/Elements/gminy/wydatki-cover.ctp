@@ -79,7 +79,7 @@ $options = array(
 
 			<div id="mainChart" class="">
                 <div class="histogram_cont">
-                    <div class="histogram" data-median="<?= $global['median'] ?>" data-title="<?= $main_chart['title'] ?>" data-subtitle="<?= $main_chart['subtitle'] ?>" data-interval="100000000" data-histogram='<?= json_encode($global['histogram']) ?>'>
+                    <div class="histogram" data-mode="<?= $mode; ?>" data-median="<?= $global['median'] ?>" data-title="<?= $main_chart['title'] ?>" data-subtitle="<?= $main_chart['subtitle'] ?>" data-interval="<?= $histogram_interval; ?>" data-histogram='<?= json_encode($global['histogram']) ?>'>
                     </div>
                 </div>
                 <div class="gradient_cont">
@@ -151,7 +151,7 @@ $options = array(
 
                                 <div class="chart" style="display: none;">
 	                                <div class="histogram_cont">
-		                                <div class="histogram" data-median="<?= $dzial['global']['median'] ?>" data-title="<?= $dzial['label'] ?>" data-subtitle="<?= $main_chart['subtitle'] ?>" data-interval="<?= $dzial['global']['interval'] ?>" data-histogram='<?= json_encode($dzial['global']['histogram']) ?>'>
+		                                <div class="histogram" data-mode="<?= $mode; ?>" data-median="<?= $dzial['global']['median'] ?>" data-title="<?= $dzial['label'] ?>" data-subtitle="<?= $main_chart['subtitle'] ?>" data-interval="<?= $dzial['global']['interval'] ?>" data-histogram='<?= json_encode($dzial['global']['histogram']) ?>'>
 		                                </div>
 	                                </div>
 	                                <div class="gradient_cont">

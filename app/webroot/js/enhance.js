@@ -135,8 +135,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 	return s.join(dec);
 }
 
-/* FUNCTION CONVERT CURRENCY INTO READABLE FORMAT */
-function pl_currency_format(n, prec) {
+function pl_number_format(n, prec) {
 	var str = '',
 		mld = 0,
 		mln = 0,
@@ -145,25 +144,30 @@ function pl_currency_format(n, prec) {
 	if (n >= 1000000000) {
 		mld = (n / 1000000000).toFixed(prec);
 		n -= mld * 1000000000;
-		return mld + ' mld zł.';
+		return mld + ' mld';
 	}
 
 	if (n >= 1000000) {
 		mln = (n / 1000000).toFixed(prec);
 		n -= mln * 1000000;
-		return mln + ' mln zł.';
+		return mln + ' mln';
 	}
 
 	if (n >= 1000) {
 		tys = (n / 1000).toFixed(prec);
 		n -= tys * 1000;
-		return tys + ' tys. zł.';
+		return tys + ' tys';
 	}
 
 	if (mld === 0 && mln === 0 && tys === 0)
-		str += n + ' zł.';
+		return n;
 
 	return str.trim();
+}
+
+/* FUNCTION CONVERT CURRENCY INTO READABLE FORMAT */
+function pl_currency_format(n, prec) {
+	return pl_number_format(n, prec) + ' zł';
 }
 
 /*OTHER LIBRARY*/
