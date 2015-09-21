@@ -593,67 +593,66 @@ class KrsPodmiotyController extends DataobjectsController
     {
 
         $this->_prepareView();
+		
+		
+        if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
 
-
-        if (isset($this->request->params['pass'][0]) && is_numeric($this->request->params['pass'][0])) {
-
-            $this->helpers[] = 'Document';
-            $umowa = $this->API->getObject('umowy', $this->request->params['pass'][0], array(
-                'layers' => array('neighbours'),
+            $umowa = $this->Dataobject->find('first', array(
+	            'conditions' => array(
+		            'dataset' => 'umowy',
+		            'id' => $this->request->params['subid'],
+	            ),
             ));
 
-            $document = $this->API->document($umowa->getData('dokument_id'));
             $this->set('umowa', $umowa);
-            $this->set('document', $document);
             $this->set('title_for_layout', $umowa->getTitle());
-
             $this->render('umowa');
 
         } else {
 
-            $this->dataobjectsBrowserView(array(
-                'source' => 'krs_podmioty.umowy:' . $this->object->getId(),
-                'dataset' => 'umowy',
-                'noResultsTitle' => 'Brak umów',
-                'limit' => 50,
-            ));
-
-            $this->set('title_for_layout', 'Umowy cywilnoprawne podpisane przez ' . $this->object->getTitle());
+            $this->_prepareView();
+	        $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'umowy',
+	            ),
+	        ));
+	
+	        $this->set('title_for_layout', 'Umowy cywilnoprawne podpisane przez ' . $this->object->getData('nazwa'));
 
         }
 
     }
-
+    
     public function faktury()
     {
 
         $this->_prepareView();
+		
+		
+        if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
 
-
-        if (isset($this->request->params['pass'][0]) && is_numeric($this->request->params['pass'][0])) {
-
-            $this->helpers[] = 'Document';
-            $faktura = $this->API->getObject('faktury', $this->request->params['pass'][0], array(
-                'layers' => array('neighbours'),
+            $faktura = $this->Dataobject->find('first', array(
+	            'conditions' => array(
+		            'dataset' => 'faktury',
+		            'id' => $this->request->params['subid'],
+	            ),
             ));
 
-            $document = $this->API->document($faktura->getData('dokument_id'));
             $this->set('faktura', $faktura);
-            $this->set('document', $document);
             $this->set('title_for_layout', $faktura->getTitle());
-
             $this->render('faktura');
 
         } else {
 
-            $this->dataobjectsBrowserView(array(
-                'source' => 'krs_podmioty.faktury:' . $this->object->getId(),
-                'dataset' => 'faktury',
-                'noResultsTitle' => 'Brak faktur',
-                'limit' => 50,
-            ));
-
-            $this->set('title_for_layout', 'Faktury wystawione dla ' . $this->object->getTitle());
+            $this->_prepareView();
+	        $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'faktury',
+	            ),
+	            // 'renderFile' => 'krs_podmioty-zamowienia_publiczne_dokumenty',
+	        ));
+	
+	        $this->set('title_for_layout', 'Faktury wystawione dla ' . $this->object->getData('nazwa'));
 
         }
 

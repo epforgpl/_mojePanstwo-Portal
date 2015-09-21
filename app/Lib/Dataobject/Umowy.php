@@ -12,15 +12,21 @@ class Umowy extends DocDataObject
         'title' => 'nazwa',
         'shortTitle' => 'nazwa',
     );
-
-    public function getLabel()
-    {
-        return 'Umowa';
-    }
 	
 	public function getUrl()
 	{
 		return '/dane/krs_podmioty/' . $this->getData('krs_id') . '/umowy/' . $this->getId();
+	}
+	
+    public function getLabel()
+    {
+        return 'Umowa';
+    }
+    
+    public function getThumbnailUrl($size = false) {
+		
+		return 'http://docs.sejmometr.pl/thumb/5/' . $this->getData('dokument_id') . '.png';
+		
 	}
 		
 }

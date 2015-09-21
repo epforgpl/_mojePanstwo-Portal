@@ -14,8 +14,15 @@ echo $this->Element('Dane.dataobject/subobject', array(
         'bigTitle' => true,
     )
 ));
+?>
 
+<div class="row">
+	<div class="col-sm-9">
+		
+		<?= $this->Document->place($faktura->getData('dokument_id')) ?>
+		
+	</div>
+</div>
 
-echo $this->Document->place($document);
-
+<?
 echo $this->Element('dataobject/pageEnd');
