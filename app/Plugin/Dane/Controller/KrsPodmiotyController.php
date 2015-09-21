@@ -24,6 +24,9 @@ class KrsPodmiotyController extends DataobjectsController
         'titleprop' => 'name',
     );
 
+    public $objectActivities = true;
+    public $objectData = true;
+
     public function beforeFilter()
     {
         parent::beforeFilter();
@@ -374,152 +377,6 @@ class KrsPodmiotyController extends DataobjectsController
 
     }
 
-    public function dodaj_dzialanie() {
-
-        $this->request->params['action'] = 'dzialania';
-
-        $this->addInitLayers(array('dzialania_nowe'));
-        $this->_prepareView();
-
-        if(!$this->_canEdit())
-            throw new ForbiddenException;
-
-        $this->render('dzialanie_form');
-    }
-
-    public function dzialania() {
-
-        $this->_prepareView();
-        if($id = @$this->request->params['subid']) {
-
-            $dzialanie = $this->Dataobject->find('first', array(
-                'conditions' => array(
-                    'dataset' => 'dzialania',
-                    'id' => $id
-                ),
-                'layers' => array(
-                    'features'
-                ),
-                'aggs' => array(
-	                'tags' => array(
-		                'nested' => array(
-			                'path' => 'tags',
-		                ),
-		                'aggs' => array(
-			                'id' => array(
-				                'terms' => array(
-					                'field' => 'tags.id',
-				                ),
-				                'aggs' => array(
-					                'label' => array(
-						                'terms' => array(
-							                'field' => 'tags.label',
-						                ),
-					                ),
-				                ),
-			                ),
-		                ),
-	                ),
-                ),
-            ));
-
-            $aggs = $this->Dataobject->getAggs();
-            $tags = array();
-
-            if( @isset( $aggs['tags']['id']['buckets'] ) ) {
-	            foreach( $aggs['tags']['id']['buckets'] as $b ) {
-		            if(
-			            ( $id = @$b['key'] ) &&
-			            ( $label = @$b['label']['buckets'][0]['key'] )
-		            ) {
-
-		            	$tags[] = array(
-			            	'id' => $id,
-			            	'label' => $label,
-		            	);
-
-		            }
-		        }
-		    }
-
-            $this->set('dzialanie_tags', $tags);
-
-            if (!$dzialanie)
-                throw new NotFoundException;
-
-
-            if($features = $dzialanie->getLayer('features')) {
-                $this->loadModel('Sejmometr.Sejmometr');
-                if($mailing = @$features['mailings'][0]) {
-                    if($mailing['target'] == '0') {
-
-                        $okregi = Cache::read('Sejmometr.okregi_sejm', 'long');
-			            if (!$okregi) {
-			                $okregi = $this->Sejmometr->okregi_sejm();
-			                Cache::write('Sejmometr.okregi_sejm', $okregi, 'long');
-			            }
-
-                        $this->set('okregi', $okregi);
-
-                    } else {
-
-	                    $okregi = Cache::read('Sejmometr.okregi_senat', 'long');
-			            if (!$okregi) {
-			                $okregi = $this->Sejmometr->okregi_senat();
-			                Cache::write('Sejmometr.okregi_senat', $okregi, 'long');
-			            }
-
-                        $this->set('okregi', $okregi);
-
-                    }
-                }
-            }
-
-            $this->set('dzialanie', $dzialanie);
-
-            if(@$this->request->params['subaction'] == 'edytuj') {
-
-                if($this->_canEdit()) {
-
-                    if($data = @file_get_contents($dzialanie->getThumbnailUrl('1'))) {
-                        $this->set('dzialanie_photo_base64', 'data:image/jpeg;base64,' . base64_encode($data));
-                    }
-
-                    $this->render('dzialanie_form');
-
-                }
-                else
-                {
-                    if( !$this->Auth->user() )
-                        throw new UnauthorizedException;
-                    else
-                        throw new ForbiddenException;
-                }
-
-            } else {
-
-				$this->render('dzialanie');
-
-            }
-
-        } else {
-
-	        $this->Components->load('Dane.DataBrowser', array(
-	            'conditions' => array(
-	                'dataset' => 'dzialania',
-	                'dzialania.dataset' => 'krs_podmioty',
-	                'dzialania.object_id' => $this->object->getId(),
-	            ),
-	            'aggsPreset' => 'dzialania_admin',
-	            'searchTitle' => 'Szukaj w działaniach...',
-	        ));
-
-	        $this->set('title_for_layout', 'Działania ' . $this->object->getData('nazwa'));
-			
-        }
-
-    }
-
     public function powiazania()
     {
 
@@ -593,8 +450,8 @@ class KrsPodmiotyController extends DataobjectsController
     {
 
         $this->_prepareView();
-		
-		
+
+
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
 
             $umowa = $this->Dataobject->find('first', array(
@@ -616,19 +473,19 @@ class KrsPodmiotyController extends DataobjectsController
 	                'dataset' => 'umowy',
 	            ),
 	        ));
-	
+
 	        $this->set('title_for_layout', 'Umowy cywilnoprawne podpisane przez ' . $this->object->getData('nazwa'));
 
         }
 
     }
-    
+
     public function faktury()
     {
 
         $this->_prepareView();
-		
-		
+
+
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
 
             $faktura = $this->Dataobject->find('first', array(
@@ -651,7 +508,7 @@ class KrsPodmiotyController extends DataobjectsController
 	            ),
 	            // 'renderFile' => 'krs_podmioty-zamowienia_publiczne_dokumenty',
 	        ));
-	
+
 	        $this->set('title_for_layout', 'Faktury wystawione dla ' . $this->object->getData('nazwa'));
 
         }
@@ -817,13 +674,6 @@ class KrsPodmiotyController extends DataobjectsController
 
         }
 
-    }
-
-    public function dane() {
-        $this->addInitLayers('page');
-        $this->_prepareView();
-        if(!$this->_canEdit())
-            throw new ForbiddenException;
     }
 
 }

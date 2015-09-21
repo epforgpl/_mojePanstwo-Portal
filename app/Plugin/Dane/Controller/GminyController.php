@@ -8,6 +8,9 @@ class GminyController extends DataobjectsController
     public $observeOptions = true;
     public $addDatasetBreadcrumb = false;
 
+    public $objectActivities = true;
+    public $objectData = true;
+
     public $submenus = array(
         'rada' => array(
             'items' => array(
@@ -1144,6 +1147,46 @@ class GminyController extends DataobjectsController
                                     'term' => array(
                                         'data.prawo_wojewodztwa.gmina_id' => $this->request->params['id'],
                                     ),
+                                ),
+                            ),
+                        ),
+                    ),
+                    'scope' => 'global',
+                ),
+                'dzialania' => array(
+                    'filter' => array(
+                        'bool' => array(
+                            'must' => array(
+                                array(
+                                    'term' => array(
+                                        'dataset' => 'dzialania',
+                                    ),
+                                ),
+                                array(
+                                    'term' => array(
+                                        'data.dzialania.dataset' => 'gminy',
+                                    ),
+                                ),
+                                array(
+                                    'term' => array(
+                                        'data.dzialania.object_id' => $this->request->params['id'],
+                                    ),
+                                ),
+                                array(
+                                    'term' => array(
+                                        'data.dzialania.status' => 1,
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                    'aggs' => array(
+                        'top' => array(
+                            'top_hits' => array(
+                                'fielddata_fields' => array('dataset', 'id'),
+                                'size' => 3,
+                                'sort' => array(
+                                    'date' => 'desc',
                                 ),
                             ),
                         ),
@@ -4760,6 +4803,24 @@ class GminyController extends DataobjectsController
                 'id' => 'organizacje',
             );
 
+        }
+
+        if(
+            @$this->object_aggs['dzialania']['doc_count'] ||
+            $this->_canEdit()
+        ) {
+            $menu['items'][] = array(
+                'id' => 'dzialania',
+                'label' => 'Działania',
+                'count' => $this->object_aggs['dzialania']['doc_count'],
+            );
+        }
+
+        if($this->_canEdit()) {
+            $menu['items'][] = array(
+                'id' => 'dane',
+                'label' => 'Edycja danych'
+            );
         }
 
         $menu['items'][] = array(

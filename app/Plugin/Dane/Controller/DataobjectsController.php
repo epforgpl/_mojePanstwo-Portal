@@ -25,6 +25,8 @@ class DataobjectsController extends AppController
     public $addDatasetBreadcrumb = true;
     public $editables = array();
 
+    public $objectActivities = false;
+    public $objectData = false;
 
     public $_layout = array(
         'header' => array(
@@ -37,6 +39,167 @@ class DataobjectsController extends AppController
 	        'element' => 'default',
         ),
     );
+
+    public function dane()
+    {
+        if(!$this->objectData)
+            throw new NotFoundException;
+
+        $this->addInitLayers('page');
+        $this->_prepareView();
+        if(!$this->_canEdit())
+            throw new ForbiddenException;
+
+        $this->render('Dane.KrsPodmioty/dane');
+    }
+
+    public function dodaj_dzialanie()
+    {
+        if(!$this->objectActivities)
+            throw new NotFoundException;
+
+        $this->request->params['action'] = 'dzialania';
+
+        $this->addInitLayers(array('dzialania_nowe'));
+        $this->_prepareView();
+
+        if(!$this->_canEdit())
+            throw new ForbiddenException;
+
+        $this->render('Dane.KrsPodmioty/dzialanie_form');
+    }
+
+    public function dzialania()
+    {
+        if(!$this->objectActivities)
+            throw new NotFoundException;
+
+        $this->_prepareView();
+        if($id = @$this->request->params['subid']) {
+
+            $dzialanie = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'dzialania',
+                    'id' => $id
+                ),
+                'layers' => array(
+                    'features'
+                ),
+                'aggs' => array(
+                    'tags' => array(
+                        'nested' => array(
+                            'path' => 'tags',
+                        ),
+                        'aggs' => array(
+                            'id' => array(
+                                'terms' => array(
+                                    'field' => 'tags.id',
+                                ),
+                                'aggs' => array(
+                                    'label' => array(
+                                        'terms' => array(
+                                            'field' => 'tags.label',
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ));
+
+            $aggs = $this->Dataobject->getAggs();
+            $tags = array();
+
+            if( @isset( $aggs['tags']['id']['buckets'] ) ) {
+                foreach( $aggs['tags']['id']['buckets'] as $b ) {
+                    if(
+                        ( $id = @$b['key'] ) &&
+                        ( $label = @$b['label']['buckets'][0]['key'] )
+                    ) {
+
+                        $tags[] = array(
+                            'id' => $id,
+                            'label' => $label,
+                        );
+
+                    }
+                }
+            }
+
+            $this->set('dzialanie_tags', $tags);
+
+            if (!$dzialanie)
+                throw new NotFoundException;
+
+
+            if($features = $dzialanie->getLayer('features')) {
+                $this->loadModel('Sejmometr.Sejmometr');
+                if($mailing = @$features['mailings'][0]) {
+                    if($mailing['target'] == '0') {
+
+                        $okregi = Cache::read('Sejmometr.okregi_sejm', 'long');
+                        if (!$okregi) {
+                            $okregi = $this->Sejmometr->okregi_sejm();
+                            Cache::write('Sejmometr.okregi_sejm', $okregi, 'long');
+                        }
+
+                        $this->set('okregi', $okregi);
+
+                    } else {
+
+                        $okregi = Cache::read('Sejmometr.okregi_senat', 'long');
+                        if (!$okregi) {
+                            $okregi = $this->Sejmometr->okregi_senat();
+                            Cache::write('Sejmometr.okregi_senat', $okregi, 'long');
+                        }
+
+                        $this->set('okregi', $okregi);
+
+                    }
+                }
+            }
+
+            $this->set('dzialanie', $dzialanie);
+
+            if(@$this->request->params['subaction'] == 'edytuj') {
+
+                if($this->_canEdit()) {
+
+                    if($data = @file_get_contents($dzialanie->getThumbnailUrl('1'))) {
+                        $this->set('dzialanie_photo_base64', 'data:image/jpeg;base64,' . base64_encode($data));
+                    }
+
+                    $this->render('Dane.KrsPodmioty/dzialanie_form');
+                }
+                else
+                {
+                    if(!$this->Auth->user())
+                        throw new UnauthorizedException;
+                    else
+                        throw new ForbiddenException;
+                }
+
+            } else {
+                $this->render('Dane.KrsPodmioty/dzialanie');
+            }
+
+        } else {
+
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'dataset' => 'dzialania',
+                    'dzialania.dataset' => 'krs_podmioty',
+                    'dzialania.object_id' => $this->object->getId(),
+                ),
+                'aggsPreset' => 'dzialania_admin',
+                'searchTitle' => 'Szukaj w działaniach...',
+            ));
+
+            $this->set('title_for_layout', 'Działania ' . $this->object->getData('nazwa'));
+            $this->render('Dane.KrsPodmioty/dzialania');
+        }
+    }
 
 	public function addObjectEditable($e)
 	{
@@ -422,7 +585,7 @@ class DataobjectsController extends AppController
         }
 
     }
-    
+
     protected function _canEdit() {
         return (
             @in_array('2', $this->getUserRoles()) ||
