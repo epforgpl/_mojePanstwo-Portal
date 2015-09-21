@@ -2153,12 +2153,7 @@ class InstytucjeController extends DataobjectsController
                     'layers' => array('html'),
                 ));
 
-                $tresc = @$this->S3->getObject('resources', '/sejm_komunikaty/content/' . $komunikat->data['id'] . '.html');
-
                 $this->set('komunikat', $komunikat);
-                if($tresc) {
-                    $this->set('tresc', $tresc);
-                }
                 $this->set('title_for_layout', $komunikat->getTitle());
                 $this->render('komunikat');
 
