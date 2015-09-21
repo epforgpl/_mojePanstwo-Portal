@@ -63,7 +63,7 @@ echo $this->Element('dataobject/pageBegin'); ?>
                                     ) as $i => $field) { ?>
                                         <div>
                                             <label>
-                                                <input type="checkbox" value="<?= ($i + 1) ?>">
+                                                <input name="areas[]" type="checkbox" value="<?= ($i + 1) ?>">
                                                 <?= ucfirst($field) ?>
                                             </label>
                                         </div>
