@@ -25,7 +25,9 @@ echo $this->Element('dataobject/pageBegin'); ?>
 
     <div class="row">
         <div class="col-md-12">
-            <header>Edytuj dane organizacji / urzędu gminy</header>
+            <header>
+                Edytuj dane <?= $object->getDataset() == 'krs_podmioty' ? 'organizacji' : 'urzędu gminy'; ?>
+            </header>
         </div>
     </div>
 
@@ -37,10 +39,71 @@ echo $this->Element('dataobject/pageBegin'); ?>
                     <div class="row">
                         <div class="col-xs-12">
 
-                            <div class="form-group">
-                                <label for="descriptionTextArea">Misja</label>
-                                <textarea name="description" id="descriptionTextArea" class="form-control"><?= $description ?></textarea>
+                            <? if($object->getDataset() == 'krs_podmioty') { ?>
+                                <div class="form-group">
+                                    <label for="descriptionTextArea">Misja:</label>
+                                    <textarea name="description" id="descriptionTextArea" class="form-control"><?= $description ?></textarea>
+                                </div>
+
+                                <div class="form-group margin-top-30">
+                                    <label>Obszar działania:</label>
+
+                                    <? foreach(array(
+                                        'działalność charytatywna',
+                                        'pomoc społeczna',
+                                        'ochrona praw obywatelskich i praw człowieka',
+                                        'rozwój przedsiębiorczości',
+                                        'nauka, kultura, edukacja',
+                                        'ekologia',
+                                        'działalność międzynarodowa',
+                                        'aktywność społeczna',
+                                        'sport, turystyka',
+                                        'bezpieczeństwo publiczne',
+                                        'inne'
+                                    ) as $i => $field) { ?>
+                                        <div>
+                                            <label>
+                                                <input type="checkbox" value="<?= ($i + 1) ?>">
+                                                <?= ucfirst($field) ?>
+                                            </label>
+                                        </div>
+                                    <? } ?>
+
+                                </div>
+
+                            <? } ?>
+
+                            <div class="form-group margin-top-<?= ($object->getDataset() == 'krs_podmioty') ? 30 : 0; ?>">
+                                <label for="phoneNumber">Numer telefonu:</label>
+                                <input maxlength="195" type="text" class="form-control" id="phoneNumber" name="phone" <? if($object->getData('phone')) echo 'value="'.$object->getData('phone').'"'; ?>/>
                             </div>
+
+                            <div class="form-group margin-top-10">
+                                <label for="emailAddress">Adres e-mail:</label>
+                                <input maxlength="195" type="text" class="form-control" id="emailAddress" name="email" <? if($object->getData('email')) echo 'value="'.$object->getData('email').'"'; ?>/>
+                            </div>
+
+                            <div class="form-group margin-top-10">
+                                <label for="www">Adres strony WWW:</label>
+                                <input maxlength="195" type="text" class="form-control" id="www" name="www" <? if($object->getData('www')) echo 'value="'.$object->getData('www').'"'; ?>/>
+                            </div>
+
+                            <h4 class="text-muted margin-top-30">
+                                Konta na portalach społecznościowych
+                            </h4>
+
+                            <? foreach(array(
+                                'facebook',
+                                'twitter',
+                                'instagram',
+                                'youtube',
+                                'vine'
+                            ) as $i => $field) { ?>
+                                <div class="form-group margin-top-10">
+                                <label for="<?= $field ?>">Profil <?= ucfirst($field) ?>:</label>
+                                <input maxlength="195" type="text" class="form-control" id="<?= $field ?>" name="<?= $field ?>" <? if($object->getData($field)) echo 'value="'.$object->getData($field).'"'; ?>/>
+                                </div>
+                            <? } ?>
 
                         </div>
                     </div>
@@ -51,19 +114,22 @@ echo $this->Element('dataobject/pageBegin'); ?>
         <div class="col-md-3">
             <div class="sticky margin-top-20">
                 <div class="row">
-
                     <div class="col-md-12 margin-top-10">
+
                         <button class="btn auto-width btn-primary btn-icon submitBtn" type="submit">
                             <i class="icon glyphicon glyphicon-ok"></i>
                             Zapisz
                         </button>
-                        <br/>
-                        <div data-opis="<?= $object->getData('cel_dzialania') ?>" class="btn auto-width btn-link btn-icon btnImport margin-top-5">
-                            <i class="icon glyphicon glyphicon-download"></i>
-                            Zaimportuj z KRS
-                        </div>
-                    </div>
 
+                        <? if($object->getDataset() == 'krs_podmioty') { ?>
+                            <br/>
+                            <div data-opis="<?= $object->getData('cel_dzialania') ?>" class="btn auto-width btn-link btn-icon btnImport margin-top-5">
+                                <i class="icon glyphicon glyphicon-download"></i>
+                                Zaimportuj z KRS
+                            </div>
+                        <? } ?>
+
+                    </div>
                 </div>
             </div>
         </div>
