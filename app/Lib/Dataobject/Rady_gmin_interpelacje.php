@@ -66,8 +66,7 @@ class Rady_gmin_interpelacje extends DocDataObject
 				
 		$output = array(
 			dataSlownie( $this->getDate() ),
-			$this->getData('radni_gmin.nazwa'),
-			$this->getData('radni_gmin.komitet'),
+			$this->getData('radni_str'),
 		);
 		
 		return $output;
