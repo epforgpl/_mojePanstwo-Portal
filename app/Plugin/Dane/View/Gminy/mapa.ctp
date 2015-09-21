@@ -32,6 +32,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                             <input class="" type="checkbox" id="road">
                             Drogi
                         </label>
+                        <i class="glyphicon glyphicon-minus"></i>
                         <ul class="list-unstyled">
                             <li>
                                 <label>
@@ -77,6 +78,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                             <input class="google_layers_switch" type="checkbox" id="transit_station">
                             Dworce
                         </label>
+                        <i class="glyphicon glyphicon-minus"></i>
                         <ul class="list-unstyled">
                             <li>
                                 <label>
@@ -108,6 +110,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                             <input type="checkbox" class="dzielnice" id="dzielnice_all" value="dzielnice">
                             Dzielnice
                         </label>
+                        <i class="glyphicon glyphicon-minus"></i>
                         <ul class="list-unstyled">
                             <li>
                                 <label>

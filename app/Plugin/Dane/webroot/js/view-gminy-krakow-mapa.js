@@ -4,29 +4,29 @@
 var map,
 	markers = [],
 	layers = {},
-	options;
-var layers_colors = {
-	dzielnice: {
-		I: '#7cb5ec',
-		II: '#434348',
-		III: '#90ed7d',
-		IV: '#f7a35c',
-		V: '#8085e9',
-		VI: '#f15c80',
-		VII: '#e4d354',
-		VIII: '#2b908f',
-		IX: '#f45b5b',
-		X: '#91e8e1',
-		XI: '#7cb5ec',
-		XII: '#434348',
-		XIII: '#90ed7d',
-		XIV: '#f7a35c',
-		XV: '#8085e9',
-		XVI: '#f15c80',
-		XVII: '#e4d354',
-		XVIII: '#2b908f'
-	}
-};
+	options,
+	layers_colors = {
+		dzielnice: {
+			I: '#7cb5ec',
+			II: '#434348',
+			III: '#90ed7d',
+			IV: '#f7a35c',
+			V: '#8085e9',
+			VI: '#f15c80',
+			VII: '#e4d354',
+			VIII: '#2b908f',
+			IX: '#f45b5b',
+			X: '#91e8e1',
+			XI: '#7cb5ec',
+			XII: '#434348',
+			XIII: '#90ed7d',
+			XIV: '#f7a35c',
+			XV: '#8085e9',
+			XVI: '#f15c80',
+			XVII: '#e4d354',
+			XVIII: '#2b908f'
+		}
+	};
 $(document).ready(function () {
 	var mapa = $('#map');
 
@@ -152,6 +152,18 @@ $(document).ready(function () {
 			layers[$(this).data('layer')][$(this).val()].setMap(map);
 		} else {
 			layers[$(this).data('layer')][$(this).val()].setMap(null);
+		}
+	});
+
+	$('.menu_scroling ul.list-unstyled.first > li > .glyphicon').click(function () {
+		var that = $(this);
+
+		if (that.hasClass('glyphicon-minus')) {
+			that.removeClass('glyphicon-minus').addClass('glyphicon-plus');
+			that.parent().find('>ul').hide();
+		} else {
+			that.removeClass('glyphicon-plus').addClass('glyphicon-minus');
+			that.parent().find('>ul').show();
 		}
 	});
 
