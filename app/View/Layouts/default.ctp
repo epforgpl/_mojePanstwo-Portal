@@ -196,11 +196,6 @@ $this->Combinator->add_libs('js', 'main', false);
 $this->Combinator->add_libs('js', 'suggester');
 $this->Combinator->add_libs('js', 'appheader');
 
-if (isset($object_editable) && !empty($object_editable)) {
-    $this->Combinator->add_libs('js', 'Admin.accept-moderate-request-modal');
-    $this->Combinator->add_libs('js', 'Dane.dataobjects-editable');
-}
-
 /* BLOCK FOR SPECIAL SCRIPTS LIKE PROTOTYPE THAT CANNOT BE MERGE TO ONE FILE*/
 echo $this->fetch('scriptBlock');
 ?>

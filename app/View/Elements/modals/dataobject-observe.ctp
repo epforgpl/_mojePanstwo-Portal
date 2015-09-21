@@ -9,10 +9,15 @@ $dataset = $object->getDataset();
 $object_id = $object->getId();
 ?>
 
-<div data-toggle="modal" data-target="#observeModal"
-     class="observeButton btn btn-icon <? echo (isset($subscription) && !empty($subscription)) ? 'btn-success' : 'btn-primary'; ?>">
+<div
+    data-tooltip="true"
+    data-original-title="Obserwuj"
+    data-placement="left"
+    data-toggle="modal"
+    data-target="#observeModal"
+    class="btn optionBtn <? echo (isset($subscription) && !empty($subscription)) ? 'btn-success' : 'btn-primary'; ?>">
     <i class="icon"
-       data-icon-applications="&#xe60a;"></i><? echo (isset($subscription) && !empty($subscription)) ? 'Obserwujesz...' : 'Obserwuj...'; ?>
+       data-icon-applications="&#xe60a;"></i>
 </div>
 
 <div class="modal fade" id="observeModal" tabindex="-1" role="dialog" aria-labelledby="observeModalLabel"
