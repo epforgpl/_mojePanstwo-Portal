@@ -11,7 +11,7 @@ class TwitterAccountsController extends AdminAppController {
         '3' => 'Urząd',
         '7' => 'Polityk',
         '8' => 'Partia',
-        '9' => 'NGO',
+        '9' => 'NGO i akcje społeczne',
         '10' => 'Miasto',
     );
 
