@@ -31,18 +31,19 @@ $object_id = $object->getId();
                                 href="/dane/<?= $dataset ?>/<?= $object_id ?>,<?= $object->slug() ?>"><?= $object->getTitle(); ?></a></span>
                     </p>
 
-                    <div class="form-cont">
+                    <?php if ($this->Session->read('Auth.User.id')) { ?>
 
+                        <div class="form-cont">
 
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="collectionName" placeholder="Znajdź lub utwórz kolekcję...">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="collectionName" placeholder="Znajdź lub utwórz kolekcję...">
+                            </div>
+
+                            <div class="list-group"></div>
+
                         </div>
 
-                        <div class="list-group">
-
-                        </div>
-
-                    </div>
+                    <? } ?>
 
                     <input type="hidden" name="dataset" value="<?= $dataset ?>"/>
                     <input type="hidden" name="object_id" value="<?= $object_id ?>"/>
@@ -56,7 +57,7 @@ $object_id = $object->getId();
                         </a>
                     <?php } else { ?>
                         <a href="/login" class="_specialCaseLoginButton" data-dismiss="modal">Zaloguj się, aby
-                            korzystać z funkcji obserwowania
+                            korzystać z kolekcji
                         </a>
                     <?php } ?>
                 </div>
