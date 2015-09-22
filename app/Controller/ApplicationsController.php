@@ -49,7 +49,7 @@ class ApplicationsController extends AppController
 
     public function beforeRender()
     {
-
+		
 		$app = false;
 
         if(

@@ -78,7 +78,7 @@ if ($dataBrowser['mode'] == 'cover') {
     <? } ?>
     <div class="col-xs-12 col-sm-<?= $displayAggs ? $columns[0] : 9 ?>">
 
-        <div class="dataWrap">
+        <div class="dataWrap margin-top-10">
 
             <?= $this->element('Dane.DataBrowser/browser-content-paging', array(
             	'params' => $params,

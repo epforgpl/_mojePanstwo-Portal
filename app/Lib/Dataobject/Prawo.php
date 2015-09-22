@@ -31,5 +31,20 @@ class Prawo extends DocDataObject
         // return $this->getData('status_id');
 	    return $this->getData('label');
     }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+				
+		$output = array();
+		
+		if( $this->getData('sygnatura') )
+			$output[] = $this->getData('sygnatura');
+		
+		if( $this->getData('data_publikacji') )
+			$output[] = 'Opublikowano ' . dataSlownie($this->getData('data_publikacji'));
+				
+        return $output;
+
+    }
 
 }

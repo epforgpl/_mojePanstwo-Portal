@@ -7,7 +7,7 @@
             <?= $this->Document->place($object->getData('dokument_id')) ?>
         </div><div class="col-md-3">
 
-            <ul class="dataHighlights rightColumn">
+            <ul class="dataHighlights overflow-auto">
         	<?
 			    $isap_status_str = $object->getData('isap_status_str');
 			    if (isset($isap_status_str) && !empty($isap_status_str)) { ?>
@@ -56,9 +56,11 @@
 	        	$isap_id .= str_pad($object->getData('nr'), 3, '0', STR_PAD_LEFT);
 	        	$isap_id .= str_pad($object->getData('poz'), 4, '0', STR_PAD_LEFT);	        	
         	?>
-        	        	
-        	<p class="_src"><a href="http://dziennikustaw.gov.pl/DU/<?= $object->getData('rok') ?>/<?= $object->getData('poz') ?>" target="_blank"><span class="glyphicon glyphicon-link"></span> Źródło (RCL)</a></p>
-        	<p class="_src"><a href="http://isap.sejm.gov.pl/DetailsServlet?id=<?= $isap_id ?>" target="_blank"><span class="glyphicon glyphicon-link"></span> Źródło (ISAP)</a></p>
+        	
+        	<div class="margin-top-20">
+	        	<p class="_src text-left"><a href="http://dziennikustaw.gov.pl/DU/<?= $object->getData('rok') ?>/<?= $object->getData('poz') ?>" target="_blank"><span class="glyphicon glyphicon-link"></span> Źródło (RCL)</a></p>
+	        	<p class="_src text-left"><a href="http://isap.sejm.gov.pl/DetailsServlet?id=<?= $isap_id ?>" target="_blank"><span class="glyphicon glyphicon-link"></span> Źródło (ISAP)</a></p>
+        	</div>
         	
 
         </div>

@@ -1,104 +1,92 @@
 <?
-$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
-$this->Combinator->add_libs('js', '../plugins/highstock/locals');
-$this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
+	$this->Combinator->add_libs('css', $this->Less->css('prawo', array('plugin' => 'Prawo')));
 
-$options = array(
-    'mode' => 'init',
-);
+	$news = @$dataBrowser['aggs']['news']['top']['hits']['hits'];
+	$kodeksy = @$dataBrowser['aggs']['kodeksy']['top']['hits']['hits'];
+	$konstytucja = @$dataBrowser['aggs']['konstytucja']['top']['hits']['hits'];
 ?>
 
-<div class="col-xs-12 col-md-3 dataAggsContainer">
-    <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
+<div class="col-xs-12 col-md-3 col-sm-4 dataAggsContainer">
+	<div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
+	    <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
+	</div>
 </div>
 
-<div class="col-xs-12 col-md-9">
-    <div class="block col-xs-12">
-        <header>Typy obowiązujących aktów prawnych</header>
-        <section class="aggs-init">
-            <div class="dataAggs">
-                <div class="agg agg-PieChart" data-chart-options="<?= htmlentities(json_encode($options)) ?>"
-                     data-choose-request="dane/prawo?conditions[prawo.typ_id]="
-                     data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['prawo_obowiazujace']['typ_id'])) ?>">
-                    <div class="chart">
+<div id="bdl_div" class="col-xs-12 col-md-9 col-sm-8">
+
+	<div class="dataWrap">
+
+		<div class="appBanner bottom-border">
+			<h1 class="appTitle">Prawo</h1>
+			<p class="appSubtitle">Przeglądaj teksty aktów prawnych</p>
+		</div>
+		
+		
+		<div class="block block-simple col-sm-12">
+            <header class="nopadding">Aktualności:</header>
+            <section class="content margin-top-10">
+                
+                <div class="agg agg-Dataobjects">
+                    <ul class="dataobjects">
+                        <? foreach ($news as $doc) { ?>
+                            <li class="margin-top-10">
+                                <?
+                                echo $this->Dataobject->render($doc, 'default');
+                                ?>
+                            </li>
+                        <? } ?>
+                    </ul>
+                    <div class="buttons text-center margin-top-10">
+                        <a href="/prawo/aktualnosci" class="btn btn-primary btn-xs">Więcej aktualności &raquo;</a>
                     </div>
                 </div>
-            </div>
-        </section>
-    </div>
-
-    <div class="block col-xs-12">
-        <header>Akty prawne, które wejdą niedługo w życie</header>
-        <section class="aggs-init">
-            <div class="dataAggs">
+                
+            </section>
+        </div>
+        
+        <? if( $konstytucja ) {?>
+        <div class="block block-simple col-sm-12 konstytucja">
+            <header class="nopadding">Konstytucja:</header>
+            <section class="content margin-top-10">
+                
                 <div class="agg agg-Dataobjects">
-                    <? if ($dataBrowser['aggs']['prawo']['wejda']['doc_count']) { ?>
-                        <ul class="dataobjects">
-                            <? foreach ($dataBrowser['aggs']['prawo']['wejda']['top']['hits']['hits'] as $doc) { ?>
-                                <li>
-                                    <?
-                                    echo $this->Dataobject->render($doc, 'default');
-                                    ?>
-                                    <div class="objectRender-addons">
-									<span
-                                        class="">Wchodzi w życie <?= dataSlownie($doc['fields']['source'][0]['data']['prawo.data_wejscia_w_zycie']); ?>
-                                    </div>
-                                </li>
-                            <? } ?>
-                        </ul>
-                    <? } ?>
+                    <ul class="dataobjects">
+                        <? foreach ($konstytucja as $doc) { ?>
+                            <li class="margin-top-10">
+                                <?
+                                echo $this->Dataobject->render($doc, 'default');
+                                ?>
+                            </li>
+                        <? } ?>
+                    </ul>
                 </div>
-            </div>
-        </section>
-    </div>
-
-    <div class="block col-xs-12">
-        <header>Autorzy obowiązujących aktów prawnych</header>
-        <section class="aggs-init">
-            <div class="dataAggs">
-                <div class="agg agg-ColumnsHorizontal" data-choose-request="dane/prawo?conditions[prawo.autor_id]="
-                     data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['prawo_obowiazujace']['autor_id'])) ?>">
-                    <div class="chart"></div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <div class="block col-xs-12">
-        <header>Akty prawne, które weszły niedawno w życie</header>
-        <section class="aggs-init">
-            <div class="dataAggs">
+                
+            </section>
+        </div>
+        <? } ?>
+        
+        <? if( $kodeksy ) {?>
+        <div class="block block-simple col-sm-12 kodeksy">
+            <header class="nopadding">Kodeksy:</header>
+            <section class="content margin-top-10">
+                
                 <div class="agg agg-Dataobjects">
-                    <? if ($dataBrowser['aggs']['prawo']['weszly']['doc_count']) { ?>
-                        <ul class="dataobjects">
-                            <? foreach ($dataBrowser['aggs']['prawo']['weszly']['top']['hits']['hits'] as $doc) { ?>
-                                <li>
-                                    <?
-                                    echo $this->Dataobject->render($doc, 'default');
-                                    ?>
-                                    <div class="objectRender-addons">
-									<span
-                                        class="">Data wejścia w życie: <?= dataSlownie($doc['fields']['source'][0]['data']['prawo.data_wejscia_w_zycie']); ?>
-                                    </div>
-                                </li>
-                            <? } ?>
-                        </ul>
-                    <? } ?>
+                    <ul class="dataobjects">
+                        <? foreach ($kodeksy as $doc) { ?>
+                            <li class="margin-top-10">
+                                <?
+                                echo $this->Dataobject->render($doc, 'default');
+                                ?>
+                            </li>
+                        <? } ?>
+                    </ul>
                 </div>
-            </div>
-        </section>
-    </div>
+                
+            </section>
+        </div>
+        <? } ?>
+		
 
-    <div class="block col-xs-12">
-        <header>Nowe akty prawne w czasie</header>
-        <section class="aggs-init">
-            <div class="dataAggs">
-                <div class="agg agg-DateHistogram"
-                     data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['prawo']['date'])) ?>">
+	</div>
 
-                    <div class="chart"></div>
-                </div>
-            </div>
-        </section>
-    </div>
 </div>
