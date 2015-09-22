@@ -5,7 +5,15 @@ $this->Combinator->add_libs('js', 'custom-marker');
 $this->Combinator->add_libs('js', 'Ngo.ngo');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
-echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&language=pl-PL', array('block' => 'scriptBlock'));
+switch (Configure::read('Config.language')) {
+    case 'pol':
+        $lang = "pl-PL";
+        break;
+    case 'eng':
+        $lang = "en-EN";
+        break;
+};
+echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&language=' . $lang, array('block' => 'scriptBlock'));
 ?>
 
 <div class="col-xs-12 col-md-3 col-sm-4 dataAggsContainer">
@@ -61,7 +69,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                                     <?= $this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.tytul'], 100); ?>
                                 </a>
                             </h4>
-														
+
                             <? if ($dzialanie['fields']['source'][0]['data']['dzialania.photo'] == '1') { ?>
                                 <div class="photo">
                                     <a href="/dane/krs_podmioty/<?= $dzialanie['fields']['source'][0]['data']['dzialania.object_id']; ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>"><img
@@ -70,10 +78,10 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                                 </div>
                             <? } ?>
 
-							<p class="owner"><?= $dzialanie['fields']['source'][0]['data']['dzialania.owner_name'] ?></p>
-							
+                            <p class="owner"><?= @$dzialanie['fields']['source'][0]['data']['dzialania.owner_name'] ?></p>
+
                             <div class="desc">
-                                <?= $this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.podsumowanie'], 200) ?>
+                                <?= @$this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.podsumowanie'], 200) ?>
                             </div>
                         </div>
                     <? } ?>
@@ -95,8 +103,8 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                 </div>
             </section>
         </div>
-		
-		<? /*
+
+        <? /*
         <div class="block block-simple col-sm-12">
             <header class="nopadding">Dane statystyczne o sektorze organizacji pozarządowych:</header>
         </div>

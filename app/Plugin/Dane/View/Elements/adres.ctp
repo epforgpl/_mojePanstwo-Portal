@@ -20,7 +20,7 @@
                         size = el.offsetWidth;
                     tmp.innerHTML = "<?= trim(preg_replace('/\s+/', ' ', $adres)) ?>";
                     var adres = (tmp.textContent || tmp.innerText || "").replace(/ /g, '+');
-                    document.write('<img class="googleMapImage" src="https://maps.googleapis.com/maps/api/staticmap?center' + adres + '&markers=' + adres + '&zoom=15&sensor=false&scale=2&feature:road&size=' + size + 'x270" />')
+                    document.write('<img class="googleMapImage" src="https://maps.googleapis.com/maps/api/staticmap?center' + adres + '&markers=' + adres + '&zoom=15&sensor=false&scale=2&feature:road&size=' + size + 'x270&language=' + mPHeart.language.twoPerThreeDig + '" />')
                 </script>
 
                 <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"
