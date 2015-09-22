@@ -124,7 +124,8 @@ $plugin_definitions =
 		'Kultura'       => array( 'routes' => true, 'bootstrap' => false ),
 		'Finanse'       => array( 'routes' => true, 'bootstrap' => false ),
         'Sentry'        => array('routes' => false, 'bootstrap' => false),
-        'Widgets'       => array('routes' => true, 'bootstrap' => false)
+        'Widgets'       => array('routes' => true, 'bootstrap' => false),
+        'Collections'   => array('routes' => true, 'bootstrap' => true),
 	);
 
 CakePlugin::loadAll($plugin_definitions);

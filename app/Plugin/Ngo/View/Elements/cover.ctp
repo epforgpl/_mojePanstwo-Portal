@@ -40,7 +40,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
             <div class="description margin-top-30">
                 <p>Dodawaj działania swojej organizacji, uaktualniaj i modyfikuj jej dane!</p>
 
-                <p>Aby zacząć, znajdź organizację, korzystając z wyszukiwarki, przejdź na jej profil i poproś o
+                <p>Aby zacząć, znajdź organizację, korzystając z wyszukiwarki powyżej, przejdź na jej profil i poproś o
                     uprawnienia do zarządzania jej profilem.</p>
             </div>
         </div>
@@ -78,7 +78,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                                 </div>
                             <? } ?>
 
-                            <p class="owner"><?= @$dzialanie['fields']['source'][0]['data']['dzialania.owner_name'] ?></p>
+							<p class="owner"><?= @$dzialanie['fields']['source'][0]['data']['dzialania.owner_name'] ?></p>
 
                             <div class="desc">
                                 <?= @$this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.podsumowanie'], 200) ?>
