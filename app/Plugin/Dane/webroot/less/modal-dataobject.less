@@ -1,0 +1,101 @@
+#observeModal {
+  .modal-content {
+    .modal-body {
+      .alert {
+        display: none;
+        padding-bottom: 8px;
+        padding-top: 8px;
+      }
+
+      .optionsBlock {
+        margin-bottom: 10px;
+        text-align: left;
+        color: #000000;
+
+        .checkbox {
+          @padding: 40px;
+
+          padding-left: @padding;
+          padding-right: @padding;
+
+          &.first {
+            margin-bottom: 20px;
+          }
+        }
+      }
+
+      .info {
+        color: #ccc;
+      }
+    }
+    .modal-footer {
+      a.unobserve > .icon {
+        font-size: 0.8em;
+      }
+    }
+  }
+}
+
+
+#collectionsModal {
+
+    .modal-body {
+
+        margin-bottom: 0;
+        padding-bottom: 0;
+
+        .form-cont {
+
+            background-color: #F0F0F0;
+            border-bottom: 1px solid #EFEFEF;
+            border-top: 1px solid #E3E3E3;
+            margin: 0 -15px;
+            padding: 10px 50px;
+
+            .form-group {
+                margin-bottom: 0;
+            }
+
+            .list-group {
+                overflow: hidden;
+                overflow-y: scroll;
+                max-height: 200px;
+                margin-bottom: 0;
+                margin-top: 5px;
+
+                button {
+
+                    text-align: left;
+                    width: 100%;
+
+                    &.unchecked {
+
+                        i {
+                            color: #fff;
+                        }
+
+                        &:hover {
+
+                            i {
+                                color: #333;
+                            }
+
+                        }
+
+                    }
+
+                    i {
+                        margin-right: 10px;
+                    }
+
+                    &:hover {
+                        background: #f3f3f3;
+                    }
+                }
+            }
+
+        }
+
+    }
+
+}

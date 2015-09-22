@@ -1,6 +1,15 @@
 <? $this->Combinator->add_libs('js', 'Sejmometr.okregi');
 $this->Combinator->add_libs('css', $this->Less->css('okregi', array('plugin' => 'Sejmometr')));
-echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false', array('block' => 'scriptBlock')); ?>
+
+switch (Configure::read('Config.language')) {
+    case 'pol':
+        $lang = "pl-PL";
+        break;
+    case 'eng':
+        $lang = "en-EN";
+        break;
+};
+echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&language=' . $lang, array('block' => 'scriptBlock')); ?>
 
 <div class="container">
     <div class="row">

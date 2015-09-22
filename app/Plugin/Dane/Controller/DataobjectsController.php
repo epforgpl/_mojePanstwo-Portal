@@ -25,8 +25,29 @@ class DataobjectsController extends AppController
     public $addDatasetBreadcrumb = true;
     public $editables = array();
 
+    /**
+     * @desc Czy mogę w tym obiekcie dodawać działania?
+     * @var bool
+     */
     public $objectActivities = false;
+
+    /**
+     * @desc Czy mogę w tym obiekcie edytować dane?
+     * @var bool
+     */
     public $objectData = false;
+
+    /**
+     * @desc Czy mogę obserwować obiekt?
+     * @var bool
+     */
+    public $observeOptions = false;
+
+    /**
+     * @desc Czy mogę dodawać obiekt do kolekcji?
+     * @var bool
+     */
+    public $collectionsOptions = true;
 
     public $_layout = array(
         'header' => array(
@@ -516,6 +537,9 @@ class DataobjectsController extends AppController
             $this->set('object_addons', $this->addons);
             $this->set('object_editable', $object_editable);
             $this->set('_canEdit', $this->_canEdit());
+            $this->set('_collectionsOptions', $this->collectionsOptions);
+            $this->set('_manageOptions', boolval(count($object_editable)));
+            $this->set('_manageOptionsModals', $object_editable); // alias
 
             $this->prepareMetaTags();
         }

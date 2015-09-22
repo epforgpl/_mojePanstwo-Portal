@@ -56,8 +56,8 @@
     /* GLOBAL CSS FOR LOGIN FORM FOR PASZPORT PLUGIN*/
     $this->Combinator->add_libs('css', $this->Less->css('loginForm', array('plugin' => 'Paszport')), false);
 
-    /* CSS FOR OBSERVE BUTTON MODAL FOR DANE PLUGIN*/
-    $this->Combinator->add_libs('css', $this->Less->css('modal-dataobject-observe', array('plugin' => 'Dane')));
+    /* CSS FOR OBSERVE BUTTON MODAL FOR DANE PLUGIN AND OTHER MODALS */
+    $this->Combinator->add_libs('css', $this->Less->css('modal-dataobject', array('plugin' => 'Dane')));
 
     /*BOOTSTRAP SELECT LOOKS LIKE BOOTSTRAP BUTTONS*/
     echo $this->Html->css('../plugins/bootstrap-select/dist/css/bootstrap-select.min.css');
@@ -171,7 +171,8 @@ echo $this->Html->script('../plugins/bootstrap-switch/dist/js/bootstrap-switch.m
         user_id: '<?= AuthComponent::user('id'); ?>',
         language: {
             twoDig: "<?php switch (Configure::read('Config.language')) { case 'pol': echo "pl"; break; case 'eng': echo "en"; break; }  ?>",
-            threeDig: "<?php echo Configure::read('Config.language'); ?>"
+            threeDig: "<?php echo Configure::read('Config.language'); ?>",
+            twoPerThreeDig: "<?php switch (Configure::read('Config.language')) { case 'pol': echo "pl-PL"; break; case 'eng': echo "en-EN"; break; }  ?>",
         },
         social: {
             facebook: {
@@ -192,14 +193,9 @@ echo $this->Html->script('../plugins/bootstrap-switch/dist/js/bootstrap-switch.m
 <?php
 $this->Combinator->add_libs('js', 'enhance', false);
 $this->Combinator->add_libs('js', 'structure', false);
-$this->Combinator->add_libs('js', 'main', false);
+$this->Combinator->add_libs('js', 'mpbase', false);
 $this->Combinator->add_libs('js', 'suggester');
 $this->Combinator->add_libs('js', 'appheader');
-
-if (isset($object_editable) && !empty($object_editable)) {
-    $this->Combinator->add_libs('js', 'Admin.accept-moderate-request-modal');
-    $this->Combinator->add_libs('js', 'Dane.dataobjects-editable');
-}
 
 /* BLOCK FOR SPECIAL SCRIPTS LIKE PROTOTYPE THAT CANNOT BE MERGE TO ONE FILE*/
 echo $this->fetch('scriptBlock');

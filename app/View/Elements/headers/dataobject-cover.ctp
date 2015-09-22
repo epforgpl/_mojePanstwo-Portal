@@ -17,7 +17,7 @@ if (!isset($renderFile) || !$renderFile)
 
 <div class="appHeader dataobject dataobject-cover<? if ($pageLayer['logo']) echo ' cover-logo';
 if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object->getDataset() ?>"
-     data-object_id="<?= $object->getId() ?>"<? if (isset($object_editable) && !empty($object_editable)) { ?> data-editables='<?= json_encode($object_editable) ?>'<? } ?>>
+     data-object_id="<?= $object->getId() ?>"<? if (isset($object_editable) && !empty($object_editable)) { ?> data-editables='<?= json_encode($object_editable) ?>'<? } ?> data-global-id="<?= $object->getGlobalId() ?>">
 
     <div class="headlineBar" <? if ($pageLayer['cover']) {
         echo ' style="background-image: url(http://sds.tiktalik.com/portal/pages/cover/' . $dataset . '/' . $object_id . '.jpg)"';
@@ -27,11 +27,11 @@ if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object
                     autorskie</a></div>
         <? } ?>
         <div class="container">
-            <? 
-	            if ($pageLayer['logo']) { 
-		           
+            <?
+	            if ($pageLayer['logo']) {
+
 		           $src = is_string($pageLayer['logo']) ? $pageLayer['logo'] : 'http://sds.tiktalik.com/portal/pages/logo/' . $dataset . '/' . $object_id . '.png'
-		           
+
             ?>
                 <div class="logoBox hidden-xs">
                     <a href="<?= $object->getUrl() ?>">
@@ -41,7 +41,7 @@ if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object
             <? } ?>
             <div class="holder row">
                 <div class="holderBlock col-md-9">
-                    
+
                     <? if( $_breadcrumbs ) { ?>
                         <ul class="breadcrumb">
                             <?php foreach ($_breadcrumbs as $bread) { ?>
@@ -67,10 +67,20 @@ if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object
                         </h1>
                     </div>
                 </div>
-                <div class="col-md-3 options">
+                <div class="col-md-3 DataObjectOptions">
+
                     <? if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
-                        <div class="opt"><?= $this->element('modals/dataobject-observe'); ?></div>
+                        <div class="option"><?= $this->element('modals/dataobject-observe'); ?></div>
                     <? } ?>
+
+                    <? if (isset($_collectionsOptions) && !empty($_collectionsOptions)) { ?>
+                        <div class="option"><?= $this->element('modals/dataobject-collections'); ?></div>
+                    <? } ?>
+
+                    <? if (isset($_manageOptions) && !empty($_manageOptions)) { ?>
+                        <div class="option"><?= $this->element('modals/dataobject-manage'); ?></div>
+                    <? } ?>
+
                 </div>
             </div>
         </div>

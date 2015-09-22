@@ -9,7 +9,7 @@ class TwitterComponent extends Component {
         '2' => 'Komentatorzy',
         '3' => 'Urzędy',
         // '6' => 'Media',
-        '7' => 'Politycy',
+        '7' => 'Politycy i urzędnicy',
         '8' => 'Partie',
         '9' => 'NGO i akcje społeczne',
         '10' => 'Miasta',

@@ -3,7 +3,15 @@ $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow-mapa', ar
 $this->Combinator->add_libs('js', 'latlon-geohash');
 $this->Combinator->add_libs('js', 'Dane.view-gminy-krakow-mapa');
 
-echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&language=pl-PL', array('block' => 'scriptBlock'));
+switch (Configure::read('Config.language')) {
+    case 'pol':
+        $lang = "pl-PL";
+        break;
+    case 'eng':
+        $lang = "en-EN";
+        break;
+};
+echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&language=' . $lang, array('block' => 'scriptBlock'));
 ?>
 <?= $this->Element('dataobject/pageBegin'); ?>
 
@@ -32,6 +40,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                             <input class="" type="checkbox" id="road">
                             Drogi
                         </label>
+                        <i class="glyphicon glyphicon-minus"></i>
                         <ul class="list-unstyled">
                             <li>
                                 <label>
@@ -77,6 +86,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                             <input class="google_layers_switch" type="checkbox" id="transit_station">
                             Dworce
                         </label>
+                        <i class="glyphicon glyphicon-minus"></i>
                         <ul class="list-unstyled">
                             <li>
                                 <label>
@@ -108,6 +118,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                             <input type="checkbox" class="dzielnice" id="dzielnice_all" value="dzielnice">
                             Dzielnice
                         </label>
+                        <i class="glyphicon glyphicon-minus"></i>
                         <ul class="list-unstyled">
                             <li>
                                 <label>

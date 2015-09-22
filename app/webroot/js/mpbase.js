@@ -217,11 +217,14 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 		});
 	}
 
-	$('[data-toggle="tooltip"]').tooltip({
+	var tooltipOptions = {
 		delay: {
 			hide: 1
 		}
-	});
+	};
+
+	$('[data-tooltip="true"]').tooltip(tooltipOptions);
+	$('[data-toggle="tooltip"]').tooltip(tooltipOptions);
 
 	/*GLOBAL BOOTSTRAP-SELECT FORM SELECTPICKER CLASS*/
 	if (selectPickers.length > 0) {

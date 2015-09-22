@@ -9,7 +9,16 @@ $this->Combinator->add_libs('js', 'Dane.view-gminy');
 
 <?php if ($object->getId() == '903') {
     $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
-    echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.exp', array('block' => 'scriptBlock'));
+
+    switch (Configure::read('Config.language')) {
+        case 'pol':
+            $lang = "pl-PL";
+            break;
+        case 'eng':
+            $lang = "en-EN";
+            break;
+    };
+    echo $this->Html->script('//maps.googleapis.com/maps/api/js?language=' . $lang, array('block' => 'scriptBlock'));
     $this->Combinator->add_libs('js', 'Dane.view-gminy-krakow');
 } ?>
 

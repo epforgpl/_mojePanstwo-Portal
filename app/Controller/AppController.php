@@ -526,7 +526,7 @@ class AppController extends Controller
 					stripos($_SERVER['REQUEST_URI'], '/login') === 0 or
 					stripos($_SERVER['REQUEST_URI'], '/logout') === 0
                 );
-								
+
 				if(
 					!in_array($_id, array(
 						'dane.gminy',
@@ -835,9 +835,9 @@ class AppController extends Controller
 	    	return @in_array($role, $roles);
 
     }
-    
+
     public function isSuperUser() {
 	    return $this->hasUserRole('2');
     }
-    
+
 }

@@ -98,8 +98,16 @@ $description =
 
                 <section class="profile_baner nopadding" data-adres="<?= urlencode($adres) ?>">
                     <div class="bg">
+                        <?php switch (Configure::read('Config.language')) {
+                            case 'pol':
+                                $lang = "pl-PL";
+                                break;
+                            case 'eng':
+                                $lang = "en-EN";
+                                break;
+                        }; ?>
                         <img
-                            src="http://maps.googleapis.com/maps/api/staticmap?center=<?= urlencode($adres) ?>&markers=<?= urlencode($adres) ?>&zoom=15&sensor=false&size=831x212&scale=2&feature:road"/>
+                            src="http://maps.googleapis.com/maps/api/staticmap?center=<?= urlencode($adres) ?>&markers=<?= urlencode($adres) ?>&zoom=15&sensor=false&size=831x212&scale=2&feature:road&language=<?= $lang ?>"/>
 
                         <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"
                              class="content">
