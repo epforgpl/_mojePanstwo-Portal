@@ -3,6 +3,8 @@ $(document).ready(function() {
 
 	var modal = $('#collectionsModal'),
 		name = $('#collectionName'),
+		header = $('.appHeader.dataobject').first(),
+		id = header.data('global-id'),
 		data = [],
 		list = modal.find('.list-group').first(),
 		loading = false,
@@ -14,22 +16,27 @@ $(document).ready(function() {
 		name.val(nameStr).focus();
 
 		if(data.length == 0) {
-			loading = true;
-			list.html(spinner);
-
-			$.get('/collections/collections/get.json', function(res) {
-				if(typeof res.response != 'undefined') {
-					loading = false;
-					data = res.response;
-					updateList();
-				} else
-					alert('Wystąpił błąd');
+			reloadData(function() {
+				updateList();
 			});
-
 		} else
 			updateList();
 
 	});
+
+	function reloadData(onSuccess) {
+		loading = true;
+		list.html(spinner);
+
+		$.get('/collections/collections/get/' + id + '.json', function(res) {
+			if(typeof res.response != 'undefined') {
+				loading = false;
+				data = res.response;
+				onSuccess();
+			} else
+				alert('Wystąpił błąd');
+		});
+	}
 
 	function updateList() {
 		if(loading)
@@ -45,7 +52,7 @@ $(document).ready(function() {
 				if(data.hasOwnProperty(i)) {
 					var row = data[i].Collection;
 					if(nameStr.length === 0 || (nameStr.length && row.name.toLowerCase().indexOf(nameStr.toLowerCase()) > -1)) {
-						h.push('<button type="button" class="list-group-item">' + row.name + '</button>');
+						h.push('<button type="button" data-collection-id="' + row.id + '" class="list-group-item ' + (typeof data[i].CollectionObject.object_id == 'string' ? 'checked' : 'unchecked') + '"><i class="glyphicon glyphicon-ok" aria-hidden="true"></i> ' + row.name + '</button>');
 					}
 				}
 			}
@@ -54,6 +61,24 @@ $(document).ready(function() {
 		}
 
 		list.html(h.join(''));
+
+		$('button.unchecked').click(function() {
+			var collection = $(this).data('collection-id');
+			$.get('/collections/collections/addObject/' + collection + '/' + id + '.json', function(res) {
+				reloadData(function() {
+					updateList();
+				});
+			});
+		});
+
+		$('button.checked').click(function() {
+			var collection = $(this).data('collection-id');
+			$.get('/collections/collections/removeObject/' + collection + '/' + id + '.json', function(res) {
+				reloadData(function() {
+					updateList();
+				});
+			});
+		});
 
 		$('button.new-collection').click(function() {
 			list.html(spinner);

@@ -4,8 +4,8 @@ class Collection extends AppModel {
 
     public $useDbConfig = 'mpAPI';
 
-    public function get() {
-        return $this->getDataSource()->request('collections/collections/get', array(
+    public function get($id) {
+        return $this->getDataSource()->request('collections/collections/get/' . $id, array(
             'method' => 'GET'
         ));
     }
@@ -14,6 +14,18 @@ class Collection extends AppModel {
         return $this->getDataSource()->request('collections/collections/create', array(
             'data' => $data,
             'method' => 'POST'
+        ));
+    }
+
+    public function addObject($id, $object_id) {
+        return $this->getDataSource()->request('collections/collections/addObject/' . $id . '/' . $object_id, array(
+            'method' => 'GET'
+        ));
+    }
+
+    public function removeObject($id, $object_id) {
+        return $this->getDataSource()->request('collections/collections/removeObject/' . $id . '/' . $object_id, array(
+            'method' => 'GET'
         ));
     }
 

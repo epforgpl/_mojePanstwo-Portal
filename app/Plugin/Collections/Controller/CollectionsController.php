@@ -17,13 +17,23 @@ class CollectionsController extends AppController {
             throw new ForbiddenException;
     }
 
-    public function get() {
-        $this->set('response', $this->Collection->get());
+    public function get($id) {
+        $this->set('response', $this->Collection->get($id));
         $this->set('_serialize', array('response'));
     }
 
     public function create() {
         $this->set('response', $this->Collection->create($this->request->data));
+        $this->set('_serialize', array('response'));
+    }
+
+    public function addObject($id, $object_id) {
+        $this->set('response', $this->Collection->addObject($id, $object_id));
+        $this->set('_serialize', array('response'));
+    }
+
+    public function removeObject($id, $object_id) {
+        $this->set('response', $this->Collection->removeObject($id, $object_id));
         $this->set('_serialize', array('response'));
     }
 
