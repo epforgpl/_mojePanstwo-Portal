@@ -9,7 +9,7 @@ class TwitterAccountsController extends AdminAppController {
     private $types = array(
         '2' => 'Komentator',
         '3' => 'Urząd',
-        '7' => 'Polityk',
+        '7' => 'Politycy i urzędnicy',
         '8' => 'Partia',
         '9' => 'NGO i akcje społeczne',
         '10' => 'Miasto',
