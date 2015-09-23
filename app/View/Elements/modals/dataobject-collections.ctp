@@ -9,7 +9,7 @@ $object_id = $object->getId();
 <div
     data-tooltip="true"
     data-original-title="Dodaj do kolekcji"
-    data-placement="left"
+    data-placement="bottom"
     data-toggle="modal"
     data-target="#collectionsModal"
     class="btn optionBtn btn-primary">

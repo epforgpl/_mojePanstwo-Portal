@@ -50,7 +50,7 @@ if (!isset($renderFile) || !$renderFile)
                     <? } ?>
 
                 </div>
-                <div class="col-md-2 DataObjectOptions margin-top-30">
+                <div class="col-md-2 DataObjectOptions">
 
                     <? if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
                         <div class="option"><?= $this->element('modals/dataobject-observe'); ?></div>

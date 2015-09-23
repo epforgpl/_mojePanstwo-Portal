@@ -89,6 +89,11 @@ if ($dataBrowser['mode'] == 'cover') {
             	'params' => $params,
             )) ?>
             */ ?>
+            
+            <?
+	            if( isset($dataBrowser['beforeBrowserElement']) ) 
+		            echo $this->element($dataBrowser['beforeBrowserElement']);
+		    ?>
 
             <div class="dataObjects">
 

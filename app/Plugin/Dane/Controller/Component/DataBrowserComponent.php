@@ -1305,7 +1305,7 @@ class DataBrowserComponent extends Component
 
         if (isset($settings['dataset']))
             $this->dataset = $settings['dataset'];
-
+            
     }
 
     public function beforeRender($controller)
@@ -1388,7 +1388,9 @@ class DataBrowserComponent extends Component
                 'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
                 'sort' => $this->prepareSort($this->settings['sort']),
             );
-
+            
+            if( isset($this->settings['beforeBrowserElement']) )
+            	$dataBrowser['beforeBrowserElement'] = $this->settings['beforeBrowserElement'];
 
 
 			$app_menu = array();

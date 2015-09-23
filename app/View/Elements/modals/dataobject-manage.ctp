@@ -5,7 +5,7 @@ $this->Combinator->add_libs('js', 'Dane.modal-dataobject-manage');
 <div
     data-tooltip="true"
     data-original-title="Zarządzaj"
-    data-placement="left"
+    data-placement="bottom"
     data-toggle="modal"
     data-target="#manageModal"
     class="btn optionBtn btn-primary">

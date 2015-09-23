@@ -12,7 +12,7 @@ $object_id = $object->getId();
 <div
     data-tooltip="true"
     data-original-title="Obserwuj"
-    data-placement="left"
+    data-placement="bottom"
     data-toggle="modal"
     data-target="#observeModal"
     class="btn optionBtn <? echo (isset($subscription) && !empty($subscription)) ? 'btn-success' : 'btn-primary'; ?>">
