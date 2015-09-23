@@ -20,18 +20,27 @@ class DataBrowserComponent extends Component
 	
 	private $sort_presets = array(
 		'prawo' => array(
-			'data_publikacji' => array(
+			'prawo.data_publikacji' => array(
 				'label' => 'Data publikacji',
 				'options' => array(
 					'desc' => 'od najnowszych',
 					'asc' => 'od najstarszych',
 				),
 			),
-			'data_wejscia_w_zycie' => array(
+			'prawo.data_wejscia_w_zycie' => array(
 				'label' => 'Data wejścia w życie',
 				'options' => array(
 					'asc' => 'od najwcześniejszych',
 					'desc' => 'od najpóźniejszych',
+				),
+			),
+		),
+		'rady_gmin_interpelacje' => array(
+			'date' => array(
+				'label' => 'Data wysłania',
+				'options' => array(
+					'desc' => 'od najnowszych',
+					'asc' => 'od najstarszych',
 				),
 			),
 		),
@@ -698,6 +707,7 @@ class DataBrowserComponent extends Component
                     'field' => 'radni_gmin.id'
                 ),
             ),
+            /*
 			'kadencja' => array(
                 'terms' => array(
                     'field' => 'rady_gmin_interpelacje.kadencja_id',
@@ -723,6 +733,20 @@ class DataBrowserComponent extends Component
                         '8' => 'VIII kadencja',
                     ),
                     'all' => 'Wszystkie kadencje',
+                ),
+            ),
+            */
+            'date' => array(
+                'date_histogram' => array(
+                    'field' => 'date',
+                    'interval' => 'year',
+                    'format' => 'yyyy-MM-dd',
+                ),
+                'visual' => array(
+                    'label' => 'Liczba interpelacji w czasie',
+                    'skin' => 'date_histogram',
+                    'field' => 'date',
+                    'all' => 'Wysłane kiedykolwiek',
                 ),
             ),
         ),
@@ -1555,8 +1579,7 @@ class DataBrowserComponent extends Component
 				}
 			}
 		}
-
-
+		
         return $output;
 
     }
@@ -1644,7 +1667,7 @@ class DataBrowserComponent extends Component
             if( isset($maps[$i]['forceKey']) )
             	$maps[ $maps[$i]['forceKey'] ] = $maps[$i];
         }
-
+				
         return $maps;
     }
 
