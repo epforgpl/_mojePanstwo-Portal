@@ -7,7 +7,7 @@ class PrawoController extends DataobjectsController
 
     public $initLayers = array('docs', 'counters', 'files');
     public $helpers = array('Document');
-
+	public $addDatasetBreadcrumb = false;
     // public $uses = array('Dane.Dataliner');
 
     public $observeOptions = true;
@@ -264,6 +264,44 @@ class PrawoController extends DataobjectsController
         	);
         
         return $menu;
+	}
+	
+	public function beforeRender() {
+		
+		parent::beforeRender();
+		
+		if( in_array($this->object->getData('typ_id'), array('1')) ) {
+		    
+		    $this->addBreadcrumb(array(
+                'href' => '/prawo/ustawy',
+                'label' => 'Ustawy',
+            ));
+		    
+	    } elseif( in_array($this->object->getData('typ_id'), array('3')) ) {
+		    
+		    $this->addBreadcrumb(array(
+                'href' => '/prawo/rozporzadzenia',
+                'label' => 'Rozporządzenia',
+            ));
+		    
+	    } elseif( in_array($this->object->getData('typ_id'), array('6', '7', '8', '10', '11', '12')) ) {
+		    
+		    $this->addBreadcrumb(array(
+                'href' => '/prawo/umowy',
+                'label' => 'Umowy międzynarodowe',
+            ));
+		    
+	    } elseif( in_array($this->object->getData('typ_id'), array('0', '2', '4', '5', '9', '13', '14', '15')) ) {
+		    
+		    $this->addBreadcrumb(array(
+                'href' => '/prawo/inne',
+                'label' => 'Inne akty prawne',
+            ));
+		    
+	    }
+	    
+	    
+		
 	}
 
 } 

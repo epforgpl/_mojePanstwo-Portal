@@ -171,7 +171,8 @@ echo $this->Html->script('../plugins/bootstrap-switch/dist/js/bootstrap-switch.m
         user_id: '<?= AuthComponent::user('id'); ?>',
         language: {
             twoDig: "<?php switch (Configure::read('Config.language')) { case 'pol': echo "pl"; break; case 'eng': echo "en"; break; }  ?>",
-            threeDig: "<?php echo Configure::read('Config.language'); ?>"
+            threeDig: "<?php echo Configure::read('Config.language'); ?>",
+            twoPerThreeDig: "<?php switch (Configure::read('Config.language')) { case 'pol': echo "pl-PL"; break; case 'eng': echo "en-EN"; break; }  ?>"
         },
         social: {
             facebook: {
@@ -192,7 +193,7 @@ echo $this->Html->script('../plugins/bootstrap-switch/dist/js/bootstrap-switch.m
 <?php
 $this->Combinator->add_libs('js', 'enhance', false);
 $this->Combinator->add_libs('js', 'structure', false);
-$this->Combinator->add_libs('js', 'main', false);
+$this->Combinator->add_libs('js', 'mpbase', false);
 $this->Combinator->add_libs('js', 'suggester');
 $this->Combinator->add_libs('js', 'appheader');
 

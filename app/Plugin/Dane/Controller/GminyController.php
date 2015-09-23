@@ -1551,6 +1551,7 @@ class GminyController extends DataobjectsController
                     'dataset' => 'rady_gmin_interpelacje',
                 ),
                 'aggsPreset' => 'rady_gmin_interpelacje',
+                'sortPreset' => 'rady_gmin_interpelacje',
                 'searchTitle' => 'Szukaj w interpelacjach...',
             ));
 
@@ -2176,7 +2177,7 @@ class GminyController extends DataobjectsController
                     'dataset' => 'dzielnice',
                     'id' => $this->request->params['subid'],
                 ),
-                'layers' => array('channels', 'subscriptions'),
+                'layers' => array('info', 'channels', 'subscriptions'),
             ));
 
 
@@ -2331,14 +2332,6 @@ class GminyController extends DataobjectsController
                             ),
                         )))
                     ) {
-
-
-                        /* ob_end_clean();
-                        var_dump($posiedzenie->getLayer('punkty'));
-                        die(); */
-
-                        // debug( $this->API->document($posiedzenie->getData('przedmiot_dokument_id')) ); die();
-
 
                         $punkty = (array)$posiedzenie->getLayer('punkty');
                         if (count($punkty) === 0) $punkty = false;

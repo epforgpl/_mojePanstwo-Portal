@@ -7,7 +7,16 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
 $this->Combinator->add_libs('css', $this->Less->css('view-instytucje-cover-sejm', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.view-instytucje-cover-sejm');
-echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false', array('block' => 'scriptBlock'));
+
+switch (Configure::read('Config.language')) {
+    case 'pol':
+        $lang = "pl-PL";
+        break;
+    case 'eng':
+        $lang = "en-EN";
+        break;
+};
+echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&language=' . $lang, array('block' => 'scriptBlock'));
 
 
 $options = array(
@@ -18,24 +27,24 @@ $options = array(
 <div class="col-md-9">
 
     <div class="blocks">
-		
-	    <? /* 
-	    if ( $doc = @$dataBrowser['aggs']['sejm_posiedzenia']['top']['hits']['hits'][0]['fields']['source'][0] ) { 
+
+        <? /*
+	    if ( $doc = @$dataBrowser['aggs']['sejm_posiedzenia']['top']['hits']['hits'][0]['fields']['source'][0] ) {
         ?>
             <div class="block block-simple block-size-sm col-xs-12">
-                                
+
                 <header><a href="/dane/instytucje/3214/posiedzenia/<?= $doc['data']['sejm_posiedzenia.id'] ?>"><?= $doc['data']['sejm_posiedzenia.tytul'] ?></a> <small><?= $doc['data']['sejm_posiedzenia.str_data'] ?></small></header>
-				
+
                 <?= $this->element('Dane.sejm_posiedzenia/stats', array(
                 	'data' => $doc['data'],
                 	'buttons' => true,
                 )) ?>
-                
+
             </div>
         <? } */ ?>
-        
 
-		<? if (@$dataBrowser['aggs']['prawo_projekty']['top']['hits']['hits']) { ?>
+
+        <? if (@$dataBrowser['aggs']['prawo_projekty']['top']['hits']['hits']) { ?>
             <div class="block block-simple block-size-sm col-xs-12">
                 <header>Najnowsze projekty aktów prawnych skierowane do Sejmu:</header>
 
@@ -67,7 +76,7 @@ $options = array(
             </div>
         <? } ?>
 
-		
+
         <? if(@$okregi) { ?>
             <div class="block block-simple block-size-sm col-xs-12">
                 <header>Znajdź posłów reprezentujących Twój okręg wyborczy:</header>
@@ -86,9 +95,9 @@ $options = array(
                 </div>
                 <div data-name="okregi" data-value='<?= json_encode($okregi) ?>'></div>
             </div>
-        <? } ?>		
-        
-				
+        <? } ?>
+
+
 		<? if (@$dataBrowser['aggs']['zamowienia_publiczne_dokumenty']['dni']['buckets']) { ?>
             <div class="block block-simple block-size-sm col-xs-12">
                 <header>Rozstrzygnięcia zamówień publicznych w Kancelarii Sejmu:</header>
@@ -100,15 +109,13 @@ $options = array(
                         ),
                         'more' => $object->getUrl() . '/zamowienia',
                         'aggs' => array(
-                        	'stats' => array(), 
-                        	'dokumenty' => array(), 
+                            'stats' => array(),
+                            'dokumenty' => array(),
                         ),
                     )); ?>
                 </section>
             </div>
         <? } ?>
-
-        
 
 
     </div>
@@ -116,14 +123,14 @@ $options = array(
 </div>
 <div class="col-md-3">
     <?
-	    
+
     if ($adres = $object->getData('adres_str')) {
         $adres = str_ireplace('ul.', '<br/>ul.', $adres) . ', Polska';
         echo $this->element('Dane.adres', array(
             'adres' => $adres,
         ));
     }
-    
+
     $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
 
     $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
@@ -133,7 +140,7 @@ $options = array(
     $page = $object->getLayer('page');
     if (!$page['moderated'])
         echo $this->element('tools/admin', array());
-        
+
     echo $this->element('tools/datasets', array(
 	    'items' => array(
 		    array(
@@ -200,7 +207,7 @@ $options = array(
                 'id' => 'okregi',
                 'dataset' => 'sejm_okregi_wyborcze',
                 'label' => 'Okręgi wyborcze do Sejmu',
-            ),                            
+            ),
             array(
                 'id' => 'poslowie_oswiadczenia_majatkowe',
                 'dataset' => 'poslowie_oswiadczenia_majatkowe',

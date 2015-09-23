@@ -15,7 +15,7 @@ if (!isset($renderFile) || !$renderFile)
 <div
     class="appHeader dataobject"<? if (isset($object_editable) && !empty($object_editable)) { ?> data-editables='<?= json_encode($object_editable) ?>'<? } ?>
     data-url="<?= urlencode($object->getUrl()) ?>" data-dataset="<?= $object->getDataset() ?>"
-    data-object_id="<?= $object->getId() ?>">
+    data-object_id="<?= $object->getId() ?>" data-global-id="<?= $object->getGlobalId() ?>">
     <div class="container">
         <div class="holder">
             <div class="row">
@@ -27,7 +27,7 @@ if (!isset($renderFile) || !$renderFile)
                             </li>
                         <? } ?>
                     </ul>
-					
+
 					<? if( !isset($objectOptions['renderTitle']) || $objectOptions['renderTitle'] ) { ?>
 	                    <div class="title<? if (isset($treeList)) echo ' hide'; ?>">
 	                        <h1 class="smaller">
@@ -38,7 +38,7 @@ if (!isset($renderFile) || !$renderFile)
 	                                <?= $object->geticon() ?>
 	                                <div
 	                                    class="titleName"<? if ($microdata['titleprop']) { ?> itemprop="<?= $microdata['titleprop'] ?>"<? } ?>><?= $object->getTitle() ?></div>
-	
+
 	                                <?php if ($object->getUrl() != false){ ?>
 	                            </a>
 	                        <? if ($object->getTitleAddon()) {
@@ -48,13 +48,23 @@ if (!isset($renderFile) || !$renderFile)
 	                        </h1>
 	                    </div>
                     <? } ?>
-                    
+
                 </div>
-                <?php if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
-                    <div class="col-md-2 options">
-                        <div class="opt"><? echo $this->element('modals/dataobject-observe'); ?></div>
-                    </div>
-                <? } ?>
+                <div class="col-md-2 DataObjectOptions margin-top-30">
+
+                    <? if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
+                        <div class="option"><?= $this->element('modals/dataobject-observe'); ?></div>
+                    <? } ?>
+
+                    <? if (isset($_collectionsOptions) && !empty($_collectionsOptions)) { ?>
+                        <div class="option"><?= $this->element('modals/dataobject-collections'); ?></div>
+                    <? } ?>
+
+                    <? if (isset($_manageOptions) && !empty($_manageOptions)) { ?>
+                        <div class="option"><?= $this->element('modals/dataobject-manage'); ?></div>
+                    <? } ?>
+
+                </div>
             </div>
             <div class="row">
                 <div class="col-xs-10">

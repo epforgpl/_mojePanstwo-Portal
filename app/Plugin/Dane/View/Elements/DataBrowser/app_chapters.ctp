@@ -1,4 +1,7 @@
-<ul class="dataAggs">
+<?
+	$this->Combinator->add_libs('css', $this->Less->css('app_chapters'));
+?>
+<ul class="dataAggs app_chapters">
     <li class="agg special">
          
 		<div class="agg agg-List agg-Datasets showCounters">
@@ -29,7 +32,12 @@
 	
 	                <li<? if($active) { ?> class="active"<?}?>>
 	                	<a href="<?= $item['href'] ?>">
+		                	<? if(isset($item['icon'])) {?>
+			                	<i class="object-icon <?= $item['icon'] ?>"></i>
+		                	<? } ?>
+		                	<div<? if(isset($item['icon'])) {?> class="object-icon-side"<?}?>>
 		                	<?= $item['label'] ?><? if (isset($item['count'])) { ?> <span class="counter"><?= $item['count'] ?></span><? } ?>
+		                	</div>
 	                    </a>
 	                    
 	                    <? if( isset($item['element']) ) echo $this->element($item['element']['path']); ?>

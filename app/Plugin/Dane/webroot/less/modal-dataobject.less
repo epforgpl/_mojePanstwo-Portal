@@ -57,19 +57,39 @@
             }
 
             .list-group {
+                overflow: hidden;
+                overflow-y: scroll;
+                max-height: 200px;
                 margin-bottom: 0;
+                margin-top: 5px;
 
                 button {
 
                     text-align: left;
                     width: 100%;
 
-                    &:first-child {
-                        margin-top: 5px;
+                    &.unchecked {
+
+                        i {
+                            color: #fff;
+                        }
+
+                        &:hover {
+
+                            i {
+                                color: #333;
+                            }
+
+                        }
+
                     }
 
                     i {
                         margin-right: 10px;
+                    }
+
+                    &:hover {
+                        background: #f3f3f3;
                     }
                 }
             }

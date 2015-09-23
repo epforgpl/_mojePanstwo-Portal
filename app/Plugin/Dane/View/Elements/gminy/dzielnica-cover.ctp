@@ -49,7 +49,7 @@ $options = array(
 	                                        <? } ?>
 	                                    </ul>
 	                                    <div class="buttons">
-	                                        <a href="<?= $dzielnica->getUrl() ?>/rada_posiedzenia" class="btn btn-primary btn-sm">Zobacz
+	                                        <a href="<?= $dzielnica->getUrl() ?>/rada_posiedzenia" class="btn btn-primary btn-xs">Zobacz
 	                                            więcej</a>
 	                                    </div>
 	                                <? } ?>
@@ -94,7 +94,32 @@ $options = array(
 	        </div>
 
 	    </div><div class="col-sm-3 nopadding">
-
+			
+			<? if( $info = $dzielnica->getLayer('info') ) { ?>
+			<ul class="dataHighlights show overflow-auto">
+                <li class="dataHighlight col-xs-12">
+		            <p class="_label">Liczba mieszkańców:</p>
+		            <p class="_value"><?= $info['liczba_mieszkancow'] ?></p>
+		        </li>
+		        <li class="dataHighlight col-xs-12">
+		            <p class="_label">Powierzchnia:</p>
+		            <p class="_value"><?= $info['liczba_powierzchnia'] ?> km<sup>2</sup></p>
+		        </li>
+		        <li class="dataHighlight col-xs-12">
+		            <p class="_label">Gęstość zaludnienia:</p>
+		            <p class="_value"><?= $info['liczba_gestosc_zaludnienia'] ?> os./km<sup>2</sup></p>
+		        </li>
+		        <li class="dataHighlight col-xs-12">
+		            <p class="_label">Frekwencja w wyborach samorządowych:
+		            <p class="_value"><?= $info['liczba_frekwencja'] ?>%</p>
+		        </li>
+		        <li class="dataHighlight col-xs-12">
+		            <p class="_label">Wikipedia:
+		            <p class="_value"><a target="_blank" href="<?= $info['url_wiki'] ?>">Link</a></p>
+		        </li>
+			</ul>
+			<? } ?>			
+			
 	        <?
 	        $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
 	        $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));

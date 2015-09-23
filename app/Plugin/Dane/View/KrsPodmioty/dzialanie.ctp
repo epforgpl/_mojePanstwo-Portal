@@ -100,7 +100,15 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 
                                 <? if($mailing = @$features['mailings'][0]) { ?>
 
-                                    <?php echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false', array('block' => 'scriptBlock')); ?>
+                                    <?php switch (Configure::read('Config.language')) {
+                                        case 'pol':
+                                            $lang = "pl-PL";
+                                            break;
+                                        case 'eng':
+                                            $lang = "en-EN";
+                                            break;
+                                    }; ?>
+                                    <?php echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&language=' . $lang, array('block' => 'scriptBlock')); ?>
                                     <?php $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma'))) ?>
                                     <?php $this->Combinator->add_libs('css', $this->Less->css('naszrzecznik', array('plugin' => 'Pisma'))) ?>
                                     <?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>

@@ -169,7 +169,7 @@ $(document).ready(function () {
 
 					markers[term] = marker;
 
-					google.maps.event.addListener(marker, 'click', (function (marker) {
+					marker.addListener('click', (function (marker) {
 						return function () {
 							if (infowindow)
 								infowindow.close();
@@ -201,9 +201,11 @@ $(document).ready(function () {
 						};
 					})(marker, content, infowindow));
 				} else {
-					var inner_center = Geohash.decode(cell.inner_key);
+					var inner_center = Geohash.decode(cell.inner_key),
+						centerLat = center.lat + (inner_center.lat - center.lat) * f,
+						centerLng = center.lon + (inner_center.lon - center.lon) * f;
 
-					markers[term] = new CustomMarker(new google.maps.LatLng(center.lat + (inner_center.lat - center.lat) * f, center.lon + (inner_center.lon - center.lon) * f), map, {
+					markers[term] = new CustomMarker(new google.maps.LatLng(centerLat, centerLng), map, {
 						title: cell.doc_count,
 						data: cell
 					});
@@ -220,6 +222,16 @@ $(document).ready(function () {
 
 	google.maps.event.addDomListener(map, 'idle', mapUpdate);
 	border.setMap(map);
+
+	$('.szukajOrganizajiBtn').click(function (e) {
+		e.preventDefault();
+
+		$('.searcher input.form-control').focus();
+
+		$('html,body').animate({
+			scrollTop: 0
+		});
+	})
 
 });
 

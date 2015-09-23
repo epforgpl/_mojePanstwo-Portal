@@ -17,7 +17,35 @@ class DataBrowserComponent extends Component
     private $routes = array();
     public $dataset = false;
     public $searchAction = false;
-
+	
+	private $sort_presets = array(
+		'prawo' => array(
+			'prawo.data_publikacji' => array(
+				'label' => 'Data publikacji',
+				'options' => array(
+					'desc' => 'od najnowszych',
+					'asc' => 'od najstarszych',
+				),
+			),
+			'prawo.data_wejscia_w_zycie' => array(
+				'label' => 'Data wejścia w życie',
+				'options' => array(
+					'asc' => 'od najwcześniejszych',
+					'desc' => 'od najpóźniejszych',
+				),
+			),
+		),
+		'rady_gmin_interpelacje' => array(
+			'date' => array(
+				'label' => 'Data wysłania',
+				'options' => array(
+					'desc' => 'od najnowszych',
+					'asc' => 'od najstarszych',
+				),
+			),
+		),
+	);
+	
     private $aggs_presets = array(
         'gminy' => array(
             'typ_id' => array(
@@ -679,6 +707,7 @@ class DataBrowserComponent extends Component
                     'field' => 'radni_gmin.id'
                 ),
             ),
+            /*
 			'kadencja' => array(
                 'terms' => array(
                     'field' => 'rady_gmin_interpelacje.kadencja_id',
@@ -704,6 +733,20 @@ class DataBrowserComponent extends Component
                         '8' => 'VIII kadencja',
                     ),
                     'all' => 'Wszystkie kadencje',
+                ),
+            ),
+            */
+            'date' => array(
+                'date_histogram' => array(
+                    'field' => 'date',
+                    'interval' => 'year',
+                    'format' => 'yyyy-MM-dd',
+                ),
+                'visual' => array(
+                    'label' => 'Liczba interpelacji w czasie',
+                    'skin' => 'date_histogram',
+                    'field' => 'date',
+                    'all' => 'Wysłane kiedykolwiek',
                 ),
             ),
         ),
@@ -1092,6 +1135,7 @@ class DataBrowserComponent extends Component
                     'field' => 'krs_podmioty.wartosc_kapital_zakladowy',
                 ),
             ),
+            /*
             'date' => array(
                 'date_histogram' => array(
                     'field' => 'date',
@@ -1105,6 +1149,7 @@ class DataBrowserComponent extends Component
                     'all' => 'Zarejestrowane kiedykolwiek',
                 ),
             ),
+            */
         ),
         'dotacje_ue' => array(
             'date' => array(
@@ -1181,6 +1226,13 @@ class DataBrowserComponent extends Component
 		return $aggs;
 
 	}
+	
+	private function prepareSort( $sort = array() )
+	{
+		
+		return $sort;
+		
+	}
 
     public function __construct($collection, $settings)
     {
@@ -1192,13 +1244,27 @@ class DataBrowserComponent extends Component
             )
         )
             $settings['aggs'] = array();
+            
+        if (
+            (
+                !isset($settings['sort']) ||
+                (empty($settings['sort']))
+            )
+        )
+            $settings['sort'] = array();
 
         if(
 	        isset($settings['aggsPreset']) &&
             array_key_exists($settings['aggsPreset'], $this->aggs_presets)
         )
         	$settings['aggs'] = array_merge($this->aggs_presets[$settings['aggsPreset']], $settings['aggs']);
-
+        
+        if(
+	        isset($settings['sortPreset']) &&
+            array_key_exists($settings['sortPreset'], $this->sort_presets)
+        )
+        	$settings['sort'] = array_merge($this->sort_presets[$settings['sortPreset']], $settings['sort']);
+					
         if( isset($settings['aggs']) )
         	$settings['aggs'] = $this->processAggs( $settings['aggs'] );
 
@@ -1320,6 +1386,7 @@ class DataBrowserComponent extends Component
                 'mode' => 'data',
                 'dataset' => $this->dataset,
                 'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
+                'sort' => $this->prepareSort($this->settings['sort']),
             );
 
 
@@ -1512,8 +1579,7 @@ class DataBrowserComponent extends Component
 				}
 			}
 		}
-
-
+		
         return $output;
 
     }
@@ -1601,7 +1667,7 @@ class DataBrowserComponent extends Component
             if( isset($maps[$i]['forceKey']) )
             	$maps[ $maps[$i]['forceKey'] ] = $maps[$i];
         }
-
+				
         return $maps;
     }
 

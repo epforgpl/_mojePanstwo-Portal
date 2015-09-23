@@ -325,26 +325,24 @@ a.link-api-call {
     }
 
     .list-group.reset {
-	    list-style: inherit;
-	    padding: inherit;
-	    margin: inherit;
-	    li, .list-group-item {
-		    list-style: inherit;
-		    padding: 10px;
-		    margin: -1px -5px 0 -15px;
-		    background: inherit;
-		    .sublabel {
-			    margin-left: inherit;
-		    }
-		}
+        list-style: inherit;
+        padding: inherit;
+        margin: inherit;
+        li, .list-group-item {
+            list-style: inherit;
+            padding: 10px;
+            margin: -1px -5px 0 -15px;
+            background: inherit;
+            .sublabel {
+                margin-left: inherit;
+            }
+        }
     }
 
     ul.dataAggsDropdownList {
-
         li.dataAggsDropdown {
-
             a {
-                color: #555;
+                color: #23527C;
             }
 
             &.active > a {
@@ -358,13 +356,13 @@ a.link-api-call {
             }
 
             > a:hover, > a:focus {
-	            background-color: inherit;
+                background-color: inherit;
             }
 
             .highcharts-legend-item {
 
                 a {
-                    font-family: "Lato",Arial,sans-serif !important;
+                    font-family: "Lato", Arial, sans-serif !important;
                     font-weight: normal;
                     font-size: 13px;
                     &.active {
@@ -437,7 +435,54 @@ a.link-api-call {
             }
 
         }
+        li.splitDropdownMenu ul.dropdown-menu {
+            width: 300px;
 
+            > li {
+                &:after {
+                    border-top: 1px dotted #d6d6d6;
+                    content: "";
+                    display: block;
+                    height: 1px;
+                    margin: 5px 0 0;
+                    padding: 5px 0 0;
+                    width: 100%;
+                }
+
+                &:last-child:after {
+                    border-top: 0;
+                }
+            }
+
+            li {
+                line-height: 20px;
+
+                span {
+                    display: inline-block;
+                    float: left;
+                    vertical-align: top;
+                    width: 50%;
+                    padding: 0 5px 0 10px;
+                    white-space: nowrap;
+
+                    &::after {
+                        content: ":";
+                    }
+                }
+
+                ul {
+                    display: inline-block;
+                    list-style: outside none none;
+                    padding: 0 10px 0 5px;
+                    width: 50%;
+
+                    a {
+                        display: block;
+                        white-space: nowrap;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -478,10 +523,11 @@ a.link-api-call {
     }
 }
 
-.col-md-3 ul.dane_radnego.rightColumn{
-            display: block;
-        }
-.dane_majatkowe{
-    margin-left:25px;
+.col-md-3 ul.dane_radnego.rightColumn {
+    display: block;
+}
+
+.dane_majatkowe {
+    margin-left: 25px;
 }
 
