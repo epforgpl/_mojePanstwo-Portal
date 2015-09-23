@@ -13,9 +13,9 @@
     if( $_searcher ) { 
 
         $value = isset($this->request->query['q']) ? addslashes($this->request->query['q']) : '';
-        $autocompletion = ($dataBrowser['autocompletion']) ? $dataBrowser['autocompletion'] : false;
+        $autocompletion = (@$dataBrowser['autocompletion']) ? $dataBrowser['autocompletion'] : false;
         $placeholder = (isset($dataBrowser['searchTitle']) && ($dataBrowser['searchTitle'])) ? addslashes($dataBrowser['searchTitle']) : 'Szukaj...';
-        $url = ($dataBrowser['cancel_url']) ? $dataBrowser['cancel_url'] : '';
+        $url = (@$dataBrowser['cancel_url']) ? $dataBrowser['cancel_url'] : '';
         ?>
 
         <?= $this->Element('searcher', array('q' => $value, 'autocompletion' => $autocompletion, 'placeholder' => $placeholder, 'url' => $url)) ?>

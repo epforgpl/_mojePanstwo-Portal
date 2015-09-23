@@ -344,7 +344,9 @@ class StartController extends ApplicationsController
     }
 
     public function kolekcje() {
+	    
 	    $this->title = 'Moje Kolekcje';
+        
         $this->loadDatasetBrowser('kolekcje', array(
             'conditions' => array(
                 'dataset' => 'kolekcje',
@@ -357,6 +359,8 @@ class StartController extends ApplicationsController
     }
 
     public function dodaj_kolekcje() {
+
+        $this->chapter_selected = 'kolekcje';
 
     }
 
