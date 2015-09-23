@@ -20,43 +20,43 @@ class PrawoController extends ApplicationsController
 					'id' => 'aktualnosci',
 					'label' => 'Aktualności',
 					'href' => '/prawo/aktualnosci',
-					// 'icon' => 'icon-datasets-sejm_komunikaty',
+					'icon' => 'icon-datasets-sejm_komunikaty',
 				),
 				array(
 					'id' => 'ustawy',
 					'label' => 'Ustawy',
 					'href' => '/prawo/ustawy',
-					// 'icon' => 'icon-datasets-prawo ustawy',
+					'icon' => 'icon-datasets-prawo ustawy',
 				),
 				array(
 					'id' => 'rozporzadzenia',
 					'label' => 'Rozporządzenia',
 					'href' => '/prawo/rozporzadzenia',
-					// 'icon' => 'icon-datasets-prawo rozporzadzenia',
+					'icon' => 'icon-datasets-prawo rozporzadzenia',
 				),
 				array(
 					'id' => 'umowy',
 					'label' => 'Umowy międzynarodowe',
 					'href' => '/prawo/umowy',
-					// 'icon' => 'icon-datasets-prawo umowy',
+					'icon' => 'icon-datasets-prawo umowy',
 				),
 				array(
 					'id' => 'inne',
 					'label' => 'Inne akty prawne',
 					'href' => '/prawo/inne',
-					// 'icon' => 'icon-datasets-prawo inne',
+					'icon' => 'icon-datasets-prawo inne',
 				),
 				array(
 					'id' => 'lokalne',
 					'label' => 'Prawo lokalne',
 					'href' => '/prawo/lokalne',
-					// 'icon' => 'icon-datasets-prawo lokalne',
+					'icon' => 'icon-datasets-prawo lokalne',
 				),
 				array(
 					'id' => 'urzedowe',
 					'label' => 'Prawo urzędowe',
 					'href' => '/prawo/urzedowe',
-					// 'icon' => 'icon-datasets-prawo urzedowe',
+					'icon' => 'icon-datasets-prawo urzedowe',
 				),
             )
         )
@@ -305,6 +305,7 @@ class PrawoController extends ApplicationsController
 	                ),
 	            ),
             ), $this->getChaptersAggs()),
+            'sortPreset' => 'prawo',
         ));
     }
     

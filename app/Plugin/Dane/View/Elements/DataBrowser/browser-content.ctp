@@ -80,10 +80,9 @@ if ($dataBrowser['mode'] == 'cover') {
 
         <div class="dataWrap margin-top-10">
 
-            <?= $this->element('Dane.DataBrowser/browser-content-paging', array(
-            	'params' => $params,
+            <?= $this->element('Dane.DataBrowser/browser-content-filters', array(
+            	'paging' => $params,
             )) ?>
-            <?= $this->element('Dane.DataBrowser/browser-content-filters') ?>
 
             <? /*
             <?= $this->element('Dane.DataBrowser/browser-content-paging', array(

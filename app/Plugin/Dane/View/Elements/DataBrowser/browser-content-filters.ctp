@@ -1,8 +1,19 @@
 <? if(isset($dataBrowser['aggs_visuals_map']) && count($dataBrowser['aggs_visuals_map']) > 0) { $selected = false; ?>
     <ul class="nav nav-pills dataAggsDropdownList nopadding" role="tablist">
+        
+        <? if(isset($paging['count']) && $paging['count']) {?>
+		<li>
+			<div class="dataCounter">
+	        	<span><?= pl_dopelniacz($paging['count'], 'wynik', 'wyniki', 'wyników') ?></span>
+		    </div>
+		</li>
+		<? } ?>
+        
         <?
         foreach($dataBrowser['aggs_visuals_map'] as $name => $map) {
-
+		?>
+					
+		<?		
             if( ($name!='dataset') && isset($map['target']) && ($map['target']=='filters') ) {
 
                 if( !isset($map['all']) )
@@ -86,6 +97,15 @@
                     Usuń filtry
                 </a>
             </li>
+        <? } ?>
+        
+        <? if( isset($dataBrowser['sort']) && $dataBrowser['sort'] ) {?>
+        <li role="presentation" class="dropdown dataAggsDropdown pull-right">
+        	<a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sortowanie <span class="caret"></span></a>
+        	<ul class="dropdown-menu">
+	        	<li><? debug($dataBrowser['sort']); ?></li>
+        	</ul>
+        </li>
         <? } ?>
 
     </ul>
