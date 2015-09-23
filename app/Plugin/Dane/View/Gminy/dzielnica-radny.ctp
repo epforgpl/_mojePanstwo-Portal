@@ -38,7 +38,6 @@ echo $this->Element('Dane.dataobject/subobject', array(
     ),
 ));
 ?>
-
     <div class="object block-group col-xs-12">
 
         <? if (
@@ -85,12 +84,38 @@ echo $this->Element('Dane.dataobject/subobject', array(
                         )); ?>
                     </div>
                 <? } ?>
+                <? if (
+                $radny->getData('funkcja')
+                ) { ?>
+                    <div class="content nopadding">
+                        <?php echo $this->Dataobject->hlTableForObject($radny, array(
+                            'funkcja',
+                        ), array(
+                            'col_width' => 12,
+                            'display' => 'firstRow',
+                            'limit' => 100,
+                        )); ?>
+                    </div>
+                <? } ?>
+                <? if (
+                $radny->getData('komisje')
+                ) { ?>
+                    <div class="content nopadding">
+                        <?php echo $this->Dataobject->hlTableForObject($radny, array(
+                            'komisje',
+                        ), array(
+                            'col_width' => 12,
+                            'display' => 'firstRow',
+                            'limit' => 100,
+                        )); ?>
+                    </div>
+                <? } ?>
 
 
             </div>
         <? } ?>
 
-        <? if ($radny->getData('dyzur') || $radny->getData('tel') || $radny->getData('email') || $radny->getData('www')) { ?>
+        <? if ($radny->getData('dyzur') || $radny->getData('tel') || $radny->getData('email') || $radny->getData('www') || $radny->getData('www_dzielnica')) { ?>
             <div class="block">
 
                 <div class="block-header">
@@ -102,7 +127,8 @@ echo $this->Element('Dane.dataobject/subobject', array(
                         'dyzur',
                         'tel',
                         'email',
-                        'www'
+                        'www',
+                        'www_dzielnica'
                     ), array(
                         'col_width' => 4,
                         'display' => 'firstRow',

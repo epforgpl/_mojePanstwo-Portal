@@ -3,10 +3,10 @@
 namespace MP\Lib;
 
 class Radni_dzielnic extends DataObject
-{	
-	
+{
+
 	protected $tiny_label = 'Radny dzielnicy';
-	
+
 	protected $schema = array(
 		array('dzielnice.nazwa', 'Dzielnica', 'string', array(
 			'link' => array(
@@ -29,6 +29,7 @@ class Radni_dzielnic extends DataObject
 		array('tel', 'Telefon', 'string'),
 		array('email', 'Email', 'string'),
 		array('www', 'Strona WWW', 'string'),
+        array('www_dzielnica', 'Radny na stonie WWW dzielnicy', 'string'),
 
 		array('wyksztalcenie', 'Wykształcenie', 'string'),
 		array('zawod', 'Zawód', 'string'),
@@ -36,69 +37,70 @@ class Radni_dzielnic extends DataObject
 
 		array('kadencja', 'Kadencja', 'string'),
 		array('funkcja', 'Funkcja publiczne obecnie', 'string'),
+        array('komisje', 'Komisje obecnie', 'string'),
 		array('funkcje_publiczne_kiedys', 'Funkcje publiczne w przeszłości', 'string'),
 		array('ngo', 'Działalność w NGO', 'string'),
-		
+
 		array('social', 'Aktywność społeczna', 'string'),
 		array('sukcesy', 'Sukcesy', 'string'),
 	);
-	
-		
-	
-    
+
+
+
+
     protected $hl_fields = array(
     	'gminy.nazwa', 'dzielnice.nazwa', 'liczba_glosow'
     );
 
-	
+
 	public function getTitle()
     {
         return $this->getShortTitle();
     }
-    
+
     public function getShortTitle()
     {
         return $this->getData('nazwisko') . ' ' . $this->getData('imie');
     }
-	
+
 	public function hasHighlights()
     {
         return false;
     }
-    
+
     public function getLabel()
     {
 	    return 'Radny dzielnicy';
     }
-    
+
     public function getShortLabel()
     {
 	    return 'Radny dzielnicy ' . $this->getData('dzielnice.nazwa');
     }
-    
+
     public function getUrl()
     {
 	    return '/dane/gminy/903,krakow/dzielnice/' . $this->getData('dzielnica_id') . '/radni/' . $this->getId();
     }
-    
+
     public function getDescription()
     {
 	    $output = 'Radny dzielnicy <a href="/dane/dzielnice/' . $this->getData('dzielnice.id') . '">' . $this->getData('dzielnice.nazwa') . '</a>.<br/>';
-	    
-	    
-	    	
+
+
+
 	    if( in_array('7', $this->getData('kadencja_id')) )
 	    	$output .= ' Kadencja VII.';
-	    	
+
 	    if( in_array('6', $this->getData('kadencja_id')) )
 	    	$output .= ' Kadencja VI.';
-	    	    
+
 	    return $output;
     }
-    
+
     public function getBreadcrumbs()
 	{
-				
+
 		return array(
 			array(
 				'id' => '/dane/gminy/903,krakow/dzielnice/' . $this->getData('dzielnice.id'),
@@ -109,6 +111,6 @@ class Radni_dzielnic extends DataObject
 				'label' => 'Radni dzielnicy',
 			),
 		);
-				
+
 	}
 }

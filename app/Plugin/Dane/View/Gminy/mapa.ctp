@@ -32,8 +32,8 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                             <input class="" type="checkbox" id="road">
                             Drogi
                         </label>
-                        <i class="glyphicon glyphicon-minus"></i>
-                        <ul class="list-unstyled">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <ul class="list-unstyled hide">
                             <li>
                                 <label>
                                     <input class="google_layers_switch typy_drog" type="checkbox" id="road_arterial">
@@ -78,8 +78,8 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                             <input class="google_layers_switch" type="checkbox" id="transit_station">
                             Dworce
                         </label>
-                        <i class="glyphicon glyphicon-minus"></i>
-                        <ul class="list-unstyled">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <ul class="list-unstyled hide">
                             <li>
                                 <label>
                                     <input class="google_layers_switch stacje" type="checkbox" id="transit_station_bus">
@@ -110,8 +110,8 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                             <input type="checkbox" class="dzielnice" id="dzielnice_all" value="dzielnice">
                             Dzielnice
                         </label>
-                        <i class="glyphicon glyphicon-minus"></i>
-                        <ul class="list-unstyled">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <ul class="list-unstyled hide">
                             <li>
                                 <label>
                                     <input class="dzielnice dzielnica layer" type="checkbox" id="stare_miasto" value="I"
@@ -236,6 +236,129 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                                     <input class="dzielnice dzielnica layer" type="checkbox" id="nowa_huta"
                                            value="XVIII" data-layer="dzielnice">
                                     XVIII - Nowa Huta
+                                </label>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="list-unstyled first">
+                    <li>
+                        <label>
+                            <input type="checkbox" class="edukacjyjne" id="edukacja_all" value="edukacja">
+                            Placówki edukacyjne
+                        </label>
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <ul class="list-unstyled hide">
+                            <li>
+                                <label>
+                                    <input class="edukacja layer" type="checkbox" id="stare_miasto" value="I"
+                                           data-layer="edukacja">
+                                    Zespoły szkół i placówek oświatowych
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="edukacja layer" type="checkbox" id="grzegorzki" value="II"
+                                           data-layer="edukacja">
+                                    Gimnazja
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
+                                           value="III" data-layer="edukacja">
+                                    Inne placówki
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
+                                           value="III" data-layer="edukacja">
+                                    Internaty i bursy
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
+                                           value="III" data-layer="edukacja">
+                                    Licea
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
+                                           value="III" data-layer="edukacja">
+                                    MDK
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
+                                           value="III" data-layer="edukacja">
+                                    Poradnie
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
+                                           value="III" data-layer="edukacja">
+                                    Przedszkola
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
+                                           value="III" data-layer="edukacja">
+                                    Szkoły muzyczne
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
+                                           value="III" data-layer="edukacja">
+                                    Szkoły podstawowe
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
+                                           value="III" data-layer="edukacja">
+                                    Szkoły policealne
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
+                                           value="III" data-layer="edukacja">
+                                    Szkoły przysposabiające do pracy
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
+                                           value="III" data-layer="edukacja">
+                                    Technika
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
+                                           value="III" data-layer="edukacja">
+                                    Zasadniczne szkoły zawodowe
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
+                                           value="III" data-layer="edukacja">
+                                    Żłobki
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
+                                           value="III" data-layer="edukacja">
+                                    Żłobki niepubliczne i kluby dziecięce
                                 </label>
                             </li>
                         </ul>

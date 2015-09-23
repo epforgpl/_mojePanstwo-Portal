@@ -81,21 +81,6 @@ $(document).ready(function () {
 	map.setTilt(0);
 	border.setMap(map);
 
-	if ($(window).outerWidth() > 728) {
-		var menuholder = $('.menuholder'),
-			mapholder = $('.mapholder'),
-			fundatorzy = $('#fundatorzy').outerHeight(true),
-			header = $('.appHeader').outerHeight(true),
-			submenu = $('.appMenu').outerHeight(true);
-		var size = $(window).outerHeight() - fundatorzy - header - submenu;
-
-		if (size > 500) {
-			mapa.css('min-height', size);
-			mapholder.css('min-height', size);
-			menuholder.css('min-height', size);
-		}
-	}
-
 	function getLayers(type) {
 		$.ajax({
 			method: 'GET',
@@ -143,6 +128,22 @@ $(document).ready(function () {
 		});
 	});
 
+	$('#edukacja_all').change(function () {
+		var $edukacja = $('.edukacja');
+
+		if (!(typeof(layers[$(this).val()]) != "undefined" && layers[$(this).val()] != null)) {
+			getLayers($(this).val());
+		}
+		$edukacja.prop('checked', $(this).is(':checked'));
+
+		$edukacja.each(function () {
+			if ($(this).is(':checked')) {
+				layers[$(this).data('layer')][$(this).val()].setMap(map);
+			} else {
+				layers[$(this).data('layer')][$(this).val()].setMap(null);
+			}
+		});
+	});
 
 	$('.layer').change(function () {
 		if (!(typeof(layers[$(this).data('layer')]) != "undefined" && layers[$(this).data('layer')] != null)) {
@@ -163,7 +164,7 @@ $(document).ready(function () {
 			that.parent().find('>ul').hide();
 		} else {
 			that.removeClass('glyphicon-plus').addClass('glyphicon-minus');
-			that.parent().find('>ul').show();
+			that.parent().find('>ul').removeClass('hide').show();
 		}
 	});
 
@@ -368,6 +369,21 @@ $(document).ready(function () {
 		google_layers();
 	});
 
+	if ($(window).outerWidth() > 728) {
+		var menuholder = $('.menuholder'),
+			mapholder = $('.mapholder'),
+			fundatorzy = $('#fundatorzy').outerHeight(true),
+			header = $('.appHeader').outerHeight(true),
+			submenu = $('.appMenu').outerHeight(true);
+		var size = $(window).outerHeight() - fundatorzy - header - submenu;
+
+		if (size > 500) {
+			mapa.css('min-height', size);
+			mapholder.css('min-height', size);
+			menuholder.css('min-height', size);
+		}
+	}
+
 	var map_height = mapa.height();
 	$("#map_menu").draggable({
 		containment: "parent",
@@ -376,7 +392,7 @@ $(document).ready(function () {
 	}).resizable({
 		minWidth: 200,
 		maxWidth: 500,
-		minHeight: 250,
+		minHeight: 400,
 		maxHeight: map_height - 50
 	}).height(Math.round(map_height / 2));
 });
