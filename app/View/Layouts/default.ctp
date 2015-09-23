@@ -172,7 +172,7 @@ echo $this->Html->script('../plugins/bootstrap-switch/dist/js/bootstrap-switch.m
         language: {
             twoDig: "<?php switch (Configure::read('Config.language')) { case 'pol': echo "pl"; break; case 'eng': echo "en"; break; }  ?>",
             threeDig: "<?php echo Configure::read('Config.language'); ?>",
-            twoPerThreeDig: "<?php switch (Configure::read('Config.language')) { case 'pol': echo "pl-PL"; break; case 'eng': echo "en-EN"; break; }  ?>",
+            twoPerThreeDig: "<?php switch (Configure::read('Config.language')) { case 'pol': echo "pl-PL"; break; case 'eng': echo "en-EN"; break; }  ?>"
         },
         social: {
             facebook: {
