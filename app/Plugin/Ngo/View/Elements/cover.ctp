@@ -42,7 +42,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
 
                 <p>Aby zacząć, znajdź organizację, korzystając z wyszukiwarki powyżej, przejdź na jej profil i poproś o
                     uprawnienia do zarządzania jej profilem.</p>
-                <button class="btn btn-sm btn-primary szukajOrganizajiBtn">Szukaj organizaji</button>
+                <button class="btn btn-sm btn-primary szukajOrganizajiBtn">Szukaj organizacji</button>
             </div>
         </div>
 
