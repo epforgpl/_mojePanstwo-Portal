@@ -1,0 +1,122 @@
+
+.collectionsForm {
+
+    header {
+
+        h1 {
+            margin: 15px 0;
+            padding: 10px 0;
+            font-size: 20px;
+            font-weight: normal;
+            border-bottom: 1px solid #f6f6f6;
+        }
+
+    }
+
+    .image-editor {
+
+        text-align: center;
+        margin-bottom: 105px;
+
+        > p {
+            margin: 5px 0 10px;
+        }
+
+        .cropit-image-preview {
+            background-size: cover;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin-top: 7px;
+            cursor: move;
+
+            background: #ffffff url(/Dane/img/cropit_dzialanie_nowe_default_image.png) no-repeat center center;
+        }
+
+        .cropit-image-background {
+            opacity: .2;
+            cursor: auto;
+        }
+
+        .image-size-label {
+            margin-top: 10px;
+        }
+
+        .btn-file {
+            position: relative;
+            overflow: hidden;
+
+            input[type=file] {
+                position: absolute;
+                top: 0;
+                right: 0;
+                min-width: 100%;
+                min-height: 100%;
+                font-size: 100px;
+                text-align: right;
+                filter: alpha(opacity=0);
+                opacity: 0;
+                outline: none;
+                background: white;
+                cursor: inherit;
+                display: block;
+            }
+        }
+
+        .slider-wrapper {
+            display: block;
+            margin: 10px auto 0;
+            text-align: center;
+            width: auto;
+            overflow: hidden;
+
+            .cropit-image-zoom-input {
+                margin: 6px 8px 0;
+                float: left;
+                width: 90%;
+            }
+
+            .icon {
+                float: left;
+
+                &.icon-small {
+                    font-size: 16px;
+                    margin-top: 5px;
+                }
+                &.icon-large {
+                    font-size: 24px;
+                }
+            }
+        }
+
+        > p {
+            margin: 6px 0 10px;
+        }
+
+        .cropit-image-preview {
+            background-size: cover;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin-top: 7px;
+            cursor: move;
+        }
+
+        .cropit-image-background {
+            opacity: .2;
+            cursor: auto;
+        }
+
+        .image-size-label {
+            margin-top: 10px;
+        }
+
+        .alert {
+            padding: 2px 0;
+
+            -webkit-transition: height 0.8s;
+            -moz-transition: height 0.8s;
+            transition: height 0.8s;
+        }
+    }
+
+}

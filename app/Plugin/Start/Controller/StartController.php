@@ -2,6 +2,9 @@
 
 App::uses('ApplicationsController', 'Controller');
 
+/**
+ * @property Collection Collection
+ */
 class StartController extends ApplicationsController
 {
 
@@ -344,9 +347,11 @@ class StartController extends ApplicationsController
     }
 
     public function kolekcje() {
-	    
+        if(!$this->Auth->user())
+            throw new ForbiddenException;
+
 	    $this->title = 'Moje Kolekcje';
-        
+
         $this->loadDatasetBrowser('kolekcje', array(
             'conditions' => array(
                 'dataset' => 'kolekcje',
@@ -359,9 +364,26 @@ class StartController extends ApplicationsController
     }
 
     public function dodaj_kolekcje() {
+        if(!$this->Auth->user())
+            throw new ForbiddenException;
 
+        if(count($this->request->data)) {
+            $this->loadModel('Collections.Collection');
+            $results = $this->Collection->create($this->request->data);
+            if(isset($results['Collection'])) {
+                $message = 'Kolekcja została poprawnie dodana';
+            } elseif(is_array($results)) {
+                $errors = reset(array_values($results));
+                $message = $errors[0];
+            } else {
+                $message = 'Wystąpił błąd';
+            }
+
+            $this->Session->setFlash($message);
+        }
+
+        $this->title = 'Dodaj Kolekcje';
         $this->chapter_selected = 'kolekcje';
-
     }
 
     public function kolekcja($id) {
