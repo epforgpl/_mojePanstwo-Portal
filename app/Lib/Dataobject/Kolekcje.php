@@ -6,7 +6,7 @@ require_once('DocDataObject.php');
 class Kolekcje extends DocDataObject
 {
 
-	protected $tiny_label = 'Działania';
+	protected $tiny_label = 'Kolekcje';
 
     protected $routes = array(
         'title' => 'nazwa',
@@ -20,7 +20,7 @@ class Kolekcje extends DocDataObject
 
 	public function getUrl()
 	{
-		return '/dane/' . $this->getData('dataset') . '/' . $this->getData('object_id') . '/dzialania/' . $this->getId();
+		return '/moje-kolekcje/' . $this->getId();
 	}
 
 	public function getThumbnailUrl($size = '2')

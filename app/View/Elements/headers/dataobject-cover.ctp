@@ -22,10 +22,6 @@ if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object
     <div class="headlineBar" <? if ($pageLayer['cover']) {
         echo ' style="background-image: url(http://sds.tiktalik.com/portal/pages/cover/' . $dataset . '/' . $object_id . '.jpg)"';
     } ?>>
-        <? if (isset($pageLayer['credits']) && !empty($pageLayer['credits']) && $pageLayer['credits'] !== "") { ?>
-            <div class="credits"><a class="small" href="<?= $pageLayer['credits'] ?>" target="_blank">Prawa
-                    autorskie</a></div>
-        <? } ?>
         <div class="container">
             <?
 	            if ($pageLayer['logo']) {
@@ -40,6 +36,13 @@ if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object
                 </div>
             <? } ?>
             <div class="holder row">
+                <? if (isset($pageLayer['credits']) && !empty($pageLayer['credits']) && $pageLayer['credits'] !== "") { ?>
+                    <div class="credits">
+                        <a class="small" href="<?= $pageLayer['credits'] ?>" target="_blank">
+                            <i class="glyphicon glyphicon-copyright-mark"></i>
+                        </a>
+                    </div>
+                <? } ?>
                 <div class="holderBlock col-md-9">
 
                     <? if( $_breadcrumbs ) { ?>

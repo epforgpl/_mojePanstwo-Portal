@@ -1,1 +1,1 @@
-<a href="#" class="btn btn-primary">Dodaj kolekcję</a>
+<a href="/moje-kolekcje/dodaj" class="btn btn-primary">Dodaj kolekcję</a>

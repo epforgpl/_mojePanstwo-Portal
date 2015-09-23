@@ -10,7 +10,7 @@ class StartController extends ApplicationsController
         'title' => 'Start',
     );
     public $mainMenuLabel = 'Start';
-	
+
 	public $submenus = array(
         'start' => array(
             'items' => array(
@@ -35,8 +35,8 @@ class StartController extends ApplicationsController
             )
         )
     );
-	
-    
+
+
 
     public function view()
     {
@@ -167,63 +167,63 @@ class StartController extends ApplicationsController
         $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
     }
-    
+
     public function getChapters() {
-				
+
 		$mode = false;
-				
+
 		$items = array(
 			array(
 				'label' => 'Start',
 				'href' => '/' . $this->settings['id'],
 			),
 		);
-				
+
 		if( isset($this->viewVars['dataBrowser']['aggs']['dataset']) && !empty($this->viewVars['dataBrowser']['aggs']['dataset']) ) {
-			
+
 			$keys = array();
 			foreach( $this->viewVars['dataBrowser']['aggs']['dataset'] as $k => $v )
 				if( @$v['doc_count'] )
 					$keys[] = $k;
-								
+
 			$items[] = array(
 				'id' => '_results',
 				'label' => 'Wyniki wyszukiwania',
 				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
 			);
-			
+
 			if( $this->chapter_selected=='view' )
 				$this->chapter_selected = '_results';
 			$mode = 'results';
-			
-			
+
+
 			foreach( $this->submenus['prawo']['items'] as $item ) {
 				if( in_array($item['id'], $keys) ) {
 					$item['href'] .= '?q=' . urlencode( $this->request->query['q'] );
 					$items[] = $item;
 				}
 			}
-			
-			
+
+
 		} else {
-		
+
 			$items = array_merge($items, $this->submenus['start']['items']);
-		
+
 		}
-						
+
 		$output = array(
 			'items' => $items,
 			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
 		);
-				
+
 		return $output;
-		
-	}	
-    
+
+	}
+
     private function getChaptersAggs() {
-	    
+
 	    if( isset($this->request->query['q']) && $this->request->query['q'] ) {
-	    
+
 		    return array(
 		    	'dataset' => array(
 				    'filter' => array(
@@ -338,13 +338,12 @@ class StartController extends ApplicationsController
 				    ),
 				),
 		    );
-	    
+
 	    } else return array();
-	    
+
     }
-    
+
     public function kolekcje() {
-	    	    
 	    $this->title = 'Moje Kolekcje';
         $this->loadDatasetBrowser('kolekcje', array(
             'conditions' => array(
@@ -353,10 +352,16 @@ class StartController extends ApplicationsController
             ),
             'aggsPreset' => null,
             'aggs' => array_merge(array(), $this->getChaptersAggs()),
-            'renderFile' => 'default-editable',
             'beforeBrowserElement' => 'Start.kolekcje',
         ));
-        	    
-    } 
-	
-} 
+    }
+
+    public function dodaj_kolekcje() {
+
+    }
+
+    public function kolekcja($id) {
+        die($id);
+    }
+
+}

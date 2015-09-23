@@ -57,7 +57,7 @@ $(document).ready(function() {
 				}
 			}
 		} else {
-			h.push('<button type="button" class="list-group-item">Nie posiadasz jeszcze żadnej kolekcji</button>');
+			h.push('<button type="button" class="list-group-item empty">Nie posiadasz jeszcze żadnej kolekcji</button>');
 		}
 
 		list.html(h.join(''));
