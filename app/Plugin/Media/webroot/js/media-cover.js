@@ -177,7 +177,7 @@ $(document).ready(function () {
 			}
 		});
 
-		cancel.click(function() {
+		cancel.click(function () {
 			var c = chart.highcharts();
 			c.xAxis[0].setExtremes(range.min * 1000, range.max * 1000, true, false);
 			switcher.addClass('hidden');
@@ -219,7 +219,13 @@ $(document).ready(function () {
 				title: {
 					text: null
 				},
-				pointFormat: '<div style="display: block"><b>#{point.x}</b> <img src="/media/img/twitterapp/{point.logo}.png"/> {point.name}</div>',
+				formatter: function () {
+					var img = '';
+					if (this.point.logo == 'facebook' || this.point.logo == 'plume_for_android' || this.point.logo == 'tweetdeck' || this.point.logo == 'twitter_for_android' || this.point.logo == 'twitter_for_ipad' || this.point.logo == 'twitter_for_iphone' || this.point.logo == 'twitter_web_client' || this.point.logo == 'twitterfeed') {
+						img = '<img src="/media/img/twitterapp/' + this.point.logo + '.png"/>';
+					}
+					return '<div style="display: block"><b>#' + this.point.x + '</b> ' + img + this.point.name + '</div>';
+				},
 				useHTML: true,
 				headerFormat: ' '
 			},
@@ -256,8 +262,16 @@ $(document).ready(function () {
 				dataLabels: {
 					enabled: true,
 					formatter: function () {
-						var ret = '<b>#' + this.point.x + '</b> <img src="/media/img/twitterapp/' + this.point.logo + '.png" style="margin-right:4px" />',
+						var img = '',
+							ret,
 							name = this.point.name;
+
+						if (this.point.logo == 'facebook' || this.point.logo == 'plume_for_android' || this.point.logo == 'tweetdeck' || this.point.logo == 'twitter_for_android' || this.point.logo == 'twitter_for_ipad' || this.point.logo == 'twitter_for_iphone' || this.point.logo == 'twitter_web_client' || this.point.logo == 'twitterfeed') {
+							img = '<img src="/media/img/twitterapp/' + this.point.logo + '.png" style="margin-right:4px" />';
+						}
+
+						ret = '<b>#' + this.point.x + '</b> ' + img;
+
 						if (name.length > 55) {
 							name = this.point.name.substring(0, 52);
 							name += '...';
