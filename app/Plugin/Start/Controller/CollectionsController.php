@@ -40,4 +40,8 @@ class CollectionsController extends StartAppController {
         }
     }
 
+    public function view($id) {
+
+    }
+
 }

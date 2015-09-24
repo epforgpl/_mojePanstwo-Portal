@@ -52,7 +52,7 @@ $(document).ready(function() {
 				if(data.hasOwnProperty(i)) {
 					var row = data[i].Collection;
 					if(nameStr.length === 0 || (nameStr.length && row.name.toLowerCase().indexOf(nameStr.toLowerCase()) > -1)) {
-						h.push('<button type="button" data-collection-id="' + row.id + '" class="list-group-item ' + (typeof data[i].CollectionObject != 'undefined' && typeof data[i].CollectionObject.object_id == 'string' ? 'checked' : 'unchecked') + '"><i class="glyphicon glyphicon-ok" aria-hidden="true"></i> ' + row.name + '</button>');
+						h.push('<button type="button" data-collection-id="' + row.id + '" class="list-group-item ' + (typeof data[i].CollectionObject != 'undefined' && typeof data[i].CollectionObject.object_id == 'string' ? 'checked' : 'unchecked') + '"><i class="glyphicon glyphicon-ok" aria-hidden="true"></i><i class="glyphicon glyphicon-folder-open" aria-hidden="true"></i> ' + row.name + '</button>');
 					}
 				}
 			}
