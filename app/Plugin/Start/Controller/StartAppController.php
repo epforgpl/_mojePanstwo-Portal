@@ -25,12 +25,36 @@ class StartAppController extends ApplicationsController {
                     'label' => 'Pisma',
                     'href' => '/moje-pisma',
                     'icon' => 'icon-datasets-prawo rozporzadzenia',
+                    'submenu' => array(
+	                    'items' => array(
+		                    array(
+			                    'id' => 'nowe',
+			                    'label' => 'Nowe pismo',
+		                    ),
+		                    array(
+			                    'id' => '',
+			                    'label' => 'Moje pisma',
+		                    ),
+		                ),
+                    ),
                 ),
                 array(
                     'id' => 'collections',
                     'label' => 'Kolekcje',
                     'href' => '/moje-kolekcje',
-                    'icon' => 'icon-datasets-prawo umowy',
+                    'icon' => 'icon-datasets-kolekcje',
+                    'submenu' => array(
+	                    'items' => array(
+		                    array(
+			                    'id' => 'nowe',
+			                    'label' => 'Nowa kolekcja',
+		                    ),
+		                    array(
+			                    'id' => '',
+			                    'label' => 'Moje kolekcje',
+		                    ),
+		                ),
+                    ),
                 ),
             )
         )
