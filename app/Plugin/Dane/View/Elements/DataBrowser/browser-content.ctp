@@ -144,6 +144,11 @@ if ($dataBrowser['mode'] == 'cover') {
                     ?>
                 </ul>
             </div>
+            
+            <?
+	            if( isset($dataBrowser['afterBrowserElement']) ) 
+		            echo $this->element($dataBrowser['afterBrowserElement']);
+		    ?>
 
         </div>
 
