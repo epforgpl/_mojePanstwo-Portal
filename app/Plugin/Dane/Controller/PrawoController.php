@@ -8,8 +8,6 @@ class PrawoController extends DataobjectsController
     public $initLayers = array('docs', 'counters', 'files');
     public $helpers = array('Document');
 	public $addDatasetBreadcrumb = false;
-    // public $uses = array('Dane.Dataliner');
-
     public $observeOptions = true;
 
     public $headerObject = array('url' => '/dane/img/headers/ustawa.jpg', 'height' => '250px');

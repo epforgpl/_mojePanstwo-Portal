@@ -47,7 +47,7 @@ class DataobjectsController extends AppController
      * @desc Czy mogę dodawać obiekt do kolekcji?
      * @var bool
      */
-    public $collectionsOptions = false;
+    public $collectionsOptions = true;
 
     public $_layout = array(
         'header' => array(
