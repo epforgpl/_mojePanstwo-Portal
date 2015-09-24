@@ -44,7 +44,7 @@ $(document).ready(function() {
 
 		var h = [];
 		if(nameStr.length) {
-			h.push('<button type="button" class="list-group-item new-collection"><i class="glyphicon glyphicon-folder-open" aria-hidden="true"></i> Utwórz kolekcję: <b>' + nameStr + '</b></button>');
+			h.push('<button type="button" class="list-group-item new-collection"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Utwórz kolekcję: <b>' + nameStr + '</b></button>');
 		}
 
 		if(data.length) {
@@ -71,14 +71,26 @@ $(document).ready(function() {
 			});
 		});
 
-		$('button.checked').click(function() {
-			var collection = $(this).data('collection-id');
-			$.get('/collections/collections/removeObject/' + collection + '/' + id + '.json', function(res) {
-				reloadData(function() {
-					updateList();
+		$('button.checked')
+			.hover(function() {
+				$(this).find('i')
+					.first()
+					.removeClass('glyphicon-ok')
+					.addClass('glyphicon-remove');
+			}, function() {
+				$(this).find('i')
+					.first()
+					.removeClass('glyphicon-remove')
+					.addClass('glyphicon-ok');
+			})
+			.click(function() {
+				var collection = $(this).data('collection-id');
+				$.get('/collections/collections/removeObject/' + collection + '/' + id + '.json', function(res) {
+					reloadData(function() {
+						updateList();
+					});
 				});
 			});
-		});
 
 		$('button.new-collection').click(function() {
 			list.html(spinner);

@@ -8,7 +8,7 @@ echo $this->element('Start.pageBegin'); ?>
 <form class="collectionsForm" method="post">
 
     <header>
-        <h1>Dodaj Kolekcje</h1>
+        <h1>Nowa Kolekcja</h1>
     </header>
 
     <div class="form-group margin-top-10">

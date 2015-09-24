@@ -3,7 +3,7 @@
 Router::connect('/start', array('plugin' => 'Start', 'controller' => 'Start', 'action' => 'view'));
 
 Router::connect('/moje-kolekcje', array('plugin' => 'Start', 'controller' => 'Collections', 'action' => 'index'));
-Router::connect('/moje-kolekcje/dodaj', array('plugin' => 'Start', 'controller' => 'Collections', 'action' => 'add'));
+Router::connect('/moje-kolekcje/nowe', array('plugin' => 'Start', 'controller' => 'Collections', 'action' => 'add'));
 Router::connect('/moje-kolekcje/:id', array('plugin' => 'Start', 'controller' => 'Collections', 'action' => 'view'), array(
     'id' => '[0-9]{1,}', 'pass' => array('id'))
 );
