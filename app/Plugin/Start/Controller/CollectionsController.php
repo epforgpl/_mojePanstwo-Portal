@@ -6,6 +6,7 @@ class CollectionsController extends StartAppController {
 
     public $uses = array('Collections.Collection');
     public $chapter_selected = 'collections';
+    public $appSelected = 'kolekcje';
 
     public function index() {
         $this->title = 'Moje Kolekcje';
