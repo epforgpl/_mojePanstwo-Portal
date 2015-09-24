@@ -12,18 +12,21 @@ echo $this->element('Start.pageBegin'); ?>
 
 <div class="margin-top-10">
     <div class="mp-sticky collectionToolbar">
-        <button class="btn btn-default deleteBtn hide" type="submit">
-            <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
-            Usuń zaznaczone dokumenty
-        </button>
-        <button class="btn btn-default" type="submit">
-            <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
-            Edytuj
-        </button>
-        <button class="btn btn-default" type="submit">
-            <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
-            Usuń
-        </button>
+        <form action="" method="post">
+            <button class="btn btn-default deleteBtn hide" type="submit">
+                <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                Usuń zaznaczone dokumenty
+            </button>
+            <a href="<?= $item->getUrl() ?>/edytuj" class="btn btn-default">
+                <i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+                Edytuj
+            </a>
+            <input type="hidden" name="action" value="delete"/>
+            <button class="btn btn-default btnRemove" type="submit">
+                <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+                Usuń
+            </button>
+        </form>
     </div>
 </div>
 

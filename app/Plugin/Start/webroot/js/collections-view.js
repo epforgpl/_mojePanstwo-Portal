@@ -4,6 +4,7 @@ $(document).ready(function() {
 	var obj = $('.collectionObjects'),
 		checkboxes = obj.find('input[type=checkbox].browserContentCheckbox'),
 		deleteBtn = $('.deleteBtn').first(),
+		btnRemove = $('.btnRemove').first(),
 		checked = 0,
 		id = obj.data('collection-id');
 
@@ -44,6 +45,11 @@ $(document).ready(function() {
 				window.location = '';
 			});
 		}
+	});
+
+	btnRemove.click(function() {
+		if(!confirm('Czy na pewno chcesz usunać tą kolekcje?'))
+			return false;
 	});
 
 });
