@@ -101,20 +101,28 @@
                 </a>
             </li>
         <? } ?>
-
+		
         <? if (isset($dataBrowser['sort']) && $dataBrowser['sort']) { ?>
             <li role="presentation" class="dropdown dataAggsDropdown splitDropdownMenu pull-right">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                    aria-expanded="false">Sortowanie <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <?php
-                    foreach ($dataBrowser['sort'] as $sortKey => $sortValue) {
+	                    
+                    foreach ($dataBrowser['sort'] as $sortKey => $sortValue) {	                    
+	                    
                         $sort = '<li>';
                         $sort .= '<span>' . $sortValue['label'] . '</span>';
                         $sort .= '<ul>';
                         foreach ($sortValue['options'] as $sortOptionsKey => $sortOptionsValue) {
-                            $sort .= '<li><a href="&order=' . $sortKey . '%20' . $sortOptionsKey . '">' . $sortOptionsValue . '</a></li>';
+                            
+                            $query = array_merge($this->request->query, array(
+								'order' => $sortKey . ' ' . $sortOptionsKey,
+							));
+                            
+                            $sort .= '<li><a href="/' . $this->request->url . '?' . http_build_query($query) . '">' . $sortOptionsValue . '</a></li>';
                         }
+                        
                         $sort .= '</ul>';
                         $sort .= '</li>';
 
