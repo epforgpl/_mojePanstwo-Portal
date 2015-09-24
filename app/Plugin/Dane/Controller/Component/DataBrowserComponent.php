@@ -1391,6 +1391,9 @@ class DataBrowserComponent extends Component
             
             if( isset($this->settings['beforeBrowserElement']) )
             	$dataBrowser['beforeBrowserElement'] = $this->settings['beforeBrowserElement'];
+            	
+            if( isset($this->settings['afterBrowserElement']) )
+            	$dataBrowser['afterBrowserElement'] = $this->settings['afterBrowserElement'];
 
 
 			$app_menu = array();

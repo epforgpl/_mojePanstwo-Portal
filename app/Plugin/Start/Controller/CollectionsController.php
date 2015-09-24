@@ -16,7 +16,8 @@ class CollectionsController extends StartAppController {
             ),
             'aggsPreset' => null,
             'aggs' => array_merge(array(), $this->getChaptersAggs()),
-            'beforeBrowserElement' => 'Start.kolekcje',
+            'beforeBrowserElement' => 'Start.collectionsBefore',
+            'afterBrowserElement' => 'Start.collectionsAfter',
         ));
     }
 
