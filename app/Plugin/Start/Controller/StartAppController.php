@@ -62,12 +62,12 @@ class StartAppController extends ApplicationsController {
                     'submenu' => array(
 	                    'items' => array(
                             array(
-                                'id' => '',
+                                'id' => 'index',
                                 'href' => '/',
                                 'label' => 'Moje kolekcje',
                             ),
 		                    array(
-			                    'id' => 'nowe',
+			                    'id' => 'add',
                                 'href' => '/nowe',
 			                    'label' => 'Stwórz nową kolekcję',
 		                    ),
@@ -129,6 +129,15 @@ class StartAppController extends ApplicationsController {
             $items = array_merge($items, $this->submenus['start']['items']);
 
         }
+
+        foreach($items as $i => $item) {
+
+            if(isset($item['submenu'])) {
+                $items[$i]['submenu']['selected'] = $this->chapter_submenu_selected;
+            }
+
+        }
+
 
         $output = array(
             'items' => $items,

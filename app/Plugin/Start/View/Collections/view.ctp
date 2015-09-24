@@ -5,23 +5,26 @@ $this->Combinator->add_libs('css', $this->Less->css('collections-view', array('p
 
 echo $this->element('Start.pageBegin'); ?>
 
-<header class="collection-header">
-    <div class="overflow-auto">
-	    <h1 class="pull-left"><?= $item->getData('nazwa') ?></h1>
-	    <ul class="buttons pull-right">
-		    <li>
-		        <button class="btn btn-default" type="submit">
-		            <i class="glyphicon glyphicon-trash" title="Usuń kolekcję" aria-hidden="true"></i>
-		        </button>
-		    </li>
-		    <li>
-			    <button class="btn btn-default" type="submit">
-		            <i class="glyphicon glyphicon-edit" title="Edytuj kolekcję" aria-hidden="true"></i>
-		        </button>
-		    </li>
-	    </ul>
-    </div>
-</header>
+<form action="" method="post">
+    <header class="collection-header">
+        <div class="overflow-auto">
+            <h1 class="pull-left"><?= $item->getData('nazwa') ?></h1>
+            <ul class="buttons pull-right">
+                <li>
+                    <input type="hidden" name="delete"/>
+                    <button class="btn btn-default" type="submit">
+                        <i class="glyphicon glyphicon-trash" title="Usuń kolekcję" aria-hidden="true"></i>
+                    </button>
+                </li>
+                <li>
+                    <a class="btn btn-default" href="<?= $item->getUrl(); ?>/edytuj">
+                        <i class="glyphicon glyphicon-edit" title="Edytuj kolekcję" aria-hidden="true"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+</form>
 
 <div class="block block-simple col-sm-12 margin-top-0 collectionObjects" data-collection-id="<?= $item->getId() ?>">
 

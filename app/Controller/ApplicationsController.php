@@ -49,7 +49,7 @@ class ApplicationsController extends AppController
 
     public function beforeRender()
     {
-		
+
 		$app = false;
 
         if(
@@ -62,9 +62,13 @@ class ApplicationsController extends AppController
 
         if ($this->menu_selected === false)
             $this->menu_selected = $this->request->params['action'];
-            
+
         if ($this->chapter_selected === false)
             $this->chapter_selected = $this->request->params['action'];
+
+        if (!isset($this->chapter_submenu_selected) || $this->chapter_submenu_selected === false)
+            $this->chapter_submenu_selected = $this->request->params['action'];
+
 
         $this->set('appSettings', $this->settings);
 
@@ -156,7 +160,7 @@ class ApplicationsController extends AppController
 
     public function loadDatasetBrowser($dataset, $options = array())
     {
-				
+
         $options = array_merge(array(
 	        'dataset' => $dataset,
             'conditions' => array(
@@ -164,7 +168,7 @@ class ApplicationsController extends AppController
             ),
             'aggsPreset' => $dataset,
         ), $options);
-        
+
         $this->Components->load('Dane.DataBrowser', $options);
 
         if(isset($options['menu'])) {
@@ -189,7 +193,7 @@ class ApplicationsController extends AppController
 	    	isset($this->request->params['id']) &&
 	    	( $data = $this->getDatasetByAlias(@$this->settings['id'], $this->request->params['id']) )
 	    ) {
-						
+
 		    $datasets = $this->getDatasets($this->settings['id']);
 
 			$fields = array('searchTitle', 'order', 'autocompletion');
@@ -223,13 +227,13 @@ class ApplicationsController extends AppController
 					'filter/dataset' => 'dataset',
 				),
 			);
-			
+
 			if( isset($data['dataset_name']['default_order']) )
 				$params['default_order'] = $data['dataset_name']['default_order'];
-				
+
 			if( isset($data['dataset_name']['default_conditions']) )
 				$params['default_conditions'] = $data['dataset_name']['default_conditions'];
-			
+
 			foreach( $fields as $field )
 				if( isset($data['dataset_name'][ $field ]) )
 					$params[ $field ] = $data['dataset_name'][ $field ];
@@ -280,88 +284,96 @@ class ApplicationsController extends AppController
 		return $menu;
 
     }
-	
+
 	public function getChapters() {
-		
+
 		$mode = false;
-				
+
 		$items = array(
 			array(
 				'label' => 'Start',
 				'href' => '/' . $this->settings['id'],
 			),
 		);
-		
+
 		if(
-			isset( $this->request->query['q'] ) && 
+			isset( $this->request->query['q'] ) &&
 			$this->request->query['q']
 		) {
-									
+
 			$items[] = array(
 				'id' => '_results',
 				'label' => 'Wyniki wyszukiwania',
 				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
 			);
-			
+
 			if( $this->chapter_selected=='view' )
 				$this->chapter_selected = '_results';
 			$mode = 'results';
-			
+
 		}
-		
+
 		if(
-			( $map = @$this->viewVars['dataBrowser']['aggs_visuals_map']['dataset']['dictionary'] ) && 
+			( $map = @$this->viewVars['dataBrowser']['aggs_visuals_map']['dataset']['dictionary'] ) &&
 			( $datasets = @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] )
 		) {
-									
+
 			foreach( $map as $key => $value ) {
-								
+
 				if( !isset($value['menu_id']) )
 					$value['menu_id'] = '';
-				
+
 				$item = array(
 					'id' => $value['menu_id'],
 					'label' => $value['label'],
 					'href' => '/' . $this->settings['id'] . '/' . $value['menu_id'],
 				);
-								
+
 				if( $mode == 'results' ) {
-										
+
 					$item['href'] .= '?q=' . urlencode( $this->request->query['q'] );
 
 					foreach( $datasets as $d ) {
-												
+
 						if( $d['key']==$key ) {
-							
+
 							if( $d['doc_count'] ) {
 								$item['count'] = $d['doc_count'];
 								$items[] = $item;
 							}
-							
+
 							break;
-							
-						} 
+
+						}
 					}
-					
+
 				} else {
-					
+
 					$items[] = $item;
-					
+
 				}
-				
+
 			}
-			
+
 		}
-				
+
+        foreach($items as $i => $item) {
+
+            if(isset($item['submenu'])) {
+                $items[$i]['submenu']['selected'] = $this->chapter_submenu_selected;
+            }
+
+        }
+
 		$output = array(
 			'items' => $items,
 			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
 		);
-				
+
 		return $output;
-		
+
 	}
-	
+
     public function json($data) {
         $this->autoRender = false;
         $this->response->type('json');

@@ -52,20 +52,12 @@
 
                                     if(
                                         (
-                                            !@$item['submenu']['selected'] &&
-                                            (
-                                                !isset($subitem['id']) ||
-                                                !$subitem['id']
-                                            )
-                                        ) ||
-                                        (
                                             @$item['submenu']['selected'] &&
                                             @$subitem['id'] &&
                                             ( $item['submenu']['selected']==$subitem['id'] )
                                         )
                                     )
                                         $subactive = true;
-
 
                                     ?>
                                     <li<? if($subactive) { ?> class="active"<?}?>>
