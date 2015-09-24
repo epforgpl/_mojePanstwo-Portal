@@ -41,8 +41,10 @@ class Kolekcje extends DocDataObject
 
 		$output = array();
 
-		if( $this->getData('data_utworzenia') )
-			$output[] = dataSlownie($this->getData('data_utworzenia'));
+		if( $this->getData('items_count') )
+			$output[] = pl_dopelniacz($this->getData('items_count'), 'dokument', 'dokumenty', 'dokumentów');
+		else
+			$output[] = 'Kolekcja jest pusta';
 
 		return $output;
 
