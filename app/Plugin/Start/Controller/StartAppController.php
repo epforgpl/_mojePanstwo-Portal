@@ -87,13 +87,16 @@ class StartAppController extends ApplicationsController {
     public function getChapters() {
 
         $mode = false;
-
+		
+		/*
         $items = array(
             array(
                 'label' => 'Start',
                 'href' => '/' . $this->settings['id'],
             ),
         );
+        */
+        $items = array();
 
         if( isset($this->viewVars['dataBrowser']['aggs']['dataset']) && !empty($this->viewVars['dataBrowser']['aggs']['dataset']) ) {
 
