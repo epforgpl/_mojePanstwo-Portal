@@ -46,14 +46,14 @@ if ($dataBrowser['mode'] == 'cover') {
 } else {
 
     $params = $this->Paginator->params();
-	
-	$displayAggs = $displayAggs && 
+
+	$displayAggs = $displayAggs &&
 	(
-		!empty($sideElement) || 
-		!empty($app_chapters) || 
-		!empty($menu) 
+		!empty($sideElement) ||
+		!empty($app_chapters) ||
+		!empty($menu)
 	);
-	
+
     ?>
 
     <? if (($displayAggs && !empty($dataBrowser['aggs'])) || (isset($app_chapters) && $app_chapters) ) { ?>
@@ -61,7 +61,7 @@ if ($dataBrowser['mode'] == 'cover') {
         <div class="col-md-<?= $columns[1] ?> col-xs-12 dataAggsContainer">
 
             <? if( isset($sideElement) ) echo $this->Element($sideElement) ?>
-						
+
             <?  if( isset($app_chapters) ) {
 
 	            echo $this->Element('Dane.DataBrowser/app_chapters');
@@ -76,16 +76,16 @@ if ($dataBrowser['mode'] == 'cover') {
 
         </div>
     <? } ?>
-        
+
     <div class="col-xs-12 col-sm-<?= isset($forceHideAggs) ? 12 : ($displayAggs ? $columns[0] : 9) ?>">
 
         <div class="dataWrap margin-top-10">
 
 			<?
-	            if( isset($dataBrowser['beforeBrowserElement']) ) 
+	            if( isset($dataBrowser['beforeBrowserElement']) )
 		            echo $this->element($dataBrowser['beforeBrowserElement']);
 		    ?>
-			
+
             <?= $this->element('Dane.DataBrowser/browser-content-filters', array(
             	'paging' => $params,
             )) ?>
@@ -108,12 +108,14 @@ if ($dataBrowser['mode'] == 'cover') {
                                     $params['truncate'] = $truncate;
 
                                 foreach ($dataBrowser['hits'] as $object) {
-									
+
 									if( isset($beforeItemElement) )
-										echo $this->element($beforeItemElement);
-																		
+										echo $this->element($beforeItemElement, array(
+                                            'object' => $object
+                                        ));
+
                                     echo $this->Dataobject->render($object, $dataBrowser['renderFile'], $params);
-                                    
+
                                     if( isset($afterItemElement) )
 										echo $this->element($afterItemElement);
                                 }
@@ -145,9 +147,9 @@ if ($dataBrowser['mode'] == 'cover') {
                     ?>
                 </ul>
             </div>
-            
+
             <?
-	            if( isset($dataBrowser['afterBrowserElement']) ) 
+	            if( isset($dataBrowser['afterBrowserElement']) )
 		            echo $this->element($dataBrowser['afterBrowserElement']);
 		    ?>
 

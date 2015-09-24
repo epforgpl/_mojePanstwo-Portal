@@ -37,4 +37,9 @@ class CollectionsController extends AppController {
         $this->set('_serialize', array('response'));
     }
 
+    public function removeObjects($id) {
+        $this->set('response', $this->Collection->removeObjects($id, $this->request->data));
+        $this->set('_serialize', array('response'));
+    }
+
 }

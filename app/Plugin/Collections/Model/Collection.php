@@ -29,4 +29,11 @@ class Collection extends AppModel {
         ));
     }
 
+    public function removeObjects($id, $data) {
+        return $this->getDataSource()->request('collections/collections/removeObjects/' . $id , array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+    }
+
 }
