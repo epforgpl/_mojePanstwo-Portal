@@ -538,7 +538,7 @@ class DataobjectsController extends AppController
             $this->set('object_editable', $object_editable);
             $this->set('_canEdit', $this->_canEdit());
             $this->set('_collectionsOptions', $this->collectionsOptions);
-            $this->set('_manageOptions', boolval(count($object_editable)));
+            $this->set('_manageOptions', (boolean) count($object_editable));
             $this->set('_manageOptionsModals', $object_editable); // alias
 
             $this->prepareMetaTags();
