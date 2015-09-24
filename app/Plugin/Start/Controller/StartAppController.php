@@ -58,7 +58,7 @@ class StartAppController extends ApplicationsController {
                     'id' => 'collections',
                     'label' => 'Kolekcje',
                     'href' => '/moje-kolekcje',
-                    'icon' => 'icon-datasets-kolekcje',
+                    'icon' => 'icon-applications-kolekcje',
                     'submenu' => array(
 	                    'items' => array(
                             array(
@@ -87,8 +87,8 @@ class StartAppController extends ApplicationsController {
     public function getChapters() {
 
         $mode = false;
-		
-		/*
+
+        /*
         $items = array(
             array(
                 'label' => 'Start',
