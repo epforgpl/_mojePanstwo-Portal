@@ -3,9 +3,7 @@
 $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('dataobjectpage', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
-$this->Combinator->add_libs('css', $this->Less->css('collections-form', array('plugin' => 'Start')));
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
-$this->Combinator->add_libs('js', 'Start.collections-form');
 
 echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block' => 'scriptBlock'));
 

@@ -1,4 +1,9 @@
+<?
 
+$this->Combinator->add_libs('css', $this->Less->css('collections-form', array('plugin' => 'Start')));
+$this->Combinator->add_libs('js', 'Start.collections-form');
+
+echo $this->element('Start.pageBegin'); ?>
 
 <form class="collectionsForm" method="post">
 
@@ -38,3 +43,5 @@
     </div>
 
 </form>
+
+<?= $this->element('Start.pageEnd'); ?>

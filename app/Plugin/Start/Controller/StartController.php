@@ -1,45 +1,9 @@
 <?php
 
-App::uses('ApplicationsController', 'Controller');
+App::uses('StartAppController', 'Start.Controller');
 
-/**
- * @property Collection Collection
- */
-class StartController extends ApplicationsController
+class StartController extends StartAppController
 {
-
-    public $settings = array(
-        'id' => 'start',
-        'title' => 'Start',
-    );
-    public $mainMenuLabel = 'Start';
-
-	public $submenus = array(
-        'start' => array(
-            'items' => array(
-				array(
-					'id' => 'powiadomienia',
-					'label' => 'Powiadomienia',
-					'href' => '/moje-powiadomienia',
-					'icon' => 'icon-datasets-prawo ustawy',
-				),
-				array(
-					'id' => 'pisma',
-					'label' => 'Pisma',
-					'href' => '/moje-pisma',
-					'icon' => 'icon-datasets-prawo rozporzadzenia',
-				),
-				array(
-					'id' => 'kolekcje',
-					'label' => 'Kolekcje',
-					'href' => '/moje-kolekcje',
-					'icon' => 'icon-datasets-prawo umowy',
-				),
-            )
-        )
-    );
-
-
 
     public function view()
     {
@@ -344,50 +308,6 @@ class StartController extends ApplicationsController
 
 	    } else return array();
 
-    }
-
-    public function kolekcje() {
-        if(!$this->Auth->user())
-            throw new ForbiddenException;
-
-	    $this->title = 'Moje Kolekcje';
-
-        $this->loadDatasetBrowser('kolekcje', array(
-            'conditions' => array(
-                'dataset' => 'kolekcje',
-                'kolekcje.user_id' => $this->Auth->user('id'),
-            ),
-            'aggsPreset' => null,
-            'aggs' => array_merge(array(), $this->getChaptersAggs()),
-            'beforeBrowserElement' => 'Start.kolekcje',
-        ));
-    }
-
-    public function dodaj_kolekcje() {
-        if(!$this->Auth->user())
-            throw new ForbiddenException;
-
-        if(count($this->request->data)) {
-            $this->loadModel('Collections.Collection');
-            $results = $this->Collection->create($this->request->data);
-            if(isset($results['Collection'])) {
-                $message = 'Kolekcja została poprawnie dodana';
-            } elseif(is_array($results)) {
-                $errors = reset(array_values($results));
-                $message = $errors[0];
-            } else {
-                $message = 'Wystąpił błąd';
-            }
-
-            $this->Session->setFlash($message);
-        }
-
-        $this->title = 'Dodaj Kolekcje';
-        $this->chapter_selected = 'kolekcje';
-    }
-
-    public function kolekcja($id) {
-        die($id);
     }
 
 }
