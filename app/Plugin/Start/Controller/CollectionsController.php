@@ -41,7 +41,20 @@ class CollectionsController extends StartAppController {
     }
 
     public function view($id) {
-
+		
+		$this->loadModel('Dane.Dataobject');
+		$item = $this->Dataobject->find('first', array(
+			'conditions' => array(
+				'dataset' => 'kolekcje',
+				'id' => $id,
+				'kolekcje.user_id' => $this->Auth->user('id'),
+			),
+		));
+        
+        $this->Components->load('Dane.DataBrowser', array());
+		
+		$this->set('item', $item);
+		
     }
 
 }

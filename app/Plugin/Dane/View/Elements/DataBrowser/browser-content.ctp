@@ -108,8 +108,14 @@ if ($dataBrowser['mode'] == 'cover') {
                                     $params['truncate'] = $truncate;
 
                                 foreach ($dataBrowser['hits'] as $object) {
-
+									
+									if( isset($beforeItemElement) )
+										echo $this->element($beforeItemElement);
+																		
                                     echo $this->Dataobject->render($object, $dataBrowser['renderFile'], $params);
+                                    
+                                    if( isset($afterItemElement) )
+										echo $this->element($afterItemElement);
                                 }
                                 ?>
                             </ul>
