@@ -18,7 +18,7 @@ class StartAppController extends ApplicationsController {
                     'id' => 'subscriptions',
                     'label' => 'Powiadomienia',
                     'href' => '/moje-powiadomienia',
-                    'icon' => 'icon-datasets-prawo ustawy',
+                    'icon' => 'icon-applications-powiadomienia',
                     'submenu' => array(
 	                    'items' => array(
                             array(
@@ -38,7 +38,7 @@ class StartAppController extends ApplicationsController {
                     'id' => 'letters',
                     'label' => 'Pisma',
                     'href' => '/moje-pisma',
-                    'icon' => 'icon-datasets-prawo rozporzadzenia',
+                    'icon' => 'icon-applications-pisma',
                     'submenu' => array(
 	                    'items' => array(
                             array(
