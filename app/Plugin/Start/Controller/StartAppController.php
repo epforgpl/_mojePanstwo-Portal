@@ -27,13 +27,15 @@ class StartAppController extends ApplicationsController {
                     'icon' => 'icon-datasets-prawo rozporzadzenia',
                     'submenu' => array(
 	                    'items' => array(
+                            array(
+                                'id' => '',
+                                'href' => '/',
+                                'label' => 'Moje pisma',
+                            ),
 		                    array(
 			                    'id' => 'nowe',
+                                'href' => '/nowe',
 			                    'label' => 'Nowe pismo',
-		                    ),
-		                    array(
-			                    'id' => '',
-			                    'label' => 'Moje pisma',
 		                    ),
 		                ),
                     ),
@@ -45,13 +47,15 @@ class StartAppController extends ApplicationsController {
                     'icon' => 'icon-datasets-kolekcje',
                     'submenu' => array(
 	                    'items' => array(
+                            array(
+                                'id' => '',
+                                'href' => '/',
+                                'label' => 'Moje kolekcje',
+                            ),
 		                    array(
 			                    'id' => 'nowe',
+                                'href' => '/nowe',
 			                    'label' => 'Nowa kolekcja',
-		                    ),
-		                    array(
-			                    'id' => '',
-			                    'label' => 'Moje kolekcje',
 		                    ),
 		                ),
                     ),
