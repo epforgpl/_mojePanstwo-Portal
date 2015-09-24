@@ -76,24 +76,19 @@ if ($dataBrowser['mode'] == 'cover') {
 
         </div>
     <? } ?>
-    <div class="col-xs-12 col-sm-<?= $displayAggs ? $columns[0] : 9 ?>">
+        
+    <div class="col-xs-12 col-sm-<?= isset($forceHideAggs) ? 12 : ($displayAggs ? $columns[0] : 9) ?>">
 
         <div class="dataWrap margin-top-10">
 
-            <?= $this->element('Dane.DataBrowser/browser-content-filters', array(
-            	'paging' => $params,
-            )) ?>
-
-            <? /*
-            <?= $this->element('Dane.DataBrowser/browser-content-paging', array(
-            	'params' => $params,
-            )) ?>
-            */ ?>
-            
-            <?
+			<?
 	            if( isset($dataBrowser['beforeBrowserElement']) ) 
 		            echo $this->element($dataBrowser['beforeBrowserElement']);
 		    ?>
+			
+            <?= $this->element('Dane.DataBrowser/browser-content-filters', array(
+            	'paging' => $params,
+            )) ?>
 
             <div class="dataObjects">
 

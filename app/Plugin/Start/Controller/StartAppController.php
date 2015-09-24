@@ -19,6 +19,20 @@ class StartAppController extends ApplicationsController {
                     'label' => 'Powiadomienia',
                     'href' => '/moje-powiadomienia',
                     'icon' => 'icon-datasets-prawo ustawy',
+                    'submenu' => array(
+	                    'items' => array(
+                            array(
+                                'id' => '',
+                                'href' => '/',
+                                'label' => 'Nowe dane',
+                            ),
+		                    array(
+			                    'id' => 'subscriptions',
+                                'href' => '/obserwuje',
+			                    'label' => 'Rzeczy, które obserwuję',
+		                    ),
+		                ),
+                    ),
                 ),
                 array(
                     'id' => 'letters',
@@ -35,7 +49,7 @@ class StartAppController extends ApplicationsController {
 		                    array(
 			                    'id' => 'nowe',
                                 'href' => '/nowe',
-			                    'label' => 'Nowe pismo',
+			                    'label' => 'Napisz nowe pismo',
 		                    ),
 		                ),
                     ),
@@ -55,7 +69,7 @@ class StartAppController extends ApplicationsController {
 		                    array(
 			                    'id' => 'nowe',
                                 'href' => '/nowe',
-			                    'label' => 'Nowa kolekcja',
+			                    'label' => 'Stwórz nową kolekcję',
 		                    ),
 		                ),
                     ),
