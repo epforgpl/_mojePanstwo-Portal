@@ -15,7 +15,7 @@
                        type="radio"<?php if (!empty($pismo['szablon_id']) && $pismo['szablon_id'] == 35) {
                     echo ' checked';
                 } ?>>
-                <label for="wniosek_35">Wniosk o udostępnienie informacji publicznej</label>
+                <label for="wniosek_35">Wniosek o udostępnienie informacji publicznej</label>
             </div>
             <div class="radio">
                 <input id="wniosek_40" name="szablon_id" value="40"
