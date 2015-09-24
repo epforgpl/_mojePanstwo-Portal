@@ -8,3 +8,6 @@ Router::connect('/moje-kolekcje/:id', array('plugin' => 'Start', 'controller' =>
 
 Router::connect('/moje-pisma', array('plugin' => 'Start', 'controller' => 'Letters', 'action' => 'index'));
 Router::connect('/moje-pisma/:action', array('plugin' => 'Start', 'controller' => 'Letters'));
+
+Router::connect('/moje-powiadomienia', array('plugin' => 'Start', 'controller' => 'Subscriptions', 'action' => 'index'));
+Router::connect('/moje-powiadomienia/:action', array('plugin' => 'Start', 'controller' => 'Subscriptions'));
