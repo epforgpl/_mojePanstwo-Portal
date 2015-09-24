@@ -108,7 +108,7 @@ var PISMA = Class.extend({
 			pismoTitleEdit.find('.btn.save').click(function () {
 				var newTitle = $.trim(pismoTitleEdit.find('input').val());
 				$.ajax({
-					url: '/pisma/' + pismoTitle.data('url') + '.json',
+					url: '/moje-pisma/' + pismoTitle.data('url') + '.json',
 					method: 'PUT',
 					data: {
 						name: newTitle
@@ -146,7 +146,7 @@ var PISMA = Class.extend({
 			"use strict";
 			var self = this;
 
-			$.getJSON(mPHeart.constant.ajax.api + "/pisma/templates/" + szablon_id + ".json", function (d) {
+			$.getJSON(mPHeart.constant.ajax.api + "/moje-pisma/templates/" + szablon_id + ".json", function (d) {
 				self.objects.szablony = {
 					id: d.id,
 					title: d.nazwa,
@@ -280,7 +280,7 @@ var PISMA = Class.extend({
 				self.html.editor.addClass('loading');
 				self.szablonData(checkSzablon);
 
-				$.getJSON(mPHeart.constant.ajax.api + "/pisma/templates/" + checkSzablon + ".json", function (data) {
+				$.getJSON(mPHeart.constant.ajax.api + "/moje-pisma/templates/" + checkSzablon + ".json", function (data) {
 					if (self.objects.editor !== null) {
 						if ($(self.objects.editor.text === self.html.editor.text()) || (self.html.editor.text() === '')) {
 							self.html.editor.empty().html(data.tresc);
