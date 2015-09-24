@@ -6,10 +6,10 @@
 	var d3Data = {
 			'color': {
 				'links': '#333333',
-				'osoba': "#D2D5DA",
-				'podmiot': "#6CACD8",
-				'osobaDisabled': "#D3D6DB",
-				'podmiotDisabled': "#6DADD9"
+				'osoba': "#D3D6DB",
+				'podmiot': "#95C4E4",
+				'osobaDisabled': "#EFF0F2",
+				'podmiotDisabled': "#B4D4EA"
 			},
 			size: {
 				'distance': 900,
@@ -17,6 +17,7 @@
 				'linksWidth': 1,
 				'linkText': '8px',
 				'nodesSize': 15,
+				'rootSize': 45,
 				'nodeText': '12px',
 				'nodeTextBox': 10,
 				'nodeTextSeparate': 3,
@@ -57,7 +58,7 @@
 				if (root) {
 					root.fixed = true;
 					root.x = (width / 2);
-					root.y = d3Data.size.nodesSize * 3;
+					root.y = d3Data.size.rootSize;
 				}
 
 				graph.relationships.forEach(function (link) {
@@ -507,8 +508,15 @@
 				function arrowArc(d) {
 					var path = d3Data.svg.select('path#path-' + d.source.id + '-' + d.target.id + '-' + d.label.replace(/[^a-zA-Z0-9]+/g, "")),
 						pathEl = path.node(),
-						pathSize = (d3Data.size.nodesSize + d3Data.size.nodesMarkerSize / 2) + d3Data.size.nodesMarkerSpace,
-						pathLength = parseFloat(pathEl.getTotalLength()) || pathSize * 2,
+						pathSize;
+
+					if (d.target.id == root.id) {
+						pathSize = (d3Data.size.rootSize - d3Data.size.nodesMarkerSize * 0.5) - d3Data.size.nodesMarkerSpace;
+					} else {
+						pathSize = (d3Data.size.nodesSize + d3Data.size.nodesMarkerSize * 0.5) + d3Data.size.nodesMarkerSpace;
+					}
+
+					var pathLength = parseFloat(pathEl.getTotalLength()) || pathSize * 2,
 						sourceX = Math.floor(d.source.x),
 						sourceY = Math.floor(d.source.y),
 						targetX = Math.floor(d.target.x),
