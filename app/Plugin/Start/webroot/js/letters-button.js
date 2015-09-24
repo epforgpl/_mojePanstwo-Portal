@@ -70,7 +70,7 @@ $(document).ready(function () {
 		} else {
 			method = (szablon_id !== undefined && pismoBtn.attr('data-adresatid') !== undefined) ? 'post' : 'get';
 			form = $('<form></form>').attr({
-				'action': '/pisma',
+				'action': '/moje-pisma',
 				'method': method,
 				'class': 'pismaGenerateModalForm hide'
 			}).append(
@@ -136,7 +136,7 @@ $(document).ready(function () {
 
 			if (pismoModal.data('cache') === undefined) {
 				var adresat_id = (pismoBtn.data('adresatid') !== undefined) ? '?adresat=' + pismoBtn.data('adresatid') : '';
-				$.get('/pisma/szablony/index.json' + adresat_id, function (data) {
+				$.get('/moje-pisma/szablony/index.json' + adresat_id, function (data) {
 					pismoModal.data('cache', data);
 					szablonList(data);
 				});

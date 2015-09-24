@@ -1,5 +1,5 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma'))) ?>
-<?php $this->Combinator->add_libs('js', 'Pisma.pisma-button.js') ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('letters-button', array('plugin' => 'Start'))) ?>
+<?php $this->Combinator->add_libs('js', 'Start.letters-button.js') ?>
 
 <fieldset>
     <div class="form-group szablony">

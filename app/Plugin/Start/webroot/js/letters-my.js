@@ -4,7 +4,7 @@
 
 		main: null,
 		allCheckboxes: [],
-		baseUrl: '/pisma/moje',
+		baseUrl: '/moje-pisma/moje',
 		checked: [],
 		query: {},
 

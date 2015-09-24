@@ -1,4 +1,4 @@
-<? $this->Combinator->add_libs('js', 'Pisma.suggester.js'); ?>
+<? $this->Combinator->add_libs('js', 'Start.suggester.js'); ?>
 
 <div class="searcher form-group has-feedback">
     <div class="col-md-12">

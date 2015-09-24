@@ -3,10 +3,8 @@
 <?php echo $this->Html->script('/plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5.all', array('block' => 'scriptBlock')); ?>
 <?php echo $this->Html->script('/plugins/bootstrap3-wysiwyg/dist/locales/bootstrap-wysihtml5.pl-PL', array('block' => 'scriptBlock')); ?>
 
-<?php $this->Combinator->add_libs('css', $this->Less->css('pisma', array('plugin' => 'Pisma'))) ?>
-<?php $this->Combinator->add_libs('js', 'Pisma.jquery.autosize.min.js') ?>
-<?php $this->Combinator->add_libs('js', 'Pisma.jquery_steps.js') ?>
-<?php $this->Combinator->add_libs('js', 'Pisma.pisma.js') ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('letters', array('plugin' => 'Start'))) ?>
+<?php $this->Combinator->add_libs('js', 'Start.letters.js') ?>
 
 <?php
 if (!empty($pismo['szablon_id'])) {
@@ -29,7 +27,7 @@ if (!empty($pismo['adresat_id'])) {
     } ?> data-status-check="<?= $pismo['saved'] ?>">
         <h2>Wpisz treść</h2>
         <section>
-            <form class="form-save" method="post" action="/pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
+            <form class="form-save" method="post" action="/moje-pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
                 <div class="row">
                     <div class="col-md-10">
                         <div style="padding-right: 10px;">
@@ -44,7 +42,7 @@ if (!empty($pismo['adresat_id'])) {
                                                 class="icon glyphicon glyphicon-save"></i>Zapisz
                                         </button>
                                         <a class="btn btn-default" style="width: inherit; margin-left: 5px;"
-                                           href="/pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">Anuluj</a>
+                                           href="/moje-pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">Anuluj</a>
                                         <input type="hidden" name="save" value="1"/>
                                     </li>
                                 </ul>
