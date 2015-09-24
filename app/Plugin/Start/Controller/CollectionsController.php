@@ -51,7 +51,11 @@ class CollectionsController extends StartAppController {
 			),
 		));
         
-        $this->Components->load('Dane.DataBrowser', array());
+        $this->Components->load('Dane.DataBrowser', array(
+	        'conditions' => array(
+		        'collection_id' => $id,
+	        ),
+        ));
 		
 		$this->set('item', $item);
 		
