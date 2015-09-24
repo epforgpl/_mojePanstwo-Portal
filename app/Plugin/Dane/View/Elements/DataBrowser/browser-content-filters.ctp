@@ -1,14 +1,15 @@
-<? if (isset($dataBrowser['aggs_visuals_map']) && count($dataBrowser['aggs_visuals_map']) > 0) {
-    $selected = false; ?>
-    <ul class="nav nav-pills dataAggsDropdownList nopadding" role="tablist">
+<ul class="nav nav-pills dataAggsDropdownList nopadding" role="tablist">
 
-        <? if (isset($paging['count']) && $paging['count']) { ?>
-            <li>
-                <div class="dataCounter">
-                    <span><?= pl_dopelniacz($paging['count'], 'wynik', 'wyniki', 'wyników') ?></span>
-                </div>
-            </li>
-        <? } ?>
+    <? if (isset($paging['count']) && $paging['count']) { ?>
+        <li>
+            <div class="dataCounter">
+                <span><?= pl_dopelniacz($paging['count'], 'wynik', 'wyniki', 'wyników') ?></span>
+            </div>
+        </li>
+    <? } ?>
+        
+        <? if (isset($dataBrowser['aggs_visuals_map']) && count($dataBrowser['aggs_visuals_map']) > 0) {
+    $selected = false; ?>
 
         <?
         foreach ($dataBrowser['aggs_visuals_map'] as $name => $map) {
@@ -132,6 +133,6 @@
                 </ul>
             </li>
         <? } ?>
+	<? } ?>
 
-    </ul>
-<? } ?>
+</ul>

@@ -1564,6 +1564,10 @@ class DataBrowserComponent extends Component
             'order' => $this->getSettingsForField('order'),
             'limit' => isset($this->settings['limit']) ? $this->settings['limit'] : 30,
         );
+				
+		if( isset($this->settings['feed']) )
+			$output['feed'] = $this->settings['feed'];
+		       
 
         if (isset($conditions['q']))
             $output['highlight'] = true;
@@ -1584,7 +1588,7 @@ class DataBrowserComponent extends Component
 				}
 			}
 		}
-		
+
         return $output;
 
     }

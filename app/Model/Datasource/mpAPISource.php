@@ -120,7 +120,7 @@ class mpAPISource extends DataSource {
         $this->took = false;
 
         $process_response = false;
-
+				
         if( isset($queryData['feed']) ) {
 
         	$endpoint_parts = array('dane/' . $queryData['feed']);
