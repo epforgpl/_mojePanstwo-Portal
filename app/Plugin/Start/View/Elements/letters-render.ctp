@@ -1,4 +1,4 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('pisma_render', array('plugin' => 'Pisma'))) ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('letters_render', array('plugin' => 'Start'))) ?>
 <div id="editor-cont" class="row">
     <div class="editor-controls">
         <div class="control control-date">

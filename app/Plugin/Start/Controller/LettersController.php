@@ -220,7 +220,7 @@ class LettersController extends StartAppController {
 
     }
 
-    public function index()
+    public function my()
     {
         $q = false;
 
