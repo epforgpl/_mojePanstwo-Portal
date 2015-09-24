@@ -17,6 +17,14 @@ class Collection extends AppModel {
         ));
     }
 
+    public function edit($id, $data) {
+        return $this->getDataSource()->request('collections/collections/edit/' . $id, array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+    }
+
+
     public function addObject($id, $object_id) {
         return $this->getDataSource()->request('collections/collections/addObject/' . $id . '/' . $object_id, array(
             'method' => 'GET'
@@ -33,6 +41,12 @@ class Collection extends AppModel {
         return $this->getDataSource()->request('collections/collections/removeObjects/' . $id , array(
             'data' => $data,
             'method' => 'POST'
+        ));
+    }
+
+    public function delete($id) {
+        return $this->getDataSource()->request('collections/collections/delete/' . $id, array(
+            'method' => 'GET'
         ));
     }
 

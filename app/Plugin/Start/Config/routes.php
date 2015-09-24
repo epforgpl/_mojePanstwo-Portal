@@ -10,6 +10,11 @@ Router::connect('/moje-kolekcje/:id', array('plugin' => 'Start', 'controller' =>
     'id' => '[0-9]{1,}', 'pass' => array('id'))
 );
 
+Router::connect('/moje-kolekcje/:id/edytuj', array('plugin' => 'Start', 'controller' => 'Collections', 'action' => 'edit'), array(
+        'id' => '[0-9]{1,}', 'pass' => array('id'))
+);
+
+
 
 /* MOJE PISMA ROUTES*/
 $pisma_prefixes = array('/moje-pisma');
