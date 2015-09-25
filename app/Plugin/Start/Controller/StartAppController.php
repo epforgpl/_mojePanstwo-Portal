@@ -58,7 +58,7 @@ class StartAppController extends ApplicationsController {
                     'id' => 'collections',
                     'label' => 'Kolekcje',
                     'href' => '/moje-kolekcje',
-                    'icon' => 'icon-applications-kolekcje',
+                    'icon' => 'icon-datasets-kolekcje',
                     'submenu' => array(
 	                    'items' => array(
                             array(

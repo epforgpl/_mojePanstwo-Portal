@@ -1,5 +1,5 @@
 <?
-	
+
 $this->Combinator->add_libs('css', $this->Less->css('collections-view', array('plugin' => 'Start')));
 $this->Combinator->add_libs('css', $this->Less->css('collections-form', array('plugin' => 'Start')));
 $this->Combinator->add_libs('js', 'Start.collections-form');
@@ -8,12 +8,12 @@ echo $this->element('Start.pageBegin'); ?>
 
 <header class="collection-header">
     <div class="overflow-auto">
-        
-        <div class="content pull-left">       
-	        <a href="/moje-kolekcje/<?= $item->getData('id') ?>">                 												
-	            <i class="object-icon icon-datasets-kolekcje"></i>						
+
+        <div class="content pull-left">
+            <a href="/moje-kolekcje/<?= $item->getData('id') ?>">
+                <i class="object-icon icon-datasets-kolekcje"></i>
 	            <div class="object-icon-side">
-	                <h1><?= $item->getData('nazwa') ?></h1>            
+                    <h1><?= $item->getData('nazwa') ?></h1>
 	            </div>
 	        </a>
         </div>
