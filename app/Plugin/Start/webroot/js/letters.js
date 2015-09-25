@@ -523,7 +523,7 @@ var PISMA = Class.extend({
 				preview.find('.control.control-date input.city').val(' ');
 			}
 
-			self.html.stepper_div.find('.edit .col-md-10').find("textarea:not('.hide')").each(function (idx) {
+			self.html.stepper_div.find('.edit textarea:not(.hide)').each(function (idx) {
 				$(preview.find("textarea").eq(idx)).replaceWith('<div class="pre">' + $(this).val().replace(/\n/g, '<br/>') + '</div>');
 			});
 
@@ -583,9 +583,9 @@ var PISMA = Class.extend({
 			preview.append(
 				$('<textarea></textarea>').attr({name: 'tresc'}).val($.trim(preview.find('#editor').html()))
 			).append(
-				$('<textarea></textarea>').attr({name: 'nadawca'}).val(self.html.stepper_div.find('.edit .col-md-10 .control.control-sender textarea.nadawca').val())
+				$('<textarea></textarea>').attr({name: 'nadawca'}).val(self.html.stepper_div.find('.edit .control.control-sender textarea.nadawca').val())
 			).append(
-				$('<textarea></textarea>').attr({name: 'podpis'}).val(self.html.stepper_div.find('.edit .col-md-10 .control.control-signature textarea.podpis').val())
+				$('<textarea></textarea>').attr({name: 'podpis'}).val(self.html.stepper_div.find('.edit .control.control-signature textarea.podpis').val())
 			);
 
 			self.html.stepper_div.find('form.form-save').append(preview);
