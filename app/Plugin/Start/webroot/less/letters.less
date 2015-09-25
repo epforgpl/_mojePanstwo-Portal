@@ -366,54 +366,13 @@
             margin: 0;
         }
 
-        .more-buttons-switcher-cont {
-            width: 100%;
-            float: left;
-
-            .more-buttons-switcher {
-                display: block;
-                float: left;
-                width: @btnSize;
-                text-align: center;
-
-                .glyphicon {
-                    position: relative;
-                    top: 3px;
-                    margin-right: 2px;
-                    margin-left: 2px;
-                }
-            }
-            .more-buttons-target {
-                float: left;
-                display: block;
-
-                > li {
-                    float: left;
-                    width: 100%;
-                    display: block;
-
-                    &:first-child {
-                        margin-top: 0;
-                    }
-                }
-            }
-        }
-
         ul {
             list-style: none;
             margin: 0;
             padding: 0;
 
             li {
-                width: 100%;
-                float: left;
-                list-style: none;
                 padding: 5px 0;
-                margin: 0;
-
-                &:first-child {
-                    margin-top: -10px;
-                }
 
                 .btn {
                     font-size: 12px;
@@ -443,6 +402,7 @@
                         text-transform: none;
                         color: #767676;
                         background-color: #ffffff;
+                        margin: 0;
                     }
                     #clipboardCopyBtn {
                         width: auto;
@@ -451,10 +411,6 @@
                     }
                 }
                 &.shareIt {
-                    width: 100%;
-                    float: left;
-                    margin-bottom: 20px;
-
                     span {
                         width: 100%;
                         float: left;
@@ -491,7 +447,6 @@
         float: left;
         width: 100%;
         padding-bottom: 0;
-        margin-top: -15px;
         margin-bottom: 15px;
     }
     .wysihtml5-toolbar {

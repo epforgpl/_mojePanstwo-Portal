@@ -27,9 +27,7 @@ var PISMA = Class.extend({
 		init: function () {
 			"use strict";
 			if (this.html.stepper_div.hasClass('stepper')) {
-				this.steps();
 				this.stepsMarkers();
-				this.checkStep();
 				this.changeTitle();
 				this.szablony();
 				this.editor();
@@ -41,47 +39,12 @@ var PISMA = Class.extend({
 				this.lastPageButtons();
 			}
 		},
-		steps: function () {
-			"use strict";
-			var self = this;
-
-			self.methods.stepper = self.html.stepper_div.steps({
-				step: 1,
-				startIndex: 0,
-				headerTag: "h2",
-				bodyTag: "section",
-				transitionEffect: "slideLeft",
-				autoFocus: true,
-				enableAllSteps: true,
-				enableKeyNavigation: false,
-				enablePagination: false,
-				suppressPaginationOnFocus: false,
-				enableCancelButton: false,
-				enableFinishButton: false,
-				labels: {
-					finish: "Zakończ",
-					next: "Dalej",
-					previous: "Cofnij",
-					loading: "Ładowanie..."
-				},
-				onStepChanged: function () {
-					self.checkStep();
-				}
-			});
-		},
 		stepsMarkers: function () {
 			"use strict";
 			this.html.szablony = this.html.stepper_div.find('.szablony');
 			this.html.adresaci = this.html.stepper_div.find('.adresaci');
 			this.html.editorTop = this.html.stepper_div.find('.editor-controls');
 			this.html.editor = this.html.stepper_div.find('#editor');
-		},
-		checkStep: function () {
-			"use strict";
-			var self = this;
-			if (self.methods.stepper.data().state.currentIndex === 1) {
-				self.editorDetail();
-			}
 		},
 		changeTitle: function () {
 			"use strict";
@@ -182,9 +145,7 @@ var PISMA = Class.extend({
 		},
 		editor: function () {
 			"use strict";
-			var wysightml5toolbarBlock,
-				wysightml5toolbar,
-				prettyDate,
+			var prettyDate,
 				myDate,
 				uDatepicker,
 				months,
@@ -305,13 +266,14 @@ var PISMA = Class.extend({
 				randChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
 				i;
 
-			editor.find('.editable').each(function () {
+			editor.find('.editable:not(.r)').each(function () {
 				var that = $(this);
 
 				if (that.hasClass('date')) {
 					that.append(
 						$('<input>').addClass('datepicker').datepicker()
 					);
+					that.addClass('r');
 				} else if (that.hasClass('daterange')) {
 					that.append(
 						$('<label></label>').attr('for', 'from').text('od dnia ')
@@ -332,6 +294,7 @@ var PISMA = Class.extend({
 								}
 							})
 					);
+					that.addClass('r');
 				} else {
 					if (that.hasClass('email')) {
 						that.addClass('mirrorable').append(
@@ -340,6 +303,7 @@ var PISMA = Class.extend({
 								placeholder: "(podaj adres email)"
 							})
 						);
+						that.addClass('r');
 					} else if (that.hasClass('currencypln')) {
 						for (i = randLength; i > 0; --i) {
 							rand += randChars[Math.round(Math.random() * (randChars.length - 1))];
@@ -405,11 +369,10 @@ var PISMA = Class.extend({
 
 							self.html.editor.find('.slownie[data-unique="' + $(this).parent().data('unique') + '"]')
 								.html('&nbsp;PLN <span class="_slownie">(słownie: ' + znak + wynik + ' polskich złotych)</span>');
+							that.addClass('r');
 						});
 					} else {
-						if (that.attr('class').split(" ").length === 1) {
-							//that.html('<br type="_editor">');
-						}
+
 					}
 				}
 

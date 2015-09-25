@@ -115,29 +115,6 @@
                         </div>
                     <? } ?>
                     <ul class="form-buttons">
-                        <? if ($pismo['to_email']) { ?>
-                            <li class="inner-addon">
-                                <? if ($pismo['sent']) { ?>
-                                    <p class="desc">To pismo zostałe wysłane do
-                                        adresata <?= $this->Czas->dataSlownie($pismo['sent_at']) ?>.</p>
-                                <? } else { ?>
-                                    <a title="Możesz wysłać pismo do adresata poprzez e-mail"
-                                       href="#" target="_self"
-                                       class="btn btn-primary sendPismo btn-icon"><i
-                                            class="icon glyphicon glyphicon-send"></i>Wyślij...</a>
-
-
-                                <? } ?>
-                            </li>
-                        <? } ?>
-                        <? if (!$pismo['sent']) { ?>
-                            <li class="inner-addon">
-                                <a href="<?= $href_base . '/edit' ?>" target="_self"
-                                   class="btn btn-primary btn-icon"><i
-                                        class="icon glyphicon glyphicon-edit"></i>Edytuj</a>
-                            </li>
-                        <? } ?>
-
                         <? if ($pismo['access'] == 'private') { ?>
                             <li class="inner-addon">
                                 <form action="" method="post">
@@ -151,7 +128,7 @@
                                 </form>
                             </li>
                         <? } elseif ($pismo['access'] == 'public') { ?>
-                            <li class="inner-addon">
+                            <li class="inner-addon col-xs-12 col-sm-4">
                                 <form action="" method="post">
                                     <input type="hidden" name="access" value="private">
 
@@ -163,7 +140,7 @@
                                     </p>
                                 </form>
                             </li>
-                            <li>
+                            <li class="inner-addon col-xs-12 col-sm-4">
                                 <div class="form-group clipboard">
                                     <label for="clipboardCopy">Link do dokumentu</label>
 
@@ -180,7 +157,7 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="shareIt">
+                            <li class="inner-addon col-xs-12 col-sm-4 shareIt">
                                 <span><strong>Udostępnij</strong></span>
 
                                 <div id="fb-root"></div>
@@ -207,25 +184,41 @@
                                 </a>
                             </li>
                         <? } ?>
-                    </ul>
+                        <? if ($pismo['to_email']) { ?>
+                            <li class="inner-addon col-xs-12">
+                                <? if ($pismo['sent']) { ?>
+                                    <p class="desc">To pismo zostałe wysłane do
+                                        adresata <?= $this->Czas->dataSlownie($pismo['sent_at']) ?>.</p>
+                                <? } else { ?>
+                                    <a title="Możesz wysłać pismo do adresata poprzez e-mail"
+                                       href="#" target="_self"
+                                       class="btn btn-primary sendPismo btn-icon"><i
+                                            class="icon glyphicon glyphicon-send"></i>Wyślij...</a>
 
-                    <div class="more-buttons-switcher-cont">
-                        <ul class="form-buttons more-buttons-target" style="display: none;">
-                            <li class="inner-addon left-addon">
-                                <form onsubmit="return confirm('Czy na pewno chcesz usunąć to pismo?');"
-                                      method="post"
-                                      action="/moje-pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
-                                    <button name="delete" type="submit" class="btn btn-icon btn-danger"><i
-                                            class="icon glyphicon glyphicon-trash"></i>Skasuj
-                                    </button>
+
+                                <? } ?>
+                            </li>
+                        <? } ?>
+                        <? if (!$pismo['sent']) { ?>
+                            <li class="inner-addon col-xs-12">
+                                <a href="<?= $href_base . '/edit' ?>" target="_self"
+                                   class="btn btn-primary btn-icon"><i
+                                        class="icon glyphicon glyphicon-edit"></i>Edytuj</a>
+                            </li>
+                        <? } ?>
+
+                        <li class="inner-addon col-xs-12">
+                            <form onsubmit="return confirm('Czy na pewno chcesz usunąć to pismo?');"
+                                  method="post"
+                                  action="/moje-pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
+                                <button name="delete" type="submit" class="btn btn-icon btn-danger"><i
+                                        class="icon glyphicon glyphicon-trash"></i>Skasuj
+                                </button>
                                 </form>
                             </li>
                         </ul>
-                        <a class="more-buttons-switcher" data-mode="more" href="#more">
-                            <span class="glyphicon glyphicon-chevron-down"></span>
-                            <span class="text">Więcej</span>
-                        </a>
-                    </div>
+
+
                 <? } ?>
             </div>
         </div>
