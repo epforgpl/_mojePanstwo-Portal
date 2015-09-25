@@ -37,7 +37,7 @@
                             </p>
                             <? if ($pismo['sent']) { ?>
                                 <p class="small"><b>To pismo zostałe wysłane do
-                                        adresata <?= $this->Czas->dataSlownie($pismo['sent_at']) ?>.</p>
+                                        adresata <?= $this->Czas->dataSlownie($pismo['sent_at']) ?></b></p>
                             <? } else { ?>
                                 <p class="small"><b>Przed wysłaniem pisma należy je zapisać</b></p>
                             <? } ?>
