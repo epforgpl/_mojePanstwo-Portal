@@ -1,5 +1,13 @@
 <?
-	$phrases = $paginatorPhrases ? $paginatorPhrases : array('wynik', 'wyniki', 'wyników');
+	
+	$phrases = array('wynik', 'wyniki', 'wyników');
+	
+	if( @isset($dataBrowser['phrases']['paginator']) && $dataBrowser['phrases']['paginator'] )
+		$phrases = $dataBrowser['phrases']['paginator'];
+			
+	if( isset($paginatorPhrases) && $paginatorPhrases )
+		$phrases = $paginatorPhrases;
+
 ?>
 
 <ul class="nav nav-pills dataAggsDropdownList nopadding" role="tablist">

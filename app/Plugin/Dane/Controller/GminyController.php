@@ -1552,9 +1552,11 @@ class GminyController extends DataobjectsController
                 ),
                 'aggsPreset' => 'rady_gmin_interpelacje',
                 'sortPreset' => 'rady_gmin_interpelacje',
+                'phrasesPreset' => 'rady_gmin_interpelacje',
                 'searchTitle' => 'Szukaj w interpelacjach...',
             ));
 
+            $this->set('DataBrowserTitle', 'Interpelacje radnych miasta');
             $this->set('_submenu', array_merge($this->submenus['rada'], array(
                 'selected' => 'interpelacje',
             )));
@@ -1751,14 +1753,15 @@ class GminyController extends DataobjectsController
                     'dataset' => 'krakow_posiedzenia',
                 ),
                 'aggsPreset' => 'krakow_posiedzenia',
+                'phrasesPreset' => 'krakow_posiedzenia',
             ));
 
             $this->set('_submenu', array_merge($this->submenus['rada'], array(
                 'selected' => 'posiedzenia',
             )));
 
-            $this->set('DataBrowserTitle', 'Posiedzenia Rady Miasta');
-            $this->set('title_for_layout', 'Posiedzenia Rady Miasta ' . $this->object->getData('nazwa'));
+            $this->set('DataBrowserTitle', 'Posiedzenia rady miasta');
+            $this->set('title_for_layout', 'Posiedzenia rady miasta ' . $this->object->getData('nazwa'));
 
         }
 
@@ -1962,9 +1965,11 @@ class GminyController extends DataobjectsController
                     'dataset' => 'krakow_rada_uchwaly',
                 ),
                 'aggsPreset' => 'krakow_rada_uchwaly',
+                'phrasesPreset' => 'krakow_rada_uchwaly',
                 'searchTitle' => 'Szukaj w uchwałach Rady Miasta Kraków...',
             ));
-
+			
+			$this->set('DataBrowserTitle', 'Uchwały');
             $this->set('title_for_layout', 'Uchwały podjęte przez radę gminy ' . $this->object->getData('nazwa'));
             $this->set('_submenu', array_merge($this->submenus['rada'], array(
                 'selected' => 'rada_uchwaly',
@@ -2149,9 +2154,11 @@ class GminyController extends DataobjectsController
                     'dataset' => 'rady_druki',
                 ),
                 'aggsPreset' => 'rady_druki',
+                'phrasesPreset' => 'rady_druki',
                 'searchTitle' => 'Szukaj w projektach legislacyjnych...',
             ));
-
+			
+			$this->set('DataBrowserTitle', 'Projekty legislacyjne');
             $this->set('title_for_layout', 'Proces legislacyjny Rady Miasta Krakowa');
             $this->set('_submenu', array_merge($this->submenus['rada'], array(
                 'selected' => 'druki',

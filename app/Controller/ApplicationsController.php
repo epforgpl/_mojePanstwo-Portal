@@ -167,6 +167,7 @@ class ApplicationsController extends AppController
                 'dataset' => $dataset,
             ),
             'aggsPreset' => $dataset,
+            'phrasesPreset' => $dataset,
         ), $options);
 
         $this->Components->load('Dane.DataBrowser', $options);
