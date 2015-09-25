@@ -10,10 +10,10 @@ echo $this->element('Start.pageBegin'); ?>
     <div class="overflow-auto">
 
         <div class="content pull-left">
-            <a href="/moje-kolekcje/<?= $item->getData('id') ?>">
-                <i class="object-icon icon-datasets-kolekcje"></i>
+	        <a href="/moje-kolekcje/<?= $item->getData('id') ?>">
+	            <i class="object-icon icon-datasets-kolekcje"></i>
 	            <div class="object-icon-side">
-                    <h1><?= $item->getData('nazwa') ?></h1>
+	                <h1><?= $item->getData('nazwa') ?></h1>
 	            </div>
 	        </a>
         </div>
@@ -26,6 +26,12 @@ echo $this->element('Start.pageBegin'); ?>
         <label for="collectionName">Tytuł:</label>
         <input maxlength="195" type="text" class="form-control" id="collectionName" value="<?= $item->getData('nazwa') ?>" name="name"/>
     </div>
+
+    <div class="form-group margin-top-20">
+        <label for="collectionDescription">Opis:</label>
+        <textarea maxlength="16383" class="form-control tinymce" id="collectionDescription" name="description"><?= $item->getData('opis') ?></textarea>
+    </div>
+
 
     <div class="form-group overflow-hidden margin-top-30 text-center">
         <button class="btn auto-width btn-primary btn-icon" type="submit">
