@@ -35,8 +35,12 @@
                             <p>Autor:
                                 <b><? echo ($pismo['from_user_type'] == 'account') ? $pismo['from_user_name'] : "Anonimowy użytkownik" ?></b>
                             </p>
-
-                            <p class="small"><b>Przed wysłaniem pisma należy je zapisać</b></p>
+                            <? if ($pismo['sent']) { ?>
+                                <p class="small"><b>To pismo zostałe wysłane do
+                                        adresata <?= $this->Czas->dataSlownie($pismo['sent_at']) ?>.</p>
+                            <? } else { ?>
+                                <p class="small"><b>Przed wysłaniem pisma należy je zapisać</b></p>
+                            <? } ?>
                         </div>
                     </div>
                 </div>
@@ -60,16 +64,11 @@
                 <? } ?>
                 <? if ($pismo['to_email']) { ?>
                     <li class="inner-addon">
-                        <? if ($pismo['sent']) { ?>
-                            <p class="desc">To pismo zostałe wysłane do
-                                adresata <?= $this->Czas->dataSlownie($pismo['sent_at']) ?>.</p>
-                        <? } else { ?>
+                        <? if (!$pismo['sent']) { ?>
                             <a title="Możesz wysłać pismo do adresata poprzez e-mail"
                                href="#" target="_self"
                                class="btn btn-primary sendPismo btn-icon"><i
                                     class="icon glyphicon glyphicon-send"></i>Wyślij...</a>
-
-
                         <? } ?>
                     </li>
                 <? } ?>
