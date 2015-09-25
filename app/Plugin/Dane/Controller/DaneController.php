@@ -118,17 +118,9 @@ class DaneController extends ApplicationsController
 
     }
 
-    public function getMenu()
+    public function getChapters()
     {
-        $menu = array(
-	        'items' => array(
-		        array(
-			        'label' => 'Dane publiczne',
-		        ),
-	        ),
-	        'base' => '/dane',
-        );
-        return $menu;
+        return false;
     }
 
 } 
