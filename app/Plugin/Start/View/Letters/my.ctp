@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="suggesterBlock searchForm">
-                    <form class="form-horizontal suggesterBlock" method="get" action="/pisma">
+                    <form class="form-horizontal suggesterBlock" method="get" action="/moje-pisma">
                         <div class="searcher form-group has-feedback">
                             <div class="input-group">
                                 <input class="form-control hasclear input-lg" name="q" type="text" value="<?= $q ?>"
@@ -64,7 +64,7 @@
                     </div>
                     <div class="col-md-7 text-right">
                         <div class="optionsChecked">
-                            <form action="/pisma/moje" method="post">
+                            <form action="/moje-pisma/moje" method="post">
                                 <input name="action" value="delete" type="hidden"/>
 
                                 <div class="inputs">
@@ -130,7 +130,7 @@
                             <div class="col-sm-9">
                                 <div class="thumb">
                                     <a href="/moje-pisma/<?= $item['alphaid'] ?>,<?= $item['slug'] ?>">
-                                        <img src="http://pisma.sds.tiktalik.com/thumbs/<?= $item['hash'] ?>.png"
+                                        <img src="http://moje-pisma.sds.tiktalik.com/thumbs/<?= $item['hash'] ?>.png"
                                              onerror="imgFixer(this)"/>
                                     </a>
                                 </div>

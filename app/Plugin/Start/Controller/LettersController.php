@@ -26,7 +26,7 @@ class LettersController extends StartAppController {
     public function prepareMetaTags()
     {
         parent::prepareMetaTags();
-        $this->setMeta('og:image', FULL_BASE_URL . '/pisma/img/social/pisma.jpg');
+        $this->setMeta('og:image', FULL_BASE_URL . '/moje-pisma/img/social/letters.jpg');
     }
 
     public function view($id, $slug = '')
@@ -158,7 +158,7 @@ class LettersController extends StartAppController {
 
             if ($redirect == 'object') {
 
-                $url = '/pisma/' . $id;
+                $url = '/moje-pisma/' . $id;
                 if ($slug)
                     $url .= ',' . $slug;
 
@@ -166,7 +166,7 @@ class LettersController extends StartAppController {
 
             } elseif ($redirect == 'my') {
 
-                return $this->redirect('/pisma');
+                return $this->redirect('/moje-pisma');
 
             }
 
@@ -176,7 +176,7 @@ class LettersController extends StartAppController {
         ) {
 
             $this->Pismo->documents_delete($this->request->data['id']);
-            return $this->redirect('/pisma');
+            return $this->redirect('/moje-pisma');
 
         }
 
