@@ -24,7 +24,7 @@ $(document).ready(function() {
 				counterSpan.html('Zaznaczono ' + checked + ' z ' + checkboxes.length + ' dokumentów');
 
 				if(!nav.find('.deleteBtn').length) {
-					nav.append('<li class="deleteBtn"><button data-tooltip="true" data-original-title="Usuń zaznaczone" data-placement="bottom" class="btn btn-default btn" type="submit"><i class="glyphicon glyphicon-trash" title="Usuń zaznaczone" aria-hidden="true"></i></button></li>');
+					nav.append('<li class="deleteBtn"><button data-tooltip="true" data-original-title="Usuń zaznaczone" data-placement="right" class="btn btn-default btn" type="submit"><i class="glyphicon glyphicon-trash" title="Usuń zaznaczone" aria-hidden="true"></i></button></li>');
 
 					$('[data-tooltip="true"]').tooltip({
 						delay: {

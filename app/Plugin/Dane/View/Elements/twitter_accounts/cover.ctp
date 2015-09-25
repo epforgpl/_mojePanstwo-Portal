@@ -13,6 +13,8 @@ $options = array(
     'mode' => 'init',
 );
 
+$baseUrl = $object->getUrl() . ($object->getDataset() == 'krs_podmioty' ? '/media' : '');
+
 ?>
 
 <div class="col-xs-12 col-sm-9 margin-top-10 margin-sides-15">
@@ -27,7 +29,7 @@ $options = array(
                         <ul class="nav nav-pills">
                             <? foreach ($twitterTimeranges as $key => $value) { ?>
                                 <li<? if ($twitterTimerange == $key) echo ' class="active"' ?>>
-                                    <a href="/dane/twitter_accounts/<?= $object->getId(); ?>?t=<?= $key ?>">
+                                    <a href="<?= $baseUrl ?>?t=<?= $key ?>">
                                         <?= $value ?>
                                     </a>
                                 </li>
@@ -37,7 +39,7 @@ $options = array(
                     <div class="pull-right">
                         <ul class="nav nav-pills">
                             <li<? if (isset($this->request->query['t']) && ($this->request->query['t'] == $last_month_report['param'])) echo ' class="active"' ?>>
-                                <a href="/dane/twitter_accounts/<?= $object->getId(); ?>?t=<?= $last_month_report['param'] ?>"><?= $last_month_report['label'] ?></a>
+                                <a href="<?= $baseUrl ?>?t=<?= $last_month_report['param'] ?>"><?= $last_month_report['label'] ?></a>
                             </li>
 
                             <? if (isset($dropdownRanges)) { ?>
@@ -52,7 +54,7 @@ $options = array(
                                                 <li class="dropdown-title"><?= $dropdown['title'] ?></li>
                                                 <? foreach ($dropdown['ranges'] as $range) { ?>
                                                     <li<? if ($twitterTimerange == $range['param'] && strlen($twitterTimerange) === strlen($range['param'])) echo ' class="active"'; ?>>
-                                                        <a href="/dane/twitter_accounts/<?= $object->getId(); ?>?t=<?= $range['param'] ?>">
+                                                        <a href="<?= $baseUrl ?>?t=<?= $range['param'] ?>">
                                                             <?= $range['label'] ?>
                                                         </a>
                                                     </li>
@@ -142,7 +144,7 @@ $options = array(
 
 	<? /*
 	<? debug($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['retweets']['accounts']); ?>
-	
+
 	<? if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['retweets']['accounts']['buckets']) { ?>
         <div class="block block-simple col-xs-12">
             <header><?= $object->getTitle() ?> najczęściej retweetował tweety od:</header>
@@ -168,8 +170,8 @@ $options = array(
         </div>
     <? } ?>
     */ ?>
-    
-	
+
+
     <? if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['mentions']['accounts']['buckets']) { ?>
         <div class="block block-simple col-xs-12">
             <header>Profil "<?= $object->getTitle() ?>" najczęściej wzmiankował:</header>
@@ -181,13 +183,13 @@ $options = array(
                          data-label_field="name"
                          data-image_field="photo"
                          <?
-		                    
+
 		                    $parms = '/dane/twitter_accounts/' . $object->getId() . '/tweety?';
 		                    if (isset($timerange["range"])) {
 	                            $parms .= 'conditions[date]=[' . date('Y-m-d', $timerange["range"]['min']) . ' TO ' . date('Y-m-d', $timerange["range"]['max']) . ']&';
 	                        }
 	                        $parms .= 'conditions[twitter-mentions:screen_name]=';
-		                    
+
 	                    ?>
                          data-choose-request="<?= $parms ?>"
                          data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['mentions']['accounts'])) ?>">
@@ -203,7 +205,7 @@ $options = array(
             </section>
         </div>
     <? } ?>
-		
+
     <? if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['account']['accounts']['ids']['buckets']) { ?>
         <div class="block block-simple col-xs-12">
             <header>Profil "<?= $object->getTitle() ?>" był najczęściej wzmiankowany przez:</header>
@@ -215,14 +217,14 @@ $options = array(
                          data-label_field="name"
                          data-image_field="photo"
                          <?
-	                    
+
 	                    $parms = '/media/tweety?';
 	                    if (isset($timerange["range"])) {
                             $parms .= 'conditions[date]=[' . date('Y-m-d', $timerange["range"]['min']) . ' TO ' . date('Y-m-d', $timerange["range"]['max']) . ']&';
                         }
-                       		                    	                    
+
                         $parms .= 'conditions[twitter-mentions:account_id]=' . $object->getId() . '&conditions[twitter.twitter_user_screenname]=';
-		                    
+
 	                    ?>
                          data-choose-request="<?= $parms ?>"
                          data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['account']['accounts']['ids'])) ?>">

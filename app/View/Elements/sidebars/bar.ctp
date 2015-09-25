@@ -66,31 +66,29 @@
                     <p class="_mPAppLabel">Aplikacje</p>
                 </div>
             </a>
-            <? if($this->Session->read('Auth.User.id')) { ?>
-                <a class="_mPAppsList _appBlock _appBlockBackground<? if ($appSelected == 'powiadomienia') echo " _appBlockActive"; ?>"
-                   href="/moje-powiadomienia" target="_self">
-                    <div class="_mPTitle">
-                        <i class="_mPAppIcon" data-icon-applications="&#xe60a;"></i>
+            <a class="_mPAppsList _appBlock _appBlockBackground<? if ($appSelected == 'powiadomienia') echo " _appBlockActive"; ?>"
+               href="/moje-powiadomienia" target="_self">
+                <div class="_mPTitle">
+                    <i class="_mPAppIcon" data-icon-applications="&#xe60a;"></i>
 
-                        <p class="_mPAppLabel">Powiadomienia</p>
-                    </div>
-                </a>
-                <a class="_mPAppsList _appBlock _appBlockBackground<? if ($appSelected == 'pisma') echo " _appBlockActive"; ?>"
-                   href="/moje-pisma" target="_self">
-                    <div class="_mPTitle">
-                        <i class="_mPAppIcon" data-icon-applications="&#xe60b;"></i>
+                    <p class="_mPAppLabel">Powiadomienia</p>
+                </div>
+            </a>
+            <a class="_mPAppsList _appBlock _appBlockBackground<? if ($appSelected == 'pisma') echo " _appBlockActive"; ?>"
+               href="/moje-pisma" target="_self">
+                <div class="_mPTitle">
+                    <i class="_mPAppIcon" data-icon-applications="&#xe60b;"></i>
 
-                        <p class="_mPAppLabel">Pisma</p>
-                    </div>
-                </a>
-                <a class="_mPAppsList _appBlock _appBlockBackground<? if ($appSelected == 'kolekcje') echo " _appBlockActive"; ?>"
-                   href="/moje-kolekcje" target="_self">
-                    <div class="_mPTitle">
-                        <span class="glyphicon glyphicon-folder-open _mPAppIcon" aria-hidden="true"></span>
-                        <p class="_mPAppLabel">Kolekcje</p>
-                    </div>
-                </a>
-            <? } ?>
+                    <p class="_mPAppLabel">Pisma</p>
+                </div>
+            </a>
+            <a class="_mPAppsList _appBlock _appBlockBackground<? if ($appSelected == 'kolekcje') echo " _appBlockActive"; ?>"
+               href="/moje-kolekcje" target="_self">
+                <div class="_mPTitle">
+                    <span class="glyphicon glyphicon-folder-open _mPAppIcon" aria-hidden="true"></span>
+                    <p class="_mPAppLabel">Kolekcje</p>
+                </div>
+            </a>
             <? if(isset($isAdmin) && $isAdmin === true) { ?>
                 <a class="_mPAppsList _appBlock _appBlockBackground<? if ($appSelected == 'admin') echo " _appBlockActive"; ?>"
                    href="/admin" target="_self">

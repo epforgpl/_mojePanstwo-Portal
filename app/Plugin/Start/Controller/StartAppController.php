@@ -80,8 +80,7 @@ class StartAppController extends ApplicationsController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        if(!$this->Auth->user())
-            throw new ForbiddenException;
+        $this->Auth->deny();
     }
 
     public function getChapters() {
