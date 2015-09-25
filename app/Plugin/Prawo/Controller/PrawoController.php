@@ -306,6 +306,7 @@ class PrawoController extends ApplicationsController
 	            ),
             ), $this->getChaptersAggs()),
             'sortPreset' => 'prawo',
+            'phrasesPreset' => 'ustawy',
         ));
     }
     
@@ -444,6 +445,7 @@ class PrawoController extends ApplicationsController
                 'base' => '/prawo'
             )),
             'aggsPreset' => null,
+            'phrasesPreset' => 'rozporzadzenia',
             'aggs' => array_merge(array(
 	            'date' => array(
 	                'date_histogram' => array(
@@ -495,6 +497,7 @@ class PrawoController extends ApplicationsController
                 'base' => '/prawo'
             )),
             'aggsPreset' => null,
+            'phrasesPreset' => 'umowy_miedzynarodowe',
             'aggs' => array_merge(array(
 	            'date' => array(
 	                'date_histogram' => array(
@@ -525,6 +528,7 @@ class PrawoController extends ApplicationsController
                 'base' => '/prawo'
             )),
             'aggsPreset' => null,
+            'phrasesPreset' => 'akty_prawne',
             'aggs' => array_merge(array(
 	            'date' => array(
 	                'date_histogram' => array(

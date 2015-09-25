@@ -18,6 +18,33 @@ class DataBrowserComponent extends Component
     public $dataset = false;
     public $searchAction = false;
 	
+	private $phrases_presets = array(
+		'krakow_posiedzenia' => array(
+			'paginator' => array('posiedzenie', 'posiedzenia', 'posiedzeń'),
+		),
+		'ustawy' => array(
+			'paginator' => array('ustawa', 'ustawy', 'ustaw'),
+		),
+		'rozporzadzenia' => array(
+			'paginator' => array('rozporządzenie', 'rozporządzenia', 'rozporządzeń'),
+		),
+		'umowy_miedzynarodowe' => array(
+			'paginator' => array('umowa', 'umowy', 'umów'),
+		),
+		'akty_prawne' => array(
+			'paginator' => array('akt prawny', 'akty prawne', 'aktów prawnych'),
+		),
+		'rady_gmin_interpelacje' => array(
+			'paginator' => array('interpelacja', 'interpelacje', 'interpelacji'),
+		),
+		'rady_druki' => array(
+			'paginator' => array('projekt', 'projekty', 'projektów'),
+		),
+		'krakow_rada_uchwaly' => array(
+			'paginator' => array('uchwała', 'uchwały', 'uchwał'),
+		),
+	);
+	
 	private $sort_presets = array(
 		'prawo' => array(
 			'prawo.data_publikacji' => array(
@@ -255,7 +282,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Liczba druków w czasie',
-                    'all' => 'Kiedykolwiek',
+                    'all' => 'Złożone kiedykolwiek',
                     'skin' => 'date_histogram',
                     'field' => 'date'
                 ),
@@ -374,7 +401,7 @@ class DataBrowserComponent extends Component
                     'label' => 'Liczba posiedzeń w czasie',
                     'skin' => 'date_histogram',
                     'field' => 'date',
-                    'all' => 'Kiedykolwiek',
+                    'all' => 'Przeprowadzone kiedykolwiek',
                 ),
             ),
         ),
@@ -1252,6 +1279,14 @@ class DataBrowserComponent extends Component
             )
         )
             $settings['sort'] = array();
+            
+        if (
+            (
+                !isset($settings['phrases']) ||
+                (empty($settings['phrases']))
+            )
+        )
+            $settings['phrases'] = array();
 
         if(
 	        isset($settings['aggsPreset']) &&
@@ -1264,6 +1299,12 @@ class DataBrowserComponent extends Component
             array_key_exists($settings['sortPreset'], $this->sort_presets)
         )
         	$settings['sort'] = array_merge($this->sort_presets[$settings['sortPreset']], $settings['sort']);
+        	
+        if(
+	        isset($settings['phrasesPreset']) &&
+            array_key_exists($settings['phrasesPreset'], $this->phrases_presets)
+        )
+        	$settings['phrases'] = array_merge($this->phrases_presets[$settings['phrasesPreset']], $settings['phrases']);
 					
         if( isset($settings['aggs']) )
         	$settings['aggs'] = $this->processAggs( $settings['aggs'] );
@@ -1387,6 +1428,7 @@ class DataBrowserComponent extends Component
                 'dataset' => $this->dataset,
                 'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
                 'sort' => $this->prepareSort($this->settings['sort']),
+                'phrases' => isset($this->settings['phrases']) ? $this->settings['phrases'] : false,
             );
             
             if( isset($this->settings['beforeBrowserElement']) )
