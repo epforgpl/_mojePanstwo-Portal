@@ -1,4 +1,5 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('letters', array('plugin' => 'Start'))) ?>
+
 <?php $this->Combinator->add_libs('js', 'Start.letters.js') ?>
 <?php $this->Combinator->add_libs('js', 'Start.letters-social-share.js') ?>
 
@@ -11,7 +12,7 @@
 <form action="" method="post">
     <header class="collection-header">
         <div class="overflow-auto">
-            <div class="content pull-left">
+            <div class="content col-xs-12 row pull-left">
                 <i class="object-icon icon-applications-pisma"></i>
 
                 <div class="object-icon-side titleBlock">
