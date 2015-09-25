@@ -1,3 +1,5 @@
+@btnSize: 160px;
+
 .suggesterBlockPisma .form-control.loader {
     background-position: 96% center;
 }
@@ -46,7 +48,7 @@
     line-height: 21px;
 }
 
-.collection-header {
+#_wrapper .collection-header {
     .buttons {
         margin: 0;
 
@@ -105,6 +107,87 @@
 
             input {
                 font-size: 22px;
+            }
+        }
+    }
+    .editor-tooltip {
+        display: block;
+        float: left;
+        margin-top: 5px;
+        width: 100%;
+
+        form {
+            padding: 0;
+            margin: 0;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                padding: 5px 0;
+
+                .btn {
+                    font-size: 12px;
+                    font-weight: 400;
+                    text-transform: uppercase;
+                    width: @btnSize;
+                    margin: 0;
+                    word-spacing: 0.3em;
+                }
+
+                .desc {
+                    padding-top: 10px;
+                }
+
+                input {
+                    color: #FFF;
+                    height: 30px;
+                }
+                .clipboard {
+                    label {
+                        font-weight: bold;
+                    }
+                    #clipboardCopy {
+                        border-color: #e3e3e3;
+                        width: @btnSize;
+                        white-space: nowrap;
+                        text-transform: none;
+                        color: #767676;
+                        background-color: #ffffff;
+                        margin: 0;
+                    }
+                    #clipboardCopyBtn {
+                        width: auto;
+                        font-size: 14px;
+                        padding: 4px 10px 3px;
+                    }
+                }
+                &.shareIt {
+                    span {
+                        width: 100%;
+                        float: left;
+                        display: block;
+                        margin-bottom: 3px;
+                    }
+
+                    > a.btn {
+                        width: 40px;
+                        float: left;
+                        margin-right: 5px;
+
+                        &.btn-wykop {
+                            border: none;
+                            background: none;
+                        }
+
+                        img {
+                            max-height: 100%;
+                        }
+                    }
+                }
             }
         }
     }
@@ -206,8 +289,6 @@
 }
 
 #stepper {
-    @btnSize: 160px;
-
     &.vertical {
         > .steps {
             display: inline;
@@ -415,90 +496,6 @@
         .disabled a:active {
             visibility: hidden;
         }
-    }
-
-    > .content > .body .editor-tooltip,
-    .editor-tooltip {
-        margin-top: 5px;
-
-        form {
-            padding: 0;
-            margin: 0;
-        }
-
-        ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-
-            li {
-                padding: 5px 0;
-
-                .btn {
-                    font-size: 12px;
-                    font-weight: 400;
-                    text-transform: uppercase;
-                    width: @btnSize;
-                    margin: 0;
-                    word-spacing: 0.3em;
-                }
-
-                .desc {
-                    padding-top: 10px;
-                }
-
-                input {
-                    color: #FFF;
-                    height: 30px;
-                }
-                .clipboard {
-                    label {
-                        font-weight: bold;
-                    }
-                    #clipboardCopy {
-                        border-color: #e3e3e3;
-                        width: @btnSize;
-                        white-space: nowrap;
-                        text-transform: none;
-                        color: #767676;
-                        background-color: #ffffff;
-                        margin: 0;
-                    }
-                    #clipboardCopyBtn {
-                        width: auto;
-                        font-size: 14px;
-                        padding: 4px 10px 3px;
-                    }
-                }
-                &.shareIt {
-                    span {
-                        width: 100%;
-                        float: left;
-                        display: block;
-                        margin-bottom: 3px;
-                    }
-
-                    > a.btn {
-                        width: 40px;
-                        float: left;
-                        margin-right: 5px;
-
-                        &.btn-wykop {
-                            border: none;
-                            background: none;
-                        }
-
-                        img {
-                            max-height: 100%;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    > .content > .body .edit .editor-tooltip,
-    .edit .editor-tooltip {
-        margin-top: 0;
     }
 }
 
