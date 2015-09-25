@@ -34,6 +34,12 @@ class PismaController extends ApplicationsController
         ),
     );
 
+    public function beforeFilter() {
+        parent::beforeFilter();
+        if($this->request->params['ext'] != 'json')
+            $this->redirect('/moje-pisma');
+    }
+
     public function prepareMetaTags()
     {
         parent::prepareMetaTags();
@@ -94,7 +100,7 @@ class PismaController extends ApplicationsController
 			$this->menu_selected = 'view';
 
         } else {
-			
+
             $this->set('title_for_layout', 'Pismo nie istnieje lub nie masz do niego dostępu');
             $this->render('not_found');
 
@@ -128,7 +134,7 @@ class PismaController extends ApplicationsController
             $params['anonymous_user_id'] = session_id();
 
         $status = false;
-				
+
         if (isset($this->request->data['name'])) {
 
             $params['name'] = $this->request->data['name'];
@@ -214,12 +220,12 @@ class PismaController extends ApplicationsController
             $this->Session->write('Pisma.transfer_anonymous', true);
 
         $status = $this->Pismo->documents_create($pismo);
-        
+
         if( isset($status['error']) && $status['error'] ) {
-	        
+
         } else {
 	        return $this->redirect($status['url'] . '/edit');
-        }        
+        }
 
     }
 
@@ -236,9 +242,9 @@ class PismaController extends ApplicationsController
 
         $this->set('pismo_init', $pismo);
         $this->title = 'Nowe pismo';
-        
+
     }
-    
+
     public function naszrzecznik()
     {
 
@@ -411,7 +417,7 @@ class PismaController extends ApplicationsController
 
         }
 
-    }    
+    }
 
     private function saveForm($data)
     {
