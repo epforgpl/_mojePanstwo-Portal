@@ -1,9 +1,13 @@
+<?
+	$phrases = $paginatorPhrases ? $paginatorPhrases : array('wynik', 'wyniki', 'wyników');
+?>
+
 <ul class="nav nav-pills dataAggsDropdownList nopadding" role="tablist">
 
     <? if (isset($paging['count']) && $paging['count']) { ?>
         <li>
             <div class="dataCounter">
-                <span><?= pl_dopelniacz($paging['count'], 'wynik', 'wyniki', 'wyników') ?></span>
+                <span><?= pl_dopelniacz($paging['count'], $phrases[0], $phrases[1], $phrases[2]) ?></span>
             </div>
         </li>
     <? } ?>

@@ -88,6 +88,7 @@ if ($dataBrowser['mode'] == 'cover') {
 
             <?= $this->element('Dane.DataBrowser/browser-content-filters', array(
             	'paging' => $params,
+            	'paginatorPhrases' => isset($paginatorPhrases) ? $paginatorPhrases : false,
             )) ?>
 
             <div class="dataObjects">
@@ -97,7 +98,7 @@ if ($dataBrowser['mode'] == 'cover') {
                     <?
                     if (isset($dataBrowser['hits'])) {
                         if (empty($dataBrowser['hits'])) {
-                            echo '<p class="noResults">' . __d('dane', 'LC_DANE_BRAK_WYNIKOW') . '</p>';
+                            echo '<p class="noResults">' . __d('dane', isset($noResultsPhrase) ? $noResultsPhrase : 'LC_DANE_BRAK_WYNIKOW') . '</p>';
                         } else {
                             ?>
                             <ul class="list-group list-dataobjects">

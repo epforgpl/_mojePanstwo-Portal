@@ -27,9 +27,6 @@ $object_id = $object->getId();
             </div>
             <form action="/dane/subscriptions" method="post">
                 <div class="modal-body">
-                    <p class="header">Dodaj do danej kolekcji obiekt: <span><a
-                                href="/dane/<?= $dataset ?>/<?= $object_id ?>,<?= $object->slug() ?>"><?= $object->getTitle(); ?></a></span>
-                    </p>
 
                     <?php if ($this->Session->read('Auth.User.id')) { ?>
 
@@ -52,8 +49,8 @@ $object_id = $object->getId();
                     echo ' backgroundBlue';
                 } ?>">
                     <?php if ($this->Session->read('Auth.User.id')) { ?>
-                        <a href="#" class="btn btn-primary btn-icon submit">
-                            <i class="icon" data-icon="&#xe604;"></i>Zapisz
+                        <a href="#" class="btn btn-primary btn-icon submit" data-dismiss="modal">
+                            <i class="icon" data-icon="&#xe604;"></i>Gotowe
                         </a>
                     <?php } else { ?>
                         <a href="/login" class="_specialCaseLoginButton" data-dismiss="modal">Zaloguj się, aby

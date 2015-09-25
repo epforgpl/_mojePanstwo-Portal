@@ -8,7 +8,14 @@ echo $this->element('Start.pageBegin'); ?>
 <form action="" method="post">
     <header class="collection-header">
         <div class="overflow-auto">
-            <h1 class="pull-left"><?= $item->getData('nazwa') ?></h1>
+            
+            <div class="content pull-left">                        												
+                <i class="object-icon icon-datasets-kolekcje"></i>						
+                <div class="object-icon-side">
+	                <h1><?= $item->getData('nazwa') ?></h1>            
+                </div>
+            </div>
+                       
             <ul class="buttons pull-right">
                 <li>
                     <input type="hidden" name="delete"/>
@@ -46,6 +53,8 @@ echo $this->element('Start.pageBegin'); ?>
             'app_chapters' => false,
             'forceHideAggs' => true,
             'beforeItemElement' => 'Dane.DataBrowser/checkbox',
+            'paginatorPhrases' => array('dokument', 'dokumenty', 'dokumentów'),
+            'noResultsPhrase' => 'Kolekcja jest pusta',
         )); ?>
     </div>
 
