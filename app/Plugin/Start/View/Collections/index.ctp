@@ -14,8 +14,11 @@
 	'noResultsPhrase' => 'Nie stworzyłeś jeszcze żadnych kolekcji',
 )); ?>
 
-<div class="text-center margin-bottom-20">
-	<a href="/moje-kolekcje/nowe" class="btn btn-primary">Stwórz nową kolekcję...</a>
+<div class="text-center margin-bottom-30">
+    <a href="/moje-kolekcje/nowe" class="btn btn-primary btn-icon submit auto-width">
+        <i aria-hidden="true" class="icon glyphicon glyphicon-plus"></i>
+        Stwórz nową kolekcję
+    </a>
 </div>
 
 <?= $this->element('Start.pageEnd'); ?>

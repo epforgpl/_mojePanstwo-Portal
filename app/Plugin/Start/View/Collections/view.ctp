@@ -45,18 +45,6 @@ echo $this->element('Start.pageBegin'); ?>
 
 <div class="block block-simple col-sm-12 margin-top-0 collectionObjects" data-collection-id="<?= $item->getId() ?>">
 
-	<? /*
-	<header class="nopadding sticky overflow-auto collectionToolbar">
-		<p class="pull-left">Dokumenty w tej kolekcji:</p>
-		<p class="pull-right">
-			<button class="btn btn-default deleteBtn hide" type="submit">
-				<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
-	            Usuń zaznaczone z kolekcji
-			</button>
-	    </p>
-	</header>
-	*/ ?>
-
     <div class="row collections-browser">
         <?= $this->element('Dane.DataBrowser/browser-content', array(
             'displayAggs' => false,

@@ -3,8 +3,9 @@ $(document).ready(function() {
 
 	var obj = $('.collectionObjects'),
 		checkboxes = obj.find('input[type=checkbox].browserContentCheckbox'),
-		deleteBtn = $('.deleteBtn').first(),
 		btnRemove = $('.btnRemove').first(),
+		nav = $('ul.nav.dataAggsDropdownList').first(),
+		counterSpan = $('.dataAggsDropdownList .dataCounter span').first(),
 		checked = 0,
 		id = obj.data('collection-id');
 
@@ -15,37 +16,53 @@ $(document).ready(function() {
 		.change(function() {
 			if($(this).is(':checked')) {
 				checked++;
-				if(deleteBtn.hasClass('hide'))
-					deleteBtn.removeClass('hide');
 			} else {
 				checked--;
-				if(checked == 0)
-					deleteBtn.addClass('hide');
+			}
+
+			if(checked > 0) {
+				counterSpan.html('Zaznaczono ' + checked + ' z ' + checkboxes.length + ' dokumentów');
+
+				if(!nav.find('.deleteBtn').length) {
+					nav.append('<li class="deleteBtn"><button data-tooltip="true" data-original-title="Usuń zaznaczone" data-placement="bottom" class="btn btn-default btn" type="submit"><i class="glyphicon glyphicon-trash" title="Usuń zaznaczone" aria-hidden="true"></i></button></li>');
+
+					$('[data-tooltip="true"]').tooltip({
+						delay: {
+							hide: 1
+						}
+					});
+				}
+
+				nav.find('.deleteBtn').click(function() {
+					var ids = [];
+					checkboxes
+						.each(function() {
+							if($(this).is(':checked')) {
+								ids.push(
+									$(this).val()
+								);
+							}
+						});
+
+					if(
+						ids.length &&
+						confirm('Czy na pewno chcesz usunąć ' + ids.length + ' dokument/ów z tej kolekcji?')
+					) {
+						$.post('', {
+							ids: ids
+						}, function() {
+							window.location = '';
+						});
+					}
+				});
+
+			} else {
+				if(nav.find('.deleteBtn').length)
+					nav.find('.deleteBtn').first().remove();
+
+				counterSpan.html(checkboxes.length + ' dokumentów');
 			}
 		});
-
-	deleteBtn.click(function() {
-		var ids = [];
-		checkboxes
-			.each(function() {
-				if($(this).is(':checked')) {
-					ids.push(
-						$(this).val()
-					);
-				}
-			});
-
-		if(
-			ids.length &&
-			confirm('Czy na pewno chcesz usunąć ' + ids.length + ' dokument/ów z tej kolekcji?')
-		) {
-			$.post('', {
-				ids: ids
-			}, function() {
-				window.location = '';
-			});
-		}
-	});
 
 	btnRemove.click(function() {
 		if(!confirm('Czy na pewno chcesz usunać tą kolekcje?'))
