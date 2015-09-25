@@ -4,6 +4,12 @@
 
 <?= $this->element('Start.pageBegin'); ?>
 
+<div class="appBanner bottom-border">
+    <h1 class="appTitle">Moje pisma</h1>
+
+    <p class="appSubtitle">Organizuj swoje pisma</p>
+</div>
+
 <? if (!$this->Session->read('Auth.User.id')) { ?>
     <div class="col-xs-12">
         <div class="alert-identity alert alert-dismissable alert-success">
@@ -16,13 +22,6 @@
         </div>
     </div>
 <? } ?>
-
-
-<div class="appBanner bottom-border">
-    <h1 class="appTitle">Moje pisma</h1>
-
-    <p class="appSubtitle">Organizuj swoje pisma</p>
-</div>
 
 <div id="myPismaBrowser" data-query='<?= json_encode($query); ?>'>
     <div class="col-xs-12">
