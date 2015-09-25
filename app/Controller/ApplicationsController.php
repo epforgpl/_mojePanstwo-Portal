@@ -86,14 +86,14 @@ class ApplicationsController extends AppController
 
 		$active = false;
 		$temp = array();
-		$href = '/dane';
+		$href = '/';
 		if( isset($this->request->query['q']) && $this->request->query['q'] )
-			$href .= '?q=' . urlencode($this->request->query['q']);
+			$href .= 'dane?q=' . urlencode($this->request->query['q']);
 		$bufor = array(
 			array(
-				'id' => 'dane',
+				'id' => '/',
 				'href' => $href,
-				'title' => 'Dane publiczne',
+				'title' => 'Moje Państwo',
 			),
 		);
 

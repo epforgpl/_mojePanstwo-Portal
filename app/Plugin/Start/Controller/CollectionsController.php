@@ -9,18 +9,18 @@ class CollectionsController extends StartAppController {
     public $appSelected = 'kolekcje';
 
     public function index() {
+        
         $this->title = 'Moje Kolekcje';
-
-        $this->loadDatasetBrowser('kolekcje', array(
+		
+        $options = array(
             'conditions' => array(
                 'dataset' => 'kolekcje',
                 'kolekcje.user_id' => $this->Auth->user('id'),
             ),
-            'aggsPreset' => null,
-            'aggs' => array(),
-            'beforeBrowserElement' => 'Start.collectionsBefore',
-            'afterBrowserElement' => 'Start.collectionsAfter'
-        ));
+        );
+
+        $this->Components->load('Dane.DataBrowser', $options);
+                
     }
 
     public function add() {

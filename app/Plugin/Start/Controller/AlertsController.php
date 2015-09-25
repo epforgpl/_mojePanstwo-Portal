@@ -14,6 +14,9 @@ class AlertsController extends StartAppController {
         $options = array(
             'feed' => 'user',
             'order' => 'date desc',
+            'aggs' => array(
+	            'subscribtions' => true,
+            ),
         );
 
         $this->Components->load('Dane.DataBrowser', $options);
@@ -22,10 +25,12 @@ class AlertsController extends StartAppController {
 
     public function subscriptions() {
 
-		$this->title = 'Rzeczy, które obserwuję';
+		$this->title = 'Sprawy, które obserwuję';
 
         $options = array(
-            'feed' => 'user',
+            'conditions' => array(
+	            'subscribtions' => true,
+            ),
             'order' => 'date desc',
         );
 

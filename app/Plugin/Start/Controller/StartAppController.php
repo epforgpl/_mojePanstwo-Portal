@@ -29,7 +29,7 @@ class StartAppController extends ApplicationsController {
 		                    array(
 			                    'id' => 'subscriptions',
                                 'href' => '/obserwuje',
-			                    'label' => 'Rzeczy, które obserwuję',
+			                    'label' => 'Sprawy, które obserwuję',
 		                    ),
 		                ),
                     ),
