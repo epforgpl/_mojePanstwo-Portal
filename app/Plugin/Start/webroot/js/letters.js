@@ -588,6 +588,9 @@ var PISMA = Class.extend({
 				$('<textarea></textarea>').attr({name: 'podpis'}).val(self.html.stepper_div.find('.edit .control.control-signature textarea.podpis').val())
 			);
 
+			if (self.html.stepper_div.find('form.form-save > .hide').length > 0)
+				self.html.stepper_div.find('form.form-save > .hide').remove();
+
 			self.html.stepper_div.find('form.form-save').append(preview);
 			self.html.stepper_div.find('form.form-save').submit();
 		}
