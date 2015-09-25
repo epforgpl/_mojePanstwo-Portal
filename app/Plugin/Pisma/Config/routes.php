@@ -1,5 +1,10 @@
 <?php
 
+Router::redirect(
+    '/pisma/*',
+    '/moje-pisma'
+);
+
 $pisma_prefixes = array('/pisma');
 foreach ($pisma_prefixes as $pisma_prefix) {
     Router::connect("$pisma_prefix", array(
