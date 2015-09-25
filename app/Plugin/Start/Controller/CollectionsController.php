@@ -9,9 +9,9 @@ class CollectionsController extends StartAppController {
     public $appSelected = 'kolekcje';
 
     public function index() {
-        
+
         $this->title = 'Moje Kolekcje';
-		
+
         $options = array(
             'conditions' => array(
                 'dataset' => 'kolekcje',
@@ -20,7 +20,7 @@ class CollectionsController extends StartAppController {
         );
 
         $this->Components->load('Dane.DataBrowser', $options);
-                
+
     }
 
     public function add() {
@@ -38,6 +38,8 @@ class CollectionsController extends StartAppController {
             }
 
             $this->Session->setFlash($message);
+            if(isset($results['Collection']))
+                $this->redirect('/moje-kolekcje');
         }
     }
 

@@ -22,7 +22,7 @@ class StartAppController extends ApplicationsController {
                     'submenu' => array(
 	                    'items' => array(
                             array(
-                                'id' => '',
+                                'id' => 'index',
                                 'href' => '/',
                                 'label' => 'Nowe dane',
                             ),
@@ -42,12 +42,12 @@ class StartAppController extends ApplicationsController {
                     'submenu' => array(
 	                    'items' => array(
                             array(
-                                'id' => '',
+                                'id' => 'my',
                                 'href' => '/',
                                 'label' => 'Moje pisma',
                             ),
 		                    array(
-			                    'id' => 'nowe',
+			                    'id' => 'home',
                                 'href' => '/nowe',
 			                    'label' => 'Napisz nowe pismo',
 		                    ),

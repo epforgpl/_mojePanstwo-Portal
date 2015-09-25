@@ -8,23 +8,33 @@ echo $this->element('Start.pageBegin'); ?>
 <form action="" method="post">
     <header class="collection-header">
         <div class="overflow-auto">
-            
-            <div class="content pull-left">                        												
-                <i class="object-icon icon-datasets-kolekcje"></i>						
+
+            <div class="content pull-left">
+                <i class="object-icon icon-datasets-kolekcje"></i>
                 <div class="object-icon-side">
-	                <h1><?= $item->getData('nazwa') ?></h1>            
+	                <h1><?= $item->getData('nazwa') ?></h1>
                 </div>
             </div>
-                       
+
             <ul class="buttons pull-right">
                 <li>
                     <input type="hidden" name="delete"/>
-                    <button class="btn btn-default" type="submit">
+                    <button
+                        data-tooltip="true"
+                        data-original-title="Usuń kolekcję"
+                        data-placement="bottom"
+                        class="btn btn-default btnRemove btn"
+                        type="submit">
                         <i class="glyphicon glyphicon-trash" title="Usuń kolekcję" aria-hidden="true"></i>
                     </button>
                 </li>
                 <li>
-                    <a class="btn btn-default" href="<?= $item->getUrl(); ?>/edytuj">
+                    <a
+                        data-tooltip="true"
+                        data-original-title="Edytuj kolekcję"
+                        data-placement="bottom"
+                        class="btn btn-default"
+                        href="<?= $item->getUrl(); ?>/edytuj">
                         <i class="glyphicon glyphicon-edit" title="Edytuj kolekcję" aria-hidden="true"></i>
                     </a>
                 </li>

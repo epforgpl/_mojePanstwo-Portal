@@ -13,14 +13,12 @@ $(document).ready(function() {
 
 	modal.on('shown.bs.modal', function() {
 
+		nameStr = '';
 		name.val(nameStr).focus();
 
-		if(data.length == 0) {
-			reloadData(function() {
-				updateList();
-			});
-		} else
+		reloadData(function() {
 			updateList();
+		});
 
 	});
 
@@ -65,9 +63,18 @@ $(document).ready(function() {
 		$('button.unchecked').click(function() {
 			var collection = $(this).data('collection-id');
 			$.get('/collections/collections/addObject/' + collection + '/' + id + '.json', function(res) {
-				reloadData(function() {
-					updateList();
-				});
+				for(var d in data) {
+					if(data.hasOwnProperty(d)) {
+						var row = data[d];
+						if(typeof row.Collection != 'undefined' && row.Collection.id == collection) {
+							data[d].CollectionObject = {
+								object_id: id.toString()
+							};
+							updateList();
+							return false;
+						}
+					}
+				}
 			});
 		});
 
@@ -86,20 +93,29 @@ $(document).ready(function() {
 			.click(function() {
 				var collection = $(this).data('collection-id');
 				$.get('/collections/collections/removeObject/' + collection + '/' + id + '.json', function(res) {
-					reloadData(function() {
-						updateList();
-					});
+					for(var d in data) {
+						if(data.hasOwnProperty(d)) {
+							var row = data[d];
+							if(typeof row.Collection != 'undefined' && row.Collection.id == collection) {
+								data[d].CollectionObject = {
+									object_id: null
+								};
+								updateList();
+								return false;
+							}
+						}
+					}
 				});
 			});
 
 		$('button.new-collection').click(function() {
-			list.html(spinner);
+			//list.html(spinner);
 			loading = true;
 			$.post('/collections/collections/create.json', {
 				name: nameStr
 			}, function(res) {
 				if(typeof res.response.Collection != 'undefined') {
-					data.push(res.response);
+					data.unshift(res.response);
 				} else if(typeof res.response.name != 'undefined') {
 					alert(res.response.name[0]);
 				} else
