@@ -47,51 +47,55 @@ if (!empty($pismo['adresat_id'])) {
     <div id="stepper" class="stepper"<? if (!empty($pismo_init)) {
         echo ' data-pismo=' . json_encode($pismo_init);
     } ?> data-status-check="<?= $pismo['saved'] ?>">
-        <section>
-            <form class="form-save" method="post" action="/moje-pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
-                <div class="col-xs-12 noleftpadding">
-                    <div class="alert alert-info">
-                        <h4>Edycja pisma</h4>
+        <section class="form-save">
+            <div class="col-xs-12 noleftpadding">
+                <div class="alert alert-info">
+                    <h4>Edycja pisma</h4>
 
-                        <div class="wysightml5Block pull-left"></div>
-                    </div>
+                    <div class="wysightml5Block pull-left"></div>
                 </div>
+            </div>
 
-                <div class="container edit">
-                    <div class="editor-container row">
-                        <div class="col-xs-12 norightpadding">
-                            <? echo $this->element('Start.letters-render', array('pismoEditPage' => true)); ?>
-                        </div>
-                        <div class="col-xs-12 nopadding">
-                            <div class="editor-tooltip">
-                                <? if (!$this->Session->read('Auth.User.id')) { ?>
-                                    <div class="alert alert-dismissable alert-success" style="margin-top: 0;">
-                                        <button type="button" class="close" data-dismiss="alert">×</button>
-                                        <h4>Uwaga!</h4>
+            <div class="container edit">
+                <div class="editor-container row">
+                    <div class="col-xs-12 norightpadding">
+                        <? echo $this->element('Start.letters-render', array('pismoEditPage' => true)); ?>
+                    </div>
+                    <div class="col-xs-12 nopadding">
+                        <div class="editor-tooltip">
+                            <? if (!$this->Session->read('Auth.User.id')) { ?>
+                                <div class="alert alert-dismissable alert-success" style="margin-top: 0;">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <h4>Uwaga!</h4>
 
-                                        <p>Nie jesteś zalogowany. Twoje pisma będą przechowywane na tym urządzeniu przez
-                                            24 godziny. <a
-                                                class="_specialCaseLoginButton" href="/login">Zaloguj się</a>, aby
-                                            trwale przechowywać pisma na
-                                            swoim koncie.</p>
-                                    </div>
-                                <? } ?>
-                            </div>
+                                    <p>Nie jesteś zalogowany. Twoje pisma będą przechowywane na tym urządzeniu przez
+                                        24 godziny. <a
+                                            class="_specialCaseLoginButton" href="/login">Zaloguj się</a>, aby
+                                        trwale przechowywać pisma na
+                                        swoim koncie.</p>
+                                </div>
+                            <? } ?>
                         </div>
                     </div>
                 </div>
-                <ul class="actionButton form-buttons pull-right">
-                    <li class="inner-addon">
+            </div>
+            <ul class="actionButton form-buttons col-xs-12 pull-right">
+                <li class="inner-addon">
+                    <a class="btn btn-default" style="width: inherit; margin-left: 5px;"
+                       href="/moje-pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">Anuluj</a>
+                </li>
+                <li class="inner-addon">
+                    <form class="form-save" method="post"
+                          action="/moje-pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
                         <button type="submit" class="btn btn-primary btn-icon action savePismo"
                                 name="_save"><i
                                 class="icon glyphicon glyphicon-save"></i>Zapisz
                         </button>
-                        <a class="btn btn-default" style="width: inherit; margin-left: 5px;"
-                           href="/moje-pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">Anuluj</a>
                         <input type="hidden" name="save" value="1"/>
-                    </li>
-                </ul>
-            </form>
+
+                    </form>
+                </li>
+            </ul>
         </section>
     </div>
 </div>
