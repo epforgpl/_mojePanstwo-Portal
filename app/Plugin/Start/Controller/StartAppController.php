@@ -58,7 +58,7 @@ class StartAppController extends ApplicationsController {
                     'id' => 'collections',
                     'label' => 'Kolekcje',
                     'href' => '/moje-kolekcje',
-                    'icon' => 'icon-applications-kolekcje',
+                    'icon' => 'icon-datasets-kolekcje',
                     'submenu' => array(
 	                    'items' => array(
                             array(
@@ -80,8 +80,7 @@ class StartAppController extends ApplicationsController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        if(!$this->Auth->user())
-            throw new ForbiddenException;
+        $this->Auth->deny();
     }
 
     public function getChapters() {

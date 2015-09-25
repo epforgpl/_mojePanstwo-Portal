@@ -17,11 +17,32 @@ if (!empty($pismo['adresat_id'])) {
 ?>
 
 <div class="editPage">
-    <? echo $this->element('Start.letters-pismo-header', array(
-        'pismo' => $pismo,
-        'alert' => true,
-        'editable' => true
-    )); ?>
+    <form action="" method="post">
+        <header class="collection-header">
+            <div class="overflow-auto">
+                <div class="content pull-left">
+                    <i class="object-icon icon-applications-pisma"></i>
+
+                    <div class="object-icon-side titleBlock">
+                        <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
+                            <a href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>"><?= $pismo['nazwa'] ?></a>
+                            <i class="glyphicon glyphicon-edit"></i>
+                        </h1>
+
+                        <div class="input-group hide">
+                            <input type="text" class="form-control" name="pismoTitleInput"
+                                   value="<?= $pismo['nazwa'] ?>">
+
+                            <div class="input-group-btn">
+                                <button class="btn btn-primary save" type="button">Zapisz</button>
+                                <button class="btn btn-default cancel" type="button">Anuluj</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </form>
 
     <div id="stepper" class="stepper"<? if (!empty($pismo_init)) {
         echo ' data-pismo=' . json_encode($pismo_init);
@@ -33,17 +54,6 @@ if (!empty($pismo['adresat_id'])) {
                         <h4>Edycja pisma</h4>
 
                         <div class="wysightml5Block pull-left"></div>
-                        <ul class="actionButton form-buttons pull-right">
-                            <li class="inner-addon">
-                                <button type="submit" class="btn btn-primary btn-icon action savePismo"
-                                        name="_save"><i
-                                        class="icon glyphicon glyphicon-save"></i>Zapisz
-                                </button>
-                                <a class="btn btn-default" style="width: inherit; margin-left: 5px;"
-                                   href="/moje-pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">Anuluj</a>
-                                <input type="hidden" name="save" value="1"/>
-                            </li>
-                        </ul>
                     </div>
                 </div>
 
@@ -70,6 +80,17 @@ if (!empty($pismo['adresat_id'])) {
                         </div>
                     </div>
                 </div>
+                <ul class="actionButton form-buttons pull-right">
+                    <li class="inner-addon">
+                        <button type="submit" class="btn btn-primary btn-icon action savePismo"
+                                name="_save"><i
+                                class="icon glyphicon glyphicon-save"></i>Zapisz
+                        </button>
+                        <a class="btn btn-default" style="width: inherit; margin-left: 5px;"
+                           href="/moje-pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">Anuluj</a>
+                        <input type="hidden" name="save" value="1"/>
+                    </li>
+                </ul>
             </form>
         </section>
     </div>

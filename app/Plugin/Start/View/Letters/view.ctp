@@ -4,12 +4,80 @@
 
 <?php echo $this->Html->script('/Start/js/zeroclipboard', array('block' => 'scriptBlock')); ?>
 
+<? $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
+
 <?= $this->element('Start.pageBegin'); ?>
 
-<? echo $this->element('Start.letters-pismo-header', array(
-    'pismo' => $pismo,
-    'alert' => true,
-)); ?>
+<form action="" method="post">
+    <header class="collection-header">
+        <div class="overflow-auto">
+            <div class="content pull-left">
+                <i class="object-icon icon-applications-pisma"></i>
+
+                <div class="object-icon-side titleBlock">
+                    <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
+                        <a href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>"><?= $pismo['nazwa'] ?></a>
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </h1>
+
+                    <div class="input-group hide">
+                        <input type="text" class="form-control" name="pismoTitleInput" value="<?= $pismo['nazwa'] ?>">
+
+                        <div class="input-group-btn">
+                            <button class="btn btn-primary save" type="button">Zapisz</button>
+                            <button class="btn btn-default cancel" type="button">Anuluj</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="letter-meta">
+                            <p>Autor:
+                                <b><? echo ($pismo['from_user_type'] == 'account') ? $pismo['from_user_name'] : "Anonimowy użytkownik" ?></b>
+                            </p>
+
+                            <p class="small"><b>Przed wysłaniem pisma należy je zapisać</b></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="buttons pull-right col-xs-12">
+                <li class="inner-addon">
+                    <form onsubmit="return confirm('Czy na pewno chcesz usunąć to pismo?');"
+                          method="post"
+                          action="/moje-pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
+                        <button name="delete" type="submit" class="btn btn-icon btn-danger"><i
+                                class="icon glyphicon glyphicon-trash"></i>Skasuj
+                        </button>
+                    </form>
+                </li>
+                <? if (!$pismo['sent']) { ?>
+                    <li class="inner-addon">
+                        <a href="<?= $href_base . '/edit' ?>" target="_self"
+                           class="btn btn-default btn-icon"><i
+                                class="icon glyphicon glyphicon-edit"></i>Edytuj</a>
+                    </li>
+                <? } ?>
+                <? if ($pismo['to_email']) { ?>
+                    <li class="inner-addon">
+                        <? if ($pismo['sent']) { ?>
+                            <p class="desc">To pismo zostałe wysłane do
+                                adresata <?= $this->Czas->dataSlownie($pismo['sent_at']) ?>.</p>
+                        <? } else { ?>
+                            <a title="Możesz wysłać pismo do adresata poprzez e-mail"
+                               href="#" target="_self"
+                               class="btn btn-primary sendPismo btn-icon"><i
+                                    class="icon glyphicon glyphicon-send"></i>Wyślij...</a>
+
+
+                        <? } ?>
+                    </li>
+                <? } ?>
+            </ul>
+        </div>
+    </header>
+</form>
+
 <div id="stepper">
     <div class="content clearfix">
         <div class="col-xs-12 view norightpadding">
@@ -17,8 +85,6 @@
         </div>
         <div class="col-xs-12 nopadding">
             <div class="editor-tooltip">
-                <? $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
-
                 <div id="sendPismoModal" class="modal fade" tabindex="-1" role="dialog"
                      aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -179,46 +245,12 @@
                                 <a class="btn btn-social-icon btn-wykop"
                                    href="http://www.wykop.pl/dodaj/link/?url=<?php echo Router::url($this->here, true); ?>&title=<?= $pismo['nazwa'] ?>"
                                    target="_blank">
-                                    <img class="fa" src="/moje-pisma/img/wykop_logo.png" alt="wykop.pl"
+                                    <img class="fa" src="/Start/img/wykop_logo.png" alt="wykop.pl"
                                          onerror="imgFixer(this)"/>
                                 </a>
                             </li>
                         <? } ?>
-                        <? if ($pismo['to_email']) { ?>
-                            <li class="inner-addon col-xs-12">
-                                <? if ($pismo['sent']) { ?>
-                                    <p class="desc">To pismo zostałe wysłane do
-                                        adresata <?= $this->Czas->dataSlownie($pismo['sent_at']) ?>.</p>
-                                <? } else { ?>
-                                    <a title="Możesz wysłać pismo do adresata poprzez e-mail"
-                                       href="#" target="_self"
-                                       class="btn btn-primary sendPismo btn-icon"><i
-                                            class="icon glyphicon glyphicon-send"></i>Wyślij...</a>
-
-
-                                <? } ?>
-                            </li>
-                        <? } ?>
-                        <? if (!$pismo['sent']) { ?>
-                            <li class="inner-addon col-xs-12">
-                                <a href="<?= $href_base . '/edit' ?>" target="_self"
-                                   class="btn btn-primary btn-icon"><i
-                                        class="icon glyphicon glyphicon-edit"></i>Edytuj</a>
-                            </li>
-                        <? } ?>
-
-                        <li class="inner-addon col-xs-12">
-                            <form onsubmit="return confirm('Czy na pewno chcesz usunąć to pismo?');"
-                                  method="post"
-                                  action="/moje-pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
-                                <button name="delete" type="submit" class="btn btn-icon btn-danger"><i
-                                        class="icon glyphicon glyphicon-trash"></i>Skasuj
-                                </button>
-                                </form>
-                            </li>
-                        </ul>
-
-
+                    </ul>
                 <? } ?>
             </div>
         </div>

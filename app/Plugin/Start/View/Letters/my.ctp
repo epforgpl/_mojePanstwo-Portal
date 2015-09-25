@@ -17,30 +17,12 @@
     </div>
 <? } ?>
 
-<? if ($pagination['total']) { ?>
-    <div class="search-container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="suggesterBlock searchForm">
-                    <form class="form-horizontal suggesterBlock" method="get" action="/moje-pisma">
-                        <div class="searcher form-group has-feedback">
-                            <div class="input-group">
-                                <input class="form-control hasclear input-lg" name="q" type="text" value="<?= $q ?>"
-                                       placeholder="Szukaj w moich pismach...">
 
-                                <div class="input-group-btn">
-                                    <button type="submit" class="btn btn-primary input-lg">
-                                        <span class="glyphicon glyphicon-search"></span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-<? } ?>
+<div class="appBanner bottom-border">
+    <h1 class="appTitle">Moje pisma</h1>
+
+    <p class="appSubtitle">Organizuj swoje pisma</p>
+</div>
 
 <div id="myPismaBrowser" data-query='<?= json_encode($query); ?>'>
     <div class="col-xs-12">
@@ -130,7 +112,7 @@
                             <div class="col-sm-9">
                                 <div class="thumb">
                                     <a href="/moje-pisma/<?= $item['alphaid'] ?>,<?= $item['slug'] ?>">
-                                        <img src="http://moje-pisma.sds.tiktalik.com/thumbs/<?= $item['hash'] ?>.png"
+                                        <img src="http://pisma.sds.tiktalik.com/thumbs/<?= $item['hash'] ?>.png"
                                              onerror="imgFixer(this)"/>
                                     </a>
                                 </div>
