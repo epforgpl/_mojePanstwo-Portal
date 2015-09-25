@@ -71,8 +71,7 @@ class ApplicationsController extends AppController
 
 
         $this->set('appSettings', $this->settings);
-
-
+		
 		if( empty($this->app_menu[0]) )
 			foreach( $this->applications as $id => $a )
 				if( $a['tag']==1 )
@@ -86,16 +85,19 @@ class ApplicationsController extends AppController
 
 		$active = false;
 		$temp = array();
-		$href = '/';
-		if( isset($this->request->query['q']) && $this->request->query['q'] )
-			$href .= 'dane?q=' . urlencode($this->request->query['q']);
-		$bufor = array(
-			array(
-				'id' => '/',
-				'href' => $href,
-				'title' => 'Moje Państwo',
-			),
-		);
+		$bufor = false;
+		
+		
+		if( isset($this->request->query['q']) && $this->request->query['q'] ) {
+			
+			$temp[] = array(
+				'id' => '',
+				'href' => '/dane?q=' . urlencode( $this->request->query['q'] ),
+				'title' => 'Wszystkie wyniki wyszukiwania',
+				'active' => ( $app && ($app['id']=='dane') ),
+			);
+			
+		}
 
 		foreach( $this->app_menu[0] as $i => $a ) {
 
@@ -104,9 +106,9 @@ class ApplicationsController extends AppController
 				( $q = $this->request->query['q'] )
 			)
 				$a['href'] .= '?q=' . urlencode($q);
-
+			
 			if( $app && ($app['id']==$a['id']) ) {
-
+								
 				$a['active'] = $active = true;
 				$temp[] = $a;
 
@@ -117,13 +119,9 @@ class ApplicationsController extends AppController
 			}
 
 		}
-
-		$this->app_menu[0] = array_merge($bufor, $temp);
-
-		if( !$active )
-			$this->app_menu[0][0]['active'] = true;
-
-
+		
+		$this->app_menu[0] = $temp;
+					
 		$this->set('app_menu', $this->app_menu);
 		$this->set('app_chapters', $this->getChapters());
 
@@ -301,12 +299,14 @@ class ApplicationsController extends AppController
 			isset( $this->request->query['q'] ) &&
 			$this->request->query['q']
 		) {
-
+			
+			/*
 			$items[] = array(
 				'id' => '_results',
 				'label' => 'Wyniki wyszukiwania',
 				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
 			);
+			*/
 
 			if( $this->chapter_selected=='view' )
 				$this->chapter_selected = '_results';

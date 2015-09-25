@@ -53,11 +53,17 @@ if ($dataBrowser['mode'] == 'cover') {
 		!empty($app_chapters) ||
 		!empty($menu)
 	);
+	
+	$dataWrap = false;
 
     ?>
-
-    <? if (($displayAggs && !empty($dataBrowser['aggs'])) || (isset($app_chapters) && $app_chapters) ) { ?>
-
+	
+    <? 
+	if (($displayAggs && !empty($dataBrowser['aggs'])) || (isset($app_chapters) && $app_chapters) ) { 
+	    $dataWrap = true;
+    ?>
+		
+		
         <div class="col-md-<?= $columns[1] ?> col-xs-12 dataAggsContainer">
 
             <? if( isset($sideElement) ) echo $this->Element($sideElement) ?>
@@ -79,7 +85,7 @@ if ($dataBrowser['mode'] == 'cover') {
 
     <div class="col-xs-12 col-sm-<?= isset($forceHideAggs) ? 12 : ($displayAggs ? $columns[0] : 9) ?>">
 
-        <div class="dataWrap margin-top-10">
+        <div class="<? if($dataWrap) {?>dataWrap <? } ?>margin-top-10">
 
 			<?
 	            if( isset($dataBrowser['beforeBrowserElement']) )

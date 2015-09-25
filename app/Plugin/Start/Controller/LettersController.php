@@ -22,6 +22,11 @@ class LettersController extends StartAppController {
         ),
     );
 
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow();
+    }
+
     public function prepareMetaTags()
     {
         parent::prepareMetaTags();
