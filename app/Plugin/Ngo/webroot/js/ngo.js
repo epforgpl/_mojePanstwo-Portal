@@ -161,10 +161,10 @@ $(document).ready(function () {
 			if (!(term in markers)) {
 				if (cell.doc_count == 1) {
 					var marker = new google.maps.Marker({
-						position: new google.maps.LatLng(cell.lat, cell.lng),
+						position: new google.maps.LatLng(cell.location.lat, cell.location.lon),
 						icon: ngoIcon,
 						map: map,
-						data: cell
+						data: cell.data
 					});
 
 					markers[term] = marker;
@@ -179,19 +179,19 @@ $(document).ready(function () {
 							infowindow.setContent('<div class="infoWindowNgo">' +
 								'<div class="ngoPlace">' +
 								'<div class="title">' +
-								'<a href="/dane/krs_podmioty/' + marker.data.id + '">' +
+								'<a href="/dane/krs_podmioty/' + marker.data.krs_podmioty.id + '">' +
 								'<i class="object-icon icon-datasets-krs_podmioty"></i>' +
-								'<div class="titleName">' + marker.data.name + '</div>' +
+								'<div class="titleName">' + marker.data.krs_podmioty.nazwa + '</div>' +
 								'</a>' +
 								'</div>' +
 								'<ul class="detail dataHighlights oneline">' +
 								'<li class="dataHighlight">' +
 								'<p class="_label">Forma prawna</p>' +
-								'<p class="_value">' + marker.data.form + '</p>' +
+								'<p class="_value">' + marker.data.krs_podmioty.forma_prawna_str + '</p>' +
 								'<li>' +
 								'<li class="dataHighlight">' +
 								'<p class="_label">Adres</p>' +
-								'<p class="_value">' + marker.data.address + '</p>' +
+								'<p class="_value">' + marker.data.krs_podmioty.adres + '</p>' +
 								'<li>' +
 								'</ul>' +
 								'</div>' +

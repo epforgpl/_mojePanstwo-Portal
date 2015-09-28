@@ -14,7 +14,7 @@
                        data-dataset="<?= $autocompletion ? $autocompletion['dataset'] : '*'; ?>"
                        data-url="<?= @$url ?>"
                        data-autocompletion="<?= $autocompletion ? 'true' : 'false' ?>"
-                       data-searchtag='<?= $searchTag ? json_encode($searchTag) : 'false' ?>'
+                       data-searchtag='<?= $searchTag ? json_encode($searchTag) : false ?>'
                        autocomplete="<?= $autocompletion ? 'off' : 'on' ?>"
                        required
                     />

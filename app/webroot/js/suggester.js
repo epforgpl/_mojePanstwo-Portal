@@ -20,11 +20,11 @@
 						left: (parseInt(suggesterInput.css('border-left-width')) + 2) + 'px',
 						borderTopLeftRadius: suggesterInput.css('border-top-left-radius'),
 						borderBottomLeftRadius: suggesterInput.css('border-bottom-left-radius'),
-						backgroundColor: '#E6E7E8',
+						backgroundColor: '#eee',
 						padding: (parseInt(suggesterInput.css('paddingTop')) - 2) + 'px ' + (parseInt(suggesterInput.css('paddingLeft')) - 2) + 'px',
 						fontSize: suggesterInput.css('font-size'),
 						fontWeight: suggesterInput.css('font-weight'),
-						color: suggesterInput.css('color')
+						color: '#767676'
 					});
 
 				suggesterInput.attr({
@@ -34,26 +34,28 @@
 				suggesterInput.after(searchTagBlock);
 				suggesterInput.css('padding-left', searchTagBlock.outerWidth() + parseInt(suggesterInput.attr('data-paddingbase')) + 'px');
 
+				searchTagBlock.click(function () {
+					suggesterInput.focus();
+				});
+
 				suggesterInput.keypress(function (e) {
 					if ((e.keyCode == jQuery.ui.keyCode.BACKSPACE) && (suggesterInput.val() == '')) {
 						searchTagBlock.hide();
 						suggesterForm.attr('action', '/dane');
 						suggesterInput.removeAttr('data-dataset');
 						suggesterInput.css('padding-left', suggesterInput.attr('data-paddingbase'));
-					} else if (e.keyCode == jQuery.ui.keyCode.ESCAPE) {
+					} else if (e.keyCode == jQuery.ui.keyCode.ESCAPE && (suggesterInput.val() == '') && searchTagBlock.is(':hidden')) {
 						searchTagBlock.show();
 						suggesterForm.attr('action', '');
-						suggesterInput.val('');
 						suggesterInput.attr('data-dataset', suggesterInput.attr('data-datasetbase'));
 						suggesterInput.css('padding-left', searchTagBlock.outerWidth() + parseInt(suggesterInput.attr('data-paddingbase')) + 'px');
-						searchTagBlock.css('color', suggesterInput.css('color'));
-						suggesterInput.blur();
 					}
 				});
 
 				suggesterInput.focusin(function () {
-					if (searchTagBlock.is(':visible'))
-						searchTagBlock.css('color', '#66AFE9');
+					if (searchTagBlock.is(':visible')) {
+						searchTagBlock.css({'color': '#4078c0', 'background-color': '#e1eaf5'});
+					}
 				}).focusout(function () {
 					if ((suggesterInput.val() == '') && searchTagBlock.is(':hidden')) {
 						searchTagBlock.show();
@@ -61,7 +63,7 @@
 						suggesterInput.attr('data-dataset', suggesterInput.attr('data-datasetbase'));
 						suggesterInput.css('padding-left', searchTagBlock.outerWidth() + parseInt(suggesterInput.attr('data-paddingbase')) + 'px');
 					}
-					searchTagBlock.css('color', suggesterInput.css('color'));
+					searchTagBlock.css({'color': '#767676', 'background-color': '#eee'});
 				}).blur(function () {
 					if ((suggesterInput.val() == '') && searchTagBlock.is(':hidden')) {
 						searchTagBlock.show();
@@ -69,7 +71,7 @@
 						suggesterInput.attr('data-dataset', suggesterInput.attr('data-datasetbase'));
 						suggesterInput.css('padding-left', searchTagBlock.outerWidth() + parseInt(suggesterInput.attr('data-paddingbase')) + 'px');
 					}
-					searchTagBlock.css('color', suggesterInput.css('color'));
+					searchTagBlock.css({'color': '#767676', 'background-color': '#eee'});
 				});
 			}
 
