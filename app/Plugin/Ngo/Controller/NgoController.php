@@ -65,8 +65,12 @@ class NgoController extends ApplicationsController
         ) {
 
             list($tl, $br) = explode(',', $this->request->query['area']);
-            $precision = strlen($tl) + 1;
-
+            
+            $strlen = strlen($tl);
+            if( $strlen==13 )
+            	$strlen = 12;
+            $precision = floor($strlen / 2);
+            
             $options = array(
                 'cover' => array(
                     'force' => true,

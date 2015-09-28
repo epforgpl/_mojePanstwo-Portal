@@ -86,17 +86,21 @@ $(document).ready(function () {
 
 	var getArea = function () {
 		var bounds = map.getBounds();
-		var precision = Math.floor((map.getZoom()) / 2) - 1;
+		var precision = map.getZoom();
+		
+		console.log('precision', precision);
 
 		var ne_lat = bounds.getNorthEast().lat();
 		var sw_lng = bounds.getSouthWest().lng();
 		var sw_lat = bounds.getSouthWest().lat();
 		var ne_lng = bounds.getNorthEast().lng();
-
-		var ne_lat_fixed = ne_lat + ((ne_lat - sw_lat) * .7);
-		var ne_lng_fixed = ne_lng + ((ne_lng - sw_lng) * .7);
-		var sw_lat_fixed = sw_lat - ((ne_lat - sw_lat) * .7);
-		var sw_lng_fixed = sw_lng - ((ne_lng - sw_lng) * .7);
+		
+		var f = .1;
+		
+		var ne_lat_fixed = ne_lat + ((ne_lat - sw_lat) * f);
+		var ne_lng_fixed = ne_lng + ((ne_lng - sw_lng) * f);
+		var sw_lat_fixed = sw_lat - ((ne_lat - sw_lat) * f);
+		var sw_lng_fixed = sw_lng - ((ne_lng - sw_lng) * f);
 
 		return {
 			tl: Geohash.encode(ne_lat_fixed, sw_lng_fixed, precision),
