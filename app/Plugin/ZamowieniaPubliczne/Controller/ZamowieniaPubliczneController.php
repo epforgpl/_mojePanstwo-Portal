@@ -46,7 +46,10 @@ class ZamowieniaPubliczneController extends ApplicationsController
         $datasets = $this->getDatasets('zamowienia_publiczne');
 
         $options = array(
-            'searchTitle' => 'Szukaj w zamówieniach publicznych...',
+            'searchTag' => array(
+	            'href' => '/zamowienia_publiczne',
+	            'label' => 'Zamówienia Publiczne',
+            ),
             'conditions' => array(
                 'dataset' => array_keys($datasets)
             ),

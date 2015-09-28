@@ -27,7 +27,10 @@ class MojaGminaController extends ApplicationsController
         $datasets = $this->getDatasets('moja_gmina');
         
         $options = array(
-            'searchTitle' => 'Szukaj gminy...',
+            'searchTag' => array(
+	            'href' => '/moja_gmina',
+	            'label' => 'Moja Gmina',
+            ),
             'autocompletion' => array(
                 'dataset' => implode(',', array_keys($datasets)),
             ),

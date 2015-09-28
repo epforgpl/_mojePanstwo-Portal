@@ -206,7 +206,10 @@ class NgoController extends ApplicationsController
     {
 
         $options = array(
-            'searchTitle' => 'Szukaj w organizacjach pozarządowych...',
+            'searchTag' => array(
+	            'href' => '/ngo',
+	            'label' => 'NGO',
+            ),
             'autocompletion' => array(
                 'dataset' => 'ngo',
             ),

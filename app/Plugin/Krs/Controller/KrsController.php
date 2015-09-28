@@ -26,7 +26,10 @@ class KrsController extends ApplicationsController
         $datasets = $this->getDatasets('krs');
 
         $options = array(
-            'searchTitle' => 'Szukaj organizacji i osób...',
+            'searchTag' => array(
+	            'href' => '/krs',
+	            'label' => 'KRS',
+            ),
             'autocompletion' => array(
                 'dataset' => 'krs_podmioty,krs_osoby',
             ),

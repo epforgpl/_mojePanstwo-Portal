@@ -20,7 +20,10 @@ class BdlController extends ApplicationsController
 		$datasets = $this->getDatasets('bdl');
 				
         $options = array(
-            'searchTitle' => 'Szukaj w Banku Danych Lokalnych...',
+            'searchTag' => array(
+	            'href' => '/bdl',
+	            'label' => 'Bank Danych Lokalnych',
+            ),
             'searchAction' => '/bdl',
             'autocompletion' => array(
                 'dataset' => 'bdl_wskazniki',
@@ -124,7 +127,10 @@ class BdlController extends ApplicationsController
         $datasets = $this->getDatasets('bdl');
 				
         $options = array(
-            'searchTitle' => 'Szukaj w Banku Danych Lokalnych...',
+            'searchTag' => array(
+	            'href' => '/bdl',
+	            'label' => 'Bank Danych Lokalnych',
+            ),
             'autocompletion' => array(
                 'dataset' => 'bdl_wskazniki',
             ),

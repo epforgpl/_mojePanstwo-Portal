@@ -26,7 +26,10 @@ class KtoTuRzadziController extends ApplicationsController
         $datasets = $this->getDatasets('kto_tu_rzadzi');
 
         $options = array(
-            'searchTitle' => 'Szukaj instytucji publicznych...',
+            'searchTag' => array(
+	            'href' => '/kto_tu_rzadzi',
+	            'label' => 'Kto tu rządzi?',
+            ),
             'autocompletion' => array(
                 'dataset' => implode(',', array_keys($datasets)),
             ),

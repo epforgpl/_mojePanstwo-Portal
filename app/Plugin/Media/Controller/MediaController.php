@@ -265,7 +265,10 @@ class MediaController extends ApplicationsController
 
 
         $options = array(
-            'searchTitle' => 'Szukaj w mediach społecznościowych...',
+            'searchTag' => array(
+	            'href' => '/media',
+	            'label' => 'Media',
+            ),
             'conditions' => array(
                 'dataset' => array_keys($datasets),
             ),
