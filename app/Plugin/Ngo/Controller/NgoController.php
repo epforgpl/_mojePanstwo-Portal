@@ -117,6 +117,15 @@ class NgoController extends ApplicationsController
                                                 'size' => 1,
                                             ),
                                         ),
+                                        'top' => array(
+	                                        'top_hits' => array(
+		                                        'size' => 1,
+		                                        'fielddata_fields' => array('position.lat', 'position.lon'),
+		                                        '_source' => false,
+		                                        'fields' => array(),
+	                                        ),
+                                        ),
+                                        /*
                                         'lat' => array(
                                             'terms' => array(
                                                 'field' => 'position.lat',
@@ -131,28 +140,11 @@ class NgoController extends ApplicationsController
                                         ),
                                         'id' => array(
                                             'terms' => array(
-                                                'field' => 'id',
+                                                'field' => '_id',
                                                 'size' => 1,
                                             ),
                                         ),
-                                        'name' => array(
-                                            'terms' => array(
-                                                'field' => 'title.raw',
-                                                'size' => 1,
-                                            ),
-                                        ),
-                                        'form' => array(
-                                            'terms' => array(
-                                                'field' => 'data.krs_podmioty.forma_prawna_str',
-                                                'size' => 1,
-                                            ),
-                                        ),
-                                        'address' => array(
-                                            'terms' => array(
-                                                'field' => 'data.krs_podmioty.adres',
-                                                'size' => 1,
-                                            ),
-                                        ),
+                                        */
                                     ),
                                 ),
                             ),
@@ -182,23 +174,20 @@ class NgoController extends ApplicationsController
 
             $data = $this->viewVars['dataBrowser']['aggs']['map'];
             foreach ($data['grid']['buckets'] as &$b) {
-
+								
                 if ($b['doc_count'] === 1) {
-
-                    $b['lat'] = $b['lat']['buckets'][0]['key'];
-                    $b['lng'] = $b['lng']['buckets'][0]['key'];
-                    $b['name'] = $b['name']['buckets'][0]['key'];
-                    $b['id'] = $b['id']['buckets'][0]['key'];
-                    $b['form'] = $b['form']['buckets'][0]['key'];
-                    $b['address'] = $b['address']['buckets'][0]['key'];
+										
+					$b['data'] = $b['top']['hits']['hits'][0]['fields']['source'][0]['data'];
+					$b['location'] = array(
+						'lat' => $b['top']['hits']['hits'][0]['fields']['position.lat'][0],
+						'lon' => $b['top']['hits']['hits'][0]['fields']['position.lon'][0],
+					);
+					
+                    unset($b['top']);
 
                 } else {
 
-                    unset($b['lat']);
-                    unset($b['lng']);
-                    unset($b['name']);
-                    unset($b['id']);
-                    unset($b['form']);
+                    unset($b['top']);
 
                 }
 

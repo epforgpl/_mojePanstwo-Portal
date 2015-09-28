@@ -18,7 +18,7 @@
         $url = (@$dataBrowser['cancel_url']) ? $dataBrowser['cancel_url'] : '';
         ?>
 
-        <?= $this->Element('searcher', array('q' => $value, 'autocompletion' => $autocompletion, 'placeholder' => $placeholder, 'url' => $url, 'searchTag' => $dataBrowser['searchTag'])) ?>
+        <?= $this->Element('searcher', array('q' => $value, 'autocompletion' => $autocompletion, 'placeholder' => $placeholder, 'url' => $url, 'searchTag' => isset($dataBrowser['searchTag']) ? $dataBrowser['searchTag'] : false)) ?>
 
     <? } ?>
 </div>
