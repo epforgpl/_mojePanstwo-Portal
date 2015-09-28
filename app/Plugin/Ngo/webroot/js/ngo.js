@@ -87,16 +87,16 @@ $(document).ready(function () {
 	var getArea = function () {
 		var bounds = map.getBounds();
 		var precision = map.getZoom();
-		
+
 		console.log('precision', precision);
 
 		var ne_lat = bounds.getNorthEast().lat();
 		var sw_lng = bounds.getSouthWest().lng();
 		var sw_lat = bounds.getSouthWest().lat();
 		var ne_lng = bounds.getNorthEast().lng();
-		
+
 		var f = .1;
-		
+
 		var ne_lat_fixed = ne_lat + ((ne_lat - sw_lat) * f);
 		var ne_lng_fixed = ne_lng + ((ne_lng - sw_lng) * f);
 		var sw_lat_fixed = sw_lat - ((ne_lat - sw_lat) * f);
@@ -183,19 +183,19 @@ $(document).ready(function () {
 							infowindow.setContent('<div class="infoWindowNgo">' +
 								'<div class="ngoPlace">' +
 								'<div class="title">' +
-								'<a href="/dane/krs_podmioty/' + marker.data.krs_podmioty.id + '">' +
+								'<a href="/dane/krs_podmioty/' + marker.data['krs_podmioty.id'] + '">' +
 								'<i class="object-icon icon-datasets-krs_podmioty"></i>' +
-								'<div class="titleName">' + marker.data.krs_podmioty.nazwa + '</div>' +
+								'<div class="titleName">' + marker.data['krs_podmioty.nazwa'] + '</div>' +
 								'</a>' +
 								'</div>' +
 								'<ul class="detail dataHighlights oneline">' +
 								'<li class="dataHighlight">' +
 								'<p class="_label">Forma prawna</p>' +
-								'<p class="_value">' + marker.data.krs_podmioty.forma_prawna_str + '</p>' +
+								'<p class="_value">' + marker.data['krs_podmioty.forma_prawna_str'] + '</p>' +
 								'<li>' +
 								'<li class="dataHighlight">' +
 								'<p class="_label">Adres</p>' +
-								'<p class="_value">' + marker.data.krs_podmioty.adres + '</p>' +
+								'<p class="_value">' + marker.data['krs_podmioty.adres'] + '</p>' +
 								'<li>' +
 								'</ul>' +
 								'</div>' +
