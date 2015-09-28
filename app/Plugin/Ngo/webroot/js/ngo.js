@@ -160,6 +160,8 @@ $(document).ready(function () {
 
 			if (!(term in markers)) {
 				if (cell.doc_count == 1) {
+					console.log(cell);
+
 					var marker = new google.maps.Marker({
 						position: new google.maps.LatLng(cell.lat, cell.lng),
 						icon: ngoIcon,
