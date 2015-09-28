@@ -288,30 +288,30 @@ class ApplicationsController extends AppController
 
 		$mode = false;
 
-		$items = array(
-			array(
-				'label' => 'Start',
-				'href' => '/' . $this->settings['id'],
-			),
-		);
+		$items = array();		
 
 		if(
 			isset( $this->request->query['q'] ) &&
 			$this->request->query['q']
 		) {
 			
-			/*
 			$items[] = array(
 				'id' => '_results',
-				'label' => 'Wyniki wyszukiwania',
+				'label' => 'Wyniki wyszukiwania:',
 				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
 			);
-			*/
 
 			if( $this->chapter_selected=='view' )
 				$this->chapter_selected = '_results';
 			$mode = 'results';
 
+		} else {
+			
+			$items[] = array(
+				'label' => 'Start',
+				'href' => '/' . $this->settings['id'],
+			);
+			
 		}
 
 		if(
@@ -323,11 +323,13 @@ class ApplicationsController extends AppController
 
 				if( !isset($value['menu_id']) )
 					$value['menu_id'] = '';
-
+								
 				$item = array(
 					'id' => $value['menu_id'],
 					'label' => $value['label'],
 					'href' => '/' . $this->settings['id'] . '/' . $value['menu_id'],
+					'icon' => 'icon-datasets-' . $key,
+
 				);
 
 				if( $mode == 'results' ) {

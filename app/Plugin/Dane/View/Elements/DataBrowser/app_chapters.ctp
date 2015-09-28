@@ -36,7 +36,7 @@
 			                	<i class="object-icon <?= $item['icon'] ?>"></i>
 		                	<? } ?>
 		                	<div<? if(isset($item['icon'])) {?> class="object-icon-side"<?}?>>
-		                	<?= $item['label'] ?><? if (isset($item['count'])) { ?> <span class="counter"><?= $item['count'] ?></span><? } ?>
+		                	<?= $item['label'] ?><? if (isset($item['count'])) { ?> <span class="counter"><?= number_format_h($item['count']) ?></span><? } ?>
 		                	</div>
 	                    </a>
 

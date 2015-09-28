@@ -205,13 +205,8 @@ class PrawoController extends ApplicationsController
 				
 		$mode = false;
 				
-		$items = array(
-			array(
-				'label' => 'Start',
-				'href' => '/' . $this->settings['id'],
-			),
-		);
-				
+		$items = array();
+						
 		if( isset($this->viewVars['dataBrowser']['aggs']['dataset']) && !empty($this->viewVars['dataBrowser']['aggs']['dataset']) ) {
 			
 			$keys = array();
@@ -221,7 +216,7 @@ class PrawoController extends ApplicationsController
 								
 			$items[] = array(
 				'id' => '_results',
-				'label' => 'Wyniki wyszukiwania',
+				'label' => 'Wyniki wyszukiwania:',
 				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
 			);
 			
@@ -239,7 +234,11 @@ class PrawoController extends ApplicationsController
 			
 			
 		} else {
-		
+			
+			$items[] = array(
+				'label' => 'Start',
+				'href' => '/' . $this->settings['id'],
+			);
 			$items = array_merge($items, $this->submenus['prawo']['items']);
 		
 		}
