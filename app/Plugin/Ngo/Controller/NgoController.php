@@ -67,8 +67,20 @@ class NgoController extends ApplicationsController
             list($tl, $br) = explode(',', $this->request->query['area']);
             
             $strlen = strlen($tl);
-            if( $strlen==13 )
-            	$strlen = 12;
+            
+            if( $strlen==10 )
+            	$strlen = 9;
+            	
+            if( $strlen==12 )
+            	$strlen = 11;
+            	
+            if( $strlen==14 )
+            	$strlen = 13;
+            	
+            if( $strlen==16 )
+            	$strlen = 15;
+            	
+            	
             $precision = floor($strlen / 2);
             
             $options = array(

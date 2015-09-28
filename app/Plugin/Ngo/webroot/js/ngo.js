@@ -32,7 +32,7 @@ $(document).ready(function () {
 			mapTypeId: google.maps.MapTypeId.ROADMAP,
 			backgroundColor: '#FFFFFF',
 			minZoom: 6,
-			maxZoom: 15
+			maxZoom: 17
 		},
 		mapStyle = [
 			{
