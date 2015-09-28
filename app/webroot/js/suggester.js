@@ -16,12 +16,12 @@
 					searchTagBlock = $('<div></div>').addClass('searchTag').text(searchTag.label).css({
 						position: 'absolute',
 						zIndex: 2,
-						top: suggesterInput.css('border-top-width'),
-						left: suggesterInput.css('border-left-width'),
+						top: (parseInt(suggesterInput.css('border-top-width')) + 2) + 'px',
+						left: (parseInt(suggesterInput.css('border-left-width')) + 2) + 'px',
 						borderTopLeftRadius: suggesterInput.css('border-top-left-radius'),
 						borderBottomLeftRadius: suggesterInput.css('border-bottom-left-radius'),
 						backgroundColor: '#E6E7E8',
-						padding: suggesterInput.css('paddingTop') + ' ' + suggesterInput.css('paddingLeft'),
+						padding: (parseInt(suggesterInput.css('paddingTop')) - 2) + 'px ' + (parseInt(suggesterInput.css('paddingLeft')) - 2) + 'px',
 						fontSize: suggesterInput.css('font-size'),
 						fontWeight: suggesterInput.css('font-weight'),
 						color: suggesterInput.css('color')
@@ -37,18 +37,39 @@
 				suggesterInput.keypress(function (e) {
 					if ((e.keyCode == jQuery.ui.keyCode.BACKSPACE) && (suggesterInput.val() == '')) {
 						searchTagBlock.hide();
-						suggesterInput.removeAttr('data-dataset');
 						suggesterForm.attr('action', '/dane');
+						suggesterInput.removeAttr('data-dataset');
 						suggesterInput.css('padding-left', suggesterInput.attr('data-paddingbase'));
+					} else if (e.keyCode == jQuery.ui.keyCode.ESCAPE) {
+						searchTagBlock.show();
+						suggesterForm.attr('action', '');
+						suggesterInput.val('');
+						suggesterInput.attr('data-dataset', suggesterInput.attr('data-datasetbase'));
+						suggesterInput.css('padding-left', searchTagBlock.outerWidth() + parseInt(suggesterInput.attr('data-paddingbase')) + 'px');
+						searchTagBlock.css('color', suggesterInput.css('color'));
+						suggesterInput.blur();
 					}
 				});
-				suggesterInput.focusout(function () {
+
+				suggesterInput.focusin(function () {
+					if (searchTagBlock.is(':visible'))
+						searchTagBlock.css('color', '#66AFE9');
+				}).focusout(function () {
 					if ((suggesterInput.val() == '') && searchTagBlock.is(':hidden')) {
 						searchTagBlock.show();
-						suggesterInput.attr('data-dataset', suggesterInput.attr('data-datasetbase'));
 						suggesterForm.attr('action', '');
+						suggesterInput.attr('data-dataset', suggesterInput.attr('data-datasetbase'));
 						suggesterInput.css('padding-left', searchTagBlock.outerWidth() + parseInt(suggesterInput.attr('data-paddingbase')) + 'px');
 					}
+					searchTagBlock.css('color', suggesterInput.css('color'));
+				}).blur(function () {
+					if ((suggesterInput.val() == '') && searchTagBlock.is(':hidden')) {
+						searchTagBlock.show();
+						suggesterForm.attr('action', '');
+						suggesterInput.attr('data-dataset', suggesterInput.attr('data-datasetbase'));
+						suggesterInput.css('padding-left', searchTagBlock.outerWidth() + parseInt(suggesterInput.attr('data-paddingbase')) + 'px');
+					}
+					searchTagBlock.css('color', suggesterInput.css('color'));
 				});
 			}
 
