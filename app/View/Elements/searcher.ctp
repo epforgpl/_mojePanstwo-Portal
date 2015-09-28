@@ -1,9 +1,12 @@
 <? $this->Combinator->add_libs('js', 'suggester.js'); ?>
-<form action="<?= @$dataBrowser['searchAction'] ? $dataBrowser['searchAction'] : '' ?>" method="get" class="form-horizontal suggesterBlock row col-xs-12">
+<form action="<?= @$dataBrowser['searchAction'] ? $dataBrowser['searchAction'] : '' ?>" method="get"
+      class="form-horizontal suggesterBlock row col-xs-12">
     <div class="searcher form-group has-feedback">
         <div class="col-md-12">
             <div class="input-group">
-                <input class="form-control hasclear input-md<? if (isset($url) && !empty($q)) { echo ' clearer-on'; }?>"
+                <input class="form-control hasclear input-md<? if (isset($url) && !empty($q)) {
+                    echo ' clearer-on';
+                } ?>"
                        placeholder="<?= isset($placeholder) ? $placeholder : 'Szukaj...'; ?>"
                        type="text"
                        name="q"
@@ -11,6 +14,7 @@
                        data-dataset="<?= $autocompletion ? $autocompletion['dataset'] : '*'; ?>"
                        data-url="<?= @$url ?>"
                        data-autocompletion="<?= $autocompletion ? 'true' : 'false' ?>"
+                       data-searchtag='<?= $searchTag ? json_encode($searchTag) : 'false' ?>'
                        autocomplete="<?= $autocompletion ? 'off' : 'on' ?>"
                        required
                     />
