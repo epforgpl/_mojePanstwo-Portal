@@ -1,3 +1,5 @@
+<? debug($dataBrowser['searchTag']); ?>
+
 <div class="suggesterBlock searchForm">
     <? if (!isset($title) && isset($DataBrowserTitle)) {
         $title = $DataBrowserTitle;

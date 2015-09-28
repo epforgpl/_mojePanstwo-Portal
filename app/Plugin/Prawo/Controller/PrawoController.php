@@ -75,7 +75,10 @@ class PrawoController extends ApplicationsController
         $_datasets = array_keys($datasets);
 
         $options = array(
-            'searchTitle' => 'Szukaj w prawie...',
+            'searchTag' => array(
+	            'href' => '/prawo',
+	            'label' => 'Prawo',
+            ),
             'autocompletion' => array(
                 'dataset' => 'prawo,prawo_hasla',
             ),

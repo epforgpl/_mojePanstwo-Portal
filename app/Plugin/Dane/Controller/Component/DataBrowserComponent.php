@@ -11,6 +11,7 @@ class DataBrowserComponent extends Component
     private $cover = false;
     private $chapters = array();
     private $searchTitle = false;
+    private $searchTag = false;
     private $autocompletion = false;
     private $aggsMode = false;
     private $searcher = true;
@@ -1328,6 +1329,9 @@ class DataBrowserComponent extends Component
 
         if (isset($settings['searchTitle']))
             $this->searchTitle = $settings['searchTitle'];
+            
+        if (isset($settings['searchTag']))
+            $this->searchTag = $settings['searchTag'];
 
         if (isset($settings['searchAction']))
             $this->searchAction = $settings['searchAction'];
@@ -1421,6 +1425,7 @@ class DataBrowserComponent extends Component
                 'cover' => $this->cover,
                 'chapters' => $this->chapters,
                 'searchTitle' => $this->searchTitle,
+                'searchTag' => $this->searchTag,
                 'searchAction' => $this->searchAction,
                 'searcher' => $this->searcher,
                 'autocompletion' => $this->autocompletion,
@@ -1548,6 +1553,7 @@ class DataBrowserComponent extends Component
                     'cancel_url' => false,
                     'chapters' => $this->chapters,
                     'searchTitle' => $this->searchTitle,
+                    'searchTag' => $this->searchTag,
                     'searchAction' => $this->searchAction,
                     'searcher' => $this->searcher,
                     'autocompletion' => $this->autocompletion,
@@ -1584,7 +1590,7 @@ class DataBrowserComponent extends Component
         
         if( @$controller->request->params['ext']=='json' ) {
 	        
-	        foreach( array('cancel_url', 'api_call', 'renderFile', 'cover', 'chapters', 'searchTitle', 'searchAction', 'searcher', 'autocompletion', 'mode', 'aggs_visuals_map', 'apps') as $var )
+	        foreach( array('cancel_url', 'api_call', 'renderFile', 'cover', 'chapters', 'searchTitle', 'searchTag', 'searchAction', 'searcher', 'autocompletion', 'mode', 'aggs_visuals_map', 'apps') as $var )
 	        	if( isset($controller->viewVars['dataBrowser'][ $var ]) )
 			        unset( $controller->viewVars['dataBrowser'][ $var ] );
 
