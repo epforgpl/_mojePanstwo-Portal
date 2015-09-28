@@ -35,9 +35,10 @@
 		                	<? if(isset($item['icon'])) {?>
 			                	<i class="object-icon <?= $item['icon'] ?>"></i>
 		                	<? } ?>
-		                	<div<? if(isset($item['icon'])) {?> class="object-icon-side"<?}?>>
-		                	<?= $item['label'] ?><? if (isset($item['count'])) { ?> <span class="counter"><?= number_format_h($item['count']) ?></span><? } ?>
-		                	</div>
+                            <div<? if (isset($item['icon'])) { ?> class="object-icon-side"<? } ?>><? if (isset($item['count'])) { ?>
+                                    <span
+                                        class="counter pull-right"><?= number_format_h($item['count']) ?></span><? } ?><?= $item['label'] ?>
+                            </div>
 	                    </a>
 
 	                    <? if( isset($item['element']) ) echo $this->element($item['element']['path']); ?>
