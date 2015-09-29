@@ -4,7 +4,7 @@ function CustomMarker(latlng, map, args) {
 	this.latlng = latlng;
 	this.args = args;
 	this.setMap(map);
-	this.maxZoom = 15;
+	this.maxZoom = 17;
 }
 
 CustomMarker.prototype = new google.maps.OverlayView();
