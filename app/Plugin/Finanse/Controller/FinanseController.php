@@ -545,8 +545,8 @@ class FinanseController extends ApplicationsController
 
         // debug($aggs); die();
 
-
-        $this->set('main_chart', $main_chart);
+        $this->set('histogram_interval', $histogram_interval);
+        $this->set('mode', $mode);
         $this->set('mode', $mode);
 
         $options = array(
