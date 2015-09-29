@@ -46,19 +46,19 @@ class BdlController extends ApplicationsController
 		                ),
 		                'scope' => 'global',
 		                'aggs' => array(
-			                'kategoria_id' => array(
-				                'terms' => array(
-					                'field' => 'id',
+			                'id' => array(
+				                'terms'=> array(
+					                'field' => 'title.raw',
 					                'size' => 100,
+					                'order' => array(
+					                	'_term' => 'asc',
+					                ),
 				                ),
 				                'aggs' => array(
-					                'label' => array(
-						                'terms'=> array(
-							                'field' => 'title.raw',
+					                'id' => array(
+						                'terms' => array(
+							                'field' => 'id',
 							                'size' => 1,
-							                'order' => array(
-							                	'_term' => 'asc',
-							                ),
 						                ),
 					                ),
 				                ),
@@ -151,18 +151,18 @@ class BdlController extends ApplicationsController
 		                ),
 		                'aggs' => array(
 			                'id' => array(
-				                'terms' => array(
-					                'field' => 'id',
+				                'terms'=> array(
+					                'field' => 'title.raw',
 					                'size' => 100,
+					                'order' => array(
+					                	'_term' => 'asc',
+					                ),
 				                ),
 				                'aggs' => array(
-					                'label' => array(
-						                'terms'=> array(
-							                'field' => 'title.raw',
+					                'id' => array(
+						                'terms' => array(
+							                'field' => 'id',
 							                'size' => 1,
-							                'order' => array(
-							                	'_term' => 'asc',
-							                ),
 						                ),
 					                ),
 				                ),
@@ -177,18 +177,20 @@ class BdlController extends ApplicationsController
                 ),
             ),
             'aggs' => array(
-                'dataset' => array(
-                    'terms' => array(
-                        'field' => 'dataset',
-                    ),
-                    'visual' => array(
-                        'skin' => 'datasets',
-                        'class' => 'special',
-                        'field' => 'dataset',
-                        'dictionary' => $datasets,
-                        'target' => false,
-                    ),
-                ),
+                'kategorie' => array(
+		            'terms' => array(
+			            'field' => 'bdl_wskazniki_kategorie.id',
+			            'size' => 100,
+		            ),
+		            'aggs' => array(
+			            'id' => array(
+				            'terms' => array(
+					            'field' => 'data.bdl_wskazniki_kategorie.tytul',
+					            'size' => 1,
+				            ),
+			            ),
+		            ),
+	            ),
             ),
             'apps' => true,
             'routes' => array(
@@ -227,13 +229,7 @@ class BdlController extends ApplicationsController
     public function getChapters() {
 	    
 	    $mode = false;
-				
-		$items = array(
-			array(
-				'label' => 'Start',
-				'href' => '/' . $this->settings['id'],
-			),
-		);
+		$items = array();	
 		
 		if(
 			isset( $this->request->query['q'] ) && 
@@ -242,7 +238,7 @@ class BdlController extends ApplicationsController
 									
 			$items[] = array(
 				'id' => '_results',
-				'label' => 'Wyniki wyszukiwania',
+				'label' => 'Wyniki wyszukiwania:',
 				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
 			);
 			
@@ -250,17 +246,30 @@ class BdlController extends ApplicationsController
 				$this->chapter_selected = '_results';
 			$mode = 'results';
 			
+		} else {
+			
+			$items[] = array(
+				'label' => 'Start',
+				'href' => '/' . $this->settings['id'],
+			);
 		}
-				
-		if( isset($this->viewVars['dataBrowser']['aggs']['kategorie']['buckets']) ) {
-			foreach( $this->viewVars['dataBrowser']['aggs']['kategorie']['buckets'] as $b ) {
-				
+		
+		debug($this->viewVars['dataBrowser']['aggs']); die();
+		
+		if( isset($this->viewVars['dataBrowser']['aggs']['kategorie']['id']) )
+			$buckets = $this->viewVars['dataBrowser']['aggs']['kategorie']['id']['buckets'];
+		else
+			$buckets = $this->viewVars['dataBrowser']['aggs']['kategorie']['buckets'];
+		
+		
+		if( $buckets ) {
+			foreach( $buckets as $b ) {
 				
 				
 				$item = array(
-					'id' => $b['key'],
-					'label' => $b['label']['buckets'][0]['key'],
-					'href' => '/' . $this->settings['id'] . '/kategorie/' . $b['key'],
+					'label' => $b['key'],
+					'id' => $b['id']['buckets'][0]['key'],
+					'href' => '/' . $this->settings['id'] . '/kategorie/' . $b['id']['buckets'][0]['key'],
 				);
 								
 				if( $mode == 'results' ) {
@@ -272,6 +281,7 @@ class BdlController extends ApplicationsController
 					$items[] = $item;
 					
 				}
+				
 				
 			}		
 		}

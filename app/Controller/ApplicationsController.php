@@ -100,12 +100,6 @@ class ApplicationsController extends AppController
 		}
 
 		foreach( $this->app_menu[0] as $i => $a ) {
-
-			if(
-				isset($this->request->query['q']) &&
-				( $q = $this->request->query['q'] )
-			)
-				$a['href'] .= '?q=' . urlencode($q);
 			
 			if( $app && ($app['id']==$a['id']) ) {
 								
@@ -113,7 +107,13 @@ class ApplicationsController extends AppController
 				$temp[] = $a;
 
 			} else {
-
+				
+				if(
+					isset($this->request->query['q']) &&
+					( $q = $this->request->query['q'] )
+				)
+					$a['href'] .= '?q=' . urlencode($q);
+				
 				$temp[] = $a;
 
 			}
