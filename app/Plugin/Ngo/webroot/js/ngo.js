@@ -111,7 +111,6 @@ $(document).ready(function () {
 			return false;
 
 		if (infowindow === null || infowindow.getMap() === null) {
-			mapSpinner.removeClass('hide');
 			pendingArea = getArea();
 
 			window.clearTimeout(mapUpdateTimer);
@@ -128,7 +127,10 @@ $(document).ready(function () {
 						} else {
 							if (xhr && xhr.readystate != 4) {
 								xhr.abort();
+								mapSpinner.addClass('hide');
 							}
+
+							mapSpinner.removeClass('hide');
 							xhr = $.get('/ngo/map.json', {
 								area: areaParms
 							}, function (data) {
