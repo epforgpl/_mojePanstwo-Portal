@@ -74,6 +74,21 @@ class StartAppController extends ApplicationsController {
 		                ),
                     ),
                 ),
+                array(
+                    'id' => 'pages',
+                    'label' => 'Strony którymi zarządzam',
+                    'href' => '/moje-strony',
+                    'icon' => 'icon-datasets-kolekcje',
+                    'submenu' => array(
+                        'items' => array(
+                            array(
+                                'id' => 'index',
+                                'href' => '/',
+                                'label' => 'Moje strony',
+                            )
+                        ),
+                    ),
+                ),
             )
         )
     );

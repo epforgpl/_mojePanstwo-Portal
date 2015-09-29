@@ -206,3 +206,7 @@ foreach ($pisma_prefixes as $pisma_prefix) {
 Router::connect('/moje-powiadomienia', array('plugin' => 'Start', 'controller' => 'Alerts', 'action' => 'index'));
 Router::connect('/moje-powiadomienia/obserwuje', array('plugin' => 'Start', 'controller' => 'Alerts', 'action' => 'subscriptions',));
 Router::connect('/moje-powiadomienia/:action', array('plugin' => 'Start', 'controller' => 'Alerts'));
+
+/* MOJE STRONY ROUTES */
+//Router::connect('/moje-strony', array('plugin' => 'Start', 'controller' => 'Pages', 'action' => 'index'));
+//Router::connect('/moje-strony/:action', array('plugin' => 'Start', 'controller' => 'Pages'));
