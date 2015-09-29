@@ -13,12 +13,12 @@ class BdlController extends ApplicationsController
     );
 
     public $mainMenuLabel = 'Przeglądaj';
-	
+
 	public function kategorie()
 	{
-				
+
 		$datasets = $this->getDatasets('bdl');
-				
+
         $options = array(
             'searchTag' => array(
 	            'href' => '/bdl',
@@ -114,18 +114,18 @@ class BdlController extends ApplicationsController
         );
 
 		$this->chapter_selected = $this->request->params['id'];
-		
+
         $this->Components->load('Dane.DataBrowser', $options);
         $this->title = 'Bank Danych Lokalnych';
         $this->set('kategoria_id', $this->request->params['id']);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
-		
+
 	}
-	
+
     public function view()
     {
         $datasets = $this->getDatasets('bdl');
-				
+
         $options = array(
             'searchTag' => array(
 	            'href' => '/bdl',
@@ -205,94 +205,92 @@ class BdlController extends ApplicationsController
 
 
     }
-    
+
     public function beforeRender() {
-	    
-	    parent::beforeRender();
-	    
-	    if( 
-	    	@$this->request->params['id'] && 
+
+        parent::beforeRender();
+
+        if (
+            @$this->request->params['id'] &&
 	    	( $items = @$this->viewVars['dataBrowser']['aggs']['kategorie']['buckets'] )
 	    ) {
 	    	foreach( $items as $item ) {
 	    		if( $item['key'] == $this->request->params['id'] ) {
-		    		
-		    		$this->set('title_for_layout', $item['label']['buckets'][0]['key'] . ' - Bank Danych Lokalnych');
+
+                    $this->set('title_for_layout', $item['label']['buckets'][0]['key'] . ' - Bank Danych Lokalnych');
 		    		break;
-		    		
-	    		}
+
+                }
 	    	}
 	    }
-	    	    
+
     }
-    
+
     public function getChapters() {
-	    
-	    $mode = false;
-		$items = array();	
-		
+
+        $mode = false;
+        $items = array();
+
 		if(
-			isset( $this->request->query['q'] ) && 
+            isset($this->request->query['q']) &&
 			$this->request->query['q']
 		) {
-									
-			$items[] = array(
+
+            $items[] = array(
 				'id' => '_results',
 				'label' => 'Wyniki wyszukiwania:',
 				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
 			);
-			
-			if( $this->chapter_selected=='view' )
+
+            if( $this->chapter_selected=='view' )
 				$this->chapter_selected = '_results';
 			$mode = 'results';
-			
-		} else {
-			
-			$items[] = array(
+
+        } else {
+
+            $items[] = array(
 				'label' => 'Start',
 				'href' => '/' . $this->settings['id'],
 			);
 		}
-		
-		debug($this->viewVars['dataBrowser']['aggs']); die();
-		
-		if( isset($this->viewVars['dataBrowser']['aggs']['kategorie']['id']) )
+
+        if( isset($this->viewVars['dataBrowser']['aggs']['kategorie']['id']) )
 			$buckets = $this->viewVars['dataBrowser']['aggs']['kategorie']['id']['buckets'];
 		else
 			$buckets = $this->viewVars['dataBrowser']['aggs']['kategorie']['buckets'];
-		
-		
-		if( $buckets ) {
+
+
+        if( $buckets ) {
 			foreach( $buckets as $b ) {
-				
-				
-				$item = array(
+
+
+                $item = array(
 					'label' => $b['key'],
 					'id' => $b['id']['buckets'][0]['key'],
 					'href' => '/' . $this->settings['id'] . '/kategorie/' . $b['id']['buckets'][0]['key'],
 				);
-								
-				if( $mode == 'results' ) {
-										
-					$item['href'] .= '?q=' . urlencode( $this->request->query['q'] );
-					
-				} else {
-					
-					$items[] = $item;
-					
-				}
-				
-				
-			}		
+
+                if( $mode == 'results' ) {
+
+                    $item['href'] .= '?q=' . urlencode( $this->request->query['q'] );
+
+                } else {
+
+                    $items[] = $item;
+
+                }
+
+
+            }
 		}
-						
-		$output = array(
+
+        $output = array(
 			'items' => $items,
 			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
 		);
-				
-		return $output;    
-	    
+
+        return $output;
+
     }
 
-} 
+}
