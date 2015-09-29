@@ -85,22 +85,19 @@ $(document).ready(function () {
 		mapSpinner = $('.mapSpinner');
 
 	var getArea = function () {
-		var bounds = map.getBounds();
-		var precision = map.getZoom();
+		var bounds = map.getBounds(),
+			precision = map.getZoom(),
+			ne_lat = bounds.getNorthEast().lat(),
+			sw_lng = bounds.getSouthWest().lng(),
+			sw_lat = bounds.getSouthWest().lat(),
+			ne_lng = bounds.getNorthEast().lng(),
 
-		console.log('precision', precision);
+			f = .1,
 
-		var ne_lat = bounds.getNorthEast().lat();
-		var sw_lng = bounds.getSouthWest().lng();
-		var sw_lat = bounds.getSouthWest().lat();
-		var ne_lng = bounds.getNorthEast().lng();
-
-		var f = .1;
-
-		var ne_lat_fixed = ne_lat + ((ne_lat - sw_lat) * f);
-		var ne_lng_fixed = ne_lng + ((ne_lng - sw_lng) * f);
-		var sw_lat_fixed = sw_lat - ((ne_lat - sw_lat) * f);
-		var sw_lng_fixed = sw_lng - ((ne_lng - sw_lng) * f);
+			ne_lat_fixed = ne_lat + ((ne_lat - sw_lat) * f),
+			ne_lng_fixed = ne_lng + ((ne_lng - sw_lng) * f),
+			sw_lat_fixed = sw_lat - ((ne_lat - sw_lat) * f),
+			sw_lng_fixed = sw_lng - ((ne_lng - sw_lng) * f);
 
 		return {
 			tl: Geohash.encode(ne_lat_fixed, sw_lng_fixed, precision),

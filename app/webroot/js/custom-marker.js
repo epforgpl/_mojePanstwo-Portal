@@ -32,16 +32,16 @@ CustomMarker.prototype.draw = function () {
 						var detailBlock = '',
 							info = this;
 
-						if (info.data.krs_podmioty.forma_prawna_str.length > 0) {
+						if (info.data['krs_podmioty.forma_prawna_str'].length > 0) {
 							detailBlock += '<li class="dataHighlight">' +
 								'<p class="_label">Forma prawna</p>' +
-								'<p class="_value">' + info.data.krs_podmioty.forma_prawna_str + '</p>' +
+								'<p class="_value">' + info.data['krs_podmioty.forma_prawna_str'] + '</p>' +
 								'<li>';
 						}
-						if (info.data.krs_podmioty.adres.length > 0) {
+						if (info.data['krs_podmioty.adres'].length > 0) {
 							detailBlock += '<li class="dataHighlight">' +
 								'<p class="_label">Adres</p>' +
-								'<p class="_value">' + info.data.krs_podmioty.adres + '</p>' +
+								'<p class="_value">' + info.data['krs_podmioty.adres'] + '</p>' +
 								'<li>';
 						}
 
