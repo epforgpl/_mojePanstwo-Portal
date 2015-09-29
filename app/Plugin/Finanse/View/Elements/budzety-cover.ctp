@@ -285,4 +285,10 @@ $this->Combinator->add_libs('js', 'Finanse.budzety-tiles');
     <div class="mid-chart" style="margin-top: -60px; z-index: 0; position: relative;"></div>
     <div class="chart2" style="margin-top: -40px; z-index: 15; position: relative;"></div>
 
+    <? pr ($main_chart) ; ?>
+    <? pr ($mode) ; ?>
+    <? pr ($filter_options) ; ?>
+    <? pr ($histogram_interval) ; ?>
+    <? pr ($dataBrowser['aggs']['gminy']) ; ?>
+
 </div>

@@ -210,7 +210,7 @@ class DataobjectsController extends AppController
             $this->Components->load('Dane.DataBrowser', array(
                 'conditions' => array(
                     'dataset' => 'dzialania',
-                    'dzialania.dataset' => 'krs_podmioty',
+                    'dzialania.dataset' => $this->object->getDataset(),
                     'dzialania.object_id' => $this->object->getId(),
                 ),
                 'aggsPreset' => 'dzialania_admin',
