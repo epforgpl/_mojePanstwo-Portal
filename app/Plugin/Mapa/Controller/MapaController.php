@@ -30,8 +30,9 @@ class MapaController extends ApplicationsController
 	    	( @$this->request->params['ext'] == 'json' ) && 
 	    	( isset($this->request->query['q']) )
 	    ) {
-		    
-		    
+		   
+		    $data = $this->Mapa->geocode($this->request->query['q']);
+		    debug($data); die();
 		    
 	    } else {
 	    
