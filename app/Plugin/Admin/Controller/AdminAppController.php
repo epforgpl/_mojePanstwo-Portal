@@ -62,6 +62,11 @@ class AdminAppController extends AppController
             'label' => 'Indeksownaie',
             'href'  => '/admin/analyzer/indexing',
         ),
+        array(
+            'id'    => 'krs_candidates',
+            'label' => 'Kandydaci 2015 a KRS',
+            'href'  => '/admin/krs_candidates',
+        ),
     );
 
     public function beforeFilter() {

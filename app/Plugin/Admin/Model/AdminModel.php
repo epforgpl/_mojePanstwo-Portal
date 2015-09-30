@@ -18,7 +18,6 @@ class AdminModel {
                 )
             )
         );
-
         return $response['results'];
     }
 
