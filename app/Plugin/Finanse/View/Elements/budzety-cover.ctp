@@ -286,7 +286,7 @@ $this->Combinator->add_libs('js', 'Finanse.budzety-tiles');
     <div class="mid-chart"></div>
     <div class="chart2"></div>
 
-    <? if (true) {
+    <? if (1) {
         echo $this->Element('Finanse.budzety-gminy', array('main_chart' => $main_chart, 'mode' => $mode, 'filter_options' => $filter_options, 'histogram_interval' => $histogram_interval, 'aggs_gminy' => $dataBrowser['aggs']['gminy']));
     } ?>
 

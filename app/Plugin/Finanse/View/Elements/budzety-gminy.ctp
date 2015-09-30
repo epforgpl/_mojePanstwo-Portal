@@ -4,6 +4,13 @@ $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
+$this->Combinator->add_libs('css', 'icon-dzialy');
+$this->Combinator->add_libs('css', $this->Less->css('sections', array('plugin' => 'FinanseGmin')));
+$this->Combinator->add_libs('css', $this->Less->css('mp-sections', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow-finanse', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('js', 'Dane.view-gminy-krakow-finanse');
+
 $options = array(
     //'mode' => 'init',
     'mode' => $mode,
@@ -77,7 +84,7 @@ $options = array(
         <div class="content">
             <? if (isset($main_chart)) { ?>
                 <div id="mainChart" class="">
-                    <div class="histogram_cont">
+                    <div class="histogram_cont" style="height: 222px">
                         <div class="histogram" data-mode="<?= $mode; ?>" data-median="<?= $global['median'] ?>"
                              data-title="<?= $main_chart['title'] ?>" data-subtitle="<?= $main_chart['subtitle'] ?>"
                              data-interval="<?= $histogram_interval; ?>"
@@ -96,18 +103,6 @@ $options = array(
                             <li class="_median" style="left: <?= round($global['median_left']) ?>%">
                                 Mediana<br/><?= number_format_h($global['median']) ?>
                             </li>
-                            <li class="_teryt" style="<?
-
-                            if ($global['left'] === false)
-                                echo 'display: none;';
-                            else {
-                                $rg = round($global['left']);
-                                echo 'left: ' . ($rg > 100 ? 100 : $rg) . '%';
-                            }
-                            ?>">
-                                <span class="n"><? /*= $object->getTitle() */ ?></span>
-                                <span class="v"><?= number_format_h($global['cur']) ?></span>
-                            </li>
                             <li class="max">
                                 <a href="/dane/gminy/<?= $global['max']['id'] ?>">
                                     <span class="n"><?= $global['max']['label'] ?></span>
@@ -118,7 +113,7 @@ $options = array(
                     </div>
                 </div>
             <? } ?>
-            <div class="row text-center margin-top-20">
+            <!--<div class="row text-center margin-top-20">
                 <div class="col-sm-8 col-sm-offset-2">
                     <p>Wydatki zaznaczone kolorem zielonem, to wydatki na które <? /*= $object->getTitle() */ ?> wydaje
                         <strong>więcej</strong> niż przeciętna gmina. Wydatki zaznaczone kolorem czerwonym, to wydatki
@@ -128,10 +123,10 @@ $options = array(
                     <p>Kliknij na rodzaj wydatków, aby dowiedzieć się więcej:</p>
 
                 </div>
-            </div>
+            </div>-->
 
             <div class="row items">
-                <? foreach ($dzialy as $dzial) { ?>
+                <? foreach ($dzialy as $dzial) { if(!isset($dzial['global'])) continue; ?>
                     <div class="block col-xs-12 col-sm-6 col-md-3">
                         <div class="item <?= $dzial['global']['class'] ?>" data-id="<?= $dzial['id'] ?>">
 
@@ -178,19 +173,6 @@ $options = array(
                                             <li class="_median"
                                                 style="left: <?= round($dzial['global']['median_left']) ?>%">
                                                 Mediana<br/><?= number_format_h($dzial['global']['median']) ?></li>
-                                            <li class="_teryt" style="<?
-
-                                            if ($dzial['global']['left'] === false)
-                                                echo 'display: none;';
-                                            else {
-                                                $rg = round($dzial['global']['left']);
-                                                echo 'left: ' . ($rg > 100 ? 100 : $rg) . '%';
-                                            }
-
-                                            ?>">
-                                                <span class="n"><? /*= $object->getTitle() */ ?></span>
-                                                <span class="v"><?= number_format_h($dzial['global']['cur']) ?></span>
-                                            </li>
                                             <li class="max">
                                                 <div class="link"
                                                      data-href="/dane/gminy/<?= $dzial['global']['min']['id'] ?>">
@@ -203,8 +185,9 @@ $options = array(
                                     </div>
                                 </div>
 
-
+                                <? /*
                                 <table class="rozdzialy" style="display: none">
+
                                     <? foreach ($dzial['rozdzialy'] as $r) { ?>
 
                                         <? if (!@$r['id']) continue; ?>
@@ -215,7 +198,7 @@ $options = array(
                                         </tr>
 
                                     <? } ?>
-                                </table>
+                                </table> */ ?>
 
                             </a>
                         </div>
@@ -226,8 +209,3 @@ $options = array(
     </div>
 </div>
 
-<? //pr($main_chart); ?>
-<? //pr($mode); ?>
-<? //pr($filter_options); ?>
-<? //pr($histogram_interval); ?>
-<? //pr($aggs_gminy); ?>
