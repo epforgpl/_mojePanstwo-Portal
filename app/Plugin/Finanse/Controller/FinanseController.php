@@ -547,7 +547,6 @@ class FinanseController extends ApplicationsController
 
         $this->set('histogram_interval', $histogram_interval);
         $this->set('mode', $mode);
-        $this->set('mode', $mode);
 
         $options = array(
             'searchTitle' => 'Szukaj w budżetach krajowych...',
