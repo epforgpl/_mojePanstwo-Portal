@@ -1,0 +1,14 @@
+msgid "LC_FINANSE_POSITION_NOT_AVAILABLE"
+msgstr "Twoja przeglądarka nie obsługuje lokalizowania."
+
+msgid "LC_FINANSE_POSITION_CANNOT_POSITION"
+msgstr "Nie można ustalić Twojej pozycji."
+
+msgid "LC_FINANSE_POSITION_CANNOT_BROWSER"
+msgstr "Twoja przeglądarka nie zezwoliła na przesłanie pozycji."
+
+msgid "LC_FINANSE_POSITION_CANNOT_TEMPORARY"
+msgstr "Chwilowo nie można ustalić Twojej pozycji."
+
+msgid "LC_FINANSE_POSITION_CANNOT_LIMIT"
+msgstr "Przekroczono dozwolony limit czasu na pobieranie pozycji. Spróbuj jeszcze raz."

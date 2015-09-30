@@ -16,11 +16,7 @@ $(document).ready(function () {
 			strokeColor: "#444499",
 			strokeWeight: 1
 		}),
-		north = 54.833333,
-		south = 49.00238,
-		east = 24.14585,
-		west = 14.12298,
-		bounds = new google.maps.LatLngBounds(new google.maps.LatLng(south, west), new google.maps.LatLng(north, east)),
+		bounds = new google.maps.LatLngBounds(new google.maps.LatLng(49.00238, 14.12298), new google.maps.LatLng(54.833333, 24.14585)),
 		options = {
 			zoom: 6,
 			center: new google.maps.LatLng(51.986797406813125, 19.32958984375001),
@@ -41,7 +37,64 @@ $(document).ready(function () {
 			},
 			mapTypeId: google.maps.MapTypeId.ROADMAP,
 			backgroundColor: '#FFFFFF'
-		};
+		}, Localizer = Class.extend({
+			init: function () {
+				this.nav = window.navigator;
+			},
+			request_position: function () {
+				if (this.nav) {
+					this.geoloc = this.nav.geolocation;
+					if (this.geoloc) {
+						this.geoloc.getCurrentPosition(this.request_position_success, this.request_position_error);
+					} else this.request_position_notAvailable;
+				} else this.request_position_notAvailable;
+			},
+			request_position_notAvailable: function () {
+				console.log(mPHeart.translation.LC_FINANSE_POSITION_POSITION_NOT_AVAILABLE);
+			},
+
+			/*RETURN INFORMATION WITH USER LOCATION*/
+			request_position_success: function (position) {
+				mapRequest(position.coords.latitude + '%20' + position.coords.longitude);
+			},
+
+			/*RETURN ERRORS FORM LOCACTION SYSTEM*/
+			request_position_error: function (error) {
+				var strMessage = mPHeart.translation.LC_FINANSE_POSITION_CANNOT_POSITION;
+				switch (error.code) {
+					case error.PERMISSION_DENIED:
+						strMessage = mPHeart.translation.LC_FINANSE_POSITION_CANNOT_BROWSER;
+						break;
+
+					case error.POSITION_UNAVAILABLE:
+						strMessage = mPHeart.translation.LC_FINANSE_POSITION_CANNOT_TEMPORARY;
+						break;
+
+					case error.TIMEOUT:
+						strMessage = mPHeart.translation.LC_FINANSE_POSITION_CANNOT_LIMIT;
+						break;
+
+					default:
+						break;
+
+				}
+				console.log(strMessage);
+			}
+		});
+
+	function mapRequest(q) {
+		if (q.length > 0) {
+			$.ajax({
+				method: 'GET',
+				url: '/mapa.json',
+				data: {
+					'q': q
+				},
+				success: function (res) {
+				}
+			})
+		}
+	}
 
 	map = new google.maps.Map(document.getElementById('mapa'), options);
 	border.setMap(map);
@@ -49,6 +102,11 @@ $(document).ready(function () {
 
 	map.setOptions({
 		minZoom: map.getZoom()
+	});
+
+	var localizer = new Localizer();
+	$('#localizeMe').click(function () {
+		localizer.request_position();
 	});
 });
 
