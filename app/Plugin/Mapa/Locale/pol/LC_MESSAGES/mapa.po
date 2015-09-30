@@ -1,3 +1,6 @@
+msgid "LC_FINANSE_POSITION_LOADING"
+msgstr "Wyszukiwanie Twojej lokalizacji"
+
 msgid "LC_FINANSE_POSITION_NOT_AVAILABLE"
 msgstr "Twoja przeglądarka nie obsługuje lokalizowania."
 

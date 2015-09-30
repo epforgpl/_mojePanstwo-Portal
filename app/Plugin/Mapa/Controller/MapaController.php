@@ -4,9 +4,9 @@ App::uses('ApplicationsController', 'Controller');
 
 class MapaController extends ApplicationsController
 {
-	
-	public $components = array('RequestHandler');
-	
+
+    public $components = array('RequestHandler');
+
     public $settings = array(
         'id' => 'mapa',
         'title' => 'Mapa'
@@ -25,20 +25,12 @@ class MapaController extends ApplicationsController
 
     public function view()
     {
-	    
-	    if( 
-	    	( @$this->request->params['ext'] == 'json' ) && 
-	    	( isset($this->request->query['q']) )
-	    ) {
-		   
-		    $data = $this->Mapa->geocode($this->request->query['q']);
-		    debug($data); die();
-		    
-	    } else {
-	    
-	        $this->title = 'Mapa';
-        
+        if ((@$this->request->params['ext'] == 'json') && (isset($this->request->query['q']))) {
+            $data = $this->Mapa->geocode($this->request->query['q']);
+            $this->set('data', $data);
+            $this->set('_serialize', 'data');
+        } else {
+            $this->title = 'Mapa';
         }
-        
     }
 }
