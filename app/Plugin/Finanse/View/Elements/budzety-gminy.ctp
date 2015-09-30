@@ -10,6 +10,7 @@ $this->Combinator->add_libs('css', $this->Less->css('mp-sections', array('plugin
 $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow-finanse', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.view-gminy-krakow-finanse');
+$this->Combinator->add_libs('js', 'Finanse.budzety-gminy');
 
 $options = array(
     //'mode' => 'init',
@@ -20,7 +21,7 @@ $options = array(
 <div class="col-sm-12">
     <div class="dataWrap">
         <div class="appBanner">
-            <h1 class="appTitle">Budżet gminy <? /*= $object->getTitle(); */ ?></h1>
+            <h1 class="appTitle">Budżet gmin</h1>
         </div>
     </div>
 
@@ -113,17 +114,29 @@ $options = array(
                     </div>
                 </div>
             <? } ?>
-            <!--<div class="row text-center margin-top-20">
+            <div class="row text-center margin-top-20">
                 <div class="col-sm-8 col-sm-offset-2">
-                    <p>Wydatki zaznaczone kolorem zielonem, to wydatki na które <? /*= $object->getTitle() */ ?> wydaje
-                        <strong>więcej</strong> niż przeciętna gmina. Wydatki zaznaczone kolorem czerwonym, to wydatki
-                        na które <? /*= $object->getTitle() */ ?> wydaje <strong>mniej</strong> niż przeciętna gmina.
-                    </p>
+                    <p>Podaj nazwę swojej gminy, aby sprawdzić jej finanse:</p>
 
-                    <p>Kliknij na rodzaj wydatków, aby dowiedzieć się więcej:</p>
+
+                    <div class="suggesterBlockGminy">
+                        <div class="searcher form-group has-feedback">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <input class="form-control hasclear input-lg ui-autocomplete-input" placeholder="Zacznij pisać aby znaleźć gmine..." name="q" value="" data-dataset="gminy" data-url="" data-autocompletion="true" autocomplete="off" required="" type="text">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-primary input-lg" type="submit">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                 </div>
-            </div>-->
+            </div>
 
             <div class="row items">
                 <? foreach ($dzialy as $dzial) { if(!isset($dzial['global'])) continue; ?>
