@@ -24,7 +24,7 @@ if (!$page_count == 0) {
 
             <li class="list-group-item kandydat" data-kandydat-id="<?= $list['id'] ?>">
                 <div class="row">
-                    <div class="col-sm-4"><h3><?= $list['imiona'] ?> <?= $list['nazwisko'] ?></h3></div>
+                    <div class="col-sm-4"><a href="http://www.google.pl/#q=<?= str_replace(' ','+', $list['imiona'])?>+<?= $list['nazwisko'] ?>" target="_blank"><h3><?= $list['imiona'] ?> <?= $list['nazwisko'] ?></h3></a></div>
                     <div class="col-sm-3"><h3><?= $list['data_urodzenia'] ?></h3></div>
                 </div>
                 <div class="row">
