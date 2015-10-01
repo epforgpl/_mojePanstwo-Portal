@@ -28,6 +28,10 @@ echo $this->Element('dataobject/pageBegin', array(
     if (isset($title))
         $options['title'] = $title;
     $options['menu'] = $_submenu;
+
+    if(isset($cadences))
+        $options['pills'] = $cadences;
+
     echo $this->Element('Dane.DataBrowser/browser', $options);
     ?>
 

@@ -19,6 +19,7 @@ $options = array(
 
         echo $this->Element('Dane.DataBrowser/browser-menu', array(
             'menu' => $_submenu,
+            'pills' => $cadences
         ));
 
     } ?>
@@ -95,7 +96,7 @@ $options = array(
 	        </div>
 
 	    </div><div class="col-sm-3 nopadding">
-			
+
 			<? if( $info = $dzielnica->getLayer('info') ) { ?>
 			<ul class="dataHighlights show overflow-auto">
                 <li class="dataHighlight col-xs-12">
@@ -119,8 +120,8 @@ $options = array(
 		            <p class="_value"><a target="_blank" href="<?= $info['url_wiki'] ?>">Link</a></p>
 		        </li>
 			</ul>
-			<? } ?>			
-			
+			<? } ?>
+
 	        <?
 	        $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
 	        $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));

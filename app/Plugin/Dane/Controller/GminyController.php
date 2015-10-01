@@ -2176,6 +2176,24 @@ class GminyController extends DataobjectsController
 
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
 
+            $cadences = array(
+                'items' => array(
+                    '7' => array(
+                        'label' => 'Kadencja VII'
+                    ),
+                    '6' => array(
+                        'label' => 'Kadencja VI'
+                    ),
+                ),
+                'param' => 'kadencja',
+                'selected' => '7'
+            );
+
+            if(isset($this->request->query[$cadences['param']]) &&
+                array_key_exists($this->request->query[$cadences['param']], $cadences['items'])) {
+                $cadences['selected'] = $this->request->query[$cadences['param']];
+            }
+
             $subaction = (isset($this->request->params['subaction']) && $this->request->params['subaction']) ? $this->request->params['subaction'] : 'view';
             $subsubid = (isset($this->request->params['subsubid']) && $this->request->params['subsubid']) ? $this->request->params['subsubid'] : false;
 
@@ -2208,6 +2226,7 @@ class GminyController extends DataobjectsController
                                         array(
                                             'term' => array(
                                                 'data.radni_dzielnic.dzielnica_id' => $dzielnica->getId(),
+                                                'data.radni_dzielnic.kadencja_id' => $cadences['selected'],
                                             ),
                                         ),
                                     ),
@@ -2330,6 +2349,8 @@ class GminyController extends DataobjectsController
 
                 case 'rada_posiedzenia': {
 
+                    $cadences = null;
+
                     if (
                         $subsubid &&
                         ($posiedzenie = $this->Dataobject->find('first', array(
@@ -2371,6 +2392,8 @@ class GminyController extends DataobjectsController
                 }
 
                 case 'rada_uchwaly': {
+
+                    $cadences = null;
 
                     if (
                         $subsubid &&
@@ -2419,6 +2442,7 @@ class GminyController extends DataobjectsController
             }
 
 
+            $this->set('cadences', $cadences);
             $this->set('dzielnica', $dzielnica);
             $this->set('title_for_layout', $title_for_layout);
             $this->render('dzielnica-' . $subaction);
