@@ -1968,7 +1968,7 @@ class GminyController extends DataobjectsController
                 'phrasesPreset' => 'krakow_rada_uchwaly',
                 'searchTitle' => 'Szukaj w uchwałach Rady Miasta Kraków...',
             ));
-			
+
 			$this->set('DataBrowserTitle', 'Uchwały');
             $this->set('title_for_layout', 'Uchwały podjęte przez radę gminy ' . $this->object->getData('nazwa'));
             $this->set('_submenu', array_merge($this->submenus['rada'], array(
@@ -2157,7 +2157,7 @@ class GminyController extends DataobjectsController
                 'phrasesPreset' => 'rady_druki',
                 'searchTitle' => 'Szukaj w projektach legislacyjnych...',
             ));
-			
+
 			$this->set('DataBrowserTitle', 'Projekty legislacyjne');
             $this->set('title_for_layout', 'Proces legislacyjny Rady Miasta Krakowa');
             $this->set('_submenu', array_merge($this->submenus['rada'], array(
@@ -3857,17 +3857,15 @@ class GminyController extends DataobjectsController
         $populationRange = $this->Gmina->getPopulationRange($population);
 
         $compare = array(
-            'items' => array(
-                array(
-                    'id' => 'wszystkie',
-                    'label' => 'Wszystkie gminy',
-                ),
-                array(
-                    'id' => 'liczba_ludnosci',
-                    'label' => 'Gminy w przedziale ludności ' . number_format($populationRange['min']) . ' - ' . number_format($populationRange['max']),
-                ),
-            ),
+            'items' => array()
         );
+
+        if($this->object->getData('wojewodzka') == '1') {
+            $compare['items'][] = array(
+                'id' => 'wojewodzkie',
+                'label' => 'Miasta wojewódzkie',
+            );
+        }
 
         if($this->object->getData('powiatowa') == '1') {
             $compare['items'][] = array(
@@ -3876,12 +3874,10 @@ class GminyController extends DataobjectsController
             );
         }
 
-        if($this->object->getData('wojewodzka') == '1') {
-            $compare['items'][] = array(
-                'id' => 'wojewodzkie',
-                'label' => 'Miasta wojewódzkie',
-            );
-        }
+        $compare['items'][] = array(
+            'id' => 'liczba_ludnosci',
+            'label' => 'Gminy w przedziale ludności ' . number_format($populationRange['min']) . ' - ' . number_format($populationRange['max']),
+        );
 
         $types = array(
             '1' => array(
@@ -3914,6 +3910,11 @@ class GminyController extends DataobjectsController
                 );
             }
         }
+
+        $compare['items'][] = array(
+            'id' => 'wszystkie',
+            'label' => 'Wszystkie gminy',
+        );
 
         if(!$type)
             $type = $types['1'];

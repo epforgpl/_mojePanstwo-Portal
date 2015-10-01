@@ -1,6 +1,7 @@
 <?
 
 $this->Combinator->add_libs('css', $this->Less->css('zamowienia', array('plugin' => 'ZamowieniaPubliczne')));
+$this->Combinator->add_libs('css', $this->Less->css('view-gminy-dzielnica', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
@@ -69,9 +70,9 @@ $options = array(
 	                        <div class="dataAggs">
 	                            <div class="agg agg-Dataobjects">
 	                                <? if ($dataBrowser['aggs']['radni']['top']['hits']['hits']) { ?>
-	                                    <ul class="dataobjects row">
+	                                    <ul class="dataobjects row radni_dzielnic">
 	                                        <? foreach ($dataBrowser['aggs']['radni']['top']['hits']['hits'] as $doc) { ?>
-	                                            <li class="col-md-6">
+	                                            <li class="col-md-6<? if($doc['fields']['source'][0]['data']['radni_dzielnic.avatar']) {?> avatar<?}?>">
 	                                                <?
 	                                                echo $this->Dataobject->render($doc, 'default');
 	                                                ?>
