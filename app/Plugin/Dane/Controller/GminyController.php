@@ -2189,6 +2189,8 @@ class GminyController extends DataobjectsController
                 'selected' => '7'
             );
 
+            $cadences = null;
+
             if(isset($this->request->query[$cadences['param']]) &&
                 array_key_exists($this->request->query[$cadences['param']], $cadences['items'])) {
                 $cadences['selected'] = $this->request->query[$cadences['param']];
@@ -2226,7 +2228,7 @@ class GminyController extends DataobjectsController
                                         array(
                                             'term' => array(
                                                 'data.radni_dzielnic.dzielnica_id' => $dzielnica->getId(),
-                                                'data.radni_dzielnic.kadencja_id' => $cadences['selected'],
+                                                //'data.radni_dzielnic.kadencja_id' => $cadences['selected'],
                                             ),
                                         ),
                                     ),
