@@ -1,7 +1,7 @@
 $(document).ready(function () {
 	var map,
 		markers = [],
-		infowindow,
+		polygons = [],
 		border = new google.maps.Polygon({
 			paths: [
 				[
@@ -53,7 +53,6 @@ $(document).ready(function () {
 				} else this.request_position_notAvailable;
 			},
 			request_position_notAvailable: function () {
-				console.log(mPHeart.translation.LC_FINANSE_POSITION_POSITION_NOT_AVAILABLE);
 				alerts(mPHeart.translation.LC_FINANSE_POSITION_POSITION_NOT_AVAILABLE, 'alert-warning')
 			},
 
@@ -82,7 +81,6 @@ $(document).ready(function () {
 						break;
 
 				}
-				console.log(strMessage);
 				alerts(strMessage, 'alert-warning')
 			}
 		});
@@ -110,9 +108,11 @@ $(document).ready(function () {
 						});
 
 						markers.push(marker);
-
-						console.log(this.data);
 					});
+
+					if (res.places.length == 1) {
+						var mrkr = res.places[0];
+					}
 
 					var bounds = new google.maps.LatLngBounds();
 					for (var i = 0; i < markers.length; i++) {
@@ -140,7 +140,7 @@ $(document).ready(function () {
 			'top': 0,
 			'left': '50%',
 			'z-index': 2
-		}).append(
+		}).text(msg).append(
 			$('<button></button>').addClass('close').attr({
 				'type': 'button',
 				'data-dismiss': 'alert',
@@ -148,8 +148,6 @@ $(document).ready(function () {
 			}).append(
 				$('<span></span>').attr('aria-hidden', 'true').html('&times;')
 			)
-		).append(
-			$('<p></p>').text(msg)
 		);
 
 		if (main.find('.alert').length == 0) {
