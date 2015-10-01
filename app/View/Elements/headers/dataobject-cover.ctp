@@ -1,5 +1,7 @@
 <?
 echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block' => 'scriptBlock'));
+if($object->getPage())
+    $this->Combinator->add_libs('css', $this->Less->css('radny_details', array('plugin' => 'PrzejrzystyKrakow')));
 
 /** @var Object $object */
 $object = $this->viewVars['object'];
