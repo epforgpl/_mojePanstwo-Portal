@@ -1,7 +1,6 @@
 $(document).ready(function () {
 	var map,
 		markers = [],
-		polygons = [],
 		border = new google.maps.Polygon({
 			paths: [
 				[
@@ -112,6 +111,30 @@ $(document).ready(function () {
 
 					if (res.places.length == 1) {
 						var mrkr = res.places[0];
+
+						if (typeof mrkr.polygons.wojewodztwo_id !== "undefined") {
+							map.data.addGeoJson(mrkr.polygons.wojewodztwo_id);
+							map.data.setStyle({
+								fillColor: 'green',
+								strokeWeight: 2
+							})
+						}
+
+						if (typeof mrkr.polygons.gmina_id !== "undefined") {
+							map.data.addGeoJson(mrkr.polygons.gmina_id);
+							map.data.setStyle({
+								fillColor: 'blue',
+								strokeWeight: 2
+							})
+						}
+
+						if (typeof mrkr.polygons.powiat_id !== "undefined") {
+							map.data.addGeoJson(mrkr.polygons.powiat_id);
+							map.data.setStyle({
+								fillColor: 'red',
+								strokeWeight: 2
+							})
+						}
 					}
 
 					var bounds = new google.maps.LatLngBounds();
