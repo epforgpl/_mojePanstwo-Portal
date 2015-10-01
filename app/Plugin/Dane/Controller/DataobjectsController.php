@@ -584,6 +584,22 @@ class DataobjectsController extends AppController
 	    	@$this->request->params['pass'][1]
 	    ) {
 
+            if(in_array($this->request->params['pass'][0], array(
+                'krs_podmioty', 'gminy'
+            ))) {
+
+                if(in_array($this->request->data['_action'], array(
+                    'edit_activity',
+                    'add_activity'
+                ))) {
+
+                    $this->_prepareView();
+                    $this->request->data['owner_name'] = $this->object->getTitle();
+
+                }
+            }
+
+
 		    $response = $this->Dataobject->getDatasource()->request('dane/' . $this->request->params['pass'][0] . '/' . $this->request->params['pass'][1], array(
 			    'method' => 'POST',
 			    'data' => $this->request->data,

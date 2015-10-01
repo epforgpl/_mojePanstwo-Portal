@@ -14,12 +14,12 @@ class Dataobject
         'titleAddon' => false,
         'position' => false,
     );
-    
+
     protected $routes = array();
 	protected $hl_fields = array();
 	protected $tiny_label = '';
     public $force_hl_fields = false;
-    
+
     public $data;
     public $static;
     public $layers = array();
@@ -34,11 +34,11 @@ class Dataobject
     public $subscribtion = false;
     public $inner_hits = array();
     public $options = array();
-    
+    public $page = array();
+
 
     public function __construct($params = array(), $options = array())
     {
-					
 		$this->options = $options;
         $this->data = $params['data'];
         $this->layers = isset( $params['layers'] ) ? $params['layers'] : array();
@@ -47,75 +47,79 @@ class Dataobject
         $this->object_id = $params['global_id'];
         $this->global_id = $params['global_id'];
         $this->slug = $params['slug'];
-		
+
 		if (isset($params['static']))
             $this->static = $params['static'];
-		
+
         if (isset($params['score']))
             $this->layers['score'] = $params['score'];
-				
+
         if (isset($params['highlight']) && isset($params['highlight'][0])) {
             $this->layers['highlight'] = $params['highlight'][0];
         }
-        
+
         if (isset($params['contexts'])) {
             $this->contexts = $params['contexts'];
         }
-        
+
         if (isset($params['subscribtion'])) {
             $this->subscribtion = $params['subscribtion'];
         }
-        
+
         if (isset($params['inner_hits'])) {
             $this->inner_hits = $params['inner_hits'];
         }
-        
+
+        if (@$params['Aggs']['_page']['page']['hits']['hits'][0]['_source']['data']) {
+            $this->page = $params['Aggs']['_page']['page']['hits']['hits'][0]['_source']['data'];
+        }
+
         $temp = array();
         if( !empty($this->data) ) {
 	        foreach( $this->data as $key => $val ) {
-	        
+
 	        	$p = strpos($key, $this->dataset.'.');
-	        
+
 	        	if( $p===0 )
 	        		$temp[] = substr($key, strlen($this->dataset)+1);
-	        		
+
 	        }
         }
-        
+
         foreach( $temp as $t )
         	$this->data[ $t ] = $this->data[ $this->dataset . '.' . $t ];
-        
+
         $this->routes = array_merge($this->_routes, $this->routes);
-        
+
         // debug( $this->getData() );
 
     }
-	
+
 	public function getSubscribtion() {
 		return (boolean) $this->subscribtion;
 	}
-	
+
 	public function getMetaDescriptionParts($preset = false) {
 		return false;
 	}
-	
+
 	public function getMetaDescription($preset = false) {
-		
+
 		$parts = $this->getMetaDescriptionParts($preset);
-		
+
 		if( empty($parts) )
 			return false;
 		else {
 			$parts = array_filter($parts);
 			return implode(' <span class="sep">-</span> ', $parts);
 		}
-			
+
 	}
-	
+
 	public function getMataDate() {
 		return false;
 	}
-	
+
 	public function getClasses() {
 		$output = $this->classes;
 		$output[] = 'objclass';
@@ -123,7 +127,7 @@ class Dataobject
 			$output[] = $this->getDataset();
 		return $output;
 	}
-	
+
     public function getLayer($layer)
     {
         return array_key_exists($layer, $this->layers) ? $this->layers[$layer] : false;
@@ -140,7 +144,11 @@ class Dataobject
     {
         return $field == '*' ? $this->data : @$this->data[$field];
     }
-    
+
+    public function getPage($field = '*') {
+        return $field == '*' ? $this->page : @$this->page[$field];
+    }
+
     public function getStatic($field = '*')
     {
 	    if( isset($this->static) && !empty($this->static) )
@@ -153,7 +161,7 @@ class Dataobject
     {
         return $this->getData('id');
     }
-    
+
     public function getGlobalId()
     {
         return $this->global_id;
@@ -168,12 +176,12 @@ class Dataobject
     {
         return @$this->getData($this->routes['time']);
     }
-    
+
     public function getDataset()
     {
         return @$this->dataset;
     }
-    
+
     public function getSlug()
     {
         return $this->slug;
@@ -193,12 +201,12 @@ class Dataobject
     {
         return $this->getData($this->routes['description']);
     }
-    
+
     public function getPosition()
     {
 	    return $this->getData($this->routes['position']);
     }
-    
+
     public function getTitleAddon()
     {
         return $this->getData($this->routes['titleAddon']);
@@ -208,17 +216,17 @@ class Dataobject
     {
         return $this->getData($this->routes['label']);
     }
-    
+
     public function getSideLabel()
     {
         return false;
     }
-    
+
     public function getShortLabel()
     {
         return $this->getData($this->routes['label']);
     }
-    
+
     public function getFullLabel()
     {
         return $this->getLabel();
@@ -234,76 +242,76 @@ class Dataobject
         $output = '/dane/' .
             $this->getDataset() . '/' .
             $this->getId();
-            
+
         if( $slug = $this->getSlug() )
         	$output .= ',' . $slug;
 
         return $output;
 
     }
-    
+
     public function getSentence() {
-	    
+
 	    return @$this->contexts[0]['sentence'];
-	    
+
     }
-    
+
     public function getAction() {
-	    
+
 	    return @$this->contexts[0]['action'];
-	    
+
     }
-    
+
     public function getCreator($field = '*') {
-	    
+
 	    $creator = @$this->contexts[0]['creator'];
-	    
+
 	    if( $field=='*' )
 	    	return $creator;
 	    else
 	    	return @$creator[ $field ];
-	    	    
+
     }
 
     public function getThumbnailUrl($size = 'default')
     {
         return false;
     }
-	
+
 	public function getIcon()
     {
 	    $class = strtolower(array_pop(explode('\\', get_class($this))));
         return '<i class="object-icon icon-datasets-' . $class . '"></i>';
     }
-    
+
     public function getHeaderThumbnailUrl($size = 'default')
     {
         return false;
-    }    
+    }
 
     public function hasHighlights()
     {
         return true;
     }
-    
+
     public function forceHighlightsFields()
     {
 	    return false;
     }
-    
+
     public function getHighlightsFields()
     {
 	    return array();
     }
-    
+
     public function getTinyLabel() {
 	    return $this->tiny_label;
     }
-	
+
 	public function getSchemaForFieldname( $fieldname )
 	{
 		$output = false;
-		
+
 		if( $fieldname && !empty($this->schema) )
 		{
 			foreach( $this->schema as $s )
@@ -315,27 +323,27 @@ class Dataobject
 				}
 			}
 		}
-		
+
 		return $output;
 	}
-	
+
 	public function getHiglightedFields( $fields = false, $fieldsPush = false )
 	{
 		$output = array();
-		
+
 		if( is_array($fieldsPush) )
 			$fieldsPush = $fieldsPush[0];
-		
+
 		$fields = ($fields===false) ? $this->hl_fields : $fields;
 		if(
-			$fieldsPush && 
-			!in_array($fieldsPush, $fields) && 
-			( $schema = $this->getSchemaForFieldname( $fieldsPush ) ) && 
+			$fieldsPush &&
+			!in_array($fieldsPush, $fields) &&
+			( $schema = $this->getSchemaForFieldname( $fieldsPush ) ) &&
 			!( isset($schema[3]) && isset($schema[3]['noHl']) && $schema[3]['noHl'] )
 		)
 			array_unshift($fields, $fieldsPush);
 
-		
+
 		if( !empty($fields) )
 			foreach( $fields as $fieldname )
 				if( $schema = $this->getSchemaForFieldname( $fieldname ) )
@@ -348,23 +356,23 @@ class Dataobject
 
 		return $output;
 	}
-	
+
 	public function addRoutes( $routes = array() )
 	{
 		$this->routes = array_merge($this->routes, $routes);
 	}
-	
+
 	public function setOptions($options)
 	{
 		$this->options = array_merge($this->options, $options);
 		return $this->options;
 	}
-	
+
     public function __call($func, $arg)
     {
-	    
+
 	    // debug('__call'); debug($func);
-	    
+
         $func = str_replace('get', '', $func);
         $func = lcfirst($func);
         if (!empty($arg)) {
@@ -373,14 +381,14 @@ class Dataobject
         }
         return $this->$func;
     }
-    
+
     public function getBreadcrumbs()
     {
 	    return array();
     }
-    
+
     public function getDefaultColumnsSizes() {
 	    return array(2, 10);
     }
-    
+
 }
