@@ -113,4 +113,13 @@ class Radni_dzielnic extends DataObject
 		);
 
 	}
+	
+	public function getThumbnailUrl( $size = false ) {
+		
+		if( $this->getData('avatar') )
+			return 'http://resources.sejmometr.pl/radni_dzielnic/img/' . $this->getId() . '.png';
+		else
+			return false;
+		
+	}
 }
