@@ -23,20 +23,30 @@ $docs = $uchwala->getLayer('docs');
     <div class="prawo margin-sides-10">
 
 
-            <div class="row">
+        <div class="row">
 
-				<div class="col-md-9">
+            <div class="col-md-9">
 
-                    <?= $this->Document->place($file) ?>
-                </div>
+                <?= $this->Document->place($file) ?>
+            </div>
 
-                <div class="col-md-3">
+            <div class="col-md-3">
 
-					<? if( count($docs)>1 ) {?>
+                <?if ($uchwala->getLayers('druki')[0]) {
+                    ?>
+                    <p class="margin-sides-5 margin-top-20">
+                        <a href="dane/gminy/903,krakow/druki/<?= $uchwala->getLayers('druki')[0] ?>"><span
+                                class="glyphicon glyphicon-link"></span> Zobacz proces legislacyjny.</a>
+                    </p>
+                <?
+                } ?>
+
+
+                <? if (count($docs) > 1) { ?>
                     <p>Pliki powiązane:</p>
 
                     <ul class="nav nav-pills nav-stacked">
-                        <?php foreach($docs as $i => $doc_id) { ?>
+                        <?php foreach ($docs as $i => $doc_id) { ?>
                             <? $dokument_id = ($file == $doc_id) ? $doc_id : false; ?>
                             <li role="presentation" <?= ($file == $doc_id) ? 'class="active"' : ''; ?>>
                                 <a href="<?= $uchwala->getUrl() ?>?file=<?= $doc_id ?>">
@@ -45,17 +55,15 @@ $docs = $uchwala->getLayer('docs');
                             </li>
                         <? } ?>
                     </ul>
-                    <? } ?>
+                <? } ?>
 
-                    <p class="margin-sides-5 margin-top-20"><a href="http://www.bip.krakow.pl/?dok_id=167&sub_dok_id=167&sub=uchwala&query=id=<?= $uchwala->getData('sid') ?>&typ=u" target="_blank"><span class="glyphicon glyphicon-share"></span> Źródło</a></p>
-                  <?//  debug($uchwala->getData()); ?>
-                </div>
-
-
-
+                <p class="margin-sides-5 margin-top-20"><a
+                        href="http://www.bip.krakow.pl/?dok_id=167&sub_dok_id=167&sub=uchwala&query=id=<?= $uchwala->getData('sid') ?>&typ=u"
+                        target="_blank"><span class="glyphicon glyphicon-share"></span> Źródło</a></p>
             </div>
 
 
+        </div>
 
 
     </div>
