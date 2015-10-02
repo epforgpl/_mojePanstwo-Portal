@@ -70,6 +70,10 @@
     echo $this->Html->css('../libs/font-awesome/4.4.0/css/font-awesome.min.css');
     $this->Combinator->add_libs('css', $this->Less->css('social-buttons'), false);
 
+    /* OBJECT "PAGE" ICONS */
+    if(isset($object) && $object->getPage())
+        $this->Combinator->add_libs('css', $this->Less->css('radny_details', array('plugin' => 'PrzejrzystyKrakow')));
+
     if (isset($object_editable) && !empty($object_editable)) {
         $this->Combinator->add_libs('css', $this->Less->css('dataobjects-editable', array('plugin' => 'Dane')));
     }
@@ -111,7 +115,7 @@
         <?php
         if ($domainMode == 'PK')
             echo $this->Element('PrzejrzystyKrakow.pkrk-header');
-				
+
         if (isset($_layout['header']) && !empty($_layout['header'])) {
             echo $this->Element('headers/' . $_layout['header']['element']);
         } ?>
