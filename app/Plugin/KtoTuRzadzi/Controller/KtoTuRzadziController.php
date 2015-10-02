@@ -30,6 +30,7 @@ class KtoTuRzadziController extends ApplicationsController
 	            'href' => '/kto_tu_rzadzi',
 	            'label' => 'Kto tu rządzi?',
             ),
+            'searchTitle' => 'Szukaj instytucji i urzędników...',
             'autocompletion' => array(
                 'dataset' => implode(',', array_keys($datasets)),
             ),
