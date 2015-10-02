@@ -242,10 +242,7 @@ $(document).ready(function () {
 				$('<li></li>').append(
 					$('<label></label>').text(mPHeart.translation.LC_FINANSE_DETAILWINDOW_MIEJSCOWOSC)
 				).append(
-					$('<a></a>').attr({
-						'href': '/dane/miejscowosc/' + data['miejsca.miejscowosc_id'],
-						'target': 'blank'
-					}).text(data['miejsca.miejscowosc'])
+					$('<span></span>').text(data['miejsca.miejscowosc'])
 				)
 			)
 		}
@@ -269,9 +266,9 @@ $(document).ready(function () {
 					'href': '/mapa?q=' + location.lat + '%20' + location.lon,
 					'target': 'blank'
 				}).append(
-					$('<p></p>').text('<small>' + mPHeart.translation.LC_FINANSE_DETAILWINDOW_GEO_POSITION_LAT + '</small>: ' + location.lat)
+					$('<p></p>').html('<small>' + mPHeart.translation.LC_FINANSE_DETAILWINDOW_GEO_POSITION_LAT + '</small>: ' + location.lat)
 				).append(
-					$('<p></p>').text('<small>' + mPHeart.translation.LC_FINANSE_DETAILWINDOW_GEO_POSITION_LON + '</small>: ' + location.lon)
+					$('<p></p>').html('<small>' + mPHeart.translation.LC_FINANSE_DETAILWINDOW_GEO_POSITION_LON + '</small>: ' + location.lon)
 				)
 			)
 		);
