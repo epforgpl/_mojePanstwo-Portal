@@ -4227,7 +4227,7 @@ class GminyController extends DataobjectsController
 
             $main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z gminami w przedziale ludności ' . number_format($populationRange['min']) . ' - ' . number_format($populationRange['max']);
 
-        } elseif ($compare == 'wojewodztwa') {
+        } elseif ($compare == 'wojewodztwo') {
 
             $gminy_filter = array(
                 array(
