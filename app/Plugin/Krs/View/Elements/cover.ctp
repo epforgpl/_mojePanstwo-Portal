@@ -8,11 +8,25 @@ $options = array(
 );
 ?>
 
-<div class="col-xs-12 col-md-3 dataAggsContainer">
-    <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
+<div class="col-xs-12 col-md-3 col-sm-4 dataAggsContainer">
+    <div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
+
+	    <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
+
+    </div>
 </div>
 
-<div class="col-xs-12 col-md-8">
+
+<div class="col-xs-12 col-md-9 col-sm-8">
+
+    <div class="dataWrap">
+        <div class="appBanner bottom-border">
+            <h1 class="appTitle">Krajowy Rejestr Sądowy</h1>
+
+            <p class="appSubtitle">Przeglądaj informacje o organizacjach gospodarczych.</p>
+        </div>
+    </div>
+
     <div class="block col-xs-12">
         <header>Formy prawne organizacji</header>
 

@@ -242,8 +242,19 @@ class NgoController extends ApplicationsController
                     'dzialania' => array(
                         'scope' => 'global',
                         'filter' => array(
-                            'term' => array(
-                                'dataset' => 'dzialania',
+                            'bool' => array(
+	                            'must' => array(
+		                            array(
+			                            'term' => array(
+			                                'dataset' => 'dzialania',
+			                            ),
+		                            ),
+		                            array(
+			                            'term' => array(
+				                            'data.dzialania.status' => '1',
+			                            ),
+		                            ),
+	                            ),
                             ),
                         ),
                         'aggs' => array(

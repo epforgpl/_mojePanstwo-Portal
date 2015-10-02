@@ -54,7 +54,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
 
     <div class="dataWrap">
         <div class="appBanner bottom-border">
-            <h1 class="appTitle">Organizacje pozarządowe i działania społeczne</h1>
+            <h1 class="appTitle">Organizacje pozarządowe</h1>
 
             <p class="appSubtitle">Poznaj scenę organizacji obywatelskich w Polsce.</p>
         </div>

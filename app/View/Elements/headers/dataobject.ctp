@@ -1,5 +1,5 @@
 <?
-		
+
 echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block' => 'scriptBlock'));
 
 /** @var Object $object */

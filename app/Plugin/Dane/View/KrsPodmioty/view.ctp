@@ -6,6 +6,10 @@ if (isset($odpis) && $odpis) {
     ), null, array('inline' => false));
 }
 
+if($object->getPage()) {
+    $this->Combinator->add_libs('css', $this->Less->css('radny_details', array('plugin' => 'PrzejrzystyKrakow')));
+}
+
 echo $this->Element('dataobject/pageBegin');
 
 echo $this->Html->script('Dane.d3/d3', array('block' => 'scriptBlock'));

@@ -75,17 +75,17 @@ echo $this->Element('dataobject/pageBegin'); ?>
 
                             <div class="form-group margin-top-<?= ($object->getDataset() == 'krs_podmioty') ? 30 : 0; ?>">
                                 <label for="phoneNumber">Numer telefonu:</label>
-                                <input maxlength="195" type="text" class="form-control" id="phoneNumber" name="phone" <? if($object->getData('phone')) echo 'value="'.$object->getData('phone').'"'; ?>/>
+                                <input maxlength="195" type="text" class="form-control" id="phoneNumber" name="phone" <? if($object->getPage('phone')) echo 'value="'.$object->getPage('phone').'"'; ?>/>
                             </div>
 
                             <div class="form-group margin-top-10">
                                 <label for="emailAddress">Adres e-mail:</label>
-                                <input maxlength="195" type="text" class="form-control" id="emailAddress" name="email" <? if($object->getData('email')) echo 'value="'.$object->getData('email').'"'; ?>/>
+                                <input maxlength="195" type="text" class="form-control" id="emailAddress" name="email" <? if($object->getPage('email')) echo 'value="'.$object->getPage('email').'"'; ?>/>
                             </div>
 
                             <div class="form-group margin-top-10">
                                 <label for="www">Adres strony WWW:</label>
-                                <input maxlength="195" type="text" class="form-control" id="www" name="www" <? if($object->getData('www')) echo 'value="'.$object->getData('www').'"'; ?>/>
+                                <input maxlength="195" type="text" class="form-control" id="www" name="www" <? if($object->getPage('www')) echo 'value="'.$object->getPage('www').'"'; ?>/>
                             </div>
 
                             <h4 class="text-muted margin-top-30">
@@ -101,7 +101,7 @@ echo $this->Element('dataobject/pageBegin'); ?>
                             ) as $i => $field) { ?>
                                 <div class="form-group margin-top-10">
                                 <label for="<?= $field ?>">Profil <?= ucfirst($field) ?>:</label>
-                                <input maxlength="195" type="text" class="form-control" id="<?= $field ?>" name="<?= $field ?>" <? if($object->getData($field)) echo 'value="'.$object->getData($field).'"'; ?>/>
+                                <input maxlength="195" type="text" class="form-control" id="<?= $field ?>" name="<?= $field ?>" <? if($object->getPage($field)) echo 'value="'.$object->getPage($field).'"'; ?>/>
                                 </div>
                             <? } ?>
 

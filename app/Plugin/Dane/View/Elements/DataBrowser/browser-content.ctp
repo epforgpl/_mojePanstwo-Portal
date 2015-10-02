@@ -53,17 +53,17 @@ if ($dataBrowser['mode'] == 'cover') {
 		!empty($app_chapters) ||
 		!empty($menu)
 	);
-	
+
 	$dataWrap = false;
 
     ?>
-	
-    <? 
-	if (($displayAggs && !empty($dataBrowser['aggs'])) || (isset($app_chapters) && $app_chapters) ) { 
+
+    <?
+	if (($displayAggs && !empty($dataBrowser['aggs'])) || (isset($app_chapters) && $app_chapters) ) {
 	    $dataWrap = true;
     ?>
-		
-		
+
+
         <div class="col-md-<?= $columns[1] ?> col-xs-12 dataAggsContainer">
 
             <? if( isset($sideElement) ) echo $this->Element($sideElement) ?>
@@ -76,6 +76,7 @@ if ($dataBrowser['mode'] == 'cover') {
 
                 echo $this->Element('Dane.DataBrowser/browser-menu', array(
                     'menu' => $menu,
+                    'pills' => isset($pills) ? $pills : null
                 ));
 
             } ?>
