@@ -15,3 +15,30 @@ msgstr "Chwilowo nie można ustalić Twojej pozycji."
 
 msgid "LC_FINANSE_POSITION_CANNOT_LIMIT"
 msgstr "Przekroczono dozwolony limit czasu na pobieranie pozycji. Spróbuj jeszcze raz."
+
+msgid "LC_FINANSE_DETAILWINDOW_WOJEWODZTWO"
+msgstr "Województwo"
+
+msgid "LC_FINANSE_DETAILWINDOW_POWIAT"
+msgstr "Powiat"
+
+msgid "LC_FINANSE_DETAILWINDOW_GMINA"
+msgstr "Gmina"
+
+msgid "LC_FINANSE_DETAILWINDOW_MIEJSCOWOSC"
+msgstr "Miejscowość"
+
+msgid "LC_FINANSE_DETAILWINDOW_ULICA"
+msgstr "Ulica"
+
+msgid "LC_FINANSE_DETAILWINDOW_ULICA_NUMER"
+msgstr "Numer"
+
+msgid "LC_FINANSE_DETAILWINDOW_GEO_POSITION"
+msgstr "Współrzędne geograficzne"
+
+msgid "LC_FINANSE_DETAILWINDOW_GEO_POSITION_LAT"
+msgstr "Szerokość"
+
+msgid "LC_FINANSE_DETAILWINDOW_GEO_POSITION_LON"
+msgstr "Długość"
