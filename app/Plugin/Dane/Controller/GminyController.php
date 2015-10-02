@@ -1950,7 +1950,7 @@ class GminyController extends DataobjectsController
 
             $this->set('file',
                 isset($this->request->query['file']) ?
-                    (int) $this->request->query['file'] : $uchwala->getData('dokument_id')
+                    (int)$this->request->query['file'] : $uchwala->getData('dokument_id')
             );
 
             $this->set('uchwala', $uchwala);
@@ -1969,7 +1969,7 @@ class GminyController extends DataobjectsController
                 'searchTitle' => 'Szukaj w uchwałach Rady Miasta Kraków...',
             ));
 
-			$this->set('DataBrowserTitle', 'Uchwały');
+            $this->set('DataBrowserTitle', 'Uchwały');
             $this->set('title_for_layout', 'Uchwały podjęte przez radę gminy ' . $this->object->getData('nazwa'));
             $this->set('_submenu', array_merge($this->submenus['rada'], array(
                 'selected' => 'rada_uchwaly',
@@ -2158,7 +2158,7 @@ class GminyController extends DataobjectsController
                 'searchTitle' => 'Szukaj w projektach legislacyjnych...',
             ));
 
-			$this->set('DataBrowserTitle', 'Projekty legislacyjne');
+            $this->set('DataBrowserTitle', 'Projekty legislacyjne');
             $this->set('title_for_layout', 'Proces legislacyjny Rady Miasta Krakowa');
             $this->set('_submenu', array_merge($this->submenus['rada'], array(
                 'selected' => 'druki',
@@ -2896,7 +2896,6 @@ class GminyController extends DataobjectsController
                         )));
 
 
-
                     } else {
 
                         $this->Components->load('Dane.DataBrowser', array(
@@ -2908,7 +2907,7 @@ class GminyController extends DataobjectsController
                             'order' => 'radni_gmin_oswiadczenia_majatkowe.rok desc',
                         ));
 
-                        $submenu=array_merge($submenu, array(
+                        $submenu = array_merge($submenu, array(
                             'selected' => 'oswiadczenia',
                         ));
                         $this->set('DataBrowserTitle', 'Oświadczenia majątkowe');
@@ -2924,8 +2923,8 @@ class GminyController extends DataobjectsController
                     break;
                 }
 
-                case 'krs':{
-                    $submenu=array_merge($submenu, array(
+                case 'krs': {
+                    $submenu = array_merge($submenu, array(
                         'selected' => 'krs',
                     ));
 
@@ -3171,7 +3170,7 @@ class GminyController extends DataobjectsController
 
         } else {
 
-            if( !isset($this->request->query['conditions']['krakow_komisje.kadencja_id']) )
+            if (!isset($this->request->query['conditions']['krakow_komisje.kadencja_id']))
                 $this->request->query['conditions']['krakow_komisje.kadencja_id'] = '7';
 
             $this->_prepareView();
@@ -3794,10 +3793,9 @@ class GminyController extends DataobjectsController
     public function mapa_layer()
     {
 
-        App::import('Model','Dane.MapLayers');
-        $layer=new MapLayers;
-        $data=$layer->get_layer($this->request->query['type']);
-
+        App::import('Model', 'Dane.MapLayers');
+        $layer = new MapLayers;
+        $data = $layer->get_layer($this->request->query['type']);
         $this->set('data', $data);
         $this->set('_serialize', 'data');
 
@@ -3860,14 +3858,14 @@ class GminyController extends DataobjectsController
             'items' => array()
         );
 
-        if($this->object->getData('wojewodzka') == '1') {
+        if ($this->object->getData('wojewodzka') == '1') {
             $compare['items'][] = array(
                 'id' => 'wojewodzkie',
                 'label' => 'Miasta wojewódzkie',
             );
         }
 
-        if($this->object->getData('powiatowa') == '1') {
+        if ($this->object->getData('powiatowa') == '1') {
             $compare['items'][] = array(
                 'id' => 'powiatowe',
                 'label' => 'Miasta na prawach powiatów',
@@ -3877,6 +3875,11 @@ class GminyController extends DataobjectsController
         $compare['items'][] = array(
             'id' => 'liczba_ludnosci',
             'label' => 'Gminy w przedziale ludności ' . number_format($populationRange['min']) . ' - ' . number_format($populationRange['max']),
+        );
+
+        $compare['items'][] = array(
+            'id' => 'wojewodztwo',
+            'label' => 'Inne gminy: wojwództwo ' . $this->object->getData('wojewodztwa.nazwa'),
         );
 
         $types = array(
@@ -3899,8 +3902,8 @@ class GminyController extends DataobjectsController
 
         $types['4'] = $types['1']; // miejskie typ_id IN (1, 4)
 
-        if($type = $this->object->getData('typ_id')) {
-            if(array_key_exists($type, $types)) {
+        if ($type = $this->object->getData('typ_id')) {
+            if (array_key_exists($type, $types)) {
 
                 $type = $types[$type];
 
@@ -3916,137 +3919,137 @@ class GminyController extends DataobjectsController
             'label' => 'Wszystkie gminy',
         );
 
-        if(!$type)
+        if (!$type)
             $type = $types['1'];
 
-		$mode = false;
+        $mode = false;
 
-		$options = array(
-			'data' => array(
-				'items' => array(
-					array(
-						'id' => 'wydatki',
-						'label' => 'Wydatki - wartości absolutne',
-					),
+        $options = array(
+            'data' => array(
+                'items' => array(
+                    array(
+                        'id' => 'wydatki',
+                        'label' => 'Wydatki - wartości absolutne',
+                    ),
                     array(
                         'id' => 'wydatki_na_osobe',
                         'label' => 'Wydatki w przeliczeniu na osobę'
                     )
-				),
-			),
-			'timerange' => array(
-				'items' => array(
-					array(
-						'id' => '2015Q1',
-						'label' => '2015, I kwartał',
-					),
-					array(
-						'id' => '2014',
-						'label' => '2014, cały rok',
-					),
-					array(
-						'id' => '2014Q4',
-						'label' => '2014, IV kwartał',
-					),
-					array(
-						'id' => '2014Q3',
-						'label' => '2014, III kwartał',
-					),
-					array(
-						'id' => '2014Q2',
-						'label' => '2014, II kwartał',
-					),
-					array(
-						'id' => '2014Q1',
-						'label' => '2014, I kwartał',
-					),
-					array(
-						'id' => '2013',
-						'label' => '2013, cały rok',
-					),
-					array(
-						'id' => '2013Q4',
-						'label' => '2013, IV kwartał',
-					),
-					array(
-						'id' => '2013Q3',
-						'label' => '2013, III kwartał',
-					),
-					array(
-						'id' => '2013Q2',
-						'label' => '2013, II kwartał',
-					),
-					array(
-						'id' => '2013Q1',
-						'label' => '2013, I kwartał',
-					),
-					array(
-						'id' => '2012',
-						'label' => '2012, cały rok',
-					),
-					array(
-						'id' => '2012Q4',
-						'label' => '2012, IV kwartał',
-					),
-					array(
-						'id' => '2012Q3',
-						'label' => '2012, III kwartał',
-					),
-					array(
-						'id' => '2012Q2',
-						'label' => '2012, II kwartał',
-					),
-					array(
-						'id' => '2012Q1',
-						'label' => '2012, I kwartał',
-					),
-				),
-			),
-			'compare' => $compare,
-		);
+                ),
+            ),
+            'timerange' => array(
+                'items' => array(
+                    array(
+                        'id' => '2015Q1',
+                        'label' => '2015, I kwartał',
+                    ),
+                    array(
+                        'id' => '2014',
+                        'label' => '2014, cały rok',
+                    ),
+                    array(
+                        'id' => '2014Q4',
+                        'label' => '2014, IV kwartał',
+                    ),
+                    array(
+                        'id' => '2014Q3',
+                        'label' => '2014, III kwartał',
+                    ),
+                    array(
+                        'id' => '2014Q2',
+                        'label' => '2014, II kwartał',
+                    ),
+                    array(
+                        'id' => '2014Q1',
+                        'label' => '2014, I kwartał',
+                    ),
+                    array(
+                        'id' => '2013',
+                        'label' => '2013, cały rok',
+                    ),
+                    array(
+                        'id' => '2013Q4',
+                        'label' => '2013, IV kwartał',
+                    ),
+                    array(
+                        'id' => '2013Q3',
+                        'label' => '2013, III kwartał',
+                    ),
+                    array(
+                        'id' => '2013Q2',
+                        'label' => '2013, II kwartał',
+                    ),
+                    array(
+                        'id' => '2013Q1',
+                        'label' => '2013, I kwartał',
+                    ),
+                    array(
+                        'id' => '2012',
+                        'label' => '2012, cały rok',
+                    ),
+                    array(
+                        'id' => '2012Q4',
+                        'label' => '2012, IV kwartał',
+                    ),
+                    array(
+                        'id' => '2012Q3',
+                        'label' => '2012, III kwartał',
+                    ),
+                    array(
+                        'id' => '2012Q2',
+                        'label' => '2012, II kwartał',
+                    ),
+                    array(
+                        'id' => '2012Q1',
+                        'label' => '2012, I kwartał',
+                    ),
+                ),
+            ),
+            'compare' => $compare,
+        );
 
 
-		foreach( $options as $key => &$option ) {
+        foreach ($options as $key => &$option) {
 
-			$allowed_values = array_column($option['items'], 'id');
+            $allowed_values = array_column($option['items'], 'id');
 
-			if(
-				array_key_exists($key, $this->request->query) &&
-				in_array($this->request->query[$key], $allowed_values)
-			) {
+            if (
+                array_key_exists($key, $this->request->query) &&
+                in_array($this->request->query[$key], $allowed_values)
+            ) {
 
-				$option['selected_id'] = $this->request->query[$key];
-				$option['selected_i'] = array_search($this->request->query[$key], $allowed_values);
+                $option['selected_id'] = $this->request->query[$key];
+                $option['selected_i'] = array_search($this->request->query[$key], $allowed_values);
 
-			} else {
+            } else {
 
-				$option['selected_id'] = $option['items'][0]['id'];
-				$option['selected_i'] = 0;
+                $option['selected_id'] = $option['items'][0]['id'];
+                $option['selected_i'] = 0;
 
-			}
+            }
 
-		}
+        }
 
         $this->set('filter_options', $options);
 
-		$main_chart = array();
+        $main_chart = array();
 
 
-		// DATA
+        // DATA
 
-		$data = $options['data']['items'][ $options['data']['selected_i'] ]['id'];
+        $data = $options['data']['items'][$options['data']['selected_i']]['id'];
         $field = 'wydatki';
         $histogram_interval = $type['interval'];
 
-		if( $data=='wydatki' ) {
+        if ($data == 'wydatki') {
 
-			$mode = 'absolute';
-			$main_chart['title'] = 'Wydatki - wartości absolutne';
+            $mode = 'absolute';
+            $main_chart['title'] = 'Wydatki - wartości absolutne';
 
-		} elseif( $data=='wydatki_na_osobe' ) {
+        } elseif ($data == 'wydatki_na_osobe') {
 
-			$mode = 'perperson';
-			$main_chart['title'] = 'Wydatki w przeliczeniu na osobę';
+            $mode = 'perperson';
+            $main_chart['title'] = 'Wydatki w przeliczeniu na osobę';
             $field = 'wydatki_pp';
             $histogram_interval = $type['interval_pp'];
             $this->histogramIntervals = array(
@@ -4056,11 +4059,11 @@ class GminyController extends DataobjectsController
                 10
             );
 
-		}
+        }
 
 
         $histogramAggs = array();
-        foreach($this->histogramIntervals as $i => $interval) {
+        foreach ($this->histogramIntervals as $i => $interval) {
             $histogramAggs['histogram_' . $i] = array(
                 'histogram' => array(
                     'field' => 'gminy-wydatki-dzialy.' . $field,
@@ -4071,41 +4074,39 @@ class GminyController extends DataobjectsController
 
         // TIMERANGE
 
-		$timerange = $options['timerange']['items'][ $options['timerange']['selected_i'] ]['id'];
+        $timerange = $options['timerange']['items'][$options['timerange']['selected_i']]['id'];
 
-        if(preg_match('/^([0-9]{4})$/', $timerange)) {
-            $rok = (int) $timerange;
+        if (preg_match('/^([0-9]{4})$/', $timerange)) {
+            $rok = (int)$timerange;
             $kwartal = 0;
-        } elseif(preg_match('/^([0-9]{4})Q([0-4]{1})$/', $timerange)) {
+        } elseif (preg_match('/^([0-9]{4})Q([0-4]{1})$/', $timerange)) {
             $p = explode('Q', $timerange);
-            $rok = (int) $p[0];
-            $kwartal = (int) $p[1];
+            $rok = (int)$p[0];
+            $kwartal = (int)$p[1];
         } else {
             throw new NotFoundException;
         }
 
 
+        // COMPARE
 
+        $compare = $options['compare']['items'][$options['compare']['selected_i']]['id'];
 
-		// COMPARE
+        if ($compare == 'wszystkie') {
 
-		$compare = $options['compare']['items'][ $options['compare']['selected_i'] ]['id'];
+            $gminy_filter = array(
+                array(
+                    'term' => array(
+                        'dataset' => 'gminy',
+                    ),
+                ),
+            );
 
-		if( $compare=='wszystkie' ) {
-
-			$gminy_filter = array(
-				array(
-					'term' => array(
-		                'dataset' => 'gminy',
-		            ),
-				),
-			);
-
-			$main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' ze wszystkimi gminami';
+            $main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' ze wszystkimi gminami';
 
             $histogram_interval = $mode == 'absolute' ? 100000000 : $type['interval_pp'];
 
-		} elseif( $compare=='powiatowe' ) {
+        } elseif ($compare == 'powiatowe') {
 
             $gminy_filter = array(
                 array(
@@ -4118,76 +4119,76 @@ class GminyController extends DataobjectsController
             $main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z miastami na prawach powiatu';
 
 
-        } elseif( $compare=='wojewodzkie' ) {
+        } elseif ($compare == 'wojewodzkie') {
 
-			$gminy_filter = array(
-				array(
-					'term' => array(
-		                'dataset' => 'gminy',
-		            ),
-				),
-				array(
-					'term' => array(
-						'data.gminy.wojewodzka' => '1',
-					),
-				),
-			);
+            $gminy_filter = array(
+                array(
+                    'term' => array(
+                        'dataset' => 'gminy',
+                    ),
+                ),
+                array(
+                    'term' => array(
+                        'data.gminy.wojewodzka' => '1',
+                    ),
+                ),
+            );
 
-			$main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z gminami wojewódzkimi';
+            $main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z gminami wojewódzkimi';
 
 
-		} elseif( $compare=='miejskie' ) {
+        } elseif ($compare == 'miejskie') {
 
-			$gminy_filter = array(
-				array(
-					'term' => array(
-		                'dataset' => 'gminy',
-		            ),
-				),
-				array(
-					'term' => array(
-						'data.gminy.typ_id' => array('1', '4'),
-					),
-				),
-			);
+            $gminy_filter = array(
+                array(
+                    'term' => array(
+                        'dataset' => 'gminy',
+                    ),
+                ),
+                array(
+                    'term' => array(
+                        'data.gminy.typ_id' => array('1', '4'),
+                    ),
+                ),
+            );
 
-			$main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z gminami miejskimi';
+            $main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z gminami miejskimi';
 
-		} elseif( $compare=='miejsko-wiejskie' ) {
+        } elseif ($compare == 'miejsko-wiejskie') {
 
-			$gminy_filter = array(
-				array(
-					'term' => array(
-		                'dataset' => 'gminy',
-		            ),
-				),
-				array(
-					'term' => array(
-						'data.gminy.typ_id' => '3',
-					),
-				),
-			);
+            $gminy_filter = array(
+                array(
+                    'term' => array(
+                        'dataset' => 'gminy',
+                    ),
+                ),
+                array(
+                    'term' => array(
+                        'data.gminy.typ_id' => '3',
+                    ),
+                ),
+            );
 
-			$main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z gminami miejsko-wiejskimi';
+            $main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z gminami miejsko-wiejskimi';
 
-		} elseif( $compare=='wiejskie' ) {
+        } elseif ($compare == 'wiejskie') {
 
-			$gminy_filter = array(
-				array(
-					'term' => array(
-		                'dataset' => 'gminy',
-		            ),
-				),
-				array(
-					'term' => array(
-						'data.gminy.typ_id' => '2',
-					),
-				),
-			);
+            $gminy_filter = array(
+                array(
+                    'term' => array(
+                        'dataset' => 'gminy',
+                    ),
+                ),
+                array(
+                    'term' => array(
+                        'data.gminy.typ_id' => '2',
+                    ),
+                ),
+            );
 
-			$main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z gminami wiejskimi';
+            $main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z gminami wiejskimi';
 
-		} elseif($compare == 'liczba_ludnosci') {
+        } elseif ($compare == 'liczba_ludnosci') {
 
             $gminy_filter = array(
                 'range' => array(
@@ -4200,8 +4201,23 @@ class GminyController extends DataobjectsController
 
             $main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z gminami w przedziale ludności ' . number_format($populationRange['min']) . ' - ' . number_format($populationRange['max']);
 
-        }
+        } elseif ($compare == 'wojewodztwa') {
 
+            $gminy_filter = array(
+                array(
+                    'term' => array(
+                        'dataset' => 'gminy',
+                    ),
+                ),
+                array(
+                    'term' => array(
+                        'data.gminy.wojewodztwo_id' => $this->object->getData('wojewodztwo_id'),
+                    ),
+                ),
+            );
+
+            $main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z gminami w tym samym województwie';
+        }
 
 
         $aggs = array(
@@ -4243,65 +4259,65 @@ class GminyController extends DataobjectsController
                                     ),
                                 ),
                                 'aggs' => array(
-	                                'min' => array(
-						                'terms' => array(
-						                    'field' => 'gminy-wydatki-okresy.' . $field,
-						                    'size' => '1',
-						                    'order' => array(
-						                        '_term' => 'asc',
-						                    ),
-						                ),
-						                'aggs' => array(
-						                    'reverse' => array(
-						                        'reverse_nested' => '_empty',
-						                        'aggs' => array(
-						                            'top' => array(
-						                                'top_hits' => array(
-						                                    'size' => 1,
-						                                ),
-						                            ),
-						                        ),
-						                    ),
-						                ),
-						            ),
-						            'max' => array(
-						                'terms' => array(
-						                    'field' => 'gminy-wydatki-okresy.' . $field,
-						                    'size' => '1',
-						                    'order' => array(
-						                        '_term' => 'desc',
-						                    ),
-						                ),
-						                'aggs' => array(
-						                    'reverse' => array(
-						                        'reverse_nested' => '_empty',
-						                        'aggs' => array(
-						                            'top' => array(
-						                                'top_hits' => array(
-						                                    'size' => 1,
-						                                ),
-						                            ),
-						                        ),
-						                    ),
-						                ),
-						            ),
-	                                'percentiles' => array(
-						                'percentiles' => array(
-						                    'field' => 'gminy-wydatki-okresy.' . $field,
-						                    'percents' => array(50),
-						                ),
-						            ),
-						            'stats' => array(
-						                'stats' => array(
-						                    'field' => 'gminy-wydatki-okresy.' . $field,
-						                ),
-						            ),
-						            'histogram' => array(
-						                'histogram' => array(
-						                    'field' => 'gminy-wydatki-okresy.' . $field,
-						                    'interval' => $histogram_interval,
-						                ),
-						            ),
+                                    'min' => array(
+                                        'terms' => array(
+                                            'field' => 'gminy-wydatki-okresy.' . $field,
+                                            'size' => '1',
+                                            'order' => array(
+                                                '_term' => 'asc',
+                                            ),
+                                        ),
+                                        'aggs' => array(
+                                            'reverse' => array(
+                                                'reverse_nested' => '_empty',
+                                                'aggs' => array(
+                                                    'top' => array(
+                                                        'top_hits' => array(
+                                                            'size' => 1,
+                                                        ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                    'max' => array(
+                                        'terms' => array(
+                                            'field' => 'gminy-wydatki-okresy.' . $field,
+                                            'size' => '1',
+                                            'order' => array(
+                                                '_term' => 'desc',
+                                            ),
+                                        ),
+                                        'aggs' => array(
+                                            'reverse' => array(
+                                                'reverse_nested' => '_empty',
+                                                'aggs' => array(
+                                                    'top' => array(
+                                                        'top_hits' => array(
+                                                            'size' => 1,
+                                                        ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                    'percentiles' => array(
+                                        'percentiles' => array(
+                                            'field' => 'gminy-wydatki-okresy.' . $field,
+                                            'percents' => array(50),
+                                        ),
+                                    ),
+                                    'stats' => array(
+                                        'stats' => array(
+                                            'field' => 'gminy-wydatki-okresy.' . $field,
+                                        ),
+                                    ),
+                                    'histogram' => array(
+                                        'histogram' => array(
+                                            'field' => 'gminy-wydatki-okresy.' . $field,
+                                            'interval' => $histogram_interval,
+                                        ),
+                                    ),
                                 ),
                             ),
                         ),
@@ -4329,75 +4345,75 @@ class GminyController extends DataobjectsController
                                     ),
                                 ),
                                 'aggs' => array(
-	                                'dzialy' => array(
-		                                'terms' => array(
-			                                'field' => 'gminy-wydatki-dzialy.dzial_id',
-			                                'size' => 100,
-		                                ),
-		                                'aggs' => array_merge(array(
-			                                'label' => array(
-				                                'terms' => array(
-					                                'field' => 'gminy-wydatki-dzialy.dzial',
-					                                'size' => 1,
-				                                ),
-			                                ),
-			                                'min' => array(
-								                'terms' => array(
-								                    'field' => 'gminy-wydatki-dzialy.' . $field,
-								                    'size' => 1,
-								                    'order' => array(
-								                        '_term' => 'asc',
-								                    ),
-								                ),
-								                'aggs' => array(
-								                    'reverse' => array(
-								                        'reverse_nested' => '_empty',
-								                        'aggs' => array(
-								                            'top' => array(
-								                                'top_hits' => array(
-								                                    'size' => 1,
-								                                ),
-								                            ),
-								                        ),
-								                    ),
-								                ),
-								            ),
-								            'max' => array(
-								                'terms' => array(
-								                    'field' => 'gminy-wydatki-dzialy.' . $field,
-								                    'size' => 1,
-								                    'order' => array(
-								                        '_term' => 'desc',
-								                    ),
-								                ),
-								                'aggs' => array(
-								                    'reverse' => array(
-								                        'reverse_nested' => '_empty',
-								                        'aggs' => array(
-								                            'top' => array(
-								                                'top_hits' => array(
-								                                    'size' => 1,
-								                                ),
-								                            ),
-								                        ),
-								                    ),
-								                ),
-								            ),
-			                                'percentiles' => array(
-								                'percentiles' => array(
-								                    'field' => 'gminy-wydatki-dzialy.' . $field,
-								                    'percents' => array(50),
-								                ),
-								            ),
-								            'stats' => array(
-								                'stats' => array(
-								                    'field' => 'gminy-wydatki-dzialy.' . $field,
-								                ),
-								            ),
-		                                ),
+                                    'dzialy' => array(
+                                        'terms' => array(
+                                            'field' => 'gminy-wydatki-dzialy.dzial_id',
+                                            'size' => 100,
+                                        ),
+                                        'aggs' => array_merge(array(
+                                            'label' => array(
+                                                'terms' => array(
+                                                    'field' => 'gminy-wydatki-dzialy.dzial',
+                                                    'size' => 1,
+                                                ),
+                                            ),
+                                            'min' => array(
+                                                'terms' => array(
+                                                    'field' => 'gminy-wydatki-dzialy.' . $field,
+                                                    'size' => 1,
+                                                    'order' => array(
+                                                        '_term' => 'asc',
+                                                    ),
+                                                ),
+                                                'aggs' => array(
+                                                    'reverse' => array(
+                                                        'reverse_nested' => '_empty',
+                                                        'aggs' => array(
+                                                            'top' => array(
+                                                                'top_hits' => array(
+                                                                    'size' => 1,
+                                                                ),
+                                                            ),
+                                                        ),
+                                                    ),
+                                                ),
+                                            ),
+                                            'max' => array(
+                                                'terms' => array(
+                                                    'field' => 'gminy-wydatki-dzialy.' . $field,
+                                                    'size' => 1,
+                                                    'order' => array(
+                                                        '_term' => 'desc',
+                                                    ),
+                                                ),
+                                                'aggs' => array(
+                                                    'reverse' => array(
+                                                        'reverse_nested' => '_empty',
+                                                        'aggs' => array(
+                                                            'top' => array(
+                                                                'top_hits' => array(
+                                                                    'size' => 1,
+                                                                ),
+                                                            ),
+                                                        ),
+                                                    ),
+                                                ),
+                                            ),
+                                            'percentiles' => array(
+                                                'percentiles' => array(
+                                                    'field' => 'gminy-wydatki-dzialy.' . $field,
+                                                    'percents' => array(50),
+                                                ),
+                                            ),
+                                            'stats' => array(
+                                                'stats' => array(
+                                                    'field' => 'gminy-wydatki-dzialy.' . $field,
+                                                ),
+                                            ),
+                                        ),
                                             $histogramAggs
                                         ),
-	                                ),
+                                    ),
                                 ),
                             ),
                         ),
@@ -4456,11 +4472,11 @@ class GminyController extends DataobjectsController
                         ),
                     ),
                     'dzialy' => array(
-	                    'nested' => array(
-		                    'path' => 'gminy-wydatki-dzialy',
-	                    ),
-	                    'aggs' => array(
-		                    'timerange' => array(
+                        'nested' => array(
+                            'path' => 'gminy-wydatki-dzialy',
+                        ),
+                        'aggs' => array(
+                            'timerange' => array(
                                 'filter' => array(
                                     'bool' => array(
                                         'must' => array(
@@ -4479,37 +4495,37 @@ class GminyController extends DataobjectsController
                                 ),
                                 'aggs' => array(
                                     'dzialy' => array(
-		                                'terms' => array(
-		                                    'field' => 'gminy-wydatki-dzialy.dzial_id',
-		                                    'size' => 100,
-		                                    'order' => array(
-		                                        'wydatki' => 'desc',
-		                                    ),
-		                                ),
-		                                'aggs' => array(
-		                                    'label' => array(
-		                                        'terms' => array(
-		                                            'field' => 'gminy-wydatki-dzialy.dzial',
-		                                            'size' => 1,
-		                                        ),
-		                                    ),
-		                                    'wydatki' => array(
-		                                        'sum' => array(
-		                                            'field' => 'gminy-wydatki-dzialy.' . $field,
-		                                        ),
-		                                    ),
-		                                ),
-		                            ),
+                                        'terms' => array(
+                                            'field' => 'gminy-wydatki-dzialy.dzial_id',
+                                            'size' => 100,
+                                            'order' => array(
+                                                'wydatki' => 'desc',
+                                            ),
+                                        ),
+                                        'aggs' => array(
+                                            'label' => array(
+                                                'terms' => array(
+                                                    'field' => 'gminy-wydatki-dzialy.dzial',
+                                                    'size' => 1,
+                                                ),
+                                            ),
+                                            'wydatki' => array(
+                                                'sum' => array(
+                                                    'field' => 'gminy-wydatki-dzialy.' . $field,
+                                                ),
+                                            ),
+                                        ),
+                                    ),
                                 ),
                             ),
-	                    ),
+                        ),
                     ),
                     'rozdzialy' => array(
-	                    'nested' => array(
-		                    'path' => 'gminy-wydatki-rozdzialy',
-	                    ),
-	                    'aggs' => array(
-		                    'timerange' => array(
+                        'nested' => array(
+                            'path' => 'gminy-wydatki-rozdzialy',
+                        ),
+                        'aggs' => array(
+                            'timerange' => array(
                                 'filter' => array(
                                     'bool' => array(
                                         'must' => array(
@@ -4528,38 +4544,38 @@ class GminyController extends DataobjectsController
                                 ),
                                 'aggs' => array(
                                     'dzialy' => array(
-					                    'terms' => array(
-						                    'field' => 'gminy-wydatki-rozdzialy.dzial_id',
-						                    'size' => 100,
-					                    ),
-					                    'aggs' => array(
-						                    'rozdzialy' => array(
-				                                'terms' => array(
-				                                    'field' => 'gminy-wydatki-rozdzialy.rozdzial_id',
-				                                    'size' => 100,
-				                                    'order' => array(
-				                                        'wydatki' => 'desc',
-				                                    ),
-				                                ),
-				                                'aggs' => array(
-				                                    'nazwa' => array(
-				                                        'terms' => array(
-				                                            'field' => 'gminy-wydatki-rozdzialy.rozdzial',
-				                                            'size' => 1,
-				                                        ),
-				                                    ),
-				                                    'wydatki' => array(
-				                                        'sum' => array(
-				                                            'field' => 'gminy-wydatki-rozdzialy.' . $field,
-				                                        ),
-				                                    ),
-				                                ),
-				                            ),
-					                    ),
-				                    ),
+                                        'terms' => array(
+                                            'field' => 'gminy-wydatki-rozdzialy.dzial_id',
+                                            'size' => 100,
+                                        ),
+                                        'aggs' => array(
+                                            'rozdzialy' => array(
+                                                'terms' => array(
+                                                    'field' => 'gminy-wydatki-rozdzialy.rozdzial_id',
+                                                    'size' => 100,
+                                                    'order' => array(
+                                                        'wydatki' => 'desc',
+                                                    ),
+                                                ),
+                                                'aggs' => array(
+                                                    'nazwa' => array(
+                                                        'terms' => array(
+                                                            'field' => 'gminy-wydatki-rozdzialy.rozdzial',
+                                                            'size' => 1,
+                                                        ),
+                                                    ),
+                                                    'wydatki' => array(
+                                                        'sum' => array(
+                                                            'field' => 'gminy-wydatki-rozdzialy.' . $field,
+                                                        ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                    ),
                                 ),
                             ),
-	                    ),
+                        ),
                     ),
                 ),
             ),
@@ -4605,7 +4621,7 @@ class GminyController extends DataobjectsController
 
         $this->loadModel('PrzejrzystyKrakow.Krakow');
 
-        if($subid = @$this->request->params['subid']) {
+        if ($subid = @$this->request->params['subid']) {
 
             $okreg = $this->Dataobject->find('first', array(
                 'conditions' => array(
@@ -4806,7 +4822,7 @@ class GminyController extends DataobjectsController
 
         }
 
-        if(
+        if (
             @$this->object_aggs['dzialania']['doc_count'] ||
             $this->_canEdit()
         ) {
@@ -4817,7 +4833,7 @@ class GminyController extends DataobjectsController
             );
         }
 
-        if($this->_canEdit()) {
+        if ($this->_canEdit()) {
             $menu['items'][] = array(
                 'id' => 'dane',
                 'label' => 'Edycja danych'
@@ -4867,125 +4883,125 @@ class GminyController extends DataobjectsController
             }
 
 
-            if( $this->request->params['action'] == 'finanse' ) {
+            if ($this->request->params['action'] == 'finanse') {
 
-	            $aggs = $this->viewVars['dataBrowser']['aggs'];
-	            $this->viewVars['dataBrowser']['aggs'] = null;
-
-
-				$global = array(
-					'min' => array(
-						'value' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['key'],
-						'label' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
-						'id' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
-					),
-					'max' => array(
-						'value' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['key'],
-						'label' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
-						'id' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
-					),
-					'cur' => $aggs['gmina']['sumy']['timerange']['wydatki']['value'],
-					'median' => $aggs['gminy']['sumy']['timerange']['percentiles']['values']['50.0'],
-					'histogram' => $aggs['gminy']['sumy']['timerange']['histogram']['buckets'],
-				);
-
-				$global = array_merge($global, array(
-					'left' => ($global['min']['value'] == $global['max']['value']) ? 0 : 100 * ( $global['cur'] - $global['min']['value'] ) / ( $global['max']['value'] - $global['min']['value'] ),
-					'median_left' => ($global['min']['value'] == $global['max']['value']) ? 0 : 100 * ( $global['median'] - $global['min']['value'] ) / ( $global['max']['value'] - $global['min']['value'] ),
-				));
+                $aggs = $this->viewVars['dataBrowser']['aggs'];
+                $this->viewVars['dataBrowser']['aggs'] = null;
 
 
-				$dzialy = array();
+                $global = array(
+                    'min' => array(
+                        'value' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['key'],
+                        'label' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
+                        'id' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
+                    ),
+                    'max' => array(
+                        'value' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['key'],
+                        'label' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
+                        'id' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
+                    ),
+                    'cur' => $aggs['gmina']['sumy']['timerange']['wydatki']['value'],
+                    'median' => $aggs['gminy']['sumy']['timerange']['percentiles']['values']['50.0'],
+                    'histogram' => $aggs['gminy']['sumy']['timerange']['histogram']['buckets'],
+                );
 
-				foreach( $aggs['gmina']['dzialy']['timerange']['dzialy']['buckets'] as $b ) {
+                $global = array_merge($global, array(
+                    'left' => ($global['min']['value'] == $global['max']['value']) ? 0 : 100 * ($global['cur'] - $global['min']['value']) / ($global['max']['value'] - $global['min']['value']),
+                    'median_left' => ($global['min']['value'] == $global['max']['value']) ? 0 : 100 * ($global['median'] - $global['min']['value']) / ($global['max']['value'] - $global['min']['value']),
+                ));
 
-					$dzial = array(
-						'id' => $b['key'],
-						'label' => @$b['label']['buckets'][0]['key'],
-					);
 
-					foreach( $aggs['gminy']['dzialy']['timerange']['dzialy']['buckets'] as $d ) {
-						if( $d['key'] == $b['key'] ) {
+                $dzialy = array();
 
-                            $min = (int) $d['min']['buckets'][0]['key'];
-                            $max = (int) $d['max']['buckets'][0]['key'];
+                foreach ($aggs['gmina']['dzialy']['timerange']['dzialy']['buckets'] as $b) {
+
+                    $dzial = array(
+                        'id' => $b['key'],
+                        'label' => @$b['label']['buckets'][0]['key'],
+                    );
+
+                    foreach ($aggs['gminy']['dzialy']['timerange']['dzialy']['buckets'] as $d) {
+                        if ($d['key'] == $b['key']) {
+
+                            $min = (int)$d['min']['buckets'][0]['key'];
+                            $max = (int)$d['max']['buckets'][0]['key'];
                             $range = $max - $min;
 
-                            $histogram_i = (string) (count($this->histogramIntervals) - 1);
+                            $histogram_i = (string)(count($this->histogramIntervals) - 1);
 
-                            foreach($this->histogramIntervals as $i => $interval) {
+                            foreach ($this->histogramIntervals as $i => $interval) {
                                 $buckets = ceil($range / $interval);
-                                if($buckets > 8 && $buckets < 100) {
+                                if ($buckets > 8 && $buckets < 100) {
                                     $histogram_i = $i;
                                     break;
                                 }
                             }
 
-                            if($range > 300000 && $histogram_i == (count($this->histogramIntervals) - 1)) {
-                                $histogram_i = (string) (count($this->histogramIntervals) - 2);
+                            if ($range > 300000 && $histogram_i == (count($this->histogramIntervals) - 1)) {
+                                $histogram_i = (string)(count($this->histogramIntervals) - 2);
                             }
 
-							$dzial['global'] = array(
-								'min' => array(
-									'value' => $d['min']['buckets'][0]['key'],
-									'label' => $d['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
-									'id' => $d['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
-								),
-								'max' => array(
-									'value' => $d['max']['buckets'][0]['key'],
-									'label' => $d['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
-									'id' => $d['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
-								),
-								'cur' => $b['wydatki']['value'],
-								'median' => $d['percentiles']['values']['50.0'],
-								'histogram' => $d['histogram_' . $histogram_i]['buckets'],
-                                'interval' => $this->histogramIntervals[(int) $histogram_i]
-							);
+                            $dzial['global'] = array(
+                                'min' => array(
+                                    'value' => $d['min']['buckets'][0]['key'],
+                                    'label' => $d['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
+                                    'id' => $d['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
+                                ),
+                                'max' => array(
+                                    'value' => $d['max']['buckets'][0]['key'],
+                                    'label' => $d['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
+                                    'id' => $d['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
+                                ),
+                                'cur' => $b['wydatki']['value'],
+                                'median' => $d['percentiles']['values']['50.0'],
+                                'histogram' => $d['histogram_' . $histogram_i]['buckets'],
+                                'interval' => $this->histogramIntervals[(int)$histogram_i]
+                            );
 
-							$dzial['global'] = array_merge($dzial['global'], array(
-								'left' => ($dzial['global']['min']['value'] == $dzial['global']['max']['value']) ? 0 : 100 * ( $dzial['global']['cur'] - $dzial['global']['min']['value'] ) / ( $dzial['global']['max']['value'] - $dzial['global']['min']['value'] ),
-								'median_left' => ($dzial['global']['min']['value'] == $dzial['global']['max']['value']) ? 0 : 100 * ( $dzial['global']['median'] - $dzial['global']['min']['value'] ) / ( $dzial['global']['max']['value'] - $dzial['global']['min']['value'] ),
-								'class' => ($dzial['global']['cur'] > $dzial['global']['median']) ? 'more' : 'less',
-							));
+                            $dzial['global'] = array_merge($dzial['global'], array(
+                                'left' => ($dzial['global']['min']['value'] == $dzial['global']['max']['value']) ? 0 : 100 * ($dzial['global']['cur'] - $dzial['global']['min']['value']) / ($dzial['global']['max']['value'] - $dzial['global']['min']['value']),
+                                'median_left' => ($dzial['global']['min']['value'] == $dzial['global']['max']['value']) ? 0 : 100 * ($dzial['global']['median'] - $dzial['global']['min']['value']) / ($dzial['global']['max']['value'] - $dzial['global']['min']['value']),
+                                'class' => ($dzial['global']['cur'] > $dzial['global']['median']) ? 'more' : 'less',
+                            ));
 
-							break;
+                            break;
 
-						}
-					}
+                        }
+                    }
 
-					foreach( $aggs['gmina']['rozdzialy']['timerange']['dzialy']['buckets'] as &$c ) {
-						if( $c['key']==$dzial['id'] ) {
+                    foreach ($aggs['gmina']['rozdzialy']['timerange']['dzialy']['buckets'] as &$c) {
+                        if ($c['key'] == $dzial['id']) {
 
-							$rozdzialy = $c['rozdzialy']['buckets'];
-							foreach( $rozdzialy as &$r ) {
+                            $rozdzialy = $c['rozdzialy']['buckets'];
+                            foreach ($rozdzialy as &$r) {
 
-								if( !$r['key'] )
-									continue;
+                                if (!$r['key'])
+                                    continue;
 
-								$r = array(
-									'id' => $r['key'],
-									'label' => $r['nazwa']['buckets'][0]['key'],
-									'wydatki' => $r['wydatki']['value'],
-								);
+                                $r = array(
+                                    'id' => $r['key'],
+                                    'label' => $r['nazwa']['buckets'][0]['key'],
+                                    'wydatki' => $r['wydatki']['value'],
+                                );
 
-							}
+                            }
 
-							$dzial['rozdzialy'] = $rozdzialy;
+                            $dzial['rozdzialy'] = $rozdzialy;
 
-							unset($c);
-							break;
+                            unset($c);
+                            break;
 
-						}
-					}
+                        }
+                    }
 
-					$dzialy[] = $dzial;
+                    $dzialy[] = $dzial;
 
-				}
+                }
 
-				// debug( $dzialy ); die();
+                // debug( $dzialy ); die();
 
-				$this->set('global', $global);
-				$this->set('dzialy', $dzialy);
+                $this->set('global', $global);
+                $this->set('dzialy', $dzialy);
 
             }
 
