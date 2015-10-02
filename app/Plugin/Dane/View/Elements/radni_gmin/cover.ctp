@@ -309,29 +309,15 @@ if ($okreg) {
 
         if ($show) { ?>
 
-            <ul class="dataHighlights rightColumn dane_radnego margin-top-10">
-                <li class="dataHighlight col-xs-12 dane_radnego">
-                    <p class="_label">Data urodzenia</p>
-
-                    <p class="_value"><?= dataSlownie($powiazania['data_urodzenia']); ?></p>
-                </li>
-
-                <li class="dataHighlight col-xs-12 dane_radnego">
-                    <p class="_label">Miejsce urodzenia</p>
-
-                    <p class="_value"><?= $powiazania['miejsce_urodzenia']; ?></p>
-                </li>
-            </ul>
-
             <? if ($powiazania['miejsce_pracy_html'] != '') { ?>
                 <ul class="dataHighlights rightColumn dane_radnego margin-top-10">
                     <li class="dataHighlight col-xs-12 dane_radnego">
                         <p class="_label">
                             Miejsce pracy i zajmowane stanowiska:</p>
 
-                        <ul class="_value">
+                        <p class="_value">
                             <?= $powiazania['miejsce_pracy_html']; ?>
-                        </ul>
+                        </p>
                     </li>
                 </ul>
             <? } ?>
