@@ -48,7 +48,12 @@ echo $this->Element('dataobject/pageBegin'); ?>
                                 <div class="form-group margin-top-30">
                                     <label>Obszar działania:</label>
 
-                                    <? foreach(array(
+                                    <?
+
+                                        $obszary = $object->getPage('obszary_dzialan') ? $object->getPage('obszary_dzialan') : array();
+                                        $obszary_ids = array_column($obszary, 'id');
+
+                                    foreach(array(
                                         'działalność charytatywna',
                                         'pomoc społeczna',
                                         'ochrona praw obywatelskich i praw człowieka',
@@ -63,7 +68,7 @@ echo $this->Element('dataobject/pageBegin'); ?>
                                     ) as $i => $field) { ?>
                                         <div>
                                             <label>
-                                                <input name="areas[]" type="checkbox" value="<?= ($i + 1) ?>">
+                                                <input name="areas[]" type="checkbox" value="<?= ($i + 1) ?>" <? if(in_array($i + 1, $obszary_ids)) echo 'checked'; ?>>
                                                 <?= ucfirst($field) ?>
                                             </label>
                                         </div>
