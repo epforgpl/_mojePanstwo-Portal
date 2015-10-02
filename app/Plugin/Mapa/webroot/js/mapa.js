@@ -132,7 +132,6 @@ $(document).ready(function () {
 
 						map.data.setStyle(function (feature) {
 							var color = feature.getProperty('color') || 'gray';
-							console.log(color);
 							return ({
 								fillColor: color,
 								strokeColor: color,
@@ -146,7 +145,7 @@ $(document).ready(function () {
 						markerBounds.extend(markers[i].getPosition());
 					}
 
-					//map.fitBounds(markerBounds);
+					map.fitBounds(markerBounds);
 				},
 				error: function (error) {
 					alerts(error, 'alert-danger')
@@ -200,9 +199,9 @@ $(document).ready(function () {
 	border.setMap(map);
 	map.fitBounds(bounds);
 
-	/*map.setOptions({
+	map.setOptions({
 		minZoom: map.getZoom()
-	 });*/
+	});
 
 	var localizer = new Localizer();
 	$('#localizeMe').click(function () {
