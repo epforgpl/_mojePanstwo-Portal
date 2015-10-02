@@ -145,16 +145,16 @@ if ($dataBrowser['mode'] == 'cover') {
                     $this->MPaginator->options['url'] = array('alias' => 'prawo');
                     $this->MPaginator->options['paramType'] = 'querystring';
 
-                    echo $this->MPaginator->first('<i class="icon-pagination-first"></i>', array('tag' => 'li', 'escape' => false), '<a href="#"><i class="icon-pagination-first"></i></a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => true));
-                    echo $this->MPaginator->prev('<i class="icon-pagination-prev"></i>', array('tag' => 'li', 'escape' => false), '<a href="#"><i class="icon-pagination-prev"></i></a>' , array('class' => 'prev disabled hidden', 'tag' => 'li', 'escape' => true));
+                    echo $this->MPaginator->first('<span data-icon="&#xe627;"></span>', array('tag' => 'li', 'escape' => false), '<a href="#"><span data-icon="&#xe627;"></span></a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => true));
+                    echo $this->MPaginator->prev('<span data-icon="&#xe626;"></span>', array('tag' => 'li', 'escape' => false), '<a href="#"><span data-icon="&#xe626;"></span></i></a>' , array('class' => 'prev disabled hidden', 'tag' => 'li', 'escape' => true));
 //
                     ?></ul>
                 <ul class="pagination"><?
                     echo $this->MPaginator->numbers(array('separator' => '', 'tag' => 'li', 'currentLink' => true, 'currentClass' => 'active', 'currentTag' => 'a'));
                     ?></ul>
                 <ul class="pagination"><?
-                    echo $this->MPaginator->next('<i class="icon-pagination-next"></i>', array('tag' => 'li', 'escape' => false), '<a href="#"><i class="icon-pagination-next"></i></a>', array('class' => 'prev disabled hidden', 'tag' => 'li', 'escape' => false));
-                    echo $this->MPaginator->last('<i class="icon-pagination-last"></i>', array('tag' => 'li', 'escape' => false), '<a href="#"><i class="icon-pagination-last"></i></a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
+                    echo $this->MPaginator->next('<span data-icon="&#xe625;"></span>', array('tag' => 'li', 'escape' => false), '<a href="#"><span data-icon="&#xe625;"></span></a>', array('class' => 'prev disabled hidden', 'tag' => 'li', 'escape' => false));
+                    echo $this->MPaginator->last('<span data-icon="&#xe628;"></span>', array('tag' => 'li', 'escape' => false), '<a href="#"><span data-icon="&#xe628;"></span></a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
                     ?>
                 </ul>
             </div>

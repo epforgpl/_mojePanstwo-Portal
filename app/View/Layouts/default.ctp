@@ -47,7 +47,6 @@
     $this->Combinator->add_libs('css', $this->Less->css('jquery/jquery-ui-customize'), false);
     $this->Combinator->add_libs('css', $this->Less->css('structure'), false);
     $this->Combinator->add_libs('css', $this->Less->css('main'), false);
-    $this->Combinator->add_libs('css', $this->Less->css('pagination'), false);
     $this->Combinator->add_libs('css', $this->Less->css('themes'), false);
     $this->Combinator->add_libs('css', $this->Less->css('icon-applications'));
     $this->Combinator->add_libs('css', $this->Less->css('icon-datasets'));
