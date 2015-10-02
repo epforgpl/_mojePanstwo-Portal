@@ -131,10 +131,10 @@ $(document).ready(function () {
 							var color = feature.getProperty('color') || 'gray';
 							return ({
 								fillColor: color,
-								fillOpacity: 0.35,
+								fillOpacity: 0.2,
 								strokeColor: color,
 								strokeWeight: 2,
-								strokeOpacity: 0.8
+								strokeOpacity: 0.4
 							});
 						});
 
@@ -194,6 +194,7 @@ $(document).ready(function () {
 	function detailWindow(marker) {
 		var main = $('.dataBrowserContent'),
 			data = marker.data,
+			adres = '',
 			location = marker.locations[0].location,
 			dtlWnd = $('<div></div>').addClass('mapaDetailWindow').append(
 				$('<ul></ul>').addClass('info')
@@ -211,7 +212,8 @@ $(document).ready(function () {
 						'target': 'blank'
 					}).text(data['miejsca.wojewodztwo'])
 				)
-			)
+			);
+			adres = data['miejsca.wojewodztwo'];
 		}
 		if (typeof data['miejsca.powiat_id'] !== undefined) {
 			dtlWnd.find('ul.info').append(
@@ -223,7 +225,8 @@ $(document).ready(function () {
 						'target': 'blank'
 					}).text(data['miejsca.powiat'])
 				)
-			)
+			);
+			adres = data['miejsca.powiat'];
 		}
 		if (typeof data['miejsca.gmina_id'] !== undefined) {
 			dtlWnd.find('ul.info').append(
@@ -235,7 +238,8 @@ $(document).ready(function () {
 						'target': 'blank'
 					}).text(data['miejsca.gmina'])
 				)
-			)
+			);
+			adres = data['miejsca.gmina'];
 		}
 		if (typeof data['miejsca.miejscowosc_id'] !== undefined) {
 			dtlWnd.find('ul.info').append(
@@ -244,31 +248,51 @@ $(document).ready(function () {
 				).append(
 					$('<span></span>').text(data['miejsca.miejscowosc'])
 				)
-			)
+			);
+			adres += ', ' + data['miejsca.miejscowosc'];
 		}
 
-		if (typeof data['miejsca.ulica_id'] !== undefined) {
+		if (typeof data['miejsca.ulica'] !== undefined) {
 			dtlWnd.find('ul.info').append(
 				$('<li></li>').append(
 					$('<label></label>').text(mPHeart.translation.LC_FINANSE_DETAILWINDOW_ULICA)
 				).append(
 					$('<span></span>').text(data['miejsca.ulica'])
 				)
-			)
+			);
+			adres += ', ' + data['miejsca.ulica'];
 		}
 
+		if (typeof data['miejsca.ulica_id'] !== undefined) {
+			dtlWnd.find('ul.info').append(
+				$('<li></li>').append(
+					$('<label></label>').text(mPHeart.translation.LC_FINANSE_DETAILWINDOW_ULICA_NUMER)
+				).append(
+					$('<span></span>').text(data['miejsca.ulica_id'])
+				)
+			);
+			adres += ' ' + data['miejsca.ulica_id'];
+		}
 
 		dtlWnd.find('ul.geo').append(
 			$('<li></li>').append(
 				$('<label></label>').text(mPHeart.translation.LC_FINANSE_DETAILWINDOW_GEO_POSITION)
 			).append(
-				$('<a></a>').attr({
-					'href': '/mapa?q=' + location.lat + '%20' + location.lon,
-					'target': 'blank'
-				}).append(
+				$('<span></span>').append(
 					$('<p></p>').html('<small>' + mPHeart.translation.LC_FINANSE_DETAILWINDOW_GEO_POSITION_LAT + '</small>: ' + location.lat)
 				).append(
 					$('<p></p>').html('<small>' + mPHeart.translation.LC_FINANSE_DETAILWINDOW_GEO_POSITION_LON + '</small>: ' + location.lon)
+				)
+			)
+		).append(
+			$('<li></li>').append(
+				$('<label></label>').text(mPHeart.translation.LC_FINANSE_DETAILWINDOW_ADDRESSES)
+			).append(
+				$('<a></a>').attr({
+					'href': '/mapa?q=' + adres,
+					'target': 'blank'
+				}).append(
+					$('<span></span>').text(adres)
 				)
 			)
 		);

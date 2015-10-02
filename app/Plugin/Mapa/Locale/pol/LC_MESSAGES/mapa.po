@@ -42,3 +42,6 @@ msgstr "Szerokość"
 
 msgid "LC_FINANSE_DETAILWINDOW_GEO_POSITION_LON"
 msgstr "Długość"
+
+msgid "LC_FINANSE_DETAILWINDOW_ADDRESSES"
+msgstr "Adres"
