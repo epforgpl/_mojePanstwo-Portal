@@ -24,15 +24,15 @@ $docs = $uchwala->getLayer('docs');
 
 
             <div class="row">
-				
+
 				<div class="col-md-9">
 
                     <?= $this->Document->place($file) ?>
                 </div>
-				
+
                 <div class="col-md-3">
-					
-					<? if( count($docs)>1 ) {?> 
+
+					<? if( count($docs)>1 ) {?>
                     <p>Pliki powiązane:</p>
 
                     <ul class="nav nav-pills nav-stacked">
@@ -46,16 +46,16 @@ $docs = $uchwala->getLayer('docs');
                         <? } ?>
                     </ul>
                     <? } ?>
-                    
+
                     <p class="margin-sides-5 margin-top-20"><a href="http://www.bip.krakow.pl/?dok_id=167&sub_dok_id=167&sub=uchwala&query=id=<?= $uchwala->getData('sid') ?>&typ=u" target="_blank"><span class="glyphicon glyphicon-share"></span> Źródło</a></p>
-                    
+                  <?//  debug($uchwala->getData()); ?>
                 </div>
 
-                
+
 
             </div>
 
-        
+
 
 
     </div>

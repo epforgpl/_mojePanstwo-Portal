@@ -259,116 +259,185 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&s
                         <ul class="list-unstyled hide">
                             <li>
                                 <label>
-                                    <input class="edukacja layer" type="checkbox" id="stare_miasto" value="I"
+                                    <input class=" layer" type="checkbox" id="zesp_szk" value=""
                                            data-layer="edukacja">
                                     Zespoły szkół i placówek oświatowych
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input class="edukacja layer" type="checkbox" id="grzegorzki" value="II"
+                                    <input class=" layer" type="checkbox" id="gimnazja" value=""
                                            data-layer="edukacja">
                                     Gimnazja
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
-                                           value="III" data-layer="edukacja">
+                                    <input class=" layer" type="checkbox" id="inne_plac"
+                                           value="" data-layer="edukacja">
                                     Inne placówki
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
-                                           value="III" data-layer="edukacja">
+                                    <input class="edukacja layer" type="checkbox" id="bursy"
+                                           value="89" data-layer="edukacja">
                                     Internaty i bursy
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
-                                           value="III" data-layer="edukacja">
+                                    <input class=" layer" type="checkbox" id="licea"
+                                           value="" data-layer="edukacja">
                                     Licea
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
-                                           value="III" data-layer="edukacja">
+                                    <input class=" layer" type="checkbox" id="mdk"
+                                           value="" data-layer="edukacja">
                                     MDK
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
-                                           value="III" data-layer="edukacja">
+                                    <input class=" layer" type="checkbox" id="poradnie"
+                                           value="" data-layer="edukacja">
                                     Poradnie
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
-                                           value="III" data-layer="edukacja">
+                                    <input class=" layer" type="checkbox" id="przedsz"
+                                           value="" data-layer="edukacja">
                                     Przedszkola
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
-                                           value="III" data-layer="edukacja">
+                                    <input class=" layer" type="checkbox" id="szk_muz"
+                                           value="" data-layer="edukacja">
                                     Szkoły muzyczne
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
-                                           value="III" data-layer="edukacja">
+                                    <input class=" layer" type="checkbox" id="szk_podst"
+                                           value="" data-layer="edukacja">
                                     Szkoły podstawowe
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
-                                           value="III" data-layer="edukacja">
+                                    <input class=" layer" type="checkbox" id="szk_polic"
+                                           value="" data-layer="edukacja">
                                     Szkoły policealne
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
-                                           value="III" data-layer="edukacja">
+                                    <input class=" layer" type="checkbox" id="szk_przysp_prac"
+                                           value="" data-layer="edukacja">
                                     Szkoły przysposabiające do pracy
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
-                                           value="III" data-layer="edukacja">
+                                    <input class=" layer" type="checkbox" id="technika"
+                                           value="" data-layer="edukacja">
                                     Technika
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
-                                           value="III" data-layer="edukacja">
+                                    <input class=" layer" type="checkbox" id="zsz"
+                                           value="" data-layer="edukacja">
                                     Zasadniczne szkoły zawodowe
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
-                                           value="III" data-layer="edukacja">
+                                    <input class="edukacja layer" type="checkbox" id="zlobki"
+                                           value="100" data-layer="edukacja">
                                     Żłobki
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input class="edukacja layer" type="checkbox" id="pradnik_czerwony"
-                                           value="III" data-layer="edukacja">
+                                    <input class="edukacja layer" type="checkbox" id="zlobki_niepub"
+                                           value="101" data-layer="edukacja">
                                     Żłobki niepubliczne i kluby dziecięce
                                 </label>
                             </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="list-unstyled first">
+                    <li>
+                        <label>
+                            <input type="checkbox" class="komunikacja_publiczna" id="komunikacja_all" value="komunikacja">
+                            Komunikacja
+                        </label>
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <ul class="list-unstyled hide">
+
+                            <li>
+                                <label>
+                                    <input class="komunikacja layer" type="checkbox" id="bursy"
+                                           value="89" data-layer="komunikacja">
+                                    Stacje KMK bike
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="komunikacja layer" type="checkbox" id="bursy"
+                                           value="89" data-layer="komunikacja">
+                                    Tramwaj wodny - przytanki
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="komunikacja layer" type="checkbox" id="bursy"
+                                           value="89" data-layer="komunikacja">
+                                    Stanowiska cumownicze
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="komunikacja layer" type="checkbox" id="bursy"
+                                           value="89" data-layer="komunikacja">
+                                    Port lotniczy
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="komunikacja layer" type="checkbox" id="bursy"
+                                           value="89" data-layer="komunikacja">
+                                    Linie kolejowe
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="komunikacja layer" type="checkbox" id="bursy"
+                                           value="89" data-layer="komunikacja">
+                                    Linie tramwajowe
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="komunikacja layer" type="checkbox" id="bursy"
+                                           value="89" data-layer="komunikacja">
+                                    Wazniejsze drogi
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input class="komunikacja layer" type="checkbox" id="bursy"
+                                           value="89" data-layer="komunikacja">
+                                    Strefy prakowania
+                                </label>
+                            </li>
+
                         </ul>
                     </li>
                 </ul>
