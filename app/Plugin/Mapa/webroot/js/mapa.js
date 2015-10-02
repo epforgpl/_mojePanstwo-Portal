@@ -113,40 +113,16 @@ $(document).ready(function () {
 						var mrkr = res.places[0];
 
 						if (typeof mrkr.polygons.wojewodztwo_id !== "undefined") {
-							for (var f = 0; f < mrkr.polygons.wojewodztwo_id.features.length; f++) {
-								for (var c = 0; c < mrkr.polygons.wojewodztwo_id.features[f].geometry.coordinates.length; c++) {
-									for (var p = 0; p < mrkr.polygons.wojewodztwo_id.features[f].geometry.coordinates[c].length; p++) {
-										mrkr.polygons.wojewodztwo_id.features[f].geometry.coordinates[c][p][0] = mrkr.polygons.wojewodztwo_id.features[f].geometry.coordinates[c][p][0] / 10000;
-										mrkr.polygons.wojewodztwo_id.features[f].geometry.coordinates[c][p][1] = mrkr.polygons.wojewodztwo_id.features[f].geometry.coordinates[c][p][1] / 10000;
-									}
-								}
-							}
 							mrkr.polygons.wojewodztwo_id.features[0].properties.color = 'green';
 							map.data.addGeoJson(mrkr.polygons.wojewodztwo_id);
 						}
 
 						if (typeof mrkr.polygons.gmina_id !== "undefined") {
-							for (var f = 0; f < mrkr.polygons.gmina_id.features.length; f++) {
-								for (var c = 0; c < mrkr.polygons.gmina_id.features[f].geometry.coordinates.length; c++) {
-									for (var p = 0; p < mrkr.polygons.gmina_id.features[f].geometry.coordinates[c].length; p++) {
-										mrkr.polygons.gmina_id.features[f].geometry.coordinates[c][p][0] = mrkr.polygons.gmina_id.features[f].geometry.coordinates[c][p][0] / 10000;
-										mrkr.polygons.gmina_id.features[f].geometry.coordinates[c][p][1] = mrkr.polygons.gmina_id.features[f].geometry.coordinates[c][p][1] / 10000;
-									}
-								}
-							}
 							mrkr.polygons.gmina_id.features[0].properties.color = 'blue';
 							map.data.addGeoJson(mrkr.polygons.gmina_id);
 						}
 
 						if (typeof mrkr.polygons.powiat_id !== "undefined") {
-							for (var f = 0; f < mrkr.polygons.powiat_id.features.length; f++) {
-								for (var c = 0; c < mrkr.polygons.powiat_id.features[f].geometry.coordinates.length; c++) {
-									for (var p = 0; p < mrkr.polygons.powiat_id.features[f].geometry.coordinates[c].length; p++) {
-										mrkr.polygons.powiat_id.features[f].geometry.coordinates[c][p][0] = mrkr.polygons.powiat_id.features[f].geometry.coordinates[c][p][0] / 10000;
-										mrkr.polygons.powiat_id.features[f].geometry.coordinates[c][p][1] = mrkr.polygons.powiat_id.features[f].geometry.coordinates[c][p][1] / 10000;
-									}
-								}
-							}
 							mrkr.polygons.powiat_id.features[0].properties.color = 'yellow';
 							map.data.addGeoJson(mrkr.polygons.powiat_id);
 						}
