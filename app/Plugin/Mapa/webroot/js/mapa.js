@@ -1,6 +1,6 @@
+var map;
 $(document).ready(function () {
-	var map,
-		markers = [],
+	var markers = [],
 		border = new google.maps.Polygon({
 			paths: [
 				[
@@ -114,35 +114,39 @@ $(document).ready(function () {
 
 						if (typeof mrkr.polygons.wojewodztwo_id !== "undefined") {
 							map.data.addGeoJson(mrkr.polygons.wojewodztwo_id);
-							map.data.setStyle({
-								fillColor: 'green',
-								strokeWeight: 2
-							})
+							mrkr.polygons.wojewodztwo_id.features[0].properties.color = 'green';
+							mrkr.polygons.wojewodztwo_id.features[0].properties.rank = '5';
 						}
 
 						if (typeof mrkr.polygons.gmina_id !== "undefined") {
 							map.data.addGeoJson(mrkr.polygons.gmina_id);
-							map.data.setStyle({
-								fillColor: 'blue',
-								strokeWeight: 2
-							})
+							mrkr.polygons.gmina_id.features[0].properties.color = 'blue';
+							mrkr.polygons.gmina_id.features[0].properties.rank = '10';
 						}
 
 						if (typeof mrkr.polygons.powiat_id !== "undefined") {
 							map.data.addGeoJson(mrkr.polygons.powiat_id);
-							map.data.setStyle({
-								fillColor: 'red',
-								strokeWeight: 2
-							})
+							mrkr.polygons.powiat_id.features[0].properties.color = 'yellow';
+							mrkr.polygons.powiat_id.features[0].properties.rank = '15';
 						}
+
+						map.data.setStyle(function (feature) {
+							var color = feature.getProperty('color') || 'gray';
+							console.log(color);
+							return ({
+								fillColor: color,
+								strokeColor: color,
+								strokeWeight: 2
+							});
+						});
 					}
 
-					var bounds = new google.maps.LatLngBounds();
+					var markerBounds = new google.maps.LatLngBounds();
 					for (var i = 0; i < markers.length; i++) {
-						bounds.extend(markers[i].getPosition());
+						markerBounds.extend(markers[i].getPosition());
 					}
 
-					map.fitBounds(bounds);
+					//map.fitBounds(markerBounds);
 				},
 				error: function (error) {
 					alerts(error, 'alert-danger')
@@ -172,6 +176,17 @@ $(document).ready(function () {
 				$('<span></span>').attr('aria-hidden', 'true').html('&times;')
 			)
 		);
+		if (cls.indexOf("lert-lookingPosition") > -1) {
+			alrts.append(
+				$('<div></div>').addClass('spinner grey margin-bottom-0').append(
+					$('<div></div>').addClass('bounce1')
+				).append(
+					$('<div></div>').addClass('bounce2')
+				).append(
+					$('<div></div>').addClass('bounce3')
+				)
+			)
+		}
 
 		if (main.find('.alert').length == 0) {
 			main.append(alrts);
@@ -185,9 +200,9 @@ $(document).ready(function () {
 	border.setMap(map);
 	map.fitBounds(bounds);
 
-	map.setOptions({
+	/*map.setOptions({
 		minZoom: map.getZoom()
-	});
+	 });*/
 
 	var localizer = new Localizer();
 	$('#localizeMe').click(function () {
