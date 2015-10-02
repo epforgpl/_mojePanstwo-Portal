@@ -365,6 +365,27 @@ $description =
 
     } ?>
 
+    <? if ($obszary = $object->getPage('obszary_dzialan')) { ?>
+        <? if(is_array($obszary) && count($obszary)) { ?>
+
+            <div class="block block-simple col-xs-12" style="margin-top: -2px; margin-bottom: 15px;">
+                <header>
+                    <div class="sm">Obszary działań</div>
+                </header>
+                <section>
+                    <ul class="list-group">
+                        <? foreach ($obszary as $obszar) { ?>
+                            <li class="list-group-item">
+                                <?= ucfirst($obszar['label']); ?>
+                            </li>
+                        <? } ?>
+                    </ul>
+                </section>
+            </div>
+
+        <? } ?>
+    <? } ?>
+
 </div>
 </div>
 
