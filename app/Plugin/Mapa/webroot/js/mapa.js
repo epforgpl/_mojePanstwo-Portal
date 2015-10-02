@@ -149,7 +149,7 @@ $(document).ready(function () {
 					map.fitBounds(markerBounds);
 				},
 				error: function (error) {
-					alerts(error, 'alert-danger')
+					alerts(mPHeart.translation.LC_FINANSE_POSITION_CANNOT_TEMPORARY + " (" + error.statusText + ")", 'alert-danger')
 				},
 				complete: function () {
 					$('.dataBrowserContent .alert.alert-lookingPosition').remove();
