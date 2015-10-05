@@ -10,6 +10,10 @@ class ObjectUsersManagement extends AppModel {
         $this->request = $request;
     }
 
+    public function getUserObjects() {
+        return $this->getDataSource()->request('paszport/user/getObjects.json');
+    }
+
     public function index() {
         return $this->getResponse('index', array(
             'method' => 'GET'
