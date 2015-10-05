@@ -36,7 +36,7 @@ $docs = $uchwala->getLayer('docs');
                     ?>
                     <p class="margin-sides-5 margin-top-20">
                         <a href="dane/gminy/903,krakow/druki/<?= $uchwala->getLayers('druki')[0] ?>"><span
-                                class="glyphicon glyphicon-link"></span> Zobacz proces legislacyjny.</a>
+                                class="glyphicon glyphicon-link"></span> Zobacz proces legislacyjny</a>
                     </p>
                 <?
                 } ?>

@@ -312,10 +312,10 @@ if ($okreg) {
             <? if ($powiazania['miejsce_pracy_html'] != '') { ?>
                 <ul class="dataHighlights rightColumn dane_radnego margin-top-10">
                     <li class="dataHighlight col-xs-12 dane_radnego">
-                        <p class="_label">
+                        <p class="title">
                             Miejsce pracy i zajmowane stanowiska:</p>
 
-                        <p class="_value">
+                        <p class="dane_majatkowe">
                             <?= $powiazania['miejsce_pracy_html']; ?>
                         </p>
                     </li>
@@ -324,9 +324,9 @@ if ($okreg) {
             <? if ($powiazania['dg_sc'] != '') { ?>
                 <ul class="dataHighlights rightColumn dane_radnego margin-top-10">
                     <li class="dataHighlight col-xs-12 dane_radnego">
-                        <p class="_label">Działalność gospodarcza i spółki cywilne:</p>
+                        <p class="title">Działalność gospodarcza i spółki cywilne:</p>
 
-                        <p class="_value">
+                        <p class="dane_majatkowe">
 
                             <?= $powiazania['dg_sc']; ?>
                         </p>
@@ -336,9 +336,9 @@ if ($okreg) {
             <? if ($powiazania['spolki_handlowe'] != '') { ?>
                 <ul class="dataHighlights rightColumn dane_radnego margin-top-10">
                     <li class="dataHighlight col-xs-12 dane_radnego">
-                        <p class="_label">Spółki handlowe:</p>
+                        <p class="title">Spółki handlowe:</p>
 
-                        <p class="_value">
+                        <p class="dane_majatkowe">
 
                             <?= $powiazania['spolki_handlowe']; ?>
                         </p>
@@ -348,9 +348,9 @@ if ($okreg) {
             <? if ($powiazania['udzialy_w_spolkach_z_udzialem_gminy'] != '') { ?>
                 <ul class="dataHighlights rightColumn dane_radnego margin-top-10">
                     <li class="dataHighlight col-xs-12 dane_radnego">
-                        <p class="_label">Udziały w spółkach z udziałem gminy:</p>
+                        <p class="title">Udziały w spółkach z udziałem gminy:</p>
 
-                        <p class="_value">
+                        <p class="dane_majatkowe">
                             <?= $powiazania['udzialy_w_spolkach_z_udzialem_gminy']; ?>
                         </p>
                     </li>
@@ -359,9 +359,9 @@ if ($okreg) {
             <? if ($powiazania['akcje_spolek'] != '') { ?>
                 <ul class="dataHighlights rightColumn dane_radnego margin-top-10">
                     <li class="dataHighlight col-xs-12 dane_radnego">
-                        <p class="_label">Posiadane akcje spółek:</p>
+                        <p class="title">Posiadane akcje spółek:</p>
 
-                        <p class="_value">
+                        <p class="dane_majatkowe">
                             <?= $powiazania['akcje_spolek']; ?>
                         </p>
                     </li>
@@ -370,9 +370,9 @@ if ($okreg) {
             <? if ($powiazania['czlonek_zarzadu'] != '') { ?>
                 <ul class="dataHighlights rightColumn dane_radnego margin-top-10">
                     <li class="dataHighlight col-xs-12 dane_radnego">
-                        <p class="_label">Członek zarządu w spółkach:</p>
+                        <p class="title">Członek zarządu w spółkach:</p>
 
-                        <p class="_value">
+                        <p class="dane_majatkowe">
                             <?= $powiazania['czlonek_zarzadu']; ?>
                         </p>
                     </li>
@@ -381,9 +381,9 @@ if ($okreg) {
             <? if ($powiazania['rady_nadzorcze'] != '') { ?>
                 <ul class="dataHighlights rightColumn dane_radnego margin-top-10">
                     <li class="dataHighlight col-xs-12 dane_radnego">
-                        <p class="_label">Członek rady nadzorczej w spółkach:</p>
+                        <p class="title">Członek rady nadzorczej w spółkach:</p>
 
-                        <p class="_value">
+                        <p class="dane_majatkowe">
                             <?= $powiazania['rady_nadzorcze']; ?>
                         </p>
                     </li>
@@ -392,9 +392,9 @@ if ($okreg) {
             <? if ($powiazania['komisje_rewizyjne'] != '') { ?>
                 <ul class="dataHighlights rightColumn dane_radnego margin-top-10">
                     <li class="dataHighlight col-xs-12 dane_radnego">
-                        <p class="_label">Członek komisji rewizyjnej w spółkach:</p>
+                        <p class="title">Członek komisji rewizyjnej w spółkach:</p>
 
-                        <p class="_value">
+                        <p class="dane_majatkowe">
                             <?= $powiazania['komisje_rewizyjne']; ?>
                         </p>
                     </li>
@@ -403,9 +403,9 @@ if ($okreg) {
             <? if ($powiazania['rada_dzielnicy'] != '') { ?>
                 <ul class="dataHighlights rightColumn dane_radnego margin-top-10">
                     <li class="dataHighlight col-xs-12 dane_radnego">
-                        <p class="_label">Radny dzielnicy:</p>
+                        <p class="title">Radny dzielnicy:</p>
 
-                        <p class="_value">
+                        <p class="dane_majatkowe">
                             <?= $powiazania['rada_dzielnicy']; ?>
                         </p>
                     </li>
