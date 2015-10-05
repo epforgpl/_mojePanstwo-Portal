@@ -117,24 +117,28 @@ $(document).ready(function () {
 							map.data.addGeoJson(mrkr.polygons.wojewodztwo_id);
 						}
 
-						if (typeof mrkr.polygons.gmina_id !== "undefined") {
-							mrkr.polygons.gmina_id.features[0].properties.color = 'blue';
-							map.data.addGeoJson(mrkr.polygons.gmina_id);
-						}
-
 						if (typeof mrkr.polygons.powiat_id !== "undefined") {
 							mrkr.polygons.powiat_id.features[0].properties.color = 'yellow';
 							map.data.addGeoJson(mrkr.polygons.powiat_id);
+						}
+
+						if (typeof mrkr.polygons.gmina_id !== "undefined") {
+							mrkr.polygons.gmina_id.features[0].properties.color = 'blue';
+							map.data.addGeoJson(mrkr.polygons.gmina_id);
 						}
 
 						map.data.setStyle(function (feature) {
 							var color = feature.getProperty('color') || 'gray';
 							return ({
 								fillColor: color,
+								fillOpacity: 0.2,
 								strokeColor: color,
-								strokeWeight: 2
+								strokeWeight: 2,
+								strokeOpacity: 0.4
 							});
 						});
+
+						detailWindow(mrkr)
 					}
 
 					var markerBounds = new google.maps.LatLngBounds();
@@ -145,7 +149,7 @@ $(document).ready(function () {
 					map.fitBounds(markerBounds);
 				},
 				error: function (error) {
-					alerts(error, 'alert-danger')
+					alerts(mPHeart.translation.LC_FINANSE_POSITION_CANNOT_TEMPORARY + " (" + error.statusText + ")", 'alert-danger')
 				},
 				complete: function () {
 					$('.dataBrowserContent .alert.alert-lookingPosition').remove();
@@ -158,12 +162,7 @@ $(document).ready(function () {
 		var alrts = $('<div></div>'),
 			main = $('.dataBrowserContent');
 
-		alrts.addClass('alert alert-dismissible ' + cls).attr('role', 'alert').css({
-			'position': 'absolute',
-			'top': 0,
-			'left': '50%',
-			'z-index': 2
-		}).text(msg).append(
+		alrts.addClass('alert alert-dismissible ' + cls).attr('role', 'alert').text(msg).append(
 			$('<button></button>').addClass('close').attr({
 				'type': 'button',
 				'data-dismiss': 'alert',
@@ -190,6 +189,118 @@ $(document).ready(function () {
 			main.find('alert').after(alrts)
 		}
 		alrts.css('margin-left', -(alrts.outerWidth() / 2));
+	}
+
+	function detailWindow(marker) {
+		var main = $('.dataBrowserContent'),
+			data = marker.data,
+			adres = '',
+			location = marker.locations[0].location,
+			dtlWnd = $('<div></div>').addClass('mapaDetailWindow').append(
+				$('<ul></ul>').addClass('info')
+			).append(
+				$('<ul></ul>').addClass('geo')
+			);
+
+		if (typeof data['miejsca.wojewodztwo_id'] !== undefined) {
+			dtlWnd.find('ul.info').append(
+				$('<li></li>').append(
+					$('<label></label>').text(mPHeart.translation.LC_FINANSE_DETAILWINDOW_WOJEWODZTWO)
+				).append(
+					$('<a></a>').attr({
+						'href': '/dane/wojewodztwa/' + data['miejsca.wojewodztwo_id'],
+						'target': 'blank'
+					}).text(data['miejsca.wojewodztwo'])
+				)
+			);
+			adres = data['miejsca.wojewodztwo'];
+		}
+		if (typeof data['miejsca.powiat_id'] !== undefined) {
+			dtlWnd.find('ul.info').append(
+				$('<li></li>').append(
+					$('<label></label>').text(mPHeart.translation.LC_FINANSE_DETAILWINDOW_POWIAT)
+				).append(
+					$('<a></a>').attr({
+						'href': '/dane/powiaty/' + data['miejsca.powiat_id'],
+						'target': 'blank'
+					}).text(data['miejsca.powiat'])
+				)
+			);
+			adres = data['miejsca.powiat'];
+		}
+		if (typeof data['miejsca.gmina_id'] !== undefined) {
+			dtlWnd.find('ul.info').append(
+				$('<li></li>').append(
+					$('<label></label>').text(mPHeart.translation.LC_FINANSE_DETAILWINDOW_GMINA)
+				).append(
+					$('<a></a>').attr({
+						'href': '/dane/gminy/' + data['miejsca.gmina_id'],
+						'target': 'blank'
+					}).text(data['miejsca.gmina'])
+				)
+			);
+			adres = data['miejsca.gmina'];
+		}
+		if (typeof data['miejsca.miejscowosc_id'] !== undefined) {
+			dtlWnd.find('ul.info').append(
+				$('<li></li>').append(
+					$('<label></label>').text(mPHeart.translation.LC_FINANSE_DETAILWINDOW_MIEJSCOWOSC)
+				).append(
+					$('<span></span>').text(data['miejsca.miejscowosc'])
+				)
+			);
+			adres += ', ' + data['miejsca.miejscowosc'];
+		}
+
+		if (typeof data['miejsca.ulica'] !== undefined) {
+			dtlWnd.find('ul.info').append(
+				$('<li></li>').append(
+					$('<label></label>').text(mPHeart.translation.LC_FINANSE_DETAILWINDOW_ULICA)
+				).append(
+					$('<span></span>').text(data['miejsca.ulica'])
+				)
+			);
+			adres += ', ' + data['miejsca.ulica'];
+		}
+
+		if (typeof data['miejsca.ulica_id'] !== undefined) {
+			dtlWnd.find('ul.info').append(
+				$('<li></li>').append(
+					$('<label></label>').text(mPHeart.translation.LC_FINANSE_DETAILWINDOW_ULICA_NUMER)
+				).append(
+					$('<span></span>').text(data['miejsca.ulica_id'])
+				)
+			);
+			adres += ' ' + data['miejsca.ulica_id'];
+		}
+
+		dtlWnd.find('ul.geo').append(
+			$('<li></li>').append(
+				$('<label></label>').text(mPHeart.translation.LC_FINANSE_DETAILWINDOW_GEO_POSITION)
+			).append(
+				$('<span></span>').append(
+					$('<p></p>').html('<small>' + mPHeart.translation.LC_FINANSE_DETAILWINDOW_GEO_POSITION_LAT + '</small>: ' + location.lat)
+				).append(
+					$('<p></p>').html('<small>' + mPHeart.translation.LC_FINANSE_DETAILWINDOW_GEO_POSITION_LON + '</small>: ' + location.lon)
+				)
+			)
+		).append(
+			$('<li></li>').append(
+				$('<label></label>').text(mPHeart.translation.LC_FINANSE_DETAILWINDOW_ADDRESSES)
+			).append(
+				$('<a></a>').attr({
+					'href': '/mapa?q=' + adres,
+					'target': 'blank'
+				}).append(
+					$('<span></span>').text(adres)
+				)
+			)
+		);
+
+		if (main.find('.mapaDetailWindow').length != 0) {
+			main.find('.mapaDetailWindow').remove();
+		}
+		main.append(dtlWnd);
 	}
 
 	map = new google.maps.Map(document.getElementById('mapa'), options);

@@ -8,6 +8,55 @@
         margin-right: 0;
         position: relative;
 
+        > .alert {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            z-index: 2;
+        }
+
+        > .mapaDetailWindow {
+            background-color: #fff;
+            left: 10px;
+            padding: 10px;
+            position: absolute;
+            top: 10px;
+            width: 240px;
+            z-index: 2;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+
+            > ul {
+                list-style: none;
+                padding: 0 0 10px 0;
+                margin-bottom: 5px;
+                border-bottom: 1px solid #ededed;
+
+                &:last-child {
+                    padding-bottom: 0;
+                    margin-bottom: 0;
+                    border-bottom: 0;
+                }
+
+                > li {
+                    display: inline-block;
+                    margin: 3px 0;
+                    width: 100%;
+
+                    > label {
+                        width: 100%;
+                        margin: 0;
+                        font-size: 0.85em;
+                    }
+
+                    p {
+                        margin-bottom: 2px;
+                    }
+                }
+            }
+        }
+
         > #mapa {
             width: 100%;
         }
