@@ -89,7 +89,7 @@ $(document).ready(function () {
 			async: false,
 			success: function (res) {
 
-				if (res.type == 'poly') {
+				if (res.type == 'polygon') {
 					layers[res.layer] = {};
 					$.each(res.dane, function (k, v) {
 						var path = google.maps.geometry.encoding.decodePath(v['spat']);
@@ -138,20 +138,50 @@ $(document).ready(function () {
 					});
 				}
 				if (res.type == 'mixed') {
-					/*
+
 					layers[res.layer] = {};
 					$.each(res.dane, function (k, v) {
-						var path = google.maps.geometry.encoding.decodePath(v['spat']);
+						var i=0;
+						//var color=
+						if(v['type']=='polyline') {
+							var path = google.maps.geometry.encoding.decodePath(v['spat']);
 
-						layers[res.layer][v['id']] = new google.maps.Polyline({
-							path: path,
-							strokeColor: layers_colors[res.layer][v['id']],
-							strokeOpacity: 0.5,
-							strokeWeight: 1,
-							clickable: false
-						});
+							layers[res.layer][v['id']] = new google.maps.Polyline({
+								path: path,
+								strokeColor: layers_colors[res.layer][v['id']],
+								strokeOpacity: 0.5,
+								strokeWeight: 1,
+								clickable: false
+							});
+						}
+						if(v['type']=='polygon') {
+							var path = google.maps.geometry.encoding.decodePath(v['spat']);
+
+							layers[res.layer][v['id']] = new google.maps.Polygon({
+								path: path,
+								fillColor: layers_colors[res.layer][v['id']],
+								fillOpacity: .2,
+								strokeOpacity: .5,
+								strokeColor: layers_colors[res.layer][v['id']],
+								strokeWeight: 1,
+								clickable: false
+							});
+						}
+						if(v['type']=='marker'){
+
+							var latlang = v['latlng'].split(',');
+							var lang = parseFloat(latlang[0]);
+							var lat = parseFloat(latlang[1]);
+
+							layers[res.layer][key][k] = new google.maps.Marker({
+								position: new google.maps.LatLng(lat,lang),
+								title: v['etykieta'],
+								label: v['etykieta']
+							});
+						}
+						i++;
 					});
-					*/
+
 				}
 			},
 			error: function (xhr) {

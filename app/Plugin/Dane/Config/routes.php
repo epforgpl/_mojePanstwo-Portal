@@ -80,6 +80,8 @@ Router::connect('/dane/:dataset/:object_id/users/index', array('plugin' => 'Dane
 Router::connect('/dane/:dataset/:object_id/users/:user_id', array('plugin' => 'Dane', 'controller' => 'ObjectUsersManagement', 'action' => 'edit', '[method]' => 'PUT'), array('dataset' => '([a-zA-Z\_]+)', 'object_id' => '[0-9]+', 'user_id' => '[0-9]+'));
 Router::connect('/dane/:dataset/:object_id/users/:user_id', array('plugin' => 'Dane', 'controller' => 'ObjectUsersManagement', 'action' => 'delete', '[method]' => 'DELETE'), array('dataset' => '([a-zA-Z\_]+)', 'object_id' => '[0-9]+', 'user_id' => '[0-9]+'));
 
+Router::connect('/dane/getUserObjects', array('plugin' => 'Dane', 'controller' => 'ObjectUsersManagement', 'action' => 'getUserObjects', '[method]' => 'GET'));
+
 # ObjectPagesManagement
 Router::connect('/dane/:dataset/:object_id/page/logo', array('plugin' => 'Dane', 'controller' => 'ObjectPagesManagement', 'action' => 'setLogo', '[method]' => 'POST'), array('dataset' => '([a-zA-Z\_]+)', 'object_id' => '[0-9]+'));
 Router::connect('/dane/:dataset/:object_id/page/logo', array('plugin' => 'Dane', 'controller' => 'ObjectPagesManagement', 'action' => 'deleteLogo', '[method]' => 'DELETE'), array('dataset' => '([a-zA-Z\_]+)', 'object_id' => '[0-9]+'));
@@ -174,7 +176,7 @@ foreach ($map as $m) {
         'id' => '([0-9]+)',
         'pass' => $pass,
     ));
-    
+
     Router::connect('/dane/:controller' . $m['pattern'], array(
         'plugin' => 'Dane',
         'action' => 'view',
@@ -182,7 +184,7 @@ foreach ($map as $m) {
         'id' => '([0-9]+)',
         'pass' => $pass,
     ));
-    
+
     Router::connect('/dane/:controller' . $m['pattern'] . '/dzialania/nowe', array(
         'plugin' => 'Dane',
         'action' => 'dzialania_nowe',
@@ -190,7 +192,7 @@ foreach ($map as $m) {
         'id' => '([0-9]+)',
         'pass' => $pass,
     ));
-	
+
     Router::connect('/dane/:controller' . $m['pattern'] . '/:action', array(
         'plugin' => 'Dane',
     ), array(
@@ -207,7 +209,7 @@ foreach ($map as $m) {
         'subid' => '([0-9]+)',
         'pass' => $pass,
     ));
-    
+
     Router::connect('/dane/:controller' . $m['pattern'] . '/:action/:subid,', array(
         'plugin' => 'Dane',
     ), array(
@@ -216,7 +218,7 @@ foreach ($map as $m) {
         'subid' => '([0-9]+)',
         'pass' => $pass,
     ));
-    
+
     Router::connect('/dane/:controller' . $m['pattern'] . '/:action/:subid,:subslug', array(
         'plugin' => 'Dane',
     ), array(
@@ -246,7 +248,7 @@ foreach ($map as $m) {
         'subsubid' => '([0-9]+)',
         'pass' => $pass,
     ));
-    
+
     Router::connect('/dane/:controller' . $m['pattern'] . '/:action/:subid/:subaction/:subsubid,', array(
         'plugin' => 'Dane',
     ), array(
@@ -257,7 +259,7 @@ foreach ($map as $m) {
         'subsubid' => '([0-9]+)',
         'pass' => $pass,
     ));
-    
+
     Router::connect('/dane/:controller' . $m['pattern'] . '/:action/:subid/:subaction/:subsubid,:subsubslug', array(
         'plugin' => 'Dane',
     ), array(

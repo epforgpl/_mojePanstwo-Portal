@@ -17,7 +17,7 @@ $object_id = $object->getId();
 </div>
 
 <div class="modal fade" id="collectionsModal" tabindex="-1" role="dialog" aria-labelledby="collectionsModalLabel"
-     aria-hidden="true">
+     aria-hidden="true" data-object-title="<?= $object->getTitle(); ?>">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -37,6 +37,8 @@ $object_id = $object->getId();
                             </div>
 
                             <div class="list-group"></div>
+
+                            <div class="ManageAsComponent margin-top-10"></div>
 
                         </div>
 

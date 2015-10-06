@@ -57,6 +57,7 @@
             }
 
             .list-group {
+
                 overflow: hidden;
                 overflow-y: scroll;
                 max-height: 200px;
@@ -91,10 +92,10 @@
                     }
 
                     &.empty {
-						
+
 						text-align: center;
 						color: #777;
-						
+
                         &:hover {
                             cursor: default;
                             background: #fff;
@@ -115,6 +116,16 @@
                     &:hover {
                         background: #f3f3f3;
                     }
+
+                    .belongs {
+                        float: right;
+                        font-size: 12px;
+                        color: #666;
+                    }
+                }
+
+                .btn-group > button {
+                    width: auto;
                 }
             }
 

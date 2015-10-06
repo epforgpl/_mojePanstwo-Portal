@@ -1,10 +1,71 @@
 
 $(document).ready(function() {
 
+	var ManageAsComponent = function($this) {
+		this.$this = $this;
+		this.create();
+	};
+
+	ManageAsComponent.prototype = {
+
+		constructor: ManageAsComponent,
+		objects: null,
+
+		create: function() {
+			var _this = this, h = [
+				'<span>',
+					'Zarządzaj jako ',
+				'</span>',
+				'<select class="form-control">',
+					'<option>',
+						mPHeart.username,
+					'</option>'
+			];
+
+			this.getObjects(function() {
+
+				_this.objects.forEach(function(obj) {
+					h.push([
+						'<option>',
+							obj.objects.slug,
+						'</option>'
+					].join(''));
+				});
+				h.push('</select>');
+
+				_this.$this.html(
+					h.join('')
+				);
+
+				_this.$this.find('select').change(function() {
+					console.log($(this));
+				});
+
+			});
+		},
+
+		getObjects: function(onSuccess) {
+			var _this = this;
+			if(this.objects != null) {
+				onSuccess();
+			} else {
+				$.get('/dane/getUserObjects.json', function(res) {
+					if(res.response) {
+						_this.objects = res.response;
+						onSuccess();
+					}
+				});
+			}
+		}
+
+	};
+
 	var modal = $('#collectionsModal'),
 		name = $('#collectionName'),
 		header = $('.appHeader.dataobject').first(),
 		id = header.data('global-id'),
+		title = modal.data('object-title'),
+		manageAs = 'user',
 		data = [],
 		list = modal.find('.list-group').first(),
 		loading = false,
@@ -50,7 +111,7 @@ $(document).ready(function() {
 				if(data.hasOwnProperty(i)) {
 					var row = data[i].Collection;
 					if(nameStr.length === 0 || (nameStr.length && row.name.toLowerCase().indexOf(nameStr.toLowerCase()) > -1)) {
-						h.push('<button type="button" data-collection-id="' + row.id + '" class="list-group-item ' + (typeof data[i].CollectionObject != 'undefined' && typeof data[i].CollectionObject.object_id == 'string' ? 'checked' : 'unchecked') + '"><i class="glyphicon glyphicon-ok" aria-hidden="true"></i><i class="glyphicon glyphicon-folder-open" aria-hidden="true"></i> ' + row.name + '</button>');
+						h.push('<button type="button" data-collection-id="' + row.id + '" class="list-group-item ' + (typeof data[i].CollectionObject != 'undefined' && typeof data[i].CollectionObject.object_id == 'string' ? 'checked' : 'unchecked') + '"><i class="glyphicon glyphicon-ok" aria-hidden="true"></i><i class="glyphicon glyphicon-folder-open" aria-hidden="true"></i> ' + row.name + '<span class="belongs">' + (typeof data[i].Object != 'undefined' && typeof data[i].Object.slug == 'string' ? data[i].Object.slug : mPHeart.username.toLowerCase()) + '</span></button>');
 					}
 				}
 			}
@@ -132,6 +193,12 @@ $(document).ready(function() {
 	name.keyup(function() {
 		nameStr = $(this).val().trim();
 		updateList();
+	});
+
+	$('.ManageAsComponent').each(function() {
+		new ManageAsComponent(
+			$(this)
+		);
 	});
 
 });
