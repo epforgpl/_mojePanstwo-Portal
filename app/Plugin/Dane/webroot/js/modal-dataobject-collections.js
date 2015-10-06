@@ -14,7 +14,7 @@ $(document).ready(function() {
 		create: function() {
 			var _this = this, h = [
 				'<span>',
-					'Zarządzaj jako ',
+					'Zarządzaj jako:',
 				'</span>',
 				'<select class="form-control">',
 					'<option>',
