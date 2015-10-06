@@ -7,14 +7,16 @@ class Mapa extends AppModel
 
     public $useDbConfig = 'mpAPI';
 
-    public function geocode($q)
+    public function geodecode($lat, $lon)
     {
 
-        $res = $this->getDataSource()->request('Mapa/geocode?q=' . urlencode($q), array(
+        return $this->getDataSource()->request('Mapa/geodecode', array(
             'method' => 'GET',
+            'data' => array(
+	            'lat' => $lat,
+	            'lon' => $lon,
+            ),
         ));
-
-        return $res;
 
     }
 	
