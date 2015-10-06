@@ -10,6 +10,11 @@ class ObjectUsersManagementController extends AppController {
         $this->ObjectUsersManagement->setRequest($request);
     }
 
+    public function getUserObjects() {
+        $response = $this->ObjectUsersManagement->getUserObjects();
+        $this->setResponse($response);
+    }
+
     public function index() {
         $response = $this->ObjectUsersManagement->index();
         $this->setResponse($response);

@@ -39,6 +39,7 @@ class Dataobject
 
     public function __construct($params = array(), $options = array())
     {
+	    	    
 		$this->options = $options;
         $this->data = $params['data'];
         $this->layers = isset( $params['layers'] ) ? $params['layers'] : array();
@@ -47,7 +48,7 @@ class Dataobject
         $this->object_id = $params['global_id'];
         $this->global_id = $params['global_id'];
         $this->slug = $params['slug'];
-
+				
 		if (isset($params['static']))
             $this->static = $params['static'];
 
@@ -127,7 +128,12 @@ class Dataobject
 			$output[] = $this->getDataset();
 		return $output;
 	}
-
+	
+	public function getLayers()
+	{
+		return $this->layers;
+	}
+	
     public function getLayer($layer)
     {
         return array_key_exists($layer, $this->layers) ? $this->layers[$layer] : false;

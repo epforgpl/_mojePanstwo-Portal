@@ -6,9 +6,6 @@ $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.view-gminy');
 
-if($object->getPage()) {
-    $this->Combinator->add_libs('css', $this->Less->css('radny_details', array('plugin' => 'PrzejrzystyKrakow')));
-}
 ?>
 
 <?php if ($object->getId() == '903') {

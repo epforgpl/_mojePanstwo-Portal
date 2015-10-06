@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: tomaszdrazewski
@@ -12,7 +13,13 @@ class MapLayers extends AppModel
 
     public function get_layer($type)
     {
-        $data = $this->getDataSource()->request('mapa_krakow/'.$type);
+        $data = $this->getDataSource()->request('mapa_krakow/layers/',
+            array(
+                'method' => 'GET',
+                'data' => array(
+                    'type' => $type
+                )
+            ));
         return $data;
     }
 }

@@ -1,6 +1,7 @@
 <? $this->Combinator->add_libs('js', 'suggester.js'); ?>
 <form action="<?= @$dataBrowser['searchAction'] ? $dataBrowser['searchAction'] : '' ?>" method="get"
       class="form-horizontal suggesterBlock row col-xs-12">
+	<? if( isset($widget) ) {?><input type="hidden" name="widget" value="true" /><? } ?>
     <div class="searcher form-group has-feedback">
         <div class="col-md-12">
             <div class="input-group">

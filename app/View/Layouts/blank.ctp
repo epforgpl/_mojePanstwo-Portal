@@ -110,23 +110,29 @@
 
 <div id="_wrapper">
     <?php echo $this->Element('flash'); ?>
-    <?php echo $this->Element('cockpit'); ?>
-    <div id="_main">
+    <div id="_main" style="padding-left: 0;">
         <?php
         if ($domainMode == 'PK')
             echo $this->Element('PrzejrzystyKrakow.pkrk-header');
-
+		
+		/*
         if (isset($_layout['header']) && !empty($_layout['header'])) {
             echo $this->Element('headers/' . $_layout['header']['element']);
-        } ?>
-
+        }
+		*/
+		
+		?>
+		
         <?php echo $content_for_layout; ?>
 
 
     </div>
-    <?php if (isset($_layout['footer']) && !empty($_layout['footer']))
-        echo $this->Element('footers/' . $_layout['footer']['element']);
-    echo $this->Element('footers/cookie'); ?>
+    <?php
+		/*    
+	    if (isset($_layout['footer']) && !empty($_layout['footer']))
+        	echo $this->Element('footers/' . $_layout['footer']['element']);
+		*/
+    ?>
 </div>
 
 <?php /* GOOGLE ANALYTIC */ ?>
@@ -174,7 +180,6 @@ echo $this->Html->script('../plugins/bootstrap-switch/dist/js/bootstrap-switch.m
             }
         },
         user_id: '<?= AuthComponent::user('id'); ?>',
-        username: '<?= AuthComponent::user('username'); ?>',
         language: {
             twoDig: "<?php switch (Configure::read('Config.language')) { case 'pol': echo "pl"; break; case 'eng': echo "en"; break; }  ?>",
             threeDig: "<?php echo Configure::read('Config.language'); ?>",

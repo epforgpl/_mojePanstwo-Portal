@@ -21,7 +21,7 @@ $this->Combinator->add_libs('js', 'Dane.DataAggsDropdown.js');
             </div>
             <div class="modal-body">
 
-                <? if( isset($dataBrowser['api_call']) ) {?>
+                <? if (isset($dataBrowser['api_call'])) { ?>
 
                     <p>Aby pobrać dane widoczne na tym ekranie, wyślij żądanie HTTP GET pod adres:</p>
 
@@ -47,32 +47,32 @@ if ($dataBrowser['mode'] == 'cover') {
 
     $params = $this->Paginator->params();
 
-	$displayAggs = $displayAggs &&
-	(
-		!empty($sideElement) ||
-		!empty($app_chapters) ||
-		!empty($menu)
-	);
+    $displayAggs = $displayAggs &&
+        (
+            !empty($sideElement) ||
+            !empty($app_chapters) ||
+            !empty($menu)
+        );
 
-	$dataWrap = false;
+    $dataWrap = false;
 
     ?>
 
     <?
-	if (($displayAggs && !empty($dataBrowser['aggs'])) || (isset($app_chapters) && $app_chapters) ) {
-	    $dataWrap = true;
-    ?>
+    if (($displayAggs && !empty($dataBrowser['aggs'])) || (isset($app_chapters) && $app_chapters)) {
+        $dataWrap = true;
+        ?>
 
 
         <div class="col-md-<?= $columns[1] ?> col-xs-12 dataAggsContainer">
 
-            <? if( isset($sideElement) ) echo $this->Element($sideElement) ?>
+            <? if (isset($sideElement)) echo $this->Element($sideElement) ?>
 
-            <?  if( isset($app_chapters) ) {
+            <? if (isset($app_chapters)) {
 
-	            echo $this->Element('Dane.DataBrowser/app_chapters');
+                echo $this->Element('Dane.DataBrowser/app_chapters');
 
-	        } elseif(isset($menu) && isset($menu['items'])) {
+            } elseif (isset($menu) && isset($menu['items'])) {
 
                 echo $this->Element('Dane.DataBrowser/browser-menu', array(
                     'menu' => $menu,
@@ -86,16 +86,16 @@ if ($dataBrowser['mode'] == 'cover') {
 
     <div class="col-xs-12 col-sm-<?= isset($forceHideAggs) ? 12 : ($displayAggs ? $columns[0] : 9) ?>">
 
-        <div class="<? if($dataWrap) {?>dataWrap <? } ?>margin-top-10">
+        <div class="<? if ($dataWrap) { ?>dataWrap <? } ?>margin-top-10">
 
-			<?
-	            if( isset($dataBrowser['beforeBrowserElement']) )
-		            echo $this->element($dataBrowser['beforeBrowserElement']);
-		    ?>
+            <?
+            if (isset($dataBrowser['beforeBrowserElement']))
+                echo $this->element($dataBrowser['beforeBrowserElement']);
+            ?>
 
             <?= $this->element('Dane.DataBrowser/browser-content-filters', array(
-            	'paging' => $params,
-            	'paginatorPhrases' => isset($paginatorPhrases) ? $paginatorPhrases : false,
+                'paging' => $params,
+                'paginatorPhrases' => isset($paginatorPhrases) ? $paginatorPhrases : false,
             )) ?>
 
             <div class="dataObjects">
@@ -112,24 +112,24 @@ if ($dataBrowser['mode'] == 'cover') {
                                 <?
 
                                 $params = array();
-                                if( isset($truncate) )
+                                if (isset($truncate))
                                     $params['truncate'] = $truncate;
 
                                 foreach ($dataBrowser['hits'] as $object) {
 
-									if( isset($beforeItemElement) )
-										echo $this->element($beforeItemElement, array(
+                                    if (isset($beforeItemElement))
+                                        echo $this->element($beforeItemElement, array(
                                             'object' => $object
                                         ));
 
                                     echo $this->Dataobject->render($object, $dataBrowser['renderFile'], $params);
 
-                                    if( isset($afterItemElement) )
-										echo $this->element($afterItemElement);
+                                    if (isset($afterItemElement))
+                                        echo $this->element($afterItemElement);
                                 }
                                 ?>
                             </ul>
-                            <?
+                        <?
                         }
                     }
                     ?>
@@ -142,24 +142,27 @@ if ($dataBrowser['mode'] == 'cover') {
                 <ul class="pagination">
                     <?php
 
-                    //$this->MPaginator->options['url'] = array('alias' => 'prawo');
-                    //$this->MPaginator->options['paramType'] = 'querystring';
+                    $this->MPaginator->options['url'] = array('alias' => 'prawo');
+                    $this->MPaginator->options['paramType'] = 'querystring';
 
-                    //echo $this->MPaginator->first('&larr;', array('tag' => 'li', 'escape' => false), '<a href="#">&larr;</a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
-
-
-                    // echo $this->MPaginator->prev('&laquo;', array('tag' => 'li', 'escape' => false), '<a href="#">&laquo;</a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
+                    echo $this->MPaginator->first('<span data-icon="&#xe627;"></span>', array('tag' => 'li', 'escape' => false), '<a href="#"><span data-icon="&#xe627;"></span></a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => true));
+                    echo $this->MPaginator->prev('<span data-icon="&#xe626;"></span>', array('tag' => 'li', 'escape' => false), '<a href="#"><span data-icon="&#xe626;"></span></i></a>' , array('class' => 'prev disabled hidden', 'tag' => 'li', 'escape' => true));
+//
+                    ?></ul>
+                <ul class="pagination"><?
                     echo $this->MPaginator->numbers(array('separator' => '', 'tag' => 'li', 'currentLink' => true, 'currentClass' => 'active', 'currentTag' => 'a'));
-                    // echo $this->MPaginator->next('&raquo;', array('tag' => 'li', 'escape' => false), '<a href="#">&raquo;</a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
-                    //echo $this->MPaginator->last('&rarr;', array('tag' => 'li', 'escape' => false), '<a href="#">&rarr;</a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
+                    ?></ul>
+                <ul class="pagination"><?
+                    echo $this->MPaginator->next('<span data-icon="&#xe625;"></span>', array('tag' => 'li', 'escape' => false), '<a href="#"><span data-icon="&#xe625;"></span></a>', array('class' => 'prev disabled hidden', 'tag' => 'li', 'escape' => false));
+                    echo $this->MPaginator->last('<span data-icon="&#xe628;"></span>', array('tag' => 'li', 'escape' => false), '<a href="#"><span data-icon="&#xe628;"></span></a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
                     ?>
                 </ul>
             </div>
 
             <?
-	            if( isset($dataBrowser['afterBrowserElement']) )
-		            echo $this->element($dataBrowser['afterBrowserElement']);
-		    ?>
+            if (isset($dataBrowser['afterBrowserElement']))
+                echo $this->element($dataBrowser['afterBrowserElement']);
+            ?>
 
         </div>
 
