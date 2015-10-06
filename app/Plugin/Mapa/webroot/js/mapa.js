@@ -157,6 +157,12 @@ $(document).ready(function () {
 			title: 'Obwodowa komisja wyborcza'
 		});
 		
+		if( _sendloadevent ) {
+			try {
+				parent.map_load();
+			} catch(e) {}
+		}
+		
 	}
 		
 	function mapPlace(place) {
