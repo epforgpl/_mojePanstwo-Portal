@@ -27,13 +27,20 @@
                         <? } ?>
                     </td>
                     <td>
-                        <a href="https://twitter.com/<?= $suggestion['TwitterAccountSuggestion']['name']; ?>">
+                        <a href="<?
+
+                            if(strpos($suggestion['TwitterAccountSuggestion']['name'], 'http') === false)
+                                echo 'https://twitter.com/';
+
+                            echo $suggestion['TwitterAccountSuggestion']['name'];
+
+                        ?>">
                             @<?= $suggestion['TwitterAccountSuggestion']['name']; ?>
                         </a>
                     </td>
                     <td>
                         <form id="twitterSuggestionsForm" action="/admin/twitter_accounts/add/<?= $suggestion['TwitterAccountSuggestion']['id'] ?>" method="post">
-                            
+
                             <select name="type" class="form-control pull-left" style="width: inherit;">
                                 <? foreach($types as $id => $type) { ?>
                                     <option value="<?= $id ?>"<? if($id == $suggestion['TwitterAccountSuggestion']['type_id']) echo ' selected="selected"';?>>
@@ -41,7 +48,7 @@
                                     </option>
                                 <? } ?>
                             </select>
-                
+
 	                        <div class="btn-group btn-group-sm pull-right" role="group">
 	                            <input type="submit" class="btn btn-default" value="Dodaj"/>
 	                            <a href="/admin/twitter_accounts/remove/<?= $suggestion['TwitterAccountSuggestion']['id'] ?>" class="btn btn-default">Usuń</a>
