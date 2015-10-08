@@ -89,6 +89,23 @@ class LettersController extends StartAppController {
         }
     }
 
+    public function responses($id, $slug = '')
+    {
+        if($pismo = $this->load($id))
+        {
+            if(!$pismo['is_owner']) {
+                $this->redirect($this->referer());
+                return;
+            }
+
+            $this->title = $this->title . ' - Odpowiedzi';
+
+        } else {
+            $this->set('title_for_layout', 'Pismo nie istnieje lub nie masz do niego dostępu');
+            $this->render('not_found');
+        }
+    }
+
     public function share($id, $slug = '')
     {
         $this->load($id);

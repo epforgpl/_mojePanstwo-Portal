@@ -147,6 +147,30 @@ foreach ($pisma_prefixes as $pisma_prefix) {
     ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id')));
 
 
+    // RESPONSES
+
+    Router::connect("$pisma_prefix/:id,:slug/responses", array(
+        'plugin' => 'Start',
+        'controller' => 'Letters',
+        'action' => 'responses',
+        '[method]' => 'GET'
+    ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id', 'slug')));
+
+    Router::connect("$pisma_prefix/:id/responses", array(
+        'plugin' => 'Start',
+        'controller' => 'Letters',
+        'action' => 'responses',
+        '[method]' => 'GET'
+    ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id')));
+
+    Router::connect("$pisma_prefix/:id,/responses", array(
+        'plugin' => 'Start',
+        'controller' => 'Letters',
+        'action' => 'responses',
+        '[method]' => 'GET'
+    ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id')));
+
+
     // HTML
 
     Router::connect("$pisma_prefix/:id,:slug/html", array(

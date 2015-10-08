@@ -226,6 +226,11 @@
                         </button>
                     </form>
                 </li>
+                <li class="inner-addon">
+                    <a href="<?= $href_base . '/responses' ?>" target="_self"
+                       class="btn btn-success btn-icon"><i
+                            class="icon glyphicon glyphicon-comment"></i>Odpowiedzi</a>
+                </li>
                 <? if (!$pismo['sent']) { ?>
                     <li class="inner-addon">
                         <a href="<?= $href_base . '/edit' ?>" target="_self"
