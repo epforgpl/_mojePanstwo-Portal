@@ -1,32 +1,35 @@
 
 $(document).ready(function() {
 
-	var ManageAsComponent = function($this) {
+	var manageAsComponent;
+
+	var ManageAsComponent = function($this, onChange) {
 		this.$this = $this;
-		this.create();
+		this.create(onChange);
 	};
 
 	ManageAsComponent.prototype = {
 
 		constructor: ManageAsComponent,
 		objects: null,
+		id: 0,
+		label: mPHeart.username,
 
-		create: function() {
+		create: function(onChange) {
 			var _this = this, h = [
 				'<span>',
 					'Zarządzaj jako ',
 				'</span>',
 				'<select class="form-control">',
-					'<option>',
+					'<option value="0">',
 						mPHeart.username,
 					'</option>'
 			];
 
 			this.getObjects(function() {
-
 				_this.objects.forEach(function(obj) {
 					h.push([
-						'<option>',
+						'<option value="' + obj.objects.id + '">',
 							obj.objects.slug,
 						'</option>'
 					].join(''));
@@ -38,7 +41,9 @@ $(document).ready(function() {
 				);
 
 				_this.$this.find('select').change(function() {
-					console.log($(this));
+					_this.id = $(this).val();
+					_this.label = $(this).find("option[value='" + _this.id + "']").text();
+					onChange();
 				});
 
 			});
@@ -103,7 +108,7 @@ $(document).ready(function() {
 
 		var h = [];
 		if(nameStr.length) {
-			h.push('<button type="button" class="list-group-item new-collection"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Utwórz kolekcję: <b>' + nameStr + '</b></button>');
+			h.push('<button type="button" class="list-group-item new-collection"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Utwórz kolekcję: <b>' + nameStr + '</b> jako <b>' + manageAsComponent.label + '</b></button>');
 		}
 
 		if(data.length) {
@@ -170,10 +175,10 @@ $(document).ready(function() {
 			});
 
 		$('button.new-collection').click(function() {
-			//list.html(spinner);
 			loading = true;
 			$.post('/collections/collections/create.json', {
-				name: nameStr
+				name: nameStr,
+				object_id: manageAsComponent.id
 			}, function(res) {
 				if(typeof res.response.Collection != 'undefined') {
 					data.unshift(res.response);
@@ -195,10 +200,10 @@ $(document).ready(function() {
 		updateList();
 	});
 
-	$('.ManageAsComponent').each(function() {
-		new ManageAsComponent(
-			$(this)
-		);
-	});
+	manageAsComponent = new ManageAsComponent(
+		$('.ManageAsComponent').first(), function() {
+			updateList();
+		}
+	);
 
 });

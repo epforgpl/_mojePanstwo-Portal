@@ -628,7 +628,7 @@ class KrsPodmiotyController extends DataobjectsController
             );
         }
 
-        if ($counters['liczba_oddzialow']) {
+        if (isset($counters['liczba_oddzialow'])) {
             $menu['items'][] = array(
                 'id' => 'oddzialy',
                 'label' => 'Oddziały',

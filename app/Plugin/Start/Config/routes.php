@@ -199,6 +199,12 @@ foreach ($pisma_prefixes as $pisma_prefix) {
         'controller' => 'Letters',
         '[method]' => 'GET'
     ));
+
+    Router::connect("$pisma_prefix/szablony/index", array(
+        'plugin' => 'Start',
+        'controller' => 'Letters',
+        'action' => 'templates'
+    ));
 }
 
 
