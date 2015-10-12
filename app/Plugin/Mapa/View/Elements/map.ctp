@@ -97,35 +97,35 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                     <? if ($typ_id > 4) { ?>
                                         <li>
                                             <label>Miejscowość:</label>
-                                            <a href="/mapa/miejsce/<?= $mapParams['data']['gmina_id'] ?>"><?= ($mapParams['data']['miejscowosc']) ?></a>
+                                            <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.miejscowosc_miejsce_id'] ?>"><?= ($mapParams['data']['miejscowosc']) ?></a>
                                         </li>
                                     <? } ?>
 
                                     <? if ($typ_id > 3) { ?>
                                         <li>
                                             <label>Gmina:</label>
-                                            <a href="/mapa/miejsce/<?= $mapParams['data']['gmina_id'] ?>"><?= ($mapParams['data']['gmina']) ?></a>
+                                            <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.gmina_miejsce_id'] ?>"><?= ($mapParams['data']['gmina']) ?></a>
                                         </li>
                                     <? } ?>
 
                                     <? if ($typ_id > 2) { ?>
                                         <li>
                                             <label>Powiat:</label>
-                                            <a href="/mapa/miejsce/<?= $mapParams['data']['powiat_id'] ?>"><?= ($mapParams['data']['powiat']) ?></a>
+                                            <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.powiat_miejsce_id'] ?>"><?= ($mapParams['data']['powiat']) ?></a>
                                         </li>
                                     <? } ?>
 
                                     <? if ($typ_id > 1) { ?>
                                         <li>
                                             <label>Województwo:</label>
-                                            <a href="/mapa/miejsce/<?= $mapParams['data']['wojewodztwo_id'] ?>"><?= strtolower($mapParams['data']['wojewodztwo']) ?></a>
+                                            <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.wojewodztwo_miejsce_id'] ?>"><?= strtolower($mapParams['data']['wojewodztwo']) ?></a>
                                         </li>
                                     <? } ?>
 
                                     <? if (count($mapParams['codes']) === 1) { ?>
                                         <li>
                                             <label>Kod pocztowy:</label>
-                                            <a href="/mapa/"><?= $mapParams['codes'][0]['key'] ?></a>
+                                            <a href="/mapa/<?= $mapParams['codes'][0]['key'] ?>"><?= $mapParams['codes'][0]['key'] ?></a>
                                         </li>
                                     <? } ?>
                                 </ul>

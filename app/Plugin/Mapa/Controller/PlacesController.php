@@ -195,7 +195,7 @@ class PlacesController extends ApplicationsController
 			) {
 				
 				// TODO: calculate max viewport
-				$viewport = $aggs['numery']['viewport']['bounds'];
+				$viewport = $aggs['miejsca']['children']['*']['reverse']['punkty']['viewport']['bounds'];
 				
 			}
 			
