@@ -13,7 +13,7 @@
         $lang = "en-EN";
         break;
 }; ?>
-<?php echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&language=' . $lang, array('block' => 'scriptBlock')); ?>
+<?php echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geometry&sensor=false&language=' . $lang, array('block' => 'scriptBlock')); ?>
 
 <div class="container">
     <div class="row">

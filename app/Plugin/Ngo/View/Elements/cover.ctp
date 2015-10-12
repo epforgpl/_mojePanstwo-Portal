@@ -13,7 +13,7 @@ switch (Configure::read('Config.language')) {
         $lang = "en-EN";
         break;
 };
-echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&language=' . $lang, array('block' => 'scriptBlock'));
+echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geometry&sensor=false&language=' . $lang, array('block' => 'scriptBlock'));
 ?>
 
 <div class="col-xs-12 col-md-3 col-sm-4 dataAggsContainer">
