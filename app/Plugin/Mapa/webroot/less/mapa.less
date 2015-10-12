@@ -1,18 +1,18 @@
 .widget-localize {
-	button {
-		margin-right: 7px;
-	}
-	.txt {
-		position: relative;
-		top: 3px;
-	}
+    button {
+        margin-right: 7px;
+    }
+    .txt {
+        position: relative;
+        top: 3px;
+    }
 }
 
 #_wrapper .dataBrowser > .container {
     width: 100%;
     padding-left: 0;
     padding-right: 0;
-		
+
     > .dataBrowserContent {
         margin-left: 0;
         margin-right: 0;
@@ -21,16 +21,15 @@
 }
 
 #_wrapper footer.footer {
-	display: none;
-	height: 0;
+    display: none;
+    height: 0;
 }
 
 #mapBrowser {
-	
-	min-height: inherit;
-	
-	> .alert {
-            position: absolute;
+    min-height: inherit;
+
+    > .alert {
+        position: absolute;
         top: 15px;
         left: 50%;
         z-index: 2;
@@ -38,12 +37,12 @@
         -moz-box-shadow: 0 5px 10px #AAA;
         -webkit-box-shadow: 0 5px 10px #AAA;
         -o-box-shadow: 0 5px 10px #AAA;
-        
+
         .spinner > div {
             background-color: #79B !important;
         }
     }
-    
+
     > .map {
         width: 100%;
         margin-left: 280px;
@@ -61,7 +60,6 @@
     }
 
     > .details {
-        
         background-color: #f8f9fa;
         left: 0;
         padding: 0;
@@ -69,12 +67,11 @@
         top: 0;
         width: 280px;
         z-index: 2;
-        
+
         box-shadow: 0 5px 10px #AAA;
         -moz-box-shadow: 0 5px 10px #AAA;
         -webkit-box-shadow: 0 5px 10px #AAA;
-        -o-box-shadow: 0 5px 10px #AAA;
-		
+        -o-box-shadow: 0 5px 10px #AAA;		
 		.title {
 			background-color: #FFF;
 			border-bottom: 1px solid #DDD;
@@ -107,63 +104,63 @@
 		}
         
         ul {
-	        
-	        margin: 0;
-	        padding: 7px 15px;
-	        list-style: none;
-	        
-	        li {
-		        margin: 0;
-		        padding: 3px;
-		        list-style: none;
-		        
-		        .dcontent {
-			        
-			        .input-group {
-				        margin: 10px 5px 5px;
-				        .btn {
-					        font-size: 13px;
-				        }
-			        }
-			        
-		        }
-		        
-	        }
-	        
-	        &.main {
-		        
-		        overflow: hidden;
-		        
-	        }
-	        
-	        &.meta {
-		        
-		        border-top: 1px solid #ddd;
-			    margin: -5px 20px 0;
-			    padding: 10px 0;
-			
+            margin: 0;
+            padding: 7px 15px;
+            list-style: none;
+
+            li {
+                margin: 0;
+                padding: 3px;
+                list-style: none;
+
+                .dcontent {
+                    .input-group {
+                        margin: 10px 5px 5px;
+                        .btn {
+                            font-size: 13px;
+                        }
+                    }
+                    > ul {
+                        display: inline-block;
+                        float: left;
+                        height: 90%;
+                        overflow-x: hidden;
+                        overflow-y: auto;
+                        width: 100%;
+                    }
+                }
+            }
+            &.main {
+                overflow: hidden;
+            }
+
+            &.meta {
+                border-top: 1px solid #ddd;
+                margin: -5px 20px 0;
+                padding: 10px 0;
+
                 > li {
                     display: inline-block;
                     margin: 1px 0;
                     width: 100%;
-                    padding: 0px 3px;
+                    padding: 0 3px;
 
                     > label {
                         margin: 7px 0 0;
                         padding: 0;
                         float: left;
                         color: #789;
-					    font-size: 9px;
-					    font-weight: 600;
-					    line-height: 0.75em;
-					    text-transform: uppercase;
+                        font-size: 9px;
+                        font-weight: 600;
+                        line-height: 0.75em;
+                        text-transform: uppercase;
                     }
-                    
+
                     > span, > a {
-	                    margin: 0;
-	                    padding: 0;
-	                    float: right;
-	                    font-weight: 400;
+                        margin: 0;
+                        padding: 0;
+                        float: right;
+                        font-weight: 400;
                         font-size: 13px;
                     }
 
@@ -171,67 +168,9 @@
                         margin-bottom: 2px;
                     }
                 }
-            
-            }
-	        
-        }
-        
-        
-        /*
-        > ul {
-	        
-            list-style: none;
-            padding: 0 0 10px 0;
-            margin-bottom: 5px;
-            border-bottom: 1px solid #DDD;
 
-            &:last-child {
-                padding-bottom: 0;
-                margin-bottom: 0;
-                border-bottom: 0;
             }
-            
-            &.title {
-                
-                li {
-	                a {
-		                float: none;
-		                font-size: 18px;
-	                }
-                }
-                
-                padding-top: 5px;
-                padding-bottom: 15px;
-                margin-bottom: 15px;
-                
-            }
-			
-			
-            
-            &.wybory, &.komisja {
-                
-                h3 {
-	                margin: 10px 0 15px;
-	                padding: 0;
-	                font-size: 14px;
-                }
-                
-                > li {
-	                margin: 3px 0;
-	                padding: 0;
-	                
-	                &.komisja-adres {
-		                background: #FFF url(/mapa/img/marker-google.svg) no-repeat 0 4px;
-		                padding-left: 35px;
-	                }
-                }
-                
-               
-                
-            }
+
         }
-        */
-        
     }
-
 }
