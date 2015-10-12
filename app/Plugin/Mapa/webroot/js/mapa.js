@@ -124,23 +124,15 @@ var MapBrowser = Class.extend({
 
 			if (window.devicePixelRatio > 1.5) {
 				url = '/mapa/img/marker-blur@2x.png';
-				size = new google.maps.Size(40, 40);
+				size = 40;
 			} else {
 				url = '/mapa/img/marker-blur.png';
-				size = new google.maps.Size(20, 20);
+				size = 20;
 			}
-
-			var image = {
-				url: url,
-				size: size,
-				scaledSize: new google.maps.Size(20, 20),
-				origin: new google.maps.Point(0, 0),
-				anchor: new google.maps.Point(10, 10)
-			};
 
 			point.marker = new google.maps.Marker({
 				position: new google.maps.LatLng(point.lat, point.lon),
-				icon: image,
+				icon: self.setIcon(url, size),
 				map: self.map,
 				data: point.label
 			});
@@ -185,46 +177,34 @@ var MapBrowser = Class.extend({
 		this.detail_div_main_dcontent.find('._points').height(this.detail_div_main_dcontent.height() - this.detail_div_main_dcontent.find('.input-group').height() - 25 + 'px');
 	},
 
+	setIcon: function (url, size) {
+		return {
+			url: url,
+			size: new google.maps.Size(size, size),
+			scaledSize: new google.maps.Size(20, 20),
+			origin: new google.maps.Point(0, 0),
+			anchor: new google.maps.Point(10, 10)
+		}
+	},
+
 	pointWindow: function (marker) {
+		var self = this;
+
 		$.each(this.points, function () {
 			var m = this.marker;
 
 			if (m.icon.url == '/mapa/img/marker-blur-active.png') {
-				m.setIcon({
-					url: '/mapa/img/marker-blur.png',
-					size: new google.maps.Size(20, 20),
-					scaledSize: new google.maps.Size(20, 20),
-					origin: new google.maps.Point(0, 0),
-					anchor: new google.maps.Point(10, 10)
-				});
+				m.setIcon(self.setIcon('/mapa/img/marker-blur.png', 20));
 			}
 			else if (m.icon.url == '/mapa/img/marker-blur-active@2x.png') {
-				m.setIcon({
-					url: '/mapa/img/marker-blur@2x.png',
-					size: new google.maps.Size(40, 40),
-					scaledSize: new google.maps.Size(20, 20),
-					origin: new google.maps.Point(0, 0),
-					anchor: new google.maps.Point(10, 10)
-				});
+				m.setIcon(self.setIcon('/mapa/img/marker-blur@2x.png', 40));
 			}
 		});
 
 		if (marker.icon.url == '/mapa/img/marker-blur.png')
-			marker.setIcon({
-				url: '/mapa/img/marker-blur-active.png',
-				size: new google.maps.Size(20, 20),
-				scaledSize: new google.maps.Size(20, 20),
-				origin: new google.maps.Point(0, 0),
-				anchor: new google.maps.Point(10, 10)
-			});
+			marker.setIcon(self.setIcon('/mapa/img/marker-blur-active.png', 20));
 		else
-			marker.setIcon({
-				url: '/mapa/img/marker-blur-active@2x.png',
-				size: new google.maps.Size(40, 40),
-				scaledSize: new google.maps.Size(20, 20),
-				origin: new google.maps.Point(0, 0),
-				anchor: new google.maps.Point(10, 10)
-			});
+			marker.setIcon(self.setIcon('/mapa/img/marker-blur-active@2x.png', 40));
 
 		if (typeof infowindow !== "undefined") {
 			infowindow.close();
