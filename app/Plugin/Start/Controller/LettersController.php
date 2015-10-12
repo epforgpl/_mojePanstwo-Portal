@@ -113,6 +113,11 @@ class LettersController extends StartAppController {
                 return;
             }
 
+            /* delete unsaved files from s3 */
+            if(!isset($this->request->params['form']['file']) && !isset($this->request->data['name'])) {
+                $this->LettersResponseFile->delete();
+            }
+
             /* single file upload to s3, push file name to session */
             if(isset($this->request->params['form']['file'])) {
                 $this->set(

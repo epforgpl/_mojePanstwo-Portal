@@ -52,4 +52,12 @@ class LettersResponseFileComponent extends Component {
         $this->Session->delete(self::$name);
     }
 
+    public function delete() {
+        foreach($this->getFiles() as $file) {
+            $this->S3->deleteObject(S3Component::$bucket, printf(self::$path, $file['filename']));
+        }
+
+        $this->clear();
+    }
+
 }
