@@ -72,6 +72,15 @@ class DataBrowserComponent extends Component
 				),
 			),
 		),
+		'krakow_rada_uchwaly' => array(
+			'date' => array(
+				'label' => 'Data wydania',
+				'options' => array(
+					'desc' => 'od najnowszych',
+					'asc' => 'od najstarszych',
+				),
+			),
+		),
 	);
 	
     private $aggs_presets = array(

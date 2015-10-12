@@ -1946,7 +1946,7 @@ class GminyController extends DataobjectsController
                     'dataset' => 'krakow_rada_uchwaly',
                     'id' => $this->request->params['subid']
                 ),
-                'layers' => array('neighbours', 'druki', 'docs')
+                'layers' => array('neighbours', 'druki', 'docs'),
             ));
 
             $this->set('file',
@@ -1966,6 +1966,7 @@ class GminyController extends DataobjectsController
                     'dataset' => 'krakow_rada_uchwaly',
                 ),
                 'aggsPreset' => 'krakow_rada_uchwaly',
+                'sortPreset' => 'krakow_rada_uchwaly',
                 'phrasesPreset' => 'krakow_rada_uchwaly',
                 'searchTitle' => 'Szukaj w uchwałach Rady Miasta Kraków...',
             ));
