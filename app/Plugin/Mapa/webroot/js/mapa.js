@@ -1,4 +1,5 @@
 var MapBrowser = Class.extend({
+	retina: false,
 	map: false,
 	points: [],
 	infoWindow: null,
@@ -111,28 +112,21 @@ var MapBrowser = Class.extend({
 		self.mapBorder.setMap(self.map);
 
 		// Address points
+		if (window.devicePixelRatio > 1.5)
+			self.retina = true;
+
 		var points = self.div.find('._points li');
 		for (var i = 0; i < points.length; i++) {
 			var p = $(points[i]),
-				url,
-				size,
 				point = {
 					'label': p.find('a').text(),
 					'lat': p.find('meta[itemprop=latitude]').attr('content'),
 					'lon': p.find('meta[itemprop=longitude]').attr('content')
 				};
 
-			if (window.devicePixelRatio > 1.5) {
-				url = '/mapa/img/marker-blur@2x.png';
-				size = 40;
-			} else {
-				url = '/mapa/img/marker-blur.png';
-				size = 20;
-			}
-
 			point.marker = new google.maps.Marker({
 				position: new google.maps.LatLng(point.lat, point.lon),
-				icon: self.setIcon(url, size),
+				icon: self.setIconItem(),
 				map: self.map,
 				data: point.label
 			});
@@ -143,9 +137,15 @@ var MapBrowser = Class.extend({
 
 			self.points.push(point);
 
-			p.click(function (e) {
-				e.preventDefault();
-				self.pointWindow(point.marker);
+			p.click(function () {
+				var id = $(this).attr('name'),
+					result = $.grep(self.points, function (e) {
+						return e.label == id;
+					});
+
+				self.detail_div_main_dcontent.find('._points li.active').removeClass('active');
+				$(this).addClass('active');
+				self.pointWindow(result[0].marker);
 			})
 		}
 
@@ -164,6 +164,16 @@ var MapBrowser = Class.extend({
 				}
 			})
 		});
+
+		if (window.location.hash.length) {
+			var hash = window.location.hash.substr(1),
+				result = $.grep(self.points, function (e) {
+					return e.label == hash;
+				});
+
+			self.detail_div_main_dcontent.find('._points li[name="' + hash + '"]').addClass('active');
+			self.pointWindow(result[0].marker);
+		}
 	},
 
 	resize: function () {
@@ -177,34 +187,46 @@ var MapBrowser = Class.extend({
 		this.detail_div_main_dcontent.find('._points').height(this.detail_div_main_dcontent.height() - this.detail_div_main_dcontent.find('.input-group').height() - 25 + 'px');
 	},
 
-	setIcon: function (url, size) {
+	setIconItem: function (booled) {
+		var active = booled ? true : false, url, size;
+
+		if (active) {
+			if (this.retina) {
+				url = '/mapa/img/marker-blur-active@2x.png';
+				size = 40;
+			} else {
+				url = '/mapa/img/marker-blur-active.png';
+				size = 20;
+			}
+		} else {
+			if (this.retina) {
+				url = '/mapa/img/marker-blur@2x.png';
+				size = 40;
+			} else {
+				url = '/mapa/img/marker-blur.png';
+				size = 20;
+			}
+		}
+
 		return {
 			url: url,
 			size: new google.maps.Size(size, size),
 			scaledSize: new google.maps.Size(20, 20),
 			origin: new google.maps.Point(0, 0),
-			anchor: new google.maps.Point(10, 10)
+			anchor: new google.maps.Point(10, 10),
+			active: active
 		}
 	},
 
 	pointWindow: function (marker) {
 		var self = this;
 
-		$.each(this.points, function () {
-			var m = this.marker;
-
-			if (m.icon.url == '/mapa/img/marker-blur-active.png') {
-				m.setIcon(self.setIcon('/mapa/img/marker-blur.png', 20));
-			}
-			else if (m.icon.url == '/mapa/img/marker-blur-active@2x.png') {
-				m.setIcon(self.setIcon('/mapa/img/marker-blur@2x.png', 40));
-			}
+		$.each(self.points, function () {
+			if (this.marker.icon.active)
+				this.marker.setIcon(self.setIconItem());
 		});
 
-		if (marker.icon.url == '/mapa/img/marker-blur.png')
-			marker.setIcon(self.setIcon('/mapa/img/marker-blur-active.png', 20));
-		else
-			marker.setIcon(self.setIcon('/mapa/img/marker-blur-active@2x.png', 40));
+		marker.setIcon(self.setIconItem(true));
 
 		if (typeof infowindow !== "undefined") {
 			infowindow.close();
@@ -212,10 +234,11 @@ var MapBrowser = Class.extend({
 
 		infowindow = new google.maps.InfoWindow();
 		infowindow.setContent('Numer: ' + marker.data);
-		infowindow.open(this.map, marker)
+		infowindow.open(self.map, marker)
 	}
 });
 
+var map;
 $(document).ready(function () {
-	var map = new MapBrowser();
+	map = new MapBrowser();
 });
