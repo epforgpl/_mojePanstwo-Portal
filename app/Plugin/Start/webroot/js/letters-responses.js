@@ -4,6 +4,7 @@ $(document).ready(function() {
 	$('form.letterResponseForm').each(function() {
 
 		var form = $(this),
+			url = form.data('url'),
 			dropzone = form.find('.dropzoneForm').first(),
 			datepicker = form.find('.datepickerResponseDate').first();
 
@@ -17,10 +18,11 @@ $(document).ready(function() {
 		});
 
 		dropzone.dropzone({
-			url: "/file/post",
-			clickable: ".btn-addfile",
-			autoQueue: false,
-			previewsContainer: "#preview",
+			url: url,
+			clickable: '.btn-addfile',
+			autoQueue: true,
+			autoProcessQueue: true,
+			previewsContainer: '#preview',
 			previewTemplate: [
 				'<div class="file">',
 					'<div class="title">',
@@ -32,7 +34,11 @@ $(document).ready(function() {
 						'<div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress>',
 						'</div>',
 					'</div>',
-					'<div class="buttons"><button class="btn btn-sm btn-primary start"><i class="glyphicon glyphicon-upload"></i></button><button data-dz-remove class="btn btn-sm btn-warning cancel"><i class="glyphicon glyphicon-ban-circle"></i></button><button data-dz-remove class="btn btn-sm btn-danger delete"><i class="glyphicon glyphicon-trash"></i></button></div>',
+					'<div class="buttons">',
+						//'<button class="btn btn-sm btn-primary start"><i class="glyphicon glyphicon-upload"></i></button>',
+						//'<button data-dz-remove class="btn btn-sm btn-warning cancel"><i class="glyphicon glyphicon-ban-circle"></i></button>',
+						//'<button data-dz-remove class="btn btn-sm btn-danger delete"><i class="glyphicon glyphicon-trash"></i></button>',
+					'</div>',
 				'</div>'
 			].join('')
 		});

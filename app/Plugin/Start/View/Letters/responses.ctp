@@ -50,7 +50,7 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug'];
             <div class="row">
                 <div class="col-md-12">
                     <h1><i class="icon glyphicon glyphicon-comment"></i> Dodaj odpowiedź</h1>
-                    <form class="letterResponseForm margin-top-10" method="post">
+                    <form class="letterResponseForm margin-top-10" method="post" data-url="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>/responses.json">
 
                         <div class="row margin-top-10">
                             <div class="col-md-6">
@@ -85,6 +85,28 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug'];
                         </div>
 
                     </form>
+                </div>
+            </div>
+
+            <div class="row margin-top-20">
+                <div class="col-md-12">
+                    <h2><i class="icon glyphicon glyphicon-comment"></i> Odpowiedzi</h2>
+                    <? if(isset($responses) && is_array($responses) && count($responses)) {  ?>
+
+                        <ul class="list-group">
+                            <? foreach($responses as $response) { ?>
+                                <li class="list-group-item">
+                                    <span class="badge"><?= dataSlownie($response['Response']['date']) ?></span>
+                                    <a href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>/responses/<?= $response['Response']['id'] ?>">
+                                        <?= $response['Response']['title'] ?>
+                                    </a>
+                                </li>
+                            <? } ?>
+                        </ul>
+
+                    <? } else { ?>
+                        <p>To pismo nie ma jeszcze żadnej odpowiedzi.</p>
+                    <? } ?>
                 </div>
             </div>
 

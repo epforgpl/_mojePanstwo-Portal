@@ -12,8 +12,8 @@ class LettersController extends StartAppController {
         'subtitle' => 'Wysyłaj pisma urzędowe do instytucje publicznych',
     );
     public $helpers = array('Form');
-    public $uses = array('Pisma.Pismo', 'Sejmometr.Sejmometr');
-    public $components = array('RequestHandler');
+    public $uses = array('Pisma.Pismo', 'Sejmometr.Sejmometr', 'Start.LetterResponse');
+    public $components = array('RequestHandler', 'S3', 'Start.LettersResponseFile');
     public $appSelected = 'pisma';
     private $aggs_dict = array(
         'access' => array(
@@ -76,7 +76,6 @@ class LettersController extends StartAppController {
 
     public function edit($id, $slug = '')
     {
-
         if ($pismo = $this->load($id)) {
 
             if (!$pismo['is_owner'])
@@ -84,6 +83,21 @@ class LettersController extends StartAppController {
 
         } else {
 
+            $this->set('title_for_layout', 'Pismo nie istnieje lub nie masz do niego dostępu');
+            $this->render('not_found');
+        }
+    }
+
+    public function response($letter_id, $slug, $response_id) {
+        if($pismo = $this->load($letter_id)) {
+            if($response = $this->LetterResponse->get($letter_id, $response_id)) {
+                $this->set('response', $response);
+                $this->title = 'Odpowiedź ' . $response['Response']['title'];
+            } else {
+                throw new NotFoundException;
+            }
+
+        } else {
             $this->set('title_for_layout', 'Pismo nie istnieje lub nie masz do niego dostępu');
             $this->render('not_found');
         }
@@ -98,6 +112,37 @@ class LettersController extends StartAppController {
                 return;
             }
 
+            /* single file upload to s3, push file name to session */
+            if(isset($this->request->params['form']['file'])) {
+                $this->set(
+                    'response',
+                    $this->LettersResponseFile->save(
+                        $this->request->params['form']['file']
+                    )
+                );
+
+                $this->set('_serialize', 'response');
+            }
+
+            /* response form post save */
+            if(isset($this->request->data['name'])) {
+                $res = $this->LetterResponse->save(
+                    $id,
+                    array_merge($this->request->data, array(
+                        'files' => $this->LettersResponseFile->getFiles()
+                    ))
+                );
+
+                if($res) {
+                    $this->LettersResponseFile->clear();
+                    $this->Session->setFlash('Odpowiedź została poprawnie dodana');
+                } else {
+                    $this->Session->setFlash('Wystąpił błąd podczas dodawania odpowiedzi');
+                }
+            }
+
+
+            $this->set('responses', $this->LetterResponse->getByLetter($id));
             $this->title = $this->title . ' - Odpowiedzi';
 
         } else {
