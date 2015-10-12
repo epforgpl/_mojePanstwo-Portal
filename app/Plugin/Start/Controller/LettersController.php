@@ -36,6 +36,7 @@ class LettersController extends StartAppController {
     public function view($id, $slug = '')
     {
         $pismo = $this->load($id);
+        $this->set('responses', $this->LetterResponse->getByLetter($id));
     }
 
     private function load($id)
@@ -141,8 +142,6 @@ class LettersController extends StartAppController {
                 }
             }
 
-
-            $this->set('responses', $this->LetterResponse->getByLetter($id));
             $this->title = $this->title . ' - Odpowiedzi';
 
         } else {

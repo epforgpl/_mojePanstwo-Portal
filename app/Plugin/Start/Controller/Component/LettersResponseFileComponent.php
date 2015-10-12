@@ -9,23 +9,33 @@ class LettersResponseFileComponent extends Component {
     private static $name = 'letters_response_files';
     private static $path = 'letters/responses/%s';
 
+    private static $extensions = array('pdf','docx','doc','tif','html','jpg','xml','xls','xlsx','rtf','png');
+
     public function save($file) {
-        $name = uniqid() . '.' . end(explode('.', $file['name']));
+        $ext = end(explode('.', $file['name']));
+        $name = uniqid() . '.' . $ext;
         $content = file_get_contents($file['tmp_name']);
 
-        if($content && $this->S3->putObject(
-            $content,
-            S3Component::$bucket,
-            printf(self::$path, $name),
-            S3::ACL_PRIVATE,
-            array(),
-            array('Content-Type' => $file['type'])
-        )) {
+        if(
+            $content &&
+            in_array($ext, self::$extensions) &&
+            $this->S3->putObject(
+                $content,
+                S3Component::$bucket,
+                printf(self::$path, $name),
+                S3::ACL_PRIVATE,
+                array(),
+                array('Content-Type' => $file['type'])
+            )
+        ) {
             $files = $this->Session->read(self::$name);
             if (!$files)
                 $files = array();
 
-            $files[] = $name;
+            $files[] = array(
+                'filename' => $name,
+                'src_filename' => $file['name']
+            );
             $this->Session->write(self::$name, $files);
             return true;
         }

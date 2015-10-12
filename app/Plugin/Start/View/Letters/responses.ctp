@@ -53,18 +53,23 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug'];
                     <form class="letterResponseForm margin-top-10" method="post" data-url="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>/responses.json">
 
                         <div class="row margin-top-10">
-                            <div class="col-md-6">
+                            <div class="col-md-9">
                                 <div class="form-group">
                                     <label for="responseName">Tytuł:</label>
                                     <input maxlength="195" type="text" class="form-control" id="responseName" name="name">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="responseDate">Data:</label>
                                     <input type="text" value="<?= date('Y-m-d') ?>" class="form-control datepickerResponseDate" id="responseDate"  name="date">
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="responseContent">Treść:</label>
+                            <textarea class="form-control" rows="7" id="responseContent" name="content"></textarea>
                         </div>
 
                         <div class="form-group">
@@ -85,28 +90,6 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug'];
                         </div>
 
                     </form>
-                </div>
-            </div>
-
-            <div class="row margin-top-20">
-                <div class="col-md-12">
-                    <h2><i class="icon glyphicon glyphicon-comment"></i> Odpowiedzi</h2>
-                    <? if(isset($responses) && is_array($responses) && count($responses)) {  ?>
-
-                        <ul class="list-group">
-                            <? foreach($responses as $response) { ?>
-                                <li class="list-group-item">
-                                    <span class="badge"><?= dataSlownie($response['Response']['date']) ?></span>
-                                    <a href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>/responses/<?= $response['Response']['id'] ?>">
-                                        <?= $response['Response']['title'] ?>
-                                    </a>
-                                </li>
-                            <? } ?>
-                        </ul>
-
-                    <? } else { ?>
-                        <p>To pismo nie ma jeszcze żadnej odpowiedzi.</p>
-                    <? } ?>
                 </div>
             </div>
 

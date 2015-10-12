@@ -1,5 +1,5 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('letters', array('plugin' => 'Start'))) ?>
-
+<?php $this->Combinator->add_libs('css', $this->Less->css('letters-responses', array('plugin' => 'Start'))); ?>
 <?php $this->Combinator->add_libs('js', 'Start.letters.js') ?>
 <?php $this->Combinator->add_libs('js', 'Start.letters-social-share.js') ?>
 
@@ -226,11 +226,6 @@
                         </button>
                     </form>
                 </li>
-                <li class="inner-addon">
-                    <a href="<?= $href_base . '/responses' ?>" target="_self"
-                       class="btn btn-success btn-icon"><i
-                            class="icon glyphicon glyphicon-comment"></i>Odpowiedzi</a>
-                </li>
                 <? if (!$pismo['sent']) { ?>
                     <li class="inner-addon">
                         <a href="<?= $href_base . '/edit' ?>" target="_self"
@@ -257,6 +252,36 @@
     <div class="content clearfix">
         <div class="col-xs-12 view norightpadding">
             <? echo $this->element('Start.letters-render'); ?>
+        </div>
+    </div>
+</div>
+
+<div class="lettersResponses">
+    <div class="row margin-top-20">
+        <div class="col-md-12">
+            <h2>
+                <i class="icon glyphicon glyphicon-comment"></i> Odpowiedzi
+
+                <a href="<?= $href_base . '/responses' ?>" target="_self"
+                   class="btn btn-success btn-icon pull-right auto-width"><i
+                        class="icon glyphicon glyphicon-plus-sign"></i>Dodaj odpowiedź</a>
+            </h2>
+            <? if(isset($responses) && is_array($responses) && count($responses)) {  ?>
+
+                <ul class="list-group">
+                    <? foreach($responses as $response) { ?>
+                        <li class="list-group-item">
+                            <span class="badge"><?= dataSlownie($response['Response']['date']) ?></span>
+                            <a href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>/responses/<?= $response['Response']['id'] ?>">
+                                <?= $response['Response']['title'] ?>
+                            </a>
+                        </li>
+                    <? } ?>
+                </ul>
+
+            <? } else { ?>
+                <p>To pismo nie ma jeszcze żadnej odpowiedzi.</p>
+            <? } ?>
         </div>
     </div>
 </div>

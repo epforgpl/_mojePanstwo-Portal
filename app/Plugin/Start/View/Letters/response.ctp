@@ -49,6 +49,10 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug'];
                     </div>
 
                     <div class="margin-top-20">
+                        <p><?= $response['Response']['content'] ?></p>
+                    </div>
+
+                    <div class="margin-top-20">
                         <h2><i class="icon glyphicon glyphicon-comment"></i> Pliki</h2>
                         <? if(count($response['Response']['files'])) { ?>
 

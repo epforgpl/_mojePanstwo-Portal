@@ -20,6 +20,7 @@ $(document).ready(function() {
 		dropzone.dropzone({
 			url: url,
 			clickable: '.btn-addfile',
+			acceptedFiles: '.pdf,.docx,.doc,.tif,.html,.jpg,.xml,.xls,.xlsx,.rtf,.png',
 			autoQueue: true,
 			autoProcessQueue: true,
 			previewsContainer: '#preview',
