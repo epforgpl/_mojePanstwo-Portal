@@ -598,6 +598,7 @@ class GminyController extends DataobjectsController
                     'force' => true,
                     'aggs' => $aggs,
                 ),
+                'order' => array('_date desc'),
                 'aggs' => array(
                     'dataset' => array(
                         'terms' => array(

@@ -19,6 +19,15 @@ class Mapa extends AppModel
         ));
 
     }
+    
+    public function getCode($code)
+    {
+
+        return $this->getDataSource()->request('Mapa/kody/' . $code, array(
+            'method' => 'GET',
+        ));
+
+    }
 	
 	
 }

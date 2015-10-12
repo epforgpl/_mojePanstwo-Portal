@@ -1,5 +1,6 @@
 <?
-
+	
+$this->Combinator->add_libs('css', $this->Less->css('view-grouped-search-results', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
 $options = array(
@@ -14,7 +15,19 @@ foreach( $dataBrowser['aggs'] as $agg_id => $agg_data )
 arsort($map);
 ?>
 
-<div class="col-md-9">
+<div class="col-md-9 grouped-search-results">
+	
+	<?
+		$order = (
+			isset( $this->request->query['order'] ) && 
+			( $this->request->query['order'] == 'date' )
+		);
+	?>
+	
+	<ul class="pagination">
+		<li<? if(!$order){?> class="active"<? } ?>><a href="?q=<?= urlencode( $this->request->query['q'] ) ?>">Sortuj według trafności</a></li>
+		<li<? if($order){?> class="active"<? } ?>><a href="?q=<?= urlencode( $this->request->query['q'] ) ?>&order=date">Sortuj według dat</a></li>
+	</ul>
 	
 	<? 
 		foreach( array_keys($map) as $agg_id ) {

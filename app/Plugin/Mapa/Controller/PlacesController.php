@@ -12,6 +12,14 @@ class PlacesController extends ApplicationsController
         'title' => 'Mapa'
     );
 
+	private $fields = array(
+		'1' => 'wojewodztwa',
+		'2' => 'powiaty',
+		'3' => 'gminy',
+		'4' => 'miejscowosci',
+		'5' => 'ulice',
+	);
+	
     public function view($id)
     {
 	    
@@ -25,15 +33,20 @@ class PlacesController extends ApplicationsController
 			    'shapes'
 		    ),
 		    'aggs' => array(
-			    'points' => array(
+			    'numery' => array(
 				    'nested' => array(
 					    'path' => 'miejsca-numery',
 				    ),
 				    'aggs' => array(
-					    'points' => array(
+					    'numery' => array(
 						    'top_hits' => array(
 							    'size' => 10000,
 							    'fielddata_fields' => array('numer', 'miejsca-numery.location.lat', 'miejsca-numery.location.lon', 'parl_obwod_id', 'kod_str'),
+							    'sort' => array(
+								    'miejsca-numery.numer_int' => array(
+									    'order' => 'asc',
+								    ),
+							    ),
 						    ),
 					    ),
 					    'viewport' => array(
@@ -41,18 +54,202 @@ class PlacesController extends ApplicationsController
 								'field' => 'miejsca-numery.location', 
 							),
 						),
+						'kody' => array(
+							'terms' => array(
+								'field' => 'miejsca-numery.kod',
+								'size' => 3,
+							),
+						),
+						'parl_obwody' => array(
+							'terms' => array(
+								'field' => 'miejsca-numery.parl_obwod_id',
+								'size' => 3,
+							),
+						),
 				    ),
+			    ),
+			    'miejsca' => array(
+				    'filter' => array(
+					    'term' => array(
+						    'dataset' => 'miejsca',
+					    ),
+				    ),
+				    'aggs' => array(
+					    'children' => array(
+						    'nested' => array(
+							    'path' => 'miejsca-parents',
+						    ),
+						    'aggs' => array(
+							    '*' => array(
+								    'filter' => array(
+									    'term' => array(
+										    'miejsca-parents.id' => $id,
+									    ),
+								    ),
+								    'aggs' => array(
+									    'reverse' => array(
+										    'reverse_nested' => '_empty',
+										    'aggs' => array(
+											    'punkty' => array(
+												    'nested' => array(
+													    'path' => 'miejsca-numery',
+												    ),
+												    'aggs' => array(
+													    'kody' => array(
+															'terms' => array(
+																'field' => 'miejsca-numery.kod',
+																'size' => 3,
+															),
+														),
+														'parl_obwody' => array(
+															'terms' => array(
+																'field' => 'miejsca-numery.parl_obwod_id',
+																'size' => 3,
+															),
+														),
+													    'viewport' => array(
+															'geo_bounds' => array(
+																'field' => 'miejsca-numery.location', 
+															),
+														),
+												    ),
+											    ),
+										    ),
+									    ),
+									    'direct' => array(
+										    'filter' => array(
+											    'term' => array(
+												    'miejsca-parents.distance' => 1,
+											    ),
+										    ),
+										    'aggs' => array(
+											    'reverse' => array(
+												    'reverse_nested' => '_empty',
+												    'aggs' => array(
+													    'typy' => array(
+														    'terms' => array(
+															    'field' => 'data.miejsca.typ_id',
+															    'size' => 5,
+														    ),
+														    'aggs' => array(
+															    'top' => array(
+																    'top_hits' => array(
+																	    'size' => 10000,
+																	    'sort' => array(
+																		    'title.raw' => array(
+																			    'order' => 'asc',
+																		    ),
+																	    ),
+																    ),
+															    ),
+														    ),
+													    ),
+												    ),
+											    ),
+										    ),
+									    ),
+								    ),
+							    ),
+						    ),
+					    ),
+				    ),
+				    'scope' => 'global',
 			    ),
 		    ),
 	    ));
 	    
+	    	    
+	    // $data = $this->getPlaceData($place);	    
+	    // debug($data); die();
+	    	    
 	    $points = array();
 	    $viewport = array();
+	    $children = array();
+	    $codes = array();
 	    
 	    
 	    if( $aggs = $this->Dataobject->getAggs() ) {
-		    
-			if( $_points = @$aggs['points']['points']['hits']['hits'] ) {
+			
+			// debug($aggs); die();
+			
+			
+			// VIEWPORT
+			
+			if( 
+				@$aggs['miejsca']['children']['*']['reverse']['punkty']['viewport']['bounds'] && 
+				@!$aggs['numery']['viewport']['bounds']
+			) {
+				
+				$viewport = $aggs['miejsca']['children']['*']['reverse']['punkty']['viewport']['bounds'];
+				
+			} elseif(
+				@!$aggs['miejsca']['children']['*']['reverse']['punkty']['viewport']['bounds'] && 
+				@$aggs['numery']['viewport']['bounds']
+			) {
+				
+				$viewport = $aggs['numery']['viewport']['bounds'];
+				
+			} elseif(
+				@$aggs['miejsca']['children']['*']['reverse']['punkty']['viewport']['bounds'] && 
+				@$aggs['numery']['viewport']['bounds']
+			) {
+				
+				// TODO: calculate max viewport
+				$viewport = $aggs['numery']['viewport']['bounds'];
+				
+			}
+			
+			
+			
+			
+			
+			// POSTAL CODES
+						
+			if( 
+				@$aggs['miejsca']['children']['*']['reverse']['punkty']['kody']['buckets'] && 
+				@!$aggs['numery']['kody']['buckets']
+			) {
+				
+				$codes = $aggs['miejsca']['children']['*']['reverse']['punkty']['kody']['buckets'];
+				
+			} elseif(
+				@!$aggs['miejsca']['children']['*']['reverse']['punkty']['kody']['buckets'] && 
+				@$aggs['numery']['kody']['buckets']
+			) {
+				
+				$codes = $aggs['numery']['kody']['buckets'];
+				
+			} elseif(
+				@$aggs['miejsca']['children']['*']['reverse']['punkty']['kody']['buckets'] && 
+				@$aggs['numery']['kody']['buckets']
+			) {
+				
+				// TODO: calculate max
+				$codes = $aggs['numery']['kody']['buckets'];
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+						
+			
+			
+			
+			if( $typy = @$aggs['miejsca']['children']['*']['direct']['reverse']['typy']['buckets'] ) {
+				foreach( $typy as $t ) {
+					
+					$field = $this->fields[ $t['key'] ];
+					foreach( $t['top']['hits']['hits'] as $h )
+						$children[ $field ][] = $h['fields']['source'][0]['data'];
+											
+				}
+			}
+						
+			if( $_points = @$aggs['numery']['numery']['hits']['hits'] ) {
 								
 			    foreach( $_points as $_p ) {
 				    
@@ -71,37 +268,81 @@ class PlacesController extends ApplicationsController
 			    }
 		    
 		    }
-		    
-		    if( @$aggs['points']['viewport']['bounds'] )
-		    	$viewport = $aggs['points']['viewport']['bounds'];
-		    		    		    
+		    		    		    		    
 	    }
 	    
-	    $this->title = $place->getTitle();
-	    	    
 	    
-	    $this->set('place', array(
-		    'title' => $place->getTitle(),
+	    $this->title = $place->getTitle();
+		$this->set('mapParams', array(
+			'mode' => 'place',
+			'title' => $place->getTitle(),
 		    'data' => $place->getData(),
-		    'layers' => $place->getLayers(),
 		    'points' => $points,
 		    'viewport' => $viewport,
-	    ));
+		    'children' => $children,
+		    'codes' => $codes,
+		));
+		
+		
 	   	
-	   	if( isset($this->request->query['widget']) ) {
+	   	if( isset($this->request->query['widget']) )
         	$this->layout = 'blank';
-        	$this->set('widget', true);
-        }
-	   	   
-	    /*
-        if ((@$this->request->params['ext'] == 'json') && (isset($this->request->query['q']))) {
-            $data = $this->Mapa->geocode($this->request->query['q']);
-            $this->set('data', $data);
-            $this->set('_serialize', 'data');
-        } else {
-            $this->title = 'Mapa';
-        }
-        */
-                
+	   	                   
     }
+    
+    public function getPlaceData($object = false) {
+	    	    
+	    if( !is_object($object) )
+	    	return false;
+	    
+	    $options = false;
+	    
+	    switch( $object->getData('typ_id') ) {
+		    
+		    case '4': {
+			    
+			    $options = array(
+				    'aggs' => array(
+					    'miejsca' => array(
+						    'scope' => 'global',
+						    'filter' => array(
+							    'boolean' => array(
+								    'must' => array(
+									    array(
+										    'term' => array(
+											    'dataset' => 'miejsca',
+										    ),
+									    ),
+								    ),
+							    ),
+						    ),
+						    'aggs' => array(
+							    'top' => array(
+								    'top_hits' => array(
+									    'size' => 1,
+								    ),
+							    ), 
+						    ),
+					    ),
+				    ),
+			    );
+			    
+			    break;
+		    }
+		    
+	    }
+	    
+	    if( !$options )
+	    	return false;
+	    
+	    $this->loadModel('Dane.Dataobject');
+	    $this->Dataobject->find('all', array(
+		    'limit' => 0,
+		    'aggs' => $options['aggs'],
+	    ));
+	    
+	    return $this->Dataobject->getDataSource()->Aggs;
+	    	    
+    }
+    
 }

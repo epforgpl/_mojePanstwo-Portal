@@ -17,141 +17,221 @@
         margin-left: 0;
         margin-right: 0;
         position: relative;
+    }
+}
 
-        > .alert {
-            position: absolute;
-            top: 15px;
-            left: 50%;
-            z-index: 2;
-            box-shadow: 0 5px 10px #AAA;
-            -moz-box-shadow: 0 5px 10px #AAA;
-            -webkit-box-shadow: 0 5px 10px #AAA;
-            -o-box-shadow: 0 5px 10px #AAA;
-            
-            .spinner > div {
-	            background-color: #79B !important;
-            }
-        }
+#_wrapper footer.footer {
+	display: none;
+	height: 0;
+}
 
-        > .mapaDetailWindow {
-            background-color: #f8f9fa;
-            background-color: rgba(255, 255, 255, .9);
-            left: 0;
-            padding: 10px 20px 10px 25px;
-            position: absolute;
-            top: 0;
-            width: 280px;
-            z-index: 2;
-            
-            border-bottom-right-radius: 5px;
-            -moz-border-bottom-right-radius: 5px;
-            -webkit-border-bottom-right-radius: 5px;
-            -o-border-bottom-right-radius: 5px;
-            
-            box-shadow: 0 5px 10px #AAA;
-            -moz-box-shadow: 0 5px 10px #AAA;
-            -webkit-box-shadow: 0 5px 10px #AAA;
-            -o-box-shadow: 0 5px 10px #AAA;
-
-            > ul {
-                list-style: none;
-                padding: 0 0 10px 0;
-                margin-bottom: 5px;
-                border-bottom: 1px solid #DDD;
-
-                &:last-child {
-                    padding-bottom: 0;
-                    margin-bottom: 0;
-                    border-bottom: 0;
-                }
-                
-                &.title {
-	                
-	                li {
-		                a {
-			                float: none;
-			                font-size: 18px;
-		                }
-	                }
-	                
-	                padding-top: 5px;
-	                padding-bottom: 15px;
-	                margin-bottom: 15px;
-	                
-                }
-				
-				&.info {
-				
-	                > li {
-	                    display: inline-block;
-	                    margin: 1px 0;
-	                    width: 100%;
+#mapBrowser {
 	
-	                    > label {
-	                        margin: 7px 0 0;
-	                        padding: 0;
-	                        float: left;
-	                        color: #666;
-						    font-size: 9px;
-						    font-weight: 600;
-						    line-height: 0.75em;
-						    text-transform: uppercase;
-	                    }
-	                    
-	                    > span, > a {
-		                    margin: 0;
-		                    padding: 0;
-		                    float: right;
-		                    font-weight: 400;
-	                        font-size: 13px;
-	                        color: green;
-	                    }
+	min-height: inherit;
 	
-	                    p {
-	                        margin-bottom: 2px;
-	                    }
-	                }
-                
-                }
-                
-                &.wybory, &.komisja {
-	                
-	                h3 {
-		                margin: 10px 0 15px;
-		                padding: 0;
-		                font-size: 14px;
-	                }
-	                
-	                > li {
-		                margin: 3px 0;
-		                padding: 0;
-		                
-		                &.komisja-adres {
-			                background: #FFF url(/mapa/img/marker-google.svg) no-repeat 0 4px;
-			                padding-left: 35px;
-		                }
-	                }
-	                
-	               
-	                
-                }
-            }
-            
-        }
-
-        > #mapa {
-            width: 100%;
-        }
-
-        > #localizeMe {
-            height: 27px;
-            padding: 4px 0;
+	> .alert {
             position: absolute;
-            right: 10px;
-            text-align: center;
-            top: 70px;
-            width: 28px;
-            z-index: 2;
+        top: 15px;
+        left: 50%;
+        z-index: 2;
+        box-shadow: 0 5px 10px #AAA;
+        -moz-box-shadow: 0 5px 10px #AAA;
+        -webkit-box-shadow: 0 5px 10px #AAA;
+        -o-box-shadow: 0 5px 10px #AAA;
+        
+        .spinner > div {
+            background-color: #79B !important;
         }
     }
+    
+    > .map {
+        width: 100%;
+        margin-left: 280px;
+    }
+
+    > #localizeMe {
+        height: 27px;
+        padding: 4px 0;
+        position: absolute;
+        right: 10px;
+        text-align: center;
+        top: 70px;
+        width: 28px;
+        z-index: 2;
+    }
+
+    > .details {
+        
+        background-color: #f8f9fa;
+        left: 0;
+        padding: 0;
+        position: absolute;
+        top: 0;
+        width: 280px;
+        z-index: 2;
+        
+        box-shadow: 0 5px 10px #AAA;
+        -moz-box-shadow: 0 5px 10px #AAA;
+        -webkit-box-shadow: 0 5px 10px #AAA;
+        -o-box-shadow: 0 5px 10px #AAA;
+		
+		.title {
+			background-color: #FFF;
+			border-bottom: 1px solid #DDD;
+			margin: 0;
+			padding: 0;
+			
+			._label {
+				color: #789;
+			    margin-bottom: -10px;
+			    padding: 20px 20px 0;
+			    font-size: 10px;
+			    font-weight: 600;
+			    line-height: 0.75em;
+			    text-transform: uppercase;
+
+			}
+		}
+		
+		h1 {
+			font-size: 24px;
+			padding: 20px;
+			margin: 0;
+		}
+		
+		h2 {
+			padding: 5px;
+			margin: 0;
+			font-size: 14px;
+			font-weight: bold;
+		}
+        
+        ul {
+	        
+	        margin: 0;
+	        padding: 7px 15px;
+	        list-style: none;
+	        
+	        li {
+		        margin: 0;
+		        padding: 3px;
+		        list-style: none;
+		        
+		        .dcontent {
+			        
+			        .input-group {
+				        margin: 10px 5px 5px;
+				        .btn {
+					        font-size: 13px;
+				        }
+			        }
+			        
+		        }
+		        
+	        }
+	        
+	        &.main {
+		        
+		        overflow: hidden;
+		        
+	        }
+	        
+	        &.meta {
+		        
+		        border-top: 1px solid #ddd;
+			    margin: -5px 20px 0;
+			    padding: 10px 0;
+			
+                > li {
+                    display: inline-block;
+                    margin: 1px 0;
+                    width: 100%;
+                    padding: 0px 3px;
+
+                    > label {
+                        margin: 7px 0 0;
+                        padding: 0;
+                        float: left;
+                        color: #789;
+					    font-size: 9px;
+					    font-weight: 600;
+					    line-height: 0.75em;
+					    text-transform: uppercase;
+                    }
+                    
+                    > span, > a {
+	                    margin: 0;
+	                    padding: 0;
+	                    float: right;
+	                    font-weight: 400;
+                        font-size: 13px;
+                    }
+
+                    p {
+                        margin-bottom: 2px;
+                    }
+                }
+            
+            }
+	        
+        }
+        
+        
+        /*
+        > ul {
+	        
+            list-style: none;
+            padding: 0 0 10px 0;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #DDD;
+
+            &:last-child {
+                padding-bottom: 0;
+                margin-bottom: 0;
+                border-bottom: 0;
+            }
+            
+            &.title {
+                
+                li {
+	                a {
+		                float: none;
+		                font-size: 18px;
+	                }
+                }
+                
+                padding-top: 5px;
+                padding-bottom: 15px;
+                margin-bottom: 15px;
+                
+            }
+			
+			
+            
+            &.wybory, &.komisja {
+                
+                h3 {
+	                margin: 10px 0 15px;
+	                padding: 0;
+	                font-size: 14px;
+                }
+                
+                > li {
+	                margin: 3px 0;
+	                padding: 0;
+	                
+	                &.komisja-adres {
+		                background: #FFF url(/mapa/img/marker-google.svg) no-repeat 0 4px;
+		                padding-left: 35px;
+	                }
+                }
+                
+               
+                
+            }
+        }
+        */
+        
+    }
+
 }
