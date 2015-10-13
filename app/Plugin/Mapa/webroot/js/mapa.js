@@ -382,4 +382,19 @@ $(document).ready(function () {
 			localizer.request_position();
 		}
 	});
+
+	var accords = $('.accord');
+	$.each(accords, function () {
+		var self = $(this);
+
+		self.find('>header').click(function () {
+			if (self.hasClass('closed'))
+				self.removeClass('closed');
+			else {
+				self.addClass('closed');
+			}
+
+			map.resize();
+		})
+	})
 });
