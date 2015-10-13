@@ -18,7 +18,7 @@ class DataBrowserComponent extends Component
     private $routes = array();
     public $dataset = false;
     public $searchAction = false;
-	
+
 	private $phrases_presets = array(
 		'krakow_posiedzenia' => array(
 			'paginator' => array('posiedzenie', 'posiedzenia', 'posiedzeń'),
@@ -45,7 +45,7 @@ class DataBrowserComponent extends Component
 			'paginator' => array('uchwała', 'uchwały', 'uchwał'),
 		),
 	);
-	
+
 	private $sort_presets = array(
 		'prawo' => array(
 			'prawo.data_publikacji' => array(
@@ -81,8 +81,44 @@ class DataBrowserComponent extends Component
 				),
 			),
 		),
+        'krakow_posiedzenia' => array(
+            'date' => array(
+                'label' => 'Data posiedzenia',
+                'options' => array(
+                    'desc' => 'od najnowszych',
+                    'asc' => 'od najstarszych',
+                ),
+            ),
+        ),
+        'rady_durki' => array(
+            'date' => array(
+                'label' => 'Data wydania',
+                'options' => array(
+                    'desc' => 'od najnowszych',
+                    'asc' => 'od najstarszych',
+                ),
+            ),
+        ),
+        'krakow_komisje_posiedzenia' => array(
+            'date' => array(
+                'label' => 'Data posiedzenia',
+                'options' => array(
+                    'desc' => 'od najnowszych',
+                    'asc' => 'od najstarszych',
+                ),
+            ),
+        ),
+        'krakow_zarzadzenia' => array(
+            'date' => array(
+                'label' => 'Data zarządzenia',
+                'options' => array(
+                    'desc' => 'od najnowszych',
+                    'asc' => 'od najstarszych',
+                ),
+            ),
+        ),
 	);
-	
+
     private $aggs_presets = array(
         'gminy' => array(
             'typ_id' => array(
@@ -1263,12 +1299,12 @@ class DataBrowserComponent extends Component
 		return $aggs;
 
 	}
-	
+
 	private function prepareSort( $sort = array() )
 	{
-		
+
 		return $sort;
-		
+
 	}
 
     public function __construct($collection, $settings)
@@ -1281,7 +1317,7 @@ class DataBrowserComponent extends Component
             )
         )
             $settings['aggs'] = array();
-            
+
         if (
             (
                 !isset($settings['sort']) ||
@@ -1289,7 +1325,7 @@ class DataBrowserComponent extends Component
             )
         )
             $settings['sort'] = array();
-            
+
         if (
             (
                 !isset($settings['phrases']) ||
@@ -1303,19 +1339,19 @@ class DataBrowserComponent extends Component
             array_key_exists($settings['aggsPreset'], $this->aggs_presets)
         )
         	$settings['aggs'] = array_merge($this->aggs_presets[$settings['aggsPreset']], $settings['aggs']);
-        
+
         if(
 	        isset($settings['sortPreset']) &&
             array_key_exists($settings['sortPreset'], $this->sort_presets)
         )
         	$settings['sort'] = array_merge($this->sort_presets[$settings['sortPreset']], $settings['sort']);
-        	
+
         if(
 	        isset($settings['phrasesPreset']) &&
             array_key_exists($settings['phrasesPreset'], $this->phrases_presets)
         )
         	$settings['phrases'] = array_merge($this->phrases_presets[$settings['phrasesPreset']], $settings['phrases']);
-					
+
         if( isset($settings['aggs']) )
         	$settings['aggs'] = $this->processAggs( $settings['aggs'] );
 
@@ -1338,7 +1374,7 @@ class DataBrowserComponent extends Component
 
         if (isset($settings['searchTitle']))
             $this->searchTitle = $settings['searchTitle'];
-            
+
         if (isset($settings['searchTag']))
             $this->searchTag = $settings['searchTag'];
 
@@ -1359,7 +1395,7 @@ class DataBrowserComponent extends Component
 
         if (isset($settings['dataset']))
             $this->dataset = $settings['dataset'];
-            
+
     }
 
     public function beforeRender($controller)
@@ -1388,7 +1424,7 @@ class DataBrowserComponent extends Component
 	        $this->aggsMode = 'apps';
 
 		}
-		
+
         $controller->helpers[] = 'Dane.Dataobject';
 
         if (is_null($controller->Paginator)) {
@@ -1400,10 +1436,10 @@ class DataBrowserComponent extends Component
         }
 
         $this->queryData = $controller->request->query;
-        
+
         if (!property_exists($controller, 'Dataobject'))
             $controller->Dataobject = ClassRegistry::init('Dane.Dataobject');
-				
+
         if (
             (!$this->cover) ||
             (
@@ -1418,10 +1454,10 @@ class DataBrowserComponent extends Component
 
 			if( isset($this->settings['default_order']) )
             	$controller->Paginator->settings['order'] = $this->settings['default_order'];
-            	
+
             if( isset($this->settings['default_conditions']) )
             	$controller->Paginator->settings['conditions'] = array_merge($controller->Paginator->settings['conditions'], $this->settings['default_conditions']);
-            	            
+
 
             $hits = $controller->Paginator->paginate('Dataobject');
 
@@ -1444,10 +1480,10 @@ class DataBrowserComponent extends Component
                 'sort' => $this->prepareSort($this->settings['sort']),
                 'phrases' => isset($this->settings['phrases']) ? $this->settings['phrases'] : false,
             );
-            
+
             if( isset($this->settings['beforeBrowserElement']) )
             	$dataBrowser['beforeBrowserElement'] = $this->settings['beforeBrowserElement'];
-            	
+
             if( isset($this->settings['afterBrowserElement']) )
             	$dataBrowser['afterBrowserElement'] = $this->settings['afterBrowserElement'];
 
@@ -1537,7 +1573,7 @@ class DataBrowserComponent extends Component
         } else {
 
             if ($this->cover) {
-								
+
                 $settings = $this->getSettings();
                 $params = array(
                     'limit' => 0,
@@ -1596,15 +1632,15 @@ class DataBrowserComponent extends Component
             }
 
         }
-        
+
         if( @$controller->request->params['ext']=='json' ) {
-	        
+
 	        foreach( array('cancel_url', 'api_call', 'renderFile', 'cover', 'chapters', 'searchTitle', 'searchTag', 'searchAction', 'searcher', 'autocompletion', 'mode', 'aggs_visuals_map', 'apps') as $var )
 	        	if( isset($controller->viewVars['dataBrowser'][ $var ]) )
 			        unset( $controller->viewVars['dataBrowser'][ $var ] );
 
 	        $controller->set('_serialize', 'dataBrowser');
-	        
+
 	    }
 
     }
@@ -1621,10 +1657,10 @@ class DataBrowserComponent extends Component
             'order' => $this->getSettingsForField('order'),
             'limit' => isset($this->settings['limit']) ? $this->settings['limit'] : 30,
         );
-				
+
 		if( isset($this->settings['feed']) )
 			$output['feed'] = $this->settings['feed'];
-		       
+
 
         if (isset($conditions['q']))
             $output['highlight'] = true;
@@ -1733,7 +1769,7 @@ class DataBrowserComponent extends Component
             if( isset($maps[$i]['forceKey']) )
             	$maps[ $maps[$i]['forceKey'] ] = $maps[$i];
         }
-				
+
         return $maps;
     }
 

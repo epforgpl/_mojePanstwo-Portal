@@ -1754,6 +1754,7 @@ class GminyController extends DataobjectsController
                     'dataset' => 'krakow_posiedzenia',
                 ),
                 'aggsPreset' => 'krakow_posiedzenia',
+                'sortPreset' => 'krakow_posiedzenia',
                 'phrasesPreset' => 'krakow_posiedzenia',
             ));
 
@@ -2007,6 +2008,7 @@ class GminyController extends DataobjectsController
                     'dataset' => 'krakow_zarzadzenia',
                 ),
                 'aggsPreset' => 'krakow_zarzadzenia',
+                'sortPreset' => 'krakow_zarzadzenia',
                 'searchTitle' => 'Szukaj w zarządzeniach Prezydenta Krakowa...',
             ));
 
@@ -2156,6 +2158,7 @@ class GminyController extends DataobjectsController
                     'dataset' => 'rady_druki',
                 ),
                 'aggsPreset' => 'rady_druki',
+                'sortPreset' => 'rady_durki',
                 'phrasesPreset' => 'rady_druki',
                 'searchTitle' => 'Szukaj w projektach legislacyjnych...',
             ));
@@ -2517,6 +2520,7 @@ class GminyController extends DataobjectsController
                     'dataset' => 'krakow_komisje_posiedzenia',
                 ),
                 'aggsPreset' => 'krakow_komisje_posiedzenia',
+                'sortPreset' => 'krakow_komisje_posiedzenia',
                 'renderFile' => 'gminy/krakow_komisje_posiedzenia',
 
             ));
