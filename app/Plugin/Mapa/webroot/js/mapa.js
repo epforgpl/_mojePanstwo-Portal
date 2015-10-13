@@ -50,20 +50,18 @@ var Localizer = Class.extend({
 
 	/*RETURN INFORMATION WITH USER LOCATION*/
 	request_position_success: function (position) {
-		var q = (position.coords.latitude + ' ' + position.coords.longitude);
-		console.log(this);
-
-		if (q.length > 0) {
+		console.log(position);
+		if (typeof position.coords !== "undefined") {
 			$.ajax({
 				method: 'GET',
-				url: '/mapa.json',
+				url: '/mapa/geodecode.json',
 				dataType: 'json',
 				data: {
-					'q': q
+					'lat': position.coords.latitude,
+					'lon': position.coords.longitude
 				},
 				success: function (res) {
-					console.log(res);
-					//window.location = '/mapa/miejsce/$id_miejsca#$numer';
+					window.location.href = '/mapa/miejsce/' + res.data['miejsca.id'] + '#' + res.locations[0]['numer'];
 				},
 				error: function (error) {
 					localizer.alerts(mPHeart.translation.LC_FINANSE_POSITION_CANNOT_TEMPORARY + " (" + error.statusText + ")", 'alert-danger')
