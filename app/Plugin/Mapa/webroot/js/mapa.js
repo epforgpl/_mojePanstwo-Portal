@@ -298,7 +298,7 @@ var MapBrowser = Class.extend({
 		h = h - h_title - h_wybory;
 		this.detail_div_main.height(h + 'px');
 		this.detail_div_main_dcontent.height(h - this.detail_div_main.find('> li > h2').outerHeight() + 'px');
-		this.detail_div_main_dcontent.find('._points').height(this.detail_div_main_dcontent.height() - this.detail_div_main_dcontent.find('.input-group').height() - 26 + 'px');
+		this.detail_div_main_dcontent.find('._points').height(this.detail_div_main_dcontent.height() - this.detail_div_main_dcontent.find('.input-group').height() - 30 + 'px');
 	},
 
 	cleaner: function () {
