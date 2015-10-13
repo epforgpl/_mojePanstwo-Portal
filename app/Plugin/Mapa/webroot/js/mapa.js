@@ -397,6 +397,7 @@ $(document).ready(function () {
 			} else {
 				accords.addClass('closed');
 			}
+			map.resize();
 		})
 	})
 });
