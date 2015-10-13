@@ -78,12 +78,14 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
             <div class="container">
                 <div id="mapBrowser"
-                     class="row dataBrowserContent<? if (isset($widget)) { ?> hide<? } ?>"
-                     data-viewport="<?= htmlspecialchars(json_encode($mapParams['viewport'])) ?>"
-                     data-typ_id="<?= $mapParams['data']['miejsca.typ_id'] ?>"
-                     data-object_id="<?= $mapParams['data']['miejsca.object_id'] ?>">
+                    class="row dataBrowserContent<? if (isset($widget)) { ?> hide<? } ?>" 
+                    <? if( @$mapParams['viewport'] ) {?>data-viewport="<?= htmlspecialchars(json_encode($mapParams['viewport'])) ?>"<? } ?> 
+                    <? if( @$mapParams['data'] ) {?>data-typ_id="<?= $mapParams['data']['miejsca.typ_id'] ?>"<? } ?> 
+                    <? if( @$mapParams['data'] ) {?>data-object_id="<?= $mapParams['data']['miejsca.object_id'] ?>"<? } ?>>
 
-                    <div class="map"></div>
+                    <div class="map<? if( !isset($mapParams) ) {?> nodetails<? } ?>"></div>
+                    
+                    <? if( isset($mapParams) ) {?>
                     <div class="details" itemscope itemtype="http://schema.org/Place">
                         <div class="title">
                             <? if (!in_array($mapParams['data']['typ_id'], array('1', '2'))) { ?>
@@ -270,6 +272,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             <? } ?>
                         </ul>
                     </div>
+                    <? } ?>
                 </div>
             </div>
         </div>
