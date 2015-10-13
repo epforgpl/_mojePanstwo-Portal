@@ -233,6 +233,8 @@ var MapBrowser = Class.extend({
 
 			point.marker.addListener('click', function () {
 				window.location.hash = this.data;
+				self.detail_div_main_dcontent.find('._points li.active').removeClass('active');
+				self.detail_div_main_dcontent.find('._points li[name="' + this.data + '"]').addClass('active');
 				self.pointWindow(this);
 			});
 
