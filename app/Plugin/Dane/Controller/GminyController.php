@@ -3406,6 +3406,7 @@ class GminyController extends DataobjectsController
             ),
             'renderFile' => 'zamowienia_publiczne_dokumenty',
             'aggsPreset' => 'zamowienia_publiczne_dokumenty',
+            'sortPreset' => 'zamowienia_publiczne_dokumenty'
         ));
 
         $this->menu_selected = 'zamowienia';
