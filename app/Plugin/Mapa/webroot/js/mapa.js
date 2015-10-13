@@ -368,7 +368,13 @@ var map, localizer;
 $(document).ready(function () {
 	map = new MapBrowser();
 	localizer = new Localizer();
-	/*$('#localizeMe').click(function () {
-	 localizer.request_position();
-	 });*/
+	$('.localizeMe').click(function () {
+		var self = $(this);
+
+		if (!self.hasClass('loading')) {
+			if (self.hasClass('btn-primary'))
+				self.addClass('loading disabled');
+			localizer.request_position();
+		}
+	});
 });
