@@ -221,28 +221,32 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                 <? } ?>
                                 <? if (@$mapParams['children']['miejscowosci']) { ?>
                                     <li>
-                                        <h2>Miejscowości:</h2>
+                                        <div class="accord">
+                                            <header>
+                                                <h2>Miejscowości:</h2>
+                                            </header>
+                                            <section>
+                                                <div class="dcontent">
+                                                    <div class="input-group">
+                                                        <input type="text" placeholder="Szukaj..."
+                                                               class="form-control hasclear input-md"/>
 
-                                        <div class="dcontent">
-                                            <div class="input-group">
-                                                <input type="text" placeholder="Szukaj..."
-                                                       class="form-control hasclear input-md"/>
+                                                        <div class="input-group-btn">
+                                                            <button type="submit" class="btn btn-primary input-md">
+                                                                <span class="glyphicon glyphicon-search"></span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
 
-                                                <div class="input-group-btn">
-                                                    <button type="submit" class="btn btn-primary input-md">
-                                                        <span class="glyphicon glyphicon-search"></span>
-                                                    </button>
+                                                    <ul>
+                                                        <? foreach ($mapParams['children']['miejscowosci'] as $item) { ?>
+                                                            <li>
+                                                                <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?>"><?= $item['miejsca.miejscowosc'] ?></a>
+                                                            </li>
+                                                        <? } ?>
+                                                    </ul>
                                                 </div>
-                                            </div>
-
-                                            <ul>
-                                                <? foreach ($mapParams['children']['miejscowosci'] as $item) { ?>
-                                                    <li>
-                                                        <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?>"><?= $item['miejsca.miejscowosc'] ?></a>
-                                                    </li>
-                                                <? } ?>
-                                            </ul>
-                                        </div>
+                                            </section>
                                     </li>
                                 <? } ?>
                                 <? if (@$mapParams['children']['ulice']) { ?>

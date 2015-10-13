@@ -141,6 +141,15 @@
             margin: 0;
             padding: 0;
 
+            > header {
+                padding-left: 38px;
+                padding-right: 38px;
+
+                &::after {
+                    left: 24px;
+                }
+            }
+
             ul {
                 border-top: 1px solid #ddd;
                 list-style: outside none none;
@@ -156,7 +165,7 @@
                     padding: 0;
 
                     &.komisja-adres {
-                        background: #fff url("/mapa/img/marker-google.svg") no-repeat scroll 0 4px;
+                        background: transparent url("/mapa/img/marker-google.svg") no-repeat scroll 0 4px;
                         padding-left: 35px;
                     }
 
