@@ -134,7 +134,29 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                     </ul>
                                 <? } ?>
                             </div>
-                            <!-- div:title-->
+                            <? if (@$mapParams['data'] && $mapParams['data']['miejsca.typ_id'] >= 2) { ?>
+                                <div class="wyboryDetail">
+                                    <ul class="wybory">
+                                        <li>
+                                            <h3>Na kogo głosować?</h3>
+                                        </li>
+                                        <li>
+                                            <button class="btn btn-primary btn-xs">Pokaż kandydatów do Sejmu »</button>
+                                        </li>
+                                        <li>
+                                            <button class="btn btn-primary btn-xs">Pokaż kandydatów do Senatu »</button>
+                                        </li>
+                                    </ul>
+                                    <ul class="komisja">
+                                        <li>
+                                            <h3>Gdzie głosować?</h3>
+                                        </li>
+                                        <li class="komisja-adres">Ministerstwo Rolnictwa i Rozwoju Wsi, ul.Wspólna 30 ,
+                                            Śródmieście 00-519 Warszawa
+                                        </li>
+                                    </ul>
+                                </div>
+                            <? } ?>
 
                             <ul class="main">
                                 <? if (@$mapParams['children']['powiaty']) { ?>

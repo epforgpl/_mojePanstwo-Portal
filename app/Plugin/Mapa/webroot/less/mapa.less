@@ -76,7 +76,8 @@
         -moz-box-shadow: 0 5px 10px #AAA;
         -webkit-box-shadow: 0 5px 10px #AAA;
         -o-box-shadow: 0 5px 10px #AAA;
-        .title {
+
+        .title, .wyboryDetail {
             background-color: #FFF;
             border-bottom: 1px solid #DDD;
             margin: 0;
@@ -91,6 +92,31 @@
                 line-height: 0.75em;
                 text-transform: uppercase;
 
+            }
+        }
+
+        .wyboryDetail {
+            ul {
+                border-top: 1px solid #ddd;
+                list-style: outside none none;
+                margin: -5px 20px 0;
+                padding: 0 0 20px;
+
+                > li {
+                    margin: 3px 0;
+                    padding: 0;
+
+                    &.komisja-adres {
+                        background: #fff url("/mapa/img/marker-google.svg") no-repeat scroll 0 4px;
+                        padding-left: 35px;
+                    }
+
+                    h3 {
+                        font-size: 14px;
+                        margin: 10px 0 15px;
+                        padding: 0;
+                    }
+                }
             }
         }
 

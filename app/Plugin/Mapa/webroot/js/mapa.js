@@ -185,6 +185,7 @@ var MapBrowser = Class.extend({
 		self.detail_div = self.div.find('.details');
 		self.detail_div_main = self.detail_div.find('ul.main');
 		self.detail_div_main_title = self.detail_div.find('.title');
+		self.detail_div_main_wyboryDetail = self.detail_div.find('.wyboryDetail');
 		self.detail_div_main_dcontent = self.detail_div.find('.dcontent');
 
 		var fitBounds = false;
@@ -287,10 +288,14 @@ var MapBrowser = Class.extend({
 
 	resize: function () {
 		var h = $(window).height() - $(this.div).offset().top - 1,
-			h_title = this.detail_div_main_title.height() + 14;
+			h_title = this.detail_div_main_title.height() + 14,
+			h_wybory = 0;
+
+		if (this.detail_div_main_wyboryDetail.height() > 0)
+			h_wybory = this.detail_div_main_wyboryDetail.height() - 5;
 
 		this.map_div.height(h + 'px');
-		h = h - h_title;
+		h = h - h_title - h_wybory;
 		this.detail_div_main.height(h + 'px');
 		this.detail_div_main_dcontent.height(h - this.detail_div_main.find('> li > h2').outerHeight() + 'px');
 		this.detail_div_main_dcontent.find('._points').height(this.detail_div_main_dcontent.height() - this.detail_div_main_dcontent.find('.input-group').height() - 26 + 'px');
