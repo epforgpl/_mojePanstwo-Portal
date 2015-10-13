@@ -389,13 +389,12 @@ $(document).ready(function () {
 		var self = $(this);
 
 		self.find('>header').click(function () {
-			if (self.hasClass('closed'))
+			if (self.hasClass('closed')) {
+				accords.addClass('closed');
 				self.removeClass('closed');
-			else {
-				self.addClass('closed');
+			} else {
+				accords.addClass('closed');
 			}
-
-			map.resize();
 		})
 	})
 });

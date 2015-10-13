@@ -136,7 +136,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             </div>
                             <? if (@$mapParams['data'] && $mapParams['data']['miejsca.typ_id'] >= 2) { ?>
                                 <div class="accord closed wyboryDetail">
-                                    <header><h2>Wybory do parlamentu 2015</h2></header>
+                                    <header><h2>Wybory parlamentarne 2015</h2></header>
                                     <section>
                                         <ul class="wybory">
                                             <li>
