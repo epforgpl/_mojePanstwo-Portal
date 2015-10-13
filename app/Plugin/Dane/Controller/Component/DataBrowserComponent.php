@@ -117,6 +117,15 @@ class DataBrowserComponent extends Component
                 ),
             ),
         ),
+        'zamowienia_publiczne_dokumenty' => array(
+            'date' => array(
+                'label' => 'Data rozstrzygnięcia',
+                'options' => array(
+                    'desc' => 'od najnowszych',
+                    'asc' => 'od najstarszych',
+                ),
+            ),
+        ),
 	);
 
     private $aggs_presets = array(
@@ -1300,11 +1309,18 @@ class DataBrowserComponent extends Component
 
 	}
 
-	private function prepareSort( $sort = array() )
-	{
+	private function prepareSort($sort = array(), $query = array())
+    {
+        if(isset($query['q'])) {
+            $sort['score'] = array(
+                'label' => 'Trafność',
+                'options' => array(
+                    'desc' => 'Najtrafniejsze'
+                )
+            );
+        }
 
 		return $sort;
-
 	}
 
     public function __construct($collection, $settings)
@@ -1461,6 +1477,8 @@ class DataBrowserComponent extends Component
 
             $hits = $controller->Paginator->paginate('Dataobject');
 
+            $this->settings['sort'] = $this->prepareSort($this->settings['sort'], $this->queryData);
+
             $dataBrowser = array(
                 'hits' => $hits,
                 'took' => $controller->Dataobject->getPerformance(),
@@ -1477,7 +1495,7 @@ class DataBrowserComponent extends Component
                 'mode' => 'data',
                 'dataset' => $this->dataset,
                 'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
-                'sort' => $this->prepareSort($this->settings['sort']),
+                'sort' => $this->settings['sort'],
                 'phrases' => isset($this->settings['phrases']) ? $this->settings['phrases'] : false,
             );
 
