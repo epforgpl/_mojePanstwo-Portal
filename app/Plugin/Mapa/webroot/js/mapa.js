@@ -131,7 +131,8 @@ var MapBrowser = Class.extend({
 				data: point.label
 			});
 
-			point.marker.addListener('click', function (e) {
+			point.marker.addListener('click', function () {
+				window.location.hash = this.data;
 				self.pointWindow(this);
 			});
 
@@ -151,8 +152,17 @@ var MapBrowser = Class.extend({
 
 		var list = self.detail_div_main_dcontent.find('ul > li');
 
+		if (self.detail_div_main_dcontent.find('.input-group > input').val() !== '')
+			self.cleaner();
+
 		self.detail_div_main_dcontent.find('.input-group > input').keyup(function () {
 			var searchV = $(this).val();
+
+			if (searchV.length > 0) {
+				self.cleaner();
+			} else {
+				self.detail_div_main_dcontent.find('.input-group .cleaner').remove();
+			}
 
 			$.each(list, function () {
 				var el = $(this);
@@ -184,7 +194,21 @@ var MapBrowser = Class.extend({
 		h = h - h_title;
 		this.detail_div_main.height(h + 'px');
 		this.detail_div_main_dcontent.height(h - this.detail_div_main.find('> li > h2').outerHeight() + 'px');
-		this.detail_div_main_dcontent.find('._points').height(this.detail_div_main_dcontent.height() - this.detail_div_main_dcontent.find('.input-group').height() - 25 + 'px');
+		this.detail_div_main_dcontent.find('._points').height(this.detail_div_main_dcontent.height() - this.detail_div_main_dcontent.find('.input-group').height() - 26 + 'px');
+	},
+
+	cleaner: function () {
+		var self = this;
+
+		if (self.detail_div_main_dcontent.find('.input-group .input-group-btn > .cleaner').length == 0) {
+			self.detail_div_main_dcontent.find('.input-group .input-group-btn').append(
+				$('<div></div>').addClass('cleaner glyphicon glyphicon-remove').click(function () {
+					self.detail_div_main_dcontent.find('.input-group .cleaner').remove();
+					self.detail_div_main_dcontent.find('.input-group > input').val('');
+					self.detail_div_main_dcontent.find('ul > li.hide').removeClass('hide');
+				})
+			)
+		}
 	},
 
 	setIconItem: function (booled) {
@@ -224,6 +248,7 @@ var MapBrowser = Class.extend({
 		$.each(self.points, function () {
 			if (this.marker.icon.active)
 				this.marker.setIcon(self.setIconItem());
+			this.marker.setIcon(self.setIconItem());
 		});
 
 		marker.setIcon(self.setIconItem(true));
@@ -232,7 +257,9 @@ var MapBrowser = Class.extend({
 			infowindow.close();
 		}
 
-		infowindow = new google.maps.InfoWindow();
+		infowindow = new google.maps.InfoWindow({
+			pixelOffset: new google.maps.Size(0, 4)
+		});
 		infowindow.setContent('Numer: ' + marker.data);
 		infowindow.open(self.map, marker)
 	}

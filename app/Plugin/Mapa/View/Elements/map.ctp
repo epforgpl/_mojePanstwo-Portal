@@ -259,7 +259,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                             <? foreach ($mapParams['points'] as $item) { ?>
                                                 <li name="<?= $item['numer'] ?>" itemprop="geo" itemscope
                                                     itemtype="http://schema.org/GeoCoordinates">
-                                                    <a href="#<?= $item['numer'] ?>"><?= $item['numer'] ?></a>
+                                                    <a href='#<?= urlencode($item['numer']) ?>'><?= $item['numer'] ?></a>
                                                     <meta itemprop="latitude" content="<?= $item['lat'] ?>"/>
                                                     <meta itemprop="longitude" content="<?= $item['lon'] ?>"/>
                                                 </li>

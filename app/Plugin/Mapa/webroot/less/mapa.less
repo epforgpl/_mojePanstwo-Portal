@@ -72,36 +72,36 @@
         -moz-box-shadow: 0 5px 10px #AAA;
         -webkit-box-shadow: 0 5px 10px #AAA;
         -o-box-shadow: 0 5px 10px #AAA;
-		.title {
-			background-color: #FFF;
-			border-bottom: 1px solid #DDD;
-			margin: 0;
-			padding: 0;
+        .title {
+            background-color: #FFF;
+            border-bottom: 1px solid #DDD;
+            margin: 0;
+            padding: 0;
 
-			._label {
-				color: #789;
-			    margin-bottom: -10px;
-			    padding: 20px 23px 0;
-			    font-size: 10px;
-			    font-weight: 600;
-			    line-height: 0.75em;
-			    text-transform: uppercase;
+            ._label {
+                color: #789;
+                margin-bottom: -10px;
+                padding: 20px 23px 0;
+                font-size: 10px;
+                font-weight: 600;
+                line-height: 0.75em;
+                text-transform: uppercase;
 
-			}
-		}
+            }
+        }
 
-		h1 {
-			font-size: 24px;
-			padding: 20px;
-			margin: 0;
-		}
+        h1 {
+            font-size: 24px;
+            padding: 20px;
+            margin: 0;
+        }
 
-		h2 {
-			padding: 5px;
-			margin: 0;
-			font-size: 14px;
-			font-weight: bold;
-		}
+        h2 {
+            padding: 5px;
+            margin: 0;
+            font-size: 14px;
+            font-weight: bold;
+        }
 
         ul {
             margin: 0;
@@ -113,16 +113,23 @@
                 padding: 3px;
                 list-style: none;
 
-                > a {
-                    display: inline-block;
-                    width: 100%;
-                }
-
                 .dcontent {
                     .input-group {
                         margin: 10px 5px 5px;
+
                         .btn {
                             font-size: 13px;
+                        }
+
+                        .cleaner {
+                            color: #333333;
+                            font-size: 10px;
+                            padding: 10px 5px;
+                            position: absolute;
+                            right: 38px;
+                            top: 0;
+                            z-index: 2;
+                            cursor: pointer;
                         }
                     }
                     > ul {
@@ -132,6 +139,18 @@
                         overflow-x: hidden;
                         overflow-y: auto;
                         width: 100%;
+
+                        > li {
+                            &.active > a {
+                                color: #121212;
+                                font-weight: bold;
+                            }
+
+                            > a {
+                                display: inline-block;
+                                width: 100%;
+                            }
+                        }
                     }
                 }
             }
