@@ -168,54 +168,66 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             <ul class="main">
                                 <? if (@$mapParams['children']['powiaty']) { ?>
                                     <li>
-                                        <h2>Powiaty:</h2>
+                                        <div class="accord">
+                                            <header>
+                                                <h2>Powiaty:</h2>
+                                            </header>
+                                            <section>
 
-                                        <div class="dcontent">
-                                            <div class="input-group">
-                                                <input type="text" placeholder="Szukaj..."
-                                                       class="form-control hasclear input-md"/>
+                                                <div class="dcontent">
+                                                    <div class="input-group">
+                                                        <input type="text" placeholder="Szukaj..."
+                                                               class="form-control hasclear input-md"/>
 
-                                                <div class="input-group-btn">
-                                                    <button type="submit" class="btn btn-primary input-md">
-                                                        <span class="glyphicon glyphicon-search"></span>
-                                                    </button>
+                                                        <div class="input-group-btn">
+                                                            <button type="submit" class="btn btn-primary input-md">
+                                                                <span class="glyphicon glyphicon-search"></span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <ul>
+                                                        <? foreach ($mapParams['children']['powiaty'] as $item) { ?>
+                                                            <li>
+                                                                <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?>"><?= $item['miejsca.powiat'] ?></a>
+                                                            </li>
+                                                        <? } ?>
+                                                    </ul>
                                                 </div>
-                                            </div>
-
-                                            <ul>
-                                                <? foreach ($mapParams['children']['powiaty'] as $item) { ?>
-                                                    <li>
-                                                        <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?>"><?= $item['miejsca.powiat'] ?></a>
-                                                    </li>
-                                                <? } ?>
-                                            </ul>
+                                            </section>
                                         </div>
                                     </li>
                                 <? } ?>
                                 <? if (@$mapParams['children']['gminy']) { ?>
                                     <li>
-                                        <h2>Gminy:</h2>
+                                        <div class="accord">
+                                            <header>
+                                                <h2>Gminy:</h2>
+                                            </header>
+                                            <section>
 
-                                        <div class="dcontent">
+                                                <div class="dcontent">
 
-                                            <div class="input-group">
-                                                <input type="text" placeholder="Szukaj..."
-                                                       class="form-control hasclear input-md"/>
+                                                    <div class="input-group">
+                                                        <input type="text" placeholder="Szukaj..."
+                                                               class="form-control hasclear input-md"/>
 
-                                                <div class="input-group-btn">
-                                                    <button type="submit" class="btn btn-primary input-md">
-                                                        <span class="glyphicon glyphicon-search"></span>
-                                                    </button>
+                                                        <div class="input-group-btn">
+                                                            <button type="submit" class="btn btn-primary input-md">
+                                                                <span class="glyphicon glyphicon-search"></span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <ul>
+                                                        <? foreach ($mapParams['children']['gminy'] as $item) { ?>
+                                                            <li>
+                                                                <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?>"><?= $item['miejsca.gmina'] ?></a>
+                                                            </li>
+                                                        <? } ?>
+                                                    </ul>
                                                 </div>
-                                            </div>
-
-                                            <ul>
-                                                <? foreach ($mapParams['children']['gminy'] as $item) { ?>
-                                                    <li>
-                                                        <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?>"><?= $item['miejsca.gmina'] ?></a>
-                                                    </li>
-                                                <? } ?>
-                                            </ul>
+                                            </section>
                                         </div>
                                     </li>
                                 <? } ?>
@@ -251,27 +263,33 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                 <? } ?>
                                 <? if (@$mapParams['children']['ulice']) { ?>
                                     <li>
-                                        <h2>Ulice:</h2>
+                                        <div class="accord">
+                                            <header>
+                                                <h2>Ulice:</h2>
+                                            </header>
+                                            <section>
 
-                                        <div class="dcontent">
-                                            <div class="input-group">
-                                                <input type="text" placeholder="Szukaj..."
-                                                       class="form-control hasclear input-sm"/>
+                                                <div class="dcontent">
+                                                    <div class="input-group">
+                                                        <input type="text" placeholder="Szukaj..."
+                                                               class="form-control hasclear input-sm"/>
 
-                                                <div class="input-group-btn">
-                                                    <button type="submit" class="btn btn-primary input-sm">
-                                                        <span class="glyphicon glyphicon-search"></span>
-                                                    </button>
+                                                        <div class="input-group-btn">
+                                                            <button type="submit" class="btn btn-primary input-sm">
+                                                                <span class="glyphicon glyphicon-search"></span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <ul>
+                                                        <? foreach ($mapParams['children']['ulice'] as $item) { ?>
+                                                            <li>
+                                                                <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?>"><?= $item['miejsca.ulica'] ?></a>
+                                                            </li>
+                                                        <? } ?>
+                                                    </ul>
                                                 </div>
-                                            </div>
-
-                                            <ul>
-                                                <? foreach ($mapParams['children']['ulice'] as $item) { ?>
-                                                    <li>
-                                                        <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?>"><?= $item['miejsca.ulica'] ?></a>
-                                                    </li>
-                                                <? } ?>
-                                            </ul>
+                                            </section>
                                         </div>
                                     </li>
                                 <? } ?>
