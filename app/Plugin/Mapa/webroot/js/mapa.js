@@ -292,12 +292,14 @@ var MapBrowser = Class.extend({
 			h_wybory = 0;
 
 		if (this.detail_div_main_wyboryDetail.height() > 0)
-			h_wybory = this.detail_div_main_wyboryDetail.height();
+			h_wybory = this.detail_div_main_wyboryDetail.outerHeight(true);
 
 		this.map_div.height(h + 'px');
 		h = h - h_title - h_wybory;
 		this.detail_div_main.height(h + 'px');
-		this.detail_div_main_dcontent.height(h - this.detail_div_main.find('> li > h2').outerHeight() - 40 + 'px');
+		//this.detail_div_main_dcontent.height(h - this.detail_div_main.find('> li > h2').outerHeight() - 40 + 'px');
+		//this.detail_div_main_dcontent.find('ul').height(this.detail_div_main_dcontent.height() - this.detail_div_main_dcontent.find('.input-group').outerHeight() - 20);
+		this.detail_div_main_dcontent.find('ul').height((h - this.detail_div_main.find('> li > h2').outerHeight() - 40) - this.detail_div_main_dcontent.find('.input-group').outerHeight() - 20);
 	},
 
 	cleaner: function () {
