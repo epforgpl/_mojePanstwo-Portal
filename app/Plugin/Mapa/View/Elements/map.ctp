@@ -268,7 +268,6 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                                 <h2>Ulice:</h2>
                                             </header>
                                             <section>
-
                                                 <div class="dcontent">
                                                     <div class="input-group">
                                                         <input type="text" placeholder="Szukaj..."
@@ -295,30 +294,37 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                 <? } ?>
                                 <? if (@$mapParams['points']) { ?>
                                     <li>
-                                        <h2>Numery:</h2>
+                                        <div class="accord">
+                                            <header>
+                                                <h2>Numery:</h2>
+                                            </header>
+                                            <section>
+                                                <div class="dcontent">
+                                                    <div class="input-group">
+                                                        <input type="text" placeholder="Szukaj..."
+                                                               class="form-control hasclear input-sm"/>
 
-                                        <div class="dcontent">
-                                            <div class="input-group">
-                                                <input type="text" placeholder="Szukaj..."
-                                                       class="form-control hasclear input-sm"/>
+                                                        <div class="input-group-btn">
+                                                            <button type="submit" class="btn btn-primary input-sm">
+                                                                <span class="glyphicon glyphicon-search"></span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
 
-                                                <div class="input-group-btn">
-                                                    <button type="submit" class="btn btn-primary input-sm">
-                                                        <span class="glyphicon glyphicon-search"></span>
-                                                    </button>
+                                                    <ul class="_points">
+                                                        <? foreach ($mapParams['points'] as $item) { ?>
+                                                            <li name="<?= $item['numer'] ?>" itemprop="geo" itemscope
+                                                                itemtype="http://schema.org/GeoCoordinates">
+                                                                <a href='#<?= urlencode($item['numer']) ?>'><?= $item['numer'] ?></a>
+                                                                <meta itemprop="latitude"
+                                                                      content="<?= $item['lat'] ?>"/>
+                                                                <meta itemprop="longitude"
+                                                                      content="<?= $item['lon'] ?>"/>
+                                                            </li>
+                                                        <? } ?>
+                                                    </ul>
                                                 </div>
-                                            </div>
-
-                                            <ul class="_points">
-                                                <? foreach ($mapParams['points'] as $item) { ?>
-                                                    <li name="<?= $item['numer'] ?>" itemprop="geo" itemscope
-                                                        itemtype="http://schema.org/GeoCoordinates">
-                                                        <a href='#<?= urlencode($item['numer']) ?>'><?= $item['numer'] ?></a>
-                                                        <meta itemprop="latitude" content="<?= $item['lat'] ?>"/>
-                                                        <meta itemprop="longitude" content="<?= $item['lon'] ?>"/>
-                                                    </li>
-                                                <? } ?>
-                                            </ul>
+                                            </section>
                                         </div>
                                     </li>
                                 <? } ?>

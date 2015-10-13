@@ -292,13 +292,12 @@ var MapBrowser = Class.extend({
 			h_wybory = 0;
 
 		if (this.detail_div_main_wyboryDetail.height() > 0)
-			h_wybory = this.detail_div_main_wyboryDetail.height() - 5;
+			h_wybory = this.detail_div_main_wyboryDetail.height();
 
 		this.map_div.height(h + 'px');
 		h = h - h_title - h_wybory;
 		this.detail_div_main.height(h + 'px');
-		this.detail_div_main_dcontent.height(h - this.detail_div_main.find('> li > h2').outerHeight() + 'px');
-		this.detail_div_main_dcontent.find('._points').height(this.detail_div_main_dcontent.height() - this.detail_div_main_dcontent.find('.input-group').height() - 30 + 'px');
+		this.detail_div_main_dcontent.height(h - this.detail_div_main.find('> li > h2').outerHeight() - 40 + 'px');
 	},
 
 	cleaner: function () {
