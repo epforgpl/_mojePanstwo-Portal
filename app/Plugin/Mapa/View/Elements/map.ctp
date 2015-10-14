@@ -71,38 +71,38 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
                 <div class="map<? if (!isset($mapParams)) { ?> nodetails<? } ?>"></div>
 
-                    <? if (isset($mapParams)) { ?>
-                        <div class="details" itemscope itemtype="http://schema.org/Place">
-                            <div class="title">
-	                            <? if( ($mapParams['data']['typ_id']=='4') && isset($mapParams['data']['miejsca.miejscowosc_typ']) ) {?>
-		                            <p class="_label"><?= $mapParams['data']['miejsca.miejscowosc_typ'] ?></p>
-	                            <? } elseif( ($mapParams['data']['typ_id']=='3') && isset($mapParams['data']['miejsca.gmina_typ_id']) ) {?>
-		                            <p class="_label">
-		                            <?
-			                            if( $mapParams['data']['miejsca.gmina_typ_id']=='1' )
-			                            	echo "Gmina miejska";
-			                            elseif( $mapParams['data']['miejsca.gmina_typ_id']=='2' )
-			                            	echo "Gmina wiejska";
-			                            elseif( $mapParams['data']['miejsca.gmina_typ_id']=='3' )
-			                            	echo "Gmina miejsko-wiejska";
-			                            elseif( $mapParams['data']['miejsca.gmina_typ_id']=='4' )
-			                            	echo "Miasto stołeczne";
-		                            ?>
-		                            </p>
-	                            <? } elseif( ($mapParams['data']['typ_id']=='5') ) {?>
-		                            <p class="_label"><?= $mapParams['data']['miejsca.ulica_cecha'] ?></p>
-	                            <? } ?>
-                                <h1><?= $mapParams['title'] ?></h1>
-                                <?
-                                $typ_id = (int)$mapParams['data']['typ_id'];
-                                if ($typ_id > 1) { ?>
-                                    <ul class="meta">
-                                        <? if ($typ_id > 4) { ?>
-                                            <li>
-                                                <label>Miejscowość:</label>
-                                                <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.miejscowosc_miejsce_id'] ?><? if (isset($widget)) echo '?widget'; ?>"><?= ($mapParams['data']['miejscowosc']) ?></a>
-                                            </li>
-                                        <? } ?>
+                <? if (isset($mapParams)) { ?>
+                    <div class="details" itemscope itemtype="http://schema.org/Place">
+                        <div class="title">
+                            <? if (($mapParams['data']['typ_id'] == '4') && isset($mapParams['data']['miejsca.miejscowosc_typ'])) { ?>
+                                <p class="_label"><?= $mapParams['data']['miejsca.miejscowosc_typ'] ?></p>
+                            <? } elseif (($mapParams['data']['typ_id'] == '3') && isset($mapParams['data']['miejsca.gmina_typ_id'])) { ?>
+                                <p class="_label">
+                                    <?
+                                    if ($mapParams['data']['miejsca.gmina_typ_id'] == '1')
+                                        echo "Gmina miejska";
+                                    elseif ($mapParams['data']['miejsca.gmina_typ_id'] == '2')
+                                        echo "Gmina wiejska";
+                                    elseif ($mapParams['data']['miejsca.gmina_typ_id'] == '3')
+                                        echo "Gmina miejsko-wiejska";
+                                    elseif ($mapParams['data']['miejsca.gmina_typ_id'] == '4')
+                                        echo "Miasto stołeczne";
+                                    ?>
+                                </p>
+                            <? } elseif (($mapParams['data']['typ_id'] == '5')) { ?>
+                                <p class="_label"><?= $mapParams['data']['miejsca.ulica_cecha'] ?></p>
+                            <? } ?>
+                            <h1><?= $mapParams['title'] ?></h1>
+                            <?
+                            $typ_id = (int)$mapParams['data']['typ_id'];
+                            if ($typ_id > 1) { ?>
+                                <ul class="meta">
+                                    <? if ($typ_id > 4) { ?>
+                                        <li>
+                                            <label>Miejscowość:</label>
+                                            <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.miejscowosc_miejsce_id'] ?><? if (isset($widget)) echo '?widget'; ?>"><?= ($mapParams['data']['miejscowosc']) ?></a>
+                                        </li>
+                                    <? } ?>
 
                                     <? if ($typ_id > 3) { ?>
                                         <li>
@@ -124,8 +124,8 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                             <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.wojewodztwo_miejsce_id'] ?><? if (isset($widget)) echo '?widget'; ?>"><?= strtolower($mapParams['data']['wojewodztwo']) ?></a>
                                         </li>
                                     <? } ?>
-									
-									<? /*
+
+                                    <? /*
                                     <? if (count($mapParams['codes']) === 1) { ?>
                                         <li>
                                             <label>Kod pocztowy:</label>
@@ -133,31 +133,32 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         </li>
                                     <? } ?>
                                     */ ?>
-                                    
+
                                 </ul>
                             <? } ?>
                         </div>
 
                         <ul class="main">
                             <? if (@$mapParams['data'] && $mapParams['data']['miejsca.typ_id'] >= 2) { ?>
-                                
-                                <? debug( $mapParams['elections'] ); ?>
-                                
-                                <li class="accord <? if (!isset($widget)) { ?>closed <? } ?>wyboryDetail">
-                                    <header><h2>Wybory parlamentarne 2015</h2></header>
-                                    <section class="dcontent">
-                                        <ul class="wybory">
-                                            <li>
-                                                <button class="btn btn-primary btn-sm">Pokaż kandydatów do
-                                                    Sejmu &raquo;</button>
-                                            </li>
-                                            <li>
-                                                <button class="btn btn-primary btn-sm">Pokaż kandydatów do
-                                                    Senatu &raquo;</button>
-                                            </li>
-                                        </ul>
-                                    </section>
-                                </li>
+                                <? if (count($mapParams['elections']['sejm']) == 1 && count($mapParams['elections']['senat']) == 1) { ?>
+                                    <li class="accord <? if (!isset($widget)) { ?>closed <? } ?>wyboryDetail">
+                                        <header><h2>Wybory parlamentarne 2015</h2></header>
+                                        <section class="dcontent">
+                                            <ul class="wybory">
+                                                <li>
+                                                    <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $mapParams['elections']['sejm'][0]['key'] ?>"
+                                                       target="_parent" class="btn btn-primary btn-sm">Pokaż kandydatów
+                                                        do Sejmu &raquo;</a>
+                                                </li>
+                                                <li>
+                                                    <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/<?= $mapParams['elections']['senat'][0]['key'] ?>"
+                                                       target="_parent" class="btn btn-primary btn-sm">Pokaż kandydatów
+                                                        do Senatu &raquo;</a>
+                                                </li>
+                                            </ul>
+                                        </section>
+                                    </li>
+                                <? } ?>
                             <? } ?>
                             <? if (@$mapParams['children']['powiaty']) { ?>
                                 <li class="accord">
