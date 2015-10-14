@@ -334,10 +334,20 @@ var MapBrowser = Class.extend({
 				}
 			}
 		});
+
 		if (accordNoFixedC > 0) {
 			h = (h - accordFixedH) / accordNoFixedC;
 			this.detail_div_main.find('.accord.accord-nofixed').css('height', Math.floor(h));
 		}
+
+		$.each(this.detail_div_main_accords, function () {
+			var acc = $(this),
+				accH = acc.find('>header').outerHeight(),
+				accLi = parseInt(acc.css('padding-top')) + parseInt(acc.css('padding-bottom')),
+				accSBlock = acc.find('>section:visible');
+
+			accSBlock.find('>ul.scrollZone').css('height', 'auto').css('height', parseInt(acc.css('height')) - accH - accLi - accSBlock.find('.input-group').outerHeight(true))
+		});
 	},
 
 	cleaner: function (self) {

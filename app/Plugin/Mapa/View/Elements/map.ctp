@@ -179,7 +179,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                             </div>
                                         </div>
 
-                                        <ul>
+                                        <ul class="scrollZone">
                                             <? foreach ($mapParams['children']['powiaty'] as $item) { ?>
                                                 <li>
                                                     <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?>"><?= $item['miejsca.powiat'] ?></a>
@@ -206,7 +206,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                             </div>
                                         </div>
 
-                                        <ul>
+                                        <ul class="scrollZone">
                                             <? foreach ($mapParams['children']['gminy'] as $item) { ?>
                                                 <li>
                                                     <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?>"><?= $item['miejsca.gmina'] ?></a>
@@ -233,7 +233,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                             </div>
                                         </div>
 
-                                        <ul>
+                                        <ul class="scrollZone">
                                             <? foreach ($mapParams['children']['miejscowosci'] as $item) { ?>
                                                 <li>
                                                     <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?>"><?= $item['miejsca.miejscowosc'] ?></a>
@@ -260,7 +260,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                             </div>
                                         </div>
 
-                                        <ul>
+                                        <ul class="scrollZone">
                                             <? foreach ($mapParams['children']['ulice'] as $item) { ?>
                                                 <li>
                                                     <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?>"><?= $item['miejsca.ulica'] ?></a>
@@ -287,7 +287,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                             </div>
                                         </div>
 
-                                        <ul class="_points">
+                                        <ul class="scrollZone _points">
                                             <? foreach ($mapParams['points'] as $item) { ?>
                                                 <li name="<?= $item['numer'] ?>" itemprop="geo" itemscope
                                                     itemtype="http://schema.org/GeoCoordinates">
