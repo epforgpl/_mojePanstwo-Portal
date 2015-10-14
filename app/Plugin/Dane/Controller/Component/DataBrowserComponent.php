@@ -1312,12 +1312,14 @@ class DataBrowserComponent extends Component
 	private function prepareSort($sort = array(), $query = array())
     {
         if(isset($query['q'])) {
-            $sort['score'] = array(
-                'label' => 'Trafność',
-                'options' => array(
-                    'desc' => 'Najtrafniejsze'
+            $sort = array(
+                'score' => array(
+                    'label' => 'Trafność',
+                    'options' => array(
+                        'desc' => 'Najtrafniejsze'
+                    )
                 )
-            );
+            ) + $sort;
         }
 
 		return $sort;
