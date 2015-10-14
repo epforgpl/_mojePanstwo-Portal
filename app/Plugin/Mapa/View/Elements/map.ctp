@@ -89,9 +89,26 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                     <? if (isset($mapParams)) { ?>
                         <div class="details" itemscope itemtype="http://schema.org/Place">
                             <div class="title">
-                                <? if (!in_array($mapParams['data']['typ_id'], array('1', '2'))) { ?>
-                                    <p class="_label">Gmina</p>
-                                <? } ?>
+	                            
+	                            
+	                            <? if( ($mapParams['data']['typ_id']=='4') && isset($mapParams['data']['miejsca.miejscowosc_typ']) ) {?>
+		                            <p class="_label"><?= $mapParams['data']['miejsca.miejscowosc_typ'] ?></p>
+	                            <? } elseif( ($mapParams['data']['typ_id']=='3') && isset($mapParams['data']['miejsca.gmina_typ_id']) ) {?>
+		                            <p class="_label">
+		                            <?
+			                            if( $mapParams['data']['miejsca.gmina_typ_id']=='1' )
+			                            	echo "Gmina miejska";
+			                            elseif( $mapParams['data']['miejsca.gmina_typ_id']=='2' )
+			                            	echo "Gmina wiejska";
+			                            elseif( $mapParams['data']['miejsca.gmina_typ_id']=='3' )
+			                            	echo "Gmina miejsko-wiejska";
+			                            elseif( $mapParams['data']['miejsca.gmina_typ_id']=='4' )
+			                            	echo "Miasto stołeczne";
+		                            ?>
+		                            </p>
+	                            <? } ?>
+	                            
+                                
                                 <h1><?= $mapParams['title'] ?></h1>
                                 <?
                                 $typ_id = (int)$mapParams['data']['typ_id'];
