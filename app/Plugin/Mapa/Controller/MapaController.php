@@ -27,7 +27,26 @@ class MapaController extends ApplicationsController
     {
 	            
         $this->title = 'Mapa';
-
+		
+		if( @$this->request->query['q'] ) {
+			
+			$options = array(
+	            'searchTag' => array(
+		            'href' => '/mapa',
+		            'label' => 'Mapa',
+	            ),
+	            'conditions' => array(
+	                'dataset' => array('miejsca'),
+	                'miejsca.ignore' => false,
+	            ),
+	            'limit' => 10,
+	            'apps' => true,
+	        );
+	
+	        $this->Components->load('Dane.DataBrowser', $options);
+			
+		}
+		
         if (isset($this->request->query['widget'])) {
             $this->layout = 'blank';
             $this->set('widget', true);

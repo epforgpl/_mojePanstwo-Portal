@@ -68,10 +68,43 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                  <? if (@$mapParams['viewport']) { ?>data-viewport="<?= htmlspecialchars(json_encode($mapParams['viewport'])) ?>"<? } ?>
                  <? if (@$mapParams['data']) { ?>data-typ_id="<?= $mapParams['data']['miejsca.typ_id'] ?>"<? } ?>
                  <? if (@$mapParams['data']) { ?>data-object_id="<?= $mapParams['data']['miejsca.object_id'] ?>"<? } ?>>
+				 				 
+                <div class="map<? if (!isset($mapParams) && !isset($dataBrowser)) { ?> nodetails<? } ?>"></div>
+				
+				<? if( isset($dataBrowser) ) {?>
+					
+					<div class="details">
+                        <div class="title">
 
-                <div class="map<? if (!isset($mapParams)) { ?> nodetails<? } ?>"></div>
+                            <h1><?= $this->request->query['q'] ?></h1>
+                            
+                        </div>
+												
+                        <ul class="main">
+                            
+                            <? if (@$dataBrowser['hits']) { ?>
+                                <li class="accord">
+                                    <header>
+                                        <h2>Wyniki wyszukiwania:</h2>
+                                    </header>
+                                    <section class="dcontent">
+                                        <ul class="scrollZone">
+                                            <? foreach ($dataBrowser['hits'] as $item) { ?>
+                                                <li>
+                                                    <a href="/mapa/miejsce/<?= $item->getId() ?><? if (isset($widget)) echo '?widget'; ?>"><?= $item->getTitle() ?></a>
+                                                </li>
+                                            <? } ?>
+                                        </ul>
+                                    </section>
+                                </li>
+                            <? } ?>
+                            
+                        </ul>
 
-                <? if (isset($mapParams)) { ?>
+                    </div>
+				
+                <? } elseif (isset($mapParams)) { ?>
+                	
                     <div class="details" itemscope itemtype="http://schema.org/Place">
                         <div class="title">
                             <? if (($mapParams['data']['typ_id'] == '4') && isset($mapParams['data']['miejsca.miejscowosc_typ'])) { ?>
