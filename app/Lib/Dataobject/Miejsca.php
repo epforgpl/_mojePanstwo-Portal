@@ -33,7 +33,7 @@ class Miejsca extends DataObject
 		    
 	    } elseif( $this->getData('typ_id')=='5' ) { // miejscowość
 		    
-		    return $this->getData('nazwa');
+		    return $this->getData('miejscowosc'). ', ' . $this->getData('ulica');
 		    
 	    }	    
 	    

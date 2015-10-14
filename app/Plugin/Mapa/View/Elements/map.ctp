@@ -103,9 +103,11 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 			                            elseif( $mapParams['data']['miejsca.gmina_typ_id']=='3' )
 			                            	echo "Gmina miejsko-wiejska";
 			                            elseif( $mapParams['data']['miejsca.gmina_typ_id']=='4' )
-			                            	echo "Miasto stołeczne";
+			                            	echo "Miasto stołeczne";
 		                            ?>
 		                            </p>
+	                            <? } elseif( ($mapParams['data']['typ_id']=='5') ) {?>
+		                            <p class="_label"><?= $mapParams['data']['miejsca.ulica_cecha'] ?></p>
 	                            <? } ?>
 	                            
                                 
