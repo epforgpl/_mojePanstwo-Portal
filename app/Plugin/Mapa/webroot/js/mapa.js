@@ -317,7 +317,7 @@ var MapBrowser = Class.extend({
 			var acc = $(this),
 				accH = acc.find('>header').outerHeight(),
 				accS = acc.find('>section:visible').outerHeight(),
-				accLi = 6;
+				accLi = parseInt(acc.css('padding-top')) + parseInt(acc.css('padding-bottom'));
 
 			if ((accH + accS) < h_accord) {
 				acc.addClass('accord-fixed');
