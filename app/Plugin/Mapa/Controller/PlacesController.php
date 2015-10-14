@@ -49,23 +49,6 @@ class PlacesController extends ApplicationsController
 							    ),
 						    ),
 					    ),
-					    'viewport' => array(
-							'geo_bounds' => array(
-                                'field' => 'miejsca-numery.location',
-							),
-						),
-						'kody' => array(
-							'terms' => array(
-								'field' => 'miejsca-numery.kod',
-								'size' => 3,
-							),
-						),
-						'parl_obwody' => array(
-							'terms' => array(
-								'field' => 'miejsca-numery.parl_obwod_id',
-								'size' => 3,
-							),
-						),
 				    ),
 			    ),
 			    'miejsca' => array(
@@ -113,6 +96,18 @@ class PlacesController extends ApplicationsController
 															),
 														),
 												    ),
+											    ),
+											    'wybory_okreg_sejm_id' => array(
+												    'terms' => array(
+														'field' => 'data.miejsca.wybory_okreg_sejm_id',
+														'size' => 3,
+													),
+											    ),
+											    'wybory_okreg_senat_id' => array(
+												    'terms' => array(
+														'field' => 'data.miejsca.wybory_okreg_senat_id',
+														'size' => 3,
+													),
 											    ),
 										    ),
 									    ),
@@ -175,54 +170,18 @@ class PlacesController extends ApplicationsController
 
             // VIEWPORT
 
-            if (
-                @$aggs['miejsca']['children']['*']['reverse']['punkty']['viewport']['bounds'] &&
-				@!$aggs['numery']['viewport']['bounds']
-			) {
+            if ( @$aggs['miejsca']['children']['*']['reverse']['punkty']['viewport']['bounds'] ) {
 
 				$viewport = $aggs['miejsca']['children']['*']['reverse']['punkty']['viewport']['bounds'];
 
-			} elseif(
-                @!$aggs['miejsca']['children']['*']['reverse']['punkty']['viewport']['bounds'] &&
-				@$aggs['numery']['viewport']['bounds']
-			) {
-
-				$viewport = $aggs['numery']['viewport']['bounds'];
-
-			} elseif(
-                @$aggs['miejsca']['children']['*']['reverse']['punkty']['viewport']['bounds'] &&
-				@$aggs['numery']['viewport']['bounds']
-			) {
-
-                // TODO: calculate max viewport
-				$viewport = $aggs['miejsca']['children']['*']['reverse']['punkty']['viewport']['bounds'];
-
-            }
+			}
 
 
             // POSTAL CODES
 
-            if (
-                @$aggs['miejsca']['children']['*']['reverse']['punkty']['kody']['buckets'] &&
-				@!$aggs['numery']['kody']['buckets']
-			) {
+            if ( @$aggs['miejsca']['children']['*']['reverse']['punkty']['kody']['buckets'] ) {
 
                 $codes = $aggs['miejsca']['children']['*']['reverse']['punkty']['kody']['buckets'];
-
-            } elseif(
-                @!$aggs['miejsca']['children']['*']['reverse']['punkty']['kody']['buckets'] &&
-				@$aggs['numery']['kody']['buckets']
-			) {
-
-                $codes = $aggs['numery']['kody']['buckets'];
-
-            } elseif(
-                @$aggs['miejsca']['children']['*']['reverse']['punkty']['kody']['buckets'] &&
-				@$aggs['numery']['kody']['buckets']
-			) {
-
-                // TODO: calculate max
-				$codes = $aggs['numery']['kody']['buckets'];
 
             }
 

@@ -147,23 +147,12 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                     <section class="dcontent">
                                         <ul class="wybory">
                                             <li>
-                                                <h3>Na kogo głosować?</h3>
-                                            </li>
-                                            <li>
-                                                <button class="btn btn-primary btn-xs">Pokaż kandydatów do
+                                                <button class="btn btn-primary btn-sm">Pokaż kandydatów do
                                                     Sejmu &raquo;</button>
                                             </li>
                                             <li>
-                                                <button class="btn btn-primary btn-xs">Pokaż kandydatów do
+                                                <button class="btn btn-primary btn-sm">Pokaż kandydatów do
                                                     Senatu &raquo;</button>
-                                            </li>
-                                        </ul>
-                                        <ul class="komisja">
-                                            <li>
-                                                <h3>Gdzie głosować?</h3>
-                                            </li>
-                                            <li class="komisja-adres">Ministerstwo Rolnictwa i Rozwoju Wsi, ul.Wspólna
-                                                30, Śródmieście 00-519 Warszawa
                                             </li>
                                         </ul>
                                     </section>
