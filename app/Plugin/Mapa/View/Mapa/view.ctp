@@ -1,1 +1,3 @@
-<?= $this->element('map'); ?>
+<? if (!isset($widget)) {
+    echo $this->element('map');
+}

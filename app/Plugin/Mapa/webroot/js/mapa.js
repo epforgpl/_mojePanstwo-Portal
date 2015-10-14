@@ -266,8 +266,7 @@ var MapBrowser = Class.extend({
 					that.find('.input-group .cleaner').remove();
 				}
 
-				var list = that.find('ul > li');
-
+				var list = that.parents('.dcontent').find('ul.scrollZone > li');
 				$.each(list, function () {
 					var el = $(this);
 
@@ -302,8 +301,6 @@ var MapBrowser = Class.extend({
 			h_title = this.detail_div_main_title.outerHeight(),
 			h_accord;
 
-		this.detail_div_main.find('.accord').removeClass('accord-fixed accord-nofixed');
-
 		this.map_div.height(h + 'px');
 		h -= h_title;
 		this.detail_div_main.css('height', h);
@@ -315,19 +312,24 @@ var MapBrowser = Class.extend({
 
 		$.each(this.detail_div_main_accords, function () {
 			var acc = $(this),
+				accLi = parseInt(acc.css('padding-top')) + parseInt(acc.css('padding-bottom')),
 				accH = acc.find('>header').outerHeight(),
-				accS = acc.find('>section:visible').outerHeight(),
-				accLi = parseInt(acc.css('padding-top')) + parseInt(acc.css('padding-bottom'));
+				accS = acc.find('>section:visible');
 
-			if ((accH + accS) < h_accord) {
+			acc.css('height', 'auto');
+			accS.find('ul.scrollZone').css('height', 'auto');
+
+			accS = acc.find('>section:visible').outerHeight();
+
+			if (acc.hasClass('closed')) {
 				acc.addClass('accord-fixed');
-				accordFixedH += accH + accS + accLi;
-				acc.css('height', accH + accS + accLi)
+				accordFixedH += accH + accLi;
+				acc.css('height', accH + accLi)
 			} else {
-				if (acc.hasClass('closed')) {
+				if ((accH + accS) < h_accord) {
 					acc.addClass('accord-fixed');
-					accordFixedH += accH + accLi;
-					acc.css('height', accH + accLi)
+					accordFixedH += accH + accS + accLi;
+					acc.css('height', accH + accS + accLi)
 				} else {
 					acc.addClass('accord-nofixed');
 					accordNoFixedC++;
@@ -346,8 +348,10 @@ var MapBrowser = Class.extend({
 				accLi = parseInt(acc.css('padding-top')) + parseInt(acc.css('padding-bottom')),
 				accSBlock = acc.find('>section:visible');
 
-			accSBlock.find('>ul.scrollZone').css('height', 'auto').css('height', parseInt(acc.css('height')) - accH - accLi - accSBlock.find('.input-group').outerHeight(true))
+			accSBlock.find('>ul.scrollZone').css('height', parseInt(acc.css('height')) - accH - accLi - accSBlock.find('.input-group').outerHeight(true))
 		});
+
+		this.detail_div_main.find('.accord').removeClass('accord-fixed accord-nofixed');
 	},
 
 	cleaner: function (self) {
@@ -394,7 +398,8 @@ var MapBrowser = Class.extend({
 	},
 
 	pointWindow: function (marker) {
-		var self = this;
+		var self = this,
+			pixelOffset;
 
 		$.each(self.points, function () {
 			if (this.marker.icon.active)
@@ -408,8 +413,14 @@ var MapBrowser = Class.extend({
 			infowindow.close();
 		}
 
+		if (self.retina) {
+			pixelOffset = new google.maps.Size(-12, 4)
+		} else {
+			pixelOffset = new google.maps.Size(0, 4)
+		}
+
 		infowindow = new google.maps.InfoWindow({
-			pixelOffset: new google.maps.Size(0, 4)
+			pixelOffset: pixelOffset
 		});
 		infowindow.setContent('Numer: ' + marker.data);
 		infowindow.open(self.map, marker)
