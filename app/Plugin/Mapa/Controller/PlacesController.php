@@ -161,11 +161,10 @@ class PlacesController extends ApplicationsController
 	    $viewport = array();
 	    $children = array();
 	    $codes = array();
+	    $elections = array();
 
 
         if( $aggs = $this->Dataobject->getAggs() ) {
-
-			// debug($aggs); die();
 
 
             // VIEWPORT
@@ -195,7 +194,13 @@ class PlacesController extends ApplicationsController
 
                 }
 			}
-
+			
+			if( @$aggs['miejsca']['children']['*']['reverse']['wybory_okreg_senat_id']['buckets'] )
+				$elections['senat'] = $aggs['miejsca']['children']['*']['reverse']['wybory_okreg_senat_id']['buckets'];
+				
+			if( @$aggs['miejsca']['children']['*']['reverse']['wybory_okreg_sejm_id']['buckets'] )
+				$elections['sejm'] = $aggs['miejsca']['children']['*']['reverse']['wybory_okreg_sejm_id']['buckets'];
+							
             if( $_points = @$aggs['numery']['numery']['hits']['hits'] ) {
 
                 foreach( $_points as $_p ) {
@@ -227,6 +232,7 @@ class PlacesController extends ApplicationsController
 		    'points' => $points,
 		    'viewport' => $viewport,
 		    'children' => $children,
+		    'elections' => $elections,
 		    'codes' => $codes,
 		));
 

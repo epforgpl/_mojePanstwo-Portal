@@ -124,19 +124,25 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                             <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.wojewodztwo_miejsce_id'] ?><? if (isset($widget)) echo '?widget'; ?>"><?= strtolower($mapParams['data']['wojewodztwo']) ?></a>
                                         </li>
                                     <? } ?>
-
+									
+									<? /*
                                     <? if (count($mapParams['codes']) === 1) { ?>
                                         <li>
                                             <label>Kod pocztowy:</label>
                                             <a href="/mapa/<?= $mapParams['codes'][0]['key'] ?><? if (isset($widget)) echo '?widget'; ?>"><?= $mapParams['codes'][0]['key'] ?></a>
                                         </li>
                                     <? } ?>
+                                    */ ?>
+                                    
                                 </ul>
                             <? } ?>
                         </div>
 
                         <ul class="main">
                             <? if (@$mapParams['data'] && $mapParams['data']['miejsca.typ_id'] >= 2) { ?>
+                                
+                                <? debug( $mapParams['elections'] ); ?>
+                                
                                 <li class="accord <? if (!isset($widget)) { ?>closed <? } ?>wyboryDetail">
                                     <header><h2>Wybory parlamentarne 2015</h2></header>
                                     <section class="dcontent">
