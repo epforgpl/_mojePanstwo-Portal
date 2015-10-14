@@ -1,10 +1,10 @@
 <?
-	
+
 	$phrases = array('wynik', 'wyniki', 'wyników');
-	
+
 	if( @isset($dataBrowser['phrases']['paginator']) && $dataBrowser['phrases']['paginator'] )
 		$phrases = $dataBrowser['phrases']['paginator'];
-			
+
 	if( isset($paginatorPhrases) && $paginatorPhrases )
 		$phrases = $paginatorPhrases;
 
@@ -19,7 +19,7 @@
             </div>
         </li>
     <? } ?>
-        
+
         <? if (isset($dataBrowser['aggs_visuals_map']) && count($dataBrowser['aggs_visuals_map']) > 0) {
     $selected = false; ?>
 
@@ -114,28 +114,36 @@
                 </a>
             </li>
         <? } ?>
-		
+
         <? if (isset($dataBrowser['sort']) && $dataBrowser['sort']) { ?>
             <li role="presentation" class="dropdown dataAggsDropdown splitDropdownMenu pull-right">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                    aria-expanded="false">Sortowanie <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <?php
-	                    
-                    foreach ($dataBrowser['sort'] as $sortKey => $sortValue) {	                    
-	                    
+
+                    $order_key = false;
+                    $order_value = false;
+                    if(isset($this->request->query['order'])) {
+                        $order_query_parts = explode(' ', $this->request->query('order'));
+                        $order_key = $order_query_parts[0];
+                        $order_value = $order_query_parts[1];
+                    }
+
+                    foreach ($dataBrowser['sort'] as $sortKey => $sortValue) {
+
                         $sort = '<li>';
                         $sort .= '<span>' . $sortValue['label'] . '</span>';
                         $sort .= '<ul>';
                         foreach ($sortValue['options'] as $sortOptionsKey => $sortOptionsValue) {
-                            
+
                             $query = array_merge($this->request->query, array(
 								'order' => $sortKey . ' ' . $sortOptionsKey,
 							));
-                            
-                            $sort .= '<li><a href="/' . $this->request->url . '?' . http_build_query($query) . '">' . $sortOptionsValue . '</a></li>';
+
+                            $sort .= '<li' . (($order_key == $sortKey && $order_value == $sortOptionsKey) ? ' class="active"' : '') . '><a href="/' . $this->request->url . '?' . http_build_query($query) . '">' . $sortOptionsValue . '</a></li>';
                         }
-                        
+
                         $sort .= '</ul>';
                         $sort .= '</li>';
 

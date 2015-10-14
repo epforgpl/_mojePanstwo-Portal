@@ -1,157 +1,285 @@
+.accord {
+    width: 100%;
+    display: inline-block;
+
+    > header {
+        display: block;
+        width: 100%;
+        padding: 4px 20px;
+        background-color: #F8F9FA;
+        position: relative;
+        cursor: pointer;
+
+        &::after {
+            font-family: 'Glyphicons Halflings';
+            content: "\e252";
+            position: absolute;
+            top: 50%;
+            left: 6px;
+            font-size: 0.8em;
+            -webkit-transform: translate(0, -50%);
+            -moz-transform: translate(0, -50%);
+            -ms-transform: translate(0, -50%);
+            -o-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+        }
+    }
+    > section {
+        display: inline-block;
+        width: 100%;
+    }
+    &.closed {
+        > header::after {
+            content: "\e250";
+        }
+        > section {
+            display: none;
+        }
+    }
+}
+
 .widget-localize {
-	button {
-		margin-right: 7px;
-	}
-	.txt {
-		position: relative;
-		top: 3px;
-	}
+    .txt {
+        position: relative;
+        top: 3px;
+    }
+
+    .localizeMe {
+        margin-top: 2px;
+    }
 }
 
 #_wrapper .dataBrowser > .container {
     width: 100%;
     padding-left: 0;
     padding-right: 0;
-		
+
     > .dataBrowserContent {
         margin-left: 0;
         margin-right: 0;
         position: relative;
+    }
+}
 
-        > .alert {
-            position: absolute;
-            top: 15px;
-            left: 50%;
-            z-index: 2;
-            box-shadow: 0 5px 10px #AAA;
-            -moz-box-shadow: 0 5px 10px #AAA;
-            -webkit-box-shadow: 0 5px 10px #AAA;
-            -o-box-shadow: 0 5px 10px #AAA;
-            
-            .spinner > div {
-	            background-color: #79B !important;
+#_wrapper footer.footer {
+    display: none;
+    height: 0;
+}
+
+#mapBrowser {
+    min-height: inherit;
+
+    > .alert {
+        position: absolute;
+        top: 15px;
+        left: 50%;
+        z-index: 2;
+        box-shadow: 0 5px 10px #AAA;
+        -moz-box-shadow: 0 5px 10px #AAA;
+        -webkit-box-shadow: 0 5px 10px #AAA;
+        -o-box-shadow: 0 5px 10px #AAA;
+
+        .spinner > div {
+            background-color: #79B !important;
+        }
+    }
+
+    > .map {
+        width: 100%;
+        margin-left: 280px;
+        &.nodetails {
+            margin-left: 0;
+        }
+    }
+
+    > #localizeMe {
+        height: 27px;
+        padding: 4px 0;
+        position: absolute;
+        right: 10px;
+        text-align: center;
+        top: 70px;
+        width: 28px;
+        z-index: 2;
+    }
+
+    > .details {
+        background-color: #f8f9fa;
+        left: 0;
+        padding: 0;
+        position: absolute;
+        top: 0;
+        width: 280px;
+        z-index: 2;
+
+        box-shadow: 0 5px 10px #AAA;
+        -moz-box-shadow: 0 5px 10px #AAA;
+        -webkit-box-shadow: 0 5px 10px #AAA;
+        -o-box-shadow: 0 5px 10px #AAA;
+
+        .title {
+            background-color: #FFF;
+            border-bottom: 1px solid #DDD;
+            margin: 0;
+            padding: 0;
+
+            ._label {
+                color: #789;
+                margin-bottom: -10px;
+                padding: 20px 23px 0;
+                font-size: 10px;
+                font-weight: 600;
+                line-height: 0.75em;
+                text-transform: uppercase;
+
             }
         }
 
-        > .mapaDetailWindow {
-            background-color: #f8f9fa;
-            background-color: rgba(255, 255, 255, .9);
-            left: 0;
-            padding: 10px 20px 10px 25px;
-            position: absolute;
-            top: 0;
-            width: 280px;
-            z-index: 2;
-            
-            border-bottom-right-radius: 5px;
-            -moz-border-bottom-right-radius: 5px;
-            -webkit-border-bottom-right-radius: 5px;
-            -o-border-bottom-right-radius: 5px;
-            
-            box-shadow: 0 5px 10px #AAA;
-            -moz-box-shadow: 0 5px 10px #AAA;
-            -webkit-box-shadow: 0 5px 10px #AAA;
-            -o-box-shadow: 0 5px 10px #AAA;
+        .wyboryDetail ul {
+            border-top: 1px solid #ddd;
+            list-style: outside none none;
+            padding: 0 0 20px;
 
-            > ul {
+            &:first-child {
+                border-top: none;
+            }
+
+            > li {
+                margin: 3px 0;
+                padding: 0;
+                text-align: center;
+                
+                button {
+	                min-width: 195px;
+	                margin: 3px 0;
+                }
+
+                &.komisja-adres {
+                    background: transparent url("/mapa/img/marker-google.svg") no-repeat scroll 0 4px;
+                    padding-left: 35px;
+                }
+
+                h3 {
+                    font-size: 14px;
+                    margin: 10px 0 15px;
+                    padding: 0;
+                }
+            }
+        }
+
+        h1 {
+            font-size: 24px;
+            padding: 20px;
+            margin: 0;
+        }
+
+        h2 {
+            padding: 5px;
+            margin: 0;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        > ul > li {
+            border-bottom: 1px solid #DDD;
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        ul {
+            margin: 0;
+            padding: 7px 15px;
+            list-style: none;
+
+            li {
+                margin: 0;
+                padding: 3px;
                 list-style: none;
-                padding: 0 0 10px 0;
-                margin-bottom: 5px;
-                border-bottom: 1px solid #DDD;
 
-                &:last-child {
-                    padding-bottom: 0;
-                    margin-bottom: 0;
-                    border-bottom: 0;
-                }
-                
-                &.title {
-	                
-	                li {
-		                a {
-			                float: none;
-			                font-size: 18px;
-		                }
-	                }
-	                
-	                padding-top: 5px;
-	                padding-bottom: 15px;
-	                margin-bottom: 15px;
-	                
-                }
-				
-				&.info {
-				
-	                > li {
-	                    display: inline-block;
-	                    margin: 1px 0;
-	                    width: 100%;
-	
-	                    > label {
-	                        margin: 7px 0 0;
-	                        padding: 0;
-	                        float: left;
-	                        color: #666;
-						    font-size: 9px;
-						    font-weight: 600;
-						    line-height: 0.75em;
-						    text-transform: uppercase;
-	                    }
-	                    
-	                    > span, > a {
-		                    margin: 0;
-		                    padding: 0;
-		                    float: right;
-		                    font-weight: 400;
-	                        font-size: 13px;
-	                        color: green;
-	                    }
-	
-	                    p {
-	                        margin-bottom: 2px;
-	                    }
-	                }
-                
-                }
-                
-                &.wybory, &.komisja {
-	                
-	                h3 {
-		                margin: 10px 0 15px;
-		                padding: 0;
-		                font-size: 14px;
-	                }
-	                
-	                > li {
-		                margin: 3px 0;
-		                padding: 0;
-		                
-		                &.komisja-adres {
-			                background: #FFF url(/mapa/img/marker-google.svg) no-repeat 0 4px;
-			                padding-left: 35px;
-		                }
-	                }
-	                
-	               
-	                
+                .dcontent {
+                    .input-group {
+                        margin: 10px 5px 5px;
+
+                        .btn {
+                            font-size: 13px;
+                        }
+
+                        .cleaner {
+                            color: #333333;
+                            font-size: 10px;
+                            padding: 10px 5px;
+                            position: absolute;
+                            right: 38px;
+                            top: 0;
+                            z-index: 2;
+                            cursor: pointer;
+                        }
+                    }
+                    > ul {
+                        display: inline-block;
+                        float: left;
+                        height: 90%;
+                        overflow-x: hidden;
+                        overflow-y: auto;
+                        width: 100%;
+
+                        > li {
+                            &.active > a {
+                                color: #121212;
+                                font-weight: bold;
+                            }
+
+                            > a {
+                                display: inline-block;
+                                width: 100%;
+                            }
+                        }
+                    }
                 }
             }
-            
-        }
+            &.main {
+                overflow: hidden;
+            }
 
-        > #mapa {
-            width: 100%;
-        }
+            &.meta {
+                border-top: 1px solid #ddd;
+                margin: -5px 20px 0;
+                padding: 10px 0;
 
-        > #localizeMe {
-            height: 27px;
-            padding: 4px 0;
-            position: absolute;
-            right: 10px;
-            text-align: center;
-            top: 70px;
-            width: 28px;
-            z-index: 2;
+                > li {
+                    display: inline-block;
+                    margin: 1px 0;
+                    width: 100%;
+                    padding: 0 3px;
+
+                    > label {
+                        margin: 7px 0 0;
+                        padding: 0;
+                        float: left;
+                        color: #789;
+                        font-size: 9px;
+                        font-weight: 600;
+                        line-height: 0.75em;
+                        text-transform: uppercase;
+                    }
+
+                    > span, > a {
+                        margin: 0;
+                        padding: 0;
+                        float: right;
+                        font-weight: 400;
+                        font-size: 13px;
+                    }
+
+                    p {
+                        margin-bottom: 2px;
+                    }
+                }
+
+            }
+
         }
     }
 }

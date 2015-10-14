@@ -15,13 +15,27 @@ class Miejsca extends DataObject
 	    
 	    $title_parts = array();
 	    
-	    if( $this->getData('miejscowosc') )
-	    	$title_parts[] = $this->getData('miejscowosc');
-	    	
-	    if( $this->getData('ulica') )
-	    	$title_parts[] = $this->getData('ulica');
-	    	    
-	    return implode(', ', $title_parts);
+	    if( $this->getData('typ_id')=='1' ) { // województwo
+		    
+		    return 'Województwo ' . $this->getData('wojewodztwo');
+		    
+	    } elseif( $this->getData('typ_id')=='2' ) { // powiat
+		    
+		    return 'Powiat ' . $this->getData('powiat');
+		    
+	    } elseif( $this->getData('typ_id')=='3' ) { // gmina
+		    
+		    return $this->getData('gmina');
+		    
+	    } elseif( $this->getData('typ_id')=='4' ) { // miejscowość
+		    
+		    return $this->getData('miejscowosc');
+		    
+	    } elseif( $this->getData('typ_id')=='5' ) { // miejscowość
+		    
+		    return $this->getData('miejscowosc'). ', ' . $this->getData('ulica');
+		    
+	    }	    
 	    
     }
 

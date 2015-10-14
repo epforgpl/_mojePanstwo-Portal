@@ -323,4 +323,11 @@ class LettersController extends StartAppController {
 
         $this->title = 'Moje Pisma';
     }
+
+    public function templates()
+    {
+        $this->set('output', $this->Pismo->templates_index($this->request->query));
+        $this->set('_serialize', 'output');
+    }
+
 }
