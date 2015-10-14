@@ -100,35 +100,35 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         <? if ($typ_id > 4) { ?>
                                             <li>
                                                 <label>Miejscowość:</label>
-                                                <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.miejscowosc_miejsce_id'] ?>"><?= ($mapParams['data']['miejscowosc']) ?></a>
+                                                <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.miejscowosc_miejsce_id'] ?><? if (isset($widget)) echo '?widget'; ?>"><?= ($mapParams['data']['miejscowosc']) ?></a>
                                             </li>
                                         <? } ?>
 
                                     <? if ($typ_id > 3) { ?>
                                         <li>
                                             <label>Gmina:</label>
-                                            <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.gmina_miejsce_id'] ?>"><?= ($mapParams['data']['gmina']) ?></a>
+                                            <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.gmina_miejsce_id'] ?><? if (isset($widget)) echo '?widget'; ?>"><?= ($mapParams['data']['gmina']) ?></a>
                                         </li>
                                     <? } ?>
 
                                     <? if ($typ_id > 2) { ?>
                                         <li>
                                             <label>Powiat:</label>
-                                            <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.powiat_miejsce_id'] ?>"><?= ($mapParams['data']['powiat']) ?></a>
+                                            <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.powiat_miejsce_id'] ?><? if (isset($widget)) echo '?widget'; ?>"><?= ($mapParams['data']['powiat']) ?></a>
                                         </li>
                                     <? } ?>
 
                                     <? if ($typ_id > 1) { ?>
                                         <li>
                                             <label>Województwo:</label>
-                                            <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.wojewodztwo_miejsce_id'] ?>"><?= strtolower($mapParams['data']['wojewodztwo']) ?></a>
+                                            <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.wojewodztwo_miejsce_id'] ?><? if (isset($widget)) echo '?widget'; ?>"><?= strtolower($mapParams['data']['wojewodztwo']) ?></a>
                                         </li>
                                     <? } ?>
 
                                     <? if (count($mapParams['codes']) === 1) { ?>
                                         <li>
                                             <label>Kod pocztowy:</label>
-                                            <a href="/mapa/<?= $mapParams['codes'][0]['key'] ?>"><?= $mapParams['codes'][0]['key'] ?></a>
+                                            <a href="/mapa/<?= $mapParams['codes'][0]['key'] ?><? if (isset($widget)) echo '?widget'; ?>"><?= $mapParams['codes'][0]['key'] ?></a>
                                         </li>
                                     <? } ?>
                                 </ul>
@@ -184,7 +184,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         <ul class="scrollZone">
                                             <? foreach ($mapParams['children']['powiaty'] as $item) { ?>
                                                 <li>
-                                                    <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?>"><?= $item['miejsca.powiat'] ?></a>
+                                                    <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?><? if (isset($widget)) echo '?widget'; ?>"><?= $item['miejsca.powiat'] ?></a>
                                                 </li>
                                             <? } ?>
                                         </ul>
@@ -211,7 +211,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         <ul class="scrollZone">
                                             <? foreach ($mapParams['children']['gminy'] as $item) { ?>
                                                 <li>
-                                                    <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?>"><?= $item['miejsca.gmina'] ?></a>
+                                                    <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?><? if (isset($widget)) echo '?widget'; ?>"><?= $item['miejsca.gmina'] ?></a>
                                                 </li>
                                             <? } ?>
                                         </ul>
@@ -238,7 +238,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         <ul class="scrollZone">
                                             <? foreach ($mapParams['children']['miejscowosci'] as $item) { ?>
                                                 <li>
-                                                    <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?>"><?= $item['miejsca.miejscowosc'] ?></a>
+                                                    <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?><? if (isset($widget)) echo '?widget'; ?>"><?= $item['miejsca.miejscowosc'] ?></a>
                                                 </li>
                                             <? } ?>
                                         </ul>
@@ -265,7 +265,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         <ul class="scrollZone">
                                             <? foreach ($mapParams['children']['ulice'] as $item) { ?>
                                                 <li>
-                                                    <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?>"><?= $item['miejsca.ulica'] ?></a>
+                                                    <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?><? if (isset($widget)) echo '?widget'; ?>"><?= $item['miejsca.ulica'] ?></a>
                                                 </li>
                                             <? } ?>
                                         </ul>
