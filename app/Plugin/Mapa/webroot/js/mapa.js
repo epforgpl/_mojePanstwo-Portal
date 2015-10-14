@@ -40,8 +40,8 @@ var Localizer = Class.extend({
 			if (this.geoloc) {
 				localizer.alerts(mPHeart.translation.LC_FINANSE_POSITION_LOADING, 'alert-info alert-lookingPosition');
 				this.geoloc.getCurrentPosition(this.request_position_success, this.request_position_error);
-			} else this.request_position_notAvailable;
-		} else this.request_position_notAvailable;
+			} else this.request_position_notAvailable();
+		} else this.request_position_notAvailable();
 	},
 
 	request_position_notAvailable: function () {
@@ -50,7 +50,6 @@ var Localizer = Class.extend({
 
 	/*RETURN INFORMATION WITH USER LOCATION*/
 	request_position_success: function (position) {
-		console.log(position);
 		if (typeof position.coords !== "undefined") {
 			$.ajax({
 				method: 'GET',
@@ -185,8 +184,7 @@ var MapBrowser = Class.extend({
 		self.detail_div = self.div.find('.details');
 		self.detail_div_main = self.detail_div.find('ul.main');
 		self.detail_div_main_title = self.detail_div.find('.title');
-		self.detail_div_main_wyboryDetail = self.detail_div.find('.wyboryDetail');
-		self.detail_div_main_dcontent = self.detail_div.find('.dcontent');
+		self.detail_div_main_accords = self.detail_div_main.find('.accord');
 
 		var fitBounds = false;
 		var viewport = self.div.data('viewport');
@@ -202,8 +200,7 @@ var MapBrowser = Class.extend({
 			self.mapOptions.center = new google.maps.LatLng(51.986797406813125, 19.32958984375001);
 		}
 
-		$(window).resize($.proxy(self.resize, this));
-		self.resize();
+		self.resizeSetup();
 		self.map = new google.maps.Map(self.map_div.get(0), self.mapOptions);
 
 		if (fitBounds)
@@ -233,8 +230,8 @@ var MapBrowser = Class.extend({
 
 			point.marker.addListener('click', function () {
 				window.location.hash = this.data;
-				self.detail_div_main_dcontent.find('._points li.active').removeClass('active');
-				self.detail_div_main_dcontent.find('._points li[name="' + this.data + '"]').addClass('active');
+				self.detail_div_main_accords.find('._points li.active').removeClass('active');
+				self.detail_div_main_accords.find('._points li[name="' + this.data + '"]').addClass('active');
 				self.pointWindow(this);
 			});
 
@@ -246,35 +243,41 @@ var MapBrowser = Class.extend({
 						return e.label == id;
 					});
 
-				self.detail_div_main_dcontent.find('._points li.active').removeClass('active');
+				self.detail_div_main_accords.find('._points li.active').removeClass('active');
 				$(this).addClass('active');
 				self.pointWindow(result[0].marker);
 			})
 		}
 
-		var list = self.detail_div_main_dcontent.find('ul > li');
+		$.each(self.detail_div_main_accords, function () {
+			var that = $(this),
+				input = that.find('.input-group > input');
 
-		if (self.detail_div_main_dcontent.find('.input-group > input').val() !== '')
-			self.cleaner();
+			if (input.val() !== '')
+				self.cleaner(that);
 
-		self.detail_div_main_dcontent.find('.input-group > input').keyup(function () {
-			var searchV = $(this).val();
+			input.keyup(function () {
+				var that = $(this),
+					searchV = that.val();
 
-			if (searchV.length > 0) {
-				self.cleaner();
-			} else {
-				self.detail_div_main_dcontent.find('.input-group .cleaner').remove();
-			}
-
-			$.each(list, function () {
-				var el = $(this);
-
-				if ($.trim(el.text()).toLowerCase().indexOf(searchV.toLowerCase()) > -1) {
-					el.removeClass('hide')
+				if (searchV.length > 0) {
+					self.cleaner(that);
 				} else {
-					el.addClass('hide')
+					that.find('.input-group .cleaner').remove();
 				}
-			})
+
+				var list = that.find('ul > li');
+
+				$.each(list, function () {
+					var el = $(this);
+
+					if ($.trim(el.text()).toLowerCase().indexOf(searchV.toLowerCase()) > -1) {
+						el.removeClass('hide')
+					} else {
+						el.addClass('hide')
+					}
+				})
+			});
 		});
 
 		if (window.location.hash.length) {
@@ -283,40 +286,73 @@ var MapBrowser = Class.extend({
 					return e.label == hash;
 				});
 
-			self.detail_div_main_dcontent.find('._points li[name="' + hash + '"]').addClass('active');
+			self.detail_div_main_accords.find('._points li[name="' + hash + '"]').addClass('active');
 			self.pointWindow(result[0].marker);
 		}
 	},
 
-	resize: function () {
-		var h = $(window).height() - $(this.div).offset().top - 1,
-			h_title = this.detail_div_main_title.height() + 14,
-			h_wybory = 0;
-
-		if (this.detail_div_main_wyboryDetail.height() > 0)
-			h_wybory = this.detail_div_main_wyboryDetail.outerHeight(true);
-
-		this.map_div.height(h + 'px');
-		h = h - h_title - h_wybory;
-		this.detail_div_main.height(h + 'px');
-		//this.detail_div_main_dcontent.height(h - this.detail_div_main.find('> li > h2').outerHeight() - 40 + 'px');
-		//this.detail_div_main_dcontent.find('ul').height(this.detail_div_main_dcontent.height() - this.detail_div_main_dcontent.find('.input-group').outerHeight() - 20);
-		this.detail_div_main_dcontent.find('ul').height((h - this.detail_div_main.find('> li > h2').outerHeight() - 40) - this.detail_div_main_dcontent.find('.input-group').outerHeight() - 20);
+	resizeSetup: function () {
+		this.detail_div_main.attr('data-accords', this.detail_div_main.find('.accord').length);
+		$(window).resize($.proxy(this.resize, this));
+		this.resize();
 	},
 
-	cleaner: function () {
-		var self = this;
+	resize: function () {
+		var h = $(window).height() - $(this.div).offset().top,
+			h_title = this.detail_div_main_title.outerHeight(),
+			h_accord;
 
-		if (self.detail_div_main_dcontent.find('.input-group .input-group-btn > .cleaner').length == 0) {
-			self.detail_div_main_dcontent.find('.input-group .input-group-btn').append(
+		this.detail_div_main.find('.accord').removeClass('accord-fixed accord-nofixed');
+
+		this.map_div.height(h + 'px');
+		h -= h_title;
+		this.detail_div_main.css('height', h);
+
+		h_accord = h / this.detail_div_main.attr('data-accords');
+
+		var accordFixedH = 0,
+			accordNoFixedC = 0;
+
+		$.each(this.detail_div_main_accords, function () {
+			var acc = $(this),
+				accH = acc.find('>header').outerHeight(),
+				accS = acc.find('>section:visible').outerHeight(),
+				accLi = 6;
+
+			if ((accH + accS) < h_accord) {
+				acc.addClass('accord-fixed');
+				accordFixedH += accH + accS + accLi;
+				acc.css('height', accH + accS + accLi)
+			} else {
+				if (acc.hasClass('closed')) {
+					acc.addClass('accord-fixed');
+					accordFixedH += accH + accLi;
+					acc.css('height', accH + accLi)
+				} else {
+					acc.addClass('accord-nofixed');
+					accordNoFixedC++;
+				}
+			}
+		});
+		if (accordNoFixedC > 0) {
+			h = (h - accordFixedH) / accordNoFixedC;
+			this.detail_div_main.find('.accord.accord-nofixed').css('height', Math.floor(h));
+		}
+	},
+
+	cleaner: function (self) {
+		if (self.find('.input-group .input-group-btn > .cleaner').length == 0) {
+			self.find('.input-group .input-group-btn').append(
 				$('<div></div>').addClass('cleaner glyphicon glyphicon-remove').click(function () {
-					self.detail_div_main_dcontent.find('.input-group .cleaner').remove();
-					self.detail_div_main_dcontent.find('.input-group > input').val('');
-					self.detail_div_main_dcontent.find('ul > li.hide').removeClass('hide');
+					self.find('.input-group .cleaner').remove();
+					self.find('.input-group > input').val('');
+					self.find('ul > li.hide').removeClass('hide');
 				})
 			)
 		}
-	},
+	}
+
+	,
 
 	setIconItem: function (booled) {
 		var active = booled ? true : false, url, size;
@@ -347,7 +383,8 @@ var MapBrowser = Class.extend({
 			anchor: new google.maps.Point(10, 10),
 			active: active
 		}
-	},
+	}
+	,
 
 	pointWindow: function (marker) {
 		var self = this;
@@ -392,10 +429,9 @@ $(document).ready(function () {
 
 		self.find('>header').click(function () {
 			if (self.hasClass('closed')) {
-				accords.addClass('closed');
 				self.removeClass('closed');
 			} else {
-				accords.addClass('closed');
+				self.addClass('closed');
 			}
 			map.resize();
 		})
