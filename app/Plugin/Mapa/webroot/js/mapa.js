@@ -111,13 +111,13 @@ var MapBrowser = Class.extend({
 		streetViewControl: false,
 		overviewMapControl: false,
 		scrollwheel: false,
+		mapTypeControlOptions: {
+			style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+			position: google.maps.ControlPosition.RIGHT_BOTTOM
+		},
 		zoomControlOptions: {
 			style: google.maps.ZoomControlStyle.SMALL,
 			position: google.maps.ControlPosition.RIGHT_TOP
-		},
-		mapTypeControlOptions: {
-			style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-			position: google.maps.ControlPosition.LEFT_BOTTOM
 		},
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 		backgroundColor: '#FFFFFF',
@@ -360,9 +360,7 @@ var MapBrowser = Class.extend({
 				})
 			)
 		}
-	}
-
-	,
+	},
 
 	setIconItem: function (booled) {
 		var active = booled ? true : false, url, size;
@@ -393,8 +391,7 @@ var MapBrowser = Class.extend({
 			anchor: new google.maps.Point(10, 10),
 			active: active
 		}
-	}
-	,
+	},
 
 	pointWindow: function (marker) {
 		var self = this;
