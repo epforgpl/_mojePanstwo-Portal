@@ -601,7 +601,11 @@
 				}
 
 				function detailInfo(node) {
-					var birthdayPrivacy = false;
+					var birthdayPrivacy = false,
+						dataContentX = node.px,
+						dataContentY = node.py,
+						windowW = parseInt(d3Data.svg[0].parentNode.clientWidth),
+						windowH = parseInt(d3Data.svg[0].parentNode.clientHeight);
 
 					connectionGraph.find('.dataContent').remove();
 
@@ -680,6 +684,16 @@
 					dataContent.find('table').append(link);
 
 					connectionGraph.append(dataContent);
+
+					var dataContentHeight = dataContent.outerHeight();
+					if (dataContentX + dataContentWidth > windowW)
+						dataContentX -= ((dataContentX + dataContentWidth) - windowW);
+					if (dataContentY + dataContentHeight > windowH)
+						dataContentY -= ((dataContentY + dataContentHeight) - windowH);
+					dataContent.css({
+						top: dataContentY,
+						left: dataContentX
+					});
 
 					connectionGraph.find('.dataContent .btn').click(function () {
 						connectionGraph.find('.dataContent').remove();
