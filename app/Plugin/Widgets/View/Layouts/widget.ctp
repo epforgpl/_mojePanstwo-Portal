@@ -126,7 +126,7 @@
 
         $this->Combinator->add_libs('js', 'enhance', false);
         $this->Combinator->add_libs('js', 'structure', false);
-        $this->Combinator->add_libs('js', 'main', false);
+        $this->Combinator->add_libs('js', 'mpbase', false);
         $this->Combinator->add_libs('js', 'suggester');
         $this->Combinator->add_libs('js', 'appheader');
 

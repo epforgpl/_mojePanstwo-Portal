@@ -68,23 +68,25 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                  <? if (@$mapParams['viewport']) { ?>data-viewport="<?= htmlspecialchars(json_encode($mapParams['viewport'])) ?>"<? } ?>
                  <? if (@$mapParams['data']) { ?>data-typ_id="<?= $mapParams['data']['miejsca.typ_id'] ?>"<? } ?>
                  <? if (@$mapParams['data']) { ?>data-object_id="<?= $mapParams['data']['miejsca.object_id'] ?>"<? } ?>>
-				 				 
+
                 <div class="map<? if (!isset($mapParams) && !isset($dataBrowser)) { ?> nodetails<? } ?>"></div>
-				
-				<? if( isset($dataBrowser) ) {?>
-					
-					<div class="details">
+
+                <? if (isset($dataBrowser)) { ?>
+
+                    <div class="details">
                         <div class="title">
 
                             <h1><?= $this->request->query['q'] ?></h1>
-                            
+
                         </div>
-												
+
                         <ul class="main">
-                            
+
                             <? if (@$dataBrowser['hits']) { ?>
                                 <li class="accord">
                                     <header>
+                                        <span class="arrow"></span>
+
                                         <h2>Wyniki wyszukiwania:</h2>
                                     </header>
                                     <section class="dcontent">
@@ -98,13 +100,13 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                     </section>
                                 </li>
                             <? } ?>
-                            
+
                         </ul>
 
                     </div>
-				
+
                 <? } elseif (isset($mapParams)) { ?>
-                	
+
                     <div class="details" itemscope itemtype="http://schema.org/Place">
                         <div class="title">
                             <? if (($mapParams['data']['typ_id'] == '4') && isset($mapParams['data']['miejsca.miejscowosc_typ'])) { ?>
@@ -173,23 +175,31 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
                         <ul class="main">
                             <? if (@$mapParams['data'] && $mapParams['data']['miejsca.typ_id'] >= 2) { ?>
+                                
+                                <?
+	                                $counters = array(
+	                                    'sejm' => count(@$mapParams['elections']['sejm']),
+	                                    'senat' => count(@$mapParams['elections']['senat']),
+	                                );
+	                            ?>
+                                
+                                <? if ( $counters['sejm'] || $counters['senat'] ) { ?>
+                                    <li class="accord <? if (!isset($widget)) { ?>closed <? } ?>wyboryDetail">
+                                        <header>
+                                            <span class="arrow"></span>
 
-                                <li class="accord <? if (!isset($widget)) { ?>closed <? } ?>wyboryDetail">
-                                    <header><h2>Wybory parlamentarne 2015</h2></header>
-                                    <section class="dcontent">
+                                            <h2>Wybory parlamentarne 2015</h2>
+                                        </header>
+                                        <section class="dcontent">
                                         
-                                        <?
-                                            $counters = array(
-	                                            'sejm' => count( @$mapParams['elections']['sejm'] ),
-	                                            'senat' => count( @$mapParams['elections']['senat'] ),
-                                            );
-                                        ?>
                                         
                                         <? if( $counters['sejm'] || $counters['senat'] ) {?>
                                         	
                                         	<script type="text/javascript">
 	                                        	try {
-		                                        	parent.mapLoad("<?= implode(',', array_column($mapParams['elections']['sejm'], 'key')) ?>", "<?= implode(',', array_column($mapParams['elections']['senat'], 'key')) ?>", "<?= $mapParams['data']['miejsca.id'] ?>");
+		                                        	var params = {sejm_okreg_id: "<?= implode(',', array_column($mapParams['elections']['sejm'], 'key')) ?>", senat_okreg_id: "<?= implode(',', array_column($mapParams['elections']['senat'], 'key')) ?>", miejsce_id: "<?= $mapParams['data']['miejsca.id'] ?>"};
+		                                        	console.log(params);
+		                                        	parent.mapLoad(params);
 		                                        } catch(e) {}
                                         	</script>
                                         	
@@ -228,10 +238,14 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                     </section>
                                 </li>
 
+                                          
+                                <? } ?>
                             <? } ?>
                             <? if (@$mapParams['children']['powiaty']) { ?>
                                 <li class="accord">
                                     <header>
+                                        <span class="arrow"></span>
+
                                         <h2>Powiaty:</h2>
                                     </header>
                                     <section class="dcontent">
@@ -259,6 +273,8 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             <? if (@$mapParams['children']['gminy']) { ?>
                                 <li class="accord">
                                     <header>
+                                        <span class="arrow"></span>
+
                                         <h2>Gminy:</h2>
                                     </header>
                                     <section class="dcontent">
@@ -286,6 +302,8 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             <? if (@$mapParams['children']['miejscowosci']) { ?>
                                 <li class="accord">
                                     <header>
+                                        <span class="arrow"></span>
+
                                         <h2>Miejscowości:</h2>
                                     </header>
                                     <section class="dcontent">
@@ -313,6 +331,8 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             <? if (@$mapParams['children']['ulice']) { ?>
                                 <li class="accord">
                                     <header>
+                                        <span class="arrow"></span>
+
                                         <h2>Ulice:</h2>
                                     </header>
                                     <section class="dcontent">
@@ -340,6 +360,8 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             <? if (@$mapParams['points']) { ?>
                                 <li class="accord">
                                     <header>
+                                        <span class="arrow"></span>
+
                                         <h2>Numery:</h2>
                                     </header>
                                     <section class="dcontent">
