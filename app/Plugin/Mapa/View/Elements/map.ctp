@@ -186,7 +186,13 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         ?>
                                         
                                         <? if( $counters['sejm'] || $counters['senat'] ) {?>
-                                        
+                                        	
+                                        	<script type="text/javascript">
+	                                        	try {
+		                                        	parent.mapLoad("<?= implode(',', array_column($mapParams['elections']['sejm'], 'key')) ?>", "<?= implode(',', array_column($mapParams['elections']['senat'], 'key')) ?>", "<?= $mapParams['data']['miejsca.id'] ?>");
+		                                        } catch(e) {}
+                                        	</script>
+                                        	
                                             <ul class="wybory">
 	                                            <li>
 	                                            <? if( $counters['sejm']===1 ) {?>
