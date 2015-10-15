@@ -10,18 +10,32 @@
         position: relative;
         cursor: pointer;
 
-        &::after {
-            font-family: 'Glyphicons Halflings';
-            content: "\e252";
+        > .arrow {
+            width: 20px;
+            height: 20px;
+            display: block;
             position: absolute;
-            top: 50%;
-            left: 6px;
-            font-size: 0.8em;
-            -webkit-transform: translate(0, -50%);
-            -moz-transform: translate(0, -50%);
-            -ms-transform: translate(0, -50%);
-            -o-transform: translate(0, -50%);
-            transform: translate(0, -50%);
+            top: 7px;
+            left: 4px;
+            -webkit-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+
+            &::after {
+                content: "\e252";
+                font-family: 'Glyphicons Halflings';
+                font-size: 0.8em;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                -webkit-transform: translate(-50%, -50%);
+                -moz-transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                -o-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+            }
         }
     }
     > section {
@@ -29,8 +43,12 @@
         width: 100%;
     }
     &.closed {
-        > header::after {
-            content: "\e250";
+        > header > .arrow {
+            -webkit-transform: rotate(270deg);
+            -moz-transform: rotate(270deg);
+            -ms-transform: rotate(270deg);
+            -o-transform: rotate(270deg);
+            transform: rotate(270deg);
         }
         > section {
             display: none;
@@ -148,10 +166,10 @@
                 margin: 3px 0;
                 padding: 0;
                 text-align: center;
-                
+
                 button {
-	                min-width: 195px;
-	                margin: 3px 0;
+                    min-width: 195px;
+                    margin: 3px 0;
                 }
 
                 &.komisja-adres {
