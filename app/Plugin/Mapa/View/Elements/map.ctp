@@ -175,15 +175,15 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
                         <ul class="main">
                             <? if (@$mapParams['data'] && $mapParams['data']['miejsca.typ_id'] >= 2) { ?>
-                                
+
                                 <?
-	                                $counters = array(
-	                                    'sejm' => count(@$mapParams['elections']['sejm']),
-	                                    'senat' => count(@$mapParams['elections']['senat']),
-	                                );
-	                            ?>
-                                
-                                <? if ( $counters['sejm'] || $counters['senat'] ) { ?>
+                                $counters = array(
+                                    'sejm' => count(@$mapParams['elections']['sejm']),
+                                    'senat' => count(@$mapParams['elections']['senat']),
+                                );
+                                ?>
+
+                                <? if ($counters['sejm'] || $counters['senat']) { ?>
                                     <li class="accord <? if (!isset($widget)) { ?>closed <? } ?>wyboryDetail">
                                         <header>
                                             <span class="arrow"></span>
@@ -191,54 +191,65 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                             <h2>Wybory parlamentarne 2015</h2>
                                         </header>
                                         <section class="dcontent">
-                                        
-                                        
-                                        <? if( $counters['sejm'] || $counters['senat'] ) {?>
-                                        	
-                                        	<script type="text/javascript">
-	                                        	try {
-		                                        	var params = {sejm_okreg_id: "<?= implode(',', array_column($mapParams['elections']['sejm'], 'key')) ?>", senat_okreg_id: "<?= implode(',', array_column($mapParams['elections']['senat'], 'key')) ?>", miejsce_id: "<?= $mapParams['data']['miejsca.id'] ?>"};
-		                                        	console.log(params);
-		                                        	window.top.mapLoad(params);
-		                                        } catch(e) {}
-                                        	</script>
-                                        	
-                                            <ul class="wybory">
-	                                            <li>
-	                                            <? if( $counters['sejm']===1 ) {?>
-	                                                <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $mapParams['elections']['sejm'][0]['key'] ?>"
-	                                                   target="_parent" class="btn btn-primary btn-sm">Pokaż kandydatów
-	                                                    do Sejmu &raquo;</a>
-	                                            <? } else { ?>
-	                                            	
-	                                            	<p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć okręg wyborczy do Sejmu.</p>
-	                                            	
-	                                            <? } ?>
-	                                            </li>
-	                                            
-	                                            <li>
-	                                            <? if( $counters['senat']===1 ) {?>
-	                                                <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/<?= $mapParams['elections']['senat'][0]['key'] ?>"
-	                                                   target="_parent" class="btn btn-primary btn-sm">Pokaż kandydatów
-	                                                    do Senatu &raquo;</a>
-	                                            <? } else { ?>
-	                                            
-	                                            	<p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć okręg wyborczy do Senatu.</p>
-	                                            
-	                                            <? } ?>
-	                                            </li>
-                                            </ul>
-                                        
-                                        <? } else { ?>
-                                        
-                                        	<p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć właściwe okręgi wyborcze.</p>
-                                        
-                                        <? } ?>
-                                            
-                                    </section>
-                                </li>
 
-                                          
+
+                                            <? if ($counters['sejm'] || $counters['senat']) { ?>
+
+                                                <script type="text/javascript">
+                                                    try {
+                                                        var params = {
+                                                            sejm_okreg_id: "<?= (count(array_column($mapParams['elections']['sejm'], 'key')) == 1)? array_column($mapParams['elections']['sejm'], 'key')[0] : '0'; ?>",
+                                                            senat_okreg_id: "<?= (count(array_column($mapParams['elections']['senat'], 'key')) == 1)? array_column($mapParams['elections']['senat'], 'key')[0] : '0'; ?>",
+                                                            miejsce_id: "<?= $mapParams['data']['miejsca.id'] ?>"
+                                                        };
+
+                                                        if (params.sejm_okreg_id !== 0)
+                                                            parent.location.href = "http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm_i_senat/" + params.sejm_okreg_id + ',' + params.senat_okreg_id + '?miejsce_id=' + params.miejsce_id;
+                                                    } catch (e) {
+                                                    }
+                                                </script>
+
+                                                <ul class="wybory">
+                                                    <li>
+                                                        <? if ($counters['sejm'] === 1) { ?>
+                                                            <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $mapParams['elections']['sejm'][0]['key'] ?>"
+                                                               target="_parent" class="btn btn-primary btn-sm">Pokaż
+                                                                kandydatów
+                                                                do Sejmu &raquo;</a>
+                                                        <? } else { ?>
+
+                                                            <p class="_msg">Użyj dokładniejszej lokalizacji, aby
+                                                                odnaleźć okręg wyborczy do Sejmu.</p>
+
+                                                        <? } ?>
+                                                    </li>
+
+                                                    <li>
+                                                        <? if ($counters['senat'] === 1) { ?>
+                                                            <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/<?= $mapParams['elections']['senat'][0]['key'] ?>"
+                                                               target="_parent" class="btn btn-primary btn-sm">Pokaż
+                                                                kandydatów
+                                                                do Senatu &raquo;</a>
+                                                        <? } else { ?>
+
+                                                            <p class="_msg">Użyj dokładniejszej lokalizacji, aby
+                                                                odnaleźć okręg wyborczy do Senatu.</p>
+
+                                                        <? } ?>
+                                                    </li>
+                                                </ul>
+
+                                            <? } else { ?>
+
+                                                <p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć właściwe
+                                                    okręgi wyborcze.</p>
+
+                                            <? } ?>
+
+                                        </section>
+                                    </li>
+
+
                                 <? } ?>
                             <? } ?>
                             <? if (@$mapParams['children']['powiaty']) { ?>
