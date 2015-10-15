@@ -197,11 +197,17 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         <section class="dcontent">
                                             <? if ($counters['sejm'] || $counters['senat']) { ?>
                                                 <? if (isset($widget) && isset($_GET["request"])) { ?>
+                                                
+                                                <?
+	                                                $array_column_sejm = array_column($mapParams['elections']['sejm'], 'key');
+	                                                $array_column_senat = array_column($mapParams['elections']['senat'], 'key');
+                                                ?>
+                                                
                                                 <script type="text/javascript">
                                                     try {
                                                         var params = {
-                                                            sejm_okreg_id: "<?= (count(array_column($mapParams['elections']['sejm'], 'key')) == 1)? array_column($mapParams['elections']['sejm'], 'key')[0] : '0'; ?>",
-                                                            senat_okreg_id: "<?= (count(array_column($mapParams['elections']['senat'], 'key')) == 1)? array_column($mapParams['elections']['senat'], 'key')[0] : '0'; ?>",
+                                                            sejm_okreg_id: "<?= (count($array_column_sejm) == 1)? $array_column_sejm[0] : '0'; ?>",
+                                                            senat_okreg_id: "<?= (count($array_column_senat) == 1)? $array_column_senat[0] : '0'; ?>",
                                                             miejsce_id: "<?= $mapParams['data']['miejsca.id'] ?>"
                                                         };
 
