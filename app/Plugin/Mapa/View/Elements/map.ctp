@@ -199,7 +199,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 	                                        	try {
 		                                        	var params = {sejm_okreg_id: "<?= implode(',', array_column($mapParams['elections']['sejm'], 'key')) ?>", senat_okreg_id: "<?= implode(',', array_column($mapParams['elections']['senat'], 'key')) ?>", miejsce_id: "<?= $mapParams['data']['miejsca.id'] ?>"};
 		                                        	console.log(params);
-		                                        	parent.mapLoad(params);
+		                                        	window.top.mapLoad(params);
 		                                        } catch(e) {}
                                         	</script>
                                         	
