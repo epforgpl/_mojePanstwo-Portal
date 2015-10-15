@@ -175,7 +175,6 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
                         <ul class="main">
                             <? if (@$mapParams['data'] && $mapParams['data']['miejsca.typ_id'] >= 2) { ?>
-
                                 <?
                                 $counters = array(
                                     'sejm' => count(@$mapParams['elections']['sejm']),
@@ -191,10 +190,8 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                             <h2>Wybory parlamentarne 2015</h2>
                                         </header>
                                         <section class="dcontent">
-
-
                                             <? if ($counters['sejm'] || $counters['senat']) { ?>
-
+                                                <? if (isset($widget)) { ?>
                                                 <script type="text/javascript">
                                                     try {
                                                         var params = {
@@ -208,6 +205,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                                     } catch (e) {
                                                     }
                                                 </script>
+                                            <? } ?>
 
                                                 <ul class="wybory">
                                                     <li>
