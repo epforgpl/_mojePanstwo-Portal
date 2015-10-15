@@ -101,12 +101,14 @@ class PlacesController extends ApplicationsController
 												    'terms' => array(
 														'field' => 'data.miejsca.wybory_okreg_sejm_id',
 														'size' => 3,
+														'exclude' => '0',
 													),
 											    ),
 											    'wybory_okreg_senat_id' => array(
 												    'terms' => array(
 														'field' => 'data.miejsca.wybory_okreg_senat_id',
 														'size' => 3,
+														'exclude' => '0',
 													),
 											    ),
 										    ),
