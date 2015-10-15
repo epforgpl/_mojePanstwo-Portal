@@ -191,7 +191,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         </header>
                                         <section class="dcontent">
                                             <? if ($counters['sejm'] || $counters['senat']) { ?>
-                                                <? if (isset($widget)) { ?>
+                                                <? if (isset($widget) && isset($_GET["request"])) { ?>
                                                 <script type="text/javascript">
                                                     try {
                                                         var params = {
