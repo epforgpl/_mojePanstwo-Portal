@@ -185,47 +185,46 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         <section class="dcontent">
                                             <?
                                             $counters = array(
-                                                'sejm' => count( @$mapParams['elections']['sejm'] ),
-                                                'senat' => count( @$mapParams['elections']['senat'] ),
+                                                'sejm' => count(@$mapParams['elections']['sejm']),
+                                                'senat' => count(@$mapParams['elections']['senat']),
                                             );
-                                            ?>
 
-                                            <? if( $counters['sejm'] || $counters['senat'] ) {?>
-                                            <ul class="wybory">
-	                                            <li>
-	                                            <? if( $counters['sejm']===1 ) {?>
-	                                                <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $mapParams['elections']['sejm'][0]['key'] ?>"
-	                                                   target="_parent" class="btn btn-primary btn-sm">Pokaż kandydatów
-	                                                    do Sejmu &raquo;</a>
-	                                            <? } else { ?>
+                                            if ($counters['sejm'] || $counters['senat']) { ?>
+                                                <ul class="wybory">
+                                                    <li>
+                                                        <? if ($counters['sejm'] === 1) { ?>
+                                                            <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $mapParams['elections']['sejm'][0]['key'] ?>"
+                                                               target="_parent" class="btn btn-primary btn-sm">Pokaż
+                                                                kandydatów
+                                                                do Sejmu &raquo;</a>
+                                                        <? } else { ?>
+                                                            <p class="_msg">Użyj dokładniejszej lokalizacji, aby
+                                                                odnaleźć okręg
+                                                                wyborczy do Sejmu.</p>
+                                                        <? } ?>
+                                                    </li>
 
-	                                            	<p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć okręg wyborczy do Sejmu.</p>
-
-	                                            <? } ?>
-	                                            </li>
-
-	                                            <li>
-	                                            <? if( $counters['senat']===1 ) {?>
-	                                                <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/<?= $mapParams['elections']['senat'][0]['key'] ?>"
-	                                                   target="_parent" class="btn btn-primary btn-sm">Pokaż kandydatów
-	                                                    do Senatu &raquo;</a>
-	                                            <? } else { ?>
-
-	                                            	<p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć okręg wyborczy do Senatu.</p>
-
-	                                            <? } ?>
-	                                            </li>
-                                            </ul>
-
+                                                    <li>
+                                                        <? if ($counters['senat'] === 1) { ?>
+                                                            <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/<?= $mapParams['elections']['senat'][0]['key'] ?>"
+                                                               target="_parent" class="btn btn-primary btn-sm">Pokaż
+                                                                kandydatów
+                                                                do Senatu &raquo;</a>
+                                                        <? } else { ?>
+                                                            <p class="_msg">Użyj dokładniejszej lokalizacji, aby
+                                                                odnaleźć okręg
+                                                                wyborczy do Senatu.</p>
+                                                        <? } ?>
+                                                    </li>
+                                                </ul>
                                             <? } else { ?>
-
-                                                <p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć właściwe okręgi wyborcze.</p>
-
+                                                <p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć właściwe
+                                                    okręgi
+                                                    wyborcze.</p>
                                             <? } ?>
-
-                                    </section>
-                                </li>
-
+                                        </section>
+                                    </li>
+                                <? } ?>
                             <? } ?>
                             <? if (@$mapParams['children']['powiaty']) { ?>
                                 <li class="accord">
