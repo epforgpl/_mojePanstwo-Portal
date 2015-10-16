@@ -208,7 +208,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                                             miejsce_id: "<?= $mapParams['data']['miejsca.id'] ?>"
                                                         };
 
-                                                        if (params.sejm_okreg_id !== 0)
+                                                        if (params.sejm_okreg_id !== 0 && params.senat_okreg_id !== 0)
                                                             parent.location.href = "http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm_i_senat/" + params.sejm_okreg_id + ',' + params.senat_okreg_id + '?miejsce_id=' + params.miejsce_id;
                                                     } catch (e) {
                                                     }
