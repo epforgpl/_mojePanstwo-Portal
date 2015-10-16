@@ -575,12 +575,18 @@
 							if (root.y > quad.point.y)
 								quad.point.y = root.y + d3Data.size.nodesSize / 2;
 						}
+
+						if (typeof node.detailWindow !== 'undefined' && node.detailWindow == true)
+							detailInfoPosition(node);
+
 						return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
 					};
 				}
 
 				function zoomed() {
 					d3Data.innerContainer.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+					if (connectionGraph.find('.dataContent').length)
+						detailInfoPosition(connectionGraph.find('.dataContent').data('node'))
 				}
 
 				function dragstarted() {
@@ -601,13 +607,9 @@
 				}
 
 				function detailInfo(node) {
-					var birthdayPrivacy = false,
-						dataContentX = node.px,
-						dataContentY = node.py,
-						windowW = parseInt(d3Data.svg[0].parentNode.clientWidth),
-						windowH = parseInt(d3Data.svg[0].parentNode.clientHeight);
+					var birthdayPrivacy = false;
 
-					connectionGraph.find('.dataContent').remove();
+					detailInfoRemove();
 
 					var dataContent = $('<div></div>').addClass('dataContent').css('width', dataContentWidth);
 					dataContent.append($('<button></button>').addClass('btn btn-xs pull-right').text('x'));
@@ -685,19 +687,61 @@
 
 					connectionGraph.append(dataContent);
 
-					var dataContentHeight = dataContent.outerHeight();
-					if (dataContentX + dataContentWidth > windowW)
-						dataContentX -= ((dataContentX + dataContentWidth) - windowW);
-					if (dataContentY + dataContentHeight > windowH)
-						dataContentY -= ((dataContentY + dataContentHeight) - windowH);
-					dataContent.css({
-						top: dataContentY,
-						left: dataContentX
-					});
+					node.detailWindow = true;
+					dataContent.data('node', node);
+
+					detailInfoPosition(node);
 
 					connectionGraph.find('.dataContent .btn').click(function () {
-						connectionGraph.find('.dataContent').remove();
+						detailInfoRemove();
 					});
+				}
+
+				function detailInfoPosition(node) {
+					var windowW = parseInt(d3Data.svg[0].parentNode.clientWidth),
+						windowH = parseInt(d3Data.svg[0].parentNode.clientHeight),
+						windowX = 0,
+						windowY = 0,
+						gMain = connectionGraph.find('>svg > g'),
+						gInside = gMain.find('>g'),
+						detailInfo = connectionGraph.find('.dataContent'),
+						detailInfoHeight = detailInfo.outerHeight(),
+						nodeSize = (node.id === root.id) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize;
+
+					var svgMain = /translate\(\s*([^\s,)]+)[ ,]([^\s,)]+)/.exec(gMain.attr('transform'));
+					var svgInside = /translate\(\s*([^\s,)]+)[ ,]([^\s,)]+)/.exec(gInside.attr('transform'));
+
+					if (svgMain !== null) {
+						windowX += parseInt(svgMain[1]);
+						windowY += parseInt(svgMain[2]);
+					}
+
+					if (svgInside !== null) {
+						windowX += parseInt(svgInside[1]);
+						windowY += parseInt(svgInside[2]);
+					}
+
+					var nodeX = node.x + nodeSize + windowX,
+						nodeY = node.y + nodeSize + windowY;
+
+					if (nodeX + dataContentWidth > windowW)
+						nodeX -= (dataContentWidth + (nodeSize * 2));
+					if (nodeY + detailInfoHeight > windowH)
+						nodeY -= (detailInfoHeight + (nodeSize * 2));
+
+					detailInfo.css({
+						top: nodeY,
+						left: nodeX
+					});
+				}
+
+				function detailInfoRemove() {
+					var detailInfo = connectionGraph.find('.dataContent');
+
+					if (detailInfo.length > 0) {
+						detailInfo.data('node').detailWindow = null;
+						detailInfo.remove();
+					}
 				}
 
 				function grabIcon() {
