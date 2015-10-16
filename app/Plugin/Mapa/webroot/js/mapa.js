@@ -254,35 +254,38 @@ var MapBrowser = Class.extend({
 
 		$.each(self.detail_div_main_accords, function () {
 			var that = $(this),
-				input = that.find('.input-group > input');
+				input = that.find('.dcontent > input');
 
-			if (input.val() !== '')
-				self.cleaner(that);
+			if (input.length) {
+				that.data('list', that.find('.dcontent ul.scrollZone > li'));
 
-			that.data('list', that.find('.dcontent ul.scrollZone > li'));
-
-			input.keyup(function () {
-				var input = $(this),
-					searchV = input.val();
-
-				if (searchV.length > 0) {
+				if (input.val() !== '')
 					self.cleaner(that);
-				} else {
-					input.find('.input-group .cleaner').remove();
-				}
-				window.clearTimeout(listCheck);
-				listCheck = setTimeout(function () {
-					$.each(that.data('list'), function () {
-						var el = $(this);
 
-						if ($.trim(el.text()).toLowerCase().indexOf(searchV.toLowerCase()) > -1) {
-							el.removeClass('hide')
-						} else {
-							el.addClass('hide')
-						}
-					})
-				}, 300);
-			});
+				input.keyup(function () {
+					var input = $(this),
+						searchV = input.val();
+
+					if (searchV.length == 0) {
+						that.find('.dcontent').removeClass('setCleaner').find('.cleaner').remove();
+					} else {
+						self.cleaner(that);
+					}
+
+					window.clearTimeout(listCheck);
+					listCheck = setTimeout(function () {
+						$.each(that.data('list'), function () {
+							var el = $(this);
+
+							if ($.trim(el.text()).toLowerCase().indexOf(searchV.toLowerCase()) > -1) {
+								el.removeClass('hide')
+							} else {
+								el.addClass('hide')
+							}
+						})
+					}, 300);
+				});
+			}
 		});
 
 		if (window.location.hash.length) {
@@ -353,18 +356,18 @@ var MapBrowser = Class.extend({
 				accLi = parseInt(acc.css('padding-top')) + parseInt(acc.css('padding-bottom')),
 				accSBlock = acc.find('>section:visible');
 
-			accSBlock.find('>ul.scrollZone').css('height', parseInt(acc.css('height')) - accH - accLi - accSBlock.find('.input-group').outerHeight(true))
+			accSBlock.find('>ul.scrollZone').css('height', parseInt(acc.css('height')) - accH - accLi - accSBlock.find('.searcher').outerHeight(true))
 		});
 
 		this.detail_div_main.find('.accord').removeClass('accord-fixed accord-nofixed');
 	},
 
 	cleaner: function (self) {
-		if (self.find('.input-group .input-group-btn > .cleaner').length == 0) {
-			self.find('.input-group .input-group-btn').append(
+		if (self.find('.dcontent.setCleaner').length == 0) {
+			self.find('.dcontent').addClass('setCleaner').append(
 				$('<div></div>').addClass('cleaner glyphicon glyphicon-remove').click(function () {
-					self.find('.input-group .cleaner').remove();
-					self.find('.input-group > input').val('');
+					self.find('.dcontent').removeClass('setCleaner').find('.cleaner').remove();
+					self.find('.dcontent > input').val('');
 					self.find('ul > li.hide').removeClass('hide');
 				})
 			)
