@@ -703,8 +703,9 @@
 						detailInfoHeight = detailInfo.outerHeight(),
 						nodeSize = (node.id === root.id) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize;
 
-					var svgMain = /translate\(\s*([^\s,)]+)[ ,]([^\s,)]+)/.exec(gMain.attr('transform'));
-					var svgInside = /translate\(\s*([^\s,)]+)[ ,]([^\s,)]+)/.exec(gInside.attr('transform'));
+					var reg = /translate\(\s*([^\s,)]+)[ ,]([^\s,)]+)/,
+						svgMain = reg.exec(gMain.attr('transform')),
+						svgInside = reg.exec(gInside.attr('transform'));
 
 					if (svgMain !== null) {
 						windowX += parseInt(svgMain[1]);
