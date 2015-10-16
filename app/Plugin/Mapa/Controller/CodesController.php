@@ -92,7 +92,33 @@ class CodesController extends ApplicationsController
 			    	'label' => @$code['miejscowosci'][0]['label']['buckets'][0]['key'],
 			    	'miejsce_id' => @$code['miejscowosci'][0]['miejsce_id']['buckets'][0]['key'],
 		    	);
-		    } else $mapParams['miejscowosci'] = $code['miejscowosci'];
+		    } else {
+			    foreach($code['miejscowosci'] as &$i) {
+				    $i = array(
+					    'miejsca.miejscowosc' => @$i['label']['buckets'][0]['key'],
+					    'miejsca.id' => @$i['miejsce_id']['buckets'][0]['key'],
+				    );
+			    }
+			    $mapParams['children']['miejscowosci'] = $code['miejscowosci'];
+			}
+	    }
+	    	    
+	    if( @$code['ulice'] ) {
+		    if( count($code['ulice'])===1 ) {
+		    	$mapParams['ulica'] = array(
+			    	'id' => $code['ulice'][0]['key'],
+			    	'label' => @$code['ulice'][0]['label']['buckets'][0]['key'],
+			    	'miejsce_id' => @$code['ulice'][0]['miejsce_id']['buckets'][0]['key'],
+		    	);
+		    } else {
+			    foreach($code['ulice'] as &$i) {
+				    $i = array(
+					    'miejsca.ulica' => @$i['label']['buckets'][0]['key'],
+					    'miejsca.id' => @$i['miejsce_id']['buckets'][0]['key'],
+				    );
+			    }
+			    $mapParams['children']['ulice'] = $code['ulice'];
+			}
 	    }
 	    	
 	    	    

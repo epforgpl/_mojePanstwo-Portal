@@ -193,6 +193,15 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             	) { ?>
                             	
 	                            	<ul class="meta">
+	                            	
+	                            	<? if (isset($mapParams['ulica'])) { ?>
+	                                    <li>
+	                                        <label>Ulica:</label>
+	                                        <a href="/mapa/miejsce/<?= $mapParams['ulica']['miejsce_id'] ?><? if (isset($widget)) echo '?widget';
+	                                        if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= ($mapParams['ulica']['label']) ?></a>
+	                                    </li>
+	                                <? } ?>
+	                            	
 	                            	<? if (isset($mapParams['miejscowosc'])) { ?>
 	                                    <li>
 	                                        <label>Miejscowość:</label>
