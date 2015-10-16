@@ -432,16 +432,8 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         <h2>Ulice:</h2>
                                     </header>
                                     <section class="dcontent">
-                                        <div class="input-group">
-                                            <input type="text" placeholder="Szukaj..."
-                                                   class="form-control hasclear input-sm"/>
-
-                                            <div class="input-group-btn">
-                                                <button type="submit" class="btn btn-primary input-sm">
-                                                    <span class="glyphicon glyphicon-search"></span>
-                                                </button>
-                                            </div>
-                                        </div>
+                                        
+                                        <input type="text" placeholder="Szukaj..." class="form-control hasclear input-sm searcher" />
 
                                         <ul class="scrollZone">
                                             <? foreach ($mapParams['children']['ulice'] as $item) { ?>
