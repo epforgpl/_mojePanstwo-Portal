@@ -318,7 +318,7 @@ var MapBrowser = Class.extend({
 
 		var accordFixedH = 0,
 			accordNoFixedC = 0,
-			accordLiPadding = 7;
+			accordLiPadding = 16;
 
 		$.each(this.detail_div_main_accords, function () {
 			var acc = $(this),
