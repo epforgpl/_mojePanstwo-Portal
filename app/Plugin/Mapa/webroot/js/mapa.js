@@ -1,101 +1,104 @@
-var Localizer = Class.extend({
-	init: function () {
-		this.nav = window.navigator;
-	},
-	alerts: function (msg, cls) {
-		var alrts = $('<div></div>'),
-			main = $('.dataBrowserContent');
+/*
+ var Localizer = Class.extend({
+ init: function () {
+ this.nav = window.navigator;
+ },
+ alerts: function (msg, cls) {
+ var alrts = $('<div></div>'),
+ main = $('.dataBrowserContent');
 
-		alrts.addClass('alert alert-dismissible ' + cls).attr('role', 'alert').text(msg).append(
-			$('<button></button>').addClass('close').attr({
-				'type': 'button',
-				'data-dismiss': 'alert',
-				'aria-label': 'Close'
-			}).append(
-				$('<span></span>').attr('aria-hidden', 'true').html('&times;')
-			)
-		);
-		if (cls.indexOf("lert-lookingPosition") > -1) {
-			alrts.append(
-				$('<div></div>').addClass('spinner grey margin-bottom-0').append(
-					$('<div></div>').addClass('bounce1')
-				).append(
-					$('<div></div>').addClass('bounce2')
-				).append(
-					$('<div></div>').addClass('bounce3')
-				)
-			)
-		}
+ alrts.addClass('alert alert-dismissible ' + cls).attr('role', 'alert').text(msg).append(
+ $('<button></button>').addClass('close').attr({
+ 'type': 'button',
+ 'data-dismiss': 'alert',
+ 'aria-label': 'Close'
+ }).append(
+ $('<span></span>').attr('aria-hidden', 'true').html('&times;')
+ )
+ );
+ if (cls.indexOf("lert-lookingPosition") > -1) {
+ alrts.append(
+ $('<div></div>').addClass('spinner grey margin-bottom-0').append(
+ $('<div></div>').addClass('bounce1')
+ ).append(
+ $('<div></div>').addClass('bounce2')
+ ).append(
+ $('<div></div>').addClass('bounce3')
+ )
+ )
+ }
 
-		if (main.find('.alert').length == 0) {
-			main.append(alrts);
-		} else {
-			main.find('alert').after(alrts)
-		}
-		alrts.css('margin-left', -(alrts.outerWidth() / 2));
-	},
-	request_position: function () {
-		if (this.nav) {
-			this.geoloc = this.nav.geolocation;
-			if (this.geoloc) {
-				localizer.alerts(mPHeart.translation.LC_FINANSE_POSITION_LOADING, 'alert-info alert-lookingPosition');
-				this.geoloc.getCurrentPosition(this.request_position_success, this.request_position_error);
-			} else this.request_position_notAvailable();
-		} else this.request_position_notAvailable();
-	},
+ if (main.find('.alert').length == 0) {
+ main.append(alrts);
+ } else {
+ main.find('alert').after(alrts)
+ }
+ alrts.css('margin-left', -(alrts.outerWidth() / 2));
+ },
+ request_position: function () {
+ if (this.nav) {
+ this.geoloc = this.nav.geolocation;
+ if (this.geoloc) {
+ localizer.alerts(mPHeart.translation.LC_FINANSE_POSITION_LOADING, 'alert-info alert-lookingPosition');
+ this.geoloc.getCurrentPosition(this.request_position_success, this.request_position_error);
+ } else this.request_position_notAvailable();
+ } else this.request_position_notAvailable();
+ },
 
-	request_position_notAvailable: function () {
-		localizer.alerts(mPHeart.translation.LC_FINANSE_POSITION_POSITION_NOT_AVAILABLE, 'alert-warning')
-	},
+ request_position_notAvailable: function () {
+ localizer.alerts(mPHeart.translation.LC_FINANSE_POSITION_POSITION_NOT_AVAILABLE, 'alert-warning')
+ },
 
-	/*RETURN INFORMATION WITH USER LOCATION*/
-	request_position_success: function (position) {
-		if (typeof position.coords !== "undefined") {
-			$.ajax({
-				method: 'GET',
-				url: '/mapa/geodecode.json',
-				dataType: 'json',
-				data: {
-					'lat': position.coords.latitude,
-					'lon': position.coords.longitude
-				},
-				success: function (res) {
-					window.location.href = '/mapa/miejsce/' + res.data['miejsca.id'] + '#' + res.locations[0]['numer'];
-				},
-				error: function (error) {
-					localizer.alerts(mPHeart.translation.LC_FINANSE_POSITION_CANNOT_TEMPORARY + " (" + error.statusText + ")", 'alert-danger')
-				},
-				complete: function () {
-					$('.dataBrowserContent .alert.alert-lookingPosition').remove();
-				}
-			})
-		}
-	},
+ /!*RETURN INFORMATION WITH USER LOCATION*!/
+ request_position_success: function (position) {
+ if (typeof position.coords !== "undefined") {
+ $.ajax({
+ method: 'GET',
+ url: '/mapa/geodecode.json',
+ dataType: 'json',
+ data: {
+ 'lat': position.coords.latitude,
+ 'lon': position.coords.longitude
+ },
+ success: function (res) {
+ window.location.href = '/mapa/miejsce/' + res.data['miejsca.id'] + '#' + res.locations[0]['numer'];
+ },
+ error: function (error) {
+ localizer.alerts(mPHeart.translation.LC_FINANSE_POSITION_CANNOT_TEMPORARY + " (" + error.statusText + ")", 'alert-danger')
+ },
+ complete: function () {
+ $('.dataBrowserContent .alert.alert-lookingPosition').remove();
+ }
+ })
+ }
+ },
 
-	/*RETURN ERRORS FORM LOCACTION SYSTEM*/
-	request_position_error: function (error) {
-		var strMessage = mPHeart.translation.LC_FINANSE_POSITION_CANNOT_POSITION;
-		switch (error.code) {
-			case error.PERMISSION_DENIED:
-				strMessage = mPHeart.translation.LC_FINANSE_POSITION_CANNOT_BROWSER;
-				break;
+ /!*RETURN ERRORS FORM LOCACTION SYSTEM*!/
+ request_position_error: function (error) {
+ var strMessage = mPHeart.translation.LC_FINANSE_POSITION_CANNOT_POSITION;
+ switch (error.code) {
+ case error.PERMISSION_DENIED:
+ strMessage = mPHeart.translation.LC_FINANSE_POSITION_CANNOT_BROWSER;
+ break;
 
-			case error.POSITION_UNAVAILABLE:
-				strMessage = mPHeart.translation.LC_FINANSE_POSITION_CANNOT_TEMPORARY;
-				break;
+ case error.POSITION_UNAVAILABLE:
+ strMessage = mPHeart.translation.LC_FINANSE_POSITION_CANNOT_TEMPORARY;
+ break;
 
-			case error.TIMEOUT:
-				strMessage = mPHeart.translation.LC_FINANSE_POSITION_CANNOT_LIMIT;
-				break;
+ case error.TIMEOUT:
+ strMessage = mPHeart.translation.LC_FINANSE_POSITION_CANNOT_LIMIT;
+ break;
 
-			default:
-				break;
+ default:
+ break;
 
-		}
-		localizer.alerts(strMessage, 'alert-warning')
-	}
-});
+ }
+ localizer.alerts(strMessage, 'alert-warning')
+ }
+ });
+ */
 
+var listCheck;
 var MapBrowser = Class.extend({
 	retina: false,
 	map: false,
@@ -256,26 +259,29 @@ var MapBrowser = Class.extend({
 			if (input.val() !== '')
 				self.cleaner(that);
 
+			that.data('list', that.find('.dcontent ul.scrollZone > li'));
+
 			input.keyup(function () {
-				var that = $(this),
-					searchV = that.val();
+				var input = $(this),
+					searchV = input.val();
 
 				if (searchV.length > 0) {
 					self.cleaner(that);
 				} else {
-					that.find('.input-group .cleaner').remove();
+					input.find('.input-group .cleaner').remove();
 				}
+				window.clearTimeout(listCheck);
+				listCheck = setTimeout(function () {
+					$.each(that.data('list'), function () {
+						var el = $(this);
 
-				var list = that.parents('.dcontent').find('ul.scrollZone > li');
-				$.each(list, function () {
-					var el = $(this);
-
-					if ($.trim(el.text()).toLowerCase().indexOf(searchV.toLowerCase()) > -1) {
-						el.removeClass('hide')
-					} else {
-						el.addClass('hide')
-					}
-				})
+						if ($.trim(el.text()).toLowerCase().indexOf(searchV.toLowerCase()) > -1) {
+							el.removeClass('hide')
+						} else {
+							el.addClass('hide')
+						}
+					})
+				}, 300);
 			});
 		});
 
@@ -426,19 +432,18 @@ var MapBrowser = Class.extend({
 	}
 });
 
-var map, localizer;
 $(document).ready(function () {
-	map = new MapBrowser();
-	localizer = new Localizer();
-	$('.localizeMe').click(function () {
-		var self = $(this);
+	var map = new MapBrowser();
+	/*var localizer = new Localizer();
+	 $('.localizeMe').click(function () {
+	 var self = $(this);
 
-		if (!self.hasClass('loading')) {
-			if (self.hasClass('btn-primary'))
-				self.addClass('loading disabled');
-			localizer.request_position();
-		}
-	});
+	 if (!self.hasClass('loading')) {
+	 if (self.hasClass('btn-primary'))
+	 self.addClass('loading disabled');
+	 localizer.request_position();
+	 }
+	 });*/
 
 	var accords = $('.accord');
 	$.each(accords, function () {

@@ -283,12 +283,12 @@
 								});
 
 							for (var i = 0; i < lines.length; i++) {
-								var y = ( (lines.length % 2 === 0) ? ((d3Data.size.nodeTextSeparate / 2) + d3Data.size.nodeTextBox) : (d3Data.size.nodeTextBox / 2)) - ( (Math.floor(lines.length / 2)) * (d3Data.size.nodeTextBox + d3Data.size.nodeTextSeparate) ) + ( i * (d3Data.size.nodeTextBox + d3Data.size.nodeTextSeparate) );
+								var yLine = ( (lines.length % 2 === 0) ? ((d3Data.size.nodeTextSeparate / 2) + d3Data.size.nodeTextBox) : (d3Data.size.nodeTextBox / 2)) - ( (Math.floor(lines.length / 2)) * (d3Data.size.nodeTextBox + d3Data.size.nodeTextSeparate) ) + ( i * (d3Data.size.nodeTextBox + d3Data.size.nodeTextSeparate) );
 								d3.select(this)
 									.append("tspan")
 									.attr('x', 0)
 									.attr('y', function (d) {
-										return y + 8 + ((d.id === root.id) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize);
+										return yLine + 8 + ((d.id === root.id) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize);
 									})
 									.style("stroke", "rgb(255,255,255)")
 									.style("stroke-width", "4px")
@@ -297,7 +297,7 @@
 									.append("tspan")
 									.attr('x', 0)
 									.attr('y', function (d) {
-										return y + 8 + ((d.id === root.id) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize);
+										return yLine + 8 + ((d.id === root.id) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize);
 									})
 									.text(lines[i]);
 							}
@@ -517,23 +517,18 @@
 					}
 
 					var pathLength = parseFloat(pathEl.getTotalLength()) || pathSize * 2,
+						pathPoint,
 						sourceX = Math.floor(d.source.x),
 						sourceY = Math.floor(d.source.y),
 						targetX = Math.floor(d.target.x),
 						targetY = Math.floor(d.target.y);
 
 					if (targetX < sourceX) {
-						var pathPoint = pathEl.getPointAtLength(pathSize),
-							pathPointX = Math.floor(pathPoint.x),
-							pathPointY = Math.floor(pathPoint.y);
-
-						return "M" + sourceX + "," + sourceY + " L" + pathPointX + "," + pathPointY;
+						pathPoint = pathEl.getPointAtLength(pathSize);
+						return "M" + sourceX + "," + sourceY + " L" + Math.floor(pathPoint.x) + "," + Math.floor(pathPoint.y);
 					} else {
-						var pathPoint = pathEl.getPointAtLength(pathLength - pathSize),
-							pathPointX = Math.floor(pathPoint.x),
-							pathPointY = Math.floor(pathPoint.y);
-
-						return "M" + pathPointX + "," + pathPointY + " L" + targetX + "," + targetY;
+						pathPoint = pathEl.getPointAtLength(pathLength - pathSize);
+						return "M" + Math.floor(pathPoint.x) + "," + Math.floor(pathPoint.y) + " L" + targetX + "," + targetY;
 					}
 				}
 
@@ -708,8 +703,9 @@
 						detailInfoHeight = detailInfo.outerHeight(),
 						nodeSize = (node.id === root.id) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize;
 
-					var svgMain = /translate\(\s*([^\s,)]+)[ ,]([^\s,)]+)/.exec(gMain.attr('transform'));
-					var svgInside = /translate\(\s*([^\s,)]+)[ ,]([^\s,)]+)/.exec(gInside.attr('transform'));
+					var reg = /translate\(\s*([^\s,)]+)[ ,]([^\s,)]+)/,
+						svgMain = reg.exec(gMain.attr('transform')),
+						svgInside = reg.exec(gInside.attr('transform'));
 
 					if (svgMain !== null) {
 						windowX += parseInt(svgMain[1]);
