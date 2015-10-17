@@ -3154,10 +3154,65 @@ class GminyController extends DataobjectsController
                                 'dataset' => 'krakow_komisje_posiedzenia',
                                 'id' => $subsubid,
                             ),
+                            'aggs' => array(
+	                            'dokumenty' => array(
+		                            'scope' => 'global',
+		                            'filter' => array(
+			                            'bool' => array(
+				                            'must' => array(
+					                            array(
+						                            'term' => array(
+							                            'dataset' => 'krakow_komisje_dokumenty',
+						                            ),
+					                            ),
+					                            array(
+						                            'term' => array(
+							                            'data.krakow_komisje_dokumenty.posiedzenie_id' => $subsubid,
+						                            ),
+					                            ),
+				                            ),
+			                            ),
+		                            ),
+		                            'aggs' => array(
+			                            'labels' => array(
+				                            'terms' => array(
+					                            'field' => 'data.krakow_komisje_dokumenty.label',
+					                            'size' => 10000,
+				                            ),
+				                            'aggs' => array(
+					                            'top' => array(
+						                            'top_hits' => array(
+							                            'size' => 10000,
+							                            'fielddata_fields' => array('dataset', 'id'),
+						                            ),
+					                            ),
+				                            ),
+			                            ),
+		                            ),
+	                            ),
+                            ),
                             'layers' => array('punkty')
                         )))
                     ) {
-
+						
+						
+						$aggs = @$this->Dataobject->getAggs();
+						if( @$aggs['dokumenty']['labels']['buckets'] ) {
+							
+							$wybrany_dokument = false;
+							$this->set('dokumenty', $aggs['dokumenty']['labels']['buckets']);
+							
+							if( isset($this->request->query['d']) ) 
+								foreach( $aggs['dokumenty']['labels']['buckets'] as $b ) 
+									foreach( $b['top']['hits']['hits'] as $h )
+										if( $h['fields']['id'][0]==$this->request->query['d'] )
+											$wybrany_dokument = $h;
+														
+							if( $wybrany_dokument )
+								$this->set('wybrany_dokument', $wybrany_dokument);
+							
+						}
+						
                         // debug( $this->API->document($posiedzenie->getData('przedmiot_dokument_id')) ); die();
 
                         $punkty = (array)$posiedzenie->getLayer('punkty');

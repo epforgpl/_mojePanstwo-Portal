@@ -185,7 +185,7 @@ class PlacesController extends ApplicationsController
                 $codes = $aggs['miejsca']['children']['*']['reverse']['punkty']['kody']['buckets'];
 
             }
-
+            
 
             if( $typy = @$aggs['miejsca']['children']['*']['direct']['reverse']['typy']['buckets'] ) {
 				foreach( $typy as $t ) {

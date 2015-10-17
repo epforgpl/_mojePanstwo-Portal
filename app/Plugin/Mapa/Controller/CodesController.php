@@ -17,7 +17,7 @@ class CodesController extends ApplicationsController
 	    
 	    $this->loadModel('Mapa.Mapa');
 	    $code = $this->Mapa->getCode( $code );	    
-	    	    
+				
 	    $this->title = @$code['kod']['slug'];
 		
 		$gminy = $code['gminy'];
@@ -29,6 +29,7 @@ class CodesController extends ApplicationsController
 		    'gminy' => $gminy,
 	    );
 	    
+	    /*
 	    if( @$code['wojewodztwa'] ) {
 		    if( count($code['wojewodztwa'])===1 ) {
 		    	$mapParams['wojewodztwo'] = array(
@@ -84,6 +85,8 @@ class CodesController extends ApplicationsController
 			}
 	    }
 	    
+	    */
+	    
 	    
 	    if( @$code['miejscowosci'] ) {
 		    if( count($code['miejscowosci'])===1 ) {
@@ -102,7 +105,8 @@ class CodesController extends ApplicationsController
 			    $mapParams['children']['miejscowosci'] = $code['miejscowosci'];
 			}
 	    }
-	    	    
+	    
+	    /*
 	    if( @$code['ulice'] ) {
 		    if( count($code['ulice'])===1 ) {
 		    	$mapParams['ulica'] = array(
@@ -120,6 +124,7 @@ class CodesController extends ApplicationsController
 			    $mapParams['children']['ulice'] = $code['ulice'];
 			}
 	    }
+	    */
 	    	
 	    	    
 	    $this->set('mapParams', $mapParams);
