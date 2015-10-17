@@ -2193,11 +2193,12 @@ class GminyController extends DataobjectsController
                 'param' => 'kadencja',
                 'selected' => '7'
             );
-
+            
             if(isset($this->request->query[$cadences['param']]) &&
                 array_key_exists($this->request->query[$cadences['param']], $cadences['items'])) {
                 $cadences['selected'] = $this->request->query[$cadences['param']];
             }
+            
 
             $subaction = (isset($this->request->params['subaction']) && $this->request->params['subaction']) ? $this->request->params['subaction'] : 'view';
             $subsubid = (isset($this->request->params['subsubid']) && $this->request->params['subsubid']) ? $this->request->params['subsubid'] : false;
@@ -2231,6 +2232,10 @@ class GminyController extends DataobjectsController
                                         array(
                                             'term' => array(
                                                 'data.radni_dzielnic.dzielnica_id' => $dzielnica->getId(),
+                                            ),
+                                        ),
+                                        array(
+                                            'term' => array(
                                                 'data.radni_dzielnic.kadencja_id' => $cadences['selected'],
                                             ),
                                         ),
@@ -2262,8 +2267,10 @@ class GminyController extends DataobjectsController
                                         ),
                                         array(
                                             'term' => array(
-                                                'data.krakow_dzielnice_rady_posiedzenia.dzielnica_id' => $dzielnica->getId(),
                                                 'data.krakow_dzielnice_rady_posiedzenia.kadencja_id' => $cadences['selected'],
+                                            ),
+                                            'term' => array(
+                                                'data.krakow_dzielnice_rady_posiedzenia.dzielnica_id' => $dzielnica->getId(),
                                             ),
                                         ),
                                     ),
