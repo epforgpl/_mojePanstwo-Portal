@@ -66,17 +66,6 @@
     }
 }
 
-.widget-localize {
-    .txt {
-        position: relative;
-        top: 3px;
-    }
-
-    .localizeMe {
-        margin-top: 2px;
-    }
-}
-
 #_wrapper .dataBrowser > .container {
     width: 100%;
     padding-left: 0;
@@ -92,6 +81,12 @@
 #_wrapper footer.footer {
     display: none;
     height: 0;
+}
+
+.searcher-app .localizeMe {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    white-space: nowrap;
 }
 
 #mapBrowser {
@@ -118,17 +113,6 @@
         &.nodetails {
             margin-left: 0;
         }
-    }
-
-    > #localizeMe {
-        height: 27px;
-        padding: 4px 0;
-        position: absolute;
-        right: 10px;
-        text-align: center;
-        top: 70px;
-        width: 28px;
-        z-index: 2;
     }
 
     > .details {
@@ -168,12 +152,10 @@
         }
 
         .wyboryDetail {
-            min-height: 150px;
-
             ul.meta {
                 border-top: 1px solid #ddd;
                 list-style: outside none none;
-                padding: 0 0 20px;
+                padding: 0 0 5px;
                 margin: 0 8px;
 
                 &:first-child {

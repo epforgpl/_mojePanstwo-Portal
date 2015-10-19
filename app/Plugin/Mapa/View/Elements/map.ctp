@@ -24,7 +24,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
             <div class="searcher-app">
                 <div class="container">
                     <div class="row">
-                        <div class="col-xs-12">
+                        <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 nopadding">
                             <?
                             $_params = array(
                                 'dataBrowser' => array(
@@ -41,6 +41,13 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             );
                             echo $this->element('Dane.DataBrowser/browser-searcher', $_params);
                             ?>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+                            <btn class="btn btn-icon btn-primary localizeMe"><span
+                                    class="icon glyphicon glyphicon-globe"
+                                    aria-hidden="true"></span>Zlokalizuj
+                                mnie
+                            </btn>
                         </div>
                     </div>
                 </div>
@@ -254,12 +261,12 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
                                         <? if ($counters['sejm'] || $counters['senat'] || $counters['obwody']) {
 
-	                                        $ils = array();
-	                                        if( isset($mapParams['elections']['obwody']) )
-		                                        $ils = array_column($mapParams['elections']['obwody'], 'key');
+                                            $ils = array();
+                                            if (isset($mapParams['elections']['obwody']))
+                                                $ils = array_column($mapParams['elections']['obwody'], 'key');
 
-                                        ?>
-                                            <li class="accord wyboryDetail"<? if(count($ils)<11){?> data-obwody="<?= @implode(',', $ils) ?>"<? } ?>>
+                                            ?>
+                                            <li class="accord accord-fullheight wyboryDetail"<? if (count($ils) < 11) { ?> data-obwody="<?= @implode(',', $ils) ?>"<? } ?>>
                                                 <header>
                                                     <span class="arrow"></span>
 
@@ -287,38 +294,38 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                                     <? } ?>
 
                                                         <ul class="wybory meta">
-                                                            <li>
-                                                                <? if ($counters['sejm'] === 1) { ?>
-	                                                                <label>Okręg do Sejmu:</label>
+
+                                                            <? if ($counters['sejm'] === 1) { ?>
+                                                                <li>
+                                                                    <label>Okręg do Sejmu:</label>
                                                                     <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $mapParams['elections']['sejm'][0]['key'] ?>"
                                                                        target="_parent"><?= $mapParams['elections']['sejm'][0]['key'] ?></a>
-                                                                <? } ?>
-                                                            </li>
 
-                                                            <li>
-                                                                <? if ($counters['senat'] === 1) { ?>
-	                                                                <label>Okręg do Senatu:</label>
+                                                                </li>
+                                                            <? } ?>
+
+                                                            <? if ($counters['senat'] === 1) { ?>
+                                                                <li>
+                                                                    <label>Okręg do Senatu:</label>
                                                                     <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/<?= $mapParams['elections']['senat'][0]['key'] ?>"
                                                                        target="_parent"><?= $mapParams['elections']['senat'][0]['key'] ?></a>
-                                                                <? } ?>
-                                                            </li>
+                                                                </li>
+                                                            <? } ?>
 
-                                                            <li>
-                                                                <? if ($counters['obwody'] === 1) { ?>
-	                                                                <button data-target="<?= $mapParams['elections']['obwody'][0]['key'] ?>" disabled="disabled" class="btn-obwod btn btn-warning btn-sm margin-top-10">Pokaż lokal wyborczy</button>
-                                                                <? } else { ?>
-                                                                	<? /*<p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć
-                                                            właściwe
-                                                            lokale wyborcze.</p> */ ?>
-                                                                <? } ?>
-                                                            </li>
+                                                            <? if ($counters['obwody'] === 1) { ?>
+                                                                <li>
+                                                                    <button
+                                                                        data-target="<?= $mapParams['elections']['obwody'][0]['key'] ?>"
+                                                                        disabled="disabled"
+                                                                        class="btn-obwod btn btn-warning btn-sm margin-top-10">
+                                                                        Pokaż lokal wyborczy
+                                                                    </button>
+                                                                </li>
+                                                            <? } ?>
                                                         </ul>
                                                     <? } else { ?>
-
                                                         <p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć
-                                                            właściwe
-                                                            okręgi wyborcze.</p>
-
+                                                            właściwe okręgi wyborcze.</p>
                                                     <? } ?>
                                                 </section>
                                             </li>
@@ -447,51 +454,51 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                                     if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['nazwa'] ?></a>
 
                                                     <?
-                                                    if( @$item['numery'] ) {
-	                                                ?>
-	                                                	<ul class="adresy">
-		                                                <?
-		                                                    foreach( $item['numery'] as $n ) {
-			                                                    if( @$n['wszystkie'] ) {
-				                                                ?>
-				                                                <li>Wszystkie adresy</li>
-				                                                <?
-			                                                    } else {
+                                                    if (@$item['numery']) {
+                                                        ?>
+                                                        <ul class="adresy">
+                                                            <?
+                                                            foreach ($item['numery'] as $n) {
+                                                                if (@$n['wszystkie']) {
+                                                                    ?>
+                                                                    <li>Wszystkie adresy</li>
+                                                                    <?
+                                                                } else {
 
                                                                     $parts = array();
 
-                                                                    if( @$n['gte'] )
-				                                                    	$parts[] = 'od numeru ' . $n['gte'];
+                                                                    if (@$n['gte'])
+                                                                        $parts[] = 'od numeru ' . $n['gte'];
 
-                                                                    if( @$n['lte'] )
-				                                                    	$parts[] = 'do numeru ' . $n['lte'];
-				                                                    else
-				                                                    	$parts[] = 'do końca';
+                                                                    if (@$n['lte'])
+                                                                        $parts[] = 'do numeru ' . $n['lte'];
+                                                                    else
+                                                                        $parts[] = 'do końca';
 
-                                                                    if( @$n['e'] )
-				                                                    	$parts[] = 'numer ' . $n['e'];
+                                                                    if (@$n['e'])
+                                                                        $parts[] = 'numer ' . $n['e'];
 
-                                                                    if( @$n['mode']=='parzyste' )
-				                                                    	$parts[] = 'parzyste';
-				                                                    elseif( @$n['mode']=='nieparzyste' )
-				                                                    	$parts[] = 'nieparzyste';
+                                                                    if (@$n['mode'] == 'parzyste')
+                                                                        $parts[] = 'parzyste';
+                                                                    elseif (@$n['mode'] == 'nieparzyste')
+                                                                        $parts[] = 'nieparzyste';
 
-                                                                    if( empty($parts) )
-				                                                    	continue;
+                                                                    if (empty($parts))
+                                                                        continue;
 
                                                                     ?>
-				                                                <li><?= implode(', ', $parts) ?></li>
+                                                                    <li><?= implode(', ', $parts) ?></li>
                                                                     <?
-			                                                    }
-		                                                    }
-		                                                ?>
-	                                                	</ul>
-	                                                <?
+                                                                }
+                                                            }
+                                                            ?>
+                                                        </ul>
+                                                        <?
                                                     } else {
-                                                    ?>
-                                                    	<ul class="adresy">
-	                                                    	<li>Wszystkie adresy</li>
-	                                                	</ul>
+                                                        ?>
+                                                        <ul class="adresy">
+                                                            <li>Wszystkie adresy</li>
+                                                        </ul>
                                                     <? } ?>
 
                                                 </li>
@@ -541,7 +548,8 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
                                         <ul class="scrollZone _points">
                                             <? foreach ($mapParams['points'] as $item) { ?>
-                                                <li data-obwod_id="<?= @$item['parl_obwod_id'] ?>" name="<?= $item['numer'] ?>" itemprop="geo" itemscope
+                                                <li data-obwod_id="<?= @$item['parl_obwod_id'] ?>"
+                                                    name="<?= $item['numer'] ?>" itemprop="geo" itemscope
                                                     itemtype="http://schema.org/GeoCoordinates">
                                                     <a href='#<?= urlencode($item['numer']) ?>'><?= $item['numer'] ?></a>
                                                     <meta itemprop="latitude"
