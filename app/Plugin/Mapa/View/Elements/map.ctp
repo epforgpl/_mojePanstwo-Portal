@@ -311,9 +311,9 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 	                                                                
                                                                 <? } else { ?>
                                                                 
-                                                                	<p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć
+                                                                	<? /*<p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć
                                                             właściwe
-                                                            lokale wyborcze.</p>
+                                                            lokale wyborcze.</p> */ ?>
                                                                 
                                                                 <? } ?>
                                                             </li>
