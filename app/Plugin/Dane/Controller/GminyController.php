@@ -305,6 +305,13 @@ class GminyController extends DataobjectsController
                                     ),
                                 ),
                             ),
+                            'must_not' => array(
+	                            array(
+		                            'term' => array(
+			                            'data.radni_gmin.id' => 39267,
+		                            ),
+	                            ),
+                            ),
                         ),
                     ),
                     'aggs' => array(
@@ -3439,8 +3446,8 @@ class GminyController extends DataobjectsController
             'conditions' => array(
                 'dataset' => 'zamowienia_publiczne',
                 'zamowienia_publiczne.gmina_id' => $this->object->getId(),
-                'aggsPreset' => 'zamowienia_publiczne',
             ),
+            'aggsPreset' => 'zamowienia_publiczne',
             'cover' => array(
                 'view' => array(
                     'plugin' => 'Dane',
