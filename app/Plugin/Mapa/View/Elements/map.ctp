@@ -252,12 +252,12 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         );
                                         ?>
 
-                                        <? if ($counters['sejm'] || $counters['senat'] || $counters['obwody']) { 
-	                                        
+                                        <? if ($counters['sejm'] || $counters['senat'] || $counters['obwody']) {
+
 	                                        $ils = array();
 	                                        if( isset($mapParams['elections']['obwody']) )
 		                                        $ils = array_column($mapParams['elections']['obwody'], 'key');
-		                                        
+
                                         ?>
                                             <li class="accord wyboryDetail"<? if(count($ils)<11){?> data-obwody="<?= @implode(',', $ils) ?>"<? } ?>>
                                                 <header>
@@ -294,7 +294,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                                                        target="_parent"><?= $mapParams['elections']['sejm'][0]['key'] ?></a>
                                                                 <? } ?>
                                                             </li>
-                                                            
+
                                                             <li>
                                                                 <? if ($counters['senat'] === 1) { ?>
 	                                                                <label>Okręg do Senatu:</label>
@@ -302,24 +302,17 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                                                        target="_parent"><?= $mapParams['elections']['senat'][0]['key'] ?></a>
                                                                 <? } ?>
                                                             </li>
-                                                            
+
                                                             <li>
                                                                 <? if ($counters['obwody'] === 1) { ?>
-	                                                                
 	                                                                <button data-target="<?= $mapParams['elections']['obwody'][0]['key'] ?>" disabled="disabled" class="btn-obwod btn btn-warning btn-sm margin-top-10">Pokaż lokal wyborczy</button>
-
-	                                                                
                                                                 <? } else { ?>
-                                                                
                                                                 	<? /*<p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć
                                                             właściwe
                                                             lokale wyborcze.</p> */ ?>
-                                                                
                                                                 <? } ?>
                                                             </li>
-                                               
                                                         </ul>
-
                                                     <? } else { ?>
 
                                                         <p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć
@@ -327,7 +320,6 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                                             okręgi wyborcze.</p>
 
                                                     <? } ?>
-
                                                 </section>
                                             </li>
                                         <? } ?>
@@ -434,7 +426,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                     </section>
                                 </li>
                             <? } ?>
-                            
+
                             <? if (@$mapParams['children']['miejsca']) { ?>
                                 <li class="accord">
                                     <header>
@@ -453,8 +445,8 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                                 <li>
                                                     <a href="/mapa/miejsce/<?= $item['id'] ?><? if (isset($widget)) echo '?widget';
                                                     if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['nazwa'] ?></a>
-                                                    
-                                                    <? 
+
+                                                    <?
                                                     if( @$item['numery'] ) {
 	                                                ?>
 	                                                	<ul class="adresy">
@@ -465,31 +457,31 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 				                                                <li>Wszystkie adresy</li>
 				                                                <?
 			                                                    } else {
-				                                                    
-				                                                    $parts = array();
-				                                                    
-				                                                    if( @$n['gte'] )
+
+                                                                    $parts = array();
+
+                                                                    if( @$n['gte'] )
 				                                                    	$parts[] = 'od numeru ' . $n['gte'];
-				                                                    	
-				                                                    if( @$n['lte'] )
+
+                                                                    if( @$n['lte'] )
 				                                                    	$parts[] = 'do numeru ' . $n['lte'];
 				                                                    else
 				                                                    	$parts[] = 'do końca';
-				                                                    
-				                                                    if( @$n['e'] )
+
+                                                                    if( @$n['e'] )
 				                                                    	$parts[] = 'numer ' . $n['e'];
-				                                                    
-				                                                    if( @$n['mode']=='parzyste' )
+
+                                                                    if( @$n['mode']=='parzyste' )
 				                                                    	$parts[] = 'parzyste';
 				                                                    elseif( @$n['mode']=='nieparzyste' )
 				                                                    	$parts[] = 'nieparzyste';
-				                                                    
-				                                                    if( empty($parts) )
+
+                                                                    if( empty($parts) )
 				                                                    	continue;
-				                                                    
-				                                                ?>
+
+                                                                    ?>
 				                                                <li><?= implode(', ', $parts) ?></li>
-				                                                <?  
+                                                                    <?
 			                                                    }
 		                                                    }
 		                                                ?>
@@ -501,7 +493,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 	                                                    	<li>Wszystkie adresy</li>
 	                                                	</ul>
                                                     <? } ?>
-                                                    
+
                                                 </li>
                                             <? } ?>
                                         </ul>

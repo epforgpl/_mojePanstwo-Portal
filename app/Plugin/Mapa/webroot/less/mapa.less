@@ -159,58 +159,65 @@
                 font-weight: 600;
                 line-height: 0.75em;
                 text-transform: uppercase;
-
             }
+            li > a {
+
+                float: right;
+            }
+
         }
 
-        .wyboryDetail ul {
-            border-top: 1px solid #ddd;
-            list-style: outside none none;
-            padding: 0 0 20px;
-            margin: 0 8px !important;
+        .wyboryDetail {
+            min-height: 150px;
 
-            &:first-child {
-                border-top: none;
-            }
-			
-            > li {
-                margin: 3px 0;
-                padding: 1px 15px 1px 0 !important;
-                text-align: center;
-				
-				> label {
-                    
+            ul.meta {
+                border-top: 1px solid #ddd;
+                list-style: outside none none;
+                padding: 0 0 20px;
+                margin: 0 8px;
+
+                &:first-child {
+                    border-top: none;
                 }
 
-                > span, > a {
-                    margin: 0;
-                    padding: 0;
-                    width: auto !important;
-                }
-
-                p {
-                }
-				
-                button {
-                    min-width: 195px;
+                > li {
                     margin: 3px 0;
-                }
+                    padding: 1px 15px 1px 0;
+                    text-align: center;
 
-                &.komisja-adres {
-                    background: transparent url("/mapa/img/marker-google.svg") no-repeat scroll 0 4px;
-                    padding-left: 35px;
-                }
+                    > span, > a {
+                        margin: 0;
+                        padding: 0;
+                        width: auto;
+                    }
 
-                h3 {
-                    font-size: 14px;
-                    margin: 10px 0 15px;
-                    padding: 0;
-                }
+                    > a {
+                        float: left;
+                        margin: 3px 0 0 4px;
+                        text-align: left;
+                    }
 
-                p._msg {
-                    font-size: 13px;
-                    color: #666;
-                    margin-top: 15px;
+                    button {
+                        min-width: 195px;
+                        margin: 3px 0;
+                    }
+
+                    &.komisja-adres {
+                        background: transparent url("/mapa/img/marker-google.svg") no-repeat scroll 0 4px;
+                        padding-left: 35px;
+                    }
+
+                    h3 {
+                        font-size: 14px;
+                        margin: 10px 0 15px;
+                        padding: 0;
+                    }
+
+                    p._msg {
+                        font-size: 13px;
+                        color: #666;
+                        margin-top: 15px;
+                    }
                 }
             }
         }
@@ -245,18 +252,18 @@
                 margin: 0;
                 padding: 3px;
                 list-style: none;
-				
-				.adresy {
-					color: #789;
-				    font-size: 12px;
-				    margin: 0 0 0 10px;
-					padding: 0 0 0 10px;
-					
-					> li {
-						margin: 0;
-					}
-				}
-				
+
+                .adresy {
+                    color: #789;
+                    font-size: 12px;
+                    margin: 0 0 0 10px;
+                    padding: 0 0 0 10px;
+
+                    > li {
+                        margin: 0;
+                    }
+                }
+
                 .dcontent {
                     position: relative;
 
@@ -314,8 +321,7 @@
             &.main {
                 overflow: hidden;
             }
-			
-			
+
             &.meta {
                 border-top: 1px solid #ddd;
                 margin: -5px 20px 0;
@@ -341,7 +347,6 @@
                     > span, > a {
                         margin: 0;
                         padding: 0;
-                        float: right;
                         font-weight: 400;
                         font-size: 13px;
                     }
