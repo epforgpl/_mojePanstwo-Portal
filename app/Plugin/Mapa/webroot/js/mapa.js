@@ -300,66 +300,51 @@ var MapBrowser = Class.extend({
 			self.detail_div_main_accords.find('._points li[name="' + hash + '"]').addClass('active');
 			self.pointWindow(result[0].marker);
 		}
-		
-		
+
+
 		var obwody = $('.wyboryDetail').attr('data-obwody');
-		if( obwody ) {
+		if (obwody) {
 			var self = this;
-			$.get('/mapa/obwody.json?id=' + obwody, function(data){
-								
-				for( var i=0; i<data.length; i++ ) {
-					
-					var d = data[i];					
-					
-					if( d.lat && d.lon ) {
-						
-						console.log('d', d);
-						
+			$.get('/mapa/obwody.json?id=' + obwody, function (data) {
+				for (var i = 0; i < data.length; i++) {
+					var d = data[i];
+					if (d.lat && d.lon) {
 						var infowindow = new google.maps.InfoWindow({
 							content: '<h2>Obwodowa Komisja Wyborcza nr ' + d.nr_obwodu + '</h2><div style="padding: 7px;"><p>' + d.adres_obwodu + '</p><hr/><h5>Granice obwodu:</h5><p>' + d.granice_obwodu + '</p><hr/><h5>Lokal przystosowany do potrzeb osób niepełnosprawnych:</h5><p>' + d.przystosowany_dla_niepelnosprawnych + '</p></div>'
 						});
-						
+
 						infowindow.setZIndex(1000);
-						
+
 						var marker = new google.maps.Marker({
 							position: new google.maps.LatLng(d.lat, d.lon),
 							map: self.map,
 							data: d
 						});
-																							
-						self.obwody[ d.id ] = {
+
+						self.obwody[d.id] = {
 							marker: marker,
 							infowindow: infowindow
 						};
-						
-						marker.addListener('click', function() {
-							if( self.obwod_id ) {
-								self.obwody[ self.obwod_id ].infowindow.close();
+
+						marker.addListener('click', function () {
+							if (self.obwod_id) {
+								self.obwody[self.obwod_id].infowindow.close();
 							}
-							self.obwody[ this.data.id ].infowindow.open(self.map, self.obwody[ this.data.id ].marker);
+							self.obwody[this.data.id].infowindow.open(self.map, self.obwody[this.data.id].marker);
 							self.obwod_id = this.data.id;
 						});
-												
 					}
-					
 				}
-				
-				self.detail_div_main.find('.btn-obwod').attr('disabled', null).click(function(event){
-					
+
+				self.detail_div_main.find('.btn-obwod').attr('disabled', null).click(function (event) {
 					var tid = $(event.target).attr('data-target');
-					if( tid )
+					if (tid)
 						var m = self.obwody[tid];
-					if( m ) {
-						
+					if (m)
 						m.infowindow.open(self.map, m.marker);
-						
-					}
-											
 				});
-				
 			});
-		} 
-		
+		}
 	},
 
 	resizeSetup: function () {
@@ -393,14 +378,24 @@ var MapBrowser = Class.extend({
 			accS = acc.find('>section:visible').outerHeight();
 
 			if (acc.hasClass('closed')) {
+				var h = accH + accordLiPadding;
+
+				if (acc.css('min-height') != 'none' && h < parseInt(acc.css('min-height')))
+					h = parseInt(acc.css('min-height'));
+
 				acc.addClass('accord-fixed');
-				accordFixedH += accH + accordLiPadding;
-				acc.css('height', accH + accordLiPadding)
+				accordFixedH += h;
+				acc.css('height', h)
 			} else {
 				if ((accH + accS) < h_accord) {
+					var h = accH + accS + accordLiPadding;
+
+					if (acc.css('min-height') != 'none' && h < parseInt(acc.css('min-height')))
+						h = parseInt(acc.css('min-height'));
+
 					acc.addClass('accord-fixed');
-					accordFixedH += accH + accS + accordLiPadding;
-					acc.css('height', accH + accS + accordLiPadding)
+					accordFixedH += h;
+					acc.css('height', h)
 				} else {
 					acc.addClass('accord-nofixed');
 					accordNoFixedC++;
@@ -480,45 +475,32 @@ var MapBrowser = Class.extend({
 
 		marker.setIcon(self.setIconItem(true));
 
-		if (typeof infowindow !== "undefined") {
+		if (typeof infowindow !== "undefined")
 			infowindow.close();
-		}
 
-		if (self.retina) {
-			pixelOffset = new google.maps.Size(-12, 4)
-		} else {
-			pixelOffset = new google.maps.Size(0, 4)
-		}
+		if (self.retina)
+			pixelOffset = new google.maps.Size(-12, 4);
+		else
+			pixelOffset = new google.maps.Size(0, 4);
 
 		infowindow = new google.maps.InfoWindow({
 			pixelOffset: pixelOffset
 		});
-		
+
 		var scontent = 'Numer: ' + marker.data.label;
-		
-		if( marker.data.obwod_id )
-			scontent = scontent + '<hr/><button data-target="' + marker.data.obwod_id + '" class="btn-obwod btn btn-warning btn-sm">Pokaż lokal wyborczy</button>';
-			
-			
-			
-		
-		
-		console.log( marker.data );
-		
+
+		if (marker.data.obwod_id)
+			scontent = scontent + '<hr style="margin: 12px 0;"><button data-target="' + marker.data.obwod_id + '" class="btn-obwod btn btn-warning btn-sm">Pokaż lokal wyborczy</button>';
+
 		infowindow.setContent(scontent);
 		infowindow.open(self.map, marker);
-		
-		$('.btn-obwod').attr('disabled', null).click(function(event){
-					
+
+		$('.btn-obwod').attr('disabled', null).click(function (event) {
 			var tid = $(event.target).attr('data-target');
-			if( tid )
+			if (tid)
 				var m = self.obwody[tid];
-			if( m ) {
-				
+			if (m)
 				m.infowindow.open(self.map, m.marker);
-				
-			}
-									
 		});
 	}
 });
