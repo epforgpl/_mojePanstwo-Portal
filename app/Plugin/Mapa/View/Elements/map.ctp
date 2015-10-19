@@ -549,9 +549,10 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         <ul class="scrollZone _points">
                                             <? foreach ($mapParams['points'] as $item) { ?>
                                                 <li data-obwod_id="<?= @$item['parl_obwod_id'] ?>"
-                                                    name="<?= $item['numer'] ?>" itemprop="geo" itemscope
+                                                    name="<?= str_replace('/', '\\', $item['numer']) ?>" itemprop="geo"
+                                                    itemscope
                                                     itemtype="http://schema.org/GeoCoordinates">
-                                                    <a href='#<?= urlencode($item['numer']) ?>'><?= $item['numer'] ?></a>
+                                                    <a href='#<?= urlencode(str_replace('/', '\\', $item['numer'])) ?>'><?= $item['numer'] ?></a>
                                                     <meta itemprop="latitude"
                                                           content="<?= $item['lat'] ?>"/>
                                                     <meta itemprop="longitude"

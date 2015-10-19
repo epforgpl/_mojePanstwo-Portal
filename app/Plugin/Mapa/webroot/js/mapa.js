@@ -100,6 +100,7 @@ var listCheck;
 var MapBrowser = Class.extend({
 	retina: false,
 	map: false,
+	fitBounds: false,
 	points: [],
 	infoWindow: null,
 	obwody: {},
@@ -189,7 +190,6 @@ var MapBrowser = Class.extend({
 		self.detail_div_main_title = self.detail_div.find('.title');
 		self.detail_div_main_accords = self.detail_div_main.find('.accord');
 
-		var fitBounds = false;
 		var viewport = self.div.data('viewport');
 
 		if (
@@ -197,8 +197,8 @@ var MapBrowser = Class.extend({
 			( typeof(viewport.top_left) == 'object' ) &&
 			( typeof(viewport.bottom_right) == 'object' )
 		) {
-			fitBounds = new google.maps.LatLngBounds(new google.maps.LatLng(viewport.bottom_right.lat, viewport.top_left.lon), new google.maps.LatLng(viewport.top_left.lat, viewport.bottom_right.lon));
-			self.mapOptions.center = fitBounds.getCenter();
+			self.fitBounds = new google.maps.LatLngBounds(new google.maps.LatLng(viewport.bottom_right.lat, viewport.top_left.lon), new google.maps.LatLng(viewport.top_left.lat, viewport.bottom_right.lon));
+			self.mapOptions.center = self.fitBounds.getCenter();
 		} else {
 			self.mapOptions.center = new google.maps.LatLng(51.986797406813125, 19.32958984375001);
 		}
@@ -206,8 +206,8 @@ var MapBrowser = Class.extend({
 		self.resizeSetup();
 		self.map = new google.maps.Map(self.map_div.get(0), self.mapOptions);
 
-		if (fitBounds)
-			self.map.fitBounds(fitBounds);
+		if (self.fitBounds)
+			self.map.fitBounds(self.fitBounds);
 
 		self.mapBorder.setMap(self.map);
 
@@ -220,6 +220,7 @@ var MapBrowser = Class.extend({
 			var p = $(points[i]),
 				point = {
 					'label': p.find('a').text(),
+					'id': p.attr('name'),
 					'lat': p.find('meta[itemprop=latitude]').attr('content'),
 					'lon': p.find('meta[itemprop=longitude]').attr('content'),
 					'obwod_id': p.attr('data-obwod_id')
@@ -233,9 +234,9 @@ var MapBrowser = Class.extend({
 			});
 
 			point.marker.addListener('click', function () {
-				window.location.hash = this.data.label;
+				window.location.hash = this.data.id;
 				self.detail_div_main_accords.find('._points li.active').removeClass('active');
-				self.detail_div_main_accords.find('._points li[name="' + this.data.label + '"]').addClass('active');
+				self.detail_div_main_accords.find('._points li[name="' + this.data.id + '"]').addClass('active');
 				self.pointWindow(this);
 			});
 
@@ -243,13 +244,16 @@ var MapBrowser = Class.extend({
 
 			p.click(function () {
 				var id = $(this).attr('name'),
-					result = $.grep(self.points, function (e) {
-						return e.label == id;
-					});
+					result;
+
+				for (var i = 0, len = self.points.length; i < len; i++) {
+					if (self.points[i].id == id)
+						return self.points[i]
+				}
 
 				self.detail_div_main_accords.find('._points li.active').removeClass('active');
 				$(this).addClass('active');
-				self.pointWindow(result[0].marker);
+				self.pointWindow(result.marker);
 			})
 		}
 
@@ -291,14 +295,15 @@ var MapBrowser = Class.extend({
 
 		if (window.location.hash.length) {
 			var hash = window.location.hash.substr(1),
-				result = $.grep(self.points, function (e) {
-					return e.label == hash;
-				});
+				result;
+			for (var i = 0, len = self.points.length; i < len; i++) {
+				if (self.points[i].id == hash)
+					return self.points[i]
+			}
 
 			self.detail_div_main_accords.find('._points li[name="' + hash + '"]').addClass('active');
-			self.pointWindow(result[0].marker);
+			self.pointWindow(result.marker);
 		}
-
 
 		var obwody = $('.wyboryDetail').attr('data-obwody');
 		if (obwody) {
@@ -372,8 +377,8 @@ var MapBrowser = Class.extend({
 				accS = acc.find('>section:visible'),
 				accordH;
 
-			acc.css('height', 'auto');
-			accS.find('ul.scrollZone').css('height', 'auto');
+			acc.removeAttr('style');
+			accS.find('ul.scrollZone').removeAttr('style');
 			accS = acc.find('>section:visible').outerHeight();
 
 			if (acc.hasClass('closed')) {
@@ -494,20 +499,27 @@ var MapBrowser = Class.extend({
 		infowindow.setContent(scontent);
 		infowindow.open(self.map, marker);
 
+		google.maps.event.addListener(infowindow, 'closeclick', function () {
+			window.history.pushState("", "", window.location.href.split('#')[0]);
+		});
+
 		$('.btn-obwod').attr('disabled', null).click(function (event) {
 			var tid = $(event.target).attr('data-target');
+
 			if (tid)
 				var m = self.obwody[tid];
-			if (m)
+			if (typeof m !== 'undefined') {
+				window.history.pushState("", "", window.location.href.split('#')[0]);
 				m.infowindow.open(self.map, m.marker);
+			}
 		});
 	}
 });
 
-var localizer;
+var map, localizer;
 
 $(document).ready(function () {
-	var map = new MapBrowser();
+	map = new MapBrowser();
 	localizer = new Localizer();
 
 	$('.localizeMe').click(function () {
@@ -525,10 +537,15 @@ $(document).ready(function () {
 		var self = $(this);
 
 		self.find('>header').click(function () {
+			$.each(accords, function () {
+				$(this).removeAttr('style').find('ul.scrollZone').removeAttr('style');
+			});
 			if (self.hasClass('closed')) {
 				self.removeClass('closed');
 			} else {
-				self.addClass('closed');
+				self.find('>section').slideUp(function () {
+					self.addClass('closed');
+				})
 			}
 			map.resize();
 		})
