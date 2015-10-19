@@ -223,20 +223,21 @@ var MapBrowser = Class.extend({
 				point = {
 					'label': p.find('a').text(),
 					'lat': p.find('meta[itemprop=latitude]').attr('content'),
-					'lon': p.find('meta[itemprop=longitude]').attr('content')
+					'lon': p.find('meta[itemprop=longitude]').attr('content'),
+					'obwod_id': p.attr('data-obwod_id')
 				};
 
 			point.marker = new google.maps.Marker({
 				position: new google.maps.LatLng(point.lat, point.lon),
 				icon: self.setIconItem(),
 				map: self.map,
-				data: point.label
+				data: point
 			});
 
 			point.marker.addListener('click', function () {
-				window.location.hash = this.data;
+				window.location.hash = this.data.label;
 				self.detail_div_main_accords.find('._points li.active').removeClass('active');
-				self.detail_div_main_accords.find('._points li[name="' + this.data + '"]').addClass('active');
+				self.detail_div_main_accords.find('._points li[name="' + this.data.label + '"]').addClass('active');
 				self.pointWindow(this);
 			});
 
@@ -317,6 +318,8 @@ var MapBrowser = Class.extend({
 						var infowindow = new google.maps.InfoWindow({
 							content: '<h2>Obwodowa Komisja Wyborcza nr ' + d.nr_obwodu + '</h2><div style="padding: 7px;"><p>' + d.adres_obwodu + '</p><hr/><h5>Granice obwodu:</h5><p>' + d.granice_obwodu + '</p><hr/><h5>Lokal przystosowany do potrzeb osób niepełnosprawnych:</h5><p>' + d.przystosowany_dla_niepelnosprawnych + '</p></div>'
 						});
+						
+						infowindow.setZIndex(1000);
 						
 						var marker = new google.maps.Marker({
 							position: new google.maps.LatLng(d.lat, d.lon),
@@ -490,8 +493,33 @@ var MapBrowser = Class.extend({
 		infowindow = new google.maps.InfoWindow({
 			pixelOffset: pixelOffset
 		});
-		infowindow.setContent('Numer: ' + marker.data);
-		infowindow.open(self.map, marker)
+		
+		var scontent = 'Numer: ' + marker.data.label;
+		
+		if( marker.data.obwod_id )
+			scontent = scontent + '<hr/><button data-target="' + marker.data.obwod_id + '" class="btn-obwod btn btn-warning btn-sm">Pokaż lokal wyborczy</button>';
+			
+			
+			
+		
+		
+		console.log( marker.data );
+		
+		infowindow.setContent(scontent);
+		infowindow.open(self.map, marker);
+		
+		$('.btn-obwod').attr('disabled', null).click(function(event){
+					
+			var tid = $(event.target).attr('data-target');
+			if( tid )
+				var m = self.obwody[tid];
+			if( m ) {
+				
+				m.infowindow.open(self.map, m.marker);
+				
+			}
+									
+		});
 	}
 });
 

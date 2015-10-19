@@ -221,6 +221,9 @@ class PlacesController extends ApplicationsController
 
                     if( @$_p['fields']['numer'][0] )
 				    	$p['numer'] = $_p['fields']['numer'][0];
+				    	
+				    if( @$_p['fields']['parl_obwod_id'][0] )
+				    	$p['parl_obwod_id'] = $_p['fields']['parl_obwod_id'][0];
 
                     if( !empty($p) )
 					    $points[] = $p;
@@ -243,7 +246,7 @@ class PlacesController extends ApplicationsController
 		    'elections' => $elections,
 		    'codes' => $codes,
 		));
-
+				
         if (isset($this->request->query['widget'])) {
             $this->layout = 'blank';
             $this->set('widget', true);
