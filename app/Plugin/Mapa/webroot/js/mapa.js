@@ -104,6 +104,8 @@ var MapBrowser = Class.extend({
 	map: false,
 	points: [],
 	infoWindow: null,
+	obwody: {},
+	obwod_id: false,
 	mapOptions: {
 		zoom: 6,
 		maxZoom: 18,
@@ -297,6 +299,64 @@ var MapBrowser = Class.extend({
 			self.detail_div_main_accords.find('._points li[name="' + hash + '"]').addClass('active');
 			self.pointWindow(result[0].marker);
 		}
+		
+		
+		var obwody = $('.wyboryDetail').attr('data-obwody');
+		if( obwody ) {
+			var self = this;
+			$.get('/mapa/obwody.json?id=' + obwody, function(data){
+								
+				for( var i=0; i<data.length; i++ ) {
+					
+					var d = data[i];					
+					
+					if( d.lat && d.lon ) {
+						
+						console.log('d', d);
+						
+						var infowindow = new google.maps.InfoWindow({
+							content: '<h2>Obwodowa Komisja Wyborcza nr ' + d.nr_obwodu + '</h2><div style="padding: 7px;"><p>' + d.adres_obwodu + '</p><hr/><h5>Granice obwodu:</h5><p>' + d.granice_obwodu + '</p><hr/><h5>Lokal przystosowany do potrzeb osób niepełnosprawnych:</h5><p>' + d.przystosowany_dla_niepelnosprawnych + '</p></div>'
+						});
+						
+						var marker = new google.maps.Marker({
+							position: new google.maps.LatLng(d.lat, d.lon),
+							map: self.map,
+							data: d
+						});
+																							
+						self.obwody[ d.id ] = {
+							marker: marker,
+							infowindow: infowindow
+						};
+						
+						marker.addListener('click', function() {
+							if( self.obwod_id ) {
+								self.obwody[ self.obwod_id ].infowindow.close();
+							}
+							self.obwody[ this.data.id ].infowindow.open(self.map, self.obwody[ this.data.id ].marker);
+							self.obwod_id = this.data.id;
+						});
+												
+					}
+					
+				}
+				
+				self.detail_div_main.find('.btn-obwod').attr('disabled', null).click(function(event){
+					
+					var tid = $(event.target).attr('data-target');
+					if( tid )
+						var m = self.obwody[tid];
+					if( m ) {
+						
+						m.infowindow.open(self.map, m.marker);
+						
+					}
+											
+				});
+				
+			});
+		} 
+		
 	},
 
 	resizeSetup: function () {

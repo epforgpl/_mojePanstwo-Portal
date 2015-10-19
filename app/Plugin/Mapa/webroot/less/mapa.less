@@ -167,16 +167,30 @@
             border-top: 1px solid #ddd;
             list-style: outside none none;
             padding: 0 0 20px;
+            margin: 0 8px !important;
 
             &:first-child {
                 border-top: none;
             }
-
+			
             > li {
                 margin: 3px 0;
-                padding: 0;
+                padding: 1px 15px 1px 0 !important;
                 text-align: center;
+				
+				> label {
+                    
+                }
 
+                > span, > a {
+                    margin: 0;
+                    padding: 0;
+                    width: auto !important;
+                }
+
+                p {
+                }
+				
                 button {
                     min-width: 195px;
                     margin: 3px 0;
@@ -231,7 +245,18 @@
                 margin: 0;
                 padding: 3px;
                 list-style: none;
-
+				
+				.adresy {
+					color: #789;
+				    font-size: 12px;
+				    margin: 0 0 0 10px;
+					padding: 0 0 0 10px;
+					
+					> li {
+						margin: 0;
+					}
+				}
+				
                 .dcontent {
                     position: relative;
 
@@ -289,7 +314,8 @@
             &.main {
                 overflow: hidden;
             }
-
+			
+			
             &.meta {
                 border-top: 1px solid #ddd;
                 margin: -5px 20px 0;

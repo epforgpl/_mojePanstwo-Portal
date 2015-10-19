@@ -29,6 +29,8 @@ class CodesController extends ApplicationsController
 		    'gminy' => $gminy,
 	    );
 	    
+	    $mapParams['children']['miejsca'] = $code['miejsca'];
+	    
 	    /*
 	    if( @$code['wojewodztwa'] ) {
 		    if( count($code['wojewodztwa'])===1 ) {
@@ -85,7 +87,6 @@ class CodesController extends ApplicationsController
 			}
 	    }
 	    
-	    */
 	    
 	    
 	    if( @$code['miejscowosci'] ) {
@@ -106,7 +107,6 @@ class CodesController extends ApplicationsController
 			}
 	    }
 	    
-	    /*
 	    if( @$code['ulice'] ) {
 		    if( count($code['ulice'])===1 ) {
 		    	$mapParams['ulica'] = array(

@@ -87,7 +87,7 @@ class PlacesController extends ApplicationsController
 														'parl_obwody' => array(
 															'terms' => array(
 																'field' => 'miejsca-numery.parl_obwod_id',
-																'size' => 3,
+																'size' => 11,
 															),
 														),
 													    'viewport' => array(
@@ -174,6 +174,12 @@ class PlacesController extends ApplicationsController
             if ( @$aggs['miejsca']['children']['*']['reverse']['punkty']['viewport']['bounds'] ) {
 
 				$viewport = $aggs['miejsca']['children']['*']['reverse']['punkty']['viewport']['bounds'];
+
+			}
+			
+			if ( @$aggs['miejsca']['children']['*']['reverse']['punkty']['parl_obwody']['buckets'] ) {
+
+				$elections['obwody'] = $aggs['miejsca']['children']['*']['reverse']['punkty']['parl_obwody']['buckets'];
 
 			}
 

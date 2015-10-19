@@ -23,6 +23,16 @@ class MapaController extends ApplicationsController
         )
     );
 
+	public function obwody()
+	{
+		
+		$data = $this->Mapa->obwody($this->request->query['id']);
+		
+		$this->set('data', $data);
+		$this->set('_serialize', 'data');
+		
+	}
+	
     public function view()
     {
 	            

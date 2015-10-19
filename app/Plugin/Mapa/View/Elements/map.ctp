@@ -248,18 +248,25 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         $counters = array(
                                             'sejm' => count(@$mapParams['elections']['sejm']),
                                             'senat' => count(@$mapParams['elections']['senat']),
+                                            'obwody' => count(@$mapParams['elections']['obwody']),
                                         );
                                         ?>
 
-                                        <? if ($counters['sejm'] || $counters['senat']) { ?>
-                                            <li class="accord wyboryDetail">
+                                        <? if ($counters['sejm'] || $counters['senat'] || $counters['obwody']) { 
+	                                        
+	                                        $ils = array();
+	                                        if( isset($mapParams['elections']['obwody']) )
+		                                        $ils = array_column($mapParams['elections']['obwody'], 'key');
+		                                        
+                                        ?>
+                                            <li class="accord wyboryDetail"<? if(count($ils)<11){?> data-obwody="<?= @implode(',', $ils) ?>"<? } ?>>
                                                 <header>
                                                     <span class="arrow"></span>
 
                                                     <h2>Wybory parlamentarne 2015</h2>
                                                 </header>
                                                 <section class="dcontent">
-                                                    <? if ($counters['sejm'] || $counters['senat']) { ?>
+                                                    <? if ($counters['sejm'] || $counters['senat'] || $counters['obwody']) { ?>
                                                         <? if (isset($widget) && isset($_GET["redirect"])) {
                                                         $array_column_sejm = array_column($mapParams['elections']['sejm'], 'key');
                                                         $array_column_senat = array_column($mapParams['elections']['senat'], 'key');
@@ -279,34 +286,38 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                                         </script>
                                                     <? } ?>
 
-                                                        <ul class="wybory">
+                                                        <ul class="wybory meta">
                                                             <li>
                                                                 <? if ($counters['sejm'] === 1) { ?>
+	                                                                <label>Okręg do Sejmu:</label>
                                                                     <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $mapParams['elections']['sejm'][0]['key'] ?>"
-                                                                       target="_parent" class="btn btn-primary btn-sm">Pokaż
-                                                                        kandydatów
-                                                                        do Sejmu &raquo;</a>
-                                                                <? } else { ?>
-
-                                                                    <p class="_msg">Użyj dokładniejszej lokalizacji, aby
-                                                                        odnaleźć okręg wyborczy do Sejmu.</p>
-
+                                                                       target="_parent"><?= $mapParams['elections']['sejm'][0]['key'] ?></a>
                                                                 <? } ?>
                                                             </li>
-
+                                                            
                                                             <li>
                                                                 <? if ($counters['senat'] === 1) { ?>
+	                                                                <label>Okręg do Senatu:</label>
                                                                     <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/<?= $mapParams['elections']['senat'][0]['key'] ?>"
-                                                                       target="_parent" class="btn btn-primary btn-sm">Pokaż
-                                                                        kandydatów
-                                                                        do Senatu &raquo;</a>
-                                                                <? } else { ?>
-
-                                                                    <p class="_msg">Użyj dokładniejszej lokalizacji, aby
-                                                                        odnaleźć okręg wyborczy do Senatu.</p>
-
+                                                                       target="_parent"><?= $mapParams['elections']['senat'][0]['key'] ?></a>
                                                                 <? } ?>
                                                             </li>
+                                                            
+                                                            <li>
+                                                                <? if ($counters['obwody'] === 1) { ?>
+	                                                                
+	                                                                <button data-target="<?= $mapParams['elections']['obwody'][0]['key'] ?>" disabled="disabled" class="btn-obwod btn btn-warning btn-sm margin-top-10">Pokaż lokal wyborczy</button>
+
+	                                                                
+                                                                <? } else { ?>
+                                                                
+                                                                	<p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć
+                                                            właściwe
+                                                            lokale wyborcze.</p>
+                                                                
+                                                                <? } ?>
+                                                            </li>
+                                               
                                                         </ul>
 
                                                     <? } else { ?>
@@ -417,6 +428,80 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                                 <li>
                                                     <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?><? if (isset($widget)) echo '?widget';
                                                     if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['miejsca.miejscowosc'] ?></a>
+                                                </li>
+                                            <? } ?>
+                                        </ul>
+                                    </section>
+                                </li>
+                            <? } ?>
+                            
+                            <? if (@$mapParams['children']['miejsca']) { ?>
+                                <li class="accord">
+                                    <header>
+                                        <span class="arrow"></span>
+
+                                        <h2>Miejsca:</h2>
+                                    </header>
+                                    <section class="dcontent">
+                                        <? if (count(@$mapParams['children']['miejsca']) > 3) { ?>
+                                            <input type="text" placeholder="Szukaj..."
+                                                   class="form-control hasclear input-sm searcher"/>
+                                        <? } ?>
+
+                                        <ul class="scrollZone">
+                                            <? foreach ($mapParams['children']['miejsca'] as $item) { ?>
+                                                <li>
+                                                    <a href="/mapa/miejsce/<?= $item['id'] ?><? if (isset($widget)) echo '?widget';
+                                                    if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['nazwa'] ?></a>
+                                                    
+                                                    <? 
+                                                    if( @$item['numery'] ) {
+	                                                ?>
+	                                                	<ul class="adresy">
+		                                                <?
+		                                                    foreach( $item['numery'] as $n ) {
+			                                                    if( @$n['wszystkie'] ) {
+				                                                ?>
+				                                                <li>Wszystkie adresy</li>
+				                                                <?
+			                                                    } else {
+				                                                    
+				                                                    $parts = array();
+				                                                    
+				                                                    if( @$n['gte'] )
+				                                                    	$parts[] = 'od numeru ' . $n['gte'];
+				                                                    	
+				                                                    if( @$n['lte'] )
+				                                                    	$parts[] = 'do numeru ' . $n['lte'];
+				                                                    else
+				                                                    	$parts[] = 'do końca';
+				                                                    
+				                                                    if( @$n['e'] )
+				                                                    	$parts[] = 'numer ' . $n['e'];
+				                                                    
+				                                                    if( @$n['mode']=='parzyste' )
+				                                                    	$parts[] = 'parzyste';
+				                                                    elseif( @$n['mode']=='nieparzyste' )
+				                                                    	$parts[] = 'nieparzyste';
+				                                                    
+				                                                    if( empty($parts) )
+				                                                    	continue;
+				                                                    
+				                                                ?>
+				                                                <li><?= implode(', ', $parts) ?></li>
+				                                                <?  
+			                                                    }
+		                                                    }
+		                                                ?>
+	                                                	</ul>
+	                                                <?
+                                                    } else {
+                                                    ?>
+                                                    	<ul class="adresy">
+	                                                    	<li>Wszystkie adresy</li>
+	                                                	</ul>
+                                                    <? } ?>
+                                                    
                                                 </li>
                                             <? } ?>
                                         </ul>
