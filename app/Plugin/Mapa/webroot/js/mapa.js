@@ -369,31 +369,32 @@ var MapBrowser = Class.extend({
 		$.each(this.detail_div_main_accords, function () {
 			var acc = $(this),
 				accH = acc.find('>header').outerHeight(),
-				accS = acc.find('>section:visible');
+				accS = acc.find('>section:visible'),
+				accordH;
 
 			acc.css('height', 'auto');
 			accS.find('ul.scrollZone').css('height', 'auto');
 			accS = acc.find('>section:visible').outerHeight();
 
 			if (acc.hasClass('closed')) {
-				var h = accH + accordLiPadding;
-
 				if (acc.css('min-height') != 'none' && h < parseInt(acc.css('min-height')))
-					h = parseInt(acc.css('min-height'));
+					accordH = parseInt(acc.css('min-height'));
+				else
+					accordH = accH + accordLiPadding;
 
 				acc.addClass('accord-fixed');
-				accordFixedH += h;
-				acc.css('height', h)
+				accordFixedH += accordH;
+				acc.css('height', accordH)
 			} else {
 				if (((accH + accS) < h_accord) || acc.hasClass('accord-fullheight')) {
-					var h = accH + accS + accordLiPadding;
-
 					if (acc.css('min-height') != 'none' && h < parseInt(acc.css('min-height')))
-						h = parseInt(acc.css('min-height'));
+						accordH = parseInt(acc.css('min-height'));
+					else
+						accordH = accH + accS + accordLiPadding;
 
 					acc.addClass('accord-fixed');
-					accordFixedH += h;
-					acc.css('height', h)
+					accordFixedH += accordH;
+					acc.css('height', accordH)
 				} else {
 					acc.addClass('accord-nofixed');
 					accordNoFixedC++;
