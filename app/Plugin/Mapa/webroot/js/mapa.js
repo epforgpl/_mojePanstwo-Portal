@@ -102,9 +102,9 @@ var MapBrowser = Class.extend({
 	map: false,
 	fitBounds: false,
 	points: [],
+	komisjePoints: [],
+	komisjePointsData: {},
 	infoWindow: null,
-	obwody: {},
-	obwod_id: false,
 	mapOptions: {
 		zoom: 6,
 		maxZoom: 18,
@@ -312,42 +312,47 @@ var MapBrowser = Class.extend({
 		if (obwody) {
 			var self = this;
 			$.get('/mapa/obwody.json?id=' + obwody, function (data) {
-				for (var i = 0; i < data.length; i++) {
-					var d = data[i];
-					if (d.lat && d.lon) {
-						var infowindow = new google.maps.InfoWindow({
-							content: '<h2>Obwodowa Komisja Wyborcza nr ' + d.nr_obwodu + '</h2><div style="padding: 7px;"><p>' + d.adres_obwodu + '</p><hr/><h5>Granice obwodu:</h5><p>' + d.granice_obwodu + '</p><hr/><h5>Lokal przystosowany do potrzeb osób niepełnosprawnych:</h5><p>' + d.przystosowany_dla_niepelnosprawnych + '</p></div>'
+				for (var i = 0, len = data.length; i < len; i++) {
+					var k = data[i];
+					if (k.punkt.lat && k.punkt.lon) {
+						var komisjeInfo = '<div class="komisjaInfoWindow">',
+							komisjePosition = new google.maps.LatLng(k.punkt.lat, k.punkt.lon);
+
+						$.each(k.komisje, function (i, d) {
+							komisjeInfo += '<a class="komisja" href="#' + d.id + '" data-id="#' + d.id + '">Komisja nr ' + d.nr_obwodu + '</a>';
+
+							self.komisjePointsData[d.id] = {
+								'typ': d.typ_obwodu,
+								'adres': d.adres_obwodu,
+								'przystosowanie': d.przystosowany_dla_niepelnosprawnych,
+								'granice': d.granice_obwodu
+							};
 						});
 
-						infowindow.setZIndex(1000);
+						komisjeInfo += '</div>';
 
-						var marker = new google.maps.Marker({
-							position: new google.maps.LatLng(d.lat, d.lon),
-							map: self.map,
-							data: d
+						var komisjeInfoWindow = new google.maps.InfoWindow({
+							content: komisjeInfo,
+							position: komisjePosition
 						});
 
-						self.obwody[d.id] = {
-							marker: marker,
-							infowindow: infowindow
-						};
-
-						marker.addListener('click', function () {
-							if (self.obwod_id) {
-								self.obwody[self.obwod_id].infowindow.close();
-							}
-							self.obwody[this.data.id].infowindow.open(self.map, self.obwody[this.data.id].marker);
-							self.obwod_id = this.data.id;
-						});
+						self.fitBounds.extend(komisjePosition);
+						self.komisjePoints.push('komisjeInfoWindow', komisjeInfoWindow);
+						komisjeInfoWindow.open(self.map);
 					}
 				}
 
-				self.detail_div_main.find('.btn-obwod').attr('disabled', null).click(function (event) {
-					var tid = $(event.target).attr('data-target');
-					if (tid)
-						var m = self.obwody[tid];
-					if (m)
-						m.infowindow.open(self.map, m.marker);
+				self.map.fitBounds(self.fitBounds);
+				google.maps.event.addListener(komisjeInfoWindow, 'domready', function () {
+					var komisje = $('.komisjaInfoWindow');
+					if (komisje.length) {
+						komisje.parents('.gm-style-iw').next('div').hide();
+						komisje.find('.komisja').click(function (e) {
+							var that = $(this);
+							e.preventDefault();
+							console.log(that.attr('data-id'), map.komisjePointsData[$(this).attr('data-id')]);
+						})
+					}
 				});
 			});
 		}
@@ -506,39 +511,39 @@ var MapBrowser = Class.extend({
 			window.history.pushState("", "", window.location.href.split('#')[0]);
 		});
 
-		$('.btn-obwod').attr('disabled', null).click(function (event) {
-			var tid = $(event.target).attr('data-target');
+		/*$('.btn-obwod').attr('disabled', null).click(function (event) {
+		 var tid = $(event.target).attr('data-target');
 
-			if (tid)
-				var m = self.obwody[tid];
-			if (typeof m !== 'undefined') {
-				window.history.pushState("", "", window.location.href.split('#')[0]);
-				m.infowindow.open(self.map, m.marker);
-			}
-		});
+		 if (tid)
+		 var m = self.obwody[tid];
+		 if (typeof m !== 'undefined') {
+		 window.history.pushState("", "", window.location.href.split('#')[0]);
+		 m.infowindow.open(self.map, m.marker);
+		 }
+		 });*/
 	},
-	formatAddress: function(data) {
-				
+	formatAddress: function (data) {
+
 		var html = '<ul class="address">';
-		
-		if( this._data.ulica ) {
+
+		if (this._data.ulica) {
 			html += '<li>' + this._data.ulica;
-			if( data.label )
+			if (data.label)
 				html += ' <b>' + data.label + '</b>';
 			html += '</li>';
 		}
-		
-		if( this._data.miejscowosc ) {
+
+		if (this._data.miejscowosc) {
 			html += '<li>';
-			if( data.kod )
+			if (data.kod)
 				html += data.kod + ' ';
 			html += this._data.miejscowosc + '</li>';
 		}
-			
+
 		html += '</ul>';
-		
+
 		return html;
-		
+
 	}
 });
 
