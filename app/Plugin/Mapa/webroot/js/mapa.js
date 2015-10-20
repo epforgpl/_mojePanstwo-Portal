@@ -360,6 +360,17 @@ var MapBrowser = Class.extend({
 
 										infowindow.open(self.map, marker);
 
+										google.maps.event.addListener(infowindow, 'domready', function () {
+											var komisje = $('.komisjaInfoWindow');
+											if (komisje.length) {
+												komisje.find('.komisja').click(function (e) {
+													var that = $(this);
+													e.preventDefault();
+													self.komisjaDetail(that.attr('data-id'));
+												})
+											}
+										});
+
 										self.komisjaDetail(tid);
 									}
 								});
@@ -651,6 +662,17 @@ var MapBrowser = Class.extend({
 					});
 
 					infowindow.open(self.map, marker);
+
+					google.maps.event.addListener(infowindow, 'domready', function () {
+						var komisje = $('.komisjaInfoWindow');
+						if (komisje.length) {
+							komisje.find('.komisja').click(function (e) {
+								var that = $(this);
+								e.preventDefault();
+								self.komisjaDetail(that.attr('data-id'));
+							})
+						}
+					});
 
 					self.komisjaDetail(tid);
 				}
