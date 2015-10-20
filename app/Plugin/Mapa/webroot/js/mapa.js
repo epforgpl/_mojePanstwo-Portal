@@ -581,9 +581,9 @@ var MapBrowser = Class.extend({
 		return {
 			url: '/mapa/img/marker-komisja.svg',
 			size: size,
-			scaledSize: new google.maps.Size(20, 30),
+			scaledSize: new google.maps.Size(30, 45),
 			origin: new google.maps.Point(0, 0),
-			anchor: new google.maps.Point(10, 30)
+			anchor: new google.maps.Point(15, 45)
 		};
 	},
 
