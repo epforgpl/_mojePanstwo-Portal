@@ -104,7 +104,6 @@ var MapBrowser = Class.extend({
 	points: [],
 	komisjePoints: [],
 	komisjePointsData: {},
-	infoWindow: null,
 	mapOptions: {
 		zoom: 6,
 		maxZoom: 18,
@@ -316,46 +315,144 @@ var MapBrowser = Class.extend({
 					var k = data[i];
 					if (k.punkt.lat && k.punkt.lon) {
 						var komisjeInfo = '<div class="komisjaInfoWindow">',
-							komisjePosition = new google.maps.LatLng(k.punkt.lat, k.punkt.lon);
+							komisjeId = [],
+							komisjePosition = new google.maps.LatLng(k.punkt.lat, k.punkt.lon),
+							komisjeBtn = self.detail_div_main.find('.btn-obwod');
 
 						$.each(k.komisje, function (i, d) {
-							komisjeInfo += '<a class="komisja" href="#' + d.id + '" data-id="#' + d.id + '">Komisja nr ' + d.nr_obwodu + '</a>';
+							komisjeInfo += '<a class="komisja" href="#' + d.id + '" data-id="' + d.id + '">Komisja nr ' + d.nr_obwodu + '</a>';
 
 							self.komisjePointsData[d.id] = {
+								'numer': d.nr_obwodu,
 								'typ': d.typ_obwodu,
 								'adres': d.adres_obwodu,
 								'przystosowanie': d.przystosowany_dla_niepelnosprawnych,
 								'granice': d.granice_obwodu
 							};
+							komisjeId.push(d.id);
+
+							if (komisjeBtn.length) {
+								komisjeBtn.attr('disabled', null).click(function (event) {
+									var tid = $(event.target).attr('data-target');
+									if (tid)
+										var m = self.komisjePointsData[tid];
+									if (typeof m !== 'undefined' && m) {
+										var pixelOffset,
+											marker;
+
+										if (typeof infowindow !== "undefined")
+											infowindow.close();
+
+										if (self.retina)
+											pixelOffset = new google.maps.Size(-12, 4);
+										else
+											pixelOffset = new google.maps.Size(0, 4);
+
+										for (var i = 0, len = self.komisjePoints.length; i < len; i++) {
+											if ($.inArray(tid, self.komisjePoints[i].id) > -1)
+												marker = self.komisjePoints[i];
+										}
+
+										infowindow = new google.maps.InfoWindow({
+											content: marker.data,
+											pixelOffset: pixelOffset
+										});
+
+										infowindow.open(self.map, marker);
+
+										self.komisjaDetail(tid);
+									}
+								});
+							}
 						});
 
 						komisjeInfo += '</div>';
 
-						var komisjeInfoWindow = new google.maps.InfoWindow({
-							content: komisjeInfo,
-							position: komisjePosition
+						var komisjeInfo = new google.maps.Marker({
+							id: komisjeId,
+							position: komisjePosition,
+							icon: self.setKomisjeIcon(),
+							map: self.map,
+							data: komisjeInfo
 						});
 
+						self.komisjePoints.push(komisjeInfo);
 						self.fitBounds.extend(komisjePosition);
-						self.komisjePoints.push('komisjeInfoWindow', komisjeInfoWindow);
-						komisjeInfoWindow.open(self.map);
+
+						komisjeInfo.addListener('click', function () {
+							var pixelOffset;
+
+							if (typeof infowindow !== "undefined")
+								infowindow.close();
+
+							if (self.retina)
+								pixelOffset = new google.maps.Size(-12, 4);
+							else
+								pixelOffset = new google.maps.Size(0, 4);
+
+							infowindow = new google.maps.InfoWindow({
+								content: this.data,
+								pixelOffset: pixelOffset
+							});
+
+							infowindow.open(self.map, this);
+
+							google.maps.event.addListener(infowindow, 'domready', function () {
+								var komisje = $('.komisjaInfoWindow');
+								if (komisje.length) {
+									komisje.find('.komisja').click(function (e) {
+										var that = $(this);
+										e.preventDefault();
+										self.komisjaDetail(that.attr('data-id'));
+									})
+								}
+							});
+						});
 					}
 				}
 
 				self.map.fitBounds(self.fitBounds);
-				google.maps.event.addListener(komisjeInfoWindow, 'domready', function () {
-					var komisje = $('.komisjaInfoWindow');
-					if (komisje.length) {
-						komisje.parents('.gm-style-iw').next('div').hide();
-						komisje.find('.komisja').click(function (e) {
-							var that = $(this);
-							e.preventDefault();
-							console.log(that.attr('data-id'), map.komisjePointsData[$(this).attr('data-id')]);
-						})
-					}
-				});
 			});
 		}
+	},
+
+	komisjaDetail: function (id) {
+		var detail = this.komisjePointsData[id],
+			komisjaModal = $('#komisjaDetailModal');
+
+		if (komisjaModal.length)
+			komisjaModal.remove();
+
+		komisjaModal = $('<div></div>').addClass('modal fade').attr({
+			id: 'komisjaDetailModal',
+			role: 'dialog',
+			'aria-labelledby': 'KomisjaDetailLabel'
+		}).append(
+			$('<div></div>').addClass('modal-dialog').attr('role', 'document').append(
+				$('<div></div>').addClass('modal-content').append(
+					$('<div></div>').addClass('modal-header').append(
+						$('<button></button>').addClass('close').attr({
+							type: 'button',
+							'data-dismiss': 'modal',
+							'aria-label': 'Close'
+						}).append(
+							$('<span></span>').attr('aria-hidden', true).html('&times;')
+						)
+					).append(
+						$('<h4></h4>').addClass('modal-title').attr('id', 'KomisjaDetailLabel').html('Komisja Wyborcza nr ' + detail.numer + ' <small>(' + detail.typ + ')</small>')
+					)
+				).append(
+					$('<div></div>').addClass('modal-body').append(
+						$('<p></p>').html('Adres: <b>' + detail.adres + '</b>')
+					).append(
+						$('<p></p>').html('Lokal przystosowany do potrzeb osób niepełnosprawnych: <b>' + detail.adres + '</b>')
+					).append(
+						$('<p></p>').html('<small>Granice obwodu: <b>' + detail.granice + '</b></small>')
+					)
+				)
+			)
+		);
+		komisjaModal.modal('show')
 	},
 
 	resizeSetup: function () {
@@ -475,6 +572,21 @@ var MapBrowser = Class.extend({
 		}
 	},
 
+	setKomisjeIcon: function () {
+		if (this.retina) {
+			size = new google.maps.Size(40, 60);
+		} else {
+			size = new google.maps.Size(20, 30);
+		}
+		return {
+			url: '/mapa/img/marker-komisja.svg',
+			size: size,
+			scaledSize: new google.maps.Size(20, 30),
+			origin: new google.maps.Point(0, 0),
+			anchor: new google.maps.Point(10, 30)
+		};
+	},
+
 	pointWindow: function (marker) {
 		var self = this,
 			pixelOffset;
@@ -502,7 +614,7 @@ var MapBrowser = Class.extend({
 		var scontent = self.formatAddress(marker.data);
 
 		if (marker.data.obwod_id)
-			scontent = scontent + '<div class="button_cont"><button data-target="' + marker.data.obwod_id + '" class="btn-obwod btn btn-warning btn-xs">Pokaż lokal wyborczy</button></div>';
+			scontent = scontent + '<div class="button_cont"><button data-target="' + marker.data.obwod_id + '" class="btn-obwod disabled btn btn-warning btn-xs">Pokaż lokal wyborczy</button></div>';
 
 		infowindow.setContent(scontent);
 		infowindow.open(self.map, marker);
@@ -511,16 +623,39 @@ var MapBrowser = Class.extend({
 			window.history.pushState("", "", window.location.href.split('#')[0]);
 		});
 
-		/*$('.btn-obwod').attr('disabled', null).click(function (event) {
-		 var tid = $(event.target).attr('data-target');
+		google.maps.event.addListener(infowindow, 'domready', function () {
+			$('.btn-obwod.disabled').removeClass('disabled').click(function (event) {
+				var tid = $(event.target).attr('data-target');
+				if (tid)
+					var m = self.komisjePointsData[tid];
+				if (typeof m !== 'undefined' && m) {
+					var pixelOffset,
+						marker;
 
-		 if (tid)
-		 var m = self.obwody[tid];
-		 if (typeof m !== 'undefined') {
-		 window.history.pushState("", "", window.location.href.split('#')[0]);
-		 m.infowindow.open(self.map, m.marker);
-		 }
-		 });*/
+					if (typeof infowindow !== "undefined")
+						infowindow.close();
+
+					if (self.retina)
+						pixelOffset = new google.maps.Size(-12, 4);
+					else
+						pixelOffset = new google.maps.Size(0, 4);
+
+					for (var i = 0, len = self.komisjePoints.length; i < len; i++) {
+						if ($.inArray(tid, self.komisjePoints[i].id) > -1)
+							marker = self.komisjePoints[i];
+					}
+
+					infowindow = new google.maps.InfoWindow({
+						content: marker.data,
+						pixelOffset: pixelOffset
+					});
+
+					infowindow.open(self.map, marker);
+
+					self.komisjaDetail(tid);
+				}
+			});
+		});
 	},
 	formatAddress: function (data) {
 
