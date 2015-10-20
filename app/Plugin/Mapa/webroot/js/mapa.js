@@ -248,7 +248,7 @@ var MapBrowser = Class.extend({
 
 				for (var i = 0, len = self.points.length; i < len; i++) {
 					if (self.points[i].id == id)
-						return self.points[i]
+						result = self.points[i]
 				}
 
 				self.detail_div_main_accords.find('._points li.active').removeClass('active');
@@ -293,12 +293,13 @@ var MapBrowser = Class.extend({
 			}
 		});
 
-		if (window.location.hash.length) {
+		if (window.location.hash.length > 0) {
 			var hash = window.location.hash.substr(1),
 				result;
+
 			for (var i = 0, len = self.points.length; i < len; i++) {
 				if (self.points[i].id == hash)
-					return self.points[i]
+					result = self.points[i];
 			}
 
 			self.detail_div_main_accords.find('._points li[name="' + hash + '"]').addClass('active');
