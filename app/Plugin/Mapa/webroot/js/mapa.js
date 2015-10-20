@@ -319,7 +319,7 @@ var MapBrowser = Class.extend({
 							komisjePosition = new google.maps.LatLng(k.punkt.lat, k.punkt.lon);
 
 						$.each(k.komisje, function (i, d) {
-							komisjeInfo += '<a class="komisja" href="#' + d.id + '" data-id="#' + d.id + '" onclick="map.komisjaDetail();">Komisja nr ' + d.nr_obwodu + '</a>';
+							komisjeInfo += '<a class="komisja" href="#' + d.id + '" data-id="#' + d.id + '">Komisja nr ' + d.nr_obwodu + '</a>';
 
 							self.komisjePointsData[d.id] = {
 								'typ': d.typ_obwodu,
@@ -343,17 +343,19 @@ var MapBrowser = Class.extend({
 				}
 
 				self.map.fitBounds(self.fitBounds);
-				console.log($('a.komisja'));
-				$('a.komisja').parents('.gm-style-iw').next('div').hide()
+				google.maps.event.addListener(komisjeInfoWindow, 'domready', function () {
+					var komisje = $('.komisjaInfoWindow');
+					if (komisje.length) {
+						komisje.parents('.gm-style-iw').next('div').hide();
+						komisje.find('.komisja').click(function (e) {
+							var that = $(this);
+							e.preventDefault();
+							console.log(that.attr('data-id'), map.komisjePointsData[$(this).attr('data-id')]);
+						})
+					}
+				});
 			});
 		}
-	},
-
-	komisjaDetail: function (e) {
-		console.log(e);
-		//console.log($(this).attr('data-id'), self.komisjePointsData[$(this).attr('data-id')]);
-
-		return false;
 	},
 
 	resizeSetup: function () {
