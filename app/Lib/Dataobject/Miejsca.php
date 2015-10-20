@@ -31,9 +31,9 @@ class Miejsca extends DataObject
 		    
 		    return $this->getData('miejscowosc');
 		    
-	    } elseif( $this->getData('typ_id')=='5' ) { // miejscowość
+	    } elseif( $this->getData('typ_id')=='5' ) { // ulica
 		    
-		    return $this->getData('miejscowosc'). ', ' . $this->getData('ulica');
+		    return $this->getData('ulica'). ', ' . $this->getData('miejscowosc');
 		    
 	    }	    
 	    

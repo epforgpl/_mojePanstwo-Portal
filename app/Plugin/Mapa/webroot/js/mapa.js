@@ -184,6 +184,7 @@ var MapBrowser = Class.extend({
 	init: function () {
 		var self = this;
 		self.div = $('#mapBrowser');
+		self._data = self.div.data('data');
 		self.map_div = self.div.find('.map');
 		self.detail_div = self.div.find('.details');
 		self.detail_div_main = self.detail_div.find('ul.main');
@@ -223,7 +224,8 @@ var MapBrowser = Class.extend({
 					'id': p.attr('name'),
 					'lat': p.find('meta[itemprop=latitude]').attr('content'),
 					'lon': p.find('meta[itemprop=longitude]').attr('content'),
-					'obwod_id': p.attr('data-obwod_id')
+					'obwod_id': p.attr('data-obwod_id'),
+					'kod': p.attr('data-kod')
 				};
 
 			point.marker = new google.maps.Marker({
@@ -492,10 +494,10 @@ var MapBrowser = Class.extend({
 			pixelOffset: pixelOffset
 		});
 
-		var scontent = 'Numer: ' + marker.data.label;
+		var scontent = self.formatAddress(marker.data);
 
 		if (marker.data.obwod_id)
-			scontent = scontent + '<hr style="margin: 12px 0;"><button data-target="' + marker.data.obwod_id + '" class="btn-obwod btn btn-warning btn-sm">Pokaż lokal wyborczy</button>';
+			scontent = scontent + '<div class="button_cont"><button data-target="' + marker.data.obwod_id + '" class="btn-obwod btn btn-warning btn-xs">Pokaż lokal wyborczy</button></div>';
 
 		infowindow.setContent(scontent);
 		infowindow.open(self.map, marker);
@@ -514,6 +516,29 @@ var MapBrowser = Class.extend({
 				m.infowindow.open(self.map, m.marker);
 			}
 		});
+	},
+	formatAddress: function(data) {
+				
+		var html = '<ul class="address">';
+		
+		if( this._data.ulica ) {
+			html += '<li>' + this._data.ulica;
+			if( data.label )
+				html += ' <b>' + data.label + '</b>';
+			html += '</li>';
+		}
+		
+		if( this._data.miejscowosc ) {
+			html += '<li>';
+			if( data.kod )
+				html += data.kod + ' ';
+			html += this._data.miejscowosc + '</li>';
+		}
+			
+		html += '</ul>';
+		
+		return html;
+		
 	}
 });
 

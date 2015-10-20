@@ -74,7 +74,8 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                  class="row dataBrowserContent"
                  <? if (@$mapParams['viewport']) { ?>data-viewport="<?= htmlspecialchars(json_encode($mapParams['viewport'])) ?>"<? } ?>
                  <? if (@$mapParams['data']) { ?>data-typ_id="<?= $mapParams['data']['miejsca.typ_id'] ?>"<? } ?>
-                 <? if (@$mapParams['data']) { ?>data-object_id="<?= $mapParams['data']['miejsca.object_id'] ?>"<? } ?>>
+                 <? if (@$mapParams['data']) { ?>data-object_id="<?= $mapParams['data']['miejsca.object_id'] ?>"<? } ?> 
+                 <? if (@$mapParams['data']) { ?>data-data="<?= htmlspecialchars(json_encode($mapParams['data'])) ?>"<? } ?>>
 
                 <div class="map<? if (!isset($mapParams) && !isset($dataBrowser)) { ?> nodetails<? } ?>"></div>
 
@@ -548,7 +549,8 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
                                         <ul class="scrollZone _points">
                                             <? foreach ($mapParams['points'] as $item) { ?>
-                                                <li data-obwod_id="<?= @$item['parl_obwod_id'] ?>"
+                                                <li data-kod="<?= @$item['kod'] ?>" 
+                                                data-obwod_id="<?= @$item['parl_obwod_id'] ?>"
                                                     name="<?= str_replace('/', '\\', $item['numer']) ?>" itemprop="geo"
                                                     itemscope
                                                     itemtype="http://schema.org/GeoCoordinates">

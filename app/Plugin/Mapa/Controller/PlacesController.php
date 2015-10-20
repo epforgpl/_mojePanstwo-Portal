@@ -41,7 +41,7 @@ class PlacesController extends ApplicationsController
 					    'numery' => array(
 						    'top_hits' => array(
 							    'size' => 10000,
-							    'fielddata_fields' => array('numer', 'miejsca-numery.location.lat', 'miejsca-numery.location.lon', 'parl_obwod_id', 'kod_str'),
+							    'fielddata_fields' => array('numer', 'miejsca-numery.location.lat', 'miejsca-numery.location.lon', 'parl_obwod_id', 'kod'),
 							    'sort' => array(
 								    'miejsca-numery.numer_int' => array(
 									    'order' => 'asc',
@@ -224,6 +224,9 @@ class PlacesController extends ApplicationsController
 				    	
 				    if( @$_p['fields']['parl_obwod_id'][0] )
 				    	$p['parl_obwod_id'] = $_p['fields']['parl_obwod_id'][0];
+				    	
+				    if( @$_p['fields']['kod'][0] )
+				    	$p['kod'] = $_p['fields']['kod'][0];
 
                     if( !empty($p) )
 					    $points[] = $p;
