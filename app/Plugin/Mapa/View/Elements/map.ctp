@@ -267,7 +267,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                                 $ils = array_column($mapParams['elections']['obwody'], 'key');
 
                                             ?>
-                                            <li class="accord accord-fullheight wyboryDetail"<? if (count($ils) < 11) { ?> data-obwody="<?= @implode(',', $ils) ?>"<? } ?>>
+                                            <li class="accord accord-fullheight wyboryDetail" data-obwody="<?= @implode(',', $ils) ?>">
                                                 <header>
                                                     <span class="arrow"></span>
 

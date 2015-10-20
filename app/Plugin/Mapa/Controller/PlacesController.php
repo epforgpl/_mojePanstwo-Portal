@@ -87,7 +87,7 @@ class PlacesController extends ApplicationsController
 														'parl_obwody' => array(
 															'terms' => array(
 																'field' => 'miejsca-numery.parl_obwod_id',
-																'size' => 11,
+																'size' => 10000,
 															),
 														),
 													    'viewport' => array(
