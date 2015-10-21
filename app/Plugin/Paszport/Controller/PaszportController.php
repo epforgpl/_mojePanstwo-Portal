@@ -230,7 +230,7 @@ class PaszportController extends ApplicationsController
                 }
             }
 
-            $this->title = 'Zaloguj się - Paszport';
+            $this->title = 'Zaloguj się - Konto';
 
         }
     }
@@ -288,7 +288,7 @@ class PaszportController extends ApplicationsController
 
         $this->set('languages', $languages['language']);
         $this->set('groups', $groups['group']);
-        $this->title = 'Zarejestruj się - Paszport';
+        $this->title = 'Zarejestruj się - Konto';
     }
 
     public function cross_domain_login()
@@ -334,4 +334,4 @@ class PaszportController extends ApplicationsController
         $this->layout = 'ajax';
         $this->render(false);
     }
-} 
+}

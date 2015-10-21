@@ -62,7 +62,7 @@ msgstr "Rozłączono z kontem Facebook"
 
 #: Controller/UsersController.php:294
 msgid "LC_PASZPORT_MAIL_RESET_PASS_SUBJECT"
-msgstr "Paszport Mojego Państwa - Przypomnienie hasła"
+msgstr "Konto Mojego Państwa - Przypomnienie hasła"
 
 #: Controller/UsersController.php:302
 msgid "LC_PASZPORT_MAIL_RESET_PASS_SENT"
@@ -121,7 +121,7 @@ msgstr "Uwaga! Usunięcie konta jest permanentne i nieodwracalne"
 
 #: Controller/UsersController.php:537
 msgid "LC_PASZPORT_ACCOUNT_DELETED"
-msgstr "Konto Paszportu zostało usunięte"
+msgstr "Konto zostało usunięte"
 
 #: Controller/UsersController.php:541
 msgid "LC_PASZPORT_PASSWORD_INCORRECT"
@@ -129,7 +129,7 @@ msgstr "Niepoprawne hasło"
 
 #: Controller/UsersController.php:544
 msgid "LC_PASZPORT_ACCOUNT_DELETE_TITLE"
-msgstr "Zatwierdzanie usunięcia Paszportu"
+msgstr "Zatwierdzanie usunięcia konta"
 
 
 #: Controller/UsersController.php:599;711
@@ -158,7 +158,7 @@ msgstr "Hasło zbyt krótkie. Prosze o wprowadzenie dłuższego hasła"
 
 #: Model/User.php:34
 msgid "LC_PASZPORT_FACEBOOK_ID_NOT_UNIQUE"
-msgstr "Takie konto Facebook jest już połączone z innym paszportem"
+msgstr "Takie konto Facebook jest już połączone z innym kontem"
 
 #: Model/User.php:41
 #: View/Users/index.ctp:10
@@ -266,7 +266,7 @@ msgstr "Polityka prywatności"
 #: View/Layouts/gate.ctp:6
 #: View/Layouts/notlogged.ctp:6
 msgid "LC_PASZPORT_PROJECT_NAME"
-msgstr "Paszport do _mojegoPaństwa"
+msgstr "Konto do _mojegoPaństwa"
 
 #: View/Elements/header.ctp:18
 msgid "LC_PASZPORT_LOGOUT"
@@ -309,7 +309,7 @@ msgstr "Opisz jak najbardziej szczegółowo znaleziony błąd"
 
 #: View/ErrorReports/index.ctp:11
 msgid "LC_PASZPORT_ERROR_REPORT_SCREENSHOT"
-msgstr "Wprowadź plik ze screenshotem pokazującym błąd"
+msgstr "Wprowadź plik ze zrzutem ekranu pokazującym błąd"
 
 #: View/ErrorReports/index.ctp:12
 #: View/Users/avatar.ctp:9
@@ -350,7 +350,7 @@ msgstr "Serwis"
 
 #: View/Users/add.ctp:4
 msgid "LC_PASZPORT_CREATE_ACCOUNT_TITLE"
-msgstr "Wyrabianie Paszportu"
+msgstr "Zakładanie konta"
 
 #: View/Users/add.ctp:29
 msgid "LC_PASZPORT_CREATE_EMAIL"
@@ -416,7 +416,7 @@ msgstr "Zarejestruj"
 
 #: View/Users/avatar.ctp:5
 msgid "LC_PASZPORT_CHANGE_AVATAR_TITLE"
-msgstr "Zmiana avatara dla Paszportu"
+msgstr "Zmiana avatara dla konta"
 
 #: View/Users/delete.ctp:8
 msgid "LC_PASZPORT_DELETE_PASSWORD_CONFIRM"
@@ -456,7 +456,7 @@ msgstr "Zaloguj mnie"
 #: View/Users/gate.ctp:8
 #: View/Users/login.ctp:16
 msgid "LC_PASZPORT_REGISTER"
-msgstr "Wyrób paszport"
+msgstr "Załóż konto"
 
 #: View/Users/gate.ctp:9
 #: View/Users/login.ctp:17
@@ -576,7 +576,7 @@ msgid "LC_PASZPORT_HOMEPAGE_OR"
 msgstr "lub"
 
 msgid "LC_PASZPORT_HOMEPAGE_REGISTER"
-msgstr "Nie masz jeszcze paszportu? Wyrób go!"
+msgstr "Nie masz jeszcze konta? Załóż je!"
 
 #: View/Users/login.ctp:11
 msgid "LC_PASZPORT_LOGIN_G+"
@@ -584,14 +584,14 @@ msgstr "Zaloguj mnie przez Google+"
 
 #: View/Users/setpassword.ctp:5
 msgid "LC_PASZPORT_SETPASSWORD_AFTER_FB"
-msgstr "Konto zostało utworzone poprzez serwis Facebook. Dla bezpieczeństwa zostało wygenerowane automatycznie hasło do konta. Zalecane jest jej zmiana, aby mieć dostęp do wszystkich usług Paszportu"
+msgstr "Konto zostało utworzone poprzez serwis Facebook. Dla bezpieczeństwa zostało wygenerowane automatycznie hasło do konta. Zalecane jest jej zmiana, aby mieć dostęp do wszystkich usług konta"
 
 #: View/Users/setpassword.ctp:8
 msgid "LC_PASZPORT_CHANGE_PASSWORD"
 msgstr "Zmiana hasła dla konta"
 
 msgid "LC_PASZPORT_CHANGEPASSWORD_INFO"
-msgstr "Wprowadź nowe hasło dla odzyskanego Paszportu"
+msgstr "Wprowadź nowe hasło dla odzyskanego konta"
 
 msgid "LC_PASZPORT_CHANGEPASSWORD_BUTTON"
 msgstr "Zmień hasło"
@@ -764,7 +764,7 @@ msgid "LC_PASZPORT_MODAL_REGISTER_VIA_EMAIL"
 msgstr "Zarejestruj się przez konto email"
 
 msgid "LC_PASZPORT_MODAL_LOGIN_REGISTER"
-msgstr "Nie masz konta? Wyrób paszport na Twoje konto email"
+msgstr "Nie masz konta? Załóż konto na Twój adres email"
 
 msgid "LC_PASZPORT_MODAL_LOGIN_LOGIN"
 msgstr "Masz konto? Zaloguj się"
