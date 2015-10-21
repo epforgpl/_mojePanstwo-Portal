@@ -632,6 +632,8 @@ var MapBrowser = Class.extend({
 
 		infowindow.open(self.map, marker);
 
+		console.log(infowindow, infowindow.height);
+
 		google.maps.event.addListener(infowindow, 'domready', function () {
 			var komisje = $('.komisjaInfoWindow');
 			if (komisje.length) {
