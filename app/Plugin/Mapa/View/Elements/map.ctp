@@ -74,7 +74,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                  class="row dataBrowserContent"
                  <? if (@$mapParams['viewport']) { ?>data-viewport="<?= htmlspecialchars(json_encode($mapParams['viewport'])) ?>"<? } ?>
                  <? if (@$mapParams['data']) { ?>data-typ_id="<?= $mapParams['data']['miejsca.typ_id'] ?>"<? } ?>
-                 <? if (@$mapParams['data']) { ?>data-object_id="<?= $mapParams['data']['miejsca.object_id'] ?>"<? } ?> 
+                 <? if (@$mapParams['data']) { ?>data-object_id="<?= $mapParams['data']['miejsca.object_id'] ?>"<? } ?>
                  <? if (@$mapParams['data']) { ?>data-data="<?= htmlspecialchars(json_encode($mapParams['data'])) ?>"<? } ?>>
 
                 <div class="map<? if (!isset($mapParams) && !isset($dataBrowser)) { ?> nodetails<? } ?>"></div>
@@ -267,7 +267,8 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                                 $ils = array_column($mapParams['elections']['obwody'], 'key');
 
                                             ?>
-                                            <li class="accord accord-fullheight wyboryDetail" data-obwody="<?= @implode(',', $ils) ?>">
+                                            <li class="accord accord-fullheight wyboryDetail"
+                                                data-obwody="<?= @implode(',', $ils) ?>">
                                                 <header>
                                                     <span class="arrow"></span>
 
@@ -549,8 +550,8 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
                                         <ul class="scrollZone _points">
                                             <? foreach ($mapParams['points'] as $item) { ?>
-                                                <li data-kod="<?= @$item['kod'] ?>" 
-                                                data-obwod_id="<?= @$item['parl_obwod_id'] ?>"
+                                                <li data-kod="<?= @$item['kod'] ?>"
+                                                    data-obwod_id="<?= @$item['parl_obwod_id'] ?>"
                                                     name="<?= str_replace('/', '\\', $item['numer']) ?>" itemprop="geo"
                                                     itemscope
                                                     itemtype="http://schema.org/GeoCoordinates">
@@ -567,6 +568,14 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             <? } ?>
                         </ul>
                     </div>
+                    <? if (isset($widget)) { ?>
+                        <ul class="legend">
+                            <li><strong>Legenda</strong></li>
+                            <li><img src="/mapa/img/marker-blur@2x.png" alt=""/>Numery na ulicy</li>
+                            <li><img src="/mapa/img/marker-blur-active@2x.png" alt=""/>Zaznaczony numery na ulicy</li>
+                            <li><img src="/mapa/img/marker-komisja.svg" alt=""/>Komisja wyborcza</li>
+                        </ul>
+                    <? } ?>
                 <? } ?>
             </div>
         </div>

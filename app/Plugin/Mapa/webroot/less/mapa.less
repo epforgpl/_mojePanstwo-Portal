@@ -164,19 +164,49 @@
         }
     }
 
-    > .details {
-        background-color: #f8f9fa;
-        left: 0;
-        padding: 0;
+    > .details, > .legend {
         position: absolute;
-        top: 0;
-        width: 280px;
         z-index: 2;
-
         box-shadow: 0 5px 10px #AAA;
         -moz-box-shadow: 0 5px 10px #AAA;
         -webkit-box-shadow: 0 5px 10px #AAA;
         -o-box-shadow: 0 5px 10px #AAA;
+    }
+
+    > .legend {
+        bottom: 30px;
+        left: 285px;
+        padding: 10px;
+        margin: 0;
+        list-style: none;
+        background: rgba(248, 249, 250, .75);
+
+        li {
+            clear: both;
+            float: left;
+            display: block;
+            padding: 5px 0;
+            font-size: 12px;
+
+            > strong {
+                font-size: 1.2em;
+            }
+
+            img {
+                width: 20px;
+                height: 20px;
+                margin-top: -2px;
+                margin-right: 5px;
+            }
+        }
+    }
+
+    > .details {
+        left: 0;
+        padding: 0;
+        top: 0;
+        width: 280px;
+        background-color: #f8f9fa;
 
         .title {
             background-color: #FFF;
