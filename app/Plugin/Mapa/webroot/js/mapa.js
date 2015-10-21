@@ -313,6 +313,9 @@ var MapBrowser = Class.extend({
 			$.get('/mapa/obwody.json?id=' + obwody, function (data) {
 				for (var i = 0, len = data.length; i < len; i++) {
 					var k = data[i];
+					
+					console.log('k', k);
+					
 					if (k.punkt.lat && k.punkt.lon) {
 						var komisjeInfo = '<div class="komisjaInfoWindow">',
 							komisjeId = [],
@@ -320,17 +323,20 @@ var MapBrowser = Class.extend({
 							komisjeBtn = self.detail_div_main.find('.btn-obwod');
 
 						$.each(k.komisje, function (i, d) {
-							komisjeInfo += '<a class="komisja" href="#' + d.id + '" data-id="' + d.id + '">Komisja nr ' + d.nr_obwodu + '</a>';
+							
+							console.log('d', d);
+							
+							komisjeInfo += '<a class="komisja" href="#' + d['wybory_parl_obwody.id'] + '" data-id="' + d['wybory_parl_obwody.id'] + '">Komisja nr ' + d['wybory_parl_obwody.numer'] + '</a>';
 
-							self.komisjePointsData[d.id] = {
-								'numer': d.nr_obwodu,
-								'typ': d.typ_obwodu,
-								'adres': d.adres_obwodu,
-								'przystosowanie': d.przystosowany_dla_niepelnosprawnych,
-								'granice': d.granice_obwodu,
-								'punkt': k.punkt
+							self.komisjePointsData[d['wybory_parl_obwody.id']] = {
+								'numer': d['wybory_parl_obwody.numer'],
+								'typ': d['wybory_parl_obwody.typ'],
+								'adres': d['wybory_parl_obwody.adres'],
+								'przystosowanie': d['wybory_parl_obwody.niepelnosprawni'],
+								'granice': d['wybory_parl_obwody.granice'],
+								'location': d['wybory_parl_obwody.location']
 							};
-							komisjeId.push(d.id);
+							komisjeId.push(d['wybory_parl_obwody.id']);
 
 							if (komisjeBtn.length) {
 								komisjeBtn.attr('disabled', null).click(function (event) {
@@ -377,8 +383,14 @@ var MapBrowser = Class.extend({
 	},
 
 	komisjaDetail: function (id) {
+		
+		console.log('this.komisjePointsData', this.komisjePointsData);
+		console.log('komisjaDetail', id);
+		
 		var detail = this.komisjePointsData[id],
 			komisjaModal = $('#komisjaDetailModal');
+			
+		console.log('detail', detail);
 
 		if (komisjaModal.length)
 			komisjaModal.remove();
@@ -399,17 +411,17 @@ var MapBrowser = Class.extend({
 							$('<span></span>').attr('aria-hidden', true).html('&times;')
 						)
 					).append(
-						$('<h4></h4>').addClass('modal-title').attr('id', 'KomisjaDetailLabel').html('Komisja obwodowa nr ' + detail.numer)
+						$('<h4></h4>').addClass('modal-title').attr('id', 'KomisjaDetailLabel').html('Komisja obwodowa nr ' + detail['numer'])
 					)
 				).append(
 					$('<div></div>').addClass('modal-body').append(
-						$('<p class="adres_ulica"></p>').html(detail.adres.replace(/\n/g, '<br/>'))
+						$('<p class="adres_ulica"></p>').html(detail['adres'].replace(/\n/g, '<br/>'))
 					).append(
-						$('<p class="przystosowanie ' + detail.przystosowanie + '"></p>').html((detail.przystosowanie == 'Tak') ? 'Lokal jest przystosowany do potrzeb osób niepełnosprawnych.' : 'Lokal nie jest przystosowany do potrzeb osób niepełnosprawnych.')
+						$('<p class="przystosowanie ' + detail['przystosowanie'] + '"></p>').html((detail['przystosowanie'] == 'Tak') ? 'Lokal jest przystosowany do potrzeb osób niepełnosprawnych.' : 'Lokal nie jest przystosowany do potrzeb osób niepełnosprawnych.')
 					).append(
-						$('<iframe width="567" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/streetview?key=AIzaSyA24YxhI1PjQTx06CNBCoA4EZekotkW3Ps&location=' + detail.punkt.lat + ',' + detail.punkt.lon + '"></iframe>')
+						$('<iframe width="567" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/streetview?key=AIzaSyA24YxhI1PjQTx06CNBCoA4EZekotkW3Ps&location=' + detail['location']['lat'] + ',' + detail['location']['lon'] + '"></iframe>')
 					).append(
-						$('<p class="granice margin-top-15"></p>').html('<b>Granice obwodu:</b> ' + detail.granice)
+						$('<p class="granice margin-top-15"></p>').html('<b>Granice obwodu:</b> ' + detail['granice'])
 					)
 				)
 			)
