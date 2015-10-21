@@ -572,7 +572,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                         <ul class="legend">
                             <li><strong>Legenda</strong></li>
                             <li><img src="/mapa/img/marker-blur@2x.png" alt=""/>Punkty adresowe</li>
-                            <li><img src="/mapa/img/marker-komisja.svg" alt=""/>Komisje wyborcza</li>
+                            <li><img src="/mapa/img/marker-komisja.svg" alt=""/>Komisje wyborcze</li>
                         </ul>
                     <? } ?>
                 <? } ?>
