@@ -647,7 +647,7 @@ var MapBrowser = Class.extend({
 			infowindow.setOptions({'pixelOffset': pixelOffset});
 
 			$(komisje.parents('.gm-style-iw').prev().find('div')[2]).css({
-				'margin-top': '-' + (komisjeHeight + 25) + 'px',
+				'margin-top': '-' + (komisjeHeight + 18) + 'px',
 				'transform': 'translate(19px,0) rotate(180deg)'
 			});
 		});
