@@ -584,18 +584,26 @@ var MapBrowser = Class.extend({
 	},
 
 	setKomisjeIcon: function () {
-		if (this.retina) {
-			size = new google.maps.Size(40, 60);
-		} else {
-			size = new google.maps.Size(20, 30);
-		}
-		return {
+		var icon = {
 			url: '/mapa/img/marker-komisja.svg',
-			size: size,
-			scaledSize: new google.maps.Size(30, 45),
-			origin: new google.maps.Point(0, 0),
-			anchor: new google.maps.Point(15, 45)
+			origin: new google.maps.Point(0, 0)
 		};
+
+		if (this.retina) {
+			icon = $.extend(icon, {
+				size: new google.maps.Size(40, 60),
+				scaledSize: new google.maps.Size(30, 45),
+				anchor: new google.maps.Point(15, 45)
+			});
+		} else {
+			icon = $.extend(icon, {
+				size: new google.maps.Size(20, 30),
+				scaledSize: new google.maps.Size(20, 30),
+				anchor: new google.maps.Point(10, 30)
+			});
+		}
+
+		return icon;
 	},
 
 	pointWindow: function (marker) {
