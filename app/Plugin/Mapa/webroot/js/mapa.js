@@ -327,7 +327,8 @@ var MapBrowser = Class.extend({
 								'typ': d.typ_obwodu,
 								'adres': d.adres_obwodu,
 								'przystosowanie': d.przystosowany_dla_niepelnosprawnych,
-								'granice': d.granice_obwodu
+								'granice': d.granice_obwodu,
+								'punkt': k.punkt
 							};
 							komisjeId.push(d.id);
 
@@ -430,7 +431,9 @@ var MapBrowser = Class.extend({
 	komisjaDetail: function (id) {
 		var detail = this.komisjePointsData[id],
 			komisjaModal = $('#komisjaDetailModal');
-
+		
+		console.log('detail', detail);
+		
 		if (komisjaModal.length)
 			komisjaModal.remove();
 
@@ -450,15 +453,17 @@ var MapBrowser = Class.extend({
 							$('<span></span>').attr('aria-hidden', true).html('&times;')
 						)
 					).append(
-						$('<h4></h4>').addClass('modal-title').attr('id', 'KomisjaDetailLabel').html('Komisja Wyborcza nr ' + detail.numer + ' <small>(' + detail.typ + ')</small>')
+						$('<h4></h4>').addClass('modal-title').attr('id', 'KomisjaDetailLabel').html('Komisja obwodowa nr ' + detail.numer)
 					)
 				).append(
 					$('<div></div>').addClass('modal-body').append(
-						$('<p></p>').html('Adres: <b>' + detail.adres + '</b>')
+						$('<p class="adres_ulica"></p>').html(detail.adres.replace(/\n/g, '<br/>'))
 					).append(
-						$('<p></p>').html('Lokal przystosowany do potrzeb osób niepełnosprawnych: <b>' + detail.adres + '</b>')
+						$('<p class="przystosowanie ' + detail.przystosowanie + '"></p>').html( (detail.przystosowanie=='Tak') ? 'Lokal jest przystosowany do potrzeb osób niepełnosprawnych.' : 'Lokal nie jest przystosowany do potrzeb osób niepełnosprawnych.' )
+					).append(						
+						$('<iframe width="567" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/streetview?key=AIzaSyA24YxhI1PjQTx06CNBCoA4EZekotkW3Ps&location=' + detail.punkt.lat + ',' + detail.punkt.lon + '"></iframe>')
 					).append(
-						$('<p></p>').html('<small>Granice obwodu: <b>' + detail.granice + '</b></small>')
+						$('<p class="granice margin-top-15"></p>').html('<b>Granice obwodu:</b> ' + detail.granice)
 					)
 				)
 			)
