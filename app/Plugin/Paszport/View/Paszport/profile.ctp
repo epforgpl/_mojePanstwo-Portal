@@ -54,11 +54,11 @@
         <button type="button" id="deletePaszportButton" class="btn btn-default remove-button" data-toggle="modal"
                 data-target=".delete-paszport-modal" <? if($canCreatePassword) echo 'disabled'?>>
             <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-            Usuń paszport
+            Usuń konto
         </button>
 
         <? if($canCreatePassword) { ?>
-            <p class="help-block">Opcja usunięcia paszportu dostępna po utworzeniu hasła.</p>
+            <p class="help-block">Opcja usunięcia konta dostępna po utworzeniu hasła.</p>
         <? } ?>
         <div class="modal fade delete-paszport-modal" tabindex="-1" role="dialog"
              aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -67,10 +67,10 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myLargeModalLabel">Usuwanie paszportu</h4>
+                        <h4 class="modal-title" id="myLargeModalLabel">Usuwanie konta</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Wprowadź aktualne hasło aby potwierdzić operację usunięcia Paszportu.</p>
+                        <p>Wprowadź aktualne hasło aby potwierdzić operację usunięcia konta.</p>
 
                         <div class="form-group">
                             <label for="inputDeletePassword">Hasło</label>
