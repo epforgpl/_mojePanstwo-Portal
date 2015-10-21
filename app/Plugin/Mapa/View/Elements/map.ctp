@@ -571,9 +571,8 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                     <? if (isset($widget)) { ?>
                         <ul class="legend">
                             <li><strong>Legenda</strong></li>
-                            <li><img src="/mapa/img/marker-blur@2x.png" alt=""/>Numery na ulicy</li>
-                            <li><img src="/mapa/img/marker-blur-active@2x.png" alt=""/>Zaznaczony numery na ulicy</li>
-                            <li><img src="/mapa/img/marker-komisja.svg" alt=""/>Komisja wyborcza</li>
+                            <li><img src="/mapa/img/marker-blur@2x.png" alt=""/>Punkty adresowe</li>
+                            <li><img src="/mapa/img/marker-komisja.svg" alt=""/>Komisje wyborcza</li>
                         </ul>
                     <? } ?>
                 <? } ?>
