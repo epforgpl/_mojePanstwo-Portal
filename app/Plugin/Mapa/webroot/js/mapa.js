@@ -338,40 +338,14 @@ var MapBrowser = Class.extend({
 									if (tid)
 										var m = self.komisjePointsData[tid];
 									if (typeof m !== 'undefined' && m) {
-										var pixelOffset,
-											marker;
-
-										if (typeof infowindow !== "undefined")
-											infowindow.close();
-
-										if (self.retina)
-											pixelOffset = new google.maps.Size(-12, 4);
-										else
-											pixelOffset = new google.maps.Size(0, 4);
+										var marker;
 
 										for (var i = 0, len = self.komisjePoints.length; i < len; i++) {
 											if ($.inArray(tid, self.komisjePoints[i].id) > -1)
 												marker = self.komisjePoints[i];
 										}
 
-										infowindow = new google.maps.InfoWindow({
-											content: marker.data,
-											pixelOffset: pixelOffset
-										});
-
-										infowindow.open(self.map, marker);
-
-										google.maps.event.addListener(infowindow, 'domready', function () {
-											var komisje = $('.komisjaInfoWindow');
-											if (komisje.length) {
-												komisje.find('.komisja').click(function (e) {
-													var that = $(this);
-													e.preventDefault();
-													self.komisjaDetail(that.attr('data-id'));
-												})
-											}
-										});
-
+										self.pointWindowOpener(marker);
 										self.komisjaDetail(tid);
 									}
 								});
@@ -392,33 +366,7 @@ var MapBrowser = Class.extend({
 						self.fitBounds.extend(komisjePosition);
 
 						komisjeInfo.addListener('click', function () {
-							var pixelOffset;
-
-							if (typeof infowindow !== "undefined")
-								infowindow.close();
-
-							if (self.retina)
-								pixelOffset = new google.maps.Size(-12, 4);
-							else
-								pixelOffset = new google.maps.Size(0, 4);
-
-							infowindow = new google.maps.InfoWindow({
-								content: this.data,
-								pixelOffset: pixelOffset
-							});
-
-							infowindow.open(self.map, this);
-
-							google.maps.event.addListener(infowindow, 'domready', function () {
-								var komisje = $('.komisjaInfoWindow');
-								if (komisje.length) {
-									komisje.find('.komisja').click(function (e) {
-										var that = $(this);
-										e.preventDefault();
-										self.komisjaDetail(that.attr('data-id'));
-									})
-								}
-							});
+							self.pointWindowOpener(this);
 						});
 					}
 				}
@@ -431,9 +379,7 @@ var MapBrowser = Class.extend({
 	komisjaDetail: function (id) {
 		var detail = this.komisjePointsData[id],
 			komisjaModal = $('#komisjaDetailModal');
-		
-		console.log('detail', detail);
-		
+
 		if (komisjaModal.length)
 			komisjaModal.remove();
 
@@ -460,7 +406,7 @@ var MapBrowser = Class.extend({
 						$('<p class="adres_ulica"></p>').html(detail.adres.replace(/\n/g, '<br/>'))
 					).append(
 						$('<p class="przystosowanie ' + detail.przystosowanie + '"></p>').html( (detail.przystosowanie=='Tak') ? 'Lokal jest przystosowany do potrzeb osób niepełnosprawnych.' : 'Lokal nie jest przystosowany do potrzeb osób niepełnosprawnych.' )
-					).append(						
+					).append(
 						$('<iframe width="567" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/streetview?key=AIzaSyA24YxhI1PjQTx06CNBCoA4EZekotkW3Ps&location=' + detail.punkt.lat + ',' + detail.punkt.lon + '"></iframe>')
 					).append(
 						$('<p class="granice margin-top-15"></p>').html('<b>Granice obwodu:</b> ' + detail.granice)
@@ -653,45 +599,53 @@ var MapBrowser = Class.extend({
 				if (tid)
 					var m = self.komisjePointsData[tid];
 				if (typeof m !== 'undefined' && m) {
-					var pixelOffset,
-						marker;
-
-					if (typeof infowindow !== "undefined")
-						infowindow.close();
-
-					if (self.retina)
-						pixelOffset = new google.maps.Size(-12, 4);
-					else
-						pixelOffset = new google.maps.Size(0, 4);
+					var marker;
 
 					for (var i = 0, len = self.komisjePoints.length; i < len; i++) {
 						if ($.inArray(tid, self.komisjePoints[i].id) > -1)
 							marker = self.komisjePoints[i];
 					}
 
-					infowindow = new google.maps.InfoWindow({
-						content: marker.data,
-						pixelOffset: pixelOffset
-					});
-
-					infowindow.open(self.map, marker);
-
-					google.maps.event.addListener(infowindow, 'domready', function () {
-						var komisje = $('.komisjaInfoWindow');
-						if (komisje.length) {
-							komisje.find('.komisja').click(function (e) {
-								var that = $(this);
-								e.preventDefault();
-								self.komisjaDetail(that.attr('data-id'));
-							})
-						}
-					});
-
+					self.pointWindowOpener(marker);
 					self.komisjaDetail(tid);
 				}
 			});
 		});
 	},
+
+	pointWindowOpener: function (marker) {
+		var self = this,
+			pixelOffset;
+
+		if (typeof infowindow !== "undefined")
+			infowindow.close();
+
+		if (self.retina)
+			pixelOffset = new google.maps.Size(-12, 4);
+		else
+			pixelOffset = new google.maps.Size(0, 4);
+
+		infowindow = new google.maps.InfoWindow({
+			content: marker.data,
+			pixelOffset: pixelOffset
+		});
+
+		infowindow.open(self.map, marker);
+
+		console.log(infowindow, infowindow.height);
+
+		google.maps.event.addListener(infowindow, 'domready', function () {
+			var komisje = $('.komisjaInfoWindow');
+			if (komisje.length) {
+				komisje.find('.komisja').click(function (e) {
+					var that = $(this);
+					e.preventDefault();
+					self.komisjaDetail(that.attr('data-id'));
+				})
+			}
+		});
+	},
+
 	formatAddress: function (data) {
 
 		var html = '<ul class="address">';
