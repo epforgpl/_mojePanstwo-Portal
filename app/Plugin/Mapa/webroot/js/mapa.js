@@ -405,7 +405,7 @@ var MapBrowser = Class.extend({
 					$('<div></div>').addClass('modal-body').append(
 						$('<p class="adres_ulica"></p>').html(detail.adres.replace(/\n/g, '<br/>'))
 					).append(
-						$('<p class="przystosowanie ' + detail.przystosowanie + '"></p>').html( (detail.przystosowanie=='Tak') ? 'Lokal jest przystosowany do potrzeb osób niepełnosprawnych.' : 'Lokal nie jest przystosowany do potrzeb osób niepełnosprawnych.' )
+						$('<p class="przystosowanie ' + detail.przystosowanie + '"></p>').html((detail.przystosowanie == 'Tak') ? 'Lokal jest przystosowany do potrzeb osób niepełnosprawnych.' : 'Lokal nie jest przystosowany do potrzeb osób niepełnosprawnych.')
 					).append(
 						$('<iframe width="567" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/streetview?key=AIzaSyA24YxhI1PjQTx06CNBCoA4EZekotkW3Ps&location=' + detail.punkt.lat + ',' + detail.punkt.lon + '"></iframe>')
 					).append(
@@ -614,28 +614,23 @@ var MapBrowser = Class.extend({
 	},
 
 	pointWindowOpener: function (marker) {
-		var self = this,
-			pixelOffset;
+		var self = this;
 
 		if (typeof infowindow !== "undefined")
 			infowindow.close();
 
-		if (self.retina)
-			pixelOffset = new google.maps.Size(-12, 4);
-		else
-			pixelOffset = new google.maps.Size(0, 4);
-
 		infowindow = new google.maps.InfoWindow({
-			content: marker.data,
-			pixelOffset: pixelOffset
+			content: marker.data
 		});
 
 		infowindow.open(self.map, marker);
 
-		console.log(infowindow, infowindow.height);
-
 		google.maps.event.addListener(infowindow, 'domready', function () {
-			var komisje = $('.komisjaInfoWindow');
+			var komisje = $('.komisjaInfoWindow'),
+				komisjeHeight = komisje.outerHeight(),
+				pixelOffset,
+				pixelOffsetTop = komisjeHeight + 100;
+
 			if (komisje.length) {
 				komisje.find('.komisja').click(function (e) {
 					var that = $(this);
@@ -643,11 +638,22 @@ var MapBrowser = Class.extend({
 					self.komisjaDetail(that.attr('data-id'));
 				})
 			}
+
+			if (self.retina)
+				pixelOffset = new google.maps.Size(-12, pixelOffsetTop);
+			else
+				pixelOffset = new google.maps.Size(0, pixelOffsetTop);
+
+			infowindow.setOptions({'pixelOffset': pixelOffset});
+
+			$(komisje.parents('.gm-style-iw').prev().find('div')[2]).css({
+				'margin-top': '-' + (komisjeHeight + 25) + 'px',
+				'transform': 'translate(19px,0) rotate(180deg)'
+			});
 		});
 	},
 
 	formatAddress: function (data) {
-
 		var html = '<ul class="address">';
 
 		if (this._data.ulica) {
@@ -667,7 +673,6 @@ var MapBrowser = Class.extend({
 		html += '</ul>';
 
 		return html;
-
 	}
 });
 
@@ -692,15 +697,10 @@ $(document).ready(function () {
 		var self = $(this);
 
 		self.find('>header').click(function () {
-			$.each(accords, function () {
-				$(this).removeAttr('style').find('ul.scrollZone').removeAttr('style');
-			});
 			if (self.hasClass('closed')) {
 				self.removeClass('closed');
 			} else {
-				self.find('>section').slideUp(function () {
-					self.addClass('closed');
-				})
+				self.addClass('closed');
 			}
 			map.resize();
 		})

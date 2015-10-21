@@ -108,6 +108,37 @@
         echo $mojePanstwo->background->url;
 } ?>)" <?php } ?>>
 
+<?php /*PHP DATA FOR JS */ ?>
+<script type="text/javascript">
+    var mPHeart = {
+        constant: {
+            ajax: {
+                api: "<?php echo @API_url; ?>"
+            }
+        },
+        user_id: '<?= AuthComponent::user('id'); ?>',
+        username: '<?= AuthComponent::user('username'); ?>',
+        language: {
+            twoDig: "<?php switch (Configure::read('Config.language')) { case 'pol': echo "pl"; break; case 'eng': echo "en"; break; }  ?>",
+            threeDig: "<?php echo Configure::read('Config.language'); ?>",
+            twoPerThreeDig: "<?php switch (Configure::read('Config.language')) { case 'pol': echo "pl-PL"; break; case 'eng': echo "en-EN"; break; }  ?>"
+        },
+        social: {
+            facebook: {
+                id: "<?php echo @FACEBOOK_appId; ?>",
+                key: "<?php echo @FACEBOOK_apiKey; ?>"
+            }
+        },
+        suggester: {
+            phrase: '<?php echo @htmlspecialchars($q) ?>',
+            placeholder: 'Szukaj w danych publicznych...',
+            fullSearch: 'Pełne wyszukiwanie'
+        },
+        translation: jQuery.parseJSON('<?php echo json_encode($translation); ?>')
+
+    }
+</script>
+
 <div id="_wrapper">
     <?php echo $this->Element('flash'); ?>
     <?php echo $this->Element('cockpit'); ?>
@@ -121,7 +152,6 @@
         } ?>
 
         <?php echo $content_for_layout; ?>
-
 
     </div>
     <?php if (isset($_layout['footer']) && !empty($_layout['footer']))
@@ -164,37 +194,6 @@ echo $this->Html->script('../plugins/history.js/scripts/bundled/html4+html5/jque
 echo $this->Html->script('../plugins/js-cookie/src/js.cookie.js');
 echo $this->Html->script('../plugins/bootstrap-select/dist/js/bootstrap-select.min.js');
 echo $this->Html->script('../plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js'); ?>
-
-<?php /*PHP DATA FOR JS */ ?>
-<script type="text/javascript">
-    var mPHeart = {
-        constant: {
-            ajax: {
-                api: "<?php echo @API_url; ?>"
-            }
-        },
-        user_id: '<?= AuthComponent::user('id'); ?>',
-        username: '<?= AuthComponent::user('username'); ?>',
-        language: {
-            twoDig: "<?php switch (Configure::read('Config.language')) { case 'pol': echo "pl"; break; case 'eng': echo "en"; break; }  ?>",
-            threeDig: "<?php echo Configure::read('Config.language'); ?>",
-            twoPerThreeDig: "<?php switch (Configure::read('Config.language')) { case 'pol': echo "pl-PL"; break; case 'eng': echo "en-EN"; break; }  ?>"
-        },
-        social: {
-            facebook: {
-                id: "<?php echo @FACEBOOK_appId; ?>",
-                key: "<?php echo @FACEBOOK_apiKey; ?>"
-            }
-        },
-        suggester: {
-            phrase: '<?php echo @htmlspecialchars($q) ?>',
-            placeholder: 'Szukaj w danych publicznych...',
-            fullSearch: 'Pełne wyszukiwanie'
-        },
-        translation: jQuery.parseJSON('<?php echo json_encode($translation); ?>')
-
-    }
-</script>
 
 <?php
 $this->Combinator->add_libs('js', 'enhance', false);
