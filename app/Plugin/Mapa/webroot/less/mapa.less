@@ -80,6 +80,9 @@
 }
 
 #komisjaDetailModal {
+    
+    font-family: "Lato", Arial, sans-serif;
+
     .modal-header {
         h4 {
             font-size: 24px;
@@ -87,6 +90,9 @@
         }
     }
     .modal-body {
+        
+        font-size: 14px;
+        
         p {
             font-size: 12px;
             padding-bottom: 16px;
@@ -94,6 +100,26 @@
             b, strong {
                 font-size: 13px;
             }
+        }
+        
+        .adres_ulica {
+	        margin-bottom: 0;
+	        font-size: 14px;
+        }
+        
+        .przystosowanie {
+	        margin: 0;
+	        font-size: 14px;
+	        &.Tak {
+		        color: green;
+	        }
+	        &.Nie {
+		        color: #A33;
+	        }
+        }
+        
+        .granice {
+	        font-size: 12px;
         }
     }
 }
