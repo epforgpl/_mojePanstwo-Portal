@@ -254,6 +254,8 @@ class PlacesController extends ApplicationsController
             $this->layout = 'blank';
             $this->set('widget', true);
         }
+        
+        $this->set('_serialize', 'mapParams');
     }
 
     public function getPlaceData($object = false) {
