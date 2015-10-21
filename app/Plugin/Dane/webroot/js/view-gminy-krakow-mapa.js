@@ -117,7 +117,7 @@ $(document).ready(function () {
 
 							layers[res.layer][key][k] = new google.maps.Marker({
 								position: new google.maps.LatLng(lat,lang),//{lat:v['latlng'].replace(",", ",lang:")},
-								title: v['etykieta'],
+								title: v['etykieta']+"\n"+v['adres'],
 								label: v['etykieta']
 							});
 						});

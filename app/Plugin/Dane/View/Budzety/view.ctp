@@ -103,14 +103,14 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
             $temp = array();
 
             $source = $object->getLayers('dzialy');
-            if ($source['dzialy']) {
+            if ($source['dzialy']['dzialy']) {
                 $i = 0;
                 $inne = array(
                     'name' => 'Pozostałe',
                     'y' => 0,
                     'drilldown' => 'Inne'
                 );
-                foreach ($source['dzialy'] as $czesc) {
+                foreach ($source['dzialy']['dzialy'] as $czesc) {
                     $ret = array();
                     $ret['name'] = $czesc['pl_budzety_wydatki']['tresc'];
                     $ret['y'] = $czesc[0]['plan'];
@@ -130,7 +130,7 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
                     'data' => $temp
                 );
                 $rozdzialy = array();
-                foreach ($source['rozdzialy'] as $rozdzial) {
+                foreach ($source['dzialy']['rozdzialy'] as $rozdzial) {
                     $ret = array();
                     $src = $rozdzial['pl_budzety_wydatki_dzialy']['src'];
                     if (isset($rozdzialy[$src])) {
@@ -189,14 +189,15 @@ $this->Combinator->add_libs('js', 'Dane.budzet-view');
         <div class="block block-simple col-xs-12">
             <?
             $dzialy = array();
-            foreach ($object->getLayers('dzialy')['dzialy'] as $dzial) {
+            foreach ($object->getLayers('dzialy')['dzialy']['dzialy'] as $dzial) {
                 $dzialy[$dzial['pl_budzety_wydatki']['dzial_str']] = array(
                     'tresc' => $dzial['pl_budzety_wydatki']['tresc'],
                     'plan' => $dzial[0]['plan']
                 );
             }
             $past_dzialy = array();
-            foreach ($object->getLayers('past_dzialy')['dzialy'] as $dzial) {
+            //debug($object->getLayers('past_dzialy'));
+            foreach ($object->getLayers('past_dzialy')['past_dzialy']['dzialy'] as $dzial) {
                 $past_dzialy[$dzial['pl_budzety_wydatki']['dzial_str']] = array(
                     'tresc' => $dzial['pl_budzety_wydatki']['tresc'],
                     'plan' => $dzial[0]['plan']
