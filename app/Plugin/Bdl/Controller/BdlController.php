@@ -268,6 +268,7 @@ class BdlController extends ApplicationsController
 					'label' => $b['key'],
 					'id' => $b['id']['buckets'][0]['key'],
 					'href' => '/' . $this->settings['id'] . '/kategorie/' . $b['id']['buckets'][0]['key'],
+					'icon' => 'icon-datasets-bdl_wskazniki_kategorie',
 				);
 
                 if( $mode == 'results' ) {

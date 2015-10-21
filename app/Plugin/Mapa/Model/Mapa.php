@@ -19,6 +19,27 @@ class Mapa extends AppModel
         ));
 
     }
+    
+    public function obwody($id)
+    {
+
+        return $this->getDataSource()->request('Mapa/obwody', array(
+            'method' => 'GET',
+            'data' => array(
+	            'id' => explode(',', $id)
+            ),
+        ));
+
+    }
+    
+    public function getCode($code)
+    {
+
+        return $this->getDataSource()->request('Mapa/kody/' . $code, array(
+            'method' => 'GET',
+        ));
+
+    }
 	
 	
 }

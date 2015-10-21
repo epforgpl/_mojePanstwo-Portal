@@ -283,12 +283,12 @@
 								});
 
 							for (var i = 0; i < lines.length; i++) {
-								var y = ( (lines.length % 2 === 0) ? ((d3Data.size.nodeTextSeparate / 2) + d3Data.size.nodeTextBox) : (d3Data.size.nodeTextBox / 2)) - ( (Math.floor(lines.length / 2)) * (d3Data.size.nodeTextBox + d3Data.size.nodeTextSeparate) ) + ( i * (d3Data.size.nodeTextBox + d3Data.size.nodeTextSeparate) );
+								var yLine = ( (lines.length % 2 === 0) ? ((d3Data.size.nodeTextSeparate / 2) + d3Data.size.nodeTextBox) : (d3Data.size.nodeTextBox / 2)) - ( (Math.floor(lines.length / 2)) * (d3Data.size.nodeTextBox + d3Data.size.nodeTextSeparate) ) + ( i * (d3Data.size.nodeTextBox + d3Data.size.nodeTextSeparate) );
 								d3.select(this)
 									.append("tspan")
 									.attr('x', 0)
 									.attr('y', function (d) {
-										return y + 8 + ((d.id === root.id) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize);
+										return yLine + 8 + ((d.id === root.id) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize);
 									})
 									.style("stroke", "rgb(255,255,255)")
 									.style("stroke-width", "4px")
@@ -297,7 +297,7 @@
 									.append("tspan")
 									.attr('x', 0)
 									.attr('y', function (d) {
-										return y + 8 + ((d.id === root.id) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize);
+										return yLine + 8 + ((d.id === root.id) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize);
 									})
 									.text(lines[i]);
 							}
@@ -517,23 +517,18 @@
 					}
 
 					var pathLength = parseFloat(pathEl.getTotalLength()) || pathSize * 2,
+						pathPoint,
 						sourceX = Math.floor(d.source.x),
 						sourceY = Math.floor(d.source.y),
 						targetX = Math.floor(d.target.x),
 						targetY = Math.floor(d.target.y);
 
 					if (targetX < sourceX) {
-						var pathPoint = pathEl.getPointAtLength(pathSize),
-							pathPointX = Math.floor(pathPoint.x),
-							pathPointY = Math.floor(pathPoint.y);
-
-						return "M" + sourceX + "," + sourceY + " L" + pathPointX + "," + pathPointY;
+						pathPoint = pathEl.getPointAtLength(pathSize);
+						return "M" + sourceX + "," + sourceY + " L" + Math.floor(pathPoint.x) + "," + Math.floor(pathPoint.y);
 					} else {
-						var pathPoint = pathEl.getPointAtLength(pathLength - pathSize),
-							pathPointX = Math.floor(pathPoint.x),
-							pathPointY = Math.floor(pathPoint.y);
-
-						return "M" + pathPointX + "," + pathPointY + " L" + targetX + "," + targetY;
+						pathPoint = pathEl.getPointAtLength(pathLength - pathSize);
+						return "M" + Math.floor(pathPoint.x) + "," + Math.floor(pathPoint.y) + " L" + targetX + "," + targetY;
 					}
 				}
 
@@ -575,12 +570,18 @@
 							if (root.y > quad.point.y)
 								quad.point.y = root.y + d3Data.size.nodesSize / 2;
 						}
+
+						if (typeof node.detailWindow !== 'undefined' && node.detailWindow == true)
+							detailInfoPosition(node);
+
 						return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
 					};
 				}
 
 				function zoomed() {
 					d3Data.innerContainer.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+					if (connectionGraph.find('.dataContent').length)
+						detailInfoPosition(connectionGraph.find('.dataContent').data('node'))
 				}
 
 				function dragstarted() {
@@ -603,7 +604,7 @@
 				function detailInfo(node) {
 					var birthdayPrivacy = false;
 
-					connectionGraph.find('.dataContent').remove();
+					detailInfoRemove();
 
 					var dataContent = $('<div></div>').addClass('dataContent').css('width', dataContentWidth);
 					dataContent.append($('<button></button>').addClass('btn btn-xs pull-right').text('x'));
@@ -681,9 +682,62 @@
 
 					connectionGraph.append(dataContent);
 
+					node.detailWindow = true;
+					dataContent.data('node', node);
+
+					detailInfoPosition(node);
+
 					connectionGraph.find('.dataContent .btn').click(function () {
-						connectionGraph.find('.dataContent').remove();
+						detailInfoRemove();
 					});
+				}
+
+				function detailInfoPosition(node) {
+					var windowW = parseInt(d3Data.svg[0].parentNode.clientWidth),
+						windowH = parseInt(d3Data.svg[0].parentNode.clientHeight),
+						windowX = 0,
+						windowY = 0,
+						gMain = connectionGraph.find('>svg > g'),
+						gInside = gMain.find('>g'),
+						detailInfo = connectionGraph.find('.dataContent'),
+						detailInfoHeight = detailInfo.outerHeight(),
+						nodeSize = (node.id === root.id) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize;
+
+					var reg = /translate\(\s*([^\s,)]+)[ ,]([^\s,)]+)/,
+						svgMain = reg.exec(gMain.attr('transform')),
+						svgInside = reg.exec(gInside.attr('transform'));
+
+					if (svgMain !== null) {
+						windowX += parseInt(svgMain[1]);
+						windowY += parseInt(svgMain[2]);
+					}
+
+					if (svgInside !== null) {
+						windowX += parseInt(svgInside[1]);
+						windowY += parseInt(svgInside[2]);
+					}
+
+					var nodeX = node.x + nodeSize + windowX,
+						nodeY = node.y + nodeSize + windowY;
+
+					if (nodeX + dataContentWidth > windowW)
+						nodeX -= (dataContentWidth + (nodeSize * 2));
+					if (nodeY + detailInfoHeight > windowH)
+						nodeY -= (detailInfoHeight + (nodeSize * 2));
+
+					detailInfo.css({
+						top: nodeY,
+						left: nodeX
+					});
+				}
+
+				function detailInfoRemove() {
+					var detailInfo = connectionGraph.find('.dataContent');
+
+					if (detailInfo.length > 0) {
+						detailInfo.data('node').detailWindow = null;
+						detailInfo.remove();
+					}
 				}
 
 				function grabIcon() {

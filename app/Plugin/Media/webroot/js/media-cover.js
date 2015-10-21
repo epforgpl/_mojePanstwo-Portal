@@ -2,6 +2,12 @@ $(document).ready(function () {
 	// STICKY
 	$('#accountsSwitcher').sticky({
 		widthFromWrapper: false
+	}).on('sticky-start', function () {
+		var t = $(this),
+			p = t.parent();
+
+		if (t.width() < p.width())
+			t.width(p.width());
 	});
 
 	// TAGS CLOUD

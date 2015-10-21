@@ -125,7 +125,7 @@ function loadScript() {
     } else {
         var script = document.createElement('script');
         script.type = 'text/javascript';
-		script.src = 'https://maps.googleapis.com/maps/api/js?sensor=false&language=' + mPHeart.language.twoPerThreeDig + '&' + 'callback=initialize';
+		script.src = 'https://maps.googleapis.com/maps/api/js?v=3.21&sensor=false&language=' + mPHeart.language.twoPerThreeDig + '&' + 'callback=initialize';
         document.body.appendChild(script);
     }
 }

@@ -18,8 +18,7 @@ $options = array(
             $_submenu['base'] = $dzielnica->getUrl();
 
         echo $this->Element('Dane.DataBrowser/browser-menu', array(
-            'menu' => $_submenu,
-            'pills' => $cadences
+            'menu' => $_submenu
         ));
 
     } ?>
@@ -32,6 +31,23 @@ $options = array(
 
 	            <? if ($object->getId() == 903) { ?>
 
+					<div class="databrowser-panel margin-top-10">
+						<? if(!empty($cadences)) { ?>
+							<form action="" method="get">
+								<select
+									class="form-control"
+									name="<?= $cadences['param'] ?>"
+									onchange="this.form.submit()">
+									<? foreach($cadences['items'] as $key => $item) { ?>
+										<? $active = $cadences['selected'] == $key; ?>
+										<option value="<?= $key ?>"<?= $active ? "selected" : '' ?>>
+											<?= $item['label'] ?>
+										</option>
+									<? } ?>
+								</select>
+							</form>
+						<? } ?>
+					</div>
 
 	                <div class="databrowser-panel margin-top-10">
 	                    <h2>Najnowsze posiedzenia rady dzielnicy:</h2>

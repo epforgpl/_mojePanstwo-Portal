@@ -1,157 +1,449 @@
-.widget-localize {
-	button {
-		margin-right: 7px;
-	}
-	.txt {
-		position: relative;
-		top: 3px;
-	}
+.accord {
+    width: 100%;
+    padding-bottom: 5px !important;
+    display: inline-block;
+
+    > header {
+        display: block;
+        width: 100%;
+        padding: 4px 20px;
+        background-color: #F8F9FA;
+        position: relative;
+        cursor: pointer;
+
+        > .arrow {
+            width: 20px;
+            height: 20px;
+            display: block;
+            position: absolute;
+            top: 7px;
+            left: 4px;
+            -webkit-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+
+            &::after {
+                content: "\e252";
+                font-family: 'Glyphicons Halflings';
+                font-size: 0.8em;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                -webkit-transform: translate(-50%, -50%);
+                -moz-transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                -o-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+                margin-left: -3px;
+                margin-top: 0;
+
+            }
+        }
+    }
+    > section {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        float: left;
+    }
+    &.closed {
+        > header > .arrow {
+            -webkit-transform: rotate(270deg);
+            -moz-transform: rotate(270deg);
+            -ms-transform: rotate(270deg);
+            -o-transform: rotate(270deg);
+            transform: rotate(270deg);
+            &:after {
+                margin-left: 0;
+                margin-top: -3px;
+            }
+        }
+        > section {
+            display: none;
+        }
+    }
+}
+
+.komisjaInfoWindow {
+    .komisja {
+        width: 100%;
+        display: block;
+        padding: 5px;
+        border-bottom: 1px solid #EDEDED;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}
+
+#komisjaDetailModal {
+    
+    font-family: "Lato", Arial, sans-serif;
+
+    .modal-header {
+        h4 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    }
+    .modal-body {
+        
+        font-size: 14px;
+        
+        p {
+            font-size: 12px;
+            padding-bottom: 16px;
+
+            b, strong {
+                font-size: 13px;
+            }
+        }
+        
+        .adres_ulica {
+	        margin-bottom: 0;
+	        font-size: 14px;
+        }
+        
+        .przystosowanie {
+	        margin: 0;
+	        font-size: 14px;
+	        &.Tak {
+		        color: green;
+	        }
+	        &.Nie {
+		        color: #A33;
+	        }
+        }
+        
+        .granice {
+	        font-size: 12px;
+        }
+    }
 }
 
 #_wrapper .dataBrowser > .container {
     width: 100%;
     padding-left: 0;
     padding-right: 0;
-		
+
     > .dataBrowserContent {
         margin-left: 0;
         margin-right: 0;
         position: relative;
+    }
+}
 
-        > .alert {
-            position: absolute;
-            top: 15px;
-            left: 50%;
-            z-index: 2;
-            box-shadow: 0 5px 10px #AAA;
-            -moz-box-shadow: 0 5px 10px #AAA;
-            -webkit-box-shadow: 0 5px 10px #AAA;
-            -o-box-shadow: 0 5px 10px #AAA;
-            
-            .spinner > div {
-	            background-color: #79B !important;
-            }
+#_wrapper footer.footer {
+    display: none;
+    height: 0;
+}
+
+.searcher-app .localizeMe {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    white-space: nowrap;
+}
+
+#mapBrowser {
+    min-height: inherit;
+
+    > .alert {
+        position: absolute;
+        top: 15px;
+        left: 50%;
+        z-index: 2;
+        box-shadow: 0 5px 10px #AAA;
+        -moz-box-shadow: 0 5px 10px #AAA;
+        -webkit-box-shadow: 0 5px 10px #AAA;
+        -o-box-shadow: 0 5px 10px #AAA;
+
+        .spinner > div {
+            background-color: #79B !important;
         }
+    }
 
-        > .mapaDetailWindow {
-            background-color: #f8f9fa;
-            background-color: rgba(255, 255, 255, .9);
-            left: 0;
-            padding: 10px 20px 10px 25px;
-            position: absolute;
-            top: 0;
-            width: 280px;
-            z-index: 2;
-            
-            border-bottom-right-radius: 5px;
-            -moz-border-bottom-right-radius: 5px;
-            -webkit-border-bottom-right-radius: 5px;
-            -o-border-bottom-right-radius: 5px;
-            
-            box-shadow: 0 5px 10px #AAA;
-            -moz-box-shadow: 0 5px 10px #AAA;
-            -webkit-box-shadow: 0 5px 10px #AAA;
-            -o-box-shadow: 0 5px 10px #AAA;
-
-            > ul {
-                list-style: none;
-                padding: 0 0 10px 0;
-                margin-bottom: 5px;
-                border-bottom: 1px solid #DDD;
-
-                &:last-child {
-                    padding-bottom: 0;
-                    margin-bottom: 0;
-                    border-bottom: 0;
-                }
-                
-                &.title {
-	                
-	                li {
-		                a {
-			                float: none;
-			                font-size: 18px;
-		                }
-	                }
-	                
-	                padding-top: 5px;
-	                padding-bottom: 15px;
-	                margin-bottom: 15px;
-	                
-                }
-				
-				&.info {
-				
-	                > li {
-	                    display: inline-block;
-	                    margin: 1px 0;
-	                    width: 100%;
-	
-	                    > label {
-	                        margin: 7px 0 0;
-	                        padding: 0;
-	                        float: left;
-	                        color: #666;
-						    font-size: 9px;
-						    font-weight: 600;
-						    line-height: 0.75em;
-						    text-transform: uppercase;
-	                    }
-	                    
-	                    > span, > a {
-		                    margin: 0;
-		                    padding: 0;
-		                    float: right;
-		                    font-weight: 400;
-	                        font-size: 13px;
-	                        color: green;
-	                    }
-	
-	                    p {
-	                        margin-bottom: 2px;
-	                    }
-	                }
-                
-                }
-                
-                &.wybory, &.komisja {
-	                
-	                h3 {
-		                margin: 10px 0 15px;
-		                padding: 0;
-		                font-size: 14px;
-	                }
-	                
-	                > li {
-		                margin: 3px 0;
-		                padding: 0;
-		                
-		                &.komisja-adres {
-			                background: #FFF url(/mapa/img/marker-google.svg) no-repeat 0 4px;
-			                padding-left: 35px;
-		                }
-	                }
-	                
-	               
-	                
-                }
-            }
-            
+    > .map {
+        width: 100%;
+        margin-left: 280px;
+        &.nodetails {
+            margin-left: 0;
         }
-
-        > #mapa {
-            width: 100%;
-        }
-
-        > #localizeMe {
-            height: 27px;
-            padding: 4px 0;
-            position: absolute;
-            right: 10px;
+        .button_cont {
+            padding: 10px;
             text-align: center;
-            top: 70px;
-            width: 28px;
-            z-index: 2;
+        }
+        .address {
+            margin: 0;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: normal;
+            list-style: none;
+            font-family: "Lato", Arial, sans-serif;
+            li {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
+
+    > .details, > .legend {
+        position: absolute;
+        z-index: 2;
+        box-shadow: 0 5px 10px #AAA;
+        -moz-box-shadow: 0 5px 10px #AAA;
+        -webkit-box-shadow: 0 5px 10px #AAA;
+        -o-box-shadow: 0 5px 10px #AAA;
+    }
+
+    > .legend {
+        bottom: 30px;
+        left: 285px;
+        padding: 10px;
+        margin: 0;
+        list-style: none;
+        background: rgba(248, 249, 250, .75);
+
+        li {
+            clear: both;
+            float: left;
+            display: block;
+            padding: 5px 0;
+            font-size: 12px;
+
+            > strong {
+                font-size: 1.2em;
+            }
+
+            img {
+                width: 20px;
+                height: 20px;
+                margin-top: -2px;
+                margin-right: 5px;
+            }
+        }
+    }
+
+    > .details {
+        left: 0;
+        padding: 0;
+        top: 0;
+        width: 280px;
+        background-color: #f8f9fa;
+
+        .title {
+            background-color: #FFF;
+            border-bottom: 1px solid #DDD;
+            margin: 0;
+            padding: 0;
+
+            ._label {
+                color: #789;
+                margin-bottom: -10px;
+                padding: 20px 23px 0;
+                font-size: 10px;
+                font-weight: 600;
+                line-height: 0.75em;
+                text-transform: uppercase;
+            }
+            li > a {
+
+                float: right;
+            }
+
+        }
+
+        .wyboryDetail {
+            ul.meta {
+                border-top: 1px solid #ddd;
+                list-style: outside none none;
+                padding: 0 0 5px;
+                margin: 0 8px;
+
+                &:first-child {
+                    border-top: none;
+                }
+
+                > li {
+                    margin: 3px 0;
+                    padding: 1px 15px 1px 0;
+                    text-align: center;
+
+                    > span, > a {
+                        margin: 0;
+                        padding: 0;
+                        width: auto;
+                    }
+
+                    > a {
+                        float: left;
+                        margin: 3px 0 0 4px;
+                        text-align: left;
+                    }
+
+                    button {
+                        min-width: 195px;
+                        margin: 3px 0;
+                    }
+
+                    &.komisja-adres {
+                        background: transparent url("/mapa/img/marker-google.svg") no-repeat scroll 0 4px;
+                        padding-left: 35px;
+                    }
+
+                    h3 {
+                        font-size: 14px;
+                        margin: 10px 0 15px;
+                        padding: 0;
+                    }
+
+                    p._msg {
+                        font-size: 13px;
+                        color: #666;
+                        margin-top: 15px;
+                    }
+                }
+            }
+        }
+
+        h1 {
+            font-size: 24px;
+            padding: 20px;
+            margin: 0;
+        }
+
+        h2 {
+            padding: 5px;
+            margin: 0;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        > ul > li {
+            border-bottom: 1px solid #DDD;
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        ul {
+            margin: 0;
+            padding: 0 15px;
+            list-style: none;
+
+            li {
+                margin: 0;
+                padding: 3px;
+                list-style: none;
+
+                .adresy {
+                    color: #789;
+                    font-size: 12px;
+                    margin: 0 0 0 10px;
+                    padding: 0 0 0 10px;
+
+                    > li {
+                        margin: 0;
+                    }
+                }
+
+                .dcontent {
+                    position: relative;
+
+                    &.setCleaner {
+                        .searcher {
+                            padding-right: 18px;
+                        }
+
+                        .cleaner {
+                            color: #333333;
+                            font-size: 10px;
+                            padding: 10px 5px;
+                            position: absolute;
+                            right: 10px;
+                            top: 6px;
+                            z-index: 1;
+                            cursor: pointer;
+                        }
+                    }
+
+                    .scrollZone {
+                        padding: 0 15px;
+                    }
+
+                    .searcher {
+                        margin: 5px 14px 7px;
+                        width: 90%;
+                    }
+
+                    > ul {
+                        display: inline-block;
+                        float: left;
+                        height: 90%;
+                        overflow-x: hidden;
+                        overflow-y: auto;
+                        width: 100%;
+
+                        > li {
+                            &.active > a {
+                                color: #121212;
+                                font-weight: bold;
+                            }
+
+                            > a {
+                                display: inline-block;
+                                width: 100%;
+                                margin-left: 5px;
+                                padding-left: 2px;
+                                line-height: 1em;
+                            }
+                        }
+                    }
+                }
+            }
+            &.main {
+                overflow: hidden;
+            }
+
+            &.meta {
+                border-top: 1px solid #ddd;
+                margin: -5px 20px 0;
+                padding: 10px 0;
+
+                > li {
+                    display: inline-block;
+                    margin: 1px 0;
+                    width: 100%;
+                    padding: 0 3px;
+
+                    > label {
+                        margin: 7px 0 0;
+                        padding: 0;
+                        float: left;
+                        color: #789;
+                        font-size: 9px;
+                        font-weight: 600;
+                        line-height: 0.75em;
+                        text-transform: uppercase;
+                    }
+
+                    > span, > a {
+                        margin: 0;
+                        padding: 0;
+                        font-weight: 400;
+                        font-size: 13px;
+                    }
+
+                    p {
+                        margin-bottom: 2px;
+                    }
+                }
+
+            }
         }
     }
 }
