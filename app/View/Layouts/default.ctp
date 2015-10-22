@@ -134,7 +134,7 @@
             placeholder: 'Szukaj w danych publicznych...',
             fullSearch: 'Pełne wyszukiwanie'
         },
-        translation: jQuery.parseJSON('<?php echo json_encode($translation); ?>')
+        translation: JSON.parse('<?php echo json_encode($translation); ?>')
 
     }
 </script>
