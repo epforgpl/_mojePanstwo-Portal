@@ -21,7 +21,6 @@ $(document).ready(function() {
             data = [];
 
         aggs.forEach(function(row) {
-            console.log(row);
             categories.push({
                 name: row['radni_gmin.nazwa'],
                 id: row['radni_gmin.id'],
