@@ -54,6 +54,10 @@ class GminyController extends DataobjectsController
                     'id' => 'okregi',
                     'label' => 'Okręgi wyborcze',
                 ),
+                array(
+                    'id' => 'aktywnosci',
+                    'label' => 'Aktywności radnych',
+                ),
             ),
         ),
         'urzad' => array(
@@ -4792,6 +4796,21 @@ class GminyController extends DataobjectsController
         $this->request->params['action'] = 'rada';
         $this->set('_submenu', array_merge($this->submenus['rada'], array(
             'selected' => 'okregi',
+        )));
+    }
+
+    public function aktywnosci() {
+        $this->request->params['action'] = 'rada';
+        $this->_prepareView();
+
+        if ($this->object->getId() != '903')
+            throw new NotFoundException;
+
+        $this->set('activity', array());
+        $this->set('openness', array());
+
+        $this->set('_submenu', array_merge($this->submenus['rada'], array(
+            'selected' => 'aktywnosci',
         )));
     }
 
