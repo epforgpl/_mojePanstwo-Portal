@@ -402,8 +402,6 @@ var MapBrowser = Class.extend({
 		var detail = this.komisjePointsData[id],
 			komisjaModal = $('#komisjaDetailModal');
 
-		console.log(detail);
-
 		if (komisjaModal.length)
 			komisjaModal.remove();
 
