@@ -54,6 +54,10 @@ class GminyController extends DataobjectsController
                     'id' => 'okregi',
                     'label' => 'Okręgi wyborcze',
                 ),
+                array(
+                    'id' => 'aktywnosci',
+                    'label' => 'Aktywności radnych',
+                ),
             ),
         ),
         'urzad' => array(
@@ -4792,6 +4796,87 @@ class GminyController extends DataobjectsController
         $this->request->params['action'] = 'rada';
         $this->set('_submenu', array_merge($this->submenus['rada'], array(
             'selected' => 'okregi',
+        )));
+    }
+
+    public function aktywnosci() {
+	    
+        $this->request->params['action'] = 'rada';
+        
+        $this->addInitAggs(array(
+	        'ranking_aktywnosci' => array(
+		        'scope' => 'global',
+		        'filter' => array(
+			        'bool' => array(
+				        'must' => array(
+					        array(
+						        'term' => array(
+							        'dataset' => 'radni_gmin',
+						        ),
+					        ),
+					        array(
+						        'term' => array(
+							        'data.radni_gmin.gmina_id' => '903',
+						        ),
+					        ),
+				        ),
+			        ),
+		        ),
+		        'aggs' => array(
+			        'top' => array(
+				        'top_hits' => array(
+					        'size' => 10,
+					        'sort' => array(
+						        'data.radni_gmin.punkty_aktywnosc' => array(
+							        'order' => 'desc',
+						        ),
+					        ),
+				        ),
+			        ),
+		        ),
+	        ),
+            'ranking_otwartosci' => array(
+                'scope' => 'global',
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'radni_gmin',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+                                    'data.radni_gmin.gmina_id' => '903',
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'aggs' => array(
+                    'top' => array(
+                        'top_hits' => array(
+                            'size' => 10,
+                            'sort' => array(
+                                'data.radni_gmin.punkty_dostepnosc' => array(
+                                    'order' => 'desc',
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        ));
+        
+        $this->_prepareView();
+
+        if ($this->object->getId() != '903')
+            throw new NotFoundException;
+
+        $this->set('aggs',  $this->Dataobject->getAggs());
+
+        $this->set('_submenu', array_merge($this->submenus['rada'], array(
+            'selected' => 'aktywnosci',
         )));
     }
 

@@ -27,14 +27,16 @@ $(document).ready(function() {
 			];
 
 			this.getObjects(function() {
-				_this.objects.forEach(function(obj) {
-					h.push([
-						'<option value="' + obj.objects.id + '">',
+				if(_this.objects.length) {
+					_this.objects.forEach(function (obj) {
+						h.push([
+							'<option value="' + obj.objects.id + '">',
 							obj.objects.slug,
-						'</option>'
-					].join(''));
-				});
-				h.push('</select>');
+							'</option>'
+						].join(''));
+					});
+					h.push('</select>');
+				}
 
 				_this.$this.html(
 					h.join('')
@@ -91,6 +93,9 @@ $(document).ready(function() {
 	function reloadData(onSuccess) {
 		loading = true;
 		list.html(spinner);
+
+		if(!mPHeart.user_id)
+			return false;
 
 		$.get('/collections/collections/get/' + id + '.json', function(res) {
 			if(typeof res.response != 'undefined') {
