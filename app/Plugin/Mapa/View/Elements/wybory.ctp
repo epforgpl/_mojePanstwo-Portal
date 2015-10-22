@@ -8,6 +8,11 @@
 
         if ($counters['sejm'] || $counters['senat'] || $counters['obwody']) {
             $ils = array();
+            $array_column_sejm = array_column($mapParams['elections']['sejm'], 'key');
+            $array_column_senat = array_column($mapParams['elections']['senat'], 'key');
+
+            $array_column_sejm = (count($array_column_sejm) == 1) ? $array_column_sejm[0] : '0';
+            $array_column_senat = (count($array_column_senat) == 1) ? $array_column_senat[0] : '0';
 
             if (isset($mapParams['elections']['obwody']))
                 $ils = array_column($mapParams['elections']['obwody'], 'key');
@@ -16,7 +21,11 @@
             <li class="accord accord-fullheight wyboryDetail<? if (!isset($widget)) {
                 echo ' closed';
             } ?>"
-                data-obwody="<?= @implode(',', $ils) ?>">
+                data-obwody="<?= @implode(',', $ils) ?>"
+                data-sejm="<?= $array_column_sejm ?>"
+                data-senat="<?= $array_column_senat ?>"
+                data-miejsce="<?= $mapParams['data']['miejsca.id'] ?>"
+                data-redirect="<?= (isset($_GET["redirect"])) ? true : false; ?>">
                 <header>
                     <span class="arrow"></span>
 
@@ -24,15 +33,12 @@
                 </header>
                 <section class="dcontent">
                     <? if ($counters['sejm'] || $counters['senat'] || $counters['obwody']) {
-                    if (isset($widget) && isset($_GET["redirect"])) {
-                        $array_column_sejm = array_column($mapParams['elections']['sejm'], 'key');
-                        $array_column_senat = array_column($mapParams['elections']['senat'], 'key');
-                        ?>
+                    if (isset($widget) && isset($_GET["redirect"])) { ?>
                         <script type="text/javascript">
                             try {
                                 var params = {
-                                    sejm_okreg_id: "<?= (count($array_column_sejm) == 1)? $array_column_sejm[0] : '0'; ?>",
-                                    senat_okreg_id: "<?= (count($array_column_senat) == 1)? $array_column_senat[0] : '0'; ?>",
+                                    sejm_okreg_id: "<?= $array_column_sejm; ?>",
+                                    senat_okreg_id: "<?= $array_column_senat; ?>",
                                     miejsce_id: "<?= $mapParams['data']['miejsca.id'] ?>"
                                 };
 
