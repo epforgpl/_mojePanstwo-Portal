@@ -38,11 +38,15 @@ echo $this->Element('dataobject/pageBegin', array(
                     ) { ?>
                         <div class="margin-top-10">
 
-                            <h2>Aktywność</h2>
+                            <h2>
+                                Aktywność
+                                <i class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="right" title="" data-original-title="Radni którzy najczęściej wypowiadali się na posiedzeniach, brali udział w głosowaniach oraz posiadają najwięcej interpelacji."></i>
+                            </h2>
 
                             <div
                                 data-aggs="<?= htmlentities(json_encode($data)) ?>"
                                 data-field="radni_gmin.punkty_aktywnosc"
+                                data-request="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/radni/' : '/radni/') ?>"
                                 class="radniRankingChart"
                             ></div>
 
@@ -55,11 +59,15 @@ echo $this->Element('dataobject/pageBegin', array(
                     ) { ?>
                         <div class="margin-top-10">
 
-                            <h2>Otwartość</h2>
+                            <h2>
+                                Otwartość
+                                <i class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="right" title="" data-original-title="Radni którzy udostępnili o sobie najwięcej informacji."></i>
+                            </h2>
 
                             <div
                                 data-aggs="<?= htmlentities(json_encode($data)) ?>"
                                 data-field="radni_gmin.punkty_dostepnosc"
+                                data-request="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/radni/' : '/radni/') ?>"
                                 class="radniRankingChart"
                                 ></div>
 

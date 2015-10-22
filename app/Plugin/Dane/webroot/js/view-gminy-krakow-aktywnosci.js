@@ -14,13 +14,19 @@ $(document).ready(function() {
 
     $('.radniRankingChart').each(function() {
         var aggs = normalize($(this).data('aggs')),
+            request = $(this).data('request'),
             field = $(this).data('field'),
             chart,
             categories = [],
             data = [];
 
         aggs.forEach(function(row) {
-            categories.push(row['radni_gmin.nazwa']);
+            console.log(row);
+            categories.push({
+                name: row['radni_gmin.nazwa'],
+                id: row['radni_gmin.id'],
+                avatar: row['radni_gmin.avatar_id']
+            });
             data.push(parseInt(row[field]));
         });
 
@@ -44,30 +50,26 @@ $(document).ready(function() {
                 title: {
                     text: null
                 },
-                /*labels: {
+                labels: {
                     formatter: function () {
                         var el = this.value,
                             v = el.name;
 
-                        if (v.length > (((labelWidth / 10) * 2) - 2))
-                            v = v.substring(0, ((labelWidth / 10) * 2) - 5) + '...';
-
-                        if (image_field) {
-                            return [
-                                '<a href="' + choose_request + el.id + '" target="_self">',
-                                '<div class="text-center" style="line-height: 1em">',
-                                columns_horizontal_images.hasOwnProperty(el.name) ? '<img style="margin-bottom: 5px; margin-right: 5px; float: left; max-width: 30px;" src="' + columns_horizontal_images[el.name] + '"/><br/>' : '<div style="width: 30px; height: 30px; margin-bottom: 5px; margin-right: 5px; float: left;"></div><br/>',
+                        return [
+                            '<a href="' + request + '' + el.id + '" target="_self">',
+                                '<div class="text-center" style="line-height: 0.7em">',
+                                    '<img style="margin-bottom: 5px; margin-right: 5px; float: left; max-width: 30px;" src="http://resources.sejmometr.pl/avatars/1/' + el.avatar + '.jpg"/><br/><br/>',
                                 v,
                                 '</div>',
-                                '</a>'
-                            ].join('');
-                        }
-
-                        return '<a href="' + choose_request + el.id + '" target="_self">' + v + '</a>';
+                            '</a>'
+                        ].join('');
                     },
-                    style: labelsStyle,
+                    style: {
+                        width: '150px',
+                        'min-width': '150px'
+                    },
                     useHTML: true
-                }*/
+                }
             },
             yAxis: {
                 min: 0,
@@ -78,7 +80,9 @@ $(document).ready(function() {
                     overflow: 'justify'
                 }
             },
-            //tooltip: tooltip,
+            tooltip: {
+                headerFormat: '<span style="font-size: 10px">{point.key.name}</span><br/>'
+            },
             plotOptions: {
                 bar: {
                     dataLabels: {
@@ -96,7 +100,7 @@ $(document).ready(function() {
                 enabled: false
             },
             series: [{
-                name: 'Liczba',
+                name: 'Ilość punktów',
                 data: data,
                 point: {
                     events: {
