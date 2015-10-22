@@ -313,19 +313,14 @@ var MapBrowser = Class.extend({
 			$.get('/mapa/obwody.json?id=' + obwody, function (data) {
 				for (var i = 0, len = data.length; i < len; i++) {
 					var k = data[i];
-					
-					console.log('k', k);
-					
-					if (k.punkt.lat && k.punkt.lon) {
+
+					if ((k.punkt.lat && k.punkt.lon) && (k.punkt.lat !== 0 && k.punkt.lon !== 0)) {
 						var komisjeInfo = '<div class="komisjaInfoWindow">',
 							komisjeId = [],
 							komisjePosition = new google.maps.LatLng(k.punkt.lat, k.punkt.lon),
 							komisjeBtn = self.detail_div_main.find('.btn-obwod');
 
 						$.each(k.komisje, function (i, d) {
-							
-							console.log('d', d);
-							
 							komisjeInfo += '<a class="komisja" href="#' + d['wybory_parl_obwody.id'] + '" data-id="' + d['wybory_parl_obwody.id'] + '">Komisja nr ' + d['wybory_parl_obwody.numer'] + '</a>';
 
 							self.komisjePointsData[d['wybory_parl_obwody.id']] = {
@@ -383,14 +378,10 @@ var MapBrowser = Class.extend({
 	},
 
 	komisjaDetail: function (id) {
-		
-		console.log('this.komisjePointsData', this.komisjePointsData);
-		console.log('komisjaDetail', id);
-		
 		var detail = this.komisjePointsData[id],
 			komisjaModal = $('#komisjaDetailModal');
-			
-		console.log('detail', detail);
+
+		console.log(detail);
 
 		if (komisjaModal.length)
 			komisjaModal.remove();
@@ -626,22 +617,27 @@ var MapBrowser = Class.extend({
 	},
 
 	pointWindowOpener: function (marker) {
-		var self = this;
+		var self = this,
+			pixelOffset,
+			pixelOffsetPaddingTop = 100;
 
 		if (typeof infowindow !== "undefined")
 			infowindow.close();
 
-		infowindow = new google.maps.InfoWindow({
-			content: marker.data
-		});
+		if (self.retina)
+			pixelOffset = new google.maps.Size(-12, pixelOffsetPaddingTop);
+		else
+			pixelOffset = new google.maps.Size(0, pixelOffsetPaddingTop);
 
-		infowindow.open(self.map, marker);
+		infowindow = new google.maps.InfoWindow({
+			content: marker.data,
+			pixelOffset: pixelOffset
+		});
 
 		google.maps.event.addListener(infowindow, 'domready', function () {
 			var komisje = $('.komisjaInfoWindow'),
 				komisjeHeight = komisje.outerHeight(),
-				pixelOffset,
-				pixelOffsetTop = komisjeHeight + 100;
+				pixelOffsetTop = komisjeHeight + pixelOffsetPaddingTop;
 
 			if (komisje.length) {
 				komisje.find('.komisja').click(function (e) {
@@ -658,11 +654,17 @@ var MapBrowser = Class.extend({
 
 			infowindow.setOptions({'pixelOffset': pixelOffset});
 
+			$(komisje.parents('.gm-style-iw').prev().find('div')[0]).css({
+				'margin-top': '-' + (komisjeHeight + 18) + 'px',
+				'transform': 'translate(20px, 0) rotate(180deg)'
+			});
 			$(komisje.parents('.gm-style-iw').prev().find('div')[2]).css({
 				'margin-top': '-' + (komisjeHeight + 18) + 'px',
-				'transform': 'translate(19px,0) rotate(180deg)'
+				'transform': 'translate(20px, 0) rotate(180deg)'
 			});
 		});
+
+		infowindow.open(self.map, marker);
 	},
 
 	formatAddress: function (data) {
