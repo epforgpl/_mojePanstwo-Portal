@@ -36,7 +36,8 @@ $(document).ready(function() {
             chart: {
                 type: 'bar',
                 spacingRight: 60,
-                backgroundColor: null
+                backgroundColor: null,
+                height: 1600
             },
             title: {
                 text: ''
@@ -116,6 +117,10 @@ $(document).ready(function() {
                     }
                 } */
             }]
+        });
+
+        $('img').error(function () {
+            $(this).hide();
         });
 
     });

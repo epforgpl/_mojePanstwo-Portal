@@ -15,7 +15,7 @@ echo $this->Element('dataobject/pageBegin', array(
 
     <div class="dataBrowser">
         <div class="row">
-            <div class="dataBrowserContent">
+            <div class="dataBrowserContent row">
                 <div class="col-md-3 col-xs-12 dataAggsContainer">
 
                     <? if (isset($_submenu) && isset($_submenu['items'])) {

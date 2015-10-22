@@ -4825,7 +4825,7 @@ class GminyController extends DataobjectsController
 		        'aggs' => array(
 			        'top' => array(
 				        'top_hits' => array(
-					        'size' => 10,
+					        'size' => 44,
 					        'sort' => array(
 						        'data.radni_gmin.punkty_aktywnosc' => array(
 							        'order' => 'desc',
@@ -4856,7 +4856,7 @@ class GminyController extends DataobjectsController
                 'aggs' => array(
                     'top' => array(
                         'top_hits' => array(
-                            'size' => 10,
+                            'size' => 44,
                             'sort' => array(
                                 'data.radni_gmin.punkty_dostepnosc' => array(
                                     'order' => 'desc',
