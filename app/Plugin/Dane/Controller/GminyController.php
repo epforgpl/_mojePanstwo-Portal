@@ -4800,8 +4800,47 @@ class GminyController extends DataobjectsController
     }
 
     public function aktywnosci() {
+	    
         $this->request->params['action'] = 'rada';
+        
+        $this->addInitAggs(array(
+	        'ranking_aktywnosci' => array(
+		        'scope' => 'global',
+		        'filter' => array(
+			        'bool' => array(
+				        'must' => array(
+					        array(
+						        'term' => array(
+							        'dataset' => 'radni_gmin',
+						        ),
+					        ),
+					        array(
+						        'term' => array(
+							        'data.radni_gmin.gmina_id' => '903',
+						        ),
+					        ),
+				        ),
+			        ),
+		        ),
+		        'aggs' => array(
+			        'top' => array(
+				        'top_hits' => array(
+					        'size' => 10,
+					        'sort' => array(
+						        'data.radni_gmin.punkty_aktywnosc' => array(
+							        'order' => 'desc',
+						        ),
+					        ),
+				        ),
+			        ),
+		        ),
+	        ),
+        ));
+        
         $this->_prepareView();
+        
+        $aggs = $this->Dataobject->getAggs();
+        debug($aggs); die();
 
         if ($this->object->getId() != '903')
             throw new NotFoundException;
