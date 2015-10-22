@@ -4835,18 +4835,45 @@ class GminyController extends DataobjectsController
 			        ),
 		        ),
 	        ),
+            'ranking_otwartosci' => array(
+                'scope' => 'global',
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'radni_gmin',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+                                    'data.radni_gmin.gmina_id' => '903',
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'aggs' => array(
+                    'top' => array(
+                        'top_hits' => array(
+                            'size' => 10,
+                            'sort' => array(
+                                'data.radni_gmin.punkty_dostepnosc' => array(
+                                    'order' => 'desc',
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         ));
         
         $this->_prepareView();
-        
-        $aggs = $this->Dataobject->getAggs();
-        debug($aggs); die();
 
         if ($this->object->getId() != '903')
             throw new NotFoundException;
 
-        $this->set('activity', array());
-        $this->set('openness', array());
+        $this->set('aggs',  $this->Dataobject->getAggs());
 
         $this->set('_submenu', array_merge($this->submenus['rada'], array(
             'selected' => 'aktywnosci',

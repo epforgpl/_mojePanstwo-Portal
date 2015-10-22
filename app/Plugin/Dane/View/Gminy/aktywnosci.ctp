@@ -4,7 +4,9 @@ $this->Combinator->add_libs('css', $this->Less->css('dataobjectpage', array('plu
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
 echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
-
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
+$this->Combinator->add_libs('js', 'Dane.view-gminy-krakow-aktywnosci');
 echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 )); ?>
@@ -30,21 +32,39 @@ echo $this->Element('dataobject/pageBegin', array(
                 </div>
                 <div class="col-xs-12 col-md-9">
 
-                    <div class="margin-top-10">
+                    <? if(
+                        !empty($aggs['ranking_aktywnosci']['top']['hits']['hits']) &&
+                        $data = $aggs['ranking_aktywnosci']['top']['hits']['hits']
+                    ) { ?>
+                        <div class="margin-top-10">
 
-                        <h2>Aktywność</h2>
+                            <h2>Aktywność</h2>
 
-                        <? pr($activity); ?>
+                            <div
+                                data-aggs="<?= htmlentities(json_encode($data)) ?>"
+                                data-field="radni_gmin.punkty_aktywnosc"
+                                class="radniRankingChart"
+                            ></div>
 
-                    </div>
+                        </div>
+                    <? } ?>
 
-                    <div class="margin-top-10">
+                    <? if(
+                        !empty($aggs['ranking_otwartosci']['top']['hits']['hits']) &&
+                        $data = $aggs['ranking_otwartosci']['top']['hits']['hits']
+                    ) { ?>
+                        <div class="margin-top-10">
 
-                        <h2>Otwartość</h2>
+                            <h2>Otwartość</h2>
 
-                        <? pr($openness); ?>
+                            <div
+                                data-aggs="<?= htmlentities(json_encode($data)) ?>"
+                                data-field="radni_gmin.punkty_dostepnosc"
+                                class="radniRankingChart"
+                                ></div>
 
-                    </div>
+                        </div>
+                    <? } ?>
 
                 </div>
             </div>
