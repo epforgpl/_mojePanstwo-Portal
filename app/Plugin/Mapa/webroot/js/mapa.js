@@ -102,6 +102,10 @@ var MapBrowser = Class.extend({
 	map: false,
 	fitBounds: false,
 	points: [],
+	komisjeOkreg: {
+		sejm_id: [],
+		senat_id: []
+	},
 	komisjePoints: [],
 	komisjePointsData: {},
 	mapOptions: {
@@ -224,6 +228,7 @@ var MapBrowser = Class.extend({
 					'lat': p.find('meta[itemprop=latitude]').attr('content'),
 					'lon': p.find('meta[itemprop=longitude]').attr('content'),
 					'obwod_id': p.attr('data-obwod_id'),
+					'obwod': p.attr('data-obwod'),
 					'kod': p.attr('data-kod')
 				};
 
@@ -308,18 +313,14 @@ var MapBrowser = Class.extend({
 		}
 
 		var obwodyBlock = $('.wyboryDetail'),
-			obwody = obwodyBlock.attr('data-obwody'),
-			obwody_sejm = obwodyBlock.attr('data-sejm'),
-			obwody_senat = obwodyBlock.attr('data-senat'),
-			obwody_miejsce = obwodyBlock.attr('data-miejsce'),
-			obwody_redirect = obwodyBlock.attr('data-redirect');
+			obwody = obwodyBlock.attr('data-obwody');
+		//obwody_sejm = obwodyBlock.attr('data-sejm'),
+		//obwody_senat = obwodyBlock.attr('data-senat'),
+		//obwody_miejsce = obwodyBlock.attr('data-miejsce'),
+		//obwody_redirect = obwodyBlock.attr('data-redirect');
 		if (obwody) {
 			var self = this;
 			$.get('/mapa/obwody.json?id=' + obwody, function (data) {
-				var sejm_id = [],
-					senat_id = [];
-
-
 				for (var i = 0, len = data.length; i < len; i++) {
 					var k = data[i];
 
@@ -330,8 +331,8 @@ var MapBrowser = Class.extend({
 							komisjeBtn = self.detail_div_main.find('.btn-obwod');
 
 						$.each(k.komisje, function (i, d) {
-							if ($.inArray(d['wybory_parl_obwody.numer_okreg_sejm'], sejm_id) == -1) sejm_id.push(d['wybory_parl_obwody.numer_okreg_sejm']);
-							if ($.inArray(d['wybory_parl_obwody.numer_okreg_senat'], senat_id) == -1) senat_id.push(d['wybory_parl_obwody.numer_okreg_senat']);
+							if ($.inArray(d['wybory_parl_obwody.numer_okreg_sejm'], self.komisjeOkreg.sejm_id) == -1) self.komisjeOkreg.sejm_id.push(d['wybory_parl_obwody.numer_okreg_sejm']);
+							if ($.inArray(d['wybory_parl_obwody.numer_okreg_senat'], self.komisjeOkreg.senat_id) == -1) self.komisjeOkreg.senat_id.push(d['wybory_parl_obwody.numer_okreg_senat']);
 
 							komisjeInfo += '<a class="komisja" href="#' + d['wybory_parl_obwody.id'] + '" data-id="' + d['wybory_parl_obwody.id'] + '">Komisja nr ' + d['wybory_parl_obwody.numer'] + '</a>';
 
@@ -339,6 +340,7 @@ var MapBrowser = Class.extend({
 								'numer': d['wybory_parl_obwody.numer'],
 								'typ': d['wybory_parl_obwody.typ'],
 								'adres': d['wybory_parl_obwody.adres'],
+								'okreg': d['wybory_parl_obwody.numer_okreg_senat'],
 								'przystosowanie': d['wybory_parl_obwody.niepelnosprawni'],
 								'granice': d['wybory_parl_obwody.granice'],
 								'location': d['wybory_parl_obwody.location']
@@ -383,42 +385,41 @@ var MapBrowser = Class.extend({
 						});
 					}
 				}
+				/*
+				 self.komisjeOkreg.sejm_id = (self.komisjeOkreg.sejm_id.length == 1) ? self.komisjeOkreg.sejm_id[0] : 0;
+				 self.komisjeOkreg.senat_id = (self.komisjeOkreg.senat_id.length == 1) ? self.komisjeOkreg.senat_id[0] : 0;
 
-				sejm_id = (sejm_id.length == 1) ? sejm_id[0] : 0;
-				senat_id = (senat_id.length == 1) ? senat_id[0] : 0;
+				 if (self.komisjeOkreg.sejm_id !== obwody_sejm) {
+				 if (self.komisjeOkreg.sejm_id == 0) {
+				 obwodyBlock.find('.sejm').addClass('hide');
+				 } else {
+				 obwodyBlock.find('.sejm > a').attr('href', 'http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/' + self.komisjeOkreg.sejm_id).text(self.komisjeOkreg.sejm_id);
+				 }
+				 }
+				 if (self.komisjeOkreg.senat_id !== obwody_senat) {
+				 if (self.komisjeOkreg.senat_id == 0) {
+				 obwodyBlock.find('.senat').addClass('hide');
+				 } else {
+				 obwodyBlock.find('.senat > a').attr('href', 'http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/' + self.komisjeOkreg.senat_id).text(self.komisjeOkreg.senat_id);
+				 }
+				 }
 
-				if (sejm_id !== obwody_sejm) {
-					if (sejm_id == 0) {
-						obwodyBlock.find('.sejm').addClass('hide');
-					} else {
-						obwodyBlock.find('.sejm > a').attr('href', 'http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/' + sejm_id).text(sejm_id);
-					}
-				}
-				if (senat_id !== obwody_senat) {
-					if (senat_id == 0) {
-						obwodyBlock.find('.senat').addClass('hide');
-					} else {
-						obwodyBlock.find('.senat > a').attr('href', 'http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/' + senat_id).text(senat_id);
-					}
-				}
+				 var href = window.location.href,
+				 sejm_senat = href.split('sejm_senat='),
+				 breakPoint = false;
 
-				var href = window.location.href,
-					sejm_senat = href.split('sejm_senat='),
-					breakPoint = false;
+				 if (typeof sejm_senat[1] !== "undefined" && sejm_senat[1].length > 0) {
+				 var ids = sejm_senat[1].split(',');
 
-				if (typeof sejm_senat[1] !== "undefined" && sejm_senat[1].length > 0) {
-					var ids = sejm_senat[1].split(',');
+				 if (((self.komisjeOkreg.sejm_id != ids[0]) || (self.komisjeOkreg.senat_id != ids[1])) && (self.komisjeOkreg.sejm_id !== 0 && self.komisjeOkreg.senat_id !== 0)) {
+				 breakPoint = true;
+				 parent.location.href = "http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm_i_senat/" + self.komisjeOkreg.sejm_id + ',' + self.komisjeOkreg.senat_id + "?miejsce_id=" + obwody_miejsce;
+				 }
+				 }
 
-					if (((sejm_id != ids[0]) || (senat_id != ids[1])) && (sejm_id !== 0 && senat_id !== 0)) {
-						breakPoint = true;
-						parent.location.href = "http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm_i_senat/" + sejm_id + ',' + senat_id + "?miejsce_id=" + obwody_miejsce;
-					}
-				}
-
-				if (obwody_redirect && !breakPoint) {
-					parent.location.href = "http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm_i_senat/" + sejm_id + ',' + senat_id + '?miejsce_id=' + obwody_miejsce;
-				}
-
+				 if (obwody_redirect && !breakPoint) {
+				 parent.location.href = "http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm_i_senat/" + self.komisjeOkreg.sejm_id + ',' + self.komisjeOkreg.senat_id + '?miejsce_id=' + obwody_miejsce;
+				 }*/
 
 				self.map.fitBounds(self.fitBounds);
 			})
@@ -426,7 +427,8 @@ var MapBrowser = Class.extend({
 	},
 
 	komisjaDetail: function (id) {
-		var detail = this.komisjePointsData[id],
+		var self = this,
+			detail = self.komisjePointsData[id],
 			komisjaModal = $('#komisjaDetailModal');
 
 		if (komisjaModal.length)
@@ -453,6 +455,16 @@ var MapBrowser = Class.extend({
 				).append(
 					$('<div></div>').addClass('modal-body').append(
 						$('<p class="adres_ulica"></p>').html(detail['adres'].replace(/\n/g, '<br/>'))
+					).append(function () {
+							if (self.komisjeOkreg.senat_id.length > 1) {
+								return $('<p class="okreg"></p>').text('Okręg do senatu: ').append(
+									$('<a></a>').attr({
+										'href': 'http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/' + detail['okreg'],
+										'target': '_parent'
+									}).text(detail['okreg'])
+								)
+							}
+						}
 					).append(
 						$('<p class="przystosowanie ' + detail['przystosowanie'] + '"></p>').html((detail['przystosowanie'] == 'Tak') ? 'Lokal jest przystosowany do potrzeb osób niepełnosprawnych.' : 'Lokal nie jest przystosowany do potrzeb osób niepełnosprawnych.')
 					).append(
@@ -632,8 +644,13 @@ var MapBrowser = Class.extend({
 
 		var scontent = self.formatAddress(marker.data);
 
-		if (marker.data.obwod_id)
-			scontent = scontent + '<div class="button_cont"><button data-target="' + marker.data.obwod_id + '" class="btn-obwod disabled btn btn-warning btn-xs">Pokaż lokal wyborczy</button></div>';
+		if (marker.data.obwod_id) {
+			if (self.komisjeOkreg.senat_id.length > 1) {
+				scontent += '<div class="obwod">Okręg do senatu: <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/' + self.komisjePointsData[marker.data.obwod_id] + '">' + self.komisjePointsData[marker.data.obwod_id] + '</a></div>'
+			}
+			scontent += '<div class="button_cont"><button data-target="' + marker.data.obwod_id + '" class="btn-obwod disabled btn btn-warning btn-xs">Pokaż lokal wyborczy</button></div>';
+		}
+
 
 		infowindow.setContent(scontent);
 		infowindow.open(self.map, marker);
