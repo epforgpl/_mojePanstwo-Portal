@@ -429,7 +429,8 @@ var MapBrowser = Class.extend({
 	komisjaDetail: function (id) {
 		var self = this,
 			detail = self.komisjePointsData[id],
-			komisjaModal = $('#komisjaDetailModal');
+			komisjaModal = $('#komisjaDetailModal'),
+			obwodySenat = $('.wyboryDetail').attr('data-senat');
 
 		if (komisjaModal.length)
 			komisjaModal.remove();
@@ -454,9 +455,18 @@ var MapBrowser = Class.extend({
 					)
 				).append(
 					$('<div></div>').addClass('modal-body').append(
-						$('<p class="adres_ulica"></p>').html(detail['adres'].replace(/\n/g, '<br/>'))
+						$('<div></div>').addClass('adresBlock  col-xs-12 nopadding').append(
+							$('<p></p>').addClass("adres_ulica").html(detail['adres'].replace(/\n/g, '<br/>'))
+						).append(
+							$('<p>').addClass('adres_button pull-right').append(
+								$('<a></a>').addClass('btn btn-primary').attr({
+									href: 'https://www.google.com/maps/dir//' + detail['location']['lat'] + ',' + detail['location']['lon'],
+									target: '_blank'
+								}).text('Dojazd do lokalu wyborczego')
+							)
+						)
 					).append(function () {
-							if (self.komisjeOkreg.senat_id.length > 1) {
+							if (obwodySenat == 0) {
 								return $('<p class="okreg"></p>').text('Okręg do senatu: ').append(
 									$('<a></a>').attr({
 										'href': 'http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/' + detail['okreg'],
@@ -620,7 +630,8 @@ var MapBrowser = Class.extend({
 
 	pointWindow: function (marker) {
 		var self = this,
-			pixelOffset;
+			pixelOffset,
+			obwodySenat = $('.wyboryDetail').attr('data-senat');
 
 		$.each(self.points, function () {
 			if (this.marker.icon.active)
@@ -645,10 +656,13 @@ var MapBrowser = Class.extend({
 		var scontent = self.formatAddress(marker.data);
 
 		if (marker.data.obwod_id) {
-			if (self.komisjeOkreg.senat_id.length > 1) {
-				scontent += '<div class="obwod">Okręg do senatu: <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/' + self.komisjePointsData[marker.data.obwod_id] + '">' + self.komisjePointsData[marker.data.obwod_id] + '</a></div>'
+			if ((obwodySenat == 0) && ( typeof(self.komisjePointsData[marker.data.obwod_id]) !== "undefined")) {
+				scontent += '<div class="obwod">Okręg do senatu: <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/' + self.komisjePointsData[marker.data.obwod_id]['okreg'] + '">' + self.komisjePointsData[marker.data.obwod_id]['okreg'] + '</a></div>'
 			}
 			scontent += '<div class="button_cont"><button data-target="' + marker.data.obwod_id + '" class="btn-obwod disabled btn btn-warning btn-xs">Pokaż lokal wyborczy</button></div>';
+			if (self.komisjePointsData, marker.data.obwod_id, self.komisjePointsData[marker.data.obwod_id]) {
+				scontent += '<div class="button_cont"><a href="https://www.google.com/maps/dir/' + marker.data.lat + ',' + marker.data.lon + '/' + self.komisjePointsData[marker.data.obwod_id]['location']['lat'] + ',' + self.komisjePointsData[marker.data.obwod_id]['location']['lon'] + '" target="_blank" class="btn-obwod btn btn-primary btn-xs">Dojazd do lokalu wyborczego</button></div>';
+			}
 		}
 
 
