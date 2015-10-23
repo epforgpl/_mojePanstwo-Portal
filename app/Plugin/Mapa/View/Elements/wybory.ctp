@@ -42,8 +42,8 @@
                                         <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $mapParams['elections']['sejm'] ?>"
                                            target="_parent"><?= $mapParams['elections']['sejm'] ?></a>
                                     <? } else {
-                                        foreach ($mapParams['elections']['sejm'] as $obwod_sejm) {
-                                            ?>
+                                        foreach ($mapParams['elections']['sejm'] as $obwod_sejm) { ?>
+                                            <? if ($obwod_sejm !== $mapParams['elections']['sejm'][0]) echo '<span class="pull-left">, </span>' ?>
                                             <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $obwod_sejm['key'] ?>"
                                                target="_parent"><?= $obwod_sejm['key'] ?></a>
                                         <? }
@@ -59,6 +59,7 @@
                                            target="_parent"><?= $mapParams['elections']['senat'] ?></a>
                                     <? } else {
                                         foreach ($mapParams['elections']['senat'] as $obwod_senat) { ?>
+                                            <? if ($obwod_senat !== $mapParams['elections']['senat'][0]) echo '<span class="pull-left">, </span>' ?>
                                             <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/<?= $obwod_senat['key'] ?>"
                                                target="_parent"><?= $obwod_senat['key'] ?></a>
                                         <? }
