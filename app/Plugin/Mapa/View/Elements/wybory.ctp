@@ -32,39 +32,24 @@
                     <h2>Wybory parlamentarne 2015</h2>
                 </header>
                 <section class="dcontent">
-                    <? if ($counters['sejm'] || $counters['senat'] || $counters['obwody']) {
-                    if (isset($widget) && isset($_GET["redirect"])) { ?>
-                        <script type="text/javascript">
-                            try {
-                                var params = {
-                                    sejm_okreg_id: "<?= $array_column_sejm; ?>",
-                                    senat_okreg_id: "<?= $array_column_senat; ?>",
-                                    miejsce_id: "<?= $mapParams['data']['miejsca.id'] ?>"
-                                };
-
-                                if (params.sejm_okreg_id !== 0 && params.senat_okreg_id !== 0)
-                                    parent.location.href = "http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm_i_senat/" + params.sejm_okreg_id + ',' + params.senat_okreg_id + '?miejsce_id=' + params.miejsce_id;
-                            } catch (e) {
-                            }
-                        </script>
-                    <? } ?>
+                    <? if ($counters['sejm'] || $counters['senat'] || $counters['obwody']) { ?>
                         <ul class="wybory meta">
                             <? if ($counters['sejm'] === 1) { ?>
-                                <li>
+                                <li class="sejm">
                                     <label>Okręg do Sejmu:</label>
                                     <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $mapParams['elections']['sejm'][0]['key'] ?>"
                                        target="_parent"><?= $mapParams['elections']['sejm'][0]['key'] ?></a>
                                 </li>
                             <? }
                             if ($counters['senat'] === 1) { ?>
-                                <li>
+                                <li class="senat">
                                     <label>Okręg do Senatu:</label>
                                     <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/<?= $mapParams['elections']['senat'][0]['key'] ?>"
                                        target="_parent"><?= $mapParams['elections']['senat'][0]['key'] ?></a>
                                 </li>
                             <? }
                             if ($counters['obwody'] === 1) { ?>
-                                <li>
+                                <li class="obwod">
                                     <button
                                         data-target="<?= $mapParams['elections']['obwody'][0]['key'] ?>"
                                         disabled="disabled"

@@ -387,14 +387,23 @@ var MapBrowser = Class.extend({
 				sejm_id = (sejm_id.length == 1) ? sejm_id[0] : 0;
 				senat_id = (senat_id.length == 1) ? senat_id[0] : 0;
 
+				if (sejm_id !== obwody_sejm) {
+					obwodyBlock.find('.sejm > a').attr('href', 'http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/' + sejm_id).text(sejm_id)
+				}
+				if (senat_id !== obwody_senat) {
+					obwodyBlock.find('.senat > a').attr('href', 'http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/' + senat_id).text(senat_id)
+				}
+
 				if (obwody_redirect) {
 					if ((sejm_id !== obwody_sejm) || (senat_id !== obwody_senat)) {
 						parent.location.href = "http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm_i_senat/" + sejm_id + ',' + senat_id + "?miejsce_id=" + obwody_miejsce;
+					} else if (obwody_sejm !== 0 && obwody_senat !== 0) {
+						parent.location.href = "http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm_i_senat/" + obwody_sejm + ',' + obwody_senat + '?miejsce_id=' + obwody_miejsce;
 					}
 				}
 
 				self.map.fitBounds(self.fitBounds);
-			});
+			})
 		}
 	},
 
