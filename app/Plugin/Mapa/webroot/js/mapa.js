@@ -402,7 +402,7 @@ var MapBrowser = Class.extend({
 					}
 				}
 
-				var href = window.frameElement.src,
+				var href = window.location.href,
 					sejm_senat = href.split('sejm_senat='),
 					breakPoint = false;
 
