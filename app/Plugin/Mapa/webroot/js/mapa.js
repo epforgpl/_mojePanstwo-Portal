@@ -406,7 +406,7 @@ var MapBrowser = Class.extend({
 					sejm_senat = href.split('sejm_senat='),
 					breakPoint = false;
 
-				if (sejm_senat[1].length > 0) {
+				if (typeof sejm_senat[1] !== "undefined" && sejm_senat[1].length > 0) {
 					var ids = sejm_senat[1].split(',');
 
 					if (((sejm_id != ids[0]) || (senat_id != ids[1])) && (sejm_id !== 0 && senat_id !== 0)) {
