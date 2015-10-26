@@ -34,18 +34,36 @@
                 <section class="dcontent">
                     <? if ($counters['sejm'] || $counters['senat'] || $counters['obwody']) { ?>
                         <ul class="wybory meta">
-                            <? if ($counters['sejm'] === 1) { ?>
+                            <? if ($counters['sejm'] > 0) { ?>
                                 <li class="sejm">
                                     <label>Okręg do Sejmu:</label>
-                                    <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $mapParams['elections']['sejm'][0]['key'] ?>"
-                                       target="_parent"><?= $mapParams['elections']['sejm'][0]['key'] ?></a>
+                                    <?
+                                    if (gettype($mapParams['elections']['sejm']) == "string") { ?>
+                                        <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $mapParams['elections']['sejm'] ?>"
+                                           target="_parent"><?= $mapParams['elections']['sejm'] ?></a>
+                                    <? } else {
+                                        foreach ($mapParams['elections']['sejm'] as $obwod_sejm) { ?>
+                                            <? if ($obwod_sejm !== $mapParams['elections']['sejm'][0]) echo '<span class="pull-left">, </span>' ?>
+                                            <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $obwod_sejm['key'] ?>"
+                                               target="_parent"><?= $obwod_sejm['key'] ?></a>
+                                        <? }
+                                    } ?>
                                 </li>
                             <? }
-                            if ($counters['senat'] === 1) { ?>
+                            if ($counters['senat'] > 0) { ?>
                                 <li class="senat">
                                     <label>Okręg do Senatu:</label>
-                                    <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/<?= $mapParams['elections']['senat'][0]['key'] ?>"
-                                       target="_parent"><?= $mapParams['elections']['senat'][0]['key'] ?></a>
+                                    <?
+                                    if (gettype($mapParams['elections']['senat']) == "string") { ?>
+                                        <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $mapParams['elections']['senat'] ?>"
+                                           target="_parent"><?= $mapParams['elections']['senat'] ?></a>
+                                    <? } else {
+                                        foreach ($mapParams['elections']['senat'] as $obwod_senat) { ?>
+                                            <? if ($obwod_senat !== $mapParams['elections']['senat'][0]) echo '<span class="pull-left">, </span>' ?>
+                                            <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/<?= $obwod_senat['key'] ?>"
+                                               target="_parent"><?= $obwod_senat['key'] ?></a>
+                                        <? }
+                                    } ?>
                                 </li>
                             <? }
                             if ($counters['obwody'] === 1) { ?>
