@@ -569,5 +569,9 @@ class PrawoController extends ApplicationsController
             ), $this->getChaptersAggs()),
         ));
     }
+    
+    public function powszechne() {
+	    return $this->redirect('/prawo');
+    }
 	
 } 
