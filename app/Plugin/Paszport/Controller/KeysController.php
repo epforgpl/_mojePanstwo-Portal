@@ -35,7 +35,7 @@ class KeysController extends PaszportAppController
             $this->redirect(array('action' => 'index'));
         }
         $this->PassportApi->delete('keys', $id);
-        $this->Session->setFlash(__d('paszport', 'LC_PASZPORT_KEY_DELETED'), 'alert', array('class' => 'alert-info'));
+        $this->Session->setFlash(__d('paszport', 'LC_PASZPORT_KEY_DELETED'), 'alert');
         $this->redirect(array('action' => 'index'));
     }
 }

@@ -805,18 +805,18 @@ $(document).ready(function () {
 			} else {
 				self.addClass('closed');
 				map.resize();
-				/*self.find('>section').animate({
-				 height: 0
-				 }, {
-				 step: function(){
-				 map.resize();
-				 },
-				 complete: function () {
-				 self.addClass('closed');
-				 self.find('>section').css('height', 'auto');
-				 map.resize();
-				 }
-				 })*/
+				self.find('>section').animate({
+					height: 0
+				}, {
+					step: function () {
+						map.resize();
+					},
+					complete: function () {
+						self.addClass('closed');
+						self.find('>section').css('height', 'auto');
+						map.resize();
+					}
+				})
 			}
 
 			//map.resize();
