@@ -1,7 +1,7 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('ngo', array('plugin' => 'Ngo')));
 $this->Combinator->add_libs('js', 'latlon-geohash');
-$this->Combinator->add_libs('js', 'custom-marker');
+$this->Combinator->add_libs('js', 'Ngo.custom-marker');
 $this->Combinator->add_libs('js', 'Ngo.ngo');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 

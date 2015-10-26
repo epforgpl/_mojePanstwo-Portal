@@ -48,9 +48,9 @@ class NgoController extends ApplicationsController
 
         $status = $this->Ngo->addDeclaration($this->request->data);
         if ($status) {
-            $this->Session->setFlash('Twoje zgłoszenie zostało zapisane. Skontaktujemy się z Tobą w najbliższym czasie.');
+            $this->Session->setFlash('Twoje zgłoszenie zostało zapisane. Skontaktujemy się z Tobą w najbliższym czasie', null, array('class' => 'alert-success'));
         } else {
-            $this->Session->setFlash('Wystąpił problem z wysyłaniem zgłoszenia');
+            $this->Session->setFlash('Wystąpił problem z wysyłaniem zgłoszenia', null, array('class' => 'alert-error'));
         }
 
         return $this->redirect('/ngo');
@@ -65,24 +65,24 @@ class NgoController extends ApplicationsController
         ) {
 
             list($tl, $br) = explode(',', $this->request->query['area']);
-            
+
             $strlen = strlen($tl);
-            
+
             if( $strlen==10 )
             	$strlen = 9;
-            	
+
             if( $strlen==12 )
             	$strlen = 11;
-            	
+
             if( $strlen==14 )
             	$strlen = 13;
-            	
+
             if( $strlen==16 )
             	$strlen = 15;
-            	
-            	
+
+
             $precision = floor($strlen / 2);
-            
+
             $options = array(
                 'cover' => array(
                     'force' => true,
@@ -190,15 +190,15 @@ class NgoController extends ApplicationsController
 
             $data = $this->viewVars['dataBrowser']['aggs']['map'];
             foreach ($data['grid']['buckets'] as &$b) {
-								
+
                 if ($b['doc_count'] === 1) {
-										
-					$b['data'] = $b['top']['hits']['hits'][0]['fields']['source'][0]['data'];
+
+                    $b['data'] = $b['top']['hits']['hits'][0]['fields']['source'][0]['data'];
 					$b['location'] = array(
 						'lat' => $b['top']['hits']['hits'][0]['fields']['position.lat'][0],
 						'lon' => $b['top']['hits']['hits'][0]['fields']['position.lon'][0],
 					);
-					
+
                     unset($b['top']);
 
                 } else {

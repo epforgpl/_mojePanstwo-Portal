@@ -187,16 +187,6 @@ $(document).ready(function () {
 								'<div class="titleName">' + marker.data['krs_podmioty.nazwa'] + '</div>' +
 								'</a>' +
 								'</div>' +
-								'<ul class="detail dataHighlights oneline">' +
-								'<li class="dataHighlight">' +
-								'<p class="_label">Forma prawna</p>' +
-								'<p class="_value">' + marker.data['krs_podmioty.forma_prawna_str'] + '</p>' +
-								'<li>' +
-								'<li class="dataHighlight">' +
-								'<p class="_label">Adres</p>' +
-								'<p class="_value">' + marker.data['krs_podmioty.adres'] + '</p>' +
-								'<li>' +
-								'</ul>' +
 								'</div>' +
 								'</div>');
 							infowindow.open(map, marker);
