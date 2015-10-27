@@ -386,12 +386,14 @@ class AppController extends Controller
             'tag' => 2,
             'icon' => '&#xe60e;',
         ),
+        /*
         'finanse_gmin' => array(
             'name' => 'Finanse gmin',
             'href' => '/finanse_gmin',
             'tag' => 2,
             'icon' => '&#xe602;',
         ),
+        */
         'zamowienia_publiczne' => array(
             'name' => 'Zamówienia publiczne',
             'href' => '/zamowienia_publiczne',
@@ -462,8 +464,6 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe604;',
         ),
-        */
-        /*
         'patenty' => array(
             'name' => 'Patenty',
             'href' => '/patenty',

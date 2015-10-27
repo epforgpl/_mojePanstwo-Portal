@@ -20,13 +20,16 @@ echo $this->Element('dataobject/pageBegin', array(
                 Zakończono głosowanie!
                 <a href="?reset">Reset</a>
 
-                <? pr($vote); ?>
-
             <? } elseif(isset($vote)) { ?>
 
-                Nie zakończono głosowania.
-                <a href="?reset">Reset</a>
-                <? pr($vote); ?>
+                <div class="alert alert-info" role="alert">
+                    Nie zakończyłeś/aś jeszcze głosować.
+                    Potrzebujemy co najmniej 10 głosów.
+                    <a class="alert-link" href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/druki/' . $next : '/druki/' . $next) ?>">
+                        Przejdź do następnego projektu
+                    </a>
+                    aby kontynuować lub <a class="alert-link" href="?reset">rozpocznij od nowa</a>.
+                </div>
 
             <? } else { ?>
                 <p>Zagłosuj na 10 ostatnich projektów uchwał i zobacz do którego radnego jest Ci najbliżej!</p>

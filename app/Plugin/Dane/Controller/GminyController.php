@@ -4968,11 +4968,12 @@ class GminyController extends DataobjectsController
             foreach ($votes as $v => $vote) {
                 if ($votes[$v]['id'] == $vote_id) {
                     $votes[$v]['vote'] = $user_vote;
-                    $next = isset($votes[$v + 1]['id']) ? $votes[$v + 1]['id'] : false;
                 }
 
-                if ($votes[$v]['vote'] === false)
+                if ($next === 0 && $votes[$v]['vote'] === false) {
+                    $next = (int) $votes[$v]['id'];
                     $completed = false;
+                }
             }
 
             $this->Session->write(self::$voteSessionName, $votes);
@@ -4996,14 +4997,22 @@ class GminyController extends DataobjectsController
 
             $votes = $this->Session->read(self::$voteSessionName);
             $completed = true;
+            $next = 0;
 
             foreach ($votes as $v => $vote) {
                 if ($votes[$v]['vote'] === false)
                     $completed = false;
+
+                if ($next === 0 && $votes[$v]['vote'] === false) {
+                    $next = (int) $votes[$v]['id'];
+                    $completed = false;
+                }
             }
 
             if ($completed === true)
                 $this->set('completed', $completed);
+
+            $this->set('next', $next);
 
 
         } else { /* Strona startowa */

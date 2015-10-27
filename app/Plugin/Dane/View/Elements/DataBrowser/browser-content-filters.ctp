@@ -12,7 +12,7 @@
 
 <ul class="nav nav-pills dataAggsDropdownList nopadding" role="tablist">
 
-    <? if (isset($paging['count']) && $paging['count']) { ?>
+    <? if (isset($paging['count']) && $paging['count'] && (!isset($nopaging) || !$nopaging)) { ?>
         <li>
             <div class="dataCounter">
                 <span><?= pl_dopelniacz($paging['count'], $phrases[0], $phrases[1], $phrases[2]) ?></span>
