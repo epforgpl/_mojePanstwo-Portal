@@ -2,6 +2,8 @@
 /* START ROUTES */
 Router::connect('/start', array('plugin' => 'Start', 'controller' => 'Start', 'action' => 'view'));
 
+/* KONTO ROUTES */
+Router::connect('/konto', array('plugin' => 'Start', 'controller' => 'Account', 'action' => 'index'));
 
 /* MOJE KOLEKCJE ROUTES */
 Router::connect('/moje-kolekcje', array('plugin' => 'Start', 'controller' => 'Collections', 'action' => 'index'));
