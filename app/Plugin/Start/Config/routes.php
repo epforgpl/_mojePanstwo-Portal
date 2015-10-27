@@ -3,6 +3,9 @@
 Router::connect('/start', array('plugin' => 'Start', 'controller' => 'Start', 'action' => 'view'));
 
 
+Router::connect('/moje-strony', array('plugin' => 'Start', 'controller' => 'Pages', 'action' => 'index'));
+
+
 /* MOJE KOLEKCJE ROUTES */
 Router::connect('/moje-kolekcje', array('plugin' => 'Start', 'controller' => 'Collections', 'action' => 'index'));
 Router::connect('/moje-kolekcje/nowe', array('plugin' => 'Start', 'controller' => 'Collections', 'action' => 'add'));

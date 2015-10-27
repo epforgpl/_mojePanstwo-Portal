@@ -358,12 +358,14 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe609;',
         ),
+        /*
         'moja_gmina' => array(
             'name' => 'Moja Gmina',
             'href' => '/moja_gmina',
             'tag' => 1,
             'icon' => '&#xe605;',
         ),
+        */
         'media' => array(
             'name' => 'Media',
             'href' => '/media',
@@ -376,12 +378,14 @@ class AppController extends Controller
             'tag' => 2,
             'icon' => '&#xe60e;',
         ),
+        /*
         'finanse_gmin' => array(
             'name' => 'Finanse gmin',
             'href' => '/finanse_gmin',
             'tag' => 2,
             'icon' => '&#xe602;',
         ),
+        */
         'zamowienia_publiczne' => array(
             'name' => 'Zamówienia publiczne',
             'href' => '/zamowienia_publiczne',
@@ -445,13 +449,13 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe610;',
         ),
+        /*
         'kody_pocztowe' => array(
             'name' => 'Kody pocztowe',
             'href' => '/kody_pocztowe',
             'tag' => 1,
             'icon' => '&#xe604;',
         ),
-        /*
         'patenty' => array(
             'name' => 'Patenty',
             'href' => '/patenty',
