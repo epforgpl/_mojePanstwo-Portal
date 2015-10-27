@@ -27,7 +27,7 @@ CustomMarker.prototype.draw = function () {
 				var infoWindowBlock,
 					ngoPlaceBlock = '';
 
-				$.get('/dane/krs_podmioty.json?conditions[geohash]=' + self.args.data.key, function (data) {
+				$.get('/dane/krs_podmioty.json?conditions[krs_podmioty.forma_prawna_typ_id]=2&conditions[geohash]=' + self.args.data.key, function (data) {
 					$.each(data.hits, function () {
 						var detailBlock = '',
 							info = this;
