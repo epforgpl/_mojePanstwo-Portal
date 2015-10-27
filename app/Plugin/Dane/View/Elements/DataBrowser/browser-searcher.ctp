@@ -24,7 +24,7 @@
 	        'placeholder' => $placeholder, 
 	        'url' => $url, 
 	        'searchTag' => isset($dataBrowser['searchTag']) ? $dataBrowser['searchTag'] : false,
-	        'dataBrowser' => $dataBrowser,
+	        'dataBrowser' => isset($dataBrowser) ? $dataBrowser : false,
         )) ?>
 
     <? } ?>
