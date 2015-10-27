@@ -44,7 +44,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
                             <btn class="btn btn-icon btn-default localizeMe"><span
-                                    class="icon glyphicon glyphicon-globe"
+                                    class="icon glyphicon"
                                     aria-hidden="true"></span>Zlokalizuj
                                 mnie
                             </btn>
@@ -68,7 +68,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                 </div>
             <? }
         } ?>
-				
+
         <div class="container">
             <div id="mapBrowser"
                  class="row dataBrowserContent"
@@ -115,7 +115,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                     </div>
 
                 <? } elseif (isset($mapParams)) { ?>
-										
+
                     <div class="details" itemscope itemtype="http://schema.org/Place">
                         <div class="title">
 
