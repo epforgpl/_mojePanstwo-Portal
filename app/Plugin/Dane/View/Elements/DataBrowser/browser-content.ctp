@@ -96,6 +96,7 @@ if ($dataBrowser['mode'] == 'cover') {
             <?= $this->element('Dane.DataBrowser/browser-content-filters', array(
                 'paging' => $params,
                 'paginatorPhrases' => isset($paginatorPhrases) ? $paginatorPhrases : false,
+                'nopaging' => isset($nopaging) ? (boolean) $nopaging :false,
             )) ?>
 
             <div class="dataObjects">
