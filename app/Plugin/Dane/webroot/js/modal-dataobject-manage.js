@@ -397,7 +397,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
 			'<div id="moderate-users"></div>',
 			'</div>',
 			'<div class="modal-footer">',
-			'<button type="button" class="btn btn-md btn-primary btn-icon" data-dismiss="modal">',
+			'<button type="button" class="btn btn-md auto-width btn-primary btn-icon" data-dismiss="modal">',
 			'<i class="icon glyphicon glyphicon-ok"></i>Gotowe',
 			'</button>',
 			'</div>',
@@ -530,7 +530,7 @@ ObjectUsersManagement.prototype.getUsersDOM = function () {
 				h.push([
 					'<tr data-user-index="' + i + '">',
 					'<td>',
-					'<img class="img-circle" src="' + img_src + '"/>',
+					'<img class="img-circle" style="max-width: 30px;" src="' + img_src + '"/>',
 					'</td>',
 					'<td>',
 					user.username,

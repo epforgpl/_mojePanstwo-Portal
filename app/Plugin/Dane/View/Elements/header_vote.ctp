@@ -3,6 +3,20 @@
 <? if(isset($druk) && isset($header_vote)) { ?>
     <div class="headerVote">
         <div class="container">
+
+            <h3>
+                <a role="button" data-toggle="collapse" href="#headerVoteDetails" aria-expanded="false" aria-controls="headerVoteDetails">
+                    <span class="glyphicon glyphicon-menu-hamburger text-muted" aria-hidden="true"></span>
+                </a>
+                Głosowanie
+            </h3>
+
+            <div class="collapse" id="headerVoteDetails">
+                <div class="well">
+                    YO!
+                </div>
+            </div>
+
             <? if(false !== $key = array_search($druk->getId(), array_column($header_vote, 'id'))) {
                 $vote = $header_vote[$key];
                 if($vote['vote'] === false) { /* Głosowanie */ ?>
@@ -37,20 +51,57 @@
                         }
                     }
 
-                    ?>
+                    if($next == 0) { ?>
+
+                        <div class="alert alert-warning" role="alert">
+                            Zakończyłeś głosowanie.
+                            <a href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/glosuj' : '/glosuj') ?>">Sprawdź wyniki</a>
+                            lub
+                            <a href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/glosuj?reset' : '/glosuj?reset') ?>">rozpocznij proces głosowania od nowa</a>.
+                        </div>
+
+                    <? } else { ?>
+
+                        <div class="alert alert-warning" role="alert">
+                            Już głosowałeś/aś na ten projekt.
+                            <a href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/druki/' . $next : '/druki/' . $next) ?>">Przejdź do kolejnego projektu</a>
+                            lub
+                            <a href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/glosuj?reset' : '/glosuj?reset') ?>">rozpocznij proces głosowania od nowa</a>.
+                        </div>
+
+                    <? } ?>
+
+                <? } ?>
+
+            <? } else { /* Nie można zagłosować na ten druk */
+
+                $next = 0;
+                foreach($header_vote as $vote) {
+                    if($vote['vote'] === false) {
+                        $next = $vote['id'];
+                        break;
+                    }
+                }
+
+                if($next == 0) { ?>
 
                     <div class="alert alert-warning" role="alert">
-                        Już głosowałeś/aś na ten projekt.
+                        Zakończyłeś głosowanie.
+                        <a href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/glosuj' : '/glosuj') ?>">Sprawdź wyniki</a>
+                        lub
+                        <a href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/glosuj?reset' : '/glosuj?reset') ?>">rozpocznij proces głosowania od nowa</a>.
+                    </div>
+
+                <? } else { ?>
+
+                    <div class="alert alert-warning" role="alert">
+                        Nie możesz zagłosować na ten projekt.
                         <a href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/druki/' . $next : '/druki/' . $next) ?>">Przejdź do kolejnego projektu</a>
                         lub
                         <a href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/glosuj?reset' : '/glosuj?reset') ?>">rozpocznij proces głosowania od nowa</a>.
                     </div>
 
                 <? } ?>
-
-            <? } else { /* Nie można zagłosować na ten druk */ ?>
-
-                <p>Nie można zagłosować na ten druk</p>
 
             <? } ?>
         </div>
