@@ -19,6 +19,7 @@ class StartAppController extends ApplicationsController {
                     'label' => 'Powiadomienia',
                     'href' => '/moje-powiadomienia',
                     'icon' => 'icon-applications-powiadomienia',
+                    /*
                     'submenu' => array(
 	                    'items' => array(
                             array(
@@ -33,12 +34,14 @@ class StartAppController extends ApplicationsController {
 		                    ),
 		                ),
                     ),
+                    */
                 ),
                 array(
                     'id' => 'letters',
                     'label' => 'Pisma',
                     'href' => '/moje-pisma',
                     'icon' => 'icon-applications-pisma',
+                    /*
                     'submenu' => array(
 	                    'items' => array(
                             array(
@@ -53,12 +56,14 @@ class StartAppController extends ApplicationsController {
 		                    ),
 		                ),
                     ),
+                    */
                 ),
                 array(
                     'id' => 'collections',
                     'label' => 'Kolekcje',
                     'href' => '/moje-kolekcje',
                     'icon' => 'icon-datasets-kolekcje',
+                    /*
                     'submenu' => array(
 	                    'items' => array(
                             array(
@@ -73,21 +78,19 @@ class StartAppController extends ApplicationsController {
 		                    ),
 		                ),
                     ),
+                    */
+                ),
+                array(
+                    'id' => 'account',
+                    'label' => 'Ustawienia konta',
+                    'href' => '/konto',
+                    'icon' => 'icon-datasets-users',
                 ),
                 array(
                     'id' => 'pages',
                     'label' => 'Strony którymi zarządzam',
                     'href' => '/moje-strony',
-                    'icon' => 'icon-datasets-kolekcje',
-                    'submenu' => array(
-                        'items' => array(
-                            array(
-                                'id' => 'index',
-                                'href' => '/',
-                                'label' => 'Moje strony',
-                            )
-                        ),
-                    ),
+                    'icon' => 'icon-datasets-strony',
                 ),
             )
         )
