@@ -43,8 +43,8 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             ?>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
-                            <btn class="btn btn-icon btn-primary localizeMe"><span
-                                    class="icon glyphicon glyphicon-globe"
+                            <btn class="btn btn-icon btn-default localizeMe"><span
+                                    class="icon glyphicon"
                                     aria-hidden="true"></span>Zlokalizuj
                                 mnie
                             </btn>
@@ -79,12 +79,12 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
                 <div class="map<? if (!isset($mapParams) && !isset($dataBrowser)) { ?> nodetails<? } ?>"></div>
 
-                <? if (isset($dataBrowser)) { ?>
+                <? if (isset($dataBrowser) && isset($this->request->query['q']) ) { ?>
 
                     <div class="details">
                         <div class="title">
 
-                            <h1><?= $this->request->query['q'] ?></h1>
+                            <h1><?= isset($this->request->query['q']) ? $this->request->query['q'] : 'Mapa' ?></h1>
 
                         </div>
 
@@ -156,7 +156,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                             </li>
                                         <? } ?>
 
-                                        <? if ($typ_id > 3) { ?>
+                                        <? if ( ($typ_id > 3) ) { ?>
                                             <li>
                                                 <label>Gmina:</label>
                                                 <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.gmina_miejsce_id'] ?><? if (isset($widget)) echo '?widget';
@@ -180,14 +180,12 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                             </li>
                                         <? } ?>
 
-                                        <? /*
-	                                    <? if (count($mapParams['codes']) === 1) { ?>
+	                                    <? if (count($mapParams['codes']) < 3) { ?>
 	                                        <li>
 	                                            <label>Kod pocztowy:</label>
 	                                            <a href="/mapa/<?= $mapParams['codes'][0]['key'] ?><? if(isset($widget)) echo '?widget'; if(isset($_GET["redirect"])) echo '&redirect';?>"><?= $mapParams['codes'][0]['key'] ?></a>
 	                                        </li>
 	                                    <? } ?>
-	                                    */ ?>
 
                                     </ul>
                                 <? } ?>

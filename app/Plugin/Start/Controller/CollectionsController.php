@@ -2,13 +2,15 @@
 
 App::uses('StartAppController', 'Start.Controller');
 
-class CollectionsController extends StartAppController {
+class CollectionsController extends StartAppController
+{
 
     public $uses = array('Collections.Collection');
     public $chapter_selected = 'collections';
     public $appSelected = 'kolekcje';
 
-    public function index() {
+    public function index()
+    {
 
         $this->title = 'Moje Kolekcje';
 
@@ -23,14 +25,15 @@ class CollectionsController extends StartAppController {
 
     }
 
-    public function add() {
+    public function add()
+    {
         $this->title = 'Dodaj Kolekcje';
 
-        if(count($this->request->data)) {
+        if (count($this->request->data)) {
             $results = $this->Collection->create($this->request->data);
-            if(isset($results['Collection'])) {
+            if (isset($results['Collection'])) {
                 $message = 'Kolekcja została poprawnie dodana';
-            } elseif(is_array($results)) {
+            } elseif (is_array($results)) {
                 $errors = reset(array_values($results));
                 $message = $errors[0];
             } else {
@@ -38,24 +41,30 @@ class CollectionsController extends StartAppController {
             }
 
             $this->Session->setFlash($message);
-            if(isset($results['Collection']))
+            if (isset($results['Collection']))
                 $this->redirect('/moje-kolekcje');
         }
     }
 
-    public function edit($id) {
-        if(count($this->request->data)) {
+    public function edit($id)
+    {
+        if (count($this->request->data)) {
             $results = $this->Collection->edit($id, $this->request->data);
-            if(isset($results['Collection'])) {
+            $class = "alert-info";
+
+            if (isset($results['Collection'])) {
                 $message = 'Kolekcja została poprawnie zapisana';
-            } elseif(is_array($results)) {
+                $class = "alert-success";
+            } elseif (is_array($results)) {
                 $errors = reset(array_values($results));
                 $message = $errors[0];
+                $class = "alert-error";
             } else {
                 $message = 'Wystąpił błąd';
+                $class = "alert-error";
             }
 
-            $this->Session->setFlash($message);
+            $this->Session->setFlash($message, null, array('class' => $class));
         }
 
         $this->loadModel('Dane.Dataobject');
@@ -67,40 +76,41 @@ class CollectionsController extends StartAppController {
             ),
         ));
 
-        if(!$item)
+        if (!$item)
             throw new NotFoundException;
 
         $this->title = $item->getTitle();
         $this->set('item', $item);
     }
 
-    public function view($id) {
-        if(count($this->request->data)) {
+    public function view($id)
+    {
+        if (count($this->request->data)) {
             $this->Collection->delete($id);
-            $this->Session->setFlash('Kolekcja została poprawnie usunięta');
+            $this->Session->setFlash('Kolekcja została poprawnie usunięta', null, array('class' => 'alert-success'));
             $this->redirect('/moje-kolekcje');
         }
 
-		$this->loadModel('Dane.Dataobject');
-		$item = $this->Dataobject->find('first', array(
-			'conditions' => array(
-				'dataset' => 'kolekcje',
-				'id' => $id,
-				'kolekcje.user_id' => $this->Auth->user('id'),
-			),
-		));
+        $this->loadModel('Dane.Dataobject');
+        $item = $this->Dataobject->find('first', array(
+            'conditions' => array(
+                'dataset' => 'kolekcje',
+                'id' => $id,
+                'kolekcje.user_id' => $this->Auth->user('id'),
+            ),
+        ));
 
-        if(!$item)
+        if (!$item)
             throw new NotFoundException;
 
         $this->Components->load('Dane.DataBrowser', array(
-	        'conditions' => array(
-		        'collection_id' => $id,
-	        ),
+            'conditions' => array(
+                'collection_id' => $id,
+            ),
         ));
 
         $this->title = $item->getTitle();
-		$this->set('item', $item);
+        $this->set('item', $item);
     }
 
 }

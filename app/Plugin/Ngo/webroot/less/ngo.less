@@ -80,6 +80,9 @@
 }
 
 .infoWindowNgo {
+    display: inline-block;
+    max-height: 300px;
+    overflow-x: hidden;
     width: 300px;
 
     .ngoPlace {
@@ -97,6 +100,7 @@
         }
 
         .title {
+	        font-size: 13px;
             > a {
                 color: #053f69;
 
@@ -117,29 +121,13 @@
                     border-radius: 20px;
                 }
                 .titleName {
+                    margin-top: 5px;
                     line-height: 1em;
-                    width: 260px;
+                    width: 250px;
                     float: left;
+                    min-height: 25px;
                 }
             }
-        }
-        .detail {
-            display: block;
-            width: 100%;
-            float: left;
-            padding-top: 4px;
-
-            .dataHighlight {
-                padding: 2px 0 0;
-                overflow: auto;
-
-                ._value {
-                    font-size: 11px;
-                    font-weight: normal;
-                    margin-top: 0;
-                }
-            }
-
         }
     }
 }

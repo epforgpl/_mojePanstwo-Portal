@@ -66,12 +66,7 @@ class PaszportController extends ApplicationsController
                 if (isset($response['errors']) && is_array($response['errors']) && count($response['errors']) > 0) {
 
                     foreach ($response['errors'] as $field => $error) {
-                        $this->Session->setFlash(
-                            __d('paszport', $error, true),
-                            'default',
-                            array(),
-                            'auth'
-                        );
+                        $this->Session->setFlash(__d('paszport', $error, true), null, array('class' => 'alert-danger'));
                     }
 
                 } elseif (isset($response['success']) && $response['success']) {
@@ -88,12 +83,7 @@ class PaszportController extends ApplicationsController
                 if (isset($response['errors']) && is_array($response['errors']) && count($response['errors']) > 0) {
 
                     foreach ($response['errors'] as $field => $error) {
-                        $this->Session->setFlash(
-                            __d('paszport', $error, true),
-                            'default',
-                            array(),
-                            'auth'
-                        );
+                        $this->Session->setFlash(__d('paszport', $error, true), null, array('class' => 'alert-danger'));
                     }
 
                 } elseif (isset($response['success']) && $response['success']) {
@@ -110,12 +100,7 @@ class PaszportController extends ApplicationsController
                 ));
                 if (isset($response['errors']) && is_array($response['errors']) && count($response['errors']) > 0) {
                     foreach ($response['errors'] as $field => $error) {
-                        $this->Session->setFlash(
-                            __d('paszport', $error, true),
-                            'default',
-                            array(),
-                            'auth'
-                        );
+                        $this->Session->setFlash(__d('paszport', $error, true), null, array('class' => 'alert-danger'));
                     }
                 } elseif (isset($response['success']) && $response['success']) {
                     $this->set('token', $this->request->query['token']);
@@ -123,15 +108,6 @@ class PaszportController extends ApplicationsController
                 } else {
                     throw new BadRequestException();
                 }
-            }
-        }
-    }
-
-    private function saveRefererUrl() {
-        if (!$this->Session->check('Auth.redirect')) {
-            $ref = $this->request->referer();
-            if ($ref != Router::url(null, true)) {
-                $this->Auth->redirectUrl($ref);
             }
         }
     }
@@ -163,19 +139,14 @@ class PaszportController extends ApplicationsController
 
             if (isset($response['errors']) && is_array($response['errors']) && count($response['errors']) > 0) {
                 foreach ($response['errors'] as $field => $error) {
-                    $this->Session->setFlash(
-                        __($error[0]),
-                        'default',
-                        array(),
-                        'auth'
-                    );
+                    $this->Session->setFlash(__($error[0]), null, array('class' => 'alert-error'));
                 }
             } elseif (isset($response['user']) && $response['user']) {
                 // dostosowanie danych do takiego samego formatu który jest zwracany
                 // podczas logowania przez formularz
                 $user = $response['user']['User'];
-                foreach($response['user'] as $model => $values) {
-                    if($model != 'User')
+                foreach ($response['user'] as $model => $values) {
+                    if ($model != 'User')
                         $user[$model] = $values;
                 }
 
@@ -183,6 +154,16 @@ class PaszportController extends ApplicationsController
                 $this->redirect($this->Auth->redirectUrl());
             } else {
                 throw new BadRequestException();
+            }
+        }
+    }
+
+    private function saveRefererUrl()
+    {
+        if (!$this->Session->check('Auth.redirect')) {
+            $ref = $this->request->referer();
+            if ($ref != Router::url(null, true)) {
+                $this->Auth->redirectUrl($ref);
             }
         }
     }
@@ -221,12 +202,7 @@ class PaszportController extends ApplicationsController
                     $this->redirect($this->Auth->redirectUrl());
 
                 } catch (Exception $e) {
-                    $this->Session->setFlash(
-                        __($e->getMessage()),
-                        'default',
-                        array(),
-                        'auth'
-                    );
+                    $this->Session->setFlash(__($e->getMessage()), null, array('class' => 'alert-danger'));
                 }
             }
 
@@ -251,12 +227,7 @@ class PaszportController extends ApplicationsController
             if (isset($response['errors']) && is_array($response['errors']) && count($response['errors']) > 0) {
 
                 foreach ($response['errors'] as $field => $error) {
-                    $this->Session->setFlash(
-                        __($error[0]),
-                        'default',
-                        array(),
-                        'auth'
-                    );
+                    $this->Session->setFlash(__($error[0]), null, array('class' => 'alert-danger'));
                 }
 
             } elseif (isset($response['user']) && $response['user']) {

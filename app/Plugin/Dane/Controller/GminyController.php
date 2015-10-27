@@ -201,6 +201,8 @@ class GminyController extends DataobjectsController
         'bigTitle' => true,
     );
 
+    private static $voteSessionName = 'Krakow.Vote';
+
     public function view()
     {
 
@@ -2112,6 +2114,17 @@ class GminyController extends DataobjectsController
         $this->request->params['action'] = 'rada';
 
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
+
+            if($this->Session->check(self::$voteSessionName) && $this->object->getId() == '903') {
+                $header_vote = $this->Session->read(self::$voteSessionName);
+                $header_vote_progress = 0;
+                foreach($header_vote as $vote) {
+                    if($vote['vote'] !== false)
+                        $header_vote_progress += 10;
+                }
+                $this->set('header_vote_progress', $header_vote_progress);
+                $this->set('header_vote', $header_vote);
+            }
 
             $druk = $this->Dataobject->find('first', array(
                 'conditions' => array(
@@ -4878,6 +4891,124 @@ class GminyController extends DataobjectsController
         $this->set('_submenu', array_merge($this->submenus['rada'], array(
             'selected' => 'aktywnosci',
         )));
+    }
+
+    public function glosuj() {
+        $this->_prepareView();
+
+        if($this->object->getId() != '903')
+            throw new NotFoundException;
+
+        if($this->Session->check(self::$voteSessionName))
+            $this->set('vote', $this->Session->read(self::$voteSessionName));
+
+        if(isset($this->request->data['start'])) { /* Rozpoczęcie głosowania */
+
+            $druki = $this->Dataobject->find('all', array(
+                'conditions' => array(
+                    'dataset' => 'rady_druki',
+                ),
+                'aggs' => array(
+
+                ),
+                'limit' => 10
+            ));
+
+            $fields = array('id', 'nazwa', 'opis', 'data');
+            $_druki = array();
+            foreach($druki as $druk) {
+                $data = $druk->getData();
+                $row = array(
+                    'vote' => false
+                );
+                foreach($fields as $f)
+                    $row[$f] = $data[$f];
+                $_druki[] = $row;
+            }
+
+            $this->Session->write(self::$voteSessionName, $_druki);
+
+            $this->redirect(
+                (isset($this->domainMode) && $this->domainMode == 'MP' ?
+                    '/dane/gminy/903,krakow/druki/' . $_druki[0]['id']
+                    : '/radni/' . $_druki[0]['id']
+                )
+            );
+
+        } elseif(isset($this->request->query['reset'])) {
+
+            $this->Session->delete(self::$voteSessionName);
+            $this->redirect(
+                (isset($this->domainMode) && $this->domainMode == 'MP' ?
+                    '/dane/gminy/903,krakow/glosuj'
+                    : '/glosuj'
+                )
+            );
+
+        } elseif( /* Oddany głos */
+            $this->Session->check(self::$voteSessionName) &&
+            isset($this->request->data['vote']) &&
+            isset($this->request->data['vote_id'])
+        ) {
+            $dict = array(
+                'Za' => 1,
+                'Wstrzymuje się' => 0,
+                'Przeciw' => -1
+            );
+            $user_vote = $this->request->data['vote'];
+            if (!in_array($user_vote, array_keys($dict)))
+                throw new NotFoundException;
+            $user_vote = (int)$dict[$user_vote];
+
+            $vote_id = (int)$this->request->data['vote_id'];
+            $votes = $this->Session->read(self::$voteSessionName);
+            $next = 0;
+            $completed = true;
+
+            foreach ($votes as $v => $vote) {
+                if ($votes[$v]['id'] == $vote_id) {
+                    $votes[$v]['vote'] = $user_vote;
+                    $next = isset($votes[$v + 1]['id']) ? $votes[$v + 1]['id'] : false;
+                }
+
+                if ($votes[$v]['vote'] === false)
+                    $completed = false;
+            }
+
+            $this->Session->write(self::$voteSessionName, $votes);
+
+            if ($completed === false && $next !== false) {
+                $this->redirect(
+                    (isset($this->domainMode) && $this->domainMode == 'MP' ?
+                        '/dane/gminy/903,krakow/druki/' . $next
+                        : '/radni/' . $next
+                    )
+                );
+            }
+
+            if ($completed === true)
+                $this->set('completed', $completed);
+
+
+        } elseif(
+            $this->Session->check(self::$voteSessionName)
+        ) { /* Zakończono głosowanie lub nie ($completed) */
+
+            $votes = $this->Session->read(self::$voteSessionName);
+            $completed = true;
+
+            foreach ($votes as $v => $vote) {
+                if ($votes[$v]['vote'] === false)
+                    $completed = false;
+            }
+
+            if ($completed === true)
+                $this->set('completed', $completed);
+
+
+        } else { /* Strona startowa */
+
+        }
     }
 
 

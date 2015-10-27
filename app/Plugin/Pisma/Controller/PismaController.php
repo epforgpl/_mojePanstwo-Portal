@@ -170,7 +170,7 @@ class PismaController extends ApplicationsController
             } elseif (isset($this->request->data['send'])) {
 
                 if( $this->Pismo->documents_send($id, $this->request->data) ) {
-	                $this->Session->setFlash('Twoje pismo zostało wysłane!');
+                    $this->Session->setFlash('Twoje pismo zostało wysłane!', null, array('class' => 'alert-success'));
                 }
 
             } elseif (isset($this->request->data['access'])) {

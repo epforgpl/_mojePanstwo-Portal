@@ -44,6 +44,9 @@
 
     echo $this->Html->css('../libs/jqueryui/themes/cupertino/jquery-ui.theme.min.css');
 
+    if(isset($header_vote) && is_array($header_vote))
+        $this->Combinator->add_libs('css', $this->Less->css('header-vote', array('plugin' => 'Dane')));
+
     $this->Combinator->add_libs('css', $this->Less->css('jquery/jquery-ui-customize'), false);
     $this->Combinator->add_libs('css', $this->Less->css('structure'), false);
     $this->Combinator->add_libs('css', $this->Less->css('main'), false);

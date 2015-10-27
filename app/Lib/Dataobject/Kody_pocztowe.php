@@ -22,5 +22,11 @@ class Kody_pocztowe extends DataObject
     {
         return 'Kod pocztowy';
     }
+    
+    public function getUrl() {
+	    
+	    return '/mapa/' . $this->getData('kod');
+	    
+    }
 
 }

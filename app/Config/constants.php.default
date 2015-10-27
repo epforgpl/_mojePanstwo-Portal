@@ -25,7 +25,3 @@
 
     define('CROSSDOMAIN_salt', 'numericsalt');
     define('HFHR_SECRET', 'numericsalt');
-
-    // optionally define sentry
-    define('SENTRY_DSN_PHP', 'http://app:token@host');
-    define('SENTRY_DSN_JS', 'http://app@host');

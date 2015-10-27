@@ -2,7 +2,8 @@
 
 App::uses('StartAppController', 'Start.Controller');
 
-class LettersController extends StartAppController {
+class LettersController extends StartAppController
+{
 
     public $chapter_selected = 'letters';
 
@@ -22,7 +23,8 @@ class LettersController extends StartAppController {
         ),
     );
 
-    public function beforeFilter() {
+    public function beforeFilter()
+    {
         parent::beforeFilter();
         $this->Auth->allow();
     }
@@ -151,7 +153,7 @@ class LettersController extends StartAppController {
             } elseif (isset($this->request->data['send'])) {
 
                 if ($this->Pismo->documents_send($id, $this->request->data)) {
-                    $this->Session->setFlash('Twoje pismo zostało wysłane!');
+                    $this->Session->setFlash('Twoje pismo zostało wysłane!', null, array('class' => 'alert-success'));
                 }
 
             } elseif (isset($this->request->data['access'])) {

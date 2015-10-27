@@ -203,6 +203,7 @@ class AppController extends Controller
             	'menu_id' => 'zamawiajacy',
             ),
         ),
+        /*
         'moja_gmina' => array(
             'gminy' => array(
             	'label' => 'Gminy',
@@ -224,6 +225,7 @@ class AppController extends Controller
             	'menu_id' => 'miejscowosci',
             ),
         ),
+        */
         'media' => array(
             'twitter_accounts' => array(
             	'label' => 'Obserwowane konta',
@@ -332,6 +334,12 @@ class AppController extends Controller
             'href' => '/ngo',
             'tag' => 1,
             'icon' => '&#xe614;',
+        ),
+        'mapa' => array(
+            'name' => 'Mapa',
+            'href' => '/mapa',
+            'tag' => 1,
+            'icon' => '&#xe605;',
         ),
         'prawo' => array(
             'name' => 'Prawo',
