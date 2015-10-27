@@ -20,6 +20,8 @@
             ?>
             <li class="accord accord-fullheight wyboryDetail<? if (!isset($widget)) {
                 echo ' closed';
+            } else {
+                echo ' widget';
             } ?>"
                 data-obwody="<?= @implode(',', $ils) ?>"
                 data-sejm="<?= $array_column_sejm ?>"

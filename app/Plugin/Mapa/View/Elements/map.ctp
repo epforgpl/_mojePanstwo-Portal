@@ -79,7 +79,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
                 <div class="map<? if (!isset($mapParams) && !isset($dataBrowser)) { ?> nodetails<? } ?>"></div>
 
-                <? if (isset($dataBrowser) && isset($this->request->query['q']) ) { ?>
+                <? if (isset($dataBrowser) && isset($this->request->query['q'])) { ?>
 
                     <div class="details">
                         <div class="title">
@@ -118,7 +118,6 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
                     <div class="details" itemscope itemtype="http://schema.org/Place">
                         <div class="title">
-
                             <? if (@$mapParams['mode'] == 'place') { ?>
                                 <? if (($mapParams['data']['typ_id'] == '4') && isset($mapParams['data']['miejsca.miejscowosc_typ'])) { ?>
                                     <p class="_label"><?= $mapParams['data']['miejsca.miejscowosc_typ'] ?></p>
@@ -156,9 +155,14 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                             </li>
                                         <? } ?>
 
-                                        <? if ( ($typ_id > 3) ) { ?>
+                                        <? if (($typ_id > 3)) { ?>
                                             <li>
                                                 <label>Gmina:</label>
+                                                <? if (!isset($widget)) { ?>
+                                                    <a href="/dane/gminy/<?= $mapParams['data']['miejsca.gmina_id'] ?>"
+                                                       target="_blank"><span class="glyphicon glyphicon-share"
+                                                                             aria-hidden="true"></span></a>
+                                                <? } ?>
                                                 <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.gmina_miejsce_id'] ?><? if (isset($widget)) echo '?widget';
                                                 if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= ($mapParams['data']['gmina']) ?></a>
                                             </li>
@@ -167,6 +171,11 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         <? if ($typ_id > 2) { ?>
                                             <li>
                                                 <label>Powiat:</label>
+                                                <? if (!isset($widget)) { ?>
+                                                    <a href="/dane/powiaty/<?= $mapParams['data']['miejsca.powiat_id'] ?>"
+                                                       target="_blank"><span class="glyphicon glyphicon-share"
+                                                                             aria-hidden="true"></span></a>
+                                                <? } ?>
                                                 <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.powiat_miejsce_id'] ?><? if (isset($widget)) echo '?widget';
                                                 if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= ($mapParams['data']['powiat']) ?></a>
                                             </li>
@@ -175,17 +184,23 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         <? if ($typ_id > 1) { ?>
                                             <li>
                                                 <label>Województwo:</label>
+                                                <? if (!isset($widget)) { ?>
+                                                    <a href="/dane/wojewodztwa/<?= $mapParams['data']['miejsca.wojewodztwo_id'] ?>"
+                                                       target="_blank"><span class="glyphicon glyphicon-share"
+                                                                             aria-hidden="true"></span></a>
+                                                <? } ?>
                                                 <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.wojewodztwo_miejsce_id'] ?><? if (isset($widget)) echo '?widget';
                                                 if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= strtolower($mapParams['data']['wojewodztwo']) ?></a>
                                             </li>
                                         <? } ?>
 
-	                                    <? if (count($mapParams['codes']) < 3) { ?>
-	                                        <li>
-	                                            <label>Kod pocztowy:</label>
-	                                            <a href="/mapa/<?= $mapParams['codes'][0]['key'] ?><? if(isset($widget)) echo '?widget'; if(isset($_GET["redirect"])) echo '&redirect';?>"><?= $mapParams['codes'][0]['key'] ?></a>
-	                                        </li>
-	                                    <? } ?>
+                                        <? if (count($mapParams['codes']) < 3) { ?>
+                                            <li>
+                                                <label>Kod pocztowy:</label>
+                                                <a href="/mapa/<?= $mapParams['codes'][0]['key'] ?><? if (isset($widget)) echo '?widget';
+                                                if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $mapParams['codes'][0]['key'] ?></a>
+                                            </li>
+                                        <? } ?>
 
                                     </ul>
                                 <? } ?>
