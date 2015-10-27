@@ -106,7 +106,12 @@ function mapaWarstwy(map) {
 }
 
 mapaWarstwy.prototype.setLayer = function (layer) {
-	google.maps.event.addDomListener(this.map, 'idle', this.mapUpdate(layer));
+	var self = this;
+
+	google.maps.event.addListenerOnce(map, 'idle', function () {
+		self.layer = layer;
+		google.maps.event.addDomListener(self.map, 'idle', self.mapUpdate(layer));
+	});
 };
 
 mapaWarstwy.prototype.showNgo = function (data) {
@@ -174,10 +179,8 @@ mapaWarstwy.prototype.getArea = function () {
 	var bounds = this.map.getBounds(),
 		precision = this.map.getZoom();
 
-	console.log(bounds, typeof bounds, typeof bounds == "undefined");
-
 	if (typeof bounds == "undefined") {
-		return {tl: false, br: false, zoom: false};
+		return true;
 	} else {
 		var ne_lat = bounds.getNorthEast().lat(),
 			sw_lng = bounds.getSouthWest().lng(),
@@ -200,7 +203,7 @@ mapaWarstwy.prototype.getArea = function () {
 };
 
 mapaWarstwy.prototype.mapUpdateResults = function (data, area) {
-	if (area.zoom !== this.astArea.zoom) {
+	if (area.zoom !== this.lastArea.zoom) {
 		$.each(mapaWarstwy.markers.ngo, function (key, value) {
 			value.setMap(null);
 		});
@@ -214,8 +217,6 @@ mapaWarstwy.prototype.mapUpdateResults = function (data, area) {
 
 mapaWarstwy.prototype.mapUpdate = function (layer) {
 	var self = this;
-
-	self.layer = layer;
 
 	if (infowindow === null || infowindow.getMap() === null) {
 		self.pendingArea = self.getArea();
