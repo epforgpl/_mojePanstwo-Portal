@@ -156,6 +156,13 @@
                     </div>
                 <?php } ?>
 
+                <div class="text-center margin-top-20">
+                    <a href="/moje-pisma/nowe" class="btn btn-primary btn-icon submit auto-width">
+                        <i aria-hidden="true" class="icon glyphicon glyphicon-plus"></i>
+                        Nowe pismo
+                    </a>
+                </div>
+
             <? } else {
                 if ($q) {
                     ?>
