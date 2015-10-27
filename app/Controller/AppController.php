@@ -339,7 +339,7 @@ class AppController extends Controller
             'name' => 'Mapa',
             'href' => '/mapa',
             'tag' => 1,
-            'icon' => '&#xe605;',
+            'icon' => '&#xe900;',
         ),
         'prawo' => array(
             'name' => 'Prawo',
@@ -666,6 +666,28 @@ class AppController extends Controller
 
     }
 
+    public function hasUserRole($role)
+    {
+
+        $roles = $this->getUserRoles();
+        if (@in_array('2', $roles))
+            return true;
+        else
+            return @in_array($role, $roles);
+
+    }
+
+    public function getUserRoles()
+    {
+
+        if ($this->Auth->user()) {
+
+            return @array_column($this->Auth->user('UserRole'), 'role_id');
+
+        } else return array();
+
+    }
+
     public function getDatasetByAlias($app_id = false, $alias = false)
     {
 	    if( $app_id && $alias && array_key_exists($app_id, $this->datasets) ) {
@@ -825,26 +847,6 @@ class AppController extends Controller
                 return false;
 
         } else return $this->datasets;
-
-    }
-
-    public function getUserRoles() {
-
-	    if( $this->Auth->user() ) {
-
-		    return @array_column($this->Auth->user('UserRole'), 'role_id');
-
-	    } else return array();
-
-    }
-
-    public function hasUserRole($role) {
-
-	    $roles = $this->getUserRoles();
-	    if( @in_array('2', $roles) )
-	    	return true;
-	    else
-	    	return @in_array($role, $roles);
 
     }
 
