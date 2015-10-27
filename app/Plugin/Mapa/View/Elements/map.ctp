@@ -156,7 +156,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                             </li>
                                         <? } ?>
 
-                                        <? if ($typ_id > 3) { ?>
+                                        <? if ( ($typ_id > 3) ) { ?>
                                             <li>
                                                 <label>Gmina:</label>
                                                 <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.gmina_miejsce_id'] ?><? if (isset($widget)) echo '?widget';
@@ -180,14 +180,12 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                             </li>
                                         <? } ?>
 
-                                        <? /*
-	                                    <? if (count($mapParams['codes']) === 1) { ?>
+	                                    <? if (count($mapParams['codes']) < 3) { ?>
 	                                        <li>
 	                                            <label>Kod pocztowy:</label>
 	                                            <a href="/mapa/<?= $mapParams['codes'][0]['key'] ?><? if(isset($widget)) echo '?widget'; if(isset($_GET["redirect"])) echo '&redirect';?>"><?= $mapParams['codes'][0]['key'] ?></a>
 	                                        </li>
 	                                    <? } ?>
-	                                    */ ?>
 
                                     </ul>
                                 <? } ?>

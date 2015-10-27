@@ -203,6 +203,7 @@ class AppController extends Controller
             	'menu_id' => 'zamawiajacy',
             ),
         ),
+        /*
         'moja_gmina' => array(
             'gminy' => array(
             	'label' => 'Gminy',
@@ -224,6 +225,7 @@ class AppController extends Controller
             	'menu_id' => 'miejscowosci',
             ),
         ),
+        */
         'media' => array(
             'twitter_accounts' => array(
             	'label' => 'Obserwowane konta',
@@ -333,6 +335,12 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe614;',
         ),
+        'mapa' => array(
+            'name' => 'Mapa',
+            'href' => '/mapa',
+            'tag' => 1,
+            'icon' => '&#xe605;',
+        ),
         'prawo' => array(
             'name' => 'Prawo',
             'href' => '/prawo',
@@ -358,12 +366,14 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe609;',
         ),
+        /*
         'moja_gmina' => array(
             'name' => 'Moja Gmina',
             'href' => '/moja_gmina',
             'tag' => 1,
             'icon' => '&#xe605;',
         ),
+        */
         'media' => array(
             'name' => 'Media',
             'href' => '/media',
@@ -445,12 +455,14 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe610;',
         ),
+        /*
         'kody_pocztowe' => array(
             'name' => 'Kody pocztowe',
             'href' => '/kody_pocztowe',
             'tag' => 1,
             'icon' => '&#xe604;',
         ),
+        */
         /*
         'patenty' => array(
             'name' => 'Patenty',
