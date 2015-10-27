@@ -140,8 +140,14 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             <? } elseif (@$mapParams['mode'] == 'code') { ?>
                                 <p class="_label">Kod pocztowy</p>
                             <? } ?>
-
-                            <h1><?= $mapParams['title'] ?></h1>
+							
+							
+							<? if( @$mapParams['data']['typ_id']==3 ) {?>
+								<h1><a href="/dane/gminy/<?= $mapParams['data']['miejsca.gmina_id'] ?>"><?= $mapParams['title'] ?></a></h1>
+							<? } else {?>
+	                            <h1><?= $mapParams['title'] ?></h1>
+                            <? } ?>
+                            
                             <?
                             if (@$mapParams['mode'] == 'place') {
                                 $typ_id = (int)$mapParams['data']['typ_id'];
