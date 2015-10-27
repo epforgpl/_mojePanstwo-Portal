@@ -43,7 +43,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             ?>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
-                            <btn class="btn btn-icon btn-primary localizeMe"><span
+                            <btn class="btn btn-icon btn-default localizeMe"><span
                                     class="icon glyphicon glyphicon-globe"
                                     aria-hidden="true"></span>Zlokalizuj
                                 mnie
@@ -68,7 +68,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                 </div>
             <? }
         } ?>
-
+				
         <div class="container">
             <div id="mapBrowser"
                  class="row dataBrowserContent"
@@ -79,12 +79,12 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
                 <div class="map<? if (!isset($mapParams) && !isset($dataBrowser)) { ?> nodetails<? } ?>"></div>
 
-                <? if (isset($dataBrowser)) { ?>
+                <? if (isset($dataBrowser) && isset($this->request->query['q']) ) { ?>
 
                     <div class="details">
                         <div class="title">
 
-                            <h1><?= $this->request->query['q'] ?></h1>
+                            <h1><?= isset($this->request->query['q']) ? $this->request->query['q'] : 'Mapa' ?></h1>
 
                         </div>
 
@@ -115,7 +115,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                     </div>
 
                 <? } elseif (isset($mapParams)) { ?>
-
+										
                     <div class="details" itemscope itemtype="http://schema.org/Place">
                         <div class="title">
 

@@ -236,8 +236,7 @@ class PlacesController extends ApplicationsController
             }
 
         }
-
-
+		
         $this->title = $place->getTitle();
 		$this->set('mapParams', array(
 			'mode' => 'place',
