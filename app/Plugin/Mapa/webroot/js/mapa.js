@@ -767,11 +767,13 @@ var MapBrowser = Class.extend({
 	}
 });
 
-var map, localizer;
+var map, mapBrowser, localizer;
 
 $(document).ready(function () {
-	map = new MapBrowser();
+	mapBrowser = new MapBrowser();
 	localizer = new Localizer();
+
+	map = mapBrowser.map;
 
 	$('.localizeMe').click(function () {
 		var self = $(this);
@@ -796,30 +798,30 @@ $(document).ready(function () {
 					height: sectionH
 				}, {
 					step: function () {
-						map.resize();
+						mapBrowser.resize();
 					},
 					complete: function () {
-						map.resize();
+						mapBrowser.resize();
 					}
 				})
 			} else {
 				self.addClass('closed');
-				map.resize();
+				mapBrowser.resize();
 				self.find('>section').animate({
 					height: 0
 				}, {
 					step: function () {
-						map.resize();
+						mapBrowser.resize();
 					},
 					complete: function () {
 						self.addClass('closed');
 						self.find('>section').css('height', 'auto');
-						map.resize();
+						mapBrowser.resize();
 					}
 				})
 			}
 
-			//map.resize();
+			//mapBrowser.resize();
 		})
 	})
 });

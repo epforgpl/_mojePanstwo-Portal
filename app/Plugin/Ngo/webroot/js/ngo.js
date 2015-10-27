@@ -1,17 +1,10 @@
 var map,
-	markers = [],
-	mapUpdateTimer,
-	infowindow = null,
-	pendingArea = {tl: false, br: false, zoom: false},
-	lastArea = {tl: false, br: false, zoom: false},
-	mapActive = true,
+	mapaWarstwy,
 	mapInit = false,
-	polygon = false,
-	cacheAjax = {};
+	polygon = false;
 
 $(document).ready(function () {
-	var xhr,
-		options = {
+	var options = {
 			zoom: 6,
 			center: new google.maps.LatLng(51.986797406813125, 19.32958984375001),
 			panControl: false,
@@ -76,144 +69,14 @@ $(document).ready(function () {
 			strokeColor: "#444499",
 			strokeWeight: 1
 		}),
-		ngoIcon = {
-			path: 'M-8,0a8,8 0 1,0 16,0a8,8 0 1,0 -16,0',
-			fillColor: 'red',
-			strokeColor: 'red',
-			fillOpacity: 1
-		},
 		mapSpinner = $('.mapSpinner');
-
-	var getArea = function () {
-		var bounds = map.getBounds(),
-			precision = map.getZoom(),
-			ne_lat = bounds.getNorthEast().lat(),
-			sw_lng = bounds.getSouthWest().lng(),
-			sw_lat = bounds.getSouthWest().lat(),
-			ne_lng = bounds.getNorthEast().lng(),
-
-			f = .1,
-
-			ne_lat_fixed = ne_lat + ((ne_lat - sw_lat) * f),
-			ne_lng_fixed = ne_lng + ((ne_lng - sw_lng) * f),
-			sw_lat_fixed = sw_lat - ((ne_lat - sw_lat) * f),
-			sw_lng_fixed = sw_lng - ((ne_lng - sw_lng) * f);
-
-		return {
-			tl: Geohash.encode(ne_lat_fixed, sw_lng_fixed, precision),
-			br: Geohash.encode(sw_lat_fixed, ne_lng_fixed, precision),
-			zoom: map.getZoom()
-		};
-	};
-
-	var mapUpdate = function () {
-		if (!mapActive)
-			return false;
-
-		if (infowindow === null || infowindow.getMap() === null) {
-			pendingArea = getArea();
-
-			window.clearTimeout(mapUpdateTimer);
-			mapUpdateTimer = window.setTimeout(function () {
-				var area = getArea();
-
-				if ((area.tl == pendingArea.tl) && (area.br == pendingArea.br)) {
-					mapInit = true;
-					if ((area.tl != lastArea.tl) || (area.br != lastArea.br)) {
-						var areaParms = area.tl + ',' + area.br;
-
-						if (areaParms in cacheAjax) {
-							mapUpdateResults(cacheAjax[areaParms], area);
-						} else {
-							if (xhr && xhr.readystate != 4) {
-								xhr.abort();
-								mapSpinner.addClass('hide');
-							}
-
-							mapSpinner.removeClass('hide');
-							xhr = $.get('/ngo/map.json', {
-								area: areaParms
-							}, function (data) {
-								cacheAjax[areaParms] = data;
-								mapUpdateResults(data, area);
-							}, 'json');
-						}
-					}
-				}
-			}, 400);
-		}
-	};
-
-	var mapUpdateResults = function (data, area) {
-		if (area.zoom !== lastArea.zoom) {
-			$.each(markers, function (key, value) {
-				value.setMap(null);
-			});
-
-			markers = {};
-		}
-
-		lastArea = area;
-
-		for (var i = 0; i < data.grid.buckets.length; i++) {
-			var cell = data.grid.buckets[i],
-				center = Geohash.decode(cell.key),
-				f = .5,
-				term = 'marker-' + center.lat + '-' + center.lon;
-
-			if (!(term in markers)) {
-				if (cell.doc_count == 1) {
-					var marker = new google.maps.Marker({
-						position: new google.maps.LatLng(cell.location.lat, cell.location.lon),
-						icon: ngoIcon,
-						map: map,
-						data: cell.data
-					});
-
-					markers[term] = marker;
-
-					marker.addListener('click', (function (marker) {
-						return function () {
-							if (infowindow)
-								infowindow.close();
-
-							infowindow = new google.maps.InfoWindow();
-
-							infowindow.setContent('<div class="infoWindowNgo">' +
-								'<div class="ngoPlace">' +
-								'<div class="title">' +
-								'<a href="/dane/krs_podmioty/' + marker.data['krs_podmioty.id'] + '">' +
-								'<i class="object-icon icon-datasets-krs_podmioty"></i>' +
-								'<div class="titleName">' + marker.data['krs_podmioty.nazwa'] + '</div>' +
-								'</a>' +
-								'</div>' +
-								'</div>' +
-								'</div>');
-							infowindow.open(map, marker);
-							map.setCenter(marker.latlng);
-						};
-					})(marker, content, infowindow));
-				} else {
-					var inner_center = Geohash.decode(cell.inner_key),
-						centerLat = center.lat + (inner_center.lat - center.lat) * f,
-						centerLng = center.lon + (inner_center.lon - center.lon) * f;
-
-					markers[term] = new CustomMarker(new google.maps.LatLng(centerLat, centerLng), map, {
-						title: cell.doc_count,
-						data: cell
-					});
-				}
-			}
-
-			if (i + 1 == data.grid.buckets.length)
-				mapSpinner.addClass('hide');
-		}
-	};
 
 	map = new google.maps.Map(document.getElementById('map'), options);
 	map.setOptions({styles: mapStyle});
 
-	google.maps.event.addDomListener(map, 'idle', mapUpdate);
+	mapaWarstwy = new mapaWarstwy(map);
+	mapaWarstwy.setLayer('ngo');
+
 	border.setMap(map);
 
 	$('.szukajOrganizajiBtn').click(function (e) {

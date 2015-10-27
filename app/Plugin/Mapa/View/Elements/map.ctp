@@ -79,7 +79,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
                 <div class="map<? if (!isset($mapParams) && !isset($dataBrowser)) { ?> nodetails<? } ?>"></div>
 
-                <? if (isset($dataBrowser) && isset($this->request->query['q']) ) { ?>
+                <? if (isset($dataBrowser) && isset($this->request->query['q'])) { ?>
 
                     <div class="details">
                         <div class="title">
@@ -156,7 +156,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                             </li>
                                         <? } ?>
 
-                                        <? if ( ($typ_id > 3) ) { ?>
+                                        <? if (($typ_id > 3)) { ?>
                                             <li>
                                                 <label>Gmina:</label>
                                                 <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.gmina_miejsce_id'] ?><? if (isset($widget)) echo '?widget';
@@ -180,12 +180,13 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                             </li>
                                         <? } ?>
 
-	                                    <? if (count($mapParams['codes']) < 3) { ?>
-	                                        <li>
-	                                            <label>Kod pocztowy:</label>
-	                                            <a href="/mapa/<?= $mapParams['codes'][0]['key'] ?><? if(isset($widget)) echo '?widget'; if(isset($_GET["redirect"])) echo '&redirect';?>"><?= $mapParams['codes'][0]['key'] ?></a>
-	                                        </li>
-	                                    <? } ?>
+                                        <? if (count($mapParams['codes']) < 3) { ?>
+                                            <li>
+                                                <label>Kod pocztowy:</label>
+                                                <a href="/mapa/<?= $mapParams['codes'][0]['key'] ?><? if (isset($widget)) echo '?widget';
+                                                if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $mapParams['codes'][0]['key'] ?></a>
+                                            </li>
+                                        <? } ?>
 
                                     </ul>
                                 <? } ?>
@@ -484,6 +485,38 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             <? if (!isset($widget)) {
                                 echo $this->element('Mapa.wybory', array("widget" => null, "mapParams" => $mapParams));
                             } ?>
+                            <li class="accord warstwy closed">
+                                <header>
+                                    <span class="arrow"></span>
+
+                                    <h2>Warstwy:</h2>
+                                </header>
+                                <section class="dcontent">
+                                    <ul class="scrollZone">
+                                        <li data-id="instytucje">
+                                            <label class="checkbox-label">
+                                                <input type="radio" name="layers" value="biznes"> Instytucje publiczne
+                                            </label>
+                                        </li>
+                                        <li data-id="biznes">
+                                            <label class="checkbox-label">
+                                                <input type="radio" name="layers" value="biznes"> Biznes
+                                            </label>
+                                        </li>
+                                        <li data-id="ngo">
+                                            <label class="checkbox-label">
+                                                <input type="radio" name="layers" value="ngo"> Ngo
+                                            </label>
+                                        </li>
+                                        <li data-id="komisje">
+                                            <label class="checkbox-label">
+                                                <input type="radio" name="layers" value="komisje_wyborcze"> Komisje
+                                                Wyborcze
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </section>
+                            </li>
                         </ul>
                     </div>
                     <? if (isset($widget)) { ?>
