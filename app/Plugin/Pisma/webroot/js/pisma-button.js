@@ -70,7 +70,7 @@ $(document).ready(function () {
         } else {
             method = (szablon_id !== undefined && pismoBtn.attr('data-adresatid') !== undefined) ? 'post' : 'get';
             form = $('<form></form>').attr({
-                'action': '/pisma',
+                'action': '/moje-pisma',
                 'method': method,
                 'class': 'pismaGenerateModalForm hide'
             }).append(

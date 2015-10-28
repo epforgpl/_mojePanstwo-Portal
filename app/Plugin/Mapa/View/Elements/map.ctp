@@ -121,7 +121,6 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
                     <div class="details" itemscope itemtype="http://schema.org/Place">
                         <div class="title">
-
                             <? if (@$mapParams['mode'] == 'place') { ?>
                                 <? if (($mapParams['data']['typ_id'] == '4') && isset($mapParams['data']['miejsca.miejscowosc_typ'])) { ?>
                                     <p class="_label"><?= $mapParams['data']['miejsca.miejscowosc_typ'] ?></p>
@@ -144,8 +143,13 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             <? } elseif (@$mapParams['mode'] == 'code') { ?>
                                 <p class="_label">Kod pocztowy</p>
                             <? } ?>
-
-                            <h1><?= $mapParams['title'] ?></h1>
+							
+							
+							<h1><?= $mapParams['title'] ?></h1>
+							<? if( @$mapParams['data']['typ_id']==3 ) {?>
+								<p class="info-more"><a href="/dane/gminy/<?= $mapParams['data']['miejsca.gmina_id'] ?>">Więcej informacji o gminie &raquo;</a></p>
+							<? } ?>
+                            
                             <?
                             if (@$mapParams['mode'] == 'place') {
                                 $typ_id = (int)$mapParams['data']['typ_id'];

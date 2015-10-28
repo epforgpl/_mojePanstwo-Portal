@@ -313,8 +313,9 @@ var MapBrowser = Class.extend({
 		}
 
 		var obwodyBlock = $('.wyboryDetail'),
-			obwody = obwodyBlock.attr('data-obwody');
-		if (obwody) {
+			obwody = obwodyBlock.attr('data-obwody'),
+			widget = obwodyBlock.hasClass('widget');
+		if (obwody && widget) {
 			var self = this;
 			$.get('/mapa/obwody.json?id=' + obwody, function (data) {
 				for (var i = 0, len = data.length; i < len; i++) {
@@ -591,7 +592,9 @@ var MapBrowser = Class.extend({
 	pointWindow: function (marker) {
 		var self = this,
 			pixelOffset,
-			obwodySenat = $('.wyboryDetail').attr('data-senat');
+			wyboryDetail = $('.wyboryDetail'),
+			obwodySenat = wyboryDetail.attr('data-senat'),
+			widget = wyboryDetail.hasClass('widget');
 
 		$.each(self.points, function () {
 			if (this.marker.icon.active)
@@ -615,7 +618,7 @@ var MapBrowser = Class.extend({
 
 		var scontent = self.formatAddress(marker.data);
 
-		if (marker.data.obwod_id) {
+		if (marker.data.obwod_id && widget) {
 			if ((obwodySenat == 0) && ( typeof(self.komisjePointsData[marker.data.obwod_id]) !== "undefined")) {
 				scontent += '<div class="obwod">Okręg do senatu: <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/' + self.komisjePointsData[marker.data.obwod_id]['okreg'] + '">' + self.komisjePointsData[marker.data.obwod_id]['okreg'] + '</a></div>'
 			}
