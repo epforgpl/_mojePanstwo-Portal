@@ -655,8 +655,7 @@ class KrsPodmiotyController extends DataobjectsController
             );
         }
 
-        // podmienić na if isset && > 0 twitter_account_id
-        if(false) {
+        if($this->object->getData('twitter_account_id')) {
             $menu['items'][] = array(
                 'id' => 'media',
                 'label' => 'Media',
@@ -689,10 +688,6 @@ class KrsPodmiotyController extends DataobjectsController
 
     public function media() {
 
-        throw new NotFoundException;
-
-        $id = 714;
-
         $timerange = false;
         $init = false;
 
@@ -703,6 +698,9 @@ class KrsPodmiotyController extends DataobjectsController
 
         $this->addInitLayers(array('powiazania'));
         $this->load();
+
+        if(false == $id = $this->object->getData('twitter_account_id'))
+            throw new NotFoundException;
 
         if(
             ( $page = $this->object->getLayer('page') ) &&
