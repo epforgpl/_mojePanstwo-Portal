@@ -33,4 +33,4 @@ $this->Combinator->add_libs('js', 'Finanse.budzety');
         <h2 class="appTitle">Rok 2015</h2>
 
     </div>
-</div>
+
