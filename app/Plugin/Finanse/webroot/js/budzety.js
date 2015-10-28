@@ -139,7 +139,10 @@ $(function () {
 			spacingBottom: 40,
 			type: 'line',
 			backgroundColor: null,
-			height: 300
+			height: 300,
+			style: {
+				fontFamily: "'Roboto', sans-serif"
+			}
 		},
 		credits: {
 			enabled: false
@@ -233,7 +236,10 @@ $(function () {
 			marginTop: 0,
 			marginBottom: 0,
 			spacingLeft: 64,
-			ignoreHiddenSeries: false
+			ignoreHiddenSeries: false,
+			style: {
+				fontFamily: "'Roboto', sans-serif"
+			}
 		},
 		credits: {
 			enabled: false
@@ -301,7 +307,10 @@ $(function () {
 			backgroundColor: null,
 			spacingTop: 0,
 			marginTop: 40,
-			spacingLeft: 27
+			spacingLeft: 27,
+			style: {
+				fontFamily: "'Roboto', sans-serif"
+			}
 		},
 		credits: {
 			enabled: false

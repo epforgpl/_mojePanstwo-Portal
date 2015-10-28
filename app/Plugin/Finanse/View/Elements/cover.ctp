@@ -14,7 +14,7 @@ $this->Combinator->add_libs('js', 'Finanse.budzety');
         <p class="appSubtitle">Poznaj stan finansów publicznych Polski.</p>
     </div>
 </div>
-
+</div>
 </div>
 <div class="col-xs-12 finanseBlock">
 
@@ -22,7 +22,6 @@ $this->Combinator->add_libs('js', 'Finanse.budzety');
          data-json='<?php echo json_encode($dataBrowser['aggs']['budzety']['top']['hits']['hits']); ?>'></div>
 
     <div class="mid-chart"></div>
-
     <div class="chart2"></div>
 
 </div>
