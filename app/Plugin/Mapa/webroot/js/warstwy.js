@@ -238,7 +238,9 @@ mapaWarstwy.prototype.mapUpdate = function (layer) {
 		infowindow.close();
 
 	self.loading();
-	self.pendingArea = self.getArea();
+
+	if (self.map.getBounds())
+		self.pendingArea = self.getArea();
 
 	window.clearTimeout(self.mapUpdateTimer);
 
