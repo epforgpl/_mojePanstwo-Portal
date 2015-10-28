@@ -1,4 +1,5 @@
 <?
+$this->Combinator->add_libs('css', $this->Less->css('warstwy', array('plugin' => 'Mapa')));
 $this->Combinator->add_libs('css', $this->Less->css('ngo', array('plugin' => 'Ngo')));
 $this->Combinator->add_libs('js', 'latlon-geohash');
 $this->Combinator->add_libs('js', 'Mapa.warstwy');

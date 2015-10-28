@@ -25,7 +25,7 @@ CustomMarker.prototype.draw = function () {
 		}
 
 		google.maps.event.addDomListener(div, "click", function () {
-			if (map.getZoom() == self.maxZoom) {
+			if (self.map.getZoom() == self.maxZoom) {
 				var infoWindowBlock,
 					ngoPlaceBlock = '';
 
@@ -57,11 +57,11 @@ CustomMarker.prototype.draw = function () {
 					'<div class="bounce3"></div>' +
 					'</li>'
 				});
-				infowindow.open(map);
-				map.setCenter(self.latlng);
+				infowindow.open(self.map);
+				self.map.setCenter(self.latlng);
 			} else {
-				map.setCenter(self.latlng);
-				map.setZoom(map.getZoom() + 2);
+				self.map.setCenter(self.latlng);
+				self.map.setZoom(self.map.getZoom() + 2);
 			}
 		});
 
@@ -90,14 +90,17 @@ CustomMarker.prototype.getPosition = function () {
 
 
 function mapaWarstwy(map) {
-	this.markers = {
-		biznes: [],
-		ngo: [],
-		komitety: []
+	this.basemarkers = {
+		instytucje: {},
+		biznes: {},
+		ngo: {},
+		komisje_wyborcze: {}
 	};
+	this.markers = this.basemarkers;
 
-	this.pendingArea = {tl: false, br: false, zoom: false};
-	this.lastArea = {tl: false, br: false, zoom: false};
+	this.baseArea = {tl: false, br: false, zoom: false};
+	this.pendingArea = this.baseArea;
+	this.lastArea = this.baseArea;
 	this.mapUpdateTimer = null;
 	this.xhr = null;
 	this.layer = null;
@@ -108,12 +111,18 @@ mapaWarstwy.prototype.setLayer = function (layer) {
 	var self = this;
 
 	self.layer = layer;
-	google.maps.event.addDomListener(self.map, 'idle', function () {
+	google.maps.event.clearListeners(self.map, 'idle');
+	self.mapUpdateClear();
+
+	if (self.layer !== false) {
+		google.maps.event.addDomListener(self.map, 'idle', function () {
+			self.mapUpdate(self.layer)
+		});
 		self.mapUpdate(self.layer)
-	});
+	}
 };
 
-mapaWarstwy.prototype.showNgo = function (data) {
+mapaWarstwy.prototype.showPlaces = function (data) {
 	var ngoIcon = {
 			path: 'M-8,0a8,8 0 1,0 16,0a8,8 0 1,0 -16,0',
 			fillColor: 'red',
@@ -127,7 +136,7 @@ mapaWarstwy.prototype.showNgo = function (data) {
 			f = .5,
 			term = 'marker-' + center.lat + '-' + center.lon;
 
-		if (!(term in self.markers.ngo)) {
+		if (!(term in self.markers[self.layer])) {
 			if (cell.doc_count == 1) {
 				var marker = new google.maps.Marker({
 					position: new google.maps.LatLng(cell.location.lat, cell.location.lon),
@@ -136,7 +145,7 @@ mapaWarstwy.prototype.showNgo = function (data) {
 					data: cell.data
 				});
 
-				self.markers.ngo[term] = marker;
+				self.markers[self.layer][term] = marker;
 
 				marker.addListener('click', (function (marker) {
 					var self = this;
@@ -165,7 +174,7 @@ mapaWarstwy.prototype.showNgo = function (data) {
 					centerLat = center.lat + (inner_center.lat - center.lat) * f,
 					centerLng = center.lon + (inner_center.lon - center.lon) * f;
 
-				this.markers.ngo[term] = new CustomMarker(new google.maps.LatLng(centerLat, centerLng), self.map, {
+				this.markers[self.layer][term] = new CustomMarker(new google.maps.LatLng(centerLat, centerLng), self.map, {
 					title: cell.doc_count,
 					data: cell
 				});
@@ -196,17 +205,28 @@ mapaWarstwy.prototype.getArea = function () {
 	};
 };
 
-mapaWarstwy.prototype.mapUpdateResults = function (data, area) {
-	if (area.zoom !== this.lastArea.zoom) {
-		$.each(mapaWarstwy.markers.ngo, function (key, value) {
+mapaWarstwy.prototype.mapUpdateClear = function () {
+	var self = this;
+
+	$.each(self.markers, function (k, v) {
+		$.each(v, function (key, value) {
 			value.setMap(null);
 		});
+	});
 
-		mapaWarstwy.markers.ngo = {};
+	self.markers = self.basemarkers;
+	self.lastArea = self.baseArea;
+};
+
+mapaWarstwy.prototype.mapUpdateResults = function (data, area) {
+	var self = this;
+
+	if (area.zoom !== self.lastArea.zoom) {
+		this.mapUpdateClear()
 	}
 	this.lastArea = area;
-
-	this.showNgo(data);
+	if (this.layer)
+		this.showPlaces(data);
 };
 
 mapaWarstwy.prototype.mapUpdate = function (layer) {

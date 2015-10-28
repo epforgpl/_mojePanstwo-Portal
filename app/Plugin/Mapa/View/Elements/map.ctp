@@ -2,9 +2,12 @@
 $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('dataobjectpage', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('warstwy', array('plugin' => 'Mapa')));
 $this->Combinator->add_libs('css', $this->Less->css('mapa', array('plugin' => 'Mapa')));
 
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
+$this->Combinator->add_libs('js', 'latlon-geohash');
+$this->Combinator->add_libs('js', 'Mapa.warstwy');
 $this->Combinator->add_libs('js', 'Mapa.mapa');
 
 switch (Configure::read('Config.language')) {
@@ -495,7 +498,8 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                     <ul class="scrollZone">
                                         <li data-id="instytucje">
                                             <label class="checkbox-label">
-                                                <input type="radio" name="layers" value="biznes"> Instytucje publiczne
+                                                <input type="radio" name="layers" value="instytucje"> Instytucje
+                                                publiczne
                                             </label>
                                         </li>
                                         <li data-id="biznes">

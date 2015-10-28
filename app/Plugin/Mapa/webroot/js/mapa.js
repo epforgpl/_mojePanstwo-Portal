@@ -314,10 +314,6 @@ var MapBrowser = Class.extend({
 
 		var obwodyBlock = $('.wyboryDetail'),
 			obwody = obwodyBlock.attr('data-obwody');
-		//obwody_sejm = obwodyBlock.attr('data-sejm'),
-		//obwody_senat = obwodyBlock.attr('data-senat'),
-		//obwody_miejsce = obwodyBlock.attr('data-miejsce'),
-		//obwody_redirect = obwodyBlock.attr('data-redirect');
 		if (obwody) {
 			var self = this;
 			$.get('/mapa/obwody.json?id=' + obwody, function (data) {
@@ -385,42 +381,6 @@ var MapBrowser = Class.extend({
 						});
 					}
 				}
-				/*
-				 self.komisjeOkreg.sejm_id = (self.komisjeOkreg.sejm_id.length == 1) ? self.komisjeOkreg.sejm_id[0] : 0;
-				 self.komisjeOkreg.senat_id = (self.komisjeOkreg.senat_id.length == 1) ? self.komisjeOkreg.senat_id[0] : 0;
-
-				 if (self.komisjeOkreg.sejm_id !== obwody_sejm) {
-				 if (self.komisjeOkreg.sejm_id == 0) {
-				 obwodyBlock.find('.sejm').addClass('hide');
-				 } else {
-				 obwodyBlock.find('.sejm > a').attr('href', 'http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/' + self.komisjeOkreg.sejm_id).text(self.komisjeOkreg.sejm_id);
-				 }
-				 }
-				 if (self.komisjeOkreg.senat_id !== obwody_senat) {
-				 if (self.komisjeOkreg.senat_id == 0) {
-				 obwodyBlock.find('.senat').addClass('hide');
-				 } else {
-				 obwodyBlock.find('.senat > a').attr('href', 'http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/' + self.komisjeOkreg.senat_id).text(self.komisjeOkreg.senat_id);
-				 }
-				 }
-
-				 var href = window.location.href,
-				 sejm_senat = href.split('sejm_senat='),
-				 breakPoint = false;
-
-				 if (typeof sejm_senat[1] !== "undefined" && sejm_senat[1].length > 0) {
-				 var ids = sejm_senat[1].split(',');
-
-				 if (((self.komisjeOkreg.sejm_id != ids[0]) || (self.komisjeOkreg.senat_id != ids[1])) && (self.komisjeOkreg.sejm_id !== 0 && self.komisjeOkreg.senat_id !== 0)) {
-				 breakPoint = true;
-				 parent.location.href = "http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm_i_senat/" + self.komisjeOkreg.sejm_id + ',' + self.komisjeOkreg.senat_id + "?miejsce_id=" + obwody_miejsce;
-				 }
-				 }
-
-				 if (obwody_redirect && !breakPoint) {
-				 parent.location.href = "http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm_i_senat/" + self.komisjeOkreg.sejm_id + ',' + self.komisjeOkreg.senat_id + '?miejsce_id=' + obwody_miejsce;
-				 }*/
-
 				self.map.fitBounds(self.fitBounds);
 			})
 		}
@@ -767,13 +727,11 @@ var MapBrowser = Class.extend({
 	}
 });
 
-var map, mapBrowser, localizer;
+var map, mapBrowser, localizer, mapaWarstwy;
 
 $(document).ready(function () {
 	mapBrowser = new MapBrowser();
 	localizer = new Localizer();
-
-	map = mapBrowser.map;
 
 	$('.localizeMe').click(function () {
 		var self = $(this);
@@ -820,8 +778,22 @@ $(document).ready(function () {
 					}
 				})
 			}
-
-			//mapBrowser.resize();
 		})
+	});
+
+	mapaWarstwy = new mapaWarstwy(mapBrowser.map);
+
+	$('.accord.warstwy input').click(function () {
+		var el = $(this),
+			layer = el.val();
+
+		if (el.hasClass('c')) {
+			el.removeClass('c').prop('checked', false);
+			layer = false
+		} else {
+			el.addClass('c');
+		}
+
+		mapaWarstwy.setLayer(layer);
 	})
 });
