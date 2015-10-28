@@ -222,44 +222,53 @@ mapaWarstwy.prototype.mapUpdateResults = function (data, area) {
 	var self = this;
 
 	if (area.zoom !== self.lastArea.zoom) {
-		this.mapUpdateClear()
+		self.mapUpdateClear()
 	}
-	this.lastArea = area;
-	if (this.layer)
-		this.showPlaces(data);
+	self.lastArea = area;
+	if (self.layer)
+		self.showPlaces(data);
+
+	self.complete();
 };
 
 mapaWarstwy.prototype.mapUpdate = function (layer) {
 	var self = this;
 
-	if (infowindow === null || infowindow.getMap() === null) {
-		self.pendingArea = self.getArea();
+	self.loading();
+	self.pendingArea = self.getArea();
+	window.clearTimeout(self.mapUpdateTimer);
+	self.mapUpdateTimer = window.setTimeout(function () {
+		var area = self.getArea();
 
-		window.clearTimeout(self.mapUpdateTimer);
-		self.mapUpdateTimer = window.setTimeout(function () {
-			var area = self.getArea();
+		if ((area.tl == self.pendingArea.tl) && (area.br == self.pendingArea.br)) {
+			if ((area.tl != self.lastArea.tl) || (area.br != self.lastArea.br)) {
+				var areaParms = area.tl + ',' + area.br + '&layer=' + layer;
 
-			if ((area.tl == self.pendingArea.tl) && (area.br == self.pendingArea.br)) {
-				if ((area.tl != self.lastArea.tl) || (area.br != self.lastArea.br)) {
-					var areaParms = area.tl + ',' + area.br + '&layer=' + layer;
-
-					if (areaParms in warstwyCacheAjax) {
-						self.mapUpdateResults(warstwyCacheAjax[areaParms], area);
-					} else {
-						if (self.xhr && self.xhr.readystate != 4) {
-							self.xhr.abort();
-						}
-
-						self.xhr = $.get('/mapa/grid.json', {
-							area: area.tl + ',' + area.br,
-							layer: layer
-						}, function (data) {
-							warstwyCacheAjax[areaParms] = data;
-							self.mapUpdateResults(data, area);
-						}, 'json');
+				if (areaParms in warstwyCacheAjax) {
+					self.mapUpdateResults(warstwyCacheAjax[areaParms], area);
+				} else {
+					if (self.xhr && self.xhr.readystate != 4) {
+						self.xhr.abort();
 					}
+
+					self.xhr = $.get('/mapa/grid.json', {
+						area: area.tl + ',' + area.br,
+						layer: layer
+					}, function (data) {
+						warstwyCacheAjax[areaParms] = data;
+						self.mapUpdateResults(data, area);
+					}, 'json');
 				}
 			}
-		}, 400);
-	}
+		}
+	}, 400);
+
+};
+
+mapaWarstwy.prototype.loading = function () {
+
+};
+
+mapaWarstwy.prototype.complete = function () {
+
 };

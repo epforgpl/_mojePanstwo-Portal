@@ -19,25 +19,19 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geo
 
 <div class="col-xs-12 col-md-3 col-sm-4 dataAggsContainer">
     <div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
-
         <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
-
         <?
         $this->Combinator->add_libs('js', 'Media.twitter-account-suggestion');
         $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
         $this->Combinator->add_libs('css', $this->Less->css('twitter-account-suggestion', array('plugin' => 'Media')));
         ?>
-
         <div class="banner block">
-
             <div>
                 <div class="img-cog pull-left">
                     <span class="glyphicon glyphicon-cog"></span>
                 </div>
-
                 <p class="headline margin-top-20"><strong>Zarządzaj profilem</strong> <br/>swojej organizacji!</p>
             </div>
-
             <div class="description margin-top-30">
                 <p>Dodawaj działania swojej organizacji, uaktualniaj i modyfikuj jej dane!</p>
 
@@ -46,8 +40,6 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geo
                 <button class="btn btn-sm btn-primary szukajOrganizajiBtn">Szukaj organizacji</button>
             </div>
         </div>
-
-
     </div>
 </div>
 
@@ -59,7 +51,6 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geo
 
             <p class="appSubtitle">Poznaj scenę organizacji obywatelskich w Polsce.</p>
         </div>
-
         <div id="actions-newest" class="block block-simple col-sm-12">
             <header class="nopadding">Najnowsze działania organizacji pozarządowych:</header>
             <section class="content margin-top-10">
@@ -71,7 +62,6 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geo
                                     <?= $this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.tytul'], 100); ?>
                                 </a>
                             </h4>
-
                             <? if ($dzialanie['fields']['source'][0]['data']['dzialania.photo'] == '1') { ?>
                                 <div class="photo">
                                     <a href="/dane/<?= $dzialanie['fields']['source'][0]['data']['dzialania.dataset']; ?>/<?= $dzialanie['fields']['source'][0]['data']['dzialania.object_id']; ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>"><img
@@ -79,8 +69,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geo
                                             src="http://sds.tiktalik.com/portal/2/pages/dzialania/<?= $dzialanie['fields']['id'][0]; ?>.jpg"/></a>
                                 </div>
                             <? } ?>
-
-							<p class="owner"><?= @$dzialanie['fields']['source'][0]['data']['dzialania.owner_name'] ?></p>
+                            <p class="owner"><?= @$dzialanie['fields']['source'][0]['data']['dzialania.owner_name'] ?></p>
 
                             <div class="desc">
                                 <?= @$this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.podsumowanie'], 200) ?>
@@ -98,25 +87,12 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geo
             <header class="nopadding">Mapa organizacji pozarządowych:</header>
             <section class="content margin-top-10">
                 <div id="map"></div>
-                <div class="mapSpinner spinner grey">
+                <div class="mapSpinner spinner grey hide">
                     <div class="bounce1"></div>
                     <div class="bounce2"></div>
                     <div class="bounce3"></div>
                 </div>
             </section>
         </div>
-
-        <? /*
-        <div class="block block-simple col-sm-12">
-            <header class="nopadding">Dane statystyczne o sektorze organizacji pozarządowych:</header>
-        </div>
-
-        <div class="block block-simple col-sm-12">
-            <header class="nopadding">Ważne akty prawne dotyczące organizacji pozarządowych:</header>
-        </div>
-        */ ?>
-
-
     </div>
-
 </div>

@@ -143,13 +143,13 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             <? } elseif (@$mapParams['mode'] == 'code') { ?>
                                 <p class="_label">Kod pocztowy</p>
                             <? } ?>
-							
-							
-							<h1><?= $mapParams['title'] ?></h1>
+
+
+                            <h1><?= $mapParams['title'] ?></h1>
 							<? if( @$mapParams['data']['typ_id']==3 ) {?>
 								<p class="info-more"><a href="/dane/gminy/<?= $mapParams['data']['miejsca.gmina_id'] ?>">Więcej informacji o gminie &raquo;</a></p>
 							<? } ?>
-                            
+
                             <?
                             if (@$mapParams['mode'] == 'place') {
                                 $typ_id = (int)$mapParams['data']['typ_id'];
@@ -497,6 +497,12 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                     <span class="arrow"></span>
 
                                     <h2>Warstwy:</h2>
+
+                                    <div class="mapSpinner spinner grey hide">
+                                        <div class="bounce1"></div>
+                                        <div class="bounce2"></div>
+                                        <div class="bounce3"></div>
+                                    </div>
                                 </header>
                                 <section class="dcontent">
                                     <ul class="scrollZone">

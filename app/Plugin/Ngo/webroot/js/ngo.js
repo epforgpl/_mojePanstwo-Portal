@@ -75,6 +75,12 @@ $(document).ready(function () {
 	map.setOptions({styles: mapStyle});
 
 	mapaWarstwy = new mapaWarstwy(map);
+	mapaWarstwy.loading = function () {
+		mapSpinner.removeClass('hide');
+	};
+	mapaWarstwy.complete = function () {
+		mapSpinner.addClass('hide');
+	};
 	mapaWarstwy.setLayer('ngo');
 
 	border.setMap(map);

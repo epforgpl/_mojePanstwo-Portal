@@ -784,9 +784,16 @@ $(document).ready(function () {
 		})
 	});
 
+	var accordWarstwy = $('.accord.warstwy');
 	mapaWarstwy = new mapaWarstwy(mapBrowser.map);
+	mapaWarstwy.loading = function () {
+		accordWarstwy.find('.mapSpinner').removeClass('hide');
+	};
+	mapaWarstwy.complete = function () {
+		accordWarstwy.find('.mapSpinner').addClass('hide');
+	};
 
-	$('.accord.warstwy input').click(function () {
+	accordWarstwy.find('input').click(function () {
 		var el = $(this),
 			layer = el.val();
 
