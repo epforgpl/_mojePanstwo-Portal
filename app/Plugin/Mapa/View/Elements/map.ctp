@@ -2,9 +2,12 @@
 $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('dataobjectpage', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('warstwy', array('plugin' => 'Mapa')));
 $this->Combinator->add_libs('css', $this->Less->css('mapa', array('plugin' => 'Mapa')));
 
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
+$this->Combinator->add_libs('js', 'latlon-geohash');
+$this->Combinator->add_libs('js', 'Mapa.warstwy');
 $this->Combinator->add_libs('js', 'Mapa.mapa');
 
 switch (Configure::read('Config.language')) {
@@ -140,13 +143,13 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             <? } elseif (@$mapParams['mode'] == 'code') { ?>
                                 <p class="_label">Kod pocztowy</p>
                             <? } ?>
-							
-							
-							<h1><?= $mapParams['title'] ?></h1>
+
+
+                            <h1><?= $mapParams['title'] ?></h1>
 							<? if( @$mapParams['data']['typ_id']==3 ) {?>
 								<p class="info-more"><a href="/dane/gminy/<?= $mapParams['data']['miejsca.gmina_id'] ?>">Więcej informacji o gminie &raquo;</a></p>
 							<? } ?>
-                            
+
                             <?
                             if (@$mapParams['mode'] == 'place') {
                                 $typ_id = (int)$mapParams['data']['typ_id'];
@@ -489,6 +492,45 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             <? if (!isset($widget)) {
                                 echo $this->element('Mapa.wybory', array("widget" => null, "mapParams" => $mapParams));
                             } ?>
+                            <li class="accord warstwy closed">
+                                <header>
+                                    <span class="arrow"></span>
+
+                                    <h2>Warstwy:</h2>
+
+                                    <div class="mapSpinner spinner grey hide">
+                                        <div class="bounce1"></div>
+                                        <div class="bounce2"></div>
+                                        <div class="bounce3"></div>
+                                    </div>
+                                </header>
+                                <section class="dcontent">
+                                    <ul class="scrollZone">
+                                        <li data-id="instytucje">
+                                            <label class="checkbox-label">
+                                                <input type="radio" name="layers" value="instytucje"> Instytucje
+                                                publiczne
+                                            </label>
+                                        </li>
+                                        <li data-id="biznes">
+                                            <label class="checkbox-label">
+                                                <input type="radio" name="layers" value="biznes"> Biznes
+                                            </label>
+                                        </li>
+                                        <li data-id="ngo">
+                                            <label class="checkbox-label">
+                                                <input type="radio" name="layers" value="ngo"> Ngo
+                                            </label>
+                                        </li>
+                                        <li data-id="komisje">
+                                            <label class="checkbox-label">
+                                                <input type="radio" name="layers" value="komisje_wyborcze"> Komisje
+                                                Wyborcze
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </section>
+                            </li>
                         </ul>
                     </div>
                     <? if (isset($widget)) { ?>
