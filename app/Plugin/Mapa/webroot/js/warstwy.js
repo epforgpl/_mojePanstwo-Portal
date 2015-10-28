@@ -1,5 +1,5 @@
 /*global map, infowindow*/
-var cacheAjax = {},
+var warstwyCacheAjax = {},
 	infowindow = infowindow || null;
 
 function CustomMarker(latlng, map, args) {
@@ -25,7 +25,7 @@ CustomMarker.prototype.draw = function () {
 		}
 
 		google.maps.event.addDomListener(div, "click", function () {
-			if (self.map.getZoom() == self.maxZoom) {
+			if (map.getZoom() == self.maxZoom) {
 				var infoWindowBlock,
 					ngoPlaceBlock = '';
 
@@ -58,10 +58,10 @@ CustomMarker.prototype.draw = function () {
 					'</li>'
 				});
 				infowindow.open(map);
-				self.map.setCenter(self.latlng);
+				map.setCenter(self.latlng);
 			} else {
-				self.map.setCenter(self.latlng);
-				self.map.setZoom(self.map.getZoom() + 2);
+				map.setCenter(self.latlng);
+				map.setZoom(map.getZoom() + 2);
 			}
 		});
 
@@ -101,42 +101,42 @@ function mapaWarstwy(map) {
 	this.mapUpdateTimer = null;
 	this.xhr = null;
 	this.layer = null;
-
 	this.map = map;
 }
 
 mapaWarstwy.prototype.setLayer = function (layer) {
 	var self = this;
 
-	google.maps.event.addListenerOnce(map, 'idle', function () {
-		self.layer = layer;
-		google.maps.event.addDomListener(self.map, 'idle', self.mapUpdate(layer));
+	self.layer = layer;
+	google.maps.event.addDomListener(self.map, 'idle', function () {
+		self.mapUpdate(self.layer)
 	});
 };
 
 mapaWarstwy.prototype.showNgo = function (data) {
 	var ngoIcon = {
-		path: 'M-8,0a8,8 0 1,0 16,0a8,8 0 1,0 -16,0',
-		fillColor: 'red',
-		strokeColor: 'red',
-		fillOpacity: 1
-	};
+			path: 'M-8,0a8,8 0 1,0 16,0a8,8 0 1,0 -16,0',
+			fillColor: 'red',
+			strokeColor: 'red',
+			fillOpacity: 1
+		},
+		self = this;
 	for (var i = 0; i < data.grid.buckets.length; i++) {
 		var cell = data.grid.buckets[i],
 			center = Geohash.decode(cell.key),
 			f = .5,
 			term = 'marker-' + center.lat + '-' + center.lon;
 
-		if (!(term in this.markers.ngo)) {
+		if (!(term in self.markers.ngo)) {
 			if (cell.doc_count == 1) {
 				var marker = new google.maps.Marker({
 					position: new google.maps.LatLng(cell.location.lat, cell.location.lon),
 					icon: ngoIcon,
-					map: map,
+					map: self.map,
 					data: cell.data
 				});
 
-				this.markers.ngo[term] = marker;
+				self.markers.ngo[term] = marker;
 
 				marker.addListener('click', (function (marker) {
 					var self = this;
@@ -156,7 +156,7 @@ mapaWarstwy.prototype.showNgo = function (data) {
 							'</div>' +
 							'</div>' +
 							'</div>');
-						infowindow.open(map, marker);
+						infowindow.open(self.map, marker);
 						self.map.setCenter(marker.latlng);
 					};
 				})(marker, content, infowindow));
@@ -165,7 +165,7 @@ mapaWarstwy.prototype.showNgo = function (data) {
 					centerLat = center.lat + (inner_center.lat - center.lat) * f,
 					centerLng = center.lon + (inner_center.lon - center.lon) * f;
 
-				this.markers.ngo[term] = new CustomMarker(new google.maps.LatLng(centerLat, centerLng), map, {
+				this.markers.ngo[term] = new CustomMarker(new google.maps.LatLng(centerLat, centerLng), self.map, {
 					title: cell.doc_count,
 					data: cell
 				});
@@ -176,30 +176,24 @@ mapaWarstwy.prototype.showNgo = function (data) {
 
 
 mapaWarstwy.prototype.getArea = function () {
-	var bounds = this.map.getBounds(),
-		precision = this.map.getZoom();
+	var self = this,
+		bounds = self.map.getBounds(),
+		precision = self.map.getZoom(),
+		ne_lat = bounds.getNorthEast().lat(),
+		sw_lng = bounds.getSouthWest().lng(),
+		sw_lat = bounds.getSouthWest().lat(),
+		ne_lng = bounds.getNorthEast().lng(),
+		f = .1,
+		ne_lat_fixed = ne_lat + ((ne_lat - sw_lat) * f),
+		ne_lng_fixed = ne_lng + ((ne_lng - sw_lng) * f),
+		sw_lat_fixed = sw_lat - ((ne_lat - sw_lat) * f),
+		sw_lng_fixed = sw_lng - ((ne_lng - sw_lng) * f);
 
-	if (typeof bounds == "undefined") {
-		return true;
-	} else {
-		var ne_lat = bounds.getNorthEast().lat(),
-			sw_lng = bounds.getSouthWest().lng(),
-			sw_lat = bounds.getSouthWest().lat(),
-			ne_lng = bounds.getNorthEast().lng(),
-
-			f = .1,
-
-			ne_lat_fixed = ne_lat + ((ne_lat - sw_lat) * f),
-			ne_lng_fixed = ne_lng + ((ne_lng - sw_lng) * f),
-			sw_lat_fixed = sw_lat - ((ne_lat - sw_lat) * f),
-			sw_lng_fixed = sw_lng - ((ne_lng - sw_lng) * f);
-
-		return {
-			tl: Geohash.encode(ne_lat_fixed, sw_lng_fixed, precision),
-			br: Geohash.encode(sw_lat_fixed, ne_lng_fixed, precision),
-			zoom: this.map.getZoom()
-		};
-	}
+	return {
+		tl: Geohash.encode(ne_lat_fixed, sw_lng_fixed, precision),
+		br: Geohash.encode(sw_lat_fixed, ne_lng_fixed, precision),
+		zoom: self.map.getZoom()
+	};
 };
 
 mapaWarstwy.prototype.mapUpdateResults = function (data, area) {
@@ -226,12 +220,11 @@ mapaWarstwy.prototype.mapUpdate = function (layer) {
 			var area = self.getArea();
 
 			if ((area.tl == self.pendingArea.tl) && (area.br == self.pendingArea.br)) {
-				mapInit = true;
 				if ((area.tl != self.lastArea.tl) || (area.br != self.lastArea.br)) {
 					var areaParms = area.tl + ',' + area.br + '&layer=' + layer;
 
-					if (areaParms in cacheAjax) {
-						self.mapUpdateResults(cacheAjax[areaParms], area);
+					if (areaParms in warstwyCacheAjax) {
+						self.mapUpdateResults(warstwyCacheAjax[areaParms], area);
 					} else {
 						if (self.xhr && self.xhr.readystate != 4) {
 							self.xhr.abort();
@@ -241,7 +234,7 @@ mapaWarstwy.prototype.mapUpdate = function (layer) {
 							area: area.tl + ',' + area.br,
 							layer: layer
 						}, function (data) {
-							cacheAjax[areaParms] = data;
+							warstwyCacheAjax[areaParms] = data;
 							self.mapUpdateResults(data, area);
 						}, 'json');
 					}
