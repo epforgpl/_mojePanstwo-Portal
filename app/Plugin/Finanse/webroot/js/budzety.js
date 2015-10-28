@@ -24,8 +24,8 @@ $(function () {
 		startDate = 1990,
 		premierPlotBandData = {},
 		premierPlotBandData2 = {},
-		premierPlotBandColorO = '#FFF',
-		premierPlotBandColorE = '#f8f9fa';
+		premierPlotBandColorO = '#444444',//'#FFF',
+		premierPlotBandColorE = '#222222';//'#f8f9fa';
 
 	var last_year;
 	$.map(data, function (el) {
@@ -64,10 +64,10 @@ $(function () {
 				premierPlotBandData.id = self['budzety.premier_czlowiek_id'];
 				premierPlotBandData.label = {
 					align: 'left',
-					text: '<img src="//resources.sejmometr.pl/mowcy/a/1/' + premierPlotBandData.id + '.jpg" alt="" width="30" />',
+					text: '<img class="test" src="//resources.sejmometr.pl/mowcy/a/1/' + premierPlotBandData.id + '.jpg" alt="" width="30" />',
 					useHTML: true,
-					zIndex: 15,
-					y: +366,
+					zIndex: 115,
+					y: +240
 					//x: -15
 				};
 				premierPlotBandData.from = self['budzety.rok'];
@@ -92,6 +92,8 @@ $(function () {
 	//premierPlotBandData.label.x = -15;
 	dataPremier.push(premierPlotBandData);
 	dataPremier2.push(premierPlotBandData2);
+
+	console.log(dataPremier);
 
 	var dataSeries = [
 		{
@@ -133,17 +135,18 @@ $(function () {
 
 	dataBlock.highcharts({
 		chart: {
+			spacingTop: 40,
 			spacingBottom: 40,
 			type: 'line',
 			backgroundColor: null,
-			height: 250
+			height: 300
 		},
 		credits: {
 			enabled: false
 		},
 		legend: {
 			align: 'left',
-			backgroundColor: '#FFFFFF',
+			//backgroundColor: '#FFFFFF',
 			enabled: true,
 			floating: true,
 			layout: 'vertical',
@@ -211,6 +214,7 @@ $(function () {
 		},
 		yAxis: {
 			title: ' ',
+			min: 0,
 			labels: {
 				formatter: function () {
 					return this.value / 1000000000 + ' mld';
@@ -228,7 +232,7 @@ $(function () {
 			spacingTop: 0,
 			marginTop: 0,
 			marginBottom: 0,
-			spacingLeft: 70,
+			spacingLeft: 64,
 			ignoreHiddenSeries: false
 		},
 		credits: {
@@ -297,7 +301,7 @@ $(function () {
 			backgroundColor: null,
 			spacingTop: 0,
 			marginTop: 40,
-			spacingLeft: 34
+			spacingLeft: 27
 		},
 		credits: {
 			enabled: false
