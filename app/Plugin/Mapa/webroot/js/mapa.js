@@ -784,7 +784,9 @@ $(document).ready(function () {
 		})
 	});
 
-	var accordWarstwy = $('.accord.warstwy');
+	var accordWarstwy = $('.accord.warstwy'),
+		mPCookie = {mapa: {}};
+
 	mapaWarstwy = new mapaWarstwy(mapBrowser.map);
 	mapaWarstwy.loading = function () {
 		accordWarstwy.find('.mapSpinner').removeClass('hide');
@@ -805,5 +807,16 @@ $(document).ready(function () {
 		}
 
 		mapaWarstwy.setLayer(layer);
-	})
+		mPCookie.mapa.warstwa = layer;
+
+		Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
+	});
+
+	if (Cookies.get('mojePanstwo') !== undefined)
+		mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
+
+	if (typeof mPCookie.mapa.warstwa !== "undefined" && mPCookie.mapa.warstwa) {
+		accordWarstwy.find('input[value="' + mPCookie.mapa.warstwa + '"]').prop('checked', 'checked');
+		mapaWarstwy.setLayer(mPCookie.mapa.warstwa);
+	}
 });

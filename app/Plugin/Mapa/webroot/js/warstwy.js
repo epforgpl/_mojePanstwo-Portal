@@ -234,9 +234,14 @@ mapaWarstwy.prototype.mapUpdateResults = function (data, area) {
 mapaWarstwy.prototype.mapUpdate = function (layer) {
 	var self = this;
 
+	if (infowindow)
+		infowindow.close();
+
 	self.loading();
 	self.pendingArea = self.getArea();
+
 	window.clearTimeout(self.mapUpdateTimer);
+
 	self.mapUpdateTimer = window.setTimeout(function () {
 		var area = self.getArea();
 
