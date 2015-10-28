@@ -24,8 +24,8 @@ $(function () {
 		startDate = 1990,
 		premierPlotBandData = {},
 		premierPlotBandData2 = {},
-		premierPlotBandColorO = 'rgba(200,200,200,.2)',
-		premierPlotBandColorE = 'rgba(100,100,100,.2)';
+		premierPlotBandColorO = '#FFF',
+		premierPlotBandColorE = '#f8f9fa';
 
 	var last_year;
 	$.map(data, function (el) {
@@ -134,15 +134,16 @@ $(function () {
 	dataBlock.highcharts({
 		chart: {
 			spacingBottom: 40,
-			type: 'area',
-			backgroundColor: null
+			type: 'line',
+			backgroundColor: null,
+			height: 250
 		},
 		credits: {
 			enabled: false
 		},
 		legend: {
 			align: 'left',
-			backgroundColor: '#eeeeee',
+			backgroundColor: '#FFFFFF',
 			enabled: true,
 			floating: true,
 			layout: 'vertical',
@@ -292,7 +293,7 @@ $(function () {
 		chart: {
 			spacingBottom: 40,
 			type: 'area',
-			height: 200,
+			height: 175,
 			backgroundColor: null,
 			spacingTop: 0,
 			marginTop: 40,
@@ -356,8 +357,7 @@ $(function () {
 		xAxis: {
 			plotBands: dataPremier2,
 			labels: {
-				step: 2,
-				enabled: true
+				enabled: false
 			},
 			tickInterval: 1,
 			opposite: true

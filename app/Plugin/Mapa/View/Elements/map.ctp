@@ -142,11 +142,10 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             <? } ?>
 							
 							
+							<h1><?= $mapParams['title'] ?></h1>
 							<? if( @$mapParams['data']['typ_id']==3 ) {?>
-								<h1><a href="/dane/gminy/<?= $mapParams['data']['miejsca.gmina_id'] ?>"><?= $mapParams['title'] ?></a></h1>
-							<? } else {?>
-	                            <h1><?= $mapParams['title'] ?></h1>
-                            <? } ?>
+								<p class="info-more"><a href="/dane/gminy/<?= $mapParams['data']['miejsca.gmina_id'] ?>">Więcej informacji o gminie &raquo;</a></p>
+							<? } ?>
                             
                             <?
                             if (@$mapParams['mode'] == 'place') {
@@ -164,11 +163,6 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         <? if (($typ_id > 3)) { ?>
                                             <li>
                                                 <label>Gmina:</label>
-                                                <? if (!isset($widget)) { ?>
-                                                    <a href="/dane/gminy/<?= $mapParams['data']['miejsca.gmina_id'] ?>"><span
-                                                            class="glyphicon glyphicon-share"
-                                                                             aria-hidden="true"></span></a>
-                                                <? } ?>
                                                 <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.gmina_miejsce_id'] ?><? if (isset($widget)) echo '?widget';
                                                 if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= ($mapParams['data']['gmina']) ?></a>
                                             </li>
@@ -177,11 +171,6 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         <? if ($typ_id > 2) { ?>
                                             <li>
                                                 <label>Powiat:</label>
-                                                <? if (!isset($widget)) { ?>
-                                                    <a href="/dane/powiaty/<?= $mapParams['data']['miejsca.powiat_id'] ?>"><span
-                                                            class="glyphicon glyphicon-share"
-                                                                             aria-hidden="true"></span></a>
-                                                <? } ?>
                                                 <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.powiat_miejsce_id'] ?><? if (isset($widget)) echo '?widget';
                                                 if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= ($mapParams['data']['powiat']) ?></a>
                                             </li>
@@ -190,11 +179,6 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         <? if ($typ_id > 1) { ?>
                                             <li>
                                                 <label>Województwo:</label>
-                                                <? if (!isset($widget)) { ?>
-                                                    <a href="/dane/wojewodztwa/<?= $mapParams['data']['miejsca.wojewodztwo_id'] ?>"><span
-                                                            class="glyphicon glyphicon-share"
-                                                                             aria-hidden="true"></span></a>
-                                                <? } ?>
                                                 <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.wojewodztwo_miejsce_id'] ?><? if (isset($widget)) echo '?widget';
                                                 if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= strtolower($mapParams['data']['wojewodztwo']) ?></a>
                                             </li>
