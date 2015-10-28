@@ -4199,6 +4199,12 @@ class GminyController extends DataobjectsController
             $main_chart['title'] = 'Dochody w przeliczeniu na osobę';
             $field = 'dochody_pp';
             $dataset = 'dochody';
+            $this->histogramIntervals = array(
+                100,
+                50,
+                20,
+                10
+            );
 
         }
 
@@ -5237,6 +5243,9 @@ class GminyController extends DataobjectsController
                 $aggs = $this->viewVars['dataBrowser']['aggs'];
                 $this->viewVars['dataBrowser']['aggs'] = null;
 
+                $dataset = 'wydatki';
+                if(empty($aggs['gmina']['sumy']['timerange'][$dataset]))
+                    $dataset = 'dochody';
 
                 $global = array(
                     'min' => array(
@@ -5249,7 +5258,7 @@ class GminyController extends DataobjectsController
                         'label' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
                         'id' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
                     ),
-                    'cur' => $aggs['gmina']['sumy']['timerange']['wydatki']['value'],
+                    'cur' => $aggs['gmina']['sumy']['timerange'][$dataset]['value'],
                     'median' => $aggs['gminy']['sumy']['timerange']['percentiles']['values']['50.0'],
                     'histogram' => $aggs['gminy']['sumy']['timerange']['histogram']['buckets'],
                 );
@@ -5301,7 +5310,7 @@ class GminyController extends DataobjectsController
                                     'label' => $d['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
                                     'id' => $d['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
                                 ),
-                                'cur' => $b['wydatki']['value'],
+                                'cur' => $b[$dataset]['value'],
                                 'median' => $d['percentiles']['values']['50.0'],
                                 'histogram' => $d['histogram_' . $histogram_i]['buckets'],
                                 'interval' => $this->histogramIntervals[(int)$histogram_i]
@@ -5330,7 +5339,7 @@ class GminyController extends DataobjectsController
                                 $r = array(
                                     'id' => $r['key'],
                                     'label' => $r['nazwa']['buckets'][0]['key'],
-                                    'wydatki' => $r['wydatki']['value'],
+                                    'wydatki' => $r[$dataset]['value'],
                                 );
 
                             }
