@@ -93,8 +93,6 @@ $(function () {
 	dataPremier.push(premierPlotBandData);
 	dataPremier2.push(premierPlotBandData2);
 
-	console.log(dataPremier);
-
 	var dataSeries = [
 		{
 			name: 'Wydatki',

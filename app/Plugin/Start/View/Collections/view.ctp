@@ -34,6 +34,17 @@ echo $this->element('Start.pageBegin'); ?>
                         data-placement="bottom"
                         class="btn btn-default btnRemove btn"
                         type="submit">
+                        <i class="glyphicon glyphicon-share" title="Usuń kolekcję" aria-hidden="true"></i>
+                    </button>
+                </li>
+                <li>
+                    <input type="hidden" name="delete"/>
+                    <button
+                        data-tooltip="true"
+                        data-original-title="Usuń kolekcję"
+                        data-placement="bottom"
+                        class="btn btn-default btnRemove btn"
+                        type="submit">
                         <i class="glyphicon glyphicon-trash" title="Usuń kolekcję" aria-hidden="true"></i>
                     </button>
                 </li>
@@ -43,8 +54,9 @@ echo $this->element('Start.pageBegin'); ?>
     </header>
 </form>
 
+
 <? $note = $item->getData('kolekcje.notatka'); ?>
-<div class="alert alert-info overflow-hidden note-editable<?= $note == '' ? ' empty' : '' ?>">
+<div class="collection-main-note alert alert-info overflow-hidden note-editable<?= $note == '' ? ' empty' : '' ?>">
     <? if($note == '') { ?>
         <p class="text-center">
             <a href="#addnote" class="btn btn-link create-note">Dodaj notatkę</a>
@@ -58,6 +70,11 @@ echo $this->element('Start.pageBegin'); ?>
         </button>
     <? } ?>
 </div>
+
+<ul class="collection-meta">
+	<li>Kolekcja prywatna</li>
+	<li>Redakcja: <a href="#">Fundacja ePaństwo</a></li>
+</ul>
 
 <div class="block block-simple col-sm-12 margin-top-0 collectionObjects" data-collection-id="<?= $item->getId() ?>">
 

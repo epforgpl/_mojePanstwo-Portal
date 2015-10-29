@@ -18,8 +18,8 @@
     background: linear-gradient(135deg,  #2a2a2b 0%,#3d3d3f 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a2a2b', endColorstr='#3d3d3f',GradientType=1 );
 	min-height: 455px;
-	
-	
+
+
     #mp-sections {
         margin-left: 10px;
 
@@ -214,9 +214,9 @@
 
 
 #compare {
-	
+
 	margin-bottom: 50px;
-	
+
 	.head {
 		text-align: center;
 		margin-bottom: 10px;
@@ -229,23 +229,23 @@
 			font-size: 12px;
 		}
 	}
-	
+
 	.subdata {
 		text-align: center;
 		._label {
 			text-align: right;
 		}
 	}
-	
+
 	.data {
 		text-align: center;
 		border-top: 1px solid #DDD;
-		
+
 		&.internal {
 			border-top: none;
 			padding-bottom: 20px;
 		}
-		
+
 		._label {
 			text-align: left;
 		}
@@ -263,7 +263,7 @@
 			&.value {
 				font-size: 20px;
 				margin: 10px;
-				
+
 				&.diff {
 					position: static;
 					.glyphicon {
@@ -274,14 +274,14 @@
 		}
 		img {
 			margin: 5px;
-			
+
 		}
 	}
-	
+
 	.compare-details {
 		margin-bottom: 20px;
 	}
-	
+
 	.value.diff {
 		.glyphicon {
 			font-size: 75%;
@@ -289,8 +289,31 @@
 			top: 0;
 		}
 		.text {
-			
+
 		}
 	}
-	
+
+}
+
+.factor {
+    font-size: 14px;
+    margin-right: 5px;
+
+    &.u {
+        color: #447744;
+
+        &:before {
+            content: "\2191";
+            padding-right: 5px;
+        }
+    }
+
+    &.d {
+        color: #994444;
+
+        &:before {
+            content: "\2193";
+            padding-right: 5px;
+        }
+    }
 }
