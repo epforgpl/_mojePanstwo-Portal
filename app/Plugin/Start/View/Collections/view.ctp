@@ -54,7 +54,6 @@ echo $this->element('Start.pageBegin'); ?>
     </header>
 </form>
 
-
 <? $note = $item->getData('kolekcje.notatka'); ?>
 <div class="collection-main-note alert alert-info overflow-hidden note-editable<?= $note == '' ? ' empty' : '' ?>">
     <? if($note == '') { ?>
@@ -71,9 +70,11 @@ echo $this->element('Start.pageBegin'); ?>
     <? } ?>
 </div>
 
-<ul class="collection-meta">
-	<li>Kolekcja prywatna</li>
-	<li>Redakcja: <a href="#">Fundacja ePaństwo</a></li>
+<ul class="collection-meta margin-top-20">
+	<li>Kolekcja <?= $item->getData('is_public') ? 'publiczna' : 'prywatna' ?></li>
+    <? if($item->getData('object_id')) { ?>
+	    <li>Redakcja: <a href="#">Fundacja ePaństwo</a></li>
+    <? } ?>
 </ul>
 
 <div class="block block-simple col-sm-12 margin-top-0 collectionObjects" data-collection-id="<?= $item->getId() ?>">
