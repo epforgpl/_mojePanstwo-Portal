@@ -3,6 +3,9 @@
 $this->Combinator->add_libs('js', 'Start.collections-view.js');
 $this->Combinator->add_libs('css', $this->Less->css('collections-view', array('plugin' => 'Start')));
 
+/* tinymce */
+echo $this->Html->script('../plugins/tinymce/js/tinymce/tinymce.min', array('block' => 'scriptBlock'));
+
 echo $this->element('Start.pageBegin'); ?>
 
 <form action="" method="post">
@@ -18,7 +21,7 @@ echo $this->element('Start.pageBegin'); ?>
             <div class="content pull-left">
                 <i class="object-icon icon-datasets-kolekcje"></i>
                 <div class="object-icon-side">
-	                <h1><?= $item->getData('nazwa') ?></h1>
+                    <input class="form-control h1-editable" type="text" name="nazwa" value="<?= $item->getData('nazwa') ?>"/>
                 </div>
             </div>
 
@@ -40,7 +43,21 @@ echo $this->element('Start.pageBegin'); ?>
     </header>
 </form>
 
-<div class="alert alert-info">Dane dotyczące dostępu do informacji publicznej. Interpleacje, ustawy i inne.</div>
+<? $note = $item->getData('kolekcje.notatka'); ?>
+<div class="alert alert-info overflow-hidden note-editable<?= $note == '' ? ' empty' : '' ?>">
+    <? if($note == '') { ?>
+        <p class="text-center">
+            <a href="#addnote" class="btn btn-link create-note">Dodaj notatkę</a>
+        </p>
+    <? } else { ?>
+        <div class="content">
+            <?= $note ?>
+        </div>
+        <button class="btn btn-sm pull-right btn-default btnNoteEdit btn" type="submit">
+            Edytuj
+        </button>
+    <? } ?>
+</div>
 
 <div class="block block-simple col-sm-12 margin-top-0 collectionObjects" data-collection-id="<?= $item->getId() ?>">
 
