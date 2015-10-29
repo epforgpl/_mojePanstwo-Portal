@@ -14,16 +14,20 @@
     <header class="collection-header">
         
         <ul class="breadcrumb">
-		  <li><a href="/moje-kolekcje">Moje Kolekcje</a></li>
-		  <li class="active">Kolekcja</li>
+		  <li><a href="/moje-kolekcje">Moje Pisma</a></li>
+		  <li class="active">Pismo</li>
 		</ul>
         
         <div class="overflow-auto">
 
             <div class="content pull-left">
-                <i class="object-icon icon-datasets-pisma"></i>
+                <i class="object-icon icon-applications-pisma"></i>
                 <div class="object-icon-side">
-	                <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>"><a href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>"><?= $pismo['nazwa'] ?></a></h1>
+	                <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
+		                <? /*<a href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">*/ ?>
+			                <?= $pismo['nazwa'] ?>
+			            <? /*</a>*/ ?>
+			        </h1>
                 </div>
             </div>
 			
@@ -58,8 +62,7 @@
 </form>
 
 <ul class="collection-meta">
-	<li>Kolekcja prywatna</li>
-	<li>Redakcja: <a href="#">Fundacja ePaństwo</a></li>
+	<li>Pismo prywatne</li>
 </ul>
 
 
@@ -292,7 +295,39 @@
 */ ?>
 
 
+<div class="letter-table">
+	<div class="row">
+		<div class="col-sm-2">
+			<p>Od:</p>
+		</div><div class="col-sm-10">
+			<p><?= $pismo['from_user_name'] ?></p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-2">
+			<p>Do:</p>
+		</div><div class="col-sm-10">
+			<p><?= $pismo['to_name'] ?></p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-2">
+			<p>Temat:</p>
+		</div><div class="col-sm-10">
+			<p><?= $pismo['tytul'] ?></p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="text">
+				<?= $pismo['content'] ?>
+			</div>
+		</div>
+	</div>
+</div>
 
+
+<? /*
 <div id="stepper">
     <div class="content clearfix">
         <div class="col-xs-12 view norightpadding">
@@ -300,6 +335,7 @@
         </div>
     </div>
 </div>
+*/ ?>
 
 <div class="lettersResponses">
     <div class="row margin-top-20">
