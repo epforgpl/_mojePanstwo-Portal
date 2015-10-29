@@ -31,6 +31,17 @@ echo $this->element('Start.pageBegin'); ?>
                         data-placement="bottom"
                         class="btn btn-default btnRemove btn"
                         type="submit">
+                        <i class="glyphicon glyphicon-share" title="Usuń kolekcję" aria-hidden="true"></i>
+                    </button>
+                </li>
+                <li>
+                    <input type="hidden" name="delete"/>
+                    <button
+                        data-tooltip="true"
+                        data-original-title="Usuń kolekcję"
+                        data-placement="bottom"
+                        class="btn btn-default btnRemove btn"
+                        type="submit">
                         <i class="glyphicon glyphicon-trash" title="Usuń kolekcję" aria-hidden="true"></i>
                     </button>
                 </li>
@@ -40,7 +51,12 @@ echo $this->element('Start.pageBegin'); ?>
     </header>
 </form>
 
-<div class="alert alert-info">Dane dotyczące dostępu do informacji publicznej. Interpleacje, ustawy i inne.</div>
+<ul class="collection-meta">
+	<li>Kolekcja prywatna</li>
+	<li>Redakcja: <a href="#">Fundacja ePaństwo</a></li>
+</ul>
+
+<div class="collection-main-note alert alert-info">Dane dotyczące dostępu do informacji publicznej. Interpleacje, ustawy i inne.</div>
 
 <div class="block block-simple col-sm-12 margin-top-0 collectionObjects" data-collection-id="<?= $item->getId() ?>">
 
