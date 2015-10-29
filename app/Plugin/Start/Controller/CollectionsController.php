@@ -6,6 +6,7 @@ class CollectionsController extends StartAppController
 {
 
     public $uses = array('Collections.Collection');
+    public $components = array('RequestHandler');
     public $chapter_selected = 'collections';
     public $appSelected = 'kolekcje';
 
@@ -111,6 +112,16 @@ class CollectionsController extends StartAppController
 
         $this->title = $item->getTitle();
         $this->set('item', $item);
+    }
+
+    public function publish($id) {
+        $this->set('response', $this->Collection->publish($id));
+        $this->set('_serialize', array('response'));
+    }
+
+    public function unpublish($id) {
+        $this->set('response', $this->Collection->unpublish($id));
+        $this->set('_serialize', array('response'));
     }
 
 }

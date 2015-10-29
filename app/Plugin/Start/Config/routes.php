@@ -19,6 +19,26 @@ Router::connect('/moje-kolekcje/:id/edytuj', array('plugin' => 'Start', 'control
         'id' => '[0-9]{1,}', 'pass' => array('id'))
 );
 
+Router::connect('/moje-kolekcje/:id/publish', array(
+    'plugin' => 'Start',
+    'controller' => 'Collections',
+    'action' => 'publish',
+    '[method]' => 'POST'
+), array(
+    'id' => '[0-9]{1,}',
+    'pass' => array('id')
+));
+
+Router::connect('/moje-kolekcje/:id/unpublish', array(
+    'plugin' => 'Start',
+    'controller' => 'Collections',
+    'action' => 'unpublish',
+    '[method]' => 'POST'
+), array(
+    'id' => '[0-9]{1,}',
+    'pass' => array('id')
+));
+
 
 
 /* MOJE PISMA ROUTES*/
