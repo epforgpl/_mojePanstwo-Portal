@@ -1,11 +1,8 @@
-<?= $this->element('Start.pageBegin'); ?>
-
 <? $this->Combinator->add_libs('css', $this->Less->css('collections-index', array('plugin' => 'Start'))); ?>
 
-<div class="appBanner bottom-border">
-	<h1 class="appTitle">Kolekcje</h1>
-	<p class="appSubtitle">Organizuj swoje dane</p>
-</div>
+<?= $this->element('Start.pageBegin'); ?>
+
+<h1>Moje Kolekcje</h1>
 
 <?= $this->element('Dane.DataBrowser/browser-content', array(
 	'displayAggs' => false,

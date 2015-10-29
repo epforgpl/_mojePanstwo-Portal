@@ -7,6 +7,12 @@ echo $this->element('Start.pageBegin'); ?>
 
 <form action="" method="post">
     <header class="collection-header">
+        
+        <ul class="breadcrumb">
+		  <li><a href="/moje-kolekcje">Moje Kolekcje</a></li>
+		  <li class="active">Kolekcja</li>
+		</ul>
+        
         <div class="overflow-auto">
 
             <div class="content pull-left">
@@ -28,20 +34,13 @@ echo $this->element('Start.pageBegin'); ?>
                         <i class="glyphicon glyphicon-trash" title="Usuń kolekcję" aria-hidden="true"></i>
                     </button>
                 </li>
-                <li>
-                    <a
-                        data-tooltip="true"
-                        data-original-title="Edytuj kolekcję"
-                        data-placement="bottom"
-                        class="btn btn-default"
-                        href="<?= $item->getUrl(); ?>/edytuj">
-                        <i class="glyphicon glyphicon-edit" title="Edytuj kolekcję" aria-hidden="true"></i>
-                    </a>
-                </li>
+                
             </ul>
         </div>
     </header>
 </form>
+
+<div class="alert alert-info">Dane dotyczące dostępu do informacji publicznej. Interpleacje, ustawy i inne.</div>
 
 <div class="block block-simple col-sm-12 margin-top-0 collectionObjects" data-collection-id="<?= $item->getId() ?>">
 
@@ -50,9 +49,11 @@ echo $this->element('Start.pageBegin'); ?>
             'displayAggs' => false,
             'app_chapters' => false,
             'forceHideAggs' => true,
-            'beforeItemElement' => 'Dane.DataBrowser/checkbox',
+            'beforeItemElement' => 'Start.DataBrowser/collection-before',
+            'afterItemElement' => 'Start.DataBrowser/collection-after',
             'paginatorPhrases' => array('dokument', 'dokumenty', 'dokumentów'),
             'noResultsPhrase' => 'Kolekcja jest pusta',
+            'nopaging' => true,
         )); ?>
     </div>
 
