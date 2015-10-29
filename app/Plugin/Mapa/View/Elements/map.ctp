@@ -80,19 +80,12 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                  <? if (@$mapParams['data']) { ?>data-object_id="<?= $mapParams['data']['miejsca.object_id'] ?>"<? } ?>
                  <? if (@$mapParams['data']) { ?>data-data="<?= htmlspecialchars(json_encode($mapParams['data'])) ?>"<? } ?>>
 
-                <div class="map<? if (!isset($mapParams) && !isset($dataBrowser)) { ?> nodetails<? } ?>"></div>
-
                 <? if (isset($dataBrowser) && isset($this->request->query['q'])) { ?>
-
                     <div class="details">
                         <div class="title">
-
                             <h1><?= isset($this->request->query['q']) ? $this->request->query['q'] : 'Mapa' ?></h1>
-
                         </div>
-
                         <ul class="main">
-
                             <? if (@$dataBrowser['hits']) { ?>
                                 <li class="accord">
                                     <header>
@@ -112,13 +105,9 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                     </section>
                                 </li>
                             <? } ?>
-
                         </ul>
-
                     </div>
-
                 <? } elseif (isset($mapParams)) { ?>
-
                     <div class="details" itemscope itemtype="http://schema.org/Place">
                         <div class="title">
                             <? if (@$mapParams['mode'] == 'place') { ?>
@@ -146,9 +135,11 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
 
                             <h1><?= $mapParams['title'] ?></h1>
-							<? if( @$mapParams['data']['typ_id']==3 ) {?>
-								<p class="info-more"><a href="/dane/gminy/<?= $mapParams['data']['miejsca.gmina_id'] ?>">Więcej informacji o gminie &raquo;</a></p>
-							<? } ?>
+                            <? if (@$mapParams['data']['typ_id'] == 3) { ?>
+                                <p class="info-more"><a
+                                        href="/dane/gminy/<?= $mapParams['data']['miejsca.gmina_id'] ?>">Więcej
+                                        informacji o gminie &raquo;</a></p>
+                            <? } ?>
 
                             <?
                             if (@$mapParams['mode'] == 'place') {
@@ -489,48 +480,6 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                     </section>
                                 </li>
                             <? } ?>
-                            <? if (!isset($widget)) {
-                                echo $this->element('Mapa.wybory', array("widget" => null, "mapParams" => $mapParams));
-                            } ?>
-                            <li class="accord warstwy closed">
-                                <header>
-                                    <span class="arrow"></span>
-
-                                    <h2>Warstwy:</h2>
-
-                                    <div class="mapSpinner spinner grey hide">
-                                        <div class="bounce1"></div>
-                                        <div class="bounce2"></div>
-                                        <div class="bounce3"></div>
-                                    </div>
-                                </header>
-                                <section class="dcontent">
-                                    <ul class="scrollZone">
-                                        <li data-id="instytucje">
-                                            <label class="checkbox-label">
-                                                <input type="radio" name="layers" value="instytucje"> Instytucje
-                                                publiczne
-                                            </label>
-                                        </li>
-                                        <li data-id="biznes">
-                                            <label class="checkbox-label">
-                                                <input type="radio" name="layers" value="biznes"> Biznes
-                                            </label>
-                                        </li>
-                                        <li data-id="ngo">
-                                            <label class="checkbox-label">
-                                                <input type="radio" name="layers" value="ngo"> Ngo
-                                            </label>
-                                        </li>
-                                        <li data-id="komisje">
-                                            <label class="checkbox-label">
-                                                <input type="radio" name="layers" value="komisje_wyborcze"> Komisje
-                                                Wyborcze
-                                            </label>
-                                        </li>
-                                    </ul>
-                                </section>
-                            </li>
                         </ul>
                     </div>
                     <? if (isset($widget)) { ?>
@@ -541,6 +490,62 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                         </ul>
                     <? } ?>
                 <? } ?>
+
+                <div class="map<? if (!isset($mapParams) && !isset($dataBrowser)) {
+                    echo ' nodetails';
+                } ?>"></div>
+
+                <div class="explore<? if (!isset($mapParams) && !isset($dataBrowser)) {
+                    echo ' nodetails';
+                } ?>">
+                    <ul>
+                        <li>Instytucje publiczne</li>
+                        <li>Organizacje</li>
+                        <li>Wybory parlamentarne 2015</li>
+                        <? /* if (!isset($widget)) {
+                            echo $this->element('Mapa.wybory', array("widget" => null, "mapParams" => $mapParams));
+                        } */ ?><!--
+                        <li class="accord warstwy closed">
+                            <header>
+                                <span class="arrow"></span>
+
+                                <h2>Warstwy:</h2>
+
+                                <div class="mapSpinner spinner grey hide">
+                                    <div class="bounce1"></div>
+                                    <div class="bounce2"></div>
+                                    <div class="bounce3"></div>
+                                </div>
+                            </header>
+                            <section class="dcontent">
+                                <ul class="scrollZone">
+                                    <li data-id="instytucje">
+                                        <label class="checkbox-label">
+                                            <input type="radio" name="layers" value="instytucje"> Instytucje
+                                            publiczne
+                                        </label>
+                                    </li>
+                                    <li data-id="biznes">
+                                        <label class="checkbox-label">
+                                            <input type="radio" name="layers" value="biznes"> Biznes
+                                        </label>
+                                    </li>
+                                    <li data-id="ngo">
+                                        <label class="checkbox-label">
+                                            <input type="radio" name="layers" value="ngo"> Ngo
+                                        </label>
+                                    </li>
+                                    <li data-id="komisje">
+                                        <label class="checkbox-label">
+                                            <input type="radio" name="layers" value="komisje_wyborcze"> Komisje
+                                            Wyborcze
+                                        </label>
+                                    </li>
+                                </ul>
+                            </section>
+                        </li>-->
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

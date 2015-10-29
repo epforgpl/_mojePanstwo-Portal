@@ -458,9 +458,13 @@ var MapBrowser = Class.extend({
 	resize: function () {
 		var h = $(window).height() - $(this.div).offset().top,
 			h_title = this.detail_div_main_title.outerHeight(),
-			h_accord;
+			h_accord,
+			h_explore = this.div.find('.explore').outerHeight() || 0;
 
-		this.map_div.height(h + 'px');
+		this.map_div.css({
+			'height': h - h_explore + 'px',
+			'margin-bottom': h_explore + 'px'
+		});
 		h -= h_title;
 		this.detail_div_main.css('height', h);
 
@@ -820,4 +824,39 @@ $(document).ready(function () {
 		accordWarstwy.find('input[value="' + mPCookie.mapa.warstwa + '"]').addClass('c').prop('checked', 'checked');
 		mapaWarstwy.setLayer(mPCookie.mapa.warstwa);
 	}
+
+	var explore = $('.explore');
+	explore.find('li').click(function () {
+		var c = $(this);
+		if (explore.height() > 0) {
+			if (c.hasClass('open')) {
+				explore.animate({
+					height: 0
+				}, {
+					step: function () {
+						mapBrowser.resize();
+					},
+					complete: function () {
+						c.removeClass('open');
+						mapBrowser.resize();
+					}
+				}).css("overflow", "visible");
+			} else {
+				explore.find('li.open').removeClass('open');
+				c.addClass('open');
+			}
+		} else {
+			explore.animate({
+				height: explore.css('max-height')
+			}, {
+				step: function () {
+					mapBrowser.resize();
+				},
+				complete: function () {
+					c.addClass('open');
+					mapBrowser.resize();
+				}
+			}).css("overflow", "visible");
+		}
+	})
 });

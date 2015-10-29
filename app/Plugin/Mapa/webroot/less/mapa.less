@@ -227,6 +227,7 @@
     > .map {
         width: 100%;
         margin-left: 280px;
+
         &.nodetails {
             margin-left: 0;
         }
@@ -253,6 +254,49 @@
         }
         .obwod {
             padding-bottom: 6px;
+        }
+    }
+
+    .explore {
+        width: 100%;
+        padding-left: 280px;
+        max-height: 100px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background-color: #F8F9FA;
+        border-top: 1px solid #bbbbbb;
+
+        &.nodetails {
+            margin-left: 0;
+        }
+
+        ul {
+            @liHeight: 30px;
+            position: absolute;
+            top: -@liHeight;
+            left: 355px;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+
+            li {
+                float: left;
+                height: @liHeight;
+                border: 1px solid #bbbbbb;
+                border-bottom: 0;
+                background-color: #F8F9FA;
+                border-radius: 6px 6px 0 0;
+                padding: 6px 8px;
+                margin-right: 1px;
+                cursor: pointer;
+
+                &.open {
+                    font-weight: bold;
+                    padding-left: 7px;
+                    padding-right: 7px;
+                }
+            }
         }
     }
 
