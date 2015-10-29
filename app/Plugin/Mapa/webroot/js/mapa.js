@@ -800,9 +800,10 @@ $(document).ready(function () {
 			layer = el.val();
 
 		if (el.hasClass('c')) {
-			el.removeClass('c').prop('checked', false);
-			layer = false
+			accordWarstwy.find('input.c').removeClass('c').prop('checked', false);
+			layer = false;
 		} else {
+			accordWarstwy.find('input.c').removeClass('c').prop('checked', false);
 			el.addClass('c');
 		}
 
@@ -816,7 +817,7 @@ $(document).ready(function () {
 		mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
 
 	if (typeof mPCookie.mapa.warstwa !== "undefined" && mPCookie.mapa.warstwa) {
-		accordWarstwy.find('input[value="' + mPCookie.mapa.warstwa + '"]').prop('checked', 'checked');
+		accordWarstwy.find('input[value="' + mPCookie.mapa.warstwa + '"]').addClass('c').prop('checked', 'checked');
 		mapaWarstwy.setLayer(mPCookie.mapa.warstwa);
 	}
 });

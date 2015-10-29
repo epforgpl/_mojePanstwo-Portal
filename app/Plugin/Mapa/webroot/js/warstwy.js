@@ -1,7 +1,3 @@
-/*global map, infowindow*/
-var warstwyCacheAjax = {},
-	infowindow = infowindow || null;
-
 function CustomMarker(latlng, map, args) {
 	this.latlng = latlng;
 	this.args = args;
@@ -44,12 +40,12 @@ CustomMarker.prototype.draw = function () {
 					});
 					infoWindowBlock = '<div class="infoWindowNgo">' + ngoPlaceBlock + '</div>';
 
-					infowindow.setContent(infoWindowBlock)
+					self.infowindow.setContent(infoWindowBlock)
 				});
-				if (infowindow)
-					infowindow.close();
+				if (self.infowindow)
+					self.infowindow.close();
 
-				infowindow = new google.maps.InfoWindow({
+				self.infowindow = new google.maps.InfoWindow({
 					position: self.latlng,
 					content: '<div class="spinner grey">' +
 					'<div class="bounce1"></div>' +
@@ -57,7 +53,7 @@ CustomMarker.prototype.draw = function () {
 					'<div class="bounce3"></div>' +
 					'</li>'
 				});
-				infowindow.open(self.map);
+				self.infowindow.open(self.map);
 				self.map.setCenter(self.latlng);
 			} else {
 				self.map.setCenter(self.latlng);
@@ -90,46 +86,49 @@ CustomMarker.prototype.getPosition = function () {
 
 
 function mapaWarstwy(map) {
-	this.basemarkers = {
+	this.markers = {
 		instytucje: {},
 		biznes: {},
 		ngo: {},
 		komisje_wyborcze: {}
 	};
-	this.markers = this.basemarkers;
 
-	this.baseArea = {tl: false, br: false, zoom: false};
-	this.pendingArea = this.baseArea;
-	this.lastArea = this.baseArea;
+	this.pendingArea = {tl: false, br: false, zoom: false};
+	this.lastArea = {tl: false, br: false, zoom: false};
 	this.mapUpdateTimer = null;
 	this.xhr = null;
 	this.layer = null;
 	this.map = map;
+	this.cacheAjax = {};
+	this.infowindow = null;
 }
 
 mapaWarstwy.prototype.setLayer = function (layer) {
 	var self = this;
 
 	self.layer = layer;
-	google.maps.event.clearListeners(self.map, 'idle');
-	self.mapUpdateClear();
 
+	google.maps.event.clearListeners(self.map, 'idle');
 	if (self.layer !== false) {
 		google.maps.event.addDomListener(self.map, 'idle', function () {
 			self.mapUpdate(self.layer)
 		});
 		self.mapUpdate(self.layer)
+	} else {
+		$('.accord.warstwy').attr('data-layer', self.layer);
+		self.mapUpdateClear();
 	}
 };
 
 mapaWarstwy.prototype.showPlaces = function (data) {
-	var ngoIcon = {
+	var icon = {
 			path: 'M-8,0a8,8 0 1,0 16,0a8,8 0 1,0 -16,0',
 			fillColor: 'red',
 			strokeColor: 'red',
 			fillOpacity: 1
 		},
 		self = this;
+
 	for (var i = 0; i < data.grid.buckets.length; i++) {
 		var cell = data.grid.buckets[i],
 			center = Geohash.decode(cell.key),
@@ -140,7 +139,7 @@ mapaWarstwy.prototype.showPlaces = function (data) {
 			if (cell.doc_count == 1) {
 				var marker = new google.maps.Marker({
 					position: new google.maps.LatLng(cell.location.lat, cell.location.lon),
-					icon: ngoIcon,
+					icon: icon,
 					map: self.map,
 					data: cell.data
 				});
@@ -148,14 +147,13 @@ mapaWarstwy.prototype.showPlaces = function (data) {
 				self.markers[self.layer][term] = marker;
 
 				marker.addListener('click', (function (marker) {
-					var self = this;
 					return function () {
-						if (infowindow)
-							infowindow.close();
+						if (self.infowindow)
+							self.infowindow.close();
 
-						infowindow = new google.maps.InfoWindow();
+						self.infowindow = new google.maps.InfoWindow();
 
-						infowindow.setContent('<div class="infoWindowNgo">' +
+						self.infowindow.setContent('<div class="infoWindowNgo">' +
 							'<div class="ngoPlace">' +
 							'<div class="title">' +
 							'<a href="/dane/krs_podmioty/' + marker.data['krs_podmioty.id'] + '">' +
@@ -165,10 +163,11 @@ mapaWarstwy.prototype.showPlaces = function (data) {
 							'</div>' +
 							'</div>' +
 							'</div>');
-						infowindow.open(self.map, marker);
+
+						self.infowindow.open(self.map, marker);
 						self.map.setCenter(marker.latlng);
 					};
-				})(marker, content, infowindow));
+				})(marker, content, self.infowindow));
 			} else {
 				var inner_center = Geohash.decode(cell.inner_key),
 					centerLat = center.lat + (inner_center.lat - center.lat) * f,
@@ -214,16 +213,29 @@ mapaWarstwy.prototype.mapUpdateClear = function () {
 		});
 	});
 
-	self.markers = self.basemarkers;
-	self.lastArea = self.baseArea;
+	self.lastArea = {tl: false, br: false, zoom: false};
+	self.markers = {
+		instytucje: {},
+		biznes: {},
+		ngo: {},
+		komisje_wyborcze: {}
+	};
 };
 
 mapaWarstwy.prototype.mapUpdateResults = function (data, area) {
-	var self = this;
+	var self = this,
+		accordWarstwy = $('.accord.warstwy');
 
-	if (area.zoom !== self.lastArea.zoom) {
-		self.mapUpdateClear()
+	if (accordWarstwy.attr('data-layer') !== self.layer) {
+		accordWarstwy.attr('data-layer', self.layer);
+		self.mapUpdateClear();
+	} else if (area.zoom !== self.lastArea.zoom) {
+		self.mapUpdateClear();
+
+		if (self.infowindow)
+			self.infowindow.close();
 	}
+
 	self.lastArea = area;
 	if (self.layer)
 		self.showPlaces(data);
@@ -233,9 +245,6 @@ mapaWarstwy.prototype.mapUpdateResults = function (data, area) {
 
 mapaWarstwy.prototype.mapUpdate = function (layer) {
 	var self = this;
-
-	if (infowindow)
-		infowindow.close();
 
 	self.loading();
 
@@ -251,8 +260,8 @@ mapaWarstwy.prototype.mapUpdate = function (layer) {
 			if ((area.tl != self.lastArea.tl) || (area.br != self.lastArea.br)) {
 				var areaParms = area.tl + ',' + area.br + '&layer=' + layer;
 
-				if (areaParms in warstwyCacheAjax) {
-					self.mapUpdateResults(warstwyCacheAjax[areaParms], area);
+				if (areaParms in self.cacheAjax) {
+					self.mapUpdateResults(self.cacheAjax[areaParms], area);
 				} else {
 					if (self.xhr && self.xhr.readystate != 4) {
 						self.xhr.abort();
@@ -262,7 +271,7 @@ mapaWarstwy.prototype.mapUpdate = function (layer) {
 						area: area.tl + ',' + area.br,
 						layer: layer
 					}, function (data) {
-						warstwyCacheAjax[areaParms] = data;
+						self.cacheAjax[areaParms] = data;
 						self.mapUpdateResults(data, area);
 					}, 'json');
 				}
