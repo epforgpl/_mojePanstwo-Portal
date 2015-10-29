@@ -10,6 +10,18 @@ class Collection extends AppModel {
         ));
     }
 
+    public function publish($id) {
+        return $this->getDataSource()->request('collections/collections/publish/' . $id, array(
+            'method' => 'GET'
+        ));
+    }
+
+    public function unpublish($id) {
+        return $this->getDataSource()->request('collections/collections/unpublish/' . $id, array(
+            'method' => 'GET'
+        ));
+    }
+
     public function create($data) {
         return $this->getDataSource()->request('collections/collections/create', array(
             'data' => $data,
@@ -23,7 +35,6 @@ class Collection extends AppModel {
             'method' => 'POST'
         ));
     }
-
 
     public function addObject($id, $object_id) {
         return $this->getDataSource()->request('collections/collections/addObject/' . $id . '/' . $object_id, array(
