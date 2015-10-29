@@ -24,7 +24,7 @@ $(function () {
 		startDate = 1990,
 		premierPlotBandData = {},
 		premierPlotBandData2 = {},
-		premierPlotBandColorO = '#444444',//'#FFF',
+		premierPlotBandColorO = '#292929',//'#FFF',
 		premierPlotBandColorE = '#222222';//'#f8f9fa';
 
 	var last_year;
