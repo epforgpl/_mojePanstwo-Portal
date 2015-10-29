@@ -1,6 +1,5 @@
 var map,
 	mapaWarstwy,
-	mapInit = false,
 	polygon = false;
 
 $(document).ready(function () {
