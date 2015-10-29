@@ -1,31 +1,18 @@
-<div class="col-md-12">
-
-    <div class="blocks">        
-				
-		<? if (@$dataBrowser['aggs']['zamowienia_publiczne_dokumenty']['dni']['buckets']) { ?>
-            <div class="block block-simple block-size-sm col-xs-12">
-                <header>Rozstrzygnięcia zamówień publicznych:</header>
-                <section>
-                    <?= $this->element('Dane.zamowienia_publiczne', array(
-                        'histogram' => $dataBrowser['aggs']['zamowienia_publiczne_dokumenty']['dni']['buckets'],
-                        'request' => array(),
-                        'more' => array(
-                        	'url' => '/zamowienia_publiczne/rozstrzygniete',
-                        	'convert' => true,
-                        ),
-                        'aggs' => array(
-                        	'stats' => array(), 
-                        	'dokumenty' => array(
-	                        	'size' => 10,
-                        	), 
-                        	'wykonawcy' => array(),
-                        ),
-                        'mode' => 'medium',
-                    )); ?>
-                </section>
-            </div>
-        <? } ?>
+<div class="col-xs-12 col-md-3 col-sm-4 dataAggsContainer">
+    <div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
         
-    </div>
+        <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
+        
 
+    </div>
+</div>
+
+<div class="col-xs-12 col-md-9 col-sm-8">
+    <div class="dataWrap">
+        <div class="appBanner">
+            <h1 class="appTitle">Zamówienia publiczne</h1>
+
+            <p class="appSubtitle">Sprawdź kto otrzymuje zamówienia publiczne. Znajdź zamówienie dla swojej firmy.</p>
+        </div>
+    </div>
 </div>
