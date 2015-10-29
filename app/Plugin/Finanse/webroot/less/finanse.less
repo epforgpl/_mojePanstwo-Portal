@@ -17,7 +17,9 @@
     background: -ms-linear-gradient(-45deg,  #2a2a2b 0%,#3d3d3f 100%);
     background: linear-gradient(135deg,  #2a2a2b 0%,#3d3d3f 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a2a2b', endColorstr='#3d3d3f',GradientType=1 );
-
+	min-height: 455px;
+	
+	
     #mp-sections {
         margin-left: 10px;
 
@@ -208,4 +210,59 @@
         z-index: 15;
         position: relative;
     }
+}
+
+
+#compare {
+	
+	margin-bottom: 50px;
+	
+	.head {
+		text-align: center;
+		margin-bottom: 10px;
+		h2 {
+			font-size: 28px;
+			font-weight: 400;
+			margin-bottom: 10px;
+		}
+		p {
+			font-size: 12px;
+		}
+	}
+	
+	.data {
+		text-align: center;
+		border-top: 1px solid #DDD;
+		
+		&.internal {
+			border-top: none;
+			padding-bottom: 20px;
+		}
+		
+		._label {
+			text-align: left;
+		}
+		h3 {
+			font-size: 14px;
+		    font-weight: 400;
+		    margin: 15px 0;
+		}
+		h4 {
+			font-size: 14px;
+		}
+		p {
+			font-size: 12px;
+			&.value {
+				font-size: 20px;
+				margin: 10px;
+			}
+		}
+		img {
+			margin: 5px;
+			
+		}
+	}
+	
+	
+	
 }
