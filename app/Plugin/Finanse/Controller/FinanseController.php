@@ -68,6 +68,27 @@ class FinanseController extends ApplicationsController
             ),
             'apps' => true,
         );
+        
+        if(
+	        isset($this->request->params['p1']) && 
+	        isset($this->request->params['p2']) 
+        ) {
+	        
+	        $p1 = $this->request->params['p1'];
+	        $p2 = $this->request->params['p2'];
+	        
+        } else {
+	        
+	        $p1 = '2014';
+	        $p2 = '2015';
+	        
+        }
+        
+        $compareData = $this->Finanse->getCompareData($p1, $p2);
+        
+        $this->set('p1', $p1);
+        $this->set('p2', $p2);
+        $this->set('compareData', $compareData);
 
 		$this->chapter_selected = 'view';
         $this->Components->load('Dane.DataBrowser', $options);

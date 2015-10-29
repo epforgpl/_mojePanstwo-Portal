@@ -230,6 +230,13 @@
 		}
 	}
 	
+	.subdata {
+		text-align: center;
+		._label {
+			text-align: right;
+		}
+	}
+	
 	.data {
 		text-align: center;
 		border-top: 1px solid #DDD;
@@ -244,17 +251,25 @@
 		}
 		h3 {
 			font-size: 14px;
-		    font-weight: 400;
+		    font-weight: bold;
 		    margin: 15px 0;
 		}
 		h4 {
 			font-size: 14px;
+			margin-bottom: 0;
 		}
 		p {
 			font-size: 12px;
 			&.value {
 				font-size: 20px;
 				margin: 10px;
+				
+				&.diff {
+					position: static;
+					.glyphicon {
+						font-size: 75%;
+					}
+				}
 			}
 		}
 		img {
@@ -263,6 +278,19 @@
 		}
 	}
 	
+	.compare-details {
+		margin-bottom: 20px;
+	}
 	
+	.value.diff {
+		.glyphicon {
+			font-size: 75%;
+			position: relative;
+			top: 0;
+		}
+		.text {
+			
+		}
+	}
 	
 }
