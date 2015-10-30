@@ -788,44 +788,30 @@ $(document).ready(function () {
 		})
 	});
 
-	var accordWarstwy = $('.accord.warstwy'),
-		mPCookie = {mapa: {}};
+	var mPCookie = {mapa: {}},
+		explore = $('.explore');
 
 	mapaWarstwy = new mapaWarstwy(mapBrowser.map);
-	mapaWarstwy.loading = function () {
-		accordWarstwy.find('.mapSpinner').removeClass('hide');
-	};
-	mapaWarstwy.complete = function () {
-		accordWarstwy.find('.mapSpinner').addClass('hide');
-	};
-
-	accordWarstwy.find('input').click(function () {
-		var el = $(this),
-			layer = el.val();
-
-		if (el.hasClass('c')) {
-			accordWarstwy.find('input.c').removeClass('c').prop('checked', false);
-			layer = false;
-		} else {
-			accordWarstwy.find('input.c').removeClass('c').prop('checked', false);
-			el.addClass('c');
-		}
-
-		mapaWarstwy.setLayer(layer);
-		mPCookie.mapa.warstwa = layer;
-
-		Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
-	});
 
 	if (Cookies.get('mojePanstwo') !== undefined)
 		mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
 
 	if (typeof mPCookie.mapa.warstwa !== "undefined" && mPCookie.mapa.warstwa) {
-		accordWarstwy.find('input[value="' + mPCookie.mapa.warstwa + '"]').addClass('c').prop('checked', 'checked');
 		mapaWarstwy.setLayer(mPCookie.mapa.warstwa);
+
+		explore.animate({
+			height: explore.css('max-height')
+		}, {
+			step: function () {
+				mapBrowser.resize();
+			},
+			complete: function () {
+				explore.find('li[data-layer="' + mPCookie.mapa.warstwa + '"]').addClass('open');
+				mapBrowser.resize();
+			}
+		}).css("overflow", "visible");
 	}
 
-	var explore = $('.explore');
 	explore.find('li').click(function () {
 		var c = $(this);
 		if (explore.height() > 0) {
@@ -839,13 +825,27 @@ $(document).ready(function () {
 					complete: function () {
 						c.removeClass('open');
 						mapBrowser.resize();
+						mapaWarstwy.setLayer(false);
+
+						mPCookie.mapa.warstwa = false;
+						Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
 					}
 				}).css("overflow", "visible");
 			} else {
 				explore.find('li.open').removeClass('open');
 				c.addClass('open');
+
+				mapaWarstwy.setLayer(c.attr('data-layer'));
+
+				mPCookie.mapa.warstwa = c.attr('data-layer');
+				Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
 			}
 		} else {
+			mapaWarstwy.setLayer(c.attr('data-layer'));
+
+			mPCookie.mapa.warstwa = c.attr('data-layer');
+			Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
+
 			explore.animate({
 				height: explore.css('max-height')
 			}, {

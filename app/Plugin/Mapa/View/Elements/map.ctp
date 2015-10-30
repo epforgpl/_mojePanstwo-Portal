@@ -499,9 +499,10 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                     echo ' nodetails';
                 } ?>">
                     <ul>
-                        <li>Instytucje publiczne</li>
-                        <li>Organizacje</li>
-                        <li>Wybory parlamentarne 2015</li>
+                        <li data-layer="instytucje">Instytucje publiczne</li>
+                        <li data-layer="biznes">Biznes</li>
+                        <li data-layer="ngo">Organizacje</li>
+                        <li data-layer="komisje_wyborcze">Wybory parlamentarne 2015</li>
                         <? /* if (!isset($widget)) {
                             echo $this->element('Mapa.wybory', array("widget" => null, "mapParams" => $mapParams));
                         } */ ?><!--
