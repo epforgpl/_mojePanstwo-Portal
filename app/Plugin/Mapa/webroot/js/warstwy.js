@@ -92,6 +92,7 @@ function mapaWarstwy(map) {
 		ngo: {},
 		komisje_wyborcze: {}
 	};
+	this.warstwyMarkers = [];
 
 	this.pendingArea = {tl: false, br: false, zoom: false};
 	this.lastArea = {tl: false, br: false, zoom: false};
@@ -103,10 +104,11 @@ function mapaWarstwy(map) {
 	this.infowindow = null;
 }
 
-mapaWarstwy.prototype.setLayer = function (layer) {
+mapaWarstwy.prototype.setLayer = function (layer, showMarkers) {
 	var self = this;
 
 	self.layer = layer;
+	self.showMarkers = (typeof showMarkers !== "undefined") ? showMarkers : true;
 
 	google.maps.event.clearListeners(self.map, 'idle');
 	if (self.layer !== false) {
@@ -226,7 +228,7 @@ mapaWarstwy.prototype.mapUpdateResults = function (data, area) {
 	var self = this,
 		accordWarstwy = $('.accord.warstwy');
 
-	if (accordWarstwy.attr('data-layer') !== self.layer) {
+	if (accordWarstwy.attr('data-layer') !== self.layer || !self.showMarkers) {
 		accordWarstwy.attr('data-layer', self.layer);
 		self.mapUpdateClear();
 	} else if (area.zoom !== self.lastArea.zoom) {
@@ -237,7 +239,8 @@ mapaWarstwy.prototype.mapUpdateResults = function (data, area) {
 	}
 
 	self.lastArea = area;
-	if (self.layer)
+
+	if (self.layer && self.showMarkers)
 		self.showPlaces(data);
 
 	self.complete();
@@ -253,12 +256,8 @@ mapaWarstwy.prototype.mapUpdate = function (layer) {
 
 	window.clearTimeout(self.mapUpdateTimer);
 
-	console.log('mapupdate');
-
 	self.mapUpdateTimer = window.setTimeout(function () {
 		var area = self.getArea();
-
-		console.log('mapupdate', (area.tl == self.pendingArea.tl), (area.br == self.pendingArea.br));
 
 		if ((area.tl == self.pendingArea.tl) && (area.br == self.pendingArea.br)) {
 			var areaParms = area.tl + ',' + area.br + '&layer=' + layer;

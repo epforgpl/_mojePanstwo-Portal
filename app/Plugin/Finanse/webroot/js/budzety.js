@@ -384,5 +384,84 @@ $(function () {
 			reversed: true
 		}
 	});
+
+	$('.wydatki_wzrost_on').click(function(){
+		$(this).addClass('hidden');
+		$('.wydatki_wzrost_off').removeClass('hidden');
+		$('.wydatki.wzrost').find('.subdata').removeClass('hidden');
+	});
+
+	$('.wydatki_wzrost_off').click(function(){
+		$(this).addClass('hidden');
+		$('.wydatki_wzrost_on').removeClass('hidden');
+		$('.wydatki.wzrost').find('.subdata:not(.primary_row) ').addClass('hidden');
+	});
+	$('.wydatki_spadek_on').click(function(){
+		$(this).addClass('hidden');
+		$('.wydatki_spadek_off').removeClass('hidden');
+		$('.wydatki.spadek').find('.subdata').removeClass('hidden');
+	});
+
+	$('.wydatki_spadek_off').click(function(){
+		$(this).addClass('hidden');
+		$('.wydatki_spadek_on').removeClass('hidden');
+		$('.wydatki.spadek').find('.subdata:not(.primary_row) ').addClass('hidden');
+	});
+	$('.wydatki_bd_on').click(function(){
+		$(this).addClass('hidden');
+		$('.wydatki_bd_off').removeClass('hidden');
+		$('.wydatki.spadek').find('.subdata').removeClass('hidden');
+	});
+
+	$('.wydatki_bd_off').click(function(){
+		$(this).addClass('hidden');
+		$('.wydatki_bd_on').removeClass('hidden');
+		$('.wydatki.spadek').find('.subdata:not(.primary_row) ').addClass('hidden');
+	});
+
+	$('.select_wydatki').change(function(){
+		$('.wydatki:not(.'+$(this).val()+')').addClass('hidden');
+		$('.wydatki.'+$(this).val()+'').removeClass('hidden');
+	});
+
+	$('.dochody_wzrost_on').click(function(){
+		$(this).addClass('hidden');
+		$('.dochody_wzrost_off').removeClass('hidden');
+		$('.dochody.wzrost').find('.subdata').removeClass('hidden');
+	});
+
+	$('.dochody_wzrost_off').click(function(){
+		$(this).addClass('hidden');
+		$('.dochody_wzrost_on').removeClass('hidden');
+		$('.dochody.wzrost').find('.subdata:not(.primary_row) ').addClass('hidden');
+	});
+	$('.dochody_spadek_on').click(function(){
+		$(this).addClass('hidden');
+		$('.dochody_spadek_off').removeClass('hidden');
+		$('.dochody.spadek').find('.subdata').removeClass('hidden');
+	});
+
+	$('.dochody_spadek_off').click(function(){
+		$(this).addClass('hidden');
+		$('.dochody_spadek_on').removeClass('hidden');
+		$('.dochody.spadek').find('.subdata:not(.primary_row) ').addClass('hidden');
+	});
+	$('.dochody_bd_on').click(function(){
+		$(this).addClass('hidden');
+		$('.dochody_bd_off').removeClass('hidden');
+		$('.dochody.spadek').find('.subdata').removeClass('hidden');
+	});
+
+	$('.dochody_bd_off').click(function(){
+		$(this).addClass('hidden');
+		$('.dochody_bd_on').removeClass('hidden');
+		$('.dochody.spadek').find('.subdata:not(.primary_row) ').addClass('hidden');
+	});
+
+	$('.select_dochody').change(function(){
+		$('.dochody:not(.'+$(this).val()+')').addClass('hidden');
+		$('.dochody.'+$(this).val()+'').removeClass('hidden');
+	});
+
 });
 
