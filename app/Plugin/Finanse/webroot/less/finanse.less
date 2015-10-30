@@ -242,10 +242,12 @@
     .data {
         text-align: center;
         border-top: 1px solid #DDD;
+        background: rgba(0, 0, 0, 0) linear-gradient(#f3f3f3, #fff) repeat scroll 0 0;
 
         &.internal {
             border-top: none;
             padding-bottom: 20px;
+            background: #FFF;
         }
 
         ._label {
@@ -260,6 +262,7 @@
             font-size: 14px;
             margin-bottom: 0;
             font-weight: bold;
+            text-align: right;
         }
         p {
             font-size: 12px;
@@ -301,11 +304,33 @@
 .factor {
     &.u {
         color: #447744;
-
+        padding-right: 2px;
     }
 
     &.d {
         color: #994444;
-
+        padding-right: 2px;
     }
+}
+.dropdown .dropdown-menu{
+    left: 50%;
+    transform: translate(-50%,0);
+    -o-transform: translate(-50%,0);
+    -ms-transform: translate(-50%,0);
+    -moz-transform: translate(-50%,0);
+    -webkit-transform: translate(-50%,0);
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.previous_year{
+    margin-top: 15px;
+    font-size: 28px;
+    z-index: 15;
+}
+.past_year{
+    margin-top: 15px;
+    font-size: 28px;
+    z-index: 15;
 }
