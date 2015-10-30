@@ -18,9 +18,9 @@ class FinanseController extends ApplicationsController
         100000,                     // 100 tys.
         1000
     );
-	
+
 	public function view() {
-		
+
 		$options = array(
             'searchTitle' => 'Szukaj w finansach publicznych...',
             'conditions' => array(
@@ -68,24 +68,23 @@ class FinanseController extends ApplicationsController
             ),
             'apps' => true,
         );
-        
+
         if(
-	        isset($this->request->params['p1']) && 
-	        isset($this->request->params['p2']) 
+	        isset($this->request->params['p1']) &&
+	        isset($this->request->params['p2'])
         ) {
-	        
+
 	        $p1 = $this->request->params['p1'];
 	        $p2 = $this->request->params['p2'];
-	        
+
         } else {
-	        
+
 	        $p1 = '2014';
 	        $p2 = '2015';
-	        
+
         }
-        
+
         $compareData = $this->Finanse->getCompareData($p1, $p2);
-        
         $this->set('p1', $p1);
         $this->set('p2', $p2);
         $this->set('compareData', $compareData);
@@ -93,9 +92,9 @@ class FinanseController extends ApplicationsController
 		$this->chapter_selected = 'view';
         $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
-		
+
 	}
-	
+
     public function ___view() {
         App::import("Model", "Finanse.PKB");
         $PKB = new PKB();
@@ -838,7 +837,7 @@ class FinanseController extends ApplicationsController
         $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
 	}
-	
+
     public function ___beforeRender() {
 
         parent::beforeRender();
