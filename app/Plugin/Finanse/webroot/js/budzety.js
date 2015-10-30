@@ -384,39 +384,39 @@ $(function () {
 			reversed: true
 		}
 	});
-
+	$('.subdata:not(.primary_row) ').removeClass('hidden').fadeOut(200);
 	$('.wydatki_wzrost_on').click(function(){
 		$(this).addClass('hidden');
 		$('.wydatki_wzrost_off').removeClass('hidden');
-		$('.wydatki.wzrost').find('.subdata').removeClass('hidden');
+		$('.wydatki.wzrost').find('.subdata').fadeIn(600);
 	});
 
 	$('.wydatki_wzrost_off').click(function(){
 		$(this).addClass('hidden');
 		$('.wydatki_wzrost_on').removeClass('hidden');
-		$('.wydatki.wzrost').find('.subdata:not(.primary_row) ').addClass('hidden');
+		$('.wydatki.wzrost').find('.subdata:not(.primary_row) ').fadeOut(600);
 	});
 	$('.wydatki_spadek_on').click(function(){
 		$(this).addClass('hidden');
 		$('.wydatki_spadek_off').removeClass('hidden');
-		$('.wydatki.spadek').find('.subdata').removeClass('hidden');
+		$('.wydatki.spadek').find('.subdata').fadeIn(600);
 	});
 
 	$('.wydatki_spadek_off').click(function(){
 		$(this).addClass('hidden');
 		$('.wydatki_spadek_on').removeClass('hidden');
-		$('.wydatki.spadek').find('.subdata:not(.primary_row) ').addClass('hidden');
+		$('.wydatki.spadek').find('.subdata:not(.primary_row) ').fadeOut(600);
 	});
 	$('.wydatki_bd_on').click(function(){
 		$(this).addClass('hidden');
 		$('.wydatki_bd_off').removeClass('hidden');
-		$('.wydatki.bd').find('.subdata').removeClass('hidden');
+		$('.wydatki.bd').find('.subdata').fadeIn(600);
 	});
 
 	$('.wydatki_bd_off').click(function(){
 		$(this).addClass('hidden');
 		$('.wydatki_bd_on').removeClass('hidden');
-		$('.wydatki.bd').find('.subdata:not(.primary_row) ').addClass('hidden');
+		$('.wydatki.bd').find('.subdata:not(.primary_row) ').fadeOut(600);
 	});
 
 	$('.select_wydatki').change(function(){
@@ -427,35 +427,35 @@ $(function () {
 	$('.dochody_wzrost_on').click(function(){
 		$(this).addClass('hidden');
 		$('.dochody_wzrost_off').removeClass('hidden');
-		$('.dochody.wzrost').find('.subdata').removeClass('hidden');
+		$('.dochody.wzrost').find('.subdata').fadeIn(600);
 	});
 
 	$('.dochody_wzrost_off').click(function(){
 		$(this).addClass('hidden');
 		$('.dochody_wzrost_on').removeClass('hidden');
-		$('.dochody.wzrost').find('.subdata:not(.primary_row) ').addClass('hidden');
+		$('.dochody.wzrost').find('.subdata:not(.primary_row) ').fadeOut(600);
 	});
 	$('.dochody_spadek_on').click(function(){
 		$(this).addClass('hidden');
 		$('.dochody_spadek_off').removeClass('hidden');
-		$('.dochody.spadek').find('.subdata').removeClass('hidden');
+		$('.dochody.spadek').find('.subdata').fadeIn(600);
 	});
 
 	$('.dochody_spadek_off').click(function(){
 		$(this).addClass('hidden');
 		$('.dochody_spadek_on').removeClass('hidden');
-		$('.dochody.spadek').find('.subdata:not(.primary_row) ').addClass('hidden');
+		$('.dochody.spadek').find('.subdata:not(.primary_row) ').fadeOut(600);
 	});
 	$('.dochody_bd_on').click(function(){
 		$(this).addClass('hidden');
 		$('.dochody_bd_off').removeClass('hidden');
-		$('.dochody.bd').find('.subdata').removeClass('hidden');
+		$('.dochody.bd').find('.subdata').fadeIn(600);
 	});
 
 	$('.dochody_bd_off').click(function(){
 		$(this).addClass('hidden');
 		$('.dochody_bd_on').removeClass('hidden');
-		$('.dochody.bd').find('.subdata:not(.primary_row) ').addClass('hidden');
+		$('.dochody.bd').find('.subdata:not(.primary_row) ').fadeOut(600);
 	});
 
 	$('.select_dochody').change(function(){
