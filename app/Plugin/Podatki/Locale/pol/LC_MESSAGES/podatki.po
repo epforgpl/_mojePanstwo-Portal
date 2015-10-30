@@ -1,0 +1,35 @@
+msgid "LC_PODATKI_HEADLINE"
+msgstr "Jak są wydawane moje podatki"
+
+msgid "LC_PODATKI_SUBHEADLINE"
+msgstr "Chcesz wiedzieć na co wydawane są twoje podatki? Wypełnij formularz poniżej i sprawdź."
+
+msgid "LC_PODATKI_INFORMATION"
+msgstr "Wpisz poniżej kwoty twoich przychodów brutto i klinij oblicz. <a href=\"%s\" target=\"_blank\">Co to kwota brutto?</a><br/>Dane podane w formularzu nie są nigdzie zapisywane i służa tylko do oszacowania wysokości płaconych przez Ciebie podatków."
+
+msgid "LC_PODATKI_PRZYCHODY_UMOWA_O_PRACE"
+msgstr "Przychody z umowy o pracę"
+
+msgid "LC_PODATKI_PRZYCHODY_UMOWA_ZLECENIE"
+msgstr "Przychody z umowy o zlecenie"
+
+msgid "LC_PODATKI_PRZYCHODY_UMOWA_DZIELO"
+msgstr "Przychody z umowy o dzieło"
+
+msgid "LC_PODATKI_INFO_FULL"
+msgstr "wpisz kwotę brutto, znajdziesz ją na umowie"
+
+msgid "LC_PODATKI_PRZYCHODY_DZIALALNOSC_GOSPODARCZA"
+msgstr "Przychody z działalności gospodarczej"
+
+msgid "LC_PODATKI_PRZYCHODY_DZIALALNOSC_GOSPODARCZA_KOSZT"
+msgstr "Koszt uzyskania przychodu"
+
+msgid "LC_PODATKI_INFO"
+msgstr "wpisz kwotę brutto"
+
+msgid "LC_PODATKI_ADD_NEW_UMOWA"
+msgstr "Dodaj kolejną umowę"
+
+msgid "LC_PODATKI_ADD_NEW_DZIALALNOSC"
+msgstr "Dodaj kolejną działalność"

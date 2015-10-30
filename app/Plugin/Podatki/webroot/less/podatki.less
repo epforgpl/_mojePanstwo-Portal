@@ -1,0 +1,86 @@
+#podatki {
+    margin: 8px 0 30px;
+
+    h1 {
+        font-size: 36px;
+        margin-bottom: 14px;
+    }
+
+    h2 {
+        font-size: 18px;
+        font-weight: normal;
+        margin-bottom: 45px;
+    }
+
+    hr {
+        margin-bottom: 28px;
+    }
+
+    p {
+        margin-bottom: 22px;
+    }
+
+    .section {
+        width: 100%;
+        float: left;
+        padding: 20px 0;
+        border-bottom: 1px solid #e0e0e0;
+
+        &:last-child {
+            padding-bottom: 55px;
+        }
+
+        .form-inline {
+            text-align: right;
+
+            .form-control {
+                position: relative;
+
+                ::after {
+                    content: 'zł';
+                    position: absolute;
+                    top: 50%;
+                    right: -20px;
+                    -webkit-transform: translate(-50%, 0);
+                    -moz-transform: translate(-50%, 0);
+                    -ms-transform: translate(-50%, 0);
+                    -o-transform: translate(-50%, 0);
+                    transform: translate(-50%, 0);
+                }
+            }
+
+            label {
+                margin-right: 12px;
+            }
+
+            .info {
+                display: inline-block;
+                float: left;
+                width: 100%;
+                font-size: .8em;
+                color: #2f2f2f;
+                padding: 1px 0;
+            }
+
+            .checkbox {
+                margin-top: 8px;
+                margin-bottom: 24px;
+            }
+
+            .btn {
+                margin-top: 16px;
+            }
+        }
+    }
+    .action {
+        background-color: #ffffff;
+        padding-left: 12px;
+        margin-top: -23px;
+    }
+}
+
+@media (min-width: 768px) {
+    #podatki .section .form-control {
+        min-width: 255px;
+    }
+}
