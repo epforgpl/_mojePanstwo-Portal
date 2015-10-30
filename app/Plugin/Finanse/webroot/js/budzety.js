@@ -410,13 +410,13 @@ $(function () {
 	$('.wydatki_bd_on').click(function(){
 		$(this).addClass('hidden');
 		$('.wydatki_bd_off').removeClass('hidden');
-		$('.wydatki.spadek').find('.subdata').removeClass('hidden');
+		$('.wydatki.bd').find('.subdata').removeClass('hidden');
 	});
 
 	$('.wydatki_bd_off').click(function(){
 		$(this).addClass('hidden');
 		$('.wydatki_bd_on').removeClass('hidden');
-		$('.wydatki.spadek').find('.subdata:not(.primary_row) ').addClass('hidden');
+		$('.wydatki.bd').find('.subdata:not(.primary_row) ').addClass('hidden');
 	});
 
 	$('.select_wydatki').change(function(){
@@ -449,13 +449,13 @@ $(function () {
 	$('.dochody_bd_on').click(function(){
 		$(this).addClass('hidden');
 		$('.dochody_bd_off').removeClass('hidden');
-		$('.dochody.spadek').find('.subdata').removeClass('hidden');
+		$('.dochody.bd').find('.subdata').removeClass('hidden');
 	});
 
 	$('.dochody_bd_off').click(function(){
 		$(this).addClass('hidden');
 		$('.dochody_bd_on').removeClass('hidden');
-		$('.dochody.spadek').find('.subdata:not(.primary_row) ').addClass('hidden');
+		$('.dochody.bd').find('.subdata:not(.primary_row) ').addClass('hidden');
 	});
 
 	$('.select_dochody').change(function(){
