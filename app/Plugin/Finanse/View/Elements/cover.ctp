@@ -152,139 +152,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                     <p><?= $rok2['premier'] ?></p>
                 </div>
             </div>
-            <div class="row data ">
-                <div class="col-sm-4 _label">
-                    <h3>Zadłużenie na koniec roku:</h3>
-                </div>
-                <div class="col-sm-3">
-                    <p class="value"><? if ($rok1['dlug_publiczny'] == 0) {
-                            echo "";
-                        } else {
-                            echo number_format_h($rok1['dlug_publiczny']) . " zł";
-                        } ?></p>
-                </div>
-                <div class="col-sm-3">
-                    <p class="value"><? if ($rok2['dlug_publiczny'] == 0) {
-                            echo "";
-                        } else {
-                            echo number_format_h($rok2['dlug_publiczny']) . " zł";
-                        } ?></p>
-                </div>
-                <div class="col-sm-2">
-                    <p class="value diff"><? if (($rok2['dlug_publiczny'] == 0) || ($rok1['dlug_publiczny'] == 0)) { ?>
 
-                        <? } else {
-                        $v = round(($rok2['dlug_publiczny'] * 100 / $rok1['dlug_publiczny']) - 100, 2);
-                        if ($v > 0) {
-                            $factor = 'glyphicon-arrow-up u';
-                        } else {
-                            $factor = 'glyphicon-arrow-down d';
-                        }
-                        ?><span class="glyphicon factor <?= $factor ?>"></span><span
-                            class="factor <?= substr($factor, -1) ?>"><?= $v ?>%</span>
-                        <? } ?></span></p>
-                </div>
-            </div>
-            <div class="row data">
-                <div class="col-sm-4 _label">
-                    <h3>Produkt Krajowy Brutto:</h3>
-                </div>
-                <div class="col-sm-3">
-                    <p class="value"><? if ($rok1['pkb'] == 0) {
-                            echo "";
-                        } else {
-                            echo number_format_h($rok1['pkb'] * $rok1['usd']) . " zł";
-                        } ?></p>
-                </div>
-                <div class="col-sm-3">
-                    <p class="value"><? if ($rok2['pkb'] == 0) {
-                            echo "";
-                        } else {
-                            echo number_format_h($rok2['pkb'] * $rok2['usd']) . " zł";
-                        } ?></p>
-                </div>
-                <div class="col-sm-2">
-                    <p class="value diff"><span
-                            class="text"><? if (($rok2['pkb'] == 0) || ($rok1['pkb'] == 0)) { ?>
-
-                            <? } else {
-                                $v = round(($rok2['pkb'] * 100 / $rok1['pkb']) - 100, 2);
-                                if ($v > 0) {
-                                    $factor = 'glyphicon-arrow-up u';
-                                } else {
-                                    $factor = 'glyphicon-arrow-down d';
-                                }
-                                ?><span class="glyphicon factor <?= $factor ?>"></span><span
-                                    class="factor <?= substr($factor, -1) ?>"><?= $v ?>%</span>
-                            <? } ?></span></p>
-                </div>
-            </div>
-            <div class="row data ">
-                <div class="col-sm-4 _label">
-                    <h3>Produkt Krajowy Brutto na osobę:</h3>
-                </div>
-                <div class="col-sm-3">
-                    <p class="value"><? if ($rok1['pkb_per_capita'] == 0) {
-                            echo "";
-                        } else {
-                            echo number_format_h($rok1['pkb_per_capita'] * $rok1['usd']) . " zł";
-                        } ?></p>
-                </div>
-                <div class="col-sm-3">
-                    <p class="value"><? if ($rok2['pkb_per_capita'] == 0) {
-                            echo "";
-                        } else {
-                            echo number_format_h($rok2['pkb_per_capita'] * $rok2['usd']) . " zł";
-                        } ?></p>
-                </div>
-                <div class="col-sm-2">
-                    <p class="value diff"><? if (($rok2['pkb_per_capita'] == 0) || ($rok1['pkb_per_capita'] == 0)) { ?>
-
-                        <? } else {
-                        $v = round(($rok2['pkb_per_capita'] * 100 / $rok1['pkb_per_capita']) - 100, 2);
-                        if ($v > 0) {
-                            $factor = 'glyphicon-arrow-up u';
-                        } else {
-                            $factor = 'glyphicon-arrow-down d';
-                        }
-                        ?><span class="glyphicon factor <?= $factor ?>"></span><span
-                            class="factor <?= substr($factor, -1) ?>"><?= $v ?>%</span>
-                        <? } ?></span></p>
-                </div>
-            </div>
-            <div class="row data">
-                <div class="col-sm-4 _label">
-                    <h3>Inflacja:</h3>
-                </div>
-                <div class="col-sm-3">
-                    <p class="value"><? if ($rok1['inflacja'] == 0) {
-                            echo "";
-                        } else {
-                            echo $rok1['inflacja'] - 100 . "%";
-                        } ?></p>
-                </div>
-                <div class="col-sm-3">
-                    <p class="value"><? if ($rok2['inflacja'] == 0) {
-                            echo "";
-                        } else {
-                            echo $rok2['inflacja'] - 100 . "%";
-                        } ?></p>
-                </div>
-                <div class="col-sm-2">
-                    <p class="value diff"><? if (($rok2['inflacja'] == 0) || ($rok1['inflacja'] == 0)) { ?>
-
-                        <? } else {
-                            $v = round(($rok2['inflacja'] * 100 / $rok1['inflacja']) - 100, 1);
-                            if ($v > 0) {
-                                $factor = 'glyphicon-arrow-up u';
-                            } else {
-                                $factor = 'glyphicon-arrow-down d';
-                            }
-                            ?><span class="glyphicon factor <?= $factor ?>"></span><span
-                                class="factor <?= substr($factor, -1) ?>"><?= $v ?>%</span>
-                        <? } ?></p>
-                </div>
-            </div>
             <div class="row data ">
                 <div class="col-sm-4 _label">
                     <h3>Wydatki budżetu państwa:</h3>
@@ -877,6 +745,139 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
 
                         <? } else {
                             $v = round(($rok2['bezrobocie'] * 100 / $rok1['bezrobocie']) - 100, 1);
+                            if ($v > 0) {
+                                $factor = 'glyphicon-arrow-up u';
+                            } else {
+                                $factor = 'glyphicon-arrow-down d';
+                            }
+                            ?><span class="glyphicon factor <?= $factor ?>"></span><span
+                                class="factor <?= substr($factor, -1) ?>"><?= $v ?>%</span>
+                        <? } ?></p>
+                </div>
+            </div>
+            <div class="row data ">
+                <div class="col-sm-4 _label">
+                    <h3>Zadłużenie na koniec roku:</h3>
+                </div>
+                <div class="col-sm-3">
+                    <p class="value"><? if ($rok1['dlug_publiczny'] == 0) {
+                            echo "";
+                        } else {
+                            echo number_format_h($rok1['dlug_publiczny']) . " zł";
+                        } ?></p>
+                </div>
+                <div class="col-sm-3">
+                    <p class="value"><? if ($rok2['dlug_publiczny'] == 0) {
+                            echo "";
+                        } else {
+                            echo number_format_h($rok2['dlug_publiczny']) . " zł";
+                        } ?></p>
+                </div>
+                <div class="col-sm-2">
+                    <p class="value diff"><? if (($rok2['dlug_publiczny'] == 0) || ($rok1['dlug_publiczny'] == 0)) { ?>
+
+                        <? } else {
+                        $v = round(($rok2['dlug_publiczny'] * 100 / $rok1['dlug_publiczny']) - 100, 2);
+                        if ($v > 0) {
+                            $factor = 'glyphicon-arrow-up u';
+                        } else {
+                            $factor = 'glyphicon-arrow-down d';
+                        }
+                        ?><span class="glyphicon factor <?= $factor ?>"></span><span
+                            class="factor <?= substr($factor, -1) ?>"><?= $v ?>%</span>
+                        <? } ?></span></p>
+                </div>
+            </div>
+            <div class="row data">
+                <div class="col-sm-4 _label">
+                    <h3>Produkt Krajowy Brutto:</h3>
+                </div>
+                <div class="col-sm-3">
+                    <p class="value"><? if ($rok1['pkb'] == 0) {
+                            echo "";
+                        } else {
+                            echo number_format_h($rok1['pkb'] * $rok1['usd']) . " zł";
+                        } ?></p>
+                </div>
+                <div class="col-sm-3">
+                    <p class="value"><? if ($rok2['pkb'] == 0) {
+                            echo "";
+                        } else {
+                            echo number_format_h($rok2['pkb'] * $rok2['usd']) . " zł";
+                        } ?></p>
+                </div>
+                <div class="col-sm-2">
+                    <p class="value diff"><span
+                            class="text"><? if (($rok2['pkb'] == 0) || ($rok1['pkb'] == 0)) { ?>
+
+                            <? } else {
+                                $v = round(($rok2['pkb'] * 100 / $rok1['pkb']) - 100, 2);
+                                if ($v > 0) {
+                                    $factor = 'glyphicon-arrow-up u';
+                                } else {
+                                    $factor = 'glyphicon-arrow-down d';
+                                }
+                                ?><span class="glyphicon factor <?= $factor ?>"></span><span
+                                    class="factor <?= substr($factor, -1) ?>"><?= $v ?>%</span>
+                            <? } ?></span></p>
+                </div>
+            </div>
+            <div class="row data ">
+                <div class="col-sm-4 _label">
+                    <h3>Produkt Krajowy Brutto na osobę:</h3>
+                </div>
+                <div class="col-sm-3">
+                    <p class="value"><? if ($rok1['pkb_per_capita'] == 0) {
+                            echo "";
+                        } else {
+                            echo number_format_h($rok1['pkb_per_capita'] * $rok1['usd']) . " zł";
+                        } ?></p>
+                </div>
+                <div class="col-sm-3">
+                    <p class="value"><? if ($rok2['pkb_per_capita'] == 0) {
+                            echo "";
+                        } else {
+                            echo number_format_h($rok2['pkb_per_capita'] * $rok2['usd']) . " zł";
+                        } ?></p>
+                </div>
+                <div class="col-sm-2">
+                    <p class="value diff"><? if (($rok2['pkb_per_capita'] == 0) || ($rok1['pkb_per_capita'] == 0)) { ?>
+
+                        <? } else {
+                        $v = round(($rok2['pkb_per_capita'] * 100 / $rok1['pkb_per_capita']) - 100, 2);
+                        if ($v > 0) {
+                            $factor = 'glyphicon-arrow-up u';
+                        } else {
+                            $factor = 'glyphicon-arrow-down d';
+                        }
+                        ?><span class="glyphicon factor <?= $factor ?>"></span><span
+                            class="factor <?= substr($factor, -1) ?>"><?= $v ?>%</span>
+                        <? } ?></span></p>
+                </div>
+            </div>
+            <div class="row data">
+                <div class="col-sm-4 _label">
+                    <h3>Inflacja:</h3>
+                </div>
+                <div class="col-sm-3">
+                    <p class="value"><? if ($rok1['inflacja'] == 0) {
+                            echo "";
+                        } else {
+                            echo $rok1['inflacja'] - 100 . "%";
+                        } ?></p>
+                </div>
+                <div class="col-sm-3">
+                    <p class="value"><? if ($rok2['inflacja'] == 0) {
+                            echo "";
+                        } else {
+                            echo $rok2['inflacja'] - 100 . "%";
+                        } ?></p>
+                </div>
+                <div class="col-sm-2">
+                    <p class="value diff"><? if (($rok2['inflacja'] == 0) || ($rok1['inflacja'] == 0)) { ?>
+
+                        <? } else {
+                            $v = round(($rok2['inflacja'] * 100 / $rok1['inflacja']) - 100, 1);
                             if ($v > 0) {
                                 $factor = 'glyphicon-arrow-up u';
                             } else {
