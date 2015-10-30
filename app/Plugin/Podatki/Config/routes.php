@@ -1,5 +1,4 @@
 <?
+Router::connect('/podatki', array('plugin' => 'Podatki', 'controller' => 'Podatki', 'action' => 'view'));
+Router::connect('/podatki/suma', array('plugin' => 'Podatki', 'controller' => 'Podatki', 'action' => 'results'));
 
-foreach (array('podatki') as $base) {
-    Router::connect('/' . $base, array('plugin' => 'Podatki', 'controller' => 'Podatki', 'action' => 'view'));
-}

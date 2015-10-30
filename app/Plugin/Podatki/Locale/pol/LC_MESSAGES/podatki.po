@@ -4,6 +4,9 @@ msgstr "Jak są wydawane moje podatki"
 msgid "LC_PODATKI_SUBHEADLINE"
 msgstr "Chcesz wiedzieć na co wydawane są twoje podatki? Wypełnij formularz poniżej i sprawdź."
 
+msgid "LC_PODATKI_RESULTS_SUBHEADLINE"
+msgstr "Poniżej znajdziesz podsumowanie, kliknij aby zobaczyć szczegóły."
+
 msgid "LC_PODATKI_INFORMATION"
 msgstr "Wpisz poniżej kwoty twoich przychodów brutto i klinij oblicz. <a href=\"%s\" target=\"_blank\">Co to kwota brutto?</a><br/>Dane podane w formularzu nie są nigdzie zapisywane i służa tylko do oszacowania wysokości płaconych przez Ciebie podatków."
 
@@ -33,3 +36,28 @@ msgstr "Dodaj kolejną umowę"
 
 msgid "LC_PODATKI_ADD_NEW_DZIALALNOSC"
 msgstr "Dodaj kolejną działalność"
+
+msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_PRZYCHODY_BRUTTO"
+msgstr "Suma twoich przychodów brutto"
+
+msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_PRZYCHODY_NETTO"
+msgstr "Suma twoich przychodów netto"
+
+msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_ZUS_TY"
+msgstr "Składki na ubezpieczenie społeczne opłacone przez Ciebie"
+
+msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_ZUS_PRACODAWCA"
+msgstr "Składki na ubezpieczenie społeczne opłacone przez pracodawcę"
+
+msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_ZUS"
+msgstr "Składki na ubezpieczenie zdrowotne"
+
+msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_PIT"
+msgstr "Podatek dochodowy (PIT)"
+
+msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_VAT"
+msgstr "Podatek od towarów i usług (VAT)"
+
+msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_AKCYZA"
+msgstr "Akcyza"
+
