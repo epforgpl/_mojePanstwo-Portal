@@ -1,7 +1,7 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('letters', array('plugin' => 'Start'))) ?>
 <?php $this->Combinator->add_libs('css', $this->Less->css('letters-responses', array('plugin' => 'Start'))); ?>
-<?php $this->Combinator->add_libs('js', 'Start.letters.js') ?>
-<?php $this->Combinator->add_libs('js', 'Start.letters-social-share.js') ?>
+<?php $this->Combinator->add_libs('js', 'Start.pismo.js') ?>
+<?php // $this->Combinator->add_libs('js', 'Start.letters-social-share.js') ?>
 
 <?php echo $this->Html->script('/Start/js/zeroclipboard', array('block' => 'scriptBlock')); ?>
 
@@ -298,21 +298,21 @@
 <div class="letter-table">
 	<div class="row">
 		<div class="col-sm-2">
-			<p>Od:</p>
+			<p class="_label">Od:</p>
 		</div><div class="col-sm-10">
 			<p><?= $pismo['from_user_name'] ?></p>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-sm-2">
-			<p>Do:</p>
+			<p class="_label">Do:</p>
 		</div><div class="col-sm-10">
 			<p><?= $pismo['to_name'] ?></p>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-sm-2">
-			<p>Temat:</p>
+			<p class="_label">Temat:</p>
 		</div><div class="col-sm-10">
 			<p><?= $pismo['tytul'] ?></p>
 		</div>
@@ -337,19 +337,24 @@
 </div>
 */ ?>
 
+<div class="lettersSend">
+	<div class="row margin-top-20">
+        <div class="col-md-12">
+	        
+	        <p class="text-center">
+                <button data-action="send" class="btn btn-primary btn-icon auto-width"><i class="icon glyphicon glyphicon glyphicon-send"></i>Wyślij to pismo</button>
+            </p>
+	        
+        </div>
+	</div>
+</div>
+
 <div class="lettersResponses">
     <div class="row margin-top-20">
         <div class="col-md-12">
-            <h2>
-                <i class="icon glyphicon glyphicon-comment"></i> Odpowiedzi
-
-                <a href="<?= $href_base . '/responses' ?>" target="_self"
-                   class="btn btn-success btn-icon pull-right auto-width"><i
-                        class="icon glyphicon glyphicon-plus-sign"></i>Dodaj odpowiedź</a>
-            </h2>
-            <? if(isset($responses) && is_array($responses) && count($responses)) {  ?>
-
-                <ul class="list-group">
+            
+            <ul class="responses">
+	            <? if(isset($responses) && is_array($responses) && count($responses)) {  ?>
                     <? foreach($responses as $response) { ?>
                         <li class="list-group-item">
                             <span class="badge"><?= dataSlownie($response['Response']['date']) ?></span>
@@ -358,11 +363,13 @@
                             </a>
                         </li>
                     <? } ?>
-                </ul>
-
-            <? } else { ?>
-                <p>To pismo nie ma jeszcze żadnej odpowiedzi.</p>
-            <? } ?>
+	            <? } ?>
+            </ul>
+            
+            <p class="buttons text-center">
+                <button data-action="add_response" class="btn btn-success btn-icon auto-width"><i class="icon glyphicon glyphicon-plus-sign"></i>Dodaj odpowiedź na to pismo</button>
+            </p>
+            
         </div>
     </div>
 </div>

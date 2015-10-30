@@ -38,8 +38,8 @@
         <div class="col-lg-10"><p class="form-value">Kancelaria Prezesa Rady Ministrów</p></div>
       </div>
       <div class="form-group form-row">
-        <label for="inputEmail" class="col-lg-2 control-label">Jakie informacje chcesz uzyskać?</label>
-		<div class="col-lg-10">
+        <label for="inputEmail" class="col-lg-12 control-label control-label-full">Jakie informacje chcesz uzyskać?</label>
+		<div class="col-lg-12">
           <textarea class="form-control" rows="10" id="textArea"></textarea>
           <span class="help-block">Informacje publiczne to lorem ipsum...</span>
         </div>
@@ -54,7 +54,7 @@
       <div class="form-group form-row">
         <div class="col-lg-10 col-lg-offset-2">
           <button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
-            class="icon glyphicon glyphicon-pencil"></i>Podgląd pisma
+            class="icon icon-applications-pisma"></i>Podgląd pisma
 	      </button>
         </div>
       </div>

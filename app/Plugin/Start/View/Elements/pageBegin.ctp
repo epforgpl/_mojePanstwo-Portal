@@ -1,6 +1,5 @@
 <?
 
-$this->Combinator->add_libs('css', $this->Less->css('start', array('plugin' => 'Start')));
 $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('dataobjectpage', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
@@ -35,9 +34,9 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
         <div class="container">
             <div class="row dataBrowserContent">
 
-                <div class="col-sm-3 col-sm-2p5 col-xs-12 dataAggsContainer">
+                <div class="col-md-1-5 dataAggsContainer">
                     <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
                 </div>
 
-                <div class="col-sm-9 col-sm-9p5 col-xs-12">
+                <div class="col-md-4-5">
                     <div class="dataWrap margin-top-10">
