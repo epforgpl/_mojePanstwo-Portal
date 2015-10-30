@@ -5,12 +5,33 @@ var PISMO = Class.extend({
 		
 		// SEND
 		
-		var $sendPismoModal = $('#sendPismoModal'),
-			modal = {
-				sendPismo: $sendPismoModal
-			};
+		this.lettersSendDiv = $('.lettersSend');
+		this.lettersSendButton = this.lettersSendDiv.find('button[data-action="send"]');
+		this.lettersSendModal = $('#sendPismoModal');
 
-		self.html.stepper_div.find('.editor-tooltip .sendPismo').click(function (e) {
+		this.lettersSendButton.click( $.proxy(this.showSendModal, this) );
+		
+		
+		
+		
+		// RESPONSES
+		
+		this.responsesDiv = $('.lettersResponses');
+		this.responsesList = this.responsesDiv.find('.responses');
+		this.responsesButtons = this.responsesDiv.find('.buttons');
+		
+		this.responsesDiv.find('button[data-action=add_response]').click( $.proxy(this.addResponseForm, this) );
+		
+	},
+	showSendModal: function(event) {
+		
+		event.preventDefault();
+		
+		// this.lettersSendModal.find('#senderName').val($.trim(self.html.stepper_div.find('.control.control-sender').text()).split('\n')[0]);
+		this.lettersSendModal.modal('show');
+		
+		/*
+		this.lettersSendButton.click(function (e) {
 			e.preventDefault();
 
 			$sendPismoModal.find('#senderName').val($.trim(self.html.stepper_div.find('.control.control-sender').text()).split('\n')[0]);
@@ -46,18 +67,13 @@ var PISMO = Class.extend({
 				}
 			});
 		}
+		*/
 		
 		
 		
 		
 		
-		// RESPONSES
 		
-		this.responsesDiv = $('.lettersResponses');
-		this.responsesList = this.responsesDiv.find('.responses');
-		this.responsesButtons = this.responsesDiv.find('.buttons');
-		
-		this.responsesDiv.find('button[data-action=add_response]').click( $.proxy(this.addResponseForm, this) );
 		
 	},
 	addResponseForm: function() {

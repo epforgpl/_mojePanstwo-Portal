@@ -54,7 +54,7 @@
       <div class="form-group form-row">
         <div class="col-lg-10 col-lg-offset-2">
           <button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
-            class="icon icon-applications-pisma"></i>Podgląd pisma
+            class="icon icon-applications-pisma"></i>Zobacz podgląd pisma
 	      </button>
         </div>
       </div>
