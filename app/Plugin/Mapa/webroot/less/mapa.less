@@ -206,6 +206,10 @@
     }
 }
 
+.gm-style img[src="http://maps.gstatic.com/mapfiles/api-3/images/google4.png"] {
+    top: -30px !important;
+}
+
 #mapBrowser {
     min-height: inherit;
 
@@ -271,20 +275,20 @@
             margin-left: 0;
         }
 
-        ul {
+        > ul {
             @liHeight: 30px;
             position: absolute;
             top: -@liHeight;
-            left: 355px;
+            left: 282px;
             padding: 0;
             margin: 0;
             list-style: none;
 
             li {
                 float: left;
-                height: @liHeight;
+                height: @liHeight+1;
                 border: 1px solid #bbbbbb;
-                border-bottom: 0;
+                border-bottom-color: #F8F9FA;
                 background-color: #F8F9FA;
                 border-radius: 6px 6px 0 0;
                 padding: 6px 8px;
@@ -295,6 +299,45 @@
                     font-size: 0.98em;
                     font-weight: bold;
                     padding-top: 7px;
+                }
+            }
+        }
+        .komisje_wyborcze_content {
+            .komisjeShow {
+                font-size: 12px;
+                margin-left: 12px;
+                margin-bottom: 0;
+            }
+            ul.meta {
+                list-style: outside none none;
+                margin: 0 8px;
+                padding: 5px;
+
+                > li {
+                    display: inline-block;
+                    margin: 3px 0;
+                    padding: 1px 15px 1px 0;
+                    text-align: center;
+                    float: left;
+                    clear: both;
+
+                    > label {
+                        color: #789;
+                        float: left;
+                        font-size: 9px;
+                        font-weight: 600;
+                        line-height: 0.75em;
+                        margin: 7px 0 0;
+                        padding: 0;
+                        text-transform: uppercase;
+                    }
+
+                    > a {
+                        float: left;
+                        margin: -1px 0 0 4px;
+                        padding: 0;
+                        text-align: left;
+                    }
                 }
             }
         }
@@ -312,7 +355,7 @@
     }
 
     > .legend {
-        bottom: 35px;
+        bottom: 160px;
         left: 285px;
         padding: 10px;
         margin: 0;
