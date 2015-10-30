@@ -253,28 +253,30 @@ mapaWarstwy.prototype.mapUpdate = function (layer) {
 
 	window.clearTimeout(self.mapUpdateTimer);
 
+	console.log('mapupdate');
+
 	self.mapUpdateTimer = window.setTimeout(function () {
 		var area = self.getArea();
 
+		console.log('mapupdate', (area.tl == self.pendingArea.tl), (area.br == self.pendingArea.br));
+
 		if ((area.tl == self.pendingArea.tl) && (area.br == self.pendingArea.br)) {
-			if ((area.tl != self.lastArea.tl) || (area.br != self.lastArea.br)) {
-				var areaParms = area.tl + ',' + area.br + '&layer=' + layer;
+			var areaParms = area.tl + ',' + area.br + '&layer=' + layer;
 
-				if (areaParms in self.cacheAjax) {
-					self.mapUpdateResults(self.cacheAjax[areaParms], area);
-				} else {
-					if (self.xhr && self.xhr.readystate != 4) {
-						self.xhr.abort();
-					}
-
-					self.xhr = $.get('/mapa/grid.json', {
-						area: area.tl + ',' + area.br,
-						layer: layer
-					}, function (data) {
-						self.cacheAjax[areaParms] = data;
-						self.mapUpdateResults(data, area);
-					}, 'json');
+			if (areaParms in self.cacheAjax) {
+				self.mapUpdateResults(self.cacheAjax[areaParms], area);
+			} else {
+				if (self.xhr && self.xhr.readystate != 4) {
+					self.xhr.abort();
 				}
+
+				self.xhr = $.get('/mapa/grid.json', {
+					area: area.tl + ',' + area.br,
+					layer: layer
+				}, function (data) {
+					self.cacheAjax[areaParms] = data;
+					self.mapUpdateResults(data, area);
+				}, 'json');
 			}
 		}
 	}, 400);
