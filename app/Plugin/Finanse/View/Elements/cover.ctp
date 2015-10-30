@@ -83,6 +83,11 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
 
             <div class="row head">
                 <div class="col-sm-4">
+                    <span class="previous_year pull-right">
+                        <? if($p1!=1990 && $p2!=1990){?>
+                    <a href="/finanse/<?=$p1-1?>-<?=$p2-1?>"><span data-icon="&#xe626;"></span></a>
+                        <? } ?>
+                        </span>
                 </div>
                 <div class="col-sm-3">
                     <h2>Rok <?= $p1 ?></h2>
@@ -121,6 +126,13 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                             } ?>
                         </ul>
                     </div>
+                </div>
+                <div class="col-sm-2">
+                    <span class="past_year pull-left">
+                        <? if($p1!=2015 && $p2!=2015){?>
+                    <a href="/finanse/<?=$p1+1?>-<?=$p2+1?>"><span data-icon="&#xe625;"></span></a>
+                        <?}?>
+                        </span>
                 </div>
             </div>
             <div class="row data">
@@ -310,7 +322,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                 <? if (count($compareData['wydatki']['dzialy']['wzrost']) !== 0) { ?>
                     <div class="row data internal">
                         <div class="col-sm-4 col-sm-offset-0">
-                            <h4>Wzrosły wydatki na:</h4>
+                            <h4 class="factor u">Wzrosły wydatki na:</h4>
                         </div>
                     </div>
                     <div class="czesci wydatki wzrost hidden">
@@ -397,7 +409,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                 if (count($compareData['wydatki']['dzialy']['spadek']) !== 0) { ?>
                     <div class="row data internal">
                         <div class="col-sm-4 col-sm-offset-0">
-                            <h4>Spadły wydatki na:</h4>
+                            <h4 class="factor d">Spadły wydatki na:</h4>
                         </div>
                     </div>
                     <div class="czesci wydatki spadek hidden">
@@ -623,7 +635,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                 <? if (count($compareData['dochody']['dzialy']['wzrost']) !== 0) { ?>
                     <div class="row data internal">
                         <div class="col-sm-4 col-sm-offset-0">
-                            <h4>Wzrost wpływów z:</h4>
+                            <h4 class="factor u">Wzrost wpływów z:</h4>
                         </div>
                     </div>
                     <div class="czesci dochody wzrost hidden">
@@ -685,7 +697,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                 <? if (count($compareData['dochody']['dzialy']['spadek']) !== 0) { ?>
                     <div class="row data internal">
                         <div class="col-sm-4 col-sm-offset-0">
-                            <h4>Spadek wpływów z:</h4>
+                            <h4 class="factor d">Spadek wpływów z:</h4>
                         </div>
                     </div>
 
