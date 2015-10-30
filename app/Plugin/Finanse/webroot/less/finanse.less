@@ -4,21 +4,19 @@
 }*/
 
 .dataBrowser .dataBrowserContent, .dataFeed .dataBrowserContent, .dataobjects .dataBrowserContent {
-	min-height: inherit;
+    min-height: inherit;
 }
-
 
 .finanseBlock {
     background: #2a2a2b;
-    background: -moz-linear-gradient(-45deg,  #2a2a2b 0%, #3d3d3f 100%);
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#2a2a2b), color-stop(100%,#3d3d3f));
-    background: -webkit-linear-gradient(-45deg,  #2a2a2b 0%,#3d3d3f 100%);
-    background: -o-linear-gradient(-45deg,  #2a2a2b 0%,#3d3d3f 100%);
-    background: -ms-linear-gradient(-45deg,  #2a2a2b 0%,#3d3d3f 100%);
-    background: linear-gradient(135deg,  #2a2a2b 0%,#3d3d3f 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a2a2b', endColorstr='#3d3d3f',GradientType=1 );
-	min-height: 455px;
-
+    background: -moz-linear-gradient(-45deg, #2a2a2b 0%, #3d3d3f 100%);
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #2a2a2b), color-stop(100%, #3d3d3f));
+    background: -webkit-linear-gradient(-45deg, #2a2a2b 0%, #3d3d3f 100%);
+    background: -o-linear-gradient(-45deg, #2a2a2b 0%, #3d3d3f 100%);
+    background: -ms-linear-gradient(-45deg, #2a2a2b 0%, #3d3d3f 100%);
+    background: linear-gradient(135deg, #2a2a2b 0%, #3d3d3f 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2a2a2b', endColorstr='#3d3d3f', GradientType=1);
+    min-height: 455px;
 
     #mp-sections {
         margin-left: 10px;
@@ -212,108 +210,96 @@
     }
 }
 
-
 #compare {
 
-	margin-bottom: 50px;
+    margin-bottom: 50px;
 
-	.head {
-		text-align: center;
-		margin-bottom: 10px;
-		h2 {
-			font-size: 28px;
-			font-weight: 400;
-			margin-bottom: 10px;
-		}
-		p {
-			font-size: 12px;
-		}
-	}
+    .head {
+        text-align: center;
+        margin-bottom: 10px;
+        h2 {
+            font-size: 28px;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 12px;
+        }
+    }
 
-	.subdata {
-		text-align: center;
-		._label {
-			text-align: right;
-		}
-	}
+    .subdata {
+        text-align: center;
+        ._label {
+            text-align: right;
+        }
+    }
 
-	.data {
-		text-align: center;
-		border-top: 1px solid #DDD;
+    .data {
+        text-align: center;
+        border-top: 1px solid #DDD;
 
-		&.internal {
-			border-top: none;
-			padding-bottom: 20px;
-		}
+        &.internal {
+            border-top: none;
+            padding-bottom: 20px;
+        }
 
-		._label {
-			text-align: left;
-		}
-		h3 {
-			font-size: 14px;
-		    font-weight: bold;
-		    margin: 15px 0;
-		}
-		h4 {
-			font-size: 14px;
-			margin-bottom: 0;
-		}
-		p {
-			font-size: 12px;
-			&.value {
-				font-size: 20px;
-				margin: 10px;
+        ._label {
+            text-align: left;
+        }
+        h3 {
+            font-size: 14px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        h4 {
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+        p {
+            font-size: 12px;
+            &.value {
+                font-size: 20px;
+                margin: 10px;
 
-				&.diff {
-					position: static;
-					.glyphicon {
-						font-size: 75%;
-					}
-				}
-			}
-		}
-		img {
-			margin: 5px;
+                &.diff {
+                    position: static;
+                    .glyphicon {
+                        font-size: 75%;
+                    }
+                }
+            }
+        }
+        img {
+            margin: 5px;
 
-		}
-	}
+        }
+    }
 
-	.compare-details {
-		margin-bottom: 20px;
-	}
+    .compare-details {
+        margin-bottom: 20px;
+    }
 
-	.value.diff {
-		.glyphicon {
-			font-size: 75%;
-			position: relative;
-			top: 0;
-		}
-		.text {
+    .value.diff {
+        .glyphicon {
+            font-size: 75%;
+            position: relative;
+            top: 0;
+        }
+        .text {
 
-		}
-	}
+        }
+    }
 
 }
 
 .factor {
-    font-size: 14px;
-    margin-right: 5px;
-
     &.u {
         color: #447744;
 
-        &:before {
-            content: "\2191";
-            padding-right: 5px;
-        }
     }
 
     &.d {
         color: #994444;
 
-        &:before {
-            content: "\2193";
-            padding-right: 5px;
-        }
     }
 }
