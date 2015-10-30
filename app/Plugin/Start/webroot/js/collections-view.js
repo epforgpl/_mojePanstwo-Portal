@@ -69,4 +69,147 @@ $(document).ready(function() {
 			return false;
 	});
 
+	var _helperDiv = $('<span />').text('M').appendTo('body'),
+		_helperSize = _helperDiv.width();
+	_helperDiv.detach();
+
+	$('input.h1-editable').each(function() {
+		$(this).change(function() {
+			$.post('/collections/collections/edit/' + id + '.json', {
+				name: $(this).val()
+			}, function(res) {
+				// @todo error handler
+				console.log(res);
+			});
+		});
+	});
+
+	$('.note-editable').each(function() {
+
+		var el = $(this),
+			isEmpty = $(this).hasClass('empty'),
+			content = $(this).find('.content').first();
+
+		var cancel = function() {
+			if(isEmpty) {
+				el.html([
+					'<p class="text-center">',
+					'<a href="#addnote" class="btn btn-link create-note">Dodaj notatkę</a>',
+					'</p>'
+				].join(''));
+			} else {
+
+			}
+		};
+
+		var save = function() {
+			tinyMCE.triggerSave();
+			var val = $('#noteContent').val();
+			if(val.length == 0) {
+				if(!isEmpty) {
+					el.addClass('empty');
+					isEmpty = true;
+				}
+
+				cancel();
+			} else {
+				if(isEmpty) {
+					el.removeClass('empty');
+					isEmpty = false;
+				}
+
+				el.html([
+					'<div class="content">',
+					val,
+					'</div>',
+					'<button class="btn btn-sm pull-right btn-default btnNoteEdit btn" type="submit">',
+					'Edytuj',
+					'</button>'
+				].join(''));
+			}
+
+			$.post('/collections/collections/edit/' + id + '.json', {
+				name: $('input.h1-editable').val(),
+				description: val
+			}, function(res) {
+				// @todo error handler
+				console.log(res);
+			});
+
+			content = el.find('.content').first();
+		};
+
+		var create = function() {
+			el.html([
+				'<textarea id="noteContent">',
+				!isEmpty ? content.html() : '',
+				'</textarea>',
+				'<div class="overflow-hidden">',
+				'<button class="btn margin-top-10 pull-right auto-width btn-primary submitBtn" type="submit">',
+				'Zapisz',
+				'</button>',
+				'<button class="btn margin-top-10 margin-sides-10 pull-right auto-width btn-default cancelBtn" type="submit">',
+				'Anuluj',
+				'</button>',
+				'</div>',
+			].join(''));
+			tinymce.init({
+				selector: "#noteContent",
+				language : 'pl',
+				plugins: "media image",
+				menubar: false,
+				statusbar : false,
+				content_css: [
+					"/libs/bootstrap/3.3.4/css/bootstrap.min.css",
+					"/css/main.css"
+				],
+				valid_elements : "@[id|class|style|title|dir<ltr?rtl|lang|xml::lang|onclick|ondblclick|"
+				+ "onmousedown|onmouseup|onmouseover|onmousemove|onmouseout|onkeypress|"
+				+ "onkeydown|onkeyup],a[rel|rev|charset|hreflang|tabindex|accesskey|type|"
+				+ "name|href|target|title|class|onfocus|onblur],strong/b,em/i,strike,u,"
+				+ "#p,-ol[type|compact],-ul[type|compact],-li,br,img[longdesc|usemap|"
+				+ "src|border|alt=|title|hspace|vspace|width|height|align],-sub,-sup,"
+				+ "-blockquote,-table[border=0|cellspacing|cellpadding|width|frame|rules|"
+				+ "height|align|summary|bgcolor|background|bordercolor],-tr[rowspan|width|"
+				+ "height|align|valign|bgcolor|background|bordercolor],tbody,thead,tfoot,"
+				+ "#td[colspan|rowspan|width|height|align|valign|bgcolor|background|bordercolor"
+				+ "|scope],#th[colspan|rowspan|width|height|align|valign|scope],caption,-div,"
+				+ "-span,-code,-pre,address,-h1,-h2,-h3,-h4,-h5,-h6,hr[size|noshade],-font[face"
+				+ "|size|color],dd,dl,dt,cite,abbr,acronym,del[datetime|cite],ins[datetime|cite],"
+				+ "object[classid|width|height|codebase|*],param[name|value|_value],embed[type|width"
+				+ "|height|src|*],script[src|type],map[name],area[shape|coords|href|alt|target],bdo,"
+				+ "button,col[align|char|charoff|span|valign|width],colgroup[align|char|charoff|span|"
+				+ "valign|width],dfn,fieldset,form[action|accept|accept-charset|enctype|method],"
+				+ "input[accept|alt|checked|disabled|maxlength|name|readonly|size|src|type|value],"
+				+ "kbd,label[for],legend,noscript,optgroup[label|disabled],option[disabled|label|selected|value],"
+				+ "q[cite],samp,select[disabled|multiple|name|size],small,"
+				+ "textarea[cols|rows|disabled|name|readonly],tt,var,big,"
+				+ "iframe[src|title|width|height|allowfullscreen|frameborder]",
+				auto_focus: "noteContent"
+			});
+
+			el.find('textarea').focus();
+		};
+
+		$(this).on('click', '.submitBtn', function() {
+			save();
+			return false;
+		});
+
+		$(this).on('click', '.cancelBtn', function() {
+			cancel();
+			return false;
+		});
+
+		$(this).on('click', '.create-note', function() {
+			create();
+			return false;
+		});
+
+		$(this).on('click', '.btnNoteEdit', function() {
+			create();
+			return false;
+		});
+	});
+
 });

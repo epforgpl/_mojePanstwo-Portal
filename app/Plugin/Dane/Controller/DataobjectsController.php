@@ -49,6 +49,13 @@ class DataobjectsController extends AppController
      */
     public $collectionsOptions = true;
 
+    /**
+     * @desc Czy mogę wyświetlać kolekcje tego obiektu?
+     * @var bool
+     */
+    public $objectCollections = false;
+
+
     public $_layout = array(
         'header' => array(
             'element' => 'dataobject',
@@ -272,6 +279,24 @@ class DataobjectsController extends AppController
             throw new ForbiddenException;
 
         $this->render('Dane.KrsPodmioty/dzialanie_form');
+    }
+
+    public function kolekcje() {
+        if(!$this->objectCollections)
+            throw new NotFoundException;
+
+        $this->_prepareView();
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+                'dataset' => 'kolekcje',
+                'kolekcje.object_id' => $this->object->getGlobalId(),
+            ),
+            //'aggsPreset' => 'dzialania_admin',
+            'searchTitle' => 'Szukaj w kolekcjach...',
+        ));
+
+        $this->set('title_for_layout', 'Kolekcje ' . $this->object->getData('nazwa'));
+        $this->render('Dane.KrsPodmioty/kolekcje');
     }
 
     public function dzialania()

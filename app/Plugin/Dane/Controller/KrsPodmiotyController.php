@@ -26,6 +26,7 @@ class KrsPodmiotyController extends DataobjectsController
 
     public $objectActivities = true;
     public $objectData = true;
+    public $objectCollections = true;
 
     private $twitterAccountType = '0';
     private $twitterTimerange = '1W';

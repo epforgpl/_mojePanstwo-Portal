@@ -47,7 +47,7 @@ $(document).ready(function () {
         selector: "#descriptionTextArea",
         language : 'pl',
         plugins: "media image sentencecase",
-        menubar: "edit format insert",
+        menubar: false,
         statusbar : false,
         content_css: [
             "/libs/bootstrap/3.3.4/css/bootstrap.min.css",

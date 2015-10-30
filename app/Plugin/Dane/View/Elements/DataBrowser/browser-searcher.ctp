@@ -19,10 +19,10 @@
         ?>
 
         <?= $this->Element('searcher', array(
-	        'q' => $value, 
-	        'autocompletion' => $autocompletion, 
-	        'placeholder' => $placeholder, 
-	        'url' => $url, 
+	        'q' => $value,
+	        'autocompletion' => $autocompletion,
+	        'placeholder' => $placeholder,
+	        'url' => $url,
 	        'searchTag' => isset($dataBrowser['searchTag']) ? $dataBrowser['searchTag'] : false,
 	        'dataBrowser' => isset($dataBrowser) ? $dataBrowser : false,
         )) ?>

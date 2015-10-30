@@ -17,6 +17,11 @@ class CollectionsController extends AppController {
             throw new ForbiddenException;
     }
 
+    public function edit($id) {
+        $this->set('response', $this->Collection->edit($id, $this->request->data));
+        $this->set('_serialize', array('response'));
+    }
+
     public function get($id) {
         $this->set('response', $this->Collection->get($id));
         $this->set('_serialize', array('response'));
