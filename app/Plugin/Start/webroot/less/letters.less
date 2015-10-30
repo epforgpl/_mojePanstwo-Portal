@@ -142,10 +142,11 @@
         }
     }
     .additional-desc {
-        background-color: #eee;
-        font-size: 12px;
-        margin: 25px -15px -25px;
-        padding: 15px 15px 5px;
+        background-color: #F3F3F3;
+        font-size: 13px;
+        margin: 25px -15px -35px;
+        padding: 15px 50px 5px;
+        color: #666;
     }
     .loading, .loading:focus, .loading:hover {
         color: rgba(255, 255, 255, 0);
@@ -1063,6 +1064,10 @@
 	-moz-box-shadow: 0 0 20px #DDD;
 	-webkit-box-shadow: 0 0 20px #DDD;
 	-o-box-shadow: 0 0 20px #DDD;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-o-border-radius: 5px;
 	> .row {
 		border-bottom: 1px solid #DDD;
 		margin: 0;
@@ -1084,6 +1089,21 @@
 		.text {
 			margin: 20px 0;
 		}
+		
+		&.sent {
+			background-color: #e6f2f9;
+		    font-size: 12px;
+		    
+		    border-bottom-left-radius: 5px;
+			-moz-border-bottom-left-radius: 5px;
+			-webkit-border-bottom-left-radius: 5px;
+			-o-border-bottom-left-radius: 5px;
+			
+			border-bottom-right-radius: 5px;
+			-moz-border-bottom-right-radius: 5px;
+			-webkit-border-bottom-right-radius: 5px;
+			-o-border-bottom-right-radius: 5px;
+		}
 	}
 }
 
@@ -1101,9 +1121,46 @@
 		padding: 0;
 		
 		.response {
-			list-style: none;
-			margin: 0;
-			padding: 0;
+			background-color: #fff;
+		    border: 1px solid #ddd;
+		    list-style: outside none none;
+		    margin: 0 0 20px;
+		    box-shadow: 0 0 20px #DDD;
+			-moz-box-shadow: 0 0 20px #DDD;
+			-webkit-box-shadow: 0 0 20px #DDD;
+			-o-box-shadow: 0 0 20px #DDD;
+			border-radius: 5px;
+			-moz-border-radius: 5px;
+			-webkit-border-radius: 5px;
+			-o-border-radius: 5px;
+			padding: 10px 20px;
+			
+			&.response-form {
+				border: none;
+				padding: 0;
+				box-shadow: none;
+				-moz-box-shadow: none;
+				-webkit-box-shadow: none;
+				-o-box-shadow: none;
+			}
+			
+			h2 {
+				font-size: 20px;
+				margin: 10px;
+				padding: 0;
+				color: #456;
+				font-size: 18px;
+				font-weight: normal;
+				
+				.date {
+					color: #789;
+					margin: 10px;
+					padding: 0;
+					font-size: 12px;
+				}
+			}
+			
+			
 		}
 		
 	}

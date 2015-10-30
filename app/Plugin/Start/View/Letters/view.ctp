@@ -66,93 +66,6 @@
 </ul>
 
 
-<div id="sendPismoModal" class="modal fade" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Wysyłanie pisma</h4>
-            </div>
-            <form action="<?= $href_base ?>" method="POST">
-                <div class="modal-body">
-
-                    <? if ($this->Session->read('Auth.User.id')) { ?>
-
-                        <p>Twoje pismo zostanie wysłane z adresu <span
-                                class="email">pisma@mojepanstwo.pl</span> na
-                            adres:</p>
-
-                        <p class="email email-big text-center"><?= $pismo['to_email'] ?></p>
-
-                        <div class="additional-desc">
-                            <p>W polu <b>CC</b> wiadomości zostanie podany Twój
-                                adres e-mail - otrzymasz więc kopię wysłanego
-                                pisma.
-                            </p>
-
-                            <p>W polu <b>Reply-to</b> wiadomości również
-                                zostanie podany Twój adres email, aby adresat
-                                przesłał odpowiedź bezpośrednio na Twój adres.
-                            </p>
-                        </div>
-
-                    <? } else { ?>
-
-                        <p>Twoje pismo zostanie wysłane z adresu <span
-                                class="email">pisma@mojepanstwo.pl</span> na
-                            adres:</p>
-
-                        <p class="email email-big text-center"><?= $pismo['to_email'] ?></p>
-
-                        <div class="form-group">
-                            <label for="senderName">Podaj swoje imię i nazwisko bądź nazwę
-                                instytucji:</label>
-                            <input name="name" class="form-control" type="text" id="senderName"
-                                   value="" required="required"/>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="senderEmail">Podaj swój adres e-mail:</label>
-                            <input name="email" class="form-control" type="email"
-                                   id="senderEmail" required="required"/>
-                        </div>
-
-                        <div class="additional-desc">
-                            <p>W polu <b>CC</b> wiadomości zostanie podany Twój
-                                adres e-mail - otrzymasz więc kopię wysłanego
-                                pisma.
-                            </p>
-
-                            <p>W polu <b>Reply-to</b> wiadomości również
-                                zostanie podany Twój adres email, aby adresat
-                                przesłał odpowiedź bezpośrednio na Twój adres.
-                            </p>
-                        </div>
-
-                    <? } ?>
-
-                </div>
-                <div class="modal-footer">
-
-                    <button type="button" class="btn btn-default"
-                            data-dismiss="modal">Zamknij
-                    </button>
-                    <input name="send" value="Wyślij" type="submit" class="btn btn-primary"
-                           value="Wyślij"/>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
 
 <? /*
 	
@@ -161,7 +74,7 @@
             <b><? echo ($pismo['from_user_type'] == 'account') ? $pismo['from_user_name'] : "Anonimowy użytkownik" ?></b>
         </p>
         <? if ($pismo['sent']) { ?>
-            <p class="small"><b>To pismo zostałe wysłane do
+            <p class="small"><b>pismo zostałe wysłane do
                     adresata <?= $this->Czas->dataSlownie($pismo['sent_at']) ?></b></p>
         <? } else { ?>
             <p class="small"><b>Przed wysłaniem pisma należy je zapisać</b></p>
@@ -192,8 +105,8 @@
 	                    <form action="" method="post">
 	                        <input type="hidden" name="access" value="public">
 	
-	                        <p><b>To pismo jest prywatne.</b> Tylko Ty masz do niego dostęp.
-	                            <button class="clean" type="submit">Kliknij, aby udostępnić to pismo
+	                        <p><b>pismo jest prywatne.</b> Tylko Ty masz do niego dostęp.
+	                            <button class="clean" type="submit">Kliknij, aby udostępnić pismo
 	                                publicznie.
 	                            </button>
 	                        </p>
@@ -205,7 +118,7 @@
 	                        <input type="hidden" name="access" value="private">
 	
 	                        <p>
-	                            <b>To pismo jest publiczne.</b>
+	                            <b>pismo jest publiczne.</b>
 	                            <button class="clean" type="submit">Kliknij, aby zmienić jego widoczność
 	                                na prywatną.
 	                            </button>
@@ -261,7 +174,7 @@
 	</div>
 	<ul class="buttons pull-right col-xs-12">
 	    <li class="inner-addon">
-	        <form onsubmit="return confirm('Czy na pewno chcesz usunąć to pismo?');"
+	        <form onsubmit="return confirm('Czy na pewno chcesz usunąć pismo?');"
 	              method="post"
 	              action="/moje-pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
 	            <button name="delete" type="submit" class="btn btn-icon btn-danger"><i
@@ -324,30 +237,114 @@
 			</div>
 		</div>
 	</div>
+	<? if( $pismo['sent'] ) {?>
+	<div class="row sent">
+		<div class="col-sm-12">
+			<p>Wysłane <?= dataSlownie($pismo['sent_at']) ?>.</p>
+		</div>
+	</div>
+	<? } ?>
 </div>
 
 
-<? /*
-<div id="stepper">
-    <div class="content clearfix">
-        <div class="col-xs-12 view norightpadding">
-            <? echo $this->element('Start.letters-render'); ?>
+<? if( !$pismo['sent'] ) { ?>
+
+<div id="sendPismoModal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Wysyłanie pisma</h4>
+            </div>
+            <form action="<?= $href_base ?>" method="POST">
+                <div class="modal-body">
+
+                    <? if ($this->Session->read('Auth.User.id')) { ?>
+
+                        <p class="text-center">Twoje pismo zostanie wysłane z adresu <span
+                                class="email">pisma@mojepanstwo.pl</span> na
+                            adres:</p>
+
+                        <p class="email email-big text-center"><?= $pismo['to_email'] ?></p>
+
+                        <div class="additional-desc">
+                            <p>W polu <b>CC</b> wiadomości zostanie podany Twój
+                                adres e-mail - otrzymasz więc kopię wysłanego
+                                pisma.
+                            </p>
+
+                            <p>W polu <b>Reply-to</b> wiadomości również
+                                zostanie podany Twój adres email, aby adresat
+                                przesłał odpowiedź bezpośrednio na Twój adres.
+                            </p>
+                        </div>
+
+                    <? } else { ?>
+
+                        <p>Twoje pismo zostanie wysłane z adresu <span
+                                class="email">pisma@mojepanstwo.pl</span> na
+                            adres:</p>
+
+                        <p class="email email-big text-center"><?= $pismo['to_email'] ?></p>
+
+                        <div class="form-group">
+                            <label for="senderName">Podaj swoje imię i nazwisko bądź nazwę
+                                instytucji:</label>
+                            <input name="name" class="form-control" type="text" id="senderName"
+                                   value="" required="required"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="senderEmail">Podaj swój adres e-mail:</label>
+                            <input name="email" class="form-control" type="email"
+                                   id="senderEmail" required="required"/>
+                        </div>
+
+                        <div class="additional-desc">
+                            <p>W polu <b>CC</b> wiadomości zostanie podany Twój
+                                adres e-mail - otrzymasz więc kopię wysłanego
+                                pisma.
+                            </p>
+
+                            <p>W polu <b>Reply-to</b> wiadomości również
+                                zostanie podany Twój adres email, aby adresat
+                                przesłał odpowiedź bezpośrednio na Twój adres.
+                            </p>
+                        </div>
+
+                    <? } ?>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">Anuluj
+                    </button>
+                                        
+                    <button name="send" value="Wyślij" type="submit" class="btn btn-warning btn-icon auto-width"><i class="icon glyphicon glyphicon glyphicon-send"></i>Wyślij pismo</button>
+                    
+                </div>
+            </form>
         </div>
     </div>
 </div>
-*/ ?>
 
 <div class="lettersSend">
 	<div class="row margin-top-20">
         <div class="col-md-12">
 	        
 	        <p class="text-center">
-                <button data-action="send" class="btn btn-primary btn-icon auto-width"><i class="icon glyphicon glyphicon glyphicon-send"></i>Wyślij to pismo</button>
+                <button data-action="send" class="btn btn-primary btn-icon auto-width"><i class="icon glyphicon glyphicon glyphicon-send"></i>Wyślij pismo...</button>
             </p>
 	        
         </div>
 	</div>
 </div>
+
+<? } ?>
 
 <div class="lettersResponses">
     <div class="row margin-top-20">
@@ -356,18 +353,16 @@
             <ul class="responses">
 	            <? if(isset($responses) && is_array($responses) && count($responses)) {  ?>
                     <? foreach($responses as $response) { ?>
-                        <li class="list-group-item">
-                            <span class="badge"><?= dataSlownie($response['Response']['date']) ?></span>
-                            <a href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>/responses/<?= $response['Response']['id'] ?>">
-                                <?= $response['Response']['title'] ?>
-                            </a>
+                        <li class="response">
+                            <h2><?= $response['Response']['title'] ?> <span class="date"><?= dataSlownie($response['Response']['date']) ?></span></h2>
+                            <div class="content"><?= $response['Response']['content'] ?></div>
                         </li>
                     <? } ?>
 	            <? } ?>
             </ul>
             
             <p class="buttons text-center">
-                <button data-action="add_response" class="btn btn-success btn-icon auto-width"><i class="icon glyphicon glyphicon-plus-sign"></i>Dodaj odpowiedź na to pismo</button>
+                <button data-action="add_response" class="btn btn-success btn-icon auto-width"><i class="icon glyphicon glyphicon-plus-sign"></i>Dodaj odpowiedź na pismo</button>
             </p>
             
         </div>
