@@ -463,14 +463,5 @@ $(function () {
 		$('.dochody.'+$(this).val()+'').removeClass('hidden');
 	});
 
-
-	$('.rok1').click(function(){
-		$('.rok1_dropdown').removeClass('hidden');
-		$(this).addClass('hidden');
-	});
-	$('.rok2').click(function(){
-		$('.rok2_dropdown').removeClass('hidden');
-		$(this).addClass('hidden');
-	});
 });
 
