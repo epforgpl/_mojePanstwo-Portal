@@ -788,44 +788,28 @@ $(document).ready(function () {
 		})
 	});
 
-	var accordWarstwy = $('.accord.warstwy'),
-		mPCookie = {mapa: {}};
+	var mPCookie = {mapa: {}},
+		explore = $('.explore');
 
 	mapaWarstwy = new mapaWarstwy(mapBrowser.map);
-	mapaWarstwy.loading = function () {
-		accordWarstwy.find('.mapSpinner').removeClass('hide');
-	};
-	mapaWarstwy.complete = function () {
-		accordWarstwy.find('.mapSpinner').addClass('hide');
-	};
-
-	accordWarstwy.find('input').click(function () {
-		var el = $(this),
-			layer = el.val();
-
-		if (el.hasClass('c')) {
-			accordWarstwy.find('input.c').removeClass('c').prop('checked', false);
-			layer = false;
-		} else {
-			accordWarstwy.find('input.c').removeClass('c').prop('checked', false);
-			el.addClass('c');
-		}
-
-		mapaWarstwy.setLayer(layer);
-		mPCookie.mapa.warstwa = layer;
-
-		Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
-	});
 
 	if (Cookies.get('mojePanstwo') !== undefined)
 		mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
 
 	if (typeof mPCookie.mapa.warstwa !== "undefined" && mPCookie.mapa.warstwa) {
-		accordWarstwy.find('input[value="' + mPCookie.mapa.warstwa + '"]').addClass('c').prop('checked', 'checked');
-		mapaWarstwy.setLayer(mPCookie.mapa.warstwa);
+		var showLayers = true;
+
+		if (typeof mPCookie.mapa.showMarkers) {
+			showLayers = mPCookie.mapa.showMarkers;
+			explore.find('.' + mPCookie.mapa.warstwa + '_content .showMarkers').prop('checked', showLayers);
+		}
+
+		mapaWarstwy.setLayer(mPCookie.mapa.warstwa, showLayers);
+		explore.find('li[data-layer="' + mPCookie.mapa.warstwa + '"]').addClass('open');
+		explore.css('height', explore.css('max-height'));
+		mapBrowser.resize();
 	}
 
-	var explore = $('.explore');
 	explore.find('li').click(function () {
 		var c = $(this);
 		if (explore.height() > 0) {
@@ -839,13 +823,27 @@ $(document).ready(function () {
 					complete: function () {
 						c.removeClass('open');
 						mapBrowser.resize();
+						mapaWarstwy.setLayer(false);
+
+						mPCookie.mapa.warstwa = false;
+						Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
 					}
 				}).css("overflow", "visible");
 			} else {
 				explore.find('li.open').removeClass('open');
 				c.addClass('open');
+
+				mapaWarstwy.setLayer(c.attr('data-layer'));
+
+				mPCookie.mapa.warstwa = c.attr('data-layer');
+				Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
 			}
 		} else {
+			mapaWarstwy.setLayer(c.attr('data-layer'));
+
+			mPCookie.mapa.warstwa = c.attr('data-layer');
+			Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
+
 			explore.animate({
 				height: explore.css('max-height')
 			}, {
@@ -858,5 +856,16 @@ $(document).ready(function () {
 				}
 			}).css("overflow", "visible");
 		}
-	})
+	});
+	explore.find('.showMarkers').change(function (e) {
+		var c = explore.find('>ul li.open');
+
+		if (c) {
+			mapaWarstwy.setLayer(c.attr('data-layer'), e.target.checked);
+
+			mPCookie.mapa.warstwa = c.attr('data-layer');
+			mPCookie.mapa.showMarkers = e.target.checked;
+			Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
+		}
+	});
 });

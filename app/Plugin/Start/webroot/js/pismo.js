@@ -3,10 +3,59 @@ var PISMO = Class.extend({
 		
 		var self = this;
 		
+		// SEND
+		
+		var $sendPismoModal = $('#sendPismoModal'),
+			modal = {
+				sendPismo: $sendPismoModal
+			};
+
+		self.html.stepper_div.find('.editor-tooltip .sendPismo').click(function (e) {
+			e.preventDefault();
+
+			$sendPismoModal.find('#senderName').val($.trim(self.html.stepper_div.find('.control.control-sender').text()).split('\n')[0]);
+			$sendPismoModal.modal('show');
+		});
+
+		if (modal.sendPismo.length) {
+			modal.sendPismo.find('.btn[type="submit"]').click(function () {
+				var correct = true;
+				$.each(modal.sendPismo.find('input:required'), function () {
+					if ($(this).val() == "") {
+						$(this).val('');
+						correct = false;
+						return false;
+					} else {
+						if ($(this).attr('type') == "email") {
+							var emailReg = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+
+							if (!emailReg.test($(this).val())) {
+								$(this).focus();
+								correct = false;
+								return false;
+							}
+						}
+					}
+				});
+				if ($(this).hasClass('loading')) {
+					correct = false;
+					return false;
+				}
+				if (correct) {
+					$(this).addClass('loading');
+				}
+			});
+		}
+		
+		
+		
+		
+		
+		// RESPONSES
+		
 		this.responsesDiv = $('.lettersResponses');
 		this.responsesList = this.responsesDiv.find('.responses');
 		this.responsesButtons = this.responsesDiv.find('.buttons');
-		
 		
 		this.responsesDiv.find('button[data-action=add_response]').click( $.proxy(this.addResponseForm, this) );
 		
